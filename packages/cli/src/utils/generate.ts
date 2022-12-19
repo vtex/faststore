@@ -74,11 +74,13 @@ function copyCoreFiles() {
 }
 
 function copyUserSrcToCustomizations() {
-  try {
-    copySync(userSrcDir, tmpCustomizationsDir)
-    console.log(`${chalk.green('success')} - Custom files copied`)
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
+  if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
+    try {
+      copySync(userSrcDir, tmpCustomizationsDir)
+      console.log(`${chalk.green('success')} - Custom files copied`)
+    } catch (err) {
+      console.error(`${chalk.red('error')} - ${err}`)
+    }
   }
 }
 
@@ -121,20 +123,29 @@ async function copyTheme() {
 }
 
 function mergeCMSFile(fileName: string) {
-  const coreContentTypes = readFileSync(`${coreCMSDir}/${fileName}`, 'utf8')
-  const customContentTypes = readFileSync(`${userCMSDir}/${fileName}`, 'utf8')
-  const coreContentTypesJSON = JSON.parse(coreContentTypes)
-  const customContentTypesJSON = JSON.parse(customContentTypes)
+  // TODO: create a validation when has the cms files but doesn't have a component for then
+  if (existsSync(userCMSDir) && readdirSync(userCMSDir).length > 0) {
+    const coreContentTypes = readFileSync(`${coreCMSDir}/${fileName}`, 'utf8')
+    const customContentTypes = readFileSync(`${userCMSDir}/${fileName}`, 'utf8')
+    const coreContentTypesJSON = JSON.parse(coreContentTypes)
+    const customContentTypesJSON = JSON.parse(customContentTypes)
 
-  const mergeContentTypes = [...coreContentTypesJSON, ...customContentTypesJSON]
+    const mergeContentTypes = [
+      ...coreContentTypesJSON,
+      ...customContentTypesJSON,
+    ]
 
-  try {
-    writeFileSync(`${tmpCMSDir}/${fileName}`, JSON.stringify(mergeContentTypes))
-    console.log(
-      `${chalk.green('success')} - CMS file ${chalk.dim(fileName)} created`
-    )
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
+    try {
+      writeFileSync(
+        `${tmpCMSDir}/${fileName}`,
+        JSON.stringify(mergeContentTypes)
+      )
+      console.log(
+        `${chalk.green('success')} - CMS file ${chalk.dim(fileName)} created`
+      )
+    } catch (err) {
+      console.error(`${chalk.red('error')} - ${err}`)
+    }
   }
 }
 
@@ -165,13 +176,6 @@ async function copyStoreConfig() {
 }
 
 function mergeCMSFiles() {
-  try {
-    mkdirsSync(`${tmpDir}/cms`)
-    console.log(`${chalk.green('success')} - CMS folder created`)
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
-  }
-
   mergeCMSFile('content-types.json')
   mergeCMSFile('sections.json')
 }
