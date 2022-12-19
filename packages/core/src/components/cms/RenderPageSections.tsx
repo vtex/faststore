@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import chalk from 'chalk'
 import type { ComponentType } from 'react'
 
 import SectionBoundary from './SectionBoundary'
@@ -15,11 +16,14 @@ const RenderPageSections = ({ sections = [], context, components }: Props) => (
       const Component = components[name]
 
       if (!Component) {
+        // TODO: add a documentation link to help to do this
         console.info(
-          `Could not find component for block ${name}. Add a new component for this block or remove it from the CMS`
+          `${chalk.yellow(
+            'warn'
+          )} - ${name} not found. Add a new component for this section or remove it from the CMS`
         )
 
-        return <></>
+        return null
       }
 
       return (

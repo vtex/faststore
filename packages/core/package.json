@@ -38,6 +38,7 @@
     "@types/react": "^18.0.14",
     "@vtex/client-cms": "^0.2.12",
     "autoprefixer": "^10.4.0",
+    "chalk": "^5.2.0",
     "css-loader": "^6.7.1",
     "eslint": "^7.22.0",
     "eslint-config-next": "12.1.5",
