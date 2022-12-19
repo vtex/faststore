@@ -18,6 +18,7 @@ const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
   ) {
     const { toggle, dropdownButtonRef, isOpen, id } = useDropdown()
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     useImperativeHandle(ref, () => dropdownButtonRef!.current!, [
       dropdownButtonRef,
     ])

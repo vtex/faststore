@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import React, { useRef, useMemo, useState, useEffect, useCallback } from 'react'
 
-import DropdownContext from './contexts/DropdownContext'
+import DropdownContext from '../Dropdown/contexts/DropdownContext'
 
 export type DropdownProps = {
   children: ReactNode

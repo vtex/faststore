@@ -146,19 +146,6 @@ export type { AlertProps } from './components/molecules/Alert'
 export { default as QuantitySelector } from './components/molecules/QuantitySelector'
 export type { QuantitySelectorProps } from './components/molecules/QuantitySelector'
 
-export {
-  default as Dropdown,
-  DropdownButton,
-  DropdownItem,
-  DropdownMenu,
-} from './components/molecules/Dropdown'
-export type {
-  DropdownProps,
-  DropdownButtonProps,
-  DropdownItemProps,
-  DropdownMenuProps,
-} from './components/molecules/Dropdown'
-
 // Organisms
 export {
   default as OutOfStock,
