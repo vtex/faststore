@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [0.3.14](https://github.com/vtex-sites/nextjs.store/compare/0.3.13...0.3.14) (2022-12-19)
+
+
+### Chores
+
+* improve log message when component not found in cms ([#331](https://github.com/vtex-sites/nextjs.store/issues/331)) ([cee1226](https://github.com/vtex-sites/nextjs.store/commit/cee122668a3225c15731100af1e8c740efa8a5a9))
+
 ### [0.3.13](https://github.com/vtex-sites/nextjs.store/compare/0.3.12...0.3.13) (2022-12-19)
 
 
