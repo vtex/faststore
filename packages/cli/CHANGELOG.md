@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.21-alpha.0](https://github.com/vtex/faststore/compare/v2.0.20-alpha.0...v2.0.21-alpha.0) (2022-12-19)
+
+
+### Chores
+
+* rename config file ([#1564](https://github.com/vtex/faststore/issues/1564)) ([6919db1](https://github.com/vtex/faststore/commit/6919db12949276dd5ebacaf7e07bbf93562a64c0))
+
+
+
 ## [2.0.20-alpha.0](https://github.com/vtex/faststore/compare/v2.0.19-alpha.0...v2.0.20-alpha.0) (2022-12-19)
 
 
