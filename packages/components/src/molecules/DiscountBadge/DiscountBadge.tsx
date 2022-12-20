@@ -5,6 +5,10 @@ import { useDiscountPercent } from '../DiscountBadge/useDiscountPercent'
 
 export type DiscountBadgeProps = {
   /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
+  testId?: string
+  /**
    * Specifies price without discount applied.
    */
   listPrice: number
@@ -12,10 +16,6 @@ export type DiscountBadgeProps = {
    * Specifies current price with discount applied.
    */
   spotPrice: number
-  /**
-   * Sets the component's size.
-   */
-  size?: 'small' | 'big'
   /**
    * Sets the limit percentage value to consider a low discount.
    */
@@ -29,9 +29,9 @@ export type DiscountBadgeProps = {
 const DiscountBadge = ({
   listPrice,
   spotPrice,
-  size = 'small',
   thresholdLow = 15,
   thresholdHigh = 40,
+  testId = 'fs-discount-badge',
 }: DiscountBadgeProps) => {
   const discountPercent = useDiscountPercent(listPrice, spotPrice)
 
@@ -48,9 +48,9 @@ const DiscountBadge = ({
 
   return (
     <Badge
-      size={size}
       data-fs-discount-badge
       data-fs-discount-badge-variant={discountVariant}
+      data-testid={testId}
     >
       {discountPercent}% off
     </Badge>
