@@ -1,10 +1,14 @@
 ---
 description: Accordions display an expandable/collapsible list of items.
-sidebar_custom_props: 
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Accordion___66012e5367e86c5b4422ff8d6974b8cd.png
 ---
 
-import PropsSection from "@site/src/components/PropsSection/PropsSection";
+import PropsSection from '@site/src/components/PropsSection/PropsSection'
 
 # Accordion
 
@@ -12,16 +16,21 @@ Accordions display an expandable/collapsible list of items. The final Accordion 
 
 - `Accordion`: wraps a series of `AccordionItem`s in a single component.
 
-  - `AccordionItem`:  wraps an `AccordionButton` and an `AccordionPanel`.
-  
+  - `AccordionItem`: wraps an `AccordionButton` and an `AccordionPanel`.
+
     - `AccordionButton`: contains the top-level items of the Accordion list. It is a clickable button that shows or hides the child items of a given `AccordionItem`.
-    
+
     - `AccordionPanel`: contains the child items of a given `AccordionItem`.
 
 ## Import
 
 ```tsx
-import { Accordion, AccordionItem, AccordionButton, AccordionPanel } from '@faststore/ui'
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+} from '@faststore/ui'
 ```
 
 ## Usage
@@ -31,63 +40,43 @@ import { Accordion, AccordionItem, AccordionButton, AccordionPanel } from '@fast
 ```tsx live
 <MultipleAndCollapsible>
   <AccordionItem>
-    <AccordionButton>
-      Clothing
-    </AccordionButton>
+    <AccordionButton icon={<ShoppingCart />}>Clothing</AccordionButton>
     <AccordionPanel>
       <ul>
         <li>
-          <a href="/">
-            Shorts
-          </a>
+          <a href="/">Shorts</a>
         </li>
         <li>
-          <a href="/">
-            Sweatshirt
-          </a>
+          <a href="/">Sweatshirt</a>
         </li>
         <li>
-          <a href="/">
-            Tank tops
-          </a>
+          <a href="/">Tank tops</a>
         </li>
       </ul>
     </AccordionPanel>
   </AccordionItem>
   <AccordionItem>
-    <AccordionButton>
-      Bags
-    </AccordionButton>
+    <AccordionButton>Bags</AccordionButton>
     <AccordionPanel>
       <ul>
         <li>
-          <a href="/">
-            Backpacks
-          </a>
+          <a href="/">Backpacks</a>
         </li>
         <li>
-          <a href="/">
-            Necessaire
-          </a>
+          <a href="/">Necessaire</a>
         </li>
       </ul>
     </AccordionPanel>
   </AccordionItem>
   <AccordionItem>
-    <AccordionButton>
-      Sale
-    </AccordionButton>
+    <AccordionButton>Sale</AccordionButton>
     <AccordionPanel>
       <ul>
         <li>
-          <a href="/">
-            Smartphones
-          </a>
+          <a href="/">Smartphones</a>
         </li>
         <li>
-          <a href="/">
-            TVs
-          </a>
+          <a href="/">TVs</a>
         </li>
       </ul>
     </AccordionPanel>
@@ -112,7 +101,6 @@ function() {
     <AccordionItem>
       <AccordionButton>
         Clothing{' '}
-        <Icon component={<Caret />} />
       </AccordionButton>
       <AccordionPanel>
         <ul>
@@ -137,7 +125,6 @@ function() {
     <AccordionItem>
       <AccordionButton>
         Bags{' '}
-        <Icon component={<Caret />} />
       </AccordionButton>
       <AccordionPanel>
         <ul>
@@ -157,7 +144,6 @@ function() {
     <AccordionItem>
       <AccordionButton>
         Sale{' '}
-        <Icon component={<Caret />} />
       </AccordionButton>
       <AccordionPanel>
         <ul>
