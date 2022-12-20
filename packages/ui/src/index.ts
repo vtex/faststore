@@ -138,19 +138,6 @@ export type {
 } from './components/molecules/RadioGroup'
 
 export {
-  default as Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-} from './components/molecules/Accordion'
-export type {
-  AccordionProps,
-  AccordionItemProps,
-  AccordionButtonProps,
-  AccordionPanelProps,
-} from './components/molecules/Accordion'
-
-export {
   Table,
   TableBody,
   TableCell,
