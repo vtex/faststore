@@ -4,37 +4,115 @@
   // --------------------------------------------------------
 
   // Default properties
+
+  // Cell
+  --fs-table-cell-padding-x             : var(--fs-spacing-3);
+  --fs-table-cell-padding-y             : var(--fs-spacing-1);
+
+  // Head
+  --fs-table-head-weight                : var(--fs-text-weight-bold);
+  --fs-table-head-bkg-color             : none;
+
+  // Footer
+  --fs-table-footer-weight              : var(--fs-table-head-weight);
+  --fs-table-footer-bkg-color           : none;
+
+  // Colored
+  --fs-table-colored-bkg-color          : var(--fs-color-neutral-1);
+  --fs-table-colored-border-radius      : var(--fs-border-radius);
+
+  // Bordered
+  --fs-table-bordered-border-width      : var(--fs-border-width);
+  --fs-table-bordered-border-color      : var(--fs-border-color-light);
+
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  width: 100%;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+
+  th, td {
+    text-align: center;
+    padding-left: var(--fs-table-cell-padding-x);
+    padding-right: var(--fs-table-cell-padding-x);
+    &[data-fs-table-cell-align="left"] { text-align: left; }
+    &[data-fs-table-cell-align="center"] { text-align: center; }
+    &[data-fs-table-cell-align="right"] { text-align: right; }
+  }
+
+  th { white-space: nowrap; }
+
+  td {
+    padding-top: var(--fs-table-cell-padding-y);
+    padding-bottom: var(--fs-table-cell-padding-y);
+  }
+
+  thead th {
+    font-weight: var(--fs-table-head-weight);
+    background-color: var(--fs-table-head-bkg-color);
+  }
+
+  tfoot td {
+    font-weight: var(--fs-table-footer-weight);
+    background-color: var(--fs-table-footer-bkg-color);
+  }
+
+  tbody {
+    th {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: var(--fs-table-cell-padding-y);
+      padding-bottom: var(--fs-table-cell-padding-y);
+      font-weight: normal;
+      &[data-fs-table-cell-align="left"] { justify-content: flex-start; }
+      &[data-fs-table-cell-align="right"] { justify-content: flex-end; }
+    }
+  }
+
+  [data-fs-table-content] {
     width: 100%;
+    display: table;
+    border-collapse: collapse;
+  }
 
-    [data-fs-icon] {
-      margin-right: var(--fs-spacing-2);
-    }
+  [data-fs-icon] {
+    margin-right: var(--fs-spacing-2);
+    width: var(--fs-spacing-3);
+    height: var(--fs-spacing-3);
+  }
 
-    tr:nth-child(even) td {
-      background-color: var(--fs-color-neutral-1);
-      border-top-right-radius: var(--fs-border-radius);
-      border-bottom-right-radius: var(--fs-border-radius);
-    }
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
 
-    tr:nth-child(even) th {
-      background-color: var(--fs-color-neutral-1);
-      border-top-left-radius: var(--fs-border-radius);
-      border-bottom-left-radius: var(--fs-border-radius);
-    }
+  [data-fs-table-variant="colored"] {
+    tbody tr {
+      &:nth-child(even) td,
+      &:nth-child(even) th {
+        background-color: var(--fs-table-colored-bkg-color);
+      }
 
-    td:last-of-type {
-      padding: var(--fs-spacing-2) var(--fs-spacing-3);
-      text-align: right;
-    }
+      &:nth-child(even) td {
+        border-top-right-radius: var(--fs-table-colored-border-radius);
+        border-bottom-right-radius: var(--fs-table-colored-border-radius);
+      }
 
-    tbody {
-      td { width: 100%; }
-      th {
-        display: flex;
-        padding: var(--fs-spacing-2) 0 var(--fs-spacing-2) var(--fs-spacing-3);
-        font-weight: normal;
-        text-align: left;
+      &:nth-child(even) th {
+        border-top-left-radius: var(--fs-table-colored-border-radius);
+        border-bottom-left-radius: var(--fs-table-colored-border-radius);
       }
     }
+  }
+
+  [data-fs-table-variant="bordered"] {
+    tbody tr:not(:last-child) {
+      border-bottom: var(--fs-table-bordered-border-width) solid var(--fs-table-bordered-border-color);
+    }
+  }
 
 }

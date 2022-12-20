@@ -17,6 +17,10 @@ export interface TableCellProps extends HTMLAttributes<HTMLTableCellElement> {
    * @see scope https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#attr-scope
    */
   scope?: 'col' | 'row' | 'rowgroup' | 'colgroup'
+  /**
+   * Defines how this component should be aligned.
+   */
+  align?: 'left' | 'center' | 'right'
 }
 
 const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
@@ -26,6 +30,7 @@ const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
       children,
       variant = 'data',
       scope,
+      align,
       ...otherProps
     },
     ref
@@ -36,6 +41,7 @@ const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
       <Cell
         ref={ref}
         data-fs-table-cell={variant}
+        data-fs-table-cell-align={align}
         data-testid={testId}
         scope={scope}
         {...otherProps}

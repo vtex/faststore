@@ -10,16 +10,28 @@ export interface TableProps extends DetailedHTMLProps<TableHTMLAttributes<HTMLTa
    * Children for Table components.
    */
   children: React.ReactNode
+  /**
+   * Defines what style this component should use.
+   */
+  variant?: 'colored' | 'bordered'
 }
 
 const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
-  { testId = 'fs-table', children, ...otherProps },
+  { variant = 'colored', testId = 'fs-table', children, ...otherProps },
   ref
 ) {
   return (
-    <table ref={ref} data-fs-table data-testid={testId} {...otherProps}>
-      {children}
-    </table>
+    <div data-fs-table>
+      <table
+        ref={ref}
+        data-fs-table-content
+        data-fs-table-variant={variant}
+        data-testid={testId}
+        {...otherProps}
+      >
+        {children}
+      </table>
+    </div>
   )
 })
 

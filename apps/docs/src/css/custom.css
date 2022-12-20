@@ -156,6 +156,10 @@
    font-family: var(--ifm-font-family-base) !important;
  }
 
+ .playgroundContainer_src-theme-Playground-styles-module {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+ }
+
  .container {
    @apply my-0 mx-auto;
    max-width: 1140px;
@@ -452,4 +456,13 @@
  .overviewSectionItem > div > div {
   display: flex;
   justify-content: center;
+ }
+
+ /* Table reset */
+
+ .markdown table:not([data-fs-table-content]),
+ .markdown table > *,
+ .markdown table > * > *,
+ .markdown table > * > * > * {
+  all: revert;
  }
