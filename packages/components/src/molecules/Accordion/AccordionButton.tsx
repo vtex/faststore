@@ -3,8 +3,8 @@ import React, { forwardRef } from 'react'
 import { useAccordion } from './Accordion'
 import { useAccordionItem } from './AccordionItem'
 
-import { Button } from '@faststore/components'
-import type { ButtonProps } from '@faststore/components'
+import { Button, MinusCircle, PlusCircle } from '../..'
+import type { ButtonProps } from '../..'
 
 export interface AccordionButtonProps extends ButtonProps {
   /**
@@ -15,7 +15,7 @@ export interface AccordionButtonProps extends ButtonProps {
 
 const AccordionButton = forwardRef<HTMLButtonElement, AccordionButtonProps>(
   function AccordionButton(
-    { testId = 'store-accordion-button', children, ...otherProps },
+    { testId = 'fs-accordion-button', children, ...otherProps },
     ref
   ) {
     const { indices, onChange, numberOfItems } = useAccordion()
@@ -64,12 +64,14 @@ const AccordionButton = forwardRef<HTMLButtonElement, AccordionButtonProps>(
         id={button}
         aria-expanded={indices.has(index)}
         aria-controls={panel}
-        data-accordion-button
-        data-testid={testId}
+        data-fs-accordion-button
         onKeyDown={onKeyDown}
         onClick={() => {
           onChange(index)
         }}
+        icon={indices.has(index) ? <MinusCircle /> : <PlusCircle />}
+        iconPosition="right"
+        data-testid={testId}
         {...otherProps}
       >
         {children}

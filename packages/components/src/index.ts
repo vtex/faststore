@@ -29,6 +29,18 @@ export type { SelectProps } from './atoms/Select'
 export { default as SROnly } from './atoms/SROnly'
 
 // Molecules
+export {
+  default as Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+} from './molecules/Accordion'
+export type {
+  AccordionProps,
+  AccordionItemProps,
+  AccordionButtonProps,
+  AccordionPanelProps,
+} from './molecules/Accordion'
 export { default as BuyButton } from './molecules/BuyButton'
 export { default as CheckboxField } from './molecules/CheckboxField'
 export type { CheckboxFieldProps } from './molecules/CheckboxField'
@@ -52,11 +64,7 @@ export { default as ToggleField } from './molecules/ToggleField'
 export type { ToggleFieldProps } from './molecules/ToggleField'
 
 // Organisms
-export {
-  default as Hero,
-  HeroImage,
-  HeroHeading,
-} from './organisms/Hero'
+export { default as Hero, HeroImage, HeroHeading } from './organisms/Hero'
 export type {
   HeroProps,
   HeroImageProps,
