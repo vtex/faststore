@@ -69,7 +69,13 @@ const AccordionButton = forwardRef<HTMLButtonElement, AccordionButtonProps>(
         onClick={() => {
           onChange(index)
         }}
-        icon={indices.has(index) ? <MinusCircle /> : <PlusCircle />}
+        icon={
+          indices.has(index) ? (
+            <MinusCircle data-icon="expanded" />
+          ) : (
+            <PlusCircle data-icon="collapsed" />
+          )
+        }
         iconPosition="right"
         data-testid={testId}
         {...otherProps}
