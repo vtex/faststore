@@ -54,12 +54,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   return (
     <button
       ref={ref}
-      data-testid={testId}
       data-fs-button
       data-fs-button-inverse={inverse}
       data-fs-button-size={size}
       data-fs-button-variant={variant}
       disabled={disabled}
+      data-testid={testId}
       {...otherProps}
     >
       {icon && iconPosition === 'left' && <Icon component={icon} />}
