@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.23-alpha.0](https://github.com/vtex/faststore/compare/v2.0.22-alpha.0...v2.0.23-alpha.0) (2022-12-20)
+
+
+### Bug Fixes
+
+* `Hero` component ([#1563](https://github.com/vtex/faststore/issues/1563)) ([471ec14](https://github.com/vtex/faststore/commit/471ec140506c4db79d63a31acc2555a0b8ae51ed))
+
+
+
 ## [2.0.22-alpha.0](https://github.com/vtex/faststore/compare/v2.0.21-alpha.0...v2.0.22-alpha.0) (2022-12-19)
 
 
