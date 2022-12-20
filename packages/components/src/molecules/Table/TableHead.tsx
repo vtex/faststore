@@ -7,6 +7,9 @@ export interface TableHeadProps
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * Children for TableHead components.
+   */
   children: React.ReactNode
 }
 

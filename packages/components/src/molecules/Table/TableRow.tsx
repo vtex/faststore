@@ -6,6 +6,9 @@ export interface TableRowProps extends HTMLAttributes<HTMLTableRowElement> {
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * Children for TableRow components.
+   */
   children: React.ReactNode
 }
 

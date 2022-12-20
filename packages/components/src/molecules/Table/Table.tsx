@@ -6,6 +6,9 @@ export interface TableProps extends DetailedHTMLProps<TableHTMLAttributes<HTMLTa
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * Children for Table components.
+   */
   children: React.ReactNode
 }
 
