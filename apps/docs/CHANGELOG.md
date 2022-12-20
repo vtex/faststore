@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.24-alpha.0](https://github.com/vtex/faststore/compare/v2.0.23-alpha.0...v2.0.24-alpha.0) (2022-12-20)
+
+
+### Chores
+
+* Review components docs ([#1557](https://github.com/vtex/faststore/issues/1557)) ([2da23a0](https://github.com/vtex/faststore/commit/2da23a0ffe2f201f7e6163ea3db8dea4de07afa8))
+
+
+
 ## [2.0.23-alpha.0](https://github.com/vtex/faststore/compare/v2.0.22-alpha.0...v2.0.23-alpha.0) (2022-12-20)
 
 
