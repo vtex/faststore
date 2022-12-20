@@ -29,10 +29,10 @@ export const tmpCMSDir = `${tmpDir}/${cmsFolderName}`
 export const coreCMSDir = `${coreDir}/${cmsFolderName}`
 export const userCMSDir = `${userDir}/${cmsFolderName}`
 
-export const storeConfigFileName = 'store.config.js'
-export const userStoreConfigFileDir = `${userDir}/${storeConfigFileName}`
-export const coreStoreConfigFileDir = `${coreDir}/${storeConfigFileName}`
-export const tmpStoreConfigFileDir = `${tmpDir}/${storeConfigFileName}`
+export const configFileName = 'faststore.config.js'
+export const userStoreConfigFileDir = `${userDir}/${configFileName}`
+export const coreStoreConfigFileDir = `${coreDir}/${configFileName}`
+export const tmpStoreConfigFileDir = `${tmpDir}/${configFileName}`
 
 export const userNodeModulesDir = `${userDir}/node_modules`
 export const tmpNodeModulesDir = `${tmpDir}/node_modules`

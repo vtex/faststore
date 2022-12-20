@@ -13,13 +13,13 @@ export type PriceFormatter = (price: number, variant: PriceVariant) => ReactNode
 export interface PriceProps
   extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
   /**
-   * Set the HTML element tag of this component.
-   */
-  as?: ElementType
-  /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * Set the HTML element tag of this component.
+   */
+  as?: ElementType
   /**
    * The raw price value.
    */
@@ -52,8 +52,8 @@ const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
       <Component
         ref={ref}
         data-fs-price
-        data-testid={testId}
         data-fs-price-variant={variant}
+        data-testid={testId}
         {...otherProps}
       >
         {formattedPrice}

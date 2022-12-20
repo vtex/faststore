@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.24-alpha.0](https://github.com/vtex/faststore/compare/v2.0.23-alpha.0...v2.0.24-alpha.0) (2022-12-20)
+
+
+### Chores
+
+* Review components docs ([#1557](https://github.com/vtex/faststore/issues/1557)) ([2da23a0](https://github.com/vtex/faststore/commit/2da23a0ffe2f201f7e6163ea3db8dea4de07afa8))
+
+
+
+## [2.0.19-alpha.0](https://github.com/vtex/faststore/compare/v2.0.18-alpha.0...v2.0.19-alpha.0) (2022-12-16)
+
+
+### Features
+
+* Adds `Hero` component ([#1556](https://github.com/vtex/faststore/issues/1556)) ([871f35c](https://github.com/vtex/faststore/commit/871f35cdcfc85d5ec0038dcc55a9aeedcc5ff546))
+
+
+
+## [2.0.18-alpha.0](https://github.com/vtex/faststore/compare/v2.0.17-alpha.0...v2.0.18-alpha.0) (2022-12-15)
+
+
+### Bug Fixes
+
+* Starter's Integration tests ([#1559](https://github.com/vtex/faststore/issues/1559)) ([d597d98](https://github.com/vtex/faststore/commit/d597d981079448ca46588a8e32964c4e5dcc84f8)), closes [#323](https://github.com/vtex/faststore/issues/323)
+
+
+
+## [2.0.17-alpha.0](https://github.com/vtex/faststore/compare/v2.0.16-alpha.0...v2.0.17-alpha.0) (2022-12-15)
+
+
+### Features
+
+* Create `LinkButton` component ([#1558](https://github.com/vtex/faststore/issues/1558)) ([bbbebdb](https://github.com/vtex/faststore/commit/bbbebdb081f9c40315d8b661461e3b09a34b84b6))
+
+
+
 ## [2.0.16-alpha.0](https://github.com/vtex/faststore/compare/v2.0.15-alpha.0...v2.0.16-alpha.0) (2022-12-15)
 
 

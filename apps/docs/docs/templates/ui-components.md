@@ -85,7 +85,9 @@ _Replace `ComponentName` with the component name._
 />
 ````
 
-### Use cases
+---
+
+## Use cases
 
 Use the _ComponentName_ component to:
 

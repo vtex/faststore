@@ -38,16 +38,12 @@ export { default as DiscountBadge } from './molecules/DiscountBadge'
 export type { DiscountBadgeProps } from './molecules/DiscountBadge'
 export { default as InputField } from './molecules/InputField'
 export type { InputFieldProps } from './molecules/InputField'
+export { default as LinkButton } from './molecules/LinkButton'
+export type { LinkButtonProps } from './molecules/LinkButton'
 export { default as RadioField } from './molecules/RadioField'
 export type { RadioFieldProps } from './molecules/RadioField'
 export { default as SelectField } from './molecules/SelectField'
 export type { SelectFieldProps } from './molecules/SelectField'
-export { default as Tag } from './molecules/Tag'
-export type { TagProps } from './molecules/Tag'
-export { default as Toggle } from './molecules/Toggle'
-export type { ToggleProps } from './molecules/Toggle'
-export { default as ToggleField } from './molecules/ToggleField'
-export type { ToggleFieldProps } from './molecules/ToggleField'
 export {
   Table,
   TableBody,
@@ -64,3 +60,21 @@ export type {
   TableHeadProps,
   TableRowProps,
 } from './molecules/Table'
+export { default as Tag } from './molecules/Tag'
+export type { TagProps } from './molecules/Tag'
+export { default as Toggle } from './molecules/Toggle'
+export type { ToggleProps } from './molecules/Toggle'
+export { default as ToggleField } from './molecules/ToggleField'
+export type { ToggleFieldProps } from './molecules/ToggleField'
+
+// Organisms
+export {
+  default as Hero,
+  HeroImage,
+  HeroHeading,
+} from './organisms/Hero'
+export type {
+  HeroProps,
+  HeroImageProps,
+  HeroHeadingProps,
+} from './organisms/Hero'

@@ -4,11 +4,16 @@ import { Button, Icon } from '../../index'
 import type { ButtonProps } from '../../index'
 import { ShoppingCart } from '../../assets'
 
-type Props = ButtonProps
+type BuyButtonProps = ButtonProps
 
-function BuyButton({ icon, children, ...otherProps }: Props) {
+function BuyButton({
+  testId = 'fs-buy-button',
+  icon,
+  children,
+  ...otherProps
+}: BuyButtonProps) {
   return (
-    <Button data-fs-buy-button {...otherProps}>
+    <Button data-fs-buy-button data-testid={testId} {...otherProps}>
       <Icon component={<ShoppingCart />} />
       {children}
     </Button>

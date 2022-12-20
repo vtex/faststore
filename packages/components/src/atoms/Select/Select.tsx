@@ -5,6 +5,10 @@ import { CaretDown } from '../../assets'
 
 export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
+  testId?: string
+  /**
    * Assigns an identifier to link the UISelect component and its label.
    */
   id: string
@@ -14,10 +18,6 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
    * will be displayed in the UI.
    */
   options: Record<string, string>
-  /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
-   */
-  testId?: string
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
@@ -26,14 +26,14 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
 ) {
   return (
     <div data-fs-select>
-      <select id={id} ref={ref} data-testid={testId} {...otherProps}>
+      <select ref={ref} id={id} data-testid={testId} {...otherProps}>
         {Object.keys(options).map((key) => (
           <option key={key} value={key}>
             {options[key]}
           </option>
         ))}
       </select>
-      <Icon data-fs-select-icon component={<CaretDown />}/>
+      <Icon data-fs-select-icon component={<CaretDown />} />
     </div>
   )
 })
