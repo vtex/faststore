@@ -24,7 +24,7 @@ const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
       <div
         ref={ref}
         id={panel}
-        data-accordion-panel
+        data-fs-accordion-panel
         aria-labelledby={button}
         role="region"
         hidden={!indices.has(index)}

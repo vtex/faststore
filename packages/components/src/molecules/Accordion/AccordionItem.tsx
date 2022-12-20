@@ -66,7 +66,7 @@ const AccordionItem: AccordionItemComponent = forwardRef(function AccordionItem<
     <AccordionItemContext.Provider value={context}>
       <Component
         ref={ref}
-        data-accordion-item
+        data-fs-accordion-item
         data-testid={testId}
         {...otherProps}
       >
