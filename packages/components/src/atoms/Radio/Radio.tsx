@@ -17,8 +17,8 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
     <input
       ref={ref}
       data-fs-radio
-      data-testid={testId}
       type="radio"
+      data-testid={testId}
       {...otherProps}
     />
   )

@@ -4,11 +4,11 @@ keywords:
   - UI library
   - ecommerce
   - react
-sidebar_custom_props: 
+sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Link___ae95650d3842207e2d790446c3418086.png
 ---
 
-import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import PropsComponent from '@site/src/components/PropsComponent/PropsComponent'
 import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
 
 Link performs the same behavior of a regular anchor tag (`a`), but can be used as any HTML tag and component, including specific Frameworks link components.
@@ -21,9 +21,9 @@ Link performs the same behavior of a regular anchor tag (`a`), but can be used a
   <Link variant="display">Display</Link>
   <Link variant="inline">Inline</Link>
   <Link size="small">Small</Link>
-<div style={{ backgroundColor: '#171a1c', padding: '0.5rem' }}>
-   <Link inverse={true}>Inverse Link</Link>
- </div>
+  <div style={{ backgroundColor: '#171a1c', padding: '0.5rem' }}>
+    <Link inverse={true}>Inverse Link</Link>
+  </div>
 </div>
 ```
 
@@ -48,14 +48,12 @@ import '@faststore/ui/src/components/atoms/Link/styles.scss'
 ## Usage
 
 ```tsx live
-<Link href="/">
-    A default link
-</Link>
+<Link href="/">A default link</Link>
 ```
 
 ### Props
 
-The `Link` component supports all attributes supported by the tag chosen through the `as` prop. 
+The `Link` component supports all attributes supported by the tag chosen through the `as` prop.
 For example, if someone wants to use a wrapper for any external link component (i.e., Next.js `Link` or Gatsby `Link`), the FastStore UI `Link` component can be used with the `as="div"` prop.
 
 Besides those attributes, the following props are also supported:
@@ -64,7 +62,9 @@ Besides those attributes, the following props are also supported:
   name={'testId'}
   type={'string'}
   defaultValue={'fs-link'}
-  description={'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).'}
+  description={
+    'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).'
+  }
   required={false}
 />
 <PropsComponent
@@ -215,12 +215,8 @@ For further customization, you can use the following data attributes:
 
 `data-fs-link`
 
-`data-fs-link-variant="default"`
+`data-fs-link-variant="default" | "display" | "inline"`
 
-`data-fs-link-variant="display"`
-
-`data-fs-link-variant="inline"`
-
-`data-fs-link-size="small"`
+`data-fs-link-size="small" | "regular"`
 
 `data-fs-link-inverse="true"`

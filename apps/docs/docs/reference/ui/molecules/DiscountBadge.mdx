@@ -9,7 +9,7 @@ sidebar_custom_props:
 ---
 
 import PropsSection from '@site/src/components/PropsSection/PropsSection'
-import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
+import { TokenTable, TokenRow } from '@site/src/components/Tokens'
 
 A custom `Badge` that display product's discounts.
 
@@ -22,6 +22,8 @@ A custom `Badge` that display product's discounts.
   <DiscountBadge listPrice={80} spotPrice={40} />
 </div>
 ```
+
+---
 
 ## Import
 
@@ -47,10 +49,11 @@ import '@faststore/ui/src/components/molecules/DiscountBadge/styles.scss'
 
 <PropsSection name="DiscountBadge" />
 
-
 ---
 
 ## Design Tokens
+
+This component inherits [Badge](/reference/ui/atoms/Badge) design tokens.
 
 ### Variants
 
@@ -135,7 +138,6 @@ import '@faststore/ui/src/components/molecules/DiscountBadge/styles.scss'
   />
 </TokenTable>
 
-
 ---
 
 ## Customization
@@ -143,5 +145,7 @@ import '@faststore/ui/src/components/molecules/DiscountBadge/styles.scss'
 For further customization, you can use the following data attributes:
 
 `data-fs-discount-badge`
+
+`data-fs-discount-badge-variant`
 
 This component inherits [Badge](/reference/ui/atoms/Badge) css selectors and styles.

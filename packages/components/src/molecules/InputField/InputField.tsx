@@ -7,6 +7,10 @@ import { XCircle } from '../../assets'
 
 type DefaultProps = {
   /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
+  testId?: string
+  /**
    * ID to identify input and corresponding label.
    */
   id: string
@@ -77,6 +81,7 @@ const InputField = ({
   inputRef,
   disabled,
   value,
+  testId = 'fs-input-field',
   ...otherProps
 }: InputFieldProps) => {
   const shouldDisplayError = !disabled && error && error !== ''
@@ -87,6 +92,7 @@ const InputField = ({
       data-fs-input-field
       data-fs-input-field-actionable={actionable}
       data-fs-input-field-error={error && error !== ''}
+      data-testid={testId}
     >
       <Input
         id={id}

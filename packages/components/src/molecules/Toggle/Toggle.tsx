@@ -36,8 +36,8 @@ const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
   return (
     <div data-fs-toggle data-fs-toggle-variant={variant} data-testid={testId}>
       <Input
-        id={id}
         ref={ref}
+        id={id}
         role="switch"
         type="checkbox"
         disabled={disabled}

@@ -31,14 +31,14 @@ function LinkButton({
   return (
     <a
       ref={linkRef}
-      onFocus={onFocus}
       data-fs-button
       data-fs-link-button
-      data-testid={testId}
       data-fs-button-size={size}
       data-fs-button-variant={variant}
       data-fs-button-inverse={inverse}
       data-fs-button-disabled={disabled}
+      onFocus={onFocus}
+      data-testid={testId}
       {...otherProps}
     >
       {iconPosition === 'left' && <Icon component={icon} />}

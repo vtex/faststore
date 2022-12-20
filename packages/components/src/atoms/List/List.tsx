@@ -36,8 +36,8 @@ const List: ListComponent = forwardRef(function List<
     <Component
       ref={ref}
       data-fs-list
-      data-testid={testId}
       data-fs-list-marker={marker}
+      data-testid={testId}
       {...otherProps}
     />
   )
