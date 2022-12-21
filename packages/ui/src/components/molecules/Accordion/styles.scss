@@ -9,6 +9,9 @@
 
   // Button
   --fs-accordion-button-padding                     : var(--fs-spacing-3) 0;
+  --fs-accordion-button-font-size                   : var(--fs-text-size-3);
+  --fs-accordion-button-font-weight                 : var(--fs-text-weight-bold);
+  --fs-accordion-button-line-height                 : 1.2;
   --fs-accordion-button-color                       : var(--fs-color-text);
   --fs-accordion-button-bkg-color                   : transparent;
 
@@ -39,6 +42,9 @@
     justify-content: space-between;
     width: 100%;
     padding: var(--fs-accordion-button-padding);
+    font-size: var(--fs-accordion-button-font-size);
+    font-weight: var(--fs-accordion-button-font-weight);
+    line-height: var(--fs-accordion-button-line-height);
     color: var(--fs-accordion-button-color);
     cursor: pointer;
     background-color: var(--fs-accordion-button-bkg-color);
