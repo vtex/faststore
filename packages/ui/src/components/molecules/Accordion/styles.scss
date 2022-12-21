@@ -7,13 +7,13 @@
   --fs-accordion-item-border-bottom-width           : var(--fs-border-width);
   --fs-accordion-item-border-bottom-color           : var(--fs-border-color-light);
 
-  // Item Button
-  --fs-accordion-item-button-padding                : var(--fs-spacing-3) 0;
-  --fs-accordion-item-button-color                  : var(--fs-color-text);
-  --fs-accordion-item-button-bkg-color              : transparent;
+  // Button
+  --fs-accordion-button-padding                     : var(--fs-spacing-3) 0;
+  --fs-accordion-button-color                       : var(--fs-color-text);
+  --fs-accordion-button-bkg-color                   : transparent;
 
-  // Item Panel
-  --fs-accordion-item-panel-padding-bottom          : var(--fs-spacing-4);
+  // Panel
+  --fs-accordion-panel-padding-bottom               : var(--fs-spacing-4);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -38,10 +38,10 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: var(--fs-accordion-item-button-padding);
-    color: var(--fs-accordion-item-button-color);
+    padding: var(--fs-accordion-button-padding);
+    color: var(--fs-accordion-button-color);
     cursor: pointer;
-    background-color: var(--fs-accordion-item-button-bkg-color);
+    background-color: var(--fs-accordion-button-bkg-color);
     border: 0;
 
     [data-fs-icon] {
@@ -58,6 +58,6 @@
   }
 
   [data-fs-accordion-panel] {
-    padding-bottom: var(--fs-accordion-item-panel-padding-bottom);
+    padding-bottom: var(--fs-accordion-panel-padding-bottom);
   }
 }
