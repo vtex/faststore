@@ -9,20 +9,20 @@ sidebar_custom_props:
 ---
 
 import PropsSection from '@site/src/components/PropsSection/PropsSection'
-
-# Accordion
+import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
 
 Accordions display an expandable/collapsible list of items. The final Accordion component is a compound of the following:
 
 - `Accordion`: wraps a series of `AccordionItem`s in a single component.
+- `AccordionItem`: wraps an `AccordionButton` and an `AccordionPanel`.
+- `AccordionButton`: contains the top-level items of the Accordion list. It is a clickable button that shows or hides the child items of a given `AccordionItem`.
+- `AccordionPanel`: contains the child items of a given `AccordionItem`.
 
-  - `AccordionItem`: wraps an `AccordionButton` and an `AccordionPanel`.
-
-    - `AccordionButton`: contains the top-level items of the Accordion list. It is a clickable button that shows or hides the child items of a given `AccordionItem`.
-
-    - `AccordionPanel`: contains the child items of a given `AccordionItem`.
+---
 
 ## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
 ```tsx
 import {
@@ -33,6 +33,14 @@ import {
 } from '@faststore/ui'
 ```
 
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/Accordion/styles.scss'
+```
+
+---
+
 ## Usage
 
 ### Multiple and collapsible
@@ -40,7 +48,7 @@ import {
 ```tsx live
 <MultipleAndCollapsible>
   <AccordionItem>
-    <AccordionButton icon={<ShoppingCart />}>Clothing</AccordionButton>
+    <AccordionButton>Clothing</AccordionButton>
     <AccordionPanel>
       <ul>
         <li>
@@ -84,90 +92,9 @@ import {
 </MultipleAndCollapsible>
 ```
 
-### Toggle with icon
+### Props
 
-```tsx live
-function() {
-  const [indices, setIndices] = useState([0])
-  const onChange = (index) => {
-    setIndices([index])
-  }
-  return (
-
-  <Accordion
-    indices={indices}
-    onChange={onChange}
-  >
-    <AccordionItem>
-      <AccordionButton>
-        Clothing{' '}
-      </AccordionButton>
-      <AccordionPanel>
-        <ul>
-          <li>
-            <a href="/">
-              Shorts
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              Sweatshirt
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              Tank tops
-            </a>
-          </li>
-        </ul>
-      </AccordionPanel>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionButton>
-        Bags{' '}
-      </AccordionButton>
-      <AccordionPanel>
-        <ul>
-          <li>
-            <a href="/">
-              Backpacks
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              Necessaire
-            </a>
-          </li>
-        </ul>
-      </AccordionPanel>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionButton>
-        Sale{' '}
-      </AccordionButton>
-      <AccordionPanel>
-        <ul>
-          <li>
-            <a href="/">
-              Smartphones
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              TVs
-            </a>
-          </li>
-        </ul>
-      </AccordionPanel>
-    </AccordionItem>
-  </Accordion>
-  );
-}
-```
-
-## Props
-
-All accordion-related components support all attributes also supported by the `<div>` tag, except for the `AccordionButton`, which renders the `<button>` tag.
+All accordion-related components support all attributes also supported by the `<div>` tag, except for the `AccordionButton`, which renders the `<button>` tag and inherits [Button](/reference/ui/atoms/Button) props.
 
 Besides those attributes, the following props are also supported:
 
@@ -179,18 +106,68 @@ Besides those attributes, the following props are also supported:
 
 <PropsSection name="AccordionItem" />
 
+### AccordionButton
+
+<PropsSection name="AccordionButton" />
+
 ### AccordionPanel
 
 <PropsSection name="AccordionPanel" />
+
+---
+
+## Design Tokens
+
+### Nested Elements
+
+### Item
+
+<TokenTable>
+  <TokenRow
+    token="--fs-accordion-item-border-bottom-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-accordion-item-border-bottom-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+</TokenTable>
+
+### Button
+
+<TokenTable>
+  <TokenRow
+    token="--fs-accordion-button-padding"
+    value="var(--fs-spacing-3) 0"
+  />
+  <TokenRow
+    token="--fs-accordion-button-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow token="--fs-accordion-button-bkg-color" value="transparent" />
+</TokenTable>
+
+### Panel
+
+<TokenTable>
+  <TokenRow
+    token="--fs-accordion-panel-padding-bottom"
+    value="var(--fs-spacing-4)"
+  />
+</TokenTable>
+
+---
 
 ## Customization
 
 `data-fs-accordion`
 
-`data-accordion-item`
+`data-fs-accordion-item`
 
-`data-accordion-button`
+`data-fs-accordion-button`
 
-`data-accordion-panel`
+`data-fs-accordion-panel`
 
-The `AccordionButton` component inherits [Button](/reference/ui/atoms/Button) css selectors.
+The `AccordionButton` component inherits [Button](/reference/ui/atoms/Button) CSS selectors.
