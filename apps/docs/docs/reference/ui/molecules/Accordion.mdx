@@ -44,7 +44,7 @@ import '@faststore/ui/src/components/molecules/Accordion/styles.scss'
 
 ## Usage
 
-### Multiple and collapsible
+### Multiple and Collapsible
 
 ```tsx live
 <MultipleAndCollapsible>
@@ -91,6 +91,87 @@ import '@faststore/ui/src/components/molecules/Accordion/styles.scss'
     </AccordionPanel>
   </AccordionItem>
 </MultipleAndCollapsible>
+```
+
+### One Collapsible at a Time
+
+```tsx live
+function() {
+  const [indices, setIndices] = useState([0])
+  const onChange = (index) => {
+    setIndices([index])
+  }
+  return (
+
+  <Accordion
+    indices={indices}
+    onChange={onChange}
+  >
+    <AccordionItem>
+      <AccordionButton>
+        Clothing
+      </AccordionButton>
+      <AccordionPanel>
+        <ul>
+          <li>
+            <a href="/">
+              Shorts
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              Sweatshirt
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              Tank tops
+            </a>
+          </li>
+        </ul>
+      </AccordionPanel>
+    </AccordionItem>
+    <AccordionItem>
+      <AccordionButton>
+        Bags
+      </AccordionButton>
+      <AccordionPanel>
+        <ul>
+          <li>
+            <a href="/">
+              Backpacks
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              Necessaire
+            </a>
+          </li>
+        </ul>
+      </AccordionPanel>
+    </AccordionItem>
+    <AccordionItem>
+      <AccordionButton>
+        Sale
+      </AccordionButton>
+      <AccordionPanel>
+        <ul>
+          <li>
+            <a href="/">
+              Smartphones
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              TVs
+            </a>
+          </li>
+        </ul>
+      </AccordionPanel>
+    </AccordionItem>
+  </Accordion>
+  );
+}
 ```
 
 ### Props
