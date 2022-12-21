@@ -35,7 +35,8 @@
   overflow-x: auto;
   white-space: nowrap;
 
-  th, td {
+  [data-fs-table-cell="header"],
+  [data-fs-table-cell="data"] {
     text-align: center;
     padding-left: var(--fs-table-cell-padding-x);
     padding-right: var(--fs-table-cell-padding-x);
@@ -44,25 +45,25 @@
     &[data-fs-table-cell-align="right"] { text-align: right; }
   }
 
-  th { white-space: nowrap; }
+  [data-fs-table-cell="header"] { white-space: nowrap; }
 
-  td {
+  [data-fs-table-cell="data"] {
     padding-top: var(--fs-table-cell-padding-y);
     padding-bottom: var(--fs-table-cell-padding-y);
   }
 
-  thead th {
+  [data-fs-table-head] [data-fs-table-cell="header"] {
     font-weight: var(--fs-table-head-weight);
     background-color: var(--fs-table-head-bkg-color);
   }
 
-  tfoot td {
+  [data-fs-table-footer] [data-fs-table-cell="data"] {
     font-weight: var(--fs-table-footer-weight);
     background-color: var(--fs-table-footer-bkg-color);
   }
 
-  tbody {
-    th {
+  [data-fs-table-body] {
+    [data-fs-table-cell="header"] {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -91,18 +92,18 @@
   // --------------------------------------------------------
 
   [data-fs-table-variant="colored"] {
-    tbody tr {
-      &:nth-child(even) td,
-      &:nth-child(even) th {
+    [data-fs-table-body] [data-fs-table-row] {
+      &:nth-child(even) [data-fs-table-cell="data"],
+      &:nth-child(even) [data-fs-table-cell="header"] {
         background-color: var(--fs-table-colored-bkg-color);
       }
 
-      &:nth-child(even) td {
+      &:nth-child(even) [data-fs-table-cell="data"] {
         border-top-right-radius: var(--fs-table-colored-border-radius);
         border-bottom-right-radius: var(--fs-table-colored-border-radius);
       }
 
-      &:nth-child(even) th {
+      &:nth-child(even) [data-fs-table-cell="header"] {
         border-top-left-radius: var(--fs-table-colored-border-radius);
         border-bottom-left-radius: var(--fs-table-colored-border-radius);
       }
@@ -110,7 +111,7 @@
   }
 
   [data-fs-table-variant="bordered"] {
-    tbody tr:not(:last-child) {
+    [data-fs-table-body] [data-fs-table-row]:not(:last-child) {
       border-bottom: var(--fs-table-bordered-border-width) solid var(--fs-table-bordered-border-color);
     }
   }
