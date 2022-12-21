@@ -9,6 +9,7 @@ sidebar_custom_props:
 ---
 
 import PropsSection from '@site/src/components/PropsSection/PropsSection'
+import PropsComponent from '@site/src/components/PropsComponent/PropsComponent'
 import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
 
 Accordions display an expandable/collapsible list of items. The final Accordion component is a compound of the following:
@@ -104,7 +105,31 @@ Besides those attributes, the following props are also supported:
 
 ### AccordionItem
 
-<PropsSection name="AccordionItem" />
+<PropsComponent
+  name={'testId'}
+  type={'string'}
+  defaultValue={'fs-accordion-item'}
+  description={
+    'ID to find this component in testing tools (e.g.: cypress, testing-library, and jest).'
+  }
+  required={false}
+/>
+<PropsComponent
+  name={'index'}
+  type={'number'}
+  defaultValue={'0'}
+  description={'Index of the current accordion item within the accordion.'}
+  required={false}
+/>
+<PropsComponent
+  name={'prefixId'}
+  type={'string'}
+  defaultValue={''}
+  description={
+    "Namespace ID prefix for the current Accordion item's panel and buttonn to avoid ID duplication when multiple instances are on the same page."
+  }
+  required={false}
+/>
 
 ### AccordionButton
 
