@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import type {
   AriaAttributes,
   KeyboardEvent,
@@ -36,6 +37,11 @@ export interface DropdownMenuProps extends BaseModalProps {
    */
   onDismiss?: (event: MouseEvent | KeyboardEvent) => void
 
+  /**
+   * Specifies the size variant
+   */
+  size?: 'small' | 'regular'
+
   children: ReactNode[] | ReactNode
 }
 
@@ -47,7 +53,8 @@ export interface DropdownMenuProps extends BaseModalProps {
 
 const DropdownMenu = ({
   children,
-  testId = 'store-dropdown-menu',
+  testId = 'fs-dropdown-menu',
+  size = 'regular',
   style,
   ...otherProps
 }: PropsWithChildren<DropdownMenuProps>) => {
@@ -130,6 +137,7 @@ const DropdownMenu = ({
             role="menu"
             aria-orientation="vertical"
             data-fs-dropdown-menu
+            data-fs-dropdown-menu-size={size}
             data-testid={testId}
             style={{ ...dropdownPosition, ...style }}
             id={id}

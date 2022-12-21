@@ -13,7 +13,7 @@ export interface DropdownButtonProps
 
 const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
   function Button(
-    { children, testId = 'store-dropdown-button', ...otherProps },
+    { children, testId = 'fs-dropdown-button', ...otherProps },
     ref
   ) {
     const { toggle, dropdownButtonRef, isOpen, id } = useDropdown()

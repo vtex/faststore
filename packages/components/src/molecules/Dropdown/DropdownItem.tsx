@@ -13,7 +13,7 @@ export interface DropdownItemProps
 
 const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
   function Button(
-    { children, onClick, testId = 'store-dropdown-item', ...otherProps },
+    { children, onClick, testId = 'fs-dropdown-item', ...otherProps },
     ref
   ) {
     const { dropdownItemsRef, selectedDropdownItemIndexRef, close } =
