@@ -15,7 +15,6 @@ type Options =
       filters?: Record<string, string>
     }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isLocator = (x: any): x is Locator =>
   typeof x.contentType === 'string' &&
   (typeof x.releaseId === 'string' || typeof x.documentId === 'string')

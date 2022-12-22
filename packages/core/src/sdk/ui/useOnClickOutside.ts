@@ -1,7 +1,6 @@
 import type { RefObject } from 'react'
 import { useEffect } from 'react'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Handler = (event: any) => void
 
 export default function useOnClickOutside<T extends HTMLElement = HTMLElement>(

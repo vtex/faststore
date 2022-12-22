@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import chalk from 'chalk'
 import type { ComponentType } from 'react'
 

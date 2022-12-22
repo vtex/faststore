@@ -196,7 +196,7 @@ export const useShippingSimulation = (shippingItem: IShippingItem) => {
         },
       })
     }
-  }, [shippingPostalCode])
+  }, [country, shippingItem, shippingPostalCode])
 
   const handleOnInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const currentValue = e.currentTarget.value
