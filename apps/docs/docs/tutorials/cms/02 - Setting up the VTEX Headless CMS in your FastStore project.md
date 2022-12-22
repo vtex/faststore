@@ -45,7 +45,7 @@ touch cms/content-types.json cms/sections.json cms/translation-keys.json
 6. Now, open the `content-types.json` file in any code editor of your choice and add the following code:
 
 :::info
-  Once that you have the 1.0.6 version of @vtex/cli-plugin-cms is possible to specify the builder that you want to synchronize.  To do that you should update with the command ```
+  Once you have the 1.0.6 version of @vtex/cli-plugin-cms is possible to specify the builder that you want to synchronize.  To do that you should update with the command ```
   vtex plugins update``` and create a folder to each one of the builders to be able to specify it.
  Example: cms/faststore/content-types.json"
 :::
