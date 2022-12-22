@@ -21,6 +21,10 @@ import type { Address, AddressInput } from './types/Address'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
+// interface URLSearchParams {
+//   entries: () => IterableIterator<[string, string]>
+// }
+
 const BASE_INIT = {
   method: 'POST',
   headers: {
@@ -51,20 +55,22 @@ export const VtexCommerce = (
           fetchAPI(`${base}/api/catalog_system/pub/portal/pagetype/${slug}`),
       },
       products: {
-        crossselling: (
-          { type, productId, groupByProduct = true }: {
-            type: ValueOf<typeof FACET_CROSS_SELLING_MAP>;
-            productId: string;
-            groupByProduct?: boolean;
-          },
-        ): Promise<PortalProduct[]> => {
+        crossselling: ({
+          type,
+          productId,
+          groupByProduct = true,
+        }: {
+          type: ValueOf<typeof FACET_CROSS_SELLING_MAP>
+          productId: string
+          groupByProduct?: boolean
+        }): Promise<PortalProduct[]> => {
           const params = new URLSearchParams({
             sc: ctx.storage.channel.salesChannel,
             groupByProduct: groupByProduct.toString(),
           })
 
           return fetchAPI(
-            `${base}/api/catalog_system/pub/products/crossselling/${type}/${productId}?${params}`,
+            `${base}/api/catalog_system/pub/products/crossselling/${type}/${productId}?${params}`
           )
         },
       },
@@ -86,16 +92,20 @@ export const VtexCommerce = (
           }
         )
       },
-      shippingData: (
-        { id, body }: { id: string; body: unknown },
-      ): Promise<OrderForm> => {
+      shippingData: ({
+        id,
+        body,
+      }: {
+        id: string
+        body: unknown
+      }): Promise<OrderForm> => {
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
             ...BASE_INIT,
             body: JSON.stringify(body),
-          },
-        );
+          }
+        )
       },
       orderForm: ({
         id,
@@ -159,7 +169,7 @@ export const VtexCommerce = (
             ...BASE_INIT,
             body: JSON.stringify({ value }),
             method: 'PUT',
-          },
+          }
         )
       },
       region: async ({
@@ -184,6 +194,10 @@ export const VtexCommerce = (
     },
     session: (search: string): Promise<Session> => {
       const params = new URLSearchParams(search)
+      const entries = params.entries()
+      const stringKeyValues = Object.fromEntries(entries)
+
+      console.log(stringKeyValues)
 
       const items = params.get('items')
 
@@ -192,7 +206,7 @@ export const VtexCommerce = (
         `${items},profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol`
       )
 
-      console.log("PARAMS session: ", params)
+      console.log('PARAMS session: ', params)
 
       return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
         method: 'POST',
