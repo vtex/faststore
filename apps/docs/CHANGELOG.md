@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.26-alpha.0](https://github.com/vtex/faststore/compare/v2.0.25-alpha.0...v2.0.26-alpha.0) (2022-12-22)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
 ## [2.0.25-alpha.0](https://github.com/vtex/faststore/compare/v2.0.24-alpha.0...v2.0.25-alpha.0) (2022-12-22)
 
 
