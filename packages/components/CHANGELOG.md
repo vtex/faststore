@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.28-alpha.0](https://github.com/vtex/faststore/compare/v2.0.27-alpha.0...v2.0.28-alpha.0) (2022-12-23)
+
+
+### Chores
+
+* Removes icons id ([#1571](https://github.com/vtex/faststore/issues/1571)) ([2e790fa](https://github.com/vtex/faststore/commit/2e790faa2ca37fc4f6f9f7c7796f79ceaf6a3f02))
+
+
+
 ## [2.0.27-alpha.0](https://github.com/vtex/faststore/compare/v2.0.26-alpha.0...v2.0.27-alpha.0) (2022-12-23)
 
 
