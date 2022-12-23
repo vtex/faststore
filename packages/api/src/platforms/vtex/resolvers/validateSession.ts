@@ -7,10 +7,6 @@ import type {
   StoreSession,
 } from '../../../__generated__/schema'
 
-import type {
-  Public as PublicField
-} from '../../vtex/clients/commerce/types/Session'
-
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
@@ -22,7 +18,7 @@ export const validateSession = async (
 
   const params = new URLSearchParams(search)
 
-  console.log("PARAMS: ", params)
+  console.log('PARAMS: ', params)
   const salesChannel = params.get('sc') ?? channel.salesChannel
 
   params.set('sc', salesChannel)
@@ -34,21 +30,11 @@ export const validateSession = async (
     clients.commerce.session(params.toString()).catch(() => null),
   ])
 
-  console.log("SESSION DATA: ", sessionData)
+  console.log('SESSION DATA: ', sessionData)
 
   const profile = sessionData?.namespaces.profile ?? null
   const store = sessionData?.namespaces.store ?? null
-  const publicFields: PublicField = sessionData?.namespaces?.public ?? {}
-  let publicFields2;
-  if(publicFields) {
-    publicFields2 = Object.keys(publicFields).map((key: string) => {
-      return {
-        [key]: publicFields[key]
-      }
-    })
-  }
-
-  console.log("")
+  const publicFields = sessionData?.namespaces?.public ?? {}
 
   const newSession = {
     ...oldSession,
@@ -69,13 +55,13 @@ export const validateSession = async (
           familyName: profile.lastName?.value ?? '',
         }
       : null,
-    public: publicFields2 || []
+    public: publicFields || [],
   }
 
-  console.log("newSession: ", newSession)
+  console.log('newSession: ', newSession)
 
   if (deepEquals(oldSession, newSession)) {
-    console.log("CAI AQUI? ", oldSession, newSession)
+    console.log('CAI AQUI? ', oldSession, newSession)
     return null
   }
 
