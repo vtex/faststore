@@ -1,9 +1,11 @@
 .tokenTable {
   width: 100%;
   display: table;
+  border-collapse: collapse;
 }
 
 .tokenTable th {
+  padding: 10px;
   color: var(--fs-color-text);
 }
 
@@ -26,3 +28,5 @@
   border: 1px solid gray;
   border-radius: 100%;
 }
+
+.tokenTable th, .tokenTable td { border: var(--ifm-table-border-width) solid var(--ifm-table-border-color); }
