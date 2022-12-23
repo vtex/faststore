@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.26-alpha.0](https://github.com/vtex/faststore/compare/v2.0.25-alpha.0...v2.0.26-alpha.0) (2022-12-22)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [2.0.25-alpha.0](https://github.com/vtex/faststore/compare/v2.0.24-alpha.0...v2.0.25-alpha.0) (2022-12-22)
+
+
+### Bug Fixes
+
+* cli plugin cms documentation ([#1566](https://github.com/vtex/faststore/issues/1566)) ([41cfbb5](https://github.com/vtex/faststore/commit/41cfbb5e634c80fb1961ab0e57459dd18931c458))
+
+
+
 ## [2.0.24-alpha.0](https://github.com/vtex/faststore/compare/v2.0.23-alpha.0...v2.0.24-alpha.0) (2022-12-20)
 
 

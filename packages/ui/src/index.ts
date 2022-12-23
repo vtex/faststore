@@ -137,23 +137,6 @@ export type {
   RadioOptionProps,
 } from './components/molecules/RadioGroup'
 
-export {
-  Table,
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableRow,
-} from './components/molecules/Table'
-export type {
-  TableProps,
-  TableBodyProps,
-  TableCellProps,
-  TableFooterProps,
-  TableHeadProps,
-  TableRowProps,
-} from './components/molecules/Table'
-
 export { default as Form } from './components/molecules/Form'
 export type { FormProps } from './components/molecules/Form'
 
