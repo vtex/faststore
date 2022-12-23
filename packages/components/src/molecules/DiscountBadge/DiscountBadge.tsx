@@ -1,9 +1,10 @@
 import React from 'react'
-import { Badge } from '../..'
+import { Badge, BadgeProps } from '../..'
 
 import { useDiscountPercent } from '../DiscountBadge/useDiscountPercent'
 
-export type DiscountBadgeProps = {
+export interface DiscountBadgeProps
+  extends Omit<BadgeProps, 'variant' | 'counter' | 'aria-label'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -31,6 +32,7 @@ const DiscountBadge = ({
   spotPrice,
   thresholdLow = 15,
   thresholdHigh = 40,
+  size,
   testId = 'fs-discount-badge',
 }: DiscountBadgeProps) => {
   const discountPercent = useDiscountPercent(listPrice, spotPrice)
@@ -50,6 +52,7 @@ const DiscountBadge = ({
     <Badge
       data-fs-discount-badge
       data-fs-discount-badge-variant={discountVariant}
+      size={size}
       data-testid={testId}
     >
       {discountPercent}% off
