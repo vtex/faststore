@@ -4,7 +4,6 @@ import type { FC } from 'react'
 // Icon from Phosphor Icons
 const Checked: FC = () => (
   <svg
-    id="Checked"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 19 18"
