@@ -460,7 +460,7 @@
 
  /* Table reset */
 
- .markdown table:not([data-fs-table-content]),
+ .markdown table:not([data-fs-table-content]):not([class*='tokenTable']),
  .markdown table > *,
  .markdown table > * > *,
  .markdown table > * > * > * {

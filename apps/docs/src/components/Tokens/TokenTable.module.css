@@ -1,7 +1,6 @@
 .tokenTable {
   width: 100%;
   display: table;
-  border-collapse: collapse;
 }
 
 .tokenTable th {
@@ -29,4 +28,6 @@
   border-radius: 100%;
 }
 
-.tokenTable th, .tokenTable td { border: var(--ifm-table-border-width) solid var(--ifm-table-border-color); }
+.tokenTable th, .tokenTable td {
+  border: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
+}
