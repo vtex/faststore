@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.29-alpha.0](https://github.com/vtex/faststore/compare/v2.0.28-alpha.0...v2.0.29-alpha.0) (2022-12-23)
+
+
+### Bug Fixes
+
+* Adds Badge props to `DiscountBadge`  + Fixes SelectField testId ([#1570](https://github.com/vtex/faststore/issues/1570)) ([b1513a5](https://github.com/vtex/faststore/commit/b1513a569235cb60bd3a1c6f16e24fd61d810017))
+
+
+
 ## [2.0.27-alpha.0](https://github.com/vtex/faststore/compare/v2.0.26-alpha.0...v2.0.27-alpha.0) (2022-12-23)
 
 
