@@ -6,6 +6,7 @@ sidebar_custom_props:
 
 import PropsSection from '@site/src/components/PropsSection/PropsSection'
 import { Icon } from '@faststore/ui'
+import { TokenTable, TokenRow } from '@site/src/components/Tokens'
 
 # Table
 
@@ -269,6 +270,29 @@ All table-related components support all attributes also supported by their resp
 
 ## Design Tokens
 
+### Nested Elements
+
+#### Cell
+
+<TokenTable>
+  <TokenRow token="--fs-table-cell-padding-x" value="var(--fs-spacing-3)" />
+  <TokenRow
+    token="-fs-table-cell-padding-y"
+    value="var(--fs-control-tap-size)"
+  />
+  <TokenRow token="--fs-button-gap" value="var(--fs-spacing-1)" />
+</TokenTable>
+
+#### Head
+
+<TokenTable>
+  <TokenRow
+    token="--fs-table-head-weight)"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenRow token="--fs-table-head-bkg-color" value="none" />
+</TokenTable>
+
 ### Variants
 
 #### With Footer
@@ -315,6 +339,110 @@ function(){
       </div>
 )}
 ```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-table-footer-weight"
+    value="var(--fs-table-head-weight)"
+  />
+  <TokenRow token="--fs-table-footer-bkg-color" value="none" />
+</TokenTable>
+
+#### Colored
+
+```tsx live
+<Table variant="colored">
+  <TableHead>
+    <TableRow>
+      <TableCell scope="col" variant="header" align="left">
+        Colored
+      </TableCell>
+      <TableCell scope="col" variant="header" align="right">
+        Total
+      </TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell variant="header" align="left">
+        1x
+      </TableCell>
+      <TableCell align="right">$200.00</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell variant="header" align="left">
+        2x
+      </TableCell>
+      <TableCell align="right">$300.00</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell variant="header" align="left">
+        3x
+      </TableCell>
+      <TableCell align="right">$400.00</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-table-colored-bkg-color"
+    value="var(--fs-color-neutral-1)"
+  />
+  <TokenRow
+    token="--fs-table-colored-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+#### Bordered
+
+```tsx live
+<Table variant="bordered">
+  <TableHead>
+    <TableRow>
+      <TableCell scope="col" variant="header" align="left">
+        Bordered
+      </TableCell>
+      <TableCell scope="col" variant="header" align="right">
+        Total
+      </TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell variant="header" align="left">
+        1x
+      </TableCell>
+      <TableCell align="right">$200.00</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell variant="header" align="left">
+        2x
+      </TableCell>
+      <TableCell align="right">$300.00</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell variant="header" align="left">
+        3x
+      </TableCell>
+      <TableCell align="right">$400.00</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-table-bordered-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-table-bordered-border-color"
+    value="var(--fs-border-color-light)"
+  />
+</TokenTable>
 
 #### Horizontal Scroll
 
