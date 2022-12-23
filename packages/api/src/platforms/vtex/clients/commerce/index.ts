@@ -194,17 +194,15 @@ export const VtexCommerce = (
     },
     session: (search: string): Promise<Session> => {
       const params = new URLSearchParams(search)
-      const entries = params.entries()
-      const stringKeyValues = Object.fromEntries(entries)
-
-      console.log(stringKeyValues)
-
-      const items = params.get('items')
 
       params.set(
         'items',
-        `${items},profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol`
+        'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
+      
+      for (const [key, value] of params) {
+        params.set(key, value)
+      }
 
       console.log('PARAMS session: ', params)
 

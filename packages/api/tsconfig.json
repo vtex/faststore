@@ -1,7 +1,9 @@
 {
   "extends": "@faststore/shared/tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "lib": ["dom", "DOM.Iterable", "esnext"],
+
   },
   "include": ["src"]
 }
