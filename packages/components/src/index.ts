@@ -44,6 +44,22 @@ export { default as RadioField } from './molecules/RadioField'
 export type { RadioFieldProps } from './molecules/RadioField'
 export { default as SelectField } from './molecules/SelectField'
 export type { SelectFieldProps } from './molecules/SelectField'
+export {
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableRow,
+} from './molecules/Table'
+export type {
+  TableProps,
+  TableBodyProps,
+  TableCellProps,
+  TableFooterProps,
+  TableHeadProps,
+  TableRowProps,
+} from './molecules/Table'
 export { default as Tag } from './molecules/Tag'
 export type { TagProps } from './molecules/Tag'
 export { default as Toggle } from './molecules/Toggle'
