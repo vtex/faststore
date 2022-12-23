@@ -7,16 +7,19 @@ export interface TableHeadProps
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * Children for TableHead components.
+   */
   children: React.ReactNode
 }
 
 const TableHead = forwardRef<HTMLTableSectionElement, TableHeadProps>(
   function TableHead(
-    { children, testId = 'store-table-head', ...otherProps },
+    { children, testId = 'fs-table-head', ...otherProps },
     ref
   ) {
     return (
-      <thead ref={ref} data-testid={testId} data-table-head {...otherProps}>
+      <thead ref={ref} data-testid={testId} data-fs-table-head {...otherProps}>
         {children}
       </thead>
     )

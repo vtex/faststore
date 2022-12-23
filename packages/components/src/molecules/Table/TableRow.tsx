@@ -6,16 +6,19 @@ export interface TableRowProps extends HTMLAttributes<HTMLTableRowElement> {
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * Children for TableRow components.
+   */
   children: React.ReactNode
 }
 
 const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
   function TableRow(
-    { testId = 'store-table-row', children, ...otherProps },
+    { testId = 'fs-table-row', children, ...otherProps },
     ref
   ) {
     return (
-      <tr ref={ref} data-table-row data-testid={testId} {...otherProps}>
+      <tr ref={ref} data-fs-table-row data-testid={testId} {...otherProps}>
         {children}
       </tr>
     )
