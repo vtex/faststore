@@ -109,8 +109,6 @@
   --fs-dropdown-button-bkg-color             : var(--fs-color-tertiary-bkg-light);
   --fs-dropdown-button-bkg-color-hover       : var(--fs-color-primary-bkg-light);
 
-  --fs-dropdown-button-border-bottom-color   : var(--fs-border-color-light);
-
     display: inline-flex;
     align-items: center;
     min-height: var(--fs-dropdown-button-min-height);
@@ -125,10 +123,7 @@
     cursor: pointer;
     background-color: var(--fs-dropdown-button-bkg-color);
     border-width: 0;
-
-    &:not(:last-child) {
-      border-bottom: 1px solid var(--fs-dropdown-button-border-bottom-color);
-    }
+    width: fit-content;
 
     &:focus, &:hover {
       text-decoration: none;
