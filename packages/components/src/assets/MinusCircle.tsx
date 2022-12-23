@@ -4,7 +4,6 @@ import type { FC } from 'react'
 // Icon from Phosphor Icons
 const MinusCircle: FC = () => (
   <svg
-    id="MinusCircle"
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"
     viewBox="0 0 256 256"
