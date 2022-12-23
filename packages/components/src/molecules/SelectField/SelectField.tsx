@@ -19,11 +19,11 @@ const SelectField = forwardRef<
   ref
 ) {
   return (
-    <div ref={ref} data-fs-select-field data-testid={testId}>
+    <div ref={ref} data-fs-select-field>
       <Label data-fs-select-field-label htmlFor={id}>
         {label}
       </Label>
-      <Select id={id} options={options} {...otherProps} />
+      <Select id={id} options={options} data-testid={testId} {...otherProps} />
     </div>
   )
 })
