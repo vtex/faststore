@@ -1,28 +1,35 @@
-import { createStore } from "./../store/composed";
+import { createStore } from './../store/composed'
 
 export interface Currency {
-  code: string; // Ex: USD
-  symbol: string; // Ex: $
+  code: string // Ex: USD
+  symbol: string // Ex: $
 }
 
 export interface Person {
-  id: string;
-  email: string;
-  givenName: string;
-  familyName: string;
+  id: string
+  email: string
+  givenName: string
+  familyName: string
+}
+
+export interface Public {
+  [key: string]: {
+    value: string
+  }
 }
 
 export interface Session {
-  locale: string; // en-US
-  currency: Currency;
-  country: string; // BRA
-  channel: string | null;
-  postalCode: string | null;
-  person: Person | null;
+  locale: string // en-US
+  currency: Currency
+  country: string // BRA
+  channel: string | null
+  postalCode: string | null
+  person: Person | null
+  public: Public | null
 }
 
 export const createSessionStore = (
   defaultSession: Session,
   onValidate?: (value: Session) => Promise<Session | null>,
-  namespace = "fs::session",
-) => createStore(defaultSession, namespace, onValidate);
+  namespace = 'fs::session'
+) => createStore(defaultSession, namespace, onValidate)
