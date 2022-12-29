@@ -195,14 +195,19 @@ export const VtexCommerce = (
     session: (search: string): Promise<Session> => {
       const params = new URLSearchParams(search)
 
-      params.set(
-        'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
-      )
-      
+      let publicFields = []
+
       for (const [key, value] of params) {
         params.set(key, value)
+        publicFields.push(`public.${key}`)
       }
+
+      params.set(
+        'items',
+        `profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,${publicFields.join(
+          ','
+        )}`
+      )
 
       console.log('PARAMS session: ', params)
 

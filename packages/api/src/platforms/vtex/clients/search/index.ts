@@ -128,14 +128,20 @@ export const IntelligentSearch = (
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
-    console.log("${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}", `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`)
+    console.log(
+      '${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}',
+      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
+    )
+
+    console.log('COOKIE: ', cookie)
 
     return fetchAPI(
-      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`, {
-        credentials: "include",
+      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
+      {
+        credentials: 'include',
         headers: {
-          cookie: 'vtex_segment=eyJjYW1wYWlnbnMiOm51bGwsImNoYW5uZWwiOiIyIiwicHJpY2VUYWJsZXMiOm51bGwsInJlZ2lvbklkIjpudWxsLCJ1dG1fY2FtcGFpZ24iOiJvdXRsZXQiLCJ1dG1fc291cmNlIjpudWxsLCJ1dG1pX2NhbXBhaWduIjpudWxsLCJjdXJyZW5jeUNvZGUiOiJCUkwiLCJjdXJyZW5jeVN5bWJvbCI6IlIkIiwiY291bnRyeUNvZGUiOiJCUkEiLCJjdWx0dXJlSW5mbyI6InB0LUJSIiwiY2hhbm5lbFByaXZhY3kiOiJwdWJsaWMifQ;'
-        }
+          cookie,
+        },
       }
     )
   }
