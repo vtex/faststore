@@ -1,6 +1,6 @@
 {
   "name": "@faststore/components",
-  "version": "2.0.29-alpha.0",
+  "version": "2.0.30-alpha.0",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "author": "Emerson Laurentino @emersonlaurentino",
@@ -21,7 +21,7 @@
     "src"
   ],
   "devDependencies": {
-    "@faststore/shared": "^2.0.3-alpha.0",
+    "@faststore/shared": "^2.0.30-alpha.0",
     "typescript": "^4.8.4"
   },
   "volta": {
