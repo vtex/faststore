@@ -1,6 +1,6 @@
 ---
 description: Tables display information in a friendly way, allowing users to scan for details quickly.
-sidebar_custom_props:
+sidebar_custom_props: 
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Table___06dbb666025a4d64540fb91d22b54ba6.png
 ---
 
@@ -12,176 +12,18 @@ import { TokenTable, TokenRow } from '@site/src/components/Tokens'
 
 Tables display information in a friendly way, allowing users to scan for details quickly. The Table component is a compound of the following:
 
-- `Table` - renders a `<div>` as wrapper with a `<table>` tag inside it.
+- `Table` -  renders a `<table>` tag.
 - `TableBody` - renders a `<tbody>` tag.
 - `TableHead` - renders a `<thead>` tag.
 - `TableRow` - renders a `<tr>` tag.
 - `TableFooter` - renders a `<tfoot>` tag.
 - `TableCell` - renders a `<th>` or `<td>` tag depending on the value of the `variant` prop.
 
-## Overview
-
-```tsx live
-function(){
-  const options = [
-    {
-      numberOfInstallments: 1,
-      monthlyPayment: 200,
-      total: 200,
-    },
-    {
-      numberOfInstallments: 2,
-      monthlyPayment: 100,
-      total: 200,
-    },
-    {
-      numberOfInstallments: 3,
-      monthlyPayment: 68,
-      total: 204,
-    },
-  ]
-
-  const sizes = [
-    {
-      type: 'Width',
-      value: '1.5m',
-    },
-    {
-      type: 'Height',
-      value: '1.5m',
-    },
-    {
-      type: 'Dimensions',
-      value: '7 x 3 x 9 in',
-    },
-  ]
-
-  return (
-    <div className="overviewSectionColumn">
-      <div className="overviewSection">
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell scope="col" variant="header" align="left">
-                Colored + Icon
-              </TableCell>
-              <TableCell scope="col" variant="header" align="right">
-                Values
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {sizes.map((size) => (
-            <TableRow key={size.type}>
-              <TableCell variant="header" align="left">
-                <Icon component={<Ruler />} />
-                {size.type}
-              </TableCell>
-              <TableCell align="right">
-                {size.value}
-              </TableCell>
-            </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        <Table variant="bordered">
-          <TableHead>
-            <TableRow>
-              <TableCell scope="col" variant="header" align="left">
-                Bordered + Icon
-              </TableCell>
-              <TableCell scope="col" variant="header" align="right">
-                Total
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {options.map((option) => (
-            <TableRow key={option.numberOfInstallments}>
-              <TableCell variant="header" align="left">
-                <Icon component={<ShoppingCart />} />
-                {option.numberOfInstallments}x
-              </TableCell>
-              <TableCell align="right">
-                <Price formatter={priceFormatter} value={option.total} />
-              </TableCell>
-            </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-      <div className="overviewSection">
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell scope="col" variant="header" align="left">
-                Colored
-              </TableCell>
-              <TableCell scope="col" variant="header" align="right">
-                Total
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {options.map((option) => (
-            <TableRow key={option.numberOfInstallments}>
-              <TableCell variant="header" align="left">
-                {option.numberOfInstallments}x
-              </TableCell>
-              <TableCell align="right">
-                <Price formatter={priceFormatter} value={option.total} />
-              </TableCell>
-            </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        <Table variant="bordered">
-          <TableHead>
-            <TableRow>
-              <TableCell scope="col" variant="header" align="left">
-                Bordered
-              </TableCell>
-              <TableCell scope="col" variant="header" align="right">
-                Total
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {options.map((option) => (
-            <TableRow key={option.numberOfInstallments}>
-              <TableCell variant="header" align="left">
-                {option.numberOfInstallments}x
-              </TableCell>
-              <TableCell align="right">
-                <Price formatter={priceFormatter} value={option.total} />
-              </TableCell>
-            </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-    </div>
-  )
-}
-```
-
----
-
 ## Import
-
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
 ```tsx
 import { Table } from '@faststore/ui'
 ```
-
-Import Styles
-
-```tsx
-import '@faststore/ui/src/components/molecules/Table/styles.scss'
-```
-
----
 
 ## Usage
 
@@ -203,66 +45,78 @@ function(){
       monthlyPayment: 68,
       total: 204,
     },
+    {
+      numberOfInstallments: 4,
+      monthlyPayment: 52,
+      total: 208,
+    },
+    {
+      numberOfInstallments: 5,
+      monthlyPayment: 43,
+      total: 215,
+    },
   ]
 
-  return (
-    <div className="overviewSection">
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell scope="col" variant="header">
-              Installments
-            </TableCell>
-            <TableCell scope="col" variant="header">
-              Monthly Payment
-            </TableCell>
-            <TableCell scope="col" variant="header">
-              Total
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {options.map((option) => (
-          <TableRow key={option.numberOfInstallments}>
-            <TableCell>
-              {option.numberOfInstallments}x
-            </TableCell>
-            <TableCell>
-              <Price formatter={priceFormatter} value={option.monthlyPayment} />
-            </TableCell>
-            <TableCell>
-              <Price formatter={priceFormatter} value={option.total} />
-            </TableCell>
-          </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
-  )
-}
+    return(
+        <Table>
+            <TableHead>
+                <TableRow>
+                <TableCell scope="col" variant="header">
+                    Installments
+                </TableCell>
+                <TableCell scope="col" variant="header">
+                    Amount
+                </TableCell>
+                <TableCell scope="col" variant="header">
+                    Total
+                </TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {options.map((option) => (
+                <TableRow key={option.numberOfInstallments}>
+                    <TableCell>{option.numberOfInstallments}x</TableCell>
+                    <TableCell>
+                    <Price formatter={priceFormatter} value={option.monthlyPayment} />
+                    </TableCell>
+                    <TableCell>
+                    <Price formatter={priceFormatter} value={option.total} />
+                    </TableCell>
+                </TableRow>
+                ))}
+            </TableBody>
+            <TableFooter>
+                <TableRow>
+                <TableCell>Installments</TableCell>
+                <TableCell>Amount</TableCell>
+                <TableCell>Total</TableCell>
+                </TableRow>
+            </TableFooter>
+        </Table>
+)}
 ```
 
-### Props
+## Props
 
 All table-related components support all attributes also supported by their respective HTML tags. Besides those attributes, the following props are also supported:
 
-#### Table
+### Table
 
 <PropsSection name="Table" />
 
-#### TableBody
+### TableBody
 
 <PropsSection name="TableBody" />
 
-#### TableRow
+### TableRow
 
 <PropsSection name="TableRow" />
 
-#### TableFooter
+### TableFooter
 
 <PropsSection name="TableFooter" />
 
-#### TableCell
+### TableCell
 
 <PropsSection name="TableCell" />
 
@@ -533,16 +387,14 @@ function(){
 
 `data-fs-table`
 
-`data-fs-table-content`
-
-`data-fs-table-head`
+`data-table-head`
 
 `data-fs-table-row`
 
-`data-fs-table-footer`
+`data-table-footer`
 
-`data-fs-table-body`
+`data-table-body`
 
-`data-fs-table-cell="head | data"`
+`data-table-cell='head'`
 
-`data-fs-table-variant="colored | bordered"`
+`data-table-cell='data'`

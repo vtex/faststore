@@ -1,0 +1,30 @@
+import { Button } from '@faststore/ui'
+
+# Button
+
+Buttons indicate actions that users can take, such as adding an item to the cart, submitting a form, and proceeding with an operation.
+
+## Usage
+
+```js filename="demo.tsx" copy
+import { Button } from '@faststore/ui'
+
+<Button>Button</Button>
+```
+
+## Overview
+
+<div style={{ marginTop: "1rem", display: "flex", gap: "1rem" }}>
+  <Button variant="primary">Primary</Button>
+  <Button variant="secondary">Secondary</Button>
+  <Button variant="tertiary">Tertiary</Button>
+  <Button variant="primary" size="small">
+    Small
+  </Button>
+</div>
+
+## Styles
+
+```tsx copy
+import '@faststore/ui/src/components/atoms/Button/styles.scss'
+```

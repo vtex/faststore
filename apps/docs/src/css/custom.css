@@ -143,7 +143,7 @@
    @apply border-none;
  }
 
- .markdown > img, .theme-code-block, .admonition {
+ .markdown img, .theme-code-block, .admonition {
    @apply my-5
  }
 
@@ -154,10 +154,6 @@
 
  body {
    font-family: var(--ifm-font-family-base) !important;
- }
-
- .playgroundContainer_src-theme-Playground-styles-module {
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
  }
 
  .container {
@@ -180,19 +176,12 @@
  }
 
  hr {
-   @apply h-[1px] border-border !important;
-   margin-top: 50px !important;
-   margin-bottom: 40px !important;
+   @apply h-[0.5px] my-5 border-border !important;
  }
 
- .markdown > ol {
+ .markdown ol {
    @apply list-decimal pl-8 my-4;
  }
-
-.markdown > ul {
-   @apply list-disc pl-8;
- }
-
  [class^='card'] {
    @apply bg-transparent border-border !important;
  }
@@ -212,6 +201,10 @@
 
  main a {
    @apply text-rebelPink;
+ }
+
+ .markdown ul {
+   @apply list-disc pl-8;
  }
 
  [class^='tabs'] {
@@ -235,25 +228,24 @@
    @apply mt-16;
  }
 
- main .markdown header > h1, .markdown > h2, .markdown > h3, .markdown > h4 {
+ main h1, h2, h3, h4 {
    @apply font-VTEXMedium text-fontSecondary;
  }
 
- main .markdown header > h1 {
+ main h1 {
    @apply text-4xl;
-   margin-top: 30px;
  }
 
- main .markdown > h2 {
+ main h2 {
    @apply text-2xl mb-5;
  }
 
- main .markdown > h3 {
+ main h3 {
    @apply text-lg;
  }
 
- main .markdown > h4 {
-   @apply text-base font-normal;
+ main h4 {
+   @apply text-lg font-normal;
  }
 
  code {
@@ -439,6 +431,15 @@
   @apply bg-brandlessBlue
  }
 
+  /* Table reset */
+
+  .markdown table:not([data-fs-table-content]):not([class*='tokenTable']),
+  .markdown table > *,
+  .markdown table > * > *,
+  .markdown table > * > * > * {
+   all: revert;
+  }
+
 /* Overview section */
 
  .overviewSection {
@@ -456,13 +457,4 @@
  .overviewSectionItem > div > div {
   display: flex;
   justify-content: center;
- }
-
- /* Table reset */
-
- .markdown table:not([data-fs-table-content]):not([class*='tokenTable']),
- .markdown table > *,
- .markdown table > * > *,
- .markdown table > * > * > * {
-  all: revert;
  }
