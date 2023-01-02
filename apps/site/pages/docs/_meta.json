@@ -1,0 +1,13 @@
+{
+  "index": "Introduction",
+  "-- CMS --": {
+    "type": "separator",
+    "title": "CMS"
+  },
+  "vtex-headless-cms": "VTEX Headless CMS",
+  "-- Themes --": {
+    "type": "separator",
+    "title": "Themes"
+  },
+  "custom-theme": "Custom Theme"
+}

@@ -1,0 +1,18 @@
+{
+  "index": {
+    "title": "FastStore",
+    "type": "page",
+    "display": "hidden",
+    "theme": {
+      "layout": "raw"
+    }
+  },
+  "docs": {
+    "title": "Documentation",
+    "type": "page"
+  },
+  "components": {
+    "title": "Components",
+    "type": "page"
+  }
+}
