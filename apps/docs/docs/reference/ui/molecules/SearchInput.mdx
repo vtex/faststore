@@ -1,10 +1,10 @@
 ---
 description: Search Inputs allow users to enter an input and query results from a database.
-sidebar_custom_props:
+sidebar_custom_props: 
   image: https://vtexhelp.vtexassets.com/assets/docs/src/SearchInput___a823df83b48bf380b8758d80aabdcd0d.png
 ---
 
-import PropsSection from '@site/src/components/PropsSection/PropsSection'
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
 # SearchInput
 
@@ -19,14 +19,20 @@ import { SearchInput } from '@faststore/ui'
 ## Usage
 
 ```tsx live
-<SearchInput placeholder="Search" />
+<SearchInput
+  placeholder="Search"
+/>
 ```
 
 ## With custom icon
 
 ```tsx live
-<SearchInput icon={<CustomIcon />} placeholder="Search" />
+<SearchInput
+  icon={<CustomIcon />}
+  placeholder="Search"
+/>
 ```
+
 
 ## Props
 
@@ -36,4 +42,4 @@ import { SearchInput } from '@faststore/ui'
 
 `data-fs-search-input-form`
 
-This component inherits [Input](/reference/ui/atoms/Input), [Button](/reference/ui/atoms/Button), [Icon](/reference/ui/atoms/Icon) CSS selectors.
+This component inherits [Input](/reference/ui/atoms/Input), [Button](/reference/ui/atoms/Button), [Icon](/reference/ui/atoms/Icon) css selectors.

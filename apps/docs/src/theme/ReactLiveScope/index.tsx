@@ -13,11 +13,10 @@ const value = 3
 const decimalValue = 3.5
 
 const FireIcon = (props) => {
-  const conditionalClass =
-    props['data-fs-aggregate-rating-item'] === 'full'
-      ? 'text-orange-500'
-      : 'text-details'
-  return <i className={`fa fa-fire mr-1 text-2xl ${conditionalClass}`}></i>
+  const conditionalClass = props["data-fs-aggregate-rating-item"] === "full" ? "text-orange-500" : "text-details"
+  return (
+    <i className={`fa fa-fire mr-1 text-2xl ${conditionalClass}`}></i>
+  )
 }
 
 const RatingIcon = (props) => {
