@@ -1,6 +1,9 @@
-import React, { useContext, forwardRef, createContext } from 'react'
-import type { ElementType, FC, HTMLAttributes, ReactElement } from 'react'
-import type { PolymorphicComponentPropsWithRef, PolymorphicRef } from '../../../typings'
+import type { ElementType, HTMLAttributes, ReactElement } from 'react'
+import React, { createContext, forwardRef, useContext } from 'react'
+import type {
+  PolymorphicComponentPropsWithRef,
+  PolymorphicRef,
+} from '../../../typings'
 
 interface AccordionItemContext {
   index: number
@@ -30,45 +33,49 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   prefixId?: string
 }
 
-export type AccordionItemProps<C extends ElementType> = PolymorphicComponentPropsWithRef<
-  C,
-  Props
->
+export type AccordionItemProps<
+  C extends ElementType
+> = PolymorphicComponentPropsWithRef<C, Props>
 
 type AccordionItemComponent = <C extends ElementType = 'div'>(
   props: AccordionItemProps<C>
 ) => ReactElement | null
 
-const AccordionItem: AccordionItemComponent = forwardRef(
-  function AccordionItem<C extends ElementType = 'div'>(
-    {
-      testId = 'store-accordion-item',
-      children,
-      prefixId = '',
-      index = 0,
-      as: MaybeComponent,
-      ...otherProps
-    }: AccordionItemProps<C>,
-    ref: PolymorphicRef<C>
-  ) {
-    const Component = MaybeComponent ?? 'div'
+const AccordionItem: AccordionItemComponent = forwardRef(function AccordionItem<
+  C extends ElementType = 'div'
+>(
+  {
+    testId = 'store-accordion-item',
+    children,
+    prefixId = '',
+    index = 0,
+    as: MaybeComponent,
+    ...otherProps
+  }: AccordionItemProps<C>,
+  ref: PolymorphicRef<C>
+) {
+  const Component = MaybeComponent ?? 'div'
 
-    const context = {
-      index,
-      prefixId,
-      panel: `${prefixId && `${prefixId}-`}panel--${index}`,
-      button: `${prefixId && `${prefixId}-`}button--${index}`,
-    }
-
-    return (
-      <AccordionItemContext.Provider value={context}>
-        <Component ref={ref} data-accordion-item data-testid={testId} {...otherProps}>
-          {children}
-        </Component>
-      </AccordionItemContext.Provider>
-    )
+  const context = {
+    index,
+    prefixId,
+    panel: `${prefixId && `${prefixId}-`}panel--${index}`,
+    button: `${prefixId && `${prefixId}-`}button--${index}`,
   }
-)
+
+  return (
+    <AccordionItemContext.Provider value={context}>
+      <Component
+        ref={ref}
+        data-accordion-item
+        data-testid={testId}
+        {...otherProps}
+      >
+        {children}
+      </Component>
+    </AccordionItemContext.Provider>
+  )
+})
 
 export function useAccordionItem() {
   const context = useContext(AccordionItemContext)
