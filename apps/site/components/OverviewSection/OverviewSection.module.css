@@ -5,14 +5,8 @@
   /* border: 1px solid rgba(0, 0, 0, 0.1); */
   border-radius: 4px;
   padding: var(--fs-spacing-4) var(--fs-spacing-5);
-  margin: var(--fs-spacing-5) 0 var(--fs-spacing-7);
+  margin: var(--fs-spacing-3) 0;
   box-shadow: 0 0 10px rgb(0 0 0 / 10%);
-}
-
-.overviewSectionRow {
-  display: flex;
-  flex-direction: column;
-  row-gap: 16px;
 }
 
 .overviewSectionItem > div > div {
@@ -22,4 +16,13 @@
 
 .overviewSection[data-doc-overview-dark="true"] {
   background-color: #171a1c;
+}
+
+.overviewSection[data-doc-overview-direction="row"] {
+  flex-direction: row;
+  row-gap: 16px;
+}
+
+.overviewSection[data-doc-overview-direction="column"] {
+  flex-direction: column;
 }
