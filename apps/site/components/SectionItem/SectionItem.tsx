@@ -1,11 +1,47 @@
-import React from 'react'
-import styles from './sectionItem.module.css'
+import React, { CSSProperties, PropsWithChildren, ReactNode } from 'react'
+import styles from './SectionItem.module.css'
 
-const SectionItem = ({children}) => {
+import { LinkButton } from '@faststore/ui'
+import { ArrowRight } from '@faststore/components'
+
+export type SectionItemProps = {
+  title: string
+  description: string | ReactNode
+  actionPath?: string
+  containerStyle?: CSSProperties
+}
+
+const SectionItem = ({
+  title,
+  description,
+  children,
+  actionPath,
+  containerStyle,
+  ...otherProps
+}: PropsWithChildren<SectionItemProps>) => {
   return (
-    <article className={styles.sectionItem}>
-      {children}
-    </article>
+    <li className={styles.sectionItem} {...otherProps}>
+      <div style={containerStyle}>
+        {children}
+      </div>
+      <article>
+        <h3 className="nx-font-semibold nx-tracking-tight nx-mt-8 nx-text-2xl">{title}</h3>
+        <p>{description}</p>
+        {actionPath && (
+          <LinkButton
+            size="small"
+            variant="tertiary"
+            href={actionPath}
+            icon={
+              <ArrowRight />
+            }
+            iconPosition="right"
+          >
+            See more
+          </LinkButton>
+        )}
+      </article>
+    </li>
   )
 }
 

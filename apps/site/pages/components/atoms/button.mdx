@@ -44,7 +44,7 @@ Buttons indicate actions that users can take, such as adding an item to the cart
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from <a href="https://www.faststore.dev/components/get-started-faststore-ui">@faststore/ui</a>
 
 ```tsx
 import { Button } from '@faststore/ui'
@@ -574,10 +574,10 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 
 Use the `Button` component to communicate user actions on the following components:
 
-- Buy-now and add-to-cart buttons on [Product Cards](/reference/ui/molecules/ProductCard)
-- Call-to-action buttons on [Cards](/reference/ui/organisms/Card)
-- Submit and/or withdraw actions on [Forms](/reference/ui/molecules/Form)
-- Submit and/or withdraw actions on [Modal](/reference/ui/molecules/Modal) windows.
+- Buy-now and add-to-cart buttons on [Product Cards](/components/molecules/ProductCard)
+- Call-to-action buttons on [Cards](/components/organisms/Card)
+- Submit and/or withdraw actions on [Forms](/components/molecules/Form)
+- Submit and/or withdraw actions on [Modal](/components/molecules/Modal) windows.
 
 ---
 
@@ -617,26 +617,34 @@ For further customization, you can use the following data attributes:
 - Avoid cluttering the UI with too many buttons.
 - Avoid having more than one Primary action button on the screen at a time.
 - Avoid using disabled buttons, if possible. Instead, give preference to hiding the unavailable option.
-- Don't place buttons next to [Badges](/reference/ui/atoms/Badge). Although badges and buttons are similar in appearance, badges are not interactive and may confuse users if not used in the proper context.
-- Don't use Buttons as [Links](/reference/ui/atoms/Link). Links are not intended to invite users to take action. Instead, they redirect users somewhere.
+- Don't place buttons next to [Badges](/components/atoms/Badge). Although badges and buttons are similar in appearance, badges are not interactive and may confuse users if not used in the proper context.
+- Don't use Buttons as [Links](/components/atoms/Link). Links are not intended to invite users to take action. Instead, they redirect users somewhere.
 - Avoid using `aria-label` when the button already has a label.
 
 ---
 
 ## Related components
 
-<SectionItem>
-  <IconButton icon={<ShoppingCart />} aria-label="Buy" />
-  [IconButton](/reference/ui/molecules/IconButton) is a button which content is only
-  an icon, without any label.
-</SectionItem>
-<SectionItem>
-  <BuyButton>Buy Now</BuyButton>
-  [BuyButton](/reference/ui/molecules/BuyButton) intends to send the user to the
-  checkout/cart step directly.
-</SectionItem>
-<SectionItem>
-  <LinkButton>Link Button</LinkButton>
-  [LinkButton](/reference/ui/molecules/LinkButton) is similar to a button, however
-  acts as a link to navigate users between pages.
-</SectionItem>
+<SectionList grid="row">
+  <SectionItem
+    title="Icon Button"
+    description="A button which content is only an icon, without any label."
+    actionPath="/components/molecules/iconButton"
+  >
+    <IconButton icon={<ShoppingCart />} aria-label="Buy" />
+  </SectionItem>
+  <SectionItem
+    title="Buy Button"
+    description="A button with the intent of directly sending the user to the checkout/cart step."
+    actionPath="/components/molecules/buyButton"
+  >
+    <BuyButton>Buy Now</BuyButton>
+  </SectionItem>
+  <SectionItem
+    title="Link Button"
+    description="Is similar to a button, however acts as a link to navigate users between pages."
+    actionPath="/components/molecules/linkButton"
+  >
+    <LinkButton>Link Button</LinkButton>
+  </SectionItem>
+</SectionList>
