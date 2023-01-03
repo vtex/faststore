@@ -29,7 +29,6 @@ const OutOfStockTemplate: Story<OutOfStockTemplateProps> = ({
   const handlerSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    // eslint-disable-next-line no-alert
     alert(value)
   }
 

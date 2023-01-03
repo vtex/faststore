@@ -36,7 +36,6 @@ export default function AnnouncementBar() {
       <div className={styles.announcementBarContent}>
         <div
           className="inline pr-1"
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
             __html: content,
           }}

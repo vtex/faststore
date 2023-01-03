@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { renderHook } from '@testing-library/react-hooks'
 import React from 'react'
 
