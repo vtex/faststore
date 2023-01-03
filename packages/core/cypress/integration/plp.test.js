@@ -211,7 +211,7 @@ describe('Infinite Scroll pagination', () => {
 
     cy.getById('show-more').should('exist').click()
 
-    cy.scrollTo('top')
+    cy.scrollTo('top', { duration: 500 })
       .location('search')
       .should('match', /page=0$/)
 

@@ -73,6 +73,8 @@ describe('add_to_cart event', () => {
 
       // Add to cart
       cy.getById('buy-button')
+        .should('be.visible')
+        .scrollIntoView({ duration: 500 })
         .click()
         .then(($btn) => {
           cy.itemsInCart(1)
@@ -92,6 +94,8 @@ describe('add_to_cart event', () => {
 
       // Add to cart
       cy.getById('buy-button')
+        .should('be.visible')
+        .scrollIntoView({ duration: 500 })
         .click()
         .then(($btn) => {
           cy.itemsInCart(1)
@@ -143,7 +147,7 @@ describe('remove_from_cart event', () => {
 
   context('when removing a product from cart', () => {
     beforeEach(() => {
-      cy.getById('remove-from-cart-button').click()
+      cy.getById('remove-from-cart-button').should('be.visible').click()
     })
 
     it('adds remove_from_cart event in the data layer', () => {
@@ -154,10 +158,14 @@ describe('remove_from_cart event', () => {
 
       // Add item to cart
       cy.getById('buy-button')
+        .should('be.visible')
+        .scrollIntoView({ duration: 500 })
         .click()
         .then(() => {
           cy.itemsInCart(1)
-          cy.getById('checkout-button').should('be.enabled')
+          cy.getById('checkout-button')
+            .should('be.visible')
+            .should('be.enabled')
           cy.itemsInCart(1)
 
           // Remove the added item
@@ -189,10 +197,14 @@ describe('remove_from_cart event', () => {
         .click()
         .then(() => {
           cy.getById('buy-button')
+            .should('be.visible')
+            .scrollIntoView({ duration: 500 })
             .click()
             .then(($btn) => {
               cy.itemsInCart(2)
-              cy.getById('checkout-button').should('be.enabled')
+              cy.getById('checkout-button')
+                .should('be.visible')
+                .should('be.enabled')
               cy.itemsInCart(2)
 
               // Remove the added item
@@ -202,7 +214,9 @@ describe('remove_from_cart event', () => {
                 .click()
                 .then(() => {
                   cy.itemsInCart(1)
-                  cy.getById('checkout-button').should('be.enabled')
+                  cy.getById('checkout-button')
+                    .should('be.visible')
+                    .should('be.enabled')
                   cy.itemsInCart(1)
                   const skuId = $btn.attr('data-sku')
 
@@ -242,6 +256,8 @@ describe('select_item event', () => {
 
     cy.getById('store-product-card').first().click()
     cy.getById('buy-button')
+      .should('be.visible')
+      .scrollIntoView({ duration: 500 })
       .then(($btn) => {
         skuId = $btn.attr('data-sku')
       })
@@ -364,7 +380,10 @@ describe('view_cart event', () => {
     cy.visit(pages.pdp, options)
     cy.waitForHydration()
 
-    cy.getById('buy-button').click()
+    cy.getById('buy-button')
+      .should('be.visible')
+      .scrollIntoView({ duration: 500 })
+      .click()
     cy.getById('cart-sidebar').should('be.visible')
 
     dataLayerHasEvent('view_cart')

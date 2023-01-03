@@ -63,7 +63,9 @@ describe('On product description pages', () => {
           const sellerId = $btn.attr('data-seller')
 
           // Wait for optimistic cart to kick in
-          cy.getById('checkout-button').should('be.enabled')
+          cy.getById('checkout-button')
+            .should('be.visible')
+            .should('be.enabled')
 
           cy.getById('cart-item').should(($item) => {
             expect($item.attr('data-sku')).to.eq(skuId)
@@ -86,7 +88,7 @@ describe('On product description pages', () => {
 
       cy.itemsInCart(1)
 
-      cy.getById('checkout-button').should('be.enabled')
+      cy.getById('checkout-button').should('be.visible').should('be.enabled')
 
       cy.itemsInCart(1)
 

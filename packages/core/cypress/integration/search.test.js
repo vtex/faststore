@@ -21,9 +21,14 @@ describe('Search input', () => {
       cy.visit(pages.home, options)
       cy.waitForHydration()
 
-      cy.getById('store-input-mobile-button').click({ force: true })
+      cy.getById('store-input-mobile-button')
+        .should('exist')
+        .scrollIntoView({ duration: 500 })
+        .click({ force: true })
 
       cy.getById('store-input-mobile')
+        .should('exist')
+        .scrollIntoView({ duration: 500 })
         .click()
         .type(term)
         .within(() => {
