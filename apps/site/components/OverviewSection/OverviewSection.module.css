@@ -2,7 +2,6 @@
   display: flex;
   column-gap: 16px;
   align-items: center;
-  /* border: 1px solid rgba(0, 0, 0, 0.1); */
   border-radius: 4px;
   padding: var(--fs-spacing-4) var(--fs-spacing-5);
   margin: var(--fs-spacing-3) 0;
