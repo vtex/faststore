@@ -1,12 +1,12 @@
 import React from 'react'
 import styles from './OverviewSection.module.css'
 
-const OverViewSectionRow = ({children}) => {
+const OverviewSectionRow = ({children}) => {
   return (
-    <div className={styles.overviewSectionRow}>
+    <div className={styles.OverviewSectionRow}>
       {children}
     </div>
   )
 }
 
-export default OverViewSectionRow
+export default OverviewSectionRow
