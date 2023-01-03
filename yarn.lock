@@ -2334,18 +2334,6 @@
   resolved "https://registry.yarnpkg.com/@faststore/components/-/components-1.12.32.tgz#2c50bf528fe92b394b533034f30091f462812880"
   integrity sha512-XVtWCp4RKpD0umr40vNYw0myh06wwIJ77i8MwfhWqzBEzZm9ht1E3nBoPcfYvAk73WFDHrHcdokiqBVfpPMRnA==
 
-"@faststore/eslint-config@*":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@faststore/eslint-config/-/eslint-config-0.0.1.tgz#c4dea566a157ada8e1d8a688190d9e3f7d720968"
-  integrity sha512-HqsjnT/IcQjWb/cViqrHJiuhQXp2Mi1OPKSQl637pYNsKS7MOpTCI4C+2+VZKnYIt867bbRx0hI9qCXYAINP0A==
-  dependencies:
-    eslint "7.32.0"
-    eslint-config-next "13.0.0"
-    eslint-config-prettier "^8.3.0"
-    eslint-config-turbo latest
-    eslint-plugin-react "7.31.8"
-    next "13.0.7"
-
 "@faststore/styles@^2.0.3-alpha.0":
   version "2.0.3-alpha.0"
   resolved "https://registry.yarnpkg.com/@faststore/styles/-/styles-2.0.3-alpha.0.tgz#b543c1f982f0bf65235bc48ae18956dad2aafa91"
@@ -18315,7 +18303,7 @@ nextra-theme-docs@^2.0.1:
     next-themes "^0.2.1"
     scroll-into-view-if-needed "^3.0.0"
 
-nextra@^2.0.1:
+nextra@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/nextra/-/nextra-2.0.3.tgz#9075523d7113e17303881164c108d30832e720aa"
   integrity sha512-GttZMwfHiVcrnVMnN2PKq2mS6YoQ0zrbzRYS838WYfzUpjIPCR6L8rJbAEd00kcrJNM1MvSCxONOTqGDDjW7YA==
