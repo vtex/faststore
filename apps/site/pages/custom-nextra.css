@@ -11,7 +11,7 @@
 
 .nx-w-full > header p {
   margin-top: var(--fs-spacing-2);
-  line-height: var(--fs-text-size-5);
+  line-height: var(--fs-text-size-4);
 }
 
 /* Divider */

@@ -11,7 +11,7 @@ sidebar_custom_props:
 import { Button, IconButton, BuyButton, LinkButton } from '@faststore/ui'
 import { ShoppingCart } from '@faststore/components'
 import PropsSection from '../../../components/PropsSection/PropsSection'
-import SectionItem from '../../../components/SectionItem/SectionItem'
+import { SectionItem, SectionList } from '../../../components/SectionItem'
 import { TokenTable, TokenRow, TokenDivider } from '../../../components/Tokens'
 import {
   OverviewSection,
@@ -625,18 +625,26 @@ For further customization, you can use the following data attributes:
 
 ## Related components
 
-<SectionItem>
-  <IconButton icon={<ShoppingCart />} aria-label="Buy" />
-  [IconButton](/reference/ui/molecules/IconButton) is a button which content is only
-  an icon, without any label.
-</SectionItem>
-<SectionItem>
-  <BuyButton>Buy Now</BuyButton>
-  [BuyButton](/reference/ui/molecules/BuyButton) intends to send the user to the
-  checkout/cart step directly.
-</SectionItem>
-<SectionItem>
-  <LinkButton>Link Button</LinkButton>
-  [LinkButton](/reference/ui/molecules/LinkButton) is similar to a button, however
-  acts as a link to navigate users between pages.
-</SectionItem>
+<SectionList grid="row">
+  <SectionItem
+    title="Icon Button"
+    description="A button which content is only an icon, without any label."
+    actionPath="/components/molecules/iconButton"
+  >
+    <IconButton icon={<ShoppingCart />} aria-label="Buy" />
+  </SectionItem>
+  <SectionItem
+    title="Buy Button"
+    description="A button with the intent of directly sending the user to the checkout/cart step."
+    actionPath="/components/molecules/buyButton"
+  >
+    <BuyButton>Buy Now</BuyButton>
+  </SectionItem>
+  <SectionItem
+    title="Link Button"
+    description="Is similar to a button, however acts as a link to navigate users between pages."
+    actionPath="/components/molecules/linkButton"
+  >
+    <LinkButton>Link Button</LinkButton>
+  </SectionItem>
+</SectionList>
