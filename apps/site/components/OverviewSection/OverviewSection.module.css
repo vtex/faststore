@@ -1,16 +1,25 @@
-.overview-section {
+.overviewSection {
   display: flex;
   column-gap: 16px;
   align-items: center;
+  /* border: 1px solid rgba(0, 0, 0, 0.1); */
+  border-radius: 4px;
+  padding: var(--fs-spacing-4) var(--fs-spacing-5);
+  margin: var(--fs-spacing-5) 0 var(--fs-spacing-7);
+  box-shadow: 0 0 10px rgb(0 0 0 / 10%);
 }
 
-.overview-section-row {
+.overviewSectionRow {
   display: flex;
   flex-direction: column;
   row-gap: 16px;
 }
 
-.overview-section-item > div > div {
+.overviewSectionItem > div > div {
   display: flex;
   justify-content: center;
  }
+
+.overviewSection[data-doc-overview-dark="true"] {
+  background-color: #171a1c;
+}

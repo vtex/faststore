@@ -1,9 +1,14 @@
 import React from 'react'
 import styles from './OverviewSection.module.css'
 
-const OverviewSection = ({children}) => {
+export type OverviewSectionProps = {
+  dark?: boolean
+}
+
+
+const OverviewSection = ({children, dark}) => {
   return (
-    <div className={styles.OverviewSection}>
+    <div className={styles.overviewSection} data-doc-overview-dark={dark}>
       {children}
     </div>
   )

@@ -3,9 +3,9 @@ import styles from './OverviewSection.module.css'
 
 const OverviewSectionItem = ({children}) => {
   return (
-    <div className={styles.OverviewSectionItem}>
+    <article className={styles.overviewSectionItem}>
       {children}
-    </div>
+    </article>
   )
 }
 
