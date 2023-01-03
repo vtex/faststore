@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.31-alpha.0 (2023-01-03)
+
+
+### Bug Fixes
+
+* turbo config ([0048756](https://github.com/vtex/faststore/commit/00487564d0aa2a4bee382574a40fa20431a8f0eb))
+
+
+
 ## 2.0.30-alpha.0 (2023-01-02)
 
 
