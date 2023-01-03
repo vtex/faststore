@@ -1,5 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["OCLIF_COMPILATION", "NODE_ENV"],
   "pipeline": {
     "site#build": {
       "dependsOn": ["^build"],
@@ -13,9 +14,6 @@
       "outputs": ["dist/**"],
       "dependsOn": ["^build"]
     },
-    "dev": {
-      "cache": false
-    },
     "test": {
       "dependsOn": ["^build"],
       "outputs": []
@@ -24,7 +22,12 @@
       "outputs": []
     },
     "start": {},
-    "size": {}
-  },
-  "globalEnv": ["OCLIF_COMPILATION", "NODE_ENV"]
+    "size": {},
+    "develop": {
+      "cache": false
+    },
+    "dev": {
+      "cache": false
+    }
+  }
 }
