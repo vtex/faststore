@@ -14,7 +14,7 @@ const Dropdown = ({
   children,
   isOpen: isOpenDefault = false,
   onDismiss,
-  id = 'store-dropdown',
+  id = 'fs-dropdown',
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(isOpenDefault)
   const dropdownItemsRef = useRef<HTMLButtonElement[]>([])
