@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### 0.3.15 (2023-01-03)
+
+
+### Features
+
+* Replaces SROnly & Toggle & ToggleField FSUI ([#335](https://github.com/vtex-sites/nextjs.store/issues/335)) ([b096874](https://github.com/vtex-sites/nextjs.store/commit/b096874cae5e24fb4bfbdfd612f6bcc1f2f6bb25))
+
+
+### Chores
+
+* Replaces `Hero` FSUI ([#324](https://github.com/vtex-sites/nextjs.store/issues/324)) ([ff40590](https://github.com/vtex-sites/nextjs.store/commit/ff40590e07716ab5d1a2b2020d9b668f73b24c90))
+
 ### [0.3.14](https://github.com/vtex-sites/nextjs.store/compare/0.3.13...0.3.14) (2022-12-19)
 
 
