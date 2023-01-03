@@ -1,13 +1,12 @@
-/* eslint-disable react/display-name */
 import { renderHook } from '@testing-library/react-hooks'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 
 import { initSearchState, SearchProvider, usePagination } from '../../src'
 
 test('usePagination: paginates forwards', async () => {
   const totalItems = 20
   const { result } = renderHook(usePagination, {
-    wrapper: ({ children }) => (
+    wrapper: ({ children }: PropsWithChildren<any>) => (
       <SearchProvider
         itemsPerPage={10}
         onChange={() => {}}
@@ -29,7 +28,7 @@ test('usePagination: paginates forwards', async () => {
 test('usePagination: paginates backwards', async () => {
   const totalItems = 20
   const { result } = renderHook(usePagination, {
-    wrapper: ({ children }) => (
+    wrapper: ({ children }: PropsWithChildren<any>) => (
       <SearchProvider
         itemsPerPage={10}
         onChange={() => {}}

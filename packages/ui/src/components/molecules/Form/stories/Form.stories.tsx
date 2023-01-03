@@ -16,7 +16,6 @@ const FormTemplate: Story<FormProps> = ({ testId }) => {
       testId={testId}
       onSubmit={(e) => {
         e.preventDefault()
-        // eslint-disable-next-line no-alert
         alert(`Thank you for subscribing ${name}! Email: ${email}`)
       }}
     >

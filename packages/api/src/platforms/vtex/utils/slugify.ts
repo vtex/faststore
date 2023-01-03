@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 /**
  * VTEX catalog slugify function
  *

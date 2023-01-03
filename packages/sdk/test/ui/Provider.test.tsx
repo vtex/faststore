@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { act, renderHook } from '@testing-library/react-hooks'
 import type { FC } from 'react'
 
@@ -38,7 +38,7 @@ test('UI PRovider: Extend UI context', async () => {
     displayModal: false,
   }
 
-  const CustomUIProvider: FC = ({ children }) => (
+  const CustomUIProvider: FC = ({ children }: PropsWithChildren<any>) => (
     <UIProvider actions={actions} effects={effects} initialState={initialState}>
       {children}
     </UIProvider>
@@ -97,7 +97,7 @@ test('UI PRovider: Extend UI context with custom data', async () => {
     },
   }
 
-  const CustomUIProvider: FC = ({ children }) => (
+  const CustomUIProvider: FC = ({ children }: PropsWithChildren<any>) => (
     <UIProvider actions={actions} effects={effects} initialState={initialState}>
       {children}
     </UIProvider>
