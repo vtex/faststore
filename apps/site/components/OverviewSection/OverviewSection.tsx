@@ -5,7 +5,6 @@ export type OverviewSectionProps = {
   dark?: boolean
 }
 
-
 const OverviewSection = ({children, dark}) => {
   return (
     <div className={styles.overviewSection} data-doc-overview-dark={dark}>
