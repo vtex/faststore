@@ -1,8 +1,7 @@
-import { Price as UIPrice } from '@faststore/ui'
+import { Price as UIPrice, SROnly as UISROnly } from '@faststore/ui'
 import { memo } from 'react'
 import type { PriceProps } from '@faststore/ui'
 
-import SROnly from '../SROnly'
 import styles from './price.module.scss'
 
 type Props = PriceProps & {
@@ -19,7 +18,7 @@ type Props = PriceProps & {
 function Price({ classes = '', SRText, ...props }: Props) {
   return (
     <>
-      <SROnly text={SRText} />
+      <UISROnly text={SRText} />
       <UIPrice
         data-fs-price
         className={`${styles.fsPrice} ${classes}`}

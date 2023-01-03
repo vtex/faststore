@@ -1,13 +1,13 @@
 import {
   List as UIList,
   PaymentMethods as UIPaymentMethods,
+  SROnly as UISROnly,
 } from '@faststore/ui'
 
 import Logo from 'src/components/ui/Logo'
 import IncentivesFooter from 'src/components/sections/Incentives/IncentivesFooter'
 import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
-import SROnly from 'src/components/ui/SROnly'
 import { mark } from 'src/sdk/tests/mark'
 
 import styles from './footer.module.scss'
@@ -112,35 +112,35 @@ export function Footer({
             <UIList>
               <li>
                 <Icon width="34px" height="24px" name="Visa" />
-                <SROnly text="Visa" />
+                <UISROnly text="Visa" />
               </li>
               <li>
                 <Icon width="34px" height="24px" name="Diners" />
-                <SROnly text="Diners Club" />
+                <UISROnly text="Diners Club" />
               </li>
               <li>
                 <Icon width="34px" height="24px" name="Mastercard" />
-                <SROnly text="Mastercard" />
+                <UISROnly text="Mastercard" />
               </li>
               <li>
                 <Icon width="34px" height="24px" name="EloCard" />
-                <SROnly text="Elo Card" />
+                <UISROnly text="Elo Card" />
               </li>
               <li>
                 <Icon width="34px" height="24px" name="PayPal" />
-                <SROnly text="PayPal" />
+                <UISROnly text="PayPal" />
               </li>
               <li>
                 <Icon width="34px" height="24px" name="Stripe" />
-                <SROnly text="Stripe" />
+                <UISROnly text="Stripe" />
               </li>
               <li>
                 <Icon width="34px" height="24px" name="GooglePay" />
-                <SROnly text="Google Pay" />
+                <UISROnly text="Google Pay" />
               </li>
               <li>
                 <Icon width="34px" height="24px" name="ApplePay" />
-                <SROnly text="Apple Pay" />
+                <UISROnly text="Apple Pay" />
               </li>
             </UIList>
           </UIPaymentMethods>

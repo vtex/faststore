@@ -3,10 +3,10 @@ import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import type { SearchState } from '@faststore/sdk'
+import { SROnly as UISROnly } from '@faststore/ui'
 
 import Breadcrumb from 'src/components/sections/Breadcrumb'
 import ProductGallery from 'src/components/sections/ProductGallery'
-import SROnly from 'src/components/ui/SROnly'
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
 import { mark } from 'src/sdk/tests/mark'
@@ -55,7 +55,7 @@ function Page() {
         }}
       />
 
-      <SROnly as="h1" text={title} />
+      <UISROnly as="h1" text={title} />
 
       {/*
         WARNING: Do not import or render components from any
