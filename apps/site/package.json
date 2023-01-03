@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@faststore/ui": "^2.0.31-alpha.0",
+    "@napi-rs/simple-git": "^0.1.8",
     "next": "13.0.7",
     "nextra": "^2.0.3",
     "nextra-theme-docs": "^2.0.1",
