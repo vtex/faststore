@@ -9,3 +9,8 @@
   flex-direction: column;
   row-gap: 16px;
 }
+
+.overview-section-item > div > div {
+  display: flex;
+  justify-content: center;
+ }

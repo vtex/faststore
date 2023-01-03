@@ -3,7 +3,7 @@ import styles from './OverviewSection.module.css'
 
 const OverviewSection = ({children}) => {
   return (
-    <div className={styles.overviewSection}>
+    <div className={styles.OverviewSection}>
       {children}
     </div>
   )
