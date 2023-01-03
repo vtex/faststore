@@ -1,6 +1,6 @@
 .turbo
 .docusaurus
-.next
+# .next
 
 # VSCode
 .vscode
