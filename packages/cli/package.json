@@ -27,11 +27,13 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
+    "@faststore/eslint-config": "*",
     "@faststore/shared": "^2.0.30-alpha.0",
     "@types/chai": "^4",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^16.11.63",
     "chai": "^4",
+    "eslint": "7.32.0",
     "oclif": "^3",
     "shx": "^0.3.3",
     "ts-node": "^10.9.1",

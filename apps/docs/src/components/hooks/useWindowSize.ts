@@ -21,7 +21,6 @@ export function useWindowSize(): WindowSizeInterface {
     return { windowWidth: 0, windowHeight: 0, scrollHeight: 0 }
   }
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     function handleResize() {
       setWindowSize({

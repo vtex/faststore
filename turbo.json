@@ -1,5 +1,6 @@
 {
   "$schema": "https://turborepo.org/schema.json",
+  "globalEnv": ["OCLIF_COMPILATION", "NODE_ENV"],
   "pipeline": {
     "site#build": {
       "dependsOn": ["^build"],

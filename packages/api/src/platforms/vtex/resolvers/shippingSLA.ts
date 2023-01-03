@@ -3,7 +3,6 @@ import type { Resolver } from '..'
 type Unit = 'bd' | 'd' | 'h' | 'm'
 const units = ['bd', 'd', 'h', 'm'] as const
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isUnit = (x: any): x is Unit => units.includes(x)
 
 const localizedEstimates: Record<string, Record<string, string>> = {

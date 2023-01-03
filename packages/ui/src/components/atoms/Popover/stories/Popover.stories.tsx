@@ -16,7 +16,6 @@ const PopoverTemplate: Story<PopoverProps> = ({ children }) => {
       <label>
         <span>Type for a special message</span>
         <Input
-          variant={value.length > 0 ? 'success' : undefined}
           type="text"
           onChange={(event) => setValue(event.target.value)}
           ref={ref}
@@ -38,7 +37,7 @@ const argTypes: ComponentArgTypes<Omit<PopoverProps, 'targetRef'>> = {
   },
 }
 
-export default {
+const story = {
   title: 'Atoms/Popover',
   argTypes,
   parameters: {
@@ -47,3 +46,5 @@ export default {
     },
   },
 }
+
+export default story
