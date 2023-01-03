@@ -1,18 +1,16 @@
 {
-  "$schema": "https://turborepo.org/schema.json",
-  "globalEnv": ["OCLIF_COMPILATION", "NODE_ENV"],
+  "$schema": "https://turbo.build/schema.json",
   "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
     "site#build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**"]
     },
-    "docs#build": {
-      "dependsOn": ["^build"],
-      "outputs": [".docusaurus/**", "build/**"]
-    },
-    "build": {
-      "outputs": ["dist/**"],
-      "dependsOn": ["^build"]
+    "dev": {
+      "cache": false
     },
     "test": {
       "dependsOn": ["^build"],
@@ -22,12 +20,7 @@
       "outputs": []
     },
     "start": {},
-    "size": {},
-    "develop": {
-      "cache": false
-    },
-    "dev": {
-      "cache": false
-    }
-  }
+    "size": {}
+  },
+  "globalEnv": ["OCLIF_COMPILATION", "NODE_ENV"]
 }

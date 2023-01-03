@@ -14,7 +14,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "cross-env NODE_ENV=production tsc",
-    "develop": "tsc --watch",
+    "dev": "tsc --watch",
     "lint": "eslint src/**/*.ts"
   },
   "peerDependencies": {
