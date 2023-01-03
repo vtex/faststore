@@ -1,9 +1,16 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "baseBranch": "origin/main",
   "pipeline": {
+    "site#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**"]
+    },
+    "docs#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".docusaurus/**", "build/**"]
+    },
     "build": {
-      "outputs": ["dist/**", "build/**", ".docusaurus/**"],
+      "outputs": ["dist/**"],
       "dependsOn": ["^build"]
     },
     "test": {

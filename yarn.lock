@@ -5132,10 +5132,17 @@
   resolved "https://registry.yarnpkg.com/@faststore/components/-/components-1.12.32.tgz#2c50bf528fe92b394b533034f30091f462812880"
   integrity sha512-XVtWCp4RKpD0umr40vNYw0myh06wwIJ77i8MwfhWqzBEzZm9ht1E3nBoPcfYvAk73WFDHrHcdokiqBVfpPMRnA==
 
-"@faststore/ui@^1.12.32":
-  version "1.12.32"
-  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-1.12.32.tgz#8c1c98a8bd4eb7ba20f71bf3e8c54cd626794149"
-  integrity sha512-KufoxOLeHbNsCBQPRXgyE+B2lxE1E0HfjXl8tgOwDUk+zXl8AWT3R+OdtJdsUA2WHsRj6m3wnjxs4ssnoLb+SQ==
+"@faststore/styles@^2.0.3-alpha.0":
+  version "2.0.3-alpha.0"
+  resolved "https://registry.yarnpkg.com/@faststore/styles/-/styles-2.0.3-alpha.0.tgz#b543c1f982f0bf65235bc48ae18956dad2aafa91"
+  integrity sha512-XEg42JYABU6Lu73PrOumueCoLtWy53YhdqRsisBSghyQQwmlNK5sCViOvRfRfbfcL3xOJy4dvDQa1fh8Ghsysg==
+  dependencies:
+    postcss-cli "^8.3.1"
+
+"@faststore/ui@^2.0.3-alpha.0":
+  version "2.0.3-alpha.0"
+  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-2.0.3-alpha.0.tgz#0c917ac39379d24eeedf160851e5595a65053a8e"
+  integrity sha512-WhOIgLHUw4l4aZQys2ZBlXnxMG7mgNZAGlbF0FQ1ysNcUDB37V1uTmHZSr/+2To0IovP6WwLX39jb6D4fX+XLQ==
   dependencies:
     "@reach/popover" "^0.16.0"
     "@storybook/addon-a11y" "^6.4.4"
@@ -14895,13 +14902,6 @@ docusaurus-plugin-redoc@^0.9.0:
     "@docusaurus/utils" "^2.0.0-beta.17"
     joi "^17.5.0"
     yaml "^1.10.2"
-
-docusaurus-plugin-sass@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/docusaurus-plugin-sass/-/docusaurus-plugin-sass-0.2.2.tgz#9b7f8c6fbe833677064ec05b09b98d90b50be324"
-  integrity sha512-ZZBpj3PrhGpYE2kAnkZB9NRwy/CDi4rGun1oec6PYR8YvGzqxYGtXvLgHi6FFbu8/N483klk8udqyYMh6Ted+A==
-  dependencies:
-    sass-loader "^10.1.1"
 
 "docusaurus-tailwindcss-loader@file:apps/docs/plugins/docusaurus-tailwindcss-loader":
   version "0.0.0"
@@ -27688,17 +27688,6 @@ sane@^4.0.3:
     micromatch "^3.1.4"
     minimist "^1.1.1"
     walker "~1.0.5"
-
-sass-loader@^10.1.1:
-  version "10.3.1"
-  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-10.3.1.tgz#a45f0d1dd7ea90de7eb099239a18c83dea6e6341"
-  integrity sha512-y2aBdtYkbqorVavkC3fcJIUDGIegzDWPn3/LAFhsf3G+MzPKTJx37sROf5pXtUeggSVbNbmfj8TgRaSLMelXRA==
-  dependencies:
-    klona "^2.0.4"
-    loader-utils "^2.0.0"
-    neo-async "^2.6.2"
-    schema-utils "^3.0.0"
-    semver "^7.3.2"
 
 sass-loader@^13.1.0:
   version "13.1.0"
