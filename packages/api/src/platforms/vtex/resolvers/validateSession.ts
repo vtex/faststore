@@ -55,7 +55,12 @@ export const validateSession = async (
           familyName: profile.lastName?.value ?? '',
         }
       : null,
-    public: publicFields || [],
+    public: Object.keys(publicFields).map((key: string) => {
+      return {
+        key,
+        value: publicFields[key].value,
+      }
+    }),
   }
 
   console.log('newSession: ', newSession)

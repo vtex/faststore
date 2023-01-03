@@ -13,9 +13,8 @@ export interface Person {
 }
 
 export interface Public {
-  [key: string]: {
-    value: string
-  }
+  key: string
+  value: string
 }
 
 export interface Session {
@@ -25,7 +24,7 @@ export interface Session {
   channel: string | null
   postalCode: string | null
   person: Person | null
-  public: Public | null
+  public: Public[] | null
 }
 
 export const createSessionStore = (
