@@ -4,23 +4,28 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/RadioLabel___b3fc3b7a139796e4921349df5aaa270c.png
 ---
 
-import PropsSection from '@site/src/components/PropsSection/PropsSection'
-import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { Toggle, ToggleField } from '@faststore/ui'
+
+<header>
 
 # Toggle
 
 The Toggle is a customized checkbox input styled to look like a switch button.
 
+</header>
+
 ## Overview
 
-```tsx live
-<div className="overviewSection">
+<OverviewSection>
   <Toggle id="toggle-default" />
   <Toggle id="toggle-default-checked" checked readOnly />
   <Toggle id="toggle-default-disabled" disabled />
   <Toggle id="toggle-default-checked-disabled" disabled checked readOnly />
-</div>
-```
+</OverviewSection>
 
 ---
 
@@ -28,13 +33,13 @@ The Toggle is a customized checkbox input styled to look like a switch button.
 
 Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
-```tsx
+```tsx copy
 import { Toggle } from '@faststore/ui'
 ```
 
 Import Styles
 
-```tsx
+```tsx copy
 import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
 ```
 
@@ -42,13 +47,17 @@ import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
 
 ## Usage
 
-```tsx live
+<OverviewSection>
+  <Toggle id="toggle-example" />
+</OverviewSection>
+
+```tsx copy
 <Toggle id="toggle-example" />
 ```
 
 ---
 
-### Props
+## Props
 
 <PropsSection name="Toggle" />
 
@@ -196,10 +205,12 @@ import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
 
 #### Checked
 
-```tsx live
-<div className="overviewSection">
+<OverviewSection>
   <Toggle id="toggle-checked" label="Checked" checked readOnly />
-</div>
+</OverviewSection>
+
+```tsx copy
+<Toggle id="toggle-checked" label="Checked" checked readOnly />
 ```
 
 <TokenTable>
@@ -229,8 +240,7 @@ import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
 
 #### Disabled
 
-```tsx live
-<div className="overviewSection">
+<OverviewSection>
   <Toggle id="toggle-disabled" label="Disabled" disabled />
   <Toggle
     id="toggle-disabled-checked"
@@ -239,7 +249,17 @@ import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
     checked
     readOnly
   />
-</div>
+</OverviewSection>
+
+```tsx copy
+<Toggle id="toggle-disabled" label="Disabled" disabled />
+<Toggle
+  id="toggle-disabled-checked"
+  label="Disabled Checked"
+  disabled
+  checked
+  readOnly
+/>
 ```
 
 <TokenTable>
@@ -273,8 +293,13 @@ For further customization, you can use the following data attributes:
 
 ## Related components
 
-```tsx live
-<ToggleField label="ToggleField" id="toggle-field" />
-```
-
-[ToggleField](/reference/ui/molecules/ToggleField) wraps a [Toggle](/reference/ui/molecules/Toggle) input and its corresponding [Label](/reference/ui/atoms/Label).
+<SectionList>
+  <SectionItem
+    title="ToggleField"
+    description="
+ToggleField wraps a Toggle input and its corresponding Label."
+    actionPath="/components/molecules/toggle-field"
+  >
+    <ToggleField label="ToggleField" id="toggle-field" />
+  </SectionItem>
+</SectionList>
