@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.33-alpha.0 (2023-01-04)
+
+
+### Bug Fixes
+
+* remove storybook from ui ([#1579](https://github.com/vtex/faststore/issues/1579)) ([682d5e4](https://github.com/vtex/faststore/commit/682d5e4290beb738685fcdc009772d04c0901278))
+
+
+
 ## 2.0.32-alpha.0 (2023-01-04)
 
 
