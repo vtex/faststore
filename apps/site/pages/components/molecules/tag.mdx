@@ -8,21 +8,28 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Badge___bcedffeb307527c1606be224a7fb5ac1.png
 ---
 
-import PropsSection from '@site/src/components/PropsSection/PropsSection'
-import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { Tag } from '@faststore/ui'
+
+<header>
+
+# Tag
 
 Tags are an interactive `Badge.` By default, its have a close button.
 
+</header>
+
 ## Overview
 
-```tsx live
-<div style={{ display: 'flex', columnGap: '16px', alignItems: 'center' }}>
+<OverviewSection>
   <Tag variant="neutral" label="Tag" onClose={() => {}} />
   <Tag variant="warning" label="Warning Tag" onClose={() => {}} />
   <Tag variant="danger" label="Danger Tag" onClose={() => {}} />
   <Tag variant="neutral" size="big" label="Neutral & Big" onClose={() => {}} />
-</div>
-```
+</OverviewSection>
 
 ---
 
@@ -30,13 +37,13 @@ Tags are an interactive `Badge.` By default, its have a close button.
 
 Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
-```tsx
+```tsx copy
 import { Tag } from '@faststore/ui'
 ```
 
 Import Styles
 
-```tsx
+```tsx copy
 import '@faststore/ui/src/components/molecules/Tag/styles.scss'
 ```
 
@@ -44,11 +51,17 @@ import '@faststore/ui/src/components/molecules/Tag/styles.scss'
 
 ## Usage
 
-```tsx live
+<OverviewSection>
+  <Tag variant="info" label="Summer Sale" onClose={() => {}} />
+</OverviewSection>
+
+```tsx copy
 <Tag variant="info" label="Summer Sale" onClose={() => {}} />
 ```
 
-### Props
+---
+
+## Props
 
 <PropsSection name="Tag" />
 
@@ -57,7 +70,7 @@ import '@faststore/ui/src/components/molecules/Tag/styles.scss'
 ## Design Tokens
 
 <TokenTable>
-  <TokenRow token="--fs-tag-text-color" value="var(--fs-color-text)" />
+  <TokenRow token="--fs-tag-text-color" value="var(--fs-color-text)" isColor />
   <TokenDivider />
   <TokenRow token="--fs-tag-icon-size" value="var(--fs-spacing-3)" />
   <TokenRow token="--fs-tag-icon-stroke-width" value="var(--fs-spacing-4)" />
@@ -75,7 +88,7 @@ For further customization, you can use the following data attributes:
 
 `data-fs-tag-icon-button`
 
-This component inherits [Badge](/reference/ui/atoms/Badge) CSS selectors and styles.
+This component inherits [Badge](/components/atoms/badge) CSS selectors and styles.
 
 ---
 
