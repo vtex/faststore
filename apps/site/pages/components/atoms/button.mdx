@@ -571,10 +571,10 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 
 Use the `Button` component to communicate user actions on the following components:
 
-- Buy-now and add-to-cart buttons on [Product Cards](/components/molecules/ProductCard)
-- Call-to-action buttons on [Cards](/components/organisms/Card)
-- Submit and/or withdraw actions on [Forms](/components/molecules/Form)
-- Submit and/or withdraw actions on [Modal](/components/molecules/Modal) windows.
+- Buy-now and add-to-cart buttons on [Product Cards](/components/molecules/product-card)
+- Call-to-action buttons on [Cards](/components/organisms/card)
+- Submit and/or withdraw actions on [Forms](/components/molecules/form)
+- Submit and/or withdraw actions on [Modal](/components/molecules/modal) windows.
 
 ---
 
@@ -614,8 +614,8 @@ For further customization, you can use the following data attributes:
 - Avoid cluttering the UI with too many buttons.
 - Avoid having more than one Primary action button on the screen at a time.
 - Avoid using disabled buttons, if possible. Instead, give preference to hiding the unavailable option.
-- Don't place buttons next to [Badges](/components/atoms/Badge). Although badges and buttons are similar in appearance, badges are not interactive and may confuse users if not used in the proper context.
-- Don't use Buttons as [Links](/components/atoms/Link). Links are not intended to invite users to take action. Instead, they redirect users somewhere.
+- Don't place buttons next to [Badges](/components/atoms/badge). Although badges and buttons are similar in appearance, badges are not interactive and may confuse users if not used in the proper context.
+- Don't use Buttons as [Links](/components/atoms/link). Links are not intended to invite users to take action. Instead, they redirect users somewhere.
 - Avoid using `aria-label` when the button already has a label.
 
 ---
@@ -626,21 +626,21 @@ For further customization, you can use the following data attributes:
   <SectionItem
     title="Icon Button"
     description="A button which content is only an icon, without any label."
-    actionPath="/components/molecules/iconButton"
+    actionPath="/components/molecules/icon-button"
   >
     <IconButton icon={<ShoppingCart />} aria-label="Buy" />
   </SectionItem>
   <SectionItem
     title="Buy Button"
     description="A button with the intent of directly sending the user to the checkout/cart step."
-    actionPath="/components/molecules/buyButton"
+    actionPath="/components/molecules/buy-button"
   >
     <BuyButton>Buy Now</BuyButton>
   </SectionItem>
   <SectionItem
     title="Link Button"
     description="Is similar to a button, however acts as a link to navigate users between pages."
-    actionPath="/components/molecules/linkButton"
+    actionPath="/components/molecules/link-button"
   >
     <LinkButton>Link Button</LinkButton>
   </SectionItem>
