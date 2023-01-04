@@ -1,6 +1,0 @@
-.header{
-    @apply w-full flex justify-center flex-col sm:flex-row pb-16;
-    background-image: url("https://vtexhelp.vtexassets.com/assets/docs/src/StarterSubmissionBg___069b1ac8c83986856cf874dfe7ae0dfa.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-}
