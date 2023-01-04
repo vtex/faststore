@@ -8,16 +8,28 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Button___6d6b16886d5d7e2a05dba8c45c075796.png
 ---
 
-import PropsSection from '@site/src/components/PropsSection/PropsSection'
-import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import {
+  OverviewSection,
+  OverviewSectionRow,
+} from 'site/components/OverviewSection'
+import { BuyButton } from '@faststore/ui'
+
+<header>
 
 # BuyButton
 
 BuyButton intends to send the user to the checkout/cart step directly.
 
+</header>
+
 ## Overview
 
-```tsx live
+<OverviewSection>
+  <BuyButton>Buy Now</BuyButton>
+</OverviewSection>
+```tsx copy
 <BuyButton>Buy Now</BuyButton>
 ```
 
@@ -27,13 +39,13 @@ BuyButton intends to send the user to the checkout/cart step directly.
 
 Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
-```tsx
+```tsx copy
 import { BuyButton } from '@faststore/ui'
 ```
 
 Import Styles
 
-```tsx
+```tsx copy
 import '@faststore/ui/src/components/atoms/BuyButton/styles.scss'
 ```
 
@@ -41,7 +53,10 @@ import '@faststore/ui/src/components/atoms/BuyButton/styles.scss'
 
 ## Usage
 
-```tsx live
+<OverviewSection>
+  <BuyButton>Buy Now</BuyButton>
+</OverviewSection>
+```tsx copy
 <BuyButton>Buy Now</BuyButton>
 ```
 
@@ -116,7 +131,7 @@ For further customization, you can use the following data attributes:
 
 `data-fs-buy-button`
 
-This component inherits [Button](/reference/ui/atoms/Button) CSS selectors and styles.
+This component inherits [Button](/components/atoms/button) CSS selectors and styles.
 
 ---
 
@@ -124,4 +139,4 @@ This component inherits [Button](/reference/ui/atoms/Button) CSS selectors and s
 
 ### ✅ Do's
 
-- Use this special Button only to send the user to the checkout/cart step directly. For general purposes, use the standard [Button](/reference/ui/atoms/Button).
+- Use this special Button only to send the user to the checkout/cart step directly. For general purposes, use the standard [Button](/components/atoms/button).
