@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.32-alpha.0 (2023-01-04)
+
+
+### Bug Fixes
+
+* yarn lock ([#1578](https://github.com/vtex/faststore/issues/1578)) ([d07ebf2](https://github.com/vtex/faststore/commit/d07ebf26fef4518a3a1a1ffede34371d8866a07b))
+
+
+### Chores
+
+* remove docs ([#1584](https://github.com/vtex/faststore/issues/1584)) ([8d3cf8d](https://github.com/vtex/faststore/commit/8d3cf8d7ae0968136d1dd484299b17cc218f6e23))
+
+
+
 ## 2.0.31-alpha.0 (2023-01-03)
 
 
