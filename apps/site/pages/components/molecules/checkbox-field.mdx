@@ -4,17 +4,24 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Checkbox___5dfb3d931c093ee7ebfac8bc388e68b5.png
 ---
 
-import PropsSection from '@site/src/components/PropsSection/PropsSection'
-import { TokenTable, TokenRow } from '@site/src/components/Tokens'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
+import {
+  OverviewSection,
+  OverviewSectionRow,
+} from 'site/components/OverviewSection'
+import { CheckboxField } from '@faststore/ui'
 
+<header>
 # CheckboxField
 
-CheckboxField wraps a [Checkbox](/reference/ui/atoms/Checkbox) input and its corresponding [Label](/reference/ui/atoms/Label). It allows users to select one option from a set.
+CheckboxField wraps a [Checkbox](/components/atoms/checkbox) input and its corresponding [Label](/components/atoms/label). It allows users to select one option from a set.
+
+</header>
 
 ## Overview
 
-```tsx live
-<div className="overviewSection">
+<OverviewSection>
   <CheckboxField label="Default" id="checkboxfield-default" />
   <CheckboxField label="Checked" id="checkboxfield-checked" checked readOnly />
   <CheckboxField label="Disabled" id="checkboxfield-disabled" disabled />
@@ -25,8 +32,7 @@ CheckboxField wraps a [Checkbox](/reference/ui/atoms/Checkbox) input and its cor
     partial
     readOnly
   />
-</div>
-```
+</OverviewSection>
 
 ---
 
@@ -34,13 +40,13 @@ CheckboxField wraps a [Checkbox](/reference/ui/atoms/Checkbox) input and its cor
 
 Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
-```tsx
+```tsx copy
 import { CheckboxField } from '@faststore/ui'
 ```
 
 Import Styles
 
-```tsx
+```tsx copy
 import '@faststore/ui/src/components/molecules/CheckboxField/styles.scss'
 ```
 
@@ -48,11 +54,16 @@ import '@faststore/ui/src/components/molecules/CheckboxField/styles.scss'
 
 ## Usage
 
-```tsx live
+<OverviewSection>
+  <CheckboxField label="Faststore" id="faststore" />
+</OverviewSection>
+```tsx copy
 <CheckboxField label="Faststore" id="faststore" />
 ```
 
-### Props
+---
+
+## Props
 
 <PropsSection name="CheckboxField" />
 
