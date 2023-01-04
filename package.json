@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "turbo run build --filter=!./apps/docs",
+    "build": "turbo run build",
     "dev": "turbo run dev --parallel --no-cache",
     "lint": "turbo run lint",
     "test": "turbo run test",
