@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.34-alpha.0 (2023-01-04)
+
+
+### Chores
+
+* remove storybook ([#1586](https://github.com/vtex/faststore/issues/1586)) ([82dbfb3](https://github.com/vtex/faststore/commit/82dbfb3102850bfa1115547773f84a293a055c6b))
+
+
+
 ## 2.0.33-alpha.0 (2023-01-04)
 
 
