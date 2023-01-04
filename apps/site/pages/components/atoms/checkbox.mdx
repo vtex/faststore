@@ -7,7 +7,8 @@ sidebar_custom_props:
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { Checkbox } from '@faststore/ui'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { Checkbox, CheckboxField } from '@faststore/ui'
 
 <header>
 
@@ -219,8 +220,12 @@ For further customization, you can use the following data attributes:
 
 ## Related components
 
-```tsx live
-<CheckboxField label="CheckboxField" id="checkboxfield" checked readOnly />
-```
-
-[CheckboxField](/components/molecules/checkbox-field) wraps a [Checkbox](/components/atoms/checkbox) input and its corresponding [Label](/reference/ui/atoms/Label).
+<SectionList>
+  <SectionItem
+    title="CheckboxField"
+    description="CheckboxField wraps a Checkbox input and its corresponding Label."
+    actionPath="/components/molecules/checkbox-field"
+  >
+    <CheckboxField label="CheckboxField" id="checkboxfield" checked readOnly />
+  </SectionItem>
+</SectionList>
