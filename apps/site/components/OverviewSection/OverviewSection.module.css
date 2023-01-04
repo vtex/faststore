@@ -5,6 +5,9 @@
   border-radius: 4px;
   padding: var(--fs-spacing-4) var(--fs-spacing-5);
   margin: var(--fs-spacing-3) 0;
+  background-image: radial-gradient(#ebebeb 1px, transparent 0);
+  background-size: 8px 8px;
+  background-position: -22px -24px;
   box-shadow: 0 0 10px rgb(0 0 0 / 10%);
   overflow: auto;
 }
@@ -16,6 +19,7 @@
 
 .overviewSection[data-doc-overview-dark="true"] {
   background-color: #171a1c;
+  background-image: radial-gradient(rgba(225, 225, 225, 0.094) 1px, transparent 0);
 }
 
 .overviewSection[data-doc-overview-direction="row"] {
