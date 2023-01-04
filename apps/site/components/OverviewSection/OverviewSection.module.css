@@ -8,7 +8,7 @@
   background-image: radial-gradient(#ebebeb 1px, transparent 0);
   background-size: 8px 8px;
   background-position: -22px -24px;
-  box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   overflow: auto;
 }
 
