@@ -1,5 +1,7 @@
 import { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
+import { mutateCookieContext } from '../../utils/contex'
 import { fetchAPI } from '../fetch'
+import fetch from 'isomorphic-unfetch'
 
 import type { PortalProduct } from './types/Product'
 import type { Context, Options } from '../../index'
@@ -198,8 +200,11 @@ export const VtexCommerce = (
       let publicFields = []
 
       for (const [key, value] of params) {
-        params.set(key, value)
-        publicFields.push(`public.${key}`)
+        if (!key.includes('public')) continue
+
+        const [, setKey] = key.split('.')
+        params.set(setKey, value)
+        publicFields.push(key)
       }
 
       params.set(
@@ -211,7 +216,7 @@ export const VtexCommerce = (
 
       console.log('PARAMS session: ', params)
 
-      return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
+      const response = fetch(`${base}/api/sessions?${params.toString()}`, {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
@@ -219,6 +224,25 @@ export const VtexCommerce = (
         },
         body: '{}',
       })
+        .then((res) => {
+          mutateCookieContext(ctx, res.headers.get('set-cookie') ?? '')
+          return res.json()
+        })
+        .catch((err) => {
+          console.error(err)
+          throw new Error(err)
+        })
+
+      // const response = fetchAPI(`${base}/api/sessions?${params.toString()}`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'content-type': 'application/json',
+      //     cookie: ctx.headers?.cookie,
+      //   },
+      //   body: '{}',
+      // })
+
+      return response
     },
     subscribeToNewsletter: (data: {
       name: string

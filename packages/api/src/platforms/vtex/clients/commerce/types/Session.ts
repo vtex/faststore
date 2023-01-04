@@ -6,7 +6,7 @@ export interface Session {
 export interface Namespaces {
   profile?: Profile
   store?: Store
-  public?: Public
+  public?: Public | null
 }
 
 export interface Value {

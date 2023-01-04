@@ -53,6 +53,7 @@ export interface Context {
    * */
   storage: {
     channel: Required<Channel>
+    cookie: string
     locale: string
     flags: FeatureFlags
     searchArgs?: Omit<SearchArgs, 'type'>

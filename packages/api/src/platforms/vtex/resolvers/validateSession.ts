@@ -12,6 +12,7 @@ export const validateSession = async (
   { session: oldSession, search }: MutationValidateSessionArgs,
   { clients }: Context
 ): Promise<StoreSession | null> => {
+  console.log('SEARCH: search', search)
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '').replace(/\D/g, '')
   const country = oldSession.country ?? ''
@@ -55,12 +56,14 @@ export const validateSession = async (
           familyName: profile.lastName?.value ?? '',
         }
       : null,
-    public: Object.keys(publicFields).map((key: string) => {
-      return {
-        key,
-        value: publicFields[key].value,
-      }
-    }),
+    public: Object.keys(publicFields).length
+      ? Object.keys(publicFields).map((key: string) => {
+          return {
+            key,
+            value: publicFields[key].value,
+          }
+        })
+      : null,
   }
 
   console.log('newSession: ', newSession)

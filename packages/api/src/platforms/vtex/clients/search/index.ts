@@ -118,8 +118,6 @@ export const IntelligentSearch = (
       locale: ctx.storage.locale,
     })
 
-    console.log('cookie', cookie)
-
     if (hideUnavailableItems !== undefined) {
       params.append('hideUnavailableItems', hideUnavailableItems.toString())
     }
@@ -133,6 +131,8 @@ export const IntelligentSearch = (
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
     )
 
+    console.log('ctx.storage.cookie', ctx.storage.cookie)
+
     console.log('COOKIE: ', cookie)
 
     return fetchAPI(
@@ -140,7 +140,7 @@ export const IntelligentSearch = (
       {
         credentials: 'include',
         headers: {
-          cookie,
+          cookie: ctx.storage.cookie,
         },
       }
     )

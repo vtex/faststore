@@ -8,3 +8,7 @@ export const mutateChannelContext = (ctx: Context, channelString: string) => {
 export const mutateLocaleContext = (ctx: Context, locale: string) => {
   ctx.storage.locale = locale
 }
+
+export const mutateCookieContext = (ctx: Context, cookie: string) => {
+  ctx.storage.cookie = cookie
+}
