@@ -8,21 +8,28 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Badge___bcedffeb307527c1606be224a7fb5ac1.png
 ---
 
-import PropsSection from '@site/src/components/PropsSection/PropsSection'
-import { TokenTable, TokenRow } from '@site/src/components/Tokens'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { DiscountBadge } from '@faststore/ui'
+
+<header>
+
+# DiscountBadge
 
 A custom `Badge` that display product's discounts.
 
+</header>
+
 ## Overview
 
-```tsx live
-<div className="overviewSection">
+<OverviewSection>
   <DiscountBadge listPrice={45} spotPrice={40} />
   <DiscountBadge listPrice={65} spotPrice={40} />
   <DiscountBadge listPrice={80} spotPrice={40} />
   <DiscountBadge listPrice={45} spotPrice={40} size="big" />
-</div>
-```
+</OverviewSection>
 
 ---
 
@@ -30,23 +37,31 @@ A custom `Badge` that display product's discounts.
 
 Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
-```tsx
+```tsx copy
 import { DiscountBadge } from '@faststore/ui'
 ```
 
 Import Styles
 
-```tsx
+```tsx copy
 import '@faststore/ui/src/components/molecules/DiscountBadge/styles.scss'
 ```
 
+---
+
 ## Usage
 
-```tsx live
+<OverviewSection>
+  <DiscountBadge listPrice={45} spotPrice={40} />
+</OverviewSection>
+
+```tsx copy
 <DiscountBadge listPrice={45} spotPrice={40} />
 ```
 
-### Props
+---
+
+## Props
 
 <PropsSection name="DiscountBadge" />
 
@@ -54,13 +69,16 @@ import '@faststore/ui/src/components/molecules/DiscountBadge/styles.scss'
 
 ## Design Tokens
 
-This component inherits [Badge](/reference/ui/atoms/Badge) design tokens.
+This component inherits [Badge](/components/atoms/badge) design tokens.
 
 ### Variants
 
 #### Low Discount
 
-```tsx live
+<OverviewSection>
+  <DiscountBadge listPrice={45} spotPrice={40} />
+</OverviewSection>
+```tsx copy
 <DiscountBadge listPrice={45} spotPrice={40} />
 ```
 
@@ -87,7 +105,11 @@ This component inherits [Badge](/reference/ui/atoms/Badge) design tokens.
 
 #### Medium Discount
 
-```tsx live
+<OverviewSection>
+  <DiscountBadge listPrice={65} spotPrice={40} />
+</OverviewSection>
+
+```tsx copy
 <DiscountBadge listPrice={65} spotPrice={40} />
 ```
 
@@ -114,7 +136,10 @@ This component inherits [Badge](/reference/ui/atoms/Badge) design tokens.
 
 #### High Discount
 
-```tsx live
+<OverviewSection>
+  <DiscountBadge listPrice={80} spotPrice={40} />
+</OverviewSection>
+```tsx copy
 <DiscountBadge listPrice={80} spotPrice={40} />
 ```
 
@@ -149,4 +174,4 @@ For further customization, you can use the following data attributes:
 
 `data-fs-discount-badge-variant`
 
-This component inherits [Badge](/reference/ui/atoms/Badge) css selectors and styles.
+This component inherits [Badge](/components/atoms/badge) css selectors and styles.
