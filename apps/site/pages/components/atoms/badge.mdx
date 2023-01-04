@@ -11,10 +11,8 @@ sidebar_custom_props:
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
-import {
-  OverviewSection,
-  OverviewSectionRow,
-} from 'site/components/OverviewSection'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { Badge } from '@faststore/ui'
 
 <header>
@@ -390,8 +388,13 @@ For further customization, you can use the following data attributes:
 
 ## Related components
 
-```tsx live
-<DiscountBadge listPrice={80} spotPrice={40} />
-```
-
-[DiscountBadge](/components/molecules/discount-badge) is a Badge used to show product discounts.
+<SectionList>
+  <SectionItem
+    title="DiscountBadge"
+    description="
+DiscountBadge is a Badge used to show product discounts."
+    actionPath="/components/molecules/discount-badge"
+  >
+    <DiscountBadge listPrice={80} spotPrice={40} />
+  </SectionItem>
+</SectionList>
