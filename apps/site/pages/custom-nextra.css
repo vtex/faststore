@@ -7,8 +7,6 @@
   border-radius: 4px;
 }
 
-.nx-w-full > header h1 { margin: 0; }
-
 .nx-w-full > header p {
   margin-top: var(--fs-spacing-2);
   line-height: var(--fs-text-size-4);
@@ -38,3 +36,21 @@ h4.nx-tracking-tight {
 
 
 /* h3.nx-tracking-tight + h4.nx-tracking-tight {  } */
+
+.index-header {
+  display: flex;
+  align-items: center;
+  margin-top: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+  column-gap: 3rem;
+}
+
+.index-header h1 {
+  font-size: var(--fs-text-size-title-huge);
+  margin-bottom: var(--fs-spacing-4);
+}
+
+.index-header img {
+  font-size: var(--fs-text-size-title-huge);
+}
