@@ -12,6 +12,7 @@
   // Head
   --fs-table-head-weight                : var(--fs-text-weight-bold);
   --fs-table-head-bkg-color             : none;
+  --fs-table-head-padding-y             : var(--fs-spacing-2);
 
   // Footer
   --fs-table-footer-weight              : var(--fs-table-head-weight);
@@ -43,6 +44,11 @@
     &[data-fs-table-cell-align="left"] { text-align: left; }
     &[data-fs-table-cell-align="center"] { text-align: center; }
     &[data-fs-table-cell-align="right"] { text-align: right; }
+  }
+
+  thead [data-fs-table-cell="header"] {
+    padding-top: var(--fs-table-head-padding-y);
+    padding-bottom: var(--fs-table-head-padding-y);
   }
 
   [data-fs-table-cell="header"] { white-space: nowrap; }
@@ -93,17 +99,17 @@
 
   [data-fs-table-variant="colored"] {
     [data-fs-table-body] [data-fs-table-row] {
-      &:nth-child(even) [data-fs-table-cell="data"],
-      &:nth-child(even) [data-fs-table-cell="header"] {
+      &:nth-child(odd) [data-fs-table-cell="data"],
+      &:nth-child(odd) [data-fs-table-cell="header"] {
         background-color: var(--fs-table-colored-bkg-color);
       }
 
-      &:nth-child(even) [data-fs-table-cell="data"] {
+      &:nth-child(odd) [data-fs-table-cell="data"] {
         border-top-right-radius: var(--fs-table-colored-border-radius);
         border-bottom-right-radius: var(--fs-table-colored-border-radius);
       }
 
-      &:nth-child(even) [data-fs-table-cell="header"] {
+      &:nth-child(odd) [data-fs-table-cell="header"] {
         border-top-left-radius: var(--fs-table-colored-border-radius);
         border-bottom-left-radius: var(--fs-table-colored-border-radius);
       }
