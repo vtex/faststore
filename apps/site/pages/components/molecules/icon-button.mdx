@@ -1,0 +1,92 @@
+---
+description: Icon Buttons are buttons that use icons instead of labels.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/IconButton___a815b0a38dda52d079b3f73784c92c6b.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { IconButton } from '@faststore/ui'
+import { ShoppingCart } from '@faststore/components'
+
+<header>
+
+# IconButton
+
+Icon Buttons are icons that trigger some sort of action, such as adding an item to the cart.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <IconButton icon={<ShoppingCart />} aria-label="Buy" />
+      <IconButton icon={<ShoppingCart />} aria-label="Buy" variant="primary" />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <IconButton icon={<ShoppingCart />} aria-label="Buy" />
+    <IconButton icon={<ShoppingCart />} aria-label="Buy" variant="primary" />
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { IconButton } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/Button/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <IconButton icon={<ShoppingCart />} aria-label="Buy" />
+</OverviewSection>
+```tsx live
+<IconButton icon={<ShoppingCart />} aria-label="Buy" />
+```
+
+---
+
+## Props
+
+<PropsSection name="IconButton" />
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-icon-button`
+
+This component inherits [Button](/components/atoms/button) CSS selectors and styles.
+
+---
+
+## Best practices
+
+### ✅ Do's
+
+- Use icon-only buttons only for widespread actions with highly standardized icons, such as a cross for close.
+- Use the `aria-label` attribute to provide a textual alternative for icon-only buttons.
+
+### ❌ Don'ts
+
+- Don't rely on icons to communicate complex actions.
