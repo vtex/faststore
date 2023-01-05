@@ -31,3 +31,7 @@
   row-gap: 16px;
   align-items: stretch;
 }
+
+.overviewSection[data-doc-overview-big-gap="true"] {
+  column-gap: 60px;
+}
