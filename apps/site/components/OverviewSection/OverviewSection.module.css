@@ -1,0 +1,37 @@
+.overviewSection {
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+  border-radius: 4px;
+  padding: var(--fs-spacing-4) var(--fs-spacing-5);
+  margin: var(--fs-spacing-3) 0;
+  background-image: radial-gradient(#ededed 1px, transparent 0);
+  background-size: 8px 8px;
+  background-position: -22px -24px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: auto;
+}
+
+.overviewSectionItem > div > div {
+  display: flex;
+  justify-content: center;
+ }
+
+.overviewSection[data-doc-overview-dark="true"] {
+  background-color: #171a1c;
+  background-image: radial-gradient(rgba(225, 225, 225, 0.094) 1px, transparent 0);
+}
+
+.overviewSection[data-doc-overview-direction="row"] {
+  flex-direction: row;
+}
+
+.overviewSection[data-doc-overview-direction="column"] {
+  flex-direction: column;
+  row-gap: 16px;
+  align-items: stretch;
+}
+
+.overviewSection[data-doc-overview-big-gap="true"] {
+  column-gap: 60px;
+}

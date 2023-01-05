@@ -1,0 +1,58 @@
+.sectionList [data-doc-section-grid="row"] {
+  row-gap: var(--fs-spacing-4);
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionList [data-doc-section-grid="row"] .sectionItem > div {
+  width: 35%;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.sectionList [data-doc-section-grid="column"] {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: var(--fs-spacing-5) var(--fs-spacing-4);
+}
+
+.sectionList [data-doc-section-grid="column"] .sectionItem {
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+}
+
+.sectionList [data-doc-section-grid="column"] .sectionItem > div {
+  height: 100%;
+}
+
+.sectionList [data-doc-section-grid="column"] .sectionItem > article {
+  height: 100%;
+}
+
+.sectionItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: var(--fs-spacing-4);
+  row-gap: var(--fs-spacing-3);
+}
+
+.sectionItem > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--fs-spacing-4) var(--fs-spacing-3);
+  background-color: var(--fs-color-neutral-bkg);
+  border-radius: 4px;
+}
+
+.sectionItem > article [data-fs-button] {
+  position: relative;
+  left: calc(-1 * var(--fs-spacing-1));
+  margin-top: var(--fs-spacing-3);
+}
+
+.sectionItem > article > h3 {
+  margin-top: 0;
+}

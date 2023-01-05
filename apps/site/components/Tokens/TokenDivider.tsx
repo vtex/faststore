@@ -1,4 +1,4 @@
-import styles from './TokenDivider.module.css'
+import styles from './TokenTable.module.css'
 
 const TokenDivider = () => {
   return (
