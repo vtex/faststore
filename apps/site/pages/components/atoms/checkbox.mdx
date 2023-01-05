@@ -4,6 +4,7 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Checkbox___5dfb3d931c093ee7ebfac8bc388e68b5.png
 ---
 
+import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
@@ -20,17 +21,24 @@ Checkboxes allow users to toggle an option on or off.
 
 ## Overview
 
-<OverviewSection>
-  <Checkbox />
-  <Checkbox checked readOnly />
-  <Checkbox disabled />
-  <Checkbox checked partial readOnly />
-</OverviewSection>
-
-<small>
-  You can remove <code>readOnly</code> prop when using.
-</small>
-
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Checkbox />
+      <Checkbox checked readOnly />
+      <Checkbox disabled />
+      <Checkbox checked partial readOnly />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Checkbox />
+    <Checkbox checked />
+    <Checkbox disabled />
+    <Checkbox checked partial />
+    ```
+  </Tab>
+</Tabs>
 ---
 
 ## Import

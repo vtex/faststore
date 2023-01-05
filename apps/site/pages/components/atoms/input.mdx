@@ -4,6 +4,7 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Input___77d0e7a8079b7d310e8223dd9e1994f6.png
 ---
 
+import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
@@ -20,10 +21,20 @@ Inputs are fields used to get user inputs.
 
 ## Overview
 
-<OverviewSection>
-  <InputField label="Label" id="inputfield-default" />
-  <InputField label="Input Disabled" id="inputfield-disabled" disabled />
-</OverviewSection>
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <InputField label="Label" id="inputfield-default" />
+      <InputField label="Input Disabled" id="inputfield-disabled" disabled />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <InputField label="Label" id="inputfield-default" />
+    <InputField label="Input Disabled" id="inputfield-disabled" disabled />
+    ```
+  </Tab>
+</Tabs>
 
 ---
 
