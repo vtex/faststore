@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.35-alpha.0](https://github.com/vtex/faststore/compare/v2.0.34-alpha.0...v2.0.35-alpha.0) (2023-01-05)
+
+
+### Documentation
+
+* Updates Components `mdx` files and General Adjusts ([#1575](https://github.com/vtex/faststore/issues/1575)) ([2787bd0](https://github.com/vtex/faststore/commit/2787bd0db083b66f642ac6af2f141e98de87f6fd))
+
+
+
 ## 2.0.34-alpha.0 (2023-01-04)
 
 
