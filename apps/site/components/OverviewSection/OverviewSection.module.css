@@ -5,7 +5,7 @@
   border-radius: 4px;
   padding: var(--fs-spacing-4) var(--fs-spacing-5);
   margin: var(--fs-spacing-3) 0;
-  background-image: radial-gradient(#ebebeb 1px, transparent 0);
+  background-image: radial-gradient(#ededed 1px, transparent 0);
   background-size: 8px 8px;
   background-position: -22px -24px;
   border: 1px solid rgba(0, 0, 0, 0.1);

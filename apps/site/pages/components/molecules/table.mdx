@@ -176,61 +176,59 @@ export const UsageTableExample = (
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
-    <OverviewSection direction="column">
-      <OverviewSection>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell scope="col" variant="header" align="left">
-                Colored + Icon
+    <OverviewSection>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell scope="col" variant="header" align="left">
+              Colored + Icon
+            </TableCell>
+            <TableCell scope="col" variant="header" align="right">
+              Values
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {sizes.map((size) => (
+            <TableRow key={size.type}>
+              <TableCell variant="header" align="left">
+                <Icon component={<Ruler />} />
+                {size.type}
               </TableCell>
-              <TableCell scope="col" variant="header" align="right">
-                Values
+              <TableCell align="right">{size.value}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <Table variant="bordered">
+        <TableHead>
+          <TableRow>
+            <TableCell scope="col" variant="header" align="left">
+              Bordered + Icon
+            </TableCell>
+            <TableCell scope="col" variant="header" align="right">
+              Total
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {options.map((option) => (
+            <TableRow key={option.numberOfInstallments}>
+              <TableCell variant="header" align="left">
+                <Icon component={<ShoppingCart />} />
+                {option.numberOfInstallments}x
+              </TableCell>
+              <TableCell align="right">
+                <Price formatter={priceFormatter} value={option.total} />
               </TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {sizes.map((size) => (
-              <TableRow key={size.type}>
-                <TableCell variant="header" align="left">
-                  <Icon component={<Ruler />} />
-                  {size.type}
-                </TableCell>
-                <TableCell align="right">{size.value}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        <Table variant="bordered">
-          <TableHead>
-            <TableRow>
-              <TableCell scope="col" variant="header" align="left">
-                Bordered + Icon
-              </TableCell>
-              <TableCell scope="col" variant="header" align="right">
-                Total
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {options.map((option) => (
-              <TableRow key={option.numberOfInstallments}>
-                <TableCell variant="header" align="left">
-                  <Icon component={<ShoppingCart />} />
-                  {option.numberOfInstallments}x
-                </TableCell>
-                <TableCell align="right">
-                  <Price formatter={priceFormatter} value={option.total} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </OverviewSection>
-      <OverviewSection>
-        {UsageTableColored}
-        {UsageTableBordered}
-      </OverviewSection>
+          ))}
+        </TableBody>
+      </Table>
+    </OverviewSection>
+    <OverviewSection>
+      {UsageTableColored}
+      {UsageTableBordered}
     </OverviewSection>
   </Tab>
   <Tab>
