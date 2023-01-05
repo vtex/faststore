@@ -3,6 +3,7 @@ import { DocsThemeConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
 
 const config: DocsThemeConfig = {
+  darkMode: false,
   logo: <span>FastStore</span>,
   useNextSeoProps() {
     const { route } = useRouter()
