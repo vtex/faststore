@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.36-alpha.0](https://github.com/vtex/faststore/compare/v2.0.35-alpha.0...v2.0.36-alpha.0) (2023-01-05)
+
+
+### Chores
+
+* Updates `Table` Colored Variant ([#1587](https://github.com/vtex/faststore/issues/1587)) ([04050eb](https://github.com/vtex/faststore/commit/04050eb920fe08ca3b4fe30a3e17fbf9dbedff44))
+
+
+
 ## [2.0.35-alpha.0](https://github.com/vtex/faststore/compare/v2.0.34-alpha.0...v2.0.35-alpha.0) (2023-01-05)
 
 
