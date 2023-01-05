@@ -6,8 +6,19 @@ sidebar_custom_props:
 
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { Table, Icon } from '@faststore/ui'
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+  Icon,
+  Price,
+} from '@faststore/ui'
+import { Ruler, ShoppingCart } from '@faststore/components'
+import { useMemo } from 'react'
 
 <header>
 
@@ -28,44 +39,107 @@ The Table component is a compound of the following:
 
 ## Overview
 
-```tsx live
-function(){
-  const options = [
-    {
-      numberOfInstallments: 1,
-      monthlyPayment: 200,
-      total: 200,
-    },
-    {
-      numberOfInstallments: 2,
-      monthlyPayment: 100,
-      total: 200,
-    },
-    {
-      numberOfInstallments: 3,
-      monthlyPayment: 68,
-      total: 204,
-    },
-  ]
+export const options = [
+  {
+    numberOfInstallments: 1,
+    monthlyPayment: 200,
+    total: 200,
+  },
+  {
+    numberOfInstallments: 2,
+    monthlyPayment: 100,
+    total: 200,
+  },
+  {
+    numberOfInstallments: 3,
+    monthlyPayment: 68,
+    total: 204,
+  },
+]
 
-  const sizes = [
-    {
-      type: 'Width',
-      value: '1.5m',
-    },
-    {
-      type: 'Height',
-      value: '1.5m',
-    },
-    {
-      type: 'Dimensions',
-      value: '7 x 3 x 9 in',
-    },
-  ]
+export const sizes = [
+  {
+    type: 'Width',
+    value: '1.5m',
+  },
+  {
+    type: 'Height',
+    value: '1.5m',
+  },
+  {
+    type: 'Dimensions',
+    value: '7 x 3 x 9 in',
+  },
+]
 
-  return (
-    <div className="overviewSectionColumn">
-      <div className="overviewSection">
+export function priceFormatter(price) {
+  return useMemo(() => {
+    const formattedPrice = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(price)
+    return formattedPrice
+  })
+}
+
+export const UsageTableBordered = (
+  <Table variant="bordered">
+    <TableHead>
+      <TableRow>
+        <TableCell scope="col" variant="header" align="left">
+          Bordered
+        </TableCell>
+        <TableCell scope="col" variant="header" align="right">
+          Total
+        </TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {options.map((option) => (
+        <TableRow key={option.numberOfInstallments}>
+          <TableCell variant="header" align="left">
+            {option.numberOfInstallments}x
+          </TableCell>
+          <TableCell align="right">
+            <Price formatter={priceFormatter} value={option.total} />
+          </TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </Table>
+)
+
+export const UsageTableColored = (
+  <Table>
+    <TableHead>
+      <TableRow>
+        <TableCell scope="col" variant="header" align="left">
+          Colored
+        </TableCell>
+        <TableCell scope="col" variant="header" align="right">
+          Total
+        </TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {options.map((option) => (
+        <TableRow key={option.numberOfInstallments}>
+          <TableCell variant="header" align="left">
+            {option.numberOfInstallments}x
+          </TableCell>
+          <TableCell align="right">
+            <Price formatter={priceFormatter} value={option.total} />
+          </TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </Table>
+)
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection direction="column">
+      <OverviewSection>
         <Table>
           <TableHead>
             <TableRow>
@@ -79,15 +153,13 @@ function(){
           </TableHead>
           <TableBody>
             {sizes.map((size) => (
-            <TableRow key={size.type}>
-              <TableCell variant="header" align="left">
-                <Icon component={<Ruler />} />
-                {size.type}
-              </TableCell>
-              <TableCell align="right">
-                {size.value}
-              </TableCell>
-            </TableRow>
+              <TableRow key={size.type}>
+                <TableCell variant="header" align="left">
+                  <Icon component={<Ruler />} />
+                  {size.type}
+                </TableCell>
+                <TableCell align="right">{size.value}</TableCell>
+              </TableRow>
             ))}
           </TableBody>
         </Table>
@@ -104,20 +176,20 @@ function(){
           </TableHead>
           <TableBody>
             {options.map((option) => (
-            <TableRow key={option.numberOfInstallments}>
-              <TableCell variant="header" align="left">
-                <Icon component={<ShoppingCart />} />
-                {option.numberOfInstallments}x
-              </TableCell>
-              <TableCell align="right">
-                <Price formatter={priceFormatter} value={option.total} />
-              </TableCell>
-            </TableRow>
+              <TableRow key={option.numberOfInstallments}>
+                <TableCell variant="header" align="left">
+                  <Icon component={<ShoppingCart />} />
+                  {option.numberOfInstallments}x
+                </TableCell>
+                <TableCell align="right">
+                  <Price formatter={priceFormatter} value={option.total} />
+                </TableCell>
+              </TableRow>
             ))}
           </TableBody>
         </Table>
-      </div>
-      <div className="overviewSection">
+      </OverviewSection>
+      <OverviewSection>
         <Table>
           <TableHead>
             <TableRow>
@@ -131,14 +203,14 @@ function(){
           </TableHead>
           <TableBody>
             {options.map((option) => (
-            <TableRow key={option.numberOfInstallments}>
-              <TableCell variant="header" align="left">
-                {option.numberOfInstallments}x
-              </TableCell>
-              <TableCell align="right">
-                <Price formatter={priceFormatter} value={option.total} />
-              </TableCell>
-            </TableRow>
+              <TableRow key={option.numberOfInstallments}>
+                <TableCell variant="header" align="left">
+                  {option.numberOfInstallments}x
+                </TableCell>
+                <TableCell align="right">
+                  <Price formatter={priceFormatter} value={option.total} />
+                </TableCell>
+              </TableRow>
             ))}
           </TableBody>
         </Table>
@@ -155,22 +227,131 @@ function(){
           </TableHead>
           <TableBody>
             {options.map((option) => (
-            <TableRow key={option.numberOfInstallments}>
-              <TableCell variant="header" align="left">
-                {option.numberOfInstallments}x
-              </TableCell>
-              <TableCell align="right">
-                <Price formatter={priceFormatter} value={option.total} />
-              </TableCell>
-            </TableRow>
+              <TableRow key={option.numberOfInstallments}>
+                <TableCell variant="header" align="left">
+                  {option.numberOfInstallments}x
+                </TableCell>
+                <TableCell align="right">
+                  <Price formatter={priceFormatter} value={option.total} />
+                </TableCell>
+              </TableRow>
             ))}
           </TableBody>
         </Table>
-      </div>
-    </div>
-  )
-}
+      </OverviewSection>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+```tsx live
+  // Colored + Icon
+  <Table>
+    <TableHead>
+      <TableRow>
+        <TableCell scope="col" variant="header" align="left">
+          Colored + Icon
+        </TableCell>
+        <TableCell scope="col" variant="header" align="right">
+          Values
+        </TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {sizes.map((size) => (
+        <TableRow key={size.type}>
+          <TableCell variant="header" align="left">
+            <Icon component={<Ruler />} />
+            {size.type}
+          </TableCell>
+          <TableCell align="right">{size.value}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </Table>
+
+// Bordered + Icon
+
+<Table variant="bordered">
+  <TableHead>
+    <TableRow>
+      <TableCell scope="col" variant="header" align="left">
+        Bordered + Icon
+      </TableCell>
+      <TableCell scope="col" variant="header" align="right">
+        Total
+      </TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    {options.map((option) => (
+      <TableRow key={option.numberOfInstallments}>
+        <TableCell variant="header" align="left">
+          <Icon component={<ShoppingCart />} />
+          {option.numberOfInstallments}x
+        </TableCell>
+        <TableCell align="right">
+          <Price formatter={priceFormatter} value={option.total} />
+        </TableCell>
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
+
+// Colored
+
+<Table>
+  <TableHead>
+    <TableRow>
+      <TableCell scope="col" variant="header" align="left">
+        Colored
+      </TableCell>
+      <TableCell scope="col" variant="header" align="right">
+        Total
+      </TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    {options.map((option) => (
+      <TableRow key={option.numberOfInstallments}>
+        <TableCell variant="header" align="left">
+          {option.numberOfInstallments}x
+        </TableCell>
+        <TableCell align="right">
+          <Price formatter={priceFormatter} value={option.total} />
+        </TableCell>
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
+
+// Bordered
+
+  <Table variant="bordered">
+    <TableHead>
+      <TableRow>
+        <TableCell scope="col" variant="header" align="left">
+          Bordered
+        </TableCell>
+        <TableCell scope="col" variant="header" align="right">
+          Total
+        </TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {options.map((option) => (
+      <TableRow key={option.numberOfInstallments}>
+        <TableCell variant="header" align="left">
+          {option.numberOfInstallments}x
+        </TableCell>
+        <TableCell align="right">
+          <Price formatter={priceFormatter} value={option.total} />
+        </TableCell>
+      </TableRow>
+      ))}
+    </TableBody>
+  </Table>
 ```
+  </Tab>
+</Tabs>
 
 ---
 
@@ -192,61 +373,66 @@ import '@faststore/ui/src/components/molecules/Table/styles.scss'
 
 ## Usage
 
-```tsx live
-function(){
-  const options = [
-    {
-      numberOfInstallments: 1,
-      monthlyPayment: 200,
-      total: 200,
-    },
-    {
-      numberOfInstallments: 2,
-      monthlyPayment: 100,
-      total: 200,
-    },
-    {
-      numberOfInstallments: 3,
-      monthlyPayment: 68,
-      total: 204,
-    },
-  ]
+<OverviewSection>
+  <Table>
+    <TableHead>
+      <TableRow>
+        <TableCell scope="col" variant="header">
+          Installments
+        </TableCell>
+        <TableCell scope="col" variant="header">
+          Monthly Payment
+        </TableCell>
+        <TableCell scope="col" variant="header">
+          Total
+        </TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {options.map((option) => (
+        <TableRow key={option.numberOfInstallments}>
+          <TableCell>{option.numberOfInstallments}x</TableCell>
+          <TableCell>
+            <Price formatter={priceFormatter} value={option.monthlyPayment} />
+          </TableCell>
+          <TableCell>
+            <Price formatter={priceFormatter} value={option.total} />
+          </TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </Table>
+</OverviewSection>
 
-  return (
-    <div className="overviewSection">
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell scope="col" variant="header">
-              Installments
-            </TableCell>
-            <TableCell scope="col" variant="header">
-              Monthly Payment
-            </TableCell>
-            <TableCell scope="col" variant="header">
-              Total
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {options.map((option) => (
-          <TableRow key={option.numberOfInstallments}>
-            <TableCell>
-              {option.numberOfInstallments}x
-            </TableCell>
-            <TableCell>
-              <Price formatter={priceFormatter} value={option.monthlyPayment} />
-            </TableCell>
-            <TableCell>
-              <Price formatter={priceFormatter} value={option.total} />
-            </TableCell>
-          </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
-  )
-}
+```tsx live
+<Table>
+  <TableHead>
+    <TableRow>
+      <TableCell scope="col" variant="header">
+        Installments
+      </TableCell>
+      <TableCell scope="col" variant="header">
+        Monthly Payment
+      </TableCell>
+      <TableCell scope="col" variant="header">
+        Total
+      </TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    {options.map((option) => (
+      <TableRow key={option.numberOfInstallments}>
+        <TableCell>{option.numberOfInstallments}x</TableCell>
+        <TableCell>
+          <Price formatter={priceFormatter} value={option.monthlyPayment} />
+        </TableCell>
+        <TableCell>
+          <Price formatter={priceFormatter} value={option.total} />
+        </TableCell>
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
 ```
 
 ---
@@ -278,6 +464,22 @@ All table-related components support all attributes also supported by their resp
 ---
 
 ## Design Tokens
+
+### Nested Elements
+
+#### Head
+
+<TokenTable>
+  <TokenRow token="--fs-table-head-weight" value="var(--fs-text-weight-bold)" />
+  <TokenRow token="--fs-table-head-bkg-color" value="none" />
+</TokenTable>
+
+#### Cell
+
+<TokenTable>
+  <TokenRow token="--fs-table-cell-padding-x" value="var(--fs-spacing-3)" />
+  <TokenRow token="--fs-table-cell-padding-y" value="var(--fs-spacing-1)" />
+</TokenTable>
 
 ### Variants
 
@@ -325,6 +527,64 @@ function(){
       </div>
 )}
 ```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-table-footer-weight"
+    value="var(--fs-table-head-weight)"
+  />
+  <TokenRow token="--fs-table-footer-bkg-color" value="none" />
+</TokenTable>
+
+#### Colored
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>{UsageTableColored}</OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    {UsageTableColored}
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-table-colored-bkg-color"
+    value="var(--fs-color-neutral-1)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-table-colored-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+#### Bordered
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>{UsageTableBordered}</OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    {UsageTableBordered}
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-table-bordered-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="- --fs-table-bordered-border-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+</TokenTable>
 
 #### Horizontal Scroll
 
