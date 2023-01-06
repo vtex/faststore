@@ -2,7 +2,8 @@ import React, { forwardRef } from 'react'
 import { List } from '@faststore/components'
 import type { ListProps } from '@faststore/components'
 
-export interface OrderSummaryProps extends ListProps {
+export interface OrderSummaryProps
+  extends Omit<ListProps, 'nonce' | 'onResize' | 'onResizeCapture'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -34,72 +35,76 @@ export interface OrderSummaryProps extends ListProps {
   totalValue?: string
 }
 
-const OrderSummary = forwardRef<
-  Omit<HTMLUListElement, 'nonce' | 'onResize' | 'onResizeCapture'>,
-  OrderSummaryProps
->(function OrderSummary(
-  {
-    testId = 'store-order-summary',
-    subtotalLabel,
-    subtotalValue,
-    discountLabel,
-    discountValue,
-    totalLabel,
-    totalValue,
-    ...otherProps
-  },
-  ref
-) {
-  return (
-    <List ref={ref} data-fs-order-summary data-testid={testId} {...otherProps}>
-      {subtotalValue ? (
-        <li data-fs-order-summary-subtotal>
+const OrderSummary = forwardRef<HTMLUListElement, OrderSummaryProps>(
+  function OrderSummary(
+    {
+      testId = 'store-order-summary',
+      subtotalLabel,
+      subtotalValue,
+      discountLabel,
+      discountValue,
+      totalLabel,
+      totalValue,
+      ...otherProps
+    },
+    ref
+  ) {
+    return (
+      <List
+        ref={ref}
+        data-fs-order-summary
+        data-testid={testId}
+        {...otherProps}
+      >
+        {subtotalValue ? (
+          <li data-fs-order-summary-subtotal>
+            <span
+              data-fs-order-summary-subtotal-label
+              data-testid={`${testId}-subtotal-label`}
+            >
+              {subtotalLabel}
+            </span>
+            <span
+              data-fs-order-summary-subtotal-value
+              data-testid={`${testId}-subtotal-value`}
+            >
+              {subtotalValue}
+            </span>
+          </li>
+        ) : null}
+        {discountValue ? (
+          <li data-fs-order-summary-discount>
+            <span
+              data-fs-order-summary-discount-label
+              data-testid={`${testId}-discount-label`}
+            >
+              {discountLabel}
+            </span>
+            <span
+              data-fs-order-summary-discount-value
+              data-testid={`${testId}-discount-value`}
+            >
+              {discountValue}
+            </span>
+          </li>
+        ) : null}
+        <li data-fs-order-summary-total>
           <span
-            data-fs-order-summary-subtotal-label
-            data-testid={`${testId}-subtotal-label`}
+            data-fs-order-summary-total-label
+            data-testid={`${testId}-total-label`}
           >
-            {subtotalLabel}
+            {totalLabel}
           </span>
           <span
-            data-fs-order-summary-subtotal-value
-            data-testid={`${testId}-subtotal-value`}
+            data-fs-order-summary-total-value
+            data-testid={`${testId}-total-value`}
           >
-            {subtotalValue}
+            {totalValue}
           </span>
         </li>
-      ) : null}
-      {discountValue ? (
-        <li data-fs-order-summary-discount>
-          <span
-            data-fs-order-summary-discount-label
-            data-testid={`${testId}-discount-label`}
-          >
-            {discountLabel}
-          </span>
-          <span
-            data-fs-order-summary-discount-value
-            data-testid={`${testId}-discount-value`}
-          >
-            {discountValue}
-          </span>
-        </li>
-      ) : null}
-      <li data-fs-order-summary-total>
-        <span
-          data-fs-order-summary-total-label
-          data-testid={`${testId}-total-label`}
-        >
-          {totalLabel}
-        </span>
-        <span
-          data-fs-order-summary-total-value
-          data-testid={`${testId}-total-value`}
-        >
-          {totalValue}
-        </span>
-      </li>
-    </List>
-  )
-})
+      </List>
+    )
+  }
+)
 
 export default OrderSummary
