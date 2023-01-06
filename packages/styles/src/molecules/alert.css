@@ -1,8 +1,0 @@
-[data-fs-alert] {
-  @apply flex items-center p-1;
-  @apply bg-pink-700 text-white text-sm;
-}
-
-[data-fs-alert] [data-fs-icon] {
-  @apply m-0 px-2;
-}
