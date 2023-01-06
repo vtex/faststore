@@ -1,8 +1,9 @@
 import React, { forwardRef } from 'react'
-import { List } from '@faststore/components'
-import type { ListProps } from '@faststore/components'
+import type { HTMLAttributes } from 'react'
 
-export interface OrderSummaryProps extends ListProps<'ul'> {
+import { List } from '@faststore/components'
+
+export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -38,7 +39,6 @@ const OrderSummary = forwardRef<HTMLUListElement, OrderSummaryProps>(
   function OrderSummary(
     {
       testId = 'store-order-summary',
-      children,
       subtotalLabel,
       subtotalValue,
       discountLabel,
