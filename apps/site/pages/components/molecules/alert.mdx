@@ -179,6 +179,62 @@ import '@faststore/ui/src/components/atoms/Alert/styles.scss'
 
 ---
 
+## Variants
+
+### Dismissible
+
+<OverviewSection>
+  <Alert dismissible>
+    Get 10% off today:&nbsp;<span>NEW10</span>
+  </Alert>
+</OverviewSection>
+```tsx
+<Alert dismissible>
+  Get 10% off today:&nbsp;<span>NEW10</span>
+</Alert>
+```
+
+### With Link
+
+<OverviewSection>
+  <Alert link={{ text: 'Buy now', to: '/' }}>
+    Get 10% off today:&nbsp;<span>NEW10</span>
+  </Alert>
+</OverviewSection>
+```tsx
+<Alert link={{ text: 'Buy now', to: '/' }}>
+  Get 10% off today:&nbsp;<span>NEW10</span>
+</Alert>
+```
+
+### With Icon
+
+<OverviewSection>
+  <Alert icon={<ShoppingCart />}>
+    Get 10% off today:&nbsp;<span>NEW10</span>
+  </Alert>
+</OverviewSection>
+```tsx
+<Alert icon={<ShoppingCart />}>
+  Get 10% off today:&nbsp;<span>NEW10</span>
+</Alert>
+```
+
+### Plain
+
+<OverviewSection>
+  <Alert>
+    Get 10% off today:&nbsp;<span>NEW10</span>
+  </Alert>
+</OverviewSection>
+```tsx
+<Alert>
+  Get 10% off today:&nbsp;<span>NEW10</span>
+</Alert>
+```
+
+---
+
 ## Customization
 
 For further customization, you can use the following data attributes:
