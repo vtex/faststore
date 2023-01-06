@@ -41,6 +41,8 @@ export type {
   AccordionButtonProps,
   AccordionPanelProps,
 } from './molecules/Accordion'
+export { default as Alert } from './molecules/Alert'
+export type { AlertProps } from './molecules/Alert'
 export { default as BuyButton } from './molecules/BuyButton'
 export { default as CheckboxField } from './molecules/CheckboxField'
 export type { CheckboxFieldProps } from './molecules/CheckboxField'
