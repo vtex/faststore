@@ -20,7 +20,7 @@ const config: DocsThemeConfig = {
     link: 'https://github.com/vtex/faststore',
   },
   docsRepositoryBase:
-    'https://github.com/vtex/faststore/tree/main/packages/site',
+    'https://github.com/vtex/faststore/tree/main/apps/site',
   footer: {
     text: 'FastStore',
   },
