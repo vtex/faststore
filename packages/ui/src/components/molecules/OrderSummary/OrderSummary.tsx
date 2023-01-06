@@ -34,77 +34,72 @@ export interface OrderSummaryProps extends ListProps {
   totalValue?: string
 }
 
-const OrderSummary = forwardRef<HTMLUListElement, OrderSummaryProps>(
-  function OrderSummary(
-    {
-      testId = 'store-order-summary',
-      children,
-      subtotalLabel,
-      subtotalValue,
-      discountLabel,
-      discountValue,
-      totalLabel,
-      totalValue,
-      ...otherProps
-    },
-    ref
-  ) {
-    return (
-      <List
-        ref={ref}
-        data-fs-order-summary
-        data-testid={testId}
-        {...otherProps}
-      >
-        {subtotalValue ? (
-          <li data-fs-order-summary-subtotal>
-            <span
-              data-fs-order-summary-subtotal-label
-              data-testid={`${testId}-subtotal-label`}
-            >
-              {subtotalLabel}
-            </span>
-            <span
-              data-fs-order-summary-subtotal-value
-              data-testid={`${testId}-subtotal-value`}
-            >
-              {subtotalValue}
-            </span>
-          </li>
-        ) : null}
-        {discountValue ? (
-          <li data-fs-order-summary-discount>
-            <span
-              data-fs-order-summary-discount-label
-              data-testid={`${testId}-discount-label`}
-            >
-              {discountLabel}
-            </span>
-            <span
-              data-fs-order-summary-discount-value
-              data-testid={`${testId}-discount-value`}
-            >
-              {discountValue}
-            </span>
-          </li>
-        ) : null}
-        <li data-fs-order-summary-total>
+const OrderSummary = forwardRef<
+  Omit<HTMLUListElement, 'nonce' | 'onResize' | 'onResizeCapture'>,
+  OrderSummaryProps
+>(function OrderSummary(
+  {
+    testId = 'store-order-summary',
+    subtotalLabel,
+    subtotalValue,
+    discountLabel,
+    discountValue,
+    totalLabel,
+    totalValue,
+    ...otherProps
+  },
+  ref
+) {
+  return (
+    <List ref={ref} data-fs-order-summary data-testid={testId} {...otherProps}>
+      {subtotalValue ? (
+        <li data-fs-order-summary-subtotal>
           <span
-            data-fs-order-summary-total-label
-            data-testid={`${testId}-total-label`}
+            data-fs-order-summary-subtotal-label
+            data-testid={`${testId}-subtotal-label`}
           >
-            {totalLabel}
+            {subtotalLabel}
           </span>
           <span
-            data-fs-order-summary-total-value
-            data-testid={`${testId}-total-value`}
+            data-fs-order-summary-subtotal-value
+            data-testid={`${testId}-subtotal-value`}
           >
-            {totalValue}
+            {subtotalValue}
           </span>
         </li>
-      </List>
-    )
-  }
-)
+      ) : null}
+      {discountValue ? (
+        <li data-fs-order-summary-discount>
+          <span
+            data-fs-order-summary-discount-label
+            data-testid={`${testId}-discount-label`}
+          >
+            {discountLabel}
+          </span>
+          <span
+            data-fs-order-summary-discount-value
+            data-testid={`${testId}-discount-value`}
+          >
+            {discountValue}
+          </span>
+        </li>
+      ) : null}
+      <li data-fs-order-summary-total>
+        <span
+          data-fs-order-summary-total-label
+          data-testid={`${testId}-total-label`}
+        >
+          {totalLabel}
+        </span>
+        <span
+          data-fs-order-summary-total-value
+          data-testid={`${testId}-total-value`}
+        >
+          {totalValue}
+        </span>
+      </li>
+    </List>
+  )
+})
 
 export default OrderSummary
