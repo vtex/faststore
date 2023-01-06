@@ -1,0 +1,155 @@
+---
+description: Lists group related content. They can be ordered or unordered.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Lists___30f86e23fa668d02441cd1173fc000a9.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { List } from '@faststore/ui'
+
+<header>
+
+# List
+
+Lists group related content. They can be ordered or unordered.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection bigGap>
+      <List marker>
+        <li>Great Unordered List</li>
+        <li>Ok Unordered List</li>
+        <li>Bad Unordered List</li>
+      </List>
+      <List as="ol" marker>
+        <li>Great Ordered List</li>
+        <li>Ok Ordered List</li>
+        <li>Bad Ordered List</li>
+      </List>
+      <List>
+        <li>Great</li>
+        <li>Ok</li>
+        <li>Bad</li>
+      </List>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <List marker>
+      <li>Great Unordered List</li>
+      <li>Ok Unordered List</li>
+      <li>Bad Unordered List</li>
+    </List>
+    <List as="ol" marker>
+      <li>Great Ordered List</li>
+      <li>Ok Ordered List</li>
+      <li>Bad Ordered List</li>
+    </List>
+    <List>
+      <li>Great</li>
+      <li>Ok</li>
+      <li>Bad</li>
+    </List>
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { List } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/List/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <List marker>
+    <li>Great Unordered List</li>
+    <li>Ok Unordered List</li>
+    <li>Bad Unordered List</li>
+  </List>
+</OverviewSection>
+
+```tsx live
+<List marker>
+  <li>Great Unordered List</li>
+  <li>Ok Unordered List</li>
+  <li>Bad Unordered List</li>
+</List>
+```
+
+---
+
+## Props
+
+<PropsSection name="List" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-list-style-unordered" value="initial" />
+  <TokenRow token="--fs-list-style-ordered" value="decimal" />
+</TokenTable>
+
+### Variants
+
+#### Unordered
+
+```tsx live
+<List marker>
+  <li>Great Unordered List</li>
+  <li>Ok Unordered List</li>
+  <li>Bad Unordered List</li>
+</List>
+```
+
+#### Ordered
+
+```tsx live
+<List as="ol" marker>
+  <li>Great Ordered List</li>
+  <li>Ok Ordered List</li>
+  <li>Bad Ordered List</li>
+</List>
+```
+
+#### Without marker
+
+```tsx live
+<List as="ol">
+  <li>Great</li>
+  <li>Ok</li>
+  <li>Bad</li>
+</List>
+```
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-list`
+
+`data-fs-list-marker="true"`

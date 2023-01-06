@@ -1,0 +1,217 @@
+---
+description: LinkButton is similar to a button, however acts as a link to navigate users between pages.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Button___6d6b16886d5d7e2a05dba8c45c075796.png
+---
+
+import PropsSection from 'site/components/PropsSection'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { LinkButton } from '@faststore/ui'
+import { ShoppingCart } from '@faststore/components'
+
+<header>
+
+# Link Button
+
+Link Button is similar to a button, however acts as a link to navigate users between pages.
+
+</header>
+
+## Overview
+
+<OverviewSection>
+  <LinkButton href="#">Link Button</LinkButton>
+</OverviewSection>
+```tsx
+<LinkButton href="#">Link Button</LinkButton>
+```
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { LinkButton } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/LinkButton/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <LinkButton href="#">Link Button</LinkButton>
+</OverviewSection>
+```tsx live
+<LinkButton href="#">Link Button</LinkButton>
+```
+
+---
+
+## Props
+
+<PropsSection name="LinkButton" />
+
+---
+
+## Design Tokens
+
+This component inherits [Button](/components/atoms/button) design tokens.
+
+---
+
+## Nested Elements
+
+### Icon
+
+<OverviewSection>
+  <LinkButton href="#" icon={<ShoppingCart />} iconPosition="left">
+    {'Go to Cart'}
+  </LinkButton>
+  <LinkButton href="#" icon={<ShoppingCart />} iconPosition="right">
+    {'Go to Cart'}
+  </LinkButton>
+</OverviewSection>
+
+---
+
+## Variants
+
+This component inherits [Button](/components/atoms/button) variants.
+
+### Primary
+
+<OverviewSection>
+  <LinkButton href="#" variant="primary">
+    Link Button
+  </LinkButton>
+</OverviewSection>
+
+```tsx
+<LinkButton href="#" variant="primary">
+  Link Button
+</LinkButton>
+```
+
+### Primary Inverse
+
+<OverviewSection dark>
+  <LinkButton href="#" variant="primary" inverse>
+    Link Button
+  </LinkButton>
+</OverviewSection>
+
+```tsx
+<LinkButton href="#" variant="primary" inverse>
+  Link Button
+</LinkButton>
+```
+
+### Secondary
+
+<OverviewSection>
+  <LinkButton href="#" variant="secondary">
+    Link Button
+  </LinkButton>
+</OverviewSection>
+```tsx
+<LinkButton href="#" variant="secondary">
+  Link Button
+</LinkButton>
+```
+
+### Secondary Inverse
+
+<OverviewSection dark>
+  <LinkButton href="#" variant="secondary" inverse>
+    Link Button
+  </LinkButton>
+</OverviewSection>
+
+```tsx
+<LinkButton href="#" variant="secondary" inverse>
+  Link Button
+</LinkButton>
+```
+
+### Tertiary
+
+<OverviewSection>
+  <LinkButton href="#" variant="tertiary">
+    Link Button
+  </LinkButton>
+</OverviewSection>
+
+```tsx
+<LinkButton href="#" variant="tertiary">
+  Link Button
+</LinkButton>
+```
+
+### Tertiary Inverse
+
+<OverviewSection dark>
+  <LinkButton href="#" variant="tertiary" inverse>
+    Link Button
+  </LinkButton>
+</OverviewSection>
+```tsx
+<LinkButton href="#" variant="tertiary" inverse>
+  Link Button
+</LinkButton>
+```
+
+### Disabled
+
+<OverviewSection>
+  <LinkButton href="#" disabled>
+    Link Button
+  </LinkButton>
+</OverviewSection>
+```tsx
+<LinkButton href="#" disabled>
+  Link Button
+</LinkButton>
+```
+
+### Small
+
+<OverviewSection>
+  <LinkButton variant="primary" size="small">
+    Link Button
+  </LinkButton>
+</OverviewSection>
+```tsx
+<LinkButton variant="primary" size="small">
+  Link Button
+</LinkButton>
+```
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-link-button`
+
+This component inherits [Button](/components/atoms/button) CSS selectors and styles.
+
+---
+
+## Best Practices
+
+### ✅ Do's
+
+- Use the `LinkButton` only to navigate the user between store pages. For general purposes, use the standard [Button](/components/atoms/button).

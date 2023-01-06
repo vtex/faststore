@@ -1,0 +1,64 @@
+---
+description: Hides an element visually. Improve accessibility by providing text to screen readers when applied.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Badge___bcedffeb307527c1606be224a7fb5ac1.png
+---
+
+import PropsSection from 'site/components/PropsSection'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SROnly } from '@faststore/ui'
+
+<header>
+
+# SROnly
+
+Hides an element visually. Improve accessibility by providing text to
+screen readers when applied.
+
+</header>
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { SROnly } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/SROnly/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <SROnly text="visually hidden text" />
+</OverviewSection>
+
+```tsx
+<SROnly text="visually hidden text" />
+```
+
+---
+
+## Props
+
+<PropsSection name="SROnly" />
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-sr-only`
+
+(Be careful when applying changes to this style. It can stop working as expected.)

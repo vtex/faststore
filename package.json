@@ -20,16 +20,11 @@
     "apps/*"
   ],
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.28.0",
-    "@typescript-eslint/parser": "^5.28.0",
+    "@faststore/eslint-config": "*",
     "conventional-changelog-conventionalcommits": "^5.0.0",
-    "eslint": "^8.17.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-react": "^7.30.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
     "lerna": "^3.22.1",
     "plop": "^2.7.6",
-    "prettier": "^2.7.0",
+    "prettier": "latest",
     "turbo": "latest"
   },
   "version": "0.0.0",

@@ -3,6 +3,75 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.36-alpha.0](https://github.com/vtex/faststore/compare/v2.0.35-alpha.0...v2.0.36-alpha.0) (2023-01-05)
+
+
+### Chores
+
+* Updates `Table` Colored Variant ([#1587](https://github.com/vtex/faststore/issues/1587)) ([04050eb](https://github.com/vtex/faststore/commit/04050eb920fe08ca3b4fe30a3e17fbf9dbedff44))
+
+
+
+## [2.0.35-alpha.0](https://github.com/vtex/faststore/compare/v2.0.34-alpha.0...v2.0.35-alpha.0) (2023-01-05)
+
+
+### Documentation
+
+* Updates Components `mdx` files and General Adjusts ([#1575](https://github.com/vtex/faststore/issues/1575)) ([2787bd0](https://github.com/vtex/faststore/commit/2787bd0db083b66f642ac6af2f141e98de87f6fd))
+
+
+
+## 2.0.34-alpha.0 (2023-01-04)
+
+
+### Bug Fixes
+
+* yarn lock ([d3b7846](https://github.com/vtex/faststore/commit/d3b78468699765f4313c68f6ae8572fe5420cbe1))
+
+
+### Chores
+
+* remove storybook ([#1586](https://github.com/vtex/faststore/issues/1586)) ([82dbfb3](https://github.com/vtex/faststore/commit/82dbfb3102850bfa1115547773f84a293a055c6b))
+
+
+
+## 2.0.33-alpha.0 (2023-01-04)
+
+
+### Bug Fixes
+
+* remove storybook from ui ([#1579](https://github.com/vtex/faststore/issues/1579)) ([682d5e4](https://github.com/vtex/faststore/commit/682d5e4290beb738685fcdc009772d04c0901278))
+
+
+
+## 2.0.32-alpha.0 (2023-01-04)
+
+
+### Bug Fixes
+
+* yarn lock ([#1578](https://github.com/vtex/faststore/issues/1578)) ([d07ebf2](https://github.com/vtex/faststore/commit/d07ebf26fef4518a3a1a1ffede34371d8866a07b))
+
+
+### Chores
+
+* remove docs ([#1584](https://github.com/vtex/faststore/issues/1584)) ([8d3cf8d](https://github.com/vtex/faststore/commit/8d3cf8d7ae0968136d1dd484299b17cc218f6e23))
+
+
+
+## 2.0.31-alpha.0 (2023-01-03)
+
+
+### Bug Fixes
+
+* turbo config ([0048756](https://github.com/vtex/faststore/commit/00487564d0aa2a4bee382574a40fa20431a8f0eb))
+
+
+### Chores
+
+* lint ([#1576](https://github.com/vtex/faststore/issues/1576)) ([a9f5e2e](https://github.com/vtex/faststore/commit/a9f5e2e921a29af898e631380736ee1211aecc0d))
+
+
+
 ## 2.0.30-alpha.0 (2023-01-02)
 
 

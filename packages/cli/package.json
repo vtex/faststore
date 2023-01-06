@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "2.0.30-alpha.0",
+  "version": "2.0.34-alpha.0",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "bin": {
@@ -27,11 +27,13 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "@faststore/shared": "^2.0.30-alpha.0",
+    "@faststore/eslint-config": "^2.0.34-alpha.0",
+    "@faststore/shared": "^2.0.34-alpha.0",
     "@types/chai": "^4",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^16.11.63",
     "chai": "^4",
+    "eslint": "7.32.0",
     "oclif": "^3",
     "shx": "^0.3.3",
     "ts-node": "^10.9.1",

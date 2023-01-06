@@ -1,0 +1,56 @@
+/* Header */
+.nx-w-full > header {
+  padding: var(--fs-spacing-4) var(--fs-spacing-5);
+  margin-top: var(--fs-spacing-6);
+  margin-bottom: var(--fs-spacing-6);
+  background-color: #ecf0ff;
+  border-radius: 4px;
+}
+
+.nx-w-full > header p {
+  margin-top: var(--fs-spacing-2);
+  line-height: var(--fs-text-size-4);
+}
+
+/* Divider */
+hr.nx-my-8 {
+  margin: var(--fs-spacing-9) 0 var(--fs-spacing-8);
+}
+
+/* Titles */
+h2.nx-tracking-tight {
+  border: none;
+  margin-bottom: var(--fs-spacing-4);
+  font-size: var(--fs-text-size-4);
+}
+
+h3.nx-tracking-tight {
+  font-size: var(--fs-text-size-3);
+}
+
+h4.nx-tracking-tight {
+  margin-bottom: var(--fs-spacing-4);
+  font-weight: var(--fs-text-weight-regular);
+  font-size: var(--fs-text-size-3);
+}
+
+
+/* h3.nx-tracking-tight + h4.nx-tracking-tight {  } */
+
+.index-header {
+  display: flex;
+  align-items: center;
+  margin-top: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+  column-gap: 3rem;
+}
+
+.index-header h1 {
+  font-size: var(--fs-text-size-title-huge);
+  margin-bottom: var(--fs-spacing-4);
+}
+
+.index-header img {
+  font-size: var(--fs-text-size-title-huge);
+}

@@ -1,0 +1,241 @@
+---
+description: Checkboxes allow users to toggle an option on or off.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Checkbox___5dfb3d931c093ee7ebfac8bc388e68b5.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { Checkbox, CheckboxField } from '@faststore/ui'
+
+<header>
+
+# Checkbox
+
+Checkboxes allow users to toggle an option on or off.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Checkbox />
+      <Checkbox checked readOnly />
+      <Checkbox disabled />
+      <Checkbox checked partial readOnly />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Checkbox />
+    <Checkbox checked />
+    <Checkbox disabled />
+    <Checkbox checked partial />
+    ```
+  </Tab>
+</Tabs>
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { Checkbox } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/Checkbox/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <Checkbox />
+</OverviewSection>
+```tsx
+<Checkbox />
+```
+
+---
+
+## Props
+
+<PropsSection name="Checkbox" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-checkbox-width" value="1.25rem" />
+  <TokenRow token="--fs-checkbox-height" value="var(--fs-checkbox-width)" />
+  <TokenDivider />
+  <TokenRow token="--fs-checkbox-border-width" value="var(--fs-border-width)" />
+  <TokenRow
+    token="--fs-checkbox-border-radius"
+    value="var(--fs-border-radius)"
+  />
+  <TokenRow
+    token="--fs-checkbox-border-color"
+    value="var(--fs-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-border-color-hover"
+    value="var(--fs-border-color-active)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-checkbox-transition"
+    value="border var(--fs-transition-timing) var(--fs-transition-function), background-color var(--fs-transition-timing) var(--fs-transition-function), box-shadow var(--fs-transition-timing) var(--fs-transition-function)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-checkbox-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-shadow-hover"
+    value="0 0 0 var(--fs-checkbox-border-width) var(--fs-border-color-active)"
+  />
+</TokenTable>
+
+### Variants
+
+#### Checked
+
+<OverviewSection>
+  <Checkbox checked />
+</OverviewSection>
+
+```tsx
+<Checkbox checked />
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-checkbox-checked-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-checked-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-checked-border-color-hover"
+    value="var((--fs-border-color-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-checked-shadow-hover"
+    value="0 0 0 var(--fs-checkbox-border-width)
+          var(--fs-checkbox-checked-border-color-hover)"
+  />
+</TokenTable>
+
+#### Disabled
+
+<OverviewSection>
+  <Checkbox disabled readOnly />
+</OverviewSection>
+
+```tsx
+<Checkbox disabled readOnly />
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-checkbox-disabled-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-disabled-border-width"
+    value="var(--fs-checkbox-border-width)"
+  />
+  <TokenRow
+    token="--fs-checkbox-disabled-border-color"
+    value="var(--fs-border-color-disabled)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-disabled-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+</TokenTable>
+
+#### Partial
+
+<OverviewSection>
+  <Checkbox checked partial />
+</OverviewSection>
+```tsx
+<Checkbox checked partial />
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-checkbox-partial-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-partial-border-width"
+    value="var(--fs-checkbox-border-width)"
+  />
+  <TokenRow
+    token="--fs-checkbox-partial-border-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-partial-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-checkbox`
+
+---
+
+## Best Practices
+
+### ✅ Do's
+
+- Provide a [Label](/components/atoms/label) when using checkbox input. Descriptive labels help users understand the purpose of a form control.
+
+---
+
+## Related components
+
+<SectionList>
+  <SectionItem
+    title="CheckboxField"
+    description="CheckboxField wraps a Checkbox input and its corresponding Label."
+    actionPath="/components/molecules/checkbox-field"
+  >
+    <CheckboxField label="CheckboxField" id="checkboxfield" checked readOnly />
+  </SectionItem>
+</SectionList>
