@@ -1,7 +1,15 @@
 import React, { forwardRef } from 'react'
-import type { HTMLAttributes } from 'react'
+import type {
+  DetailedHTMLProps,
+  TableHTMLAttributes,
+  PropsWithChildren,
+} from 'react'
 
-export interface TableProps extends HTMLAttributes<HTMLTableElement> {
+export interface TableProps
+  extends DetailedHTMLProps<
+    TableHTMLAttributes<HTMLTableElement>,
+    HTMLTableElement
+  > {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -16,23 +24,25 @@ export interface TableProps extends HTMLAttributes<HTMLTableElement> {
   variant?: 'colored' | 'bordered'
 }
 
-const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
-  { variant = 'colored', testId = 'fs-table', children, ...otherProps },
-  ref
-) {
-  return (
-    <div data-fs-table>
-      <table
-        ref={ref}
-        data-fs-table-content
-        data-fs-table-variant={variant}
-        data-testid={testId}
-        {...otherProps}
-      >
-        {children}
-      </table>
-    </div>
-  )
-})
+const Table = forwardRef<HTMLTableElement, PropsWithChildren<TableProps>>(
+  function Table(
+    { children, variant = 'colored', testId = 'fs-table', ...otherProps },
+    ref
+  ) {
+    return (
+      <div data-fs-table>
+        <table
+          ref={ref}
+          data-fs-table-content
+          data-fs-table-variant={variant}
+          data-testid={testId}
+          {...otherProps}
+        >
+          {children}
+        </table>
+      </div>
+    )
+  }
+)
 
 export default Table

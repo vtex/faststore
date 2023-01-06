@@ -1,5 +1,5 @@
-import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
+import type { HTMLAttributes, PropsWithChildren } from 'react'
 
 type TableCellVariant = 'data' | 'header'
 
@@ -23,33 +23,34 @@ export interface TableCellProps extends HTMLAttributes<HTMLTableCellElement> {
   align?: 'left' | 'center' | 'right'
 }
 
-const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
-  function TableCell(
-    {
-      testId = 'fs-table-cell',
-      children,
-      variant = 'data',
-      scope,
-      align,
-      ...otherProps
-    },
-    ref
-  ) {
-    const Cell = variant === 'header' ? 'th' : 'td'
+const TableCell = forwardRef<
+  HTMLTableCellElement,
+  PropsWithChildren<TableCellProps>
+>(function TableCell(
+  {
+    scope,
+    align,
+    children,
+    variant = 'data',
+    testId = 'fs-table-cell',
+    ...otherProps
+  },
+  ref
+) {
+  const Cell = variant === 'header' ? 'th' : 'td'
 
-    return (
-      <Cell
-        ref={ref}
-        data-fs-table-cell={variant}
-        data-fs-table-cell-align={align}
-        data-testid={testId}
-        scope={scope}
-        {...otherProps}
-      >
-        {children}
-      </Cell>
-    )
-  }
-)
+  return (
+    <Cell
+      ref={ref}
+      data-fs-table-cell={variant}
+      data-fs-table-cell-align={align}
+      data-testid={testId}
+      scope={scope}
+      {...otherProps}
+    >
+      {children}
+    </Cell>
+  )
+})
 
 export default TableCell
