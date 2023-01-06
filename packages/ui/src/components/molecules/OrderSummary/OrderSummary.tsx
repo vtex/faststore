@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react'
-import { List } from '@faststore/components'
-import type { ListProps } from '@faststore/components'
+import type { HTMLAttributes } from 'react'
 
-export interface OrderSummaryProps
-  extends Omit<ListProps, 'nonce' | 'onResize' | 'onResizeCapture'> {
+import { List } from '@faststore/components'
+
+export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
