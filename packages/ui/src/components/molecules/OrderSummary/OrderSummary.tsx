@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react'
 import { List } from '@faststore/components'
 import type { ListProps } from '@faststore/components'
 
-export interface OrderSummaryProps extends ListProps<'ul'> {
+export interface OrderSummaryProps extends ListProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).

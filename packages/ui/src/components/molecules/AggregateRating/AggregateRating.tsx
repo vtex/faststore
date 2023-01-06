@@ -4,7 +4,7 @@ import type { FC, PropsWithChildren } from 'react'
 import { List } from '@faststore/components'
 import type { ListProps } from '@faststore/components'
 
-export interface AggregateRatingProps extends ListProps<'ul'> {
+export interface AggregateRatingProps extends ListProps {
   /**
    * The current value of the rating, based on the quantity of child elements.
    */
