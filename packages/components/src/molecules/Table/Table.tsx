@@ -15,10 +15,6 @@ export interface TableProps
    */
   testId?: string
   /**
-   * Children for Table components.
-   */
-  children: React.ReactNode
-  /**
    * Defines what style this component should use.
    */
   variant?: 'colored' | 'bordered'
