@@ -1,16 +1,30 @@
+---
+description: Accordions display an expandable/collapsible list of items.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Accordion___66012e5367e86c5b4422ff8d6974b8cd.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
 import {
   Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
+  List,
 } from '@faststore/ui'
-// import PropsSection from '@site/src/components/PropsSection/PropsSection'
-// import PropsComponent from '@site/src/components/PropsComponent/PropsComponent'
-// import { TokenTable, TokenRow, TokenDivider } from '@site/components/Tokens'
+import { useState } from 'react'
+
+<header>
 
 # Accordion
 
 Accordions display an expandable/collapsible list of items. The final Accordion component is a compound of the following:
+
+</header>
 
 - `Accordion`: wraps a series of `AccordionItem`s in a single component.
 - `AccordionItem`: wraps an `AccordionButton` and an `AccordionPanel`.
@@ -23,7 +37,7 @@ Accordions display an expandable/collapsible list of items. The final Accordion 
 
 Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
-```tsx copy
+```tsx
 import {
   Accordion,
   AccordionItem,
@@ -34,17 +48,67 @@ import {
 
 Import Styles
 
-```tsx copy
+```tsx
 import '@faststore/ui/src/components/molecules/Accordion/styles.scss'
 ```
 
 ---
 
+export const UsageAccordion = () => {
+
+const [indices, setIndices] = useState([0])
+const onChange = (index) => {
+setIndices([index])
+}
+
+return (
+
+<Accordion indices={indices} onChange={onChange}>
+  <AccordionItem>
+    <AccordionButton>Clothing</AccordionButton>
+    <AccordionPanel>
+      <List>
+        <li>Shorts</li>
+        <li>Sweatshirt</li>
+        <li>Tank tops</li>
+      </List>
+    </AccordionPanel>
+  </AccordionItem>
+  <AccordionItem>
+    <AccordionButton>Bags</AccordionButton>
+    <AccordionPanel>
+      <List>
+        <li>Backpacks</li>
+        <li>Necessaire</li>
+      </List>
+    </AccordionPanel>
+  </AccordionItem>
+  <AccordionItem>
+    <AccordionButton>Sale</AccordionButton>
+    <AccordionPanel>
+      <List>
+        <li>Smartphones</li>
+        <li>TVs</li>
+      </List>
+    </AccordionPanel>
+  </AccordionItem>
+</Accordion>
+) }
+
 ## Usage
+
+<OverviewSection>{UsageAccordion()}</OverviewSection>
+```tsx
+<Price value={62.5} />
+```
+
+---
+
+## Examples
 
 ### Multiple and Collapsible
 
-```tsx live
+```tsx
 <MultipleAndCollapsible>
   <AccordionItem>
     <AccordionButton>Clothing</AccordionButton>
@@ -79,7 +143,7 @@ import '@faststore/ui/src/components/molecules/Accordion/styles.scss'
 
 ### One Collapsible at a Time
 
-```tsx live
+```tsx
 function() {
   const [indices, setIndices] = useState([0])
   const onChange = (index) => {
@@ -129,6 +193,8 @@ function() {
   );
 }
 ```
+
+---
 
 ## Props
 
