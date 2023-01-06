@@ -55,54 +55,180 @@ import '@faststore/ui/src/components/molecules/Accordion/styles.scss'
 ---
 
 export const UsageAccordion = () => {
-
-const [indices, setIndices] = useState([0])
-const onChange = (index) => {
-setIndices([index])
+  const [indices, setIndices] = useState([0])
+  const onChange = (index) => {
+    setIndices([index])
+  }
+  return (
+    <Accordion indices={indices} onChange={onChange}>
+      <AccordionItem>
+        <AccordionButton>Clothing</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Shorts</li>
+            <li>Sweatshirt</li>
+            <li>Tank tops</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>Bags</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Backpacks</li>
+            <li>Necessaire</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>Sale</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Smartphones</li>
+            <li>TVs</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+    </Accordion>
+  )
 }
-
-return (
-
-<Accordion indices={indices} onChange={onChange}>
-  <AccordionItem>
-    <AccordionButton>Clothing</AccordionButton>
-    <AccordionPanel>
-      <List>
-        <li>Shorts</li>
-        <li>Sweatshirt</li>
-        <li>Tank tops</li>
-      </List>
-    </AccordionPanel>
-  </AccordionItem>
-  <AccordionItem>
-    <AccordionButton>Bags</AccordionButton>
-    <AccordionPanel>
-      <List>
-        <li>Backpacks</li>
-        <li>Necessaire</li>
-      </List>
-    </AccordionPanel>
-  </AccordionItem>
-  <AccordionItem>
-    <AccordionButton>Sale</AccordionButton>
-    <AccordionPanel>
-      <List>
-        <li>Smartphones</li>
-        <li>TVs</li>
-      </List>
-    </AccordionPanel>
-  </AccordionItem>
-</Accordion>
-) }
 
 ## Usage
 
-<OverviewSection>{UsageAccordion()}</OverviewSection>
-```tsx
-<Price value={62.5} />
-```
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>{UsageAccordion()}</OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Accordion indices={indices} onChange={onChange}>
+      <AccordionItem>
+        <AccordionButton>Clothing</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Shorts</li>
+            <li>Sweatshirt</li>
+            <li>Tank tops</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>Bags</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Backpacks</li>
+            <li>Necessaire</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>Sale</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Smartphones</li>
+            <li>TVs</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+    </Accordion>
+    ```
+  </Tab>
+</Tabs>
 
 ---
+
+## Props
+
+All accordion-related components support all attributes also supported by the `<div>` tag, except for the `AccordionButton`, which renders the `<button>` tag and inherits [Button](/reference/ui/atoms/Button) props.
+
+Besides those attributes, the following props are also supported:
+
+### Accordion
+
+<PropsSection name="Accordion" />
+
+### AccordionItem
+
+<PropsSection name="AccordionItem" />
+
+### AccordionButton
+
+<PropsSection name="AccordionButton" />
+
+### AccordionPanel
+
+<PropsSection name="AccordionPanel" />
+
+---
+
+## Design Tokens
+
+### Nested Elements
+
+### Item
+
+<TokenTable>
+  <TokenRow
+    token="--fs-accordion-item-border-bottom-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-accordion-item-border-bottom-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+</TokenTable>
+
+### Button
+
+<TokenTable>
+  <TokenRow
+    token="--fs-accordion-button-padding"
+    value="var(--fs-spacing-3) 0"
+  />
+  <TokenRow
+    token="--fs-accordion-button-font-size"
+    value="var(--fs-text-size-3)"
+  />
+  <TokenRow
+    token="--fs-accordion-button-font-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenRow token="--fs-accordion-button-line-height" value="1.2" />
+  <TokenRow
+    token="--fs-accordion-button-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-accordion-button-bkg-color"
+    value="transparent"
+    isColor
+  />
+</TokenTable>
+
+### Panel
+
+<TokenTable>
+  <TokenRow
+    token="--fs-accordion-panel-padding-bottom"
+    value="var(--fs-spacing-4)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+`data-fs-accordion`
+
+`data-fs-accordion-item`
+
+`data-fs-accordion-button`
+
+`data-fs-accordion-panel`
+
+The `AccordionButton` component inherits [Button](/components/atoms/button) CSS selectors.
 
 ## Examples
 
@@ -193,59 +319,3 @@ function() {
   );
 }
 ```
-
----
-
-## Props
-
-All accordion-related components support all attributes also supported by the `<div>` tag, except for the `AccordionButton`, which renders the `<button>` tag and inherits [Button](/reference/ui/atoms/Button) props.
-
-Besides those attributes, the following props are also supported:
-
-### Accordion
-
-- TODO: Adds props
-
-### AccordionItem
-
-- TODO: Adds props
-
-### AccordionButton
-
-- TODO: Adds props
-
-### AccordionPanel
-
-- TODO: Adds props
-
----
-
-## Design Tokens
-
-### Nested Elements
-
-### Item
-
-- TODO: Adds tokens
-
-### Button
-
-- TODO: Adds tokens
-
-### Panel
-
-- TODO: Adds tokens
-
----
-
-## Customization
-
-`data-fs-accordion`
-
-`data-fs-accordion-item`
-
-`data-fs-accordion-button`
-
-`data-fs-accordion-panel`
-
-The `AccordionButton` component inherits [Button](/components/atoms/button) CSS selectors.

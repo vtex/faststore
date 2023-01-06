@@ -25,6 +25,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  width: 100%;
 
   [data-fs-accordion-item] {
     border-bottom: var(--fs-accordion-item-border-bottom-width) solid var(--fs-accordion-item-border-bottom-color);
