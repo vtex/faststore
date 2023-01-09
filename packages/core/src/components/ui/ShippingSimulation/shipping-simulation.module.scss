@@ -23,19 +23,9 @@
   // Location
   --fs-shipping-simulation-location-padding-bottom  : var(--fs-spacing-2);
 
-  // Table
-  --fs-shipping-simulation-table-row-bkg-color      : var(--fs-color-main-0);
-  --fs-shipping-simulation-table-row-even-bkg-color : transparent;
-
-  --fs-shipping-simulation-table-cell-padding       : var(--fs-spacing-2);
-  --fs-shipping-simulation-table-cell-text-size     : var(--fs-text-size-2);
-  --fs-shipping-simulation-table-cell-border-radius : var(--fs-border-radius);
-
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
-
-  font-size: var(--fs-shipping-simulation-text-size);
 
   [data-fs-shipping-simulation-title] {
     padding-bottom: var(--fs-shipping-simulation-title-padding-bottom);
@@ -63,34 +53,5 @@
 
   [data-fs-shipping-simulation-location] {
     padding-bottom: var(--fs-shipping-simulation-location-padding-bottom);
-  }
-
-  [data-fs-shipping-simulation-table] {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  [data-fs-shipping-simulation-table-row] {
-    background-color: var(--fs-shipping-simulation-table-row-bkg-color);
-
-    &:nth-child(even) {
-      background-color: var(--fs-shipping-simulation-table-row-even-bkg-color);
-    }
-  }
-
-  [data-fs-shipping-simulation-table-cell] {
-    padding: var(--fs-shipping-simulation-table-cell-padding);
-    font-size: var(--fs-shipping-simulation-table-cell-text-size);
-
-    &:first-child {
-      border-top-left-radius: var(--fs-shipping-simulation-table-cell-border-radius);
-      border-bottom-left-radius: var(--fs-shipping-simulation-table-cell-border-radius);
-    }
-
-    &:last-child {
-      text-align: right;
-      border-top-right-radius: var(--fs-shipping-simulation-table-cell-border-radius);
-      border-bottom-right-radius: var(--fs-shipping-simulation-table-cell-border-radius);
-    }
   }
 }

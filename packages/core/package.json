@@ -34,7 +34,7 @@
     "@faststore/components": "2.0.30-alpha.0",
     "@faststore/graphql-utils": "^2.0.3-alpha.0",
     "@faststore/sdk": "^2.0.3-alpha.0",
-    "@faststore/ui": "2.0.30-alpha.0",
+    "@faststore/ui": "2.0.37-alpha.0",
     "@types/react": "^18.0.14",
     "@vtex/client-cms": "^0.2.12",
     "autoprefixer": "^10.4.0",

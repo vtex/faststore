@@ -73,7 +73,7 @@ function ShippingSimulation({
         displayClearButton={displayClearButton}
       />
 
-      <Link href="/" data-fs-shipping-simulation-link>
+      <Link href="/" data-fs-shipping-simulation-link size="small">
         {"I don't know my Postal Code"}
         <Icon name="ArrowSquareOut" width={18} height={18} />
       </Link>
@@ -87,20 +87,13 @@ function ShippingSimulation({
             </p>
           </header>
 
-          <Table data-fs-shipping-simulation-table>
+          <Table>
             <TableBody>
               {shippingOptions.map((option) => (
-                <TableRow
-                  key={option.carrier}
-                  data-fs-shipping-simulation-table-row
-                >
-                  <TableCell data-fs-shipping-simulation-table-cell>
-                    {option.carrier}
-                  </TableCell>
-                  <TableCell data-fs-shipping-simulation-table-cell>
-                    {option.localizedEstimates}
-                  </TableCell>
-                  <TableCell data-fs-shipping-simulation-table-cell>
+                <TableRow key={option.carrier}>
+                  <TableCell align="left">{option.carrier}</TableCell>
+                  <TableCell>{option.localizedEstimates}</TableCell>
+                  <TableCell align="right">
                     {option.price && (
                       <Price
                         formatter={formatter}
