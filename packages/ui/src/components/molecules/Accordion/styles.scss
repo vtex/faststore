@@ -1,0 +1,70 @@
+[data-fs-accordion] {
+  // --------------------------------------------------------
+  // Design Tokens for Accordion
+  // --------------------------------------------------------
+
+  // Item
+  --fs-accordion-item-border-bottom-width           : var(--fs-border-width);
+  --fs-accordion-item-border-bottom-color           : var(--fs-border-color-light);
+
+  // Button
+  --fs-accordion-button-padding                     : var(--fs-spacing-3) 0;
+  --fs-accordion-button-font-size                   : var(--fs-text-size-3);
+  --fs-accordion-button-font-weight                 : var(--fs-text-weight-bold);
+  --fs-accordion-button-line-height                 : 1.2;
+  --fs-accordion-button-color                       : var(--fs-color-text);
+  --fs-accordion-button-bkg-color                   : transparent;
+
+  // Panel
+  --fs-accordion-panel-padding-bottom               : var(--fs-spacing-4);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+
+  [data-fs-accordion-item] {
+    border-bottom: var(--fs-accordion-item-border-bottom-width) solid var(--fs-accordion-item-border-bottom-color);
+
+    @include media(">=notebook") {
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  [data-fs-accordion-button] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--fs-accordion-button-padding);
+    font-size: var(--fs-accordion-button-font-size);
+    font-weight: var(--fs-accordion-button-font-weight);
+    line-height: var(--fs-accordion-button-line-height);
+    color: var(--fs-accordion-button-color);
+    cursor: pointer;
+    background-color: var(--fs-accordion-button-bkg-color);
+    border: 0;
+
+    [data-fs-icon] {
+      display: flex;
+
+      [data-icon] {
+        display: none;
+      }
+
+      [data-icon="expanded"], [data-icon="collapsed"] {
+        display: initial;
+      }
+    }
+  }
+
+  [data-fs-accordion-panel] {
+    padding-bottom: var(--fs-accordion-panel-padding-bottom);
+  }
+}

@@ -14,7 +14,7 @@ export interface AccordionPanelProps
 
 const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
   function AccordionPanel(
-    { testId = 'store-accordion-panel', children, ...otherProps },
+    { testId = 'fs-accordion-panel', children, ...otherProps },
     ref
   ) {
     const { indices } = useAccordion()
@@ -24,11 +24,11 @@ const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
       <div
         ref={ref}
         id={panel}
+        data-fs-accordion-panel
         aria-labelledby={button}
         role="region"
-        data-accordion-panel
-        data-testid={testId}
         hidden={!indices.has(index)}
+        data-testid={testId}
         {...otherProps}
       >
         {children}

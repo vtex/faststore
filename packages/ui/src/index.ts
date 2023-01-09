@@ -137,19 +137,6 @@ export type {
   RadioOptionProps,
 } from './components/molecules/RadioGroup'
 
-export {
-  default as Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-} from './components/molecules/Accordion'
-export type {
-  AccordionProps,
-  AccordionItemProps,
-  AccordionButtonProps,
-  AccordionPanelProps,
-} from './components/molecules/Accordion'
-
 export { default as Form } from './components/molecules/Form'
 export type { FormProps } from './components/molecules/Form'
 

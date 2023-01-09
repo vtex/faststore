@@ -1,9 +1,9 @@
+import React, { useContext, forwardRef, createContext } from 'react'
 import type { ElementType, HTMLAttributes, ReactElement } from 'react'
-import React, { createContext, forwardRef, useContext } from 'react'
 import type {
   PolymorphicComponentPropsWithRef,
   PolymorphicRef,
-} from '../../../typings'
+} from '../../typings'
 
 interface AccordionItemContext {
   index: number
@@ -33,9 +33,8 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   prefixId?: string
 }
 
-export type AccordionItemProps<
-  C extends ElementType
-> = PolymorphicComponentPropsWithRef<C, Props>
+export type AccordionItemProps<C extends ElementType> =
+  PolymorphicComponentPropsWithRef<C, Props>
 
 type AccordionItemComponent = <C extends ElementType = 'div'>(
   props: AccordionItemProps<C>
@@ -45,11 +44,11 @@ const AccordionItem: AccordionItemComponent = forwardRef(function AccordionItem<
   C extends ElementType = 'div'
 >(
   {
-    testId = 'store-accordion-item',
-    children,
     prefixId = '',
     index = 0,
     as: MaybeComponent,
+    children,
+    testId = 'fs-accordion-item',
     ...otherProps
   }: AccordionItemProps<C>,
   ref: PolymorphicRef<C>
@@ -67,7 +66,7 @@ const AccordionItem: AccordionItemComponent = forwardRef(function AccordionItem<
     <AccordionItemContext.Provider value={context}>
       <Component
         ref={ref}
-        data-accordion-item
+        data-fs-accordion-item
         data-testid={testId}
         {...otherProps}
       >
