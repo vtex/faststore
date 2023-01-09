@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.38-alpha.0](https://github.com/vtex/faststore/compare/v2.0.37-alpha.0...v2.0.38-alpha.0) (2023-01-09)
+
+
+### Features
+
+* Adds `Accordion` component  ([#1567](https://github.com/vtex/faststore/issues/1567)) ([0173e20](https://github.com/vtex/faststore/commit/0173e20b162d53d8faae0791e08110f335c6d6f6))
+
+
+
 ## 2.0.37-alpha.0 (2023-01-06)
 
 
