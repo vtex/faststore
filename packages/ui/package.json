@@ -34,7 +34,7 @@
     }
   ],
   "dependencies": {
-    "@faststore/components": "*",
+    "@faststore/components": "2.0.39-alpha.0",
     "@reach/popover": "^0.16.0",
     "include-media": "^1.4.10",
     "modern-normalize": "^1.1.0",
