@@ -18,7 +18,6 @@
   --fs-qty-selector-text-color-hover          : var(--fs-qty-selector-text-color);
 
   --fs-qty-selector-icon-color                : var(--fs-color-link);
-  --fs-qty-selector-icon-color-hover          : var(--fs-border-color-active);
 
   --fs-qty-selector-border-radius             : var(--fs-border-radius);
   --fs-qty-selector-border-width              : var(--fs-border-width);
@@ -78,10 +77,6 @@
       height: 100%;
       border-radius: var(--fs-qty-selector-button-border-radius);
       box-shadow: var(--fs-qty-selector-button-shadow);
-      transition:
-        var(--fs-qty-selector-transition-property)
-        var(--fs-qty-selector-transition-timing)
-        var(--fs-qty-selector-transition-function);
     }
 
     &[data-fs-icon-button] {
