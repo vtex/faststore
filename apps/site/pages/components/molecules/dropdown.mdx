@@ -40,8 +40,8 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
   <Tab>
     <OverviewSection>
       <Dropdown>
-        <DropdownButton>
-              <CaretDown /> {'Dropdown'}
+        <DropdownButton icon={<CaretDown />}>
+              {'Dropdown'}
           </DropdownButton>
         <DropdownMenu>
             <DropdownItem>Dropdown Item 1</DropdownItem>
@@ -50,8 +50,8 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
         </DropdownMenu>
       </Dropdown>
       <Dropdown>
-        <DropdownButton>
-            <CaretDown /> {'Dropdown Small'}
+        <DropdownButton icon={<CaretDown />}>
+            {'Dropdown Small'}
           </DropdownButton>
           <DropdownMenu size="small">
             <DropdownItem>Dropdown Item 1</DropdownItem>
@@ -64,9 +64,8 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
   <Tab>
     ```tsx
     <Dropdown>
-      <DropdownButton>
-            <CaretDown />
-            Dropdown
+      <DropdownButton icon={<CaretDown />}>
+            {'Dropdown'}
         </DropdownButton>
       <DropdownMenu>
           <DropdownItem>Dropdown Item 1</DropdownItem>
@@ -75,9 +74,8 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
       </DropdownMenu>
     </Dropdown>
     <Dropdown>
-      <DropdownButton>
-          <CaretDown />
-          Dropdown Small
+      <DropdownButton icon={<CaretDown />}>
+          {'Dropdown Small'}
         </DropdownButton>
         <DropdownMenu size="small">
           <DropdownItem>Dropdown Item 1</DropdownItem>
@@ -113,8 +111,8 @@ import '@faststore/ui/src/components/molecules/Dropdown/styles.scss'
 
 <OverviewSection>
   <Dropdown>
-    <DropdownButton>
-      <CaretDown /> {'Dropdown'}
+    <DropdownButton  icon={<CaretDown />}>
+      {'Dropdown'}
     </DropdownButton>
     <DropdownMenu>
       <DropdownItem>Dropdown Item 1</DropdownItem>
@@ -221,42 +219,6 @@ import '@faststore/ui/src/components/molecules/Dropdown/styles.scss'
   <TokenRow
     token="--fs-dropdown-item-small-text-size"
     value="var(--fs-text-size-1)"
-  />
-</TokenTable>
-
-#### DropdownButton
-
-<TokenTable>
-  <TokenRow
-    token="--fs-dropdown-button-min-height"
-    value="2.375rem"
-  />
-  <TokenRow
-    token="--fs-dropdown-button-padding"
-    value="var(--fs-spacing-1) var(--fs-spacing-2) var(--fs-spacing-1) var(--fs-spacing-1)"
-  />
-  <TokenRow
-    token="--fs-dropdown-button-text-size"
-    value="var(--fs-text-size-base)"
-  />
-    <TokenRow
-    token="--fs-dropdown-button-text-weight"
-    value="var(--fs-text-weight-regular)"
-  />
-  <TokenRow
-    token="--fs-dropdown-button-color"
-    value="var(--fs-color-link)"
-    isColor
-  />
-  <TokenRow
-    token="--fs-dropdown-button-bkg-color"
-    value="var(--fs-color-tertiary-bkg-light)"
-    isColor
-  />
-    <TokenRow
-    token="--fs-dropdown-button-bkg-color-hover"
-    value="var(--fs-color-primary-bkg-light)"
-    isColor
   />
 </TokenTable>
 

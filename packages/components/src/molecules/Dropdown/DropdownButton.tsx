@@ -1,10 +1,10 @@
-import type { ButtonHTMLAttributes } from 'react'
 import React, { forwardRef, useImperativeHandle } from 'react'
+import Button, { ButtonProps } from '../../atoms/Button'
 
 import { useDropdown } from './hooks/useDropdown'
 
 export interface DropdownButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  extends Omit<ButtonProps, "variant" | "inverse" >{
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -12,7 +12,7 @@ export interface DropdownButtonProps
 }
 
 const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
-  function Button(
+  function DropdownButton(
     { children, testId = 'fs-dropdown-button', ...otherProps },
     ref
   ) {
@@ -23,7 +23,7 @@ const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
     ])
 
     return (
-      <button
+      <Button
         data-fs-dropdown-button
         onClick={toggle}
         data-testid={testId}
@@ -31,10 +31,12 @@ const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
         aria-expanded={isOpen}
         aria-haspopup="menu"
         aria-controls={id}
+        variant='primary'
+        inverse
         {...otherProps}
       >
         {children}
-      </button>
+      </Button>
     )
   }
 )
