@@ -80,6 +80,10 @@ type StoreSession {
   Session public fields.
   """
   public: [StorePublic]
+  """
+  Session cookie.
+  """
+  cookie: String
 }
 
 """

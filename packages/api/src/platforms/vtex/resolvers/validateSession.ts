@@ -10,7 +10,7 @@ import type {
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
-  { clients }: Context
+  { clients, storage }: Context
 ): Promise<StoreSession | null> => {
   console.log('SEARCH: search', search)
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
@@ -64,6 +64,7 @@ export const validateSession = async (
           }
         })
       : null,
+    cookie: storage.cookie,
   }
 
   console.log('newSession: ', newSession)

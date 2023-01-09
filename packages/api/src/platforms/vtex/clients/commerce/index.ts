@@ -225,7 +225,8 @@ export const VtexCommerce = (
         body: '{}',
       })
         .then((res) => {
-          mutateCookieContext(ctx, res.headers.get('set-cookie') ?? '')
+          const cookieValue = res.headers.get('set-cookie') ?? ''
+          mutateCookieContext(ctx, cookieValue)
           return res.json()
         })
         .catch((err) => {
