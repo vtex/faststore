@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [0.3.16](https://github.com/vtex-sites/nextjs.store/compare/0.3.15...0.3.16) (2023-01-09)
+
+
+### Chores
+
+* Replace `Table` using FSUI ([#341](https://github.com/vtex-sites/nextjs.store/issues/341)) ([cccf3d5](https://github.com/vtex-sites/nextjs.store/commit/cccf3d5cb1fccc1440b2b019ebc06ddc474fb25f))
+
 ### 0.3.15 (2023-01-03)
 
 
