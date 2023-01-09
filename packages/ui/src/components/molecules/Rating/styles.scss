@@ -4,11 +4,15 @@
   // --------------------------------------------------------
 
   // Default properties
+  --fs-rating-gap                     : var(--fs-spacing-3);
+  --fs-rating-color                   : var(--fs-color-text);
 
   // Icon
-
   --fs-rating-icon-width              : var(--fs-spacing-3);
   --fs-rating-icon-height             : var(--fs-rating-icon-width);
+
+  // Actionable
+  --fs-rating-actionable-gap          : 0;
 
   // --------------------------------------------------------
   // Structural Styles
@@ -17,6 +21,7 @@
   display: flex;
 
   [data-fs-icon] {
+    color: var(--fs-rating-color);
     width: var(--fs-rating-icon-width);
     height: var(--fs-rating-icon-height);
   }
@@ -53,8 +58,12 @@
     width: calc(var(--fs-rating-icon-width) / 2);
   }
 
-  &:not([data-fs-rating-interactable="true"]) {
-    column-gap: var(--fs-spacing-3);
+  &:not([data-fs-rating-actionable="true"]) {
+    column-gap: var(--fs-rating-gap);
+  }
+
+  [data-fs-rating-actionable="true"] {
+    column-gap: var(--fs-rating-actionable-gap);
   }
 
 }

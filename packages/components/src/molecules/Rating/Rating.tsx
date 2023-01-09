@@ -15,9 +15,9 @@ export interface RatingProps extends HTMLAttributes<HTMLUListElement> {
    */
   icon: ReactNode
   /**
-   * Specifies that this input should be interactable.
+   * Specifies that this input should be controled by the user.
    */
-  interactable?: boolean
+  actionable?: boolean
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -31,7 +31,7 @@ export interface RatingItemProps {
 
 const Rating = forwardRef<HTMLUListElement, RatingProps>(
   function Rating(
-    { children, testId = 'fs-rating', value, interactable, icon, ...otherProps },
+    { children, testId = 'fs-rating', value, actionable, icon, ...otherProps },
     ref
   ) {
     const [rating, setRating] = useState(value - 1)
@@ -41,7 +41,7 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(
       <List
         ref={ref}
         data-fs-rating
-        data-fs-rating-interactable={interactable}
+        data-fs-rating-actionable={actionable}
         data-testid={testId}
         {...otherProps}
       >
@@ -65,7 +65,7 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(
               data-fs-rating-item={fill}
               data-testid={`${testId}-item`}
             >
-              {interactable ? (
+              {actionable ? (
                 <IconButton
                   data-fs-rating-button
                   icon={icon}
