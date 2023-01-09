@@ -40,9 +40,6 @@ export type { ProductTitleProps } from './components/molecules/ProductTitle'
 export { default as OrderSummary } from './components/molecules/OrderSummary'
 export type { OrderSummaryProps } from './components/molecules/OrderSummary'
 
-export { default as AggregateRating } from './components/molecules/AggregateRating'
-export type { AggregateRatingProps } from './components/molecules/AggregateRating'
-
 export {
   default as ProductCard,
   ProductCardImage,
