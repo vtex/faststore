@@ -38,26 +38,28 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
-    <Dropdown>
-      <DropdownButton>
-            <CaretDown /> {'Dropdown'}
-        </DropdownButton>
-      <DropdownMenu>
-          <DropdownItem>Dropdown Item 1</DropdownItem>
-          <DropdownItem>Dropdown Item 2</DropdownItem>
-          <DropdownItem>Dropdown Item 3</DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
-    <Dropdown>
-      <DropdownButton>
-          <CaretDown /> {'Dropdown Small'}
-        </DropdownButton>
-        <DropdownMenu size="small">
-          <DropdownItem>Dropdown Item 1</DropdownItem>
-          <DropdownItem>Dropdown Item 2</DropdownItem>
-          <DropdownItem>Dropdown Item 3</DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+    <OverviewSection>
+      <Dropdown>
+        <DropdownButton>
+              <CaretDown /> {'Dropdown'}
+          </DropdownButton>
+        <DropdownMenu>
+            <DropdownItem>Dropdown Item 1</DropdownItem>
+            <DropdownItem>Dropdown Item 2</DropdownItem>
+            <DropdownItem>Dropdown Item 3</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+      <Dropdown>
+        <DropdownButton>
+            <CaretDown /> {'Dropdown Small'}
+          </DropdownButton>
+          <DropdownMenu size="small">
+            <DropdownItem>Dropdown Item 1</DropdownItem>
+            <DropdownItem>Dropdown Item 2</DropdownItem>
+            <DropdownItem>Dropdown Item 3</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
