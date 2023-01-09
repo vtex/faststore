@@ -1,10 +1,9 @@
 import React, { forwardRef } from 'react'
-import type { FC, PropsWithChildren } from 'react'
+import type { FC, PropsWithChildren, HTMLAttributes } from 'react'
 
 import { List } from '@faststore/components'
-import type { ListProps } from '@faststore/components'
 
-export interface AggregateRatingProps extends ListProps<'ul'> {
+export interface AggregateRatingProps extends HTMLAttributes<HTMLUListElement> {
   /**
    * The current value of the rating, based on the quantity of child elements.
    */

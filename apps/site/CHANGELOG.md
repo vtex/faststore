@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.37-alpha.0 (2023-01-06)
+
+
+### Chores
+
+* remove styles ([#1589](https://github.com/vtex/faststore/issues/1589)) ([7a21b1c](https://github.com/vtex/faststore/commit/7a21b1cfbbd7cee190299365087984c33cc8d4e2))
+
+
+
 ## [2.0.36-alpha.0](https://github.com/vtex/faststore/compare/v2.0.35-alpha.0...v2.0.36-alpha.0) (2023-01-05)
 
 
