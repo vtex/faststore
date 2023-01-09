@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.39-alpha.0](https://github.com/vtex/faststore/compare/v2.0.38-alpha.0...v2.0.39-alpha.0) (2023-01-09)
+
+
+### Bug Fixes
+
+* Edit TableProps ([#1594](https://github.com/vtex/faststore/issues/1594)) ([dcf7970](https://github.com/vtex/faststore/commit/dcf797001c09d1abc685fcbd7ec8aa4bdc7a7bcc))
+
+
+
 ## [2.0.38-alpha.0](https://github.com/vtex/faststore/compare/v2.0.37-alpha.0...v2.0.38-alpha.0) (2023-01-09)
 
 
