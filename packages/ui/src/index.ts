@@ -143,9 +143,6 @@ export type { FormProps } from './components/molecules/Form'
 export { default as Alert } from './components/molecules/Alert'
 export type { AlertProps } from './components/molecules/Alert'
 
-export { default as QuantitySelector } from './components/molecules/QuantitySelector'
-export type { QuantitySelectorProps } from './components/molecules/QuantitySelector'
-
 export {
   default as Dropdown,
   DropdownButton,

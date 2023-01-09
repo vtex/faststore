@@ -78,6 +78,8 @@ export { default as Toggle } from './molecules/Toggle'
 export type { ToggleProps } from './molecules/Toggle'
 export { default as ToggleField } from './molecules/ToggleField'
 export type { ToggleFieldProps } from './molecules/ToggleField'
+export { default as QuantitySelector } from './molecules/QuantitySelector'
+export type { QuantitySelectorProps } from './molecules/QuantitySelector'
 
 // Organisms
 export { default as Hero, HeroImage, HeroHeading } from './organisms/Hero'
