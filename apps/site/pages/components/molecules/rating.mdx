@@ -1,0 +1,47 @@
+---
+description: Rating displays a product rating based on other shoppers' feedback.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/AggregateRating___a8300916874f5a11de7633b7cabc12e9.png
+---
+
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { Rating, Icon } from '@faststore/ui'
+import { Star } from '@faststore/components'
+
+<header>
+
+# Rating
+
+The `Rating` component displays the average rating of a product based on other shoppers' feedback and reviews. `Rating` supports icons from our components.
+
+</header>
+
+## Overview
+
+<OverviewSection>
+  <Rating value="3.5" icon={<Star />} />
+</OverviewSection>
+
+<OverviewSection>
+  <Rating value="0" icon={<Star />} interactable />
+</OverviewSection>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { Rating } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/Rating/styles.scss'
+```
+
+---
