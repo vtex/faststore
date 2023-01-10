@@ -4,6 +4,7 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Quantity%20Selector___6b3886945c4028b5a37e6f4de3baab71.png
 ---
 
+import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
@@ -19,11 +20,20 @@ The `QuantitySelector` component allows customers to select the quantity of a gi
 
 ## Overview
 
-<OverviewSection>
-  <QuantitySelector min={1} max={10} initial={5} />
-  <QuantitySelector min={1} max={10} initial={5} disabled />
-</OverviewSection>
-
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <QuantitySelector min={1} max={10} initial={5} />
+      <QuantitySelector min={1} max={10} initial={5} disabled />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <QuantitySelector min={1} max={10} initial={5} />
+    <QuantitySelector min={1} max={10} initial={5} disabled />
+    ```
+  </Tab>
+</Tabs>
 ---
 
 ## Import
