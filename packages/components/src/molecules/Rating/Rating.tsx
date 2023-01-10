@@ -7,6 +7,10 @@ import { Icon, IconButton } from '../..'
 
 export interface RatingProps extends HTMLAttributes<HTMLUListElement> {
   /**
+   * The length of child elements.
+   */
+  length?: number
+  /**
    * The current value of the rating, based on the quantity of child elements.
    */
   value: number
@@ -31,7 +35,7 @@ export interface RatingItemProps {
 
 const Rating = forwardRef<HTMLUListElement, RatingProps>(
   function Rating(
-    { children, testId = 'fs-rating', value, actionable, icon, ...otherProps },
+    { children, testId = 'fs-rating', length = 5, value, actionable, icon, ...otherProps },
     ref
   ) {
     const [rating, setRating] = useState(value - 1)
@@ -45,7 +49,7 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(
         data-testid={testId}
         {...otherProps}
       >
-        {Array.from({ length: 5 }).map((_, index: number) => {
+        {Array.from({ length }).map((_, index: number) => {
           const fillCheck = (itemValue: number) => {
             if (index <= (hover || rating)) {
               return 'full'
