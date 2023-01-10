@@ -122,15 +122,18 @@ export const VtexCommerce = (
         orderItems,
         allowOutdatedData = 'paymentData',
         salesChannel = ctx.storage.channel.salesChannel,
+        shouldSplitItem = true,
       }: {
         id: string
         orderItems: OrderFormInputItem[]
         allowOutdatedData?: 'paymentData'
         salesChannel?: string
+        shouldSplitItem?: boolean
       }): Promise<OrderForm> => {
         const params = new URLSearchParams({
           allowOutdatedData,
           sc: salesChannel,
+          splitItem: shouldSplitItem.toString(),
         })
 
         return fetchAPI(

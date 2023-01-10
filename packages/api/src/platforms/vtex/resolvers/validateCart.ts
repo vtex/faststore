@@ -249,7 +249,7 @@ export const validateCart = async (
   ctx: Context,
 ) => {
   const { enableOrderFormSync } = ctx.storage.flags
-  const { orderNumber, acceptedOffer } = order
+  const { orderNumber, acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
     loaders: { skuLoader },
@@ -336,6 +336,7 @@ export const validateCart = async (
     .updateOrderFormItems({
       id: orderForm.orderFormId,
       orderItems: changes,
+      shouldSplitItem: shouldSplitItem ?? true,
     })
     // update orderForm etag so we know last time we touched this orderForm
     .then((form) =>
