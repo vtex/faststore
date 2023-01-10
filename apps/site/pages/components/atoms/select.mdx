@@ -8,6 +8,7 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Select___8842f3b6522c3e8db0a887b3f216a6ab.png
 ---
 
+import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
@@ -24,25 +25,50 @@ Select components allow users to pick an option from a predefined list. The Sele
 
 ## Overview
 
-<OverviewSection>
-  <Select
-    id="select-overview-default"
-    options={{
-      great: 'Great',
-      ok: 'Ok',
-      bad: 'Bad',
-    }}
-  />
-  <Select
-    id="select-overview-disabled"
-    options={{
-      great: 'Great',
-      ok: 'Ok',
-      bad: 'Bad',
-    }}
-    disabled
-  />
-</OverviewSection>
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Select
+        id="select-overview-default"
+        options={{
+          great: 'Great',
+          ok: 'Ok',
+          bad: 'Bad',
+        }}
+      />
+      <Select
+        id="select-overview-disabled"
+        options={{
+          great: 'Great',
+          ok: 'Ok',
+          bad: 'Bad',
+        }}
+        disabled
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Select
+      id="select-overview-default"
+      options={{
+        great: 'Great',
+        ok: 'Ok',
+        bad: 'Bad',
+      }}
+    />
+    <Select
+      id="select-overview-disabled"
+      options={{
+        great: 'Great',
+        ok: 'Ok',
+        bad: 'Bad',
+      }}
+      disabled
+    />
+    ```
+  </Tab>
+</Tabs>
 
 ---
 

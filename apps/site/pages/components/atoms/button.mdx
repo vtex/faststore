@@ -76,6 +76,9 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 <OverviewSection>
   <Button variant="primary">Add to Cart</Button>
 </OverviewSection>
+```tsx
+<Button variant="primary">Add to Cart</Button>
+```
 
 ---
 
@@ -134,6 +137,11 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
     {'Add to Cart'}
   </Button>
 </OverviewSection>
+```tsx
+<Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+  Add to Cart
+</Button>
+```
 
 <TokenTable>
   <TokenRow token="--fs-button-icon-padding" value="0 var(--fs-spacing-1)" />
@@ -146,6 +154,9 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 <OverviewSection>
   <Button variant="primary">Button</Button>
 </OverviewSection>
+```tsx
+<Button variant="primary">Button</Button>
+```
 
 <TokenTable>
   <TokenRow
@@ -212,6 +223,12 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
   </Button>
 </OverviewSection>
 
+```tsx
+<Button inverse variant="primary">
+  Button
+</Button>
+```
+
 <TokenTable>
   <TokenRow
     token="--fs-button-primary-inverse-text-color"
@@ -276,6 +293,9 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 <OverviewSection>
   <Button variant="secondary">Button</Button>
 </OverviewSection>
+```tsx
+<Button variant="secondary">Button</Button>
+```
 
 <TokenTable>
   <TokenRow
@@ -343,6 +363,11 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
     Button
   </Button>
 </OverviewSection>
+```tsx
+<Button inverse variant="secondary">
+  Button
+</Button>
+```
 
 <TokenTable>
   <TokenRow
@@ -412,6 +437,9 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 <OverviewSection>
   <Button variant="tertiary">Button</Button>
 </OverviewSection>
+```tsx
+<Button variant="tertiary">Button</Button>
+```
 
 <TokenTable>
   <TokenRow
@@ -472,11 +500,16 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 
 #### Tertiary Inverse
 
-<div style={{ backgroundColor: '#171a1c', padding: '1rem' }}>
+<OverviewSection dark>
   <Button inverse variant="tertiary">
     Button
   </Button>
-</div>
+</OverviewSection>
+```tsx
+<Button inverse variant="tertiary">
+  Button
+</Button>
+```
 
 <TokenTable>
   <TokenRow
@@ -551,6 +584,12 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
   </Button>
 </OverviewSection>
 
+```tsx
+<Button variant="primary" disabled>
+  Button
+</Button>
+```
+
 <TokenTable>
   <TokenRow
     token="--fs-button-disabled-bkg-color"
@@ -571,6 +610,12 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
     {'Button'}
   </Button>
 </OverviewSection>
+
+```tsx
+<Button variant="primary" disabled>
+  Button
+</Button>
+```
 
 <TokenTable>
   <TokenRow
