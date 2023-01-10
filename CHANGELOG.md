@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.41-alpha.0](https://github.com/vtex/faststore/compare/v2.0.40-alpha.0...v2.0.41-alpha.0) (2023-01-10)
+
+
+### Features
+
+* Adds `Dropdown` component ([#1572](https://github.com/vtex/faststore/issues/1572)) ([edfe557](https://github.com/vtex/faststore/commit/edfe55797d51049b137c1d8c0d648f36d3ebf980))
+
+
+
 ## [2.0.40-alpha.0](https://github.com/vtex/faststore/compare/v2.0.39-alpha.0...v2.0.40-alpha.0) (2023-01-10)
 
 
