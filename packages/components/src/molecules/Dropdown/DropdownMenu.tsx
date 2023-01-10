@@ -4,15 +4,22 @@ import type {
   PropsWithChildren,
   MouseEvent,
   ReactNode,
+  DetailedHTMLProps,
+  HTMLAttributes
 } from 'react'
 import React from 'react'
 import { createPortal } from 'react-dom'
 
-import type { ModalContentProps } from '../Modal/ModalContent'
 import { useDropdown } from './hooks/useDropdown'
 import { useDropdownPosition } from './hooks/useDropdownPosition'
 
-export interface DropdownMenuProps extends ModalContentProps {
+//TODO: Replace by ModalContentProps when Modal component be brought
+type BaseModalProps = Omit<
+DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+'ref' | 'onClick'
+>
+
+export interface DropdownMenuProps extends BaseModalProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -29,6 +36,11 @@ export interface DropdownMenuProps extends ModalContentProps {
    */
   onDismiss?: (event: MouseEvent | KeyboardEvent) => void
 
+  /**
+   * Specifies the size variant
+   */
+  size?: 'small' | 'regular'
+
   children: ReactNode[] | ReactNode
 }
 
@@ -40,11 +52,12 @@ export interface DropdownMenuProps extends ModalContentProps {
 
 const DropdownMenu = ({
   children,
-  testId = 'store-dropdown-menu',
+  testId = 'fs-dropdown-menu',
+  size = 'regular',
   style,
   ...otherProps
 }: PropsWithChildren<DropdownMenuProps>) => {
-  const { isOpen, close, dropdownItemsRef, selectedDropdownItemIndexRef, id } =
+  const { isOpen, close, dropdownItemsRef, selectedDropdownItemIndexRef, dropdownButtonRef, id } =
     useDropdown()
 
   const dropdownPosition = useDropdownPosition()
@@ -83,6 +96,7 @@ const DropdownMenu = ({
 
   const handleEscapePress = () => {
     close?.()
+    dropdownButtonRef?.current?.focus()
   }
 
   const handleBackdropKeyDown = (event: KeyboardEvent) => {
@@ -123,6 +137,7 @@ const DropdownMenu = ({
             role="menu"
             aria-orientation="vertical"
             data-fs-dropdown-menu
+            data-fs-dropdown-menu-size={size}
             data-testid={testId}
             style={{ ...dropdownPosition, ...style }}
             id={id}
