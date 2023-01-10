@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.42-alpha.0](https://github.com/vtex/faststore/compare/v2.0.41-alpha.0...v2.0.42-alpha.0) (2023-01-10)
+
+
+### Chores
+
+* `Table` component's improvements ([#1592](https://github.com/vtex/faststore/issues/1592)) ([176a710](https://github.com/vtex/faststore/commit/176a710cf8d2917527cb4f99a8ddc956d841ae76))
+
+
+
 ## [2.0.41-alpha.0](https://github.com/vtex/faststore/compare/v2.0.40-alpha.0...v2.0.41-alpha.0) (2023-01-10)
 
 
