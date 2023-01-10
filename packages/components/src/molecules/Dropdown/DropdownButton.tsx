@@ -31,8 +31,7 @@ const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
         aria-expanded={isOpen}
         aria-haspopup="menu"
         aria-controls={id}
-        variant='primary'
-        inverse
+        variant='tertiary'
         {...otherProps}
       >
         {children}

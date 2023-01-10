@@ -21,10 +21,10 @@ import {
   Dropdown, 
   DropdownItem, 
   DropdownMenu, 
-  DropdownButton 
+  DropdownButton,
 } from '@faststore/ui'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { CaretDown } from '@faststore/components'
+import { CaretDown, ArrowElbowDownRight } from '@faststore/components'
 
 <header>
 
@@ -41,22 +41,34 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
     <OverviewSection>
       <Dropdown>
         <DropdownButton icon={<CaretDown />}>
-              {'Dropdown'}
-          </DropdownButton>
+          {'Dropdown'}
+        </DropdownButton>
         <DropdownMenu>
-            <DropdownItem>Dropdown Item 1</DropdownItem>
-            <DropdownItem>Dropdown Item 2</DropdownItem>
-            <DropdownItem>Dropdown Item 3</DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 1'}
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 2'}
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 3'}
+          </DropdownItem>
         </DropdownMenu>
       </Dropdown>
       <Dropdown>
         <DropdownButton icon={<CaretDown />}>
-            {'Dropdown Small'}
-          </DropdownButton>
-          <DropdownMenu size="small">
-            <DropdownItem>Dropdown Item 1</DropdownItem>
-            <DropdownItem>Dropdown Item 2</DropdownItem>
-            <DropdownItem>Dropdown Item 3</DropdownItem>
+          {'Dropdown Small'}
+        </DropdownButton>
+        <DropdownMenu size="small">
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 1'}
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 2'}
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 3'}
+          </DropdownItem>
         </DropdownMenu>
       </Dropdown>
     </OverviewSection>
@@ -65,25 +77,37 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
     ```tsx
     <Dropdown>
       <DropdownButton icon={<CaretDown />}>
-            {'Dropdown'}
-        </DropdownButton>
+        Dropdown
+      </DropdownButton>
       <DropdownMenu>
-          <DropdownItem>Dropdown Item 1</DropdownItem>
-          <DropdownItem>Dropdown Item 2</DropdownItem>
-          <DropdownItem>Dropdown Item 3</DropdownItem>
+        <DropdownItem icon={<ArrowElbowDownRight />}>
+          Dropdown Item 1
+        </DropdownItem>
+        <DropdownItem icon={<ArrowElbowDownRight />}>
+          Dropdown Item 2
+        </DropdownItem>
+        <DropdownItem icon={<ArrowElbowDownRight />}>
+          Dropdown Item 3
+        </DropdownItem>
       </DropdownMenu>
     </Dropdown>
     <Dropdown>
       <DropdownButton icon={<CaretDown />}>
-          {'Dropdown Small'}
-        </DropdownButton>
-        <DropdownMenu size="small">
-          <DropdownItem>Dropdown Item 1</DropdownItem>
-          <DropdownItem>Dropdown Item 2</DropdownItem>
-          <DropdownItem>Dropdown Item 3</DropdownItem>
+        Dropdown Small
+      </DropdownButton>
+      <DropdownMenu size="small">
+        <DropdownItem icon={<ArrowElbowDownRight />}>
+          Dropdown Item 1
+        </DropdownItem>
+        <DropdownItem icon={<ArrowElbowDownRight />}>
+          Dropdown Item 2
+        </DropdownItem>
+        <DropdownItem icon={<ArrowElbowDownRight />}>
+          Dropdown Item 3
+        </DropdownItem>
       </DropdownMenu>
     </Dropdown>
-    ````
+    ```
   </Tab>
 </Tabs>
 
@@ -109,18 +133,50 @@ import '@faststore/ui/src/components/molecules/Dropdown/styles.scss'
 
 ## Usage
 
-<OverviewSection>
-  <Dropdown>
-    <DropdownButton  icon={<CaretDown />}>
-      {'Dropdown'}
-    </DropdownButton>
-    <DropdownMenu>
-      <DropdownItem>Dropdown Item 1</DropdownItem>
-      <DropdownItem>Dropdown Item 2</DropdownItem>
-      <DropdownItem>Dropdown Item 3</DropdownItem>
-    </DropdownMenu>
-  </Dropdown>
-</OverviewSection>
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Dropdown>
+        <DropdownButton  icon={<CaretDown />}>
+          {'Dropdown'}
+        </DropdownButton>
+        <DropdownMenu>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 1'}
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 2'}
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 3'}
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <OverviewSection>
+      <Dropdown>
+        <DropdownButton  icon={<CaretDown />}>
+          Dropdown
+        </DropdownButton>
+        <DropdownMenu>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            Dropdown Item 1
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            Dropdown Item 2
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            Dropdown Item 3
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </OverviewSection>
+    ```
+  </Tab>
+</Tabs>
 
 ---
 
@@ -186,6 +242,19 @@ import '@faststore/ui/src/components/molecules/Dropdown/styles.scss'
     token="--fs-dropdown-item-border-bottom-color"
     value="var(--fs-border-color-light)"
   />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-dropdown-item-icon-min-width"
+    value="1.125rem"
+  />
+  <TokenRow
+    token="--fs-dropdown-item-icon-margin-right"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow
+    token="--fs-dropdown-item-icon-margin-top"
+    value="calc(-1 * var(--fs-spacing-1))"
+  />
 </TokenTable>
 
 #### DropdownMenu
@@ -245,6 +314,8 @@ For further customization, you can use the following data attributes:
 #### DropdownButton
 
 `data-fs-dropdown-button`
+
+This component inherits [Button](/components/atoms/button) CSS selectors and styles.
 
 ---
 

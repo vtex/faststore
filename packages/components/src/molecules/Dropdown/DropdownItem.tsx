@@ -1,4 +1,5 @@
 import type { ButtonHTMLAttributes } from 'react'
+import Icon, { IconProps } from '../../atoms/Icon'
 import React, { useImperativeHandle, forwardRef, useRef, useState } from 'react'
 
 import { useDropdown } from './hooks/useDropdown'
@@ -9,11 +10,15 @@ export interface DropdownItemProps
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * A React component that will be rendered as an icon.
+   */
+  icon?: IconProps["component"]
 }
 
 const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
   function Button(
-    { children, onClick, testId = 'fs-dropdown-item', ...otherProps },
+    { children, icon, onClick, testId = 'fs-dropdown-item', ...otherProps },
     ref
   ) {
     const { dropdownItemsRef, selectedDropdownItemIndexRef, close } =
@@ -60,6 +65,7 @@ const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
         data-index={dropdownItemIndex}
         {...otherProps}
       >
+        {icon && <Icon data-fs-dropdown-item-icon component={icon} />}
         {children}
       </button>
     )
