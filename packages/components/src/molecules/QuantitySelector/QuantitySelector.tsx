@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-import type { IconButtonProps, InputProps } from '../../index'
 import { IconButton, Input } from '../../index'
 import { Minus, Plus } from '../../assets'
 
@@ -31,18 +30,6 @@ export interface QuantitySelectorProps {
    * Event emitted when value is changed
    */
   onChange?: (value: number) => void
-  /**
-   * Object with properties that will be passed forward the inner IconButton atom at the left of the input.
-   */
-  leftButtonProps: Omit<IconButtonProps, 'aria-label'>
-  /**
-   * Object with properties that will be passed forward the inner Input atom between the two buttons.
-   */
-  inputProps: InputProps
-  /**
-   * Object with properties that will be passed forward the inner IconButton atom at the right of the input.
-   */
-  rightButtonProps: Omit<IconButtonProps, 'aria-label'>
 }
 
 const QuantitySelector = ({
@@ -52,9 +39,6 @@ const QuantitySelector = ({
   disabled = false,
   onChange,
   testId = 'fs-quantity-selector',
-  leftButtonProps,
-  inputProps,
-  rightButtonProps,
   ...otherProps
 }: QuantitySelectorProps) => {
   const [quantity, setQuantity] = useState<number>(initial ?? min)
@@ -105,7 +89,6 @@ const QuantitySelector = ({
         value={quantity}
         onChange={() => onChange}
         disabled={disabled}
-        {...inputProps}
       />
       <IconButton
         data-quantity-selector-button="right"
