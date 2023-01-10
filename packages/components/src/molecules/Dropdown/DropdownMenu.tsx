@@ -57,7 +57,7 @@ const DropdownMenu = ({
   style,
   ...otherProps
 }: PropsWithChildren<DropdownMenuProps>) => {
-  const { isOpen, close, dropdownItemsRef, selectedDropdownItemIndexRef, id } =
+  const { isOpen, close, dropdownItemsRef, selectedDropdownItemIndexRef, dropdownButtonRef, id } =
     useDropdown()
 
   const dropdownPosition = useDropdownPosition()
@@ -96,6 +96,7 @@ const DropdownMenu = ({
 
   const handleEscapePress = () => {
     close?.()
+    dropdownButtonRef?.current?.focus()
   }
 
   const handleBackdropKeyDown = (event: KeyboardEvent) => {

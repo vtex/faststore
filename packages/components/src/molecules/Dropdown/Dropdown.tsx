@@ -24,7 +24,6 @@ const Dropdown = ({
   const close = useCallback(() => {
     setIsOpen(false)
     onDismiss?.()
-    dropdownButtonRef.current?.focus()
   }, [onDismiss])
 
   const open = () => {
