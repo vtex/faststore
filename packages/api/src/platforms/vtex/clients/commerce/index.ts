@@ -133,7 +133,7 @@ export const VtexCommerce = (
         const params = new URLSearchParams({
           allowOutdatedData,
           sc: salesChannel,
-          splitItem: shouldSplitItem.toString(),
+          noSplitItem: (!shouldSplitItem).toString(),
         })
 
         return fetchAPI(
