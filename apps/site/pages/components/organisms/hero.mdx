@@ -1,0 +1,500 @@
+---
+description: Hero displays a full-width banner at the top of a webpage.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Hero___c73fdfe80ce87c2ccc4701c07e9d5398.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { House } from '@faststore/components'
+import { Hero, HeroImage, HeroHeading } from '@faststore/ui'
+
+<header>
+
+# Hero
+
+The `Hero` component is a full-width banner presented on the above-the-fold section of a web page. It serves as the first glimpse of your brand's identity and messaging.
+
+</header>
+
+The `Hero` component is a compound of the following:
+
+- `HeroImage`: wraps the Hero image.
+- `HeroHeading`: wraps the Hero textual content. It may contain a title, description, and a call-to-action button.
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { Hero, HeroImage, HeroHeading } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/Hero/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Hero>
+        <HeroImage>
+          <img
+            alt="Controller on a table"
+            src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+          />
+        </HeroImage>
+        <HeroHeading
+          title="Explore more about our amazing products"
+          subtitle="All the amazing products from the brands we partner with."
+          link="/"
+          linkText="See more"
+        />
+      </Hero>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Hero>
+      <HeroImage>
+        <img
+          alt="Controller on a table"
+          src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+        />
+      </HeroImage>
+      <HeroHeading
+        title="Explore more about our amazing products"
+        subtitle="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Hero>
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+All hero-related components support all attributes also supported by the `<div>` tag.
+Besides those attributes, the following props are also supported:
+
+### Hero
+
+<PropsSection name="Hero" />
+
+### HeroImage
+
+<PropsSection name="HeroImage" />
+
+### HeroHeading
+
+<PropsSection name="HeroHeading" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-hero-text-size" value="var(--fs-text-size-lead)" />
+  <TokenRow token="--fs-hero-text-line-height" value="1.33" />
+</TokenTable>
+
+### Nested Elements
+
+#### Image
+
+<TokenTable>
+  <TokenRow token="--fs-hero-image-border-radius" value="0" />
+</TokenTable>
+
+#### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-title-padding"
+    value="var(--fs-spacing-5) 0 var(--fs-spacing-6)"
+  />
+  <TokenRow
+    token="--fs-hero-title-weight"
+    value="var(--fs-text-weight-black)"
+  />
+  <TokenRow token="--fs-hero-title-line-height" value="1.1" />
+</TokenTable>
+
+#### Subtitle
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-subtitle-margin-top-mobile"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-hero-subtitle-margin-top-tablet"
+    value="var(--fs-spacing-4)"
+  />
+  <TokenRow token="--fs-hero-subtitle-size" value="var(--fs-hero-text-size)" />
+  <TokenRow
+    token="--fs-hero-subtitle-line-height"
+    value="var(--fs-hero-text-line-height)"
+  />
+</TokenTable>
+
+### Hierarchy
+
+#### Primary
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Hero>
+        <HeroImage>
+          <img
+            alt="Controller on a table"
+            src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+          />
+        </HeroImage>
+        <HeroHeading
+          title="Explore more about our amazing products"
+          subtitle="All the amazing products from the brands we partner with."
+          link="/"
+          linkText="See more"
+        />
+      </Hero>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Hero>
+      <HeroImage>
+        <img
+          alt="Controller on a table"
+          src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+        />
+      </HeroImage>
+      <HeroHeading
+        title="Explore more about our amazing products"
+        subtitle="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Hero>
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow token="--fs-hero-primary-image-height-mobile" value="15rem" />
+  <TokenRow token="--fs-hero-primary-image-height-desktop" value="29rem" />
+  <TokenRow
+    token="--fs-hero-primary-title-size"
+    value="var(--fs-text-size-title-huge)"
+  />
+</TokenTable>
+
+#### Secondary
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Hero variant="secondary">
+        <HeroImage>
+          <img
+            alt="Controller on a table"
+            src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+          />
+        </HeroImage>
+        <HeroHeading
+          title="Explore more about our amazing products"
+          subtitle="All the amazing products from the brands we partner with."
+          link="/"
+          linkText="See more"
+          icon={<House />}
+        />
+      </Hero>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Hero variant="secondary">
+      <HeroImage>
+        <img
+          alt="Controller on a table"
+          src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+        />
+      </HeroImage>
+      <HeroHeading
+        title="Explore more about our amazing products"
+        subtitle="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+        icon={<House />}
+      />
+    </Hero>
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow token="--fs-hero-secondary-image-height-mobile" value="11.25rem" />
+  <TokenRow
+    token="--fs-hero-secondary-image-height-desktop"
+    value="14.188rem"
+  />
+  <TokenRow
+    token="--fs-hero-secondary-title-size"
+    value="var(--fs-text-size-title-page)"
+  />
+</TokenTable>
+
+---
+
+### Variants
+
+#### Main
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Hero>
+        <HeroImage>
+          <img
+            alt="Controller on a table"
+            src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+          />
+        </HeroImage>
+        <HeroHeading
+          title="Explore more about our amazing products"
+          subtitle="All the amazing products from the brands we partner with."
+          link="/"
+          linkText="See more"
+        />
+      </Hero>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Hero>
+      <HeroImage>
+        <img
+          alt="Controller on a table"
+          src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+        />
+      </HeroImage>
+      <HeroHeading
+        title="Explore more about our amazing products"
+        subtitle="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Hero>
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-main-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-hero-main-text-color"
+    value="var(--fs-color-primary-text)"
+    isColor
+  />
+</TokenTable>
+
+#### Light
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Hero colorVariant="light">
+        <HeroImage>
+          <img
+            alt="Controller on a table"
+            src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+          />
+        </HeroImage>
+        <HeroHeading
+          title="Explore more about our amazing products"
+          subtitle="All the amazing products from the brands we partner with."
+          link="/"
+          linkText="See more"
+        />
+      </Hero>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Hero colorVariant="light">
+      <HeroImage>
+        <img
+          alt="Controller on a table"
+          src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+        />
+      </HeroImage>
+      <HeroHeading
+        title="Explore more about our amazing products"
+        subtitle="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Hero>
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-light-bkg-color"
+    value="var(--fs-color-secondary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-hero-light-text-color"
+    value="var(--fs-color-text-display)"
+    isColor
+  />
+</TokenTable>
+
+#### Accent
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Hero colorVariant="accent">
+        <HeroImage>
+          <img
+            alt="Controller on a table"
+            src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+          />
+        </HeroImage>
+        <HeroHeading
+          title="Explore more about our amazing products"
+          subtitle="All the amazing products from the brands we partner with."
+          link="/"
+          linkText="See more"
+        />
+      </Hero>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Hero colorVariant="accent">
+      <HeroImage>
+        <img
+          alt="Controller on a table"
+          src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+        />
+      </HeroImage>
+      <HeroHeading
+        title="Explore more about our amazing products"
+        subtitle="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Hero>
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-accent-bkg-color"
+    value="var(--fs-color-highlighted-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-hero-accent-text-color"
+    value="var(--fs-hero-light-text-color)"
+    globalValue="var(--fs-color-text-display)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Use cases
+
+Use the `Hero` component as the first element of your Home, brand, or collections pages.
+
+---
+
+## Customization
+
+`data-fs-hero`
+
+`data-fs-hero-image`
+
+`data-fs-hero-heading`
+
+`data-fs-hero-wrapper`
+
+`data-fs-hero-title`
+
+`data-fs-hero-subtitle`
+
+`data-fs-hero-icon`
+
+`data-fs-hero-heading`
+
+`data-fs-hero-info`
+
+`data-fs-hero-variant="primary" | "secondary"`
+
+`data-fs-hero-color-variant="main" | "light" | "accent"`
+
+---
+
+## Best Practices
+
+### ✅ Do's
+
+#### Content
+
+- Draw a clear connection between the Hero image and text.
+- Ensure the copy is legible on the top of the imagery.
+- Keep your message clear and connected with your visuals.
+
+#### Visual
+
+- Use strong contrasts to make call-to-action buttons stand out.
+- Follow your brand identity and guidelines. Remember that this is the first touchpoint shoppers will have with your brand.
+- Make your Hero component responsive.
+
+#### Image
+
+- Use optimized images for your Hero image to avoid harming your website performance. Notice that if the Hero banners take too long to load, they may lose efficacy.
+- Use an eye-catching image that adds value to your page. Hero images have a significant impact on your brand perception, website traffic, and sales conversion rate.
+
+### ❌ Don'ts
+
+- Don't exceed 2-3 lines for the Hero headline.
+- Don't use more than one Hero on a web page.
+- Don't use pixelated or blurry images.
+
+---
+
+## Accessibility
+
+- Use an `h1` or `h2` heading level for the headline.
+- Choose a hero image with a strong point of focus.
+- Ensure high color contrast for text over images
