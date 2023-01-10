@@ -12,14 +12,12 @@ export const validateSession = async (
   { session: oldSession, search }: MutationValidateSessionArgs,
   { clients, storage }: Context
 ): Promise<StoreSession | null> => {
-  console.log('SEARCH: search', search)
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '').replace(/\D/g, '')
   const country = oldSession.country ?? ''
 
   const params = new URLSearchParams(search)
 
-  console.log('PARAMS: ', params)
   const salesChannel = params.get('sc') ?? channel.salesChannel
 
   params.set('sc', salesChannel)
@@ -30,8 +28,6 @@ export const validateSession = async (
       : Promise.resolve(null),
     clients.commerce.session(params.toString()).catch(() => null),
   ])
-
-  console.log('SESSION DATA: ', sessionData)
 
   const profile = sessionData?.namespaces.profile ?? null
   const store = sessionData?.namespaces.store ?? null
@@ -67,10 +63,7 @@ export const validateSession = async (
     cookie: storage.cookie,
   }
 
-  console.log('newSession: ', newSession)
-
   if (deepEquals(oldSession, newSession)) {
-    console.log('CAI AQUI? ', oldSession, newSession)
     return null
   }
 

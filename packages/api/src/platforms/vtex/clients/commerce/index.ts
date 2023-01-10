@@ -214,8 +214,6 @@ export const VtexCommerce = (
         )}`
       )
 
-      console.log('PARAMS session: ', params)
-
       const response = fetch(`${base}/api/sessions?${params.toString()}`, {
         method: 'POST',
         headers: {

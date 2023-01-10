@@ -8,10 +8,10 @@ const serverPort = '4000'
 
 const apiOptions = {
   platform: 'vtex',
-  account: 'mercafefaststore',
+  account: 'trescoracoesfaststore',
   locale: 'pt-BR',
   environment: 'vtexcommercestable',
-  channel: '{"salesChannel":"2"}',
+  channel: '{"salesChannel":"1"}',
 } as Options
 
 const graphQLContext = getContextFactory(apiOptions)

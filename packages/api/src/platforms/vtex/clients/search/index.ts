@@ -126,21 +126,12 @@ export const IntelligentSearch = (
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
-    console.log(
-      '${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}',
-      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
-    )
-
-    console.log('ctx.storage.cookie', ctx.storage.cookie)
-
-    console.log('COOKIE: ', cookie)
-
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
       {
         credentials: 'include',
         headers: {
-          cookie: ctx.storage.cookie,
+          cookie,
         },
       }
     )
