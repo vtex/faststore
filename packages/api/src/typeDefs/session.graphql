@@ -19,11 +19,11 @@ type StorePublic {
   """
   Public key name (e.g: utm_campaign).
   """
-  key: String
+  key: String!
   """
   Public key value (e.g: outlet).
   """
-  value: String
+  value: String!
 }
 
 input IStorePublic {
@@ -79,7 +79,7 @@ type StoreSession {
   """
   Session public fields.
   """
-  public: [StorePublic]
+  public: [StorePublic!]
   """
   Session cookie.
   """
@@ -118,4 +118,8 @@ input IStoreSession {
   Session input public field.
   """
   public: [IStorePublic]
+  """
+  Session cookie.
+  """
+  cookie: String
 }

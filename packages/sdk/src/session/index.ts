@@ -25,6 +25,7 @@ export interface Session {
   postalCode: string | null
   person: Person | null
   public: Public[] | null
+  cookie: string | null
 }
 
 export const createSessionStore = (
