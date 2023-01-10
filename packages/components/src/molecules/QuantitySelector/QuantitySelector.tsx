@@ -104,6 +104,7 @@ const QuantitySelector = ({
         aria-label="Quantity"
         value={quantity}
         onChange={() => onChange}
+        disabled={disabled}
         {...inputProps}
       />
       <IconButton
