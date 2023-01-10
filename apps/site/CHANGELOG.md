@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.40-alpha.0](https://github.com/vtex/faststore/compare/v2.0.39-alpha.0...v2.0.40-alpha.0) (2023-01-10)
+
+
+### Documentation
+
+* Adds `Hero` component doc + Updates docs overview section ([#1598](https://github.com/vtex/faststore/issues/1598)) ([47b3199](https://github.com/vtex/faststore/commit/47b319904d0ff06fc5d3bacddbf5bfc319d451eb))
+
+
+
 ## [2.0.38-alpha.0](https://github.com/vtex/faststore/compare/v2.0.37-alpha.0...v2.0.38-alpha.0) (2023-01-09)
 
 
