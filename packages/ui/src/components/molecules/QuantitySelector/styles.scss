@@ -13,18 +13,21 @@
   --fs-qty-selector-bkg-color                 : var(--fs-color-body-bkg);
   --fs-qty-selector-bkg-color-hover           : var(--fs-qty-selector-bkg-color);
 
-  --fs-qty-selector-text-size                 : var(--fs-text-size-base);
-  --fs-qty-selector-text-color                : var(--fs-color-text);
-  --fs-qty-selector-text-color-hover          : var(--fs-qty-selector-text-color);
-
-  --fs-qty-selector-icon-color                : var(--fs-color-link);
-
   --fs-qty-selector-border-radius             : var(--fs-border-radius);
   --fs-qty-selector-border-width              : var(--fs-border-width);
   --fs-qty-selector-border-width-hover        : var(--fs-border-width);
   --fs-qty-selector-border-color              : var(--fs-border-color);
   --fs-qty-selector-border-color-hover        : var(--fs-border-color-active);
 
+  // Text
+  --fs-qty-selector-text-size                 : var(--fs-text-size-base);
+  --fs-qty-selector-text-color                : var(--fs-color-text);
+  --fs-qty-selector-text-color-hover          : var(--fs-qty-selector-text-color);
+
+  // Icon
+  --fs-qty-selector-icon-color                : var(--fs-color-link);
+
+  // Button
   --fs-qty-selector-button-shadow             : none;
   --fs-qty-selector-button-shadow-hover       : none;
   --fs-qty-selector-button-bkg-color          : transparent;
@@ -32,7 +35,7 @@
   --fs-qty-selector-button-bkg-color-focus    : var(--fs-qty-selector-button-bkg-color-hover);
   --fs-qty-selector-button-border-radius      : var(--fs-qty-selector-border-radius);
 
-  // Disabled properties
+  // Disabled
   --fs-qty-selector-disabled-bkg-color        : var(--fs-color-disabled-bkg);
   --fs-qty-selector-disabled-text-color       : var(--fs-color-disabled-text);
   --fs-qty-selector-disabled-icon-color       : var(--fs-border-color-light-disabled);
