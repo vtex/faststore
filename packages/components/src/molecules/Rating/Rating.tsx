@@ -46,7 +46,6 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(
         {...otherProps}
       >
         {Array.from({ length: 5 }).map((_, index: number) => {
-
           const fillCheck = (itemValue: number) => {
             if (index <= (hover || rating)) {
               return 'full'
