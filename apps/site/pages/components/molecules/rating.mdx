@@ -24,20 +24,20 @@ The `Rating` component displays the average rating of a product based on other s
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <Rating value="3.5" icon={<Star />} />
+      <Rating value={3.5} icon={<Star />} />
     </OverviewSection>
     <OverviewSection>
-      <Rating value="0" icon={<Star />} actionable/>
+      <Rating value={0} icon={<Star />} actionable/>
     </OverviewSection>
   </Tab>
   <Tab>
 
     ```tsx
-    <Rating value="3.5" icon={<Star />} />
+    <Rating value={3.5} icon={<Star />} />
     ```
 
     ```tsx
-    <Rating value="0" icon={<Star />} actionable/>
+    <Rating value={0} icon={<Star />} actionable/>
     ```
 
   </Tab>
@@ -64,10 +64,10 @@ import '@faststore/ui/src/components/molecules/Rating/styles.scss'
 ## Usage
 
 <OverviewSection>
-  <Rating value="3.5" icon={<Star />} />
+  <Rating value={3.5} icon={<Star />} />
 </OverviewSection>
 ```tsx live
-<Rating value="3.5" icon={<Star />} />
+<Rating value={3.5} icon={<Star />} />
 ```
 
 ---
@@ -102,19 +102,19 @@ import '@faststore/ui/src/components/molecules/Rating/styles.scss'
 #### Readonly
 
 <OverviewSection>
-  <Rating value="3.5" icon={<Star />} />
+  <Rating value={3.5} icon={<Star />} />
 </OverviewSection>
 ```tsx live
-<Rating value="3.5" icon={<Star />} />
+<Rating value={3.5} icon={<Star />} />
 ```
 
 #### Actionable
 
 <OverviewSection>
-  <Rating value="0" icon={<Star />} actionable />
+  <Rating value={0} icon={<Star />} actionable />
 </OverviewSection>
 ```tsx live
-<Rating value="0" icon={<Star />} actionable />
+<Rating value={0} icon={<Star />} actionable />
 ```
 
 <TokenTable>
