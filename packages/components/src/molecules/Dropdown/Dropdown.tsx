@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import React, { useRef, useMemo, useState, useEffect, useCallback } from 'react'
 
-import DropdownContext from './contexts/DropdownContext'
+import DropdownContext from '../Dropdown/contexts/DropdownContext'
 
 export type DropdownProps = {
   children: ReactNode
@@ -14,7 +14,7 @@ const Dropdown = ({
   children,
   isOpen: isOpenDefault = false,
   onDismiss,
-  id = 'store-dropdown',
+  id = 'fs-dropdown',
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(isOpenDefault)
   const dropdownItemsRef = useRef<HTMLButtonElement[]>([])
@@ -24,7 +24,6 @@ const Dropdown = ({
   const close = useCallback(() => {
     setIsOpen(false)
     onDismiss?.()
-    dropdownButtonRef.current?.focus()
   }, [onDismiss])
 
   const open = () => {
