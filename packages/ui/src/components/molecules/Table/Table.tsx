@@ -1,4 +1,8 @@
-import type { DetailedHTMLProps, TableHTMLAttributes } from 'react'
+import type {
+  DetailedHTMLProps,
+  ReactEventHandler,
+  TableHTMLAttributes,
+} from 'react'
 import React, { forwardRef } from 'react'
 
 export interface TableProps extends DetailedHTMLProps<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement> {
@@ -7,6 +11,9 @@ export interface TableProps extends DetailedHTMLProps<TableHTMLAttributes<HTMLTa
    */
   testId?: string
   children: React.ReactNode
+  onResize?: ReactEventHandler<unknown> | undefined
+  onResizeCapture?: ReactEventHandler<unknown> | undefined
+  nonce?: string | undefined
 }
 
 const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
