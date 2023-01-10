@@ -1,7 +1,11 @@
-import type { TableHTMLAttributes } from 'react'
+import type {
+  DetailedHTMLProps,
+  ReactEventHandler,
+  TableHTMLAttributes
+} from 'react'
 import React, { forwardRef } from 'react'
 
-export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
+export interface TableProps extends DetailedHTMLProps<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -14,6 +18,9 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
    * Defines what style this component should use.
    */
   variant?: 'colored' | 'bordered'
+  onResize?: ReactEventHandler<unknown> | undefined
+  onResizeCapture?: ReactEventHandler<unknown> | undefined
+  nonce?: string | undefined
 }
 
 const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
