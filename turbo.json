@@ -1,9 +1,13 @@
 {
-  "$schema": "https://turborepo.org/schema.json",
-  "baseBranch": "origin/main",
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["OCLIF_COMPILATION", "NODE_ENV"],
   "pipeline": {
+    "site#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**"]
+    },
     "build": {
-      "outputs": ["dist/**", "build/**", ".docusaurus/**"],
+      "outputs": ["dist/**"],
       "dependsOn": ["^build"]
     },
     "test": {

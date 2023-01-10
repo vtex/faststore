@@ -1,0 +1,141 @@
+---
+description: BuyButton intends to send the user to the checkout/cart step directly.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Button___6d6b16886d5d7e2a05dba8c45c075796.png
+---
+
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { BuyButton } from '@faststore/ui'
+
+<header>
+
+# Buy Button
+
+Buy Button intends to send the user to the checkout/cart step directly.
+
+</header>
+
+## Overview
+
+<OverviewSection>
+  <BuyButton>Buy Now</BuyButton>
+</OverviewSection>
+```tsx
+<BuyButton>Buy Now</BuyButton>
+```
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { BuyButton } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/BuyButton/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <BuyButton>Buy Now</BuyButton>
+</OverviewSection>
+```tsx
+<BuyButton>Buy Now</BuyButton>
+```
+
+---
+
+## Props
+
+<PropsSection name="BuyButton" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-buy-button-text-color"
+    value="var(--fs-color-action-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-buy-button-text-color-hover"
+    value="var(--fs-color-action-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-buy-button-text-color-active"
+    value="var(--fs-color-action-text)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-buy-button-bkg-color"
+    value="var(--fs-color-action-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-buy-button-bkg-color-hover"
+    value="var(--fs-color-action-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-buy-button-bkg-color-active"
+    value="var(--fs-color-action-bkg-active)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-buy-button-border-color"
+    value="var(--fs-color-action-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-buy-button-border-color-hover"
+    value="var(--fs-color-action-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-buy-button-border-color-active"
+    value="var(--fs-color-action-bkg-active)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-buy-button-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-buy-button`
+
+This component inherits [Button](/components/atoms/button) CSS selectors and styles.
+
+---
+
+## Best Practices
+
+### ✅ Do's
+
+- Use this special Button only to send the user to the checkout/cart step directly. For general purposes, use the standard [Button](/components/atoms/button).

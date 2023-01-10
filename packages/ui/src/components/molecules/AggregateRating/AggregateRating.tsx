@@ -1,10 +1,9 @@
 import React, { forwardRef } from 'react'
-import type { FC, PropsWithChildren } from 'react'
+import type { FC, PropsWithChildren, HTMLAttributes } from 'react'
 
-import List from '../../atoms/List'
-import type { ListProps } from '../../atoms/List'
+import { List } from '@faststore/components'
 
-export interface AggregateRatingProps extends ListProps<HTMLUListElement> {
+export interface AggregateRatingProps extends HTMLAttributes<HTMLUListElement> {
   /**
    * The current value of the rating, based on the quantity of child elements.
    */
@@ -33,13 +32,7 @@ const RatingItem: FC<PropsWithChildren<RatingItemProps>> = ({
 
 const AggregateRating = forwardRef<HTMLUListElement, AggregateRatingProps>(
   function AggregateRating(
-    {
-      children,
-      testId = 'store-aggregate-rating',
-      value,
-      variant = 'unordered',
-      ...otherProps
-    },
+    { children, testId = 'store-aggregate-rating', value, ...otherProps },
     ref
   ) {
     const fillCheck = (itemValue: number) => {
@@ -57,7 +50,6 @@ const AggregateRating = forwardRef<HTMLUListElement, AggregateRatingProps>(
     return (
       <List
         data-fs-aggregate-rating
-        variant={variant}
         ref={ref}
         data-testid={testId}
         {...otherProps}

@@ -1,0 +1,224 @@
+---
+description: Links allow users to easily navigate through web pages.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Link___ae95650d3842207e2d790446c3418086.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { Link } from '@faststore/ui'
+
+<header>
+
+# Link
+
+Link performs the same behavior of a regular anchor tag (`a`), but can be used as any HTML tag and component, including specific Frameworks link components.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Link variant="default">Default</Link>
+      <Link variant="display">Display</Link>
+      <Link variant="inline">Inline</Link>
+      <Link size="small">Small</Link>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx live
+    <Link variant="default">Default</Link>
+    <Link variant="display">Display</Link>
+    <Link variant="inline">Inline</Link>
+    <Link size="small">Small</Link>
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { Link } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/Link/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <Link href="/">A default link</Link>
+</OverviewSection>
+```tsx
+<Link href="/">A default link</Link>
+```
+
+---
+
+## Props
+
+The `Link` component supports all attributes supported by the tag chosen through the `as` prop.
+For example, if someone wants to use a wrapper for any external link component (i.e., Next.js `Link` or Gatsby `Link`), the FastStore UI `Link` component can be used with the `as="div"` prop.
+
+Besides those attributes, the following props are also supported:
+
+<PropsSection name="link" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-link-min-width" value="auto" />
+  <TokenRow token="--fs-link-min-height" value="var(--fs-link-min-width)" />
+  <TokenRow
+    token="--fs-link-padding"
+    value="var(--fs-spacing-2) var(--fs-spacing-0)"
+  />
+  <TokenRow token="--fs-link-border-radius" value="var(--fs-border-radius)" />
+  <TokenDivider />
+  <TokenRow token="--fs-link-text-line-height" value="1.5" />
+  <TokenRow token="--fs-link-text-color" value="var(--fs-color-link)" isColor />
+  <TokenRow
+    token="--fs-link-text-color-visited"
+    value="var(--fs-color-link-visited)"
+    isColor
+  />
+  <TokenRow token="--fs-link-text-decoration" value="none" />
+  <TokenRow token="--fs-link-text-decoration-hover" value="underline" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-link-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenRow
+    token="--fs-link-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-link-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
+
+### Variants
+
+#### Inverse
+
+<OverviewSection dark>
+  <Link inverse={true}>Inverse Link</Link>
+</OverviewSection>
+```tsx
+<Link inverse={true}>Inverse Link</Link>
+````
+
+<TokenTable>
+  <TokenRow
+    token="--fs-link-inverse-text-color"
+    value="var(--fs-color-link-inverse)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-link-inverse-text-color-visited"
+    value="var(--fs-link-inverse-text-color)"
+    globalValue="var(--fs-color-link-inverse)"
+    isColor
+  />
+</TokenTable>
+
+#### Display
+
+<OverviewSection>
+  <Link variant="display">Display Link</Link>
+</OverviewSection>
+```tsx
+<Link variant="display">Display Link</Link>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-link-display-text-line-height"
+    value="var(--fs-link-text-line-height)"
+  />
+  <TokenRow
+    token="--fs-link-display-text-color"
+    value="var(--fs-color-text-display)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-link-display-text-color-visited"
+    value="var(--fs-link-display-text-color)"
+    globalValue="var(--fs-color-text-display)"
+    isColor
+  />
+</TokenTable>
+
+#### Inline
+
+<OverviewSection>
+  <Link variant="inline">Inline Link</Link>
+</OverviewSection>
+```tsx live
+<Link variant="inline">Inline Link</Link>
+```
+
+<TokenTable>
+  <TokenRow token="--fs-link-inline-padding" value="0" />
+  <TokenRow token="--fs-link-inline-text-decoration" value="underline" />
+  <TokenRow
+    token="--fs-link-inline-text-color"
+    value="var(--fs-link-text-color)"
+    globalValue="var(--fs-color-link)"
+    isColor
+  />
+</TokenTable>
+
+### Size
+
+#### Small
+
+<OverviewSection>
+  <Link size="small">Small Link</Link>
+</OverviewSection>
+```tsx live
+<Link size="small">Small Link</Link>
+```
+
+<TokenTable>
+  <TokenRow token="--fs-link-small-text-size" value="var(--fs-text-size-1)" />
+  <TokenRow
+    token="--fs-link-small-padding"
+    value="var(--fs-spacing-1) var(--fs-spacing-0)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-link`
+
+`data-fs-link-variant="default" | "display" | "inline"`
+
+`data-fs-link-size="small" | "regular"`
+
+`data-fs-link-inverse="true"`

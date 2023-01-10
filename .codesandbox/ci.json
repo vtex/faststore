@@ -1,12 +1,11 @@
 {
-  "buildCommand": "turbo run build --filter=./packages/* --filter=!./packages/shared",
+  "buildCommand": "turbo run build --filter=./packages/* --filter=!./packages/shared --filter=!./packages/eslint-config",
   "packages": [
     "packages/api",
     "packages/cli",
     "packages/graphql-utils",
     "packages/lighthouse",
     "packages/sdk",
-    "packages/styles",
     "packages/ui",
     "packages/components"
   ],

@@ -1,32 +1,36 @@
+import deepmerge from 'deepmerge'
 import {
   copyFileSync,
   copySync,
-  mkdirsSync,
-  readFileSync,
-  writeFileSync,
   existsSync,
+  mkdirsSync,
+  readdirSync,
+  readFileSync,
   removeSync,
   symlinkSync,
+  writeFileSync,
 } from 'fs-extra'
-import deepmerge from 'deepmerge'
 
 import {
+  configFileName,
   coreCMSDir,
-  userCMSDir,
-  tmpCMSDir,
   coreDir,
-  tmpCustomizationsDir,
-  userSrcDir,
-  userStoreConfigFileDir,
   coreStoreConfigFileDir,
-  tmpStoreConfigFileDir,
-  tmpThemesCustomizationsFileDir,
-  userThemesFileDir,
+  tmpCMSDir,
+  tmpCustomizationsDir,
   tmpDir,
   tmpFolderName,
-  userNodeModulesDir,
   tmpNodeModulesDir,
+  tmpStoreConfigFileDir,
+  tmpThemesCustomizationsFileDir,
+  userCMSDir,
+  userNodeModulesDir,
+  userSrcDir,
+  userStoreConfigFileDir,
+  userThemesFileDir,
 } from './directory'
+
+import chalk from 'chalk'
 
 interface GenerateOptions {
   setup?: boolean
@@ -41,10 +45,13 @@ function createTmpFolder() {
     }
 
     mkdirsSync(tmpDir)
+    console.log(
+      `${chalk.green('success')} - Temporary folder ${chalk.dim(
+        tmpFolderName
+      )} created`
+    )
   } catch (err) {
-    console.error(err)
-  } finally {
-    console.log(`Temporary folder ${tmpFolderName} created`)
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
@@ -60,52 +67,85 @@ function copyCoreFiles() {
         return shouldCopy
       },
     })
+    console.log(`${chalk.green('success')} - Core files copied`)
   } catch (e) {
     console.error(e)
-  } finally {
-    console.log(`Core files copied`)
   }
 }
 
 function copyUserSrcToCustomizations() {
-  try {
-    copySync(userSrcDir, tmpCustomizationsDir)
-  } catch (err) {
-    console.error(err)
-  } finally {
-    console.log('Copied custom files')
+  if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
+    try {
+      copySync(userSrcDir, tmpCustomizationsDir)
+      console.log(`${chalk.green('success')} - Custom files copied`)
+    } catch (err) {
+      console.error(`${chalk.red('error')} - ${err}`)
+    }
   }
 }
 
 async function copyTheme() {
   const storeConfig = await import(userStoreConfigFileDir)
-
-  try {
-    copyFileSync(
-      `${userThemesFileDir}/${storeConfig.theme}.scss`,
-      tmpThemesCustomizationsFileDir
+  if (storeConfig.theme) {
+    const customTheme = `${userThemesFileDir}/${storeConfig.theme}.scss`
+    if (existsSync(customTheme)) {
+      try {
+        copyFileSync(customTheme, tmpThemesCustomizationsFileDir)
+        console.log(
+          `${chalk.green('success')} - ${
+            storeConfig.theme
+          } theme has been applied`
+        )
+      } catch (err) {
+        console.error(`${chalk.red('error')} - ${err}`)
+      }
+    } else {
+      // TODO: add link to our doc about creating a custom theme on faststore evergreen
+      console.info(
+        `${chalk.blue('info')} - The ${
+          storeConfig.theme
+        } theme was added to the config file but the ${
+          storeConfig.theme
+        }.scss file does not exist in the themes folder`
+      )
+    }
+  } else if (
+    existsSync(userThemesFileDir) &&
+    readdirSync(userThemesFileDir).length > 0
+  ) {
+    // TODO: add link to our doc about creating a custom theme on faststore evergreen
+    console.info(
+      `${chalk.blue(
+        'info'
+      )} - The theme needs to be added to the config file to be applied`
     )
-  } catch (err) {
-    console.error(err)
-  } finally {
-    console.log('Copied custom styles')
   }
 }
 
 function mergeCMSFile(fileName: string) {
-  const coreContentTypes = readFileSync(`${coreCMSDir}/${fileName}`, 'utf8')
-  const customContentTypes = readFileSync(`${userCMSDir}/${fileName}`, 'utf8')
-  const coreContentTypesJSON = JSON.parse(coreContentTypes)
-  const customContentTypesJSON = JSON.parse(customContentTypes)
+  // TODO: create a validation when has the cms files but doesn't have a component for then
+  if (existsSync(userCMSDir) && readdirSync(userCMSDir).length > 0) {
+    const coreContentTypes = readFileSync(`${coreCMSDir}/${fileName}`, 'utf8')
+    const customContentTypes = readFileSync(`${userCMSDir}/${fileName}`, 'utf8')
+    const coreContentTypesJSON = JSON.parse(coreContentTypes)
+    const customContentTypesJSON = JSON.parse(customContentTypes)
 
-  const mergeContentTypes = [...coreContentTypesJSON, ...customContentTypesJSON]
+    const mergeContentTypes = [
+      ...coreContentTypesJSON,
+      ...customContentTypesJSON,
+    ]
 
-  try {
-    writeFileSync(`${tmpCMSDir}/${fileName}`, JSON.stringify(mergeContentTypes))
-  } catch (err) {
-    console.error(err)
-  } finally {
-    console.log(`CMS file ${fileName} created`)
+    try {
+      writeFileSync(
+        `${tmpCMSDir}/${fileName}`,
+        JSON.stringify(mergeContentTypes)
+      )
+      console.log(
+        `${chalk.green('success')} - CMS file ${chalk.dim(fileName)} created`
+      )
+    } catch (err) {
+      console.error(`${chalk.red('error')} - ${err}`)
+    }
   }
 }
 
@@ -127,22 +167,15 @@ async function copyStoreConfig() {
       tmpStoreConfigFileDir,
       generateStoreConfigFile(mergedStoreConfig)
     )
+    console.log(
+      `${chalk.green('success')} - File ${chalk.dim(configFileName)} copied`
+    )
   } catch (err) {
-    console.error(err)
-  } finally {
-    console.log(`File store.config.js copied`)
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
 function mergeCMSFiles() {
-  try {
-    mkdirsSync(`${tmpDir}/cms`)
-  } catch (err) {
-    console.error(err)
-  } finally {
-    console.log(`CMS file created`)
-  }
-
   mergeCMSFile('content-types.json')
   mergeCMSFile('sections.json')
 }
@@ -150,13 +183,16 @@ function mergeCMSFiles() {
 function createNodeModulesSymbolicLink() {
   try {
     symlinkSync(userNodeModulesDir, tmpNodeModulesDir)
+    console.log(
+      `${chalk.green('success')} - Symbolic ${chalk.dim(
+        'node_modules'
+      )} link created from ${chalk.dim(userNodeModulesDir)} to ${chalk.dim(
+        tmpNodeModulesDir
+      )}`
+    )
   } catch (err) {
-    console.error(err)
+    console.error(`${chalk.red('error')} - ${err}`)
   }
-
-  console.log(
-    `node_modules symbolic link created from ${userNodeModulesDir} to ${tmpNodeModulesDir}`
-  )
 }
 
 export async function generate(options?: GenerateOptions) {

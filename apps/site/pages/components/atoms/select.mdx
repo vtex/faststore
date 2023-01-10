@@ -1,0 +1,264 @@
+---
+description: Selects allow users to pick an option from a predefined list.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Select___8842f3b6522c3e8db0a887b3f216a6ab.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { Select, SelectField } from '@faststore/ui'
+
+<header>
+
+# Select
+
+Select components allow users to pick an option from a predefined list. The Select component should be used when there are more than 5 options available. Otherwise, consider using the [RadioGroup](/components/molecules/radio-group) component.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Select
+        id="select-overview-default"
+        options={{
+          great: 'Great',
+          ok: 'Ok',
+          bad: 'Bad',
+        }}
+      />
+      <Select
+        id="select-overview-disabled"
+        options={{
+          great: 'Great',
+          ok: 'Ok',
+          bad: 'Bad',
+        }}
+        disabled
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Select
+      id="select-overview-default"
+      options={{
+        great: 'Great',
+        ok: 'Ok',
+        bad: 'Bad',
+      }}
+    />
+    <Select
+      id="select-overview-disabled"
+      options={{
+        great: 'Great',
+        ok: 'Ok',
+        bad: 'Bad',
+      }}
+      disabled
+    />
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { Select } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/Select/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <Select
+    options={{
+      great: 'Great',
+      ok: 'Ok',
+      bad: 'Bad',
+    }}
+  />
+</OverviewSection>
+```tsx
+<Select
+  options={{
+    great: 'Great',
+    ok: 'Ok',
+    bad: 'Bad',
+  }}
+/>
+```
+
+---
+
+## Props
+
+<PropsSection name="Select" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-select-height" value="var(--fs-spacing-6)" />
+  <TokenRow token="--fs-select-min-height" value="var(--fs-control-tap-size)" />
+  <TokenRow
+    token="--fs-select-padding"
+    value="var(--fs-spacing-1) var(--fs-spacing-5) var(--fs-spacing-1) var(--fs-spacing-2)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-select-text-color"
+    value="var(--fs-color-link)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-select-border-radius" value="var(--fs-border-radius)" />
+  <TokenDivider />
+  <TokenRow token="--fs-select-bkg" value="transparent" />
+  <TokenRow
+    token="--fs-select-bkg-color-focus"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-select-bkg-color-hover"
+    value="var(--fs-select-bkg-color-focus)"
+    globalValue="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-select-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+  <TokenRow
+    token="--fs-select-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-select-transition-function"
+    value="var(--fs-transition-function)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Icon
+
+<TokenTable>
+  <TokenRow
+    token="--fs-select-icon-color"
+    value="var(--fs-color-link)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-select-icon-position-right"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow token="--fs-select-icon-width" value="var(--fs-spacing-3)" />
+  <TokenRow
+    token="--fs-select-icon-height"
+    value="var(--fs-select-icon-width)"
+  />
+</TokenTable>
+
+### Variants
+
+#### Disabled
+
+<OverviewSection>
+  <Select
+    id="select-disabled"
+    options={{
+      great: 'Great',
+      ok: 'Ok',
+      bad: 'Bad',
+    }}
+    disabled
+  />
+</OverviewSection>
+```tsx
+<Select
+  id="select-disabled"
+  options={{
+    great: 'Great',
+    ok: 'Ok',
+    bad: 'Bad',
+  }}
+  disabled
+/>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-select-disabled-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+  <TokenRow token="--fs-select-disabled-text-opacity" value="1" />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-select`
+
+`data-fs-select-icon`
+
+---
+
+## Best Practices
+
+### ✅ Do's
+
+- Consider using a [`RadioGroup`](/components/molecules/radio-group) when few options are available. Doing so will prevent users from opening a dropdown box just to scan how many and which options are available.
+- Consider using an open text [`Input`](/components/atoms/input) when several options are available and if the entries don’t need to be validated. Doing so will prevent users from having to read and understand all options before making a choice.
+- Consider using an autocomplete field when multiple options are available and if the inputs need to be validated.
+- Opt to grey out unavailable items instead of removing them completely.
+
+---
+
+## Related components
+
+<SectionList>
+  <SectionItem
+    title="SelectField"
+    description="
+SelectField wraps a Select input and its corresponding Label. It allows users to select one option from a set."
+    actionPath="/components/molecules/select-field"
+  >
+    <SelectField
+      id="select-order-by"
+      label="Order by:"
+      options={{
+        name_asc: 'Name, A-Z',
+        name_desc: 'Name, Z-A',
+        top_sales: 'Top Sales',
+      }}
+    />
+  </SectionItem>
+</SectionList>

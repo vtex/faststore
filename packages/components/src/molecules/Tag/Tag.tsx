@@ -35,8 +35,8 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(function Tag(
     <Badge
       ref={ref}
       data-fs-tag
-      data-testid={testId}
       size="big"
+      data-testid={testId}
       {...otherProps}
     >
       <span data-fs-tag-label>{label}</span>

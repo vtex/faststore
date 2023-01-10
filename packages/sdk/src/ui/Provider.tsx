@@ -7,7 +7,7 @@ interface BaseState {
 
 type State = Record<string, any> & BaseState
 
-interface BaseContextValue extends BaseState {
+export interface BaseContextValue extends BaseState {
   openMinicart: () => void
   closeMinicart: () => void
 }

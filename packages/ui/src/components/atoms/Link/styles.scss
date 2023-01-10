@@ -1,0 +1,94 @@
+[data-fs-link] {
+  // --------------------------------------------------------
+  // Design Tokens for Link
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-link-min-width                  : auto;
+  --fs-link-min-height                 : var(--fs-link-min-width);
+  --fs-link-padding                    : var(--fs-spacing-2) var(--fs-spacing-0);
+  --fs-link-border-radius              : var(--fs-border-radius);
+
+  --fs-link-text-line-height           : 1.5;
+  --fs-link-text-color                 : var(--fs-color-link);
+  --fs-link-text-color-visited         : var(--fs-color-link-visited);
+  --fs-link-text-decoration            : none;
+  --fs-link-text-decoration-hover      : underline;
+
+  --fs-link-transition-function        : var(--fs-transition-function);
+  --fs-link-transition-property        : var(--fs-transition-property);
+  --fs-link-transition-timing          : var(--fs-transition-timing);
+
+  // Inverse
+  --fs-link-inverse-text-color         : var(--fs-color-link-inverse);
+  --fs-link-inverse-text-color-visited : var(--fs-link-inverse-text-color);
+
+  // Display
+  --fs-link-display-text-line-height   : var(--fs-link-text-line-height);
+  --fs-link-display-text-color         : var(--fs-color-text-display);
+  --fs-link-display-text-color-visited : var(--fs-link-display-text-color);
+
+  // Inline
+  --fs-link-inline-padding             : 0;
+  --fs-link-inline-text-decoration     : underline;
+  --fs-link-inline-text-color          : var(--fs-link-text-color);
+
+  // Small
+  --fs-link-small-text-size           : var(--fs-text-size-1);
+  --fs-link-small-padding             : var(--fs-spacing-1) var(--fs-spacing-0);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  min-width: var(--fs-link-min-width);
+  min-height: var(--fs-link-min-height);
+  padding: var(--fs-link-padding);
+  text-decoration: var(--fs-link-text-decoration);
+
+  &:hover { text-decoration: var(--fs-link-text-decoration-hover); }
+
+  &:visited { color: var(--fs-link-text-color-visited); }
+
+  a {
+    border-radius: var(--fs-link-border-radius);
+    transition: var(--fs-link-transition-property) var(--fs-link-transition-timing) var(--fs-link-transition-function);
+
+    @include focus-ring-visible;
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-link-variant="default"] {
+    line-height: var(--fs-link-text-line-height);
+    color: var(--fs-link-text-color);
+  }
+
+  &[data-fs-link-variant="display"] {
+    line-height: var(--fs-link-display-text-line-height);
+    color: var(--fs-link-display-text-color);
+
+    &:visited { color: var(--fs-link-display-text-color-visited); }
+  }
+
+  &[data-fs-link-variant="inline"] {
+    display: inline-block;
+    padding: var(--fs-link-inline-padding);
+    color: var(--fs-link-inline-text-color);
+    text-decoration: var(--fs-link-inline-text-decoration);
+  }
+
+  &[data-fs-link-size="small"] {
+    font-size: var(--fs-link-small-text-size);
+
+    @include media(">=notebook") { padding: var(--fs-link-small-padding); }
+  }
+
+  &[data-fs-link-inverse="true"] {
+    color: var(--fs-link-inverse-text-color);
+
+    &:visited { color: var(--fs-link-inverse-text-color-visited); }
+  }
+}

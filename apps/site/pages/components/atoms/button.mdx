@@ -1,0 +1,708 @@
+---
+description: Buttons indicate actions that users can take.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Button___6d6b16886d5d7e2a05dba8c45c075796.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import { ShoppingCart } from '@faststore/components'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { Button, IconButton, BuyButton, LinkButton } from '@faststore/ui'
+
+<header>
+
+# Button
+
+Buttons indicate actions that users can take, such as adding an item to the cart, submitting a form, and proceeding with an operation.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Button variant="primary">Primary</Button>
+    <Button variant="secondary">Secondary</Button>
+    <Button variant="tertiary">Tertiary</Button>
+    <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+      {'Button w/ Icon'}
+    </Button>
+    <Button variant="primary" size="small">
+      {'Small'}
+    </Button>
+      </OverviewSection>
+    </Tab>
+    <Tab>
+
+    ```tsx
+    <Button variant="primary">Primary</Button>
+    <Button variant="secondary">Secondary</Button>
+    <Button variant="tertiary">Tertiary</Button>
+    <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">Button w/ Icon</Button>
+    <Button variant="primary" size="small">Small</Button>
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/components/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { Button } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/Button/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <Button variant="primary">Add to Cart</Button>
+</OverviewSection>
+```tsx
+<Button variant="primary">Add to Cart</Button>
+```
+
+---
+
+## Props
+
+<PropsSection name="Button" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-padding"
+    value="calc(var(--fs-spacing-1) - (var(--fs-button-border-width) * 2)) var(--fs-spacing-3)"
+  />
+  <TokenRow token="--fs-button-height" value="var(--fs-control-tap-size)" />
+  <TokenRow token="--fs-button-gap" value="var(--fs-spacing-2)" />
+  <TokenDivider />
+  <TokenRow token="--fs-button-shadow" value="var(--fs-shadow)" />
+  <TokenRow token="--fs-button-shadow-hover" value="var(--fs-button-shadow)" />
+  <TokenDivider />
+  <TokenRow token="--fs-button-border-radius" value="var(--fs-border-radius)" />
+  <TokenRow
+    token="--fs-button-border-width"
+    value="var(--fs-border-width-thick)"
+  />
+  <TokenRow token="--fs-button-border-color" value="transparent" isColor />
+  <TokenDivider />
+  <TokenRow token="--fs-button-text-size" value="var(--fs-text-size-base)" />
+  <TokenRow
+    token="--fs-button-text-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenRow
+    token="--fs-button-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-button-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Icon
+
+<OverviewSection>
+  <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+    {'Add to Cart'}
+  </Button>
+</OverviewSection>
+```tsx
+<Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+  Add to Cart
+</Button>
+```
+
+<TokenTable>
+  <TokenRow token="--fs-button-icon-padding" value="0 var(--fs-spacing-1)" />
+</TokenTable>
+
+### Hierarchy
+
+#### Primary
+
+<OverviewSection>
+  <Button variant="primary">Button</Button>
+</OverviewSection>
+```tsx
+<Button variant="primary">Button</Button>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-primary-text-color"
+    value="var(--fs-color-primary-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-text-color-hover"
+    value="var(--fs-button-primary-text-color)"
+    isColor
+    globalValue="var(--fs-color-primary-text)"
+  />
+  <TokenRow
+    token="--fs-button-primary-text-color-active"
+    value="var(--fs-button-primary-text-color)"
+    isColor
+    globalValue="var(--fs-color-primary-text)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-primary-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-bkg-color-active"
+    value="var(--fs-color-primary-bkg-active)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-primary-border-color"
+    value="transparent"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-border-color-hover"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-border-color-active"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-primary-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
+
+#### Primary Inverse
+
+<OverviewSection dark>
+  <Button inverse variant="primary">
+    Button
+  </Button>
+</OverviewSection>
+
+```tsx
+<Button inverse variant="primary">
+  Button
+</Button>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-primary-inverse-text-color"
+    value="var(--fs-button-primary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-text-color-hover"
+    value="var(--fs-button-primary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-text-color-active"
+    value="var(--fs-button-primary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-primary-inverse-bkg-color"
+    value="var(--fs-button-primary-text-color)"
+    isColor
+    globalValue="var(--fs-color-primary-text)"
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-bkg-color-active"
+    value="var(--fs-color-primary-bkg-light-active)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-primary-inverse-border-color"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-border-color-hover"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-border-color-active"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-primary-inverse-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
+
+#### Secondary
+
+<OverviewSection>
+  <Button variant="secondary">Button</Button>
+</OverviewSection>
+```tsx
+<Button variant="secondary">Button</Button>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-secondary-text-color"
+    value="var(--fs-color-secondary-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-text-color-hover"
+    value="var(--fs-color-text-inverse)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-text-color-active"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-secondary-bkg-color"
+    value="var(--fs-color-secondary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-bkg-color-hover"
+    value="var(--fs-color-secondary-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-bkg-color-active"
+    value="var(--fs-color-secondary-bkg-active)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-secondary-border-color"
+    value="var(--fs-button-secondary-text-color)"
+    isColor
+    globalValue="var(--fs-color-secondary-text)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-border-color-hover"
+    value="var(--fs-button-secondary-bkg-color-hover)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg-hover)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-border-color-active"
+    value="var(--fs-button-secondary-bkg-color-active)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg-active)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-secondary-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
+
+#### Secondary Inverse
+
+<OverviewSection dark>
+  <Button inverse variant="secondary">
+    Button
+  </Button>
+</OverviewSection>
+```tsx
+<Button inverse variant="secondary">
+  Button
+</Button>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-secondary-inverse-text-color"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-text-color-hover"
+    value="var(--fs-button-secondary-text-color)"
+    isColor
+    globalValue="var(--fs-color-secondary-text)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-text-color-active"
+    value="var(--fs-button-secondary-inverse-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-secondary-text)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-secondary-inverse-bkg-color"
+    value="var(--fs-button-secondary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-bkg-color-hover"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-bkg-color-active"
+    value="var(--fs-color-secondary-bkg-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-secondary-inverse-border-color"
+    value="var(--fs-button-secondary-inverse-text-color)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-border-color-hover"
+    value="var(--fs-button-secondary-inverse-bkg-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-border-color-active"
+    value="var(--fs-button-secondary-inverse-bkg-color-hover)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg-light)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-secondary-inverse-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
+
+#### Tertiary
+
+<OverviewSection>
+  <Button variant="tertiary">Button</Button>
+</OverviewSection>
+```tsx
+<Button variant="tertiary">Button</Button>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-tertiary-text-color"
+    value="var(--fs-color-tertiary-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-text-color-hover"
+    value="var(--fs-button-tertiary-text-color)"
+    isColor
+    globalValue="var(--fs-color-tertiary-text)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-text-color-active"
+    value="var(--fs-button-primary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-tertiary-bkg-color"
+    value="var(--fs-color-tertiary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-bkg-color-hover"
+    value="var(--fs-color-tertiary-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-bkg-color-active"
+    value="var(--fs-color-tertiary-bkg-active)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-tertiary-border-color"
+    value="transparent"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-border-color-hover"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-border-color-active"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-tertiary-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
+
+#### Tertiary Inverse
+
+<OverviewSection dark>
+  <Button inverse variant="tertiary">
+    Button
+  </Button>
+</OverviewSection>
+```tsx
+<Button inverse variant="tertiary">
+  Button
+</Button>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-tertiary-inverse-text-color"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-text-color-hover"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-text-color-active"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-bkg-color"
+    value="var(--fs-button-secondary-inverse-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-bkg-color-hover"
+    value="var(--fs-button-primary-bkg-color-hover)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg-hover)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-bkg-color-active"
+    value="var(--fs-button-primary-bkg-color-active)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg-active)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-border-color"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-border-color-hover"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-border-color-active"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
+
+---
+
+### Variants
+
+#### Disabled
+
+<OverviewSection>
+  <Button variant="primary" disabled>
+    {'Button'}
+  </Button>
+</OverviewSection>
+
+```tsx
+<Button variant="primary" disabled>
+  Button
+</Button>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-disabled-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-disabled-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+</TokenTable>
+
+#### Small
+
+<OverviewSection>
+  <Button variant="primary" size="small">
+    {'Button'}
+  </Button>
+</OverviewSection>
+
+```tsx
+<Button variant="primary" disabled>
+  Button
+</Button>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-small-padding"
+    value="var(--fs-spacing-0) var(--fs-spacing-1)"
+  />
+  <TokenRow token="--fs-button-small-min-height" value="var(--fs-spacing-5)" />
+  <TokenRow token="--fs-button-small-gap" value="var(--fs-spacing-1)" />
+</TokenTable>
+
+---
+
+## Use Cases
+
+Use the `Button` component to communicate user actions on the following components:
+
+- Buy-now and add-to-cart buttons on [Product Cards](/components/molecules/product-card)
+- Call-to-action buttons on [Cards](/components/organisms/card)
+- Submit and/or withdraw actions on [Forms](/components/molecules/form)
+- Submit and/or withdraw actions on [Modal](/components/molecules/modal) windows.
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-button`
+
+`data-fs-button-variant="primary | secondary | tertiary"`
+
+`data-fs-button-inverse`
+
+`data-fs-button-size="small | regular"`
+
+---
+
+## Best Practices
+
+### ✅ Do's
+
+- Use standard button designs and shapes to make your button **look clickable**.
+- Use styles to **communicate the importance of an action** by visually differentiating Primary and Secondary buttons.
+- Make buttons **finger-friendly** for mobile users and large enough for **reliable interactions**. Generally, touch targets are at least 44 by 44 CSS pixels.
+- Use **task-specific** words to write button labels.
+- Place the buttons in an **order that reflects a conversation between the user and the system**.
+- Provide visual or audio **feedback on interactions**. Whenever a user interacts with a button, the button should change its state and let the user know that something is happening as a consequence.
+- Define a style system for your **button states** (i.e., normal, focus, hover, active, pressed, disabled).
+- Use icon-only buttons only for widespread actions with highly standardized icons, such as a cross for close.
+- Use the `aria-label` attribute to provide a textual alternative for icon-only buttons.
+
+### ❌ Don'ts
+
+- Don’t make users hunt for buttons. Place buttons where users expect to see them or can easily find them.
+- Don't rely on icons to communicate complex actions.
+- Don't use generic words that can potentially confuse users.
+- Avoid cluttering the UI with too many buttons.
+- Avoid having more than one Primary action button on the screen at a time.
+- Avoid using disabled buttons, if possible. Instead, give preference to hiding the unavailable option.
+- Don't place buttons next to [Badges](/components/atoms/badge). Although badges and buttons are similar in appearance, badges are not interactive and may confuse users if not used in the proper context.
+- Don't use Buttons as [Links](/components/atoms/link). Links are not intended to invite users to take action. Instead, they redirect users somewhere.
+- Avoid using `aria-label` when the button already has a label.
+
+---
+
+## Related components
+
+<SectionList grid="row">
+  <SectionItem
+    title="Icon Button"
+    description="A button which content is only an icon, without any label."
+    actionPath="/components/molecules/icon-button"
+  >
+    <IconButton icon={<ShoppingCart />} aria-label="Buy" />
+  </SectionItem>
+  <SectionItem
+    title="Buy Button"
+    description="A button with the intent of directly sending the user to the checkout/cart step."
+    actionPath="/components/molecules/buy-button"
+  >
+    <BuyButton>Buy Now</BuyButton>
+  </SectionItem>
+  <SectionItem
+    title="Link Button"
+    description="Is similar to a button, however acts as a link to navigate users between pages."
+    actionPath="/components/molecules/link-button"
+  >
+    <LinkButton>Link Button</LinkButton>
+  </SectionItem>
+</SectionList>

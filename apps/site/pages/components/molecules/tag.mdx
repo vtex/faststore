@@ -1,0 +1,132 @@
+---
+description: Interactive badges.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Badge___bcedffeb307527c1606be224a7fb5ac1.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { Tag } from '@faststore/ui'
+
+<header>
+
+# Tag
+
+Tags are an interactive `Badge.` By default, its have a close button.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Tag variant="neutral" label="Tag" onClose={() => {}} />
+      <Tag variant="warning" label="Warning Tag" onClose={() => {}} />
+      <Tag variant="danger" label="Danger Tag" onClose={() => {}} />
+      <Tag
+        variant="neutral"
+        size="big"
+        label="Neutral & Big"
+        onClose={() => {}}
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Tag variant="neutral" label="Tag" onClose={() => {}} />
+    <Tag variant="warning" label="Warning Tag" onClose={() => {}} />
+    <Tag variant="danger" label="Danger Tag" onClose={() => {}} />
+    <Tag
+      variant="neutral"
+      size="big"
+      label="Neutral & Big"
+      onClose={() => {}}
+    />
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { Tag } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/Tag/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <Tag variant="info" label="Summer Sale" onClose={() => {}} />
+</OverviewSection>
+
+```tsx
+<Tag variant="info" label="Summer Sale" onClose={() => {}} />
+```
+
+---
+
+## Props
+
+<PropsSection name="Tag" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-tag-text-color" value="var(--fs-color-text)" isColor />
+  <TokenDivider />
+  <TokenRow token="--fs-tag-icon-size" value="var(--fs-spacing-3)" />
+  <TokenRow token="--fs-tag-icon-stroke-width" value="var(--fs-spacing-4)" />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-tag`
+
+`data-fs-tag-label`
+
+`data-fs-tag-icon-button`
+
+This component inherits [Badge](/components/atoms/badge) CSS selectors and styles.
+
+---
+
+## Best Practices
+
+### ✅ Do's
+
+- Be cautious about the tag's positioning, writing, shape, and color to avoid any confusion with components similar in appearance.
+
+### ❌ Don'ts
+
+- Don't use long texts in tags.
+- Don't use color alone to convey information. If color is needed to convey meaning, ensure there is a text alternative for that meaning as well.
+
+---
+
+## Accessibility
+
+- Text elements must have sufficient color contrast against the background.

@@ -1,0 +1,101 @@
+---
+description: RadioField grouped a Radio input and its corresponding Label.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/RadioLabel___b3fc3b7a139796e4921349df5aaa270c.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { RadioField } from '@faststore/ui'
+
+<header>
+
+# Radio Field
+
+Radio Field wraps a [Radio](/components/atoms/radio) input and its corresponding [Label](/componentes/atoms/label). It allows users to select one option from a set.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <RadioField label="Default" id="radiofield-default" />
+      <RadioField label="Checked" id="radiofield-checked" checked readOnly />
+      <RadioField label="Disabled" id="radiofield-disabled" disabled />
+      <RadioField
+        label="Checked & Disabled"
+        id="radiofield-checked-disabled"
+        checked
+        disabled
+        readOnly
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <RadioField label="Default" id="radiofield-default" />
+    <RadioField label="Checked" id="radiofield-checked" checked />
+    <RadioField label="Disabled" id="radiofield-disabled" disabled />
+    <RadioField
+      label="Checked & Disabled"
+      id="radiofield-checked-disabled"
+      checked
+      disabled
+    />
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { RadioField } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/RadioField/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <RadioField label="Faststore" id="faststore" />
+</OverviewSection>
+
+```tsx
+<RadioField label="Faststore" id="faststore" />
+```
+
+---
+
+## Props
+
+<PropsSection name="RadioField" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-radio-field-gap" value="var(--fs-spacing-1)" />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-radio-field`

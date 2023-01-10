@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import type { InputHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 

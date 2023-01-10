@@ -1,0 +1,266 @@
+---
+description: InputFields are text fields used to get user inputs.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Input___77d0e7a8079b7d310e8223dd9e1994f6.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { InputField } from '@faststore/ui'
+
+<header>
+
+# Input Field
+
+Input Field wraps an [Input](/components/atoms/input) and its corresponding [Label](/components/atoms/label).
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection direction="column">
+      <InputField label="Label" id="inputfield-default" />
+      <InputField
+        label="Input w/ Error Message"
+        id="inputfield-error"
+        error="Error Message"
+      />
+      <InputField label="Input w/ Action" id="inputfield-action" actionable />
+      <InputField
+        label="Input w/ Action and Error"
+        id="inputfield-action-error"
+        actionable
+        error="Error Message"
+      />
+      <InputField label="Input Disabled" id="inputfield-disabled" disabled />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <InputField label="Label" id="inputfield-default" />
+    <InputField
+      label="Input w/ Error Message"
+      id="inputfield-error"
+      error="Error Message"
+    />
+    <InputField label="Input w/ Action" id="inputfield-action" actionable />
+    <InputField
+      label="Input w/ Action and Error"
+      id="inputfield-action-error"
+      actionable
+      error="Error Message"
+    />
+    <InputField label="Input Disabled" id="inputfield-disabled" disabled />
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { InputField } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/InputField/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <InputField label="Label" id="inputfield-label" />
+</OverviewSection>
+
+```tsx
+<InputField label="Label" id="inputfield-label" />
+```
+
+---
+
+## Props
+
+<PropsSection name="InputField" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-input-field-padding"
+    value="var(--fs-spacing-2) var(--fs-spacing-2) 0"
+  />
+  <TokenRow
+    token="--fs-input-field-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow token="--fs-input-field-size" value="var(--fs-text-size-body)" />
+  <TokenRow
+    token="--fs-input-field-border-color"
+    value="var(--fs-border-color)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-input-field-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenRow
+    token="--fs-input-field-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-input-field-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Label
+
+<TokenTable>
+  <TokenRow token="--fs-input-label-padding" value="0 var(--fs-spacing-2)" />
+  <TokenRow
+    token="--fs-input-label-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+  <TokenRow token="--fs-input-label-size" value="var(--fs-text-size-tiny)" />
+</TokenTable>
+
+### Variants
+
+#### Actionable
+
+<OverviewSection>
+  <InputField label="Input w/ Action" id="inputfield-action" actionable />
+</OverviewSection>
+```tsx
+<InputField label="Input w/ Action" id="inputfield-action" actionable />
+```
+
+#### Actionable w/ Error
+
+<OverviewSection>
+  <InputField
+    label="Input w/ Error Message"
+    id="inputfield-error"
+    error="Error Message"
+  />
+</OverviewSection>
+```tsx
+<InputField
+  label="Input w/ Error Message"
+  id="inputfield-error"
+  error="Error Message"
+/>
+```
+
+#### Error
+
+<OverviewSection>
+  <InputField
+    label="Input w/ Action and Error"
+    id="inputfield-action-error"
+    actionable
+    error="Error Message"
+  />
+</OverviewSection>
+```tsx
+<InputField
+  label="Input w/ Action and Error"
+  id="inputfield-action-error"
+  actionable
+  error="Error Message"
+/>
+```
+
+<TokenTable>
+   <TokenRow
+    token="--fs-input-error-message-margin-top"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow
+    token="--fs-input-error-message-size"
+    value="var(--fs-text-size-legend)"
+  />
+  <TokenRow token="--fs-input-error-message-line-height" value="1.1" />
+  <TokenRow
+    token="--fs-input-error-message-color"
+    value="var(--fs-color-danger-text)"
+    isColor
+  />
+
+  <TokenDivider />
+  <TokenRow
+    token="--fs-input-error-border-color"
+    value="var(--fs-color-danger-border)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-input-error-box-shadow"
+    value="0 0 0 var(--fs-border-width) var(--fs-input-error-border-color)"
+  />
+  <TokenRow
+    token="--fs-input-error-focus-ring"
+    value="var(--fs-color-focus-ring-danger)"
+    isColor
+  />
+</TokenTable>
+
+#### Disabled
+
+<OverviewSection>
+  <InputField label="Input Disabled" id="inputfield-disabled" disabled />
+</OverviewSection>
+```tsx
+<InputField label="Input Disabled" id="inputfield-disabled" disabled />
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-input-disabled-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-input-disabled-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-input-disabled-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-input-disabled-border-color"
+    value="var(--fs-border-color)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-input-field`
+
+`data-fs-input-field-error`
+
+`data-fs-input-field-error-message`

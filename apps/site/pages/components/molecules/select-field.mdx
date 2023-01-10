@@ -1,0 +1,146 @@
+---
+description: SelectField grouped a Select input and its corresponding Label.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Select___8842f3b6522c3e8db0a887b3f216a6ab.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SelectField } from '@faststore/ui'
+
+<header>
+
+# Select Field
+
+Select Field wraps a [Select](/components/atoms/select) input and its corresponding [Label](/componentes/atoms/label). It allows users to select one option from a set.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SelectField
+        id="select-overview-default"
+        label="Select a Status:"
+        options={{
+          great: 'Great',
+          ok: 'Ok',
+          bad: 'Bad',
+        }}
+      />
+      <SelectField
+        id="select-overview-disabled"
+        label="Select a Status:"
+        options={{
+          great: 'Great',
+          ok: 'Ok',
+          bad: 'Bad',
+        }}
+        disabled
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <SelectField
+      id="select-overview-default"
+      label="Select a Status:"
+      options={{
+        great: 'Great',
+        ok: 'Ok',
+        bad: 'Bad',
+      }}
+    />
+    <SelectField
+      id="select-overview-disabled"
+      label="Select a Status:"
+      options={{
+        great: 'Great',
+        ok: 'Ok',
+        bad: 'Bad',
+      }}
+      disabled
+    />
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { SelectField } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/SelectField/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <SelectField
+    id="select-order-by"
+    label="Order by:"
+    options={{
+      name_asc: 'Name, A-Z',
+      name_desc: 'Name, Z-A',
+      top_sales: 'Top Sales',
+    }}
+  />
+</OverviewSection>
+
+```tsx
+<SelectField
+  id="select-order-by"
+  label="Order by:"
+  options={{
+    name_asc: 'Name, A-Z',
+    name_desc: 'Name, Z-A',
+    top_sales: 'Top Sales',
+  }}
+/>
+```
+
+---
+
+## Props
+
+<PropsSection name="SelectField" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-select-label-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-select-label-margin-right"
+    value="var(--fs-spacing-1)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-select-field`
+
+`data-fs-select-field-label`

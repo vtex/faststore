@@ -1,0 +1,384 @@
+---
+description: Accordions display an expandable/collapsible list of items.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Accordion___66012e5367e86c5b4422ff8d6974b8cd.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  List,
+} from '@faststore/ui'
+import { useState } from 'react'
+
+<header>
+
+# Accordion
+
+Accordions display an expandable/collapsible list of items. The final Accordion component is a compound of the following:
+
+</header>
+
+- `Accordion`: wraps a series of `AccordionItem`s in a single component.
+- `AccordionItem`: wraps an `AccordionButton` and an `AccordionPanel`.
+- `AccordionButton`: contains the top-level items of the Accordion list. It is a clickable button that shows or hides the child items of a given `AccordionItem`.
+- `AccordionPanel`: contains the child items of a given `AccordionItem`.
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+} from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/Accordion/styles.scss'
+```
+
+---
+
+export const UsageAccordionMultiple = () => {
+  const [indices, setIndices] = useState(new Set([]))
+  const onChange = (index) => {
+    if (indices.has(index)) {
+      indices.delete(index)
+      setIndices(new Set(indices))
+    } else {
+      setIndices(new Set(indices.add(index)))
+    }
+  }
+  return (
+    <Accordion indices={indices} onChange={onChange}>
+      <AccordionItem>
+        <AccordionButton>Clothing</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Shorts</li>
+            <li>Sweatshirt</li>
+            <li>Tank tops</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>Bags</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Backpacks</li>
+            <li>Necessaire</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>Sale</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Smartphones</li>
+            <li>TVs</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+    </Accordion>
+  )
+}
+
+export const UsageAccordion = () => {
+  const [indices, setIndices] = useState([0])
+  const onChange = (index) => {
+    setIndices([index])
+  }
+  return (
+    <Accordion indices={indices} onChange={onChange}>
+      <AccordionItem>
+        <AccordionButton>Clothing</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Shorts</li>
+            <li>Sweatshirt</li>
+            <li>Tank tops</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>Bags</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Backpacks</li>
+            <li>Necessaire</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>Sale</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Smartphones</li>
+            <li>TVs</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+    </Accordion>
+  )
+}
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>{UsageAccordion()}</OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Accordion indices={indices} onChange={onChange}>
+      <AccordionItem>
+        <AccordionButton>Clothing</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Shorts</li>
+            <li>Sweatshirt</li>
+            <li>Tank tops</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>Bags</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Backpacks</li>
+            <li>Necessaire</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>Sale</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Smartphones</li>
+            <li>TVs</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+    </Accordion>
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+All accordion-related components support all attributes also supported by the `<div>` tag, except for the `AccordionButton`, which renders the `<button>` tag and inherits [Button](/reference/ui/atoms/Button) props.
+
+Besides those attributes, the following props are also supported:
+
+### Accordion
+
+<PropsSection name="Accordion" />
+
+### AccordionItem
+
+<PropsSection name="AccordionItem" />
+
+### AccordionButton
+
+<PropsSection name="AccordionButton" />
+
+### AccordionPanel
+
+<PropsSection name="AccordionPanel" />
+
+---
+
+## Design Tokens
+
+### Nested Elements
+
+#### Item
+
+<TokenTable>
+  <TokenRow
+    token="--fs-accordion-item-border-bottom-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-accordion-item-border-bottom-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+</TokenTable>
+
+#### Button
+
+<TokenTable>
+  <TokenRow
+    token="--fs-accordion-button-padding"
+    value="var(--fs-spacing-3) 0"
+  />
+  <TokenRow
+    token="--fs-accordion-button-font-size"
+    value="var(--fs-text-size-3)"
+  />
+  <TokenRow
+    token="--fs-accordion-button-font-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenRow token="--fs-accordion-button-line-height" value="1.2" />
+  <TokenRow
+    token="--fs-accordion-button-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-accordion-button-bkg-color"
+    value="transparent"
+    isColor
+  />
+</TokenTable>
+
+#### Panel
+
+<TokenTable>
+  <TokenRow
+    token="--fs-accordion-panel-padding-bottom"
+    value="var(--fs-spacing-4)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+`data-fs-accordion`
+
+`data-fs-accordion-item`
+
+`data-fs-accordion-button`
+
+`data-fs-accordion-panel`
+
+The `AccordionButton` component inherits [Button](/components/atoms/button) CSS selectors.
+
+---
+
+## Examples
+
+### Multiple and Collapsible
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>{UsageAccordionMultiple()}</OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    () => {
+      const [indices, setIndices] = useState(new Set([]))
+      const onChange = (index) => {
+        if (indices.has(index)) {
+          indices.delete(index)
+          setIndices(new Set(indices))
+        } else {
+          setIndices(new Set(indices.add(index)))
+        }
+      }
+      return (
+        <Accordion>
+          <AccordionItem>
+            <AccordionButton>Clothing</AccordionButton>
+            <AccordionPanel>
+              <List>
+                <li>Shorts</li>
+                <li>Sweatshirt</li>
+                <li>Tank tops</li>
+              </List>
+            </AccordionPanel>
+          </AccordionItem>
+          <AccordionItem>
+            <AccordionButton>Bags</AccordionButton>
+            <AccordionPanel>
+              <List>
+                <li>Backpacks</li>
+                <li>Necessaire</li>
+              </List>
+            </AccordionPanel>
+          </AccordionItem>
+          <AccordionItem>
+            <AccordionButton>Sale</AccordionButton>
+            <AccordionPanel>
+              <List>
+                <li>Smartphones</li>
+                <li>TVs</li>
+              </List>
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
+      )
+    }
+  ```
+  </Tab>
+</Tabs>
+
+### One Collapsible at a Time
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>{UsageAccordion()}</OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+     () => {
+        const [indices, setIndices] = useState([0])
+        const onChange = (index) => {
+          setIndices([index])
+        }
+        return (
+          <Accordion indices={indices} onChange={onChange}>
+            <AccordionItem>
+              <AccordionButton>Clothing</AccordionButton>
+              <AccordionPanel>
+                <List>
+                  <li>Shorts</li>
+                  <li>Sweatshirt</li>
+                  <li>Tank tops</li>
+                </List>
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionButton>Bags</AccordionButton>
+              <AccordionPanel>
+                <List>
+                  <li>Backpacks</li>
+                  <li>Necessaire</li>
+                </List>
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionButton>Sale</AccordionButton>
+              <AccordionPanel>
+                <List>
+                  <li>Smartphones</li>
+                  <li>TVs</li>
+                </List>
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+        )
+      }
+    ```
+  </Tab>
+</Tabs>

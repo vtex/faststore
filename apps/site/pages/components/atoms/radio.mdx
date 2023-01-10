@@ -1,0 +1,218 @@
+---
+description: Radios allow users to select one option from a set.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Radio___4bdff3538eb6a18e99c6f5a9c1043468.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { Radio, RadioField } from '@faststore/ui'
+
+<header>
+
+# Radio
+
+Radios allow users to select one option from a set.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Radio />
+      <Radio checked readOnly />
+      <Radio disabled />
+      <Radio checked disabled readOnly />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Radio />
+    <Radio checked />
+    <Radio disabled />
+    <Radio checked disabled />
+    ```
+  </Tab>
+</Tabs>
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { Radio } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/Radio/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <Radio />
+</OverviewSection>
+```tsx
+<Radio />
+```
+
+---
+
+## Props
+
+<PropsSection name="Radio" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-radio-width" value="1.25rem" />
+  <TokenRow token="--fs-radio-height" value="var(--fs-radio-width)" />
+  <TokenDivider />
+  <TokenRow token="--fs-radio-border-width" value="var(--fs-border-width)" />
+  <TokenRow
+    token="--fs-radio-border-radius"
+    value="var(--fs-border-radius-circle)"
+  />
+  <TokenRow
+    token="--fs-radio-border-color"
+    value="var(--fs-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-border-color-hover"
+    value="var(--fs-border-color-hover)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-radio-transition"
+    value="border var(--fs-transition-timing) var(--fs-transition-function), background-color var(--fs-transition-timing) var(--fs-transition-function), box-shadow var(--fs-transition-timing) var(--fs-transition-function)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-radio-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-shadow-hover"
+    value="0 0 0 var(--fs-radio-border-width) var(--fs-border-color-active)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Knob
+
+<TokenTable>
+  <TokenRow token="--fs-radio-knob-width" value="var(--fs-spacing-1)" />
+  <TokenRow token="--fs-radio-knob-height" value="var(--fs-radio-knob-width)" />
+  <TokenRow
+    token="--fs-radio-knob-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-knob-disabled-bkg-color"
+    value="var(--fs-color-neutral-5)"
+    isColor
+  />
+</TokenTable>
+
+### Variants
+
+#### Checked
+
+<OverviewSection>
+  <Radio checked readOnly />
+</OverviewSection>
+```tsx
+<Radio checked />
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-radio-checked-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-checked-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+</TokenTable>
+
+#### Disabled
+
+<OverviewSection>
+  <Radio checked disabled readOnly />
+</OverviewSection>
+```tsx live
+<Radio checked disabled />
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-radio-disabled-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-disabled-border-width"
+    value="var(--fs-radio-border-width)"
+  />
+  <TokenRow
+    token="--fs-radio-disabled-border-color"
+    value="var(--fs-border-color-disabled)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-disabled-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-radio`
+
+---
+
+## Best Practices
+
+### ✅ Do's
+
+- Provide a [Label](/components/atoms/label) when using radio input. Descriptive labels help users understand the purpose of a form control.
+
+---
+
+## Related components
+
+<SectionList>
+  <SectionItem
+    title="RadioField"
+    description="
+RadioField wraps a Radio input and its corresponding Label."
+    actionPath="/components/molecules/radio-field"
+  >
+    <RadioField label="RadioField" id="radiofield" checked readOnly />
+  </SectionItem>
+</SectionList>

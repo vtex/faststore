@@ -1,0 +1,90 @@
+---
+description: ToggleField group a Toggle input and its corresponding Label.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/RadioLabel___b3fc3b7a139796e4921349df5aaa270c.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { ToggleField } from '@faststore/ui'
+
+<header>
+
+# Toggle Field
+
+Toggle Field wraps a [Toggle](/components/molecules/toggle) input and its corresponding [Label](/components/atoms/label).
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ToggleField id="toggle-field-default" label="Label" />
+      <ToggleField
+        id="toggle-field-labeless"
+        label="Toggle"
+        displayLabel={false}
+      />
+      <ToggleField id="toggle-field-checked" label="Checked" checked readOnly />
+      <ToggleField id="toggle-field-checked" label="Disabled" disabled />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <ToggleField id="toggle-field-default" label="Label" />
+    <ToggleField
+      id="toggle-field-labeless"
+      label="Toggle"
+      displayLabel={false}
+    />
+    <ToggleField id="toggle-field-checked" label="Checked" checked />
+    <ToggleField id="toggle-field-checked" label="Disabled" disabled />
+    ```
+  </Tab>
+</Tabs>
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { ToggleField } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/ToggleField/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <ToggleField id="toggle-field-example" label="Toggle Label" />
+</OverviewSection>
+```tsx
+<ToggleField id="toggle-field-example" label="Toggle Label" />
+```
+
+---
+
+## Props
+
+<PropsSection name="ToggleField" />
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-toggle-field`
+
+`data-fs-toggle-field-label`

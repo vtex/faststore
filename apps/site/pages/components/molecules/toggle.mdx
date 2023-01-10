@@ -1,0 +1,318 @@
+---
+description: Toggle is a customized checkbox input styled to look like a switch button.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/RadioLabel___b3fc3b7a139796e4921349df5aaa270c.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { Toggle, ToggleField } from '@faststore/ui'
+
+<header>
+
+# Toggle
+
+The Toggle is a customized checkbox input styled to look like a switch button.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Toggle id="toggle-default" />
+      <Toggle id="toggle-default-checked" checked readOnly />
+      <Toggle id="toggle-default-disabled" disabled />
+      <Toggle id="toggle-default-checked-disabled" disabled checked readOnly />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Toggle id="toggle-default" />
+    <Toggle id="toggle-default-checked" checked />
+    <Toggle id="toggle-default-disabled" disabled />
+    <Toggle id="toggle-default-checked-disabled" disabled checked />
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { Toggle } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <Toggle id="toggle-example" />
+</OverviewSection>
+
+```tsx
+<Toggle id="toggle-example" />
+```
+
+---
+
+## Props
+
+<PropsSection name="Toggle" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-toggle-height"
+    value="calc(var(--fs-control-min-height) / 1.75)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toggle-bkg-color"
+    value="var(--fs-control-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-toggle-shadow" value="var(--fs-shadow)" />
+  <TokenRow token="--fs-toggle-shadow-hover" value="var(--fs-shadow)" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toggle-border-color"
+    value="var(--fs-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-border-color-hover"
+    value="var(--fs-border-color-hover)"
+    isColor
+  />
+  <TokenRow token="--fs-toggle-border-radius" value="var(--fs-border-radius)" />
+  <TokenRow token="--fs-toggle-border-width" value="var(--fs-border-width)" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toggle-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+  <TokenRow
+    token="--fs-toggle-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-toggle-transition-function"
+    value="var(--fs-transition-function)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Knob
+
+<TokenTable>
+  <TokenRow token="--fs-toggle-knob-shadow" value="var(--fs-shadow)" />
+  <TokenRow
+    token="--fs-toggle-knob-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-bkg-color-hover"
+    value="var(--fs-toggle-border-color-hover)"
+    globalValue="var(--fs-border-color-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-border-radius"
+    value="var(--fs-border-radius-small)"
+  />
+  <TokenRow
+    token="--fs-toggle-knob-border-color"
+    value="var(--fs-toggle-knob-bkg-color)"
+    globalValue="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-border-color-hover"
+    value="var(--fs-toggle-knob-bkg-color-hover)"
+    globalValue="var(--fs-border-color-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-border-width"
+    value="var(--fs-border-width-thick)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toggle-knob-checked-bkg-color"
+    value="var(--fs-control-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-checked-border-color"
+    value="var(--fs-toggle-knob-checked-bkg-color)"
+    globalValue="var(--fs-control-bkg)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toggle-knob-disabled-bkg-color"
+    value="var(--fs-color-neutral-5)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-disabled-border-color"
+    value="var(--fs-toggle-knob-disabled-bkg-color)"
+    globalValue="var(--fs-color-neutral-5)"
+    isColor
+  />
+</TokenTable>
+
+#### Icon
+
+<TokenTable>
+  <TokenRow token="--fs-toggle-knob-icon-color" value="transparent" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toggle-knob-icon-checked-color"
+    value="var(--fs-toggle-checked-bkg-color)"
+    globalValue="var(--fs-color-primary-bkg-active)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-icon-checked-color-hover"
+    value="var(--fs-toggle-checked-bkg-color-hover)"
+    globalValue="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toggle-knob-icon-disabled-color"
+    value="var(--fs-toggle-disabled-bkg-color)"
+    globalValue="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+</TokenTable>
+
+### Variants
+
+#### Checked
+
+<OverviewSection>
+  <Toggle id="toggle-checked" label="Checked" checked readOnly />
+</OverviewSection>
+
+```tsx
+<Toggle id="toggle-checked" label="Checked" checked readOnly />
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-toggle-checked-bkg-color"
+    value="var(--fs-color-primary-bkg-active)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-checked-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="---fs-toggle-checked-border-color"
+    value="var(--fs-toggle-checked-bkg-color)"
+    globalValue="var(--fs-color-primary-bkg-active)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-icon-disabled-color"
+    value="var(--fs-toggle-checked-bkg-color-hover)"
+    globalValue="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+</TokenTable>
+
+#### Disabled
+
+<OverviewSection>
+  <Toggle id="toggle-disabled" label="Disabled" disabled />
+  <Toggle
+    id="toggle-disabled-checked"
+    label="Disabled Checked"
+    disabled
+    checked
+    readOnly
+  />
+</OverviewSection>
+
+```tsx
+<Toggle id="toggle-disabled" label="Disabled" disabled />
+<Toggle
+  id="toggle-disabled-checked"
+  label="Disabled Checked"
+  disabled
+  checked
+  readOnly
+/>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-toggle-disabled-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="---fs-toggle-disabled-border-color"
+    value="var(--fs-border-color-disabled)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-toggle`
+
+`data-fs-toggle-variant="horizontal"`
+
+`data-fs-toggle-variant="vertical"`
+
+`data-fs-toggle-knob`
+
+---
+
+## Related components
+
+<SectionList>
+  <SectionItem
+    title="ToggleField"
+    description="
+ToggleField wraps a Toggle input and its corresponding Label."
+    actionPath="/components/molecules/toggle-field"
+  >
+    <ToggleField label="ToggleField" id="toggle-field" />
+  </SectionItem>
+</SectionList>

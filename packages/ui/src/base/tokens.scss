@@ -270,5 +270,5 @@ body {
   // SHADOW
   --fs-shadow                          : none;
   --fs-shadow-darker                   : 0 0 10px rgb(0 0 0 / 20%);
-  --fs-shadow-hover                    : 0 0 0 1px var(--fs-color-main-4);
+  --fs-shadow-hover                    : 0 2px 3px rgba(0,0,0,.1);
 }

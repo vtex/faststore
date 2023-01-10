@@ -1,5 +1,5 @@
 .turbo
-.docusaurus
+.next
 
 # VSCode
 .vscode
@@ -99,10 +99,6 @@ packages/gatsby-**/**/*.json
 
 # Watchman
 **/.watchmanconfig
-
-docs/build
-docs/.docusaurus
-docs/.cache-loader
 
 # CLI
 *-debug.log
