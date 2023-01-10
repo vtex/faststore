@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
-import type { HTMLAttributes, PropsWithChildren } from 'react'
+import type { TableHTMLAttributes, PropsWithChildren } from 'react'
 
-export interface TableProps extends HTMLAttributes<HTMLTableElement> {
+export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
