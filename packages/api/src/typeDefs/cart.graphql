@@ -17,7 +17,7 @@ Shopping cart information.
 """
 type StoreCart {
   """
-  Order information, including `orderNumber` and `acceptedOffer`.
+  Order information, including `orderNumber`, `acceptedOffer` and `shouldSplitItem`.
   """
   order: StoreOrder!
   """
@@ -31,7 +31,7 @@ Shopping cart input.
 """
 input IStoreCart {
   """
-  Order information, including `orderNumber` and `acceptedOffer`.
+  Order information, including `orderNumber`, `acceptedOffer` and `shouldSplitItem`.
   """
   order: IStoreOrder!
 }
