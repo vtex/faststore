@@ -19,8 +19,17 @@ export interface TableProps
    * Defines what style this component should use.
    */
   variant?: 'colored' | 'bordered'
+  /**
+   * Call a function when the component is resized.
+   */
   onResize?: ReactEventHandler<unknown> | undefined
+  /**
+   * A version of onResize that fires in the capture phase.
+   */
   onResizeCapture?: ReactEventHandler<unknown> | undefined
+  /**
+   * A randomly generated string that is only used once.
+   */
   nonce?: string | undefined
 }
 
