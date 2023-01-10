@@ -16,20 +16,23 @@ export interface AlertProps
    */
   testId?: string
   /**
-   * Icon component for additional customization
+   * Icon component for additional customization.
    */
   icon?: ReactNode
   /**
-   * Enables dismissible feature
+   * Enables dismissible feature.
    */
   dismissible?: boolean
   /**
-   * The href and label used at the link
+   * The href and label used at the link.
    */
   link?: {
     to: string
     text: string
   }
+  /**
+   * Function called when dismiss button is clicked.
+   */
   onClose?: (event: MouseEvent<HTMLElement>) => void
 }
 
