@@ -232,15 +232,6 @@ export const VtexCommerce = (
           throw new Error(err)
         })
 
-      // const response = fetchAPI(`${base}/api/sessions?${params.toString()}`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'content-type': 'application/json',
-      //     cookie: ctx.headers?.cookie,
-      //   },
-      //   body: '{}',
-      // })
-
       return response
     },
     subscribeToNewsletter: (data: {
