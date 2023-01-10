@@ -139,6 +139,20 @@ import '@faststore/ui/src/components/atoms/Alert/styles.scss'
 
 ### Nested Elements
 
+#### Icon
+
+<TokenTable>
+  <TokenRow token="--fs-alert-icon-width" value="var(--fs-spacing-4)" />
+  <TokenRow token="--fs-alert-icon-height" value="var(--fs-alert-icon-width)" />
+  <TokenRow token="--fs-alert-icon-margin-right" value="var(--fs-spacing-1)" />
+  <TokenRow
+    token="--fs-alert-icon-color"
+    value="var(--fs-alert-text-color)"
+    globalValue="var(--fs-color-highlighted-text)"
+    isColor
+  />
+</TokenTable>
+
 #### Link
 
 <TokenTable>
@@ -156,7 +170,7 @@ import '@faststore/ui/src/components/atoms/Alert/styles.scss'
   />
 </TokenTable>
 
-#### Button
+#### Dismissible Button
 
 <TokenTable>
   <TokenRow

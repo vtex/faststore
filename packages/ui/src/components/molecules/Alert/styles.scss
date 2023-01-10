@@ -4,23 +4,29 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-alert-height: var(--fs-spacing-7);
-  --fs-alert-padding-left: var(--fs-spacing-3);
-  --fs-alert-padding-right: var(--fs-alert-padding-left);
+  --fs-alert-height                    : var(--fs-spacing-7);
+  --fs-alert-padding-left              : var(--fs-spacing-3);
+  --fs-alert-padding-right             : var(--fs-alert-padding-left);
 
-  --fs-alert-bkg-color: var(--fs-color-highlighted-bkg);
+  --fs-alert-bkg-color                 : var(--fs-color-highlighted-bkg);
 
-  --fs-alert-text-color: var(--fs-color-highlighted-text);
-  --fs-alert-text-size: var(--fs-text-size-1);
+  --fs-alert-text-color                : var(--fs-color-highlighted-text);
+  --fs-alert-text-size                 : var(--fs-text-size-1);
+
+  // Icon
+  --fs-alert-icon-width                : var(--fs-spacing-4);
+  --fs-alert-icon-height               : var(--fs-alert-icon-width);
+  --fs-alert-icon-margin-right         : var(--fs-spacing-1);
+  --fs-alert-icon-color                : var(--fs-alert-text-color);
 
   // Link
-  --fs-alert-link-color: var(--fs-alert-text-color);
-  --fs-alert-link-color-visited: var(--fs-alert-text-color);
+  --fs-alert-link-color                : var(--fs-alert-text-color);
+  --fs-alert-link-color-visited        : var(--fs-alert-text-color);
 
-  // Button
-  --fs-alert-button-text-color: var(--fs-alert-text-color);
-  --fs-alert-button-bkg-color: var(--fs-alert-bkg-color);
-  --fs-alert-button-border-radius: var(--fs-border-radius);
+  // Dismissible Button
+  --fs-alert-button-text-color         : var(--fs-alert-text-color);
+  --fs-alert-button-bkg-color          : var(--fs-alert-bkg-color);
+  --fs-alert-button-border-radius      : var(--fs-border-radius);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -37,8 +43,10 @@
   background-color: var(--fs-alert-bkg-color);
 
   > [data-fs-icon] {
-    padding-right: var(--fs-spacing-1);
-    margin: 0;
+    width: var(--fs-alert-icon-width);
+    height: var(--fs-alert-icon-height);
+    margin-right: var(--fs-alert-icon-margin-right);
+    color: var(--fs-alert-icon-color);
   }
 
   [data-fs-alert-content] {
@@ -75,7 +83,7 @@
     color: var(--fs-alert-button-text-color);
     background-color: var(--fs-alert-button-bkg-color);
 
-    >span {
+    > span {
       display: flex;
       align-items: center;
       justify-content: center;
