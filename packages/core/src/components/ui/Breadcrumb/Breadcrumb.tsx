@@ -1,13 +1,14 @@
 import type { BreadcrumbProps as UIBreadcrumbProps } from '@faststore/ui'
-import { Breadcrumb as UIBreadcrumb } from '@faststore/ui'
+import {
+  Breadcrumb as UIBreadcrumb,
+  Dropdown as UIDropdown,
+  DropdownButton as UIDropdownButton,
+  DropdownMenu as UIDropdownMenu,
+  DropdownItem as UIDropdownItem,
+} from '@faststore/ui'
 import { useRouter } from 'next/router'
 import { memo } from 'react'
 
-import Dropdown, {
-  DropdownButton,
-  DropdownItem,
-  DropdownMenu,
-} from 'src/components/ui/Dropdown'
 import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 
@@ -77,25 +78,25 @@ function BaseBreadcrumb({
       )}
 
       {collapseBreadcrumb && (
-        <Dropdown>
-          <DropdownButton data-fs-breadcrumb-dropdown-button>
+        <UIDropdown>
+          <UIDropdownButton data-fs-breadcrumb-dropdown-button size="small">
             <Icon name="DotsThree" width={24} height={24} />
-          </DropdownButton>
-          <DropdownMenu data-fs-breadcrumb-dropdown-menu>
+          </UIDropdownButton>
+          <UIDropdownMenu data-fs-breadcrumb-dropdown-menu>
             {mediumItems.map(({ item, name }, index) => (
-              <DropdownItem
+              <UIDropdownItem
                 data-fs-breadcrumb-dropdown-item
+                onClick={() => router.push(item)}
+                key={String(index)}
                 icon={
                   <Icon name="ArrowElbowDownRight" width={24} height={24} />
                 }
-                onClick={() => router.push(item)}
-                key={String(index)}
               >
                 {name}
-              </DropdownItem>
+              </UIDropdownItem>
             ))}
-          </DropdownMenu>
-        </Dropdown>
+          </UIDropdownMenu>
+        </UIDropdown>
       )}
 
       {collapseBreadcrumb &&
