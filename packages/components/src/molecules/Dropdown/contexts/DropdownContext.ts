@@ -45,7 +45,7 @@ const defaultState: DropdownContextState = {
   dropdownButtonRef: null,
   selectedDropdownItemIndexRef: null,
   dropdownItemsRef: null,
-  id: 'store-dropdown',
+  id: 'fs-dropdown',
 }
 
 const DropdownContext = createContext<DropdownContextState>(defaultState)

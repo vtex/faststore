@@ -1,4 +1,5 @@
 export { default as ArrowRight } from './ArrowRight'
+export { default as ArrowElbowDownRight } from './ArrowElbowDownRight'
 export { default as CaretDown } from './CaretDown'
 export { default as Checked } from './Checked'
 export { default as House } from './House'

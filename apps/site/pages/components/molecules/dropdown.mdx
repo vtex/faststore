@@ -1,0 +1,391 @@
+---
+description: Dropdowns are used to reveal a list of options or commands.
+sidebar_class_name: test
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props: 
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Dropdown___1d904311eb18facba54340e76b109d62.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+  Dropdown, 
+  DropdownItem, 
+  DropdownMenu, 
+  DropdownButton,
+} from '@faststore/ui'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { CaretDown, ArrowElbowDownRight } from '@faststore/components'
+
+<header>
+
+# Dropdown
+
+Displays a set of actions/items to the user, usually used to show a menu of options.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Dropdown>
+        <DropdownButton icon={<CaretDown />}>
+          {'Dropdown'}
+        </DropdownButton>
+        <DropdownMenu>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 1'}
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 2'}
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 3'}
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+      <Dropdown>
+        <DropdownButton icon={<CaretDown />}>
+          {'Dropdown Small'}
+        </DropdownButton>
+        <DropdownMenu size="small">
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 1'}
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 2'}
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 3'}
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Dropdown>
+      <DropdownButton icon={<CaretDown />}>
+        Dropdown
+      </DropdownButton>
+      <DropdownMenu>
+        <DropdownItem icon={<ArrowElbowDownRight />}>
+          Dropdown Item 1
+        </DropdownItem>
+        <DropdownItem icon={<ArrowElbowDownRight />}>
+          Dropdown Item 2
+        </DropdownItem>
+        <DropdownItem icon={<ArrowElbowDownRight />}>
+          Dropdown Item 3
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+    <Dropdown>
+      <DropdownButton icon={<CaretDown />}>
+        Dropdown Small
+      </DropdownButton>
+      <DropdownMenu size="small">
+        <DropdownItem icon={<ArrowElbowDownRight />}>
+          Dropdown Item 1
+        </DropdownItem>
+        <DropdownItem icon={<ArrowElbowDownRight />}>
+          Dropdown Item 2
+        </DropdownItem>
+        <DropdownItem icon={<ArrowElbowDownRight />}>
+          Dropdown Item 3
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+    ```
+  </Tab>
+</Tabs>
+
+
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { Dropdown, DropdownItem, DropdownMenu, DropdownButton } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/Dropdown/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Dropdown>
+        <DropdownButton  icon={<CaretDown />}>
+          {'Dropdown'}
+        </DropdownButton>
+        <DropdownMenu>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 1'}
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 2'}
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            {'Dropdown Item 3'}
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <OverviewSection>
+      <Dropdown>
+        <DropdownButton  icon={<CaretDown />}>
+          Dropdown
+        </DropdownButton>
+        <DropdownMenu>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            Dropdown Item 1
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            Dropdown Item 2
+          </DropdownItem>
+          <DropdownItem icon={<ArrowElbowDownRight />}>
+            Dropdown Item 3
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </OverviewSection>
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+### Dropdown
+
+<PropsSection name="Dropdown" />
+
+### DropdownItem
+
+<PropsSection name="DropdownItem" />
+
+### DropdownMenu
+
+<PropsSection name="DropdownMenu" />
+
+### DropdownButton
+
+<PropsSection name="DropdownButton" />
+
+---
+
+## Design Tokens
+
+### Compound Components
+
+#### DropdownItem
+
+<TokenTable>
+  <TokenRow token="--fs-dropdown-item-min-height" value="2.375rem" />
+  <TokenRow
+    token="--fs-dropdown-item-padding"
+    value="var(--fs-spacing-1) var(--fs-spacing-2) var(--fs-spacing-1) var(--fs-spacing-1)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-dropdown-item-text-size"
+    value="var(--fs-text-size-base)"
+  />
+  <TokenRow
+    token="--fs-dropdown-item-text-weight"
+    value="var(--fs-text-weight-regular)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-dropdown-item-color"
+    value="var(--fs-color-link)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-dropdown-item-bkg-color"
+    value="var(--fs-color-tertiary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-dropdown-item-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-dropdown-item-border-bottom-color"
+    value="var(--fs-border-color-light)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-dropdown-item-icon-min-width"
+    value="1.125rem"
+  />
+  <TokenRow
+    token="--fs-dropdown-item-icon-margin-right"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow
+    token="--fs-dropdown-item-icon-margin-top"
+    value="calc(-1 * var(--fs-spacing-1))"
+  />
+</TokenTable>
+
+#### DropdownMenu
+
+<TokenTable>
+  <TokenRow
+    token="--fs-dropdown-menu-bkg-color"
+    value="var(--fs-color-tertiary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-dropdown-menu-border-radius"
+    value="var(--fs-border-radius)"
+  />
+  <TokenRow
+    token="--fs-dropdown-menu-box-shadow"
+    value="var(--fs-shadow-hover)"
+  />
+</TokenTable>
+
+### Variants
+
+#### Small
+
+<TokenTable>
+  <TokenRow token="--fs-dropdown-item-small-min-height" value="1.75rem" />
+  <TokenRow
+    token="--fs-dropdown-item-small-padding"
+    value="var(--fs-spacing-0) var(--fs-spacing-2) var(--fs-spacing-0) var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-dropdown-item-small-text-size"
+    value="var(--fs-text-size-1)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+#### DropdownItem
+
+`data-fs-dropdown-item`
+
+#### DropdownMenu
+
+`data-fs-dropdown-menu`
+
+`data-fs-dropdown-overlay`
+
+`data-fs-dropdown-menu`
+
+`data-fs-dropdown-menu-size="small | regular"`
+
+#### DropdownButton
+
+`data-fs-dropdown-button`
+
+This component inherits [Button](/components/atoms/button) CSS selectors and styles.
+
+---
+
+## Accessibility
+
+### Keyboard Interactions
+<br/>
+
+<Table>
+  <TableHead>
+    <TableRow>
+      <TableCell scope="col" variant="header" align="left">Key</TableCell>
+      <TableCell scope="col" variant="header" align="left">Description</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell align="left">
+        <code>Enter</code>
+      </TableCell>
+      <TableCell align="left">
+        When focusing on <code>DropdownButton</code>, <br/>
+        the Dropdown menu opens
+        and focuses the first <code>DropdownItem</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell align="left">
+        <code>ArrowDown</code>
+      </TableCell>
+      <TableCell align="left">
+        When focusing on an item, moves focus to the next{' '}
+        <code>DropdownItem</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell align="left">
+        <code>ArrowUp</code>
+      </TableCell>
+      <TableCell align="left">
+        When focusing on an item, moves focus to the previous{' '}
+        <code>DropdownItem</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell align="left">
+        <code>Escape</code>
+      </TableCell>
+      <TableCell align="left">
+        Closes <code>DropdownMenu</code> and moves focus to{' '}
+        <code>DropdownButton</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell align="left">
+        <code>Home</code>
+      </TableCell>
+      <TableCell align="left">
+        When <code>DropdownMenu</code> is open, move focus to the first{' '}
+        <code>DropdownItem</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell align="left">
+        <code>End</code>
+      </TableCell>
+      <TableCell align="left">
+        When <code>DropdownMenu</code> is open, move focus to the last{' '}
+        <code>DropdownItem</code>
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>

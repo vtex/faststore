@@ -48,6 +48,18 @@ export { default as IconButton } from './molecules/IconButton'
 export type { IconButtonProps } from './molecules/IconButton'
 export { default as DiscountBadge } from './molecules/DiscountBadge'
 export type { DiscountBadgeProps } from './molecules/DiscountBadge'
+export {
+  default as Dropdown,
+  DropdownButton,
+  DropdownItem,
+  DropdownMenu,
+} from './molecules/Dropdown'
+export type {
+  DropdownProps,
+  DropdownButtonProps,
+  DropdownItemProps,
+  DropdownMenuProps,
+} from './molecules/Dropdown'
 export { default as InputField } from './molecules/InputField'
 export type { InputFieldProps } from './molecules/InputField'
 export { default as LinkButton } from './molecules/LinkButton'

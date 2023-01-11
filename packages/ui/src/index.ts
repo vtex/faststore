@@ -143,19 +143,6 @@ export type { FormProps } from './components/molecules/Form'
 export { default as Alert } from './components/molecules/Alert'
 export type { AlertProps } from './components/molecules/Alert'
 
-export {
-  default as Dropdown,
-  DropdownButton,
-  DropdownItem,
-  DropdownMenu,
-} from './components/molecules/Dropdown'
-export type {
-  DropdownProps,
-  DropdownButtonProps,
-  DropdownItemProps,
-  DropdownMenuProps,
-} from './components/molecules/Dropdown'
-
 // Organisms
 export {
   default as OutOfStock,

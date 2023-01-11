@@ -1,0 +1,93 @@
+[data-fs-dropdown-menu] {
+  // --------------------------------------------------------
+  // Design Tokens for Dropdown
+  // --------------------------------------------------------
+
+  // Default properties
+
+  --fs-dropdown-menu-bkg-color             : var(--fs-color-tertiary-bkg);
+  --fs-dropdown-menu-border-radius         : var(--fs-border-radius);
+  --fs-dropdown-menu-box-shadow            : var(--fs-shadow-hover);
+
+  // Item
+  --fs-dropdown-item-min-height            : 2.375rem;
+  --fs-dropdown-item-padding               : var(--fs-spacing-1) var(--fs-spacing-2) var(--fs-spacing-1) var(--fs-spacing-1);
+
+  --fs-dropdown-item-text-size             : var(--fs-text-size-base);
+  --fs-dropdown-item-text-weight           : var(--fs-text-weight-regular);
+
+  --fs-dropdown-item-color                 : var(--fs-color-link);
+  --fs-dropdown-item-bkg-color             : var(--fs-color-tertiary-bkg-light);
+  --fs-dropdown-item-bkg-color-hover       : var(--fs-color-primary-bkg-light);
+
+  --fs-dropdown-item-border-bottom-color   : var(--fs-border-color-light);
+
+  // Icon
+  --fs-dropdown-item-icon-min-width         : 1.125rem;
+  --fs-dropdown-item-icon-margin-right      : var(--fs-spacing-0);
+  --fs-dropdown-item-icon-margin-top        : calc(-1 * var(--fs-spacing-1));
+
+  // Small
+  --fs-dropdown-item-small-min-height       : 1.75rem;
+  --fs-dropdown-item-small-padding          : var(--fs-spacing-0) var(--fs-spacing-2) var(--fs-spacing-0) var(--fs-spacing-1);
+  --fs-dropdown-item-small-text-size        : var(--fs-text-size-1);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+  margin-top: var(--fs-spacing-0);
+  background: var(--fs-dropdown-menu-bkg-color);
+  border-radius: var(--fs-dropdown-menu-border-radius);
+  box-shadow: var(--fs-dropdown-menu-box-shadow);
+
+  [data-fs-dropdown-item] {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: var(--fs-dropdown-item-min-height);
+    padding: var(--fs-dropdown-item-padding);
+    overflow: hidden;
+    font-size: var(--fs-dropdown-item-text-size);
+    font-weight: var(--fs-dropdown-item-text-weight);
+    color: var(--fs-dropdown-item-color);
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    background-color: var(--fs-dropdown-item-bkg-color);
+    border-width: 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--fs-dropdown-item-border-bottom-color);
+    }
+
+    &:focus, &:hover {
+    text-decoration: none;
+    background-color: var(--fs-dropdown-item-bkg-color-hover);
+    outline: none;
+    }
+
+    [data-fs-dropdown-item-icon] {
+      display: flex;
+      min-width: var(--fs-dropdown-item-icon-min-width);
+      margin-right: var(--fs-dropdown-item-icon-margin-right);
+    }
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-dropdown-menu-size="small"] {
+    [data-fs-dropdown-item] {
+      min-height: var(--fs-dropdown-item-small-min-height);
+      padding: var(--fs-dropdown-item-small-padding);
+      font-size: var(--fs-dropdown-item-small-text-size);
+    }
+  }
+}
