@@ -93,14 +93,18 @@ import '@faststore/ui/src/components/atoms/Alert/styles.scss'
 <OverviewSection>
   <Alert
     icon={<ShoppingCart />}
-    link={{ text: 'Buy now', to: '/' }}
+    link={{ text: 'Buy now', to: '/', target: '_blank' }}
     dismissible
   >
     Get 10% off today:&nbsp;<span>NEW10</span>
   </Alert>
 </OverviewSection>
 ```tsx
-<Alert icon={<ShoppingCart />} link={{ text: 'Buy now', to: '/' }} dismissible>
+<Alert
+  icon={<ShoppingCart />}
+  link={{ text: 'Buy now', to: '/', target: '_blank' }}
+  dismissible
+>
   Get 10% off today:&nbsp;<span>NEW10</span>
 </Alert>
 ```

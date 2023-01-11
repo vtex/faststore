@@ -29,6 +29,7 @@ export interface AlertProps
   link?: {
     to: string
     text: string
+    target: string
   }
   /**
    * Function called when dismiss button is clicked.
@@ -71,7 +72,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert({
       <p data-fs-alert-content>{children}</p>
 
       {link && (
-        <Link data-fs-alert-link variant="inline" href={link.to}>
+        <Link data-fs-alert-link variant="inline" href={link.to} target={link.target}>
           {link.text}
         </Link>
       )}
