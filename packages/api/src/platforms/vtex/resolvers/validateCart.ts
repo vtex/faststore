@@ -336,7 +336,7 @@ export const validateCart = async (
     .updateOrderFormItems({
       id: orderForm.orderFormId,
       orderItems: changes,
-      shouldSplitItem: shouldSplitItem ?? true,
+      shouldSplitItem,
     })
     // update orderForm etag so we know last time we touched this orderForm
     .then((form) =>

@@ -128,7 +128,7 @@ export const VtexCommerce = (
         orderItems: OrderFormInputItem[]
         allowOutdatedData?: 'paymentData'
         salesChannel?: string
-        shouldSplitItem?: boolean
+        shouldSplitItem?: boolean | null
       }): Promise<OrderForm> => {
         const params = new URLSearchParams({
           allowOutdatedData,
