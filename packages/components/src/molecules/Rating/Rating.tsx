@@ -5,7 +5,7 @@ import type { HTMLAttributes } from 'react'
 import List from '../../atoms/List'
 import { Icon, IconButton } from '../..'
 
-export interface RatingProps extends HTMLAttributes<HTMLUListElement> {
+export interface RatingProps extends Omit<HTMLAttributes<HTMLUListElement>, "onChange"> {
   /**
    * The length of child elements.
    */
@@ -23,6 +23,10 @@ export interface RatingProps extends HTMLAttributes<HTMLUListElement> {
    */
   actionable?: boolean
   /**
+   * description
+   */
+  onChange?: (value: number) => void
+  /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
@@ -35,23 +39,22 @@ export interface RatingItemProps {
 
 const Rating = forwardRef<HTMLUListElement, RatingProps>(
   function Rating(
-    { children, testId = 'fs-rating', length = 5, value, actionable, icon, ...otherProps },
+    { children, testId = 'fs-rating', length = 5, value, actionable, icon, onChange, ...otherProps },
     ref
   ) {
-    const [rating, setRating] = useState(value - 1)
     const [hover, setHover] = useState(0)
 
     return (
       <List
         ref={ref}
         data-fs-rating
-        data-fs-rating-actionable={actionable}
+        data-fs-rating-actionable={typeof onChange === "function"}
         data-testid={testId}
         {...otherProps}
       >
         {Array.from({ length }).map((_, index: number) => {
           const fillCheck = (itemValue: number) => {
-            if (index <= (hover || rating + 1)) {
+            if (index <= (hover || value)) {
               return 'full'
             }
             if (0 < itemValue && itemValue < 1) {
@@ -68,15 +71,15 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(
               data-fs-rating-item={fill}
               data-testid={`${testId}-item`}
             >
-              {actionable ? (
+              {onChange ? (
                 <IconButton
                   data-fs-rating-button
                   icon={icon}
                   size="small"
                   aria-label="rate"
-                  onClick={() => setRating(index)}
+                  onClick={() => {onChange(index)}}
                   onMouseEnter={() => setHover(index)}
-                  onMouseLeave={() => setHover(rating)}
+                  onMouseLeave={() => setHover(value)}
                 />
               ) : (
                 <>
