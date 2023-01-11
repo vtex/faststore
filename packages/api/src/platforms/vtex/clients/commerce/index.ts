@@ -133,14 +133,16 @@ export const VtexCommerce = (
         const params = new URLSearchParams({
           allowOutdatedData,
           sc: salesChannel,
-          noSplitItem: (!shouldSplitItem).toString(),
         })
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
           {
             ...BASE_INIT,
-            body: JSON.stringify({ orderItems }),
+            body: JSON.stringify({
+              orderItems,
+              noSplitItem: !shouldSplitItem,
+            }),
             method: 'PATCH',
           }
         )
