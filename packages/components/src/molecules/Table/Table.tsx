@@ -1,7 +1,16 @@
+import type {
+  DetailedHTMLProps,
+  PropsWithChildren,
+  ReactEventHandler,
+  TableHTMLAttributes,
+} from 'react'
 import React, { forwardRef } from 'react'
-import type { TableHTMLAttributes, PropsWithChildren } from 'react'
 
-export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
+export interface TableProps
+  extends DetailedHTMLProps<
+    TableHTMLAttributes<HTMLTableElement>,
+    HTMLTableElement
+  > {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -10,6 +19,18 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
    * Defines what style this component should use.
    */
   variant?: 'colored' | 'bordered'
+  /**
+   * Call a function when the component is resized.
+   */
+  onResize?: ReactEventHandler<unknown> | undefined
+  /**
+   * A version of onResize that fires in the capture phase.
+   */
+  onResizeCapture?: ReactEventHandler<unknown> | undefined
+  /**
+   * A randomly generated string that is only used once.
+   */
+  nonce?: string | undefined
 }
 
 const Table = forwardRef<HTMLTableElement, PropsWithChildren<TableProps>>(
