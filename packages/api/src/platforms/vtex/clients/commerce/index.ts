@@ -166,7 +166,7 @@ export const VtexCommerce = (
         postalCode,
         country,
         salesChannel,
-      }: RegionInput): Promise<Region> => {
+      }: RegionInput): Promise<Region[]> => {
         return fetchAPI(
           `${base}/api/checkout/pub/regions/?postalCode=${postalCode}&country=${country}&sc=${
             salesChannel ?? ''
