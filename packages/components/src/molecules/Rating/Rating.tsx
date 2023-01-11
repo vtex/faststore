@@ -1,11 +1,12 @@
 import React, { forwardRef, useState } from 'react'
-import type { ReactNode } from 'react'
-import type { HTMLAttributes } from 'react'
+import { ReactNode } from 'react'
+import { HTMLAttributes } from 'react'
 
 import List from '../../atoms/List'
 import { Icon, IconButton } from '../..'
 
-export interface RatingProps extends Omit<HTMLAttributes<HTMLUListElement>, "onChange"> {
+export interface RatingProps
+  extends Omit<HTMLAttributes<HTMLUListElement>, 'onChange'> {
   /**
    * The length of child elements.
    */
@@ -18,10 +19,6 @@ export interface RatingProps extends Omit<HTMLAttributes<HTMLUListElement>, "onC
    * A React component that will be rendered as an icon.
    */
   icon: ReactNode
-  /**
-   * Specifies that this input should be controled by the user.
-   */
-  actionable?: boolean
   /**
    * description
    */
@@ -37,64 +34,74 @@ export interface RatingItemProps {
   'data-testid'?: string
 }
 
-const Rating = forwardRef<HTMLUListElement, RatingProps>(
-  function Rating(
-    { children, testId = 'fs-rating', length = 5, value, actionable, icon, onChange, ...otherProps },
-    ref
-  ) {
-    const [hover, setHover] = useState(0)
+const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
+  {
+    children,
+    testId = 'fs-rating',
+    length = 5,
+    value = 0,
+    icon,
+    onChange,
+    ...otherProps
+  },
+  ref
+) {
+  const [hover, setHover] = useState(0)
 
-    return (
-      <List
-        ref={ref}
-        data-fs-rating
-        data-fs-rating-actionable={typeof onChange === "function"}
-        data-testid={testId}
-        {...otherProps}
-      >
-        {Array.from({ length }).map((_, index: number) => {
-          const fillCheck = (itemValue: number) => {
-            if (index <= (hover || value)) {
-              return 'full'
-            }
-            if (0 < itemValue && itemValue < 1) {
-              return 'partial'
-            }
-            return 'empty'
+  return (
+    <List
+      ref={ref}
+      data-fs-rating
+      data-fs-rating-actionable={typeof onChange === 'function'}
+      data-testid={testId}
+      {...otherProps}
+    >
+      {Array.from({ length }).map((_, index: number) => {
+        const tempIndex = index + 1
+
+        const fillCheck = () => {
+          if (tempIndex <= (hover || value)) {
+            return 'full'
           }
 
-          const fill = fillCheck(value - index)
+          if (tempIndex - value < 1) {
+            return 'partial'
+          }
 
-          return (
-             <li
-              key={`rating-${index}`}
-              data-fs-rating-item={fill}
-              data-testid={`${testId}-item`}
-            >
-              {onChange ? (
-                <IconButton
-                  data-fs-rating-button
-                  icon={icon}
-                  size="small"
-                  aria-label="rate"
-                  onClick={() => {onChange(index)}}
-                  onMouseEnter={() => setHover(index)}
-                  onMouseLeave={() => setHover(value)}
-                />
-              ) : (
-                <>
-                  <div data-fs-rating-icon-wrapper>
-                    <Icon component={icon} />
-                  </div>
-                  <Icon data-fs-rating-icon-border component={icon} />
-                </>
-              )}
-            </li>
-          )
-        })}
-      </List>
-    )
-  }
-)
+          return 'empty'
+        }
+
+        return (
+          <li
+            key={`rating-${index}`}
+            data-fs-rating-item={fillCheck()}
+            data-testid={`${testId}-item`}
+          >
+            {onChange ? (
+              <IconButton
+                data-fs-rating-button
+                icon={icon}
+                size="small"
+                aria-label="rate"
+                onClick={() => {
+                  onChange(tempIndex)
+                }}
+                onMouseEnter={() => setHover(tempIndex)}
+                onMouseLeave={() => setHover(value)}
+              />
+            ) : (
+              <>
+                <div data-fs-rating-icon-wrapper>
+                  <Icon component={icon} />
+                </div>
+                <Icon data-fs-rating-icon-border component={icon} />
+              </>
+            )}
+          </li>
+        )
+      })}
+    </List>
+  )
+})
 
 export default Rating
