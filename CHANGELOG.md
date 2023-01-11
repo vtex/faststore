@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.43-alpha.0](https://github.com/vtex/faststore/compare/v2.0.42-alpha.0...v2.0.43-alpha.0) (2023-01-11)
+
+
+### Bug Fixes
+
+* revert table props and adds new props (types mismatch) ([#1601](https://github.com/vtex/faststore/issues/1601)) ([e791a3f](https://github.com/vtex/faststore/commit/e791a3f6cdd6f3382997bce1d9f105531c05ddbd))
+
+
+
 ## [2.0.42-alpha.0](https://github.com/vtex/faststore/compare/v2.0.41-alpha.0...v2.0.42-alpha.0) (2023-01-10)
 
 
