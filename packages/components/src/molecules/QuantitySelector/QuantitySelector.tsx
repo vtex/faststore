@@ -63,6 +63,20 @@ const QuantitySelector = ({
     return max ? Math.min(maxValue, max) : maxValue
   }
 
+  function validateInput(e: React.FormEvent<HTMLInputElement>) {
+    const val = e.currentTarget.value
+
+    if (!Number.isNaN(Number(val))) {
+      setQuantity(() => {
+        const quantityValue = validateQuantityBounds(Number(val))
+
+        onChange?.(quantityValue)
+
+        return quantityValue
+      })
+    }
+  }
+
   useEffect(() => {
     initial && setQuantity(initial)
   }, [initial])
@@ -87,7 +101,7 @@ const QuantitySelector = ({
         id="quantity-selector-input"
         aria-label="Quantity"
         value={quantity}
-        onChange={() => onChange}
+        onChange={validateInput}
         disabled={disabled}
       />
       <IconButton
