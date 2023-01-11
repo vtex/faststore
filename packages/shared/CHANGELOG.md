@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.44-alpha.0](https://github.com/vtex/faststore/compare/v2.0.43-alpha.0...v2.0.44-alpha.0) (2023-01-11)
+
+
+### Features
+
+* Add seller dimension to channel ([#1484](https://github.com/vtex/faststore/issues/1484)) ([8119629](https://github.com/vtex/faststore/commit/8119629d64cef92d707f134071bb4f26f2e5800e))
+
+
+
 ## 2.0.37-alpha.0 (2023-01-06)
 
 
