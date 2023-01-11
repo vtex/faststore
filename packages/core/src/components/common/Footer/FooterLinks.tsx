@@ -1,8 +1,13 @@
 import { useState } from 'react'
-import { List as UIList } from '@faststore/ui'
+import {
+  List as UIList,
+  Accordion as UIAccordion,
+  AccordionItem as UIAccordionItem,
+  AccordionButton as UIAccordionButton,
+  AccordionPanel as UIAccordionPanel,
+} from '@faststore/ui'
 
 import Link from 'src/components/ui/Link'
-import Accordion, { AccordionItem } from 'src/components/ui/Accordion'
 
 import styles from './footer.module.scss'
 
@@ -125,17 +130,16 @@ function FooterLinks() {
   return (
     <section className={styles.fsFooter} data-fs-footer-links>
       <div className="display-mobile">
-        <Accordion expandedIndices={indicesExpanded} onChange={onChange}>
-          {links.map((section, index) => (
-            <AccordionItem
-              key={section.title}
-              isExpanded={indicesExpanded.has(index)}
-              buttonLabel={section.title}
-            >
-              <LinksList items={section.items} />
-            </AccordionItem>
+        <UIAccordion indices={indicesExpanded} onChange={onChange}>
+          {links.map((section) => (
+            <UIAccordionItem key={section.title}>
+              <UIAccordionButton>{section.title}</UIAccordionButton>
+              <UIAccordionPanel>
+                <LinksList items={section.items} />
+              </UIAccordionPanel>
+            </UIAccordionItem>
           ))}
-        </Accordion>
+        </UIAccordion>
       </div>
 
       <div className="hidden-mobile">

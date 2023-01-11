@@ -23,7 +23,7 @@ describe('Search page Filters and Sorting options', () => {
     cy.getById('open-filter-button')
       .click()
       .get(
-        `[data-testid=mobile-store-filter-accordion-item][data-type=StoreFacetBoolean]>[data-testid=mobile-store-filter-accordion-button]`
+        `[data-testid=mobile-store-filter-accordion][data-type=StoreFacetBoolean]>[data-testid=mobile-store-filter-accordion-button]`
       )
       .first()
       .click()

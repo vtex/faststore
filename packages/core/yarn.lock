@@ -1429,10 +1429,10 @@
   resolved "https://registry.yarnpkg.com/@faststore/components/-/components-1.12.32.tgz#2c50bf528fe92b394b533034f30091f462812880"
   integrity sha512-XVtWCp4RKpD0umr40vNYw0myh06wwIJ77i8MwfhWqzBEzZm9ht1E3nBoPcfYvAk73WFDHrHcdokiqBVfpPMRnA==
 
-"@faststore/components@2.0.30-alpha.0":
-  version "2.0.30-alpha.0"
-  resolved "https://registry.yarnpkg.com/@faststore/components/-/components-2.0.30-alpha.0.tgz#18f4a3dafca655ca9f67d15c354576605e893a0f"
-  integrity sha512-dKuzcg10oKJnMgk/47un3LTn4adlMMlNG71w3r25RYcGzKlxUYOenAMOte+BOM2W/AVlRBoSuuRK8qN6tW0wwA==
+"@faststore/components@^2.0.39-alpha.0":
+  version "2.0.39-alpha.0"
+  resolved "https://registry.yarnpkg.com/@faststore/components/-/components-2.0.39-alpha.0.tgz#5e456b6468b97ae24276e8bd1800b1fba8289941"
+  integrity sha512-oiJ+58RbMK0vThQonTGY8WdjVfjXaK6CuKPPjtFdb74C/ttHrMU1v556dEudrsZe9igJr0mGi/mdEbfehs13Wg==
 
 "@faststore/graphql-utils@^2.0.3-alpha.0":
   version "2.0.3-alpha.0"
@@ -1456,10 +1456,10 @@
   dependencies:
     idb-keyval "^5.1.3"
 
-"@faststore/ui@2.0.37-alpha.0":
-  version "2.0.37-alpha.0"
-  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-2.0.37-alpha.0.tgz#36a7072dbabf3f52001f3241b401cac6c58e11cf"
-  integrity sha512-3Kbl/lfgUuRcQ0fNs69O8kE7MlL2Iuwc4DA9NW/yblFLDhpWHCmfyehMFDrLZPCpD8W4RVGnxjsNpHh5s8f1eg==
+"@faststore/ui@^2.0.38-alpha.0":
+  version "2.0.38-alpha.0"
+  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-2.0.38-alpha.0.tgz#2533237e393ee5a5b3cdc880c1d58515bfe8ec82"
+  integrity sha512-TDa32916kM+WS8nxQBSn1eRspHZOTpIvD2cXGV8xA9GCOopcgOFEbtai1qCS2WHgO0t/qVWE2vCvXwW63dVnxw==
   dependencies:
     "@faststore/components" "*"
     "@reach/popover" "^0.16.0"

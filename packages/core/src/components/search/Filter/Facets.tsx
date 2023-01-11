@@ -3,13 +3,16 @@ import {
   Label as UILabel,
   List as UIList,
   Badge as UIBadge,
+  Accordion as UIAccordion,
+  AccordionItem as UIAccordionItem,
+  AccordionButton as UIAccordionButton,
+  AccordionPanel as UIAccordionPanel,
 } from '@faststore/ui'
 
 import type {
   Filter_FacetsFragment,
   IStoreSelectedFacet,
 } from '@generated/graphql'
-import Accordion, { AccordionItem } from 'src/components/ui/Accordion'
 import PriceRange from 'src/components/ui/PriceRange'
 
 import styles from './facets.module.scss'
@@ -58,8 +61,8 @@ function Facets({
       <h2 className="text__title-mini-alt" data-fs-facets-title>
         Filters
       </h2>
-      <Accordion
-        expandedIndices={indicesExpanded}
+      <UIAccordion
+        indices={indicesExpanded}
         onChange={onAccordionChange}
         data-fs-facets-accordion
       >
@@ -68,70 +71,73 @@ function Facets({
           const { __typename: type, label } = facet
 
           return (
-            <AccordionItem
+            <UIAccordionItem
               key={`${label}-${index}`}
               prefixId={testId}
               testId={`${testId}-accordion`}
-              isExpanded={isExpanded}
-              buttonLabel={label}
               data-type={type}
               data-fs-facets-accordion-item
             >
-              {type === 'StoreFacetBoolean' && isExpanded && (
-                <UIList data-fs-facets-list>
-                  {facet.values.map((item) => {
-                    const id = `${testId}-${facet.label}-${item.label}`
+              <UIAccordionButton testId={`${testId}-accordion-button`}>
+                {label}
+              </UIAccordionButton>
+              <UIAccordionPanel>
+                {type === 'StoreFacetBoolean' && isExpanded && (
+                  <UIList data-fs-facets-list>
+                    {facet.values.map((item) => {
+                      const id = `${testId}-${facet.label}-${item.label}`
 
-                    return (
-                      <li key={id} data-fs-facets-list-item>
-                        <UICheckbox
-                          id={id}
-                          checked={item.selected}
-                          onChange={() =>
-                            onFacetChange(
-                              { key: facet.key, value: item.value },
-                              'BOOLEAN'
-                            )
-                          }
-                          data-fs-facets-list-item-checkbox
-                          data-testid={`${testId}-accordion-panel-checkbox`}
-                          data-value={item.value}
-                          data-quantity={item.quantity}
-                        />
-                        <UILabel
-                          htmlFor={id}
-                          className="text__title-mini-alt"
-                          data-fs-facets-list-item-label
-                        >
-                          {item.label}{' '}
-                          <UIBadge data-fs-facets-list-item-badge>
-                            {item.quantity}
-                          </UIBadge>
-                        </UILabel>
-                      </li>
-                    )
-                  })}
-                </UIList>
-              )}
-              {type === 'StoreFacetRange' && isExpanded && (
-                <PriceRange
-                  min={facet.min}
-                  max={facet.max}
-                  onEnd={(v) =>
-                    onFacetChange(
-                      {
-                        key: facet.key,
-                        value: formatRange(v.min, v.max),
-                      },
-                      'RANGE'
-                    )
-                  }
-                />
-              )}
-            </AccordionItem>
+                      return (
+                        <li key={id} data-fs-facets-list-item>
+                          <UICheckbox
+                            id={id}
+                            checked={item.selected}
+                            onChange={() =>
+                              onFacetChange(
+                                { key: facet.key, value: item.value },
+                                'BOOLEAN'
+                              )
+                            }
+                            data-fs-facets-list-item-checkbox
+                            data-testid={`${testId}-accordion-panel-checkbox`}
+                            data-value={item.value}
+                            data-quantity={item.quantity}
+                          />
+                          <UILabel
+                            htmlFor={id}
+                            className="text__title-mini-alt"
+                            data-fs-facets-list-item-label
+                          >
+                            {item.label}{' '}
+                            <UIBadge data-fs-facets-list-item-badge>
+                              {item.quantity}
+                            </UIBadge>
+                          </UILabel>
+                        </li>
+                      )
+                    })}
+                  </UIList>
+                )}
+                {type === 'StoreFacetRange' && isExpanded && (
+                  <PriceRange
+                    min={facet.min}
+                    max={facet.max}
+                    onEnd={(v) =>
+                      onFacetChange(
+                        {
+                          key: facet.key,
+                          value: formatRange(v.min, v.max),
+                        },
+                        'RANGE'
+                      )
+                    }
+                  />
+                )}
+              </UIAccordionPanel>
+            </UIAccordionItem>
           )
         })}
-      </Accordion>
+      </UIAccordion>
     </div>
   )
 }
