@@ -8,7 +8,8 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { Slider } from '@faststore/ui'
+import { Slider, Price } from '@faststore/ui'
+import { useMemo } from 'react'
 
 <header>
 
@@ -57,12 +58,28 @@ import '@faststore/ui/src/components/atoms/Slider/styles.scss'
 
 ---
 
+export function priceFormatter(price) {
+  return useMemo(() => {
+    const formattedPrice = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(price)
+    return formattedPrice
+  })
+}
+
 ## Usage
 
 <OverviewSection>
   <Slider
     max={{ absolute: 500, selected: 250 }}
     min={{ absolute: 0, selected: 100 }}
+    maxValueLabelComponent={(maxValue) => {
+      return <span>{maxValue}</span>
+    }}
+    minValueLabelComponent={(minValue) => {
+      return <Price formatter={priceFormatter} value={minValue} />
+    }}
   />
 </OverviewSection>
 ```tsx
