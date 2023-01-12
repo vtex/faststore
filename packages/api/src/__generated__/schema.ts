@@ -133,7 +133,7 @@ export type IShippingItem = {
 
 /** Shopping cart input. */
 export type IStoreCart = {
-  /** Order information, including `orderNumber` and `acceptedOffer`. */
+  /** Order information, including `orderNumber`, `acceptedOffer` and `shouldSplitItem`. */
   order: IStoreOrder;
 };
 
@@ -172,6 +172,8 @@ export type IStoreOrder = {
   acceptedOffer: Array<IStoreOffer>;
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String'];
+  /** Indicates whether or not items with attachments should be split. */
+  shouldSplitItem?: Maybe<Scalars['Boolean']>;
 };
 
 /** Organization input. */
