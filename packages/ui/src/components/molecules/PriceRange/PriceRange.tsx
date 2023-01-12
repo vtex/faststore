@@ -4,8 +4,8 @@ import type { AriaAttributes } from 'react'
 import { Price } from '@faststore/components'
 import type { PriceProps } from '@faststore/components'
 
-import Slider from '../../atoms/Slider'
-import type { SliderProps } from '../../atoms/Slider'
+import Slider from '@faststore/components'
+import type { SliderProps } from '@faststore/components'
 
 export type PriceRangeProps = SliderProps & {
   /**
