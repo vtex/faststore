@@ -16,6 +16,12 @@ interface Range {
 
 export type SliderProps = {
   /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   *
+   * @default 'fs-slider'
+   */
+  testId?: string
+  /**
    * The minimum value of the slider.
    */
   min: Range
@@ -27,12 +33,6 @@ export type SliderProps = {
    * Specifies the number interval to be used in the inputs.
    */
   step?: number
-  /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
-   *
-   * @default 'store-slider'
-   */
-  testId?: string
   /**
    * Callback that fires when the slider value changes.
    */
@@ -73,7 +73,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
       max,
       onChange,
       onEnd,
-      testId = 'store-slider',
+      testId = 'fs-slider',
       getAriaValueText,
       className,
       step,
@@ -122,7 +122,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
     return (
       <div data-fs-slider data-testid={testId} className={className}>
         <div
-          data-slider-range
+          data-fs-slider-range
           style={{
             left: `${minPercent}%`,
             width: `${maxPercent - minPercent}%`,
@@ -143,7 +143,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
             setMinPercent(percent(minValue, min.absolute, max.absolute))
             onChange?.({ min: minValue, max: maxVal })
           }}
-          data-slider-thumb="left"
+          data-fs-slider-thumb="left"
           aria-valuemin={min.absolute}
           aria-valuemax={max.absolute}
           aria-valuenow={minVal}
@@ -160,13 +160,14 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
           onMouseUp={() => onEnd?.({ min: minVal, max: maxVal })}
           onTouchEnd={() => onEnd?.({ min: minVal, max: maxVal })}
           onChange={(event) => {
+            console.log(event)
             const maxValue = Math.max(Number(event.target.value), minVal)
 
             setMaxVal(maxValue)
             setMaxPercent(percent(maxValue, min.absolute, max.absolute))
             onChange?.({ min: minVal, max: maxValue })
           }}
-          data-slider-thumb="right"
+          data-fs-slider-thumb="right"
           aria-valuemin={min.absolute}
           aria-valuemax={max.absolute}
           aria-valuenow={maxVal}

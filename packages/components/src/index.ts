@@ -26,6 +26,8 @@ export { default as Radio } from './atoms/Radio'
 export type { RadioProps } from './atoms/Radio'
 export { default as Select } from './atoms/Select'
 export type { SelectProps } from './atoms/Select'
+export { default as Slider } from './atoms/Slider'
+export type { SliderProps } from './atoms/Slider'
 export { default as SROnly } from './atoms/SROnly'
 
 // Molecules
