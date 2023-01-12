@@ -22,6 +22,9 @@ export interface RatingProps
   /**
    * description
    */
+  /**
+   * Function to be triggered when Rating option change. This should only be used if you and an actionable rating list.
+   */
   onChange?: (value: number) => void
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).

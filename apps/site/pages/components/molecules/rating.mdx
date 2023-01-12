@@ -9,7 +9,7 @@ import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { Rating, Icon } from '@faststore/ui'
-import { Star } from '@faststore/components'
+import { Star, Heart } from '@faststore/components'
 import RatingActionable from 'site/components/Rating/RatingActionable'
 
 <header>
@@ -25,13 +25,12 @@ The `Rating` component displays the average rating of a product based on other s
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
+      <h4>Readonly</h4>
       <Rating value={3.5} icon={<Star />} />
     </OverviewSection>
     <OverviewSection>
+      <h4>Actionable</h4>
       <RatingActionable value={0} />
-    </OverviewSection>
-    <OverviewSection>
-      <RatingActionable value={3} />
     </OverviewSection>
   </Tab>
   <Tab>
@@ -42,10 +41,6 @@ The `Rating` component displays the average rating of a product based on other s
 
     ```tsx
     <Rating value={0} icon={<Star />} onChange={setRating} />
-    ```
-
-    ```tsx
-    <Rating value={3} icon={<Star />} onChange={setRating} />
     ```
 
   </Tab>
@@ -114,6 +109,15 @@ import '@faststore/ui/src/components/molecules/Rating/styles.scss'
 </OverviewSection>
 ```tsx live
 <Rating value={3.5} icon={<Star />} />
+```
+
+#### Other Icon
+
+<OverviewSection>
+  <Rating value={3.5} icon={<Heart />} />
+</OverviewSection>
+```tsx live
+<Rating value={3.8} icon={<Heart />} />
 ```
 
 #### Actionable
