@@ -41,7 +41,11 @@ The `Rating` component displays the average rating of a product based on other s
     ```
 
     ```tsx
-    <Rating value={0} icon={<Star />} actionable/>
+    <Rating value={0} icon={<Star />} onChange={setRating} />
+    ```
+
+    ```tsx
+    <Rating value={3} icon={<Star />} onChange={setRating} />
     ```
 
   </Tab>
@@ -118,7 +122,7 @@ import '@faststore/ui/src/components/molecules/Rating/styles.scss'
   <RatingActionable value={0} />
 </OverviewSection>
 ```tsx live
-<RatingActionable value={0} />
+<Rating value={0} icon={<Star />} onChange={setRating} />
 ```
 
 <TokenTable>
