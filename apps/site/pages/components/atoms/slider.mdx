@@ -1,0 +1,152 @@
+---
+description: Sliders allow users to select a single value from a range.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Slider___9fa1f5d802a9bbdc93a77db318594af7.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { Slider } from '@faststore/ui'
+
+<header>
+
+# Slider
+
+Sliders allow users to select a single value from a range.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Slider
+        max={{ absolute: 500, selected: 250 }}
+        min={{ absolute: 0, selected: 100 }}
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Slider
+      max={{ absolute: 500, selected: 250 }}
+      min={{ absolute: 0, selected: 100 }}
+    />
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { Slider } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/Slider/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <Slider
+    max={{ absolute: 500, selected: 250 }}
+    min={{ absolute: 0, selected: 100 }}
+  />
+</OverviewSection>
+```tsx
+<Slider
+  max={{ absolute: 500, selected: 250 }}
+  min={{ absolute: 0, selected: 100 }}
+/>
+```
+
+---
+
+## Props
+
+<PropsSection name="Slider" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-slider-height" value="var(--fs-spacing-2)" />
+  <TokenRow
+    token="--fs-slider-border-radius"
+    value="var(--fs-border-radius-pill)"
+  />
+  <TokenRow token="--fs-slider-margin-bottom" value="var(--fs-spacing-3)" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-slider-slider-bkg-color"
+    value="var(--fs-color-neutral-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-slider-slider-selection-bkg-color"
+    value="var(--fs-color-primary-bkg-light-active)"
+    isColor
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Thumb
+
+<TokenTable>
+  <TokenRow token="--fs-slider-thumb-size" value="var(--fs-spacing-4)" />
+  <TokenRow
+    token="--fs-slider-thumb-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-slider-thumb-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-slider-thumb-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-slider-thumb-border-radius"
+    value="var(--fs-border-radius-circle)"
+  />
+  <TokenRow
+    token="--fs-slider-thumb-border-color"
+    value="var(--fs-slider-thumb-bkg-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-slider-thumb-border-color-hover"
+    value="var(--fs-slider-thumb-bkg-color-hover)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-slider`
+
+`data-fs-slider-range`
+
+`data-fs-slider-thumb="left" | "right"`
