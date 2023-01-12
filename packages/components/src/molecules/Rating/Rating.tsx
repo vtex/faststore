@@ -64,7 +64,7 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
             return 'full'
           }
 
-          if (tempIndex - value < 1) {
+          if (tempIndex - value > 0 && tempIndex - value < 1) {
             return 'partial'
           }
 
