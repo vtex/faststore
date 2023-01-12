@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.46-alpha.0](https://github.com/vtex/faststore/compare/v2.0.45-alpha.0...v2.0.46-alpha.0) (2023-01-12)
+
+
+### Features
+
+* Add support to `shouldSplitItem` param in `validateCart` mutation ([#1596](https://github.com/vtex/faststore/issues/1596)) ([246a17f](https://github.com/vtex/faststore/commit/246a17f07665208dd000ea2f326004aae63a5795))
+
+
+
 ## [2.0.44-alpha.0](https://github.com/vtex/faststore/compare/v2.0.43-alpha.0...v2.0.44-alpha.0) (2023-01-11)
 
 
