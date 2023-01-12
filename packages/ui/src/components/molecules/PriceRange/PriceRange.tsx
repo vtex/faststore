@@ -67,6 +67,10 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
           onEnd={onEnd}
           aria-label={ariaLabel}
           onChange={(value) => onChange?.(value)}
+          absoluteValuesLabel={{
+            min: `${min.absolute}`,
+            max: `${max.absolute}`,
+          }}
           minValueLabelComponent={(minValue) => {
             const minPercent = (minValue / max.absolute) * 100
 

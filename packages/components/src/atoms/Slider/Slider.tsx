@@ -14,6 +14,11 @@ interface Range {
   selected: number
 }
 
+interface RangeLabel {
+  min: string
+  max: string
+}
+
 export type SliderProps = {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
@@ -33,6 +38,10 @@ export type SliderProps = {
    * Specifies the number interval to be used in the inputs.
    */
   step?: number
+  /**
+   * Specifies the absolute values labels.
+   */
+  absoluteValuesLabel: RangeLabel
   /**
    * Callback that fires when the slider value changes.
    */
@@ -71,6 +80,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
     {
       min,
       max,
+      absoluteValuesLabel,
       onChange,
       onEnd,
       testId = 'fs-slider',
@@ -124,8 +134,8 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
     return (
       <div data-fs-slider data-testid={testId} className={className}>
         <div data-fs-slider-absolute-values>
-          <span>{min.absolute}</span>
-          <span>{max.absolute}</span>
+          <span>{absoluteValuesLabel.min}</span>
+          <span>{absoluteValuesLabel.max}</span>
         </div>
         <div data-fs-slider-wrapper>
           <div

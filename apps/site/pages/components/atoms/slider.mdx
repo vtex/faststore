@@ -23,18 +23,43 @@ Sliders allow users to select a single value from a range.
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
+    <p>Default Version</p>
     <OverviewSection>
       <Slider
         max={{ absolute: 500, selected: 250 }}
         min={{ absolute: 0, selected: 100 }}
+        absoluteValuesLabel={{ min: "0", max: "500"}}
       />
     </OverviewSection>
+    <p>Show Labels on Hover</p>
+    <OverviewSection>
+      <Slider
+        max={{ absolute: 500, selected: 250 }}
+        min={{ absolute: 0, selected: 100 }}
+        absoluteValuesLabel={{ min: "0", max: "500"}}
+        maxValueLabelComponent={(maxValue) => {return <span>{maxValue}</span>}}
+        minValueLabelComponent={(minValue) => {return <span>{minValue}</span>}}
+      />
+    </OverviewSection>
+
   </Tab>
   <Tab>
+    <p>Default Version</p>
     ```tsx
     <Slider
       max={{ absolute: 500, selected: 250 }}
       min={{ absolute: 0, selected: 100 }}
+      absoluteValuesLabel={{ min: "0", max: "500"}}
+    />
+    ```
+    <p>Show Labels on Hover</p>
+    ```tsx
+    <Slider
+      max={{ absolute: 500, selected: 250 }}
+      min={{ absolute: 0, selected: 100 }}
+      absoluteValuesLabel={{ min: "0", max: "500"}}
+      maxValueLabelComponent={(maxValue) => {return <span>{maxValue}</span>}}
+      minValueLabelComponent={(minValue) => {return <span>{minValue}</span>}}
     />
     ```
   </Tab>
@@ -74,8 +99,9 @@ export function priceFormatter(price) {
   <Slider
     max={{ absolute: 500, selected: 250 }}
     min={{ absolute: 0, selected: 100 }}
+    absoluteValuesLabel={{ min: priceFormatter(0), max: priceFormatter(500) }}
     maxValueLabelComponent={(maxValue) => {
-      return <span>{maxValue}</span>
+      return <Price formatter={priceFormatter} value={maxValue} />
     }}
     minValueLabelComponent={(minValue) => {
       return <Price formatter={priceFormatter} value={minValue} />
@@ -86,6 +112,13 @@ export function priceFormatter(price) {
 <Slider
   max={{ absolute: 500, selected: 250 }}
   min={{ absolute: 0, selected: 100 }}
+  absoluteValuesLabel={{ min: priceFormatter(0), max: priceFormatter(500) }}
+  maxValueLabelComponent={(maxValue) => {
+    return <Price formatter={priceFormatter} value={maxValue} />
+  }}
+  minValueLabelComponent={(minValue) => {
+    return <Price formatter={priceFormatter} value={minValue} />
+  }}
 />
 ```
 
