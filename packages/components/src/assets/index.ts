@@ -1,6 +1,7 @@
 export { default as ArrowRight } from './ArrowRight'
 export { default as CaretDown } from './CaretDown'
 export { default as Checked } from './Checked'
+export { default as Heart } from './Heart'
 export { default as House } from './House'
 export { default as Ruler } from './Ruler'
 export { default as ShoppingCart } from './ShoppingCart'
