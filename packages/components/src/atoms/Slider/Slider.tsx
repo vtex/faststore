@@ -122,12 +122,12 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
     }))
 
     return (
-      <div data-fs-slider>
+      <div data-fs-slider data-testid={testId} className={className}>
         <div data-fs-slider-absolute-values>
           <span>{min.absolute}</span>
           <span>{max.absolute}</span>
         </div>
-        <div data-fs-slider-wrapper data-testid={testId} className={className}>
+        <div data-fs-slider-wrapper>
           <div
             data-fs-slider-range
             style={{
@@ -179,7 +179,6 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
             onMouseUp={() => onEnd?.({ min: minVal, max: maxVal })}
             onTouchEnd={() => onEnd?.({ min: minVal, max: maxVal })}
             onChange={(event) => {
-              console.log(event)
               const maxValue = Math.max(Number(event.target.value), minVal)
 
               setMaxVal(maxValue)
