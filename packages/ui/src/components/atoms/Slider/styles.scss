@@ -27,6 +27,10 @@
   // Absolute Values
   --fs-slider-absolute-values-text-color  : var(--fs-color-disabled-text);
 
+  // Value Label
+  --fs-slider-value-label-bottom          : var(--fs-spacing-3);
+  --fs-slider-value-label-bkg-color       : var(--fs-color-body-bkg);
+
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
@@ -92,7 +96,7 @@
   [data-fs-slider-thumb="left"] {
     z-index: 1;
 
-    &:hover + [data-fs-slider-label="min"] {
+    &:hover + [data-fs-slider-value-label="min"] {
       opacity: 1;
     }
   }
@@ -100,15 +104,28 @@
   [data-fs-slider-thumb="right"] {
     z-index: 2;
 
-    &:hover + [data-fs-slider-label="max"] {
+    &:hover + [data-fs-slider-value-label="max"] {
       opacity: 1;
     }
   }
 
-  [data-fs-slider-label] {
+  [data-fs-slider-value-label] {
     position: absolute;
-    top: var(--fs-spacing-4);
+    bottom: var(--fs-slider-value-label-bottom);
+    padding: var(--fs-spacing-1);
+    background-color: var(--fs-slider-value-label-bkg-color);
     opacity: 0;
+    transition: opacity var(--fs-slider-transition-timing) var(--fs-slider-transition-function);
+  }
+
+  [data-fs-slider-value-label="min"] {
+    text-align: left;
+    transform: translateX(-1rem);
+  }
+
+  [data-fs-slider-value-label="max"] {
+    text-align: right;
+    transform: translateX(calc(-100% + 1.25rem));
   }
 
   [data-fs-slider-absolute-values] {

@@ -159,7 +159,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
           />
           {minValueLabelComponent && (
             <span
-              data-fs-slider-label="min"
+              data-fs-slider-value-label="min"
               style={{
                 left: `calc(${percentage(minVal)}% + (${
                   8 - percentage(minVal) * 0.2
@@ -195,7 +195,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
           />
           {maxValueLabelComponent && (
             <span
-              data-fs-slider-label="max"
+              data-fs-slider-value-label="max"
               style={{
                 left: `calc(${percentage(maxVal)}% + (${
                   8 - percentage(maxVal) * 0.2
