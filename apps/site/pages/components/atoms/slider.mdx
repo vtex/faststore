@@ -150,6 +150,19 @@ export function priceFormatter(price) {
     value="var(--fs-color-primary-bkg-light-active)"
     isColor
   />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-slider-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenRow
+    token="--fs-slider-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-slider-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
 </TokenTable>
 
 ### Nested Elements
@@ -189,6 +202,30 @@ export function priceFormatter(price) {
   />
 </TokenTable>
 
+#### Absolute Values
+
+<TokenTable>
+  <TokenRow
+    token="--fs-slider-absolute-values-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+</TokenTable>
+
+#### Value Label
+
+<TokenTable>
+  <TokenRow
+    token="--fs-slider-value-label-bottom"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-slider-value-label-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+</TokenTable>
+
 ---
 
 ## Customization
@@ -197,6 +234,10 @@ For further customization, you can use the following data attributes:
 
 `data-fs-slider`
 
+`data-fs-slider-absolute-values`
+
 `data-fs-slider-range`
 
 `data-fs-slider-thumb="left" | "right"`
+
+`data-fs-slider-value-label="min" | "max"`
