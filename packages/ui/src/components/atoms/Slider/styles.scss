@@ -8,8 +8,12 @@
   --fs-slider-border-radius               : var(--fs-border-radius-pill);
   --fs-slider-margin-bottom               : var(--fs-spacing-3);
 
-  --fs-slider-slider-bkg-color            : var(--fs-color-neutral-bkg);
-  --fs-slider-slider-selection-bkg-color  : var(--fs-color-primary-bkg-light-active);
+  --fs-slider-bkg-color                   : var(--fs-color-neutral-bkg);
+  --fs-slider-selection-bkg-color         : var(--fs-color-primary-bkg-light-active);
+
+  --fs-slider-transition-function         : var(--fs-transition-function);
+  --fs-slider-transition-property         : var(--fs-transition-property);
+  --fs-slider-transition-timing           : var(--fs-transition-timing);
 
   // Thumb
   --fs-slider-thumb-size                  : var(--fs-spacing-4);
@@ -20,21 +24,28 @@
   --fs-slider-thumb-border-color          : var(--fs-slider-thumb-bkg-color);
   --fs-slider-thumb-border-color-hover    : var(--fs-slider-thumb-bkg-color-hover);
 
+  // Absolute Values
+  --fs-slider-absolute-values-text-color  : var(--fs-color-disabled-text);
+
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
 
-  position: relative;
   width: 100%;
-  height: var(--fs-slider-height);
-  margin-bottom: var(--fs-slider-margin-bottom);
-  background-color: var(--fs-slider-slider-bkg-color);
-  border-radius: var(--fs-slider-border-radius);
+
+  [data-fs-slider-wrapper] {
+    position: relative;
+    width: 100%;
+    height: var(--fs-slider-height);
+    margin-bottom: var(--fs-slider-margin-bottom);
+    background-color: var(--fs-slider-bkg-color);
+    border-radius: var(--fs-slider-border-radius);
+  }
 
   [data-fs-slider-range] {
     position: absolute;
     height: var(--fs-slider-height);
-    background-color: var(--fs-slider-slider-selection-bkg-color);
+    background-color: var(--fs-slider-selection-bkg-color);
     border-radius: var(--fs-slider-border-radius);
   }
 
@@ -81,7 +92,7 @@
   [data-fs-slider-thumb="left"] {
     z-index: 1;
 
-    &:hover + [data-price-range-value-label="min"] {
+    &:hover + [data-fs-slider-label="min"] {
       opacity: 1;
     }
   }
@@ -89,13 +100,21 @@
   [data-fs-slider-thumb="right"] {
     z-index: 2;
 
-    &:hover + [data-price-range-value-label="max"] {
+    &:hover + [data-fs-slider-label="max"] {
       opacity: 1;
     }
   }
 
-  // [data-fs-slider-thumb="left"]::-webkit-slider-thumb {
-  //   background: url(https://user-images.githubusercontent.com/3356699/211866502-41c0a2ba-d5ee-4d87-9ac9-006625124036.png) center center no-repeat;
-  // }
+  [data-fs-slider-label] {
+    position: absolute;
+    top: var(--fs-spacing-4);
+    opacity: 0;
+  }
 
+  [data-fs-slider-absolute-values] {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--fs-spacing-2);
+    color: var(--fs-slider-absolute-values-text-color);
+  }
 }
