@@ -94,7 +94,7 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
                 <div data-fs-rating-icon-wrapper>
                   <Icon component={icon} />
                 </div>
-                <Icon data-fs-rating-icon-border component={icon} />
+                <Icon data-fs-rating-icon-outline component={icon} />
               </>
             )}
           </li>
