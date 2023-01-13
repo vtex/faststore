@@ -1,15 +1,10 @@
 import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react'
 import type { AriaAttributes } from 'react'
 
-import { Price } from '@faststore/components'
-import type { PriceProps } from '@faststore/components'
+import { Price, Slider, InputField } from '../../index'
+import type { PriceProps, SliderProps } from '../../index'
 
-import { Slider } from '@faststore/components'
-import type { SliderProps } from '@faststore/components'
-
-import { InputField } from '@faststore/components'
-
-export type PriceRangeProps = SliderProps & {
+export type PriceRangeProps = Omit<SliderProps, 'absoluteValuesLabel'> & {
   /**
    * The current use case variant for prices.
    */
