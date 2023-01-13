@@ -40,9 +40,6 @@ export type { ProductTitleProps } from './components/molecules/ProductTitle'
 export { default as OrderSummary } from './components/molecules/OrderSummary'
 export type { OrderSummaryProps } from './components/molecules/OrderSummary'
 
-export { default as AggregateRating } from './components/molecules/AggregateRating'
-export type { AggregateRatingProps } from './components/molecules/AggregateRating'
-
 export {
   default as ProductCard,
   ProductCardImage,
@@ -130,12 +127,6 @@ export type { PriceRangeProps } from './components/molecules/PriceRange'
 
 export { default as Form } from './components/molecules/Form'
 export type { FormProps } from './components/molecules/Form'
-
-export { default as Alert } from './components/molecules/Alert'
-export type { AlertProps } from './components/molecules/Alert'
-
-export { default as QuantitySelector } from './components/molecules/QuantitySelector'
-export type { QuantitySelectorProps } from './components/molecules/QuantitySelector'
 
 // Organisms
 export {

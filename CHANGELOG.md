@@ -3,1287 +3,817 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [2.0.44-alpha.0](https://github.com/vtex/faststore/compare/v2.0.43-alpha.0...v2.0.44-alpha.0) (2023-01-11)
+## 2.0.49-alpha.0 (2023-01-13)
 
+### Bug Fixes
+
+- dependabot ([#1607](https://github.com/vtex/faststore/issues/1607)) ([352be25](https://github.com/vtex/faststore/commit/352be2574543bae6b980b6a76036d5e9f53714e2))
+
+### Chores
+
+- updates cms folder for faststore builder ([#1603](https://github.com/vtex/faststore/issues/1603)) ([5e4d060](https://github.com/vtex/faststore/commit/5e4d060d507ebbbe4842a0596405e036e94799d6))
+
+## 2.0.48-alpha.0 (2023-01-13)
 
 ### Features
 
-* Add seller dimension to channel ([#1484](https://github.com/vtex/faststore/issues/1484)) ([8119629](https://github.com/vtex/faststore/commit/8119629d64cef92d707f134071bb4f26f2e5800e))
+- Adds `Alert` Component ([#1590](https://github.com/vtex/faststore/issues/1590)) ([6e1cc00](https://github.com/vtex/faststore/commit/6e1cc004a5f3ae8674798fe6a36fd2a5d1451d7c))
 
+### Bug Fixes
 
+- ui size limit ([#1608](https://github.com/vtex/faststore/issues/1608)) ([c19360f](https://github.com/vtex/faststore/commit/c19360f4eb0e1d1f53e578e8429daa1a716d881d))
+
+## [2.0.47-alpha.0](https://github.com/vtex/faststore/compare/v2.0.46-alpha.0...v2.0.47-alpha.0) (2023-01-13)
+
+### Features
+
+- Adds `QuantitySelector` component ([#1597](https://github.com/vtex/faststore/issues/1597)) ([a587155](https://github.com/vtex/faststore/commit/a5871559a4a28754dd9868b7f85c92a5bde52917))
+
+## [2.0.46-alpha.0](https://github.com/vtex/faststore/compare/v2.0.45-alpha.0...v2.0.46-alpha.0) (2023-01-12)
+
+### Features
+
+- Add support to `shouldSplitItem` param in `validateCart` mutation ([#1596](https://github.com/vtex/faststore/issues/1596)) ([246a17f](https://github.com/vtex/faststore/commit/246a17f07665208dd000ea2f326004aae63a5795))
+
+## [2.0.45-alpha.0](https://github.com/vtex/faststore/compare/v2.0.44-alpha.0...v2.0.45-alpha.0) (2023-01-12)
+
+### Bug Fixes
+
+- dom element at home ([#1606](https://github.com/vtex/faststore/issues/1606)) ([c95acb5](https://github.com/vtex/faststore/commit/c95acb529e1dd5f3f42bd9265e0515c5553ba819))
+
+## [2.0.44-alpha.0](https://github.com/vtex/faststore/compare/v2.0.43-alpha.0...v2.0.44-alpha.0) (2023-01-11)
+
+### Features
+
+- Add seller dimension to channel ([#1484](https://github.com/vtex/faststore/issues/1484)) ([8119629](https://github.com/vtex/faststore/commit/8119629d64cef92d707f134071bb4f26f2e5800e))
 
 ## [2.0.43-alpha.0](https://github.com/vtex/faststore/compare/v2.0.42-alpha.0...v2.0.43-alpha.0) (2023-01-11)
 
-
 ### Bug Fixes
 
-* revert table props and adds new props (types mismatch) ([#1601](https://github.com/vtex/faststore/issues/1601)) ([e791a3f](https://github.com/vtex/faststore/commit/e791a3f6cdd6f3382997bce1d9f105531c05ddbd))
-
-
+- revert table props and adds new props (types mismatch) ([#1601](https://github.com/vtex/faststore/issues/1601)) ([e791a3f](https://github.com/vtex/faststore/commit/e791a3f6cdd6f3382997bce1d9f105531c05ddbd))
 
 ## [2.0.42-alpha.0](https://github.com/vtex/faststore/compare/v2.0.41-alpha.0...v2.0.42-alpha.0) (2023-01-10)
 
-
 ### Chores
 
-* `Table` component's improvements ([#1592](https://github.com/vtex/faststore/issues/1592)) ([176a710](https://github.com/vtex/faststore/commit/176a710cf8d2917527cb4f99a8ddc956d841ae76))
-
-
+- `Table` component's improvements ([#1592](https://github.com/vtex/faststore/issues/1592)) ([176a710](https://github.com/vtex/faststore/commit/176a710cf8d2917527cb4f99a8ddc956d841ae76))
 
 ## [2.0.41-alpha.0](https://github.com/vtex/faststore/compare/v2.0.40-alpha.0...v2.0.41-alpha.0) (2023-01-10)
 
-
 ### Features
 
-* Adds `Dropdown` component ([#1572](https://github.com/vtex/faststore/issues/1572)) ([edfe557](https://github.com/vtex/faststore/commit/edfe55797d51049b137c1d8c0d648f36d3ebf980))
-
-
+- Adds `Dropdown` component ([#1572](https://github.com/vtex/faststore/issues/1572)) ([edfe557](https://github.com/vtex/faststore/commit/edfe55797d51049b137c1d8c0d648f36d3ebf980))
 
 ## [2.0.40-alpha.0](https://github.com/vtex/faststore/compare/v2.0.39-alpha.0...v2.0.40-alpha.0) (2023-01-10)
 
-
 ### Documentation
 
-* Adds `Hero` component doc + Updates docs overview section ([#1598](https://github.com/vtex/faststore/issues/1598)) ([47b3199](https://github.com/vtex/faststore/commit/47b319904d0ff06fc5d3bacddbf5bfc319d451eb))
-
-
+- Adds `Hero` component doc + Updates docs overview section ([#1598](https://github.com/vtex/faststore/issues/1598)) ([47b3199](https://github.com/vtex/faststore/commit/47b319904d0ff06fc5d3bacddbf5bfc319d451eb))
 
 ## [2.0.39-alpha.0](https://github.com/vtex/faststore/compare/v2.0.38-alpha.0...v2.0.39-alpha.0) (2023-01-09)
 
-
 ### Bug Fixes
 
-* Edit TableProps ([#1594](https://github.com/vtex/faststore/issues/1594)) ([dcf7970](https://github.com/vtex/faststore/commit/dcf797001c09d1abc685fcbd7ec8aa4bdc7a7bcc))
-
-
+- Edit TableProps ([#1594](https://github.com/vtex/faststore/issues/1594)) ([dcf7970](https://github.com/vtex/faststore/commit/dcf797001c09d1abc685fcbd7ec8aa4bdc7a7bcc))
 
 ## [2.0.38-alpha.0](https://github.com/vtex/faststore/compare/v2.0.37-alpha.0...v2.0.38-alpha.0) (2023-01-09)
 
-
 ### Features
 
-* Adds `Accordion` component  ([#1567](https://github.com/vtex/faststore/issues/1567)) ([0173e20](https://github.com/vtex/faststore/commit/0173e20b162d53d8faae0791e08110f335c6d6f6))
-
-
+- Adds `Accordion` component ([#1567](https://github.com/vtex/faststore/issues/1567)) ([0173e20](https://github.com/vtex/faststore/commit/0173e20b162d53d8faae0791e08110f335c6d6f6))
 
 ## 2.0.37-alpha.0 (2023-01-06)
 
-
 ### Chores
 
-* remove styles ([#1589](https://github.com/vtex/faststore/issues/1589)) ([7a21b1c](https://github.com/vtex/faststore/commit/7a21b1cfbbd7cee190299365087984c33cc8d4e2))
-* Update lock file ([#1591](https://github.com/vtex/faststore/issues/1591)) ([47c1d6f](https://github.com/vtex/faststore/commit/47c1d6f163ba0e8cf0db92fa06c3aea2f2b6b5a8))
-
-
+- remove styles ([#1589](https://github.com/vtex/faststore/issues/1589)) ([7a21b1c](https://github.com/vtex/faststore/commit/7a21b1cfbbd7cee190299365087984c33cc8d4e2))
+- Update lock file ([#1591](https://github.com/vtex/faststore/issues/1591)) ([47c1d6f](https://github.com/vtex/faststore/commit/47c1d6f163ba0e8cf0db92fa06c3aea2f2b6b5a8))
 
 ## [2.0.36-alpha.0](https://github.com/vtex/faststore/compare/v2.0.35-alpha.0...v2.0.36-alpha.0) (2023-01-05)
 
-
 ### Chores
 
-* Updates `Table` Colored Variant ([#1587](https://github.com/vtex/faststore/issues/1587)) ([04050eb](https://github.com/vtex/faststore/commit/04050eb920fe08ca3b4fe30a3e17fbf9dbedff44))
-
-
+- Updates `Table` Colored Variant ([#1587](https://github.com/vtex/faststore/issues/1587)) ([04050eb](https://github.com/vtex/faststore/commit/04050eb920fe08ca3b4fe30a3e17fbf9dbedff44))
 
 ## [2.0.35-alpha.0](https://github.com/vtex/faststore/compare/v2.0.34-alpha.0...v2.0.35-alpha.0) (2023-01-05)
 
-
 ### Documentation
 
-* Updates Components `mdx` files and General Adjusts ([#1575](https://github.com/vtex/faststore/issues/1575)) ([2787bd0](https://github.com/vtex/faststore/commit/2787bd0db083b66f642ac6af2f141e98de87f6fd))
-
-
+- Updates Components `mdx` files and General Adjusts ([#1575](https://github.com/vtex/faststore/issues/1575)) ([2787bd0](https://github.com/vtex/faststore/commit/2787bd0db083b66f642ac6af2f141e98de87f6fd))
 
 ## 2.0.34-alpha.0 (2023-01-04)
 
-
 ### Bug Fixes
 
-* yarn lock ([d3b7846](https://github.com/vtex/faststore/commit/d3b78468699765f4313c68f6ae8572fe5420cbe1))
-
+- yarn lock ([d3b7846](https://github.com/vtex/faststore/commit/d3b78468699765f4313c68f6ae8572fe5420cbe1))
 
 ### Chores
 
-* remove storybook ([#1586](https://github.com/vtex/faststore/issues/1586)) ([82dbfb3](https://github.com/vtex/faststore/commit/82dbfb3102850bfa1115547773f84a293a055c6b))
-
-
+- remove storybook ([#1586](https://github.com/vtex/faststore/issues/1586)) ([82dbfb3](https://github.com/vtex/faststore/commit/82dbfb3102850bfa1115547773f84a293a055c6b))
 
 ## 2.0.33-alpha.0 (2023-01-04)
 
-
 ### Bug Fixes
 
-* remove storybook from ui ([#1579](https://github.com/vtex/faststore/issues/1579)) ([682d5e4](https://github.com/vtex/faststore/commit/682d5e4290beb738685fcdc009772d04c0901278))
-
-
+- remove storybook from ui ([#1579](https://github.com/vtex/faststore/issues/1579)) ([682d5e4](https://github.com/vtex/faststore/commit/682d5e4290beb738685fcdc009772d04c0901278))
 
 ## 2.0.32-alpha.0 (2023-01-04)
 
-
 ### Bug Fixes
 
-* yarn lock ([#1578](https://github.com/vtex/faststore/issues/1578)) ([d07ebf2](https://github.com/vtex/faststore/commit/d07ebf26fef4518a3a1a1ffede34371d8866a07b))
-
+- yarn lock ([#1578](https://github.com/vtex/faststore/issues/1578)) ([d07ebf2](https://github.com/vtex/faststore/commit/d07ebf26fef4518a3a1a1ffede34371d8866a07b))
 
 ### Chores
 
-* remove docs ([#1584](https://github.com/vtex/faststore/issues/1584)) ([8d3cf8d](https://github.com/vtex/faststore/commit/8d3cf8d7ae0968136d1dd484299b17cc218f6e23))
-
-
+- remove docs ([#1584](https://github.com/vtex/faststore/issues/1584)) ([8d3cf8d](https://github.com/vtex/faststore/commit/8d3cf8d7ae0968136d1dd484299b17cc218f6e23))
 
 ## 2.0.31-alpha.0 (2023-01-03)
 
-
 ### Bug Fixes
 
-* turbo config ([0048756](https://github.com/vtex/faststore/commit/00487564d0aa2a4bee382574a40fa20431a8f0eb))
-
+- turbo config ([0048756](https://github.com/vtex/faststore/commit/00487564d0aa2a4bee382574a40fa20431a8f0eb))
 
 ### Chores
 
-* lint ([#1576](https://github.com/vtex/faststore/issues/1576)) ([a9f5e2e](https://github.com/vtex/faststore/commit/a9f5e2e921a29af898e631380736ee1211aecc0d))
-
-
+- lint ([#1576](https://github.com/vtex/faststore/issues/1576)) ([a9f5e2e](https://github.com/vtex/faststore/commit/a9f5e2e921a29af898e631380736ee1211aecc0d))
 
 ## 2.0.30-alpha.0 (2023-01-02)
 
-
 ### Bug Fixes
 
-* ui version ([f235876](https://github.com/vtex/faststore/commit/f2358761e283b0877406b49d4c827871f4bd7456))
-
+- ui version ([f235876](https://github.com/vtex/faststore/commit/f2358761e283b0877406b49d4c827871f4bd7456))
 
 ### Documentation
 
-* cms ([#1573](https://github.com/vtex/faststore/issues/1573)) ([f540edd](https://github.com/vtex/faststore/commit/f540edd5e8c7ea10e8cd26b1c6f65b10ecce67c4))
-
-
+- cms ([#1573](https://github.com/vtex/faststore/issues/1573)) ([f540edd](https://github.com/vtex/faststore/commit/f540edd5e8c7ea10e8cd26b1c6f65b10ecce67c4))
 
 ## [2.0.29-alpha.0](https://github.com/vtex/faststore/compare/v2.0.28-alpha.0...v2.0.29-alpha.0) (2022-12-23)
 
-
 ### Bug Fixes
 
-* Adds Badge props to `DiscountBadge`  + Fixes SelectField testId ([#1570](https://github.com/vtex/faststore/issues/1570)) ([b1513a5](https://github.com/vtex/faststore/commit/b1513a569235cb60bd3a1c6f16e24fd61d810017))
-
-
+- Adds Badge props to `DiscountBadge` + Fixes SelectField testId ([#1570](https://github.com/vtex/faststore/issues/1570)) ([b1513a5](https://github.com/vtex/faststore/commit/b1513a569235cb60bd3a1c6f16e24fd61d810017))
 
 ## [2.0.28-alpha.0](https://github.com/vtex/faststore/compare/v2.0.27-alpha.0...v2.0.28-alpha.0) (2022-12-23)
 
-
 ### Chores
 
-* Removes icons id ([#1571](https://github.com/vtex/faststore/issues/1571)) ([2e790fa](https://github.com/vtex/faststore/commit/2e790faa2ca37fc4f6f9f7c7796f79ceaf6a3f02))
-
-
+- Removes icons id ([#1571](https://github.com/vtex/faststore/issues/1571)) ([2e790fa](https://github.com/vtex/faststore/commit/2e790faa2ca37fc4f6f9f7c7796f79ceaf6a3f02))
 
 ## [2.0.27-alpha.0](https://github.com/vtex/faststore/compare/v2.0.26-alpha.0...v2.0.27-alpha.0) (2022-12-23)
 
-
 ### Features
 
-* Adds `Table` component ([#1554](https://github.com/vtex/faststore/issues/1554)) ([0ed5f45](https://github.com/vtex/faststore/commit/0ed5f455fa42cf3a02ae3dd0370759782caf6cdd))
-
-
+- Adds `Table` component ([#1554](https://github.com/vtex/faststore/issues/1554)) ([0ed5f45](https://github.com/vtex/faststore/commit/0ed5f455fa42cf3a02ae3dd0370759782caf6cdd))
 
 ## [2.0.26-alpha.0](https://github.com/vtex/faststore/compare/v2.0.25-alpha.0...v2.0.26-alpha.0) (2022-12-22)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [2.0.25-alpha.0](https://github.com/vtex/faststore/compare/v2.0.24-alpha.0...v2.0.25-alpha.0) (2022-12-22)
-
 
 ### Bug Fixes
 
-* cli plugin cms documentation ([#1566](https://github.com/vtex/faststore/issues/1566)) ([41cfbb5](https://github.com/vtex/faststore/commit/41cfbb5e634c80fb1961ab0e57459dd18931c458))
-
-
+- cli plugin cms documentation ([#1566](https://github.com/vtex/faststore/issues/1566)) ([41cfbb5](https://github.com/vtex/faststore/commit/41cfbb5e634c80fb1961ab0e57459dd18931c458))
 
 ## [2.0.24-alpha.0](https://github.com/vtex/faststore/compare/v2.0.23-alpha.0...v2.0.24-alpha.0) (2022-12-20)
 
-
 ### Chores
 
-* Review components docs ([#1557](https://github.com/vtex/faststore/issues/1557)) ([2da23a0](https://github.com/vtex/faststore/commit/2da23a0ffe2f201f7e6163ea3db8dea4de07afa8))
-
-
+- Review components docs ([#1557](https://github.com/vtex/faststore/issues/1557)) ([2da23a0](https://github.com/vtex/faststore/commit/2da23a0ffe2f201f7e6163ea3db8dea4de07afa8))
 
 ## [2.0.23-alpha.0](https://github.com/vtex/faststore/compare/v2.0.22-alpha.0...v2.0.23-alpha.0) (2022-12-20)
 
-
 ### Bug Fixes
 
-* `Hero` component ([#1563](https://github.com/vtex/faststore/issues/1563)) ([471ec14](https://github.com/vtex/faststore/commit/471ec140506c4db79d63a31acc2555a0b8ae51ed))
-
-
+- `Hero` component ([#1563](https://github.com/vtex/faststore/issues/1563)) ([471ec14](https://github.com/vtex/faststore/commit/471ec140506c4db79d63a31acc2555a0b8ae51ed))
 
 ## [2.0.22-alpha.0](https://github.com/vtex/faststore/compare/v2.0.21-alpha.0...v2.0.22-alpha.0) (2022-12-19)
 
-
 ### Bug Fixes
 
-* cli cms merge ([#1565](https://github.com/vtex/faststore/issues/1565)) ([2e5bd93](https://github.com/vtex/faststore/commit/2e5bd93c0ee5f1b6ab3afa39a2eae79c5ebea210))
-
-
+- cli cms merge ([#1565](https://github.com/vtex/faststore/issues/1565)) ([2e5bd93](https://github.com/vtex/faststore/commit/2e5bd93c0ee5f1b6ab3afa39a2eae79c5ebea210))
 
 ## [2.0.21-alpha.0](https://github.com/vtex/faststore/compare/v2.0.20-alpha.0...v2.0.21-alpha.0) (2022-12-19)
 
-
 ### Chores
 
-* rename config file ([#1564](https://github.com/vtex/faststore/issues/1564)) ([6919db1](https://github.com/vtex/faststore/commit/6919db12949276dd5ebacaf7e07bbf93562a64c0))
-
-
+- rename config file ([#1564](https://github.com/vtex/faststore/issues/1564)) ([6919db1](https://github.com/vtex/faststore/commit/6919db12949276dd5ebacaf7e07bbf93562a64c0))
 
 ## [2.0.20-alpha.0](https://github.com/vtex/faststore/compare/v2.0.19-alpha.0...v2.0.20-alpha.0) (2022-12-19)
 
-
 ### Bug Fixes
 
-* cli copy theme ([#1560](https://github.com/vtex/faststore/issues/1560)) ([9f16796](https://github.com/vtex/faststore/commit/9f167967a9a48adb7912a74a131fda22dd9715e8))
-
-
+- cli copy theme ([#1560](https://github.com/vtex/faststore/issues/1560)) ([9f16796](https://github.com/vtex/faststore/commit/9f167967a9a48adb7912a74a131fda22dd9715e8))
 
 ## [2.0.19-alpha.0](https://github.com/vtex/faststore/compare/v2.0.18-alpha.0...v2.0.19-alpha.0) (2022-12-16)
 
-
 ### Features
 
-* Adds `Hero` component ([#1556](https://github.com/vtex/faststore/issues/1556)) ([871f35c](https://github.com/vtex/faststore/commit/871f35cdcfc85d5ec0038dcc55a9aeedcc5ff546))
-
-
+- Adds `Hero` component ([#1556](https://github.com/vtex/faststore/issues/1556)) ([871f35c](https://github.com/vtex/faststore/commit/871f35cdcfc85d5ec0038dcc55a9aeedcc5ff546))
 
 ## [2.0.18-alpha.0](https://github.com/vtex/faststore/compare/v2.0.17-alpha.0...v2.0.18-alpha.0) (2022-12-15)
 
-
 ### Bug Fixes
 
-* Starter's Integration tests ([#1559](https://github.com/vtex/faststore/issues/1559)) ([d597d98](https://github.com/vtex/faststore/commit/d597d981079448ca46588a8e32964c4e5dcc84f8)), closes [#323](https://github.com/vtex/faststore/issues/323)
-
-
+- Starter's Integration tests ([#1559](https://github.com/vtex/faststore/issues/1559)) ([d597d98](https://github.com/vtex/faststore/commit/d597d981079448ca46588a8e32964c4e5dcc84f8)), closes [#323](https://github.com/vtex/faststore/issues/323)
 
 ## [2.0.17-alpha.0](https://github.com/vtex/faststore/compare/v2.0.16-alpha.0...v2.0.17-alpha.0) (2022-12-15)
 
-
 ### Features
 
-* Create `LinkButton` component ([#1558](https://github.com/vtex/faststore/issues/1558)) ([bbbebdb](https://github.com/vtex/faststore/commit/bbbebdb081f9c40315d8b661461e3b09a34b84b6))
-
-
+- Create `LinkButton` component ([#1558](https://github.com/vtex/faststore/issues/1558)) ([bbbebdb](https://github.com/vtex/faststore/commit/bbbebdb081f9c40315d8b661461e3b09a34b84b6))
 
 ## [2.0.16-alpha.0](https://github.com/vtex/faststore/compare/v2.0.15-alpha.0...v2.0.16-alpha.0) (2022-12-15)
 
-
 ### Features
 
-* Adds `Toggle` & `ToggleField` & `SROnly` components ([#1555](https://github.com/vtex/faststore/issues/1555)) ([b055c0a](https://github.com/vtex/faststore/commit/b055c0aa67291ad88e865b60e96b8a898a97db14))
-
-
+- Adds `Toggle` & `ToggleField` & `SROnly` components ([#1555](https://github.com/vtex/faststore/issues/1555)) ([b055c0a](https://github.com/vtex/faststore/commit/b055c0aa67291ad88e865b60e96b8a898a97db14))
 
 ## [2.0.15-alpha.0](https://github.com/vtex/faststore/compare/v2.0.14-alpha.0...v2.0.15-alpha.0) (2022-12-14)
 
-
 ### Features
 
-* Adds `List` component ([#1549](https://github.com/vtex/faststore/issues/1549)) ([55858fe](https://github.com/vtex/faststore/commit/55858fe39c254786e7c7a1e1dd3da96ed3be0d16))
-
-
+- Adds `List` component ([#1549](https://github.com/vtex/faststore/issues/1549)) ([55858fe](https://github.com/vtex/faststore/commit/55858fe39c254786e7c7a1e1dd3da96ed3be0d16))
 
 ## [2.0.14-alpha.0](https://github.com/vtex/faststore/compare/v2.0.13-alpha.0...v2.0.14-alpha.0) (2022-12-14)
 
-
 ### Features
 
-* Adds `Link` component ([#1543](https://github.com/vtex/faststore/issues/1543)) ([9c219eb](https://github.com/vtex/faststore/commit/9c219eba996fc6fec90edd1383a4abf8dbe0a7ef))
-
-
+- Adds `Link` component ([#1543](https://github.com/vtex/faststore/issues/1543)) ([9c219eb](https://github.com/vtex/faststore/commit/9c219eba996fc6fec90edd1383a4abf8dbe0a7ef))
 
 ## [2.0.13-alpha.0](https://github.com/vtex/faststore/compare/v2.0.12-alpha.0...v2.0.13-alpha.0) (2022-12-14)
 
-
 ### Features
 
-* Adds `Select` and `SelectField` components ([#1547](https://github.com/vtex/faststore/issues/1547)) ([7c4beb0](https://github.com/vtex/faststore/commit/7c4beb085c893ad540e1a4440cc7b902fa36a75c))
-
-
+- Adds `Select` and `SelectField` components ([#1547](https://github.com/vtex/faststore/issues/1547)) ([7c4beb0](https://github.com/vtex/faststore/commit/7c4beb085c893ad540e1a4440cc7b902fa36a75c))
 
 ## [2.0.12-alpha.0](https://github.com/vtex/faststore/compare/v2.0.11-alpha.0...v2.0.12-alpha.0) (2022-12-13)
 
-
 ### Features
 
-* Beautify CLI messages with chalk ([#1550](https://github.com/vtex/faststore/issues/1550)) ([6c4c32c](https://github.com/vtex/faststore/commit/6c4c32c3ac0a97b55364b7251f2d90dc70f08952))
-
-
+- Beautify CLI messages with chalk ([#1550](https://github.com/vtex/faststore/issues/1550)) ([6c4c32c](https://github.com/vtex/faststore/commit/6c4c32c3ac0a97b55364b7251f2d90dc70f08952))
 
 ## [2.0.11-alpha.0](https://github.com/vtex/faststore/compare/v2.0.10-alpha.0...v2.0.11-alpha.0) (2022-12-13)
 
-
 ### Bug Fixes
 
-* Fix config docusaurus ([#1553](https://github.com/vtex/faststore/issues/1553)) ([f26e21b](https://github.com/vtex/faststore/commit/f26e21b8b9744651c5524ef61917a6ed9247085b))
-
-
+- Fix config docusaurus ([#1553](https://github.com/vtex/faststore/issues/1553)) ([f26e21b](https://github.com/vtex/faststore/commit/f26e21b8b9744651c5524ef61917a6ed9247085b))
 
 ## [2.0.10-alpha.0](https://github.com/vtex/faststore/compare/v2.0.9-alpha.0...v2.0.10-alpha.0) (2022-12-12)
 
-
 ### Features
 
-* Adds `ButtonBuy` component ([#1551](https://github.com/vtex/faststore/issues/1551)) ([cf48bc8](https://github.com/vtex/faststore/commit/cf48bc803f0537e1a32eb87ff18e8328646939a5))
-
-
+- Adds `ButtonBuy` component ([#1551](https://github.com/vtex/faststore/issues/1551)) ([cf48bc8](https://github.com/vtex/faststore/commit/cf48bc803f0537e1a32eb87ff18e8328646939a5))
 
 ## [2.0.9-alpha.0](https://github.com/vtex/faststore/compare/v2.0.8-alpha.0...v2.0.9-alpha.0) (2022-12-12)
 
-
 ### Features
 
-* Create `Price` component ([#1548](https://github.com/vtex/faststore/issues/1548)) ([2d7418a](https://github.com/vtex/faststore/commit/2d7418ad45f42cdb0174d45d7c4de5b6d6e27f60))
-
-
+- Create `Price` component ([#1548](https://github.com/vtex/faststore/issues/1548)) ([2d7418a](https://github.com/vtex/faststore/commit/2d7418ad45f42cdb0174d45d7c4de5b6d6e27f60))
 
 ## [2.0.8-alpha.0](https://github.com/vtex/faststore/compare/v2.0.7-alpha.0...v2.0.8-alpha.0) (2022-12-12)
 
-
 ### Documentation
 
-* Updates `ui-component` template file ([#1552](https://github.com/vtex/faststore/issues/1552)) ([2ac33a3](https://github.com/vtex/faststore/commit/2ac33a30fd9fc2425610967c86baf52ff20dc9c1))
-
-
+- Updates `ui-component` template file ([#1552](https://github.com/vtex/faststore/issues/1552)) ([2ac33a3](https://github.com/vtex/faststore/commit/2ac33a30fd9fc2425610967c86baf52ff20dc9c1))
 
 ## [2.0.7-alpha.0](https://github.com/vtex/faststore/compare/v2.0.6-alpha.0...v2.0.7-alpha.0) (2022-12-09)
 
-
 ### Features
 
-* Adds `DiscountBadge` component ([#1546](https://github.com/vtex/faststore/issues/1546)) ([9b2e279](https://github.com/vtex/faststore/commit/9b2e27940ffa9b52c9a62541a07e1f593a0bcfb7)), closes [#313](https://github.com/vtex/faststore/issues/313)
-
-
+- Adds `DiscountBadge` component ([#1546](https://github.com/vtex/faststore/issues/1546)) ([9b2e279](https://github.com/vtex/faststore/commit/9b2e27940ffa9b52c9a62541a07e1f593a0bcfb7)), closes [#313](https://github.com/vtex/faststore/issues/313)
 
 ## [2.0.6-alpha.0](https://github.com/vtex/faststore/compare/v2.0.5-alpha.0...v2.0.6-alpha.0) (2022-12-08)
 
-
 ### Features
 
-* Adds `Input` & `InputField` components  ([#1545](https://github.com/vtex/faststore/issues/1545)) ([f89ec49](https://github.com/vtex/faststore/commit/f89ec4930dbcc7179f0fac484e16b0981540b6df))
-
-
+- Adds `Input` & `InputField` components ([#1545](https://github.com/vtex/faststore/issues/1545)) ([f89ec49](https://github.com/vtex/faststore/commit/f89ec4930dbcc7179f0fac484e16b0981540b6df))
 
 ## [2.0.5-alpha.0](https://github.com/vtex/faststore/compare/v2.0.4-alpha.0...v2.0.5-alpha.0) (2022-12-07)
 
-
 ### Features
 
-* `Overlay` Component. ([#1544](https://github.com/vtex/faststore/issues/1544)) ([dad6872](https://github.com/vtex/faststore/commit/dad6872654faaa4411d1f5949e5beab609e2ca36))
-
-
+- `Overlay` Component. ([#1544](https://github.com/vtex/faststore/issues/1544)) ([dad6872](https://github.com/vtex/faststore/commit/dad6872654faaa4411d1f5949e5beab609e2ca36))
 
 ## [2.0.4-alpha.0](https://github.com/vtex/faststore/compare/v2.0.3-alpha.0...v2.0.4-alpha.0) (2022-12-07)
 
-
 ### Chores
 
-* config faststore ui ([#1495](https://github.com/vtex/faststore/issues/1495)) ([ed5aa8f](https://github.com/vtex/faststore/commit/ed5aa8f83ab3d929dd47f30b1e171240e1c3c459))
-
-
+- config faststore ui ([#1495](https://github.com/vtex/faststore/issues/1495)) ([ed5aa8f](https://github.com/vtex/faststore/commit/ed5aa8f83ab3d929dd47f30b1e171240e1c3c459))
 
 ## 2.0.3-alpha.0 (2022-11-30)
 
-
 ### Bug Fixes
 
-* CD's Publish step ([#1524](https://github.com/vtex/faststore/issues/1524)) ([9785e8e](https://github.com/vtex/faststore/commit/9785e8e4846fdc3d24297c820328ad3cc4d516da))
-
+- CD's Publish step ([#1524](https://github.com/vtex/faststore/issues/1524)) ([9785e8e](https://github.com/vtex/faststore/commit/9785e8e4846fdc3d24297c820328ad3cc4d516da))
 
 ### Chores
 
-* Change from `patch` to `prepatch` release (alpha) ([#1523](https://github.com/vtex/faststore/issues/1523)) ([2f2c5b7](https://github.com/vtex/faststore/commit/2f2c5b77d2d71f887dad64a9488fabc4e6a29e07))
-
-
+- Change from `patch` to `prepatch` release (alpha) ([#1523](https://github.com/vtex/faststore/issues/1523)) ([2f2c5b7](https://github.com/vtex/faststore/commit/2f2c5b77d2d71f887dad64a9488fabc4e6a29e07))
 
 ## [1.12.31](https://github.com/vtex/faststore/compare/v1.12.30...v1.12.31) (2022-11-16)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.12.30](https://github.com/vtex/faststore/compare/v1.12.29...v1.12.30) (2022-11-16)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.12.29](https://github.com/vtex/faststore/compare/v1.12.28...v1.12.29) (2022-11-14)
-
 
 ### Features
 
-* Shipping Simulation Integration ([#1440](https://github.com/vtex/faststore/issues/1440)) ([8eacba4](https://github.com/vtex/faststore/commit/8eacba46a40f53be7fdca72dc04ff838dbf449c7))
-
-
+- Shipping Simulation Integration ([#1440](https://github.com/vtex/faststore/issues/1440)) ([8eacba4](https://github.com/vtex/faststore/commit/8eacba46a40f53be7fdca72dc04ff838dbf449c7))
 
 ## [1.12.28](https://github.com/vtex/faststore/compare/v1.12.27...v1.12.28) (2022-11-09)
 
-
 ### Features
 
-* adds start command to serve stores ([#1511](https://github.com/vtex/faststore/issues/1511)) ([9ef30b5](https://github.com/vtex/faststore/commit/9ef30b5e83c3518240d65235c4f84394ab0fc4cd))
-
-
+- adds start command to serve stores ([#1511](https://github.com/vtex/faststore/issues/1511)) ([9ef30b5](https://github.com/vtex/faststore/commit/9ef30b5e83c3518240d65235c4f84394ab0fc4cd))
 
 ## [1.12.27](https://github.com/vtex/faststore/compare/v1.12.26...v1.12.27) (2022-11-09)
 
-
 ### Features
 
-* add build command ([#1506](https://github.com/vtex/faststore/issues/1506)) ([f9dfa41](https://github.com/vtex/faststore/commit/f9dfa41998935e839b172cba5ec2eee760b06fb0))
-
-
+- add build command ([#1506](https://github.com/vtex/faststore/issues/1506)) ([f9dfa41](https://github.com/vtex/faststore/commit/f9dfa41998935e839b172cba5ec2eee760b06fb0))
 
 ## [1.12.26](https://github.com/vtex/faststore/compare/v1.12.25...v1.12.26) (2022-11-09)
 
-
 ### Features
 
-* adds develop command when running faststore dev ([#1500](https://github.com/vtex/faststore/issues/1500)) ([ff6bad5](https://github.com/vtex/faststore/commit/ff6bad5abfd674eec62aee5ad1f467dbcbaa51b0))
-
-
+- adds develop command when running faststore dev ([#1500](https://github.com/vtex/faststore/issues/1500)) ([ff6bad5](https://github.com/vtex/faststore/commit/ff6bad5abfd674eec62aee5ad1f467dbcbaa51b0))
 
 ## [1.12.25](https://github.com/vtex/faststore/compare/v1.12.24...v1.12.25) (2022-11-09)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.12.24](https://github.com/vtex/faststore/compare/v1.12.23...v1.12.24) (2022-11-08)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.12.23](https://github.com/vtex/faststore/compare/v1.12.22...v1.12.23) (2022-11-04)
-
 
 ### Features
 
-* Revisit `Carousel` component ([#1476](https://github.com/vtex/faststore/issues/1476)) ([5bf8662](https://github.com/vtex/faststore/commit/5bf86628e04fd5cf47c10071e66058de035d8023))
-
-
+- Revisit `Carousel` component ([#1476](https://github.com/vtex/faststore/issues/1476)) ([5bf8662](https://github.com/vtex/faststore/commit/5bf86628e04fd5cf47c10071e66058de035d8023))
 
 ## [1.12.22](https://github.com/vtex/faststore/compare/v1.12.21...v1.12.22) (2022-11-04)
 
-
 ### Documentation
 
-* Debugging Releases and CMS publishing ([#1505](https://github.com/vtex/faststore/issues/1505)) ([e1f6ea7](https://github.com/vtex/faststore/commit/e1f6ea7236e1ba69930fd4ccad5396a007e49236))
-
-
+- Debugging Releases and CMS publishing ([#1505](https://github.com/vtex/faststore/issues/1505)) ([e1f6ea7](https://github.com/vtex/faststore/commit/e1f6ea7236e1ba69930fd4ccad5396a007e49236))
 
 ## [1.12.21](https://github.com/vtex/faststore/compare/v1.12.20...v1.12.21) (2022-10-31)
 
-
 ### Bug Fixes
 
-* Takes sales channel in consideration when getting region ([#1499](https://github.com/vtex/faststore/issues/1499)) ([6827c39](https://github.com/vtex/faststore/commit/6827c396a43e025e5bafb726471fdd212baba330))
-
-
+- Takes sales channel in consideration when getting region ([#1499](https://github.com/vtex/faststore/issues/1499)) ([6827c39](https://github.com/vtex/faststore/commit/6827c396a43e025e5bafb726471fdd212baba330))
 
 ## 1.12.20 (2022-10-26)
 
-
 ### Features
 
-* Add watch capability to cli dev command ([#1483](https://github.com/vtex/faststore/issues/1483)) ([ac34aad](https://github.com/vtex/faststore/commit/ac34aad74411118b73a53329978810083856fcaa))
-
+- Add watch capability to cli dev command ([#1483](https://github.com/vtex/faststore/issues/1483)) ([ac34aad](https://github.com/vtex/faststore/commit/ac34aad74411118b73a53329978810083856fcaa))
 
 ### Chores
 
-* git blame ignore modification by data-fs ([#1494](https://github.com/vtex/faststore/issues/1494)) ([783079e](https://github.com/vtex/faststore/commit/783079e7095b39270bbb60e79063b774056dc5d4))
-
-
+- git blame ignore modification by data-fs ([#1494](https://github.com/vtex/faststore/issues/1494)) ([783079e](https://github.com/vtex/faststore/commit/783079e7095b39270bbb60e79063b774056dc5d4))
 
 ## 1.12.19 (2022-10-25)
 
-
 ### Bug Fixes
 
-* add shared tsconfig on cli ([#1492](https://github.com/vtex/faststore/issues/1492)) ([2f0a852](https://github.com/vtex/faststore/commit/2f0a8521bf4da351eee474912ed04f3dde090306)), closes [#1493](https://github.com/vtex/faststore/issues/1493)
-* yarn ([#1490](https://github.com/vtex/faststore/issues/1490)) ([52756b1](https://github.com/vtex/faststore/commit/52756b1ec66d9b70ae4899ed373a180749f8e5cd))
-
-
+- add shared tsconfig on cli ([#1492](https://github.com/vtex/faststore/issues/1492)) ([2f0a852](https://github.com/vtex/faststore/commit/2f0a8521bf4da351eee474912ed04f3dde090306)), closes [#1493](https://github.com/vtex/faststore/issues/1493)
+- yarn ([#1490](https://github.com/vtex/faststore/issues/1490)) ([52756b1](https://github.com/vtex/faststore/commit/52756b1ec66d9b70ae4899ed373a180749f8e5cd))
 
 ## [1.12.18](https://github.com/vtex/faststore/compare/v1.12.17...v1.12.18) (2022-10-25)
 
-
 ### Features
 
-* create the components packages ([#1489](https://github.com/vtex/faststore/issues/1489)) ([549805d](https://github.com/vtex/faststore/commit/549805df0d489aa768ed0a09413d0fcc569bdbd3))
-
-
+- create the components packages ([#1489](https://github.com/vtex/faststore/issues/1489)) ([549805d](https://github.com/vtex/faststore/commit/549805df0d489aa768ed0a09413d0fcc569bdbd3))
 
 ## [1.12.17](https://github.com/vtex/faststore/compare/v1.12.16...v1.12.17) (2022-10-20)
 
-
 ### Features
 
-* cli ([#1481](https://github.com/vtex/faststore/issues/1481)) ([89ddc99](https://github.com/vtex/faststore/commit/89ddc990937e0ba381f364b1f0d30078916dfe76))
-
-
+- cli ([#1481](https://github.com/vtex/faststore/issues/1481)) ([89ddc99](https://github.com/vtex/faststore/commit/89ddc990937e0ba381f364b1f0d30078916dfe76))
 
 ## [1.12.16](https://github.com/vtex/faststore/compare/v1.12.15...v1.12.16) (2022-10-19)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.12.15](https://github.com/vtex/faststore/compare/v1.12.14...v1.12.15) (2022-10-15)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.12.14](https://github.com/vtex/faststore/compare/v1.12.13...v1.12.14) (2022-10-13)
-
 
 ### Bug Fixes
 
-* checks for session existance before trying to update shipping data ([#1487](https://github.com/vtex/faststore/issues/1487)) ([8edced3](https://github.com/vtex/faststore/commit/8edced304ccdc804c7c9eb215955cec6f7c621ca))
-
-
+- checks for session existance before trying to update shipping data ([#1487](https://github.com/vtex/faststore/issues/1487)) ([8edced3](https://github.com/vtex/faststore/commit/8edced304ccdc804c7c9eb215955cec6f7c621ca))
 
 ## [1.12.13](https://github.com/vtex/faststore/compare/v1.12.12...v1.12.13) (2022-10-11)
 
-
 ### Bug Fixes
 
-* Rename `SearchInput`'s form data-attribute ([#1485](https://github.com/vtex/faststore/issues/1485)) ([c065646](https://github.com/vtex/faststore/commit/c065646948e32d3474f13b79a50090b6ed0bda28))
-
-
+- Rename `SearchInput`'s form data-attribute ([#1485](https://github.com/vtex/faststore/issues/1485)) ([c065646](https://github.com/vtex/faststore/commit/c065646948e32d3474f13b79a50090b6ed0bda28))
 
 ## [1.12.12](https://github.com/vtex/faststore/compare/v1.12.11...v1.12.12) (2022-10-10)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.12.11](https://github.com/vtex/faststore/compare/v1.12.10...v1.12.11) (2022-10-06)
-
 
 ### Bug Fixes
 
-* using data-fs instead data-store ([#1482](https://github.com/vtex/faststore/issues/1482)) ([883d4f1](https://github.com/vtex/faststore/commit/883d4f139edc10aeeea1277b17b2674c94b0f777))
-
-
+- using data-fs instead data-store ([#1482](https://github.com/vtex/faststore/issues/1482)) ([883d4f1](https://github.com/vtex/faststore/commit/883d4f139edc10aeeea1277b17b2674c94b0f777))
 
 ## [1.12.10](https://github.com/vtex/faststore/compare/v1.12.9...v1.12.10) (2022-10-05)
 
-
 ### Documentation
 
-* RN CMS preview ([#1479](https://github.com/vtex/faststore/issues/1479)) ([f072c1b](https://github.com/vtex/faststore/commit/f072c1b6febdd147f906d353080d9738277b5fe2))
-
-
+- RN CMS preview ([#1479](https://github.com/vtex/faststore/issues/1479)) ([f072c1b](https://github.com/vtex/faststore/commit/f072c1b6febdd147f906d353080d9738277b5fe2))
 
 ## [1.12.9](https://github.com/vtex/faststore/compare/v1.12.8...v1.12.9) (2022-10-04)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.12.8](https://github.com/vtex/faststore/compare/v1.12.7...v1.12.8) (2022-09-29)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.12.7](https://github.com/vtex/faststore/compare/v1.12.6...v1.12.7) (2022-09-28)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.12.6](https://github.com/vtex/faststore/compare/v1.12.5...v1.12.6) (2022-09-26)
-
 
 ### Features
 
-* Add CacheControl GraphQL directive ([#1473](https://github.com/vtex/faststore/issues/1473)) ([b9fd889](https://github.com/vtex/faststore/commit/b9fd889fda56ea409266c56478adcd49fa34d46a))
-
-
+- Add CacheControl GraphQL directive ([#1473](https://github.com/vtex/faststore/issues/1473)) ([b9fd889](https://github.com/vtex/faststore/commit/b9fd889fda56ea409266c56478adcd49fa34d46a))
 
 ## [1.12.5](https://github.com/vtex/faststore/compare/v1.12.4...v1.12.5) (2022-09-22)
 
-
 ### Bug Fixes
 
-* fixes tsconfig.json to exclude storybook types inside .d.ts file ([#1472](https://github.com/vtex/faststore/issues/1472)) ([97274b5](https://github.com/vtex/faststore/commit/97274b58b79849cb670e87052130b2ed00bb53f4))
-
-
+- fixes tsconfig.json to exclude storybook types inside .d.ts file ([#1472](https://github.com/vtex/faststore/issues/1472)) ([97274b5](https://github.com/vtex/faststore/commit/97274b58b79849cb670e87052130b2ed00bb53f4))
 
 ## [1.12.4](https://github.com/vtex/faststore/compare/v1.12.3...v1.12.4) (2022-09-21)
 
-
 ### Features
 
-* **ui:** improve extensibility of table and accordion molecules ([#1470](https://github.com/vtex/faststore/issues/1470)) ([2abf78c](https://github.com/vtex/faststore/commit/2abf78c36ce446f6e5b213738a359fb1b37e98a5))
-
-
+- **ui:** improve extensibility of table and accordion molecules ([#1470](https://github.com/vtex/faststore/issues/1470)) ([2abf78c](https://github.com/vtex/faststore/commit/2abf78c36ce446f6e5b213738a359fb1b37e98a5))
 
 ## [1.12.3](https://github.com/vtex/faststore/compare/v1.12.2...v1.12.3) (2022-09-19)
 
-
 ### Documentation
 
-* fix extending graphql example ([#1468](https://github.com/vtex/faststore/issues/1468)) ([2c75c8f](https://github.com/vtex/faststore/commit/2c75c8f36c352b270820fc4ba7f3f11ac3e27c2a))
-
-
+- fix extending graphql example ([#1468](https://github.com/vtex/faststore/issues/1468)) ([2c75c8f](https://github.com/vtex/faststore/commit/2c75c8f36c352b270820fc4ba7f3f11ac3e27c2a))
 
 ## [1.12.2](https://github.com/vtex/faststore/compare/v1.12.1...v1.12.2) (2022-09-13)
 
-
 ### Documentation
 
-* handling-the-impact-of-third-party-scripts ([#1467](https://github.com/vtex/faststore/issues/1467)) ([8cb707e](https://github.com/vtex/faststore/commit/8cb707ec1e980365f3502d7b21aba3857550d272))
-
-
+- handling-the-impact-of-third-party-scripts ([#1467](https://github.com/vtex/faststore/issues/1467)) ([8cb707e](https://github.com/vtex/faststore/commit/8cb707ec1e980365f3502d7b21aba3857550d272))
 
 ## [1.12.1](https://github.com/vtex/faststore/compare/v1.12.0...v1.12.1) (2022-09-13)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.11.21](https://github.com/vtex/faststore/compare/v1.11.20...v1.11.21) (2022-09-13)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.11.20](https://github.com/vtex/faststore/compare/v1.11.19...v1.11.20) (2022-09-12)
-
 
 ### Refactoring
 
-* Extract `CartItem` component from the starter ([#1461](https://github.com/vtex/faststore/issues/1461)) ([ff70925](https://github.com/vtex/faststore/commit/ff70925abc123a9b6c66de248cdaf3541da66d41))
-
-
+- Extract `CartItem` component from the starter ([#1461](https://github.com/vtex/faststore/issues/1461)) ([ff70925](https://github.com/vtex/faststore/commit/ff70925abc123a9b6c66de248cdaf3541da66d41))
 
 ## [1.11.19](https://github.com/vtex/faststore/compare/v1.11.18...v1.11.19) (2022-09-12)
 
-
 ### Refactoring
 
-* Extract `SkuSelector` component from the starter ([#1462](https://github.com/vtex/faststore/issues/1462)) ([98a68ea](https://github.com/vtex/faststore/commit/98a68ea40cd64e2880b3b4a3f75dbd355463369f))
-
-
+- Extract `SkuSelector` component from the starter ([#1462](https://github.com/vtex/faststore/issues/1462)) ([98a68ea](https://github.com/vtex/faststore/commit/98a68ea40cd64e2880b3b4a3f75dbd355463369f))
 
 ## [1.11.18](https://github.com/vtex/faststore/compare/v1.11.17...v1.11.18) (2022-09-12)
 
-
 ### Features
 
-* Adds OrderSummary component to FastStore UI ([#1456](https://github.com/vtex/faststore/issues/1456)) ([f1d983c](https://github.com/vtex/faststore/commit/f1d983cf5684053ad810455d2b6f6ac77bfc7b76))
-
-
+- Adds OrderSummary component to FastStore UI ([#1456](https://github.com/vtex/faststore/issues/1456)) ([f1d983c](https://github.com/vtex/faststore/commit/f1d983cf5684053ad810455d2b6f6ac77bfc7b76))
 
 ## [1.11.17](https://github.com/vtex/faststore/compare/v1.11.16...v1.11.17) (2022-09-12)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.11.16](https://github.com/vtex/faststore/compare/v1.11.15...v1.11.16) (2022-09-12)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.11.15](https://github.com/vtex/faststore/compare/v1.11.14...v1.11.15) (2022-09-09)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.11.14](https://github.com/vtex/faststore/compare/v1.11.13...v1.11.14) (2022-09-09)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.11.13](https://github.com/vtex/faststore/compare/v1.11.12...v1.11.13) (2022-09-09)
-
 
 ### Documentation
 
-* getting started with lighthouse ([#1458](https://github.com/vtex/faststore/issues/1458)) ([c52d97e](https://github.com/vtex/faststore/commit/c52d97e811000587af34888fe5df1d74f030b1b6))
-
-
+- getting started with lighthouse ([#1458](https://github.com/vtex/faststore/issues/1458)) ([c52d97e](https://github.com/vtex/faststore/commit/c52d97e811000587af34888fe5df1d74f030b1b6))
 
 ## [1.11.12](https://github.com/vtex/faststore/compare/v1.11.11...v1.11.12) (2022-09-08)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.11.11](https://github.com/vtex/faststore/compare/v1.11.10...v1.11.11) (2022-09-02)
-
 
 ### Documentation
 
-* add analyzing a projects bundle size ([#1453](https://github.com/vtex/faststore/issues/1453)) ([e7e74fd](https://github.com/vtex/faststore/commit/e7e74fd4c0ed7fbb6fa53d2c5ddc178c685f487c))
-
-
+- add analyzing a projects bundle size ([#1453](https://github.com/vtex/faststore/issues/1453)) ([e7e74fd](https://github.com/vtex/faststore/commit/e7e74fd4c0ed7fbb6fa53d2c5ddc178c685f487c))
 
 ## [1.11.10](https://github.com/vtex/faststore/compare/v1.11.9...v1.11.10) (2022-09-01)
 
-
 ### Documentation
 
-* review analytics on faststore ([#1449](https://github.com/vtex/faststore/issues/1449)) ([c3a9aab](https://github.com/vtex/faststore/commit/c3a9aabeae181e24c68bab2ea887053eacbdabe3))
-
-
+- review analytics on faststore ([#1449](https://github.com/vtex/faststore/issues/1449)) ([c3a9aab](https://github.com/vtex/faststore/commit/c3a9aabeae181e24c68bab2ea887053eacbdabe3))
 
 ## [1.11.9](https://github.com/vtex/faststore/compare/v1.11.8...v1.11.9) (2022-09-01)
 
-
 ### Documentation
 
-* Add glossary ([#1452](https://github.com/vtex/faststore/issues/1452)) ([49a25d1](https://github.com/vtex/faststore/commit/49a25d18b324079db3e6aad046ee6ceef347fb49))
-
-
+- Add glossary ([#1452](https://github.com/vtex/faststore/issues/1452)) ([49a25d1](https://github.com/vtex/faststore/commit/49a25d18b324079db3e6aad046ee6ceef347fb49))
 
 ## 1.11.8 (2022-09-01)
 
-
 ### Bug Fixes
 
-* Lint issues ([#1450](https://github.com/vtex/faststore/issues/1450)) ([139de34](https://github.com/vtex/faststore/commit/139de346d5d8f094caff4cc58f340f85043e1fb4))
-
-
+- Lint issues ([#1450](https://github.com/vtex/faststore/issues/1450)) ([139de34](https://github.com/vtex/faststore/commit/139de346d5d8f094caff4cc58f340f85043e1fb4))
 
 ## [1.11.7](https://github.com/vtex/faststore/compare/v1.11.6...v1.11.7) (2022-08-29)
 
-
 ### Features
 
-* Cart with session info ([#1444](https://github.com/vtex/faststore/issues/1444)) ([e36ad6f](https://github.com/vtex/faststore/commit/e36ad6f6e1af1a03c0dd47c4263e96bc9d0b7b8d))
-
-
+- Cart with session info ([#1444](https://github.com/vtex/faststore/issues/1444)) ([e36ad6f](https://github.com/vtex/faststore/commit/e36ad6f6e1af1a03c0dd47c4263e96bc9d0b7b8d))
 
 ## [1.11.6](https://github.com/vtex/faststore/compare/v1.11.5...v1.11.6) (2022-08-29)
 
-
 ### Documentation
 
-* Fix NextJS and Gatsby sections on using a GraphQL IDE ([#1445](https://github.com/vtex/faststore/issues/1445)) ([5cc642c](https://github.com/vtex/faststore/commit/5cc642ca042eb93c0789c7f5ea1c1b610f0c0478))
-
-
+- Fix NextJS and Gatsby sections on using a GraphQL IDE ([#1445](https://github.com/vtex/faststore/issues/1445)) ([5cc642c](https://github.com/vtex/faststore/commit/5cc642ca042eb93c0789c7f5ea1c1b610f0c0478))
 
 ## [1.11.5](https://github.com/vtex/faststore/compare/v1.11.4...v1.11.5) (2022-08-19)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.11.4](https://github.com/vtex/faststore/compare/v1.11.3...v1.11.4) (2022-08-15)
-
 
 ### Features
 
-* Product releaseDate ([#1438](https://github.com/vtex/faststore/issues/1438)) ([255b236](https://github.com/vtex/faststore/commit/255b236b8573f88768a0ba0ec0ead001e36daa7d))
-
-
+- Product releaseDate ([#1438](https://github.com/vtex/faststore/issues/1438)) ([255b236](https://github.com/vtex/faststore/commit/255b236b8573f88768a0ba0ec0ead001e36daa7d))
 
 ## [1.11.3](https://github.com/vtex/faststore/compare/v1.11.2...v1.11.3) (2022-08-10)
 
-
 ### Bug Fixes
 
-* Join cart items  ([#1434](https://github.com/vtex/faststore/issues/1434)) ([990b6a9](https://github.com/vtex/faststore/commit/990b6a920703f9004f7e0d6be6c2a316610db5c6))
-
-
+- Join cart items ([#1434](https://github.com/vtex/faststore/issues/1434)) ([990b6a9](https://github.com/vtex/faststore/commit/990b6a920703f9004f7e0d6be6c2a316610db5c6))
 
 ## [1.11.2](https://github.com/vtex/faststore/compare/v1.11.1...v1.11.2) (2022-08-10)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.11.1](https://github.com/vtex/faststore/compare/v1.11.0...v1.11.1) (2022-08-05)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.10.36](https://github.com/vtex/faststore/compare/v1.10.35...v1.10.36) (2022-08-04)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.10.35](https://github.com/vtex/faststore/compare/v1.10.34...v1.10.35) (2022-08-04)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## 1.10.34 (2022-08-04)
-
 
 ### Features
 
-* Add skuSelector-related properties to ProductGroup type ([#1407](https://github.com/vtex/faststore/issues/1407)) ([3f9f33f](https://github.com/vtex/faststore/commit/3f9f33f05b47d266465f349edb7645ad06ff7b27))
-
+- Add skuSelector-related properties to ProductGroup type ([#1407](https://github.com/vtex/faststore/issues/1407)) ([3f9f33f](https://github.com/vtex/faststore/commit/3f9f33f05b47d266465f349edb7645ad06ff7b27))
 
 ### Chores
 
-* Update generated types from `@faststore/api` ([#1431](https://github.com/vtex/faststore/issues/1431)) ([516068a](https://github.com/vtex/faststore/commit/516068a4cb67a9029693c967db34b133aac81403))
-
-
+- Update generated types from `@faststore/api` ([#1431](https://github.com/vtex/faststore/issues/1431)) ([516068a](https://github.com/vtex/faststore/commit/516068a4cb67a9029693c967db34b133aac81403))
 
 ## [1.10.33](https://github.com/vtex/faststore/compare/v1.10.32...v1.10.33) (2022-08-03)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.10.32](https://github.com/vtex/faststore/compare/v1.10.31...v1.10.32) (2022-08-02)
-
 
 ### Features
 
-* useEffect is not for effects ([#1392](https://github.com/vtex/faststore/issues/1392)) ([caa85f6](https://github.com/vtex/faststore/commit/caa85f643832001b59f2095b2ecc50b7dadfabab))
-
-
+- useEffect is not for effects ([#1392](https://github.com/vtex/faststore/issues/1392)) ([caa85f6](https://github.com/vtex/faststore/commit/caa85f643832001b59f2095b2ecc50b7dadfabab))
 
 ## [1.10.31](https://github.com/vtex/faststore/compare/v1.10.30...v1.10.31) (2022-08-02)
 
-
 ### Features
 
-* Add fowardRef to `ProductTitle` ([#1427](https://github.com/vtex/faststore/issues/1427)) ([5f622f3](https://github.com/vtex/faststore/commit/5f622f3a28a32228aa457c0b1bd141969f541262))
-
-
+- Add fowardRef to `ProductTitle` ([#1427](https://github.com/vtex/faststore/issues/1427)) ([5f622f3](https://github.com/vtex/faststore/commit/5f622f3a28a32228aa457c0b1bd141969f541262))
 
 ## 1.10.30 (2022-08-02)
 
-
 ### Chores
 
-* Attempt to fix the publishing ([#1426](https://github.com/vtex/faststore/issues/1426)) ([3b8e124](https://github.com/vtex/faststore/commit/3b8e124e5bd371b23d427503ae130a52602a8e8c))
-* Updates documentation link ([#1424](https://github.com/vtex/faststore/issues/1424)) ([04e518a](https://github.com/vtex/faststore/commit/04e518a92038259bda212024b85c1a807ebf0e1a))
-
-
+- Attempt to fix the publishing ([#1426](https://github.com/vtex/faststore/issues/1426)) ([3b8e124](https://github.com/vtex/faststore/commit/3b8e124e5bd371b23d427503ae130a52602a8e8c))
+- Updates documentation link ([#1424](https://github.com/vtex/faststore/issues/1424)) ([04e518a](https://github.com/vtex/faststore/commit/04e518a92038259bda212024b85c1a807ebf0e1a))
 
 ## [1.10.29](https://github.com/vtex/faststore/compare/v1.10.28...v1.10.29) (2022-07-29)
 
-
 ### Features
 
-* Add ProductTitle Molecule ([#1418](https://github.com/vtex/faststore/issues/1418)) ([184d0b9](https://github.com/vtex/faststore/commit/184d0b9399648e3cab25cd2348c17269ac549f49))
-
-
-
-
+- Add ProductTitle Molecule ([#1418](https://github.com/vtex/faststore/issues/1418)) ([184d0b9](https://github.com/vtex/faststore/commit/184d0b9399648e3cab25cd2348c17269ac549f49))
 
 ## [1.10.28](https://github.com/vtex/faststore/compare/v1.10.27...v1.10.28) (2022-07-28)
 
-
 ### Bug Fixes
 
-* `Slider` thumb elements position ([#1423](https://github.com/vtex/faststore/issues/1423)) ([1207769](https://github.com/vtex/faststore/commit/12077694cde6d55ae30f76f277d5eaed20938f15))
-
-
-
-
+- `Slider` thumb elements position ([#1423](https://github.com/vtex/faststore/issues/1423)) ([1207769](https://github.com/vtex/faststore/commit/12077694cde6d55ae30f76f277d5eaed20938f15))
 
 ## [1.10.27](https://github.com/vtex/faststore/compare/v1.10.26...v1.10.27) (2022-07-26)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.10.26](https://github.com/vtex/faststore/compare/v1.10.25...v1.10.26) (2022-07-25)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.10.25](https://github.com/vtex/faststore/compare/v1.10.24...v1.10.25) (2022-07-25)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.10.24](https://github.com/vtex/faststore/compare/v1.10.23...v1.10.24) (2022-07-25)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.10.23](https://github.com/vtex/faststore/compare/v1.10.22...v1.10.23) (2022-07-25)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.10.22](https://github.com/vtex/faststore/compare/v1.10.21...v1.10.22) (2022-07-25)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.10.21](https://github.com/vtex/faststore/compare/v1.10.20...v1.10.21) (2022-07-22)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.10.20](https://github.com/vtex/faststore/compare/v1.10.19...v1.10.20) (2022-07-22)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.10.19](https://github.com/vtex/faststore/compare/v1.10.18...v1.10.19) (2022-07-22)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## 1.10.18 (2022-07-20)
-
 
 ### Bug Fixes
 
-* Add missing Catalog pageTypes to `@faststore/api` ([#1411](https://github.com/vtex/faststore/issues/1411)) ([e74890b](https://github.com/vtex/faststore/commit/e74890b8b3d3276970ed645bfc17381fc8e1c027))
-
-
-
-
+- Add missing Catalog pageTypes to `@faststore/api` ([#1411](https://github.com/vtex/faststore/issues/1411)) ([e74890b](https://github.com/vtex/faststore/commit/e74890b8b3d3276970ed645bfc17381fc8e1c027))
 
 ## 1.10.17 (2022-07-20)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.10.16](https://github.com/vtex/faststore/compare/v1.10.15...v1.10.16) (2022-07-19)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.10.15](https://github.com/vtex/faststore/compare/v1.10.14...v1.10.15) (2022-07-19)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.10.14](https://github.com/vtex/faststore/compare/v1.10.13...v1.10.14) (2022-07-18)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.10.13](https://github.com/vtex/faststore/compare/v1.10.12...v1.10.13) (2022-07-13)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.10.12](https://github.com/vtex/faststore/compare/v1.10.11...v1.10.12) (2022-07-12)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.10.11](https://github.com/vtex/faststore/compare/v1.10.10...v1.10.11) (2022-07-11)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.10.10](https://github.com/vtex/faststore/compare/v1.10.9...v1.10.10) (2022-07-08)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.10.9](https://github.com/vtex/faststore/compare/v1.10.8...v1.10.9) (2022-07-08)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.10.8](https://github.com/vtex/faststore/compare/v1.10.7...v1.10.8) (2022-07-07)
-
 
 ### Features
 
-* Add priceCurrency to Offer ([#1399](https://github.com/vtex/faststore/issues/1399)) ([7ca846a](https://github.com/vtex/faststore/commit/7ca846af9b157707c71422b0d7e3e481edfbe5e6))
-
-
-
-
+- Add priceCurrency to Offer ([#1399](https://github.com/vtex/faststore/issues/1399)) ([7ca846a](https://github.com/vtex/faststore/commit/7ca846af9b157707c71422b0d7e3e481edfbe5e6))
 
 ## [1.10.7](https://github.com/vtex/faststore/compare/v1.10.6...v1.10.7) (2022-07-06)
 
-
 ### Features
 
-* Supports update of `Slider` and `PriceRange` values ([#1380](https://github.com/vtex/faststore/issues/1380)) ([41dca35](https://github.com/vtex/faststore/commit/41dca35f0c320cf1659e8a74032cc2ee755a9f6f))
-
-
-
-
+- Supports update of `Slider` and `PriceRange` values ([#1380](https://github.com/vtex/faststore/issues/1380)) ([41dca35](https://github.com/vtex/faststore/commit/41dca35f0c320cf1659e8a74032cc2ee755a9f6f))
 
 ## 1.10.6 (2022-07-05)
 
-
 ### Features
 
-* Support for cross selling API ([#1396](https://github.com/vtex/faststore/issues/1396)) ([98eb7e2](https://github.com/vtex/faststore/commit/98eb7e2cc6670bcb05d00418f901e26a2e9db8f0))
-
-
-
-
+- Support for cross selling API ([#1396](https://github.com/vtex/faststore/issues/1396)) ([98eb7e2](https://github.com/vtex/faststore/commit/98eb7e2cc6670bcb05d00418f901e26a2e9db8f0))
 
 ## [1.10.5](https://github.com/vtex/faststore/compare/v1.10.4...v1.10.5) (2022-07-04)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.10.4](https://github.com/vtex/faststore/compare/v1.10.3...v1.10.4) (2022-07-04)
-
 
 ### Bug Fixes
 
-* @faststore/graphql-utils ([#1394](https://github.com/vtex/faststore/issues/1394)) ([ea4b483](https://github.com/vtex/faststore/commit/ea4b4832b25fe257d8c5c0c67bc09fb04dc693cf))
-
-
-
-
+- @faststore/graphql-utils ([#1394](https://github.com/vtex/faststore/issues/1394)) ([ea4b483](https://github.com/vtex/faststore/commit/ea4b4832b25fe257d8c5c0c67bc09fb04dc693cf))
 
 ## [1.10.3](https://github.com/vtex/faststore/compare/v1.10.2...v1.10.3) (2022-07-04)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.10.2](https://github.com/vtex/faststore/compare/v1.10.1...v1.10.2) (2022-07-01)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.10.1](https://github.com/vtex/faststore/compare/v1.10.0...v1.10.1) (2022-07-01)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.9.19](https://github.com/vtex/faststore/compare/v1.9.18...v1.9.19) (2022-06-29)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.9.18](https://github.com/vtex/faststore/compare/v1.9.17...v1.9.18) (2022-06-29)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.9.17](https://github.com/vtex/faststore/compare/v1.9.16...v1.9.17) (2022-06-28)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.9.16](https://github.com/vtex/faststore/compare/v1.9.15...v1.9.16) (2022-06-28)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.9.15](https://github.com/vtex/faststore/compare/v1.9.14...v1.9.15) (2022-06-27)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.9.14](https://github.com/vtex/faststore/compare/v1.9.13...v1.9.14) (2022-06-23)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.9.13](https://github.com/vtex/faststore/compare/v1.9.12...v1.9.13) (2022-06-22)
 
 **Note:** Version bump only for package faststore
-
-
-
-
 
 ## [1.9.12](https://github.com/vtex/faststore/compare/v1.9.11...v1.9.12) (2022-06-22)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## [1.9.11](https://github.com/vtex/faststore/compare/v1.9.10...v1.9.11) (2022-06-19)
-
 
 ### Features
 
-* Price range filter on PLP ([#1364](https://github.com/vtex/faststore/issues/1364)) ([a4c3fa7](https://github.com/vtex/faststore/commit/a4c3fa79c32d1db7bc737f5221479e6db1488866))
-
-
-
-
+- Price range filter on PLP ([#1364](https://github.com/vtex/faststore/issues/1364)) ([a4c3fa7](https://github.com/vtex/faststore/commit/a4c3fa79c32d1db7bc737f5221479e6db1488866))
 
 ## [1.9.10](https://github.com/vtex/faststore/compare/v1.9.9...v1.9.10) (2022-06-18)
 
 **Note:** Version bump only for package faststore
 
-
-
-
-
 ## 1.9.9 (2022-06-17)
-
 
 ### Bug Fixes
 
-* add outdir to all tsconfig ([#1372](https://github.com/vtex/faststore/issues/1372)) ([8f847d9](https://github.com/vtex/faststore/commit/8f847d938b0ac66433a248bc77e77a21475b65db))
-* prettier format files ([#1369](https://github.com/vtex/faststore/issues/1369)) ([7f42ea9](https://github.com/vtex/faststore/commit/7f42ea913ee60333fe32434491f9be83c29a165d))
-
-
-
-
+- add outdir to all tsconfig ([#1372](https://github.com/vtex/faststore/issues/1372)) ([8f847d9](https://github.com/vtex/faststore/commit/8f847d938b0ac66433a248bc77e77a21475b65db))
+- prettier format files ([#1369](https://github.com/vtex/faststore/issues/1369)) ([7f42ea9](https://github.com/vtex/faststore/commit/7f42ea913ee60333fe32434491f9be83c29a165d))
 
 ## 1.9.8 (2022-06-17)
 
-
 ### Features
 
-* lint ([#1368](https://github.com/vtex/faststore/issues/1368)) ([66ce99f](https://github.com/vtex/faststore/commit/66ce99f310ec593245e3937daea5ed813e1630e6))
-
-
-
-
+- lint ([#1368](https://github.com/vtex/faststore/issues/1368)) ([66ce99f](https://github.com/vtex/faststore/commit/66ce99f310ec593245e3937daea5ed813e1630e6))
 
 ## [1.9.7](https://github.com/vtex/faststore/compare/v1.9.6...v1.9.7) (2022-06-13)
 
