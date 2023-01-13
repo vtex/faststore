@@ -137,9 +137,6 @@ export type {
 export { default as Form } from './components/molecules/Form'
 export type { FormProps } from './components/molecules/Form'
 
-export { default as Alert } from './components/molecules/Alert'
-export type { AlertProps } from './components/molecules/Alert'
-
 // Organisms
 export {
   default as OutOfStock,

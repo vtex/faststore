@@ -1,0 +1,280 @@
+---
+description: Alerts display short messages related to the behavior of a system, feature or page.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Alert___8853e3dae68a1a6a1c5d6a103b752ede.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { Alert } from '@faststore/ui'
+import { ShoppingCart } from '@faststore/components'
+
+<header>
+
+# Alert
+
+Alerts display short messages related to the behavior of a system, feature or page.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Alert
+        link={{ children: 'With Link', href: '/' }}
+        dismissible
+      >
+        Dismissible Alert message
+      </Alert>
+      <Alert link={{ children: 'With Link', href: '/' }}>
+        Alert message
+      </Alert>
+    </OverviewSection>
+    <OverviewSection>
+      <Alert icon={<ShoppingCart />}>
+        Icon with Alert message
+      </Alert>
+      <Alert>
+        Alert message
+      </Alert>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Alert
+      link={{ children: 'With Link', href: '/' }}
+      dismissible
+    >
+      Dismissible Alert message
+    </Alert>
+
+    <Alert link={{ children: 'With Link', href: '/' }}>
+      Alert message
+    </Alert>
+    ```
+
+    ```tsx
+    <Alert icon={<ShoppingCart />}>
+      Icon with Alert message
+    </Alert>
+
+    <Alert>
+      Alert message
+    </Alert>
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { Alert } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/Alert/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <Alert
+    icon={<ShoppingCart />}
+    link={{ children: 'Buy now', href: '/', target: '_blank' }}
+    dismissible
+  >
+    Get 10% off today:&nbsp;<span>NEW10</span>
+  </Alert>
+</OverviewSection>
+```tsx
+<Alert
+  icon={<ShoppingCart />}
+  link={{ children: 'Buy now', href: '/', target: '_blank' }}
+  dismissible
+>
+  Get 10% off today:&nbsp;<span>NEW10</span>
+</Alert>
+```
+
+---
+
+## Props
+
+<PropsSection name="BuyButton" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-alert-height" value="var(--fs-spacing-7)" />
+  <TokenRow token="--fs-alert-padding-left" value="var(--fs-spacing-3)" />
+  <TokenRow
+    token="--fs-alert-padding-right"
+    value="var(--fs-alert-padding-left)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-alert-bkg-color"
+    value="var(--fs-color-highlighted-bkg)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-alert-text-color"
+    value="var(--fs-color-highlighted-text)"
+    isColor
+  />
+  <TokenRow token="--fs-alert-text-size" value="var(--fs-text-size-1)" />
+</TokenTable>
+
+### Nested Elements
+
+#### Icon
+
+<TokenTable>
+  <TokenRow token="--fs-alert-icon-width" value="var(--fs-spacing-4)" />
+  <TokenRow token="--fs-alert-icon-height" value="var(--fs-alert-icon-width)" />
+  <TokenRow token="--fs-alert-icon-margin-right" value="var(--fs-spacing-1)" />
+  <TokenRow
+    token="--fs-alert-icon-color"
+    value="var(--fs-alert-text-color)"
+    globalValue="var(--fs-color-highlighted-text)"
+    isColor
+  />
+</TokenTable>
+
+#### Link
+
+<TokenTable>
+  <TokenRow
+    token="--fs-alert-link-color"
+    value="var(--fs-alert-text-color)"
+    globalValue="var(--fs-color-highlighted-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-alert-link-color-visited"
+    value="var(--fs-alert-text-color)"
+    globalValue="var(--fs-color-highlighted-text)"
+    isColor
+  />
+</TokenTable>
+
+#### Dismissible Button
+
+<TokenTable>
+  <TokenRow
+    token="--fs-alert-button-text-color"
+    value="var(--fs-alert-text-color)"
+    globalValue="var(--fs-color-highlighted-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-alert-button-bkg-color"
+    value="var(--fs-alert-bkg-color)"
+    globalValue="var(--fs-color-highlighted-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-alert-button-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Dismissible
+
+<OverviewSection>
+  <Alert dismissible>
+    Get 10% off today:&nbsp;<span>NEW10</span>
+  </Alert>
+</OverviewSection>
+```tsx
+<Alert dismissible>
+  Get 10% off today:&nbsp;<span>NEW10</span>
+</Alert>
+```
+
+### With Link
+
+<OverviewSection>
+  <Alert link={{ children: 'Buy now', href: '/' }}>
+    Get 10% off today:&nbsp;<span>NEW10</span>
+  </Alert>
+</OverviewSection>
+```tsx
+<Alert link={{ children: 'Buy now', href: '/' }}>
+  Get 10% off today:&nbsp;<span>NEW10</span>
+</Alert>
+```
+
+### With Icon
+
+<OverviewSection>
+  <Alert icon={<ShoppingCart />}>
+    Get 10% off today:&nbsp;<span>NEW10</span>
+  </Alert>
+</OverviewSection>
+```tsx
+<Alert icon={<ShoppingCart />}>
+  Get 10% off today:&nbsp;<span>NEW10</span>
+</Alert>
+```
+
+### Plain
+
+<OverviewSection>
+  <Alert>
+    Get 10% off today:&nbsp;<span>NEW10</span>
+  </Alert>
+</OverviewSection>
+```tsx
+<Alert>
+  Get 10% off today:&nbsp;<span>NEW10</span>
+</Alert>
+```
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-alert`
+
+`data-fs-alert-content`
+
+`data-fs-alert-link`
+
+`data-fs-alert-button`
+
+`data-fs-alert-dismissible="true"`
+
+---
+
+## Best Practices
+
+### ✅ Do's
+
+- Write short messages to inform about the behavior of a system, feature, or page. Consider using 30 to 40 characters max.
+
+### ❌ Don'ts
+
+- Don't use long texts. Important information can be lost.
