@@ -14,10 +14,6 @@ export type PriceRangeProps = Omit<SliderProps, 'absoluteValuesLabel'> & {
    */
   formatter: PriceProps['formatter']
   /**
-   * Returns the value of element's class content attribute.
-   */
-  className?: string
-  /**
    * Defines a string value that labels the current element.
    */
   'aria-label'?: AriaAttributes['aria-label']
@@ -30,7 +26,6 @@ type PriceRangeRefType = {
 const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
   function PriceRange(
     {
-      className,
       formatter,
       max,
       min,
@@ -40,6 +35,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
       testId = 'fs-price-range',
       variant,
       'aria-label': ariaLabel,
+      ...otherProps
     },
     ref
   ) {
@@ -115,7 +111,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
     }
 
     return (
-      <div data-fs-price-range data-testid={testId} className={className}>
+      <div data-fs-price-range data-testid={testId} {...otherProps}>
         <Slider
           ref={sliderRef}
           min={min}

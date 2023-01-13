@@ -55,10 +55,6 @@ export type SliderProps = {
    */
   getAriaValueText?(value: number, thumb?: 'min' | 'max'): string
   /**
-   * Returns the value of element's class content attribute.
-   */
-  className?: string
-  /**
    * Component that renders min value label above the left thumb.
    */
   minValueLabelComponent?: (minValue: number) => ReactNode
@@ -85,10 +81,10 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
       onEnd,
       testId = 'fs-slider',
       getAriaValueText,
-      className,
       step,
       minValueLabelComponent,
       maxValueLabelComponent,
+      ...otherProps
     },
     ref
   ) {
@@ -132,7 +128,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
     }))
 
     return (
-      <div data-fs-slider data-testid={testId} className={className}>
+      <div data-fs-slider data-testid={testId}>
         <div data-fs-slider-absolute-values>
           <span>{absoluteValuesLabel.min}</span>
           <span>{absoluteValuesLabel.max}</span>
@@ -166,6 +162,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
             aria-valuenow={minVal}
             aria-label={String(minVal)}
             aria-labelledby={getAriaValueText?.(minVal, 'min')}
+            {...otherProps}
           />
           {minValueLabelComponent && (
             <span
