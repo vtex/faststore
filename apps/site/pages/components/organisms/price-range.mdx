@@ -1,0 +1,90 @@
+---
+description: Price Ranges are sliders that allows users to select a maximum and minimum price.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/PriceRange___5863b0eb4a4a8ce9a98da5c760461e61.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { PriceRange } from '@faststore/ui'
+import { useCallback } from 'react'
+
+<header>
+
+# PriceRange
+
+The Price Range component is a slider that allows users to select a maximum and minimum price from a range.
+
+</header>
+
+## Overview
+
+<OverviewSection>
+  <Component />
+</OverviewSection>
+```tsx [TODO] ```
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { PriceRange } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/organisms/PriceRange/styles.scss'
+```
+
+---
+
+## Usage
+
+export function Component() {
+  const formatter = useCallback(
+    (price) =>
+      new Intl.NumberFormat('en-GB', {
+        style: 'currency',
+        currency: 'EUR',
+      }).format(price),
+    []
+  )
+  return (
+    <PriceRange
+      max={{ absolute: 500, selected: 250 }}
+      min={{ absolute: 0, selected: 100 }}
+      formatter={formatter}
+      onEnd={(value) =>
+        window.alert(
+          `Min: ${formatter(value.min)}, Max: ${formatter(value.max)}`
+        )
+      }
+    />
+  )
+}
+
+<OverviewSection>
+  <Component />
+</OverviewSection>
+
+---
+
+## Props
+
+<PropsSection name="PriceRange" />
+
+---
+
+## Design Tokens
+
+---
+
+## Customization
+
+`data-fs-price-range`
