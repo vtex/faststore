@@ -15,8 +15,8 @@ interface Range {
 }
 
 interface RangeLabel {
-  min: string
-  max: string
+  min: string | ReactNode
+  max: string | ReactNode
 }
 
 export type SliderProps = {
