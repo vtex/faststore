@@ -21,10 +21,22 @@ The Price Range component is a slider that allows users to select a maximum and 
 
 ## Overview
 
-<OverviewSection>
-  <Component />
-</OverviewSection>
-```tsx [TODO] ```
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Component />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <PriceRange
+      max={{ absolute: 500, selected: 250 }}
+      min={{ absolute: 0, selected: 100 }}
+      formatter={formatter}
+    />
+    ```
+  </Tab>
+</Tabs>
 
 ---
 
