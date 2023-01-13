@@ -9,7 +9,7 @@ import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { PriceRange } from '@faststore/ui'
-import { useCallback } from 'react'
+import PriceRangeUsage from 'site/components/PriceRange/PriceRangeUsage'
 
 <header>
 
@@ -24,7 +24,7 @@ The Price Range component is a slider that allows users to select a maximum and 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <Component />
+      <PriceRangeUsage />
     </OverviewSection>
   </Tab>
   <Tab>
@@ -58,27 +58,16 @@ import '@faststore/ui/src/components/organisms/PriceRange/styles.scss'
 
 ## Usage
 
-export function Component() {
-  const formatter = useCallback(
-    (price) =>
-      new Intl.NumberFormat('en-GB', {
-        style: 'currency',
-        currency: 'EUR',
-      }).format(price),
-    []
-  )
-  return (
-    <PriceRange
-      max={{ absolute: 500, selected: 250 }}
-      min={{ absolute: 0, selected: 100 }}
-      formatter={formatter}
-    />
-  )
-}
-
 <OverviewSection>
-  <Component />
+  <PriceRangeUsage />
 </OverviewSection>
+```tsx
+<PriceRange
+  max={{ absolute: 500, selected: 250 }}
+  min={{ absolute: 0, selected: 100 }}
+  formatter={formatter}
+/>
+```
 
 ---
 

@@ -8,8 +8,10 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { Slider, Price } from '@faststore/ui'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { Slider, Price, PriceRange } from '@faststore/ui'
 import { useMemo } from 'react'
+import PriceRangeUsage from 'site/components/PriceRange/PriceRangeUsage'
 
 <header>
 
@@ -241,3 +243,18 @@ For further customization, you can use the following data attributes:
 `data-fs-slider-thumb="left" | "right"`
 
 `data-fs-slider-value-label="min" | "max"`
+
+---
+
+## Related components
+
+<SectionList>
+  <SectionItem
+    title="PriceRange"
+    description="
+Price Ranges are sliders that allows users to select a maximum and minimum price."
+    actionPath="/components/organisms/price-range"
+  >
+    <PriceRangeUsage />
+  </SectionItem>
+</SectionList>
