@@ -1,0 +1,113 @@
+---
+description: It displays an additional item to purchase as a gift.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/ProductCardComponent___e6502d57cf7e5bf247f86b64577d4141.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+
+import { Badge, Gift, GiftContent, GiftImage, Icon, Price } from '@faststore/ui'
+import { TagIcon } from '@faststore/components'
+
+import { product } from '../../../mocks/product'
+import { useMemo } from 'react'
+
+<header>
+
+# Gift
+
+It displays an additional item to purchase as a gift.
+
+</header>
+
+The Gift component is a compound of the following:
+
+- `Gift` - renders a `<div>` as wrapper with an `Icon`, `GiftImage`, and `GiftContent`.
+- `GiftImage` - renders a `<div>` as wrapper with an `Image`.
+- `GiftContent` - renders a `<div>` as wrapper with the gift information as children.
+
+## Overview
+
+export function priceFormatter(price) {
+  return useMemo(() => {
+    const formattedPrice = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(price)
+    return formattedPrice
+  })
+}
+
+export const GiftTemplate = ({
+  product,
+  titleMessage = 'Get a',
+  badgeLabel = 'Free',
+}) => {
+  const {
+    isVariantOf,
+    image: [img],
+    offers: {
+      offers: [{ listPrice }],
+    },
+  } = product
+  return (
+    <Gift icon={<TagIcon />}>
+      <GiftImage>
+        <img src={img.url} alt={img.alternateName} width={89} height={89} />
+      </GiftImage>
+      <GiftContent>
+        <p data-fs-gift-product-title>
+          {titleMessage} {isVariantOf.name}
+        </p>
+        <span data-fs-gift-product-summary>
+          <Price
+            value={listPrice}
+            formatter={priceFormatter}
+            data-value={listPrice}
+            variant="listing"
+          />
+          <Badge>{badgeLabel}</Badge>
+        </span>
+      </GiftContent>
+    </Gift>
+  )
+}
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <GiftTemplate product={product} />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Gift icon={<TagIcon />}>
+      <GiftImage>
+        <img src={img.url} alt={img.alternateName} width={89} height={89} />
+      </GiftImage>
+      <GiftContent>
+        <p data-fs-gift-product-title>
+          {titleMessage} {isVariantOf.name}
+        </p>
+        <span data-fs-gift-product-summary>
+          <Price
+            value={listPrice}
+            formatter={priceFormatter}
+            data-value={listPrice}
+            variant="listing"
+          />
+          <Badge>{badgeLabel}</Badge>
+        </span>
+      </GiftContent>
+    </Gift>
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Usage
