@@ -68,39 +68,29 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
           aria-label={ariaLabel}
           onChange={(value) => onChange?.(value)}
           absoluteValuesLabel={{
-            min: `${min.absolute}`,
-            max: `${max.absolute}`,
-          }}
-          minValueLabelComponent={(minValue) => {
-            const minPercent = (minValue / max.absolute) * 100
-
-            return (
+            min: (
               <Price
-                value={minValue}
+                value={min.absolute}
                 variant={variant}
                 formatter={formatter}
-                data-price-range-value-label="min"
-                style={{
-                  position: 'absolute',
-                  left: `calc(${minPercent}% + (${8 - minPercent * 0.2}px))`,
-                }}
               />
+            ),
+            max: (
+              <Price
+                value={max.absolute}
+                variant={variant}
+                formatter={formatter}
+              />
+            ),
+          }}
+          minValueLabelComponent={(minValue) => {
+            return (
+              <Price value={minValue} variant={variant} formatter={formatter} />
             )
           }}
           maxValueLabelComponent={(maxValue) => {
-            const maxPercent = (maxValue / max.absolute) * 100
-
             return (
-              <Price
-                formatter={formatter}
-                variant={variant}
-                value={maxValue}
-                data-price-range-value-label="max"
-                style={{
-                  position: 'absolute',
-                  left: `calc(${maxPercent}% + (${8 - maxPercent * 0.2}px))`,
-                }}
-              />
+              <Price formatter={formatter} variant={variant} value={maxValue} />
             )
           }}
         />

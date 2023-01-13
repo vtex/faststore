@@ -100,3 +100,6 @@ export type {
   HeroImageProps,
   HeroHeadingProps,
 } from './organisms/Hero'
+
+export { default as PriceRange } from './organisms/PriceRange'
+export type { PriceRangeProps } from './organisms/PriceRange'
