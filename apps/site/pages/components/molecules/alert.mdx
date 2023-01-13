@@ -25,12 +25,12 @@ Alerts display short messages related to the behavior of a system, feature or pa
   <Tab>
     <OverviewSection>
       <Alert
-        link={{ text: 'With Link', to: '/' }}
+        link={{ children: 'With Link', href: '/' }}
         dismissible
       >
         Dismissible Alert message
       </Alert>
-      <Alert link={{ text: 'With Link', to: '/' }}>
+      <Alert link={{ children: 'With Link', href: '/' }}>
         Alert message
       </Alert>
     </OverviewSection>
@@ -46,13 +46,13 @@ Alerts display short messages related to the behavior of a system, feature or pa
   <Tab>
     ```tsx
     <Alert
-      link={{ text: 'With Link', to: '/' }}
+      link={{ children: 'With Link', href: '/' }}
       dismissible
     >
       Dismissible Alert message
     </Alert>
 
-    <Alert link={{ text: 'With Link', to: '/' }}>
+    <Alert link={{ children: 'With Link', href: '/' }}>
       Alert message
     </Alert>
     ```
@@ -93,7 +93,7 @@ import '@faststore/ui/src/components/atoms/Alert/styles.scss'
 <OverviewSection>
   <Alert
     icon={<ShoppingCart />}
-    link={{ text: 'Buy now', to: '/', target: '_blank' }}
+    link={{ children: 'Buy now', href: '/', target: '_blank' }}
     dismissible
   >
     Get 10% off today:&nbsp;<span>NEW10</span>
@@ -102,7 +102,7 @@ import '@faststore/ui/src/components/atoms/Alert/styles.scss'
 ```tsx
 <Alert
   icon={<ShoppingCart />}
-  link={{ text: 'Buy now', to: '/', target: '_blank' }}
+  link={{ children: 'Buy now', href: '/', target: '_blank' }}
   dismissible
 >
   Get 10% off today:&nbsp;<span>NEW10</span>
@@ -215,12 +215,12 @@ import '@faststore/ui/src/components/atoms/Alert/styles.scss'
 ### With Link
 
 <OverviewSection>
-  <Alert link={{ text: 'Buy now', to: '/' }}>
+  <Alert link={{ children: 'Buy now', href: '/' }}>
     Get 10% off today:&nbsp;<span>NEW10</span>
   </Alert>
 </OverviewSection>
 ```tsx
-<Alert link={{ text: 'Buy now', to: '/' }}>
+<Alert link={{ children: 'Buy now', href: '/' }}>
   Get 10% off today:&nbsp;<span>NEW10</span>
 </Alert>
 ```

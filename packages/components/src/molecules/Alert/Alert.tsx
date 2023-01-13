@@ -2,7 +2,7 @@ import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 import { useCallback } from 'react'
 
-import { Button, Link, Icon } from '../../index'
+import { Button, Link, Icon, LinkProps } from '../../index'
 
 import { X } from '../../assets'
 
@@ -24,13 +24,9 @@ export interface AlertProps
    */
   dismissible?: boolean
   /**
-   * The href and label used at the link.
+   * Extends all Link Props.
    */
-  link?: {
-    to: string
-    text: string
-    target: string
-  }
+  link: LinkProps
   /**
    * Function called when dismiss button is clicked.
    */
@@ -72,9 +68,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert({
       <p data-fs-alert-content>{children}</p>
 
       {link && (
-        <Link data-fs-alert-link variant="inline" href={link.to} target={link.target}>
-          {link.text}
-        </Link>
+        <Link data-fs-alert-link variant="inline" {...link} />
       )}
 
       {dismissible && (
