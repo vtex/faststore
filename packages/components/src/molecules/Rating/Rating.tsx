@@ -20,9 +20,6 @@ export interface RatingProps
    */
   icon: ReactNode
   /**
-   * description
-   */
-  /**
    * Function to be triggered when Rating option change. This should only be used if you and an actionable rating list.
    */
   onChange?: (value: number) => void
