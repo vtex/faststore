@@ -16,7 +16,7 @@ export interface GiftProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Gift = forwardRef<HTMLDivElement, GiftProps>(function Gift(
-  { icon, testId = 'store-gift', children, ...otherProps },
+  { icon, testId = 'fs-gift', children, ...otherProps },
   ref
 ) {
   return (
