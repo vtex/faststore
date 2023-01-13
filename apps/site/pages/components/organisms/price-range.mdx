@@ -13,7 +13,7 @@ import { useCallback } from 'react'
 
 <header>
 
-# PriceRange
+# Price Range
 
 The Price Range component is a slider that allows users to select a maximum and minimum price from a range.
 
@@ -60,11 +60,6 @@ export function Component() {
       max={{ absolute: 500, selected: 250 }}
       min={{ absolute: 0, selected: 100 }}
       formatter={formatter}
-      onEnd={(value) =>
-        window.alert(
-          `Min: ${formatter(value.min)}, Max: ${formatter(value.max)}`
-        )
-      }
     />
   )
 }
@@ -81,10 +76,8 @@ export function Component() {
 
 ---
 
-## Design Tokens
-
----
-
 ## Customization
 
 `data-fs-price-range`
+
+`data-fs-price-range-inputs`
