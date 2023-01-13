@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.47-alpha.0](https://github.com/vtex/faststore/compare/v2.0.46-alpha.0...v2.0.47-alpha.0) (2023-01-13)
+
+
+### Features
+
+* Adds `QuantitySelector` component ([#1597](https://github.com/vtex/faststore/issues/1597)) ([a587155](https://github.com/vtex/faststore/commit/a5871559a4a28754dd9868b7f85c92a5bde52917))
+
+
+
 ## [2.0.44-alpha.0](https://github.com/vtex/faststore/compare/v2.0.43-alpha.0...v2.0.44-alpha.0) (2023-01-11)
 
 **Note:** Version bump only for package @faststore/components
