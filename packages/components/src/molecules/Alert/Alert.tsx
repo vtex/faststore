@@ -26,7 +26,7 @@ export interface AlertProps
   /**
    * Extends all Link Props.
    */
-  link: LinkProps
+  link?: LinkProps
   /**
    * Function called when dismiss button is clicked.
    */
