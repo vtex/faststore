@@ -23,17 +23,6 @@ export type { IncentiveProps } from './components/atoms/Incentive'
 export { default as SkuSelector } from './components/molecules/SkuSelector'
 export type { SkuSelectorProps } from './components/molecules/SkuSelector'
 
-export {
-  default as Gift,
-  GiftContent,
-  GiftImage,
-} from './components/molecules/Gift'
-export type {
-  GiftProps,
-  GiftContentProps,
-  GiftImageProps,
-} from './components/molecules/Gift'
-
 export { default as ProductTitle } from './components/molecules/ProductTitle'
 export type { ProductTitleProps } from './components/molecules/ProductTitle'
 
