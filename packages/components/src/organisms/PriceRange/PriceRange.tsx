@@ -39,7 +39,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
       formatter,
       max,
       min,
-      step,
+      step = 10,
       onChange,
       onEnd,
       testId = 'fs-price-range',
@@ -61,9 +61,6 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
 
     const inputMinRef = useRef<HTMLInputElement>(null)
     const inputMaxRef = useRef<HTMLInputElement>(null)
-    const priceRangeRef = useRef<{
-      setPriceRangeValues: (values: { min: number; max: number }) => void
-    }>()
 
     const [inputMinError, setInputMinError] = useState<string>()
     const [inputMaxError, setInputMaxError] = useState<string>()
@@ -84,7 +81,6 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
       if (inputMaxRef.current?.value) {
         inputMaxRef.current.value = String(value.max)
       }
-      console.log('onChangePriceRange', priceRange)
     }
 
     function onChangeInputMin(value: string) {
@@ -99,12 +95,10 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
       }
 
       setPriceRange({ ...priceRange, min: Number(value) })
-      priceRangeRef.current?.setPriceRangeValues({
+      sliderRef.current?.setSliderValues({
         ...priceRange,
         min: Number(value),
       })
-
-      console.log('onChangeInputMin', priceRange)
     }
 
     function onChangeInputMax(value: string) {
@@ -119,12 +113,10 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
       }
 
       setPriceRange({ ...priceRange, max: Number(value) })
-      priceRangeRef.current?.setPriceRangeValues({
+      sliderRef.current?.setSliderValues({
         ...priceRange,
         max: Number(value),
       })
-
-      console.log('onChangeInputMax', priceRange)
     }
 
     return (
@@ -139,7 +131,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
             onChangePriceRange(value)
           }}
           aria-label={ariaLabel}
-          // onChange={(value) => onChange?.(value)}
+          onChange={(value) => onChange?.(value)}
           absoluteValuesLabel={{
             min: (
               <Price
