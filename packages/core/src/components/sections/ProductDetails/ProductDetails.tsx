@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import {
   BuyButton as UIBuyButton,
   DiscountBadge as UIDiscountBadge,
+  QuantitySelector as UIQuantitySelector,
 } from '@faststore/ui'
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
@@ -13,7 +14,6 @@ import Breadcrumb from 'src/components/ui/Breadcrumb'
 import { ImageGallery } from 'src/components/ui/ImageGallery'
 import Price from 'src/components/ui/Price'
 import ProductTitle from 'src/components/ui/ProductTitle'
-import QuantitySelector from 'src/components/ui/QuantitySelector'
 import ShippingSimulation from 'src/components/ui/ShippingSimulation'
 import Selectors from 'src/components/ui/SkuSelector'
 import type { AnalyticsItem } from 'src/sdk/analytics/types'
@@ -167,7 +167,7 @@ function ProductDetails({ context: staleProduct }: Props) {
                 <p className="price__old text__legend">{formattedListPrice}</p>
                 <p className="price__new">{isValidating ? '' : formattedPrice}</p>
               </div> */}
-              <QuantitySelector min={1} max={10} onChange={setAddQuantity} />
+              <UIQuantitySelector min={1} max={10} onChange={setAddQuantity} />
             </section>
             {skuVariants && (
               <Selectors

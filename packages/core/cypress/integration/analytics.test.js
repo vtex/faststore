@@ -104,7 +104,7 @@ describe('add_to_cart event', () => {
           testAddToCartEvent({ skuId, numberOfEvents: 1 })
 
           cy.get(
-            '[data-testid=cart-item] [data-testid=store-quantity-selector-right]'
+            '[data-testid=cart-item] [data-testid=fs-quantity-selector-right-button]'
           )
             .click()
             .then(() => {
@@ -193,7 +193,7 @@ describe('remove_from_cart event', () => {
       cy.itemsInCart(0)
 
       // Add item to cart
-      cy.get('[data-testid=store-quantity-selector-right]')
+      cy.get('[data-testid=fs-quantity-selector-right-button]')
         .click()
         .then(() => {
           cy.getById('buy-button')
@@ -209,7 +209,7 @@ describe('remove_from_cart event', () => {
 
               // Remove the added item
               cy.get(
-                '[data-testid=cart-item] [data-testid=store-quantity-selector-left]'
+                '[data-testid=cart-item] [data-testid=fs-quantity-selector-left-button]'
               )
                 .click()
                 .then(() => {

@@ -8,6 +8,7 @@ import {
   CartItemContent as UICartItemContent,
   CartItemImage as UICartItemImage,
   Button as UIButton,
+  QuantitySelector as UIQuantitySelector,
 } from '@faststore/ui'
 import { useCallback, useMemo } from 'react'
 import type {
@@ -19,7 +20,6 @@ import type {
 import Icon from 'src/components/ui/Icon'
 import { Image } from 'src/components/ui/Image'
 import Price from 'src/components/ui/Price'
-import QuantitySelector from 'src/components/ui/QuantitySelector'
 import { cartStore } from 'src/sdk/cart'
 import { useRemoveButton } from 'src/sdk/cart/useRemoveButton'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
@@ -144,7 +144,7 @@ function CartItem({ item, gift = false }: Props) {
           >
             Remove
           </UIButton>
-          <QuantitySelector
+          <UIQuantitySelector
             min={1}
             initial={item.quantity}
             onChange={onQuantityChange}
