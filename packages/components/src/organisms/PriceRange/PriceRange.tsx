@@ -126,14 +126,14 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
           absoluteValuesLabel={{
             min: (
               <Price
-                value={min.absolute}
+                value={Math.round(min.absolute)}
                 variant={variant}
                 formatter={formatter}
               />
             ),
             max: (
               <Price
-                value={max.absolute}
+                value={Math.round(max.absolute)}
                 variant={variant}
                 formatter={formatter}
               />
