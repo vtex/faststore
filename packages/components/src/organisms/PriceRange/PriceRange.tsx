@@ -133,7 +133,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
             ),
             max: (
               <Price
-                value={Math.ceil(max.absolute)}
+                value={Math.round(max.absolute)}
                 variant={variant}
                 formatter={formatter}
               />
@@ -173,7 +173,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
             inputMode="numeric"
             error={inputMaxError}
             inputRef={inputMaxRef}
-            max={Math.ceil(max.absolute)}
+            max={Math.round(max.absolute)}
             min={Math.round(priceRange.min)}
             value={Math.ceil(priceRange.max)}
             onChange={(e) => onChangeInputMax(e.target.value)}
