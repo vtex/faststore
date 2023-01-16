@@ -1,7 +1,7 @@
 import type { InputHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Radio } from '@faststore/components'
+import Radio from '../../atoms/Radio'
 import { useRadioGroup } from './useRadioGroup'
 
 export interface RadioOptionProps
@@ -23,13 +23,13 @@ export interface RadioOptionProps
 
 const RadioOption = forwardRef<HTMLInputElement, RadioOptionProps>(
   function RadioOption(
-    { label, value, children, testId = 'store-radio-option', ...otherProps },
+    { label, value, children, testId = 'fs-radio-group-option', ...otherProps },
     ref
   ) {
     const { name, selectedValue, onChange } = useRadioGroup()
 
     return (
-      <label aria-label={label} data-fs-radio-option>
+      <label aria-label={label} data-fs-radio-group-option>
         <Radio
           data-fs-radio-option-item
           ref={ref}
