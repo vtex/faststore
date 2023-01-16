@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.50-alpha.0](https://github.com/vtex/faststore/compare/v2.0.49-alpha.0...v2.0.50-alpha.0) (2023-01-16)
+
+### Features
+
+- Adds `RadioGroup` component ([#1604](https://github.com/vtex/faststore/issues/1604)) ([10abc3a](https://github.com/vtex/faststore/commit/10abc3a8b6d8871177e1a5b7728e8724e9a99f89))
+
 ## 2.0.49-alpha.0 (2023-01-13)
 
 ### Bug Fixes
