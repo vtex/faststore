@@ -24,7 +24,7 @@ export const tmpCustomizationsDir = `${tmpDir}/src/${customizationsFolderName}`
 export const userThemesFileDir = `${userSrcDir}/themes`
 export const tmpThemesCustomizationsFileDir = `${tmpCustomizationsDir}/themes/index.scss`
 
-export const cmsFolderName = 'cms'
+export const cmsFolderName = 'cms/faststore'
 export const tmpCMSDir = `${tmpDir}/${cmsFolderName}`
 export const coreCMSDir = `${coreDir}/${cmsFolderName}`
 export const userCMSDir = `${userDir}/${cmsFolderName}`

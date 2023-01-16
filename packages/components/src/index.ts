@@ -41,6 +41,8 @@ export type {
   AccordionButtonProps,
   AccordionPanelProps,
 } from './molecules/Accordion'
+export { default as Alert } from './molecules/Alert'
+export type { AlertProps } from './molecules/Alert'
 export { default as BuyButton } from './molecules/BuyButton'
 export { default as CheckboxField } from './molecules/CheckboxField'
 export type { CheckboxFieldProps } from './molecules/CheckboxField'
@@ -76,6 +78,16 @@ export { default as LinkButton } from './molecules/LinkButton'
 export type { LinkButtonProps } from './molecules/LinkButton'
 export { default as RadioField } from './molecules/RadioField'
 export type { RadioFieldProps } from './molecules/RadioField'
+export {
+  default as RadioGroup,
+  RadioOption,
+} from './molecules/RadioGroup'
+export type {
+  RadioGroupProps,
+  RadioOptionProps,
+} from './molecules/RadioGroup'
+export { default as Rating } from './molecules/Rating'
+export type { RatingProps } from './molecules/Rating'
 export { default as SelectField } from './molecules/SelectField'
 export type { SelectFieldProps } from './molecules/SelectField'
 export {
@@ -100,6 +112,8 @@ export { default as Toggle } from './molecules/Toggle'
 export type { ToggleProps } from './molecules/Toggle'
 export { default as ToggleField } from './molecules/ToggleField'
 export type { ToggleFieldProps } from './molecules/ToggleField'
+export { default as QuantitySelector } from './molecules/QuantitySelector'
+export type { QuantitySelectorProps } from './molecules/QuantitySelector'
 
 // Organisms
 export { default as Hero, HeroImage, HeroHeading } from './organisms/Hero'
