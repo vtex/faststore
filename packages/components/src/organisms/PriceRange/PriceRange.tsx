@@ -57,7 +57,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
     const [inputMaxError, setInputMaxError] = useState<string>()
     const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({
       min: Math.round(min.selected),
-      max: Math.round(max.selected),
+      max: Math.ceil(max.selected),
     })
 
     function onChangePriceRange(value: { min: number; max: number }) {
@@ -133,7 +133,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
             ),
             max: (
               <Price
-                value={Math.round(max.absolute)}
+                value={Math.ceil(max.absolute)}
                 variant={variant}
                 formatter={formatter}
               />
