@@ -28,6 +28,8 @@
   overflow: auto;
   background-color: var(--fs-cart-sidebar-bkg-color);
 
+  > * { flex-shrink: 0; }
+
   [data-fs-cart-sidebar-header] {
     display: flex;
     align-items: center;

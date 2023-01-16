@@ -4,11 +4,12 @@ import {
   IconButton as UIIconButton,
   Button as UIButton,
   Badge as UIBadge,
+  Alert as UIAlert,
 } from '@faststore/ui'
+
 import { useEffect } from 'react'
 import type { ViewCartEvent, CurrencyCode } from '@faststore/sdk'
 
-import Alert from 'src/components/ui/Alert'
 import Icon from 'src/components/ui/Icon'
 import SlideOver from 'src/components/ui/SlideOver'
 import { useCart } from 'src/sdk/cart'
@@ -81,9 +82,9 @@ function CartSidebar() {
           onClick={fadeOut}
         />
       </header>
-      <Alert icon={<Icon name="Truck" width={24} height={24} />}>
+      <UIAlert icon={<Icon name="Truck" />}>
         Free shipping starts at $300
-      </Alert>
+      </UIAlert>
 
       {isEmpty ? (
         <EmptyCart onDismiss={fadeOut} />
@@ -99,9 +100,7 @@ function CartSidebar() {
 
           {gifts.length > 0 && (
             <>
-              <Alert icon={<Icon name="Gift" width={24} height={24} />}>
-                Gifts
-              </Alert>
+              <UIAlert icon={<Icon name="Gift" />}>Gifts</UIAlert>
               <UIList data-fs-cart-sidebar-list>
                 {gifts.map((item) => (
                   <li key={item.id}>

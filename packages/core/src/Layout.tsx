@@ -7,6 +7,7 @@ import Navbar from 'src/components/common/Navbar'
 import Toast from 'src/components/common/Toast'
 import RegionalizationBar from 'src/components/regionalization/RegionalizationBar'
 import { useUI } from 'src/sdk/ui/Provider'
+import Icon from 'src/components/ui/Icon'
 
 const CartSidebar = lazy(() => import('src/components/cart/CartSidebar'))
 const RegionModal = lazy(
@@ -18,7 +19,11 @@ function Layout({ children }: PropsWithChildren) {
 
   return (
     <>
-      <Alert icon="Bell" link={{ text: 'Buy now', to: '/office' }} dismissible>
+      <Alert
+        icon={<Icon name="Bell" />}
+        link={{ children: 'Buy now', href: '/office', target: '_self' }}
+        dismissible
+      >
         Get 10% off today:&nbsp;<span>NEW10</span>
       </Alert>
 
