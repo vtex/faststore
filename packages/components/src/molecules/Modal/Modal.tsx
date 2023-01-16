@@ -2,16 +2,25 @@ import type {
   AriaAttributes,
   KeyboardEvent,
   MouseEvent,
-  PropsWithChildren,
+  ReactNode,
 } from 'react'
 import React from 'react'
 import { createPortal } from 'react-dom'
 
-import { Overlay } from '@faststore/components'
+import { Overlay } from '../..'
+import { useFadeEffect, useUI } from '../../hooks'
 import type { ModalContentProps } from './ModalContent'
 import ModalContent from './ModalContent'
 
-export interface ModalProps extends ModalContentProps {
+export type ModalChildrenProps = {
+  fade: 'in' | 'out'
+  fadeOut: () => void
+  fadeIn: () => void
+}
+
+type ModalChildrenFunction = (props: ModalChildrenProps) => ReactNode
+
+export interface ModalProps extends Omit<ModalContentProps, "children"> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -21,16 +30,14 @@ export interface ModalProps extends ModalContentProps {
    * @see aria-labelledby https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby
    */
   'aria-labelledby'?: AriaAttributes['aria-label']
-
   /**
-   * This function is called whenever the user hits "Escape" or clicks outside
-   * the dialog.
+   * A boolean value that represents the state of the Modal
    */
-  onDismiss?: (event: MouseEvent | KeyboardEvent) => void
+  isOpen?: boolean
   /**
-   * Controls whether or not the dialog is open.
+   * Children or function 
    */
-  isOpen: boolean
+  children: ModalChildrenFunction | ReactNode
 }
 
 /*
@@ -40,19 +47,21 @@ export interface ModalProps extends ModalContentProps {
  */
 
 const Modal = ({
-  isOpen,
   children,
-  onDismiss,
-  testId = 'store-modal',
+  testId = 'fs-modal',
+  isOpen = false,
   ...otherProps
-}: PropsWithChildren<ModalProps>) => {
+}: ModalProps) => {
+  const { closeModal } = useUI()
+  const { fade, fadeOut, fadeIn } = useFadeEffect()
+
   const handleBackdropClick = (event: MouseEvent) => {
     if (event.defaultPrevented) {
       return
     }
 
     event.stopPropagation()
-    onDismiss?.(event)
+    fadeOut?.()
   }
 
   const handleBackdropKeyDown = (event: KeyboardEvent) => {
@@ -61,17 +70,27 @@ const Modal = ({
     }
 
     event.stopPropagation()
-    onDismiss?.(event)
+    fadeOut()
   }
 
-  return isOpen
+  return isOpen 
     ? createPortal(
         <Overlay
           onClick={handleBackdropClick}
           onKeyDown={handleBackdropKeyDown}
         >
-          <ModalContent {...otherProps} testId={testId}>
-            {children}
+          <ModalContent
+            onTransitionEnd={() => fade === 'out' && closeModal()}
+            data-modal
+            data-modal-state={fade}
+            testId={testId}
+            {...otherProps} 
+          >
+            {
+              typeof children === 'function'
+              ? children({ fade, fadeOut, fadeIn })
+              : children
+            }
           </ModalContent>
         </Overlay>,
         document.body

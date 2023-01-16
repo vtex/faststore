@@ -6,7 +6,7 @@ import type {
 } from 'react'
 import React, { useRef } from 'react'
 
-import useTrapFocus from './useTrapFocus'
+import { useTrapFocus } from '../../hooks'
 
 interface ModalContentPureProps
   extends Omit<
@@ -36,7 +36,7 @@ const ModalContentPure = ({
         aria-hidden="true"
       />
       <div
-        data-fs-modal-content
+        data-modal-content
         data-testid={testId}
         ref={trapFocusRef}
         aria-modal="true"
