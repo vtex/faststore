@@ -13,9 +13,6 @@ export type { SliderProps } from './components/atoms/Slider'
 export { default as Skeleton } from './components/atoms/Skeleton'
 export type { SkeletonProps } from './components/atoms/Skeleton'
 
-export { default as Spinner } from './components/atoms/Spinner'
-export type { SpinnerProps } from './components/atoms/Spinner'
-
 export { default as Incentive } from './components/atoms/Incentive'
 export type { IncentiveProps } from './components/atoms/Incentive'
 
