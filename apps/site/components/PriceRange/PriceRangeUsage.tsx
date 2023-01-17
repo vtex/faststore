@@ -1,21 +1,15 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { PriceRange } from '@faststore/ui'
 
-const PriceRangeUsage = () => {
-  const formatter = useCallback(
-    (price: number) =>
-      new Intl.NumberFormat('en-GB', {
-        style: 'currency',
-        currency: 'EUR',
-      }).format(price),
-    []
-  )
+import { useFormattedPrice } from './usePriceFormatter'
 
+const PriceRangeUsage = () => {
   return (
     <PriceRange
       max={{ absolute: 500, selected: 250 }}
       min={{ absolute: 0, selected: 100 }}
-      formatter={formatter}
+      formatter={useFormattedPrice}
+      step={1}
     />
   )
 }
