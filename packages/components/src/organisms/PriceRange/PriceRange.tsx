@@ -77,11 +77,11 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
     function onChangeInputMin(value: string) {
       setInputMinError(undefined)
 
-      if (Number(value) < min.absolute) {
+      if (Number(value) < Math.round(min.absolute)) {
         return
       }
 
-      if (Number(value) > priceRange.max) {
+      if (Number(value) > Math.ceil(priceRange.max)) {
         setInputMinError(`Min price can't be greater than max`)
       }
 
@@ -95,11 +95,11 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
     function onChangeInputMax(value: string) {
       setInputMaxError(undefined)
 
-      if (Number(value) > max.absolute) {
+      if (Number(value) > Math.ceil(max.absolute)) {
         return
       }
 
-      if (Number(value) < priceRange.min) {
+      if (Number(value) < Math.round(priceRange.min)) {
         setInputMaxError(`Max price can't be smaller than min`)
       }
 
@@ -133,7 +133,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
             ),
             max: (
               <Price
-                value={Math.round(max.absolute)}
+                value={Math.ceil(max.absolute)}
                 variant={variant}
                 formatter={formatter}
               />
@@ -173,7 +173,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
             inputMode="numeric"
             error={inputMaxError}
             inputRef={inputMaxRef}
-            max={Math.round(max.absolute)}
+            max={Math.ceil(max.absolute)}
             min={Math.round(priceRange.min)}
             value={Math.ceil(priceRange.max)}
             onChange={(e) => onChangeInputMax(e.target.value)}
