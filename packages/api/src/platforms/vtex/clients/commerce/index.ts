@@ -122,11 +122,13 @@ export const VtexCommerce = (
         orderItems,
         allowOutdatedData = 'paymentData',
         salesChannel = ctx.storage.channel.salesChannel,
+        shouldSplitItem = true,
       }: {
         id: string
         orderItems: OrderFormInputItem[]
         allowOutdatedData?: 'paymentData'
         salesChannel?: string
+        shouldSplitItem?: boolean | null
       }): Promise<OrderForm> => {
         const params = new URLSearchParams({
           allowOutdatedData,
@@ -137,7 +139,10 @@ export const VtexCommerce = (
           `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
           {
             ...BASE_INIT,
-            body: JSON.stringify({ orderItems }),
+            body: JSON.stringify({
+              orderItems,
+              noSplitItem: !shouldSplitItem,
+            }),
             method: 'PATCH',
           }
         )
