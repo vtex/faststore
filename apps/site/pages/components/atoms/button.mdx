@@ -30,26 +30,28 @@ Buttons indicate actions that users can take, such as adding an item to the cart
   <Tab>
     <OverviewSection>
       <Button variant="primary">Primary</Button>
-    <Button variant="secondary">Secondary</Button>
-    <Button variant="tertiary">Tertiary</Button>
-    <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
-      {'Button w/ Icon'}
-    </Button>
-    <Button variant="primary" size="small">
-      {'Small'}
-    </Button>
-      </OverviewSection>
-    </Tab>
-    <Tab>
-
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="tertiary">Tertiary</Button>
+      <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+        {'Button w/ Icon'}
+      </Button>
+      <Button variant="primary" size="small">
+        {'Small'}
+      </Button>
+    </OverviewSection>
+  </Tab>
+  <Tab>
     ```tsx
     <Button variant="primary">Primary</Button>
     <Button variant="secondary">Secondary</Button>
     <Button variant="tertiary">Tertiary</Button>
-    <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">Button w/ Icon</Button>
-    <Button variant="primary" size="small">Small</Button>
+    <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+      Button w/ Icon
+    </Button>
+    <Button variant="primary" size="small">
+      Small
+    </Button>
     ```
-
   </Tab>
 </Tabs>
 
@@ -137,6 +139,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
     {'Add to Cart'}
   </Button>
 </OverviewSection>
+
 ```tsx
 <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
   Add to Cart
@@ -154,6 +157,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 <OverviewSection>
   <Button variant="primary">Button</Button>
 </OverviewSection>
+
 ```tsx
 <Button variant="primary">Button</Button>
 ```
@@ -219,7 +223,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 
 <OverviewSection dark>
   <Button inverse variant="primary">
-    Button
+    {'Button'}
   </Button>
 </OverviewSection>
 
@@ -293,6 +297,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 <OverviewSection>
   <Button variant="secondary">Button</Button>
 </OverviewSection>
+
 ```tsx
 <Button variant="secondary">Button</Button>
 ```
@@ -360,9 +365,10 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 
 <OverviewSection dark>
   <Button inverse variant="secondary">
-    Button
+    {'Button'}
   </Button>
 </OverviewSection>
+
 ```tsx
 <Button inverse variant="secondary">
   Button
@@ -437,6 +443,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 <OverviewSection>
   <Button variant="tertiary">Button</Button>
 </OverviewSection>
+
 ```tsx
 <Button variant="tertiary">Button</Button>
 ```
@@ -502,9 +509,10 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 
 <OverviewSection dark>
   <Button inverse variant="tertiary">
-    Button
+    {'Button'}
   </Button>
 </OverviewSection>
+
 ```tsx
 <Button inverse variant="tertiary">
   Button
@@ -612,7 +620,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 </OverviewSection>
 
 ```tsx
-<Button variant="primary" disabled>
+<Button variant="primary" size="small">
   Button
 </Button>
 ```
