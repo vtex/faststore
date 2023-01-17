@@ -12,15 +12,17 @@ export type LoaderProps = {
 }
 
 const Loader = forwardRef<HTMLDivElement, LoaderProps>(function Loader(
-  {
-    variant = 'dark',
-    testId = 'fs-loader',
-    ...otherProps
-  }: LoaderProps,
+  { variant = 'dark', testId = 'fs-loader', ...otherProps }: LoaderProps,
   ref
 ) {
   return (
-    <div ref={ref} data-fs-loader data-fs-loader-variant={variant} data-testid={testId} {...otherProps}>
+    <div
+      ref={ref}
+      data-fs-loader
+      data-fs-loader-variant={variant}
+      data-testid={testId}
+      {...otherProps}
+    >
       <span data-fs-loader-item></span>
       <span data-fs-loader-item></span>
       <span data-fs-loader-item></span>

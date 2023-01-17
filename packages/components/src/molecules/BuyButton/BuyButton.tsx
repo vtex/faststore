@@ -13,7 +13,13 @@ function BuyButton({
   ...otherProps
 }: BuyButtonProps) {
   return (
-    <Button data-fs-buy-button icon={<ShoppingCart />} iconPosition="left" data-testid={testId} {...otherProps}>
+    <Button
+      data-fs-buy-button
+      icon={<ShoppingCart />}
+      iconPosition="left"
+      data-testid={testId}
+      {...otherProps}
+    >
       {children}
     </Button>
   )
