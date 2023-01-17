@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.51-alpha.0](https://github.com/vtex/faststore/compare/v2.0.50-alpha.0...v2.0.51-alpha.0) (2023-01-17)
+
+### Bug Fixes
+
+- button documentation ([#1612](https://github.com/vtex/faststore/issues/1612)) ([6f1dcba](https://github.com/vtex/faststore/commit/6f1dcba09bee897f67b0088f8d3ca25b9791afff))
+
 ## [2.0.50-alpha.0](https://github.com/vtex/faststore/compare/v2.0.49-alpha.0...v2.0.50-alpha.0) (2023-01-16)
 
 ### Features
