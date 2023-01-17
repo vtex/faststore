@@ -116,9 +116,6 @@ export type { PaymentMethodsProps } from './components/molecules/PaymentMethods'
 export { default as Breadcrumb } from './components/molecules/Breadcrumb'
 export type { BreadcrumbProps } from './components/molecules/Breadcrumb'
 
-export { default as LoadingButton } from './components/molecules/LoadingButton'
-export type { LoadingButtonProps } from './components/molecules/LoadingButton'
-
 export { default as PriceRange } from './components/molecules/PriceRange'
 export type { PriceRangeProps } from './components/molecules/PriceRange'
 
