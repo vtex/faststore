@@ -56,7 +56,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
     const [inputMinError, setInputMinError] = useState<string>()
     const [inputMaxError, setInputMaxError] = useState<string>()
     const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({
-      min: Math.round(min.selected),
+      min: Math.floor(min.selected),
       max: Math.round(max.selected),
     })
 
@@ -77,11 +77,11 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
     function onChangeInputMin(value: string) {
       setInputMinError(undefined)
 
-      if (Number(value) < Math.round(min.absolute)) {
+      if (Number(value) < Math.floor(min.absolute)) {
         return
       }
 
-      if (Number(value) > Math.round(priceRange.max)) {
+      if (Number(value) > Math.floor(priceRange.max)) {
         setInputMinError(`Min price can't be greater than max`)
       }
 
@@ -126,7 +126,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
           absoluteValuesLabel={{
             min: (
               <Price
-                value={Math.round(min.absolute)}
+                value={Math.floor(min.absolute)}
                 variant={variant}
                 formatter={formatter}
               />
@@ -159,9 +159,9 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
             inputMode="numeric"
             error={inputMinError}
             inputRef={inputMinRef}
-            min={Math.round(min.absolute)}
-            max={Math.round(priceRange.max)}
-            value={Math.round(priceRange.min)}
+            min={Math.floor(min.absolute)}
+            max={priceRange.max}
+            value={priceRange.min}
             onChange={(e) => onChangeInputMin(e.target.value)}
             onBlur={() => !inputMinError && onEnd?.(priceRange)}
           />
@@ -174,8 +174,8 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
             error={inputMaxError}
             inputRef={inputMaxRef}
             max={Math.round(max.absolute)}
-            min={Math.round(priceRange.min)}
-            value={Math.round(priceRange.max)}
+            min={priceRange.min}
+            value={priceRange.max}
             onChange={(e) => onChangeInputMax(e.target.value)}
             onBlur={() => !inputMaxError && onEnd?.(priceRange)}
           />

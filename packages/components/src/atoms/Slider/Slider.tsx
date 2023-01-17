@@ -101,7 +101,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
     )
 
     const [minVal, setMinVal] = useState(() =>
-      Math.round(min.absolute + minPercent * widthPercent)
+      Math.floor(min.absolute + minPercent * widthPercent)
     )
     const [maxVal, setMaxVal] = useState(() =>
       Math.round(min.absolute + maxPercent * widthPercent)
@@ -143,7 +143,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
           />
           <input
             type="range"
-            min={Math.round(min.absolute)}
+            min={Math.floor(min.absolute)}
             max={Math.round(max.absolute)}
             value={minVal}
             step={step}
@@ -179,7 +179,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
 
           <input
             type="range"
-            min={Math.round(min.absolute)}
+            min={Math.floor(min.absolute)}
             max={Math.round(max.absolute)}
             value={maxVal}
             step={step}
