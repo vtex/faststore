@@ -5,7 +5,6 @@ sidebar_custom_props:
 ---
 
 import { Tab, Tabs } from 'nextra-theme-docs'
-import { ShoppingCart } from '@faststore/components'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
@@ -169,7 +168,7 @@ For further customization, you can use the following data attributes:
     description="Buttons indicate actions that users can take."
     actionPath="/components/atoms/button"
   >
-    <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+    <Button variant="primary" loadingLabel="Loading" loading>
       {'Add to Cart'}
     </Button>
   </SectionItem>
