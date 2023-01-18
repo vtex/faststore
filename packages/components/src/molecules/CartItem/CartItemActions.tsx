@@ -10,11 +10,16 @@ export interface CartItemActionsProps extends HTMLAttributes<HTMLDivElement> {
 
 const CartItemActions = forwardRef<HTMLDivElement, CartItemActionsProps>(
   function CartItemActions(
-    { testId = 'store-cart-item-actions', children, ...otherProps },
+    { testId = 'fs-cart-item-actions', children, ...otherProps },
     ref
   ) {
     return (
-      <div ref={ref} data-fs-cart-item-actions data-testid={testId} {...otherProps}>
+      <div
+        ref={ref}
+        data-fs-cart-item-actions
+        data-testid={testId}
+        {...otherProps}
+      >
         {children}
       </div>
     )

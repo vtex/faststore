@@ -9,7 +9,7 @@ export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
-  { testId = 'store-cart-item', children, ...otherProps },
+  { testId = 'fs-cart-item', children, ...otherProps },
   ref
 ) {
   return (

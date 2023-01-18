@@ -44,6 +44,24 @@ export type {
 export { default as Alert } from './molecules/Alert'
 export type { AlertProps } from './molecules/Alert'
 export { default as BuyButton } from './molecules/BuyButton'
+export {
+  default as CartItem,
+  CartItemActions,
+  CartItemContent,
+  CartItemImage,
+  CartItemPrices,
+  CartItemSummary,
+  CartItemTitle,
+} from './molecules/CartItem'
+export type {
+  CartItemProps,
+  CartItemActionsProps,
+  CartItemContentProps,
+  CartItemImageProps,
+  CartItemPricesProps,
+  CartItemSummaryProps,
+  CartItemTitleProps,
+} from './molecules/CartItem'
 export { default as CheckboxField } from './molecules/CheckboxField'
 export type { CheckboxFieldProps } from './molecules/CheckboxField'
 export { default as IconButton } from './molecules/IconButton'
@@ -68,14 +86,8 @@ export { default as LinkButton } from './molecules/LinkButton'
 export type { LinkButtonProps } from './molecules/LinkButton'
 export { default as RadioField } from './molecules/RadioField'
 export type { RadioFieldProps } from './molecules/RadioField'
-export {
-  default as RadioGroup,
-  RadioOption,
-} from './molecules/RadioGroup'
-export type {
-  RadioGroupProps,
-  RadioOptionProps,
-} from './molecules/RadioGroup'
+export { default as RadioGroup, RadioOption } from './molecules/RadioGroup'
+export type { RadioGroupProps, RadioOptionProps } from './molecules/RadioGroup'
 export { default as Rating } from './molecules/Rating'
 export type { RatingProps } from './molecules/Rating'
 export { default as SelectField } from './molecules/SelectField'

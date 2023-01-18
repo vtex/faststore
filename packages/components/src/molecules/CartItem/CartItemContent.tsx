@@ -10,11 +10,16 @@ export interface CartItemContentProps extends HTMLAttributes<HTMLElement> {
 
 const CartItemContent = forwardRef<HTMLElement, CartItemContentProps>(
   function CartItemContent(
-    { testId = 'store-cart-item-content', children, ...otherProps },
+    { testId = 'fs-cart-item-content', children, ...otherProps },
     ref
   ) {
     return (
-      <section ref={ref} data-fs-cart-item-content data-testid={testId} {...otherProps}>
+      <section
+        ref={ref}
+        data-fs-cart-item-content
+        data-testid={testId}
+        {...otherProps}
+      >
         {children}
       </section>
     )

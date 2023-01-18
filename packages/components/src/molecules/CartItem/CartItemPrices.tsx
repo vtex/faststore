@@ -10,11 +10,16 @@ export interface CartItemPricesProps extends HTMLAttributes<HTMLSpanElement> {
 
 const CartItemPrices = forwardRef<HTMLSpanElement, CartItemPricesProps>(
   function CartItemPrices(
-    { testId = 'store-cart-item-prices', children, ...otherProps },
+    { testId = 'fs-cart-item-prices', children, ...otherProps },
     ref
   ) {
     return (
-      <span ref={ref} data-fs-cart-item-prices data-testid={testId} {...otherProps}>
+      <span
+        ref={ref}
+        data-fs-cart-item-prices
+        data-testid={testId}
+        {...otherProps}
+      >
         {children}
       </span>
     )
