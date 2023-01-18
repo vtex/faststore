@@ -1,0 +1,379 @@
+---
+description: Buttons indicate actions that users can take.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Button___6d6b16886d5d7e2a05dba8c45c075796.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import { ShoppingCart } from '@faststore/components'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import {
+  Price,
+  IconButton,
+  CartItem,
+  CartItemActions,
+  CartItemContent,
+  CartItemImage,
+  CartItemPrices,
+  CartItemSummary,
+  CartItemTitle,
+  QuantitySelector,
+} from '@faststore/ui'
+
+import { XCircle } from '@faststore/components'
+import { product } from '../../../mocks/product'
+import { useMemo } from 'react'
+
+<header>
+
+# Cart Item
+
+Cart Items are used to present the summarized information of a product inside the Cart.
+
+</header>
+
+## Overview
+
+export function priceFormatter(price) {
+  return useMemo(() => {
+    const formattedPrice = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(price)
+    return formattedPrice
+  })
+}
+
+export const CartItemExample = (
+  <CartItem data-sku={product.sku} data-seller={product.identifier}>
+    <CartItemContent>
+      <CartItemImage>
+        <img
+          src={product.image[0].url}
+          alt={product.image[0].alternateName}
+          data-fs-image
+        />
+      </CartItemImage>
+      <CartItemSummary>
+        <CartItemTitle>{product.isVariantOf.name}</CartItemTitle>
+        <div data-fs-cart-item-skus>
+          <p>
+            Color: <span>Pink</span>
+          </p>
+          <p>
+            Size: <span>Medium</span>
+          </p>
+        </div>
+      </CartItemSummary>
+    </CartItemContent>
+    <IconButton
+      data-fs-cart-item-remove
+      icon={<XCircle />}
+      aria-label="Remove"
+    />
+    <CartItemActions>
+      <QuantitySelector min={1} initial={product.quantity} />
+      <CartItemPrices>
+        <Price
+          value={product.listPrice}
+          formatter={priceFormatter}
+          data-value={product.listPrice}
+          variant="listing"
+          SRText="Original price:"
+        />
+        <Price
+          value={product.price}
+          formatter={priceFormatter}
+          data-value={product.price}
+          variant="spot"
+          SRText="Price:"
+        />
+      </CartItemPrices>
+    </CartItemActions>
+  </CartItem>
+)
+
+export const CartItemExample2 = (
+  <CartItem data-sku={product.sku} data-seller={product.identifier}>
+    <CartItemContent>
+      <CartItemImage>
+        <img
+          src={product.image[1].url}
+          alt={product.image[1].alternateName}
+          data-fs-image
+        />
+      </CartItemImage>
+      <CartItemSummary>
+        <CartItemTitle>{product.isVariantOf.name}</CartItemTitle>
+        <div data-fs-cart-item-skus>
+          <p>
+            Color: <span>Aquamarine</span>
+          </p>
+          <p>
+            Size: <span>Medium</span>
+          </p>
+        </div>
+      </CartItemSummary>
+    </CartItemContent>
+    <IconButton
+      data-fs-cart-item-remove
+      icon={<XCircle />}
+      aria-label="Remove"
+    />
+  </CartItem>
+)
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      {CartItemExample}
+      {CartItemExample2}
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <CartItem data-sku={product.sku} data-seller={product.identifier}>
+      <CartItemContent>
+        <CartItemImage>
+          <img
+            src={product.image[0].url}
+            alt={product.image[0].alternateName}
+            data-fs-image
+          />
+        </CartItemImage>
+        <CartItemSummary>
+          <CartItemTitle>{product.isVariantOf.name}</CartItemTitle>
+          <div data-fs-cart-item-skus>
+            <p>
+              Color: <span>Pink</span>
+            </p>
+            <p>
+              Size: <span>Medium</span>
+            </p>
+          </div>
+        </CartItemSummary>
+      </CartItemContent>
+      <IconButton
+        data-fs-cart-item-remove
+        icon={<XCircle />}
+        aria-label="Remove"
+      />
+      <CartItemActions>
+        <QuantitySelector min={1} initial={product.quantity} />
+        <CartItemPrices>
+          <Price
+            value={product.listPrice}
+            formatter={priceFormatter}
+            data-value={product.listPrice}
+            variant="listing"
+            SRText="Original price:"
+          />
+          <Price
+            value={product.price}
+            formatter={priceFormatter}
+            data-value={product.price}
+            variant="spot"
+            SRText="Price:"
+          />
+        </CartItemPrices>
+      </CartItemActions>
+    </CartItem>
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { CartItem } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/CartItem/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>{CartItemExample}</OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <CartItem data-sku={product.sku} data-seller={product.identifier}>
+      <CartItemContent>
+        <CartItemImage>
+          <img
+            src={product.image[0].url}
+            alt={product.image[0].alternateName}
+            data-fs-image
+          />
+        </CartItemImage>
+        <CartItemSummary>
+          <CartItemTitle>{product.isVariantOf.name}</CartItemTitle>
+          <div data-fs-cart-item-skus>
+            <p>
+              Color: <span>Pink</span>
+            </p>
+            <p>
+              Size: <span>Medium</span>
+            </p>
+          </div>
+        </CartItemSummary>
+      </CartItemContent>
+      <IconButton
+        data-fs-cart-item-remove
+        icon={<XCircle />}
+        aria-label="Remove"
+      />
+      <CartItemActions>
+        <QuantitySelector min={1} initial={product.quantity} />
+        <CartItemPrices>
+          <Price
+            value={product.listPrice}
+            formatter={priceFormatter}
+            data-value={product.listPrice}
+            variant="listing"
+            SRText="Original price:"
+          />
+          <Price
+            value={product.price}
+            formatter={priceFormatter}
+            data-value={product.price}
+            variant="spot"
+            SRText="Price:"
+          />
+        </CartItemPrices>
+      </CartItemActions>
+    </CartItem>
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+<PropsSection name="CartItem" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-cart-item-padding" value="var(--fs-spacing-3)" />
+  <TokenRow
+    token="--fs-cart-item-bkg-color"
+    value="var(--fs-control-bkg)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-cart-item-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-cart-item-border-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-cart-item-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Image
+
+<TokenTable>
+  <TokenRow
+    token="--fs-cart-item-image-border-radius"
+    value="var(--fs-cart-item-border-radius)"
+  />
+  <TokenRow token="--fs-cart-item-image-width" value="var(--fs-spacing-8)" />
+  <TokenRow
+    token="--fs-cart-item-image-height"
+    value="var(--fs-cart-item-image-width)"
+  />
+</TokenTable>
+
+#### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-cart-item-title-margin-bottom"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow token="--fs-cart-item-title-line-height" value="1.2" />
+  <TokenRow
+    token="--fs-cart-item-title-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+</TokenTable>
+
+#### SKUs
+
+<TokenTable>
+  <TokenRow
+    token="--fs-cart-item-skus-margin-top"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow
+    token="--fs-cart-item-skus-text-size"
+    value="var(--fs-text-size-legend)"
+  />
+  <TokenRow
+    token="--fs-cart-item-skus-text-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-cart-item-skus-line-height"
+    value="var(--fs-text-size-body)"
+  />
+  <TokenRow
+    token="--fs-cart-item-skus-column-gap"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow token="--fs-cart-item-skus-row-gap" value="var(--fs-spacing-0)" />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-cart-item`
+
+`data-fs-cart-item-content`
+
+`data-fs-cart-item-image`
+
+`data-fs-cart-item-title`
+
+`data-fs-cart-item-skus`
+
+`data-fs-cart-item-remove`
+
+`data-fs-cart-item-prices`
+
+`data-fs-cart-item-actions`
