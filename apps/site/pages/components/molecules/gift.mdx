@@ -11,7 +11,7 @@ import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
 
 import { Badge, Gift, GiftContent, GiftImage, Icon, Price } from '@faststore/ui'
-import { TagIcon } from '@faststore/components'
+import { TagIcon, ShoppingCart } from '@faststore/components'
 
 import { useMemo } from 'react'
 
@@ -66,12 +66,88 @@ export const GiftTemplate = (
   </Gift>
 )
 
+export const GiftTemplateIcon = (
+  <Gift icon={<ShoppingCart />}>
+    <GiftImage>
+      <img
+        src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+        alt="Magicwhite"
+        width={89}
+        height={89}
+      />
+    </GiftImage>
+    <GiftContent>
+      <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+      <span data-fs-gift-product-summary>
+        <Price
+          value={999}
+          formatter={priceFormatter}
+          data-value={999}
+          variant="listing"
+        />
+        <Badge>Free</Badge>
+      </span>
+    </GiftContent>
+  </Gift>
+)
+
+export const GiftTemplateWithoutIcon = (
+  <Gift>
+    <GiftImage>
+      <img
+        src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+        alt="Magicwhite"
+        width={89}
+        height={89}
+      />
+    </GiftImage>
+    <GiftContent>
+      <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+      <span data-fs-gift-product-summary>
+        <Price
+          value={999}
+          formatter={priceFormatter}
+          data-value={999}
+          variant="listing"
+        />
+        <Badge>Free</Badge>
+      </span>
+    </GiftContent>
+  </Gift>
+)
+
+export const GiftTemplateWithoutBadge = (
+  <Gift icon={<TagIcon />}>
+    <GiftImage>
+      <img
+        src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+        alt="Magicwhite"
+        width={89}
+        height={89}
+      />
+    </GiftImage>
+    <GiftContent>
+      <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+      <span data-fs-gift-product-summary>
+        <Price
+          value={999}
+          formatter={priceFormatter}
+          data-value={999}
+          variant="listing"
+        />
+      </span>
+    </GiftContent>
+  </Gift>
+)
+
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
-    <OverviewSection>{GiftTemplate}</OverviewSection>
+    <OverviewSection>{GiftTemplate} {GiftTemplateIcon}</OverviewSection>
+    <OverviewSection>{GiftTemplateWithoutIcon} {GiftTemplateWithoutBadge}</OverviewSection>
   </Tab>
   <Tab>
     ```tsx
+    // With Tag Icon
     <Gift icon={<TagIcon />}>
       <GiftImage>
         <img
@@ -95,6 +171,84 @@ export const GiftTemplate = (
       </GiftContent>
     </Gift>
     ```
+
+    ```tsx
+    // With ShoppingCart Icon
+    <Gift icon={<ShoppingCart />}>
+      <GiftImage>
+        <img
+          src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+          alt="Magicwhite"
+          width={89}
+          height={89}
+        />
+      </GiftImage>
+      <GiftContent>
+        <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+        <span data-fs-gift-product-summary>
+          <Price
+            value={999}
+            formatter={priceFormatter}
+            data-value={999}
+            variant="listing"
+          />
+          <Badge>Free</Badge>
+        </span>
+      </GiftContent>
+    </Gift>
+    ```
+
+    ```tsx
+    // Without Icon
+    <Gift>
+      <GiftImage>
+        <img
+          src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+          alt="Magicwhite"
+          width={89}
+          height={89}
+        />
+      </GiftImage>
+      <GiftContent>
+        <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+        <span data-fs-gift-product-summary>
+          <Price
+            value={999}
+            formatter={priceFormatter}
+            data-value={999}
+            variant="listing"
+          />
+          <Badge>Free</Badge>
+        </span>
+      </GiftContent>
+    </Gift>
+    ```
+
+    ```tsx
+    // Without Badge
+    <Gift icon={<TagIcon />}>
+      <GiftImage>
+        <img
+          src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+          alt="Magicwhite"
+          width={89}
+          height={89}
+        />
+      </GiftImage>
+      <GiftContent>
+        <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+        <span data-fs-gift-product-summary>
+          <Price
+            value={999}
+            formatter={priceFormatter}
+            data-value={999}
+            variant="listing"
+          />
+        </span>
+      </GiftContent>
+    </Gift>
+    ```
+
   </Tab>
 </Tabs>
 
