@@ -13,9 +13,6 @@ export type { SliderProps } from './components/atoms/Slider'
 export { default as Skeleton } from './components/atoms/Skeleton'
 export type { SkeletonProps } from './components/atoms/Skeleton'
 
-export { default as Spinner } from './components/atoms/Spinner'
-export type { SpinnerProps } from './components/atoms/Spinner'
-
 export { default as Incentive } from './components/atoms/Incentive'
 export type { IncentiveProps } from './components/atoms/Incentive'
 
@@ -107,9 +104,6 @@ export type { PaymentMethodsProps } from './components/molecules/PaymentMethods'
 
 export { default as Breadcrumb } from './components/molecules/Breadcrumb'
 export type { BreadcrumbProps } from './components/molecules/Breadcrumb'
-
-export { default as LoadingButton } from './components/molecules/LoadingButton'
-export type { LoadingButtonProps } from './components/molecules/LoadingButton'
 
 export { default as PriceRange } from './components/molecules/PriceRange'
 export type { PriceRangeProps } from './components/molecules/PriceRange'

@@ -14,6 +14,7 @@ import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
+import ButtonLoading from 'site/components/Button/ButtonLoading'
 import { Button, IconButton, BuyButton, LinkButton } from '@faststore/ui'
 
 <header>
@@ -611,6 +612,54 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
   />
 </TokenTable>
 
+#### Loading
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection direction="column">
+      <div data-doc-overview-group>
+        <h5 data-doc-overview-group-title>No label</h5>
+        <Button variant="primary" loading>
+          {'Buy'}
+        </Button>
+      </div>
+      <div data-doc-overview-group>
+        <h5 data-doc-overview-group-title>With label</h5>
+        <Button variant="primary" loadingLabel="Loading" loading>
+          {'Loading state'}
+        </Button>
+      </div>
+      <div data-doc-overview-group>
+        <h5 data-doc-overview-group-title>Trigger</h5>
+        <ButtonLoading />
+      </div>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+
+    ```tsx
+    const [loading, setLoading] = useState(false)
+
+    <Button
+      variant="primary"
+      onClick={() => setLoading(true)}
+      loadingLabel="Loading"
+      loading={loading}
+    >
+      Click me to trigger loading
+    </Button>
+    ```
+
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-loading-label-column-gap"
+    value="var(--fs-spacing-3)"
+  />
+</TokenTable>
+
 #### Small
 
 <OverviewSection>
@@ -658,6 +707,8 @@ For further customization, you can use the following data attributes:
 `data-fs-button-inverse`
 
 `data-fs-button-size="small | regular"`
+
+`data-fs-button-loading="true"`
 
 ---
 

@@ -95,6 +95,9 @@
   --fs-button-disabled-bkg-color                    : var(--fs-color-disabled-bkg);
   --fs-button-disabled-text-color                   : var(--fs-color-disabled-text);
 
+  // Loading
+  --fs-button-loading-label-column-gap              : var(--fs-spacing-3);
+
   // Small
   --fs-button-small-padding                         : var(--fs-spacing-0) var(--fs-spacing-1);
   --fs-button-small-min-height                      : var(--fs-spacing-5);
@@ -312,6 +315,19 @@
       height: var(--fs-button-height);
       padding: var(--fs-button-icon-padding);
       border-width: 0;
+    }
+  }
+
+  &[data-fs-button-loading="true"] {
+    > * {
+      opacity: 0;
+      pointer-events: none;
+    }
+    [data-fs-button-loading-label] {
+      position: absolute;
+      opacity: 1;
+      display: flex;
+      column-gap: var(--fs-button-loading-label-column-gap);
     }
   }
 }
