@@ -6,7 +6,13 @@ export interface CartItemSummaryProps extends HTMLAttributes<HTMLDivElement> {
    * ID to find this component in testing tools (e.g.: Cypress, Testing Library, and Jest).
    */
   testId?: string
+  /**
+   * Specifies the product's title.
+   */
   title: string
+  /**
+   * Array of the product's chosen variations.
+   */
   activeVariations?: Array<{ label: string; option: string }>
 }
 

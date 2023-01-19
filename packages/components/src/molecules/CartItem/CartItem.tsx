@@ -9,13 +9,22 @@ export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
    * ID to find this component in testing tools (e.g.: Cypress, Testing Library, and Jest).
    */
   testId?: string
+  /**
+   * Specifies product Price.
+   */
   price?: number
+  /**
+   * Specifies product List Price.
+   */
   listPrice?: number
+  /**
+   * Specifies the quantity of items of the same product.
+   */
   quantity?: number
   /**
-   * Specifies that this button should be disabled
+   * Specifies that this product is unavailable.
    */
-  disabled?: boolean
+  unavailable?: boolean
 }
 
 const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
@@ -24,7 +33,7 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
     price = 0,
     listPrice = 0,
     quantity,
-    disabled,
+    unavailable,
     children,
     ...otherProps
   },
@@ -33,7 +42,7 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
   return (
     <article
       ref={ref}
-      data-fs-cart-item={disabled ? 'disabled' : 'true'}
+      data-fs-cart-item={unavailable ? 'unavailable' : 'true'}
       data-testid={testId}
       {...otherProps}
     >
