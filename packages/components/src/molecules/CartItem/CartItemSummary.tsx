@@ -7,7 +7,7 @@ export interface CartItemSummaryProps extends HTMLAttributes<HTMLDivElement> {
    */
   testId?: string
   title: string
-  activeVariations?: Array<any>
+  activeVariations?: Array<{ label: string; option: string }>
 }
 
 const CartItemSummary = forwardRef<HTMLDivElement, CartItemSummaryProps>(
@@ -31,10 +31,8 @@ const CartItemSummary = forwardRef<HTMLDivElement, CartItemSummaryProps>(
         <div data-fs-cart-item-title>{title}</div>
         {activeVariations.length > 0 && (
           <div data-fs-cart-item-skus>
-            {activeVariations.map((key, value) => (
-              <p key={key}>
-                {key}: {value}
-              </p>
+            {activeVariations.map(({ label, option }) => (
+              <p key={label}>{`${[label]}: ${option}`}</p>
             ))}
           </div>
         )}

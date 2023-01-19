@@ -35,9 +35,12 @@ Cart Items are used to present the summarized information of a product inside th
 
 ## Overview
 
-export const activeVariations = Object.keys(
+export const skuActiveVariants =
   product.isVariantOf.skuVariants.activeVariations
-).map((key) => ({ [key]: product[key] }))
+export const activeVariations = Object.keys(skuActiveVariants).map((key) => ({
+  label: key,
+  option: skuActiveVariants[key],
+}))
 
 export const CartItemExample = (
   <CartItem
