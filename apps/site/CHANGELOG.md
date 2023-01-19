@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.53-alpha.0](https://github.com/vtex/faststore/compare/v2.0.52-alpha.0...v2.0.53-alpha.0) (2023-01-19)
+
+### Features
+
+- Adds `LoadingButton` and `Loader` component ([#1611](https://github.com/vtex/faststore/issues/1611)) ([34021b2](https://github.com/vtex/faststore/commit/34021b22a489cd0b70a1ae62d1076285cb95af59))
+
 ## [2.0.52-alpha.0](https://github.com/vtex/faststore/compare/v2.0.51-alpha.0...v2.0.52-alpha.0) (2023-01-19)
 
 ### Features
