@@ -37,6 +37,8 @@ export interface ModalProps extends Omit<ModalContentProps, "children"> {
   /**
    * Children or function 
    */
+  onDismiss?: () => {}
+
   children: ModalChildrenFunction | ReactNode
 }
 
@@ -49,7 +51,8 @@ export interface ModalProps extends Omit<ModalContentProps, "children"> {
 const Modal = ({
   children,
   testId = 'fs-modal',
-  isOpen = false,
+  isOpen = true,
+  onDismiss,
   ...otherProps
 }: ModalProps) => {
   const { closeModal } = useUI()
@@ -62,6 +65,7 @@ const Modal = ({
 
     event.stopPropagation()
     fadeOut?.()
+    onDismiss?.()
   }
 
   const handleBackdropKeyDown = (event: KeyboardEvent) => {
@@ -70,7 +74,8 @@ const Modal = ({
     }
 
     event.stopPropagation()
-    fadeOut()
+    fadeOut?.()
+    onDismiss?.()
   }
 
   return isOpen 
@@ -81,8 +86,8 @@ const Modal = ({
         >
           <ModalContent
             onTransitionEnd={() => fade === 'out' && closeModal()}
-            data-modal
-            data-modal-state={fade}
+            data-fs-modal
+            data-fs-modal-state={fade}
             testId={testId}
             {...otherProps} 
           >

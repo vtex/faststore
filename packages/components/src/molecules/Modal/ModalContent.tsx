@@ -36,7 +36,7 @@ const ModalContentPure = ({
         aria-hidden="true"
       />
       <div
-        data-modal-content
+        data-fs-modal-content
         data-testid={testId}
         ref={trapFocusRef}
         aria-modal="true"
