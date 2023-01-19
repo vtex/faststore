@@ -62,9 +62,33 @@ export const CartItemExample = (
   </CartItem>
 )
 
+export const CartItemExampleUnavailable = (
+  <CartItem
+    price={product.offers.offers[0].price}
+    listPrice={product.offers.offers[0].listPrice}
+    quantity={3}
+    unavailable
+  >
+    <CartItemImage>
+      <img
+        data-fs-image
+        src={product.image[0].url}
+        alt={product.image[0].alternateName}
+      />
+    </CartItemImage>
+    <CartItemSummary
+      title={product.isVariantOf.name}
+      activeVariations={activeVariations}
+    />
+  </CartItem>
+)
+
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
-    <OverviewSection>{CartItemExample}</OverviewSection>
+    <OverviewSection>
+      {CartItemExample}
+      {CartItemExampleUnavailable}
+    </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
@@ -80,9 +104,31 @@ export const CartItemExample = (
           alt={product.image[0].alternateName}
         />
       </CartItemImage>
-      <CartItemSummary title={product.isVariantOf.name}>
+      <CartItemSummary
+        title={product.isVariantOf.name}
+        activeVariations={activeVariations}
+      />
+    </CartItem>
+    ```
 
-      </CartItemSummary>
+    ```tsx
+    <CartItem
+      price={product.offers.offers[0].price}
+      listPrice={product.offers.offers[0].listPrice}
+      quantity={3}
+      unavailable
+    >
+      <CartItemImage>
+        <img
+          data-fs-image
+          src={product.image[0].url}
+          alt={product.image[0].alternateName}
+        />
+      </CartItemImage>
+      <CartItemSummary
+        title={product.isVariantOf.name}
+        activeVariations={activeVariations}
+      />
     </CartItem>
     ```
 
@@ -113,7 +159,27 @@ import '@faststore/ui/src/components/atoms/CartItem/styles.scss'
   <Tab>
     <OverviewSection>{CartItemExample}</OverviewSection>
   </Tab>
-  <Tab>```tsx ```</Tab>
+  <Tab>
+    ```tsx
+      <CartItem
+      price={product.offers.offers[0].price}
+      listPrice={product.offers.offers[0].listPrice}
+      quantity={3}
+    >
+      <CartItemImage>
+        <img
+          data-fs-image
+          src={product.image[0].url}
+          alt={product.image[0].alternateName}
+        />
+      </CartItemImage>
+      <CartItemSummary title={product.isVariantOf.name}>
+
+      </CartItemSummary>
+    </CartItem>
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
@@ -214,6 +280,8 @@ import '@faststore/ui/src/components/atoms/CartItem/styles.scss'
 For further customization, you can use the following data attributes:
 
 `data-fs-cart-item`
+
+`data-fs-cart-item="unavailable"`
 
 `data-fs-cart-item-content`
 

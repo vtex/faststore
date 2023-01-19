@@ -119,7 +119,7 @@
   // Variants Styles
   // --------------------------------------------------------
 
-  &[data-fs-cart-item="disabled"] {
+  &[data-fs-cart-item="unavailable"] {
     background-color: var(--fs-color-neutral-bkg);
     [data-fs-cart-item-actions] { display: none; }
   }
