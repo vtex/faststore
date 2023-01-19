@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.52-alpha.0](https://github.com/vtex/faststore/compare/v2.0.51-alpha.0...v2.0.52-alpha.0) (2023-01-19)
+
+### Features
+
+- Adds `Gift` component ([#1610](https://github.com/vtex/faststore/issues/1610)) ([baa80af](https://github.com/vtex/faststore/commit/baa80afa5dc6160086cf8ac101cc4a4290435aa8))
+
 ## [2.0.50-alpha.0](https://github.com/vtex/faststore/compare/v2.0.49-alpha.0...v2.0.50-alpha.0) (2023-01-16)
 
 ### Features
