@@ -10,9 +10,6 @@ export type { TextAreaProps } from './components/atoms/TextArea'
 export { default as Slider } from './components/atoms/Slider'
 export type { SliderProps } from './components/atoms/Slider'
 
-export { default as Skeleton } from './components/atoms/Skeleton'
-export type { SkeletonProps } from './components/atoms/Skeleton'
-
 export { default as Spinner } from './components/atoms/Spinner'
 export type { SpinnerProps } from './components/atoms/Spinner'
 
