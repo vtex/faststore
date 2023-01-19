@@ -1,0 +1,38 @@
+[data-fs-skeleton] {
+  // --------------------------------------------------------
+  // Design Tokens for Skeleton
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-skeleton-bkg-color            : var(--fs-color-disabled-bkg);
+  --fs-skeleton-border-radius        : var(--fs-border-radius);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  overflow: hidden;
+  background: var(--fs-skeleton-bkg-color);
+  border-radius: var(--fs-skeleton-border-radius);
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-skeleton-shimmer="true"] {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &[data-fs-skeleton-border="regular"] {
+    border-radius: var(--fs-skeleton-border-radius);
+  }
+
+  &[data-fs-skeleton-border="pill"] {
+    border-radius: var(--fs-border-radius-pill);
+  }
+
+  &[data-fs-skeleton-border="circle"] {
+    border-radius: var(--fs-border-radius-circle);
+  }
+}
