@@ -20,7 +20,7 @@ export type ModalChildrenProps = {
 
 type ModalChildrenFunction = (props: ModalChildrenProps) => ReactNode
 
-export interface ModalProps extends Omit<ModalContentProps, "children"> {
+export interface ModalProps extends Omit<ModalContentProps, 'children'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -35,10 +35,12 @@ export interface ModalProps extends Omit<ModalContentProps, "children"> {
    */
   isOpen?: boolean
   /**
-   * Children or function 
+   * Event emitted when the modal is closed
    */
-  onDismiss?: () => {}
-
+  onDismiss?: () => void
+  /**
+   * Children or function as a children
+   */
   children: ModalChildrenFunction | ReactNode
 }
 
@@ -78,7 +80,7 @@ const Modal = ({
     onDismiss?.()
   }
 
-  return isOpen 
+  return isOpen
     ? createPortal(
         <Overlay
           onClick={handleBackdropClick}
@@ -89,13 +91,11 @@ const Modal = ({
             data-fs-modal
             data-fs-modal-state={fade}
             testId={testId}
-            {...otherProps} 
+            {...otherProps}
           >
-            {
-              typeof children === 'function'
+            {typeof children === 'function'
               ? children({ fade, fadeOut, fadeIn })
-              : children
-            }
+              : children}
           </ModalContent>
         </Overlay>,
         document.body
