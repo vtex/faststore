@@ -1,70 +1,97 @@
 export const product = {
-  id: '99988212',
-  slug: 'apple-magic-mouse-99988212',
-  sku: '99988212',
-  identifier: '1',
-  brand: {
-    brandName: 'adidas',
-    name: 'adidas',
-  },
-  name: 'Magic white',
-  gtin: '1503',
+  id: '99988216',
+  sku: '99988216',
+  name: 'Magic black',
+  gtin: '1507',
+  description: 'Apple Magic Mouse',
   isVariantOf: {
-    productGroupID: '99995945',
     name: 'Apple Magic Mouse',
+    productGroupID: '99995945',
+    skuVariants: {
+      activeVariations: {
+        Color: 'Black',
+        Size: 'Medium',
+      },
+      slugsMap: {
+        'Color-Black': 'apple-magic-mouse-99988216',
+        'Color-White': 'apple-magic-mouse-99988212',
+      },
+      availableVariations: {
+        Color: [
+          {
+            src: 'https://storeframework.vtexassets.com/arquivos/ids/190932/mouse-black.jpg?v=1759260622',
+            alt: 'appleblack',
+            label: 'Color: Black',
+            value: 'Black',
+          },
+          {
+            src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
+            alt: 'Magicwhite',
+            label: 'Color: White',
+            value: 'White',
+          },
+        ],
+      },
+    },
   },
   image: [
     {
-      url: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000',
-      alternateName: 'Magicwhite',
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190932/mouse-black.jpg?v=1759260622',
+      alternateName: 'appleblack',
     },
     {
-      url: 'https://storeframework.vtexassets.com/arquivos/ids/190923/lena-de-fanti-nQ_j5d-klVU-unsplash.jpg?v=637867501523500000',
-      alternateName: 'magicbox',
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190936/magic-combo.jpg?v=1759260622',
+      alternateName: 'combo',
     },
     {
-      url: 'https://storeframework.vtexassets.com/arquivos/ids/190924/anthony-choren-e7dG26YCrZU-unsplash.jpg?v=637867501835430000',
-      alternateName: 'magicblackwhite',
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190935/magic-side.jpg?v=1759260622',
+      alternateName: 'side',
     },
     {
-      url: 'https://storeframework.vtexassets.com/arquivos/ids/190925/maheshkumar-painam-GZdfLeL-MDk-unsplash.jpg?v=637867502064000000',
-      alternateName: 'magiccombo',
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190934/magic-mouse-back.jpg?v=1759260622',
+      alternateName: 'back',
     },
     {
-      url: 'https://storeframework.vtexassets.com/arquivos/ids/190926/math-0U9fBLGP3EY-unsplash.jpg?v=637867502325830000',
-      alternateName: 'magicback',
-    },
-    {
-      url: 'https://storeframework.vtexassets.com/arquivos/ids/190927/marek-levak-YPeqMN_wfw0-unsplash.jpg?v=637867502641430000',
-      alternateName: 'magictable',
-    },
-    {
-      url: 'https://storeframework.vtexassets.com/arquivos/ids/190928/mouse8.jpg?v=637867504048970000',
-      alternateName: 'magichand',
-    },
-    {
-      url: 'https://storeframework.vtexassets.com/arquivos/ids/190929/harpal-singh-KuvEVL7lXYQ-unsplash.jpg?v=637867509459130000',
-      alternateName: 'magicstyle',
-    },
-    {
-      url: 'https://storeframework.vtexassets.com/arquivos/ids/190930/chris-hardy-182PzOtcmWc-unsplash.jpg?v=637867509778300000',
-      alternateName: 'magicscale',
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190933/Magic_Mouse_Black_Pure_Top_Screen__USEN_1.png?v=1759260622',
+      alternateName: 'front',
     },
   ],
-  price: 950,
-  listPrice: 999,
+  brand: {
+    name: 'adidas',
+  },
   offers: {
-    lowPrice: 950,
+    lowPrice: 950.04,
     offers: [
       {
         availability: 'https://schema.org/InStock',
-        price: 950,
+        price: 950.04,
         listPrice: 999,
-        quantity: 10000,
         seller: {
           identifier: '1',
         },
       },
     ],
   },
+  breadcrumbList: {
+    itemListElement: [
+      {
+        item: '/technology/',
+        name: 'Technology',
+        position: 1,
+      },
+      {
+        item: '/apple-magic-mouse-99988216/p',
+        name: 'Apple Magic Mouse',
+        position: 2,
+      },
+    ],
+  },
+  additionalProperty: [
+    {
+      propertyID: '0451fa02662066cfb8a5b21dfb0e21c8',
+      name: 'Color',
+      value: 'Black',
+      valueReference: 'SPECIFICATION',
+    },
+  ],
 }
