@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react'
-import type { HTMLAttributes } from 'react'
+import React, { forwardRef, useCallback } from 'react'
+import type { HTMLAttributes, MouseEvent } from 'react'
 
 import { QuantitySelector, Price, IconButton } from '../../index'
 import { XCircle } from '../../assets'
@@ -25,6 +25,10 @@ export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
    * Specifies that this product is unavailable.
    */
   unavailable?: boolean
+  /**
+   * Function called when remove button is clicked.
+   */
+  onClose?: (event: MouseEvent<HTMLElement>) => void
 }
 
 const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
@@ -34,11 +38,22 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
     listPrice = 0,
     quantity,
     unavailable,
+    onClose,
     children,
     ...otherProps
   },
   ref
 ) {
+  const handleClose = useCallback(
+    (event: MouseEvent<HTMLElement>) => {
+      if (event.defaultPrevented) {
+        return
+      }
+
+      onClose?.(event)
+    },
+    [onClose]
+  )
   return (
     <article
       ref={ref}
@@ -51,6 +66,7 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
         data-fs-cart-item-remove
         icon={<XCircle />}
         aria-label="Remove"
+        onClick={handleClose}
       />
       <div data-fs-cart-item-actions>
         <QuantitySelector min={1} initial={quantity} />
@@ -58,15 +74,9 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
           <Price
             value={listPrice}
             formatter={priceFormatter}
-            data-value={listPrice}
             variant="listing"
           />
-          <Price
-            value={price}
-            formatter={priceFormatter}
-            data-value={price}
-            variant="spot"
-          />
+          <Price value={price} formatter={priceFormatter} variant="spot" />
         </span>
       </div>
     </article>
