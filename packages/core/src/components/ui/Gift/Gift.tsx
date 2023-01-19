@@ -1,18 +1,16 @@
-import {
-  Gift as UIGift,
-  GiftImage as UIGiftImage,
-  GiftContent as UIGiftContent,
-  Badge as UIBadge,
-} from '@faststore/ui'
 import type { GiftProps } from '@faststore/ui'
+import {
+  Badge as UIBadge,
+  Gift as UIGift,
+  GiftContent as UIGiftContent,
+  GiftImage as UIGiftImage,
+} from '@faststore/ui'
 
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import Icon from 'src/components/ui/Icon'
-import Price from 'src/components/ui/Price'
-import { Image } from 'src/components/ui/Image'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
-
-import styles from './gift.module.scss'
+import Icon from 'src/components/ui/Icon'
+import { Image } from 'src/components/ui/Image'
+import Price from 'src/components/ui/Price'
+import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 export type Props = GiftProps & {
   /**
@@ -44,11 +42,7 @@ function Gift({
   } = product
 
   return (
-    <UIGift
-      className={styles.fsGift}
-      icon={<Icon name="Tag" width={18} height={18} />}
-      {...otherProps}
-    >
+    <UIGift icon={<Icon name="Tag" width={18} height={18} />} {...otherProps}>
       <UIGiftImage>
         <Image src={img.url} alt={img.alternateName} width={89} height={89} />
       </UIGiftImage>
