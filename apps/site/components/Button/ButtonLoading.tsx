@@ -8,11 +8,11 @@ const ButtonLoading = () => {
     let timer = null
 
     if (loading) {
-      timer = window.setInterval(() => setLoading(false), 2000)
+      timer = window.setTimeout(() => setLoading(false), 2000)
     }
 
     return () => {
-      window.clearInterval(timer)
+      window.clearTimeout(timer)
     }
   }, [loading])
 
