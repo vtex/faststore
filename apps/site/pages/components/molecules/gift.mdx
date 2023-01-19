@@ -1,0 +1,405 @@
+---
+description: It displays an additional item to purchase as a gift.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/ProductCardComponent___e6502d57cf7e5bf247f86b64577d4141.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+
+import { Badge, Gift, GiftContent, GiftImage, Icon, Price } from '@faststore/ui'
+import { TagIcon, ShoppingCart } from '@faststore/components'
+
+import { useMemo } from 'react'
+
+<header>
+
+# Gift
+
+It displays an additional item to purchase as a gift.
+
+</header>
+
+The Gift component is a compound of the following:
+
+- `Gift` - renders a `<div>` as wrapper with an `Icon`, `GiftImage`, and `GiftContent`.
+- `GiftImage` - renders a `<div>` as wrapper with an `Image`.
+- `GiftContent` - renders a `<div>` as wrapper with the gift information as children.
+
+## Overview
+
+export function priceFormatter(price) {
+  return useMemo(() => {
+    const formattedPrice = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(price)
+    return formattedPrice
+  })
+}
+
+export const GiftTemplate = (
+  <Gift icon={<TagIcon />}>
+    <GiftImage>
+      <img
+        src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+        alt="Magicwhite"
+        width={89}
+        height={89}
+      />
+    </GiftImage>
+    <GiftContent>
+      <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+      <span data-fs-gift-product-summary>
+        <Price
+          value={999}
+          formatter={priceFormatter}
+          data-value={999}
+          variant="listing"
+        />
+        <Badge>Free</Badge>
+      </span>
+    </GiftContent>
+  </Gift>
+)
+
+export const GiftTemplateIcon = (
+  <Gift icon={<ShoppingCart />}>
+    <GiftImage>
+      <img
+        src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+        alt="Magicwhite"
+        width={89}
+        height={89}
+      />
+    </GiftImage>
+    <GiftContent>
+      <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+      <span data-fs-gift-product-summary>
+        <Price
+          value={999}
+          formatter={priceFormatter}
+          data-value={999}
+          variant="listing"
+        />
+        <Badge>Free</Badge>
+      </span>
+    </GiftContent>
+  </Gift>
+)
+
+export const GiftTemplateWithoutIcon = (
+  <Gift>
+    <GiftImage>
+      <img
+        src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+        alt="Magicwhite"
+        width={89}
+        height={89}
+      />
+    </GiftImage>
+    <GiftContent>
+      <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+      <span data-fs-gift-product-summary>
+        <Price
+          value={999}
+          formatter={priceFormatter}
+          data-value={999}
+          variant="listing"
+        />
+        <Badge>Free</Badge>
+      </span>
+    </GiftContent>
+  </Gift>
+)
+
+export const GiftTemplateWithoutBadge = (
+  <Gift icon={<TagIcon />}>
+    <GiftImage>
+      <img
+        src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+        alt="Magicwhite"
+        width={89}
+        height={89}
+      />
+    </GiftImage>
+    <GiftContent>
+      <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+      <span data-fs-gift-product-summary>
+        <Price
+          value={999}
+          formatter={priceFormatter}
+          data-value={999}
+          variant="listing"
+        />
+      </span>
+    </GiftContent>
+  </Gift>
+)
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>{GiftTemplate} {GiftTemplateIcon}</OverviewSection>
+    <OverviewSection>{GiftTemplateWithoutIcon} {GiftTemplateWithoutBadge}</OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    // With Tag Icon
+    <Gift icon={<TagIcon />}>
+      <GiftImage>
+        <img
+          src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+          alt="Magicwhite"
+          width={89}
+          height={89}
+        />
+      </GiftImage>
+      <GiftContent>
+        <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+        <span data-fs-gift-product-summary>
+          <Price
+            value={999}
+            formatter={priceFormatter}
+            data-value={999}
+            variant="listing"
+          />
+          <Badge>Free</Badge>
+        </span>
+      </GiftContent>
+    </Gift>
+    ```
+
+    ```tsx
+    // With ShoppingCart Icon
+    <Gift icon={<ShoppingCart />}>
+      <GiftImage>
+        <img
+          src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+          alt="Magicwhite"
+          width={89}
+          height={89}
+        />
+      </GiftImage>
+      <GiftContent>
+        <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+        <span data-fs-gift-product-summary>
+          <Price
+            value={999}
+            formatter={priceFormatter}
+            data-value={999}
+            variant="listing"
+          />
+          <Badge>Free</Badge>
+        </span>
+      </GiftContent>
+    </Gift>
+    ```
+
+    ```tsx
+    // Without Icon
+    <Gift>
+      <GiftImage>
+        <img
+          src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+          alt="Magicwhite"
+          width={89}
+          height={89}
+        />
+      </GiftImage>
+      <GiftContent>
+        <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+        <span data-fs-gift-product-summary>
+          <Price
+            value={999}
+            formatter={priceFormatter}
+            data-value={999}
+            variant="listing"
+          />
+          <Badge>Free</Badge>
+        </span>
+      </GiftContent>
+    </Gift>
+    ```
+
+    ```tsx
+    // Without Badge
+    <Gift icon={<TagIcon />}>
+      <GiftImage>
+        <img
+          src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+          alt="Magicwhite"
+          width={89}
+          height={89}
+        />
+      </GiftImage>
+      <GiftContent>
+        <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+        <span data-fs-gift-product-summary>
+          <Price
+            value={999}
+            formatter={priceFormatter}
+            data-value={999}
+            variant="listing"
+          />
+        </span>
+      </GiftContent>
+    </Gift>
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { Gift, GiftContent, GiftImage } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/Gift/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>{GiftTemplate}</OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Gift icon={<TagIcon />}>
+      <GiftImage>
+        <img
+          src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+          alt="Magicwhite"
+          width={89}
+          height={89}
+        />
+      </GiftImage>
+      <GiftContent>
+        <h3 data-fs-gift-product-title>Get a Apple Magic Mouse</h3>
+        <span data-fs-gift-product-summary>
+          <Price
+            value={999}
+            formatter={priceFormatter}
+            data-value={999}
+            variant="listing"
+          />
+          <Badge>Free</Badge>
+        </span>
+      </GiftContent>
+    </Gift>
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+All gift-related components support all attributes also supported by the `<div>` tag.
+
+Besides those attributes, the following props are also supported:
+
+### Gift
+
+<PropsSection name="Gift" />
+
+### GiftContent
+
+<PropsSection name="GiftContent" />
+
+### GiftImage
+
+<PropsSection name="GiftImage" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-gift-height" value="var(--fs-spacing-12)" />
+  <TokenDivider />
+  <TokenRow token="--fs-gift-border-width" value="var(--fs-border-width)" />
+  <TokenRow
+    token="--fs-gift-border-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+  <TokenRow token="--fs-gift-border-radius" value="var(--fs-border-radius)" />
+</TokenTable>
+
+---
+
+### Nested Elements
+
+#### Content
+
+<TokenTable>
+  <TokenRow
+    token="--fs-gift-content-padding"
+    value="var(--fs-gift-gap) var(--fs-gift-gap) var(--fs-gift-gap) 0"
+  />
+  <TokenRow token="--fs-gift-content-row-gap" value="var(--fs-spacing-0)" />
+</TokenTable>
+
+#### Title
+
+<TokenTable>
+  <TokenRow token="--fs-gift-title-line-height" value="1.25" />
+  <TokenRow token="--fs-gift-title-size" value="var(--fs-text-size-body)" />
+  <TokenRow
+    token="--fs-gift-title-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+</TokenTable>
+
+#### Icon
+
+<TokenTable>
+  <TokenRow token="--fs-gift-icon-size" value="1.75rem" />
+  <TokenRow token="--fs-gift-icon-padding" value="var(--fs-spacing-0)" />
+  <TokenRow
+    token="--fs-gift-icon-color"
+    value="var(--fs-gift-title-color)"
+    globalValue="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-gift-icon-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-gift`
+
+`data-fs-gift-icon`
+
+`data-fs-gift-wrapper`
+
+`data-fs-gift-image`
+
+`data-fs-gift-content`
+
+`data-fs-gift-product-title`
+
+`data-fs-gift-product-summary`

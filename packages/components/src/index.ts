@@ -62,6 +62,16 @@ export type {
   DropdownItemProps,
   DropdownMenuProps,
 } from './molecules/Dropdown'
+export {
+  default as Gift,
+  GiftContent,
+  GiftImage,
+} from './molecules/Gift'
+export type {
+  GiftProps,
+  GiftContentProps,
+  GiftImageProps,
+} from './molecules/Gift'
 export { default as InputField } from './molecules/InputField'
 export type { InputFieldProps } from './molecules/InputField'
 export { default as LinkButton } from './molecules/LinkButton'
