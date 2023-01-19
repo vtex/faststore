@@ -18,18 +18,12 @@ import {
   Price,
   IconButton,
   CartItem,
-  CartItemActions,
-  CartItemContent,
   CartItemImage,
-  CartItemPrices,
   CartItemSummary,
-  CartItemTitle,
-  QuantitySelector,
 } from '@faststore/ui'
 
 import { XCircle } from '@faststore/components'
 import { product } from '../../../mocks/product'
-import { useMemo } from 'react'
 
 <header>
 
@@ -41,151 +35,54 @@ Cart Items are used to present the summarized information of a product inside th
 
 ## Overview
 
-export function priceFormatter(price) {
-  return useMemo(() => {
-    const formattedPrice = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(price)
-    return formattedPrice
-  })
-}
+export const activeVariations = Object.keys(
+  product.isVariantOf.skuVariants.activeVariations
+).map((key) => ({ [key]: product[key] }))
 
 export const CartItemExample = (
-  <CartItem data-sku={product.sku} data-seller={product.identifier}>
-    <CartItemContent>
-      <CartItemImage>
-        <img
-          src={product.image[0].url}
-          alt={product.image[0].alternateName}
-          data-fs-image
-        />
-      </CartItemImage>
-      <CartItemSummary>
-        <CartItemTitle>{product.isVariantOf.name}</CartItemTitle>
-        <div data-fs-cart-item-skus>
-          <p>
-            Color: <span>Pink</span>
-          </p>
-          <p>
-            Size: <span>Medium</span>
-          </p>
-        </div>
-      </CartItemSummary>
-    </CartItemContent>
-    <IconButton
-      data-fs-cart-item-remove
-      icon={<XCircle />}
-      aria-label="Remove"
-    />
-    <CartItemActions>
-      <QuantitySelector min={1} initial={product.quantity} />
-      <CartItemPrices>
-        <Price
-          value={product.listPrice}
-          formatter={priceFormatter}
-          data-value={product.listPrice}
-          variant="listing"
-          SRText="Original price:"
-        />
-        <Price
-          value={product.price}
-          formatter={priceFormatter}
-          data-value={product.price}
-          variant="spot"
-          SRText="Price:"
-        />
-      </CartItemPrices>
-    </CartItemActions>
-  </CartItem>
-)
-
-export const CartItemExample2 = (
-  <CartItem data-sku={product.sku} data-seller={product.identifier}>
-    <CartItemContent>
-      <CartItemImage>
-        <img
-          src={product.image[1].url}
-          alt={product.image[1].alternateName}
-          data-fs-image
-        />
-      </CartItemImage>
-      <CartItemSummary>
-        <CartItemTitle>{product.isVariantOf.name}</CartItemTitle>
-        <div data-fs-cart-item-skus>
-          <p>
-            Color: <span>Aquamarine</span>
-          </p>
-          <p>
-            Size: <span>Medium</span>
-          </p>
-        </div>
-      </CartItemSummary>
-    </CartItemContent>
-    <IconButton
-      data-fs-cart-item-remove
-      icon={<XCircle />}
-      aria-label="Remove"
+  <CartItem
+    price={product.offers.offers[0].price}
+    listPrice={product.offers.offers[0].listPrice}
+    quantity={3}
+  >
+    <CartItemImage>
+      <img
+        data-fs-image
+        src={product.image[0].url}
+        alt={product.image[0].alternateName}
+      />
+    </CartItemImage>
+    <CartItemSummary
+      title={product.isVariantOf.name}
+      activeVariations={activeVariations}
     />
   </CartItem>
 )
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
-    <OverviewSection>
-      {CartItemExample}
-      {CartItemExample2}
-    </OverviewSection>
+    <OverviewSection>{CartItemExample}</OverviewSection>
   </Tab>
   <Tab>
     ```tsx
-    <CartItem data-sku={product.sku} data-seller={product.identifier}>
-      <CartItemContent>
-        <CartItemImage>
-          <img
-            src={product.image[0].url}
-            alt={product.image[0].alternateName}
-            data-fs-image
-          />
-        </CartItemImage>
-        <CartItemSummary>
-          <CartItemTitle>{product.isVariantOf.name}</CartItemTitle>
-          <div data-fs-cart-item-skus>
-            <p>
-              Color: <span>Pink</span>
-            </p>
-            <p>
-              Size: <span>Medium</span>
-            </p>
-          </div>
-        </CartItemSummary>
-      </CartItemContent>
-      <IconButton
-        data-fs-cart-item-remove
-        icon={<XCircle />}
-        aria-label="Remove"
-      />
-      <CartItemActions>
-        <QuantitySelector min={1} initial={product.quantity} />
-        <CartItemPrices>
-          <Price
-            value={product.listPrice}
-            formatter={priceFormatter}
-            data-value={product.listPrice}
-            variant="listing"
-            SRText="Original price:"
-          />
-          <Price
-            value={product.price}
-            formatter={priceFormatter}
-            data-value={product.price}
-            variant="spot"
-            SRText="Price:"
-          />
-        </CartItemPrices>
-      </CartItemActions>
+    <CartItem
+      price={product.offers.offers[0].price}
+      listPrice={product.offers.offers[0].listPrice}
+      quantity={3}
+    >
+      <CartItemImage>
+        <img
+          data-fs-image
+          src={product.image[0].url}
+          alt={product.image[0].alternateName}
+        />
+      </CartItemImage>
+      <CartItemSummary title={product.isVariantOf.name}>
+
+      </CartItemSummary>
     </CartItem>
     ```
+
   </Tab>
 </Tabs>
 
@@ -213,56 +110,7 @@ import '@faststore/ui/src/components/atoms/CartItem/styles.scss'
   <Tab>
     <OverviewSection>{CartItemExample}</OverviewSection>
   </Tab>
-  <Tab>
-    ```tsx
-    <CartItem data-sku={product.sku} data-seller={product.identifier}>
-      <CartItemContent>
-        <CartItemImage>
-          <img
-            src={product.image[0].url}
-            alt={product.image[0].alternateName}
-            data-fs-image
-          />
-        </CartItemImage>
-        <CartItemSummary>
-          <CartItemTitle>{product.isVariantOf.name}</CartItemTitle>
-          <div data-fs-cart-item-skus>
-            <p>
-              Color: <span>Pink</span>
-            </p>
-            <p>
-              Size: <span>Medium</span>
-            </p>
-          </div>
-        </CartItemSummary>
-      </CartItemContent>
-      <IconButton
-        data-fs-cart-item-remove
-        icon={<XCircle />}
-        aria-label="Remove"
-      />
-      <CartItemActions>
-        <QuantitySelector min={1} initial={product.quantity} />
-        <CartItemPrices>
-          <Price
-            value={product.listPrice}
-            formatter={priceFormatter}
-            data-value={product.listPrice}
-            variant="listing"
-            SRText="Original price:"
-          />
-          <Price
-            value={product.price}
-            formatter={priceFormatter}
-            data-value={product.price}
-            variant="spot"
-            SRText="Price:"
-          />
-        </CartItemPrices>
-      </CartItemActions>
-    </CartItem>
-    ```
-  </Tab>
+  <Tab>```tsx ```</Tab>
 </Tabs>
 
 ---

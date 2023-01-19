@@ -114,4 +114,14 @@
       border-top-right-radius: 0;
     }
   }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-cart-item="disabled"] {
+    background-color: var(--fs-color-neutral-bkg);
+    [data-fs-cart-item-actions] { display: none; }
+  }
+
 }
