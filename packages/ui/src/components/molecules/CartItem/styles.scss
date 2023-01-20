@@ -44,8 +44,7 @@
   background-color: var(--fs-cart-item-bkg-color);
   border: var(--fs-cart-item-border-width) solid var(--fs-cart-item-border-color);
   border-radius: var(--fs-cart-item-border-radius);
-
-  width: 334px;
+  width: 100%;
 
   [data-fs-cart-item-content] {
     padding: var(--fs-cart-item-padding) 0 var(--fs-cart-item-padding) var(--fs-cart-item-padding);

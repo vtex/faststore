@@ -29,6 +29,10 @@ export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
    * Function called when remove button is clicked.
    */
   onClose?: (event: MouseEvent<HTMLElement>) => void
+  /**
+   * Event emitted when product value is changed.
+   */
+  quantityOnChange?: (value: number) => void
 }
 
 const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
@@ -38,6 +42,7 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
     listPrice = 0,
     quantity,
     unavailable,
+    quantityOnChange,
     onClose,
     children,
     ...otherProps
@@ -69,7 +74,11 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
         onClick={handleClose}
       />
       <div data-fs-cart-item-actions>
-        <QuantitySelector min={1} initial={quantity} />
+        <QuantitySelector
+          min={1}
+          initial={quantity}
+          onChange={quantityOnChange}
+        />
         <span data-fs-cart-item-prices>
           <Price
             value={listPrice}
