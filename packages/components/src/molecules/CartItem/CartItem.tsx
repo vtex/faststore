@@ -68,7 +68,7 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
     >
       <div data-fs-cart-item-content>{children}</div>
       <IconButton
-        data-fs-cart-item-remove
+        data-fs-cart-item-remove-button
         icon={<XCircle />}
         aria-label="Remove"
         onClick={handleClose}
