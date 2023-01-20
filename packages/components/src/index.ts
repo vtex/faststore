@@ -26,7 +26,6 @@ export { default as Price } from './atoms/Price'
 export type { PriceProps } from './atoms/Price'
 export { default as Radio } from './atoms/Radio'
 export type { RadioProps } from './atoms/Radio'
-export { default as Shimmer } from './atoms/Shimmer'
 export { default as Skeleton } from './atoms/Skeleton'
 export type { SkeletonProps } from './atoms/Skeleton'
 export { default as Select } from './atoms/Select'
@@ -69,11 +68,7 @@ export type {
   DropdownItemProps,
   DropdownMenuProps,
 } from './molecules/Dropdown'
-export {
-  default as Gift,
-  GiftContent,
-  GiftImage,
-} from './molecules/Gift'
+export { default as Gift, GiftContent, GiftImage } from './molecules/Gift'
 export type {
   GiftProps,
   GiftContentProps,
