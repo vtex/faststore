@@ -6,7 +6,7 @@ sidebar_custom_props:
 
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
-import { TokenTable, TokenRow } from 'site/components/Tokens'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { Skeleton } from '@faststore/ui'
 
@@ -117,8 +117,38 @@ import '@faststore/ui/src/components/atoms/Skeleton/styles.scss'
 
 ---
 
+### Nested Elements
+
+#### Shimmer
+
+<TokenTable>
+  <TokenRow token="--fs-skeleton-shimmer-width" value="50%" />
+  <TokenRow token="--fs-skeleton-shimmer-height" value="100%" />
+  <TokenRow
+    token="--fs-skeleton-shimmer-bkg-color"
+    value="rgb(255 255 255 / 20%)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-skeleton-shimmer-box-shadow"
+    value="0 0 var(--fs-spacing-5) var(--fs-spacing-5) var(--fs-skeleton-shimmer-bkg-color)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-skeleton-shimmer-transition-timing" value="850ms" />
+  <TokenRow token="--fs-skeleton-shimmer-transition-function" value="linear" />
+  <TokenRow
+    token="--fs-skeleton-shimmer-transition-iteration"
+    value="infinite"
+  />
+</TokenTable>
+
+---
+
 ## Customization
 
 For further customization, you can use the following data attributes:
 
 `data-fs-skeleton`
+
+`data-fs-skeleton-shimmer`
