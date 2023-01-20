@@ -32,27 +32,31 @@ Also by using `Skeletons` the store will be less likely to experience [Cumulativ
     <OverviewSection bigGap>
       <p>With Shimmer Effect</p>
       <Skeleton
-        size={{ width: '200px', height: '80px' }}
-        shimmer
+        size={{ width: '150px', height: '80px' }}
         customBorder="32px"
+        shimmer
       />
     </OverviewSection>
     <OverviewSection bigGap>
       <p>Without Shimmer Effect</p>
-      <Skeleton size={{ width: '250px', height: '100px' }} border="pill" />
+      <Skeleton size={{ width: '150px', height: '100px' }} border="regular" />
+      <Skeleton size={{ width: '150px', height: '100px' }} border="pill" />
+      <Skeleton size={{ width: '100px', height: '100px' }} border="circle" />
     </OverviewSection>
   </Tab>
   <Tab>
     ```
     <Skeleton
       size={{ width: '200px', height: '80px' }}
-      shimmer
       customBorder="32px"
+      shimmer
     />
     ```
 
     ```
-    <Skeleton size={{ width: '250px', height: '100px' }} border="pill" />
+    <Skeleton size={{ width: '150px', height: '100px' }} border="regular" />
+    <Skeleton size={{ width: '150px', height: '100px' }} border="pill" />
+    <Skeleton size={{ width: '100px', height: '100px' }} border="circle" />
     ```
 
   </Tab>
@@ -80,16 +84,16 @@ import '@faststore/ui/src/components/atoms/Skeleton/styles.scss'
 <OverviewSection>
   <Skeleton
     size={{ width: '200px', height: '80px' }}
-    shimmer
     customBorder="32px"
+    shimmer
   />
 </OverviewSection>
 
 ```tsx
 <Skeleton
   size={{ width: '200px', height: '80px' }}
-  shimmer
   customBorder="32px"
+  shimmer
 />
 ```
 
