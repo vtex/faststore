@@ -1,8 +1,6 @@
 import React, { forwardRef } from 'react'
 import type { HTMLAttributes, PropsWithChildren } from 'react'
 
-import { Shimmer } from '../..'
-
 interface Size {
   width: string
   height: string
@@ -61,14 +59,13 @@ const Skeleton = forwardRef<HTMLDivElement, PropsWithChildren<SkeletonProps>>(
         ref={ref}
         data-fs-skeleton
         data-testid={testId}
-        data-fs-skeleton-shimmer={shimmer}
         data-fs-skeleton-border={border ? border : null}
         style={
           customBorder ? { ...styles, borderRadius: customBorder } : styles
         }
         {...otherProps}
       >
-        {shimmer && <Shimmer />}
+        {shimmer && <div data-fs-skeleton-shimmer />}
       </div>
     ) : (
       <>{children}</>
