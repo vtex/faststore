@@ -1,0 +1,72 @@
+[data-fs-loader] {
+  // --------------------------------------------------------
+  // Design Tokens for Loader
+  // --------------------------------------------------------
+
+  --fs-loader-gap                         : var(--fs-spacing-0);
+
+  --fs-loader-animation-function          : var(--fs-transition-function);
+  --fs-loader-animation-timing            : var(--fs-transition-timing);
+
+  // Item
+  --fs-loader-item-width                  : var(--fs-spacing-0);
+  --fs-loader-item-height                 : var(--fs-loader-item-width);
+  --fs-loader-item-border-radius          : var(--fs-border-radius-circle);
+  --fs-loader-item-initial-opacity        : .6;
+
+  // Dark (Default)
+  --fs-loader-dark-item-bkg-color         : var(--fs-color-primary-bkg-active);
+
+  // Light
+  --fs-loader-light-item-bkg-color        : var(--fs-color-tertiary-bkg-light);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  align-items: center;
+  column-gap: var(--fs-loader-gap);
+
+  [data-fs-loader-item] {
+    width: var(--fs-loader-item-width);
+    height: var(--fs-loader-item-height);
+    border-radius: var(--fs-loader-item-border-radius);
+    opacity: var(--fs-loader-item-initial-opacity);
+    top: 0;
+    position: relative;
+    animation: load 1.2s infinite var(--fs-loader-animation-function) calc(var(--fs-loader-item-delay,0)*var(--fs-loader-animation-timing));
+
+    &:first-of-type { --fs-loader-item-delay: -1; }
+    &:last-of-type  { --fs-loader-item-delay:  1; }
+  }
+
+  @keyframes load {
+    20% {
+      top: calc(-1 * var(--fs-spacing-0));
+      opacity: 1;
+    }
+    40% {
+      top: 0;
+      opacity: .6;
+    }
+    60% {
+      top: 0;
+      opacity: .6;
+    }
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-loader-variant="dark"] [data-fs-loader-item] {
+    background-color: var(--fs-loader-dark-item-bkg-color);
+  }
+
+  &[data-fs-loader-variant="light"] [data-fs-loader-item] {
+    background-color: var(--fs-loader-light-item-bkg-color);
+  }
+
+}
+
