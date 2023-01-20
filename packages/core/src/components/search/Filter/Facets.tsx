@@ -7,13 +7,15 @@ import {
   AccordionItem as UIAccordionItem,
   AccordionButton as UIAccordionButton,
   AccordionPanel as UIAccordionPanel,
+  PriceRange as UIPriceRange,
 } from '@faststore/ui'
+
+import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 import type {
   Filter_FacetsFragment,
   IStoreSelectedFacet,
 } from '@generated/graphql'
-import PriceRange from 'src/components/ui/PriceRange'
 
 import styles from './facets.module.scss'
 
@@ -69,7 +71,6 @@ function Facets({
         {facets.map((facet, index) => {
           const isExpanded = indicesExpanded.has(index)
           const { __typename: type, label } = facet
-
           return (
             <UIAccordionItem
               key={`${label}-${index}`}
@@ -86,7 +87,6 @@ function Facets({
                   <UIList data-fs-facets-list>
                     {facet.values.map((item) => {
                       const id = `${testId}-${facet.label}-${item.label}`
-
                       return (
                         <li key={id} data-fs-facets-list-item>
                           <UICheckbox
@@ -119,9 +119,11 @@ function Facets({
                   </UIList>
                 )}
                 {type === 'StoreFacetRange' && isExpanded && (
-                  <PriceRange
+                  <UIPriceRange
                     min={facet.min}
                     max={facet.max}
+                    formatter={useFormattedPrice}
+                    step={1}
                     onEnd={(v) =>
                       onFacetChange(
                         {
