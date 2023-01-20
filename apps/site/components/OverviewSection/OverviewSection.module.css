@@ -35,3 +35,14 @@
 .overviewSection[data-doc-overview-big-gap="true"] {
   column-gap: 60px;
 }
+
+.overviewSection > [data-doc-overview-group] {
+  display: flex;
+  align-items: center;
+  column-gap: 60px;
+}
+
+.overviewSection>[data-doc-overview-group] [data-doc-overview-group-title] {
+  width: 10%;
+  line-height: 16px;
+}

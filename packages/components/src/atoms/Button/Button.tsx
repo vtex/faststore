@@ -1,6 +1,6 @@
 import type { ReactNode, ButtonHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
-import { Icon } from '../../index'
+import { Icon, Loader } from '../../index'
 
 export type Variant = 'primary' | 'secondary' | 'tertiary'
 export type Size = 'small' | 'regular'
@@ -24,13 +24,21 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    */
   inverse?: boolean
   /**
-   * Specifies that this button should be disabled
+   * Specifies that this button should be disabled.
    */
   disabled?: boolean
   /**
    * A React component that will be rendered as an icon.
    */
   icon?: ReactNode
+  /**
+   * Boolean that represents a loading state.
+   */
+  loading?: boolean
+  /**
+   * Specifies a label for loading state.
+   */
+  loadingLabel?: string
   /**
    * Specifies where the icon should be positioned
    */
@@ -44,6 +52,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     inverse,
     size = 'regular',
     testId = 'fs-button',
+    loading,
+    loadingLabel,
     icon,
     iconPosition = 'left',
     disabled,
@@ -51,19 +61,27 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   },
   ref
 ) {
+
   return (
     <button
       ref={ref}
       data-fs-button
       data-fs-button-inverse={inverse}
       data-fs-button-size={size}
+      data-fs-button-loading={loading}
       data-fs-button-variant={variant}
       disabled={disabled}
       data-testid={testId}
       {...otherProps}
     >
+      {loading && (
+        <p data-fs-button-loading-label>
+          {loadingLabel}
+          <Loader variant={variant === 'primary' && !inverse ? 'light' : 'dark'} />
+        </p>
+      )}
       {icon && iconPosition === 'left' && <Icon component={icon} />}
-      {children}
+      <span>{children}</span>
       {icon && iconPosition === 'right' && <Icon component={icon} />}
     </button>
   )

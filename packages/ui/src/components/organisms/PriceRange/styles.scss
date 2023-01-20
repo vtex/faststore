@@ -1,0 +1,36 @@
+[data-fs-price-range] {
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  width: 100%;
+
+  [data-fs-price-range-inputs] {
+    display: flex;
+
+    [data-fs-input-field] {
+      width: 50%;
+
+      input:hover,
+      input:focus-visible,
+      input:focus {
+        z-index: 1;
+        + label { z-index: 1; }
+      }
+
+      &:first-of-type {
+        margin-right: -1px;
+
+        input {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+      }
+
+      &:last-of-type input {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+}

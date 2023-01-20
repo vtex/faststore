@@ -7,29 +7,12 @@ export type { PopoverProps } from './components/atoms/Popover'
 export { default as TextArea } from './components/atoms/TextArea'
 export type { TextAreaProps } from './components/atoms/TextArea'
 
-export { default as Slider } from './components/atoms/Slider'
-export type { SliderProps } from './components/atoms/Slider'
-
-export { default as Spinner } from './components/atoms/Spinner'
-export type { SpinnerProps } from './components/atoms/Spinner'
-
 export { default as Incentive } from './components/atoms/Incentive'
 export type { IncentiveProps } from './components/atoms/Incentive'
 
 // Molecules
 export { default as SkuSelector } from './components/molecules/SkuSelector'
 export type { SkuSelectorProps } from './components/molecules/SkuSelector'
-
-export {
-  default as Gift,
-  GiftContent,
-  GiftImage,
-} from './components/molecules/Gift'
-export type {
-  GiftProps,
-  GiftContentProps,
-  GiftImageProps,
-} from './components/molecules/Gift'
 
 export { default as ProductTitle } from './components/molecules/ProductTitle'
 export type { ProductTitleProps } from './components/molecules/ProductTitle'
@@ -115,12 +98,6 @@ export type { PaymentMethodsProps } from './components/molecules/PaymentMethods'
 
 export { default as Breadcrumb } from './components/molecules/Breadcrumb'
 export type { BreadcrumbProps } from './components/molecules/Breadcrumb'
-
-export { default as LoadingButton } from './components/molecules/LoadingButton'
-export type { LoadingButtonProps } from './components/molecules/LoadingButton'
-
-export { default as PriceRange } from './components/molecules/PriceRange'
-export type { PriceRangeProps } from './components/molecules/PriceRange'
 
 export { default as Form } from './components/molecules/Form'
 export type { FormProps } from './components/molecules/Form'

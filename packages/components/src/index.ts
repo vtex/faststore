@@ -16,6 +16,8 @@ export { default as Label } from './atoms/Label'
 export type { LabelProps } from './atoms/Label'
 export { default as Link } from './atoms/Link'
 export type { LinkProps, LinkElementType } from './atoms/Link'
+export { default as Loader } from './atoms/Loader'
+export type { LoaderProps } from './atoms/Loader'
 export { default as List } from './atoms/List'
 export type { ListProps } from './atoms/List'
 export { default as Overlay } from './atoms/Overlay'
@@ -29,6 +31,8 @@ export { default as Skeleton } from './atoms/Skeleton'
 export type { SkeletonProps } from './atoms/Skeleton'
 export { default as Select } from './atoms/Select'
 export type { SelectProps } from './atoms/Select'
+export { default as Slider } from './atoms/Slider'
+export type { SliderProps } from './atoms/Slider'
 export { default as SROnly } from './atoms/SROnly'
 
 // Molecules
@@ -65,6 +69,16 @@ export type {
   DropdownItemProps,
   DropdownMenuProps,
 } from './molecules/Dropdown'
+export {
+  default as Gift,
+  GiftContent,
+  GiftImage,
+} from './molecules/Gift'
+export type {
+  GiftProps,
+  GiftContentProps,
+  GiftImageProps,
+} from './molecules/Gift'
 export { default as InputField } from './molecules/InputField'
 export type { InputFieldProps } from './molecules/InputField'
 export { default as LinkButton } from './molecules/LinkButton'
@@ -109,3 +123,6 @@ export type {
   HeroImageProps,
   HeroHeadingProps,
 } from './organisms/Hero'
+
+export { default as PriceRange } from './organisms/PriceRange'
+export type { PriceRangeProps } from './organisms/PriceRange'

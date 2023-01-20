@@ -9,7 +9,7 @@ export interface GiftImageProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const GiftImage = forwardRef<HTMLDivElement, GiftImageProps>(function GiftImage(
-  { testId = 'store-gift-image', children, ...otherProps },
+  { testId = 'fs-gift-image', children, ...otherProps },
   ref
 ) {
   return (
