@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.54-alpha.0](https://github.com/vtex/faststore/compare/v2.0.53-alpha.0...v2.0.54-alpha.0) (2023-01-20)
+
+### Features
+
+- Adds `Slider` & `PriceRange` component ([#1605](https://github.com/vtex/faststore/issues/1605)) ([97bf10d](https://github.com/vtex/faststore/commit/97bf10d0d34c524a316e95127e4ed8096c9fca4e))
+
 ## [2.0.53-alpha.0](https://github.com/vtex/faststore/compare/v2.0.52-alpha.0...v2.0.53-alpha.0) (2023-01-19)
 
 ### Features
