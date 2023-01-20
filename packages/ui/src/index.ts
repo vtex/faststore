@@ -7,9 +7,6 @@ export type { PopoverProps } from './components/atoms/Popover'
 export { default as TextArea } from './components/atoms/TextArea'
 export type { TextAreaProps } from './components/atoms/TextArea'
 
-export { default as Slider } from './components/atoms/Slider'
-export type { SliderProps } from './components/atoms/Slider'
-
 export { default as Skeleton } from './components/atoms/Skeleton'
 export type { SkeletonProps } from './components/atoms/Skeleton'
 
@@ -104,9 +101,6 @@ export type { PaymentMethodsProps } from './components/molecules/PaymentMethods'
 
 export { default as Breadcrumb } from './components/molecules/Breadcrumb'
 export type { BreadcrumbProps } from './components/molecules/Breadcrumb'
-
-export { default as PriceRange } from './components/molecules/PriceRange'
-export type { PriceRangeProps } from './components/molecules/PriceRange'
 
 export { default as Form } from './components/molecules/Form'
 export type { FormProps } from './components/molecules/Form'
