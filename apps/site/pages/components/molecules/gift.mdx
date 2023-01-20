@@ -13,7 +13,7 @@ import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { Badge, Gift, GiftContent, GiftImage, Icon, Price } from '@faststore/ui'
 import { TagIcon, ShoppingCart } from '@faststore/components'
 
-import { useMemo } from 'react'
+import { useFormattedPrice } from 'site/components/Helpers/usePriceFormatter'
 
 <header>
 
@@ -31,16 +31,6 @@ The Gift component is a compound of the following:
 
 ## Overview
 
-export function priceFormatter(price) {
-  return useMemo(() => {
-    const formattedPrice = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(price)
-    return formattedPrice
-  })
-}
-
 export const GiftTemplate = (
   <Gift icon={<TagIcon />}>
     <GiftImage>
@@ -56,7 +46,7 @@ export const GiftTemplate = (
       <span data-fs-gift-product-summary>
         <Price
           value={999}
-          formatter={priceFormatter}
+          formatter={useFormattedPrice}
           data-value={999}
           variant="listing"
         />
@@ -81,7 +71,7 @@ export const GiftTemplateIcon = (
       <span data-fs-gift-product-summary>
         <Price
           value={999}
-          formatter={priceFormatter}
+          formatter={useFormattedPrice}
           data-value={999}
           variant="listing"
         />
@@ -106,7 +96,7 @@ export const GiftTemplateWithoutIcon = (
       <span data-fs-gift-product-summary>
         <Price
           value={999}
-          formatter={priceFormatter}
+          formatter={useFormattedPrice}
           data-value={999}
           variant="listing"
         />
@@ -131,7 +121,7 @@ export const GiftTemplateWithoutBadge = (
       <span data-fs-gift-product-summary>
         <Price
           value={999}
-          formatter={priceFormatter}
+          formatter={useFormattedPrice}
           data-value={999}
           variant="listing"
         />
@@ -142,8 +132,8 @@ export const GiftTemplateWithoutBadge = (
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
-    <OverviewSection>{GiftTemplate} {GiftTemplateIcon}</OverviewSection>
-    <OverviewSection>{GiftTemplateWithoutIcon} {GiftTemplateWithoutBadge}</OverviewSection>
+    <OverviewSection bigGap>{GiftTemplate} {GiftTemplateIcon}</OverviewSection>
+    <OverviewSection bigGap>{GiftTemplateWithoutIcon} {GiftTemplateWithoutBadge}</OverviewSection>
   </Tab>
   <Tab>
     ```tsx
@@ -162,7 +152,7 @@ export const GiftTemplateWithoutBadge = (
         <span data-fs-gift-product-summary>
           <Price
             value={999}
-            formatter={priceFormatter}
+            formatter={useFormattedPrice}
             data-value={999}
             variant="listing"
           />
@@ -188,7 +178,7 @@ export const GiftTemplateWithoutBadge = (
         <span data-fs-gift-product-summary>
           <Price
             value={999}
-            formatter={priceFormatter}
+            formatter={useFormattedPrice}
             data-value={999}
             variant="listing"
           />
@@ -214,7 +204,7 @@ export const GiftTemplateWithoutBadge = (
         <span data-fs-gift-product-summary>
           <Price
             value={999}
-            formatter={priceFormatter}
+            formatter={useFormattedPrice}
             data-value={999}
             variant="listing"
           />
@@ -240,7 +230,7 @@ export const GiftTemplateWithoutBadge = (
         <span data-fs-gift-product-summary>
           <Price
             value={999}
-            formatter={priceFormatter}
+            formatter={useFormattedPrice}
             data-value={999}
             variant="listing"
           />
@@ -292,7 +282,7 @@ import '@faststore/ui/src/components/molecules/Gift/styles.scss'
         <span data-fs-gift-product-summary>
           <Price
             value={999}
-            formatter={priceFormatter}
+            formatter={useFormattedPrice}
             data-value={999}
             variant="listing"
           />
