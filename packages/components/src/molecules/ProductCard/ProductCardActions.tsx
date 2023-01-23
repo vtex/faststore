@@ -11,13 +11,13 @@ export interface ProductCardActionsProps
 
 const ProductCardActions = forwardRef<HTMLDivElement, ProductCardActionsProps>(
   function CardActions(
-    { testId = 'store-product-card-actions', children, ...otherProps },
+    { testId = 'fs-product-card-actions', children, ...otherProps },
     ref
   ) {
     return (
       <div
         ref={ref}
-        data-product-card-actions
+        data-fs-product-card-actions
         data-testid={testId}
         {...otherProps}
       >
