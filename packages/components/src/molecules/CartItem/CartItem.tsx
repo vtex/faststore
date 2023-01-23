@@ -32,7 +32,7 @@ export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Event emitted when product value is changed.
    */
-  quantityOnChange?: (value: number) => void
+  onQuantityChange?: (value: number) => void
 }
 
 const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
@@ -42,7 +42,7 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
     listPrice = 0,
     quantity,
     unavailable,
-    quantityOnChange,
+    onQuantityChange,
     onClose,
     children,
     ...otherProps
@@ -77,7 +77,7 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
         <QuantitySelector
           min={1}
           initial={quantity}
-          onChange={quantityOnChange}
+          onChange={onQuantityChange}
         />
         <span data-fs-cart-item-prices>
           <Price
