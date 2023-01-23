@@ -68,7 +68,7 @@ const Skeleton = forwardRef<HTMLDivElement, PropsWithChildren<SkeletonProps>>(
         {shimmer && <div data-fs-skeleton-shimmer />}
       </div>
     ) : (
-      { children }
+      <>{children}</>
     )
   }
 )
