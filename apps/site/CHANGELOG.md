@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.55-alpha.0](https://github.com/vtex/faststore/compare/v2.0.54-alpha.0...v2.0.55-alpha.0) (2023-01-23)
+
+### Chores
+
+- Extracts priceFormatter hook ([#1617](https://github.com/vtex/faststore/issues/1617)) ([95a9617](https://github.com/vtex/faststore/commit/95a96174968d465ffd092ba81a447dcbf1f7e6ac))
+
 ## [2.0.54-alpha.0](https://github.com/vtex/faststore/compare/v2.0.53-alpha.0...v2.0.54-alpha.0) (2023-01-20)
 
 ### Features
