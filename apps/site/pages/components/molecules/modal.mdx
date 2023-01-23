@@ -89,30 +89,29 @@ export const ModalTemplate = () => (
     </OverviewSection>
   </Tab>
   <Tab>
-    ```tsx 
-    const {(modal, openModal)} = useUI() 
-    return (
-        <>
-            <Button variant="primary" onClick={() => openModal()}>
-                Open Modal
-            </Button>
-            {modal && (
-                <Modal>
-                {({ fadeOut }) => (
-                    <>
-                    <ModalHeader
-                        onClose={() => fadeOut()}
-                        title="Modal Title"
-                        description="Modal description"
-                    />
-                    <ModalBody>
-                        <p>It is a ModalBody</p>
-                    </ModalBody>
-                    </>
-                )}
-                </Modal>
-            )}
-        </>
+    ```tsx
+    const {(modal, openModal)} = useUI() return (
+    <>
+      <Button variant="primary" onClick={() => openModal()}>
+        Open Modal
+      </Button>
+      {modal && (
+        <Modal>
+          {({ fadeOut }) => (
+            <>
+              <ModalHeader
+                onClose={() => fadeOut()}
+                title="Modal Title"
+                description="Modal description"
+              />
+              <ModalBody>
+                <p>This is the ModalBody</p>
+              </ModalBody>
+            </>
+          )}
+        </Modal>
+      )}
+    </>
     ) 
     ```
   </Tab>
