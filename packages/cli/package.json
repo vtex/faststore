@@ -62,9 +62,6 @@
     "prepack": "yarn build && oclif manifest && oclif readme",
     "version": "oclif readme && git add README.md"
   },
-  "engines": {
-    "node": ">=16.0.0"
-  },
   "bugs": "https://github.com/vtex/faststore/issues",
   "keywords": [
     "oclif"
