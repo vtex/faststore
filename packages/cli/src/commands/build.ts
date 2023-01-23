@@ -16,6 +16,7 @@ export default class Build extends Command {
       stdio: 'inherit',
     })
     await copyFolder(`${tmpDir}/.next`, `${userDir}/.next`)
+    await copyFolder(`${tmpDir}/public`, `${userDir}/public`)
   }
 }
 
