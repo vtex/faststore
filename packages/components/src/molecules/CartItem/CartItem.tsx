@@ -1,8 +1,13 @@
-import React, { forwardRef, useCallback } from 'react'
-import type { HTMLAttributes, MouseEvent } from 'react'
+import type { HTMLAttributes } from 'react'
+import React, { forwardRef } from 'react'
 
-import { QuantitySelector, Price, IconButton } from '../../index'
 import { XCircle } from '../../assets'
+import {
+  IconButton,
+  IconButtonProps,
+  Price,
+  QuantitySelector,
+} from '../../index'
 
 export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -26,13 +31,13 @@ export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
    */
   unavailable?: boolean
   /**
-   * Function called when remove button is clicked.
-   */
-  onClose?: (event: MouseEvent<HTMLElement>) => void
-  /**
    * Event emitted when product value is changed.
    */
   onQuantityChange?: (value: number) => void
+  /**
+   * Props for the Remove from cart IconButton component.
+   */
+  removeBtnProps?: Partial<IconButtonProps>
 }
 
 const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
@@ -43,22 +48,12 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
     quantity,
     unavailable,
     onQuantityChange,
-    onClose,
     children,
+    removeBtnProps,
     ...otherProps
   },
   ref
 ) {
-  const handleClose = useCallback(
-    (event: MouseEvent<HTMLElement>) => {
-      if (event.defaultPrevented) {
-        return
-      }
-
-      onClose?.(event)
-    },
-    [onClose]
-  )
   return (
     <article
       ref={ref}
@@ -71,7 +66,7 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
         data-fs-cart-item-remove-button
         icon={<XCircle />}
         aria-label="Remove"
-        onClick={handleClose}
+        {...removeBtnProps}
       />
       <div data-fs-cart-item-actions>
         <QuantitySelector
