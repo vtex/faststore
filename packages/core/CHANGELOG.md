@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [0.3.17](https://github.com/vtex-sites/nextjs.store/compare/0.3.16...0.3.17) (2023-01-23)
+
+
+### Features
+
+* Replace `Accordion` FSUI ([#336](https://github.com/vtex-sites/nextjs.store/issues/336)) ([1ebe103](https://github.com/vtex-sites/nextjs.store/commit/1ebe1039a92ab977ba5de1b91f112342973706eb))
+* Replace `Dropdown` FSUI ([#339](https://github.com/vtex-sites/nextjs.store/issues/339)) ([3a541a4](https://github.com/vtex-sites/nextjs.store/commit/3a541a4aab72a1e289a6716ba9c742771905fa7a))
+* Replace `RadioGroup` FSUI ([#345](https://github.com/vtex-sites/nextjs.store/issues/345)) ([2af5559](https://github.com/vtex-sites/nextjs.store/commit/2af5559a8e4b005b78075edecf9c40da1e7e1a2b))
+* Replaces `PriceRange` FSUI ([#348](https://github.com/vtex-sites/nextjs.store/issues/348)) ([546ee17](https://github.com/vtex-sites/nextjs.store/commit/546ee17c0a00e3094f82d8e05c3e38b84114488f))
+* Replaces `QuantitySelector` FSUI  ([#344](https://github.com/vtex-sites/nextjs.store/issues/344)) ([6b896fc](https://github.com/vtex-sites/nextjs.store/commit/6b896fcff3e5fdb4841194b05b2a310518eb3857))
+
+
+### Bug Fixes
+
+* Evergreen `starter.store` build errors. ([#349](https://github.com/vtex-sites/nextjs.store/issues/349)) ([0eedd76](https://github.com/vtex-sites/nextjs.store/commit/0eedd76c65edae710971e3a985065dc30f4de19d))
+
+
+### Chores
+
+* Replaces `Alert` FSUI ([#343](https://github.com/vtex-sites/nextjs.store/issues/343)) ([8b3d6b2](https://github.com/vtex-sites/nextjs.store/commit/8b3d6b268da572614334554400ea03129445f787))
+* Replaces `Gift` FSUI ([#347](https://github.com/vtex-sites/nextjs.store/issues/347)) ([7fa049e](https://github.com/vtex-sites/nextjs.store/commit/7fa049e890b0bc6c9e4c3a4911c376014b239321))
+
 ### [0.3.16](https://github.com/vtex-sites/nextjs.store/compare/0.3.15...0.3.16) (2023-01-09)
 
 
