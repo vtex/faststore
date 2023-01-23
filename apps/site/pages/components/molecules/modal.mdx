@@ -51,73 +51,68 @@ export const ModalBase = () => {
   const { modal, openModal } = useUI()
   return (
     <>
-        <Button variant="primary" onClick={() => openModal()}>
-            Open Regionalization Modal
-        </Button>
-        {
-            modal && 
-            <Modal>
-                {({ fadeOut }) => (
-                    <>
-                        <ModalHeader
-                            onClose={() => fadeOut()}
-                            title="Modal Titlte"
-                            description="Modal description"
-                        />
-                        <ModalBody>
-                            <p>It is a ModalBody</p>
-                        </ModalBody>
-                    </>
-                )}
-            </Modal>
-        }
+      <Button variant="primary" onClick={() => openModal()}>
+        Open Regionalization Modal
+      </Button>
+      {modal && (
+        <Modal>
+          {({ fadeOut }) => (
+            <>
+              <ModalHeader
+                onClose={() => fadeOut()}
+                title="Modal Titlte"
+                description="Modal description"
+              />
+              <ModalBody>
+                <p>It is a ModalBody</p>
+              </ModalBody>
+            </>
+          )}
+        </Modal>
+      )}
     </>
   )
 }
 
 export const ModalTemplate = () => (
-    <UIProvider>
-        <ModalBase />
-    </UIProvider>
+  <UIProvider>
+    <ModalBase />
+  </UIProvider>
 )
 
 ## Usage
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
-    <Tab>
-        <OverviewSection>
-            <ModalTemplate />
-        </OverviewSection>
-    </Tab>
-    <Tab>
-        ```tsx
-        const { modal, openModal } = useUI()
-        return (
+  <Tab>
+    <OverviewSection>
+      <ModalTemplate />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx const {(modal, openModal)} = useUI() return (
+    <>
+      <Button variant="primary" onClick={() => openModal()}>
+        Open Modal
+      </Button>
+      {modal && (
+        <Modal>
+          {({ fadeOut }) => (
             <>
-                <Button variant="primary" onClick={() => openModal()}>
-                    Open Modal
-                </Button>
-                {
-                    modal && 
-                    <Modal>
-                        {({ fadeOut }) => (
-                            <>
-                                <ModalHeader
-                                    onClose={() => fadeOut()}
-                                    title="Modal Titlte"
-                                    description="Modal description"
-                                />
-                                <ModalBody>
-                                    <p>It is a ModalBody</p>
-                                </ModalBody>
-                            </>
-                        )}
-                    </Modal>
-                }
+              <ModalHeader
+                onClose={() => fadeOut()}
+                title="Modal Titlte"
+                description="Modal description"
+              />
+              <ModalBody>
+                <p>It is a ModalBody</p>
+              </ModalBody>
             </>
-        )
-        ```
-    </Tab>
+          )}
+        </Modal>
+      )}
+    </>
+    ) ```
+  </Tab>
 </Tabs>
 
 ---
@@ -145,44 +140,23 @@ Besides those attributes, the following props are also supported:
 ## Design Tokens
 
 <TokenTable>
-  <TokenRow
-    token="--fs-modal-position-top"
-    value="30vh"
-  />
-  <TokenRow
-    token="--fs-modal-position-right"
-    value="var(--fs-spacing-4)"
-  />
-  <TokenRow
-    token="--fs-modal-position-left"
-    value="var(--fs-spacing-4)"
-  />
+  <TokenRow token="--fs-modal-position-top" value="30vh" />
+  <TokenRow token="--fs-modal-position-right" value="var(--fs-spacing-4)" />
+  <TokenRow token="--fs-modal-position-left" value="var(--fs-spacing-4)" />
   <TokenRow
     token="--fs-modal-max-width"
     value="vcalc(var(--fs-grid-breakpoint-desktop) / 3)"
   />
-  <TokenRow
-    token="--fs-modal-min-height"
-    value="var(--fs-spacing-5)"
-  />
-  <TokenRow
-    token="--fs-modal-margin"
-    value="auto"
-  />
+  <TokenRow token="--fs-modal-min-height" value="var(--fs-spacing-5)" />
+  <TokenRow token="--fs-modal-margin" value="auto" />
   <TokenRow
     token="--fs-modal-background-color"
     value="var(--fs-color-body-bkg)"
     isColor
   />
-  <TokenRow
-    token="--fs-modal-border-radius"
-    value="var(--fs-border-radius)"
-  />
+  <TokenRow token="--fs-modal-border-radius" value="var(--fs-border-radius)" />
   <TokenDivider />
-  <TokenRow
-    token="--fs-modal-width-tablet"
-    value="calc(100vw / 3)"
-  />
+  <TokenRow token="--fs-modal-width-tablet" value="calc(100vw / 3)" />
   <TokenRow
     token="--fs-modal-min-width-tablet"
     value="calc(var(--fs-grid-breakpoint-desktop) / 3)"
@@ -192,18 +166,9 @@ Besides those attributes, the following props are also supported:
     token="--fs-modal-transition-timing"
     value="var(--fs-transition-timing)"
   />
-  <TokenRow
-    token="--fs-modal-transition-property"
-    value="transform"
-  />
-  <TokenRow
-    token="--fs-modal-transition-in-function"
-    value="ease-in"
-  />
-  <TokenRow
-    token="--fs-modal-transition-out-function"
-    value="ease-in"
-  />
+  <TokenRow token="--fs-modal-transition-property" value="transform" />
+  <TokenRow token="--fs-modal-transition-in-function" value="ease-in" />
+  <TokenRow token="--fs-modal-transition-out-function" value="ease-in" />
 </TokenTable>
 
 ### Nested Elements
@@ -216,10 +181,7 @@ Besides those attributes, the following props are also supported:
     value="var(--fs-spacing-4) var(--fs-spacing-7) var(--fs-spacing-4) var(--fs-spacing-4)"
   />
   <TokenDivider />
-  <TokenRow
-    token="--fs-modal-header-title-margin-bottom"
-    value=".625rem"
-  />
+  <TokenRow token="--fs-modal-header-title-margin-bottom" value=".625rem" />
   <TokenRow
     token="--fs-modal-header-title-size"
     value="var(--fs-text-size-lead)"
@@ -228,33 +190,21 @@ Besides those attributes, the following props are also supported:
     token="--fs-modal-header-title-weight"
     value="var(--fs-text-weight-bold)"
   />
-  <TokenRow
-    token="--fs-modal-header-title-line-height"
-    value="1.2"
-  />
+  <TokenRow token="--fs-modal-header-title-line-height" value="1.2" />
   <TokenDivider />
   <TokenRow
     token="--fs-modal-header-description-size"
     value="var(--fs-text-size-body)"
   />
-    <TokenRow
-    token="--fs-modal-header-description-line-height"
-    value="1.5"
-  />
+  <TokenRow token="--fs-modal-header-description-line-height" value="1.5" />
   <TokenRow
     token="--fs-modal-header-description-color"
     value="var(--fs-color-text-light)"
     isColor
   />
   <TokenDivider />
-  <TokenRow
-    token="--fs-modal-header-close-button-position-top"
-    value="0"
-  />
-  <TokenRow
-    token="--fs-modal-header-close-button-position-right"
-    value="0"
-  />
+  <TokenRow token="--fs-modal-header-close-button-position-top" value="0" />
+  <TokenRow token="--fs-modal-header-close-button-position-right" value="0" />
 </TokenTable>
 
 #### Body
