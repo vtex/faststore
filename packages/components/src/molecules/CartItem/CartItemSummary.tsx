@@ -38,7 +38,9 @@ const CartItemSummary = forwardRef<HTMLDivElement, CartItemSummaryProps>(
         {activeVariations.length > 0 && (
           <div data-fs-cart-item-skus>
             {activeVariations.map(({ label, option }) => (
-              <p key={label}>{`${[label]}: ${option}`}</p>
+              <p key={label}>
+                {label}: <span>{option}</span>
+              </p>
             ))}
           </div>
         )}
