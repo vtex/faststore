@@ -15,12 +15,13 @@ export default class Build extends Command {
       cwd: tmpDir,
       stdio: 'inherit',
     })
-    await copyFolder(`${tmpDir}/.next`, `${userDir}/.next`)
-    await copyFolder(`${tmpDir}/public`, `${userDir}/public`)
+    await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
+    await copyResource(`${tmpDir}/public`, `${userDir}/public`)
+    await copyResource(`${tmpDir}/vtex.env`, `${userDir}/vtex.env`)
   }
 }
 
-async function copyFolder(from: string, to: string) {
+async function copyResource(from: string, to: string) {
   try {
     if (existsSync(to)) {
       removeSync(to)
@@ -28,9 +29,9 @@ async function copyFolder(from: string, to: string) {
 
     await copy(from, to)
     console.log(
-      `${chalk.green('success')} - Folder ${chalk.dim(
-        from
-      )} copied to ${chalk.dim(to)}`
+      `${chalk.green('success')} - ${chalk.dim(from)} copied to ${chalk.dim(
+        to
+      )}`
     )
   } catch (err) {
     console.error(`${chalk.red('error')} - ${err}`)
