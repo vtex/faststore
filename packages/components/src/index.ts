@@ -69,11 +69,7 @@ export type {
   DropdownItemProps,
   DropdownMenuProps,
 } from './molecules/Dropdown'
-export {
-  default as Gift,
-  GiftContent,
-  GiftImage,
-} from './molecules/Gift'
+export { default as Gift, GiftContent, GiftImage } from './molecules/Gift'
 export type {
   GiftProps,
   GiftContentProps,
@@ -85,16 +81,22 @@ export { default as LinkButton } from './molecules/LinkButton'
 export type { LinkButtonProps } from './molecules/LinkButton'
 export { default as Modal, ModalHeader, ModalBody } from './molecules/Modal'
 export type { ModalProps, ModalHeaderProps } from './molecules/Modal'
+export {
+  default as ProductCard,
+  ProductCardImage,
+  ProductCardContent,
+  ProductCardActions,
+} from './molecules/ProductCard'
+export type {
+  ProductCardProps,
+  ProductCardImageProps,
+  ProductCardContentProps,
+  ProductCardActionsProps,
+} from './molecules/ProductCard'
 export { default as RadioField } from './molecules/RadioField'
 export type { RadioFieldProps } from './molecules/RadioField'
-export {
-  default as RadioGroup,
-  RadioOption,
-} from './molecules/RadioGroup'
-export type {
-  RadioGroupProps,
-  RadioOptionProps,
-} from './molecules/RadioGroup'
+export { default as RadioGroup, RadioOption } from './molecules/RadioGroup'
+export type { RadioGroupProps, RadioOptionProps } from './molecules/RadioGroup'
 export { default as Rating } from './molecules/Rating'
 export type { RatingProps } from './molecules/Rating'
 export { default as SelectField } from './molecules/SelectField'

@@ -10,13 +10,13 @@ export interface ProductCardImageProps extends HTMLAttributes<HTMLDivElement> {
 
 const ProductCardImage = forwardRef<HTMLDivElement, ProductCardImageProps>(
   function ProductCardImage(
-    { testId = 'store-product-card-image', children, ...otherProps },
+    { testId = 'fs-product-card-image', children, ...otherProps },
     ref
   ) {
     return (
       <div
         ref={ref}
-        data-product-card-image
+        data-fs-product-card-image
         data-testid={testId}
         {...otherProps}
       >

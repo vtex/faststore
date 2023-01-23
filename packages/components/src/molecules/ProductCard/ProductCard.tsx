@@ -10,7 +10,7 @@ export interface ProductCardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(function Card(
-  { testId = 'store-product-card', children, ...otherProps },
+  { testId = 'fs-product-card', children, ...otherProps },
   ref
 ) {
   return (

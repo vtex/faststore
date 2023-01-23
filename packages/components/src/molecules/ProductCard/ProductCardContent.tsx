@@ -10,13 +10,13 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
   function CardContent(
-    { testId = 'store-product-card-content', children, ...otherProps },
+    { testId = 'fs-product-card-content', children, ...otherProps },
     ref
   ) {
     return (
       <section
         ref={ref}
-        data-product-card-content
+        data-fs-product-card-content
         data-testid={testId}
         {...otherProps}
       >

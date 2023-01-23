@@ -24,19 +24,6 @@ export { default as OrderSummary } from './components/molecules/OrderSummary'
 export type { OrderSummaryProps } from './components/molecules/OrderSummary'
 
 export {
-  default as ProductCard,
-  ProductCardImage,
-  ProductCardContent,
-  ProductCardActions,
-} from './components/molecules/ProductCard'
-export type {
-  ProductCardProps,
-  ProductCardImageProps,
-  ProductCardContentProps,
-  ProductCardActionsProps,
-} from './components/molecules/ProductCard'
-
-export {
   default as Card,
   CardImage,
   CardContent,
