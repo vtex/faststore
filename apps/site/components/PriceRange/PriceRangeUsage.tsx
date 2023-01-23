@@ -1,7 +1,7 @@
 import React from 'react'
 import { PriceRange } from '@faststore/ui'
 
-import { useFormattedPrice } from '../Helpers/usePriceFormatter'
+import { useFormattedPrice } from '../utilities/usePriceFormatter'
 
 const PriceRangeUsage = () => {
   return (
