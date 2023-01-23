@@ -3,12 +3,18 @@ import { X } from '../../assets'
 import IconButton, { IconButtonProps } from '../IconButton'
 
 export interface ModalHeaderProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Title for header modal.
+   */
   title: string
 
+  /**
+   * Description for header modal.
+   */
   description?: string
 
   /**
-   * A React component that will be rendered as an icon.
+   * Props for the Close Button component.
    */
   closeButtonProps?: Partial<Omit<IconButtonProps, 'onClick'>>
 
