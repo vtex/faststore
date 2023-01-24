@@ -1,0 +1,97 @@
+[data-fs-modal] {
+  // --------------------------------------------------------
+  // Design Tokens for Modal
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-modal-position-top                          : 30vh;
+  --fs-modal-position-right                        : var(--fs-spacing-4);
+  --fs-modal-position-left                         : var(--fs-spacing-4);
+  --fs-modal-max-width                             : calc(var(--fs-grid-breakpoint-desktop) / 3);
+  --fs-modal-min-height                            : var(--fs-spacing-5);
+  --fs-modal-margin                                : auto;
+  --fs-modal-background-color                      : var(--fs-color-body-bkg);
+  --fs-modal-border-radius                         : var(--fs-border-radius);
+
+  --fs-modal-width-tablet                          : calc(100vw / 3);
+  --fs-modal-min-width-tablet                      : calc(var(--fs-grid-breakpoint-desktop) / 3);
+
+  --fs-modal-transition-timing                     : var(--fs-transition-timing);
+  --fs-modal-transition-property                   : transform;
+  --fs-modal-transition-in-function                : ease-in;
+  --fs-modal-transition-out-function               : ease-in;
+
+  // Header
+  --fs-modal-header-padding                        : var(--fs-spacing-4) var(--fs-spacing-7) var(--fs-spacing-4) var(--fs-spacing-4);
+
+  // Header Title
+  --fs-modal-header-title-margin-bottom            : .625rem;
+  --fs-modal-header-title-size                     : var(--fs-text-size-lead);
+  --fs-modal-header-title-weight                   : var(--fs-text-weight-bold);
+  --fs-modal-header-title-line-height              : 1.2;
+
+  // Header Description
+  --fs-modal-header-description-size               : var(--fs-text-size-body);
+  --fs-modal-header-description-line-height        : 1.5;
+  --fs-modal-header-description-color              : var(--fs-color-text-light);
+
+  // Header Close Button
+  --fs-modal-header-close-button-position-top      : 0;
+  --fs-modal-header-close-button-position-right    : 0;
+
+  // Body
+  --fs-modal-body-padding                          : var(--fs-spacing-1) var(--fs-spacing-4) var(--fs-spacing-5);
+
+  position: fixed;
+  top: var(--fs-modal-position-top);
+  right: var(--fs-modal-position-right);
+  left: var(--fs-modal-position-left);
+  max-width: var(--fs-modal-max-width);
+  min-height: var(--fs-modal-min-height);
+  margin: var(--fs-modal-margin);
+  background-color: var(--fs-modal-background-color);
+  border-radius: var(--fs-modal-border-radius);
+
+  @include media(">=tablet") {
+    width: var(--fs-modal-width-tablet);
+    min-width: var(--fs-modal-min-width-tablet);
+  }
+
+  &[data-fs-modal-state="in"] {
+    transition: var(--fs-modal-transition-property) var(--fs-modal-transition-timing) var(--fs-modal-transition-in-function);
+    transform: translate3d(0, 0, 0);
+  }
+
+  &[data-fs-modal-state="out"] {
+    transition: var(--fs-modal-transition-property) var(--fs-modal-transition-timing) var(--fs-modal-transition-in-function);
+    transform: translate3d(0, 50%, 0);
+  }
+
+  [data-fs-modal-header] {
+    position: relative;
+    padding: var(--fs-modal-header-padding);
+
+    [data-fs-modal-header-title] {
+      margin-bottom: var(--fs-modal-header-title-margin-bottom);
+      font-size: var(--fs-modal-header-title-size);
+      font-weight: var(--fs-modal-header-title-weight);
+      line-height: var(--fs-modal-header-title-line-height);
+    }
+
+    [data-fs-modal-header-description] {
+      font-size: var(--fs-modal-header-description-size);
+      line-height: var(--fs-modal-header-description-line-height);
+      color: var(--fs-modal-header-description-color);
+    }
+
+    [data-fs-modal-header-close-button] {
+      position: absolute;
+      top: var(--fs-modal-header-close-button-position-top);
+      right: var(--fs-modal-header-close-button-position-right);
+    }
+  }
+
+  [data-fs-modal-body] {
+    padding: var(--fs-modal-body-padding);
+  }
+}
