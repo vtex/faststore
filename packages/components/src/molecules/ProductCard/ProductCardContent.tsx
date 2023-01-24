@@ -1,8 +1,16 @@
-import type { HTMLAttributes } from 'react'
+import type { HTMLAttributes, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
 import { Link, Price, BuyButton } from '../../index'
-import { useFormattedPrice } from '../../../../../apps/site/components/utilities/usePriceFormatter'
+
+export type PriceVariant =
+  | 'selling'
+  | 'listing'
+  | 'spot'
+  | 'savings'
+  | 'installment'
+
+export type PriceFormatter = (price: number, variant: PriceVariant) => ReactNode
 
 export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   /**
@@ -25,6 +33,10 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    * Enables a BuyButton to the component.
    */
   buyButton?: boolean
+  /**
+   * Formatter function that transforms the raw price value and render the result.
+   */
+  formatter?: PriceFormatter
 }
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
@@ -35,6 +47,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       title,
       price = 0,
       listPrice = 0,
+      formatter,
       children,
       ...otherProps
     },
@@ -54,14 +67,14 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           <div data-fs-product-card-prices>
             <Price
               value={listPrice}
-              formatter={useFormattedPrice}
+              formatter={formatter}
               testId="list-price"
               data-value={listPrice}
               variant="listing"
             />
             <Price
               value={price}
-              formatter={useFormattedPrice}
+              formatter={formatter}
               testId="price"
               data-value={price}
               variant="spot"
