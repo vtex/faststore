@@ -87,13 +87,11 @@ export {
   default as ProductCard,
   ProductCardImage,
   ProductCardContent,
-  ProductCardActions,
 } from './molecules/ProductCard'
 export type {
   ProductCardProps,
   ProductCardImageProps,
   ProductCardContentProps,
-  ProductCardActionsProps,
 } from './molecules/ProductCard'
 export { default as RadioField } from './molecules/RadioField'
 export type { RadioFieldProps } from './molecules/RadioField'
