@@ -1,0 +1,102 @@
+---
+description: ProductCard displays summarized information about a product.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/ProductCardComponent___e6502d57cf7e5bf247f86b64577d4141.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import {
+  ProductCard,
+  ProductCardContent,
+  ProductCardImage,
+} from '@faststore/ui'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+
+import { product } from '../../../mocks/product'
+
+<header>
+
+# Product Card
+
+Use the `ProductCard` to:
+
+- Present a product collection on the home page.
+- Present product details on PLPs.
+- Build a product slider that showcases multiple products at once, making it easier for visitors to browse your online store.
+
+Displays summarized information about a product. They usually present a call-to-action button, as well as the product's name, price, and image.
+
+</header>
+
+The `ProductCard` is a compound of the following:
+
+- `ProductCardImage`: wraps the product's image.
+- `ProductCardContent`: wraps the content's details.
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { ProductCard } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/ProductCard/styles.scss'
+```
+
+---
+
+## Usage
+
+<ProductCard>
+  <ProductCardImage>
+    <img
+      data-fs-image
+      src={product.image[0].url}
+      alt={product.image[0].alternateName}
+    />
+  </ProductCardImage>
+  <ProductCardContent
+    title={product.isVariantOf.name}
+    price={product.offers.offers[0].price}
+    listPrice={product.offers.offers[0].listPrice}
+  />
+</ProductCard>
+
+---
+
+## Props
+
+All table-related components support all attributes also supported by their respective HTML tags. Besides those attributes, the following props are also supported:
+
+### Product Card
+
+<PropsSection name="ProductCard" />
+
+---
+
+## Design Tokens
+
+---
+
+## Customization
+
+`data-fs-product-card`
+
+`data-fs-product-card-content`
+
+`data-fs-product-card-actions`
+
+`data-fs-product-card-image`
