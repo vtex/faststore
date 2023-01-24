@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.56-alpha.0](https://github.com/vtex/faststore/compare/v2.0.55-alpha.0...v2.0.56-alpha.0) (2023-01-24)
+
+### Features
+
+- Adds `Modal` component ([#1615](https://github.com/vtex/faststore/issues/1615)) ([a976d53](https://github.com/vtex/faststore/commit/a976d530ce05e2ecefa8090be1237b293a8b97cc))
+
 ## [2.0.55-alpha.0](https://github.com/vtex/faststore/compare/v2.0.54-alpha.0...v2.0.55-alpha.0) (2023-01-23)
 
 ### Chores
