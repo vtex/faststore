@@ -1,16 +1,14 @@
 import { Command } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
-import { existsSync, writeFileSync } from 'fs'
+import { existsSync } from 'fs'
 import { copy, removeSync } from 'fs-extra'
-import stringifyObject from 'stringify-object'
-import { tmpDir, tmpNextConfigFile, userDir } from '../utils/directory'
+import { tmpDir, userDir } from '../utils/directory'
 import { generate } from '../utils/generate'
 
 export default class Build extends Command {
   async run() {
     await generate({ setup: true })
-    await changesNextConfigFile()
     spawnSync(`yarn build`, {
       shell: true,
       cwd: tmpDir,
@@ -25,10 +23,12 @@ export default class Build extends Command {
       `${userDir}/lighthouserc.js`
     )
     await copyResource(`${tmpDir}/cypress.json`, `${userDir}/cypress.json`)
-    await copyResource(
-      `${userDir}/node_modules`,
-      `.next/standalone/node_modules`
-    )
+    if (existsSync(`.next/standalone`)) {
+      await copyResource(
+        `${userDir}/node_modules`,
+        `.next/standalone/node_modules`
+      )
+    }
   }
 }
 
@@ -47,41 +47,4 @@ async function copyResource(from: string, to: string) {
   } catch (err) {
     console.error(`${chalk.red('error')} - ${err}`)
   }
-}
-
-async function changesNextConfigFile() {
-  try {
-    if (!existsSync(tmpNextConfigFile)) return
-
-    const nextConfigFromTmp = await import(tmpNextConfigFile)
-    // avoid duplicate default values
-    const { default: defaulValues, ...otherProps } = nextConfigFromTmp
-
-    const mergeNextConfig = {
-      ...otherProps,
-    }
-
-    writeFileSync(tmpNextConfigFile, generateNextConfigFile(mergeNextConfig))
-    console.log(
-      `${chalk.green('success')} - File ${chalk.dim(
-        tmpNextConfigFile
-      )} changed.`
-    )
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
-  }
-}
-
-// TODO use template engine
-function generateNextConfigFile(content: any) {
-  const prettyObject = stringifyObject(content, {
-    indent: '  ',
-    singleQuotes: false,
-  }).slice(1, -1)
-  return `const nextConfig = {
-    ${prettyObject},
-    output: 'standalone',
-  }
-
-  module.exports = nextConfig`
 }
