@@ -11,7 +11,6 @@ export default class Build extends Command {
   async run() {
     await generate({ setup: true })
     await changesNextConfigFile()
-    await copyResource(`${userDir}/node_modules`, `${tmpDir}/node_modules`)
     spawnSync(`yarn build`, {
       shell: true,
       cwd: tmpDir,
@@ -21,6 +20,11 @@ export default class Build extends Command {
     await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
     await copyResource(`${tmpDir}/public`, `${userDir}/public`)
     await copyResource(`${tmpDir}/vtex.env`, `${userDir}/vtex.env`)
+    await copyResource(
+      `${tmpDir}/lighthouserc.js`,
+      `${userDir}/lighthouserc.js`
+    )
+    await copyResource(`${tmpDir}/cypress.json`, `${userDir}/cypress.json`)
     await copyResource(
       `${userDir}/node_modules`,
       `.next/standalone/node_modules`
@@ -75,8 +79,7 @@ function generateNextConfigFile(content: any) {
     singleQuotes: false,
   }).slice(1, -1)
   return `const nextConfig = {
-    ${prettyObject},
-    output: 'standalone',
+    ${prettyObject}
   }
 
   module.exports = nextConfig`
