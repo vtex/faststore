@@ -79,7 +79,8 @@ function generateNextConfigFile(content: any) {
     singleQuotes: false,
   }).slice(1, -1)
   return `const nextConfig = {
-    ${prettyObject}
+    ${prettyObject},
+    output: 'standalone',
   }
 
   module.exports = nextConfig`
