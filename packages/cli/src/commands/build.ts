@@ -49,24 +49,35 @@ async function changesNextConfigFile() {
 
     const mergeNextConfig = {
       ...otherProps,
-      distDir: '../.next',
     }
 
     writeFileSync(tmpNextConfigFile, generateNextConfigFile(mergeNextConfig))
     console.log(
       `${chalk.green('success')} - File ${chalk.dim(
         tmpNextConfigFile
-      )} distDir changed.`
+      )} changed.`
     )
   } catch (err) {
     console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
+// TODO use template engine
 function generateNextConfigFile(content: any) {
   const prettyObject = stringifyObject(content, {
     indent: '  ',
     singleQuotes: false,
-  })
-  return `module.exports = ${prettyObject}\n`
+  }).slice(1, -1)
+  return `const path = require("path")
+
+  const nextConfig = {
+    ${prettyObject},
+    output: 'standalone',
+    distDir: '../.next',
+    experimental: {
+      outputFileTracingRoot: path.join(__dirname, '../'),
+    },
+  }
+
+  module.exports = nextConfig`
 }
