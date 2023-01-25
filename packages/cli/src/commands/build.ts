@@ -17,6 +17,7 @@ export default class Build extends Command {
       stdio: 'inherit',
     })
 
+    await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
     await copyResource(`${tmpDir}/public`, `${userDir}/public`)
     await copyResource(`${tmpDir}/vtex.env`, `${userDir}/vtex.env`)
   }
@@ -68,15 +69,9 @@ function generateNextConfigFile(content: any) {
     indent: '  ',
     singleQuotes: false,
   }).slice(1, -1)
-  return `const path = require("path")
-
-  const nextConfig = {
+  return `const nextConfig = {
     ${prettyObject},
     output: 'standalone',
-    distDir: '../.next',
-    experimental: {
-      outputFileTracingRoot: path.join(__dirname, '../'),
-    },
   }
 
   module.exports = nextConfig`
