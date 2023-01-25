@@ -11,7 +11,7 @@ import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 import Skeleton from 'src/components/skeletons/Skeleton'
 import Icon from 'src/components/ui/Icon'
 import { mark } from 'src/sdk/tests/mark'
-import { useUI } from 'src/sdk/ui/Provider'
+import { useUI } from '@faststore/ui'
 
 import Section from '../Section'
 import EmptyGallery from './EmptyGallery'

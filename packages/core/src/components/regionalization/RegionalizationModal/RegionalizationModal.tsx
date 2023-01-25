@@ -1,12 +1,11 @@
-import Modal from 'src/components/ui/Modal'
-
-import { RegionalizationModalContent } from '.'
+import { Modal as UIModal } from '@faststore/ui'
+import RegionalizationModalContent from './RegionalizationModalContent'
 
 function RegionalizationModal() {
   return (
-    <Modal>
+    <UIModal>
       {({ fadeOut }) => <RegionalizationModalContent onClose={fadeOut} />}
-    </Modal>
+    </UIModal>
   )
 }
 

@@ -3,7 +3,7 @@ import { Button as UIButton } from '@faststore/ui'
 
 import Icon from 'src/components/ui/Icon'
 import { useSession } from 'src/sdk/session'
-import { useUI } from 'src/sdk/ui/Provider'
+import { useUI } from '@faststore/ui'
 
 import styles from './regionalization-bar.module.scss'
 

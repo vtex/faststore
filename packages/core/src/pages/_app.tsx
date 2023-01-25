@@ -11,7 +11,7 @@ import type { AppProps } from 'next/app'
 import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
-import UIProvider from 'src/sdk/ui/Provider'
+import { UIProvider } from '@faststore/ui'
 
 function App({ Component, pageProps }: AppProps) {
   return (

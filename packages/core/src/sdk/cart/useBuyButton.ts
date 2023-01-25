@@ -6,7 +6,7 @@ import type { AnalyticsItem } from 'src/sdk/analytics/types'
 import type { CartItem } from 'src/sdk/cart'
 
 import { useSession } from '../session'
-import { useUI } from '../ui/Provider'
+import { useUI } from '@faststore/ui'
 import { cartStore } from './index'
 
 export const useBuyButton = (item: CartItem | null) => {

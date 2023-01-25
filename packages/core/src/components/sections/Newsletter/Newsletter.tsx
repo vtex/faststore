@@ -6,7 +6,7 @@ import {
   InputField as UIInputField,
 } from '@faststore/ui'
 
-import { useUI } from 'src/sdk/ui/Provider'
+import { useUI } from '@faststore/ui'
 import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 import { useNewsletter } from 'src/sdk/newsletter/useNewsletter'

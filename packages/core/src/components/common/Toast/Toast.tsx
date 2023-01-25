@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect } from 'react'
 
 import { useCart } from 'src/sdk/cart'
-import { useUI } from 'src/sdk/ui/Provider'
+import { useUI } from '@faststore/ui'
 
 const UIToast = lazy(() => import('src/components/ui/Toast'))
 

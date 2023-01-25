@@ -9,7 +9,7 @@ import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
-import { useUI } from 'src/sdk/ui/Provider'
+import { useUI } from '@faststore/ui'
 import useScrollDirection from 'src/sdk/ui/useScrollDirection'
 
 import styles from './navbar.module.scss'

@@ -2,7 +2,7 @@ import { gql } from '@faststore/graphql-utils'
 import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
-import { useUI } from 'src/sdk/ui/Provider'
+import { useUI } from '@faststore/ui'
 
 import Facets from './Facets'
 import FilterSlider from './FilterSlider'
