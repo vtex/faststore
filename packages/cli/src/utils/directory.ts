@@ -36,3 +36,6 @@ export const tmpStoreConfigFileDir = `${tmpDir}/${configFileName}`
 
 export const userNodeModulesDir = `${userDir}/node_modules`
 export const tmpNodeModulesDir = `${tmpDir}/node_modules`
+
+export const nextConfigFileName = 'next.config.js'
+export const tmpNextConfigFile = `${tmpDir}/${nextConfigFileName}`

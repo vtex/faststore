@@ -1,21 +1,22 @@
 import { Command } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
-import { existsSync } from 'fs'
+import { existsSync, writeFileSync } from 'fs'
 import { copy, removeSync } from 'fs-extra'
-import { tmpDir, userDir } from '../utils/directory'
+import stringifyObject from 'stringify-object'
+import { tmpDir, tmpNextConfigFile, userDir } from '../utils/directory'
 import { generate } from '../utils/generate'
 
 export default class Build extends Command {
   async run() {
     await generate({ setup: true })
-
+    await changesNextConfigFile()
     spawnSync(`yarn build`, {
       shell: true,
       cwd: tmpDir,
       stdio: 'inherit',
     })
-    await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
+
     await copyResource(`${tmpDir}/public`, `${userDir}/public`)
     await copyResource(`${tmpDir}/vtex.env`, `${userDir}/vtex.env`)
   }
@@ -36,4 +37,36 @@ async function copyResource(from: string, to: string) {
   } catch (err) {
     console.error(`${chalk.red('error')} - ${err}`)
   }
+}
+
+async function changesNextConfigFile() {
+  try {
+    if (!existsSync(tmpNextConfigFile)) return
+
+    const nextConfigFromTmp = await import(tmpNextConfigFile)
+    // avoid duplicate default values
+    const { default: defaulValues, ...otherProps } = nextConfigFromTmp
+
+    const mergeNextConfig = {
+      ...otherProps,
+      distDir: '../.next',
+    }
+
+    writeFileSync(tmpNextConfigFile, generateNextConfigFile(mergeNextConfig))
+    console.log(
+      `${chalk.green('success')} - File ${chalk.dim(
+        tmpNextConfigFile
+      )} distDir changed.`
+    )
+  } catch (err) {
+    console.error(`${chalk.red('error')} - ${err}`)
+  }
+}
+
+function generateNextConfigFile(content: any) {
+  const prettyObject = stringifyObject(content, {
+    indent: '  ',
+    singleQuotes: false,
+  })
+  return `module.exports = ${prettyObject}\n`
 }
