@@ -1,0 +1,94 @@
+---
+description: The Product Title is commonly used on Product Details Page (PDP).
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Checkbox___5dfb3d931c093ee7ebfac8bc388e68b5.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { ProductTitle, DiscountBadge } from '@faststore/ui'
+
+<header>
+# Product Title
+
+The Product Title is commonly used on Product Details Page (PDP). It usually wraps the product name and a product label.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ProductTitle
+        label={<DiscountBadge size="big" listPrice={100} spotPrice={90} />}
+        refNumber="99995945"
+        title={<h1>Apple Magic Mouse</h1>}
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <ProductTitle
+      label={<DiscountBadge size="big" listPrice={100} spotPrice={90} />}
+      refNumber="99995945"
+      title={<h1>Apple Magic Mouse</h1>}
+    />
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { ProductTitle } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/ProductTitle/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <ProductTitle
+    label={<DiscountBadge size="big" listPrice={100} spotPrice={90} />}
+    refNumber="99995945"
+    title={<h1>Apple Magic Mouse</h1>}
+  />
+</OverviewSection>
+```tsx
+<ProductTitle
+  label={<DiscountBadge size="big" listPrice={100} spotPrice={90} />}
+  refNumber="99995945"
+  title={<h1>Apple Magic Mouse</h1>}
+/>
+```
+
+---
+
+## Props
+
+<PropsSection name="ProductTitle" />
+
+---
+
+## Design Tokens
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-product-title`
