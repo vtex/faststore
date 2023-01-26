@@ -1,7 +1,8 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Link, Price, BuyButton } from '../../index'
+import { Link, Price, Button, Rating, DiscountBadge } from '../../index'
+import { Star, ShoppingCart } from '../../assets'
 
 export type PriceVariant =
   | 'selling'
@@ -34,6 +35,14 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   buyButton?: boolean
   /**
+   * Enables a Rating to the component.
+   */
+  rating?: boolean
+  /**
+   * Enables a DiscountBadge to the component.
+   */
+  discountBadge?: boolean
+  /**
    * Formatter function that transforms the raw price value and render the result.
    */
   formatter?: PriceFormatter
@@ -44,9 +53,11 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
     {
       testId = 'fs-product-card-content',
       buyButton,
+      rating,
       title,
       price = 0,
       listPrice = 0,
+      discountBadge,
       formatter,
       children,
       ...otherProps
@@ -57,6 +68,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       <section
         ref={ref}
         data-fs-product-card-content
+        data-fs-product-card-actionable={buyButton}
         data-testid={testId}
         {...otherProps}
       >
@@ -80,10 +92,21 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
               variant="spot"
             />
           </div>
+          {rating && <Rating value={3.5} icon={<Star />} />}
         </div>
-        {!!buyButton && (
+        {discountBadge && (
+          <DiscountBadge listPrice={listPrice} spotPrice={price} />
+        )}
+        {buyButton && (
           <div data-fs-product-card-actions>
-            <BuyButton size="small">Buy Now</BuyButton>
+            <Button
+              variant="primary"
+              icon={<ShoppingCart />}
+              iconPosition="left"
+              size="small"
+            >
+              Add
+            </Button>
           </div>
         )}
       </section>
