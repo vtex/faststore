@@ -1,7 +1,7 @@
 import type { ReactNode, AriaAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Icon, Button } from '../../index'
+import { Button } from '../../index'
 import type { ButtonProps } from '../../index'
 
 export interface IconButtonProps extends Omit<ButtonProps, 'aria-label'> {
@@ -37,12 +37,12 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         data-fs-button
         data-fs-icon-button
         variant={variant ?? 'tertiary'}
+        icon={icon}
         aria-label={ariaLabel}
         testId={testId}
         {...otherProps}
       >
         {children}
-        <Icon component={icon} />
       </Button>
     )
   }
