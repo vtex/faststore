@@ -169,8 +169,6 @@ async function copyStoreConfig() {
     const { default: defaultFromStoreValues, ...otherStoreProps } =
       storeConfigFromStore
 
-    console.log('🚀 ~ { ...otherCoreProps }', { ...otherCoreProps })
-
     const mergedStoreConfig = deepmerge(
       { ...otherCoreProps },
       { ...otherStoreProps }
