@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'react'
+import type { HTMLAttributes, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
 import { XCircle } from '../../assets'
@@ -8,6 +8,15 @@ import {
   Price,
   QuantitySelector,
 } from '../../index'
+
+export type PriceVariant =
+  | 'selling'
+  | 'listing'
+  | 'spot'
+  | 'savings'
+  | 'installment'
+
+export type PriceFormatter = (price: number, variant: PriceVariant) => ReactNode
 
 export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -31,6 +40,10 @@ export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
    */
   unavailable?: boolean
   /**
+   * Formatter function that transforms the raw price value and render the result.
+   */
+  formatter?: PriceFormatter
+  /**
    * Event emitted when product value is changed.
    */
   onQuantityChange?: (value: number) => void
@@ -47,6 +60,7 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
     listPrice = 0,
     quantity,
     unavailable,
+    formatter,
     onQuantityChange,
     children,
     removeBtnProps,
@@ -75,24 +89,12 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
           onChange={onQuantityChange}
         />
         <span data-fs-cart-item-prices>
-          <Price
-            value={listPrice}
-            formatter={priceFormatter}
-            variant="listing"
-          />
-          <Price value={price} formatter={priceFormatter} variant="spot" />
+          <Price value={listPrice} formatter={formatter} variant="listing" />
+          <Price value={price} formatter={formatter} variant="spot" />
         </span>
       </div>
     </article>
   )
 })
-
-export function priceFormatter(priceNumber: number) {
-  const formattedPrice = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(priceNumber)
-  return formattedPrice
-}
 
 export default CartItem
