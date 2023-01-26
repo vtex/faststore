@@ -28,8 +28,8 @@ export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
   /**
    * The current value of the rating, based on the quantity of child elements.
    */
-  value?: number
-} & Omit<RatingProps, 'testId' | 'onChange'>
+  ratingValue?: number
+} & Omit<RatingProps, 'testId' | 'onChange' | 'value'>
 
 const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
   function ProductTitle(
@@ -39,7 +39,7 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
       refTag = 'Ref.: ',
       refNumber,
       testId = 'fs-product-title',
-      value,
+      ratingValue,
       ...otherProps
     },
     ref
@@ -56,9 +56,9 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
           {!!label && label}
         </div>
 
-        {(refNumber || value) && (
+        {(refNumber || ratingValue) && (
           <p data-fs-product-title-addendum>
-            {value && <Rating value={value} />}
+            {ratingValue && <Rating value={ratingValue} />}
             {refNumber && (
               <>
                 {refTag} {refNumber}
