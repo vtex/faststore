@@ -15,7 +15,7 @@ interface TrapFocusParams {
  *
  * Inspired by Reakit useTrapFocus https://github.com/reakit/reakit/blob/a211d94da9f3b683182568a56479b91afb1b85ae/packages/reakit/src/Dialog/__utils/useFocusTrap.ts
  */
-const useTrapFocus = ({
+export const useTrapFocus = ({
   trapFocusRef,
   beforeElementRef,
   afterElementRef,
@@ -106,5 +106,3 @@ const useTrapFocus = ({
     }
   }, [tabbableNodesRef, afterElementRef, beforeElementRef, trapFocusRef])
 }
-
-export default useTrapFocus

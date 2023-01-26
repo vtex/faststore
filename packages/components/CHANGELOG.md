@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.56-alpha.0](https://github.com/vtex/faststore/compare/v2.0.55-alpha.0...v2.0.56-alpha.0) (2023-01-24)
+
+### Features
+
+- Adds `Modal` component ([#1615](https://github.com/vtex/faststore/issues/1615)) ([a976d53](https://github.com/vtex/faststore/commit/a976d530ce05e2ecefa8090be1237b293a8b97cc))
+
+## [2.0.54-alpha.0](https://github.com/vtex/faststore/compare/v2.0.53-alpha.0...v2.0.54-alpha.0) (2023-01-20)
+
+### Features
+
+- Adds `Slider` & `PriceRange` component ([#1605](https://github.com/vtex/faststore/issues/1605)) ([97bf10d](https://github.com/vtex/faststore/commit/97bf10d0d34c524a316e95127e4ed8096c9fca4e))
+
+## [2.0.53-alpha.0](https://github.com/vtex/faststore/compare/v2.0.52-alpha.0...v2.0.53-alpha.0) (2023-01-19)
+
+### Features
+
+- Adds `LoadingButton` and `Loader` component ([#1611](https://github.com/vtex/faststore/issues/1611)) ([34021b2](https://github.com/vtex/faststore/commit/34021b22a489cd0b70a1ae62d1076285cb95af59))
+
+## [2.0.52-alpha.0](https://github.com/vtex/faststore/compare/v2.0.51-alpha.0...v2.0.52-alpha.0) (2023-01-19)
+
+### Features
+
+- Adds `Gift` component ([#1610](https://github.com/vtex/faststore/issues/1610)) ([baa80af](https://github.com/vtex/faststore/commit/baa80afa5dc6160086cf8ac101cc4a4290435aa8))
+
 ## [2.0.50-alpha.0](https://github.com/vtex/faststore/compare/v2.0.49-alpha.0...v2.0.50-alpha.0) (2023-01-16)
 
 ### Features

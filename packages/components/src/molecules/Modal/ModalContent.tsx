@@ -6,7 +6,7 @@ import type {
 } from 'react'
 import React, { useRef } from 'react'
 
-import useTrapFocus from './useTrapFocus'
+import { useTrapFocus } from '../../hooks'
 
 interface ModalContentPureProps
   extends Omit<

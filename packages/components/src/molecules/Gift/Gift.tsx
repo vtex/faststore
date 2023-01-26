@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Icon } from '@faststore/components'
+import { Icon } from '../..'
 
 export interface GiftProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -16,7 +16,7 @@ export interface GiftProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Gift = forwardRef<HTMLDivElement, GiftProps>(function Gift(
-  { icon, testId = 'store-gift', children, ...otherProps },
+  { icon, testId = 'fs-gift', children, ...otherProps },
   ref
 ) {
   return (

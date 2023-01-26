@@ -3,13 +3,15 @@
 @import "../components/atoms/Button/styles";
 @import "../components/atoms/Checkbox/styles";
 @import "../components/atoms/Icon/styles";
-@import "../components/atoms/Link/styles";
 @import "../components/atoms/Input/styles";
+@import "../components/atoms/Link/styles";
 @import "../components/atoms/List/styles";
+@import "../components/atoms/Loader/styles";
 @import "../components/atoms/Overlay/styles";
 @import "../components/atoms/Price/styles";
 @import "../components/atoms/Radio/styles";
 @import "../components/atoms/Select/styles";
+@import "../components/atoms/Slider/styles";
 @import "../components/atoms/SROnly/styles";
 
 // Molecules
@@ -20,8 +22,10 @@
 @import "../components/molecules/CheckboxField/styles";
 @import "../components/molecules/DiscountBadge/styles";
 @import "../components/molecules/Dropdown/styles";
+@import "../components/molecules/Gift/styles";
 @import "../components/molecules/InputField/styles";
 @import "../components/molecules/LinkButton/styles";
+@import "../components/molecules/Modal/styles";
 @import "../components/molecules/QuantitySelector/styles";
 @import "../components/molecules/RadioField/styles";
 @import "../components/molecules/Rating/styles";
@@ -33,3 +37,4 @@
 
 // Organisms
 @import "../components/organisms/Hero/styles";
+@import "../components/organisms/PriceRange/styles";
