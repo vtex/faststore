@@ -10,7 +10,9 @@ interface Params {
  */
 
 const lhConfig = ({ urls, server, assertions = {} }: Params) => {
-  const url = urls.map((path) => `${server}${path}`)
+  // eslint-disable-next-line turbo/no-undeclared-env-vars
+  const baseSiteUrl = process.env.BASE_SITE_URL || server
+  const url = urls.map((path) => `${baseSiteUrl}${path}`)
 
   return {
     ci: {
