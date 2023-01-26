@@ -59,7 +59,11 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
         {(refNumber || value) && (
           <p data-fs-product-title-addendum>
             {value && <Rating value={value} />}
-            {refTag} {refNumber}
+            {refNumber && (
+              <>
+                {refTag} {refNumber}
+              </>
+            )}
           </p>
         )}
       </header>
