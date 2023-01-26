@@ -1,6 +1,9 @@
 import React, { forwardRef, HTMLAttributes } from 'react'
 import type { ReactNode } from 'react'
 
+import { Rating } from '../../index'
+import type { RatingProps } from '../../index'
+
 export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
   /**
    * A react component to be used as the product title, e.g. a `h1`
@@ -22,7 +25,11 @@ export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
-}
+  /**
+   * The current value of the rating, based on the quantity of child elements.
+   */
+  value?: number
+} & Omit<RatingProps, 'testId' | 'onChange'>
 
 const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
   function ProductTitle(
@@ -32,6 +39,7 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
       refTag = 'Ref.: ',
       refNumber,
       testId = 'fs-product-title',
+      value,
       ...otherProps
     },
     ref
@@ -48,10 +56,10 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
           {!!label && label}
         </div>
 
-        {refNumber && (
+        {(refNumber || value) && (
           <p data-fs-product-title-addendum>
-            {refTag}
-            {refNumber}
+            {value && <Rating value={value} />}
+            {refTag} {refNumber}
           </p>
         )}
       </header>
