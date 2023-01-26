@@ -16,6 +16,7 @@ export const coreFolderName = 'core'
 export const coreDir = `${faststoreDir}/${coreFolderName}`
 
 export const srcFolderName = 'src'
+export const tmpSrcDir = `${tmpDir}/${srcFolderName}`
 export const userSrcDir = `${userDir}/${srcFolderName}`
 
 export const customizationsFolderName = 'customizations'
