@@ -43,7 +43,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   discountBadge?: boolean
   /**
-   * Formatter function that transforms the raw price value and render the result.
+   * Formatter function that transforms the raw price value and renders the result.
    */
   formatter?: PriceFormatter
 }
