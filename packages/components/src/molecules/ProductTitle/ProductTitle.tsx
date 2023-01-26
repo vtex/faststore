@@ -52,7 +52,7 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
         {...otherProps}
       >
         <div data-fs-product-title-header>
-          {title}
+          <>{title}</>
           {!!label && label}
         </div>
 
