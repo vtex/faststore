@@ -40,7 +40,7 @@ export const product = {
       alternateName: 'appleblack',
     },
     {
-      url: 'https://storeframework.vtexassets.com/arquivos/ids/190936/magic-combo.jpg?v=1759260622',
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190924/anthony-choren-e7dG26YCrZU-unsplash.jpg?v=637867501835430000',
       alternateName: 'combo',
     },
     {
