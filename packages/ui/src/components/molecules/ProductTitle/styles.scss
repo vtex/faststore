@@ -22,7 +22,7 @@
   [data-fs-product-title-header] {
     display: flex;
     justify-content: space-between;
-    max-width: 60ch;
+    max-width: 42ch;
     flex-wrap: wrap;
     column-gap: var(--fs-product-title-column-gap);
     row-gap: var(--fs-product-title-row-gap);
@@ -44,6 +44,9 @@
   }
 
   [data-fs-product-title-addendum] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: var(--fs-product-title-addendum-margin-top);
     font-size: var(--fs-product-title-addendum-size);
     line-height: var(--fs-product-title-addendum-line-height);
