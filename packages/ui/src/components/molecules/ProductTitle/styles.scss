@@ -7,6 +7,8 @@
   --fs-product-title-text-size            : var(--fs-text-size-title-product);
   --fs-product-title-text-weight          : var(--fs-text-weight-regular);
   --fs-product-title-line-height          : 1.12;
+  --fs-product-title-column-gap           : var(--fs-spacing-2);
+  --fs-product-title-row-gap              : var(--fs-spacing-3);
 
   --fs-product-title-addendum-margin-top  : var(--fs-spacing-3);
   --fs-product-title-addendum-color       : var(--fs-color-text-light);
@@ -19,21 +21,25 @@
 
   [data-fs-product-title-header] {
     display: flex;
-    column-gap: var(--fs-spacing-2);
     justify-content: space-between;
+    max-width: 60ch;
+    flex-wrap: wrap;
+    column-gap: var(--fs-product-title-column-gap);
+    row-gap: var(--fs-product-title-row-gap);
 
     // Title prop
-    &:first-child {
+    & > *:first-child {
       font-size: var(--fs-product-title-text-size);
       font-weight: var(--fs-product-title-text-weight);
       line-height: var(--fs-product-title-line-height);
+      letter-spacing: .01em;
     }
 
     [data-fs-badge] { white-space: nowrap; }
 
     @include media(">=tablet", "<notebook") {
       flex-direction: column;
-      row-gap: var(--fs-spacing-3);
+      row-gap: var(--fs-product-title-row-gap);
     }
   }
 
