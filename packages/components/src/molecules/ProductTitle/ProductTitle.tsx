@@ -25,9 +25,24 @@ export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
 }
 
 const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
-  function ProductTitle({ title, label, refTag= "Ref.: ",refNumber, testId= 'store-product-title', ...otherProps }, ref) {
+  function ProductTitle(
+    {
+      title,
+      label,
+      refTag = 'Ref.: ',
+      refNumber,
+      testId = 'fs-product-title',
+      ...otherProps
+    },
+    ref
+  ) {
     return (
-      <header ref={ref} data-fs-product-title data-testid={testId} {...otherProps}>
+      <header
+        ref={ref}
+        data-fs-product-title
+        data-testid={testId}
+        {...otherProps}
+      >
         <div data-fs-product-title-header>
           {title}
           {!!label && label}
@@ -35,7 +50,8 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
 
         {refNumber && (
           <p data-fs-product-title-addendum>
-            {refTag}{refNumber}
+            {refTag}
+            {refNumber}
           </p>
         )}
       </header>

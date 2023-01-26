@@ -17,9 +17,6 @@ export type { IncentiveProps } from './components/atoms/Incentive'
 export { default as SkuSelector } from './components/molecules/SkuSelector'
 export type { SkuSelectorProps } from './components/molecules/SkuSelector'
 
-export { default as ProductTitle } from './components/molecules/ProductTitle'
-export type { ProductTitleProps } from './components/molecules/ProductTitle'
-
 export { default as OrderSummary } from './components/molecules/OrderSummary'
 export type { OrderSummaryProps } from './components/molecules/OrderSummary'
 
