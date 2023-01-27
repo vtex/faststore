@@ -135,12 +135,12 @@
     display: inline-flex;
     align-content: center;
 
-    [data-variant="spot"] {
+    [data-fs-price-variant="spot"] {
       font-size: var(--fs-product-card-price-size);
       color: var(--fs-product-card-price-color);
     }
 
-    [data-variant="listing"] {
+    [data-fs-price-variant="listing"] {
       font-size: var(--fs-product-card-price-listing-size);
       color: var(--fs-product-card-price-listing-color);
     }
