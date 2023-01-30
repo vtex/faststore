@@ -26,7 +26,7 @@ export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
    */
   testId?: string
   /**
-   * The current value of the rating, based on the quantity of child elements.
+   * The current value of the rating, a number from 0 to 5.
    */
   ratingValue?: number
 } & Omit<RatingProps, 'testId' | 'onChange' | 'value'>

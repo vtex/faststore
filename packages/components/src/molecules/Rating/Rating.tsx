@@ -16,7 +16,7 @@ export interface RatingProps
    */
   value: number
   /**
-   * A React component that will be rendered as an icon rating.
+   * Icon to represent the rating score unit (e.g.: a <Star /> component)
    */
   icon?: ReactNode
   /**
