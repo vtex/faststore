@@ -28,10 +28,6 @@
     [data-fs-badge-wrapper] {
       background-color: var(--fs-discount-badge-low-bkg-color);
       border-color: var(--fs-discount-badge-low-border-color);
-
-      &::after {
-        background-color: var(--fs-discount-badge-low-bkg-color);
-      }
     }
   }
 
@@ -41,7 +37,6 @@
     [data-fs-badge-wrapper] {
       background-color: var(--fs-discount-badge-medium-bkg-color);
       border-color: var(--fs-discount-badge-medium-border-color);
-      &::after { background-color: var(--fs-discount-badge-medium-bkg-color); }
     }
   }
 
@@ -51,7 +46,6 @@
     [data-fs-badge-wrapper] {
       background-color: var(--fs-discount-badge-high-bkg-color);
       border-color: var(--fs-discount-badge-high-border-color);
-      &::after { background-color: var(--fs-discount-badge-high-bkg-color); }
     }
   }
 }
