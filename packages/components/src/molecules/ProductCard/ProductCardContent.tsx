@@ -33,15 +33,15 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   linkProps?: Partial<LinkProps>
   /**
-   * Specifies product Price.
+   * Specifies product's prices.
    */
   price?: Price
   /**
-   * Enables a Rating to the component.
+   * Specifies Rating Value of the product.
    */
   ratingValue?: number
   /**
-   * Enables a Button to the component.
+   * Callback function when button is clicked.
    */
   onButtonClick?: () => void
   /**
