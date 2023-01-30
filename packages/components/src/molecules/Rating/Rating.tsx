@@ -47,7 +47,7 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
   ref
 ) {
   const [hover, setHover] = useState(0)
-  let ratingIcon = icon ? icon : <Star />
+  const ratingIcon = icon ? icon : <Star />
 
   return (
     <List
