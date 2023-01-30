@@ -34,14 +34,13 @@ Also by using `Skeletons` the store will be less likely to experience [Cumulativ
       <Skeleton
         size={{ width: '150px', height: '80px' }}
         customBorder="32px"
-        shimmer
       />
     </OverviewSection>
     <OverviewSection bigGap>
       <p>Without Shimmer Effect</p>
-      <Skeleton size={{ width: '150px', height: '100px' }} border="regular" />
-      <Skeleton size={{ width: '150px', height: '100px' }} border="pill" />
-      <Skeleton size={{ width: '100px', height: '100px' }} border="circle" />
+      <Skeleton size={{ width: '150px', height: '100px' }} border="regular" shimmer={false} />
+      <Skeleton size={{ width: '150px', height: '100px' }} border="pill" shimmer={false} />
+      <Skeleton size={{ width: '100px', height: '100px' }} border="circle" shimmer={false}/>
     </OverviewSection>
   </Tab>
   <Tab>
@@ -49,14 +48,13 @@ Also by using `Skeletons` the store will be less likely to experience [Cumulativ
     <Skeleton
       size={{ width: '200px', height: '80px' }}
       customBorder="32px"
-      shimmer
     />
     ```
 
     ```
-    <Skeleton size={{ width: '150px', height: '100px' }} border="regular" />
-    <Skeleton size={{ width: '150px', height: '100px' }} border="pill" />
-    <Skeleton size={{ width: '100px', height: '100px' }} border="circle" />
+    <Skeleton size={{ width: '150px', height: '100px' }} border="regular" shimmer={false}/>
+    <Skeleton size={{ width: '150px', height: '100px' }} border="pill" shimmer={false}/>
+    <Skeleton size={{ width: '100px', height: '100px' }} border="circle" shimmer={false}/>
     ```
 
   </Tab>
@@ -82,19 +80,11 @@ import '@faststore/ui/src/components/atoms/Skeleton/styles.scss'
 ## Usage
 
 <OverviewSection>
-  <Skeleton
-    size={{ width: '200px', height: '80px' }}
-    customBorder="32px"
-    shimmer
-  />
+  <Skeleton size={{ width: '200px', height: '80px' }} customBorder="32px" />
 </OverviewSection>
 
 ```tsx
-<Skeleton
-  size={{ width: '200px', height: '80px' }}
-  customBorder="32px"
-  shimmer
-/>
+<Skeleton size={{ width: '200px', height: '80px' }} customBorder="32px" />
 ```
 
 ---

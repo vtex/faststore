@@ -40,7 +40,7 @@ const Skeleton = forwardRef<HTMLDivElement, PropsWithChildren<SkeletonProps>>(
     {
       testId = 'fs-skeleton',
       loading = true,
-      shimmer = false,
+      shimmer = true,
       children,
       size,
       border,
