@@ -6,6 +6,7 @@
   // Default properties
   --fs-product-card-padding                  : var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-2) var(--fs-spacing-1);
   --fs-product-card-min-width                : 10rem;
+  --fs-product-card-gap                      : var(--fs-spacing-2);
 
   --fs-product-card-shadow                   : var(--fs-shadow);
   --fs-product-card-shadow-hover             : var(--fs-shadow-hover);
@@ -22,9 +23,6 @@
   --fs-product-card-transition-function      : var(--fs-transition-function);
   --fs-product-card-transition-property      : var(--fs-transition-property);
   --fs-product-card-transition-timing        : var(--fs-transition-timing);
-
-  // Content
-  --fs-product-card-content-padding          : var(--fs-spacing-2) 0 0 0;
 
   // Image
   --fs-product-card-img-radius               : var(--fs-product-card-border-radius);
@@ -55,10 +53,14 @@
   position: relative;
   min-width: var(--fs-product-card-min-width);
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--fs-product-card-gap);
   padding: var(--fs-product-card-padding);
   background-color: var(--fs-product-card-bkg-color);
   border: var(--fs-product-card-border-width) solid transparent;
   border-radius: var(--fs-product-card-border-radius);
+  overflow: hidden;
   box-shadow: var(--fs-product-card-shadow);
   transition: var(--fs-product-card-transition-property) var(--fs-product-card-transition-timing) var(--fs-product-card-transition-function);
 
@@ -86,7 +88,6 @@
     justify-content: center;
     overflow: hidden;
     width: 100%;
-    border-radius: var(--fs-product-card-img-radius);
     aspect-ratio: var(--fs-product-card-image-aspect-ratio);
 
     img {
@@ -100,8 +101,7 @@
   [data-fs-product-card-content] {
     display: flex;
     flex-direction: column;
-    row-gap: var(--fs-spacing-2);
-    padding: var(--fs-product-card-content-padding);
+    row-gap: var(--fs-product-card-gap);
 
     [data-fs-link] {
       min-height: 100%;
@@ -127,13 +127,14 @@
     font-weight: var(--fs-product-card-title-weight);
     line-height: 1.25;
     color: var(--fs-product-card-title-color);
+    > a { line-height: 1.25; }
 
     @include truncate-title(var(--fs-product-card-title-max-lines));
   }
 
   [data-fs-product-card-prices] {
-    display: inline-flex;
-    align-content: center;
+    display: flex;
+    align-items: center;
 
     [data-fs-price-variant="spot"] {
       font-size: var(--fs-product-card-price-size);
@@ -146,6 +147,11 @@
     }
   }
 
+  [data-fs-product-card-actions] {
+    z-index: var(--fs-z-index-top);
+    width: fit-content;
+    height: fit-content;
+  }
 
   // --------------------------------------------------------
   // Variants Styles
@@ -161,25 +167,29 @@
     }
   }
 
+  &[data-fs-product-card-variant="default"] {
+    [data-fs-product-card-image] {
+      border-radius: var(--fs-product-card-img-radius);
+    }
+  }
+
   &[data-fs-product-card-variant="wide"] {
     --fs-product-card-padding         : var(--fs-product-card-wide-padding);
-    --fs-product-card-content-padding : var(--fs-product-card-wide-content-padding);
     --fs-product-card-bkg-color       : var(--fs-product-card-wide-bkg-color);
     --fs-product-card-min-width       : var(--fs-product-card-wide-min-width);
 
-    [data-fs-product-card-image] {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-    }
+    padding-bottom: var(--fs-product-card-wide-content-padding);
 
     [data-fs-product-card-content] {
+      padding-left: var(--fs-product-card-wide-content-padding);
+      padding-right: var(--fs-product-card-wide-content-padding);
       @include media(">=notebook") {
         flex-direction: row;
         justify-content: space-between;
       }
     }
 
-    [data-fs-product-card-actions] {
+    [data-fs-product-card-actions], [data-fs-badge-variant] {
       margin-top: var(--fs-spacing-0);
     }
   }
