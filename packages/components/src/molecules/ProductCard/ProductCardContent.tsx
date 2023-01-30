@@ -1,17 +1,23 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Link, Price, Button, Rating, DiscountBadge } from '../../index'
+import type { PriceFormatter } from '../../atoms/Price/Price'
+
+import {
+  Link,
+  Price,
+  Button,
+  Rating,
+  DiscountBadge,
+  LinkProps,
+} from '../../index'
 import { Star, ShoppingCart } from '../../assets'
 
-export type PriceVariant =
-  | 'selling'
-  | 'listing'
-  | 'spot'
-  | 'savings'
-  | 'installment'
-
-export type PriceFormatter = (price: number, variant: PriceVariant) => ReactNode
+interface Price {
+  value: number
+  listPrice: number
+  formatter: PriceFormatter
+}
 
 export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   /**
@@ -23,42 +29,42 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   title: string
   /**
+   * Props for the link from ProductCard component.
+   */
+  linkProps?: Partial<LinkProps>
+  /**
    * Specifies product Price.
    */
-  price?: number
-  /**
-   * Specifies product List Price.
-   */
-  listPrice?: number
-  /**
-   * Enables a BuyButton to the component.
-   */
-  buyButton?: boolean
+  price?: Price
   /**
    * Enables a Rating to the component.
    */
-  rating?: boolean
+  ratingValue?: number
+  /**
+   * Enables a Button to the component.
+   */
+  onButtonClick?: () => void
+  /**
+   * Specifies the button's label.
+   */
+  buttonLabel?: string
   /**
    * Enables a DiscountBadge to the component.
    */
-  discountBadge?: boolean
-  /**
-   * Formatter function that transforms the raw price value and renders the result.
-   */
-  formatter?: PriceFormatter
+  showDiscountBadge?: boolean
 }
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
   function CardContent(
     {
       testId = 'fs-product-card-content',
-      buyButton,
-      rating,
       title,
-      price = 0,
-      listPrice = 0,
-      discountBadge,
-      formatter,
+      linkProps,
+      price,
+      ratingValue,
+      showDiscountBadge,
+      buttonLabel = 'Add',
+      onButtonClick,
       children,
       ...otherProps
     },
@@ -68,44 +74,50 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       <section
         ref={ref}
         data-fs-product-card-content
-        data-fs-product-card-actionable={buyButton}
+        data-fs-product-card-badge={showDiscountBadge}
         data-testid={testId}
         {...otherProps}
       >
         <div data-fs-product-card-heading>
           <h3 data-fs-product-card-title>
-            <Link title={title}>{title}</Link>
+            <Link {...linkProps} title={title}>
+              {title}
+            </Link>
           </h3>
           <div data-fs-product-card-prices>
             <Price
-              value={listPrice}
-              formatter={formatter}
+              value={price?.listPrice ? price.listPrice : 0}
+              formatter={price?.formatter}
               testId="list-price"
-              data-value={listPrice}
+              data-value={price?.listPrice}
               variant="listing"
             />
             <Price
-              value={price}
-              formatter={formatter}
+              value={price?.value ? price.value : 0}
+              formatter={price?.formatter}
               testId="price"
-              data-value={price}
+              data-value={price?.value}
               variant="spot"
             />
           </div>
-          {rating && <Rating value={3.5} icon={<Star />} />}
+          {ratingValue && <Rating value={ratingValue} icon={<Star />} />}
         </div>
-        {discountBadge && (
-          <DiscountBadge listPrice={listPrice} spotPrice={price} />
+        {showDiscountBadge && (
+          <DiscountBadge
+            listPrice={price?.listPrice ? price.listPrice : 0}
+            spotPrice={price?.value ? price.value : 0}
+          />
         )}
-        {buyButton && (
+        {onButtonClick && (
           <div data-fs-product-card-actions>
             <Button
               variant="primary"
               icon={<ShoppingCart />}
               iconPosition="left"
               size="small"
+              onClick={onButtonClick}
             >
-              Add
+              {buttonLabel}
             </Button>
           </div>
         )}
