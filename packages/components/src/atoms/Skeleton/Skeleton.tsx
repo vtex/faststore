@@ -30,9 +30,9 @@ export interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {
    */
   border?: BorderStyle
   /**
-   * Customizes the skeleton element border size.
+   * Custom border radius for skeleton elements.
    */
-  customBorder?: string
+  borderRadius?: string
 }
 
 const Skeleton = forwardRef<HTMLDivElement, PropsWithChildren<SkeletonProps>>(
@@ -44,7 +44,7 @@ const Skeleton = forwardRef<HTMLDivElement, PropsWithChildren<SkeletonProps>>(
       children,
       size,
       border,
-      customBorder,
+      borderRadius,
       ...otherProps
     },
     ref
@@ -61,7 +61,7 @@ const Skeleton = forwardRef<HTMLDivElement, PropsWithChildren<SkeletonProps>>(
         data-testid={testId}
         data-fs-skeleton-border={border ? border : null}
         style={
-          customBorder ? { ...styles, borderRadius: customBorder } : styles
+          borderRadius ? { ...styles, borderRadius: borderRadius } : styles
         }
         {...otherProps}
       >
