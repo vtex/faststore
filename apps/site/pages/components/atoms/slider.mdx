@@ -10,8 +10,8 @@ import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { Slider, Price, PriceRange } from '@faststore/ui'
-import { useMemo } from 'react'
 import PriceRangeUsage from 'site/components/PriceRange/PriceRangeUsage'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
 <header>
 
@@ -85,28 +85,21 @@ import '@faststore/ui/src/components/atoms/Slider/styles.scss'
 
 ---
 
-export function priceFormatter(price) {
-  return useMemo(() => {
-    const formattedPrice = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(price)
-    return formattedPrice
-  })
-}
-
 ## Usage
 
 <OverviewSection>
   <Slider
     max={{ absolute: 500, selected: 250 }}
     min={{ absolute: 0, selected: 100 }}
-    absoluteValuesLabel={{ min: priceFormatter(0), max: priceFormatter(500) }}
+    absoluteValuesLabel={{
+      min: useFormattedPrice(0),
+      max: useFormattedPrice(500),
+    }}
     maxValueLabelComponent={(maxValue) => {
-      return <Price formatter={priceFormatter} value={maxValue} />
+      return <Price formatter={useFormattedPrice} value={maxValue} />
     }}
     minValueLabelComponent={(minValue) => {
-      return <Price formatter={priceFormatter} value={minValue} />
+      return <Price formatter={useFormattedPrice} value={minValue} />
     }}
   />
 </OverviewSection>
@@ -114,12 +107,15 @@ export function priceFormatter(price) {
 <Slider
   max={{ absolute: 500, selected: 250 }}
   min={{ absolute: 0, selected: 100 }}
-  absoluteValuesLabel={{ min: priceFormatter(0), max: priceFormatter(500) }}
+  absoluteValuesLabel={{
+    min: useFormattedPrice(0),
+    max: useFormattedPrice(500),
+  }}
   maxValueLabelComponent={(maxValue) => {
-    return <Price formatter={priceFormatter} value={maxValue} />
+    return <Price formatter={useFormattedPrice} value={maxValue} />
   }}
   minValueLabelComponent={(minValue) => {
-    return <Price formatter={priceFormatter} value={minValue} />
+    return <Price formatter={useFormattedPrice} value={minValue} />
   }}
 />
 ```
