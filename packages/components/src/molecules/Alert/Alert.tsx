@@ -2,7 +2,7 @@ import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 import { useCallback } from 'react'
 
-import { Button, Link, Icon, LinkProps } from '../../index'
+import { Button, Link, Icon, LinkProps } from '../../'
 
 import { X } from '../../assets'
 
@@ -33,16 +33,18 @@ export interface AlertProps
   onClose?: (event: MouseEvent<HTMLElement>) => void
 }
 
-const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert({
-  testId = 'fs-alert',
-  children,
-  icon,
-  dismissible,
-  link,
-  onClose,
-  ...otherProps
-},
-  ref) {
+const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  {
+    testId = 'fs-alert',
+    children,
+    icon,
+    dismissible,
+    link,
+    onClose,
+    ...otherProps
+  },
+  ref
+) {
   const handleClose = useCallback(
     (event: MouseEvent<HTMLElement>) => {
       if (event.defaultPrevented) {
@@ -62,14 +64,11 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert({
       data-fs-alert-dismissible={dismissible}
       {...otherProps}
     >
-
       {icon && <Icon component={icon} />}
 
       <p data-fs-alert-content>{children}</p>
 
-      {link && (
-        <Link data-fs-alert-link variant="inline" {...link} />
-      )}
+      {link && <Link data-fs-alert-link variant="inline" {...link} />}
 
       {dismissible && (
         <Button data-fs-alert-button aria-label="Close" onClick={handleClose}>

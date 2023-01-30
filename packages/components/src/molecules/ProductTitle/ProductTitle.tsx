@@ -1,8 +1,8 @@
 import React, { forwardRef, HTMLAttributes } from 'react'
 import type { ReactNode } from 'react'
 
-import { Rating } from '../../index'
-import type { RatingProps } from '../../index'
+import { Rating } from '../../'
+import type { RatingProps } from '../../'
 
 export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
   /**

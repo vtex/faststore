@@ -12,7 +12,7 @@ import { RightArrowIcon, LeftArrowIcon } from './Arrows'
 import CarouselItem from './CarouselItem'
 import useSlider from '../../../hooks/useSlider/useSlider'
 import Bullets from '../Bullets'
-import { IconButton } from '../../../index'
+import { IconButton } from '../../../'
 
 const createTransformValues = (infinite: boolean, totalItems: number) => {
   const transformMap: Record<number, number> = {}
