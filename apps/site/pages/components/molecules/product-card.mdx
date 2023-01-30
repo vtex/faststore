@@ -49,11 +49,13 @@ The `ProductCard` is a compound of the following:
     </ProductCardImage>
     <ProductCardContent
       title={product.isVariantOf.name}
-      price={product.offers.offers[0].price}
-      listPrice={product.offers.offers[0].listPrice}
-      formatter={useFormattedPrice}
-      rating
-      buyButton
+      price={{
+        value: product.offers.offers[0].price,
+        listPrice: product.offers.offers[0].listPrice,
+        formatter: useFormattedPrice,
+      }}
+      ratingValue={3.5}
+      onButtonClick={() => {}}
     />
   </ProductCard>
   <ProductCard bordered>
@@ -66,10 +68,12 @@ The `ProductCard` is a compound of the following:
     </ProductCardImage>
     <ProductCardContent
       title={product.isVariantOf.name}
-      price={product.offers.offers[0].price}
-      listPrice={product.offers.offers[0].listPrice}
-      formatter={useFormattedPrice}
-      discountBadge
+      price={{
+        value: product.offers.offers[0].price,
+        listPrice: product.offers.offers[0].listPrice,
+        formatter: useFormattedPrice,
+      }}
+      showDiscountBadge
     />
   </ProductCard>
   <ProductCard variant="wide">
@@ -82,11 +86,13 @@ The `ProductCard` is a compound of the following:
     </ProductCardImage>
     <ProductCardContent
       title={product.isVariantOf.name}
-      price={product.offers.offers[0].price}
-      listPrice={product.offers.offers[0].listPrice}
-      formatter={useFormattedPrice}
-      rating
-      discountBadge
+      price={{
+        value: product.offers.offers[0].price,
+        listPrice: product.offers.offers[0].listPrice,
+        formatter: useFormattedPrice,
+      }}
+      ratingValue={3.5}
+      showDiscountBadge
     />
   </ProductCard>
 </OverviewSection>
@@ -124,11 +130,13 @@ import '@faststore/ui/src/components/molecules/ProductCard/styles.scss'
     </ProductCardImage>
     <ProductCardContent
       title={product.isVariantOf.name}
-      price={product.offers.offers[0].price}
-      listPrice={product.offers.offers[0].listPrice}
-      formatter={useFormattedPrice}
-      rating
-      buyButton
+      price={{
+        value: product.offers.offers[0].price,
+        listPrice: product.offers.offers[0].listPrice,
+        formatter: useFormattedPrice,
+      }}
+      ratingValue={3.5}
+      onButtonClick={() => {}}
     />
   </ProductCard>
 </OverviewSection>
@@ -293,11 +301,13 @@ All table-related components support all attributes also supported by their resp
     </ProductCardImage>
     <ProductCardContent
       title={product.isVariantOf.name}
-      price={product.offers.offers[0].price}
-      listPrice={product.offers.offers[0].listPrice}
-      formatter={useFormattedPrice}
-      rating
-      buyButton
+      price={{
+        value: product.offers.offers[0].price,
+        listPrice: product.offers.offers[0].listPrice,
+        formatter: useFormattedPrice,
+      }}
+      ratingValue={3.5}
+      onButtonClick={() => {}}
     />
   </ProductCard>
 </OverviewSection>
@@ -317,11 +327,13 @@ All table-related components support all attributes also supported by their resp
     </ProductCardImage>
     <ProductCardContent
       title={product.isVariantOf.name}
-      price={product.offers.offers[0].price}
-      listPrice={product.offers.offers[0].listPrice}
-      formatter={useFormattedPrice}
-      rating
-      buyButton
+      price={{
+        value: product.offers.offers[0].price,
+        listPrice: product.offers.offers[0].listPrice,
+        formatter: useFormattedPrice,
+      }}
+      ratingValue={3.5}
+      onButtonClick={() => {}}
     />
   </ProductCard>
 </OverviewSection>
@@ -355,11 +367,13 @@ Prefer using `buyButton` or `discountBadge`, never both.
     </ProductCardImage>
     <ProductCardContent
       title={product.isVariantOf.name}
-      price={product.offers.offers[0].price}
-      listPrice={product.offers.offers[0].listPrice}
-      formatter={useFormattedPrice}
-      rating
-      buyButton
+      price={{
+        value: product.offers.offers[0].price,
+        listPrice: product.offers.offers[0].listPrice,
+        formatter: useFormattedPrice,
+      }}
+      ratingValue={3.5}
+      onButtonClick={() => {}}
     />
   </ProductCard>
   <ProductCard variant="wide">
@@ -372,11 +386,13 @@ Prefer using `buyButton` or `discountBadge`, never both.
     </ProductCardImage>
     <ProductCardContent
       title={product.isVariantOf.name}
-      price={product.offers.offers[0].price}
-      listPrice={product.offers.offers[0].listPrice}
-      formatter={useFormattedPrice}
-      rating
-      discountBadge
+      price={{
+        value: product.offers.offers[0].price,
+        listPrice: product.offers.offers[0].listPrice,
+        formatter: useFormattedPrice,
+      }}
+      ratingValue={3.5}
+      showDiscountBadge
     />
   </ProductCard>
 </OverviewSection>
