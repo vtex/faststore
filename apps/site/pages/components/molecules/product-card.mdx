@@ -430,15 +430,17 @@ All table-related components support all attributes also supported by their resp
 
 #### Out of Stock
 
+To replicate this style, add `outOfStock` prop on both `ProductCard` and `ProductCardContent`.
+
 export const outOfStock =
-  product.offers.offers[0].availability !== 'https://schema.org/InStock'
+  product.offers.offers[0].availability === 'https://schema.org/InStock'
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection
       containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}
     >
-      <ProductCard>
+      <ProductCard outOfStock={outOfStock}>
         <ProductCardImage>
           <img
             data-fs-image
@@ -453,8 +455,7 @@ export const outOfStock =
             listPrice: product.offers.offers[0].listPrice,
             formatter: useFormattedPrice,
           }}
-          ratingValue={3.5}
-          outOfStock={() => {}}
+          outOfStock={outOfStock}
         />
       </ProductCard>
     </OverviewSection>
@@ -463,7 +464,7 @@ export const outOfStock =
     ```tsx
     const outOfStock = product.offers.offers[0].availability !== 'https://schema.org/InStock'
 
-    <ProductCard>
+    <ProductCard outOfStock={outOfStock}>
       <ProductCardImage>
         <img
           data-fs-image
@@ -478,7 +479,6 @@ export const outOfStock =
           listPrice: product.offers.offers[0].listPrice,
           formatter: useFormattedPrice,
         }}
-        ratingValue={3.5}
         outOfStock={outOfStock}
       />
     </ProductCard>
@@ -486,6 +486,15 @@ export const outOfStock =
 
   </Tab>
 </Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-card-out-of-stock-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow token="--fs-product-card-out-of-stock-img-opacity" value=".5" />
+</TokenTable>
 
 #### Bordered
 

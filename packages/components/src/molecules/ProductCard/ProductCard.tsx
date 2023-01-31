@@ -11,6 +11,10 @@ export interface ProductCardProps extends HTMLAttributes<HTMLDivElement> {
    */
   variant?: 'wide' | 'default'
   /**
+   * Enables a outOfStock status.
+   */
+  outOfStock?: boolean
+  /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
    */
@@ -23,6 +27,7 @@ const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
       testId = 'fs-product-card',
       variant = 'default',
       bordered = false,
+      outOfStock,
       children,
       ...otherProps
     },
@@ -31,7 +36,7 @@ const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
     return (
       <article
         ref={ref}
-        data-fs-product-card
+        data-fs-product-card={outOfStock ? 'out-of-stock' : ''}
         data-fs-product-card-variant={variant}
         data-fs-product-card-bordered={bordered}
         data-testid={testId}

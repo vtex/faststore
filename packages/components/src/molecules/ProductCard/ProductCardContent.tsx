@@ -40,7 +40,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   /**
    * Enables a outOfStock status.
    */
-  outOfStock?: () => void
+  outOfStock?: boolean
   /**
    * Specifies the OutOfStock badge's label.
    */
