@@ -36,66 +36,137 @@ The `ProductCard` is a compound of the following:
 
 ## Overview
 
-<OverviewSection
-  containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 2fr' }}
->
-  <ProductCard>
-    <ProductCardImage>
-      <img
-        data-fs-image
-        src={product.image[1].url}
-        alt={product.image[1].alternateName}
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection
+      containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 2fr' }}
+    >
+      <ProductCard>
+        <ProductCardImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </ProductCardImage>
+        <ProductCardContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+          ratingValue={3.5}
+          onButtonClick={() => {}}
+        />
+      </ProductCard>
+      <ProductCard bordered>
+        <ProductCardImage aspectRatio={3 / 4}>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </ProductCardImage>
+        <ProductCardContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+          showDiscountBadge
+        />
+      </ProductCard>
+      <ProductCard variant="wide">
+        <ProductCardImage aspectRatio={3 / 2}>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </ProductCardImage>
+        <ProductCardContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+          ratingValue={3.5}
+          showDiscountBadge
+        />
+      </ProductCard>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <ProductCard>
+      <ProductCardImage>
+        <img
+          data-fs-image
+          src={product.image[1].url}
+          alt={product.image[1].alternateName}
+        />
+      </ProductCardImage>
+      <ProductCardContent
+        title={product.isVariantOf.name}
+        price={{
+          value: product.offers.offers[0].price,
+          listPrice: product.offers.offers[0].listPrice,
+          formatter: useFormattedPrice,
+        }}
+        ratingValue={3.5}
+        onButtonClick={() => {}}
       />
-    </ProductCardImage>
-    <ProductCardContent
-      title={product.isVariantOf.name}
-      price={{
-        value: product.offers.offers[0].price,
-        listPrice: product.offers.offers[0].listPrice,
-        formatter: useFormattedPrice,
-      }}
-      ratingValue={3.5}
-      onButtonClick={() => {}}
-    />
-  </ProductCard>
-  <ProductCard bordered>
-    <ProductCardImage aspectRatio={3 / 4}>
-      <img
-        data-fs-image
-        src={product.image[1].url}
-        alt={product.image[1].alternateName}
+    </ProductCard>
+    ```
+
+    ```tsx
+    <ProductCard bordered>
+      <ProductCardImage aspectRatio={3 / 4}>
+        <img
+          data-fs-image
+          src={product.image[1].url}
+          alt={product.image[1].alternateName}
+        />
+      </ProductCardImage>
+      <ProductCardContent
+        title={product.isVariantOf.name}
+        price={{
+          value: product.offers.offers[0].price,
+          listPrice: product.offers.offers[0].listPrice,
+          formatter: useFormattedPrice,
+        }}
+        showDiscountBadge
       />
-    </ProductCardImage>
-    <ProductCardContent
-      title={product.isVariantOf.name}
-      price={{
-        value: product.offers.offers[0].price,
-        listPrice: product.offers.offers[0].listPrice,
-        formatter: useFormattedPrice,
-      }}
-      showDiscountBadge
-    />
-  </ProductCard>
-  <ProductCard variant="wide">
-    <ProductCardImage aspectRatio={3 / 2}>
-      <img
-        data-fs-image
-        src={product.image[1].url}
-        alt={product.image[1].alternateName}
+    </ProductCard>
+    ```
+
+    ```tsx
+    <ProductCard variant="wide">
+      <ProductCardImage aspectRatio={3 / 2}>
+        <img
+          data-fs-image
+          src={product.image[1].url}
+          alt={product.image[1].alternateName}
+        />
+      </ProductCardImage>
+      <ProductCardContent
+        title={product.isVariantOf.name}
+        price={{
+          value: product.offers.offers[0].price,
+          listPrice: product.offers.offers[0].listPrice,
+          formatter: useFormattedPrice,
+        }}
+        ratingValue={3.5}
+        showDiscountBadge
       />
-    </ProductCardImage>
-    <ProductCardContent
-      title={product.isVariantOf.name}
-      price={{
-        value: product.offers.offers[0].price,
-        listPrice: product.offers.offers[0].listPrice,
-        formatter: useFormattedPrice,
-      }}
-      ratingValue={3.5}
-      showDiscountBadge
-    />
-  </ProductCard>
-</OverviewSection>
+    </ProductCard>
+    ```
+
+  </Tab>
+</Tabs>
 
 ---
 
@@ -117,29 +188,56 @@ import '@faststore/ui/src/components/molecules/ProductCard/styles.scss'
 
 ## Usage
 
-<OverviewSection
-  containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}
->
-  <ProductCard>
-    <ProductCardImage>
-      <img
-        data-fs-image
-        src={product.image[1].url}
-        alt={product.image[1].alternateName}
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection
+      containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}
+    >
+      <ProductCard>
+        <ProductCardImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </ProductCardImage>
+        <ProductCardContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+          ratingValue={3.5}
+          onButtonClick={() => {}}
+        />
+      </ProductCard>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <ProductCard>
+      <ProductCardImage>
+        <img
+          data-fs-image
+          src={product.image[1].url}
+          alt={product.image[1].alternateName}
+        />
+      </ProductCardImage>
+      <ProductCardContent
+        title={product.isVariantOf.name}
+        price={{
+          value: product.offers.offers[0].price,
+          listPrice: product.offers.offers[0].listPrice,
+          formatter: useFormattedPrice,
+        }}
+        ratingValue={3.5}
+        onButtonClick={() => {}}
       />
-    </ProductCardImage>
-    <ProductCardContent
-      title={product.isVariantOf.name}
-      price={{
-        value: product.offers.offers[0].price,
-        listPrice: product.offers.offers[0].listPrice,
-        formatter: useFormattedPrice,
-      }}
-      ratingValue={3.5}
-      onButtonClick={() => {}}
-    />
-  </ProductCard>
-</OverviewSection>
+    </ProductCard>
+    ```
+  </Tab>
+</Tabs>
 
 ---
 
@@ -279,55 +377,168 @@ All table-related components support all attributes also supported by their resp
 
 #### Default
 
-<OverviewSection
-  containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}
->
-  <ProductCard>
-    <ProductCardImage>
-      <img
-        data-fs-image
-        src={product.image[1].url}
-        alt={product.image[1].alternateName}
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection
+      containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}
+    >
+      <ProductCard>
+        <ProductCardImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </ProductCardImage>
+        <ProductCardContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+          ratingValue={3.5}
+          onButtonClick={() => {}}
+        />
+      </ProductCard>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <ProductCard>
+      <ProductCardImage>
+        <img
+          data-fs-image
+          src={product.image[1].url}
+          alt={product.image[1].alternateName}
+        />
+      </ProductCardImage>
+      <ProductCardContent
+        title={product.isVariantOf.name}
+        price={{
+          value: product.offers.offers[0].price,
+          listPrice: product.offers.offers[0].listPrice,
+          formatter: useFormattedPrice,
+        }}
+        ratingValue={3.5}
+        onButtonClick={() => {}}
       />
-    </ProductCardImage>
-    <ProductCardContent
-      title={product.isVariantOf.name}
-      price={{
-        value: product.offers.offers[0].price,
-        listPrice: product.offers.offers[0].listPrice,
-        formatter: useFormattedPrice,
-      }}
-      ratingValue={3.5}
-      onButtonClick={() => {}}
-    />
-  </ProductCard>
-</OverviewSection>
+    </ProductCard>
+    ```
+  </Tab>
+</Tabs>
+
+#### Out of Stock
+
+export const outOfStock =
+  product.offers.offers[0].availability !== 'https://schema.org/InStock'
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection
+      containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}
+    >
+      <ProductCard>
+        <ProductCardImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </ProductCardImage>
+        <ProductCardContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+          ratingValue={3.5}
+          outOfStock={() => {}}
+        />
+      </ProductCard>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const outOfStock = product.offers.offers[0].availability !== 'https://schema.org/InStock'
+
+    <ProductCard>
+      <ProductCardImage>
+        <img
+          data-fs-image
+          src={product.image[1].url}
+          alt={product.image[1].alternateName}
+        />
+      </ProductCardImage>
+      <ProductCardContent
+        title={product.isVariantOf.name}
+        price={{
+          value: product.offers.offers[0].price,
+          listPrice: product.offers.offers[0].listPrice,
+          formatter: useFormattedPrice,
+        }}
+        ratingValue={3.5}
+        outOfStock={outOfStock}
+      />
+    </ProductCard>
+    ```
+
+  </Tab>
+</Tabs>
 
 #### Bordered
 
-<OverviewSection
-  containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}
->
-  <ProductCard bordered>
-    <ProductCardImage>
-      <img
-        data-fs-image
-        src={product.image[1].url}
-        alt={product.image[1].alternateName}
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection
+      containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}
+    >
+      <ProductCard bordered>
+        <ProductCardImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </ProductCardImage>
+        <ProductCardContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+          ratingValue={3.5}
+          onButtonClick={() => {}}
+        />
+      </ProductCard>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <ProductCard bordered>
+      <ProductCardImage>
+        <img
+          data-fs-image
+          src={product.image[1].url}
+          alt={product.image[1].alternateName}
+        />
+      </ProductCardImage>
+      <ProductCardContent
+        title={product.isVariantOf.name}
+        price={{
+          value: product.offers.offers[0].price,
+          listPrice: product.offers.offers[0].listPrice,
+          formatter: useFormattedPrice,
+        }}
+        ratingValue={3.5}
+        onButtonClick={() => {}}
       />
-    </ProductCardImage>
-    <ProductCardContent
-      title={product.isVariantOf.name}
-      price={{
-        value: product.offers.offers[0].price,
-        listPrice: product.offers.offers[0].listPrice,
-        formatter: useFormattedPrice,
-      }}
-      ratingValue={3.5}
-      onButtonClick={() => {}}
-    />
-  </ProductCard>
-</OverviewSection>
+    </ProductCard>
+    ```
+  </Tab>
+</Tabs>
 
 <TokenTable>
   <TokenRow
@@ -345,7 +556,9 @@ All table-related components support all attributes also supported by their resp
 
 Prefer using `buyButton` or `discountBadge`, never both.
 
-<OverviewSection
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection
   containerStyle={{ display: 'grid', gridTemplateColumns: '2fr 2fr' }}
 >
   <ProductCard variant="wide">
@@ -387,6 +600,54 @@ Prefer using `buyButton` or `discountBadge`, never both.
     />
   </ProductCard>
 </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <ProductCard variant="wide">
+    <ProductCardImage aspectRatio={2 / 1}>
+      <img
+        data-fs-image
+        src={product.image[1].url}
+        alt={product.image[1].alternateName}
+      />
+    </ProductCardImage>
+    <ProductCardContent
+      title={product.isVariantOf.name}
+      price={{
+        value: product.offers.offers[0].price,
+        listPrice: product.offers.offers[0].listPrice,
+        formatter: useFormattedPrice,
+      }}
+      ratingValue={3.5}
+      onButtonClick={() => {}}
+    />
+  </ProductCard>
+    ```
+
+    ```tsx
+    <ProductCard variant="wide">
+    <ProductCardImage aspectRatio={2 / 1}>
+      <img
+        data-fs-image
+        src={product.image[1].url}
+        alt={product.image[1].alternateName}
+      />
+    </ProductCardImage>
+    <ProductCardContent
+      title={product.isVariantOf.name}
+      price={{
+        value: product.offers.offers[0].price,
+        listPrice: product.offers.offers[0].listPrice,
+        formatter: useFormattedPrice,
+      }}
+      ratingValue={3.5}
+      showDiscountBadge
+    />
+
+  </ProductCard>
+    ```
+  </Tab>
+</Tabs>
 
 <TokenTable>
   <TokenRow token="--fs-product-card-wide-padding" value="0" />
