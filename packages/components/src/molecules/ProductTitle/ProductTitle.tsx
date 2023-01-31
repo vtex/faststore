@@ -1,10 +1,10 @@
-import React, { forwardRef, HTMLAttributes } from 'react'
+import React, { forwardRef } from 'react'
 import type { ReactNode } from 'react'
 
 import { Rating } from '../../'
 import type { RatingProps } from '../../'
 
-export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
+export type ProductTitleProps = {
   /**
    * A react component to be used as the product title, e.g. a `h1`
    */
@@ -52,7 +52,7 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
         {...otherProps}
       >
         <div data-fs-product-title-header>
-          <>{title}</>
+          {title}
           {!!label && label}
         </div>
 
