@@ -6,6 +6,7 @@ import type { PriceFormatter } from '../../atoms/Price/Price'
 import {
   Link,
   Price,
+  Badge,
   Button,
   Rating,
   DiscountBadge,
@@ -37,6 +38,14 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   price?: Price
   /**
+   * Enables a outOfStock status.
+   */
+  outOfStock?: () => void
+  /**
+   * Specifies the OutOfStock badge's label.
+   */
+  outOfStockLabel?: string
+  /**
    * Specifies Rating Value of the product.
    */
   ratingValue?: number
@@ -61,6 +70,8 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       title,
       linkProps,
       price,
+      outOfStock,
+      outOfStockLabel = 'Out of stock',
       ratingValue,
       showDiscountBadge,
       buttonLabel = 'Add',
@@ -102,13 +113,14 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           </div>
           {ratingValue && <Rating value={ratingValue} icon={<Star />} />}
         </div>
-        {showDiscountBadge && (
+        {showDiscountBadge && !outOfStock && (
           <DiscountBadge
             listPrice={price?.listPrice ? price.listPrice : 0}
             spotPrice={price?.value ? price.value : 0}
           />
         )}
-        {onButtonClick && (
+        {outOfStock && <Badge>{outOfStockLabel}</Badge>}
+        {onButtonClick && !outOfStock && (
           <div data-fs-product-card-actions>
             <Button
               variant="primary"
