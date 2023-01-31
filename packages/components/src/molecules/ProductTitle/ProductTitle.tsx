@@ -1,10 +1,10 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, HTMLAttributes } from 'react'
 import type { ReactNode } from 'react'
 
 import { Rating } from '../../'
 import type { RatingProps } from '../../'
 
-export type ProductTitleProps = {
+export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
   /**
    * A react component to be used as the product title, e.g. a `h1`
    */
@@ -29,7 +29,7 @@ export type ProductTitleProps = {
    * The current value of the rating, a number from 0 to 5.
    */
   ratingValue?: number
-} & Omit<RatingProps, 'testId' | 'onChange' | 'value'>
+} & Omit<RatingProps, 'testId' | 'onChange' | 'value' | 'title'>
 
 const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
   function ProductTitle(
