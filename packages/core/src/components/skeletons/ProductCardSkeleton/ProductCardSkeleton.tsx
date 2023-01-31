@@ -1,5 +1,5 @@
-import Shimmer from '../Shimmer'
-import Skeleton from '../Skeleton'
+import { Skeleton as UISkeleton } from '@faststore/ui'
+
 import styles from './product-card-skeleton.module.scss'
 
 interface ProductCardSkeletonProps {
@@ -36,15 +36,30 @@ function ProductCardSkeleton({
       data-fs-product-card-skeleton-sectioned={sectioned}
     >
       <div data-fs-product-card-skeleton-image>
-        <Skeleton variant="image" />
+        <UISkeleton size={{ width: '100%', height: '100%' }} />
       </div>
       <div data-fs-product-card-skeleton-content>
-        <Skeleton variant="text" />
-        <Skeleton variant="text" />
-        <Skeleton variant="badge" />
-        {displayButton && <Skeleton variant="button" />}
+        <UISkeleton
+          data-fs-product-card-skeleton-text
+          size={{ width: '100%', height: '1.5rem' }}
+        />
+        <UISkeleton
+          data-fs-product-card-skeleton-text
+          size={{ width: '100%', height: '1.5rem' }}
+        />
+        <UISkeleton
+          data-fs-product-card-skeleton-badge
+          size={{ width: '100%', height: '2rem' }}
+          border="pill"
+        />
+        {displayButton && (
+          <UISkeleton
+            data-fs-product-card-skeleton-button
+            size={{ width: '6rem', height: '2rem' }}
+            style={{ columnGap: '.75rem' }}
+          />
+        )}
       </div>
-      <Shimmer />
     </div>
   )
 }

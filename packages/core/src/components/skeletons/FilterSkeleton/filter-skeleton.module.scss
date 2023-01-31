@@ -28,7 +28,7 @@
 
   @include media("<notebook") { display: none; }
 
-  [data-fs-skeleton-variant="text"] {
+  [data-fs-filter-skeleton-text] {
     max-width: var(--fs-filter-skeleton-title-max-width);
     margin-bottom: var(--fs-filter-skeleton-title-margin-bottom);
   }
@@ -42,7 +42,7 @@
     border: var(--fs-filter-skeleton-content-border-width) solid var(--fs-filter-skeleton-content-border-color);
     border-radius: var(--fs-filter-skeleton-content-border-radius);
 
-    [data-fs-skeleton-variant="text"] {
+    [data-fs-skeleton] {
       min-width: 100%;
       min-height: var(--fs-filter-skeleton-content-min-height);
       margin-bottom: var(--fs-filter-skeleton-content-margin-bottom);

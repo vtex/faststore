@@ -2,13 +2,16 @@ import { useSearch } from '@faststore/sdk'
 import { NextSeo } from 'next-seo'
 import { lazy, Suspense } from 'react'
 import type { MouseEvent } from 'react'
-import { Button as UIButton, LinkButton as UILinkButton } from '@faststore/ui'
+import {
+  Button as UIButton,
+  LinkButton as UILinkButton,
+  Skeleton as UISkeleton,
+} from '@faststore/ui'
 
 import Filter from 'src/components/search/Filter'
 import Sort from 'src/components/search/Sort'
 import FilterSkeleton from 'src/components/skeletons/FilterSkeleton'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
-import Skeleton from 'src/components/skeletons/Skeleton'
 import Icon from 'src/components/ui/Icon'
 import { mark } from 'src/sdk/tests/mark'
 import { useUI } from '@faststore/ui'
@@ -74,31 +77,28 @@ function ProductGallery({ title, searchTerm }: Props) {
         </div>
 
         <div data-fs-product-listing-results-count data-count={totalCount}>
-          <Skeleton
-            shimmer
-            variant="text"
-            loading={!data}
+          <UISkeleton
             data-fs-product-listing-results-count-skeleton
+            loading={!data}
+            size={{ width: '100%', height: '1.5rem' }}
           >
             <h2 data-testid="total-product-count">{totalCount} Results</h2>
-          </Skeleton>
+          </UISkeleton>
         </div>
 
         <div data-fs-product-listing-sort>
-          <Skeleton
-            shimmer
-            variant="text"
-            loading={facets?.length === 0}
+          <UISkeleton
             data-fs-product-listing-sort-skeleton
+            loading={facets?.length === 0}
+            size={{ width: 'auto', height: '1.5rem' }}
           >
             <Sort />
-          </Skeleton>
+          </UISkeleton>
 
-          <Skeleton
-            shimmer
-            variant="button"
-            loading={facets?.length === 0}
+          <UISkeleton
             data-fs-product-listing-filter-button-skeleton
+            loading={facets?.length === 0}
+            size={{ width: '6rem', height: '1.5rem' }}
           >
             <UIButton
               variant="tertiary"
@@ -110,7 +110,7 @@ function ProductGallery({ title, searchTerm }: Props) {
             >
               Filters
             </UIButton>
-          </Skeleton>
+          </UISkeleton>
         </div>
 
         <div data-fs-product-listing-results>

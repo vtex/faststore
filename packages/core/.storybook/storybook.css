@@ -421,6 +421,7 @@ h3.sbdocs.sbdocs-h3 {
 }
 
 .canvas-filter-skeleton [data-fs-filter-skeleton] {
+  display: block;
   max-width: 350px;
 }
 

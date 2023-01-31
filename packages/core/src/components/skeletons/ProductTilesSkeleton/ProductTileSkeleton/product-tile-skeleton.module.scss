@@ -87,11 +87,7 @@
       }
     }
 
-    [data-fs-skeleton-wrapper] { height: 100%; }
-
-    [data-fs-skeleton-variant="image"] {
-      width: 100%;
-      height: 100%;
+    [data-fs-skeleton] {
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
     }
@@ -145,7 +141,7 @@
         &[data-fs-product-tile-skeleton-index="3"] { width: 60%; }
       }
 
-      [data-fs-skeleton-variant="text"] {
+      [data-fs-skeleton] {
         margin-bottom: var(--fs-product-tile-skeleton-text-margin-bottom);
       }
 

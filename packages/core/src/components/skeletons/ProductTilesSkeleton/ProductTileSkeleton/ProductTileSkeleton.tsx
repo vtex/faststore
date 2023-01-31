@@ -1,5 +1,4 @@
-import Skeleton from 'src/components/skeletons/Skeleton'
-import Shimmer from 'src/components/skeletons/Shimmer'
+import { Skeleton as UISkeleton } from '@faststore/ui'
 
 import styles from './product-tile-skeleton.module.scss'
 
@@ -26,7 +25,7 @@ function ProductTileSkeleton({
         data-fs-product-tile-skeleton-image
         data-fs-product-tile-skeleton-index={index}
       >
-        <Skeleton variant="image" />
+        <UISkeleton size={{ width: 'auto', height: '100%' }} loading={true} />
       </div>
       <div
         data-fs-product-tile-skeleton-content
@@ -36,9 +35,9 @@ function ProductTileSkeleton({
           data-fs-product-tile-skeleton-text
           data-fs-product-tile-skeleton-index={index}
         >
-          <Skeleton variant="text" />
+          <UISkeleton size={{ width: '100%', height: '1.5rem' }} />
           <div data-fs-product-tile-skeleton-price>
-            <Skeleton variant="text" />
+            <UISkeleton size={{ width: '100%', height: '1.5rem' }} />
           </div>
         </div>
 
@@ -46,10 +45,9 @@ function ProductTileSkeleton({
           data-fs-product-tile-skeleton-badge
           data-fs-product-tile-skeleton-index={index}
         >
-          <Skeleton variant="badge" />
+          <UISkeleton size={{ width: '100%', height: '2rem' }} border="pill" />
         </div>
       </div>
-      <Shimmer />
     </div>
   )
 }

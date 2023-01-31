@@ -1,9 +1,7 @@
 import type { PropsWithChildren } from 'react'
 
-import Shimmer from '../Shimmer'
-import Skeleton from '../Skeleton'
+import { Skeleton as UISkeleton } from '@faststore/ui'
 import styles from './filter-skeleton.module.scss'
-
 interface FilterSkeletonProps {
   /**
    * Control whether skeleton should be visible or not.
@@ -17,13 +15,27 @@ function FilterSkeleton({
 }: PropsWithChildren<FilterSkeletonProps>) {
   return loading ? (
     <div className={styles.fsFilterSkeleton} data-fs-filter-skeleton>
-      <Skeleton shimmer variant="text" />
+      <UISkeleton
+        data-fs-filter-skeleton-text
+        size={{ width: '100%', height: '1.5rem' }}
+      />
 
       <div data-fs-filter-skeleton-content>
-        <Skeleton variant="text" />
-        <Skeleton variant="text" />
-        <Skeleton variant="text" />
-        <Shimmer />
+        <UISkeleton
+          data-fs-filter-skeleton-text
+          size={{ width: '100%', height: '1.5rem' }}
+          shimmer={false}
+        />
+        <UISkeleton
+          data-fs-filter-skeleton-text
+          size={{ width: '100%', height: '1.5rem' }}
+          shimmer={false}
+        />
+        <UISkeleton
+          data-fs-filter-skeleton-text
+          size={{ width: '100%', height: '1.5rem' }}
+          shimmer={false}
+        />
       </div>
     </div>
   ) : (

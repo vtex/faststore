@@ -23,10 +23,13 @@
 
   // Badge
   --fs-product-card-skeleton-badge-min-height          : var(--fs-spacing-5);
-  --fs-product-card-skeleton-badge-margin-top          : var(--fs-product-card-skeleton-text-margin-top);
   --fs-product-card-skeleton-badge-max-width           : var(--fs-product-card-skeleton-content-height);
   --fs-product-card-skeleton-badge-min-width-mobile    : 30%;
   --fs-product-card-skeleton-badge-min-width-tablet    : var(--fs-product-card-skeleton-content-height);
+
+  // Image
+  --fs-product-card-skeleton-image-height-mobile       : 45vw;
+  --fs-product-card-skeleton-image-height-desktop      : 12.188rem;
 
   // Sectioned
   --fs-product-card-skeleton-sectioned-image-min-width : 13rem;
@@ -57,16 +60,15 @@
     height: var(--fs-product-card-skeleton-content-height);
     margin-top: var(--fs-product-card-skeleton-content-margin-top);
 
-    [data-fs-skeleton-variant="text"] { margin-bottom: var(--fs-product-card-skeleton-text-margin-bottom); }
+    [data-fs-product-card-skeleton-text] { margin-bottom: var(--fs-product-card-skeleton-text-margin-bottom); }
 
-    [data-fs-skeleton-variant="button"] { margin-top: var(--fs-product-card-skeleton-button-margin-top); }
+    [data-fs-product-card-skeleton-button] { margin-top: var(--fs-product-card-skeleton-button-margin-top); }
 
-    [data-fs-skeleton-variant="badge"] {
+    [data-fs-product-card-skeleton-badge] {
       min-width: var(--fs-product-card-skeleton-badge-min-width-mobile);
 
       @include media(">=notebook") {
         min-height: var(--fs-product-card-skeleton-badge-min-height);
-        margin-top: var(--fs-product-card-skeleton-badge-margin-top);
       }
 
       @include media(">=tablet") {
@@ -76,12 +78,20 @@
     }
   }
 
+  [data-fs-product-card-skeleton-image] {
+    height: var(--fs-product-card-skeleton-image-height-mobile);
+
+    @include media(">=notebook") {
+      height: var(--fs-product-card-skeleton-image-height-desktop);
+    }
+  }
+
   // --------------------------------------------------------
   // Variants Styles
   // --------------------------------------------------------
 
   &[data-fs-product-card-skeleton-sectioned="true"] {
-    [data-fs-skeleton-variant="image"] {
+    [data-fs-product-card-skeleton-image] [data-fs-skeleton] {
       min-width: var(--fs-product-card-skeleton-sectioned-image-min-width);
       min-height: var(--fs-product-card-skeleton-sectioned-image-height);
     }
