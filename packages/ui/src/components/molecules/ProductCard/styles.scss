@@ -40,6 +40,10 @@
   --fs-product-card-price-listing-color      : var(--fs-color-text-light);
   --fs-product-card-price-listing-size       : var(--fs-text-size-legend);
 
+  // Out Of Stock
+  --fs-product-card-out-of-stock-bkg-color   : var(--fs-color-disabled-bkg);
+  --fs-product-card-out-of-stock-img-opacity : .5;
+
   // Wide
   --fs-product-card-wide-padding             : 0;
   --fs-product-card-wide-content-padding     : var(--fs-spacing-2);
@@ -88,7 +92,6 @@
     justify-content: center;
     overflow: hidden;
     width: 100%;
-    height: 100%;
     aspect-ratio: var(--fs-product-card-image-aspect-ratio);
 
     img {
@@ -157,6 +160,13 @@
   // --------------------------------------------------------
   // Variants Styles
   // --------------------------------------------------------
+
+  &[data-fs-product-card="out-of-stock"] {
+    --fs-product-card-bkg-color    : var(--fs-product-card-out-of-stock-bkg-color);
+
+    [data-fs-product-card-image] { opacity: var(--fs-product-card-out-of-stock-img-opacity); }
+
+  }
 
   &[data-fs-product-card-bordered="true"] {
     border: var(--fs-product-card-border-width) solid var(--fs-product-card-border-color);
