@@ -7,9 +7,6 @@ export type { PopoverProps } from './components/atoms/Popover'
 export { default as TextArea } from './components/atoms/TextArea'
 export type { TextAreaProps } from './components/atoms/TextArea'
 
-export { default as Skeleton } from './components/atoms/Skeleton'
-export type { SkeletonProps } from './components/atoms/Skeleton'
-
 export { default as Incentive } from './components/atoms/Incentive'
 export type { IncentiveProps } from './components/atoms/Incentive'
 
