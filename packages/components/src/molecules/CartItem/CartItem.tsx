@@ -11,6 +11,12 @@ import {
 
 import type { PriceFormatter } from '../../atoms/Price/Price'
 
+interface Price {
+  value: number
+  listPrice: number
+  formatter: PriceFormatter
+}
+
 export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: Cypress, Testing Library, and Jest).
@@ -19,11 +25,7 @@ export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Specifies product Price.
    */
-  price?: number
-  /**
-   * Specifies product List Price.
-   */
-  listPrice?: number
+  price?: Price
   /**
    * Specifies the quantity of items of the same product.
    */
@@ -32,10 +34,6 @@ export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
    * Specifies that this product is unavailable.
    */
   unavailable?: boolean
-  /**
-   * Formatter function that transforms the raw price value and renders the result.
-   */
-  formatter?: PriceFormatter
   /**
    * Event emitted when product quantity value is changed.
    */
@@ -49,11 +47,9 @@ export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
 const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
   {
     testId = 'fs-cart-item',
-    price = 0,
-    listPrice = 0,
+    price,
     quantity,
     unavailable,
-    formatter,
     onQuantityChange,
     children,
     removeBtnProps,
@@ -82,8 +78,16 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
           onChange={onQuantityChange}
         />
         <span data-fs-cart-item-prices>
-          <Price value={listPrice} formatter={formatter} variant="listing" />
-          <Price value={price} formatter={formatter} variant="spot" />
+          <Price
+            value={price?.listPrice ? price.listPrice : 0}
+            formatter={price?.formatter}
+            variant="listing"
+          />
+          <Price
+            value={price?.value ? price.value : 0}
+            formatter={price?.formatter}
+            variant="spot"
+          />
         </span>
       </div>
     </article>
