@@ -10,7 +10,6 @@
   --fs-product-title-column-gap           : var(--fs-spacing-2);
   --fs-product-title-row-gap              : var(--fs-spacing-3);
 
-  --fs-product-title-addendum-margin-top  : var(--fs-spacing-3);
   --fs-product-title-addendum-color       : var(--fs-color-text-light);
   --fs-product-title-addendum-size        : var(--fs-text-size-1);
   --fs-product-title-addendum-line-height : 1.7;
@@ -46,7 +45,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: var(--fs-product-title-addendum-margin-top);
+    margin-top: var(--fs-product-title-row-gap);
     font-size: var(--fs-product-title-addendum-size);
     line-height: var(--fs-product-title-addendum-line-height);
     color: var(--fs-product-title-addendum-color);
