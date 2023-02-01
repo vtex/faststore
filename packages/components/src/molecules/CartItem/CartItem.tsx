@@ -44,7 +44,7 @@ export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
    */
   formatter?: PriceFormatter
   /**
-   * Event emitted when product value is changed.
+   * Event emitted when product quantity value is changed.
    */
   onQuantityChange?: (value: number) => void
   /**
