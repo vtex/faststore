@@ -11,7 +11,7 @@ import {
   Rating,
   DiscountBadge,
   LinkProps,
-} from '../../index'
+} from '../../'
 import { Star, ShoppingCart } from '../../assets'
 
 interface Price {
