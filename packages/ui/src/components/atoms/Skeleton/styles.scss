@@ -1,0 +1,67 @@
+[data-fs-skeleton] {
+  // --------------------------------------------------------
+  // Design Tokens for Skeleton
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-skeleton-bkg-color                            : var(--fs-color-disabled-bkg);
+  --fs-skeleton-border-radius                        : var(--fs-border-radius);
+
+  // Shimmer
+  --fs-skeleton-shimmer-width                        : 50%;
+  --fs-skeleton-shimmer-height                       : 100%;
+  --fs-skeleton-shimmer-bkg-color                    : rgb(255 255 255 / 20%);
+  --fs-skeleton-shimmer-box-shadow                   : 0 0 var(--fs-spacing-5) var(--fs-spacing-5) var(--fs-skeleton-shimmer-bkg-color);
+
+  --fs-skeleton-shimmer-transition-timing            : 850ms;
+  --fs-skeleton-shimmer-transition-function          : linear;
+  --fs-skeleton-shimmer-transition-iteration         : infinite;
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  overflow: hidden;
+  position: relative;
+  background: var(--fs-skeleton-bkg-color);
+  border-radius: var(--fs-skeleton-border-radius);
+
+  [data-fs-skeleton-shimmer] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    animation: loading var(--fs-skeleton-shimmer-transition-timing) var(--fs-skeleton-shimmer-transition-iteration) var(--fs-skeleton-shimmer-transition-function);
+    &::after {
+      position: absolute;
+      content: '';
+      width: var(--fs-skeleton-shimmer-width);
+      height: var(--fs-skeleton-shimmer-height);
+      background: var(--fs-skeleton-shimmer-bkg-color);
+      box-shadow: var(--fs-skeleton-shimmer-box-shadow);
+    }
+  }
+
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-skeleton-border="regular"] {
+    border-radius: var(--fs-skeleton-border-radius);
+  }
+
+  &[data-fs-skeleton-border="pill"] {
+    border-radius: var(--fs-border-radius-pill);
+  }
+
+  &[data-fs-skeleton-border="circle"] {
+    border-radius: var(--fs-border-radius-circle);
+  }
+}
+
+@keyframes loading {
+  0% { transform: translate3d(-50vw, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
