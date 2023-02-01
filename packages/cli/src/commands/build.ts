@@ -26,7 +26,6 @@ export default class Build extends Command {
       `${tmpDir}/lighthouserc.js`,
       `${userDir}/lighthouserc.js`
     )
-    await copyResource(`${tmpDir}/cypress.json`, `${userDir}/cypress.json`)
     await copyResource(`${tmpDir}/cypress`, `${userDir}/cypress`)
     if (existsSync(`.next/standalone`)) {
       await copyResource(
