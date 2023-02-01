@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 import { XCircle } from '../../assets'
@@ -9,14 +9,7 @@ import {
   QuantitySelector,
 } from '../../index'
 
-export type PriceVariant =
-  | 'selling'
-  | 'listing'
-  | 'spot'
-  | 'savings'
-  | 'installment'
-
-export type PriceFormatter = (price: number, variant: PriceVariant) => ReactNode
+import type { PriceFormatter } from '../../atoms/Price/Price'
 
 export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
   /**
