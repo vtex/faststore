@@ -53,8 +53,11 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
           data-fs-payment-methods-flags
           aria-label={title ? undefined : ariaLabel}
         >
-          {flagList.map((item) => (
-            <li data-fs-payment-methods-flag>
+          {flagList.map((item, index) => (
+            <li
+              data-fs-payment-methods-flag
+              key={`fs-payment-method-${index}-${item.text}`}
+            >
               {item.image}
               {item.text && <SROnly text={item.text} />}
             </li>
