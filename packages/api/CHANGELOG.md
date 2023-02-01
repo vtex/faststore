@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.58-alpha.0](https://github.com/vtex/faststore/compare/v2.0.57-alpha.0...v2.0.58-alpha.0) (2023-02-01)
+
+### Bug Fixes
+
+- local api server error ([#1622](https://github.com/vtex/faststore/issues/1622)) ([8f43e5d](https://github.com/vtex/faststore/commit/8f43e5d7b85c03c77649ec6088862bffc061e704))
+
 ## 2.0.49-alpha.0 (2023-01-13)
 
 ### Bug Fixes
