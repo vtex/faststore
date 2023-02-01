@@ -1,6 +1,12 @@
 import type { ReactNode, AriaAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
+import { List, SROnly } from '../../index'
+
+type Flag = {
+  image: ReactNode
+  text?: string
+}
 export interface PaymentMethodsProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
@@ -18,10 +24,10 @@ export interface PaymentMethodsProps {
    */
   'aria-label'?: AriaAttributes['aria-label']
   /**
-   * Children will receive the flags to be displayed in the payment
+   * List of flags to be displayed in the payment
    * methods section (e.g.:, visa, mastercard, etc).
    */
-  children: ReactNode
+  flagList: [Flag]
 }
 
 const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
@@ -30,7 +36,7 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
       testId = 'fs-payment-methods',
       title,
       'aria-label': ariaLabel = 'Payment Methods',
-      children,
+      flagList,
       ...otherProps
     },
     ref
@@ -43,12 +49,17 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
         {...otherProps}
       >
         {!!title && <div data-fs-payment-methods-title>{title}</div>}
-        <div
+        <List
           data-fs-payment-methods-flags
           aria-label={title ? undefined : ariaLabel}
         >
-          {children}
-        </div>
+          {flagList.map((item) => (
+            <li data-fs-payment-methods-flag>
+              {item.image}
+              {item.text && <SROnly text={item.text} />}
+            </li>
+          ))}
+        </List>
       </div>
     )
   }
