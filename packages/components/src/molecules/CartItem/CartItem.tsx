@@ -2,12 +2,7 @@ import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 import { XCircle } from '../../assets'
-import {
-  IconButton,
-  IconButtonProps,
-  Price,
-  QuantitySelector,
-} from '../../index'
+import { IconButton, IconButtonProps, Price, QuantitySelector } from '../../'
 
 import type { PriceFormatter } from '../../atoms/Price/Price'
 
