@@ -27,7 +27,7 @@ export interface PaymentMethodsProps {
 const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
   function PaymentMethods(
     {
-      testId = 'store-payment-methods',
+      testId = 'fs-payment-methods',
       title,
       'aria-label': ariaLabel = 'Payment Methods',
       children,
@@ -42,9 +42,9 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
         data-testid={testId}
         {...otherProps}
       >
-        {!!title && <div>{title}</div>}
+        {!!title && <div data-fs-payment-methods-title>{title}</div>}
         <div
-          data-payment-methods-flags
+          data-fs-payment-methods-flags
           aria-label={title ? undefined : ariaLabel}
         >
           {children}

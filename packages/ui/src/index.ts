@@ -87,9 +87,6 @@ export type {
   BannerLinkProps,
 } from './components/molecules/Banner'
 
-export { default as PaymentMethods } from './components/molecules/PaymentMethods'
-export type { PaymentMethodsProps } from './components/molecules/PaymentMethods'
-
 export { default as Breadcrumb } from './components/molecules/Breadcrumb'
 export type { BreadcrumbProps } from './components/molecules/Breadcrumb'
 
