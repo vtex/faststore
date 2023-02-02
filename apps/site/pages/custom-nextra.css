@@ -18,6 +18,10 @@ hr.nx-my-8 {
 }
 
 /* Titles */
+h1.nx-tracking-tight {
+  margin-top: 0;
+}
+
 h2.nx-tracking-tight {
   border: none;
   margin-bottom: var(--fs-spacing-4);

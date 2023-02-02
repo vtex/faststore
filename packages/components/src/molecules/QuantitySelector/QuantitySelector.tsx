@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { IconButton, Input } from '../../index'
+import { IconButton, Input } from '../../'
 import { Minus, Plus } from '../../assets'
 
 export interface QuantitySelectorProps {
