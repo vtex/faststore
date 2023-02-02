@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.59-alpha.0](https://github.com/vtex/faststore/compare/v2.0.58-alpha.0...v2.0.59-alpha.0) (2023-02-02)
+
+### Features
+
+- Adds `ProductTitle` component ([#1620](https://github.com/vtex/faststore/issues/1620)) ([8aba709](https://github.com/vtex/faststore/commit/8aba70970b46996b37f1e8dcb28b1d14c042a04e))
+
 ## [2.0.57-alpha.0](https://github.com/vtex/faststore/compare/v2.0.56-alpha.0...v2.0.57-alpha.0) (2023-01-30)
 
 ### Features
