@@ -1,10 +1,11 @@
 import type { ReactNode, AriaAttributes } from 'react'
 import React, { forwardRef } from 'react'
+import type { ReactElement } from 'react'
 
 import { List, SROnly } from '../../index'
 
 type Flag = {
-  image: ReactNode
+  image: ReactNode | ReactElement
   text?: string
 }
 export interface PaymentMethodsProps {
