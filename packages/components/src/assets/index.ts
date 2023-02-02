@@ -1,3 +1,6 @@
+// Payment Flags Icons
+export * from './PaymentFlags'
+
 export { default as ArrowElbowDownRight } from './ArrowElbowDownRight'
 export { default as ArrowRight } from './ArrowRight'
 export { default as CaretDown } from './CaretDown'
