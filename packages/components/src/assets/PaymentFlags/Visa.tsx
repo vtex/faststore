@@ -7,7 +7,7 @@ const Visa: FC = () => (
       d="M0 3C0 1.34315 1.34315 0 3 0H31C32.6569 0 34 1.34315 34 3V21C34 22.6569 32.6569 24 31 24H3C1.34315 24 0 22.6569 0 21V3Z"
       fill="white"
     />
-    <rect x="0.5" y="0.5" width="33" height="23" rx="2.5" stroke="#fff" />{' '}
+    <rect x="0.5" y="0.5" width="33" height="23" rx="2.5" stroke="#fff" />
     <path
       fillRule="evenodd"
       clipRule="evenodd"
