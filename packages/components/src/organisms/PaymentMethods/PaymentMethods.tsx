@@ -1,11 +1,10 @@
 import type { ReactNode, AriaAttributes } from 'react'
 import React, { forwardRef } from 'react'
-import type { ReactElement } from 'react'
 
 import { List, SROnly } from '../../index'
 
 type Flag = {
-  image: ReactNode | ReactElement
+  image: ReactNode
   text?: string
 }
 export interface PaymentMethodsProps {
@@ -28,7 +27,7 @@ export interface PaymentMethodsProps {
    * List of flags to be displayed in the payment
    * methods section (e.g.:, visa, mastercard, etc).
    */
-  flagList: [Flag]
+  flagList: Flag[]
 }
 
 const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
