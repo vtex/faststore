@@ -1,6 +1,6 @@
 import type { ChangeEventHandler, HTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
-import { Label, RadioGroup } from '@faststore/components'
+import React, { forwardRef, ReactNode } from 'react'
+import { Label } from '../..'
 
 interface SkuProps {
   /**
@@ -23,6 +23,10 @@ interface SkuProps {
    * Specifies that this option should be disabled.
    */
   disabled?: boolean
+  /**
+   * A React component that will be rendered as a link.
+   */
+  children?: ReactNode
 }
 
 // TODO: Add the 'color' variant back once the store supports naturally handling color SKUs.
@@ -34,10 +38,6 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
    * testing-library, and jest).
    */
   testId?: string
-  /**
-   * ID of the current instance of the component.
-   */
-  id?: string
   /**
    * Specify which variant the component should handle.
    */
@@ -63,19 +63,16 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
 const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
   function SkuSelector(
     {
-      id,
       label,
       variant,
+      options,
       onChange,
-      testId = 'store-sku-selector',
+      testId = 'fs-sku-selector',
       activeValue,
-      children,
       ...otherProps
     },
     ref
   ) {
-    const radioGroupId = id ? `-${id}` : ''
-
     return (
       <div
         ref={ref}
@@ -89,15 +86,53 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
             {label}: <strong>{activeValue}</strong>
           </Label>
         )}
-        <RadioGroup
+        <ul data-fs-sku-selector-list>
+          {options.map((option, index) => {
+            return (
+              <li
+                key={String(index)}
+                data-fs-sku-selector-option
+                data-fs-sku-selector-disabled={option.disabled}
+                data-fs-sku-selector-checked={option.value === activeValue}
+              >
+                {variant === 'label' && (
+                  <span>
+                    {option.children}
+                    {option.value}
+                  </span>
+                )}
+                {variant === 'image' && 'src' in option && (
+                  <span>{option.children}</span>
+                )}
+              </li>
+            )
+          })}
+        </ul>
+        {/* <RadioGroup
           selectedValue={activeValue}
           name={`sku-selector-${variant}${radioGroupId}`}
           onChange={(e) => {
             onChange?.(e)
           }}
         >
-          {children}
-        </RadioGroup>
+          {options.map((option, index) => {
+            return (
+              <RadioOption
+                data-fs-sku-selector-option
+                key={String(index)}
+                label={option.label}
+                value={option.value}
+                disabled={option.disabled}
+                checked={option.value === activeValue}
+              >
+                {variant === 'label' && <span>{option.value}</span>}
+                {variant === 'image' && 'src' in option && (
+                  <span>{children}</span>
+                )}
+              </RadioOption>
+            )
+          })}
+        </RadioGroup> */}
       </div>
     )
   }
