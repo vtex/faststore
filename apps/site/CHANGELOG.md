@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.61-alpha.0](https://github.com/vtex/faststore/compare/v2.0.60-alpha.0...v2.0.61-alpha.0) (2023-02-03)
+
+### Features
+
+- Adds `CartItem` component ([#1614](https://github.com/vtex/faststore/issues/1614)) ([48e04ea](https://github.com/vtex/faststore/commit/48e04eafd752ac4e97093bd40cb92e1d6e28e032))
+
 ## 2.0.60-alpha.0 (2023-02-02)
 
 ### Chores
