@@ -9,7 +9,6 @@
   --fs-payment-methods-title-size            : var(--fs-text-size-body);
   --fs-payment-methods-title-weight          : var(--fs-text-weight-bold);
   --fs-payment-methods-title-line-height     : 1.25;
-  --fs-payment-methods-title-margin-bottom   : var(--fs-spacing-1);
 
   // Flag
   --fs-payment-methods-flag-width           : 2.125rem;
@@ -23,7 +22,6 @@
 
   [data-fs-payment-methods-title] {
     & > *:first-child {
-      margin-bottom: var(--fs-payment-methods-title-margin-bottom);
       font-size: var(--fs-payment-methods-title-size);
       font-weight: var(--fs-payment-methods-title-weight);
       line-height: var(--fs-payment-methods-title-line-height);
