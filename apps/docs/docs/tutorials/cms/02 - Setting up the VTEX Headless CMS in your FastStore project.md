@@ -147,7 +147,7 @@ CMS synced successfully...
 ```
 
 :::caution
-If you have the @vtex/cli-plugin-cms@1.0.6 installed you can use the {builderName} argument to syncronize a specific builder:
+If you have the @vtex/cli-plugin-cms@1.0.7 installed you can use the {builderName} argument to syncronize a specific builder:
    ```sh
   vtex cms:sync {builderName}
    ```
