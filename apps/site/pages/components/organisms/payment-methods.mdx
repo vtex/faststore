@@ -51,17 +51,6 @@ import '@faststore/ui/src/components/organisms/PaymentMethods/styles.scss'
 
 ---
 
-export const flags = [
-  { image: <Visa />, text: 'Visa' },
-  { image: <Diners />, text: 'Diners Club' },
-  { image: <Mastercard />, text: 'Mastercard' },
-  { image: <EloCard />, text: 'Elo Card' },
-  { image: <PayPal />, text: 'PayPal' },
-  { image: <Stripe />, text: 'Stripe' },
-  { image: <GooglePay />, text: 'GooglePay' },
-  { image: <ApplePay />, text: 'ApplePay' },
-]
-
 ## Usage
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
@@ -76,6 +65,17 @@ export const flags = [
     ```
   </Tab>
 </Tabs>
+
+export const flags = [
+  { image: <Visa />, text: 'Visa' },
+  { image: <Diners />, text: 'Diners Club' },
+  { image: <Mastercard />, text: 'Mastercard' },
+  { image: <EloCard />, text: 'Elo Card' },
+  { image: <PayPal />, text: 'PayPal' },
+  { image: <Stripe />, text: 'Stripe' },
+  { image: <GooglePay />, text: 'GooglePay' },
+  { image: <ApplePay />, text: 'ApplePay' },
+]
 
 ---
 
@@ -101,6 +101,19 @@ export const flags = [
     value="var(--fs-text-weight-bold)"
   />
   <TokenRow token="--fs-payment-methods-title-line-height" value="1.25" />
+</TokenTable>
+
+#### Flags
+
+<TokenTable>
+  <TokenRow
+    token="--fs-payment-methods-flags-row-gap"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-payment-methods-flags-margin-top"
+    value="var(--fs-spacing-3)"
+  />
 </TokenTable>
 
 #### Flag

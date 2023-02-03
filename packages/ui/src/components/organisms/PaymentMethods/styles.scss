@@ -16,6 +16,10 @@
   --fs-payment-methods-flag-border-color    : var(--fs-color-neutral-3);
   --fs-payment-methods-flag-border-radius   : var(--fs-border-radius-small);
 
+  // Flags
+  --fs-payment-methods-flags-row-gap        : var(--fs-spacing-1);
+  --fs-payment-methods-flags-margin-top     : var(--fs-spacing-3);
+
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
@@ -35,9 +39,9 @@
   [data-fs-payment-methods-flags] {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, max-content));
-    row-gap: var(--fs-spacing-1);
+    row-gap: var(--fs-payment-methods-flags-row-gap);
     justify-content: space-between;
-    margin-top: var(--fs-spacing-3);
+    margin-top: var(--fs-payment-methods-flags-margin-top);
 
     li {
       display: flex;
