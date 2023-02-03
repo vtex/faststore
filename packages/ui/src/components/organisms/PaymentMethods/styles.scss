@@ -13,7 +13,6 @@
 
   // Flag
   --fs-payment-methods-flag-width           : 2.125rem;
-  --fs-payment-methods-flag-height          : var(--fs-spacing-4);
   --fs-payment-methods-flag-border-width    : var(--fs-border-width);
   --fs-payment-methods-flag-border-color    : var(--fs-color-neutral-3);
   --fs-payment-methods-flag-border-radius   : var(--fs-border-radius-small);
@@ -42,7 +41,10 @@
     justify-content: space-between;
     margin-top: var(--fs-spacing-3);
 
-    li { display: flex; }
+    li {
+      display: flex;
+      place-content: center;
+    }
 
     @include media("<notebook") {
       column-gap: var(--fs-grid-gap-2);
