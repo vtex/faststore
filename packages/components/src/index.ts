@@ -53,6 +53,16 @@ export type {
 export { default as Alert } from './molecules/Alert'
 export type { AlertProps } from './molecules/Alert'
 export { default as BuyButton } from './molecules/BuyButton'
+export {
+  default as CartItem,
+  CartItemImage,
+  CartItemSummary,
+} from './molecules/CartItem'
+export type {
+  CartItemProps,
+  CartItemImageProps,
+  CartItemSummaryProps,
+} from './molecules/CartItem'
 export { default as CheckboxField } from './molecules/CheckboxField'
 export type { CheckboxFieldProps } from './molecules/CheckboxField'
 export { default as IconButton } from './molecules/IconButton'
