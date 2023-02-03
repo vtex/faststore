@@ -1,6 +1,9 @@
 import React, { forwardRef, HTMLAttributes } from 'react'
 import type { ReactNode } from 'react'
 
+import { Rating } from '../../'
+import type { RatingProps } from '../../'
+
 export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
   /**
    * A react component to be used as the product title, e.g. a `h1`
@@ -22,20 +25,45 @@ export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
-}
+  /**
+   * The current value of the rating, a number from 0 to 5.
+   */
+  ratingValue?: number
+} & Omit<RatingProps, 'testId' | 'onChange' | 'value' | 'title'>
 
 const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
-  function ProductTitle({ title, label, refTag= "Ref.: ",refNumber, testId= 'store-product-title', ...otherProps }, ref) {
+  function ProductTitle(
+    {
+      title,
+      label,
+      refTag = 'Ref.: ',
+      refNumber,
+      testId = 'fs-product-title',
+      ratingValue,
+      ...otherProps
+    },
+    ref
+  ) {
     return (
-      <header ref={ref} data-fs-product-title data-testid={testId} {...otherProps}>
+      <header
+        ref={ref}
+        data-fs-product-title
+        data-testid={testId}
+        {...otherProps}
+      >
         <div data-fs-product-title-header>
           {title}
           {!!label && label}
         </div>
 
-        {refNumber && (
+        {(refNumber || ratingValue) && (
           <p data-fs-product-title-addendum>
-            {refTag}{refNumber}
+            {ratingValue && <Rating value={ratingValue} />}
+            {refNumber && (
+              <>
+                {refTag} {refNumber}
+              </>
+            )}
           </p>
         )}
       </header>

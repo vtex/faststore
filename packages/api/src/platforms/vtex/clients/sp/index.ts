@@ -3,7 +3,7 @@
  * More info at: https://www.notion.so/vtexhandbook/Event-API-Documentation-48eee26730cf4d7f80f8fd7262231f84
  */
 import { fetchAPI } from '../fetch'
-import type { Options, Context } from '../../index'
+import type { Options, Context } from '../../'
 
 const THIRTY_MINUTES_S = 30 * 60
 const ONE_YEAR_S = 365 * 24 * 3600

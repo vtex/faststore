@@ -19,7 +19,7 @@ export const pickBestSku = (skus: Item[]) => {
     bestOfferFirst(o1, o2)
   )
 
-  return best.sku
+  return best ? best.sku : skus[0]
 }
 
 export const isValidSkuId = (skuId: string) =>

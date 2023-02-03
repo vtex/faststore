@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Button } from '../../index'
-import type { ButtonProps } from '../../index'
+import { Button } from '../../'
+import type { ButtonProps } from '../../'
 import { ShoppingCart } from '../../assets'
 
 type BuyButtonProps = ButtonProps

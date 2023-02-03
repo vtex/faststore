@@ -1,6 +1,6 @@
 import { fetchAPI } from '../fetch'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
-import type { Context, Options } from '../../index'
+import type { Context, Options } from '../../'
 import type { SelectedFacet } from '../../utils/facets'
 import type {
   Facet,
@@ -67,7 +67,9 @@ export const IntelligentSearch = (
 
   const getRegionFacet = (): IStoreSelectedFacet | null => {
     const { regionId, seller } = ctx.storage.channel
-    const sellerRegionId = seller ? Buffer.from(`SW#${seller}`).toString('base64') : null
+    const sellerRegionId = seller
+      ? Buffer.from(`SW#${seller}`).toString('base64')
+      : null
     const facet = sellerRegionId ?? regionId
 
     if (!facet) {

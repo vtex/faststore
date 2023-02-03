@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.60-alpha.0 (2023-02-02)
+
+### Chores
+
+- **deps:** bump http-cache-semantics from 4.1.0 to 4.1.1 ([#1625](https://github.com/vtex/faststore/issues/1625)) ([57ddc8c](https://github.com/vtex/faststore/commit/57ddc8c6eaf529c87a59e2310f3d6d637f4969b6))
+
+## [2.0.59-alpha.0](https://github.com/vtex/faststore/compare/v2.0.58-alpha.0...v2.0.59-alpha.0) (2023-02-02)
+
+### Features
+
+- Adds `ProductTitle` component ([#1620](https://github.com/vtex/faststore/issues/1620)) ([8aba709](https://github.com/vtex/faststore/commit/8aba70970b46996b37f1e8dcb28b1d14c042a04e))
+
 ## [2.0.57-alpha.0](https://github.com/vtex/faststore/compare/v2.0.56-alpha.0...v2.0.57-alpha.0) (2023-01-30)
 
 ### Features

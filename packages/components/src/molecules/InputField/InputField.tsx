@@ -1,8 +1,8 @@
 import React from 'react'
 import type { MutableRefObject } from 'react'
 
-import { Input, Label, IconButton, Button } from '../../index'
-import type { InputProps } from '../../index'
+import { Input, Label, IconButton, Button } from '../../'
+import type { InputProps } from '../../'
 import { XCircle } from '../../assets'
 
 type DefaultProps = {

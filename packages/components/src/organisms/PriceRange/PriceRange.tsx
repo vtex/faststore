@@ -1,8 +1,8 @@
 import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react'
 import type { AriaAttributes } from 'react'
 
-import { Price, Slider, InputField } from '../../index'
-import type { PriceProps, SliderProps } from '../../index'
+import { Price, Slider, InputField } from '../../'
+import type { PriceProps, SliderProps } from '../../'
 
 export type PriceRangeProps = Omit<SliderProps, 'absoluteValuesLabel'> & {
   /**
