@@ -1,0 +1,113 @@
+---
+description: The `SkuSelector` component is mainly used in Product Details Pages (PDPs) to display all the available variants for a given product.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/ProductCardComponent___e6502d57cf7e5bf247f86b64577d4141.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SkuSelector } from '@faststore/ui'
+
+import { product } from '../../../mocks/product'
+
+<header>
+
+# Sku Selector
+
+The `SkuSelector` component is mainly used in Product Details Pages (PDPs) to display all the available variants for a given product.
+
+</header>
+
+The `ProductCard` is a compound of the following:
+
+- `ProductCardImage`: wraps the product's image.
+- `ProductCardContent`: wraps the content's details.
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection
+      containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 2fr' }}
+    >
+      <SkuSelector
+        activeValue="41"
+        label="Size"
+        id="size"
+        options={[
+          {
+            alt: 'skuvariation',
+            label: '38',
+            src: '/',
+            value: '38',
+            children: <a href="/"></a>,
+          },
+          {
+            alt: 'skuvariation',
+            label: '39',
+            src: '/',
+            value: '39',
+            children: <a href="/"></a>,
+          },
+          {
+            alt: 'skuvariation',
+            label: '40',
+            src: '/',
+            value: '40',
+            children: <a href="/"></a>,
+          },
+          {
+            alt: 'skuvariation',
+            label: '41',
+            src: '/',
+            value: '41',
+            children: <a href="/"></a>,
+          },
+          {
+            alt: 'skuvariation',
+            label: '42',
+            src: '/',
+            value: '42',
+            children: <a href="/"></a>,
+          },
+          {
+            alt: 'skuvariation',
+            disabled: true,
+            label: '43',
+            src: '/',
+            value: '43',
+            children: <a href="/"></a>,
+          },
+        ]}
+        variant="label"
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab></Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { SkuSelector } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
+```
+
+---
+
+## Usage
