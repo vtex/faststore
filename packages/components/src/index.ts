@@ -113,6 +113,8 @@ export { default as Rating } from './molecules/Rating'
 export type { RatingProps } from './molecules/Rating'
 export { default as SelectField } from './molecules/SelectField'
 export type { SelectFieldProps } from './molecules/SelectField'
+export { default as SkuSelector } from './molecules/SkuSelector'
+export type { SkuSelectorProps } from './molecules/SkuSelector'
 export {
   Table,
   TableBody,
