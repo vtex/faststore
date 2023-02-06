@@ -1,8 +1,8 @@
 import type { ReactNode, AriaAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Button } from '../../index'
-import type { ButtonProps } from '../../index'
+import { Button } from '../../'
+import type { ButtonProps } from '../../'
 
 export interface IconButtonProps extends Omit<ButtonProps, 'aria-label'> {
   /**

@@ -1,0 +1,128 @@
+[data-fs-cart-item] {
+  // --------------------------------------------------------
+  // Design Tokens for CartItem
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-cart-item-padding                  : var(--fs-spacing-2);
+  --fs-cart-item-bkg-color                : var(--fs-control-bkg);
+
+  --fs-cart-item-border-width             : var(--fs-border-width);
+  --fs-cart-item-border-color             : var(--fs-border-color-light);
+  --fs-cart-item-border-radius            : var(--fs-border-radius);
+
+  // Image
+  --fs-cart-item-image-border-radius      : var(--fs-cart-item-border-radius);
+  --fs-cart-item-image-width              : var(--fs-spacing-8);
+  --fs-cart-item-image-height             : var(--fs-cart-item-image-width);
+
+  // Title
+  --fs-cart-item-title-weight             : var(--fs-text-weight-bold);
+  --fs-cart-item-title-line-height        : 1.2;
+  --fs-cart-item-title-color              : var(--fs-color-text);
+
+  // SKUs
+  --fs-cart-item-skus-margin-top          : var(--fs-spacing-0);
+  --fs-cart-item-skus-text-size           : var(--fs-text-size-legend);
+  --fs-cart-item-skus-text-color          : var(--fs-color-text-light);
+  --fs-cart-item-skus-line-height         : var(--fs-text-size-body);
+  --fs-cart-item-skus-column-gap          : var(--fs-spacing-1);
+  --fs-cart-item-skus-row-gap             : var(--fs-spacing-0);
+
+  // Prices
+  --fs-cart-item-price-gap                : var(--fs-spacing-1);
+  --fs-cart-item-listing-price-text-size  : var(--fs-text-size-legend);
+
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: var(--fs-cart-item-bkg-color);
+  border: var(--fs-cart-item-border-width) solid var(--fs-cart-item-border-color);
+  border-radius: var(--fs-cart-item-border-radius);
+  width: 100%;
+
+  [data-fs-cart-item-content] {
+    padding: var(--fs-cart-item-padding) 0 var(--fs-cart-item-padding) var(--fs-cart-item-padding);
+    display: flex;
+    column-gap: var(--fs-cart-item-padding);
+    align-items: flex-start;
+    width: calc(100% - var(--fs-control-tap-size));
+  }
+
+  [data-fs-cart-item-image] {
+    border-radius: var(--fs-cart-item-image-border-radius);
+    overflow: hidden;
+    width: var(--fs-cart-item-image-width);
+    height: var(--fs-cart-item-image-height);
+    flex-shrink: 0;
+    [data-fs-image] {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  [data-fs-cart-item-title] {
+    font-weight: var(--fs-cart-item-title-weight);
+    line-height: var(--fs-cart-item-title-line-height);
+    color: var(--fs-cart-item-title-color);
+    text-decoration: none;
+    outline: none;
+
+    @include truncate-title;
+  }
+
+  [data-fs-cart-item-skus] {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--fs-cart-item-skus-column-gap);
+    row-gap: var(--fs-cart-item-skus-row-gap);
+    font-size: var(--fs-cart-item-skus-text-size);
+    line-height: var(--fs-cart-item-skus-line-height);
+    color: var(--fs-cart-item-skus-text-color);
+    margin-top: var(--fs-cart-item-skus-margin-top);
+    span { font-weight: var(--fs-cart-item-title-weight); }
+  }
+
+  [data-fs-cart-item-remove-button] {
+    position: absolute;
+    right: 0;
+  }
+
+  [data-fs-cart-item-prices] {
+    display: flex;
+    align-items: baseline;
+    column-gap: var(--fs-cart-item-price-gap);
+    [data-fs-price-variant="listing"] { font-size: var(--fs-cart-item-listing-price-text-size); }
+  }
+
+  [data-fs-cart-item-actions] {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding-right: var(--fs-cart-item-padding);
+    border-top: var(--fs-cart-item-border-width) solid var(--fs-cart-item-border-color);
+    [data-quantity-selector-input] {
+      border-color: transparent;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-cart-item="unavailable"] {
+    background-color: var(--fs-color-neutral-bkg);
+    [data-fs-cart-item-actions] { display: none; }
+  }
+
+}

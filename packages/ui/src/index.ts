@@ -30,25 +30,6 @@ export type {
   CardActionsProps,
 } from './components/molecules/Card'
 
-export {
-  default as CartItem,
-  CartItemActions,
-  CartItemContent,
-  CartItemImage,
-  CartItemPrices,
-  CartItemSummary,
-  CartItemTitle,
-} from './components/molecules/CartItem'
-export type {
-  CartItemProps,
-  CartItemActionsProps,
-  CartItemContentProps,
-  CartItemImageProps,
-  CartItemPricesProps,
-  CartItemSummaryProps,
-  CartItemTitleProps,
-} from './components/molecules/CartItem'
-
 export { default as Bullets } from './components/molecules/Bullets'
 export type { BulletsProps } from './components/molecules/Bullets'
 
