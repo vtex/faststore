@@ -6,17 +6,17 @@ import {
   GiftImage as UIGiftImage,
 } from '@faststore/ui'
 
-import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import Icon from 'src/components/ui/Icon'
 import { Image } from 'src/components/ui/Image'
 import Price from 'src/components/ui/Price'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import type { CartItem as ICartItem } from 'src/sdk/cart'
 
 export type Props = GiftProps & {
   /**
    * Product to be showed as `Gift`.
    */
-  product: ProductSummary_ProductFragment
+  item: ICartItem
   /**
    * Additional message in the title
    */
@@ -28,34 +28,31 @@ export type Props = GiftProps & {
 }
 
 function Gift({
-  product,
+  item,
   titleMessage = 'Get a',
   badgeLabel = 'Free',
   ...otherProps
 }: Props) {
-  const {
-    isVariantOf,
-    image: [img],
-    offers: {
-      offers: [{ listPrice }],
-    },
-  } = product
-
   return (
     <UIGift icon={<Icon name="Tag" width={18} height={18} />} {...otherProps}>
       <UIGiftImage>
-        <Image src={img.url} alt={img.alternateName} width={89} height={89} />
+        <Image
+          src={item.itemOffered.image[0].url}
+          alt={item.itemOffered.image[0].alternateName}
+          width={89}
+          height={89}
+        />
       </UIGiftImage>
       <UIGiftContent>
         <h3 data-fs-gift-product-title>
-          {titleMessage} {isVariantOf.name}
+          {titleMessage} {item.itemOffered.isVariantOf.name}
         </h3>
         <span data-fs-gift-product-summary>
           <Price
-            value={listPrice}
+            value={item.price}
             formatter={useFormattedPrice}
             testId="list-price"
-            data-value={listPrice}
+            data-value={item.price}
             variant="listing"
             classes="text__legend"
             SRText="Original price:"

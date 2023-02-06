@@ -67,7 +67,7 @@ describe('On product description pages', () => {
             .should('be.visible')
             .should('be.enabled')
 
-          cy.getById('cart-item').should(($item) => {
+          cy.getById('fs-cart-item').should(($item) => {
             expect($item.attr('data-sku')).to.eq(skuId)
             expect($item.attr('data-seller')).to.eq(sellerId)
           })
@@ -93,7 +93,7 @@ describe('On product description pages', () => {
       cy.itemsInCart(1)
 
       cy.getById('remove-from-cart-button').click()
-      cy.getById('cart-item').should('not.exist')
+      cy.getById('fs-cart-item').should('not.exist')
       cy.getById('checkout-button').should('not.exist')
 
       cy.itemsInCart(0)

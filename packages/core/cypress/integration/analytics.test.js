@@ -104,7 +104,7 @@ describe('add_to_cart event', () => {
           testAddToCartEvent({ skuId, numberOfEvents: 1 })
 
           cy.get(
-            '[data-testid=cart-item] [data-testid=fs-quantity-selector-right-button]'
+            '[data-testid=fs-cart-item] [data-testid=fs-quantity-selector-right-button]'
           )
             .click()
             .then(() => {
@@ -209,7 +209,7 @@ describe('remove_from_cart event', () => {
 
               // Remove the added item
               cy.get(
-                '[data-testid=cart-item] [data-testid=fs-quantity-selector-left-button]'
+                '[data-testid=fs-cart-item] [data-testid=fs-quantity-selector-left-button]'
               )
                 .click()
                 .then(() => {

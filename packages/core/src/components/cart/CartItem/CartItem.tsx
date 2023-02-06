@@ -1,14 +1,8 @@
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import {
   CartItem as UICartItem,
-  CartItemActions as UICartItemActions,
-  CartItemSummary as UICartItemSummary,
-  CartItemTitle as UICartItemTitle,
-  CartItemPrices as UICartItemPrices,
-  CartItemContent as UICartItemContent,
   CartItemImage as UICartItemImage,
-  Button as UIButton,
-  QuantitySelector as UIQuantitySelector,
+  CartItemSummary as UICartItemSummary,
 } from '@faststore/ui'
 import { useCallback, useMemo } from 'react'
 import type {
@@ -17,17 +11,13 @@ import type {
   RemoveFromCartEvent,
 } from '@faststore/sdk'
 
-import Icon from 'src/components/ui/Icon'
 import { Image } from 'src/components/ui/Image'
-import Price from 'src/components/ui/Price'
 import { cartStore } from 'src/sdk/cart'
-import { useRemoveButton } from 'src/sdk/cart/useRemoveButton'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
+import { useRemoveButton } from 'src/sdk/cart/useRemoveButton'
 import type { CartItem as ICartItem } from 'src/sdk/cart'
 import type { AnalyticsItem } from 'src/sdk/analytics/types'
-
-import styles from './cart-item.module.scss'
 
 function useCartItemEvent() {
   const {
@@ -72,10 +62,9 @@ function useCartItemEvent() {
 
 interface Props {
   item: ICartItem
-  gift?: boolean
 }
 
-function CartItem({ item, gift = false }: Props) {
+function CartItem({ item }: Props) {
   const btnProps = useRemoveButton(item)
 
   const { sendCartItemEvent } = useCartItemEvent()
@@ -89,68 +78,38 @@ function CartItem({ item, gift = false }: Props) {
     [item, sendCartItemEvent]
   )
 
+  const skuActiveVariants =
+    item.itemOffered.isVariantOf.skuVariants.activeVariations
+  const activeVariations = Object.keys(skuActiveVariants).map((key) => ({
+    label: key,
+    option: skuActiveVariants[key],
+  }))
+
   return (
     <UICartItem
-      className={styles.fsCartItem}
-      data-testid="cart-item"
+      price={{
+        value: item.price,
+        listPrice: item.listPrice,
+        formatter: useFormattedPrice,
+      }}
+      quantity={item.quantity}
+      onQuantityChange={onQuantityChange}
+      removeBtnProps={btnProps}
       data-sku={item.itemOffered.sku}
       data-seller={item.seller.identifier}
     >
-      <UICartItemContent>
-        <UICartItemImage>
-          <Image
-            src={item.itemOffered.image[0].url}
-            alt={item.itemOffered.image[0].alternateName}
-            width={72}
-            height={72}
-          />
-        </UICartItemImage>
-        <UICartItemSummary>
-          <UICartItemTitle className="text__body">
-            {item.itemOffered.isVariantOf.name}
-          </UICartItemTitle>
-          {!gift && (
-            <UICartItemPrices>
-              <Price
-                value={item.listPrice}
-                formatter={useFormattedPrice}
-                testId="list-price"
-                data-value={item.listPrice}
-                variant="listing"
-                classes="text__legend"
-                SRText="Original price:"
-              />
-              <Price
-                value={item.price}
-                formatter={useFormattedPrice}
-                testId="price"
-                data-value={item.price}
-                variant="spot"
-                classes="text__title-subsection"
-                SRText="Price:"
-              />
-            </UICartItemPrices>
-          )}
-        </UICartItemSummary>
-      </UICartItemContent>
-
-      {!gift && (
-        <UICartItemActions>
-          <UIButton
-            icon={<Icon name="XCircle" width={18} height={18} />}
-            iconPosition="left"
-            variant="tertiary"
-            {...btnProps}
-          >
-            Remove
-          </UIButton>
-          <UIQuantitySelector
-            min={1}
-            initial={item.quantity}
-            onChange={onQuantityChange}
-          />
-        </UICartItemActions>
-      )}
+      <UICartItemImage>
+        <Image
+          src={item.itemOffered.image[0].url}
+          alt={item.itemOffered.image[0].alternateName}
+          width={56}
+          height={56}
+        />
+      </UICartItemImage>
+      <UICartItemSummary
+        title={item.itemOffered.isVariantOf.name}
+        activeVariations={activeVariations}
+      />
     </UICartItem>
   )
 }

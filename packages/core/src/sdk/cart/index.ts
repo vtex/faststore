@@ -66,6 +66,11 @@ export const ValidateCartMutation = gql`
     isVariantOf {
       productGroupID
       name
+      skuVariants {
+        activeVariations
+        slugsMap(dominantVariantName: "Color")
+        availableVariations(dominantVariantName: "Color")
+      }
     }
     gtin
     additionalProperty {

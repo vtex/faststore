@@ -1129,7 +1129,15 @@ export type ValidateCartMutationMutation = {
           gtin: string
           image: Array<{ url: string; alternateName: string }>
           brand: { name: string }
-          isVariantOf: { productGroupID: string; name: string }
+          isVariantOf: {
+            productGroupID: string
+            name: string
+            skuVariants: {
+              activeVariations: any | null
+              slugsMap: any | null
+              availableVariations: any | null
+            } | null
+          }
           additionalProperty: Array<{
             propertyID: string
             name: string
@@ -1156,7 +1164,15 @@ export type CartItemFragment = {
     gtin: string
     image: Array<{ url: string; alternateName: string }>
     brand: { name: string }
-    isVariantOf: { productGroupID: string; name: string }
+    isVariantOf: {
+      productGroupID: string
+      name: string
+      skuVariants: {
+        activeVariations: any | null
+        slugsMap: any | null
+        availableVariations: any | null
+      } | null
+    }
     additionalProperty: Array<{
       propertyID: string
       name: string
@@ -1172,7 +1188,15 @@ export type CartProductItemFragment = {
   gtin: string
   image: Array<{ url: string; alternateName: string }>
   brand: { name: string }
-  isVariantOf: { productGroupID: string; name: string }
+  isVariantOf: {
+    productGroupID: string
+    name: string
+    skuVariants: {
+      activeVariations: any | null
+      slugsMap: any | null
+      availableVariations: any | null
+    } | null
+  }
   additionalProperty: Array<{
     propertyID: string
     name: string
