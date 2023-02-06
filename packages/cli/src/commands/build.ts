@@ -1,9 +1,9 @@
 import { Command } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
-import { existsSync, symlinkSync } from 'fs'
+import { existsSync } from 'fs'
 import { copy, removeSync } from 'fs-extra'
-import { tmpDir, tmpSrcDir, userDir, userSrcDir } from '../utils/directory'
+import { tmpDir, userDir } from '../utils/directory'
 import { generate } from '../utils/generate'
 
 export default class Build extends Command {
@@ -33,7 +33,6 @@ export default class Build extends Command {
         `.next/standalone/node_modules`
       )
     }
-    createSrcDirSymbolicLink()
   }
 }
 
@@ -48,20 +47,6 @@ async function copyResource(from: string, to: string) {
       `${chalk.green('success')} - ${chalk.dim(from)} copied to ${chalk.dim(
         to
       )}`
-    )
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
-  }
-}
-
-// SonarQube looks for src dir in the root folder
-function createSrcDirSymbolicLink() {
-  try {
-    symlinkSync(tmpSrcDir, userSrcDir)
-    console.log(
-      `${chalk.green('success')} - Symbolic ${chalk.dim(
-        'src'
-      )} link created from ${chalk.dim(tmpSrcDir)} to ${chalk.dim(userSrcDir)}`
     )
   } catch (err) {
     console.error(`${chalk.red('error')} - ${err}`)
