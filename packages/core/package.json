@@ -6,7 +6,7 @@
   "scripts": {
     "generate": "graphql-codegen",
     "build": "yarn partytown && next build",
-    "develop": "yarn partytown && next dev",
+    "dev": "yarn partytown && next dev",
     "clean": "rm -r .next",
     "serve": "next start",
     "test": "cypress open",

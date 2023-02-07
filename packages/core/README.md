@@ -63,7 +63,7 @@ As of Sep, 2022, this starter is still far from covering most basic cases found 
    Navigate into your new site’s directory and start it up.
 
    ```shell
-   yarn develop
+   yarn dev
    ```
 
 4. **Open the source code and start editing!**
@@ -382,7 +382,7 @@ We use [graphql-codegen](https://www.graphql-code-generator.com/) to pre-process
 This means we can statically analyse your code in search of bugs and secure your graphql server before each deploy. If, however you need to change any GraphQL Fragment, Query or Mutation, you will need to regenerate the whole thing. To do this, open your terminal and type
 
 ```sh
-$ yarn develop
+$ yarn dev
 ```
 
 Now, after the nextjs development server is up and running, open another terminal and run

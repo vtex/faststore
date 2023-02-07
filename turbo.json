@@ -19,9 +19,6 @@
     },
     "start": {},
     "size": {},
-    "develop": {
-      "cache": false
-    },
     "dev": {
       "cache": false
     }
