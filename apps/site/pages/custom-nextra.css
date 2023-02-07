@@ -58,3 +58,8 @@ h4.nx-tracking-tight {
 .index-header img {
   font-size: var(--fs-text-size-title-huge);
 }
+
+/* Reset theme default style */
+[data-fs-payment-methods-title] h3 {
+  margin-top: auto;
+}

@@ -9,13 +9,20 @@ export type OverviewSectionProps = {
   bigGap?: boolean
 }
 
-const OverviewSection = ({ children, dark, direction, bigGap }) => {
+const OverviewSection = ({
+  children,
+  dark,
+  direction,
+  bigGap,
+  ...otherProps
+}) => {
   return (
     <div
       className={styles.overviewSection}
       data-doc-overview-dark={dark}
       data-doc-overview-direction={direction}
       data-doc-overview-big-gap={bigGap}
+      {...otherProps}
     >
       {children}
     </div>

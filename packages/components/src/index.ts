@@ -136,5 +136,8 @@ export type {
   HeroHeadingProps,
 } from './organisms/Hero'
 
+export { default as PaymentMethods } from './organisms/PaymentMethods'
+export type { PaymentMethodsProps } from './organisms/PaymentMethods'
+
 export { default as PriceRange } from './organisms/PriceRange'
 export type { PriceRangeProps } from './organisms/PriceRange'
