@@ -148,7 +148,7 @@ export const Query = {
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0
-    const referrer = ctx.headers.referrer
+    const referrer = ctx.headers.referer
 
     const searchArgs: Omit<SearchArgsWithEventArgs, 'type'> = {
       page: Math.ceil(after / first),
