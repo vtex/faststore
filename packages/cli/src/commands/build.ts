@@ -2,7 +2,7 @@ import { Command } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
-import { copy, removeSync } from 'fs-extra'
+import { copySync, removeSync } from 'fs-extra'
 import { tmpDir, userDir } from '../utils/directory'
 import { generate } from '../utils/generate'
 
@@ -42,7 +42,7 @@ async function copyResource(from: string, to: string) {
       removeSync(to)
     }
 
-    await copy(from, to)
+    await copySync(from, to)
     console.log(
       `${chalk.green('success')} - ${chalk.dim(from)} copied to ${chalk.dim(
         to
