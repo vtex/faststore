@@ -1,7 +1,6 @@
 import {
   List as UIList,
   PaymentMethods as UIPaymentMethods,
-  SROnly as UISROnly,
 } from '@faststore/ui'
 
 import Logo from 'src/components/ui/Logo'
@@ -12,6 +11,7 @@ import { mark } from 'src/sdk/tests/mark'
 
 import styles from './footer.module.scss'
 import FooterLinks from './FooterLinks'
+import FooterFlags from './FooterFlags'
 
 type FooterProps = {
   /**
@@ -107,43 +107,10 @@ export function Footer({
         <Logo />
 
         {sectionPaymentMethods && (
-          <UIPaymentMethods data-fs-footer-payment-methods>
-            <p data-fs-footer-title>Payment Methods</p>
-            <UIList>
-              <li>
-                <Icon width="34px" height="24px" name="Visa" />
-                <UISROnly text="Visa" />
-              </li>
-              <li>
-                <Icon width="34px" height="24px" name="Diners" />
-                <UISROnly text="Diners Club" />
-              </li>
-              <li>
-                <Icon width="34px" height="24px" name="Mastercard" />
-                <UISROnly text="Mastercard" />
-              </li>
-              <li>
-                <Icon width="34px" height="24px" name="EloCard" />
-                <UISROnly text="Elo Card" />
-              </li>
-              <li>
-                <Icon width="34px" height="24px" name="PayPal" />
-                <UISROnly text="PayPal" />
-              </li>
-              <li>
-                <Icon width="34px" height="24px" name="Stripe" />
-                <UISROnly text="Stripe" />
-              </li>
-              <li>
-                <Icon width="34px" height="24px" name="GooglePay" />
-                <UISROnly text="Google Pay" />
-              </li>
-              <li>
-                <Icon width="34px" height="24px" name="ApplePay" />
-                <UISROnly text="Apple Pay" />
-              </li>
-            </UIList>
-          </UIPaymentMethods>
+          <UIPaymentMethods
+            title={<p>Payment Methods</p>}
+            flagList={FooterFlags}
+          />
         )}
 
         <div data-fs-footer-copyright className="text__legend">

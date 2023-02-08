@@ -22,11 +22,6 @@
   --fs-footer-title-weight                        : var(--fs-text-weight-bold);
   --fs-footer-title-margin-bottom                 : var(--fs-spacing-1);
 
-  // Payment Methods
-  --fs-footer-payment-methods-flags-border-width  : var(--fs-border-width);
-  --fs-footer-payment-methods-flags-border-color  : var(--fs-color-neutral-3);
-  --fs-footer-payment-methods-flags-border-radius : var(--fs-border-radius-small);
-
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
@@ -108,7 +103,7 @@
   }
 
   [data-fs-footer-social],
-  [data-fs-footer-payment-methods] {
+  [data-fs-payment-methods] {
     @include media(">=notebook") {
       grid-column: 11 / span 2;
       margin-left: calc(-1 * var(--fs-spacing-3));
@@ -142,7 +137,7 @@
     }
   }
 
-  [data-fs-footer-payment-methods] {
+  [data-fs-payment-methods] {
     @include media("<notebook") {
       margin: var(--fs-footer-spacing-vertical-mobile) auto;
     }
@@ -155,27 +150,6 @@
   [data-fs-icon] {
     @include media(">=notebook") {
       grid-column: span 2;
-    }
-  }
-
-  [data-payment-methods-flags] {
-    svg {
-      border: var(--fs-footer-payment-methods-flags-border-width) solid var(--fs-footer-payment-methods-flags-border-color);
-      border-radius: var(--fs-footer-payment-methods-flags-border-radius);
-    }
-
-    [data-fs-list] {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, max-content));
-      row-gap: var(--fs-spacing-1);
-      justify-content: space-between;
-      margin-top: var(--fs-spacing-3);
-
-      li { display: flex; }
-
-      @include media("<notebook") {
-        column-gap: var(--fs-grid-gap-2);
-      }
     }
   }
 
