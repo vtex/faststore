@@ -1,2 +1,0 @@
-# Make @vtex-sites/cms-schema default reviewer for all schema changes for CMS
-src/@vtex/gatsby-plugin-cms/ @vtex-sites/cms-schema
