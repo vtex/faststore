@@ -1,9 +1,9 @@
 import { enhanceSku } from '../utils/enhanceSku'
 import type { Resolver } from '..'
-import type { SearchArgs } from '../clients/search'
+import type { SearchArgsWithEventArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
 
-type Root = Omit<SearchArgs, 'type'>
+type Root = Omit<SearchArgsWithEventArgs , 'type'>
 
 const isRootFacet = (facet: Facet) => facet.key === 'category-1'
 
@@ -44,10 +44,12 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       products: skus,
     }
   },
-  products: async (searchArgs, _, ctx) => {
+  products: async (searchArgsWithEventArgs, _, ctx) => {
     const {
       clients: { search, sp },
     } = ctx
+
+    const { event: eventArgs, ...searchArgs } = searchArgsWithEventArgs
 
     const products = await search.products(searchArgs)
 
@@ -61,6 +63,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
         match: products.recordsFiltered,
         operator: products.operator,
         locale: ctx.storage.locale,
+        url: eventArgs.referrer,
       }).catch(console.error)
     }
 

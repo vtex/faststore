@@ -38,6 +38,7 @@ export type SearchEvent = {
   match: number
   operator: 'and' | 'or'
   locale: string
+  url: string
   session?: string
   anonymous?: string
 }

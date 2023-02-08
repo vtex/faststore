@@ -23,6 +23,7 @@ import type {
 import type { CategoryTree } from "../clients/commerce/types/CategoryTree"
 import type { Context } from "../index"
 import { isValidSkuId, pickBestSku } from "../utils/sku"
+import { SearchArgsWithEventArgs } from "../clients/search"
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -147,12 +148,15 @@ export const Query = {
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0
-    const searchArgs = {
+    const referrer = ctx.headers.referrer
+
+    const searchArgs: Omit<SearchArgsWithEventArgs, 'type'> = {
       page: Math.ceil(after / first),
       count: first,
-      query,
+      query: query ?? undefined,
       sort: SORT_MAP[sort ?? 'score_desc'],
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
+      event: { referrer },
     }
 
     return searchArgs

@@ -33,6 +33,12 @@ export interface SearchArgs {
   hideUnavailableItems?: boolean
 }
 
+export type SearchArgsWithEventArgs = SearchArgs & {
+  event: {
+    referrer: string
+  }
+}
+
 export interface ProductLocator {
   field: 'id' | 'slug'
   value: string
