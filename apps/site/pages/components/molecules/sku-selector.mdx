@@ -12,7 +12,11 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { SkuSelector } from '@faststore/ui'
+import {
+  SkuSelectorImage,
+  SkuSelectorLabel,
+  SkuSelectorColor,
+} from 'site/components/SkuSelector'
 
 import { product } from '../../../mocks/product'
 
@@ -24,72 +28,131 @@ The `SkuSelector` component is mainly used in Product Details Pages (PDPs) to di
 
 </header>
 
-The `ProductCard` is a compound of the following:
-
-- `ProductCardImage`: wraps the product's image.
-- `ProductCardContent`: wraps the content's details.
-
 ## Overview
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
-    <OverviewSection
-      containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 2fr' }}
-    >
-      <SkuSelector
-        activeValue="41"
-        label="Size"
-        id="size"
-        options={[
-          {
-            alt: 'skuvariation',
-            label: '38',
-            src: '/',
-            value: '38',
-            children: <a href="/"></a>,
-          },
-          {
-            alt: 'skuvariation',
-            label: '39',
-            src: '/',
-            value: '39',
-            children: <a href="/"></a>,
-          },
-          {
-            alt: 'skuvariation',
-            label: '40',
-            src: '/',
-            value: '40',
-            children: <a href="/"></a>,
-          },
-          {
-            alt: 'skuvariation',
-            label: '41',
-            src: '/',
-            value: '41',
-            children: <a href="/"></a>,
-          },
-          {
-            alt: 'skuvariation',
-            label: '42',
-            src: '/',
-            value: '42',
-            children: <a href="/"></a>,
-          },
-          {
-            alt: 'skuvariation',
-            disabled: true,
-            label: '43',
-            src: '/',
-            value: '43',
-            children: <a href="/"></a>,
-          },
-        ]}
-        variant="label"
-      />
+    <OverviewSection>
+      <SkuSelectorImage />
+      <SkuSelectorLabel />
+      <SkuSelectorColor />
     </OverviewSection>
   </Tab>
-  <Tab></Tab>
+  <Tab>
+    ```tsx
+
+    const renderImageFunction = (src: string, alt: string) => (<img data-fs-sku-selector-option-image src={src} alt={alt} />)
+    const renderLinkFunction = (href: string) => <a data-fs-sku-selector-option-link href={href} />
+
+    const options = [
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        src: 'https://storeframework.vtexassets.com/arquivos/ids/190932/mouse-black.jpg?v=1759260622',
+        value: 'Black',
+        renderLink: renderLinkFunction,
+        renderImage: renderImageFunction,
+      },
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
+        value: 'White',
+        renderLink: renderLinkFunction,
+        renderImage: renderImageFunction,
+      },
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
+        value: 'Gray',
+        disabled: true,
+        renderLink: renderLinkFunction,
+        renderImage: renderImageFunction,
+      },
+    ]
+
+    <SkuSelector
+      activeValue="Black"
+      label="Size"
+      id="size"
+      variant="image"
+      options={options}
+    />
+    ```
+
+    ```tsx
+    const renderLinkFunction = (href: string) => <a data-fs-sku-selector-option-link href={href} />
+
+    const options = [
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        value: '40',
+        renderLink: renderLinkFunction,
+      },
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        value: '41',
+        renderLink: renderLinkFunction,
+      },
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        disabled: true,
+        value: '42',
+        renderLink: renderLinkFunction,
+      },
+    ]
+
+    <SkuSelector
+      activeValue="41"
+      label="Size"
+      id="size"
+      variant="label"
+      options={options}
+    />
+    ```
+
+    ```tsx
+    const renderLinkFunction = (href: string) => <a data-fs-sku-selector-option-link href={href} />
+
+    const options = [
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        value: 'Blue',
+        hexColor: '#6bb5ff',
+        renderLink: renderLinkFunction,
+      },
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        value: 'Yellow',
+        hexColor: '#e5c45f',
+        renderLink: renderLinkFunction,
+      },
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        disabled: true,
+        value: 'Gray',
+        hexColor: '#dfdfdf',
+        renderLink: renderLinkFunction,
+      },
+    ]
+
+    <SkuSelector
+      activeValue="Blue"
+      label="Color"
+      id="color"
+      variant="color"
+      options={options}
+    />
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
@@ -111,3 +174,358 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
 ---
 
 ## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SkuSelectorImage />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+
+    const renderImageFunction = (src: string, alt: string) => (<img data-fs-sku-selector-option-image src={src} alt={alt} />)
+    const renderLinkFunction = (href: string) => <a data-fs-sku-selector-option-link href={href} />
+
+    const options = [
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        src: 'https://storeframework.vtexassets.com/arquivos/ids/190932/mouse-black.jpg?v=1759260622',
+        value: 'Black',
+        renderLink: renderLinkFunction,
+        renderImage: renderImageFunction,
+      },
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
+        value: 'White',
+        renderLink: renderLinkFunction,
+        renderImage: renderImageFunction,
+      },
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
+        value: 'Gray',
+        disabled: true,
+        renderLink: renderLinkFunction,
+        renderImage: renderImageFunction,
+      },
+    ]
+
+    <SkuSelector
+      activeValue="Black"
+      label="Size"
+      id="size"
+      variant="image"
+      options={options}
+    />
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+<PropsSection name="SkuSelector" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-sku-selector-row-gap" value="var(--fs-spacing-2)" />
+  <TokenRow
+    token="--fs-sku-selector-column-gap"
+    value="var(--fs-sku-selector-row-gap)"
+  />
+  <TokenRow token="--fs-sku-selector-text-size" value="var(--fs-text-size-1)" />
+</TokenTable>
+
+### Nested Elements
+
+#### Option
+
+<TokenTable>
+  <TokenRow
+    token="--fs-sku-selector-option-width"
+    value="var(--fs-spacing-7)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-height"
+    value="var(--fs-sku-selector-option-width)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-sku-selector-option-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+  <TokenRow token="--fs-sku-selector-option-transition-function" value="ease" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-sku-selector-option-border-width"
+    value="var(--fs-border-width-thick)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-border-color"
+    value="var(--fs-color-neutral-7)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-border-radius"
+    value="var(--fs-border-radius)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-border-color-hover"
+    value="var(--fs-border-color-active)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-sku-selector-option-checked-border-width"
+    value="var(--fs-sku-selector-option-border-width)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-checked-border-color"
+    value="var(--fs-sku-selector-option-border-color-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-checked-box-shadow"
+    value="0 0 0 var(--fs-border-width-thickest) var(--fs-color-focus-ring-outline)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-checked-bkg-color"
+    value="var(--fs-sku-selector-option-bkg-color-hover)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-sku-selector-option-disabled-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-disabled-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-disabled-border-color"
+    value="var(--fs-border-color-disabled)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-disabled-bkg-color"
+    value="var(--fs-sku-selector-option-disabled-border-color)"
+    isColor
+  />
+</TokenTable>
+
+### Variants
+
+#### Image
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SkuSelectorImage />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+
+    const renderImageFunction = (src: string, alt: string) => (<img data-fs-sku-selector-option-image src={src} alt={alt} />)
+    const renderLinkFunction = (href: string) => <a data-fs-sku-selector-option-link href={href} />
+
+    const options = [
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        src: 'https://storeframework.vtexassets.com/arquivos/ids/190932/mouse-black.jpg?v=1759260622',
+        value: 'Black',
+        renderLink: renderLinkFunction,
+        renderImage: renderImageFunction,
+      },
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
+        value: 'White',
+        renderLink: renderLinkFunction,
+        renderImage: renderImageFunction,
+      },
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
+        value: 'Gray',
+        disabled: true,
+        renderLink: renderLinkFunction,
+        renderImage: renderImageFunction,
+      },
+    ]
+
+    <SkuSelector
+      activeValue="Black"
+      label="Size"
+      id="size"
+      variant="image"
+      options={options}
+    />
+    ```
+
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow token="--fs-sku-selector-image-width" value="var(--fs-spacing-6)" />
+  <TokenRow
+    token="--fs-sku-selector-image-height"
+    value="var(--fs-sku-selector-image-width)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-image-border-radius"
+    value="var(--fs-border-radius-small)"
+  />
+</TokenTable>
+
+#### Label
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SkuSelectorLabel />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const renderLinkFunction = (href: string) => <a data-fs-sku-selector-option-link href={href} />
+
+    const options = [
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        value: '40',
+        renderLink: renderLinkFunction,
+      },
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        value: '41',
+        renderLink: renderLinkFunction,
+      },
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        disabled: true,
+        value: '42',
+        renderLink: renderLinkFunction,
+      },
+    ]
+
+    <SkuSelector
+      activeValue="41"
+      label="Size"
+      id="size"
+      variant="label"
+      options={options}
+    />
+    ```
+
+  </Tab>
+</Tabs>
+
+#### Color
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SkuSelectorColor />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const renderLinkFunction = (href: string) => <a data-fs-sku-selector-option-link href={href} />
+
+    const options = [
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        value: 'Blue',
+        hexColor: '#6bb5ff',
+        renderLink: renderLinkFunction,
+      },
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        value: 'Yellow',
+        hexColor: '#e5c45f',
+        renderLink: renderLinkFunction,
+      },
+      {
+        alt: 'skuvariation',
+        href: '/product-lalala',
+        disabled: true,
+        value: 'Gray',
+        hexColor: '#dfdfdf',
+        renderLink: renderLinkFunction,
+      },
+    ]
+
+    <SkuSelector
+      activeValue="Blue"
+      label="Color"
+      id="color"
+      variant="color"
+      options={options}
+    />
+    ```
+
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-sku-selector-color-width"
+    value="var(--fs-sku-selector-image-width)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-color-height"
+    value="var(--fs-sku-selector-color-width)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-color-border-radius"
+    value="var(--fs-sku-selector-image-border-radius)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+`data-fs-sku-selector`
+
+`data-fs-sku-selector-variant= "image" | "label" | "color"`
+
+`data-fs-sku-selector-title`
+
+`data-fs-sku-selector-list`
+
+`data-fs-sku-selector-disabled="true"`
+
+`data-fs-sku-selector-checked="true"`
+
+`data-fs-sku-selector-option`
+
+`data-fs-sku-selector-option-image`
+
+`data-fs-sku-selector-option-color`
