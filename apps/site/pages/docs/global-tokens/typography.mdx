@@ -1,0 +1,165 @@
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+  Typeset,
+} from 'site/components/Tokens'
+
+<header>
+
+# Typography
+
+A standard scale and basic definitions for your text: `font family`,`weight` and `sizes`.
+
+</header>
+
+## Font Family
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow
+    token="--fs-text-face-body"
+    value="-apple-system, system-ui, BlinkMacSystemFont, sans-serif"
+  />
+  <TokenRow token="--fs-text-face-title" value="var(--fs-text-face-body)" />
+</TokenTable>
+
+## Weights
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-text-weight-light" value="300" />
+  <TokenRow token="--fs-text-weight-regular" value="400" />
+  <TokenRow token="--fs-text-weight-bold" value="700" />
+  <TokenRow token="--fs-text-weight-black" value="900" />
+</TokenTable>
+
+## Typography Scale
+
+Use a type scale to add rhythm to your typography and ensure consistency throughout the project.
+
+Access https://type-scale.com and pick a scale that suits the store's branding.
+
+export const desktopList = [
+  { size: 12, token: 'var(--fs-text-size-0)' },
+  { size: 14, token: 'var(--fs-text-size-1)' },
+  { size: 16, token: 'var(--fs-text-size-2)' },
+  { size: 20, token: 'var(--fs-text-size-3)' },
+  { size: 25, token: 'var(--fs-text-size-4)' },
+  { size: 31, token: 'var(--fs-text-size-5)' },
+  { size: 39, token: 'var(--fs-text-size-6)' },
+  { size: 48, token: 'var(--fs-text-size-7)' },
+  { size: 61, token: 'var(--fs-text-size-8)' },
+]
+
+export const mobileList = [
+  { size: 12, token: 'var(--fs-text-size-0)' },
+  { size: 14, token: 'var(--fs-text-size-1)' },
+  { size: 16, token: 'var(--fs-text-size-2)' },
+  {
+    size: 18,
+    token: 'var(--fs-text-size-3)',
+  },
+  {
+    size: 20,
+    token: 'var(--fs-text-size-4)',
+  },
+  {
+    size: 23,
+    token: 'var(--fs-text-size-5)',
+  },
+  {
+    size: 26,
+    token: 'var(--fs-text-size-6)',
+  },
+  {
+    size: 29,
+    token: 'var(--fs-text-size-7)',
+  },
+  {
+    size: 33,
+    token: 'var(--fs-text-size-8)',
+  },
+]
+
+### Desktop Scale
+
+<Typeset scaleItems={desktopList} scale="desktop" />
+
+### Mobile Scale
+
+<Typeset scaleItems={mobileList} scale="mobile" />
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-text-size-base" value="16px" />
+  <TokenRow token="--fs-text-scale-desktop" value="1.25" />
+  <TokenRow token="--fs-text-scale-mobile" value="1.13" />
+  <TokenDivider />
+  <TokenRow token="--fs-text-size-0" value="12px" />
+  <TokenRow token="--fs-text-size-1" value="14px" />
+  <TokenRow token="--fs-text-size-2" value="var(--fs-text-size-base)" />
+  <TokenRow
+    token="--fs-text-size-3"
+    value="calc(var(--fs-text-size-2) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-4"
+    value="calc(var(--fs-text-size-3) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-5"
+    value="calc(var(--fs-text-size-4) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-6"
+    value="calc(var(--fs-text-size-5) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-7"
+    value="calc(var(--fs-text-size-6) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-8"
+    value="calc(var(--fs-text-size-7) * var(--fs-scale))"
+  />
+</TokenTable>
+
+---
+
+## Semantical tokens
+
+### Sizes
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-text-size-title-huge" value="var(--fs-text-size-7)" />
+  <TokenRow token="--fs-text-size-title-page" value="var(--fs-text-size-6)" />
+  <TokenRow
+    token="--fs-text-size-title-product"
+    value="var(--fs-text-size-4)"
+  />
+  <TokenRow
+    token="--fs-text-size-title-section"
+    value="var(--fs-text-size-4)"
+  />
+  <TokenRow
+    token="--fs-text-size-title-subsection"
+    value="var(--fs-text-size-4)"
+  />
+  <TokenRow token="--fs-text-size-title-mini" value="var(--fs-text-size-4)" />
+  <TokenDivider />
+  <TokenRow token="--fs-text-size-lead" value="var(--fs-text-size-3)" />
+  <TokenRow token="--fs-text-size-menu" value="var(--fs-text-size-base)" />
+  <TokenRow token="--fs-text-size-body" value="var(--fs-text-size-base)" />
+  <TokenRow token="--fs-text-size-legend" value="var(--fs-text-size-1)" />
+  <TokenRow token="--fs-text-size-tiny" value="var(--fs-text-size-0)" />
+</TokenTable>
+
+### Max Lines
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-text-max-lines" value="2" />
+</TokenTable>
+
+---
+
+## Add a custom font
+
+TO ADD!
