@@ -27,7 +27,7 @@ const Typeset = ({ sample, scaleItems, scale = 'mobile' }: TypesetProps) => {
           <span>{item.size}</span>
           <p
             style={{
-              fontSize: item.token,
+              fontSize: `${item.size}px`,
             }}
           >
             {sample ? sample : sampleText}
