@@ -1,0 +1,33 @@
+.typeset {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--fs-spacing-1);
+  padding: var(--fs-spacing-4) var(--fs-spacing-5);
+  margin: var(--fs-spacing-4) 0;
+  background-image: radial-gradient(#ededed 1px, transparent 0);
+  background-size: 8px 8px;
+  background-position: -22px -24px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: auto;
+}
+
+.typeset li {
+  display: flex;
+  align-items: baseline;
+  column-gap: var(--fs-spacing-3);
+}
+
+.typeset span {
+  font-size: var(--fs-text-size-0);
+}
+
+.typeset p {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  text-overflow: -o-ellipsis-lastline;
+  text-overflow: ellipsis;
+}
