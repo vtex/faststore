@@ -1,0 +1,38 @@
+import { TokenTable, TokenRow } from 'site/components/Tokens'
+
+<header>
+
+# Interactive Controls
+
+`Tap`, `States` and `Sizing` definitions.
+
+</header>
+
+## Tap
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-control-tap-size" value="var(--fs-spacing-7)" />
+  <TokenRow
+    token="--fs-control-tap-size-smallest"
+    value="calc(var(--fs-control-tap-size) / 2)"
+  />
+  <TokenRow
+    token="--fs-control-min-height"
+    value="var(--fs-control-tap-size)"
+  />
+</TokenTable>
+
+## States
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow
+    token="--fs-control-bkg"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-control-bkg-disabled"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+</TokenTable>
