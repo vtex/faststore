@@ -16,6 +16,7 @@ const OverviewSection = ({
   direction,
   containerStyle,
   bigGap,
+  ...otherProps
 }) => {
   return (
     <div
@@ -24,6 +25,7 @@ const OverviewSection = ({
       data-doc-overview-direction={direction}
       data-doc-overview-big-gap={bigGap}
       style={containerStyle}
+      {...otherProps}
     >
       {children}
     </div>
