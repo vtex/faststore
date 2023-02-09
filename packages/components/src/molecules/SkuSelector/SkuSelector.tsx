@@ -4,21 +4,25 @@ import { Label } from '../..'
 
 interface SkuProps {
   /**
-   * Alternative text description of the image.
+   * Alternative text description of the image. This is used on `renderImage` prop and it's mandatory if you want to use the `Image` variant.
    */
   alt?: string
   /**
-   * Image URL.
+   * Image URL. This is used on `renderImage` prop and it's mandatory if you want to use the `Image` variant.
    */
   src?: string
   /**
-   * Label to describe the option when selected.
-   */
-  label: string
-  /**
    * Current value for this option.
    */
-  value: string
+  value?: string
+  /**
+   * URL for option's page. This is used on `renderLink` prop.
+   */
+  href: string
+  /**
+   * Hex color code for this option. This is mandatory if you want to use the `Color` variant.
+   */
+  hexColor?: string
   /**
    * Specifies that this option should be disabled.
    */
@@ -26,11 +30,15 @@ interface SkuProps {
   /**
    * A React component that will be rendered as a link.
    */
-  children?: ReactNode
+  renderLink: (href: string) => ReactNode
+  /**
+   * Function to define what image should be used.
+   */
+  renderImage?: (src?: string, alt?: string) => ReactNode
 }
 
 // TODO: Add the 'color' variant back once the store supports naturally handling color SKUs.
-type Variant = 'label' | 'image'
+type Variant = 'label' | 'image' | 'color'
 
 export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -95,44 +103,30 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
                 data-fs-sku-selector-disabled={option.disabled}
                 data-fs-sku-selector-checked={option.value === activeValue}
               >
-                {variant === 'label' && (
+                {option.renderLink(option.href)}
+
+                {variant === 'color' && (
                   <span>
-                    {option.children}
-                    {option.value}
+                    <div
+                      data-fs-sku-selector-option-color
+                      title={option.value}
+                      style={
+                        {
+                          '--data-fs-sku-selector-option-color-bkg-color':
+                            option.hexColor,
+                        } as React.CSSProperties
+                      }
+                    ></div>
                   </span>
                 )}
+                {variant === 'label' && <span>{option.value}</span>}
                 {variant === 'image' && 'src' in option && (
-                  <span>{option.children}</span>
+                  <span>{option.renderImage?.(option.src!, option.alt)}</span>
                 )}
               </li>
             )
           })}
         </ul>
-        {/* <RadioGroup
-          selectedValue={activeValue}
-          name={`sku-selector-${variant}${radioGroupId}`}
-          onChange={(e) => {
-            onChange?.(e)
-          }}
-        >
-          {options.map((option, index) => {
-            return (
-              <RadioOption
-                data-fs-sku-selector-option
-                key={String(index)}
-                label={option.label}
-                value={option.value}
-                disabled={option.disabled}
-                checked={option.value === activeValue}
-              >
-                {variant === 'label' && <span>{option.value}</span>}
-                {variant === 'image' && 'src' in option && (
-                  <span>{children}</span>
-                )}
-              </RadioOption>
-            )
-          })}
-        </RadioGroup> */}
       </div>
     )
   }
