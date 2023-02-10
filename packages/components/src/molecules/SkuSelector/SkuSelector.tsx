@@ -1,4 +1,4 @@
-import type { ChangeEventHandler, HTMLAttributes } from 'react'
+import type { HTMLAttributes } from 'react'
 import React, { forwardRef, ReactNode } from 'react'
 import { Label } from '../..'
 
