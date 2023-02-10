@@ -19,12 +19,17 @@ interface ProductCardSkeletonProps {
    * Specifies the component variant.
    */
   variant?: 'default' | 'wide'
+  /**
+   * Specifies the ProductCard image's aspect ratio.
+   */
+  aspectRatio?: number
 }
 
 function ProductCardSkeleton({
   bordered,
   sectioned,
   displayButton,
+  aspectRatio = 1,
   variant = 'default',
 }: ProductCardSkeletonProps) {
   return (
@@ -35,21 +40,28 @@ function ProductCardSkeleton({
       data-fs-product-card-skeleton-bordered={bordered}
       data-fs-product-card-skeleton-sectioned={sectioned}
     >
-      <div data-fs-product-card-skeleton-image>
+      <div
+        data-fs-product-card-skeleton-image
+        style={
+          {
+            '--fs-product-card-skeleton-image-aspect-ratio': aspectRatio,
+          } as React.CSSProperties
+        }
+      >
         <UISkeleton size={{ width: '100%', height: '100%' }} />
       </div>
       <div data-fs-product-card-skeleton-content>
         <UISkeleton
           data-fs-product-card-skeleton-text
-          size={{ width: '100%', height: '1.5rem' }}
+          size={{ width: '90%', height: '1.5rem' }}
         />
         <UISkeleton
           data-fs-product-card-skeleton-text
-          size={{ width: '100%', height: '1.5rem' }}
+          size={{ width: '70%', height: '1.5rem' }}
         />
         <UISkeleton
           data-fs-product-card-skeleton-badge
-          size={{ width: '100%', height: '2rem' }}
+          size={{ width: '6rem', height: '2rem' }}
           border="pill"
         />
         {displayButton && (

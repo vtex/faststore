@@ -7,10 +7,12 @@ import ProductCardSkeleton from '../ProductCardSkeleton'
 
 interface Props {
   loading?: boolean
+  aspectRatio?: number
 }
 
 function ProductShelfSkeleton({
   children,
+  aspectRatio,
   loading = true,
 }: PropsWithChildren<Props>) {
   return loading ? (
@@ -20,7 +22,7 @@ function ProductShelfSkeleton({
     >
       {Array.from({ length: ITEMS_PER_SECTION }, (_, index) => (
         <li key={String(index)}>
-          <ProductCardSkeleton sectioned />
+          <ProductCardSkeleton aspectRatio={aspectRatio} sectioned />
         </li>
       ))}
     </ul>

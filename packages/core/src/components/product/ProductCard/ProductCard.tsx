@@ -1,22 +1,16 @@
 import {
   ProductCard as UIProductCard,
-  ProductCardActions as UIProductCardActions,
   ProductCardContent as UIProductCardContent,
   ProductCardImage as UIProductCardImage,
-  Badge as UIBadge,
-  DiscountBadge as UIDiscountBadge,
 } from '@faststore/ui'
 import { gql } from '@faststore/graphql-utils'
 import { memo } from 'react'
-import type { ReactNode } from 'react'
 
-import Link from 'src/components/ui/Link'
 import { Image } from 'src/components/ui/Image'
-import Price from 'src/components/ui/Price'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
-import styles from 'src/components/product/ProductCard/product-card.module.scss'
+import NextLink from 'next/link'
 
 type Variant = 'wide' | 'default'
 
@@ -36,18 +30,33 @@ export interface ProductCardProps {
    */
   aspectRatio?: number
   /**
-   * Enables a BuyButton to the component.
+   * Specifies Rating Value of the product.
    */
-  BuyButton?: ReactNode
+  ratingValue?: number
+  /**
+   * Callback function when button is clicked.
+   */
+  onButtonClick?: () => void
+  /**
+   * Specifies the button's label.
+   */
+  buttonLabel?: string
+  /**
+   * Enables a DiscountBadge to the component.
+   */
+  showDiscountBadge?: boolean
 }
 
 function ProductCard({
   product,
   index,
-  variant = 'default',
   bordered = false,
+  variant = 'default',
   aspectRatio = 1,
-  BuyButton,
+  ratingValue,
+  buttonLabel = 'Add',
+  onButtonClick,
+  showDiscountBadge = true,
   ...otherProps
 }: ProductCardProps) {
   const {
@@ -60,20 +69,24 @@ function ProductCard({
     },
   } = product
 
-  const linkProps = useProductLink({ product, selectedOffer: 0, index })
+  const linkProps = {
+    ...useProductLink({ product, selectedOffer: 0, index }),
+    as: NextLink,
+    passHref: true,
+    legacyBehavior: false,
+  }
+
   const outOfStock = availability !== 'https://schema.org/InStock'
 
   return (
     <UIProductCard
-      data-fs-product-card
-      data-fs-product-card-variant={variant}
-      data-fs-product-card-bordered={bordered}
-      data-fs-product-card-actionable={!!BuyButton}
+      outOfStock={outOfStock}
+      bordered={bordered}
+      variant={variant}
       data-fs-product-card-sku={sku}
-      className={styles.fsProductCard}
       {...otherProps}
     >
-      <UIProductCardImage data-fs-product-card-image>
+      <UIProductCardImage aspectRatio={aspectRatio}>
         <Image
           src={img.url}
           alt={img.alternateName}
@@ -83,47 +96,19 @@ function ProductCard({
           loading="lazy"
         />
       </UIProductCardImage>
-
-      <UIProductCardContent data-fs-product-card-content>
-        <div data-fs-product-card-heading>
-          <h3 data-fs-product-card-title>
-            <Link {...linkProps} title={name}>
-              {name}
-            </Link>
-          </h3>
-          <div data-fs-product-card-prices>
-            <Price
-              value={listPrice}
-              formatter={useFormattedPrice}
-              testId="list-price"
-              data-value={listPrice}
-              variant="listing"
-              classes="text__legend"
-              SRText="Original price:"
-            />
-            <Price
-              value={spotPrice}
-              formatter={useFormattedPrice}
-              testId="price"
-              data-value={spotPrice}
-              variant="spot"
-              classes="text__body"
-              SRText="Sale Price:"
-            />
-          </div>
-        </div>
-
-        {outOfStock ? (
-          <UIBadge>Out of stock</UIBadge>
-        ) : (
-          <UIDiscountBadge listPrice={listPrice} spotPrice={spotPrice} />
-        )}
-        {!!BuyButton && (
-          <UIProductCardActions data-fs-product-card-actions>
-            {BuyButton}
-          </UIProductCardActions>
-        )}
-      </UIProductCardContent>
+      <UIProductCardContent
+        title={name}
+        price={{
+          value: spotPrice,
+          listPrice: listPrice,
+          formatter: useFormattedPrice,
+        }}
+        ratingValue={ratingValue}
+        outOfStock={outOfStock}
+        onButtonClick={onButtonClick}
+        linkProps={linkProps}
+        showDiscountBadge={showDiscountBadge}
+      />
     </UIProductCard>
   )
 }

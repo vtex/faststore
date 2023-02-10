@@ -25,7 +25,7 @@ const getRatio = (products: number, idx: number) => {
     products === NUMBER_ITEMS_TO_EXPAND_FIRST_TWO && (idx === 0 || idx === 1)
 
   if (expandsFirstTile || expandsFirstTwoTile) {
-    return 4 / 3
+    return 5 / 3
   }
 
   return 3 / 4
@@ -60,7 +60,7 @@ const ProductTiles = ({ title, ...variables }: ProductTilesProps) => {
     <Section className="layout__section layout__content" ref={ref}>
       <h2 className="text__title-section">{title}</h2>
       <div>
-        <ProductTilesSkeleton variant="wide" loading={!products}>
+        <ProductTilesSkeleton loading={!products}>
           <Tiles>
             {productEdges.map((product, idx) => (
               <Tile key={product.node.id}>

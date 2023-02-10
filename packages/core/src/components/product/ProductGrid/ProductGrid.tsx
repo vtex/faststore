@@ -17,8 +17,13 @@ interface Props {
 }
 
 function ProductGrid({ products, page, pageSize }: Props) {
+  const aspectRatio = 1
+
   return (
-    <ProductGridSkeleton loading={products.length === 0}>
+    <ProductGridSkeleton
+      aspectRatio={aspectRatio}
+      loading={products.length === 0}
+    >
       <ul data-fs-product-grid className={styles.fsProductGrid}>
         {products.map(({ node: product }, idx) => (
           <li key={`${product.id}`}>
@@ -26,6 +31,7 @@ function ProductGrid({ products, page, pageSize }: Props) {
               product={product}
               index={pageSize * page + idx + 1}
               bordered
+              aspectRatio={aspectRatio}
             />
           </li>
         ))}

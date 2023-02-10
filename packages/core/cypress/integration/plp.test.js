@@ -117,7 +117,7 @@ describe('Infinite Scroll pagination', () => {
     cy.waitForHydration()
 
     cy.getById('product-gallery').within(() => {
-      cy.getById('store-product-card')
+      cy.getById('fs-product-card')
         .should('exist')
         .should('have.length.gt', 0)
         .then(($links) => {
@@ -127,7 +127,7 @@ describe('Infinite Scroll pagination', () => {
             .should('exist')
             .click()
             .then(() => {
-              cy.getById('store-product-card')
+              cy.getById('fs-product-card')
                 .should('have.length.gte', before)
                 .then(($products) => {
                   const after = $products.length
@@ -143,7 +143,7 @@ describe('Infinite Scroll pagination', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
 
-    cy.get('[data-testid=product-gallery] [data-testid=store-product-card]')
+    cy.get('[data-testid=product-gallery] [data-testid=fs-product-card]')
       .should('exist')
       .should('have.length.gt', 0)
       .then(($links) => {
@@ -154,12 +154,12 @@ describe('Infinite Scroll pagination', () => {
           .should('exist')
           .click()
           // Go up the page
-          .get('[data-testid=product-gallery] [data-testid=store-product-card]')
+          .get('[data-testid=product-gallery] [data-testid=fs-product-card]')
           .first()
           .scrollIntoView({ duration: 1000 })
 
           // Go down the page
-          .get('[data-testid=product-gallery] [data-testid=store-product-card]')
+          .get('[data-testid=product-gallery] [data-testid=fs-product-card]')
           .last()
           .scrollIntoView({ duration: 1000 })
           .then(() => {
@@ -170,7 +170,7 @@ describe('Infinite Scroll pagination', () => {
             let skuIdBeforeNavigate
 
             cy.get(
-              '[data-testid=product-gallery] [data-testid=store-product-card]'
+              '[data-testid=product-gallery] [data-testid=fs-product-card]'
             )
               // Number of products after showMore is clicked should be higher
               .should('have.length.gte', before)
@@ -188,7 +188,7 @@ describe('Infinite Scroll pagination', () => {
               .then(() => {
                 cy.go('back')
                   .get(
-                    '[data-testid=product-gallery] [data-testid=store-product-card]'
+                    '[data-testid=product-gallery] [data-testid=fs-product-card]'
                   )
                   .last()
                   .then(($card) => {
@@ -215,7 +215,7 @@ describe('Infinite Scroll pagination', () => {
       .location('search')
       .should('match', /page=0$/)
 
-    cy.get('[data-testid=product-gallery] [data-testid=store-product-card]')
+    cy.get('[data-testid=product-gallery] [data-testid=fs-product-card]')
       .last()
       .scrollIntoView({ duration: 1000 })
       .location('search')
