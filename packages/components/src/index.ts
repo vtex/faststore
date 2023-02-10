@@ -93,6 +93,16 @@ export { default as LinkButton } from './molecules/LinkButton'
 export type { LinkButtonProps } from './molecules/LinkButton'
 export { default as Modal, ModalHeader, ModalBody } from './molecules/Modal'
 export type { ModalProps, ModalHeaderProps } from './molecules/Modal'
+export {
+  default as ProductCard,
+  ProductCardImage,
+  ProductCardContent,
+} from './molecules/ProductCard'
+export type {
+  ProductCardProps,
+  ProductCardImageProps,
+  ProductCardContentProps,
+} from './molecules/ProductCard'
 export { default as ProductTitle } from './molecules/ProductTitle'
 export type { ProductTitleProps } from './molecules/ProductTitle'
 export { default as RadioField } from './molecules/RadioField'

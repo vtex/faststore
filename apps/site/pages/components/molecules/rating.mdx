@@ -85,7 +85,7 @@ import '@faststore/ui/src/components/molecules/Rating/styles.scss'
 ## Design Tokens
 
 <TokenTable>
-  <TokenRow token="--fs-rating-gap" value="var(--fs-spacing-3)" />
+  <TokenRow token="--fs-rating-gap" value="var(--fs-spacing-0)" />
   <TokenRow token="--fs-rating-color" value="var(--fs-color-text)" isColor />
 </TokenTable>
 
@@ -134,6 +134,14 @@ const [rating, setRating] = useState(3)
 
 <TokenTable>
   <TokenRow token="--fs-rating-actionable-gap" value="0" />
+  <TokenRow
+    token="--fs-rating-actionable-icon-width"
+    value="var(--fs-rating-icon-width)"
+  />
+  <TokenRow
+    token="--fs-rating-actionable-icon-height"
+    value="var(--fs-rating-actionable-icon-width)"
+  />
 </TokenTable>
 
 ---
