@@ -28,11 +28,11 @@ interface SkuProps {
    */
   disabled?: boolean
   /**
-   * A React component that will be rendered as a link.
+   * Function that returns a React component that will be rendered as a link.
    */
   renderLink: (href: string) => ReactNode
   /**
-   * Function to define what image should be used.
+   * Function that returns a React component that will be used to render images.
    */
   renderImage?: (src?: string, alt?: string) => ReactNode
 }
