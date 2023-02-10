@@ -5,9 +5,11 @@
     "title": "CMS"
   },
   "vtex-headless-cms": "VTEX Headless CMS",
-  "-- Themes --": {
+  "-- Theming --": {
     "type": "separator",
-    "title": "Themes"
+    "title": "Theming"
   },
-  "custom-theme": "Custom Theme"
+  "brandless": "Brandless",
+  "customizing": "Customizing",
+  "themes": "Themes"
 }
