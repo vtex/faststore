@@ -62,10 +62,6 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
    * Currently active variation's value.
    */
   activeValue: string
-  /**
-   * Function to be triggered when SKU option change.
-   */
-  onChange?: ChangeEventHandler<HTMLInputElement>
 }
 
 const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
@@ -74,7 +70,6 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
       label,
       variant,
       options,
-      onChange,
       testId = 'fs-sku-selector',
       activeValue,
       ...otherProps
