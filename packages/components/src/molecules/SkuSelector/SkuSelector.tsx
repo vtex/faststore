@@ -2,7 +2,7 @@ import type { HTMLAttributes } from 'react'
 import React, { forwardRef, ReactNode } from 'react'
 import { Label } from '../..'
 
-interface SkuProps {
+interface SkuOption {
   /**
    * Alternative text description of the image. This is used on `renderImage` prop and it's mandatory if you want to use the `Image` variant.
    */
@@ -53,7 +53,7 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * SKU options that should be rendered.
    */
-  options: SkuProps[]
+  options: SkuOption[]
   /**
    * Section label for the SKU selector.
    */
