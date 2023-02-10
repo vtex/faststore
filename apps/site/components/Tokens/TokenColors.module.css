@@ -1,6 +1,4 @@
 .tokenColors {
-  /* display: grid;
-  grid-auto-flow: column dense; */
   display: flex;
   flex-wrap: wrap;
   column-gap: var(--fs-spacing-0);
