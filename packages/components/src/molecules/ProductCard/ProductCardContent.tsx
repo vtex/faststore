@@ -11,6 +11,7 @@ import {
   Rating,
   DiscountBadge,
   LinkProps,
+  LinkElementType,
 } from '../../'
 import { Star, ShoppingCart } from '../../assets'
 
@@ -32,7 +33,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   /**
    * Props for the link from ProductCard component.
    */
-  linkProps?: Partial<LinkProps>
+  linkProps?: Partial<LinkProps<LinkElementType>>
   /**
    * Specifies product's prices.
    */
