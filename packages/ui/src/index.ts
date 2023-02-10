@@ -55,9 +55,6 @@ export type {
   BannerLinkProps,
 } from './components/molecules/Banner'
 
-export { default as Breadcrumb } from './components/molecules/Breadcrumb'
-export type { BreadcrumbProps } from './components/molecules/Breadcrumb'
-
 export { default as Form } from './components/molecules/Form'
 export type { FormProps } from './components/molecules/Form'
 

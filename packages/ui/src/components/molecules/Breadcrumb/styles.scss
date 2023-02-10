@@ -1,6 +1,4 @@
-@import "src/styles/scaffold";
-
-.fs-breadcrumb {
+[data-fs-breadcrumb] {
   // --------------------------------------------------------
   // Design Tokens for Breadcrumb
   // --------------------------------------------------------
@@ -139,6 +137,30 @@
 
     &:focus, &:focus-visible {
       @include focus-ring;
+    }
+  }
+
+  &[data-fs-breadcrumb-is-desktop="true"] {
+    @include media("<notebook") {
+      display: none;
+      visibility: hidden;
+    }
+  }
+
+  &[data-fs-breadcrumb-is-desktop="false"] {
+    @include media(">=notebook") {
+      display: none;
+      visibility: hidden;
+    }
+  }
+}
+
+[data-fs-breadcrumb-dropdown-menu] {
+  [data-fs-breadcrumb-dropdown-link] {
+    padding: 0;
+
+    &:visited {
+      color: var(--fs-breadcrumb-link-color-visited);
     }
   }
 }
