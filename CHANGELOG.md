@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.63-alpha.0](https://github.com/vtex/faststore/compare/v2.0.62-alpha.0...v2.0.63-alpha.0) (2023-02-10)
+
+### Features
+
+- Adds `ProductCard` component ([#1623](https://github.com/vtex/faststore/issues/1623)) ([80588df](https://github.com/vtex/faststore/commit/80588df4a6c088035f60d563bfe6cd35f85b4a9c))
+
 ## [2.0.62-alpha.0](https://github.com/vtex/faststore/compare/v2.0.61-alpha.0...v2.0.62-alpha.0) (2023-02-07)
 
 ### Features
