@@ -24,6 +24,7 @@ function ProductShelf({
   const { ref, inView } = useInView()
   const products = useProductsQuery(variables)
   const productEdges = products?.edges ?? []
+  const aspectRatio = 1
 
   const { sendViewItemListEvent } = useViewItemListEvent({
     products: productEdges,
@@ -51,11 +52,18 @@ function ProductShelf({
     >
       <h2 className="text__title-section layout__content">{title}</h2>
       <div className={styles.fsProductShelf} data-fs-product-shelf>
-        <ProductShelfSkeleton loading={products === undefined}>
+        <ProductShelfSkeleton
+          aspectRatio={aspectRatio}
+          loading={products === undefined}
+        >
           <ul data-fs-product-shelf-items className="layout__content">
             {productEdges.map((product, idx) => (
               <li key={`${product.node.id}`}>
-                <ProductCard product={product.node} index={idx + 1} />
+                <ProductCard
+                  product={product.node}
+                  index={idx + 1}
+                  aspectRatio={aspectRatio}
+                />
               </li>
             ))}
           </ul>

@@ -254,7 +254,7 @@ describe('select_item event', () => {
 
     let skuId
 
-    cy.getById('store-product-card').first().click()
+    cy.getById('fs-product-card').first().click()
     cy.getById('buy-button')
       .should('be.visible')
       .scrollIntoView({ duration: 500 })
