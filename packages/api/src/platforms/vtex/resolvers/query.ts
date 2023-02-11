@@ -23,6 +23,7 @@ import type {
 import type { CategoryTree } from "../clients/commerce/types/CategoryTree"
 import type { Context } from "../index"
 import { isValidSkuId, pickBestSku } from "../utils/sku"
+import { SearchArgs } from "../clients/search"
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -147,15 +148,17 @@ export const Query = {
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0
-    const searchArgs = {
+    const searchArgs: Omit<SearchArgs, 'type'> = {
       page: Math.ceil(after / first),
       count: first,
-      query,
+      query: query ?? undefined,
       sort: SORT_MAP[sort ?? 'score_desc'],
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
     }
 
-    return searchArgs
+    const productSearchPromise = ctx.clients.search.products(searchArgs)
+
+    return { searchArgs, productSearchPromise }
   },
   allProducts: async (
     _: unknown,
