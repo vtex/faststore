@@ -164,9 +164,9 @@ async function copyStoreConfig() {
     const storeConfigFromStore = await import(userStoreConfigFileDir)
 
     // avoid duplicate default values
-    const { default: defaultFromCoreValues, ...otherCoreProps } =
+    const { default: _, ...otherCoreProps } =
       storeConfigFromCore
-    const { default: defaultFromStoreValues, ...otherStoreProps } =
+    const { default: __, ...otherStoreProps } =
       storeConfigFromStore
 
     const mergedStoreConfig = deepmerge(
