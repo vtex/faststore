@@ -437,6 +437,15 @@ export type QueryShippingArgs = {
   postalCode: Scalars['String'];
 };
 
+/** Search result. */
+export type SearchMetadata = {
+  __typename?: 'SearchMetadata';
+  /** Indicates if the search term was misspelled. */
+  isTermMisspelled: Scalars['Boolean'];
+  /** Logical operator used to run the search. */
+  logicalOperator: Scalars['String'];
+};
+
 /** Shipping Simulation information. */
 export type ShippingData = {
   __typename?: 'ShippingData';
@@ -910,6 +919,8 @@ export type StoreSearchResult = {
   __typename?: 'StoreSearchResult';
   /** Array of search result facets. */
   facets: Array<StoreFacet>;
+  /** Search result metadata. Additional data can be used to send analytics events. */
+  metadata?: Maybe<SearchMetadata>;
   /** Search result products. */
   products: StoreProductConnection;
   /** Search result suggestions. */
