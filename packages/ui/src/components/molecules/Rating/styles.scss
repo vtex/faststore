@@ -4,7 +4,7 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-rating-gap                     : var(--fs-spacing-3);
+  --fs-rating-gap                     : var(--fs-spacing-0);
   --fs-rating-color                   : var(--fs-color-text);
 
   // Icon
@@ -13,6 +13,8 @@
 
   // Actionable
   --fs-rating-actionable-gap          : 0;
+  --fs-rating-actionable-icon-width   : var(--fs-rating-icon-width);
+  --fs-rating-actionable-icon-height  : var(--fs-rating-actionable-icon-width);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -62,8 +64,12 @@
     column-gap: var(--fs-rating-gap);
   }
 
-  [data-fs-rating-actionable="true"] {
+  &[data-fs-rating-actionable="true"] {
     column-gap: var(--fs-rating-actionable-gap);
+    [data-fs-icon] {
+      width: var(--fs-rating-actionable-icon-width);
+      height: var(--fs-rating-actionable-icon-height);
+    }
   }
 
 }
