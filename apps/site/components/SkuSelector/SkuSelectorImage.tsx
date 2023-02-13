@@ -12,24 +12,24 @@ const SkuSelectorImage = () => {
   const options = [
     {
       alt: 'skuvariation',
-      href: '/product-lalala',
       src: 'https://storeframework.vtexassets.com/arquivos/ids/190932/mouse-black.jpg?v=1759260622',
+      href: '/product-lalala',
       value: 'Black',
       renderLink: renderLinkFunction,
       renderImage: renderImageFunction,
     },
     {
       alt: 'skuvariation',
-      href: '/product-lalala',
       src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
+      href: '/product-lalala',
       value: 'White',
       renderLink: renderLinkFunction,
       renderImage: renderImageFunction,
     },
     {
       alt: 'skuvariation',
-      href: '/product-lalala',
       src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
+      href: '/product-lalala',
       value: 'Gray',
       disabled: true,
       renderLink: renderLinkFunction,
