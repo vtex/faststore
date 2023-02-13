@@ -21,7 +21,6 @@ export default class Build extends Command {
       `${userDir}/faststore.config.js`
     )
     await copyResource(`${tmpDir}/public`, `${userDir}/public`)
-    await copyResource(`${tmpDir}/vtex.env`, `${userDir}/vtex.env`)
     await copyResource(
       `${tmpDir}/lighthouserc.js`,
       `${userDir}/lighthouserc.js`
