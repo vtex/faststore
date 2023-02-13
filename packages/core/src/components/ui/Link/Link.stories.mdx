@@ -1,0 +1,272 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Link from '.'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Atoms/Link"
+  component={Link}
+  argTypes={{
+    href: {
+      type: { name: 'string', required: true },
+    },
+    ref: { table: { disable: true } },
+    as: { table: { disable: true } },
+    children: { table: { disable: true } },
+    replace: { table: { disable: true } },
+    scroll: { table: { disable: true } },
+    shallow: { table: { disable: true } },
+    passHref: { table: { disable: true } },
+    prefetch: { table: { disable: true } },
+    locale: { table: { disable: true } },
+    legacyBehavior: { table: { disable: true } },
+  }}
+/>
+
+export const Template = ({ children, ...args }) => (
+  <Link {...args}>{children}</Link>
+)
+
+<header>
+
+# Link
+
+The Link component behaves as a regular anchor tag `<a />`, but can be used as any HTML tag.
+
+</header>
+
+## Overview
+
+The `Link` component uses [FastStore UI Link](https://www.faststore.dev/reference/ui/atoms/Link) and [Next.js Link](https://nextjs.org/docs/api-reference/next/link) as base.
+
+Internally, the `Link` component handles client-side navigation through the Next.js `Link`, so all the Next.js `Link` attributes can be used for this case.
+
+<Canvas style={{ backgroundColor: 'var(--fs-color-neutral-3)' }}>
+  <Story
+    name="overview-default"
+    args={{
+      href: '#',
+      children: 'Default',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-inverse"
+    args={{
+      href: '#',
+      inverse: true,
+      children: 'Inverse',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-display"
+    args={{
+      href: '#',
+      variant: 'display',
+      children: 'Display',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-inline"
+    args={{
+      href: '#',
+      variant: 'inline',
+      children: 'Inline',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-footer"
+    args={{
+      href: '#',
+      variant: 'footer',
+      children: 'Footer',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
+
+`import Link from '../components/ui/Link'`
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      href: '#',
+      children: 'Link',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+<TokenTable>
+  <TokenRow token="--fs-link-min-width" value="auto" />
+  <TokenRow token="--fs-link-min-height" value="var(--fs-link-min-width)" />
+  <TokenRow
+    token="--fs-link-padding"
+    value="var(--fs-spacing-2) var(--fs-spacing-0)"
+  />
+  <TokenRow token="--fs-link-border-radius" value="var(--fs-border-radius)" />
+  <TokenDivider />
+  <TokenRow token="--fs-link-text-line-height" value="1.5" />
+  <TokenRow token="--fs-link-text-color" value="var(--fs-color-link)" isColor />
+  <TokenRow
+    token="--fs-link-text-color-visited"
+    value="var(--fs-color-link-visited)"
+    isColor
+  />
+  <TokenRow token="--fs-link-text-decoration" value="none" />
+  <TokenRow token="--fs-link-text-decoration-hover" value="underline" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-link-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenRow
+    token="--fs-link-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-link-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Inverse
+
+<Canvas style={{ backgroundColor: 'var(--fs-color-neutral-7)' }}>
+  <Story
+    name="link-inverse"
+    args={{
+      href: '#',
+      inverse: true,
+      children: 'Link Inverse',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-link-inverse-text-color"
+    value="var(--fs-color-link-inverse)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-link-inverse-text-color-visited"
+    value="var(--fs-link-inverse-text-color)"
+    globalValue="var(--fs-color-link-inverse)"
+    isColor
+  />
+</TokenTable>
+
+### Display
+
+<Canvas>
+  <Story
+    name="link-display"
+    args={{
+      href: '#',
+      variant: 'display',
+      children: 'Link Display',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-link-display-text-line-height"
+    value="var(--fs-link-text-line-height)"
+  />
+  <TokenRow
+    token="--fs-link-display-text-color"
+    value="var(--fs-color-text-display)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-link-display-text-color-visited"
+    value="var(--fs-link-display-text-color)"
+    globalValue="var(--fs-color-text-display)"
+    isColor
+  />
+</TokenTable>
+
+### Inline
+
+<Canvas>
+  <Story
+    name="link-inline"
+    args={{
+      href: '#',
+      variant: 'inline',
+      children: 'Link Inline',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-link-inline-padding" value="0" />
+  <TokenRow token="--fs-link-inline-text-decoration" value="underline" />
+  <TokenRow
+    token="--fs-link-inline-text-color"
+    value="var(--fs-link-text-color)"
+    globalValue="var(--fs-color-link)"
+    isColor
+  />
+</TokenTable>
+
+### Footer
+
+<Canvas>
+  <Story
+    name="link-footer"
+    args={{
+      href: '#',
+      variant: 'footer',
+      children: 'Link Footer',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-link-footer-text-size" value="var(--fs-text-size-1)" />
+  <TokenRow
+    token="--fs-link-footer-text-color"
+    value="var(--fs-color-info-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-link-footer-padding"
+    value="var(--fs-spacing-1) var(--fs-spacing-0)"
+  />
+</TokenTable>

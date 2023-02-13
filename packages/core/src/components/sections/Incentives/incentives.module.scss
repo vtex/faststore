@@ -1,0 +1,122 @@
+@import "src/styles/scaffold";
+
+.fs-incentives {
+  // --------------------------------------------------------
+  // Design Tokens for Incentives
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-incentives-bkg-color               : var(--fs-color-primary-bkg-light);
+
+  --fs-incentives-gap                     : var(--fs-spacing-4);
+  --fs-incentives-padding-top             : var(--fs-incentives-gap);
+  --fs-incentives-padding-bottom          : var(--fs-incentives-gap);
+
+  --fs-incentives-border-color            : var(--fs-border-color-light);
+  --fs-incentives-border-width            : var(--fs-border-width);
+
+  // Title
+  --fs-incentives-title-size              : var(--fs-text-size-1);
+  --fs-incentives-title-weight            : var(--fs-text-weight-bold);
+  --fs-incentives-title-line-height       : 1.42;
+  --fs-incentives-title-color             : var(--fs-color-text);
+
+  // Description
+  --fs-incentives-description-size        : var(--fs-incentives-title-size);
+  --fs-incentives-description-line-height : 1.14;
+  --fs-incentives-description-color       : var(--fs-incentives-title-color);
+
+  // Incentive Icon
+  --fs-incentives-icon-color              : var(--fs-incentives-title-color);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  justify-content: center;
+  padding-top: var(--fs-incentives-padding-top);
+  padding-bottom: var(--fs-incentives-padding-bottom);
+
+  [data-fs-list] {
+    display: flex;
+    width: fit-content;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    @include media(">=notebook") {
+      justify-content: center;
+    }
+  }
+
+  [data-fs-incentive] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    @include media("<notebook") {
+      row-gap: var(--fs-spacing-0);
+    }
+
+    @include media(">=notebook") {
+      flex-direction: row;
+
+      [data-fs-incentive-content] {
+        margin-left: var(--fs-spacing-2);
+        text-align: left;
+      }
+    }
+  }
+
+  [data-fs-incentive-title] {
+    font-size: var(--fs-incentives-title-size);
+    font-weight: var(--fs-incentives-title-weight);
+    line-height: var(--fs-incentives-title-line-height);
+    color: var(--fs-incentives-title-color);
+  }
+
+  [data-fs-incentive-description] {
+    display: block;
+    font-size: var(--fs-incentives-description-size);
+    line-height: var(--fs-incentives-description-line-height);
+    color: var(--fs-incentives-description-color);
+    white-space: nowrap;
+  }
+
+  [data-fs-incentive-content] {
+    text-align: center;
+  }
+
+  [data-fs-incentive-icon] {
+    color: var(--fs-incentives-icon-color);
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-incentives-colored="true"] {
+    background-color: var(--fs-incentives-bkg-color);
+  }
+
+  &[data-fs-incentives-variant="vertical"] {
+    ul {
+      flex-direction: column;
+    }
+
+    li:not(:last-child) {
+      padding-bottom: var(--fs-incentives-gap);
+      margin-bottom: var(--fs-incentives-gap);
+      border-bottom: var(--fs-incentives-border-width) solid var(--fs-incentives-border-color);
+    }
+  }
+
+  &[data-fs-incentives-variant="horizontal"] {
+    li:not(:last-child) {
+      padding-right: var(--fs-incentives-gap);
+      margin-right: var(--fs-incentives-gap);
+      border-right: var(--fs-incentives-border-width) solid var(--fs-incentives-border-color);
+    }
+  }
+}

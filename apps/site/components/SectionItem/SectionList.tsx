@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react'
-import styles from './SectionItem.module.css'
+import styles from './section-item.module.css'
 
 export type SectionListProps = {
   grid?: 'row' | 'column'

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.65-alpha.0 (2023-02-13)
+
+**Note:** Version bump only for package @faststore/components
+
 ## [2.0.63-alpha.0](https://github.com/vtex/faststore/compare/v2.0.62-alpha.0...v2.0.63-alpha.0) (2023-02-10)
 
 ### Features

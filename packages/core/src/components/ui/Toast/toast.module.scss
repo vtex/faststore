@@ -1,0 +1,112 @@
+@import "src/styles/scaffold";
+
+.fs-toast {
+  // --------------------------------------------------------
+  // Design Tokens for Toast
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-toast-width                        : calc(100% - (2 * var(--fs-spacing-3)));
+  --fs-toast-min-height                   : var(--fs-spacing-9);
+  --fs-toast-padding                      : var(--fs-spacing-1) var(--fs-spacing-3) var(--fs-spacing-1) var(--fs-spacing-1);
+  --fs-toast-margin                       : var(--fs-spacing-3) var(--fs-spacing-3) 0 var(--fs-spacing-3);
+
+  --fs-toast-top-mobile                   : 3.125rem;
+  --fs-toast-top-tablet                   : 6.25rem;
+
+  --fs-toast-border-radius                : var(--fs-border-radius-medium);
+  --fs-toast-border-width                 : var(--fs-border-width);
+  --fs-toast-border-color                 : transparent;
+
+  --fs-toast-shadow                       : var(--fs-shadow-hover);
+  --fs-toast-bkg-color                    : var(--fs-color-neutral-0);
+
+  --fs-toast-transition-property          : var(--fs-transition-property);
+  --fs-toast-transition-timing            : var(--fs-transition-timing);
+  --fs-toast-transition-function          : var(--fs-transition-function);
+
+  // Icon
+  --fs-toast-icon-container-min-width     : var(--fs-spacing-7);
+  --fs-toast-icon-container-height        : var(--fs-toast-icon-container-min-width);
+  --fs-toast-icon-container-bkg-color     : var(--fs-color-primary-bkg-light);
+  --fs-toast-icon-container-border-radius : var(--fs-border-radius);
+
+  // Title
+  --fs-toast-title-size                   : var(--fs-text-size-body);
+  --fs-toast-title-weight                 : var(--fs-text-weight-bold);
+  --fs-toast-title-line-height            : var(--fs-scale);
+  --fs-toast-title-margin-left            : var(--fs-spacing-3);
+
+  // Message
+  --fs-toast-message-size                 : var(--fs-toast-title-size);
+  --fs-toast-message-line-height          : var(--fs-toast-title-line-height);
+  --fs-toast-message-margin-left          : var(--fs-spacing-3);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: fixed;
+  top: var(--fs-toast-top-mobile);
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  width: var(--fs-toast-width);
+  min-height: var(--fs-toast-min-height);
+  padding: var(--fs-toast-padding);
+  margin: var(--fs-toast-margin);
+  background-color: var(--fs-toast-bkg-color);
+  border-radius: var(--fs-toast-border-radius);
+  box-shadow: var(--fs-toast-shadow);
+  opacity: 0;
+  transition: var(--fs-toast-transition-property) var(--fs-toast-transition-timing) var(--fs-toast-transition-function);
+  transform: translate3d(0, 0, 0);
+
+  @include media(">=tablet") {
+    top: var(--fs-toast-top-tablet);
+    right: var(--fs-spacing-4);
+    max-width: rem(398px);
+  }
+
+  &[data-fs-toast-visible="true"] {
+    opacity: 1;
+    transform: translate3d(0, 50%, 0);
+
+    @include media(">=tablet") {
+      transform: translate3d(0, 10%, 0);
+    }
+  }
+
+  [data-fs-toast-icon-container] {
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    justify-content: center;
+    min-width: var(--fs-toast-icon-container-min-width);
+    height: var(--fs-toast-icon-container-height);
+    background-color: var(--fs-toast-icon-container-bkg-color);
+    border-radius: var(--fs-toast-icon-container-border-radius);
+  }
+
+  [data-fs-toast-content] {
+    display: block;
+    overflow: hidden;
+  }
+
+  [data-fs-toast-title] {
+    margin-left: var(--fs-toast-title-margin-left);
+    overflow: hidden;
+    font-size: var(--fs-toast-title-size);
+    font-weight: var(--fs-toast-title-weight);
+    line-height: var(--fs-toast-title-line-height);
+  }
+
+  [data-fs-toast-message] {
+    margin-left: var(--fs-toast-message-margin-left);
+    overflow: hidden;
+    font-size: var(--fs-toast-message-size);
+    line-height: var(--fs-toast-message-line-height);
+  }
+}

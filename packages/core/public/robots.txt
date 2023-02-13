@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /checkout/*
+Sitemap: https://vtexfaststore.com/sitemap/sitemap-index.xml
+Host: https://vtexfaststore.com

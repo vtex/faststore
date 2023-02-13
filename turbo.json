@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["OCLIF_COMPILATION", "NODE_ENV"],
+  "globalEnv": ["OCLIF_COMPILATION", "NODE_ENV", "DISABLE_3P_SCRIPTS"],
   "pipeline": {
     "site#build": {
       "dependsOn": ["^build"],
@@ -19,9 +19,6 @@
     },
     "start": {},
     "size": {},
-    "develop": {
-      "cache": false
-    },
     "dev": {
       "cache": false
     }

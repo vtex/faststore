@@ -1,0 +1,38 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs'
+import '/.storybook/storybook.css'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Global Tokens/Spacing"
+  parameters={{ options: { showToolbar: false } }}
+/>
+
+<header>
+
+# Spacing
+
+All tokens used for spacings on the store: `padding`, `margins` and `sizes`. It's also used as base for grid tokens.
+
+</header>
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-spacing-0" value=".25rem" />
+  <TokenRow token="--fs-spacing-1" value=".5rem" />
+  <TokenRow token="--fs-spacing-2" value=".75rem" />
+  <TokenRow token="--fs-spacing-3" value="1rem" />
+  <TokenRow token="--fs-spacing-4" value="1.5rem" />
+  <TokenRow token="--fs-spacing-5" value="2rem" />
+  <TokenRow token="--fs-spacing-6" value="2.5rem" />
+  <TokenRow token="--fs-spacing-7" value="3rem" />
+  <TokenRow token="--fs-spacing-8" value="3.5rem" />
+  <TokenRow token="--fs-spacing-9" value="4rem" />
+  <TokenRow token="--fs-spacing-10" value="4.5rem" />
+  <TokenRow token="--fs-spacing-11" value="5rem" />
+  <TokenRow token="--fs-spacing-12" value="5.5rem" />
+  <TokenRow token="--fs-spacing-13" value="6rem" />
+</TokenTable>

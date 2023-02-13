@@ -1,0 +1,27 @@
+.fs-price {
+  // --------------------------------------------------------
+  // Design Tokens for Price
+  // --------------------------------------------------------
+
+  // Listing
+  --fs-price-listing-color           : var(--fs-color-text-light);
+  --fs-price-listing-text-decoration : line-through;
+
+  // Spot
+  --fs-price-spot-margin-left        : var(--fs-spacing-1);
+  --fs-price-spot-font-weight        : var(--fs-text-weight-bold);
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-variant="listing"] {
+    color: var(--fs-price-listing-color);
+    text-decoration: var(--fs-price-listing-text-decoration);
+  }
+
+  &[data-variant="spot"] {
+    margin-left: var(--fs-price-spot-margin-left);
+    font-weight: var(--fs-price-spot-font-weight);
+  }
+}

@@ -1,0 +1,134 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import CartItem from '.'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Molecules/CartItem"
+  component={CartItem}
+  argTypes={{
+    item: {
+      control: false,
+      description:
+        'The CartItem object that represents the product inside the Cart.',
+    },
+  }}
+/>
+
+<header>
+
+# Cart Item
+
+Cart Items are used to present the summarized information of a product inside the Cart.
+
+</header>
+
+## Overview
+
+The `CartItem` component uses [FastStore UI Card](https://www.faststore.dev/reference/ui/organisms/Card) as base.
+
+---
+
+## Usage
+
+`import CartItem from '../components/cart/CartItem'`
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      item: {
+        seller: {
+          identifier: '1',
+        },
+        quantity: 1,
+        price: 420,
+        listPrice: 490,
+        itemOffered: {
+          name: 'Monitor 27',
+          image: [
+            {
+              url: 'https://storeframework.vtexassets.com/arquivos/ids/190903/unsplash-monitor.jpg?v=637800152494200000',
+              alternateName: 'Monitor27',
+            },
+          ],
+          isVariantOf: {
+            name: '4k Philips Monitor 27”',
+          },
+        },
+      },
+    }}
+  >
+    {(args) => (
+      <div style={{ width: '400px' }}>
+        <CartItem {...args} />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+<TokenTable>
+  <TokenRow token="--fs-cart-item-padding" value="var(--fs-spacing-3)" />
+  <TokenRow
+    token="--fs-cart-item-bkg-color"
+    value="var(--fs-control-bkg)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-cart-item-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-cart-item-border-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-cart-item-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Image
+
+<TokenTable>
+  <TokenRow
+    token="--fs-cart-item-image-border-radius"
+    value="var(--fs-cart-item-border-radius)"
+  />
+</TokenTable>
+
+### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-cart-item-title-margin-bottom"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow token="--fs-cart-item-title-line-height" value="1.2" />
+  <TokenRow
+    token="--fs-cart-item-title-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+</TokenTable>
+
+### Actions
+
+<TokenTable>
+  <TokenRow
+    token="--fs-cart-item-actions-margin-top"
+    value="var(--fs-spacing-3)"
+  />
+</TokenTable>

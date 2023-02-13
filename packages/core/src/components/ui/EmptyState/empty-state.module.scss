@@ -1,0 +1,63 @@
+@import "src/styles/scaffold";
+
+.fs-empty-state {
+  // --------------------------------------------------------
+  // Design Tokens for EmptyState
+  // --------------------------------------------------------
+  --fs-empty-state-height               : 100%;
+  --fs-empty-state-min-height           : 50vh;
+  --fs-empty-state-padding              : 0 var(--fs-spacing-8);
+  --fs-empty-state-bkg-color            : var(--fs-color-neutral-bkg);
+
+  // Title
+  --fs-empty-state-title-margin-bottom  : var(--fs-spacing-2);
+  --fs-empty-state-title-color          : var(--fs-color-disabled-text);
+  --fs-empty-state-title-size           : var(--fs-text-size-lead);
+
+  // Link
+  --fs-empty-state-link-min-width       : 11.875rem;
+
+  // Rounded
+  --fs-empty-state-border-radius        : var(--fs-border-radius);
+
+  // Default properties
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--fs-spacing-3);
+  justify-content: center;
+  height: var(--fs-empty-state-height);
+  min-height: var(--fs-empty-state-min-height);
+  padding: var(--fs-empty-state-padding);
+  background-color: var(--fs-empty-state-bkg-color);
+
+  @include media(">=notebook") {
+    align-items: center;
+  }
+
+  > [data-fs-empty-state-title] {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--fs-spacing-1);
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--fs-empty-state-title-margin-bottom);
+    color: var(--fs-empty-state-title-color);
+
+    p {
+      font-size: var(--fs-empty-state-title-size);
+      text-align: center;
+    }
+  }
+
+  [data-fs-empty-state-link] {
+    min-width: var(--fs-empty-state-link-min-width);
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-empty-state-variant="rounded"] {
+    border-radius: var(--fs-empty-state-border-radius);
+  }
+}

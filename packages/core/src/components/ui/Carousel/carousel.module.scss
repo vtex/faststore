@@ -1,0 +1,147 @@
+@import "src/styles/scaffold";
+
+.fs-carousel {
+  // --------------------------------------------------------
+  // Design Tokens for Carousel
+  // --------------------------------------------------------
+
+  // Track
+  --fs-carousel-padding-desktop           : var(--fs-spacing-0) 6.25rem;
+
+  // Item
+  --fs-carousel-item-width-mobile         : 80%;
+  --fs-carousel-item-width-desktop        : 15rem;
+  --fs-carousel-item-margin-right         : var(--fs-spacing-0);
+
+  // Controls
+  --fs-carousel-controls-width            : 3.125rem;
+  --fs-carousel-controls-height           : var(--fs-carousel-controls-width);
+  --fs-carousel-controls-position-top     : calc((100% - var(--fs-spacing-7) - var(--fs-spacing-1)) / 2);
+  --fs-carousel-controls-bkg-color        : var(--fs-color-neutral-0);
+  --fs-carousel-controls-border-radius    : var(--fs-border-radius-circle);
+  --fs-carousel-controls-box-shadow       : var(--fs-shadow-darker);
+  --fs-carousel-controls-icon-color       : var(--fs-color-neutral-7);
+
+  --fs-carousel-controls-control-left     : var(--fs-spacing-5);
+  --fs-carousel-controls-control-right    : var(--fs-carousel-controls-control-left);
+
+  // Bullets
+  --fs-carousel-bullets-padding-top       : var(--fs-carousel-controls-control-left);
+
+  --fs-carousel-bullet-width-mobile       : 100%;
+  --fs-carousel-bullet-width-desktop      : var(--fs-spacing-1);
+  --fs-carousel-bullet-height-mobile      : var(--fs-carousel-item-margin-right);
+  --fs-carousel-bullet-height-desktop     : var(--fs-carousel-bullet-width-desktop);
+  --fs-carousel-bullet-margin-right       : var(--fs-carousel-item-margin-right);
+  --fs-carousel-bullet-bkg-color          : var(--fs-color-neutral-3);
+  --fs-carousel-bullet-bkg-color-selected : var(--fs-color-main-4);
+  --fs-carousel-bullet-border-radius      : var(--fs-carousel-controls-border-radius);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  &:hover {
+    [data-fs-carousel-controls] {
+      @include media(">=tablet") {
+        display: flex;
+        width: 100%;
+
+        [data-fs-carousel-control] {
+          top: var(--fs-carousel-controls-position-top);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: var(--fs-carousel-controls-width);
+          height: var(--fs-carousel-controls-height);
+          cursor: pointer;
+          background-color: var(--fs-carousel-controls-bkg-color);
+          border-color: transparent;
+          border-radius: var(--fs-carousel-controls-border-radius);
+          box-shadow: var(--fs-carousel-controls-box-shadow);
+          transform: translateY(-50%);
+        }
+
+        [data-fs-carousel-control="left"] {
+          position: absolute;
+          left: var(--fs-carousel-controls-control-left);
+        }
+
+        [data-fs-carousel-control="right"] {
+          position: absolute;
+          right: var(--fs-carousel-controls-control-right);
+        }
+
+        [data-fs-icon] { display: flex; }
+      }
+    }
+  }
+
+  [data-fs-carousel-track] {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @include media(">=tablet") {
+      padding: var(--fs-carousel-padding-desktop);
+    }
+  }
+
+  [data-fs-carousel-item] {
+    width: var(--fs-carousel-item-width-mobile);
+
+    @include media(">=tablet") {
+      width: var(--fs-carousel-item-width-desktop);
+      height: 100%;
+      margin-right: var(--fs-carousel-item-margin-right);
+    }
+  }
+
+  [data-fs-icon] {
+    color: var(--fs-carousel-controls-icon-color);
+  }
+
+  [data-fs-carousel-controls] {
+    display: none;
+  }
+
+  [data-fs-carousel-bullets] {
+    width: 100%;
+    padding-top: var(--fs-carousel-bullets-padding-top);
+
+    @include media(">=tablet") {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    [data-fs-bullets] {
+      display: flex;
+      flex-flow: row nowrap;
+
+      @include media(">=tablet") {
+        column-gap: var(--fs-spacing-3);
+      }
+
+      [data-fs-bullet] {
+        width: var(--fs-carousel-bullet-width-mobile);
+        height: var(--fs-carousel-bullet-height-mobile);
+        padding: 0;
+        margin-right: var(--fs-carousel-bullet-margin-right);
+        background-color: var(--fs-carousel-bullet-bkg-color);
+        border-color: transparent;
+
+        &[aria-selected="true"] {
+          background-color: var(--fs-carousel-bullet-bkg-color-selected);
+        }
+
+        @include media(">=tablet") {
+          width: var(--fs-carousel-bullet-width-desktop);
+          height: var(--fs-carousel-bullet-height-desktop);
+          margin: 0;
+          border-radius: var(--fs-carousel-bullet-border-radius);
+        }
+      }
+    }
+  }
+}

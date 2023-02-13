@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import styles from './TokenTable.module.css'
+import styles from './token-table.module.css'
 
 export type TokenTableProps = {
   title?: string

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.65-alpha.0 (2023-02-13)
+
+**Note:** Version bump only for package site
+
+## [2.0.64-alpha.0](https://github.com/vtex/faststore/compare/v2.0.63-alpha.0...v2.0.64-alpha.0) (2023-02-13)
+
+### Features
+
+- Adds Global tokens doc pages ([#1630](https://github.com/vtex/faststore/issues/1630)) ([4d20381](https://github.com/vtex/faststore/commit/4d203818103300f2f4dda96f5ba3c59aa92307e0))
+
 ## [2.0.63-alpha.0](https://github.com/vtex/faststore/compare/v2.0.62-alpha.0...v2.0.63-alpha.0) (2023-02-10)
 
 ### Features
