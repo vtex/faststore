@@ -1,4 +1,4 @@
-import styles from './TokenColors.module.css'
+import styles from './token-colors.module.css'
 
 export type TokenColorProps = {
   token: string
