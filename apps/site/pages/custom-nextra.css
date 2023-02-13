@@ -64,6 +64,8 @@ h4.nx-tracking-tight {
   margin-top: auto;
 }
 
+/* Hero */
+
 header.hero {
   padding: var(--fs-spacing-6) var(--fs-spacing-5);
   background-image: url("https://vtexhelp.vtexassets.com/assets/docs/src/starters___45131194d6158dfd0612f089a6a91070.png");
@@ -78,4 +80,32 @@ header.hero p {
   margin-bottom: var(--fs-spacing-3);
   font-size: var(--fs-text-size-lead);
   line-height: 1.5;
+}
+
+/* Theme Section */
+
+.section-theme {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.section-theme .section-theme-img {
+  width: 30%;
+  height: 280px;
+  overflow: hidden;
+  background-color: #f1f2f3;
+  border-radius: 4px;
+}
+
+.section-theme .section-theme-img img {
+  display: block;
+  width: auto;
+  max-width: unset;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.section-theme > article {
+  width: 65%;
 }

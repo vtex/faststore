@@ -1,0 +1,45 @@
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+
+<header>
+
+# Soft Blue
+
+A basic theme created for testing purposes.
+
+</header>
+
+<section className="section-theme">
+ <div className="section-theme-img">
+   <img
+    src="https://vtexhelp.vtexassets.com/assets/docs/src/soft-blue___b51efd8dd7623f9493efd77180ffc618.png"
+  />
+ </div>
+
+  <article>
+
+## Use `soft-blue` as your theme
+
+1. Go to `faststore.config.js` and change the `theme` to your file's name:
+
+```js
+// Theming
+theme: 'soft-blue',
+```
+
+2. Add the [Lato](https://fonts.google.com/specimen/Lato?query=lato) font on `src/fonts/WebFonts.tsx`:
+
+```tsx
+function WebFonts() {
+  return (
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap"
+    />
+  )
+}
+```
+
+3. Restart the server.
+
+  </article>
+</section>
