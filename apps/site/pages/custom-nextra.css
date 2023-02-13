@@ -75,7 +75,7 @@ header.hero {
   background-size: 30% auto;
 }
 
-header.hero p {
+header.hero > p {
   width: 65%;
   margin-top: var(--fs-spacing-3);
   margin-bottom: var(--fs-spacing-3);
