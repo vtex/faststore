@@ -135,10 +135,6 @@
     [data-fs-badge-wrapper] {
       background-color: var(--fs-badge-success-bkg-color);
       border-color: var(--fs-badge-success-border-color);
-
-      &::after {
-        background-color: var(--fs-badge-success-bkg-color);
-      }
     }
   }
 
@@ -148,10 +144,6 @@
     [data-fs-badge-wrapper] {
       background-color: var(--fs-badge-neutral-bkg-color);
       border-color: var(--fs-badge-neutral-border-color);
-
-      &::after {
-        background-color: var(--fs-badge-neutral-bkg-color);
-      }
     }
   }
 
@@ -161,10 +153,6 @@
     [data-fs-badge-wrapper] {
       background-color: var(--fs-badge-highlighted-bkg-color);
       border-color: var(--fs-badge-highlighted-border-color);
-
-      &::after {
-        background-color: var(--fs-badge-highlighted-bkg-color);
-      }
     }
   }
 
@@ -174,10 +162,6 @@
     [data-fs-badge-wrapper] {
       background-color: var(--fs-badge-info-bkg-color);
       border-color: var(--fs-badge-info-border-color);
-
-      &::after {
-        background-color: var(--fs-badge-info-bkg-color);
-      }
     }
   }
 
@@ -187,10 +171,6 @@
     [data-fs-badge-wrapper] {
       background-color: var(--fs-badge-warning-bkg-color);
       border-color: var(--fs-badge-warning-border-color);
-
-      &::after {
-        background-color: var(--fs-badge-warning-bkg-color);
-      }
     }
   }
 
@@ -200,10 +180,6 @@
     [data-fs-badge-wrapper] {
       background-color: var(--fs-badge-danger-bkg-color);
       border-color: var(--fs-badge-danger-border-color);
-
-      &::after {
-        background-color: var(--fs-badge-danger-bkg-color);
-      }
     }
   }
 }

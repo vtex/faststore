@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import { HTMLAttributes } from 'react'
 
 import List from '../../atoms/List'
-import { Icon, IconButton } from '../..'
+import { Icon, IconButton, Star } from '../..'
 
 export interface RatingProps
   extends Omit<HTMLAttributes<HTMLUListElement>, 'onChange'> {
@@ -16,9 +16,9 @@ export interface RatingProps
    */
   value: number
   /**
-   * A React component that will be rendered as an icon.
+   * Icon to represent the rating score unit (e.g.: a <Star /> component)
    */
-  icon: ReactNode
+  icon?: ReactNode
   /**
    * Function to be triggered when Rating option change. This should only be used if you and an actionable rating list.
    */
@@ -47,6 +47,7 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
   ref
 ) {
   const [hover, setHover] = useState(0)
+  const ratingIcon = icon ? icon : <Star />
 
   return (
     <List
@@ -80,7 +81,7 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
             {onChange ? (
               <IconButton
                 data-fs-rating-button
-                icon={icon}
+                icon={ratingIcon}
                 size="small"
                 aria-label="rate"
                 onClick={() => {
@@ -92,9 +93,9 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
             ) : (
               <>
                 <div data-fs-rating-icon-wrapper>
-                  <Icon component={icon} />
+                  <Icon component={ratingIcon} />
                 </div>
-                <Icon data-fs-rating-icon-outline component={icon} />
+                <Icon data-fs-rating-icon-outline component={ratingIcon} />
               </>
             )}
           </li>

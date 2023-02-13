@@ -1,0 +1,56 @@
+@import "src/styles/scaffold";
+
+.fs-image-gallery {
+  // --------------------------------------------------------
+  // Design Tokens for Image Gallery
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-image-gallery-width                     : calc(100% + (2 * var(--fs-grid-padding)));
+
+  --fs-image-gallery-gap-mobile                : var(--fs-spacing-2);
+  --fs-image-gallery-gap-notebook              : var(--fs-spacing-3);
+
+  // Current Selected Image
+  --fs-image-gallery-current-border-radius     : var(--fs-border-radius);
+  --fs-image-gallery-current-height            : 33.125rem;   // 530px
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+  left: calc(-1 * var(--fs-grid-padding));
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--fs-image-gallery-gap-mobile);
+  width: var(--fs-image-gallery-width);
+
+  @include media(">=tablet") {
+    left: 0;
+    width: 100%;
+
+    > [data-fs-image] {
+      grid-column: 2 / span 7;
+      border-radius: var(--fs-image-gallery-current-border-radius);
+    }
+  }
+
+  @include media(">=notebook") {
+    >[data-fs-image] {
+      height: var(--fs-image-gallery-current-height);
+    }
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-image-gallery="with-selector"] {
+    @include media(">=notebook") {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      column-gap: var(--fs-image-gallery-gap-notebook);
+    }
+  }
+}

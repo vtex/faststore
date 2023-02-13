@@ -1,0 +1,41 @@
+@import "src/styles/scaffold";
+
+.fs-product-shelf {
+  // --------------------------------------------------------
+  // Design Tokens for Product Shelf
+  // --------------------------------------------------------
+
+  --fs-product-shelf-min-height             : 21.06rem;
+
+  --fs-product-shelf-items-gap              : var(--fs-grid-gap-1);
+  --fs-product-shelf-items-padding-top      : var(--fs-spacing-0);
+  --fs-product-shelf-items-padding-bottom   : var(--fs-spacing-3);
+
+  --fs-product-shelf-first-item-margin-left : calc(-1 * var(--fs-spacing-1));
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  &[data-fs-product-shelf] {
+    min-height: var(--fs-product-shelf-min-height);
+  }
+
+  [data-fs-product-shelf-items] {
+    display: flex;
+    align-items: stretch;
+    overflow-x: scroll;
+
+    li {
+      width: 100%;
+      &:first-child { margin-left: var(--fs-product-shelf-first-item-margin-left); }
+    }
+
+    @include media(">=tablet") {
+      column-gap: var(--fs-product-shelf-items-gap);
+      padding-top: var(--fs-product-shelf-items-padding-top);
+      padding-bottom: var(--fs-product-shelf-items-padding-bottom);
+      overflow-x: auto;
+    }
+  }
+}

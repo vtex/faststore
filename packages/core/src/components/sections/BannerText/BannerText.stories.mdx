@@ -1,0 +1,270 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import BannerText from '.'
+
+import { TokenTable, TokenRow } from 'src/../.storybook/components'
+
+<Meta
+  title="Organisms/BannerText"
+  argTypes={{
+    actionPath: { table: { disable: true } },
+  }}
+  component={BannerText}
+/>
+
+export const Template = (args) => <BannerText {...args} />
+
+<header>
+
+# Banner Text
+
+Banners are used for advertising brands, products, and/or collections. They comprise a title, some description (only available for the `Secondary` variation), and a call-to-action button.
+
+</header>
+
+## Overview
+
+The `BannerText` component uses [FastStore UI Banner](https://www.faststore.dev/reference/ui/molecules/Banner) as base.
+
+---
+
+## Usage
+
+`import BannerText from 'src/components/sections/BannerText'`
+
+<Canvas>
+  <Story
+    name="BannerText"
+    args={{
+      title:
+        "The sun has set on our Summer Sale! Save up to 50% off. Don't miss out!",
+      actionPath: '/',
+      actionLabel: 'Call to action',
+      colorVariant: 'accent',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="BannerText" />
+
+<TokenTable>
+  <TokenRow token="--fs-banner-padding-mobile" value="var(--fs-spacing-6) 5%" />
+  <TokenRow
+    token="--fs-banner-padding-desktop"
+    value="var(--fs-spacing-9) 15%"
+  />
+</TokenTable>
+
+## Nested Elements
+
+### Link
+
+<TokenTable>
+  <TokenRow token="--fs-banner-link-min-width" value="11.25rem" />
+  <TokenRow token="--fs-banner-link-margin-top" value="var(--fs-spacing-6)" />
+</TokenTable>
+
+### Title
+
+<TokenTable>
+  <TokenRow token="--fs-banner-title-size" value="var(--fs-text-size-lead)" />
+  <TokenRow
+    token="--fs-banner-title-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenRow token="--fs-banner-title-line-height" value="1.2" />
+</TokenTable>
+
+---
+
+## Hierarchy
+
+### Primary
+
+<Canvas>
+  <Story
+    name="Primary"
+    args={{
+      title:
+        "The sun has set on our Summer Sale! Save up to 50% off. Don't miss out!",
+      actionPath: '/',
+      actionLabel: 'Call to action',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-banner-primary-title-size"
+    value="var(--fs-text-size-title-page)"
+  />
+</TokenTable>
+
+### Secondary
+
+<Canvas>
+  <Story
+    name="Secondary"
+    args={{
+      variant: 'secondary',
+      title: 'The sun has set on our Summer Sale!',
+      caption: "Save up to 50% off. Don't miss out!",
+      actionPath: '/',
+      actionLabel: 'Call to action',
+      colorVariant: 'main',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-banner-secondary-title-size"
+    value="var(--fs-text-size-4)"
+  />
+  <TokenRow
+    token="--fs-banner-secondary-caption-size"
+    value="var(--fs-text-size-base)"
+  />
+  <TokenRow
+    token="--fs-banner-secondary-caption-weight"
+    value="var(--fs-text-weight-regular)"
+  />
+  <TokenRow token="--fs-banner-secondary-line-height" value="1.5" />
+</TokenTable>
+
+---
+
+## Variants
+
+### Main
+
+<Canvas isColumn>
+  <Story
+    name="Main"
+    args={{
+      title: 'The sun has set on our Summer Sale!',
+      caption: "Save up to 50% off. Don't miss out!",
+      actionPath: '/',
+      actionLabel: 'Call to action',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Secondary Main"
+    args={{
+      variant: 'secondary',
+      title: 'The sun has set on our Summer Sale!',
+      caption: "Save up to 50% off. Don't miss out!",
+      actionPath: '/',
+      actionLabel: 'Call to action',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-banner-main-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-banner-main-text-color"
+    value="var(--fs-color-primary-text)"
+    isColor
+  />
+</TokenTable>
+
+### Light
+
+<Canvas isColumn>
+  <Story
+    name="Light"
+    args={{
+      title: 'The sun has set on our Summer Sale!',
+      caption: "Save up to 50% off. Don't miss out!",
+      actionPath: '/',
+      actionLabel: 'Call to action',
+      colorVariant: 'light',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Secondary Light"
+    args={{
+      variant: 'secondary',
+      title: 'The sun has set on our Summer Sale!',
+      caption: "Save up to 50% off. Don't miss out!",
+      actionPath: '/',
+      actionLabel: 'Call to action',
+      colorVariant: 'light',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-banner-light-bkg-color"
+    value="var(--fs-color-secondary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-banner-light-text-color"
+    value="var(--fs-color-text-display)"
+    isColor
+  />
+</TokenTable>
+
+### Accent
+
+<Canvas isColumn>
+  <Story
+    name="Accent"
+    args={{
+      title: 'The sun has set on our Summer Sale!',
+      caption: "Save up to 50% off. Don't miss out!",
+      actionPath: '/',
+      actionLabel: 'Call to action',
+      colorVariant: 'accent',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Secondary Accent"
+    args={{
+      variant: 'secondary',
+      title: 'The sun has set on our Summer Sale!',
+      caption: "Save up to 50% off. Don't miss out!",
+      actionPath: '/',
+      actionLabel: 'Call to action',
+      colorVariant: 'accent',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-banner-accent-bkg-color"
+    value="var(--fs-color-highlighted-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-banner-accent-text-color"
+    value="var(--fs-banner-light-text-color)"
+    isColor
+  />
+</TokenTable>

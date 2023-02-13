@@ -1,0 +1,98 @@
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+*These tokens are shared between
+[SearchDropdown](?path=/docs/features-search-searchdropdown--default-story),
+[SearchHistory](?path=/docs/features-search-searchhistory--default-story),
+[SearchInput](?path=/docs/features-search-searchinput--default-story),
+[SearchSuggestions](?path=/docs/features-search-searchsuggestions--default-story),
+[SearchTop](?path=/docs/features-search-searchtop--default-story).
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-min-height"
+    value="var(--fs-spacing-7)"
+  />
+</TokenTable>
+
+### Title
+<TokenTable>
+  <TokenRow
+    token="--fs-search-title-size"
+    value="var(--fs-text-size-lead)"
+  />
+  <TokenRow
+    token="--fs-search-title-line-height"
+    value="1.5"
+  />
+</TokenTable>
+
+### Section
+<TokenTable>
+  <TokenRow
+    token="--fs-search-section-padding"
+    value="var(--fs-spacing-1) 0"
+  />
+  <TokenRow
+    token="--fs-search-section-border-bottom"
+    value="var(--fs-border-width) solid var(--fs-border-color-light)"
+  />
+</TokenTable>
+
+### Link
+<TokenTable>
+  <TokenRow
+    token="--fs-search-item-link-color "
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-search-item-link-padding-right"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-search-item-link-padding-left"
+    value="var(--fs-search-item-link-padding-right)"
+  />
+</TokenTable>
+
+### Item
+<TokenTable>
+  <TokenRow
+    token="--fs-search-item-text-size"
+    value="var(--fs-text-size-2)"
+  />
+  <TokenRow
+    token="--fs-search-item-line-height"
+    value="1.25"
+  />
+  <TokenRow
+    token="--fs-search-item-bkg-color-hover"
+    value="var(--fs-color-tertiary-bkg-hover)"
+    isColor
+  />
+</TokenTable>
+
+### Icon
+<TokenTable>
+  <TokenRow
+    token="--fs-search-item-icon-color"
+    value="var(--fs-color-neutral-4)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-search-item-icon-margin-right"
+    value="var(--fs-spacing-1)"
+  />
+</TokenTable>
+
+### Badge
+<TokenTable>
+  <TokenRow
+    token="--fs-search-badge-margin-right"
+    value="var(--fs-spacing-1)"
+  />
+</TokenTable>

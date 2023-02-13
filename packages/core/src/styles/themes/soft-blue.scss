@@ -1,0 +1,79 @@
+// ----------------------------------------------------------
+// GLOBAL TOKENS
+// Theme Soft Blue
+// ----------------------------------------------------------
+
+@import "../vendors/include-media";
+
+.soft-blue {
+  // --------------------------------------------------------
+  // Colors (Branding Core)
+  // --------------------------------------------------------
+
+  // PALETTE
+  --fs-color-main-0                    : #ecf0ff;
+  --fs-color-main-1                    : #d8e2ff;
+  --fs-color-main-2                    : #00419e;
+  --fs-color-main-3                    : #002c71;
+  --fs-color-main-4                    : #001947;
+
+  --fs-color-accent-0                  : #ebdcff;
+  --fs-color-accent-1                  : #8d50fd;
+  --fs-color-accent-2                  : #732fe2;
+  --fs-color-accent-3                  : #5900c8;
+  --fs-color-accent-4                  : #4700a0;
+
+  // HIERARCHY
+  --fs-color-primary-bkg               : var(--fs-color-main-4);
+  --fs-color-primary-bkg-active        : var(--fs-color-main-2);
+  --fs-color-primary-bkg-light         : var(--fs-color-main-0);
+  --fs-color-primary-bkg-light-active  : var(--fs-color-main-1);
+
+  // SITUATIONS
+  --fs-color-success-bkg               : #cee8de;
+  --fs-color-warning-bkg               : #f6e0ba;
+
+  // COMPONENTS & STATES
+  --fs-color-text-display              : var(--fs-color-main-4);
+
+  --fs-color-action-bkg                : var(--fs-color-accent-3);
+  --fs-color-action-bkg-hover          : var(--fs-color-accent-2);
+  --fs-color-action-bkg-active         : var(--fs-color-accent-1);
+
+  // --------------------------------------------------------
+  // Typography (Branding Core)
+  // --------------------------------------------------------
+
+  // FACE
+  --fs-text-face-body                  : "Lato", -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+
+  // --------------------------------------------------------
+  // Refinements
+  // --------------------------------------------------------
+
+  // BORDERS
+  --fs-border-radius                   : .25rem;
+
+  // SHADOW
+  --fs-shadow                          : none;
+  --fs-shadow-darker                   : 0 0 10px rgb(0 0 0 / 20%);
+  --fs-shadow-hover                    : 0 1px 4px rgb(0 0 0 / 10%), 0 6px 8px rgb(0 0 0 / 10%);
+
+  // --------------------------------------------------------
+  // Components
+  // --------------------------------------------------------
+
+  [data-fs-product-card] {
+    --fs-product-card-border-color       : transparent;
+    --fs-product-card-border-color-hover : var(--fs-border-color-light);
+
+    &[data-fs-product-card-bordered="true"] {
+      --fs-product-card-border-color     : var(--fs-border-color-light);
+    }
+  }
+
+  [data-fs-logo] {
+    --fs-logo-img                        : url("~/public/brandless-positive.png");
+    --fs-logo-width                      : 8rem;
+  }
+}

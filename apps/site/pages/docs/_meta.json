@@ -9,5 +9,6 @@
     "type": "separator",
     "title": "Themes"
   },
-  "custom-theme": "Custom Theme"
+  "custom-theme": "Custom Theme",
+  "global-tokens": "Global Tokens"
 }

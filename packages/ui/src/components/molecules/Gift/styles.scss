@@ -6,6 +6,7 @@
   // Default properties
 
   --fs-gift-height            : var(--fs-spacing-12);
+  --fs-gift-bkg-color         : var(--fs-control-bkg);
 
   --fs-gift-border-width      : var(--fs-border-width);
   --fs-gift-border-color      : var(--fs-border-color-light);
@@ -21,7 +22,7 @@
   --fs-gift-title-color       : var(--fs-color-text);
 
   // Icon
-  --fs-gift-icon-size         : 1.75rem; // 28px
+  --fs-gift-icon-size         : 1.5rem; // 24px
   --fs-gift-icon-padding      : var(--fs-spacing-0);
   --fs-gift-icon-color        : var(--fs-gift-title-color);
   --fs-gift-icon-bkg-color    : var(--fs-color-body-bkg);
@@ -31,6 +32,7 @@
   // --------------------------------------------------------
 
   position: relative;
+  margin-top: calc(var(--fs-gift-icon-size)/2);
 
   [data-fs-gift-wrapper] {
     display: grid;
@@ -40,6 +42,7 @@
     overflow: hidden;
     border: var(--fs-gift-border-width) solid var(--fs-gift-border-color);
     border-radius: var(--fs-gift-border-radius);
+    background-color: var(--fs-gift-bkg-color);
   }
 
   [data-fs-gift-image] {

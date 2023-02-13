@@ -1,0 +1,8 @@
+package.json
+node_modules/
+public/
+coverage/
+.vscode/
+.cache/
+__generated__
+src/typings/

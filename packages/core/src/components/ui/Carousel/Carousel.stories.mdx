@@ -1,0 +1,201 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+  BestPractices,
+  BestPracticesRule,
+} from 'src/../.storybook/components'
+
+import Carousel from '.'
+import ProductCard from 'src/components/product/ProductCard'
+
+<Meta
+  component={Carousel}
+  title="Molecules/Carousel"
+  argTypes={{
+    itemsPerPage: {
+      control: 'number',
+      table: { type: 'number' },
+    },
+  }}
+/>
+
+export const product = {
+  id: '15503951',
+  slug: 'handmade-steel-towels-practical-15503951',
+  sku: '15503951',
+  brand: { brandName: 'Brand', name: 'Brand' },
+  name: 'red',
+  gtin: '5595633577807',
+  isVariantOf: {
+    productGroupID: '130742',
+    name: 'Handmade Steel Towels Practical',
+  },
+  image: [
+    {
+      url: 'http://storeframework.vtexassets.com/arquivos/ids/190191/numquam.jpg?v=637755599170100000',
+      alternateName: 'est',
+    },
+  ],
+  offers: {
+    lowPrice: 181.71,
+    offers: [
+      {
+        availability: 'https://schema.org/InStock',
+        price: 181.71,
+        listPrice: 208.72,
+        quantity: 1,
+        seller: { identifier: '1' },
+      },
+    ],
+  },
+}
+
+export const Template = ({ ...args }) => (
+  <Carousel {...args}>
+    {Array.from({ length: 8 }, (_, index) => (
+      <ProductCard
+        index={index}
+        key={String(index)}
+        product={{ ...product, isVariantOf: { name: `Product ${index + 1}` } }}
+      />
+    ))}
+  </Carousel>
+)
+
+<header>
+
+# Carousel
+
+The `Carousel` component is great for swiping images.
+
+</header>
+
+## Overview
+
+The `Carousel` component uses [FastStore UI Carousel](https://www.faststore.dev/reference/ui/molecules/Carousel) as base.
+
+---
+
+## Usage
+
+`import Carousel from 'src/components/ui/Carousel'`
+
+<Canvas>
+  <Story name="usage" args={{ itemsPerPage: 5 }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="usage" />
+
+---
+
+## Nested Elements
+
+### Track
+
+<TokenTable>
+  <TokenRow
+    token="--fs-carousel-padding-desktop"
+    value="var(--fs-spacing-0) 6.25rem"
+  />
+</TokenTable>
+
+### Item
+
+<TokenTable>
+  <TokenRow token="--fs-carousel-item-width-mobile" value="80%" />
+  <TokenRow token="--fs-carousel-item-width-desktop" value="15rem" />
+  <TokenRow
+    token="--fs-carousel-item-margin-right"
+    value="var(--fs-spacing-0)"
+  />
+</TokenTable>
+
+### Controls
+
+<TokenTable>
+  <TokenRow token="--fs-carousel-controls-width" value="3.125rem" />
+  <TokenRow
+    token="--fs-carousel-controls-height"
+    value="var(--fs-carousel-controls-width)"
+  />
+  <TokenRow
+    token="--fs-carousel-controls-position-top"
+    value="calc((100% - var(--fs-spacing-7) - var(--fs-spacing-1)) / 2)"
+  />
+  <TokenRow
+    token="--fs-carousel-controls-bkg-color"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-carousel-controls-border-radius"
+    value="var(--fs-border-radius-circle)"
+  />
+  <TokenRow
+    token="--fs-carousel-controls-box-shadow"
+    value="var(--fs-shadow-darker)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-carousel-controls-control-left"
+    value="var(--fs-spacing-5)"
+  />
+  <TokenRow
+    token="--fs-carousel-controls-control-right"
+    value="var(--fs-carousel-controls-control-left)"
+  />
+</TokenTable>
+
+### Bullets
+
+<TokenTable>
+  <TokenRow
+    token="--fs-carousel-bullets-padding-top"
+    value="var(--fs-carousel-controls-control-left)"
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-carousel-bullet-width-mobile" value="100%" />
+  <TokenRow
+    token="--fs-carousel-bullet-width-desktop"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-height-mobile"
+    value="var(--fs-carousel-item-margin-right)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-height-desktop"
+    value="var(--fs-carousel-bullet-width-desktop)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-margin-right"
+    value="var(--fs-carousel-item-margin-right)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-bkg-color"
+    value="var(--fs-color-neutral-3)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-bkg-color-selected"
+    value="var(--fs-color-main-4)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-border-radius"
+    value="var(--fs-carousel-controls-border-radius)"
+  />
+</TokenTable>
+
+---
+
+<BestPractices>
+  <BestPracticesRule
+    recommendedDescription="Always use more than 1 item per page so then the component keeps the proposed navigation behavior for both versions (mobile and desktop)."
+    discouragedDescription="Avoid using more items per page than the total number of items."
+  />
+</BestPractices>

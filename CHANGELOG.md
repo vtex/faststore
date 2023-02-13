@@ -3,6 +3,77 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.66-alpha.0 (2023-02-13)
+
+### Bug Fixes
+
+- add metadata to search query ([#1633](https://github.com/vtex/faststore/issues/1633)) ([2da7276](https://github.com/vtex/faststore/commit/2da72763301fd6c677b6d7cf9152780c739ba1c1))
+- update generetad api schema ([#1637](https://github.com/vtex/faststore/issues/1637)) ([6bf7760](https://github.com/vtex/faststore/commit/6bf7760d96c52ab0038720ed02f361fb433a296b))
+
+## 2.0.65-alpha.0 (2023-02-13)
+
+### Chores
+
+- updates yarn lock ([#1634](https://github.com/vtex/faststore/issues/1634)) ([6ee6f8c](https://github.com/vtex/faststore/commit/6ee6f8c079e364ca1fc2ba86ed4119777bf6c97d))
+
+## [2.0.64-alpha.0](https://github.com/vtex/faststore/compare/v2.0.63-alpha.0...v2.0.64-alpha.0) (2023-02-13)
+
+### Features
+
+- Adds Global tokens doc pages ([#1630](https://github.com/vtex/faststore/issues/1630)) ([4d20381](https://github.com/vtex/faststore/commit/4d203818103300f2f4dda96f5ba3c59aa92307e0))
+
+## [2.0.63-alpha.0](https://github.com/vtex/faststore/compare/v2.0.62-alpha.0...v2.0.63-alpha.0) (2023-02-10)
+
+### Features
+
+- Adds `ProductCard` component ([#1623](https://github.com/vtex/faststore/issues/1623)) ([80588df](https://github.com/vtex/faststore/commit/80588df4a6c088035f60d563bfe6cd35f85b4a9c))
+
+## [2.0.62-alpha.0](https://github.com/vtex/faststore/compare/v2.0.61-alpha.0...v2.0.62-alpha.0) (2023-02-07)
+
+### Features
+
+- Adds `PaymentMethods` component ([#1626](https://github.com/vtex/faststore/issues/1626)) ([b3b8925](https://github.com/vtex/faststore/commit/b3b8925ea1a51a5036b4e839df0aea577ba1d232))
+
+## [2.0.61-alpha.0](https://github.com/vtex/faststore/compare/v2.0.60-alpha.0...v2.0.61-alpha.0) (2023-02-03)
+
+### Features
+
+- Adds `CartItem` component ([#1614](https://github.com/vtex/faststore/issues/1614)) ([48e04ea](https://github.com/vtex/faststore/commit/48e04eafd752ac4e97093bd40cb92e1d6e28e032))
+
+## 2.0.60-alpha.0 (2023-02-02)
+
+### Bug Fixes
+
+- checks best sku existence ([#1624](https://github.com/vtex/faststore/issues/1624)) ([5479bd5](https://github.com/vtex/faststore/commit/5479bd5bbee9b784a96787a55006f6b8449a948c)), closes [/github.com/vtex/faststore/blob/main/packages/api/src/platforms/vtex/utils/sku.ts#L22](https://github.com/vtex//github.com/vtex/faststore/blob/main/packages/api/src/platforms/vtex/utils/sku.ts/issues/L22)
+
+### Chores
+
+- **deps:** bump http-cache-semantics from 4.1.0 to 4.1.1 ([#1625](https://github.com/vtex/faststore/issues/1625)) ([57ddc8c](https://github.com/vtex/faststore/commit/57ddc8c6eaf529c87a59e2310f3d6d637f4969b6))
+
+## [2.0.59-alpha.0](https://github.com/vtex/faststore/compare/v2.0.58-alpha.0...v2.0.59-alpha.0) (2023-02-02)
+
+### Features
+
+- Adds `ProductTitle` component ([#1620](https://github.com/vtex/faststore/issues/1620)) ([8aba709](https://github.com/vtex/faststore/commit/8aba70970b46996b37f1e8dcb28b1d14c042a04e))
+
+## [2.0.58-alpha.0](https://github.com/vtex/faststore/compare/v2.0.57-alpha.0...v2.0.58-alpha.0) (2023-02-01)
+
+### Bug Fixes
+
+- local api server error ([#1622](https://github.com/vtex/faststore/issues/1622)) ([8f43e5d](https://github.com/vtex/faststore/commit/8f43e5d7b85c03c77649ec6088862bffc061e704))
+
+## [2.0.57-alpha.0](https://github.com/vtex/faststore/compare/v2.0.56-alpha.0...v2.0.57-alpha.0) (2023-01-30)
+
+### Features
+
+- Adds `Skeleton` Component ([#1616](https://github.com/vtex/faststore/issues/1616)) ([ed2f82d](https://github.com/vtex/faststore/commit/ed2f82dd2a49dcb64611fb48c9b2519633a87251)), closes [#361](https://github.com/vtex/faststore/issues/361)
+
+## [2.0.56-alpha.0](https://github.com/vtex/faststore/compare/v2.0.55-alpha.0...v2.0.56-alpha.0) (2023-01-24)
+
+### Features
+
+- Adds `Modal` component ([#1615](https://github.com/vtex/faststore/issues/1615)) ([a976d53](https://github.com/vtex/faststore/commit/a976d530ce05e2ecefa8090be1237b293a8b97cc))
+
 ## [2.0.55-alpha.0](https://github.com/vtex/faststore/compare/v2.0.54-alpha.0...v2.0.55-alpha.0) (2023-01-23)
 
 ### Chores

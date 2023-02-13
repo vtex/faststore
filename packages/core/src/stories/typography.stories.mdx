@@ -1,0 +1,224 @@
+import { Canvas, Meta, Typeset } from '@storybook/addon-docs'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Global Tokens/Typography"
+  parameters={{ options: { showToolbar: false } }}
+/>
+
+export const typography = {
+  type: {
+    primary: '-apple-system, system-ui, BlinkMacSystemFont, sans-serif',
+  },
+  weight: {
+    regular: '400',
+    bold: '700',
+    extrabold: '800',
+    black: '900',
+  },
+  sizeMob: {
+    s1: 12,
+    s2: 14,
+    s3: 16,
+    m1: 18,
+    m2: 20,
+    m3: 23,
+    l1: 26,
+    l2: 29,
+    l3: 33,
+  },
+  sizeDesk: {
+    s1: 12,
+    s2: 14,
+    s3: 16,
+    m1: 20,
+    m2: 25,
+    m3: 31,
+    l1: 39,
+    l2: 48,
+    l3: 61,
+  },
+}
+
+export const SampleText =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+
+<header className="sbdocs-typography">
+
+# Typography
+
+A standard scale and basic definitions for your text: `font family`,`weight` and `sizes`.
+
+</header>
+
+## Add a custom font
+
+To set up a new font, follow the steps:
+
+1. Go to `src/fonts/WebFonts` and replace its content with the `<link>` of your font-family of choice
+
+```tsx
+function WebFonts() {
+  return (
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap"
+    />
+  )
+}
+```
+
+2. Overwrite the token `--fs-text-face-body` on your `new-theme.scss` theme file
+
+```scss
+--fs-text-face-body: 'Raleway', sans-serif;
+```
+
+We recommend the usage of [GoogleFonts](https://fonts.google.com/).
+
+---
+
+## Font Family
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow
+    token="--fs-text-face-body"
+    value="-apple-system, system-ui, BlinkMacSystemFont, sans-serif"
+  />
+  <TokenRow token="--fs-text-face-title" value="var(--fs-text-face-body)" />
+</TokenTable>
+
+---
+
+## Weights
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-text-weight-light" value="300" />
+  <TokenRow token="--fs-text-weight-regular" value="400" />
+  <TokenRow token="--fs-text-weight-bold" value="700" />
+  <TokenRow token="--fs-text-weight-black" value="900" />
+</TokenTable>
+
+---
+
+## Typography Scale
+
+Use a type scale to add rhythm to your typography and ensure consistency throughout the project.
+
+Access https://type-scale.com and pick a scale that suits the store's branding.
+
+<section className="sbdocs-section-text-scale">
+  <div>
+    <h3 className="sbdocs sbdocs-h3">Desktop Scale</h3>
+    <Typeset
+      fontSizes={[
+        Number(typography.sizeDesk.s1),
+        Number(typography.sizeDesk.s2),
+        Number(typography.sizeDesk.s3),
+        Number(typography.sizeDesk.m1),
+        Number(typography.sizeDesk.m2),
+        Number(typography.sizeDesk.m3),
+        Number(typography.sizeDesk.l1),
+        Number(typography.sizeDesk.l2),
+        Number(typography.sizeDesk.l3),
+      ]}
+      fontWeight={typography.weight.regular}
+      sampleText={SampleText}
+      fontFamily={typography.type.primary}
+    />
+  </div>
+  <div>
+    <h3 className="sbdocs sbdocs-h3">Mobile Scale</h3>
+    <Typeset
+      fontSizes={[
+        Number(typography.sizeMob.s1),
+        Number(typography.sizeMob.s2),
+        Number(typography.sizeMob.s3),
+        Number(typography.sizeMob.m1),
+        Number(typography.sizeMob.m2),
+        Number(typography.sizeMob.m3),
+        Number(typography.sizeMob.l1),
+        Number(typography.sizeMob.l2),
+        Number(typography.sizeMob.l3),
+      ]}
+      fontWeight={typography.weight.regular}
+      sampleText={SampleText}
+      fontFamily={typography.type.primary}
+    />
+  </div>
+</section>
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-text-size-base" value="16px" />
+  <TokenRow token="--fs-text-scale-desktop" value="1.25" />
+  <TokenRow token="--fs-text-scale-mobile" value="1.13" />
+  <TokenDivider />
+  <TokenRow token="--fs-text-size-0" value="12px" />
+  <TokenRow token="--fs-text-size-1" value="14px" />
+  <TokenRow token="--fs-text-size-2" value="var(--fs-text-size-base)" />
+  <TokenRow
+    token="--fs-text-size-3"
+    value="calc(var(--fs-text-size-2) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-4"
+    value="calc(var(--fs-text-size-3) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-5"
+    value="calc(var(--fs-text-size-4) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-6"
+    value="calc(var(--fs-text-size-5) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-7"
+    value="calc(var(--fs-text-size-6) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-8"
+    value="calc(var(--fs-text-size-7) * var(--fs-scale))"
+  />
+</TokenTable>
+
+---
+
+## Semantical tokens
+
+### Sizes
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-text-size-title-huge" value="var(--fs-text-size-7)" />
+  <TokenRow token="--fs-text-size-title-page" value="var(--fs-text-size-6)" />
+  <TokenRow
+    token="--fs-text-size-title-product"
+    value="var(--fs-text-size-4)"
+  />
+  <TokenRow
+    token="--fs-text-size-title-section"
+    value="var(--fs-text-size-4)"
+  />
+  <TokenRow
+    token="--fs-text-size-title-subsection"
+    value="var(--fs-text-size-4)"
+  />
+  <TokenRow token="--fs-text-size-title-mini" value="var(--fs-text-size-4)" />
+  <TokenDivider />
+  <TokenRow token="--fs-text-size-lead" value="var(--fs-text-size-3)" />
+  <TokenRow token="--fs-text-size-menu" value="var(--fs-text-size-base)" />
+  <TokenRow token="--fs-text-size-body" value="var(--fs-text-size-base)" />
+  <TokenRow token="--fs-text-size-legend" value="var(--fs-text-size-1)" />
+  <TokenRow token="--fs-text-size-tiny" value="var(--fs-text-size-0)" />
+</TokenTable>
+
+### Max Lines
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-text-max-lines" value="2" />
+</TokenTable>

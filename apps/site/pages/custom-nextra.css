@@ -18,6 +18,10 @@ hr.nx-my-8 {
 }
 
 /* Titles */
+h1.nx-tracking-tight {
+  margin-top: 0;
+}
+
 h2.nx-tracking-tight {
   border: none;
   margin-bottom: var(--fs-spacing-4);
@@ -26,6 +30,7 @@ h2.nx-tracking-tight {
 
 h3.nx-tracking-tight {
   font-size: var(--fs-text-size-3);
+  margin-bottom: var(--fs-spacing-4);
 }
 
 h4.nx-tracking-tight {
@@ -53,4 +58,9 @@ h4.nx-tracking-tight {
 
 .index-header img {
   font-size: var(--fs-text-size-title-huge);
+}
+
+/* Reset theme default style */
+[data-fs-payment-methods-title] h3 {
+  margin-top: auto;
 }

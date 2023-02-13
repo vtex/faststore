@@ -1,6 +1,6 @@
 import React from 'react'
 import type { PropsWithChildren } from 'react'
-import styles from './SectionItem.module.css'
+import styles from './section-item.module.css'
 
 export type SectionListProps = {
   grid?: 'row' | 'column'
@@ -12,9 +12,7 @@ const SectionList = ({
 }: PropsWithChildren<SectionListProps>) => {
   return (
     <section className={styles.sectionList}>
-      <ul data-doc-section-grid={grid}>
-        {children}
-      </ul>
+      <ul data-doc-section-grid={grid}>{children}</ul>
     </section>
   )
 }

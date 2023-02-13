@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.66-alpha.0 (2023-02-13)
+
+### Bug Fixes
+
+- add metadata to search query ([#1633](https://github.com/vtex/faststore/issues/1633)) ([2da7276](https://github.com/vtex/faststore/commit/2da72763301fd6c677b6d7cf9152780c739ba1c1))
+- update generetad api schema ([#1637](https://github.com/vtex/faststore/issues/1637)) ([6bf7760](https://github.com/vtex/faststore/commit/6bf7760d96c52ab0038720ed02f361fb433a296b))
+
+## 2.0.65-alpha.0 (2023-02-13)
+
+**Note:** Version bump only for package @faststore/api
+
+## 2.0.60-alpha.0 (2023-02-02)
+
+### Bug Fixes
+
+- checks best sku existence ([#1624](https://github.com/vtex/faststore/issues/1624)) ([5479bd5](https://github.com/vtex/faststore/commit/5479bd5bbee9b784a96787a55006f6b8449a948c)), closes [/github.com/vtex/faststore/blob/main/packages/api/src/platforms/vtex/utils/sku.ts#L22](https://github.com/vtex//github.com/vtex/faststore/blob/main/packages/api/src/platforms/vtex/utils/sku.ts/issues/L22)
+
+### Chores
+
+- **deps:** bump http-cache-semantics from 4.1.0 to 4.1.1 ([#1625](https://github.com/vtex/faststore/issues/1625)) ([57ddc8c](https://github.com/vtex/faststore/commit/57ddc8c6eaf529c87a59e2310f3d6d637f4969b6))
+
+## [2.0.59-alpha.0](https://github.com/vtex/faststore/compare/v2.0.58-alpha.0...v2.0.59-alpha.0) (2023-02-02)
+
+### Features
+
+- Adds `ProductTitle` component ([#1620](https://github.com/vtex/faststore/issues/1620)) ([8aba709](https://github.com/vtex/faststore/commit/8aba70970b46996b37f1e8dcb28b1d14c042a04e))
+
+## [2.0.58-alpha.0](https://github.com/vtex/faststore/compare/v2.0.57-alpha.0...v2.0.58-alpha.0) (2023-02-01)
+
+### Bug Fixes
+
+- local api server error ([#1622](https://github.com/vtex/faststore/issues/1622)) ([8f43e5d](https://github.com/vtex/faststore/commit/8f43e5d7b85c03c77649ec6088862bffc061e704))
+
 ## 2.0.49-alpha.0 (2023-01-13)
 
 ### Bug Fixes

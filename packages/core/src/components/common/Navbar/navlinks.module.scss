@@ -1,0 +1,96 @@
+@import "src/styles/scaffold";
+
+.fs-navlinks {
+  // --------------------------------------------------------
+  // Design Tokens for Navlinks
+  // --------------------------------------------------------
+
+  --fs-navlinks-padding-top-notebook             : var(--fs-spacing-1);
+  --fs-navlinks-padding-bottom-notebook          : var(--fs-navlinks-padding-top-notebook);
+
+  --fs-navlinks-bkg-color                        : var(--fs-color-body-bkg);
+
+  --fs-navlinks-transition-property              : var(--fs-transition-property);
+  --fs-navlinks-transition-timing                : var(--fs-transition-timing);
+  --fs-navlinks-transition-function              : var(--fs-transition-function);
+
+  --fs-navlinks-border-top-width-mobile          : var(--fs-border-width);
+  --fs-navlinks-border-top-color-mobile          : var(--fs-border-color-light);
+  --fs-navlinks-border-bottom-width-mobile       : var(--fs-navlinks-border-top-width-mobile);
+  --fs-navlinks-border-bottom-color-mobile       : var(--fs-navlinks-border-top-color-mobile);
+
+  // Link
+  --fs-navlinks-link-width-notebook              : auto;
+  --fs-navlinks-link-padding-notebook            : 0 var(--fs-spacing-0);
+
+  // List
+  --fs-navlinks-list-padding-left-notebook       : var(--fs-spacing-3);
+  --fs-navlinks-list-margin-left-notebook        : var(--fs-spacing-2);
+  --fs-navlinks-list-border-left-width-notebook  : var(--fs-border-width);
+  --fs-navlinks-list-border-left-color-notebook  : var(--fs-border-color-light);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+  background-color: var(--fs-navlinks-bkg-color);
+  transition: var(--fs-navlinks-transition-property) var(--fs-navlinks-transition-timing) var(--fs-navlinks-transition-function);
+
+  @include media("<notebook") { padding: 0; }
+
+  @include media(">=notebook") {
+    z-index: var(--fs-z-index-below);
+
+    > div {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  [data-fs-navlinks-list-item] {
+    display: flex;
+    align-items: center;
+  }
+
+  [data-fs-regionalization-button] {
+    margin-left: calc(-1 * var(--fs-spacing-1));
+
+    // TODO: remove this after navbar 2.0 is implemented
+    &[data-fs-button-variant="tertiary"] {
+      color: var(--fs-color-text-display);
+    }
+
+    @include media("<notebook") {
+      display: none;
+    }
+  }
+
+  [data-fs-navlinks-link] {
+    display: block;
+    width: 100%;
+  }
+
+  @include media(">=notebook") {
+    padding-top: var(--fs-navlinks-padding-top-notebook);
+    padding-bottom: var(--fs-navlinks-padding-bottom-notebook);
+
+    [data-fs-navlinks-list] {
+      display: flex;
+      column-gap: var(--fs-spacing-3);
+      padding-left: var(--fs-navlinks-list-padding-left-notebook);
+      margin-left: var(--fs-navlinks-list-margin-left-notebook);
+      border-left: var(--fs-navlinks-list-border-left-width-notebook) solid var(--fs-navlinks-list-border-left-color-notebook);
+    }
+
+    [data-fs-navlinks-link] {
+      width: var(--fs-navlinks-link-width-notebook);
+      padding: var(--fs-navlinks-link-padding-notebook);
+    }
+  }
+
+  @include media("<notebook") {
+    border-top: var(--fs-navlinks-border-top-width-mobile) solid var(--fs-navlinks-border-top-color-mobile);
+    border-bottom: var(--fs-navlinks-border-bottom-width-mobile) solid var(--fs-navlinks-border-bottom-color-mobile);
+  }
+}

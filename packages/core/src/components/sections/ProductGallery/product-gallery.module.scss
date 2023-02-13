@@ -1,0 +1,184 @@
+@import "src/styles/scaffold";
+
+.fs-product-listing {
+  --product-listing-row-height: var(--fs-spacing-6);
+
+  height: 100%;
+  padding-top: 0;
+
+  [data-fs-empty-state] {
+    margin: var(--fs-spacing-3) 0;
+  }
+
+  @include media(">=notebook") {
+    padding-top: var(--fs-spacing-5);
+
+    [data-fs-empty-state] {
+      margin: var(--fs-spacing-5) 0;
+    }
+  }
+
+  [data-fs-product-listing-search-term] {
+    @include media(">=notebook") {
+      padding-bottom: var(--fs-spacing-6);
+    }
+
+    h1 {
+      font-size: var(--fs-text-size-4);
+
+      @include media(">=tablet") { font-size: var(--fs-text-size-5); }
+
+      span {
+        font-weight: var(--fs-text-weight-bold);
+      }
+    }
+  }
+
+  [data-fs-product-listing-content-grid] {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-right: 0;
+    padding-left: 0;
+
+    @include media(">=notebook") {
+      display: grid;
+      grid-template-rows: var(--product-listing-row-height) auto;
+      grid-template-columns: repeat(12, 1fr);
+      row-gap: var(--fs-spacing-0);
+      column-gap: var(--fs-spacing-4);
+      padding-right: var(--fs-grid-padding);
+      padding-left: var(--fs-grid-padding);
+    }
+  }
+
+  [data-fs-product-listing-filters] {
+    @include media(">=notebook") {
+      position: sticky;
+      top: var(--fs-grid-gap-2);
+      grid-row: span 2;
+      grid-column: 1 / span 3;
+      align-self: start;
+    }
+  }
+
+  [data-fs-product-listing-sort] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    order: 1;
+    width: 100%;
+    min-height: rem(68px);
+    padding: var(--fs-spacing-1) var(--fs-spacing-3) var(--fs-spacing-2);
+    background-color: var(--fs-color-body-bkg);
+
+    [data-fs-product-listing-sort-skeleton] {
+      min-width: rem(225px);
+      min-height: var(--fs-spacing-5);
+    }
+
+    @include media(">=notebook") {
+      grid-column: 6 / span 7;
+      justify-content: flex-end;
+      order: unset;
+      min-height: initial;
+      padding: 0;
+
+      [data-fs-button] {
+        display: none;
+      }
+
+      [data-fs-product-listing-filter-button-skeleton] {
+        display: none;
+      }
+    }
+  }
+
+  [data-fs-product-listing-results-count] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 2;
+    min-height: rem(45px);
+    padding: var(--fs-spacing-2) var(--fs-spacing-3);
+    background-color: var(--fs-color-neutral-bkg);
+
+    @include media(">=notebook") {
+      grid-column: 4 /span 2;
+      justify-content: left;
+      order: unset;
+      min-height: initial;
+      padding: 0;
+      background-color: unset;
+    }
+
+    [data-fs-product-listing-results-count-skeleton] {
+      min-width: rem(130px);
+    }
+  }
+
+  [data-fs-product-listing-results] {
+    --padding: var(--fs-spacing-1);
+
+    order: 3;
+    padding: var(--padding) var(--padding) 0;
+    background-color: var(--fs-color-neutral-bkg);
+
+    @include media(">=notebook") {
+      grid-column: 4 / span 9;
+      order: unset;
+      padding: 0;
+      background-color: unset;
+    }
+
+    [data-fs-product-card] { min-width: 100%; }
+  }
+
+  [data-fs-product-listing-sponsored] {
+    padding: var(--fs-spacing-4) var(--fs-spacing-3);
+    margin: var(--fs-spacing-1) calc(-1 * var(--padding));
+    background-color: var(--fs-color-body-bkg);
+
+    @include media(">=notebook") {
+      padding: 0;
+      margin: var(--fs-spacing-6) 0;
+
+      [data-fs-tiles] {
+        row-gap: 0;
+        column-gap: var(--fs-grid-gap-2);
+      }
+    }
+
+    h3 { margin-bottom: var(--fs-spacing-1); }
+  }
+
+  [data-fs-product-listing-pagination] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--fs-spacing-13);
+    padding: var(--fs-spacing-4);
+    margin-right: calc(-1 * var(--padding));
+    margin-left: calc(-1 * var(--padding));
+
+    @include media(">=notebook") {
+      padding: var(--fs-spacing-1) var(--fs-spacing-2);
+    }
+
+    [data-fs-button] {
+      width: 100%;
+
+      @include media(">=notebook") {
+        width: fit-content;
+      }
+    }
+  }
+
+  [data-fs-product-listing-pagination="top"] {
+    margin-bottom: var(--padding);
+  }
+
+  [data-fs-product-listing-pagination="bottom"] {
+    margin-top: var(--padding);
+  }
+}

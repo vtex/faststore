@@ -1,0 +1,194 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Price from '.'
+import { TokenTable, TokenRow } from 'src/../.storybook/components'
+
+<Meta
+  title="Atoms/Price"
+  component={Price}
+  argTypes={{
+    value: {
+      type: {
+        name: 'number',
+      },
+      description: '`number`',
+      defaultValue: 100,
+    },
+    SRText: {
+      defaultValue: 'Price:',
+    },
+    variant: {
+      description: 'The current variant for prices.',
+      options: ['installment', 'listing', 'savings', 'selling', 'spot'],
+      control: { type: 'select' },
+    },
+    formatter: {
+      table: { disable: true },
+    },
+  }}
+/>
+
+export const Template = (args) => <Price {...args} />
+
+<header>
+
+# Price
+
+Prices are used to display the price of a given product, discount and total values.
+
+</header>
+
+## Overview
+
+The `Price` component uses [FastStore UI Price](https://www.faststore.dev/reference/ui/atoms/Price) as base.
+
+<Canvas>
+  <Story name="overview-default">{Template.bind({})}</Story>
+  <Story
+    name="overview-installment"
+    args={{
+      variant: 'installment',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-listing"
+    args={{
+      variant: 'listing',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-savings"
+    args={{
+      variant: 'savings',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-selling"
+    args={{
+      variant: 'selling',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-spot"
+    args={{
+      variant: 'spot',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
+
+`import Price from '../components/ui/Price'`
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      variant: '',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+---
+
+## Variations
+
+### Installment
+
+<Canvas>
+  <Story
+    name="installment"
+    args={{
+      variant: 'installment',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Listing
+
+<Canvas>
+  <Story
+    name="listing"
+    args={{
+      variant: 'listing',
+      SRText: 'Original price:',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-price-listing-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+  <TokenRow token="--fs-price-listing-text-decoration" value="line-through" />
+</TokenTable>
+
+### Savings
+
+<Canvas>
+  <Story
+    name="savings"
+    args={{
+      variant: 'savings',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Selling
+
+<Canvas>
+  <Story
+    name="selling"
+    args={{
+      variant: 'selling',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Spot
+
+<Canvas>
+  <Story
+    name="spot"
+    args={{
+      variant: 'spot',
+      SRText: 'Sale price:',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-price-spot-margin-left" value="var(--fs-spacing-1)" />
+  <TokenRow
+    token="--fs-price-spot-font-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+</TokenTable>

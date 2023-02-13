@@ -1,0 +1,127 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import {
+  TokenTable,
+  TokenRow,
+} from 'src/../.storybook/components'
+
+import OutOfStock from '.'
+
+<Meta
+  title="Organisms/OutOfStock"
+  argTypes={{
+    buttonIcon: { control: false },
+    notificationMsgIcon: { control: false },
+    title: {
+      defaultValue: 'Out of Stock'
+    },
+    notificationMsg: {
+      defaultValue: 'Notify me when available'
+    },
+    buttonText: {
+      defaultValue: 'Notify me'
+    },
+    testId: {
+      table: {
+        disable: true,
+      },
+    },
+  }}
+  component={OutOfStock}
+/>
+
+export const Template = (args) => (
+  <OutOfStock {...args} />
+)
+
+<header>
+
+# Out of Stock
+
+Out of Stock are used to announce to users that the product is out of stock. And ask for their contact to let they know when the product arrives.
+
+</header>
+
+## Overview
+
+The `OutOfStock` component uses [FastStore UI OutOfStock](https://www.faststore.dev/reference/ui/organisms/OutOfStock) as base.
+
+---
+
+## Usage
+
+`import OutOfStock from '../components/product/OutOfStock'`
+
+<Canvas>
+  <Story name="OutOfStock">{Template.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="OutOfStock" />
+
+---
+
+## Nested Elements
+
+### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-out-of-stock-title-margin-bottom"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow
+    token="--fs-out-of-stock-title-line-height"
+    value="1.15"
+  />
+  <TokenRow
+    token="--fs-out-of-stock-title-size"
+    value="var(--fs-text-size-lead)"
+  />
+  <TokenRow
+    token="--fs-out-of-stock-title-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenRow
+    token="--fs-out-of-stock-title-color"
+    value="var(--fs-color-success-text)"
+  />
+</TokenTable>
+
+### Message
+
+<TokenTable>
+  <TokenRow
+    token="--fs-out-of-stock-message-column-gap"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow
+    token="--fs-out-of-stock-message-margin-bottom"
+    value="var(--fs-spacing-3)" />
+  <TokenRow
+    token="--fs-out-of-stock-message-line-height"
+    value="1.15"
+  />
+  <TokenRow
+    token="--fs-out-of-stock-message-size"
+    value="var(--fs-text-size-base)" />
+  <TokenRow
+    token="--fs-out-of-stock-message-weight"
+    value="var(--fs-text-weight-regular)"
+  />
+  <TokenRow
+    token="--fs-out-of-stock-message-color"
+    value="var(--fs-color-neutral-text)"
+  />
+</TokenTable>
+
+### Button
+
+<TokenTable>
+  <TokenRow
+    token="--fs-out-of-stock-button-width"
+    value="100%"
+  />
+  <TokenRow
+    token="--fs-out-of-stock-button-margin-top"
+    value="var(--fs-spacing-3)"
+  />
+</TokenTable>

@@ -1,0 +1,159 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+import Incentives from '.'
+import { incentivesMockHeader, incentivesMockFooter } from './incentivesMock'
+
+<Meta title="Organisms/Incentives" component={Incentives} />
+
+export const Template = (args) => <Incentives {...args} />
+
+<header>
+
+# Incentives
+
+It's a component that displays a list of "incentives".
+
+</header>
+
+## Usage
+
+`import Incentives from '../components/sections/Incentives'`
+
+<Canvas>
+  <Story
+    name="Incentives"
+    args={{
+      incentives: incentivesMockHeader,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Incentives" />
+
+<TokenTable>
+  <TokenRow
+    token="--fs-incentives-bkg-color"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-incentives-gap" value="var(--fs-spacing-4)" />
+  <TokenRow
+    token="--fs-incentives-padding-top"
+    value="var(--fs-incentives-gap)"
+  />
+  <TokenRow
+    token="--fs-incentives-padding-bottom"
+    value="var(--fs-incentives-gap)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-incentives-border-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-incentives-border-width"
+    value="var(--fs-border-width)"
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Title
+
+<TokenTable>
+  <TokenRow token="--fs-incentives-title-size" value="var(--fs-text-size-1)" />
+  <TokenRow
+    token="--fs-incentives-title-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenRow token="--fs-incentives-title-line-height" value="1.42" />
+  <TokenRow token="--fs-incentives-title-color" value="var(--fs-color-text)" />
+</TokenTable>
+
+### Description
+
+<TokenTable>
+  <TokenRow
+    token="--fs-incentives-description-size"
+    value="var(--fs-incentives-title-size)"
+  />
+  <TokenRow token="--fs-incentives-description-line-height" value="1.14" />
+  <TokenRow
+    token="--fs-incentives-description-color"
+    value="var(--fs-incentives-title-color)"
+  />
+</TokenTable>
+
+### Icon
+
+<TokenTable>
+  <TokenRow
+    token="--fs-incentives-icon-color"
+    value="var(--fs-incentives-title-color)"
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Colored
+
+<Canvas>
+  <Story
+    name="Colored"
+    args={{
+      incentives: incentivesMockHeader,
+      colored: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-incentives-bkg-color"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+</TokenTable>
+
+### Description Only
+
+<Canvas>
+  <Story
+    name="Description Only"
+    args={{
+      incentives: incentivesMockFooter,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Vertical
+
+<Canvas>
+  <Story
+    name="Vertical"
+    args={{
+      incentives: incentivesMockHeader,
+      variant: 'vertical',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

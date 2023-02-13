@@ -1,6 +1,6 @@
 {
   "name": "@faststore/lighthouse",
-  "version": "2.0.49-alpha.0",
+  "version": "2.0.66-alpha.0",
   "author": "Emerson Laurentino",
   "license": "MIT",
   "repository": {
@@ -19,13 +19,13 @@
     "src"
   ],
   "scripts": {
-    "develop": "tsc --watch",
+    "dev": "tsc --watch",
     "build": "tsc",
     "lint": "eslint src/**/*.ts"
   },
   "devDependencies": {
-    "@faststore/eslint-config": "^2.0.49-alpha.0",
-    "@faststore/shared": "^2.0.49-alpha.0",
+    "@faststore/eslint-config": "^2.0.66-alpha.0",
+    "@faststore/shared": "^2.0.66-alpha.0",
     "eslint": "7.32.0",
     "typescript": "^4.2.4"
   }

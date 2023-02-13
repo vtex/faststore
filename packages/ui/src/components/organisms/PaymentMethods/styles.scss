@@ -1,0 +1,63 @@
+[data-fs-payment-methods] {
+  // --------------------------------------------------------
+  // Design Tokens for Payment Methods
+  // --------------------------------------------------------
+
+  // Default properties
+
+  // Title
+  --fs-payment-methods-title-size            : var(--fs-text-size-body);
+  --fs-payment-methods-title-weight          : var(--fs-text-weight-bold);
+  --fs-payment-methods-title-line-height     : 1.25;
+
+  // Flag
+  --fs-payment-methods-flag-width           : 2.125rem;
+  --fs-payment-methods-flag-border-width    : var(--fs-border-width);
+  --fs-payment-methods-flag-border-color    : var(--fs-color-neutral-3);
+  --fs-payment-methods-flag-border-radius   : var(--fs-border-radius-small);
+
+  // Flags
+  --fs-payment-methods-flags-row-gap        : var(--fs-spacing-1);
+  --fs-payment-methods-flags-margin-top     : var(--fs-spacing-3);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  [data-fs-payment-methods-title] {
+    & > *:first-child {
+      font-size: var(--fs-payment-methods-title-size);
+      font-weight: var(--fs-payment-methods-title-weight);
+      line-height: var(--fs-payment-methods-title-line-height);
+    }
+
+    @include media("<notebook") {
+      text-align: center;
+    }
+  }
+
+  [data-fs-payment-methods-flags] {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, max-content));
+    row-gap: var(--fs-payment-methods-flags-row-gap);
+    justify-content: space-between;
+    margin-top: var(--fs-payment-methods-flags-margin-top);
+
+    li {
+      display: flex;
+      place-content: center;
+    }
+
+    @include media("<notebook") {
+      column-gap: var(--fs-grid-gap-2);
+    }
+  }
+
+  [data-fs-payment-methods-flag] {
+    width: var(--fs-payment-methods-flag-width);
+    height: var(--fs-payment-methods-flag-height);
+    overflow: hidden;
+    border: var(--fs-payment-methods-flag-border-width) solid var(--fs-payment-methods-flag-border-color);
+    border-radius: var(--fs-payment-methods-flag-border-radius);
+  }
+}

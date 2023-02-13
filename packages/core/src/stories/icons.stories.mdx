@@ -1,0 +1,237 @@
+import {
+  Canvas,
+  Meta,
+  Title,
+  IconGallery,
+  IconItem,
+} from '@storybook/addon-docs'
+
+import Icon from '../components/ui/Icon'
+import { Callout } from 'src/../.storybook/components'
+
+<Meta title="Media/Icons" parameters={{ options: { showToolbar: false } }} />
+
+<header>
+
+# Icons
+
+</header>
+
+This project uses SVGs from <a ahref="https://phosphoricons.com/">Phosphor icons</a>.
+
+<Callout>
+  Icons help build web pages by illustrating concepts and improving website
+  navigation. However, using icons can decrease the page's performance. One
+  option to avoid the decrease of the page's performance is to use SVGs from a
+  single SVG file, located in <code>/static/icons.svg</code>, and load them with
+  the <code>ui/Icon</code>.Please check the{' '}
+  <a href="https://github.com/vtex-sites/nextjs.store#managing-svg-icons">
+    Managing SVG Icons
+  </a>{' '}
+  section on our readme for further instructions.
+</Callout>
+
+| Weights                              |
+| ------------------------------------ |
+| thin, light, regular (default), bold |
+
+| Sizes                              |
+| ---------------------------------- |
+| 16px, 18px, 20px, 32px, 48px, 56px |
+
+<Canvas>
+  <Icon name="ShoppingCart" weight="bold" width="16" height="16" />
+  <Icon name="ShoppingCart" weight="bold" width="18" height="18" />
+  <Icon name="ShoppingCart" weight="bold" width="20" height="20" />
+  <Icon name="ShoppingCart" width="32" height="32" />
+  <Icon name="ShoppingCart" weight="light" width="48" height="48" />
+  <Icon name="ShoppingCart" weight="light" width="56" height="56" />
+</Canvas>
+
+---
+
+## UI Actions
+
+<IconGallery>
+  <IconItem name="X">
+    <Icon name="X" />
+  </IconItem>
+  <IconItem name="Plus">
+    <Icon name="Plus" />
+  </IconItem>
+  <IconItem name="PlusCircle">
+    <Icon name="PlusCircle" />
+  </IconItem>
+  <IconItem name="Minus">
+    <Icon name="Minus" />
+  </IconItem>
+  <IconItem name="MinusCircle">
+    <Icon name="MinusCircle" />
+  </IconItem>
+  <IconItem name="XCircle">
+    <Icon name="XCircle" />
+  </IconItem>
+  <IconItem name="ArrowLeft">
+    <Icon name="ArrowLeft" />
+  </IconItem>
+  <IconItem name="ArrowRight">
+    <Icon name="ArrowRight" />
+  </IconItem>
+  <IconItem name="ArrowUpRight">
+    <Icon name="ArrowUpRight" />
+  </IconItem>
+  <IconItem name="ArrowSquareOut">
+    <Icon name="ArrowSquareOut" />
+  </IconItem>
+  <IconItem name="ArrowElbowDownRight">
+    <Icon name="ArrowElbowDownRight" />
+  </IconItem>
+  <IconItem name="CaretLeft">
+    <Icon name="CaretLeft" />
+  </IconItem>
+  <IconItem name="CaretRight">
+    <Icon name="CaretRight" />
+  </IconItem>
+  <IconItem name="CaretUp">
+    <Icon name="CaretUp" />
+  </IconItem>
+  <IconItem name="CaretDown">
+    <Icon name="CaretDown" />
+  </IconItem>
+  <IconItem name="Ellipsis">
+    <Icon name="Ellipsis" />
+  </IconItem>
+  <IconItem name="Checked">
+    <Icon name="Checked" />
+  </IconItem>
+  <IconItem name="MagnifyingGlass">
+    <Icon name="MagnifyingGlass" />
+  </IconItem>
+  <IconItem name="FadersHorizontal">
+    <Icon name="FadersHorizontal" />
+  </IconItem>
+  <IconItem name="List">
+    <Icon name="List" />
+  </IconItem>
+</IconGallery>
+
+---
+
+## Common Actions
+
+<IconGallery>
+  <IconItem name="User">
+    <Icon name="User" />
+  </IconItem>
+  <IconItem name="Calendar">
+    <Icon name="Calendar" />
+  </IconItem>
+  <IconItem name="ShoppingCart">
+    <Icon name="ShoppingCart" />
+  </IconItem>
+  <IconItem name="MapPin">
+    <Icon name="MapPin" />
+  </IconItem>
+  <IconItem name="Clock">
+    <Icon name="Clock" />
+  </IconItem>
+  <IconItem name="House">
+    <Icon name="House" />
+  </IconItem>
+</IconGallery>
+
+---
+
+## Informative
+
+<IconGallery>
+  <IconItem name="ShieldCheck">
+    <Icon name="ShieldCheck" />
+  </IconItem>
+  <IconItem name="Gift">
+    <Icon name="Gift" />
+  </IconItem>
+  <IconItem name="Storefront">
+    <Icon name="Storefront" />
+  </IconItem>
+  <IconItem name="Medal">
+    <Icon name="Medal" />
+  </IconItem>
+  <IconItem name="CircleWavyCheck">
+    <Icon name="CircleWavyCheck" />
+  </IconItem>
+  <IconItem name="CircleWavyWarning">
+    <Icon name="CircleWavyWarning" />
+  </IconItem>
+  <IconItem name="Headphones">
+    <Icon name="Headphones" />
+  </IconItem>
+  <IconItem name="Truck">
+    <Icon name="Truck" />
+  </IconItem>
+  <IconItem name="Bell">
+    <Icon name="Bell" />
+  </IconItem>
+  <IconItem name="BellRinging">
+    <Icon name="BellRinging" />
+  </IconItem>
+  <IconItem name="Clock">
+    <Icon name="Clock" />
+  </IconItem>
+  <IconItem name="RocketLaunch">
+    <Icon name="RocketLaunch" />
+  </IconItem>
+  <IconItem name="House">
+    <Icon name="House" />
+  </IconItem>
+</IconGallery>
+
+---
+
+## Payment
+
+<IconGallery>
+  <IconItem name="GooglePay">
+    <Icon name="GooglePay" />
+  </IconItem>
+  <IconItem name="ApplePay">
+    <Icon name="ApplePay" />
+  </IconItem>
+  <IconItem name="Diners">
+    <Icon name="Diners" />
+  </IconItem>
+  <IconItem name="EloCard">
+    <Icon name="EloCard" />
+  </IconItem>
+  <IconItem name="Mastercard">
+    <Icon name="Mastercard" />
+  </IconItem>
+  <IconItem name="PayPal">
+    <Icon name="PayPal" />
+  </IconItem>
+  <IconItem name="Stripe">
+    <Icon name="Stripe" />
+  </IconItem>
+  <IconItem name="Visa">
+    <Icon name="Visa" />
+  </IconItem>
+</IconGallery>
+
+---
+
+## Social
+
+<IconGallery>
+  <IconItem name="Instagram">
+    <Icon name="Instagram" />
+  </IconItem>
+  <IconItem name="Pinterest">
+    <Icon name="Pinterest" />
+  </IconItem>
+  <IconItem name="Twitter">
+    <Icon name="Twitter" />
+  </IconItem>
+  <IconItem name="Facebook">
+    <Icon name="Facebook" />
+  </IconItem>
+</IconGallery>

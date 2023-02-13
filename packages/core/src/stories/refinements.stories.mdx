@@ -1,0 +1,96 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs'
+import '/.storybook/storybook.css'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Global Tokens/Refinements"
+  parameters={{ options: { showToolbar: false } }}
+/>
+
+<header>
+
+# Refinements
+
+`Transition`, `Borders` and `Shadow` definitions.
+
+</header>
+
+## Transition
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-transition-timing" value=".2s" />
+  <TokenRow token="--fs-transition-property" value="all" />
+  <TokenRow token="--fs-transition-function" value="ease-in-out" />
+</TokenTable>
+
+## Borders
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-border-radius-small" value="1px" />
+  <TokenRow token="--fs-border-radius" value="2px" />
+  <TokenRow token="--fs-border-radius-medium" value="8px" />
+  <TokenRow token="--fs-border-radius-pill" value="100px" />
+  <TokenRow token="--fs-border-radius-circle" value="100%" />
+  <TokenDivider />
+  <TokenRow token="--fs-border-width" value="1px" />
+  <TokenRow token="--fs-border-width-thick" value="2px" />
+  <TokenRow token="--fs-border-width-thickest" value="3px" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-border-color"
+    value="var(--fs-color-neutral-4)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-border-color-hover"
+    value="var(--fs-color-main-3)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-border-color-active"
+    value="var(--fs-color-main-2)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-border-color-disabled"
+    value="var(--fs-color-neutral-6)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-border-color-light"
+    value="var(--fs-color-neutral-2)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-border-color-light-hover"
+    value="var(--fs-color-neutral-3)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-border-color-light-active"
+    value="var(--fs-color-neutral-3)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-border-color-light-disabled"
+    value="var(--fs-color-neutral-5)"
+    isColor
+  />
+</TokenTable>
+
+## Shadow
+
+<TokenTable>
+  <TokenRow token="--fs-shadow" value="none" />
+  <TokenRow token="--fs-shadow-darker" value="0 0 10px rgb(0 0 0 / 20%)" />
+  <TokenRow
+    token="--fs-shadow-hover"
+    value="0 0 0 1px var(--fs-color-main-4)"
+  />
+</TokenTable>

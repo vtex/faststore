@@ -3,6 +3,64 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.66-alpha.0 (2023-02-13)
+
+### Bug Fixes
+
+- add metadata to search query ([#1633](https://github.com/vtex/faststore/issues/1633)) ([2da7276](https://github.com/vtex/faststore/commit/2da72763301fd6c677b6d7cf9152780c739ba1c1))
+
+## 2.0.65-alpha.0 (2023-02-13)
+
+**Note:** Version bump only for package site
+
+## [2.0.64-alpha.0](https://github.com/vtex/faststore/compare/v2.0.63-alpha.0...v2.0.64-alpha.0) (2023-02-13)
+
+### Features
+
+- Adds Global tokens doc pages ([#1630](https://github.com/vtex/faststore/issues/1630)) ([4d20381](https://github.com/vtex/faststore/commit/4d203818103300f2f4dda96f5ba3c59aa92307e0))
+
+## [2.0.63-alpha.0](https://github.com/vtex/faststore/compare/v2.0.62-alpha.0...v2.0.63-alpha.0) (2023-02-10)
+
+### Features
+
+- Adds `ProductCard` component ([#1623](https://github.com/vtex/faststore/issues/1623)) ([80588df](https://github.com/vtex/faststore/commit/80588df4a6c088035f60d563bfe6cd35f85b4a9c))
+
+## [2.0.62-alpha.0](https://github.com/vtex/faststore/compare/v2.0.61-alpha.0...v2.0.62-alpha.0) (2023-02-07)
+
+### Features
+
+- Adds `PaymentMethods` component ([#1626](https://github.com/vtex/faststore/issues/1626)) ([b3b8925](https://github.com/vtex/faststore/commit/b3b8925ea1a51a5036b4e839df0aea577ba1d232))
+
+## [2.0.61-alpha.0](https://github.com/vtex/faststore/compare/v2.0.60-alpha.0...v2.0.61-alpha.0) (2023-02-03)
+
+### Features
+
+- Adds `CartItem` component ([#1614](https://github.com/vtex/faststore/issues/1614)) ([48e04ea](https://github.com/vtex/faststore/commit/48e04eafd752ac4e97093bd40cb92e1d6e28e032))
+
+## 2.0.60-alpha.0 (2023-02-02)
+
+### Chores
+
+- **deps:** bump http-cache-semantics from 4.1.0 to 4.1.1 ([#1625](https://github.com/vtex/faststore/issues/1625)) ([57ddc8c](https://github.com/vtex/faststore/commit/57ddc8c6eaf529c87a59e2310f3d6d637f4969b6))
+
+## [2.0.59-alpha.0](https://github.com/vtex/faststore/compare/v2.0.58-alpha.0...v2.0.59-alpha.0) (2023-02-02)
+
+### Features
+
+- Adds `ProductTitle` component ([#1620](https://github.com/vtex/faststore/issues/1620)) ([8aba709](https://github.com/vtex/faststore/commit/8aba70970b46996b37f1e8dcb28b1d14c042a04e))
+
+## [2.0.57-alpha.0](https://github.com/vtex/faststore/compare/v2.0.56-alpha.0...v2.0.57-alpha.0) (2023-01-30)
+
+### Features
+
+- Adds `Skeleton` Component ([#1616](https://github.com/vtex/faststore/issues/1616)) ([ed2f82d](https://github.com/vtex/faststore/commit/ed2f82dd2a49dcb64611fb48c9b2519633a87251)), closes [#361](https://github.com/vtex/faststore/issues/361)
+
+## [2.0.56-alpha.0](https://github.com/vtex/faststore/compare/v2.0.55-alpha.0...v2.0.56-alpha.0) (2023-01-24)
+
+### Features
+
+- Adds `Modal` component ([#1615](https://github.com/vtex/faststore/issues/1615)) ([a976d53](https://github.com/vtex/faststore/commit/a976d530ce05e2ecefa8090be1237b293a8b97cc))
+
 ## [2.0.55-alpha.0](https://github.com/vtex/faststore/compare/v2.0.54-alpha.0...v2.0.55-alpha.0) (2023-01-23)
 
 ### Chores

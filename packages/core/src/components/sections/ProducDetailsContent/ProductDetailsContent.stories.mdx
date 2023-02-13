@@ -1,0 +1,66 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+import ProductDetailsContent from '.'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Organisms/ProductDetailsContent"
+  component={ProductDetailsContent}
+  argTypes={{
+    initiallyExpanded: { defaultValue: 'first' },
+  }}
+/>
+
+export const TemplateProvider = (args) => {
+  return <ProductDetailsContent {...args} />
+}
+
+export const CustomLabelsTemplateProvider = (args) => {
+  return (
+    <ProductDetailsContent
+      labels={{
+        description: 'Product description',
+        about: 'Product specifications',
+        highlights: 'Highlights',
+        learnMore: 'More',
+      }}
+    />
+  )
+}
+
+<header>
+
+# Product Details Content
+
+This component is used to show information related to a product
+
+</header>
+
+## Overview
+
+The `ProductDetailsContent` component uses [Accordion](/docs/molecules-accordion-overview--default-story), [FastStore UI Table](https://www.faststore.dev/reference/ui/molecules/Table), and [FastStore UI List](https://www.faststore.dev/reference/ui/molecules/List) as base.
+
+---
+
+## Usage
+
+`import ProductDetailsContent from 'src/components/sections/ProductDetailsContent'`
+
+<Canvas>
+  <Story name="default">{TemplateProvider.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+---
+
+## Variants
+
+### Custom labels for each article
+
+<Canvas>
+  <Story name="customLabels">{CustomLabelsTemplateProvider.bind({})}</Story>
+</Canvas>
