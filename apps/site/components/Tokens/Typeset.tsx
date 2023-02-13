@@ -1,4 +1,4 @@
-import styles from './Typeset.module.css'
+import styles from './typeset.module.css'
 
 type scaleItem = {
   size: number
