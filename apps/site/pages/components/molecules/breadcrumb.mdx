@@ -1,0 +1,229 @@
+---
+description: Breadcrumbs indicate the user's location in a website hierarchy.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Breadcrumb___20a8572e919e1262c1405a5e80009e25.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { Breadcrumb } from '@faststore/ui'
+
+import { breadcrumbList } from '../../../mocks/breadcrumbList'
+
+<header>
+
+# Breadcrumb
+
+Breadcrumbs indicate the user's location in a website hierarchy.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Breadcrumb breadcrumbList={breadcrumbList} />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Breadcrumb breadcrumbList={breadcrumbList} />
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { Breadcrumb } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/Breadcrumb/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <Breadcrumb breadcrumbList={breadcrumbList} />
+</OverviewSection>
+```tsx
+<Breadcrumb breadcrumbList={breadcrumbList} />
+```
+
+---
+
+## Props
+
+<PropsSection name="Breadcrumb" />
+
+---
+
+<TokenTable>
+  <TokenRow
+    token="--fs-breadcrumb-margin-left"
+    value="calc(-1 * var(--fs-spacing-1))"
+  />
+</TokenTable>
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-breadcrumb-margin-left"
+    value="calc(-1 * var(--fs-spacing-1))"
+  />
+</TokenTable>
+
+## Nested Elements
+
+### List Item
+
+<TokenTable>
+  <TokenRow
+    token="--fs-breadcrumb-list-item-padding"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-breadcrumb-list-item-last-text-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-breadcrumb-list-item-max-width-mobile" value="30%" />
+</TokenTable>
+
+### Link
+
+<TokenTable>
+  <TokenRow
+    token="--fs-breadcrumb-link-color-visited"
+    value="var(--fs-color-link)"
+    isColor
+  />
+</TokenTable>
+
+### Link Home
+
+<TokenTable>
+  <TokenRow
+    token="--fs-breadcrumb-link-home-padding"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-breadcrumb-link-home-border-radius"
+    value="var(--fs-border-radius-circle)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-breadcrumb-link-home-hover-bkg-color"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-breadcrumb-link-home-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+</TokenTable>
+
+### Divider
+
+<TokenTable>
+  <TokenRow
+    token="--fs-breadcrumb-divider-height"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-breadcrumb-divider-margin"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-breadcrumb-divider-border-left-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-breadcrumb-divider-border-left-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+</TokenTable>
+
+### Dropdown Button
+
+<TokenTable>
+  <TokenRow
+    token="--fs-breadcrumb-dropdown-button-margin-left"
+    value="var(--fs-breadcrumb-margin-left)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-breadcrumb-dropdown-button-color"
+    value="var(--fs-color-link)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-breadcrumb-dropdown-button-border-radius"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-breadcrumb-dropdown-button-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-breadcrumb-dropdown-button-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+  <TokenRow
+    token="--fs-breadcrumb-dropdown-button-transition-function"
+    value="var(--fs-transition-function)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-breadcrumb`
+
+`data-fs-breadcrumb-list`
+
+`data-fs-breadcrumb-list-item`
+
+`data-fs-breadcrumb-link`
+
+`data-fs-breadcrumb-link-home`
+
+`data-fs-breadcrumb-divider`
+
+`data-fs-breadcrumb-dropdown-button`
+
+`data-fs-breadcrumb-dropdown-menu`
+
+`data-fs-breadcrumb-dropdown-link`
+
+`data-fs-breadcrumb-is-desktop="true | false"`

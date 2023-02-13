@@ -12,13 +12,13 @@ type ListItemProps = {
 const ListItem = ({ children, isLastItem, divider, testId }: ListItemProps) => {
   const props = {
     'data-testid': `${testId}-item`,
-    'data-breadcrumb-item': isLastItem ? 'current' : true,
+    'data-fs-breadcrumb-item': isLastItem ? 'current' : true,
     'aria-current': isLastItem ? ('page' as const) : undefined,
   }
 
   if (!React.isValidElement(children)) {
     return (
-      <li data-breadcrumb-list-item>
+      <li data-fs-breadcrumb-list-item>
         <span {...props}>
           {children}
           {isLastItem ? null : <Divider divider={divider} testId={testId} />}
@@ -28,7 +28,7 @@ const ListItem = ({ children, isLastItem, divider, testId }: ListItemProps) => {
   }
 
   return (
-    <li data-breadcrumb-list-item>
+    <li data-fs-breadcrumb-list-item>
       {React.cloneElement(children, props)}
       {isLastItem ? null : <Divider divider={divider} testId={testId} />}
     </li>

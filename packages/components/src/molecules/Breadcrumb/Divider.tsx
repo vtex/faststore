@@ -3,7 +3,7 @@ import { BreadcrumbBaseProps } from "./BreadcrumbBase"
 
 const Divider = ({ divider, testId }: Omit<BreadcrumbBaseProps, "breadcrumbList">) => {
     const props = {
-      'data-breadcrumb-divider': true,
+      'data-fs-breadcrumb-divider': true,
       'aria-hidden': true,
       'data-testid': `${testId}-divider`,
     }

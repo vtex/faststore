@@ -17,7 +17,13 @@ type ItemElement = {
 }
 
 type RenderLinkProps = {
+  /**
+   * Item prop for specific item.
+   */
   itemProps: ItemElement
+  /**
+   * Represents if the item is collapsed or not.
+   */
   collapsed: boolean
 }
 
@@ -42,7 +48,11 @@ export type BreadcrumbBaseProps = {
    * Icon for collapsed items.
    */
   collapsedItemsIcon?: ReactNode
-
+  /**
+   * Function to render a item as breadcrumb link.
+   * @param renderLinkProps Properties for each item to be rendered.
+   * @returns Link to be rendered.
+   */
   renderLink?: (renderLinkProps: RenderLinkProps) => ReactElement
 } & BreadcrumbPureProps
 
