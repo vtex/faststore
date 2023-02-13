@@ -2,16 +2,22 @@ import { enhanceSku } from '../utils/enhanceSku'
 import type { Resolver } from '..'
 import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
+import { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
 
-type Root = Omit<SearchArgs, 'type'>
+type Root = {
+  searchArgs: Omit<SearchArgs, 'type'>
+  productSearchPromise: Promise<ProductSearchResult>
+}
 
 const isRootFacet = (facet: Facet) => facet.key === 'category-1'
 
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
-  suggestions: async (searchArgs, _, ctx) => {
+  suggestions: async (root, _, ctx) => {
     const {
       clients: { search },
     } = ctx
+
+    const { searchArgs } = root
 
     // If there's no search query, suggest the most popular searches.
     if (!searchArgs.query) {
@@ -26,10 +32,13 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       }
     }
 
-    const terms = await search.suggestedTerms(searchArgs)
-    const products = await search.products(searchArgs)
+    const { productSearchPromise } = root
+    const [terms, productSearchResult] = await Promise.all([
+      search.suggestedTerms(searchArgs),
+      productSearchPromise,
+    ])
 
-    const skus = products.products
+    const skus = productSearchResult.products
       .map((product) => {
         const [maybeSku] = product.items
 
@@ -44,27 +53,10 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       products: skus,
     }
   },
-  products: async (searchArgs, _, ctx) => {
-    const {
-      clients: { search, sp },
-    } = ctx
+  products: async ({ productSearchPromise }) => {
+    const productSearchResult = await productSearchPromise
 
-    const products = await search.products(searchArgs)
-
-    // Raise event on search's analytics API when performing
-    // a full text search.
-    if (searchArgs.query) {
-      sp.sendEvent({
-        type: 'search.query',
-        text: searchArgs.query,
-        misspelled: products.correction?.misspelled ?? false,
-        match: products.recordsFiltered,
-        operator: products.operator,
-        locale: ctx.storage.locale,
-      }).catch(console.error)
-    }
-
-    const skus = products.products
+    const skus = productSearchResult.products
       .map((product) => {
         const [maybeSku] = product.items
 
@@ -74,11 +66,11 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     return {
       pageInfo: {
-        hasNextPage: products.pagination.after.length > 0,
-        hasPreviousPage: products.pagination.before.length > 0,
+        hasNextPage: productSearchResult.pagination.after.length > 0,
+        hasPreviousPage: productSearchResult.pagination.before.length > 0,
         startCursor: '0',
-        endCursor: products.recordsFiltered.toString(),
-        totalCount: products.recordsFiltered,
+        endCursor: productSearchResult.recordsFiltered.toString(),
+        totalCount: productSearchResult.recordsFiltered,
       },
       edges: skus.map((sku, index) => ({
         node: sku,
@@ -86,7 +78,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       })),
     }
   },
-  facets: async (searchArgs, _, ctx) => {
+  facets: async ({ searchArgs }, _, ctx) => {
     const {
       clients: { search: is },
     } = ctx
@@ -102,5 +94,17 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       .filter((facet) => !isCollectionPage || !isRootFacet(facet))
 
     return filteredFacets
+  },
+  metadata: async ({ searchArgs, productSearchPromise }) => {
+    if (!searchArgs.query) {
+      return null
+    }
+
+    const productSearchResult = await productSearchPromise
+
+    return {
+      isTermMisspelled: productSearchResult.correction?.misspelled ?? false,
+      logicalOperator: productSearchResult.operator,
+    }
   },
 }
