@@ -2,7 +2,26 @@ import type { HTMLAttributes } from 'react'
 import React, { forwardRef, ReactNode } from 'react'
 import { Label } from '../..'
 
-interface SkuOption {
+interface BaseOption {
+  /**
+   * Current value for this option.
+   */
+  value?: string
+  /**
+   * Specifies that this option should be disabled.
+   */
+  disabled?: boolean
+  /**
+   * URL for option's page. This is used on `renderLink` prop.
+   */
+  href: string
+  /**
+   * Function that returns a React component that will be rendered as a link.
+   */
+  renderLink: (href: string) => ReactNode
+}
+
+interface ImageOption extends BaseOption {
   /**
    * Alternative text description of the image. This is used on `renderImage` prop and it's mandatory if you want to use the `Image` variant.
    */
@@ -12,32 +31,20 @@ interface SkuOption {
    */
   src?: string
   /**
-   * Current value for this option.
-   */
-  value?: string
-  /**
-   * URL for option's page. This is used on `renderLink` prop.
-   */
-  href: string
-  /**
-   * Hex color code for this option. This is mandatory if you want to use the `Color` variant.
-   */
-  hexColor?: string
-  /**
-   * Specifies that this option should be disabled.
-   */
-  disabled?: boolean
-  /**
-   * Function that returns a React component that will be rendered as a link.
-   */
-  renderLink: (href: string) => ReactNode
-  /**
    * Function that returns a React component that will be used to render images.
    */
   renderImage?: (src?: string, alt?: string) => ReactNode
 }
 
-// TODO: Add the 'color' variant back once the store supports naturally handling color SKUs.
+interface ColorOption extends BaseOption {
+  /**
+   * Hex color code for this option. This is mandatory if you want to use the `Color` variant.
+   */
+  hexColor?: string
+}
+
+type SkuOptionType = BaseOption | ImageOption | ColorOption
+
 type Variant = 'label' | 'image' | 'color'
 
 export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
@@ -53,7 +60,7 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * SKU options that should be rendered.
    */
-  options: SkuOption[]
+  options: SkuOptionType[]
   /**
    * Section label for the SKU selector.
    */
@@ -68,7 +75,7 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
   function SkuSelector(
     {
       label,
-      variant,
+      variant = 'label',
       options,
       testId = 'fs-sku-selector',
       activeValue,
@@ -100,7 +107,7 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
               >
                 {option.renderLink(option.href)}
 
-                {variant === 'color' && (
+                {variant === 'color' && 'hexColor' in option && (
                   <span>
                     <div
                       data-fs-sku-selector-option-color
