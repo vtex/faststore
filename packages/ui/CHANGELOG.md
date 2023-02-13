@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.12.35 (2023-02-13)
+
+
+### Bug Fixes
+
+* package versions ([18ccc64](https://github.com/vtex/faststore/commit/18ccc64ac973a33d91a04c2cb3caa2be6ad82cf9))
+
+
+
 ## [1.12.23](https://github.com/vtex/faststore/compare/v1.12.22...v1.12.23) (2022-11-04)
 
 

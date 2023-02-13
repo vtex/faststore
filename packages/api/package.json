@@ -1,6 +1,6 @@
 {
   "name": "@faststore/api",
-  "version": "1.12.29",
+  "version": "1.12.35",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -30,7 +30,7 @@
     "p-limit": "^3.1.0"
   },
   "devDependencies": {
-    "@faststore/shared": "^1.12.20",
+    "@faststore/shared": "^1.12.35",
     "@graphql-codegen/cli": "2.2.0",
     "@graphql-codegen/typescript": "2.2.2",
     "concurrently": "^6.2.1",
