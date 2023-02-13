@@ -59,7 +59,6 @@
   "devDependencies": {
     "@cypress/code-coverage": "^3.9.10",
     "@faststore/eslint-config": "*",
-    "@faststore/shared": "^2.0.66-alpha.0",
     "@faststore/lighthouse": "^1.12.32",
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript": "^2.5.1",
