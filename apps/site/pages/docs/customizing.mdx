@@ -77,14 +77,9 @@ Its presets are defined on `src/styles/global/tokens.scss` and it's separated in
 
 ## Build your new theme
 
-1. Create a new `.scss` file on `src/styles/themes` and overwrite the tokens you want: e.g. `my-theme.scss`
-2. Import `my-theme.scss` file on `src/pages/_app.tsx`
+1. Create a new `.scss` file on `src/themes` and overwrite the tokens you want: e.g. `my-theme.scss`
 
-```jsx
-import '../styles/themes/my-theme.scss'
-```
-
-3. Go to `faststore.config.js` and change the `theme` to your file's name:
+2. Go to `faststore.config.js` and change the `theme` to your file's name:
 
 ```js
 // Theming
