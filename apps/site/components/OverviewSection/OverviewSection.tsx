@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import styles from './OverviewSection.module.css'
+import styles from './overview-section.module.css'
 
 type Direction = 'column' | 'row'
 

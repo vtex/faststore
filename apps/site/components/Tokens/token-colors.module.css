@@ -1,0 +1,26 @@
+.tokenColors {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--fs-spacing-0);
+  row-gap: var(--fs-spacing-3);
+  margin-top: var(--fs-spacing-4);
+}
+
+.tokenColor {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--fs-spacing-0);
+}
+
+.tokenColor > p {
+  font-size: var(--fs-text-size-1);
+  font-weight: var(--fs-text-weight-bold);
+}
+
+.tokenColor > div {
+  width: auto;
+  height: 3.5rem;
+  min-width: 10rem;
+  border: var(--fs-border-width) solid var(--fs-border-color-light);
+  border-radius: var(--fs-border-radius);
+}

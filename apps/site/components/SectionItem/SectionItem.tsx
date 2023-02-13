@@ -1,5 +1,5 @@
 import React, { CSSProperties, PropsWithChildren, ReactNode } from 'react'
-import styles from './SectionItem.module.css'
+import styles from './section-item.module.css'
 
 import { LinkButton } from '@faststore/ui'
 import { ArrowRight } from '@faststore/components'
@@ -21,20 +21,18 @@ const SectionItem = ({
 }: PropsWithChildren<SectionItemProps>) => {
   return (
     <li className={styles.sectionItem} {...otherProps}>
-      <div style={containerStyle}>
-        {children}
-      </div>
+      <div style={containerStyle}>{children}</div>
       <article>
-        <h3 className="nx-font-semibold nx-tracking-tight nx-mt-8 nx-text-2xl">{title}</h3>
+        <h3 className="nx-font-semibold nx-tracking-tight nx-mt-8 nx-text-2xl">
+          {title}
+        </h3>
         <p>{description}</p>
         {actionPath && (
           <LinkButton
             size="small"
             variant="tertiary"
             href={actionPath}
-            icon={
-              <ArrowRight />
-            }
+            icon={<ArrowRight />}
             iconPosition="right"
           >
             See more
