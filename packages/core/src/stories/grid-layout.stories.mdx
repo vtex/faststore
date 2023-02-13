@@ -1,0 +1,53 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs'
+import '/.storybook/storybook.css'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Global Tokens/Grid & Layout"
+  parameters={{ options: { showToolbar: false } }}
+/>
+
+<header>
+
+# Grid & Layout
+
+`Padding`, `Container`, `Gaps` and `Breakpoints` definitions.
+
+</header>
+
+## Padding
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-grid-padding" value="var(--fs-spacing-3)" />
+</TokenTable>
+
+## Container
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-grid-max-width" value="var(--fs-spacing-3)" />
+</TokenTable>
+
+## Gaps
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-grid-gap-0" value="var(--fs-spacing-1)" />
+  <TokenRow token="--fs-grid-gap-1" value="var(--fs-spacing-2)" />
+  <TokenRow token="--fs-grid-gap-2" value="var(--fs-spacing-3)" />
+  <TokenRow token="--fs-grid-gap-3" value="var(--fs-spacing-4)" />
+  <TokenRow token="--fs-grid-gap-4" value="var(--fs-spacing-5)" />
+</TokenTable>
+
+## Breakpoints
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-grid-breakpoint-phone" value="320px" />
+  <TokenRow token="--fs-grid-breakpoint-phonemid" value="375px" />
+  <TokenRow token="--fs-grid-breakpoint-tablet" value="768px" />
+  <TokenRow token="--fs-grid-breakpoint-notebook" value="1280px" />
+  <TokenRow token="--fs-grid-breakpoint-desktop" value="1440px" />
+</TokenTable>

@@ -1,0 +1,306 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs'
+import '/.storybook/storybook.css'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Global Tokens/Colors"
+  parameters={{ options: { showToolbar: false } }}
+/>
+
+<header>
+
+# Colors
+
+The store palette with all the tones needed.
+
+</header>
+
+<ColorPalette>
+  <ColorItem
+    title="Main"
+    colors={{
+      '--fs-color-main-0': '#f1f2f3',
+      '--fs-color-main-1': '#e3e6e8',
+      '--fs-color-main-2': '#00419e',
+      '--fs-color-main-3': '#002c71',
+      '--fs-color-main-4': '#002155',
+    }}
+  />
+  <ColorItem
+    title="Accent"
+    colors={{
+      '--fs-color-accent-0': '#f1f2f3',
+      '--fs-color-accent-1': '#e3e6e8',
+      '--fs-color-accent-2': '#74808b',
+      '--fs-color-accent-3': '#5d666f',
+      '--fs-color-accent-4': '#171a1c',
+    }}
+  />
+  <ColorItem
+    title="Neutral"
+    colors={{
+      '--fs-color-neutral-0': '#ffffff',
+      '--fs-color-neutral-1': '#f1f2f3',
+      '--fs-color-neutral-2': '#e3e6e8',
+      '--fs-color-neutral-3': '#c7ccd1',
+      '--fs-color-neutral-4': '#9099a2',
+      '--fs-color-neutral-5': '#74808b',
+      '--fs-color-neutral-6': '#5d666f',
+      '--fs-color-neutral-7': '#171a1c',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Semantical tokens
+
+### Hierarchy
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow
+    token="--fs-color-primary-text"
+    value="var(--fs-color-text-inverse)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-primary-bkg"
+    value="var(--fs-color-main-2)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-primary-bkg-hover"
+    value="var(--fs-color-main-3)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-primary-bkg-active"
+    value="var(--fs-color-main-4)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-primary-bkg-light"
+    value="var(--fs-color-main-0)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-primary-bkg-light-active"
+    value="var(--fs-color-main-1)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-color-secondary-text"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow token="--fs-color-secondary-bkg" value="transparent" isColor />
+  <TokenRow
+    token="--fs-color-secondary-bkg-hover"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-secondary-bkg-active"
+    value="var(--fs-color-main-3)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-secondary-bkg-light"
+    value="var(--fs-color-main-0)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-secondary-bkg-light-active"
+    value="var(--fs-color-secondary-bkg-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-color-tertiary-text"
+    value="var(--fs-color-link)"
+    isColor
+  />
+  <TokenRow token="--fs-color-tertiary-bkg" value="transparent" isColor />
+  <TokenRow
+    token="--fs-color-tertiary-bkg-hover"
+    value="var(--fs-color-main-0)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-tertiary-bkg-active"
+    value="var(--fs-color-main-1)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-tertiary-bkg-light"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-tertiary-bkg-light-active"
+    value="var(--fs-color-tertiary-bkg-light)"
+    isColor
+  />
+</TokenTable>
+
+### Components & States
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow
+    token="--fs-color-body-bkg"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-color-action-text"
+    value="var(--fs-color-text-inverse)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-action-bkg"
+    value="var(--fs-color-accent-4)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-action-bkg-hover"
+    value="var(--fs-color-accent-3)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-action-bkg-active"
+    value="var(--fs-color-accent-2)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-action-bkg-light"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-action-bkg-light-active"
+    value="var(--fs-color-tertiary-bkg-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-color-link" value="var(--fs-color-main-2)" isColor />
+  <TokenRow
+    token="--fs-color-link-hover"
+    value="var(--fs-color-main-2)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-link-active"
+    value="var(--fs-color-main-4)"
+    isColor
+  />
+  <TokenRow token="--fs-color-link-visited" value="#6058ba" isColor />
+  <TokenRow
+    token="--fs-color-link-inverse"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-color-text" value="var(--fs-color-neutral-7)" isColor />
+  <TokenRow
+    token="--fs-color-text-light"
+    value="var(--fs-color-neutral-6)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-text-inverse"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-text-display"
+    value="var(--fs-color-neutral-7)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-color-focus-ring" value="#8db6fa" isColor />
+  <TokenRow token="--fs-color-focus-ring-outline" value="#8db6fa80" isColor />
+  <TokenRow token="--fs-color-focus-ring-danger" value="#e1adad" isColor />
+</TokenTable>
+
+### Situations
+
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-color-success-text" value="#1e493b" isColor />
+  <TokenRow token="--fs-color-success-bkg" value="#b3ebd5" isColor />
+  <TokenRow
+    token="--fs-color-success-border"
+    value="var(--fs-color-success-text)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-color-warning-text"
+    value="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow token="--fs-color-warning-bkg" value="#fdec8d" isColor />
+  <TokenRow
+    token="--fs-color-warning-border"
+    value="var(--fs-color-warning-text)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-color-danger-text" value="#cb4242" isColor />
+  <TokenRow
+    token="--fs-color-danger-bkg"
+    value="var(--fs-color-focus-ring-danger)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-danger-border"
+    value="var(--fs-color-danger-text)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-color-info-text" value="var(--fs-color-text)" isColor />
+  <TokenRow
+    token="--fs-color-info-bkg"
+    value="var(--fs-color-main-1)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-color-highlighted-text"
+    value="var(--fs-color-text-display)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-highlighted-bkg"
+    value="var(--fs-color-accent-0)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-color-neutral-text"
+    value="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-neutral-bkg"
+    value="var(--fs-color-neutral-1)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-color-disabled-text"
+    value="var(--fs-color-neutral-6)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-color-disabled-bkg"
+    value="var(--fs-color-neutral-2)"
+    isColor
+  />
+</TokenTable>

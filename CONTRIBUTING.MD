@@ -10,7 +10,7 @@
 
 3. Run `yarn build` at the root of the repo.
 
-4. Run `yarn develop` at each of the packages that depends on the other.
+4. Run `yarn dev` at each of the packages that depends on the other.
 
 > You can run a package individually: `yarn workspace {packageName} develop`
 

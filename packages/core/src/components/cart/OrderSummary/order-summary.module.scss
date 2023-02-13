@@ -1,0 +1,22 @@
+.fs-order-summary {
+  padding: var(--fs-spacing-3);
+
+  [data-fs-order-summary] li {
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.5;
+
+    &[data-fs-order-summary-discount] {
+      color: var(--fs-color-success-text);
+    }
+
+    &[data-fs-order-summary-total] {
+      font-size: var(--fs-text-size-3);
+      font-weight: var(--fs-text-weight-bold);
+    }
+
+    &:last-of-type {
+      margin-bottom: var(--fs-spacing-2);
+    }
+  }
+}

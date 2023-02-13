@@ -1,0 +1,123 @@
+// ----------------------------------------------------------
+// GLOBAL TOKENS
+// Theme Midnight
+// ----------------------------------------------------------
+
+@import "../vendors/include-media";
+
+.midnight {
+  // --------------------------------------------------------
+  // Colors (Branding Core)
+  // --------------------------------------------------------
+
+  // PALETTE
+  --fs-color-main-0                    : #0b0022;
+  --fs-color-main-1                    : #13013e;
+  --fs-color-main-2                    : #190054;
+  --fs-color-main-3                    : #41208d;
+  --fs-color-main-4                    : #6535d6;
+
+  --fs-color-accent-0                  : #25046d;
+  --fs-color-accent-1                  : #001082;
+  --fs-color-accent-2                  : #0017b9;
+  --fs-color-accent-3                  : #1930d3;
+  --fs-color-accent-4                  : #4d62ff;
+
+  --fs-color-neutral-0                 : #110035;
+  --fs-color-neutral-1                 : #260f5a;
+  --fs-color-neutral-2                 : #74808b;
+  --fs-color-neutral-3                 : #9099a2;
+  --fs-color-neutral-4                 : #c7ccd1;
+  --fs-color-neutral-5                 : #e3e6e8;
+  --fs-color-neutral-6                 : #816ba9;
+  --fs-color-neutral-7                 : #dfd2fc;
+
+  // HIERARCHY
+  --fs-color-primary-bkg               : var(--fs-color-main-3);
+  --fs-color-primary-bkg-light         : var(--fs-color-main-2);
+  --fs-color-primary-text              : var(--fs-color-neutral-7);
+
+  --fs-color-secondary-text            : var(--fs-color-neutral-7);
+
+  --fs-color-tertiary-bkg-hover        : var(--fs-color-main-2);
+  --fs-color-tertiary-bkg-active       : var(--fs-color-main-3);
+
+  // // COMPONENTS & STATES
+  --fs-color-body-bkg                  : var(--fs-color-main-0);
+
+  --fs-color-text-display              : var(--fs-color-neutral-7);
+
+  --fs-color-link                      : var(--fs-color-neutral-7);
+
+  // SITUATIONS
+  --fs-color-success-text              : #50b191;
+  --fs-color-success-bkg               : #007043;
+  --fs-color-warning-bkg               : #b17000;
+
+  // --------------------------------------------------------
+  // Typography (Branding Core)
+  // --------------------------------------------------------
+
+  // FACE
+  --fs-text-face-body                  : "Raleway", sans-serif;
+
+  // NUMERIC SCALE
+  --fs-text-size-base                  : 18px; // 1rem
+  --fs-text-size-0                     : 14px; // Smallest
+  --fs-text-size-1                     : 16px; // Smaller
+
+  // --------------------------------------------------------
+  // Refinements
+  // --------------------------------------------------------
+
+  // BORDERS
+  --fs-border-radius                   : 20px;
+
+  --fs-border-width                    : 2px;
+
+  --fs-border-color-light              : var(--fs-color-main-3);
+  --fs-border-color                    : var(--fs-color-main-3);
+  --fs-border-color-hover              : var(--fs-color-main-2);
+  --fs-border-color-active             : var(--fs-color-main-3);
+
+  // SHADOW
+  --fs-shadow-hover                    : 0 0 10px rgb(40 21 132 / 30%), 0 0 0 10px var(--fs-color-main-1);
+
+  // --------------------------------------------------------
+  // Components
+  // --------------------------------------------------------
+
+  --fs-body-bkg                                   : linear-gradient(0deg, var(--fs-color-main-0) 0%, var(--fs-color-main-2) 20%, var(--fs-color-main-0) 100%);
+
+  [data-fs-hero] {
+    --fs-hero-img-border-radius                   : 130px 0 0 130px;
+    --fs-hero-main-bkg-color                      : var(--fs-color-main-1);
+  }
+
+  [data-fs-button] {
+    --fs-button-border-radius                     : var(--fs-border-radius-pill);
+
+    --fs-button-primary-inverse-text-color        : var(--fs-color-neutral-0);
+    --fs-button-primary-inverse-text-color-hover  : var(--fs-color-text);
+    --fs-button-primary-inverse-text-color-active : var(--fs-color-neutral-7);
+
+    --fs-button-primary-border-color              : var(--fs-color-neutral-7);
+
+    --fs-button-tertiary-text-color-active        : var(--fs-color-text);
+  }
+
+  [data-fs-product-card] {
+    --fs-product-card-padding                     : var(--fs-spacing-2) var(--fs-spacing-2) var(--fs-spacing-4) var(--fs-spacing-2);
+    --fs-product-card-bkg-color                   : var(--fs-color-main-0);
+    --fs-product-card-img-scale-hover             : 1.05;
+  }
+
+  [data-fs-logo] {
+    --fs-logo-img                                 : url("~/public/brandless-negative.png");
+    --fs-logo-width                               : 8rem;
+  }
+
+  [data-fs-footer] {
+    --fs-footer-bkg-color                         : var(--fs-color-main-0);
+  }
+}

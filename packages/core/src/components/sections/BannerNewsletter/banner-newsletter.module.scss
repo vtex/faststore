@@ -1,0 +1,23 @@
+@import "src/styles/scaffold";
+
+.fs-banner-newsletter {
+  margin-bottom: var(--fs-grid-padding);
+
+  [data-fs-banner-text] {
+    border-radius: var(--fs-border-radius);
+  }
+
+  > section {
+    margin-top: 0;
+  }
+
+  @include media(">=notebook") {
+    display: flex;
+    column-gap: var(--fs-grid-gap-3);
+
+    > section {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+}

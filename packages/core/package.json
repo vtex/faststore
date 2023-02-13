@@ -1,0 +1,111 @@
+{
+  "name": "@faststore/core",
+  "version": "0.3.17",
+  "license": "MIT",
+  "browserslist": "supports es6-module and not dead",
+  "scripts": {
+    "generate": "graphql-codegen",
+    "build": "yarn partytown && next build",
+    "dev": "yarn partytown && next dev",
+    "clean": "rm -r .next",
+    "serve": "next start",
+    "test": "cypress open",
+    "lhci": "lhci autorun",
+    "format": "prettier --write \"**/*.{ts,js,tsx,jsx,json}\"",
+    "lint": "next lint",
+    "stylelint": "stylelint \"**/*.scss\"",
+    "stylelint:fix": "stylelint \"**/*.scss\" --fix",
+    "postinstall": "node postinstall.js && (is-ci || husky install) || echo Skipped postinstall step for @faststore/core",
+    "partytown": "partytown copylib ./public/~partytown",
+    "storybook": "start-storybook --docs -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "dependencies": {
+    "@builder.io/partytown": "^0.6.1",
+    "@envelop/core": "^1.2.0",
+    "@envelop/graphql-jit": "^1.1.1",
+    "@envelop/parser-cache": "^2.2.0",
+    "@envelop/validation-cache": "^2.2.0",
+    "@faststore/api": "^2.0.3-alpha.0",
+    "@faststore/components": "2.0.63-alpha.0",
+    "@faststore/graphql-utils": "^2.0.3-alpha.0",
+    "@faststore/sdk": "^2.0.3-alpha.0",
+    "@faststore/ui": "2.0.63-alpha.0",
+    "@types/react": "^18.0.14",
+    "@vtex/client-cms": "^0.2.12",
+    "autoprefixer": "^10.4.0",
+    "chalk": "^5.2.0",
+    "css-loader": "^6.7.1",
+    "graphql": "^15.0.0",
+    "include-media": "^1.4.10",
+    "msw": "^0.43.1",
+    "next": "^12.3.1",
+    "next-seo": "^5.4.0",
+    "nextjs-progressbar": "^0.0.14",
+    "postcss": "^8.4.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-intersection-observer": "^8.32.5",
+    "sass": "^1.44.0",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "swr": "^1.3.0",
+    "tsconfig-paths-webpack-plugin": "^3.5.2",
+    "typescript": "4.7.3"
+  },
+  "devDependencies": {
+    "@faststore/eslint-config": "*",
+    "@cypress/code-coverage": "^3.9.10",
+    "@faststore/lighthouse": "^1.12.32",
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/typescript": "^2.5.1",
+    "@graphql-codegen/typescript-operations": "^2.4.2",
+    "@lhci/cli": "^0.9.0",
+    "@release-it/conventional-changelog": "^5.0.0",
+    "@storybook/addon-a11y": "^6.5.9",
+    "@storybook/addon-actions": "^6.5.9",
+    "@storybook/addon-essentials": "^6.5.9",
+    "@storybook/addon-links": "^6.5.9",
+    "@storybook/builder-webpack5": "^6.5.9",
+    "@storybook/manager-webpack5": "^6.5.9",
+    "@storybook/react": "^6.5.9",
+    "@testing-library/cypress": "^8.0.0",
+    "@types/cypress": "^1.1.3",
+    "@vtex/prettier-config": "1.0.0",
+    "axe-core": "^4.3.3",
+    "cypress": "9.6.0",
+    "cypress-axe": "^0.13.0",
+    "cypress-wait-until": "^1.7.2",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.32.0",
+    "husky": "^5.2.0",
+    "is-ci": "^3.0.0",
+    "lint-staged": "^10.5.4",
+    "msw-storybook-addon": "^1.6.3",
+    "prettier": "^2.2.0",
+    "stylelint": "^14.6.0",
+    "stylelint-config-recess-order": "^3.0.0",
+    "stylelint-config-standard": "^24.0.0",
+    "stylelint-config-standard-scss": "^3.0.0",
+    "stylelint-order": "^5.0.0",
+    "stylelint-scss": "^4.0.1"
+  },
+  "lint-staged": {
+    "*.{ts,js,tsx,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.json": [
+      "prettier --write"
+    ],
+    "*.scss": [
+      "stylelint --fix"
+    ]
+  },
+  "msw": {
+    "workerDirectory": "public"
+  }
+}

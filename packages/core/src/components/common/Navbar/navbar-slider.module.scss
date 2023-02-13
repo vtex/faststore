@@ -1,0 +1,60 @@
+.fs-navbar-slider {
+  // --------------------------------------------------------
+  // Design Tokens for Navbar Slider
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-navbar-slider-padding                    : var(--fs-spacing-3);
+
+  // Header
+  --fs-navbar-slider-header-padding-bottom      : var(--fs-spacing-2);
+  --fs-navbar-slider-header-button-margin-right : calc(-1 * var(--fs-spacing-1));
+
+  // Logo
+  --fs-navbar-slider-logo-height                : 2.375rem;
+  --fs-navbar-slider-logo-padding               : 0;
+  --fs-navbar-slider-logo-margin-right          : var(--fs-spacing-5);
+
+  // Footer
+  --fs-navbar-slider-footer-padding-top         : var(--fs-spacing-2);
+  --fs-navbar-slider-footer-margin-top          : var(--fs-spacing-2);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  padding: var(--fs-navbar-slider-padding);
+
+  [data-fs-navbar-slider-header] {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: var(--fs-navbar-slider-header-padding-bottom);
+
+    [data-fs-navbar-slider-button] {
+      margin-right: var(--fs-navbar-slider-header-button-margin-right);
+    }
+  }
+
+  [data-fs-navbar-slider-logo] {
+    height: var(--fs-navbar-slider-logo-height);
+    padding: var(--fs-navbar-slider-logo-padding);
+    margin-right: var(--fs-navbar-slider-logo-margin-right);
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  [data-fs-navbar-slider-footer] {
+    padding-top: var(--fs-navbar-slider-footer-padding-top);
+    margin-top: var(--fs-navbar-slider-footer-margin-top);
+
+    [data-fs-button-signin-link] {
+      width: fit-content;
+      padding-left: 0;
+    }
+  }
+}

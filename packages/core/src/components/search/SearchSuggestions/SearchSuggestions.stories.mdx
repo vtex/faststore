@@ -1,0 +1,58 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+import { SearchInputProvider } from 'src/sdk/search/useSearchInput'
+import { productGridItems, searchTerms } from 'src/../.storybook/mocks'
+import { products } from '../searchMock'
+
+import SearchSuggestions from '.'
+
+<Meta component={SearchSuggestions} title="Features/Search/SearchSuggestions" />
+
+export const Template = (args) => (
+  <div
+    style={{
+      maxWidth: '600px',
+      margin: '0 auto',
+      padding: '0 16px',
+      background: 'white',
+    }}
+  >
+    <SearchInputProvider>
+      <SearchSuggestions {...args} />
+    </SearchInputProvider>
+  </div>
+)
+
+<header>
+
+# SearchSuggestions
+
+Displays a set of navigation links that self-adapts on mobile or desktop screens.
+
+</header>
+
+## Usage
+
+`import SearchSuggestions from 'src/components/search/SearchSuggestions'`
+
+<Canvas>
+  <Story
+    name="default"
+    parameters={{
+      backgrounds: { default: 'dark' },
+    }}
+    args={{
+      term: 'Ste',
+      terms: searchTerms,
+      products,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />

@@ -1,0 +1,16 @@
+@import "src/styles/scaffold";
+
+.section {
+  width: 100%;
+
+  .text__title-section {
+    margin-bottom: var(--fs-spacing-3);
+  }
+}
+
+.section__divisor {
+  padding-top: var(--fs-spacing-5);
+  border-top: var(--fs-border-width) solid var(--fs-border-color-light);
+
+  @include media(">=notebook") { padding-top: var(--fs-spacing-9); }
+}

@@ -1,13 +1,13 @@
 import { Command } from '@oclif/core'
-import chokidar from 'chokidar'
 import { spawn } from 'child_process'
+import chokidar from 'chokidar'
 
-import { generate } from '../utils/generate'
 import { getRoot, tmpDir } from '../utils/directory'
+import { generate } from '../utils/generate'
 
 /**
  * Taken from toolbelt
- * 
+ *
  * https://github.com/vtex/toolbelt/pull/442
  */
 const stabilityThreshold = process.platform === 'darwin' ? 100 : 200
@@ -29,7 +29,7 @@ const defaultIgnored = [
 const devAbortController = new AbortController()
 
 async function storeDev() {
-  const devProcess = spawn('yarn develop', {
+  const devProcess = spawn('yarn dev', {
     shell: true,
     cwd: tmpDir,
     signal: devAbortController.signal,
@@ -66,7 +66,7 @@ export default class Dev extends Command {
     })
 
     await generate({ setup: true })
-    
+
     storeDev()
 
     return await new Promise((resolve, reject) => {

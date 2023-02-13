@@ -1,0 +1,82 @@
+import { useState } from 'react'
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Selectors from '.'
+
+<Meta title="Molecules/SkuSelector/Selectors" component={Selectors} />
+
+<header>
+
+# Selectors
+
+Component used for controlling behavior and the SKUs selection of the `SkuSelector`.
+
+</header>
+
+## Overview
+
+The `Selectors` component is responsible for rendering `SkuSelector` according to the kind of variants available for each product.
+
+It also handles the general `SkuSelector` behavior, like navigating between SKUs and managing the combination between available SKUs for each variant.
+
+---
+
+## Usage
+
+The code snippet below is an example of what `Selectors` props should look like, but remember that this info comes from the API when the product has available SKU variants.
+
+`import Selectors from 'src/components/ui/SkuSelector'`
+
+<Canvas withSource="open" className="no-code">
+  <Story
+    name="overview"
+    decorators={[
+      (Story) => (
+        <div style={{ display: 'none' }}>
+          <Story />
+        </div>
+      ),
+    ]}
+  >
+    <Selectors
+      activeVariations={{ Size: '41', Color: 'White' }}
+      slugsMap={{
+        'Color-Pink-Size-42': 'classic-shoes-37',
+        'Color-White-Size-42': 'classic-shoes-36',
+        'Color-White-Size-41': 'classic-shoes-310124175',
+      }}
+      availableVariations={{
+        Size: [
+          {
+            src: '/',
+            label: '42',
+            value: '42',
+            alt: 'Size 42',
+          },
+          {
+            src: '/',
+            label: '41',
+            value: '41',
+            alt: 'Size 41',
+          },
+        ],
+        Color: [
+          {
+            src: '/',
+            label: 'Pink',
+            value: 'Pink',
+            alt: 'Color Pink',
+          },
+          {
+            src: '/',
+            label: 'White',
+            value: 'White',
+            alt: 'Color White',
+          },
+        ],
+      }}
+    />
+  </Story>
+</Canvas>
+
+<ArgsTable of={Selectors} />

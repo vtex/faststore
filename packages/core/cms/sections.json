@@ -1,0 +1,397 @@
+[
+  {
+    "name": "Alert",
+    "schema": {
+      "title": "Alert",
+      "description": "Add an alert",
+      "type": "object",
+      "required": ["icon", "content", "dismissible"],
+      "properties": {
+        "icon": {
+          "type": "string",
+          "title": "Icon",
+          "enumNames": [
+            "Bell",
+            "BellRinging",
+            "Checked",
+            "Info",
+            "Truck",
+            "User"
+          ],
+          "enum": ["Bell", "BellRinging", "Checked", "Info", "Truck", "User"]
+        },
+        "content": {
+          "type": "string",
+          "title": "Content"
+        },
+        "link": {
+          "title": "Link",
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "title": "Link Text"
+            },
+            "to": {
+              "type": "string",
+              "title": "Action link"
+            }
+          }
+        },
+        "dismissible": {
+          "type": "boolean",
+          "default": false,
+          "title": "Is dismissible?"
+        }
+      }
+    }
+  },
+  {
+    "name": "BannerText",
+    "schema": {
+      "title": "Banner Text",
+      "description": "Add a quick promotion with a text/action pair",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "caption": {
+          "type": "string"
+        },
+        "actionPath": {
+          "type": "string",
+          "title": "Action link"
+        },
+        "actionLabel": {
+          "type": "string",
+          "title": "Action label"
+        },
+        "colorVariant": {
+          "type": "string",
+          "title": "Color Variant",
+          "enumNames": ["Main", "Light", "Accent"],
+          "enum": ["main", "light", "accent"]
+        },
+        "variant": {
+          "type": "string",
+          "title": "Variant",
+          "enumNames": ["Primary", "Secondary"],
+          "enum": ["primary", "secondary"]
+        }
+      }
+    }
+  },
+  {
+    "name": "Hero",
+    "schema": {
+      "title": "Hero",
+      "description": "Add a quick promotion with an image/action pair",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "linkText": {
+          "type": "string",
+          "title": "Link text"
+        },
+        "link": {
+          "type": "string",
+          "title": "Link path"
+        },
+        "imageSrc": {
+          "type": "string",
+          "title": "Image",
+          "widget": {
+            "ui:widget": "image-uploader"
+          }
+        },
+        "imageAlt": {
+          "type": "string",
+          "title": "Alt text"
+        }
+      }
+    }
+  },
+  {
+    "name": "IncentivesHeader",
+    "schema": {
+      "title": "Incentives Header",
+      "description": "Add Incentives to your shopper",
+      "type": "object",
+      "properties": {
+        "incentives": {
+          "title": "Incentives",
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 5,
+          "items": {
+            "title": "Incentive",
+            "type": "object",
+            "required": ["title", "firstLineText", "icon"],
+            "properties": {
+              "title": {
+                "type": "string",
+                "title": "Title"
+              },
+              "firstLineText": {
+                "type": "string",
+                "title": "First line text"
+              },
+              "secondLineText": {
+                "type": "string",
+                "title": "Second line text"
+              },
+              "icon": {
+                "type": "string",
+                "title": "Icon",
+                "enumNames": [
+                  "Truck",
+                  "Calendar",
+                  "Gift",
+                  "Store Front",
+                  "Shield Check"
+                ],
+                "enum": [
+                  "Truck",
+                  "Calendar",
+                  "Gift",
+                  "Storefront",
+                  "ShieldCheck"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "ProductShelf",
+    "schema": {
+      "title": "Product Shelf",
+      "description": "Add custom shelves to your store",
+      "type": "object",
+      "required": ["title", "first", "after", "sort"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title"
+        },
+        "first": {
+          "type": "integer",
+          "title": "First",
+          "default": 5,
+          "description": "Number of items to display"
+        },
+        "after": {
+          "type": "string",
+          "title": "After",
+          "default": "0",
+          "description": "Initial pagination item"
+        },
+        "sort": {
+          "title": "Sort",
+          "description": "Items order",
+          "default": "score_desc",
+          "enum": [
+            "discount_desc",
+            "name_asc",
+            "name_desc",
+            "orders_desc",
+            "price_asc",
+            "price_desc",
+            "release_desc",
+            "score_desc"
+          ],
+          "enumNames": [
+            "Discount: higher to lower",
+            "Name: Z-A",
+            "Name: A-Z",
+            "Orders: higher to lower",
+            "Price: lower to higher",
+            "Price: higher to lower",
+            "Release date: newer to older",
+            "Relevance: higher to lower"
+          ]
+        },
+        "term": {
+          "type": "string",
+          "title": "Search term"
+        },
+        "selectedFacets": {
+          "title": "Facets",
+          "type": "array",
+          "items": {
+            "title": "Facet",
+            "type": "object",
+            "required": ["key", "value"],
+            "properties": {
+              "key": {
+                "title": "Key",
+                "description": "Tip: For collections, use: productClusterIds",
+                "type": "string",
+                "default": "productClusterIds"
+              },
+              "value": {
+                "title": "Value",
+                "description": "Tip: For collection 140, use: 140",
+                "type": "string",
+                "default": "140"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "CrossSellingShelf",
+    "schema": {
+      "title": "Cross Selling Shelf",
+      "description": "Add cross selling product data to your users",
+      "type": "object",
+      "required": ["title", "items", "kind"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title"
+        },
+        "items": {
+          "type": "integer",
+          "title": "First",
+          "default": 5,
+          "description": "Number of items to display"
+        },
+        "kind": {
+          "title": "Kind",
+          "description": "Change cross selling types",
+          "default": "buy",
+          "enum": ["buy", "view"],
+          "enumNames": ["Who bought also bought", "Who saw also saw"]
+        }
+      }
+    }
+  },
+  {
+    "name": "ProductTiles",
+    "schema": {
+      "title": "Product Tiles",
+      "description": "Add custom highlights to your store",
+      "type": "object",
+      "required": ["title", "first", "after", "sort"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title"
+        },
+        "first": {
+          "type": "integer",
+          "title": "First",
+          "default": 3,
+          "description": "Number of items to display"
+        },
+        "after": {
+          "type": "string",
+          "title": "After",
+          "default": "0",
+          "description": "Initial pagination item"
+        },
+        "sort": {
+          "title": "Sort",
+          "description": "Items order",
+          "default": "score_desc",
+          "enum": [
+            "discount_desc",
+            "name_asc",
+            "name_desc",
+            "orders_desc",
+            "price_asc",
+            "price_desc",
+            "release_desc",
+            "score_desc"
+          ],
+          "enumNames": [
+            "Discount: higher to lower",
+            "Name: Z-A",
+            "Name: A-Z",
+            "Orders: higher to lower",
+            "Price: lower to higher",
+            "Price: higher to lower",
+            "Release date: newer to older",
+            "Relevance: higher to lower"
+          ]
+        },
+        "term": {
+          "type": "string",
+          "title": "Search term"
+        },
+        "selectedFacets": {
+          "title": "Facets",
+          "type": "array",
+          "items": {
+            "title": "Facet",
+            "type": "object",
+            "required": ["key", "value"],
+            "properties": {
+              "key": {
+                "title": "Key",
+                "description": "Tip: For collections, use: productClusterIds",
+                "type": "string",
+                "default": "productClusterIds"
+              },
+              "value": {
+                "title": "Value",
+                "description": "Tip: For collection 140, use: 140",
+                "type": "string",
+                "default": "140"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "Newsletter",
+    "schema": {
+      "title": "Newsletter",
+      "description": "Allow users to subscribe to your updates",
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title"
+        },
+        "description": {
+          "type": "string",
+          "title": "Description"
+        }
+      }
+    }
+  },
+  {
+    "name": "BannerNewsletter",
+    "schema": {
+      "title": "Banner Newsletter",
+      "description": "Add newsletter with a banner",
+      "type": "object",
+      "required": [],
+      "properties": {}
+    }
+  },
+  {
+    "name": "ProductDetails",
+    "schema": {
+      "title": "Product Details",
+      "description": "Display product gallery with buy button and shipping",
+      "type": "object",
+      "properties": {}
+    }
+  }
+]

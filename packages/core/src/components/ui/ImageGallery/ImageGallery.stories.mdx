@@ -1,0 +1,173 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import { ImageGallery } from '.'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta title="Organisms/ImageGallery" />
+
+export const Template = () => {
+  const productImages = [
+    {
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000',
+      alternateName: 'Magicwhite',
+    },
+    {
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190923/lena-de-fanti-nQ_j5d-klVU-unsplash.jpg?v=637867501523500000',
+      alternateName: 'magicbox',
+    },
+    {
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190924/anthony-choren-e7dG26YCrZU-unsplash.jpg?v=637867501835430000',
+      alternateName: 'magicblackwhite',
+    },
+    {
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190925/maheshkumar-painam-GZdfLeL-MDk-unsplash.jpg?v=637867502064000000',
+      alternateName: 'magiccombo',
+    },
+    {
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190926/math-0U9fBLGP3EY-unsplash.jpg?v=637867502325830000',
+      alternateName: 'magicback',
+    },
+    {
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190927/marek-levak-YPeqMN_wfw0-unsplash.jpg?v=637867502641430000',
+      alternateName: 'magictable',
+    },
+    {
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190928/mouse8.jpg?v=637867504048970000',
+      alternateName: 'magichand',
+    },
+    {
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190929/harpal-singh-KuvEVL7lXYQ-unsplash.jpg?v=637867509459130000',
+      alternateName: 'magicstyle',
+    },
+    {
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190930/chris-hardy-182PzOtcmWc-unsplash.jpg?v=637867509778300000',
+      alternateName: 'magicscale',
+    },
+  ]
+  return <ImageGallery images={productImages} />
+}
+
+export const TemplateWithoutSelector = () => {
+  const productImages = [
+    {
+      url: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000',
+      alternateName: 'Magicwhite',
+    },
+  ]
+  return <ImageGallery images={productImages} />
+}
+
+<header>
+
+# Image Gallery
+
+An `ImageGallery` is used when you want to display a series of photos in a gallery on a post or page.
+
+</header>
+
+## Overview
+
+According to the quantity of `Image` to be displayed, the `ImageGallerySelector` will be displayed.
+
+---
+
+## Usage
+
+`import { ImageGallery } from 'src/components/ui/ImageGallery'`
+
+<Canvas className="sbdocs-image-gallery">
+  <Story name="default">{Template.bind({})}</Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-image-gallery-width"
+    value="calc(100% + (2 * var(--fs-grid-padding)))"
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-image-gallery-gap-mobile" value="var(--fs-spacing-2)" />
+  <TokenRow
+    token="--fs-image-gallery-gap-notebook"
+    value="var(--fs-spacing-3)"
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Current Selected Image
+
+<TokenTable>
+  <TokenRow token="--fs-image-gallery-current-height" value="33.125rem" />
+  <TokenRow
+    token="--fs-image-gallery-current-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+### Selector
+
+<TokenTable>
+  <TokenRow token="--fs-image-gallery-selector-max-height" value="33.125rem" />
+</TokenTable>
+
+### Selector Elements
+
+<TokenTable>
+  <TokenRow
+    token="--fs-image-gallery-selector-elements-gap"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-image-gallery-selector-elements-gap-notebook"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-image-gallery-selector-elements-padding"
+    value="var(--fs-spacing-0)"
+  />
+</TokenTable>
+
+### Selector Thumbnail
+
+<TokenTable>
+  <TokenRow
+    token="--fs-image-gallery-selector-thumbnail-width-mobile"
+    value="3.5rem"
+  />
+  <TokenRow
+    token="--fs-image-gallery-selector-thumbnail-width-notebook"
+    value="4.5rem"
+  />
+  <TokenRow
+    token="--fs-image-gallery-selector-thumbnail-border-radius"
+    value="var(--fs-border-radius)"
+  />
+  <TokenRow
+    token="--fs-image-gallery-selector-thumbnail-selected-border-color"
+    value="var(--fs-border-color-active)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### With Selector (More than 1 Image)
+
+<Canvas className="sbdocs-image-gallery">
+  <Story name="overview-default">{Template.bind({})}</Story>
+</Canvas>
+
+### Without Selector
+
+<Canvas className="sbdocs-image-gallery">
+  <Story name="overview-default-2">{TemplateWithoutSelector.bind({})}</Story>
+</Canvas>
