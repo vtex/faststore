@@ -1,0 +1,94 @@
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+
+<header className="hero">
+
+# Customizing
+
+**Design tokens** are parameters that affect all UI look 'n' feel and they are the **main configuration** file of a Theme. Component-specific tokens often inherit from global tokens but are named specifically to apply those tokens in component development.
+
+</header>
+
+## Global Tokens
+
+FastStore uses a default theme called `Brandless`, which provides structural styles for your components and pages. Please read [Brandless's page](/brandless) to further information about our themeable architecture.
+
+Its presets are defined on `src/styles/global/tokens.scss` and it's separated in these main areas:
+
+<SectionList grid="column" classes="tokensLinks">
+  <SectionItem
+    title="Colors"
+    actionPath="/global-tokens/colors"
+    description={<>The store palette with all the tones needed.</>}
+  ></SectionItem>
+  <SectionItem
+    title="Typography"
+    actionPath="/global-tokens/typography"
+    description={
+      <>
+        A standard scale and basic definitions for your text:{' '}
+        <code>font family</code>,<code>weight</code> and <code>sizes</code>.
+      </>
+    }
+  ></SectionItem>
+  <SectionItem
+    title="Spacing"
+    actionPath="/global-tokens/spacing"
+    description={
+      <>
+        All tokens used for spacings on the store: <code>padding</code>,{' '}
+        <code>margins</code> and <code>sizes</code>. It's also used as base for
+        grid tokens.
+      </>
+    }
+  ></SectionItem>
+  <SectionItem
+    title="Grid & Layout"
+    actionPath="/global-tokens/grid-and-layout"
+    description={
+      <>
+        <code>Padding</code>, <code>Container</code>, <code>Gaps</code> and{' '}
+        <code>Breakpoints</code> definitions.
+      </>
+    }
+  ></SectionItem>
+  <SectionItem
+    title="Interactive Controls"
+    actionPath="/global-tokens/interactive-controls"
+    description={
+      <>
+        <code>Tap</code>, <code>States</code> and <code>Sizing</code>{' '}
+        definitions.
+      </>
+    }
+  ></SectionItem>
+  <SectionItem
+    title="Refinements"
+    actionPath="/global-tokens/refinements"
+    description={
+      <>
+        <code>Transition</code>, <code>Borders</code> and <code>Shadow</code>{' '}
+        definitions.
+      </>
+    }
+  ></SectionItem>
+</SectionList>
+
+---
+
+## Build your new theme
+
+1. Create a new `.scss` file on `src/styles/themes` and overwrite the tokens you want: e.g. `my-theme.scss`
+2. Import `my-theme.scss` file on `src/pages/_app.tsx`
+
+```jsx
+import '../styles/themes/my-theme.scss'
+```
+
+3. Go to `faststore.config.js` and change the `theme` to your file's name:
+
+```js
+// Theming
+theme: 'my-theme',
+```
+
+If you want, you can work on `custom-theme.scss` file that's ready to use. Also, we provide two themes as examples: [soft-blue](/soft-blue) and [midnight](/midnight).
