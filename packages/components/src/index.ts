@@ -111,6 +111,16 @@ export { default as RadioGroup, RadioOption } from './molecules/RadioGroup'
 export type { RadioGroupProps, RadioOptionProps } from './molecules/RadioGroup'
 export { default as Rating } from './molecules/Rating'
 export type { RatingProps } from './molecules/Rating'
+export {
+  default as SearchProductCard,
+  SearchProductCardImage,
+  SearchProductCardContent,
+} from './molecules/SearchProductCard'
+export type {
+  SearchProductCardProps,
+  SearchProductCardImageProps,
+  SearchProductCardContentProps,
+} from './molecules/SearchProductCard'
 export { default as SelectField } from './molecules/SelectField'
 export type { SelectFieldProps } from './molecules/SelectField'
 export {
