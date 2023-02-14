@@ -77,7 +77,39 @@ Its presets are defined on `src/base/tokens.scss` in [@faststore/ui](https://git
 
 ## Build your new theme
 
-1. Create a new `.scss` file on `src/themes` and overwrite the tokens you want: e.g. `my-theme.scss`
+1. Create a new `.scss` file on `src/themes` (e.g. `my-theme.scss`) in your starter project, and add the tokens you want to overwrite inside the `.theme` class:
+
+```css
+.theme {
+  // --------------------------------------------------------
+  // Colors (Branding Core)
+  // --------------------------------------------------------
+
+  // --------------------------------------------------------
+  // Typography (Branding Core)
+  // --------------------------------------------------------
+
+  // --------------------------------------------------------
+  // Spacing (UI Essentials)
+  // --------------------------------------------------------
+
+  // --------------------------------------------------------
+  // Grid & Layout (UI Essentials)
+  // --------------------------------------------------------
+
+  // --------------------------------------------------------
+  // Interactive Controls (UI Essentials)
+  // --------------------------------------------------------
+
+  // --------------------------------------------------------
+  // Refinements
+  // --------------------------------------------------------
+
+  // --------------------------------------------------------
+  // Components
+  // --------------------------------------------------------
+}
+```
 
 2. Go to `faststore.config.js` and change the `theme` to your file's name:
 
