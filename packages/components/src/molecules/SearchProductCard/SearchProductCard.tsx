@@ -10,14 +10,24 @@ export interface SearchProductCardProps extends HTMLAttributes<HTMLDivElement> {
    */
   testId?: string
   /**
-   * Props for the link from ProductCard component.
+   * Props for the link from SearchProduct component.
    */
   linkProps?: Partial<LinkProps<LinkElementType>>
+  /**
+   * Callback function when SearchProduct link is clicked.
+   */
+  onLinkClick?: () => void
 }
 
 const SearchProductCard = forwardRef<HTMLDivElement, SearchProductCardProps>(
   function ProductCard(
-    { testId = 'fs-search-product-card', linkProps, children, ...otherProps },
+    {
+      testId = 'fs-search-product-card',
+      linkProps,
+      onLinkClick,
+      children,
+      ...otherProps
+    },
     ref
   ) {
     return (
@@ -32,10 +42,7 @@ const SearchProductCard = forwardRef<HTMLDivElement, SearchProductCardProps>(
           data-fs-search-product-card-link
           title={name}
           variant="display"
-          // onClick={() => {
-          //   onClick()
-          //   onSearchInputSelection?.(name, href)
-          // }}
+          onClick={onLinkClick}
         >
           {children}
         </Link>

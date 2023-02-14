@@ -25,7 +25,6 @@ const SearchProductCardContent = forwardRef<
 >(function SearchProductCardContent({ price, title, ...otherProps }, ref) {
   return (
     <section ref={ref} data-fs-search-product-card-content {...otherProps}>
-      {/* <div data-fs-search-product-card-summary> */}
       <p data-fs-search-product-card-title>{title}</p>
       <span data-fs-search-product-card-prices>
         <Price
@@ -45,7 +44,6 @@ const SearchProductCardContent = forwardRef<
           SRText="Price:"
         />
       </span>
-      {/* </div> */}
     </section>
   )
 })
