@@ -19,7 +19,7 @@ const BreadcrumbPure = forwardRef<HTMLDivElement, BreadcrumbPureProps>(
       {
         children,
         divider: rawDivider = '',
-        testId = 'store-breadcrumb',
+        testId = 'fs-breadcrumb',
         ...otherProps
       },
       ref

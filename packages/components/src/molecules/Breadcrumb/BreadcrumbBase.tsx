@@ -61,7 +61,7 @@ const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
     {
       children,
       divider: rawDivider = '',
-      testId = 'store-breadcrumb',
+      testId = 'fs-breadcrumb',
       breadcrumbList,
       isDesktop = false,
       renderLink,
