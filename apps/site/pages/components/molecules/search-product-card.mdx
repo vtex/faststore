@@ -49,7 +49,27 @@ Card to show details of the product and suggest in `SearchDropdown`.
       </SearchProductCard>
     </OverviewSection>
   </Tab>
-  <Tab>```tsx Test ```</Tab>
+  <Tab>
+    ```tsx
+    <SearchProductCard>
+      <SearchProductCardImage>
+        <img
+          data-fs-image
+          src={product.image[1].url}
+          alt={product.image[1].alternateName}
+        />
+      </SearchProductCardImage>
+      <SearchProductCardContent
+        title={product.isVariantOf.name}
+        price={{
+          value: product.offers.offers[0].price,
+          listPrice: product.offers.offers[0].listPrice,
+          formatter: useFormattedPrice,
+        }}
+      />
+    </SearchProductCard>
+    ```
+  </Tab>
 </Tabs>
 
 ---
@@ -59,7 +79,11 @@ Card to show details of the product and suggest in `SearchDropdown`.
 Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
 ```tsx
-import { SearchProductCard } from '@faststore/ui'
+import {
+  SearchProductCard,
+  SearchProductCardImage,
+  SearchProductCardContent,
+} from '@faststore/ui'
 ```
 
 Import Styles
@@ -71,6 +95,51 @@ import '@faststore/ui/src/components/molecules/SearchProductCard/styles.scss'
 ---
 
 ## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SearchProductCard>
+        <SearchProductCardImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </SearchProductCardImage>
+        <SearchProductCardContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+        />
+      </SearchProductCard>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <SearchProductCard>
+      <SearchProductCardImage>
+        <img
+          data-fs-image
+          src={product.image[1].url}
+          alt={product.image[1].alternateName}
+        />
+      </SearchProductCardImage>
+      <SearchProductCardContent
+        title={product.isVariantOf.name}
+        price={{
+          value: product.offers.offers[0].price,
+          listPrice: product.offers.offers[0].listPrice,
+          formatter: useFormattedPrice,
+        }}
+      />
+    </SearchProductCard>
+    ```
+  </Tab>
+</Tabs>
 
 ---
 
@@ -94,8 +163,59 @@ All search product related components support all attributes also supported by t
 
 ## Design Tokens
 
+### Nested Elements
+
+### Link
+
+<TokenTable>
+  <TokenRow
+    token="--fs-suggestion-product-card-link-padding"
+    value="var(--fs-spacing-1) var(--fs-spacing-3)"
+  />
+</TokenTable>
+
+### Image
+
+<TokenTable>
+  <TokenRow
+    token="--fs-suggestion-product-card-image-border-radius"
+    value="var(--fs-border-radius)"
+  />
+  <TokenRow
+    token="--fs-suggestion-product-card-image-margin-right"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow token="--fs-suggestion-product-card-image-height" value="3.5rem" />
+</TokenTable>
+
+### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-suggestion-product-card-title-margin-bottom"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow
+    token="--fs-suggestion-product-card-title-line-height"
+    value="1.2"
+  />
+  <TokenRow
+    token="--fs-suggestion-product-card-title-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+</TokenTable>
+
 ---
 
 ## Customization
 
 For further customization, you can use the following data attributes:
+
+`data-fs-search-product-card`
+
+`data-fs-search-product-card-link`
+
+`data-fs-search-product-card-image`
+
+`data-fs-search-product-card-content`
