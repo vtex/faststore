@@ -9,8 +9,23 @@
     "type": "separator",
     "title": "Theming"
   },
-  "brandless": "Brandless",
-  "customizing": "Customizing",
-  "themes": "Themes",
+  "brandless": {
+    "title": "Brandless",
+    "theme": {
+      "layout": "full"
+    }
+  },
+  "customizing": {
+    "title": "Customizing",
+    "theme": {
+      "layout": "full"
+    }
+  },
+  "themes": {
+    "title": "Themes",
+    "theme": {
+      "layout": "full"
+    }
+  },
   "global-tokens": "Global Tokens"
 }
