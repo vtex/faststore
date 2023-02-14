@@ -1,6 +1,6 @@
 {
-  "extends": "@faststore/shared/tsconfig.json",
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "declaration": false,
     "moduleResolution": "node",
     "jsx": "preserve",
@@ -15,11 +15,14 @@
       "src/*": ["src/*"],
       "@generated/*": ["@generated/*"]
     },
+    "forceConsistentCasingInFileNames": true,
     "strict": false,
     "incremental": true,
     "isolatedModules": true,
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"]
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "skipLibCheck": true,
+    "esModuleInterop": true
   },
   "include": ["*.d.ts", "src/**/*.ts", "src/**/*.tsx", "@generated/**/*.ts"],
   "exclude": ["node_modules", "public", "src/components/search/searchMock.ts"]
