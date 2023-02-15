@@ -1,6 +1,4 @@
-@import "src/styles/scaffold";
-
-.fs-breadcrumb {
+[data-fs-breadcrumb] {
   // --------------------------------------------------------
   // Design Tokens for Breadcrumb
   // --------------------------------------------------------
@@ -48,14 +46,14 @@
     width: 50%;
   }
 
-  [data-breadcrumb-list] {
+  [data-fs-breadcrumb-list] {
     display: flex;
     align-items: center;
     margin-left: var(--fs-breadcrumb-margin-left);
     overflow-x: hidden;
   }
 
-  [data-breadcrumb-list-item] {
+  [data-fs-breadcrumb-list-item] {
     display: inline-flex;
     align-items: center;
     padding: var(--fs-breadcrumb-list-item-padding);
@@ -104,7 +102,7 @@
     }
   }
 
-  [data-breadcrumb-item] {
+  [data-fs-breadcrumb-item] {
     display: block;
     width: 100%;
     overflow: hidden;
@@ -112,7 +110,7 @@
     white-space: nowrap;
   }
 
-  [data-breadcrumb-divider] {
+  [data-fs-breadcrumb-divider] {
     height: var(--fs-breadcrumb-divider-height);
     margin: var(--fs-breadcrumb-divider-margin);
     border-left: var(--fs-breadcrumb-divider-border-left-width) solid var(--fs-breadcrumb-divider-border-left-color);
@@ -139,6 +137,30 @@
 
     &:focus, &:focus-visible {
       @include focus-ring;
+    }
+  }
+
+  &[data-fs-breadcrumb-is-desktop="true"] {
+    @include media("<notebook") {
+      display: none;
+      visibility: hidden;
+    }
+  }
+
+  &[data-fs-breadcrumb-is-desktop="false"] {
+    @include media(">=notebook") {
+      display: none;
+      visibility: hidden;
+    }
+  }
+}
+
+[data-fs-breadcrumb-dropdown-menu] {
+  [data-fs-breadcrumb-dropdown-link] {
+    padding: 0;
+
+    &:visited {
+      color: var(--fs-breadcrumb-link-color-visited);
     }
   }
 }

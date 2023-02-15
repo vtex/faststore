@@ -52,6 +52,14 @@ export type {
 } from './molecules/Accordion'
 export { default as Alert } from './molecules/Alert'
 export type { AlertProps } from './molecules/Alert'
+export {
+  BreadcrumbPure,
+  Breadcrumb,
+} from './molecules/Breadcrumb'
+export type {
+  BreadcrumbPureProps,
+  BreadcrumbProps,
+} from './molecules/Breadcrumb'
 export { default as BuyButton } from './molecules/BuyButton'
 export {
   default as CartItem,
