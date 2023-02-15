@@ -13,8 +13,14 @@
 
   // Search Product Card Title
   --fs-search-product-card-title-margin-bottom            : var(--fs-spacing-0);
+  --fs-search-product-card-title-size                     : var(--fs-text-size-2);
   --fs-search-product-card-title-line-height              : 1.2;
   --fs-search-product-card-title-color                    : var(--fs-color-text);
+
+  // Search Product Card Prices
+  --fs-search-product-card-price-gap                      : var(--fs-spacing-1);
+  --fs-search-product-card-price-size                     : var(--fs-text-size-2);
+  --fs-search-product-card-price-listing-size             : var(--fs-text-size-1);
 
   [data-fs-search-product-card-image] {
     display: flex;
@@ -28,6 +34,8 @@
   [data-fs-search-product-card-title] {
     margin-bottom: var(--fs-search-product-card-title-margin-bottom);
     line-height: var(--fs-search-product-card-title-line-height);
+    font-size: var(--fs-search-product-card-title-size);
+    font-weight: var(--fs-text-weight-bold);
     color: var(--fs-search-product-card-title-color);
     text-decoration: none;
     outline: none;
@@ -38,6 +46,17 @@
   [data-fs-search-product-card-prices] {
     display: flex;
     align-items: baseline;
+    column-gap: var(--fs-search-product-card-price-gap);
+
+    [data-fs-price-variant="listing"] {
+      font-size: var(--fs-search-product-card-price-listing-size);
+      line-height: 1.7;
+    }
+
+    [data-fs-price-variant="spot"] {
+      font-size: var(--fs-search-product-card-price-size);
+      color: var(--fs-product-card-price-color);
+    }
   }
 
   [data-fs-search-product-card-link] {
