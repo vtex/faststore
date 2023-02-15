@@ -1,8 +1,8 @@
 import React from 'react'
-import { ItemProps } from './ItemProps'
+import { IconProps } from './IconProps'
 
 // Icon from Phosphor Icons
-const DotsThree = ({ size = 24 }: ItemProps) => (
+const DotsThree = ({ size = 24 }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"

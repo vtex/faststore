@@ -1,8 +1,8 @@
 import React from 'react'
-import { ItemProps } from './ItemProps'
+import { IconProps } from './IconProps'
 
 // Icon from Phosphor Icons
-const ArrowElbowDownRight = ({ size  = 24 }: ItemProps) => (
+const ArrowElbowDownRight = ({ size  = 24 }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg" 
     viewBox="0 0 256 256" 
