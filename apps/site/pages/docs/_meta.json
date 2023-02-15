@@ -5,10 +5,27 @@
     "title": "CMS"
   },
   "vtex-headless-cms": "VTEX Headless CMS",
-  "-- Themes --": {
+  "-- Theming --": {
     "type": "separator",
-    "title": "Themes"
+    "title": "Theming"
   },
-  "custom-theme": "Custom Theme",
+  "brandless": {
+    "title": "Brandless",
+    "theme": {
+      "layout": "full"
+    }
+  },
+  "customizing": {
+    "title": "Customizing",
+    "theme": {
+      "layout": "full"
+    }
+  },
+  "themes": {
+    "title": "Themes",
+    "theme": {
+      "layout": "full"
+    }
+  },
   "global-tokens": "Global Tokens"
 }
