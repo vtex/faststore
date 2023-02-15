@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.69-alpha.0](https://github.com/vtex/faststore/compare/v2.0.68-alpha.0...v2.0.69-alpha.0) (2023-02-15)
+
+### Features
+
+- Add `Breadcrumb` component ([#1635](https://github.com/vtex/faststore/issues/1635)) ([20a2f1b](https://github.com/vtex/faststore/commit/20a2f1bb3cf8551e0477b5c4641ae9af4b20a525))
+
 ## [2.0.68-alpha.0](https://github.com/vtex/faststore/compare/v2.0.67-alpha.0...v2.0.68-alpha.0) (2023-02-15)
 
 ### Features
