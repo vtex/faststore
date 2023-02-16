@@ -103,6 +103,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
               testId="list-price"
               data-value={price?.listPrice}
               variant="listing"
+              SRText="Original price:"
             />
             <Price
               value={price?.value ? price.value : 0}
@@ -110,6 +111,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
               testId="price"
               data-value={price?.value}
               variant="spot"
+              SRText="Sale Price:"
             />
           </div>
           {ratingValue && <Rating value={ratingValue} icon={<Star />} />}
