@@ -19,8 +19,7 @@
 
   // Price
   --fs-search-product-card-price-gap                      : var(--fs-spacing-1);
-  --fs-search-product-card-price-size                     : var(--fs-text-size-2);
-  --fs-search-product-card-price-listing-size             : var(--fs-text-size-legend);
+  --fs-search-product-card-price-size                     : var(--fs-text-size-base);
 
   [data-fs-search-product-card-image] {
     display: flex;
@@ -48,14 +47,8 @@
     align-items: baseline;
     column-gap: var(--fs-search-product-card-price-gap);
 
-    [data-fs-price-variant="listing"] {
-      font-size: var(--fs-search-product-card-price-listing-size);
-      line-height: 1.7;
-    }
-
     [data-fs-price-variant="spot"] {
       font-size: var(--fs-search-product-card-price-size);
-      color: var(--fs-product-card-price-color);
     }
   }
 

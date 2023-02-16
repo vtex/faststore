@@ -4,22 +4,27 @@
   // --------------------------------------------------------
 
   // Listing
+  --fs-price-listing-text-size       : var(--fs-text-size-legend);
   --fs-price-listing-color           : var(--fs-color-text-light);
   --fs-price-listing-text-decoration : line-through;
 
   // Spot
   --fs-price-spot-font-weight        : var(--fs-text-weight-bold);
+  --fs-price-spot-color              : var(--fs-color-text);
 
   // --------------------------------------------------------
   // Variants Styles
   // --------------------------------------------------------
 
   &[data-fs-price-variant="listing"] {
+    font-size: var(--fs-price-listing-text-size);
+    line-height: 1.7;
     color: var(--fs-price-listing-color);
     text-decoration: var(--fs-price-listing-text-decoration);
   }
 
   &[data-fs-price-variant="spot"] {
+    color: var(--fs-price-spot-color);
     font-weight: var(--fs-price-spot-font-weight);
   }
 }
