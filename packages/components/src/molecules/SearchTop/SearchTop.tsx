@@ -5,7 +5,13 @@ import type { HTMLAttributes } from 'react'
 import { List, Badge, Link } from '../..'
 
 type TopTerms = {
+  /**
+   * Defines the text displayed in top term item.
+   */
   value: string
+  /**
+   * Defines the url for top term item.
+   */
   href: string
   /**
    * Event handler for clicks on each item.
@@ -18,13 +24,16 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * Defines the section's title.
+   */
   title: string
   /**
-   * List of top searched items
+   * Enables a loading state.
    */
   isLoading?: boolean
   /**
-   * List of top searched items
+   * List of top searched items.
    */
   terms: TopTerms[]
 }
