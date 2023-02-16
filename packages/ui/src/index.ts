@@ -1,9 +1,6 @@
 export * from '@faststore/components'
 
 // Atoms
-export { default as Popover } from './components/atoms/Popover'
-export type { PopoverProps } from './components/atoms/Popover'
-
 export { default as TextArea } from './components/atoms/TextArea'
 export type { TextAreaProps } from './components/atoms/TextArea'
 
