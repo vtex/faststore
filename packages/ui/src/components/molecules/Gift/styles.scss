@@ -27,6 +27,9 @@
   --fs-gift-icon-color        : var(--fs-gift-title-color);
   --fs-gift-icon-bkg-color    : var(--fs-color-body-bkg);
 
+  // Price
+  --fs-gift-price-size        : var(--fs-text-size-legend);
+
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
@@ -77,6 +80,11 @@
 
     [data-fs-badge] {
       margin-left: var(--fs-spacing-1);
+    }
+
+    [data-fs-price-variant="listing"] {
+      font-size: var(--fs-gift-price-size);
+      line-height: 1.7;
     }
   }
 
