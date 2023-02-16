@@ -25,7 +25,7 @@
   --fs-search-top-item-bkg-color-hover    : var(--fs-color-tertiary-bkg-hover);
 
   // Badge
-  --fs-search-top-badge-margin-right      : var(--fs-spacing-1);
+  --fs-search-top-item-badge-margin-right : var(--fs-spacing-1);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -68,8 +68,8 @@
       padding-right: var(--fs-search-top-padding-right);
     }
 
-    [data-fs-search-top-badge] {
-      margin-right: var(--fs-search-top-badge-margin-right);
+    [data-fs-search-top-item-badge] {
+      margin-right: var(--fs-search-top-item-badge-margin-right);
       [data-fs-badge-wrapper] { display: inline-block; }
     }
   }

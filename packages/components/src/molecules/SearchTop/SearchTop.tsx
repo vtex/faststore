@@ -70,7 +70,7 @@ const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(function SearchTop(
                   href={term.href}
                   onClick={term.onClick}
                 >
-                  <Badge data-fs-search-top-badge variant="info">
+                  <Badge data-fs-search-top-item-badge variant="info">
                     {index + 1}
                   </Badge>
                   {term.value}
