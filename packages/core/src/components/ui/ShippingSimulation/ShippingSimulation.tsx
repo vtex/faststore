@@ -5,10 +5,10 @@ import {
   TableCell,
   TableRow,
   InputField as UIInputField,
+  Price as UIPrice,
 } from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
 
-import Price from 'src/components/ui/Price'
 import { usePriceFormatter } from 'src/sdk/product/useFormattedPrice'
 
 import Icon from '../Icon'
@@ -95,7 +95,7 @@ function ShippingSimulation({
                   <TableCell>{option.localizedEstimates}</TableCell>
                   <TableCell align="right">
                     {option.price && (
-                      <Price
+                      <UIPrice
                         formatter={formatter}
                         value={option.price}
                         SRText="price"
