@@ -52,10 +52,7 @@ export type {
 } from './molecules/Accordion'
 export { default as Alert } from './molecules/Alert'
 export type { AlertProps } from './molecules/Alert'
-export {
-  BreadcrumbPure,
-  Breadcrumb,
-} from './molecules/Breadcrumb'
+export { BreadcrumbPure, Breadcrumb } from './molecules/Breadcrumb'
 export type {
   BreadcrumbPureProps,
   BreadcrumbProps,
@@ -129,6 +126,8 @@ export type {
   SearchProductCardImageProps,
   SearchProductCardContentProps,
 } from './molecules/SearchProductCard'
+export { default as SearchTop } from './molecules/SearchTop'
+export type { SearchTopProps } from './molecules/SearchTop'
 export { default as SelectField } from './molecules/SelectField'
 export type { SelectFieldProps } from './molecules/SelectField'
 export {
