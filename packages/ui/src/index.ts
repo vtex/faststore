@@ -17,19 +17,6 @@ export type { SkuSelectorProps } from './components/molecules/SkuSelector'
 export { default as OrderSummary } from './components/molecules/OrderSummary'
 export type { OrderSummaryProps } from './components/molecules/OrderSummary'
 
-export {
-  default as Card,
-  CardImage,
-  CardContent,
-  CardActions,
-} from './components/molecules/Card'
-export type {
-  CardProps,
-  CardImageProps,
-  CardContentProps,
-  CardActionsProps,
-} from './components/molecules/Card'
-
 export { default as Bullets } from './components/molecules/Bullets'
 export type { BulletsProps } from './components/molecules/Bullets'
 
