@@ -126,6 +126,8 @@ export type {
   SearchProductCardImageProps,
   SearchProductCardContentProps,
 } from './molecules/SearchProductCard'
+export { default as SearchHistory } from './molecules/SearchHistory'
+export type { SearchHistoryProps } from './molecules/SearchHistory'
 export { default as SearchTop } from './molecules/SearchTop'
 export type { SearchTopProps } from './molecules/SearchTop'
 export { default as SelectField } from './molecules/SelectField'
