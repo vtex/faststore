@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.70-alpha.0](https://github.com/vtex/faststore/compare/v2.0.69-alpha.0...v2.0.70-alpha.0) (2023-02-16)
+
+### Features
+
+- Adds `SearchProductCard` component ([#1640](https://github.com/vtex/faststore/issues/1640)) ([e175c8c](https://github.com/vtex/faststore/commit/e175c8c49e9c4caf9bc1730df14fa19f0f062356))
+
 ## [2.0.69-alpha.0](https://github.com/vtex/faststore/compare/v2.0.68-alpha.0...v2.0.69-alpha.0) (2023-02-15)
 
 ### Features
