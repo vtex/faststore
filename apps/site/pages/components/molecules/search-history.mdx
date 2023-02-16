@@ -1,0 +1,219 @@
+---
+description: Responsible for showing the latest terms searched by the user.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/AggregateRating___a8300916874f5a11de7633b7cabc12e9.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SearchHistory } from '@faststore/ui'
+import { SearchTop } from '@faststore/ui'
+
+<header>
+
+# Search History
+
+Responsible for showing the latest terms searched by the user.
+
+</header>
+
+export const terms = [
+  {
+    term: 'Notebooks',
+    path: '/',
+  },
+  {
+    term: 'Laser Printer',
+    path: '/',
+  },
+  {
+    term: 'Bluetooth Keyboard',
+    path: '/',
+  },
+]
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SearchHistory terms={terms} title="History" />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+
+    ```tsx
+    export const terms = [
+      {
+        term: 'Notebooks',
+        path: '/',
+      },
+      {
+        term: 'Laser Printer',
+        path: '/',
+      },
+      {
+        term: 'Bluetooth Keyboard',
+        path: '/',
+      },
+    ]
+
+    <SearchHistory terms={terms} title="History" />
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { SearchHistory } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/SearchHistory/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SearchHistory terms={terms} title="History" />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+
+    ```tsx
+    export const terms = [
+      {
+        term: 'Notebooks',
+        path: '/',
+      },
+      {
+        term: 'Laser Printer',
+        path: '/',
+      },
+      {
+        term: 'Bluetooth Keyboard',
+        path: '/',
+      },
+    ]
+
+    <SearchHistory terms={terms} title="History" />
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+<PropsSection name="SearchHistory" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-history-padding-top"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-search-history-padding-right"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-search-history-padding-bottom"
+    value="var(--fs-search-history-padding-top)"
+  />
+  <TokenRow
+    token="--fs-search-history-padding-left"
+    value="var(--fs-search-history-padding-right)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Header
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-history-header-padding-top"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-search-history-header-padding-bottom"
+    value="var(--fs-search-history-header-padding-top)"
+  />
+</TokenTable>
+
+#### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-history-title-size"
+    value="var(--fs-text-size-lead)"
+  />
+  <TokenRow token="--fs-search-history-title-line-height" value="1.5" />
+</TokenTable>
+
+#### Item
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-history-item-text-size"
+    value="var(--fs-text-size-2)"
+  />
+  <TokenRow token="--fs-search-history-item-line-height" value="1.25" />
+  <TokenRow
+    token="--fs-search-history-item-bkg-color-hover"
+    value="var(--fs-color-tertiary-bkg-hover)"
+    isColor
+  />
+</TokenTable>
+
+#### Icon
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-history-item-icon-color"
+    value="var(--fs-color-neutral-4)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-search-history-item-icon-margin-right"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow token="--fs-search-history-item-icon-size" value="1.125rem" />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-search-history`
+
+`data-fs-search-history-header`
+
+`data-fs-search-history-title`
+
+`data-fs-search-history-item`
+
+`data-fs-search-history-item-link`
+
+`data-fs-search-history-item-icon`
