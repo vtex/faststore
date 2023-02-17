@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.71-alpha.0](https://github.com/vtex/faststore/compare/v2.0.70-alpha.0...v2.0.71-alpha.0) (2023-02-17)
+
+### Chores
+
+- **deps:** bump undici from 5.0.0 to 5.19.1 ([#1644](https://github.com/vtex/faststore/issues/1644)) ([4eea9f3](https://github.com/vtex/faststore/commit/4eea9f374f6baec2957494381ad082a75ace3788)), closes [nodejs/undici#1910](https://github.com/nodejs/undici/issues/1910) [nodejs/undici#1911](https://github.com/nodejs/undici/issues/1911) [nodejs/undici#1916](https://github.com/nodejs/undici/issues/1916) [nodejs/undici#1915](https://github.com/nodejs/undici/issues/1915) [nodejs/undici#1917](https://github.com/nodejs/undici/issues/1917) [nodejs/undici#1913](https://github.com/nodejs/undici/issues/1913) [nodejs/undici#1918](https://github.com/nodejs/undici/issues/1918) [nodejs/undici#1927](https://github.com/nodejs/undici/issues/1927) [nodejs/undici#1911](https://github.com/nodejs/undici/issues/1911) [nodejs/undici#1913](https://github.com/nodejs/undici/issues/1913) [nodejs/undici#1904](https://github.com/nodejs/undici/issues/1904) [nodejs/undici#1908](https://github.com/nodejs/undici/issues/1908) [nodejs/undici#1899](https://github.com/nodejs/undici/issues/1899) [nodejs/undici#1880](https://github.com/nodejs/undici/issues/1880) [nodejs/undici#1881](https://github.com/nodejs/undici/issues/1881) [nodejs/undici#1884](https://github.com/nodejs/undici/issues/1884) [nodejs/undici#1879](https://github.com/nodejs/undici/issues/1879) [nodejs/undici#1896](https://github.com/nodejs/undici/issues/1896) [nodejs/undici#1894](https://github.com/nodejs/undici/issues/1894) [nodejs/undici#1895](https://github.com/nodejs/undici/issues/1895) [nodejs/undici#1889](https://github.com/nodejs/undici/issues/1889) [#1918](https://github.com/vtex/faststore/issues/1918) [#1913](https://github.com/vtex/faststore/issues/1913) [#1917](https://github.com/vtex/faststore/issues/1917) [#1915](https://github.com/vtex/faststore/issues/1915)
+
 ## [2.0.70-alpha.0](https://github.com/vtex/faststore/compare/v2.0.69-alpha.0...v2.0.70-alpha.0) (2023-02-16)
 
 ### Features
