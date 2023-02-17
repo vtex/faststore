@@ -8,8 +8,8 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { SearchHistory } from '@faststore/ui'
-import { SearchTop } from '@faststore/ui'
+import { SearchHistory, SearchHistoryTerm } from '@faststore/ui'
+import { Star, Heart, ClockClockwise } from '@faststore/components'
 
 <header>
 
@@ -19,48 +19,26 @@ Responsible for showing the latest terms searched by the user.
 
 </header>
 
-export const terms = [
-  {
-    term: 'Notebooks',
-    path: '/',
-  },
-  {
-    term: 'Laser Printer',
-    path: '/',
-  },
-  {
-    term: 'Bluetooth Keyboard',
-    path: '/',
-  },
-]
-
 ## Overview
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <SearchHistory terms={terms} title="History" />
+      <SearchHistory title="History">
+        <SearchHistoryTerm value="Headphone" href="/" />
+        <SearchHistoryTerm value="Audio & Video" href="/" />
+        <SearchHistoryTerm value="mh-7000" href="/" />
+      </SearchHistory>
     </OverviewSection>
   </Tab>
   <Tab>
 
     ```tsx
-    export const terms = [
-      {
-        term: 'Notebooks',
-        path: '/',
-      },
-      {
-        term: 'Laser Printer',
-        path: '/',
-      },
-      {
-        term: 'Bluetooth Keyboard',
-        path: '/',
-      },
-    ]
-
-    <SearchHistory terms={terms} title="History" />
+    <SearchHistory title="History">
+      <SearchHistoryTerm value="Headphone" href="/" />
+      <SearchHistoryTerm value="Audio & Video" href="/" />
+      <SearchHistoryTerm value="mh-7000" href="/" />
+    </SearchHistory>
     ```
 
   </Tab>
@@ -86,41 +64,32 @@ import '@faststore/ui/src/components/molecules/SearchHistory/styles.scss'
 
 ## Usage
 
-<Tabs items={['Example', 'Code']} defaultIndex="0">
-  <Tab>
-    <OverviewSection>
-      <SearchHistory terms={terms} title="History" />
-    </OverviewSection>
-  </Tab>
-  <Tab>
-
-    ```tsx
-    export const terms = [
-      {
-        term: 'Notebooks',
-        path: '/',
-      },
-      {
-        term: 'Laser Printer',
-        path: '/',
-      },
-      {
-        term: 'Bluetooth Keyboard',
-        path: '/',
-      },
-    ]
-
-    <SearchHistory terms={terms} title="History" />
-    ```
-
-  </Tab>
-</Tabs>
+<OverviewSection>
+  <SearchHistory title="History">
+    <SearchHistoryTerm value="Headphone" href="/" />
+    <SearchHistoryTerm value="Audio & Video" href="/" />
+    <SearchHistoryTerm value="mh-7000" href="/" />
+  </SearchHistory>
+</OverviewSection>
+```tsx
+<SearchHistory title="History">
+  <SearchHistoryTerm value="Headphone" href="/" />
+  <SearchHistoryTerm value="Audio & Video" href="/" />
+  <SearchHistoryTerm value="mh-7000" href="/" />
+</SearchHistory>
+```
 
 ---
 
 ## Props
 
+### Search History
+
 <PropsSection name="SearchHistory" />
+
+### Search History Term
+
+<PropsSection name="SearchHistoryTerm" />
 
 ---
 
@@ -199,6 +168,25 @@ import '@faststore/ui/src/components/molecules/SearchHistory/styles.scss'
   />
   <TokenRow token="--fs-search-history-item-icon-size" value="1.125rem" />
 </TokenTable>
+
+---
+
+## Variants
+
+## Other Icons
+
+<OverviewSection>
+  <SearchHistory title="History">
+    <SearchHistoryTerm value="Headphone" href="/" icon={<Star />} />
+    <SearchHistoryTerm value="Audio & Video" href="/" icon={<Heart />} />
+  </SearchHistory>
+</OverviewSection>
+```tsx
+<SearchHistory title="History">
+  <SearchHistoryTerm value="Headphone" href="/" icon={<Star />} />
+  <SearchHistoryTerm value="Audio & Video" href="/" icon={<Heart />} />
+</SearchHistory>
+```
 
 ---
 

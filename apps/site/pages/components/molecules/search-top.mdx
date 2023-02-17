@@ -8,7 +8,7 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { SearchTop } from '@faststore/ui'
+import { SearchTop, SearchTopTerm } from '@faststore/ui'
 
 <header>
 
@@ -18,48 +18,26 @@ This section displays the most searched terms by customers.
 
 </header>
 
-export const terms = [
-  {
-    value: 'Notebooks',
-    href: '/',
-  },
-  {
-    value: 'Laser Printer',
-    href: '/',
-  },
-  {
-    value: 'Bluetooth Keyboard',
-    href: '/',
-  },
-]
-
 ## Overview
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <SearchTop terms={terms} title="Top Search" />
+      <SearchTop title="Top Search">
+        <SearchTopTerm value="Notebooks" href="/" index={0} />
+        <SearchTopTerm value="Laser Printer" href="/" index={1} />
+        <SearchTopTerm value="Bluetooth Keyboard" href="/" index={2} />
+      </SearchTop>
     </OverviewSection>
   </Tab>
   <Tab>
 
     ```tsx
-    export const terms = [
-      {
-        value: 'Notebooks',
-        href: '/',
-      },
-      {
-        value: 'Laser Printer',
-        href: '/',
-      },
-      {
-        value: 'Bluetooth Keyboard',
-        href: '/',
-      },
-    ]
-
-    <SearchTop terms={terms} title="Top Search" />
+    <SearchTop title="Top Search">
+      <SearchTopTerm value="Notebooks" href="/" index={0} />
+      <SearchTopTerm value="Laser Printer" href="/" index={1} />
+      <SearchTopTerm value="Bluetooth Keyboard" href="/" index={2} />
+    </SearchTop>
     ```
 
   </Tab>
@@ -85,41 +63,32 @@ import '@faststore/ui/src/components/molecules/SearchTop/styles.scss'
 
 ## Usage
 
-<Tabs items={['Example', 'Code']} defaultIndex="0">
-  <Tab>
-    <OverviewSection>
-      <SearchTop terms={terms} title="Top Search" />
-    </OverviewSection>
-  </Tab>
-  <Tab>
-
-    ```tsx
-    export const terms = [
-      {
-        value: 'Notebooks',
-        href: '/',
-      },
-      {
-        value: 'Laser Printer',
-        href: '/',
-      },
-      {
-        value: 'Bluetooth Keyboard',
-        href: '/',
-      },
-    ]
-
-    <SearchTop terms={terms} title="Top Search" />
-    ```
-
-  </Tab>
-</Tabs>
+<OverviewSection>
+  <SearchTop title="Top Search">
+    <SearchTopTerm value="Notebooks" href="/" index={0} />
+    <SearchTopTerm value="Laser Printer" href="/" index={1} />
+    <SearchTopTerm value="Bluetooth Keyboard" href="/" index={2} />
+  </SearchTop>
+</OverviewSection>
+```tsx
+<SearchTop title="Top Search">
+  <SearchTopTerm value="Notebooks" href="/" index={0} />
+  <SearchTopTerm value="Laser Printer" href="/" index={1} />
+  <SearchTopTerm value="Bluetooth Keyboard" href="/" index={2} />
+</SearchTop>
+```
 
 ---
 
 ## Props
 
+### Search Top
+
 <PropsSection name="SearchTop" />
+
+### Search Top Term
+
+<PropsSection name="SearchTopTerm" />
 
 ---
 
