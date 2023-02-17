@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.72-alpha.0](https://github.com/vtex/faststore/compare/v2.0.71-alpha.0...v2.0.72-alpha.0) (2023-02-17)
+
+### Chores
+
+- **deps:** bump ua-parser-js from 0.7.32 to 0.7.33 ([#1621](https://github.com/vtex/faststore/issues/1621)) ([a5cf09a](https://github.com/vtex/faststore/commit/a5cf09ac2ef361b92a7c705d7c2c3ce220a44ba1)), closes [#605](https://github.com/vtex/faststore/issues/605) [#606](https://github.com/vtex/faststore/issues/606) [#604](https://github.com/vtex/faststore/issues/604)
+
 ## [2.0.71-alpha.0](https://github.com/vtex/faststore/compare/v2.0.70-alpha.0...v2.0.71-alpha.0) (2023-02-17)
 
 ### Chores
