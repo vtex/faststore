@@ -5,7 +5,7 @@ import {
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSearchInput from 'src/sdk/search/useSearchInput'
 
-const SearchHistory = () => {
+const SearchHistory = ({ ...otherProps }) => {
   const { onSearchInputSelection } = useSearchInput()
   const { searchHistory, clearSearchHistory } = useSearchHistory()
 
@@ -14,7 +14,11 @@ const SearchHistory = () => {
   }
 
   return (
-    <UISearchHistory title="History" onClearClick={clearSearchHistory}>
+    <UISearchHistory
+      title="History"
+      onClearClick={clearSearchHistory}
+      {...otherProps}
+    >
       {searchHistory.map((item) => (
         <UISearchHistoryTerm
           value={item.term}

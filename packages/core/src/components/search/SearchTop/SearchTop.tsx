@@ -17,7 +17,7 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(
-  function SearchTop({ topTerms }) {
+  function SearchTop({ topTerms, ...otherProps }) {
     const { onSearchInputSelection } = useSearchInput()
     const { terms, isLoading } = useTopSearch(topTerms)
 
@@ -26,7 +26,7 @@ const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(
     }
 
     return (
-      <UISearchTop title="Top Search" isLoading={isLoading}>
+      <UISearchTop title="Top Search" isLoading={isLoading} {...otherProps}>
         {terms.map((term, index) => (
           <UISearchTopTerm
             value={term.value}
