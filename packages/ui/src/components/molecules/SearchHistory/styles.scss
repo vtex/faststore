@@ -8,6 +8,9 @@
   --fs-search-history-padding-right           : var(--fs-spacing-3);
   --fs-search-history-padding-bottom          : var(--fs-search-history-padding-top);
   --fs-search-history-padding-left            : var(--fs-search-history-padding-right);
+  --fs-search-history-transition-property     : var(--fs-transition-property);
+  --fs-search-history-transition-function     : var(--fs-transition-function);
+  --fs-search-history-transition-timing       : var(--fs-transition-timing);
 
   // Header
   --fs-search-history-header-padding-top      : var(--fs-spacing-1);
@@ -55,6 +58,7 @@
     align-items: center;
     font-size: var(--fs-search-history-item-text-size);
     line-height: var(--fs-search-history-item-line-height);
+    transition: var(--fs-search-history-transition-property) var(--fs-search-history-transition-timing) var(--fs-search-history-transition-function);
 
     &:hover {
       background-color: var(--fs-search-history-item-bkg-color-hover);
