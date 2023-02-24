@@ -1,13 +1,14 @@
 import { gql } from '@faststore/graphql-utils'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   BuyButton as UIBuyButton,
   DiscountBadge as UIDiscountBadge,
   QuantitySelector as UIQuantitySelector,
   ProductTitle as UIProductTitle,
   Price as UIPrice,
+  SkuOption,
 } from '@faststore/ui'
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
@@ -25,10 +26,21 @@ import { useSession } from 'src/sdk/session'
 import ProductDetailsContent from '../ProducDetailsContent'
 import Section from '../Section'
 import styles from './product-details.module.scss'
+import { getSkuSlug } from 'src/components/ui/SkuSelector/skuVariants'
 
 interface Props {
   context: ProductDetailsFragment_ProductFragment
 }
+
+/**
+ * Name of the sku variant property that's considered **dominant**. Which means
+ * that all other varying properties will be filtered by the SkuSelectors
+ * according to the current value of this property.
+ *
+ * Ex: If `Red` is the current value for the 'Color' variation, we'll only
+ * render possible values for 'Size' that are available in `Red`.
+ */
+const DOMINANT_SKU_SELECTOR_PROPERTY = 'Color'
 
 function ProductDetails({ context: staleProduct }: Props) {
   const { currency } = useSession()
@@ -61,6 +73,26 @@ function ProductDetails({ context: staleProduct }: Props) {
       additionalProperty,
     },
   } = data
+
+  const [skuPropertyName] = useMemo(() => {
+    return Object.keys(skuVariants.activeVariations)
+  }, [skuVariants.activeVariations])
+
+  const mountItemHref = useCallback(
+    (option: SkuOption) => {
+      const currentOptionName = skuPropertyName ?? option.label.split(':')[0]
+      const currentItemHref = `/${getSkuSlug(
+        skuVariants.slugsMap,
+        {
+          ...skuVariants.activeVariations,
+          [currentOptionName]: option.value,
+        },
+        skuPropertyName
+      )}/p`
+      return currentItemHref
+    },
+    [skuPropertyName, skuVariants.activeVariations, skuVariants.slugsMap]
+  )
 
   const buyDisabled = availability !== 'https://schema.org/InStock'
 
@@ -170,10 +202,12 @@ function ProductDetails({ context: staleProduct }: Props) {
             </section>
             {skuVariants && (
               <Selectors
-                slugsMap={skuVariants.slugsMap}
-                availableVariations={skuVariants.availableVariations}
-                activeVariations={skuVariants.activeVariations}
                 data-fs-product-details-selectors
+                slugsMap={skuVariants.slugsMap}
+                activeVariations={skuVariants.activeVariations}
+                dominantVariation={DOMINANT_SKU_SELECTOR_PROPERTY}
+                availableVariations={skuVariants.availableVariations}
+                mountItemHref={mountItemHref}
               />
             )}
             {/* NOTE: A loading skeleton had to be used to avoid a Lighthouse's
