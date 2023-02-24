@@ -1,43 +1,71 @@
-import React from 'react'
-import { SkuSelector } from '@faststore/ui'
+import React, { useCallback, useMemo } from 'react'
+import { SkuSelector, SkuSelectorProps, SkuOption } from '@faststore/ui'
+
+import { product } from '../../mocks/product'
+
+import { getSkuSlug } from './skuVariants'
 
 const SkuSelectorColor = () => {
-  const renderLinkFunction = (href: string) => (
-    <a data-fs-sku-selector-option-link href={href} />
+  const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
+    href,
+    children,
+    ...otherProps
+  }) => (
+    <a href={href} {...otherProps}>
+      {children}
+    </a>
+  )
+
+  const [skuPropertyName] = useMemo(() => {
+    return Object.keys(product.isVariantOf.skuVariants.activeVariations)
+  }, [])
+
+  const mountItemHref = useCallback(
+    (option: SkuOption) => {
+      const currentOptionName = skuPropertyName ?? option.label.split(':')[0]
+      const currentItemHref = `/${getSkuSlug(
+        product.isVariantOf.skuVariants.slugsMap,
+        {
+          ...product.isVariantOf.skuVariants.activeVariations,
+          [currentOptionName]: option.value,
+        },
+        skuPropertyName
+      )}/p`
+      return currentItemHref
+    },
+    [skuPropertyName]
   )
 
   const options = [
     {
       alt: 'skuvariation',
-      href: '/product-lalala',
+      label: 'Blue',
       value: 'Blue',
       hexColor: '#6bb5ff',
-      renderLink: renderLinkFunction,
     },
     {
       alt: 'skuvariation',
-      href: '/product-lalala',
+      label: 'Yellow',
       value: 'Yellow',
       hexColor: '#e5c45f',
-      renderLink: renderLinkFunction,
     },
     {
       alt: 'skuvariation',
-      href: '/product-lalala',
-      disabled: true,
+      label: 'Gray',
       value: 'Gray',
       hexColor: '#dfdfdf',
-      renderLink: renderLinkFunction,
+      disabled: true,
     },
   ]
 
   return (
     <SkuSelector
-      activeValue="Blue"
-      label="Color"
-      id="color"
       variant="color"
+      skuPropertyName="Color"
       options={options}
+      LinkComponent={LinkComponent}
+      activeVariations={product.isVariantOf.skuVariants.activeVariations}
+      mountItemHref={mountItemHref}
     />
   )
 }
