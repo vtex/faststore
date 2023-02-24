@@ -1,49 +1,58 @@
-import React from 'react'
-import { SkuSelector } from '@faststore/ui'
+import React, { useCallback, useMemo } from 'react'
+import { SkuSelector, SkuSelectorProps, SkuOption } from '@faststore/ui'
+
+import { product } from '../../mocks/product'
+
+import { getSkuSlug } from './skuVariants'
 
 const SkuSelectorImage = () => {
-  const renderImageFunction = (src: string, alt: string) => (
-    <img data-fs-sku-selector-option-image src={src} alt={alt} />
-  )
-  const renderLinkFunction = (href: string) => (
-    <a data-fs-sku-selector-option-link href={href} />
+  const ImageComponent: SkuSelectorProps['ImageComponent'] = ({
+    src,
+    alt,
+    ...otherProps
+  }) => <img src={src} alt={alt} {...otherProps} />
+
+  const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
+    href,
+    children,
+    ...otherProps
+  }) => (
+    <a href={href} {...otherProps}>
+      {children}
+    </a>
   )
 
-  const options = [
-    {
-      alt: 'skuvariation',
-      src: 'https://storeframework.vtexassets.com/arquivos/ids/190932/mouse-black.jpg?v=1759260622',
-      href: '/product-lalala',
-      value: 'Black',
-      renderLink: renderLinkFunction,
-      renderImage: renderImageFunction,
+  const [skuPropertyName] = useMemo(() => {
+    return Object.keys(product.isVariantOf.skuVariants.activeVariations)
+  }, [])
+
+  const mountItemHref = useCallback(
+    (option: SkuOption) => {
+      const currentOptionName = skuPropertyName ?? option.label.split(':')[0]
+      const currentItemHref = `/${getSkuSlug(
+        product.isVariantOf.skuVariants.slugsMap,
+        {
+          ...product.isVariantOf.skuVariants.activeVariations,
+          [currentOptionName]: option.value,
+        },
+        skuPropertyName
+      )}/p`
+      return currentItemHref
     },
-    {
-      alt: 'skuvariation',
-      src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
-      href: '/product-lalala',
-      value: 'White',
-      renderLink: renderLinkFunction,
-      renderImage: renderImageFunction,
-    },
-    {
-      alt: 'skuvariation',
-      src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
-      href: '/product-lalala',
-      value: 'Gray',
-      disabled: true,
-      renderLink: renderLinkFunction,
-      renderImage: renderImageFunction,
-    },
-  ]
+    [skuPropertyName]
+  )
 
   return (
     <SkuSelector
-      activeValue="Black"
-      label="Color"
-      id="color-image"
       variant="image"
-      options={options}
+      skuPropertyName={skuPropertyName}
+      options={
+        product.isVariantOf.skuVariants.availableVariations[skuPropertyName]
+      }
+      LinkComponent={LinkComponent}
+      ImageComponent={ImageComponent}
+      activeVariations={product.isVariantOf.skuVariants.activeVariations}
+      mountItemHref={mountItemHref}
     />
   )
 }

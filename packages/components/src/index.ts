@@ -114,7 +114,7 @@ export type { RatingProps } from './molecules/Rating'
 export { default as SelectField } from './molecules/SelectField'
 export type { SelectFieldProps } from './molecules/SelectField'
 export { default as SkuSelector } from './molecules/SkuSelector'
-export type { SkuSelectorProps } from './molecules/SkuSelector'
+export type { SkuSelectorProps, SkuOption } from './molecules/SkuSelector'
 export {
   Table,
   TableBody,
