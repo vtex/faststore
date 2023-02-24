@@ -34,121 +34,56 @@ The `SkuSelector` component is mainly used in Product Details Pages (PDPs) to di
   <Tab>
     <OverviewSection>
       <SkuSelectorImage />
-      <SkuSelectorLabel />
-      <SkuSelectorColor />
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
+    const ImageComponent: SkuSelectorProps['ImageComponent'] = ({
+      src,
+      alt,
+      ...otherProps
+    }) => <img src={src} alt={alt} {...otherProps} />
 
-    const renderImageFunction = (src: string, alt: string) => <img data-fs-sku-selector-option-image src={src} alt={alt} />
-    const renderLinkFunction = (href: string) => <a data-fs-sku-selector-option-link href={href} />
+    const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
+      href,
+      children,
+      ...otherProps
+    }) => (
+      <a href={href} {...otherProps}>
+        {children}
+      </a>
+    )
 
-    const options = [
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        src: 'https://storeframework.vtexassets.com/arquivos/ids/190932/mouse-black.jpg?v=1759260622',
-        value: 'Black',
-        renderLink: renderLinkFunction,
-        renderImage: renderImageFunction,
+    const [skuPropertyName] = useMemo(() => {
+      return Object.keys(product.isVariantOf.skuVariants.activeVariations)
+    }, [])
+
+    const mountItemHref = useCallback(
+      (option: SkuOption) => {
+        const currentOptionName = skuPropertyName ?? option.label.split(':')[0]
+        const currentItemHref = `/${getSkuSlug(
+          product.isVariantOf.skuVariants.slugsMap,
+          {
+            ...product.isVariantOf.skuVariants.activeVariations,
+            [currentOptionName]: option.value,
+          },
+          skuPropertyName
+        )}/p`
+        return currentItemHref
       },
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
-        value: 'White',
-        renderLink: renderLinkFunction,
-        renderImage: renderImageFunction,
-      },
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
-        value: 'Gray',
-        disabled: true,
-        renderLink: renderLinkFunction,
-        renderImage: renderImageFunction,
-      },
-    ]
+      [skuPropertyName]
+    )
 
     <SkuSelector
-      activeValue="Black"
-      label="Size"
-      id="size"
       variant="image"
-      options={options}
-    />
-    ```
-
-    ```tsx
-    const renderLinkFunction = (href: string) => <a data-fs-sku-selector-option-link href={href} />
-
-    const options = [
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        value: '40',
-        renderLink: renderLinkFunction,
-      },
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        value: '41',
-        renderLink: renderLinkFunction,
-      },
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        disabled: true,
-        value: '42',
-        renderLink: renderLinkFunction,
-      },
-    ]
-
-    <SkuSelector
-      activeValue="41"
-      label="Size"
-      id="size"
-      variant="label"
-      options={options}
-    />
-    ```
-
-    ```tsx
-    const renderLinkFunction = (href: string) => <a data-fs-sku-selector-option-link href={href} />
-
-    const options = [
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        value: 'Blue',
-        hexColor: '#6bb5ff',
-        renderLink: renderLinkFunction,
-      },
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        value: 'Yellow',
-        hexColor: '#e5c45f',
-        renderLink: renderLinkFunction,
-      },
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        disabled: true,
-        value: 'Gray',
-        hexColor: '#dfdfdf',
-        renderLink: renderLinkFunction,
-      },
-    ]
-
-    <SkuSelector
-      activeValue="Blue"
-      label="Color"
-      id="color"
-      variant="color"
-      options={options}
+      skuPropertyName={skuPropertyName}
+      options={
+        product.isVariantOf.skuVariants.availableVariations[skuPropertyName]
+      }
+      LinkComponent={LinkComponent}
+      ImageComponent={ImageComponent}
+      activeVariations={product.isVariantOf.skuVariants.activeVariations}
+      mountItemHref={mountItemHref}
     />
     ```
 
@@ -183,45 +118,6 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
   </Tab>
   <Tab>
     ```tsx
-
-    const renderImageFunction = (src: string, alt: string) => <img data-fs-sku-selector-option-image src={src} alt={alt} />
-    const renderLinkFunction = (href: string) => <a data-fs-sku-selector-option-link href={href} />
-
-    const options = [
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        src: 'https://storeframework.vtexassets.com/arquivos/ids/190932/mouse-black.jpg?v=1759260622',
-        value: 'Black',
-        renderLink: renderLinkFunction,
-        renderImage: renderImageFunction,
-      },
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
-        value: 'White',
-        renderLink: renderLinkFunction,
-        renderImage: renderImageFunction,
-      },
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
-        value: 'Gray',
-        disabled: true,
-        renderLink: renderLinkFunction,
-        renderImage: renderImageFunction,
-      },
-    ]
-
-    <SkuSelector
-      activeValue="Black"
-      label="Size"
-      id="size"
-      variant="image"
-      options={options}
-    />
     ```
 
   </Tab>
@@ -400,98 +296,7 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
 
 #### Label
 
-<Tabs items={['Example', 'Code']} defaultIndex="0">
-  <Tab>
-    <OverviewSection>
-      <SkuSelectorLabel />
-    </OverviewSection>
-  </Tab>
-  <Tab>
-    ```tsx
-    const renderLinkFunction = (href: string) => <a data-fs-sku-selector-option-link href={href} />
-
-    const options = [
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        value: '40',
-        renderLink: renderLinkFunction,
-      },
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        value: '41',
-        renderLink: renderLinkFunction,
-      },
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        disabled: true,
-        value: '42',
-        renderLink: renderLinkFunction,
-      },
-    ]
-
-    <SkuSelector
-      activeValue="41"
-      label="Size"
-      id="size"
-      variant="label"
-      options={options}
-    />
-    ```
-
-  </Tab>
-</Tabs>
-
 #### Color
-
-<Tabs items={['Example', 'Code']} defaultIndex="0">
-  <Tab>
-    <OverviewSection>
-      <SkuSelectorColor />
-    </OverviewSection>
-  </Tab>
-  <Tab>
-    ```tsx
-    const renderLinkFunction = (href: string) => <a data-fs-sku-selector-option-link href={href} />
-
-    const options = [
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        value: 'Blue',
-        hexColor: '#6bb5ff',
-        renderLink: renderLinkFunction,
-      },
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        value: 'Yellow',
-        hexColor: '#e5c45f',
-        renderLink: renderLinkFunction,
-      },
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        disabled: true,
-        value: 'Gray',
-        hexColor: '#dfdfdf',
-        renderLink: renderLinkFunction,
-      },
-    ]
-
-    <SkuSelector
-      activeValue="Blue"
-      label="Color"
-      id="color"
-      variant="color"
-      options={options}
-    />
-    ```
-
-  </Tab>
-</Tabs>
 
 <TokenTable>
   <TokenRow

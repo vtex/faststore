@@ -1,2 +1,2 @@
 export { default } from './SkuSelector'
-export type { SkuSelectorProps } from './SkuSelector'
+export type { SkuSelectorProps, SkuOption } from './SkuSelector'
