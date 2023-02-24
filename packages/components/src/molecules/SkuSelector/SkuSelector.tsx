@@ -1,51 +1,42 @@
-import type { HTMLAttributes } from 'react'
-import React, { forwardRef, ReactNode } from 'react'
+import type {
+  FunctionComponent,
+  HTMLAttributes,
+  PropsWithChildren,
+} from 'react'
+import React, { forwardRef } from 'react'
 import { Label } from '../..'
 
-interface BaseOption {
+export type SkuVariantsByName = Record<
+  string,
+  Array<{ alt: string; src: string; label: string; value: string }>
+>
+
+export interface SkuOption {
+  /**
+   * Alternative text description of the image.
+   */
+  alt?: string
+  /**
+   * Image URL.
+   */
+  src?: string
+  /**
+   * Label to describe the option when selected.
+   */
+  label: string
   /**
    * Current value for this option.
    */
-  value?: string
+  value: string
   /**
    * Specifies that this option should be disabled.
    */
   disabled?: boolean
   /**
-   * URL for option's page. This is used on `renderLink` prop.
-   */
-  href: string
-  /**
-   * Function that returns a React component that will be rendered as a link.
-   */
-  renderLink: (href: string) => ReactNode
-}
-
-interface ImageOption extends BaseOption {
-  /**
-   * Alternative text description of the image. This is used on `renderImage` prop and it's mandatory if you want to use the `Image` variant.
-   */
-  alt?: string
-  /**
-   * Image URL. This is used on `renderImage` prop and it's mandatory if you want to use the `Image` variant.
-   */
-  src?: string
-  /**
-   * Function that returns a React component that will be used to render images.
-   */
-  renderImage?: (src?: string, alt?: string) => ReactNode
-}
-
-interface ColorOption extends BaseOption {
-  /**
    * Hex color code for this option. This is mandatory if you want to use the `Color` variant.
    */
   hexColor?: string
 }
-
-type SkuOptionType = BaseOption | ImageOption | ColorOption
-
-type Variant = 'label' | 'image' | 'color'
 
 export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -54,35 +45,56 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
    */
   testId?: string
   /**
+   * ID of the current instance of the component.
+   */
+  id?: string
+  /**
    * Specify which variant the component should handle.
    */
-  variant: Variant
+  variant: 'label' | 'image' | 'color'
   /**
    * SKU options that should be rendered.
    */
-  options: SkuOptionType[]
+  options: SkuOption[]
   /**
-   * Section label for the SKU selector.
+   * Name of the SKU property that this selector is relative to.
    */
-  label?: string
+  skuPropertyName: string
   /**
    * Currently active variation's value.
    */
-  activeValue: string
+  activeVariations: Record<string, string>
+  mountItemHref: (option: SkuOption) => string
+  /**
+   * Function that returns a React component that will be rendered as a link.
+   */
+  LinkComponent: FunctionComponent<PropsWithChildren<{ href: string }>>
+  /**
+   * Function that returns a React component that will be used to render images.
+   */
+  ImageComponent: FunctionComponent<{
+    src: string
+    alt?: string
+  }>
 }
 
 const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
   function SkuSelector(
     {
-      label,
-      variant = 'label',
       options,
-      testId = 'fs-sku-selector',
-      activeValue,
+      variant,
+      skuPropertyName,
+      testId,
+      activeVariations,
+      mountItemHref,
+      ImageComponent,
+      LinkComponent,
       ...otherProps
     },
     ref
   ) {
+    const activeSelectorValue = activeVariations[skuPropertyName ?? '']
+
     return (
       <div
         ref={ref}
@@ -91,9 +103,9 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
         data-fs-sku-selector-variant={variant}
         {...otherProps}
       >
-        {label && (
+        {skuPropertyName && (
           <Label data-fs-sku-selector-title>
-            {label}: <strong>{activeValue}</strong>
+            {skuPropertyName}: <strong>{activeSelectorValue}</strong>
           </Label>
         )}
         <ul data-fs-sku-selector-list>
@@ -103,11 +115,26 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
                 key={String(index)}
                 data-fs-sku-selector-option
                 data-fs-sku-selector-disabled={option.disabled}
-                data-fs-sku-selector-checked={option.value === activeValue}
+                data-fs-sku-selector-checked={
+                  option.value === activeVariations[skuPropertyName]
+                }
               >
-                {option.renderLink(option.href)}
+                <LinkComponent
+                  data-fs-sku-selector-option-link
+                  href={mountItemHref(option)}
+                />
 
-                {variant === 'color' && 'hexColor' in option && (
+                {variant === 'label' && <span>{option.value}</span>}
+                {variant === 'image' && 'src' in option && (
+                  <span>
+                    <ImageComponent
+                      src={option.src ?? ''}
+                      alt={option.alt ?? ''}
+                      data-fs-sku-selector-option-image
+                    />
+                  </span>
+                )}
+                {variant === 'color' && (
                   <span>
                     <div
                       data-fs-sku-selector-option-color
@@ -120,10 +147,6 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
                       }
                     ></div>
                   </span>
-                )}
-                {variant === 'label' && <span>{option.value}</span>}
-                {variant === 'image' && 'src' in option && (
-                  <span>{option.renderImage?.(option.src!, option.alt)}</span>
                 )}
               </li>
             )
