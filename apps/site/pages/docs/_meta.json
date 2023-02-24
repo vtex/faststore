@@ -27,5 +27,9 @@
       "layout": "full"
     }
   },
-  "global-tokens": "Global Tokens"
+  "global-tokens": "Global Tokens",
+  "-- Media --": {
+    "type": "separator",
+    "title": "Media"
+  }
 }

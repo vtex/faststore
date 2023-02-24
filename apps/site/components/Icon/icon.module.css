@@ -1,0 +1,25 @@
+.icon {
+  display: flex;
+  align-items: center;
+  column-gap: var(--fs-spacing-3);
+  flex: 0 20%;
+}
+
+.iconItem {
+  box-shadow: var(--fs-shadow-darker);
+  padding: var(--fs-spacing-2);
+  border-radius: var(--fs-border-radius-medium);
+  background-color: var(--fs-color-neutral-0);
+}
+.icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.iconList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: var(--fs-spacing-4);
+  row-gap: var(--fs-spacing-3);
+}
