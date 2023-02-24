@@ -35,7 +35,6 @@
   ],
   "dependencies": {
     "@faststore/components": "*",
-    "@reach/popover": "^0.16.0",
     "include-media": "^1.4.10",
     "modern-normalize": "^1.1.0",
     "react-swipeable": "^7.0.0",

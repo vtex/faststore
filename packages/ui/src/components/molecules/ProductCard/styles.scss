@@ -38,8 +38,6 @@
   --fs-product-card-price-gap                : var(--fs-spacing-1);
   --fs-product-card-price-color              : var(--fs-color-text);
   --fs-product-card-price-size               : var(--fs-text-size-base);
-  --fs-product-card-price-listing-color      : var(--fs-color-text-light);
-  --fs-product-card-price-listing-size       : var(--fs-text-size-legend);
 
   // Out Of Stock
   --fs-product-card-out-of-stock-bkg-color   : var(--fs-color-disabled-bkg);
@@ -145,11 +143,6 @@
     [data-fs-price-variant="spot"] {
       font-size: var(--fs-product-card-price-size);
       color: var(--fs-product-card-price-color);
-    }
-
-    [data-fs-price-variant="listing"] {
-      font-size: var(--fs-product-card-price-listing-size);
-      color: var(--fs-product-card-price-listing-color);
     }
   }
 

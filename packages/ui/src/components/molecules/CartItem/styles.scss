@@ -31,7 +31,6 @@
 
   // Prices
   --fs-cart-item-price-gap                : var(--fs-spacing-1);
-  --fs-cart-item-listing-price-text-size  : var(--fs-text-size-legend);
 
 
   // --------------------------------------------------------
@@ -99,7 +98,6 @@
     display: flex;
     align-items: baseline;
     column-gap: var(--fs-cart-item-price-gap);
-    [data-fs-price-variant="listing"] { font-size: var(--fs-cart-item-listing-price-text-size); }
   }
 
   [data-fs-cart-item-actions] {
