@@ -67,9 +67,9 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Function that returns a React component that will be used to render images.
    */
-  ImageComponent: FunctionComponent<{
+  ImageComponent?: FunctionComponent<{
     src: string
-    alt?: string
+    alt: string
   }>
 }
 
@@ -120,7 +120,7 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
                 />
 
                 {variant === 'label' && <span>{option.value}</span>}
-                {variant === 'image' && 'src' in option && (
+                {variant === 'image' && ImageComponent && (
                   <span>
                     <ImageComponent
                       src={option.src ?? ''}
