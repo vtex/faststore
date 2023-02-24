@@ -6,11 +6,6 @@ import type {
 import React, { forwardRef } from 'react'
 import { Label } from '../..'
 
-export type SkuVariantsByName = Record<
-  string,
-  Array<{ alt: string; src: string; label: string; value: string }>
->
-
 export interface SkuOption {
   /**
    * Alternative text description of the image.
