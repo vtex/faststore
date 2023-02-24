@@ -1,10 +1,3 @@
-import type { NextRouter } from 'next/router'
-
-export type SkuVariantsByName = Record<
-  string,
-  Array<{ alt: string; src: string; label: string; value: string }>
->
-
 export function getSkuSlug(
   slugsMap: Record<string, string>,
   selectedVariations: Record<string, string>,
@@ -25,35 +18,4 @@ export function getSkuSlug(
   )
 
   return slugsMap[firstVariationForDominantValue ?? possibleVariants[0]]
-}
-
-export function navigateToSku({
-  router,
-  slugsMap,
-  dominantSku,
-  selectorsState,
-  updatedVariationName,
-  updatedVariationValue,
-}: {
-  router: NextRouter
-  dominantSku: string
-  slugsMap: Record<string, string>
-  selectorsState: Record<string, string>
-  updatedVariationName: string
-  updatedVariationValue: string
-}) {
-  const whereTo = `/${getSkuSlug(
-    slugsMap,
-    {
-      ...selectorsState,
-      [updatedVariationName]: updatedVariationValue,
-    },
-    dominantSku
-  )}/p`
-
-  if (whereTo === window.location.pathname) {
-    return
-  }
-
-  router.push(whereTo)
 }
