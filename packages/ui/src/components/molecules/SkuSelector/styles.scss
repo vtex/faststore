@@ -125,16 +125,18 @@
     &[data-fs-sku-selector-disabled="true"] {
       cursor: not-allowed;
 
-      [data-fs-sku-selector-option-link] { display: none; }
+      [data-fs-sku-selector-option-link] {
+        display: none;
+        pointer-events: none;
+      }
 
       > span {
         overflow: hidden;
         color: var(--fs-sku-selector-option-disabled-color);
         border-color: var(--fs-sku-selector-option-disabled-border-color);
-
+        pointer-events: none;
 
         [data-fs-sku-selector-option-image] { opacity: .7; }
-
 
         &::after {
           position: absolute;
