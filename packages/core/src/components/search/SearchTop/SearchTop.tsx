@@ -29,6 +29,7 @@ const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(
       <UISearchTop title="Top Search" isLoading={isLoading} {...otherProps}>
         {terms.map((term, index) => (
           <UISearchTopTerm
+            key={index}
             value={term.value}
             href={formatSearchPath(term.value)}
             index={index}

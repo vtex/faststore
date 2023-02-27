@@ -21,6 +21,7 @@ const SearchHistory = ({ ...otherProps }) => {
     >
       {searchHistory.map((item) => (
         <UISearchHistoryTerm
+          key={item.term}
           value={item.term}
           href={item.path}
           onClick={() => onSearchInputSelection?.(item.term, item.path)}
