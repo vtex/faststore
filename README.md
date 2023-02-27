@@ -29,7 +29,7 @@
 ## Official Starters
 
 - [Gatsby](https://github.com/vtex-sites/gatsby.store): Basic starter with a generic store.
-- [NextJS](https://github.com/vtex-sites/nextjs.store): Basic starter with a generic store.
+- [NextJS](https://github.com/vtex-sites/starter.store): Basic starter with a generic store.
 
 ## Learn
 
