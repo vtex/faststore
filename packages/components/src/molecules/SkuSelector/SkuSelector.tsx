@@ -59,6 +59,9 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
    * Currently active variation's value.
    */
   activeVariations: Record<string, string>
+  /**
+   * Function that mounts the href string.
+   */
   mountItemHref: (option: SkuOption) => string
   /**
    * Function that returns a React component that will be rendered as a link.
