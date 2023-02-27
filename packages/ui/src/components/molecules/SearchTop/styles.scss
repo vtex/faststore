@@ -23,12 +23,10 @@
   --fs-search-top-title-line-height       : 1.5;
 
   // Item
+  --fs-search-top-item-column-gap         : var(--fs-spacing-1);
   --fs-search-top-item-text-size          : var(--fs-text-size-2);
   --fs-search-top-item-line-height        : 1.25;
   --fs-search-top-item-bkg-color-hover    : var(--fs-color-tertiary-bkg-hover);
-
-  // Badge
-  --fs-search-top-item-badge-margin-right : var(--fs-spacing-1);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -70,11 +68,10 @@
       width: 100%;
       padding-left: var(--fs-search-top-padding-left);
       padding-right: var(--fs-search-top-padding-right);
+      column-gap: var(--fs-search-top-item-column-gap);
     }
 
-    [data-fs-search-top-item-badge] {
-      margin-right: var(--fs-search-top-item-badge-margin-right);
-      [data-fs-badge-wrapper] { display: inline-block; }
-    }
   }
+
+  [data-fs-search-top-item-badge] [data-fs-badge-wrapper] { display: inline-block; }
 }

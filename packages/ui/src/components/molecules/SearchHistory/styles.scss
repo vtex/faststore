@@ -21,13 +21,13 @@
   --fs-search-history-title-line-height       : 1.5;
 
   // Item
+  --fs-search-history-item-column-gap         : var(--fs-spacing-1);
   --fs-search-history-item-text-size          : var(--fs-text-size-2);
   --fs-search-history-item-line-height        : 1.25;
   --fs-search-history-item-bkg-color-hover    : var(--fs-color-tertiary-bkg-hover);
 
   // Icon
   --fs-search-history-item-icon-color         : var(--fs-color-neutral-4);
-  --fs-search-history-item-icon-margin-right  : var(--fs-spacing-1);
   --fs-search-history-item-icon-size          : 1.125rem;
 
   // --------------------------------------------------------
@@ -71,6 +71,7 @@
       width: 100%;
       padding-left: var(--fs-search-history-padding-left);
       padding-right: var(--fs-search-history-padding-right);
+      column-gap: var(--fs-search-history-item-column-gap);
     }
 
     [data-fs-search-history-item-icon] {
@@ -78,7 +79,6 @@
       flex-shrink: 0;
       width: var(--fs-search-history-item-icon-size);
       height: var(--fs-search-history-item-icon-size);
-      margin-right: var(--fs-search-history-item-icon-margin-right);
       color: var(--fs-search-history-item-icon-color);
     }
   }
