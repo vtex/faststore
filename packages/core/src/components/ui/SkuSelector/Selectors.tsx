@@ -5,9 +5,12 @@ import {
   SkuSelector as UISkuSelector,
   SkuSelectorProps,
   SkuOption,
+  Link,
 } from '@faststore/ui'
 import type { SkuVariantsByName } from './SkuSelectorsContext'
 import { SkuSelectorsContext } from './SkuSelectorsContext'
+
+import NextLink from 'next/link'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -54,9 +57,9 @@ const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
   children,
   ...otherProps
 }) => (
-  <a href={href} {...otherProps}>
+  <Link as={NextLink} href={href} {...otherProps}>
     {children}
-  </a>
+  </Link>
 )
 
 function Selectors({
