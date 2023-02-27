@@ -108,6 +108,7 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
             return (
               <li
                 key={String(index)}
+                title={option.label}
                 data-fs-sku-selector-option
                 data-fs-sku-selector-disabled={option.disabled}
                 data-fs-sku-selector-checked={
