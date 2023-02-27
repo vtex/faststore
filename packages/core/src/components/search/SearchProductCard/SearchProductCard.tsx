@@ -1,14 +1,14 @@
-import { Card, CardContent, CardImage } from '@faststore/ui'
+import {
+  SearchProductCard as UISearchProductCard,
+  SearchProductCardContent as UISearchProductCardContent,
+  SearchProductCardImage as UISearchProductCardImage,
+} from '@faststore/ui'
 
 import { Image } from 'src/components/ui/Image'
-import Link from 'src/components/ui/Link'
-import Price from 'src/components/ui/Price'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
 import useSearchInput from 'src/sdk/search/useSearchInput'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
-
-import styles from './search-product-card.module.scss'
 
 type SearchProductCardProps = {
   /**
@@ -27,7 +27,7 @@ function SearchProductCard({
   ...otherProps
 }: SearchProductCardProps) {
   const { onSearchInputSelection } = useSearchInput()
-  const { onClick, href, ...linkProps } = useProductLink({
+  const linkProps = useProductLink({
     product,
     selectedOffer: 0,
     index,
@@ -43,60 +43,26 @@ function SearchProductCard({
   } = product
 
   return (
-    <Card
-      data-fs-search-product-card
-      className={styles.fsSearchProductCard}
-      data-testid="search-product-card"
+    <UISearchProductCard
+      linkProps={linkProps}
+      onLinkClick={() => {
+        linkProps.onClick
+        onSearchInputSelection?.(name, linkProps.href)
+      }}
       {...otherProps}
     >
-      <Link
-        {...linkProps}
-        data-fs-search-product-card-link
-        href={href}
+      <UISearchProductCardImage>
+        <Image src={img.url} alt={img.alternateName} width={56} height={56} />
+      </UISearchProductCardImage>
+      <UISearchProductCardContent
         title={name}
-        variant="display"
-        onClick={() => {
-          onClick()
-          onSearchInputSelection?.(name, href)
+        price={{
+          value: spotPrice,
+          listPrice: listPrice,
+          formatter: useFormattedPrice,
         }}
-      >
-        <CardContent data-fs-search-product-card-content>
-          <CardImage data-fs-search-product-card-image>
-            <Image
-              src={img.url}
-              alt={img.alternateName}
-              width={56}
-              height={56}
-            />
-          </CardImage>
-          <div data-fs-search-product-card-summary>
-            <p className="text__title-mini" data-fs-search-product-card-title>
-              {name}
-            </p>
-            <span data-fs-search-product-card-prices>
-              <Price
-                value={listPrice}
-                formatter={useFormattedPrice}
-                testId="list-price"
-                data-value={listPrice}
-                variant="listing"
-                classes="text__legend"
-                SRText="Original price:"
-              />
-              <Price
-                value={spotPrice}
-                formatter={useFormattedPrice}
-                testId="price"
-                data-value={spotPrice}
-                variant="spot"
-                classes="text__title-mini"
-                SRText="Price:"
-              />
-            </span>
-          </div>
-        </CardContent>
-      </Link>
-    </Card>
+      ></UISearchProductCardContent>
+    </UISearchProductCard>
   )
 }
 

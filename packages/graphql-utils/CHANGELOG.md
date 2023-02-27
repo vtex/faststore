@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.66-alpha.0 (2023-02-13)
+
+### Bug Fixes
+
+- add metadata to search query ([#1633](https://github.com/vtex/faststore/issues/1633)) ([2da7276](https://github.com/vtex/faststore/commit/2da72763301fd6c677b6d7cf9152780c739ba1c1))
+
 ## 2.0.65-alpha.0 (2023-02-13)
 
 **Note:** Version bump only for package @faststore/graphql-utils

@@ -1,6 +1,8 @@
 import type { HTMLAttributes, ElementType, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
+import { SROnly } from '../../'
+
 export type PriceVariant =
   | 'selling'
   | 'listing'
@@ -32,6 +34,10 @@ export interface PriceProps
    * The current use case variant for prices.
    */
   variant?: PriceVariant
+  /**
+   * Text for the screen readers only
+   */
+  SRText?: string
 }
 
 const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
@@ -42,6 +48,7 @@ const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
       variant = 'selling',
       testId = 'fs-price',
       formatter = (price) => price,
+      SRText,
       ...otherProps
     },
     ref
@@ -56,6 +63,7 @@ const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
         data-testid={testId}
         {...otherProps}
       >
+        {SRText && <SROnly text={SRText} />}
         {formattedPrice}
       </Component>
     )

@@ -1,0 +1,31 @@
+.icon {
+  display: flex;
+  flex-direction: row;
+  flex: 0 25%;
+  align-items: center;
+  column-gap: var(--fs-spacing-3);
+  font-size: var(--fs-text-size-1);
+}
+
+.iconItem {
+  box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+  padding: var(--fs-spacing-1);
+  border-radius: var(--fs-border-radius-medium);
+  background-color: var(--fs-color-neutral-0);
+}
+.icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.iconList {
+  display: grid;
+  row-gap: var(--fs-spacing-4);
+}
+
+@media screen and (min-width: 1000px) {
+  .iconList {
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: var(--fs-spacing-4);
+  }
+}

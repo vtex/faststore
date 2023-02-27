@@ -56,3 +56,61 @@
 .sectionItem > article > h3 {
   margin-top: 0;
 }
+
+.tokensLinks {
+  margin-top: var(--fs-spacing-4);
+}
+
+.tokensLinks [data-doc-section-grid="column"] .sectionItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.tokensLinks [data-doc-section-grid="column"] .sectionItem > div {
+  height: 170px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 30% auto;
+}
+
+.tokensLinks .sectionItem > article {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+}
+
+.tokensLinks .sectionItem:nth-child(odd) > div {
+  background-color: var(--fs-color-main-2);
+}
+
+.tokensLinks .sectionItem:nth-child(1) > div {
+  background-image: url("https://vtexhelp.vtexassets.com/assets/docs/src/colors___038effcf345acf3d037bc63ed8671455.png");
+}
+
+.tokensLinks .sectionItem:nth-child(2) > div {
+  background-image: url("https://vtexhelp.vtexassets.com/assets/docs/src/typography___318fbc78202402728a2113e63b47241f.png");
+}
+
+.tokensLinks .sectionItem:nth-child(3) > div {
+  background-image: url("https://vtexhelp.vtexassets.com/assets/docs/src/spacing___ca1d02b0bcc238811347eddc66a807ad.png");
+}
+
+.tokensLinks .sectionItem:nth-child(4) > div {
+  background-image: url("https://vtexhelp.vtexassets.com/assets/docs/src/grid___6dfb4949712be94273bc119b7945babf.png");
+}
+
+.tokensLinks .sectionItem:nth-child(5) > div {
+  background-image: url("https://vtexhelp.vtexassets.com/assets/docs/src/controls___a8302bd539d61653e60cb0aacd1c18e7.png");
+}
+
+.tokensLinks .sectionItem:nth-child(6) > div {
+  background-image: url("https://vtexhelp.vtexassets.com/assets/docs/src/refinements___ca4c7814b2771e84601f4a6d457612fd.png");
+}
+
+.tokensLinks .sectionItem > article [data-fs-button] {
+  width: fit-content;
+  position: relative;
+  left: calc(-1 * var(--fs-spacing-1));
+  margin-top: auto;
+}

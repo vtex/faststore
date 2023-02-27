@@ -4,11 +4,11 @@ import {
   Gift as UIGift,
   GiftContent as UIGiftContent,
   GiftImage as UIGiftImage,
+  Price as UIPrice,
 } from '@faststore/ui'
 
 import Icon from 'src/components/ui/Icon'
 import { Image } from 'src/components/ui/Image'
-import Price from 'src/components/ui/Price'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { CartItem as ICartItem } from 'src/sdk/cart'
 
@@ -48,13 +48,12 @@ function Gift({
           {titleMessage} {item.itemOffered.isVariantOf.name}
         </h3>
         <span data-fs-gift-product-summary>
-          <Price
+          <UIPrice
             value={item.price}
             formatter={useFormattedPrice}
             testId="list-price"
             data-value={item.price}
             variant="listing"
-            classes="text__legend"
             SRText="Original price:"
           />
           <UIBadge>{badgeLabel}</UIBadge>

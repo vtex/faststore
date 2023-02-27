@@ -31,6 +31,7 @@ import {
 } from './directory'
 
 import chalk from 'chalk'
+import stringifyObject from 'stringify-object'
 
 interface GenerateOptions {
   setup?: boolean
@@ -150,17 +151,27 @@ function mergeCMSFile(fileName: string) {
 }
 
 function generateStoreConfigFile(content: any) {
-  return `module.exports = ${JSON.stringify(content, null, 2)}\n`
+  const prettyObject = stringifyObject(content, {
+    indent: '  ',
+    singleQuotes: false,
+  })
+  return `module.exports = ${prettyObject}\n`
 }
 
 async function copyStoreConfig() {
   try {
-    const storeConfigFromStore = await import(userStoreConfigFileDir)
     const storeConfigFromCore = await import(coreStoreConfigFileDir)
+    const storeConfigFromStore = await import(userStoreConfigFileDir)
+
+    // avoid duplicate default values
+    const { default: _, ...otherCoreProps } =
+      storeConfigFromCore
+    const { default: __, ...otherStoreProps } =
+      storeConfigFromStore
 
     const mergedStoreConfig = deepmerge(
-      storeConfigFromCore,
-      storeConfigFromStore
+      { ...otherCoreProps },
+      { ...otherStoreProps }
     )
 
     writeFileSync(

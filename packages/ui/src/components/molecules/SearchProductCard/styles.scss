@@ -1,22 +1,25 @@
-@import "src/styles/scaffold";
-
-.fs-search-product-card {
+[data-fs-search-product-card] {
   // --------------------------------------------------------
   // Design Tokens for Search Product Card
   // --------------------------------------------------------
 
-  // Search Product Card Link
+  // Link
   --fs-search-product-card-link-padding                   : var(--fs-spacing-1) var(--fs-spacing-3);
 
-  // Search Product Card Image
+  // Image
   --fs-search-product-card-image-border-radius            : var(--fs-border-radius);
   --fs-search-product-card-image-margin-right             : var(--fs-spacing-3);
   --fs-search-product-card-image-size                     : 3.5rem;
 
-  // Search Product Card Title
+  // Title
   --fs-search-product-card-title-margin-bottom            : var(--fs-spacing-0);
+  --fs-search-product-card-title-size                     : var(--fs-text-size-2);
   --fs-search-product-card-title-line-height              : 1.2;
   --fs-search-product-card-title-color                    : var(--fs-color-text);
+
+  // Price
+  --fs-search-product-card-price-gap                      : var(--fs-spacing-1);
+  --fs-search-product-card-price-size                     : var(--fs-text-size-base);
 
   [data-fs-search-product-card-image] {
     display: flex;
@@ -27,13 +30,10 @@
     border-radius: var(--fs-search-product-card-image-border-radius);
   }
 
-  [data-fs-search-product-card-content] {
-    display: flex;
-    align-items: center;
-  }
-
   [data-fs-search-product-card-title] {
     margin-bottom: var(--fs-search-product-card-title-margin-bottom);
+    font-size: var(--fs-search-product-card-title-size);
+    font-weight: var(--fs-text-weight-bold);
     line-height: var(--fs-search-product-card-title-line-height);
     color: var(--fs-search-product-card-title-color);
     text-decoration: none;
@@ -45,10 +45,17 @@
   [data-fs-search-product-card-prices] {
     display: flex;
     align-items: baseline;
+    column-gap: var(--fs-search-product-card-price-gap);
+
+    [data-fs-price-variant="spot"] {
+      font-size: var(--fs-search-product-card-price-size);
+    }
   }
 
   [data-fs-search-product-card-link] {
     padding: var(--fs-search-product-card-link-padding);
+    display: flex;
+    align-items: center;
     text-decoration: none;
   }
 }

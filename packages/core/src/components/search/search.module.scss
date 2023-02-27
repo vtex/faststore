@@ -77,6 +77,9 @@
       align-items: center;
       justify-content: flex-start;
       padding-left: var(--fs-search-item-link-padding-left);
+    }
+
+    [data-fs-search-item-link] {
       margin-right: var(--fs-search-item-link-padding-right);
     }
 

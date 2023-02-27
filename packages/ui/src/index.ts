@@ -1,9 +1,6 @@
 export * from '@faststore/components'
 
 // Atoms
-export { default as Popover } from './components/atoms/Popover'
-export type { PopoverProps } from './components/atoms/Popover'
-
 export { default as TextArea } from './components/atoms/TextArea'
 export type { TextAreaProps } from './components/atoms/TextArea'
 
@@ -14,19 +11,6 @@ export type { IncentiveProps } from './components/atoms/Incentive'
 
 export { default as OrderSummary } from './components/molecules/OrderSummary'
 export type { OrderSummaryProps } from './components/molecules/OrderSummary'
-
-export {
-  default as Card,
-  CardImage,
-  CardContent,
-  CardActions,
-} from './components/molecules/Card'
-export type {
-  CardProps,
-  CardImageProps,
-  CardContentProps,
-  CardActionsProps,
-} from './components/molecules/Card'
 
 export { default as Bullets } from './components/molecules/Bullets'
 export type { BulletsProps } from './components/molecules/Bullets'
@@ -52,9 +36,6 @@ export type {
   BannerImageProps,
   BannerLinkProps,
 } from './components/molecules/Banner'
-
-export { default as Breadcrumb } from './components/molecules/Breadcrumb'
-export type { BreadcrumbProps } from './components/molecules/Breadcrumb'
 
 export { default as Form } from './components/molecules/Form'
 export type { FormProps } from './components/molecules/Form'

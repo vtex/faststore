@@ -51,7 +51,7 @@
     [data-fs-price] {
       display: block;
 
-      &[data-variant="spot"] {
+      &[data-fs-price-variant="spot"] {
         margin: 0;
         font-weight: var(--fs-text-weight-black);
       }

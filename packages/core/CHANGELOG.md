@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.72-alpha.0](https://github.com/vtex/faststore/compare/v2.0.71-alpha.0...v2.0.72-alpha.0) (2023-02-17)
+
+### Chores
+
+- **deps:** bump ua-parser-js from 0.7.32 to 0.7.33 ([#1621](https://github.com/vtex/faststore/issues/1621)) ([a5cf09a](https://github.com/vtex/faststore/commit/a5cf09ac2ef361b92a7c705d7c2c3ce220a44ba1)), closes [#605](https://github.com/vtex/faststore/issues/605) [#606](https://github.com/vtex/faststore/issues/606) [#604](https://github.com/vtex/faststore/issues/604)
+
+## [2.0.71-alpha.0](https://github.com/vtex/faststore/compare/v2.0.70-alpha.0...v2.0.71-alpha.0) (2023-02-17)
+
+### Chores
+
+- **deps:** bump undici from 5.0.0 to 5.19.1 ([#1644](https://github.com/vtex/faststore/issues/1644)) ([4eea9f3](https://github.com/vtex/faststore/commit/4eea9f374f6baec2957494381ad082a75ace3788)), closes [nodejs/undici#1910](https://github.com/nodejs/undici/issues/1910) [nodejs/undici#1911](https://github.com/nodejs/undici/issues/1911) [nodejs/undici#1916](https://github.com/nodejs/undici/issues/1916) [nodejs/undici#1915](https://github.com/nodejs/undici/issues/1915) [nodejs/undici#1917](https://github.com/nodejs/undici/issues/1917) [nodejs/undici#1913](https://github.com/nodejs/undici/issues/1913) [nodejs/undici#1918](https://github.com/nodejs/undici/issues/1918) [nodejs/undici#1927](https://github.com/nodejs/undici/issues/1927) [nodejs/undici#1911](https://github.com/nodejs/undici/issues/1911) [nodejs/undici#1913](https://github.com/nodejs/undici/issues/1913) [nodejs/undici#1904](https://github.com/nodejs/undici/issues/1904) [nodejs/undici#1908](https://github.com/nodejs/undici/issues/1908) [nodejs/undici#1899](https://github.com/nodejs/undici/issues/1899) [nodejs/undici#1880](https://github.com/nodejs/undici/issues/1880) [nodejs/undici#1881](https://github.com/nodejs/undici/issues/1881) [nodejs/undici#1884](https://github.com/nodejs/undici/issues/1884) [nodejs/undici#1879](https://github.com/nodejs/undici/issues/1879) [nodejs/undici#1896](https://github.com/nodejs/undici/issues/1896) [nodejs/undici#1894](https://github.com/nodejs/undici/issues/1894) [nodejs/undici#1895](https://github.com/nodejs/undici/issues/1895) [nodejs/undici#1889](https://github.com/nodejs/undici/issues/1889) [#1918](https://github.com/vtex/faststore/issues/1918) [#1913](https://github.com/vtex/faststore/issues/1913) [#1917](https://github.com/vtex/faststore/issues/1917) [#1915](https://github.com/vtex/faststore/issues/1915)
+
+## [2.0.70-alpha.0](https://github.com/vtex/faststore/compare/v2.0.69-alpha.0...v2.0.70-alpha.0) (2023-02-16)
+
+### Features
+
+- Adds `SearchProductCard` component ([#1640](https://github.com/vtex/faststore/issues/1640)) ([e175c8c](https://github.com/vtex/faststore/commit/e175c8c49e9c4caf9bc1730df14fa19f0f062356))
+
+## [2.0.69-alpha.0](https://github.com/vtex/faststore/compare/v2.0.68-alpha.0...v2.0.69-alpha.0) (2023-02-15)
+
+### Features
+
+- Add `Breadcrumb` component ([#1635](https://github.com/vtex/faststore/issues/1635)) ([20a2f1b](https://github.com/vtex/faststore/commit/20a2f1bb3cf8551e0477b5c4641ae9af4b20a525))
+
+## [2.0.67-alpha.0](https://github.com/vtex/faststore/compare/v2.0.66-alpha.0...v2.0.67-alpha.0) (2023-02-14)
+
+### Features
+
+- CLI makes WebOps Evergreen + Vercel ([#1618](https://github.com/vtex/faststore/issues/1618)) ([c8c9083](https://github.com/vtex/faststore/commit/c8c908321f56e7ca570cd15e3ed7a145197a6d38)), closes [/github.com/vtex/vtex-cicd-platform/blob/main/images/faststore-ci-cd/src/plugins/nextjs12/mod.ts#L23](https://github.com/vtex//github.com/vtex/vtex-cicd-platform/blob/main/images/faststore-ci-cd/src/plugins/nextjs12/mod.ts/issues/L23) [/github.com/vtex/faststore/blob/main/packages/cli/src/commands/dev.ts#L29](https://github.com/vtex//github.com/vtex/faststore/blob/main/packages/cli/src/commands/dev.ts/issues/L29)
+
+## 2.0.66-alpha.0 (2023-02-13)
+
+### Bug Fixes
+
+- add metadata to search query ([#1633](https://github.com/vtex/faststore/issues/1633)) ([2da7276](https://github.com/vtex/faststore/commit/2da72763301fd6c677b6d7cf9152780c739ba1c1))
+
 ## 2.0.65-alpha.0 (2023-02-13)
 
 **Note:** Version bump only for package @faststore/core

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.70-alpha.0](https://github.com/vtex/faststore/compare/v2.0.69-alpha.0...v2.0.70-alpha.0) (2023-02-16)
+
+### Features
+
+- Adds `SearchProductCard` component ([#1640](https://github.com/vtex/faststore/issues/1640)) ([e175c8c](https://github.com/vtex/faststore/commit/e175c8c49e9c4caf9bc1730df14fa19f0f062356))
+
+## [2.0.69-alpha.0](https://github.com/vtex/faststore/compare/v2.0.68-alpha.0...v2.0.69-alpha.0) (2023-02-15)
+
+### Features
+
+- Add `Breadcrumb` component ([#1635](https://github.com/vtex/faststore/issues/1635)) ([20a2f1b](https://github.com/vtex/faststore/commit/20a2f1bb3cf8551e0477b5c4641ae9af4b20a525))
+
+## 2.0.66-alpha.0 (2023-02-13)
+
+### Bug Fixes
+
+- add metadata to search query ([#1633](https://github.com/vtex/faststore/issues/1633)) ([2da7276](https://github.com/vtex/faststore/commit/2da72763301fd6c677b6d7cf9152780c739ba1c1))
+
 ## 2.0.65-alpha.0 (2023-02-13)
 
 **Note:** Version bump only for package @faststore/components
