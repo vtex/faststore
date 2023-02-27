@@ -39,12 +39,16 @@ The code snippet below is an example of what `Selectors` props should look like,
     ]}
   >
     <Selectors
-      activeVariations={{ Size: '41', Color: 'White' }}
+      activeVariations={{
+        Color: 'White',
+        Size: '42',
+      }}
       slugsMap={{
         'Color-Pink-Size-42': 'classic-shoes-37',
         'Color-White-Size-42': 'classic-shoes-36',
         'Color-White-Size-41': 'classic-shoes-310124175',
       }}
+      dominantVariation: 'Color'
       availableVariations={{
         Size: [
           {
