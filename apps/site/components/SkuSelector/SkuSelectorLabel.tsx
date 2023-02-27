@@ -1,8 +1,6 @@
 import React, { useCallback, useMemo } from 'react'
 import { SkuSelector, SkuSelectorProps, SkuOption } from '@faststore/ui'
 
-import { product } from '../../mocks/product'
-
 import { getSkuSlug } from './skuVariants'
 
 const SkuSelectorLabel = () => {
@@ -16,9 +14,47 @@ const SkuSelectorLabel = () => {
     </a>
   )
 
+  const product = {
+    name: 'Tech Shirt',
+    isVariantOf: {
+      name: 'Tech Shirt',
+      productGroupID: '99995945',
+      skuVariants: {
+        activeVariations: {
+          Size: '40',
+        },
+        slugsMap: {
+          'Size-40': 'tech-shirt-99988216',
+          'Size-41': 'tech-shirt-99988212',
+          'Size-42': 'tech-shirt-99988210',
+        },
+        availableVariations: {
+          Size: [
+            {
+              alt: 'skuvariation',
+              label: 'Size: 40',
+              value: '40',
+            },
+            {
+              alt: 'skuvariation',
+              label: 'Size: 41',
+              value: '41',
+            },
+            {
+              alt: 'skuvariation',
+              label: 'Size: 42',
+              value: '42',
+              disabled: true,
+            },
+          ],
+        },
+      },
+    },
+  }
+
   const [skuPropertyName] = useMemo(() => {
     return Object.keys(product.isVariantOf.skuVariants.activeVariations)
-  }, [])
+  }, [product.isVariantOf.skuVariants.activeVariations])
 
   const mountItemHref = useCallback(
     (option: SkuOption) => {
@@ -33,33 +69,18 @@ const SkuSelectorLabel = () => {
       )}/p`
       return currentItemHref
     },
-    [skuPropertyName]
+    [
+      product.isVariantOf.skuVariants.activeVariations,
+      product.isVariantOf.skuVariants.slugsMap,
+      skuPropertyName,
+    ]
   )
-
-  const options = [
-    {
-      alt: 'skuvariation',
-      label: '40',
-      value: '40',
-    },
-    {
-      alt: 'skuvariation',
-      label: '41',
-      value: '41',
-    },
-    {
-      alt: 'skuvariation',
-      label: '42',
-      value: '42',
-      disabled: true,
-    },
-  ]
 
   return (
     <SkuSelector
       variant="label"
       skuPropertyName="Size"
-      options={options}
+      options={product.isVariantOf.skuVariants.availableVariations.Size}
       LinkComponent={LinkComponent}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       mountItemHref={mountItemHref}

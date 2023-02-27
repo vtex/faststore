@@ -1,8 +1,6 @@
 import React, { useCallback, useMemo } from 'react'
 import { SkuSelector, SkuSelectorProps, SkuOption } from '@faststore/ui'
 
-import { product } from '../../mocks/product'
-
 import { getSkuSlug } from './skuVariants'
 
 const SkuSelectorColor = () => {
@@ -16,9 +14,50 @@ const SkuSelectorColor = () => {
     </a>
   )
 
+  const product = {
+    name: 'Tech Keyboard',
+    isVariantOf: {
+      name: 'Tech Keyboard',
+      productGroupID: '99995945',
+      skuVariants: {
+        activeVariations: {
+          Color: 'Blue',
+        },
+        slugsMap: {
+          'Color-Blue': 'tech-keyboard-99988216',
+          'Color-Yellow': 'tech-keyboard-99988212',
+          'Color-Gray': 'tech-keyboard-99988210',
+        },
+        availableVariations: {
+          Color: [
+            {
+              hexColor: '#6bb5ff',
+              alt: 'skuvariation',
+              label: 'Color: Blue',
+              value: 'Blue',
+            },
+            {
+              hexColor: '#e5c45f',
+              alt: 'skuvariation',
+              label: 'Color: Yellow',
+              value: 'Yellow',
+            },
+            {
+              hexColor: '#dfdfdf',
+              alt: 'skuvariation',
+              label: 'Color: Gray',
+              value: 'Gray',
+              disabled: true,
+            },
+          ],
+        },
+      },
+    },
+  }
+
   const [skuPropertyName] = useMemo(() => {
     return Object.keys(product.isVariantOf.skuVariants.activeVariations)
-  }, [])
+  }, [product.isVariantOf.skuVariants.activeVariations])
 
   const mountItemHref = useCallback(
     (option: SkuOption) => {
@@ -33,36 +72,18 @@ const SkuSelectorColor = () => {
       )}/p`
       return currentItemHref
     },
-    [skuPropertyName]
+    [
+      product.isVariantOf.skuVariants.activeVariations,
+      product.isVariantOf.skuVariants.slugsMap,
+      skuPropertyName,
+    ]
   )
-
-  const options = [
-    {
-      alt: 'skuvariation',
-      label: 'Blue',
-      value: 'Blue',
-      hexColor: '#6bb5ff',
-    },
-    {
-      alt: 'skuvariation',
-      label: 'Yellow',
-      value: 'Yellow',
-      hexColor: '#e5c45f',
-    },
-    {
-      alt: 'skuvariation',
-      label: 'Gray',
-      value: 'Gray',
-      hexColor: '#dfdfdf',
-      disabled: true,
-    },
-  ]
 
   return (
     <SkuSelector
       variant="color"
       skuPropertyName="Color"
-      options={options}
+      options={product.isVariantOf.skuVariants.availableVariations.Color}
       LinkComponent={LinkComponent}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       mountItemHref={mountItemHref}
