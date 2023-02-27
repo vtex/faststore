@@ -8,7 +8,7 @@
 }
 
 .iconItem {
-  box-shadow: var(--fs-shadow-darker);
+  box-shadow: 0 0 5px rgb(0 0 0 / 20%);
   padding: var(--fs-spacing-1);
   border-radius: var(--fs-border-radius-medium);
   background-color: var(--fs-color-neutral-0);
