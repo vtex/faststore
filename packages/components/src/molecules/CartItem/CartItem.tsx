@@ -77,11 +77,13 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
             value={price?.listPrice ? price.listPrice : 0}
             formatter={price?.formatter}
             variant="listing"
+            SRText="Original price:"
           />
           <Price
             value={price?.value ? price.value : 0}
             formatter={price?.formatter}
             variant="spot"
+            SRText="Price:"
           />
         </span>
       </div>
