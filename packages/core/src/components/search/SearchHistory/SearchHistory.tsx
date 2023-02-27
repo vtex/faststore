@@ -23,7 +23,7 @@ const SearchHistory = ({ ...otherProps }) => {
         <UISearchHistoryTerm
           value={item.term}
           href={item.path}
-          onLinkClick={() => onSearchInputSelection?.(item.term, item.path)}
+          onClick={() => onSearchInputSelection?.(item.term, item.path)}
         />
       ))}
     </UISearchHistory>

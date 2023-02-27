@@ -18,7 +18,7 @@ export interface SearchHistoryTermProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Event handler for clicks on each item.
    */
-  onLinkClick?: () => void
+  onClick?: () => void
   /**
    * Props for the link from term component.
    */
@@ -33,11 +33,10 @@ const SearchHistoryTerm = ({
   testId = 'fs-search-history-term',
   value,
   href,
-  onLinkClick,
+  onClick,
   linkProps,
   icon,
 }: SearchHistoryTermProps) => {
-
   const historyIcon = icon ? icon : <ClockClockwise />
 
   return (
@@ -47,7 +46,7 @@ const SearchHistoryTerm = ({
         data-fs-search-history-item-link
         variant="display"
         href={href}
-        onClick={onLinkClick}
+        onClick={onClick}
       >
         {historyIcon && (
           <Icon component={historyIcon} data-fs-search-history-item-icon />

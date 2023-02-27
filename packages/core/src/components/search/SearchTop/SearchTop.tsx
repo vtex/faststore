@@ -32,7 +32,7 @@ const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(
             value={term.value}
             href={formatSearchPath(term.value)}
             index={index}
-            onLinkClick={() => {
+            onClick={() => {
               onSearchInputSelection?.(term.value, formatSearchPath(term.value))
             }}
           />

@@ -20,7 +20,7 @@ export interface SearchTopTermProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Callback function when term link is clicked.
    */
-  onLinkClick?: () => void
+  onClick?: () => void
   /**
    * Props for the link from term component.
    */
@@ -36,7 +36,7 @@ const SearchTopTerm = forwardRef<HTMLDivElement, SearchTopTermProps>(
     testId = 'fs-top-search-term',
     value,
     href,
-    onLinkClick,
+    onClick,
     linkProps,
     index,
   }) {
@@ -47,7 +47,7 @@ const SearchTopTerm = forwardRef<HTMLDivElement, SearchTopTermProps>(
           data-fs-search-top-item-link
           variant="display"
           href={href}
-          onClick={onLinkClick}
+          onClick={onClick}
         >
           <Badge data-fs-search-top-item-badge variant="info">
             {index + 1}
