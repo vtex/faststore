@@ -40,6 +40,30 @@ The `SkuSelector` component is mainly used in Product Details Pages (PDPs) to di
   </Tab>
   <Tab>
     ```tsx
+    import { product } from '../../mocks/product'
+
+    export function getSkuSlug(
+      slugsMap: Record<string, string>,
+      selectedVariations: Record<string, string>,
+      dominantVariation: string
+    ) {
+      const slugsMapKey = Object.entries(selectedVariations).flat().join('-')
+
+      if (slugsMapKey in slugsMap) {
+        return ( slugsMap[slugsMapKey] )
+      }
+
+      const possibleVariants = Object.keys(slugsMap)
+
+      const firstVariationForDominantValue = possibleVariants.find((slug) =>
+        slug.includes(
+          `${dominantVariation}-${selectedVariations[dominantVariation]}`
+        )
+      )
+
+      return slugsMap[firstVariationForDominantValue ?? possibleVariants[0]]
+    }
+
     const ImageComponent: SkuSelectorProps['ImageComponent'] = ({
       src,
       alt,
@@ -75,7 +99,9 @@ The `SkuSelector` component is mainly used in Product Details Pages (PDPs) to di
       },
       [skuPropertyName]
     )
+    ```
 
+    ```tsx
     <SkuSelector
       variant="image"
       skuPropertyName={skuPropertyName}
@@ -84,6 +110,28 @@ The `SkuSelector` component is mainly used in Product Details Pages (PDPs) to di
       }
       LinkComponent={LinkComponent}
       ImageComponent={ImageComponent}
+      activeVariations={product.isVariantOf.skuVariants.activeVariations}
+      mountItemHref={mountItemHref}
+    />
+    ```
+
+    ```tsx
+    <SkuSelector
+      variant="color"
+      skuPropertyName="Color"
+      options={product.isVariantOf.skuVariants.availableVariations.Color}
+      LinkComponent={LinkComponent}
+      activeVariations={product.isVariantOf.skuVariants.activeVariations}
+      mountItemHref={mountItemHref}
+    />
+    ```
+
+    ```tsx
+    <SkuSelector
+      variant="label"
+      skuPropertyName="Size"
+      options={product.isVariantOf.skuVariants.availableVariations.Size}
+      LinkComponent={LinkComponent}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       mountItemHref={mountItemHref}
     />
@@ -119,7 +167,81 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
     </OverviewSection>
   </Tab>
   <Tab>
+
     ```tsx
+    import { product } from '../../mocks/product'
+
+    export function getSkuSlug(
+      slugsMap: Record<string, string>,
+      selectedVariations: Record<string, string>,
+      dominantVariation: string
+    ) {
+      const slugsMapKey = Object.entries(selectedVariations).flat().join('-')
+
+      if (slugsMapKey in slugsMap) {
+        return ( slugsMap[slugsMapKey] )
+      }
+
+      const possibleVariants = Object.keys(slugsMap)
+
+      const firstVariationForDominantValue = possibleVariants.find((slug) =>
+        slug.includes(
+          `${dominantVariation}-${selectedVariations[dominantVariation]}`
+        )
+      )
+
+      return slugsMap[firstVariationForDominantValue ?? possibleVariants[0]]
+    }
+
+    const ImageComponent: SkuSelectorProps['ImageComponent'] = ({
+      src,
+      alt,
+      ...otherProps
+    }) => <img src={src} alt={alt} {...otherProps} />
+
+    const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
+      href,
+      children,
+      ...otherProps
+    }) => (
+      <a href={href} {...otherProps}>
+        {children}
+      </a>
+    )
+
+    const [skuPropertyName] = useMemo(() => {
+      return Object.keys(product.isVariantOf.skuVariants.activeVariations)
+    }, [])
+
+    const mountItemHref = useCallback(
+      (option: SkuOption) => {
+        const currentOptionName = skuPropertyName ?? option.label.split(':')[0]
+        const currentItemHref = `/${getSkuSlug(
+          product.isVariantOf.skuVariants.slugsMap,
+          {
+            ...product.isVariantOf.skuVariants.activeVariations,
+            [currentOptionName]: option.value,
+          },
+          skuPropertyName
+        )}/p`
+        return currentItemHref
+      },
+      [skuPropertyName]
+    )
+    ```
+
+    ```tsx
+    <SkuSelector
+      variant="image"
+      skuPropertyName={skuPropertyName}
+      options={
+        product.isVariantOf.skuVariants.availableVariations[skuPropertyName]
+      }
+      LinkComponent={LinkComponent}
+      ImageComponent={ImageComponent}
+      activeVariations={product.isVariantOf.skuVariants.activeVariations}
+      mountItemHref={mountItemHref}
+    />
     ```
 
   </Tab>
@@ -230,6 +352,8 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
 
 ### Variants
 
+Make sure to create `mountItemHref` and `getSkuSlug` exemplified in the code of the [Overview](/components/molecules/sku-selector#overview) section.
+
 #### Image
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
@@ -239,45 +363,36 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
     </OverviewSection>
   </Tab>
   <Tab>
+
     ```tsx
+    import { product } from '../../mocks/product'
 
-    const renderImageFunction = (src: string, alt: string) => <img data-fs-sku-selector-option-image src={src} alt={alt} />
-    const renderLinkFunction = (href: string) => <a data-fs-sku-selector-option-link href={href} />
+    const ImageComponent: SkuSelectorProps['ImageComponent'] = ({
+      src,
+      alt,
+      ...otherProps
+    }) => <img src={src} alt={alt} {...otherProps} />
 
-    const options = [
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        src: 'https://storeframework.vtexassets.com/arquivos/ids/190932/mouse-black.jpg?v=1759260622',
-        value: 'Black',
-        renderLink: renderLinkFunction,
-        renderImage: renderImageFunction,
-      },
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
-        value: 'White',
-        renderLink: renderLinkFunction,
-        renderImage: renderImageFunction,
-      },
-      {
-        alt: 'skuvariation',
-        href: '/product-lalala',
-        src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
-        value: 'Gray',
-        disabled: true,
-        renderLink: renderLinkFunction,
-        renderImage: renderImageFunction,
-      },
-    ]
+    const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
+      href,
+      children,
+      ...otherProps
+    }) => (
+      <a href={href} {...otherProps}>
+        {children}
+      </a>
+    )
 
     <SkuSelector
-      activeValue="Black"
-      label="Size"
-      id="size"
       variant="image"
-      options={options}
+      skuPropertyName={skuPropertyName}
+      options={
+        product.isVariantOf.skuVariants.availableVariations[skuPropertyName]
+      }
+      LinkComponent={LinkComponent}
+      ImageComponent={ImageComponent}
+      activeVariations={product.isVariantOf.skuVariants.activeVariations}
+      mountItemHref={mountItemHref}
     />
     ```
 
@@ -298,7 +413,75 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
 
 #### Label
 
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SkuSelectorLabel />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+
+    ```tsx
+    import { product } from '../../mocks/product'
+
+    const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
+      href,
+      children,
+      ...otherProps
+    }) => (
+      <a href={href} {...otherProps}>
+        {children}
+      </a>
+    )
+
+    <SkuSelector
+      variant="label"
+      skuPropertyName="Size"
+      options={product.isVariantOf.skuVariants.availableVariations.Size}
+      LinkComponent={LinkComponent}
+      activeVariations={product.isVariantOf.skuVariants.activeVariations}
+      mountItemHref={mountItemHref}
+    />
+    ```
+
+  </Tab>
+</Tabs>
+
 #### Color
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SkuSelectorColor />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+
+    ```tsx
+    import { product } from '../../mocks/product'
+
+    const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
+      href,
+      children,
+      ...otherProps
+    }) => (
+      <a href={href} {...otherProps}>
+        {children}
+      </a>
+    )
+
+    <SkuSelector
+      variant="color"
+      skuPropertyName="Color"
+      options={product.isVariantOf.skuVariants.availableVariations.Color}
+      LinkComponent={LinkComponent}
+      activeVariations={product.isVariantOf.skuVariants.activeVariations}
+      mountItemHref={mountItemHref}
+    />
+    ```
+
+  </Tab>
+</Tabs>
 
 <TokenTable>
   <TokenRow
