@@ -16,7 +16,7 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Defines the the message displayed while loading.
    */
-  loadingMessage: string
+  loadingMessage?: string
   /**
    * Enables a loading state.
    */

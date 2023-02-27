@@ -31,10 +31,14 @@ const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(
           <UISearchTopTerm
             key={index}
             value={term.value}
-            href={formatSearchPath(term.value)}
             index={index}
-            onClick={() => {
-              onSearchInputSelection?.(term.value, formatSearchPath(term.value))
+            linkProps={{
+              href: formatSearchPath(term.value),
+              onClick: () =>
+                onSearchInputSelection?.(
+                  term.value,
+                  formatSearchPath(term.value)
+                ),
             }}
           />
         ))}

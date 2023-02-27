@@ -12,14 +12,6 @@ export interface SearchHistoryTermProps extends HTMLAttributes<HTMLDivElement> {
    */
   value: string
   /**
-   * Defines the url for history item.
-   */
-  href: string
-  /**
-   * Event handler for clicks on each item.
-   */
-  onClick?: () => void
-  /**
    * Props for the link from term component.
    */
   linkProps?: Partial<LinkProps<LinkElementType>>
@@ -32,8 +24,6 @@ export interface SearchHistoryTermProps extends HTMLAttributes<HTMLDivElement> {
 const SearchHistoryTerm = ({
   testId = 'fs-search-history-term',
   value,
-  href,
-  onClick,
   linkProps,
   icon,
 }: SearchHistoryTermProps) => {
@@ -41,13 +31,7 @@ const SearchHistoryTerm = ({
 
   return (
     <li data-fs-search-history-item data-testid={testId}>
-      <Link
-        {...linkProps}
-        data-fs-search-history-item-link
-        variant="display"
-        href={href}
-        onClick={onClick}
-      >
+      <Link {...linkProps} data-fs-search-history-item-link variant="display">
         {historyIcon && (
           <Icon component={historyIcon} data-fs-search-history-item-icon />
         )}

@@ -14,14 +14,6 @@ export interface SearchTopTermProps extends HTMLAttributes<HTMLDivElement> {
    */
   value: string
   /**
-   * Defines the url for top term item.
-   */
-  href: string
-  /**
-   * Callback function when term link is clicked.
-   */
-  onClick?: () => void
-  /**
    * Props for the link from term component.
    */
   linkProps?: Partial<LinkProps<LinkElementType>>
@@ -35,20 +27,12 @@ const SearchTopTerm = forwardRef<HTMLDivElement, SearchTopTermProps>(
   function SearchTopTerm({
     testId = 'fs-top-search-term',
     value,
-    href,
-    onClick,
     linkProps,
     index,
   }) {
     return (
       <li data-fs-search-top-item data-testid={testId}>
-        <Link
-          {...linkProps}
-          data-fs-search-top-item-link
-          variant="display"
-          href={href}
-          onClick={onClick}
-        >
+        <Link {...linkProps} data-fs-search-top-item-link variant="display">
           <Badge data-fs-search-top-item-badge variant="info">
             {index + 1}
           </Badge>
