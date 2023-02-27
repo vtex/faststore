@@ -35,9 +35,9 @@ const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(function SearchTop(
         <p data-fs-search-top-input-loading-text>Loading...</p>
       ) : (
         <>
-          <div data-fs-search-top-header>
+          <header data-fs-search-top-header>
             <p data-fs-search-top-title>{title}</p>
-          </div>
+          </header>
           <List as="ol">{children}</List>
         </>
       )}

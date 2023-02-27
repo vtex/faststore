@@ -30,12 +30,12 @@ const SearchHistory = ({
 }: SearchHistoryProps) => {
   return (
     <section data-testid={testId} data-fs-search-history {...otherProps}>
-      <div data-fs-search-history-header>
+      <header data-fs-search-history-header>
         <p data-fs-search-history-title>{title}</p>
         <Button variant="tertiary" onClick={onClearClick} size="small">
           {clearLabel}
         </Button>
-      </div>
+      </header>
       <List as="ol">{children}</List>
     </section>
   )
