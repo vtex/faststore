@@ -14,6 +14,10 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
    */
   title: string
   /**
+   * Defines the the message displayed while loading.
+   */
+  loadingMessage: string
+  /**
    * Enables a loading state.
    */
   isLoading?: boolean
@@ -23,6 +27,7 @@ const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(function SearchTop(
   {
     testId = 'fs-top-search',
     title = 'Top Search',
+    loadingMessage = 'Loading...',
     isLoading,
     children,
     ...otherProps
@@ -32,7 +37,7 @@ const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(function SearchTop(
   return (
     <section ref={ref} data-testid={testId} data-fs-search-top {...otherProps}>
       {isLoading ? (
-        <p data-fs-search-top-input-loading-text>Loading...</p>
+        <p data-fs-search-top-input-loading-text>{loadingMessage}</p>
       ) : (
         <>
           <header data-fs-search-top-header>
