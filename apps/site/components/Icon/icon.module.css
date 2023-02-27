@@ -1,25 +1,31 @@
 .icon {
   display: flex;
+  flex-direction: row;
+  flex: 0 25%;
   align-items: center;
   column-gap: var(--fs-spacing-3);
-  flex: 0 20%;
+  font-size: var(--fs-text-size-1);
 }
 
 .iconItem {
   box-shadow: var(--fs-shadow-darker);
-  padding: var(--fs-spacing-2);
+  padding: var(--fs-spacing-1);
   border-radius: var(--fs-border-radius-medium);
   background-color: var(--fs-color-neutral-0);
 }
 .icon svg {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 
 .iconList {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  column-gap: var(--fs-spacing-4);
-  row-gap: var(--fs-spacing-3);
+  display: grid;
+  row-gap: var(--fs-spacing-4);
+}
+
+@media screen and (min-width: 1000px) {
+  .iconList {
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: var(--fs-spacing-4);
+  }
 }
