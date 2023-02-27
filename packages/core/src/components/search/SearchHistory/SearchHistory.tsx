@@ -16,7 +16,7 @@ const SearchHistory = ({ ...otherProps }) => {
   return (
     <UISearchHistory
       title="History"
-      onClearClick={clearSearchHistory}
+      onClear={clearSearchHistory}
       {...otherProps}
     >
       {searchHistory.map((item) => (

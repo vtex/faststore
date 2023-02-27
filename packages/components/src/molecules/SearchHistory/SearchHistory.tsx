@@ -17,14 +17,14 @@ export interface SearchHistoryProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Event handler for click on clear history button.
    */
-  onClearClick?: () => void
+  onClear?: () => void
 }
 
 const SearchHistory = ({
   testId = 'fs-search-history',
   title = 'History',
   clearLabel = 'Clear History',
-  onClearClick,
+  onClear,
   children,
   ...otherProps
 }: SearchHistoryProps) => {
@@ -32,7 +32,7 @@ const SearchHistory = ({
     <section data-testid={testId} data-fs-search-history {...otherProps}>
       <header data-fs-search-history-header>
         <p data-fs-search-history-title>{title}</p>
-        <Button variant="tertiary" onClick={onClearClick} size="small">
+        <Button variant="tertiary" onClick={onClear} size="small">
           {clearLabel}
         </Button>
       </header>
