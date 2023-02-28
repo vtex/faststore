@@ -1,11 +1,12 @@
 import {
   SearchHistory as UISearchHistory,
+  SearchHistoryProps,
   SearchHistoryTerm as UISearchHistoryTerm,
 } from '@faststore/ui'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSearchInput from 'src/sdk/search/useSearchInput'
 
-const SearchHistory = ({ ...otherProps }) => {
+const SearchHistory = (props: SearchHistoryProps) => {
   const { onSearchInputSelection } = useSearchInput()
   const { searchHistory, clearSearchHistory } = useSearchHistory()
 
@@ -14,11 +15,7 @@ const SearchHistory = ({ ...otherProps }) => {
   }
 
   return (
-    <UISearchHistory
-      title="History"
-      onClear={clearSearchHistory}
-      {...otherProps}
-    >
+    <UISearchHistory title="History" onClear={clearSearchHistory} {...props}>
       {searchHistory.map((item) => (
         <UISearchHistoryTerm
           key={item.term}
