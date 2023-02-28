@@ -10,15 +10,15 @@ export interface SearchTopTermProps extends HTMLAttributes<HTMLDivElement> {
    */
   testId?: string
   /**
-   * Defines the text displayed in top term item.
+   * Search term to be shown.
    */
   value: string
   /**
-   * Props for the link from term component.
+   * Props for the `<Link>` rendered by this component.
    */
   linkProps?: Partial<LinkProps<LinkElementType>>
   /**
-   * Defines term's order number.
+   * Current term's position in a list of search terms.
    */
   index: number
 }

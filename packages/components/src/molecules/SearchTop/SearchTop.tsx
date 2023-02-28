@@ -10,7 +10,7 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
    */
   testId?: string
   /**
-   * Defines the section's title.
+   * Title attribute for the <section> tag rendered by this component.
    */
   title: string
   /**
