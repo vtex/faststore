@@ -44,6 +44,8 @@ This is a product related component, we recommend testing it using a product moc
     ```tsx
     import { product } from '../../mocks/product'
 
+    // getSkuSlug
+
     export function getSkuSlug(
       slugsMap: Record<string, string>,
       selectedVariations: Record<string, string>,
@@ -66,21 +68,7 @@ This is a product related component, we recommend testing it using a product moc
       return slugsMap[firstVariationForDominantValue ?? possibleVariants[0]]
     }
 
-    const ImageComponent: SkuSelectorProps['ImageComponent'] = ({
-      src,
-      alt,
-      ...otherProps
-    }) => <img src={src} alt={alt} {...otherProps} />
-
-    const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
-      href,
-      children,
-      ...otherProps
-    }) => (
-      <a href={href} {...otherProps}>
-        {children}
-      </a>
-    )
+    // mountItemHref
 
     const [skuPropertyName] = useMemo(() => {
       return Object.keys(product.isVariantOf.skuVariants.activeVariations)
@@ -104,13 +92,18 @@ This is a product related component, we recommend testing it using a product moc
     ```
 
     ```tsx
+    const ImageComponent: SkuSelectorProps['ImageComponent'] = ({
+      src,
+      alt,
+      ...otherProps
+    }) => <img src={src} alt={alt} {...otherProps} />
+
     <SkuSelector
       variant="image"
       skuPropertyName={skuPropertyName}
       options={
         product.isVariantOf.skuVariants.availableVariations[skuPropertyName]
       }
-      LinkComponent={LinkComponent}
       ImageComponent={ImageComponent}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       mountItemHref={mountItemHref}
@@ -122,7 +115,6 @@ This is a product related component, we recommend testing it using a product moc
       variant="color"
       skuPropertyName="Color"
       options={product.isVariantOf.skuVariants.availableVariations.Color}
-      LinkComponent={LinkComponent}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       mountItemHref={mountItemHref}
     />
@@ -133,7 +125,6 @@ This is a product related component, we recommend testing it using a product moc
       variant="label"
       skuPropertyName="Size"
       options={product.isVariantOf.skuVariants.availableVariations.Size}
-      LinkComponent={LinkComponent}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       mountItemHref={mountItemHref}
     />
@@ -173,6 +164,8 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
     ```tsx
     import { product } from '../../mocks/product'
 
+    // getSkuSlug
+
     export function getSkuSlug(
       slugsMap: Record<string, string>,
       selectedVariations: Record<string, string>,
@@ -195,21 +188,7 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
       return slugsMap[firstVariationForDominantValue ?? possibleVariants[0]]
     }
 
-    const ImageComponent: SkuSelectorProps['ImageComponent'] = ({
-      src,
-      alt,
-      ...otherProps
-    }) => <img src={src} alt={alt} {...otherProps} />
-
-    const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
-      href,
-      children,
-      ...otherProps
-    }) => (
-      <a href={href} {...otherProps}>
-        {children}
-      </a>
-    )
+    // mountItemHref
 
     const [skuPropertyName] = useMemo(() => {
       return Object.keys(product.isVariantOf.skuVariants.activeVariations)
@@ -233,13 +212,18 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
     ```
 
     ```tsx
+    const ImageComponent: SkuSelectorProps['ImageComponent'] = ({
+      src,
+      alt,
+      ...otherProps
+    }) => <img src={src} alt={alt} {...otherProps} />
+
     <SkuSelector
       variant="image"
       skuPropertyName={skuPropertyName}
       options={
         product.isVariantOf.skuVariants.availableVariations[skuPropertyName]
       }
-      LinkComponent={LinkComponent}
       ImageComponent={ImageComponent}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       mountItemHref={mountItemHref}
@@ -375,23 +359,12 @@ Make sure to create `mountItemHref` and `getSkuSlug` exemplified in the code of 
       ...otherProps
     }) => <img src={src} alt={alt} {...otherProps} />
 
-    const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
-      href,
-      children,
-      ...otherProps
-    }) => (
-      <a href={href} {...otherProps}>
-        {children}
-      </a>
-    )
-
     <SkuSelector
       variant="image"
       skuPropertyName={skuPropertyName}
       options={
         product.isVariantOf.skuVariants.availableVariations[skuPropertyName]
       }
-      LinkComponent={LinkComponent}
       ImageComponent={ImageComponent}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       mountItemHref={mountItemHref}
@@ -426,21 +399,10 @@ Make sure to create `mountItemHref` and `getSkuSlug` exemplified in the code of 
     ```tsx
     import { product } from '../../mocks/product'
 
-    const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
-      href,
-      children,
-      ...otherProps
-    }) => (
-      <a href={href} {...otherProps}>
-        {children}
-      </a>
-    )
-
     <SkuSelector
       variant="label"
       skuPropertyName="Size"
       options={product.isVariantOf.skuVariants.availableVariations.Size}
-      LinkComponent={LinkComponent}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       mountItemHref={mountItemHref}
     />
@@ -462,21 +424,10 @@ Make sure to create `mountItemHref` and `getSkuSlug` exemplified in the code of 
     ```tsx
     import { product } from '../../mocks/product'
 
-    const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
-      href,
-      children,
-      ...otherProps
-    }) => (
-      <a href={href} {...otherProps}>
-        {children}
-      </a>
-    )
-
     <SkuSelector
       variant="color"
       skuPropertyName="Color"
       options={product.isVariantOf.skuVariants.availableVariations.Color}
-      LinkComponent={LinkComponent}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       mountItemHref={mountItemHref}
     />

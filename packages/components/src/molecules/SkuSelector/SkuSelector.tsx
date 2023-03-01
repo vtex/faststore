@@ -1,10 +1,6 @@
-import type {
-  FunctionComponent,
-  HTMLAttributes,
-  PropsWithChildren,
-} from 'react'
+import type { FunctionComponent, HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
-import { Label } from '../..'
+import { Label, SROnly, Link, LinkProps, LinkElementType } from '../..'
 
 export interface SkuOption {
   /**
@@ -60,13 +56,13 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
    */
   activeVariations: Record<string, string>
   /**
+   * Extends all Link Props.
+   */
+  linkProps?: Partial<LinkProps<LinkElementType>>
+  /**
    * Function that mounts the href string.
    */
   mountItemHref: (option: SkuOption) => string
-  /**
-   * Function that returns a React component that will be rendered as a link.
-   */
-  LinkComponent: FunctionComponent<PropsWithChildren<{ href: string }>>
   /**
    * Function that returns a React component that will be used to render images.
    */
@@ -84,9 +80,9 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
       skuPropertyName,
       testId,
       activeVariations,
+      linkProps,
       mountItemHref,
       ImageComponent,
-      LinkComponent,
       ...otherProps
     },
     ref
@@ -118,12 +114,16 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
                   option.value === activeVariations[skuPropertyName]
                 }
               >
-                <LinkComponent
+                <Link
                   data-fs-sku-selector-option-link
                   href={mountItemHref(option)}
-                />
+                  {...linkProps}
+                >
+                  <SROnly text={option.label} />
+                </Link>
 
                 {variant === 'label' && <span>{option.value}</span>}
+
                 {variant === 'image' && ImageComponent && (
                   <span>
                     <ImageComponent
@@ -133,6 +133,7 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
                     />
                   </span>
                 )}
+
                 {variant === 'color' && (
                   <span>
                     <div
