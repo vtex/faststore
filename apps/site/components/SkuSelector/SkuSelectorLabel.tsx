@@ -4,16 +4,6 @@ import { SkuSelector, SkuSelectorProps, SkuOption } from '@faststore/ui'
 import { getSkuSlug } from './skuVariants'
 
 const SkuSelectorLabel = () => {
-  const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
-    href,
-    children,
-    ...otherProps
-  }) => (
-    <a href={href} {...otherProps}>
-      {children}
-    </a>
-  )
-
   const product = {
     name: 'Tech Shirt',
     isVariantOf: {
@@ -81,7 +71,6 @@ const SkuSelectorLabel = () => {
       variant="label"
       skuPropertyName="Size"
       options={product.isVariantOf.skuVariants.availableVariations.Size}
-      LinkComponent={LinkComponent}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       mountItemHref={mountItemHref}
     />

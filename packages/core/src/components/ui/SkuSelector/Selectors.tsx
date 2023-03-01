@@ -1,11 +1,10 @@
-import type { HTMLAttributes } from 'react'
+import { HTMLAttributes } from 'react'
 
 import { Image } from '../Image'
 import {
   SkuSelector as UISkuSelector,
   SkuSelectorProps,
   SkuOption,
-  Link,
 } from '@faststore/ui'
 import type { SkuVariantsByName } from './SkuSelectorsContext'
 import { SkuSelectorsContext } from './SkuSelectorsContext'
@@ -52,16 +51,6 @@ const ImageComponent: SkuSelectorProps['ImageComponent'] = ({
   />
 )
 
-const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
-  href,
-  children,
-  ...otherProps
-}) => (
-  <Link as={NextLink} href={href} {...otherProps}>
-    {children}
-  </Link>
-)
-
 function Selectors({
   slugsMap,
   activeVariations,
@@ -87,25 +76,31 @@ function Selectors({
       >
         {dominantOptions && (
           <UISkuSelector
-            skuPropertyName={dominantVariation}
             variant="image"
+            skuPropertyName={dominantVariation}
             options={dominantOptions}
-            LinkComponent={LinkComponent}
             ImageComponent={ImageComponent}
             activeVariations={activeVariations}
+            linkProps={{
+              as: NextLink,
+              legacyBehavior: false,
+            }}
             mountItemHref={mountItemHref}
           />
         )}
         {otherSkuVariants &&
           Object.keys(otherSkuVariants).map((skuVariant) => (
             <UISkuSelector
-              variant="label"
               key={skuVariant}
+              variant="label"
               skuPropertyName={skuVariant}
               options={otherSkuVariants[skuVariant]}
-              LinkComponent={LinkComponent}
               ImageComponent={ImageComponent}
               activeVariations={activeVariations}
+              linkProps={{
+                as: NextLink,
+                legacyBehavior: false,
+              }}
               mountItemHref={mountItemHref}
             />
           ))}

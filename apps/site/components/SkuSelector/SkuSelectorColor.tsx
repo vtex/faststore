@@ -4,16 +4,6 @@ import { SkuSelector, SkuSelectorProps, SkuOption } from '@faststore/ui'
 import { getSkuSlug } from './skuVariants'
 
 const SkuSelectorColor = () => {
-  const LinkComponent: SkuSelectorProps['LinkComponent'] = ({
-    href,
-    children,
-    ...otherProps
-  }) => (
-    <a href={href} {...otherProps}>
-      {children}
-    </a>
-  )
-
   const product = {
     name: 'Tech Keyboard',
     isVariantOf: {
@@ -84,7 +74,6 @@ const SkuSelectorColor = () => {
       variant="color"
       skuPropertyName="Color"
       options={product.isVariantOf.skuVariants.availableVariations.Color}
-      LinkComponent={LinkComponent}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       mountItemHref={mountItemHref}
     />
