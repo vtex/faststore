@@ -1,0 +1,185 @@
+---
+description: This component represents an aditional session that complements the screen's information.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/PaymentMethods___b0f344b254360daa53406cd631887adf.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import {
+  Button,
+  SlideOver,
+  SlideOverHeader,
+  useUI,
+  UIProvider,
+} from '@faststore/ui'
+
+<header>
+
+# SlideOver
+
+This component represents an aditional session that complements the screen's information.
+
+</header>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { SlideOver, SlideOverHeader } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/organisms/SlideOver/styles.scss'
+```
+
+---
+
+export const SlideOverBase = () => {
+  const { modal, openModal } = useUI()
+  return (
+    <>
+      <Button variant="primary" onClick={() => openModal()}>
+        Open Modal
+      </Button>
+      {modal && (
+        <SlideOver isOpen={modal} size="partial" direction="rightSide">
+          <SlideOverHeader onClose={openModal}>SlideOver</SlideOverHeader>
+          <main
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '1rem',
+              height: '100%',
+            }}
+          >
+            <p
+              style={{
+                margin: 'auto',
+              }}
+            >
+              A generic <code>SlideOver</code> component.
+            </p>
+          </main>
+        </SlideOver>
+      )}
+    </>
+  )
+}
+
+export const SlideOverTemplate = () => (
+  <UIProvider>
+    <SlideOverBase />
+  </UIProvider>
+)
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SlideOverTemplate />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+### SlideOver
+
+<PropsSection name="SlideOver" />
+
+### SlideOverHeader
+
+<PropsSection name="SlideOverHeader" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-slide-over-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-slide-over-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Header
+
+<TokenTable>
+  <TokenRow
+    token="--fs-slide-over-header-padding"
+    value="var(--fs-spacing-2) var(--fs-spacing-3) var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-slide-over-header-bkg-color"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+</TokenTable>
+
+### Variants
+
+#### Partial
+
+<TokenTable>
+  <TokenRow
+    token="--fs-slide-over-partial-gap"
+    value="calc(2 * var(--fs-grid-padding))"
+  />
+  <TokenRow
+    token="--fs-slide-over-partial-width-mobile"
+    value="calc(100vw - var(--fs-slide-over-partial-gap))"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-slide-over-partial-width-notebook"
+    value="calc(100% / 3)"
+  />
+  <TokenRow
+    token="--fs-slide-over-partial-max-width-notebook"
+    value="calc(var(--fs-grid-breakpoint-notebook) / 3)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+`data-fs-slide-over`
+
+`data-fs-slide-over-size="full" | "partial"`
+
+`data-fs-slide-over-state="in" | "out"`
+
+`data-fs-slide-over-header`
+
+`data-fs-slide-over-header-icon`
