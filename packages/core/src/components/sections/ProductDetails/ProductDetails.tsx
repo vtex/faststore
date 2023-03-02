@@ -78,7 +78,7 @@ function ProductDetails({ context: staleProduct }: Props) {
     return Object.keys(skuVariants.activeVariations)
   }, [skuVariants.activeVariations])
 
-  const mountItemHref = useCallback(
+  const getItemHref = useCallback(
     (option: SkuOption) => {
       const currentOptionName = skuPropertyName ?? option.label.split(':')[0]
       const currentItemHref = `/${getSkuSlug(
@@ -207,7 +207,7 @@ function ProductDetails({ context: staleProduct }: Props) {
                 activeVariations={skuVariants.activeVariations}
                 dominantVariation={DOMINANT_SKU_SELECTOR_PROPERTY}
                 availableVariations={skuVariants.availableVariations}
-                mountItemHref={mountItemHref}
+                getItemHref={getItemHref}
               />
             )}
             {/* NOTE: A loading skeleton had to be used to avoid a Lighthouse's

@@ -60,9 +60,9 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
    */
   linkProps?: Partial<LinkProps<LinkElementType>>
   /**
-   * Function that mounts the href string.
+   * Function that determines the href string.
    */
-  mountItemHref: (option: SkuOption) => string
+  getItemHref: (option: SkuOption) => string
   /**
    * Function that returns a React component that will be used to render images.
    */
@@ -81,7 +81,7 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
       testId,
       activeVariations,
       linkProps,
-      mountItemHref,
+      getItemHref,
       ImageComponent,
       ...otherProps
     },
@@ -116,7 +116,7 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
               >
                 <Link
                   data-fs-sku-selector-option-link
-                  href={mountItemHref(option)}
+                  href={getItemHref(option)}
                   {...linkProps}
                 >
                   <SROnly text={option.label} />
