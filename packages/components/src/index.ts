@@ -52,10 +52,7 @@ export type {
 } from './molecules/Accordion'
 export { default as Alert } from './molecules/Alert'
 export type { AlertProps } from './molecules/Alert'
-export {
-  BreadcrumbPure,
-  Breadcrumb,
-} from './molecules/Breadcrumb'
+export { BreadcrumbPure, Breadcrumb } from './molecules/Breadcrumb'
 export type {
   BreadcrumbPureProps,
   BreadcrumbProps,
@@ -169,3 +166,9 @@ export type { PaymentMethodsProps } from './organisms/PaymentMethods'
 
 export { default as PriceRange } from './organisms/PriceRange'
 export type { PriceRangeProps } from './organisms/PriceRange'
+
+export { default as SlideOver, SlideOverHeader } from './organisms/SlideOver'
+export type {
+  SlideOverProps,
+  SlideOverHeaderProps,
+} from './organisms/SlideOver'
