@@ -25,16 +25,9 @@
 
   padding: var(--fs-navbar-slider-padding);
 
-  [data-fs-navbar-slider-header] {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  [data-fs-slide-over-header] {
+    padding: 0;
     padding-bottom: var(--fs-navbar-slider-header-padding-bottom);
-
-    [data-fs-navbar-slider-button] {
-      margin-right: var(--fs-navbar-slider-header-button-margin-right);
-    }
   }
 
   [data-fs-navbar-slider-logo] {

@@ -1,11 +1,12 @@
 import { Suspense } from 'react'
-import { IconButton as UIIconButton } from '@faststore/ui'
+import {
+  SlideOver as UISlideOver,
+  SlideOverHeader as UISlideOverHeader,
+} from '@faststore/ui'
 
 import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
-import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
-import SlideOver from 'src/components/ui/SlideOver'
 import { mark } from 'src/sdk/tests/mark'
 import { useUI } from '@faststore/ui'
 import { useFadeEffect } from '@faststore/ui'
@@ -18,7 +19,7 @@ function NavbarSlider() {
   const { fade, fadeOut } = useFadeEffect()
 
   return (
-    <SlideOver
+    <UISlideOver
       isOpen
       fade={fade}
       onDismiss={fadeOut}
@@ -27,7 +28,7 @@ function NavbarSlider() {
       className={styles.fsNavbarSlider}
       onTransitionEnd={() => fade === 'out' && closeNavbar()}
     >
-      <header data-fs-navbar-slider-header>
+      <UISlideOverHeader data-fs-navbar-slider-header onClose={fadeOut}>
         <Link
           href="/"
           onClick={fadeOut}
@@ -37,14 +38,7 @@ function NavbarSlider() {
         >
           <Logo />
         </Link>
-
-        <UIIconButton
-          data-fs-navbar-slider-button
-          aria-label="Close Menu"
-          icon={<Icon name="X" width={32} height={32} />}
-          onClick={fadeOut}
-        />
-      </header>
+      </UISlideOverHeader>
       <div data-fs-navbar-slider-content>
         <NavLinks onClickLink={fadeOut} />
       </div>
@@ -53,7 +47,7 @@ function NavbarSlider() {
           <ButtonSignIn />
         </Suspense>
       </footer>
-    </SlideOver>
+    </UISlideOver>
   )
 }
 
