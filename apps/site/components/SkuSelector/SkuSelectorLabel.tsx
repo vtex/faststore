@@ -49,6 +49,7 @@ const SkuSelectorLabel = () => {
   const getItemHref = useCallback(
     (option: SkuOption) => {
       const currentOptionName = skuPropertyName ?? option.label.split(':')[0]
+
       const currentItemHref = `/${getSkuSlug(
         product.isVariantOf.skuVariants.slugsMap,
         {
@@ -57,6 +58,7 @@ const SkuSelectorLabel = () => {
         },
         skuPropertyName
       )}/p`
+
       return currentItemHref
     },
     [
