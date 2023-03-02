@@ -33,7 +33,10 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
    * render possible values for 'Size' that are available in `Red`.
    */
   dominantVariation: string
-  mountItemHref: (option: SkuOption) => string
+  /**
+   * Function that determines the href string.
+   */
+  getItemHref: (option: SkuOption) => string
 }
 
 const ImageComponent: SkuSelectorProps['ImageComponent'] = ({
@@ -56,7 +59,7 @@ function Selectors({
   activeVariations,
   dominantVariation,
   availableVariations,
-  mountItemHref,
+  getItemHref,
   ...otherProps
 }: Props) {
   // `dominantVariation` variants are singled-out here because they will always
@@ -85,7 +88,7 @@ function Selectors({
               as: NextLink,
               legacyBehavior: false,
             }}
-            mountItemHref={mountItemHref}
+            getItemHref={getItemHref}
           />
         )}
         {otherSkuVariants &&
@@ -101,7 +104,7 @@ function Selectors({
                 as: NextLink,
                 legacyBehavior: false,
               }}
-              mountItemHref={mountItemHref}
+              getItemHref={getItemHref}
             />
           ))}
       </SkuSelectorsContext.Provider>
