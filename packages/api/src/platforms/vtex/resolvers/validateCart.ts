@@ -261,7 +261,14 @@ export const validateCart = async (
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
-  if (enableOrderFormSync === true || enableOrderFormSync == undefined ) {
+  if (!orderNumber) {
+    const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
+      joinItems,
+    )
+    return orderFormToCart(newOrderForm, skuLoader)
+  }
+
+  if (enableOrderFormSync === true) {
     const isStale = isOrderFormStale(orderForm)
 
     if (isStale === true && orderNumber) {
@@ -269,12 +276,6 @@ export const validateCart = async (
         joinItems,
       )
 
-      return orderFormToCart(newOrderForm, skuLoader)
-    }
-    if (!orderNumber) {
-      const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
-        joinItems,
-      )
       return orderFormToCart(newOrderForm, skuLoader)
     }
   }
