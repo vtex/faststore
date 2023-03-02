@@ -110,3 +110,228 @@ header.hero > p {
 .section-theme > article {
   width: 65%;
 }
+
+/* ////////////////////// */
+/*  Landing page */
+/* ////////////////////// */
+
+/* General */
+
+.nx-button-primary {
+  background-color: var(--fs-color-main-3);
+  color: var(--fs-color-text-inverse);
+  padding: var(--fs-spacing-2) var(--fs-spacing-4);
+  font-weight: var(--fs-text-weight-bold);
+  display: inline-block;
+  font-size: var(--fs-text-size-2);
+  transition: background-color .2s ease-in-out;
+}
+
+.nx-button-primary:hover {
+  background-color: var(--fs-color-main-4);
+}
+
+.nx-button-primary.inverse {
+  background-color: var(--fs-color-text-inverse);
+  color: var(--fs-color-main-3);
+}
+
+.nx-button-primary.inverse:hover {
+  background-color: #ffffffe1;
+}
+
+.nx-button-tertiary {
+  font-size: var(--fs-text-size-2);
+  padding: var(--fs-spacing-2) var(--fs-spacing-4);
+  font-weight: var(--fs-text-weight-bold);
+  transition: background-color .2s ease-in-out;
+  display: inline-block;
+}
+
+.nx-button-tertiary:hover {
+  background-color: var(--fs-color-main-4);
+}
+
+.nx-main { color: var(--fs-color-neutral-7); }
+
+.nx-main p {
+  color: var(--fs-color-neutral-6);
+}
+
+.nx-h2 {
+  font-size: var(--fs-text-size-6);
+  line-height: 1.2;
+}
+
+.nx-h3 {
+  font-size: var(--fs-text-size-4);
+  line-height: 1.3;
+  margin-bottom: var(--fs-spacing-2);
+}
+
+.nx-lading-grid {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 80px;
+}
+
+/* Hero */
+
+.nx-hero {
+  background-color: var(--fs-color-main-3);
+  padding-top: var(--fs-spacing-11);
+  padding-bottom: var(--fs-spacing-11);
+  color: var(--fs-color-text-inverse);
+}
+
+.nx-hero h1 {
+  font-size: var(--fs-text-size-title-huge);
+  line-height: 1.2;
+  max-width: 80%;
+  margin-bottom: var(--fs-spacing-4);
+  font-weight: var(--fs-text-weight-bold);
+}
+
+.nx-hero p {
+  font-size: var(--fs-text-size-lead);
+  margin-bottom: var(--fs-spacing-7);
+  color: var(--fs-color-text-inverse);
+}
+
+.nx-hero img {
+  max-width: 400px;
+}
+
+.nx-hero-buttons {
+  display: flex;
+  column-gap: var(--fs-spacing-2);
+}
+
+.nx-hero-wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: var(--fs-spacing-6);
+}
+
+/* Features */
+
+.nx-features {
+  padding-top: var(--fs-spacing-8);
+  padding-bottom: var(--fs-spacing-8);
+  border-bottom: 1px solid var(--fs-border-color-light);
+}
+
+.nx-features ul {
+  display: flex;
+  align-items: flex-start;
+  column-gap: var(--fs-spacing-7);
+}
+
+.nx-features li img {
+  width: var(--fs-spacing-6);
+  margin-bottom: var(--fs-spacing-4);
+}
+
+.nx-features h3 {
+  margin-bottom: var(--fs-spacing-2);
+}
+
+
+/* Sections */
+
+.nx-section {
+  padding-top: var(--fs-spacing-9);
+  padding-bottom: var(--fs-spacing-9);
+}
+
+.nx-section:nth-child(even) { background-color: #f8f7fc; }
+
+.nx-section:nth-child(even) .nx-section-wrapper {
+  flex-direction: row-reverse;
+}
+
+.nx-section-code {
+  display: flex;
+  max-width: 60%;
+}
+.nx-section-code > div:first-child {
+  background-color: #f8f7fc;
+  padding: var(--fs-spacing-1);
+  border-radius: 15px 0 0 15px;
+  display: flex;
+  align-items: center;
+}
+
+.nx-section-code > div:first-child code {
+  font-size: var(--fs-text-size-0);
+}
+
+.nx-section-code > div:last-child {
+  background-color: #f8f7fc64;
+  border-radius: 0 15px 15px 0;
+  border: none;
+  margin: 0;
+  padding: var(--fs-spacing-3) var(--fs-spacing-5);
+}
+
+.nx-section .nx-button-primary { margin-top: var(--fs-spacing-4); }
+
+.nx-section h2 {
+  max-width: 80%;
+  margin-bottom: var(--fs-spacing-4);
+}
+
+.nx-section p {
+  font-size: var(--fs-text-size-lead);
+  margin-bottom: var(--fs-spacing-4);
+}
+
+.nx-section .nx-section-wrapper > img {
+  max-width: 400px;
+}
+.nx-section .nx-section-wrapper > article {
+  max-width: 50%;
+}
+
+.nx-section-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: var(--fs-spacing-6);
+}
+
+/* Banner */
+
+.nx-banner {
+  padding-top: var(--fs-spacing-9);
+  padding-bottom: var(--fs-spacing-9);
+  background-color: var(--fs-color-main-3);
+  color: var(--fs-color-text-inverse);
+}
+
+.nx-banner > div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  row-gap: var(--fs-spacing-6);
+}
+
+.nx-banner h2 {
+  text-align: center;
+  max-width: 70%;
+}
+
+/* Footer */
+
+.nx-footer {
+  background-color: var(--fs-color-neutral-1);
+  font-size: var(--fs-text-size-legend);
+}
+
+.nx-footer > div {
+  padding: var(--fs-spacing-2) var(--fs-spacing-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--fs-color-neutral-6);
+}
