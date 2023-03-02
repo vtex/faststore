@@ -49,7 +49,7 @@ const SkuSelectorColor = () => {
     return Object.keys(product.isVariantOf.skuVariants.activeVariations)
   }, [product.isVariantOf.skuVariants.activeVariations])
 
-  const mountItemHref = useCallback(
+  const getItemHref = useCallback(
     (option: SkuOption) => {
       const currentOptionName = skuPropertyName ?? option.label.split(':')[0]
       const currentItemHref = `/${getSkuSlug(
@@ -75,7 +75,7 @@ const SkuSelectorColor = () => {
       skuPropertyName="Color"
       options={product.isVariantOf.skuVariants.availableVariations.Color}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
-      mountItemHref={mountItemHref}
+      getItemHref={getItemHref}
     />
   )
 }
