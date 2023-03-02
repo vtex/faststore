@@ -1,11 +1,11 @@
 import type {
-  HeroHeadingProps as UIHeroHeadingProps,
+  HeroHeaderProps as UIHeroHeaderProps,
   HeroImageProps as UIHeroImageProps,
   HeroProps as UIHeroProps,
 } from '@faststore/ui'
 import {
   Hero as UIHero,
-  HeroHeading as UIHeroHeading,
+  HeroHeader as UIHeroHeader,
   HeroImage as UIHeroImage,
 } from '@faststore/ui'
 
@@ -14,7 +14,7 @@ import { Image } from 'src/components/ui/Image'
 import Section from '../Section'
 
 export type HeroProps = UIHeroProps &
-  UIHeroHeadingProps &
+  UIHeroHeaderProps &
   UIHeroImageProps & {
     /**
      * Specifies the image URL.
@@ -50,7 +50,7 @@ const Hero = ({
             sizes="(max-width: 768px) 70vw, 50vw"
           />
         </UIHeroImage>
-        <UIHeroHeading
+        <UIHeroHeader
           title={title}
           subtitle={subtitle}
           link={link}

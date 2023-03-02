@@ -5,7 +5,7 @@ import { ArrowRight } from '../../assets'
 
 import { useHero } from './Hero'
 
-export interface HeroHeadingProps extends HTMLAttributes<HTMLDivElement> {
+export interface HeroHeaderProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Content for the h1 tag.
    */
@@ -32,8 +32,8 @@ export interface HeroHeadingProps extends HTMLAttributes<HTMLDivElement> {
   testId?: string
 }
 
-const HeroHeading = forwardRef<HTMLDivElement, HeroHeadingProps>(
-  function HeroHeading(
+const HeroHeader = forwardRef<HTMLDivElement, HeroHeaderProps>(
+  function HeroHeader(
     {
       icon,
       link,
@@ -79,4 +79,4 @@ const HeroHeading = forwardRef<HTMLDivElement, HeroHeadingProps>(
   }
 )
 
-export default HeroHeading
+export default HeroHeader

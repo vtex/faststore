@@ -154,11 +154,11 @@ export { default as QuantitySelector } from './molecules/QuantitySelector'
 export type { QuantitySelectorProps } from './molecules/QuantitySelector'
 
 // Organisms
-export { default as Hero, HeroImage, HeroHeading } from './organisms/Hero'
+export { default as Hero, HeroImage, HeroHeader } from './organisms/Hero'
 export type {
   HeroProps,
   HeroImageProps,
-  HeroHeadingProps,
+  HeroHeaderProps,
 } from './organisms/Hero'
 
 export { default as PaymentMethods } from './organisms/PaymentMethods'
