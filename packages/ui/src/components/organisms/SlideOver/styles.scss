@@ -8,6 +8,10 @@
   --fs-slide-over-bkg-color                  : var(--fs-color-body-bkg);
   --fs-slide-over-transition-timing          : var(--fs-transition-timing);
 
+  // Header
+  --fs-slide-over-header-padding             : var(--fs-spacing-2) var(--fs-spacing-3) var(--fs-spacing-2);
+  --fs-slide-over-header-bkg-color           : var(--fs-color-neutral-0);
+
   // Partial
   --fs-slide-over-partial-gap                : calc(2 * var(--fs-grid-padding));
   --fs-slide-over-partial-width-mobile       : calc(100vw - var(--fs-slide-over-partial-gap));
@@ -64,8 +68,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding:var(--fs-spacing-2) var(--fs-spacing-3) var(--fs-spacing-2);
-    background-color: var(--fs-color-neutral-0);
+    padding: var(--fs-slide-over-header-padding);
+    background-color: var(--fs-slide-over-header-bkg-color);
 
     [data-fs-slide-over-header-icon] {
       margin-right: calc(-1 * var(--fs-spacing-1));
