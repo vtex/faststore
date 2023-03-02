@@ -1,10 +1,10 @@
 {
-  "index": "Introduction",
-  "-- CMS --": {
-    "type": "separator",
-    "title": "CMS"
+  "index": {
+    "title": "Introduction",
+    "theme": {
+      "layout": "full"
+    }
   },
-  "vtex-headless-cms": "VTEX Headless CMS",
   "-- Theming --": {
     "type": "separator",
     "title": "Theming"
@@ -31,5 +31,10 @@
   "-- Media --": {
     "type": "separator",
     "title": "Media"
+  },
+  "icons": "Icons",
+  "-- How To Guides --": {
+    "type": "separator",
+    "title": "How To Guides"
   }
 }

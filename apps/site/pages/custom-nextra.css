@@ -39,9 +39,6 @@ h4.nx-tracking-tight {
   font-size: var(--fs-text-size-3);
 }
 
-
-/* h3.nx-tracking-tight + h4.nx-tracking-tight {  } */
-
 .index-header {
   display: flex;
   align-items: center;
@@ -63,6 +60,11 @@ h4.nx-tracking-tight {
 /* Reset theme default style */
 [data-fs-payment-methods-title] h3 {
   margin-top: auto;
+}
+
+.nx-list-disc {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
 }
 
 /* Hero */
@@ -116,6 +118,8 @@ header.hero > p {
 /* ////////////////////// */
 
 /* General */
+
+.nx-mt-2 { margin-top: var(--fs-spacing-3); }
 
 .nx-button-primary {
   background-color: var(--fs-color-main-3);

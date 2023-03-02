@@ -25,6 +25,9 @@ const config: DocsThemeConfig = {
   },
   darkMode: false,
   logo: <strong>FastStore</strong>,
+  sidebar: {
+    defaultMenuCollapseLevel: 1,
+  },
   useNextSeoProps() {
     const { route } = useRouter()
     if (route !== '/') {
