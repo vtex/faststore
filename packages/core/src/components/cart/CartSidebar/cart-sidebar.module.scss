@@ -60,6 +60,8 @@
   }
 
   [data-fs-cart-sidebar-footer] {
+    position: sticky;
+    bottom: 0;
     margin-top: auto;
     background-color: var(--fs-cart-sidebar-footer-bkg-color);
     box-shadow: var(--fs-cart-sidebar-footer-box-shadow);
