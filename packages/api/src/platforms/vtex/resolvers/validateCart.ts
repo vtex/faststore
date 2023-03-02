@@ -17,6 +17,7 @@ import type {
   OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
 import type { Context } from '..'
+import { getCookie } from '../utils/cookies'
 type Indexed<T> = T & { index?: number }
 
 const isAttachment = (value: IStorePropertyValue) =>
@@ -195,6 +196,26 @@ const isOrderFormStale = (form: OrderForm) => {
   return newEtag !== oldEtag
 }
 
+function getOrderNumber(
+  headers: Record<string, string> = {},
+  orderNumberFromCart: string,
+  enableOrderFormSync: boolean | undefined
+) {
+  const checkoutCookie = getCookie('checkout.vtex.com', headers.cookie)
+  const [checkoutCookieKey, checkoutCookieValue] = checkoutCookie.split('=')
+
+  const hasOrderFormFromCheckoutCookie =
+    checkoutCookieKey == '__ofid' && checkoutCookieValue?.length > 0
+  const hasOrderNumberFromCart = Boolean(orderNumberFromCart)
+
+  const orderNumber = hasOrderNumberFromCart
+    ? orderNumberFromCart
+    : enableOrderFormSync && hasOrderFormFromCheckoutCookie
+    ? checkoutCookieValue
+    : ''
+  return orderNumber
+}
+
 // Returns the regionalized orderForm
 const getOrderForm = async (
   id: string,
@@ -249,14 +270,29 @@ export const validateCart = async (
   ctx: Context,
 ) => {
   const { enableOrderFormSync } = ctx.storage.flags
-  const { orderNumber, acceptedOffer, shouldSplitItem } = order
+  const {
+    orderNumber: orderNumberFromCart,
+    acceptedOffer,
+    shouldSplitItem,
+  } = order
   const {
     clients: { commerce },
     loaders: { skuLoader },
+    headers,
   } = ctx
+
+  // Get OrderNumber from checkout cookie if enableOrderFormSync is true and there is no orderNumberFromCart
+  // Aims to retrieve the cart from my account
+  // Otherwise use orderNumberFromCart
+  const orderNumber = getOrderNumber(
+    headers,
+    orderNumberFromCart,
+    enableOrderFormSync
+  )
 
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
+  console.log('🚀 ~ orderForm:', orderForm)
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
