@@ -262,7 +262,15 @@ export const validateCart = async (
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
 
-  if (enableOrderFormSync === true || enableOrderFormSync == undefined ) {
+  if (!orderNumber || enableOrderFormSync == undefined) {
+
+    const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
+      joinItems,
+    )
+    return orderFormToCart(newOrderForm, skuLoader)
+  }
+
+  if (enableOrderFormSync === true ) {
     const isStale = isOrderFormStale(orderForm)
 
     if (isStale === true && orderNumber) {
@@ -272,12 +280,7 @@ export const validateCart = async (
 
       return orderFormToCart(newOrderForm, skuLoader)
     }
-    if (!orderNumber) {
-      const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
-        joinItems,
-      )
-      return orderFormToCart(newOrderForm, skuLoader)
-    }
+    
   }
 
   // Step2: Process items from both browser and checkout so they have the same shape
