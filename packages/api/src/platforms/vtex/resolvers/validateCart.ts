@@ -262,7 +262,7 @@ export const validateCart = async (
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
 
-  if (!orderNumber || enableOrderFormSync == undefined) {
+  if (!orderNumber) {
 
     const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
       joinItems,
