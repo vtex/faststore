@@ -1,7 +1,7 @@
 import React from 'react'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
-import { VtexLogo } from './components/Logos/'
+import { VtexLogo, VtexIcon } from './components/Logos/'
 
 const Footer = (
   <footer className="nx-footer">
@@ -26,7 +26,12 @@ const config: DocsThemeConfig = {
     defaultTheme: 'light',
   },
   darkMode: false,
-  logo: <strong>FastStore</strong>,
+  logo: (
+    <span className="nx-header-logo">
+      <VtexIcon />
+      <strong>FastStore</strong>
+    </span>
+  ),
   sidebar: {
     defaultMenuCollapseLevel: 1,
   },

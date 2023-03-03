@@ -465,3 +465,11 @@ header.hero > p {
     justify-content: space-between;
   }
 }
+
+/* Nav */
+
+.nx-header-logo {
+  display: flex;
+  align-items: center;
+  column-gap: var(--fs-spacing-0);
+}
