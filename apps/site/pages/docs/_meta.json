@@ -28,10 +28,6 @@
     }
   },
   "global-tokens": "Global Tokens",
-  "-- Media --": {
-    "type": "separator",
-    "title": "Media"
-  },
   "icons": "Icons",
   "-- How To Guides --": {
     "type": "separator",
