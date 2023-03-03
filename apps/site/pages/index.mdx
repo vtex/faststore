@@ -1,3 +1,4 @@
+import { Tab, Tabs } from 'nextra-theme-docs'
 import { OverviewSection } from 'site/components/OverviewSection'
 import {
   ProductCard,
@@ -22,16 +23,16 @@ import { product } from '../mocks/product'
           <a
             href="https://starter.vtex.app"
             target="_blank"
-            className="nx-button-primary inverse"
+            className="nx-button nx-button-primary inverse"
           >
             {`View Live Demo`}
           </a>
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLSfmNyT5BepQw2AFyHnrI9-4fqvkOTWvdeBLdkQgxhQ2r0-g4A/viewform"
             target="_blank"
-            class="nx-button-tertiary"
+            class="nx-button nx-button-tertiary"
           >
-            {`Join the waiting list`}
+            {`Join Waiting List`}
           </a>
         </div>
       </article>
@@ -63,18 +64,22 @@ import { product } from '../mocks/product'
       </li>
     </ul>
   </section>
-  <section className="nx-section">
+  <section className="nx-section nx-section-components">
     <div className="nx-section-wrapper nx-lading-grid">
       <article>
         <h2 className="nx-h2">Ecommerce-focused UI components</h2>
         <p>
           {`Use FastStore components to create modern storefronts that perform great everywhere.`}
         </p>
-        <a href="/components" target="_blank" className="nx-button-primary">
+        <a
+          href="/components"
+          target="_blank"
+          className="nx-button nx-button-primary"
+        >
           {`Explore Our Components`}
         </a>
       </article>
-      <div className="nx-section-code">
+      <div className="nx-section-code-desktop">
         ```tsx
         <ProductCard bordered>
           <ProductCardImage>
@@ -120,7 +125,59 @@ import { product } from '../mocks/product'
           </ProductCard>
         </OverviewSection>
       </div>
+      <div className="nx-section-code-mobile">
+        <Tabs items={['Example', 'Code']} defaultIndex="0">
+          <Tab>
+            <OverviewSection>
+              <ProductCard bordered>
+                <ProductCardImage>
+                  <img
+                    data-fs-image
+                    src={product.image[1].url}
+                    alt={product.image[1].alternateName}
+                  />
+                </ProductCardImage>
+                <ProductCardContent
+                  title={product.isVariantOf.name}
+                  price={{
+                    value: product.offers.offers[0].price,
+                    listPrice: product.offers.offers[0].listPrice,
+                    formatter: useFormattedPrice,
+                  }}
+                  ratingValue={3.5}
+                  onButtonClick={() => {}}
+                  showDiscountBadge
+                />
+              </ProductCard>
+            </OverviewSection>
+          </Tab>
+          <Tab>
+            ```tsx
+            <ProductCard>
+              <ProductCardImage>
+                <img
+                  data-fs-image
+                  src={product.image[1].url}
+                  alt={product.image[1].alternateName}
+                />
+              </ProductCardImage>
+              <ProductCardContent
+                title={product.isVariantOf.name}
+                price={{
+                  value: product.offers.offers[0].price,
+                  listPrice: product.offers.offers[0].listPrice,
+                  formatter: useFormattedPrice,
+                }}
+                ratingValue={3.5}
+                onButtonClick={() => {}}
+              />
+            </ProductCard>
+            ```
+          </Tab>
+        </Tabs>
+      </div>
     </div>
+
   </section>
   <section className="nx-section">
     <div className="nx-section-wrapper nx-lading-grid">
@@ -134,7 +191,7 @@ import { product } from '../mocks/product'
         <p>
           {`Use our GraphQL data layer to connect to your ecommerce provider and extend it to fetch data from external services.`}
         </p>
-        <a href="/" target="_blank" className="nx-button-primary">
+        <a href="/" target="_blank" className="nx-button nx-button-primary">
           {`Connect Your Data`}
         </a>
       </article>
@@ -157,7 +214,7 @@ import { product } from '../mocks/product'
         <p>
           {`Refer to our SDKs to build tailor-made solutions and deliver a better UX for your shoppers.`}
         </p>
-        <a href="/" target="_blank" className="nx-button-primary">
+        <a href="/" target="_blank" className="nx-button nx-button-primary">
           {`Build Tailor-made solutions`}
         </a>
       </article>
@@ -170,7 +227,11 @@ import { product } from '../mocks/product'
         {`Go live with the full VTEX solution for building lightning-fast shopping
         experiences.`}
       </h2>
-      <a href="/docs" target="_blank" className="nx-button-primary inverse">
+      <a
+        href="/docs"
+        target="_blank"
+        className="nx-button nx-button-primary inverse"
+      >
         {`Learn More`}
       </a>
     </div>

@@ -8,12 +8,14 @@ const Footer = (
     <div className="nx-lading-grid">
       <VtexLogo />
       <p>
-        Copyright © {new Date().getFullYear()} FastStore Docs, Inc. Built with{' '}
-        {''}
-        <a href="https://nextra.site" target="_blank" rel="noreferrer">
-          Nextra
-        </a>
-        .
+        Copyright © {new Date().getFullYear()} FastStore Docs, Inc.{' '}
+        <span>
+          Built with {''}
+          <a href="https://nextra.site" target="_blank" rel="noreferrer">
+            Nextra
+          </a>
+          .
+        </span>
       </p>
     </div>
   </footer>
