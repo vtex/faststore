@@ -20,6 +20,7 @@ import {
   useUI,
   UIProvider,
 } from '@faststore/ui'
+import SlideOverUsage from 'site/components/SlideOver/SlideOverUsage'
 
 <header>
 
@@ -47,56 +48,96 @@ import '@faststore/ui/src/components/organisms/SlideOver/styles.scss'
 
 ---
 
-export const SlideOverBase = () => {
+export const SlideOverPartialRight = () => {
   const { modal, openModal } = useUI()
   return (
     <>
-      <Button variant="primary" onClick={() => openModal()}>
-        Open Modal
+      <Button variant="primary" onClick={openModal}>
+        Open Partial & Right
       </Button>
       {modal && (
-        <SlideOver isOpen={modal} size="partial" direction="rightSide">
-          <SlideOverHeader onClose={openModal}>SlideOver</SlideOverHeader>
-          <main
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '1rem',
-              height: '100%',
-            }}
-          >
-            <p
-              style={{
-                margin: 'auto',
-              }}
-            >
-              A generic <code>SlideOver</code> component.
-            </p>
-          </main>
-        </SlideOver>
+        <SlideOverUsage size="partial" direction="rightSide" isOpen={modal} />
       )}
     </>
   )
 }
 
-export const SlideOverTemplate = () => (
-  <UIProvider>
-    <SlideOverBase />
-  </UIProvider>
-)
+export const SlideOverPartialLeft = () => {
+  const { modal, openModal } = useUI()
+  return (
+    <>
+      <Button variant="primary" onClick={openModal}>
+        Open Partial & Left
+      </Button>
+      {modal && (
+        <SlideOverUsage size="partial" direction="leftSide" isOpen={modal} />
+      )}
+    </>
+  )
+}
+
+export const SlideOverFullRight = () => {
+  const { modal, openModal } = useUI()
+  return (
+    <>
+      <Button variant="primary" onClick={openModal}>
+        Open Full & Right
+      </Button>
+      {modal && (
+        <SlideOverUsage size="full" direction="rightSide" isOpen={modal} />
+      )}
+    </>
+  )
+}
+
+export const SlideOverFullLeft = () => {
+  const { modal, openModal } = useUI()
+  return (
+    <>
+      <Button variant="primary" onClick={openModal}>
+        Open Full & Left
+      </Button>
+      {modal && (
+        <SlideOverUsage size="full" direction="leftSide" isOpen={modal} />
+      )}
+    </>
+  )
+}
 
 ## Usage
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <SlideOverTemplate />
+      <UIProvider>
+        <SlideOverPartialRight />
+      </UIProvider>
+      <UIProvider>
+        <SlideOverPartialLeft />
+      </UIProvider>
+      <UIProvider>
+        <SlideOverFullRight />
+      </UIProvider>
+      <UIProvider>
+        <SlideOverFullLeft />
+      </UIProvider>
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
+    <SlideOverUsage size="partial" direction="rightSide" isOpen={modal} />
+    ```
 
+    ```tsx
+    <SlideOverUsage size="partial" direction="leftSide" isOpen={modal} />
+    ```
+
+    ```tsx
+    <SlideOverUsage size="full" direction="rightSide" isOpen={modal} />
+    ```
+
+    ```tsx
+    <SlideOverUsage size="full" direction="leftSide" isOpen={modal} />
     ```
 
   </Tab>

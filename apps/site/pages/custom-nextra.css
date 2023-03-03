@@ -60,11 +60,6 @@ h4.nx-tracking-tight {
   font-size: var(--fs-text-size-title-huge);
 }
 
-/* Reset theme default style */
-[data-fs-payment-methods-title] h3 {
-  margin-top: auto;
-}
-
 /* Hero */
 
 header.hero {
@@ -109,4 +104,15 @@ header.hero > p {
 
 .section-theme > article {
   width: 65%;
+}
+
+/* Components adjusts for documentation purposes */
+
+/* Reset theme default style */
+[data-fs-payment-methods-title] h3 {
+  margin-top: auto;
+}
+
+[data-fs-overlay] {
+  z-index: 21;
 }
