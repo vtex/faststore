@@ -278,7 +278,7 @@ export const validateCart = async (
           )
     
           return orderFormToCart(newOrderForm, skuLoader)
-
+          }
       }
   }
 
