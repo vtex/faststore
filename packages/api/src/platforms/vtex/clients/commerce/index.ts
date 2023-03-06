@@ -15,6 +15,7 @@ import type {
 } from './types/Simulation'
 import type { Session } from './types/Session'
 import type { Channel } from '../../utils/channel'
+import {getCookie} from '../../utils/getCookie'
 import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
@@ -194,13 +195,28 @@ export const VtexCommerce = (
         'items',
         'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
+      if (getCookie('vtex_session', ctx.headers.cookie)){
+       console.log('sem cookie')
+      return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          cookie: ctx.headers.cookie,
+        },
+        body: '{}',
+      })
+    }
+    else {
+      console.log('com cookie')
       return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
         method: 'GET',
         headers: {
           'content-type': 'application/json',
           cookie: ctx.headers.cookie,
-        },
+        }
       })
+
+    }
     },
     getsession: (): Promise<Session> => {
       console.log('session', `${base}/api/sessions?items=checkout.orderFormId`, ctx.headers.cookie)
