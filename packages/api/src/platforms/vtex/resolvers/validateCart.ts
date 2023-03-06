@@ -253,10 +253,14 @@ export const validateCart = async (
   const {
     clients: { commerce },
     loaders: { skuLoader },
+    headers
   } = ctx
 
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
+
+  //testing headers sent
+  console.log('headers', headers)
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
