@@ -269,11 +269,15 @@ export const validateCart = async (
       if (orderNumber != orderFormIdSession){
         console.log('orderForm divergente')
         const orderFormSession = await getOrderForm(orderFormIdSession, session, ctx)
-        const newCart = {
-          id: orderFormSession.orderFormId,
-          items:  orderFormSession.items
-        }
-        console.log('new cart', orderFormSession, newCart)
+        console.log('new cart', orderFormSession)
+        const isStale = isOrderFormStale(orderFormSession)
+
+        if (isStale === true && orderNumber) {
+          const newOrderForm = await setOrderFormEtag(orderFormSession, commerce).then(
+            joinItems,
+          )
+    
+          return orderFormToCart(newOrderForm, skuLoader)
 
       }
   }
