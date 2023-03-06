@@ -260,11 +260,8 @@ export const validateCart = async (
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
 
-  //testing headers sent
-  console.log('headers', getCookie('vtex_session', headers.cookie))
 
   // Validate if session exist
-
   if (getCookie('vtex_session', headers.cookie)) {
       console.log('session', await commerce.session('checkout.orderFormId') )     
   }
