@@ -203,7 +203,7 @@ export const VtexCommerce = (
         body: '{}',
       })
     },
-    sessionorderformid: (): Promise<Session> => {
+    getsession: (): Promise<Session> => {
       const params = new URLSearchParams()
       params.set(
         'items',
@@ -211,7 +211,7 @@ export const VtexCommerce = (
       )
       console.log('session', params.toString())
       return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'content-type': 'application/json',
           cookie: ctx.headers.cookie,
