@@ -192,7 +192,22 @@ export const VtexCommerce = (
 
       params.set(
         'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,checkout.orderFormId'
+        'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
+      )
+      return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          cookie: ctx.headers.cookie,
+        },
+        body: '{}',
+      })
+    },
+    sessionorderformid: (): Promise<Session> => {
+      const params = new URLSearchParams()
+      params.set(
+        'items',
+        'checkout.orderFormId'
       )
       console.log('session', params.toString())
       return fetchAPI(`${base}/api/sessions?${params.toString()}`, {

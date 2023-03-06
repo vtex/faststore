@@ -263,7 +263,7 @@ export const validateCart = async (
 
   // Validate if session exist
   if (getCookie('vtex_session', headers.cookie)) {
-      console.log('session', await commerce.session('checkout.orderFormId') )     
+      console.log('session', await commerce.sessionorderformid() )     
   }
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber

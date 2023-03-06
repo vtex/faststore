@@ -25,7 +25,7 @@ export const validateSession = async (
     postalCode
       ? clients.commerce.checkout.region({ postalCode, country, salesChannel })
       : Promise.resolve(null),
-    clients.commerce.session(params.toString()).catch(() => null),
+    clients.(params.toString()).catch(() => null),
   ])
 
   const profile = sessionData?.namespaces.profile ?? null
