@@ -1,6 +1,7 @@
 import deepEquals from 'fast-deep-equal'
 
 import { md5 } from '../utils/md5'
+import { getCookie } from '../utils/getCookie'
 import { attachmentToPropertyValue, getPropertyId, VALUE_REFERENCES } from '../utils/propertyValue'
 
 import type {
@@ -260,7 +261,7 @@ export const validateCart = async (
   const orderForm = await getOrderForm(orderNumber, session, ctx)
 
   //testing headers sent
-  console.log('headers', headers)
+  console.log('headers', getCookie('vtex_session', headers.cookie))
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
