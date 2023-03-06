@@ -204,13 +204,8 @@ export const VtexCommerce = (
       })
     },
     getsession: (): Promise<Session> => {
-      const params = new URLSearchParams()
-      params.set(
-        'items',
-        'checkout.orderFormId'
-      )
-      console.log('session', params.toString())
-      return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
+      console.log('session', `${base}/api/sessions?items=?items=checkout.orderFormId`, ctx.headers.cookie)
+      return fetchAPI(`${base}/api/sessions?items=?items=checkout.orderFormId`, {
         method: 'GET',
         headers: {
           'content-type': 'application/json',
