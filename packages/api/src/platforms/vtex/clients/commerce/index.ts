@@ -196,7 +196,18 @@ export const VtexCommerce = (
         'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
       if (getCookie('vtex_session', ctx.headers.cookie)){
-       console.log('sem cookie')
+        console.log('com cookie')
+        return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
+          method: 'GET',
+          headers: {
+            'content-type': 'application/json',
+            cookie: ctx.headers.cookie,
+          }
+        })
+       
+    }
+    else {
+      console.log('sem cookie')
       return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
         method: 'POST',
         headers: {
@@ -205,17 +216,6 @@ export const VtexCommerce = (
         },
         body: '{}',
       })
-    }
-    else {
-      console.log('com cookie')
-      return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
-        method: 'GET',
-        headers: {
-          'content-type': 'application/json',
-          cookie: ctx.headers.cookie,
-        }
-      })
-
     }
     },
     getsession: (): Promise<Session> => {
