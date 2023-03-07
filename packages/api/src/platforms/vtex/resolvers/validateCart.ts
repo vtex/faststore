@@ -1,6 +1,7 @@
 import deepEquals from 'fast-deep-equal'
 
 import { md5 } from '../utils/md5'
+import { getCookie } from '../utils/getCookies'
 import { attachmentToPropertyValue, getPropertyId, VALUE_REFERENCES } from '../utils/propertyValue'
 
 import type {
@@ -253,10 +254,33 @@ export const validateCart = async (
   const {
     clients: { commerce },
     loaders: { skuLoader },
+    headers
   } = ctx
 
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
+
+  // Validate if Session's cookie exists
+    if (getCookie('vtex_session', headers.cookie)) {
+
+      const {namespaces} =  await commerce.getsessionorder()  
+      const orderFormIdSession = namespaces.checkout?.orderFormId?.value 
+
+      // In the case of divergence between session cookie and indexdb update the order form
+      if (orderNumber != orderFormIdSession && orderFormIdSession!= undefined){
+
+        const orderFormSession = await getOrderForm(orderFormIdSession, session, ctx)
+        const isStale = isOrderFormStale(orderFormSession)
+
+        if (isStale === true && orderNumber) {
+          const newOrderForm = await setOrderFormEtag(orderFormSession, commerce).then(
+            joinItems,
+          )
+
+          return orderFormToCart(newOrderForm, skuLoader)
+          }
+      }
+  }
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
