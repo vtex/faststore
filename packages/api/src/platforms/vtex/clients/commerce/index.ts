@@ -218,7 +218,7 @@ export const VtexCommerce = (
       })
     }
     },
-    getsession: (): Promise<Session> => {
+    getsessionorder: (): Promise<Session> => {
       return fetchAPI(`${base}/api/sessions?items=checkout.orderFormId`, {
         method: 'GET',
         headers: {

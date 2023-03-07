@@ -261,15 +261,16 @@ export const validateCart = async (
   const orderForm = await getOrderForm(orderNumber, session, ctx)
 
 
-  // Validate if session exist
+  // Validate if Session's cookie exists
   if (getCookie('vtex_session', headers.cookie)) {
-      const {namespaces} =  await commerce.getsession()  
+
+      const {namespaces} =  await commerce.getsessionorder()  
       const orderFormIdSession = namespaces.checkout?.orderFormId?.value 
-      console.log('number order forms',orderFormIdSession, orderNumber)
+
+      // In the case of divergence between session cookie and indexdb update the order form
       if (orderNumber != orderFormIdSession && orderFormIdSession!= undefined){
-        console.log('orderForm divergente')
+
         const orderFormSession = await getOrderForm(orderFormIdSession, session, ctx)
-        console.log('new cart', orderFormSession)
         const isStale = isOrderFormStale(orderFormSession)
 
         if (isStale === true && orderNumber) {
