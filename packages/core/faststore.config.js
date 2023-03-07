@@ -31,6 +31,7 @@ module.exports = {
     country: 'USA',
     postalCode: null,
     person: null,
+    id: null,
   },
 
   // Production URLs

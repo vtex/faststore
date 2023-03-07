@@ -19,6 +19,7 @@ export interface Session {
   channel: string | null;
   postalCode: string | null;
   person: Person | null;
+  id: string | null
 }
 
 export const createSessionStore = (

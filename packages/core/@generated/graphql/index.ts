@@ -231,6 +231,8 @@ export type IStoreSelectedFacet = {
 
 /** Session input. */
 export type IStoreSession = {
+  /** Session input id. */
+  id: InputMaybe<Scalars['String']>
   /** Session input channel. */
   channel: InputMaybe<Scalars['String']>
   /** Session input country. */
@@ -877,6 +879,8 @@ export type StoreSeo = {
 
 /** Session information. */
 export type StoreSession = {
+  /** Session locale. */
+  id: Maybe<Scalars['String']>
   /** Session channel. */
   channel: Maybe<Scalars['String']>
   /** Session country. */
@@ -1343,6 +1347,7 @@ export type ValidateSessionMutationVariables = Exact<{
 
 export type ValidateSessionMutation = {
   validateSession: {
+    id: string | null 
     locale: string
     channel: string | null
     country: string
