@@ -1,7 +1,6 @@
 import deepEquals from 'fast-deep-equal'
 
 import ChannelMarshal from '../utils/channel'
-import { getCookie } from '../utils/getCookie'
 import type { Context } from '..'
 import type {
   MutationValidateSessionArgs,
@@ -11,7 +10,7 @@ import type {
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
-  { clients, headers }: Context,
+  { clients }: Context,
 ): Promise<StoreSession | null> => {
 
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
@@ -20,8 +19,7 @@ export const validateSession = async (
 
   const params = new URLSearchParams(search)
   const salesChannel = params.get('sc') ?? channel.salesChannel
-  const vtexsession = getCookie('vtex_session', headers.cookie) ?? ''
-  console.log(vtexsession)
+
 
   params.set('sc', salesChannel)
 
@@ -40,7 +38,6 @@ export const validateSession = async (
 
   const newSession = {
     ...oldSession,
-    id: vtexsession,
     currency: {
       code: store?.currencyCode.value ?? oldSession.currency.code,
       symbol: store?.currencySymbol.value ?? oldSession.currency.symbol,

@@ -949,8 +949,6 @@ export type StoreSession = {
   country: Scalars['String'];
   /** Session currency. */
   currency: StoreCurrency;
-  /** Session id. */
-  id: Scalars['String'];
   /** Session locale. */
   locale: Scalars['String'];
   /** Session postal code. */

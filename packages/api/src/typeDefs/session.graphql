@@ -28,10 +28,6 @@ Session information.
 """
 type StoreSession {
   """
-  Session id.
-  """
-  id: String!
-  """
   Session locale.
   """
   locale: String!
