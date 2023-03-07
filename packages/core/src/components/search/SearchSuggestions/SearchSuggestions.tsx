@@ -1,12 +1,12 @@
 import {
   SearchAutoComplete as UISearchAutoComplete,
   SearchAutoCompleteTerm as UISearchAutoCompleteTerm,
-  SearchSuggestedProducts,
+  SearchProducts,
 } from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
 import { Fragment } from 'react'
 
-import SearchProductCard from 'src/components/search/SearchProductCard'
+import SearchProductItem from 'src/components/search/SearchProductItem'
 import useSearchInput, { formatSearchPath } from 'src/sdk/search/useSearchInput'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
@@ -110,15 +110,15 @@ function SearchSuggestions({
       )}
 
       {products.length > 0 && (
-        <SearchSuggestedProducts data-fs-search-section>
+        <SearchProducts data-fs-search-section>
           {products.map((product, index) => (
-            <SearchProductCard
+            <SearchProductItem
               key={product.id}
               product={product}
               index={index}
             />
           ))}
-        </SearchSuggestedProducts>
+        </SearchProducts>
       )}
     </section>
   )

@@ -133,17 +133,17 @@ export type {
   SearchHistoryTermProps,
 } from './molecules/SearchHistory'
 export {
-  default as SearchSuggestedProducts,
-  SearchProductCard,
-  SearchProductCardImage,
-  SearchProductCardContent,
-} from './molecules/SearchSuggestedProducts'
+  default as SearchProducts,
+  SearchProductItem,
+  SearchProductItemImage,
+  SearchProductItemContent,
+} from './molecules/SearchProducts'
 export type {
-  SearchSuggestedProductsProps,
-  SearchProductCardProps,
-  SearchProductCardImageProps,
-  SearchProductCardContentProps,
-} from './molecules/SearchSuggestedProducts'
+  SearchProductsProps,
+  SearchProductItemProps,
+  SearchProductItemImageProps,
+  SearchProductItemContentProps,
+} from './molecules/SearchProducts'
 export { default as SearchTop, SearchTopTerm } from './molecules/SearchTop'
 export type { SearchTopProps, SearchTopTermProps } from './molecules/SearchTop'
 export { default as SelectField } from './molecules/SelectField'

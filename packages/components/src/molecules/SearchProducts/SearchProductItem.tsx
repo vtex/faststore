@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'react'
 
 import { Link, LinkProps, LinkElementType } from '../..'
 
-export interface SearchProductCardProps extends HTMLAttributes<HTMLDivElement> {
+export interface SearchProductItemProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -15,15 +15,15 @@ export interface SearchProductCardProps extends HTMLAttributes<HTMLDivElement> {
   linkProps?: Partial<LinkProps<LinkElementType>>
 }
 
-const SearchProductCard = forwardRef<HTMLDivElement, SearchProductCardProps>(
-  function ProductCard({
-    testId = 'fs-search-product-card',
+const SearchProductItem = forwardRef<HTMLDivElement, SearchProductItemProps>(
+  function ProductItem({
+    testId = 'fs-search-product-item',
     linkProps,
     children,
   }) {
     return (
-      <li data-fs-search-product-card data-testid={testId}>
-        <Link {...linkProps} data-fs-search-product-card-link variant="display">
+      <li data-fs-search-product-item data-testid={testId}>
+        <Link {...linkProps} data-fs-search-product-item-link variant="display">
           {children}
         </Link>
       </li>
@@ -31,4 +31,4 @@ const SearchProductCard = forwardRef<HTMLDivElement, SearchProductCardProps>(
   }
 )
 
-export default SearchProductCard
+export default SearchProductItem
