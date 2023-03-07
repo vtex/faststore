@@ -264,9 +264,9 @@ export const validateCart = async (
   // Validate if session exist
   if (getCookie('vtex_session', headers.cookie)) {
       const {namespaces} =  await commerce.getsession()  
-      const orderFormIdSession = namespaces.checkout?.orderFormId?.value || ''
-      console.log(orderFormIdSession, orderForm)
-      if (orderNumber != orderFormIdSession){
+      const orderFormIdSession = namespaces.checkout?.orderFormId?.value 
+      console.log('number order forms',orderFormIdSession, orderNumber)
+      if (orderNumber != orderFormIdSession && orderFormIdSession!= undefined){
         console.log('orderForm divergente')
         const orderFormSession = await getOrderForm(orderFormIdSession, session, ctx)
         console.log('new cart', orderFormSession)
