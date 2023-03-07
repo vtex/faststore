@@ -1,10 +1,12 @@
-import { List as UIList } from '@faststore/ui'
+import {
+  List as UIList,
+  SearchAutoComplete as UISearchAutoComplete,
+  SearchAutoCompleteTerm as UISearchAutoCompleteTerm,
+} from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
 import { Fragment } from 'react'
 
 import SearchProductCard from 'src/components/search/SearchProductCard'
-import Icon from 'src/components/ui/Icon'
-import Link from 'src/components/ui/Link'
 import useSearchInput, { formatSearchPath } from 'src/sdk/search/useSearchInput'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
@@ -39,11 +41,11 @@ function handleSuggestions(suggestion: string, searchTerm: string) {
       {suggestionSubstring.map((substring, indexSubstring) => (
         <Fragment key={[substring, indexSubstring].join()}>
           {substring.length > 0 && (
-            <b data-fs-search-item-bold>
+            <strong data-fs-search-auto-complete-item-suggestion>
               {indexSubstring === 0
                 ? substring.charAt(0).toUpperCase() + substring.slice(1)
                 : substring}
-            </b>
+            </strong>
           )}
           {indexSubstring !== suggestionSubstring.length - 1 &&
             formatSearchTerm(indexSubstring, searchTerm, suggestion)}
@@ -89,30 +91,22 @@ function SearchSuggestions({
       {...otherProps}
     >
       {terms.length > 0 && (
-        <UIList data-fs-search-section="terms">
+        <UISearchAutoComplete>
           {terms?.map(({ value: suggestion }) => (
-            <li key={suggestion} data-fs-search-item>
-              <Link
-                data-fs-search-item-link
-                href={formatSearchPath(suggestion)}
-                onClick={() => {
+            <UISearchAutoCompleteTerm
+              key={suggestion}
+              value={handleSuggestions(suggestion, term)}
+              linkProps={{
+                href: formatSearchPath(suggestion),
+                onClick: () =>
                   onSearchInputSelection?.(
                     suggestion,
                     formatSearchPath(suggestion)
-                  )
-                }}
-              >
-                <Icon
-                  name="MagnifyingGlass"
-                  width={18}
-                  height={18}
-                  data-fs-search-item-icon
-                />
-                {handleSuggestions(suggestion, term)}
-              </Link>
-            </li>
+                  ),
+              }}
+            />
           ))}
-        </UIList>
+        </UISearchAutoComplete>
       )}
 
       {products.length > 0 && (

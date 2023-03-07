@@ -1,0 +1,270 @@
+---
+description: Displays a set of navigation links that self-adapts on mobile or desktop screens.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/AggregateRating___a8300916874f5a11de7633b7cabc12e9.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SearchAutoComplete, SearchAutoCompleteTerm } from '@faststore/ui'
+import { FadersHorizontal, TagIcon } from '@faststore/components'
+import { handleSuggestions } from 'site/components/utilities/handleSuggestions'
+
+<header>
+
+# Search Auto Complete
+
+Displays a set of navigation links that self-adapts on mobile or desktop screens.
+
+</header>
+
+## Overview
+
+export const searchContent = 'Appl'
+
+export const terms = [{ value: 'apple airpods' }, { value: 'apple tv' }]
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection direction="column">
+      Searching for: <code>{searchContent}</code>
+      <SearchAutoComplete>
+        {terms?.map((term) => (
+          <SearchAutoCompleteTerm
+            key={term.value}
+            value={handleSuggestions(term.value, searchContent)}
+            linkProps={{ href: '/' }}
+          />
+        ))}
+      </SearchAutoComplete>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+
+    ```tsx
+    const searchContent = 'Appl'
+
+    const terms = [{ value: 'apple airpods' }, { value: 'apple tv' }]
+
+    <SearchAutoComplete>
+      {terms?.map((term) => (
+        <SearchAutoCompleteTerm
+          key={term.value}
+          value={handleSuggestions(term.value, searchContent)}
+          linkProps={{ href: '/' }}
+        />
+      ))}
+    </SearchAutoComplete>
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { SearchAutoComplete } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/SearchAutoComplete/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection direction="column">
+      Searching for: <code>{searchContent}</code>
+      <SearchAutoComplete>
+        {terms?.map((term) => (
+          <SearchAutoCompleteTerm
+            key={term.value}
+            value={handleSuggestions(term.value, searchContent)}
+            linkProps={{ href: '/' }}
+          />
+        ))}
+      </SearchAutoComplete>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+
+    ```tsx
+    const searchContent = 'Appl'
+
+    const terms = [{ value: 'apple airpods' }, { value: 'apple tv' }]
+
+    <SearchAutoComplete>
+      {terms?.map((term) => (
+        <SearchAutoCompleteTerm
+          key={term.value}
+          value={handleSuggestions(term.value, searchContent)}
+          linkProps={{ href: '/' }}
+        />
+      ))}
+    </SearchAutoComplete>
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+### Search Auto Complete
+
+<PropsSection name="SearchAutoComplete" />
+
+### Search Auto Complete Term
+
+<PropsSection name="SearchAutoCompleteTerm" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-auto-complete-padding-top"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-search-auto-complete-padding-right"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-search-auto-complete-padding-bottom"
+    value="var(--fs-search-auto-complete-padding-top)"
+  />
+  <TokenRow
+    token="--fs-search-auto-complete-padding-left"
+    value="var(--fs-search-auto-complete-padding-right)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-search-auto-complete-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-search-auto-complete-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenRow
+    token="--fs-search-auto-complete-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Item
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-auto-complete-item-column-gap"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-search-auto-complete-item-text-size"
+    value="var(--fs-text-size-2)"
+  />
+  <TokenRow token="--fs-search-auto-complete-item-line-height" value="1.25" />
+  <TokenRow
+    token="--fs-search-auto-complete-item-bkg-color-hover"
+    value="var(--fs-color-tertiary-bkg-hover)"
+    isColor
+  />
+</TokenTable>
+
+#### Icon
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-auto-complete-item-icon-color"
+    value="var(--fs-color-neutral-4)"
+    isColor
+  />
+  <TokenRow token="--fs-search-auto-complete-item-icon-size" value="1.125rem" />
+</TokenTable>
+
+---
+
+## Variants
+
+## Other Icons
+
+export const searchContentAlt = 'So'
+
+export const termsAlt = [
+  { value: 'sony headphone', icon: <TagIcon /> },
+  { value: 'sound speaker', icon: <FadersHorizontal /> },
+]
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection direction="column">
+      Searching for: <code>{searchContentAlt}</code>
+      <SearchAutoComplete>
+        {termsAlt?.map((term) => (
+          <SearchAutoCompleteTerm
+            key={term.value}
+            value={handleSuggestions(term.value, searchContentAlt)}
+            icon={term.icon}
+            linkProps={{ href: '/' }}
+          />
+        ))}
+      </SearchAutoComplete>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+
+    ```tsx
+    const searchContent = 'So'
+
+    const terms = [
+      { value: 'sony headphone', icon: <TagIcon /> },
+      { value: 'sound speaker', icon: <FadersHorizontal /> },
+    ]
+
+    <OverviewSection direction="column">
+      Searching for: <code>{searchContent}</code>
+      <SearchAutoComplete>
+        {terms?.map((term) => (
+          <SearchAutoCompleteTerm
+            key={term.value}
+            value={handleSuggestions(term.value, searchContent)}
+            icon={term.icon}
+            linkProps={{ href: '/' }}
+          />
+        ))}
+      </SearchAutoComplete>
+    </OverviewSection>
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-search-auto-complete`
+
+`data-fs-search-auto-complete-item`
+
+`data-fs-search-auto-complete-item-link`
+
+`data-fs-search-auto-complete-item-icon`
