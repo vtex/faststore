@@ -260,32 +260,38 @@ export const validateCart = async (
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
 
+  
   // Validate if Session's cookie exists
-    if (getCookie('vtex_session', headers.cookie)) {
+  const cookieSession = getCookie('vtex_session', headers.cookie) 
 
-      const {namespaces} =  await commerce.getsessionorder()  
-      const orderFormIdSession = namespaces.checkout?.orderFormId?.value 
+  if (cookieSession && enableOrderFormSync === true) {
 
-      // In the case of divergence between session cookie and indexdb update the order form
-      if (orderNumber != orderFormIdSession && orderFormIdSession!= undefined){
+    const {namespaces} =  await commerce.getsessionorder()  
+    const orderFormIdSession = namespaces.checkout?.orderFormId?.value 
 
-        const orderFormSession = await getOrderForm(orderFormIdSession, session, ctx)
-        const isStale = isOrderFormStale(orderFormSession)
+    // In the case of divergence between session cookie and indexdb update the order form
+    if (orderNumber != orderFormIdSession && orderFormIdSession!= undefined){
 
-        if (isStale === true && orderNumber) {
-          const newOrderForm = await setOrderFormEtag(orderFormSession, commerce).then(
-            joinItems,
-          )
+      const orderFormSession = await getOrderForm(orderFormIdSession, session, ctx)
+      const isStale = isOrderFormStale(orderFormSession)
 
-          return orderFormToCart(newOrderForm, skuLoader)
-          }
-      }
-  }
+      if (isStale === true && orderNumber) {
+        const newOrderForm = await setOrderFormEtag(orderFormSession, commerce).then(
+          joinItems,
+        )
+
+        return orderFormToCart(newOrderForm, skuLoader)
+        }
+    }
+}
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
+  
   if (enableOrderFormSync === true) {
+
+
     const isStale = isOrderFormStale(orderForm)
 
     if (isStale === true && orderNumber) {
