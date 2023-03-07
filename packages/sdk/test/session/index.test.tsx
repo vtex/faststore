@@ -13,7 +13,6 @@ const initialSession = {
   channel: 'test-channel',
   postalCode: null,
   person: null,
-  id: null
 }
 
 test('Session Provider: Set initial session values', async () => {
