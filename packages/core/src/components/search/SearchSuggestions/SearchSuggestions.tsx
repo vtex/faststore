@@ -1,7 +1,7 @@
 import {
-  List as UIList,
   SearchAutoComplete as UISearchAutoComplete,
   SearchAutoCompleteTerm as UISearchAutoCompleteTerm,
+  SearchSuggestedProducts,
 } from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
 import { Fragment } from 'react'
@@ -91,7 +91,7 @@ function SearchSuggestions({
       {...otherProps}
     >
       {terms.length > 0 && (
-        <UISearchAutoComplete>
+        <UISearchAutoComplete data-fs-search-section>
           {terms?.map(({ value: suggestion }) => (
             <UISearchAutoCompleteTerm
               key={suggestion}
@@ -110,18 +110,15 @@ function SearchSuggestions({
       )}
 
       {products.length > 0 && (
-        <div data-fs-search-section>
-          <div data-fs-search-header>
-            <p data-fs-search-title>Suggested Products</p>
-          </div>
-          <UIList>
-            {products.map((product, index) => (
-              <li key={product.id} data-fs-search-item>
-                <SearchProductCard product={product} index={index} />
-              </li>
-            ))}
-          </UIList>
-        </div>
+        <SearchSuggestedProducts data-fs-search-section>
+          {products.map((product, index) => (
+            <SearchProductCard
+              key={product.id}
+              product={product}
+              index={index}
+            />
+          ))}
+        </SearchSuggestedProducts>
       )}
     </section>
   )
