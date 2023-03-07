@@ -1,4 +1,7 @@
-export { default } from './SearchProductCard'
+export { default } from './SearchSuggestedProducts'
+export type { SearchSuggestedProductsProps } from './SearchSuggestedProducts'
+
+export { default as SearchProductCard } from './SearchProductCard'
 export type { SearchProductCardProps } from './SearchProductCard'
 
 export { default as SearchProductCardImage } from './SearchProductCardImage'

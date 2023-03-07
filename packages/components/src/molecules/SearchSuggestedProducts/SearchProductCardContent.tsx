@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import { Price } from '../../'
+import { Price } from '../..'
 import type { PriceFormatter } from '../../atoms/Price/Price'
 
 interface Price {

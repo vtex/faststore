@@ -9,6 +9,7 @@ import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import {
+  SearchSuggestedProducts,
   SearchProductCard,
   SearchProductCardImage,
   SearchProductCardContent,
@@ -19,9 +20,9 @@ import { product } from '../../../mocks/product'
 
 <header>
 
-# Search Product Card
+# Search Suggested Products
 
-Card to show details of the product and suggest in `SearchDropdown`.
+List of `SearchProductCards` to show details of the product and suggest in `SearchDropdown`.
 
 </header>
 
@@ -30,46 +31,45 @@ Card to show details of the product and suggest in `SearchDropdown`.
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <SearchProductCard>
-        <SearchProductCardImage>
-          <img
-            data-fs-image
-            src={product.image[1].url}
-            alt={product.image[1].alternateName}
+      <SearchSuggestedProducts>
+        <SearchProductCard linkProps={{ href: '/' }}>
+          <SearchProductCardImage>
+            <img
+              data-fs-image
+              src={product.image[1].url}
+              alt={product.image[1].alternateName}
+            />
+          </SearchProductCardImage>
+          <SearchProductCardContent
+            title={product.isVariantOf.name}
+            price={{
+              value: product.offers.offers[0].price,
+              listPrice: product.offers.offers[0].listPrice,
+              formatter: useFormattedPrice,
+            }}
           />
-        </SearchProductCardImage>
-        <SearchProductCardContent
-          title={product.isVariantOf.name}
-          price={{
-            value: product.offers.offers[0].price,
-            listPrice: product.offers.offers[0].listPrice,
-            formatter: useFormattedPrice,
-          }}
-        />
-      </SearchProductCard>
+        </SearchProductCard>
+        <SearchProductCard linkProps={{ href: '/' }}>
+          <SearchProductCardImage>
+            <img
+              data-fs-image
+              src={product.image[1].url}
+              alt={product.image[1].alternateName}
+            />
+          </SearchProductCardImage>
+          <SearchProductCardContent
+            title={product.isVariantOf.name}
+            price={{
+              value: product.offers.offers[0].price,
+              listPrice: product.offers.offers[0].listPrice,
+              formatter: useFormattedPrice,
+            }}
+          />
+        </SearchProductCard>
+      </SearchSuggestedProducts>
     </OverviewSection>
   </Tab>
-  <Tab>
-    ```tsx
-    <SearchProductCard>
-      <SearchProductCardImage>
-        <img
-          data-fs-image
-          src={product.image[1].url}
-          alt={product.image[1].alternateName}
-        />
-      </SearchProductCardImage>
-      <SearchProductCardContent
-        title={product.isVariantOf.name}
-        price={{
-          value: product.offers.offers[0].price,
-          listPrice: product.offers.offers[0].listPrice,
-          formatter: useFormattedPrice,
-        }}
-      />
-    </SearchProductCard>
-    ```
-  </Tab>
+  <Tab>```tsx ```</Tab>
 </Tabs>
 
 ---
@@ -95,51 +95,6 @@ import '@faststore/ui/src/components/molecules/SearchProductCard/styles.scss'
 ---
 
 ## Usage
-
-<Tabs items={['Example', 'Code']} defaultIndex="0">
-  <Tab>
-    <OverviewSection>
-      <SearchProductCard>
-        <SearchProductCardImage>
-          <img
-            data-fs-image
-            src={product.image[1].url}
-            alt={product.image[1].alternateName}
-          />
-        </SearchProductCardImage>
-        <SearchProductCardContent
-          title={product.isVariantOf.name}
-          price={{
-            value: product.offers.offers[0].price,
-            listPrice: product.offers.offers[0].listPrice,
-            formatter: useFormattedPrice,
-          }}
-        />
-      </SearchProductCard>
-    </OverviewSection>
-  </Tab>
-  <Tab>
-    ```tsx
-    <SearchProductCard>
-      <SearchProductCardImage>
-        <img
-          data-fs-image
-          src={product.image[1].url}
-          alt={product.image[1].alternateName}
-        />
-      </SearchProductCardImage>
-      <SearchProductCardContent
-        title={product.isVariantOf.name}
-        price={{
-          value: product.offers.offers[0].price,
-          listPrice: product.offers.offers[0].listPrice,
-          formatter: useFormattedPrice,
-        }}
-      />
-    </SearchProductCard>
-    ```
-  </Tab>
-</Tabs>
 
 ---
 

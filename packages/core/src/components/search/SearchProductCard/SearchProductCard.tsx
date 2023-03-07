@@ -27,6 +27,7 @@ function SearchProductCard({
   ...otherProps
 }: SearchProductCardProps) {
   const { onSearchInputSelection } = useSearchInput()
+
   const linkProps = useProductLink({
     product,
     selectedOffer: 0,
@@ -43,14 +44,7 @@ function SearchProductCard({
   } = product
 
   return (
-    <UISearchProductCard
-      linkProps={linkProps}
-      onLinkClick={() => {
-        linkProps.onClick
-        onSearchInputSelection?.(name, linkProps.href)
-      }}
-      {...otherProps}
-    >
+    <UISearchProductCard linkProps={linkProps} {...otherProps}>
       <UISearchProductCardImage>
         <Image src={img.url} alt={img.alternateName} width={56} height={56} />
       </UISearchProductCardImage>
