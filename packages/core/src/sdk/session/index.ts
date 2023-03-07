@@ -29,7 +29,6 @@ export const mutation = gql`
         givenName
         familyName
       }
-      id
     }
   }
 `

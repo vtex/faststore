@@ -62,10 +62,6 @@ Session input.
 """
 input IStoreSession {
   """
-  Session input id.
-  """
-  id: String!
-  """
   Session input locale.
   """
   locale: String!

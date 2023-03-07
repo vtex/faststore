@@ -231,8 +231,6 @@ export type IStoreSelectedFacet = {
 
 /** Session input. */
 export type IStoreSession = {
-  /** Session input id. */
-  id: InputMaybe<Scalars['String']>
   /** Session input channel. */
   channel: InputMaybe<Scalars['String']>
   /** Session input country. */
