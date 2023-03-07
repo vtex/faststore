@@ -117,6 +117,14 @@ export type { RadioGroupProps, RadioOptionProps } from './molecules/RadioGroup'
 export { default as Rating } from './molecules/Rating'
 export type { RatingProps } from './molecules/Rating'
 export {
+  default as SearchAutoComplete,
+  SearchAutoCompleteTerm,
+} from './molecules/SearchAutoComplete'
+export type {
+  SearchAutoCompleteProps,
+  SearchAutoCompleteTermProps,
+} from './molecules/SearchAutoComplete'
+export {
   default as SearchHistory,
   SearchHistoryTerm,
 } from './molecules/SearchHistory'
