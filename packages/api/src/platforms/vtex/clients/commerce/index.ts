@@ -99,16 +99,16 @@ export const VtexCommerce = (
       },
       orderForm: ({
         id,
-        refreshOutdatedData = true,
+        disableAutoCompletion = true,
         channel = ctx.storage.channel,
       }: {
         id: string
-        refreshOutdatedData?: boolean
+        disableAutoCompletion?: boolean
         channel?: Required<Channel>
       }): Promise<OrderForm> => {
         const { salesChannel } = channel
         const params = new URLSearchParams({
-          refreshOutdatedData: refreshOutdatedData.toString(),
+          disableAutoCompletion: disableAutoCompletion.toString(),
           sc: salesChannel,
         })
 
