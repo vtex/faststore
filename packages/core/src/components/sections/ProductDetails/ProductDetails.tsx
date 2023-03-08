@@ -42,6 +42,53 @@ interface Props {
  */
 const DOMINANT_SKU_SELECTOR_PROPERTY = 'Color'
 
+const product = {
+  name: 'Classic Shoes',
+  isVariantOf: {
+    name: 'Classic Shoes',
+    productGroupID: '99995945',
+    skuVariants: {
+      activeVariations: {
+        Color: 'Pink',
+        Size: '42',
+      },
+      slugsMap: {
+        'Color-Pink-Size-42': 'classic-shoes-37',
+        'Color-White-Size-42': 'classic-shoes-36',
+        'Color-White-Size-41': 'classic-shoes-310124175',
+      },
+      availableVariations: {
+        Color: [
+          {
+            hexColor: '#e691f4',
+            label: 'Color: Pink',
+            value: 'Pink',
+            alt: 'Color Pink',
+          },
+          {
+            hexColor: '#f6f6f6',
+            label: 'Color: White',
+            value: 'White',
+            alt: 'Color White',
+          },
+        ],
+        Size: [
+          {
+            label: '41',
+            value: '41',
+            alt: 'Size 41',
+          },
+          {
+            label: '42',
+            value: '42',
+            alt: 'Size 42',
+          },
+        ],
+      },
+    },
+  },
+}
+
 function ProductDetails({ context: staleProduct }: Props) {
   const { currency } = useSession()
   const [addQuantity, setAddQuantity] = useState(1)
@@ -75,23 +122,23 @@ function ProductDetails({ context: staleProduct }: Props) {
   } = data
 
   const [skuPropertyName] = useMemo(() => {
-    return Object.keys(skuVariants.activeVariations)
-  }, [skuVariants.activeVariations])
+    return Object.keys(product.isVariantOf.skuVariants.activeVariations)
+  }, [])
 
   const getItemHref = useCallback(
     (option: SkuOption) => {
       const currentOptionName = skuPropertyName ?? option.label.split(':')[0]
       const currentItemHref = `/${getSkuSlug(
-        skuVariants.slugsMap,
+        product.isVariantOf.skuVariants.slugsMap,
         {
-          ...skuVariants.activeVariations,
+          ...product.isVariantOf.skuVariants.activeVariations,
           [currentOptionName]: option.value,
         },
         skuPropertyName
       )}/p`
       return currentItemHref
     },
-    [skuPropertyName, skuVariants.activeVariations, skuVariants.slugsMap]
+    [skuPropertyName]
   )
 
   const buyDisabled = availability !== 'https://schema.org/InStock'
@@ -203,10 +250,14 @@ function ProductDetails({ context: staleProduct }: Props) {
             {skuVariants && (
               <Selectors
                 data-fs-product-details-selectors
-                slugsMap={skuVariants.slugsMap}
-                activeVariations={skuVariants.activeVariations}
+                slugsMap={product.isVariantOf.skuVariants.slugsMap}
+                activeVariations={
+                  product.isVariantOf.skuVariants.activeVariations
+                }
                 dominantVariation={DOMINANT_SKU_SELECTOR_PROPERTY}
-                availableVariations={skuVariants.availableVariations}
+                availableVariations={
+                  product.isVariantOf.skuVariants.availableVariations
+                }
                 getItemHref={getItemHref}
               />
             )}
