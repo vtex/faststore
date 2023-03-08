@@ -4,56 +4,12 @@ import {
   SearchProducts,
 } from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
-import { Fragment } from 'react'
 
 import SearchProductItem from 'src/components/search/SearchProductItem'
 import useSearchInput, { formatSearchPath } from 'src/sdk/search/useSearchInput'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
 import styles from '../search.module.scss'
-
-function formatSearchTerm(
-  indexSubstring: number,
-  searchTerm: string,
-  suggestion: string
-) {
-  if (indexSubstring === 0) {
-    return searchTerm
-      .split('')
-      .map((char, idx) =>
-        idx === 0 && suggestion.indexOf(char.toUpperCase()) === 0
-          ? char.toUpperCase()
-          : char.toLowerCase()
-      )
-      .join('')
-  }
-
-  return searchTerm.toLowerCase()
-}
-
-function handleSuggestions(suggestion: string, searchTerm: string) {
-  const suggestionSubstring = suggestion
-    .toLowerCase()
-    .split(searchTerm.toLowerCase())
-
-  return (
-    <p>
-      {suggestionSubstring.map((substring, indexSubstring) => (
-        <Fragment key={[substring, indexSubstring].join()}>
-          {substring.length > 0 && (
-            <strong data-fs-search-auto-complete-item-suggestion>
-              {indexSubstring === 0
-                ? substring.charAt(0).toUpperCase() + substring.slice(1)
-                : substring}
-            </strong>
-          )}
-          {indexSubstring !== suggestionSubstring.length - 1 &&
-            formatSearchTerm(indexSubstring, searchTerm, suggestion)}
-        </Fragment>
-      ))}
-    </p>
-  )
-}
 
 export interface SearchSuggestionsProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -95,7 +51,8 @@ function SearchSuggestions({
           {terms?.map(({ value: suggestion }) => (
             <UISearchAutoCompleteTerm
               key={suggestion}
-              value={handleSuggestions(suggestion, term)}
+              term={term}
+              suggestion={suggestion}
               linkProps={{
                 href: formatSearchPath(suggestion),
                 onClick: () =>

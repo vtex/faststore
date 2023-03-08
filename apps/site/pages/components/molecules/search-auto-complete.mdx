@@ -10,7 +10,6 @@ import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SearchAutoComplete, SearchAutoCompleteTerm } from '@faststore/ui'
 import { FadersHorizontal, TagIcon } from '@faststore/components'
-import { handleSuggestions } from 'site/components/utilities/handleSuggestions'
 
 <header>
 
@@ -24,17 +23,18 @@ Displays a set of navigation links that self-adapts on mobile or desktop screens
 
 export const searchContent = 'Appl'
 
-export const terms = [{ value: 'apple airpods' }, { value: 'apple tv' }]
+export const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection direction="column">
       Searching for: <code>{searchContent}</code>
       <SearchAutoComplete>
-        {terms?.map((term) => (
+        {suggestions?.map((suggestion) => (
           <SearchAutoCompleteTerm
-            key={term.value}
-            value={handleSuggestions(term.value, searchContent)}
+            key={suggestion.value}
+            term={searchContent}
+            suggestion={suggestion.value}
             linkProps={{ href: '/' }}
           />
         ))}
@@ -46,13 +46,14 @@ export const terms = [{ value: 'apple airpods' }, { value: 'apple tv' }]
     ```tsx
     const searchContent = 'Appl'
 
-    const terms = [{ value: 'apple airpods' }, { value: 'apple tv' }]
+    const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
 
     <SearchAutoComplete>
-      {terms?.map((term) => (
+      {suggestions?.map((suggestion) => (
         <SearchAutoCompleteTerm
-          key={term.value}
-          value={handleSuggestions(term.value, searchContent)}
+          key={suggestion.value}
+          term={searchContent}
+          suggestion={suggestion.value}
           linkProps={{ href: '/' }}
         />
       ))}
@@ -87,10 +88,11 @@ import '@faststore/ui/src/components/molecules/SearchAutoComplete/styles.scss'
     <OverviewSection direction="column">
       Searching for: <code>{searchContent}</code>
       <SearchAutoComplete>
-        {terms?.map((term) => (
+        {suggestions?.map((suggestion) => (
           <SearchAutoCompleteTerm
-            key={term.value}
-            value={handleSuggestions(term.value, searchContent)}
+            key={suggestion.value}
+            term={searchContent}
+            suggestion={suggestion.value}
             linkProps={{ href: '/' }}
           />
         ))}
@@ -102,13 +104,14 @@ import '@faststore/ui/src/components/molecules/SearchAutoComplete/styles.scss'
     ```tsx
     const searchContent = 'Appl'
 
-    const terms = [{ value: 'apple airpods' }, { value: 'apple tv' }]
+    const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
 
     <SearchAutoComplete>
-      {terms?.map((term) => (
+      {suggestions?.map((suggestion) => (
         <SearchAutoCompleteTerm
-          key={term.value}
-          value={handleSuggestions(term.value, searchContent)}
+          key={suggestion.value}
+          term={searchContent}
+          suggestion={suggestion.value}
           linkProps={{ href: '/' }}
         />
       ))}
@@ -206,7 +209,7 @@ import '@faststore/ui/src/components/molecules/SearchAutoComplete/styles.scss'
 
 export const searchContentAlt = 'So'
 
-export const termsAlt = [
+export const suggestionsAlt = [
   { value: 'sony headphone', icon: <TagIcon /> },
   { value: 'sound speaker', icon: <FadersHorizontal /> },
 ]
@@ -216,11 +219,12 @@ export const termsAlt = [
     <OverviewSection direction="column">
       Searching for: <code>{searchContentAlt}</code>
       <SearchAutoComplete>
-        {termsAlt?.map((term) => (
+        {suggestionsAlt?.map((suggestion) => (
           <SearchAutoCompleteTerm
-            key={term.value}
-            value={handleSuggestions(term.value, searchContentAlt)}
-            icon={term.icon}
+            key={suggestion.value}
+            term={searchContentAlt}
+            suggestion={suggestion.value}
+            icon={suggestion.icon}
             linkProps={{ href: '/' }}
           />
         ))}
@@ -232,24 +236,22 @@ export const termsAlt = [
     ```tsx
     const searchContent = 'So'
 
-    const terms = [
+    const suggestions = [
       { value: 'sony headphone', icon: <TagIcon /> },
       { value: 'sound speaker', icon: <FadersHorizontal /> },
     ]
 
-    <OverviewSection direction="column">
-      Searching for: <code>{searchContent}</code>
-      <SearchAutoComplete>
-        {terms?.map((term) => (
-          <SearchAutoCompleteTerm
-            key={term.value}
-            value={handleSuggestions(term.value, searchContent)}
-            icon={term.icon}
-            linkProps={{ href: '/' }}
-          />
-        ))}
-      </SearchAutoComplete>
-    </OverviewSection>
+    <SearchAutoComplete>
+      {suggestions?.map((suggestion) => (
+        <SearchAutoCompleteTerm
+          key={suggestion.value}
+          term={searchContent}
+          suggestion={suggestion.value}
+          icon={suggestion.icon}
+          linkProps={{ href: '/' }}
+        />
+      ))}
+    </SearchAutoComplete>
     ```
 
   </Tab>
