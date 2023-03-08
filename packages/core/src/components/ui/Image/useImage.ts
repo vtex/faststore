@@ -10,6 +10,7 @@ export interface ImageOptions extends ImgHTMLAttributes<HTMLImageElement> {
   height: number
   options?: ThumborOptions
   useNewThumborUrl?: boolean
+  factor?: 1 | 2 | 3
 }
 
 const FACTORS = [1, 2, 3]
@@ -21,6 +22,7 @@ export const useImage = ({
   height,
   options = {},
   useNewThumborUrl,
+  factor = 3,
   ...rest
 }: ImageOptions): ImgHTMLAttributes<HTMLImageElement> => {
   const { srcSet, src } = useMemo(() => {
@@ -33,10 +35,10 @@ export const useImage = ({
     })
 
     return {
-      src: builder(width * LARGE_FACTOR, height * LARGE_FACTOR),
+      src: builder(width * factor, height * factor),
       srcSet: srcs.join(', '),
     }
-  }, [height, options, baseUrl, width])
+  }, [baseUrl, options, useNewThumborUrl, width, factor, height])
 
   return {
     src,
