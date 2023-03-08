@@ -69,17 +69,57 @@ List of `SearchProductItem` to show details of the product and suggest in `Searc
       </SearchProducts>
     </OverviewSection>
   </Tab>
-  <Tab>```tsx ```</Tab>
+  <Tab>
+    ```tsx
+    <SearchProducts>
+      <SearchProductItem linkProps={{ href: '/' }}>
+        <SearchProductItemImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </SearchProductItemImage>
+        <SearchProductItemContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+        />
+      </SearchProductItem>
+      <SearchProductItem linkProps={{ href: '/' }}>
+        <SearchProductItemImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </SearchProductItemImage>
+        <SearchProductItemContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+        />
+      </SearchProductItem>
+    </SearchProducts>
+    ```
+  </Tab>
 </Tabs>
 
 ---
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
 import {
+  SearchProducts,
   SearchProductItem,
   SearchProductItemImage,
   SearchProductItemContent,
@@ -95,6 +135,89 @@ import '@faststore/ui/src/components/molecules/SearchProductItem/styles.scss'
 ---
 
 ## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SearchProducts>
+        <SearchProductItem linkProps={{ href: '/' }}>
+          <SearchProductItemImage>
+            <img
+              data-fs-image
+              src={product.image[1].url}
+              alt={product.image[1].alternateName}
+            />
+          </SearchProductItemImage>
+          <SearchProductItemContent
+            title={product.isVariantOf.name}
+            price={{
+              value: product.offers.offers[0].price,
+              listPrice: product.offers.offers[0].listPrice,
+              formatter: useFormattedPrice,
+            }}
+          />
+        </SearchProductItem>
+        <SearchProductItem linkProps={{ href: '/' }}>
+          <SearchProductItemImage>
+            <img
+              data-fs-image
+              src={product.image[1].url}
+              alt={product.image[1].alternateName}
+            />
+          </SearchProductItemImage>
+          <SearchProductItemContent
+            title={product.isVariantOf.name}
+            price={{
+              value: product.offers.offers[0].price,
+              listPrice: product.offers.offers[0].listPrice,
+              formatter: useFormattedPrice,
+            }}
+          />
+        </SearchProductItem>
+      </SearchProducts>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <SearchProducts>
+      <SearchProductItem linkProps={{ href: '/' }}>
+        <SearchProductItemImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </SearchProductItemImage>
+        <SearchProductItemContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+        />
+      </SearchProductItem>
+      <SearchProductItem linkProps={{ href: '/' }}>
+        <SearchProductItemImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </SearchProductItemImage>
+        <SearchProductItemContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+        />
+      </SearchProductItem>
+    </SearchProducts>
+    ```
+  </Tab>
+</Tabs>
 
 ---
 
@@ -179,7 +302,7 @@ All search product related components support all attributes also supported by t
   <TokenRow token="--fs-search-products-title-line-height" value="1.5" />
 </TokenTable>
 
-### Item
+#### Item
 
 <TokenTable>
   <TokenRow
@@ -197,7 +320,7 @@ All search product related components support all attributes also supported by t
   />
 </TokenTable>
 
-### Item Image
+#### Item Image
 
 <TokenTable>
   <TokenRow
@@ -211,7 +334,7 @@ All search product related components support all attributes also supported by t
   <TokenRow token="--fs-search-product-item-image-size" value="3.5rem" />
 </TokenTable>
 
-### Item Title
+#### Item Title
 
 <TokenTable>
   <TokenRow
@@ -230,7 +353,7 @@ All search product related components support all attributes also supported by t
   />
 </TokenTable>
 
-### Item Price
+#### Item Price
 
 <TokenTable>
   <TokenRow
