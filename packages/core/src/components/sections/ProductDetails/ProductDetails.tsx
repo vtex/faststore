@@ -4,13 +4,12 @@ import { sendAnalyticsEvent } from '@faststore/sdk'
 import { useEffect, useState } from 'react'
 import {
   BuyButton as UIBuyButton,
-  DiscountBadge as UIDiscountBadge,
   QuantitySelector as UIQuantitySelector,
   ProductTitle as UIProductTitle,
 } from '@faststore/ui'
 
 import { Components } from './Overrides'
-const { Price } = Components
+const { Price, DiscountBadge } = Components
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 import OutOfStock from 'src/components/product/OutOfStock'
@@ -127,7 +126,7 @@ function ProductDetails({ context: staleProduct }: Props) {
           <UIProductTitle
             title={<h1>{name}</h1>}
             label={
-              <UIDiscountBadge
+              <DiscountBadge
                 listPrice={listPrice}
                 spotPrice={lowPrice}
                 size="big"
