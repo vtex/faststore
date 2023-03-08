@@ -7,8 +7,10 @@ import {
   DiscountBadge as UIDiscountBadge,
   QuantitySelector as UIQuantitySelector,
   ProductTitle as UIProductTitle,
-  Price as UIPrice,
 } from '@faststore/ui'
+
+import { Components } from './Overrides'
+const { Price: UIPrice } = Components;
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 import OutOfStock from 'src/components/product/OutOfStock'

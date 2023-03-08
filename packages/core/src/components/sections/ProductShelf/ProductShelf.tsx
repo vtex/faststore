@@ -6,7 +6,8 @@ import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import type { ProductsQueryQueryVariables } from '@generated/graphql'
 
-import ProductCard from '../../product/ProductCard'
+import { Components } from './Overrides'
+const { ProductCard } = Components
 import Section from '../Section'
 import styles from './product-shelf.module.scss'
 
