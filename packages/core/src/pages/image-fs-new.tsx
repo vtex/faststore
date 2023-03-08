@@ -15,7 +15,7 @@ function Page() {
         width={360}
         height={360}
         loading="eager"
-        preload
+        useNewThumborUrl
       />
       <p>
         Catalog Arquivos PNG -
@@ -29,6 +29,7 @@ function Page() {
         width={360}
         height={360}
         loading="eager"
+        useNewThumborUrl
       />
       <p>
         CMS file-manager JPG -
@@ -42,6 +43,7 @@ function Page() {
         width={384}
         height={384}
         loading="eager"
+        useNewThumborUrl
       />
       <p>
         CMS file-manager PNG -
@@ -55,6 +57,7 @@ function Page() {
         width={360}
         height={360}
         loading="eager"
+        useNewThumborUrl
       />
     </>
   )

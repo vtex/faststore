@@ -1,14 +1,15 @@
-import { useMemo } from 'react'
 import type { ImgHTMLAttributes } from 'react'
+import { useMemo } from 'react'
 
-import { urlBuilder } from './thumborUrlBuilder'
 import type { ThumborOptions } from './thumborUrlBuilder'
+import { urlBuilder } from './thumborUrlBuilder'
 
 export interface ImageOptions extends ImgHTMLAttributes<HTMLImageElement> {
   src: string
   width: number
   height: number
   options?: ThumborOptions
+  useNewThumborUrl?: boolean
 }
 
 const FACTORS = [1, 2, 3]
@@ -19,10 +20,11 @@ export const useImage = ({
   width,
   height,
   options = {},
+  useNewThumborUrl,
   ...rest
 }: ImageOptions): ImgHTMLAttributes<HTMLImageElement> => {
   const { srcSet, src } = useMemo(() => {
-    const builder = urlBuilder(baseUrl, options)
+    const builder = urlBuilder(baseUrl, options, useNewThumborUrl)
 
     const srcs = FACTORS.map((factor) => {
       const rescaledWidth = width * factor

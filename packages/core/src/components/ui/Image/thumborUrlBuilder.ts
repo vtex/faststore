@@ -1,3 +1,5 @@
+import storeConfig from '../../../../faststore.config'
+
 export type FilterValue = boolean | string | string[] | number[]
 
 export interface Box {
@@ -20,6 +22,7 @@ export interface ThumborOptions {
 }
 
 const THUMBOR_SERVER = 'https://assets.vtex.app'
+const THUMBOR_SERVER_NEW = `https://${storeConfig.api.storeId}.vtexassets.com`
 
 const cropSection = ({ left, top, right, bottom }: Box) =>
   `${left}x${top}:${right}x${bottom}`
@@ -50,8 +53,13 @@ function filtersURIComponent(filters: Record<string, FilterValue>) {
   return elements.join(':')
 }
 
-export const urlBuilder = (baseUrl: string, options: ThumborOptions) => {
-  const preSizeComponents = [THUMBOR_SERVER, 'unsafe']
+export const urlBuilder = (
+  baseUrl: string,
+  options: ThumborOptions,
+  useNewThumborUrl: boolean
+) => {
+  const SERVER_URL = useNewThumborUrl ? THUMBOR_SERVER_NEW : THUMBOR_SERVER
+  const preSizeComponents = [SERVER_URL, 'unsafe']
   const postSizeComponents: string[] = []
 
   // Add the trim parameter after unsafe if appliable

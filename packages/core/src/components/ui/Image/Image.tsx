@@ -1,8 +1,8 @@
-import { forwardRef, memo } from 'react'
 import Head from 'next/head'
+import { forwardRef, memo } from 'react'
 
-import { useImage } from './useImage'
 import type { ImageOptions } from './useImage'
+import { useImage } from './useImage'
 
 // React still don't have imageSizes declared on its types. Somehow,
 // it generated the right html
