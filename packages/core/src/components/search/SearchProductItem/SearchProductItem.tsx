@@ -28,7 +28,7 @@ function SearchProductItem({
 }: SearchProductItemProps) {
   const { onSearchInputSelection } = useSearchInput()
 
-  const linkProps = useProductLink({
+  const { href, onClick, ...baseLinkProps } = useProductLink({
     product,
     selectedOffer: 0,
     index,
@@ -42,6 +42,15 @@ function SearchProductItem({
       offers: [{ listPrice }],
     },
   } = product
+
+  const linkProps = {
+    href,
+    onClick: () => {
+      onClick()
+      onSearchInputSelection?.(name, href)
+    },
+    ...baseLinkProps,
+  }
 
   return (
     <UISearchProductItem linkProps={linkProps} {...otherProps}>
