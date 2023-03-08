@@ -10,7 +10,7 @@ import {
 } from '@faststore/ui'
 
 import { Components } from './Overrides'
-const { Price } = Components;
+const { Price } = Components
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 import OutOfStock from 'src/components/product/OutOfStock'
