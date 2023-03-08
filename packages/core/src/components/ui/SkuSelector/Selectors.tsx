@@ -79,10 +79,10 @@ function Selectors({
       >
         {dominantOptions && (
           <UISkuSelector
-            variant="image"
+            variant="color"
             skuPropertyName={dominantVariation}
             options={dominantOptions}
-            ImageComponent={ImageComponent}
+            // ImageComponent={ImageComponent}
             activeVariations={activeVariations}
             linkProps={{
               as: NextLink,
@@ -98,7 +98,7 @@ function Selectors({
               variant="label"
               skuPropertyName={skuVariant}
               options={otherSkuVariants[skuVariant]}
-              ImageComponent={ImageComponent}
+              // ImageComponent={ImageComponent}
               activeVariations={activeVariations}
               linkProps={{
                 as: NextLink,
