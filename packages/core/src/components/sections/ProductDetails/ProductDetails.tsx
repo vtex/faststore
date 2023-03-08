@@ -10,7 +10,7 @@ import {
 } from '@faststore/ui'
 
 import { Components } from './Overrides'
-const { Price: UIPrice } = Components;
+const { Price } = Components;
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 import OutOfStock from 'src/components/product/OutOfStock'
@@ -146,7 +146,7 @@ function ProductDetails({ context: staleProduct }: Props) {
           >
             <section data-fs-product-details-values>
               <div data-fs-product-details-prices>
-                <UIPrice
+                <Price
                   value={listPrice}
                   formatter={useFormattedPrice}
                   testId="list-price"
@@ -154,7 +154,7 @@ function ProductDetails({ context: staleProduct }: Props) {
                   variant="listing"
                   SRText="Original price:"
                 />
-                <UIPrice
+                <Price
                   value={lowPrice}
                   formatter={useFormattedPrice}
                   testId="price"
