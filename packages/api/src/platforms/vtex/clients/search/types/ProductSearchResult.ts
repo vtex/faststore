@@ -12,6 +12,7 @@ export interface ProductSearchResult {
   query: string
   operator: 'and' | 'or'
   fuzzy: string
+  redirect?: string
   correction?: Correction
 }
 
