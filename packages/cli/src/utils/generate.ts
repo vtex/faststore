@@ -129,7 +129,18 @@ function mergeCMSFile(fileName: string) {
     const coreContentTypes = readFileSync(`${coreCMSDir}/${fileName}`, 'utf8')
     const customContentTypes = readFileSync(`${userCMSDir}/${fileName}`, 'utf8')
     const coreContentTypesJSON = JSON.parse(coreContentTypes)
-    const customContentTypesJSON = JSON.parse(customContentTypes)
+    let customContentTypesJSON;
+    
+    try {
+      customContentTypesJSON = JSON.parse(customContentTypes)
+    } catch(SyntaxError) {
+      console.info(
+        `${chalk.blue(
+          'info'
+        )} - ${fileName} is a malformed JSON file.`
+      )
+      customContentTypesJSON = []
+    }
 
     const mergeContentTypes = [
       ...coreContentTypesJSON,
