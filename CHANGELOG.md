@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.36](https://github.com/vtex/faststore/compare/v1.12.35...v1.12.36) (2023-03-09)
+
+
+### Features
+
+* Add initial support to Intelligent Search redirects ([#1658](https://github.com/vtex/faststore/issues/1658)) ([21a2dc5](https://github.com/vtex/faststore/commit/21a2dc59bcb1319a7dcd36c2ff59ad1a9d50ca6b))
+
+
+
 ## 1.12.35 (2023-02-13)
 
 
