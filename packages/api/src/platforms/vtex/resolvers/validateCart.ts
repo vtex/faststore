@@ -145,7 +145,7 @@ const orderFormToCart = async (
       orderNumber: form.orderFormId,
       acceptedOffer: form.items.map(async (item) => ({
         ...item,
-        product: await skuLoader.load(item.id), // TODO: add channel
+        product: await skuLoader.load(item.id),
       })),
     },
     messages: form.messages.map(({ text, status }) => ({
