@@ -17,6 +17,7 @@ import type {
   OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
 import type { Context } from '..'
+import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 type Indexed<T> = T & { index?: number }
 
 const isAttachment = (value: IStorePropertyValue) =>
@@ -254,6 +255,17 @@ export const validateCart = async (
     clients: { commerce },
     loaders: { skuLoader },
   } = ctx
+
+  const channel = session?.channel
+  const locale = session?.locale
+
+  if (channel) {
+    mutateChannelContext(ctx, channel)
+  }
+
+  if (locale) {
+    mutateLocaleContext(ctx, locale)
+  }
 
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
