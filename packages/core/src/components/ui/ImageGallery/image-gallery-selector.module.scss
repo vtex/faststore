@@ -96,7 +96,7 @@
       color: var(--fs-color-text-display);
     }
 
-    span {
+    span[data-fs-icon] {
       display: flex;
       height: fit-content;
       padding: var(--fs-spacing-1);
@@ -124,7 +124,7 @@
       width: 100%;
       background: linear-gradient(180deg, var(--fs-color-body-bkg) 55%, transparent);
 
-      span {
+      span[data-fs-icon] {
         transform: rotate(90deg);
       }
 
