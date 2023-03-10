@@ -1,10 +1,15 @@
 import deepEquals from 'fast-deep-equal'
 
 import { md5 } from '../utils/md5'
-import { attachmentToPropertyValue, getPropertyId, VALUE_REFERENCES } from '../utils/propertyValue'
+import {
+  attachmentToPropertyValue,
+  getPropertyId,
+  VALUE_REFERENCES,
+} from '../utils/propertyValue'
+import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 
 import type {
-  IStoreSession, 
+  IStoreSession,
   IStoreOffer,
   IStoreOrder,
   IStorePropertyValue,
@@ -17,7 +22,7 @@ import type {
   OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
 import type { Context } from '..'
-import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
+
 type Indexed<T> = T & { index?: number }
 
 const isAttachment = (value: IStorePropertyValue) =>
@@ -38,7 +43,7 @@ const getId = (item: IStoreOffer) =>
 
 const orderFormItemToOffer = (
   item: OrderFormItem,
-  index?: number,
+  index?: number
 ): Indexed<IStoreOffer> => ({
   listPrice: item.listPrice / 100,
   price: item.sellingPrice / 100,
@@ -54,7 +59,7 @@ const orderFormItemToOffer = (
 })
 
 const offerToOrderItemInput = (
-  offer: Indexed<IStoreOffer>,
+  offer: Indexed<IStoreOffer>
 ): OrderFormInputItem => ({
   quantity: offer.quantity,
   seller: offer.seller.identifier,
@@ -100,18 +105,17 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
 }
 
 const joinItems = (form: OrderForm) => {
-  const itemsById = form.items
-    .reduce((acc, item) => {
-      const id = getId(orderFormItemToOffer(item))
+  const itemsById = form.items.reduce((acc, item) => {
+    const id = getId(orderFormItemToOffer(item))
 
-      if (!acc[id]) {
-        acc[id] = []
-      }
+    if (!acc[id]) {
+      acc[id] = []
+    }
 
-      acc[id].push(item)
+    acc[id].push(item)
 
-      return acc
-    }, {} as Record<string, OrderFormItem[]>)
+    return acc
+  }, {} as Record<string, OrderFormItem[]>)
 
   return {
     ...form,
@@ -120,7 +124,7 @@ const joinItems = (form: OrderForm) => {
       const quantity = items.reduce((acc, i) => acc + i.quantity, 0)
       const totalPrice = items.reduce(
         (acc, i) => acc + i.quantity * i.sellingPrice,
-        0,
+        0
       )
 
       return {
@@ -134,7 +138,7 @@ const joinItems = (form: OrderForm) => {
 
 const orderFormToCart = async (
   form: OrderForm,
-  skuLoader: Context['loaders']['skuLoader'],
+  skuLoader: Context['loaders']['skuLoader']
 ) => {
   return {
     order: {
@@ -155,7 +159,7 @@ const getOrderFormEtag = ({ items }: OrderForm) => md5(JSON.stringify(items))
 
 const setOrderFormEtag = async (
   form: OrderForm,
-  commerce: Context['clients']['commerce'],
+  commerce: Context['clients']['commerce']
 ) => {
   try {
     const orderForm = await commerce.checkout.setCustomData({
@@ -168,7 +172,7 @@ const setOrderFormEtag = async (
     return orderForm
   } catch (err) {
     console.error(
-      'Error while setting custom data to orderForm.\n Make sure to add the following custom app to the orderForm: \n{"fields":["cartEtag"],"id":"faststore","major":1}.\n More info at: https://developers.vtex.com/vtex-rest-api/docs/customizable-fields-with-checkout-api',
+      'Error while setting custom data to orderForm.\n Make sure to add the following custom app to the orderForm: \n{"fields":["cartEtag"],"id":"faststore","major":1}.\n More info at: https://developers.vtex.com/vtex-rest-api/docs/customizable-fields-with-checkout-api'
     )
 
     throw err
@@ -182,7 +186,7 @@ const setOrderFormEtag = async (
  */
 const isOrderFormStale = (form: OrderForm) => {
   const faststoreData = form.customData?.customApps.find(
-    (app) => app.id === 'faststore',
+    (app) => app.id === 'faststore'
   )
 
   const oldEtag = faststoreData?.fields?.cartEtag
@@ -200,24 +204,24 @@ const isOrderFormStale = (form: OrderForm) => {
 const getOrderForm = async (
   id: string,
   session: Maybe<IStoreSession> | undefined,
-  { clients: { commerce } }: Context,
+  { clients: { commerce } }: Context
 ) => {
   const orderForm = await commerce.checkout.orderForm({
     id,
-  });
+  })
 
   // Stores that are not yet providing the session while validating the cart
   // should not be able to update the shipping data
   //
   // This was causing errors while validating regionalizated carts
   // because the following code was trying to change the shippingData to an undefined address/session
-  if(!session) {
+  if (!session) {
     return orderForm
   }
 
   const shouldUpdateShippingData =
     typeof session.postalCode === 'string' &&
-    orderForm.shippingData?.address?.postalCode != session.postalCode;
+    orderForm.shippingData?.address?.postalCode != session.postalCode
 
   if (shouldUpdateShippingData) {
     return commerce.checkout.shippingData({
@@ -225,11 +229,11 @@ const getOrderForm = async (
       body: {
         selectedAddresses: [session],
       },
-    });
+    })
   }
 
-  return orderForm;
-};
+  return orderForm
+}
 
 /**
  * This resolver implements the optimistic cart behavior. The main idea in here
@@ -247,7 +251,7 @@ const getOrderForm = async (
 export const validateCart = async (
   _: unknown,
   { cart: { order }, session }: MutationValidateCartArgs,
-  ctx: Context,
+  ctx: Context
 ) => {
   const { enableOrderFormSync } = ctx.storage.flags
   const { orderNumber, acceptedOffer } = order
@@ -278,7 +282,7 @@ export const validateCart = async (
 
     if (isStale === true && orderNumber) {
       const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
-        joinItems,
+        joinItems
       )
 
       return orderFormToCart(newOrderForm, skuLoader)
@@ -288,54 +292,48 @@ export const validateCart = async (
   // Step2: Process items from both browser and checkout so they have the same shape
   const browserItemsById = groupById(acceptedOffer)
   const originItemsById = groupById(orderForm.items.map(orderFormItemToOffer))
-  const originItems = Array.from(originItemsById.entries()); // items on the VTEX platform backend
-  const browserItems = Array.from(browserItemsById.entries()); // items on the user's browser
+  const originItems = Array.from(originItemsById.entries()) // items on the VTEX platform backend
+  const browserItems = Array.from(browserItemsById.entries()) // items on the user's browser
 
   // Step3: Compute delta changes
-  const { itemsToAdd, itemsToUpdate } = browserItems
-    .reduce(
-      (acc, [id, items]) => {
-        const maybeOriginItem = originItemsById.get(id)
+  const { itemsToAdd, itemsToUpdate } = browserItems.reduce(
+    (acc, [id, items]) => {
+      const maybeOriginItem = originItemsById.get(id)
 
-        // Adding new items to cart
-        if (!maybeOriginItem) {
-          items.forEach((item) => acc.itemsToAdd.push(item))
-
-          return acc
-        }
-
-        // Update existing items
-        const [head, ...tail] = maybeOriginItem
-        const totalQuantity = items.reduce(
-          (acc, curr) => acc + curr.quantity,
-          0,
-        )
-
-        // set total quantity to first item
-        acc.itemsToUpdate.push({
-          ...head,
-          quantity: totalQuantity,
-        })
-
-        // Remove all the rest
-        tail.forEach((item) =>
-          acc.itemsToUpdate.push({ ...item, quantity: 0 })
-        )
+      // Adding new items to cart
+      if (!maybeOriginItem) {
+        items.forEach((item) => acc.itemsToAdd.push(item))
 
         return acc
-      },
-      {
-        itemsToAdd: [] as IStoreOffer[],
-        itemsToUpdate: [] as IStoreOffer[],
-      },
-    )
+      }
+
+      // Update existing items
+      const [head, ...tail] = maybeOriginItem
+      const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
+
+      // set total quantity to first item
+      acc.itemsToUpdate.push({
+        ...head,
+        quantity: totalQuantity,
+      })
+
+      // Remove all the rest
+      tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
+
+      return acc
+    },
+    {
+      itemsToAdd: [] as IStoreOffer[],
+      itemsToUpdate: [] as IStoreOffer[],
+    }
+  )
 
   const itemsToDelete = originItems
     .filter(([id]) => !browserItemsById.has(id))
     .flatMap(([, items]) => items.map((item) => ({ ...item, quantity: 0 })))
 
   const changes = [...itemsToAdd, ...itemsToUpdate, ...itemsToDelete].map(
-    offerToOrderItemInput,
+    offerToOrderItemInput
   )
 
   if (changes.length === 0) {
