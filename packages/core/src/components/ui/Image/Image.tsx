@@ -1,59 +1,34 @@
-import { forwardRef, memo } from 'react'
-import Head from 'next/head'
+import { memo } from 'react'
 
+import NextImage, { ImageProps } from 'next/future/image'
+import { ThumborOptions } from './thumborUrlBuilder'
 import { useImage } from './useImage'
-import type { ImageOptions } from './useImage'
 
-// React still don't have imageSizes declared on its types. Somehow,
-// it generated the right html
-declare module 'react' {
-  interface ImgHTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-    fetchpriority?: string
-  }
+// Next loader function does not handle all props as height and options,
+// so we use the useImage hook to handle the custom thumbor loader with VTEX CDN
+// https://nextjs.org/docs/api-reference/next/image#loader
+function Image({ src, width, height, quality, ...otherProps }: ImageProps) {
+  const { src: thumborSrc, alt } = useImage({
+    src: String(src),
+    width: Number(width),
+    height: Number(height),
+    options: quality ? ({ filters: { quality } } as ThumborOptions) : undefined,
+    ...otherProps,
+  })
 
-  interface LinkHTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-    imageSizes?: string
-    fetchpriority?: string
-  }
+  return (
+    <NextImage
+      data-fs-image
+      unoptimized
+      loader={() => thumborSrc}
+      src={thumborSrc}
+      width={width}
+      height={height}
+      alt={alt}
+      {...otherProps}
+    />
+  )
 }
-
-interface Props extends ImageOptions {
-  preload?: boolean
-  fetchPriority?: string
-}
-
-// TODO: Replace this component by next/image
-const Image = forwardRef<HTMLImageElement, Props>(
-  ({ preload = false, fetchPriority, ...otherProps }, ref) => {
-    const imgProps = useImage(otherProps)
-    const { src, sizes = '100vw', srcSet } = imgProps
-
-    return (
-      <>
-        {preload && (
-          <Head>
-            <link
-              as="image"
-              rel="preload"
-              href={src}
-              imageSrcSet={srcSet}
-              imageSizes={sizes}
-              fetchpriority={fetchPriority}
-            />
-          </Head>
-        )}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          ref={ref}
-          data-fs-image
-          {...imgProps}
-          alt={imgProps.alt}
-          fetchpriority={fetchPriority}
-        />
-      </>
-    )
-  }
-)
 
 Image.displayName = 'Image'
 export default memo(Image)
