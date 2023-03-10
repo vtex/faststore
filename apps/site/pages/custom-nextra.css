@@ -265,7 +265,7 @@ header.hero > p {
 }
 
 .nx-features li img {
-  width: var(--fs-spacing-6);
+  height: var(--fs-spacing-6);
   margin-bottom: var(--fs-spacing-3);
 }
 
