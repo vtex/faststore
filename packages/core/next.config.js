@@ -8,7 +8,6 @@ const nextConfig = {
   /* config options here */
   images: {
     domains: [`${storeConfig.api.storeId}.vtexassets.com`],
-    loader: 'custom',
   },
   i18n: {
     locales: ['en-US'],
