@@ -271,8 +271,8 @@ export const validateCart = async (
     const orderFormIdSession = namespaces.checkout?.orderFormId?.value || ''
 
     const isSessionOrderFormSync =
-      orderFormIdSession && orderFormIdSession == orderNumber
-    if (!isSessionOrderFormSync) {
+      orderFormIdSession != '' && orderFormIdSession == orderNumber
+    if (isSessionOrderFormSync) {
       const orderFormSession = await getOrderForm(
         orderFormIdSession,
         session,
