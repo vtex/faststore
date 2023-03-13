@@ -262,17 +262,14 @@ export const validateCart = async (
 
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
-
-  // Validate if Session's cookie exists
   const cookieSession = getCookie('vtex_session', headers.cookie)
 
   if (cookieSession && enableOrderFormSync === true) {
     const { namespaces } = await commerce.getSessionOrder()
-    const orderFormIdSession = namespaces.checkout?.orderFormId?.value || ''
+    const orderFormIdSession = namespaces.checkout?.orderFormId?.value
 
-    const isSessionOrderFormSync =
-      orderFormIdSession != '' && orderFormIdSession == orderNumber
-    if (isSessionOrderFormSync) {
+    // In the case of divergence between session cookie and indexdb update the order form
+    if (orderNumber != orderFormIdSession && orderFormIdSession != undefined) {
       const orderFormSession = await getOrderForm(
         orderFormIdSession,
         session,
