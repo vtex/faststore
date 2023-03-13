@@ -40,7 +40,13 @@ const createRunner = () => {
     const schema = await schemaPromise
     const context = contextFactory({})
 
-    return execute(schema, parse(query), null, {...context,headers:{cookie:''}}, variables)
+    return execute(
+      schema,
+      parse(query),
+      null,
+      { ...context, headers: { cookie: '' } },
+      variables
+    )
   }
 }
 
@@ -74,7 +80,6 @@ beforeEach(() => {
 })
 
 test('`validateCart` mutation should return `null` when a valid cart is passed', async () => {
-
   const fetchAPICalls = [
     checkoutOrderFormValidFetch,
     checkoutOrderFormItemsValidFetch,
