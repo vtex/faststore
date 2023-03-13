@@ -5,7 +5,7 @@ import { ThumborOptions } from './thumborUrlBuilder'
 import { useImage } from './useImage'
 
 // Next loader function does not handle all props as height and options,
-// so we use the useImage hook to handle the custom thumbor loader with VTEX CDN
+// so we use the useImage hook to handle the custom thumbor loader (VTEX CDN) along with unoptimized prop
 // https://nextjs.org/docs/api-reference/next/image#loader
 function Image({ src, width, height, quality, ...otherProps }: ImageProps) {
   const { src: thumborSrc, alt } = useImage({
@@ -20,7 +20,6 @@ function Image({ src, width, height, quality, ...otherProps }: ImageProps) {
     <NextImage
       data-fs-image
       unoptimized
-      loader={() => thumborSrc}
       src={thumborSrc}
       width={width}
       height={height}
