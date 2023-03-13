@@ -268,7 +268,7 @@ export const validateCart = async (
 
   if (cookieSession && enableOrderFormSync === true) {
     const { namespaces } = await commerce.getSessionOrder()
-    const orderFormIdSession = namespaces.checkout?.orderFormId?.value
+    const orderFormIdSession = namespaces.checkout?.orderFormId?.value || ''
 
     const isSessionOrderFormSync =
       orderFormIdSession && orderFormIdSession == orderNumber
