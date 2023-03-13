@@ -8,11 +8,6 @@
   --fs-search-title-size              : var(--fs-text-size-lead);
   --fs-search-title-line-height       : 1.5;
 
-  // Section
-  --fs-search-section-padding         : var(--fs-spacing-1) 0;
-  --fs-search-section-bkg-color       : var(--fs-color-neutral-0);
-  --fs-search-section-border-bottom   : var(--fs-border-width) solid var(--fs-border-color-light);
-
   // Link
   --fs-search-item-link-color         : var(--fs-color-text-light);
   --fs-search-item-link-padding-right : var(--fs-spacing-3);
@@ -41,15 +36,6 @@
   [data-fs-search-title] {
     font-size: var(--fs-search-title-size);
     line-height: var(--fs-search-title-line-height);
-  }
-
-  [data-fs-search-section] {
-    padding: var(--fs-search-section-padding);
-    border-bottom: var(--fs-search-section-border-bottom);
-
-    &:last-child {
-      border-bottom-width: 0;
-    }
   }
 
   [data-fs-search-item-link] {

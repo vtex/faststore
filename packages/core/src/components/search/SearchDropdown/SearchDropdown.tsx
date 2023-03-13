@@ -17,8 +17,8 @@ function SearchDropdown({
   if (term.length === 0 && !isLoading) {
     return (
       <>
-        <SearchHistory />
-        <SearchTop />
+        <SearchHistory data-fs-search-section />
+        <SearchTop data-fs-search-section />
       </>
     )
   }
