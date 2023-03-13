@@ -1,8 +1,9 @@
 import {
   SlideOver,
   SlideOverHeader,
-  useFadeEffect,
   SlideOverProps,
+  useFadeEffect,
+  useUI,
 } from '@faststore/ui'
 
 export type SlideOverUsageProps = {
@@ -12,6 +13,7 @@ export type SlideOverUsageProps = {
 }
 
 const SlideOverUsage = (props: SlideOverUsageProps) => {
+  const { closeModal } = useUI()
   const { fade, fadeOut } = useFadeEffect()
   return (
     <SlideOver
@@ -20,7 +22,7 @@ const SlideOverUsage = (props: SlideOverUsageProps) => {
       onDismiss={() => fadeOut()}
       size={props.size}
       direction={props.direction}
-      onTransitionEnd={() => fade === 'out'}
+      onTransitionEnd={() => fade === 'out' && closeModal()}
     >
       <SlideOverHeader onClose={fadeOut}>
         <b>SlideOver</b>
