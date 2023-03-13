@@ -52,8 +52,8 @@ export const SlideOverPartialRight = () => {
   const { modal, openModal } = useUI()
   return (
     <>
-      <Button variant="primary" onClick={openModal}>
-        Open Partial & Right
+      <Button variant="primary" onClick={openModal} style={{ width: '9rem' }}>
+        Right
       </Button>
       {modal && (
         <SlideOverUsage size="partial" direction="rightSide" isOpen={modal} />
@@ -66,8 +66,8 @@ export const SlideOverPartialLeft = () => {
   const { modal, openModal } = useUI()
   return (
     <>
-      <Button variant="primary" onClick={openModal}>
-        Open Partial & Left
+      <Button variant="primary" onClick={openModal} style={{ width: '9rem' }}>
+        Left
       </Button>
       {modal && (
         <SlideOverUsage size="partial" direction="leftSide" isOpen={modal} />
@@ -80,8 +80,8 @@ export const SlideOverFullRight = () => {
   const { modal, openModal } = useUI()
   return (
     <>
-      <Button variant="primary" onClick={openModal}>
-        Open Full & Right
+      <Button variant="primary" onClick={openModal} style={{ width: '9rem' }}>
+        Right
       </Button>
       {modal && (
         <SlideOverUsage size="full" direction="rightSide" isOpen={modal} />
@@ -94,8 +94,8 @@ export const SlideOverFullLeft = () => {
   const { modal, openModal } = useUI()
   return (
     <>
-      <Button variant="primary" onClick={openModal}>
-        Open Full & Left
+      <Button variant="primary" onClick={openModal} style={{ width: '9rem' }}>
+        Left
       </Button>
       {modal && (
         <SlideOverUsage size="full" direction="leftSide" isOpen={modal} />
@@ -108,13 +108,17 @@ export const SlideOverFullLeft = () => {
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
-    <OverviewSection>
+    <OverviewSection direction="column">
+      <b>Open Partial</b>
       <UIProvider>
         <SlideOverPartialRight />
       </UIProvider>
       <UIProvider>
         <SlideOverPartialLeft />
       </UIProvider>
+    </OverviewSection>
+     <OverviewSection direction="column">
+      <b>Open Full</b>
       <UIProvider>
         <SlideOverFullRight />
       </UIProvider>
@@ -124,6 +128,8 @@ export const SlideOverFullLeft = () => {
     </OverviewSection>
   </Tab>
   <Tab>
+    <b>Open Partial</b>
+
     ```tsx
     <SlideOverUsage size="partial" direction="rightSide" isOpen={modal} />
     ```
@@ -132,6 +138,7 @@ export const SlideOverFullLeft = () => {
     <SlideOverUsage size="partial" direction="leftSide" isOpen={modal} />
     ```
 
+    <b>Open Full</b>
     ```tsx
     <SlideOverUsage size="full" direction="rightSide" isOpen={modal} />
     ```
