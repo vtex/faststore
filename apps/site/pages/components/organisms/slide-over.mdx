@@ -131,20 +131,68 @@ export const SlideOverFullLeft = () => {
     <b>Open Partial</b>
 
     ```tsx
-    <SlideOverUsage size="partial" direction="rightSide" isOpen={modal} />
+      export const SlideOverPartialRight = () => {
+        const { modal, openModal } = useUI()
+        return (
+          <>
+            <Button variant="primary" onClick={openModal}>
+              Right
+            </Button>
+            {modal && (
+              <SlideOverUsage size="partial" direction="rightSide" isOpen={modal} />
+            )}
+          </>
+        )
+      }
     ```
 
     ```tsx
-    <SlideOverUsage size="partial" direction="leftSide" isOpen={modal} />
+      export const SlideOverPartialLeft = () => {
+        const { modal, openModal } = useUI()
+        return (
+          <>
+            <Button variant="primary" onClick={openModal}>
+              Left
+            </Button>
+            {modal && (
+              <SlideOverUsage size="partial" direction="leftSide" isOpen={modal} />
+            )}
+          </>
+        )
+      }
     ```
 
     <b>Open Full</b>
     ```tsx
-    <SlideOverUsage size="full" direction="rightSide" isOpen={modal} />
+    export const SlideOverFullRight = () => {
+      const { modal, openModal } = useUI()
+      return (
+        <>
+          <Button variant="primary" onClick={openModal}>
+            Right
+          </Button>
+          {modal && (
+            <SlideOverUsage size="full" direction="rightSide" isOpen={modal} />
+          )}
+        </>
+      )
+    }
     ```
 
     ```tsx
-    <SlideOverUsage size="full" direction="leftSide" isOpen={modal} />
+    export const SlideOverFullRight = () => {
+      const { modal, openModal } = useUI()
+      return (
+        <>
+          <Button variant="primary" onClick={openModal}>
+            Right
+          </Button>
+          {modal && (
+            <SlideOverUsage size="full" direction="leftSide" isOpen={modal} />
+          )}
+        </>
+      )
+    }
     ```
 
   </Tab>
