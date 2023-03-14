@@ -262,12 +262,11 @@ export const validateCart = async (
 
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
-  const cookieSession = getCookie('vtex_session', headers.cookie)
+  const cookieSession = await getCookie('vtex_session', headers.cookie)
 
-  if (cookieSession && enableOrderFormSync === true) {
+  if (cookieSession) {
     const { namespaces } = await commerce.getSessionOrder()
     const orderFormIdSession = namespaces.checkout?.orderFormId?.value
-
     // In the case of divergence between session cookie and indexdb update the order form
     if (orderNumber != orderFormIdSession && orderFormIdSession != undefined) {
       const orderFormSession = await getOrderForm(
@@ -291,7 +290,6 @@ export const validateCart = async (
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
-
   if (enableOrderFormSync === true) {
     const isStale = isOrderFormStale(orderForm)
 

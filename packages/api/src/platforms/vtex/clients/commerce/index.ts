@@ -213,7 +213,7 @@ export const VtexCommerce = (
       } else {
         // cookie unset -> create session
         return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
-          method: 'GET',
+          method: 'POST',
           headers: {
             'content-type': 'application/json',
             cookie: ctx.headers.cookie,
