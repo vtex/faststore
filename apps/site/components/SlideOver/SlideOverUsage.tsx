@@ -37,7 +37,7 @@ const SlideOverUsage = ({ isOpen, size, direction }: SlideOverUsageProps) => {
           <br></br>
           size:<code>{size}</code>
           <br></br>
-          direction:<code>{props.direction}</code>
+          direction:<code>{direction}</code>
         </p>
       </main>
     </SlideOver>
