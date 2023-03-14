@@ -14,7 +14,7 @@ const SlideOverUsage = ({ isOpen, size, direction }: SlideOverUsageProps) => {
   return (
     <SlideOver
       fade={fade}
-      isOpen={props.isOpen}
+      isOpen={isOpen}
       onDismiss={() => fadeOut()}
       size={props.size}
       direction={props.direction}
