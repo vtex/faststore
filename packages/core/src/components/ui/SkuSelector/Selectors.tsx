@@ -1,4 +1,4 @@
-import { HTMLAttributes } from 'react'
+import { HTMLAttributes, useCallback, useMemo } from 'react'
 
 import { Image } from '../Image'
 import {
@@ -10,6 +10,7 @@ import type { SkuVariantsByName } from './SkuSelectorsContext'
 import { SkuSelectorsContext } from './SkuSelectorsContext'
 
 import NextLink from 'next/link'
+import { getSkuSlug } from './skuVariants'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -24,19 +25,6 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
    * SKU property values for the current SKU.
    */
   activeVariations: Record<string, string>
-  /**
-   * Name of the property that's considered **dominant**. Which means that all
-   * other varying properties will be filtered according to the current value
-   * of this property.
-   *
-   * Ex: If `Red` is the current value for the 'Color' variation, we'll only
-   * render possible values for 'Size' that are available in `Red`.
-   */
-  dominantVariation: string
-  /**
-   * Function that determines the href string.
-   */
-  getItemHref: (option: SkuOption) => string
 }
 
 const ImageComponent: SkuSelectorProps['ImageComponent'] = ({
@@ -57,15 +45,32 @@ const ImageComponent: SkuSelectorProps['ImageComponent'] = ({
 function Selectors({
   slugsMap,
   activeVariations,
-  dominantVariation,
   availableVariations,
-  getItemHref,
   ...otherProps
 }: Props) {
   // `dominantVariation` variants are singled-out here because they will always
   // be rendered as 'image' variants.
+  const [dominantVariation] = useMemo(() => {
+    return Object.keys(activeVariations)
+  }, [activeVariations])
+
   const { [dominantVariation]: dominantOptions, ...otherSkuVariants } =
     availableVariations
+
+  const getItemHref = useCallback(
+    (option: SkuOption, skuPropertyName: string) => {
+      const currentItemHref = `/${getSkuSlug(
+        slugsMap,
+        {
+          ...activeVariations,
+          [skuPropertyName]: option.value,
+        },
+        skuPropertyName
+      )}/p`
+      return currentItemHref
+    },
+    [activeVariations, slugsMap]
+  )
 
   return (
     <section {...otherProps}>

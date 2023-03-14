@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 
 export type SkuVariantsByName = Record<
   string,
-  Array<{ alt: string; src: string; label: string; value: string }>
+  Array<{ alt: string; label: string; value: string }>
 >
 
 interface ContextState {

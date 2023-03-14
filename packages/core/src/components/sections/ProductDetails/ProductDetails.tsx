@@ -53,9 +53,9 @@ const product = {
         Size: '42',
       },
       slugsMap: {
-        'Color-Pink-Size-42': 'classic-shoes-37',
-        'Color-White-Size-42': 'classic-shoes-36',
-        'Color-White-Size-41': 'classic-shoes-310124175',
+        'Color-Pink-Size-42': 'color-pink-size-42-slug',
+        'Color-White-Size-42': 'color-white-size-42-slug',
+        'Color-White-Size-41': 'color-white-size-41',
       },
       availableVariations: {
         Color: [
@@ -120,26 +120,6 @@ function ProductDetails({ context: staleProduct }: Props) {
       additionalProperty,
     },
   } = data
-
-  const [skuPropertyName] = useMemo(() => {
-    return Object.keys(product.isVariantOf.skuVariants.activeVariations)
-  }, [])
-
-  const getItemHref = useCallback(
-    (option: SkuOption) => {
-      const currentOptionName = skuPropertyName ?? option.label.split(':')[0]
-      const currentItemHref = `/${getSkuSlug(
-        product.isVariantOf.skuVariants.slugsMap,
-        {
-          ...product.isVariantOf.skuVariants.activeVariations,
-          [currentOptionName]: option.value,
-        },
-        skuPropertyName
-      )}/p`
-      return currentItemHref
-    },
-    [skuPropertyName]
-  )
 
   const buyDisabled = availability !== 'https://schema.org/InStock'
 
@@ -254,11 +234,9 @@ function ProductDetails({ context: staleProduct }: Props) {
                 activeVariations={
                   product.isVariantOf.skuVariants.activeVariations
                 }
-                dominantVariation={DOMINANT_SKU_SELECTOR_PROPERTY}
                 availableVariations={
                   product.isVariantOf.skuVariants.availableVariations
                 }
-                getItemHref={getItemHref}
               />
             )}
             {/* NOTE: A loading skeleton had to be used to avoid a Lighthouse's
@@ -369,8 +347,8 @@ export const fragment = gql`
       productGroupID
       skuVariants {
         activeVariations
-        slugsMap(dominantVariantName: "Color")
-        availableVariations(dominantVariantName: "Color")
+        slugsMap
+        availableVariations
       }
     }
 

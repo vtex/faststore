@@ -62,7 +62,7 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Function that determines the href string.
    */
-  getItemHref: (option: SkuOption) => string
+  getItemHref: (option: SkuOption, skuPropertyName: string) => string
   /**
    * Function that returns a React component that will be used to render images.
    */
@@ -116,7 +116,7 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
               >
                 <Link
                   data-fs-sku-selector-option-link
-                  href={getItemHref(option)}
+                  href={getItemHref(option, skuPropertyName)}
                   {...linkProps}
                 >
                   <SROnly text={option.label} />
