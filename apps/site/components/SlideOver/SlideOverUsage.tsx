@@ -6,7 +6,10 @@ import {
   useUI,
 } from '@faststore/ui'
 
-export type SlideOverUsageProps = Pick<SlideOverProps, "isOpen" | "size" | "direction">
+export type SlideOverUsageProps = Pick<
+  SlideOverProps,
+  'isOpen' | 'size' | 'direction'
+>
 
 const SlideOverUsage = ({ isOpen, size, direction }: SlideOverUsageProps) => {
   const { closeModal } = useUI()
@@ -16,7 +19,7 @@ const SlideOverUsage = ({ isOpen, size, direction }: SlideOverUsageProps) => {
       fade={fade}
       isOpen={isOpen}
       onDismiss={() => fadeOut()}
-      size={props.size}
+      size={size}
       direction={direction}
       onTransitionEnd={() => fade === 'out' && closeModal()}
     >
