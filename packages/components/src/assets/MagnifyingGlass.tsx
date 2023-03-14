@@ -2,7 +2,7 @@ import React from 'react'
 import { IconProps } from './IconProps'
 
 // Icon from Phosphor Icons
-const Search = ({ size = 24 }: IconProps) => (
+const MagnifyingGlass = ({ size = 24 }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -19,4 +19,4 @@ const Search = ({ size = 24 }: IconProps) => (
   </svg>
 )
 
-export default Search
+export default MagnifyingGlass
