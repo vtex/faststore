@@ -35,7 +35,7 @@ const SlideOverUsage = ({ isOpen, size, direction }: SlideOverUsageProps) => {
         <p>
           A generic <code>SlideOver</code> component.
           <br></br>
-          size:<code>{props.size}</code>
+          size:<code>{size}</code>
           <br></br>
           direction:<code>{props.direction}</code>
         </p>
