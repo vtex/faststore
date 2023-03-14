@@ -17,7 +17,7 @@ const SlideOverUsage = ({ isOpen, size, direction }: SlideOverUsageProps) => {
       isOpen={isOpen}
       onDismiss={() => fadeOut()}
       size={props.size}
-      direction={props.direction}
+      direction={direction}
       onTransitionEnd={() => fade === 'out' && closeModal()}
     >
       <SlideOverHeader onClose={fadeOut}>
