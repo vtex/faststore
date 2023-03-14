@@ -1,9 +1,11 @@
 import { useSearch } from '@faststore/sdk'
-import { Button as UIButton, IconButton as UIIconButton } from '@faststore/ui'
+import {
+  Button as UIButton,
+  SlideOver as UISlideOver,
+  SlideOverHeader as UISlideOverHeader,
+} from '@faststore/ui'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
-import Icon from 'src/components/ui/Icon'
-import SlideOver from 'src/components/ui/SlideOver'
 import { useUI } from '@faststore/ui'
 import { useFadeEffect } from '@faststore/ui'
 
@@ -36,7 +38,7 @@ function FilterSlider({
   const { resetInfiniteScroll, setState, state } = useSearch()
 
   return (
-    <SlideOver
+    <UISlideOver
       isOpen
       fade={fade}
       onDismiss={fadeOut}
@@ -46,22 +48,18 @@ function FilterSlider({
       onTransitionEnd={() => fade === 'out' && closeFilter()}
     >
       <div data-fs-filter-slider-content>
-        <header data-fs-filter-slider-header>
-          <h2 className="text__lead">Filters</h2>
-          <UIIconButton
-            data-fs-filter-slider-header-icon
-            aria-label="Close Filters"
-            icon={<Icon name="X" width={32} height={32} />}
-            onClick={() => {
-              dispatch({
-                type: 'selectFacets',
-                payload: state.selectedFacets,
-              })
+        <UISlideOverHeader
+          onClose={() => {
+            dispatch({
+              type: 'selectFacets',
+              payload: state.selectedFacets,
+            })
 
-              fadeOut()
-            }}
-          />
-        </header>
+            fadeOut()
+          }}
+        >
+          <h2 className="text__lead">Filters</h2>
+        </UISlideOverHeader>
         <Facets
           facets={facets}
           testId={`mobile-${testId}`}
@@ -102,7 +100,7 @@ function FilterSlider({
           Apply
         </UIButton>
       </footer>
-    </SlideOver>
+    </UISlideOver>
   )
 }
 

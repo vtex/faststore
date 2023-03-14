@@ -57,14 +57,20 @@ h4.nx-tracking-tight {
   font-size: var(--fs-text-size-title-huge);
 }
 
+.nx-list-disc {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+/* Components adjusts for documentation purposes */
+
 /* Reset theme default style */
 [data-fs-payment-methods-title] h3 {
   margin-top: auto;
 }
 
-.nx-list-disc {
-  margin-top: 0;
-  margin-bottom: 1.5rem;
+[data-fs-overlay] {
+  z-index: 21;
 }
 
 /* Hero */

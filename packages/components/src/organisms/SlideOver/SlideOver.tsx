@@ -1,12 +1,17 @@
-import { Modal as UIModal } from '@faststore/ui'
-import type { HTMLAttributes, ReactNode } from 'react'
+import React from 'react'
+import type { ReactNode } from 'react'
 
-import styles from './slide-over.module.scss'
+import { Modal } from '../../'
+import type { ModalProps } from '../../'
 
 type Direction = 'leftSide' | 'rightSide'
 type WidthSize = 'full' | 'partial'
 
-interface SlideOverProps extends HTMLAttributes<HTMLDivElement> {
+export type SlideOverProps = Omit<ModalProps, 'title'> & {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
+  testId?: string
   /**
    * A boolean value that represents the state of the SlideOver
    */
@@ -19,16 +24,16 @@ interface SlideOverProps extends HTMLAttributes<HTMLDivElement> {
    * Represents the size of the SlideOver.
    */
   size: WidthSize
-  children: ReactNode
   /**
    * Represents the fade effect of the SlideOver.
    */
   fade: 'in' | 'out'
   /**
-   * This function is called whenever the user clicks outside
+   * This function is called whenever the user clicks outside.
    * the modal content
    */
   onDismiss?: () => void
+  children: ReactNode
 }
 
 function SlideOver({
@@ -37,22 +42,23 @@ function SlideOver({
   size = 'full',
   fade = 'out',
   children,
-  className,
+  onDismiss,
+  testId = 'fs-slide-over',
   ...otherProps
 }: SlideOverProps) {
   return (
-    <UIModal
-      className={`${styles.fsSlideOver} ${className}`}
-      isOpen={isOpen}
+    <Modal
       data-fs-modal={null}
       data-fs-slide-over
       data-fs-slide-over-direction={direction}
       data-fs-slide-over-size={size}
       data-fs-slide-over-state={fade}
+      isOpen={isOpen}
+      onDismiss={onDismiss}
       {...otherProps}
     >
       {children}
-    </UIModal>
+    </Modal>
   )
 }
 

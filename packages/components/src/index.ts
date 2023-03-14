@@ -164,11 +164,11 @@ export { default as QuantitySelector } from './molecules/QuantitySelector'
 export type { QuantitySelectorProps } from './molecules/QuantitySelector'
 
 // Organisms
-export { default as Hero, HeroImage, HeroHeading } from './organisms/Hero'
+export { default as Hero, HeroImage, HeroHeader } from './organisms/Hero'
 export type {
   HeroProps,
   HeroImageProps,
-  HeroHeadingProps,
+  HeroHeaderProps,
 } from './organisms/Hero'
 
 export { default as PaymentMethods } from './organisms/PaymentMethods'
@@ -176,3 +176,9 @@ export type { PaymentMethodsProps } from './organisms/PaymentMethods'
 
 export { default as PriceRange } from './organisms/PriceRange'
 export type { PriceRangeProps } from './organisms/PriceRange'
+
+export { default as SlideOver, SlideOverHeader } from './organisms/SlideOver'
+export type {
+  SlideOverProps,
+  SlideOverHeaderProps,
+} from './organisms/SlideOver'
