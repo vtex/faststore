@@ -8,7 +8,7 @@ import {
 
 export type SlideOverUsageProps = Pick<SlideOverProps, "isOpen" | "size" | "direction">
 
-const SlideOverUsage = (props: SlideOverUsageProps) => {
+const SlideOverUsage = ({ isOpen, size, direction }: SlideOverUsageProps) => {
   const { closeModal } = useUI()
   const { fade, fadeOut } = useFadeEffect()
   return (
