@@ -1,7 +1,7 @@
-import React, { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
+import React, { forwardRef } from 'react'
 
-import { Link, LinkProps, LinkElementType } from '../..'
+import { Link, LinkElementType, LinkProps } from '../..'
 
 export interface SearchProductItemProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -15,14 +15,13 @@ export interface SearchProductItemProps extends HTMLAttributes<HTMLDivElement> {
   linkProps?: Partial<LinkProps<LinkElementType>>
 }
 
-const SearchProductItem = forwardRef<HTMLDivElement, SearchProductItemProps>(
-  function ProductItem({
-    testId = 'fs-search-product-item',
-    linkProps,
-    children,
-  }) {
+const SearchProductItem = forwardRef<HTMLLIElement, SearchProductItemProps>(
+  function ProductItem(
+    { testId = 'fs-search-product-item', linkProps, children },
+    ref
+  ) {
     return (
-      <li data-fs-search-product-item data-testid={testId}>
+      <li ref={ref} data-fs-search-product-item data-testid={testId}>
         <Link {...linkProps} data-fs-search-product-item-link variant="display">
           {children}
         </Link>
