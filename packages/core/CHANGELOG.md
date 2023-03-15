@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.75-alpha.0](https://github.com/vtex/faststore/compare/v2.0.74-alpha.0...v2.0.75-alpha.0) (2023-03-15)
+
+### Features
+
+- Add `SearchSuggestions` components ([#1654](https://github.com/vtex/faststore/issues/1654)) ([5dc8077](https://github.com/vtex/faststore/commit/5dc8077421267af882d22e85ddbbb8eacf807690))
+
 ## 2.0.74-alpha.0 (2023-03-15)
 
 ### Bug Fixes
