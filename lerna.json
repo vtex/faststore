@@ -8,7 +8,8 @@
     }
   },
   "changelogPreset": {
-    "name": "conventionalchangelog",
+    "conventionalCommits": true,
+    "name": "conventional-changelog-conventionalcommits",
     "types": [
       {
         "type": "feat",
