@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
-import { SkuSelector, SkuSelectorProps, SkuOption } from '@faststore/ui'
+import { SkuSelector, SkuOption } from '@faststore/ui'
 
 import { getSkuSlug } from './skuVariants'
 
@@ -70,7 +70,6 @@ const SkuSelectorLabel = () => {
 
   return (
     <SkuSelector
-      variant="label"
       skuPropertyName="Size"
       options={product.isVariantOf.skuVariants.availableVariations.Size}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}

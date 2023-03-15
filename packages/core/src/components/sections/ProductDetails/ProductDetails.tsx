@@ -26,67 +26,9 @@ import { useSession } from 'src/sdk/session'
 import ProductDetailsContent from '../ProducDetailsContent'
 import Section from '../Section'
 import styles from './product-details.module.scss'
-import { getSkuSlug } from 'src/components/ui/SkuSelector/skuVariants'
 
 interface Props {
   context: ProductDetailsFragment_ProductFragment
-}
-
-/**
- * Name of the sku variant property that's considered **dominant**. Which means
- * that all other varying properties will be filtered by the SkuSelectors
- * according to the current value of this property.
- *
- * Ex: If `Red` is the current value for the 'Color' variation, we'll only
- * render possible values for 'Size' that are available in `Red`.
- */
-const DOMINANT_SKU_SELECTOR_PROPERTY = 'Color'
-
-const product = {
-  name: 'Classic Shoes',
-  isVariantOf: {
-    name: 'Classic Shoes',
-    productGroupID: '99995945',
-    skuVariants: {
-      activeVariations: {
-        Color: 'Pink',
-        Size: '42',
-      },
-      slugsMap: {
-        'Color-Pink-Size-42': 'color-pink-size-42-slug',
-        'Color-White-Size-42': 'color-white-size-42-slug',
-        'Color-White-Size-41': 'color-white-size-41',
-      },
-      availableVariations: {
-        Color: [
-          {
-            hexColor: '#e691f4',
-            label: 'Color: Pink',
-            value: 'Pink',
-            alt: 'Color Pink',
-          },
-          {
-            hexColor: '#f6f6f6',
-            label: 'Color: White',
-            value: 'White',
-            alt: 'Color White',
-          },
-        ],
-        Size: [
-          {
-            label: '41',
-            value: '41',
-            alt: 'Size 41',
-          },
-          {
-            label: '42',
-            value: '42',
-            alt: 'Size 42',
-          },
-        ],
-      },
-    },
-  },
 }
 
 function ProductDetails({ context: staleProduct }: Props) {
@@ -102,7 +44,7 @@ function ProductDetails({ context: staleProduct }: Props) {
     throw new Error('NotFound')
   }
 
-  const {
+  let {
     product: {
       id,
       sku,
@@ -230,12 +172,12 @@ function ProductDetails({ context: staleProduct }: Props) {
             {skuVariants && (
               <Selectors
                 data-fs-product-details-selectors
-                slugsMap={product.isVariantOf.skuVariants.slugsMap}
+                slugsMap={isVariantOf.skuVariants.slugsMap}
                 activeVariations={
-                  product.isVariantOf.skuVariants.activeVariations
+                  isVariantOf.skuVariants.activeVariations
                 }
                 availableVariations={
-                  product.isVariantOf.skuVariants.availableVariations
+                  isVariantOf.skuVariants.availableVariations
                 }
               />
             )}

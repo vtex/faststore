@@ -48,28 +48,24 @@ function Selectors({
   availableVariations,
   ...otherProps
 }: Props) {
-  // `dominantVariation` variants are singled-out here because they will always
-  // be rendered as 'image' variants.
+  // `dominantVariation` will be ever the first variant
   const [dominantVariation] = useMemo(() => {
     return Object.keys(activeVariations)
   }, [activeVariations])
 
-  const { [dominantVariation]: dominantOptions, ...otherSkuVariants } =
-    availableVariations
-
   const getItemHref = useCallback(
-    (option: SkuOption, skuPropertyName: string) => {
+    (option: SkuOption) => {
       const currentItemHref = `/${getSkuSlug(
         slugsMap,
         {
           ...activeVariations,
-          [skuPropertyName]: option.value,
+          [dominantVariation]: option.value,
         },
-        skuPropertyName
+        dominantVariation
       )}/p`
       return currentItemHref
     },
-    [activeVariations, slugsMap]
+    [activeVariations, dominantVariation, slugsMap]
   )
 
   return (
@@ -82,28 +78,13 @@ function Selectors({
           dominantProperty: dominantVariation,
         }}
       >
-        {dominantOptions && (
-          <UISkuSelector
-            variant="color"
-            skuPropertyName={dominantVariation}
-            options={dominantOptions}
-            // ImageComponent={ImageComponent}
-            activeVariations={activeVariations}
-            linkProps={{
-              as: NextLink,
-              legacyBehavior: false,
-            }}
-            getItemHref={getItemHref}
-          />
-        )}
-        {otherSkuVariants &&
-          Object.keys(otherSkuVariants).map((skuVariant) => (
+        {availableVariations &&
+          Object.keys(availableVariations).map((skuVariant) => (
             <UISkuSelector
               key={skuVariant}
-              variant="label"
               skuPropertyName={skuVariant}
-              options={otherSkuVariants[skuVariant]}
-              // ImageComponent={ImageComponent}
+              options={availableVariations[skuVariant]}
+              ImageComponent={ImageComponent}
               activeVariations={activeVariations}
               linkProps={{
                 as: NextLink,

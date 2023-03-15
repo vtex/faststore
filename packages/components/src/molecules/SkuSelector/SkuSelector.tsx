@@ -2,6 +2,15 @@ import type { FunctionComponent, HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 import { Label, SROnly, Link, LinkProps, LinkElementType } from '../..'
 
+
+// TODO: Change by ImageComponent when it be right
+const ImageComponentFallback: SkuSelectorProps['ImageComponent'] = ({
+  src,
+  alt,
+  ...otherProps
+// eslint-disable-next-line @next/next/no-img-element
+}) => <img src={src} alt={alt} {...otherProps} />
+
 export interface SkuOption {
   /**
    * Alternative text description of the image.
@@ -40,10 +49,6 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
    */
   id?: string
   /**
-   * Specify which variant the component should handle.
-   */
-  variant: 'label' | 'image' | 'color'
-  /**
    * SKU options that should be rendered.
    */
   options: SkuOption[]
@@ -62,7 +67,7 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Function that determines the href string.
    */
-  getItemHref: (option: SkuOption, skuPropertyName: string) => string
+  getItemHref: (option: SkuOption) => string
   /**
    * Function that returns a React component that will be used to render images.
    */
@@ -72,22 +77,27 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
   }>
 }
 
+type Variant = "image" | "color" | "label"
+
 const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
   function SkuSelector(
     {
       options,
-      variant,
       skuPropertyName,
       testId,
       activeVariations,
       linkProps,
       getItemHref,
-      ImageComponent,
+      ImageComponent = ImageComponentFallback,
       ...otherProps
     },
     ref
   ) {
     const activeSelectorValue = activeVariations[skuPropertyName ?? '']
+
+    const [ firstOption ] = options
+
+    const variant: Variant = firstOption?.src ? "image" : firstOption.hexColor ? "color" : "label"
 
     return (
       <div
@@ -116,7 +126,7 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
               >
                 <Link
                   data-fs-sku-selector-option-link
-                  href={getItemHref(option, skuPropertyName)}
+                  href={getItemHref(option)}
                   {...linkProps}
                 >
                   <SROnly text={option.label} />

@@ -36,7 +36,6 @@ const SkuSelectorImage = () => {
 
   return (
     <SkuSelector
-      variant="image"
       skuPropertyName={skuPropertyName}
       options={
         product.isVariantOf.skuVariants.availableVariations[skuPropertyName]
