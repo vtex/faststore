@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.77-alpha.0](https://github.com/vtex/faststore/compare/v2.0.76-alpha.0...v2.0.77-alpha.0) (2023-03-15)
+
+### Bug Fixes
+
+- **api:** add context variables cart mutation ([#1659](https://github.com/vtex/faststore/issues/1659)) ([c292915](https://github.com/vtex/faststore/commit/c29291546a89f3f278e62996689c90f17b028658))
+
 ## [2.0.76-alpha.0](https://github.com/vtex/faststore/compare/v2.0.75-alpha.0...v2.0.76-alpha.0) (2023-03-15)
 
 ### Bug Fixes
