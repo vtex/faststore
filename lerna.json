@@ -7,7 +7,6 @@
       "message": "Release: %v",
       "changelogPreset": {
         "conventionalCommits": true,
-        "name": "conventionalcommits",
         "types": [
           {
             "type": "feat",
