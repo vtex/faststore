@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.80-alpha.0](https://github.com/vtex/faststore/compare/v2.0.79-alpha.0...v2.0.80-alpha.0) (2023-03-15)
+
+### Bug Fixes
+
+- forwardRef errors ([#1671](https://github.com/vtex/faststore/issues/1671)) ([945c5da](https://github.com/vtex/faststore/commit/945c5dabf21b7ee87c1e9197a1115b9b1eafb9c0))
+
 ## 2.0.79-alpha.0 (2023-03-15)
 
 ### Bug Fixes
