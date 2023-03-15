@@ -18,9 +18,9 @@ const MagnifyingGlass: FC = () => (
       r="84"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
     ></circle>
     <line
       x1="175.4"
@@ -29,9 +29,9 @@ const MagnifyingGlass: FC = () => (
       y2="224"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
     ></line>
   </svg>
 )

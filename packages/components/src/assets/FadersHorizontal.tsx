@@ -19,9 +19,9 @@ const FadersHorizontal: FC = () => (
       y2="172"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
     ></line>
     <line
       x1="216"
@@ -30,9 +30,9 @@ const FadersHorizontal: FC = () => (
       y2="172"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
     ></line>
     <line
       x1="72"
@@ -41,9 +41,9 @@ const FadersHorizontal: FC = () => (
       y2="84"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
     ></line>
     <line
       x1="216"
@@ -52,9 +52,9 @@ const FadersHorizontal: FC = () => (
       y2="84"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
     ></line>
     <line
       x1="104"
@@ -63,9 +63,9 @@ const FadersHorizontal: FC = () => (
       y2="108"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
     ></line>
     <line
       x1="168"
@@ -74,9 +74,9 @@ const FadersHorizontal: FC = () => (
       y2="148"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
     ></line>
   </svg>
 )
