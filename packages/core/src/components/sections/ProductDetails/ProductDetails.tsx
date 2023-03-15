@@ -44,7 +44,7 @@ function ProductDetails({ context: staleProduct }: Props) {
     throw new Error('NotFound')
   }
 
-  let {
+  const {
     product: {
       id,
       sku,
