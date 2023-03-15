@@ -1,6 +1,5 @@
-import React from 'react'
-import { createContext, useContext, useMemo, useReducer } from 'react'
 import type { PropsWithChildren } from 'react'
+import React, { createContext, useContext, useMemo, useReducer } from 'react'
 
 interface Toast {
   message: string
@@ -108,7 +107,7 @@ interface Context extends State {
 
 const UIContext = createContext<Context | undefined>(undefined)
 
-function UIProvider({ children }: PropsWithChildren) {
+function UIProvider({ children }: PropsWithChildren<unknown>) {
   const [ui, dispatch] = useReducer(reducer, undefined, initializer)
 
   const callbacks = useMemo(
