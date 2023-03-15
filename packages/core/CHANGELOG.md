@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.79-alpha.0 (2023-03-15)
+
+### Bug Fixes
+
+- husky pre-commit script + Lint-stage ([#1669](https://github.com/vtex/faststore/issues/1669)) ([5a3f3c8](https://github.com/vtex/faststore/commit/5a3f3c85ddc6b76377290a930cd70ed37735d8e8))
+- Puts cart-sidebar test id in the right place ([#1670](https://github.com/vtex/faststore/issues/1670)) ([0001070](https://github.com/vtex/faststore/commit/0001070617546c8f423550c0f4bf26e9a640b804))
+
 ## [2.0.78-alpha.0](https://github.com/vtex/faststore/compare/v2.0.77-alpha.0...v2.0.78-alpha.0) (2023-03-15)
 
 **Note:** Version bump only for package @faststore/core

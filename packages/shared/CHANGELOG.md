@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.79-alpha.0 (2023-03-15)
+
+### Bug Fixes
+
+- husky pre-commit script + Lint-stage ([#1669](https://github.com/vtex/faststore/issues/1669)) ([5a3f3c8](https://github.com/vtex/faststore/commit/5a3f3c85ddc6b76377290a930cd70ed37735d8e8))
+
 ## 2.0.74-alpha.0 (2023-03-15)
 
 ### Bug Fixes
