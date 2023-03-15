@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-export interface SearchProductCardImageProps
+export interface SearchProductItemImageProps
   extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
@@ -9,17 +9,17 @@ export interface SearchProductCardImageProps
   testId?: string
 }
 
-const SearchProductCardImage = forwardRef<
+const SearchProductItemImage = forwardRef<
   HTMLDivElement,
-  SearchProductCardImageProps
->(function SearchProductCardImage(
-  { testId = 'fs-search-product-card-image', children, ...otherProps },
+  SearchProductItemImageProps
+>(function SearchProductItemImage(
+  { testId = 'fs-search-product-item-image', children, ...otherProps },
   ref
 ) {
   return (
     <div
       ref={ref}
-      data-fs-search-product-card-image
+      data-fs-search-product-item-image
       data-testid={testId}
       {...otherProps}
     >
@@ -28,4 +28,4 @@ const SearchProductCardImage = forwardRef<
   )
 })
 
-export default SearchProductCardImage
+export default SearchProductItemImage

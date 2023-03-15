@@ -117,6 +117,14 @@ export type { RadioGroupProps, RadioOptionProps } from './molecules/RadioGroup'
 export { default as Rating } from './molecules/Rating'
 export type { RatingProps } from './molecules/Rating'
 export {
+  default as SearchAutoComplete,
+  SearchAutoCompleteTerm,
+} from './molecules/SearchAutoComplete'
+export type {
+  SearchAutoCompleteProps,
+  SearchAutoCompleteTermProps,
+} from './molecules/SearchAutoComplete'
+export {
   default as SearchHistory,
   SearchHistoryTerm,
 } from './molecules/SearchHistory'
@@ -125,15 +133,17 @@ export type {
   SearchHistoryTermProps,
 } from './molecules/SearchHistory'
 export {
-  default as SearchProductCard,
-  SearchProductCardImage,
-  SearchProductCardContent,
-} from './molecules/SearchProductCard'
+  default as SearchProducts,
+  SearchProductItem,
+  SearchProductItemImage,
+  SearchProductItemContent,
+} from './molecules/SearchProducts'
 export type {
-  SearchProductCardProps,
-  SearchProductCardImageProps,
-  SearchProductCardContentProps,
-} from './molecules/SearchProductCard'
+  SearchProductsProps,
+  SearchProductItemProps,
+  SearchProductItemImageProps,
+  SearchProductItemContentProps,
+} from './molecules/SearchProducts'
 export { default as SearchTop, SearchTopTerm } from './molecules/SearchTop'
 export type { SearchTopProps, SearchTopTermProps } from './molecules/SearchTop'
 export { default as SelectField } from './molecules/SelectField'

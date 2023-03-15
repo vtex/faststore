@@ -1,7 +1,7 @@
 import {
-  SearchProductCard as UISearchProductCard,
-  SearchProductCardContent as UISearchProductCardContent,
-  SearchProductCardImage as UISearchProductCardImage,
+  SearchProductItem as UISearchProductItem,
+  SearchProductItemContent as UISearchProductItemContent,
+  SearchProductItemImage as UISearchProductItemImage,
 } from '@faststore/ui'
 
 import { Image } from 'src/components/ui/Image'
@@ -10,9 +10,9 @@ import { useProductLink } from 'src/sdk/product/useProductLink'
 import useSearchInput from 'src/sdk/search/useSearchInput'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
-type SearchProductCardProps = {
+type SearchProductItemProps = {
   /**
-   * Product to be showed in `SearchProductCard`.
+   * Product to be showed in `SearchProductItem`.
    */
   product: ProductSummary_ProductFragment
   /**
@@ -21,13 +21,14 @@ type SearchProductCardProps = {
   index: number
 }
 
-function SearchProductCard({
+function SearchProductItem({
   product,
   index,
   ...otherProps
-}: SearchProductCardProps) {
+}: SearchProductItemProps) {
   const { onSearchInputSelection } = useSearchInput()
-  const linkProps = useProductLink({
+
+  const { href, onClick, ...baseLinkProps } = useProductLink({
     product,
     selectedOffer: 0,
     index,
@@ -42,28 +43,30 @@ function SearchProductCard({
     },
   } = product
 
+  const linkProps = {
+    href,
+    onClick: () => {
+      onClick()
+      onSearchInputSelection?.(name, href)
+    },
+    ...baseLinkProps,
+  }
+
   return (
-    <UISearchProductCard
-      linkProps={linkProps}
-      onLinkClick={() => {
-        linkProps.onClick
-        onSearchInputSelection?.(name, linkProps.href)
-      }}
-      {...otherProps}
-    >
-      <UISearchProductCardImage>
+    <UISearchProductItem linkProps={linkProps} {...otherProps}>
+      <UISearchProductItemImage>
         <Image src={img.url} alt={img.alternateName} width={56} height={56} />
-      </UISearchProductCardImage>
-      <UISearchProductCardContent
+      </UISearchProductItemImage>
+      <UISearchProductItemContent
         title={name}
         price={{
           value: spotPrice,
           listPrice: listPrice,
           formatter: useFormattedPrice,
         }}
-      ></UISearchProductCardContent>
-    </UISearchProductCard>
+      ></UISearchProductItemContent>
+    </UISearchProductItem>
   )
 }
 
-export default SearchProductCard
+export default SearchProductItem

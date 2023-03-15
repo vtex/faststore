@@ -2,89 +2,18 @@
   // --------------------------------------------------------
   // Design Tokens for Search
   // --------------------------------------------------------
-  --fs-search-min-height              : var(--fs-spacing-7);
+  --fs-search-border-bottom-width   : var(--fs-border-width);
+  --fs-search-border-bottom-color   : var(--fs-border-color-light);
 
-  // Title
-  --fs-search-title-size              : var(--fs-text-size-lead);
-  --fs-search-title-line-height       : 1.5;
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
 
-  // Link
-  --fs-search-item-link-color         : var(--fs-color-text-light);
-  --fs-search-item-link-padding-right : var(--fs-spacing-3);
-  --fs-search-item-link-padding-left  : var(--fs-search-item-link-padding-right);
+  [data-fs-search-section] {
+    border-bottom: var(--fs-search-border-bottom-width) solid var(--fs-search-border-bottom-color);
 
-  // Item
-  --fs-search-item-text-size          : var(--fs-text-size-2);
-  --fs-search-item-line-height        : 1.25;
-  --fs-search-item-bkg-color-hover    : var(--fs-color-tertiary-bkg-hover);
-
-  // Icon
-  --fs-search-item-icon-color         : var(--fs-color-neutral-4);
-  --fs-search-item-icon-margin-right  : var(--fs-spacing-1);
-
-  // Badge
-  --fs-search-badge-margin-right      : var(--fs-spacing-1);
-
-  // Default properties
-  [data-fs-search-header] {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: var(--fs-search-min-height);
-  }
-
-  [data-fs-search-title] {
-    font-size: var(--fs-search-title-size);
-    line-height: var(--fs-search-title-line-height);
-  }
-
-  [data-fs-search-item-link] {
-    color: var(--fs-search-item-link-color);
-
-    > span {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-  }
-
-  [data-fs-search-item] {
-    margin-right: calc(-1 * var(--fs-search-item-link-padding-right));
-    margin-left: calc(-1 * var(--fs-search-item-link-padding-right));
-    font-size: var(--fs-search-item-text-size);
-    line-height: var(--fs-search-item-line-height);
-
-    &:hover {
-      background-color: var(--fs-search-item-bkg-color-hover);
-    }
-
-    [data-fs-search-product-card-link], [data-fs-search-item-link] {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding-left: var(--fs-search-item-link-padding-left);
-    }
-
-    [data-fs-search-item-link] {
-      margin-right: var(--fs-search-item-link-padding-right);
-    }
-
-    [data-fs-search-badge] {
-      margin-right: var(--fs-search-badge-margin-right);
-    }
-
-    [data-fs-search-item-icon] {
-      flex-grow: 0;
-      flex-shrink: 0;
-      margin-right: var(--fs-search-item-icon-margin-right);
-      color: var(--fs-search-item-icon-color);
-    }
-  }
-
-  [data-fs-search] {
-    [data-fs-search-item-bold] {
-      font-weight: var(--fs-text-weight-bold);
-      color: var(--fs-color-neutral-7);
+    &:last-child {
+      border-bottom-width: 0;
     }
   }
 }
