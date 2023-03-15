@@ -10,7 +10,7 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "size": "turbo run size",
-    "release": "lerna version minor --yes && lerna publish from-git --yes",
+    "release": "lerna publish patch --yes --no-verify-access --ignore-scripts --conventional-commits",
     "generate-ui-component": "yarn plop --plopfile generators/plopfile.ts",
     "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx,md}\""
@@ -27,7 +27,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "lerna": "^3.22.1",
+    "lerna": "6.4.1",
     "plop": "^2.7.6",
     "prettier": "^2.7.0",
     "turbo": "latest"
