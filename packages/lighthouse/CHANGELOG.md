@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.73-alpha.0 (2023-03-15)
+
+### Chores
+
+- attempts to disable cache ([7428be0](https://github.com/vtex/faststore/commit/7428be09c6b1f1b2ceb369bd03f2916fdcb66ce3))
+
 ## [2.0.67-alpha.0](https://github.com/vtex/faststore/compare/v2.0.66-alpha.0...v2.0.67-alpha.0) (2023-02-14)
 
 ### Features
