@@ -87,7 +87,65 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 
 ## Props
 
-<PropsSection name="Button" />
+export const propsList = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-button',
+  },
+  {
+    name: 'variant',
+    type: ['primary', 'secondary', 'tertiary'],
+    description: 'Specifies the component color variant.',
+    default: '',
+  },
+  {
+    name: 'size',
+    type: ['small', 'regular'],
+    description: 'Specifies the size variant.',
+    default: 'regular',
+  },
+  {
+    name: 'inverse',
+    type: 'boolean',
+    description: 'Defines the use of inverted colors.',
+    default: '',
+  },
+  {
+    name: 'disabled',
+    type: 'boolean',
+    description: 'Specifies that this button should be disabled.',
+    default: '',
+  },
+  {
+    name: 'icon',
+    type: 'ReactNode',
+    description: 'A React component that will be rendered as an icon.',
+    default: '',
+  },
+  {
+    name: 'loading',
+    type: 'boolean',
+    description: 'Boolean that represents a loading state.',
+    default: '',
+  },
+  {
+    name: 'loadingLabel',
+    type: 'string',
+    description: 'Specifies a label for loading state.',
+    default: '',
+  },
+  {
+    name: 'iconPosition',
+    type: ['left', 'right'],
+    description: 'Specifies where the icon should be positioned',
+    default: 'left',
+  },
+]
+
+<PropsSection name="Button" propsList={propsList} />
 
 ---
 
