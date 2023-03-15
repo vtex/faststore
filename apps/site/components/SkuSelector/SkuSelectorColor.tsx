@@ -73,7 +73,6 @@ const SkuSelectorColor = () => {
 
   return (
     <SkuSelector
-      variant="color"
       skuPropertyName="Color"
       options={product.isVariantOf.skuVariants.availableVariations.Color}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
