@@ -17,12 +17,6 @@ export type { OrderSummaryProps } from './components/molecules/OrderSummary'
 export { default as Bullets } from './components/molecules/Bullets'
 export type { BulletsProps } from './components/molecules/Bullets'
 
-export { default as SearchInput } from './components/molecules/SearchInput'
-export type {
-  SearchInputProps,
-  SearchInputRef,
-} from './components/molecules/SearchInput'
-
 export { default as Carousel } from './components/molecules/Carousel'
 export type { CarouselProps } from './components/molecules/Carousel'
 

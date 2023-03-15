@@ -57,6 +57,8 @@
     width: 100%;
     height: var(--fs-search-input-height-mobile);
 
+    @include input-focus-ring;
+
     @include media(">=notebook") { height: var(--fs-search-input-height-desktop); }
 
     [data-fs-search-input] {
@@ -64,8 +66,6 @@
       padding: var(--fs-search-input-padding);
       background-color: var(--fs-search-input-bkg-color);
       transition: box-shadow var(--fs-search-input-transition-timing) var(--fs-search-input-transition-timing), border var(--fs-search-input-transition-timing) var(--fs-search-input-transition-function);
-
-      @include input-focus-ring;
 
       [data-fs-search-input-dropdown-visible="true"] & {
         @include media(">=notebook") {

@@ -6,33 +6,15 @@ import type {
 } from 'react'
 import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 
-import { Icon, Button, Input } from '@faststore/components'
-import Form from '../Form'
-
-const SearchIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="11" cy="11" r="8" />
-    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-  </svg>
-)
+import { Icon, Button, Input, MagnifyingGlass } from '../../'
 
 type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit'>
 
 export interface SearchInputProps extends InputProps {
   /**
-   * Callback function when submitted.
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
-  onSubmit: (value: string) => void
+  testId?: string
   /**
    * Custom icon inside the submit button.
    */
@@ -42,10 +24,9 @@ export interface SearchInputProps extends InputProps {
    */
   'aria-label'?: AriaAttributes['aria-label']
   /**
-  /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   * Callback function when submitted.
    */
-  testId?: string
+  onSubmit: (value: string) => void
 }
 
 export interface SearchInputRef {
@@ -59,7 +40,7 @@ const SearchInput = forwardRef<SearchInputRef | null, SearchInputProps>(
       onSubmit,
       icon,
       'aria-label': ariaLabel = 'search',
-      testId = 'store-search-input',
+      testId = 'fs-search-input',
       ...otherProps
     },
     ref
@@ -81,7 +62,7 @@ const SearchInput = forwardRef<SearchInputRef | null, SearchInputProps>(
     }))
 
     return (
-      <Form
+      <form
         ref={formRef}
         data-fs-search-input-form
         data-testid={testId}
@@ -90,9 +71,9 @@ const SearchInput = forwardRef<SearchInputRef | null, SearchInputProps>(
       >
         <Input ref={inputRef} aria-label={ariaLabel} {...otherProps} />
         <Button type="submit" aria-label="Submit Search">
-          <Icon component={icon ?? <SearchIcon />} />
+          <Icon component={icon ?? <MagnifyingGlass />} />
         </Button>
-      </Form>
+      </form>
     )
   }
 )

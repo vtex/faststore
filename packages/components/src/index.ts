@@ -116,6 +116,8 @@ export { default as RadioGroup, RadioOption } from './molecules/RadioGroup'
 export type { RadioGroupProps, RadioOptionProps } from './molecules/RadioGroup'
 export { default as Rating } from './molecules/Rating'
 export type { RatingProps } from './molecules/Rating'
+export { default as SearchInput } from './molecules/SearchInput'
+export type { SearchInputProps, SearchInputRef } from './molecules/SearchInput'
 export {
   default as SearchHistory,
   SearchHistoryTerm,
