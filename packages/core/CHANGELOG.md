@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.76-alpha.0](https://github.com/vtex/faststore/compare/v2.0.75-alpha.0...v2.0.76-alpha.0) (2023-03-15)
+
+### Bug Fixes
+
+- Adds missing test id ([#1666](https://github.com/vtex/faststore/issues/1666)) ([470584d](https://github.com/vtex/faststore/commit/470584d7a7213742bc7d9fbcf9e52e28c6595676)), closes [/github.com/vtex/faststore/pull/1649/files#diff-bc55adb273e27dfb220da8699e7463fac6bc3e1292439e1fa7530e09e9a6d009](https://github.com/vtex//github.com/vtex/faststore/pull/1649/files/issues/diff-bc55adb273e27dfb220da8699e7463fac6bc3e1292439e1fa7530e09e9a6d009)
+
 ## [2.0.75-alpha.0](https://github.com/vtex/faststore/compare/v2.0.74-alpha.0...v2.0.75-alpha.0) (2023-03-15)
 
 ### Features
