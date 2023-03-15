@@ -1,10 +1,10 @@
-import type { ComponentPropsWithRef, FormEvent, ReactNode } from 'react'
-import { forwardRef, useRef } from 'react'
 import {
-  Form,
   Button as UIButton,
+  Form,
   InputField as UIInputField,
 } from '@faststore/ui'
+import type { ComponentPropsWithRef, FormEvent, ReactNode } from 'react'
+import { forwardRef, useRef } from 'react'
 
 import { useUI } from '@faststore/ui'
 import Icon from 'src/components/ui/Icon'
@@ -59,14 +59,14 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
           title: 'Hooray!',
           message: 'Thank for your subscription.',
           status: 'INFO',
-          icon: 'CircleWavyCheck',
+          icon: <Icon name="CircleWavyCheck" width={30} height={30} />,
         })
       } else {
         pushToast({
           title: 'Oops.',
           message: 'Something went wrong. Please Try again.',
           status: 'ERROR',
-          icon: 'CircleWavyWarning',
+          icon: <Icon name="CircleWavyWarning" width={30} height={30} />,
         })
       }
 
