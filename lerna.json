@@ -4,50 +4,50 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
-      "message": "Release: %v",
-      "changelogPreset": {
-        "conventionalCommits": true,
-        "types": [
-          {
-            "type": "feat",
-            "section": "Features"
-          },
-          {
-            "type": "fix",
-            "section": "Bug Fixes"
-          },
-          {
-            "type": "chore",
-            "section": "Chores"
-          },
-          {
-            "type": "docs",
-            "section": "Documentation"
-          },
-          {
-            "type": "style",
-            "section": "Style changes"
-          },
-          {
-            "type": "refactor",
-            "section": "Refactoring"
-          },
-          {
-            "type": "perf",
-            "section": "Performance"
-          },
-          {
-            "type": "test",
-            "section": "Tests"
-          }
-        ],
-        "issuePrefixes": ["#"],
-        "issueUrlFormat": "{{host}}/{{owner}}/{{repository}}/issues/{{id}}",
-        "commitUrlFormat": "{{host}}/{{owner}}/{{repository}}/commit/{{hash}}",
-        "compareUrlFormat": "{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}",
-        "userUrlFormat": "{{host}}/{{user}}"
-      }
+      "message": "Release: %v"
     }
+  },
+  "changelogPreset": {
+    "name": "conventionalcommits",
+    "types": [
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "fix",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "chore",
+        "section": "Chores"
+      },
+      {
+        "type": "docs",
+        "section": "Documentation"
+      },
+      {
+        "type": "style",
+        "section": "Style changes"
+      },
+      {
+        "type": "refactor",
+        "section": "Refactoring"
+      },
+      {
+        "type": "perf",
+        "section": "Performance"
+      },
+      {
+        "type": "test",
+        "section": "Tests"
+      }
+    ],
+    "issuePrefixes": ["#"],
+    "issueUrlFormat": "{{host}}/{{owner}}/{{repository}}/issues/{{id}}",
+    "commitUrlFormat": "{{host}}/{{owner}}/{{repository}}/commit/{{hash}}",
+    "compareUrlFormat": "{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}",
+    "userUrlFormat": "{{host}}/{{user}}"
   },
   "packages": ["packages/*", "apps/*"]
 }
