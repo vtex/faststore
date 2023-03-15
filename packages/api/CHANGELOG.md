@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.74-alpha.0 (2023-03-15)
+
+### Bug Fixes
+
+- publish version ([#1664](https://github.com/vtex/faststore/issues/1664)) ([9e29810](https://github.com/vtex/faststore/commit/9e29810f59402b694f26846db4e45971fb2e74b8))
+
 ## 2.0.73-alpha.0 (2023-03-15)
 
 ### Chores
