@@ -36,6 +36,9 @@ jobs:
           git config user.name vtexgithubbot
           git config user.email vtexgithubbot@github.com
 
+      - name: Clear cache
+        run: yarn cache clean
+
       - name: Install dependencies
         run: yarn
 
@@ -52,6 +55,6 @@ jobs:
         run: yarn test
 
       - name: Publish
-        run: lerna publish prepatch --yes --ignore-scripts --conventional-commits --dist-tag alpha
+        run: lerna publish prepatch --yes --no-verify-access --ignore-scripts --conventional-commits --dist-tag alpha
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
