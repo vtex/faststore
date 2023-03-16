@@ -11,10 +11,10 @@ import type { CSSProperties } from 'react'
 import { useRouter } from 'next/router'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import type { SearchEvent } from '@faststore/sdk'
-import { SearchInput as UISearchInput } from '@faststore/ui'
+import { SearchInputField as UISearchInputField } from '@faststore/ui'
 import type {
-  SearchInputProps as UISearchInputProps,
-  SearchInputRef as UISearchInputRef,
+  SearchInputFieldProps as UISearchInputFieldProps,
+  SearchInputFieldRef as UISearchInputFieldRef,
 } from '@faststore/ui'
 
 import Icon from 'src/components/ui/Icon'
@@ -36,9 +36,11 @@ export type SearchInputProps = {
   onSearchClick?: () => void
   buttonTestId?: string
   containerStyle?: CSSProperties
-} & Omit<UISearchInputProps, 'onSubmit'>
+} & Omit<UISearchInputFieldProps, 'onSubmit'>
 
-export type SearchInputRef = UISearchInputRef & { resetSearchInput: () => void }
+export type SearchInputRef = UISearchInputFieldRef & {
+  resetSearchInput: () => void
+}
 
 const sendAnalytics = async (term: string) => {
   sendAnalyticsEvent<SearchEvent>({
@@ -84,21 +86,17 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       <div
         ref={searchRef}
         data-fs-search-input-wrapper
-        className={styles.fsSearchInput}
+        // className={styles.fsSearchInput}
         data-fs-search-input-dropdown-visible={searchDropdownVisible}
-        style={containerStyle}
+        // style={containerStyle}
       >
         <SearchInputProvider onSearchInputSelection={onSearchInputSelection}>
-          <UISearchInput
-            data-fs-search-input
+          <UISearchInputField
             ref={ref}
-            icon={
-              <Icon
-                name="MagnifyingGlass"
-                onClick={onSearchClick}
-                data-testid={buttonTestId}
-              />
-            }
+            buttonProps={{
+              onClick: onSearchClick,
+              testId: buttonTestId,
+            }}
             placeholder="Search everything at the store"
             onChange={(e) => setSearchQuery(e.target.value)}
             onSubmit={(term) => {
@@ -114,9 +112,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
           {searchDropdownVisible && (
             <Suspense fallback={null}>
-              <div data-fs-search-input-dropdown-wrapper>
-                <SearchDropdown term={searchQueryDeferred} />
-              </div>
+              <SearchDropdown term={searchQueryDeferred} />
             </Suspense>
           )}
         </SearchInputProvider>
