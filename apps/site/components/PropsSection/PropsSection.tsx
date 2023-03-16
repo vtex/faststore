@@ -1,3 +1,4 @@
+import type { HTMLAttributes } from 'react'
 import React from 'react'
 
 import styles from './props-section.module.css'
@@ -10,7 +11,7 @@ export interface RowItem {
   required: boolean
 }
 
-export interface PropsSectionProps {
+export interface PropsSectionProps extends HTMLAttributes<HTMLDivElement> {
   propsList?: RowItem[]
 }
 
