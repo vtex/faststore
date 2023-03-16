@@ -26,7 +26,8 @@ import {
 import type { SearchInputContextValue } from 'src/sdk/search/useSearchInput'
 import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
 
-import styles from './search-input.module.scss'
+import inputStyles from './search-input.module.scss'
+import styles from '../search.module.scss'
 
 const SearchDropdown = lazy(
   () => import('src/components/search/SearchDropdown')
@@ -86,7 +87,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       <div
         ref={searchRef}
         data-fs-search-input-wrapper
-        // className={styles.fsSearchInput}
+        className={styles.fsSearchInput}
         data-fs-search-input-dropdown-visible={searchDropdownVisible}
         // style={containerStyle}
       >
@@ -112,7 +113,12 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
           {searchDropdownVisible && (
             <Suspense fallback={null}>
-              <SearchDropdown term={searchQueryDeferred} />
+              <div
+                data-fs-search-input-dropdown-wrapper
+                className={styles.fsSearch}
+              >
+                <SearchDropdown term={searchQueryDeferred} />
+              </div>
             </Suspense>
           )}
         </SearchInputProvider>

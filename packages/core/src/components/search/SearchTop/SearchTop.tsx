@@ -2,12 +2,11 @@ import {
   SearchTop as UISearchTop,
   SearchTopTerm as UISearchTopTerm,
 } from '@faststore/ui'
-import { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
 
+import type { StoreSuggestionTerm } from '@generated/graphql'
 import useSearchInput, { formatSearchPath } from 'src/sdk/search/useSearchInput'
 import useTopSearch from 'src/sdk/search/useTopSearch'
-import type { StoreSuggestionTerm } from '@generated/graphql'
 
 export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -16,35 +15,33 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
   topTerms?: StoreSuggestionTerm[]
 }
 
-const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(
-  function SearchTop({ topTerms, ...otherProps }) {
-    const { onSearchInputSelection } = useSearchInput()
-    const { terms, isLoading } = useTopSearch(topTerms)
+function SearchTop({ topTerms, ...otherProps }: SearchTopProps) {
+  const { onSearchInputSelection } = useSearchInput()
+  const { terms, isLoading } = useTopSearch(topTerms)
 
-    if (terms.length === 0) {
-      return null
-    }
-
-    return (
-      <UISearchTop title="Top Search" isLoading={isLoading} {...otherProps}>
-        {terms.map((term, index) => (
-          <UISearchTopTerm
-            key={index}
-            value={term.value}
-            index={index}
-            linkProps={{
-              href: formatSearchPath(term.value),
-              onClick: () =>
-                onSearchInputSelection?.(
-                  term.value,
-                  formatSearchPath(term.value)
-                ),
-            }}
-          />
-        ))}
-      </UISearchTop>
-    )
+  if (terms.length === 0) {
+    return null
   }
-)
+
+  return (
+    <UISearchTop title="Top Search" isLoading={isLoading} {...otherProps}>
+      {terms.map((term, index) => (
+        <UISearchTopTerm
+          key={index}
+          value={term.value}
+          index={index}
+          linkProps={{
+            href: formatSearchPath(term.value),
+            onClick: () =>
+              onSearchInputSelection?.(
+                term.value,
+                formatSearchPath(term.value)
+              ),
+          }}
+        />
+      ))}
+    </UISearchTop>
+  )
+}
 
 export default SearchTop

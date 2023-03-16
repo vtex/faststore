@@ -51,6 +51,6 @@ jobs:
         run: yarn test
 
       - name: Publish
-        run: lerna publish prepatch --yes --no-verify-access --ignore-scripts --conventional-commits --dist-tag alpha
+        run: yarn release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

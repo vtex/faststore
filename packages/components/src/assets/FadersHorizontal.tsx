@@ -2,7 +2,7 @@ import React from 'react'
 import type { FC } from 'react'
 
 // Icon from Phosphor Icons
-const ClockClockwise: FC = () => (
+const FadersHorizontal: FC = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"
@@ -13,10 +13,10 @@ const ClockClockwise: FC = () => (
   >
     <rect width="256" height="256" fill="none"></rect>
     <line
-      x1="128"
-      y1="80"
-      x2="128"
-      y2="128"
+      x1="136"
+      y1="172"
+      x2="40"
+      y2="172"
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
@@ -24,33 +24,61 @@ const ClockClockwise: FC = () => (
       strokeWidth="16"
     ></line>
     <line
-      x1="169.6"
-      y1="152"
-      x2="128"
-      y2="128"
+      x1="216"
+      y1="172"
+      x2="168"
+      y2="172"
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="16"
     ></line>
-    <polyline
-      points="184.2 99.7 224.2 99.7 224.2 59.7"
+    <line
+      x1="72"
+      y1="84"
+      x2="40"
+      y2="84"
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="16"
-    ></polyline>
-    <path
-      d="M190.2,190.2a88,88,0,1,1,0-124.4l34,33.9"
+    ></line>
+    <line
+      x1="216"
+      y1="84"
+      x2="104"
+      y2="84"
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="16"
-    ></path>
+    ></line>
+    <line
+      x1="104"
+      y1="60"
+      x2="104"
+      y2="108"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    ></line>
+    <line
+      x1="168"
+      y1="196"
+      x2="168"
+      y2="148"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    ></line>
   </svg>
 )
 
-export default ClockClockwise
+export default FadersHorizontal

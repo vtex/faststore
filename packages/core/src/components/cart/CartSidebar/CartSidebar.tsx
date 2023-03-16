@@ -71,6 +71,7 @@ function CartSidebar() {
       direction="rightSide"
       className={styles.fsCartSidebar}
       onTransitionEnd={() => fade === 'out' && closeCart()}
+      data-testid="cart-sidebar"
     >
       <UISlideOverHeader closeBtnProps={closeBtnProps} onClose={fadeOut}>
         <div data-fs-cart-sidebar-title>

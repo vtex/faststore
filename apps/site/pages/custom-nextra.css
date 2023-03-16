@@ -39,6 +39,13 @@ h4.nx-tracking-tight {
   font-size: var(--fs-text-size-3);
 }
 
+.nx-leading-7 code {
+  background-color: hsl(var(--nextra-primary-hue)100% 39%/.05);
+  padding: 2px .5rem;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
 .index-header {
   display: flex;
   align-items: center;

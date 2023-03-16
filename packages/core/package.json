@@ -1,6 +1,6 @@
 {
   "name": "@faststore/core",
-  "version": "2.0.72-alpha.0",
+  "version": "2.0.80-alpha.0",
   "license": "MIT",
   "browserslist": "supports es6-module and not dead",
   "scripts": {
@@ -15,7 +15,7 @@
     "lint": "next lint",
     "stylelint": "stylelint \"**/*.scss\"",
     "stylelint:fix": "stylelint \"**/*.scss\" --fix",
-    "postinstall": "node postinstall.js && (is-ci || husky install) || echo Skipped postinstall step for @faststore/core",
+    "postinstall": "node postinstall.js && (is-ci || (cd ../.. && husky install packages/core/.husky)) || echo Skipped postinstall step for @faststore/core",
     "partytown": "partytown copylib ./public/~partytown",
     "storybook": "start-storybook --docs -p 6006",
     "build-storybook": "build-storybook"
@@ -30,10 +30,10 @@
     "@envelop/parser-cache": "^2.2.0",
     "@envelop/validation-cache": "^2.2.0",
     "@faststore/api": "^2.0.3-alpha.0",
-    "@faststore/components": "^2.0.70-alpha.0",
+    "@faststore/components": "^2.0.80-alpha.0",
     "@faststore/graphql-utils": "^2.0.3-alpha.0",
     "@faststore/sdk": "^2.0.3-alpha.0",
-    "@faststore/ui": "^2.0.70-alpha.0",
+    "@faststore/ui": "^2.0.79-alpha.0",
     "@types/react": "^18.0.14",
     "@vtex/client-cms": "^0.2.12",
     "autoprefixer": "^10.4.0",
@@ -64,7 +64,6 @@
     "@graphql-codegen/typescript": "^2.5.1",
     "@graphql-codegen/typescript-operations": "^2.4.2",
     "@lhci/cli": "^0.9.0",
-    "@release-it/conventional-changelog": "^5.0.0",
     "@storybook/addon-a11y": "^6.5.9",
     "@storybook/addon-actions": "^6.5.9",
     "@storybook/addon-essentials": "^6.5.9",
