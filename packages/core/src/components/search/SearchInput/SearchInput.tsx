@@ -87,7 +87,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       <div
         ref={searchRef}
         data-fs-search-input-wrapper
-        className={styles.fsSearchInput}
+        // className={styles.fsSearchInput}
         data-fs-search-input-dropdown-visible={searchDropdownVisible}
         // style={containerStyle}
       >
@@ -113,12 +113,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
           {searchDropdownVisible && (
             <Suspense fallback={null}>
-              <div
-                data-fs-search-input-dropdown-wrapper
-                className={styles.fsSearch}
-              >
-                <SearchDropdown term={searchQueryDeferred} />
-              </div>
+              <SearchDropdown term={searchQueryDeferred} />
             </Suspense>
           )}
         </SearchInputProvider>

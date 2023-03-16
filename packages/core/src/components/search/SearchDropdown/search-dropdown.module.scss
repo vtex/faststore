@@ -23,6 +23,12 @@
   --fs-search-input-dropdown-position-top-desktop : var(--fs-search-input-height-desktop);
 
   // --------------------------------------------------------
+  // Design Tokens for Search
+  // --------------------------------------------------------
+  --fs-search-border-bottom-width   : var(--fs-border-width);
+  --fs-search-border-bottom-color   : var(--fs-border-color-light);
+
+  // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
 
@@ -55,7 +61,7 @@
   [data-fs-search-input-loading-text] { padding: var(--fs-spacing-3); }
 
   [data-fs-search-section] {
-    border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
+    border-bottom: var(--fs-search-border-bottom-width) solid var(--fs-search-border-bottom-color);
 
     &:last-child {
       border-bottom-width: 0;
