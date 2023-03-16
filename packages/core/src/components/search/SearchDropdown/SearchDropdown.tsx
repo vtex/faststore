@@ -7,6 +7,8 @@ import { SearchTop } from '../SearchTop'
 
 export type SearchDropdownProps = SearchSuggestionsProps
 
+import styles from './search-dropdown.module.scss'
+
 function SearchDropdown({
   term = '',
   style,
@@ -14,30 +16,39 @@ function SearchDropdown({
 }: SearchDropdownProps) {
   const { terms, products, isLoading } = useSuggestions(term)
 
-  if (term.length === 0 && !isLoading) {
-    return (
-      <>
-        <SearchHistory data-fs-search-section />
-        <SearchTop data-fs-search-section />
-      </>
-    )
-  }
-
-  if (isLoading) {
-    return <p data-fs-search-input-loading-text>Loading...</p>
-  }
-
-  if (terms.length === 0 && products.length === 0) {
-    return null
-  }
-
   return (
-    <SearchSuggestions
-      term={term}
-      terms={terms}
-      products={products}
-      {...otherProps}
-    />
+    <div
+      className={styles.fsSearchDropdown}
+      data-fs-search-input-dropdown-wrapper
+    >
+      {(() => {
+        if (term.length === 0 && !isLoading) {
+          return (
+            <>
+              <SearchHistory data-fs-search-section />
+              <SearchTop data-fs-search-section />
+            </>
+          )
+        }
+
+        if (isLoading) {
+          return <p data-fs-search-input-loading-text>Loading...</p>
+        }
+
+        if (terms.length === 0 && products.length === 0) {
+          return null
+        }
+
+        return (
+          <SearchSuggestions
+            term={term}
+            terms={terms}
+            products={products}
+            {...otherProps}
+          />
+        )
+      })()}
+    </div>
   )
 }
 
