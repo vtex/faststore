@@ -1,4 +1,4 @@
-import storeConfig from '../../../../faststore.config'
+import storeConfig from 'faststore.config'
 
 export type FilterValue = boolean | string | string[] | number[]
 
