@@ -92,7 +92,41 @@ import '@faststore/ui/src/components/atoms/Badge/styles.scss'
 
 ## Props
 
-<PropsSection name="Badge" />
+export const propsBadge = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-badge',
+  },
+  {
+    name: 'size',
+    type: ['small', 'big'],
+    description: "Sets the component's size.",
+    default: 'small',
+  },
+  {
+    name: 'variant',
+    type: ['info', 'highlighted', 'success', 'neutral', 'warning', 'danger'],
+    description: 'Specifies the component variant.',
+    default: 'neutral',
+  },
+  {
+    name: 'counter',
+    type: 'boolean',
+    description: 'Enables counter badge.',
+    default: 'false',
+  },
+  {
+    name: 'aria-label',
+    type: "AriaAttributes['aria-label']",
+    description:
+      'For accessibility purposes, adds an ARIA label to the element when `counter` is set to `true`.',
+  },
+]
+
+<PropsSection propsList={propsBadge} />
 
 ---
 

@@ -70,7 +70,22 @@ import '@faststore/ui/src/components/atoms/Checkbox/styles.scss'
 
 ## Props
 
-<PropsSection name="Checkbox" />
+export const propsCheckbox = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-checkbox',
+  },
+  {
+    name: 'partial',
+    type: 'boolean',
+    description: 'Boolean that represents a partial state.',
+  },
+]
+
+<PropsSection propsList={propsCheckbox} />
 
 ---
 

@@ -30,7 +30,6 @@ export interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
    * For accessibility purposes, adds an ARIA label to the element when `counter` is set to `true`.
    */
   'aria-label'?: AriaAttributes['aria-label']
-  children?: ReactNode
 }
 
 const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(

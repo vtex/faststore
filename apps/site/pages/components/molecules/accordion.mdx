@@ -189,19 +189,95 @@ Besides those attributes, the following props are also supported:
 
 ### Accordion
 
-<PropsSection name="Accordion" />
+export const propsAccordion = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-accordion',
+  },
+  {
+    name: 'indices',
+    type: 'Iterable<number>',
+    description: 'Indices that indicate which accordion items are opened.',
+    required: true,
+  },
+  {
+    name: 'onChange',
+    type: '(index: number) => void',
+    description:
+      'Function that is triggered when an accordion item is opened/closed.',
+    required: true,
+  },
+]
 
-### AccordionItem
+<PropsSection propsList={propsAccordion} />
 
-<PropsSection name="AccordionItem" />
+### Accordion Item
 
-### AccordionButton
+export const propsAccordionItem = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-accordion-item',
+  },
+  {
+    name: 'index',
+    type: 'number',
+    description: 'Index of the current accordion item within the accordion.',
+  },
+  {
+    name: 'prefixId',
+    type: 'string',
+    description:
+      "Namespace ID prefix for the current Accordion item's panel and button to avoid ID duplication when multiple instances are on the same page.",
+  },
+]
 
-<PropsSection name="AccordionButton" />
+<PropsSection propsList={propsAccordionItem} />
 
-### AccordionPanel
+### Accordion Button
 
-<PropsSection name="AccordionPanel" />
+export const propsAccordionButton = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-accordion-button',
+  },
+  {
+    name: 'expandedIcon',
+    type: 'ReactNode',
+    description:
+      'A React component is rendered as an icon when the accordion is expanded.',
+  },
+  {
+    name: 'collapsedIcon',
+    type: 'ReactNode',
+    description:
+      'A React component is rendered as an icon when the accordion is collapsed.',
+  },
+]
+
+<PropsSection propsList={propsAccordionButton} />
+
+### Accordion Panel
+
+export const propsAccordionPanel = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-accordion-panel',
+  },
+]
+
+<PropsSection propsList={propsAccordionPanel} />
 
 ---
 
