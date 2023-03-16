@@ -24,14 +24,14 @@ export const SkuVariants: Record<string, Resolver<Root>> = {
       root.isVariantOf.items,
       // Since `dominantVariantProperty` is a required argument, we can safely
       // access it.
-      (args as SlugsMapArgs).dominantVariantName,
+      (args as SlugsMapArgs).dominantVariantName ?? root.variations[0]?.name,
       root.isVariantOf.linkText
     ),
 
   availableVariations: (root, args) => {
     // Since `dominantVariantProperty` is a required argument, we can safely
     // access it.
-    const dominantVariantName = (args as SlugsMapArgs).dominantVariantName
+    const dominantVariantName = (args as SlugsMapArgs).dominantVariantName ?? root.variations[0]?.name
     const activeVariations = getActiveSkuVariations(root.variations)
 
     const activeDominantVariationValue = activeVariations[dominantVariantName]
