@@ -27,31 +27,37 @@ const PropsSection = ({ propsList }) => {
         </tr>
       </thead>
       <tbody>
-        {propsList.map((prop) => {
-          return (
-            <tr key={prop.name}>
-              <td data-nx-props-section-name>
-                <strong>
-                  {prop.name}
-                  {prop.required && <span>*</span>}
-                </strong>
-              </td>
-              <td data-nx-props-section-type>
-                {prop.type instanceof Array ? (
-                  <span>
-                    {prop.type.map((option) => {
-                      return <code key={option}>{option}</code>
-                    })}
-                  </span>
-                ) : (
-                  <code>{prop.type}</code>
-                )}
-              </td>
-              <td>{prop.description}</td>
-              <td>{prop.default && <code>{prop.default}</code>}</td>
-            </tr>
-          )
-        })}
+        {propsList ? (
+          propsList.map((prop) => {
+            return (
+              <tr key={prop.name}>
+                <td data-nx-props-section-name>
+                  <strong>
+                    {prop.name}
+                    {prop.required && <span>*</span>}
+                  </strong>
+                </td>
+                <td data-nx-props-section-type>
+                  {prop.type instanceof Array ? (
+                    <span>
+                      {prop.type.map((option) => {
+                        return <code key={option}>{option}</code>
+                      })}
+                    </span>
+                  ) : (
+                    <code>{prop.type}</code>
+                  )}
+                </td>
+                <td>{prop.description}</td>
+                <td>{prop.default && <code>{prop.default}</code>}</td>
+              </tr>
+            )
+          })
+        ) : (
+          <tr>
+            <td>Coming Soon</td>
+          </tr>
+        )}
       </tbody>
     </table>
   )
