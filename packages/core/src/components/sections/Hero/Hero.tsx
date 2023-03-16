@@ -40,9 +40,8 @@ const Hero = ({
       <UIHero>
         <UIHeroImage data-fs-hero-image>
           <Image
-            preload
             loading="eager"
-            fetchPriority="high"
+            priority
             src={imageSrc}
             alt={imageAlt}
             width={360}

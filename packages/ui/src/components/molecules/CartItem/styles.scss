@@ -60,11 +60,6 @@
     width: var(--fs-cart-item-image-width);
     height: var(--fs-cart-item-image-height);
     flex-shrink: 0;
-    [data-fs-image] {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
   }
 
   [data-fs-cart-item-title] {
