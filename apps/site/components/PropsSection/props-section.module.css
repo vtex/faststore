@@ -1,8 +1,17 @@
 .propsSection {
   width: 100%;
-  display: table;
+  overflow-x: auto;
+}
+
+.propsSection table {
+  width: 100%;
   border-spacing: 0;
   border-collapse: unset;
+  overflow: auto;
+}
+
+@media screen and (min-width: 1024px) {
+  .propsSection table { table-layout: fixed; }
 }
 
 .propsSection th {
@@ -19,12 +28,25 @@
 .propsSection tr:last-child td { border-bottom: none; }
 
 .propsSection th,
-.propsSection td { text-align: left; }
+.propsSection td {
+  text-align: left;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 1024px) {
+  .propsSection [data-nx-props-section-name] { width: 20%; }
+  .propsSection [data-nx-props-section-type] { width: 20%; }
+  .propsSection [data-nx-props-section-description] { width: 40%; }
+  .propsSection [data-nx-props-section-default] { width: 20%; }
+}
+
 
 .propsSection td[data-nx-props-section-name] span {
   color: #006be6;
   margin-left: var(--fs-spacing-0);
+  cursor: help;
 }
+
 
 .propsSection td[data-nx-props-section-type] span {
   display: flex;
@@ -41,9 +63,10 @@
 }
 
 .propsSection td code {
-  margin: 0px 2px;
+  max-width: 100%;
+  word-wrap: break-word;
+  margin: 0 2px;
   padding: 3px 5px;
-  white-space: nowrap;
   border-radius: 3px;
   font-size: 13px;
   border: 1px solid rgb(238, 238, 238);
