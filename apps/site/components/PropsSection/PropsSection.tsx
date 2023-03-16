@@ -14,7 +14,7 @@ export interface PropsSectionProps {
   propsList?: RowItem[]
 }
 
-const PropsSection = ({ propsList }: PropsSectionProps) => {
+const PropsSection = ({ propsList }) => {
   return (
     <table className={styles.propsSection}>
       <thead>
