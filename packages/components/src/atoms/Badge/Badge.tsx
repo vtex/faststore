@@ -1,4 +1,4 @@
-import type { ReactNode, HTMLAttributes, AriaAttributes } from 'react'
+import type { HTMLAttributes, AriaAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 export type BadgeVariants =
