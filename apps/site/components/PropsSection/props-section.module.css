@@ -60,6 +60,7 @@
   padding: var(--fs-spacing-3) var(--fs-spacing-2);
   font-size: var(--fs-text-size-legend);
   line-height: 1.2;
+  vertical-align: top;
 }
 
 .propsSection td code {
