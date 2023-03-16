@@ -7,9 +7,6 @@
   --fs-filter-slider-content-height                   : calc(100vh - var(--fs-filter-slider-footer-height));
   --fs-filter-slider-content-padding                  : var(--fs-spacing-3) var(--fs-spacing-3) calc(var(--fs-filter-slider-footer-height) + var(--fs-spacing-3));
 
-  // Header
-  --fs-filter-slider-header-icon-margin-right         : calc(-1 * var(--fs-spacing-1));
-
   // Footer
   --fs-filter-slider-footer-width                     : 100%;
   --fs-filter-slider-footer-height                    : 5rem;
@@ -29,15 +26,8 @@
     overflow-y: auto;
   }
 
-  [data-fs-filter-slider-header] {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  [data-fs-filter-slider-header-icon] {
-    margin-right: var(--fs-filter-slider-header-icon-margin-right);
+  [data-fs-slide-over-header] {
+    padding: 0;
   }
 
   [data-fs-filter-slider-footer] {

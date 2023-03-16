@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import { Price } from '../../'
+import { Price } from '../..'
 import type { PriceFormatter } from '../../atoms/Price/Price'
 
 interface Price {
@@ -8,7 +8,7 @@ interface Price {
   formatter: PriceFormatter
 }
 
-export type SearchProductCardContentProps = {
+export type SearchProductItemContentProps = {
   /**
    * Specifies the product's title.
    */
@@ -19,14 +19,14 @@ export type SearchProductCardContentProps = {
   price: Price
 }
 
-const SearchProductCardContent = forwardRef<
+const SearchProductItemContent = forwardRef<
   HTMLElement,
-  SearchProductCardContentProps
->(function SearchProductCardContent({ price, title, ...otherProps }, ref) {
+  SearchProductItemContentProps
+>(function SearchProductItemContent({ price, title, ...otherProps }, ref) {
   return (
-    <section ref={ref} data-fs-search-product-card-content {...otherProps}>
-      <p data-fs-search-product-card-title>{title}</p>
-      <span data-fs-search-product-card-prices>
+    <section ref={ref} data-fs-search-product-item-content {...otherProps}>
+      <p data-fs-search-product-item-title>{title}</p>
+      <span data-fs-search-product-item-prices>
         <Price
           value={price?.listPrice ? price.listPrice : 0}
           formatter={price?.formatter}
@@ -48,4 +48,4 @@ const SearchProductCardContent = forwardRef<
   )
 })
 
-export default SearchProductCardContent
+export default SearchProductItemContent

@@ -6,10 +6,6 @@
   // Default properties
   --fs-cart-sidebar-bkg-color                        : var(--fs-color-neutral-bkg);
 
-  // Header
-  --fs-cart-sidebar-header-padding                   : var(--fs-spacing-2) var(--fs-spacing-3) var(--fs-spacing-2);
-  --fs-cart-sidebar-header-bkg-color                 : var(--fs-color-neutral-0);
-
   --fs-cart-sidebar-header-title-margin-right        : var(--fs-spacing-2);
 
   // List
@@ -30,18 +26,6 @@
 
   > * { flex-shrink: 0; }
 
-  [data-fs-cart-sidebar-header] {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--fs-cart-sidebar-header-padding);
-    background-color: var(--fs-cart-sidebar-header-bkg-color);
-  }
-
-  [data-fs-cart-sidebar-close-button] {
-    margin-right: calc(-1 * var(--fs-spacing-1));
-  }
-
   [data-fs-cart-sidebar-title] {
     display: flex;
     align-items: center;
@@ -60,6 +44,8 @@
   }
 
   [data-fs-cart-sidebar-footer] {
+    position: sticky;
+    bottom: 0;
     margin-top: auto;
     background-color: var(--fs-cart-sidebar-footer-bkg-color);
     box-shadow: var(--fs-cart-sidebar-footer-box-shadow);

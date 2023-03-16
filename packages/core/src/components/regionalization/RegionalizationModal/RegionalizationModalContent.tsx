@@ -22,7 +22,7 @@ function RegionalizationModalContent({
         onClose={() => onClose()}
         title="Set your location"
         description="Prices, offers and availability may vary according to your location."
-        closeButtonProps={{
+        closeBtnProps={{
           'aria-label': 'Close Regionalization Modal',
         }}
       />

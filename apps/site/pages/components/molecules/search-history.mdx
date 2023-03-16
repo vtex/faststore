@@ -25,9 +25,9 @@ Responsible for showing the latest terms searched by a user.
   <Tab>
     <OverviewSection>
       <SearchHistory title="History">
-        <SearchHistoryTerm value="Headphone" href="/" />
-        <SearchHistoryTerm value="Audio & Video" href="/" />
-        <SearchHistoryTerm value="mh-7000" href="/" />
+        <SearchHistoryTerm value="Headphone" linkProps={{href: "/"}} />
+        <SearchHistoryTerm value="Audio & Video" linkProps={{href: "/"}} />
+        <SearchHistoryTerm value="mh-7000" linkProps={{href: "/"}} />
       </SearchHistory>
     </OverviewSection>
   </Tab>
@@ -35,9 +35,9 @@ Responsible for showing the latest terms searched by a user.
 
     ```tsx
     <SearchHistory title="History">
-      <SearchHistoryTerm value="Headphone" href="/" />
-      <SearchHistoryTerm value="Audio & Video" href="/" />
-      <SearchHistoryTerm value="mh-7000" href="/" />
+      <SearchHistoryTerm value="Headphone" linkProps={{href: "/"}} />
+      <SearchHistoryTerm value="Audio & Video" linkProps={{href: "/"}} />
+      <SearchHistoryTerm value="mh-7000" linkProps={{href: "/"}} />
     </SearchHistory>
     ```
 
@@ -48,7 +48,7 @@ Responsible for showing the latest terms searched by a user.
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
 import { SearchHistory } from '@faststore/ui'
@@ -66,16 +66,16 @@ import '@faststore/ui/src/components/molecules/SearchHistory/styles.scss'
 
 <OverviewSection>
   <SearchHistory title="History">
-    <SearchHistoryTerm value="Headphone" href="/" />
-    <SearchHistoryTerm value="Audio & Video" href="/" />
-    <SearchHistoryTerm value="mh-7000" href="/" />
+    <SearchHistoryTerm value="Headphone" linkProps={{ href: '/' }} />
+    <SearchHistoryTerm value="Audio & Video" linkProps={{ href: '/' }} />
+    <SearchHistoryTerm value="mh-7000" linkProps={{ href: '/' }} />
   </SearchHistory>
 </OverviewSection>
 ```tsx
 <SearchHistory title="History">
-  <SearchHistoryTerm value="Headphone" href="/" />
-  <SearchHistoryTerm value="Audio & Video" href="/" />
-  <SearchHistoryTerm value="mh-7000" href="/" />
+  <SearchHistoryTerm value="Headphone" linkProps={{ href: '/' }} />
+  <SearchHistoryTerm value="Audio & Video" linkProps={{ href: '/' }} />
+  <SearchHistoryTerm value="mh-7000" linkProps={{ href: '/' }} />
 </SearchHistory>
 ```
 
@@ -190,14 +190,30 @@ import '@faststore/ui/src/components/molecules/SearchHistory/styles.scss'
 
 <OverviewSection>
   <SearchHistory title="History">
-    <SearchHistoryTerm value="Headphone" href="/" icon={<Star />} />
-    <SearchHistoryTerm value="Audio & Video" href="/" icon={<Heart />} />
+    <SearchHistoryTerm
+      value="Headphone"
+      linkProps={{ href: '/' }}
+      icon={<Star />}
+    />
+    <SearchHistoryTerm
+      value="Audio & Video"
+      linkProps={{ href: '/' }}
+      icon={<Heart />}
+    />
   </SearchHistory>
 </OverviewSection>
 ```tsx
 <SearchHistory title="History">
-  <SearchHistoryTerm value="Headphone" href="/" icon={<Star />} />
-  <SearchHistoryTerm value="Audio & Video" href="/" icon={<Heart />} />
+  <SearchHistoryTerm
+    value="Headphone"
+    linkProps={{ href: '/' }}
+    icon={<Star />}
+  />
+  <SearchHistoryTerm
+    value="Audio & Video"
+    linkProps={{ href: '/' }}
+    icon={<Heart />}
+  />
 </SearchHistory>
 ```
 

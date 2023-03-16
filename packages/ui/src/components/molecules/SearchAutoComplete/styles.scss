@@ -1,0 +1,70 @@
+[data-fs-search-auto-complete] {
+  // --------------------------------------------------------
+  // Design Tokens for Search Auto Complete
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-search-auto-complete-padding-top             : var(--fs-spacing-2);
+  --fs-search-auto-complete-padding-right           : var(--fs-spacing-3);
+  --fs-search-auto-complete-padding-bottom          : var(--fs-search-auto-complete-padding-top);
+  --fs-search-auto-complete-padding-left            : var(--fs-search-auto-complete-padding-right);
+  --fs-search-auto-complete-transition-property     : var(--fs-transition-property);
+  --fs-search-auto-complete-transition-function     : var(--fs-transition-function);
+  --fs-search-auto-complete-transition-timing       : var(--fs-transition-timing);
+
+  // Item
+  --fs-search-auto-complete-item-column-gap         : var(--fs-spacing-1);
+  --fs-search-auto-complete-item-text-size          : var(--fs-text-size-2);
+  --fs-search-auto-complete-item-line-height        : 1.25;
+  --fs-search-auto-complete-item-bkg-color-hover    : var(--fs-color-tertiary-bkg-hover);
+
+  // Icon
+  --fs-search-auto-complete-item-icon-color         : var(--fs-color-neutral-4);
+  --fs-search-auto-complete-item-icon-size          : 1.125rem;
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  width: 100%;
+  padding-top: var(--fs-search-auto-complete-padding-top);
+  padding-bottom: var(--fs-search-auto-complete-padding-bottom);
+
+  [data-fs-search-auto-complete-item] {
+    display: flex;
+    align-items: center;
+    font-size: var(--fs-search-auto-complete-item-text-size);
+    line-height: var(--fs-search-auto-complete-item-line-height);
+    transition: var(--fs-search-auto-complete-transition-property) var(--fs-search-auto-complete-transition-timing) var(--fs-search-auto-complete-transition-function);
+
+    &:hover {
+      background-color: var(--fs-search-auto-complete-item-bkg-color-hover);
+    }
+  }
+
+  [data-fs-search-auto-complete-item-link] {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    color: var(--fs-color-neutral-6);
+    padding-left: var(--fs-search-auto-complete-padding-left);
+    padding-right: var(--fs-search-auto-complete-padding-right);
+    column-gap: var(--fs-search-auto-complete-item-column-gap);
+    &:visited { color: var(--fs-color-neutral-6); }
+
+    [data-fs-search-auto-complete-item-suggestion] {
+      font-weight: var(--fs-text-weight-bold);
+      color: var(--fs-color-text);
+    }
+  }
+
+
+  [data-fs-search-auto-complete-item-icon] {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: var(--fs-search-auto-complete-item-icon-size);
+    height: var(--fs-search-auto-complete-item-icon-size);
+    color: var(--fs-search-auto-complete-item-icon-color);
+  }
+}
