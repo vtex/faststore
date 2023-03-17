@@ -21,34 +21,43 @@ The Price Range component is a [Slider](/components/atoms/slider) that allows us
 
 ## Overview
 
+export const shippingOptions = [
+  {
+    carrier: 'DHL',
+    localizedEstimates: 'Up to 3 business days',
+    price: 12,
+  },
+]
+
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
       <ShippingSimulation
         productShippingInfo={{ id: '32', seller: 'vtex', quantity: 1 }}
         formatter={useFormattedPrice}
-        shippingLocation="lalala"
-        shippingOptions={{
-          carrier: 'DHL',
-          localizedEstimates: 'epa',
-          price: 12,
-        }}
+        shippingLocation="St. Alfredo Coutinho"
+        shippingOptions={shippingOptions}
       />
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
+    const shippingOptions = [
+      {
+        carrier: 'DHL',
+        localizedEstimates: 'Up to 3 business days',
+        price: 12,
+      },
+    ]
+
     <ShippingSimulation
       productShippingInfo={{ id: '32', seller: 'vtex', quantity: 1 }}
       formatter={useFormattedPrice}
-      shippingLocation="lalala"
-      shippingOptions={{
-        carrier: 'DHL',
-        localizedEstimates: 'epa',
-        price: 12,
-      }}
+      shippingLocation="St. Alfredo Coutinho"
+      shippingOptions={shippingOptions}
     />
     ```
+
   </Tab>
 </Tabs>
 
