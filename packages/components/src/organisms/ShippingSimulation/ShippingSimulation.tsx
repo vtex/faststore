@@ -6,31 +6,32 @@ import React from 'react'
 import { XCircle as ArrowSquareOut } from '../../assets'
 
 import {
-  Icon, 
-  Link, 
+  Icon,
+  Link,
   Table,
   TableBody,
   TableCell,
   TableRow,
   InputField,
-  Price
+  Price,
 } from '../..'
 // import styles from './shipping-simulation.module.scss'
 // import { useShippingSimulation } from './useShippingSimulation'
 
 interface ProductShippingInfo {
-  id: string,
-  seller: string,
+  id: string
+  seller: string
   quantity: number
 }
 
 interface ProductShippingOption {
-  carrier: string, 
-  localizedEstimates: string,
+  carrier: string
+  localizedEstimates: string
   price: number
 }
 
-export interface ShippingSimulationProps extends HTMLAttributes<HTMLDivElement> {
+export interface ShippingSimulationProps
+  extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -39,11 +40,11 @@ export interface ShippingSimulationProps extends HTMLAttributes<HTMLDivElement> 
   /**
    * Object used for simulating shippings
    */
-  productShippingInfo: ProductShippingInfo,
+  productShippingInfo: ProductShippingInfo
 
-  formatter: PriceFormatter,
+  formatter: PriceFormatter
 
-  shippingLocation: string,
+  shippingLocation: string
 
   shippingOptions: ProductShippingOption[]
 }
@@ -83,10 +84,10 @@ function ShippingSimulation({
 
       <InputField
         actionable
-        error={""}
+        error={''}
         id="shipping-postal-code"
         label="Postal Code"
-        value={""}
+        value={''}
         onInput={() => {}}
         onSubmit={() => {}}
         onClear={() => {}}
