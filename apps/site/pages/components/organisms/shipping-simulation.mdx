@@ -9,6 +9,7 @@ import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { ShippingSimulation } from '@faststore/ui'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
 <header>
 
@@ -20,33 +21,32 @@ The Price Range component is a [Slider](/components/atoms/slider) that allows us
 
 ## Overview
 
-
- testId?: string
-  /**
-   * Object used for simulating shippings
-   */
-  productShippingInfo: ProductShippingInfo,
-
-  formatter: PriceFormatter,
-
-  shippingLocation: string,
-
-  shippingOptions: ProductShippingOption[]
-
-
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <PriceRangeUsage />
+      <ShippingSimulation
+        productShippingInfo={{ id: '32', seller: 'vtex', quantity: 1 }}
+        formatter={useFormattedPrice}
+        shippingLocation="lalala"
+        shippingOptions={{
+          carrier: 'DHL',
+          localizedEstimates: 'epa',
+          price: 12,
+        }}
+      />
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
     <ShippingSimulation
-      productShippingInfo={{id: "32"}}
-      formatter={formatter}
-      shippingLocation={{}}
-      step={1}
+      productShippingInfo={{ id: '32', seller: 'vtex', quantity: 1 }}
+      formatter={useFormattedPrice}
+      shippingLocation="lalala"
+      shippingOptions={{
+        carrier: 'DHL',
+        localizedEstimates: 'epa',
+        price: 12,
+      }}
     />
     ```
   </Tab>
