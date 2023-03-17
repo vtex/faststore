@@ -1,22 +1,36 @@
-import type { IShippingItem } from '@faststore/api'
+import type { HTMLAttributes } from 'react'
+import type { PriceFormatter } from '../../atoms/Price/Price'
+
+import React from 'react'
+
+import { XCircle as ArrowSquareOut } from '../../assets'
+
 import {
+  Icon, 
+  Link, 
   Table,
   TableBody,
   TableCell,
   TableRow,
-  InputField as UIInputField,
-  Price as UIPrice,
-} from '@faststore/ui'
-import type { HTMLAttributes } from 'react'
+  InputField,
+  Price
+} from '../..'
+// import styles from './shipping-simulation.module.scss'
+// import { useShippingSimulation } from './useShippingSimulation'
 
-import { usePriceFormatter } from 'src/sdk/product/useFormattedPrice'
+interface ProductShippingInfo {
+  id: string,
+  seller: string,
+  quantity: number
+}
 
-import Icon from '../Icon'
-import Link from '../Link'
-import styles from './shipping-simulation.module.scss'
-import { useShippingSimulation } from './useShippingSimulation'
+interface ProductShippingOption {
+  carrier: string, 
+  localizedEstimates: string,
+  price: number
+}
 
-interface ShippingSimulationProps extends HTMLAttributes<HTMLDivElement> {
+export interface ShippingSimulationProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -25,33 +39,39 @@ interface ShippingSimulationProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Object used for simulating shippings
    */
-  shippingItem: IShippingItem
+  productShippingInfo: ProductShippingInfo,
+
+  formatter: PriceFormatter,
+
+  shippingLocation: string,
+
+  shippingOptions: ProductShippingOption[]
 }
 
 function ShippingSimulation({
   testId = 'store-shipping-simulation',
-  shippingItem,
+  productShippingInfo,
+  formatter,
+  shippingLocation,
+  shippingOptions,
   ...otherProps
 }: ShippingSimulationProps) {
-  const { dispatch, input, shippingSimulation, handleSubmit, handleOnInput } =
-    useShippingSimulation(shippingItem)
+  // const { dispatch, input, shippingSimulation, handleSubmit, handleOnInput } =
+  //   useShippingSimulation(productShippingInfo)
 
-  const {
-    postalCode: shippingPostalCode,
-    displayClearButton,
-    errorMessage,
-  } = input
+  // const {
+  //   postalCode: shippingPostalCode,
+  //   displayClearButton,
+  //   errorMessage,
+  // } = input
 
-  const { location: shippingLocation, options: shippingOptions } =
-    shippingSimulation
-
-  const formatter = usePriceFormatter()
+  // const { location: shippingLocation, options: shippingOptions } =
+  //   shippingSimulation
 
   const hasShippingOptions = !!shippingOptions && shippingOptions.length > 0
 
   return (
     <section
-      className={styles.fsShippingSimulation}
       data-fs-shipping-simulation
       data-fs-shipping-simulation-empty={!hasShippingOptions ? 'true' : 'false'}
       data-testid={testId}
@@ -61,21 +81,21 @@ function ShippingSimulation({
         Shipping
       </h2>
 
-      <UIInputField
+      <InputField
         actionable
-        error={errorMessage}
+        error={""}
         id="shipping-postal-code"
         label="Postal Code"
-        value={shippingPostalCode}
-        onInput={handleOnInput}
-        onSubmit={handleSubmit}
-        onClear={() => dispatch({ type: 'clear' })}
-        displayClearButton={displayClearButton}
+        value={""}
+        onInput={() => {}}
+        onSubmit={() => {}}
+        onClear={() => {}}
+        displayClearButton={false}
       />
 
       <Link href="/" data-fs-shipping-simulation-link size="small">
         {"I don't know my Postal Code"}
-        <Icon name="ArrowSquareOut" width={18} height={18} />
+        <Icon component={<ArrowSquareOut />} />
       </Link>
 
       {hasShippingOptions && (
@@ -95,7 +115,7 @@ function ShippingSimulation({
                   <TableCell>{option.localizedEstimates}</TableCell>
                   <TableCell align="right">
                     {option.price && (
-                      <UIPrice
+                      <Price
                         formatter={formatter}
                         value={option.price}
                         SRText="price"
