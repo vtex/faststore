@@ -1,0 +1,73 @@
+---
+description: Shipping Simulation are sliders that allows users to select a maximum and minimum price.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/PriceRange___5863b0eb4a4a8ce9a98da5c760461e61.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { ShippingSimulation } from '@faststore/ui'
+
+<header>
+
+# Price Range
+
+The Price Range component is a [Slider](/components/atoms/slider) that allows users to select a maximum and minimum price from a range.
+
+</header>
+
+## Overview
+
+
+ testId?: string
+  /**
+   * Object used for simulating shippings
+   */
+  productShippingInfo: ProductShippingInfo,
+
+  formatter: PriceFormatter,
+
+  shippingLocation: string,
+
+  shippingOptions: ProductShippingOption[]
+
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <PriceRangeUsage />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <ShippingSimulation
+      productShippingInfo={{id: "32"}}
+      formatter={formatter}
+      shippingLocation={{}}
+      step={1}
+    />
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { ShippingSimulation } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/organisms/ShippingSimulation/styles.scss'
+```
+
+---
+
+## Usage

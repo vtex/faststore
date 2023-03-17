@@ -187,6 +187,9 @@ export type { PaymentMethodsProps } from './organisms/PaymentMethods'
 export { default as PriceRange } from './organisms/PriceRange'
 export type { PriceRangeProps } from './organisms/PriceRange'
 
+export { default as ShippingSimulation } from './organisms/ShippingSimulation'
+export type { ShippingSimulationProps } from './organisms/ShippingSimulation'
+
 export { default as SlideOver, SlideOverHeader } from './organisms/SlideOver'
 export type {
   SlideOverProps,
