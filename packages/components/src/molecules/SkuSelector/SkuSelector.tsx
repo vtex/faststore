@@ -53,7 +53,7 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * SKU options that should be rendered.
    */
-  options: SkuOption[]
+  availableVariations: Record<string, SkuOption[]>
   /**
    * Name of the SKU property that this selector is relative to.
    */
@@ -90,7 +90,7 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
 const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
   function SkuSelector(
     {
-      options,
+      availableVariations,
       skuPropertyName,
       testId,
       activeVariations,
@@ -103,7 +103,8 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
     },
     ref
   ) {
-    const activeSelectorValue = activeVariations[skuPropertyName ?? '']
+    const activeSelectorValue = activeVariations[skuPropertyName]
+    const options = availableVariations[skuPropertyName]
 
     const variant = useDefineVariant(options, variantProp)
 
