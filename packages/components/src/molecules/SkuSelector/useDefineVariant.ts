@@ -4,7 +4,7 @@ import { SkuOption } from './SkuSelector'
 export type Variant = 'image' | 'color' | 'label'
 
 const getImageName = (src: string) => {
-  const sourcePath = new URL(src!).pathname
+  const sourcePath = new URL(src).pathname
   const imageName = sourcePath.split('/').at(-1)
   return imageName
 }
@@ -18,17 +18,17 @@ export const useDefineVariant = (options: SkuOption[], variant?: Variant): Varia
       return 'color'
     }
 
-    const firstImageName = getImageName(options[0]?.src!)
+    const firstImageName = options[0]?.src && getImageName(options[0].src)
 
-    const areSourcesEquals = options.every((option) => {
+    const areSourcesEqualsOrNull = options.every((option) => {
       if (!option.src) {
-        return false
+        return true
       }
       const optionImageName = getImageName(option.src)
       return optionImageName === firstImageName
     })
 
-    if (!areSourcesEquals) {
+    if (!areSourcesEqualsOrNull) {
       return 'image'
     }
 

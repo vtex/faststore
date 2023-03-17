@@ -2,6 +2,7 @@ import type { FunctionComponent, HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 import { Label, SROnly, Link, LinkProps, LinkElementType } from '../..'
 import { useDefineVariant, Variant } from './useDefineVariant'
+import { useSkuSlug } from './useSkuSlug'
 
 
 // TODO: Change by ImageComponent when it be right
@@ -70,9 +71,13 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
    */
   linkProps?: Partial<LinkProps<LinkElementType>>
   /**
-   * Function that determines the href string.
+   * Optional function to determines the href string.
    */
-  getItemHref: (option: SkuOption) => string
+  getItemHref?: (option: SkuOption) => string
+  /**
+   * Maps property value combinations to their respective SKU's slug
+   */
+  slugsMap: Record<string, string>
   /**
    * Function that returns a React component that will be used to render images.
    */
@@ -90,7 +95,8 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
       testId,
       activeVariations,
       linkProps,
-      getItemHref,
+      slugsMap,
+      getItemHref: getItemHrefProp,
       ImageComponent = ImageComponentFallback,
       variant: variantProp,
       ...otherProps
@@ -100,6 +106,8 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
     const activeSelectorValue = activeVariations[skuPropertyName ?? '']
 
     const variant = useDefineVariant(options, variantProp)
+
+    const { getItemHref } = useSkuSlug(activeVariations, slugsMap, getItemHrefProp)
 
     return (
       <div
