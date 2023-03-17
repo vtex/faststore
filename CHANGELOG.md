@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.82-alpha.0](https://github.com/vtex/faststore/compare/v2.0.81-alpha.0...v2.0.82-alpha.0) (2023-03-17)
+
+### Features
+
+- change dominantVariant to optional ([#1674](https://github.com/vtex/faststore/issues/1674)) ([29fd637](https://github.com/vtex/faststore/commit/29fd637e40a035073f72a61c7be17514776557fc))
+
 ## [2.0.81-alpha.0](https://github.com/vtex/faststore/compare/v2.0.80-alpha.0...v2.0.81-alpha.0) (2023-03-16)
 
 ### Features
