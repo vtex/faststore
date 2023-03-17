@@ -1,6 +1,7 @@
 import type { FunctionComponent, HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 import { Label, SROnly, Link, LinkProps, LinkElementType } from '../..'
+import { useDefineVariant, Variant } from './useDefineVariant'
 
 
 // TODO: Change by ImageComponent when it be right
@@ -8,7 +9,7 @@ const ImageComponentFallback: SkuSelectorProps['ImageComponent'] = ({
   src,
   alt,
   ...otherProps
-// eslint-disable-next-line @next/next/no-img-element
+  // eslint-disable-next-line @next/next/no-img-element
 }) => <img src={src} alt={alt} {...otherProps} />
 
 export interface SkuOption {
@@ -61,6 +62,10 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
    */
   activeVariations: Record<string, string>
   /**
+   * Optional variant type, when is not passed the type is inferred based on options properties
+   */
+  variant?: Variant
+  /**
    * Extends all Link Props.
    */
   linkProps?: Partial<LinkProps<LinkElementType>>
@@ -77,8 +82,6 @@ export interface SkuSelectorProps extends HTMLAttributes<HTMLDivElement> {
   }>
 }
 
-type Variant = "image" | "color" | "label"
-
 const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
   function SkuSelector(
     {
@@ -89,15 +92,14 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
       linkProps,
       getItemHref,
       ImageComponent = ImageComponentFallback,
+      variant: variantProp,
       ...otherProps
     },
     ref
   ) {
     const activeSelectorValue = activeVariations[skuPropertyName ?? '']
 
-    const [ firstOption ] = options
-
-    const variant: Variant = firstOption?.src ? "image" : firstOption.hexColor ? "color" : "label"
+    const variant = useDefineVariant(options, variantProp)
 
     return (
       <div

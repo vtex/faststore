@@ -1,14 +1,13 @@
 import { gql } from '@faststore/graphql-utils'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   BuyButton as UIBuyButton,
   DiscountBadge as UIDiscountBadge,
   QuantitySelector as UIQuantitySelector,
   ProductTitle as UIProductTitle,
   Price as UIPrice,
-  SkuOption,
 } from '@faststore/ui'
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
@@ -173,9 +172,7 @@ function ProductDetails({ context: staleProduct }: Props) {
               <Selectors
                 data-fs-product-details-selectors
                 slugsMap={isVariantOf.skuVariants.slugsMap}
-                activeVariations={
-                  isVariantOf.skuVariants.activeVariations
-                }
+                activeVariations={isVariantOf.skuVariants.activeVariations}
                 availableVariations={
                   isVariantOf.skuVariants.availableVariations
                 }
