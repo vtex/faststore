@@ -1,7 +1,5 @@
-import React, { useCallback, useMemo } from 'react'
-import { SkuSelector, SkuSelectorProps, SkuOption } from '@faststore/ui'
-
-import { getSkuSlug } from './skuVariants'
+import React from 'react'
+import { SkuSelector } from '@faststore/ui'
 
 const SkuSelectorColor = () => {
   const product = {
@@ -45,38 +43,12 @@ const SkuSelectorColor = () => {
     },
   }
 
-  const [skuPropertyName] = useMemo(() => {
-    return Object.keys(product.isVariantOf.skuVariants.activeVariations)
-  }, [product.isVariantOf.skuVariants.activeVariations])
-
-  const getItemHref = useCallback(
-    (option: SkuOption) => {
-      const currentOptionName = skuPropertyName ?? option.label.split(':')[0]
-
-      const currentItemHref = `/${getSkuSlug(
-        product.isVariantOf.skuVariants.slugsMap,
-        {
-          ...product.isVariantOf.skuVariants.activeVariations,
-          [currentOptionName]: option.value,
-        },
-        skuPropertyName
-      )}/p`
-
-      return currentItemHref
-    },
-    [
-      product.isVariantOf.skuVariants.activeVariations,
-      product.isVariantOf.skuVariants.slugsMap,
-      skuPropertyName,
-    ]
-  )
-
   return (
     <SkuSelector
       skuPropertyName="Color"
-      options={product.isVariantOf.skuVariants.availableVariations.Color}
+      availableVariations={product.isVariantOf.skuVariants.availableVariations}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
-      getItemHref={getItemHref}
+      slugsMap={product.isVariantOf.skuVariants.slugsMap}
     />
   )
 }

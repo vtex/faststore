@@ -1,7 +1,5 @@
-import React, { useCallback, useMemo } from 'react'
-import { SkuSelector, SkuOption } from '@faststore/ui'
-
-import { getSkuSlug } from './skuVariants'
+import React from 'react'
+import { SkuSelector } from '@faststore/ui'
 
 const SkuSelectorLabel = () => {
   const product = {
@@ -42,38 +40,12 @@ const SkuSelectorLabel = () => {
     },
   }
 
-  const [skuPropertyName] = useMemo(() => {
-    return Object.keys(product.isVariantOf.skuVariants.activeVariations)
-  }, [product.isVariantOf.skuVariants.activeVariations])
-
-  const getItemHref = useCallback(
-    (option: SkuOption) => {
-      const currentOptionName = skuPropertyName ?? option.label.split(':')[0]
-
-      const currentItemHref = `/${getSkuSlug(
-        product.isVariantOf.skuVariants.slugsMap,
-        {
-          ...product.isVariantOf.skuVariants.activeVariations,
-          [currentOptionName]: option.value,
-        },
-        skuPropertyName
-      )}/p`
-
-      return currentItemHref
-    },
-    [
-      product.isVariantOf.skuVariants.activeVariations,
-      product.isVariantOf.skuVariants.slugsMap,
-      skuPropertyName,
-    ]
-  )
-
   return (
     <SkuSelector
       skuPropertyName="Size"
-      options={product.isVariantOf.skuVariants.availableVariations.Size}
+      availableVariations={product.isVariantOf.skuVariants.availableVariations}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
-      getItemHref={getItemHref}
+      slugsMap={product.isVariantOf.skuVariants.slugsMap}
     />
   )
 }

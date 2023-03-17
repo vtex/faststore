@@ -56,7 +56,7 @@ function Selectors({
           <UISkuSelector
             key={skuVariant}
             skuPropertyName={skuVariant}
-            options={availableVariations[skuVariant]}
+            availableVariations={availableVariations}
             ImageComponent={ImageComponent}
             activeVariations={activeVariations}
             slugsMap={slugsMap}
