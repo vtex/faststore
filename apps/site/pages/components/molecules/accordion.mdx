@@ -4,6 +4,8 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Accordion___66012e5367e86c5b4422ff8d6974b8cd.png
 ---
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
@@ -17,6 +19,52 @@ import {
   List,
 } from '@faststore/ui'
 import { useState } from 'react'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const accordionPath = path.resolve(__filename)
+  const accordionProps = getComponentPropsFrom(accordionPath, 'Accordion.tsx')
+  const accordionItemProps = getComponentPropsFrom(
+    accordionPath,
+    'AccordionItem.tsx'
+  )
+  const accordionButtonProps = getComponentPropsFrom(
+    accordionPath,
+    'AccordionButton.tsx'
+  )
+  const accordionPanelProps = getComponentPropsFrom(
+    accordionPath,
+    'AccordionPanel.tsx'
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        accordionProps,
+        accordionItemProps,
+        accordionButtonProps,
+        accordionPanelProps,
+      },
+    },
+  }
+}
+
+export const AccordionPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const {
+    accordionProps,
+    accordionItemProps,
+    accordionButtonProps,
+    accordionPanelProps,
+  } = useSSG()
+  return {
+    Accordion: <PropsSection propsList={accordionProps} />,
+    AccordionItem: <PropsSection propsList={accordionItemProps} />,
+    AccordionButton: <PropsSection propsList={accordionButtonProps} />,
+    AccordionPanel: <PropsSection propsList={accordionPanelProps} />,
+  }[component]
+}
 
 <header>
 
@@ -189,30 +237,7 @@ Besides those attributes, the following props are also supported:
 
 ### Accordion
 
-export const propsAccordion = [
-  {
-    name: 'testId',
-    type: 'string',
-    description:
-      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
-    default: 'fs-accordion',
-  },
-  {
-    name: 'indices',
-    type: 'Iterable<number>',
-    description: 'Indices that indicate which accordion items are opened.',
-    required: true,
-  },
-  {
-    name: 'onChange',
-    type: '(index: number) => void',
-    description:
-      'Function that is triggered when an accordion item is opened/closed.',
-    required: true,
-  },
-]
-
-<PropsSection propsList={propsAccordion} />
+<AccordionPropsSection component="Accordion" />
 
 ### Accordion Item
 
@@ -241,43 +266,11 @@ export const propsAccordionItem = [
 
 ### Accordion Button
 
-export const propsAccordionButton = [
-  {
-    name: 'testId',
-    type: 'string',
-    description:
-      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
-    default: 'fs-accordion-button',
-  },
-  {
-    name: 'expandedIcon',
-    type: 'ReactNode',
-    description:
-      'A React component is rendered as an icon when the accordion is expanded.',
-  },
-  {
-    name: 'collapsedIcon',
-    type: 'ReactNode',
-    description:
-      'A React component is rendered as an icon when the accordion is collapsed.',
-  },
-]
-
-<PropsSection propsList={propsAccordionButton} />
+<AccordionPropsSection component="AccordionButton" />
 
 ### Accordion Panel
 
-export const propsAccordionPanel = [
-  {
-    name: 'testId',
-    type: 'string',
-    description:
-      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
-    default: 'fs-accordion-panel',
-  },
-]
-
-<PropsSection propsList={propsAccordionPanel} />
+<AccordionPropsSection component="AccordionPanel" />
 
 ---
 
