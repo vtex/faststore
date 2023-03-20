@@ -45,7 +45,7 @@ export function getComponentPropsFrom(
   const options = {
     savePropValueAsString: true,
     shouldExtractLiteralValuesFromEnum: true,
-    shouldExtractValuesFromUnion: true,
+    shouldExtractValuesFromUnion: false,
     propFilter: (prop) =>
       prop?.parent?.fileName?.includes(faststoreComponentsFromNodeModules),
   }
