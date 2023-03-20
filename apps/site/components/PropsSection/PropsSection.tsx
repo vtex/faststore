@@ -11,6 +11,7 @@ export interface RowItem {
 }
 
 export interface PropsSectionProps {
+  // TODO: Change this prop to `required` once all the components are updated with the new PropsSection
   propsList?: RowItem[]
 }
 

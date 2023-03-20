@@ -4,12 +4,37 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Checkbox___5dfb3d931c093ee7ebfac8bc388e68b5.png
 ---
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { Checkbox, CheckboxField } from '@faststore/ui'
+import { useState } from 'react'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const checkboxPath = path.resolve(__filename)
+  const components = ['Checkbox.tsx']
+  const [checkboxProps] = getComponentPropsFrom(checkboxPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: { checkboxProps },
+    },
+  }
+}
+
+export const CheckboxPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { checkboxProps } = useSSG()
+  return {
+    Checkbox: <PropsSection propsList={checkboxProps} />,
+  }[component]
+}
 
 <header>
 
@@ -70,22 +95,7 @@ import '@faststore/ui/src/components/atoms/Checkbox/styles.scss'
 
 ## Props
 
-export const propsCheckbox = [
-  {
-    name: 'testId',
-    type: 'string',
-    description:
-      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
-    default: 'fs-checkbox',
-  },
-  {
-    name: 'partial',
-    type: 'boolean',
-    description: 'Boolean that represents a partial state.',
-  },
-]
-
-<PropsSection propsList={propsCheckbox} />
+<CheckboxPropsSection component="Checkbox" />
 
 ---
 

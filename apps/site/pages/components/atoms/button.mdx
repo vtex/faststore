@@ -8,6 +8,8 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Button___6d6b16886d5d7e2a05dba8c45c075796.png
 ---
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
 import { Tab, Tabs } from 'nextra-theme-docs'
 import { ShoppingCart } from '@faststore/components'
 import PropsSection from 'site/components/PropsSection'
@@ -16,6 +18,29 @@ import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
 import ButtonLoading from 'site/components/Button/ButtonLoading'
 import { Button, IconButton, BuyButton, LinkButton } from '@faststore/ui'
+import { useState } from 'react'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const buttonPath = path.resolve(__filename)
+  const components = ['Button.tsx']
+  const [buttonProps] = getComponentPropsFrom(buttonPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: { buttonProps },
+    },
+  }
+}
+
+export const ButtonPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { buttonProps } = useSSG()
+  return {
+    Button: <PropsSection propsList={buttonProps} />,
+  }[component]
+}
 
 <header>
 
@@ -87,59 +112,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 
 ## Props
 
-export const propsButton = [
-  {
-    name: 'testId',
-    type: 'string',
-    description:
-      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
-    default: 'fs-button',
-  },
-  {
-    name: 'variant',
-    type: ['primary', 'secondary', 'tertiary'],
-    description: 'Specifies the component color variant.',
-  },
-  {
-    name: 'size',
-    type: ['small', 'regular'],
-    description: 'Specifies the size variant.',
-    default: 'regular',
-  },
-  {
-    name: 'inverse',
-    type: 'boolean',
-    description: 'Defines the use of inverted colors.',
-  },
-  {
-    name: 'disabled',
-    type: 'boolean',
-    description: 'Specifies that this button should be disabled.',
-  },
-  {
-    name: 'icon',
-    type: 'ReactNode',
-    description: 'A React component that will be rendered as an icon.',
-  },
-  {
-    name: 'loading',
-    type: 'boolean',
-    description: 'Boolean that represents a loading state.',
-  },
-  {
-    name: 'loadingLabel',
-    type: 'string',
-    description: 'Specifies a label for loading state.',
-  },
-  {
-    name: 'iconPosition',
-    type: ['left', 'right'],
-    description: 'Specifies where the icon should be positioned',
-    default: 'left',
-  },
-]
-
-<PropsSection propsList={propsButton} />
+<ButtonPropsSection component="Button" />
 
 ---
 
