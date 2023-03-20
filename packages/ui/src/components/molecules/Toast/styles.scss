@@ -16,7 +16,7 @@
   --fs-toast-border-width                 : var(--fs-border-width);
   --fs-toast-border-color                 : transparent;
 
-  --fs-toast-shadow                       : var(--fs-shadow-hover);
+  --fs-toast-shadow                       : 0 1px 3px rgba(0,0,0,.1);
   --fs-toast-bkg-color                    : var(--fs-color-neutral-0);
 
   --fs-toast-transition-property          : var(--fs-transition-property);
