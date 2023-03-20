@@ -1,14 +1,14 @@
-import type { FC } from 'react'
 import React from 'react'
+import { IconProps } from './IconProps'
 
 // Icon from Phosphor Icons
-const CircleWavyWarning: FC = () => (
+const CircleWavyWarning = ({ size = 24 }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"
     viewBox="0 0 256 256"
-    width={30}
-    height={30}
+    width={size}
+    height={size}
   >
     <rect width="256" height="256" fill="none"></rect>
     <path
@@ -28,7 +28,13 @@ const CircleWavyWarning: FC = () => (
       strokeLinecap="round"
       strokeLinejoin="round"
     ></line>
-    <circle cx="127.99951" cy="172" r="8"></circle>
+    <circle
+      cx="127.99951"
+      cy="172"
+      r="8"
+      stroke="currentColor"
+      fill="currentColor"
+    ></circle>
   </svg>
 )
 

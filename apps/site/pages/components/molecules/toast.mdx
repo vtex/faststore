@@ -34,15 +34,15 @@ Toasts are used to display notifications. They appear temporarily, and should co
         <b>Simple Toast</b>
         <ToastUsage message={'Simple Toast message.'} status={'INFO'} />
         <b>Info Toast</b>
-        <ToastUsage title={'Hooray!'} message={'Thank for your Click.'} status={'INFO'} icon={<CircleWavyCheck />} />
+        <ToastUsage title={'Hooray!'} message={'Thank for your Click.'} status={'INFO'} icon={<CircleWavyCheck size={30} />} />
       </UIProvider>
     </OverviewSection>
     <OverviewSection direction="row">
       <UIProvider>
         <b>Error Toast</b>
-        <ToastUsage title={'Oops.'} message={'Something went wrong. Please Try again.'} status={'ERROR'} icon={<CircleWavyWarning />} />
+        <ToastUsage title={'Oops.'} message={'Something went wrong. Please Try again.'} status={'ERROR'} icon={<CircleWavyWarning size={30} />} />
         <b>Warning Toast</b>
-        <ToastUsage title={'Warn.'} message={'Warning: Please Try again.'} status={'WARNING'} icon={<CircleWavyWarning />} />
+        <ToastUsage title={'Warn.'} message={'Warning: Please Try again.'} status={'WARNING'} icon={<CircleWavyWarning size={30} />} />
       </UIProvider>
     </OverviewSection>
   </Tab>
@@ -88,7 +88,7 @@ Toasts are used to display notifications. They appear temporarily, and should co
                   title: 'Hooray!',
                   message: 'Thank for your Click.',
                   status: 'INFO',
-                  icon: <CircleWavyCheck />,
+                  icon: <CircleWavyCheck size={30} />,
                 })
               }
               style={{ width: '16rem' }}
@@ -116,7 +116,7 @@ Toasts are used to display notifications. They appear temporarily, and should co
                   title: 'Oops.',
                   message: 'Something went wrong. Please Try again.',
                   status: 'ERROR',
-                  icon: <CircleWavyWarning />,
+                  icon: <CircleWavyWarning size={30} />,
                 })
               }
               style={{ width: '16rem' }}
@@ -144,7 +144,7 @@ Toasts are used to display notifications. They appear temporarily, and should co
                   title: 'Oops.',
                   message: 'Warn: Please Try again.',
                   status: 'WARNING',
-                  icon: <CircleWavyWarning />,
+                  icon: <CircleWavyWarning size={30} />,
                 })
               }
               style={{ width: '16rem' }}
@@ -183,7 +183,7 @@ import '@faststore/ui/src/components/molecules/Toast/styles.scss'
 <OverviewSection direction="row">
   <UIProvider>
     <b>Info Toast</b>
-    <ToastUsage title={'Hooray!'} message={'Thank for your Click.'} status={'INFO'} icon={<CircleWavyCheck />} />
+    <ToastUsage title={'Hooray!'} message={'Thank for your Click.'} status={'INFO'} icon={<CircleWavyCheck size={30} />} />
   </UIProvider>
 </OverviewSection>
 ```tsx
@@ -198,7 +198,7 @@ import '@faststore/ui/src/components/molecules/Toast/styles.scss'
               title: 'Hooray!',
               message: 'Thank for your Click.',
               status: 'INFO',
-              icon: <CircleWavyCheck />,
+              icon: <CircleWavyCheck size={30} />,
             })
           }
           style={{ width: '16rem' }}
