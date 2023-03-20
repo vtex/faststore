@@ -31,24 +31,14 @@ Toasts are used to display notifications. They appear temporarily, and should co
   <Tab>
     <OverviewSection direction="row">
       <UIProvider>
-        <b>Simple Toast</b>
-        <ToastUsage message={'Simple Toast message.'} status={'INFO'} />
-        <b>Info Toast</b>
-        <ToastUsage title={'Hooray!'} message={'Thank for your Click.'} status={'INFO'} icon={<SealCheck size={30} />} />
-      </UIProvider>
-    </OverviewSection>
-    <OverviewSection direction="row">
-      <UIProvider>
-        <b>Error Toast</b>
-        <ToastUsage title={'Oops.'} message={'Something went wrong. Please Try again.'} status={'ERROR'} icon={<SealWarning size={30} />} />
-        <b>Warning Toast</b>
-        <ToastUsage title={'Warn.'} message={'Warning: Please Try again.'} status={'WARNING'} icon={<SealWarning size={30} />} />
+        <ToastUsage message={'Simple Toast message.'} status={'INFO'} btnLabel="Simple Toast" />
+        <ToastUsage title={'Hooray!'} message={'Thank for your Click.'} status={'INFO'} icon={<SealCheck size={30} />} btnLabel="Info Toast" />
+        <ToastUsage title={'Oops.'} message={'Something went wrong. Please Try again.'} status={'ERROR'} icon={<SealWarning size={30} />} btnLabel="Error Toast" />
+        <ToastUsage title={'Warn.'} message={'Warning: Please Try again.'} status={'WARNING'} icon={<SealWarning size={30} />} btnLabel="Warning Toast" />
       </UIProvider>
     </OverviewSection>
   </Tab>
   <Tab>
-    <b>Simple Toast</b>
-
     ```tsx
       const Toast = () => {
         const { toasts, pushToast } = useUI()
@@ -65,15 +55,13 @@ Toasts are used to display notifications. They appear temporarily, and should co
               }
               style={{ width: '16rem' }}
             >
-              Click to trigger Toast
+              Simple Toast
             </Button>
             {toasts.length > 0 && <Toast />}
           </>
         )
       }
     ```
-
-    <b>Info Toast</b>
 
     ```tsx
       const Toast = () => {
@@ -93,15 +81,13 @@ Toasts are used to display notifications. They appear temporarily, and should co
               }
               style={{ width: '16rem' }}
             >
-              Click to trigger Toast
+              Info Toast
             </Button>
             {toasts.length > 0 && <Toast />}
           </>
         )
       }
     ```
-
-    <b>Error Toast</b>
 
     ```tsx
       const Toast = () => {
@@ -121,15 +107,13 @@ Toasts are used to display notifications. They appear temporarily, and should co
               }
               style={{ width: '16rem' }}
             >
-              Click to trigger Toast
+              Error Toast
             </Button>
             {toasts.length > 0 && <Toast />}
           </>
         )
       }
     ```
-
-    <b>Warning Toast</b>
 
     ```tsx
       const Toast = () => {
@@ -149,7 +133,7 @@ Toasts are used to display notifications. They appear temporarily, and should co
               }
               style={{ width: '16rem' }}
             >
-              Click to trigger Toast
+              Warning Toast
             </Button>
             {toasts.length > 0 && <Toast />}
           </>
@@ -182,8 +166,7 @@ import '@faststore/ui/src/components/molecules/Toast/styles.scss'
 
 <OverviewSection direction="row">
   <UIProvider>
-    <b>Info Toast</b>
-    <ToastUsage title={'Hooray!'} message={'Thank for your Click.'} status={'INFO'} icon={<SealCheck size={30} />} />
+    <ToastUsage title={'Hooray!'} message={'Thank for your Click.'} status={'INFO'} icon={<SealCheck size={30} />} btnLabel="Info Toast"/>
   </UIProvider>
 </OverviewSection>
 ```tsx
@@ -203,7 +186,7 @@ import '@faststore/ui/src/components/molecules/Toast/styles.scss'
           }
           style={{ width: '16rem' }}
         >
-          Click to trigger Toast
+          Info Toast
         </Button>
         {toasts.length > 0 && <Toast />}
       </>

@@ -1,7 +1,17 @@
 import { ToastProps } from '@faststore/components'
 import { Button, Toast, useUI } from '@faststore/ui'
 
-const ToastUsage = ({ title, message, status, icon }: ToastProps) => {
+type ToastUsageProps = ToastProps & {
+  btnLabel: string
+}
+
+const ToastUsage = ({
+  title,
+  message,
+  status,
+  icon,
+  btnLabel,
+}: ToastUsageProps) => {
   const { toasts, pushToast } = useUI()
 
   return (
@@ -18,7 +28,7 @@ const ToastUsage = ({ title, message, status, icon }: ToastProps) => {
         }
         style={{ width: '16rem' }}
       >
-        Click to trigger
+        {btnLabel}
       </Button>
       {toasts.length > 0 && <Toast />}
     </>
