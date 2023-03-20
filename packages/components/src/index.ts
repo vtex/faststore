@@ -130,6 +130,10 @@ export type {
   SearchAutoCompleteTermProps,
 } from './molecules/SearchAutoComplete'
 export {
+  default as SearchDropdown,
+  SearchDropdownProps,
+} from './molecules/SearchDropdown'
+export {
   default as SearchHistory,
   SearchHistoryTerm,
 } from './molecules/SearchHistory'
