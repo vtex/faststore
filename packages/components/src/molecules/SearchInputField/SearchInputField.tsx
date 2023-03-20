@@ -20,9 +20,14 @@ export interface SearchInputFieldProps extends InputProps {
    */
   testId?: string
   /**
-   * Custom icon inside the submit button.
+   * Props for the submit button inside the input.
    */
-  icon?: ReactNode
+  buttonProps?: ButtonProps
+  /**
+   * A React component that will be rendered as an icon (submit button).
+   * @default <MagnifyingGlass />
+   */
+  buttonIcon?: ReactNode
   /**
    * Custom aria-label for input and button.
    */
@@ -31,10 +36,6 @@ export interface SearchInputFieldProps extends InputProps {
    * Callback function when submitted.
    */
   onSubmit: (value: string) => void
-  /**
-   * Props for the Button inside input.
-   */
-  buttonProps?: ButtonProps
 }
 
 export interface SearchInputFieldRef {
@@ -48,7 +49,7 @@ const SearchInputField = forwardRef<
 >(function SearchInputField(
   {
     onSubmit,
-    icon,
+    buttonIcon,
     'aria-label': ariaLabel = 'search',
     testId = 'fs-search-input',
     buttonProps,
@@ -75,7 +76,7 @@ const SearchInputField = forwardRef<
   return (
     <form
       ref={formRef}
-      data-fs-search-input-form
+      data-fs-search-input-field
       data-testid={testId}
       onSubmit={handleSubmit}
       role="search"
@@ -87,7 +88,7 @@ const SearchInputField = forwardRef<
         {...otherProps}
       />
       <Button type="submit" aria-label="Submit Search" {...buttonProps}>
-        <Icon component={icon ?? <MagnifyingGlass />} />
+        <Icon component={buttonIcon ?? <MagnifyingGlass />} />
       </Button>
     </form>
   )

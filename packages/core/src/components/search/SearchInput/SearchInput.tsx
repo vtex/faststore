@@ -11,13 +11,15 @@ import type { CSSProperties } from 'react'
 import { useRouter } from 'next/router'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import type { SearchEvent } from '@faststore/sdk'
-import { SearchInputField as UISearchInputField } from '@faststore/ui'
+import {
+  SearchInputField as UISearchInputField,
+  SearchInput as UISearchInput,
+} from '@faststore/ui'
 import type {
   SearchInputFieldProps as UISearchInputFieldProps,
   SearchInputFieldRef as UISearchInputFieldRef,
 } from '@faststore/ui'
 
-import Icon from 'src/components/ui/Icon'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import {
   formatSearchPath,
@@ -25,9 +27,6 @@ import {
 } from 'src/sdk/search/useSearchInput'
 import type { SearchInputContextValue } from 'src/sdk/search/useSearchInput'
 import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
-
-import inputStyles from './search-input.module.scss'
-import styles from '../search.module.scss'
 
 const SearchDropdown = lazy(
   () => import('src/components/search/SearchDropdown')
@@ -84,13 +83,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     useOnClickOutside(searchRef, () => setSearchDropdownVisible(false))
 
     return (
-      <div
-        ref={searchRef}
-        data-fs-search-input-wrapper
-        // className={styles.fsSearchInput}
-        data-fs-search-input-dropdown-visible={searchDropdownVisible}
-        // style={containerStyle}
-      >
+      <UISearchInput ref={searchRef} visibleDropdown={searchDropdownVisible}>
         <SearchInputProvider onSearchInputSelection={onSearchInputSelection}>
           <UISearchInputField
             ref={ref}
@@ -117,7 +110,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             </Suspense>
           )}
         </SearchInputProvider>
-      </div>
+      </UISearchInput>
     )
   }
 )

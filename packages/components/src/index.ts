@@ -192,6 +192,9 @@ export type { PaymentMethodsProps } from './organisms/PaymentMethods'
 export { default as PriceRange } from './organisms/PriceRange'
 export type { PriceRangeProps } from './organisms/PriceRange'
 
+export { default as SearchInput } from './organisms/SearchInput'
+export type { SearchInputProps } from './organisms/SearchInput'
+
 export { default as SlideOver, SlideOverHeader } from './organisms/SlideOver'
 export type {
   SlideOverProps,
