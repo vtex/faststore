@@ -45,7 +45,7 @@ export function getComponentPropsFrom(
   const options = {
     savePropValueAsString: true,
     shouldExtractLiteralValuesFromEnum: true,
-    shouldExtractValuesFromUnion: false,
+    shouldExtractValuesFromUnion: true,
     propFilter: (prop) =>
       prop?.parent?.fileName?.includes(faststoreComponentsFromNodeModules),
   }
@@ -58,7 +58,11 @@ export function getComponentPropsFrom(
       const prop = componentProps[key]
       return {
         name: key,
-        type: prop.type?.name ?? '',
+        type:
+          prop.type?.value?.map(({ value }) => value).join(' | ') ??
+          prop.type?.raw ??
+          prop.type?.name ??
+          '',
         required: prop.required,
         default: prop.defaultValue?.value ?? '',
         description: prop.description ?? '',
