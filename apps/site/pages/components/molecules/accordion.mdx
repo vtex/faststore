@@ -24,10 +24,6 @@ import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 export const getStaticProps = () => {
   const accordionPath = path.resolve(__filename)
   const accordionProps = getComponentPropsFrom(accordionPath, 'Accordion.tsx')
-  const accordionItemProps = getComponentPropsFrom(
-    accordionPath,
-    'AccordionItem.tsx'
-  )
   const accordionButtonProps = getComponentPropsFrom(
     accordionPath,
     'AccordionButton.tsx'
@@ -42,7 +38,6 @@ export const getStaticProps = () => {
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
         accordionProps,
-        accordionItemProps,
         accordionButtonProps,
         accordionPanelProps,
       },
@@ -54,13 +49,11 @@ export const AccordionPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
   const {
     accordionProps,
-    accordionItemProps,
     accordionButtonProps,
     accordionPanelProps,
   } = useSSG()
   return {
     Accordion: <PropsSection propsList={accordionProps} />,
-    AccordionItem: <PropsSection propsList={accordionItemProps} />,
     AccordionButton: <PropsSection propsList={accordionButtonProps} />,
     AccordionPanel: <PropsSection propsList={accordionPanelProps} />,
   }[component]
