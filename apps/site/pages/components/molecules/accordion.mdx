@@ -23,15 +23,13 @@ import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
   const accordionPath = path.resolve(__filename)
-  const accordionProps = getComponentPropsFrom(accordionPath, 'Accordion.tsx')
-  const accordionButtonProps = getComponentPropsFrom(
-    accordionPath,
-    'AccordionButton.tsx'
-  )
-  const accordionPanelProps = getComponentPropsFrom(
-    accordionPath,
-    'AccordionPanel.tsx'
-  )
+  const components = [
+    'Accordion.tsx',
+    'AccordionButton.tsx',
+    'AccordionPanel.tsx',
+  ]
+  const [accordionProps, accordionButtonProps, accordionPanelProps] =
+    getComponentPropsFrom(accordionPath, components)
   return {
     props: {
       // We add an `ssg` field to the page props,
@@ -47,11 +45,7 @@ export const getStaticProps = () => {
 
 export const AccordionPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
-  const {
-    accordionProps,
-    accordionButtonProps,
-    accordionPanelProps,
-  } = useSSG()
+  const { accordionProps, accordionButtonProps, accordionPanelProps } = useSSG()
   return {
     Accordion: <PropsSection propsList={accordionProps} />,
     AccordionButton: <PropsSection propsList={accordionButtonProps} />,

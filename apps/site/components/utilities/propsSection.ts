@@ -4,8 +4,8 @@ export const faststoreComponentsFromNodeModules = `node_modules/@faststore/compo
 
 export function mapComponentFromMdxPath(
   absoluteMdxPath: string,
-  fileName: string
-) {
+  components: string[]
+): string[] {
   const faststoreMonorepoDir = absoluteMdxPath.split('/apps/site/')[0]
   const faststoreComponentsSrcFromNodeModules = `${faststoreMonorepoDir}/node_modules/@faststore/components/src`
 
@@ -23,19 +23,25 @@ export function mapComponentFromMdxPath(
     componentNameWithoutExtension.slice(1) // e.g. Accordion
 
   // e.g. <user-path>/faststore/node_modules/@faststore/components/src/molecules/Accordion/Accordion.tsx
-  return [
-    faststoreComponentsSrcFromNodeModules,
-    atomicDesignType,
-    componentFolder,
-    fileName,
-  ].join('/')
+  return components?.map((component: string) => {
+    return [
+      faststoreComponentsSrcFromNodeModules,
+      atomicDesignType,
+      componentFolder,
+      component,
+    ].join('/')
+  })
 }
 
 export function getComponentPropsFrom(
   absoluteMdxPath: string,
-  fileName: string
+  componentsName: string[]
 ) {
-  const componentPath = mapComponentFromMdxPath(absoluteMdxPath, fileName)
+  const components: string[] = mapComponentFromMdxPath(
+    absoluteMdxPath,
+    componentsName
+  )
+
   const options = {
     savePropValueAsString: true,
     shouldExtractLiteralValuesFromEnum: true,
@@ -44,17 +50,19 @@ export function getComponentPropsFrom(
       prop?.parent?.fileName?.includes(faststoreComponentsFromNodeModules),
   }
 
-  const componentInfo = parse(componentPath, options)
-  const componentProps = componentInfo?.[0]?.props ?? {}
+  return components.map((componentPath) => {
+    const componentInfo = parse(componentPath, options)
+    const componentProps = componentInfo?.[0]?.props ?? {}
 
-  return Object.keys(componentProps).map((key) => {
-    const prop = componentProps[key]
-    return {
-      name: key,
-      type: prop.type?.name ?? '',
-      required: prop.required,
-      default: prop.defaultValue?.value ?? '',
-      description: prop.description ?? '',
-    }
+    return Object.keys(componentProps).map((key) => {
+      const prop = componentProps[key]
+      return {
+        name: key,
+        type: prop.type?.name ?? '',
+        required: prop.required,
+        default: prop.defaultValue?.value ?? '',
+        description: prop.description ?? '',
+      }
+    })
   })
 }
