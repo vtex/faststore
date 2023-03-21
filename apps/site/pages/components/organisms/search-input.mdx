@@ -48,11 +48,15 @@ export const SearchInputFieldUsage = () => {
   const [searchDropdownVisible, setSearchDropdownVisible] = useState(false)
   const [term, setTerm] = useState('')
   function onChangeValue(e) {
+    setSearchDropdownVisible(true)
     if (e.target.value == '') {
       setTerm('')
     } else {
       setTerm('App')
     }
+  }
+  function onClickButton() {
+    setSearchDropdownVisible(false)
   }
   return (
     <SearchInput
@@ -66,6 +70,9 @@ export const SearchInputFieldUsage = () => {
         onFocus={() => setSearchDropdownVisible(true)}
         onSubmit={() => setSearchDropdownVisible(false)}
         onChange={(e) => onChangeValue(e)}
+        buttonProps={{
+          onClick: onClickButton,
+        }}
       />
       {searchDropdownVisible && <SearchDropdownUsage term={term} />}
     </SearchInput>
@@ -82,21 +89,23 @@ export const SearchInputFieldUsage = () => {
   </Tab>
   <Tab>
     ```tsx
-    <Hero>
-      <HeroImage>
-        <img
-          alt="Controller on a table"
-          src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
-        />
-      </HeroImage>
-      <HeroHeader
-        title="Explore more about our amazing products"
-        subtitle="All the amazing products from the brands we partner with."
-        link="/"
-        linkText="See more"
+  const [searchDropdownVisible, setSearchDropdownVisible] = useState(false)
+  const [term, setTerm] = useState('')
+
+    <SearchInput visibleDropdown={searchDropdownVisible}>
+      <SearchInputField
+        placeholder="Search everything at the store"
+        onFocus={() => setSearchDropdownVisible(true)}
+        onSubmit={() => setSearchDropdownVisible(false)}
+        onChange={(e) => onChangeValue(e)}
+        buttonProps={{
+          onClick: onClickButton,
+        }}
       />
-    </Hero>
+      {searchDropdownVisible && <SearchDropdownUsage term={term} />}
+    </SearchInput>
     ```
+
   </Tab>
 </Tabs>
 
