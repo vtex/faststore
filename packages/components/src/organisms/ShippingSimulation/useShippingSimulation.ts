@@ -1,13 +1,17 @@
 import type { ChangeEvent } from 'react'
 import { useCallback, useEffect, useReducer } from 'react'
 
-import type {
-  IShippingItem,
-  ShippingSimulationQueryQuery,
-  ShippingSla,
-} from '@generated/graphql'
-import { useSession } from 'src/sdk/session'
-import { getShippingSimulation } from 'src/sdk/shipping'
+export interface ProductShippingInfo {
+  id: string
+  seller: string
+  quantity: number
+}
+
+interface ShippingSla {
+  carrier: string
+  localizedEstimates: string
+  price: number
+}
 
 type InputProps = {
   postalCode?: string
@@ -105,21 +109,12 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
-function getShippingInformation(
-  shipping: ShippingSimulationQueryQuery['shipping']
-): [string, ShippingSla[]] {
-  const location =
-    [shipping?.address?.neighborhood, shipping?.address?.city]
-      .filter(Boolean)
-      .join(' / ') ?? ''
-
-  const options = shipping?.logisticsInfo?.[0]?.slas ?? []
-
-  return [location, options as ShippingSla[]]
-}
-
-export const useShippingSimulation = (shippingItem: IShippingItem) => {
-  const { postalCode: sessionPostalCode, country } = useSession()
+export const useShippingSimulation = (
+  shippingItem: ProductShippingInfo, 
+  fetchShippingSimulationFn: Function,
+  sessionPostalCode: string,
+  country: string
+) => {
   const [{ input, shippingSimulation }, dispatch] = useReducer(
     reducer,
     null,
@@ -135,13 +130,7 @@ export const useShippingSimulation = (shippingItem: IShippingItem) => {
 
     // Use sessionPostalCode if there is no shippingPostalCode
     async function fetchShipping() {
-      const shipping = await getShippingSimulation({
-        country,
-        postalCode: sessionPostalCode ?? '',
-        items: [shippingItem],
-      })
-
-      const [location, options] = getShippingInformation(shipping)
+      const [location, options] = fetchShippingSimulationFn(shippingItem, country, sessionPostalCode ?? '')
 
       dispatch({
         type: 'update',
@@ -166,14 +155,8 @@ export const useShippingSimulation = (shippingItem: IShippingItem) => {
 
   const handleSubmit = useCallback(async () => {
     try {
-      const shipping = await getShippingSimulation({
-        country,
-        postalCode: shippingPostalCode ?? '',
-        items: [shippingItem],
-      })
-
-      const [location, options] = getShippingInformation(shipping)
-
+      const [location, options] = await fetchShippingSimulationFn(shippingItem, country, shippingPostalCode)
+      
       dispatch({
         type: 'update',
         payload: {
@@ -196,7 +179,7 @@ export const useShippingSimulation = (shippingItem: IShippingItem) => {
         },
       })
     }
-  }, [country, shippingItem, shippingPostalCode])
+  }, [shippingItem, shippingPostalCode])
 
   const handleOnInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const currentValue = e.currentTarget.value
@@ -220,7 +203,7 @@ export const useShippingSimulation = (shippingItem: IShippingItem) => {
   return {
     input,
     shippingSimulation,
-    dispatch,
+    handleOnClear: () => { dispatch({type: 'clear'}) },
     handleSubmit,
     handleOnInput,
   }
