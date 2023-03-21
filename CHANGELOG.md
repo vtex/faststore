@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.84-alpha.0](https://github.com/vtex/faststore/compare/v2.0.83-alpha.0...v2.0.84-alpha.0) (2023-03-21)
+
+### Bug Fixes
+
+- Automatic props PropSection path ([#1679](https://github.com/vtex/faststore/issues/1679)) ([52478bd](https://github.com/vtex/faststore/commit/52478bd46f0875a796e6d13c5fe86aaa2d3c6dd2))
+
 ## [2.0.83-alpha.0](https://github.com/vtex/faststore/compare/v2.0.82-alpha.0...v2.0.83-alpha.0) (2023-03-21)
 
 ### Features
