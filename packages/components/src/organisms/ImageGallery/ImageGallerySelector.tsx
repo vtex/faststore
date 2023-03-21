@@ -2,12 +2,44 @@ import { Button, IconButton } from '../..'
 import React, { useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import type { ImageElementData } from './ImageGallery'
+import type { FunctionComponent } from 'react'
 
-interface Props {
+export interface ImageElementData {
+  /**
+   * Image URL.
+   */
+  url: string
+  /**
+   * Alternative text description of the image.
+   */
+  alternateName: string
+}
+
+export interface ImageGallerySelectorProps {
+  /**
+   * List of images that should be rendered.
+   */
   images: ImageElementData[]
+  /**
+   * Event handler for clicks on each thumbnail.
+   */
   onSelect: React.Dispatch<React.SetStateAction<number>>
+  /**
+   * The currently active thumbnail.
+   */
   currentImageIdx: number
+  /**
+   * Function that returns a React component that will be used to render images.
+   */
+  ImageComponent: FunctionComponent<{
+    url: string
+    alternateName?: string
+  }>
+  /**
+   * ID to find this component in testing tools (e.g.: cypress,
+   * testing-library, and jest).
+   */
+  testId?: string
 }
 
 const SCROLL_MARGIN_VALUE = 400
@@ -38,7 +70,13 @@ const hasScroll = (container: HTMLDivElement | null): boolean => {
   return false
 }
 
-function ImageGallerySelector({ images, onSelect, currentImageIdx }: Props) {
+function ImageGallerySelector({
+  images,
+  onSelect,
+  ImageComponent,
+  testId = 'fs-image-gallery-selector',
+  currentImageIdx,
+}: ImageGallerySelectorProps) {
   const elementsRef = useRef<HTMLDivElement>(null)
   const elementHasScroll = hasScroll(elementsRef.current)
   const { ref: firstImageRef, inView: firstImageInView } = useInView({
@@ -52,6 +90,7 @@ function ImageGallerySelector({ images, onSelect, currentImageIdx }: Props) {
   return (
     <section
       data-fs-image-gallery-selector
+      data-testid={testId}
       aria-roledescription="carousel"
       aria-label="Product images"
     >
@@ -83,7 +122,11 @@ function ImageGallerySelector({ images, onSelect, currentImageIdx }: Props) {
                 idx === currentImageIdx ? 'selected' : 'true'
               }
             >
-              {image.renderImage?.(image.src!, image.alternateName)}
+              <ImageComponent
+                url={image.url ?? ''}
+                alternateName={image.alternateName ?? ''}
+                data-fs-image
+              />
             </Button>
           )
         })}

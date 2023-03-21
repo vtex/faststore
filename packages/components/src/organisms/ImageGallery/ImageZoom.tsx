@@ -1,13 +1,14 @@
 import type { PropsWithChildren } from 'react'
 import React from 'react'
 
-interface ImageZoomProps {
+// TODO: adds zoom feature to the selected image
+export interface ImageZoomProps {
   helpMessage?: string
   zoomFactor?: number
 }
 
 const ImageZoom = ({ children }: PropsWithChildren<ImageZoomProps>) => {
-  return <div>{children}</div>
+  return <>{children}</>
 }
 
 export default ImageZoom

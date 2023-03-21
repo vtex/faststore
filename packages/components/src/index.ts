@@ -229,6 +229,8 @@ export {
 export type {
   ImageElementData,
   ImageGalleryProps,
+  ImageGallerySelectorProps,
+  ImageZoomProps,
 } from './organisms/ImageGallery'
 
 export { default as OutOfStock } from './organisms/OutOfStock'
