@@ -10,7 +10,7 @@ import { SearchHistory } from '../SearchHistory'
 import { SearchTop } from '../SearchTop'
 
 import SearchProductItem from 'src/components/search/SearchProductItem'
-import { formatSearchPath } from 'src/sdk/search/useSearchInput'
+import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import { ProductSummary_ProductFragment } from '@generated/graphql'
 
 function SearchDropdown({ ...otherProps }) {

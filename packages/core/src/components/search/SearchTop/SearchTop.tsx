@@ -6,7 +6,7 @@ import {
 import type { HTMLAttributes } from 'react'
 
 import type { StoreSuggestionTerm } from '@generated/graphql'
-import { formatSearchPath } from 'src/sdk/search/useSearchInput'
+import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import useTopSearch from 'src/sdk/search/useTopSearch'
 
 export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {

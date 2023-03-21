@@ -22,11 +22,7 @@ import type {
 } from '@faststore/ui'
 
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
-import {
-  formatSearchPath,
-  SearchInputProvider,
-} from 'src/sdk/search/useSearchInput'
-import type { SearchInputContextValue } from 'src/sdk/search/useSearchInput'
+import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 

@@ -1,18 +1,6 @@
 import React from 'react'
-import { formatSearchState, initSearchState } from '@faststore/sdk'
 import type { PropsWithChildren } from 'react'
 import { createContext, useContext } from 'react'
-
-export const formatSearchPath = (term: string) => {
-    const { pathname, search } = formatSearchState(
-        initSearchState({
-            term,
-            base: '/s',
-        })
-    )
-
-    return `${pathname}${search}`
-}
 
 export interface SearchProviderContextValue {
     onSearchSelection?: (term: string, path: string) => void,
