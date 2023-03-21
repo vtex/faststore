@@ -8,14 +8,14 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { SearchHistory, SearchHistoryTerm } from '@faststore/ui'
-import { Star, Heart, ClockClockwise } from '@faststore/components'
+
+import SearchDropdownUsage from 'site/components/Search/SearchDropdownUsage'
 
 <header>
 
 # Search Dropdown
 
-Combine SearchHistory, SearchTop and SearchAutoComplete and SearchProducts to show all options in SearchInput.
+Combine `SearchHistory`, `SearchTop` and `SearchAutoComplete` and `SearchProducts` to show all options in `SearchInput`. This component is part of the [Search](/components/search) feature.
 
 </header>
 
@@ -23,15 +23,52 @@ Combine SearchHistory, SearchTop and SearchAutoComplete and SearchProducts to sh
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
-TO-ADD
+    <OverviewSection direction="column">
+      Waiting for input...
+      <SearchDropdownUsage />
+    </OverviewSection>
+
+    <OverviewSection direction="column">
+      Searching for: <code>Appl</code>
+      <SearchDropdownUsage term="App" />
+    </OverviewSection>
+
   </Tab>
-  <Tab>
+<Tab>
+    ```tsx
+    // Waiting for input...
+      <SearchDropdown
+        term=""
+        terms={[]}
+        isLoading={false}
+        products={[]}
+        searchHistoryComponent={<SearchHistory />}
+        searchTopComponent={<SearchTop />}
+        searchAutoCompleteComponent={<SearchAutoComplete />}
+        searchProductsComponent={<SearchProducts />}
+      />
+    ```
 
     ```tsx
-
-TO-ADD
-
-````
+    // Searching for: Appl
+      <SearchDropdown
+        term="Appl"
+        terms={[
+          {
+            value: 'apple',
+          },
+          {
+            value: 'apple magic mouse',
+          },
+        ]}
+        isLoading={false}
+        products={[products]}
+        searchHistoryComponent={<SearchHistory />}
+        searchTopComponent={<SearchTop />}
+        searchAutoCompleteComponent={<SearchAutoComplete />}
+        searchProductsComponent={<SearchProducts />}
+      />
+    ```
 
   </Tab>
 </Tabs>
@@ -44,7 +81,7 @@ Import the component from [@faststore/ui](/../components)
 
 ```tsx
 import { SearchDropdown } from '@faststore/ui'
-````
+```
 
 Import Styles
 
@@ -56,7 +93,30 @@ import '@faststore/ui/src/components/molecules/SearchDropdown/styles.scss'
 
 ## Usage
 
-TO-ADD
+<OverviewSection direction="column">
+  Searching for: <code>Appl</code>
+  <SearchDropdownUsage term="App" />
+</OverviewSection>
+
+```tsx
+<SearchDropdown
+  term="Appl"
+  terms={[
+    {
+      value: 'apple',
+    },
+    {
+      value: 'apple magic mouse',
+    },
+  ]}
+  isLoading={false}
+  products={[products]}
+  searchHistoryComponent={<SearchHistory />}
+  searchTopComponent={<SearchTop />}
+  searchAutoCompleteComponent={<SearchAutoComplete />}
+  searchProductsComponent={<SearchProducts />}
+/>
+```
 
 ---
 
@@ -68,7 +128,51 @@ TO-ADD
 
 ## Design Tokens
 
-TO-ADD
+<TokenTable>
+  <TokenRow
+    token="--fs-search-dropdown-bkg-color"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenRow token="--fs-search-dropdown-box-shadow" value="var(--fs-shadow)" />
+  <TokenDivider />
+  <TokenRow token="--fs-search-dropdown-width-mobile" value="100vw" />
+  <TokenRow token="--fs-search-dropdown-width-desktop" value="100%" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-search-dropdown-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-search-dropdown-border-color"
+    value="var(--fs-border-color)"
+  />
+  <TokenRow
+    token="--fs-search-dropdown-border-radius"
+    value="0 0 var(--fs-border-radius) var(--fs-border-radius)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="-fs-search-dropdown-position-left-mobile"
+    value="calc(-1 * var(--fs-control-tap-size))"
+  />
+  <TokenRow
+    token="-fs-search-dropdown-position-left-tablet"
+    value="calc(var(--fs-search-dropdown-position-left-mobile) - var(--fs-spacing-1))"
+  />
+  <TokenRow
+    token="-fs-search-dropdown-position-top-mobile"
+    value="calc(var(--fs-search-dropdown-position-top-tablet) + 1px)"
+  />
+  <TokenRow
+    token="-fs-search-dropdown-position-top-tablet"
+    value="calc(var(--fs-control-tap-size) + var(--fs-spacing-2) + var(--fs-border-width))"
+  />
+  <TokenRow
+    token="-fs-search-dropdown-position-top-desktop"
+    value="var(--fs-search-input-height-desktop)"
+  />
+</TokenTable>
 
 ---
 
