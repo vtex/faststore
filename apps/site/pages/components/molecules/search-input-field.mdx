@@ -1,0 +1,155 @@
+---
+description: Responsible to receive, search and display suggestions.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/AggregateRating___a8300916874f5a11de7633b7cabc12e9.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SearchInputField } from '@faststore/ui'
+
+<header>
+
+# Search Input Field
+
+Responsible to receive, search and display suggestions.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SearchInputField onSubmit={() => {}}/>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+
+    ```tsx
+     <SearchInputField onSubmit={() => {}}/>
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { SearchInputField } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/SearchInputField/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <SearchInputField onSubmit={() => {}} />
+</OverviewSection>
+```tsx
+<SearchInputField onSubmit={() => {}} />
+```
+
+---
+
+## Props
+
+<PropsSection name="SearchInputField" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-input-field-height-mobile"
+    value="var(--fs-control-tap-size)"
+  />
+  <TokenRow
+    token="--fs-search-input-field-height-desktop"
+    value="var(--fs-spacing-6)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Button
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-input-field-button-width"
+    value="var(--fs-spacing-7)"
+  />
+  <TokenRow
+    token="--fs-search-input-field-button-min-height"
+    value="var(--fs-search-input-height-desktop)"
+  />
+  <TokenRow
+    token="--fs-search-input-field-button-bkg-color"
+    value="transparent"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-search-input-field-button-height-mobile"
+    value="var(--fs-search-input-field-button-width)"
+  />
+  <TokenRow
+    token="--fs-search-input-field-button-height-desktop"
+    value="var(--fs-search-input-field-height-desktop)"
+  />
+</TokenTable>
+
+#### Input
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-input-field-input-padding-right"
+    value="var(--fs-search-input-field-button-width)"
+  />
+  <TokenRow
+    token="--fs-search-input-field-input-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+</TokenTable>
+
+#### Icon
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-input-field-icon-width"
+    value="var(--fs-spacing-4)"
+  />
+  <TokenRow
+    token="--fs-search-input-field-icon-height"
+    value="var(--fs-search-input-field-icon-width)"
+  />
+  <TokenRow
+    token="--fs-search-input-field-icon-color"
+    value="var(--fs-color-neutral-7)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-search-input-field`
+
+`data-fs-search-input-field-input`
