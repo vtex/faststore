@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import type { HTMLAttributes } from 'react'
+import { useState } from 'react'
 
 import { Image } from 'src/components/ui/Image'
 import styles from 'src/components/ui/ImageGallery/image-gallery.module.scss'
@@ -34,7 +34,7 @@ function ImageGallery({ images, ...otherProps }: ImageGalleryProps) {
           width={804}
           height={804 * (3 / 4)}
           loading="eager"
-          fetchPriority="high"
+          priority
         />
       </ImageZoom>
       {hasSelector && (

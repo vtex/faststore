@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.83-alpha.0](https://github.com/vtex/faststore/compare/v2.0.82-alpha.0...v2.0.83-alpha.0) (2023-03-21)
+
+### Features
+
+- Updates `PropsSection` ([#1673](https://github.com/vtex/faststore/issues/1673)) ([10000f2](https://github.com/vtex/faststore/commit/10000f2977f3337d6ac81fb9d52d59316f050105))
+
+## [2.0.82-alpha.0](https://github.com/vtex/faststore/compare/v2.0.81-alpha.0...v2.0.82-alpha.0) (2023-03-17)
+
+### Features
+
+- change dominantVariant to optional ([#1674](https://github.com/vtex/faststore/issues/1674)) ([29fd637](https://github.com/vtex/faststore/commit/29fd637e40a035073f72a61c7be17514776557fc))
+
+## [2.0.81-alpha.0](https://github.com/vtex/faststore/compare/v2.0.80-alpha.0...v2.0.81-alpha.0) (2023-03-16)
+
+### Features
+
+- Image using next/future/image + new Thumbor URL ([#1661](https://github.com/vtex/faststore/issues/1661)) ([8b9a33b](https://github.com/vtex/faststore/commit/8b9a33bf2ce1d671498785a9a35db881c40fcf8e))
+
 ## [2.0.80-alpha.0](https://github.com/vtex/faststore/compare/v2.0.79-alpha.0...v2.0.80-alpha.0) (2023-03-15)
 
 ### Bug Fixes

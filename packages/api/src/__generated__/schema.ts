@@ -503,24 +503,28 @@ export type SkuVariants = {
    * `dominantVariantName` property. Returns all available options for the
    * dominant property, and only options that can be combined with its current
    * value for other properties.
+   * If `dominantVariantName` is not present, the first variant will be
+   * considered the dominant one.
    */
   availableVariations?: Maybe<Scalars['FormattedVariants']>;
   /**
    * Maps property value combinations to their respective SKU's slug. Enables
    * us to retrieve the slug for the SKU that matches the currently selected
    * variations in O(1) time.
+   * If `dominantVariantName` is not present, the first variant will be
+   * considered the dominant one.
    */
   slugsMap?: Maybe<Scalars['SlugsMap']>;
 };
 
 
 export type SkuVariantsAvailableVariationsArgs = {
-  dominantVariantName: Scalars['String'];
+  dominantVariantName?: Maybe<Scalars['String']>;
 };
 
 
 export type SkuVariantsSlugsMapArgs = {
-  dominantVariantName: Scalars['String'];
+  dominantVariantName?: Maybe<Scalars['String']>;
 };
 
 /** Aggregate offer information, for a given SKU that is available to be fulfilled by multiple sellers. */
