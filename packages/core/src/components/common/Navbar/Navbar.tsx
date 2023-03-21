@@ -1,9 +1,5 @@
 import { Suspense, useRef, useState } from 'react'
-import {
-  IconButton as UIIconButton,
-  // SearchInput as UISearchInput,
-  // SearchInputRef,
-} from '@faststore/ui'
+import { IconButton as UIIconButton } from '@faststore/ui'
 
 import CartToggle from 'src/components/cart/CartToggle'
 import SearchInput from 'src/components/search/SearchInput'
