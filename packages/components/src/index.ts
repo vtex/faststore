@@ -221,6 +221,16 @@ export type {
   HeroHeaderProps,
 } from './organisms/Hero'
 
+export {
+  default as ImageGallery,
+  ImageGallerySelector,
+  ImageZoom,
+} from './organisms/ImageGallery'
+export type {
+  ImageElementData,
+  ImageGalleryProps,
+} from './organisms/ImageGallery'
+
 export { default as OutOfStock } from './organisms/OutOfStock'
 export type { OutOfStockProps } from './organisms/OutOfStock'
 

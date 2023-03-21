@@ -1,4 +1,5 @@
 import type { PropsWithChildren } from 'react'
+import React from 'react'
 
 interface ImageZoomProps {
   helpMessage?: string
@@ -6,7 +7,7 @@ interface ImageZoomProps {
 }
 
 const ImageZoom = ({ children }: PropsWithChildren<ImageZoomProps>) => {
-  return <> {children} </>
+  return <div>{children}</div>
 }
 
 export default ImageZoom

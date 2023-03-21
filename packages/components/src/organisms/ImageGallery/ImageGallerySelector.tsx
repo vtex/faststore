@@ -1,13 +1,6 @@
-import {
-  Button as UIButton,
-  Icon,
-  IconButton as UIIconButton,
-} from '@faststore/ui'
-import { useRef } from 'react'
+import { Button, IconButton } from '../..'
+import React, { useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
-
-import { Image } from 'src/components/ui/Image'
-import styles from 'src/components/ui/ImageGallery/image-gallery-selector.module.scss'
 
 import type { ImageElementData } from './ImageGallery'
 
@@ -59,15 +52,14 @@ function ImageGallerySelector({ images, onSelect, currentImageIdx }: Props) {
   return (
     <section
       data-fs-image-gallery-selector
-      className={styles.fsImageGallerySelector}
       aria-roledescription="carousel"
       aria-label="Product images"
     >
       {elementHasScroll && !firstImageInView && (
-        <UIIconButton
+        <IconButton
           data-fs-image-gallery-selector-control-button
           aria-label="backward slide image selector"
-          icon={<Icon name="ArrowLeft" width={24} height={24} />}
+          icon={<ArrowLeft />}
           onClick={() => moveScroll(elementsRef.current, -SCROLL_MARGIN_VALUE)}
         />
       )}
@@ -81,7 +73,7 @@ function ImageGallerySelector({ images, onSelect, currentImageIdx }: Props) {
               : null
 
           return (
-            <UIButton
+            <Button
               key={idx}
               aria-label={`${image.alternateName} - Image ${idx + 1} of ${
                 images.length
@@ -91,26 +83,16 @@ function ImageGallerySelector({ images, onSelect, currentImageIdx }: Props) {
                 idx === currentImageIdx ? 'selected' : 'true'
               }
             >
-              <Image
-                onLoadingComplete={(img) => {
-                  if (ref) ref(img)
-                }}
-                src={image.url}
-                alt={image.alternateName}
-                loading={idx === 0 ? 'eager' : 'lazy'}
-                sizes="(max-width: 72px) 25vw, 30vw"
-                width={72}
-                height={72}
-              />
-            </UIButton>
+              {image.renderImage?.(image.src!, image.alternateName)}
+            </Button>
           )
         })}
       </div>
       {elementHasScroll && !lastImageInView && (
-        <UIIconButton
+        <IconButton
           data-fs-image-gallery-selector-control-button
           aria-label="forward slide image selector"
-          icon={<Icon name="ArrowLeft" width={24} height={24} />}
+          icon={<ArrowLeft />}
           onClick={() => moveScroll(elementsRef.current, +SCROLL_MARGIN_VALUE)}
         />
       )}
