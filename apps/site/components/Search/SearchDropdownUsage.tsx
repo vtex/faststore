@@ -10,6 +10,7 @@ import {
   SearchProductItem,
   SearchProductItemImage,
   SearchProductItemContent,
+  SearchProvider,
 } from '@faststore/ui'
 
 import { product } from './../../mocks/product'
@@ -107,7 +108,7 @@ const SearchProductsUsage = () => {
 
 const SearchDropdownUsage = ({ term = '' }: SearchDropdownUsageProps) => {
   return (
-    <SearchDropdown
+    <SearchProvider
       term={term}
       terms={[
         {
@@ -119,16 +120,20 @@ const SearchDropdownUsage = ({ term = '' }: SearchDropdownUsageProps) => {
       ]}
       isLoading={false}
       products={[product]}
-      searchHistoryComponent={<SearchHistoryUsage />}
-      searchTopComponent={<SearchTopUsage />}
-      searchAutoCompleteComponent={<SearchAutoCompleteUsage />}
-      searchProductsComponent={<SearchProductsUsage />}
-      style={{
-        position: 'relative',
-        top: 'auto',
-        left: 'auto',
-      }}
-    />
+    >
+      <SearchDropdown
+        style={{
+          position: 'relative',
+          top: 'auto',
+          left: 'auto',
+        }}
+      >
+        <SearchHistoryUsage />
+        <SearchTopUsage />
+        <SearchAutoCompleteUsage />
+        <SearchProductsUsage />
+      </SearchDropdown>
+    </SearchProvider>
   )
 }
 
