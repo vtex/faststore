@@ -10,17 +10,16 @@ sidebar_custom_props:
 
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
-import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
-import { House } from '@faststore/components'
 import { SearchInput, SearchInputField } from '@faststore/ui'
 import SearchDropdownUsage from 'site/components/Search/SearchDropdownUsage'
 import { useState } from 'react'
 
 <header>
 
-# Hero
+# Search Input
 
 The `SearchInput` is responsible to receive, search and display suggestions. This component is part of the [Search](/components/search) feature.
 
@@ -44,7 +43,7 @@ import '@faststore/ui/src/components/organisms/SearchInput/styles.scss'
 
 ---
 
-export const SearchInputFieldUsage = () => {
+export const SearchInputUsage = () => {
   const [searchDropdownVisible, setSearchDropdownVisible] = useState(false)
   const [term, setTerm] = useState('')
   function onChangeValue(e) {
@@ -84,7 +83,7 @@ export const SearchInputFieldUsage = () => {
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <SearchInputFieldUsage />
+      <SearchInputUsage />
     </OverviewSection>
   </Tab>
   <Tab>
