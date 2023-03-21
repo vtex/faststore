@@ -53,7 +53,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
   function SearchInput(
     {
       onSearchClick,
-      buttonTestId = 'store-search-button',
+      buttonTestId = 'fs-search-button',
       containerStyle,
       ...otherProps
     },
