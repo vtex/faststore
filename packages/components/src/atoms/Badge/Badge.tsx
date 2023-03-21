@@ -1,4 +1,4 @@
-import type { ReactNode, HTMLAttributes, AriaAttributes } from 'react'
+import type { HTMLAttributes, AriaAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 export type BadgeVariants =
@@ -30,7 +30,6 @@ export interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
    * For accessibility purposes, adds an ARIA label to the element when `counter` is set to `true`.
    */
   'aria-label'?: AriaAttributes['aria-label']
-  children?: ReactNode
 }
 
 const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
