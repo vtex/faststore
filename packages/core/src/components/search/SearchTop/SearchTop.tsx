@@ -1,11 +1,12 @@
 import {
   SearchTop as UISearchTop,
   SearchTopTerm as UISearchTopTerm,
+  useSearch,
 } from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
 
 import type { StoreSuggestionTerm } from '@generated/graphql'
-import useSearchInput, { formatSearchPath } from 'src/sdk/search/useSearchInput'
+import { formatSearchPath } from 'src/sdk/search/useSearchInput'
 import useTopSearch from 'src/sdk/search/useTopSearch'
 
 export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
@@ -16,15 +17,17 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 function SearchTop({ topTerms, ...otherProps }: SearchTopProps) {
-  const { onSearchInputSelection } = useSearchInput()
-  const { terms, isLoading } = useTopSearch(topTerms)
+  const {
+    values: { onSearchSelection },
+  } = useSearch()
+  const { terms } = useTopSearch(topTerms)
 
   if (terms.length === 0) {
     return null
   }
 
   return (
-    <UISearchTop title="Top Search" isLoading={isLoading} {...otherProps}>
+    <UISearchTop title="Top Search" {...otherProps}>
       {terms.map((term, index) => (
         <UISearchTopTerm
           key={index}
@@ -33,10 +36,7 @@ function SearchTop({ topTerms, ...otherProps }: SearchTopProps) {
           linkProps={{
             href: formatSearchPath(term.value),
             onClick: () =>
-              onSearchInputSelection?.(
-                term.value,
-                formatSearchPath(term.value)
-              ),
+              onSearchSelection?.(term.value, formatSearchPath(term.value)),
           }}
         />
       ))}

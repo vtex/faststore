@@ -3,6 +3,7 @@ import { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
 
 import { List } from '../../'
+import { useSearch } from '../SearchProvider'
 
 export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -13,39 +14,30 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
    * Title attribute for the <section> tag rendered by this component.
    */
   title: string
-  /**
-   * Defines the the message displayed while loading.
-   */
-  loadingMessage?: string
-  /**
-   * Enables a loading state.
-   */
-  isLoading?: boolean
 }
 
 const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(function SearchTop(
   {
     testId = 'fs-top-search',
     title = 'Top Search',
-    loadingMessage = 'Loading...',
-    isLoading,
     children,
     ...otherProps
   },
   ref
 ) {
+
+  const { inContext, values } = useSearch()
+
+  if (inContext && (values.term.length !== 0 || values.isLoading)) {
+    return null
+  }
+
   return (
     <section ref={ref} data-testid={testId} data-fs-search-top {...otherProps}>
-      {isLoading ? (
-        <p data-fs-search-top-input-loading-text>{loadingMessage}</p>
-      ) : (
-        <>
-          <header data-fs-search-top-header>
-            <p data-fs-search-top-title>{title}</p>
-          </header>
-          <List as="ol">{children}</List>
-        </>
-      )}
+        <header data-fs-search-top-header>
+          <p data-fs-search-top-title>{title}</p>
+        </header>
+        <List as="ol">{children}</List>
     </section>
   )
 })

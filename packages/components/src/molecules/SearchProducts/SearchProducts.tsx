@@ -1,5 +1,6 @@
 import React, { HTMLAttributes } from 'react'
 import { List } from '../..'
+import { useSearch } from '../SearchProvider'
 
 export interface SearchProductsProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -18,6 +19,11 @@ const SearchProductsProps = ({
   children,
   ...otherProps
 }: SearchProductsProps) => {
+  const { inContext, values } = useSearch()
+
+  if (inContext && (values.products.length <= 0)) {
+    return null
+  }
   return (
     <section data-testid={testId} data-fs-search-products {...otherProps}>
       <header data-fs-search-products-header>

@@ -1,5 +1,6 @@
 import React, { HTMLAttributes } from 'react'
 import { List, Button } from '../..'
+import { useSearch } from '../SearchProvider'
 
 export interface SearchHistoryProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -28,6 +29,13 @@ const SearchHistory = ({
   children,
   ...otherProps
 }: SearchHistoryProps) => {
+
+  const { inContext, values } = useSearch()
+
+  if (inContext && (values.term.length !== 0 || values.isLoading)) {
+    return null
+  }
+
   return (
     <section data-testid={testId} data-fs-search-history {...otherProps}>
       <header data-fs-search-history-header>

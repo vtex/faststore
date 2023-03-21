@@ -2,6 +2,7 @@ import {
   SearchProductItem as UISearchProductItem,
   SearchProductItemContent as UISearchProductItemContent,
   SearchProductItemImage as UISearchProductItemImage,
+  useSearch,
 } from '@faststore/ui'
 
 import { Image } from 'src/components/ui/Image'
@@ -26,7 +27,9 @@ function SearchProductItem({
   index,
   ...otherProps
 }: SearchProductItemProps) {
-  const { onSearchInputSelection } = useSearchInput()
+  const {
+    values: { onSearchSelection },
+  } = useSearch()
 
   const { href, onClick, ...baseLinkProps } = useProductLink({
     product,
@@ -47,7 +50,7 @@ function SearchProductItem({
     href,
     onClick: () => {
       onClick()
-      onSearchInputSelection?.(name, href)
+      onSearchSelection?.(name, href)
     },
     ...baseLinkProps,
   }

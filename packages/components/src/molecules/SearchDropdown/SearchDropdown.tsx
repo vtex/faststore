@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode, PropsWithChildren } from 'react'
 import React, { forwardRef } from 'react'
+import { useSearch } from '../SearchProvider'
 
 export interface SearchDropdownProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -7,38 +8,17 @@ export interface SearchDropdownProps extends HTMLAttributes<HTMLDivElement> {
    * testing-library, and jest).
    */
   testId?: string
-  /**
-   * Term to be researched.
-   */
-  term: string
-  /**
-   * Enables a loading state.
-   */
-  isLoading: boolean
-  /**
-   * List of Suggestion terms.
-   */
-  terms: Array<{ value: string }>
-  /**
-   * Array with suggested products.
-   */
-  products: {}[]
-  /**
-   * A React component that will be rendered as an SearchHistory.
-   */
-  searchHistoryComponent: ReactNode
-  /**
-   * A React component that will be rendered as an SearchTop.
-   */
-  searchTopComponent: ReactNode
-  /**
-   * A React component that will be rendered as an searchAutoComplete.
-   */
-  searchAutoCompleteComponent: ReactNode
-  /**
-   * A React component that will be rendered as an searchProducts.
-   */
-  searchProductsComponent: ReactNode
+  children?: ReactNode
+}
+
+const SearchLoading = () => {
+  const { inContext, values } = useSearch()
+
+  return (
+    <>
+      { (inContext && values.isLoading) && <p data-fs-search-dropdown-loading-text>Loading...</p> }
+    </>
+  )
 }
 
 const SearchDropdown = forwardRef<
@@ -47,45 +27,17 @@ const SearchDropdown = forwardRef<
 >(function SearchDropdown(
   {
     testId = 'fs-search-dropdown',
-    term,
-    isLoading,
-    terms,
-    products,
-    searchHistoryComponent,
-    searchTopComponent,
-    searchAutoCompleteComponent,
-    searchProductsComponent,
+    children,
     ...otherProps
   },
   ref
 ) {
   return (
     <div ref={ref} data-fs-search-dropdown data-testid={testId} {...otherProps}>
-      {(() => {
-        if (term.length === 0 && !isLoading) {
-          return (
-            <>
-              {searchHistoryComponent}
-              {searchTopComponent}
-            </>
-          )
-        }
-
-        if (isLoading) {
-          return <p data-fs-search-dropdown-loading-text>Loading...</p>
-        }
-
-        if (terms.length === 0 && products.length === 0) {
-          return null
-        }
-
-        return (
-          <section>
-            {terms.length > 0 && <>{searchAutoCompleteComponent}</>}
-            {products.length > 0 && <>{searchProductsComponent}</>}
-          </section>
-        )
-      })()}
+      <section>
+        <SearchLoading/>
+        {children}
+      </section>
     </div>
   )
 })

@@ -1,5 +1,6 @@
 import React, { HTMLAttributes } from 'react'
 import { List } from '../..'
+import { useSearch } from '../SearchProvider'
 
 export interface SearchAutoCompleteProps
   extends HTMLAttributes<HTMLDivElement> {
@@ -14,6 +15,13 @@ const SearchAutoComplete = ({
   children,
   ...otherProps
 }: SearchAutoCompleteProps) => {
+
+  const { inContext, values } = useSearch()
+
+  if (inContext && (values.terms.length <= 0 || values.term.length <= 0)) {
+    return null
+  }
+
   return (
     <section data-testid={testId} data-fs-search-auto-complete {...otherProps}>
       <List as="ol">{children}</List>
