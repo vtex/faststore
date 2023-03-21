@@ -1,0 +1,32 @@
+[data-fs-search-input] {
+  // --------------------------------------------------------
+  // Design Tokens for Search Input
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-search-input-padding                       : var(--fs-spacing-1) var(--fs-spacing-7) var(--fs-spacing-1) var(--fs-spacing-2);
+  --fs-search-input-bkg-color                     : var(--fs-color-body-bkg);
+
+  --fs-search-input-transition-timing             : var(--fs-transition-timing);
+  --fs-search-input-transition-function           : ease;
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+
+  &[data-fs-search-input-dropdown-visible="true"] [data-fs-search-input-field-input] {
+      @include media(">=notebook") {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  [data-fs-search-product-card-link] {
+    color: var(--fs-color-neutral-7);
+    text-decoration: none;
+
+    &:hover { text-decoration: none; }
+  }
+}

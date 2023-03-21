@@ -84,7 +84,7 @@ const SearchInputField = forwardRef<
       <Input
         ref={inputRef}
         aria-label={ariaLabel}
-        data-fs-search-input
+        data-fs-search-input-field-input
         {...otherProps}
       />
       <Button type="submit" aria-label="Submit Search" {...buttonProps}>
