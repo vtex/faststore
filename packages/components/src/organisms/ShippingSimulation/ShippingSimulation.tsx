@@ -3,7 +3,7 @@ import type { PriceFormatter } from '../../atoms/Price/Price'
 
 import React from 'react'
 
-import { XCircle as ArrowSquareOut } from '../../assets' // TODO
+import { ArrowSquareOut } from '../../assets'
 
 import {
   Icon,
