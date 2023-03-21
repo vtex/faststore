@@ -56,6 +56,69 @@ import '@faststore/ui/src/components/molecules/ImageGallery/styles.scss'
 
 ---
 
+## Props
+
+### Image Gallery
+
+export const propsImageGallery = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-accordion-item',
+  },
+  {
+    name: 'images',
+    type: 'ImageElementData[]',
+    description: 'List of images that should be rendered.',
+    required: true,
+  },
+]
+
+<PropsSection propsList={propsImageGallery} />
+
+### Image Gallery Selector
+
+export const propsImageGallerySelector = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-accordion-item',
+  },
+  {
+    name: 'images',
+    type: 'ImageElementData[]',
+    description: 'List of images that should be rendered.',
+    required: true,
+  },
+  {
+    name: 'onSelect',
+    type: 'React.Dispatch<React.SetStateAction<number>>',
+    description: 'Event handler for clicks on each thumbnail.',
+    required: true,
+  },
+  {
+    name: 'currentImageIdx',
+    type: 'number',
+    description: 'The currently active thumbnail.',
+    required: true,
+  },
+  {
+    name: 'ImageComponent',
+    type: 'FunctionComponent<{ url: string alternateName?: string}>',
+    description:
+      'Function that returns a React component that will be used to render images.',
+    required: true,
+  },
+]
+
+<PropsSection propsList={propsImageGallerySelector} />
+
+---
+
 ## Design Tokens
 
 <TokenTable>
