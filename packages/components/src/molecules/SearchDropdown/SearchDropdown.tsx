@@ -60,13 +60,7 @@ const SearchDropdown = forwardRef<
   ref
 ) {
   return (
-    <div
-      ref={ref}
-      data-fs-search-dropdown
-      // data-fs-search-input-dropdown-wrapper
-      data-testid={testId}
-      {...otherProps}
-    >
+    <div ref={ref} data-fs-search-dropdown data-testid={testId} {...otherProps}>
       {(() => {
         if (term.length === 0 && !isLoading) {
           return (
