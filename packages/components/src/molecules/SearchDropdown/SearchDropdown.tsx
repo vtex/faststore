@@ -20,7 +20,7 @@ export interface SearchDropdownProps extends HTMLAttributes<HTMLDivElement> {
    */
   terms: Array<{ value: string }>
   /**
-   * Array with top search terms.
+   * Array with suggested products.
    */
   products: {}[]
   /**
