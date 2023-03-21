@@ -1,0 +1,159 @@
+---
+description: Used when you want to display a series of photos in a gallery on a post or page.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Hero___c73fdfe80ce87c2ccc4701c07e9d5398.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import ImageGalleryUsage from 'site/components/ImageGallery/ImageGalleryUsage'
+
+<header>
+
+# Image Gallery
+
+An `ImageGallery` is used when you want to display a series of photos in a gallery on a post or page.
+
+</header>
+
+According to the quantity of `Image` to be displayed, the `ImageGallerySelector` will be displayed.
+
+---
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { ImageGallery, ImageGallerySelector, ImageZoom } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/ImageGallery/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ImageGalleryUsage />
+    </OverviewSection>
+  </Tab>
+  <Tab>```tsx ```</Tab>
+</Tabs>
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-image-gallery-width"
+    value="calc(100% + (2 * var(--fs-grid-padding)))"
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-image-gallery-gap-mobile" value="var(--fs-spacing-2)" />
+  <TokenRow
+    token="--fs-image-gallery-gap-notebook"
+    value="var(--fs-spacing-3)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Current Selected Image
+
+<TokenTable>
+  <TokenRow token="--fs-image-gallery-current-height" value="33.125rem" />
+  <TokenRow
+    token="--fs-image-gallery-current-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+#### Selector
+
+<TokenTable>
+  <TokenRow token="--fs-image-gallery-selector-max-height" value="33.125rem" />
+</TokenTable>
+
+#### Selector Elements
+
+<TokenTable>
+  <TokenRow
+    token="--fs-image-gallery-selector-elements-gap"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-image-gallery-selector-elements-gap-notebook"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-image-gallery-selector-elements-padding"
+    value="var(--fs-spacing-0)"
+  />
+</TokenTable>
+
+#### Selector Thumbnail
+
+<TokenTable>
+  <TokenRow
+    token="--fs-image-gallery-selector-thumbnail-width-mobile"
+    value="3.5rem"
+  />
+  <TokenRow
+    token="--fs-image-gallery-selector-thumbnail-width-notebook"
+    value="4.5rem"
+  />
+  <TokenRow
+    token="--fs-image-gallery-selector-thumbnail-border-radius"
+    value="var(--fs-border-radius)"
+  />
+  <TokenRow
+    token="--fs-image-gallery-selector-thumbnail-selected-border-color"
+    value="var(--fs-border-color-active)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### With Selector (More than 1 Image)
+
+`WIP`
+
+### Without Selector
+
+`WIP`
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-image-gallery`
+
+`data-fs-image-gallery="with-selector" | "without-selector"`
+
+`data-fs-image-gallery-selector`
+
+`data-fs-image-gallery-selector-control-button`
+
+`data-fs-image-gallery-selector-elements`
+
+`data-fs-image-gallery-selector-thumbnail`
