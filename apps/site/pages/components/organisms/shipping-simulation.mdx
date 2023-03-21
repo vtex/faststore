@@ -13,9 +13,9 @@ import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
 <header>
 
-# Price Range
+# Shipping Simulation
 
-The Price Range component is a [Slider](/components/atoms/slider) that allows users to select a maximum and minimum price from a range.
+This component lets customers set the `PostalCode` and see the shipping options in the `PDP`.
 
 </header>
 
@@ -35,8 +35,8 @@ export const shippingOptions = [
       <ShippingSimulation
         productShippingInfo={{ id: '32', seller: 'vtex', quantity: 1 }}
         formatter={useFormattedPrice}
-        shippingLocation="St. Alfredo Coutinho"
-        shippingOptions={shippingOptions}
+        country={"BRA"}
+        fetchShippingSimulationFn={async () => ["Alfredo Coutinho St", shippingOptions] }
       />
     </OverviewSection>
   </Tab>
@@ -53,8 +53,8 @@ export const shippingOptions = [
     <ShippingSimulation
       productShippingInfo={{ id: '32', seller: 'vtex', quantity: 1 }}
       formatter={useFormattedPrice}
-      shippingLocation="St. Alfredo Coutinho"
-      shippingOptions={shippingOptions}
+      country={"BRA"}
+      fetchShippingSimulationFn={async () => ["Alfredo Coutinho St", shippingOptions] }
     />
     ```
 
@@ -80,3 +80,11 @@ import '@faststore/ui/src/components/organisms/ShippingSimulation/styles.scss'
 ---
 
 ## Usage
+
+### TODO
+
+- Move all tokens from old storybook file here
+- adds Usage, Props, Design Tokens, Customization
+- fix import Icon import on ShippingSimulation.tsx (core)
+- create prop for every inline text/content
+- describe props

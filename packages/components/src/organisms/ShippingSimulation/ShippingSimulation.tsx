@@ -3,7 +3,7 @@ import type { PriceFormatter } from '../../atoms/Price/Price'
 
 import React from 'react'
 
-import { XCircle as ArrowSquareOut } from '../../assets'
+import { XCircle as ArrowSquareOut } from '../../assets' // TODO
 
 import {
   Icon,
@@ -15,20 +15,9 @@ import {
   InputField,
   Price,
 } from '../..'
-// import styles from './shipping-simulation.module.scss'
-// import { useShippingSimulation } from './useShippingSimulation'
 
-interface ProductShippingInfo {
-  id: string
-  seller: string
-  quantity: number
-}
-
-interface ProductShippingOption {
-  carrier: string
-  localizedEstimates: string
-  price: number
-}
+import { useShippingSimulation } from './useShippingSimulation'
+import type { ProductShippingInfo } from './useShippingSimulation'
 
 export interface ShippingSimulationProps
   extends HTMLAttributes<HTMLDivElement> {
@@ -44,30 +33,33 @@ export interface ShippingSimulationProps
 
   formatter: PriceFormatter
 
-  shippingLocation: string
+  sessionPostalCode?: string
 
-  shippingOptions: ProductShippingOption[]
+  country: string
+
+  fetchShippingSimulationFn: Function
 }
 
 function ShippingSimulation({
   testId = 'store-shipping-simulation',
   productShippingInfo,
   formatter,
-  shippingLocation,
-  shippingOptions,
+  sessionPostalCode,
+  country,
+  fetchShippingSimulationFn,
   ...otherProps
 }: ShippingSimulationProps) {
-  // const { dispatch, input, shippingSimulation, handleSubmit, handleOnInput } =
-  //   useShippingSimulation(productShippingInfo)
+  const { input, shippingSimulation, handleSubmit, handleOnInput, handleOnClear } =
+    useShippingSimulation(productShippingInfo, fetchShippingSimulationFn, sessionPostalCode ?? '', country)
 
-  // const {
-  //   postalCode: shippingPostalCode,
-  //   displayClearButton,
-  //   errorMessage,
-  // } = input
+  const {
+    postalCode: shippingPostalCode,
+    displayClearButton,
+    errorMessage,
+  } = input
 
-  // const { location: shippingLocation, options: shippingOptions } =
-  //   shippingSimulation
+  const { location: shippingLocation, options: shippingOptions } =
+    shippingSimulation
 
   const hasShippingOptions = !!shippingOptions && shippingOptions.length > 0
 
@@ -84,14 +76,14 @@ function ShippingSimulation({
 
       <InputField
         actionable
-        error={''}
+        error={errorMessage}
         id="shipping-postal-code"
         label="Postal Code"
-        value={''}
-        onInput={() => {}}
-        onSubmit={() => {}}
-        onClear={() => {}}
-        displayClearButton={false}
+        value={shippingPostalCode}
+        onInput={handleOnInput}
+        onSubmit={handleSubmit}
+        onClear={handleOnClear}
+        displayClearButton={displayClearButton}
       />
 
       <Link href="/" data-fs-shipping-simulation-link size="small">

@@ -198,11 +198,12 @@ function ProductDetails({ context: staleProduct }: Props) {
             <ShippingSimulation
               data-fs-product-details-section
               data-fs-product-details-shipping
-              shippingItem={{
+              productShippingInfo={{
                 id,
                 quantity: addQuantity,
                 seller: seller.identifier,
               }}
+              formatter={useFormattedPrice}
             />
           )}
         </section>
