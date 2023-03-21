@@ -8,12 +8,46 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Hero___c73fdfe80ce87c2ccc4701c07e9d5398.png
 ---
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
 import ImageGalleryUsage from 'site/components/ImageGallery/ImageGalleryUsage'
+import { ImageGallery, ImageGallerySelector } from '@faststore/ui'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const imageGalleryPath = path.resolve(__filename)
+  const components = ['ImageGallery.tsx', 'ImageGallerySelector.tsx']
+  const [imageGalleryProps, imageGallerySelectorProps] = getComponentPropsFrom(
+    imageGalleryPath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        imageGalleryProps,
+        imageGallerySelectorProps,
+      },
+    },
+  }
+}
+
+export const ImageGalleryPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { imageGalleryProps, imageGallerySelectorProps } = useSSG()
+  return {
+    ImageGallery: <PropsSection propsList={imageGalleryProps} />,
+    ImageGallerySelector: (
+      <PropsSection propsList={imageGallerySelectorProps} />
+    ),
+  }[component]
+}
 
 <header>
 
@@ -60,62 +94,11 @@ import '@faststore/ui/src/components/molecules/ImageGallery/styles.scss'
 
 ### Image Gallery
 
-export const propsImageGallery = [
-  {
-    name: 'testId',
-    type: 'string',
-    description:
-      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
-    default: 'fs-accordion-item',
-  },
-  {
-    name: 'images',
-    type: 'ImageElementData[]',
-    description: 'List of images that should be rendered.',
-    required: true,
-  },
-]
-
-<PropsSection propsList={propsImageGallery} />
+<ImageGalleryPropsSection component="ImageGallery" />
 
 ### Image Gallery Selector
 
-export const propsImageGallerySelector = [
-  {
-    name: 'testId',
-    type: 'string',
-    description:
-      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
-    default: 'fs-accordion-item',
-  },
-  {
-    name: 'images',
-    type: 'ImageElementData[]',
-    description: 'List of images that should be rendered.',
-    required: true,
-  },
-  {
-    name: 'onSelect',
-    type: 'React.Dispatch<React.SetStateAction<number>>',
-    description: 'Event handler for clicks on each thumbnail.',
-    required: true,
-  },
-  {
-    name: 'currentImageIdx',
-    type: 'number',
-    description: 'The currently active thumbnail.',
-    required: true,
-  },
-  {
-    name: 'ImageComponent',
-    type: 'FunctionComponent<{ url: string alternateName?: string}>',
-    description:
-      'Function that returns a React component that will be used to render images.',
-    required: true,
-  },
-]
-
-<PropsSection propsList={propsImageGallerySelector} />
+<ImageGalleryPropsSection component="ImageGallerySelector" />
 
 ---
 
