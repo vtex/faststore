@@ -1,19 +1,27 @@
-@import "src/styles/scaffold";
-
-.fs-image-gallery-selector {
+[data-fs-image-gallery] {
   // --------------------------------------------------------
-  // Design Tokens for Image Gallery Selector
+  // Design Tokens for Image Gallery
   // --------------------------------------------------------
 
   // Default properties
+  --fs-image-gallery-width                                      : calc(100% + (2 * var(--fs-grid-padding)));
+
+  --fs-image-gallery-gap-mobile                                 : var(--fs-spacing-2);
+  --fs-image-gallery-gap-notebook                               : var(--fs-spacing-3);
+
+  // Current Selected Image
+  --fs-image-gallery-current-border-radius                      : var(--fs-border-radius);
+  --fs-image-gallery-current-height                             : 33.125rem;   // 530px
+
+  // Image Gallery Selector
   --fs-image-gallery-selector-max-height                        : 33.125rem;   // 530px
 
-  // Elements
+  // Image Gallery Selector Elements
   --fs-image-gallery-selector-elements-gap                      : var(--fs-spacing-1);
   --fs-image-gallery-selector-elements-gap-notebook             : var(--fs-spacing-2);
   --fs-image-gallery-selector-elements-padding                  : var(--fs-spacing-0);
 
-  // Thumbnail
+  // Image Gallery Selector Thumbnail
   --fs-image-gallery-selector-thumbnail-width-mobile            : var(--fs-spacing-8);
   --fs-image-gallery-selector-thumbnail-width-notebook          : var(--fs-spacing-10);
   --fs-image-gallery-selector-thumbnail-border-radius           : var(--fs-border-radius);
@@ -22,16 +30,46 @@
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
+
+  // Image Gallery
+
   position: relative;
+  left: calc(-1 * var(--fs-grid-padding));
   display: flex;
-  align-items: center;
-  justify-content: center;
-  max-height: var(--fs-image-gallery-selector-max-height);
+  flex-direction: column;
+  row-gap: var(--fs-image-gallery-gap-mobile);
+  width: var(--fs-image-gallery-width);
+
+  @include media(">=tablet") {
+    left: 0;
+    width: 100%;
+
+    > [data-fs-image] {
+      grid-column: 2 / span 7;
+      border-radius: var(--fs-image-gallery-current-border-radius);
+    }
+  }
 
   @include media(">=notebook") {
-    flex-direction: column;
-    grid-row: 1;
-    justify-content: space-between;
+    >[data-fs-image] {
+      height: var(--fs-image-gallery-current-height);
+    }
+  }
+
+  // Image Gallery Selector
+
+  [data-fs-image-gallery-selector] {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: var(--fs-image-gallery-selector-max-height);
+
+    @include media(">=notebook") {
+      flex-direction: column;
+      grid-row: 1;
+      justify-content: space-between;
+    }
   }
 
   [data-fs-image-gallery-selector-elements] {
@@ -41,9 +79,7 @@
     overflow-x: auto;
     scroll-behavior: smooth;
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    &::-webkit-scrollbar { display: none; }
 
     @include media(">=notebook") {
       flex-direction: column;
@@ -92,9 +128,7 @@
     border: none;
     border-radius: var(--fs-border-radius-circle);
 
-    &:hover {
-      color: var(--fs-color-text-display);
-    }
+    &:hover { color: var(--fs-color-text-display); }
 
     [data-fs-icon]span {
       display: flex;
@@ -108,9 +142,7 @@
     @include media("<notebook") {
       height: 100%;
 
-      &:first-child {
-        left: 0;
-      }
+      &:first-child { left: 0; }
 
       &:last-child {
         right: 0;
@@ -124,14 +156,24 @@
       width: 100%;
       background: linear-gradient(180deg, var(--fs-color-body-bkg) 55%, transparent);
 
-      [data-fs-icon]span {
-        transform: rotate(90deg);
-      }
+      [data-fs-icon]span { transform: rotate(90deg); }
 
       &:last-child {
         bottom: 0;
         transform: scaleY(-1);
       }
+    }
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-image-gallery="with-selector"] {
+    @include media(">=notebook") {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      column-gap: var(--fs-image-gallery-gap-notebook);
     }
   }
 }
