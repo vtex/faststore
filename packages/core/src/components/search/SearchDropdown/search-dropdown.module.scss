@@ -58,7 +58,7 @@
     box-shadow: var(--fs-search-input-dropdown-box-shadow);
   }
 
-  [data-fs-search-input-loading-text] { padding: var(--fs-spacing-3); }
+  [data-fs-search-dropdown-loading-text] { padding: var(--fs-spacing-3); }
 
   [data-fs-search-section] {
     border-bottom: var(--fs-search-border-bottom-width) solid var(--fs-search-border-bottom-color);
