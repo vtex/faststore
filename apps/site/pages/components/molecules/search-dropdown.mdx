@@ -158,7 +158,66 @@ import '@faststore/ui/src/components/molecules/SearchDropdown/styles.scss'
 
 ## Props
 
-<SearchDropdownPropsSection component="SearchDropdown" />
+export const propsSearchDropdown = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-search-dropdown',
+  },
+  {
+    name: 'term',
+    type: 'string',
+    description: 'Term to be researched.',
+    required: true,
+  },
+  {
+    name: 'isLoading',
+    type: 'false | true',
+    description: 'Enables a loading state.',
+  },
+  {
+    name: 'terms',
+    type: '{ value: string; }[]',
+    description: 'List of Suggestion terms.',
+    required: true,
+  },
+  {
+    name: 'products',
+    type: '{}[]',
+    description: 'List of Suggested products.',
+    required: true,
+  },
+  {
+    name: 'searchHistoryComponent',
+    type: 'ReactNode',
+    description: 'A React component that will be rendered as an SearchHistory.',
+    required: true,
+  },
+  {
+    name: 'searchTopComponent',
+    type: 'ReactNode',
+    description: 'A React component that will be rendered as an SearchTop.',
+    required: true,
+  },
+  {
+    name: 'searchAutoCompleteComponent',
+    type: 'ReactNode',
+    description:
+      'A React component that will be rendered as an searchAutoComplete.',
+    required: true,
+  },
+  {
+    name: 'searchProductsComponent',
+    type: 'ReactNode',
+    description:
+      'A React component that will be rendered as an searchProducts.',
+    required: true,
+  },
+]
+
+<PropsSection propsList={propsSearchDropdown} />
 
 ---
 
@@ -219,7 +278,3 @@ For further customization, you can use the following data attributes:
 `data-fs-search-dropdown`
 
 `data-fs-search-dropdown-loading-text`
-
-```
-
-```
