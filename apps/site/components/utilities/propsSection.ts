@@ -2,6 +2,13 @@ import { parse } from 'react-docgen-typescript'
 
 export const faststoreComponentsFromNodeModules = `node_modules/@faststore/components`
 
+function toPascalCase(string) {
+  // matches one or more non-alphanumeric characters ([^a-zA-Z0-9]+) followed by any character ((.)) and replaces the following character with its uppercase version using a callback function.
+  return (' ' + string).toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => {
+    return chr.toUpperCase()
+  })
+}
+
 export function mapComponentFromMdxPath(
   absoluteMdxPath: string,
   components: string[]
@@ -18,9 +25,7 @@ export function mapComponentFromMdxPath(
 
   const atomicDesignType = dirs[0] // atoms, molecules, organisms
   const componentNameWithoutExtension = dirs[1].split('.')[0] // e.g. accordion.mdx -> accordion
-  const componentFolder =
-    componentNameWithoutExtension.charAt(0).toUpperCase() +
-    componentNameWithoutExtension.slice(1) // e.g. Accordion
+  const componentFolder = toPascalCase(componentNameWithoutExtension) // e.g. Accordion
 
   // e.g. <user-path>/faststore/node_modules/@faststore/components/src/molecules/Accordion/Accordion.tsx
   return components?.map((component: string) => {
