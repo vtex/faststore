@@ -13,7 +13,7 @@ import {
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 import OutOfStock from 'src/components/product/OutOfStock'
 import Breadcrumb from 'src/components/ui/Breadcrumb'
-import { ImageGallery } from 'src/components/ui/ImageGallery'
+import ImageGallery from 'src/components/ui/ImageGallery'
 import ShippingSimulation from 'src/components/ui/ShippingSimulation'
 import Selectors from 'src/components/ui/SkuSelector'
 import type { AnalyticsItem } from 'src/sdk/analytics/types'
