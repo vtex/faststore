@@ -2,23 +2,28 @@
   // --------------------------------------------------------
   // Design Tokens for Search Input Field
   // --------------------------------------------------------
-
   // Default properties
-  --fs-search-input-height-mobile                 : var(--fs-control-tap-size);
   --fs-search-input-height-desktop                : var(--fs-spacing-6);
 
-  // Button
-  --fs-search-input-button-width                  : var(--fs-spacing-7);
-  --fs-search-input-button-min-height             : var(--fs-search-input-height-desktop);
-  --fs-search-input-button-bkg-color              : transparent;
+  --fs-search-input-field-height-mobile           : var(--fs-control-tap-size);
+  --fs-search-input-field-height-desktop          : var(--fs-spacing-6);
 
-  --fs-search-input-button-height-mobile          : var(--fs-search-input-button-width);
-  --fs-search-input-button-height-desktop         : var(--fs-search-input-height-desktop);
+  // Button
+  --fs-search-input-field-button-width            : var(--fs-spacing-7);
+  --fs-search-input-field-button-min-height       : var(--fs-search-input-height-desktop);
+  --fs-search-input-field-button-bkg-color        : transparent;
+
+  --fs-search-input-field-button-height-mobile    : var(--fs-search-input-field-button-width);
+  --fs-search-input-field-button-height-desktop   : var(--fs-search-input-field-height-desktop);
+
+  // Input
+  --fs-search-input-field-input-padding-right     : var(--fs-search-input-field-button-width);
+  --fs-search-input-field-input-bkg-color         : var(--fs-color-body-bkg);
 
   // Icon
-  --fs-search-input-icon-width                    : var(--fs-spacing-4);
-  --fs-search-input-icon-height                   : var(--fs-search-input-icon-width);
-  --fs-search-input-icon-color                    : var(--fs-color-neutral-7);
+  --fs-search-input-field-icon-width              : var(--fs-spacing-4);
+  --fs-search-input-field-icon-height             : var(--fs-search-input-field-icon-width);
+  --fs-search-input-field-icon-color              : var(--fs-color-neutral-7);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -27,38 +32,38 @@
   position: relative;
   display: inline-flex;
   width: 100%;
-  height: var(--fs-search-input-height-mobile);
+  height: var(--fs-search-input-field-height-mobile);
 
   @include input-focus-ring;
 
-  @include media(">=notebook") { height: var(--fs-search-input-height-desktop); }
+  @include media(">=notebook") { height: var(--fs-search-input-field-height-desktop); }
 
   [data-fs-button] {
     position: absolute;
     right: var(--fs-spacing-0);
-    width: var(--fs-search-input-button-width);
-    height: var(--fs-search-input-button-height-mobile);
+    width: var(--fs-search-input-field-button-width);
+    height: var(--fs-search-input-field-button-height-mobile);
     padding: 0;
-    background-color: var(--fs-search-input-button-bkg-color);
+    background-color: var(--fs-search-input-field-button-bkg-color);
     border: 0;
     @include media(">=notebook") {
-      height: var(--fs-search-input-button-height-desktop);
-      min-height: var(--fs-search-input-button-min-height);
+      height: var(--fs-search-input-field-button-height-desktop);
+      min-height: var(--fs-search-input-field-button-min-height);
     }
   }
 
   [data-fs-search-input-field-input] {
     height: auto;
-    padding: var(--fs-search-input-padding);
-    background-color: var(--fs-search-input-bkg-color);
-    transition: box-shadow var(--fs-search-input-transition-timing) var(--fs-search-input-transition-timing), border var(--fs-search-input-transition-timing) var(--fs-search-input-transition-function);
+    padding-right: var(--fs-search-input-field-input-padding-right);
+    background-color: var(--fs-search-input-field-input-bkg-color);
+    transition: box-shadow var(--fs-search-input-field-transition-timing) var(--fs-search-input-field-transition-timing), border var(--fs-search-input-field-transition-timing) var(--fs-search-input-field-transition-function);
   }
 
   [data-fs-icon] { display: block; }
 
   [data-fs-button] svg {
-    width: var(--fs-search-input-icon-width);
-    height: var(--fs-search-input-icon-height);
-    color: var(--fs-search-input-icon-color);
+    width: var(--fs-search-input-field-icon-width);
+    height: var(--fs-search-input-field-icon-height);
+    color: var(--fs-search-input-field-icon-color);
   }
 }
