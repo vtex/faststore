@@ -182,6 +182,12 @@ export type {
   HeroHeaderProps,
 } from './organisms/Hero'
 
+export { default as OutOfStock, OutOfStockTitle } from './organisms/OutOfStock'
+export type {
+  OutOfStockProps,
+  OutOfStockTitleProps,
+} from './organisms/OutOfStock'
+
 export { default as PaymentMethods } from './organisms/PaymentMethods'
 export type { PaymentMethodsProps } from './organisms/PaymentMethods'
 

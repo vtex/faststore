@@ -43,17 +43,6 @@ export { default as Form } from './components/molecules/Form'
 export type { FormProps } from './components/molecules/Form'
 
 // Organisms
-export {
-  default as OutOfStock,
-  OutOfStockTitle,
-  OutOfStockMessage,
-} from './components/organisms/OutOfStock'
-export type {
-  OutOfStockProps,
-  OutOfStockMessageProps,
-  OutOfStockTitleProps,
-} from './components/organisms/OutOfStock'
-
 export { Tiles, Tile } from './components/organisms/Tiles'
 export type { TilesProps, TileProps } from './components/organisms/Tiles'
 
