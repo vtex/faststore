@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { ImageGallery, ImageZoom } from '@faststore/ui'
 
-const ImageComponent = ({ url, alternateName }) => (
-  <img data-fs-image src={url} alt={alternateName} />
+const ImageComponent = ({ url, alternateName, onLoad }) => (
+  <img data-fs-image onLoad={onLoad} src={url} alt={alternateName} />
 )
 
 export type ImageGalleryUsageProps = {

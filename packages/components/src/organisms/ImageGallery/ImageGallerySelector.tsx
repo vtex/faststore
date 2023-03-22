@@ -34,6 +34,8 @@ export interface ImageGallerySelectorProps {
   ImageComponent: FunctionComponent<{
     url: string
     alternateName?: string
+    onLoad?: any
+    loading?: 'eager' | 'lazy'
   }>
   /**
    * ID to find this component in testing tools (e.g.: cypress,
@@ -109,12 +111,12 @@ function ImageGallerySelector({
       )}
       <div data-fs-image-gallery-selector-elements ref={elementsRef}>
         {images.map((image, idx) => {
-          // const ref =
-          //   idx === 0
-          //     ? firstImageRef
-          //     : idx === images.length - 1
-          //     ? lastImageRef
-          //     : null
+          const ref =
+            idx === 0
+              ? firstImageRef
+              : idx === images.length - 1
+              ? lastImageRef
+              : null
 
           return (
             <Button
@@ -128,6 +130,10 @@ function ImageGallerySelector({
               }
             >
               <ImageComponent
+                onLoad={(img: any) => {
+                  if (ref) ref(img.currentTarget)
+                }}
+                loading={idx === 0 ? 'eager' : 'lazy'}
                 url={image.url ?? ''}
                 alternateName={image.alternateName ?? ''}
               />

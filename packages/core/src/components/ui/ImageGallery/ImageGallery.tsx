@@ -7,14 +7,11 @@ import {
 
 import { Image } from 'src/components/ui/Image'
 
-const ImageComponent = ({ url, alternateName }) => (
+const ImageComponent = ({ url, alternateName, onLoad }) => (
   <Image
-    // onLoadingComplete={(img) => {
-    //   if (ref) ref(img)
-    // }}
+    onLoadingComplete={onLoad as any}
     src={url}
     alt={alternateName}
-    // loading={idx === 0 ? 'eager' : 'lazy'}
     sizes="(max-width: 72px) 25vw, 30vw"
     width={72}
     height={72}
