@@ -21,6 +21,7 @@
   --fs-search-dropdown-position-top-tablet  : calc(var(--fs-control-tap-size) + var(--fs-spacing-2) + var(--fs-border-width));
   --fs-search-dropdown-position-top-desktop : var(--fs-search-input-height-desktop);
 
+  --fs-search-dropdown-section-border-color : var(--fs-border-color-light);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -55,7 +56,7 @@
     [data-fs-search-dropdown-loading-text] { padding: var(--fs-spacing-3); }
 
     section, [data-fs-search-section] {
-      border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
+      border-bottom: var(--fs-search-dropdown-border-width) solid var(--fs-search-dropdown-section-border-color);
 
       &:last-child {
         border-bottom-width: 0;
