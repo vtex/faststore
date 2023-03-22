@@ -3,7 +3,6 @@ import {
   ImageGallery as UIImageGallery,
   ImageElementData,
   ImageZoom,
-  ImageGallerySelector,
 } from '@faststore/ui'
 
 import { Image } from 'src/components/ui/Image'
@@ -27,13 +26,15 @@ export interface ImageGalleryProps {
 }
 
 const ImageGallery = ({ images, ...otherProps }: ImageGalleryProps) => {
-  const [selectedImageIdx, setSelectedImageIdx] = useState(0)
+  const [selectedImageIdx] = useState(0)
   const currentImage = images[selectedImageIdx]
 
-  const hasSelector = images.length > 1
-
   return (
-    <UIImageGallery images={images} {...otherProps}>
+    <UIImageGallery
+      images={images}
+      ImageComponent={ImageComponent}
+      {...otherProps}
+    >
       <ImageZoom>
         <Image
           src={currentImage.url}
@@ -45,14 +46,6 @@ const ImageGallery = ({ images, ...otherProps }: ImageGalleryProps) => {
           priority
         />
       </ImageZoom>
-      {hasSelector && (
-        <ImageGallerySelector
-          images={images}
-          onSelect={setSelectedImageIdx}
-          currentImageIdx={selectedImageIdx}
-          ImageComponent={ImageComponent}
-        />
-      )}
     </UIImageGallery>
   )
 }

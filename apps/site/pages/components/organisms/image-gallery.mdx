@@ -79,13 +79,112 @@ import '@faststore/ui/src/components/molecules/ImageGallery/styles.scss'
 
 ## Usage
 
+export const imagesUsage = [
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000',
+    alternateName: 'Magicwhite',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190923/lena-de-fanti-nQ_j5d-klVU-unsplash.jpg?v=637867501523500000',
+    alternateName: 'magicbox',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190924/anthony-choren-e7dG26YCrZU-unsplash.jpg?v=637867501835430000',
+    alternateName: 'magicblackwhite',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190925/maheshkumar-painam-GZdfLeL-MDk-unsplash.jpg?v=637867502064000000',
+    alternateName: 'magiccombo',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190926/math-0U9fBLGP3EY-unsplash.jpg?v=637867502325830000',
+    alternateName: 'magicback',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190927/marek-levak-YPeqMN_wfw0-unsplash.jpg?v=637867502641430000',
+    alternateName: 'magictable',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190928/mouse8.jpg?v=637867504048970000',
+    alternateName: 'magichand',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190929/harpal-singh-KuvEVL7lXYQ-unsplash.jpg?v=637867509459130000',
+    alternateName: 'magicstyle',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190930/chris-hardy-182PzOtcmWc-unsplash.jpg?v=637867509778300000',
+    alternateName: 'magicscale',
+  },
+]
+
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <ImageGalleryUsage />
+      <ImageGalleryUsage images={imagesUsage} />
     </OverviewSection>
   </Tab>
-  <Tab>```tsx ```</Tab>
+  <Tab>
+    ```tsx
+    const ImageComponent = ({ url, alternateName }) => (
+      <img data-fs-image src={url} alt={alternateName} />
+    )
+
+    export const images = [
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000',
+        alternateName: 'Magicwhite',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190923/lena-de-fanti-nQ_j5d-klVU-unsplash.jpg?v=637867501523500000',
+        alternateName: 'magicbox',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190924/anthony-choren-e7dG26YCrZU-unsplash.jpg?v=637867501835430000',
+        alternateName: 'magicblackwhite',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190925/maheshkumar-painam-GZdfLeL-MDk-unsplash.jpg?v=637867502064000000',
+        alternateName: 'magiccombo',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190926/math-0U9fBLGP3EY-unsplash.jpg?v=637867502325830000',
+        alternateName: 'magicback',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190927/marek-levak-YPeqMN_wfw0-unsplash.jpg?v=637867502641430000',
+        alternateName: 'magictable',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190928/mouse8.jpg?v=637867504048970000',
+        alternateName: 'magichand',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190929/harpal-singh-KuvEVL7lXYQ-unsplash.jpg?v=637867509459130000',
+        alternateName: 'magicstyle',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190930/chris-hardy-182PzOtcmWc-unsplash.jpg?v=637867509778300000',
+        alternateName: 'magicscale',
+      },
+    ]
+
+    const [selectedImageIdx] = useState(0)
+    const currentImage = images[selectedImageIdx]
+
+    <ImageGallery images={images} ImageComponent={ImageComponent}>
+      <ImageZoom>
+        <img
+          data-fs-image
+          src={currentImage.url}
+          alt={currentImage.alternateName}
+        />
+      </ImageZoom>
+    </ImageGallery>
+
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
@@ -238,11 +337,159 @@ import '@faststore/ui/src/components/molecules/ImageGallery/styles.scss'
 
 ### With Selector (More than 1 Image)
 
-`WIP`
+export const imagesSelector = [
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000',
+    alternateName: 'Magicwhite',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190923/lena-de-fanti-nQ_j5d-klVU-unsplash.jpg?v=637867501523500000',
+    alternateName: 'magicbox',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190924/anthony-choren-e7dG26YCrZU-unsplash.jpg?v=637867501835430000',
+    alternateName: 'magicblackwhite',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190925/maheshkumar-painam-GZdfLeL-MDk-unsplash.jpg?v=637867502064000000',
+    alternateName: 'magiccombo',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190926/math-0U9fBLGP3EY-unsplash.jpg?v=637867502325830000',
+    alternateName: 'magicback',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190927/marek-levak-YPeqMN_wfw0-unsplash.jpg?v=637867502641430000',
+    alternateName: 'magictable',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190928/mouse8.jpg?v=637867504048970000',
+    alternateName: 'magichand',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190929/harpal-singh-KuvEVL7lXYQ-unsplash.jpg?v=637867509459130000',
+    alternateName: 'magicstyle',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190930/chris-hardy-182PzOtcmWc-unsplash.jpg?v=637867509778300000',
+    alternateName: 'magicscale',
+  },
+]
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ImageGalleryUsage images={imagesSelector} />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const ImageComponent = ({ url, alternateName }) => (
+      <img data-fs-image src={url} alt={alternateName} />
+    )
+
+    export const images = [
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000',
+        alternateName: 'Magicwhite',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190923/lena-de-fanti-nQ_j5d-klVU-unsplash.jpg?v=637867501523500000',
+        alternateName: 'magicbox',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190924/anthony-choren-e7dG26YCrZU-unsplash.jpg?v=637867501835430000',
+        alternateName: 'magicblackwhite',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190925/maheshkumar-painam-GZdfLeL-MDk-unsplash.jpg?v=637867502064000000',
+        alternateName: 'magiccombo',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190926/math-0U9fBLGP3EY-unsplash.jpg?v=637867502325830000',
+        alternateName: 'magicback',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190927/marek-levak-YPeqMN_wfw0-unsplash.jpg?v=637867502641430000',
+        alternateName: 'magictable',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190928/mouse8.jpg?v=637867504048970000',
+        alternateName: 'magichand',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190929/harpal-singh-KuvEVL7lXYQ-unsplash.jpg?v=637867509459130000',
+        alternateName: 'magicstyle',
+      },
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190930/chris-hardy-182PzOtcmWc-unsplash.jpg?v=637867509778300000',
+        alternateName: 'magicscale',
+      },
+    ]
+
+    const [selectedImageIdx] = useState(0)
+    const currentImage = images[selectedImageIdx]
+
+    <ImageGallery images={images} ImageComponent={ImageComponent}>
+      <ImageZoom>
+        <img
+          data-fs-image
+          src={currentImage.url}
+          alt={currentImage.alternateName}
+        />
+      </ImageZoom>
+    </ImageGallery>
+
+    ```
+
+  </Tab>
+</Tabs>
 
 ### Without Selector
 
-`WIP`
+export const imagesWithoutSelector = [
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000',
+    alternateName: 'Magicwhite',
+  },
+]
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ImageGalleryUsage images={imagesWithoutSelector} />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const ImageComponent = ({ url, alternateName }) => (
+      <img data-fs-image src={url} alt={alternateName} />
+    )
+
+    export const images = [
+      {
+        url: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000',
+        alternateName: 'Magicwhite',
+      }
+    ]
+
+    const [selectedImageIdx] = useState(0)
+    const currentImage = images[selectedImageIdx]
+
+    <ImageGallery images={images} ImageComponent={ImageComponent}>
+      <ImageZoom>
+        <img
+          data-fs-image
+          src={currentImage.url}
+          alt={currentImage.alternateName}
+        />
+      </ImageZoom>
+    </ImageGallery>
+
+    ```
+
+  </Tab>
+</Tabs>
 
 ---
 
