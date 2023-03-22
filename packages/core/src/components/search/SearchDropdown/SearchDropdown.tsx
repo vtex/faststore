@@ -22,7 +22,7 @@ function SearchDropdown({ ...otherProps }) {
     <UISearchDropdown {...otherProps}>
       <SearchHistory />
       <SearchTop />
-      <UISearchAutoComplete data-fs-search-section>
+      <UISearchAutoComplete>
         {terms?.map(({ value: suggestion }) => (
           <UISearchAutoCompleteTerm
             key={suggestion}
@@ -36,7 +36,7 @@ function SearchDropdown({ ...otherProps }) {
           />
         ))}
       </UISearchAutoComplete>
-      <SearchProducts data-fs-search-section>
+      <SearchProducts>
         {products.map((product, index) => {
           const productParsed = product as ProductSummary_ProductFragment
           return (
