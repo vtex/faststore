@@ -17,7 +17,13 @@ export interface ImageGalleryProps extends HTMLAttributes<HTMLDivElement> {
     url: string
     alternateName?: string
   }>
+  /**
+   * The currently active thumbnail.
+   */
   selectedImageIdx: number
+  /**
+   * Event handler for clicks on each thumbnail.
+   */
   setSelectedImageIdx: React.Dispatch<React.SetStateAction<number>>
   /**
    * ID to find this component in testing tools (e.g.: cypress,

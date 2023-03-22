@@ -169,10 +169,15 @@ export const imagesUsage = [
       },
     ]
 
-    const [selectedImageIdx] = useState(0)
+    const [selectedImageIdx, setSelectedImageIdx] = useState(0)
     const currentImage = images[selectedImageIdx]
 
-    <ImageGallery images={images} ImageComponent={ImageComponent}>
+    <ImageGallery
+      images={images}
+      ImageComponent={ImageComponent}
+      selectedImageIdx={selectedImageIdx}
+      setSelectedImageIdx={setSelectedImageIdx}
+    >
       <ImageZoom>
         <img
           data-fs-image
@@ -427,10 +432,15 @@ export const imagesSelector = [
       },
     ]
 
-    const [selectedImageIdx] = useState(0)
+    const [selectedImageIdx, setSelectedImageIdx] = useState(0)
     const currentImage = images[selectedImageIdx]
 
-    <ImageGallery images={images} ImageComponent={ImageComponent}>
+    <ImageGallery
+      images={images}
+      ImageComponent={ImageComponent}
+      selectedImageIdx={selectedImageIdx}
+      setSelectedImageIdx={setSelectedImageIdx}
+    >
       <ImageZoom>
         <img
           data-fs-image
@@ -473,10 +483,15 @@ export const imagesWithoutSelector = [
       }
     ]
 
-    const [selectedImageIdx] = useState(0)
+    const [selectedImageIdx, setSelectedImageIdx] = useState(0)
     const currentImage = images[selectedImageIdx]
 
-    <ImageGallery images={images} ImageComponent={ImageComponent}>
+    <ImageGallery
+      images={images}
+      ImageComponent={ImageComponent}
+      selectedImageIdx={selectedImageIdx}
+      setSelectedImageIdx={setSelectedImageIdx}
+    >
       <ImageZoom>
         <img
           data-fs-image
