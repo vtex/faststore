@@ -95,21 +95,25 @@ function ImageGallerySelector({
       aria-label="Product images"
     >
       {elementHasScroll && !firstImageInView && (
-        <IconButton
-          data-fs-image-gallery-selector-control-button
-          aria-label="backward slide image selector"
-          icon={<ArrowLeft />}
-          onClick={() => moveScroll(elementsRef.current, -SCROLL_MARGIN_VALUE)}
-        />
+        <div data-fs-image-gallery-selector-control>
+          <IconButton
+            data-fs-image-gallery-selector-control-button
+            aria-label="backward slide image selector"
+            icon={<ArrowLeft />}
+            onClick={() =>
+              moveScroll(elementsRef.current, -SCROLL_MARGIN_VALUE)
+            }
+          />
+        </div>
       )}
       <div data-fs-image-gallery-selector-elements ref={elementsRef}>
         {images.map((image, idx) => {
-          const ref =
-            idx === 0
-              ? firstImageRef
-              : idx === images.length - 1
-              ? lastImageRef
-              : null
+          // const ref =
+          //   idx === 0
+          //     ? firstImageRef
+          //     : idx === images.length - 1
+          //     ? lastImageRef
+          //     : null
 
           return (
             <Button
@@ -125,19 +129,22 @@ function ImageGallerySelector({
               <ImageComponent
                 url={image.url ?? ''}
                 alternateName={image.alternateName ?? ''}
-                data-fs-image
               />
             </Button>
           )
         })}
       </div>
       {elementHasScroll && !lastImageInView && (
-        <IconButton
-          data-fs-image-gallery-selector-control-button
-          aria-label="forward slide image selector"
-          icon={<ArrowLeft />}
-          onClick={() => moveScroll(elementsRef.current, +SCROLL_MARGIN_VALUE)}
-        />
+        <div data-fs-image-gallery-selector-control>
+          <IconButton
+            data-fs-image-gallery-selector-control-button
+            aria-label="forward slide image selector"
+            icon={<ArrowLeft />}
+            onClick={() =>
+              moveScroll(elementsRef.current, +SCROLL_MARGIN_VALUE)
+            }
+          />
+        </div>
       )}
     </section>
   )

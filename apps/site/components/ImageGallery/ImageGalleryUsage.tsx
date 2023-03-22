@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ImageGallery, ImageZoom, ImageGallerySelector } from '@faststore/ui'
 
 const ImageComponent = ({ url, alternateName }) => (
-  <img src={url} alt={alternateName} />
+  <img data-fs-image src={url} alt={alternateName} />
 )
 
 export const images = [

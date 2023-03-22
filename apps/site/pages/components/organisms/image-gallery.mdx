@@ -110,6 +110,15 @@ import '@faststore/ui/src/components/molecules/ImageGallery/styles.scss'
     value="calc(100% + (2 * var(--fs-grid-padding)))"
   />
   <TokenDivider />
+  <TokenRow
+    token="--fs-image-gallery-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+  <TokenRow
+    token="--fs-image-gallery-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenDivider />
   <TokenRow token="--fs-image-gallery-gap-mobile" value="var(--fs-spacing-2)" />
   <TokenRow
     token="--fs-image-gallery-gap-notebook"
@@ -118,6 +127,29 @@ import '@faststore/ui/src/components/molecules/ImageGallery/styles.scss'
 </TokenTable>
 
 ### Nested Elements
+
+#### Controls
+
+<TokenTable>
+  <TokenRow
+    token="--fs-image-gallery-selector-control-bkg-color"
+    value="var(--fs-control-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-image-gallery-selector-control-border-radius"
+    value="var(--fs-border-radius-circle)"
+  />
+  <TokenRow
+    token="--fs-image-gallery-selector-control-shadow"
+    value="var(--fs-shadow)"
+  />
+  <TokenRow
+    token="--fs-image-gallery-selector-control-gradient-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+</TokenTable>
 
 #### Current Selected Image
 
@@ -132,7 +164,10 @@ import '@faststore/ui/src/components/molecules/ImageGallery/styles.scss'
 #### Selector
 
 <TokenTable>
-  <TokenRow token="--fs-image-gallery-selector-max-height" value="33.125rem" />
+  <TokenRow
+    token="--fs-image-gallery-selector-max-height"
+    value="var(--fs-image-gallery-current-height)"
+  />
 </TokenTable>
 
 #### Selector Elements
@@ -160,17 +195,40 @@ import '@faststore/ui/src/components/molecules/ImageGallery/styles.scss'
     value="3.5rem"
   />
   <TokenRow
+    token="--fs-image-gallery-selector-thumbnail-height-mobile"
+    value="var(--fs-image-gallery-selector-thumbnail-width-mobile)"
+  />
+  <TokenRow
     token="--fs-image-gallery-selector-thumbnail-width-notebook"
     value="4.5rem"
   />
+  <TokenRow
+    token="--fs-image-gallery-selector-thumbnail-height-notebook"
+    value="var(--fs-image-gallery-selector-thumbnail-width-notebook)"
+  />
+  <TokenDivider />
   <TokenRow
     token="--fs-image-gallery-selector-thumbnail-border-radius"
     value="var(--fs-border-radius)"
   />
   <TokenRow
+    token="--fs-image-gallery-selector-thumbnail-border-width"
+    value="var(--fs-border-width-thick)"
+  />
+  <TokenDivider />
+  <TokenRow
     token="--fs-image-gallery-selector-thumbnail-selected-border-color"
     value="var(--fs-border-color-active)"
     isColor
+  />
+  <TokenRow
+    token="--fs-image-gallery-selector-thumbnail-selected-border-width"
+    value="var(--fs-border-width-thickest)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-image-gallery-selector-thumbnail-image-border-radius"
+    value="var(--fs-border-radius-small)"
   />
 </TokenTable>
 
@@ -197,6 +255,8 @@ For further customization, you can use the following data attributes:
 `data-fs-image-gallery="with-selector" | "without-selector"`
 
 `data-fs-image-gallery-selector`
+
+`data-fs-image-gallery-selector-control`
 
 `data-fs-image-gallery-selector-control-button`
 
