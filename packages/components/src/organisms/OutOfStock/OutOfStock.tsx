@@ -13,13 +13,19 @@ export interface OutOfStockProps extends FormHTMLAttributes<HTMLFormElement> {
    */
   titleSession?: string
   /**
-   * The button text.
+   * The default button label.
    */
   buttonText: string
+  /**
+   * The button label displayed if form is successfully submitted.
+   */
   buttonSuccess: string
+  /**
+   * The email input label.
+   */
   inputLabel: string
   /**
-   * Message describing when the user will be notified.
+   * Additional message displayed next to component's title.
    */
   notificationMsg?: string
   /**
@@ -31,6 +37,9 @@ export interface OutOfStockProps extends FormHTMLAttributes<HTMLFormElement> {
    * testing-library, and jest).
    */
   testId?: string
+  /**
+   * Postal Code number.
+   */
   sessionPostalCode?: string
 }
 
@@ -79,7 +88,7 @@ const OutOfStock = ({
 
   return (
     <section data-fs-out-of-stock data-testid={testId}>
-      <form data-out-of-stock-form {...otherProps}>
+      <form data-fs-out-of-stock-form {...otherProps}>
         <OutOfStockTitle data-fs-out-of-stock-title>
           {(title = sessionPostalCode ? titleSession : title)}
         </OutOfStockTitle>
