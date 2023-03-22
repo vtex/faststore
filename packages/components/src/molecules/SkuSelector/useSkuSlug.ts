@@ -26,26 +26,24 @@ function getSkuSlug(
 export const useSkuSlug = (
   activeVariations: Record<string, string>,
   slugsMap: Record<string, string>,
+  skuPropertyName: string,
   getItemHrefProp?: (option: SkuOption) => string
 ) => {
   const getItemHref = useCallback(
     (option: SkuOption) => {
       if(getItemHrefProp) return { getItemHrefProp }
 
-      const [dominantVariation] = Object.keys(activeVariations)
-      const currentOptionName = dominantVariation ?? option.label.split(':')[0]
-
       const currentItemHref = `/${getSkuSlug(
         slugsMap,
         {
           ...activeVariations,
-          [currentOptionName]: option.value,
+          [skuPropertyName]: option.value,
         },
-        currentOptionName
+        skuPropertyName
       )}/p`
       return currentItemHref
     },
-    [activeVariations, getItemHrefProp, slugsMap]
+    [activeVariations, getItemHrefProp, slugsMap, skuPropertyName]
   )
   return { getItemHref }
 }
