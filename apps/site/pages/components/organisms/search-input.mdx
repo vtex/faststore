@@ -16,32 +16,6 @@ import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { SearchInput, SearchInputField } from '@faststore/ui'
 import SearchDropdownUsage from 'site/components/Search/SearchDropdownUsage'
 import { useState } from 'react'
-import path from 'path'
-import { useSSG } from 'nextra/ssg'
-import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
-
-export const getStaticProps = () => {
-  const searchInputPath = path.resolve(__filename)
-  const components = ['SearchInput.tsx']
-  const [searchInputProps] = getComponentPropsFrom(searchInputPath, components)
-  return {
-    props: {
-      // We add an `ssg` field to the page props,
-      // which will be provided to the Nextra `useSSG` hook.
-      ssg: {
-        searchInputProps,
-      },
-    },
-  }
-}
-
-export const SearchInputPropsSection = ({ component }) => {
-  // Get the data from SSG, and render it as a component.
-  const { searchInputProps } = useSSG()
-  return {
-    SearchInput: <PropsSection propsList={searchInputProps} />,
-  }[component]
-}
 
 <header>
 
@@ -138,7 +112,51 @@ export const SearchInputUsage = () => {
 
 ## Props
 
-<SearchInputPropsSection component="SearchInput" />
+export const propsSearchInput = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-search-input',
+  },
+  {
+    name: 'visibleDropdown',
+    type: 'false | true',
+    description: 'The current status of the Search Dropdown.',
+  },
+  {
+    name: 'term',
+    type: 'string',
+    description: 'Term to be researched.',
+    required: true,
+  },
+  {
+    name: 'isLoading',
+    type: 'false | true',
+    description: 'Enables a loading state.',
+  },
+  {
+    name: 'terms',
+    type: '{ value: string; }[]',
+    description: 'List of Suggestion terms.',
+    required: true,
+  },
+  {
+    name: 'products',
+    type: '{}[]',
+    description: 'List of Suggested products.',
+    required: true,
+  },
+  {
+    name: 'onSearchSelection',
+    type: '(term: string, path: string) => void',
+    description: 'Callback function when a search term is selected.',
+    required: false,
+  },
+]
+
+<PropsSection propsList={propsSearchInput} />
 
 ---
 
