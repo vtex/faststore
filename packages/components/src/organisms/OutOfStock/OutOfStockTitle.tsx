@@ -10,10 +10,13 @@ export type OutOfStockTitleProps = {
    * testing-library, and jest).
    */
   testId?: string
+  /**
+   * A react component to be used as the title.
+   */
   children: ReactNode
 }
 
-export const OutOfStockTitle = ({
+const OutOfStockTitle = ({
   as: TitleComponent = 'h2',
   testId = 'fs-out-of-stock-title',
   children,
@@ -21,7 +24,7 @@ export const OutOfStockTitle = ({
 }: OutOfStockTitleProps) => {
   return (
     <TitleComponent
-      data-out-of-stock-title
+      data-fs-out-of-stock-title
       data-testid={testId}
       {...otherProps}
     >
@@ -29,3 +32,5 @@ export const OutOfStockTitle = ({
     </TitleComponent>
   )
 }
+
+export default OutOfStockTitle
