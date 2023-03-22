@@ -200,7 +200,34 @@ import '@faststore/ui/src/components/molecules/Toast/styles.scss'
 
 ### Toast
 
-<PropsSection name="Toast" />
+export const propsToast = [
+  {
+    name: 'title',
+    type: 'string',
+    description: "Toast's title.",
+  },
+  {
+    name: 'message',
+    type: 'string',
+    description: 'Message shown in Toast.',
+    required: true,
+  },
+  {
+    name: 'status',
+    type: "'ERROR' | 'WARNING' | 'INFO'",
+    description: "Toast's status type.",
+    required: true,
+  },
+  {
+    name: 'icon',
+    type: 'ReactNode',
+    description: "A React component that will be rendered as toast's icon.",
+  },
+]
+
+<p style={{marginBottom: "2rem"}}>Toast's props are in the object passed as an argument by `pushToast(toast: Props)` method.</p>
+
+<PropsSection propsList={propsToast} />
 
 ---
 
