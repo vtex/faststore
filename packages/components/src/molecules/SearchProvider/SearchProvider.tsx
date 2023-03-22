@@ -1,6 +1,6 @@
 import React from 'react'
 import type { PropsWithChildren } from 'react'
-import { createContext, useContext } from 'react'
+import { createContext } from 'react'
 
 export interface SearchProviderContextValue {
     onSearchSelection?: (term: string, path: string) => void,
@@ -17,12 +17,12 @@ export interface SearchProviderContextValue {
      */
     terms: Array<{ value: string }>
     /**
-     * Array with top search terms.
+     * List of Suggested products.
      */
     products: {}[]
 }
 
-const SearchContext = createContext<SearchProviderContextValue | null>(null)
+export const SearchContext = createContext<SearchProviderContextValue | null>(null)
 
 function SearchProvider({
     onSearchSelection,
@@ -37,16 +37,6 @@ function SearchProvider({
             {children}
         </SearchContext.Provider>
     )
-}
-
-export const useSearch = () => {
-    const context = useContext(SearchContext)
-
-    if (!context) {
-        return { inContext: false as const }
-    }
-
-    return { inContext: true as const, values: context }
 }
 
 export default SearchProvider

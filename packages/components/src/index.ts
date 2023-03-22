@@ -117,7 +117,7 @@ export type { RadioGroupProps, RadioOptionProps } from './molecules/RadioGroup'
 export { default as Rating } from './molecules/Rating'
 export type { RatingProps } from './molecules/Rating'
 
-export { default as SearchProvider, useSearch } from './molecules/SearchProvider'
+export { default as SearchProvider } from './molecules/SearchProvider'
 export type {
   SearchProviderContextValue,
 } from './molecules/SearchProvider'

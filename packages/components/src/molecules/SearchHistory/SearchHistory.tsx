@@ -1,6 +1,5 @@
 import React, { HTMLAttributes } from 'react'
-import { List, Button } from '../..'
-import { useSearch } from '../SearchProvider'
+import { List, Button, useSearch } from '../..'
 
 export interface SearchHistoryProps extends HTMLAttributes<HTMLDivElement> {
   /**

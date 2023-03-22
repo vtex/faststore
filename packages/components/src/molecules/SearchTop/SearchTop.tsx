@@ -2,8 +2,7 @@ import React from 'react'
 import { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
 
-import { List } from '../../'
-import { useSearch } from '../SearchProvider'
+import { List, useSearch } from '../../'
 
 export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
   /**

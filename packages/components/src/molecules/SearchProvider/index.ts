@@ -1,2 +1,2 @@
-export { default, useSearch } from './SearchProvider'
+export { default } from './SearchProvider'
 export type { SearchProviderContextValue } from './SearchProvider'

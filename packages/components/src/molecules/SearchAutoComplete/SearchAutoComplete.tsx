@@ -1,6 +1,5 @@
 import React, { HTMLAttributes } from 'react'
-import { List } from '../..'
-import { useSearch } from '../SearchProvider'
+import { List, useSearch } from '../..'
 
 export interface SearchAutoCompleteProps
   extends HTMLAttributes<HTMLDivElement> {

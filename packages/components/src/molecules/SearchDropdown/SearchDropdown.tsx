@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode, PropsWithChildren } from 'react'
 import React, { forwardRef } from 'react'
-import { useSearch } from '../SearchProvider'
+import { useSearch } from '../../hooks'
 
 export interface SearchDropdownProps extends HTMLAttributes<HTMLDivElement> {
   /**
