@@ -18,7 +18,7 @@ import { product } from 'site/mocks/product'
 
 export interface SearchDropdownUsageProps {
   term: string
-  products?: []
+  products?: [] | null
 }
 
 const SearchHistoryUsage = () => {

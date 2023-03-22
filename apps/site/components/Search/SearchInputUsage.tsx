@@ -6,12 +6,15 @@ import { product } from 'site/mocks/product'
 const SearchInputUsage = () => {
   const [searchDropdownVisible, setSearchDropdownVisible] = useState(false)
   const [term, setTerm] = useState('')
+  const [products, setProducts] = useState(null)
   function onChangeValue(e) {
     setSearchDropdownVisible(true)
     if (e.target.value == '') {
       setTerm('')
+      setProducts(null)
     } else {
       setTerm('App')
+      setProducts(product)
     }
   }
   function onClickButton() {
@@ -57,7 +60,9 @@ const SearchInputUsage = () => {
             onClick: onClickButton,
           }}
         />
-        {searchDropdownVisible && <SearchDropdownUsage term={term} />}
+        {searchDropdownVisible && (
+          <SearchDropdownUsage term={term} products={products} />
+        )}
       </SearchInput>
     </SearchProvider>
   )
