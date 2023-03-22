@@ -100,6 +100,7 @@ function ImageGallerySelector({
             data-fs-image-gallery-selector-control-button
             aria-label="backward slide image selector"
             icon={<ArrowLeft />}
+            size="small"
             onClick={() =>
               moveScroll(elementsRef.current, -SCROLL_MARGIN_VALUE)
             }
@@ -140,6 +141,7 @@ function ImageGallerySelector({
             data-fs-image-gallery-selector-control-button
             aria-label="forward slide image selector"
             icon={<ArrowLeft />}
+            size="small"
             onClick={() =>
               moveScroll(elementsRef.current, +SCROLL_MARGIN_VALUE)
             }

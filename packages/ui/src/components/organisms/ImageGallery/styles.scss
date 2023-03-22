@@ -13,7 +13,7 @@
   // Controls
   --fs-image-gallery-selector-control-bkg-color                 : var(--fs-control-bkg);
   --fs-image-gallery-selector-control-border-radius             : var(--fs-border-radius-circle);
-  --fs-image-gallery-selector-control-shadow                    : var(--fs-shadow);
+  --fs-image-gallery-selector-control-shadow                    : var(--fs-shadow-darker);
   --fs-image-gallery-selector-control-gradient-bkg-color        : var(--fs-color-body-bkg);
 
   // Current Selected Image
@@ -26,7 +26,7 @@
   // Image Gallery Selector Elements
   --fs-image-gallery-selector-elements-gap                      : var(--fs-spacing-1);
   --fs-image-gallery-selector-elements-gap-notebook             : var(--fs-spacing-2);
-  --fs-image-gallery-selector-elements-padding                  : var(--fs-spacing-0);
+  --fs-image-gallery-selector-elements-padding                  : var(--fs-spacing-0) var(--fs-spacing-2);
 
   // Image Gallery Selector Thumbnail
   --fs-image-gallery-selector-thumbnail-width-mobile            : var(--fs-spacing-8);
@@ -76,6 +76,8 @@
     align-items: center;
     justify-content: center;
     max-height: var(--fs-image-gallery-selector-max-height);
+
+    @include media("<notebook") { overflow: hidden; }
 
     @include media(">=notebook") {
       flex-direction: column;
@@ -157,6 +159,9 @@
 
     @include media("<notebook") {
       height: 100%;
+      padding-left: var(--fs-grid-padding);
+
+      &::after { left: calc(-1 * var(--fs-grid-padding)); }
 
       &:first-child { left: 0; }
 
@@ -169,6 +174,8 @@
     @include media(">=notebook") {
       justify-content: center;
       width: 100%;
+
+      &::after { top: calc(-1 * var(--fs-spacing-3)); }
 
       &:last-child {
         bottom: 0;
