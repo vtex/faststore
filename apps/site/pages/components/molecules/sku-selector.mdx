@@ -8,6 +8,8 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/ProductCardComponent___e6502d57cf7e5bf247f86b64577d4141.png
 ---
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
@@ -17,8 +19,36 @@ import {
   SkuSelectorLabel,
   SkuSelectorColor,
 } from 'site/components/SkuSelector'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 import { product } from '../../../mocks/product'
+
+export const getStaticProps = () => {
+  const skuSelectorPath = path.resolve(__filename)
+  const components = [
+    'SkuSelector.tsx',
+  ]
+  const [skuSelectorProps] =
+    getComponentPropsFrom(skuSelectorPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        skuSelectorProps
+      },
+    },
+  }
+}
+
+export const SkuSelectorPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { skuSelectorProps } = useSSG()
+  console.log(component, skuSelectorProps)
+  return {
+    SkuSelector: <PropsSection propsList={skuSelectorProps} />,
+  }[component]
+}
 
 <header>
 
@@ -118,7 +148,7 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
 
 ## Props
 
-<PropsSection name="SkuSelector" />
+<SkuSelectorPropsSection component="SkuSelector" />
 
 ---
 
