@@ -166,6 +166,7 @@ export type {
 } from './molecules/Table'
 export { default as Tag } from './molecules/Tag'
 export type { TagProps } from './molecules/Tag'
+export { default as Toast } from './molecules/Toast'
 export { default as Toggle } from './molecules/Toggle'
 export type { ToggleProps } from './molecules/Toggle'
 export { default as ToggleField } from './molecules/ToggleField'

@@ -1,9 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import Icon from 'src/components/ui/Icon'
-import { useUI } from '@faststore/ui'
-
-import styles from './toast.module.scss'
+import { Icon } from '../..'
+import { useUI } from '../../hooks'
 
 function Toast() {
   const { toasts, popToast } = useUI()
@@ -35,14 +33,13 @@ function Toast() {
   return (
     <div
       role="status"
-      className={styles.fsToast}
       data-fs-toast
       data-fs-toast-visible={visible}
       onTransitionEnd={() => !visible && popToast()}
     >
       {toast.icon && (
         <div data-fs-toast-icon-container>
-          <Icon name={toast.icon} width={30} height={30} />
+          <Icon component={toast.icon} />
         </div>
       )}
       <div data-fs-toast-content>
