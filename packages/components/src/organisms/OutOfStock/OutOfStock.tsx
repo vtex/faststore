@@ -78,7 +78,7 @@ const OutOfStock = ({
     try {
       onSubmit(email)
       setBtnText(buttonSuccess)
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message)
     } finally {
       // Return to original state after 2s
