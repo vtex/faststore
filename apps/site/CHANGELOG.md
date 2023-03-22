@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.86-alpha.0](https://github.com/vtex/faststore/compare/v2.0.85-alpha.0...v2.0.86-alpha.0) (2023-03-22)
+
+### Features
+
+- List toast's component props fs-632 ([#1683](https://github.com/vtex/faststore/issues/1683)) ([c1dfa6a](https://github.com/vtex/faststore/commit/c1dfa6a42f4b1620a2dade9a0bf9b5b6b55b907a))
+
 ## [2.0.85-alpha.0](https://github.com/vtex/faststore/compare/v2.0.84-alpha.0...v2.0.85-alpha.0) (2023-03-22)
 
 ### Features
