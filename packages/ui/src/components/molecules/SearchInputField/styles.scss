@@ -23,7 +23,6 @@
   // Icon
   --fs-search-input-field-icon-width              : var(--fs-spacing-4);
   --fs-search-input-field-icon-height             : var(--fs-search-input-field-icon-width);
-  --fs-search-input-field-icon-color              : var(--fs-color-neutral-7);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -64,6 +63,5 @@
   [data-fs-button] svg {
     width: var(--fs-search-input-field-icon-width);
     height: var(--fs-search-input-field-icon-height);
-    color: var(--fs-search-input-field-icon-color);
   }
 }

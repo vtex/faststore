@@ -6,7 +6,7 @@ import type {
 } from 'react'
 import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 
-import { Icon, Button, Input, MagnifyingGlass } from '../..'
+import { IconButton, Input, MagnifyingGlass } from '../..'
 
 type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit'>
 
@@ -87,9 +87,12 @@ const SearchInputField = forwardRef<
         data-fs-search-input-field-input
         {...otherProps}
       />
-      <Button type="submit" aria-label="Submit Search" {...buttonProps}>
-        <Icon component={buttonIcon ?? <MagnifyingGlass />} />
-      </Button>
+      <IconButton
+        type="submit"
+        aria-label="Submit Search"
+        icon={buttonIcon ?? <MagnifyingGlass />}
+        {...buttonProps}
+      />
     </form>
   )
 })
