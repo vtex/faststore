@@ -45,6 +45,8 @@
   padding: var(--fs-spacing-4) var(--fs-spacing-3);
   background-color: var(--fs-color-neutral-bkg);
   border-radius: 4px;
+  overflow-y: auto;
+  max-height: 20rem;
 }
 
 .sectionItem > article [data-fs-button] {
