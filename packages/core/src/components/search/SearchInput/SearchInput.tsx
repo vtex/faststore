@@ -14,6 +14,7 @@ import type { SearchEvent } from '@faststore/sdk'
 import {
   SearchInputField as UISearchInputField,
   SearchInput as UISearchInput,
+  SearchProviderContextValue,
 } from '@faststore/ui'
 import type {
   SearchInputFieldProps as UISearchInputFieldProps,
@@ -21,12 +22,9 @@ import type {
 } from '@faststore/ui'
 
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
-import {
-  formatSearchPath,
-  SearchInputProvider,
-} from 'src/sdk/search/useSearchInput'
-import type { SearchInputContextValue } from 'src/sdk/search/useSearchInput'
+import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
+import useSuggestions from 'src/sdk/search/useSuggestions'
 
 const SearchDropdown = lazy(
   () => import('src/components/search/SearchDropdown')
@@ -72,44 +70,54 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       resetSearchInput: () => setSearchQuery(''),
     }))
 
-    const onSearchInputSelection: SearchInputContextValue['onSearchInputSelection'] =
-      (term, path) => {
-        addToSearchHistory({ term, path })
-        sendAnalytics(term)
-        setSearchDropdownVisible(false)
-        setSearchQuery(term)
-      }
+    const onSearchSelection: SearchProviderContextValue['onSearchSelection'] = (
+      term,
+      path
+    ) => {
+      addToSearchHistory({ term, path })
+      sendAnalytics(term)
+      setSearchDropdownVisible(false)
+      setSearchQuery(term)
+    }
 
     useOnClickOutside(searchRef, () => setSearchDropdownVisible(false))
 
+    const { terms, products, isLoading } = useSuggestions(searchQueryDeferred)
+
     return (
-      <UISearchInput ref={searchRef} visibleDropdown={searchDropdownVisible}>
-        <SearchInputProvider onSearchInputSelection={onSearchInputSelection}>
-          <UISearchInputField
-            ref={ref}
-            buttonProps={{
-              onClick: onSearchClick,
-              testId: buttonTestId,
-            }}
-            placeholder="Search everything at the store"
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onSubmit={(term) => {
-              const path = formatSearchPath(term)
+      <UISearchInput
+        ref={searchRef}
+        visibleDropdown={searchDropdownVisible}
+        onSearchSelection={onSearchSelection}
+        term={searchQueryDeferred}
+        terms={terms}
+        products={products}
+        isLoading={isLoading}
+      >
+        <UISearchInputField
+          ref={ref}
+          buttonProps={{
+            onClick: onSearchClick,
+            testId: buttonTestId,
+          }}
+          placeholder="Search everything at the store"
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onSubmit={(term) => {
+            const path = formatSearchPath(term)
 
-              onSearchInputSelection(term, path)
-              router.push(path)
-            }}
-            onFocus={() => setSearchDropdownVisible(true)}
-            value={searchQuery}
-            {...otherProps}
-          />
+            onSearchSelection(term, path)
+            router.push(path)
+          }}
+          onFocus={() => setSearchDropdownVisible(true)}
+          value={searchQuery}
+          {...otherProps}
+        />
 
-          {searchDropdownVisible && (
-            <Suspense fallback={null}>
-              <SearchDropdown term={searchQueryDeferred} />
-            </Suspense>
-          )}
-        </SearchInputProvider>
+        {searchDropdownVisible && (
+          <Suspense fallback={null}>
+            <SearchDropdown />
+          </Suspense>
+        )}
       </UISearchInput>
     )
   }

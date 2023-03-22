@@ -2,12 +2,12 @@ import {
   SearchProductItem as UISearchProductItem,
   SearchProductItemContent as UISearchProductItemContent,
   SearchProductItemImage as UISearchProductItemImage,
+  useSearch,
 } from '@faststore/ui'
 
 import { Image } from 'src/components/ui/Image'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
-import useSearchInput from 'src/sdk/search/useSearchInput'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
 type SearchProductItemProps = {
@@ -26,7 +26,9 @@ function SearchProductItem({
   index,
   ...otherProps
 }: SearchProductItemProps) {
-  const { onSearchInputSelection } = useSearchInput()
+  const {
+    values: { onSearchSelection },
+  } = useSearch()
 
   const { href, onClick, ...baseLinkProps } = useProductLink({
     product,
@@ -47,7 +49,7 @@ function SearchProductItem({
     href,
     onClick: () => {
       onClick()
-      onSearchInputSelection?.(name, href)
+      onSearchSelection?.(name, href)
     },
     ...baseLinkProps,
   }

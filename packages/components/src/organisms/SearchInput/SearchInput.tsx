@@ -1,7 +1,9 @@
 import React, { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
+import SearchProvider, { SearchProviderContextValue } from '../../molecules/SearchProvider'
 
-export interface SearchInputProps extends HTMLAttributes<HTMLDivElement> {
+
+export type SearchInputProps = {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -11,7 +13,7 @@ export interface SearchInputProps extends HTMLAttributes<HTMLDivElement> {
    * The current status of the Search Dropdown.
    */
   visibleDropdown: boolean
-}
+} & HTMLAttributes<HTMLDivElement> & SearchProviderContextValue
 
 const SearchInput = forwardRef<HTMLDivElement, SearchInputProps>(
   function SearchInput(
@@ -19,6 +21,11 @@ const SearchInput = forwardRef<HTMLDivElement, SearchInputProps>(
       children,
       visibleDropdown = false,
       testId = 'fs-search-input',
+      isLoading,
+      products,
+      term,
+      terms,
+      onSearchSelection,
       ...otherProps
     },
     ref
@@ -31,7 +38,15 @@ const SearchInput = forwardRef<HTMLDivElement, SearchInputProps>(
         data-testid={testId}
         {...otherProps}
       >
-        {children}
+        <SearchProvider 
+          onSearchSelection={onSearchSelection} 
+          isLoading={isLoading} 
+          term={term} 
+          products={products} 
+          terms={terms}
+        >
+          {children}
+        </SearchProvider>
       </div>
     )
   }
