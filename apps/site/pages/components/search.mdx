@@ -1,4 +1,22 @@
 import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { SearchAutoComplete, SearchAutoCompleteTerm } from '@faststore/ui'
+import { SearchHistory, SearchHistoryTerm } from '@faststore/ui'
+import { SearchTop, SearchTopTerm } from '@faststore/ui'
+import {
+  SearchProducts,
+  SearchProductItem,
+  SearchProductItemImage,
+  SearchProductItemContent,
+} from '@faststore/ui'
+import { SearchInputField } from '@faststore/ui'
+
+import SearchDropdownUsage from 'site/components/Search/SearchDropdownUsage'
+
+import SearchInputUsage from 'site/components/Search/SearchInputUsage'
+
+import { product } from 'site/mocks/product'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
 <header>
 
@@ -31,10 +49,124 @@ You can add this component whenever it's needed. It's suggested to add it on Nav
 
 ## Components
 
-- Search Auto Complete
-- Search History
-- Search Products
-- Search Top
-- Search Dropdown
-- Search Input Field
-- Search Input
+export const searchContent = 'Appl'
+
+export const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
+
+<SectionList grid="column">
+  <SectionItem
+    title="Search History"
+    description="Responsible for showing the latest terms searched by a user."
+    actionPath="/components/molecules/search-history"
+  >
+    <SearchHistory title="History">
+      <SearchHistoryTerm value="Headphone" linkProps={{ href: '/' }} />
+      <SearchHistoryTerm value="Audio & Video" linkProps={{ href: '/' }} />
+      <SearchHistoryTerm value="mh-7000" linkProps={{ href: '/' }} />
+    </SearchHistory>
+  </SectionItem>
+  <SectionItem
+    title="Search Top"
+    description="This section displays the most searched terms by customers."
+    actionPath="/components/molecules/search-top"
+  >
+    <SearchTop title="Top Search">
+      <SearchTopTerm value="Notebooks" linkProps={{ href: '/' }} index={0} />
+      <SearchTopTerm
+        value="Laser Printer"
+        linkProps={{ href: '/' }}
+        index={1}
+      />
+      <SearchTopTerm
+        value="Bluetooth Keyboard"
+        linkProps={{ href: '/' }}
+        index={2}
+      />
+    </SearchTop>
+  </SectionItem>
+  <SectionItem
+    title="Search Auto Complete"
+    description="List of auto completing suggestions based on searched term."
+    actionPath="/components/molecules/search-auto-complete"
+  >
+    <SearchAutoComplete>
+      {suggestions?.map((suggestion) => (
+        <SearchAutoCompleteTerm
+          key={suggestion.value}
+          term={searchContent}
+          suggestion={suggestion.value}
+          linkProps={{ href: '/' }}
+        />
+      ))}
+    </SearchAutoComplete>
+  </SectionItem>
+  <SectionItem
+    title="Search Products"
+    description="List of SearchProductItem to show details of the suggested products."
+    actionPath="/components/molecules/search-products"
+  >
+    <SearchProducts>
+      <SearchProductItem linkProps={{ href: '/' }}>
+        <SearchProductItemImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </SearchProductItemImage>
+        <SearchProductItemContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+        />
+      </SearchProductItem>
+      <SearchProductItem linkProps={{ href: '/' }}>
+        <SearchProductItemImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </SearchProductItemImage>
+        <SearchProductItemContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+        />
+      </SearchProductItem>
+    </SearchProducts>
+  </SectionItem>
+  <SectionItem
+    title="Search Dropdown"
+    description="Combine SearchHistory, SearchTop and SearchAutoComplete and SearchProducts to show all options in SearchInput."
+    actionPath="/components/molecules/search-dropdown"
+    containerStyle={{
+      alignItems: 'start',
+    }}
+  >
+    <SearchDropdownUsage />
+  </SectionItem>
+  <SectionItem
+    title="Search Input Field"
+    description="An InputField with a search button."
+    actionPath="/components/molecules/search-input-field"
+  >
+    <SearchInputField onSubmit={() => {}} />
+  </SectionItem>
+  <SectionItem
+    title="Search Input"
+    description="The SearchInput is responsible to receive, search and display suggestions."
+    actionPath="/components/organisms/search-input"
+    containerStyle={{
+      alignItems: 'start',
+    }}
+  >
+    <SearchInputUsage />
+  </SectionItem>
+</SectionList>
