@@ -108,7 +108,7 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
 
     const variant = useDefineVariant(options, variantProp)
 
-    const { getItemHref } = useSkuSlug(activeVariations, slugsMap, getItemHrefProp)
+    const { getItemHref } = useSkuSlug(activeVariations, slugsMap, skuPropertyName, getItemHrefProp)
 
     return (
       <div
