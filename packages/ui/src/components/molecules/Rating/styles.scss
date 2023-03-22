@@ -42,8 +42,8 @@
     overflow: hidden;
   }
 
-  [data-fs-rating-icon-outline] {
-    svg { fill: none; }
+  svg[data-fs-rating-icon-outline] { 
+    fill: none; 
   }
 
   [data-fs-rating-item] { position: relative; }
@@ -52,7 +52,7 @@
   // Variants Styles
   // --------------------------------------------------------
 
-  [data-fs-rating-item="empty"] [data-fs-icon] svg {
+  [data-fs-rating-item="empty"] svg[data-fs-icon] {
     fill: none;
   }
 

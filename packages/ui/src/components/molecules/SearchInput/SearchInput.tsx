@@ -2,29 +2,12 @@ import type {
   AriaAttributes,
   FormEvent,
   InputHTMLAttributes,
-  ReactNode,
+  ReactNode
 } from 'react'
 import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 
-import { Icon, Button, Input } from '@faststore/components'
+import { Button, Icon, Input } from '@faststore/components'
 import Form from '../Form'
-
-const SearchIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="11" cy="11" r="8" />
-    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-  </svg>
-)
 
 type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit'>
 
@@ -90,7 +73,7 @@ const SearchInput = forwardRef<SearchInputRef | null, SearchInputProps>(
       >
         <Input ref={inputRef} aria-label={ariaLabel} {...otherProps} />
         <Button type="submit" aria-label="Submit Search">
-          <Icon component={icon ?? <SearchIcon />} />
+          {React.isValidElement(icon) ? icon : <Icon name="MagnifyingGlass" />}
         </Button>
       </Form>
     )
