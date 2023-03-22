@@ -1,13 +1,12 @@
-import { lazy, Suspense } from 'react'
 import type { PropsWithChildren } from 'react'
+import { lazy, Suspense } from 'react'
 
+import { Icon, useUI } from '@faststore/ui'
 import Alert from 'src/components/common/Alert'
 import Footer from 'src/components/common/Footer'
 import Navbar from 'src/components/common/Navbar'
 import Toast from 'src/components/common/Toast'
 import RegionalizationBar from 'src/components/regionalization/RegionalizationBar'
-import Icon from 'src/components/ui/Icon'
-import { useUI } from '@faststore/ui'
 
 const CartSidebar = lazy(() => import('src/components/cart/CartSidebar'))
 const RegionModal = lazy(

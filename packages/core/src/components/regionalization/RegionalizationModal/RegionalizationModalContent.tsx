@@ -1,10 +1,10 @@
 import {
+  Icon,
   ModalBody as UIModalBody,
   ModalHeader as UIModalHeader,
 } from '@faststore/ui'
 
 import RegionalizationInput from 'src/components/regionalization/RegionalizationInput'
-import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 
 import styles from './regionalization-modal-body.module.scss'

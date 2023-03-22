@@ -1,33 +1,32 @@
-import {
-  forwardRef,
-  lazy,
-  Suspense,
-  useRef,
-  useState,
-  useDeferredValue,
-  useImperativeHandle,
-} from 'react'
-import type { CSSProperties } from 'react'
-import { useRouter } from 'next/router'
-import { sendAnalyticsEvent } from '@faststore/sdk'
 import type { SearchEvent } from '@faststore/sdk'
-import { SearchInput as UISearchInput } from '@faststore/ui'
+import { sendAnalyticsEvent } from '@faststore/sdk'
 import type {
   SearchInputProps as UISearchInputProps,
   SearchInputRef as UISearchInputRef,
 } from '@faststore/ui'
+import { Icon, SearchInput as UISearchInput } from '@faststore/ui'
+import { useRouter } from 'next/router'
+import type { CSSProperties } from 'react'
+import {
+  forwardRef,
+  lazy,
+  Suspense,
+  useDeferredValue,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react'
 
-import Icon from 'src/components/ui/Icon'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
+import type { SearchInputContextValue } from 'src/sdk/search/useSearchInput'
 import {
   formatSearchPath,
   SearchInputProvider,
 } from 'src/sdk/search/useSearchInput'
-import type { SearchInputContextValue } from 'src/sdk/search/useSearchInput'
 import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
 
-import inputStyles from './search-input.module.scss'
 import styles from '../search.module.scss'
+import inputStyles from './search-input.module.scss'
 
 const SearchDropdown = lazy(
   () => import('src/components/search/SearchDropdown')

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import Icon from 'src/components/ui/Icon'
-import { useUI } from '@faststore/ui'
+import { Icon, useUI } from '@faststore/ui'
 
 import styles from './toast.module.scss'
 

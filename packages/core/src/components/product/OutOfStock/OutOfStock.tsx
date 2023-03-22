@@ -1,14 +1,14 @@
 import {
-  OutOfStock as UIOutOfStock,
-  OutOfStockTitle as UIOutOfStockTitle,
-  OutOfStockMessage as UIOutOfStockMessage,
   Button as UIButton,
+  Icon,
   InputField as UIInputField,
+  OutOfStock as UIOutOfStock,
+  OutOfStockMessage as UIOutOfStockMessage,
+  OutOfStockTitle as UIOutOfStockTitle,
 } from '@faststore/ui'
+import type { FormEvent, ReactElement } from 'react'
 import { useState } from 'react'
-import type { ReactElement, FormEvent } from 'react'
 
-import Icon from 'src/components/ui/Icon'
 import styles from 'src/components/product/OutOfStock/out-of-stock.module.scss'
 import { useSession } from 'src/sdk/session'
 

@@ -1,9 +1,7 @@
+import { Button as UIButton, Icon, useUI } from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
-import { Button as UIButton } from '@faststore/ui'
 
-import Icon from 'src/components/ui/Icon'
 import { useSession } from 'src/sdk/session'
-import { useUI } from '@faststore/ui'
 
 import styles from './regionalization-bar.module.scss'
 

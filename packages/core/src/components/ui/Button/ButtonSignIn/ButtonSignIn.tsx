@@ -1,7 +1,6 @@
-import { LinkButton } from '@faststore/ui'
+import { Icon, LinkButton } from '@faststore/ui'
 
 import styles from 'src/components/ui/Button/button.module.scss'
-import Icon from 'src/components/ui/Icon'
 import { useSession } from 'src/sdk/session'
 
 const ButtonSignIn = () => {

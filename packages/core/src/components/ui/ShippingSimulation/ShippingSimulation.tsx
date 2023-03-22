@@ -1,17 +1,17 @@
 import type { IShippingItem } from '@faststore/api'
 import {
+  Icon,
+  InputField as UIInputField,
+  Price as UIPrice,
   Table,
   TableBody,
   TableCell,
   TableRow,
-  InputField as UIInputField,
-  Price as UIPrice,
 } from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
 
 import { usePriceFormatter } from 'src/sdk/product/useFormattedPrice'
 
-import Icon from '../Icon'
 import Link from '../Link'
 import styles from './shipping-simulation.module.scss'
 import { useShippingSimulation } from './useShippingSimulation'

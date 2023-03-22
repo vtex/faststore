@@ -1,5 +1,5 @@
+import type { PropsWithChildren, ReactNode } from 'react'
 import { useCallback, useState } from 'react'
-import type { ReactNode, PropsWithChildren } from 'react'
 
 import { Alert as UIAlert, AlertProps } from '@faststore/ui'
 import { mark } from 'src/sdk/tests/mark'
@@ -33,5 +33,4 @@ function Alert(args: PropsWithChildren<Props>) {
 }
 
 Alert.displayName = 'Alert'
-
 export default mark(Alert)

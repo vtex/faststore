@@ -1,13 +1,12 @@
-import type { ComponentPropsWithRef, FormEvent, ReactNode } from 'react'
-import { forwardRef, useRef } from 'react'
 import {
-  Form,
   Button as UIButton,
+  Form,
   InputField as UIInputField,
 } from '@faststore/ui'
+import type { ComponentPropsWithRef, FormEvent, ReactNode } from 'react'
+import { forwardRef, useRef } from 'react'
 
-import { useUI } from '@faststore/ui'
-import Icon from 'src/components/ui/Icon'
+import { Icon, useUI } from '@faststore/ui'
 import Link from 'src/components/ui/Link'
 import { useNewsletter } from 'src/sdk/newsletter/useNewsletter'
 
