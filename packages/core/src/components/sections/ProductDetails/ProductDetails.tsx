@@ -30,6 +30,73 @@ interface Props {
   context: ProductDetailsFragment_ProductFragment
 }
 
+const product = {
+  name: 'Classic Shoes',
+  isVariantOf: {
+    name: 'Classic Shoes',
+    productGroupID: '99995945',
+    skuVariants: {
+      activeVariations: {
+        Color: 'Pink',
+        Size: '42',
+        Image: '2',
+      },
+      slugsMap: {
+        'Color-Pink-Size-42-Image-1': 'color-pink-size-42-image-1',
+        'Color-White-Size-42-Image-1': 'color-white-size-42-image-1',
+        'Color-Pink-Size-41-Image-1': 'color-pink-size-41-image-1',
+        'Color-White-Size-41-Image-1': 'color-white-size-41-image-1',
+        'Color-Pink-Size-42-Image-2': 'color-pink-size-42-image-2',
+        'Color-White-Size-42-Image-2': 'color-white-size-42-image-2',
+        'Color-Pink-Size-41-Image-2': 'color-pink-size-41-image-2',
+        'Color-White-Size-41-Image-2': 'color-white-size-41-image-2',
+      },
+      availableVariations: {
+        Color: [
+          {
+            hexColor: '#e691f4',
+            label: 'Color: Pink',
+            value: 'Pink',
+            alt: 'Color Pink',
+          },
+          {
+            hexColor: '#f6f6f6',
+            label: 'Color: White',
+            value: 'White',
+            alt: 'Color White',
+          },
+        ],
+        Size: [
+          {
+            label: 'Size: 41',
+            value: '41',
+            alt: 'Size 41',
+          },
+          {
+            label: 'Size: 42',
+            value: '42',
+            alt: 'Size 42',
+          },
+        ],
+        Image: [
+          {
+            label: 'Image: Image 1',
+            value: '1',
+            alt: 'Image 1',
+            src: 'https://storeframework.vtexassets.com/arquivos/ids/190932/mouse-black.jpg?v=1765135643',
+          },
+          {
+            label: 'Image: Image 2',
+            value: '2',
+            alt: 'Image 2',
+            src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1765135643',
+          },
+        ],
+      },
+    },
+  },
+}
+
 function ProductDetails({ context: staleProduct }: Props) {
   const { currency } = useSession()
   const [addQuantity, setAddQuantity] = useState(1)
@@ -43,7 +110,7 @@ function ProductDetails({ context: staleProduct }: Props) {
     throw new Error('NotFound')
   }
 
-  const {
+  let {
     product: {
       id,
       sku,
@@ -61,6 +128,12 @@ function ProductDetails({ context: staleProduct }: Props) {
       additionalProperty,
     },
   } = data
+
+  isVariantOf = {
+    name,
+    productGroupID: productId,
+    skuVariants: product.isVariantOf.skuVariants,
+  }
 
   const buyDisabled = availability !== 'https://schema.org/InStock'
 
