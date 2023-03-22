@@ -26,13 +26,15 @@ export interface ImageGalleryProps {
 }
 
 const ImageGallery = ({ images, ...otherProps }: ImageGalleryProps) => {
-  const [selectedImageIdx] = useState(0)
+  const [selectedImageIdx, setSelectedImageIdx] = useState(0)
   const currentImage = images[selectedImageIdx]
 
   return (
     <UIImageGallery
       images={images}
       ImageComponent={ImageComponent}
+      selectedImageIdx={selectedImageIdx}
+      setSelectedImageIdx={setSelectedImageIdx}
       {...otherProps}
     >
       <ImageZoom>

@@ -10,11 +10,16 @@ export type ImageGalleryUsageProps = {
 }
 
 const ImageGalleryUsage = ({ images }: ImageGalleryUsageProps) => {
-  const [selectedImageIdx] = useState(0)
+  const [selectedImageIdx, setSelectedImageIdx] = useState(0)
   const currentImage = images[selectedImageIdx]
 
   return (
-    <ImageGallery images={images} ImageComponent={ImageComponent}>
+    <ImageGallery
+      images={images}
+      ImageComponent={ImageComponent}
+      selectedImageIdx={selectedImageIdx}
+      setSelectedImageIdx={setSelectedImageIdx}
+    >
       <ImageZoom>
         <img
           data-fs-image

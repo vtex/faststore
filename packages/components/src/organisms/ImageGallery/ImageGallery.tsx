@@ -1,5 +1,5 @@
 import type { HTMLAttributes, FunctionComponent } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 
 import type { ImageElementData } from './'
 
@@ -17,6 +17,8 @@ export interface ImageGalleryProps extends HTMLAttributes<HTMLDivElement> {
     url: string
     alternateName?: string
   }>
+  selectedImageIdx: number
+  setSelectedImageIdx: React.Dispatch<React.SetStateAction<number>>
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -28,10 +30,11 @@ function ImageGallery({
   images,
   children,
   ImageComponent,
+  selectedImageIdx,
+  setSelectedImageIdx,
   testId = 'fs-image-gallery',
   ...otherProps
 }: ImageGalleryProps) {
-  const [selectedImageIdx, setSelectedImageIdx] = useState(0)
   const hasSelector = images.length > 1
 
   return (
