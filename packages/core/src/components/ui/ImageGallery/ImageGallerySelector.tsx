@@ -1,5 +1,5 @@
-import { useRef } from 'react'
 import { Button as UIButton, IconButton as UIIconButton } from '@faststore/ui'
+import { useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 
 import Icon from 'src/components/ui/Icon'
@@ -89,7 +89,9 @@ function ImageGallerySelector({ images, onSelect, currentImageIdx }: Props) {
               }
             >
               <Image
-                ref={ref}
+                onLoadingComplete={(img) => {
+                  if (ref) ref(img)
+                }}
                 src={image.url}
                 alt={image.alternateName}
                 loading={idx === 0 ? 'eager' : 'lazy'}

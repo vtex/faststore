@@ -11,22 +11,26 @@ type SkuVariants {
   Maps property value combinations to their respective SKU's slug. Enables
   us to retrieve the slug for the SKU that matches the currently selected
   variations in O(1) time.
+  If `dominantVariantName` is not present, the first variant will be 
+  considered the dominant one.
   """
-  slugsMap(dominantVariantName: String!): SlugsMap
+  slugsMap(dominantVariantName: String): SlugsMap
   """
   Available options for each varying SKU property, taking into account the
-  `dominantVariantName` property. Returns all available options for the 
+  `dominantVariantName` property. Returns all available options for the
   dominant property, and only options that can be combined with its current
   value for other properties.
+  If `dominantVariantName` is not present, the first variant will be 
+  considered the dominant one.
   """
-  availableVariations(dominantVariantName: String!): FormattedVariants
+  availableVariations(dominantVariantName: String): FormattedVariants
 }
 
 """
-Example: 
+Example:
 
 ```json
-{ 
+{
   'Color-Red-Size-40': 'classic-shoes-37'
 }
 ```
@@ -54,18 +58,18 @@ Example:
 """
 scalar VariantsByName
 """
-Example: 
+Example:
 
 ```json
 {
   Color: [
-    { 
+    {
       src: "https://storecomponents.vtexassets.com/...",
       alt: "...",
       label: "...",
       value: "..."
     },
-    { 
+    {
       src: "https://storecomponents.vtexassets.com/...",
       alt: "...",
       label: "...",
@@ -73,7 +77,7 @@ Example:
     }
   ],
   Size: [
-    { 
+    {
       src: "https://storecomponents.vtexassets.com/...",
       alt: "...",
       label: "...",
@@ -84,4 +88,3 @@ Example:
 ```
 """
 scalar FormattedVariants
-

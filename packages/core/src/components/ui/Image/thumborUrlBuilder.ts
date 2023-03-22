@@ -1,3 +1,5 @@
+import storeConfig from 'faststore.config'
+
 export type FilterValue = boolean | string | string[] | number[]
 
 export interface Box {
@@ -19,7 +21,7 @@ export interface ThumborOptions {
   manualCrop?: Box | false
 }
 
-const THUMBOR_SERVER = 'https://assets.vtex.app'
+const THUMBOR_SERVER = `https://${storeConfig.api.storeId}.vtexassets.com`
 
 const cropSection = ({ left, top, right, bottom }: Box) =>
   `${left}x${top}:${right}x${bottom}`

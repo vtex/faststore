@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.85-alpha.0](https://github.com/vtex/faststore/compare/v2.0.84-alpha.0...v2.0.85-alpha.0) (2023-03-22)
+
+### Features
+
+- Adds `Toast` Component ([#1672](https://github.com/vtex/faststore/issues/1672)) ([5338c46](https://github.com/vtex/faststore/commit/5338c466d9fb326c3c85acee3c1049f954afd42a))
+
+## [2.0.84-alpha.0](https://github.com/vtex/faststore/compare/v2.0.83-alpha.0...v2.0.84-alpha.0) (2023-03-21)
+
+### Bug Fixes
+
+- Automatic props PropSection path ([#1679](https://github.com/vtex/faststore/issues/1679)) ([52478bd](https://github.com/vtex/faststore/commit/52478bd46f0875a796e6d13c5fe86aaa2d3c6dd2))
+
+## [2.0.83-alpha.0](https://github.com/vtex/faststore/compare/v2.0.82-alpha.0...v2.0.83-alpha.0) (2023-03-21)
+
+### Features
+
+- Updates `PropsSection` ([#1673](https://github.com/vtex/faststore/issues/1673)) ([10000f2](https://github.com/vtex/faststore/commit/10000f2977f3337d6ac81fb9d52d59316f050105))
+
+## [2.0.81-alpha.0](https://github.com/vtex/faststore/compare/v2.0.80-alpha.0...v2.0.81-alpha.0) (2023-03-16)
+
+**Note:** Version bump only for package site
+
 ## 2.0.79-alpha.0 (2023-03-15)
 
 ### Bug Fixes
