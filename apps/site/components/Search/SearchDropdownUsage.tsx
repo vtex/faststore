@@ -13,11 +13,12 @@ import {
   SearchProvider,
 } from '@faststore/ui'
 
-import { product } from './../../mocks/product'
-import { useFormattedPrice } from '../../components/utilities/usePriceFormatter'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+import { product } from 'site/mocks/product'
 
 export interface SearchDropdownUsageProps {
   term: string
+  products?: []
 }
 
 const SearchHistoryUsage = () => {
@@ -106,7 +107,10 @@ const SearchProductsUsage = () => {
   )
 }
 
-const SearchDropdownUsage = ({ term = '' }: SearchDropdownUsageProps) => {
+const SearchDropdownUsage = ({
+  term = '',
+  products = [],
+}: SearchDropdownUsageProps) => {
   return (
     <SearchProvider
       term={term}
@@ -119,7 +123,7 @@ const SearchDropdownUsage = ({ term = '' }: SearchDropdownUsageProps) => {
         },
       ]}
       isLoading={false}
-      products={[product]}
+      products={products}
     >
       <SearchDropdown
         style={{
@@ -131,7 +135,8 @@ const SearchDropdownUsage = ({ term = '' }: SearchDropdownUsageProps) => {
         <SearchHistoryUsage />
         <SearchTopUsage />
         <SearchAutoCompleteUsage />
-        <SearchProductsUsage />
+
+        {products && <SearchProductsUsage />}
       </SearchDropdown>
     </SearchProvider>
   )
