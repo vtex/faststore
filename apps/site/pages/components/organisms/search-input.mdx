@@ -53,10 +53,11 @@ import '@faststore/ui/src/components/organisms/SearchInput/styles.scss'
     </OverviewSection>
   </Tab>
   <Tab>
-    ```tsx
 
-const [searchDropdownVisible, setSearchDropdownVisible] = useState(false)
-const [term, setTerm] = useState('')
+    ```tsx
+    const [searchDropdownVisible, setSearchDropdownVisible] = useState(false)
+
+    const [term, setTerm] = useState('')
 
     <SearchInput visibleDropdown={searchDropdownVisible}>
       <SearchInputField
@@ -68,7 +69,7 @@ const [term, setTerm] = useState('')
           onClick: onClickButton,
         }}
       />
-      {searchDropdownVisible && <SearchDropdownUsage term={term}>}
+      {searchDropdownVisible && <SearchDropdownUsage term={term} />}
     </SearchInput>
     ```
 
