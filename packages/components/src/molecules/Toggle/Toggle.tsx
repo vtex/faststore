@@ -1,7 +1,6 @@
-import React, { forwardRef } from 'react'
 import type { InputHTMLAttributes } from 'react'
-import { Input, Icon } from './../../'
-import { Checked } from '../../assets'
+import React, { forwardRef } from 'react'
+import { Icon, Input } from './../../'
 
 export interface ToggleProps
   extends InputHTMLAttributes<Omit<HTMLInputElement, 'disabled' | 'type'>> {
@@ -44,7 +43,7 @@ const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
         {...otherProps}
       />
       <span data-fs-toggle-knob>
-        <Icon component={<Checked />} />
+        <Icon name="Checked" />
       </span>
     </div>
   )

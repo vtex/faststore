@@ -1,5 +1,5 @@
 import React, { HTMLAttributes } from 'react'
-import { X } from '../../assets'
+import Icon from '../../atoms/Icon'
 import IconButton, { IconButtonProps } from '../IconButton'
 
 export interface ModalHeaderProps extends HTMLAttributes<HTMLDivElement> {
@@ -33,7 +33,7 @@ const ModalHeader = ({
         <IconButton
           onClick={() => onClose?.()}
           data-fs-modal-header-close-button
-          icon={<X />}
+          icon={<Icon name="X" />}
           aria-label="Close modal"
           {...closeBtnProps}
         />

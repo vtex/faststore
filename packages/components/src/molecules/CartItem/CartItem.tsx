@@ -1,8 +1,7 @@
 import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import { XCircle } from '../../assets'
-import { IconButton, IconButtonProps, Price, QuantitySelector } from '../../'
+import { Icon, IconButton, IconButtonProps, Price, QuantitySelector } from '../../'
 
 import type { PriceFormatter } from '../../atoms/Price/Price'
 
@@ -62,7 +61,7 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
       <div data-fs-cart-item-content>{children}</div>
       <IconButton
         data-fs-cart-item-remove-button
-        icon={<XCircle />}
+        icon={<Icon name="XCircle" />}
         aria-label="Remove"
         {...removeBtnProps}
       />

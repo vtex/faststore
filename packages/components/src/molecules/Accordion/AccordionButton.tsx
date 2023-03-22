@@ -1,11 +1,11 @@
-import React, { forwardRef } from 'react'
 import type { ReactNode } from 'react'
+import React, { forwardRef } from 'react'
 
 import { useAccordion } from './Accordion'
 import { useAccordionItem } from './AccordionItem'
 
-import { Button, MinusCircle, PlusCircle } from '../..'
 import type { ButtonProps } from '../..'
+import { Button, Icon } from '../..'
 
 export interface AccordionButtonProps extends ButtonProps {
   /**
@@ -26,8 +26,8 @@ const AccordionButton = forwardRef<HTMLButtonElement, AccordionButtonProps>(
   function AccordionButton(
     {
       testId = 'fs-accordion-button',
-      expandedIcon = <MinusCircle data-icon="expanded" />,
-      collapsedIcon = <PlusCircle data-icon="collapsed" />,
+      expandedIcon = <Icon name="MinusCircle" data-icon="expanded" />,
+      collapsedIcon = <Icon name="PlusCircle" data-icon="collapsed" />,
       children,
       ...otherProps
     },

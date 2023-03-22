@@ -1,7 +1,6 @@
-import type { ReactNode, HTMLAttributes } from 'react'
+import type { HTMLAttributes, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 import { Icon, LinkButton } from '../..'
-import { ArrowRight } from '../../assets'
 
 import { useHero } from './Hero'
 
@@ -47,6 +46,13 @@ const HeroHeader = forwardRef<HTMLDivElement, HeroHeaderProps>(
     ref
   ) {
     const { variant, colorVariant } = useHero()
+    const iconProps = {"data-fs-hero-icon": true}
+  
+  const heroIcon = React.isValidElement(icon) ? (
+    React.cloneElement(icon, iconProps)
+  ) : (
+    icon
+  )
 
     return (
       <header
@@ -63,15 +69,15 @@ const HeroHeader = forwardRef<HTMLDivElement, HeroHeaderProps>(
               <LinkButton
                 href={link}
                 inverse={colorVariant === 'main'}
-                icon={<ArrowRight />}
+                icon={<Icon name="ArrowRight" />}
                 iconPosition="right"
               >
                 {linkText}
               </LinkButton>
             )}
           </div>
-          {icon && variant === 'secondary' && (
-            <Icon data-fs-hero-icon component={icon} />
+          {heroIcon && variant === 'secondary' && (
+            heroIcon
           )}
         </div>
       </header>

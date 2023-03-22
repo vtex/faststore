@@ -1,8 +1,6 @@
-import React, { HTMLAttributes } from 'react'
 import type { ReactNode } from 'react'
-import { X } from '../../assets'
-import { IconButton } from '../../'
-import type { IconButtonProps } from '../../'
+import React, { HTMLAttributes } from 'react'
+import { Icon, IconButton, IconButtonProps } from '../../'
 
 export interface SlideOverHeaderProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
@@ -29,7 +27,7 @@ const SlideOverHeader = ({
       <IconButton
         data-fs-slide-over-header-icon
         aria-label="Close"
-        icon={<X />}
+        icon={<Icon name="X" />}
         onClick={onClose}
         {...closeBtnProps}
       />

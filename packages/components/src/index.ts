@@ -1,6 +1,3 @@
-// Assets
-export * from './assets'
-
 // Hooks
 export * from './hooks'
 
