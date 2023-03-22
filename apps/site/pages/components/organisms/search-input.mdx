@@ -15,6 +15,7 @@ import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { SearchInput, SearchInputField } from '@faststore/ui'
 import SearchDropdownUsage from 'site/components/Search/SearchDropdownUsage'
+import SearchInputUsage from 'site/components/Search/SearchInputUsage'
 import { useState } from 'react'
 
 <header>
@@ -43,41 +44,6 @@ import '@faststore/ui/src/components/organisms/SearchInput/styles.scss'
 
 ---
 
-export const SearchInputUsage = () => {
-  const [searchDropdownVisible, setSearchDropdownVisible] = useState(false)
-  const [term, setTerm] = useState('')
-  function onChangeValue(e) {
-    setSearchDropdownVisible(true)
-    if (e.target.value == '') {
-      setTerm('')
-    } else {
-      setTerm('App')
-    }
-  }
-  function onClickButton() {
-    setSearchDropdownVisible(false)
-  }
-  return (
-    <SearchInput
-      visibleDropdown={searchDropdownVisible}
-      style={{
-        width: '100%',
-      }}
-    >
-      <SearchInputField
-        placeholder="Search everything at the store"
-        onFocus={() => setSearchDropdownVisible(true)}
-        onSubmit={() => setSearchDropdownVisible(false)}
-        onChange={(e) => onChangeValue(e)}
-        buttonProps={{
-          onClick: onClickButton,
-        }}
-      />
-      {searchDropdownVisible && <SearchDropdownUsage term={term} />}
-    </SearchInput>
-  )
-}
-
 ## Usage
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
@@ -88,8 +54,9 @@ export const SearchInputUsage = () => {
   </Tab>
   <Tab>
     ```tsx
-  const [searchDropdownVisible, setSearchDropdownVisible] = useState(false)
-  const [term, setTerm] = useState('')
+
+const [searchDropdownVisible, setSearchDropdownVisible] = useState(false)
+const [term, setTerm] = useState('')
 
     <SearchInput visibleDropdown={searchDropdownVisible}>
       <SearchInputField

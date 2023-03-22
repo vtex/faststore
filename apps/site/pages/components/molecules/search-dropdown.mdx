@@ -10,6 +10,7 @@ import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 
 import SearchDropdownUsage from 'site/components/Search/SearchDropdownUsage'
+import { product } from 'site/mocks/product'
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
@@ -45,7 +46,7 @@ export const SearchDropdownPropsSection = ({ component }) => {
 
 # Search Dropdown
 
-Combine `SearchHistory`, `SearchTop` and `SearchAutoComplete` and `SearchProducts` to show all options in `SearchDropdown`. This component is part of the [Search](/components/search) feature.
+Combine `SearchHistory`, `SearchTop` and `SearchAutoComplete` and `SearchProducts` to show all options in `SearchInput`. This component is part of the [Search](/components/search) feature.
 
 </header>
 
@@ -55,12 +56,12 @@ Combine `SearchHistory`, `SearchTop` and `SearchAutoComplete` and `SearchProduct
   <Tab>
     <OverviewSection direction="column">
       Waiting for input...
-      <SearchDropdownUsage />
+      <SearchDropdownUsage/>
     </OverviewSection>
 
     <OverviewSection direction="column">
       Searching for: <code>Appl</code>
-      <SearchDropdownUsage term="App" />
+      <SearchDropdownUsage term="App" products={product}/>
     </OverviewSection>
 
   </Tab>
