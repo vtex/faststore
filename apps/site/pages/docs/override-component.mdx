@@ -3,6 +3,8 @@ title: 'Override Components'
 sidebar_label: 'How to override or customize native section components'
 ---
 
+import { Callout } from 'nextra-theme-docs'
+
 <header>
 
 # How to override or customize native section components
@@ -125,7 +127,10 @@ export default overrides
 
 You can have different outcomes depending if you chose to override the component or pass additional props to it.
 
-> ⚠️ If you override the component, additional props will not be considered when overriding it.
+<Callout emoji="⚠️">
+  If you override the component, additional props will not be considered when
+  overriding it.
+</Callout>
 
 If you chose to override the component, you should be able to see your `CustomPrice` component replacing the native `Price` component inside every `ProductDetails` section in your store.
 
