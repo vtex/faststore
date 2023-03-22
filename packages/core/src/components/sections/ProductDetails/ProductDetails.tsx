@@ -142,33 +142,39 @@ function ProductDetails({ context: staleProduct }: Props) {
             data-fs-product-details-settings
             data-fs-product-details-section
           >
-            <section data-fs-product-details-values>
-              <div data-fs-product-details-prices>
-                <UIPrice
-                  value={listPrice}
-                  formatter={useFormattedPrice}
-                  testId="list-price"
-                  data-value={listPrice}
-                  variant="listing"
-                  SRText="Original price:"
+            {availability && (
+              <section data-fs-product-details-values>
+                <div data-fs-product-details-prices>
+                  <UIPrice
+                    value={listPrice}
+                    formatter={useFormattedPrice}
+                    testId="list-price"
+                    data-value={listPrice}
+                    variant="listing"
+                    SRText="Original price:"
+                  />
+                  <UIPrice
+                    value={lowPrice}
+                    formatter={useFormattedPrice}
+                    testId="price"
+                    data-value={lowPrice}
+                    variant="spot"
+                    className="text__lead"
+                    SRText="Sale Price:"
+                  />
+                </div>
+                {/* <div className="prices">
+                  <p className="price__old text__legend">{formattedListPrice}</p>
+                  <p className="price__new">{isValidating ? '' : formattedPrice}</p>
+                </div> */}
+                <UIQuantitySelector
+                  min={1}
+                  max={10}
+                  onChange={setAddQuantity}
                 />
-                <UIPrice
-                  value={lowPrice}
-                  formatter={useFormattedPrice}
-                  testId="price"
-                  data-value={lowPrice}
-                  variant="spot"
-                  className="text__lead"
-                  SRText="Sale Price:"
-                />
-              </div>
-              {/* <div className="prices">
-                <p className="price__old text__legend">{formattedListPrice}</p>
-                <p className="price__new">{isValidating ? '' : formattedPrice}</p>
-              </div> */}
-              <UIQuantitySelector min={1} max={10} onChange={setAddQuantity} />
-            </section>
-            {skuVariants && (
+              </section>
+            )}
+            {skuVariants && availability && (
               <Selectors
                 slugsMap={skuVariants.slugsMap}
                 availableVariations={skuVariants.availableVariations}
@@ -176,17 +182,18 @@ function ProductDetails({ context: staleProduct }: Props) {
                 data-fs-product-details-selectors
               />
             )}
-            {/* NOTE: A loading skeleton had to be used to avoid a Lighthouse's
-                non-composited animation violation due to the button transitioning its
-                background color when changing from its initial disabled to active state.
-                See full explanation on commit https://git.io/JyXV5. */}
-            {isValidating ? (
-              <AddToCartLoadingSkeleton />
-            ) : (
-              <UIBuyButton disabled={buyDisabled} {...buyProps}>
-                Add to Cart
-              </UIBuyButton>
-            )}
+            {availability &&
+              /* NOTE: A loading skeleton had to be used to avoid a Lighthouse's
+                  non-composited animation violation due to the button transitioning its
+                  background color when changing from its initial disabled to active state.
+                  See full explanation on commit https://git.io/JyXV5. */
+              (isValidating ? (
+                <AddToCartLoadingSkeleton />
+              ) : (
+                <UIBuyButton disabled={buyDisabled} {...buyProps}>
+                  Add to Cart
+                </UIBuyButton>
+              ))}
             {!availability && (
               <OutOfStock
                 onSubmit={(email) => {
@@ -195,16 +202,17 @@ function ProductDetails({ context: staleProduct }: Props) {
               />
             )}
           </section>
-
-          <ShippingSimulation
-            data-fs-product-details-section
-            data-fs-product-details-shipping
-            shippingItem={{
-              id,
-              quantity: addQuantity,
-              seller: seller.identifier,
-            }}
-          />
+          {availability && (
+            <ShippingSimulation
+              data-fs-product-details-section
+              data-fs-product-details-shipping
+              shippingItem={{
+                id,
+                quantity: addQuantity,
+                seller: seller.identifier,
+              }}
+            />
+          )}
         </section>
 
         <ProductDetailsContent />
