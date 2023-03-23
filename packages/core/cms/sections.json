@@ -1,5 +1,127 @@
 [
   {
+    "name": "Search",
+    "schema": {
+      "title": "Search Bar",
+      "description": "Search Bar Configuration",
+      "type": "object",
+      "required": [
+        "search-input",
+        "search-history",
+        "search-top",
+        "search-autocomplete"
+      ],
+      "properties": {
+        "search-input": {
+          "title": "Search Input Field",
+          "type": "object",
+          "properties": {
+            "placeholder": {
+              "title": "Placeholder",
+              "type": "string",
+              "default": "Search Everything at the Store"
+            },
+            "icon": {
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["MagnifyingGlass"],
+                  "enum": ["MagnifyingGlass"]
+                }
+              }
+            },
+            "clear-button-label": {
+              "title": "Clear Button Label",
+              "type": "string",
+              "default": "Clear"
+            }
+          }
+        },
+        "search-history": {
+          "type": "object",
+          "title": "Search History",
+          "properties": {
+            "title": {
+              "type": "string",
+              "title": "Title",
+              "default": "History"
+            },
+            "clear-button-label": {
+              "title": "Clear Button Label",
+              "type": "string",
+              "default": "Clear History"
+            },
+            "icon": {
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["REPLACe"],
+                  "enum": ["REPLACE"]
+                }
+              }
+            },
+            "max-items": {
+              "title": "Maximum Number of History Items",
+              "type": "integer",
+              "default": 5
+            }
+          }
+        },
+        "search-top": {
+          "type": "object",
+          "title": "Search Top",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Top Search"
+            }
+          }
+        },
+        "search-autocomplete": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["REPLACe"],
+                  "enum": ["REPLACE"]
+                }
+              }
+            },
+            "max-items": {
+              "title": "Maximum Number of Autocomplete Items",
+              "type": "integer",
+              "default": 5
+            }
+          }
+        },
+        "search-products": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Suggested Products"
+            },
+            "max-items": {
+              "title": "Maximum Number of Suggested Products",
+              "type": "integer",
+              "default": 5
+            }
+          }
+        }
+      }
+    }
+  },
+  {
     "name": "Alert",
     "schema": {
       "title": "Alert",
