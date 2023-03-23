@@ -179,15 +179,22 @@
           "type": "string"
         },
         "caption": {
-          "type": "string"
+          "subtitle": "string"
         },
-        "actionPath": {
-          "type": "string",
-          "title": "Action link"
-        },
-        "actionLabel": {
-          "type": "string",
-          "title": "Action label"
+        "link": {
+          "title": "Call to Action",
+          "type": "object",
+          "required": ["text", "url"],
+          "properties": {
+            "text": {
+              "type": "string",
+              "title": "Text"
+            },
+            "url": {
+              "type": "string",
+              "title": "URL"
+            }
+          }
         },
         "colorVariant": {
           "type": "string",
@@ -210,6 +217,7 @@
       "title": "Hero",
       "description": "Add a quick promotion with an image/action pair",
       "type": "object",
+      "required": ["title", "link", ""],
       "properties": {
         "title": {
           "type": "string"
@@ -217,24 +225,48 @@
         "subtitle": {
           "type": "string"
         },
-        "linkText": {
-          "type": "string",
-          "title": "Link text"
-        },
         "link": {
-          "type": "string",
-          "title": "Link path"
-        },
-        "imageSrc": {
-          "type": "string",
-          "title": "Image",
-          "widget": {
-            "ui:widget": "image-uploader"
+          "title": "Call to Action",
+          "type": "object",
+          "required": ["text", "url"],
+          "properties": {
+            "text": {
+              "type": "string",
+              "title": "Text"
+            },
+            "url": {
+              "type": "string",
+              "title": "URL"
+            }
           }
         },
-        "imageAlt": {
+        "image": {
+          "type": "object",
+          "properties": {
+            "src": {
+              "type": "string",
+              "title": "Image",
+              "widget": {
+                "ui:widget": "media-gallery"
+              }
+            },
+            "alt": {
+              "type": "string",
+              "title": "Alt text"
+            }
+          }
+        },
+        "colorVariant": {
           "type": "string",
-          "title": "Alt text"
+          "title": "Color Variant",
+          "enumNames": ["Main", "Light", "Accent"],
+          "enum": ["main", "light", "accent"]
+        },
+        "variant": {
+          "type": "string",
+          "title": "Variant",
+          "enumNames": ["Primary", "Secondary"],
+          "enum": ["primary", "secondary"]
         }
       }
     }
@@ -486,6 +518,17 @@
       "type": "object",
       "required": ["title"],
       "properties": {
+        "icon": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["REPLACe"],
+              "enum": ["REPLACE"]
+            }
+          }
+        },
         "title": {
           "type": "string",
           "title": "Title"
@@ -493,6 +536,10 @@
         "description": {
           "type": "string",
           "title": "Description"
+        },
+        "privacy-policy": {
+          "type": "string",
+          "title": "Privacy Policy Disclaimer"
         }
       }
     }
@@ -511,9 +558,92 @@
     "name": "ProductDetails",
     "schema": {
       "title": "Product Details",
-      "description": "Display product gallery with buy button and shipping",
+      "description": "Display Product Details Section",
       "type": "object",
-      "properties": {}
+      "properties": {
+        "product-title": {
+          "type": "object",
+          "properties": {
+            "discount-badge": {
+              "title": "Show Discount Badge?",
+              "type": "boolean",
+              "default": false
+            },
+            "ref-number": {
+              "title": "Show Reference Number?",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        }
+      },
+      "buy-button": {
+        "type": "object",
+        "title": "Buy Button",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "default": "Add to Cart"
+          },
+          "icon": {
+            "type": "object",
+            "properties": {
+              "icon": {
+                "title": "Icon",
+                "type": "string",
+                "enumNames": ["REPLACe"],
+                "enum": ["REPLACE"]
+              }
+            }
+          }
+        }
+      },
+      "shipping-simulator": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "default": "Shipping"
+          },
+          "input-label": {
+            "type": "string",
+            "title": "Input Label",
+            "default": "Postal Code"
+          },
+          "link": {
+            "title": "Postal Code Discovery",
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string",
+                "title": "Link Text",
+                "default": "I don't know my Postal Code"
+              },
+              "to": {
+                "type": "string",
+                "title": "href"
+              }
+            }
+          },
+          "shipping-options-table-title": {
+            "type": "string",
+            "title": "Shipping Options Table Header"
+          }
+        }
+      },
+      "product-details-content": {
+        "type": "object",
+        "properties": {
+          "initially-expanded": {
+            "type": "string",
+            "title": "Initially Expanded?",
+            "enumNames": ["First", "All", "None"],
+            "enum": ["first", "all", "none"]
+          }
+        }
+      }
     }
   }
 ]

@@ -43,6 +43,7 @@ interface BaseProps extends HTMLAttributes<HTMLDivElement> {
 
 export type BannerTextProps = BaseProps & BannerTextVariant
 
+// TODO: Change actionPath and actionLabel with Link
 function BannerText({
   title,
   caption,
