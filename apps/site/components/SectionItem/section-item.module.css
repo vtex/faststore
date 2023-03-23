@@ -38,7 +38,6 @@
 
 .sectionItem {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   column-gap: var(--fs-spacing-4);
   row-gap: var(--fs-spacing-3);
