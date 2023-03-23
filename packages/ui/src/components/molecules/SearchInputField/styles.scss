@@ -8,6 +8,9 @@
   --fs-search-input-field-height-mobile           : var(--fs-control-tap-size);
   --fs-search-input-field-height-desktop          : var(--fs-spacing-6);
 
+  --fs-search-input-field-transition-timing       : var(--fs-transition-timing);
+  --fs-search-input-field-transition-function     : ease;
+
   // Button
   --fs-search-input-field-button-width            : var(--fs-spacing-7);
   --fs-search-input-field-button-min-height       : var(--fs-search-input-height-desktop);
@@ -37,7 +40,7 @@
 
   @include media(">=notebook") { height: var(--fs-search-input-field-height-desktop); }
 
-  [data-fs-button] {
+  [data-fs-icon-button][data-fs-button-variant] {
     position: absolute;
     right: var(--fs-spacing-0);
     width: var(--fs-search-input-field-button-width);
@@ -49,6 +52,10 @@
       height: var(--fs-search-input-field-button-height-desktop);
       min-height: var(--fs-search-input-field-button-min-height);
     }
+    svg {
+      width: var(--fs-search-input-field-icon-width);
+      height: var(--fs-search-input-field-icon-height);
+    }
   }
 
   [data-fs-search-input-field-input] {
@@ -58,10 +65,4 @@
     transition: box-shadow var(--fs-search-input-field-transition-timing) var(--fs-search-input-field-transition-timing), border var(--fs-search-input-field-transition-timing) var(--fs-search-input-field-transition-function);
   }
 
-  [data-fs-icon] { display: block; }
-
-  [data-fs-button] svg {
-    width: var(--fs-search-input-field-icon-width);
-    height: var(--fs-search-input-field-icon-height);
-  }
 }
