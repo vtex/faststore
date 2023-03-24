@@ -517,13 +517,14 @@
       "title": "Banner Text",
       "description": "Add a quick promotion with a text/action pair",
       "type": "object",
+      "required": ["title", "caption", "link"],
       "properties": {
         "title": {
           "title": "Title",
           "type": "string"
         },
-        "subtitle": {
-          "title": "Subtitle",
+        "caption": {
+          "title": "Caption",
           "type": "string"
         },
         "link": {
@@ -543,7 +544,7 @@
         },
         "colorVariant": {
           "type": "string",
-          "title": "Color Variant",
+          "title": "Color variant",
           "enumNames": ["Main", "Light", "Accent"],
           "enum": ["main", "light", "accent"]
         },
@@ -947,8 +948,89 @@
       "title": "Banner Newsletter",
       "description": "Add newsletter with a banner",
       "type": "object",
-      "required": [],
-      "properties": {}
+      "required": ["banner", "newsletter"],
+      "properties": {
+        "banner": {
+          "title": "Banner",
+          "type": "object",
+          "required": ["title", "link"],
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string"
+            },
+            "caption": {
+              "title": "Caption",
+              "type": "string"
+            },
+            "link": {
+              "title": "Call to Action",
+              "type": "object",
+              "required": ["text", "url"],
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "title": "Text"
+                },
+                "url": {
+                  "type": "string",
+                  "title": "URL"
+                }
+              }
+            },
+            "colorVariant": {
+              "type": "string",
+              "title": "Color variant",
+              "enumNames": ["Main", "Light", "Accent"],
+              "enum": ["main", "light", "accent"]
+            },
+            "variant": {
+              "type": "string",
+              "title": "Variant",
+              "enumNames": ["Primary", "Secondary"],
+              "enum": ["primary", "secondary"]
+            }
+          }
+        },
+        "newsletter": {
+          "type": "object",
+          "title": "Newsletter",
+          "required": ["title", "description"],
+          "properties": {
+            "title": {
+              "type": "string",
+              "title": "Title",
+              "default": "Get News and Special Offers!"
+            },
+            "description": {
+              "type": "string",
+              "title": "Description",
+              "default": "Receive our news and promotions in advance"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "Breadcrumb",
+    "schema": {
+      "title": "Breadcrumb",
+      "description": "Configure the breadcrumb icon and depth",
+      "type": "object",
+      "required": ["icon", "alt"],
+      "properties": {
+        "icon": {
+          "title": "Icon",
+          "type": "string",
+          "enumNames": ["House"],
+          "enum": ["House"]
+        },
+        "alt": {
+          "type": "string",
+          "title": "Alt text"
+        }
+      }
     }
   },
   {
