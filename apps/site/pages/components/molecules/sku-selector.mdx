@@ -74,8 +74,8 @@ This is a product related component, we recommend testing it using a product moc
     ```tsx
     <SkuSelector
       skuPropertyName="Image"
-      options={
-        product.isVariantOf.skuVariants.availableVariations.Image
+      availableVariations={
+        product.isVariantOf.skuVariants.availableVariations
       }
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       slugsMap={product.isVariantOf.skuVariants.slugsMap}
@@ -85,7 +85,7 @@ This is a product related component, we recommend testing it using a product moc
     ```tsx
     <SkuSelector
       skuPropertyName="Color"
-      options={product.isVariantOf.skuVariants.availableVariations.Color}
+      availableVariations={product.isVariantOf.skuVariants.availableVariations}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       slugsMap={product.isVariantOf.skuVariants.slugsMap}
     />
@@ -94,7 +94,7 @@ This is a product related component, we recommend testing it using a product moc
     ```tsx
     <SkuSelector
       skuPropertyName="Size"
-      options={product.isVariantOf.skuVariants.availableVariations.Size}
+      availableVariations={product.isVariantOf.skuVariants.availableVariations}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       slugsMap={product.isVariantOf.skuVariants.slugsMap}
     />
@@ -133,8 +133,8 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
     ```tsx
     <SkuSelector
       skuPropertyName={skuPropertyName}
-      options={
-        product.isVariantOf.skuVariants.availableVariations[skuPropertyName]
+      availableVariations={
+        product.isVariantOf.skuVariants.availableVariations
       }
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       slugsMap={product.isVariantOf.skuVariants.slugsMap}
@@ -148,7 +148,56 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
 
 ## Props
 
+export const propsSkuOptions = [
+  {
+    name: 'alt',
+    type: 'string',
+    description:
+      'Alternative text description of the image.',
+    default: '',
+  },
+  {
+    name: 'src',
+    type: 'string',
+    description:
+      'Label to describe the option when selected. This is mandatory if you want to use the `image` variant.',
+    default: '',
+  },
+  {
+    name: 'label',
+    type: 'string',
+    description:
+      'Current value for this option.',
+    default: '',
+    required: true
+  },
+  {
+    name: 'value',
+    type: 'string',
+    description:
+      'Specifies that this option should be disabled.',
+    required: true
+  },
+  {
+    name: 'disabled',
+    type: 'boolean',
+    description:
+      'Specifies that this option should be disabled.',
+    default: '',
+  },
+  {
+    name: 'hexColor',
+    type: 'string',
+    description:
+      'Hex color code for this option. This is mandatory if you want to use the `color` variant.',
+  },
+]
+
 <SkuSelectorPropsSection component="SkuSelector" />
+
+### SkuOptions
+
+<PropsSection propsList={propsSkuOptions} />
 
 ---
 
@@ -264,8 +313,8 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
 
     <SkuSelector
       skuPropertyName={skuPropertyName}
-      options={
-        product.isVariantOf.skuVariants.availableVariations[skuPropertyName]
+      availableVariations={
+        product.isVariantOf.skuVariants.availableVariations
       }
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       slugsMap={product.isVariantOf.skuVariants.slugsMap}
@@ -302,7 +351,7 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
 
     <SkuSelector
       skuPropertyName="Size"
-      options={product.isVariantOf.skuVariants.availableVariations.Size}
+      availableVariations={product.isVariantOf.skuVariants.availableVariations}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       slugsMap={product.isVariantOf.skuVariants.slugsMap}
     />
@@ -326,7 +375,7 @@ import '@faststore/ui/src/components/molecules/SkuSelector/styles.scss'
 
     <SkuSelector
       skuPropertyName="Color"
-      options={product.isVariantOf.skuVariants.availableVariations.Color}
+      availableVariations={product.isVariantOf.skuVariants.availableVariations}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       slugsMap={product.isVariantOf.skuVariants.slugsMap}
     />

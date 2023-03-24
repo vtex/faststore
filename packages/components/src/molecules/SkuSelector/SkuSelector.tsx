@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import type { FunctionComponent, HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 import { Label, SROnly, Link, LinkProps, LinkElementType } from '../..'
@@ -10,7 +11,6 @@ const ImageComponentFallback: SkuSelectorProps['ImageComponent'] = ({
   src,
   alt,
   ...otherProps
-  // eslint-disable-next-line @next/next/no-img-element
 }) => <img src={src} alt={alt} {...otherProps} />
 
 export interface SkuOption {
@@ -23,7 +23,7 @@ export interface SkuOption {
    */
   src?: string
   /**
-   * Label to describe the option when selected.
+   * Label to describe the option when selected. This is mandatory if you want to use the `image` variant.'
    */
   label: string
   /**
