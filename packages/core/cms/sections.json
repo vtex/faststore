@@ -13,7 +13,7 @@
       ],
       "properties": {
         "search-input": {
-          "title": "Search Input Field",
+          "title": "Input Field",
           "type": "object",
           "properties": {
             "placeholder": {
@@ -23,12 +23,17 @@
             },
             "icon": {
               "type": "object",
+              "title": "Search Icon",
               "properties": {
                 "icon": {
                   "title": "Icon",
                   "type": "string",
                   "enumNames": ["MagnifyingGlass"],
                   "enum": ["MagnifyingGlass"]
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alt text"
                 }
               }
             },
@@ -41,7 +46,7 @@
         },
         "search-history": {
           "type": "object",
-          "title": "Search History",
+          "title": "History",
           "properties": {
             "title": {
               "type": "string",
@@ -73,17 +78,23 @@
         },
         "search-top": {
           "type": "object",
-          "title": "Search Top",
+          "title": "Top Searches",
           "properties": {
             "title": {
               "title": "Title",
               "type": "string",
-              "default": "Top Search"
+              "default": "Top Search title"
+            },
+            "max-items": {
+              "title": "Maximum Number of Top Search Items",
+              "type": "integer",
+              "default": 5
             }
           }
         },
         "search-autocomplete": {
           "type": "object",
+          "title": "Autocomplete",
           "properties": {
             "icon": {
               "type": "object",
@@ -105,6 +116,7 @@
         },
         "search-products": {
           "type": "object",
+          "title": "Suggested Products",
           "properties": {
             "title": {
               "title": "Title",
@@ -147,29 +159,34 @@
           }
         },
         "sign-in-button": {
-          "icon": {
-            "type": "object",
-            "properties": {
-              "icon": {
-                "title": "Icon",
-                "type": "string",
-                "enumNames": ["REPLACe"],
-                "enum": ["REPLACE"]
-              },
-              "alt": {
-                "type": "string",
-                "title": "Alt text"
+          "type": "object",
+          "title": "Sign In Button",
+          "properties": {
+            "icon": {
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["REPLACe"],
+                  "enum": ["REPLACE"]
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alt text"
+                }
               }
+            },
+            "label": {
+              "type": "string",
+              "title": "Sign in call to action",
+              "default": "Sign In"
             }
-          },
-          "label": {
-            "type": "string",
-            "title": "Sign in call to action",
-            "default": "Sign In"
           }
         },
         "cart-icon": {
           "type": "object",
+          "title": "Cart Icon",
           "properties": {
             "icon": {
               "title": "Icon",
@@ -198,6 +215,7 @@
                 },
                 "icon": {
                   "type": "object",
+                  "title": "Icon",
                   "properties": {
                     "icon": {
                       "title": "Icon",
@@ -217,26 +235,26 @@
                   "default": "Set Location"
                 }
               }
-            }
-          }
-        },
-        "page-links": {
-          "title": "Links",
-          "type": "array",
-          "minItems": 4,
-          "maxItems": 8,
-          "items": {
-            "title": "Link",
-            "type": "object",
-            "required": ["text", "url"],
-            "properties": {
-              "text": {
-                "type": "string",
-                "title": "Link Text"
-              },
-              "url": {
-                "type": "string",
-                "title": "Link URL"
+            },
+            "page-links": {
+              "title": "Links",
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 8,
+              "items": {
+                "title": "Link",
+                "type": "object",
+                "required": ["text", "url"],
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "title": "Link Text"
+                  },
+                  "url": {
+                    "type": "string",
+                    "title": "Link URL"
+                  }
+                }
               }
             }
           }
@@ -299,10 +317,12 @@
       "type": "object",
       "properties": {
         "title": {
+          "title": "Title",
           "type": "string"
         },
-        "caption": {
-          "subtitle": "string"
+        "subtitle": {
+          "title": "Subtitle",
+          "type": "string"
         },
         "link": {
           "title": "Call to Action",
@@ -343,9 +363,11 @@
       "required": ["title", "link", ""],
       "properties": {
         "title": {
+          "title": "Title",
           "type": "string"
         },
         "subtitle": {
+          "title": "Subtitle",
           "type": "string"
         },
         "link": {
@@ -365,6 +387,7 @@
         },
         "image": {
           "type": "object",
+          "title": "Image",
           "properties": {
             "src": {
               "type": "string",
@@ -381,7 +404,7 @@
         },
         "colorVariant": {
           "type": "string",
-          "title": "Color Variant",
+          "title": "Color variant",
           "enumNames": ["Main", "Light", "Accent"],
           "enum": ["main", "light", "accent"]
         },
@@ -417,11 +440,11 @@
               },
               "firstLineText": {
                 "type": "string",
-                "title": "First line text"
+                "title": "First line of text"
               },
               "secondLineText": {
                 "type": "string",
-                "title": "Second line text"
+                "title": "Second line of text"
               },
               "icon": {
                 "type": "string",
@@ -735,6 +758,7 @@
       "properties": {
         "product-title": {
           "type": "object",
+          "title": "Product Title",
           "properties": {
             "discount-badge": {
               "title": "Show Discount Badge?",
@@ -747,85 +771,87 @@
               "default": false
             }
           }
-        }
-      },
-      "buy-button": {
-        "type": "object",
-        "title": "Buy Button",
-        "properties": {
-          "title": {
-            "type": "string",
-            "title": "Title",
-            "default": "Add to Cart"
-          },
-          "icon": {
-            "type": "object",
-            "properties": {
-              "icon": {
-                "title": "Icon",
-                "type": "string",
-                "enumNames": ["REPLACe"],
-                "enum": ["REPLACE"]
+        },
+        "buy-button": {
+          "type": "object",
+          "title": "Buy Button",
+          "properties": {
+            "title": {
+              "type": "string",
+              "title": "Title",
+              "default": "Add to Cart"
+            },
+            "icon": {
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["REPLACe"],
+                  "enum": ["REPLACE"]
+                }
               }
             }
           }
-        }
-      },
-      "shipping-simulator": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "title": "Title",
-            "default": "Shipping"
-          },
-          "input-label": {
-            "type": "string",
-            "title": "Input Label",
-            "default": "Postal Code"
-          },
-          "link": {
-            "title": "Postal Code Discovery",
-            "type": "object",
-            "properties": {
-              "text": {
-                "type": "string",
-                "title": "Link Text",
-                "default": "I don't know my Postal Code"
-              },
-              "to": {
-                "type": "string",
-                "title": "href"
+        },
+        "shipping-simulator": {
+          "type": "object",
+          "title": "Shipping Simulation",
+          "properties": {
+            "title": {
+              "type": "string",
+              "title": "Title",
+              "default": "Shipping"
+            },
+            "input-label": {
+              "type": "string",
+              "title": "Input Label",
+              "default": "Postal Code"
+            },
+            "link": {
+              "title": "Postal Code Discovery",
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "title": "Link Text",
+                  "default": "I don't know my Postal Code"
+                },
+                "to": {
+                  "type": "string",
+                  "title": "href"
+                }
               }
+            },
+            "shipping-options-table-title": {
+              "type": "string",
+              "title": "Shipping Options Table Header"
             }
-          },
-          "shipping-options-table-title": {
-            "type": "string",
-            "title": "Shipping Options Table Header"
           }
-        }
-      },
-      "product-details-content": {
-        "type": "object",
-        "properties": {
-          "initially-expanded": {
-            "type": "string",
-            "title": "Initially Expanded?",
-            "enumNames": ["First", "All", "None"],
-            "enum": ["first", "all", "none"]
-          },
-          "details": {
-            "type": "object",
-            "properties": {
-              "display-description": {
-                "title": "Should display description?",
-                "type": "boolean",
-                "default": true
-              },
-              "title": {
-                "title": "Description section title",
-                "type": "string",
-                "default": "Description"
+        },
+        "product-details-content": {
+          "title": "Product Details Content",
+          "type": "object",
+          "properties": {
+            "initially-expanded": {
+              "type": "string",
+              "title": "Initially Expanded?",
+              "enumNames": ["First", "All", "None"],
+              "enum": ["first", "all", "none"]
+            },
+            "details": {
+              "type": "object",
+              "properties": {
+                "display-description": {
+                  "title": "Should display description?",
+                  "type": "boolean",
+                  "default": true
+                },
+                "title": {
+                  "title": "Description section title",
+                  "type": "string",
+                  "default": "Description"
+                }
               }
             }
           }
