@@ -310,6 +310,208 @@
     }
   },
   {
+    "name": "Footer",
+    "schema": {
+      "title": "Footer",
+      "description": "Footer displayed on all pages",
+      "type": "object",
+      "required": [],
+      "properties": {
+        "incentives": {
+          "title": "Incentives",
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 5,
+          "items": {
+            "title": "Incentive",
+            "type": "object",
+            "required": ["title", "firstLineText", "icon"],
+            "properties": {
+              "title": {
+                "type": "string",
+                "title": "Title"
+              },
+              "firstLineText": {
+                "type": "string",
+                "title": "First line of text"
+              },
+              "secondLineText": {
+                "type": "string",
+                "title": "Second line of text"
+              },
+              "icon": {
+                "type": "string",
+                "title": "Icon",
+                "enumNames": [
+                  "Truck",
+                  "Calendar",
+                  "Gift",
+                  "Store Front",
+                  "Shield Check"
+                ],
+                "enum": [
+                  "Truck",
+                  "Calendar",
+                  "Gift",
+                  "Storefront",
+                  "ShieldCheck"
+                ]
+              }
+            }
+          }
+        },
+        "footer-links": {
+          "title": "Footer Links Sections",
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "title": "Footer Links Section",
+            "type": "object",
+            "properties": {
+              "title": {
+                "title": "Section Title",
+                "type": "text"
+              },
+              "items": {
+                "title": "Links",
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 8,
+                "items": {
+                  "link": {
+                    "title": "Link",
+                    "type": "object",
+                    "required": ["text", "url"],
+                    "properties": {
+                      "text": {
+                        "type": "string",
+                        "title": "Link Text"
+                      },
+                      "url": {
+                        "type": "string",
+                        "hint": "Absolute or Relative",
+                        "title": "URL"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "footer-social": {
+          "title": "Social Media Links",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Follow Us"
+            },
+            "social-links": {
+              "type": "array",
+              "title": "Social Media",
+              "minItems": 0,
+              "maxItems": 8,
+              "items": {
+                "link": {
+                  "title": "Link",
+                  "type": "object",
+                  "required": ["alt", "url", "icon"],
+                  "properties": {
+                    "icon": {
+                      "type": "object",
+                      "properties": {
+                        "icon": {
+                          "title": "Icon",
+                          "type": "string",
+                          "enumNames": ["REPLACe"],
+                          "enum": ["REPLACE"]
+                        }
+                      }
+                    },
+                    "alt": {
+                      "type": "string",
+                      "title": "Alt"
+                    },
+                    "url": {
+                      "type": "string",
+                      "title": "URL"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "logo": {
+          "type": "object",
+          "title": "Logo",
+          "properties": {
+            "src": {
+              "type": "string",
+              "title": "Image",
+              "widget": {
+                "ui:widget": "media-gallery"
+              }
+            },
+            "alt": {
+              "type": "string",
+              "title": "Alt text"
+            }
+          }
+        },
+        "copyright-info": {
+          "type": "text",
+          "title": "Copyright message"
+        },
+        "accepted-payment-methods": {
+          "title": "Payment Methods Sections",
+          "type": "object",
+          "required": ["show-payment-methods"],
+          "properties": {
+            "show-payment-methods": {
+              "title": "Display Payment Methods",
+              "type": "boolean",
+              "default": true
+            },
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Payment Methods"
+            },
+            "payment-methods": {
+              "title": "Payment Methods",
+              "type": "array",
+              "items": {
+                "title": "Payment Method",
+                "type": "object",
+                "required": ["icon", "alt"],
+                "properties": {
+                  "icon": {
+                    "type": "object",
+                    "properties": {
+                      "icon": {
+                        "title": "Icon",
+                        "type": "string",
+                        "enumNames": ["REPLACe"],
+                        "enum": ["REPLACE"]
+                      }
+                    }
+                  },
+                  "alt": {
+                    "type": "string",
+                    "title": "Alt text"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
     "name": "BannerText",
     "schema": {
       "title": "Banner Text",
