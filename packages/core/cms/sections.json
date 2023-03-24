@@ -122,6 +122,108 @@
     }
   },
   {
+    "name": "Navbar",
+    "schema": {
+      "title": "Navbar",
+      "description": "Navbar configuration",
+      "type": "object",
+      "required": ["image"],
+      "properties": {
+        "logo": {
+          "type": "object",
+          "title": "Logo",
+          "properties": {
+            "src": {
+              "type": "string",
+              "title": "Image",
+              "widget": {
+                "ui:widget": "media-gallery"
+              }
+            },
+            "alt": {
+              "type": "string",
+              "title": "Alt text"
+            }
+          }
+        },
+        "sign-in-button": {
+          "icon": {
+            "type": "object",
+            "properties": {
+              "icon": {
+                "title": "Icon",
+                "type": "string",
+                "enumNames": ["REPLACe"],
+                "enum": ["REPLACE"]
+              },
+              "alt": {
+                "type": "string",
+                "title": "Alt text"
+              }
+            }
+          },
+          "label": {
+            "type": "string",
+            "title": "Sign in call to action",
+            "default": "Sign In"
+          }
+        },
+        "cart-icon": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["REPLACe"],
+              "enum": ["REPLACE"]
+            },
+            "alt": {
+              "type": "string",
+              "title": "Alt text"
+            }
+          }
+        },
+        "navigation": {
+          "title": "Navigation",
+          "type": "object",
+          "properties": {
+            "regionalization": {
+              "type": "object",
+              "title": "Regionalization",
+              "properties": {
+                "enabled": {
+                  "type": "boolean",
+                  "title": "Use Regionalization?",
+                  "default": true
+                },
+                "icon": {
+                  "type": "object",
+                  "properties": {
+                    "icon": {
+                      "title": "Icon",
+                      "type": "string",
+                      "enumNames": ["REPLACe"],
+                      "enum": ["REPLACE"]
+                    },
+                    "alt": {
+                      "type": "string",
+                      "title": "Alt text"
+                    }
+                  }
+                },
+                "label": {
+                  "type": "string",
+                  "title": "Call to Action",
+                  "default": "Set Location"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
     "name": "Alert",
     "schema": {
       "title": "Alert",
@@ -399,6 +501,27 @@
               }
             }
           }
+        },
+        "product-card-configuration": {
+          "title": "Product Card Configuration",
+          "type": "object",
+          "properties": {
+            "show-buy-button": {
+              "title": "Show buy button?",
+              "type": "boolean",
+              "default": true
+            },
+            "buy-button-title": {
+              "title": "Buy Button Text",
+              "type": "string",
+              "default": true
+            },
+            "show-discount-badge": {
+              "title": "Show discount badge?",
+              "type": "boolean",
+              "default": true
+            }
+          }
         }
       }
     }
@@ -531,15 +654,43 @@
         },
         "title": {
           "type": "string",
-          "title": "Title"
+          "title": "Title",
+          "default": "Get News and Special Offers!"
         },
         "description": {
           "type": "string",
-          "title": "Description"
+          "title": "Description",
+          "default": "Receive our news and promotions in advance"
         },
         "privacy-policy": {
           "type": "string",
           "title": "Privacy Policy Disclaimer"
+        },
+        "variant": {
+          "type": "string",
+          "title": "Variant",
+          "enumNames": ["Lite", "Full"],
+          "enum": ["lite", "full"]
+        },
+        "email-input-label": {
+          "type": "string",
+          "title": "Email input label",
+          "default": "Your Email"
+        },
+        "display-name-input": {
+          "title": "Request name?",
+          "type": "boolean",
+          "default": true
+        },
+        "name-input-label": {
+          "type": "string",
+          "title": "Name input label",
+          "default": "Your Name"
+        },
+        "subscribe-button-label": {
+          "type": "string",
+          "title": "Subscribe button label",
+          "default": "Subscribe"
         }
       }
     }
@@ -641,6 +792,21 @@
             "title": "Initially Expanded?",
             "enumNames": ["First", "All", "None"],
             "enum": ["first", "all", "none"]
+          },
+          "details": {
+            "type": "object",
+            "properties": {
+              "display-description": {
+                "title": "Should display description?",
+                "type": "boolean",
+                "default": true
+              },
+              "title": {
+                "title": "Description section title",
+                "type": "string",
+                "default": "Description"
+              }
+            }
           }
         }
       }
