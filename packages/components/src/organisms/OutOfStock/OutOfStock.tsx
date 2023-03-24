@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, forwardRef } from 'react'
 import type { FormHTMLAttributes, FormEvent } from 'react'
 import { BellRinging } from '../../assets'
 import { Button, Icon, InputField, OutOfStockTitle } from '../..'
@@ -39,50 +39,59 @@ export interface OutOfStockProps extends FormHTMLAttributes<HTMLFormElement> {
   // disabled: boolean
 }
 
-const OutOfStock = ({
-  testId = 'fs-out-of-stock',
-  title,
-  buttonLabel,
-  inputLabel,
-  subtitle,
-  onSubmit,
-  ...otherProps
-}: OutOfStockProps) => {
-  const defaultButtonText = buttonLabel
+const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
+  function OutOfStock(
+    {
+      testId = 'fs-out-of-stock',
+      title,
+      buttonLabel,
+      inputLabel,
+      subtitle,
+      onSubmit,
+      ...otherProps
+    },
+    ref
+  ) {
+    const defaultButtonText = buttonLabel
 
-  const [btnText, setBtnText] = useState(defaultButtonText)
-  const [disabled, setDisabled] = useState(false)
-  const [email, setEmail] = useState('')
-  const [error, setError] = useState('')
+    const [btnText, setBtnText] = useState(defaultButtonText)
+    const [disabled, setDisabled] = useState(false)
+    const [email, setEmail] = useState('')
+    const [error, setError] = useState('')
 
-  const reset = () => {
-    setBtnText(defaultButtonText)
-    setDisabled(false)
+    const reset = () => {
+      setBtnText(defaultButtonText)
+      setDisabled(false)
 
-    setEmail('')
-    setError('')
-  }
-
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault()
-
-    setDisabled(true)
-
-    try {
-      console.log(event)
-      // onSubmit()
-      // setBtnText(buttonSuccess)
-    } catch (err) {
-      // setError(err.message)
-    } finally {
-      // Return to original state after 2s
-      setTimeout(reset, 2000)
+      setEmail('')
+      setError('')
     }
-  }
 
-  return (
-    <section data-fs-out-of-stock data-testid={testId}>
-      <form data-fs-out-of-stock-form {...otherProps} onSubmit={handleSubmit}>
+    const handleSubmit = (event: FormEvent) => {
+      event.preventDefault()
+
+      setDisabled(true)
+
+      try {
+        console.log(event)
+        // onSubmit()
+        // setBtnText(buttonSuccess)
+      } catch (err) {
+        // setError(err.message)
+      } finally {
+        // Return to original state after 2s
+        setTimeout(reset, 2000)
+      }
+    }
+
+    return (
+      <form
+        data-fs-out-of-stock
+        ref={ref}
+        data-testid={testId}
+        onSubmit={handleSubmit}
+        {...otherProps}
+      >
         <OutOfStockTitle data-fs-out-of-stock-title>{title}</OutOfStockTitle>
         {subtitle && (
           <p data-fs-out-of-stock-message>
@@ -110,8 +119,8 @@ const OutOfStock = ({
           {btnText}
         </Button>
       </form>
-    </section>
-  )
-}
+    )
+  }
+)
 
 export default OutOfStock
