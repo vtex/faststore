@@ -1,10 +1,16 @@
 import { gql } from '@faststore/graphql-utils'
 import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
 
+import {
+  FacetBoolean as UIFacetBoolean,
+  FacetBooleanItem as UIFacetBooleanItem,
+  FacetRange as UIFacetRange,
+  Facets as UIFacets,
+  Filter as UIFilter,
+  useUI,
+} from '@faststore/ui'
 import type { Filter_FacetsFragment } from '@generated/graphql'
-import { useUI } from '@faststore/ui'
-
-import Facets from './Facets'
+import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import FilterSlider from './FilterSlider'
 import { useFilter } from './useFilter'
 
@@ -20,7 +26,7 @@ interface Props {
   testId?: string
 }
 
-function Filter({ facets: allFacets, testId = 'store-filter' }: Props) {
+function Filter({ facets: allFacets, testId = 'fs-filter' }: Props) {
   const filter = useFilter(allFacets)
   const { resetInfiniteScroll, state, setState } = useSearch()
   const { filter: displayFilter } = useUI()
@@ -29,28 +35,81 @@ function Filter({ facets: allFacets, testId = 'store-filter' }: Props) {
   return (
     <>
       <div className="hidden-mobile">
-        <Facets
-          facets={facets}
+        <UIFilter
           testId={`desktop-${testId}`}
+          title="Filters"
           indicesExpanded={expanded}
-          onFacetChange={(facet, type) => {
-            setState({
-              ...state,
-              selectedFacets:
-                type === 'BOOLEAN'
-                  ? toggleFacet(state.selectedFacets, facet)
-                  : setFacet(state.selectedFacets, facet, true),
-              page: 0,
-            })
-            resetInfiniteScroll(0)
-          }}
-          onAccordionChange={(index) =>
-            dispatch({ type: 'toggleExpanded', payload: index })
+          onAccordionChange={(idx) =>
+            dispatch({ type: 'toggleExpanded', payload: idx })
           }
-        />
+        >
+          {facets.map((facet, index) => {
+            const { __typename: type, label } = facet
+            const isExpanded = expanded.has(index)
+            return (
+              <UIFacets
+                key={`${testId}-${label}-${index}`}
+                testId={testId}
+                index={index}
+                type={type}
+                label={label}
+              >
+                {type === 'StoreFacetBoolean' && isExpanded && (
+                  <UIFacetBoolean>
+                    {facet.values.map((item) => (
+                      <UIFacetBooleanItem
+                        key={`${testId}-${facet.label}-${item.label}`}
+                        id={`${testId}-${facet.label}-${item.label}`}
+                        testId={testId}
+                        onFacetChange={(facet) => {
+                          setState({
+                            ...state,
+                            selectedFacets: toggleFacet(
+                              state.selectedFacets,
+                              facet
+                            ),
+                            page: 0,
+                          })
+                          resetInfiniteScroll(0)
+                        }}
+                        selected={item.selected}
+                        value={item.value}
+                        quantity={item.quantity}
+                        facetKey={facet.key}
+                        label={item.label}
+                      />
+                    ))}
+                  </UIFacetBoolean>
+                )}
+                {type === 'StoreFacetRange' && isExpanded && (
+                  <UIFacetRange
+                    facetKey={facet.key}
+                    min={facet.min}
+                    max={facet.max}
+                    formatter={useFormattedPrice}
+                    onFacetChange={(facet) => {
+                      setState({
+                        ...state,
+                        selectedFacets: setFacet(
+                          state.selectedFacets,
+                          facet,
+                          true
+                        ),
+                        page: 0,
+                      })
+                      resetInfiniteScroll(0)
+                    }}
+                  />
+                )}
+              </UIFacets>
+            )
+          })}
+        </UIFilter>
       </div>
 
-      {displayFilter && <FilterSlider {...filter} testId={testId} />}
+      {displayFilter && (
+        <FilterSlider {...filter} testId={testId} title="Filters" />
+      )}
     </>
   )
 }
