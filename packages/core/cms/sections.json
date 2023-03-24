@@ -219,6 +219,27 @@
               }
             }
           }
+        },
+        "page-links": {
+          "title": "Links",
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 8,
+          "items": {
+            "title": "Link",
+            "type": "object",
+            "required": ["text", "url"],
+            "properties": {
+              "text": {
+                "type": "string",
+                "title": "Link Text"
+              },
+              "url": {
+                "type": "string",
+                "title": "Link URL"
+              }
+            }
+          }
         }
       }
     }
