@@ -170,10 +170,12 @@ function ProductDetails({ context: staleProduct }: Props) {
             </section>
             {skuVariants && (
               <Selectors
-                slugsMap={skuVariants.slugsMap}
-                availableVariations={skuVariants.availableVariations}
-                activeVariations={skuVariants.activeVariations}
                 data-fs-product-details-selectors
+                slugsMap={isVariantOf.skuVariants.slugsMap}
+                activeVariations={isVariantOf.skuVariants.activeVariations}
+                availableVariations={
+                  isVariantOf.skuVariants.availableVariations
+                }
               />
             )}
             {/* NOTE: A loading skeleton had to be used to avoid a Lighthouse's
@@ -284,8 +286,8 @@ export const fragment = gql`
       productGroupID
       skuVariants {
         activeVariations
-        slugsMap(dominantVariantName: "Color")
-        availableVariations(dominantVariantName: "Color")
+        slugsMap
+        availableVariations
       }
     }
 
