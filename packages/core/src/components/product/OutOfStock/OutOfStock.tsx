@@ -14,13 +14,10 @@ function OutOfStock({ onSubmit }: OutOfStockProps) {
 
   return (
     <UIOutOfStock
-      title="Out of Stock"
-      buttonText="Notify Me"
-      buttonSuccess="Subscribed successfully"
-      notificationMsg="Notify me when available"
+      title={postalCode ? 'Unavailable in Your Location' : 'Out of Stock'}
       inputLabel="Email"
-      titleSession="Unavailable in Your Location"
-      sessionPostalCode={postalCode}
+      buttonLabel="Notify Me"
+      subtitle="Notify me when available"
       onSubmit={onSubmit}
     />
   )

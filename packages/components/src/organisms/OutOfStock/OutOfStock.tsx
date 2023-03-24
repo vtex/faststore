@@ -9,53 +9,46 @@ export interface OutOfStockProps extends FormHTMLAttributes<HTMLFormElement> {
    */
   title?: string
   /**
-   * The Out of Stock Section's title if user has entered a postal code.
-   */
-  titleSession?: string
-  /**
-   * The default button label.
-   */
-  buttonText: string
-  /**
-   * The button label displayed if form is successfully submitted.
-   */
-  buttonSuccess: string
-  /**
    * The email input label.
    */
   inputLabel: string
   /**
-   * Additional message displayed next to component's title.
+   * Additional message displayed with the title.
    */
-  notificationMsg?: string
-  /**
-   * Event emitted when form is submitted.
-   */
-  onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void
+  subtitle?: string
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
    */
   testId?: string
   /**
-   * Postal Code number.
+   * Event emitted when form is submitted.
    */
-  sessionPostalCode?: string
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+  /**
+   * The button label.
+   */
+  buttonLabel: string
+  // /**
+  //  * Error message displayed when error.
+  //  */
+  // errorMessage?: string
+  // /**
+  //  * Specifies that the submit button should be disabled.
+  //  */
+  // disabled: boolean
 }
 
 const OutOfStock = ({
   testId = 'fs-out-of-stock',
   title,
-  titleSession,
-  buttonText,
-  buttonSuccess,
+  buttonLabel,
   inputLabel,
-  notificationMsg,
+  subtitle,
   onSubmit,
-  sessionPostalCode,
   ...otherProps
 }: OutOfStockProps) => {
-  const defaultButtonText = buttonText
+  const defaultButtonText = buttonLabel
 
   const [btnText, setBtnText] = useState(defaultButtonText)
   const [disabled, setDisabled] = useState(false)
@@ -76,10 +69,11 @@ const OutOfStock = ({
     setDisabled(true)
 
     try {
-      onSubmit(email)
-      setBtnText(buttonSuccess)
+      console.log(event)
+      // onSubmit()
+      // setBtnText(buttonSuccess)
     } catch (err) {
-      setError(err.message)
+      // setError(err.message)
     } finally {
       // Return to original state after 2s
       setTimeout(reset, 2000)
@@ -88,26 +82,22 @@ const OutOfStock = ({
 
   return (
     <section data-fs-out-of-stock data-testid={testId}>
-      <form data-fs-out-of-stock-form {...otherProps}>
-        <OutOfStockTitle data-fs-out-of-stock-title>
-          {(title = sessionPostalCode ? titleSession : title)}
-        </OutOfStockTitle>
-        {notificationMsg && (
+      <form data-fs-out-of-stock-form {...otherProps} onSubmit={handleSubmit}>
+        <OutOfStockTitle data-fs-out-of-stock-title>{title}</OutOfStockTitle>
+        {subtitle && (
           <p data-fs-out-of-stock-message>
             <Icon component={<BellRinging size={16} />} />
-            {notificationMsg}
+            {subtitle}
           </p>
         )}
         <InputField
           id="out-of-stock-email"
+          name="out-of-stock-email"
           value={email}
           label={inputLabel}
           aria-label={inputLabel}
           error={error}
-          onChange={(e) => {
-            setError('')
-            setEmail(e.target.value)
-          }}
+          onChange={() => {}}
         />
         <Button
           data-fs-out-of-stock-button
@@ -116,7 +106,6 @@ const OutOfStock = ({
           variant="primary"
           icon={<BellRinging />}
           iconPosition="left"
-          onSubmit={handleSubmit}
         >
           {btnText}
         </Button>
