@@ -22,11 +22,14 @@ After adapting your `pages` components and querying for the CMS data, open a Pul
 Now, if you are happy with your Content Type, Section and Translation Keys definitions, you can put them on production by taking the following steps:
 
 1. Open the terminal and switch to the master workspace.
-   ```sh
+
+   ```bash
    vtex use master
    ```
+
 2. Change to the root directory of your FastStore project and sync your changes in the `cms` folder with the VTEX Headless CMS app.
-   ```sh
+
+   ```bash
    vtex cms sync
    ```
 

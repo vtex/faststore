@@ -5,9 +5,6 @@ sidebar_label: '3. Adding Content Types and Sections to the VTEX Headless CMS'
 pagination_label: Part 3
 ---
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-
 # Part 3: Adding Content Types and Sections to the VTEX Headless CMS
 
 ## Introduction
@@ -22,15 +19,18 @@ Now that you have created your `cms` folder and have an overall understanding of
 
 Before we start creating more complex definitions of Content Types and Sections, go to the root of your FastStore project and run the following command to automatically sync your changes in the `cms` folder with the VTEX Headless CMS app. _Remember to use a development workspace._
 
-```sh
+```bash
 vtex cms sync --watch
 ```
 
-Open the **VTEX Admin** at **Pages (alpha)** and keep it next to your code to see your changes while editing the `cms` folder. Notice that refreshing the Admin may be necessary to see your changes.
+Open the **VTEX Admin** at **Headless CMS** and keep it next to your code to see your changes while editing the `cms` folder. Notice that refreshing the Admin may be necessary to see your changes.
 
 ### Step 2 - Adding Content Types to the VTEX Headless CMS
 
 We already know that the `content-types.json` file is an array of JSON objects that describes the types of pages available for customization at the VTEX Headless CMS. Therefore, to create new Content Types, we just need to declare a new JSON object for each of our Content Types in the `content-types.json` file. However, we still need to discover which props these objects expect. So let's get back to our previous example.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 <Tabs
 defaultValue="code"
@@ -39,7 +39,6 @@ values={[
 {label: 'CMS', value: 'CMS'},
 ]}>
 <TabItem value="code">
-
 <div>
 
 ```json title="cms/content-types.json"
@@ -98,10 +97,11 @@ values={[
 ```
 
 </div>
-  </TabItem>
-  <TabItem value="CMS">
+</TabItem>
+
+<TabItem value="CMS">
   <img src="https://vtexhelp.vtexassets.com/assets/docs/src/contenttypes2___1747bd4670cc21204a6314053928c44f.png" width="40%" />
-  </TabItem>
+</TabItem>
 </Tabs>
 
 Notice that, to declare a new Content Type, you must specify at least the following three parameters:
