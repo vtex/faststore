@@ -2,17 +2,38 @@ import React from 'react'
 import { Badge, Checkbox, Label } from '../../'
 import { OnFacetChange } from './Filter'
 
-export type FacetBooleanItemProps = {
+export interface FacetBooleanItemProps {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
   testId: string
   /**
    * This function is called when `Checkbox` from the facet changes.
    */
   onFacetChange: OnFacetChange
+  /**
+   * The text displayed to identify the Boolean Facet Item.
+   */
   label: string
+  /**
+   * Value to be emitted when Checkbox is clicked.
+   */
   value: string
+  /**
+   * Boolean that represents the Checkbox checked state.
+   */
   selected: boolean
+  /**
+   * Counter badge shown besides the Facet Item.
+   */
   quantity: number
+  /**
+   * ID to identify the Checkbox and corresponding label.
+   */
   id: string
+  /**
+   * String that identifies the current Facet key.
+   */
   facetKey: string
 }
 

@@ -2,10 +2,22 @@ import React from 'react'
 import { PriceRange } from '../../'
 import { OnFacetChange } from './Filter'
 
-export type FacetRangeProps = {
+export interface FacetRangeProps {
+  /**
+   * The minimum value of the Slider Range Facet
+   */
   min: { selected: number; absolute: number }
+  /**
+   * The maximum value of the Slider Range Facet
+   */
   max: { selected: number; absolute: number }
+  /**
+   * Formatter function that transforms the raw price value and render the result.
+   */
   formatter: (price: number) => string
+  /**
+   * String that identifies the current Facet key.
+   */
   facetKey: string
   /**
    * This function is called when `Checkbox` from the facet changes.
@@ -25,6 +37,7 @@ function FacetRange({
 }: FacetRangeProps) {
   return (
     <PriceRange
+      data-fs-filter-facet-range
       min={min}
       max={max}
       formatter={formatter}

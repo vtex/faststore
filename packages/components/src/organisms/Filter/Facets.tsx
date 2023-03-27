@@ -1,10 +1,22 @@
 import React, { PropsWithChildren } from 'react'
 import { AccordionButton, AccordionItem, AccordionPanel } from '../..'
 
-export type FacetsProps = {
+export interface FacetsProps {
+  /**
+   * Current Facet's position in a list of facets.
+   */
   index: number
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
   testId: string
+  /**
+   * Current Facet's type, usually `StoreFacetBoolean` or `StoreFacetRange`.
+   */
   type: string
+  /**
+   * The text displayed to identify the Facet.
+   */
   label: string
 }
 
