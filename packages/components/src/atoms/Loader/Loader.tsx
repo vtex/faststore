@@ -16,7 +16,7 @@ const Loader = forwardRef<HTMLDivElement, LoaderProps>(function Loader(
   ref
 ) {
   return (
-    <div
+    <span
       ref={ref}
       data-fs-loader
       data-fs-loader-variant={variant}
@@ -26,7 +26,7 @@ const Loader = forwardRef<HTMLDivElement, LoaderProps>(function Loader(
       <span data-fs-loader-item></span>
       <span data-fs-loader-item></span>
       <span data-fs-loader-item></span>
-    </div>
+    </span>
   )
 })
 
