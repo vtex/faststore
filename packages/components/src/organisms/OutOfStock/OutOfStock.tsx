@@ -1,5 +1,5 @@
-import React, { useState, forwardRef } from 'react'
-import type { FormHTMLAttributes, FormEvent } from 'react'
+import React, { forwardRef } from 'react'
+import type { FormHTMLAttributes } from 'react'
 import { BellRinging } from '../../assets'
 import { Button, Icon, InputField, OutOfStockTitle } from '../..'
 
@@ -29,14 +29,14 @@ export interface OutOfStockProps extends FormHTMLAttributes<HTMLFormElement> {
    * The button label.
    */
   buttonLabel: string
-  // /**
-  //  * Error message displayed when error.
-  //  */
-  // errorMessage?: string
-  // /**
-  //  * Specifies that the submit button should be disabled.
-  //  */
-  // disabled: boolean
+  /**
+   * Error message displayed when error.
+   */
+  errorMessage?: string
+  /**
+   * Specifies that the submit button should be disabled.
+   */
+  disabled: boolean
 }
 
 const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
@@ -44,52 +44,22 @@ const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
     {
       testId = 'fs-out-of-stock',
       title,
-      buttonLabel,
+      buttonLabel = 'Notify Me',
       inputLabel,
       subtitle,
+      disabled,
+      errorMessage,
       onSubmit,
       ...otherProps
     },
     ref
   ) {
-    const defaultButtonText = buttonLabel
-
-    const [btnText, setBtnText] = useState(defaultButtonText)
-    const [disabled, setDisabled] = useState(false)
-    const [email, setEmail] = useState('')
-    const [error, setError] = useState('')
-
-    const reset = () => {
-      setBtnText(defaultButtonText)
-      setDisabled(false)
-
-      setEmail('')
-      setError('')
-    }
-
-    const handleSubmit = (event: FormEvent) => {
-      event.preventDefault()
-
-      setDisabled(true)
-
-      try {
-        console.log(event)
-        // onSubmit()
-        // setBtnText(buttonSuccess)
-      } catch (err) {
-        // setError(err.message)
-      } finally {
-        // Return to original state after 2s
-        setTimeout(reset, 2000)
-      }
-    }
-
     return (
       <form
         data-fs-out-of-stock
         ref={ref}
         data-testid={testId}
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
         {...otherProps}
       >
         <OutOfStockTitle data-fs-out-of-stock-title>{title}</OutOfStockTitle>
@@ -102,11 +72,10 @@ const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
         <InputField
           id="out-of-stock-email"
           name="out-of-stock-email"
-          value={email}
           label={inputLabel}
           aria-label={inputLabel}
-          error={error}
-          onChange={() => {}}
+          error={errorMessage}
+          required
         />
         <Button
           data-fs-out-of-stock-button
@@ -116,7 +85,7 @@ const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
           icon={<BellRinging />}
           iconPosition="left"
         >
-          {btnText}
+          {buttonLabel}
         </Button>
       </form>
     )
