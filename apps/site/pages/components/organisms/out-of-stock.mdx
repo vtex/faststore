@@ -67,24 +67,24 @@ import '@faststore/ui/src/components/organisms/OutOfStock/styles.scss'
     <OverviewSection containerStyle={{display: 'block'}}>
       <OutOfStock
         title="Out of Stock"
-        buttonLabel="Notify Me"
-        buttonSuccess="Subscribed successfully"
-        inputLabel="Email"
         subtitle="Notify me when available"
-        titleSession="Unavailable in Your Location"
+        inputLabel="Email"
+        buttonLabel="Notify Me"
+        onSubmit={()=>{}}
+        disabled={false}
       />
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
     <OutOfStock
-      title="Out of Stock"
-      buttonLabel="Notify Me"
-      buttonSuccess="Subscribed successfully"
-      inputLabel="Email"
-      subtitle="Notify me when available"
-      titleSession="Unavailable in Your Location"
-    />
+        title="Out of Stock"
+        subtitle="Notify me when available"
+        inputLabel="Email"
+        buttonLabel="Notify Me"
+        onSubmit={handleSubmit}
+        disabled={isLoading}
+      />
     ```
 
   </Tab>
