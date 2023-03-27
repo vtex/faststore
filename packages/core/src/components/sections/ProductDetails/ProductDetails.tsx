@@ -194,13 +194,7 @@ function ProductDetails({ context: staleProduct }: Props) {
                   Add to Cart
                 </UIBuyButton>
               ))}
-            {!availability && (
-              <OutOfStock
-                onSubmit={(email) => {
-                  console.info(email)
-                }}
-              />
-            )}
+            {!availability && <OutOfStock />}
           </section>
           {availability && (
             <ShippingSimulation

@@ -5,30 +5,30 @@ import { Button, Icon, InputField, OutOfStockTitle } from '../..'
 
 export interface OutOfStockProps extends FormHTMLAttributes<HTMLFormElement> {
   /**
-   * The Out of Stock Section's title.
-   */
-  title?: string
-  /**
-   * The email input label.
-   */
-  inputLabel: string
-  /**
-   * Additional message displayed with the title.
-   */
-  subtitle?: string
-  /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
    */
   testId?: string
   /**
-   * Event emitted when form is submitted.
+   * The Out of Stock Section's title.
    */
-  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+  title?: string
+  /**
+   * Additional message displayed with the title.
+   */
+  subtitle?: string
+  /**
+   * The email input label.
+   */
+  inputLabel: string
   /**
    * The button label.
    */
-  buttonLabel: string
+  buttonLabel?: string
+  /**
+   * Specifies a label for loading state.
+   */
+  loadingLabel?: string
   /**
    * Error message displayed when error.
    */
@@ -37,6 +37,10 @@ export interface OutOfStockProps extends FormHTMLAttributes<HTMLFormElement> {
    * Specifies that the submit button should be disabled.
    */
   disabled: boolean
+  /**
+   * Event emitted when form is submitted.
+   */
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
 }
 
 const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
@@ -45,6 +49,7 @@ const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
       testId = 'fs-out-of-stock',
       title,
       buttonLabel = 'Notify Me',
+      loadingLabel = 'Loading',
       inputLabel,
       subtitle,
       disabled,
@@ -80,6 +85,8 @@ const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
         <Button
           data-fs-out-of-stock-button
           type="submit"
+          loading={disabled}
+          loadingLabel={loadingLabel}
           disabled={disabled}
           variant="primary"
           icon={<BellRinging />}
