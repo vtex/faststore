@@ -12,8 +12,7 @@ import { SlideOverDirection, SlideOverWidthSize } from '../SlideOver'
 
 export interface FilterSliderProps {
   /**
-   * ID to find this component in testing tools (e.g.: cypress,
-   * testing-library, and jest).
+   * Title for the FilterSlider component.
    */
   title?: string
   /**
