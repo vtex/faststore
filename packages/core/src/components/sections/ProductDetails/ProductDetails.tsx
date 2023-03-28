@@ -104,10 +104,6 @@ function ProductDetails({ context: staleProduct }: Props) {
               SRText="Sale Price:"
             />
           </div>
-          {/* <div className="prices">
-                  <p className="price__old text__legend">{formattedListPrice}</p>
-                  <p className="price__new">{isValidating ? '' : formattedPrice}</p>
-                </div> */}
           <UIQuantitySelector min={1} max={10} onChange={setAddQuantity} />
         </section>
         {skuVariants && (
