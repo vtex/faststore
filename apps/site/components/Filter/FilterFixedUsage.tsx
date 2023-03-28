@@ -1,4 +1,4 @@
-import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
+import { setFacet, useSearch } from '@faststore/sdk'
 
 import {
   FacetBoolean as UIFacetBoolean,
@@ -26,14 +26,14 @@ interface Props {
   title?: string
 }
 
-function FilterFixed({
+function FilterFixedUsage({
   facets,
   testId,
   dispatch,
   expanded,
   title,
 }: Props & ReturnType<typeof useFilter>) {
-  const { resetInfiniteScroll, state, setState } = useSearch()
+  const { state, setState } = useSearch()
 
   return (
     <UIFilter
@@ -63,15 +63,7 @@ function FilterFixed({
                     id={`${testId}-${facet.label}-${item.label}`}
                     testId={testId}
                     onFacetChange={(facet) => {
-                      setState({
-                        ...state,
-                        selectedFacets: toggleFacet(
-                          state.selectedFacets,
-                          facet
-                        ),
-                        page: 0,
-                      })
-                      resetInfiniteScroll(0)
+                      dispatch({ type: 'toggleFacet', payload: facet })
                     }}
                     selected={item.selected}
                     value={item.value}
@@ -94,7 +86,6 @@ function FilterFixed({
                     selectedFacets: setFacet(state.selectedFacets, facet, true),
                     page: 0,
                   })
-                  resetInfiniteScroll(0)
                 }}
               />
             )}
@@ -105,4 +96,4 @@ function FilterFixed({
   )
 }
 
-export default FilterFixed
+export default FilterFixedUsage

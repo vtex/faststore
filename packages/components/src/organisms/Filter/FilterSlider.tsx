@@ -7,7 +7,7 @@ import {
   useUI,
 } from '../../'
 
-import React, { PropsWithChildren, ReactNode } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { SlideOverDirection, SlideOverWidthSize } from '../SlideOver'
 
 export interface FilterSliderProps {
@@ -24,10 +24,18 @@ export interface FilterSliderProps {
    * Props for the Apply Button from FilterSlider component.
    */
   applyBtnProps?: Partial<ButtonProps>
+  /**
+   * Function called when close button is clicked.
+   */
   onClose: () => void
-  size: SlideOverWidthSize
+  /**
+   * Represents the side that the FilterSlider comes from.
+   */
   direction: SlideOverDirection
-  children: ReactNode
+  /**
+   * Represents the size of the FilterSlider.
+   */
+  size: SlideOverWidthSize
 }
 
 function FilterSlider({
