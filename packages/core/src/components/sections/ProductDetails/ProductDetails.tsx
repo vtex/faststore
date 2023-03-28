@@ -193,6 +193,7 @@ function ProductDetails({ context: staleProduct }: Props) {
             data-fs-product-details-section
           >
             {availability ? <ProductDetailsSection /> : <OutOfStock />}
+          </section>
           {availability && (
             <ShippingSimulation
               data-fs-product-details-section
