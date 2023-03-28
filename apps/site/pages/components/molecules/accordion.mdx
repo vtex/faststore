@@ -4,6 +4,8 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Accordion___66012e5367e86c5b4422ff8d6974b8cd.png
 ---
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
@@ -17,6 +19,39 @@ import {
   List,
 } from '@faststore/ui'
 import { useState } from 'react'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const accordionPath = path.resolve(__filename)
+  const components = [
+    'Accordion.tsx',
+    'AccordionButton.tsx',
+    'AccordionPanel.tsx',
+  ]
+  const [accordionProps, accordionButtonProps, accordionPanelProps] =
+    getComponentPropsFrom(accordionPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        accordionProps,
+        accordionButtonProps,
+        accordionPanelProps,
+      },
+    },
+  }
+}
+
+export const AccordionPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { accordionProps, accordionButtonProps, accordionPanelProps } = useSSG()
+  return {
+    Accordion: <PropsSection propsList={accordionProps} />,
+    AccordionButton: <PropsSection propsList={accordionButtonProps} />,
+    AccordionPanel: <PropsSection propsList={accordionPanelProps} />,
+  }[component]
+}
 
 <header>
 
@@ -35,7 +70,7 @@ Accordions display an expandable/collapsible list of items. The final Accordion 
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
 import {
@@ -189,19 +224,40 @@ Besides those attributes, the following props are also supported:
 
 ### Accordion
 
-<PropsSection name="Accordion" />
+<AccordionPropsSection component="Accordion" />
 
-### AccordionItem
+### Accordion Item
 
-<PropsSection name="AccordionItem" />
+export const propsAccordionItem = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-accordion-item',
+  },
+  {
+    name: 'index',
+    type: 'number',
+    description: 'Index of the current accordion item within the accordion.',
+  },
+  {
+    name: 'prefixId',
+    type: 'string',
+    description:
+      "Namespace ID prefix for the current Accordion item's panel and button to avoid ID duplication when multiple instances are on the same page.",
+  },
+]
 
-### AccordionButton
+<PropsSection propsList={propsAccordionItem} />
 
-<PropsSection name="AccordionButton" />
+### Accordion Button
 
-### AccordionPanel
+<AccordionPropsSection component="AccordionButton" />
 
-<PropsSection name="AccordionPanel" />
+### Accordion Panel
+
+<AccordionPropsSection component="AccordionPanel" />
 
 ---
 

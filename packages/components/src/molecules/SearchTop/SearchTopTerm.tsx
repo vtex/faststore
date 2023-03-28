@@ -1,8 +1,7 @@
-import React from 'react'
-import { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
+import React, { forwardRef } from 'react'
 
-import { Badge, Link, LinkProps, LinkElementType } from '../../'
+import { Badge, Link, LinkElementType, LinkProps } from '../../'
 
 export interface SearchTopTermProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -23,15 +22,13 @@ export interface SearchTopTermProps extends HTMLAttributes<HTMLDivElement> {
   index: number
 }
 
-const SearchTopTerm = forwardRef<HTMLDivElement, SearchTopTermProps>(
-  function SearchTopTerm({
-    testId = 'fs-top-search-term',
-    value,
-    linkProps,
-    index,
-  }) {
+const SearchTopTerm = forwardRef<HTMLLIElement, SearchTopTermProps>(
+  function SearchTopTerm(
+    { testId = 'fs-top-search-term', value, linkProps, index },
+    ref
+  ) {
     return (
-      <li data-fs-search-top-item data-testid={testId}>
+      <li ref={ref} data-fs-search-top-item data-testid={testId}>
         <Link {...linkProps} data-fs-search-top-item-link variant="display">
           <Badge data-fs-search-top-item-badge variant="info">
             {index + 1}

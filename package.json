@@ -10,7 +10,7 @@
     "lint": "turbo run lint",
     "test": "turbo run test --filter=!./packages/core",
     "size": "turbo run size",
-    "release": "lerna version minor --yes && lerna publish from-git --yes",
+    "release": "lerna publish prepatch --yes --no-verify-access --ignore-scripts --conventional-commits --dist-tag alpha",
     "generate-ui-component": "yarn plop --plopfile generators/plopfile.ts",
     "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx,md}\""
@@ -22,7 +22,7 @@
   "devDependencies": {
     "@faststore/eslint-config": "*",
     "conventional-changelog-conventionalcommits": "^5.0.0",
-    "lerna": "^6.4.1",
+    "lerna": "6.4.1",
     "plop": "^2.7.6",
     "prettier": "latest",
     "turbo": "latest"

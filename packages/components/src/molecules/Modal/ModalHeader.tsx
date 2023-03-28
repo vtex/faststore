@@ -16,7 +16,7 @@ export interface ModalHeaderProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Props for the Close Button component.
    */
-  closeButtonProps?: Partial<Omit<IconButtonProps, 'onClick'>>
+  closeBtnProps?: Partial<Omit<IconButtonProps, 'onClick'>>
 
   onClose?: () => void
 }
@@ -24,7 +24,7 @@ export interface ModalHeaderProps extends HTMLAttributes<HTMLDivElement> {
 const ModalHeader = ({
   onClose,
   title,
-  closeButtonProps = {},
+  closeBtnProps = {},
   description,
 }: ModalHeaderProps) => {
   return (
@@ -35,7 +35,7 @@ const ModalHeader = ({
           data-fs-modal-header-close-button
           icon={<X />}
           aria-label="Close modal"
-          {...closeButtonProps}
+          {...closeBtnProps}
         />
       )}
       <p data-fs-modal-header-title>{title}</p>

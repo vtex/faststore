@@ -1,0 +1,47 @@
+<header>
+
+# Troubleshooting analytics and Partytown
+
+</header>
+
+The overwhelming majority of ecommerce websites use at least one analytics provider to collect metrics and track user behaviors. These analytics providers usually work by downloading and executing heavy javascript bundles in the browser, which may degrade website performance.
+
+[Partytown](https://partytown.builder.io/) is a tool that can help reduce this damage by moving 3rd party scripts execution to a webworker. Since Partytown is a beta solution and the 3rd party scripts run on a different environment than what they were built for, some errors are expected to occur. The following topics bring relevant information for debugging Partytown and analytics in general.
+
+## Google Tag Assistant is not working
+
+Debugging Google Tag Manager (GTM) and Google Analytics (GA) using Google Tag Assistant is, as of now, not possible if you're using Partytown. Thus, to debug your tags and GA behavior on your website requires turning partytown down. We recognize this is not ideal, after all, you'll not be debugging in the same environment your users will browse. If you're using Google Analytics 4 (recommended), you can mitigate this effect by debugging the events inside GA: check their [official docs](https://support.google.com/analytics/answer/7201382?hl=pt-BR#zippy=%2Cgerenciador-de-tags-do-google-sites) on how to enable it.
+
+To help you debug GTM and GA using Google Tag Assistant, we've included a switch in the form of a query string in our starters. When this query string is included in the URL, it is guaranteed that partytown will not be enabled for GTM. You can enable this query string to be included automatically when previewing a GTM container (image below). Check the next topic for more details on this query string.
+
+![enable-gtm-debug-query-string](https://vtexhelp.vtexassets.com/assets/docs/src/enable-gtm-debug-query-string___a500fcb42a88127e93fb8c5e44ce119c.png)
+
+## `gtm_debug=` query string
+
+Whenever the `gtm_debug=` query string is included in the URL, the GTM scripts (and all scripts/tags it injects) run outside Partytown. That's a great way of knowing if the error you're experiencing happens even if it runs without Partytown. You can navigate through pages and GTM will still run without Partytown, as long as you're using the Single Page Application (SPA) navigation, and not an absolute link to other page.
+
+## See events pushed to `dataLayer`
+
+The `dataLayer` variable is the way GTM provides to send data to its tags. When Partytown is enabled, it behaves differently. Essentially, you are no longer able to read the content of this variable from the browser's console. To see what's being pushed to the dataLayer, execute the following script in the browser's console.
+
+```js
+window.dataLayerHistory = []
+const originalPush = dataLayer.push
+dataLayer.push = (data) => {
+  console.log(data)
+  dataLayerHistory.push(data)
+  originalPush(data)
+}
+```
+
+After you run this, every event added to the `dataLayer` will be logged in the browser's console, and will also be available in the `window.dataLayerHistory` variable, so you can check all the events more easely. You can navigate through pages and the events will still be logged and sent as long as you're using the Single Page Application (SPA) navigation, and not an absolute link to other page.
+
+## jQuery is not defined / $ is not defined
+
+If you're using a script that depends on jQuery to work, it will probably break when it runs inside Partytown. That can also happen to scripts injected by GTM that depend on jQuery. If you see an error with logs pointing to something like `jQuery is not defined` or `$ is not defined`, it's because Partytown can't access jQuery from within the Service Worker it runs the script.
+
+There are a few possible solutions for this:
+
+1. (Recommended) Remove the jQuery dependency from the script and use vanilla javascript instead.
+2. Break down the script into smaller pieces, so only the parts that don't depend on jQuery run as expected. Meanwhile, you can address the faulty part of the script by following one of the other solutions provided here.
+3. Reference jQuery from inside the script in a way Partytown understands. In the script, you can set `$ = jQuery = window.jQuery` to define these variables locally. This way, Partytown **may** be able to recognize and use jQuery from inside the Web Worker.

@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.87-alpha.0](https://github.com/vtex/faststore/compare/v2.0.86-alpha.0...v2.0.87-alpha.0) (2023-03-24)
+
+### Features
+
+- Adds `SkuSelector` component ([#1677](https://github.com/vtex/faststore/issues/1677)) ([696a14e](https://github.com/vtex/faststore/commit/696a14e6d9633ececcd2818e4a32b32ce8ad2e2b))
+
+## [2.0.85-alpha.0](https://github.com/vtex/faststore/compare/v2.0.84-alpha.0...v2.0.85-alpha.0) (2023-03-22)
+
+### Features
+
+- Adds `Toast` Component ([#1672](https://github.com/vtex/faststore/issues/1672)) ([5338c46](https://github.com/vtex/faststore/commit/5338c466d9fb326c3c85acee3c1049f954afd42a))
+
+## [2.0.83-alpha.0](https://github.com/vtex/faststore/compare/v2.0.82-alpha.0...v2.0.83-alpha.0) (2023-03-21)
+
+### Features
+
+- Updates `PropsSection` ([#1673](https://github.com/vtex/faststore/issues/1673)) ([10000f2](https://github.com/vtex/faststore/commit/10000f2977f3337d6ac81fb9d52d59316f050105))
+
+## [2.0.80-alpha.0](https://github.com/vtex/faststore/compare/v2.0.79-alpha.0...v2.0.80-alpha.0) (2023-03-15)
+
+### Bug Fixes
+
+- forwardRef errors ([#1671](https://github.com/vtex/faststore/issues/1671)) ([945c5da](https://github.com/vtex/faststore/commit/945c5dabf21b7ee87c1e9197a1115b9b1eafb9c0))
+
+## 2.0.79-alpha.0 (2023-03-15)
+
+### Bug Fixes
+
+- husky pre-commit script + Lint-stage ([#1669](https://github.com/vtex/faststore/issues/1669)) ([5a3f3c8](https://github.com/vtex/faststore/commit/5a3f3c85ddc6b76377290a930cd70ed37735d8e8))
+
+## [2.0.78-alpha.0](https://github.com/vtex/faststore/compare/v2.0.77-alpha.0...v2.0.78-alpha.0) (2023-03-15)
+
+### Bug Fixes
+
+- yarn test script ([#1668](https://github.com/vtex/faststore/issues/1668)) ([128c706](https://github.com/vtex/faststore/commit/128c7068e065b341268c9967351c4dd2e908bd49))
+
+## [2.0.75-alpha.0](https://github.com/vtex/faststore/compare/v2.0.74-alpha.0...v2.0.75-alpha.0) (2023-03-15)
+
+### Features
+
+- Add `SearchSuggestions` components ([#1654](https://github.com/vtex/faststore/issues/1654)) ([5dc8077](https://github.com/vtex/faststore/commit/5dc8077421267af882d22e85ddbbb8eacf807690))
+
+## 2.0.74-alpha.0 (2023-03-15)
+
+### Bug Fixes
+
+- publish version ([#1664](https://github.com/vtex/faststore/issues/1664)) ([9e29810](https://github.com/vtex/faststore/commit/9e29810f59402b694f26846db4e45971fb2e74b8))
+
+## 2.0.73-alpha.0 (2023-03-15)
+
+### Chores
+
+- attempts to fix publish workflow ([#1662](https://github.com/vtex/faststore/issues/1662)) ([7479889](https://github.com/vtex/faststore/commit/7479889f87533f8a040e4d11cd1fc5dd5c661202))
+
 ## [2.0.70-alpha.0](https://github.com/vtex/faststore/compare/v2.0.69-alpha.0...v2.0.70-alpha.0) (2023-02-16)
 
 ### Features

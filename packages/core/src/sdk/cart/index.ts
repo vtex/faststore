@@ -68,8 +68,8 @@ export const ValidateCartMutation = gql`
       name
       skuVariants {
         activeVariations
-        slugsMap(dominantVariantName: "Color")
-        availableVariations(dominantVariantName: "Color")
+        slugsMap
+        availableVariations
       }
     }
     gtin

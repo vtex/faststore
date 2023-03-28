@@ -24,9 +24,9 @@ This section displays the most searched terms by customers.
   <Tab>
     <OverviewSection>
       <SearchTop title="Top Search">
-        <SearchTopTerm value="Notebooks" href="/" index={0} />
-        <SearchTopTerm value="Laser Printer" href="/" index={1} />
-        <SearchTopTerm value="Bluetooth Keyboard" href="/" index={2} />
+        <SearchTopTerm value="Notebooks" linkProps={{href: "/"}} index={0} />
+        <SearchTopTerm value="Laser Printer" linkProps={{href: "/"}} index={1} />
+        <SearchTopTerm value="Bluetooth Keyboard" linkProps={{href: "/"}} index={2} />
       </SearchTop>
     </OverviewSection>
   </Tab>
@@ -34,9 +34,9 @@ This section displays the most searched terms by customers.
 
     ```tsx
     <SearchTop title="Top Search">
-      <SearchTopTerm value="Notebooks" href="/" index={0} />
-      <SearchTopTerm value="Laser Printer" href="/" index={1} />
-      <SearchTopTerm value="Bluetooth Keyboard" href="/" index={2} />
+      <SearchTopTerm value="Notebooks" linkProps={{href: "/"}} index={0} />
+      <SearchTopTerm value="Laser Printer" linkProps={{href: "/"}} index={1} />
+      <SearchTopTerm value="Bluetooth Keyboard" linkProps={{href: "/"}} index={2} />
     </SearchTop>
     ```
 
@@ -47,7 +47,7 @@ This section displays the most searched terms by customers.
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
 import { SearchTop } from '@faststore/ui'
@@ -65,16 +65,24 @@ import '@faststore/ui/src/components/molecules/SearchTop/styles.scss'
 
 <OverviewSection>
   <SearchTop title="Top Search">
-    <SearchTopTerm value="Notebooks" href="/" index={0} />
-    <SearchTopTerm value="Laser Printer" href="/" index={1} />
-    <SearchTopTerm value="Bluetooth Keyboard" href="/" index={2} />
+    <SearchTopTerm value="Notebooks" linkProps={{ href: '/' }} index={0} />
+    <SearchTopTerm value="Laser Printer" linkProps={{ href: '/' }} index={1} />
+    <SearchTopTerm
+      value="Bluetooth Keyboard"
+      linkProps={{ href: '/' }}
+      index={2}
+    />
   </SearchTop>
 </OverviewSection>
 ```tsx
 <SearchTop title="Top Search">
-  <SearchTopTerm value="Notebooks" href="/" index={0} />
-  <SearchTopTerm value="Laser Printer" href="/" index={1} />
-  <SearchTopTerm value="Bluetooth Keyboard" href="/" index={2} />
+  <SearchTopTerm value="Notebooks" linkProps={{ href: '/' }} index={0} />
+  <SearchTopTerm value="Laser Printer" linkProps={{ href: '/' }} index={1} />
+  <SearchTopTerm
+    value="Bluetooth Keyboard"
+    linkProps={{ href: '/' }}
+    index={2}
+  />
 </SearchTop>
 ```
 

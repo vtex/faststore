@@ -19,9 +19,9 @@ const ClockClockwise: FC = () => (
       y2="128"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
     ></line>
     <line
       x1="169.6"
@@ -30,25 +30,25 @@ const ClockClockwise: FC = () => (
       y2="128"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
     ></line>
     <polyline
       points="184.2 99.7 224.2 99.7 224.2 59.7"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
     ></polyline>
     <path
       d="M190.2,190.2a88,88,0,1,1,0-124.4l34,33.9"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
     ></path>
   </svg>
 )

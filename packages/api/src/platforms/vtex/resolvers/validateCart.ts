@@ -7,6 +7,7 @@ import {
   getPropertyId,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
+import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 
 import type {
   IStoreSession,
@@ -22,6 +23,7 @@ import type {
   OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
 import type { Context } from '..'
+
 type Indexed<T> = T & { index?: number }
 
 const isAttachment = (value: IStorePropertyValue) =>
@@ -144,7 +146,7 @@ const orderFormToCart = async (
       orderNumber: form.orderFormId,
       acceptedOffer: form.items.map(async (item) => ({
         ...item,
-        product: await skuLoader.load(item.id), // TODO: add channel
+        product: await skuLoader.load(item.id),
       })),
     },
     messages: form.messages.map(({ text, status }) => ({
@@ -259,6 +261,17 @@ export const validateCart = async (
     loaders: { skuLoader },
     headers,
   } = ctx
+
+  const channel = session?.channel
+  const locale = session?.locale
+
+  if (channel) {
+    mutateChannelContext(ctx, channel)
+  }
+
+  if (locale) {
+    mutateLocaleContext(ctx, locale)
+  }
 
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)

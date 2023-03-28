@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.79-alpha.0 (2023-03-15)
+
+### Bug Fixes
+
+- husky pre-commit script + Lint-stage ([#1669](https://github.com/vtex/faststore/issues/1669)) ([5a3f3c8](https://github.com/vtex/faststore/commit/5a3f3c85ddc6b76377290a930cd70ed37735d8e8))
+
+## 2.0.74-alpha.0 (2023-03-15)
+
+### Bug Fixes
+
+- publish version ([#1664](https://github.com/vtex/faststore/issues/1664)) ([9e29810](https://github.com/vtex/faststore/commit/9e29810f59402b694f26846db4e45971fb2e74b8))
+
+## 2.0.73-alpha.0 (2023-03-15)
+
+### Chores
+
+- attempts to fix publish workflow ([#1662](https://github.com/vtex/faststore/issues/1662)) ([7479889](https://github.com/vtex/faststore/commit/7479889f87533f8a040e4d11cd1fc5dd5c661202))
+
 ## 2.0.66-alpha.0 (2023-02-13)
 
 ### Bug Fixes
