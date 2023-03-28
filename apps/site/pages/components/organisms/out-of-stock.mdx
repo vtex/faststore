@@ -98,31 +98,6 @@ import '@faststore/ui/src/components/organisms/OutOfStock/styles.scss'
 
 <OutOfStockPropsSection component="OutOfStock" />
 
-### Out of Stock Title
-
-export const propsOutOfStockTitle = [
-  {
-    name: 'testId',
-    type: 'string',
-    description:
-      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
-    default: 'fs-accordion-item',
-  },
-  {
-    name: 'as',
-    type: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'],
-    description: 'Attribute used for polymorphic component.',
-  },
-  {
-    name: 'children',
-    type: 'ReactNode',
-    description: 'A react component to be used as the title.',
-    required: true,
-  },
-]
-
-<PropsSection propsList={propsOutOfStockTitle} />
-
 ---
 
 ## Design Tokens
