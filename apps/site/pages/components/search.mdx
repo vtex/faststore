@@ -60,9 +60,9 @@ export const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
     actionPath="/components/molecules/search-history"
   >
     <SearchHistory title="History">
-      <SearchHistoryTerm value="Headphone" linkProps={{ href: '/' }} />
-      <SearchHistoryTerm value="Audio & Video" linkProps={{ href: '/' }} />
-      <SearchHistoryTerm value="mh-7000" linkProps={{ href: '/' }} />
+      <SearchHistoryTerm value="Headphone" linkProps={{ href: '#' }} />
+      <SearchHistoryTerm value="Audio & Video" linkProps={{ href: '#' }} />
+      <SearchHistoryTerm value="mh-7000" linkProps={{ href: '#' }} />
     </SearchHistory>
   </SectionItem>
   <SectionItem
@@ -71,15 +71,15 @@ export const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
     actionPath="/components/molecules/search-top"
   >
     <SearchTop title="Top Search">
-      <SearchTopTerm value="Notebooks" linkProps={{ href: '/' }} index={0} />
+      <SearchTopTerm value="Notebooks" linkProps={{ href: '#' }} index={0} />
       <SearchTopTerm
         value="Laser Printer"
-        linkProps={{ href: '/' }}
+        linkProps={{ href: '#' }}
         index={1}
       />
       <SearchTopTerm
         value="Bluetooth Keyboard"
-        linkProps={{ href: '/' }}
+        linkProps={{ href: '#' }}
         index={2}
       />
     </SearchTop>
@@ -95,7 +95,7 @@ export const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
           key={suggestion.value}
           term={searchContent}
           suggestion={suggestion.value}
-          linkProps={{ href: '/' }}
+          linkProps={{ href: '#' }}
         />
       ))}
     </SearchAutoComplete>
@@ -106,7 +106,7 @@ export const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
     actionPath="/components/molecules/search-products"
   >
     <SearchProducts>
-      <SearchProductItem linkProps={{ href: '/' }}>
+      <SearchProductItem linkProps={{ href: '#' }}>
         <SearchProductItemImage>
           <img
             data-fs-image
@@ -123,7 +123,7 @@ export const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
           }}
         />
       </SearchProductItem>
-      <SearchProductItem linkProps={{ href: '/' }}>
+      <SearchProductItem linkProps={{ href: '#' }}>
         <SearchProductItemImage>
           <img
             data-fs-image

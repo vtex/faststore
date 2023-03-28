@@ -24,9 +24,9 @@ export interface SearchDropdownUsageProps {
 const SearchHistoryUsage = () => {
   return (
     <SearchHistory title="History">
-      <SearchHistoryTerm value="Headphone" linkProps={{ href: '/' }} />
-      <SearchHistoryTerm value="Audio & Video" linkProps={{ href: '/' }} />
-      <SearchHistoryTerm value="mh-7000" linkProps={{ href: '/' }} />
+      <SearchHistoryTerm value="Headphone" linkProps={{ href: '#' }} />
+      <SearchHistoryTerm value="Audio & Video" linkProps={{ href: '#' }} />
+      <SearchHistoryTerm value="mh-7000" linkProps={{ href: '#' }} />
     </SearchHistory>
   )
 }
@@ -34,15 +34,15 @@ const SearchHistoryUsage = () => {
 const SearchTopUsage = () => {
   return (
     <SearchTop title="Top Search">
-      <SearchTopTerm value="Notebooks" linkProps={{ href: '/' }} index={0} />
+      <SearchTopTerm value="Notebooks" linkProps={{ href: '#' }} index={0} />
       <SearchTopTerm
         value="Laser Printer"
-        linkProps={{ href: '/' }}
+        linkProps={{ href: '#' }}
         index={1}
       />
       <SearchTopTerm
         value="Bluetooth Keyboard"
-        linkProps={{ href: '/' }}
+        linkProps={{ href: '#' }}
         index={2}
       />
     </SearchTop>
@@ -59,7 +59,7 @@ const SearchAutoCompleteUsage = () => {
           key={suggestion.value}
           term={searchContent}
           suggestion={suggestion.value}
-          linkProps={{ href: '/' }}
+          linkProps={{ href: '#' }}
         />
       ))}
     </SearchAutoComplete>
@@ -69,7 +69,7 @@ const SearchAutoCompleteUsage = () => {
 const SearchProductsUsage = () => {
   return (
     <SearchProducts>
-      <SearchProductItem linkProps={{ href: '/' }}>
+      <SearchProductItem linkProps={{ href: '#' }}>
         <SearchProductItemImage>
           <img
             data-fs-image
@@ -86,7 +86,7 @@ const SearchProductsUsage = () => {
           }}
         />
       </SearchProductItem>
-      <SearchProductItem linkProps={{ href: '/' }}>
+      <SearchProductItem linkProps={{ href: '#' }}>
         <SearchProductItemImage>
           <img
             data-fs-image
