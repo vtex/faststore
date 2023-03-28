@@ -8,10 +8,6 @@ export interface FacetBooleanItemProps {
    */
   testId: string
   /**
-   * This function is called when `Checkbox` from the facet changes.
-   */
-  onFacetChange: OnFacetChange
-  /**
    * The text displayed to identify the Boolean Facet Item.
    */
   label: string
@@ -35,17 +31,21 @@ export interface FacetBooleanItemProps {
    * String that identifies the current Facet key.
    */
   facetKey: string
+  /**
+   * This function is called when `Checkbox` from the facet changes.
+   */
+  onFacetChange: OnFacetChange
 }
 
 function FacetBooleanItem({
-  id,
   testId,
-  onFacetChange,
+  id,
   selected,
   value,
   quantity,
   facetKey,
   label,
+  onFacetChange,
 }: FacetBooleanItemProps) {
   return (
     <li key={id} data-fs-filter-list-item>

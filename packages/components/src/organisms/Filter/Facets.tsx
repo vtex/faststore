@@ -3,13 +3,13 @@ import { AccordionButton, AccordionItem, AccordionPanel } from '../..'
 
 export interface FacetsProps {
   /**
-   * Current Facet's position in a list of facets.
-   */
-  index: number
-  /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId: string
+  /**
+   * Current Facet's position in a list of facets.
+   */
+  index: number
   /**
    * Current Facet's type, usually `StoreFacetBoolean` or `StoreFacetRange`.
    */
@@ -21,9 +21,9 @@ export interface FacetsProps {
 }
 
 function Facets({
+  testId,
   label,
   index,
-  testId,
   children,
   type,
 }: PropsWithChildren<FacetsProps>) {

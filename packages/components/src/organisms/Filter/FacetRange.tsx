@@ -12,13 +12,13 @@ export interface FacetRangeProps {
    */
   max: { selected: number; absolute: number }
   /**
-   * Formatter function that transforms the raw price value and render the result.
-   */
-  formatter: (price: number) => string
-  /**
    * String that identifies the current Facet key.
    */
   facetKey: string
+  /**
+   * Formatter function that transforms the raw price value and render the result.
+   */
+  formatter: (price: number) => string
   /**
    * This function is called when `Checkbox` from the facet changes.
    */
