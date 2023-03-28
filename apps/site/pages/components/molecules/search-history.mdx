@@ -11,6 +11,38 @@ import { OverviewSection } from 'site/components/OverviewSection'
 import { SearchHistory, SearchHistoryTerm } from '@faststore/ui'
 import { Star, Heart, ClockClockwise } from '@faststore/components'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const searchHistoryPath = path.resolve(__filename)
+  const components = ['SearchHistory.tsx', 'SearchHistoryTerm.tsx']
+  const [searchHistoryProps, searchHistoryTermProps] = getComponentPropsFrom(
+    searchHistoryPath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        searchHistoryProps,
+        searchHistoryTermProps,
+      },
+    },
+  }
+}
+
+export const SearchHistoryPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { searchHistoryProps, searchHistoryTermProps } = useSSG()
+  return {
+    SearchHistory: <PropsSection propsList={searchHistoryProps} />,
+    SearchHistoryTerm: <PropsSection propsList={searchHistoryTermProps} />,
+  }[component]
+}
+
 <header>
 
 # Search History
@@ -51,7 +83,7 @@ Responsible for showing the latest terms searched by a user. This component is p
 Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { SearchHistory } from '@faststore/ui'
+import { SearchHistory, SearchHistoryTerm } from '@faststore/ui'
 ```
 
 Import Styles
@@ -85,11 +117,11 @@ import '@faststore/ui/src/components/molecules/SearchHistory/styles.scss'
 
 ### Search History
 
-<PropsSection name="SearchHistory" />
+<SearchHistoryPropsSection component="SearchHistory" />
 
 ### Search History Term
 
-<PropsSection name="SearchHistoryTerm" />
+<SearchHistoryPropsSection component="SearchHistoryTerm" />
 
 ---
 
