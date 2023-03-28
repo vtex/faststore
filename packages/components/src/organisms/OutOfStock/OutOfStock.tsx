@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import type { FormHTMLAttributes } from 'react'
 import { BellRinging } from '../../assets'
-import { Button, Icon, InputField, OutOfStockTitle } from '../..'
+import { Button, Icon, InputField } from '../..'
 
 export interface OutOfStockProps extends FormHTMLAttributes<HTMLFormElement> {
   /**
@@ -67,7 +67,7 @@ const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
         onSubmit={onSubmit}
         {...otherProps}
       >
-        <OutOfStockTitle data-fs-out-of-stock-title>{title}</OutOfStockTitle>
+        <h2 data-fs-out-of-stock-title>{title}</h2>
         {subtitle && (
           <p data-fs-out-of-stock-message>
             <Icon component={<BellRinging size={16} />} />
