@@ -19,10 +19,6 @@ function OutOfStock() {
     // TODO: Missing integration
 
     try {
-      console.log(event)
-    } catch (err) {
-      setError(err.message)
-    } finally {
       // Return to original state after 2s mockup
       setTimeout(() => setIsLoading(false), 2000)
 
@@ -35,6 +31,9 @@ function OutOfStock() {
         status: 'INFO',
         icon: <Icon name="CircleWavyCheck" width={30} height={30} />,
       })
+    } catch (err) {
+      setError(err.message)
+    } finally {
     }
   }
 
