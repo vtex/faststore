@@ -11,6 +11,38 @@ import { OverviewSection } from 'site/components/OverviewSection'
 import { SearchAutoComplete, SearchAutoCompleteTerm } from '@faststore/ui'
 import { FadersHorizontal, TagIcon } from '@faststore/components'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const searchAutoCompletePath = path.resolve(__filename)
+  const components = ['SearchAutoComplete.tsx', 'SearchAutoCompleteTerm.tsx']
+  const [searchAutoCompleteProps, searchAutoCompleteTermProps] =
+    getComponentPropsFrom(searchAutoCompletePath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        searchAutoCompleteProps,
+        searchAutoCompleteTermProps,
+      },
+    },
+  }
+}
+
+export const SearchAutoCompletePropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { searchAutoCompleteProps, searchAutoCompleteTermProps } = useSSG()
+  return {
+    SearchAutoComplete: <PropsSection propsList={searchAutoCompleteProps} />,
+    SearchAutoCompleteTerm: (
+      <PropsSection propsList={searchAutoCompleteTermProps} />
+    ),
+  }[component]
+}
+
 <header>
 
 # Search Auto Complete
@@ -70,7 +102,7 @@ export const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
 Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
 ```tsx
-import { SearchAutoComplete } from '@faststore/ui'
+import { SearchAutoComplete, SearchAutoCompleteTerm } from '@faststore/ui'
 ```
 
 Import Styles
@@ -127,11 +159,11 @@ import '@faststore/ui/src/components/molecules/SearchAutoComplete/styles.scss'
 
 ### Search Auto Complete
 
-<PropsSection name="SearchAutoComplete" />
+<SearchAutoCompletePropsSection component="SearchAutoComplete" />
 
 ### Search Auto Complete Term
 
-<PropsSection name="SearchAutoCompleteTerm" />
+<SearchAutoCompletePropsSection component="SearchAutoCompleteTerm" />
 
 ---
 
