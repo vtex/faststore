@@ -8,6 +8,7 @@ import {
   FilterSlider as UIFilterSlider
 } from '@faststore/ui'
 import { useFormattedPrice } from '../utilities/usePriceFormatter'
+import type { FilterFacet } from './FilterUsage'
 
 import type { useFilter } from './useFilter'
 
@@ -15,7 +16,7 @@ interface Props {
   /**
    * The array that represents the details of every facet.
    */
-  facets: any[]
+  facets: FilterFacet[]
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).

@@ -4,6 +4,28 @@ import FilterFixedUsage from './FilterFixedUsage'
 import FilterSliderUsage from './FilterSliderUsage'
 import { useFilter } from './useFilter'
 
+export type FilterFacetBoolean = {
+  __typename: 'StoreFacetBoolean'
+  key: string
+  label: string
+  values: Array<{
+    label: string
+    value: string
+    selected: boolean
+    quantity: number
+  }>
+}
+
+export type FilterFacetRange = {
+  __typename: 'StoreFacetRange'
+  key: string
+  label: string
+  min: { selected: number; absolute: number }
+  max: { selected: number; absolute: number }
+}
+
+export type FilterFacet = FilterFacetBoolean | FilterFacetRange
+
 const FilterUsage = ({ onlyMobile }: { onlyMobile?: boolean }) => {
   const filter = useFilter(facetsMock)
   const { filter: displayFilter, openFilter } = useUI()

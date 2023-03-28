@@ -1,3 +1,5 @@
+import { FilterFacet } from '../components/Filter/FilterUsage'
+
 export const facetsMock = [
   {
     key: 'price',
@@ -56,4 +58,4 @@ export const facetsMock = [
     ],
     __typename: 'StoreFacetBoolean',
   },
-]
+] as FilterFacet[]

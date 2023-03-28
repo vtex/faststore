@@ -1,6 +1,7 @@
 import type { IStoreSelectedFacet } from '@faststore/api'
 import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
 import { useEffect, useMemo, useReducer } from 'react'
+import { FilterFacet } from './FilterUsage'
 
 interface State {
   expanded: Set<number>
@@ -75,7 +76,7 @@ const reducer = (state: State, action: Action) => {
   return state
 }
 
-export const useFilter = (allFacets: any[]) => {
+export const useFilter = (allFacets: FilterFacet[]) => {
   const {
     state: { selectedFacets },
   } = useSearch()
