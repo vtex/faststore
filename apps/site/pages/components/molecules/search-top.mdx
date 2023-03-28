@@ -10,6 +10,38 @@ import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SearchTop, SearchTopTerm } from '@faststore/ui'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const searchTopPath = path.resolve(__filename)
+  const components = ['SearchTop.tsx', 'SearchTopTerm.tsx']
+  const [searchTopProps, searchTopTermProps] = getComponentPropsFrom(
+    searchTopPath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        searchTopProps,
+        searchTopTermProps,
+      },
+    },
+  }
+}
+
+export const SearchTopPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { searchTopProps, searchTopTermProps } = useSSG()
+  return {
+    SearchTop: <PropsSection propsList={searchTopProps} />,
+    SearchTopTerm: <PropsSection propsList={searchTopTermProps} />,
+  }[component]
+}
+
 <header>
 
 # Search Top
@@ -50,7 +82,7 @@ This section displays the most searched terms by customers. This component is pa
 Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { SearchTop } from '@faststore/ui'
+import { SearchTop, SearchTopTerm } from '@faststore/ui'
 ```
 
 Import Styles
@@ -92,11 +124,11 @@ import '@faststore/ui/src/components/molecules/SearchTop/styles.scss'
 
 ### Search Top
 
-<PropsSection name="SearchTop" />
+<SearchTopPropsSection component="SearchTop" />
 
 ### Search Top Term
 
-<PropsSection name="SearchTopTerm" />
+<SearchTopPropsSection component="SearchTopTerm" />
 
 ---
 
