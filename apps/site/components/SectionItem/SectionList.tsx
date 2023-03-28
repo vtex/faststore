@@ -3,13 +3,16 @@ import styles from './section-item.module.css'
 
 export type SectionListProps = {
   grid?: 'row' | 'column'
+  columns?: 3 | 2
   classes?: string
 }
 
 const SectionList = ({
   children,
   grid = 'row',
+  columns = 3,
   classes,
+  ...otherProps
 }: PropsWithChildren<SectionListProps>) => {
   const scopedClasses =
     classes?.split(' ').map((klass) => styles[klass] ?? '') ?? []
@@ -19,8 +22,13 @@ const SectionList = ({
   )
 
   return (
-    <section className={`${styles.sectionList} ${stylizedClasses}`}>
-      <ul data-doc-section-grid={grid}>{children}</ul>
+    <section
+      className={`${styles.sectionList} ${stylizedClasses}`}
+      {...otherProps}
+    >
+      <ul data-doc-section-grid={grid} data-doc-section-grid-columns={columns}>
+        {children}
+      </ul>
     </section>
   )
 }

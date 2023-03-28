@@ -8,7 +8,7 @@ interface Price {
   formatter: PriceFormatter
 }
 
-export type SearchProductItemContentProps = {
+export interface SearchProductItemContentProps {
   /**
    * Specifies the product's title.
    */

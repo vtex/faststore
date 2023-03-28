@@ -1,0 +1,228 @@
+---
+description: Combine `SearchHistory`, `SearchTop` and `SearchAutoComplete` and `SearchProducts` to show all options in `SearchInput`.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/AggregateRating___a8300916874f5a11de7633b7cabc12e9.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+
+import SearchDropdownUsage from 'site/components/Search/SearchDropdownUsage'
+import { product } from 'site/mocks/product'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const searchDropdownPath = path.resolve(__filename)
+  const components = ['SearchDropdown.tsx']
+  const [searchDropdownProps] = getComponentPropsFrom(
+    searchDropdownPath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        searchDropdownProps,
+      },
+    },
+  }
+}
+
+export const SearchDropdownPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { searchDropdownProps } = useSSG()
+  return {
+    SearchDropdown: <PropsSection propsList={searchDropdownProps} />,
+  }[component]
+}
+
+<header>
+
+# Search Dropdown
+
+Combine `SearchHistory`, `SearchTop`, `SearchAutoComplete` and `SearchProducts` to show all options in `SearchInput`. This component is part of the [Search](/components/search) feature.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection direction="column">
+      Waiting for input...
+      <SearchDropdownUsage/>
+    </OverviewSection>
+
+    <OverviewSection direction="column">
+      Searching for: <code>Appl</code>
+      <SearchDropdownUsage term="App" products={product}/>
+    </OverviewSection>
+
+  </Tab>
+<Tab>
+    ```tsx
+    // Waiting for input...
+      <SearchDropdown
+        term=""
+        terms={[]}
+        isLoading={false}
+        products={[]}
+        searchHistoryComponent={<SearchHistory />}
+        searchTopComponent={<SearchTop />}
+        searchAutoCompleteComponent={<SearchAutoComplete />}
+        searchProductsComponent={<SearchProducts />}
+      />
+    ```
+
+    ```tsx
+    // Searching for: Appl
+      <SearchDropdown
+        term="Appl"
+        terms={[
+          {
+            value: 'apple',
+          },
+          {
+            value: 'apple magic mouse',
+          },
+        ]}
+        isLoading={false}
+        products={[products]}
+        searchHistoryComponent={<SearchHistory />}
+        searchTopComponent={<SearchTop />}
+        searchAutoCompleteComponent={<SearchAutoComplete />}
+        searchProductsComponent={<SearchProducts />}
+      />
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { SearchDropdown } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/SearchDropdown/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection direction="column">
+      Searching for: <code>Appl</code>
+      <SearchDropdownUsage term="App" />
+    </OverviewSection>
+  </Tab>
+
+  <Tab>
+  ```tsx
+    <SearchDropdown
+      term="Appl"
+      terms={[
+        {
+          value: 'apple',
+        },
+        {
+          value: 'apple magic mouse',
+        },
+      ]}
+      isLoading={false}
+      products={[products]}
+      searchHistoryComponent={<SearchHistory />}
+      searchTopComponent={<SearchTop />}
+      searchAutoCompleteComponent={<SearchAutoComplete />}
+      searchProductsComponent={<SearchProducts />}
+    />
+  ```
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+<SearchDropdownPropsSection component="SearchDropdown" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-dropdown-bkg-color"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenRow token="--fs-search-dropdown-box-shadow" value="var(--fs-shadow)" />
+  <TokenDivider />
+  <TokenRow token="--fs-search-dropdown-width-mobile" value="100vw" />
+  <TokenRow token="--fs-search-dropdown-width-desktop" value="100%" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-search-dropdown-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-search-dropdown-border-color"
+    value="var(--fs-border-color)"
+  />
+  <TokenRow
+    token="--fs-search-dropdown-border-radius"
+    value="0 0 var(--fs-border-radius) var(--fs-border-radius)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-search-dropdown-position-left-mobile"
+    value="calc(-1 * var(--fs-control-tap-size))"
+  />
+  <TokenRow
+    token="--fs-search-dropdown-position-left-tablet"
+    value="calc(var(--fs-search-dropdown-position-left-mobile) - var(--fs-spacing-1))"
+  />
+  <TokenRow
+    token="--fs-search-dropdown-position-top-mobile"
+    value="calc(var(--fs-search-dropdown-position-top-tablet) + 1px)"
+  />
+  <TokenRow
+    token="--fs-search-dropdown-position-top-tablet"
+    value="calc(var(--fs-control-tap-size) + var(--fs-spacing-2) + var(--fs-border-width))"
+  />
+  <TokenRow
+    token="--fs-search-dropdown-position-top-desktop"
+    value="var(--fs-search-input-height-desktop)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-search-dropdown-section-border-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-search-dropdown`
+
+`data-fs-search-dropdown-loading-text`

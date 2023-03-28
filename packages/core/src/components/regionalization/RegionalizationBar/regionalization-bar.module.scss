@@ -37,6 +37,10 @@
     background-color: var(--fs-regionalization-bar-bkg-color);
     border-bottom: var(--fs-regionalization-bar-border-bottom-width) solid var(--fs-regionalization-bar-border-bottom-color);
     border-radius: 0;
+
+    > span {
+      display: contents;
+    }
   }
 
   [data-fs-regionalization-bar-cta] {

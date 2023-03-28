@@ -12,8 +12,15 @@
 
 .sectionList [data-doc-section-grid="column"] {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   grid-gap: var(--fs-spacing-5) var(--fs-spacing-4);
+}
+
+.sectionList [data-doc-section-grid="column"][data-doc-section-grid-columns="2"] {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.sectionList [data-doc-section-grid="column"][data-doc-section-grid-columns="3"] {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .sectionList [data-doc-section-grid="column"] .sectionItem {
@@ -31,7 +38,6 @@
 
 .sectionItem {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   column-gap: var(--fs-spacing-4);
   row-gap: var(--fs-spacing-3);
@@ -45,6 +51,8 @@
   padding: var(--fs-spacing-4) var(--fs-spacing-3);
   background-color: var(--fs-color-neutral-bkg);
   border-radius: 4px;
+  overflow-y: auto;
+  max-height: 20rem;
 }
 
 .sectionItem > article [data-fs-button] {

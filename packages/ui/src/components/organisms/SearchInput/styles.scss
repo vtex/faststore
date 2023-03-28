@@ -1,0 +1,28 @@
+[data-fs-search-input] {
+  // --------------------------------------------------------
+  // Design Tokens for Search Input
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-search-input-height-desktop          : var(--fs-spacing-6);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+
+  &[data-fs-search-input-dropdown-visible="true"] [data-fs-search-input-field-input] {
+      @include media(">=notebook") {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  [data-fs-search-product-card-link] {
+    color: var(--fs-color-neutral-7);
+    text-decoration: none;
+
+    &:hover { text-decoration: none; }
+  }
+}
