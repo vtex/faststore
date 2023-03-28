@@ -193,7 +193,6 @@ function ProductDetails({ context: staleProduct }: Props) {
             data-fs-product-details-section
           >
             {availability ? <ProductDetailsSection /> : <OutOfStock />}
-          </section>
           {availability && (
             <ShippingSimulation
               data-fs-product-details-section
@@ -284,8 +283,8 @@ export const fragment = gql`
       productGroupID
       skuVariants {
         activeVariations
-        slugsMap(dominantVariantName: "Color")
-        availableVariations(dominantVariantName: "Color")
+        slugsMap
+        availableVariations
       }
     }
 
