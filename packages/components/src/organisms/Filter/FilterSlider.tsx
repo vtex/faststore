@@ -67,7 +67,7 @@ function FilterSlider({
             fadeOut()
           }}
         >
-          <h2 className="text__lead">{title}</h2>
+          <h2 data-fs-filter-slider-title>{title}</h2>
         </SlideOverHeader>
         {children}
       </div>
