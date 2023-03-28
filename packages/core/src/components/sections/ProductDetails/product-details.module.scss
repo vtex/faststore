@@ -38,11 +38,6 @@
   [data-fs-product-details-section] {
     height: fit-content;
 
-    [data-fs-sku-selector] {
-      margin-bottom: var(--fs-product-details-vertical-spacing);
-      &:last-of-type { margin-bottom: var(--fs-spacing-7); }
-    }
-
     [data-fs-buy-button] {
       width: 100%;
       margin-top: var(--fs-spacing-3);

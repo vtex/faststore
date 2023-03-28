@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.87-alpha.0](https://github.com/vtex/faststore/compare/v2.0.86-alpha.0...v2.0.87-alpha.0) (2023-03-24)
+
+### Features
+
+- Adds `SkuSelector` component ([#1677](https://github.com/vtex/faststore/issues/1677)) ([696a14e](https://github.com/vtex/faststore/commit/696a14e6d9633ececcd2818e4a32b32ce8ad2e2b))
+
 ## [2.0.86-alpha.0](https://github.com/vtex/faststore/compare/v2.0.85-alpha.0...v2.0.86-alpha.0) (2023-03-22)
 
 ### Features
