@@ -18,6 +18,58 @@ import {
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 import { product } from 'site/mocks/product'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const searchProductsPath = path.resolve(__filename)
+  const components = [
+    'SearchProducts.tsx',
+    'SearchProductItem.tsx',
+    'SearchProductItemImage.tsx',
+    'SearchProductItemContent.tsx',
+  ]
+  const [
+    searchProductsProps,
+    searchProductItemProps,
+    searchProductItemImageProps,
+    searchProductItemContentProps,
+  ] = getComponentPropsFrom(searchProductsPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        searchProductsProps,
+        searchProductItemProps,
+        searchProductItemImageProps,
+        searchProductItemContentProps,
+      },
+    },
+  }
+}
+
+export const SearchProductsPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const {
+    searchProductsProps,
+    searchProductItemProps,
+    searchProductItemImageProps,
+    searchProductItemContentProps,
+  } = useSSG()
+  return {
+    SearchProducts: <PropsSection propsList={searchProductsProps} />,
+    SearchProductItem: <PropsSection propsList={searchProductItemProps} />,
+    SearchProductItemImage: (
+      <PropsSection propsList={searchProductItemImageProps} />
+    ),
+    SearchProductItemContent: (
+      <PropsSection propsList={searchProductItemContentProps} />
+    ),
+  }[component]
+}
+
 <header>
 
 # Search Products
@@ -227,19 +279,19 @@ All search product related components support all attributes also supported by t
 
 ### Search Products
 
-<PropsSection name="SearchProducts" />
+<SearchProductsPropsSection component="SearchProducts" />
 
 ### Search Product Item
 
-<PropsSection name="SearchProductItem" />
+<SearchProductsPropsSection component="SearchProductItem" />
 
 ### Search Product Item Image
 
-<PropsSection name="SearchProductItemImage" />
+<SearchProductsPropsSection component="SearchProductItemImage" />
 
 ### Search Product Item Content
 
-<PropsSection name="SearchProductItemContent" />
+<SearchProductsPropsSection component="SearchProductItemContent" />
 
 ---
 
