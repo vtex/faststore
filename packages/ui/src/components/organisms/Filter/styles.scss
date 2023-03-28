@@ -6,6 +6,8 @@
   // Title
   --fs-filter-title-height                                : var(--product-listing-row-height);
   --fs-filter-title-margin-bottom                         : var(--fs-spacing-0);
+  --fs-filter-title-text-size                             : var(--fs-text-size-2);
+  --fs-filter-title-line-height                           : 1.25;
 
   // Accordion
   --fs-filter-accordion-border-width-notebook             : var(--fs-border-width);
@@ -48,6 +50,8 @@
     align-items: center;
     height: var(--fs-filter-title-height);
     margin-bottom: var(--fs-filter-title-margin-bottom);
+    font-size: var(--fs-filter-title-text-size);
+    line-height: var(--fs-filter-accordion-button-line-height-notebook);
 
     @include media("<notebook") {
       display: none;

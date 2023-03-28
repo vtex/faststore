@@ -37,9 +37,7 @@ function Filter({
 }: PropsWithChildren<FilterProps>) {
   return (
     <div data-fs-filter data-testid={testId}>
-      <h2 className="text__title-mini-alt" data-fs-filter-title>
-        {title}
-      </h2>
+      <h2 data-fs-filter-title>{title}</h2>
       <UIAccordion
         indices={indicesExpanded}
         onChange={onAccordionChange}
