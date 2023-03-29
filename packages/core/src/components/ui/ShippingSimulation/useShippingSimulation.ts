@@ -109,10 +109,14 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
-export type FetchShippingSimulation = (shippingItem: ProductShippingInfo, country: string, postalCode: string) => Promise<[string, ShippingSla[]]>
+export type FetchShippingSimulation = (
+  shippingItem: ProductShippingInfo,
+  country: string,
+  postalCode: string
+) => Promise<[string, ShippingSla[]]>
 
 export const useShippingSimulation = (
-  shippingItem: ProductShippingInfo, 
+  shippingItem: ProductShippingInfo,
   fetchShippingSimulationFn: FetchShippingSimulation,
   sessionPostalCode: string,
   country: string
@@ -132,7 +136,11 @@ export const useShippingSimulation = (
 
     // Use sessionPostalCode if there is no shippingPostalCode
     async function fetchShipping() {
-      const [location, options] = await fetchShippingSimulationFn(shippingItem, country, sessionPostalCode ?? '')
+      const [location, options] = await fetchShippingSimulationFn(
+        shippingItem,
+        country,
+        sessionPostalCode ?? ''
+      )
 
       dispatch({
         type: 'update',
@@ -151,12 +159,22 @@ export const useShippingSimulation = (
     }
 
     fetchShipping()
-  }, [country, fetchShippingSimulationFn, sessionPostalCode, shippingItem, shippingPostalCode])
+  }, [
+    country,
+    fetchShippingSimulationFn,
+    sessionPostalCode,
+    shippingItem,
+    shippingPostalCode,
+  ])
 
   const handleSubmit = useCallback(async () => {
     try {
-      const [location, options] = await fetchShippingSimulationFn(shippingItem, country, shippingPostalCode ?? '')
-      
+      const [location, options] = await fetchShippingSimulationFn(
+        shippingItem,
+        country,
+        shippingPostalCode ?? ''
+      )
+
       dispatch({
         type: 'update',
         payload: {
@@ -203,7 +221,9 @@ export const useShippingSimulation = (
   return {
     input,
     shippingSimulation,
-    handleOnClear: () => { dispatch({type: 'clear'}) },
+    handleOnClear: () => {
+      dispatch({ type: 'clear' })
+    },
     handleSubmit,
     handleOnInput,
   }

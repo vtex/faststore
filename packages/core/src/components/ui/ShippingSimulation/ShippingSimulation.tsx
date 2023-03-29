@@ -1,11 +1,21 @@
 import {
   ShippingSimulation as UIShippingSimulation,
-  ShippingSimulationProps,
+  ShippingSimulationProps as UIShippingSimulationProps,
 } from '@faststore/ui'
 import { getShippingSimulation } from 'src/sdk/shipping'
-import { ShippingSimulationQueryQuery, ShippingSla } from '@generated/graphql'
+import { ShippingSla } from '@generated/graphql'
 import { useSession } from 'src/sdk/session'
 import { IShippingItem } from '@faststore/api'
+import { useShippingSimulation } from './useShippingSimulation'
+
+interface ShippingSimulationProps {
+  productShippingInfo: {
+    id: string
+    quantity: number
+    seller: string
+  }
+  formatter?: UIShippingSimulationProps['formatter']
+}
 
 const fetchShippingSimulation = async (
   shippingItem: IShippingItem,
@@ -29,16 +39,41 @@ const fetchShippingSimulation = async (
 }
 
 export default function ShippingSimulation({
-  ...shippingSimulationProps
-}: Omit<ShippingSimulationProps, 'country' | 'fetchShippingSimulationFn'>) {
-  const { country, postalCode } = useSession()
+  productShippingInfo,
+  formatter,
+  ...otherProps
+}: ShippingSimulationProps) {
+  const { country, postalCode: sessionPostalCode } = useSession()
+
+  const {
+    input,
+    shippingSimulation,
+    handleSubmit,
+    handleOnInput,
+    handleOnClear,
+  } = useShippingSimulation(
+    productShippingInfo,
+    fetchShippingSimulation,
+    sessionPostalCode,
+    country
+  )
+
+  const { postalCode, displayClearButton, errorMessage } = input
+
+  const { location, options } = shippingSimulation
 
   return (
     <UIShippingSimulation
-      country={country}
-      sessionPostalCode={postalCode}
-      fetchShippingSimulation={fetchShippingSimulation}
-      {...shippingSimulationProps}
+      formatter={formatter}
+      onInput={handleOnInput}
+      onSubmit={handleSubmit}
+      onClear={handleOnClear}
+      location={location}
+      options={options}
+      displayClearButton={displayClearButton}
+      errorMessage={errorMessage}
+      postalCode={postalCode}
+      {...otherProps}
     />
   )
 }

@@ -18,8 +18,11 @@ import {
   LinkElementType,
 } from '../..'
 
-import { useShippingSimulation } from '../../hooks'
-import type { ProductShippingInfo, FetchShippingSimulation } from '../../hooks/useShippingSimulation'
+interface ShippingSla {
+  carrier: string
+  localizedEstimates: string
+  price: number
+}
 
 export interface ShippingSimulationProps
   extends HTMLAttributes<HTMLDivElement> {
@@ -29,55 +32,78 @@ export interface ShippingSimulationProps
    */
   testId?: string
   /**
-   * Object used for simulating shippings
+   * Formatter function that transforms the raw price value and render the result.
    */
-  productShippingInfo: ProductShippingInfo
-
   formatter: PriceFormatter
-
-  sessionPostalCode?: string
-
-  country: string
-
-  fetchShippingSimulation: FetchShippingSimulation
-
+  /**
+   * The Shipping Suggestions Section's title.
+   */
   title?: string
-
+  /**
+   * The text displayed to Shipping Simulation input text.
+   */
   inputLabel?: string
-
+  /**
+   * Props for the link for i don't know my postal code.
+   */
   idkPostalCodeLinkProps?: Partial<LinkProps<LinkElementType>>
+  /**
+   * Callback function when input is typed.
+   */
+  onInput?: (event: React.FormEvent<HTMLInputElement>) => void
+  /**
+   * Callback function when form is submitted.
+   */
+  onSubmit?: () => void
+  /**
+   * Callback function when the clear button is clicked.
+   */
+  onClear?:  () => void
+  /**
+   * Location for shipping.
+   */
+  location?: string
+  /**
+   * Options for shipping simulation.
+   */
+  options?: ShippingSla[]
+  /**
+   * Show clear button.
+   */
+  displayClearButton?: boolean
+  /**
+   * Message of error.
+   */
+  errorMessage?: string
+  /**
+   * Postal code.
+   */
+  postalCode?: string
 }
 
 function ShippingSimulation({
   testId = 'fs-shipping-simulation',
-  productShippingInfo,
   formatter,
-  sessionPostalCode,
-  country,
-  fetchShippingSimulation,
   title = "Shipping",
   inputLabel =  "Postal Code",
   idkPostalCodeLinkProps,
+  onInput,
+  onSubmit,
+  onClear,
+  location,
+  options = [],
+  displayClearButton = false,
+  errorMessage,
+  postalCode,
   ...otherProps
 }: ShippingSimulationProps) {
-  const { input, shippingSimulation, handleSubmit, handleOnInput, handleOnClear } =
-    useShippingSimulation(productShippingInfo, fetchShippingSimulation, sessionPostalCode ?? '', country)
 
-  const {
-    postalCode: shippingPostalCode,
-    displayClearButton,
-    errorMessage,
-  } = input
-
-  const { location: shippingLocation, options: shippingOptions } =
-    shippingSimulation
-
-  const hasShippingOptions = !!shippingOptions && shippingOptions.length > 0
+  const hasShippingOptions = !!options && options.length > 0
 
   return (
     <section
       data-fs-shipping-simulation
-      data-fs-shipping-simulation-empty={!hasShippingOptions}
+      data-fs-shipping-simulation-empty={!hasShippingOptions ? "true" : "false"}
       data-testid={testId}
       {...otherProps}
     >
@@ -90,10 +116,10 @@ function ShippingSimulation({
         error={errorMessage}
         id={`${testId}-input-field`}
         label={inputLabel}
-        value={shippingPostalCode}
-        onInput={handleOnInput}
-        onSubmit={handleSubmit}
-        onClear={handleOnClear}
+        value={postalCode}
+        onInput={(event) => onInput?.(event)}
+        onSubmit={() => onSubmit?.()}
+        onClear={() => onClear?.()}
         displayClearButton={displayClearButton}
       />
 
@@ -112,13 +138,13 @@ function ShippingSimulation({
           <header data-fs-shipping-simulation-header>
             <h3 data-fs-shipping-simulation-subtitle>Shipping options</h3>
             <p data-fs-shipping-simulation-location>
-              {shippingLocation}
+              {location}
             </p>
           </header>
 
           <Table>
             <TableBody>
-              {shippingOptions.map((option) => (
+              {options.map((option) => (
                 <TableRow key={option.carrier}>
                   <TableCell align="left">{option.carrier}</TableCell>
                   <TableCell>{option.localizedEstimates}</TableCell>
