@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@faststore/ui": "^2.0.87-alpha.0",
+    "@faststore/ui": "^2.0.89-alpha.0",
     "@faststore/sdk": "^2.0.79-alpha.0",
     "@faststore/api": "^2.0.79-alpha.0",
     "next": "13.0.7",
