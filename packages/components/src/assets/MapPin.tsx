@@ -17,16 +17,16 @@ const MapPin = ({ size = 24 }: IconProps) => (
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
+      strokeLinejoin="round"
+      strokeWidth="16"
     />
     <path
       d="M208 104c0 72-80 128-80 128s-80-56-80-128a80 80 0 0 1 160 0Z"
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
+      strokeLinejoin="round"
+      strokeWidth="16"
     />
   </svg>
 )
