@@ -1,11 +1,11 @@
-import React from 'react'
 import type { ReactNode } from 'react'
+import React from 'react'
 
-import { Modal } from '../../'
 import type { ModalProps } from '../../'
+import { Modal } from '../../'
 
-type Direction = 'leftSide' | 'rightSide'
-type WidthSize = 'full' | 'partial'
+export type Direction = 'leftSide' | 'rightSide'
+export type WidthSize = 'full' | 'partial'
 
 export type SlideOverProps = Omit<ModalProps, 'title'> & {
   /**
