@@ -18,10 +18,6 @@
 
   margin-top: 0;
 
-  [data-fs-out-of-stock] {
-    margin-top: var(--fs-product-details-vertical-spacing);
-  }
-
   [data-fs-product-details-body] {
     display: flex;
     flex-direction: column;
