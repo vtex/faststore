@@ -11,7 +11,7 @@
   --fs-payment-methods-title-line-height     : 1.25;
 
   // Flag
-  --fs-payment-methods-flag-width           : 2.125rem;
+  --fs-payment-methods-flag-width           : var(--fs-spacing-5);
   --fs-payment-methods-flag-height          : var(--fs-spacing-4);
   --fs-payment-methods-flag-border-width    : var(--fs-border-width);
   --fs-payment-methods-flag-border-color    : var(--fs-color-neutral-3);
