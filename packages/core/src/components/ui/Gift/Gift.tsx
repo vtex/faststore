@@ -3,7 +3,6 @@ import {
   Gift as UIGift,
   GiftContent as UIGiftContent,
   GiftImage as UIGiftImage,
-  Price as UIPrice,
 } from '@faststore/ui'
 
 import Icon from 'src/components/ui/Icon'
