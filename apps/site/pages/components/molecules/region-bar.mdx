@@ -13,6 +13,31 @@ import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { RegionBar } from '@faststore/ui'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const regionBarPath = path.resolve(__filename)
+  const components = ['RegionBar.tsx']
+  const [regionBarProps] = getComponentPropsFrom(regionBarPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: { regionBarProps },
+    },
+  }
+}
+
+export const RegionBarPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { regionBarProps } = useSSG()
+  return {
+    RegionBar: <PropsSection propsList={regionBarProps} />,
+  }[component]
+}
+
 <header>
 
 # Region Bar
@@ -65,7 +90,7 @@ import '@faststore/ui/src/components/molecules/RegionBar/styles.scss'
 
 ## Props
 
-<PropsSection name="RegionBar" />
+<RegionBarPropsSection component="RegionBar" />
 
 ---
 
@@ -127,4 +152,4 @@ import '@faststore/ui/src/components/molecules/RegionBar/styles.scss'
 
 For further customization, you can use the following data attributes:
 
-`data-fs-buy-button`
+`data-fs-buy-regionBar`
