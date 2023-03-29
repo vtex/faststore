@@ -1,41 +1,41 @@
-.fs-regionalization-bar {
+.fs-region-bar {
   // --------------------------------------------------------
   // Design Tokens for Regionalization Bar
   // --------------------------------------------------------
 
   // Default properties
-  --fs-regionalization-bar-width                    : 100%;
-  --fs-regionalization-bar-padding                  : var(--fs-spacing-0) var(--fs-spacing-2) var(--fs-spacing-0) var(--fs-spacing-3);
+  --fs-region-bar-width                    : 100%;
+  --fs-region-bar-padding                  : var(--fs-spacing-0) var(--fs-spacing-2) var(--fs-spacing-0) var(--fs-spacing-3);
 
-  --fs-regionalization-bar-text-color               : var(--fs-color-text-display);
+  --fs-region-bar-text-color               : var(--fs-color-text-display);
 
-  --fs-regionalization-bar-bkg-color                : var(--fs-color-body-bkg);
+  --fs-region-bar-bkg-color                : var(--fs-color-body-bkg);
 
-  --fs-regionalization-bar-border-bottom-width      : var(--fs-border-width);
-  --fs-regionalization-bar-border-bottom-color      : var(--fs-border-color-light);
+  --fs-region-bar-border-bottom-width      : var(--fs-border-width);
+  --fs-region-bar-border-bottom-color      : var(--fs-border-color-light);
 
   // CTA
-  --fs-regionalization-bar-cta-margin-left          : auto;
-  --fs-regionalization-bar-cta-text-decoration      : underline;
+  --fs-region-bar-cta-margin-left          : auto;
+  --fs-region-bar-cta-text-decoration      : underline;
 
   // Message
-  --fs-regionalization-bar-message-margin-right     : auto;
+  --fs-region-bar-message-margin-right     : auto;
 
   // Postal Code
-  --fs-regionalization-bar-postal-code-margin-right : auto;
+  --fs-region-bar-postal-code-margin-right : auto;
 
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
 
-  width: var(--fs-regionalization-bar-width);
+  width: var(--fs-region-bar-width);
 
   [data-fs-button] {
-    width: var(--fs-regionalization-bar-width);
-    padding: var(--fs-regionalization-bar-padding);
-    color: var(--fs-regionalization-bar-text-color);
-    background-color: var(--fs-regionalization-bar-bkg-color);
-    border-bottom: var(--fs-regionalization-bar-border-bottom-width) solid var(--fs-regionalization-bar-border-bottom-color);
+    width: var(--fs-region-bar-width);
+    padding: var(--fs-region-bar-padding);
+    color: var(--fs-region-bar-text-color);
+    background-color: var(--fs-region-bar-bkg-color);
+    border-bottom: var(--fs-region-bar-border-bottom-width) solid var(--fs-region-bar-border-bottom-color);
     border-radius: 0;
 
     > span {
@@ -43,18 +43,18 @@
     }
   }
 
-  [data-fs-regionalization-bar-cta] {
-    margin-left: var(--fs-regionalization-bar-cta-margin-left);
-    text-decoration: var(--fs-regionalization-bar-cta-text-decoration);
+  [data-fs-region-bar-cta] {
+    margin-left: var(--fs-region-bar-cta-margin-left);
+    text-decoration: var(--fs-region-bar-cta-text-decoration);
   }
 
-  [data-fs-regionalization-bar-postal-code] {
-    margin-right: var(--fs-regionalization-bar-postal-code-margin-right);
+  [data-fs-region-bar-postal-code] {
+    margin-right: var(--fs-region-bar-postal-code-margin-right);
     font-weight: var(--fs-text-weight-regular);
   }
 
-  [data-fs-regionalization-bar-message] {
-    margin-right: var(--fs-regionalization-bar-message-margin-right);
+  [data-fs-region-bar-message] {
+    margin-right: var(--fs-region-bar-message-margin-right);
     font-weight: var(--fs-text-weight-regular);
   }
 }
