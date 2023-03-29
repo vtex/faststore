@@ -1,13 +1,13 @@
 import React from 'react'
-import type { FC } from 'react'
+import { IconProps } from './IconProps'
 
 // Icon from Phosphor Icons
 //strokeWidth="16"
-const ArrowSquareOut: FC = () => (
+const ArrowSquareOut = ({ size = 20 }: IconProps) => (
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
-    width={20} 
-    height={20} 
+    width={size} 
+    height={size} 
     fill="currentColor" 
     viewBox="0 0 256 256"
   >

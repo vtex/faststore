@@ -19,8 +19,17 @@ import {
 } from '../..'
 
 interface ShippingSla {
+  /**
+   * ShippingSLA carrier.
+   */
   carrier: string
+  /**
+   * ShippingSLA localized shipping estimate.
+   */
   localizedEstimates: string
+  /**
+   * ShippingSLA price.
+   */
   price: number
 }
 
@@ -43,6 +52,10 @@ export interface ShippingSimulationProps
    * The text displayed to Shipping Simulation input text.
    */
   inputLabel?: string
+  /**
+   * The text displayed to Shipping Simulation input text.
+   */
+  optionsLabel?: string
   /**
    * Props for the link for i don't know my postal code.
    */
@@ -86,6 +99,7 @@ function ShippingSimulation({
   formatter,
   title = "Shipping",
   inputLabel =  "Postal Code",
+  optionsLabel = "Shipping options",
   idkPostalCodeLinkProps,
   onInput,
   onSubmit,
@@ -136,7 +150,7 @@ function ShippingSimulation({
       {hasShippingOptions && (
         <>
           <header data-fs-shipping-simulation-header>
-            <h3 data-fs-shipping-simulation-subtitle>Shipping options</h3>
+            <h3 data-fs-shipping-simulation-subtitle>{optionsLabel}</h3>
             <p data-fs-shipping-simulation-location>
               {location}
             </p>

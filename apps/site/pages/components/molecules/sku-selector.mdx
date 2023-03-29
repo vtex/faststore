@@ -44,7 +44,6 @@ export const getStaticProps = () => {
 export const SkuSelectorPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
   const { skuSelectorProps } = useSSG()
-  console.log(component, skuSelectorProps)
   return {
     SkuSelector: <PropsSection propsList={skuSelectorProps} />,
   }[component]

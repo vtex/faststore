@@ -1,7 +1,5 @@
-import {
-    ShippingSimulation,
-  } from '@faststore/ui'
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { ShippingSimulation } from '@faststore/ui'
 
 const shippingOptions = [
     {

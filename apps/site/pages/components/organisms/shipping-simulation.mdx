@@ -4,13 +4,42 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/PriceRange___5863b0eb4a4a8ce9a98da5c760461e61.png
 ---
 
+import path from 'path'
 import { Tab, Tabs } from 'nextra-theme-docs'
+import { useSSG } from 'nextra/ssg'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { ShippingSimulation } from '@faststore/ui'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 import ShippingSimulationUsage from 'site/components/ShippingSimulation/ShippingSimulationUsage'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const shippingSimulationPath = path.resolve(__filename)
+  const components = [
+    'ShippingSimulation.tsx',
+  ]
+  const [shippingSimulationProps] =
+    getComponentPropsFrom(shippingSimulationPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        shippingSimulationProps
+      },
+    },
+  }
+}
+
+export const ShippingSimulationPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { shippingSimulationProps } = useSSG()
+  return {
+    ShippingSimulation: <PropsSection propsList={shippingSimulationProps} />,
+  }[component]
+}
 
 <header>
 
@@ -167,6 +196,43 @@ import '@faststore/ui/src/components/organisms/ShippingSimulation/styles.scss'
     ```
   </Tab>
 </Tabs>
+
+---
+
+## Props
+
+export const propsShippingSla = [
+  {
+    name: 'carrier',
+    type: 'string',
+    description:
+      '',
+    default: 'ShippingSLA carrier.',
+    required: true
+  },
+  {
+    name: 'localizedEstimates',
+    type: 'string',
+    description:
+      '',
+    default: 'ShippingSLA localized shipping estimate.',
+    required: true
+  },
+  {
+    name: 'price',
+    type: 'number',
+    description:
+      '',
+    default: 'ShippingSLA price.',
+    required: true
+  }
+]
+
+<ShippingSimulationPropsSection component="ShippingSimulation" />
+
+### ShippingSla
+
+<PropsSection propsList={propsShippingSla} />
 
 ---
 
