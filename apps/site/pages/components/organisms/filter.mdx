@@ -207,94 +207,99 @@ import '@faststore/ui/src/components/organisms/Filter/styles.scss'
 
 ## Usage
 
-<OverviewSection direction="row">
-  <UIProvider>
-    <SearchProvider onChange={() => ({})}>
-      <FilterUsage />
-    </SearchProvider>
-  </UIProvider>
-</OverviewSection>
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection direction="row">
+      <UIProvider>
+        <SearchProvider onChange={() => ({})}>
+          <FilterUsage />
+        </SearchProvider>
+      </UIProvider>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+      function FilterUsage({
+        facets,
+        testId,
+        dispatch,
+        expanded,
+        title,
+      }: Props & ReturnType<typeof useFilter>) {
+        const { resetInfiniteScroll, state, setState } = useSearch()
 
-```tsx
-function FilterUsage({
-  facets,
-  testId,
-  dispatch,
-  expanded,
-  title,
-}: Props & ReturnType<typeof useFilter>) {
-  const { resetInfiniteScroll, state, setState } = useSearch()
-
-  return (
-    <Filter
-      testId={`desktop-${testId}`}
-      title={title}
-      indicesExpanded={expanded}
-      onAccordionChange={(idx) =>
-        dispatch({ type: 'toggleExpanded', payload: idx })
-      }
-    >
-      {facets.map((facet, index) => {
-        const { __typename: type, label } = facet
-        const isExpanded = expanded.has(index)
         return (
-          <FilterFacets
-            key={`${testId}-${label}-${index}`}
-            testId={testId}
-            index={index}
-            type={type}
-            label={label}
+          <Filter
+            testId={`desktop-${testId}`}
+            title={title}
+            indicesExpanded={expanded}
+            onAccordionChange={(idx) =>
+              dispatch({ type: 'toggleExpanded', payload: idx })
+            }
           >
-            {type === 'StoreFacetBoolean' && isExpanded && (
-              <FilterFacetBoolean>
-                {facet.values.map((item) => (
-                  <FilterFacetBooleanItem
-                    key={`${testId}-${facet.label}-${item.label}`}
-                    id={`${testId}-${facet.label}-${item.label}`}
-                    testId={testId}
-                    onFacetChange={(facet) => {
-                      setState({
-                        ...state,
-                        selectedFacets: toggleFacet(
-                          state.selectedFacets,
-                          facet
-                        ),
-                        page: 0,
-                      })
-                      resetInfiniteScroll(0)
-                    }}
-                    selected={item.selected}
-                    value={item.value}
-                    quantity={item.quantity}
-                    facetKey={facet.key}
-                    label={item.label}
-                  />
-                ))}
-              </FilterFacetBoolean>
-            )}
-            {type === 'StoreFacetRange' && isExpanded && (
-              <FilterFacetRange
-                facetKey={facet.key}
-                min={facet.min}
-                max={facet.max}
-                formatter={useFormattedPrice}
-                onFacetChange={(facet) => {
-                  setState({
-                    ...state,
-                    selectedFacets: setFacet(state.selectedFacets, facet, true),
-                    page: 0,
-                  })
-                  resetInfiniteScroll(0)
-                }}
-              />
-            )}
-          </FilterFacets>
+            {facets.map((facet, index) => {
+              const { __typename: type, label } = facet
+              const isExpanded = expanded.has(index)
+              return (
+                <FilterFacets
+                  key={`${testId}-${label}-${index}`}
+                  testId={testId}
+                  index={index}
+                  type={type}
+                  label={label}
+                >
+                  {type === 'StoreFacetBoolean' && isExpanded && (
+                    <FilterFacetBoolean>
+                      {facet.values.map((item) => (
+                        <FilterFacetBooleanItem
+                          key={`${testId}-${facet.label}-${item.label}`}
+                          id={`${testId}-${facet.label}-${item.label}`}
+                          testId={testId}
+                          onFacetChange={(facet) => {
+                            setState({
+                              ...state,
+                              selectedFacets: toggleFacet(
+                                state.selectedFacets,
+                                facet
+                              ),
+                              page: 0,
+                            })
+                            resetInfiniteScroll(0)
+                          }}
+                          selected={item.selected}
+                          value={item.value}
+                          quantity={item.quantity}
+                          facetKey={facet.key}
+                          label={item.label}
+                        />
+                      ))}
+                    </FilterFacetBoolean>
+                  )}
+                  {type === 'StoreFacetRange' && isExpanded && (
+                    <FilterFacetRange
+                      facetKey={facet.key}
+                      min={facet.min}
+                      max={facet.max}
+                      formatter={useFormattedPrice}
+                      onFacetChange={(facet) => {
+                        setState({
+                          ...state,
+                          selectedFacets: setFacet(state.selectedFacets, facet, true),
+                          page: 0,
+                        })
+                        resetInfiniteScroll(0)
+                      }}
+                    />
+                  )}
+                </FilterFacets>
+              )
+            })}
+          </Filter>
         )
-      })}
-    </Filter>
-  )
-}
-```
+      }
+    ```
+  </Tab>
+</Tabs>
 
 ---
 
