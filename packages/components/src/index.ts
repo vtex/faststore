@@ -116,11 +116,11 @@ export { default as RadioGroup, RadioOption } from './molecules/RadioGroup'
 export type { RadioGroupProps, RadioOptionProps } from './molecules/RadioGroup'
 export { default as Rating } from './molecules/Rating'
 export type { RatingProps } from './molecules/Rating'
+export { default as RegionBar } from './molecules/RegionBar'
+export type { RegionBarProps } from './molecules/RegionBar'
 
 export { default as SearchProvider } from './molecules/SearchProvider'
-export type {
-  SearchProviderContextValue,
-} from './molecules/SearchProvider'
+export type { SearchProviderContextValue } from './molecules/SearchProvider'
 
 export { default as SearchInputField } from './molecules/SearchInputField'
 export type {
@@ -192,20 +192,20 @@ export { default as QuantitySelector } from './molecules/QuantitySelector'
 export type { QuantitySelectorProps } from './molecules/QuantitySelector'
 
 // Organisms
-export { 
+export {
   default as Filter,
   FilterFacetBoolean,
   FilterFacetBooleanItem,
   FilterFacetRange,
   FilterFacets,
-  FilterSlider 
+  FilterSlider,
 } from './organisms/Filter'
 export type {
   FilterFacetBooleanItemProps,
   FilterFacetRangeProps,
   FilterFacetsProps,
   FilterProps,
-  FilterSliderProps
+  FilterSliderProps,
 } from './organisms/Filter'
 
 export { default as Hero, HeroImage, HeroHeader } from './organisms/Hero'
