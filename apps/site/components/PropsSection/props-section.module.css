@@ -35,6 +35,11 @@
 
 .propsSection [data-nx-props-section-name] { overflow-x: auto; }
 
+.propsSection [data-nx-props-section-type] code {
+  max-height: 8rem;
+  overflow-y: auto;
+}
+
 @media screen and (min-width: 1024px) {
   .propsSection [data-nx-props-section-name] { width: 20%; }
   .propsSection [data-nx-props-section-type] { width: 20%; }
