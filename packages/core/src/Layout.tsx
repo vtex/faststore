@@ -32,7 +32,7 @@ function Layout({ children }: PropsWithChildren) {
       <Toast />
 
       <main>
-        <RegionalizationBar classes="display-mobile" />
+        <RegionalizationBar className="display-mobile" />
         {children}
       </main>
 
