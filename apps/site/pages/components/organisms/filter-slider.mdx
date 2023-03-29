@@ -53,6 +53,15 @@ The mobile `Filter` view that is rendered inside a `SlideOver` component.
 
 </header>
 
+The `FilterSlider` component is a compound of the following:
+
+- `FilterSlider`: `SlideOver` that wraps the `Filter` for small screen dimensions.
+- `Filter`: wraps an `Accordion` along with the component title.
+- `Facets`: wraps an `AccordionItem` with its `AccordionButton` and an `AccordionPanel` for every Facet.
+- `FacetBoolean`: wraps the list of the `FacetBooleanItem`.
+- `FacetBooleanItem`: wraps a `Checkbox` with its `Label` and the `Badge` that represents the child of the `FacetBoolean`.
+- `FacetRange`: wraps a `PriceRange` for a given Facet with the Range type.
+
 ---
 
 ## Import
@@ -60,7 +69,7 @@ The mobile `Filter` view that is rendered inside a `SlideOver` component.
 Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
 ```tsx
-import { FilterSlider } from '@faststore/ui'
+import { FilterSlider, Filter, Facets, FacetBoolean, FacetBooleanItem, FacetRange } from '@faststore/ui'
 ```
 
 Import Styles
