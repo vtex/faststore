@@ -59,7 +59,7 @@
 
 .propsSection td {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  padding: var(--fs-spacing-3) var(--fs-spacing-2);
+  padding: var(--fs-spacing-2) var(--fs-spacing-2);
   font-size: var(--fs-text-size-legend);
   line-height: 1.2;
   vertical-align: top;
