@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import type { PriceFormatter } from '../../atoms/Price/Price'
+import type { PriceDefinition } from '../../typings/PriceDefinition'
 
 import {
   Link,
@@ -14,12 +14,6 @@ import {
   LinkElementType,
 } from '../../'
 import { Star, ShoppingCart } from '../../assets'
-
-interface Price {
-  value: number
-  listPrice: number
-  formatter: PriceFormatter
-}
 
 export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   /**
@@ -37,7 +31,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   /**
    * Specifies product's prices.
    */
-  price?: Price
+  price?: PriceDefinition
   /**
    * Enables a outOfStock status.
    */
@@ -51,10 +45,6 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   ratingValue?: number
   /**
-   * Callback function when button is clicked.
-   */
-  onButtonClick?: () => void
-  /**
    * Specifies the button's label.
    */
   buttonLabel?: string
@@ -62,6 +52,10 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    * Enables a DiscountBadge to the component.
    */
   showDiscountBadge?: boolean
+  /**
+   * Callback function when button is clicked.
+   */
+  onButtonClick?: () => void
 }
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
