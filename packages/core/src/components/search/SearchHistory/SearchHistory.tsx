@@ -1,12 +1,14 @@
 import {
   SearchHistory as UISearchHistory,
   SearchHistoryTerm as UISearchHistoryTerm,
+  useSearch,
 } from '@faststore/ui'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
-import useSearchInput from 'src/sdk/search/useSearchInput'
 
 const SearchHistory = ({ ...props }) => {
-  const { onSearchInputSelection } = useSearchInput()
+  const {
+    values: { onSearchSelection },
+  } = useSearch()
   const { searchHistory, clearSearchHistory } = useSearchHistory()
 
   if (!searchHistory.length) {
@@ -21,7 +23,7 @@ const SearchHistory = ({ ...props }) => {
           value={item.term}
           linkProps={{
             href: item.path,
-            onClick: () => onSearchInputSelection?.(item.term, item.path),
+            onClick: () => onSearchSelection?.(item.term, item.path),
           }}
         />
       ))}

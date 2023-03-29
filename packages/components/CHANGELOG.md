@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.89-alpha.0](https://github.com/vtex/faststore/compare/v2.0.88-alpha.0...v2.0.89-alpha.0) (2023-03-29)
+
+### Features
+
+- Add `OutOfStock` components ([#1685](https://github.com/vtex/faststore/issues/1685)) ([25f4442](https://github.com/vtex/faststore/commit/25f444214e234f5f0f9287ef8bc403231b2eac2b))
+
+## [2.0.88-alpha.0](https://github.com/vtex/faststore/compare/v2.0.87-alpha.0...v2.0.88-alpha.0) (2023-03-29)
+
+### Features
+
+- Adds `SearchInput`, `SearchInputField` and `SearchDropdown` components ([#1676](https://github.com/vtex/faststore/issues/1676)) ([edba839](https://github.com/vtex/faststore/commit/edba8399a27f183f2092086b3c9d69cf5c1e8f52))
+
 ## [2.0.87-alpha.0](https://github.com/vtex/faststore/compare/v2.0.86-alpha.0...v2.0.87-alpha.0) (2023-03-24)
 
 ### Features

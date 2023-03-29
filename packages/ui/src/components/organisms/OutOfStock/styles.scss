@@ -1,4 +1,4 @@
-.fs-out-of-stock {
+[data-fs-out-of-stock] {
   // --------------------------------------------------------
   // Design Tokens for Out of Stock
   // --------------------------------------------------------
@@ -8,7 +8,7 @@
   --fs-out-of-stock-title-line-height     : 1.15;
   --fs-out-of-stock-title-size            : var(--fs-text-size-lead);
   --fs-out-of-stock-title-weight          : var(--fs-text-weight-bold);
-  --fs-out-of-stock-title-color           : var(--fs-color-success-text);
+  --fs-out-of-stock-title-color           : var(--fs-color-neutral-text);
 
   // Message
   --fs-out-of-stock-message-column-gap    : var(--fs-spacing-0);
@@ -16,7 +16,7 @@
   --fs-out-of-stock-message-line-height   : 1.15;
   --fs-out-of-stock-message-size          : var(--fs-text-size-body);
   --fs-out-of-stock-message-weight        : var(--fs-text-weight-regular);
-  --fs-out-of-stock-message-color         : var(--fs-color-neutral-text);
+  --fs-out-of-stock-message-color         : var(--fs-color-success-text);
 
   // Button
   --fs-out-of-stock-button-width          : 100%;
@@ -34,7 +34,7 @@
     font-size: var(--fs-out-of-stock-title-size);
     font-weight: var(--fs-out-of-stock-title-weight);
     line-height: var(--fs-out-of-stock-title-line-height);
-    color: var(--fs-color-neutral-text);
+    color: var(--fs-out-of-stock-title-color);
   }
 
   [data-fs-out-of-stock-message] {

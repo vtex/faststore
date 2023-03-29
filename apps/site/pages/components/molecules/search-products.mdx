@@ -16,13 +16,65 @@ import {
 } from '@faststore/ui'
 
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
-import { product } from '../../../mocks/product'
+import { product } from 'site/mocks/product'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const searchProductsPath = path.resolve(__filename)
+  const components = [
+    'SearchProducts.tsx',
+    'SearchProductItem.tsx',
+    'SearchProductItemImage.tsx',
+    'SearchProductItemContent.tsx',
+  ]
+  const [
+    searchProductsProps,
+    searchProductItemProps,
+    searchProductItemImageProps,
+    searchProductItemContentProps,
+  ] = getComponentPropsFrom(searchProductsPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        searchProductsProps,
+        searchProductItemProps,
+        searchProductItemImageProps,
+        searchProductItemContentProps,
+      },
+    },
+  }
+}
+
+export const SearchProductsPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const {
+    searchProductsProps,
+    searchProductItemProps,
+    searchProductItemImageProps,
+    searchProductItemContentProps,
+  } = useSSG()
+  return {
+    SearchProducts: <PropsSection propsList={searchProductsProps} />,
+    SearchProductItem: <PropsSection propsList={searchProductItemProps} />,
+    SearchProductItemImage: (
+      <PropsSection propsList={searchProductItemImageProps} />
+    ),
+    SearchProductItemContent: (
+      <PropsSection propsList={searchProductItemContentProps} />
+    ),
+  }[component]
+}
 
 <header>
 
 # Search Products
 
-List of `SearchProductItem` to show details of the suggested products.
+List of `SearchProductItem` to show details of the suggested products. This component is part of the [Search](/components/search) feature.
 
 </header>
 
@@ -32,7 +84,7 @@ List of `SearchProductItem` to show details of the suggested products.
   <Tab>
     <OverviewSection>
       <SearchProducts>
-        <SearchProductItem linkProps={{ href: '/' }}>
+        <SearchProductItem linkProps={{ href: '#' }}>
           <SearchProductItemImage>
             <img
               data-fs-image
@@ -49,7 +101,7 @@ List of `SearchProductItem` to show details of the suggested products.
             }}
           />
         </SearchProductItem>
-        <SearchProductItem linkProps={{ href: '/' }}>
+        <SearchProductItem linkProps={{ href: '#' }}>
           <SearchProductItemImage>
             <img
               data-fs-image
@@ -72,7 +124,7 @@ List of `SearchProductItem` to show details of the suggested products.
   <Tab>
     ```tsx
     <SearchProducts>
-      <SearchProductItem linkProps={{ href: '/' }}>
+      <SearchProductItem linkProps={{ href: '#' }}>
         <SearchProductItemImage>
           <img
             data-fs-image
@@ -89,7 +141,7 @@ List of `SearchProductItem` to show details of the suggested products.
           }}
         />
       </SearchProductItem>
-      <SearchProductItem linkProps={{ href: '/' }}>
+      <SearchProductItem linkProps={{ href: '#' }}>
         <SearchProductItemImage>
           <img
             data-fs-image
@@ -140,7 +192,7 @@ import '@faststore/ui/src/components/molecules/SearchProducts/styles.scss'
   <Tab>
     <OverviewSection>
       <SearchProducts>
-        <SearchProductItem linkProps={{ href: '/' }}>
+        <SearchProductItem linkProps={{ href: '#' }}>
           <SearchProductItemImage>
             <img
               data-fs-image
@@ -157,7 +209,7 @@ import '@faststore/ui/src/components/molecules/SearchProducts/styles.scss'
             }}
           />
         </SearchProductItem>
-        <SearchProductItem linkProps={{ href: '/' }}>
+        <SearchProductItem linkProps={{ href: '#' }}>
           <SearchProductItemImage>
             <img
               data-fs-image
@@ -180,7 +232,7 @@ import '@faststore/ui/src/components/molecules/SearchProducts/styles.scss'
   <Tab>
     ```tsx
     <SearchProducts>
-      <SearchProductItem linkProps={{ href: '/' }}>
+      <SearchProductItem linkProps={{ href: '#' }}>
         <SearchProductItemImage>
           <img
             data-fs-image
@@ -197,7 +249,7 @@ import '@faststore/ui/src/components/molecules/SearchProducts/styles.scss'
           }}
         />
       </SearchProductItem>
-      <SearchProductItem linkProps={{ href: '/' }}>
+      <SearchProductItem linkProps={{ href: '#' }}>
         <SearchProductItemImage>
           <img
             data-fs-image
@@ -227,19 +279,19 @@ All search product related components support all attributes also supported by t
 
 ### Search Products
 
-<PropsSection name="SearchProducts" />
+<SearchProductsPropsSection component="SearchProducts" />
 
 ### Search Product Item
 
-<PropsSection name="SearchProductItem" />
+<SearchProductsPropsSection component="SearchProductItem" />
 
 ### Search Product Item Image
 
-<PropsSection name="SearchProductItemImage" />
+<SearchProductsPropsSection component="SearchProductItemImage" />
 
 ### Search Product Item Content
 
-<PropsSection name="SearchProductItemContent" />
+<SearchProductsPropsSection component="SearchProductItemContent" />
 
 ---
 

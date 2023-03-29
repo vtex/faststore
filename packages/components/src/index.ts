@@ -116,6 +116,17 @@ export { default as RadioGroup, RadioOption } from './molecules/RadioGroup'
 export type { RadioGroupProps, RadioOptionProps } from './molecules/RadioGroup'
 export { default as Rating } from './molecules/Rating'
 export type { RatingProps } from './molecules/Rating'
+
+export { default as SearchProvider } from './molecules/SearchProvider'
+export type {
+  SearchProviderContextValue,
+} from './molecules/SearchProvider'
+
+export { default as SearchInputField } from './molecules/SearchInputField'
+export type {
+  SearchInputFieldProps,
+  SearchInputFieldRef,
+} from './molecules/SearchInputField'
 export {
   default as SearchAutoComplete,
   SearchAutoCompleteTerm,
@@ -124,6 +135,10 @@ export type {
   SearchAutoCompleteProps,
   SearchAutoCompleteTermProps,
 } from './molecules/SearchAutoComplete'
+export {
+  default as SearchDropdown,
+  SearchDropdownProps,
+} from './molecules/SearchDropdown'
 export {
   default as SearchHistory,
   SearchHistoryTerm,
@@ -193,11 +208,17 @@ export type {
   HeroHeaderProps,
 } from './organisms/Hero'
 
+export { default as OutOfStock } from './organisms/OutOfStock'
+export type { OutOfStockProps } from './organisms/OutOfStock'
+
 export { default as PaymentMethods } from './organisms/PaymentMethods'
 export type { PaymentMethodsProps } from './organisms/PaymentMethods'
 
 export { default as PriceRange } from './organisms/PriceRange'
 export type { PriceRangeProps } from './organisms/PriceRange'
+
+export { default as SearchInput } from './organisms/SearchInput'
+export type { SearchInputProps } from './organisms/SearchInput'
 
 export { default as SlideOver, SlideOverHeader } from './organisms/SlideOver'
 export type {

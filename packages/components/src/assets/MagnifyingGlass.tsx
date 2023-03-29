@@ -1,38 +1,21 @@
 import React from 'react'
-import type { FC } from 'react'
+import { IconProps } from './IconProps'
 
 // Icon from Phosphor Icons
-const MagnifyingGlass: FC = () => (
+const MagnifyingGlass = ({ size = 24 }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    fill="currentColor"
-    viewBox="0 0 256 256"
-    strokeWidth="16"
-    width={24}
-    height={24}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
   >
-    <rect width="256" height="256" fill="none"></rect>
-    <circle
-      cx="116"
-      cy="116"
-      r="84"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="16"
-    ></circle>
-    <line
-      x1="175.4"
-      y1="175.4"
-      x2="224"
-      y2="224"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="16"
-    ></line>
+    <circle cx="11" cy="11" r="8" />
+    <line x1="21" y1="21" x2="16.65" y2="16.65" />
   </svg>
 )
 
