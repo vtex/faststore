@@ -53,7 +53,25 @@ The mobile `Filter` view that is rendered inside a `SlideOver` component.
 
 </header>
 
-## Overview
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { FilterSlider } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/organisms/FilterSlider/styles.scss'
+```
+
+---
+
+## Usage
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
@@ -181,148 +199,6 @@ The mobile `Filter` view that is rendered inside a `SlideOver` component.
     ```
   </Tab>
 </Tabs>
-
----
-
-## Import
-
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
-
-```tsx
-import { FilterSlider } from '@faststore/ui'
-```
-
-Import Styles
-
-```tsx
-import '@faststore/ui/src/components/organisms/FilterSlider/styles.scss'
-```
-
----
-
-## Usage
-
-<OverviewSection direction="row">
-  <UIProvider>
-    <SearchProvider onChange={() => ({})}>
-      <FilterUsage onlyMobile />
-    </SearchProvider>
-  </UIProvider>
-</OverviewSection>
-
-```tsx
-  const FilterSliderUsage = () => {
-    const filter = useFilter(facetsMock)
-    const { filter: displayFilter, openFilter } = useUI()
-    const testId = "fs-filter"
-    const {
-      facets,
-      dispatch,
-      expanded,
-    } = filter
-    const { resetInfiniteScroll, state, setState } = useSearch()
-
-    return (
-      <>
-        <Button
-          variant="tertiary"
-          iconPosition="left"
-          aria-label="Open Filters"
-          onClick={openFilter}
-        >
-          Open Filters
-        </Button>
-        {displayFilter && (
-          <FilterSlider
-            title="Filters"
-            size="partial"
-            direction="rightSide"
-            clearBtnProps={{
-              variant: 'secondary',
-              onClick: () => dispatch({ type: 'selectFacets', payload: [] }),
-              children: 'Clear All',
-            }}
-            applyBtnProps={{
-              variant: 'primary',
-              onClick: () => {
-                resetInfiniteScroll(0)
-
-                setState({
-                  ...state,
-                  selectedFacets: selected,
-                  page: 0,
-                })
-              },
-              children: 'Apply',
-            }}
-            onClose={() => {
-              dispatch({
-                type: 'selectFacets',
-                payload: state.selectedFacets,
-              })
-            }}
-          >
-            <Filter
-              testId={`mobile-${testId}`}
-              indicesExpanded={expanded}
-              onAccordionChange={(index) =>
-                dispatch({ type: 'toggleExpanded', payload: index })
-              }
-            >
-              {facets.map((facet, index) => {
-                const { __typename: type, label } = facet
-                const isExpanded = expanded.has(index)
-                return (
-                  <Facets
-                    key={`${testId}-${label}-${index}`}
-                    testId={testId}
-                    index={index}
-                    type={type}
-                    label={label}
-                  >
-                    {type === 'StoreFacetBoolean' && isExpanded && (
-                      <FacetBoolean>
-                        {facet.values.map((item) => (
-                          <FacetBooleanItem
-                            key={`${testId}-${facet.label}-${item.label}`}
-                            id={`${testId}-${facet.label}-${item.label}`}
-                            testId={testId}
-                            onFacetChange={(facet) =>
-                              dispatch({ type: 'toggleFacet', payload: facet })
-                            }
-                            selected={item.selected}
-                            value={item.value}
-                            quantity={item.quantity}
-                            facetKey={facet.key}
-                            label={item.label}
-                          />
-                        ))}
-                      </FacetBoolean>
-                    )}
-                    {type === 'StoreFacetRange' && isExpanded && (
-                      <FacetRange
-                        facetKey={facet.key}
-                        min={facet.min}
-                        max={facet.max}
-                        formatter={useFormattedPrice}
-                        onFacetChange={(facet) =>
-                          dispatch({
-                            type: 'setFacet',
-                            payload: { facet, unique: true },
-                          })
-                        }
-                      />
-                    )}
-                  </Facets>
-                )
-              })}
-            </Filter>
-          </FilterSlider>
-        )}
-      </>
-    )
-  }
-```
 
 ---
 
