@@ -37,7 +37,7 @@ export default function ShippingSimulation({
     <UIShippingSimulation
       country={country}
       sessionPostalCode={postalCode}
-      fetchShippingSimulationFn={fetchShippingSimulation}
+      fetchShippingSimulation={fetchShippingSimulation}
       {...shippingSimulationProps}
     />
   )

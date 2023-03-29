@@ -8,6 +8,9 @@
 
   // Title
   --fs-shipping-simulation-title-padding-bottom     : var(--fs-spacing-2);
+  --fs-shipping-simulation-title-font-size          : var(--fs-text-size-3);
+  --fs-shipping-simulation-title-font-weight        : var(--fs-text-weight-bold);
+  --fs-shipping-simulation-title-line-height        : 1.2;
 
   // Link
   --fs-shipping-simulation-link-padding-top         : var(--fs-spacing-1);
@@ -22,6 +25,8 @@
 
   // Location
   --fs-shipping-simulation-location-padding-bottom  : var(--fs-spacing-2);
+  --fs-shipping-simulation-location-font-size       : var(--fs-text-size-2);
+  --fs-shipping-simulation-location-line-height     : 1.5;
 
   // --------------------------------------------------------
   // Structural Styles
@@ -29,6 +34,9 @@
 
   [data-fs-shipping-simulation-title] {
     padding-bottom: var(--fs-shipping-simulation-title-padding-bottom);
+    font-size: var(--fs-shipping-simulation-title-font-size);
+    font-weight: var(--fs-shipping-simulation-title-font-weight);
+    line-height: var(--fs-shipping-simulation-title-line-height);
   }
 
   [data-fs-shipping-simulation-link] {
@@ -53,5 +61,7 @@
 
   [data-fs-shipping-simulation-location] {
     padding-bottom: var(--fs-shipping-simulation-location-padding-bottom);
+    font-size: var(--fs-shipping-simulation-location-font-size);
+    line-height: var(--fs-shipping-simulation-location-line-height);
   }
 }

@@ -14,10 +14,12 @@ import {
   TableRow,
   InputField,
   Price,
+  LinkProps,
+  LinkElementType,
 } from '../..'
 
-import { useShippingSimulation } from './useShippingSimulation'
-import type { ProductShippingInfo } from './useShippingSimulation'
+import { useShippingSimulation } from '../../hooks'
+import type { ProductShippingInfo, FetchShippingSimulation } from '../../hooks/useShippingSimulation'
 
 export interface ShippingSimulationProps
   extends HTMLAttributes<HTMLDivElement> {
@@ -37,20 +39,29 @@ export interface ShippingSimulationProps
 
   country: string
 
-  fetchShippingSimulationFn: Function
+  fetchShippingSimulation: FetchShippingSimulation
+
+  title?: string
+
+  inputLabel?: string
+
+  idkPostalCodeLinkProps?: Partial<LinkProps<LinkElementType>>
 }
 
 function ShippingSimulation({
-  testId = 'store-shipping-simulation',
+  testId = 'fs-shipping-simulation',
   productShippingInfo,
   formatter,
   sessionPostalCode,
   country,
-  fetchShippingSimulationFn,
+  fetchShippingSimulation,
+  title = "Shipping",
+  inputLabel =  "Postal Code",
+  idkPostalCodeLinkProps,
   ...otherProps
 }: ShippingSimulationProps) {
   const { input, shippingSimulation, handleSubmit, handleOnInput, handleOnClear } =
-    useShippingSimulation(productShippingInfo, fetchShippingSimulationFn, sessionPostalCode ?? '', country)
+    useShippingSimulation(productShippingInfo, fetchShippingSimulation, sessionPostalCode ?? '', country)
 
   const {
     postalCode: shippingPostalCode,
@@ -66,19 +77,19 @@ function ShippingSimulation({
   return (
     <section
       data-fs-shipping-simulation
-      data-fs-shipping-simulation-empty={!hasShippingOptions ? 'true' : 'false'}
+      data-fs-shipping-simulation-empty={!hasShippingOptions}
       data-testid={testId}
       {...otherProps}
     >
-      <h2 className="text__title-subsection" data-fs-shipping-simulation-title>
-        Shipping
+      <h2 data-fs-shipping-simulation-title>
+        {title}
       </h2>
 
       <InputField
         actionable
         error={errorMessage}
-        id="shipping-postal-code"
-        label="Postal Code"
+        id={`${testId}-input-field`}
+        label={inputLabel}
         value={shippingPostalCode}
         onInput={handleOnInput}
         onSubmit={handleSubmit}
@@ -86,16 +97,21 @@ function ShippingSimulation({
         displayClearButton={displayClearButton}
       />
 
-      <Link href="/" data-fs-shipping-simulation-link size="small">
-        {"I don't know my Postal Code"}
-        <Icon component={<ArrowSquareOut />} />
+      <Link href="/" data-fs-shipping-simulation-link size="small" {...idkPostalCodeLinkProps}>
+        {
+          idkPostalCodeLinkProps?.children ??
+          <>
+            {"I don't know my Postal Code"}
+            <Icon component={<ArrowSquareOut />} />
+          </>
+        }
       </Link>
 
       {hasShippingOptions && (
         <>
           <header data-fs-shipping-simulation-header>
             <h3 data-fs-shipping-simulation-subtitle>Shipping options</h3>
-            <p className="text__body" data-fs-shipping-simulation-location>
+            <p data-fs-shipping-simulation-location>
               {shippingLocation}
             </p>
           </header>

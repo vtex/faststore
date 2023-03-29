@@ -109,9 +109,11 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
+export type FetchShippingSimulation = (shippingItem: ProductShippingInfo, country: string, postalCode: string) => Promise<[string, ShippingSla[]]>
+
 export const useShippingSimulation = (
   shippingItem: ProductShippingInfo, 
-  fetchShippingSimulationFn: Function,
+  fetchShippingSimulationFn: FetchShippingSimulation,
   sessionPostalCode: string,
   country: string
 ) => {
@@ -130,7 +132,7 @@ export const useShippingSimulation = (
 
     // Use sessionPostalCode if there is no shippingPostalCode
     async function fetchShipping() {
-      const [location, options] = fetchShippingSimulationFn(shippingItem, country, sessionPostalCode ?? '')
+      const [location, options] = await fetchShippingSimulationFn(shippingItem, country, sessionPostalCode ?? '')
 
       dispatch({
         type: 'update',
@@ -149,13 +151,11 @@ export const useShippingSimulation = (
     }
 
     fetchShipping()
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionPostalCode])
+  }, [country, fetchShippingSimulationFn, sessionPostalCode, shippingItem, shippingPostalCode])
 
   const handleSubmit = useCallback(async () => {
     try {
-      const [location, options] = await fetchShippingSimulationFn(shippingItem, country, shippingPostalCode)
+      const [location, options] = await fetchShippingSimulationFn(shippingItem, country, shippingPostalCode ?? '')
       
       dispatch({
         type: 'update',
@@ -179,7 +179,7 @@ export const useShippingSimulation = (
         },
       })
     }
-  }, [shippingItem, shippingPostalCode])
+  }, [country, fetchShippingSimulationFn, shippingItem, shippingPostalCode])
 
   const handleOnInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const currentValue = e.currentTarget.value
