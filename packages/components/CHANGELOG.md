@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.90-alpha.0](https://github.com/vtex/faststore/compare/v2.0.89-alpha.0...v2.0.90-alpha.0) (2023-03-29)
+
+### Features
+
+- Adds `Filter` and `FilterSlider` Components. ([#1687](https://github.com/vtex/faststore/issues/1687)) ([a18e1af](https://github.com/vtex/faststore/commit/a18e1af9fe6037f19a558f2c49e52ba01e50e95a))
+
 ## [2.0.89-alpha.0](https://github.com/vtex/faststore/compare/v2.0.88-alpha.0...v2.0.89-alpha.0) (2023-03-29)
 
 ### Features
