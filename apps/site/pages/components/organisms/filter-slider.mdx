@@ -57,10 +57,10 @@ The `FilterSlider` component is a compound of the following:
 
 - `FilterSlider`: `SlideOver` that wraps the `Filter` for small screen dimensions.
 - `Filter`: wraps an `Accordion` along with the component title.
-- `Facets`: wraps an `AccordionItem` with its `AccordionButton` and an `AccordionPanel` for every Facet.
-- `FacetBoolean`: wraps the list of the `FacetBooleanItem`.
-- `FacetBooleanItem`: wraps a `Checkbox` with its `Label` and the `Badge` that represents the child of the `FacetBoolean`.
-- `FacetRange`: wraps a `PriceRange` for a given Facet with the Range type.
+- `FilterFacets`: wraps an `AccordionItem` with its `AccordionButton` and an `AccordionPanel` for every Facet.
+- `FilterFacetBoolean`: wraps the list of the `FilterFacetBooleanItem`.
+- `FilterFacetBooleanItem`: wraps a `Checkbox` with its `Label` and the `Badge` that represents the child of the `FilterFacetBoolean`.
+- `FilterFacetRange`: wraps a `PriceRange` for a given Facet with the Range type.
 
 ---
 
@@ -69,7 +69,7 @@ The `FilterSlider` component is a compound of the following:
 Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
 ```tsx
-import { FilterSlider, Filter, Facets, FacetBoolean, FacetBooleanItem, FacetRange } from '@faststore/ui'
+import { FilterSlider, Filter, FilterFacets, FilterFacetBoolean, FilterFacetBooleanItem, FilterFacetRange } from '@faststore/ui'
 ```
 
 Import Styles
@@ -156,7 +156,7 @@ import '@faststore/ui/src/components/organisms/FilterSlider/styles.scss'
                     const { __typename: type, label } = facet
                     const isExpanded = expanded.has(index)
                     return (
-                      <Facets
+                      <FilterFacets
                         key={`${testId}-${label}-${index}`}
                         testId={testId}
                         index={index}
@@ -164,9 +164,9 @@ import '@faststore/ui/src/components/organisms/FilterSlider/styles.scss'
                         label={label}
                       >
                         {type === 'StoreFacetBoolean' && isExpanded && (
-                          <FacetBoolean>
+                          <FilterFacetBoolean>
                             {facet.values.map((item) => (
-                              <FacetBooleanItem
+                              <FilterFacetBooleanItem
                                 key={`${testId}-${facet.label}-${item.label}`}
                                 id={`${testId}-${facet.label}-${item.label}`}
                                 testId={testId}
@@ -180,10 +180,10 @@ import '@faststore/ui/src/components/organisms/FilterSlider/styles.scss'
                                 label={item.label}
                               />
                             ))}
-                          </FacetBoolean>
+                          </FilterFacetBoolean>
                         )}
                         {type === 'StoreFacetRange' && isExpanded && (
-                          <FacetRange
+                          <FilterFacetRange
                             facetKey={facet.key}
                             min={facet.min}
                             max={facet.max}
@@ -196,7 +196,7 @@ import '@faststore/ui/src/components/organisms/FilterSlider/styles.scss'
                             }
                           />
                         )}
-                      </Facets>
+                      </FilterFacets>
                     )
                   })}
                 </Filter>

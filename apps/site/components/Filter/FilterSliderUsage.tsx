@@ -1,12 +1,5 @@
 import { useSearch } from '@faststore/sdk'
-import {
-  FacetBoolean as UIFacetBoolean,
-  FacetBooleanItem as UIFacetBooleanItem,
-  FacetRange as UIFacetRange,
-  Facets as UIFacets,
-  Filter as UIFilter,
-  FilterSlider as UIFilterSlider
-} from '@faststore/ui'
+import { Filter as UIFilter, FilterFacetBoolean as UIFilterFacetBoolean, FilterFacetBooleanItem as UIFilterFacetBooleanItem, FilterFacetRange as UIFilterFacetRange, FilterFacets as UIFilterFacets, FilterSlider as UIFilterSlider } from '@faststore/ui'
 import { useFormattedPrice } from '../utilities/usePriceFormatter'
 import type { FilterFacet } from './FilterUsage'
 
@@ -79,7 +72,7 @@ function FilterSlider({
           const { __typename: type, label } = facet
           const isExpanded = expanded.has(index)
           return (
-            <UIFacets
+            <UIFilterFacets
               key={`${testId}-${label}-${index}`}
               testId={testId}
               index={index}
@@ -87,9 +80,9 @@ function FilterSlider({
               label={label}
             >
               {type === 'StoreFacetBoolean' && isExpanded && (
-                <UIFacetBoolean>
+                <UIFilterFacetBoolean>
                   {facet.values.map((item) => (
-                    <UIFacetBooleanItem
+                    <UIFilterFacetBooleanItem
                       key={`${testId}-${facet.label}-${item.label}`}
                       id={`${testId}-${facet.label}-${item.label}`}
                       testId={testId}
@@ -103,10 +96,10 @@ function FilterSlider({
                       label={item.label}
                     />
                   ))}
-                </UIFacetBoolean>
+                </UIFilterFacetBoolean>
               )}
               {type === 'StoreFacetRange' && isExpanded && (
-                <UIFacetRange
+                <UIFilterFacetRange
                   facetKey={facet.key}
                   min={facet.min}
                   max={facet.max}
@@ -119,7 +112,7 @@ function FilterSlider({
                   }
                 />
               )}
-            </UIFacets>
+            </UIFilterFacets>
           )
         })}
       </UIFilter>

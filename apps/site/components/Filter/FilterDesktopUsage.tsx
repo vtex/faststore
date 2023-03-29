@@ -1,11 +1,11 @@
 import { setFacet, useSearch } from '@faststore/sdk'
 
 import {
-  FacetBoolean,
-  FacetBooleanItem,
-  FacetRange,
-  Facets,
   Filter,
+  FilterFacetBoolean,
+  FilterFacetBooleanItem,
+  FilterFacetRange,
+  FilterFacets,
 } from '@faststore/ui'
 import { useFormattedPrice } from '../utilities/usePriceFormatter'
 import { FilterFacet } from './FilterUsage'
@@ -49,7 +49,7 @@ function FilterDesktopUsage({
         const { __typename: type, label } = facet
         const isExpanded = expanded.has(index)
         return (
-          <Facets
+          <FilterFacets
             key={`${testId}-${label}-${index}`}
             testId={testId}
             index={index}
@@ -57,9 +57,9 @@ function FilterDesktopUsage({
             label={label}
           >
             {type === 'StoreFacetBoolean' && isExpanded && (
-              <FacetBoolean>
+              <FilterFacetBoolean>
                 {facet.values.map((item) => (
-                  <FacetBooleanItem
+                  <FilterFacetBooleanItem
                     key={`${testId}-${facet.label}-${item.label}`}
                     id={`${testId}-${facet.label}-${item.label}`}
                     testId={testId}
@@ -73,10 +73,10 @@ function FilterDesktopUsage({
                     label={item.label}
                   />
                 ))}
-              </FacetBoolean>
+              </FilterFacetBoolean>
             )}
             {type === 'StoreFacetRange' && isExpanded && (
-              <FacetRange
+              <FilterFacetRange
                 facetKey={facet.key}
                 min={facet.min}
                 max={facet.max}
@@ -90,7 +90,7 @@ function FilterDesktopUsage({
                 }}
               />
             )}
-          </Facets>
+          </FilterFacets>
         )
       })}
     </Filter>

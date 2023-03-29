@@ -1,8 +1,8 @@
 import React from 'react'
-import { Badge, Checkbox, Label } from '../../'
+import { Badge, Checkbox, Label } from '../..'
 import { OnFacetChange } from './Filter'
 
-export interface FacetBooleanItemProps {
+export interface FilterFacetBooleanItemProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -37,7 +37,7 @@ export interface FacetBooleanItemProps {
   onFacetChange: OnFacetChange
 }
 
-function FacetBooleanItem({
+function FilterFacetBooleanItem({
   testId,
   id,
   selected,
@@ -46,7 +46,7 @@ function FacetBooleanItem({
   facetKey,
   label,
   onFacetChange,
-}: FacetBooleanItemProps) {
+}: FilterFacetBooleanItemProps) {
   return (
     <li key={id} data-fs-filter-list-item>
       <Checkbox
@@ -69,4 +69,4 @@ function FacetBooleanItem({
   )
 }
 
-export default FacetBooleanItem
+export default FilterFacetBooleanItem

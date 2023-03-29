@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import { AccordionButton, AccordionItem, AccordionPanel } from '../..'
 
-export interface FacetsProps {
+export interface FilterFacetsProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -20,13 +20,13 @@ export interface FacetsProps {
   label: string
 }
 
-function Facets({
+function FilterFacets({
   testId,
   label,
   index,
   children,
   type,
-}: PropsWithChildren<FacetsProps>) {
+}: PropsWithChildren<FilterFacetsProps>) {
   return (
     <AccordionItem
       key={`${label}-${index}`}
@@ -44,4 +44,4 @@ function Facets({
   )
 }
 
-export default Facets
+export default FilterFacets

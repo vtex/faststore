@@ -1,8 +1,8 @@
 import React from 'react'
-import { PriceRange } from '../../'
+import { PriceRange } from '../..'
 import { OnFacetChange } from './Filter'
 
-export interface FacetRangeProps {
+export interface FilterFacetRangeProps {
   /**
    * The minimum value of the Slider Range Facet
    */
@@ -28,13 +28,13 @@ export interface FacetRangeProps {
 const formatRange = (min: number, max: number) =>
   `${min.toFixed(2)}-to-${max.toFixed(2)}`
 
-function FacetRange({
+function FilterFacetRange({
   min,
   max,
   formatter,
   facetKey,
   onFacetChange,
-}: FacetRangeProps) {
+}: FilterFacetRangeProps) {
   return (
     <PriceRange
       data-fs-filter-facet-range
@@ -55,4 +55,4 @@ function FacetRange({
   )
 }
 
-export default FacetRange
+export default FilterFacetRange
