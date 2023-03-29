@@ -1,3 +1,5 @@
+import React, { PropsWithChildren } from 'react'
+
 import {
   Button,
   ButtonProps,
@@ -7,7 +9,6 @@ import {
   useUI,
 } from '../../'
 
-import React, { PropsWithChildren } from 'react'
 import { SlideOverDirection, SlideOverWidthSize } from '../SlideOver'
 
 export interface FilterSliderProps {

@@ -1,7 +1,5 @@
-import React from 'react'
-import { Accordion as UIAccordion } from '../../'
-
-import { PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
+import { Accordion } from '../../'
 
 export type OnFacetChange = (
   item: { key: string; value: string },
@@ -38,13 +36,13 @@ function Filter({
   return (
     <div data-fs-filter data-testid={testId}>
       <h2 data-fs-filter-title>{title}</h2>
-      <UIAccordion
+      <Accordion
         indices={indicesExpanded}
         onChange={onAccordionChange}
         data-fs-filter-accordion
       >
         {children}
-      </UIAccordion>
+      </Accordion>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { Button, useUI } from '@faststore/ui'
 import { facetsMock } from '../../mocks/facets'
-import FilterFixedUsage from './FilterFixedUsage'
+import FilterDesktopUsage from './FilterDesktopUsage'
 import FilterSliderUsage from './FilterSliderUsage'
 import { useFilter } from './useFilter'
 
@@ -46,7 +46,7 @@ const FilterUsage = ({ onlyMobile }: { onlyMobile?: boolean }) => {
   ) : (
     <>
       <div className="hidden-mobile" style={{ width: '100%' }}>
-        <FilterFixedUsage {...filter} testId="fs-filter" title="Filters" />
+        <FilterDesktopUsage {...filter} testId="fs-filter" title="Filters" />
       </div>
       <div className="display-mobile">
         <Button

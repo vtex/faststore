@@ -63,6 +63,8 @@ The Filter component is used to filter products inside the Product Listing Page 
 
 </header>
 
+The Filter component is a compound of the following:
+
 - `Filter`: wraps an `Accordion` along with the component title.
 - `FilterSlider`: `SlideOver` that wraps the `Filter` for small screen dimensions.
 - `Facets`: wraps an `AccordionItem` with its `AccordionButton` and an `AccordionPanel` for every Facet.
@@ -325,7 +327,7 @@ function FilterUsage({
 <TokenTable>
   <TokenRow
     token="--fs-filter-title-height"
-    value="var(--product-listing-row-height)"
+    value="var(--fs-spacing-6)"
   />
   <TokenRow
     token="--fs-filter-title-margin-bottom"

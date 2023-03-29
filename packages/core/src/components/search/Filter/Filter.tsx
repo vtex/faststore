@@ -2,7 +2,7 @@ import { gql } from '@faststore/graphql-utils'
 
 import { useUI } from '@faststore/ui'
 import type { Filter_FacetsFragment } from '@generated/graphql'
-import FilterFixed from './FilterFixed'
+import FilterDesktop from './FilterDesktop'
 import FilterSlider from './FilterSlider'
 import { useFilter } from './useFilter'
 
@@ -25,7 +25,7 @@ function Filter({ facets: allFacets, testId = 'fs-filter' }: Props) {
   return (
     <>
       <div className="hidden-mobile">
-        <FilterFixed {...filter} testId={testId} title="Filters" />
+        <FilterDesktop {...filter} testId={testId} title="Filters" />
       </div>
 
       {displayFilter && (

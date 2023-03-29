@@ -1,43 +1,43 @@
-import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
+import { setFacet, useSearch } from '@faststore/sdk'
 
 import {
-  FacetBoolean as UIFacetBoolean,
-  FacetBooleanItem as UIFacetBooleanItem,
-  FacetRange as UIFacetRange,
-  Facets as UIFacets,
-  Filter as UIFilter,
+  FacetBoolean,
+  FacetBooleanItem,
+  FacetRange,
+  Facets,
+  Filter,
 } from '@faststore/ui'
-import type { Filter_FacetsFragment } from '@generated/graphql'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { useFormattedPrice } from '../utilities/usePriceFormatter'
+import { FilterFacet } from './FilterUsage'
 import { useFilter } from './useFilter'
 
 interface Props {
   /**
    * The array that represents the details of every facet.
    */
-  facets: Filter_FacetsFragment[]
+  facets: FilterFacet[]
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
    */
   testId?: string
   /**
-   * Title for the `FilterFixed` component.
+   * Title for the `FilterDesktop` component.
    */
   title?: string
 }
 
-function FilterFixed({
+function FilterDesktopUsage({
   facets,
   testId,
   dispatch,
   expanded,
   title,
 }: Props & ReturnType<typeof useFilter>) {
-  const { resetInfiniteScroll, state, setState } = useSearch()
+  const { state, setState } = useSearch()
 
   return (
-    <UIFilter
+    <Filter
       testId={`desktop-${testId}`}
       title={title}
       indicesExpanded={expanded}
@@ -49,7 +49,7 @@ function FilterFixed({
         const { __typename: type, label } = facet
         const isExpanded = expanded.has(index)
         return (
-          <UIFacets
+          <Facets
             key={`${testId}-${label}-${index}`}
             testId={testId}
             index={index}
@@ -57,22 +57,14 @@ function FilterFixed({
             label={label}
           >
             {type === 'StoreFacetBoolean' && isExpanded && (
-              <UIFacetBoolean>
+              <FacetBoolean>
                 {facet.values.map((item) => (
-                  <UIFacetBooleanItem
+                  <FacetBooleanItem
                     key={`${testId}-${facet.label}-${item.label}`}
                     id={`${testId}-${facet.label}-${item.label}`}
                     testId={testId}
                     onFacetChange={(facet) => {
-                      setState({
-                        ...state,
-                        selectedFacets: toggleFacet(
-                          state.selectedFacets,
-                          facet
-                        ),
-                        page: 0,
-                      })
-                      resetInfiniteScroll(0)
+                      dispatch({ type: 'toggleFacet', payload: facet })
                     }}
                     selected={item.selected}
                     value={item.value}
@@ -81,10 +73,10 @@ function FilterFixed({
                     label={item.label}
                   />
                 ))}
-              </UIFacetBoolean>
+              </FacetBoolean>
             )}
             {type === 'StoreFacetRange' && isExpanded && (
-              <UIFacetRange
+              <FacetRange
                 facetKey={facet.key}
                 min={facet.min}
                 max={facet.max}
@@ -95,15 +87,14 @@ function FilterFixed({
                     selectedFacets: setFacet(state.selectedFacets, facet, true),
                     page: 0,
                   })
-                  resetInfiniteScroll(0)
                 }}
               />
             )}
-          </UIFacets>
+          </Facets>
         )
       })}
-    </UIFilter>
+    </Filter>
   )
 }
 
-export default FilterFixed
+export default FilterDesktopUsage

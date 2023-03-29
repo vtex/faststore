@@ -1,4 +1,4 @@
-import { setFacet, useSearch } from '@faststore/sdk'
+import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
 
 import {
   FacetBoolean as UIFacetBoolean,
@@ -7,34 +7,34 @@ import {
   Facets as UIFacets,
   Filter as UIFilter,
 } from '@faststore/ui'
-import { useFormattedPrice } from '../utilities/usePriceFormatter'
-import { FilterFacet } from './FilterUsage'
+import type { Filter_FacetsFragment } from '@generated/graphql'
+import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useFilter } from './useFilter'
 
 interface Props {
   /**
    * The array that represents the details of every facet.
    */
-  facets: FilterFacet[]
+  facets: Filter_FacetsFragment[]
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
    */
   testId?: string
   /**
-   * Title for the `FilterFixed` component.
+   * Title for the `FilterDesktop` component.
    */
   title?: string
 }
 
-function FilterFixedUsage({
+function FilterDesktop({
   facets,
   testId,
   dispatch,
   expanded,
   title,
 }: Props & ReturnType<typeof useFilter>) {
-  const { state, setState } = useSearch()
+  const { resetInfiniteScroll, state, setState } = useSearch()
 
   return (
     <UIFilter
@@ -64,7 +64,15 @@ function FilterFixedUsage({
                     id={`${testId}-${facet.label}-${item.label}`}
                     testId={testId}
                     onFacetChange={(facet) => {
-                      dispatch({ type: 'toggleFacet', payload: facet })
+                      setState({
+                        ...state,
+                        selectedFacets: toggleFacet(
+                          state.selectedFacets,
+                          facet
+                        ),
+                        page: 0,
+                      })
+                      resetInfiniteScroll(0)
                     }}
                     selected={item.selected}
                     value={item.value}
@@ -87,6 +95,7 @@ function FilterFixedUsage({
                     selectedFacets: setFacet(state.selectedFacets, facet, true),
                     page: 0,
                   })
+                  resetInfiniteScroll(0)
                 }}
               />
             )}
@@ -97,4 +106,4 @@ function FilterFixedUsage({
   )
 }
 
-export default FilterFixedUsage
+export default FilterDesktop
