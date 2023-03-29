@@ -16,7 +16,7 @@ const CaretRight = ({ size = 24 }: IconProps) => (
       points="96 48 176 128 96 208"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
+      strokeLinecap="round"
       stroke-linejoin="round"
     ></polyline>
   </svg>

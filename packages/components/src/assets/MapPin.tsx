@@ -16,7 +16,7 @@ const MapPin = ({ size = 24 }: IconProps) => (
       r="32"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
+      strokeLinecap="round"
       stroke-linejoin="round"
       stroke-width="16"
     />
@@ -24,7 +24,7 @@ const MapPin = ({ size = 24 }: IconProps) => (
       d="M208 104c0 72-80 128-80 128s-80-56-80-128a80 80 0 0 1 160 0Z"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
+      strokeLinecap="round"
       stroke-linejoin="round"
       stroke-width="16"
     />
