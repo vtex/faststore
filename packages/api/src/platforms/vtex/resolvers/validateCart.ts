@@ -282,6 +282,7 @@ export const validateCart = async (
   if (cookieSession) {
     const { namespaces } = await commerce.getSessionOrder()
     const orderFormIdSession = namespaces.checkout?.orderFormId?.value
+    console.log("🚀 ~ orderFormIdSession:", orderFormIdSession)
     // In the case of divergence between session cookie and indexdb update the order form
     if (orderNumber != orderFormIdSession && orderFormIdSession != undefined) {
       const orderFormSession = await getOrderForm(
@@ -289,13 +290,16 @@ export const validateCart = async (
         session,
         ctx
       )
+      console.log("🚀 ~ orderFormSession:", orderFormSession)
       const isStale = isOrderFormStale(orderFormSession)
+      console.log("🚀 ~ isStale:", isStale)
 
       if (isStale === true && orderNumber) {
         const newOrderForm = await setOrderFormEtag(
           orderFormSession,
           commerce
         ).then(joinItems)
+        console.log("🚀 ~ newOrderForm:", newOrderForm)
 
         return orderFormToCart(newOrderForm, skuLoader)
       }
