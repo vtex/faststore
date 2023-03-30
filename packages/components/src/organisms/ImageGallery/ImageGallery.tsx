@@ -1,11 +1,32 @@
 import type { HTMLAttributes, FunctionComponent } from 'react'
 import React from 'react'
 
-import type { ImageElementData } from './'
-
 import { ImageGallerySelector } from '../..'
 
+type ImageComponentType = FunctionComponent<{
+  url: string
+  alternateName?: string
+  loading?: 'eager' | 'lazy'
+  onLoad?: (image: any) => void
+}>
+
+export type ImageElementData = {
+  /**
+   * Image URL.
+   */
+  url: string
+  /**
+   * Alternative text description of the image.
+   */
+  alternateName: string
+}
+
 export interface ImageGalleryProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress,
+   * testing-library, and jest).
+   */
+  testId?: string
   /**
    * List of images that should be rendered.
    */
@@ -13,10 +34,7 @@ export interface ImageGalleryProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Function that returns a React component that will be used to render images.
    */
-  ImageComponent: FunctionComponent<{
-    url: string
-    alternateName?: string
-  }>
+  ImageComponent: ImageComponentType
   /**
    * The currently active thumbnail.
    */
@@ -25,11 +43,6 @@ export interface ImageGalleryProps extends HTMLAttributes<HTMLDivElement> {
    * Event handler for clicks on each thumbnail.
    */
   setSelectedImageIdx: React.Dispatch<React.SetStateAction<number>>
-  /**
-   * ID to find this component in testing tools (e.g.: cypress,
-   * testing-library, and jest).
-   */
-  testId?: string
 }
 
 function ImageGallery({

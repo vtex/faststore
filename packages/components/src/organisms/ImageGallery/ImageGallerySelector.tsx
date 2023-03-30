@@ -1,47 +1,23 @@
 import { Button, IconButton } from '../..'
 import React, { useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
+import type { ImageGalleryProps } from '.'
 
-import type { FunctionComponent } from 'react'
-
-export interface ImageElementData {
-  /**
-   * Image URL.
-   */
-  url: string
-  /**
-   * Alternative text description of the image.
-   */
-  alternateName: string
-}
-
-export interface ImageGallerySelectorProps {
-  /**
-   * List of images that should be rendered.
-   */
-  images: ImageElementData[]
-  /**
-   * Event handler for clicks on each thumbnail.
-   */
-  onSelect: React.Dispatch<React.SetStateAction<number>>
-  /**
-   * The currently active thumbnail.
-   */
-  currentImageIdx: number
-  /**
-   * Function that returns a React component that will be used to render images.
-   */
-  ImageComponent: FunctionComponent<{
-    url: string
-    alternateName?: string
-    onLoad?: any
-    loading?: 'eager' | 'lazy'
-  }>
+export interface ImageGallerySelectorProps
+  extends Pick<ImageGalleryProps, 'images' | 'ImageComponent'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
    */
   testId?: string
+  /**
+   * The currently active thumbnail.
+   */
+  currentImageIdx: number
+  /**
+   * Event handler for clicks on each thumbnail.
+   */
+  onSelect: React.Dispatch<React.SetStateAction<number>>
 }
 
 const SCROLL_MARGIN_VALUE = 400

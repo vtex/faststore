@@ -1,12 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react'
 import { ImageGallery, ImageZoom } from '@faststore/ui'
+import type { ImageElementData } from '@faststore/components'
 
 const ImageComponent = ({ url, alternateName, onLoad }) => (
-  <img data-fs-image onLoad={onLoad} src={url} alt={alternateName} />
+  <img data-fs-image src={url} alt={alternateName} onLoad={onLoad} />
 )
 
-export type ImageGalleryUsageProps = {
-  images?: []
+export interface ImageGalleryUsageProps {
+  images?: ImageElementData[]
 }
 
 const ImageGalleryUsage = ({ images }: ImageGalleryUsageProps) => {
