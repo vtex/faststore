@@ -21,6 +21,8 @@ import {
   UIProvider,
 } from '@faststore/ui'
 import SlideOverUsage from 'site/components/SlideOver/SlideOverUsage'
+import FilterUsage from 'site/components/Filter/FilterUsage'
+import { SearchProvider } from '@faststore/sdk'
 
 <header>
 
@@ -292,8 +294,12 @@ export const SlideOverFullLeft = () => {
   <SectionItem
     title="Filter Slider"
     description="The mobile Filter view that is rendered inside a SlideOver component."
-    actionPath="/"
+    actionPath="/components/organisms/filter-slider"
   >
-    [Coming Soon]
+    <UIProvider>
+      <SearchProvider onChange={() => ({})}>
+        <FilterUsage onlyMobile={true} />
+      </SearchProvider>
+    </UIProvider>
   </SectionItem>
 </SectionList>
