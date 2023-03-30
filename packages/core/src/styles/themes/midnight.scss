@@ -117,6 +117,10 @@
     --fs-logo-width                               : 8rem;
   }
 
+  [data-fs-navbar] {
+    --fs-navbar-bkg-color: var(--fs-color-main-0);
+  }
+
   [data-fs-footer] {
     --fs-footer-bkg-color                         : var(--fs-color-main-0);
   }

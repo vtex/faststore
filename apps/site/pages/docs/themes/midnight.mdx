@@ -19,7 +19,7 @@ A darkmode theme created for testing purposes.
 
 ## Use `midnight` as your theme
 
-1. Go to `faststore.config.js` and change the `theme` to your file's name:
+1. In your [starter project](https://github.com/vtex-sites/starter.store), go to `faststore.config.js` and change the `theme` to your file's name:
 
 ```js
 // Theming
@@ -151,6 +151,10 @@ theme: 'midnight',
   [data-fs-logo] {
     --fs-logo-img: url('~/public/brandless-negative.png');
     --fs-logo-width: 8rem;
+  }
+
+  [data-fs-navbar] {
+    --fs-navbar-bkg-color: var(--fs-color-main-0);
   }
 
   [data-fs-footer] {
