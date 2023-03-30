@@ -24,6 +24,33 @@ import SlideOverUsage from 'site/components/SlideOver/SlideOverUsage'
 import FilterUsage from 'site/components/Filter/FilterUsage'
 import { SearchProvider } from '@faststore/sdk'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const slideOverPath = path.resolve(__filename)
+  const components = ['SlideOver.tsx']
+  const [slideOverProps] = getComponentPropsFrom(slideOverPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        slideOverProps,
+      },
+    },
+  }
+}
+
+export const SlideOverPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { slideOverProps } = useSSG()
+  return {
+    SlideOver: <PropsSection propsList={slideOverProps} />,
+  }[component]
+}
+
 <header>
 
 # SlideOver
@@ -203,11 +230,11 @@ export const SlideOverFullLeft = () => {
 
 ### SlideOver
 
-<PropsSection name="SlideOver" />
+<SlideOverPropsSection component="SlideOver" />
 
 ### SlideOverHeader
 
-<PropsSection name="SlideOverHeader" />
+<SlideOverPropsSection name="SlideOverHeader" />
 
 ---
 
