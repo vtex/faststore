@@ -28,7 +28,7 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["MagnifyingGlass"],
+                  "enumNames": ["Magnifying Glass"],
                   "enum": ["MagnifyingGlass"]
                 },
                 "alt": {
@@ -64,8 +64,8 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["REPLACe"],
-                  "enum": ["REPLACE"]
+                  "enumNames": ["Clock Clockwise"],
+                  "enum": ["ClockClockwise"]
                 }
               }
             },
@@ -102,8 +102,8 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["REPLACe"],
-                  "enum": ["REPLACE"]
+                  "enumNames": ["Magnifying Glass"],
+                  "enum": ["MagnifyingGlass"]
                 }
               }
             },
@@ -168,8 +168,8 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["REPLACe"],
-                  "enum": ["REPLACE"]
+                  "enumNames": ["User"],
+                  "enum": ["User"]
                 },
                 "alt": {
                   "type": "string",
@@ -191,8 +191,8 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["REPLACe"],
-              "enum": ["REPLACE"]
+              "enumNames": ["Shopping Cart"],
+              "enum": ["ShoppingCart"]
             },
             "alt": {
               "type": "string",
@@ -220,8 +220,8 @@
                     "icon": {
                       "title": "Icon",
                       "type": "string",
-                      "enumNames": ["REPLACe"],
-                      "enum": ["REPLACE"]
+                      "enumNames": ["Map Pin"],
+                      "enum": ["MapPin"]
                     },
                     "alt": {
                       "type": "string",
@@ -425,8 +425,18 @@
                         "icon": {
                           "title": "Icon",
                           "type": "string",
-                          "enumNames": ["REPLACe"],
-                          "enum": ["REPLACE"]
+                          "enumNames": [
+                            "Facebook",
+                            "Instagram",
+                            "Pinterest",
+                            "Twitter"
+                          ],
+                          "enum": [
+                            "Facebook",
+                            "Instagram",
+                            "Pinterest",
+                            "Twitter"
+                          ]
                         }
                       }
                     },
@@ -894,8 +904,8 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["REPLACe"],
-              "enum": ["REPLACE"]
+              "enumNames": ["Envelop"],
+              "enum": ["Envelop"]
             }
           }
         },
@@ -1071,8 +1081,8 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["REPLACe"],
-                  "enum": ["REPLACE"]
+                  "enumNames": ["Shopping Cart"],
+                  "enum": ["ShoppingCart"]
                 }
               }
             }
