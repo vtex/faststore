@@ -276,7 +276,7 @@ export const validateCart = async (
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
   console.log("🚀 ~ orderForm:", orderForm)
-  const cookieSession = await getCookie('vtex_session', headers.cookie)
+  const cookieSession = getCookie('vtex_session', headers.cookie)
   console.log("🚀 ~ cookieSession:", cookieSession)
 
   if (cookieSession) {
@@ -294,7 +294,7 @@ export const validateCart = async (
       const isStale = isOrderFormStale(orderFormSession)
       console.log("🚀 ~ isStale:", isStale)
 
-      if (isStale === true && orderNumber) {
+      if (isStale && orderFormSession) {
         const newOrderForm = await setOrderFormEtag(
           orderFormSession,
           commerce
