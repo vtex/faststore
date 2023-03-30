@@ -1,28 +1,26 @@
 import deepEquals from 'fast-deep-equal'
 
-import { md5 } from '../utils/md5'
+import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getCookie } from '../utils/getCookies'
+import { md5 } from '../utils/md5'
 import {
   attachmentToPropertyValue,
   getPropertyId,
-  VALUE_REFERENCES,
+  VALUE_REFERENCES
 } from '../utils/propertyValue'
-import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 
+import type { Context } from '..'
 import type {
-  IStoreSession,
   IStoreOffer,
   IStoreOrder,
-  IStorePropertyValue,
-  Maybe,
-  MutationValidateCartArgs,
+  IStorePropertyValue, IStoreSession, Maybe,
+  MutationValidateCartArgs
 } from '../../../__generated__/schema'
 import type {
   OrderForm,
   OrderFormInputItem,
-  OrderFormItem,
+  OrderFormItem
 } from '../clients/commerce/types/OrderForm'
-import type { Context } from '..'
 
 type Indexed<T> = T & { index?: number }
 
@@ -264,6 +262,8 @@ export const validateCart = async (
 
   const channel = session?.channel
   const locale = session?.locale
+  console.log("🚀 ~ headers:", headers)
+  console.log("🚀 ~ orderNumber:", orderNumber)
 
   if (channel) {
     mutateChannelContext(ctx, channel)
@@ -275,7 +275,9 @@ export const validateCart = async (
 
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
+  console.log("🚀 ~ orderForm:", orderForm)
   const cookieSession = await getCookie('vtex_session', headers.cookie)
+  console.log("🚀 ~ cookieSession:", cookieSession)
 
   if (cookieSession) {
     const { namespaces } = await commerce.getSessionOrder()

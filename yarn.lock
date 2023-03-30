@@ -1407,10 +1407,9 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@faststore/api@^2.0.3-alpha.0":
-  version "2.0.3-alpha.0"
-  resolved "https://registry.yarnpkg.com/@faststore/api/-/api-2.0.3-alpha.0.tgz#e2728eb91612d8418764f028086a3f427416293a"
-  integrity sha512-25GftG7yxGQ2ja+Qyx1B7wbBol6qH3XTuM0Yyy1ou+GASRQG7cE08VY5duYZhQHl9fIS5KKahSoE/pM63l7Q+w==
+"@faststore/api@https://pkg.csb.dev/vtex/faststore/commit/44be9024/@faststore/api":
+  version "2.0.82-alpha.0"
+  resolved "https://pkg.csb.dev/vtex/faststore/commit/44be9024/@faststore/api#a29180529b60f0884465d6ff46102d721a1f8275"
   dependencies:
     "@graphql-tools/schema" "^8.2.0"
     "@rollup/plugin-graphql" "^1.0.0"
