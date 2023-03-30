@@ -1,7 +1,7 @@
 import { List as UIList } from '@faststore/ui'
 import type { AnchorHTMLAttributes } from 'react'
 
-import RegionalizationButton from 'src/components/regionalization/RegionalizationButton'
+import RegionButton from 'src/components/region/RegionButton'
 import Link from 'src/components/ui/Link'
 import { mark } from 'src/sdk/tests/mark'
 
@@ -35,7 +35,7 @@ function NavLinks({ onClickLink, classes = '' }: NavLinksProps) {
   return (
     <nav className={`${styles.fsNavlinks} ${classes}`}>
       <div className="layout__content">
-        <RegionalizationButton />
+        <RegionButton />
         <UIList data-fs-navlinks-list>
           {collections.map(({ href, name }) => (
             <li key={name} data-fs-navlinks-list-item>
