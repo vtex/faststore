@@ -209,7 +209,7 @@ export const getStaticProps: GetStaticProps<
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [],
+    paths: [{ params: { slug: 'apple-magic-mouse-99988216' } }],
     fallback: 'blocking',
   }
 }
