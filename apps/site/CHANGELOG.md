@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.92-alpha.0](https://github.com/vtex/faststore/compare/v2.0.91-alpha.0...v2.0.92-alpha.0) (2023-03-30)
+
+### Documentation
+
+- How to override or customize native section components ([#1684](https://github.com/vtex/faststore/issues/1684)) ([783532a](https://github.com/vtex/faststore/commit/783532a5ec1c5e4e10daa9a9975fe5f7546ce5bb))
+
 ## 2.0.91-alpha.0 (2023-03-30)
 
 ### Bug Fixes
