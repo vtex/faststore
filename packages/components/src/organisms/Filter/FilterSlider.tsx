@@ -17,18 +17,6 @@ export interface FilterSliderProps {
    */
   title?: string
   /**
-   * Props for the Clear Button from FilterSlider component.
-   */
-  clearBtnProps?: Partial<ButtonProps>
-  /**
-   * Props for the Apply Button from FilterSlider component.
-   */
-  applyBtnProps?: Partial<ButtonProps>
-  /**
-   * Function called when close button is clicked.
-   */
-  onClose: () => void
-  /**
    * Represents the side that the FilterSlider comes from.
    */
   direction: SlideOverDirection
@@ -36,19 +24,31 @@ export interface FilterSliderProps {
    * Represents the size of the FilterSlider.
    */
   size: SlideOverWidthSize
+  /**
+   * Props for the Apply Button from FilterSlider component.
+   */
+  applyBtnProps?: Partial<ButtonProps>
+  /**
+   * Props for the Clear Button from FilterSlider component.
+   */
+  clearBtnProps?: Partial<ButtonProps>
+  /**
+   * Function called when Close Button is clicked.
+   */
+  onClose: () => void
 }
 
 function FilterSlider({
   title,
-  clearBtnProps,
-  applyBtnProps,
-  onClose,
   size,
   direction,
   children,
+  applyBtnProps,
+  clearBtnProps,
+  onClose,
 }: PropsWithChildren<FilterSliderProps>) {
-  const { closeFilter } = useUI()
   const { fade, fadeOut } = useFadeEffect()
+  const { closeFilter } = useUI()
 
   return (
     <SlideOver
