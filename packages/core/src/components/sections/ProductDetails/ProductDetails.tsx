@@ -284,8 +284,8 @@ export const fragment = gql`
       productGroupID
       skuVariants {
         activeVariations
-        slugsMap
-        availableVariations
+        slugsMap(dominantVariantName: "Color")
+        availableVariations(dominantVariantName: "Color")
       }
     }
 
