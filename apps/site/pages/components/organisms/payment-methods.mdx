@@ -25,6 +25,36 @@ import {
   ApplePay,
 } from '@faststore/components'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const paymentMethodsPath = path.resolve(__filename)
+  const components = ['PaymentMethods.tsx']
+  const [paymentMethodsProps] = getComponentPropsFrom(
+    paymentMethodsPath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        paymentMethodsProps,
+      },
+    },
+  }
+}
+
+export const PaymentMethodsPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { paymentMethodsProps } = useSSG()
+  return {
+    PaymentMethods: <PropsSection propsList={paymentMethodsProps} />,
+  }[component]
+}
+
 <header>
 
 # PaymentMethods
@@ -79,9 +109,25 @@ export const flags = [
 
 ## Props
 
-<PropsSection name="PaymentMethods" />
+<PaymentMethodsPropsSection component="PaymentMethods" />
 
----
+export const propsFlag = [
+  {
+    name: 'image',
+    type: 'ReactNode',
+    description: 'A React component that will represent the flag image.',
+  },
+  {
+    name: 'text',
+    type: 'string',
+    description:
+      'Description of the flag image to be also used for accessibility purposes.',
+  },
+]
+
+## Flag
+
+<PropsSection propsList={propsFlag} />
 
 ## Design Tokens
 
@@ -117,7 +163,14 @@ export const flags = [
 #### Flag
 
 <TokenTable>
-  <TokenRow token="--fs-payment-methods-flag-width" value="2.125rem" />
+  <TokenRow
+    token="--fs-payment-methods-flag-width"
+    value="var(--fs-spacing-5)"
+  />
+  <TokenRow
+    token="--fs-payment-methods-flag-height"
+    value="var(--fs-spacing-4)"
+  />
   <TokenRow
     token="--fs-payment-methods-flag-border-width"
     value="var(--fs-border-width)"

@@ -1,28 +1,20 @@
 import { useSearch } from '@faststore/sdk'
-import {
-  Filter as UIFilter,
-  FilterFacetBoolean as UIFilterFacetBoolean,
-  FilterFacetBooleanItem as UIFilterFacetBooleanItem,
-  FilterFacetRange as UIFilterFacetRange,
-  FilterFacets as UIFilterFacets,
-  FilterSlider as UIFilterSlider,
-} from '@faststore/ui'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-
-import type { Filter_FacetsFragment } from '@generated/graphql'
+import { Filter as UIFilter, FilterFacetBoolean as UIFilterFacetBoolean, FilterFacetBooleanItem as UIFilterFacetBooleanItem, FilterFacetRange as UIFilterFacetRange, FilterFacets as UIFilterFacets, FilterSlider as UIFilterSlider } from '@faststore/ui'
+import { useFormattedPrice } from '../utilities/usePriceFormatter'
+import type { FilterFacet } from './FilterUsage'
 
 import type { useFilter } from './useFilter'
 
 interface Props {
   /**
+   * The array that represents the details of every facet.
+   */
+  facets: FilterFacet[]
+  /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
    */
   testId?: string
-  /**
-   * The array that represents the details of every facet.
-   */
-  facets: Filter_FacetsFragment[]
   /**
    * Title for the `Filter` component.
    */

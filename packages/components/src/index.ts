@@ -192,6 +192,22 @@ export { default as QuantitySelector } from './molecules/QuantitySelector'
 export type { QuantitySelectorProps } from './molecules/QuantitySelector'
 
 // Organisms
+export { 
+  default as Filter,
+  FilterFacetBoolean,
+  FilterFacetBooleanItem,
+  FilterFacetRange,
+  FilterFacets,
+  FilterSlider 
+} from './organisms/Filter'
+export type {
+  FilterFacetBooleanItemProps,
+  FilterFacetRangeProps,
+  FilterFacetsProps,
+  FilterProps,
+  FilterSliderProps
+} from './organisms/Filter'
+
 export { default as Hero, HeroImage, HeroHeader } from './organisms/Hero'
 export type {
   HeroProps,
