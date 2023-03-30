@@ -30,14 +30,18 @@ import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
   const slideOverPath = path.resolve(__filename)
-  const components = ['SlideOver.tsx']
-  const [slideOverProps] = getComponentPropsFrom(slideOverPath, components)
+  const components = ['SlideOver.tsx', 'SlideOverHeader.tsx']
+  const [slideOverProps, slideOverHeaderProps] = getComponentPropsFrom(
+    slideOverPath,
+    components
+  )
   return {
     props: {
       // We add an `ssg` field to the page props,
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
         slideOverProps,
+        slideOverHeaderProps,
       },
     },
   }
@@ -45,9 +49,10 @@ export const getStaticProps = () => {
 
 export const SlideOverPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
-  const { slideOverProps } = useSSG()
+  const { slideOverProps, slideOverHeaderProps } = useSSG()
   return {
     SlideOver: <PropsSection propsList={slideOverProps} />,
+    SlideOverHeader: <PropsSection propsList={slideOverHeaderProps} />,
   }[component]
 }
 
@@ -234,7 +239,7 @@ export const SlideOverFullLeft = () => {
 
 ### SlideOverHeader
 
-<SlideOverPropsSection name="SlideOverHeader" />
+<SlideOverPropsSection component="SlideOverHeader" />
 
 ---
 
