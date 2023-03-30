@@ -3,8 +3,8 @@
     "name": "Search",
     "schema": {
       "title": "Search Bar",
-      "description": "Search Bar Configuration",
       "type": "object",
+      "description": "Search Bar Configuration",
       "required": [
         "search-input",
         "search-history",
@@ -22,8 +22,8 @@
               "default": "Search Everything at the Store"
             },
             "icon": {
-              "type": "object",
               "title": "Search Icon",
+              "type": "object",
               "properties": {
                 "icon": {
                   "title": "Icon",
@@ -32,8 +32,8 @@
                   "enum": ["MagnifyingGlass"]
                 },
                 "alt": {
-                  "type": "string",
-                  "title": "Alt text"
+                  "title": "Alt text",
+                  "type": "string"
                 }
               }
             },
@@ -45,20 +45,21 @@
           }
         },
         "search-history": {
-          "type": "object",
           "title": "History",
+          "type": "object",
           "properties": {
             "title": {
-              "type": "string",
               "title": "Title",
+              "type": "string",
               "default": "History"
             },
             "clear-button-label": {
-              "title": "Clear Button Label",
               "type": "string",
+              "title": "Clear Button Label",
               "default": "Clear History"
             },
             "icon": {
+              "title": "Icon",
               "type": "object",
               "properties": {
                 "icon": {
@@ -77,8 +78,8 @@
           }
         },
         "search-top": {
-          "type": "object",
           "title": "Top Searches",
+          "type": "object",
           "properties": {
             "title": {
               "title": "Title",
@@ -93,10 +94,11 @@
           }
         },
         "search-autocomplete": {
-          "type": "object",
           "title": "Autocomplete",
+          "type": "object",
           "properties": {
             "icon": {
+              "title": "Icon",
               "type": "object",
               "properties": {
                 "icon": {
@@ -115,8 +117,8 @@
           }
         },
         "search-products": {
-          "type": "object",
           "title": "Suggested Products",
+          "type": "object",
           "properties": {
             "title": {
               "title": "Title",
@@ -137,32 +139,33 @@
     "name": "Navbar",
     "schema": {
       "title": "Navbar",
-      "description": "Navbar configuration",
       "type": "object",
+      "description": "Navbar configuration",
       "required": ["image"],
       "properties": {
         "logo": {
-          "type": "object",
           "title": "Logo",
+          "type": "object",
           "properties": {
             "src": {
-              "type": "string",
               "title": "Image",
+              "type": "string",
               "widget": {
                 "ui:widget": "media-gallery"
               }
             },
             "alt": {
-              "type": "string",
-              "title": "Alt text"
+              "title": "Alt text",
+              "type": "string"
             }
           }
         },
         "sign-in-button": {
-          "type": "object",
           "title": "Sign In Button",
+          "type": "object",
           "properties": {
             "icon": {
+              "title": "Icon",
               "type": "object",
               "properties": {
                 "icon": {
@@ -172,21 +175,21 @@
                   "enum": ["User"]
                 },
                 "alt": {
-                  "type": "string",
-                  "title": "Alt text"
+                  "title": "Alt text",
+                  "type": "string"
                 }
               }
             },
             "label": {
-              "type": "string",
               "title": "Sign in call to action",
+              "type": "string",
               "default": "Sign In"
             }
           }
         },
         "cart-icon": {
-          "type": "object",
           "title": "Cart Icon",
+          "type": "object",
           "properties": {
             "icon": {
               "title": "Icon",
@@ -195,8 +198,8 @@
               "enum": ["ShoppingCart"]
             },
             "alt": {
-              "type": "string",
-              "title": "Alt text"
+              "title": "Alt text",
+              "type": "string"
             }
           }
         },
@@ -214,8 +217,8 @@
                   "default": true
                 },
                 "icon": {
-                  "type": "object",
                   "title": "Icon",
+                  "type": "object",
                   "properties": {
                     "icon": {
                       "title": "Icon",
@@ -224,14 +227,14 @@
                       "enum": ["MapPin"]
                     },
                     "alt": {
-                      "type": "string",
-                      "title": "Alt text"
+                      "title": "Alt text",
+                      "type": "string"
                     }
                   }
                 },
                 "label": {
-                  "type": "string",
                   "title": "Call to Action",
+                  "type": "string",
                   "default": "Set Location"
                 }
               }
@@ -247,12 +250,12 @@
                 "required": ["text", "url"],
                 "properties": {
                   "text": {
-                    "type": "string",
-                    "title": "Link Text"
+                    "title": "Link Text",
+                    "type": "string"
                   },
                   "url": {
-                    "type": "string",
-                    "title": "Link URL"
+                    "title": "Link URL",
+                    "type": "string"
                   }
                 }
               }
@@ -368,9 +371,9 @@
             "title": "Footer Links Section",
             "type": "object",
             "properties": {
-              "title": {
+              "section-title": {
                 "title": "Section Title",
-                "type": "text"
+                "type": "string"
               },
               "items": {
                 "title": "Links",
@@ -384,13 +387,13 @@
                     "required": ["text", "url"],
                     "properties": {
                       "text": {
-                        "type": "string",
-                        "title": "Link Text"
+                        "title": "Link Text",
+                        "type": "string"
                       },
                       "url": {
+                        "title": "URL",
                         "type": "string",
-                        "hint": "Absolute or Relative",
-                        "title": "URL"
+                        "hint": "Absolute or Relative"
                       }
                     }
                   }
@@ -409,8 +412,8 @@
               "default": "Follow Us"
             },
             "social-links": {
-              "type": "array",
               "title": "Social Media",
+              "type": "array",
               "minItems": 0,
               "maxItems": 8,
               "items": {
@@ -420,6 +423,7 @@
                   "required": ["alt", "url", "icon"],
                   "properties": {
                     "icon": {
+                      "title": "Icon",
                       "type": "object",
                       "properties": {
                         "icon": {
@@ -441,12 +445,12 @@
                       }
                     },
                     "alt": {
-                      "type": "string",
-                      "title": "Alt"
+                      "title": "Alt",
+                      "type": "string"
                     },
                     "url": {
-                      "type": "string",
-                      "title": "URL"
+                      "title": "URL",
+                      "type": "string"
                     }
                   }
                 }
@@ -455,12 +459,12 @@
           }
         },
         "logo": {
-          "type": "object",
           "title": "Logo",
+          "type": "object",
           "properties": {
             "src": {
-              "type": "string",
               "title": "Image",
+              "type": "string",
               "widget": {
                 "ui:widget": "media-gallery"
               }
@@ -472,8 +476,8 @@
           }
         },
         "copyright-info": {
-          "type": "text",
-          "title": "Copyright message"
+          "title": "Copyright message",
+          "type": "string"
         },
         "accepted-payment-methods": {
           "title": "Payment Methods Sections",
@@ -543,12 +547,12 @@
           "required": ["text", "url"],
           "properties": {
             "text": {
-              "type": "string",
-              "title": "Text"
+              "title": "Text",
+              "type": "string"
             },
             "url": {
-              "type": "string",
-              "title": "URL"
+              "title": "URL",
+              "type": "string"
             }
           }
         },
@@ -746,13 +750,13 @@
             "properties": {
               "key": {
                 "title": "Key",
-                "description": "Tip: For collections, use: productClusterIds",
+                "hint": "For collections, use: productClusterIds",
                 "type": "string",
                 "default": "productClusterIds"
               },
               "value": {
                 "title": "Value",
-                "description": "Tip: For collection 140, use: 140",
+                "hint": "For collection 140, use: 140",
                 "type": "string",
                 "default": "140"
               }
@@ -792,12 +796,12 @@
       "required": ["title", "items", "kind"],
       "properties": {
         "title": {
-          "type": "string",
-          "title": "Title"
+          "title": "Title",
+          "type": "string"
         },
         "items": {
-          "type": "integer",
           "title": "First",
+          "type": "integer",
           "default": 5,
           "description": "Number of items to display"
         },
@@ -820,18 +824,18 @@
       "required": ["title", "first", "after", "sort"],
       "properties": {
         "title": {
-          "type": "string",
-          "title": "Title"
+          "title": "Title",
+          "type": "string"
         },
         "first": {
-          "type": "integer",
           "title": "First",
+          "type": "integer",
           "default": 3,
           "description": "Number of items to display"
         },
         "after": {
-          "type": "string",
           "title": "After",
+          "type": "string",
           "default": "0",
           "description": "Initial pagination item"
         },
@@ -861,8 +865,8 @@
           ]
         },
         "term": {
-          "type": "string",
-          "title": "Search term"
+          "title": "Search term",
+          "type": "string"
         },
         "selectedFacets": {
           "title": "Facets",
@@ -899,6 +903,7 @@
       "required": ["title"],
       "properties": {
         "icon": {
+          "title": "Icon",
           "type": "object",
           "properties": {
             "icon": {
@@ -910,28 +915,22 @@
           }
         },
         "title": {
-          "type": "string",
           "title": "Title",
+          "type": "string",
           "default": "Get News and Special Offers!"
         },
         "description": {
-          "type": "string",
           "title": "Description",
+          "type": "string",
           "default": "Receive our news and promotions in advance"
         },
         "privacy-policy": {
-          "type": "string",
-          "title": "Privacy Policy Disclaimer"
-        },
-        "variant": {
-          "type": "string",
-          "title": "Variant",
-          "enumNames": ["Lite", "Full"],
-          "enum": ["lite", "full"]
+          "title": "Privacy Policy Disclaimer",
+          "type": "string"
         },
         "email-input-label": {
-          "type": "string",
           "title": "Email input label",
+          "type": "string",
           "default": "Your Email"
         },
         "display-name-input": {
@@ -940,13 +939,13 @@
           "default": true
         },
         "name-input-label": {
-          "type": "string",
           "title": "Name input label",
+          "type": "string",
           "default": "Your Name"
         },
         "subscribe-button-label": {
-          "type": "string",
           "title": "Subscribe button label",
+          "type": "string",
           "default": "Subscribe"
         }
       }
@@ -979,42 +978,42 @@
               "required": ["text", "url"],
               "properties": {
                 "text": {
-                  "type": "string",
-                  "title": "Text"
+                  "title": "Text",
+                  "type": "string"
                 },
                 "url": {
-                  "type": "string",
-                  "title": "URL"
+                  "title": "URL",
+                  "type": "string"
                 }
               }
             },
             "colorVariant": {
-              "type": "string",
               "title": "Color variant",
+              "type": "string",
               "enumNames": ["Main", "Light", "Accent"],
               "enum": ["main", "light", "accent"]
             },
             "variant": {
-              "type": "string",
               "title": "Variant",
+              "type": "string",
               "enumNames": ["Primary", "Secondary"],
               "enum": ["primary", "secondary"]
             }
           }
         },
         "newsletter": {
-          "type": "object",
           "title": "Newsletter",
+          "type": "object",
           "required": ["title", "description"],
           "properties": {
             "title": {
-              "type": "string",
               "title": "Title",
+              "type": "string",
               "default": "Get News and Special Offers!"
             },
             "description": {
-              "type": "string",
               "title": "Description",
+              "type": "string",
               "default": "Receive our news and promotions in advance"
             }
           }
@@ -1037,8 +1036,8 @@
           "enum": ["House"]
         },
         "alt": {
-          "type": "string",
-          "title": "Alt text"
+          "title": "Alt text",
+          "type": "string"
         }
       }
     }
@@ -1047,12 +1046,12 @@
     "name": "ProductDetails",
     "schema": {
       "title": "Product Details",
-      "description": "Display Product Details Section",
       "type": "object",
+      "description": "Display Product Details Section",
       "properties": {
         "product-title": {
-          "type": "object",
           "title": "Product Title",
+          "type": "object",
           "properties": {
             "discount-badge": {
               "title": "Show Discount Badge?",
@@ -1067,15 +1066,16 @@
           }
         },
         "buy-button": {
-          "type": "object",
           "title": "Buy Button",
+          "type": "object",
           "properties": {
             "title": {
-              "type": "string",
               "title": "Title",
+              "type": "string",
               "default": "Add to Cart"
             },
             "icon": {
+              "title": "Icon",
               "type": "object",
               "properties": {
                 "icon": {
@@ -1089,17 +1089,17 @@
           }
         },
         "shipping-simulator": {
-          "type": "object",
           "title": "Shipping Simulation",
+          "type": "object",
           "properties": {
             "title": {
-              "type": "string",
               "title": "Title",
+              "type": "string",
               "default": "Shipping"
             },
             "input-label": {
-              "type": "string",
               "title": "Input Label",
+              "type": "string",
               "default": "Postal Code"
             },
             "link": {
@@ -1107,19 +1107,19 @@
               "type": "object",
               "properties": {
                 "text": {
-                  "type": "string",
                   "title": "Link Text",
+                  "type": "string",
                   "default": "I don't know my Postal Code"
                 },
                 "to": {
-                  "type": "string",
-                  "title": "href"
+                  "title": "URL",
+                  "type": "string"
                 }
               }
             },
             "shipping-options-table-title": {
-              "type": "string",
-              "title": "Shipping Options Table Header"
+              "title": "Shipping Options Table Header",
+              "type": "string"
             }
           }
         },
