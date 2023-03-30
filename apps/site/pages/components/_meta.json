@@ -3,9 +3,8 @@
   "atoms": "Atoms",
   "molecules": "Molecules",
   "organisms": "Organisms",
-  "-- features --": {
+  "----": {
     "type": "separator",
-    "title": "Features"
-  },
-  "search": "Search"
+    "title": "-"
+  }
 }
