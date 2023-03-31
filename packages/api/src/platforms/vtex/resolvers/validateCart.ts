@@ -266,7 +266,6 @@ export const validateCart = async (
   { cart: { order }, session }: MutationValidateCartArgs,
   ctx: Context
 ) => {
-  const { enableOrderFormSync } = ctx.storage.flags
   const { orderNumber: orderNumberFromCart, acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
@@ -376,7 +375,7 @@ export const validateCart = async (
     })
     // update orderForm etag so we know last time we touched this orderForm
     .then((form) =>
-      enableOrderFormSync ? setOrderFormEtag(form, commerce) : form
+      setOrderFormEtag(form, commerce)
     )
     .then(joinItems)
 
