@@ -35,7 +35,7 @@ export { default as Form } from './components/molecules/Form'
 export type { FormProps } from './components/molecules/Form'
 
 // Organisms
-export { Tiles, Tile } from './components/organisms/Tiles'
+export { Tile, Tiles } from './components/organisms/Tiles'
 export type { TilesProps, TileProps } from './components/organisms/Tiles'
 
 // Hooks
