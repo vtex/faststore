@@ -275,7 +275,6 @@ export const validateCart = async (
 
   const channel = session?.channel
   const locale = session?.locale
-  console.log("🚀 ~ orderNumberFromCart:", orderNumberFromCart)
 
   if (channel) {
     mutateChannelContext(ctx, channel)
@@ -290,27 +289,20 @@ export const validateCart = async (
     commerce
   )
 
-  console.log("🚀 ~ orderNumberFromSession:", orderNumberFromSession)
   const orderNumber = orderNumberFromSession ?? orderNumberFromCart ?? ''
-  console.log("🚀 ~ orderNumber:", orderNumber)
 
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
-  console.log("🚀 ~ orderForm:", orderForm)
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
   const isStale = isOrderFormStale(orderForm)
-  console.log("🚀 ~ isStale:", isStale)
   
   if (isStale && orderNumber) {
-    console.log("🚀 ~ setOrderFormEtag")
     const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
       joinItems
       )
-      
-    console.log("🚀 ~ return orderFormToCart")
     return orderFormToCart(newOrderForm, skuLoader)
   }
 
