@@ -1,28 +1,26 @@
 import deepEquals from 'fast-deep-equal'
 
-import { md5 } from '../utils/md5'
+import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { getCookie } from '../utils/getCookies'
+import { md5 } from '../utils/md5'
 import {
   attachmentToPropertyValue,
   getPropertyId,
-  VALUE_REFERENCES,
+  VALUE_REFERENCES
 } from '../utils/propertyValue'
-import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 
+import type { Context } from '..'
 import type {
-  IStoreSession,
   IStoreOffer,
   IStoreOrder,
-  IStorePropertyValue,
-  Maybe,
-  MutationValidateCartArgs,
+  IStorePropertyValue, IStoreSession, Maybe,
+  MutationValidateCartArgs
 } from '../../../__generated__/schema'
 import type {
   OrderForm,
   OrderFormInputItem,
-  OrderFormItem,
+  OrderFormItem
 } from '../clients/commerce/types/OrderForm'
-import type { Context } from '..'
 
 type Indexed<T> = T & { index?: number }
 
@@ -201,6 +199,20 @@ const isOrderFormStale = (form: OrderForm) => {
   return newEtag !== oldEtag
 }
 
+async function getOrderNumberFromSession(
+  headers: Record<string, string> = {},
+  commerce: Context['clients']['commerce']
+) {
+
+  const cookieSession = getCookie('vtex_session', headers.cookie)
+
+  if (cookieSession) {
+    const { namespaces } = await commerce.getSessionOrder()
+    return namespaces.checkout?.orderFormId?.value
+  }
+  return ;
+}
+
 // Returns the regionalized orderForm
 const getOrderForm = async (
   id: string,
@@ -254,8 +266,7 @@ export const validateCart = async (
   { cart: { order }, session }: MutationValidateCartArgs,
   ctx: Context
 ) => {
-  const { enableOrderFormSync } = ctx.storage.flags
-  const { orderNumber, acceptedOffer, shouldSplitItem } = order
+  const { orderNumber: orderNumberFromCart, acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
     loaders: { skuLoader },
@@ -273,46 +284,26 @@ export const validateCart = async (
     mutateLocaleContext(ctx, locale)
   }
 
+  const orderNumberFromSession = await getOrderNumberFromSession(
+    headers,
+    commerce
+  )
+
+  const orderNumber = orderNumberFromSession ?? orderNumberFromCart ?? ''
+
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
-  const cookieSession = await getCookie('vtex_session', headers.cookie)
-
-  if (cookieSession) {
-    const { namespaces } = await commerce.getSessionOrder()
-    const orderFormIdSession = namespaces.checkout?.orderFormId?.value
-    // In the case of divergence between session cookie and indexdb update the order form
-    if (orderNumber != orderFormIdSession && orderFormIdSession != undefined) {
-      const orderFormSession = await getOrderForm(
-        orderFormIdSession,
-        session,
-        ctx
-      )
-      const isStale = isOrderFormStale(orderFormSession)
-
-      if (isStale === true && orderNumber) {
-        const newOrderForm = await setOrderFormEtag(
-          orderFormSession,
-          commerce
-        ).then(joinItems)
-
-        return orderFormToCart(newOrderForm, skuLoader)
-      }
-    }
-  }
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
-  if (enableOrderFormSync === true) {
-    const isStale = isOrderFormStale(orderForm)
-
-    if (isStale === true && orderNumber) {
-      const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
-        joinItems
+  const isStale = isOrderFormStale(orderForm)
+  
+  if (isStale && orderNumber) {
+    const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
+      joinItems
       )
-
-      return orderFormToCart(newOrderForm, skuLoader)
-    }
+    return orderFormToCart(newOrderForm, skuLoader)
   }
 
   // Step2: Process items from both browser and checkout so they have the same shape
@@ -376,7 +367,7 @@ export const validateCart = async (
     })
     // update orderForm etag so we know last time we touched this orderForm
     .then((form) =>
-      enableOrderFormSync ? setOrderFormEtag(form, commerce) : form
+      setOrderFormEtag(form, commerce)
     )
     .then(joinItems)
 
