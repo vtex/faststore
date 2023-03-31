@@ -199,6 +199,20 @@ const isOrderFormStale = (form: OrderForm) => {
   return newEtag !== oldEtag
 }
 
+async function getOrderNumberFromSession(
+  headers: Record<string, string> = {},
+  commerce: Context['clients']['commerce']
+) {
+
+  const cookieSession = getCookie('vtex_session', headers.cookie)
+
+  if (cookieSession) {
+    const { namespaces } = await commerce.getSessionOrder()
+    return namespaces.checkout?.orderFormId?.value
+  }
+  return ;
+}
+
 // Returns the regionalized orderForm
 const getOrderForm = async (
   id: string,
@@ -253,7 +267,7 @@ export const validateCart = async (
   ctx: Context
 ) => {
   const { enableOrderFormSync } = ctx.storage.flags
-  const { orderNumber, acceptedOffer, shouldSplitItem } = order
+  const { orderNumber: orderNumberFromCart, acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
     loaders: { skuLoader },
@@ -262,8 +276,7 @@ export const validateCart = async (
 
   const channel = session?.channel
   const locale = session?.locale
-  console.log("🚀 ~ headers:", headers)
-  console.log("🚀 ~ orderNumber:", orderNumber)
+  console.log("🚀 ~ orderNumberFromCart:", orderNumberFromCart)
 
   if (channel) {
     mutateChannelContext(ctx, channel)
@@ -273,52 +286,30 @@ export const validateCart = async (
     mutateLocaleContext(ctx, locale)
   }
 
+  const orderNumberFromSession = await getOrderNumberFromSession(
+    headers,
+    commerce
+  )
+
+  console.log("🚀 ~ orderNumberFromSession:", orderNumberFromSession)
+  const orderNumber = orderNumberFromSession ?? orderNumberFromCart ?? ''
+  console.log("🚀 ~ orderNumber:", orderNumber)
+
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
   console.log("🚀 ~ orderForm:", orderForm)
-  const cookieSession = getCookie('vtex_session', headers.cookie)
-  console.log("🚀 ~ cookieSession:", cookieSession)
-
-  if (cookieSession) {
-    const { namespaces } = await commerce.getSessionOrder()
-    const orderFormIdSession = namespaces.checkout?.orderFormId?.value
-    console.log("🚀 ~ orderFormIdSession:", orderFormIdSession)
-    // In the case of divergence between session cookie and indexdb update the order form
-    if (orderNumber != orderFormIdSession && orderFormIdSession != undefined) {
-      const orderFormSession = await getOrderForm(
-        orderFormIdSession,
-        session,
-        ctx
-      )
-      console.log("🚀 ~ orderFormSession:", orderFormSession)
-      const isStale = isOrderFormStale(orderFormSession)
-      console.log("🚀 ~ isStale:", isStale)
-
-      if (isStale && orderFormSession) {
-        const newOrderForm = await setOrderFormEtag(
-          orderFormSession,
-          commerce
-        ).then(joinItems)
-        console.log("🚀 ~ newOrderForm:", newOrderForm)
-
-        return orderFormToCart(newOrderForm, skuLoader)
-      }
-    }
-  }
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
-  if (enableOrderFormSync === true) {
-    const isStale = isOrderFormStale(orderForm)
+  const isStale = isOrderFormStale(orderForm)
 
-    if (isStale === true && orderNumber) {
-      const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
-        joinItems
-      )
+  if (isStale && orderNumber) {
+    const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
+      joinItems
+    )
 
-      return orderFormToCart(newOrderForm, skuLoader)
-    }
+    return orderFormToCart(newOrderForm, skuLoader)
   }
 
   // Step2: Process items from both browser and checkout so they have the same shape
