@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.94-alpha.0](https://github.com/vtex/faststore/compare/v2.0.93-alpha.0...v2.0.94-alpha.0) (2023-03-31)
+
+### Chores
+
+- General improvements, PriceDefinition type and docs review ([#1691](https://github.com/vtex/faststore/issues/1691)) ([7fde306](https://github.com/vtex/faststore/commit/7fde3061e8a37c12634c764ef64b652f770426eb))
+
 ## [2.0.93-alpha.0](https://github.com/vtex/faststore/compare/v2.0.92-alpha.0...v2.0.93-alpha.0) (2023-03-31)
 
 ### Features
