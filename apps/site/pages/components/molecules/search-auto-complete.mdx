@@ -51,52 +51,6 @@ List of auto completing suggestions based on searched term. This component is pa
 
 </header>
 
-## Overview
-
-export const searchContent = 'Appl'
-
-export const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
-
-<Tabs items={['Example', 'Code']} defaultIndex="0">
-  <Tab>
-    <OverviewSection direction="column">
-      Searching for: <code>{searchContent}</code>
-      <SearchAutoComplete>
-        {suggestions?.map((suggestion) => (
-          <SearchAutoCompleteTerm
-            key={suggestion.value}
-            term={searchContent}
-            suggestion={suggestion.value}
-            linkProps={{ href: '#' }}
-          />
-        ))}
-      </SearchAutoComplete>
-    </OverviewSection>
-  </Tab>
-  <Tab>
-
-    ```tsx
-    const searchContent = 'Appl'
-
-    const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
-
-    <SearchAutoComplete>
-      {suggestions?.map((suggestion) => (
-        <SearchAutoCompleteTerm
-          key={suggestion.value}
-          term={searchContent}
-          suggestion={suggestion.value}
-          linkProps={{ href: '#' }}
-        />
-      ))}
-    </SearchAutoComplete>
-    ```
-
-  </Tab>
-</Tabs>
-
----
-
 ## Import
 
 Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
@@ -114,6 +68,10 @@ import '@faststore/ui/src/components/molecules/SearchAutoComplete/styles.scss'
 ---
 
 ## Usage
+
+export const searchContent = 'Appl'
+
+export const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>

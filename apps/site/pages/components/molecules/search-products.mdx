@@ -15,8 +15,9 @@ import {
   SearchProductItemContent,
 } from '@faststore/ui'
 
-import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 import { product } from 'site/mocks/product'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+import { propsPriceDefinition } from 'site/components/PriceDefinitionProps/PriceDefinitionProps'
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
@@ -77,93 +78,6 @@ export const SearchProductsPropsSection = ({ component }) => {
 List of `SearchProductItem` to show details of the suggested products. This component is part of the [Search](/components/search) feature.
 
 </header>
-
-## Overview
-
-<Tabs items={['Example', 'Code']} defaultIndex="0">
-  <Tab>
-    <OverviewSection>
-      <SearchProducts>
-        <SearchProductItem linkProps={{ href: '#' }}>
-          <SearchProductItemImage>
-            <img
-              data-fs-image
-              src={product.image[1].url}
-              alt={product.image[1].alternateName}
-            />
-          </SearchProductItemImage>
-          <SearchProductItemContent
-            title={product.isVariantOf.name}
-            price={{
-              value: product.offers.offers[0].price,
-              listPrice: product.offers.offers[0].listPrice,
-              formatter: useFormattedPrice,
-            }}
-          />
-        </SearchProductItem>
-        <SearchProductItem linkProps={{ href: '#' }}>
-          <SearchProductItemImage>
-            <img
-              data-fs-image
-              src={product.image[1].url}
-              alt={product.image[1].alternateName}
-            />
-          </SearchProductItemImage>
-          <SearchProductItemContent
-            title={product.isVariantOf.name}
-            price={{
-              value: product.offers.offers[0].price,
-              listPrice: product.offers.offers[0].listPrice,
-              formatter: useFormattedPrice,
-            }}
-          />
-        </SearchProductItem>
-      </SearchProducts>
-    </OverviewSection>
-  </Tab>
-  <Tab>
-    ```tsx
-    <SearchProducts>
-      <SearchProductItem linkProps={{ href: '#' }}>
-        <SearchProductItemImage>
-          <img
-            data-fs-image
-            src={product.image[1].url}
-            alt={product.image[1].alternateName}
-          />
-        </SearchProductItemImage>
-        <SearchProductItemContent
-          title={product.isVariantOf.name}
-          price={{
-            value: product.offers.offers[0].price,
-            listPrice: product.offers.offers[0].listPrice,
-            formatter: useFormattedPrice,
-          }}
-        />
-      </SearchProductItem>
-      <SearchProductItem linkProps={{ href: '#' }}>
-        <SearchProductItemImage>
-          <img
-            data-fs-image
-            src={product.image[1].url}
-            alt={product.image[1].alternateName}
-          />
-        </SearchProductItemImage>
-        <SearchProductItemContent
-          title={product.isVariantOf.name}
-          price={{
-            value: product.offers.offers[0].price,
-            listPrice: product.offers.offers[0].listPrice,
-            formatter: useFormattedPrice,
-          }}
-        />
-      </SearchProductItem>
-    </SearchProducts>
-    ```
-  </Tab>
-</Tabs>
-
----
 
 ## Import
 
@@ -292,6 +206,10 @@ All search product related components support all attributes also supported by t
 ### Search Product Item Content
 
 <SearchProductsPropsSection component="SearchProductItemContent" />
+
+#### Price Definition
+
+<PropsSection propsList={propsPriceDefinition} />
 
 ---
 

@@ -21,6 +21,40 @@ import {
   UIProvider,
 } from '@faststore/ui'
 import SlideOverUsage from 'site/components/SlideOver/SlideOverUsage'
+import FilterUsage from 'site/components/Filter/FilterUsage'
+import { SearchProvider } from '@faststore/sdk'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const slideOverPath = path.resolve(__filename)
+  const components = ['SlideOver.tsx', 'SlideOverHeader.tsx']
+  const [slideOverProps, slideOverHeaderProps] = getComponentPropsFrom(
+    slideOverPath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        slideOverProps,
+        slideOverHeaderProps,
+      },
+    },
+  }
+}
+
+export const SlideOverPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { slideOverProps, slideOverHeaderProps } = useSSG()
+  return {
+    SlideOver: <PropsSection propsList={slideOverProps} />,
+    SlideOverHeader: <PropsSection propsList={slideOverHeaderProps} />,
+  }[component]
+}
 
 <header>
 
@@ -201,11 +235,11 @@ export const SlideOverFullLeft = () => {
 
 ### SlideOver
 
-<PropsSection name="SlideOver" />
+<SlideOverPropsSection component="SlideOver" />
 
 ### SlideOverHeader
 
-<PropsSection name="SlideOverHeader" />
+<SlideOverPropsSection component="SlideOverHeader" />
 
 ---
 
@@ -292,8 +326,12 @@ export const SlideOverFullLeft = () => {
   <SectionItem
     title="Filter Slider"
     description="The mobile Filter view that is rendered inside a SlideOver component."
-    actionPath="/"
+    actionPath="/components/organisms/filter-slider"
   >
-    [Coming Soon]
+    <UIProvider>
+      <SearchProvider onChange={() => ({})}>
+        <FilterUsage onlyMobile={true} />
+      </SearchProvider>
+    </UIProvider>
   </SectionItem>
 </SectionList>
