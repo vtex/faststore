@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.93-alpha.0](https://github.com/vtex/faststore/compare/v2.0.92-alpha.0...v2.0.93-alpha.0) (2023-03-31)
+
+### Features
+
+- Adds `ShippingSimulation` Components. ([#1689](https://github.com/vtex/faststore/issues/1689)) ([0683882](https://github.com/vtex/faststore/commit/06838820af9da08541fbc8337504b92406c958d8))
+
 ## [2.0.92-alpha.0](https://github.com/vtex/faststore/compare/v2.0.91-alpha.0...v2.0.92-alpha.0) (2023-03-30)
 
 ### Documentation
