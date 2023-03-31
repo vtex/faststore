@@ -303,12 +303,15 @@ export const validateCart = async (
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
   const isStale = isOrderFormStale(orderForm)
-
+  console.log("🚀 ~ isStale:", isStale)
+  
   if (isStale && orderNumber) {
+    console.log("🚀 ~ setOrderFormEtag")
     const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
       joinItems
-    )
-
+      )
+      
+    console.log("🚀 ~ return orderFormToCart")
     return orderFormToCart(newOrderForm, skuLoader)
   }
 
