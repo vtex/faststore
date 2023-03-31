@@ -106,12 +106,10 @@ function ImageGallerySelector({
               }
             >
               <ImageComponent
-                onLoad={(img: any) => {
-                  if (ref) ref(img.currentTarget)
-                }}
-                loading={idx === 0 ? 'eager' : 'lazy'}
                 url={image.url ?? ''}
+                loading={idx === 0 ? 'eager' : 'lazy'}
                 alternateName={image.alternateName ?? ''}
+                onLoad={(image) => ref && ref(image.currentTarget)}
               />
             </Button>
           )

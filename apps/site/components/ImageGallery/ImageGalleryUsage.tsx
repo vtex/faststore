@@ -27,6 +27,7 @@ const ImageGalleryUsage = ({ images }: ImageGalleryUsageProps) => {
           data-fs-image
           src={currentImage.url}
           alt={currentImage.alternateName}
+          style={{ aspectRatio: 15 / 14 }}
         />
       </ImageZoom>
     </ImageGallery>
