@@ -18,7 +18,7 @@ import {
   LinkElementType,
 } from '../..'
 
-interface ShippingSla {
+interface ShippingSLA {
   /**
    * ShippingSLA carrier.
    */
@@ -53,7 +53,7 @@ export interface ShippingSimulationProps
    */
   inputLabel?: string
   /**
-   * The text displayed to Shipping Simulation input text.
+   * The text displayed in Shipping options table.
    */
   optionsLabel?: string
   /**
@@ -79,7 +79,7 @@ export interface ShippingSimulationProps
   /**
    * Options for shipping simulation.
    */
-  options?: ShippingSla[]
+  options?: ShippingSLA[]
   /**
    * Show clear button.
    */

@@ -1,16 +1,11 @@
 import type { ChangeEvent } from 'react'
 import { useCallback, useEffect, useReducer } from 'react'
+import { ShippingSimulationProps as UIShippingSimulationProps } from '@faststore/components'
 
 export interface ProductShippingInfo {
   id: string
   seller: string
   quantity: number
-}
-
-interface ShippingSla {
-  carrier: string
-  localizedEstimates: string
-  price: number
 }
 
 type InputProps = {
@@ -21,7 +16,7 @@ type InputProps = {
 
 type ShippingSimulationProps = {
   location?: string
-  options?: ShippingSla[]
+  options?: UIShippingSimulationProps['options']
 }
 
 type State = {
@@ -113,7 +108,7 @@ export type FetchShippingSimulation = (
   shippingItem: ProductShippingInfo,
   country: string,
   postalCode: string
-) => Promise<[string, ShippingSla[]]>
+) => Promise<[string, UIShippingSimulationProps['options']]>
 
 export const useShippingSimulation = (
   shippingItem: ProductShippingInfo,
