@@ -193,6 +193,13 @@ export type { QuantitySelectorProps } from './molecules/QuantitySelector'
 
 // Organisms
 export {
+  default as CartSidebar,
+  CartSidebarList,
+  CartSidebarFooter,
+} from './organisms/CartSidebar'
+export type { CartSidebarProps } from './organisms/CartSidebar'
+
+export {
   default as Filter,
   FilterFacetBoolean,
   FilterFacetBooleanItem,
