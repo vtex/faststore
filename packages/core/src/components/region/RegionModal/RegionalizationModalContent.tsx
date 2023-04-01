@@ -3,7 +3,7 @@ import {
   ModalHeader as UIModalHeader,
 } from '@faststore/ui'
 
-import RegionalizationInput from 'src/components/regionalization/RegionalizationInput'
+import RegionInput from 'src/components/region/RegionInput'
 import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 
@@ -28,7 +28,7 @@ function RegionalizationModalContent({
       />
       <UIModalBody className={styles.fsRegionalizationModalBody}>
         <div data-fs-regionalization-modal-input>
-          <RegionalizationInput closeModal={() => onClose()} />
+          <RegionInput closeModal={() => onClose()} />
         </div>
         <Link href="/" data-fs-regionalization-modal-link>
           {"I don't know my Postal Code"}

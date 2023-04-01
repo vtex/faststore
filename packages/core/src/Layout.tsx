@@ -6,13 +6,11 @@ import Alert from 'src/components/common/Alert'
 import Footer from 'src/components/common/Footer'
 import Navbar from 'src/components/common/Navbar'
 import Toast from 'src/components/common/Toast'
-import RegionalizationBar from 'src/components/regionalization/RegionalizationBar'
+import RegionBar from 'src/components/region/RegionBar'
 import Icon from 'src/components/ui/Icon'
 
 const CartSidebar = lazy(() => import('src/components/cart/CartSidebar'))
-const RegionModal = lazy(
-  () => import('src/components/regionalization/RegionalizationModal')
-)
+const RegionModal = lazy(() => import('src/components/region/RegionModal'))
 
 function Layout({ children }: PropsWithChildren) {
   const { cart: displayCart, modal: displayModal } = useUI()
@@ -32,7 +30,7 @@ function Layout({ children }: PropsWithChildren) {
       <Toast />
 
       <main>
-        <RegionalizationBar classes="display-mobile" />
+        <RegionBar className="display-mobile" />
         {children}
       </main>
 
