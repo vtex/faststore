@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.95-alpha.0](https://github.com/vtex/faststore/compare/v2.0.94-alpha.0...v2.0.95-alpha.0) (2023-04-01)
+
+### Features
+
+- Adds `RegionBar` component ([#1693](https://github.com/vtex/faststore/issues/1693)) ([8390d82](https://github.com/vtex/faststore/commit/8390d829d4c1cab0f56a38b59bb2e1f1ab670fb1))
+
 ## [2.0.93-alpha.0](https://github.com/vtex/faststore/compare/v2.0.92-alpha.0...v2.0.93-alpha.0) (2023-03-31)
 
 ### Features
