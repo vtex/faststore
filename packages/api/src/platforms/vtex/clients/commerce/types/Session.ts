@@ -6,6 +6,7 @@ export interface Session {
 export interface Namespaces {
   profile?: Profile
   store?: Store
+  checkout?: Checkout
 }
 
 export interface Value {
@@ -25,4 +26,8 @@ export interface Profile {
   email?: Value
   firstName?: Value
   lastName?: Value
+}
+
+export interface Checkout {
+  orderFormId?: Value
 }
