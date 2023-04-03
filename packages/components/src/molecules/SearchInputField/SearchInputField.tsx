@@ -2,11 +2,11 @@ import type {
   AriaAttributes,
   FormEvent,
   InputHTMLAttributes,
-  ReactNode,
+  ReactNode
 } from 'react'
 import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 
-import { IconButton, Input, MagnifyingGlass } from '../..'
+import { Icon, IconButton, Input } from '../..'
 
 type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit'>
 
@@ -25,7 +25,7 @@ export interface SearchInputFieldProps extends InputProps {
   buttonProps?: ButtonProps
   /**
    * A React component that will be rendered as an icon (submit button).
-   * @default <MagnifyingGlass />
+   * @default <Icon name="MagnifyingGlass" />
    */
   buttonIcon?: ReactNode
   /**
@@ -90,7 +90,7 @@ const SearchInputField = forwardRef<
       <IconButton
         type="submit"
         aria-label="Submit Search"
-        icon={buttonIcon ?? <MagnifyingGlass />}
+        icon={buttonIcon ?? <Icon name="MagnifyingGlass" />}
         {...buttonProps}
       />
     </form>
