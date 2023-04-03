@@ -1,5 +1,5 @@
+import React, { forwardRef } from 'react'
 import type { HTMLAttributes, FunctionComponent } from 'react'
-import React from 'react'
 
 import { ImageGallerySelector } from '../..'
 
@@ -45,34 +45,42 @@ export interface ImageGalleryProps extends HTMLAttributes<HTMLDivElement> {
   setSelectedImageIdx: React.Dispatch<React.SetStateAction<number>>
 }
 
-function ImageGallery({
-  images,
-  children,
-  ImageComponent,
-  selectedImageIdx,
-  setSelectedImageIdx,
-  testId = 'fs-image-gallery',
-  ...otherProps
-}: ImageGalleryProps) {
-  const hasSelector = images.length > 1
+const ImageGallery = forwardRef<HTMLDivElement, ImageGalleryProps>(
+  function ImageGallery(
+    {
+      images,
+      children,
+      ImageComponent,
+      selectedImageIdx,
+      setSelectedImageIdx,
+      testId = 'fs-image-gallery',
+      ...otherProps
+    },
+    ref
+  ) {
+    const hasSelector = images.length > 1
 
-  return (
-    <section
-      data-fs-image-gallery={hasSelector ? 'with-selector' : 'without-selector'}
-      data-testid={testId}
-      {...otherProps}
-    >
-      {children}
-      {hasSelector && (
-        <ImageGallerySelector
-          images={images}
-          onSelect={setSelectedImageIdx}
-          currentImageIdx={selectedImageIdx}
-          ImageComponent={ImageComponent}
-        />
-      )}
-    </section>
-  )
-}
+    return (
+      <section
+        ref={ref}
+        data-fs-image-gallery={
+          hasSelector ? 'with-selector' : 'without-selector'
+        }
+        data-testid={testId}
+        {...otherProps}
+      >
+        {children}
+        {hasSelector && (
+          <ImageGallerySelector
+            images={images}
+            onSelect={setSelectedImageIdx}
+            currentImageIdx={selectedImageIdx}
+            ImageComponent={ImageComponent}
+          />
+        )}
+      </section>
+    )
+  }
+)
 
 export default ImageGallery
