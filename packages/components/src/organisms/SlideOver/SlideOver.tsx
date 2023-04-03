@@ -1,13 +1,13 @@
-import React from 'react'
 import type { ReactNode } from 'react'
+import React from 'react'
 
-import { Modal } from '../../'
 import type { ModalProps } from '../../'
+import { Modal } from '../../'
 
-type Direction = 'leftSide' | 'rightSide'
-type WidthSize = 'full' | 'partial'
+export type Direction = 'leftSide' | 'rightSide'
+export type WidthSize = 'full' | 'partial'
 
-export type SlideOverProps = Omit<ModalProps, 'title'> & {
+export interface SlideOverProps extends Omit<ModalProps, 'title'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -28,12 +28,12 @@ export type SlideOverProps = Omit<ModalProps, 'title'> & {
    * Represents the fade effect of the SlideOver.
    */
   fade: 'in' | 'out'
+  children: ReactNode
   /**
    * This function is called whenever the user clicks outside.
    * the modal content
    */
   onDismiss?: () => void
-  children: ReactNode
 }
 
 function SlideOver({

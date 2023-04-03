@@ -18,10 +18,6 @@
 
   margin-top: 0;
 
-  [data-fs-out-of-stock] {
-    margin-top: var(--fs-product-details-vertical-spacing);
-  }
-
   [data-fs-product-details-body] {
     display: flex;
     flex-direction: column;
@@ -37,11 +33,6 @@
 
   [data-fs-product-details-section] {
     height: fit-content;
-
-    [data-fs-sku-selector] {
-      margin-bottom: var(--fs-product-details-vertical-spacing);
-      &:last-of-type { margin-bottom: var(--fs-spacing-7); }
-    }
 
     [data-fs-buy-button] {
       width: 100%;

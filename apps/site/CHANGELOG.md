@@ -3,6 +3,88 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.95-alpha.0](https://github.com/vtex/faststore/compare/v2.0.94-alpha.0...v2.0.95-alpha.0) (2023-04-01)
+
+### Features
+
+- Adds `RegionBar` component ([#1693](https://github.com/vtex/faststore/issues/1693)) ([8390d82](https://github.com/vtex/faststore/commit/8390d829d4c1cab0f56a38b59bb2e1f1ab670fb1))
+
+## [2.0.94-alpha.0](https://github.com/vtex/faststore/compare/v2.0.93-alpha.0...v2.0.94-alpha.0) (2023-03-31)
+
+### Chores
+
+- General improvements, PriceDefinition type and docs review ([#1691](https://github.com/vtex/faststore/issues/1691)) ([7fde306](https://github.com/vtex/faststore/commit/7fde3061e8a37c12634c764ef64b652f770426eb))
+
+## [2.0.93-alpha.0](https://github.com/vtex/faststore/compare/v2.0.92-alpha.0...v2.0.93-alpha.0) (2023-03-31)
+
+### Features
+
+- Adds `ShippingSimulation` Components. ([#1689](https://github.com/vtex/faststore/issues/1689)) ([0683882](https://github.com/vtex/faststore/commit/06838820af9da08541fbc8337504b92406c958d8))
+
+## [2.0.92-alpha.0](https://github.com/vtex/faststore/compare/v2.0.91-alpha.0...v2.0.92-alpha.0) (2023-03-30)
+
+### Documentation
+
+- How to override or customize native section components ([#1684](https://github.com/vtex/faststore/issues/1684)) ([783532a](https://github.com/vtex/faststore/commit/783532a5ec1c5e4e10daa9a9975fe5f7546ce5bb))
+
+## 2.0.91-alpha.0 (2023-03-30)
+
+### Bug Fixes
+
+- `PaymentMethods` Flag size ([#1690](https://github.com/vtex/faststore/issues/1690)) ([499d83b](https://github.com/vtex/faststore/commit/499d83bb9c69d964b3df963d784d84cea4b01ed3))
+
+### Documentation
+
+- Updates midnight theme stylesheet ([#1698](https://github.com/vtex/faststore/issues/1698)) ([9b01beb](https://github.com/vtex/faststore/commit/9b01beb0b8c48b5814bb4ff66d069cd5c2a2fc5f))
+
+## [2.0.90-alpha.0](https://github.com/vtex/faststore/compare/v2.0.89-alpha.0...v2.0.90-alpha.0) (2023-03-29)
+
+### Features
+
+- Adds `Filter` and `FilterSlider` Components. ([#1687](https://github.com/vtex/faststore/issues/1687)) ([a18e1af](https://github.com/vtex/faststore/commit/a18e1af9fe6037f19a558f2c49e52ba01e50e95a))
+
+## [2.0.89-alpha.0](https://github.com/vtex/faststore/compare/v2.0.88-alpha.0...v2.0.89-alpha.0) (2023-03-29)
+
+### Features
+
+- Add `OutOfStock` components ([#1685](https://github.com/vtex/faststore/issues/1685)) ([25f4442](https://github.com/vtex/faststore/commit/25f444214e234f5f0f9287ef8bc403231b2eac2b))
+
+## [2.0.88-alpha.0](https://github.com/vtex/faststore/compare/v2.0.87-alpha.0...v2.0.88-alpha.0) (2023-03-29)
+
+### Features
+
+- Adds `SearchInput`, `SearchInputField` and `SearchDropdown` components ([#1676](https://github.com/vtex/faststore/issues/1676)) ([edba839](https://github.com/vtex/faststore/commit/edba8399a27f183f2092086b3c9d69cf5c1e8f52))
+
+## [2.0.87-alpha.0](https://github.com/vtex/faststore/compare/v2.0.86-alpha.0...v2.0.87-alpha.0) (2023-03-24)
+
+### Features
+
+- Adds `SkuSelector` component ([#1677](https://github.com/vtex/faststore/issues/1677)) ([696a14e](https://github.com/vtex/faststore/commit/696a14e6d9633ececcd2818e4a32b32ce8ad2e2b))
+
+## [2.0.86-alpha.0](https://github.com/vtex/faststore/compare/v2.0.85-alpha.0...v2.0.86-alpha.0) (2023-03-22)
+
+### Features
+
+- List toast's component props fs-632 ([#1683](https://github.com/vtex/faststore/issues/1683)) ([c1dfa6a](https://github.com/vtex/faststore/commit/c1dfa6a42f4b1620a2dade9a0bf9b5b6b55b907a))
+
+## [2.0.85-alpha.0](https://github.com/vtex/faststore/compare/v2.0.84-alpha.0...v2.0.85-alpha.0) (2023-03-22)
+
+### Features
+
+- Adds `Toast` Component ([#1672](https://github.com/vtex/faststore/issues/1672)) ([5338c46](https://github.com/vtex/faststore/commit/5338c466d9fb326c3c85acee3c1049f954afd42a))
+
+## [2.0.84-alpha.0](https://github.com/vtex/faststore/compare/v2.0.83-alpha.0...v2.0.84-alpha.0) (2023-03-21)
+
+### Bug Fixes
+
+- Automatic props PropSection path ([#1679](https://github.com/vtex/faststore/issues/1679)) ([52478bd](https://github.com/vtex/faststore/commit/52478bd46f0875a796e6d13c5fe86aaa2d3c6dd2))
+
+## [2.0.83-alpha.0](https://github.com/vtex/faststore/compare/v2.0.82-alpha.0...v2.0.83-alpha.0) (2023-03-21)
+
+### Features
+
+- Updates `PropsSection` ([#1673](https://github.com/vtex/faststore/issues/1673)) ([10000f2](https://github.com/vtex/faststore/commit/10000f2977f3337d6ac81fb9d52d59316f050105))
+
 ## [2.0.81-alpha.0](https://github.com/vtex/faststore/compare/v2.0.80-alpha.0...v2.0.81-alpha.0) (2023-03-16)
 
 **Note:** Version bump only for package site

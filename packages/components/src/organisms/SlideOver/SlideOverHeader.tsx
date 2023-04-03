@@ -12,14 +12,16 @@ export interface SlideOverHeaderProps
    * Props for the Close Button component.
    */
   closeBtnProps?: Partial<Omit<IconButtonProps, 'onClick'>>
-
+  /**
+   * Function called when Close Button is clicked.
+   */
   onClose: () => void
 }
 
 const SlideOverHeader = ({
-  onClose,
   children,
   closeBtnProps = {},
+  onClose,
 }: SlideOverHeaderProps) => {
   return (
     <header data-fs-slide-over-header>

@@ -24,12 +24,12 @@ Alerts display short messages related to the behavior of a system, feature or pa
   <Tab>
     <OverviewSection>
       <Alert
-        link={{ children: 'With Link', href: '/' }}
+        link={{ children: 'With Link', href: '#' }}
         dismissible
       >
         Dismissible Alert message
       </Alert>
-      <Alert link={{ children: 'With Link', href: '/' }}>
+      <Alert link={{ children: 'With Link', href: '#' }}>
         Alert message
       </Alert>
     </OverviewSection>
@@ -45,13 +45,13 @@ Alerts display short messages related to the behavior of a system, feature or pa
   <Tab>
     ```tsx
     <Alert
-      link={{ children: 'With Link', href: '/' }}
+      link={{ children: 'With Link', href: '#' }}
       dismissible
     >
       Dismissible Alert message
     </Alert>
 
-    <Alert link={{ children: 'With Link', href: '/' }}>
+    <Alert link={{ children: 'With Link', href: '#' }}>
       Alert message
     </Alert>
     ```
@@ -214,12 +214,12 @@ import '@faststore/ui/src/components/atoms/Alert/styles.scss'
 ### With Link
 
 <OverviewSection>
-  <Alert link={{ children: 'Buy now', href: '/' }}>
+  <Alert link={{ children: 'Buy now', href: '#' }}>
     Get 10% off today:&nbsp;<span>NEW10</span>
   </Alert>
 </OverviewSection>
 ```tsx
-<Alert link={{ children: 'Buy now', href: '/' }}>
+<Alert link={{ children: 'Buy now', href: '#' }}>
   Get 10% off today:&nbsp;<span>NEW10</span>
 </Alert>
 ```

@@ -1,0 +1,142 @@
+---
+description: Responsible to receive, search and display suggestions.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Hero___c73fdfe80ce87c2ccc4701c07e9d5398.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { SearchInput, SearchInputField } from '@faststore/ui'
+import SearchDropdownUsage from 'site/components/Search/SearchDropdownUsage'
+import SearchInputUsage from 'site/components/Search/SearchInputUsage'
+import { useState } from 'react'
+
+<header>
+
+# Search Input
+
+The `SearchInput` is responsible to receive, search and display suggestions. This component is part of the [Search](/components/search) feature.
+
+</header>
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { SearchInput } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/organisms/SearchInput/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SearchInputUsage />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+
+    ```tsx
+    const [searchDropdownVisible, setSearchDropdownVisible] = useState(false)
+
+    const [term, setTerm] = useState('')
+
+    <SearchInput visibleDropdown={searchDropdownVisible}>
+      <SearchInputField
+        placeholder="Search everything at the store"
+        onFocus={() => setSearchDropdownVisible(true)}
+        onSubmit={() => setSearchDropdownVisible(false)}
+        onChange={(e) => onChangeValue(e)}
+        buttonProps={{
+          onClick: onClickButton,
+        }}
+      />
+      {searchDropdownVisible && <SearchDropdownUsage term={term} />}
+    </SearchInput>
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+export const propsSearchInput = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-search-input',
+  },
+  {
+    name: 'visibleDropdown',
+    type: 'false | true',
+    description: 'The current status of the Search Dropdown.',
+  },
+  {
+    name: 'term',
+    type: 'string',
+    description: 'Term to be researched.',
+    required: true,
+  },
+  {
+    name: 'isLoading',
+    type: 'false | true',
+    description: 'Enables a loading state.',
+  },
+  {
+    name: 'terms',
+    type: '{ value: string; }[]',
+    description: 'List of Suggestion terms.',
+    required: true,
+  },
+  {
+    name: 'products',
+    type: '{}[]',
+    description: 'List of Suggested products.',
+    required: true,
+  },
+  {
+    name: 'onSearchSelection',
+    type: '(term: string, path: string) => void',
+    description: 'Callback function when a search term is selected.',
+    required: false,
+  },
+]
+
+<PropsSection propsList={propsSearchInput} />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-input-height-desktop"
+    value="var(--fs-spacing-6)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+`data-fs-search-input`

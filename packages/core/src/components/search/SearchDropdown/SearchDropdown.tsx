@@ -1,43 +1,54 @@
-import type { SearchSuggestionsProps } from 'src/components/search/SearchSuggestions'
-import SearchSuggestions from 'src/components/search/SearchSuggestions'
-import useSuggestions from 'src/sdk/search/useSuggestions'
+import {
+  SearchAutoComplete as UISearchAutoComplete,
+  SearchAutoCompleteTerm as UISearchAutoCompleteTerm,
+  SearchDropdown as UISearchDropdown,
+  SearchProducts,
+  useSearch,
+} from '@faststore/ui'
 
 import { SearchHistory } from '../SearchHistory'
 import { SearchTop } from '../SearchTop'
 
-export type SearchDropdownProps = SearchSuggestionsProps
+import SearchProductItem from 'src/components/search/SearchProductItem'
+import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import { ProductSummary_ProductFragment } from '@generated/graphql'
 
-function SearchDropdown({
-  term = '',
-  style,
-  ...otherProps
-}: SearchDropdownProps) {
-  const { terms, products, isLoading } = useSuggestions(term)
-
-  if (term.length === 0 && !isLoading) {
-    return (
-      <>
-        <SearchHistory data-fs-search-section />
-        <SearchTop data-fs-search-section />
-      </>
-    )
-  }
-
-  if (isLoading) {
-    return <p data-fs-search-input-loading-text>Loading...</p>
-  }
-
-  if (terms.length === 0 && products.length === 0) {
-    return null
-  }
+function SearchDropdown({ ...otherProps }) {
+  const {
+    values: { onSearchSelection, products, term, terms },
+  } = useSearch()
 
   return (
-    <SearchSuggestions
-      term={term}
-      terms={terms}
-      products={products}
-      {...otherProps}
-    />
+    <UISearchDropdown {...otherProps}>
+      <SearchHistory />
+      <SearchTop />
+      <UISearchAutoComplete>
+        {terms?.map(({ value: suggestion }) => (
+          <UISearchAutoCompleteTerm
+            key={suggestion}
+            term={term}
+            suggestion={suggestion}
+            linkProps={{
+              href: formatSearchPath(suggestion),
+              onClick: () =>
+                onSearchSelection?.(suggestion, formatSearchPath(suggestion)),
+            }}
+          />
+        ))}
+      </UISearchAutoComplete>
+      <SearchProducts>
+        {products.map((product, index) => {
+          const productParsed = product as ProductSummary_ProductFragment
+          return (
+            <SearchProductItem
+              key={productParsed.id}
+              product={productParsed}
+              index={index}
+            />
+          )
+        })}
+      </SearchProducts>
+    </UISearchDropdown>
   )
 }
 

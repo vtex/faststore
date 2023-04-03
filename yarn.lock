@@ -1407,10 +1407,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@faststore/api@^2.0.3-alpha.0":
-  version "2.0.3-alpha.0"
-  resolved "https://registry.yarnpkg.com/@faststore/api/-/api-2.0.3-alpha.0.tgz#e2728eb91612d8418764f028086a3f427416293a"
-  integrity sha512-25GftG7yxGQ2ja+Qyx1B7wbBol6qH3XTuM0Yyy1ou+GASRQG7cE08VY5duYZhQHl9fIS5KKahSoE/pM63l7Q+w==
+"@faststore/api@^2.0.79-alpha.0":
+  version "2.0.79-alpha.0"
+  resolved "https://registry.yarnpkg.com/@faststore/api/-/api-2.0.79-alpha.0.tgz#9b958be6ab24bca72cd4900ed300d5bd94f51df9"
+  integrity sha512-0UaEPtSjOGevDfMe5F7Z+QESa7jyEwNxF9HM1TOlhgcV20DZTrvM2iJkNJOUiSW0UEs4bFqPsD0gQofQpgA8MQ==
   dependencies:
     "@graphql-tools/schema" "^8.2.0"
     "@rollup/plugin-graphql" "^1.0.0"
@@ -1420,9 +1420,9 @@
     p-limit "^3.1.0"
 
 "@faststore/components@*":
-  version "1.12.32"
-  resolved "https://registry.yarnpkg.com/@faststore/components/-/components-1.12.32.tgz#2c50bf528fe92b394b533034f30091f462812880"
-  integrity sha512-XVtWCp4RKpD0umr40vNYw0myh06wwIJ77i8MwfhWqzBEzZm9ht1E3nBoPcfYvAk73WFDHrHcdokiqBVfpPMRnA==
+  version "1.12.37"
+  resolved "https://registry.yarnpkg.com/@faststore/components/-/components-1.12.37.tgz#125b59b28f444c0aa13fb92fedb479bf3f984b9f"
+  integrity sha512-IDkMa7/Y7FSAsi+DKBZuRW5EFFqsjFFPSCpUXVWXa3rKPC4EejjhCaQK7EWBTtDeokbuyoSfIkCEutFBhIJ+yQ==
 
 "@faststore/eslint-config@*":
   version "0.0.1"
@@ -19361,7 +19361,7 @@ rc@1.2.8, rc@^1.2.7, rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-docgen-typescript@^2.1.1:
+react-docgen-typescript@^2.1.1, react-docgen-typescript@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/react-docgen-typescript/-/react-docgen-typescript-2.2.2.tgz#4611055e569edc071204aadb20e1c93e1ab1659c"
   integrity sha512-tvg2ZtOpOi6QDwsb3GZhOjDkkX0h8Z2gipvTg6OVMUyoYoURhEiRNePT8NZItTVCDh39JJHnLdfCOkzoLbFnTg==
@@ -21071,6 +21071,8 @@ ssri@^6.0.1:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/ssri/-/ssri-6.0.2.tgz#157939134f20464e7301ddba3e90ffa8f7728ac5"
   integrity sha512-cepbSq/neFK7xB6A50KHN0xHDotYzq58wWCa5LeWqnPrHG8GzfEjO/4O8kpmcGW+oaxkvhEJCWgbgNk4/ZV93Q==
+  dependencies:
+    figgy-pudding "^3.5.1"
 
 ssri@^8.0.0, ssri@^8.0.1:
   version "8.0.1"

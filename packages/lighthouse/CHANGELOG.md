@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.91-alpha.0 (2023-03-30)
+
+### Bug Fixes
+
+- `PaymentMethods` Flag size ([#1690](https://github.com/vtex/faststore/issues/1690)) ([499d83b](https://github.com/vtex/faststore/commit/499d83bb9c69d964b3df963d784d84cea4b01ed3))
+
 ## 2.0.79-alpha.0 (2023-03-15)
 
 ### Bug Fixes

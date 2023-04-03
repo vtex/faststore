@@ -1,0 +1,136 @@
+---
+title: 'Overriding Native Section Components'
+sidebar_label: 'Component Customization'
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<header>
+
+# Overriding Native Section Components
+
+</header>
+
+<Callout type="warning" emoji="⚠️">
+Overriding a component leads you to miss out on performance updates and bug fixes provided by VTEX for that component. We hihgly recommend you to pass additional prop and using our theming tools to achieve the desired behavior without missing out on updates and bug fixes from VTEX. Check out the available props for each component on [Components UI](https://evergreen.faststore.dev/components).
+</Callout>
+
+[Native sections](/tbd) are made up of different components that can be customized or overridden to improve their functionality or appearance in the storefront. 
+For example, you might want to change the behavior of a Price component to meet your business needs. 
+In this guide, you'll learn how to customize native section components by overriding them or adding extra props.
+
+{/* {Image or gif of the expected behavior after completing the guide} */}
+
+<Callout type="info" emoji="ℹ️">
+The `@faststore/core` package provides by default native sections and you can check out the available native sections on [TBD-link-to-native-sections-list](/tbd).
+</Callout>
+
+## Before you start
+
+Before you begin, make sure you have a functioning Evergreen store.
+
+Also, take in to consideration the following:
+
+- **This feature is experimental**: The feature may not function as expected.
+    
+
+- **Some sections contain multiple instances of the same component**: . When overriting a component or passing additional props to it, consider that all instances will be affected by this.
+
+
+## Step by step
+
+### Step 1 - Choosing a Native Section
+
+1. Choose the native section to be customized from the [list of available native sections](./tbd-link).
+2. In your store repository, navigate to `src/components/overrides` and create a new file named after the native section. 
+For example, if you chose the `ProductDetails` section for customization, create a new file named `ProductDetails.tsx` under the `src/components/overrides` directory.
+
+3. Copy and paste the following boilerplate on the file:
+
+```tsx
+const SECTION = 'ProductDetails'
+
+const overrides: SectionOverride[SECTION] = { name: SECTION, components: {} }
+
+export default overrides
+```
+
+<Callout type="warning" emoji="⚠️">
+  Change the value of the `SECTION` variable to the name of the section you want to override. In this case, we used the `ProductDetails` example.
+</Callout>
+
+### Step 2 - Choosing a component to override
+
+1. Choose a component to override from the [list of overridable components for each native section](/tbd-link). In this example, we are overriding the `Price` component.
+
+2. Add an object with the name of the component you wish to override to the `components` property inside the `overrides` object.
+
+```tsx
+const SECTION = 'ProductDetails'
+
+const overrides: SectionOverride[SECTION] = {
+  name: SECTION,
+  components: {
+    Price: {},
+  },
+}
+
+export default overrides
+```
+
+### Step 3 - Overriding or Passing additional props to a component
+In this step, learn how to override or pass additional props to a component to add a new functionality
+to the component or change its apperance.
+
+For more information on when to override or pass additional prop to a component, and the best practices for overriding components, check the following documentation:
+- [Best Practice for overriding components](/tbd-link)
+- [FAQ - When to override or pass additonal prop to a component](/tbd-link)
+
+
+#### Overrinding the Component
+
+1. Inside the `Price` object, add a property called `Component`. This property value should be defined as a React component created by you, that will be used to replace every instance of the `Price` component inside the `ProductDetails` section.
+
+```tsx
+import CustomPrice from 'src/components/custom/CustomPrice'
+
+const SECTION = 'ProductDetails'
+
+const overrides: SectionOverride[SECTION] = {
+  name: SECTION,
+  components: {
+    Price: {
+      Component: CustomPrice,
+    },
+  },
+}
+
+export default overrides
+```
+2. Once you've finished the previous step, you should be able to see your `CustomPrice` component replacing the native `Price` component inside every `ProductDetails` section in your store.
+
+#### Passing Additional Props to the Component
+
+1. Inside the `Price` object, add a property called `props`. In addition to the default props this component receives from the section it is contained, every property defined inside the props object will also be passed to it. If a prop you passed has the same name as an already existing prop being received by the component, yours will override the default definition.
+
+```tsx
+const SECTION = 'ProductDetails'
+
+const overrides: SectionOverride[SECTION] = {
+  name: SECTION,
+  components: {
+    Price: {
+      props: {
+        variation: 'listing',
+      },
+    },
+  },
+}
+
+export default overrides
+```
+2. Once you've finished the previous step, you should be able to see the new behavior present wherever the `ProductDetails` is present.
+
+## Additional resources
+
+Coming soon!

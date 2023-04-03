@@ -1,6 +1,0 @@
-export { default } from './OutOfStock'
-export { OutOfStockMessage } from './OutOfStockMessage'
-export { OutOfStockTitle } from './OutOfStockTitle'
-export type { OutOfStockProps } from './OutOfStock'
-export type { OutOfStockMessageProps } from './OutOfStockMessage'
-export type { OutOfStockTitleProps } from './OutOfStockTitle'

@@ -19,7 +19,45 @@ import {
 } from '@faststore/ui'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
-import { product } from '../../../mocks/product'
+import { product } from 'site/mocks/product'
+import { propsPriceDefinition } from 'site/components/PriceDefinitionProps/PriceDefinitionProps'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const productCardPath = path.resolve(__filename)
+  const components = [
+    'ProductCard.tsx',
+    'ProductCardImage.tsx',
+    'ProductCardContent.tsx',
+  ]
+  const [productCardProps, productCardImageProps, productCardContentProps] =
+    getComponentPropsFrom(productCardPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        productCardProps,
+        productCardImageProps,
+        productCardContentProps,
+      },
+    },
+  }
+}
+
+export const ProductCardPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { productCardProps, productCardImageProps, productCardContentProps } =
+    useSSG()
+  return {
+    ProductCard: <PropsSection propsList={productCardProps} />,
+    ProductCardImage: <PropsSection propsList={productCardImageProps} />,
+    ProductCardContent: <PropsSection propsList={productCardContentProps} />,
+  }[component]
+}
 
 <header>
 
@@ -251,15 +289,19 @@ All product card related components support all attributes also supported by the
 
 ### Product Card
 
-<PropsSection name="ProductCard" />
+<ProductCardPropsSection component="ProductCard" />
 
 ### Product Card Image
 
-<PropsSection name="ProductCardImage" />
+<ProductCardPropsSection component="ProductCardImage" />
 
 ### Product Card Content
 
-<PropsSection name="ProductCardContent" />
+<ProductCardPropsSection component="ProductCardContent" />
+
+#### Price Definition
+
+<PropsSection propsList={propsPriceDefinition} />
 
 ---
 

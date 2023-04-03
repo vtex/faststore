@@ -1,14 +1,9 @@
 import React, { forwardRef } from 'react'
 import { Price } from '../..'
-import type { PriceFormatter } from '../../atoms/Price/Price'
 
-interface Price {
-  value: number
-  listPrice: number
-  formatter: PriceFormatter
-}
+import type { PriceDefinition } from '../../typings/PriceDefinition'
 
-export type SearchProductItemContentProps = {
+export interface SearchProductItemContentProps {
   /**
    * Specifies the product's title.
    */
@@ -16,7 +11,7 @@ export type SearchProductItemContentProps = {
   /**
    * Specifies product's prices.
    */
-  price: Price
+  price: PriceDefinition
 }
 
 const SearchProductItemContent = forwardRef<

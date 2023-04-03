@@ -10,15 +10,63 @@ import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SearchAutoComplete, SearchAutoCompleteTerm, Icon } from '@faststore/ui'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const searchAutoCompletePath = path.resolve(__filename)
+  const components = ['SearchAutoComplete.tsx', 'SearchAutoCompleteTerm.tsx']
+  const [searchAutoCompleteProps, searchAutoCompleteTermProps] =
+    getComponentPropsFrom(searchAutoCompletePath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        searchAutoCompleteProps,
+        searchAutoCompleteTermProps,
+      },
+    },
+  }
+}
+
+export const SearchAutoCompletePropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { searchAutoCompleteProps, searchAutoCompleteTermProps } = useSSG()
+  return {
+    SearchAutoComplete: <PropsSection propsList={searchAutoCompleteProps} />,
+    SearchAutoCompleteTerm: (
+      <PropsSection propsList={searchAutoCompleteTermProps} />
+    ),
+  }[component]
+}
+
 <header>
 
 # Search Auto Complete
 
-List of auto completing suggestions based on searched term.
+List of auto completing suggestions based on searched term. This component is part of the [Search](/components/search) feature.
 
 </header>
 
-## Overview
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { SearchAutoComplete, SearchAutoCompleteTerm } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/SearchAutoComplete/styles.scss'
+```
+
+---
+
+## Usage
 
 export const searchContent = 'Appl'
 
@@ -34,7 +82,7 @@ export const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
             key={suggestion.value}
             term={searchContent}
             suggestion={suggestion.value}
-            linkProps={{ href: '/' }}
+            linkProps={{ href: '#' }}
           />
         ))}
       </SearchAutoComplete>
@@ -53,65 +101,7 @@ export const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
           key={suggestion.value}
           term={searchContent}
           suggestion={suggestion.value}
-          linkProps={{ href: '/' }}
-        />
-      ))}
-    </SearchAutoComplete>
-    ```
-
-  </Tab>
-</Tabs>
-
----
-
-## Import
-
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
-
-```tsx
-import { SearchAutoComplete } from '@faststore/ui'
-```
-
-Import Styles
-
-```tsx
-import '@faststore/ui/src/components/molecules/SearchAutoComplete/styles.scss'
-```
-
----
-
-## Usage
-
-<Tabs items={['Example', 'Code']} defaultIndex="0">
-  <Tab>
-    <OverviewSection direction="column">
-      Searching for: <code>{searchContent}</code>
-      <SearchAutoComplete>
-        {suggestions?.map((suggestion) => (
-          <SearchAutoCompleteTerm
-            key={suggestion.value}
-            term={searchContent}
-            suggestion={suggestion.value}
-            linkProps={{ href: '/' }}
-          />
-        ))}
-      </SearchAutoComplete>
-    </OverviewSection>
-  </Tab>
-  <Tab>
-
-    ```tsx
-    const searchContent = 'Appl'
-
-    const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
-
-    <SearchAutoComplete>
-      {suggestions?.map((suggestion) => (
-        <SearchAutoCompleteTerm
-          key={suggestion.value}
-          term={searchContent}
-          suggestion={suggestion.value}
-          linkProps={{ href: '/' }}
+          linkProps={{ href: '#' }}
         />
       ))}
     </SearchAutoComplete>
@@ -126,11 +116,11 @@ import '@faststore/ui/src/components/molecules/SearchAutoComplete/styles.scss'
 
 ### Search Auto Complete
 
-<PropsSection name="SearchAutoComplete" />
+<SearchAutoCompletePropsSection component="SearchAutoComplete" />
 
 ### Search Auto Complete Term
 
-<PropsSection name="SearchAutoCompleteTerm" />
+<SearchAutoCompletePropsSection component="SearchAutoCompleteTerm" />
 
 ---
 
@@ -224,7 +214,7 @@ export const suggestionsAlt = [
             term={searchContentAlt}
             suggestion={suggestion.value}
             icon={suggestion.icon}
-            linkProps={{ href: '/' }}
+            linkProps={{ href: '#' }}
           />
         ))}
       </SearchAutoComplete>
@@ -247,7 +237,7 @@ export const suggestionsAlt = [
           term={searchContent}
           suggestion={suggestion.value}
           icon={suggestion.icon}
-          linkProps={{ href: '/' }}
+          linkProps={{ href: '#' }}
         />
       ))}
     </SearchAutoComplete>

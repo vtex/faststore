@@ -5,7 +5,7 @@ import storeConfig from '../../faststore.config'
 
 function Page() {
   useEffect(() => {
-    window.location.href = storeConfig.accountUrl
+    window.location.href = `${storeConfig.accountUrl}${window.location.search}`
   }, [])
 
   return (
