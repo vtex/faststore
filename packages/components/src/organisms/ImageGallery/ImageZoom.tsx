@@ -1,7 +1,7 @@
 import React from 'react'
 import type { PropsWithChildren } from 'react'
 
-// TODO: adds zoom feature to the selected image
+// TODO: Implements zoom feature to the selected image (Coming Soon)
 export interface ImageZoomProps {
   helpMessage?: string
   zoomFactor?: number
