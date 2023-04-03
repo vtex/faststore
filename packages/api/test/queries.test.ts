@@ -29,7 +29,11 @@ import {
   attributeSearchCategory1Fetch,
 } from '../mocks/SearchQuery'
 import { salesChannelStaleFetch } from '../mocks/salesChannel'
-import { shippingSimulationFetch, addressFetch, ShippingSimulationQueryResult, } from '../mocks/ShippingQuery'
+import {
+  shippingSimulationFetch,
+  addressFetch,
+  ShippingSimulationQueryResult,
+} from '../mocks/ShippingQuery'
 
 const apiOptions = {
   platform: 'vtex',
@@ -53,7 +57,13 @@ const createRunner = () => {
     const schema = await schemaPromise
     const context = contextFactory({})
 
-    return execute(schema, parse(query), null, context, variables)
+    return execute(
+      schema,
+      parse(query),
+      null,
+      { ...context, headers: { cookie: '' } },
+      variables
+    )
   }
 }
 
@@ -111,10 +121,7 @@ test('`collection` query', async () => {
 })
 
 test('`product` query', async () => {
-  const fetchAPICalls = [
-    productSearchFetch, 
-    salesChannelStaleFetch
-  ]
+  const fetchAPICalls = [productSearchFetch, salesChannelStaleFetch]
 
   mockedFetch.mockImplementation((info, init) =>
     pickFetchAPICallResult(info, init, fetchAPICalls)
@@ -164,10 +171,7 @@ test('`allCollections` query', async () => {
 })
 
 test('`allProducts` query', async () => {
-  const fetchAPICalls = [
-    productSearchPage1Count5Fetch, 
-    salesChannelStaleFetch,
-  ]
+  const fetchAPICalls = [productSearchPage1Count5Fetch, salesChannelStaleFetch]
 
   mockedFetch.mockImplementation((info, init) =>
     pickFetchAPICallResult(info, init, fetchAPICalls)
@@ -191,7 +195,7 @@ test('`search` query', async () => {
   const fetchAPICalls = [
     productSearchCategory1Fetch,
     attributeSearchCategory1Fetch,
-    salesChannelStaleFetch
+    salesChannelStaleFetch,
   ]
 
   mockedFetch.mockImplementation((info, init) =>
