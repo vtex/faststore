@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from 'react'
+import type { ReactNode } from 'react'
 
 import {
   Alert,
@@ -8,8 +9,6 @@ import {
   useFadeEffect,
   useUI,
 } from '../../'
-
-import { Truck } from '../../assets'
 
 import { SlideOverDirection, SlideOverWidthSize } from '../SlideOver'
 
@@ -34,6 +33,14 @@ export interface CartSidebarProps {
    * Function called when Close Button is clicked.
    */
   onClose: () => void
+  /**
+   * A React component that will be rendered as an icon on the Alert component (e.g.: a <Truck /> component).
+   */
+  alertIcon?: ReactNode
+  /**
+   * The content for Alert component.
+   */
+  alertText?: string
 }
 
 function CartSidebar({
@@ -43,6 +50,8 @@ function CartSidebar({
   totalItems,
   children,
   onClose,
+  alertIcon,
+  alertText,
 }: PropsWithChildren<CartSidebarProps>) {
   const { fade, fadeOut } = useFadeEffect()
   const { closeFilter } = useUI()
@@ -69,7 +78,7 @@ function CartSidebar({
         </h2>
       </SlideOverHeader>
 
-      <Alert icon={<Truck />}>Free shipping starts at $300</Alert>
+      {alertText && <Alert icon={alertIcon}>{alertText}</Alert>}
       {children}
     </SlideOver>
   )
