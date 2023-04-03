@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
 
-import { List } from '@faststore/components'
+import { List } from '../../'
 
 export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
   /**
