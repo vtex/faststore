@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.38](https://github.com/vtex/faststore/compare/v1.12.37...v1.12.38) (2023-04-03)
+
+### Chores
+
+- applies PR [#1653](https://github.com/vtex/faststore/issues/1653) in 1.x branch ([#1701](https://github.com/vtex/faststore/issues/1701)) ([0ab3dd1](https://github.com/vtex/faststore/commit/0ab3dd17377ddfd67396fb7274f9e562e52a2ee1))
+
 ## 1.12.37 (2023-03-15)
 
 ### Bug Fixes
