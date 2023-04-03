@@ -9,9 +9,6 @@ export type { IncentiveProps } from './components/atoms/Incentive'
 
 // Molecules
 
-export { default as OrderSummary } from './components/molecules/OrderSummary'
-export type { OrderSummaryProps } from './components/molecules/OrderSummary'
-
 export { default as Bullets } from './components/molecules/Bullets'
 export type { BulletsProps } from './components/molecules/Bullets'
 

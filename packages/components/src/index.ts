@@ -98,6 +98,8 @@ export { default as LinkButton } from './molecules/LinkButton'
 export type { LinkButtonProps } from './molecules/LinkButton'
 export { default as Modal, ModalHeader, ModalBody } from './molecules/Modal'
 export type { ModalProps, ModalHeaderProps } from './molecules/Modal'
+export { default as OrderSummary } from './molecules/OrderSummary'
+export type { OrderSummaryProps } from './molecules/OrderSummary'
 export {
   default as ProductCard,
   ProductCardImage,
