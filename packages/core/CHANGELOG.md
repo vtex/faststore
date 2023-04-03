@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.96-alpha.0](https://github.com/vtex/faststore/compare/v2.0.95-alpha.0...v2.0.96-alpha.0) (2023-04-03)
+
+**Note:** Version bump only for package @faststore/core
+
 ## [2.0.95-alpha.0](https://github.com/vtex/faststore/compare/v2.0.94-alpha.0...v2.0.95-alpha.0) (2023-04-01)
 
 ### Features

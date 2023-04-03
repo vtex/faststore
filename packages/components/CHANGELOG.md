@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.96-alpha.0](https://github.com/vtex/faststore/compare/v2.0.95-alpha.0...v2.0.96-alpha.0) (2023-04-03)
+
+### Bug Fixes
+
+- Fix useDefineVariants ([#1700](https://github.com/vtex/faststore/issues/1700)) ([463b65b](https://github.com/vtex/faststore/commit/463b65b1e9fb81ca041f7f7f24280a57e3210b9b))
+
 ## [2.0.95-alpha.0](https://github.com/vtex/faststore/compare/v2.0.94-alpha.0...v2.0.95-alpha.0) (2023-04-01)
 
 ### Features
