@@ -1,6 +1,8 @@
-import { Button, IconButton } from '../..'
 import React, { useRef } from 'react'
+import type { AriaAttributes } from 'react'
 import { useInView } from 'react-intersection-observer'
+import { Button, IconButton } from '../..'
+
 import type { ImageGalleryProps } from '.'
 
 export interface ImageGallerySelectorProps
@@ -15,9 +17,21 @@ export interface ImageGallerySelectorProps
    */
   currentImageIdx: number
   /**
+   * For accessibility purposes, define a string that labels the current element.
+   */
+  'aria-label'?: AriaAttributes['aria-label']
+  /**
+   * For accessibility purposes, define a string that labels the left navigation icon button.
+   */
+  navigationButtonLeftAriaLabel?: AriaAttributes['aria-label']
+  /**
+   * For accessibility purposes, define a string that labels the right navigation button icon.
+   */
+  navigationButtonRightAriaLabel?: AriaAttributes['aria-label']
+  /**
    * Event handler for clicks on each thumbnail.
    */
-  onSelect: React.Dispatch<React.SetStateAction<number>>
+  onSelect: (imageIdx: number) => void
 }
 
 const SCROLL_MARGIN_VALUE = 400
@@ -52,8 +66,11 @@ function ImageGallerySelector({
   images,
   onSelect,
   ImageComponent,
-  testId = 'fs-image-gallery-selector',
   currentImageIdx,
+  testId = 'fs-image-gallery-selector',
+  'aria-label': ariaLabel = 'Product Images',
+  navigationButtonLeftAriaLabel = 'Backward slide image selector',
+  navigationButtonRightAriaLabel = 'Forward slide image selector',
 }: ImageGallerySelectorProps) {
   const elementsRef = useRef<HTMLDivElement>(null)
   const elementHasScroll = hasScroll(elementsRef.current)
@@ -69,14 +86,14 @@ function ImageGallerySelector({
     <section
       data-fs-image-gallery-selector
       data-testid={testId}
+      aria-label={ariaLabel}
       aria-roledescription="carousel"
-      aria-label="Product images"
     >
       {elementHasScroll && !firstImageInView && (
         <div data-fs-image-gallery-selector-control>
           <IconButton
             data-fs-image-gallery-selector-control-button
-            aria-label="backward slide image selector"
+            aria-label={navigationButtonLeftAriaLabel}
             icon={<ArrowLeft />}
             size="small"
             onClick={() =>
@@ -119,7 +136,7 @@ function ImageGallerySelector({
         <div data-fs-image-gallery-selector-control>
           <IconButton
             data-fs-image-gallery-selector-control-button
-            aria-label="forward slide image selector"
+            aria-label={navigationButtonRightAriaLabel}
             icon={<ArrowLeft />}
             size="small"
             onClick={() =>

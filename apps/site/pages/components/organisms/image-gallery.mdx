@@ -204,6 +204,27 @@ export const imagesUsage = [
 
 <ImageGalleryPropsSection component="ImageGallerySelector" />
 
+### ImageElementData
+
+export const propsImageElementData = [
+  {
+    name: 'url',
+    type: 'string',
+    description: 'Image URL.',
+    default: '',
+    required: true,
+  },
+  {
+    name: 'alternateName',
+    type: 'string',
+    description: ' Alternative text description of the image.',
+    default: '',
+    required: true,
+  },
+]
+
+<PropsSection propsList={propsImageElementData} />
+
 ---
 
 ## Design Tokens

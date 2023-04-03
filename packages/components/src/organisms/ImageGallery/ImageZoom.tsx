@@ -1,5 +1,5 @@
-import type { PropsWithChildren } from 'react'
 import React from 'react'
+import type { PropsWithChildren } from 'react'
 
 // TODO: adds zoom feature to the selected image
 export interface ImageZoomProps {
