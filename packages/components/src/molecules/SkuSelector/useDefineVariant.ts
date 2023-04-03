@@ -5,7 +5,7 @@ export type Variant = 'image' | 'color' | 'label'
 
 const getImageName = (src: string) => {
   const sourcePath = new URL(src).pathname
-  const imageName = sourcePath.split('/').at(-1)
+  const imageName = sourcePath.split('/').slice(-1)[0]
   return imageName
 }
 
