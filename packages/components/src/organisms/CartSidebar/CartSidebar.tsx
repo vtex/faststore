@@ -20,19 +20,15 @@ export interface CartSidebarProps {
   /**
    * Represents the side that the FilterSlider comes from.
    */
-  direction: SlideOverDirection
+  direction?: SlideOverDirection
   /**
    * Represents the size of the FilterSlider.
    */
-  size: SlideOverWidthSize
+  size?: SlideOverWidthSize
   /**
    * Total of item in the Cart.
    */
   totalItems: number
-  /**
-   * Function called when Close Button is clicked.
-   */
-  onClose: () => void
   /**
    * A React component that will be rendered as an icon on the Alert component (e.g.: a <Truck /> component).
    */
@@ -41,6 +37,10 @@ export interface CartSidebarProps {
    * The content for Alert component.
    */
   alertText?: string
+  /**
+   * Function called when Close Button is clicked.
+   */
+  onClose: () => void
 }
 
 function CartSidebar({
@@ -54,7 +54,7 @@ function CartSidebar({
   alertText,
 }: PropsWithChildren<CartSidebarProps>) {
   const { fade, fadeOut } = useFadeEffect()
-  const { closeFilter } = useUI()
+  const { closeCart } = useUI()
 
   return (
     <SlideOver
@@ -64,9 +64,10 @@ function CartSidebar({
       onDismiss={fadeOut}
       size={size}
       direction={direction}
-      onTransitionEnd={() => fade === 'out' && closeFilter()}
+      onTransitionEnd={() => fade === 'out' && closeCart()}
     >
       <SlideOverHeader
+        closeBtnProps={{ testId: 'fs-cart-sidebar-button-close' }}
         onClose={() => {
           onClose()
           fadeOut()
