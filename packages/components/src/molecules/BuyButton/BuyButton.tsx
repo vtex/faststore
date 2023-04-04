@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { Button } from '../../'
 import type { ButtonProps } from '../../'
-import { ShoppingCart } from '../../assets'
+import { Button, Icon } from '../../'
 
 type BuyButtonProps = ButtonProps
 
@@ -15,7 +14,7 @@ function BuyButton({
   return (
     <Button
       data-fs-buy-button
-      icon={<ShoppingCart />}
+      icon={<Icon name="ShoppingCart" />}
       iconPosition="left"
       data-testid={testId}
       {...otherProps}

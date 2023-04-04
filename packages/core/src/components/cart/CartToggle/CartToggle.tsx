@@ -1,6 +1,9 @@
-import { IconButton as UIIconButton, Badge as UIBadge } from '@faststore/ui'
+import {
+  Badge as UIBadge,
+  Icon,
+  IconButton as UIIconButton,
+} from '@faststore/ui'
 
-import Icon from 'src/components/ui/Icon'
 import { useCartToggleButton } from 'src/sdk/cart/useCartToggleButton'
 
 function CartToggle() {

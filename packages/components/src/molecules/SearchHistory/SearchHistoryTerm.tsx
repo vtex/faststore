@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import React, { HTMLAttributes } from 'react'
-import { Icon, ClockClockwise, Link, LinkProps, LinkElementType } from '../..'
+import { Icon, Link, LinkElementType, LinkProps } from '../..'
 
 export interface SearchHistoryTermProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -27,14 +27,17 @@ const SearchHistoryTerm = ({
   linkProps,
   icon,
 }: SearchHistoryTermProps) => {
-  const historyIcon = icon ? icon : <ClockClockwise />
-
+  const iconProps = {"data-fs-search-history-item-icon": true}
+  
+  const historyIcon = React.isValidElement(icon) ? (
+    React.cloneElement(icon, iconProps)
+  ) : (
+    <Icon name="ClockClockwise" data-fs-search-history-item-icon />
+  )
   return (
     <li data-fs-search-history-item data-testid={testId}>
       <Link {...linkProps} data-fs-search-history-item-link variant="display">
-        {historyIcon && (
-          <Icon component={historyIcon} data-fs-search-history-item-icon />
-        )}
+        {historyIcon}
         <span>{value}</span>
       </Link>
     </li>

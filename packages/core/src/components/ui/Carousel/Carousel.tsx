@@ -1,8 +1,6 @@
-import type { PropsWithChildren } from 'react'
-import { Carousel as UICarousel } from '@faststore/ui'
 import type { CarouselProps as UICarouselProps } from '@faststore/ui'
-
-import Icon from 'src/components/ui/Icon'
+import { Carousel as UICarousel, Icon } from '@faststore/ui'
+import type { PropsWithChildren } from 'react'
 
 import styles from './carousel.module.scss'
 

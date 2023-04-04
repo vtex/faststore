@@ -1,8 +1,7 @@
-import React, { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
+import React, { forwardRef } from 'react'
 
 import { Button, Icon } from '../../'
-import { MapPin, CaretRight } from '../../'
 
 export interface RegionBarProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -22,7 +21,7 @@ const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
   return (
     <div ref={ref} data-fs-region-bar {...otherProps}>
       <Button onClick={onButtonClick}>
-        <Icon component={<MapPin />} />
+        <Icon name="MapPin" />
         {postalCode ? (
           <>
             <span data-fs-region-bar-postal-code>{postalCode}</span>
@@ -31,7 +30,7 @@ const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
         ) : (
           <span data-fs-region-bar-message>Set your location</span>
         )}
-        <Icon component={<CaretRight />} />
+        <Icon name="CaretRight" />
       </Button>
     </div>
   )

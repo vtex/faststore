@@ -3,19 +3,11 @@ import type { PriceFormatter } from '../../atoms/Price/Price'
 
 import React from 'react'
 
-import { ArrowSquareOut } from '../../assets'
-
 import {
-  Icon,
-  Link,
-  Table,
+  Icon, InputField, Link, LinkElementType, LinkProps, Price, Table,
   TableBody,
   TableCell,
-  TableRow,
-  InputField,
-  Price,
-  LinkProps,
-  LinkElementType,
+  TableRow
 } from '../..'
 
 interface ShippingSLA {
@@ -142,7 +134,7 @@ function ShippingSimulation({
           idkPostalCodeLinkProps?.children ??
           <>
             {"I don't know my Postal Code"}
-            <Icon component={<ArrowSquareOut />} />
+            <Icon name="ArrowSquareOut" width={20} height={20} />
           </>
         }
       </Link>

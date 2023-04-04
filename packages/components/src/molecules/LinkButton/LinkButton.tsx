@@ -1,7 +1,6 @@
+import type { AnchorHTMLAttributes, FocusEvent } from 'react'
 import React, { useRef } from 'react'
-import type { FocusEvent, AnchorHTMLAttributes } from 'react'
 
-import { Icon } from '../..'
 import type { ButtonProps } from '../..'
 
 export type LinkButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> &
@@ -41,9 +40,9 @@ function LinkButton({
       data-testid={testId}
       {...otherProps}
     >
-      {iconPosition === 'left' && <Icon component={icon} />}
+      {React.isValidElement(icon) && iconPosition === 'left' && icon}
       {children}
-      {iconPosition === 'right' && <Icon component={icon} />}
+      {React.isValidElement(icon) && iconPosition === 'right' && icon}
     </a>
   )
 }

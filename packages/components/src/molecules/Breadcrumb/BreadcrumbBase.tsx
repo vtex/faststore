@@ -1,11 +1,16 @@
-import React, { cloneElement, forwardRef, ReactElement, ReactNode, useCallback } from 'react'
-import { ArrowElbowDownRight, DotsThree } from '../../assets'
+import React, {
+  cloneElement,
+  forwardRef,
+  ReactElement,
+  ReactNode,
+  useCallback,
+} from 'react'
 import Icon from '../../atoms/Icon'
 import Link from '../../atoms/Link'
 import Dropdown, {
   DropdownButton,
-  DropdownMenu,
   DropdownItem,
+  DropdownMenu,
 } from '../Dropdown'
 import BreadcrumbPure, { BreadcrumbPureProps } from './BreadcrumbPure'
 import HomeLink from './HomeLink'
@@ -66,8 +71,10 @@ const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
       isDesktop = false,
       renderLink,
       homeLink = <HomeLink />,
-      dropdownButtonIcon = <Icon component={<DotsThree />} />,
-      collapsedItemsIcon = <Icon component={<ArrowElbowDownRight />} />,
+      dropdownButtonIcon = <Icon name="DotsThree" />,
+      collapsedItemsIcon = (
+        <Icon data-fs-dropdown-item-icon name="ArrowElbowDownRight" />
+      ),
       ...otherProps
     },
     ref
@@ -90,23 +97,33 @@ const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
 
     const collapseBreadcrumb = breadcrumbList.length > 4
 
-    const breadcrumbLink = useCallback((renderLinkProps: RenderLinkProps) => {
-      const breadcrumbItem = renderLink?.(renderLinkProps)
-      const itemProps = renderLinkProps.collapsed
-        ? {
-            'data-fs-breadcrumb-dropdown-link': true,
-          }
-        : {
-            'data-fs-breadcrumb-link': true,
-          }
-      return breadcrumbItem ? (
-        cloneElement(breadcrumbItem, {...itemProps, key: renderLinkProps.itemProps.position })
-      ) : (
-        <Link {...itemProps} href={renderLinkProps.itemProps.item} key={renderLinkProps.itemProps.position}>
-          {renderLinkProps.itemProps.name}
-        </Link>
-      )
-    }, [renderLink])
+    const breadcrumbLink = useCallback(
+      (renderLinkProps: RenderLinkProps) => {
+        const breadcrumbItem = renderLink?.(renderLinkProps)
+        const itemProps = renderLinkProps.collapsed
+          ? {
+              'data-fs-breadcrumb-dropdown-link': true,
+            }
+          : {
+              'data-fs-breadcrumb-link': true,
+            }
+        return breadcrumbItem ? (
+          cloneElement(breadcrumbItem, {
+            ...itemProps,
+            key: renderLinkProps.itemProps.position,
+          })
+        ) : (
+          <Link
+            {...itemProps}
+            href={renderLinkProps.itemProps.item}
+            key={renderLinkProps.itemProps.position}
+          >
+            {renderLinkProps.itemProps.name}
+          </Link>
+        )
+      },
+      [renderLink]
+    )
 
     return (
       <BreadcrumbPure
@@ -115,7 +132,7 @@ const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
         {...otherProps}
       >
         {homeLinkWithProps}
-        
+
         {!collapseBreadcrumb &&
           breadcrumbList.map((item, index) => {
             return breadcrumbList.length === index + 1 ? (
@@ -131,10 +148,9 @@ const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
 
         {collapseBreadcrumb && (
           <Dropdown>
-            <DropdownButton
-              data-fs-breadcrumb-dropdown-button
-              size="small"
-            >{dropdownButtonIcon}</DropdownButton>
+            <DropdownButton data-fs-breadcrumb-dropdown-button size="small">
+              {dropdownButtonIcon}
+            </DropdownButton>
             <DropdownMenu data-fs-breadcrumb-dropdown-menu>
               {mediumItems.map((item) => (
                 <DropdownItem

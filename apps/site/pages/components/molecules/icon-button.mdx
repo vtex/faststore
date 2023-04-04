@@ -7,8 +7,7 @@ sidebar_custom_props:
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { IconButton } from '@faststore/ui'
-import { ShoppingCart } from '@faststore/components'
+import { IconButton, Icon } from '@faststore/ui'
 
 <header>
 
@@ -23,14 +22,14 @@ Icon Buttons are icons that trigger some sort of action, such as adding an item 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <IconButton icon={<ShoppingCart />} aria-label="Buy" />
-      <IconButton icon={<ShoppingCart />} aria-label="Buy" variant="primary" />
+      <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" />
+      <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" variant="primary" />
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
-    <IconButton icon={<ShoppingCart />} aria-label="Buy" />
-    <IconButton icon={<ShoppingCart />} aria-label="Buy" variant="primary" />
+    <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" />
+    <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" variant="primary" />
     ```
   </Tab>
 </Tabs>
@@ -56,10 +55,10 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 ## Usage
 
 <OverviewSection>
-  <IconButton icon={<ShoppingCart />} aria-label="Buy" />
+  <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" />
 </OverviewSection>
 ```tsx live
-<IconButton icon={<ShoppingCart />} aria-label="Buy" />
+<IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" />
 ```
 
 ---

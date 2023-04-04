@@ -1,15 +1,13 @@
 import { Suspense, useRef, useState } from 'react'
-import { IconButton as UIIconButton } from '@faststore/ui'
 
+import { Icon, IconButton as UIIconButton, useUI } from '@faststore/ui'
 import CartToggle from 'src/components/cart/CartToggle'
-import SearchInput from 'src/components/search/SearchInput'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
+import SearchInput from 'src/components/search/SearchInput'
 import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
-import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
-import { useUI } from '@faststore/ui'
 import useScrollDirection from 'src/sdk/ui/useScrollDirection'
 
 import styles from './navbar.module.scss'

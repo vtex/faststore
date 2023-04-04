@@ -1,9 +1,8 @@
-import { OutOfStock as UIOutOfStock, useUI } from '@faststore/ui'
-import { useState } from 'react'
+import { Icon, OutOfStock as UIOutOfStock, useUI } from '@faststore/ui'
 import type { FormEvent } from 'react'
+import { useState } from 'react'
 
 import { useSession } from 'src/sdk/session'
-import Icon from 'src/components/ui/Icon'
 
 function OutOfStock() {
   const { postalCode } = useSession()

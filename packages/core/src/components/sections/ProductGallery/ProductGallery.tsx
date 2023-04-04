@@ -1,20 +1,19 @@
 import { useSearch } from '@faststore/sdk'
-import { NextSeo } from 'next-seo'
-import { lazy, Suspense } from 'react'
-import type { MouseEvent } from 'react'
 import {
   Button as UIButton,
   LinkButton as UILinkButton,
   Skeleton as UISkeleton,
 } from '@faststore/ui'
+import { NextSeo } from 'next-seo'
+import type { MouseEvent } from 'react'
+import { lazy, Suspense } from 'react'
 
+import { Icon, useUI } from '@faststore/ui'
 import Filter from 'src/components/search/Filter'
 import Sort from 'src/components/search/Sort'
 import FilterSkeleton from 'src/components/skeletons/FilterSkeleton'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
-import Icon from 'src/components/ui/Icon'
 import { mark } from 'src/sdk/tests/mark'
-import { useUI } from '@faststore/ui'
 
 import Section from '../Section'
 import EmptyGallery from './EmptyGallery'

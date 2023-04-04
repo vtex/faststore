@@ -1,8 +1,7 @@
 import { Button as UIButton } from '@faststore/ui'
 
-import Icon from 'src/components/ui/Icon'
+import { Icon, useUI } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
-import { useUI } from '@faststore/ui'
 
 function RegionButton() {
   const { openModal } = useUI()

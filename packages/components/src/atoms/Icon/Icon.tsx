@@ -1,25 +1,51 @@
-import type { HTMLAttributes, ReactNode } from 'react'
-import React, { forwardRef } from 'react'
+import type { SVGProps } from 'react'
+import React, { forwardRef } from "react"
 
-export interface IconProps extends HTMLAttributes<HTMLSpanElement> {
+type IconWeight = 'thin' | 'light' | 'regular' | 'bold'
+
+const mapWeightToValue: Record<IconWeight, number> = {
+  bold: 24,
+  regular: 16,
+  light: 12,
+  thin: 8,
+}
+
+export interface IconProps extends SVGProps<SVGSVGElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
   /**
-   * A React component that will be rendered as an icon.
+   * Symbol id from element to render. Take a look at `/static/icons.svg`.
+   *
+   * Example: <Icon name="Bell" />
    */
-  component: ReactNode
+  name: string
+  /**
+   * SVG weight.
+   *
+   * @default 'regular'
+   */
+  weight?: IconWeight
 }
 
-const Icon = forwardRef<HTMLSpanElement, IconProps>(function Button(
-  { component, testId = 'fs-icon', ...otherProps }: IconProps,
+const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
+  { testId = 'fs-icon', name, weight = 'regular', ...otherProps }: IconProps,
   ref
 ) {
+  const {width, height} = otherProps
   return (
-    <span ref={ref} data-fs-icon data-testid={testId} {...otherProps}>
-      {component}
-    </span>
+    <svg
+      ref={ref}
+      data-fs-icon
+      data-testid={testId}
+      width={width ?? 24}
+      height={height ?? 24}
+      strokeWidth={mapWeightToValue[weight]}
+      {...otherProps}
+    >
+      <use href={`/icons.svg#${name}`} />
+    </svg>
   )
 })
 

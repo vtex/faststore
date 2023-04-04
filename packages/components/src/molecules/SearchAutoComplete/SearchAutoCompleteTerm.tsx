@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
-import React, { HTMLAttributes, Fragment } from 'react'
-import { Icon, MagnifyingGlass, Link, LinkProps, LinkElementType } from '../..'
+import React, { Fragment, HTMLAttributes } from 'react'
+import { Icon, Link, LinkElementType, LinkProps } from '../..'
 
 function formatSearchTerm(
   indexSubstring: number,
@@ -52,7 +52,13 @@ const SearchAutoCompleteTerm = ({
   linkProps,
   icon,
 }: SearchAutoCompleteTermProps) => {
-  const autoCompleteIcon = icon ? icon : <MagnifyingGlass />
+
+  const iconProps = {"data-fs-search-auto-complete-item-icon":true}
+  const autoCompleteIcon = React.isValidElement(icon) ? (
+    React.cloneElement(icon, iconProps)
+  ) : (
+    <Icon name="MagnifyingGlass" data-fs-search-auto-complete-item-icon />
+  )
 
   const suggestionSubstring = suggestion.toLowerCase().split(term.toLowerCase())
 
@@ -63,12 +69,7 @@ const SearchAutoCompleteTerm = ({
         data-fs-search-auto-complete-item-link
         variant="display"
       >
-        {autoCompleteIcon && (
-          <Icon
-            component={autoCompleteIcon}
-            data-fs-search-auto-complete-item-icon
-          />
-        )}
+        {autoCompleteIcon}
         <p>
           {suggestionSubstring.map((substring, indexSubstring) => (
             <Fragment key={[substring, indexSubstring].join()}>

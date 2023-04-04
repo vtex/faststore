@@ -1,8 +1,0 @@
-export { default as Visa } from './Visa'
-export { default as Diners } from './Diners'
-export { default as Mastercard } from './Mastercard'
-export { default as EloCard } from './EloCard'
-export { default as PayPal } from './PayPal'
-export { default as Stripe } from './Stripe'
-export { default as GooglePay } from './GooglePay'
-export { default as ApplePay } from './ApplePay'

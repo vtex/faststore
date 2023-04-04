@@ -10,8 +10,7 @@ sidebar_custom_props:
 
 import PropsSection from 'site/components/PropsSection'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { LinkButton } from '@faststore/ui'
-import { ShoppingCart } from '@faststore/components'
+import { LinkButton, Icon } from '@faststore/ui'
 
 <header>
 
@@ -76,10 +75,10 @@ This component inherits [Button](/components/atoms/button) design tokens.
 ### Icon
 
 <OverviewSection>
-  <LinkButton href="#" icon={<ShoppingCart />} iconPosition="left">
+  <LinkButton href="#" icon={<Icon name="ShoppingCart" />} iconPosition="left">
     {'Go to Cart'}
   </LinkButton>
-  <LinkButton href="#" icon={<ShoppingCart />} iconPosition="right">
+  <LinkButton href="#" icon={<Icon name="ShoppingCart" />} iconPosition="right">
     {'Go to Cart'}
   </LinkButton>
 </OverviewSection>

@@ -1,8 +1,7 @@
-import React, { CSSProperties, PropsWithChildren, ReactNode } from 'react'
+import { CSSProperties, PropsWithChildren, ReactNode } from 'react'
 import styles from './section-item.module.css'
 
-import { LinkButton } from '@faststore/ui'
-import { ArrowRight } from '@faststore/components'
+import { Icon, LinkButton } from '@faststore/ui'
 
 export type SectionItemProps = {
   title: string
@@ -32,7 +31,7 @@ const SectionItem = ({
             size="small"
             variant="tertiary"
             href={actionPath}
-            icon={<ArrowRight />}
+            icon={<Icon name="ArrowRight" />}
             iconPosition="right"
           >
             See more

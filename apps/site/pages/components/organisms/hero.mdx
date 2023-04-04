@@ -13,8 +13,7 @@ import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
-import { House } from '@faststore/components'
-import { Hero, HeroImage, HeroHeader } from '@faststore/ui'
+import { Hero, HeroImage, HeroHeader, Icon } from '@faststore/ui'
 
 <header>
 
@@ -225,7 +224,7 @@ Besides those attributes, the following props are also supported:
           subtitle="All the amazing products from the brands we partner with."
           link="/"
           linkText="See more"
-          icon={<House />}
+          icon={<Icon name="House" />}
         />
       </Hero>
     </OverviewSection>
@@ -244,7 +243,7 @@ Besides those attributes, the following props are also supported:
         subtitle="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
-        icon={<House />}
+        icon={<Icon name="House" />}
       />
     </Hero>
     ```

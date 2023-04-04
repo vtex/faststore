@@ -11,13 +11,12 @@ sidebar_custom_props:
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
 import { Tab, Tabs } from 'nextra-theme-docs'
-import { ShoppingCart } from '@faststore/components'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
 import ButtonLoading from 'site/components/Button/ButtonLoading'
-import { Button, IconButton, BuyButton, LinkButton } from '@faststore/ui'
+import { Button, IconButton, BuyButton, LinkButton, Icon } from '@faststore/ui'
 import { useState } from 'react'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
@@ -58,7 +57,7 @@ Buttons indicate actions that users can take, such as adding an item to the cart
       <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="tertiary">Tertiary</Button>
-      <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+      <Button variant="primary" icon={<Icon name="ShoppingCart" />} iconPosition="left">
         {'Button w/ Icon'}
       </Button>
       <Button variant="primary" size="small">
@@ -71,7 +70,7 @@ Buttons indicate actions that users can take, such as adding an item to the cart
     <Button variant="primary">Primary</Button>
     <Button variant="secondary">Secondary</Button>
     <Button variant="tertiary">Tertiary</Button>
-    <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+    <Button variant="primary" icon={<Icon name="ShoppingCart" />} iconPosition="left">
       Button w/ Icon
     </Button>
     <Button variant="primary" size="small">
@@ -161,13 +160,13 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 #### Icon
 
 <OverviewSection>
-  <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+  <Button variant="primary" icon={<Icon name="ShoppingCart" />} iconPosition="left">
     {'Add to Cart'}
   </Button>
 </OverviewSection>
 
 ```tsx
-<Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+<Button variant="primary" icon={<Icon name="ShoppingCart" />} iconPosition="left">
   Add to Cart
 </Button>
 ```
@@ -691,7 +690,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
   <Button variant="primary" size="small">
     {'Button'}
   </Button>
-  <Button variant="primary" size="small" icon={<ShoppingCart />}>
+  <Button variant="primary" size="small" icon={<Icon name="ShoppingCart" />}>
     {'Button'}
   </Button>
 </OverviewSection>
@@ -700,7 +699,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 <Button variant="primary" size="small">
   Button
 </Button>
-<Button variant="primary" size="small" icon={<ShoppingCart />}>
+<Button variant="primary" size="small" icon={<Icon name="ShoppingCart" />}>
   Button
 </Button>
 ```
@@ -785,7 +784,7 @@ For further customization, you can use the following data attributes:
     description="A button which content is only an icon, without any label."
     actionPath="/components/molecules/icon-button"
   >
-    <IconButton icon={<ShoppingCart />} aria-label="Buy" />
+    <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" />
   </SectionItem>
   <SectionItem
     title="Buy Button"
