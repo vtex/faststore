@@ -19,13 +19,13 @@ import {
   CartItem,
   CartItemImage,
   CartItemSummary,
+  Icon,
   Gift,
   GiftContent,
   GiftImage,
   OrderSummary,
 } from '@faststore/ui'
 
-import { TagIcon, Truck } from '@faststore/ui'
 import { product } from 'site/mocks/product'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
@@ -91,7 +91,7 @@ import '@faststore/ui/src/components/organisms/CartSidebar/styles.scss'
   <Tab>
     <OverviewSection containerStyle={{display: 'block'}}>
       <UIProvider>
-      <CartSidebar totalItems={0} alertIcon={<Truck />} alertText="Free shipping starts at $300" >
+      <CartSidebar totalItems={0} alertIcon={<Icon name="Truck" />} alertText="Free shipping starts at $300" >
         <CartSidebarList>
           <CartItem
             price={{
@@ -113,7 +113,7 @@ import '@faststore/ui/src/components/organisms/CartSidebar/styles.scss'
             activeVariations={activeVariations}
           />
           </CartItem>
-          <Gift icon={<TagIcon />}>
+          <Gift icon={<Icon name="Tag" />}>
             <GiftImage>
               <img
                 src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
