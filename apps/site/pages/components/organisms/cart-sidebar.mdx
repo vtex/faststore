@@ -1,7 +1,7 @@
 ---
-description: This component is used to announce to users that the product is out of stock.
+description: The `CartSidebar` displays the summary of items added to the cart along with detailed information, and checkout option.
 sidebar_custom_props:
-  image: https://vtexhelp.vtexassets.com/assets/docs/src/OutOfStock___5863b0eb4a4a8ce9a98da5c760461e61.png
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/CartSidebar___5863b0eb4a4a8ce9a98da5c760461e61.png
 ---
 
 import path from 'path'
@@ -32,25 +32,25 @@ import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
-  const outOfStockPath = path.resolve(__filename)
-  const components = ['OutOfStock.tsx']
-  const [outOfStockProps] = getComponentPropsFrom(outOfStockPath, components)
+  const cartSidebarPath = path.resolve(__filename)
+  const components = ['CartSidebar.tsx']
+  const [CartSidebarProps] = getComponentPropsFrom(cartSidebarPath, components)
   return {
     props: {
       // We add an `ssg` field to the page props,
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
-        outOfStockProps,
+        CartSidebarProps,
       },
     },
   }
 }
 
-export const OutOfStockPropsSection = ({ component }) => {
+export const CartSidebarPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
-  const { outOfStockProps } = useSSG()
+  const { CartSidebarProps } = useSSG()
   return {
-    OutOfStock: <PropsSection propsList={outOfStockProps} />,
+    CartSidebar: <PropsSection propsList={CartSidebarProps} />,
   }[component]
 }
 
@@ -65,9 +65,12 @@ export const activeVariations = Object.keys(skuActiveVariants).map((key) => ({
 
 # Cart Sidebar
 
-The `CartSidebar` displays the summary of items added to the cart along with detailed information, and checkout option.
+The `CartSidebar` displays the summary of items added to the cart along with detailed information, and checkout option. The final CartSidebar component is a compound of the following:
 
 </header>
+
+- `CartSidebarList`: wraps a series of `CartItem`s and `Gifts`.
+- `CartSidebarFooter`: wraps an `OrdeSummary` and probably the Checkout Button.
 
 ## Import
 
@@ -143,14 +146,52 @@ import '@faststore/ui/src/components/organisms/CartSidebar/styles.scss'
   </Tab>
   <Tab>
     ```tsx
-    <OutOfStock
-        title="Out of Stock"
-        subtitle="Notify me when available"
-        inputLabel="Email"
-        buttonLabel="Notify Me"
-        onSubmit={handleSubmit}
-        disabled={isLoading}
-      />
+      <CartSidebar totalItems={0} alertIcon={<Icon name="Truck" />} alertText="Free shipping starts at $300" >
+        <CartSidebarList>
+          <CartItem
+            price={{
+              value: product.offers.offers[0].price,
+              listPrice: product.offers.offers[0].listPrice,
+              formatter: useFormattedPrice,
+            }}
+            quantity={3}
+          >
+          <CartItemImage>
+            <img
+              data-fs-image
+              src={product.image[0].url}
+              alt={product.image[0].alternateName}
+            />
+          </CartItemImage>
+          <CartItemSummary
+            title={product.isVariantOf.name}
+            activeVariations={activeVariations}
+          />
+          </CartItem>
+          <Gift icon={<Icon name="Tag" />}>
+            <GiftImage>
+              <img
+                src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+                alt="Magicwhite"
+                width={89}
+                height={89}
+              />
+            </GiftImage>
+            <GiftContent
+              productName="Apple Magic Mouse"
+              price={{ value: 999, listPrice: 999, formatter: useFormattedPrice }}
+            />
+          </Gift>
+        </CartSidebarList>
+        <CartSidebarFooter>
+          <OrderSummary
+            subtotalLabel="Subtotal (3 products)"
+            subtotalValue={useFormattedPrice(3)}
+            discountValue={`-${useFormattedPrice(100)}`}
+            totalValue={useFormattedPrice(12300)}
+          />
+        </CartSidebarFooter>
+      </CartSidebar>
     ```
 
   </Tab>
@@ -160,73 +201,44 @@ import '@faststore/ui/src/components/organisms/CartSidebar/styles.scss'
 
 ## Props
 
-### Out of Stock
+### CartSidebar
 
-<OutOfStockPropsSection component="OutOfStock" />
+<CartSidebarPropsSection component="CartSidebar" />
 
 ---
 
 ## Design Tokens
 
+<TokenTable>
+  <TokenRow
+    token="--fs-cart-sidebar-bkg-color"
+    value="var(--fs-color-neutral-bkg)"
+    isColor
+  />
+</TokenTable>
+
 ### Nested Elements
 
-#### Title
+#### List
 
 <TokenTable>
   <TokenRow
-    token="--fs-out-of-stock-title-margin-bottom"
-    value="var(--fs-spacing-0)"
-  />
-  <TokenRow token="--fs-out-of-stock-title-line-height" value="1.15" />
-  <TokenRow
-    token="--fs-out-of-stock-title-size"
-    value="var(--fs-text-size-lead)"
-  />
-  <TokenRow
-    token="--fs-out-of-stock-title-weight"
-    value="var(--fs-text-weight-bold)"
-  />
-  <TokenRow
-    token="--fs-out-of-stock-title-color"
-    value="var(--fs-color-neutral-text)"
-    isColor
+    token="--fs-cart-sidebar-list-padding"
+    value="var(--fs-spacing-3)"
   />
 </TokenTable>
 
-#### Message
+#### Footer
 
 <TokenTable>
   <TokenRow
-    token="--fs-out-of-stock-message-column-gap"
-    value="var(--fs-spacing-0)"
-  />
-  <TokenRow
-    token="--fs-out-of-stock-message-margin-bottom"
-    value="var(--fs-spacing-3)"
-  />
-  <TokenRow token="--fs-out-of-stock-message-line-height" value="1.15" />
-  <TokenRow
-    token="--fs-out-of-stock-message-size"
-    value="var(--fs-text-size-base)"
-  />
-  <TokenRow
-    token="--fs-out-of-stock-message-weight"
-    value="var(--fs-text-weight-regular)"
-  />
-  <TokenRow
-    token="--fs-out-of-stock-message-color"
-    value="var(--fs-color-success-text)"
+    token="--fs-cart-sidebar-footer-bkg-color"
+    value="var(--fs-color-neutral-0)"
     isColor
   />
-</TokenTable>
-
-#### Button
-
-<TokenTable>
-  <TokenRow token="--fs-out-of-stock-button-width" value="100%" />
   <TokenRow
-    token="--fs-out-of-stock-button-margin-top"
-    value="var(--fs-spacing-3)"
+    token="--fs-cart-sidebar-footer-box-shadow"
+    value="0 0 6px rgb(0 0 0 / 20%)"
   />
 </TokenTable>
 
@@ -234,10 +246,10 @@ import '@faststore/ui/src/components/organisms/CartSidebar/styles.scss'
 
 ## Customization
 
-`data-fs-out-of-stock`
+`data-fs-cart-sidebar`
 
-`data-fs-out-of-stock-title`
+`data-fs-cart-sidebar-title`
 
-`data-fs-out-of-stock-message`
+`data-fs-cart-sidebar-list`
 
-`data-fs-out-of-stock-button`
+`data-fs-cart-sidebar-footer`
