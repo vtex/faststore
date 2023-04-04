@@ -12,6 +12,7 @@ import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import {
   Alert,
+  Button,
   CartSidebar,
   CartSidebarList,
   CartSidebarFooter,
@@ -24,6 +25,7 @@ import {
   GiftContent,
   GiftImage,
   OrderSummary,
+  useUI,
 } from '@faststore/ui'
 
 import { product } from 'site/mocks/product'
@@ -65,12 +67,15 @@ export const activeVariations = Object.keys(skuActiveVariants).map((key) => ({
 
 # Cart Sidebar
 
-The `CartSidebar` displays the summary of items added to the cart along with detailed information, and checkout option. The final CartSidebar component is a compound of the following:
+The `CartSidebar` displays the summary of items added to the cart along with detailed information, and checkout option.
 
 </header>
 
+The final component is a compound of the following:
+
+- `CartSidebar`: renders a `SlideOver` as wrapper with the `CartSidebarList` and `CartSidebarFooter`.
 - `CartSidebarList`: wraps a series of `CartItem`s and `Gifts`.
-- `CartSidebarFooter`: wraps an `OrdeSummary` and probably the Checkout Button.
+- `CartSidebarFooter`: wraps an `OrdeSummary` usually along with the Checkout Button.
 
 ## Import
 
@@ -88,58 +93,86 @@ import '@faststore/ui/src/components/organisms/CartSidebar/styles.scss'
 
 ---
 
+export const CartSidebarUsage = () => {
+  const { cart: displayCart, openCart, closeCart } = useUI()
+  return (
+    <>
+      <Button
+        variant="tertiary"
+        iconPosition="left"
+        aria-label="Open Filters"
+        onClick={openCart}
+      >
+        Open Cart
+      </Button>
+      {displayCart && (
+        <CartSidebar
+          totalItems={0}
+          alertIcon={<Icon name="Truck" />}
+          alertText="Free shipping starts at $300"
+          onClose={closeCart}
+        >
+          <CartSidebarList>
+            <CartItem
+              price={{
+                value: product.offers.offers[0].price,
+                listPrice: product.offers.offers[0].listPrice,
+                formatter: useFormattedPrice,
+              }}
+              quantity={3}
+            >
+              <CartItemImage>
+                <img
+                  data-fs-image
+                  src={product.image[0].url}
+                  alt={product.image[0].alternateName}
+                />
+              </CartItemImage>
+              <CartItemSummary
+                title={product.isVariantOf.name}
+                activeVariations={activeVariations}
+              />
+            </CartItem>
+            <Gift icon={<Icon name="Tag" />}>
+              <GiftImage>
+                <img
+                  src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+                  alt="Magicwhite"
+                  width={89}
+                  height={89}
+                />
+              </GiftImage>
+              <GiftContent
+                productName="Apple Magic Mouse"
+                price={{
+                  value: 999,
+                  listPrice: 999,
+                  formatter: useFormattedPrice,
+                }}
+              />
+            </Gift>
+          </CartSidebarList>
+          <CartSidebarFooter>
+            <OrderSummary
+              subtotalLabel="Subtotal (3 products)"
+              subtotalValue="$1,200"
+              discountValue="-$100"
+              totalValue="$1,100"
+            />
+          </CartSidebarFooter>
+        </CartSidebar>
+      )}
+    </>
+  )
+}
+
 ## Usage
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection containerStyle={{display: 'block'}}>
       <UIProvider>
-      <CartSidebar totalItems={0} alertIcon={<Icon name="Truck" />} alertText="Free shipping starts at $300" >
-        <CartSidebarList>
-          <CartItem
-            price={{
-              value: product.offers.offers[0].price,
-              listPrice: product.offers.offers[0].listPrice,
-              formatter: useFormattedPrice,
-            }}
-            quantity={3}
-          >
-          <CartItemImage>
-            <img
-              data-fs-image
-              src={product.image[0].url}
-              alt={product.image[0].alternateName}
-            />
-          </CartItemImage>
-          <CartItemSummary
-            title={product.isVariantOf.name}
-            activeVariations={activeVariations}
-          />
-          </CartItem>
-          <Gift icon={<Icon name="Tag" />}>
-            <GiftImage>
-              <img
-                src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
-                alt="Magicwhite"
-                width={89}
-                height={89}
-              />
-            </GiftImage>
-            <GiftContent
-              productName="Apple Magic Mouse"
-              price={{ value: 999, listPrice: 999, formatter: useFormattedPrice }}
-            />
-          </Gift>
-        </CartSidebarList>
-        <CartSidebarFooter>
-          <OrderSummary
-            subtotalLabel="Subtotal (3 products)"
-            subtotalValue={useFormattedPrice(3)}
-            discountValue={`-${useFormattedPrice(100)}`}
-            totalValue={useFormattedPrice(12300)}
-          />
-        </CartSidebarFooter>
-      </CartSidebar>
+        <CartSidebarUsage />
       </UIProvider>
     </OverviewSection>
 
@@ -186,9 +219,9 @@ import '@faststore/ui/src/components/organisms/CartSidebar/styles.scss'
         <CartSidebarFooter>
           <OrderSummary
             subtotalLabel="Subtotal (3 products)"
-            subtotalValue={useFormattedPrice(3)}
-            discountValue={`-${useFormattedPrice(100)}`}
-            totalValue={useFormattedPrice(12300)}
+            subtotalValue="$1,200"
+            discountValue="-$100"
+            totalValue="$1,100"
           />
         </CartSidebarFooter>
       </CartSidebar>
@@ -200,8 +233,6 @@ import '@faststore/ui/src/components/organisms/CartSidebar/styles.scss'
 ---
 
 ## Props
-
-### CartSidebar
 
 <CartSidebarPropsSection component="CartSidebar" />
 
