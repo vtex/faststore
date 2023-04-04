@@ -29,18 +29,20 @@
                   "title": "Icon",
                   "type": "string",
                   "enumNames": ["Magnifying Glass"],
-                  "enum": ["MagnifyingGlass"]
+                  "enum": ["MagnifyingGlass"],
+                  "default": "MagnifyingGlass"
                 },
                 "alt": {
                   "title": "Alternative Label",
-                  "type": "string"
+                  "type": "string",
+                  "default": "Magnifying Glass"
                 }
               }
             }
           }
         },
         "search-history": {
-          "title": "History",
+          "title": "Search History",
           "type": "object",
           "properties": {
             "title": {
@@ -61,7 +63,8 @@
                   "title": "Icon",
                   "type": "string",
                   "enumNames": ["Clock Clockwise"],
-                  "enum": ["ClockClockwise"]
+                  "enum": ["ClockClockwise"],
+                  "default": "ClockClockwise"
                 },
                 "alt": {
                   "type": "string",
@@ -78,7 +81,7 @@
           }
         },
         "search-top": {
-          "title": "Top Searches",
+          "title": "Top Search",
           "type": "object",
           "properties": {
             "title": {
@@ -177,16 +180,18 @@
                   "title": "Icon",
                   "type": "string",
                   "enumNames": ["User"],
-                  "enum": ["User"]
+                  "enum": ["User"],
+                  "default": "User"
                 },
                 "alt": {
                   "title": "Alternative Label",
-                  "type": "string"
+                  "type": "string",
+                  "default": "User"
                 }
               }
             },
             "label": {
-              "title": "Sign in call to action",
+              "title": "Call to Action",
               "type": "string",
               "default": "Sign In"
             }
@@ -200,11 +205,13 @@
               "title": "Icon",
               "type": "string",
               "enumNames": ["Shopping Cart"],
-              "enum": ["ShoppingCart"]
+              "enum": ["ShoppingCart"],
+              "default": "ShoppingCart"
             },
             "alt": {
               "title": "Alternative Label",
-              "type": "string"
+              "type": "string",
+              "default": "Shopping Cart"
             }
           }
         },
@@ -229,11 +236,13 @@
                       "title": "Icon",
                       "type": "string",
                       "enumNames": ["Map Pin"],
-                      "enum": ["MapPin"]
+                      "enum": ["MapPin"],
+                      "default": "MapPin"
                     },
                     "alt": {
                       "title": "Alternative Label",
-                      "type": "string"
+                      "type": "string",
+                      "default": "MapPin"
                     }
                   }
                 },
@@ -247,7 +256,6 @@
             "page-links": {
               "title": "Links",
               "type": "array",
-              "minItems": 4,
               "maxItems": 8,
               "items": {
                 "title": "Link",
@@ -323,7 +331,6 @@
       "title": "Footer",
       "description": "Footer displayed on all pages",
       "type": "object",
-      "required": [],
       "properties": {
         "incentives": {
           "title": "Incentives",
@@ -364,6 +371,10 @@
                   "Storefront",
                   "ShieldCheck"
                 ]
+              },
+              "alt": {
+                "title": "Alternative Label",
+                "type": "string"
               }
             }
           }
@@ -386,20 +397,18 @@
                 "minItems": 1,
                 "maxItems": 8,
                 "items": {
-                  "link": {
-                    "title": "Link",
-                    "type": "object",
-                    "required": ["text", "url"],
-                    "properties": {
-                      "text": {
-                        "title": "Link Text",
-                        "type": "string"
-                      },
-                      "url": {
-                        "title": "URL",
-                        "type": "string",
-                        "hint": "Absolute or Relative"
-                      }
+                  "title": "Link",
+                  "type": "object",
+                  "required": ["text", "url"],
+                  "properties": {
+                    "text": {
+                      "title": "Link Text",
+                      "type": "string"
+                    },
+                    "url": {
+                      "title": "Link URL",
+                      "type": "string",
+                      "description": "Absolute or Relative"
                     }
                   }
                 }
@@ -422,41 +431,39 @@
               "minItems": 0,
               "maxItems": 8,
               "items": {
-                "link": {
-                  "title": "Link",
-                  "type": "object",
-                  "required": ["alt", "url", "icon"],
-                  "properties": {
-                    "icon": {
-                      "title": "Icon",
-                      "type": "object",
-                      "properties": {
-                        "icon": {
-                          "title": "Icon",
-                          "type": "string",
-                          "enumNames": [
-                            "Facebook",
-                            "Instagram",
-                            "Pinterest",
-                            "Twitter"
-                          ],
-                          "enum": [
-                            "Facebook",
-                            "Instagram",
-                            "Pinterest",
-                            "Twitter"
-                          ]
-                        }
+                "title": "Link",
+                "type": "object",
+                "required": ["alt", "url", "icon"],
+                "properties": {
+                  "icon": {
+                    "title": "Icon",
+                    "type": "object",
+                    "properties": {
+                      "icon": {
+                        "title": "Icon",
+                        "type": "string",
+                        "enumNames": [
+                          "Facebook",
+                          "Instagram",
+                          "Pinterest",
+                          "Twitter"
+                        ],
+                        "enum": [
+                          "Facebook",
+                          "Instagram",
+                          "Pinterest",
+                          "Twitter"
+                        ]
                       }
-                    },
-                    "alt": {
-                      "title": "Alt",
-                      "type": "string"
-                    },
-                    "url": {
-                      "title": "URL",
-                      "type": "string"
                     }
+                  },
+                  "alt": {
+                    "title": "Alt",
+                    "type": "string"
+                  },
+                  "url": {
+                    "title": "URL",
+                    "type": "string"
                   }
                 }
               }
@@ -481,7 +488,7 @@
           }
         },
         "copyright-info": {
-          "title": "Copyright message",
+          "title": "Copyright Message",
           "type": "string"
         },
         "accepted-payment-methods": {
@@ -513,8 +520,26 @@
                       "icon": {
                         "title": "Icon",
                         "type": "string",
-                        "enumNames": ["REPLACe"],
-                        "enum": ["REPLACE"]
+                        "enumNames": [
+                          "Visa",
+                          "Diners Club",
+                          "Mastercard",
+                          "Elo Card",
+                          "PayPal",
+                          "Stripe",
+                          "GooglePay",
+                          "ApplePay"
+                        ],
+                        "enum": [
+                          "Visa",
+                          "DinersClub",
+                          "Mastercard",
+                          "EloCard",
+                          "PayPal",
+                          "Stripe",
+                          "GooglePay",
+                          "ApplePay"
+                        ]
                       }
                     }
                   },
@@ -685,6 +710,10 @@
                   "Storefront",
                   "ShieldCheck"
                 ]
+              },
+              "alt": {
+                "title": "Alternative Label",
+                "type": "string"
               }
             }
           }
@@ -711,7 +740,7 @@
           "description": "Number of items to display"
         },
         "after": {
-          "type": "string",
+          "type": "integer",
           "title": "After",
           "default": "0",
           "description": "Initial pagination item"
@@ -755,13 +784,13 @@
             "properties": {
               "key": {
                 "title": "Key",
-                "hint": "For collections, use: productClusterIds",
+                "description": "For collections use: productClusterIds",
                 "type": "string",
                 "default": "productClusterIds"
               },
               "value": {
                 "title": "Value",
-                "hint": "For collection 140, use: 140",
+                "description": "E.g. For 'Most Wanted' collection, use: 140. To consult your collection ids go to Collections page",
                 "type": "string",
                 "default": "140"
               }
@@ -772,6 +801,11 @@
           "title": "Product Card Configuration",
           "type": "object",
           "properties": {
+            "show-discount-badge": {
+              "title": "Show discount badge?",
+              "type": "boolean",
+              "default": true
+            },
             "show-buy-button": {
               "title": "Show buy button?",
               "type": "boolean",
@@ -780,12 +814,7 @@
             "buy-button-title": {
               "title": "Buy Button Text",
               "type": "string",
-              "default": true
-            },
-            "show-discount-badge": {
-              "title": "Show discount badge?",
-              "type": "boolean",
-              "default": true
+              "default": "Buy"
             }
           }
         }
@@ -840,7 +869,7 @@
         },
         "after": {
           "title": "After",
-          "type": "string",
+          "type": "integer",
           "default": "0",
           "description": "Initial pagination item"
         },
