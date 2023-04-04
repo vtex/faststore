@@ -4,33 +4,15 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/CartSidebar___5863b0eb4a4a8ce9a98da5c760461e61.png
 ---
 
-import path from 'path'
-import { useSSG } from 'nextra/ssg'
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
-import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import {
-  Alert,
-  Button,
-  CartSidebar,
-  CartSidebarList,
-  CartSidebarFooter,
-  UIProvider,
-  CartItem,
-  CartItemImage,
-  CartItemSummary,
-  Icon,
-  Gift,
-  GiftContent,
-  GiftImage,
-  OrderSummary,
-  useUI,
-} from '@faststore/ui'
+import { UIProvider } from '@faststore/ui'
+import CartSidebarUsage from 'site/components/CartSidebar/CartSidebarUsage'
 
-import { product } from 'site/mocks/product'
-import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
-
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
@@ -55,13 +37,6 @@ export const CartSidebarPropsSection = ({ component }) => {
     CartSidebar: <PropsSection propsList={CartSidebarProps} />,
   }[component]
 }
-
-export const skuActiveVariants =
-  product.isVariantOf.skuVariants.activeVariations
-export const activeVariations = Object.keys(skuActiveVariants).map((key) => ({
-  label: key,
-  option: skuActiveVariants[key],
-}))
 
 <header>
 
@@ -92,79 +67,6 @@ import '@faststore/ui/src/components/organisms/CartSidebar/styles.scss'
 ```
 
 ---
-
-export const CartSidebarUsage = () => {
-  const { cart: displayCart, openCart, closeCart } = useUI()
-  return (
-    <>
-      <Button
-        variant="tertiary"
-        iconPosition="left"
-        aria-label="Open Filters"
-        onClick={openCart}
-      >
-        Open Cart
-      </Button>
-      {displayCart && (
-        <CartSidebar
-          totalItems={0}
-          alertIcon={<Icon name="Truck" />}
-          alertText="Free shipping starts at $300"
-          onClose={closeCart}
-        >
-          <CartSidebarList>
-            <CartItem
-              price={{
-                value: product.offers.offers[0].price,
-                listPrice: product.offers.offers[0].listPrice,
-                formatter: useFormattedPrice,
-              }}
-              quantity={3}
-            >
-              <CartItemImage>
-                <img
-                  data-fs-image
-                  src={product.image[0].url}
-                  alt={product.image[0].alternateName}
-                />
-              </CartItemImage>
-              <CartItemSummary
-                title={product.isVariantOf.name}
-                activeVariations={activeVariations}
-              />
-            </CartItem>
-            <Gift icon={<Icon name="Tag" />}>
-              <GiftImage>
-                <img
-                  src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
-                  alt="Magicwhite"
-                  width={89}
-                  height={89}
-                />
-              </GiftImage>
-              <GiftContent
-                productName="Apple Magic Mouse"
-                price={{
-                  value: 999,
-                  listPrice: 999,
-                  formatter: useFormattedPrice,
-                }}
-              />
-            </Gift>
-          </CartSidebarList>
-          <CartSidebarFooter>
-            <OrderSummary
-              subtotalLabel="Subtotal (3 products)"
-              subtotalValue="$1,200"
-              discountValue="-$100"
-              totalValue="$1,100"
-            />
-          </CartSidebarFooter>
-        </CartSidebar>
-      )}
-    </>
-  )
-}
 
 ## Usage
 
