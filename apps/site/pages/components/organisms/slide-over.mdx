@@ -22,6 +22,7 @@ import {
 } from '@faststore/ui'
 import SlideOverUsage from 'site/components/SlideOver/SlideOverUsage'
 import FilterUsage from 'site/components/Filter/FilterUsage'
+import CartSidebarUsage from 'site/components/CartSidebar/CartSidebarUsage'
 import { SearchProvider } from '@faststore/sdk'
 
 import path from 'path'
@@ -319,9 +320,11 @@ export const SlideOverFullLeft = () => {
   <SectionItem
     title="Cart Sidebar"
     description="The CartSidebar displays the summary of items added to the cart along with detailed information, and checkout option."
-    actionPath="/"
+    actionPath="/components/organisms/cart-sidebar"
   >
-    [Coming Soon]
+    <UIProvider>
+      <CartSidebarUsage />
+    </UIProvider>
   </SectionItem>
   <SectionItem
     title="Filter Slider"

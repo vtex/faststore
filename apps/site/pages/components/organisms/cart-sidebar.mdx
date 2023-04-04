@@ -8,7 +8,8 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { UIProvider } from '@faststore/ui'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { UIProvider, OrderSummary } from '@faststore/ui'
 import CartSidebarUsage from 'site/components/CartSidebar/CartSidebarUsage'
 
 import path from 'path'
@@ -186,3 +187,22 @@ import '@faststore/ui/src/components/organisms/CartSidebar/styles.scss'
 `data-fs-cart-sidebar-list`
 
 `data-fs-cart-sidebar-footer`
+
+---
+
+## Related components
+
+<SectionList grid="row">
+  <SectionItem
+    title="Order Summary"
+    description="This component provide a summary of the items in the cart, including the total price, related shipping tax, and discounts."
+    actionPath="/components/molecules/order-summary"
+  >
+    <OrderSummary
+      subtotalLabel="Subtotal (3 products)"
+      subtotalValue="$1,200"
+      discountValue="-$100"
+      totalValue="$1,100"
+    />
+  </SectionItem>
+</SectionList>
