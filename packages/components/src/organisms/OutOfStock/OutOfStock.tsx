@@ -1,7 +1,6 @@
 import type { FormHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 import { Button, Icon, InputField } from '../..'
-import { BellRinging } from '../../assets'
 
 export interface OutOfStockProps extends FormHTMLAttributes<HTMLFormElement> {
   /**
