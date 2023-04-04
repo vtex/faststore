@@ -19,9 +19,9 @@ describe('Cart Sidebar', () => {
     cy.waitForHydration()
 
     cy.getById('cart-toggle').first().click()
-    cy.getById('cart-sidebar').should('exist')
-    cy.getById('cart-sidebar-button-close').first().click()
-    cy.getById('cart-sidebar').should('not.exist')
+    cy.getById('fs-cart-sidebar').should('exist')
+    cy.getById('fs-cart-sidebar-button-close').first().click()
+    cy.getById('fs-cart-sidebar').should('not.exist')
   })
 
   context('when opening the cart sidebar', () => {
@@ -31,7 +31,7 @@ describe('Cart Sidebar', () => {
 
       // window scrolls to keep cart-toggle on the screen initially
       cy.getById('cart-toggle').click()
-      cy.getById('cart-sidebar').should('exist')
+      cy.getById('fs-cart-sidebar').should('exist')
 
       // simulate touch scroll. Do not use window.scrollTo
       cy.get('[data-fs-empty-state]')
