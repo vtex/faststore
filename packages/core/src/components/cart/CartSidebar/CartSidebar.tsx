@@ -1,6 +1,8 @@
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import {
-  List as UIList,
+  CartSidebar as UICartSidebar,
+  CartSidebarList as UICartSidebarList,
+  CartSidebarFooter as UICartSidebarFooter,
   Button as UIButton,
   Badge as UIBadge,
   Alert as UIAlert,
@@ -59,37 +61,21 @@ function CartSidebar() {
   }, [])
 
   const closeBtnProps = {
-    testId: 'cart-sidebar-button-close',
+    testId: 'fs-cart-sidebar-button-close',
   }
 
   return (
-    <UISlideOver
-      fade={fade}
-      isOpen={displayCart}
-      onDismiss={() => fadeOut()}
-      size="partial"
-      direction="rightSide"
-      className={styles.fsCartSidebar}
-      onTransitionEnd={() => fade === 'out' && closeCart()}
-      data-testid="cart-sidebar"
+    <UICartSidebar
+      totalItems={totalItems}
+      alertIcon={<Icon name="Truck" />}
+      alertText="Free shipping starts at $300"
+      onClose={closeCart}
     >
-      <UISlideOverHeader closeBtnProps={closeBtnProps} onClose={fadeOut}>
-        <div data-fs-cart-sidebar-title>
-          <p data-fs-cart-sidebar-title-text className="text__lead">
-            Your Cart
-          </p>
-          <UIBadge variant="info">{totalItems}</UIBadge>
-        </div>
-      </UISlideOverHeader>
-      <UIAlert icon={<Icon name="Truck" />}>
-        Free shipping starts at $300
-      </UIAlert>
-
       {isEmpty ? (
         <EmptyCart onDismiss={fadeOut} />
       ) : (
         <>
-          <UIList data-fs-cart-sidebar-list>
+          <UICartSidebarList>
             {items.map((item) => (
               <li key={item.id}>
                 <CartItem item={item} />
@@ -104,9 +90,9 @@ function CartSidebar() {
                 ))}
               </>
             )}
-          </UIList>
+          </UICartSidebarList>
 
-          <footer data-fs-cart-sidebar-footer>
+          <UICartSidebarFooter>
             <OrderSummary
               subTotal={subTotal}
               total={total}
@@ -127,10 +113,10 @@ function CartSidebar() {
                 </UIButton>
               }
             />
-          </footer>
+          </UICartSidebarFooter>
         </>
       )}
-    </UISlideOver>
+    </UICartSidebar>
   )
 }
 
