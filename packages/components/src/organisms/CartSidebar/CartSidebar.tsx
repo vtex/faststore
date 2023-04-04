@@ -14,6 +14,11 @@ import { SlideOverDirection, SlideOverWidthSize } from '../SlideOver'
 
 export interface CartSidebarProps {
   /**
+   * ID to find this component in testing tools (e.g.: cypress,
+   * testing-library, and jest).
+   */
+  testId?: string
+  /**
    * Title for the CartSidebar component.
    */
   title?: string
@@ -44,14 +49,15 @@ export interface CartSidebarProps {
 }
 
 function CartSidebar({
+  testId = 'fs-order-summary',
   title = 'Your Cart',
   size = 'partial',
   direction = 'rightSide',
   totalItems,
   children,
-  onClose,
   alertIcon,
   alertText,
+  onClose,
 }: PropsWithChildren<CartSidebarProps>) {
   const { fade, fadeOut } = useFadeEffect()
   const { closeCart } = useUI()
@@ -65,7 +71,7 @@ function CartSidebar({
       size={size}
       direction={direction}
       onTransitionEnd={() => fade === 'out' && closeCart()}
-      testId="fs-cart-sidebar"
+      testId={testId}
     >
       <SlideOverHeader
         closeBtnProps={{ testId: 'fs-cart-sidebar-button-close' }}
