@@ -14,15 +14,15 @@ import { SlideOverDirection, SlideOverWidthSize } from '../SlideOver'
 
 export interface CartSidebarProps {
   /**
-   * Title for the FilterSlider component.
+   * Title for the CartSidebar component.
    */
   title?: string
   /**
-   * Represents the side that the FilterSlider comes from.
+   * Represents the side that the CartSidebar comes from.
    */
   direction?: SlideOverDirection
   /**
-   * Represents the size of the FilterSlider.
+   * Represents the size of the CartSidebar.
    */
   size?: SlideOverWidthSize
   /**
@@ -65,6 +65,7 @@ function CartSidebar({
       size={size}
       direction={direction}
       onTransitionEnd={() => fade === 'out' && closeCart()}
+      testId="fs-cart-sidebar"
     >
       <SlideOverHeader
         closeBtnProps={{ testId: 'fs-cart-sidebar-button-close' }}
