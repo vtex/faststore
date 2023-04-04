@@ -8,8 +8,7 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { SearchAutoComplete, SearchAutoCompleteTerm } from '@faststore/ui'
-import { FadersHorizontal, TagIcon } from '@faststore/components'
+import { SearchAutoComplete, SearchAutoCompleteTerm, Icon } from '@faststore/ui'
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
@@ -200,8 +199,8 @@ export const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
 export const searchContentAlt = 'So'
 
 export const suggestionsAlt = [
-  { value: 'sony headphone', icon: <TagIcon /> },
-  { value: 'sound speaker', icon: <FadersHorizontal /> },
+  { value: 'sony headphone', icon: <Icon name="Tag" /> },
+  { value: 'sound speaker', icon: <Icon name="FadersHorizontal" /> },
 ]
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
@@ -227,8 +226,8 @@ export const suggestionsAlt = [
     const searchContent = 'So'
 
     const suggestions = [
-      { value: 'sony headphone', icon: <TagIcon /> },
-      { value: 'sound speaker', icon: <FadersHorizontal /> },
+      { value: 'sony headphone', icon: <Icon name="Tag" /> },
+      { value: 'sound speaker', icon: <Icon name="FadersHorizontal" /> },
     ]
 
     <SearchAutoComplete>

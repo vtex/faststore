@@ -13,9 +13,8 @@ import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
-import { Button, Toast, useUI, UIProvider } from '@faststore/ui'
+import { Button, Toast, Icon, useUI, UIProvider } from '@faststore/ui'
 import ToastUsage from 'site/components/Toast/ToastUsage'
-import { SealCheck, SealWarning } from '@faststore/components'
 
 <header>
 
@@ -32,9 +31,9 @@ Toasts are used to display notifications. They appear temporarily, and should co
     <OverviewSection direction="row">
       <UIProvider>
         <ToastUsage message={'Simple Toast message.'} status={'INFO'} btnLabel="Simple Toast" />
-        <ToastUsage title={'Hooray!'} message={'Thank for your Click.'} status={'INFO'} icon={<SealCheck size={30} />} btnLabel="Info Toast" />
-        <ToastUsage title={'Oops.'} message={'Something went wrong. Please Try again.'} status={'ERROR'} icon={<SealWarning size={30} />} btnLabel="Error Toast" />
-        <ToastUsage title={'Warn.'} message={'Warning: Please Try again.'} status={'WARNING'} icon={<SealWarning size={30} />} btnLabel="Warning Toast" />
+        <ToastUsage title={'Hooray!'} message={'Thank for your Click.'} status={'INFO'} icon={<Icon name="SealCheck" width={30} height={30} />} btnLabel="Info Toast" />
+        <ToastUsage title={'Oops.'} message={'Something went wrong. Please Try again.'} status={'ERROR'} icon={<Icon name="SealWarning" width={30} height={30} />} btnLabel="Error Toast" />
+        <ToastUsage title={'Warn.'} message={'Warning: Please Try again.'} status={'WARNING'} icon={<Icon name="SealWarning" width={30} height={30} />} btnLabel="Warning Toast" />
       </UIProvider>
     </OverviewSection>
   </Tab>
@@ -76,7 +75,7 @@ Toasts are used to display notifications. They appear temporarily, and should co
                   title: 'Hooray!',
                   message: 'Thank for your Click.',
                   status: 'INFO',
-                  icon: <SealCheck size={30} />,
+                  icon: <Icon name="SealCheck" width={30} height={30} />,
                 })
               }
               style={{ width: '16rem' }}
@@ -102,7 +101,7 @@ Toasts are used to display notifications. They appear temporarily, and should co
                   title: 'Oops.',
                   message: 'Something went wrong. Please Try again.',
                   status: 'ERROR',
-                  icon: <SealWarning size={30} />,
+                  icon: <Icon name="SealWarning" width={30} height={30} />,
                 })
               }
               style={{ width: '16rem' }}
@@ -128,7 +127,7 @@ Toasts are used to display notifications. They appear temporarily, and should co
                   title: 'Oops.',
                   message: 'Warn: Please Try again.',
                   status: 'WARNING',
-                  icon: <SealWarning size={30} />,
+                  icon: <Icon name="SealWarning" width={30} height={30} />,
                 })
               }
               style={{ width: '16rem' }}
@@ -166,7 +165,7 @@ import '@faststore/ui/src/components/molecules/Toast/styles.scss'
 
 <OverviewSection direction="row">
   <UIProvider>
-    <ToastUsage title={'Hooray!'} message={'Thank for your Click.'} status={'INFO'} icon={<SealCheck size={30} />} btnLabel="Info Toast"/>
+    <ToastUsage title={'Hooray!'} message={'Thank for your Click.'} status={'INFO'} icon={<Icon name="SealCheck" width={30} height={30} />} btnLabel="Info Toast"/>
   </UIProvider>
 </OverviewSection>
 ```tsx
@@ -181,7 +180,7 @@ import '@faststore/ui/src/components/molecules/Toast/styles.scss'
               title: 'Hooray!',
               message: 'Thank for your Click.',
               status: 'INFO',
-              icon: <SealCheck size={30} />,
+              icon: <Icon name="SealCheck" width={30} height={30} />,
             })
           }
           style={{ width: '16rem' }}

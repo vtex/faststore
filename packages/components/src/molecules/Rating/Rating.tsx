@@ -1,9 +1,7 @@
-import React, { forwardRef, useState } from 'react'
-import { ReactNode } from 'react'
-import { HTMLAttributes } from 'react'
+import React, { forwardRef, HTMLAttributes, ReactNode, useState } from 'react'
 
+import { Icon, IconButton } from '../..'
 import List from '../../atoms/List'
-import { Icon, IconButton, Star } from '../..'
 
 export interface RatingProps
   extends Omit<HTMLAttributes<HTMLUListElement>, 'onChange'> {
@@ -16,7 +14,7 @@ export interface RatingProps
    */
   value: number
   /**
-   * Icon to represent the rating score unit (e.g.: a <Star /> component)
+   * Icon to represent the rating score unit (e.g.: a <Icon name="Star" /> component)
    */
   icon?: ReactNode
   /**
@@ -47,7 +45,9 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
   ref
 ) {
   const [hover, setHover] = useState(0)
-  const ratingIcon = icon ? icon : <Star />
+
+  const outlineProps = { 'data-fs-rating-icon-outline': true }
+  const ratingIcon = React.isValidElement(icon) ? icon : <Icon name="Star" />
 
   return (
     <List
@@ -92,10 +92,12 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
               />
             ) : (
               <>
-                <div data-fs-rating-icon-wrapper>
-                  <Icon component={ratingIcon} />
-                </div>
-                <Icon data-fs-rating-icon-outline component={ratingIcon} />
+                <div data-fs-rating-icon-wrapper>{ratingIcon}</div>
+                {React.isValidElement(icon) ? (
+                  React.cloneElement(icon, outlineProps)
+                ) : (
+                  <Icon name="Star" data-fs-rating-icon-outline />
+                )}
               </>
             )}
           </li>

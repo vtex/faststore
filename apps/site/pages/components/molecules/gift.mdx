@@ -9,10 +9,7 @@ import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
-
 import { Badge, Gift, GiftContent, GiftImage, Icon, Price } from '@faststore/ui'
-import { TagIcon, ShoppingCart } from '@faststore/components'
-
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 import { propsPriceDefinition } from 'site/components/PriceDefinitionProps/PriceDefinitionProps'
 
@@ -67,7 +64,7 @@ The Gift component is a compound of the following:
 ## Overview
 
 export const GiftTemplate = (
-  <Gift icon={<TagIcon />}>
+  <Gift icon={<Icon name="Tag" />}>
     <GiftImage>
       <img
         src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
@@ -84,7 +81,7 @@ export const GiftTemplate = (
 )
 
 export const GiftTemplateIcon = (
-  <Gift icon={<ShoppingCart />}>
+  <Gift icon={<Icon name="ShoppingCart" />}>
     <GiftImage>
       <img
         src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
@@ -118,7 +115,7 @@ export const GiftTemplateWithoutIcon = (
 )
 
 export const GiftTemplateWithoutBadge = (
-  <Gift icon={<TagIcon />}>
+  <Gift icon={<Icon name="Tag" />}>
     <GiftImage>
       <img
         src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
@@ -142,7 +139,7 @@ export const GiftTemplateWithoutBadge = (
   <Tab>
     ```tsx
     // With Tag Icon
-    <Gift icon={<TagIcon />}>
+    <Gift icon={<Icon name="Tag" />}>
       <GiftImage>
         <img
           src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
@@ -160,7 +157,7 @@ export const GiftTemplateWithoutBadge = (
 
     ```tsx
     // With ShoppingCart Icon
-    <Gift icon={<ShoppingCart />}>
+    <Gift icon={<Icon name="ShoppingCart" />}>
       <GiftImage>
         <img
           src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
@@ -196,7 +193,7 @@ export const GiftTemplateWithoutBadge = (
 
     ```tsx
     // Without Badge
-    <Gift icon={<TagIcon />}>
+    <Gift icon={<Icon name="Tag" />}>
       <GiftImage>
         <img
           src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
@@ -241,7 +238,7 @@ import '@faststore/ui/src/components/molecules/Gift/styles.scss'
   </Tab>
   <Tab>
     ```tsx
-    <Gift icon={<TagIcon />}>
+    <Gift icon={<Icon name="Tag" />}>
       <GiftImage>
         <img
           src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"

@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react'
 import type { FormHTMLAttributes } from 'react'
+import React, { forwardRef } from 'react'
 import { Button, Icon, InputField } from '../..'
 import { BellRinging } from '../../assets'
 
@@ -70,7 +70,7 @@ const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
         <h2 data-fs-out-of-stock-title>{title}</h2>
         {subtitle && (
           <p data-fs-out-of-stock-message>
-            <Icon component={<BellRinging size={16} />} />
+            <Icon name="BellRinging" width={16} height={16} />
             {subtitle}
           </p>
         )}
@@ -89,7 +89,7 @@ const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
           loadingLabel={loadingLabel}
           disabled={disabled}
           variant="primary"
-          icon={<BellRinging />}
+          icon={<Icon name="BellRinging" />}
           iconPosition="left"
         >
           {buttonLabel}

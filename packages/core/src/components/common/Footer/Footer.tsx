@@ -1,17 +1,17 @@
 import {
+  Icon,
   List as UIList,
   PaymentMethods as UIPaymentMethods,
 } from '@faststore/ui'
 
-import Logo from 'src/components/ui/Logo'
 import IncentivesFooter from 'src/components/sections/Incentives/IncentivesFooter'
-import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
+import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
 
 import styles from './footer.module.scss'
-import FooterLinks from './FooterLinks'
 import FooterFlags from './FooterFlags'
+import FooterLinks from './FooterLinks'
 
 type FooterProps = {
   /**

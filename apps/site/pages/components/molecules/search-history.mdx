@@ -8,8 +8,7 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { SearchHistory, SearchHistoryTerm } from '@faststore/ui'
-import { Star, Heart, ClockClockwise } from '@faststore/components'
+import { SearchHistory, SearchHistoryTerm, Icon } from '@faststore/ui'
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
@@ -198,12 +197,12 @@ import '@faststore/ui/src/components/molecules/SearchHistory/styles.scss'
     <SearchHistoryTerm
       value="Headphone"
       linkProps={{ href: '#' }}
-      icon={<Star />}
+      icon={<Icon name="Star" />}
     />
     <SearchHistoryTerm
       value="Audio & Video"
       linkProps={{ href: '#' }}
-      icon={<Heart />}
+      icon={<Icon name="Heart" />}
     />
   </SearchHistory>
 </OverviewSection>
@@ -212,12 +211,12 @@ import '@faststore/ui/src/components/molecules/SearchHistory/styles.scss'
   <SearchHistoryTerm
     value="Headphone"
     linkProps={{ href: '#' }}
-    icon={<Star />}
+    icon={<Icon name="Star" />}
   />
   <SearchHistoryTerm
     value="Audio & Video"
     linkProps={{ href: '#' }}
-    icon={<Heart />}
+    icon={<Icon name="Heart" />}
   />
 </SearchHistory>
 ```

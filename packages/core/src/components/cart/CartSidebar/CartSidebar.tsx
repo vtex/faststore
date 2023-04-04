@@ -6,22 +6,23 @@ import {
   Button as UIButton,
   Badge as UIBadge,
   Alert as UIAlert,
+  Badge as UIBadge,
+  Button as UIButton,
+  List as UIList,
   SlideOver as UISlideOver,
   SlideOverHeader as UISlideOverHeader,
 } from '@faststore/ui'
 
+import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
 import { useEffect } from 'react'
-import type { ViewCartEvent, CurrencyCode } from '@faststore/sdk'
 
-import Icon from 'src/components/ui/Icon'
+import { Icon, useFadeEffect, useUI } from '@faststore/ui'
 import { useCart } from 'src/sdk/cart'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
-import { useUI } from '@faststore/ui'
-import { useFadeEffect } from '@faststore/ui'
 
-import CartItem from '../CartItem'
 import Gift from '../../ui/Gift'
+import CartItem from '../CartItem'
 import EmptyCart from '../EmptyCart'
 import OrderSummary from '../OrderSummary'
 import styles from './cart-sidebar.module.scss'

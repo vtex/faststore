@@ -1,7 +1,6 @@
-import React, { forwardRef } from 'react'
 import type { SelectHTMLAttributes } from 'react'
+import React, { forwardRef } from 'react'
 import { Icon } from '../..'
-import { CaretDown } from '../../assets'
 
 export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   /**
@@ -33,7 +32,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
           </option>
         ))}
       </select>
-      <Icon data-fs-select-icon component={<CaretDown />} />
+      <Icon data-fs-select-icon name="CaretDown" />
     </div>
   )
 })

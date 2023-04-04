@@ -1,8 +1,6 @@
-import React, { forwardRef } from 'react'
 import type { ReactNode } from 'react'
-import { Icon } from '../..'
-import { Badge, BadgeProps } from '../..'
-import { X } from '../../assets'
+import React, { forwardRef } from 'react'
+import { Badge, BadgeProps, Icon } from '../..'
 
 export interface TagProps extends BadgeProps {
   /**
@@ -45,7 +43,7 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(function Tag(
         aria-label={iconButtonLabel ? iconButtonLabel : 'remove'}
         onClick={onClose}
       >
-        <Icon component={icon ? icon : <X />} />
+        {React.isValidElement(icon) ? icon : <Icon name="X" />}
       </button>
     </Badge>
   )

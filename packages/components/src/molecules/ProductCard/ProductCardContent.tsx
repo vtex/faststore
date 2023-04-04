@@ -4,16 +4,9 @@ import React, { forwardRef } from 'react'
 import type { PriceDefinition } from '../../typings/PriceDefinition'
 
 import {
-  Link,
-  Price,
   Badge,
-  Button,
-  Rating,
-  DiscountBadge,
-  LinkProps,
-  LinkElementType,
+  Button, DiscountBadge, Icon, Link, LinkElementType, LinkProps, Price, Rating
 } from '../../'
-import { Star, ShoppingCart } from '../../assets'
 
 export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   /**
@@ -108,7 +101,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
               SRText="Sale Price:"
             />
           </div>
-          {ratingValue && <Rating value={ratingValue} icon={<Star />} />}
+          {ratingValue && <Rating value={ratingValue} icon={<Icon name="Star" />} />}
         </div>
         {showDiscountBadge && !outOfStock && (
           <DiscountBadge
@@ -121,7 +114,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           <div data-fs-product-card-actions>
             <Button
               variant="primary"
-              icon={<ShoppingCart />}
+              icon={<Icon name="ShoppingCart" />}
               iconPosition="left"
               size="small"
               onClick={onButtonClick}

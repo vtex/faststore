@@ -15,6 +15,7 @@ import type {
 } from './types/Simulation'
 import type { Session } from './types/Session'
 import type { Channel } from '../../utils/channel'
+import { getCookie } from '../../utils/getCookies'
 import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
@@ -51,20 +52,22 @@ export const VtexCommerce = (
           fetchAPI(`${base}/api/catalog_system/pub/portal/pagetype/${slug}`),
       },
       products: {
-        crossselling: (
-          { type, productId, groupByProduct = true }: {
-            type: ValueOf<typeof FACET_CROSS_SELLING_MAP>;
-            productId: string;
-            groupByProduct?: boolean;
-          },
-        ): Promise<PortalProduct[]> => {
+        crossselling: ({
+          type,
+          productId,
+          groupByProduct = true,
+        }: {
+          type: ValueOf<typeof FACET_CROSS_SELLING_MAP>
+          productId: string
+          groupByProduct?: boolean
+        }): Promise<PortalProduct[]> => {
           const params = new URLSearchParams({
             sc: ctx.storage.channel.salesChannel,
             groupByProduct: groupByProduct.toString(),
           })
 
           return fetchAPI(
-            `${base}/api/catalog_system/pub/products/crossselling/${type}/${productId}?${params}`,
+            `${base}/api/catalog_system/pub/products/crossselling/${type}/${productId}?${params}`
           )
         },
       },
@@ -86,16 +89,20 @@ export const VtexCommerce = (
           }
         )
       },
-      shippingData: (
-        { id, body }: { id: string; body: unknown },
-      ): Promise<OrderForm> => {
+      shippingData: ({
+        id,
+        body,
+      }: {
+        id: string
+        body: unknown
+      }): Promise<OrderForm> => {
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
             ...BASE_INIT,
             body: JSON.stringify(body),
-          },
-        );
+          }
+        )
       },
       orderForm: ({
         id,
@@ -164,7 +171,7 @@ export const VtexCommerce = (
             ...BASE_INIT,
             body: JSON.stringify({ value }),
             method: 'PUT',
-          },
+          }
         )
       },
       region: async ({
@@ -194,14 +201,34 @@ export const VtexCommerce = (
         'items',
         'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
-
-      return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
-        method: 'POST',
+      if (getCookie('vtex_session', ctx.headers.cookie)) {
+        // cookie set
+        return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
+          method: 'GET',
+          headers: {
+            'content-type': 'application/json',
+            cookie: ctx.headers.cookie,
+          },
+        })
+      } else {
+        // cookie unset -> create session
+        return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            cookie: ctx.headers.cookie,
+          },
+          body: '{}',
+        })
+      }
+    },
+    getSessionOrder: (): Promise<Session> => {
+      return fetchAPI(`${base}/api/sessions?items=checkout.orderFormId`, {
+        method: 'GET',
         headers: {
           'content-type': 'application/json',
           cookie: ctx.headers.cookie,
         },
-        body: '{}',
       })
     },
     subscribeToNewsletter: (data: {

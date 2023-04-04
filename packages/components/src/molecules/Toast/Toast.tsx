@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Icon } from '../..'
 import { useUI } from '../../hooks'
 
 function Toast() {
@@ -39,7 +38,7 @@ function Toast() {
     >
       {toast.icon && (
         <div data-fs-toast-icon-container>
-          <Icon component={toast.icon} />
+          {React.isValidElement(toast.icon) && toast.icon}
         </div>
       )}
       <div data-fs-toast-content>

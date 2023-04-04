@@ -7,7 +7,7 @@
   --fs-tag-text-color                     : var(--fs-color-text);
 
   // Icon
-  --fs-tag-icon-size                      : var(--fs-spacing-3);
+  --fs-tag-icon-size                      : var(--fs-spacing-4);
   --fs-tag-icon-stroke-width              : var(--fs-spacing-4);
 
   position: relative;
@@ -32,18 +32,18 @@
     height: var(--fs-control-tap-size);
     color: var(--fs-tag-text-color);
 
-    > span {
+    > [data-fs-icon] {
       border: var(--fs-border-width) solid transparent;
       border-radius: var(--fs-border-radius-circle);
       padding: 3px;
       transition: var(--fs-badge-transition-property) var(--fs-badge-transition-timing) var(--fs-badge-transition-function);
     }
 
-    &:hover > span, &:focus > span {
+    &:hover > [data-fs-icon], &:focus > [data-fs-icon] {
       filter: brightness(0.90);
     }
 
-    &:focus > span {
+    &:focus > [data-fs-icon] {
       border: var(--fs-border-width) solid var(--fs-tag-text-color);
     }
 
@@ -62,37 +62,37 @@
   }
 
   &[data-fs-badge-variant="warning"] {
-    [data-fs-tag-icon-button] > span {
+    [data-fs-tag-icon-button] > [data-fs-icon]  {
       background-color: var(--fs-badge-warning-bkg-color);
     }
   }
 
   &[data-fs-badge-variant="highlighted"] {
-    [data-fs-tag-icon-button] > span {
+    [data-fs-tag-icon-button] > [data-fs-icon]  {
       background-color: var(--fs-badge-highlighted-bkg-color);
     }
   }
 
   &[data-fs-badge-variant="neutral"] {
-    [data-fs-tag-icon-button] > span {
+    [data-fs-tag-icon-button] > [data-fs-icon]  {
       background-color: var(--fs-badge-neutral-bkg-color);
     }
   }
 
   &[data-fs-badge-variant="info"] {
-    [data-fs-tag-icon-button] > span {
+    [data-fs-tag-icon-button] > [data-fs-icon]  {
       background-color: var(--fs-badge-info-bkg-color);
     }
   }
 
   &[data-fs-badge-variant="danger"] {
-    [data-fs-tag-icon-button] > span {
+    [data-fs-tag-icon-button] > [data-fs-icon]  {
       background-color: var(--fs-badge-danger-bkg-color);
     }
   }
 
   &[data-fs-badge-variant="success"] {
-    [data-fs-tag-icon-button] > span {
+    [data-fs-tag-icon-button] > [data-fs-icon]  {
       background-color: var(--fs-badge-success-bkg-color);
     }
   }
