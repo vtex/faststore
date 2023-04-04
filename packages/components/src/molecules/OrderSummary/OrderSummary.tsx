@@ -14,7 +14,7 @@ export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
    */
   subtotalLabel?: string
   /**
-   * Subtotal value of the order.  If provided, subtotal label and value will be shown.
+   * Subtotal value of the order. If provided, subtotal label and value will be shown.
    */
   subtotalValue?: string
   /**
