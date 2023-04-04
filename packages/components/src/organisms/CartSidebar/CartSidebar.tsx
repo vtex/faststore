@@ -30,7 +30,7 @@ export interface CartSidebarProps {
    */
   totalItems: number
   /**
-   * A React component that will be rendered as an icon on the Alert component (e.g.: a <Truck /> component).
+   * A React component that will be rendered as an icon on the Alert component.
    */
   alertIcon?: ReactNode
   /**
