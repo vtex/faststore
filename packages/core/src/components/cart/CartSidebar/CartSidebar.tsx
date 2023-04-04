@@ -23,8 +23,8 @@ function CartSidebar() {
   const { currency } = useSession()
   const btnProps = useCheckoutButton()
   const cart = useCart()
-  const { cart: displayCart, closeCart } = useUI()
-  const { fade, fadeOut } = useFadeEffect()
+  const { closeCart } = useUI()
+  const { fadeOut } = useFadeEffect()
 
   const { items, gifts, totalItems, isValidating, subTotal, total } = cart
 
