@@ -4,13 +4,6 @@ import {
   CartSidebarList as UICartSidebarList,
   CartSidebarFooter as UICartSidebarFooter,
   Button as UIButton,
-  Badge as UIBadge,
-  Alert as UIAlert,
-  Badge as UIBadge,
-  Button as UIButton,
-  List as UIList,
-  SlideOver as UISlideOver,
-  SlideOverHeader as UISlideOverHeader,
 } from '@faststore/ui'
 
 import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
@@ -25,7 +18,6 @@ import Gift from '../../ui/Gift'
 import CartItem from '../CartItem'
 import EmptyCart from '../EmptyCart'
 import OrderSummary from '../OrderSummary'
-import styles from './cart-sidebar.module.scss'
 
 function CartSidebar() {
   const { currency } = useSession()
@@ -60,10 +52,6 @@ function CartSidebar() {
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const closeBtnProps = {
-    testId: 'fs-cart-sidebar-button-close',
-  }
 
   return (
     <UICartSidebar
