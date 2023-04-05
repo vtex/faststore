@@ -82,7 +82,7 @@ function FilterSlider({
           return (
             <UIFilterFacets
               key={`${testId}-${label}-${index}`}
-              testId={testId}
+              testId={`mobile-${testId}`}
               index={index}
               type={type}
               label={label}
@@ -93,7 +93,7 @@ function FilterSlider({
                     <UIFilterFacetBooleanItem
                       key={`${testId}-${facet.label}-${item.label}`}
                       id={`${testId}-${facet.label}-${item.label}`}
-                      testId={testId}
+                      testId={`mobile-${testId}`}
                       onFacetChange={(facet) =>
                         dispatch({ type: 'toggleFacet', payload: facet })
                       }
