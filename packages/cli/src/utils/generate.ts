@@ -124,29 +124,48 @@ async function copyTheme() {
 }
 
 function mergeCMSFile(fileName: string) {
-  // TODO: create a validation when has the cms files but doesn't have a component for then
-  if (existsSync(userCMSDir) && readdirSync(userCMSDir).length > 0) {
-    const coreContentTypes = readFileSync(`${coreCMSDir}/${fileName}`, 'utf8')
-    const customContentTypes = readFileSync(`${userCMSDir}/${fileName}`, 'utf8')
-    const coreContentTypesJSON = JSON.parse(coreContentTypes)
-    const customContentTypesJSON = JSON.parse(customContentTypes)
+  const customFilePath = `${userCMSDir}/${fileName}`
+  const coreFilePath = `${coreCMSDir}/${fileName}`
 
-    const mergeContentTypes = [
-      ...coreContentTypesJSON,
-      ...customContentTypesJSON,
-    ]
+  const coreFile = readFileSync(coreFilePath, 'utf8')
+  const coreJSON = JSON.parse(coreFile)
+
+  let output = []
+
+  // TODO: create a validation when has the cms files but doesn't have a component for then
+  if (existsSync(customFilePath)) {
+    const customFile = readFileSync(customFilePath, 'utf8');
+    let customJSON;
 
     try {
-      writeFileSync(
-        `${tmpCMSDir}/${fileName}`,
-        JSON.stringify(mergeContentTypes)
+      customJSON = JSON.parse(customFile)
+    } catch(SyntaxError) {
+      console.info(
+        `${chalk.red(
+          'error'
+        )} - ${fileName} is a malformed JSON file, ignoring its contents.`
       )
-      console.log(
-        `${chalk.green('success')} - CMS file ${chalk.dim(fileName)} created`
-      )
-    } catch (err) {
-      console.error(`${chalk.red('error')} - ${err}`)
+      customJSON = []
     }
+
+    output = [
+      ...coreJSON,
+      ...customJSON,
+    ]
+  } else {
+    output = coreJSON
+  }
+
+  try {
+    writeFileSync(
+      `${tmpCMSDir}/${fileName}`,
+      JSON.stringify(output)
+    )
+    console.log(
+      `${chalk.green('success')} - CMS file ${chalk.dim(fileName)} created`
+    )
+  } catch (err) {
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
