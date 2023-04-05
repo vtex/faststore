@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.99-alpha.0](https://github.com/vtex/faststore/compare/v2.0.98-alpha.0...v2.0.99-alpha.0) (2023-04-04)
+
+### Features
+
+- `Icon` with svg sprites ([#1682](https://github.com/vtex/faststore/issues/1682)) ([e199db7](https://github.com/vtex/faststore/commit/e199db7819ce015cc1c986c73a4a937153ddc062))
+
 ## [2.0.95-alpha.0](https://github.com/vtex/faststore/compare/v2.0.94-alpha.0...v2.0.95-alpha.0) (2023-04-01)
 
 ### Features

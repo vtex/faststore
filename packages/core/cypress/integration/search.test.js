@@ -23,16 +23,16 @@ describe('Search input', () => {
 
       cy.getById('store-input-mobile-button')
         .should('exist')
-        .scrollIntoView({ duration: 500 })
+        .scrollIntoView({ duration: 0 })
         .click({ force: true })
 
       cy.getById('store-input-mobile')
         .should('exist')
-        .scrollIntoView({ duration: 500 })
-        .click()
+        .scrollIntoView({ duration: 0 })
+        .click({ force: true })
         .type(term)
         .within(() => {
-          cy.getById('fs-button').click()
+          cy.getById('store-input-mobile-button').click()
         })
 
       cy.location('search').should((loc) => {

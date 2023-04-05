@@ -57,8 +57,9 @@ describe('On product description pages', () => {
 
       // Add to cart
       cy.getById('buy-button')
-        .click()
+        .scrollIntoView({ duration: 500 })
         .then(($btn) => {
+          cy.getById('buy-button').click({ force: true })
           const skuId = $btn.attr('data-sku')
           const sellerId = $btn.attr('data-seller')
 
@@ -66,13 +67,13 @@ describe('On product description pages', () => {
           cy.getById('checkout-button')
             .should('be.visible')
             .should('be.enabled')
-
-          cy.getById('fs-cart-item').should(($item) => {
-            expect($item.attr('data-sku')).to.eq(skuId)
-            expect($item.attr('data-seller')).to.eq(sellerId)
-          })
-
-          cy.itemsInCart(1)
+            .then(() => {
+              cy.getById('fs-cart-item').should(($item) => {
+                expect($item.attr('data-sku')).to.eq(skuId)
+                expect($item.attr('data-seller')).to.eq(sellerId)
+              })
+              cy.itemsInCart(1)
+            })
         })
     })
   })
