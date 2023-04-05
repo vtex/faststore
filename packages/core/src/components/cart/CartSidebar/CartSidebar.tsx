@@ -88,7 +88,6 @@ function CartSidebar() {
               numberOfItems={totalItems}
               checkoutButton={
                 <UIButton
-                  data-fs-cart-sidebar-checkout-button
                   variant="primary"
                   icon={
                     !isValidating && (
