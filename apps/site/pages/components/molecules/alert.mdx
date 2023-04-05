@@ -8,8 +8,7 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { Alert } from '@faststore/ui'
-import { ShoppingCart } from '@faststore/components'
+import { Alert, Icon } from '@faststore/ui'
 
 <header>
 
@@ -25,17 +24,17 @@ Alerts display short messages related to the behavior of a system, feature or pa
   <Tab>
     <OverviewSection>
       <Alert
-        link={{ children: 'With Link', href: '/' }}
+        link={{ children: 'With Link', href: '#' }}
         dismissible
       >
         Dismissible Alert message
       </Alert>
-      <Alert link={{ children: 'With Link', href: '/' }}>
+      <Alert link={{ children: 'With Link', href: '#' }}>
         Alert message
       </Alert>
     </OverviewSection>
     <OverviewSection>
-      <Alert icon={<ShoppingCart />}>
+      <Alert icon={<Icon name="ShoppingCart" />}>
         Icon with Alert message
       </Alert>
       <Alert>
@@ -46,19 +45,19 @@ Alerts display short messages related to the behavior of a system, feature or pa
   <Tab>
     ```tsx
     <Alert
-      link={{ children: 'With Link', href: '/' }}
+      link={{ children: 'With Link', href: '#' }}
       dismissible
     >
       Dismissible Alert message
     </Alert>
 
-    <Alert link={{ children: 'With Link', href: '/' }}>
+    <Alert link={{ children: 'With Link', href: '#' }}>
       Alert message
     </Alert>
     ```
 
     ```tsx
-    <Alert icon={<ShoppingCart />}>
+    <Alert icon={<Icon name="ShoppingCart" />}>
       Icon with Alert message
     </Alert>
 
@@ -74,7 +73,7 @@ Alerts display short messages related to the behavior of a system, feature or pa
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
 import { Alert } from '@faststore/ui'
@@ -92,7 +91,7 @@ import '@faststore/ui/src/components/atoms/Alert/styles.scss'
 
 <OverviewSection>
   <Alert
-    icon={<ShoppingCart />}
+    icon={<Icon name="ShoppingCart" />}
     link={{ children: 'Buy now', href: '/', target: '_blank' }}
     dismissible
   >
@@ -101,7 +100,7 @@ import '@faststore/ui/src/components/atoms/Alert/styles.scss'
 </OverviewSection>
 ```tsx
 <Alert
-  icon={<ShoppingCart />}
+  icon={<Icon name="ShoppingCart" />}
   link={{ children: 'Buy now', href: '/', target: '_blank' }}
   dismissible
 >
@@ -215,12 +214,12 @@ import '@faststore/ui/src/components/atoms/Alert/styles.scss'
 ### With Link
 
 <OverviewSection>
-  <Alert link={{ children: 'Buy now', href: '/' }}>
+  <Alert link={{ children: 'Buy now', href: '#' }}>
     Get 10% off today:&nbsp;<span>NEW10</span>
   </Alert>
 </OverviewSection>
 ```tsx
-<Alert link={{ children: 'Buy now', href: '/' }}>
+<Alert link={{ children: 'Buy now', href: '#' }}>
   Get 10% off today:&nbsp;<span>NEW10</span>
 </Alert>
 ```
@@ -228,12 +227,12 @@ import '@faststore/ui/src/components/atoms/Alert/styles.scss'
 ### With Icon
 
 <OverviewSection>
-  <Alert icon={<ShoppingCart />}>
+  <Alert icon={<Icon name="ShoppingCart" />}>
     Get 10% off today:&nbsp;<span>NEW10</span>
   </Alert>
 </OverviewSection>
 ```tsx
-<Alert icon={<ShoppingCart />}>
+<Alert icon={<Icon name="ShoppingCart" />}>
   Get 10% off today:&nbsp;<span>NEW10</span>
 </Alert>
 ```

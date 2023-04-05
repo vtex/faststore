@@ -9,11 +9,7 @@ import CartSidebar from '.'
 import { cartItem } from 'src/../.storybook/mocks/cart-sidebar'
 import { BuyButton } from '@faststore/ui'
 
-import {
-  TokenTable,
-  TokenRow,
-  TokenDivider,
-} from 'src/../.storybook/components'
+import { TokenTable, TokenRow } from 'src/../.storybook/components'
 
 <Meta component={CartSidebar} title="Organisms/CartSidebar" />
 
@@ -79,16 +75,6 @@ Uses [SlideOver](?path=/docs/organisms-slideover--default-story) as base.
 ### Header
 
 <TokenTable>
-  <TokenRow
-    token="--fs-cart-sidebar-header-padding"
-    value="var(--fs-spacing-2) var(--fs-spacing-3) var(--fs-spacing-2)"
-  />
-  <TokenRow
-    token="--fs-cart-sidebar-header-bkg-color"
-    value="var(--fs-color-neutral-0)"
-    isColor
-  />
-  <TokenDivider />
   <TokenRow
     token="--fs-cart-sidebar-header-title-margin-right"
     value="var(--fs-spacing-2)"

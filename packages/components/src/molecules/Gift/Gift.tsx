@@ -1,7 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Icon } from '../..'
 
 export interface GiftProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -19,9 +18,11 @@ const Gift = forwardRef<HTMLDivElement, GiftProps>(function Gift(
   { icon, testId = 'fs-gift', children, ...otherProps },
   ref
 ) {
+  const iconProps = { "data-fs-gift-icon": true }
+  const giftIcon = React.isValidElement(icon) ? React.cloneElement(icon, iconProps) : icon
   return (
     <div ref={ref} data-fs-gift data-testid={testId} {...otherProps}>
-      {icon && <Icon component={icon} data-fs-gift-icon />}
+      {React.isValidElement(giftIcon) && giftIcon}
       <div data-fs-gift-wrapper>{children}</div>
     </div>
   )

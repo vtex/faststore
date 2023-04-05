@@ -82,6 +82,56 @@ function ProductDetails({ context: staleProduct }: Props) {
     },
   })
 
+  const ProductDetailsSection = () => {
+    return (
+      <>
+        <section data-fs-product-details-values>
+          <div data-fs-product-details-prices>
+            <Price
+              value={listPrice}
+              formatter={useFormattedPrice}
+              testId="list-price"
+              data-value={listPrice}
+              variant="listing"
+              SRText="Original price:"
+            />
+            <Price
+              value={lowPrice}
+              formatter={useFormattedPrice}
+              testId="price"
+              data-value={lowPrice}
+              variant="spot"
+              className="text__lead"
+              SRText="Sale Price:"
+            />
+          </div>
+          <UIQuantitySelector min={1} max={10} onChange={setAddQuantity} />
+        </section>
+        {skuVariants && (
+          <Selectors
+            slugsMap={skuVariants.slugsMap}
+            availableVariations={skuVariants.availableVariations}
+            activeVariations={skuVariants.activeVariations}
+            data-fs-product-details-selectors
+          />
+        )}
+        {
+          /* NOTE: A loading skeleton had to be used to avoid a Lighthouse's
+                  non-composited animation violation due to the button transitioning its
+                  background color when changing from its initial disabled to active state.
+                  See full explanation on commit https://git.io/JyXV5. */
+          isValidating ? (
+            <AddToCartLoadingSkeleton />
+          ) : (
+            <UIBuyButton disabled={buyDisabled} {...buyProps}>
+              Add to Cart
+            </UIBuyButton>
+          )
+        }
+      </>
+    )
+  }
+
   useEffect(() => {
     sendAnalyticsEvent<ViewItemEvent<AnalyticsItem>>({
       name: 'view_item',
@@ -143,69 +193,20 @@ function ProductDetails({ context: staleProduct }: Props) {
             data-fs-product-details-settings
             data-fs-product-details-section
           >
-            <section data-fs-product-details-values>
-              <div data-fs-product-details-prices>
-                <Price
-                  value={listPrice}
-                  formatter={useFormattedPrice}
-                  testId="list-price"
-                  data-value={listPrice}
-                  variant="listing"
-                  SRText="Original price:"
-                />
-                <Price
-                  value={lowPrice}
-                  formatter={useFormattedPrice}
-                  testId="price"
-                  data-value={lowPrice}
-                  variant="spot"
-                  className="text__lead"
-                  SRText="Sale Price:"
-                />
-              </div>
-              {/* <div className="prices">
-                <p className="price__old text__legend">{formattedListPrice}</p>
-                <p className="price__new">{isValidating ? '' : formattedPrice}</p>
-              </div> */}
-              <UIQuantitySelector min={1} max={10} onChange={setAddQuantity} />
-            </section>
-            {skuVariants && (
-              <Selectors
-                slugsMap={skuVariants.slugsMap}
-                availableVariations={skuVariants.availableVariations}
-                activeVariations={skuVariants.activeVariations}
-                data-fs-product-details-selectors
-              />
-            )}
-            {/* NOTE: A loading skeleton had to be used to avoid a Lighthouse's
-                non-composited animation violation due to the button transitioning its
-                background color when changing from its initial disabled to active state.
-                See full explanation on commit https://git.io/JyXV5. */}
-            {isValidating ? (
-              <AddToCartLoadingSkeleton />
-            ) : (
-              <UIBuyButton disabled={buyDisabled} {...buyProps}>
-                Add to Cart
-              </UIBuyButton>
-            )}
-            {!availability && (
-              <OutOfStock
-                onSubmit={(email) => {
-                  console.info(email)
-                }}
-              />
-            )}
+            {availability ? <ProductDetailsSection /> : <OutOfStock />}
           </section>
-
-          <ShippingSimulation
-            data-fs-product-details-section
-            data-fs-product-details-shipping
-            shippingItem={{
-              id,
-              quantity: addQuantity,
-              seller: seller.identifier,
-            }}
-          />
+          {availability && (
+            <ShippingSimulation
+              data-fs-product-details-section
+              data-fs-product-details-shipping
+              productShippingInfo={{
+                id,
+                quantity: addQuantity,
+                seller: seller.identifier,
+              }}
+              formatter={useFormattedPrice}
+            />
+          )}
         </section>
 
         <ProductDetailsContent />
@@ -285,8 +286,8 @@ export const fragment = gql`
       productGroupID
       skuVariants {
         activeVariations
-        slugsMap(dominantVariantName: "Color")
-        availableVariations(dominantVariantName: "Color")
+        slugsMap
+        availableVariations
       }
     }
 

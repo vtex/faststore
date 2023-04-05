@@ -1,8 +1,6 @@
 import React, { CSSProperties, PropsWithChildren, ReactNode } from 'react'
 
-import { LinkButton } from '@faststore/ui'
-
-import Icon from '../../src/components/ui/Icon'
+import { Icon, LinkButton } from '@faststore/ui'
 
 type SectionItemProps = {
   title: string

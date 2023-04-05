@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.97-alpha.0](https://github.com/vtex/faststore/compare/v2.0.96-alpha.0...v2.0.97-alpha.0) (2023-04-03)
+
+**Note:** Version bump only for package @faststore/api
+
+## 2.0.91-alpha.0 (2023-03-30)
+
+### Bug Fixes
+
+- `PaymentMethods` Flag size ([#1690](https://github.com/vtex/faststore/issues/1690)) ([499d83b](https://github.com/vtex/faststore/commit/499d83bb9c69d964b3df963d784d84cea4b01ed3))
+
+## [2.0.82-alpha.0](https://github.com/vtex/faststore/compare/v2.0.81-alpha.0...v2.0.82-alpha.0) (2023-03-17)
+
+### Features
+
+- change dominantVariant to optional ([#1674](https://github.com/vtex/faststore/issues/1674)) ([29fd637](https://github.com/vtex/faststore/commit/29fd637e40a035073f72a61c7be17514776557fc))
+
+## 2.0.79-alpha.0 (2023-03-15)
+
+### Bug Fixes
+
+- husky pre-commit script + Lint-stage ([#1669](https://github.com/vtex/faststore/issues/1669)) ([5a3f3c8](https://github.com/vtex/faststore/commit/5a3f3c85ddc6b76377290a930cd70ed37735d8e8))
+
+## [2.0.77-alpha.0](https://github.com/vtex/faststore/compare/v2.0.76-alpha.0...v2.0.77-alpha.0) (2023-03-15)
+
+### Bug Fixes
+
+- **api:** add context variables cart mutation ([#1659](https://github.com/vtex/faststore/issues/1659)) ([c292915](https://github.com/vtex/faststore/commit/c29291546a89f3f278e62996689c90f17b028658))
+
+## 2.0.74-alpha.0 (2023-03-15)
+
+### Bug Fixes
+
+- publish version ([#1664](https://github.com/vtex/faststore/issues/1664)) ([9e29810](https://github.com/vtex/faststore/commit/9e29810f59402b694f26846db4e45971fb2e74b8))
+
+## 2.0.73-alpha.0 (2023-03-15)
+
+### Chores
+
+- attempts to fix publish workflow ([#1662](https://github.com/vtex/faststore/issues/1662)) ([7479889](https://github.com/vtex/faststore/commit/7479889f87533f8a040e4d11cd1fc5dd5c661202))
+
 ## 2.0.66-alpha.0 (2023-02-13)
 
 ### Bug Fixes

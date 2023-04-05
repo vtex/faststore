@@ -1,133 +1,50 @@
-import {
-  OutOfStock as UIOutOfStock,
-  OutOfStockTitle as UIOutOfStockTitle,
-  OutOfStockMessage as UIOutOfStockMessage,
-  Button as UIButton,
-  InputField as UIInputField,
-} from '@faststore/ui'
+import { Icon, OutOfStock as UIOutOfStock, useUI } from '@faststore/ui'
+import type { FormEvent } from 'react'
 import { useState } from 'react'
-import type { ReactElement, FormEvent } from 'react'
 
-import Icon from 'src/components/ui/Icon'
-import styles from 'src/components/product/OutOfStock/out-of-stock.module.scss'
 import { useSession } from 'src/sdk/session'
 
-export interface OutOfStockProps {
-  /**
-   * The Out of Stock Section's title.
-   */
-  title?: string
-  /**
-   * The button text.
-   */
-  buttonText?: string
-  /**
-   * Message describing when the user will be notified.
-   */
-  notificationMsg?: string
-  /**
-   * Icon displayed inside the button.
-   * @default <Icon name="BellRinging" />
-   */
-  buttonIcon?: ReactElement
-  /**
-   * Icon displayed inside the notification message.
-   * @default <Icon name="BellRinging" />
-   */
-  notificationMsgIcon?: ReactElement
-  /**
-   * ID to find this component in testing tools (e.g.: cypress,
-   * testing-library, and jest).
-   */
-  testId?: string
-  /**
-   * Event emitted when form is submitted.
-   */
-  onSubmit: (value: string) => void
-}
-
-function OutOfStock(props: OutOfStockProps) {
+function OutOfStock() {
   const { postalCode } = useSession()
 
-  const defaultButtonText = 'Notify me'
-  const defaultIconName = 'BellRinging'
-
-  const [btnText, setBtnText] = useState(defaultButtonText)
-  const [buttonIconName, setButtonIconName] = useState(defaultIconName)
-  const [disabled, setDisabled] = useState(false)
-  const [email, setEmail] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
-
-  const {
-    title = postalCode ? 'Unavailable in Your Location' : 'Out of Stock',
-    notificationMsg = 'Notify me when available',
-    buttonText = btnText,
-    buttonIcon = <Icon name={buttonIconName} width={16} height={16} />,
-    notificationMsgIcon = (
-      <Icon name={defaultIconName} width={16} height={16} />
-    ),
-    onSubmit,
-  } = props
-
-  const reset = () => {
-    setButtonIconName(defaultIconName)
-    setBtnText(defaultButtonText)
-    setDisabled(false)
-
-    setEmail('')
-    setError('')
-  }
+  const { pushToast } = useUI()
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
+    setIsLoading(true)
 
-    setDisabled(true)
-    setButtonIconName('Ellipsis')
+    // TODO: Missing integration
 
     try {
-      onSubmit(email)
-      setButtonIconName('Checked')
-      setBtnText('Subscribed successfully')
+      // Return to original state after 2s mockup
+      setTimeout(() => setIsLoading(false), 2000)
+
+      const formElement = event.currentTarget as HTMLFormElement
+      formElement.reset()
+
+      pushToast({
+        title: 'Subscribed successfully!',
+        message: "You'll be notified when this product is back to stock.",
+        status: 'INFO',
+        icon: <Icon name="CircleWavyCheck" width={30} height={30} />,
+      })
     } catch (err) {
       setError(err.message)
     } finally {
-      // Return to original state after 2s
-      setTimeout(reset, 2000)
     }
   }
 
   return (
     <UIOutOfStock
-      data-fs-out-of-stock
-      className={styles.fsOutOfStock}
+      title={postalCode ? 'Unavailable in Your Location' : 'Out of Stock'}
+      inputLabel="Email"
+      subtitle="Notify me when available"
       onSubmit={handleSubmit}
-    >
-      <UIOutOfStockTitle data-fs-out-of-stock-title>{title}</UIOutOfStockTitle>
-      <UIOutOfStockMessage data-fs-out-of-stock-message>
-        {notificationMsgIcon} {notificationMsg}
-      </UIOutOfStockMessage>
-      <UIInputField
-        id="out-of-stock-email"
-        value={email}
-        label="Email"
-        aria-label="Email"
-        error={error}
-        onChange={(e) => {
-          setError('')
-          setEmail(e.target.value)
-        }}
-      />
-      <UIButton
-        data-fs-out-of-stock-button
-        type="submit"
-        disabled={disabled}
-        variant="primary"
-        icon={buttonIcon}
-        iconPosition="left"
-      >
-        {buttonText}
-      </UIButton>
-    </UIOutOfStock>
+      disabled={isLoading}
+      errorMessage={error}
+    />
   )
 }
 

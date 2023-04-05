@@ -13,17 +13,37 @@ import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
-import { PaymentMethods } from '@faststore/ui'
-import {
-  Visa,
-  Diners,
-  Mastercard,
-  EloCard,
-  PayPal,
-  Stripe,
-  GooglePay,
-  ApplePay,
-} from '@faststore/components'
+import { PaymentMethods, Icon } from '@faststore/ui'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const paymentMethodsPath = path.resolve(__filename)
+  const components = ['PaymentMethods.tsx']
+  const [paymentMethodsProps] = getComponentPropsFrom(
+    paymentMethodsPath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        paymentMethodsProps,
+      },
+    },
+  }
+}
+
+export const PaymentMethodsPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { paymentMethodsProps } = useSSG()
+  return {
+    PaymentMethods: <PropsSection propsList={paymentMethodsProps} />,
+  }[component]
+}
 
 <header>
 
@@ -33,11 +53,9 @@ The PaymentMethods component displays the logos of the available payment options
 
 </header>
 
----
-
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
 import { PaymentMethods } from '@faststore/ui'
@@ -55,7 +73,7 @@ import '@faststore/ui/src/components/organisms/PaymentMethods/styles.scss'
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
-    <OverviewSection style={{ width: '345px' }}>
+    <OverviewSection>
       <PaymentMethods title={<h3>Payment Methods</h3>} flagList={flags} />
     </OverviewSection>
   </Tab>
@@ -67,23 +85,39 @@ import '@faststore/ui/src/components/organisms/PaymentMethods/styles.scss'
 </Tabs>
 
 export const flags = [
-  { image: <Visa />, text: 'Visa' },
-  { image: <Diners />, text: 'Diners Club' },
-  { image: <Mastercard />, text: 'Mastercard' },
-  { image: <EloCard />, text: 'Elo Card' },
-  { image: <PayPal />, text: 'PayPal' },
-  { image: <Stripe />, text: 'Stripe' },
-  { image: <GooglePay />, text: 'GooglePay' },
-  { image: <ApplePay />, text: 'ApplePay' },
+  { image: <Icon name="Visa" />, text: 'Visa' },
+  { image: <Icon name="Diners" />, text: 'Diners Club' },
+  { image: <Icon name="Mastercard" />, text: 'Mastercard' },
+  { image: <Icon name="EloCard" />, text: 'Elo Card' },
+  { image: <Icon name="PayPal" />, text: 'PayPal' },
+  { image: <Icon name="Stripe" />, text: 'Stripe' },
+  { image: <Icon name="GooglePay" />, text: 'GooglePay' },
+  { image: <Icon name="ApplePay" />, text: 'ApplePay' },
 ]
 
 ---
 
 ## Props
 
-<PropsSection name="PaymentMethods" />
+<PaymentMethodsPropsSection component="PaymentMethods" />
 
----
+export const propsFlag = [
+  {
+    name: 'image',
+    type: 'ReactNode',
+    description: 'A React component that will represent the flag image.',
+  },
+  {
+    name: 'text',
+    type: 'string',
+    description:
+      'Description of the flag image to be also used for accessibility purposes.',
+  },
+]
+
+## Flag
+
+<PropsSection propsList={propsFlag} />
 
 ## Design Tokens
 
@@ -119,7 +153,14 @@ export const flags = [
 #### Flag
 
 <TokenTable>
-  <TokenRow token="--fs-payment-methods-flag-width" value="2.125rem" />
+  <TokenRow
+    token="--fs-payment-methods-flag-width"
+    value="var(--fs-spacing-5)"
+  />
+  <TokenRow
+    token="--fs-payment-methods-flag-height"
+    value="var(--fs-spacing-4)"
+  />
   <TokenRow
     token="--fs-payment-methods-flag-border-width"
     value="var(--fs-border-width)"

@@ -23,8 +23,45 @@ import {
 } from '@faststore/ui'
 
 import { XCircle } from '@faststore/components'
-import { product } from '../../../mocks/product'
+import { product } from 'site/mocks/product'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+import { propsPriceDefinition } from 'site/components/PriceDefinitionProps/PriceDefinitionProps'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const cartItemPath = path.resolve(__filename)
+  const components = [
+    'CartItem.tsx',
+    'CartItemImage.tsx',
+    'CartItemSummary.tsx',
+  ]
+  const [cartItemProps, cartItemImageProps, cartItemSummaryProps] =
+    getComponentPropsFrom(cartItemPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        cartItemProps,
+        cartItemImageProps,
+        cartItemSummaryProps,
+      },
+    },
+  }
+}
+
+export const CartItemPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { cartItemProps, cartItemImageProps, cartItemSummaryProps } = useSSG()
+  return {
+    CartItem: <PropsSection propsList={cartItemProps} />,
+    CartItemImage: <PropsSection propsList={cartItemImageProps} />,
+    CartItemSummary: <PropsSection propsList={cartItemSummaryProps} />,
+  }[component]
+}
 
 <header>
 
@@ -152,10 +189,10 @@ export const CartItemExampleUnavailable = (
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { CartItem } from '@faststore/ui'
+import { CartItem, CartItemImage, CartItemSummary } from '@faststore/ui'
 ```
 
 Import Styles
@@ -189,9 +226,10 @@ import '@faststore/ui/src/components/atoms/CartItem/styles.scss'
           alt={product.image[0].alternateName}
         />
       </CartItemImage>
-      <CartItemSummary title={product.isVariantOf.name}>
-
-      </CartItemSummary>
+      <CartItemSummary
+        title={product.isVariantOf.name}
+        activeVariations={activeVariations}
+      />
     </CartItem>
     ```
 
@@ -204,15 +242,19 @@ import '@faststore/ui/src/components/atoms/CartItem/styles.scss'
 
 ### CartItem
 
-<PropsSection name="CartItem" />
+<CartItemPropsSection component="CartItem" />
+
+#### Price Definition
+
+<PropsSection propsList={propsPriceDefinition} />
 
 ### CartItemImage
 
-<PropsSection name="CartItemImage" />
+<CartItemPropsSection component="CartItemImage" />
 
 ### CartItemSummary
 
-<PropsSection name="CartItemSummary" />
+<CartItemPropsSection component="CartItemSummary" />
 
 ---
 

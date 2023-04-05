@@ -1,4 +1,3 @@
-/* eslint-disable cypress/no-unnecessary-waiting */
 // eslint-disable-next-line spaced-comment
 /// <reference types="cypress" />
 /**
@@ -23,11 +22,11 @@ describe('Search page Filters and Sorting options', () => {
     cy.getById('open-filter-button')
       .click()
       .get(
-        `[data-testid=mobile-store-filter-accordion][data-type=StoreFacetBoolean]>[data-testid=mobile-store-filter-accordion-button]`
+        `[data-testid=mobile-fs-filter-accordion][data-type=StoreFacetBoolean]>[data-testid=mobile-fs-filter-accordion-button]`
       )
       .first()
       .click()
-      .getById('mobile-store-filter-accordion-panel-checkbox')
+      .getById('mobile-fs-filter-accordion-panel-checkbox')
       .should('exist')
       .first()
       .click()

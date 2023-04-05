@@ -5,7 +5,7 @@ keywords:
   - UI library
   - ecommerce
   - react
-sidebar_custom_props: 
+sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Dropdown___1d904311eb18facba54340e76b109d62.png
 ---
 
@@ -18,13 +18,13 @@ import {
   TableHead,
   TableRow,
   TableCell,
-  Dropdown, 
-  DropdownItem, 
-  DropdownMenu, 
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
   DropdownButton,
+  Icon
 } from '@faststore/ui'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { CaretDown, ArrowElbowDownRight } from '@faststore/components'
 
 <header>
 
@@ -40,33 +40,29 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
   <Tab>
     <OverviewSection>
       <Dropdown>
-        <DropdownButton icon={<CaretDown />}>
-          {'Dropdown'}
-        </DropdownButton>
+        <DropdownButton icon={<Icon name="CaretDown" />}>{'Dropdown'}</DropdownButton>
         <DropdownMenu>
-          <DropdownItem icon={<ArrowElbowDownRight />}>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             {'Dropdown Item 1'}
           </DropdownItem>
-          <DropdownItem icon={<ArrowElbowDownRight />}>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             {'Dropdown Item 2'}
           </DropdownItem>
-          <DropdownItem icon={<ArrowElbowDownRight />}>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             {'Dropdown Item 3'}
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
       <Dropdown>
-        <DropdownButton icon={<CaretDown />}>
-          {'Dropdown Small'}
-        </DropdownButton>
+        <DropdownButton icon={<Icon name="CaretDown" />}>{'Dropdown Small'}</DropdownButton>
         <DropdownMenu size="small">
-          <DropdownItem icon={<ArrowElbowDownRight />}>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             {'Dropdown Item 1'}
           </DropdownItem>
-          <DropdownItem icon={<ArrowElbowDownRight />}>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             {'Dropdown Item 2'}
           </DropdownItem>
-          <DropdownItem icon={<ArrowElbowDownRight />}>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             {'Dropdown Item 3'}
           </DropdownItem>
         </DropdownMenu>
@@ -76,33 +72,29 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
   <Tab>
     ```tsx
     <Dropdown>
-      <DropdownButton icon={<CaretDown />}>
-        Dropdown
-      </DropdownButton>
+      <DropdownButton icon={<Icon name="CaretDown" />}>Dropdown</DropdownButton>
       <DropdownMenu>
-        <DropdownItem icon={<ArrowElbowDownRight />}>
+        <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
           Dropdown Item 1
         </DropdownItem>
-        <DropdownItem icon={<ArrowElbowDownRight />}>
+        <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
           Dropdown Item 2
         </DropdownItem>
-        <DropdownItem icon={<ArrowElbowDownRight />}>
+        <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
           Dropdown Item 3
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>
     <Dropdown>
-      <DropdownButton icon={<CaretDown />}>
-        Dropdown Small
-      </DropdownButton>
+      <DropdownButton icon={<Icon name="CaretDown" />}>Dropdown Small</DropdownButton>
       <DropdownMenu size="small">
-        <DropdownItem icon={<ArrowElbowDownRight />}>
+        <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
           Dropdown Item 1
         </DropdownItem>
-        <DropdownItem icon={<ArrowElbowDownRight />}>
+        <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
           Dropdown Item 2
         </DropdownItem>
-        <DropdownItem icon={<ArrowElbowDownRight />}>
+        <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
           Dropdown Item 3
         </DropdownItem>
       </DropdownMenu>
@@ -111,16 +103,19 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
   </Tab>
 </Tabs>
 
-
-
 ---
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { Dropdown, DropdownItem, DropdownMenu, DropdownButton } from '@faststore/ui'
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownButton,
+} from '@faststore/ui'
 ```
 
 Import Styles
@@ -137,17 +132,15 @@ import '@faststore/ui/src/components/molecules/Dropdown/styles.scss'
   <Tab>
     <OverviewSection>
       <Dropdown>
-        <DropdownButton  icon={<CaretDown />}>
-          {'Dropdown'}
-        </DropdownButton>
+        <DropdownButton icon={<Icon name="CaretDown" />}>{'Dropdown'}</DropdownButton>
         <DropdownMenu>
-          <DropdownItem icon={<ArrowElbowDownRight />}>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             {'Dropdown Item 1'}
           </DropdownItem>
-          <DropdownItem icon={<ArrowElbowDownRight />}>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             {'Dropdown Item 2'}
           </DropdownItem>
-          <DropdownItem icon={<ArrowElbowDownRight />}>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             {'Dropdown Item 3'}
           </DropdownItem>
         </DropdownMenu>
@@ -158,17 +151,15 @@ import '@faststore/ui/src/components/molecules/Dropdown/styles.scss'
     ```tsx
     <OverviewSection>
       <Dropdown>
-        <DropdownButton  icon={<CaretDown />}>
-          Dropdown
-        </DropdownButton>
+        <DropdownButton icon={<Icon name="CaretDown" />}>Dropdown</DropdownButton>
         <DropdownMenu>
-          <DropdownItem icon={<ArrowElbowDownRight />}>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             Dropdown Item 1
           </DropdownItem>
-          <DropdownItem icon={<ArrowElbowDownRight />}>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             Dropdown Item 2
           </DropdownItem>
-          <DropdownItem icon={<ArrowElbowDownRight />}>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             Dropdown Item 3
           </DropdownItem>
         </DropdownMenu>
@@ -243,10 +234,7 @@ import '@faststore/ui/src/components/molecules/Dropdown/styles.scss'
     value="var(--fs-border-color-light)"
   />
   <TokenDivider />
-  <TokenRow
-    token="--fs-dropdown-item-icon-min-width"
-    value="1.125rem"
-  />
+  <TokenRow token="--fs-dropdown-item-icon-min-width" value="1.125rem" />
   <TokenRow
     token="--fs-dropdown-item-icon-margin-right"
     value="var(--fs-spacing-0)"
@@ -322,13 +310,18 @@ This component inherits [Button](/components/atoms/button) CSS selectors and sty
 ## Accessibility
 
 ### Keyboard Interactions
-<br/>
+
+<br />
 
 <Table>
   <TableHead>
     <TableRow>
-      <TableCell scope="col" variant="header" align="left">Key</TableCell>
-      <TableCell scope="col" variant="header" align="left">Description</TableCell>
+      <TableCell scope="col" variant="header" align="left">
+        Key
+      </TableCell>
+      <TableCell scope="col" variant="header" align="left">
+        Description
+      </TableCell>
     </TableRow>
   </TableHead>
   <TableBody>
@@ -337,9 +330,8 @@ This component inherits [Button](/components/atoms/button) CSS selectors and sty
         <code>Enter</code>
       </TableCell>
       <TableCell align="left">
-        When focusing on <code>DropdownButton</code>, <br/>
-        the Dropdown menu opens
-        and focuses the first <code>DropdownItem</code>
+        When focusing on <code>DropdownButton</code>, <br />
+        the Dropdown menu opens and focuses the first <code>DropdownItem</code>
       </TableCell>
     </TableRow>
     <TableRow>

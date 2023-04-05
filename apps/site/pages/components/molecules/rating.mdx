@@ -9,7 +9,6 @@ import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { Rating, Icon } from '@faststore/ui'
-import { Star, Heart } from '@faststore/components'
 import RatingActionable from 'site/components/Rating/RatingActionable'
 
 <header>
@@ -26,7 +25,7 @@ The `Rating` component displays the average rating of a product based on other s
   <Tab>
     <OverviewSection>
       <h3>Readonly</h3>
-      <Rating value={3.5} icon={<Star />} />
+      <Rating value={3.5} icon={<Icon name="Star" />} />
     </OverviewSection>
     <OverviewSection>
       <h3>Actionable</h3>
@@ -36,12 +35,12 @@ The `Rating` component displays the average rating of a product based on other s
   <Tab>
 
     ```tsx
-    <Rating value={3.5} icon={<Star />} />
+    <Rating value={3.5} icon={<Icon name="Star" />} />
     ```
 
     ```tsx
     const [rating, setRating] = useState(0)
-    <Rating value={rating} onChange={setRating} icon={<Star />} />
+    <Rating value={rating} onChange={setRating} icon={<Icon name="Star" />} />
     ```
 
   </Tab>
@@ -51,7 +50,7 @@ The `Rating` component displays the average rating of a product based on other s
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
 import { Rating } from '@faststore/ui'
@@ -68,10 +67,10 @@ import '@faststore/ui/src/components/molecules/Rating/styles.scss'
 ## Usage
 
 <OverviewSection>
-  <Rating value={3.5} icon={<Star />} />
+  <Rating value={3.5} icon={<Icon name="Star" />} />
 </OverviewSection>
 ```tsx live
-<Rating value={3.5} icon={<Star />} />
+<Rating value={3.5} icon={<Icon name="Star" />} />
 ```
 
 ---
@@ -106,19 +105,19 @@ import '@faststore/ui/src/components/molecules/Rating/styles.scss'
 #### Readonly
 
 <OverviewSection>
-  <Rating value={3.5} icon={<Star />} />
+  <Rating value={3.5} icon={<Icon name="Star" />} />
 </OverviewSection>
 ```tsx live
-<Rating value={3.5} icon={<Star />} />
+<Rating value={3.5} icon={<Icon name="Star" />} />
 ```
 
 #### Other Icon
 
 <OverviewSection>
-  <Rating value={3.5} icon={<Heart />} />
+  <Rating value={3.5} icon={<Icon name="Heart" />} />
 </OverviewSection>
 ```tsx live
-<Rating value={3.8} icon={<Heart />} />
+<Rating value={3.8} icon={<Icon name="Heart" />} />
 ```
 
 #### Actionable
@@ -129,7 +128,7 @@ import '@faststore/ui/src/components/molecules/Rating/styles.scss'
 
 ```tsx live
 const [rating, setRating] = useState(3)
-<Rating value={rating} onChange={setRating} icon={<Star />} />
+<Rating value={rating} onChange={setRating} icon={<Icon name="Star" />} />
 ```
 
 <TokenTable>

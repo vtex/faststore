@@ -9,11 +9,43 @@ import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
-
 import { Badge, Gift, GiftContent, GiftImage, Icon, Price } from '@faststore/ui'
-import { TagIcon, ShoppingCart } from '@faststore/components'
-
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+import { propsPriceDefinition } from 'site/components/PriceDefinitionProps/PriceDefinitionProps'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const giftPath = path.resolve(__filename)
+  const components = ['Gift.tsx', 'GiftImage.tsx', 'GiftContent.tsx']
+  const [giftProps, giftImageProps, giftContentProps] = getComponentPropsFrom(
+    giftPath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        giftProps,
+        giftImageProps,
+        giftContentProps,
+      },
+    },
+  }
+}
+
+export const GiftPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { giftProps, giftImageProps, giftContentProps } = useSSG()
+  return {
+    Gift: <PropsSection propsList={giftProps} />,
+    GiftImage: <PropsSection propsList={giftImageProps} />,
+    GiftContent: <PropsSection propsList={giftContentProps} />,
+  }[component]
+}
 
 <header>
 
@@ -25,14 +57,14 @@ It displays an additional item to purchase as a gift.
 
 The Gift component is a compound of the following:
 
-- `Gift` - renders a `<div>` as wrapper with an `Icon`, `GiftImage`, and `GiftContent`.
-- `GiftImage` - renders a `<div>` as wrapper with an `Image`.
-- `GiftContent` - renders a `<div>` as wrapper with the gift information as children.
+- `Gift`: renders a `<div>` as wrapper with an `Icon`, `GiftImage`, and `GiftContent`.
+- `GiftImage`: renders a `<div>` as wrapper with an `Image`.
+- `GiftContent`: renders a `<div>` as wrapper with the gift information as children.
 
 ## Overview
 
 export const GiftTemplate = (
-  <Gift icon={<TagIcon />}>
+  <Gift icon={<Icon name="Tag" />}>
     <GiftImage>
       <img
         src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
@@ -49,7 +81,7 @@ export const GiftTemplate = (
 )
 
 export const GiftTemplateIcon = (
-  <Gift icon={<ShoppingCart />}>
+  <Gift icon={<Icon name="ShoppingCart" />}>
     <GiftImage>
       <img
         src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
@@ -83,7 +115,7 @@ export const GiftTemplateWithoutIcon = (
 )
 
 export const GiftTemplateWithoutBadge = (
-  <Gift icon={<TagIcon />}>
+  <Gift icon={<Icon name="Tag" />}>
     <GiftImage>
       <img
         src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
@@ -107,7 +139,7 @@ export const GiftTemplateWithoutBadge = (
   <Tab>
     ```tsx
     // With Tag Icon
-    <Gift icon={<TagIcon />}>
+    <Gift icon={<Icon name="Tag" />}>
       <GiftImage>
         <img
           src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
@@ -125,7 +157,7 @@ export const GiftTemplateWithoutBadge = (
 
     ```tsx
     // With ShoppingCart Icon
-    <Gift icon={<ShoppingCart />}>
+    <Gift icon={<Icon name="ShoppingCart" />}>
       <GiftImage>
         <img
           src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
@@ -161,7 +193,7 @@ export const GiftTemplateWithoutBadge = (
 
     ```tsx
     // Without Badge
-    <Gift icon={<TagIcon />}>
+    <Gift icon={<Icon name="Tag" />}>
       <GiftImage>
         <img
           src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
@@ -184,10 +216,10 @@ export const GiftTemplateWithoutBadge = (
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { Gift, GiftContent, GiftImage } from '@faststore/ui'
+import { Gift, GiftImage, GiftContent } from '@faststore/ui'
 ```
 
 Import Styles
@@ -206,7 +238,7 @@ import '@faststore/ui/src/components/molecules/Gift/styles.scss'
   </Tab>
   <Tab>
     ```tsx
-    <Gift icon={<TagIcon />}>
+    <Gift icon={<Icon name="Tag" />}>
       <GiftImage>
         <img
           src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
@@ -234,15 +266,19 @@ Besides those attributes, the following props are also supported:
 
 ### Gift
 
-<PropsSection name="Gift" />
+<GiftPropsSection component="Gift" />
 
 ### GiftContent
 
-<PropsSection name="GiftContent" />
+<GiftPropsSection component="GiftContent" />
+
+#### Price Definition
+
+<PropsSection propsList={propsPriceDefinition} />
 
 ### GiftImage
 
-<PropsSection name="GiftImage" />
+<GiftPropsSection component="GiftImage" />
 
 ---
 

@@ -1,7 +1,5 @@
-import { Button as UIButton } from '@faststore/ui'
 import type { ButtonProps } from '@faststore/ui'
-
-import Icon from 'src/components/ui/Icon'
+import { Button as UIButton, Icon } from '@faststore/ui'
 
 import Section from '../Section'
 import styles from './scroll-to-top-button.module.scss'

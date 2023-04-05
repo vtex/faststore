@@ -18,7 +18,6 @@ import {
   Icon,
   Price,
 } from '@faststore/ui'
-import { Ruler, ShoppingCart } from '@faststore/components'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
 <header>
@@ -185,7 +184,7 @@ export const UsageTableExample = (
           {sizes.map((size) => (
             <TableRow key={size.type}>
               <TableCell variant="header" align="left">
-                <Icon component={<Ruler />} />
+                <Icon name="Ruler" />
                 {size.type}
               </TableCell>
               <TableCell align="right">{size.value}</TableCell>
@@ -208,7 +207,7 @@ export const UsageTableExample = (
           {options.map((option) => (
             <TableRow key={option.numberOfInstallments}>
               <TableCell variant="header" align="left">
-                <Icon component={<ShoppingCart />} />
+                <Icon name="ShoppingCart" />
                 {option.numberOfInstallments}x
               </TableCell>
               <TableCell align="right">
@@ -242,7 +241,7 @@ export const UsageTableExample = (
       {sizes.map((size) => (
         <TableRow key={size.type}>
           <TableCell variant="header" align="left">
-            <Icon component={<Ruler />} />
+            <Icon name="Ruler" />
             {size.type}
           </TableCell>
           <TableCell align="right">{size.value}</TableCell>
@@ -268,7 +267,7 @@ export const UsageTableExample = (
     {options.map((option) => (
       <TableRow key={option.numberOfInstallments}>
         <TableCell variant="header" align="left">
-          <Icon component={<ShoppingCart />} />
+          <Icon name="ShoppingCart" />
           {option.numberOfInstallments}x
         </TableCell>
         <TableCell align="right">
@@ -340,7 +339,7 @@ export const UsageTableExample = (
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
 import { Table } from '@faststore/ui'

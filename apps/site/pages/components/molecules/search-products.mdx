@@ -1,0 +1,356 @@
+---
+description: List of `SearchProductItem` to show details of the suggested products.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Select___8842f3b6522c3e8db0a887b3f216a6ab.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import {
+  SearchProducts,
+  SearchProductItem,
+  SearchProductItemImage,
+  SearchProductItemContent,
+} from '@faststore/ui'
+
+import { product } from 'site/mocks/product'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+import { propsPriceDefinition } from 'site/components/PriceDefinitionProps/PriceDefinitionProps'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const searchProductsPath = path.resolve(__filename)
+  const components = [
+    'SearchProducts.tsx',
+    'SearchProductItem.tsx',
+    'SearchProductItemImage.tsx',
+    'SearchProductItemContent.tsx',
+  ]
+  const [
+    searchProductsProps,
+    searchProductItemProps,
+    searchProductItemImageProps,
+    searchProductItemContentProps,
+  ] = getComponentPropsFrom(searchProductsPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        searchProductsProps,
+        searchProductItemProps,
+        searchProductItemImageProps,
+        searchProductItemContentProps,
+      },
+    },
+  }
+}
+
+export const SearchProductsPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const {
+    searchProductsProps,
+    searchProductItemProps,
+    searchProductItemImageProps,
+    searchProductItemContentProps,
+  } = useSSG()
+  return {
+    SearchProducts: <PropsSection propsList={searchProductsProps} />,
+    SearchProductItem: <PropsSection propsList={searchProductItemProps} />,
+    SearchProductItemImage: (
+      <PropsSection propsList={searchProductItemImageProps} />
+    ),
+    SearchProductItemContent: (
+      <PropsSection propsList={searchProductItemContentProps} />
+    ),
+  }[component]
+}
+
+<header>
+
+# Search Products
+
+List of `SearchProductItem` to show details of the suggested products. This component is part of the [Search](/components/search) feature.
+
+</header>
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import {
+  SearchProducts,
+  SearchProductItem,
+  SearchProductItemImage,
+  SearchProductItemContent,
+} from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/SearchProducts/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <SearchProducts>
+        <SearchProductItem linkProps={{ href: '#' }}>
+          <SearchProductItemImage>
+            <img
+              data-fs-image
+              src={product.image[1].url}
+              alt={product.image[1].alternateName}
+            />
+          </SearchProductItemImage>
+          <SearchProductItemContent
+            title={product.isVariantOf.name}
+            price={{
+              value: product.offers.offers[0].price,
+              listPrice: product.offers.offers[0].listPrice,
+              formatter: useFormattedPrice,
+            }}
+          />
+        </SearchProductItem>
+        <SearchProductItem linkProps={{ href: '#' }}>
+          <SearchProductItemImage>
+            <img
+              data-fs-image
+              src={product.image[1].url}
+              alt={product.image[1].alternateName}
+            />
+          </SearchProductItemImage>
+          <SearchProductItemContent
+            title={product.isVariantOf.name}
+            price={{
+              value: product.offers.offers[0].price,
+              listPrice: product.offers.offers[0].listPrice,
+              formatter: useFormattedPrice,
+            }}
+          />
+        </SearchProductItem>
+      </SearchProducts>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <SearchProducts>
+      <SearchProductItem linkProps={{ href: '#' }}>
+        <SearchProductItemImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </SearchProductItemImage>
+        <SearchProductItemContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+        />
+      </SearchProductItem>
+      <SearchProductItem linkProps={{ href: '#' }}>
+        <SearchProductItemImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </SearchProductItemImage>
+        <SearchProductItemContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+        />
+      </SearchProductItem>
+    </SearchProducts>
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+All search product related components support all attributes also supported by their respective HTML tags. Besides those attributes, the following props are also supported:
+
+### Search Products
+
+<SearchProductsPropsSection component="SearchProducts" />
+
+### Search Product Item
+
+<SearchProductsPropsSection component="SearchProductItem" />
+
+### Search Product Item Image
+
+<SearchProductsPropsSection component="SearchProductItemImage" />
+
+### Search Product Item Content
+
+<SearchProductsPropsSection component="SearchProductItemContent" />
+
+#### Price Definition
+
+<PropsSection propsList={propsPriceDefinition} />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-products-padding-top"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-search-products-padding-right"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-search-products-padding-bottom"
+    value="var(--fs-search-products-padding-top)"
+  />
+  <TokenRow
+    token="--fs-search-products-padding-left"
+    value="var(--fs-search-products-padding-right)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-search-products-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-search-products-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenRow
+    token="--fs-search-products-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Header
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-products-header-padding-top"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-search-products-header-padding-bottom"
+    value="var(--fs-search-products-header-padding-top)"
+  />
+</TokenTable>
+
+#### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-products-title-size"
+    value="var(--fs-text-size-lead)"
+  />
+  <TokenRow token="--fs-search-products-title-line-height" value="1.5" />
+</TokenTable>
+
+#### Item
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-product-item-padding-top"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-search-product-item-padding-right"
+    value="var(--fs-search-product-item-padding-top)"
+  />
+  <TokenRow
+    token="--fs-search-product-item-bkg-color-hover"
+    value="var(--fs-color-tertiary-bkg-hover)"
+    isColor
+  />
+</TokenTable>
+
+#### Item Image
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-product-item-image-border-radius"
+    value="var(--fs-border-radius)"
+  />
+  <TokenRow
+    token="--fs-search-product-item-image-margin-right"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow token="--fs-search-product-item-image-size" value="3.5rem" />
+</TokenTable>
+
+#### Item Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-product-item-title-margin-bottom"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow
+    token="--fs-search-product-item-title-size"
+    value="var(--fs-text-size-2)"
+  />
+  <TokenRow token="--fs-search-product-item-title-line-height" value="1.2" />
+  <TokenRow
+    token="--fs-search-product-item-title-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+</TokenTable>
+
+#### Item Price
+
+<TokenTable>
+  <TokenRow
+    token="--fs-search-product-item-price-gap"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-search-product-item-price-size"
+    value="var(--fs-text-size-base)"
+  />
+</TokenTable>
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-search-products`
+
+`data-fs-search-products-header`
+
+`data-fs-search-products-title`
+
+`data-fs-search-product-item`
+
+`data-fs-search-product-item-link`
+
+`data-fs-search-product-item-image`
+
+`data-fs-search-product-item-content`

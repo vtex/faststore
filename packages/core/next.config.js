@@ -1,10 +1,14 @@
 // @ts-check
+const storeConfig = require('./faststore.config')
 
 /**
  * @type {import('next').NextConfig}
  * */
 const nextConfig = {
   /* config options here */
+  images: {
+    domains: [`${storeConfig.api.storeId}.vtexassets.com`],
+  },
   i18n: {
     locales: ['en-US'],
     defaultLocale: 'en-US',

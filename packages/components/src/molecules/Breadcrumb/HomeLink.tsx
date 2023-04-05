@@ -1,5 +1,5 @@
-import { House, Icon, Link } from "../..";
-import React from "react";
+import React from 'react'
+import { Icon, Link } from '../..'
 
 const HomeLink = () => (
   <Link
@@ -8,7 +8,7 @@ const HomeLink = () => (
     aria-label="Go to homepage"
     href="/"
   >
-    <Icon component={<House size={18} />} />
+    <Icon name="House" width={18} height={18} />
   </Link>
 )
 

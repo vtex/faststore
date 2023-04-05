@@ -1,6 +1,6 @@
-import type { ReactNode, ButtonHTMLAttributes } from 'react'
+import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
-import { Icon, Loader } from '../../'
+import { Loader } from '../../'
 
 export type Variant = 'primary' | 'secondary' | 'tertiary'
 export type Size = 'small' | 'regular'
@@ -81,9 +81,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
           />
         </p>
       )}
-      {icon && iconPosition === 'left' && <Icon component={icon} />}
+      {React.isValidElement(icon) && iconPosition === 'left' && <span data-fs-button-icon>{icon}</span>}
       <span>{children}</span>
-      {icon && iconPosition === 'right' && <Icon component={icon} />}
+      {React.isValidElement(icon) && iconPosition === 'right' && <span data-fs-button-icon>{icon}</span>}
     </button>
   )
 })

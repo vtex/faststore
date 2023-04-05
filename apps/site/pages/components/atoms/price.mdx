@@ -11,6 +11,31 @@ import { OverviewSection } from 'site/components/OverviewSection'
 import { Price } from '@faststore/ui'
 import { useMemo } from 'react'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const pricePath = path.resolve(__filename)
+  const components = ['Price.tsx']
+  const [priceProps] = getComponentPropsFrom(pricePath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: { priceProps },
+    },
+  }
+}
+
+export const PricePropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { priceProps } = useSSG()
+  return {
+    Price: <PropsSection propsList={priceProps} />,
+  }[component]
+}
+
 <header>
 
 # Price
@@ -46,7 +71,7 @@ Prices are used to display the price of a given product, discount and total valu
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
 import { Price } from '@faststore/ui'
@@ -73,7 +98,7 @@ import '@faststore/ui/src/components/atoms/Price/styles.scss'
 
 ## Props
 
-<PropsSection name="Price" />
+<PricePropsSection component="Price" />
 
 ---
 

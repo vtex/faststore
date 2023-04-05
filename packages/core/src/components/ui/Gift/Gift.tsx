@@ -3,13 +3,12 @@ import {
   Gift as UIGift,
   GiftContent as UIGiftContent,
   GiftImage as UIGiftImage,
-  Price as UIPrice,
+  Icon,
 } from '@faststore/ui'
 
-import Icon from 'src/components/ui/Icon'
 import { Image } from 'src/components/ui/Image'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { CartItem as ICartItem } from 'src/sdk/cart'
+import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 export type Props = GiftProps & {
   /**
@@ -20,7 +19,10 @@ export type Props = GiftProps & {
 
 function Gift({ item, ...otherProps }: Props) {
   return (
-    <UIGift icon={<Icon name="Tag" width={18} height={18} />} {...otherProps}>
+    <UIGift
+      icon={<Icon data-fs-gift-icon name="Tag" width={18} height={18} />}
+      {...otherProps}
+    >
       <UIGiftImage>
         <Image
           src={item.itemOffered.image[0].url}

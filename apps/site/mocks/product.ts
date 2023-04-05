@@ -30,6 +30,13 @@ export const product = {
             label: 'Color: White',
             value: 'White',
           },
+          {
+            src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=1759260622',
+            alt: 'Magicgray',
+            label: 'Color: Gray',
+            value: 'Gray',
+            disabled: true,
+          },
         ],
       },
     },

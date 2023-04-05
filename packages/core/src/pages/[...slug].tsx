@@ -11,6 +11,7 @@ import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
+import { Icon } from '@faststore/ui'
 import type {
   ServerCollectionPageQueryQuery,
   ServerCollectionPageQueryQueryVariables,
@@ -20,7 +21,6 @@ import Hero from 'src/components/sections/Hero'
 import ProductGallery from 'src/components/sections/ProductGallery'
 import ProductShelf from 'src/components/sections/ProductShelf'
 import ScrollToTopButton from 'src/components/sections/ScrollToTopButton'
-import Icon from 'src/components/ui/Icon'
 import { ITEMS_PER_PAGE, ITEMS_PER_SECTION } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
 import { mark } from 'src/sdk/tests/mark'

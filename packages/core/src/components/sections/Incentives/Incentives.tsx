@@ -1,6 +1,4 @@
-import { Incentive as UIIncentive, List as UIList } from '@faststore/ui'
-
-import Icon from 'src/components/ui/Icon'
+import { Icon, Incentive as UIIncentive, List as UIList } from '@faststore/ui'
 
 import styles from './incentives.module.scss'
 

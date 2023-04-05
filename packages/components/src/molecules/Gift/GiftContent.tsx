@@ -1,15 +1,9 @@
 import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import type { PriceFormatter } from '../../atoms/Price/Price'
-
 import { Price, Badge } from '../../'
 
-interface Price {
-  value: number
-  listPrice: number
-  formatter: PriceFormatter
-}
+import type { PriceDefinition } from '../../typings/PriceDefinition'
 
 export interface GiftContentProps extends HTMLAttributes<HTMLElement> {
   /**
@@ -23,7 +17,7 @@ export interface GiftContentProps extends HTMLAttributes<HTMLElement> {
   /**
    * Specifies product's prices.
    */
-  price: Price
+  price: PriceDefinition
   /**
    * Badge's label
    */

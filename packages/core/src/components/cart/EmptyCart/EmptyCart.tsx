@@ -1,7 +1,6 @@
-import { Button as UIButton } from '@faststore/ui'
+import { Button as UIButton, Icon } from '@faststore/ui'
 
 import EmptyState from 'src/components/ui/EmptyState'
-import Icon from 'src/components/ui/Icon'
 
 interface Props {
   /**

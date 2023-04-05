@@ -1,0 +1,177 @@
+---
+description: This component is used to announce to users that the product is out of stock.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/OutOfStock___5863b0eb4a4a8ce9a98da5c760461e61.png
+---
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { OutOfStock } from '@faststore/ui'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const outOfStockPath = path.resolve(__filename)
+  const components = ['OutOfStock.tsx']
+  const [outOfStockProps] = getComponentPropsFrom(outOfStockPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        outOfStockProps,
+      },
+    },
+  }
+}
+
+export const OutOfStockPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { outOfStockProps } = useSSG()
+  return {
+    OutOfStock: <PropsSection propsList={outOfStockProps} />,
+  }[component]
+}
+
+<header>
+
+# Out of Stock
+
+This component is used to announce to users that the product is out of stock. It also asks for their contact to let they know when the product arrives.
+
+</header>
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { OutOfStock } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/organisms/OutOfStock/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection containerStyle={{display: 'block'}}>
+      <OutOfStock
+        title="Out of Stock"
+        subtitle="Notify me when available"
+        inputLabel="Email"
+        buttonLabel="Notify Me"
+        onSubmit={()=>{}}
+        disabled={false}
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <OutOfStock
+        title="Out of Stock"
+        subtitle="Notify me when available"
+        inputLabel="Email"
+        buttonLabel="Notify Me"
+        onSubmit={handleSubmit}
+        disabled={isLoading}
+      />
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+### Out of Stock
+
+<OutOfStockPropsSection component="OutOfStock" />
+
+---
+
+## Design Tokens
+
+### Nested Elements
+
+#### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-out-of-stock-title-margin-bottom"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow token="--fs-out-of-stock-title-line-height" value="1.15" />
+  <TokenRow
+    token="--fs-out-of-stock-title-size"
+    value="var(--fs-text-size-lead)"
+  />
+  <TokenRow
+    token="--fs-out-of-stock-title-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenRow
+    token="--fs-out-of-stock-title-color"
+    value="var(--fs-color-neutral-text)"
+    isColor
+  />
+</TokenTable>
+
+#### Message
+
+<TokenTable>
+  <TokenRow
+    token="--fs-out-of-stock-message-column-gap"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow
+    token="--fs-out-of-stock-message-margin-bottom"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow token="--fs-out-of-stock-message-line-height" value="1.15" />
+  <TokenRow
+    token="--fs-out-of-stock-message-size"
+    value="var(--fs-text-size-base)"
+  />
+  <TokenRow
+    token="--fs-out-of-stock-message-weight"
+    value="var(--fs-text-weight-regular)"
+  />
+  <TokenRow
+    token="--fs-out-of-stock-message-color"
+    value="var(--fs-color-success-text)"
+    isColor
+  />
+</TokenTable>
+
+#### Button
+
+<TokenTable>
+  <TokenRow token="--fs-out-of-stock-button-width" value="100%" />
+  <TokenRow
+    token="--fs-out-of-stock-button-margin-top"
+    value="var(--fs-spacing-3)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+`data-fs-out-of-stock`
+
+`data-fs-out-of-stock-title`
+
+`data-fs-out-of-stock-message`
+
+`data-fs-out-of-stock-button`

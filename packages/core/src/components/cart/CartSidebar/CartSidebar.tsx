@@ -1,25 +1,23 @@
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import {
-  List as UIList,
-  IconButton as UIIconButton,
-  Button as UIButton,
-  Badge as UIBadge,
   Alert as UIAlert,
+  Badge as UIBadge,
+  Button as UIButton,
+  List as UIList,
+  SlideOver as UISlideOver,
+  SlideOverHeader as UISlideOverHeader,
 } from '@faststore/ui'
 
+import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
 import { useEffect } from 'react'
-import type { ViewCartEvent, CurrencyCode } from '@faststore/sdk'
 
-import Icon from 'src/components/ui/Icon'
-import SlideOver from 'src/components/ui/SlideOver'
+import { Icon, useFadeEffect, useUI } from '@faststore/ui'
 import { useCart } from 'src/sdk/cart'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
-import { useUI } from '@faststore/ui'
-import { useFadeEffect } from '@faststore/ui'
 
-import CartItem from '../CartItem'
 import Gift from '../../ui/Gift'
+import CartItem from '../CartItem'
 import EmptyCart from '../EmptyCart'
 import OrderSummary from '../OrderSummary'
 import styles from './cart-sidebar.module.scss'
@@ -58,31 +56,29 @@ function CartSidebar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const closeBtnProps = {
+    testId: 'cart-sidebar-button-close',
+  }
+
   return (
-    <SlideOver
+    <UISlideOver
       fade={fade}
       isOpen={displayCart}
-      onDismiss={fadeOut}
+      onDismiss={() => fadeOut()}
       size="partial"
       direction="rightSide"
       className={styles.fsCartSidebar}
       onTransitionEnd={() => fade === 'out' && closeCart()}
+      data-testid="cart-sidebar"
     >
-      <header data-fs-cart-sidebar-header data-testid="cart-sidebar">
+      <UISlideOverHeader closeBtnProps={closeBtnProps} onClose={fadeOut}>
         <div data-fs-cart-sidebar-title>
           <p data-fs-cart-sidebar-title-text className="text__lead">
             Your Cart
           </p>
           <UIBadge variant="info">{totalItems}</UIBadge>
         </div>
-        <UIIconButton
-          data-fs-cart-sidebar-close-button
-          data-testid="cart-sidebar-button-close"
-          aria-label="Close Cart"
-          icon={<Icon name="X" width={32} height={32} />}
-          onClick={fadeOut}
-        />
-      </header>
+      </UISlideOverHeader>
       <UIAlert icon={<Icon name="Truck" />}>
         Free shipping starts at $300
       </UIAlert>
@@ -132,7 +128,7 @@ function CartSidebar() {
           </footer>
         </>
       )}
-    </SlideOver>
+    </UISlideOver>
   )
 }
 
