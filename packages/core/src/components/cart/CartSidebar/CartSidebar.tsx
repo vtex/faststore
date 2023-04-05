@@ -58,10 +58,10 @@ function CartSidebar() {
       totalItems={totalItems}
       alertIcon={<Icon name="Truck" />}
       alertText="Free shipping starts at $300"
-      onClose={closeCart}
+      onClose={fadeOut}
     >
       {isEmpty ? (
-        <EmptyCart onDismiss={fadeOut} />
+        <EmptyCart onDismiss={closeCart} />
       ) : (
         <>
           <UICartSidebarList>
