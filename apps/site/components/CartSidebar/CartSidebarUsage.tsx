@@ -92,6 +92,14 @@ export const CartSidebarUsage = () => {
               discountValue="-$100"
               totalValue="$1,100"
             />
+            <Button
+              data-fs-cart-sidebar-checkout-button
+              variant="primary"
+              icon={<Icon name="ArrowRight" width={18} height={18} />}
+              iconPosition="right"
+            >
+              Checkout
+            </Button>
           </CartSidebarFooter>
         </CartSidebar>
       )}
