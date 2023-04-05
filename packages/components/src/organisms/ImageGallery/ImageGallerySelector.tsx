@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import type { AriaAttributes } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { Button, IconButton } from '../..'
+import { Button, Icon, IconButton } from '../..'
 
 import type { ImageGalleryProps } from '.'
 
@@ -94,7 +94,7 @@ function ImageGallerySelector({
           <IconButton
             data-fs-image-gallery-selector-control-button
             aria-label={navigationButtonLeftAriaLabel}
-            icon={<ArrowLeft />}
+            icon={<Icon name="ArrowLeft" />}
             size="small"
             onClick={() =>
               moveScroll(elementsRef.current, -SCROLL_MARGIN_VALUE)
@@ -137,7 +137,7 @@ function ImageGallerySelector({
           <IconButton
             data-fs-image-gallery-selector-control-button
             aria-label={navigationButtonRightAriaLabel}
-            icon={<ArrowLeft />}
+            icon={<Icon name="ArrowLeft" />}
             size="small"
             onClick={() =>
               moveScroll(elementsRef.current, +SCROLL_MARGIN_VALUE)
