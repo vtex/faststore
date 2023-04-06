@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
 
-import { List } from '@faststore/components'
+import { List } from '../../'
 
 export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
   /**
@@ -14,7 +14,7 @@ export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
    */
   subtotalLabel?: string
   /**
-   * Subtotal value of the order.  If provided, subtotal label and value will be shown.
+   * Subtotal value of the order. If provided, subtotal label and value will be shown.
    */
   subtotalValue?: string
   /**
@@ -38,12 +38,12 @@ export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
 const OrderSummary = forwardRef<HTMLUListElement, OrderSummaryProps>(
   function OrderSummary(
     {
-      testId = 'store-order-summary',
+      testId = 'fs-order-summary',
       subtotalLabel,
       subtotalValue,
-      discountLabel,
+      discountLabel = 'Discount',
       discountValue,
-      totalLabel,
+      totalLabel = 'Total',
       totalValue,
       ...otherProps
     },

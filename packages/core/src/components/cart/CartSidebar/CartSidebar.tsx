@@ -1,11 +1,9 @@
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import {
-  Alert as UIAlert,
-  Badge as UIBadge,
+  CartSidebar as UICartSidebar,
+  CartSidebarList as UICartSidebarList,
+  CartSidebarFooter as UICartSidebarFooter,
   Button as UIButton,
-  List as UIList,
-  SlideOver as UISlideOver,
-  SlideOverHeader as UISlideOverHeader,
 } from '@faststore/ui'
 
 import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
@@ -20,14 +18,13 @@ import Gift from '../../ui/Gift'
 import CartItem from '../CartItem'
 import EmptyCart from '../EmptyCart'
 import OrderSummary from '../OrderSummary'
-import styles from './cart-sidebar.module.scss'
 
 function CartSidebar() {
   const { currency } = useSession()
   const btnProps = useCheckoutButton()
   const cart = useCart()
-  const { cart: displayCart, closeCart } = useUI()
-  const { fade, fadeOut } = useFadeEffect()
+  const { closeCart } = useUI()
+  const { fadeOut } = useFadeEffect()
 
   const { items, gifts, totalItems, isValidating, subTotal, total } = cart
 
@@ -56,38 +53,18 @@ function CartSidebar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const closeBtnProps = {
-    testId: 'cart-sidebar-button-close',
-  }
-
   return (
-    <UISlideOver
-      fade={fade}
-      isOpen={displayCart}
-      onDismiss={() => fadeOut()}
-      size="partial"
-      direction="rightSide"
-      className={styles.fsCartSidebar}
-      onTransitionEnd={() => fade === 'out' && closeCart()}
-      data-testid="cart-sidebar"
+    <UICartSidebar
+      totalItems={totalItems}
+      alertIcon={<Icon name="Truck" />}
+      alertText="Free shipping starts at $300"
+      onClose={fadeOut}
     >
-      <UISlideOverHeader closeBtnProps={closeBtnProps} onClose={fadeOut}>
-        <div data-fs-cart-sidebar-title>
-          <p data-fs-cart-sidebar-title-text className="text__lead">
-            Your Cart
-          </p>
-          <UIBadge variant="info">{totalItems}</UIBadge>
-        </div>
-      </UISlideOverHeader>
-      <UIAlert icon={<Icon name="Truck" />}>
-        Free shipping starts at $300
-      </UIAlert>
-
       {isEmpty ? (
-        <EmptyCart onDismiss={fadeOut} />
+        <EmptyCart onDismiss={closeCart} />
       ) : (
         <>
-          <UIList data-fs-cart-sidebar-list>
+          <UICartSidebarList>
             {items.map((item) => (
               <li key={item.id}>
                 <CartItem item={item} />
@@ -102,16 +79,15 @@ function CartSidebar() {
                 ))}
               </>
             )}
-          </UIList>
+          </UICartSidebarList>
 
-          <footer data-fs-cart-sidebar-footer>
+          <UICartSidebarFooter>
             <OrderSummary
               subTotal={subTotal}
               total={total}
               numberOfItems={totalItems}
               checkoutButton={
                 <UIButton
-                  data-fs-cart-sidebar-checkout-button
                   variant="primary"
                   icon={
                     !isValidating && (
@@ -125,10 +101,10 @@ function CartSidebar() {
                 </UIButton>
               }
             />
-          </footer>
+          </UICartSidebarFooter>
         </>
       )}
-    </UISlideOver>
+    </UICartSidebar>
   )
 }
 

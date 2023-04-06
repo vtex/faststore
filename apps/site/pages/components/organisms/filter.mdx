@@ -46,7 +46,8 @@ export const getStaticProps = () => {
 
 export const FilterPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
-  const { filterProps, facetsProps, facetBooleanItemProps, facetRangeProps } = useSSG()
+  const { filterProps, facetsProps, facetBooleanItemProps, facetRangeProps } =
+    useSSG()
   return {
     Filter: <PropsSection propsList={filterProps} />,
     FilterFacets: <PropsSection propsList={facetsProps} />,
@@ -184,6 +185,7 @@ The `Filter` component is a compound of the following:
         )
       }
     ```
+
   </Tab>
 </Tabs>
 
@@ -191,10 +193,16 @@ The `Filter` component is a compound of the following:
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { Filter, FilterFacets, FilterFacetBoolean, FilterFacetBooleanItem, FilterFacetRange } from '@faststore/ui'
+import {
+  Filter,
+  FilterFacets,
+  FilterFacetBoolean,
+  FilterFacetBooleanItem,
+  FilterFacetRange,
+} from '@faststore/ui'
 ```
 
 Import Styles
@@ -298,6 +306,7 @@ import '@faststore/ui/src/components/organisms/Filter/styles.scss'
         )
       }
     ```
+
   </Tab>
 </Tabs>
 
@@ -330,22 +339,13 @@ import '@faststore/ui/src/components/organisms/Filter/styles.scss'
 #### Title
 
 <TokenTable>
-  <TokenRow
-    token="--fs-filter-title-height"
-    value="var(--fs-spacing-6)"
-  />
+  <TokenRow token="--fs-filter-title-height" value="var(--fs-spacing-6)" />
   <TokenRow
     token="--fs-filter-title-margin-bottom"
     value="var(--fs-spacing-0)"
   />
-  <TokenRow
-    token="--fs-filter-title-text-size"
-    value="var(--fs-text-size-2)"
-  />
-  <TokenRow
-    token="--fs-filter-title-line-height"
-    value="1.25"
-  />
+  <TokenRow token="--fs-filter-title-text-size" value="var(--fs-text-size-2)" />
+  <TokenRow token="--fs-filter-title-line-height" value="1.25" />
 </TokenTable>
 
 #### Accordion
@@ -446,11 +446,11 @@ import '@faststore/ui/src/components/organisms/Filter/styles.scss'
     token="--fs-filter-list-item-label-margin-left"
     value="var(--fs-spacing-1)"
   />
-  <TokenRow token="--fs-filter-list-item-label-text-size" value="var(--fs-text-size-2)" />
   <TokenRow
-    token="--fs-filter-list-item-label-line-height"
-    value="1.25"
+    token="--fs-filter-list-item-label-text-size"
+    value="var(--fs-text-size-2)"
   />
+  <TokenRow token="--fs-filter-list-item-label-line-height" value="1.25" />
 </TokenTable>
 
 #### List Item Badge
@@ -485,4 +485,3 @@ import '@faststore/ui/src/components/organisms/Filter/styles.scss'
 `data-fs-filter-list-item-badge`
 
 `data-fs-filter-facet-range`
-

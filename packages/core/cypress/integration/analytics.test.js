@@ -375,7 +375,7 @@ describe('view_cart event', () => {
     cy.waitForHydration()
 
     cy.getById('cart-toggle').click()
-    cy.getById('cart-sidebar').should('be.visible')
+    cy.getById('fs-cart-sidebar').should('be.visible')
 
     dataLayerHasEvent('view_cart')
 
@@ -398,7 +398,7 @@ describe('view_cart event', () => {
       .scrollIntoView({ duration: 500 })
       .then(() => {
         cy.getById('buy-button').click({ force: true })
-        cy.getById('cart-sidebar').should('be.visible')
+        cy.getById('fs-cart-sidebar').should('be.visible')
 
         dataLayerHasEvent('view_cart')
 

@@ -21,10 +21,10 @@ import { useSSG } from 'nextra/ssg'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
-  const componentPath = path.resolve(__filename.replace("filter-slider", "filter"))
-  const components = [
-    'FilterSlider.tsx',
-  ]
+  const componentPath = path.resolve(
+    __filename.replace('filter-slider', 'filter')
+  )
+  const components = ['FilterSlider.tsx']
   const [filterSliderProps] = getComponentPropsFrom(componentPath, components)
   return {
     props: {
@@ -66,10 +66,17 @@ The `FilterSlider` component is a compound of the following:
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { FilterSlider, Filter, FilterFacets, FilterFacetBoolean, FilterFacetBooleanItem, FilterFacetRange } from '@faststore/ui'
+import {
+  FilterSlider,
+  Filter,
+  FilterFacets,
+  FilterFacetBoolean,
+  FilterFacetBooleanItem,
+  FilterFacetRange,
+} from '@faststore/ui'
 ```
 
 Import Styles
@@ -206,6 +213,7 @@ import '@faststore/ui/src/components/organisms/FilterSlider/styles.scss'
         )
       }
     ```
+
   </Tab>
 </Tabs>
 
@@ -247,10 +255,7 @@ import '@faststore/ui/src/components/organisms/FilterSlider/styles.scss'
     token="--fs-filter-slider-title-font-weight"
     value="var(--fs-text-weight-bold)"
   />
-  <TokenRow
-    token="--fs-filter-slider-title-line-height"
-    value="1.12"
-  />
+  <TokenRow token="--fs-filter-slider-title-line-height" value="1.12" />
 </TokenTable>
 
 #### Footer

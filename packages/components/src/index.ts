@@ -95,6 +95,8 @@ export { default as LinkButton } from './molecules/LinkButton'
 export type { LinkButtonProps } from './molecules/LinkButton'
 export { default as Modal, ModalHeader, ModalBody } from './molecules/Modal'
 export type { ModalProps, ModalHeaderProps } from './molecules/Modal'
+export { default as OrderSummary } from './molecules/OrderSummary'
+export type { OrderSummaryProps } from './molecules/OrderSummary'
 export {
   default as ProductCard,
   ProductCardImage,
@@ -189,6 +191,13 @@ export { default as QuantitySelector } from './molecules/QuantitySelector'
 export type { QuantitySelectorProps } from './molecules/QuantitySelector'
 
 // Organisms
+export {
+  default as CartSidebar,
+  CartSidebarList,
+  CartSidebarFooter,
+} from './organisms/CartSidebar'
+export type { CartSidebarProps } from './organisms/CartSidebar'
+
 export {
   default as Filter,
   FilterFacetBoolean,

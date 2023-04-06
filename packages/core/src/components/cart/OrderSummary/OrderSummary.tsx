@@ -3,8 +3,6 @@ import type { ReactNode } from 'react'
 
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
-import styles from './order-summary.module.scss'
-
 interface OrderSummaryProps {
   subTotal: number
   total: number
@@ -22,17 +20,15 @@ function OrderSummary({
   const formattedDiscount = useFormattedPrice(discount)
 
   return (
-    <div className={styles.fsOrderSummary}>
+    <>
       <UIOrderSummary
         subtotalLabel={`Subtotal (${numberOfItems} products)`}
         subtotalValue={useFormattedPrice(subTotal)}
-        discountLabel="Discount"
         discountValue={discount > 0 ? `-${formattedDiscount}` : undefined}
-        totalLabel="Total"
         totalValue={useFormattedPrice(total)}
       />
       {checkoutButton}
-    </div>
+    </>
   )
 }
 

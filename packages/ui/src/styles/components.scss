@@ -28,6 +28,7 @@
 @import "../components/molecules/InputField/styles";
 @import "../components/molecules/LinkButton/styles";
 @import "../components/molecules/Modal/styles";
+@import "../components/molecules/OrderSummary/styles";
 @import "../components/molecules/ProductCard/styles";
 @import "../components/molecules/ProductTitle/styles";
 @import "../components/molecules/QuantitySelector/styles";
@@ -49,6 +50,7 @@
 @import "../components/molecules/ToggleField/styles";
 
 // Organisms
+@import "../components/organisms/CartSidebar/styles";
 @import "../components/organisms/Filter/styles";
 @import "../components/organisms/FilterSlider/styles";
 @import "../components/organisms/Hero/styles";
