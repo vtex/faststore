@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.102-alpha.0](https://github.com/vtex/faststore/compare/v2.0.101-alpha.0...v2.0.102-alpha.0) (2023-04-06)
+
+### Features
+
+- Adds `CartSidebar` and `OrderSummary` ([#1704](https://github.com/vtex/faststore/issues/1704)) ([a16e168](https://github.com/vtex/faststore/commit/a16e1683816ef84866de4cd7f8d8a64f951b98c6))
+
 ## [2.0.101-alpha.0](https://github.com/vtex/faststore/compare/v2.0.100-alpha.0...v2.0.101-alpha.0) (2023-04-05)
 
 ### Bug Fixes
