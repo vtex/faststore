@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.103-alpha.0](https://github.com/vtex/faststore/compare/v2.0.102-alpha.0...v2.0.103-alpha.0) (2023-04-06)
+
+### Features
+
+- Add `ImageGallery` components ([#1681](https://github.com/vtex/faststore/issues/1681)) ([b44101c](https://github.com/vtex/faststore/commit/b44101c932b0758f9c1b09ee001d3221c338cf93)), closes [starter.store#37](https://github.com/vtex/starter.store/issues/37)
+
 ## [2.0.102-alpha.0](https://github.com/vtex/faststore/compare/v2.0.101-alpha.0...v2.0.102-alpha.0) (2023-04-06)
 
 ### Features
