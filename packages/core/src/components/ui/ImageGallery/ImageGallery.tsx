@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ImageGallery as UIImageGallery,
   ImageElementData,
@@ -6,6 +6,7 @@ import {
 } from '@faststore/ui'
 
 import { Image } from 'src/components/ui/Image'
+import { useRouter } from 'next/router'
 
 const ImageComponent = ({ url, alternateName }) => (
   <Image
@@ -23,7 +24,10 @@ export interface ImageGalleryProps {
 
 const ImageGallery = ({ images, ...otherProps }: ImageGalleryProps) => {
   const [selectedImageIdx, setSelectedImageIdx] = useState(0)
-  const currentImage = images[selectedImageIdx]
+  const currentImage = images[selectedImageIdx] ?? images[0]
+  const dynamicRoute = useRouter().asPath
+
+  useEffect(() => setSelectedImageIdx(0), [dynamicRoute])
 
   return (
     <UIImageGallery
