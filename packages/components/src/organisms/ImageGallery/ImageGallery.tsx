@@ -10,7 +10,7 @@ type ImageComponentType = FunctionComponent<{
   onLoad?: (image: any) => void
 }>
 
-export type ImageElementData = {
+export interface ImageElementData {
   /**
    * Image URL.
    */
@@ -42,7 +42,7 @@ export interface ImageGalleryProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Event handler for clicks on each thumbnail.
    */
-  setSelectedImageIdx: React.Dispatch<React.SetStateAction<number>>
+  setSelectedImageIdx: (idx: number) => void
 }
 
 const ImageGallery = forwardRef<HTMLDivElement, ImageGalleryProps>(
