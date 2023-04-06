@@ -49,7 +49,7 @@ export interface CartSidebarProps {
 }
 
 function CartSidebar({
-  testId = 'fs-order-summary',
+  testId = 'fs-cart-sidebar',
   title = 'Your Cart',
   size = 'partial',
   direction = 'rightSide',
