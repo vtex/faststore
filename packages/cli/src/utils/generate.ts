@@ -128,32 +128,25 @@ function mergeCMSFile(fileName: string) {
   const coreFilePath = `${coreCMSDir}/${fileName}`
 
   const coreFile = readFileSync(coreFilePath, 'utf8')
-  const coreJSON = JSON.parse(coreFile)
-
-  let output = []
+  const output = [...JSON.parse(coreFile)]
 
   // TODO: create a validation when has the cms files but doesn't have a component for then
   if (existsSync(customFilePath)) {
     const customFile = readFileSync(customFilePath, 'utf8');
-    let customJSON;
-
+    
     try {
-      customJSON = JSON.parse(customFile)
-    } catch(SyntaxError) {
-      console.info(
-        `${chalk.red(
-          'error'
-        )} - ${fileName} is a malformed JSON file, ignoring its contents.`
-      )
-      customJSON = []
+      output.push(...JSON.parse(customFile))
+    } catch(err) {
+      if (err instanceof SyntaxError) {
+        console.info(
+          `${chalk.red(
+            'error'
+          )} - ${fileName} is a malformed JSON file, ignoring its contents.`
+        )
+      } else {
+        throw err
+      }
     }
-
-    output = [
-      ...coreJSON,
-      ...customJSON,
-    ]
-  } else {
-    output = coreJSON
   }
 
   try {
