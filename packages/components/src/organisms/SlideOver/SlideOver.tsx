@@ -55,6 +55,7 @@ function SlideOver({
       data-fs-slide-over-state={fade}
       isOpen={isOpen}
       onDismiss={onDismiss}
+      testId={testId}
       {...otherProps}
     >
       {children}
