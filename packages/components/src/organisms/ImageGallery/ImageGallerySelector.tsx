@@ -1,6 +1,6 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState, useCallback } from 'react'
 import type { AriaAttributes } from 'react'
-import { useInView } from 'react-intersection-observer'
+import { InView } from 'react-intersection-observer'
 import { Button, Icon, IconButton } from '../..'
 
 import type { ImageGalleryProps } from '.'
@@ -74,13 +74,13 @@ function ImageGallerySelector({
 }: ImageGallerySelectorProps) {
   const elementsRef = useRef<HTMLDivElement>(null)
   const elementHasScroll = hasScroll(elementsRef.current)
-  const { ref: firstImageRef, inView: firstImageInView } = useInView({
-    threshold: 1,
-  })
+  const [firstImageInView, setFirstImageInView] = useState(true)
+  const [lastImageInView, setLastImageInView] = useState(true)
 
-  const { ref: lastImageRef, inView: lastImageInView } = useInView({
-    threshold: 1,
-  })
+  const inViewChange= useCallback((idx: number, inView: boolean) => {
+    idx === 0 && setFirstImageInView(inView)
+    idx === images.length - 1 && setLastImageInView(inView)
+  }, [images.length])
 
   return (
     <section
@@ -104,31 +104,27 @@ function ImageGallerySelector({
       )}
       <div data-fs-image-gallery-selector-elements ref={elementsRef}>
         {images.map((image, idx) => {
-          const ref =
-            idx === 0
-              ? firstImageRef
-              : idx === images.length - 1
-              ? lastImageRef
-              : null
-
           return (
-            <Button
+            <InView 
               key={idx}
-              aria-label={`${image.alternateName} - Image ${idx + 1} of ${
-                images.length
-              }`}
-              onClick={() => onSelect(idx)}
-              data-fs-image-gallery-selector-thumbnail={
-                idx === currentImageIdx ? 'selected' : 'true'
-              }
-            >
-              <ImageComponent
-                url={image.url ?? ''}
-                loading={idx === 0 ? 'eager' : 'lazy'}
-                alternateName={image.alternateName ?? ''}
-                onLoad={(image) => ref && ref(image.currentTarget)}
-              />
-            </Button>
+              onChange={(inView) => inViewChange(idx, inView)}>
+              <Button
+                key={idx}
+                aria-label={`${image.alternateName} - Image ${idx + 1} of ${
+                  images.length
+                }`}
+                onClick={() => onSelect(idx)}
+                data-fs-image-gallery-selector-thumbnail={
+                  idx === currentImageIdx ? 'selected' : 'true'
+                }
+              >
+                <ImageComponent
+                  url={image.url ?? ''}
+                  loading={idx === 0 ? 'eager' : 'lazy'}
+                  alternateName={image.alternateName ?? ''}
+                />
+              </Button>
+            </InView>
           )
         })}
       </div>

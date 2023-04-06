@@ -7,9 +7,8 @@ import {
 
 import { Image } from 'src/components/ui/Image'
 
-const ImageComponent = ({ url, alternateName, onLoad }) => (
+const ImageComponent = ({ url, alternateName }) => (
   <Image
-    onLoadingComplete={onLoad as any}
     src={url}
     alt={alternateName}
     sizes="(max-width: 72px) 25vw, 30vw"

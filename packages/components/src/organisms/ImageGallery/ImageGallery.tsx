@@ -7,7 +7,6 @@ type ImageComponentType = FunctionComponent<{
   url: string
   alternateName?: string
   loading?: 'eager' | 'lazy'
-  onLoad?: (image: any) => void
 }>
 
 export interface ImageElementData {
