@@ -230,6 +230,9 @@ export type { PaymentMethodsProps } from './organisms/PaymentMethods'
 export { default as PriceRange } from './organisms/PriceRange'
 export type { PriceRangeProps } from './organisms/PriceRange'
 
+export { default as RegionModal } from './organisms/RegionModal'
+export type { RegionModalProps } from './organisms/RegionModal'
+
 export { default as SearchInput } from './organisms/SearchInput'
 export type { SearchInputProps } from './organisms/SearchInput'
 
