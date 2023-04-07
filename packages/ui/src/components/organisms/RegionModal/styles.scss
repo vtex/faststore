@@ -1,0 +1,31 @@
+[data-fs-region-modal] {
+  // --------------------------------------------------------
+  // Design Tokens for Region Modal
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-region-modal-margin-bottom           : var(--fs-spacing-6);
+
+  // Link
+  --fs-region-modal-link-padding            : 0;
+  --fs-region-modal-link-color              : var(--fs-color-link);
+  --fs-region-modal-link-margin-right       : var(--fs-spacing-0);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+  [data-fs-region-modal-input] {
+    margin-bottom: var(--fs-region-modal-margin-bottom);
+  }
+
+  [data-fs-region-modal-link] {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    align-items: center;
+    justify-content: flex-start;
+    padding: var(--fs-region-modal-link-padding);
+    margin-right: var(--fs-region-modal-link-margin-right);
+    color: var(--fs-region-modal-link-color);
+  }
+}
