@@ -8,11 +8,11 @@
   --fs-regionalization-modal-link-color: var(--fs-color-link);
   --fs-regionalization-modal-link-margin-right: var(--fs-spacing-0);
 
-  [data-fs-regionalization-modal-input] {
+  [data-fs-region-modal-input] {
     margin-bottom: var(--fs-spacing-6);
   }
 
-  [data-fs-regionalization-modal-link] {
+  [data-fs-region-modal-link] {
     display: flex;
     flex-direction: row;
     align-content: flex-start;

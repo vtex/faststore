@@ -27,10 +27,10 @@ function RegionalizationModalContent({
         }}
       />
       <UIModalBody className={styles.fsRegionalizationModalBody}>
-        <div data-fs-regionalization-modal-input>
+        <div data-fs-region-modal-input>
           <RegionInput closeModal={() => onClose()} />
         </div>
-        <Link href="/" data-fs-regionalization-modal-link>
+        <Link href="/" data-fs-region-modal-link>
           {"I don't know my Postal Code"}
           <Icon name="ArrowSquareOut" width={18} height={18} />
         </Link>
