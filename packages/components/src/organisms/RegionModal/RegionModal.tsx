@@ -1,9 +1,9 @@
 import React from 'react'
 
 import type { ModalProps, LinkProps, LinkElementType } from '../../'
-import { Modal, ModalHeader, ModalBody, Icon, Link } from '../..'
+import { Icon, InputField, Link, Modal, ModalHeader, ModalBody } from '../..'
 
-export interface RegionModalProps extends ModalProps {
+export interface RegionModalProps extends Omit<ModalProps, 'children'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -26,9 +26,25 @@ export interface RegionModalProps extends ModalProps {
    */
   linkText?: Partial<LinkProps<LinkElementType>>
   /**
-   * Function called when dismiss button is clicked.
+   * Function called when Close button is clicked.
    */
   onClose?: () => void
+  /**
+   * Callback function when input is typed.
+   */
+  onInput?: (event: React.FormEvent<HTMLInputElement>) => void
+  /**
+   * Callback function when form is submitted.
+   */
+  onSubmit?: () => void
+  /**
+   * Callback function when the clear button is clicked.
+   */
+  onClear?: () => void
+  /**
+   * Message of error.
+   */
+  errorMessage?: string
 }
 
 function RegionModal({
@@ -36,7 +52,11 @@ function RegionModal({
   title = 'Set your location',
   description = 'Prices, offers and availability may vary according to your location.',
   idkPostalCodeLinkProps,
+  errorMessage,
   onClose,
+  onInput,
+  onSubmit,
+  onClear,
   ...otherProps
 }: RegionModalProps) {
   return (
@@ -52,6 +72,16 @@ function RegionModal({
       <ModalBody>
         <div data-fs-region-modal-input>
           {/* <RegionInput closeModal={() => onClose()} /> */}
+          <InputField
+            id={`${testId}-input-field`}
+            // inputRef={inputRef}
+            label="Postal Code"
+            actionable
+            error={errorMessage}
+            onInput={(event) => onInput?.(event)}
+            onSubmit={() => onSubmit?.()}
+            onClear={() => onClear?.()}
+          />
         </div>
         <Link data-fs-region-modal-link {...idkPostalCodeLinkProps}>
           {idkPostalCodeLinkProps?.children ?? (
