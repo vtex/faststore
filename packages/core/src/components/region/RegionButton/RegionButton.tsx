@@ -9,7 +9,6 @@ function RegionButton() {
 
   return (
     <UIButton
-      data-fs-region-button
       variant="tertiary"
       size="small"
       icon={<Icon name="MapPin" width={24} height={24} />}
