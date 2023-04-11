@@ -67,7 +67,7 @@ export interface ShippingSimulationProps
    */
   onSubmit?: () => void
   /**
-   * Callback function when the clear button is clicked.
+   * Callback function when the input clear button is clicked.
    */
   onClear?: () => void
   /**
@@ -83,7 +83,7 @@ export interface ShippingSimulationProps
    */
   displayClearButton?: boolean
   /**
-   * Message of error.
+   * Message of error for input.
    */
   errorMessage?: string
   /**
