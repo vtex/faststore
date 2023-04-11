@@ -39,6 +39,10 @@ export interface RegionModalProps extends Omit<ModalProps, 'children'> {
    */
   inputValue?: string
   /**
+   * Enables fadeOut effect on modal after onSubmit function
+   */
+  fadeOutOnSubmit?: boolean
+  /**
    * Function called when Close button is clicked.
    */
   onClose?: () => void
@@ -64,6 +68,7 @@ function RegionModal({
   errorMessage,
   inputRef,
   inputValue,
+  fadeOutOnSubmit,
   onClose,
   onInput,
   onSubmit,
@@ -94,7 +99,10 @@ function RegionModal({
               actionable
               value={inputValue}
               onInput={(event) => onInput?.(event)}
-              onSubmit={() => onSubmit?.()}
+              onSubmit={() => {
+                onSubmit?.()
+                fadeOutOnSubmit ? fadeOut() : null
+              }}
               onClear={() => onClear?.()}
               error={errorMessage}
             />
