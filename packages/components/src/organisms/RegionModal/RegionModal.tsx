@@ -82,7 +82,7 @@ function RegionModal({
             title={title}
             description={description}
             closeBtnProps={{
-              'aria-label': 'Close Regionalization Modal',
+              'aria-label': 'Close Region Modal',
             }}
           />
           <ModalBody>
