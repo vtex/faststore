@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-unfetch'
 import packageJson from '../../../../package.json'
 
-const USER_AGENT = `${packageJson.name}/${packageJson.version}`
+const USER_AGENT = `${packageJson.name}@${packageJson.version}`
 
 export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
   const response = await fetch(info, {
