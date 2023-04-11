@@ -1,5 +1,6 @@
 import React from 'react'
 
+import type { MutableRefObject } from 'react'
 import type { ModalProps, LinkProps, LinkElementType } from '../../'
 import { Icon, InputField, Link, Modal, ModalHeader, ModalBody } from '../..'
 
@@ -26,6 +27,18 @@ export interface RegionModalProps extends Omit<ModalProps, 'children'> {
    */
   linkText?: Partial<LinkProps<LinkElementType>>
   /**
+   * Message of error for input.
+   */
+  errorMessage?: string
+  /**
+   * Postal code input's ref.
+   */
+  inputRef?: MutableRefObject<HTMLInputElement | null>
+  /**
+   * Postal code input's value.
+   */
+  inputValue?: string
+  /**
    * Function called when Close button is clicked.
    */
   onClose?: () => void
@@ -38,13 +51,9 @@ export interface RegionModalProps extends Omit<ModalProps, 'children'> {
    */
   onSubmit?: () => void
   /**
-   * Callback function when the clear button is clicked.
+   * Callback function when the input clear button is clicked.
    */
   onClear?: () => void
-  /**
-   * Message of error.
-   */
-  errorMessage?: string
 }
 
 function RegionModal({
@@ -53,6 +62,8 @@ function RegionModal({
   description = 'Prices, offers and availability may vary according to your location.',
   idkPostalCodeLinkProps,
   errorMessage,
+  inputRef,
+  inputValue,
   onClose,
   onInput,
   onSubmit,
@@ -61,37 +72,44 @@ function RegionModal({
 }: RegionModalProps) {
   return (
     <Modal data-fs-region-modal testId={testId} {...otherProps}>
-      <ModalHeader
-        onClose={() => onClose}
-        title={title}
-        description={description}
-        closeBtnProps={{
-          'aria-label': 'Close Regionalization Modal',
-        }}
-      />
-      <ModalBody>
-        <div data-fs-region-modal-input>
-          {/* <RegionInput closeModal={() => onClose()} /> */}
-          <InputField
-            id={`${testId}-input-field`}
-            // inputRef={inputRef}
-            label="Postal Code"
-            actionable
-            error={errorMessage}
-            onInput={(event) => onInput?.(event)}
-            onSubmit={() => onSubmit?.()}
-            onClear={() => onClear?.()}
+      {({ fadeOut }) => (
+        <>
+          <ModalHeader
+            onClose={() => {
+              fadeOut()
+              onClose?.()
+            }}
+            title={title}
+            description={description}
+            closeBtnProps={{
+              'aria-label': 'Close Regionalization Modal',
+            }}
           />
-        </div>
-        <Link data-fs-region-modal-link {...idkPostalCodeLinkProps}>
-          {idkPostalCodeLinkProps?.children ?? (
-            <>
-              {"I don't know my Postal Code"}
-              <Icon name="ArrowSquareOut" width={20} height={20} />
-            </>
-          )}
-        </Link>
-      </ModalBody>
+          <ModalBody>
+            <div data-fs-region-modal-input>
+              <InputField
+                id={`${testId}-input-field`}
+                inputRef={inputRef}
+                label="Postal Code"
+                actionable
+                value={inputValue}
+                onInput={(event) => onInput?.(event)}
+                onSubmit={() => onSubmit?.()}
+                onClear={() => onClear?.()}
+                error={errorMessage}
+              />
+            </div>
+            <Link data-fs-region-modal-link {...idkPostalCodeLinkProps}>
+              {idkPostalCodeLinkProps?.children ?? (
+                <>
+                  {"I don't know my Postal Code"}
+                  <Icon name="ArrowSquareOut" width={20} height={20} />
+                </>
+              )}
+            </Link>
+          </ModalBody>
+        </>
+      )}
     </Modal>
   )
 }
