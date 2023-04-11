@@ -86,19 +86,19 @@ function RegionModal({
             }}
           />
           <ModalBody>
-            <div data-fs-region-modal-input>
-              <InputField
-                id={`${testId}-input-field`}
-                inputRef={inputRef}
-                label="Postal Code"
-                actionable
-                value={inputValue}
-                onInput={(event) => onInput?.(event)}
-                onSubmit={() => onSubmit?.()}
-                onClear={() => onClear?.()}
-                error={errorMessage}
-              />
-            </div>
+            <InputField
+              data-fs-region-modal-input
+              id={`${testId}-input-field`}
+              inputRef={inputRef}
+              label="Postal Code"
+              actionable
+              value={inputValue}
+              onInput={(event) => onInput?.(event)}
+              onSubmit={() => onSubmit?.()}
+              onClear={() => onClear?.()}
+              error={errorMessage}
+            />
+
             <Link data-fs-region-modal-link {...idkPostalCodeLinkProps}>
               {idkPostalCodeLinkProps?.children ?? (
                 <>
