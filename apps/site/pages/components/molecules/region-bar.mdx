@@ -12,7 +12,13 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { RegionBar } from '@faststore/ui'
+import {
+  RegionBar,
+  RegionModal,
+  Button,
+  UIProvider,
+  useUI,
+} from '@faststore/ui'
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
@@ -43,44 +49,62 @@ export const RegionBarPropsSection = ({ component }) => {
 
 # Region Bar
 
-The RegionBar is a custom Button, usually used on mobile devices only. It should trigger the RegionModal.
+The RegionBar is a custom Button, usually used on mobile devices only. It should trigger the [RegionModal](/components/organisms/region-modal).
 
 The component is part of [Regionalization](/components/features/regionalization) feature.
 
 </header>
+
+export const RegionBarUsage = () => {
+  const { modal, openModal } = useUI()
+  return (
+    <>
+      <RegionBar onButtonClick={() => openModal()} />
+      {modal && <RegionModal fadeOutOnSubmit={true} />}
+    </>
+  )
+}
+
+export const RegionBarEditUsage = () => {
+  const { modal, openModal } = useUI()
+  return (
+    <>
+      <RegionBar postalCode={'151515'} onButtonClick={() => openModal()} />
+      {modal && <RegionModal fadeOutOnSubmit={true} inputValue={'151515'} />}
+    </>
+  )
+}
 
 ## Overview
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <RegionBar
-        onButtonClick={() => {
-          alert('This could trigger the RegionModal.')
-        }}
-      />
-      <RegionBar
-        postalCode={'151515'}
-        onButtonClick={() => {
-          alert('This could trigger the RegionModal.')
-        }}
-      />
+    <UIProvider>
+      <RegionBarUsage />
+    </UIProvider>
+    <UIProvider>
+      <RegionBarEditUsage />
+    </UIProvider>
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
-    <RegionBar
-      onButtonClick={() => {
-        alert('This could trigger the RegionModal.')
-      }}
-    />
+    const { modal, openModal } = useUI()
+    return (
+      <>
+        <RegionBar onButtonClick={() => openModal()} />
+        {modal && <RegionModal fadeOutOnSubmit={true} />}
+      </>
+    )
 
-    <RegionBar
-      postalCode={'151515'}
-      onButtonClick={() => {
-        alert('This could trigger the RegionModal.')
-      }}
-    />
+    const { modal, openModal } = useUI()
+    return (
+      <>
+        <RegionBar postalCode={'151515'} onButtonClick={() => openModal()} />
+        {modal && <RegionModal fadeOutOnSubmit={true} inputValue={'151515'} />}
+      </>
+    )
     ```
 
   </Tab>
@@ -107,18 +131,19 @@ import '@faststore/ui/src/components/molecules/RegionBar/styles.scss'
 ## Usage
 
 <OverviewSection>
-  <RegionBar
-    onButtonClick={() => {
-      alert('This could trigger the RegionModal.')
-    }}
-  />
+  <UIProvider>
+    <RegionBarUsage />
+  </UIProvider>
 </OverviewSection>
+
 ```tsx
-<RegionBar
-  onButtonClick={() => {
-    alert('This could trigger the RegionModal.')
-  }}
-/>
+const { modal, openModal } = useUI()
+return (
+  <>
+    <RegionBar onButtonClick={() => openModal()} />
+    {modal && <RegionModal fadeOutOnSubmit={true} />}
+  </>
+)
 ```
 
 ---
