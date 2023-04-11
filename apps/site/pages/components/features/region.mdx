@@ -1,3 +1,25 @@
+import {
+  RegionBar,
+  RegionModal,
+  Button,
+  UIProvider,
+  useUI,
+} from '@faststore/ui'
+
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+
+export const RegionModalUsage = () => {
+  const { modal, openModal, closeModal } = useUI()
+  return (
+    <>
+      <Button variant="primary" onClick={() => openModal()}>
+        Open Region Modal
+      </Button>
+      {modal && <RegionModal onSubmit={() => closeModal()} />}
+    </>
+  )
+}
+
 <header>
 
 # Region
@@ -30,4 +52,26 @@ With the Region feature enabled, if a customer enters their Postal Code while br
 
 ## Components
 
-TO-ADD
+<SectionList grid="column" columns={2}>
+  <SectionItem
+    title="Region Bar"
+    description="The RegionBar is a custom Button, usually used on mobile devices only. It should trigger the RegionModal."
+    actionPath="/components/molecules/region-bar"
+  >
+    <RegionBar
+      postalCode={'151515'}
+      onButtonClick={() => {
+        alert('This could trigger the RegionModal.')
+      }}
+    />
+  </SectionItem>
+  <SectionItem
+    title="Region Modal"
+    description="It's a modal with some region configurations."
+    actionPath="/components/organisms/region-modal"
+  >
+    <UIProvider>
+      <RegionModalUsage />
+    </UIProvider>
+  </SectionItem>
+</SectionList>
