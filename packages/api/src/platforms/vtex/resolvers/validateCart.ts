@@ -266,7 +266,7 @@ export const validateCart = async (
   { cart: { order }, session }: MutationValidateCartArgs,
   ctx: Context
 ) => {
-  const { orderNumber: orderNumberFromCart, acceptedOffer } = order
+  const { orderNumber:  orderNumberFromCart, acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
     loaders: { skuLoader },
@@ -363,6 +363,7 @@ export const validateCart = async (
     .updateOrderFormItems({
       id: orderForm.orderFormId,
       orderItems: changes,
+      shouldSplitItem,
     })
     // update orderForm etag so we know last time we touched this orderForm
     .then((form) =>

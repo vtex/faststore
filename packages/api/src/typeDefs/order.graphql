@@ -24,4 +24,8 @@ input IStoreOrder {
   Array with information on each accepted offer.
   """
   acceptedOffer: [IStoreOffer!]!
+  """
+  Indicates whether or not items with attachments should be split.
+  """
+  shouldSplitItem: Boolean
 }
