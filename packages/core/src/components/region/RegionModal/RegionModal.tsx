@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { RegionModal as UIRegionModal, useUI } from '@faststore/ui'
+import { RegionModal as UIRegionModal } from '@faststore/ui'
 
 import { sessionStore, useSession, validateSession } from 'src/sdk/session'
 
