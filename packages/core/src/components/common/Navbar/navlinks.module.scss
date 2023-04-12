@@ -53,7 +53,7 @@
     align-items: center;
   }
 
-  [data-fs-regionalization-button] {
+  [data-fs-button] {
     margin-left: calc(-1 * var(--fs-spacing-1));
 
     // TODO: remove this after navbar 2.0 is implemented
