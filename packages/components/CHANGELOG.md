@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.106-alpha.0](https://github.com/vtex/faststore/compare/v2.0.105-alpha.0...v2.0.106-alpha.0) (2023-04-12)
+
+### Features
+
+- Adds `RegionModal` component ([#1710](https://github.com/vtex/faststore/issues/1710)) ([d3b6c36](https://github.com/vtex/faststore/commit/d3b6c36af3fe3d9c826884654c8708d4a1d14d2d))
+
 ## 2.0.104-alpha.0 (2023-04-10)
 
 **Note:** Version bump only for package @faststore/components
