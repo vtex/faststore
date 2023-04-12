@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.39](https://github.com/vtex/faststore/compare/v1.12.38...v1.12.39) (2023-04-12)
+
+### Features
+
+- add an `user-agent` header to `fetchAPI` method ([#1709](https://github.com/vtex/faststore/issues/1709)) ([c4b6b51](https://github.com/vtex/faststore/commit/c4b6b51161de53c6f5d429b902b20f5e656bd81c)), closes [#1708](https://github.com/vtex/faststore/issues/1708)
+
 ## [1.12.38](https://github.com/vtex/faststore/compare/v1.12.37...v1.12.38) (2023-04-03)
 
 ### Chores
