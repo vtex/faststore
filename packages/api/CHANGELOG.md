@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.105-alpha.0](https://github.com/vtex/faststore/compare/v2.0.104-alpha.0...v2.0.105-alpha.0) (2023-04-12)
+
+### Features
+
+- add an `user-agent` header to `fetchAPI` method ([#1708](https://github.com/vtex/faststore/issues/1708)) ([e1714c3](https://github.com/vtex/faststore/commit/e1714c350ef2a5c1a30b1a46c4e79d4a8d24993b)), closes [#1709](https://github.com/vtex/faststore/issues/1709)
+
 ## 2.0.104-alpha.0 (2023-04-10)
 
 **Note:** Version bump only for package @faststore/api
