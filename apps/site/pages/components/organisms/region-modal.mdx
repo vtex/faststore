@@ -13,6 +13,7 @@ import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { RegionModal, Button, UIProvider, useUI } from '@faststore/ui'
+import { useState } from 'react'
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
@@ -49,12 +50,19 @@ It's a [Modal](/components/molecules/modal) with some region configurations. The
 
 export const RegionModalUsage = () => {
   const { modal, openModal } = useUI()
+  const [input, setInput] = useState('')
   return (
     <>
       <Button variant="primary" onClick={() => openModal()}>
         Open Region Modal
       </Button>
-      {modal && <RegionModal fadeOutOnSubmit={true} />}
+      {modal && (
+        <RegionModal
+          fadeOutOnSubmit={true}
+          inputValue={input}
+          onInput={(e) => setInput(e.currentTarget.value)}
+        />
+      )}
     </>
   )
 }
@@ -89,14 +97,21 @@ import '@faststore/ui/src/components/organisms/RegionModal/styles.scss'
   <Tab>
     ```tsx
     const { modal, openModal } = useUI()
-      return (
-        <>
-          <Button variant="primary" onClick={() => openModal()}>
-            Open Region Modal
-          </Button>
-          {modal && <RegionModal fadeOutOnSubmit={true}/>}
-        </>
-      )
+    const [input, setInput] = useState('')
+    return (
+      <>
+        <Button variant="primary" onClick={() => openModal()}>
+          Open Region Modal
+        </Button>
+        {modal && (
+          <RegionModal
+            fadeOutOnSubmit={true}
+            inputValue={input}
+            onInput={(e) => setInput(e.currentTarget.value)}
+          />
+        )}
+      </>
+    )
     ```
 
   </Tab>
