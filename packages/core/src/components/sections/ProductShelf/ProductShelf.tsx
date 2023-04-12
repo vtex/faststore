@@ -8,7 +8,6 @@ import type { ProductsQueryQueryVariables } from '@generated/graphql'
 
 import ProductCard from '../../product/ProductCard'
 import Section from '../Section'
-import styles from './product-shelf.module.scss'
 
 interface ProductShelfProps extends Partial<ProductsQueryQueryVariables> {
   title: string
@@ -51,7 +50,7 @@ function ProductShelf({
       ref={ref}
     >
       <h2 className="text__title-section layout__content">{title}</h2>
-      <div className={styles.fsProductShelf} data-fs-product-shelf>
+      <div data-fs-product-shelf>
         <ProductShelfSkeleton
           aspectRatio={aspectRatio}
           loading={products === undefined}
