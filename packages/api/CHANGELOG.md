@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.40](https://github.com/vtex/faststore/compare/v1.12.39...v1.12.40) (2023-04-13)
+
+**Note:** Version bump only for package @faststore/api
+
 ## [1.12.39](https://github.com/vtex/faststore/compare/v1.12.38...v1.12.39) (2023-04-12)
 
 ### Features
