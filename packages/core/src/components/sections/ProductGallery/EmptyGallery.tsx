@@ -14,7 +14,6 @@ function EmptyGallery() {
       }
     >
       <UILinkButton
-        data-fs-empty-state-link
         href="/office"
         variant="secondary"
         icon={
@@ -30,7 +29,6 @@ function EmptyGallery() {
         Browse Offers
       </UILinkButton>
       <UILinkButton
-        data-fs-empty-state-link
         href="/technology"
         variant="secondary"
         icon={
