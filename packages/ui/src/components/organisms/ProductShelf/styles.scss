@@ -20,10 +20,7 @@
     left: var(--fs-product-shelf-first-items-left);
 
 
-    [data-fs-product-shelf-item] {
-      width: 100%;
-      // &:first-child { margin-left: var(--fs-product-shelf-first-item-margin-left); }
-    }
+    [data-fs-product-shelf-item] { width: 100%; }
 
     @include media(">=tablet") {
       column-gap: var(--fs-product-shelf-items-gap);
