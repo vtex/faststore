@@ -52,7 +52,7 @@
   background-color: var(--fs-color-neutral-bkg);
   border-radius: 4px;
   overflow-y: auto;
-  max-height: 20rem;
+  max-height: 21rem;
 }
 
 .sectionItem > article [data-fs-button] {
