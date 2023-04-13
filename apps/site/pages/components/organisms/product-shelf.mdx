@@ -1,0 +1,92 @@
+---
+description: ProductCard displays summarized information about a product.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/ProductCardComponent___e6502d57cf7e5bf247f86b64577d4141.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import {
+  ProductShelf,
+  ProductCard,
+  ProductCardContent,
+  ProductCardImage,
+} from '@faststore/ui'
+import { product } from 'site/mocks/product'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+
+<header>
+
+# Product Shelf
+
+Displays summarized information about a product. They usually present a call-to-action button, as well as the product's name, price, and image.
+
+</header>
+
+The `ProductCard` is a compound of the following:
+
+- `ProductCardImage`: wraps the product's image.
+- `ProductCardContent`: wraps the content's details.
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ProductShelf>
+        {Array.from({ length: 5 }, (_, index) => (
+          <li>
+            <ProductCard>
+              <ProductCardImage>
+                <img
+                  data-fs-image
+                  src={product.image[0].url}
+                  alt={product.image[0].alternateName}
+                />
+              </ProductCardImage>
+              <ProductCardContent
+                title={product.isVariantOf.name}
+                price={{
+                  value: product.offers.offers[0].price,
+                  listPrice: product.offers.offers[0].listPrice,
+                  formatter: useFormattedPrice,
+                }}
+              />
+            </ProductCard>
+          </li>
+        ))}
+      </ProductShelf>
+    </OverviewSection>
+
+  </Tab>
+  <Tab>
+    ```tsx
+
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { ProductShelf } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/ProductShelf/styles.scss'
+```
+
+---
