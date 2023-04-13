@@ -1,0 +1,180 @@
+---
+description: This component can use to represents an empty state.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/PaymentMethods___b0f344b254360daa53406cd631887adf.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { EmptyState, Button, Icon } from '@faststore/ui'
+import { SearchProvider } from '@faststore/sdk'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const componentPath = path.resolve(__filename)
+  const components = ['EmptyState.tsx']
+  const [emptyStateProps] = getComponentPropsFrom(componentPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        emptyStateProps,
+      },
+    },
+  }
+}
+
+export const EmptyStatePropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { emptyStateProps } = useSSG()
+  return {
+    EmptyState: <PropsSection propsList={emptyStateProps} />,
+  }[component]
+}
+
+<header>
+
+# Empty State
+
+This component can use to represents an empty state.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection direction="row">
+      <EmptyState
+        title="Your Cart is empty"
+        titleIcon={
+          <Icon name="ShoppingCart" width={56} height={56} weight="thin" />
+        }
+      >
+        <Button variant="secondary">
+          Start Shopping
+        </Button>
+      </EmptyState>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { EmptyState } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/organisms/EmptyState/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection direction="row">
+
+    </OverviewSection>
+
+  </Tab>
+  <Tab>
+    ```tsx
+
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+<EmptyStatePropsSection component="EmptyState" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-empty-state-height" value="100%" />
+  <TokenRow token="--fs-empty-state-min-height" value="50vh" />
+  <TokenRow token="--fs-empty-state-padding" value="0 var(--fs-spacing-8)" />
+  <TokenRow
+    token="--fs-empty-state-bkg-color"
+    value="var(--fs-color-neutral-bkg)"
+    isColor
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-empty-state-title-margin-bottom"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-empty-state-title-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-empty-state-title-size"
+    value="var(--fs-text-size-lead)"
+  />
+</TokenTable>
+
+#### Link
+
+<TokenTable>
+  <TokenRow token="--fs-empty-state-link-min-width" value="11.875rem" />
+</TokenTable>
+
+### Variants
+
+#### Rounded
+
+<TokenTable>
+  <TokenRow
+    token="--fs-empty-state-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+`data-fs-empty-state`
+
+`data-fs-empty-state-title`
+
+`data-fs-empty-state-variant="default | rounded"`
