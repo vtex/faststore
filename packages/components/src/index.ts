@@ -242,8 +242,8 @@ export type { PaymentMethodsProps } from './organisms/PaymentMethods'
 export { default as PriceRange } from './organisms/PriceRange'
 export type { PriceRangeProps } from './organisms/PriceRange'
 
-export { default as ProductShelf } from './organisms/ProductShelf'
-export type { ProductShelfProps } from './organisms/ProductShelf'
+export { default as ProductShelf, ProductShelfItems, ProductShelfItem } from './organisms/ProductShelf'
+export type { ProductShelfProps, ProductShelfItemsProps, ProductShelfItemProps } from './organisms/ProductShelf'
 
 export { default as RegionModal } from './organisms/RegionModal'
 export type { RegionModalProps } from './organisms/RegionModal'
