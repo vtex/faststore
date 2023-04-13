@@ -10,11 +10,9 @@ sidebar_custom_props:
 
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
-import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { EmptyState, Button, Icon } from '@faststore/ui'
-import { SearchProvider } from '@faststore/sdk'
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
@@ -55,7 +53,7 @@ This component can use to represents an empty state.
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
-    <OverviewSection direction="row">
+    <OverviewSection>
       <EmptyState
         title="Your Cart is empty"
         titleIcon={
@@ -66,11 +64,70 @@ This component can use to represents an empty state.
           Start Shopping
         </Button>
       </EmptyState>
+      <EmptyState
+        variant="rounded"
+        title="Nothing matches with your search"
+        titleIcon={
+          <Icon name="CircleWavyWarning" width={56} height={56} weight="thin" />
+        }
+      >
+        <Button
+          variant="secondary"
+          icon={
+            <Icon
+              name="CircleWavyWarning"
+              width={18}
+              height={18}
+              weight="bold"
+            />
+          }
+          iconPosition="left"
+        >
+          Browse Offers
+        </Button>
+      </EmptyState>
     </OverviewSection>
+
   </Tab>
   <Tab>
     ```tsx
+    // EmptyCart
+      <EmptyState
+        title="Your Cart is empty"
+        titleIcon={
+          <Icon name="ShoppingCart" width={56} height={56} weight="thin" />
+        }
+      >
+        <Button variant="secondary">
+          Start Shopping
+        </Button>
+      </EmptyState>
+    ```
 
+    ```tsx
+    // EmptyGallery
+       <EmptyState
+        variant="rounded"
+        title="Nothing matches with your search"
+        titleIcon={
+          <Icon name="CircleWavyWarning" width={56} height={56} weight="thin" />
+        }
+      >
+        <Button
+          variant="secondary"
+          icon={
+            <Icon
+              name="CircleWavyWarning"
+              width={18}
+              height={18}
+              weight="bold"
+            />
+          }
+          iconPosition="left"
+        >
+          Browse Offers
+        </Button>
+      </EmptyState>
     ```
 
   </Tab>
@@ -99,13 +156,30 @@ import '@faststore/ui/src/components/organisms/EmptyState/styles.scss'
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection direction="row">
-
+      <EmptyState
+        title="Your Cart is empty"
+        titleIcon={
+          <Icon name="ShoppingCart" width={56} height={56} weight="thin" />
+        }
+      >
+        <Button variant="secondary">
+          Start Shopping
+        </Button>
+      </EmptyState>
     </OverviewSection>
-
   </Tab>
   <Tab>
     ```tsx
-
+      <EmptyState
+        title="Your Cart is empty"
+        titleIcon={
+          <Icon name="ShoppingCart" width={56} height={56} weight="thin" />
+        }
+      >
+        <Button variant="secondary">
+          Start Shopping
+        </Button>
+      </EmptyState>
     ```
 
   </Tab>
