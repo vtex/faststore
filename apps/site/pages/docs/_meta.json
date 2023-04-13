@@ -5,6 +5,7 @@
       "layout": "full"
     }
   },
+  "getting-started": "Getting Started",
   "-- Theming --": {
     "type": "separator",
     "title": "Theming"
