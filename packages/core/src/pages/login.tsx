@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { NextSeo } from 'next-seo'
+import { EmptyState as UIEmptyState, Loader as UILoader } from '@faststore/ui'
 
 import storeConfig from '../../faststore.config'
 
@@ -12,7 +13,9 @@ function Page() {
     <>
       <NextSeo noindex nofollow />
 
-      <div>loading...</div>
+      <UIEmptyState title="Loading">
+        <UILoader />
+      </UIEmptyState>
     </>
   )
 }
