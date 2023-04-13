@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 
+import { ProductShelf as UIProductShelf } from '@faststore/ui'
+
 import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
@@ -55,7 +57,7 @@ function ProductShelf({
           aspectRatio={aspectRatio}
           loading={products === undefined}
         >
-          <ul data-fs-product-shelf-items className="layout__content">
+          <UIProductShelf>
             {productEdges.map((product, idx) => (
               <li key={`${product.node.id}`}>
                 <ProductCard
@@ -65,7 +67,7 @@ function ProductShelf({
                 />
               </li>
             ))}
-          </ul>
+          </UIProductShelf>
         </ProductShelfSkeleton>
       </div>
     </Section>
