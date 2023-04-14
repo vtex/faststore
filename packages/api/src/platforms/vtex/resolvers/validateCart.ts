@@ -204,10 +204,10 @@ async function getOrderNumberFromSession(
   commerce: Context['clients']['commerce']
 ) {
 
-  const cookieSession = getCookie('vtex_session', headers.cookie)
+  const cookieSession = getCookie('faststore_session', headers.cookie)
 
   if (cookieSession) {
-    const { namespaces } = await commerce.getSessionOrder()
+    const { namespaces } = await commerce.getSessionOrder(cookieSession)
     return namespaces.checkout?.orderFormId?.value
   }
   return ;

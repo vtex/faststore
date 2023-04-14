@@ -201,7 +201,9 @@ export const VtexCommerce = (
         'items',
         'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
-      if (getCookie('vtex_session', ctx.headers.cookie)) {
+      const cookieSession = getCookie('faststore_session', ctx.headers.cookie)
+      if (cookieSession) {
+        ctx.headers.cookie = `vtex_session=${cookieSession}`
         // cookie set
         return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
           method: 'GET',
@@ -212,7 +214,7 @@ export const VtexCommerce = (
         })
       } else {
         // cookie unset -> create session
-        return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
+          return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
           method: 'POST',
           headers: {
             'content-type': 'application/json',
@@ -222,7 +224,8 @@ export const VtexCommerce = (
         })
       }
     },
-    getSessionOrder: (): Promise<Session> => {
+    getSessionOrder: (cookieSession: string): Promise<Session> => {
+      ctx.headers.cookie = `vtex_session=${cookieSession}`
       return fetchAPI(`${base}/api/sessions?items=checkout.orderFormId`, {
         method: 'GET',
         headers: {
@@ -231,6 +234,7 @@ export const VtexCommerce = (
         },
       })
     },
+
     subscribeToNewsletter: (data: {
       name: string
       email: string
