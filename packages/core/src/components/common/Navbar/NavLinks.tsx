@@ -5,8 +5,6 @@ import RegionButton from 'src/components/region/RegionButton'
 import Link from 'src/components/ui/Link'
 import { mark } from 'src/sdk/tests/mark'
 
-import styles from './navlinks.module.scss'
-
 interface NavLinksProps {
   onClickLink?: AnchorHTMLAttributes<HTMLAnchorElement>['onClick']
   classes?: string
@@ -33,7 +31,7 @@ const collections = [
 
 function NavLinks({ onClickLink, classes = '' }: NavLinksProps) {
   return (
-    <nav className={`${styles.fsNavlinks} ${classes}`}>
+    <nav data-fs-navlinks className={`${classes}`}>
       <div className="layout__content">
         <RegionButton />
         <UIList data-fs-navlinks-list>

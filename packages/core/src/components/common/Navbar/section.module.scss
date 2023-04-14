@@ -1,0 +1,19 @@
+/* stylelint-disable no-invalid-position-at-import-rule */
+@import "@faststore/ui/src/styles/base/utilities.scss";
+
+.section {
+  @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Button/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Input/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Link/styles.scss";
+  @import "@faststore/ui/src/components/atoms/List/styles.scss";
+  @import "@faststore/ui/src/components/molecules/SearchAutoComplete/styles.scss";
+  @import "@faststore/ui/src/components/molecules/SearchDropdown/styles.scss";
+  @import "@faststore/ui/src/components/molecules/SearchHistory/styles.scss";
+  @import "@faststore/ui/src/components/molecules/SearchInputField/styles.scss";
+  @import "@faststore/ui/src/components/molecules/SearchProducts/styles.scss";
+  @import "@faststore/ui/src/components/molecules/SearchTop/styles.scss";
+  @import "@faststore/ui/src/components/organisms/SearchInput/styles.scss";
+  @import "./navlinks.scss";
+}

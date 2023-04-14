@@ -20,10 +20,10 @@ import storeConfig from '../../faststore.config'
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Hero,
-  BannerText,
   IncentivesHeader,
   ProductShelf,
   ProductTiles,
+  BannerText,
   Newsletter,
   ...CUSTOM_COMPONENTS,
 }

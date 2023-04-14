@@ -10,9 +10,10 @@ import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
 import useScrollDirection from 'src/sdk/ui/useScrollDirection'
 
-import styles from './navbar.module.scss'
-import NavbarSlider from './NavbarSlider'
 import NavLinks from './NavLinks'
+import NavbarSlider from './NavbarSlider'
+import navbarStyles from './navbar.module.scss'
+import styles from './section.module.scss'
 
 function Navbar() {
   const scrollDirection = useScrollDirection()
@@ -29,7 +30,7 @@ function Navbar() {
     <header
       data-fs-navbar
       data-fs-navbar-scroll={scrollDirection}
-      className={`${styles.fsNavbar} layout__content-full`}
+      className={`section ${styles.section} ${navbarStyles.fsNavbar} layout__content-full`}
     >
       <section data-fs-navbar-header>
         <div className="layout__content" data-fs-navbar-row>

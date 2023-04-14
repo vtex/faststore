@@ -12,6 +12,7 @@ import {
 import { Image } from 'src/components/ui/Image'
 
 import Section from '../Section'
+import styles from './section.module.scss'
 
 export type HeroProps = UIHeroProps &
   UIHeroHeaderProps &
@@ -36,7 +37,7 @@ const Hero = ({
   imageSrc,
 }: HeroProps) => {
   return (
-    <Section>
+    <Section className={styles.section}>
       <UIHero>
         <UIHeroImage data-fs-hero-image>
           <Image

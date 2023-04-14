@@ -1,14 +1,15 @@
 import { useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
-import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
-import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import type { ProductsQueryQueryVariables } from '@generated/graphql'
+import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
+import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
+import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 
 import ProductCard from '../../product/ProductCard'
 import Section from '../Section'
-import styles from './product-shelf.module.scss'
+import productShelfStyles from './product-shelf.module.scss'
+import styles from './section.module.scss'
 
 interface ProductShelfProps extends Partial<ProductsQueryQueryVariables> {
   title: string
@@ -47,11 +48,13 @@ function ProductShelf({
 
   return (
     <Section
-      className={`layout__section ${withDivisor ? 'section__divisor' : ''}`}
+      className={`${styles.section} layout__section ${
+        withDivisor ? 'section__divisor' : ''
+      }`}
       ref={ref}
     >
       <h2 className="text__title-section layout__content">{title}</h2>
-      <div className={styles.fsProductShelf} data-fs-product-shelf>
+      <div className={productShelfStyles.fsProductShelf} data-fs-product-shelf>
         <ProductShelfSkeleton
           aspectRatio={aspectRatio}
           loading={products === undefined}

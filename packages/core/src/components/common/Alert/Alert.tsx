@@ -1,8 +1,11 @@
 import type { PropsWithChildren, ReactNode } from 'react'
 import { useCallback, useState } from 'react'
 
-import { Alert as UIAlert, AlertProps } from '@faststore/ui'
+import { AlertProps, Alert as UIAlert } from '@faststore/ui'
 import { mark } from 'src/sdk/tests/mark'
+
+import Section from 'src/components/sections/Section/Section'
+import styles from './section.module.scss'
 
 interface Props extends AlertProps {
   /**
@@ -26,9 +29,11 @@ function Alert(args: PropsWithChildren<Props>) {
   const { content, children, ...otherProps } = args
 
   return (
-    <UIAlert onClose={onAlertClose} {...otherProps}>
-      {content ?? children}
-    </UIAlert>
+    <Section className={styles.section}>
+      <UIAlert onClose={onAlertClose} {...otherProps}>
+        {content ?? children}
+      </UIAlert>
+    </Section>
   )
 }
 

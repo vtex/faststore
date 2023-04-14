@@ -2,7 +2,7 @@ import { Banner, BannerContent, BannerLink, LinkButton } from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
 
 import Section from '../Section'
-import styles from './banner-text.module.scss'
+import styles from './section.module.scss'
 
 type BannerTextVariant =
   | {
@@ -53,9 +53,8 @@ function BannerText({
   colorVariant = 'main',
 }: BannerTextProps) {
   return (
-    <Section className="layout__section">
+    <Section className={`${styles.section} layout__section`}>
       <Banner
-        className={styles.fsBannerText}
         data-fs-banner-text
         data-fs-banner-text-variant={variant}
         data-fs-banner-text-color-variant={colorVariant}
