@@ -242,6 +242,15 @@ export type { PaymentMethodsProps } from './organisms/PaymentMethods'
 export { default as PriceRange } from './organisms/PriceRange'
 export type { PriceRangeProps } from './organisms/PriceRange'
 
+export {
+  default as ProductGrid,
+  ProductGridItem,
+} from './organisms/ProductGrid'
+export type {
+  ProductGridProps,
+  ProductGridItemProps,
+} from './organisms/ProductGrid'
+
 export { default as RegionModal } from './organisms/RegionModal'
 export type { RegionModalProps } from './organisms/RegionModal'
 
