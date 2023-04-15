@@ -1,6 +1,5 @@
 ---
-description:
-It's a section generally used on PLP pages to list the products available in the store.
+description: It's a section generally used on PLP pages to list the products available in the store.
 keywords:
   - UI library
   - ecommerce
@@ -11,9 +10,49 @@ sidebar_custom_props:
 
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
-import { TokenTable, TokenRow } from 'site/components/Tokens'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { ProductGrid, ProductGridItem } from '@faststore/ui'
+import {
+  ProductGrid,
+  ProductGridItem,
+  ProductCard,
+  ProductCardContent,
+  ProductCardImage,
+} from '@faststore/ui'
+import { product } from 'site/mocks/product'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const productGridPath = path.resolve(__filename)
+  const components = ['ProductGrid.tsx', 'ProductGridItem.tsx']
+  const [productGridProps, productGridItemProps] = getComponentPropsFrom(
+    productGridPath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        productGridProps,
+        productGridItemProps,
+      },
+    },
+  }
+}
+
+export const ProductGridPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { productGridProps, productGridItemProps } = useSSG()
+  return {
+    ProductGrid: <PropsSection propsList={productGridProps} />,
+    ProductGridItem: <PropsSection propsList={productGridItemProps} />,
+  }[component]
+}
 
 <header>
 
@@ -28,7 +67,7 @@ The `ProductGrid` is a compound of the following:
 - `ProductGrid`: wraps the product grid items.
 - `ProductGridItem`: wraps the product inside a list item.
 
-\*We recommend using the ProductCard(/components/molecules/product-card) as the direct child of the ProductShelfItem.
+\*We recommend using the [ProductCard](/components/molecules/product-card) as the direct child of the ProductGridItem.
 
 ---
 
@@ -53,6 +92,29 @@ import '@faststore/ui/src/components/organisms/ProductGrid/styles.scss'
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
+      <ProductGrid>
+           {Array.from({ length: 5 }, (_, index) => (
+             <ProductGridItem>
+               <ProductCard>
+                 <ProductCardImage>
+                   <img
+                     data-fs-image
+                     src={product.image[0].url}
+                     alt={product.image[0].alternateName}
+                   />
+                 </ProductCardImage>
+                 <ProductCardContent
+                   title={product.isVariantOf.name}
+                   price={{
+                     value: product.offers.offers[0].price,
+                     listPrice: product.offers.offers[0].listPrice,
+                     formatter: useFormattedPrice,
+                   }}
+                 />
+               </ProductCard>
+             </ProductGridItem>
+           ))}
+       </ProductGrid>
 
     </OverviewSection>
 
@@ -61,7 +123,26 @@ import '@faststore/ui/src/components/organisms/ProductGrid/styles.scss'
 
     ```tsx
 
-    ```
+<ProductGridItem>
+  <ProductCard>
+    <ProductCardImage>
+      <img
+        data-fs-image
+        src={product.image[0].url}
+        alt={product.image[0].alternateName}
+      />
+    </ProductCardImage>
+    <ProductCardContent
+      title={product.isVariantOf.name}
+      price={{
+        value: product.offers.offers[0].price,
+        listPrice: product.offers.offers[0].listPrice,
+        formatter: useFormattedPrice,
+      }}
+    />
+  </ProductCard>
+</ProductGridItem>
+```
 
   </Tab>
 </Tabs>
@@ -70,6 +151,14 @@ import '@faststore/ui/src/components/organisms/ProductGrid/styles.scss'
 
 ## Props
 
+### ProductGrid
+
+<ProductGridPropsSection component="ProductGrid" />
+
+### ProductGridItem
+
+<ProductGridPropsSection component="ProductGridItem" />
+
 ---
 
 ## Design Tokens
@@ -77,12 +166,20 @@ import '@faststore/ui/src/components/organisms/ProductGrid/styles.scss'
 <TokenTable>
   <TokenRow token="--fs-product-grid-gap-mobile" value="var(--fs-grid-gap-0)" />
   <TokenRow
+    token="--fs-product-grid-gap-tablet"
+    value="var(--fs-product-grid-gap-mobile)"
+  />
+  <TokenRow
     token="--fs-product-grid-gap-desktop"
     value="var(--fs-grid-gap-2)"
   />
   <TokenDivider />
   <TokenRow token="--fs-product-grid-columns-mobile" value="2" />
-  <TokenRow token="--fs-product-grid-columns-desktop" value="4" />
+  <TokenRow token="--fs-product-grid-columns-tablet" value="4" />
+  <TokenRow
+    token="--fs-product-grid-columns-desktop"
+    value="var(--fs-product-grid-columns-tablet)"
+  />
 </TokenTable>
 
 ---
