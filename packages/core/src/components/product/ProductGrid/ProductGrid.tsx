@@ -1,6 +1,10 @@
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import styles from 'src/components/product/ProductGrid/product-grid.module.scss'
+import {
+  ProductGrid as UIProductGrid,
+  ProductGridItem as UIProductGridItem,
+} from '@faststore/ui'
 
 import ProductCard from '../ProductCard'
 
@@ -24,18 +28,18 @@ function ProductGrid({ products, page, pageSize }: Props) {
       aspectRatio={aspectRatio}
       loading={products.length === 0}
     >
-      <ul data-fs-product-grid className={styles.fsProductGrid}>
+      <UIProductGrid>
         {products.map(({ node: product }, idx) => (
-          <li key={`${product.id}`}>
+          <UIProductGridItem key={`${product.id}`}>
             <ProductCard
               product={product}
               index={pageSize * page + idx + 1}
               bordered
               aspectRatio={aspectRatio}
             />
-          </li>
+          </UIProductGridItem>
         ))}
-      </ul>
+      </UIProductGrid>
     </ProductGridSkeleton>
   )
 }
