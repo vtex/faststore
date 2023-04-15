@@ -1,6 +1,5 @@
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
-import styles from 'src/components/product/ProductGrid/product-grid.module.scss'
 import {
   ProductGrid as UIProductGrid,
   ProductGridItem as UIProductGridItem,
