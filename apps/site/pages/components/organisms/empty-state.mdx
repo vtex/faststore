@@ -199,11 +199,6 @@ import '@faststore/ui/src/components/organisms/EmptyState/styles.scss'
   <TokenRow token="--fs-empty-state-height" value="100%" />
   <TokenRow token="--fs-empty-state-min-height" value="50vh" />
   <TokenRow token="--fs-empty-state-padding" value="0 var(--fs-spacing-8)" />
-  <TokenRow
-    token="--fs-empty-state-bkg-color"
-    value="var(--fs-color-neutral-bkg)"
-    isColor
-  />
 </TokenTable>
 
 ### Nested Elements
@@ -243,6 +238,24 @@ import '@faststore/ui/src/components/organisms/EmptyState/styles.scss'
   />
 </TokenTable>
 
+#### Default Background Color
+
+<TokenTable>
+  <TokenRow
+    token="--fs-empty-state-bkg-color-default"
+    value="var(--fs-color-neutral-bkg)"
+  />
+</TokenTable>
+
+#### White Background Color
+
+<TokenTable>
+  <TokenRow
+    token="--fs-empty-state-bkg-color-light"
+    value="var(--fs-color-body-bkg)"
+  />
+</TokenTable>
+
 ---
 
 ## Customization
@@ -252,3 +265,5 @@ import '@faststore/ui/src/components/organisms/EmptyState/styles.scss'
 `data-fs-empty-state-title`
 
 `data-fs-empty-state-variant="default | rounded"`
+
+`data-fs-empty-state-bkg-color="default | white"`
