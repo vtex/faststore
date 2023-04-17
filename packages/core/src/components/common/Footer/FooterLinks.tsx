@@ -1,15 +1,13 @@
-import { useState } from 'react'
 import {
-  List as UIList,
   Accordion as UIAccordion,
-  AccordionItem as UIAccordionItem,
   AccordionButton as UIAccordionButton,
+  AccordionItem as UIAccordionItem,
   AccordionPanel as UIAccordionPanel,
+  List as UIList,
 } from '@faststore/ui'
+import { useState } from 'react'
 
 import Link from 'src/components/ui/Link'
-
-import styles from './footer.module.scss'
 
 const links = [
   {
@@ -128,7 +126,7 @@ function FooterLinks() {
   }
 
   return (
-    <section className={styles.fsFooter} data-fs-footer-links>
+    <section data-fs-footer data-fs-footer-links>
       <div className="display-mobile">
         <UIAccordion indices={indicesExpanded} onChange={onChange}>
           {links.map((section) => (

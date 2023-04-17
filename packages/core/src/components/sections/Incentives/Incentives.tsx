@@ -1,6 +1,6 @@
 import { Icon, Incentive as UIIncentive, List as UIList } from '@faststore/ui'
 
-import styles from './incentives.module.scss'
+import styles from './section.module.scss'
 
 interface Incentive {
   icon: string
@@ -27,39 +27,40 @@ function Incentives({
   colored = false,
 }: IncentivesProps) {
   return (
-    <div
-      data-fs-incentives
-      data-fs-incentives-colored={colored}
-      data-fs-incentives-variant={variant}
-      className={styles.fsIncentives}
-    >
-      <UIList className="layout__content">
-        {incentives.map((incentive, index) => (
-          <li key={String(index)}>
-            <UIIncentive>
-              <Icon
-                data-fs-incentive-icon
-                name={incentive.icon}
-                width={32}
-                height={32}
-              />
-              <div data-fs-incentive-content>
-                {incentive.title && (
-                  <p data-fs-incentive-title>{incentive.title}</p>
-                )}
-                <span data-fs-incentive-description>
-                  {incentive.firstLineText}
-                </span>
-                {incentive.secondLineText && (
+    <div className={styles.section}>
+      <div
+        data-fs-incentives
+        data-fs-incentives-colored={colored}
+        data-fs-incentives-variant={variant}
+      >
+        <UIList className="layout__content">
+          {incentives.map((incentive, index) => (
+            <li key={String(index)}>
+              <UIIncentive>
+                <Icon
+                  data-fs-incentive-icon
+                  name={incentive.icon}
+                  width={32}
+                  height={32}
+                />
+                <div data-fs-incentive-content>
+                  {incentive.title && (
+                    <p data-fs-incentive-title>{incentive.title}</p>
+                  )}
                   <span data-fs-incentive-description>
-                    {incentive.secondLineText}
+                    {incentive.firstLineText}
                   </span>
-                )}
-              </div>
-            </UIIncentive>
-          </li>
-        ))}
-      </UIList>
+                  {incentive.secondLineText && (
+                    <span data-fs-incentive-description>
+                      {incentive.secondLineText}
+                    </span>
+                  )}
+                </div>
+              </UIIncentive>
+            </li>
+          ))}
+        </UIList>
+      </div>
     </div>
   )
 }
