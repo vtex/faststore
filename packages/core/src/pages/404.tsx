@@ -29,6 +29,7 @@ function Page() {
             weight="thin"
           />
         }
+        bkgColor="light"
       >
         <p>This app could not find url {fromUrl}</p>
       </UIEmptyState>

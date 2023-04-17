@@ -13,7 +13,7 @@ function Page() {
     <>
       <NextSeo noindex nofollow />
 
-      <UIEmptyState title="Loading">
+      <UIEmptyState title="Loading" bkgColor="light">
         <UILoader />
       </UIEmptyState>
     </>

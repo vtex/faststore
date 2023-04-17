@@ -2,6 +2,7 @@ import React from 'react'
 import type { PropsWithChildren, ReactNode } from 'react'
 
 type Variant = 'default' | 'rounded'
+type BackgroundColor = 'default' | 'light'
 
 export interface EmptyStateProps {
   /**
@@ -20,13 +21,18 @@ export interface EmptyStateProps {
    * Specifies the component border variant.
    */
   variant?: Variant
+  /**
+   * Specifies the component background color.
+   */
+  bkgColor?: BackgroundColor
 }
 
 function EmptyState({
   testId = 'fs-empty-state',
-  variant = 'default',
   title,
   titleIcon,
+  variant = 'default',
+  bkgColor = 'default',
   children,
   ...otherProps
 }: PropsWithChildren<EmptyStateProps>) {
@@ -34,6 +40,7 @@ function EmptyState({
     <section
       data-fs-empty-state
       data-fs-empty-state-variant={variant}
+      data-fs-empty-state-bkg-color={bkgColor}
       data-testid={testId}
       {...otherProps}
     >
