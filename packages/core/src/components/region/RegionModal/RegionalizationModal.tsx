@@ -1,9 +1,10 @@
 import { Modal as UIModal } from '@faststore/ui'
 import RegionalizationModalContent from './RegionalizationModalContent'
+import styles from './section.module.scss'
 
 function RegionalizationModal() {
   return (
-    <UIModal>
+    <UIModal overlayProps={{ className: `section ${styles.section}` }}>
       {({ fadeOut }) => <RegionalizationModalContent onClose={fadeOut} />}
     </UIModal>
   )
