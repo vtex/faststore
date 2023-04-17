@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import React from 'react'
 
-import type { ModalProps } from '../../'
+import type { ModalProps, OverlayProps } from '../../'
 import { Modal } from '../../'
 
 export type Direction = 'leftSide' | 'rightSide'
@@ -34,6 +34,10 @@ export interface SlideOverProps extends Omit<ModalProps, 'title'> {
    * the modal content
    */
   onDismiss?: () => void
+  /**
+   * Props forwarded to overlay component
+   */
+  overlayProps?: OverlayProps
 }
 
 function SlideOver({
@@ -44,6 +48,7 @@ function SlideOver({
   children,
   onDismiss,
   testId = 'fs-slide-over',
+  overlayProps,
   ...otherProps
 }: SlideOverProps) {
   return (
@@ -56,6 +61,7 @@ function SlideOver({
       isOpen={isOpen}
       onDismiss={onDismiss}
       testId={testId}
+      overlayProps={overlayProps}
       {...otherProps}
     >
       {children}
