@@ -14,7 +14,12 @@ const NavbarButtons = forwardRef<HTMLDivElement, NavbarButtonsProps>(
     ref
   ) {
     return (
-      <div ref={ref} data-fs-navbar-buttons {...otherProps}>
+      <div
+        data-fs-navbar-buttons
+        ref={ref}
+        data-testid={testId}
+        {...otherProps}
+      >
         {children}
       </div>
     )

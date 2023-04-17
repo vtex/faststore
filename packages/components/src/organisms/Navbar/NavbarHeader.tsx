@@ -14,7 +14,12 @@ const NavbarHeader = forwardRef<HTMLDivElement, NavbarHeaderProps>(
     ref
   ) {
     return (
-      <section ref={ref} data-fs-navbar-header {...otherProps}>
+      <section
+        data-fs-navbar-header
+        ref={ref}
+        data-testid={testId}
+        {...otherProps}
+      >
         {children}
       </section>
     )
