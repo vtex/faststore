@@ -6,6 +6,10 @@ import type { RatingProps } from '../../'
 
 export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
   /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
+  testId?: string
+  /**
    * A react component to be used as the product title, e.g. a `h1`
    */
   title: ReactNode
@@ -21,10 +25,6 @@ export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
    * A text to be used below the title and the label, such as the product's reference number.
    */
   refNumber?: string
-  /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
-   */
-  testId?: string
   /**
    * The current value of the rating, a number from 0 to 5.
    */

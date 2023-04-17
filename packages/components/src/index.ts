@@ -198,6 +198,9 @@ export {
 } from './organisms/CartSidebar'
 export type { CartSidebarProps } from './organisms/CartSidebar'
 
+export { default as EmptyState } from './organisms/EmptyState'
+export type { EmptyStateProps } from './organisms/EmptyState'
+
 export {
   default as Filter,
   FilterFacetBoolean,
