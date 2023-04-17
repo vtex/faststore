@@ -32,7 +32,6 @@ export interface BannerTextProps extends HTMLAttributes<HTMLDivElement> {
   caption: string
 }
 
-// TODO: Change actionPath and actionLabel with Link
 function BannerText({
   title,
   caption,
