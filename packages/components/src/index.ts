@@ -97,6 +97,18 @@ export { default as Modal, ModalHeader, ModalBody } from './molecules/Modal'
 export type { ModalProps, ModalHeaderProps } from './molecules/Modal'
 export { default as NavbarLinks } from './molecules/NavbarLinks'
 export type { NavbarLinksProps } from './molecules/NavbarLinks'
+export {
+  default as NavbarSlider,
+  NavbarSliderHeader,
+  NavbarSliderContent,
+  NavbarSliderFooter,
+} from './molecules/NavbarSlider'
+export type {
+  NavbarSliderProps,
+  NavbarSliderHeaderProps,
+  NavbarSliderContentProps,
+  NavbarSliderFooterProps,
+} from './molecules/NavbarSlider'
 export { default as OrderSummary } from './molecules/OrderSummary'
 export type { OrderSummaryProps } from './molecules/OrderSummary'
 export {
