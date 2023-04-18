@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.109-alpha.0](https://github.com/vtex/faststore/compare/v2.0.108-alpha.0...v2.0.109-alpha.0) (2023-04-18)
+
+### Features
+
+- Apply adjusts in `HeroSection` and `BannerText` section ([#1715](https://github.com/vtex/faststore/issues/1715)) ([968f95a](https://github.com/vtex/faststore/commit/968f95afb808c104a795e078f45c37ca619d4697))
+
+## [2.0.108-alpha.0](https://github.com/vtex/faststore/compare/v2.0.107-alpha.0...v2.0.108-alpha.0) (2023-04-17)
+
+### Features
+
+- Adds `EmptyState` component ([#1716](https://github.com/vtex/faststore/issues/1716)) ([82eaf9a](https://github.com/vtex/faststore/commit/82eaf9a628f417ee58d7cacb2678f8cdd81bfaec))
+
+## [2.0.107-alpha.0](https://github.com/vtex/faststore/compare/v2.0.106-alpha.0...v2.0.107-alpha.0) (2023-04-17)
+
+### Chores
+
+- Removes `Form` component ([#1717](https://github.com/vtex/faststore/issues/1717)) ([ffe1c2e](https://github.com/vtex/faststore/commit/ffe1c2ec93f261e24bf3c5a295cf359cf53bcc63))
+
 ## [2.0.106-alpha.0](https://github.com/vtex/faststore/compare/v2.0.105-alpha.0...v2.0.106-alpha.0) (2023-04-12)
 
 ### Features

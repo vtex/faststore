@@ -198,6 +198,9 @@ export {
 } from './organisms/CartSidebar'
 export type { CartSidebarProps } from './organisms/CartSidebar'
 
+export { default as EmptyState } from './organisms/EmptyState'
+export type { EmptyStateProps } from './organisms/EmptyState'
+
 export {
   default as Filter,
   FilterFacetBoolean,
@@ -250,6 +253,17 @@ export type {
   ProductGridProps,
   ProductGridItemProps,
 } from './organisms/ProductGrid'
+
+export {
+  default as ProductShelf,
+  ProductShelfItems,
+  ProductShelfItem,
+} from './organisms/ProductShelf'
+export type {
+  ProductShelfProps,
+  ProductShelfItemsProps,
+  ProductShelfItemProps,
+} from './organisms/ProductShelf'
 
 export { default as RegionModal } from './organisms/RegionModal'
 export type { RegionModalProps } from './organisms/RegionModal'

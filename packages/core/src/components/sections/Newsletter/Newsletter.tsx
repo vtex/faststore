@@ -1,8 +1,4 @@
-import {
-  Button as UIButton,
-  Form,
-  InputField as UIInputField,
-} from '@faststore/ui'
+import { Button as UIButton, InputField as UIInputField } from '@faststore/ui'
 import type { ComponentPropsWithRef, FormEvent, ReactNode } from 'react'
 import { forwardRef, useRef } from 'react'
 
@@ -79,7 +75,7 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
         data-fs-newsletter={card ? 'card' : ''}
         className={`layout__section ${styles.fsNewsletter}`}
       >
-        <Form
+        <form
           data-fs-newsletter-form
           ref={ref}
           onSubmit={handleSubmit}
@@ -143,7 +139,7 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
               </>
             )}
           </div>
-        </Form>
+        </form>
       </Section>
     )
   }
