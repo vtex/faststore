@@ -24,6 +24,7 @@ import {
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
 import { product } from 'site/mocks/product'
+import { products } from 'site/mocks/products'
 import { propsPriceDefinition } from 'site/components/PriceDefinitionProps/PriceDefinitionProps'
 
 import path from 'path'
@@ -747,12 +748,13 @@ Use the `ProductCard` to:
 
 `data-fs-product-card-actions`
 
-
 ---
 
 ## Related components
 
-<SectionList containerStyle={{ display: 'grid', gridTemplateColumns: '2fr 2fr' }}>
+<SectionList
+  containerStyle={{ display: 'grid', gridTemplateColumns: '2fr 2fr' }}
+>
   <SectionItem
     title="ProductShelf"
     description="
@@ -760,29 +762,29 @@ Displays a list of products to be used as a section on the store."
     actionPath="/components/organisms/product-shelf"
   >
     <ProductShelf>
-        <ProductShelfItems>
-          {Array.from({ length: 5 }, (_, index) => (
-            <ProductShelfItem>
-              <ProductCard>
-                <ProductCardImage>
-                  <img
-                    data-fs-image
-                    src={product.image[0].url}
-                    alt={product.image[0].alternateName}
-                  />
-                </ProductCardImage>
-                <ProductCardContent
-                  title={product.isVariantOf.name}
-                  price={{
-                    value: product.offers.offers[0].price,
-                    listPrice: product.offers.offers[0].listPrice,
-                    formatter: useFormattedPrice,
-                  }}
+      <ProductShelfItems>
+        {products.map(({ product }, idx) => (
+          <ProductShelfItem>
+            <ProductCard>
+              <ProductCardImage>
+                <img
+                  data-fs-image
+                  src={product.image[0].url}
+                  alt={product.image[0].alternateName}
                 />
-              </ProductCard>
-            </ProductShelfItem>
-          ))}
-        </ProductShelfItems>
-      </ProductShelf>
+              </ProductCardImage>
+              <ProductCardContent
+                title={product.isVariantOf.name}
+                price={{
+                  value: product.offers.offers[0].price,
+                  listPrice: product.offers.offers[0].listPrice,
+                  formatter: useFormattedPrice,
+                }}
+              />
+            </ProductCard>
+          </ProductShelfItem>
+        ))}
+      </ProductShelfItems>
+    </ProductShelf>
   </SectionItem>
 </SectionList>
