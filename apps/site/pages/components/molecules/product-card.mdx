@@ -20,6 +20,8 @@ import {
   ProductCard,
   ProductCardContent,
   ProductCardImage,
+  ProductGrid,
+  ProductGridItem,
 } from '@faststore/ui'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
@@ -752,9 +754,7 @@ Use the `ProductCard` to:
 
 ## Related components
 
-<SectionList
-  containerStyle={{ display: 'grid', gridTemplateColumns: '2fr 2fr' }}
->
+<SectionList>
   <SectionItem
     title="ProductShelf"
     description="
@@ -786,5 +786,35 @@ Displays a list of products to be used as a section on the store."
         ))}
       </ProductShelfItems>
     </ProductShelf>
+  </SectionItem>
+  <SectionItem
+    title="ProductGrid"
+    description="
+It's a section generally used on PLP pages to list the products available in the store."
+    actionPath="/components/organisms/product-grid"
+  >
+    <ProductGrid>
+      {products.map(({ product }, idx) => (
+        <ProductGridItem>
+          <ProductCard>
+            <ProductCardImage>
+              <img
+                data-fs-image
+                src={product.image[0].url}
+                alt={product.image[0].alternateName}
+              />
+            </ProductCardImage>
+            <ProductCardContent
+              title={product.isVariantOf.name}
+              price={{
+                value: product.offers.offers[0].price,
+                listPrice: product.offers.offers[0].listPrice,
+                formatter: useFormattedPrice,
+              }}
+            />
+          </ProductCard>
+        </ProductGridItem>
+      ))}
+    </ProductGrid>
   </SectionItem>
 </SectionList>
