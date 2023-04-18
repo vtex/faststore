@@ -12,12 +12,16 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
 import {
   ProductGrid,
   ProductGridItem,
   ProductCard,
   ProductCardContent,
   ProductCardImage,
+  ProductShelf,
+  ProductShelfItems,
+  ProductShelfItem,
 } from '@faststore/ui'
 import { products } from 'site/mocks/products'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
@@ -214,3 +218,41 @@ import '@faststore/ui/src/components/organisms/ProductGrid/styles.scss'
 ### ❌ Don'ts
 
 - Avoid using a lot of <code>ProductGridItem</code> on the same row, this could lead to unwanted horizontal scroll.
+
+---
+
+## Related components
+
+<SectionList grid="row">
+  <SectionItem
+    title="Product Shelf"
+    description=" Displays a list of products to be used as a section on the store."
+    actionPath="/components/organisms/product-shelf"
+  >
+    <ProductShelf>
+      <ProductShelfItems>
+        {products.map(({ product }, idx) => (
+          <ProductShelfItem>
+            <ProductCard>
+              <ProductCardImage>
+                <img
+                  data-fs-image
+                  src={product.image[0].url}
+                  alt={product.image[0].alternateName}
+                />
+              </ProductCardImage>
+              <ProductCardContent
+                title={product.isVariantOf.name}
+                price={{
+                  value: product.offers.offers[0].price,
+                  listPrice: product.offers.offers[0].listPrice,
+                  formatter: useFormattedPrice,
+                }}
+              />
+            </ProductCard>
+          </ProductShelfItem>
+        ))}
+      </ProductShelfItems>
+    </ProductShelf>
+  </SectionItem>
+</SectionList>
