@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.110-alpha.0](https://github.com/vtex/faststore/compare/v2.0.109-alpha.0...v2.0.110-alpha.0) (2023-04-18)
+
+### Features
+
+- Add `ProductShelf` component ([#1713](https://github.com/vtex/faststore/issues/1713)) ([6a387a6](https://github.com/vtex/faststore/commit/6a387a665aa8a1eb65122abcce67d82b9ead4234))
+
 ## [2.0.109-alpha.0](https://github.com/vtex/faststore/compare/v2.0.108-alpha.0...v2.0.109-alpha.0) (2023-04-18)
 
 ### Features
