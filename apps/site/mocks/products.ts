@@ -200,4 +200,41 @@ export const products = [
       },
     },
   },
+  {
+    product: {
+      id: '31269411',
+      slug: 'aipords-31269411',
+      sku: '31269411',
+      brand: {
+        brandName: 'Brand',
+        name: 'Brand',
+      },
+      name: 'fuchsia',
+      gtin: '4850062261807',
+      isVariantOf: {
+        productGroupID: '14353872',
+        name: 'Apple AirPods Pro',
+      },
+      image: [
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/173596/est.jpg?v=1757659088',
+          alternateName: 'hic',
+        },
+      ],
+      offers: {
+        lowPrice: 229,
+        offers: [
+          {
+            availability: 'https://schema.org/InStock',
+            price: 229,
+            listPrice: 249,
+            quantity: 10000,
+            seller: {
+              identifier: '1',
+            },
+          },
+        ],
+      },
+    },
+  },
 ]
