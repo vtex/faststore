@@ -1,9 +1,3 @@
 // Sections
 @import "@faststore/ui/src/components/atoms/Overlay/styles.scss";
 @import "src/components/sections/Section/section.scss";
-
-.section[data-fs-navbar-parent] {
-  position: sticky;
-  top: 0;
-  z-index: var(--fs-z-index-high);
-}
