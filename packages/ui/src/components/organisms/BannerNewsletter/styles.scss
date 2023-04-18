@@ -1,6 +1,4 @@
-@import "src/styles/scaffold";
-
-.fs-banner-newsletter {
+[data-fs-banner-newsletter] {
   margin-bottom: var(--fs-grid-padding);
 
   [data-fs-banner-text] {

@@ -48,7 +48,7 @@ function ProductShelf({
 
   return (
     <Section
-      className={`${styles.section} layout__section ${
+      className={`${styles.section} section-product-shelf layout__section ${
         withDivisor ? 'section__divisor' : ''
       }`}
       ref={ref}

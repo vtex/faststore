@@ -28,8 +28,8 @@ import storeConfig from '../../../faststore.config'
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductDetails,
-  BannerNewsletter,
   CrossSellingShelf,
+  BannerNewsletter,
   ...CUSTOM_COMPONENTS,
 }
 
