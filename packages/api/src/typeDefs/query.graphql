@@ -182,6 +182,10 @@ type StoreSearchResult {
   Search result metadata. Additional data can be used to send analytics events.
   """
   metadata: SearchMetadata
+  """
+  Search result redirect. Used to redirect search terms or filters to specific pages
+  """
+  redirect: String
 }
 
 type Query {

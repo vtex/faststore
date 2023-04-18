@@ -923,6 +923,8 @@ export type StoreSearchResult = {
   metadata?: Maybe<SearchMetadata>;
   /** Search result products. */
   products: StoreProductConnection;
+  /** Search result redirect. Used to redirect search terms or filters to specific pages */
+  redirect?: Maybe<Scalars['String']>;
   /** Search result suggestions. */
   suggestions: StoreSuggestions;
 };

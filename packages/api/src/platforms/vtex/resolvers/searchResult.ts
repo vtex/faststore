@@ -107,4 +107,13 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       logicalOperator: productSearchResult.operator,
     }
   },
+  redirect: async ({ searchArgs, productSearchPromise }) => {
+    if (!searchArgs.query) {
+      return null
+    }
+
+    const { redirect } = await productSearchPromise
+
+    return redirect ?? null
+  },
 }
