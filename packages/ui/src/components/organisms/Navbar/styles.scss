@@ -1,6 +1,4 @@
-@import "src/styles/scaffold";
-
-.fs-navbar {
+[data-fs-navbar] {
   // --------------------------------------------------------
   // Design Tokens for Navbar
   // --------------------------------------------------------
@@ -42,9 +40,6 @@
   // Structural Styles
   // --------------------------------------------------------
 
-  position: sticky;
-  top: 0;
-  z-index: var(--fs-z-index-high);
   display: flex;
   flex-direction: column;
   justify-content: center;
