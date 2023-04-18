@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.111-alpha.0](https://github.com/vtex/faststore/compare/v2.0.110-alpha.0...v2.0.111-alpha.0) (2023-04-18)
+
+### Features
+
+- Adds `ProductGrid` component ([#1719](https://github.com/vtex/faststore/issues/1719)) ([9cbe71f](https://github.com/vtex/faststore/commit/9cbe71f81395297c14b258efdd336b00f6b71071))
+
 ## [2.0.110-alpha.0](https://github.com/vtex/faststore/compare/v2.0.109-alpha.0...v2.0.110-alpha.0) (2023-04-18)
 
 ### Features
