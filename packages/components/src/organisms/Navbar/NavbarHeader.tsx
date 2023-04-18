@@ -10,7 +10,7 @@ export interface NavbarHeaderProps extends HTMLAttributes<HTMLDivElement> {
 
 const NavbarHeader = forwardRef<HTMLDivElement, NavbarHeaderProps>(
   function NavbarHeader(
-    { testId = 'fs-navbar-header', children, ...otherProps },
+    { children, testId = 'fs-navbar-header', ...otherProps },
     ref
   ) {
     return (

@@ -9,7 +9,7 @@ export interface NavbarRowProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const NavbarRow = forwardRef<HTMLDivElement, NavbarRowProps>(function NavbarRow(
-  { testId = 'fs-navbar-row', children, ...otherProps },
+  { children, testId = 'fs-navbar-row', ...otherProps },
   ref
 ) {
   return (

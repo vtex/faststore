@@ -10,7 +10,7 @@ export interface NavbarButtonsProps extends HTMLAttributes<HTMLDivElement> {
 
 const NavbarButtons = forwardRef<HTMLDivElement, NavbarButtonsProps>(
   function NavbarButtons(
-    { testId = 'fs-navbar-buttons', children, ...otherProps },
+    { children, testId = 'fs-navbar-buttons', ...otherProps },
     ref
   ) {
     return (

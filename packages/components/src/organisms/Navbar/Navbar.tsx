@@ -9,7 +9,7 @@ export interface NavbarProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Navbar = forwardRef<HTMLDivElement, NavbarProps>(function Navbar(
-  { testId = 'fs-navbar', children, ...otherProps },
+  { children, testId = 'fs-navbar', ...otherProps },
   ref
 ) {
   return (
