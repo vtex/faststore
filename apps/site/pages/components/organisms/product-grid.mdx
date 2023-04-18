@@ -66,8 +66,7 @@ The `ProductGrid` is a compound of the following:
 
 - `ProductGrid`: wraps the product grid items.
 - `ProductGridItem`: wraps the product inside a list item.
-
-\*We recommend using the [ProductCard](/components/molecules/product-card) as the direct child of the ProductGridItem.
+- `ProductCard`: the proposed child of a `ProductGridItem`.
 
 ---
 
@@ -77,6 +76,16 @@ Import the component from [@faststore/ui](/../components)
 
 ```tsx
 import { ProductGrid, ProductGridItem } from '@faststore/ui'
+```
+
+We highly recommend using the [ProductCard](/components/molecules/product-card) as the direct child of the `ProductGridItem`.
+
+```tsx
+import {
+  ProductCard,
+  ProductCardContent,
+  ProductCardImage,
+} from '@faststore/ui'
 ```
 
 Import Styles
