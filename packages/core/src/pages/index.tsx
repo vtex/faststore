@@ -16,6 +16,8 @@ import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
 import storeConfig from '../../faststore.config'
+import Layout from 'src/cms/layout/Layout'
+import { LayoutData, getLayout } from 'src/cms/layout/getLayout'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -28,11 +30,14 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-type Props = PageContentType
+type Props = {
+  page: PageContentType
+  layout: LayoutData
+}
 
-function Page({ sections, settings }: Props) {
+function Page({ page: { sections, settings }, layout }: Props) {
   return (
-    <>
+    <Layout {...layout}>
       {/* SEO */}
       <NextSeo
         title={settings.seo.title}
@@ -68,7 +73,7 @@ function Page({ sections, settings }: Props) {
         (not the HTML tag) before rendering it here.
       */}
       <RenderPageSections sections={sections} components={COMPONENTS} />
-    </>
+    </Layout>
   )
 }
 
@@ -84,10 +89,13 @@ export const getStaticProps: GetStaticProps<
     contentType: 'page',
   })
 
+  const layout = await getLayout({ context })
+
   return {
-    props: page,
+    props: { page, layout },
   }
 }
 
 Page.displayName = 'Page'
+
 export default mark(Page)
