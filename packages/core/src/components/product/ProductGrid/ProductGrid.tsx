@@ -22,6 +22,8 @@ interface Props {
 function ProductGrid({ products, page, pageSize }: Props) {
   const aspectRatio = 1
 
+  console.log(products)
+
   return (
     <ProductGridSkeleton
       aspectRatio={aspectRatio}
