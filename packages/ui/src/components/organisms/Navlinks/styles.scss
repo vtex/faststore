@@ -38,8 +38,6 @@
   @include media("<notebook") { padding: 0; }
 
   @include media(">=notebook") {
-    z-index: var(--fs-z-index-below);
-
     > div {
       display: flex;
       align-items: center;

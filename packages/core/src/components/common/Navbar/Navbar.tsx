@@ -26,7 +26,7 @@ function Navbar() {
   }
 
   return (
-    <header className={`section ${styles.section}`} data-fs-navbar-parent>
+    <header className={`section ${styles.section} section-navbar`}>
       <section data-fs-navbar data-fs-navbar-scroll={scrollDirection}>
         <header data-fs-navbar-header>
           <div className="layout__content" data-fs-navbar-row>

@@ -15,8 +15,12 @@
   @include media(">=notebook") { padding-top: var(--fs-spacing-9); }
 }
 
-.section[data-fs-navbar-parent] {
+.section-navbar {
   position: sticky;
   top: 0;
   z-index: var(--fs-z-index-high);
+}
+
+.section-product-details {
+  margin-top: 0;
 }

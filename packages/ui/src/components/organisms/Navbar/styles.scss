@@ -180,6 +180,7 @@
   }
 
   [data-fs-navbar-header] {
+    z-index: var(--fs-z-index-top);
     padding: var(--fs-navbar-header-padding);
     overflow-x: clip;
     background-color: var(--fs-navbar-bkg-color);
