@@ -20,7 +20,7 @@ import {
   ProductCardContent,
   ProductCardImage,
 } from '@faststore/ui'
-import { product } from 'site/mocks/product'
+import { products } from 'site/mocks/products'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
 import path from 'path'
@@ -72,7 +72,7 @@ The `ProductShelf` is a compound of the following:
 
 - `ProductShelfItems`: the product list.
 - `ProductShelfItem`: wraps the product inside a list item.
-- `ProductCard`: the proposed children of a `ProductShelf`.
+- `ProductCard`: the proposed child of a `ProductShelf`.
 
 ---
 
@@ -84,7 +84,7 @@ Import the component from [@faststore/ui](/../components)
 import {
   ProductShelf,
   ProductShelfItems,
-  ProductShelfItem
+  ProductShelfItem,
 } from '@faststore/ui'
 ```
 
@@ -94,7 +94,7 @@ We highly recommend using the [ProductCard](/components/molecules/product-card) 
 import {
   ProductCard,
   ProductCardContent,
-  ProductCardImage
+  ProductCardImage,
 } from '@faststore/ui'
 ```
 
@@ -113,7 +113,7 @@ import '@faststore/ui/src/components/organisms/ProductShelf/styles.scss'
     <OverviewSection>
       <ProductShelf>
         <ProductShelfItems>
-          {Array.from({ length: 5 }, (_, index) => (
+          {products.map(({ product }, idx) => (
             <ProductShelfItem>
               <ProductCard>
                 <ProductCardImage>
@@ -143,7 +143,7 @@ import '@faststore/ui/src/components/organisms/ProductShelf/styles.scss'
     ```tsx
       <ProductShelf>
         <ProductShelfItems>
-          {Array.from({ length: 5 }, (_, index) => (
+          {products.map(({ product }, idx) => (
             <ProductShelfItem>
               <ProductCard>
                 <ProductCardImage>
@@ -198,10 +198,7 @@ All `ProductShelf` related components support all attributes also supported by t
 #### Items
 
 <TokenTable>
-  <TokenRow
-    token="--fs-product-shelf-items-gap"
-    value="var(--fs-grid-gap-1)"
-  />
+  <TokenRow token="--fs-product-shelf-items-gap" value="var(--fs-grid-gap-1)" />
   <TokenDivider />
   <TokenRow
     token="--fs-product-shelf-items-padding-top"
@@ -231,14 +228,14 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
     <OverviewSection>
       <ProductShelf>
         <ProductShelfItems>
-          {Array.from({ length: 5 }, (_, index) => (
+          {products.map(({ product }, idx) => (
             <ProductShelfItem>
               <ProductCard>
                 <ProductCardImage>
                   <img
                     data-fs-image
-                    src={product.image[4].url}
-                    alt={product.image[4].alternateName}
+                    src={product.image[0].url}
+                    alt={product.image[0].alternateName}
                   />
                 </ProductCardImage>
                 <ProductCardContent
@@ -262,7 +259,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
     ```tsx
       <ProductShelf>
         <ProductShelfItems>
-          {Array.from({ length: 5 }, (_, index) => (
+          {products.map(({ product }, idx) => (
             <ProductShelfItem>
               <ProductCard>
                 <ProductCardImage>
@@ -298,7 +295,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
     <OverviewSection>
       <ProductShelf>
         <ProductShelfItems>
-          {Array.from({ length: 5 }, (_, index) => (
+          {products.map(({ product }, idx) => (
             <ProductShelfItem>
               <ProductCard bordered>
                 <ProductCardImage>
@@ -328,7 +325,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
     ```tsx
       <ProductShelf>
         <ProductShelfItems>
-          {Array.from({ length: 5 }, (_, index) => (
+          {products.map(({ product }, idx) => (
             <ProductShelfItem>
               <ProductCard bordered>
                 <ProductCardImage>
@@ -356,7 +353,6 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
   </Tab>
 </Tabs>
 
-
 ### Aspect Ratio
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
@@ -364,14 +360,14 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
     <OverviewSection>
       <ProductShelf>
         <ProductShelfItems>
-          {Array.from({ length: 5 }, (_, index) => (
+          {products.map(({ product }, idx) => (
             <ProductShelfItem>
               <ProductCard>
                 <ProductCardImage aspectRatio={3 / 4}>
                   <img
                     data-fs-image
-                    src={product.image[1].url}
-                    alt={product.image[1].alternateName}
+                    src={product.image[0].url}
+                    alt={product.image[0].alternateName}
                   />
                 </ProductCardImage>
                 <ProductCardContent
@@ -394,7 +390,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
     ```tsx
       <ProductShelf>
         <ProductShelfItems>
-          {Array.from({ length: 5 }, (_, index) => (
+          {products.map(({ product }, idx) => (
             <ProductShelfItem>
               <ProductCard>
                 <ProductCardImage aspectRatio={3 / 4}>
