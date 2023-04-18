@@ -1,8 +1,10 @@
+import type { HTMLAttributes } from 'react'
 import React, { PropsWithChildren } from 'react'
 
 import {
   Button,
   ButtonProps,
+  OverlayProps,
   SlideOver,
   SlideOverHeader,
   useFadeEffect,
@@ -11,7 +13,7 @@ import {
 
 import { SlideOverDirection, SlideOverWidthSize } from '../SlideOver'
 
-export interface FilterSliderProps {
+export interface FilterSliderProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Title for the FilterSlider component.
    */
@@ -36,6 +38,10 @@ export interface FilterSliderProps {
    * Function called when Close Button is clicked.
    */
   onClose: () => void
+  /**
+   * Props forwarded to overlay component
+   */
+  overlayProps?: OverlayProps
 }
 
 function FilterSlider({
@@ -46,6 +52,8 @@ function FilterSlider({
   applyBtnProps,
   clearBtnProps,
   onClose,
+  overlayProps,
+  ...otherProps
 }: PropsWithChildren<FilterSliderProps>) {
   const { fade, fadeOut } = useFadeEffect()
   const { closeFilter } = useUI()
@@ -59,6 +67,8 @@ function FilterSlider({
       size={size}
       direction={direction}
       onTransitionEnd={() => fade === 'out' && closeFilter()}
+      overlayProps={overlayProps}
+      {...otherProps}
     >
       <div data-fs-filter-slider-content>
         <SlideOverHeader

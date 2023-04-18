@@ -2,6 +2,8 @@
 @import "@faststore/ui/src/styles/base/utilities.scss";
 
 .section {
+  margin-top: 0;
+
   @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
   @import "@faststore/ui/src/components/atoms/SROnly/styles.scss";
   @import "@faststore/ui/src/components/atoms/Link/styles.scss";

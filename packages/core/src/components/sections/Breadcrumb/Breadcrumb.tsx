@@ -1,9 +1,11 @@
 import { memo } from 'react'
 
-import UIBreadcrumb from 'src/components/ui/Breadcrumb'
 import type { BreadcrumbProps } from 'src/components/ui/Breadcrumb'
+import UIBreadcrumb from 'src/components/ui/Breadcrumb'
 
 import Section from '../Section'
+
+import styles from './section.module.scss'
 
 interface BreadcrumbWrapperProps
   extends Partial<Pick<BreadcrumbProps, 'breadcrumbList'>> {
@@ -15,7 +17,7 @@ function Breadcrumb({ breadcrumbList, name }: BreadcrumbWrapperProps) {
   const list = breadcrumbList ?? fallback
 
   return (
-    <Section className="layout__content">
+    <Section className={`${styles.section} section-breadcrumb layout__content`}>
       <UIBreadcrumb breadcrumbList={list} />
     </Section>
   )
