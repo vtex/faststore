@@ -37,7 +37,7 @@ const Hero = ({
   imageSrc,
 }: HeroProps) => {
   return (
-    <Section className={styles.section}>
+    <Section className={`${styles.section} section-hero`}>
       <UIHero>
         <UIHeroImage data-fs-hero-image>
           <Image
