@@ -1,0 +1,222 @@
+---
+description: Displays a set of navigation links.
+---
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { Button, Navbar, NavbarLinks, List } from '@faststore/ui'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const navbarLinksPath = path.resolve(__filename)
+  const components = ['NavbarLinks.tsx']
+  const [navbarLinksProps] = getComponentPropsFrom(navbarLinksPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        navbarLinksProps,
+      },
+    },
+  }
+}
+
+export const NavbarLinksPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { navbarLinksProps } = useSSG()
+  return {
+    NavbarLinks: <PropsSection propsList={navbarLinksProps} />,
+  }[component]
+}
+
+<header>
+
+# Navbar Links
+
+A wrapper used to display a set of navigation links that self adapts on mobile or desktop screens.
+
+This component is part of the [Navigation](/components/features/navigation) feature and must be used in the [Navbar](/components/organisms/navbar) context.
+
+</header>
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { NavbarLinks } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/NavbarLinks/styles.scss'
+```
+
+---
+
+## Usage
+
+**Note:** The mobile version can be achieved with [NavbarSlider](/components/molecules/navbar-slider) as wrapper.
+
+export const links = [
+  'Office',
+  'Home Appliances',
+  'Computer and Software',
+  'Technology',
+]
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection containerStyle={{ display: 'block' }}>
+      <Navbar>
+        <NavbarLinks className="hidden-mobile">
+          <div className="layout__content">
+            <Button variant="tertiary" size="small">
+              Set location
+            </Button>
+            <List data-fs-navbar-links-list>
+              {links.map((link) => (
+                <li data-fs-navbar-links-list-item>
+                  <a data-fs-navbar-links-link href="#">
+                    {link}
+                  </a>
+                </li>
+              ))}
+            </List>
+          </div>
+        </NavbarLinks>
+      </Navbar>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Navbar>
+      <NavbarLinks>
+        <div>
+          <Button variant="tertiary" size="small">
+            Set location
+          </Button>
+          <List data-fs-navbar-links-list>
+            {links.map((link) => (
+              <li data-fs-navbar-links-list-item>
+                <a data-fs-navbar-links-link href="#">
+                  {link}
+                </a>
+              </li>
+            ))}
+          </List>
+        </div>
+      </NavbarLinks>
+    </Navbar>
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+### Navbar Links
+
+<NavbarLinksPropsSection component="NavbarLinks" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-navbar-links-padding-top-notebook"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-navbar-links-padding-bottom-notebook"
+    value="var(--fs-navbar-links-padding-top-notebook)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-navbar-links-bkg-color"
+    value="--fs-color-body-bkg"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-navbar-links-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-navbar-links-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+  <TokenRow
+    token="--fs-navbar-links-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-navbar-links-border-top-width-mobile"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-navbar-links-border-top-color-mobile"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-navbar-links-border-bottom-width-mobile"
+    value="var(--fs-navbar-links-border-top-width-mobile)"
+  />
+  <TokenRow
+    token="--fs-navbar-links-border-bottom-color-mobile"
+    value="var(--fs-navbar-links-border-top-color-mobile)"
+    globalValue="var(--fs-border-color-light)"
+    isColor
+  />
+</TokenTable>
+
+## Nested Elements
+
+### Link
+
+<TokenTable>
+  <TokenRow token="--fs-navbar-links-link-width-notebook" value="auto" />
+  <TokenRow
+    token="--fs-navbar-links-link-padding-notebook"
+    value="0 var(--fs-spacing-0)"
+  />
+</TokenTable>
+
+### List
+
+<TokenTable>
+  <TokenRow
+    token="--fs-navbar-links-list-padding-left-notebook"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-navbar-links-list-margin-left-notebook"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-navbar-links-list-border-left-width-notebook"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-navbar-links-list-border-left-color-notebook"
+    value="var(--fs-border-color-light)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-navbar-links`
