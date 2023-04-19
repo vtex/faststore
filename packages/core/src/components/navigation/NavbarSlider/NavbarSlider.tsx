@@ -25,7 +25,7 @@ function NavbarSlider() {
       onDismiss={fadeOut}
       onTransitionEnd={() => fade === 'out' && closeNavbar()}
     >
-      <UINavbarSliderHeader data-fs-navbar-slider-header onClose={fadeOut}>
+      <UINavbarSliderHeader onClose={fadeOut}>
         <Link
           href="/"
           onClick={fadeOut}
