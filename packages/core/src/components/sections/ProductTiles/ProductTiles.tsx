@@ -60,7 +60,7 @@ const ProductTiles = ({ title, ...variables }: ProductTilesProps) => {
 
   return (
     <Section
-      className={`${styles.section} layout__section layout__content`}
+      className={`${styles.section} section-product-tiles layout__section layout__content`}
       ref={ref}
     >
       <h2 className="text__title-section">{title}</h2>

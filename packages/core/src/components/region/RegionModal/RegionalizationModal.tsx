@@ -4,7 +4,11 @@ import styles from './section.module.scss'
 
 function RegionalizationModal() {
   return (
-    <UIModal overlayProps={{ className: `section ${styles.section}` }}>
+    <UIModal
+      overlayProps={{
+        className: `section ${styles.section} section-region-modal`,
+      }}
+    >
       {({ fadeOut }) => <RegionalizationModalContent onClose={fadeOut} />}
     </UIModal>
   )

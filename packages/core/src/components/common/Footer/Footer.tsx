@@ -34,7 +34,9 @@ export function Footer({
   sectionPaymentMethods = true,
 }: FooterProps) {
   return (
-    <footer className={`${styles.section} layout__content-full`}>
+    <footer
+      className={`section ${styles.section} section-footer layout__content-full`}
+    >
       <div
         data-fs-footer
         data-fs-footer-incentives={sectionIncentives}

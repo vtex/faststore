@@ -56,7 +56,9 @@ function CartSidebar() {
 
   return (
     <UICartSidebar
-      overlayProps={{ className: `section ${styles.section}` }}
+      overlayProps={{
+        className: `section ${styles.section} section-cart-sidebar`,
+      }}
       totalItems={totalItems}
       alertIcon={<Icon name="Truck" />}
       alertText="Free shipping starts at $300"
