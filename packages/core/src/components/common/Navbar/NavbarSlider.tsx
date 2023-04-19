@@ -11,7 +11,7 @@ import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
 
 import NavLinks from './NavLinks'
-import styles from './section.module.scss'
+import styles from './sectionNavbarSlider.module.scss'
 
 function NavbarSlider() {
   const { closeNavbar } = useUI()
@@ -24,7 +24,9 @@ function NavbarSlider() {
       onDismiss={fadeOut}
       size="full"
       direction="leftSide"
-      overlayProps={{ className: `${styles.section}` }}
+      overlayProps={{
+        className: `section ${styles.section} section-navbar-slider`,
+      }}
       data-fs-navbar-slider
       onTransitionEnd={() => fade === 'out' && closeNavbar()}
     >

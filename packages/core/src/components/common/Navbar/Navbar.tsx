@@ -1,4 +1,4 @@
-import { Suspense, useRef, useState } from 'react'
+import { Suspense, lazy, useRef, useState } from 'react'
 
 import { Icon, IconButton as UIIconButton, useUI } from '@faststore/ui'
 import CartToggle from 'src/components/cart/CartToggle'
@@ -11,8 +11,9 @@ import { mark } from 'src/sdk/tests/mark'
 import useScrollDirection from 'src/sdk/ui/useScrollDirection'
 
 import NavLinks from './NavLinks'
-import NavbarSlider from './NavbarSlider'
 import styles from './section.module.scss'
+
+const NavbarSlider = lazy(() => import('./NavbarSlider'))
 
 function Navbar() {
   const scrollDirection = useScrollDirection()
@@ -79,7 +80,11 @@ function Navbar() {
           </div>
         </header>
         <NavLinks classes="hidden-mobile" />
-        {displayNavbar && <NavbarSlider />}
+        {displayNavbar && (
+          <Suspense fallback={null}>
+            <NavbarSlider />
+          </Suspense>
+        )}
       </section>
     </header>
   )

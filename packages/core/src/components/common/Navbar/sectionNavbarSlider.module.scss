@@ -9,6 +9,7 @@
   @import "@faststore/ui/src/components/atoms/Link/styles.scss";
   @import "@faststore/ui/src/components/atoms/List/styles.scss";
   @import "@faststore/ui/src/components/molecules/LinkButton/styles.scss";
+  @import "@faststore/ui/src/components/molecules/Modal/styles.scss";
   @import "@faststore/ui/src/components/molecules/SearchAutoComplete/styles.scss";
   @import "@faststore/ui/src/components/molecules/SearchDropdown/styles.scss";
   @import "@faststore/ui/src/components/molecules/SearchHistory/styles.scss";
@@ -18,4 +19,6 @@
   @import "@faststore/ui/src/components/organisms/SearchInput/styles.scss";
   @import "@faststore/ui/src/components/organisms/Navlinks/styles.scss";
   @import "@faststore/ui/src/components/organisms/Navbar/styles.scss";
+  @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
+  @import "@faststore/ui/src/components/organisms/NavbarSlider/styles.scss";
 }
