@@ -1,7 +1,5 @@
 import { Skeleton as UISkeleton } from '@faststore/ui'
 
-import styles from './product-tile-skeleton.module.scss'
-
 interface ProductTileSkeletonProps {
   index: number
   aspectRatio?: number
@@ -14,7 +12,6 @@ function ProductTileSkeleton({
   return (
     <div
       data-fs-product-tile-skeleton
-      className={styles.fsProductTileSkeleton}
       data-fs-product-tile-skeleton-index={index}
     >
       <div

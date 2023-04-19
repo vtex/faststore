@@ -8,7 +8,6 @@ import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 
 import ProductCard from '../../product/ProductCard'
 import Section from '../Section'
-import productShelfStyles from './product-shelf.module.scss'
 import styles from './section.module.scss'
 
 interface ProductShelfProps extends Partial<ProductsQueryQueryVariables> {
@@ -54,7 +53,7 @@ function ProductShelf({
       ref={ref}
     >
       <h2 className="text__title-section layout__content">{title}</h2>
-      <div className={productShelfStyles.fsProductShelf} data-fs-product-shelf>
+      <div data-fs-product-shelf>
         <ProductShelfSkeleton
           aspectRatio={aspectRatio}
           loading={products === undefined}

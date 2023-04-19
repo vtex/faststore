@@ -7,8 +7,6 @@ import {
 import RegionInput from 'src/components/region/RegionInput'
 import Link from 'src/components/ui/Link'
 
-import styles from './regionalization-modal-body.module.scss'
-
 export interface RegionalizationModalContentProps {
   onClose?: () => void
 }
@@ -26,7 +24,7 @@ function RegionalizationModalContent({
           'aria-label': 'Close Regionalization Modal',
         }}
       />
-      <UIModalBody className={styles.fsRegionalizationModalBody}>
+      <UIModalBody data-fs-regionalization-modal-body>
         <div data-fs-regionalization-modal-input>
           <RegionInput closeModal={() => onClose()} />
         </div>
