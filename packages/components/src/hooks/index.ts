@@ -9,3 +9,4 @@ export type {
   SliderDispatch,
   SlideDirection,
 } from './useSlider'
+export { useSlideVisibility } from './useSlideVisibility'

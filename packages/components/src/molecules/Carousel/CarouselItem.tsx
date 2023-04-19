@@ -1,8 +1,6 @@
 import React from 'react'
 import type { CSSProperties, PropsWithChildren, HTMLAttributes } from 'react'
-import type { SliderState } from '../../hooks'
-
-import useSlideVisibility from './hooks/useSlideVisibility'
+import { useSlideVisibility, SliderState } from '../../hooks'
 
 export interface CarouselItemProps extends HTMLAttributes<HTMLLIElement> {
   index: number
