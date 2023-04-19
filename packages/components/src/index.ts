@@ -55,6 +55,10 @@ export type {
   BreadcrumbProps,
 } from './molecules/Breadcrumb'
 export { default as BuyButton } from './molecules/BuyButton'
+
+export { default as Carousel, CarouselItem } from './molecules/Carousel'
+export type { CarouselProps, CarouselItemProps } from './molecules/Carousel'
+
 export {
   default as CartItem,
   CartItemImage,
