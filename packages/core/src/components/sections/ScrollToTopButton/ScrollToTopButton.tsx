@@ -28,7 +28,7 @@ function ScrollToTopButton({
   iconPosition = 'left',
 }: ScrollToTopButtonProps) {
   return (
-    <Section className={styles.section}>
+    <Section className={`${styles.section} section-scroll-to-top-button`}>
       <UIButton
         variant="secondary"
         icon={icon}

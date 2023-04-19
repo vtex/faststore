@@ -29,7 +29,7 @@ function Alert(args: PropsWithChildren<Props>) {
   const { content, children, ...otherProps } = args
 
   return (
-    <Section className={styles.section}>
+    <Section className={`${styles.section} section-alert`}>
       <UIAlert onClose={onAlertClose} {...otherProps}>
         {content ?? children}
       </UIAlert>

@@ -4,11 +4,12 @@ import {
   PaymentMethods as UIPaymentMethods,
 } from '@faststore/ui'
 
-import IncentivesFooter from 'src/components/sections/Incentives/IncentivesFooter'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
 
+import Incentives from 'src/components/ui/Incentives/Incentives'
+import { incentivesMockFooter } from 'src/components/ui/Incentives/incentivesMock'
 import FooterFlags from './FooterFlags'
 import FooterLinks from './FooterLinks'
 import styles from './section.module.scss'
@@ -43,7 +44,7 @@ export function Footer({
         data-fs-footer-social={sectionSocial}
         data-fs-footer-payment-methods={sectionPaymentMethods}
       >
-        {sectionIncentives && <IncentivesFooter />}
+        {sectionIncentives && <Incentives incentives={incentivesMockFooter} />}
         <div data-fs-footer-nav className="layout__content">
           <FooterLinks />
           {sectionSocial && (

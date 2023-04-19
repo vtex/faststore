@@ -8,7 +8,7 @@ type RegionBarProps = {
 
 function RegionBar({ className = '' }: RegionBarProps) {
   return (
-    <Section className={styles.section}>
+    <Section className={`${styles.section} section-region-bar`}>
       <RegionBarComponent className={className} />
     </Section>
   )

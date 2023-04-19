@@ -12,8 +12,6 @@ import {
 } from '@faststore/ui'
 import { useState } from 'react'
 
-import Section from '../Section'
-
 interface ArticleLabels {
   /**
    * Label for the "description" article.
@@ -100,7 +98,7 @@ function ProductDetailsContent({
   const labels = { ...DEFAULT_LABELS, ...propLabels }
 
   return (
-    <Section data-fs-product-details-content>
+    <section data-fs-product-details-content>
       <UIAccordion
         indices={indices}
         onChange={onChange}
@@ -275,7 +273,7 @@ function ProductDetailsContent({
           </UIAccordionPanel>
         </UIAccordionItem>
       </UIAccordion>
-    </Section>
+    </section>
   )
 }
 

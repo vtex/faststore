@@ -1,5 +1,6 @@
-import Incentives from './Incentives'
+import Incentives from 'src/components/ui/Incentives/Incentives'
 import Section from '../Section'
+import styles from './section.module.scss'
 
 interface Incentive {
   icon: string
@@ -14,7 +15,7 @@ interface Props {
 
 function IncentivesHeader({ incentives }: Props) {
   return (
-    <Section>
+    <Section className={`${styles.section} section-incentives-header`}>
       <Incentives incentives={incentives} colored />
     </Section>
   )
