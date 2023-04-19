@@ -45,7 +45,7 @@ const CarouselBullets = forwardRef<HTMLDivElement, CarouselBulletsProps>(
       totalQuantity,
       activeBullet,
       onClick,
-      testId = 'store-bullets',
+      testId = 'fs-carousel-bullets',
       ariaLabelGenerator = defaultAriaLabel,
       ariaControlsGenerator,
       ...otherProps

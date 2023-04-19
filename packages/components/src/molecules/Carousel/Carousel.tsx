@@ -82,14 +82,14 @@ export interface CarouselProps extends SwipeableProps {
 function Carousel({
   infiniteMode = true,
   controls = 'complete',
-  testId = 'store-carousel',
+  testId = 'fs-carousel',
   transition = {
     duration: 400,
     property: 'transform',
   },
   children,
   className,
-  id = 'store-carousel',
+  id = 'fs-carousel',
   variant = 'slide',
   itemsPerPage = 1,
   navigationIcons = undefined,
