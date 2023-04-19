@@ -11,7 +11,7 @@ import type { SwipeableProps } from 'react-swipeable'
 import { RightArrowIcon, LeftArrowIcon } from './Arrows'
 import CarouselItem from './CarouselItem'
 import { useSlider } from '../../hooks'
-// import Bullets from '../Bullets'
+import CarouselBullets from './CarouselBullets'
 import { IconButton } from '../..'
 
 const createTransformValues = (infinite: boolean, totalItems: number) => {
@@ -363,7 +363,7 @@ function Carousel({
 
       {showPaginationBullets && (
         <div data-fs-carousel-bullets>
-          {/* <Bullets
+          <CarouselBullets
             tabIndex={0}
             activeBullet={sliderState.currentPage}
             totalQuantity={Math.ceil(childrenCount / sliderState.itemsPerPage)}
@@ -377,7 +377,7 @@ function Carousel({
             }}
             onFocus={(event) => event.currentTarget.focus()}
             ariaControlsGenerator={(idx) => `carousel-item-${idx}`}
-          /> */}
+          />
         </div>
       )}
     </section>

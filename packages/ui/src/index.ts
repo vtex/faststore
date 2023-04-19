@@ -8,10 +8,6 @@ export { default as Incentive } from './components/atoms/Incentive'
 export type { IncentiveProps } from './components/atoms/Incentive'
 
 // Molecules
-
-export { default as Bullets } from './components/molecules/Bullets'
-export type { BulletsProps } from './components/molecules/Bullets'
-
 export {
   default as Banner,
   BannerContent,

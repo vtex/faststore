@@ -1,7 +1,7 @@
 import type { HTMLAttributes, MouseEvent } from 'react'
 import React, { forwardRef, useMemo } from 'react'
 
-import { Button } from '@faststore/components'
+import { Button } from '../..'
 
 export interface CarouselBulletsProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onClick' | 'role'> {
