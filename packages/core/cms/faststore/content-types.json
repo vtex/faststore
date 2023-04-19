@@ -5,6 +5,12 @@
     "configurationSchemaSets": []
   },
   {
+    "id": "globalSections",
+    "name": "Global Sections",
+    "configurationSchemaSets": [],
+    "isSingleton": true
+  },
+  {
     "id": "page",
     "name": "Page",
     "configurationSchemaSets": [

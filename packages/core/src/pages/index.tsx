@@ -3,7 +3,7 @@ import type { GetStaticProps } from 'next'
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 
-import RenderPageSections from 'src/components/cms/RenderPageSections'
+import RenderSections from 'src/components/cms/RenderSections'
 import BannerText from 'src/components/sections/BannerText'
 import Hero from 'src/components/sections/Hero'
 import IncentivesHeader from 'src/components/sections/Incentives/IncentivesHeader'
@@ -34,12 +34,12 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 type Props = {
   page: PageContentType
-  layout: GlobalSectionsData
+  globalSections: GlobalSectionsData
 }
 
-function Page({ page: { sections, settings }, layout }: Props) {
+function Page({ page: { sections, settings }, globalSections }: Props) {
   return (
-    <GlobalSections {...layout}>
+    <GlobalSections {...globalSections}>
       {/* SEO */}
       <NextSeo
         title={settings.seo.title}
@@ -74,7 +74,7 @@ function Page({ page: { sections, settings }, layout }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <RenderPageSections sections={sections} components={COMPONENTS} />
+      <RenderSections sections={sections} components={COMPONENTS} />
     </GlobalSections>
   )
 }
@@ -83,18 +83,18 @@ export const getStaticProps: GetStaticProps<
   Props,
   Record<string, string>,
   Locator
-> = async (context) => {
+> = async ({ previewData }) => {
   const page = await getPage<PageContentType>({
-    ...(context.previewData?.contentType === 'page'
-      ? context.previewData
+    ...(previewData?.contentType === 'page'
+      ? previewData
       : { filters: { 'settings.seo.slug': '/' } }),
     contentType: 'page',
   })
 
-  const layout = await getGlobalSectionsData({ context })
+  const globalSections = await getGlobalSectionsData(previewData)
 
   return {
-    props: { page, layout },
+    props: { page, globalSections },
   }
 }
 

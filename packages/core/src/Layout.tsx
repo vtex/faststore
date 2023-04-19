@@ -16,12 +16,7 @@ function Layout({ children }: PropsWithChildren) {
 
   return (
     <>
-      <main>
-        <RegionBar className="display-mobile" />
-        {children}
-      </main>
-
-      <Footer />
+      {children}
 
       {displayCart && (
         <Suspense fallback={null}>
