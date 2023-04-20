@@ -3,7 +3,6 @@ import {
   useUI,
   useFadeEffect,
   Icon,
-  List,
   Button,
   IconButton,
   NavbarSlider as UINavbarSlider,
@@ -11,18 +10,11 @@ import {
   NavbarSliderContent as UINavbarSliderContent,
   NavbarSliderFooter as UINavbarSliderFooter,
 } from '@faststore/ui'
-import type { NavbarSliderProps } from '@faststore/ui'
+import NavbarLinksUsage from './NavbarLinksUsage'
 
-const NavbarSlider = () => {
+export const NavbarSlider = () => {
   const { closeNavbar } = useUI()
   const { fade, fadeOut } = useFadeEffect()
-
-  const links = [
-    'Office',
-    'Home Appliances',
-    'Computer and Software',
-    'Technology',
-  ]
 
   return (
     <UINavbarSlider
@@ -38,18 +30,10 @@ const NavbarSlider = () => {
         />
       </UINavbarSliderHeader>
       <UINavbarSliderContent>
-        <List>
-          {links.map((link) => (
-            <li>
-              <a href="#">{link}</a>
-            </li>
-          ))}
-        </List>
+        <NavbarLinksUsage />
       </UINavbarSliderContent>
       <UINavbarSliderFooter>
-        <Button onClick={fadeOut} aria-label="Info">
-          Sign In
-        </Button>
+        <Button onClick={fadeOut}>Sign In</Button>
       </UINavbarSliderFooter>
     </UINavbarSlider>
   )

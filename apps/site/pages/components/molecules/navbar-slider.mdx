@@ -8,7 +8,7 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import NavbarSliderUsage from 'site/components/NavbarSlider/NavbarSliderUsage'
+import NavbarSliderUsage from 'site/components/Navigation/NavbarSliderUsage'
 import { Navbar, NavbarSlider, UIProvider } from '@faststore/ui'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
@@ -66,7 +66,7 @@ import '@faststore/ui/src/components/molecules/NavbarSlider/styles.scss'
 
 ## Usage
 
-**Note:** This component is intended to be used only in the mobile version, but it can be adapted to a desktop version by customizing the component styles.
+**Note:** This component is intended to be used only in the **mobile version**, but it can be adapted to a desktop version by customizing the component styles.
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
@@ -80,8 +80,6 @@ import '@faststore/ui/src/components/molecules/NavbarSlider/styles.scss'
     ```tsx
       const { closeNavbar } = useUI()
       const { fade, fadeOut } = useFadeEffect()
-
-      const links = ['Office', 'Home Appliances', 'Computer and Software', 'Technology']
 
       return (
         <UINavbarSlider
@@ -97,18 +95,10 @@ import '@faststore/ui/src/components/molecules/NavbarSlider/styles.scss'
             />
           </UINavbarSliderHeader>
           <UINavbarSliderContent>
-            <List>
-              {links.map((link) => (
-                <li>
-                  <a href="#">{link}</a>
-                </li>
-              ))}
-            </List>
+            <NavbarLinksUsage />
           </UINavbarSliderContent>
           <UINavbarSliderFooter>
-            <Button onClick={fadeOut} aria-label="Info">
-              Sign In
-            </Button>
+            <Button onClick={fadeOut}>Sign In</Button>
           </UINavbarSliderFooter>
         </UINavbarSlider>
       )

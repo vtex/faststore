@@ -10,6 +10,7 @@ import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { Button, Navbar, NavbarLinks, List } from '@faststore/ui'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+import NavbarLinksUsage from 'site/components/Navigation/NavbarLinksUsage'
 
 export const getStaticProps = () => {
   const navbarLinksPath = path.resolve(__filename)
@@ -64,38 +65,18 @@ import '@faststore/ui/src/components/molecules/NavbarLinks/styles.scss'
 
 **Note:** The mobile version can be achieved with [NavbarSlider](/components/molecules/navbar-slider) as wrapper.
 
-export const links = [
-  'Office',
-  'Home Appliances',
-  'Computer and Software',
-  'Technology',
-]
-
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection containerStyle={{ display: 'block' }}>
       <Navbar>
-        <NavbarLinks className="hidden-mobile">
-          <div className="layout__content">
-            <Button variant="tertiary" size="small">
-              Set location
-            </Button>
-            <List data-fs-navbar-links-list>
-              {links.map((link) => (
-                <li data-fs-navbar-links-list-item>
-                  <a data-fs-navbar-links-link href="#">
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </List>
-          </div>
-        </NavbarLinks>
+        <NavbarLinksUsage />
       </Navbar>
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
+    const links = ['Office', 'Home Appliances', 'Computer and Software', 'Technology']
+
     <Navbar>
       <NavbarLinks>
         <div>
@@ -105,9 +86,9 @@ export const links = [
           <List data-fs-navbar-links-list>
             {links.map((link) => (
               <li data-fs-navbar-links-list-item>
-                <a data-fs-navbar-links-link href="#">
+                <Link data-fs-navbar-links-link variant="display" href="#">
                   {link}
-                </a>
+                </Link>
               </li>
             ))}
           </List>
@@ -115,6 +96,7 @@ export const links = [
       </NavbarLinks>
     </Navbar>
     ```
+
   </Tab>
 </Tabs>
 
