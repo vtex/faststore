@@ -68,10 +68,10 @@ export const getGlobalSectionsData = async (
   previewData: Locator
 ): Promise<GlobalSectionsData> => {
   const { sections } = await getPage<PageContentType>({
-    ...(previewData?.contentType === 'globalAlert'
+    ...(previewData?.contentType === 'globalSections'
       ? previewData
       : { filters: { 'settings.seo.slug': '/' } }),
-    contentType: 'globalAlert',
+    contentType: 'globalSections',
   })
 
   return { sections }
