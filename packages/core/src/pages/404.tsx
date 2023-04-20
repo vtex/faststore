@@ -1,5 +1,6 @@
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
+import { EmptyState as UIEmptyState, Icon as UIIcon } from '@faststore/ui'
 
 const useErrorState = () => {
   const router = useRouter()
@@ -18,8 +19,20 @@ function Page() {
     <>
       <NextSeo noindex nofollow />
 
-      <h1>Not Found: 404</h1>
-      <div>This app could not find url {fromUrl}</div>
+      <UIEmptyState
+        title="Not Found: 404"
+        titleIcon={
+          <UIIcon
+            name="CircleWavyWarning"
+            width={56}
+            height={56}
+            weight="thin"
+          />
+        }
+        bkgColor="light"
+      >
+        <p>This app could not find url {fromUrl}</p>
+      </UIEmptyState>
     </>
   )
 }

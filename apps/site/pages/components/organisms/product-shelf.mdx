@@ -1,0 +1,429 @@
+---
+description: Displays a list of products to be used as a section on the store.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/ProductCardComponent___e6502d57cf7e5bf247f86b64577d4141.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import {
+  ProductShelf,
+  ProductShelfItems,
+  ProductShelfItem,
+  ProductCard,
+  ProductCardContent,
+  ProductCardImage,
+} from '@faststore/ui'
+import { products } from 'site/mocks/products'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const productShelfPath = path.resolve(__filename)
+  const components = [
+    'ProductShelf.tsx',
+    'ProductShelfItems.tsx',
+    'ProductShelfItem.tsx',
+  ]
+  const [productShelfProps, productShelfItemsProps, productShelfItemProps] =
+    getComponentPropsFrom(productShelfPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        productShelfProps,
+        productShelfItemsProps,
+        productShelfItemProps,
+      },
+    },
+  }
+}
+
+export const ProductShelfPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { productShelfProps, productShelfItemsProps, productShelfItemProps } =
+    useSSG()
+  return {
+    ProductShelf: <PropsSection propsList={productShelfProps} />,
+    ProductShelfItems: <PropsSection propsList={productShelfItemsProps} />,
+    ProductShelfItem: <PropsSection propsList={productShelfItemProps} />,
+  }[component]
+}
+
+<header>
+
+# Product Shelf
+
+Displays a list of products to be used as a section on the store.
+
+</header>
+
+The `ProductShelf` is a compound of the following:
+
+- `ProductShelfItems`: the product list.
+- `ProductShelfItem`: wraps the product inside a list item.
+- `ProductCard`: the proposed child of a `ProductShelf`.
+
+---
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import {
+  ProductShelf,
+  ProductShelfItems,
+  ProductShelfItem,
+} from '@faststore/ui'
+```
+
+We highly recommend using the [ProductCard](/components/molecules/product-card) as the direct child of the `ProductShelfItem`.
+
+```tsx
+import {
+  ProductCard,
+  ProductCardContent,
+  ProductCardImage,
+} from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/organisms/ProductShelf/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ProductShelf>
+        <ProductShelfItems>
+          {products.map(({ product }, idx) => (
+            <ProductShelfItem>
+              <ProductCard>
+                <ProductCardImage>
+                  <img
+                    data-fs-image
+                    src={product.image[0].url}
+                    alt={product.image[0].alternateName}
+                  />
+                </ProductCardImage>
+                <ProductCardContent
+                  title={product.isVariantOf.name}
+                  price={{
+                    value: product.offers.offers[0].price,
+                    listPrice: product.offers.offers[0].listPrice,
+                    formatter: useFormattedPrice,
+                  }}
+                />
+              </ProductCard>
+            </ProductShelfItem>
+          ))}
+        </ProductShelfItems>
+      </ProductShelf>
+    </OverviewSection>
+
+  </Tab>
+  <Tab>
+    ```tsx
+      <ProductShelf>
+        <ProductShelfItems>
+          {products.map(({ product }, idx) => (
+            <ProductShelfItem>
+              <ProductCard>
+                <ProductCardImage>
+                  <img
+                    data-fs-image
+                    src={product.image[0].url}
+                    alt={product.image[0].alternateName}
+                  />
+                </ProductCardImage>
+                <ProductCardContent
+                  title={product.isVariantOf.name}
+                  price={{
+                    value: product.offers.offers[0].price,
+                    listPrice: product.offers.offers[0].listPrice,
+                    formatter: useFormattedPrice,
+                  }}
+                />
+              </ProductCard>
+            </ProductShelfItem>
+          ))}
+        </ProductShelfItems>
+      </ProductShelf>
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+All `ProductShelf` related components support all attributes also supported by their respective HTML tags. Besides those attributes, the following props are also supported:
+
+### Product Shelf
+
+<ProductShelfPropsSection component="ProductShelf" />
+
+### Product Shelf Items
+
+<ProductShelfPropsSection component="ProductShelfItems" />
+
+### Product Shelf Item
+
+<ProductShelfPropsSection component="ProductShelfItem" />
+
+---
+
+## Design Tokens
+
+### Nested Elements
+
+#### Items
+
+<TokenTable>
+  <TokenRow token="--fs-product-shelf-items-gap" value="var(--fs-grid-gap-1)" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-product-shelf-items-padding-top"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow
+    token="--fs-product-shelf-items-padding-bottom"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-product-shelf-items-left"
+    value="calc(-1 * var(--fs-spacing-1))"
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+You can use [ProductCard variants](/components/molecules/product-card#variants) to create `ProductShelf` variations.
+
+### With Button
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ProductShelf>
+        <ProductShelfItems>
+          {products.map(({ product }, idx) => (
+            <ProductShelfItem>
+              <ProductCard>
+                <ProductCardImage>
+                  <img
+                    data-fs-image
+                    src={product.image[0].url}
+                    alt={product.image[0].alternateName}
+                  />
+                </ProductCardImage>
+                <ProductCardContent
+                  title={product.isVariantOf.name}
+                  price={{
+                    value: product.offers.offers[0].price,
+                    listPrice: product.offers.offers[0].listPrice,
+                    formatter: useFormattedPrice,
+                  }}
+                  onButtonClick={() => {}}
+                />
+              </ProductCard>
+            </ProductShelfItem>
+          ))}
+        </ProductShelfItems>
+      </ProductShelf>
+    </OverviewSection>
+
+  </Tab>
+  <Tab>
+    ```tsx
+      <ProductShelf>
+        <ProductShelfItems>
+          {products.map(({ product }, idx) => (
+            <ProductShelfItem>
+              <ProductCard>
+                <ProductCardImage>
+                  <img
+                    data-fs-image
+                    src={product.image[0].url}
+                    alt={product.image[0].alternateName}
+                  />
+                </ProductCardImage>
+                <ProductCardContent
+                  title={product.isVariantOf.name}
+                  price={{
+                    value: product.offers.offers[0].price,
+                    listPrice: product.offers.offers[0].listPrice,
+                    formatter: useFormattedPrice,
+                  }}
+                  onButtonClick={() => {}}
+                />
+              </ProductCard>
+            </ProductShelfItem>
+          ))}
+        </ProductShelfItems>
+      </ProductShelf>
+    ```
+
+  </Tab>
+</Tabs>
+
+### Bordered
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ProductShelf>
+        <ProductShelfItems>
+          {products.map(({ product }, idx) => (
+            <ProductShelfItem>
+              <ProductCard bordered>
+                <ProductCardImage>
+                  <img
+                    data-fs-image
+                    src={product.image[0].url}
+                    alt={product.image[0].alternateName}
+                  />
+                </ProductCardImage>
+                <ProductCardContent
+                  title={product.isVariantOf.name}
+                  price={{
+                    value: product.offers.offers[0].price,
+                    listPrice: product.offers.offers[0].listPrice,
+                    formatter: useFormattedPrice,
+                  }}
+                />
+              </ProductCard>
+            </ProductShelfItem>
+          ))}
+        </ProductShelfItems>
+      </ProductShelf>
+    </OverviewSection>
+
+  </Tab>
+  <Tab>
+    ```tsx
+      <ProductShelf>
+        <ProductShelfItems>
+          {products.map(({ product }, idx) => (
+            <ProductShelfItem>
+              <ProductCard bordered>
+                <ProductCardImage>
+                  <img
+                    data-fs-image
+                    src={product.image[0].url}
+                    alt={product.image[0].alternateName}
+                  />
+                </ProductCardImage>
+                <ProductCardContent
+                  title={product.isVariantOf.name}
+                  price={{
+                    value: product.offers.offers[0].price,
+                    listPrice: product.offers.offers[0].listPrice,
+                    formatter: useFormattedPrice,
+                  }}
+                />
+              </ProductCard>
+            </ProductShelfItem>
+          ))}
+        </ProductShelfItems>
+      </ProductShelf>
+    ```
+
+  </Tab>
+</Tabs>
+
+### Aspect Ratio
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ProductShelf>
+        <ProductShelfItems>
+          {products.map(({ product }, idx) => (
+            <ProductShelfItem>
+              <ProductCard>
+                <ProductCardImage aspectRatio={3 / 4}>
+                  <img
+                    data-fs-image
+                    src={product.image[0].url}
+                    alt={product.image[0].alternateName}
+                  />
+                </ProductCardImage>
+                <ProductCardContent
+                  title={product.isVariantOf.name}
+                  price={{
+                    value: product.offers.offers[0].price,
+                    listPrice: product.offers.offers[0].listPrice,
+                    formatter: useFormattedPrice,
+                  }}
+                />
+              </ProductCard>
+            </ProductShelfItem>
+          ))}
+        </ProductShelfItems>
+      </ProductShelf>
+    </OverviewSection>
+
+  </Tab>
+  <Tab>
+    ```tsx
+      <ProductShelf>
+        <ProductShelfItems>
+          {products.map(({ product }, idx) => (
+            <ProductShelfItem>
+              <ProductCard>
+                <ProductCardImage aspectRatio={3 / 4}>
+                  <img
+                    data-fs-image
+                    src={product.image[0].url}
+                    alt={product.image[0].alternateName}
+                  />
+                </ProductCardImage>
+                <ProductCardContent
+                  title={product.isVariantOf.name}
+                  price={{
+                    value: product.offers.offers[0].price,
+                    listPrice: product.offers.offers[0].listPrice,
+                    formatter: useFormattedPrice,
+                  }}
+                />
+              </ProductCard>
+            </ProductShelfItem>
+          ))}
+        </ProductShelfItems>
+      </ProductShelf>
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Customization
+
+`data-fs-product-shelf`
+
+`data-fs-product-shelf-items`
+
+`data-fs-product-shelf-item`

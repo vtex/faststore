@@ -1,0 +1,75 @@
+import {
+  RegionBar,
+  RegionModal,
+  Button,
+  UIProvider,
+  useUI,
+} from '@faststore/ui'
+
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+
+export const RegionModalUsage = () => {
+  const { modal, openModal, closeModal } = useUI()
+  return (
+    <>
+      <Button variant="primary" onClick={() => openModal()}>
+        Open Region Modal
+      </Button>
+      {modal && <RegionModal onSubmit={() => closeModal()} />}
+    </>
+  )
+}
+
+<header>
+
+# Regionalization
+
+This feature enables customers to set a location using a valid Postal Code.
+
+</header>
+
+## Overview
+
+Regionalization is a feature of [VTEX Intelligent Search](https://help.vtex.com/en/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/3qgT47zY08biLP3d5os3DG) that allows for the optimization of search results according to the availability of sellers in the customer's region.
+
+Regionalization uses a behavior from VTEX Intelligent Search called [Availability](https://help.vtex.com/en/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/7LMQbWK5nElIkXo0NK8Kux). It searches for products available in the inventory of sellers that serve a particular region.
+
+Stores that have more than one registered white label seller usually have specific inventories for each region. This is the case for supermarkets, for example.
+
+With the Regionalization feature enabled, if a customer enters their Postal Code while browsing the store (before checkout), only products available in the corresponding region will be displayed in the search results.
+
+---
+
+## Usage
+
+1. Intentionally, a user Sets its location using a Postal Code
+2. Updates Product Catalog
+3. Gets notified if there's product conflict at minicart
+
+---
+
+## Components
+
+<SectionList grid="column" columns={2}>
+  <SectionItem
+    title="Region Bar"
+    description="The RegionBar is a custom Button, usually used on mobile devices only. It should trigger the RegionModal."
+    actionPath="/components/molecules/region-bar"
+  >
+    <RegionBar
+      postalCode={'151515'}
+      onButtonClick={() => {
+        alert('This could trigger the RegionModal.')
+      }}
+    />
+  </SectionItem>
+  <SectionItem
+    title="Region Modal"
+    description="It's a modal with some region configurations."
+    actionPath="/components/organisms/region-modal"
+  >
+    <UIProvider>
+      <RegionModalUsage />
+    </UIProvider>
+  </SectionItem>
+</SectionList>

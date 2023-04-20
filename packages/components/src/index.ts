@@ -198,6 +198,9 @@ export {
 } from './organisms/CartSidebar'
 export type { CartSidebarProps } from './organisms/CartSidebar'
 
+export { default as EmptyState } from './organisms/EmptyState'
+export type { EmptyStateProps } from './organisms/EmptyState'
+
 export {
   default as Filter,
   FilterFacetBoolean,
@@ -241,6 +244,29 @@ export type { PaymentMethodsProps } from './organisms/PaymentMethods'
 
 export { default as PriceRange } from './organisms/PriceRange'
 export type { PriceRangeProps } from './organisms/PriceRange'
+
+export {
+  default as ProductGrid,
+  ProductGridItem,
+} from './organisms/ProductGrid'
+export type {
+  ProductGridProps,
+  ProductGridItemProps,
+} from './organisms/ProductGrid'
+
+export {
+  default as ProductShelf,
+  ProductShelfItems,
+  ProductShelfItem,
+} from './organisms/ProductShelf'
+export type {
+  ProductShelfProps,
+  ProductShelfItemsProps,
+  ProductShelfItemProps,
+} from './organisms/ProductShelf'
+
+export { default as RegionModal } from './organisms/RegionModal'
+export type { RegionModalProps } from './organisms/RegionModal'
 
 export { default as SearchInput } from './organisms/SearchInput'
 export type { SearchInputProps } from './organisms/SearchInput'

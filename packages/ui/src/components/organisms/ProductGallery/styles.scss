@@ -10,7 +10,7 @@
 
   @include media(">=notebook") {
     [data-fs-empty-state] {
-      margin: var(--fs-spacing-5) 0;
+      margin: 0 0 var(--fs-spacing-5);
     }
   }
 

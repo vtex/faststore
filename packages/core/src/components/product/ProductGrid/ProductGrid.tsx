@@ -1,3 +1,7 @@
+import {
+  ProductGrid as UIProductGrid,
+  ProductGridItem as UIProductGridItem,
+} from '@faststore/ui'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
@@ -23,18 +27,18 @@ function ProductGrid({ products, page, pageSize }: Props) {
       aspectRatio={aspectRatio}
       loading={products.length === 0}
     >
-      <ul data-fs-product-grid>
+      <UIProductGrid>
         {products.map(({ node: product }, idx) => (
-          <li key={`${product.id}`}>
+          <UIProductGridItem key={`${product.id}`}>
             <ProductCard
               product={product}
               index={pageSize * page + idx + 1}
               bordered
               aspectRatio={aspectRatio}
             />
-          </li>
+          </UIProductGridItem>
         ))}
-      </ul>
+      </UIProductGrid>
     </ProductGridSkeleton>
   )
 }

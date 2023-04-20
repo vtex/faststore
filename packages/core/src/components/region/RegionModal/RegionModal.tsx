@@ -1,13 +1,11 @@
+import { RegionModal as UIRegionModal } from '@faststore/ui'
 import { useRef, useState } from 'react'
-import { InputField as UIInputField } from '@faststore/ui'
 
 import { sessionStore, useSession, validateSession } from 'src/sdk/session'
 
-interface Props {
-  closeModal: () => void
-}
+import styles from './section.module.scss'
 
-function RegionInput({ closeModal }: Props) {
+function RegionModal() {
   const inputRef = useRef<HTMLInputElement>(null)
   const { isValidating, ...session } = useSession()
   const [errorMessage, setErrorMessage] = useState<string>('')
@@ -31,31 +29,28 @@ function RegionInput({ closeModal }: Props) {
       const validatedSession = await validateSession(newSession)
 
       sessionStore.set(validatedSession ?? newSession)
-
-      closeModal()
     } catch (error) {
       setErrorMessage('You entered an invalid Postal Code')
     }
   }
 
   return (
-    <div className="regionalization-input">
-      <UIInputField
-        inputRef={inputRef}
-        id="postal-code-input"
-        error={errorMessage}
-        label="Postal Code"
-        actionable
-        value={input}
-        onInput={(e) => {
-          errorMessage !== '' && setErrorMessage('')
-          setInput(e.currentTarget.value)
-        }}
-        onSubmit={handleSubmit}
-        onClear={() => setInput('')}
-      />
-    </div>
+    <UIRegionModal
+      overlayProps={{
+        className: `section ${styles.section} section-region-modal`,
+      }}
+      inputRef={inputRef}
+      inputValue={input}
+      errorMessage={errorMessage}
+      onInput={(e) => {
+        errorMessage !== '' && setErrorMessage('')
+        setInput(e.currentTarget.value)
+      }}
+      onSubmit={handleSubmit}
+      fadeOutOnSubmit={true}
+      onClear={() => setInput('')}
+    />
   )
 }
 
-export default RegionInput
+export default RegionModal

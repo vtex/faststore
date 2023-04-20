@@ -1,6 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 
+import {
+  ProductShelfItem,
+  ProductShelfItems,
+  ProductShelf as UIProductShelf,
+} from '@faststore/ui'
+
 import type { ProductsQueryQueryVariables } from '@generated/graphql'
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
 import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
@@ -8,6 +14,7 @@ import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 
 import ProductCard from '../../product/ProductCard'
 import Section from '../Section'
+
 import styles from './section.module.scss'
 
 interface ProductShelfProps extends Partial<ProductsQueryQueryVariables> {
@@ -53,24 +60,24 @@ function ProductShelf({
       ref={ref}
     >
       <h2 className="text__title-section layout__content">{title}</h2>
-      <div data-fs-product-shelf>
-        <ProductShelfSkeleton
-          aspectRatio={aspectRatio}
-          loading={products === undefined}
-        >
-          <ul data-fs-product-shelf-items className="layout__content">
+      <ProductShelfSkeleton
+        aspectRatio={aspectRatio}
+        loading={products === undefined}
+      >
+        <UIProductShelf>
+          <ProductShelfItems className="layout__content">
             {productEdges.map((product, idx) => (
-              <li key={`${product.node.id}`}>
+              <ProductShelfItem key={`${product.node.id}`}>
                 <ProductCard
                   product={product.node}
                   index={idx + 1}
                   aspectRatio={aspectRatio}
                 />
-              </li>
+              </ProductShelfItem>
             ))}
-          </ul>
-        </ProductShelfSkeleton>
-      </div>
+          </ProductShelfItems>
+        </UIProductShelf>
+      </ProductShelfSkeleton>
     </Section>
   )
 }

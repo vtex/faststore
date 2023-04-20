@@ -1,5 +1,5 @@
-import type { HTMLAttributes, ReactNode } from 'react'
-import React, { PropsWithChildren } from 'react'
+import type { HTMLAttributes, PropsWithChildren, ReactNode } from 'react'
+import React from 'react'
 
 import {
   Alert,

@@ -1,25 +1,31 @@
-[data-fs-regionalization-modal-body] {
+[data-fs-region-modal] {
   // --------------------------------------------------------
-  // Design Tokens for Regionalization Modal
+  // Design Tokens for Region Modal
   // --------------------------------------------------------
+
+  // Default properties
+  --fs-region-modal-margin-bottom           : var(--fs-spacing-6);
 
   // Link
-  --fs-regionalization-modal-link-padding: 0;
-  --fs-regionalization-modal-link-color: var(--fs-color-link);
-  --fs-regionalization-modal-link-margin-right: var(--fs-spacing-0);
+  --fs-region-modal-link-padding            : 0;
+  --fs-region-modal-link-column-gap         : var(--fs-spacing-0);
+  --fs-region-modal-link-color              : var(--fs-color-link);
 
-  [data-fs-regionalization-modal-input] {
-    margin-bottom: var(--fs-spacing-6);
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+  [data-fs-region-modal-input] {
+    margin-bottom: var(--fs-region-modal-margin-bottom);
   }
 
-  [data-fs-regionalization-modal-link] {
+  [data-fs-region-modal-link] {
     display: flex;
     flex-direction: row;
     align-content: flex-start;
     align-items: center;
     justify-content: flex-start;
-    padding: var(--fs-regionalization-modal-link-padding);
-    margin-right: var(--fs-regionalization-modal-link-margin-right);
-    color: var(--fs-regionalization-modal-link-color);
+    column-gap: var(--fs-region-modal-link-column-gap);
+    padding: var(--fs-region-modal-link-padding);
+    color: var(--fs-region-modal-link-color);
   }
 }

@@ -11,15 +11,22 @@ sidebar_custom_props:
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { OverviewSection } from 'site/components/OverviewSection'
 import {
+  ProductShelf,
+  ProductShelfItems,
+  ProductShelfItem,
   ProductCard,
   ProductCardContent,
   ProductCardImage,
+  ProductGrid,
+  ProductGridItem,
 } from '@faststore/ui'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
 import { product } from 'site/mocks/product'
+import { products } from 'site/mocks/products'
 import { propsPriceDefinition } from 'site/components/PriceDefinitionProps/PriceDefinitionProps'
 
 import path from 'path'
@@ -742,3 +749,72 @@ Use the `ProductCard` to:
 `data-fs-product-card-prices`
 
 `data-fs-product-card-actions`
+
+---
+
+## Related components
+
+<SectionList>
+  <SectionItem
+    title="ProductShelf"
+    description="
+Displays a list of products to be used as a section on the store."
+    actionPath="/components/organisms/product-shelf"
+  >
+    <ProductShelf>
+      <ProductShelfItems>
+        {products.map(({ product }, idx) => (
+          <ProductShelfItem>
+            <ProductCard>
+              <ProductCardImage>
+                <img
+                  data-fs-image
+                  src={product.image[0].url}
+                  alt={product.image[0].alternateName}
+                />
+              </ProductCardImage>
+              <ProductCardContent
+                title={product.isVariantOf.name}
+                price={{
+                  value: product.offers.offers[0].price,
+                  listPrice: product.offers.offers[0].listPrice,
+                  formatter: useFormattedPrice,
+                }}
+              />
+            </ProductCard>
+          </ProductShelfItem>
+        ))}
+      </ProductShelfItems>
+    </ProductShelf>
+  </SectionItem>
+  <SectionItem
+    title="ProductGrid"
+    description="
+It's a section generally used on PLP pages to list the products available in the store."
+    actionPath="/components/organisms/product-grid"
+  >
+    <ProductGrid>
+      {products.map(({ product }, idx) => (
+        <ProductGridItem>
+          <ProductCard>
+            <ProductCardImage>
+              <img
+                data-fs-image
+                src={product.image[0].url}
+                alt={product.image[0].alternateName}
+              />
+            </ProductCardImage>
+            <ProductCardContent
+              title={product.isVariantOf.name}
+              price={{
+                value: product.offers.offers[0].price,
+                listPrice: product.offers.offers[0].listPrice,
+                formatter: useFormattedPrice,
+              }}
+            />
+          </ProductCard>
+        </ProductGridItem>
+      ))}
+    </ProductGrid>
+  </SectionItem>
+</SectionList>

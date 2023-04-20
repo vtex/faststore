@@ -1,0 +1,158 @@
+---
+description: This component is a modal with some region configurations.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Button___6d6b16886d5d7e2a05dba8c45c075796.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { RegionModal, Button, UIProvider, useUI } from '@faststore/ui'
+import { useState } from 'react'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const regionModalPath = path.resolve(__filename)
+  const components = ['RegionModal.tsx']
+  const [regionModalProps] = getComponentPropsFrom(regionModalPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: { regionModalProps },
+    },
+  }
+}
+
+export const RegionModalPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { regionModalProps } = useSSG()
+  return {
+    RegionModal: <PropsSection propsList={regionModalProps} />,
+  }[component]
+}
+
+<header>
+
+# Region Modal
+
+It's a [Modal](/components/molecules/modal) with some region configurations. The component is part of [Regionalization](/components/features/regionalization) feature.
+
+</header>
+
+export const RegionModalUsage = () => {
+  const { modal, openModal } = useUI()
+  const [input, setInput] = useState('')
+  return (
+    <>
+      <Button variant="primary" onClick={() => openModal()}>
+        Open Region Modal
+      </Button>
+      {modal && (
+        <RegionModal
+          fadeOutOnSubmit={true}
+          inputValue={input}
+          onInput={(e) => setInput(e.currentTarget.value)}
+        />
+      )}
+    </>
+  )
+}
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { RegionModal } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/organisms/RegionModal/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <UIProvider>
+        <RegionModalUsage />
+      </UIProvider>
+    </OverviewSection>
+
+  </Tab>
+  <Tab>
+    ```tsx
+    const { modal, openModal } = useUI()
+    const [input, setInput] = useState('')
+    return (
+      <>
+        <Button variant="primary" onClick={() => openModal()}>
+          Open Region Modal
+        </Button>
+        {modal && (
+          <RegionModal
+            fadeOutOnSubmit={true}
+            inputValue={input}
+            onInput={(e) => setInput(e.currentTarget.value)}
+          />
+        )}
+      </>
+    )
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+<RegionModalPropsSection component="RegionModal" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-region-modal-margin-bottom"
+    value="var(--fs-spacing-6)"
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-region-modal-link-padding" value="0" />
+  <TokenRow
+    token="--fs-region-modal-link-column-gap"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow
+    token="--fs-region-modal-link-color"
+    value="var(--fs-color-link)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-region-modal`
+
+`data-fs-region-modal-input`
+
+`data-fs-region-modal-link`

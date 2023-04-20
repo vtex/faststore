@@ -17,17 +17,17 @@ import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
   const shippingSimulationPath = path.resolve(__filename)
-  const components = [
-    'ShippingSimulation.tsx',
-  ]
-  const [shippingSimulationProps] =
-    getComponentPropsFrom(shippingSimulationPath, components)
+  const components = ['ShippingSimulation.tsx']
+  const [shippingSimulationProps] = getComponentPropsFrom(
+    shippingSimulationPath,
+    components
+  )
   return {
     props: {
       // We add an `ssg` field to the page props,
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
-        shippingSimulationProps
+        shippingSimulationProps,
       },
     },
   }
@@ -48,8 +48,6 @@ export const ShippingSimulationPropsSection = ({ component }) => {
 This component lets customers set the `PostalCode` and see the shipping options in the `PDP`.
 
 </header>
-
----
 
 ## Import
 
@@ -129,6 +127,7 @@ import '@faststore/ui/src/components/organisms/ShippingSimulation/styles.scss'
       postalCode={postalCode}
     />
     ```
+
   </Tab>
 </Tabs>
 
@@ -140,27 +139,24 @@ export const propsShippingSla = [
   {
     name: 'carrier',
     type: 'string',
-    description:
-      '',
+    description: '',
     default: 'ShippingSLA carrier.',
-    required: true
+    required: true,
   },
   {
     name: 'localizedEstimates',
     type: 'string',
-    description:
-      '',
+    description: '',
     default: 'ShippingSLA localized shipping estimate.',
-    required: true
+    required: true,
   },
   {
     name: 'price',
     type: 'number',
-    description:
-      '',
+    description: '',
     default: 'ShippingSLA price.',
-    required: true
-  }
+    required: true,
+  },
 ]
 
 <ShippingSimulationPropsSection component="ShippingSimulation" />
@@ -197,10 +193,7 @@ export const propsShippingSla = [
     token="--fs-shipping-simulation-title-font-weight"
     value="var(--fs-text-weight-bold)"
   />
-  <TokenRow
-    token="--fs-shipping-simulation-title-line-height"
-    value="1.2"
-  />
+  <TokenRow token="--fs-shipping-simulation-title-line-height" value="1.2" />
 </TokenTable>
 
 #### Link
@@ -246,10 +239,7 @@ export const propsShippingSla = [
     token="--fs-shipping-simulation-location-font-size"
     value="var(--fs-text-size-2)"
   />
-  <TokenRow
-    token="--fs-shipping-simulation-location-line-height"
-    value="1.5"
-  />
+  <TokenRow token="--fs-shipping-simulation-location-line-height" value="1.5" />
 </TokenTable>
 
 ---

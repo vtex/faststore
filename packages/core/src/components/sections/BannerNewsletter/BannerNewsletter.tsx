@@ -1,4 +1,4 @@
-import BannerText from '../BannerText'
+import BannerText from 'src/components/ui/BannerText'
 import Newsletter from '../Newsletter'
 import Section from '../Section'
 import styles from './section.module.scss'
