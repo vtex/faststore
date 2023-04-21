@@ -12,7 +12,7 @@ function Image({ loading = 'lazy', ...otherProps }: ImageProps) {
       data-fs-image
       loader={loader}
       loading={loading}
-      priority={loading == 'eager'}
+      priority={loading === 'eager'}
       {...otherProps}
     />
   )
