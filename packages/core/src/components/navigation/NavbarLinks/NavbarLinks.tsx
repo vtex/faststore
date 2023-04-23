@@ -11,7 +11,7 @@ export interface NavbarLinksProps extends UINavbarLinksProps {
   /**
    * Defines the classes to be applied.
    */
-  classes?: string
+  className?: string
   /**
    * Defines action to be performed when clicking on a link.
    */
@@ -37,9 +37,9 @@ const collections = [
   },
 ]
 
-function NavbarLinks({ onClickLink, classes = '' }: NavbarLinksProps) {
+function NavbarLinks({ onClickLink, ...otherProps }: NavbarLinksProps) {
   return (
-    <UINavbarLinks className={`${classes}`}>
+    <UINavbarLinks {...otherProps}>
       <div className="layout__content">
         <RegionButton />
         <UIList data-fs-navbar-links-list>

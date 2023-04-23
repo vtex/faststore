@@ -91,7 +91,7 @@ function Navbar() {
         </UINavbarRow>
       </UINavbarHeader>
 
-      <NavbarLinks classes="hidden-mobile" />
+      <NavbarLinks className="hidden-mobile" />
 
       {displayNavbar && <NavbarSlider />}
     </UINavbar>
