@@ -1,7 +1,7 @@
 import { gql } from '@faststore/graphql-utils'
+import type { Cart as SDKCart, CartItem as SDKCartItem } from '@faststore/sdk'
 import { createCartStore } from '@faststore/sdk'
 import { useMemo } from 'react'
-import type { Cart as SDKCart, CartItem as SDKCartItem } from '@faststore/sdk'
 
 import type {
   CartItemFragment,
@@ -104,6 +104,7 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
     cart: {
       order: {
         orderNumber: cart.id,
+        shouldSplitItem: true,
         acceptedOffer: cart.items.map(
           ({
             price,
