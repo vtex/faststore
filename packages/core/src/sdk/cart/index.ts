@@ -11,6 +11,7 @@ import type {
   ValidateCartMutationMutationVariables,
 } from '@generated/graphql'
 
+import storeConfig from '../../../faststore.config'
 import { request } from '../graphql/request'
 import { sessionStore } from '../session'
 import { createValidationStore, useStore } from '../useStore'
@@ -19,6 +20,7 @@ export interface CartItem extends SDKCartItem, CartItemFragment {}
 
 export interface Cart extends SDKCart<CartItem> {
   messages?: CartMessageFragment[]
+  shouldSplitItem?: boolean
 }
 
 export const ValidateCartMutation = gql`
@@ -104,7 +106,7 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
     cart: {
       order: {
         orderNumber: cart.id,
-        shouldSplitItem: true,
+        shouldSplitItem: cart.shouldSplitItem,
         acceptedOffer: cart.items.map(
           ({
             price,
@@ -142,14 +144,7 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
 }
 
 const [validationStore, onValidate] = createValidationStore(validateCart)
-const defaultCartStore = createCartStore<Cart>(
-  {
-    id: '',
-    items: [],
-    messages: [],
-  },
-  onValidate
-)
+const defaultCartStore = createCartStore<Cart>(storeConfig.cart, onValidate)
 
 export const cartStore = {
   ...defaultCartStore,
