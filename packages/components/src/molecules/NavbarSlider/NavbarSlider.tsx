@@ -31,10 +31,10 @@ function NavbarSlider({
 }: NavbarSliderProps) {
   return (
     <SlideOver
+      data-fs-navbar-slider
       size="full"
       isOpen={isOpen}
       direction="leftSide"
-      data-fs-navbar-slider
       data-testid={testId}
       {...otherProps}
     >

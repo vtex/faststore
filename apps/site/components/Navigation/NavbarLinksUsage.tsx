@@ -1,5 +1,11 @@
 import React from 'react'
-import { List, Link, Button, NavbarLinks } from '@faststore/ui'
+import {
+  Link,
+  Button,
+  NavbarLinks,
+  NavbarLinksList,
+  NavbarLinksListItem,
+} from '@faststore/ui'
 
 function NavbarLinksUsage({ classes }: { classes?: string }) {
   const links = [
@@ -15,15 +21,15 @@ function NavbarLinksUsage({ classes }: { classes?: string }) {
         <Button variant="tertiary" size="small">
           Set location
         </Button>
-        <List data-fs-navbar-links-list>
+        <NavbarLinksList>
           {links.map((link) => (
-            <li data-fs-navbar-links-list-item>
-              <Link data-fs-navbar-links-link variant="display" href="#">
+            <NavbarLinksListItem key={link}>
+              <Link variant="display" href="#">
                 {link}
               </Link>
-            </li>
+            </NavbarLinksListItem>
           ))}
-        </List>
+        </NavbarLinksList>
       </div>
     </NavbarLinks>
   )

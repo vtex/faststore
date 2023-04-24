@@ -95,8 +95,16 @@ export { default as LinkButton } from './molecules/LinkButton'
 export type { LinkButtonProps } from './molecules/LinkButton'
 export { default as Modal, ModalHeader, ModalBody } from './molecules/Modal'
 export type { ModalProps, ModalHeaderProps } from './molecules/Modal'
-export { default as NavbarLinks } from './molecules/NavbarLinks'
-export type { NavbarLinksProps } from './molecules/NavbarLinks'
+export {
+  default as NavbarLinks,
+  NavbarLinksList,
+  NavbarLinksListItem,
+} from './molecules/NavbarLinks'
+export type {
+  NavbarLinksProps,
+  NavbarLinksListProps,
+  NavbarLinksListItemProps,
+} from './molecules/NavbarLinks'
 export {
   default as NavbarSlider,
   NavbarSliderHeader,

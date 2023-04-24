@@ -8,7 +8,7 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { Button, Navbar, NavbarLinks, List } from '@faststore/ui'
+import { Navbar } from '@faststore/ui'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 import NavbarLinksUsage from 'site/components/Navigation/NavbarLinksUsage'
 
@@ -50,7 +50,11 @@ This component is part of the [Navigation](/components/features/navigation) feat
 Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { NavbarLinks } from '@faststore/ui'
+import {
+  NavbarLinks,
+  NavbarLinksList,
+  NavbarLinksListItem,
+} from '@faststore/ui'
 ```
 
 Import Styles
@@ -83,15 +87,15 @@ import '@faststore/ui/src/components/molecules/NavbarLinks/styles.scss'
           <Button variant="tertiary" size="small">
             Set location
           </Button>
-          <List data-fs-navbar-links-list>
+          <NavbarLinksList>
             {links.map((link) => (
-              <li data-fs-navbar-links-list-item>
-                <Link data-fs-navbar-links-link variant="display" href="#">
+              <NavbarLinksListItem key={link}>
+                <Link variant="display" href="#">
                   {link}
                 </Link>
-              </li>
+              </NavbarLinksListItem>
             ))}
-          </List>
+          </NavbarLinksList>
         </div>
       </NavbarLinks>
     </Navbar>
@@ -192,6 +196,7 @@ import '@faststore/ui/src/components/molecules/NavbarLinks/styles.scss'
   <TokenRow
     token="--fs-navbar-links-list-border-left-color-notebook"
     value="var(--fs-border-color-light)"
+    isColor
   />
 </TokenTable>
 
@@ -202,3 +207,5 @@ import '@faststore/ui/src/components/molecules/NavbarLinks/styles.scss'
 For further customization, you can use the following data attributes:
 
 `data-fs-navbar-links`
+
+`data-fs-navbar-links-list-item`

@@ -9,6 +9,7 @@ import {
   NavbarRow,
   NavbarButtons,
   LinkButton,
+  Label,
 } from '@faststore/ui'
 import SearchInputUsage from '../Search/SearchInputUsage'
 import NavbarLinksUsage from './NavbarLinksUsage'
@@ -28,12 +29,9 @@ function NavbarUsage() {
             icon={<Icon name="List" width={30} height={30} />}
             onClick={openNavbar}
           />
-          <IconButton
-            className="hidden-mobile"
-            style={{ marginRight: 25 }}
-            aria-label="Logo"
-            icon={<Icon name="Storefront" width={30} height={30} />}
-          />
+          <Label className="hidden-mobile" style={{ marginRight: 25 }}>
+            Storefront
+          </Label>
 
           <SearchInputUsage actions={false} />
 

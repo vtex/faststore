@@ -1,7 +1,12 @@
 import type { AnchorHTMLAttributes } from 'react'
 
 import type { NavbarLinksProps as UINavbarLinksProps } from '@faststore/ui'
-import { List as UIList, NavbarLinks as UINavbarLinks } from '@faststore/ui'
+import {
+  List as UIList,
+  NavbarLinks as UINavbarLinks,
+  NavbarLinksList as UINavbarLinksList,
+  NavbarLinksListItem as UINavbarLinksListItem,
+} from '@faststore/ui'
 
 import RegionButton from 'src/components/region/RegionButton'
 import Link from 'src/components/ui/Link'
@@ -9,11 +14,7 @@ import { mark } from 'src/sdk/tests/mark'
 
 export interface NavbarLinksProps extends UINavbarLinksProps {
   /**
-   * Defines the classes to be applied.
-   */
-  className?: string
-  /**
-   * Defines action to be performed when clicking on a link.
+   * Callback function when a link is clicked.
    */
   onClickLink?: AnchorHTMLAttributes<HTMLAnchorElement>['onClick']
 }
@@ -42,20 +43,15 @@ function NavbarLinks({ onClickLink, ...otherProps }: NavbarLinksProps) {
     <UINavbarLinks {...otherProps}>
       <div className="layout__content">
         <RegionButton />
-        <UIList data-fs-navbar-links-list>
+        <UINavbarLinksList>
           {collections.map(({ href, name }) => (
-            <li key={name} data-fs-navbar-links-list-item>
-              <Link
-                data-fs-navbar-links-link
-                variant="display"
-                href={href}
-                onClick={onClickLink}
-              >
+            <UINavbarLinksListItem key={name}>
+              <Link variant="display" href={href} onClick={onClickLink}>
                 {name}
               </Link>
-            </li>
+            </UINavbarLinksListItem>
           ))}
-        </UIList>
+        </UINavbarLinksList>
       </div>
     </UINavbarLinks>
   )
