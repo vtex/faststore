@@ -6,11 +6,15 @@ export interface NavbarButtonsProps extends HTMLAttributes<HTMLDivElement> {
    * ID to find this component in testing tools (e.g.: Cypress, Testing Library, and Jest).
    */
   testId?: string
+  /**
+   * Specifies whether the Search Input is expanded or not.
+   */
+  searchExpanded: boolean
 }
 
 const NavbarButtons = forwardRef<HTMLDivElement, NavbarButtonsProps>(
   function NavbarButtons(
-    { children, testId = 'fs-navbar-buttons', ...otherProps },
+    { children, searchExpanded, testId = 'fs-navbar-buttons', ...otherProps },
     ref
   ) {
     return (
@@ -18,6 +22,7 @@ const NavbarButtons = forwardRef<HTMLDivElement, NavbarButtonsProps>(
         data-fs-navbar-buttons
         ref={ref}
         data-testid={testId}
+        data-fs-navbar-search-expanded={searchExpanded}
         {...otherProps}
       >
         {children}

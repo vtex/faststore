@@ -6,14 +6,24 @@ export interface NavbarProps extends HTMLAttributes<HTMLDivElement> {
    * ID to find this component in testing tools (e.g.: Cypress, Testing Library, and Jest).
    */
   testId?: string
+  /**
+   * Specifies the scroll direction. This value can be achieved using the `useScrollDirection` hook.
+   */
+  scrollDirection: string
 }
 
 const Navbar = forwardRef<HTMLDivElement, NavbarProps>(function Navbar(
-  { children, testId = 'fs-navbar', ...otherProps },
+  { children, scrollDirection, testId = 'fs-navbar', ...otherProps },
   ref
 ) {
   return (
-    <header data-fs-navbar ref={ref} data-testid={testId} {...otherProps}>
+    <header
+      data-fs-navbar
+      ref={ref}
+      data-testid={testId}
+      data-fs-navbar-scroll={scrollDirection}
+      {...otherProps}
+    >
       {children}
     </header>
   )

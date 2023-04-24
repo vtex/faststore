@@ -19,10 +19,7 @@ function NavbarUsage() {
   const { openNavbar, navbar: displayNavbar } = useUI()
 
   return (
-    <Navbar
-      className="layout__content-full"
-      data-fs-navbar-scroll={scrollDirection}
-    >
+    <Navbar className="layout__content-full" scrollDirection={scrollDirection}>
       <NavbarHeader>
         <NavbarRow className="layout__content">
           <IconButton
@@ -40,7 +37,7 @@ function NavbarUsage() {
 
           <SearchInputUsage actions={false} />
 
-          <NavbarButtons>
+          <NavbarButtons searchExpanded={false}>
             <div
               style={{
                 display: 'flex',

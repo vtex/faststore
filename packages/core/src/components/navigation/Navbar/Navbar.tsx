@@ -36,7 +36,7 @@ function Navbar() {
   return (
     <UINavbar
       className="layout__content-full"
-      data-fs-navbar-scroll={scrollDirection}
+      scrollDirection={scrollDirection}
     >
       <UINavbarHeader>
         <UINavbarRow className="layout__content">
@@ -61,7 +61,7 @@ function Navbar() {
 
           <SearchInput />
 
-          <UINavbarButtons data-fs-navbar-search-expanded={searchExpanded}>
+          <UINavbarButtons searchExpanded={searchExpanded}>
             {searchExpanded && (
               <UIIconButton
                 data-fs-button-collapse

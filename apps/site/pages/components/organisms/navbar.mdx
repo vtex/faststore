@@ -81,10 +81,7 @@ The [NavbarLinks](/components/molecules/navbar-links) and [NavbarSlider](/compon
       const { openNavbar, navbar: displayNavbar } = useUI()
 
       return (
-        <Navbar
-          className="layout__content-full"
-          data-fs-navbar-scroll={scrollDirection}
-        >
+        <Navbar className="layout__content-full" scrollDirection={scrollDirection}>
           <NavbarHeader>
             <NavbarRow className="layout__content">
               <IconButton
@@ -98,7 +95,7 @@ The [NavbarLinks](/components/molecules/navbar-links) and [NavbarSlider](/compon
                 icon={<Icon name="Storefront" width={30} height={30} />}
               />
               <SearchInputUsage actions={false} />
-              <NavbarButtons>
+              <NavbarButtons searchExpanded={false}>
                 <LinkButton
                   href="#"
                   variant="tertiary"
