@@ -3,17 +3,11 @@ import { SearchInputField, SearchInput, SearchProvider } from '@faststore/ui'
 import SearchDropdownUsage from 'site/components/Search/SearchDropdownUsage'
 import { product } from 'site/mocks/product'
 
-type SearchInputUsageProps = {
-  actions?: boolean
-}
-
-const SearchInputUsage = ({ actions = true }: SearchInputUsageProps) => {
+const SearchInputUsage = () => {
   const [searchDropdownVisible, setSearchDropdownVisible] = useState(false)
   const [term, setTerm] = useState('')
   const [products, setProducts] = useState(null)
   function onChangeValue(e) {
-    if (!actions) return
-
     setSearchDropdownVisible(true)
     if (e.target.value == '') {
       setTerm('')
@@ -24,8 +18,6 @@ const SearchInputUsage = ({ actions = true }: SearchInputUsageProps) => {
     }
   }
   function onClickButton() {
-    if (!actions) return
-
     setSearchDropdownVisible(false)
   }
   return (
@@ -61,16 +53,8 @@ const SearchInputUsage = ({ actions = true }: SearchInputUsageProps) => {
       >
         <SearchInputField
           placeholder="Search everything at the store"
-          onFocus={() => {
-            if (!actions) return
-
-            setSearchDropdownVisible(true)
-          }}
-          onSubmit={() => {
-            if (!actions) return
-
-            setSearchDropdownVisible(false)
-          }}
+          onFocus={() => setSearchDropdownVisible(true)}
+          onSubmit={() => setSearchDropdownVisible(false)}
           onChange={(e) => onChangeValue(e)}
           buttonProps={{
             onClick: onClickButton,

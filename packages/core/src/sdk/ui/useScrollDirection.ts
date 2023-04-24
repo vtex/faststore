@@ -1,6 +1,6 @@
 import { useEffect, useState, useTransition } from 'react'
 
-export const useScrollDirection = () => {
+export default function useScrollDirection() {
   const [scrollDirection, setScrollDirection] = useState<string>('')
   const [isPending, startTransition] = useTransition()
 
