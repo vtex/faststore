@@ -17,5 +17,5 @@ export const useContext = <T>(context: Context<T | undefined>) => {
     )
   }
 
-  return value;
-};
+  return value
+}

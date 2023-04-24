@@ -10,7 +10,7 @@ import {
   setFacet,
   toggleFacet,
   toggleFacets,
-  useSearch
+  useSearch,
 } from '../../src'
 
 function Wrapper(
