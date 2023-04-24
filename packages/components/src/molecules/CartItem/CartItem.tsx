@@ -1,7 +1,13 @@
 import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Icon, IconButton, IconButtonProps, Price, QuantitySelector } from '../../'
+import {
+  Icon,
+  IconButton,
+  IconButtonProps,
+  Price,
+  QuantitySelector,
+} from '../../'
 
 import type { PriceDefinition } from '../../typings/PriceDefinition'
 

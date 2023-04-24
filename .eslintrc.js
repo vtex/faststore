@@ -1,9 +1,9 @@
 module.exports = {
   root: true,
-  extends: "@faststore",
+  extends: '@faststore',
   settings: {
     next: {
-      rootDir: "apps/site/"
+      rootDir: 'apps/site/',
     },
   },
-};
+}

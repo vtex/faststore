@@ -28,7 +28,6 @@ const SearchHistory = ({
   children,
   ...otherProps
 }: SearchHistoryProps) => {
-
   const { inContext, values } = useSearch()
 
   if (inContext && (values.term.length !== 0 || values.isLoading)) {

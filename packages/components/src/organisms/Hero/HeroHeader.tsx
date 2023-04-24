@@ -46,13 +46,11 @@ const HeroHeader = forwardRef<HTMLDivElement, HeroHeaderProps>(
     ref
   ) {
     const { variant, colorVariant } = useHero()
-    const iconProps = {"data-fs-hero-icon": true}
-  
-  const heroIcon = React.isValidElement(icon) ? (
-    React.cloneElement(icon, iconProps)
-  ) : (
-    icon
-  )
+    const iconProps = { 'data-fs-hero-icon': true }
+
+    const heroIcon = React.isValidElement(icon)
+      ? React.cloneElement(icon, iconProps)
+      : icon
 
     return (
       <header
@@ -76,9 +74,7 @@ const HeroHeader = forwardRef<HTMLDivElement, HeroHeaderProps>(
               </LinkButton>
             )}
           </div>
-          {heroIcon && variant === 'secondary' && (
-            heroIcon
-          )}
+          {heroIcon && variant === 'secondary' && heroIcon}
         </div>
       </header>
     )

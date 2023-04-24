@@ -77,10 +77,13 @@ function ImageGallerySelector({
   const [firstImageInView, setFirstImageInView] = useState(true)
   const [lastImageInView, setLastImageInView] = useState(true)
 
-  const inViewChange= useCallback((idx: number, inView: boolean) => {
-    idx === 0 && setFirstImageInView(inView)
-    idx === images.length - 1 && setLastImageInView(inView)
-  }, [images.length])
+  const inViewChange = useCallback(
+    (idx: number, inView: boolean) => {
+      idx === 0 && setFirstImageInView(inView)
+      idx === images.length - 1 && setLastImageInView(inView)
+    },
+    [images.length]
+  )
 
   return (
     <section
@@ -105,9 +108,7 @@ function ImageGallerySelector({
       <div data-fs-image-gallery-selector-elements ref={elementsRef}>
         {images.map((image, idx) => {
           return (
-            <InView 
-              key={idx}
-              onChange={(inView) => inViewChange(idx, inView)}>
+            <InView key={idx} onChange={(inView) => inViewChange(idx, inView)}>
               <Button
                 key={idx}
                 aria-label={`${image.alternateName} - Image ${idx + 1} of ${

@@ -116,5 +116,5 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
 
     return [...propertyValueSpecifications, ...propertyValueAttachments]
   },
-  releaseDate: ({ isVariantOf: { releaseDate } }) => releaseDate ?? ''
+  releaseDate: ({ isVariantOf: { releaseDate } }) => releaseDate ?? '',
 }

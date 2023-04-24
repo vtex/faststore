@@ -14,7 +14,6 @@ const SearchAutoComplete = ({
   children,
   ...otherProps
 }: SearchAutoCompleteProps) => {
-
   const { inContext, values } = useSearch()
 
   if (inContext && (values.terms.length <= 0 || values.term.length <= 0)) {

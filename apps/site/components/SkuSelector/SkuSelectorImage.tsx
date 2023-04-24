@@ -7,9 +7,7 @@ const SkuSelectorImage = () => {
   return (
     <SkuSelector
       skuPropertyName="Color"
-      availableVariations={
-        product.isVariantOf.skuVariants.availableVariations
-      }
+      availableVariations={product.isVariantOf.skuVariants.availableVariations}
       activeVariations={product.isVariantOf.skuVariants.activeVariations}
       slugsMap={product.isVariantOf.skuVariants.slugsMap}
     />

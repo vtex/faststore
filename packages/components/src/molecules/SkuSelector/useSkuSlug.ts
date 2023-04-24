@@ -31,7 +31,7 @@ export const useSkuSlug = (
 ) => {
   const getItemHref = useCallback(
     (option: SkuOption) => {
-      if(getItemHrefProp) return { getItemHrefProp }
+      if (getItemHrefProp) return { getItemHrefProp }
 
       const currentItemHref = `/${getSkuSlug(
         slugsMap,

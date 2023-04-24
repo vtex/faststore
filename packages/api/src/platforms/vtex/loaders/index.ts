@@ -1,4 +1,4 @@
-import { getSalesChannelLoader } from './salesChannel';
+import { getSalesChannelLoader } from './salesChannel'
 import { getSimulationLoader } from './simulation'
 import { getSkuLoader } from './sku'
 import { getCollectionLoader } from './collection'
@@ -16,6 +16,6 @@ export const getLoaders = (options: Options, { clients }: Context) => {
     skuLoader,
     simulationLoader,
     collectionLoader,
-    salesChannelLoader
+    salesChannelLoader,
   }
 }

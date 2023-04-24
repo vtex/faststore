@@ -27,8 +27,8 @@ const SearchHistoryTerm = ({
   linkProps,
   icon,
 }: SearchHistoryTermProps) => {
-  const iconProps = {"data-fs-search-history-item-icon": true}
-  
+  const iconProps = { 'data-fs-search-history-item-icon': true }
+
   const historyIcon = React.isValidElement(icon) ? (
     React.cloneElement(icon, iconProps)
   ) : (

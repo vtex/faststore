@@ -21,14 +21,14 @@ export const StoreAggregateOffer: Record<string, Resolver<Root>> & {
   },
   offerCount: (offers) => offers.length,
   priceCurrency: async (_, __, ctx) => {
-    const { 
-      loaders: { salesChannelLoader }, 
-      storage: { channel } 
+    const {
+      loaders: { salesChannelLoader },
+      storage: { channel },
     } = ctx
 
-    const sc = await salesChannelLoader.load(channel.salesChannel);
-    
-    return sc.CurrencyCode ?? '';
+    const sc = await salesChannelLoader.load(channel.salesChannel)
+
+    return sc.CurrencyCode ?? ''
   },
   offers: (offers) => offers,
 }

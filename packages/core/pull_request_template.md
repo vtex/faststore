@@ -21,17 +21,21 @@
 <em>You may erase this after checking them all :wink:</em>
 
 **PR Title and Commit Messages**
+
 - [ ] PR title and commit messages follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification
   - Available prefixes: `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `perf`, and `test`
 
 **PR Description**
+
 - [ ] Added a label according to the PR goal - `Breaking change`, `Features`, `Bug fixes`, `Chore`, `Documentation`, `Style changes`, `Refactoring`, `Performance`, and `Test`
-- [ ] Added the component, hook, or path name in-between backticks (\`\`) - *if applicable, e.g., `ComponentName` component, `useWindowDimensions` hook*
+- [ ] Added the component, hook, or path name in-between backticks (\`\`) - _if applicable, e.g., `ComponentName` component, `useWindowDimensions` hook_
 
 **Dependencies**
+
 - [ ] Committed the `yarn.lock` and `bun.lockb` file when there were changes to the packages
 
 **Documentation**
+
 - [ ] PR description
-- [ ] Added to/Updated the Storybook - *if applicable*
+- [ ] Added to/Updated the Storybook - _if applicable_
 - [ ] For documentation changes, ping `@carolinamenezes` or `@PedroAntunesCosta` to review and update

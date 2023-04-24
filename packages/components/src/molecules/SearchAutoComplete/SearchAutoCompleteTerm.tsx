@@ -52,8 +52,7 @@ const SearchAutoCompleteTerm = ({
   linkProps,
   icon,
 }: SearchAutoCompleteTermProps) => {
-
-  const iconProps = {"data-fs-search-auto-complete-item-icon":true}
+  const iconProps = { 'data-fs-search-auto-complete-item-icon': true }
   const autoCompleteIcon = React.isValidElement(icon) ? (
     React.cloneElement(icon, iconProps)
   ) : (

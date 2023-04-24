@@ -8,7 +8,10 @@ export interface ContentFromPath {
   content: string | Readable | Buffer | NodeJS.ReadableStream
 }
 
-const getContentFromPath = (path: string, remove?: boolean): ContentFromPath => {
+const getContentFromPath = (
+  path: string,
+  remove?: boolean
+): ContentFromPath => {
   const content = remove
     ? ''
     : readFileSync(resolvePath(getRoot(), path)).toString('base64')

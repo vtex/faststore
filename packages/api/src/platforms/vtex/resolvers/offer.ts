@@ -25,14 +25,14 @@ const isOrderFormItem = (item: Root): item is OrderFormProduct =>
 
 export const StoreOffer: Record<string, Resolver<Root>> = {
   priceCurrency: async (_, __, ctx) => {
-    const { 
-      loaders: { salesChannelLoader }, 
-      storage: { channel } 
+    const {
+      loaders: { salesChannelLoader },
+      storage: { channel },
     } = ctx
 
-    const sc = await salesChannelLoader.load(channel.salesChannel);
-    
-    return sc.CurrencyCode ?? '';
+    const sc = await salesChannelLoader.load(channel.salesChannel)
+
+    return sc.CurrencyCode ?? ''
   },
   priceValidUntil: (root) => {
     if (isSearchItem(root)) {

@@ -2,7 +2,7 @@ import type {
   AriaAttributes,
   FormEvent,
   InputHTMLAttributes,
-  ReactNode
+  ReactNode,
 } from 'react'
 import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 

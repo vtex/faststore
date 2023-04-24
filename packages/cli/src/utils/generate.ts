@@ -132,11 +132,11 @@ function mergeCMSFile(fileName: string) {
 
   // TODO: create a validation when has the cms files but doesn't have a component for then
   if (existsSync(customFilePath)) {
-    const customFile = readFileSync(customFilePath, 'utf8');
-    
+    const customFile = readFileSync(customFilePath, 'utf8')
+
     try {
       output.push(...JSON.parse(customFile))
-    } catch(err) {
+    } catch (err) {
       if (err instanceof SyntaxError) {
         console.info(
           `${chalk.red(
@@ -150,10 +150,7 @@ function mergeCMSFile(fileName: string) {
   }
 
   try {
-    writeFileSync(
-      `${tmpCMSDir}/${fileName}`,
-      JSON.stringify(output)
-    )
+    writeFileSync(`${tmpCMSDir}/${fileName}`, JSON.stringify(output))
     console.log(
       `${chalk.green('success')} - CMS file ${chalk.dim(fileName)} created`
     )
@@ -176,10 +173,8 @@ async function copyStoreConfig() {
     const storeConfigFromStore = await import(userStoreConfigFileDir)
 
     // avoid duplicate default values
-    const { default: _, ...otherCoreProps } =
-      storeConfigFromCore
-    const { default: __, ...otherStoreProps } =
-      storeConfigFromStore
+    const { default: _, ...otherCoreProps } = storeConfigFromCore
+    const { default: __, ...otherStoreProps } = storeConfigFromStore
 
     const mergedStoreConfig = deepmerge(
       { ...otherCoreProps },

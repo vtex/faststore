@@ -14,7 +14,12 @@ const ProductShelfItem = forwardRef<HTMLLIElement, ProductShelfItemProps>(
     ref
   ) {
     return (
-      <li ref={ref} data-fs-product-shelf-item data-testid={testId} {...otherProps}>
+      <li
+        ref={ref}
+        data-fs-product-shelf-item
+        data-testid={testId}
+        {...otherProps}
+      >
         {children}
       </li>
     )

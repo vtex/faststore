@@ -20,7 +20,7 @@ const SearchProductsProps = ({
 }: SearchProductsProps) => {
   const { inContext, values } = useSearch()
 
-  if (inContext && (values.products.length <= 0)) {
+  if (inContext && values.products.length <= 0) {
     return null
   }
   return (

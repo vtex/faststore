@@ -4,7 +4,7 @@ import Button, { ButtonProps } from '../../atoms/Button'
 import { useDropdown } from './hooks/useDropdown'
 
 export interface DropdownButtonProps
-  extends Omit<ButtonProps, "variant" | "inverse" >{
+  extends Omit<ButtonProps, 'variant' | 'inverse'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -31,7 +31,7 @@ const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
         aria-expanded={isOpen}
         aria-haspopup="menu"
         aria-controls={id}
-        variant='tertiary'
+        variant="tertiary"
         {...otherProps}
       >
         {children}

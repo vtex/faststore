@@ -5,7 +5,7 @@ import type {
   MouseEvent,
   ReactNode,
   DetailedHTMLProps,
-  HTMLAttributes
+  HTMLAttributes,
 } from 'react'
 import React from 'react'
 import { createPortal } from 'react-dom'
@@ -15,8 +15,8 @@ import { useDropdownPosition } from './hooks/useDropdownPosition'
 
 //TODO: Replace by ModalContentProps when Modal component be brought
 type BaseModalProps = Omit<
-DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-'ref' | 'onClick'
+  DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+  'ref' | 'onClick'
 >
 
 export interface DropdownMenuProps extends BaseModalProps {
@@ -57,8 +57,14 @@ const DropdownMenu = ({
   style,
   ...otherProps
 }: PropsWithChildren<DropdownMenuProps>) => {
-  const { isOpen, close, dropdownItemsRef, selectedDropdownItemIndexRef, dropdownButtonRef, id } =
-    useDropdown()
+  const {
+    isOpen,
+    close,
+    dropdownItemsRef,
+    selectedDropdownItemIndexRef,
+    dropdownButtonRef,
+    id,
+  } = useDropdown()
 
   const dropdownPosition = useDropdownPosition()
 

@@ -9,9 +9,12 @@ const getImageName = (src: string) => {
   return imageName
 }
 
-export const useDefineVariant = (options: SkuOption[], variant?: Variant): Variant =>
+export const useDefineVariant = (
+  options: SkuOption[],
+  variant?: Variant
+): Variant =>
   useMemo(() => {
-    if(variant) return variant
+    if (variant) return variant
 
     const allOptionsHaveHexColor = options.every((option) => option.hexColor)
     if (allOptionsHaveHexColor) {
