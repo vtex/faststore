@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.113-alpha.0](https://github.com/vtex/faststore/compare/v2.0.112-alpha.0...v2.0.113-alpha.0) (2023-04-24)
+
+### Features
+
+- Adds `Navbar` component ([#1720](https://github.com/vtex/faststore/issues/1720)) ([58aac03](https://github.com/vtex/faststore/commit/58aac0366f3a5df042cd46ce9525e5f1af7b9a38))
+
 ## [2.0.111-alpha.0](https://github.com/vtex/faststore/compare/v2.0.110-alpha.0...v2.0.111-alpha.0) (2023-04-18)
 
 ### Features
