@@ -12,6 +12,9 @@ import RenderSections from './RenderSections'
 import { RegionBar } from '@faststore/components'
 import Footer from '../common/Footer'
 
+// TODO: When the CMS is finished, switch to using 'globalSections'.
+export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalAlert'
+
 export type GlobalSectionsData = {
   sections: Section[]
 }
@@ -68,10 +71,10 @@ export const getGlobalSectionsData = async (
   previewData: Locator
 ): Promise<GlobalSectionsData> => {
   const { sections } = await getPage<PageContentType>({
-    ...(previewData?.contentType === 'globalSections'
+    ...(previewData?.contentType === GLOBAL_SECTIONS_CONTENT_TYPE
       ? previewData
       : { filters: { 'settings.seo.slug': '/' } }),
-    contentType: 'globalSections',
+    contentType: GLOBAL_SECTIONS_CONTENT_TYPE,
   })
 
   return { sections }
