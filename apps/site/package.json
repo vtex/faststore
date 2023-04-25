@@ -15,7 +15,7 @@
     "@faststore/ui": "^2.0.114-alpha.0",
     "next": "13.0.7",
     "nextra": "^2.0.1",
-    "nextra-theme-docs": "^2.0.1",
+    "nextra-theme-docs": "^2.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.57.1"
