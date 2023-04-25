@@ -28,9 +28,6 @@ export type {
   BannerLinkProps,
 } from './components/molecules/Banner'
 
-export { default as Form } from './components/molecules/Form'
-export type { FormProps } from './components/molecules/Form'
-
 // Organisms
 export { Tile, Tiles } from './components/organisms/Tiles'
 export type { TilesProps, TileProps } from './components/organisms/Tiles'

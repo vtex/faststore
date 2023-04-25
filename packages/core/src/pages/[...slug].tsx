@@ -103,9 +103,10 @@ function Page(props: Props) {
         variant="secondary"
         title={title}
         subtitle={`All the amazing ${title} from the brands we partner with.`}
-        imageSrc="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
-        imageAlt="Quest 2 Controller on a table"
-        icon={<Icon name="Headphones" width={48} height={48} />}
+        image={{
+          src: 'https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg',
+          alt: 'Quest 2 Controller on a table',
+        }}
       />
 
       <ProductGallery title={title} />

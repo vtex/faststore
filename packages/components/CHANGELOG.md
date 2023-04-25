@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.114-alpha.0](https://github.com/vtex/faststore/compare/v2.0.113-alpha.0...v2.0.114-alpha.0) (2023-04-24)
+
+**Note:** Version bump only for package @faststore/components
+
+## [2.0.113-alpha.0](https://github.com/vtex/faststore/compare/v2.0.112-alpha.0...v2.0.113-alpha.0) (2023-04-24)
+
+### Features
+
+- Adds `Navbar` component ([#1720](https://github.com/vtex/faststore/issues/1720)) ([58aac03](https://github.com/vtex/faststore/commit/58aac0366f3a5df042cd46ce9525e5f1af7b9a38))
+
+## [2.0.111-alpha.0](https://github.com/vtex/faststore/compare/v2.0.110-alpha.0...v2.0.111-alpha.0) (2023-04-18)
+
+### Features
+
+- Adds `ProductGrid` component ([#1719](https://github.com/vtex/faststore/issues/1719)) ([9cbe71f](https://github.com/vtex/faststore/commit/9cbe71f81395297c14b258efdd336b00f6b71071))
+
+## [2.0.110-alpha.0](https://github.com/vtex/faststore/compare/v2.0.109-alpha.0...v2.0.110-alpha.0) (2023-04-18)
+
+### Features
+
+- Add `ProductShelf` component ([#1713](https://github.com/vtex/faststore/issues/1713)) ([6a387a6](https://github.com/vtex/faststore/commit/6a387a665aa8a1eb65122abcce67d82b9ead4234))
+
+## [2.0.108-alpha.0](https://github.com/vtex/faststore/compare/v2.0.107-alpha.0...v2.0.108-alpha.0) (2023-04-17)
+
+### Features
+
+- Adds `EmptyState` component ([#1716](https://github.com/vtex/faststore/issues/1716)) ([82eaf9a](https://github.com/vtex/faststore/commit/82eaf9a628f417ee58d7cacb2678f8cdd81bfaec))
+
 ## [2.0.106-alpha.0](https://github.com/vtex/faststore/compare/v2.0.105-alpha.0...v2.0.106-alpha.0) (2023-04-12)
 
 ### Features

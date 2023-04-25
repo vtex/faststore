@@ -1,6 +1,8 @@
-import { Button as UIButton, Icon } from '@faststore/ui'
-
-import EmptyState from 'src/components/ui/EmptyState'
+import {
+  Button as UIButton,
+  Icon as UIIcon,
+  EmptyState as UIEmptyState,
+} from '@faststore/ui'
 
 interface Props {
   /**
@@ -11,15 +13,16 @@ interface Props {
 
 function EmptyCart({ onDismiss }: Props) {
   return (
-    <EmptyState>
-      <header data-fs-empty-state-title>
-        <Icon name="ShoppingCart" width={56} height={56} weight="thin" />
-        <p>Your Cart is empty</p>
-      </header>
+    <UIEmptyState
+      title="Your Cart is empty"
+      titleIcon={
+        <UIIcon name="ShoppingCart" width={56} height={56} weight="thin" />
+      }
+    >
       <UIButton onClick={onDismiss} variant="secondary">
         Start Shopping
       </UIButton>
-    </EmptyState>
+    </UIEmptyState>
   )
 }
 

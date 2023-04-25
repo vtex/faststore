@@ -51,6 +51,7 @@
 
 // Organisms
 @import "../components/organisms/CartSidebar/styles";
+@import "../components/organisms/EmptyState/styles";
 @import "../components/organisms/Filter/styles";
 @import "../components/organisms/FilterSlider/styles";
 @import "../components/organisms/Hero/styles";
@@ -58,6 +59,8 @@
 @import "../components/organisms/OutOfStock/styles";
 @import "../components/organisms/PaymentMethods/styles";
 @import "../components/organisms/PriceRange/styles";
+@import "../components/organisms/ProductGrid/styles";
+@import "../components/organisms/ProductShelf/styles";
 @import "../components/organisms/RegionModal/styles";
 @import "../components/organisms/SearchInput/styles";
 @import "../components/organisms/ShippingSimulation/styles";
