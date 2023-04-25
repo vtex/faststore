@@ -35,13 +35,13 @@ export interface FilterSliderProps extends HTMLAttributes<HTMLDivElement> {
    */
   clearBtnProps?: Partial<ButtonProps>
   /**
+   * Props forwarded to the `Overlay` component.
+   */
+  overlayProps?: OverlayProps
+  /**
    * Function called when Close Button is clicked.
    */
   onClose: () => void
-  /**
-   * Props forwarded to overlay component
-   */
-  overlayProps?: OverlayProps
 }
 
 function FilterSlider({
@@ -51,8 +51,8 @@ function FilterSlider({
   children,
   applyBtnProps,
   clearBtnProps,
-  onClose,
   overlayProps,
+  onClose,
   ...otherProps
 }: PropsWithChildren<FilterSliderProps>) {
   const { fade, fadeOut } = useFadeEffect()

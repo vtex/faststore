@@ -30,25 +30,25 @@ export interface SlideOverProps extends Omit<ModalProps, 'title'> {
   fade: 'in' | 'out'
   children: ReactNode
   /**
+   * Props forwarded to the `Overlay` component.
+   */
+  overlayProps?: OverlayProps
+  /**
    * This function is called whenever the user clicks outside.
    * the modal content
    */
   onDismiss?: () => void
-  /**
-   * Props forwarded to overlay component
-   */
-  overlayProps?: OverlayProps
 }
 
 function SlideOver({
+  testId = 'fs-slide-over',
   isOpen,
   direction = 'leftSide',
   size = 'full',
   fade = 'out',
   children,
-  onDismiss,
-  testId = 'fs-slide-over',
   overlayProps,
+  onDismiss,
   ...otherProps
 }: SlideOverProps) {
   return (
