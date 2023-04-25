@@ -8,11 +8,10 @@ import type {
 import React, { useMemo, useRef } from 'react'
 import type { SwipeableProps } from 'react-swipeable'
 
-import { RightArrowIcon, LeftArrowIcon } from './Arrows'
 import CarouselItem from './CarouselItem'
 import { useSlider } from '../../hooks'
 import CarouselBullets from './CarouselBullets'
-import { IconButton } from '../..'
+import { IconButton, Icon } from '../..'
 
 const createTransformValues = (infinite: boolean, totalItems: number) => {
   const transformMap: Record<number, number> = {}
@@ -340,7 +339,11 @@ function Carousel({
             data-fs-carousel-control="left"
             aria-controls={id}
             aria-label="previous"
-            icon={navigationIcons?.left ?? <LeftArrowIcon />}
+            icon={
+              navigationIcons?.left ?? (
+                <Icon name="ArrowLeft" width={16} height={16} weight="bold" />
+              )
+            }
             onClick={() => {
               isSlideCarousel && slidePrevious()
               isScrollCarousel &&
@@ -351,7 +354,11 @@ function Carousel({
             data-fs-carousel-control="right"
             aria-controls={id}
             aria-label="next"
-            icon={navigationIcons?.right ?? <RightArrowIcon />}
+            icon={
+              navigationIcons?.right ?? (
+                <Icon name="ArrowRight" width={16} height={16} weight="bold" />
+              )
+            }
             onClick={() => {
               isSlideCarousel && slideNext()
               isScrollCarousel &&
