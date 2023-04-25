@@ -1,5 +1,6 @@
 export interface RegionInput {
   postalCode: string
+  geoCoordinates: GeoCoordinates | null
   country: string
   salesChannel?: string | null
 }
@@ -13,4 +14,9 @@ export interface Seller {
 export interface Region {
   id: string
   sellers: Seller[]
+}
+
+export interface GeoCoordinates {
+  latitude: GLfloat
+  longitude: GLfloat
 }

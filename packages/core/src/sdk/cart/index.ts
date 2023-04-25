@@ -3,6 +3,7 @@ import { createCartStore } from '@faststore/sdk'
 import { useMemo } from 'react'
 import type { Cart as SDKCart, CartItem as SDKCartItem } from '@faststore/sdk'
 
+import storeConfig from '../../../faststore.config'
 import type {
   CartItemFragment,
   CartMessageFragment,
@@ -19,6 +20,7 @@ export interface CartItem extends SDKCartItem, CartItemFragment {}
 
 export interface Cart extends SDKCart<CartItem> {
   messages?: CartMessageFragment[]
+  shouldSplitItem?: boolean
 }
 
 export const ValidateCartMutation = gql`
@@ -104,6 +106,7 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
     cart: {
       order: {
         orderNumber: cart.id,
+        shouldSplitItem: cart.shouldSplitItem,
         acceptedOffer: cart.items.map(
           ({
             price,
@@ -141,14 +144,7 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
 }
 
 const [validationStore, onValidate] = createValidationStore(validateCart)
-const defaultCartStore = createCartStore<Cart>(
-  {
-    id: '',
-    items: [],
-    messages: [],
-  },
-  onValidate
-)
+const defaultCartStore = createCartStore<Cart>(storeConfig.cart, onValidate)
 
 export const cartStore = {
   ...defaultCartStore,
