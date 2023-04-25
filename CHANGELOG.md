@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.115-alpha.0](https://github.com/vtex/faststore/compare/v2.0.114-alpha.0...v2.0.115-alpha.0) (2023-04-25)
+
+### Chores
+
+- adds shouldSplitItem as true by default ([#1725](https://github.com/vtex/faststore/issues/1725)) ([c796d72](https://github.com/vtex/faststore/commit/c796d72ab49c5eb79d305b5e4b1946b6645be0de))
+
 ## [2.0.114-alpha.0](https://github.com/vtex/faststore/compare/v2.0.113-alpha.0...v2.0.114-alpha.0) (2023-04-24)
 
 **Note:** Version bump only for package faststore
