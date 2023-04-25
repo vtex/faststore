@@ -46,7 +46,7 @@
         width: 100%;
 
         [data-fs-carousel-control] {
-          top: var(--fs-carousel-controls-position-top);
+          bottom: calc(var(--fs-carousel-controls-height) + var(--fs-control-tap-size));
           display: flex;
           align-items: center;
           justify-content: center;
