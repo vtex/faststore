@@ -24,6 +24,31 @@ input IStoreCurrency {
 }
 
 """
+Geographic coordinates information.
+"""
+type StoreGeoCoordinates {
+  """
+  The latitude of the geographic coordinates.
+  """
+  latitude: Float!
+  """
+  The longitude of the geographic coordinates.
+  """
+  longitude: Float!
+}
+
+input IStoreGeoCoordinates {
+  """
+  The latitude of the geographic coordinates.
+  """
+  latitude: Float!
+  """
+  The longitude of the geographic coordinates.
+  """
+  longitude: Float!
+}
+
+"""
 Session information.
 """
 type StoreSession {
@@ -48,7 +73,11 @@ type StoreSession {
   """
   postalCode: String
   """
-  Session postal code.
+  Session input geoCoordinates.
+  """
+  geoCoordinates: StoreGeoCoordinates
+  """
+  Session input person.
   """
   person: StorePerson
 }
@@ -78,7 +107,11 @@ input IStoreSession {
   """
   postalCode: String
   """
-  Session input postal code.
+  Session input geoCoordinates.
+  """
+  geoCoordinates: IStoreGeoCoordinates
+  """
+  Session input person.
   """
   person: IStorePerson
 }

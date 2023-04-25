@@ -14,6 +14,8 @@ export const validateSession = async (
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '').replace(/\D/g, '')
+  const geoCoordinates = oldSession.geoCoordinates ?? null
+
   const country = oldSession.country ?? ''
 
   const params = new URLSearchParams(search)
@@ -22,8 +24,13 @@ export const validateSession = async (
   params.set('sc', salesChannel)
 
   const [regionData, sessionData] = await Promise.all([
-    postalCode
-      ? clients.commerce.checkout.region({ postalCode, country, salesChannel })
+    postalCode || geoCoordinates
+      ? clients.commerce.checkout.region({
+          postalCode,
+          geoCoordinates,
+          country,
+          salesChannel,
+        })
       : Promise.resolve(null),
     clients.commerce.session(params.toString()).catch(() => null),
   ])
@@ -32,7 +39,7 @@ export const validateSession = async (
   const store = sessionData?.namespaces.store ?? null
   const region = regionData?.[0]
   // Set seller only if it's inside a region
-  const seller = region?.sellers.find(seller => channel.seller === seller.id)
+  const seller = region?.sellers.find((seller) => channel.seller === seller.id)
 
   const newSession = {
     ...oldSession,
@@ -44,7 +51,7 @@ export const validateSession = async (
     channel: ChannelMarshal.stringify({
       salesChannel: store?.channel?.value ?? channel.salesChannel,
       regionId: region?.id ?? channel.regionId,
-      seller: seller?.id
+      seller: seller?.id,
     }),
     person: profile?.id
       ? {
