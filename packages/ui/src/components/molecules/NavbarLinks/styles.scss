@@ -46,6 +46,11 @@
     }
   }
 
+  [data-fs-navbar-links-list] {
+    display: block;
+    width: 100%;
+  }
+
   [data-fs-navbar-links-list-item] {
     display: flex;
     align-items: center;
@@ -62,11 +67,6 @@
     @include media("<notebook") {
       display: none;
     }
-  }
-
-  [data-fs-navbar-links-list-item] {
-    display: block;
-    width: 100%;
   }
 
   @include media(">=notebook") {

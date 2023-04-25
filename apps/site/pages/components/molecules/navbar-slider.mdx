@@ -4,7 +4,7 @@ description: As part of the Navbar, this component it its mobile version used to
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
-import { Tab, Tabs } from 'nextra-theme-docs'
+import { Callout, Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
@@ -66,7 +66,10 @@ import '@faststore/ui/src/components/molecules/NavbarSlider/styles.scss'
 
 ## Usage
 
-**Note:** This component is intended to be used only in the **mobile version**, but it can be adapted to a desktop version by customizing the component styles.
+<Callout type="warning" emoji="⚠️">
+  This component is intended to be used only in the **mobile version**, but it
+  can be adapted to a desktop version by customizing the component styles.
+</Callout>
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>

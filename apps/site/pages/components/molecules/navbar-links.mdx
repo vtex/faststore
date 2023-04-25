@@ -4,7 +4,7 @@ description: Displays a set of navigation links.
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
-import { Tab, Tabs } from 'nextra-theme-docs'
+import { Callout, Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
@@ -67,7 +67,10 @@ import '@faststore/ui/src/components/molecules/NavbarLinks/styles.scss'
 
 ## Usage
 
-**Note:** The mobile version can be achieved with [NavbarSlider](/components/molecules/navbar-slider) as wrapper.
+<Callout type="warning" emoji="⚠️">
+  The mobile version can be achieved with
+  [NavbarSlider](/components/molecules/navbar-slider) as wrapper.
+</Callout>
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
@@ -207,5 +210,7 @@ import '@faststore/ui/src/components/molecules/NavbarLinks/styles.scss'
 For further customization, you can use the following data attributes:
 
 `data-fs-navbar-links`
+
+`data-fs-navbar-links-list`
 
 `data-fs-navbar-links-list-item`
