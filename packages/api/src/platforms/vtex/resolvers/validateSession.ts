@@ -24,16 +24,19 @@ export const validateSession = async (
 
   const [regionData, sessionData] = await Promise.all([
     postalCode || geoCoordinates
-    ? clients.commerce.checkout.region({
-        postalCode,
-        geoCoordinates,
-        country,
-        salesChannel,
-      })
+      ? clients.commerce.checkout.region({
+          postalCode,
+          geoCoordinates,
+          country,
+          salesChannel,
+        })
       : Promise.resolve(null),
     clients.commerce.session(params.toString()).catch(() => null),
   ])
-  console.log('Region with Postal Code or GeoCoordinates', JSON.stringify(regionData))
+  console.log(
+    'Region with Postal Code or GeoCoordinates',
+    JSON.stringify(regionData)
+  )
   const profile = sessionData?.namespaces.profile ?? null
   const store = sessionData?.namespaces.store ?? null
   const region = regionData?.[0]
