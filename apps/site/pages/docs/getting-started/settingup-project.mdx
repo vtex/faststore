@@ -28,7 +28,6 @@ In this guide, you will:
 Before clonning the store's repository you will need to have the following
 tools in your machine:
 
-
 <details>
   <summary>
     <b>Node.js</b>
@@ -36,9 +35,9 @@ tools in your machine:
   <p>
     <p>To run your FastStore project, you must have <b><a href="">Node.js</a></b> version 15.0.0 or later installed on your computer.</p>
     <ul>
-       <li>- <b><a href="">Install Node.js on macOS using Homebrew</a></b></li>
-       <li>- <b><a href="">Install Node.js on Windows</a></b> </li>
-       <li>- <b><a href="">Install Node.js on Linux</a></b></li> 
+       <li>- <b><a href="https://nodejs.org/tr/download/package-manager#macos">Install Node.js on macOS using Homebrew</a></b></li>
+       <li>- <b><a href="https://nodejs.org/tr/download/package-manager#windows-1">Install Node.js on Windows</a></b> </li>
+       <li>- <b><a href="https://nodejs.org/tr/download/package-manager#debian-and-ubuntu-based-linux-distributions">Install Node.js on Linux</a></b></li> 
     </ul>
   </p>
 </details>
@@ -47,9 +46,22 @@ tools in your machine:
   <summary>
     <b>Yarn</b>
   </summary>
-  <p>
-    TBD
-  </p>
+    <p>
+      We'll use the <strong><a href="https://yarnpkg.com/">yarn</a></strong> command-line interface to add functionalities to our store and also run tasks, such as starting a development server.
+    </p>
+      <details>
+          <summary>Install Yarn on macOS by running the following:</summary>
+          ```bash
+            brew install yarn
+          ```
+        </details>
+
+        <details>
+          <summary>Install Yarn on Windows by running the following:</summary>
+          ```bash
+            npm install -g yarn
+          ```
+        </details>
 </details>
 
 <details>
@@ -57,30 +69,245 @@ tools in your machine:
     <b>Git</b>
   </summary>
   <p>
-    TBD
+    When developing your store's website, you will use Git to push your code to the cloud. You will also use Git to download and install the required files for your project.
   </p>
+  <ul>
+       <li>- <strong><a href="https://git-scm.com/download/mac">Install Git on macOS using Homebrew</a></strong></li>
+       <li>- <strong><a href="https://git-scm.com/download/win">Install Git on Windows</a></strong> </li>
+       <li>- <strong><a href="https://git-scm.com/download/linux">Install Git on Linux</a></strong></li> 
+    </ul>
 </details>
 
 <details>
   <summary>
-    <b>FastStore CLI</b>
+    <b>Visual Studio Code - Code Editor</b>
   </summary>
   <p>
-    TBD
+    When developing your store's website, you will use <strong><a href="https://code.visualstudio.com/">Visual Studio Code</a></strong> (a.k.a., VS Code) to write code for your project. Visit the <strong><a href="https://code.visualstudio.com/">VS Code</a></strong> website, download and install the version appropriate to your operating system.
   </p>
 </details>
 
-<details>
-  <summary>
-    <b>Code Editor</b>
-  </summary>
-  <p>
-    TBD
-  </p>
-</details>
+<Callout type="info" emoji="ℹ️">
+  Although you might opt to use an alternative code editor, note that using Visual Studio Code might help you follow along with the FastStore documentation since our docs include many screenshots from VS Code.
+</Callout>
 
 ## Step 2: Clonning the Store's Repository
-1. Clone your store's repository that was created during the [Onboarding](/tbd) by running the following comand:
+1. Clone your store's repository that was created during the [Onboarding](/docs/getting-started/onboarding#repository-and-live-store-created) by running the following comand in the terminal:
 ```bash
     git clone https://github.com/vtex-sites/[store-name]
 ```
+<Callout type="warning" emoji="⚠️">
+`[store-name]` is the name of your store's repository
+</Callout>
+
+![bash-git-clone](https://vtexhelp.vtexassets.com/assets/docs/src/faststore-git-clone___9f4af5777705ccb3bf2cef10e360f6d6.png)
+
+2. Change into the working directory and install all the dependencies listed within the `package.json` file.
+
+```bash
+cd faststore.store
+yarn install
+```
+
+3.  Open up your FastStore project in any code editor of your choice.
+
+<Callout type="info" emoji="ℹ️">
+  Please note that your store configuration was already set during the [Onboarding](/docs/getting-started/onboarding#repository-and-live-store-created). Therefore, there is no need to connect your project to your VTEX account. 
+  If you want to check these configurations, you can access the `faststore.config.js` file in your project's repository.
+</Callout>
+
+## Step 3: Running a local server
+
+Let's check how our project looks like in a web browser so far.
+
+1. Run a local development server to serve your website.
+
+```bash
+  yarn dev
+```
+This may take a few minutes. Once your development server is ready, the command line will output the following message:
+
+```bash
+  ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+  event - compiled client and server successfully in 333 ms (951 modules)
+```
+<Callout type="info" emoji="ℹ️">
+  `yarn dev` is a command that is part of FastStore CLI, a pre-configured binary in your starter project that enables the execution of code to keep your store's project up-to-date with updates in the `core` package using the CLI. 
+  For more information, refer to the [FastStore CLI](/tbd) topic.
+</Callout>
+
+2. Now, open your favorite web browser and navigate to the localhost served, for example, http://localhost:3000.
+
+![localhost](https://vtexhelp.vtexassets.com/assets/docs/src/starter-gif___42003e72ece61064991a34c3f14e398f.gif)
+
+*Congratulations!* You have just created your very first FastStore + Gatsby store website! 🎉
+
+Now, as long as your local development server is running, you'll be able to preview your changes while you edit your files. 
+Saved changes will hot reload in the browser. To stop running the development server, go back to the terminal and hit `Ctrl + C`. To restart it, run `yarn dev again.`
+
+## Step 4: Making the first change in your store frontend
+
+Now that your store is up and running locally, let's make a simple change in the store frontend
+
+Let's make the first level of customization which is update the store's theme with [Themification](/tbd). For this customization we are going to use the [Midnight theme](/tbd) and we will make some updates on it.
+
+1. Open the `faststore.config.js` file and in `theme`, change the name to `midnight`.
+
+```scss
+  theme: 'midnight',
+```
+
+2. Change the `custom-theme.scss` file's name located in `src/themes` to `midnight.scss`. This is the theme of your store website UI.
+
+3. Add the following styles to `src/themes/midnight.scss`:
+```css
+// ----------------------------------------------------------
+// GLOBAL TOKENS
+// Theme Midnight
+// ----------------------------------------------------------
+
+.theme {
+  // --------------------------------------------------------
+  // Colors (Branding Core)
+  // --------------------------------------------------------
+
+  // PALETTE
+  --fs-color-main-0: #0b0022;
+  --fs-color-main-1: #13013e;
+  --fs-color-main-2: #190054;
+  --fs-color-main-3: #41208d;
+  --fs-color-main-4: #6535d6;
+
+  --fs-color-accent-0: #25046d;
+  --fs-color-accent-1: #001082;
+  --fs-color-accent-2: #0017b9;
+  --fs-color-accent-3: #1930d3;
+  --fs-color-accent-4: #4d62ff;
+
+  --fs-color-neutral-0: #110035;
+  --fs-color-neutral-1: #260f5a;
+  --fs-color-neutral-2: #74808b;
+  --fs-color-neutral-3: #9099a2;
+  --fs-color-neutral-4: #c7ccd1;
+  --fs-color-neutral-5: #e3e6e8;
+  --fs-color-neutral-6: #816ba9;
+  --fs-color-neutral-7: #dfd2fc;
+
+  // HIERARCHY
+  --fs-color-primary-bkg: var(--fs-color-main-3);
+  --fs-color-primary-bkg-light: var(--fs-color-main-2);
+  --fs-color-primary-text: var(--fs-color-neutral-7);
+
+  --fs-color-secondary-text: var(--fs-color-neutral-7);
+
+  --fs-color-tertiary-bkg-hover: var(--fs-color-main-2);
+  --fs-color-tertiary-bkg-active: var(--fs-color-main-3);
+
+  // // COMPONENTS & STATES
+  --fs-color-body-bkg: var(--fs-color-main-0);
+
+  --fs-color-text-display: var(--fs-color-neutral-7);
+
+  --fs-color-link: var(--fs-color-neutral-7);
+
+  // SITUATIONS
+  --fs-color-success-text: #50b191;
+  --fs-color-success-bkg: #007043;
+  --fs-color-warning-bkg: #b17000;
+
+  // --------------------------------------------------------
+  // Typography (Branding Core)
+  // --------------------------------------------------------
+
+  // FACE
+  --fs-text-face-body: 'Raleway', sans-serif;
+
+  // NUMERIC SCALE
+  --fs-text-size-base: 18px; // 1rem
+  --fs-text-size-0: 14px; // Smallest
+  --fs-text-size-1: 16px; // Smaller
+
+  // --------------------------------------------------------
+  // Refinements
+  // --------------------------------------------------------
+
+  // BORDERS
+  --fs-border-radius: 20px;
+
+  --fs-border-width: 2px;
+
+  --fs-border-color-light: var(--fs-color-main-3);
+  --fs-border-color: var(--fs-color-main-3);
+  --fs-border-color-hover: var(--fs-color-main-2);
+  --fs-border-color-active: var(--fs-color-main-3);
+
+  // SHADOW
+  --fs-shadow-hover: 0 0 10px rgb(40 21 132 / 30%), 0 0 0 10px var(--fs-color-main-1);
+
+  // --------------------------------------------------------
+  // Components
+  // --------------------------------------------------------
+
+  --fs-body-bkg: linear-gradient(
+    0deg,
+    var(--fs-color-main-0) 0%,
+    var(--fs-color-main-2) 20%,
+    var(--fs-color-main-0) 100%
+  );
+
+  [data-fs-hero] {
+    --fs-hero-img-border-radius: 130px 0 0 130px;
+    --fs-hero-main-bkg-color: var(--fs-color-main-1);
+  }
+
+  [data-fs-button] {
+    --fs-button-border-radius: var(--fs-border-radius-pill);
+
+    --fs-button-primary-inverse-text-color: var(--fs-color-neutral-0);
+    --fs-button-primary-inverse-text-color-hover: var(--fs-color-text);
+    --fs-button-primary-inverse-text-color-active: var(--fs-color-neutral-7);
+
+    --fs-button-primary-border-color: var(--fs-color-neutral-7);
+
+    --fs-button-tertiary-text-color-active: var(--fs-color-text);
+  }
+
+  [data-fs-product-card] {
+    --fs-product-card-padding: var(--fs-spacing-2) var(--fs-spacing-2) var(
+        --fs-spacing-4
+      ) var(--fs-spacing-2);
+    --fs-product-card-bkg-color: var(--fs-color-main-0);
+    --fs-product-card-img-scale-hover: 1.05;
+  }
+
+  [data-fs-logo] {
+    --fs-logo-img: url('~/public/brandless-negative.png');
+    --fs-logo-width: 8rem;
+  }
+
+  [data-fs-navbar] {
+    --fs-navbar-bkg-color: var(--fs-color-main-0);
+  }
+
+  [data-fs-footer] {
+    --fs-footer-bkg-color: var(--fs-color-main-0);
+  }
+}
+```
+
+3. Add the [Raleway](https://fonts.google.com/specimen/Raleway?query=raleway) font on `src/fonts/WebFonts.tsx`:
+
+```tsx
+  function WebFonts() {
+    return (
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;900&display=swap"
+      />
+    )
+  }
+```
+
+4. Restart the server.
+
+5. Save your changes and check your browser to see the changes you have made. You may need to refresh the page.
