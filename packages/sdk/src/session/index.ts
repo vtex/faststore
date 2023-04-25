@@ -23,7 +23,7 @@ export interface Session {
   country: string // BRA
   channel: string | null
   postalCode: string | null
-  geoCoodinates: Geocoordinates
+  geoCoordinates: Geocoordinates | null
   person: Person | null
 }
 
