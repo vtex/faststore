@@ -1,8 +1,6 @@
-import type { CarouselProps as UICarouselProps } from '@faststore/ui'
-import { Carousel as UICarousel, Icon } from '@faststore/ui'
 import type { PropsWithChildren } from 'react'
-
-import styles from './carousel.module.scss'
+import { Carousel as UICarousel } from '@faststore/ui'
+import type { CarouselProps as UICarouselProps } from '@faststore/ui'
 
 export type CarouselProps = {
   id?: string
@@ -24,12 +22,7 @@ function Carousel({
       testId={testId}
       variant="scroll"
       infiniteMode={false}
-      className={styles.fsCarousel}
       itemsPerPage={isMobile ? 1 : itemsPerPage}
-      navigationIcons={{
-        left: <Icon width={20} height={20} weight="bold" name="ArrowLeft" />,
-        right: <Icon width={20} height={20} weight="bold" name="ArrowRight" />,
-      }}
     >
       {children}
     </UICarousel>

@@ -341,7 +341,7 @@ function Carousel({
             aria-label="previous"
             icon={
               navigationIcons?.left ?? (
-                <Icon name="ArrowLeft" width={16} height={16} weight="bold" />
+                <Icon name="ArrowLeft" width={20} height={20} weight="bold" />
               )
             }
             onClick={() => {
@@ -356,7 +356,7 @@ function Carousel({
             aria-label="next"
             icon={
               navigationIcons?.right ?? (
-                <Icon name="ArrowRight" width={16} height={16} weight="bold" />
+                <Icon name="ArrowRight" width={20} height={20} weight="bold" />
               )
             }
             onClick={() => {
