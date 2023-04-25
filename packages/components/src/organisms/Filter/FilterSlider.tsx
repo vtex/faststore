@@ -1,5 +1,5 @@
-import type { HTMLAttributes } from 'react'
-import React, { PropsWithChildren } from 'react'
+import type { HTMLAttributes, PropsWithChildren } from 'react'
+import React from 'react'
 
 import {
   Button,
