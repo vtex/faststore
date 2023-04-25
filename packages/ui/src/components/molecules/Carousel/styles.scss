@@ -100,6 +100,7 @@
   }
 
   [data-fs-carousel-controls] {
+    position: relative;
     display: none;
   }
 
@@ -122,22 +123,28 @@
       }
 
       [data-fs-bullet] {
-        width: var(--fs-carousel-bullet-width-mobile);
-        height: var(--fs-carousel-bullet-height-mobile);
         padding: 0;
-        margin-right: var(--fs-carousel-bullet-margin-right);
-        background-color: var(--fs-carousel-bullet-bkg-color);
+
         border-color: transparent;
 
-        &[aria-selected="true"] {
-          background-color: var(--fs-carousel-bullet-bkg-color-selected);
+        &::after {
+          position: absolute;
+          top: auto;
+          width: var(--fs-carousel-bullet-width-mobile);
+          height: var(--fs-carousel-bullet-height-mobile);
+          background-color: var(--fs-carousel-bullet-bkg-color);
+          content: "";
+
+          @include media(">=tablet") {
+            width: var(--fs-carousel-bullet-width-desktop);
+            height: var(--fs-carousel-bullet-height-desktop);
+            margin: 0;
+            border-radius: var(--fs-carousel-bullet-border-radius);
+          }
         }
 
-        @include media(">=tablet") {
-          width: var(--fs-carousel-bullet-width-desktop);
-          height: var(--fs-carousel-bullet-height-desktop);
-          margin: 0;
-          border-radius: var(--fs-carousel-bullet-border-radius);
+        &[aria-selected="true"]::after {
+          background-color: var(--fs-carousel-bullet-bkg-color-selected);
         }
       }
     }
