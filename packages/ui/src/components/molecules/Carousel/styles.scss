@@ -39,6 +39,8 @@
   // Structural Styles
   // --------------------------------------------------------
 
+  width: inherit;
+
   &:hover {
     [data-fs-carousel-controls] {
       @include media(">=tablet") {
@@ -105,6 +107,7 @@
   }
 
   [data-fs-carousel-bullets] {
+    position: relative;
     width: 100%;
     padding-top: var(--fs-carousel-bullets-padding-top);
 
