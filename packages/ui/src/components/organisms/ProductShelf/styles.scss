@@ -17,7 +17,7 @@
     align-items: stretch;
     overflow-x: auto;
     position: relative;
-    left: var(--fs-product-shelf-items-left);
+    // left: var(--fs-product-shelf-items-left);
 
 
     [data-fs-product-shelf-item] { width: 100%; }

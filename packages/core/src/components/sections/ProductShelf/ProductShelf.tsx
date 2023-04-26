@@ -14,6 +14,7 @@ import type { ProductsQueryQueryVariables } from '@generated/graphql'
 
 import ProductCard from '../../product/ProductCard'
 import Section from '../Section'
+import Carousel from '../../ui/Carousel'
 
 interface ProductShelfProps extends Partial<ProductsQueryQueryVariables> {
   title: string
@@ -62,15 +63,17 @@ function ProductShelf({
       >
         <UIProductShelf>
           <ProductShelfItems className="layout__content">
-            {productEdges.map((product, idx) => (
-              <ProductShelfItem key={`${product.node.id}`}>
-                <ProductCard
-                  product={product.node}
-                  index={idx + 1}
-                  aspectRatio={aspectRatio}
-                />
-              </ProductShelfItem>
-            ))}
+            <Carousel>
+              {productEdges.map((product, idx) => (
+                <ProductShelfItem key={`${product.node.id}`}>
+                  <ProductCard
+                    product={product.node}
+                    index={idx + 1}
+                    aspectRatio={aspectRatio}
+                  />
+                </ProductShelfItem>
+              ))}
+            </Carousel>
           </ProductShelfItems>
         </UIProductShelf>
       </ProductShelfSkeleton>
