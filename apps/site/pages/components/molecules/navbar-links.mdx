@@ -8,9 +8,12 @@ import { Callout, Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { Navbar } from '@faststore/ui'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { Navbar, UIProvider } from '@faststore/ui'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 import NavbarLinksUsage from 'site/components/Navigation/NavbarLinksUsage'
+import NavbarUsage from 'site/components/Navigation/NavbarUsage'
+import NavbarSliderUsage from 'site/components/Navigation/NavbarSliderUsage'
 
 export const getStaticProps = () => {
   const navbarLinksPath = path.resolve(__filename)
@@ -215,3 +218,27 @@ For further customization, you can use the following data attributes:
 
 `data-fs-navbar-links-list-item`
 
+---
+
+## Related components
+
+<SectionList grid="column" columns={1}>
+  <SectionItem
+    title="Navbar"
+    description="Represents the page header and groups features like Search and Regionalization."
+    actionPath="/components/organisms/navbar"
+  >
+    <UIProvider>
+      <NavbarUsage />
+    </UIProvider>
+  </SectionItem>
+  <SectionItem
+    title="NavbarSlider"
+    description="As part of the Navbar, this component it its mobile version used to list the navigation links."
+    actionPath="/components/molecules/navbar-slider"
+  >
+    <UIProvider>
+      <NavbarSliderUsage />
+    </UIProvider>
+  </SectionItem>
+</SectionList>
