@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.116-alpha.0](https://github.com/vtex/faststore/compare/v2.0.115-alpha.0...v2.0.116-alpha.0) (2023-04-26)
+
+### Bug Fixes
+
+- Send missing `colorVariant` attribute to `BannerText` ([#1733](https://github.com/vtex/faststore/issues/1733)) ([ddaaaf1](https://github.com/vtex/faststore/commit/ddaaaf1c3e8daa51ea07f4e419f5d2549bf73c12))
+
 ## [2.0.115-alpha.0](https://github.com/vtex/faststore/compare/v2.0.114-alpha.0...v2.0.115-alpha.0) (2023-04-25)
 
 ### Chores
