@@ -104,17 +104,6 @@ function Carousel({
     transition.timing ?? ''
   } ${transition.delay ?? ''}`
 
-  const showNavigationArrows =
-    controls === 'complete' || controls === 'navigationArrows'
-
-  const showPaginationBullets =
-    controls === 'complete' || controls === 'paginationBullets'
-
-  const transformValues = useMemo(
-    () => createTransformValues(infiniteMode, numberOfSlides),
-    [numberOfSlides, infiniteMode]
-  )
-
   const { handlers, slide, sliderState, sliderDispatch } = useSlider({
     itemsPerPage,
     infiniteMode,
@@ -122,6 +111,21 @@ function Carousel({
     shouldSlideOnSwipe: isSlideCarousel,
     ...swipeableConfigOverrides,
   })
+
+  const pagesCount = Math.ceil(childrenCount / sliderState.itemsPerPage)
+
+  const showNavigationArrows =
+    pagesCount !== 1 &&
+    (controls === 'complete' || controls === 'navigationArrows')
+
+  const showPaginationBullets =
+    pagesCount !== 1 &&
+    (controls === 'complete' || controls === 'paginationBullets')
+
+  const transformValues = useMemo(
+    () => createTransformValues(infiniteMode, numberOfSlides),
+    [numberOfSlides, infiniteMode]
+  )
 
   const postRenderedSlides =
     infiniteMode && children ? childrenArray.slice(0, 1) : []
@@ -373,7 +377,7 @@ function Carousel({
           <CarouselBullets
             tabIndex={0}
             activeBullet={sliderState.currentPage}
-            totalQuantity={Math.ceil(childrenCount / sliderState.itemsPerPage)}
+            totalQuantity={pagesCount}
             onKeyDown={handleBulletsKeyDown}
             onClick={async (_, idx) => {
               isSlideCarousel &&
