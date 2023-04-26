@@ -73,7 +73,7 @@ const CarouselBullets = forwardRef<HTMLDivElement, CarouselBulletsProps>(
               key={idx}
               role="tab"
               tabIndex={-1}
-              data-fs-bullet
+              data-fs-carousel-bullet
               testId={`${testId}-bullet`}
               onClick={(e) => onClick(e, idx)}
               aria-label={ariaLabelGenerator(idx, isActive)}
