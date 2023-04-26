@@ -1,12 +1,13 @@
-import { SearchContext } from "../molecules/SearchProvider/SearchProvider"
-import { useContext } from "react"
+import { useContext } from 'react'
+
+import { SearchContext } from '../molecules/SearchProvider/SearchProvider'
 
 export const useSearch = () => {
-    const context = useContext(SearchContext)
+  const context = useContext(SearchContext)
 
-    if (!context) {
-        return { inContext: false as const }
-    }
+  if (!context) {
+    return { inContext: false as const }
+  }
 
-    return { inContext: true as const, values: context }
+  return { inContext: true as const, values: context }
 }

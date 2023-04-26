@@ -10,14 +10,14 @@
   --fs-navbar-slider-header-padding-bottom      : var(--fs-spacing-2);
   --fs-navbar-slider-header-button-margin-right : calc(-1 * var(--fs-spacing-1));
 
+  // Footer
+  --fs-navbar-slider-footer-padding-top         : var(--fs-navbar-slider-header-padding-bottom);
+  --fs-navbar-slider-footer-margin-top          : var(--fs-navbar-slider-header-padding-bottom);
+
   // Logo
   --fs-navbar-slider-logo-height                : 2.375rem;
   --fs-navbar-slider-logo-padding               : 0;
   --fs-navbar-slider-logo-margin-right          : var(--fs-spacing-5);
-
-  // Footer
-  --fs-navbar-slider-footer-padding-top         : var(--fs-spacing-2);
-  --fs-navbar-slider-footer-margin-top          : var(--fs-spacing-2);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -25,7 +25,7 @@
 
   padding: var(--fs-navbar-slider-padding);
 
-  [data-fs-slide-over-header] {
+  [data-fs-navbar-slider-header] {
     padding: 0;
     padding-bottom: var(--fs-navbar-slider-header-padding-bottom);
   }
