@@ -373,23 +373,21 @@ function Carousel({
       )}
 
       {showPaginationBullets && (
-        <div data-fs-carousel-bullets>
-          <CarouselBullets
-            tabIndex={0}
-            activeBullet={sliderState.currentPage}
-            totalQuantity={pagesCount}
-            onKeyDown={handleBulletsKeyDown}
-            onClick={async (_, idx) => {
-              isSlideCarousel &&
-                !sliderState.sliding &&
-                slide(idx, sliderDispatch)
+        <CarouselBullets
+          tabIndex={0}
+          activeBullet={sliderState.currentPage}
+          totalQuantity={pagesCount}
+          onKeyDown={handleBulletsKeyDown}
+          onClick={async (_, idx) => {
+            isSlideCarousel &&
+              !sliderState.sliding &&
+              slide(idx, sliderDispatch)
 
-              isScrollCarousel && onScrollPagination(idx)
-            }}
-            onFocus={(event) => event.currentTarget.focus()}
-            ariaControlsGenerator={(idx) => `carousel-item-${idx}`}
-          />
-        </div>
+            isScrollCarousel && onScrollPagination(idx)
+          }}
+          onFocus={(event) => event.currentTarget.focus()}
+          ariaControlsGenerator={(idx) => `carousel-item-${idx}`}
+        />
       )}
     </section>
   )

@@ -60,7 +60,7 @@ const CarouselBullets = forwardRef<HTMLDivElement, CarouselBulletsProps>(
     return (
       <div
         ref={ref}
-        data-fs-bullets
+        data-fs-carousel-bullets
         data-testid={testId}
         role="tablist"
         {...otherProps}
