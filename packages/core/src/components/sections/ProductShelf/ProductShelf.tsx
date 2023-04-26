@@ -3,7 +3,6 @@ import { useInView } from 'react-intersection-observer'
 
 import {
   ProductShelf as UIProductShelf,
-  ProductShelfItem,
   ProductShelfItems,
 } from '@faststore/ui'
 
@@ -65,13 +64,12 @@ function ProductShelf({
           <ProductShelfItems className="layout__content">
             <Carousel>
               {productEdges.map((product, idx) => (
-                <ProductShelfItem key={`${product.node.id}`}>
-                  <ProductCard
-                    product={product.node}
-                    index={idx + 1}
-                    aspectRatio={aspectRatio}
-                  />
-                </ProductShelfItem>
+                <ProductCard
+                  key={`${product.node.id}`}
+                  product={product.node}
+                  index={idx + 1}
+                  aspectRatio={aspectRatio}
+                />
               ))}
             </Carousel>
           </ProductShelfItems>
