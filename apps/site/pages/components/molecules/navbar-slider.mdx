@@ -53,7 +53,12 @@ This component is part of the [Navigation](/components/features/navigation) feat
 Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { NavbarSlider } from '@faststore/ui'
+import {
+  NavbarSlider,
+  NavbarSliderHeader,
+  NavbarSliderContent,
+  NavbarSliderFooter,
+} from '@faststore/ui'
 ```
 
 Import Styles
@@ -85,25 +90,25 @@ import '@faststore/ui/src/components/molecules/NavbarSlider/styles.scss'
       const { fade, fadeOut } = useFadeEffect()
 
       return (
-        <UINavbarSlider
+        <NavbarSlider
           fade={fade}
           onDismiss={fadeOut}
           onTransitionEnd={() => fade === 'out' && closeNavbar()}
         >
-          <UINavbarSliderHeader onClose={fadeOut}>
+          <NavbarSliderHeader onClose={fadeOut}>
             <IconButton
               onClick={fadeOut}
               aria-label="Logo"
               icon={<Icon name="Storefront" width={32} height={32} />}
             />
-          </UINavbarSliderHeader>
-          <UINavbarSliderContent>
+          </NavbarSliderHeader>
+          <NavbarSliderContent>
             <NavbarLinksUsage />
-          </UINavbarSliderContent>
-          <UINavbarSliderFooter>
+          </NavbarSliderContent>
+          <NavbarSliderFooter>
             <Button onClick={fadeOut}>Sign In</Button>
-          </UINavbarSliderFooter>
-        </UINavbarSlider>
+          </NavbarSliderFooter>
+        </NavbarSlider>
       )
     ```
 

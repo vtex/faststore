@@ -20,16 +20,19 @@ function NavbarUsage() {
   const { openNavbar, navbar: displayNavbar } = useUI()
 
   return (
-    <Navbar className="layout__content-full" scrollDirection={scrollDirection}>
+    <Navbar scrollDirection={scrollDirection}>
       <NavbarHeader>
-        <NavbarRow className="layout__content">
+        <NavbarRow>
           <IconButton
             data-fs-navbar-button-menu
             aria-label="Open Menu"
             icon={<Icon name="List" width={30} height={30} />}
             onClick={openNavbar}
           />
-          <Label className="hidden-mobile" style={{ marginRight: 25 }}>
+          <Label
+            className="hidden-mobile"
+            style={{ margin: 20, paddingLeft: 10 }}
+          >
             Storefront
           </Label>
 
