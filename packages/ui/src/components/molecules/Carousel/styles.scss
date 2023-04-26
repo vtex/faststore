@@ -120,6 +120,7 @@
     [data-fs-bullets] {
       display: flex;
       flex-flow: row nowrap;
+      column-gap: var(--fs-carousel-item-margin-right);
 
       @include media(">=tablet") {
         column-gap: var(--fs-spacing-3);
@@ -127,13 +128,11 @@
 
       [data-fs-bullet] {
         padding: 0;
-
         border-color: transparent;
+        width: var(--fs-carousel-bullet-width-mobile);
 
         &::after {
-          position: absolute;
-          top: auto;
-          width: var(--fs-carousel-bullet-width-mobile);
+          width: 100%;
           height: var(--fs-carousel-bullet-height-mobile);
           background-color: var(--fs-carousel-bullet-bkg-color);
           content: "";
@@ -143,6 +142,7 @@
             height: var(--fs-carousel-bullet-height-desktop);
             margin: 0;
             border-radius: var(--fs-carousel-bullet-border-radius);
+            content: "";
           }
         }
 
