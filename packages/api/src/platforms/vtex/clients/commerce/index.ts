@@ -180,11 +180,20 @@ export const VtexCommerce = (
         country,
         salesChannel,
       }: RegionInput): Promise<Region[]> => {
-        let queryParams = `country=${country}&sc=${salesChannel ?? ''}`
-        geoCoordinates
-          ? (queryParams += `&geoCoordinates=${geoCoordinates.longitude};${geoCoordinates.latitude}`)
-          : (queryParams += `&postalCode=${postalCode}`)
-        return fetchAPI(`${base}/api/checkout/pub/regions/?${queryParams}`)
+        const params = new URLSearchParams({
+          country: country,
+          sc: salesChannel ?? '',
+        })
+
+        postalCode
+          ? params.append('postalCode', postalCode)
+          : params.append(
+              'geoCoordinates',
+              `${geoCoordinates?.longitude};${geoCoordinates?.latitude}`
+            )
+
+        const url = `${base}/api/checkout/pub/regions/?${params.toString()}`
+        return fetchAPI(url)
       },
       address: async ({
         postalCode,

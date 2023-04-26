@@ -5,7 +5,7 @@ export interface Currency {
   symbol: string // Ex: $
 }
 
-export interface Geocoordinates {
+export interface GeoCoordinates {
   latitude: GLfloat
   longitude: GLfloat
 }
@@ -23,7 +23,7 @@ export interface Session {
   country: string // BRA
   channel: string | null
   postalCode: string | null
-  geoCoordinates: Geocoordinates | null
+  geoCoordinates: GeoCoordinates | null
   person: Person | null
 }
 
