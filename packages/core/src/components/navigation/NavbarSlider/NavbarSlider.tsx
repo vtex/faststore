@@ -1,34 +1,31 @@
 import { Suspense } from 'react'
 import {
-  SlideOver as UISlideOver,
-  SlideOverHeader as UISlideOverHeader,
+  useUI,
+  useFadeEffect,
+  NavbarSlider as UINavbarSlider,
+  NavbarSliderHeader as UINavbarSliderHeader,
+  NavbarSliderContent as UINavbarSliderContent,
+  NavbarSliderFooter as UINavbarSliderFooter,
 } from '@faststore/ui'
 
-import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
+import { mark } from 'src/sdk/tests/mark'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
-import { mark } from 'src/sdk/tests/mark'
-import { useUI } from '@faststore/ui'
-import { useFadeEffect } from '@faststore/ui'
+import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
 
-import styles from './navbar-slider.module.scss'
-import NavLinks from './NavLinks'
+import NavbarLinks from '../NavbarLinks'
 
 function NavbarSlider() {
   const { closeNavbar } = useUI()
   const { fade, fadeOut } = useFadeEffect()
 
   return (
-    <UISlideOver
-      isOpen
+    <UINavbarSlider
       fade={fade}
       onDismiss={fadeOut}
-      size="full"
-      direction="leftSide"
-      className={styles.fsNavbarSlider}
       onTransitionEnd={() => fade === 'out' && closeNavbar()}
     >
-      <UISlideOverHeader data-fs-navbar-slider-header onClose={fadeOut}>
+      <UINavbarSliderHeader onClose={fadeOut}>
         <Link
           href="/"
           onClick={fadeOut}
@@ -38,16 +35,16 @@ function NavbarSlider() {
         >
           <Logo />
         </Link>
-      </UISlideOverHeader>
-      <div data-fs-navbar-slider-content>
-        <NavLinks onClickLink={fadeOut} />
-      </div>
-      <footer data-fs-navbar-slider-footer>
+      </UINavbarSliderHeader>
+      <UINavbarSliderContent>
+        <NavbarLinks onClickLink={fadeOut} />
+      </UINavbarSliderContent>
+      <UINavbarSliderFooter>
         <Suspense fallback={<ButtonSignInFallback />}>
           <ButtonSignIn />
         </Suspense>
-      </footer>
-    </UISlideOver>
+      </UINavbarSliderFooter>
+    </UINavbarSlider>
   )
 }
 
