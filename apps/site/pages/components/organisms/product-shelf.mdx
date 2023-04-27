@@ -12,15 +12,6 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import {
-  ProductShelf,
-  ProductShelfItems,
-  ProductShelfItem,
-  ProductCard,
-  ProductCardContent,
-  ProductCardImage,
-  Carousel,
-} from '@faststore/ui'
 
 import ProductShelfUsage from 'site/components/ProductShelf/ProductShelfUsage'
 import ProductShelfCarouselUsage from 'site/components/ProductShelf/ProductShelfCarouselUsage'
@@ -113,7 +104,7 @@ import '@faststore/ui/src/components/organisms/ProductShelf/styles.scss'
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <ProductShelfUsage />
+      <ProductShelfUsage items={6}/>
     </OverviewSection>
   </Tab>
   <Tab>
@@ -198,7 +189,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <ProductShelfUsage withButton/>
+      <ProductShelfUsage withButton items={4}/>
     </OverviewSection>
 
   </Tab>
@@ -240,7 +231,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-     <ProductShelfUsage bordered/>
+     <ProductShelfUsage bordered items={4}/>
     </OverviewSection>
 
   </Tab>
@@ -317,7 +308,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
   </Tab>
 </Tabs>
 
-### With Carousel
+### With [Carousel](/components/molecules/carousel)
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>

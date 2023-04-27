@@ -16,18 +16,23 @@ export interface ProductShelfUsageProps {
   withButton?: boolean
   bordered?: boolean
   aspectRatio?: number
+  items?: number
 }
 
 const ProductShelfUsage = ({
   withButton,
   bordered,
   aspectRatio,
+  items = 10,
 }: ProductShelfUsageProps) => {
+  const productsArray = items ? products.slice(0, items) : products
+  // const newArray = slicedArray.map(obj => ({ ...obj }));
+
   return (
     <ProductShelf>
       <ProductShelfItems>
-        {products.map(({ product }, idx) => (
-          <ProductShelfItem>
+        {productsArray.map(({ product }, idx) => (
+          <ProductShelfItem key={idx}>
             <ProductCard bordered={bordered}>
               <ProductCardImage aspectRatio={aspectRatio}>
                 <img
