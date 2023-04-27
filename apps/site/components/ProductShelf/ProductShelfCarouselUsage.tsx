@@ -17,35 +17,31 @@ const ProductShelfCarouselUsage = () => {
 
   return (
     <ProductShelf>
-      <ProductShelfItems
-        style={{ width: '100%', overflow: 'hidden', padding: '0 30px' }}
+      <Carousel
+        itemsPerPage={isMobile ? 1 : 3}
+        variant="scroll"
+        infiniteMode={false}
       >
-        <Carousel
-          itemsPerPage={isMobile ? 1 : 3}
-          variant="scroll"
-          infiniteMode={false}
-        >
-          {products.map(({ product }, idx) => (
-            <ProductCard>
-              <ProductCardImage>
-                <img
-                  data-fs-image
-                  src={product.image[0].url}
-                  alt={product.image[0].alternateName}
-                />
-              </ProductCardImage>
-              <ProductCardContent
-                title={product.isVariantOf.name}
-                price={{
-                  value: product.offers.offers[0].price,
-                  listPrice: product.offers.offers[0].listPrice,
-                  formatter: useFormattedPrice,
-                }}
+        {products.map(({ product }, idx) => (
+          <ProductCard>
+            <ProductCardImage>
+              <img
+                data-fs-image
+                src={product.image[0].url}
+                alt={product.image[0].alternateName}
               />
-            </ProductCard>
-          ))}
-        </Carousel>
-      </ProductShelfItems>
+            </ProductCardImage>
+            <ProductCardContent
+              title={product.isVariantOf.name}
+              price={{
+                value: product.offers.offers[0].price,
+                listPrice: product.offers.offers[0].listPrice,
+                formatter: useFormattedPrice,
+              }}
+            />
+          </ProductCard>
+        ))}
+      </Carousel>
     </ProductShelf>
   )
 }
