@@ -32,8 +32,8 @@ import GlobalSections, {
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductDetails,
-  BannerNewsletter,
   CrossSellingShelf,
+  BannerNewsletter,
   ...CUSTOM_COMPONENTS,
 }
 

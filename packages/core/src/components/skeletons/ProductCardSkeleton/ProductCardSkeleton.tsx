@@ -1,7 +1,5 @@
 import { Skeleton as UISkeleton } from '@faststore/ui'
 
-import styles from './product-card-skeleton.module.scss'
-
 interface ProductCardSkeletonProps {
   /**
    * Specifies if the component should have a preset border.
@@ -34,7 +32,6 @@ function ProductCardSkeleton({
 }: ProductCardSkeletonProps) {
   return (
     <div
-      className={styles.fsProductCardSkeleton}
       data-fs-product-card-skeleton
       data-fs-product-card-skeleton-variant={variant}
       data-fs-product-card-skeleton-bordered={bordered}

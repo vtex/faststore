@@ -1,9 +1,10 @@
+import type { HTMLAttributes, PropsWithChildren, ReactNode } from 'react'
 import React from 'react'
-import type { PropsWithChildren, ReactNode } from 'react'
 
 import {
   Alert,
   Badge,
+  OverlayProps,
   SlideOver,
   SlideOverHeader,
   useFadeEffect,
@@ -12,7 +13,7 @@ import {
 
 import { SlideOverDirection, SlideOverWidthSize } from '../SlideOver'
 
-export interface CartSidebarProps {
+export interface CartSidebarProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -43,6 +44,10 @@ export interface CartSidebarProps {
    */
   alertText?: string
   /**
+   * Props forwarded to the `Overlay` component.
+   */
+  overlayProps?: OverlayProps
+  /**
    * Function called when Close Button is clicked.
    */
   onClose: () => void
@@ -57,7 +62,9 @@ function CartSidebar({
   children,
   alertIcon,
   alertText,
+  overlayProps,
   onClose,
+  ...otherProps
 }: PropsWithChildren<CartSidebarProps>) {
   const { fade, fadeOut } = useFadeEffect()
   const { closeCart } = useUI()
@@ -72,6 +79,8 @@ function CartSidebar({
       direction={direction}
       onTransitionEnd={() => fade === 'out' && closeCart()}
       testId={testId}
+      overlayProps={overlayProps}
+      {...otherProps}
     >
       <SlideOverHeader
         closeBtnProps={{ testId: 'fs-cart-sidebar-button-close' }}

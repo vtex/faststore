@@ -1,9 +1,9 @@
-import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
-import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import {
   ProductGrid as UIProductGrid,
   ProductGridItem as UIProductGridItem,
 } from '@faststore/ui'
+import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
 import ProductCard from '../ProductCard'
 
@@ -21,8 +21,6 @@ interface Props {
 
 function ProductGrid({ products, page, pageSize }: Props) {
   const aspectRatio = 1
-
-  console.log(products)
 
   return (
     <ProductGridSkeleton

@@ -1,10 +1,11 @@
 import { gql } from '@faststore/graphql-utils'
-
 import { useUI } from '@faststore/ui'
 import type { Filter_FacetsFragment } from '@generated/graphql'
+import { lazy, Suspense } from 'react'
 import FilterDesktop from './FilterDesktop'
-import FilterSlider from './FilterSlider'
 import { useFilter } from './useFilter'
+
+const FilterSlider = lazy(() => import('./FilterSlider'))
 
 interface Props {
   /**
@@ -29,7 +30,9 @@ function Filter({ facets: allFacets, testId = 'fs-filter' }: Props) {
       </div>
 
       {displayFilter && (
-        <FilterSlider {...filter} testId={testId} title="Filters" />
+        <Suspense fallback={null}>
+          <FilterSlider {...filter} testId={testId} title="Filters" />
+        </Suspense>
       )}
     </>
   )

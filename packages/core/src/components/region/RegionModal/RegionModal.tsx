@@ -1,7 +1,9 @@
-import { useRef, useState } from 'react'
 import { RegionModal as UIRegionModal } from '@faststore/ui'
+import { useRef, useState } from 'react'
 
 import { sessionStore, useSession, validateSession } from 'src/sdk/session'
+
+import styles from './section.module.scss'
 
 function RegionModal() {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -34,6 +36,9 @@ function RegionModal() {
 
   return (
     <UIRegionModal
+      overlayProps={{
+        className: `section ${styles.section} section-region-modal`,
+      }}
       inputRef={inputRef}
       inputValue={input}
       errorMessage={errorMessage}

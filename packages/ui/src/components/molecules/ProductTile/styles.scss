@@ -1,0 +1,79 @@
+[data-fs-product-tile-skeleton] {
+  // --------------------------------------------------------
+  // Design Tokens for Product Tile Skeleton
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-product-tile-skeleton-gap                                : var(--fs-spacing-1);
+
+  // Content
+  --fs-product-tile-skeleton-content-padding                    : var(--fs-spacing-3);
+
+  // Wide
+  --fs-product-tile-skeleton-wide-padding                       : var(--fs-spacing-2) var(--fs-spacing-3) var(--fs-spacing-3);
+  --fs-product-tile-skeleton-wide-bkg-color                     : var(--fs-color-neutral-bkg);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+
+  @include media(">=tablet") {
+    display: grid;
+    grid-auto-rows: 62% auto;
+    [data-fs-product-card-image] { height: 100%; }
+  }
+
+  @include media(">=notebook") { grid-auto-rows: 80% auto; }
+
+  [data-fs-product-tile-skeleton-content] {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--fs-product-tile-skeleton-gap);
+    padding: var(--fs-product-tile-skeleton-content-padding);
+    background-color: var(--fs-product-tile-skeleton-wide-bkg-color);
+
+    @include media(">=notebook") {
+      flex-direction: row;
+      justify-content: space-between;
+      height: 100%;
+    }
+  }
+
+  [data-fs-product-tile-skeleton-heading] {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--fs-product-tile-skeleton-gap);
+    width: 100%;
+  }
+
+  [data-fs-product-tile-skeleton-badge] {
+    max-width: 100%;
+  }
+
+  [data-fs-product-tile-skeleton-image] {
+    width: 100%;
+    aspect-ratio: var(--fs-product-tile-skeleton-image-aspect-ratio);
+    overflow: hidden;
+
+    [data-fs-skeleton-variant="image"] { border-radius: 0; }
+
+    @include media(">=tablet") { height: 100%; }
+  }
+
+  [data-fs-product-tile-skeleton-image],
+  [data-fs-product-tile-skeleton-badge] {
+    [data-fs-skeleton-wrapper],
+    [data-fs-skeleton] {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

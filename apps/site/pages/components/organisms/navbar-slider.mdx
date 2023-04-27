@@ -1,0 +1,215 @@
+---
+description: As part of the Navbar, this component it its mobile version used to list the navigation links.
+---
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { Callout, Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import NavbarSliderUsage from 'site/components/Navigation/NavbarSliderUsage'
+import NavbarLinksUsage from 'site/components/Navigation/NavbarLinksUsage'
+import NavbarUsage from 'site/components/Navigation/NavbarUsage'
+import { Navbar, NavbarSlider, UIProvider } from '@faststore/ui'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const navbarSliderPath = path.resolve(__filename)
+  const components = ['NavbarSlider.tsx']
+  const [navbarSliderProps] = getComponentPropsFrom(
+    navbarSliderPath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        navbarSliderProps,
+      },
+    },
+  }
+}
+
+export const NavbarSliderPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { navbarSliderProps } = useSSG()
+  return {
+    NavbarSlider: <PropsSection propsList={navbarSliderProps} />,
+  }[component]
+}
+
+<header>
+
+# Navbar Slider
+
+As part of the [Navbar](/components/organisms/navbar), this component is its **mobile version** used to list the navigation links (through the [NavbarLinks](/components/molecules/navbar-links)).
+
+This component is part of the [Navigation](/components/features/navigation) feature and must be used in the [Navbar](/components/organisms/navbar) context.
+
+</header>
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import {
+  NavbarSlider,
+  NavbarSliderHeader,
+  NavbarSliderContent,
+  NavbarSliderFooter,
+} from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/organisms/NavbarSlider/styles.scss'
+```
+
+---
+
+## Usage
+
+<Callout type="warning" emoji="⚠️">
+  This component is intended to be used only in the **mobile version**, but it
+  can be adapted to a desktop version by customizing the component styles.
+</Callout>
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection containerStyle={{ display: 'block' }}>
+      <UIProvider>
+        <NavbarSliderUsage />
+      </UIProvider>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+      const { closeNavbar } = useUI()
+      const { fade, fadeOut } = useFadeEffect()
+
+      return (
+        <NavbarSlider
+          fade={fade}
+          onDismiss={fadeOut}
+          onTransitionEnd={() => fade === 'out' && closeNavbar()}
+        >
+          <NavbarSliderHeader onClose={fadeOut}>
+            <IconButton
+              onClick={fadeOut}
+              aria-label="Logo"
+              icon={<Icon name="Storefront" width={32} height={32} />}
+            />
+          </NavbarSliderHeader>
+          <NavbarSliderContent>
+            <NavbarLinksUsage />
+          </NavbarSliderContent>
+          <NavbarSliderFooter>
+            <Button onClick={fadeOut}>Sign In</Button>
+          </NavbarSliderFooter>
+        </NavbarSlider>
+      )
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+### Navbar Slider
+
+<NavbarSliderPropsSection component="NavbarSlider" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-navbar-slider-padding" value="var(--fs-spacing-3)" />
+</TokenTable>
+
+## Nested Elements
+
+### Header
+
+<TokenTable>
+  <TokenRow
+    token="--fs-navbar-slider-header-padding-bottom"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-navbar-slider-header-button-margin-right"
+    value="calc(-1 * var(--fs-spacing-1))"
+  />
+</TokenTable>
+
+### Footer
+
+<TokenTable>
+  <TokenRow
+    token="--fs-navbar-slider-footer-padding-top"
+    value="var(--fs-navbar-slider-header-padding-bottom)"
+  />
+  <TokenRow
+    token="--fs-navbar-slider-footer-margin-top"
+    value="var(--fs-navbar-slider-header-padding-bottom)"
+  />
+</TokenTable>
+
+### Logo
+
+<TokenTable>
+  <TokenRow token="--fs-navbar-slider-logo-height" value="2.375rem" />
+  <TokenRow token="--fs-navbar-slider-logo-padding" value="0" />
+  <TokenRow
+    token="--fs-navbar-slider-logo-margin-right"
+    value="var(--fs-spacing-5)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-navbar-slider`
+
+`data-fs-navbar-slider-header`
+
+`data-fs-navbar-slider-content`
+
+`data-fs-navbar-slider-footer`
+
+---
+
+## Related components
+
+<SectionList grid="column" columns={1}>
+  <SectionItem
+    title="Navbar"
+    description="Represents the page header and groups features like Search and Regionalization."
+    actionPath="/components/organisms/navbar"
+  >
+    <UIProvider>
+      <NavbarUsage />
+    </UIProvider>
+  </SectionItem>
+  <SectionItem
+    title="NavbarLinks"
+    description="Displays a set of navigation links."
+    actionPath="/components/molecules/navbar-links"
+  >
+    <UIProvider>
+      <Navbar>
+        <NavbarLinksUsage />
+      </Navbar>
+    </UIProvider>
+  </SectionItem>
+</SectionList>

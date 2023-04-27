@@ -1,0 +1,56 @@
+[data-fs-product-card-skeleton] {
+  // --------------------------------------------------------
+  // Design Tokens for Product Card Skeleton
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-product-card-skeleton-padding                   : var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-2);
+  --fs-product-card-skeleton-border-radius             : var(--fs-border-radius);
+  --fs-product-card-skeleton-gap                       : var(--fs-spacing-1);
+
+  // Sectioned
+  --fs-product-card-skeleton-sectioned-min-width       : 10rem;
+
+  // Bordered
+  --fs-product-card-skeleton-bordered                  : var(--fs-border-width) solid var(--fs-border-color-light);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--fs-product-card-skeleton-gap);
+  padding: var(--fs-product-card-skeleton-padding);
+  overflow: hidden;
+  border-radius: var(--fs-product-card-skeleton-border-radius);
+
+  [data-fs-product-card-skeleton-content] {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--fs-product-card-skeleton-gap);
+  }
+
+  [data-fs-product-card-skeleton-image] {
+    aspect-ratio: var(--fs-product-card-skeleton-image-aspect-ratio);
+
+    [data-fs-skeleton-wrapper],
+    [data-fs-skeleton] {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-product-card-skeleton-sectioned="true"] {
+    min-width: var(--fs-product-card-skeleton-sectioned-min-width);
+  }
+
+  &[data-fs-product-card-skeleton-bordered="true"] {
+    border: var(--fs-product-card-skeleton-bordered);
+  }
+}

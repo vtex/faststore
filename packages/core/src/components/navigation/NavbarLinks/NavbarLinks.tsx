@@ -2,7 +2,6 @@ import type { AnchorHTMLAttributes } from 'react'
 
 import type { NavbarLinksProps as UINavbarLinksProps } from '@faststore/ui'
 import {
-  List as UIList,
   NavbarLinks as UINavbarLinks,
   NavbarLinksList as UINavbarLinksList,
   NavbarLinksListItem as UINavbarLinksListItem,
