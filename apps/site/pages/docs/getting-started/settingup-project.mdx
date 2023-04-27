@@ -236,6 +236,8 @@ Let's make the first level of customization which is update the store's theme wi
   }
 }
 
+```
+
 3. Add the [Lato](https://fonts.google.com/specimen/Lato?query=lato) font on `src/fonts/WebFonts.tsx`:
 
 ```tsx
@@ -253,15 +255,21 @@ Let's make the first level of customization which is update the store's theme wi
 
 5. Save your changes and check your browser to see the changes you have made. You may need to refresh the page.
 
-Now, let's override the theme by changing the first color palette (`--fs-color-main-0: #ecf0ff`).
+Now, let's customize a component. For this tutorial we will use the `Listing` variant from the [Price Component](https://evergreen.faststore.dev/components/atoms/price).
 
-6. Change the color code to `#8db6fa`:
+6. In the `soft-blue.scss` file, below `[data-fs-logo]`, add the `Listing` variant:
 
 ```scss
   ...
-   // PALETTE
-  --fs-color-main-0: ##8db6fa;
-  ...
+  [data-fs-logo] {
+    --fs-logo-img: url('~/public/brandless-positive.png');
+    --fs-logo-width: 8rem;
+  }
+  
+  [data-fs-price-variant="listing"]: {
+    --fs-price-listing-color: #cb4242
+  }
+  
 ```
 
-7. Save your changes and check your browser to see the changes you have made. You may need to refresh the page.
+7. Save your changes and check your browser to see the new color of your listing price. You may need to refresh the page.
