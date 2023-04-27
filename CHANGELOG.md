@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.121-alpha.0](https://github.com/vtex/faststore/compare/v2.0.120-alpha.0...v2.0.121-alpha.0) (2023-04-27)
+
+**Note:** Version bump only for package faststore
+
+## [2.0.120-alpha.0](https://github.com/vtex/faststore/compare/v2.0.119-alpha.0...v2.0.120-alpha.0) (2023-04-27)
+
+### Features
+
+- Integrates Global Sections, with Alert component ([#1722](https://github.com/vtex/faststore/issues/1722)) ([da38b2a](https://github.com/vtex/faststore/commit/da38b2af3db5bd6abd57707d11d67d7463d5fa12))
+
+## [2.0.119-alpha.0](https://github.com/vtex/faststore/compare/v2.0.118-alpha.0...v2.0.119-alpha.0) (2023-04-27)
+
+**Note:** Version bump only for package faststore
+
+## [2.0.118-alpha.0](https://github.com/vtex/faststore/compare/v2.0.117-alpha.0...v2.0.118-alpha.0) (2023-04-26)
+
+**Note:** Version bump only for package faststore
+
+## [2.0.117-alpha.0](https://github.com/vtex/faststore/compare/v2.0.116-alpha.0...v2.0.117-alpha.0) (2023-04-26)
+
+### Features
+
+- Adds `Navbar`, `NavbarSlider` and `NavbarLinks` components ([#1728](https://github.com/vtex/faststore/issues/1728)) ([30e3f59](https://github.com/vtex/faststore/commit/30e3f59fa75abe6d4155541615c30ccf9618be42))
+
+## [2.0.116-alpha.0](https://github.com/vtex/faststore/compare/v2.0.115-alpha.0...v2.0.116-alpha.0) (2023-04-26)
+
+### Bug Fixes
+
+- Send missing `colorVariant` attribute to `BannerText` ([#1733](https://github.com/vtex/faststore/issues/1733)) ([ddaaaf1](https://github.com/vtex/faststore/commit/ddaaaf1c3e8daa51ea07f4e419f5d2549bf73c12))
+
+## [2.0.115-alpha.0](https://github.com/vtex/faststore/compare/v2.0.114-alpha.0...v2.0.115-alpha.0) (2023-04-25)
+
+### Chores
+
+- adds shouldSplitItem as true by default ([#1725](https://github.com/vtex/faststore/issues/1725)) ([c796d72](https://github.com/vtex/faststore/commit/c796d72ab49c5eb79d305b5e4b1946b6645be0de))
+
 ## [2.0.114-alpha.0](https://github.com/vtex/faststore/compare/v2.0.113-alpha.0...v2.0.114-alpha.0) (2023-04-24)
 
 **Note:** Version bump only for package faststore

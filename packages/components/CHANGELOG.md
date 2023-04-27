@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.117-alpha.0](https://github.com/vtex/faststore/compare/v2.0.116-alpha.0...v2.0.117-alpha.0) (2023-04-26)
+
+### Features
+
+- Adds `Navbar`, `NavbarSlider` and `NavbarLinks` components ([#1728](https://github.com/vtex/faststore/issues/1728)) ([30e3f59](https://github.com/vtex/faststore/commit/30e3f59fa75abe6d4155541615c30ccf9618be42))
+
 ## [2.0.114-alpha.0](https://github.com/vtex/faststore/compare/v2.0.113-alpha.0...v2.0.114-alpha.0) (2023-04-24)
 
 **Note:** Version bump only for package @faststore/components

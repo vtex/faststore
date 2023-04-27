@@ -30,7 +30,16 @@ module.exports = {
     channel: '{"salesChannel":"1","regionId":""}',
     country: 'USA',
     postalCode: null,
+    geoCoordinates: null,
     person: null,
+  },
+
+  // Default cart
+  cart: {
+    id: '',
+    items: [],
+    messages: [],
+    shouldSplitItem: true,
   },
 
   // Production URLs
