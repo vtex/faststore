@@ -1,16 +1,16 @@
 import { PropsWithChildren, useMemo } from 'react'
 
 import { Locator, Section } from '@vtex/client-cms'
-import { PageContentType, getPage } from 'src/server/cms'
-import CUSTOM_COMPONENTS from 'src/customizations/components'
 import type { ComponentType } from 'react'
+import CUSTOM_COMPONENTS from 'src/customizations/components'
+import { PageContentType, getPage } from 'src/server/cms'
 
-import RenderSections from './RenderSections'
-import { RegionBar } from '@faststore/components'
-import Alert from 'src/components/sections/Alert/Alert'
-import Navbar from 'src/components/navigation/Navbar'
 import Footer from 'src/components/common/Footer'
+import RegionBar from 'src/components/common/RegionBar'
 import Toast from 'src/components/common/Toast'
+import Navbar from 'src/components/navigation/Navbar'
+import Alert from 'src/components/sections/Alert/Alert'
+import RenderSections from './RenderSections'
 
 // TODO: When the CMS is finished, switch to using 'globalSections'.
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalAlert'
