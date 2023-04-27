@@ -6,7 +6,6 @@ import {
   ProductCardImage,
   ProductCardContent,
   ProductShelf,
-  ProductShelfItems,
 } from '@faststore/ui'
 
 import { products } from 'site/mocks/products'
@@ -23,7 +22,7 @@ const ProductShelfCarouselUsage = () => {
         infiniteMode={false}
       >
         {products.map(({ product }, idx) => (
-          <ProductCard>
+          <ProductCard bordered>
             <ProductCardImage>
               <img
                 data-fs-image
