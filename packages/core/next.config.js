@@ -8,6 +8,8 @@ const nextConfig = {
   /* config options here */
   images: {
     domains: [`${storeConfig.api.storeId}.vtexassets.com`],
+    deviceSizes: [320, 768, 1280, 1440],
+    imageSizes: [34, 68, 154],
   },
   i18n: {
     locales: ['en-US'],
