@@ -237,4 +237,192 @@ export const products = [
       },
     },
   },
+  {
+    product: {
+      id: '87981474',
+      slug: 'anker-soundcore-87981474',
+      sku: '87981474',
+      brand: {
+        brandName: 'Anker',
+        name: 'Anker',
+      },
+      name: 'black',
+      gtin: '0229992218354',
+      isVariantOf: {
+        productGroupID: '56283753',
+        name: 'Anker SoundCore Liberty Air',
+      },
+      image: [
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/179130/sint.jpg?v=1757911413',
+          alternateName: 'quidem',
+        },
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/179129/voluptatibus.jpg?v=1757911413',
+          alternateName: 'eos',
+        },
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/179128/ipsa.jpg?v=1757911413',
+          alternateName: 'fugiat',
+        },
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/179127/vero.jpg?v=1757911413',
+          alternateName: 'et',
+        },
+      ],
+      offers: {
+        lowPrice: 486.34,
+        offers: [
+          {
+            availability: 'https://schema.org/InStock',
+            price: 486.34,
+            listPrice: 643.71,
+            quantity: 10000,
+            seller: {
+              identifier: '1',
+            },
+          },
+        ],
+      },
+    },
+  },
+  {
+    product: {
+      id: '88944938',
+      slug: 'fujifilm-x-t1-camera-88944938',
+      sku: '88944938',
+      brand: {
+        brandName: 'Brand',
+        name: 'Brand',
+      },
+      name: 'grey',
+      gtin: '8753164167181',
+      isVariantOf: {
+        productGroupID: '53289198',
+        name: 'Fujifilm X-T1 Camera',
+      },
+      image: [
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/171611/eius.jpg?v=1757657196',
+          alternateName: 'dolore',
+        },
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/171610/debitis.jpg?v=1757657196',
+          alternateName: 'optio',
+        },
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/171609/possimus.jpg?v=1757657196',
+          alternateName: 'iste',
+        },
+      ],
+      offers: {
+        lowPrice: 366.11,
+        offers: [
+          {
+            availability: 'https://schema.org/InStock',
+            price: 366.11,
+            listPrice: 495.97,
+            quantity: 10000,
+            seller: {
+              identifier: '1',
+            },
+          },
+        ],
+      },
+    },
+  },
+  {
+    product: {
+      id: '16638483',
+      slug: 'awesome-wooden-computer-16638483',
+      sku: '16638483',
+      brand: {
+        brandName: 'SANDMARC',
+        name: 'SANDMARC',
+      },
+      name: 'white',
+      gtin: '7664677012734',
+      isVariantOf: {
+        productGroupID: '43911568',
+        name: 'SANDMARC Fisheye Lens',
+      },
+      image: [
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/159818/debitis.jpg?v=1757639123',
+          alternateName: 'culpa',
+        },
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/159817/incidunt.jpg?v=1757639123',
+          alternateName: 'aut',
+        },
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/159816/ipsam.jpg?v=1757639123',
+          alternateName: 'quia',
+        },
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/159815/pariatur.jpg?v=1757639123',
+          alternateName: 'et',
+        },
+      ],
+      offers: {
+        lowPrice: 636.05,
+        offers: [
+          {
+            availability: 'https://schema.org/InStock',
+            price: 636.05,
+            listPrice: 946.73,
+            quantity: 10000,
+            seller: {
+              identifier: '1',
+            },
+          },
+        ],
+      },
+    },
+  },
+  {
+    product: {
+      id: '61060873',
+      slug: 'incredible-cotton-computer-refined-61060873',
+      sku: '61060873',
+      brand: {
+        brandName: 'Acer',
+        name: 'Acer',
+      },
+      name: 'maroon',
+      gtin: '8967496666683',
+      isVariantOf: {
+        productGroupID: '7917726',
+        name: 'Apple AirTag',
+      },
+      image: [
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/181988/nulla.jpg?v=1757915578',
+          alternateName: 'odio',
+        },
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/181987/eveniet.jpg?v=1757915578',
+          alternateName: 'aspernatur',
+        },
+        {
+          url: 'https://storeframework.vtexassets.com/arquivos/ids/181986/laudantium.jpg?v=1757915578',
+          alternateName: 'dolores',
+        },
+      ],
+      offers: {
+        lowPrice: 426.14,
+        offers: [
+          {
+            availability: 'https://schema.org/InStock',
+            price: 426.14,
+            listPrice: 679.29,
+            quantity: 10000,
+            seller: {
+              identifier: '1',
+            },
+          },
+        ],
+      },
+    },
+  },
 ]
