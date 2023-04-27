@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.122-alpha.0](https://github.com/vtex/faststore/compare/v2.0.121-alpha.0...v2.0.122-alpha.0) (2023-04-27)
+
+### Bug Fixes
+
+- LH Unused CSS + Organizes CMS Sections and components styles. ([#1712](https://github.com/vtex/faststore/issues/1712)) ([0ab1fa8](https://github.com/vtex/faststore/commit/0ab1fa805e41a53f21cbe26dc5143f853b64dc00))
+
 ## [2.0.119-alpha.0](https://github.com/vtex/faststore/compare/v2.0.118-alpha.0...v2.0.119-alpha.0) (2023-04-27)
 
 **Note:** Version bump only for package site
