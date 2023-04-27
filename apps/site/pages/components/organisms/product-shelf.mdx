@@ -322,7 +322,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
      const isMobile = window.innerWidth <= 768
 
       <ProductShelf>
-        <ProductShelfItems style={{ width: '100%', overflow: 'hidden' }}>
+        <ProductShelfItems style={{ width: '100%', overflow: 'hidden', padding: '0 30px' }}>
           {/* Not using `ProductShelfItem` component here to avoid
           `validateDOMNesting(...):<li> cannot appear as a descendant of <li>` issue. */}
           <Carousel

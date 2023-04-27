@@ -17,7 +17,9 @@ const ProductShelfCarouselUsage = () => {
 
   return (
     <ProductShelf>
-      <ProductShelfItems style={{ width: '100%', overflow: 'hidden' }}>
+      <ProductShelfItems
+        style={{ width: '100%', overflow: 'hidden', padding: '0 30px' }}
+      >
         <Carousel
           itemsPerPage={isMobile ? 1 : 3}
           variant="scroll"

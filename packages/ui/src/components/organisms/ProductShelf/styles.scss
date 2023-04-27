@@ -6,19 +6,18 @@
   --fs-product-shelf-items-gap              : var(--fs-grid-gap-1);
   --fs-product-shelf-items-padding-top      : var(--fs-spacing-0);
   --fs-product-shelf-items-padding-bottom   : var(--fs-spacing-3);
-  --fs-product-shelf-items-left             : calc(-1 * var(--fs-spacing-1));
 
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
+
+  width: 100%;
 
   [data-fs-product-shelf-items] {
     display: flex;
     align-items: stretch;
     overflow-x: auto;
     position: relative;
-    // left: var(--fs-product-shelf-items-left);
-
 
     [data-fs-product-shelf-item] { width: 100%; }
 
