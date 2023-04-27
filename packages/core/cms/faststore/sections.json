@@ -991,6 +991,14 @@
     }
   },
   {
+    "name": "Children",
+    "schema": {
+      "title": "Children",
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
     "name": "BannerNewsletter",
     "schema": {
       "title": "Banner Newsletter",
