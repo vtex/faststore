@@ -72,6 +72,10 @@ function ProductShelf({
                   product={product.node}
                   index={idx + 1}
                   aspectRatio={aspectRatio}
+                  imgProps={{
+                    width: 216,
+                    height: 216,
+                  }}
                 />
               </ProductShelfItem>
             ))}

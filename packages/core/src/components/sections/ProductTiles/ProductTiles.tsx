@@ -33,6 +33,26 @@ const getRatio = (products: number, idx: number) => {
   return 3 / 4
 }
 
+const getSizes = (products: number, idx: number) => {
+  const expandsFirstTile =
+    products === NUMBER_ITEMS_TO_EXPAND_FIRST && idx === 0
+
+  const expandsFirstTwoTile =
+    products === NUMBER_ITEMS_TO_EXPAND_FIRST_TWO && (idx === 0 || idx === 1)
+
+  if (expandsFirstTile || expandsFirstTwoTile) {
+    return {
+      width: 594,
+      height: 364,
+    }
+  }
+
+  return {
+    width: 284,
+    height: 364,
+  }
+}
+
 const ProductTiles = ({ title, ...variables }: ProductTilesProps) => {
   const viewedOnce = useRef(false)
   const { ref, inView } = useInView()
@@ -75,6 +95,7 @@ const ProductTiles = ({ title, ...variables }: ProductTilesProps) => {
                   index={idx + 1}
                   variant="wide"
                   aspectRatio={getRatio(productEdges.length, idx)}
+                  imgProps={getSizes(productEdges.length, idx)}
                 />
               </Tile>
             ))}
