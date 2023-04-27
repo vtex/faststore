@@ -23,6 +23,7 @@
 
   --fs-carousel-controls-control-left     : var(--fs-spacing-4);
   --fs-carousel-controls-control-right    : var(--fs-carousel-controls-control-left);
+  --fs-carousel-controls-control-max-left : calc((var(--fs-grid-max-width)/2) - var(--fs-spacing-11));
 
   // Bullets
   --fs-carousel-bullets-padding-top       : var(--fs-carousel-controls-control-left);
@@ -69,11 +70,19 @@
         [data-fs-carousel-control="left"] {
           position: absolute;
           left: var(--fs-carousel-controls-control-right);
+
+          @include media(">desktop") {
+            left: var(--fs-carousel-controls-control-max-left);
+          }
         }
 
         [data-fs-carousel-control="right"] {
           position: absolute;
           right: var(--fs-carousel-controls-control-right);
+
+          @include media(">desktop") {
+            right: var(--fs-carousel-controls-control-max-left);
+          }
         }
 
         [data-fs-icon] {
