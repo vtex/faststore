@@ -137,17 +137,27 @@ For the mobile preview, please refresh the browser after resize it.
 #### Track
 
 <TokenTable>
-  <TokenRow token="--fs-carousel-padding-desktop" value="0" />
+  <TokenRow
+    token="--fs-carousel-padding-mobile"
+    value="0 var(--fs-grid-padding)"
+  />
+</TokenTable>
+<TokenTable>
+  <TokenRow
+    token="--fs-carousel-padding-desktop"
+    value="0 calc((100vw - 1230px)/2)"
+  />
 </TokenTable>
 
 #### Item
 
 <TokenTable>
-  <TokenRow token="--fs-carousel-item-width-mobile" value="80%" />
-  <TokenRow token="--fs-carousel-item-width-desktop" value="15rem" />
+  <TokenRow token="--fs-carousel-item-width-mobile" value="60%" />
+  <TokenRow token="--fs-carousel-item-width-tablet" value="14.2rem" />
+  <TokenRow token="--fs-carousel-item-width-desktop" value="14.4rem" />
   <TokenRow
     token="--fs-carousel-item-margin-right"
-    value="var(--fs-spacing-0)"
+    value="var(--fs-spacing-3)"
   />
 </TokenTable>
 
@@ -189,6 +199,14 @@ For the mobile preview, please refresh the browser after resize it.
   <TokenRow
     token="--fs-carousel-bullets-padding-top"
     value="var(--fs-carousel-controls-control-left)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullets-padding-left"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullets-padding-right"
+    value="var(--fs-carousel-bullets-padding-left)"
   />
   <TokenRow
     token="--fs-carousel-bullets-column-gap-mobile"
