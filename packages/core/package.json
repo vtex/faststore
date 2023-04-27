@@ -32,7 +32,7 @@
     "@faststore/api": "^2.0.118-alpha.0",
     "@faststore/components": "^2.0.117-alpha.0",
     "@faststore/graphql-utils": "^2.0.3-alpha.0",
-    "@faststore/sdk": "^2.0.3-alpha.0",
+    "@faststore/sdk": "^2.0.118-alpha.0",
     "@faststore/ui": "^2.0.117-alpha.0",
     "@types/react": "^18.0.14",
     "@vtex/client-cms": "^0.2.12",
