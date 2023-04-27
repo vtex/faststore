@@ -16,69 +16,10 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
-  /**
-   * Example:
-   *
-   * ```json
-   * {
-   *   Color: 'Red', Size: '42'
-   * }
-   * ```
-   */
   ActiveVariations: any
-  /**
-   * Example:
-   *
-   * ```json
-   * {
-   *   Color: [
-   *     {
-   *       src: "https://storecomponents.vtexassets.com/...",
-   *       alt: "...",
-   *       label: "...",
-   *       value: "..."
-   *     },
-   *     {
-   *       src: "https://storecomponents.vtexassets.com/...",
-   *       alt: "...",
-   *       label: "...",
-   *       value: "..."
-   *     }
-   *   ],
-   *   Size: [
-   *     {
-   *       src: "https://storecomponents.vtexassets.com/...",
-   *       alt: "...",
-   *       label: "...",
-   *       value: "..."
-   *     }
-   *   ]
-   * }
-   * ```
-   */
   FormattedVariants: any
-  /** A string or the string representation of an object (a stringified object). */
   ObjectOrString: any
-  /**
-   * Example:
-   *
-   * ```json
-   * {
-   *   'Color-Red-Size-40': 'classic-shoes-37'
-   * }
-   * ```
-   */
   SlugsMap: any
-  /**
-   * Example:
-   *
-   * ```json
-   * {
-   *   Color: [ "Red", "Blue", "Green" ],
-   *   Size: [ "40", "41" ]
-   * }
-   * ```
-   */
   VariantsByName: any
 }
 
@@ -139,7 +80,7 @@ export type IShippingItem = {
 
 /** Shopping cart input. */
 export type IStoreCart = {
-  /** Order information, including `orderNumber` and `acceptedOffer`. */
+  /** Order information, including `orderNumber`, `acceptedOffer` and `shouldSplitItem`. */
   order: IStoreOrder
 }
 
@@ -148,6 +89,13 @@ export type IStoreCurrency = {
   code: Scalars['String']
   /** Currency symbol (e.g: $). */
   symbol: Scalars['String']
+}
+
+export type IStoreGeoCoordinates = {
+  /** The latitude of the geographic coordinates. */
+  latitude: Scalars['Float']
+  /** The longitude of the geographic coordinates. */
+  longitude: Scalars['Float']
 }
 
 /** Image input. */
@@ -178,6 +126,8 @@ export type IStoreOrder = {
   acceptedOffer: Array<IStoreOffer>
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String']
+  /** Indicates whether or not items with attachments should be split. */
+  shouldSplitItem: InputMaybe<Scalars['Boolean']>
 }
 
 /** Organization input. */
@@ -237,9 +187,11 @@ export type IStoreSession = {
   country: Scalars['String']
   /** Session input currency. */
   currency: IStoreCurrency
+  /** Session input geoCoordinates. */
+  geoCoordinates: InputMaybe<IStoreGeoCoordinates>
   /** Session input locale. */
   locale: Scalars['String']
-  /** Session input postal code. */
+  /** Session input person. */
   person: InputMaybe<IStorePerson>
   /** Session input postal code. */
   postalCode: InputMaybe<Scalars['String']>
@@ -423,6 +375,14 @@ export type QueryShippingArgs = {
   postalCode: Scalars['String']
 }
 
+/** Search result. */
+export type SearchMetadata = {
+  /** Indicates if the search term was misspelled. */
+  isTermMisspelled: Scalars['Boolean']
+  /** Logical operator used to run the search. */
+  logicalOperator: Scalars['String']
+}
+
 /** Shipping Simulation information. */
 export type ShippingData = {
   /** Address information. */
@@ -477,22 +437,26 @@ export type SkuVariants = {
    * `dominantVariantName` property. Returns all available options for the
    * dominant property, and only options that can be combined with its current
    * value for other properties.
+   * If `dominantVariantName` is not present, the first variant will be
+   * considered the dominant one.
    */
   availableVariations: Maybe<Scalars['FormattedVariants']>
   /**
    * Maps property value combinations to their respective SKU's slug. Enables
    * us to retrieve the slug for the SKU that matches the currently selected
    * variations in O(1) time.
+   * If `dominantVariantName` is not present, the first variant will be
+   * considered the dominant one.
    */
   slugsMap: Maybe<Scalars['SlugsMap']>
 }
 
 export type SkuVariantsAvailableVariationsArgs = {
-  dominantVariantName: Scalars['String']
+  dominantVariantName: InputMaybe<Scalars['String']>
 }
 
 export type SkuVariantsSlugsMapArgs = {
-  dominantVariantName: Scalars['String']
+  dominantVariantName: InputMaybe<Scalars['String']>
 }
 
 /** Aggregate offer information, for a given SKU that is available to be fulfilled by multiple sellers. */
@@ -671,6 +635,14 @@ export type StoreFacetValueRange = {
   absolute: Scalars['Float']
   /** Search facet range selected value. */
   selected: Scalars['Float']
+}
+
+/** Geographic coordinates information. */
+export type StoreGeoCoordinates = {
+  /** The latitude of the geographic coordinates. */
+  latitude: Scalars['Float']
+  /** The longitude of the geographic coordinates. */
+  longitude: Scalars['Float']
 }
 
 /** Image. */
@@ -857,6 +829,8 @@ export type StoreReviewRating = {
 export type StoreSearchResult = {
   /** Array of search result facets. */
   facets: Array<StoreFacet>
+  /** Search result metadata. Additional data can be used to send analytics events. */
+  metadata: Maybe<SearchMetadata>
   /** Search result products. */
   products: StoreProductConnection
   /** Search result suggestions. */
@@ -883,9 +857,11 @@ export type StoreSession = {
   country: Scalars['String']
   /** Session currency. */
   currency: StoreCurrency
+  /** Session input geoCoordinates. */
+  geoCoordinates: Maybe<StoreGeoCoordinates>
   /** Session locale. */
   locale: Scalars['String']
-  /** Session postal code. */
+  /** Session input person. */
   person: Maybe<StorePerson>
   /** Session postal code. */
   postalCode: Maybe<Scalars['String']>
@@ -1347,6 +1323,7 @@ export type ValidateSessionMutation = {
     channel: string | null
     country: string
     postalCode: string | null
+    geoCoordinates: { latitude: number; longitude: number } | null
     currency: { code: string; symbol: string }
     person: {
       id: string

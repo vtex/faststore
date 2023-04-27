@@ -39,7 +39,7 @@ export interface ModalProps extends Omit<ModalContentProps, 'children'> {
    */
   onDismiss?: () => void
   /**
-   * Props forwarded to overlay component
+   * Props forwarded to the `Overlay` component
    */
   overlayProps?: OverlayProps
   /**

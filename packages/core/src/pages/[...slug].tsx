@@ -26,10 +26,19 @@ import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
 
 import storeConfig from '../../faststore.config'
+import GlobalSections, {
+  getGlobalSectionsData,
+  GlobalSectionsData,
+} from 'src/components/cms/GlobalSections'
+import { Locator } from '@vtex/client-cms'
 
-type Props = ServerCollectionPageQueryQuery
+type Props = ServerCollectionPageQueryQuery & {
+  globalSections: GlobalSectionsData
+}
 
-const useSearchParams = ({ collection }: Props): SearchState => {
+const useSearchParams = ({
+  collection,
+}: ServerCollectionPageQueryQuery): SearchState => {
   const selectedFacets = collection?.meta.selectedFacets
   const { asPath } = useRouter()
 
@@ -47,7 +56,7 @@ const useSearchParams = ({ collection }: Props): SearchState => {
   return useMemo(() => parseSearchState(new URL(hrefState)), [hrefState])
 }
 
-function Page(props: Props) {
+function Page({ globalSections, ...props }: Props) {
   const { collection } = props
   const router = useRouter()
   const applySearchState = useApplySearchState()
@@ -61,64 +70,66 @@ function Page(props: Props) {
   const canonical = `${storeConfig.storeUrl}${pathname}${pageQuery}`
 
   return (
-    <SearchProvider
-      onChange={applySearchState}
-      itemsPerPage={ITEMS_PER_PAGE}
-      {...searchParams}
-    >
-      {/* SEO */}
-      <NextSeo
-        title={title}
-        description={description}
-        titleTemplate={storeConfig.seo.titleTemplate}
-        canonical={canonical}
-        openGraph={{
-          type: 'website',
-          title,
-          description,
-        }}
-      />
-      <BreadcrumbJsonLd
-        itemListElements={collection?.breadcrumbList.itemListElement ?? []}
-      />
+    <GlobalSections {...globalSections}>
+      <SearchProvider
+        onChange={applySearchState}
+        itemsPerPage={ITEMS_PER_PAGE}
+        {...searchParams}
+      >
+        {/* SEO */}
+        <NextSeo
+          title={title}
+          description={description}
+          titleTemplate={storeConfig.seo.titleTemplate}
+          canonical={canonical}
+          openGraph={{
+            type: 'website',
+            title,
+            description,
+          }}
+        />
+        <BreadcrumbJsonLd
+          itemListElements={collection?.breadcrumbList.itemListElement ?? []}
+        />
 
-      {/*
-        WARNING: Do not import or render components from any
-        other folder than '../components/sections' in here.
+        {/*
+          WARNING: Do not import or render components from any
+          other folder than '../components/sections' in here.
 
-        This is necessary to keep the integration with the CMS
-        easy and consistent, enabling the change and reorder
-        of elements on this page.
+          This is necessary to keep the integration with the CMS
+          easy and consistent, enabling the change and reorder
+          of elements on this page.
 
-        If needed, wrap your component in a <Section /> component
-        (not the HTML tag) before rendering it here.
-      */}
-      <Breadcrumb
-        breadcrumbList={collection?.breadcrumbList.itemListElement}
-        name={title}
-      />
+          If needed, wrap your component in a <Section /> component
+          (not the HTML tag) before rendering it here.
+        */}
+        <Breadcrumb
+          breadcrumbList={collection?.breadcrumbList.itemListElement}
+          name={title}
+        />
 
-      <Hero
-        variant="secondary"
-        title={title}
-        subtitle={`All the amazing ${title} from the brands we partner with.`}
-        image={{
-          src: 'https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg',
-          alt: 'Quest 2 Controller on a table',
-        }}
-      />
+        <Hero
+          variant="secondary"
+          title={title}
+          subtitle={`All the amazing ${title} from the brands we partner with.`}
+          image={{
+            src: 'https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg',
+            alt: 'Quest 2 Controller on a table',
+          }}
+        />
 
-      <ProductGallery title={title} />
+        <ProductGallery title={title} />
 
-      <ProductShelf
-        first={ITEMS_PER_SECTION}
-        sort="score_desc"
-        title="You might also like"
-        withDivisor
-      />
+        <ProductShelf
+          first={ITEMS_PER_SECTION}
+          sort="score_desc"
+          title="You might also like"
+          withDivisor
+        />
 
-      <ScrollToTopButton />
-    </SearchProvider>
+        <ScrollToTopButton />
+      </SearchProvider>
+    </GlobalSections>
   )
 }
 
@@ -147,9 +158,12 @@ const query = gql`
 `
 
 export const getStaticProps: GetStaticProps<
-  ServerCollectionPageQueryQuery,
-  { slug: string[] }
-> = async ({ params }) => {
+  Props,
+  { slug: string[] },
+  Locator
+> = async (context) => {
+  const { params } = context
+
   const { data, errors = [] } = await execute<
     ServerCollectionPageQueryQueryVariables,
     ServerCollectionPageQueryQuery
@@ -170,8 +184,13 @@ export const getStaticProps: GetStaticProps<
     throw errors[0]
   }
 
+  const globalSections = await getGlobalSectionsData(context.previewData)
+
   return {
-    props: data,
+    props: {
+      ...data,
+      globalSections,
+    },
   }
 }
 

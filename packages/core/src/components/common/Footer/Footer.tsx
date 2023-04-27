@@ -35,14 +35,13 @@ export function Footer({
   sectionPaymentMethods = true,
 }: FooterProps) {
   return (
-    <footer
-      className={`section ${styles.section} section-footer layout__content-full`}
-    >
+    <footer className={`section ${styles.section} section-footer`}>
       <div
         data-fs-footer
         data-fs-footer-incentives={sectionIncentives}
         data-fs-footer-social={sectionSocial}
         data-fs-footer-payment-methods={sectionPaymentMethods}
+        className="layout__content-full"
       >
         {sectionIncentives && <Incentives incentives={incentivesMockFooter} />}
         <div data-fs-footer-nav className="layout__content">

@@ -48,7 +48,7 @@ export interface RegionModalProps extends Omit<ModalProps, 'children'> {
    */
   fadeOutOnSubmit?: boolean
   /**
-   * Props forwarded to overlay component
+   * Props forwarded to the `Overlay` component.
    */
   overlayProps?: OverlayProps
   /**

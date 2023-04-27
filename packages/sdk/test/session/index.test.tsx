@@ -12,6 +12,7 @@ const initialSession = {
   locale: 'en-US',
   channel: 'test-channel',
   postalCode: null,
+  geoCoordinates: null,
   person: null,
 }
 

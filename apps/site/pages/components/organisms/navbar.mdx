@@ -1,0 +1,268 @@
+---
+description: This component represents the page header and groups features like Search and Regionalization.
+---
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { Navbar, UIProvider } from '@faststore/ui'
+import NavbarUsage from 'site/components/Navigation/NavbarUsage'
+import NavbarSliderUsage from 'site/components/Navigation/NavbarSliderUsage'
+import NavbarLinksUsage from 'site/components/Navigation/NavbarLinksUsage'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const navbarPath = path.resolve(__filename)
+  const components = ['Navbar.tsx']
+  const [navbarProps] = getComponentPropsFrom(navbarPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        navbarProps,
+      },
+    },
+  }
+}
+
+export const NavbarPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { navbarProps } = useSSG()
+  return {
+    Navbar: <PropsSection propsList={navbarProps} />,
+  }[component]
+}
+
+<header>
+
+# Navbar
+
+Represents the page header and groups some features like: `Search`, `Regionalization`, `SignIn`, `CartSidebar`.
+
+This component is part of the [Navigation](/components/features/navigation) feature.
+
+</header>
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { Navbar, NavbarHeader, NavbarRow, NavbarButtons } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/organisms/Navbar/styles.scss'
+```
+
+---
+
+## Usage
+
+Uses `NavbarHeader`, `NavbarRow` and `NavbarButtons` as compound components.
+
+The [NavbarLinks](/components/molecules/navbar-links) and [NavbarSlider](/components/organisms/navbar-slider) components are used as child components.
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection containerStyle={{ display: 'block' }}>
+      <UIProvider>
+        <NavbarUsage />
+      </UIProvider>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+      const scrollDirection = useScrollDirection()
+      const { openNavbar, navbar: displayNavbar } = useUI()
+
+      return (
+        <Navbar scrollDirection={scrollDirection}>
+          <NavbarHeader>
+            <NavbarRow>
+              <IconButton
+                data-fs-navbar-button-menu
+                aria-label="Open Menu"
+                icon={<Icon name="List" width={30} height={30} />}
+                onClick={openNavbar}
+              />
+              <IconButton
+                aria-label="Logo"
+                icon={<Icon name="Storefront" width={30} height={30} />}
+              />
+              <SearchInputUsage actions={false} />
+              <NavbarButtons searchExpanded={false}>
+                <LinkButton
+                  href="#"
+                  variant="tertiary"
+                  icon={<Icon name="User" width={18} height={18} weight="bold" />}
+                >
+                  Login
+                </LinkButton>
+                <IconButton
+                  data-fs-cart-toggle
+                  aria-label="cart"
+                  icon={<Icon name="ShoppingCart" width={32} height={32} />}
+                />
+              </NavbarButtons>
+            </NavbarRow>
+          </NavbarHeader>
+
+          <NavbarLinksUsage className="hidden-mobile" />
+
+          {displayNavbar && <NavbarSliderUsage />}
+        </Navbar>
+      )
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+### Navbar
+
+<NavbarPropsSection component="Navbar" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-navbar-height-mobile" value="3.5rem" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-navbar-bkg-color"
+    value="rgb(255 255 255 / 90%)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-navbar-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+  <TokenRow
+    token="--fs-navbar-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-navbar-box-shadow"
+    value="0 var(--fs-spacing-0) var(--fs-spacing-3) rgb(0 0 0 / 5%)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Navbar Header
+
+<TokenTable>
+  <TokenRow token="--fs-navbar-header-padding" value="0 var(--fs-spacing-0)" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-navbar-header-padding-top-notebook"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-navbar-header-padding-bottom-notebook"
+    value="var(--fs-navbar-header-padding-top-notebook)"
+  />
+</TokenTable>
+
+#### Search
+
+<TokenTable>
+  <TokenRow
+    token="--fs-navbar-search-button-icon-width-mobile"
+    value="var(--fs-spacing-5)"
+  />
+  <TokenRow
+    token="--fs-navbar-search-button-icon-height-mobile"
+    value="var(--fs-navbar-search-button-icon-width-mobile)"
+  />
+</TokenTable>
+
+#### Search Expanded
+
+<TokenTable>
+  <TokenRow
+    token="--fs-navbar-search-expanded-input-wrapper-margin-right"
+    value="0.625rem"
+  />
+  <TokenRow
+    token="--fs-navbar-search-expanded-input-wrapper-margin-left"
+    value="var(--fs-spacing-9)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-navbar-search-expanded-input-width"
+    value="calc(100% - var(--fs-spacing-7))"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-navbar-search-expanded-button-icon-margin-right"
+    value="-4.063rem"
+  />
+</TokenTable>
+
+### Logo
+
+<TokenTable>
+  <TokenRow
+    token="--fs-navbar-logo-border-left-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-navbar-logo-border-left-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+`data-fs-navbar`
+
+`data-fs-navbar-header`
+
+`data-fs-navbar-row`
+
+`data-fs-navbar-buttons`
+
+---
+
+## Related components
+
+<SectionList grid="column" columns={1}>
+  <SectionItem
+    title="NavbarSlider"
+    description="As part of the Navbar, this component it its mobile version used to list the navigation links."
+    actionPath="/components/organisms/navbar-slider"
+  >
+    <UIProvider>
+      <NavbarSliderUsage />
+    </UIProvider>
+  </SectionItem>
+  <SectionItem
+    title="NavbarLinks"
+    description="Displays a set of navigation links."
+    actionPath="/components/molecules/navbar-links"
+  >
+    <UIProvider>
+      <Navbar>
+        <NavbarLinksUsage />
+      </Navbar>
+    </UIProvider>
+  </SectionItem>
+</SectionList>

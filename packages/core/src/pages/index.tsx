@@ -3,7 +3,7 @@ import type { GetStaticProps } from 'next'
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 
-import RenderPageSections from 'src/components/cms/RenderPageSections'
+import RenderSections from 'src/components/cms/RenderSections'
 import BannerText from 'src/components/sections/BannerText'
 import Hero from 'src/components/sections/Hero'
 import IncentivesHeader from 'src/components/sections/IncentivesHeader/IncentivesHeader'
@@ -16,6 +16,10 @@ import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
 import storeConfig from '../../faststore.config'
+import GlobalSections, {
+  GlobalSectionsData,
+  getGlobalSectionsData,
+} from 'src/components/cms/GlobalSections'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -28,11 +32,14 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-type Props = PageContentType
+type Props = {
+  page: PageContentType
+  globalSections: GlobalSectionsData
+}
 
-function Page({ sections, settings }: Props) {
+function Page({ page: { sections, settings }, globalSections }: Props) {
   return (
-    <>
+    <GlobalSections {...globalSections}>
       {/* SEO */}
       <NextSeo
         title={settings.seo.title}
@@ -67,8 +74,8 @@ function Page({ sections, settings }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <RenderPageSections sections={sections} components={COMPONENTS} />
-    </>
+      <RenderSections sections={sections} components={COMPONENTS} />
+    </GlobalSections>
   )
 }
 
@@ -76,18 +83,21 @@ export const getStaticProps: GetStaticProps<
   Props,
   Record<string, string>,
   Locator
-> = async (context) => {
+> = async ({ previewData }) => {
   const page = await getPage<PageContentType>({
-    ...(context.previewData?.contentType === 'page'
-      ? context.previewData
+    ...(previewData?.contentType === 'page'
+      ? previewData
       : { filters: { 'settings.seo.slug': '/' } }),
     contentType: 'page',
   })
 
+  const globalSections = await getGlobalSectionsData(previewData)
+
   return {
-    props: page,
+    props: { page, globalSections },
   }
 }
 
 Page.displayName = 'Page'
+
 export default mark(Page)

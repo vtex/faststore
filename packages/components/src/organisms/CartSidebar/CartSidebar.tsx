@@ -44,6 +44,10 @@ export interface CartSidebarProps extends HTMLAttributes<HTMLDivElement> {
    */
   alertText?: string
   /**
+   * Props forwarded to the `Overlay` component.
+   */
+  overlayProps?: OverlayProps
+  /**
    * Function called when Close Button is clicked.
    */
   onClose: () => void
@@ -62,8 +66,8 @@ function CartSidebar({
   children,
   alertIcon,
   alertText,
-  onClose,
   overlayProps,
+  onClose,
   ...otherProps
 }: PropsWithChildren<CartSidebarProps>) {
   const { fade, fadeOut } = useFadeEffect()
