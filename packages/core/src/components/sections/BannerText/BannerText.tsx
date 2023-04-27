@@ -30,6 +30,7 @@ function BannerText({
         caption={caption}
         actionPath={link?.url}
         actionLabel={link?.text}
+        colorVariant={colorVariant}
       />
     </Section>
   )

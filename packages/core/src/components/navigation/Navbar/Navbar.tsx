@@ -1,18 +1,26 @@
 import { Suspense, useRef, useState } from 'react'
 
-import { Icon, IconButton as UIIconButton, useUI } from '@faststore/ui'
-import CartToggle from 'src/components/cart/CartToggle'
-import type { SearchInputRef } from 'src/components/search/SearchInput'
-import SearchInput from 'src/components/search/SearchInput'
-import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
-import Link from 'src/components/ui/Link'
-import Logo from 'src/components/ui/Logo'
-import { mark } from 'src/sdk/tests/mark'
-import useScrollDirection from 'src/sdk/ui/useScrollDirection'
+import {
+  useUI,
+  useScrollDirection,
+  Icon as UIIcon,
+  IconButton as UIIconButton,
+  Navbar as UINavbar,
+  NavbarHeader as UINavbarHeader,
+  NavbarRow as UINavbarRow,
+  NavbarButtons as UINavbarButtons,
+} from '@faststore/ui'
 
-import styles from './navbar.module.scss'
-import NavbarSlider from './NavbarSlider'
-import NavLinks from './NavLinks'
+import CartToggle from 'src/components/cart/CartToggle'
+import SearchInput from 'src/components/search/SearchInput'
+import type { SearchInputRef } from 'src/components/search/SearchInput'
+import Logo from 'src/components/ui/Logo'
+import Link from 'src/components/ui/Link'
+import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
+import { mark } from 'src/sdk/tests/mark'
+
+import NavbarSlider from '../NavbarSlider'
+import NavbarLinks from '../NavbarLinks'
 
 function Navbar() {
   const scrollDirection = useScrollDirection()
@@ -26,19 +34,18 @@ function Navbar() {
   }
 
   return (
-    <header
-      data-fs-navbar
-      data-fs-navbar-scroll={scrollDirection}
-      className={`${styles.fsNavbar} layout__content-full`}
+    <UINavbar
+      className="layout__content-full"
+      scrollDirection={scrollDirection}
     >
-      <section data-fs-navbar-header>
-        <div className="layout__content" data-fs-navbar-row>
+      <UINavbarHeader>
+        <UINavbarRow className="layout__content">
           {!searchExpanded && (
             <>
               <UIIconButton
                 data-fs-navbar-button-menu
                 aria-label="Open Menu"
-                icon={<Icon name="List" width={32} height={32} />}
+                icon={<UIIcon name="List" width={32} height={32} />}
                 onClick={openNavbar}
               />
               <Link
@@ -51,22 +58,22 @@ function Navbar() {
               </Link>
             </>
           )}
+
           <SearchInput />
-          <div
-            data-fs-navbar-buttons
-            data-fs-navbar-search-expanded={searchExpanded}
-          >
+
+          <UINavbarButtons searchExpanded={searchExpanded}>
             {searchExpanded && (
               <UIIconButton
                 data-fs-button-collapse
                 aria-label="Collapse search bar"
-                icon={<Icon name="CaretLeft" width={32} height={32} />}
+                icon={<UIIcon name="CaretLeft" width={32} height={32} />}
                 onClick={() => {
                   setSearchExpanded(false)
                   searchMobileRef.current?.resetSearchInput()
                 }}
               />
             )}
+
             <SearchInput
               placeholder=""
               ref={searchMobileRef}
@@ -74,20 +81,22 @@ function Navbar() {
               buttonTestId="store-input-mobile-button"
               onSearchClick={handlerExpandSearch}
             />
+
             <Suspense fallback={<ButtonSignInFallback />}>
               <ButtonSignIn />
             </Suspense>
+
             <CartToggle />
-          </div>
-        </div>
-      </section>
-      <NavLinks classes="hidden-mobile" />
+          </UINavbarButtons>
+        </UINavbarRow>
+      </UINavbarHeader>
+
+      <NavbarLinks className="hidden-mobile" />
 
       {displayNavbar && <NavbarSlider />}
-    </header>
+    </UINavbar>
   )
 }
 
 Navbar.displayName = 'Navbar'
-
 export default mark(Navbar)
