@@ -2,9 +2,10 @@
 description: The Carousel component is great for swiping images.
 sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/ProductCardComponent___e6502d57cf7e5bf247f86b64577d4141.png
+title: 'Carousel'
 ---
 
-import { Tab, Tabs } from 'nextra-theme-docs'
+import { Tab, Tabs, Callout } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
@@ -15,10 +16,8 @@ import {
   ProductCardContent,
   ProductCardImage,
 } from '@faststore/ui'
-import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
-import { propsPriceDefinition } from 'site/components/PriceDefinitionProps/PriceDefinitionProps'
 
-import { products } from 'site/mocks/products'
+import CarouselUsage from 'site/components/Carousel/CarouselUsage'
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
@@ -53,40 +52,6 @@ It displays an additional item to purchase as a gift.
 
 </header>
 
-## Overview
-
-export const CarouselTemplate = (
-  <Carousel itemsPerPage={3} variant="scroll" infiniteMode={false}>
-    {products.map(({ product }, idx) => (
-      <ProductCard>
-        <ProductCardImage></ProductCardImage>
-        <ProductCardContent
-          title={product.isVariantOf.name}
-          price={{
-            value: product.offers.offers[0].price,
-            listPrice: product.offers.offers[0].listPrice,
-            formatter: useFormattedPrice,
-          }}
-        />
-      </ProductCard>
-    ))}
-  </Carousel>
-)
-
-<Tabs items={['Example', 'Code']} defaultIndex="0">
-  <Tab>
-    <OverviewSection style={{ width: '100%', overflow: 'hidden', padding: '0 50px' }}>{CarouselTemplate}</OverviewSection>
-  </Tab>
-  <Tab>
-    ```tsx
-
-    ```
-
-  </Tab>
-</Tabs>
-
----
-
 ## Import
 
 Import the component from [@faststore/ui](/../components)
@@ -105,9 +70,16 @@ import '@faststore/ui/src/components/molecules/Carousel/styles.scss'
 
 ## Usage
 
+<Callout type="warning" emoji="⚠️">
+  This component is a work in progress, so it might work as expected in some
+  cases, we gratefully accept feedback.
+</Callout>
+
+For the mobile preview, please refresh the browser after resize it.
+
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
-    <OverviewSection>{CarouselTemplate}</OverviewSection>
+    <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselUsage /></OverviewSection>
   </Tab>
   <Tab>
     ```tsx
@@ -127,6 +99,98 @@ import '@faststore/ui/src/components/molecules/Carousel/styles.scss'
 
 ## Design Tokens
 
+### Nested Elements
+
+#### Track
+
+<TokenTable>
+  <TokenRow token="--fs-carousel-padding-desktop" value="0" />
+</TokenTable>
+
+#### Item
+
+<TokenTable>
+  <TokenRow token="--fs-carousel-item-width-mobile" value="80%" />
+  <TokenRow token="--fs-carousel-item-width-desktop" value="15rem" />
+  <TokenRow
+    token="--fs-carousel-item-margin-right"
+    value="var(--fs-spacing-0)"
+  />
+</TokenTable>
+
+#### Controls
+
+<TokenTable>
+  <TokenRow token="--fs-carousel-controls-width" value="3.125rem" />
+  <TokenRow
+    token="--fs-carousel-controls-height"
+    value="var(--fs-carousel-controls-width)"
+  />
+  <TokenRow
+    token="--fs-carousel-controls-bkg-color"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-carousel-controls-border-radius"
+    value="var(--fs-border-radius-circle)"
+  />
+  <TokenRow
+    token="--fs-carousel-controls-box-shadow"
+    value="var(--fs-shadow-darker)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-carousel-controls-control-left"
+    value="var(--fs-spacing-5)"
+  />
+  <TokenRow
+    token="--fs-carousel-controls-control-right"
+    value="var(--fs-carousel-controls-control-left)"
+  />
+</TokenTable>
+
+#### Bullets
+
+<TokenTable>
+  <TokenRow
+    token="--fs-carousel-bullets-padding-top"
+    value="var(--fs-carousel-controls-control-left)"
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-carousel-bullet-width-mobile" value="100%" />
+  <TokenRow
+    token="--fs-carousel-bullet-width-desktop"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-height-mobile"
+    value="var(--fs-carousel-item-margin-right)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-height-desktop"
+    value="var(--fs-carousel-bullet-width-desktop)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-margin-right"
+    value="var(--fs-carousel-item-margin-right)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-bkg-color"
+    value="var(--fs-color-neutral-3)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-bkg-color-selected"
+    value="var(--fs-color-main-4)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-border-radius"
+    value="var(--fs-carousel-controls-border-radius)"
+  />
+</TokenTable>
+
 ---
 
 ## Customization
@@ -134,6 +198,10 @@ import '@faststore/ui/src/components/molecules/Carousel/styles.scss'
 For further customization, you can use the following data attributes:
 
 `data-fs-carousel`
+
+`data-fs-carousel-track-container`
+
+`data-fs-carousel-track`
 
 `data-fs-carousel-item`
 
