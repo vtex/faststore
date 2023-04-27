@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.120-alpha.0](https://github.com/vtex/faststore/compare/v2.0.119-alpha.0...v2.0.120-alpha.0) (2023-04-27)
+
+### Features
+
+- Integrates Global Sections, with Alert component ([#1722](https://github.com/vtex/faststore/issues/1722)) ([da38b2a](https://github.com/vtex/faststore/commit/da38b2af3db5bd6abd57707d11d67d7463d5fa12))
+
+## [2.0.118-alpha.0](https://github.com/vtex/faststore/compare/v2.0.117-alpha.0...v2.0.118-alpha.0) (2023-04-26)
+
+**Note:** Version bump only for package @faststore/core
+
 ## [2.0.117-alpha.0](https://github.com/vtex/faststore/compare/v2.0.116-alpha.0...v2.0.117-alpha.0) (2023-04-26)
 
 ### Features

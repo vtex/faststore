@@ -1,12 +1,7 @@
 import type { PropsWithChildren } from 'react'
 import { lazy, Suspense } from 'react'
 
-import { Icon, useUI } from '@faststore/ui'
-import Alert from 'src/components/common/Alert'
-import Footer from 'src/components/common/Footer'
-import RegionBar from 'src/components/common/RegionBar'
-import Toast from 'src/components/common/Toast'
-import Navbar from 'src/components/navigation/Navbar'
+import { useUI } from '@faststore/ui'
 
 const CartSidebar = lazy(() => import('src/components/cart/CartSidebar'))
 const RegionModal = lazy(() => import('src/components/region/RegionModal'))
@@ -16,24 +11,7 @@ function Layout({ children }: PropsWithChildren) {
 
   return (
     <>
-      <Alert
-        icon={<Icon name="Bell" />}
-        link={{ children: 'Buy now', href: '/office', target: '_self' }}
-        dismissible
-      >
-        Get 10% off today:&nbsp;<span>NEW10</span>
-      </Alert>
-
-      <Navbar />
-
-      <Toast />
-
-      <main>
-        <RegionBar className="display-mobile" />
-        {children}
-      </main>
-
-      <Footer />
+      {children}
 
       {displayCart && (
         <Suspense fallback={null}>
