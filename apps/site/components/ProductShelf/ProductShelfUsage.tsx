@@ -26,7 +26,6 @@ const ProductShelfUsage = ({
   items = 10,
 }: ProductShelfUsageProps) => {
   const productsArray = items ? products.slice(0, items) : products
-  // const newArray = slicedArray.map(obj => ({ ...obj }));
 
   return (
     <ProductShelf>
