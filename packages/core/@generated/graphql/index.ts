@@ -91,6 +91,13 @@ export type IStoreCurrency = {
   symbol: Scalars['String']
 }
 
+export type IStoreGeoCoordinates = {
+  /** The latitude of the geographic coordinates. */
+  latitude: Scalars['Float']
+  /** The longitude of the geographic coordinates. */
+  longitude: Scalars['Float']
+}
+
 /** Image input. */
 export type IStoreImage = {
   /** Alias for the input image. */
@@ -180,9 +187,11 @@ export type IStoreSession = {
   country: Scalars['String']
   /** Session input currency. */
   currency: IStoreCurrency
+  /** Session input geoCoordinates. */
+  geoCoordinates: InputMaybe<IStoreGeoCoordinates>
   /** Session input locale. */
   locale: Scalars['String']
-  /** Session input postal code. */
+  /** Session input person. */
   person: InputMaybe<IStorePerson>
   /** Session input postal code. */
   postalCode: InputMaybe<Scalars['String']>
@@ -628,6 +637,14 @@ export type StoreFacetValueRange = {
   selected: Scalars['Float']
 }
 
+/** Geographic coordinates information. */
+export type StoreGeoCoordinates = {
+  /** The latitude of the geographic coordinates. */
+  latitude: Scalars['Float']
+  /** The longitude of the geographic coordinates. */
+  longitude: Scalars['Float']
+}
+
 /** Image. */
 export type StoreImage = {
   /** Alias for the image. */
@@ -840,9 +857,11 @@ export type StoreSession = {
   country: Scalars['String']
   /** Session currency. */
   currency: StoreCurrency
+  /** Session input geoCoordinates. */
+  geoCoordinates: Maybe<StoreGeoCoordinates>
   /** Session locale. */
   locale: Scalars['String']
-  /** Session postal code. */
+  /** Session input person. */
   person: Maybe<StorePerson>
   /** Session postal code. */
   postalCode: Maybe<Scalars['String']>
@@ -1304,6 +1323,7 @@ export type ValidateSessionMutation = {
     channel: string | null
     country: string
     postalCode: string | null
+    geoCoordinates: { latitude: number; longitude: number } | null
     currency: { code: string; symbol: string }
     person: {
       id: string
