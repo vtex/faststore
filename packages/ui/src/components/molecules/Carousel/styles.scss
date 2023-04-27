@@ -4,7 +4,7 @@
   // --------------------------------------------------------
 
   // Track
-  --fs-carousel-padding-desktop           : var(--fs-spacing-0) 6.25rem;
+  --fs-carousel-padding-desktop           : 0;
 
   // Item
   --fs-carousel-item-width-mobile         : 80%;
@@ -14,7 +14,6 @@
   // Controls
   --fs-carousel-controls-width            : 3.125rem;
   --fs-carousel-controls-height           : var(--fs-carousel-controls-width);
-  // --fs-carousel-controls-position-top     : calc((100% - var(--fs-spacing-7) - var(--fs-spacing-1)) / 2);
   --fs-carousel-controls-bkg-color        : var(--fs-color-neutral-0);
   --fs-carousel-controls-border-radius    : var(--fs-border-radius-circle);
   --fs-carousel-controls-box-shadow       : var(--fs-shadow-darker);
@@ -25,12 +24,13 @@
 
   // Bullets
   --fs-carousel-bullets-padding-top       : var(--fs-carousel-controls-control-left);
+  --fs-carousel-bullets-column-gap-mobile : var(--fs-carousel-item-margin-right);
+  --fs-carousel-bullets-column-gap-tablet : var(--fs-spacing-3);
 
   --fs-carousel-bullet-width-mobile       : 100%;
   --fs-carousel-bullet-width-desktop      : var(--fs-spacing-1);
   --fs-carousel-bullet-height-mobile      : var(--fs-carousel-item-margin-right);
   --fs-carousel-bullet-height-desktop     : var(--fs-carousel-bullet-width-desktop);
-  --fs-carousel-bullet-margin-right       : var(--fs-carousel-item-margin-right);
   --fs-carousel-bullet-bkg-color          : var(--fs-color-neutral-3);
   --fs-carousel-bullet-bkg-color-selected : var(--fs-color-main-4);
   --fs-carousel-bullet-border-radius      : var(--fs-carousel-controls-border-radius);
@@ -86,7 +86,7 @@
     }
 
     @include media(">=tablet") {
-      padding: 0;
+      padding: var(--fs-carousel-padding-desktop);
     }
   }
 
@@ -111,14 +111,14 @@
     padding-top: var(--fs-carousel-bullets-padding-top);
     display: flex;
     flex-flow: row nowrap;
-    column-gap: var(--fs-carousel-item-margin-right);
+    column-gap: var(--fs-carousel-bullets-column-gap-mobile);
 
       @include media(">=tablet") {
         width: fit-content;
         align-items: center;
         justify-content: center;
         margin: auto;
-        column-gap: var(--fs-spacing-3);
+        column-gap: var(--fs-carousel-bullets-column-gap-tablet);
       }
 
       [data-fs-carousel-bullet] {

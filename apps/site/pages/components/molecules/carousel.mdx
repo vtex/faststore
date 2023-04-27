@@ -11,13 +11,17 @@ import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
 import {
-  Carousel,
   ProductCard,
   ProductCardContent,
   ProductCardImage,
+  ProductShelf,
+  ProductShelfItems,
+  ProductShelfItem,
 } from '@faststore/ui'
 
 import CarouselUsage from 'site/components/Carousel/CarouselUsage'
+import { products } from 'site/mocks/products'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
@@ -48,9 +52,11 @@ export const CarouselPropsSection = ({ component }) => {
 
 # Carousel
 
-It displays an additional item to purchase as a gift.
+The Carousel component is great for swiping images.
 
 </header>
+
+We recommend using Carousel when displaying at least 10 items.
 
 ## Import
 
@@ -83,6 +89,33 @@ For the mobile preview, please refresh the browser after resize it.
   </Tab>
   <Tab>
     ```tsx
+    const isMobile = window.innerWidth <= 768
+
+    <Carousel
+      itemsPerPage={isMobile ? 1 : 3}
+      variant="scroll"
+      infiniteMode={false}
+    >
+      {products.map(({ product }, idx) => (
+        <ProductCard key={idx}>
+          <ProductCardImage>
+            <img
+              data-fs-image
+              src={product.image[0].url}
+              alt={product.image[0].alternateName}
+            />
+          </ProductCardImage>
+          <ProductCardContent
+            title={product.isVariantOf.name}
+            price={{
+              value: product.offers.offers[0].price,
+              listPrice: product.offers.offers[0].listPrice,
+              formatter: useFormattedPrice,
+            }}
+          />
+        </ProductCard>
+      ))}
+    </Carousel>
 
     ```
 
@@ -142,7 +175,7 @@ For the mobile preview, please refresh the browser after resize it.
   <TokenDivider />
   <TokenRow
     token="--fs-carousel-controls-control-left"
-    value="var(--fs-spacing-5)"
+    value="var(--fs-spacing-4)"
   />
   <TokenRow
     token="--fs-carousel-controls-control-right"
@@ -157,6 +190,14 @@ For the mobile preview, please refresh the browser after resize it.
     token="--fs-carousel-bullets-padding-top"
     value="var(--fs-carousel-controls-control-left)"
   />
+  <TokenRow
+    token="--fs-carousel-bullets-column-gap-mobile"
+    value="var(--fs-carousel-item-margin-right)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullets-column-gap-tablet"
+    value="var(--fs-spacing-3)"
+  />
   <TokenDivider />
   <TokenRow token="--fs-carousel-bullet-width-mobile" value="100%" />
   <TokenRow
@@ -170,10 +211,6 @@ For the mobile preview, please refresh the browser after resize it.
   <TokenRow
     token="--fs-carousel-bullet-height-desktop"
     value="var(--fs-carousel-bullet-width-desktop)"
-  />
-  <TokenRow
-    token="--fs-carousel-bullet-margin-right"
-    value="var(--fs-carousel-item-margin-right)"
   />
   <TokenRow
     token="--fs-carousel-bullet-bkg-color"
@@ -212,3 +249,56 @@ For further customization, you can use the following data attributes:
 `data-fs-carousel-bullets`
 
 `data-fs-carousel-bullet`
+
+---
+
+## Best Practices
+
+### ✅ Do's
+
+- Always use more than 1 item per page so then the component keeps the proposed navigation behavior for both versions (mobile and desktop).
+- We recommend using Carousel when displaying at least 10 items.
+- Keep the controls (`navigationArrows` & `paginationBullets`) visible. It's important to let people in slider control to move the items.
+
+### ❌ Don'ts
+
+- Avoid using it when display 1 or 2 items.
+- Don't exaggerate the number of items. You can combine it, providing an alternate navigation path like a `See More` button to a collection.
+
+---
+
+## Related components
+
+<SectionList grid="row">
+  <SectionItem
+    title="Product Shelf"
+    description=" Displays a list of products to be used as a section on the store."
+    actionPath="/components/organisms/product-shelf"
+  >
+    <ProductShelf>
+      <ProductShelfItems>
+        {products.map(({ product }, idx) => (
+          <ProductShelfItem>
+            <ProductCard>
+              <ProductCardImage>
+                <img
+                  data-fs-image
+                  src={product.image[0].url}
+                  alt={product.image[0].alternateName}
+                />
+              </ProductCardImage>
+              <ProductCardContent
+                title={product.isVariantOf.name}
+                price={{
+                  value: product.offers.offers[0].price,
+                  listPrice: product.offers.offers[0].listPrice,
+                  formatter: useFormattedPrice,
+                }}
+              />
+            </ProductCard>
+          </ProductShelfItem>
+        ))}
+      </ProductShelfItems>
+    </ProductShelf>
+  </SectionItem>
+</SectionList>
