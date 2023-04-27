@@ -4,13 +4,13 @@ import { Locator, Section } from '@vtex/client-cms'
 import { PageContentType, getPage } from 'src/server/cms'
 import CUSTOM_COMPONENTS from 'src/customizations/components'
 import type { ComponentType } from 'react'
-import Navbar from 'src/components/common/Navbar'
-import Toast from 'src/components/common/Toast'
 
-import Alert from 'src/components/sections/Alert/Alert'
 import RenderSections from './RenderSections'
 import { RegionBar } from '@faststore/components'
-import Footer from '../common/Footer'
+import Alert from 'src/components/sections/Alert/Alert'
+import Navbar from 'src/components/navigation/Navbar'
+import Footer from 'src/components/common/Footer'
+import Toast from 'src/components/common/Toast'
 
 // TODO: When the CMS is finished, switch to using 'globalSections'.
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalAlert'
