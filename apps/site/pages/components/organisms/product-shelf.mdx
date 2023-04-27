@@ -19,9 +19,11 @@ import {
   ProductCard,
   ProductCardContent,
   ProductCardImage,
+  Carousel,
 } from '@faststore/ui'
-import { products } from 'site/mocks/products'
-import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+
+import ProductShelfUsage from 'site/components/ProductShelf/ProductShelfUsage'
+import ProductShelfCarouselUsage from 'site/components/ProductShelf/ProductShelfCarouselUsage'
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
@@ -111,33 +113,8 @@ import '@faststore/ui/src/components/organisms/ProductShelf/styles.scss'
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <ProductShelf>
-        <ProductShelfItems>
-          {products.map(({ product }, idx) => (
-            <ProductShelfItem>
-              <ProductCard>
-                <ProductCardImage>
-                  <img
-                    data-fs-image
-                    src={product.image[0].url}
-                    alt={product.image[0].alternateName}
-                  />
-                </ProductCardImage>
-                <ProductCardContent
-                  title={product.isVariantOf.name}
-                  price={{
-                    value: product.offers.offers[0].price,
-                    listPrice: product.offers.offers[0].listPrice,
-                    formatter: useFormattedPrice,
-                  }}
-                />
-              </ProductCard>
-            </ProductShelfItem>
-          ))}
-        </ProductShelfItems>
-      </ProductShelf>
+      <ProductShelfUsage />
     </OverviewSection>
-
   </Tab>
   <Tab>
     ```tsx
@@ -221,32 +198,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <ProductShelf>
-        <ProductShelfItems>
-          {products.map(({ product }, idx) => (
-            <ProductShelfItem>
-              <ProductCard>
-                <ProductCardImage>
-                  <img
-                    data-fs-image
-                    src={product.image[0].url}
-                    alt={product.image[0].alternateName}
-                  />
-                </ProductCardImage>
-                <ProductCardContent
-                  title={product.isVariantOf.name}
-                  price={{
-                    value: product.offers.offers[0].price,
-                    listPrice: product.offers.offers[0].listPrice,
-                    formatter: useFormattedPrice,
-                  }}
-                  onButtonClick={() => {}}
-                />
-              </ProductCard>
-            </ProductShelfItem>
-          ))}
-        </ProductShelfItems>
-      </ProductShelf>
+      <ProductShelfUsage withButton/>
     </OverviewSection>
 
   </Tab>
@@ -288,31 +240,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <ProductShelf>
-        <ProductShelfItems>
-          {products.map(({ product }, idx) => (
-            <ProductShelfItem>
-              <ProductCard bordered>
-                <ProductCardImage>
-                  <img
-                    data-fs-image
-                    src={product.image[0].url}
-                    alt={product.image[0].alternateName}
-                  />
-                </ProductCardImage>
-                <ProductCardContent
-                  title={product.isVariantOf.name}
-                  price={{
-                    value: product.offers.offers[0].price,
-                    listPrice: product.offers.offers[0].listPrice,
-                    formatter: useFormattedPrice,
-                  }}
-                />
-              </ProductCard>
-            </ProductShelfItem>
-          ))}
-        </ProductShelfItems>
-      </ProductShelf>
+     <ProductShelfUsage bordered/>
     </OverviewSection>
 
   </Tab>
@@ -353,6 +281,12 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
+      <ProductShelfUsage aspectRatio={3/4}/>
+    </OverviewSection>
+
+  </Tab>
+  <Tab>
+    ```tsx
       <ProductShelf>
         <ProductShelfItems>
           {products.map(({ product }, idx) => (
@@ -378,6 +312,17 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
           ))}
         </ProductShelfItems>
       </ProductShelf>
+    ```
+
+  </Tab>
+</Tabs>
+
+### With Carousel
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection style={{ width: '100%', overflow: 'hidden' }}>
+      <ProductShelfCarouselUsage/>
     </OverviewSection>
 
   </Tab>
@@ -422,3 +367,11 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
 `data-fs-product-shelf-items`
 
 `data-fs-product-shelf-item`
+
+---
+
+## Best Practices
+
+### ❌ Don'ts
+
+- We don't recommend using [Carousel](/components/molecules/carousel) inside `ProductShelf` when display 5 or less items.
