@@ -25,7 +25,7 @@ function ProductShelfSkeleton({
       <ProductShelfItems className="layout__content">
         {Array.from({ length: ITEMS_PER_SECTION }, (_, index) => (
           <ProductShelfItem key={String(index)}>
-            <ProductCardSkeleton aspectRatio={aspectRatio} sectioned />
+            <ProductCardSkeleton aspectRatio={aspectRatio} sectioned bordered />
           </ProductShelfItem>
         ))}
       </ProductShelfItems>
