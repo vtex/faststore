@@ -48,53 +48,54 @@
 
   &:hover {
     [data-fs-carousel-controls] {
-      display: block;
+      position: relative;
+
+      @include media(">=tablet") {
+        display: flex;
+        width: 100%;
+
+        [data-fs-carousel-control] {
+          bottom: calc(var(--fs-carousel-controls-height) + var(--fs-control-tap-size));
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: var(--fs-carousel-controls-width);
+          height: var(--fs-carousel-controls-height);
+          cursor: pointer;
+          background-color: var(--fs-carousel-controls-bkg-color);
+          border-color: transparent;
+          border-radius: var(--fs-carousel-controls-border-radius);
+          box-shadow: var(--fs-carousel-controls-box-shadow);
+          transform: translateY(-50%);
+        }
+
+        [data-fs-carousel-control="left"] {
+          position: absolute;
+          left: var(--fs-carousel-controls-control-right);
+          @include media(">desktop") {
+            left: var(--fs-carousel-controls-control-max-left);
+          }
+        }
+
+        [data-fs-carousel-control="right"] {
+          position: absolute;
+          right: var(--fs-carousel-controls-control-right);
+          @include media(">desktop") {
+            right: var(--fs-carousel-controls-control-max-left);
+          }
+        }
+
+        [data-fs-icon] {
+          display: flex;
+          color: var(--fs-carousel-controls-icon-color);
+        }
+      }
     }
   }
 
   [data-fs-carousel-controls] {
     position: relative;
     display: none;
-
-    @include media(">=tablet") {
-      width: 100%;
-
-      [data-fs-carousel-control] {
-        bottom: calc(var(--fs-carousel-controls-height) + var(--fs-control-tap-size));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: var(--fs-carousel-controls-width);
-        height: var(--fs-carousel-controls-height);
-        cursor: pointer;
-        background-color: var(--fs-carousel-controls-bkg-color);
-        border-color: transparent;
-        border-radius: var(--fs-carousel-controls-border-radius);
-        box-shadow: var(--fs-carousel-controls-box-shadow);
-        transform: translateY(-50%);
-      }
-
-      [data-fs-carousel-control="left"] {
-        position: absolute;
-        left: var(--fs-carousel-controls-control-right);
-        @include media(">desktop") {
-          left: var(--fs-carousel-controls-control-max-left);
-        }
-      }
-
-      [data-fs-carousel-control="right"] {
-        position: absolute;
-        right: var(--fs-carousel-controls-control-right);
-        @include media(">desktop") {
-          right: var(--fs-carousel-controls-control-max-left);
-        }
-      }
-
-      [data-fs-icon] {
-        display: flex;
-        color: var(--fs-carousel-controls-icon-color);
-      }
-    }
   }
 
   [data-fs-carousel-track] {

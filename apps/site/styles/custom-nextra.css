@@ -85,11 +85,11 @@ h4.nx-tracking-tight {
   padding: var(--fs-carousel-padding-mobile);
 }
 
-[data-doc-overview-section] [data-fs-carousel] [data-fs-carousel-control="left"] {
+[data-doc-overview-section] [data-fs-carousel]:hover [data-fs-carousel-control="left"] {
   left: var(--fs-carousel-controls-control-left);
 }
 
-[data-doc-overview-section] [data-fs-carousel] [data-fs-carousel-control="right"] {
+[data-doc-overview-section] [data-fs-carousel]:hover [data-fs-carousel-control="right"] {
   right: var(--fs-carousel-controls-control-right);
 }
 
