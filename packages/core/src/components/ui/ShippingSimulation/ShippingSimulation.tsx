@@ -2,19 +2,28 @@ import {
   ShippingSimulation as UIShippingSimulation,
   ShippingSimulationProps as UIShippingSimulationProps,
 } from '@faststore/ui'
+
 import { getShippingSimulation } from 'src/sdk/shipping'
 import { ShippingSla } from '@generated/graphql'
 import { useSession } from 'src/sdk/session'
 import { IShippingItem } from '@faststore/api'
 import { useShippingSimulation } from './useShippingSimulation'
 
-interface ShippingSimulationProps {
+type ShippingSimulationOptionalProps =
+  | 'title'
+  | 'formatter'
+  | 'inputLabel'
+  | 'idkPostalCodeLinkProps'
+
+interface ShippingSimulationProps
+  extends Partial<
+    Pick<UIShippingSimulationProps, ShippingSimulationOptionalProps>
+  > {
   productShippingInfo: {
     id: string
     quantity: number
     seller: string
   }
-  formatter?: UIShippingSimulationProps['formatter']
 }
 
 const fetchShippingSimulation = async (
@@ -41,6 +50,9 @@ const fetchShippingSimulation = async (
 export default function ShippingSimulation({
   productShippingInfo,
   formatter,
+  inputLabel,
+  title,
+  idkPostalCodeLinkProps,
   ...otherProps
 }: ShippingSimulationProps) {
   const { country, postalCode: sessionPostalCode } = useSession()
@@ -73,6 +85,9 @@ export default function ShippingSimulation({
       displayClearButton={displayClearButton}
       errorMessage={errorMessage}
       postalCode={postalCode}
+      inputLabel={inputLabel}
+      title={title}
+      idkPostalCodeLinkProps={idkPostalCodeLinkProps}
       {...otherProps}
     />
   )
