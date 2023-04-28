@@ -9,7 +9,7 @@ import type {
   ServerProductPageQueryQuery,
   ServerProductPageQueryQueryVariables,
 } from '@generated/graphql'
-import RenderPageSections from 'src/components/cms/RenderPageSections'
+import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import CrossSellingShelf from 'src/components/sections/CrossSellingShelf'
 import ProductDetails from 'src/components/sections/ProductDetails'
@@ -21,6 +21,10 @@ import type { PDPContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
 import storeConfig from '../../../faststore.config'
+import GlobalSections, {
+  GlobalSectionsData,
+  getGlobalSectionsData,
+} from 'src/components/cms/GlobalSections'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -28,14 +32,17 @@ import storeConfig from '../../../faststore.config'
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductDetails,
-  BannerNewsletter,
   CrossSellingShelf,
+  BannerNewsletter,
   ...CUSTOM_COMPONENTS,
 }
 
-type Props = ServerProductPageQueryQuery & PDPContentType
+type Props = ServerProductPageQueryQuery &
+  PDPContentType & {
+    globalSections: GlobalSectionsData
+  }
 
-function Page({ product, sections }: Props) {
+function Page({ product, sections, globalSections }: Props) {
   const { currency } = useSession()
   const { seo } = product
   const title = seo.title || storeConfig.seo.title
@@ -43,7 +50,7 @@ function Page({ product, sections }: Props) {
   const canonical = `${storeConfig.storeUrl}${seo.canonical}`
 
   return (
-    <>
+    <GlobalSections {...globalSections}>
       {/* SEO */}
       <NextSeo
         title={title}
@@ -100,12 +107,12 @@ function Page({ product, sections }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <RenderPageSections
+      <RenderSections
         context={product}
         sections={sections}
         components={COMPONENTS}
       />
-    </>
+    </GlobalSections>
   )
 }
 
@@ -199,10 +206,13 @@ export const getStaticProps: GetStaticProps<
     throw errors[0]
   }
 
+  const globalSections = await getGlobalSectionsData(previewData)
+
   return {
     props: {
       ...data,
       ...cmsPage,
+      globalSections,
     },
   }
 }

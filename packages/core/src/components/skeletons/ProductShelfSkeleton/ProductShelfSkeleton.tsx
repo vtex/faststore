@@ -1,9 +1,9 @@
 import type { PropsWithChildren } from 'react'
 
 import {
-  ProductShelf as UIProductShelf,
-  ProductShelfItems,
   ProductShelfItem,
+  ProductShelfItems,
+  ProductShelf as UIProductShelf,
 } from '@faststore/ui'
 
 import { ITEMS_PER_SECTION } from 'src/constants'

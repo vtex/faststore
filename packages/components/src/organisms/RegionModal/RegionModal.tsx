@@ -1,8 +1,13 @@
 import React from 'react'
 
 import type { MutableRefObject } from 'react'
-import type { ModalProps, LinkProps, LinkElementType } from '../../'
-import { Icon, InputField, Link, Modal, ModalHeader, ModalBody } from '../..'
+import { Icon, InputField, Link, Modal, ModalBody, ModalHeader } from '../..'
+import type {
+  LinkElementType,
+  LinkProps,
+  ModalProps,
+  OverlayProps,
+} from '../../'
 
 export interface RegionModalProps extends Omit<ModalProps, 'children'> {
   /**
@@ -43,6 +48,10 @@ export interface RegionModalProps extends Omit<ModalProps, 'children'> {
    */
   fadeOutOnSubmit?: boolean
   /**
+   * Props forwarded to the `Overlay` component.
+   */
+  overlayProps?: OverlayProps
+  /**
    * Function called when Close button is clicked.
    */
   onClose?: () => void
@@ -69,6 +78,7 @@ function RegionModal({
   inputRef,
   inputValue,
   fadeOutOnSubmit,
+  overlayProps,
   onClose,
   onInput,
   onSubmit,
@@ -76,7 +86,12 @@ function RegionModal({
   ...otherProps
 }: RegionModalProps) {
   return (
-    <Modal data-fs-region-modal testId={testId} {...otherProps}>
+    <Modal
+      data-fs-region-modal
+      testId={testId}
+      overlayProps={overlayProps}
+      {...otherProps}
+    >
       {({ fadeOut }) => (
         <>
           <ModalHeader

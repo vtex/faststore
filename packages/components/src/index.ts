@@ -117,18 +117,6 @@ export type {
   NavbarLinksListProps,
   NavbarLinksListItemProps,
 } from './molecules/NavbarLinks'
-export {
-  default as NavbarSlider,
-  NavbarSliderHeader,
-  NavbarSliderContent,
-  NavbarSliderFooter,
-} from './molecules/NavbarSlider'
-export type {
-  NavbarSliderProps,
-  NavbarSliderHeaderProps,
-  NavbarSliderContentProps,
-  NavbarSliderFooterProps,
-} from './molecules/NavbarSlider'
 export { default as OrderSummary } from './molecules/OrderSummary'
 export type { OrderSummaryProps } from './molecules/OrderSummary'
 export {
@@ -282,6 +270,19 @@ export type {
   NavbarRowProps,
   NavbarButtonsProps,
 } from './organisms/Navbar'
+
+export {
+  default as NavbarSlider,
+  NavbarSliderHeader,
+  NavbarSliderContent,
+  NavbarSliderFooter,
+} from './organisms/NavbarSlider'
+export type {
+  NavbarSliderProps,
+  NavbarSliderHeaderProps,
+  NavbarSliderContentProps,
+  NavbarSliderFooterProps,
+} from './organisms/NavbarSlider'
 
 export { default as OutOfStock } from './organisms/OutOfStock'
 export type { OutOfStockProps } from './organisms/OutOfStock'

@@ -1,9 +1,9 @@
-import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
-import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import {
   ProductGrid as UIProductGrid,
   ProductGridItem as UIProductGridItem,
 } from '@faststore/ui'
+import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
 import ProductCard from '../ProductCard'
 

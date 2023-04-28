@@ -3,14 +3,16 @@ import { useInView } from 'react-intersection-observer'
 
 import { ProductShelf as UIProductShelf } from '@faststore/ui'
 
-import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
-import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
-import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import type { ProductsQueryQueryVariables } from '@generated/graphql'
+import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
+import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
+import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 
 import ProductCard from '../../product/ProductCard'
 import Section from '../Section'
 import Carousel from '../../ui/Carousel'
+
+import styles from './section.module.scss'
 
 interface ProductShelfProps extends Partial<ProductsQueryQueryVariables> {
   title: string
@@ -49,7 +51,9 @@ function ProductShelf({
 
   return (
     <Section
-      className={`layout__section ${withDivisor ? 'section__divisor' : ''}`}
+      className={`${styles.section} section-product-shelf layout__section ${
+        withDivisor ? 'section__divisor' : ''
+      }`}
       ref={ref}
     >
       <h2 className="text__title-section layout__content">{title}</h2>

@@ -1,8 +1,6 @@
 import { Banner, BannerContent, BannerLink, LinkButton } from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
 
-import styles from './banner-text.module.scss'
-
 export interface BannerTextProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The href used at the link
@@ -42,7 +40,6 @@ function BannerText({
 }: BannerTextProps) {
   return (
     <Banner
-      className={styles.fsBannerText}
       data-fs-banner-text
       data-fs-banner-text-variant={variant}
       data-fs-banner-text-color-variant={colorVariant}

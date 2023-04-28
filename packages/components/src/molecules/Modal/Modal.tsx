@@ -7,7 +7,7 @@ import type {
 import React from 'react'
 import { createPortal } from 'react-dom'
 
-import { Overlay } from '../..'
+import { Overlay, OverlayProps } from '../..'
 import { useFadeEffect, useUI } from '../../hooks'
 import type { ModalContentProps } from './ModalContent'
 import ModalContent from './ModalContent'
@@ -39,6 +39,10 @@ export interface ModalProps extends Omit<ModalContentProps, 'children'> {
    */
   onDismiss?: () => void
   /**
+   * Props forwarded to the `Overlay` component
+   */
+  overlayProps?: OverlayProps
+  /**
    * Children or function as a children
    */
   children: ModalChildrenFunction | ReactNode
@@ -55,6 +59,7 @@ const Modal = ({
   testId = 'fs-modal',
   isOpen = true,
   onDismiss,
+  overlayProps,
   ...otherProps
 }: ModalProps) => {
   const { closeModal } = useUI()
@@ -85,6 +90,7 @@ const Modal = ({
         <Overlay
           onClick={handleBackdropClick}
           onKeyDown={handleBackdropKeyDown}
+          {...overlayProps}
         >
           <ModalContent
             onTransitionEnd={() => fade === 'out' && closeModal()}

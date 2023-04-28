@@ -1,8 +1,8 @@
 import type { ButtonProps } from '@faststore/ui'
-import { Button as UIButton, Icon } from '@faststore/ui'
+import { Icon, Button as UIButton } from '@faststore/ui'
 
 import Section from '../Section'
-import styles from './scroll-to-top-button.module.scss'
+import styles from './section.module.scss'
 
 interface ScrollToTopButtonProps {
   /**
@@ -28,7 +28,7 @@ function ScrollToTopButton({
   iconPosition = 'left',
 }: ScrollToTopButtonProps) {
   return (
-    <Section className={styles.fsScrollToTopButton}>
+    <Section className={`${styles.section} section-scroll-to-top-button`}>
       <UIButton
         variant="secondary"
         icon={icon}

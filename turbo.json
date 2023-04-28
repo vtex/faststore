@@ -3,7 +3,7 @@
   "globalEnv": ["OCLIF_COMPILATION", "NODE_ENV", "DISABLE_3P_SCRIPTS"],
   "pipeline": {
     "site#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "$BASE_SITE_URL"],
       "outputs": [".next/**"]
     },
     "build": {

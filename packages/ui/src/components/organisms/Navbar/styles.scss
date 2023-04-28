@@ -40,9 +40,6 @@
   // Structural Styles
   // --------------------------------------------------------
 
-  position: sticky;
-  top: 0;
-  z-index: var(--fs-z-index-high);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -183,6 +180,7 @@
   }
 
   [data-fs-navbar-header] {
+    z-index: var(--fs-z-index-top);
     padding: var(--fs-navbar-header-padding);
     overflow-x: clip;
     background-color: var(--fs-navbar-bkg-color);

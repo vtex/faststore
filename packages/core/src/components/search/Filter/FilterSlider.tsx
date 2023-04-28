@@ -13,6 +13,8 @@ import type { Filter_FacetsFragment } from '@generated/graphql'
 
 import type { useFilter } from './useFilter'
 
+import styles from './section.module.scss'
+
 interface Props {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
@@ -41,6 +43,9 @@ function FilterSlider({
 
   return (
     <UIFilterSlider
+      overlayProps={{
+        className: `section ${styles.section} section-filter-slider`,
+      }}
       title={title}
       size="partial"
       direction="rightSide"

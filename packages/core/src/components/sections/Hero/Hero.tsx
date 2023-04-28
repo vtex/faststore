@@ -1,18 +1,14 @@
-import type {
-  HeroHeaderProps as UIHeroHeaderProps,
-  HeroImageProps as UIHeroImageProps,
-  HeroProps as UIHeroProps,
-} from '@faststore/ui'
+import type { HeroProps as UIHeroProps } from '@faststore/ui'
 import {
   Hero as UIHero,
   HeroHeader as UIHeroHeader,
   HeroImage as UIHeroImage,
 } from '@faststore/ui'
-
-import { Image } from 'src/components/ui/Image'
-
-import Section from '../Section'
 import { ReactNode } from 'react'
+import { Image } from 'src/components/ui/Image'
+import Section from '../Section'
+
+import styles from './section.module.scss'
 
 export type HeroProps = {
   title: string
@@ -40,7 +36,7 @@ const Hero = ({
   icon,
 }: HeroProps) => {
   return (
-    <Section>
+    <Section className={`${styles.section} section-hero`}>
       <UIHero colorVariant={colorVariant} variant={variant}>
         <UIHeroImage data-fs-hero-image>
           <Image

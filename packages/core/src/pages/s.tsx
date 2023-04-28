@@ -12,6 +12,16 @@ import { useApplySearchState } from 'src/sdk/search/state'
 import { mark } from 'src/sdk/tests/mark'
 
 import storeConfig from '../../faststore.config'
+import GlobalSections, {
+  getGlobalSectionsData,
+  GlobalSectionsData,
+} from 'src/components/cms/GlobalSections'
+import { Locator } from '@vtex/client-cms'
+import { GetStaticProps } from 'next'
+
+type Props = {
+  globalSections: GlobalSectionsData
+}
 
 const useSearchParams = () => {
   const [params, setParams] = useState<SearchState | null>(null)
@@ -26,7 +36,7 @@ const useSearchParams = () => {
   return params
 }
 
-function Page() {
+function Page({ globalSections }: Props) {
   const searchParams = useSearchParams()
   const applySearchState = useApplySearchState()
   const title = 'Search Results'
@@ -37,45 +47,59 @@ function Page() {
   }
 
   return (
-    <SearchProvider
-      onChange={applySearchState}
-      itemsPerPage={ITEMS_PER_PAGE}
-      {...searchParams}
-    >
-      {/* SEO */}
-      <NextSeo
-        noindex
-        title={title}
-        description={description}
-        titleTemplate={titleTemplate}
-        openGraph={{
-          type: 'website',
-          title,
-          description,
-        }}
-      />
+    <GlobalSections {...globalSections}>
+      <SearchProvider
+        onChange={applySearchState}
+        itemsPerPage={ITEMS_PER_PAGE}
+        {...searchParams}
+      >
+        {/* SEO */}
+        <NextSeo
+          noindex
+          title={title}
+          description={description}
+          titleTemplate={titleTemplate}
+          openGraph={{
+            type: 'website',
+            title,
+            description,
+          }}
+        />
 
-      <UISROnly as="h1" text={title} />
+        <UISROnly as="h1" text={title} />
 
-      {/*
-        WARNING: Do not import or render components from any
-        other folder than '../components/sections' in here.
+        {/*
+          WARNING: Do not import or render components from any
+          other folder than '../components/sections' in here.
 
-        This is necessary to keep the integration with the CMS
-        easy and consistent, enabling the change and reorder
-        of elements on this page.
+          This is necessary to keep the integration with the CMS
+          easy and consistent, enabling the change and reorder
+          of elements on this page.
 
-        If needed, wrap your component in a <Section /> component
-        (not the HTML tag) before rendering it here.
-      */}
-      <Breadcrumb name="All Products" />
+          If needed, wrap your component in a <Section /> component
+          (not the HTML tag) before rendering it here.
+        */}
+        <Breadcrumb name="All Products" />
 
-      <ProductGallery
-        title="Search Results"
-        searchTerm={searchParams.term ?? undefined}
-      />
-    </SearchProvider>
+        <ProductGallery
+          title="Search Results"
+          searchTerm={searchParams.term ?? undefined}
+        />
+      </SearchProvider>
+    </GlobalSections>
   )
+}
+
+export const getStaticProps: GetStaticProps<
+  Props,
+  Record<string, string>,
+  Locator
+> = async ({ previewData }) => {
+  const globalSections = await getGlobalSectionsData(previewData)
+
+  return {
+    props: { globalSections },
+  }
 }
 
 Page.displayName = 'Page'

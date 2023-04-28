@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
+import React, { forwardRef } from 'react'
 
 export interface NavbarProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -17,7 +17,7 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(function Navbar(
   ref
 ) {
   return (
-    <header
+    <section
       data-fs-navbar
       ref={ref}
       data-testid={testId}
@@ -25,7 +25,7 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(function Navbar(
       {...otherProps}
     >
       {children}
-    </header>
+    </section>
   )
 })
 

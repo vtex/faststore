@@ -1,9 +1,9 @@
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import {
-  CartSidebar as UICartSidebar,
-  CartSidebarList as UICartSidebarList,
-  CartSidebarFooter as UICartSidebarFooter,
   Button as UIButton,
+  CartSidebar as UICartSidebar,
+  CartSidebarFooter as UICartSidebarFooter,
+  CartSidebarList as UICartSidebarList,
 } from '@faststore/ui'
 
 import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
@@ -18,6 +18,7 @@ import Gift from '../../ui/Gift'
 import CartItem from '../CartItem'
 import EmptyCart from '../EmptyCart'
 import OrderSummary from '../OrderSummary'
+import styles from './section.module.scss'
 
 function CartSidebar() {
   const { currency } = useSession()
@@ -55,6 +56,9 @@ function CartSidebar() {
 
   return (
     <UICartSidebar
+      overlayProps={{
+        className: `section ${styles.section} section-cart-sidebar`,
+      }}
       totalItems={totalItems}
       alertIcon={<Icon name="Truck" />}
       alertText="Free shipping starts at $300"

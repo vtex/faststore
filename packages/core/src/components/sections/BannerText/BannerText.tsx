@@ -1,7 +1,9 @@
-import Section from '../Section'
 import UIBannerText, {
   BannerTextProps as UIBannerTextProps,
 } from 'src/components/ui/BannerText'
+import Section from '../Section'
+
+import styles from './section.module.scss'
 
 export interface BannerTextProps {
   title: string
@@ -23,7 +25,7 @@ function BannerText({
   colorVariant = 'main',
 }: BannerTextProps) {
   return (
-    <Section className="layout__section">
+    <Section className={`${styles.section} section-banner layout__section`}>
       <UIBannerText
         variant={variant}
         title={title}
