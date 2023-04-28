@@ -322,8 +322,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
      const isMobile = window.innerWidth <= 768
 
       <ProductShelf>
-          {/* Not using `ProductShelfItem` component here to avoid
-          `validateDOMNesting(...):<li> cannot appear as a descendant of <li>` issue. */}
+          {/* Avoid using `ProductShelfItem` component here since the `Carousel` component already wraps its children as <li />` */}
           <Carousel
             itemsPerPage={isMobile ? 1 : 3}
             variant="scroll"
