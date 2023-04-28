@@ -78,7 +78,7 @@
       border-left: var(--fs-navbar-links-list-border-left-width-notebook) solid var(--fs-navbar-links-list-border-left-color-notebook);
     }
 
-    [data-fs-navbar-links-list-item] {
+    [data-fs-navbar-links-list-item] > [data-fs-link] {
       width: var(--fs-navbar-links-link-width-notebook);
       padding: var(--fs-navbar-links-link-padding-notebook);
     }
