@@ -23,7 +23,7 @@
 
   --fs-carousel-controls-control-left     : var(--fs-spacing-4);
   --fs-carousel-controls-control-right    : var(--fs-carousel-controls-control-left);
-  --fs-carousel-controls-control-max-left : calc((var(--fs-grid-max-width)/2) - var(--fs-spacing-11));
+  --fs-carousel-controls-control-max-left : calc((var(--fs-grid-max-width)/4) - var(--fs-spacing-11));
 
   // Bullets
   --fs-carousel-bullets-padding-top       : var(--fs-carousel-controls-control-left);
@@ -48,47 +48,51 @@
 
   &:hover {
     [data-fs-carousel-controls] {
-      @include media(">=tablet") {
+      display: block;
+    }
+  }
+
+  [data-fs-carousel-controls] {
+    position: relative;
+    display: none;
+
+    @include media(">=tablet") {
+      width: 100%;
+
+      [data-fs-carousel-control] {
+        bottom: calc(var(--fs-carousel-controls-height) + var(--fs-control-tap-size));
         display: flex;
-        width: 100%;
+        align-items: center;
+        justify-content: center;
+        width: var(--fs-carousel-controls-width);
+        height: var(--fs-carousel-controls-height);
+        cursor: pointer;
+        background-color: var(--fs-carousel-controls-bkg-color);
+        border-color: transparent;
+        border-radius: var(--fs-carousel-controls-border-radius);
+        box-shadow: var(--fs-carousel-controls-box-shadow);
+        transform: translateY(-50%);
+      }
 
-        [data-fs-carousel-control] {
-          bottom: calc(var(--fs-carousel-controls-height) + var(--fs-control-tap-size));
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: var(--fs-carousel-controls-width);
-          height: var(--fs-carousel-controls-height);
-          cursor: pointer;
-          background-color: var(--fs-carousel-controls-bkg-color);
-          border-color: transparent;
-          border-radius: var(--fs-carousel-controls-border-radius);
-          box-shadow: var(--fs-carousel-controls-box-shadow);
-          transform: translateY(-50%);
+      [data-fs-carousel-control="left"] {
+        position: absolute;
+        left: var(--fs-carousel-controls-control-right);
+        @include media(">desktop") {
+          left: var(--fs-carousel-controls-control-max-left);
         }
+      }
 
-        [data-fs-carousel-control="left"] {
-          position: absolute;
-          left: var(--fs-carousel-controls-control-right);
-
-          @include media(">desktop") {
-            left: var(--fs-carousel-controls-control-max-left);
-          }
+      [data-fs-carousel-control="right"] {
+        position: absolute;
+        right: var(--fs-carousel-controls-control-right);
+        @include media(">desktop") {
+          right: var(--fs-carousel-controls-control-max-left);
         }
+      }
 
-        [data-fs-carousel-control="right"] {
-          position: absolute;
-          right: var(--fs-carousel-controls-control-right);
-
-          @include media(">desktop") {
-            right: var(--fs-carousel-controls-control-max-left);
-          }
-        }
-
-        [data-fs-icon] {
-          display: flex;
-          color: var(--fs-carousel-controls-icon-color);
-        }
+      [data-fs-icon] {
+        display: flex;
+        color: var(--fs-carousel-controls-icon-color);
       }
     }
   }
@@ -120,11 +124,6 @@
     @include media(">=desktop") {
       width: var(--fs-carousel-item-width-desktop);
     }
-  }
-
-  [data-fs-carousel-controls] {
-    position: relative;
-    display: none;
   }
 
   [data-fs-carousel-bullets] {
