@@ -371,3 +371,5 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
 ### ❌ Don'ts
 
 - We don't recommend using [Carousel](/components/molecules/carousel) inside `ProductShelf` when display 5 or less items.
+- We don't recommend using `ProductShelfItems` and `ProductShelfItem` when using Carousel component to avoid: `validateDOMNesting(...): <li> cannot appear as a descendant of <li>` issue.
+  See [Carousel Code Example](/components/organisms/product-shelf#with-carousel)
