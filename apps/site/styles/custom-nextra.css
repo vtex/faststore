@@ -81,15 +81,15 @@ h4.nx-tracking-tight {
 }
 
 /* Carousel */
-[data-doc-overview] [data-fs-carousel] [data-fs-carousel-track] {
+[data-doc-overview-section] [data-fs-carousel] [data-fs-carousel-track] {
   padding: var(--fs-carousel-padding-mobile);
 }
 
-[data-doc-overview] [data-fs-carousel] [data-fs-carousel-control="left"] {
+[data-doc-overview-section] [data-fs-carousel] [data-fs-carousel-control="left"] {
   left: var(--fs-carousel-controls-control-left);
 }
 
-[data-doc-overview] [data-fs-carousel] [data-fs-carousel-control="right"] {
+[data-doc-overview-section] [data-fs-carousel] [data-fs-carousel-control="right"] {
   right: var(--fs-carousel-controls-control-right);
 }
 
