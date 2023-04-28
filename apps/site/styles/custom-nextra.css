@@ -80,6 +80,19 @@ h4.nx-tracking-tight {
   z-index: 21;
 }
 
+/* Carousel */
+[data-doc-overview] [data-fs-carousel] [data-fs-carousel-track] {
+  padding: var(--fs-carousel-padding-mobile);
+}
+
+[data-doc-overview] [data-fs-carousel] [data-fs-carousel-control="left"] {
+  left: var(--fs-carousel-controls-control-left);
+}
+
+[data-doc-overview] [data-fs-carousel] [data-fs-carousel-control="right"] {
+  right: var(--fs-carousel-controls-control-right);
+}
+
 /* Hero */
 
 header.hero {
