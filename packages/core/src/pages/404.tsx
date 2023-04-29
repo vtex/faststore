@@ -1,12 +1,14 @@
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { EmptyState as UIEmptyState, Icon as UIIcon } from '@faststore/ui'
 import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import { GetStaticProps } from 'next'
 import { Locator } from '@vtex/client-cms'
+
+import { Icon as UIIcon } from '@faststore/ui'
+import EmptyState from 'src/components/sections/EmptyState'
 
 const useErrorState = () => {
   const router = useRouter()
@@ -29,7 +31,7 @@ function Page({ globalSections }: Props) {
     <GlobalSections {...globalSections}>
       <NextSeo noindex nofollow />
 
-      <UIEmptyState
+      <EmptyState
         title="Not Found: 404"
         titleIcon={
           <UIIcon
@@ -39,10 +41,9 @@ function Page({ globalSections }: Props) {
             weight="thin"
           />
         }
-        bkgColor="light"
       >
         <p>This app could not find url {fromUrl}</p>
-      </UIEmptyState>
+      </EmptyState>
     </GlobalSections>
   )
 }
