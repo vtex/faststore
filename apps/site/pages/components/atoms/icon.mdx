@@ -48,18 +48,20 @@ This project has a [set of icons](../../docs/icons) that uses SVGs from [Phospho
 ## Overview
 
 <OverviewSection>
-  <Icon name="ShoppingCart" weight="thin" />
+  <Icon name="ShoppingCart" weight="thin" width={32} height={32} />
   <Icon name="ShoppingCart" weight="light" />
-  <Icon name="ShoppingCart" weight="regular" />
-  <Icon name="ShoppingCart" weight="bold" />
+  <Icon name="ShoppingCart" weight="regular" width={16} height={16} />
+  <Icon name="ShoppingCart" weight="bold" width={20} height={20} />
 </OverviewSection>
 
 ```tsx
-<Icon name="ShoppingCart" weight="thin" />
-<Icon name="ShoppingCart" weight="light" />
-<Icon name="ShoppingCart" weight="regular" />
-<Icon name="ShoppingCart" weight="bold" />
+  <Icon name="ShoppingCart" weight="thin" width={32} height={32} />
+  <Icon name="ShoppingCart" weight="light" />
+  <Icon name="ShoppingCart" weight="regular" width={16} height={16} />
+  <Icon name="ShoppingCart" weight="bold" width={20} height={20} />
 ```
+
+**note**: default values for `width` and `height` is 24.
 
 ---
 
