@@ -1,5 +1,5 @@
 import type { SVGProps } from 'react'
-import React, { forwardRef } from "react"
+import React, { forwardRef } from 'react'
 
 type IconWeight = 'thin' | 'light' | 'regular' | 'bold'
 
@@ -27,13 +27,25 @@ export interface IconProps extends SVGProps<SVGSVGElement> {
    * @default 'regular'
    */
   weight?: IconWeight
+  /**
+   * SVG width.
+   *
+   * @default '24'
+   */
+  width?: number
+  /**
+   * SVG height.
+   *
+   * @default '24'
+   */
+  height?: number
 }
 
 const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
   { testId = 'fs-icon', name, weight = 'regular', ...otherProps }: IconProps,
   ref
 ) {
-  const {width, height} = otherProps
+  const { width, height } = otherProps
   return (
     <svg
       ref={ref}
