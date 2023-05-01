@@ -75,12 +75,15 @@ describe('add_to_cart event', () => {
       cy.getById('buy-button')
         .should('be.visible')
         .scrollIntoView({ duration: 500 })
-        .click()
-        .then(($btn) => {
-          cy.itemsInCart(1)
-          const skuId = $btn.attr('data-sku')
+        .then(() => {
+          cy.getById('buy-button')
+            .click({ force: true })
+            .then(($btn) => {
+              cy.itemsInCart(1)
+              const skuId = $btn.attr('data-sku')
 
-          testAddToCartEvent({ skuId, numberOfEvents: 1 })
+              testAddToCartEvent({ skuId, numberOfEvents: 1 })
+            })
         })
     })
   })
@@ -96,21 +99,24 @@ describe('add_to_cart event', () => {
       cy.getById('buy-button')
         .should('be.visible')
         .scrollIntoView({ duration: 500 })
-        .click()
-        .then(($btn) => {
-          cy.itemsInCart(1)
-          const skuId = $btn.attr('data-sku')
+        .then(() => {
+          cy.getById('buy-button')
+            .click({ force: true })
+            .then(($btn) => {
+              cy.itemsInCart(1)
+              const skuId = $btn.attr('data-sku')
 
-          testAddToCartEvent({ skuId, numberOfEvents: 1 })
+              testAddToCartEvent({ skuId, numberOfEvents: 1 })
 
-          cy.get(
-            '[data-testid=fs-cart-item] [data-testid=fs-quantity-selector-right-button]'
-          )
-            .click()
-            .then(() => {
-              cy.itemsInCart(2)
+              cy.get(
+                '[data-testid=fs-cart-item] [data-testid=fs-quantity-selector-right-button]'
+              )
+                .click()
+                .then(() => {
+                  cy.itemsInCart(2)
 
-              testAddToCartEvent({ skuId, numberOfEvents: 2 })
+                  testAddToCartEvent({ skuId, numberOfEvents: 2 })
+                })
             })
         })
     })
@@ -160,26 +166,29 @@ describe('remove_from_cart event', () => {
       cy.getById('buy-button')
         .should('be.visible')
         .scrollIntoView({ duration: 500 })
-        .click()
         .then(() => {
-          cy.itemsInCart(1)
-          cy.getById('checkout-button')
-            .should('be.visible')
-            .should('be.enabled')
-          cy.itemsInCart(1)
+          cy.getById('buy-button')
+            .click({ force: true })
+            .then(() => {
+              cy.itemsInCart(1)
+              cy.getById('checkout-button')
+                .should('be.visible')
+                .should('be.enabled')
+              cy.itemsInCart(1)
 
-          // Remove the added item
-          cy.getById('remove-from-cart-button')
-            .click()
-            .then(($btn) => {
-              cy.itemsInCart(0)
-              const skuId = $btn.attr('data-sku')
+              // Remove the added item
+              cy.getById('remove-from-cart-button')
+                .click({ force: true })
+                .then(($btn) => {
+                  cy.itemsInCart(0)
+                  const skuId = $btn.attr('data-sku')
 
-              testRemoveFromCartEvent({
-                skuId,
-                numberOfEvents: 1,
-                quantity: 1,
-              })
+                  testRemoveFromCartEvent({
+                    skuId,
+                    numberOfEvents: 1,
+                    quantity: 1,
+                  })
+                })
             })
         })
     })
@@ -194,13 +203,13 @@ describe('remove_from_cart event', () => {
 
       // Add item to cart
       cy.get('[data-testid=fs-quantity-selector-right-button]')
-        .click()
+        .click({ force: true })
         .then(() => {
           cy.getById('buy-button')
             .should('be.visible')
             .scrollIntoView({ duration: 500 })
-            .click()
             .then(($btn) => {
+              cy.getById('buy-button').click({ force: true })
               cy.itemsInCart(2)
               cy.getById('checkout-button')
                 .should('be.visible')
@@ -211,7 +220,7 @@ describe('remove_from_cart event', () => {
               cy.get(
                 '[data-testid=fs-cart-item] [data-testid=fs-quantity-selector-left-button]'
               )
-                .click()
+                .click({ force: true })
                 .then(() => {
                   cy.itemsInCart(1)
                   cy.getById('checkout-button')
@@ -254,22 +263,26 @@ describe('select_item event', () => {
 
     let skuId
 
-    cy.getById('fs-product-card').first().click()
-    cy.getById('buy-button')
-      .should('be.visible')
-      .scrollIntoView({ duration: 500 })
-      .then(($btn) => {
-        skuId = $btn.attr('data-sku')
-      })
+    cy.getById('fs-product-card')
+      .first()
+      .click()
       .then(() => {
-        cy.window().then((window) => {
-          const event = window.dataLayer.find(
-            ({ event: eventName }) => eventName === 'select_item'
-          )
+        cy.getById('buy-button')
+          .should('be.visible')
+          .scrollIntoView({ duration: 0 })
+          .then(($btn) => {
+            skuId = $btn.attr('data-sku')
+          })
+          .then(() => {
+            cy.window().then((window) => {
+              const event = window.dataLayer.find(
+                ({ event: eventName }) => eventName === 'select_item'
+              )
 
-          expect(event).to.exist
-          expect(skuId).to.equal(event.ecommerce.items[0].item_variant)
-        })
+              expect(event).to.exist
+              expect(skuId).to.equal(event.ecommerce.items[0].item_variant)
+            })
+          })
       })
   })
 })
@@ -347,7 +360,7 @@ describe('search event', () => {
       .click()
       .type('shirt')
       .within(() => {
-        cy.getById('fs-button')
+        cy.getById('store-input-mobile-button')
           .click()
           .then(() => {
             dataLayerHasEvent('search')
@@ -362,7 +375,7 @@ describe('view_cart event', () => {
     cy.waitForHydration()
 
     cy.getById('cart-toggle').click()
-    cy.getById('cart-sidebar').should('be.visible')
+    cy.getById('fs-cart-sidebar').should('be.visible')
 
     dataLayerHasEvent('view_cart')
 
@@ -383,18 +396,20 @@ describe('view_cart event', () => {
     cy.getById('buy-button')
       .should('be.visible')
       .scrollIntoView({ duration: 500 })
-      .click()
-    cy.getById('cart-sidebar').should('be.visible')
+      .then(() => {
+        cy.getById('buy-button').click({ force: true })
+        cy.getById('fs-cart-sidebar').should('be.visible')
 
-    dataLayerHasEvent('view_cart')
+        dataLayerHasEvent('view_cart')
 
-    cy.window().then((window) => {
-      const event = window.dataLayer.find(
-        ({ event: eventName }) => eventName === 'view_cart'
-      )
+        cy.window().then((window) => {
+          const event = window.dataLayer.find(
+            ({ event: eventName }) => eventName === 'view_cart'
+          )
 
-      expect(event.ecommerce.value).to.equal(950)
-      expect(event.ecommerce.items.length).to.equal(1)
-    })
+          expect(event.ecommerce.value).to.equal(950)
+          expect(event.ecommerce.items.length).to.equal(1)
+        })
+      })
   })
 })

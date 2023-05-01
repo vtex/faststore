@@ -1,7 +1,12 @@
 import type { PropsWithChildren } from 'react'
 
+import {
+  ProductShelfItem,
+  ProductShelfItems,
+  ProductShelf as UIProductShelf,
+} from '@faststore/ui'
+
 import { ITEMS_PER_SECTION } from 'src/constants'
-import styles from 'src/components/sections/ProductShelf/product-shelf.module.scss'
 
 import ProductCardSkeleton from '../ProductCardSkeleton'
 
@@ -16,16 +21,15 @@ function ProductShelfSkeleton({
   loading = true,
 }: PropsWithChildren<Props>) {
   return loading ? (
-    <ul
-      data-fs-product-shelf-items
-      className={`layout__content ${styles.fsProductShelf}`}
-    >
-      {Array.from({ length: ITEMS_PER_SECTION }, (_, index) => (
-        <li key={String(index)}>
-          <ProductCardSkeleton aspectRatio={aspectRatio} sectioned />
-        </li>
-      ))}
-    </ul>
+    <UIProductShelf>
+      <ProductShelfItems className="layout__content">
+        {Array.from({ length: ITEMS_PER_SECTION }, (_, index) => (
+          <ProductShelfItem key={String(index)}>
+            <ProductCardSkeleton aspectRatio={aspectRatio} sectioned />
+          </ProductShelfItem>
+        ))}
+      </ProductShelfItems>
+    </UIProductShelf>
   ) : (
     <>{children}</>
   )

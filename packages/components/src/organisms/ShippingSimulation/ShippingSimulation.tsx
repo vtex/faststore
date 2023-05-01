@@ -4,10 +4,16 @@ import type { PriceFormatter } from '../../atoms/Price/Price'
 import React from 'react'
 
 import {
-  Icon, InputField, Link, LinkElementType, LinkProps, Price, Table,
+  Icon,
+  InputField,
+  Link,
+  LinkElementType,
+  LinkProps,
+  Price,
+  Table,
   TableBody,
   TableCell,
-  TableRow
+  TableRow,
 } from '../..'
 
 interface ShippingSLA {
@@ -49,7 +55,7 @@ export interface ShippingSimulationProps
    */
   optionsLabel?: string
   /**
-   * Props for the link for i don't know my postal code.
+   * Props for the link `I don't know my Postal Code`.
    */
   idkPostalCodeLinkProps?: Partial<LinkProps<LinkElementType>>
   /**
@@ -61,9 +67,9 @@ export interface ShippingSimulationProps
    */
   onSubmit?: () => void
   /**
-   * Callback function when the clear button is clicked.
+   * Callback function when the input clear button is clicked.
    */
-  onClear?:  () => void
+  onClear?: () => void
   /**
    * Location for shipping.
    */
@@ -77,7 +83,7 @@ export interface ShippingSimulationProps
    */
   displayClearButton?: boolean
   /**
-   * Message of error.
+   * Message of error for input.
    */
   errorMessage?: string
   /**
@@ -89,9 +95,9 @@ export interface ShippingSimulationProps
 function ShippingSimulation({
   testId = 'fs-shipping-simulation',
   formatter,
-  title = "Shipping",
-  inputLabel =  "Postal Code",
-  optionsLabel = "Shipping options",
+  title = 'Shipping',
+  inputLabel = 'Postal Code',
+  optionsLabel = 'Shipping options',
   idkPostalCodeLinkProps,
   onInput,
   onSubmit,
@@ -103,19 +109,16 @@ function ShippingSimulation({
   postalCode,
   ...otherProps
 }: ShippingSimulationProps) {
-
   const hasShippingOptions = !!options && options.length > 0
 
   return (
     <section
       data-fs-shipping-simulation
-      data-fs-shipping-simulation-empty={!hasShippingOptions ? "true" : "false"}
+      data-fs-shipping-simulation-empty={!hasShippingOptions ? 'true' : 'false'}
       data-testid={testId}
       {...otherProps}
     >
-      <h2 data-fs-shipping-simulation-title>
-        {title}
-      </h2>
+      <h2 data-fs-shipping-simulation-title>{title}</h2>
 
       <InputField
         actionable
@@ -129,23 +132,25 @@ function ShippingSimulation({
         displayClearButton={displayClearButton}
       />
 
-      <Link href="/" data-fs-shipping-simulation-link size="small" {...idkPostalCodeLinkProps}>
-        {
-          idkPostalCodeLinkProps?.children ??
+      <Link
+        href="/"
+        data-fs-shipping-simulation-link
+        size="small"
+        {...idkPostalCodeLinkProps}
+      >
+        {idkPostalCodeLinkProps?.children ?? (
           <>
             {"I don't know my Postal Code"}
             <Icon name="ArrowSquareOut" width={20} height={20} />
           </>
-        }
+        )}
       </Link>
 
       {hasShippingOptions && (
         <>
           <header data-fs-shipping-simulation-header>
             <h3 data-fs-shipping-simulation-subtitle>{optionsLabel}</h3>
-            <p data-fs-shipping-simulation-location>
-              {location}
-            </p>
+            <p data-fs-shipping-simulation-location>{location}</p>
           </header>
 
           <Table>

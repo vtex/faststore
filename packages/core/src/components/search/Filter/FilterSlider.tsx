@@ -13,6 +13,8 @@ import type { Filter_FacetsFragment } from '@generated/graphql'
 
 import type { useFilter } from './useFilter'
 
+import styles from './section.module.scss'
+
 interface Props {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
@@ -41,6 +43,9 @@ function FilterSlider({
 
   return (
     <UIFilterSlider
+      overlayProps={{
+        className: `section ${styles.section} section-filter-slider`,
+      }}
       title={title}
       size="partial"
       direction="rightSide"
@@ -82,7 +87,7 @@ function FilterSlider({
           return (
             <UIFilterFacets
               key={`${testId}-${label}-${index}`}
-              testId={testId}
+              testId={`mobile-${testId}`}
               index={index}
               type={type}
               label={label}
@@ -93,7 +98,7 @@ function FilterSlider({
                     <UIFilterFacetBooleanItem
                       key={`${testId}-${facet.label}-${item.label}`}
                       id={`${testId}-${facet.label}-${item.label}`}
-                      testId={testId}
+                      testId={`mobile-${testId}`}
                       onFacetChange={(facet) =>
                         dispatch({ type: 'toggleFacet', payload: facet })
                       }

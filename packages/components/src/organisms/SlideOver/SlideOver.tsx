@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import React from 'react'
 
-import type { ModalProps } from '../../'
+import type { ModalProps, OverlayProps } from '../../'
 import { Modal } from '../../'
 
 export type Direction = 'leftSide' | 'rightSide'
@@ -30,6 +30,10 @@ export interface SlideOverProps extends Omit<ModalProps, 'title'> {
   fade: 'in' | 'out'
   children: ReactNode
   /**
+   * Props forwarded to the `Overlay` component.
+   */
+  overlayProps?: OverlayProps
+  /**
    * This function is called whenever the user clicks outside.
    * the modal content
    */
@@ -37,13 +41,14 @@ export interface SlideOverProps extends Omit<ModalProps, 'title'> {
 }
 
 function SlideOver({
+  testId = 'fs-slide-over',
   isOpen,
   direction = 'leftSide',
   size = 'full',
   fade = 'out',
   children,
+  overlayProps,
   onDismiss,
-  testId = 'fs-slide-over',
   ...otherProps
 }: SlideOverProps) {
   return (
@@ -55,6 +60,8 @@ function SlideOver({
       data-fs-slide-over-state={fade}
       isOpen={isOpen}
       onDismiss={onDismiss}
+      testId={testId}
+      overlayProps={overlayProps}
       {...otherProps}
     >
       {children}

@@ -41,9 +41,9 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .propsSection [data-nx-props-section-name] { width: 20%; }
+  .propsSection [data-nx-props-section-name] { width: 25%; }
   .propsSection [data-nx-props-section-type] { width: 20%; }
-  .propsSection [data-nx-props-section-description] { width: 40%; }
+  .propsSection [data-nx-props-section-description] { width: 35%; }
   .propsSection [data-nx-props-section-default] { width: 20%; }
 }
 

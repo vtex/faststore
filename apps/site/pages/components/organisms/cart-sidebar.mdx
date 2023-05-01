@@ -1,0 +1,208 @@
+---
+description: The `CartSidebar` displays the summary of items added to the cart along with detailed information, and checkout option.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/CartSidebar___5863b0eb4a4a8ce9a98da5c760461e61.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { UIProvider, OrderSummary } from '@faststore/ui'
+import CartSidebarUsage from 'site/components/CartSidebar/CartSidebarUsage'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const cartSidebarPath = path.resolve(__filename)
+  const components = ['CartSidebar.tsx']
+  const [CartSidebarProps] = getComponentPropsFrom(cartSidebarPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        CartSidebarProps,
+      },
+    },
+  }
+}
+
+export const CartSidebarPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { CartSidebarProps } = useSSG()
+  return {
+    CartSidebar: <PropsSection propsList={CartSidebarProps} />,
+  }[component]
+}
+
+<header>
+
+# Cart Sidebar
+
+The `CartSidebar` displays the summary of items added to the cart along with detailed information, and checkout option.
+
+</header>
+
+The final component is a compound of the following:
+
+- `CartSidebar`: renders a `SlideOver` as wrapper with the `CartSidebarList` and `CartSidebarFooter`.
+- `CartSidebarList`: wraps a series of `CartItem`s and `Gifts`.
+- `CartSidebarFooter`: wraps an `OrdeSummary` usually along with the Checkout Button.
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { CartSidebar, CartSidebarList, CartSidebarFooter } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/organisms/CartSidebar/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection containerStyle={{display: 'block'}}>
+      <UIProvider>
+        <CartSidebarUsage />
+      </UIProvider>
+    </OverviewSection>
+
+  </Tab>
+  <Tab>
+    ```tsx
+      <CartSidebar totalItems={0} alertIcon={<Icon name="Truck" />} alertText="Free shipping starts at $300" >
+        <CartSidebarList>
+          <CartItem
+            price={{
+              value: product.offers.offers[0].price,
+              listPrice: product.offers.offers[0].listPrice,
+              formatter: useFormattedPrice,
+            }}
+            quantity={3}
+          >
+          <CartItemImage>
+            <img
+              data-fs-image
+              src={product.image[0].url}
+              alt={product.image[0].alternateName}
+            />
+          </CartItemImage>
+          <CartItemSummary
+            title={product.isVariantOf.name}
+            activeVariations={activeVariations}
+          />
+          </CartItem>
+          <Gift icon={<Icon name="Tag" />}>
+            <GiftImage>
+              <img
+                src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+                alt="Magicwhite"
+                width={89}
+                height={89}
+              />
+            </GiftImage>
+            <GiftContent
+              productName="Apple Magic Mouse"
+              price={{ value: 999, listPrice: 999, formatter: useFormattedPrice }}
+            />
+          </Gift>
+        </CartSidebarList>
+        <CartSidebarFooter>
+          <OrderSummary
+            subtotalLabel="Subtotal (3 products)"
+            subtotalValue="$1,200"
+            discountValue="-$100"
+            totalValue="$1,100"
+          />
+        </CartSidebarFooter>
+      </CartSidebar>
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+<CartSidebarPropsSection component="CartSidebar" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-cart-sidebar-bkg-color"
+    value="var(--fs-color-neutral-bkg)"
+    isColor
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### List
+
+<TokenTable>
+  <TokenRow
+    token="--fs-cart-sidebar-list-padding"
+    value="var(--fs-spacing-3)"
+  />
+</TokenTable>
+
+#### Footer
+
+<TokenTable>
+  <TokenRow
+    token="--fs-cart-sidebar-footer-bkg-color"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-cart-sidebar-footer-box-shadow"
+    value="0 0 6px rgb(0 0 0 / 20%)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+`data-fs-cart-sidebar`
+
+`data-fs-cart-sidebar-title`
+
+`data-fs-cart-sidebar-list`
+
+`data-fs-cart-sidebar-footer`
+
+---
+
+## Related components
+
+<SectionList grid="row">
+  <SectionItem
+    title="Order Summary"
+    description="This component provide a summary of the items in the cart, including the total price, related shipping tax, and discounts."
+    actionPath="/components/molecules/order-summary"
+  >
+    <OrderSummary
+      subtotalLabel="Subtotal (3 products)"
+      subtotalValue="$1,200"
+      discountValue="-$100"
+      totalValue="$1,100"
+    />
+  </SectionItem>
+</SectionList>

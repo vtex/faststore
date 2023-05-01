@@ -1,12 +1,12 @@
 import { gql } from '@faststore/graphql-utils'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
-import { useEffect, useState } from 'react'
 import {
   BuyButton as UIBuyButton,
   QuantitySelector as UIQuantitySelector,
   ProductTitle as UIProductTitle,
 } from '@faststore/ui'
+import { useEffect, useState } from 'react'
 
 import { Components } from './Overrides'
 const { Price, DiscountBadge } = Components
@@ -14,7 +14,7 @@ const { Price, DiscountBadge } = Components
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 import OutOfStock from 'src/components/product/OutOfStock'
 import Breadcrumb from 'src/components/ui/Breadcrumb'
-import { ImageGallery } from 'src/components/ui/ImageGallery'
+import ImageGallery from 'src/components/ui/ImageGallery'
 import ShippingSimulation from 'src/components/ui/ShippingSimulation'
 import Selectors from 'src/components/ui/SkuSelector'
 import type { AnalyticsItem } from 'src/sdk/analytics/types'
@@ -25,7 +25,7 @@ import { useSession } from 'src/sdk/session'
 
 import ProductDetailsContent from '../ProducDetailsContent'
 import Section from '../Section'
-import styles from './product-details.module.scss'
+import styles from './section.module.scss'
 
 interface Props {
   context: ProductDetailsFragment_ProductFragment
@@ -167,49 +167,50 @@ function ProductDetails({ context: staleProduct }: Props) {
 
   return (
     <Section
-      className={`${styles.fsProductDetails} layout__content layout__section`}
+      className={`${styles.section} section-product-details layout__content layout__section`}
     >
-      <Breadcrumb breadcrumbList={breadcrumbs.itemListElement} />
-
-      <section data-fs-product-details-body>
-        <header data-fs-product-details-title data-fs-product-details-section>
-          <UIProductTitle
-            title={<h1>{name}</h1>}
-            label={
-              <DiscountBadge
-                listPrice={listPrice}
-                spotPrice={lowPrice}
-                size="big"
-              />
-            }
-            refNumber={productId}
-          />
-        </header>
-
-        <ImageGallery data-fs-product-details-gallery images={productImages} />
-
-        <section data-fs-product-details-info>
-          <section
-            data-fs-product-details-settings
-            data-fs-product-details-section
-          >
-            {availability ? <ProductDetailsSection /> : <OutOfStock />}
-          </section>
-          {availability && (
-            <ShippingSimulation
-              data-fs-product-details-section
-              data-fs-product-details-shipping
-              productShippingInfo={{
-                id,
-                quantity: addQuantity,
-                seller: seller.identifier,
-              }}
-              formatter={useFormattedPrice}
+      <section data-fs-product-details>
+        <Breadcrumb breadcrumbList={breadcrumbs.itemListElement} />
+        <section data-fs-product-details-body>
+          <header data-fs-product-details-title data-fs-product-details-section>
+            <UIProductTitle
+              title={<h1>{name}</h1>}
+              label={
+                <DiscountBadge
+                  listPrice={listPrice}
+                  spotPrice={lowPrice}
+                  size="big"
+                />
+              }
+              refNumber={productId}
             />
-          )}
+          </header>
+          <ImageGallery
+            data-fs-product-details-gallery
+            images={productImages}
+          />
+          <section data-fs-product-details-info>
+            <section
+              data-fs-product-details-settings
+              data-fs-product-details-section
+            >
+              {availability ? <ProductDetailsSection /> : <OutOfStock />}
+            </section>
+            {availability && (
+              <ShippingSimulation
+                data-fs-product-details-section
+                data-fs-product-details-shipping
+                productShippingInfo={{
+                  id,
+                  quantity: addQuantity,
+                  seller: seller.identifier,
+                }}
+                formatter={useFormattedPrice}
+              />
+            )}
+          </section>
+          <ProductDetailsContent />
         </section>
-
-        <ProductDetailsContent />
       </section>
     </Section>
   )

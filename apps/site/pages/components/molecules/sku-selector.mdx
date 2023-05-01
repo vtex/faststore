@@ -25,17 +25,14 @@ import { product } from '../../../mocks/product'
 
 export const getStaticProps = () => {
   const skuSelectorPath = path.resolve(__filename)
-  const components = [
-    'SkuSelector.tsx',
-  ]
-  const [skuSelectorProps] =
-    getComponentPropsFrom(skuSelectorPath, components)
+  const components = ['SkuSelector.tsx']
+  const [skuSelectorProps] = getComponentPropsFrom(skuSelectorPath, components)
   return {
     props: {
       // We add an `ssg` field to the page props,
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
-        skuSelectorProps
+        skuSelectorProps,
       },
     },
   }
@@ -106,7 +103,7 @@ This is a product related component, we recommend testing it using a product moc
 
 ## Import
 
-Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+Import the component from [@faststore/ui](/../components)
 
 ```tsx
 import { SkuSelector } from '@faststore/ui'
@@ -151,8 +148,7 @@ export const propsSkuOptions = [
   {
     name: 'alt',
     type: 'string',
-    description:
-      'Alternative text description of the image.',
+    description: 'Alternative text description of the image.',
     default: '',
   },
   {
@@ -165,23 +161,20 @@ export const propsSkuOptions = [
   {
     name: 'label',
     type: 'string',
-    description:
-      'Current value for this option.',
+    description: 'Current value for this option.',
     default: '',
-    required: true
+    required: true,
   },
   {
     name: 'value',
     type: 'string',
-    description:
-      'Specifies that this option should be disabled.',
-    required: true
+    description: 'Specifies that this option should be disabled.',
+    required: true,
   },
   {
     name: 'disabled',
     type: 'boolean',
-    description:
-      'Specifies that this option should be disabled.',
+    description: 'Specifies that this option should be disabled.',
     default: '',
   },
   {

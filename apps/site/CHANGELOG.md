@@ -3,6 +3,84 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.122-alpha.0](https://github.com/vtex/faststore/compare/v2.0.121-alpha.0...v2.0.122-alpha.0) (2023-04-27)
+
+### Bug Fixes
+
+- LH Unused CSS + Organizes CMS Sections and components styles. ([#1712](https://github.com/vtex/faststore/issues/1712)) ([0ab1fa8](https://github.com/vtex/faststore/commit/0ab1fa805e41a53f21cbe26dc5143f853b64dc00))
+
+## [2.0.119-alpha.0](https://github.com/vtex/faststore/compare/v2.0.118-alpha.0...v2.0.119-alpha.0) (2023-04-27)
+
+**Note:** Version bump only for package site
+
+## [2.0.118-alpha.0](https://github.com/vtex/faststore/compare/v2.0.117-alpha.0...v2.0.118-alpha.0) (2023-04-26)
+
+**Note:** Version bump only for package site
+
+## [2.0.117-alpha.0](https://github.com/vtex/faststore/compare/v2.0.116-alpha.0...v2.0.117-alpha.0) (2023-04-26)
+
+### Features
+
+- Adds `Navbar`, `NavbarSlider` and `NavbarLinks` components ([#1728](https://github.com/vtex/faststore/issues/1728)) ([30e3f59](https://github.com/vtex/faststore/commit/30e3f59fa75abe6d4155541615c30ccf9618be42))
+
+## [2.0.114-alpha.0](https://github.com/vtex/faststore/compare/v2.0.113-alpha.0...v2.0.114-alpha.0) (2023-04-24)
+
+**Note:** Version bump only for package site
+
+## [2.0.113-alpha.0](https://github.com/vtex/faststore/compare/v2.0.112-alpha.0...v2.0.113-alpha.0) (2023-04-24)
+
+### Features
+
+- Adds `Navbar` component ([#1720](https://github.com/vtex/faststore/issues/1720)) ([58aac03](https://github.com/vtex/faststore/commit/58aac0366f3a5df042cd46ce9525e5f1af7b9a38))
+
+## [2.0.112-alpha.0](https://github.com/vtex/faststore/compare/v2.0.111-alpha.0...v2.0.112-alpha.0) (2023-04-20)
+
+**Note:** Version bump only for package site
+
+## [2.0.111-alpha.0](https://github.com/vtex/faststore/compare/v2.0.110-alpha.0...v2.0.111-alpha.0) (2023-04-18)
+
+### Features
+
+- Adds `ProductGrid` component ([#1719](https://github.com/vtex/faststore/issues/1719)) ([9cbe71f](https://github.com/vtex/faststore/commit/9cbe71f81395297c14b258efdd336b00f6b71071))
+
+## [2.0.110-alpha.0](https://github.com/vtex/faststore/compare/v2.0.109-alpha.0...v2.0.110-alpha.0) (2023-04-18)
+
+### Features
+
+- Add `ProductShelf` component ([#1713](https://github.com/vtex/faststore/issues/1713)) ([6a387a6](https://github.com/vtex/faststore/commit/6a387a665aa8a1eb65122abcce67d82b9ead4234))
+
+## [2.0.108-alpha.0](https://github.com/vtex/faststore/compare/v2.0.107-alpha.0...v2.0.108-alpha.0) (2023-04-17)
+
+### Features
+
+- Adds `EmptyState` component ([#1716](https://github.com/vtex/faststore/issues/1716)) ([82eaf9a](https://github.com/vtex/faststore/commit/82eaf9a628f417ee58d7cacb2678f8cdd81bfaec))
+
+## [2.0.107-alpha.0](https://github.com/vtex/faststore/compare/v2.0.106-alpha.0...v2.0.107-alpha.0) (2023-04-17)
+
+**Note:** Version bump only for package site
+
+## [2.0.106-alpha.0](https://github.com/vtex/faststore/compare/v2.0.105-alpha.0...v2.0.106-alpha.0) (2023-04-12)
+
+### Features
+
+- Adds `RegionModal` component ([#1710](https://github.com/vtex/faststore/issues/1710)) ([d3b6c36](https://github.com/vtex/faststore/commit/d3b6c36af3fe3d9c826884654c8708d4a1d14d2d))
+
+## 2.0.104-alpha.0 (2023-04-10)
+
+**Note:** Version bump only for package site
+
+## [2.0.103-alpha.0](https://github.com/vtex/faststore/compare/v2.0.102-alpha.0...v2.0.103-alpha.0) (2023-04-06)
+
+### Features
+
+- Add `ImageGallery` components ([#1681](https://github.com/vtex/faststore/issues/1681)) ([b44101c](https://github.com/vtex/faststore/commit/b44101c932b0758f9c1b09ee001d3221c338cf93)), closes [starter.store#37](https://github.com/vtex/starter.store/issues/37)
+
+## [2.0.102-alpha.0](https://github.com/vtex/faststore/compare/v2.0.101-alpha.0...v2.0.102-alpha.0) (2023-04-06)
+
+### Features
+
+- Adds `CartSidebar` and `OrderSummary` ([#1704](https://github.com/vtex/faststore/issues/1704)) ([a16e168](https://github.com/vtex/faststore/commit/a16e1683816ef84866de4cd7f8d8a64f951b98c6))
+
 ## [2.0.99-alpha.0](https://github.com/vtex/faststore/compare/v2.0.98-alpha.0...v2.0.99-alpha.0) (2023-04-04)
 
 ### Features

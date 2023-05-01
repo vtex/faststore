@@ -1,0 +1,64 @@
+import { Navbar, UIProvider } from '@faststore/ui'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+
+import NavbarUsage from 'site/components/Navigation/NavbarUsage'
+import NavbarLinksUsage from 'site/components/Navigation/NavbarLinksUsage'
+import NavbarSliderUsage from 'site/components/Navigation/NavbarSliderUsage'
+
+export const NavigationUsage = () => null
+
+<header>
+
+# Navigation
+
+This feature enables customers to navigate among the store pages.
+
+</header>
+
+## Overview
+
+This feature aims to group the main store's page header components. These components perform specific functions such as navigation among the store pages, navigation to the login flow and others.
+
+---
+
+## Usage
+
+We recommend the usage of the components together, keeping the `Navbar` as the wrapper of the others.
+
+There is an available example of the usage of all the related components in our starter store [here](https://starter.vtex.app/).
+
+---
+
+## Components
+
+<SectionList grid="column" columns={1}>
+  <SectionItem
+    title="Navbar"
+    description="Represents the page header and groups features like Search and Regionalization."
+    actionPath="/components/organisms/navbar"
+  >
+    <UIProvider>
+      <NavbarUsage />
+    </UIProvider>
+  </SectionItem>
+  <SectionItem
+    title="NavbarSlider"
+    description="As part of the Navbar, this component it its mobile version used to list the navigation links."
+    actionPath="/components/organisms/navbar-slider"
+  >
+    <UIProvider>
+      <NavbarSliderUsage />
+    </UIProvider>
+  </SectionItem>
+  <SectionItem
+    title="NavbarLinks"
+    description="Displays a set of navigation links."
+    actionPath="/components/molecules/navbar-links"
+  >
+    <UIProvider>
+      <Navbar>
+        <NavbarLinksUsage />
+      </Navbar>
+    </UIProvider>
+  </SectionItem>
+</SectionList>

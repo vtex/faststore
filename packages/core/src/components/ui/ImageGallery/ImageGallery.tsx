@@ -1,29 +1,40 @@
-import type { HTMLAttributes } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import {
+  ImageGallery as UIImageGallery,
+  ImageElementData,
+  ImageZoom,
+} from '@faststore/ui'
 
 import { Image } from 'src/components/ui/Image'
-import styles from 'src/components/ui/ImageGallery/image-gallery.module.scss'
+import { useRouter } from 'next/router'
 
-import { ImageGallerySelector, ImageZoom } from '.'
+const ImageComponent = ({ url, alternateName }) => (
+  <Image
+    src={url}
+    alt={alternateName}
+    sizes="(max-width: 72px) 25vw, 30vw"
+    width={72}
+    height={72}
+  />
+)
 
-export interface ImageElementData {
-  url: string
-  alternateName: string
-}
-
-interface ImageGalleryProps extends HTMLAttributes<HTMLDivElement> {
+export interface ImageGalleryProps {
   images: ImageElementData[]
 }
 
-function ImageGallery({ images, ...otherProps }: ImageGalleryProps) {
+const ImageGallery = ({ images, ...otherProps }: ImageGalleryProps) => {
   const [selectedImageIdx, setSelectedImageIdx] = useState(0)
-  const currentImage = images[selectedImageIdx]
-  const hasSelector = images.length > 1
+  const currentImage = images[selectedImageIdx] ?? images[0]
+  const dynamicRoute = useRouter().asPath
+
+  useEffect(() => setSelectedImageIdx(0), [dynamicRoute])
 
   return (
-    <section
-      data-fs-image-gallery={hasSelector ? 'with-selector' : 'without-selector'}
-      className={styles.fsImageGallery}
+    <UIImageGallery
+      images={images}
+      ImageComponent={ImageComponent}
+      selectedImageIdx={selectedImageIdx}
+      setSelectedImageIdx={setSelectedImageIdx}
       {...otherProps}
     >
       <ImageZoom>
@@ -37,14 +48,7 @@ function ImageGallery({ images, ...otherProps }: ImageGalleryProps) {
           priority
         />
       </ImageZoom>
-      {hasSelector && (
-        <ImageGallerySelector
-          images={images}
-          currentImageIdx={selectedImageIdx}
-          onSelect={setSelectedImageIdx}
-        />
-      )}
-    </section>
+    </UIImageGallery>
   )
 }
 

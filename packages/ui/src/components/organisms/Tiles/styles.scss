@@ -1,0 +1,56 @@
+[data-fs-tiles] {
+  // --------------------------------------------------------
+  // Design Tokens for Tiles
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-tiles-gap-mobile         : var(--fs-grid-gap-2);
+  --fs-tiles-gap-notebook       : var(--fs-grid-gap-3);
+
+  // Tile
+  --fs-tiles-tile-min-width     : 9rem;
+  --fs-tiles-tile-border-radius : var(--fs-border-radius);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: var(--fs-tiles-gap-mobile);
+  column-gap: var(--fs-tiles-gap-mobile);
+
+  @include media(">=tablet") {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include media(">=notebook") { column-gap: var(--fs-tiles-gap-notebook); }
+
+  [data-fs-tile] {
+    min-width: var(--fs-tiles-tile-min-width);
+
+    > * {
+      overflow: hidden;
+      border-radius: var(--fs-tiles-tile-border-radius);
+
+      @include media(">=tablet") {
+        display: grid;
+        grid-auto-rows: 62% auto;
+        [data-fs-product-card-image] { height: 100%; }
+      }
+
+      @include media(">=notebook") { grid-auto-rows: 80% auto; }
+    }
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-tiles-variant="expanded-first"] > [data-fs-tile]:first-child,
+  &[data-fs-tiles-variant="expanded-first-two"] > [data-fs-tile]:first-child,
+  &[data-fs-tiles-variant="expanded-first-two"] > [data-fs-tile]:nth-child(2) {
+    grid-column: span 2;
+    min-width: 12rem;
+  }
+}

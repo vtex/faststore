@@ -1,0 +1,152 @@
+---
+description: This component provide a summary of the items in the cart, including the total price, related shipping tax, and discounts.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/OrderSummary___899d24ce49b5586462c4d7baabf9a568.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { OrderSummary } from '@faststore/ui'
+
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const orderSummary = path.resolve(__filename)
+  const components = ['OrderSummary.tsx']
+  const [orderSummaryProps] = getComponentPropsFrom(orderSummary, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        orderSummaryProps,
+      },
+    },
+  }
+}
+
+export const OrderSummaryPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { orderSummaryProps } = useSSG()
+  return {
+    OrderSummary: <PropsSection propsList={orderSummaryProps} />,
+  }[component]
+}
+
+<header>
+
+# Order Summary
+
+Use this component to provide a summary of the items in the cart, including the total price, related shipping tax, and discounts.
+
+</header>
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { OrderSummary } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/OrderSummary/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection direction="column">
+      <OrderSummary
+        subtotalLabel="Subtotal (3 products)"
+        subtotalValue={useFormattedPrice(1200)}
+        discountValue={`-${useFormattedPrice(100)}`}
+        totalValue={useFormattedPrice(1100)}
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+
+    ```tsx
+      <OrderSummary
+        subtotalLabel="Subtotal (3 products)"
+        subtotalValue={useFormattedPrice(1200)}
+        discountValue={`-${useFormattedPrice(100)}`}
+        totalValue={useFormattedPrice(1100)}
+      />
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+<OrderSummaryPropsSection component="OrderSummary" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-order-summary-padding" value="var(--fs-spacing-3)" />
+  <TokenRow
+    token="--fs-order-summary-margin-bottom"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-order-summary-discount-text-color"
+    value="var(--fs-color-success-text)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-order-summary-total-text-size"
+    value="var(--fs-text-size-3)"
+  />
+  <TokenRow
+    token="--fs-order-summary-total-text-font-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+`data-fs-order-summary`
+
+`data-fs-order-summary-subtotal`
+
+`data-fs-order-summary-subtotal-label`
+
+`data-fs-order-summary-subtotal-value`
+
+`data-fs-order-summary-discount`
+
+`data-fs-order-summary-discount-label`
+
+`data-fs-order-summary-discount-value`
+
+`data-fs-order-summary-total`
+
+`data-fs-order-summary-total-label`
+
+`data-fs-order-summary-total-value`

@@ -1,17 +1,24 @@
 import type { PropsWithChildren, ReactNode } from 'react'
 import { useCallback, useState } from 'react'
 
-import { Alert as UIAlert, AlertProps } from '@faststore/ui'
+import { Alert as UIAlert, AlertProps as UIAlertProps } from '@faststore/ui'
 import { mark } from 'src/sdk/tests/mark'
 
-interface Props extends AlertProps {
+import Section from 'src/components/sections/Section/Section'
+import styles from './section.module.scss'
+
+export interface AlertProps extends UIAlertProps {
   /**
    * For CMS integration purposes, should be used to pass content through it
    * instead pass through children
    */
   content?: ReactNode
 }
-function Alert(args: PropsWithChildren<Props>) {
+function Alert({
+  content,
+  children,
+  ...otherProps
+}: PropsWithChildren<AlertProps>) {
   const [displayAlert, setDisplayAlert] = useState(true)
 
   const onAlertClose = useCallback(
@@ -23,12 +30,12 @@ function Alert(args: PropsWithChildren<Props>) {
     return null
   }
 
-  const { content, children, ...otherProps } = args
-
   return (
-    <UIAlert onClose={onAlertClose} {...otherProps}>
-      {content ?? children}
-    </UIAlert>
+    <Section className={`${styles.section} section-alert`}>
+      <UIAlert onClose={onAlertClose} {...otherProps}>
+        {content ?? children}
+      </UIAlert>
+    </Section>
   )
 }
 

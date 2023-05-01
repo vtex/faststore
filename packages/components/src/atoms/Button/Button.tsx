@@ -82,7 +82,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
         </p>
       )}
       {React.isValidElement(icon) && iconPosition === 'left' && <span data-fs-button-icon>{icon}</span>}
-      <span>{children}</span>
+      {children && <span>{children}</span>}
       {React.isValidElement(icon) && iconPosition === 'right' && <span data-fs-button-icon>{icon}</span>}
     </button>
   )

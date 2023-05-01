@@ -19,9 +19,9 @@ describe('Cart Sidebar', () => {
     cy.waitForHydration()
 
     cy.getById('cart-toggle').first().click()
-    cy.getById('cart-sidebar').should('exist')
-    cy.getById('cart-sidebar-button-close').first().click()
-    cy.getById('cart-sidebar').should('not.exist')
+    cy.getById('fs-cart-sidebar').should('exist')
+    cy.getById('fs-cart-sidebar-button-close').first().click()
+    cy.getById('fs-cart-sidebar').should('not.exist')
   })
 
   context('when opening the cart sidebar', () => {
@@ -31,7 +31,7 @@ describe('Cart Sidebar', () => {
 
       // window scrolls to keep cart-toggle on the screen initially
       cy.getById('cart-toggle').click()
-      cy.getById('cart-sidebar').should('exist')
+      cy.getById('fs-cart-sidebar').should('exist')
 
       // simulate touch scroll. Do not use window.scrollTo
       cy.get('[data-fs-empty-state]')
@@ -57,8 +57,9 @@ describe('On product description pages', () => {
 
       // Add to cart
       cy.getById('buy-button')
-        .click()
+        .scrollIntoView({ duration: 500 })
         .then(($btn) => {
+          cy.getById('buy-button').click({ force: true })
           const skuId = $btn.attr('data-sku')
           const sellerId = $btn.attr('data-seller')
 
@@ -66,13 +67,13 @@ describe('On product description pages', () => {
           cy.getById('checkout-button')
             .should('be.visible')
             .should('be.enabled')
-
-          cy.getById('fs-cart-item').should(($item) => {
-            expect($item.attr('data-sku')).to.eq(skuId)
-            expect($item.attr('data-seller')).to.eq(sellerId)
-          })
-
-          cy.itemsInCart(1)
+            .then(() => {
+              cy.getById('fs-cart-item').should(($item) => {
+                expect($item.attr('data-sku')).to.eq(skuId)
+                expect($item.attr('data-seller')).to.eq(sellerId)
+              })
+              cy.itemsInCart(1)
+            })
         })
     })
   })

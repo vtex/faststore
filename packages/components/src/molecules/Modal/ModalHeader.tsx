@@ -7,17 +7,17 @@ export interface ModalHeaderProps extends HTMLAttributes<HTMLDivElement> {
    * Title for header modal.
    */
   title: string
-
   /**
    * Description for header modal.
    */
   description?: string
-
   /**
    * Props for the Close Button component.
    */
   closeBtnProps?: Partial<Omit<IconButtonProps, 'onClick'>>
-
+  /**
+   * Function called when dismiss button is clicked.
+   */
   onClose?: () => void
 }
 
@@ -31,10 +31,10 @@ const ModalHeader = ({
     <header data-fs-modal-header>
       {onClose && (
         <IconButton
-          onClick={() => onClose?.()}
           data-fs-modal-header-close-button
-          icon={<Icon name="X" />}
           aria-label="Close modal"
+          icon={<Icon name="X" />}
+          onClick={() => onClose?.()}
           {...closeBtnProps}
         />
       )}
