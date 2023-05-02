@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.123-alpha.0](https://github.com/vtex/faststore/compare/v2.0.122-alpha.0...v2.0.123-alpha.0) (2023-05-02)
+
+### Documentation
+
+- Updates Icons docs + general updates ([#1739](https://github.com/vtex/faststore/issues/1739)) ([44f3521](https://github.com/vtex/faststore/commit/44f35219ba09e157aba0ea47d462f7a2ccc42b50))
+
 ## [2.0.122-alpha.0](https://github.com/vtex/faststore/compare/v2.0.121-alpha.0...v2.0.122-alpha.0) (2023-04-27)
 
 ### Bug Fixes
