@@ -73,7 +73,7 @@
         [data-fs-carousel-control="left"] {
           position: absolute;
           left: var(--fs-carousel-controls-control-right);
-          @include media(">desktop") {
+          @include media(">notebook") {
             left: var(--fs-carousel-controls-control-max-left);
           }
         }
