@@ -21,7 +21,35 @@ Icons help build web pages by illustrating concepts and improving website naviga
 Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { ShoppingCart } from '@faststore/ui'
+import { Icon } from '@faststore/ui'
+```
+
+You can find more details about the `Icon` component [here](/components/atoms/icon).
+
+## Usage
+
+<OverviewSection>
+  <Icon name="X" weight="bold" />
+  <Icon name="MagnifyingGlass" weight="regular" />
+  <Icon name="House" weight="thin" />
+</OverviewSection>
+
+```tsx
+<Icon name="X" weight="bold" />
+<Icon name="MagnifyingGlass" weight="regular" />
+<Icon name="House" weight="thin" />
+```
+
+<OverviewSection>
+  <Icon name="X" weight="bold" width={16} height={16} />
+  <Icon name="MagnifyingGlass" weight="regular" width={20} height={20} />
+  <Icon name="House" weight="thin" width={32} height={32} />
+</OverviewSection>
+
+```tsx
+<Icon name="X" weight="bold" width={16} height={16} />
+<Icon name="MagnifyingGlass" weight="regular" width={20} height={20} />
+<Icon name="House" weight="thin" width={32} height={32} />
 ```
 
 ---
@@ -35,6 +63,7 @@ import { ShoppingCart } from '@faststore/ui'
   <IconComponent icon={<Icon name="Minus" />} name="Minus" />
   <IconComponent icon={<Icon name="MinusCircle" />} name="MinusCircle" />
   <IconComponent icon={<Icon name="XCircle" />} name="XCircle" />
+  <IconComponent icon={<Icon name="ArrowLeft" />} name="ArrowLeft" />
   <IconComponent icon={<Icon name="ArrowRight" />} name="ArrowRight" />
   <IconComponent
     icon={<Icon name="ArrowElbowDownRight" />}
@@ -42,6 +71,8 @@ import { ShoppingCart } from '@faststore/ui'
   />
   <IconComponent icon={<Icon name="CaretDown" />} name="CaretDown" />
   <IconComponent icon={<Icon name="CaretRight" />} name="CaretRight" />
+  <IconComponent icon={<Icon name="CaretLeft" />} name="CaretLeft" />
+  <IconComponent icon={<Icon name="CaretUp" />} name="CaretUp" />
   <IconComponent icon={<Icon name="Checked" />} name="Checked" />
   <IconComponent
     icon={<Icon name="MagnifyingGlass" />}
@@ -68,7 +99,12 @@ import { ShoppingCart } from '@faststore/ui'
 
 ### Social
 
-TO-ADD
+<IconList>
+  <IconComponent icon={<Icon name="Facebook" />} name="Facebook" />
+  <IconComponent icon={<Icon name="Instagram" />} name="Instagram" />
+  <IconComponent icon={<Icon name="Twitter" />} name="Twitter" />
+  <IconComponent icon={<Icon name="Pinterest" />} name="Pinterest" />
+</IconList>
 
 ### Others
 
@@ -81,5 +117,7 @@ TO-ADD
   <IconComponent icon={<Icon name="ShoppingCart" />} name="ShoppingCart" />
   <IconComponent icon={<Icon name="Tag" />} name="Tag" />
   <IconComponent icon={<Icon name="BellRinging" />} name="BellRinging" />
+  <IconComponent icon={<Icon name="Bell" />} name="Bell" />
   <IconComponent icon={<Icon name="MapPin" />} name="MapPin" />
+  <IconComponent icon={<Icon name="ArrowSquareOut" />} name="ArrowSquareOut" />
 </IconList>
