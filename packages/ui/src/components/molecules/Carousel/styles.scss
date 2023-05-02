@@ -52,7 +52,7 @@
 
       @include media(">=tablet") {
         display: flex;
-        width: 100%;
+        margin: var(--fs-carousel-padding-desktop);
 
         [data-fs-carousel-control] {
           bottom: calc(var(--fs-carousel-controls-height) + var(--fs-control-tap-size));
