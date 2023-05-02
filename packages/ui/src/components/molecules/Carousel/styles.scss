@@ -81,7 +81,7 @@
           position: absolute;
           right: var(--fs-carousel-controls-control-right);
           @include media(">desktop") {
-            right: var(--fs-carousel-controls-control-max-left);
+            right: var(--fs-carousel-controls-control-max-right);
           }
         }
 
