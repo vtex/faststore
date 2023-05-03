@@ -21,7 +21,7 @@ function ProductShelfSkeleton({
   loading = true,
 }: PropsWithChildren<Props>) {
   return loading ? (
-    <UIProductShelf>
+    <UIProductShelf data-fs-product-shelf-skeleton>
       <ProductShelfItems className="layout__content">
         {Array.from({ length: ITEMS_PER_SECTION }, (_, index) => (
           <ProductShelfItem key={String(index)}>
