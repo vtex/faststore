@@ -27,8 +27,13 @@ In this guide, you'll learn how to create a component from scratch and use it in
 
 1. Open your FastStore project in a code editor and navigate to `src` folder.
 2. Create a new folder called `components` inside the `src` folder.
-3. Inside the `components` folder, create a new file called `Price.tsx`.
-4. Export the following function in the `Price.tsx` file:
+
+<Callout type="info" emoji="ℹ️">
+  This structure is *suggested*, *but it's not required*. You can place the component in any subdirectory of the `src` folder. 
+</Callout>
+  
+4. Inside the `components` folder, create a new file called `Price.tsx`.
+5. Export the following function in the `Price.tsx` file:
 
 ```tsx
 
@@ -44,12 +49,12 @@ export default function Price(props: any) {
 
 To use the new `Price` component, you need to override the default `Price` component by following the next step.
 
-## Step 2: Override the `Price` component
-Now, let's override the component to render it in the Product Details.
+## Step 2: Override the default `Price` component
+Now, let's override the component to render it in the Product Details page.
 
 1. Inside the `components` folder, create a new folder called `overrides`.
-2. In the `overrides` folder, create a new file called `ProductDetails.tsx`.
-3. Export the following function in the `ProductDetails.tsx` file to override the `Price` component:
+2. In the `overrides` folder, create a new file called, for example, `CustomPrice.tsx`. 
+3. Export the following function in the `CustomPrice.tsx` file to override the `Price` component:
 
 ```tsx
 import CustomPrice from '../Price'
