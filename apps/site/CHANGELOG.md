@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.124-alpha.0](https://github.com/vtex/faststore/compare/v2.0.123-alpha.0...v2.0.124-alpha.0) (2023-05-03)
+
+**Note:** Version bump only for package site
+
 ## [2.0.123-alpha.0](https://github.com/vtex/faststore/compare/v2.0.122-alpha.0...v2.0.123-alpha.0) (2023-05-02)
 
 ### Documentation
