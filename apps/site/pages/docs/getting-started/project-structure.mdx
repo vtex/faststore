@@ -22,12 +22,10 @@ Let's start taking a look at the structure that represents the source code of a 
   
   ```
   /
-  |-- /.github
-  |-- /node_modules
+  |-- /.faststore
   |-- /src
       |-- /themes
           |-- custom-theme.scss
-  |-- .gitignore
   |-- cypress.json
   |-- faststore.config.js
   |-- next-env.d.ts
@@ -43,16 +41,12 @@ Let's start taking a look at the structure that represents the source code of a 
 
 ## Folders
 
-- `/.github` - Stores GitHub-related files, including issue templates and workflows.
-
-- `/node_modules` - Saves and installs all the packages that your project depends on into your local files using Yarn.
+- `/.faststore` - Manages and coordinates the FastStore project to deliver a functional starter store. It contains essential packages such as `Components`, `SDK`, and `API`, which provide the core functionality of the FastStore starter. 
 
 - `/src` - Contains all of your store's customizations, including your custom components and theme.
 - `/themes` - Keeps your store's theme, such as [midnight](/docs/themes/midnight)
 
 ## Files
-
-- `.gitignore` - Specifies files and directories that should be ignored by Git when committing changes.
 
 - `custom-theme.scss` - Holds the styling information for your store, controlling the graphic elements such as typography, colors, borders, and spacing that provide your store with a unique look and feel.
 
