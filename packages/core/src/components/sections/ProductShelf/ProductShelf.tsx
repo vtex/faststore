@@ -12,7 +12,8 @@ import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
 import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 
-import ProductCard from '../../product/ProductCard'
+import { Components } from './Overrides'
+const { ProductCard } = Components
 import Section from '../Section'
 
 import styles from './section.module.scss'

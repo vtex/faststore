@@ -3,12 +3,13 @@ import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import {
   BuyButton as UIBuyButton,
-  DiscountBadge as UIDiscountBadge,
-  Price as UIPrice,
-  ProductTitle as UIProductTitle,
   QuantitySelector as UIQuantitySelector,
+  ProductTitle as UIProductTitle,
 } from '@faststore/ui'
 import { useEffect, useState } from 'react'
+
+import { Components } from './Overrides'
+const { Price, DiscountBadge } = Components
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 import OutOfStock from 'src/components/product/OutOfStock'
@@ -86,7 +87,7 @@ function ProductDetails({ context: staleProduct }: Props) {
       <>
         <section data-fs-product-details-values>
           <div data-fs-product-details-prices>
-            <UIPrice
+            <Price
               value={listPrice}
               formatter={useFormattedPrice}
               testId="list-price"
@@ -94,7 +95,7 @@ function ProductDetails({ context: staleProduct }: Props) {
               variant="listing"
               SRText="Original price:"
             />
-            <UIPrice
+            <Price
               value={lowPrice}
               formatter={useFormattedPrice}
               testId="price"
@@ -175,7 +176,7 @@ function ProductDetails({ context: staleProduct }: Props) {
             <UIProductTitle
               title={<h1>{name}</h1>}
               label={
-                <UIDiscountBadge
+                <DiscountBadge
                   listPrice={listPrice}
                   spotPrice={lowPrice}
                   size="big"
