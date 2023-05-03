@@ -57,7 +57,7 @@
 
 .sectionItem > article [data-fs-button] {
   position: relative;
-  left: calc(-1 * var(--fs-spacing-1));
+  left: calc(-1 * var(--fs-spacing-3));
   margin-top: var(--fs-spacing-3);
 }
 
