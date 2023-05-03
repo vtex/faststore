@@ -113,8 +113,8 @@
   // --------------------------------------------------------
 
   display: flex;
-  justify-content: center;
   align-items: stretch;
+  width: fit-content;
   min-height: var(--fs-button-height);
   padding: 0;
 
@@ -124,6 +124,7 @@
     column-gap: var(--fs-button-gap);
     align-items: center;
     justify-content: center;
+    width: 100%;
     padding: var(--fs-button-padding);
     font-size: var(--fs-button-text-size);
     font-weight: var(--fs-button-text-weight);
