@@ -59,7 +59,7 @@ export function Footer({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Icon width="24px" height="24px" name="Facebook" />
+                    <Icon name="Facebook" />
                   </Link>
                 </li>
                 <li>
@@ -71,7 +71,7 @@ export function Footer({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Icon width="24px" height="24px" name="Instagram" />
+                    <Icon name="Instagram" />
                   </Link>
                 </li>
                 <li>
@@ -83,7 +83,7 @@ export function Footer({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Icon width="24px" height="24px" name="Pinterest" />
+                    <Icon name="Pinterest" />
                   </Link>
                 </li>
                 <li>
@@ -95,7 +95,7 @@ export function Footer({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Icon width="24px" height="24px" name="Twitter" />
+                    <Icon name="Twitter" />
                   </Link>
                 </li>
               </UIList>

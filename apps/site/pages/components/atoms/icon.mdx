@@ -7,7 +7,33 @@ sidebar_custom_props:
 import PropsSection from 'site/components/PropsSection'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { Icon } from '@faststore/ui'
-import { ShoppingCart } from '@faststore/components'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const iconPath = path.resolve(__filename)
+  const components = ['Icon.tsx']
+  const [iconProps] = getComponentPropsFrom(iconPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        iconProps,
+      },
+    },
+  }
+}
+
+export const IconPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { iconProps } = useSSG()
+  return {
+    Icon: <PropsSection propsList={iconProps} />,
+  }[component]
+}
 
 <header>
 
@@ -22,11 +48,20 @@ This project has a [set of icons](../../docs/icons) that uses SVGs from [Phospho
 ## Overview
 
 <OverviewSection>
-  <Icon name="ShoppingCart" />
+  <Icon name="ShoppingCart" weight="thin" width={32} height={32} />
+  <Icon name="ShoppingCart" weight="light" />
+  <Icon name="ShoppingCart" weight="regular" width={16} height={16} />
+  <Icon name="ShoppingCart" weight="bold" width={20} height={20} />
 </OverviewSection>
+
 ```tsx
-<Icon name="ShoppingCart" />
+  <Icon name="ShoppingCart" weight="thin" width={32} height={32} />
+  <Icon name="ShoppingCart" weight="light" />
+  <Icon name="ShoppingCart" weight="regular" width={16} height={16} />
+  <Icon name="ShoppingCart" weight="bold" width={20} height={20} />
 ```
+
+**note**: default values for `width` and `height` is 24.
 
 ---
 
@@ -35,7 +70,7 @@ This project has a [set of icons](../../docs/icons) that uses SVGs from [Phospho
 Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { Label } from '@faststore/ui'
+import { Icon } from '@faststore/ui'
 ```
 
 Import Styles
@@ -59,9 +94,9 @@ import '@faststore/ui/src/components/atoms/Icon/styles.scss'
 
 ## Props
 
-<PropsSection name="Icon" />
+<IconPropsSection component="Icon" />
 
----
+List of available [icons](../../docs/icons)
 
 ## Customization
 

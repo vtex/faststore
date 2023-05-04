@@ -1,19 +1,17 @@
 import { useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import {
-  ProductShelfItem,
-  ProductShelfItems,
-  ProductShelf as UIProductShelf,
-} from '@faststore/ui'
+import { ProductShelf as UIProductShelf } from '@faststore/ui'
 
 import type { ProductsQueryQueryVariables } from '@generated/graphql'
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
 import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 
-import ProductCard from '../../product/ProductCard'
+import { Components } from './Overrides'
+const { ProductCard } = Components
 import Section from '../Section'
+import Carousel from '../../ui/Carousel'
 
 import styles from './section.module.scss'
 
@@ -65,21 +63,21 @@ function ProductShelf({
         loading={products === undefined}
       >
         <UIProductShelf>
-          <ProductShelfItems className="layout__content">
+          <Carousel>
             {productEdges.map((product, idx) => (
-              <ProductShelfItem key={`${product.node.id}`}>
-                <ProductCard
-                  product={product.node}
-                  index={idx + 1}
-                  aspectRatio={aspectRatio}
-                  imgProps={{
-                    width: 216,
-                    height: 216,
-                  }}
-                />
-              </ProductShelfItem>
+              <ProductCard
+                bordered
+                key={`${product.node.id}`}
+                product={product.node}
+                index={idx + 1}
+                aspectRatio={aspectRatio}
+                imgProps={{
+                  width: 216,
+                  height: 216,
+                }}
+              />
             ))}
-          </ProductShelfItems>
+          </Carousel>
         </UIProductShelf>
       </ProductShelfSkeleton>
     </Section>

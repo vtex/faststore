@@ -26,11 +26,11 @@ function isSlideVisible({
   return isClonedSlide || isVisible
 }
 
-export default function useSlideVisibility({
+export const useSlideVisibility = ({
   currentSlide,
   itemsPerPage,
   totalItems,
-}: UseSlideVisibilityArgs) {
+}: UseSlideVisibilityArgs) => {
   /** Keeps track of slides that have been visualized before.
    * We want to keep rendering them because the issue is mostly rendering
    * slides that might never be viewed; On the other hand, hiding slides
