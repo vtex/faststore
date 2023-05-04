@@ -1,7 +1,4 @@
-import {
-  Icon as UIIcon,
-  PaymentMethods as UIPaymentMethods,
-} from '@faststore/ui'
+import { PaymentMethods as UIPaymentMethods } from '@faststore/ui'
 import type { PaymentMethodsProps as UIPaymentMethodProps } from '@faststore/ui'
 
 import Section from '../Section'
@@ -14,6 +11,7 @@ import UIFooter, {
 } from '../../common/Footer'
 import type { FooterLinksProps, FooterSocialProps } from '../../common/Footer'
 
+import { Image } from '../../ui/Image'
 import UIIncentives from '../../ui/Incentives'
 import type { Incentive } from '../../ui/Incentives'
 
@@ -63,9 +61,14 @@ const Footer = ({
           />
         </UIFooterNavigation>
         <UIFooterInfo>
-          <span data-fs-footer-logo role="img" aria-label={logoAlt}>
-            {logoSrc}
-          </span>
+          <Image
+            data-fs-footer-logo
+            loading="lazy"
+            src={logoSrc}
+            alt={logoAlt}
+            width={112}
+            height={115}
+          />
           {showPaymentMethods && (
             <UIPaymentMethods
               flagList={paymentMethods}

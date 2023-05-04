@@ -10,14 +10,6 @@ import Toast from 'src/components/common/Toast'
 import Navbar from 'src/components/navigation/Navbar'
 import RenderSections from './RenderSections'
 
-import {
-  incentivesMock,
-  footerLinksMock,
-  footerSocialMock,
-  logoMock,
-  copyrightInfoMock,
-  acceptedPaymentMethodsMock,
-} from 'src/components/common/Footer/mocks'
 import Footer from 'src/components/sections/Footer'
 import Alert from 'src/components/sections/Alert/Alert'
 
@@ -30,6 +22,7 @@ export type GlobalSectionsData = {
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Alert,
+  Footer,
   ...CUSTOM_COMPONENTS,
 }
 
@@ -64,15 +57,6 @@ function GlobalSections({
         <RegionBar className="display-mobile" />
         {children}
       </main>
-
-      <Footer
-        incentives={incentivesMock}
-        footerLinks={footerLinksMock}
-        footerSocial={footerSocialMock}
-        logo={logoMock}
-        copyrightInfo={copyrightInfoMock}
-        acceptedPaymentMethods={acceptedPaymentMethodsMock}
-      />
 
       {hasChildren && (
         <RenderSections sections={lastSections} components={COMPONENTS} />
