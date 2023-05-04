@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.129-alpha.0](https://github.com/vtex/faststore/compare/v2.0.128-alpha.0...v2.0.129-alpha.0) (2023-05-04)
+
+### Features
+
+- Update content-type to globalSections ([#1744](https://github.com/vtex/faststore/issues/1744)) ([f6c5d1d](https://github.com/vtex/faststore/commit/f6c5d1df2ea093b7c1d371b91e3e828bdc7243f6))
+
 ## [2.0.128-alpha.0](https://github.com/vtex/faststore/compare/v2.0.127-alpha.0...v2.0.128-alpha.0) (2023-05-04)
 
 ### Features
