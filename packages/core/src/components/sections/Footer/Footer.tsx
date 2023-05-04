@@ -40,12 +40,12 @@ const Footer = ({
   incentives,
   footerLinks,
   footerSocial,
-  footerSocial: { title: footerSocialTitle = 'Follow Us' },
+  footerSocial: { title: footerSocialTitle },
   logo: { src: logoSrc, alt: logoAlt },
   copyrightInfo,
   acceptedPaymentMethods: {
-    showPaymentMethods = true,
-    title: acceptedPaymentMethodsTitle = 'Payment Methods',
+    showPaymentMethods,
+    title: acceptedPaymentMethodsTitle,
     paymentMethods,
   },
 }: FooterProps) => {
