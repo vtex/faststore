@@ -59,5 +59,10 @@
     "id": "pdp",
     "name": "Product Page",
     "configurationSchemaSets": []
+  },
+  {
+    "id": "plp",
+    "name": "Product List Page",
+    "configurationSchemaSets": []
   }
 ]
