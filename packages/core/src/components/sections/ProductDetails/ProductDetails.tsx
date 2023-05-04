@@ -61,26 +61,23 @@ export interface ProductDetailsProps {
 function ProductDetails({
   product: staleProduct,
   productDetails: {
-    refNumber: showRefNumber = false,
-    discountBadge: showDiscountBadge = false,
+    refNumber: showRefNumber,
+    discountBadge: showDiscountBadge,
   },
   buyButton: {
-    title: buyButtonTitle = 'Add to Cart',
-    icon: { icon: buyButtonIconName, alt: buyButtonIconAlt = 'Shopping Cart' },
+    title: buyButtonTitle,
+    icon: { icon: buyButtonIconName, alt: buyButtonIconAlt },
   },
   shippingSimulation: {
-    title: shippingSimulationTitle = 'Shipping',
-    inputLabel: shippingSimulationInputLabel = 'Postal Code',
-    link: {
-      to: shippingSimulationLinkUrl,
-      text: shippingSimulationLinkText = "I don't know my Postal Code",
-    },
+    title: shippingSimulationTitle,
+    inputLabel: shippingSimulationInputLabel,
+    link: { to: shippingSimulationLinkUrl, text: shippingSimulationLinkText },
   },
   productDetailsContent: {
     initiallyExpanded: productDetailsContentInitiallyExpanded,
     details: {
-      title: productDetailsContentDetailsTitle = 'Description',
-      displayDescription: productDetailsContentDisplayDescription = true,
+      title: productDetailsContentDetailsTitle,
+      displayDescription: productDetailsContentDisplayDescription,
     },
   },
 }: ProductDetailsProps & ProductDetailsContextProps) {
@@ -155,15 +152,15 @@ function ProductDetails({
           <UIProductTitle
             title={<h1>{name}</h1>}
             label={
-              showDiscountBadge ? (
+              showDiscountBadge && (
                 <UIDiscountBadge
                   listPrice={listPrice}
                   spotPrice={lowPrice}
                   size="big"
                 />
-              ) : undefined
+              )
             }
-            refNumber={showRefNumber ? productId : undefined}
+            refNumber={showRefNumber && productId}
           />
         </header>
 
@@ -255,14 +252,6 @@ export const fragment = gql`
         seller {
           identifier
         }
-      }
-    }
-
-    breadcrumbList {
-      itemListElement {
-        item
-        name
-        position
       }
     }
 
