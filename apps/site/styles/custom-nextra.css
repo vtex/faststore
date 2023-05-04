@@ -80,6 +80,17 @@ h4.nx-tracking-tight {
   z-index: 21;
 }
 
+/* Carousel */
+[data-doc-overview-section] [data-fs-carousel] [data-fs-carousel-track] {
+  padding: var(--fs-carousel-padding-mobile);
+}
+
+@media screen and (min-width: 1441px) {
+  [data-doc-overview-section] [data-fs-carousel] [data-fs-carousel-controls] {
+    margin: 0 5vw;
+  }
+}
+
 /* Hero */
 
 header.hero {

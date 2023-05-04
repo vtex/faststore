@@ -19,12 +19,11 @@ import {
   ProductCard,
   ProductCardContent,
   ProductCardImage,
-  ProductShelf,
-  ProductShelfItems,
-  ProductShelfItem,
 } from '@faststore/ui'
 import { products } from 'site/mocks/products'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+
+import ProductShelfUsage from 'site/components/ProductShelf/ProductShelfUsage'
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
@@ -229,30 +228,6 @@ import '@faststore/ui/src/components/organisms/ProductGrid/styles.scss'
     description=" Displays a list of products to be used as a section on the store."
     actionPath="/components/organisms/product-shelf"
   >
-    <ProductShelf>
-      <ProductShelfItems>
-        {products.map(({ product }, idx) => (
-          <ProductShelfItem>
-            <ProductCard>
-              <ProductCardImage>
-                <img
-                  data-fs-image
-                  src={product.image[0].url}
-                  alt={product.image[0].alternateName}
-                />
-              </ProductCardImage>
-              <ProductCardContent
-                title={product.isVariantOf.name}
-                price={{
-                  value: product.offers.offers[0].price,
-                  listPrice: product.offers.offers[0].listPrice,
-                  formatter: useFormattedPrice,
-                }}
-              />
-            </ProductCard>
-          </ProductShelfItem>
-        ))}
-      </ProductShelfItems>
-    </ProductShelf>
+    <ProductShelfUsage items={6} />
   </SectionItem>
 </SectionList>

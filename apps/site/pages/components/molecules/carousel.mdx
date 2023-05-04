@@ -1,0 +1,330 @@
+---
+description: The Carousel component is great for swiping images.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/ProductCardComponent___e6502d57cf7e5bf247f86b64577d4141.png
+title: 'Carousel'
+---
+
+import { Tab, Tabs, Callout } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import {
+  ProductCard,
+  ProductCardContent,
+  ProductCardImage,
+  ProductShelf,
+  ProductShelfItems,
+  ProductShelfItem,
+} from '@faststore/ui'
+
+import CarouselUsage from 'site/components/Carousel/CarouselUsage'
+import { products } from 'site/mocks/products'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const carouselPath = path.resolve(__filename)
+  const components = ['Carousel.tsx']
+  const [carouselProps] = getComponentPropsFrom(carouselPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: { carouselProps },
+    },
+  }
+}
+
+export const CarouselPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { carouselProps } = useSSG()
+  return {
+    Carousel: <PropsSection propsList={carouselProps} />,
+  }[component]
+}
+
+<header>
+
+# Carousel
+
+The Carousel component is great for swiping images.
+
+</header>
+
+We recommend using Carousel when displaying at least 10 items.
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { Carousel } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/Carousel/styles.scss'
+```
+
+---
+
+## Usage
+
+<Callout type="warning" emoji="⚠️">
+  This component is a work in progress, so it might work as expected in some
+  cases, we gratefully accept feedback.
+</Callout>
+
+For the mobile preview, please refresh the browser after resize it.
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselUsage /></OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const isMobile = window.innerWidth <= 768
+
+    <Carousel
+      itemsPerPage={isMobile ? 1 : 3}
+      variant="scroll"
+      infiniteMode={false}
+    >
+      {products.map(({ product }, idx) => (
+        <ProductCard key={idx}>
+          <ProductCardImage>
+            <img
+              data-fs-image
+              src={product.image[0].url}
+              alt={product.image[0].alternateName}
+            />
+          </ProductCardImage>
+          <ProductCardContent
+            title={product.isVariantOf.name}
+            price={{
+              value: product.offers.offers[0].price,
+              listPrice: product.offers.offers[0].listPrice,
+              formatter: useFormattedPrice,
+            }}
+          />
+        </ProductCard>
+      ))}
+    </Carousel>
+
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+<CarouselPropsSection component="Carousel" />
+
+---
+
+## Design Tokens
+
+### Nested Elements
+
+#### Track
+
+<TokenTable>
+  <TokenRow
+    token="--fs-carousel-padding-mobile"
+    value="0 var(--fs-grid-padding)"
+  />
+</TokenTable>
+<TokenTable>
+  <TokenRow
+    token="--fs-carousel-padding-desktop"
+    value="0 calc((100vw - 1230px)/2)"
+  />
+</TokenTable>
+
+#### Item
+
+<TokenTable>
+  <TokenRow token="--fs-carousel-item-width-mobile" value="60%" />
+  <TokenRow token="--fs-carousel-item-width-tablet" value="14.2rem" />
+  <TokenRow token="--fs-carousel-item-width-desktop" value="14.4rem" />
+  <TokenRow
+    token="--fs-carousel-item-margin-right"
+    value="var(--fs-spacing-3)"
+  />
+</TokenTable>
+
+#### Controls
+
+<TokenTable>
+  <TokenRow token="--fs-carousel-controls-width" value="3.125rem" />
+  <TokenRow
+    token="--fs-carousel-controls-height"
+    value="var(--fs-carousel-controls-width)"
+  />
+  <TokenRow
+    token="--fs-carousel-controls-bkg-color"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-carousel-controls-border-radius"
+    value="var(--fs-border-radius-circle)"
+  />
+  <TokenRow
+    token="--fs-carousel-controls-box-shadow"
+    value="var(--fs-shadow-darker)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-carousel-controls-control-left"
+    value="var(--fs-spacing-4)"
+  />
+  <TokenRow
+    token="--fs-carousel-controls-control-right"
+    value="var(--fs-carousel-controls-control-left)"
+  />
+  <TokenRow
+    token="--fs-carousel-controls-control-max-left"
+    value="calc(-1 * var(--fs-spacing-11))"
+  />
+  <TokenRow
+    token="--fs-carousel-controls-control-max-left"
+    value="var(--fs-carousel-controls-control-max-left)"
+  />
+</TokenTable>
+
+#### Bullets
+
+<TokenTable>
+  <TokenRow
+    token="--fs-carousel-bullets-padding-top"
+    value="var(--fs-carousel-controls-control-left)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullets-padding-left"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullets-padding-right"
+    value="var(--fs-carousel-bullets-padding-left)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullets-column-gap-mobile"
+    value="var(--fs-carousel-item-margin-right)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullets-column-gap-tablet"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-carousel-bullet-width-mobile" value="100%" />
+  <TokenRow
+    token="--fs-carousel-bullet-width-desktop"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-height-mobile"
+    value="var(--fs-carousel-item-margin-right)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-height-desktop"
+    value="var(--fs-carousel-bullet-width-desktop)"
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-bkg-color"
+    value="var(--fs-color-neutral-3)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-bkg-color-selected"
+    value="var(--fs-color-main-4)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-carousel-bullet-border-radius"
+    value="var(--fs-carousel-controls-border-radius)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-carousel`
+
+`data-fs-carousel-track-container`
+
+`data-fs-carousel-track`
+
+`data-fs-carousel-item`
+
+`data-fs-carousel-controls`
+
+`data-fs-carousel-control`
+
+`data-fs-carousel-bullets`
+
+`data-fs-carousel-bullet`
+
+---
+
+## Best Practices
+
+### ✅ Do's
+
+- Always use more than 1 item per page so then the component keeps the proposed navigation behavior for both versions (mobile and desktop).
+- We recommend using Carousel when displaying at least 10 items.
+- Keep the controls (`navigationArrows` & `paginationBullets`) visible. It's important to let people in slider control to move the items.
+
+### ❌ Don'ts
+
+- Avoid using it when display 1 or 2 items.
+- Don't exaggerate the number of items. You can combine it, providing an alternate navigation path like a `See More` button to a collection.
+
+---
+
+## Related components
+
+<SectionList grid="row">
+  <SectionItem
+    title="Product Shelf"
+    description=" Displays a list of products to be used as a section on the store."
+    actionPath="/components/organisms/product-shelf"
+  >
+    <ProductShelf>
+      <ProductShelfItems>
+        {products.map(({ product }, idx) => (
+          <ProductShelfItem>
+            <ProductCard>
+              <ProductCardImage>
+                <img
+                  data-fs-image
+                  src={product.image[0].url}
+                  alt={product.image[0].alternateName}
+                />
+              </ProductCardImage>
+              <ProductCardContent
+                title={product.isVariantOf.name}
+                price={{
+                  value: product.offers.offers[0].price,
+                  listPrice: product.offers.offers[0].listPrice,
+                  formatter: useFormattedPrice,
+                }}
+              />
+            </ProductCard>
+          </ProductShelfItem>
+        ))}
+      </ProductShelfItems>
+    </ProductShelf>
+  </SectionItem>
+</SectionList>

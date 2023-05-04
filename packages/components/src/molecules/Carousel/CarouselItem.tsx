@@ -1,10 +1,8 @@
 import React from 'react'
 import type { CSSProperties, PropsWithChildren, HTMLAttributes } from 'react'
-import type { SliderState } from '../../../hooks/useSlider/useSlider'
+import { useSlideVisibility, SliderState } from '../../hooks'
 
-import useSlideVisibility from './hooks/useSlideVisibility'
-
-interface CarouselItemProps extends HTMLAttributes<HTMLLIElement> {
+export interface CarouselItemProps extends HTMLAttributes<HTMLLIElement> {
   index: number
   totalItems: number
   state: SliderState
@@ -29,7 +27,7 @@ function CarouselItem({
   const style =
     ((!isScrollCarousel && { width: '100%' }) as CSSProperties) ||
     ((isScrollCarousel && {
-      maxWidth: '80%',
+      maxWidth: '60%',
       display: 'inline-block',
     }) as CSSProperties)
 

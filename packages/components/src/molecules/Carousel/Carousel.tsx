@@ -8,11 +8,10 @@ import type {
 import React, { useMemo, useRef } from 'react'
 import type { SwipeableProps } from 'react-swipeable'
 
-import { RightArrowIcon, LeftArrowIcon } from './Arrows'
 import CarouselItem from './CarouselItem'
-import useSlider from '../../../hooks/useSlider/useSlider'
-import Bullets from '../Bullets'
-import { IconButton } from '../../../'
+import { useSlider } from '../../hooks'
+import CarouselBullets from './CarouselBullets'
+import { IconButton, Icon } from '../..'
 
 const createTransformValues = (infinite: boolean, totalItems: number) => {
   const transformMap: Record<number, number> = {}
@@ -82,14 +81,14 @@ export interface CarouselProps extends SwipeableProps {
 function Carousel({
   infiniteMode = true,
   controls = 'complete',
-  testId = 'store-carousel',
+  testId = 'fs-carousel',
   transition = {
     duration: 400,
     property: 'transform',
   },
   children,
   className,
-  id = 'store-carousel',
+  id = 'fs-carousel',
   variant = 'slide',
   itemsPerPage = 1,
   navigationIcons = undefined,
@@ -105,17 +104,6 @@ function Carousel({
     transition.timing ?? ''
   } ${transition.delay ?? ''}`
 
-  const showNavigationArrows =
-    controls === 'complete' || controls === 'navigationArrows'
-
-  const showPaginationBullets =
-    controls === 'complete' || controls === 'paginationBullets'
-
-  const transformValues = useMemo(
-    () => createTransformValues(infiniteMode, numberOfSlides),
-    [numberOfSlides, infiniteMode]
-  )
-
   const { handlers, slide, sliderState, sliderDispatch } = useSlider({
     itemsPerPage,
     infiniteMode,
@@ -123,6 +111,21 @@ function Carousel({
     shouldSlideOnSwipe: isSlideCarousel,
     ...swipeableConfigOverrides,
   })
+
+  const pagesCount = Math.ceil(childrenCount / sliderState.itemsPerPage)
+
+  const showNavigationArrows =
+    pagesCount !== 1 &&
+    (controls === 'complete' || controls === 'navigationArrows')
+
+  const showPaginationBullets =
+    pagesCount !== 1 &&
+    (controls === 'complete' || controls === 'paginationBullets')
+
+  const transformValues = useMemo(
+    () => createTransformValues(infiniteMode, numberOfSlides),
+    [numberOfSlides, infiniteMode]
+  )
 
   const postRenderedSlides =
     infiniteMode && children ? childrenArray.slice(0, 1) : []
@@ -340,7 +343,11 @@ function Carousel({
             data-fs-carousel-control="left"
             aria-controls={id}
             aria-label="previous"
-            icon={navigationIcons?.left ?? <LeftArrowIcon />}
+            icon={
+              navigationIcons?.left ?? (
+                <Icon name="ArrowLeft" width={20} height={20} weight="bold" />
+              )
+            }
             onClick={() => {
               isSlideCarousel && slidePrevious()
               isScrollCarousel &&
@@ -351,7 +358,11 @@ function Carousel({
             data-fs-carousel-control="right"
             aria-controls={id}
             aria-label="next"
-            icon={navigationIcons?.right ?? <RightArrowIcon />}
+            icon={
+              navigationIcons?.right ?? (
+                <Icon name="ArrowRight" width={20} height={20} weight="bold" />
+              )
+            }
             onClick={() => {
               isSlideCarousel && slideNext()
               isScrollCarousel &&
@@ -362,23 +373,21 @@ function Carousel({
       )}
 
       {showPaginationBullets && (
-        <div data-fs-carousel-bullets>
-          <Bullets
-            tabIndex={0}
-            activeBullet={sliderState.currentPage}
-            totalQuantity={Math.ceil(childrenCount / sliderState.itemsPerPage)}
-            onKeyDown={handleBulletsKeyDown}
-            onClick={async (_, idx) => {
-              isSlideCarousel &&
-                !sliderState.sliding &&
-                slide(idx, sliderDispatch)
+        <CarouselBullets
+          tabIndex={0}
+          activeBullet={sliderState.currentPage}
+          totalQuantity={pagesCount}
+          onKeyDown={handleBulletsKeyDown}
+          onClick={async (_, idx) => {
+            isSlideCarousel &&
+              !sliderState.sliding &&
+              slide(idx, sliderDispatch)
 
-              isScrollCarousel && onScrollPagination(idx)
-            }}
-            onFocus={(event) => event.currentTarget.focus()}
-            ariaControlsGenerator={(idx) => `carousel-item-${idx}`}
-          />
-        </div>
+            isScrollCarousel && onScrollPagination(idx)
+          }}
+          onFocus={(event) => event.currentTarget.focus()}
+          ariaControlsGenerator={(idx) => `carousel-item-${idx}`}
+        />
       )}
     </section>
   )

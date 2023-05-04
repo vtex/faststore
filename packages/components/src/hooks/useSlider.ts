@@ -181,13 +181,13 @@ export interface UseSliderArgs extends SwipeableProps {
   shouldSlideOnSwipe?: boolean
 }
 
-export default function useSlider({
+export const useSlider = ({
   totalItems,
   itemsPerPage = 1,
   infiniteMode = false,
   shouldSlideOnSwipe = true,
   ...swipeableConfigOverrides
-}: UseSliderArgs) {
+}: UseSliderArgs) => {
   const [sliderState, sliderDispatch] = useReducer(reducer, undefined, () =>
     defaultSliderState(totalItems, itemsPerPage, infiniteMode)
   )
