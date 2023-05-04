@@ -12,8 +12,7 @@ import Navbar from 'src/components/navigation/Navbar'
 import Alert from 'src/components/sections/Alert/Alert'
 import RenderSections from './RenderSections'
 
-// TODO: When the CMS is finished, switch to using 'globalSections'.
-export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalAlert'
+export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 
 export type GlobalSectionsData = {
   sections: Section[]
