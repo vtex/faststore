@@ -6,13 +6,13 @@
       "type": "object",
       "description": "Search Bar Configuration",
       "required": [
-        "search-input",
-        "search-history",
-        "search-top",
-        "search-autocomplete"
+        "searchInput",
+        "searchHistory",
+        "searchTop",
+        "searchAutocomplete"
       ],
       "properties": {
-        "search-input": {
+        "searchInput": {
           "title": "Input Field",
           "type": "object",
           "properties": {
@@ -41,7 +41,7 @@
             }
           }
         },
-        "search-history": {
+        "searchHistory": {
           "title": "Search History",
           "type": "object",
           "properties": {
@@ -50,7 +50,7 @@
               "type": "string",
               "default": "History"
             },
-            "clear-button-label": {
+            "clearButtonLabel": {
               "type": "string",
               "title": "Clear Button Label",
               "default": "Clear History"
@@ -73,14 +73,14 @@
                 }
               }
             },
-            "max-items": {
+            "maxItems": {
               "title": "Maximum Number of History Items",
               "type": "integer",
               "default": 5
             }
           }
         },
-        "search-top": {
+        "searchTop": {
           "title": "Top Search",
           "type": "object",
           "properties": {
@@ -89,14 +89,14 @@
               "type": "string",
               "default": "Top Search"
             },
-            "max-items": {
+            "maxItems": {
               "title": "Maximum Number of Top Search Items",
               "type": "integer",
               "default": 5
             }
           }
         },
-        "search-autocomplete": {
+        "searchAutocomplete": {
           "title": "Autocomplete",
           "type": "object",
           "properties": {
@@ -117,14 +117,14 @@
                 }
               }
             },
-            "max-items": {
+            "maxItems": {
               "title": "Maximum Number of Autocomplete Items",
               "type": "integer",
               "default": 5
             }
           }
         },
-        "search-products": {
+        "searchProducts": {
           "title": "Suggested Products",
           "type": "object",
           "properties": {
@@ -133,7 +133,7 @@
               "type": "string",
               "default": "Suggested Products"
             },
-            "max-items": {
+            "maxItems": {
               "title": "Maximum Number of Suggested Products",
               "type": "integer",
               "default": 5
@@ -168,7 +168,7 @@
             }
           }
         },
-        "sign-in-button": {
+        "signInButton": {
           "title": "Sign In Button",
           "type": "object",
           "properties": {
@@ -197,7 +197,7 @@
             }
           }
         },
-        "cart-icon": {
+        "cartIcon": {
           "title": "Cart Icon",
           "type": "object",
           "properties": {
@@ -253,7 +253,7 @@
                 }
               }
             },
-            "page-links": {
+            "pageLinks": {
               "title": "Links",
               "type": "array",
               "maxItems": 8,
@@ -379,7 +379,7 @@
             }
           }
         },
-        "footer-links": {
+        "footerLinks": {
           "title": "Footer Links Sections",
           "type": "array",
           "maxItems": 4,
@@ -387,7 +387,7 @@
             "title": "Footer Links Section",
             "type": "object",
             "properties": {
-              "section-title": {
+              "sectionTitle": {
                 "title": "Section Title",
                 "type": "string"
               },
@@ -416,7 +416,7 @@
             }
           }
         },
-        "footer-social": {
+        "footerSocial": {
           "title": "Social Media Links",
           "type": "object",
           "properties": {
@@ -425,7 +425,7 @@
               "type": "string",
               "default": "Follow Us"
             },
-            "social-links": {
+            "socialLinks": {
               "title": "Social Media",
               "type": "array",
               "minItems": 0,
@@ -487,16 +487,16 @@
             }
           }
         },
-        "copyright-info": {
+        "copyrightInfo": {
           "title": "Copyright Message",
           "type": "string"
         },
-        "accepted-payment-methods": {
+        "acceptedPaymentMethods": {
           "title": "Payment Methods Sections",
           "type": "object",
-          "required": ["show-payment-methods"],
+          "required": ["showPaymentMethods"],
           "properties": {
-            "show-payment-methods": {
+            "showPaymentMethods": {
               "title": "Display Payment Methods",
               "type": "boolean",
               "default": true
@@ -506,7 +506,7 @@
               "type": "string",
               "default": "Payment Methods"
             },
-            "payment-methods": {
+            "paymentMethods": {
               "title": "Payment Methods",
               "type": "array",
               "items": {
@@ -797,21 +797,21 @@
             }
           }
         },
-        "product-card-configuration": {
+        "productCardConfiguration": {
           "title": "Product Card Configuration",
           "type": "object",
           "properties": {
-            "show-discount-badge": {
+            "showDiscountBadge": {
               "title": "Show discount badge?",
               "type": "boolean",
               "default": true
             },
-            "show-buy-button": {
+            "showBuyButton": {
               "title": "Show buy button?",
               "type": "boolean",
               "default": true
             },
-            "buy-button-title": {
+            "buyButtonTitle": {
               "title": "Buy Button Text",
               "type": "string",
               "default": "Buy"
@@ -963,26 +963,26 @@
           "type": "string",
           "default": "Receive our news and promotions in advance"
         },
-        "privacy-policy": {
+        "privacyPolicy": {
           "title": "Privacy Policy Disclaimer",
           "type": "string"
         },
-        "email-input-label": {
+        "emailInputLabel": {
           "title": "Email input label",
           "type": "string",
           "default": "Your Email"
         },
-        "display-name-input": {
+        "displayNameInput": {
           "title": "Request name?",
           "type": "boolean",
           "default": true
         },
-        "name-input-label": {
+        "nameInputLabel": {
           "title": "Name input label",
           "type": "string",
           "default": "Your Name"
         },
-        "subscribe-button-label": {
+        "subscribeButtonLabel": {
           "title": "Subscribe button label",
           "type": "string",
           "default": "Subscribe"
@@ -1096,23 +1096,23 @@
       "type": "object",
       "description": "Display Product Details Section",
       "properties": {
-        "product-title": {
+        "productTitle": {
           "title": "Product Title",
           "type": "object",
           "properties": {
-            "discount-badge": {
+            "discountBadge": {
               "title": "Show Discount Badge?",
               "type": "boolean",
               "default": false
             },
-            "ref-number": {
+            "refNumber": {
               "title": "Show Reference Number?",
               "type": "boolean",
               "default": false
             }
           }
         },
-        "buy-button": {
+        "buyButton": {
           "title": "Buy Button",
           "type": "object",
           "properties": {
@@ -1140,7 +1140,7 @@
             }
           }
         },
-        "shipping-simulator": {
+        "shippingSimulator": {
           "title": "Shipping Simulation",
           "type": "object",
           "properties": {
@@ -1149,7 +1149,7 @@
               "type": "string",
               "default": "Shipping"
             },
-            "input-label": {
+            "inputLabel": {
               "title": "Input Label",
               "type": "string",
               "default": "Postal Code"
@@ -1169,17 +1169,17 @@
                 }
               }
             },
-            "shipping-options-table-title": {
+            "shippingOptionsTableTitle": {
               "title": "Shipping Options Table Header",
               "type": "string"
             }
           }
         },
-        "product-details-content": {
+        "productDetailsContent": {
           "title": "Product Details Content",
           "type": "object",
           "properties": {
-            "initially-expanded": {
+            "initiallyExpanded": {
               "type": "string",
               "title": "Initially Expanded?",
               "enumNames": ["First", "All", "None"],
@@ -1188,7 +1188,7 @@
             "details": {
               "type": "object",
               "properties": {
-                "display-description": {
+                "displayDescription": {
                   "title": "Should display description?",
                   "type": "boolean",
                   "default": true
