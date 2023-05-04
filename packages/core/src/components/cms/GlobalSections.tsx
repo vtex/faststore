@@ -5,12 +5,21 @@ import type { ComponentType } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/components'
 import { PageContentType, getPage } from 'src/server/cms'
 
-import Footer from 'src/components/common/Footer'
 import RegionBar from 'src/components/common/RegionBar'
 import Toast from 'src/components/common/Toast'
 import Navbar from 'src/components/navigation/Navbar'
-import Alert from 'src/components/sections/Alert/Alert'
 import RenderSections from './RenderSections'
+
+import {
+  incentivesMock,
+  footerLinksMock,
+  footerSocialMock,
+  logoMock,
+  copyrightInfoMock,
+  acceptedPaymentMethodsMock,
+} from 'src/components/common/Footer/mocks'
+import Footer from 'src/components/sections/Footer'
+import Alert from 'src/components/sections/Alert/Alert'
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 
@@ -56,7 +65,15 @@ function GlobalSections({
         {children}
       </main>
 
-      <Footer />
+      <Footer
+        incentives={incentivesMock}
+        footerLinks={footerLinksMock}
+        footerSocial={footerSocialMock}
+        logo={logoMock}
+        copyrightInfo={copyrightInfoMock}
+        acceptedPaymentMethods={acceptedPaymentMethodsMock}
+      />
+
       {hasChildren && (
         <RenderSections sections={lastSections} components={COMPONENTS} />
       )}
