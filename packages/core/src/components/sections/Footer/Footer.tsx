@@ -67,7 +67,7 @@ const Footer = ({
             src={logoSrc}
             alt={logoAlt}
             width={112}
-            height={115}
+            height={119}
           />
           {showPaymentMethods && (
             <UIPaymentMethods

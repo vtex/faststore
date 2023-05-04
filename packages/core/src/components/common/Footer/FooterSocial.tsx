@@ -21,7 +21,7 @@ function FooterSocial({ title, links }: FooterSocialProps) {
       <p data-fs-footer-social-title>{title}</p>
       <UIList>
         {links.map(({ icon: { icon }, url }) => (
-          <li>
+          <li key={icon}>
             <Link
               href={url}
               title={icon}
