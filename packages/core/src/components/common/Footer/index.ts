@@ -1,8 +1,6 @@
 export { default } from './Footer'
 export { FooterInfo, FooterNavigation } from './Footer'
 
-export { default as FooterFlags } from './FooterFlags'
-
 export { default as FooterLinks } from './FooterLinks'
 export type { FooterLinksProps } from './FooterLinks'
 
