@@ -1,13 +1,8 @@
 import Incentives from 'src/components/ui/Incentives/Incentives'
+import type { Incentive } from 'src/components/ui/Incentives'
+
 import Section from '../Section'
 import styles from './section.module.scss'
-
-interface Incentive {
-  icon: string
-  title?: string
-  firstLineText: string
-  secondLineText?: string
-}
 
 interface Props {
   incentives: Incentive[]

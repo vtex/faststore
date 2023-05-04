@@ -33,9 +33,12 @@
   }
 
   [data-fs-footer-logo] {
+    margin: var(--fs-spacing-3) 0;
     display: block;
-    width: var(--fs-logo-width);
+    width: 7rem;
     height: 100%;
+    font-size: x-large;
+    font-weight: bold;
     min-height: var(--fs-spacing-6);
   }
 
@@ -156,12 +159,9 @@
   }
 
   [data-fs-footer-copyright] {
-    p + p {
+    p {
       margin: var(--fs-spacing-2) auto;
-    }
-
-    address {
-      font-style: normal;
+      white-space: break-spaces;
     }
 
     @include media(">=notebook") {

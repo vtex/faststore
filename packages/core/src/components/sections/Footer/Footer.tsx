@@ -63,21 +63,17 @@ const Footer = ({
           />
         </UIFooterNavigation>
         <UIFooterInfo>
-          <UIIcon
-            data-fs-footer-logo
-            width={112}
-            height="100%"
-            name={logoSrc}
-            aria-label={logoAlt}
-          />
+          <span data-fs-footer-logo role="img" aria-label={logoAlt}>
+            {logoSrc}
+          </span>
           {showPaymentMethods && (
             <UIPaymentMethods
               flagList={paymentMethods}
-              title={acceptedPaymentMethodsTitle}
+              title={<p>{acceptedPaymentMethodsTitle}</p>}
             />
           )}
           <div data-fs-footer-copyright className="text__legend">
-            {copyrightInfo}
+            <p>{copyrightInfo}</p>
           </div>
         </UIFooterInfo>
       </UIFooter>
