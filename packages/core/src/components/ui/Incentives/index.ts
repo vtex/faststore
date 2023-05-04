@@ -1,2 +1,2 @@
 export { default } from './Incentives'
-export type { IncentivesProps } from './Incentives'
+export type { IncentivesProps, Incentive } from './Incentives'

@@ -1,11 +1,15 @@
 import type { ReactNode, AriaAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
+import { Icon as UIIcon } from '@faststore/ui'
+
 import { List, SROnly } from '../../index'
 
 type Flag = {
-  image: ReactNode
-  text?: string
+  icon: {
+    icon: string
+  }
+  alt: string
 }
 export interface PaymentMethodsProps {
   /**
@@ -53,13 +57,13 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
           data-fs-payment-methods-flags
           aria-label={title ? undefined : ariaLabel}
         >
-          {flagList.map((item, index) => (
+          {flagList.map(({ alt: text, icon: { icon } }, index) => (
             <li
               data-fs-payment-methods-flag
-              key={`fs-payment-method-${index}-${item.text}`}
+              key={`fs-payment-method-${index}-${text}`}
             >
-              {item.image}
-              {item.text && <SROnly text={item.text} />}
+              <UIIcon width={32} height={22.5} name={icon} />
+              {text && <SROnly text={text} />}
             </li>
           ))}
         </List>
