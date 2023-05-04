@@ -1,9 +1,7 @@
 import type { ReactNode, AriaAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Icon as UIIcon } from '@faststore/ui'
-
-import { List, SROnly } from '../../index'
+import { List, SROnly, Icon } from '../../index'
 
 type Flag = {
   icon: {
@@ -62,7 +60,7 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
               data-fs-payment-methods-flag
               key={`fs-payment-method-${index}-${text}`}
             >
-              <UIIcon width={32} height={22.5} name={icon} />
+              <Icon width={32} height={22.5} name={icon} />
               {text && <SROnly text={text} />}
             </li>
           ))}
