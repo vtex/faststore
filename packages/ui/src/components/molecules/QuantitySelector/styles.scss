@@ -58,9 +58,12 @@
   [data-quantity-selector-button] {
     position: absolute;
 
-    [data-fs-button-wrapper] {
-      background-color: var(--fs-qty-selector-button-bkg-color);
-      border-radius: var(--fs-qty-selector-button-border-radius);
+    [data-fs-button-wrapper] { border-radius: var(--fs-qty-selector-button-border-radius); }
+
+    &:not(:hover):not(:focus-visible) {
+      [data-fs-button-wrapper] {
+        background-color: var(--fs-qty-selector-button-bkg-color);
+      }
     }
 
     &:first-of-type { left: 0; }
