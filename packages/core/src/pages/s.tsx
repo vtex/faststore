@@ -1,9 +1,9 @@
+import type { SearchState } from '@faststore/sdk'
 import { parseSearchState, SearchProvider } from '@faststore/sdk'
+import { SROnly as UISROnly } from '@faststore/ui'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import type { SearchState } from '@faststore/sdk'
-import { SROnly as UISROnly } from '@faststore/ui'
 
 import Breadcrumb from 'src/components/sections/Breadcrumb'
 import ProductGallery from 'src/components/sections/ProductGallery'
@@ -11,13 +11,13 @@ import { ITEMS_PER_PAGE } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
 import { mark } from 'src/sdk/tests/mark'
 
-import storeConfig from '../../faststore.config'
+import { Locator } from '@vtex/client-cms'
+import { GetStaticProps } from 'next'
 import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { Locator } from '@vtex/client-cms'
-import { GetStaticProps } from 'next'
+import storeConfig from '../../faststore.config'
 
 type Props = {
   globalSections: GlobalSectionsData
@@ -79,7 +79,7 @@ function Page({ globalSections }: Props) {
           If needed, wrap your component in a <Section /> component
           (not the HTML tag) before rendering it here.
         */}
-        <Breadcrumb name="All Products" />
+        <Breadcrumb name="All Products" icon="Home" alt="Go to homepage" />
 
         <ProductGallery
           title="Search Results"

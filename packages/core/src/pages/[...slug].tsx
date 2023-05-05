@@ -11,7 +11,6 @@ import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
-import { Icon } from '@faststore/ui'
 import type {
   ServerCollectionPageQueryQuery,
   ServerCollectionPageQueryQueryVariables,
@@ -26,12 +25,12 @@ import { useApplySearchState } from 'src/sdk/search/state'
 import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
 
-import storeConfig from '../../faststore.config'
+import { Locator } from '@vtex/client-cms'
 import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { Locator } from '@vtex/client-cms'
+import storeConfig from '../../faststore.config'
 
 type Props = ServerCollectionPageQueryQuery & {
   globalSections: GlobalSectionsData
@@ -105,6 +104,8 @@ function Page({ globalSections, ...props }: Props) {
           (not the HTML tag) before rendering it here.
         */}
         <Breadcrumb
+          icon="Home"
+          alt="Go to homepage"
           breadcrumbList={collection?.breadcrumbList.itemListElement}
           name={title}
         />
