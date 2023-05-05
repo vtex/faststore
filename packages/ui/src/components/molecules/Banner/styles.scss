@@ -59,7 +59,7 @@
 
   [data-fs-banner-text-link] [data-fs-link-button] {
     min-width: var(--fs-banner-button-link-min-width);
-    margin-top: var(--fs-banner-button-link-margin-top);
+    margin: var(--fs-banner-button-link-margin-top) auto 0;
   }
 
   // --------------------------------------------------------

@@ -76,22 +76,9 @@
   }
 
   [data-fs-alert-button] {
-    min-width: var(--fs-control-tap-size);
-    height: 100%;
-    padding: var(--fs-spacing-0);
     margin-left: auto;
-    color: var(--fs-alert-button-text-color);
-    background-color: var(--fs-alert-button-bkg-color);
 
-    > span {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      background-color: var(--fs-alert-button-bkg-color);
-      border-radius: var(--fs-alert-button-border-radius);
-    }
+    [data-fs-button-wrapper] { color: var(--fs-alert-button-text-color); }
 
     &:hover span {
       filter: brightness(0.95);
