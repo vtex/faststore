@@ -3,8 +3,8 @@ import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import {
   BuyButton as UIBuyButton,
-  QuantitySelector as UIQuantitySelector,
   ProductTitle as UIProductTitle,
+  QuantitySelector as UIQuantitySelector,
 } from '@faststore/ui'
 import { useEffect, useState } from 'react'
 
@@ -170,7 +170,11 @@ function ProductDetails({ context: staleProduct }: Props) {
       className={`${styles.section} section-product-details layout__content layout__section`}
     >
       <section data-fs-product-details>
-        <Breadcrumb breadcrumbList={breadcrumbs.itemListElement} />
+        <Breadcrumb
+          breadcrumbList={breadcrumbs.itemListElement}
+          icon="House"
+          alt="Go to homepage"
+        />
         <section data-fs-product-details-body>
           <header data-fs-product-details-title data-fs-product-details-section>
             <UIProductTitle
