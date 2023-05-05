@@ -79,7 +79,7 @@ function Page({ globalSections }: Props) {
           If needed, wrap your component in a <Section /> component
           (not the HTML tag) before rendering it here.
         */}
-        <Breadcrumb name="All Products" icon="Home" alt="Go to homepage" />
+        <Breadcrumb name="All Products" icon="House" alt="Go to homepage" />
 
         <ProductGallery
           title="Search Results"

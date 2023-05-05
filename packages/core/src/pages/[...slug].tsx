@@ -104,7 +104,7 @@ function Page({ globalSections, ...props }: Props) {
           (not the HTML tag) before rendering it here.
         */}
         <Breadcrumb
-          icon="Home"
+          icon="House"
           alt="Go to homepage"
           breadcrumbList={collection?.breadcrumbList.itemListElement}
           name={title}

@@ -4,7 +4,7 @@ import { memo } from 'react'
 
 import Link from 'src/components/ui/Link'
 
-interface BreadcrumbProps extends UIBreadcrumbProps {
+export interface BreadcrumbProps extends UIBreadcrumbProps {
   icon: string
   alt: string
 }
