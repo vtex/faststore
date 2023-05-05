@@ -284,7 +284,7 @@ type Query {
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
-  Returns if there's a redirect tied to a search.
+  Returns if there's a redirect for a search.
   """
   redirect(
     """

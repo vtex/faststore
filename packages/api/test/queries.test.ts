@@ -34,6 +34,10 @@ import {
   addressFetch,
   ShippingSimulationQueryResult,
 } from '../mocks/ShippingQuery'
+import {
+  RedirectQueryTermTech,
+  redirectTermTechFetch,
+} from '../mocks/RedirectQuery'
 
 const apiOptions = {
   platform: 'vtex',
@@ -226,6 +230,27 @@ test('`shipping` query', async () => {
   const response = await run(ShippingSimulationQueryResult)
 
   expect(mockedFetch).toHaveBeenCalledTimes(2)
+
+  fetchAPICalls.forEach((fetchAPICall) => {
+    expect(mockedFetch).toHaveBeenCalledWith(
+      fetchAPICall.info,
+      fetchAPICall.init
+    )
+  })
+
+  expect(response).toMatchSnapshot()
+})
+
+test('`redirect` query', async () => {
+  const fetchAPICalls = [redirectTermTechFetch]
+
+  mockedFetch.mockImplementation((info, init) =>
+    pickFetchAPICallResult(info, init, fetchAPICalls)
+  )
+
+  const response = await run(RedirectQueryTermTech)
+
+  expect(mockedFetch).toHaveBeenCalledTimes(1)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(

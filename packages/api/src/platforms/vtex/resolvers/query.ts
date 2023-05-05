@@ -279,7 +279,7 @@ export const Query = {
     { term, selectedFacets }: QueryRedirectArgs,
     ctx: Context
   ) => {
-    if (!term && !selectedFacets) {
+    if (!term && (!selectedFacets || !selectedFacets.length)) {
       return null
     }
 
