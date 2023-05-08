@@ -27,7 +27,7 @@ const isCollection = (
 ): x is ServerCollectionPageQueryQuery['collection'] => !!x?.seo
 
 function BreadcrumbSection({ context, ...otherProps }: BreadcrumbSectionProps) {
-  const title = isCollection(context) ? context?.seo?.title : 'AllProducts'
+  const title = isCollection(context) ? context?.seo?.title : 'All Products'
   const fallback = [{ item: '/', name: title, position: 1 }]
   const breadcrumbList = isProduct(context)
     ? context?.breadcrumbList?.itemListElement
