@@ -15,11 +15,11 @@ import { mark } from 'src/sdk/tests/mark'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
-import storeConfig from '../../faststore.config'
 import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import storeConfig from '../../faststore.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -84,14 +84,15 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const page = await getPage<PageContentType>({
-    ...(previewData?.contentType === 'page'
-      ? previewData
-      : { filters: { 'settings.seo.slug': '/' } }),
-    contentType: 'page',
-  })
-
-  const globalSections = await getGlobalSectionsData(previewData)
+  const [page, globalSections] = await Promise.all([
+    getPage<PageContentType>({
+      ...(previewData?.contentType === 'page'
+        ? previewData
+        : { filters: { 'settings.seo.slug': '/' } }),
+      contentType: 'page',
+    }),
+    getGlobalSectionsData(previewData),
+  ])
 
   return {
     props: { page, globalSections },
