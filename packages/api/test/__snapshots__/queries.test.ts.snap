@@ -1167,3 +1167,11 @@ Object {
   },
 }
 `;
+
+exports[`\`redirect\` query 1`] = `
+Object {
+  "data": Object {
+    "redirect": "/technology",
+  },
+}
+`;

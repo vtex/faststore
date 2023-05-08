@@ -282,4 +282,18 @@ type Query {
     country: String!
   ): ShippingData
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+  """
+  Returns if there's a redirect for a search.
+  """
+  redirect(
+    """
+    Search term.
+    """
+    term: String
+    """
+    Array of selected search facets.
+    """
+    selectedFacets: [IStoreSelectedFacet!]
+  ): String
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 }

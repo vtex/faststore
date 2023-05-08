@@ -19,6 +19,7 @@ import type {
   QueryProductArgs,
   QuerySearchArgs,
   QueryShippingArgs,
+  QueryRedirectArgs
 } from "../../../__generated__/schema"
 import type { CategoryTree } from "../clients/commerce/types/CategoryTree"
 import type { Context } from "../index"
@@ -142,9 +143,8 @@ export const Query = {
         productId: crossSelling.value,
       })
 
-      query = `product:${
-        products.map((x) => x.productId).slice(0, first).join(";")
-      }`
+      query = `product:${products.map((x) => x.productId).slice(0, first).join(";")
+        }`
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0
@@ -272,5 +272,23 @@ export const Query = {
       ...simulation,
       address,
     }
+  },
+  redirect: async (
+    _: unknown,
+    { term, selectedFacets }: QueryRedirectArgs,
+    ctx: Context
+  ) => {
+    if (!term && (!selectedFacets || !selectedFacets.length)) {
+      return null
+    }
+
+    const { redirect } = await ctx.clients.search.products({
+      page: 1,
+      count: 1,
+      query: term ?? undefined,
+      selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
+    })
+
+    return redirect
   },
 }
