@@ -177,7 +177,6 @@ export const getStaticProps: GetStaticProps<
   { slug: string[] },
   Locator
 > = async ({ params, previewData }) => {
-  // TODO change from page to plp as soon as the CMS return the search content type.
   const [{ data, errors = [] }, cmsPage, globalSections] = await Promise.all([
     execute<
       ServerCollectionPageQueryQueryVariables,
@@ -187,8 +186,8 @@ export const getStaticProps: GetStaticProps<
       operationName: query,
     }),
     getPage<PLPContentType>({
-      ...(previewData?.contentType === 'page' ? previewData : null),
-      contentType: 'page',
+      ...(previewData?.contentType === 'plp' ? previewData : null),
+      contentType: 'plp',
     }),
     getGlobalSectionsData(previewData),
   ])
