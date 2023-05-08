@@ -64,5 +64,10 @@
     "id": "plp",
     "name": "Product List Page",
     "configurationSchemaSets": []
+  },
+  {
+    "id": "search",
+    "name": "Search Page",
+    "configurationSchemaSets": []
   }
 ]
