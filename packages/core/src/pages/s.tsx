@@ -108,11 +108,10 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  // TODO change from page to search as soon as the CMS return the search content type.
   const [cmsPage, globalSections] = await Promise.all([
     getPage<SearchContentType>({
-      ...(previewData?.contentType === 'page' ? previewData : null),
-      contentType: 'page',
+      ...(previewData?.contentType === 'search' ? previewData : null),
+      contentType: 'search',
     }),
     getGlobalSectionsData(previewData),
   ])
