@@ -3,11 +3,13 @@ import { parseSearchState, SearchProvider } from '@faststore/sdk'
 import { SROnly as UISROnly } from '@faststore/ui'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
+import type { ComponentType } from 'react'
 import { useEffect, useState } from 'react'
 
 import Breadcrumb from 'src/components/sections/Breadcrumb'
 import ProductGallery from 'src/components/sections/ProductGallery'
 import { ITEMS_PER_PAGE } from 'src/constants'
+import CUSTOM_COMPONENTS from 'src/customizations/components'
 import { useApplySearchState } from 'src/sdk/search/state'
 import { mark } from 'src/sdk/tests/mark'
 
@@ -17,9 +19,20 @@ import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import RenderSections from 'src/components/cms/RenderSections'
+import { getPage, SearchContentType } from 'src/server/cms'
 import storeConfig from '../../faststore.config'
 
-type Props = {
+/**
+ * Sections: Components imported from each store's custom components and '../components/sections' only.
+ * Do not import or render components from any other folder in here.
+ */
+const COMPONENTS: Record<string, ComponentType<any>> = {
+  Breadcrumb,
+  ...CUSTOM_COMPONENTS,
+}
+
+type Props = SearchContentType & {
   globalSections: GlobalSectionsData
 }
 
@@ -36,7 +49,7 @@ const useSearchParams = () => {
   return params
 }
 
-function Page({ globalSections }: Props) {
+function Page({ sections, globalSections }: Props) {
   const searchParams = useSearchParams()
   const applySearchState = useApplySearchState()
   const title = 'Search Results'
@@ -79,7 +92,7 @@ function Page({ globalSections }: Props) {
           If needed, wrap your component in a <Section /> component
           (not the HTML tag) before rendering it here.
         */}
-        <Breadcrumb name="All Products" icon="House" alt="Go to homepage" />
+        <RenderSections sections={sections} components={COMPONENTS} />
 
         <ProductGallery
           title="Search Results"
@@ -95,10 +108,17 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const globalSections = await getGlobalSectionsData(previewData)
+  // TODO change from plp to search as soon as the CMS return the search content type.
+  const [cmsPage, globalSections] = await Promise.all([
+    getPage<SearchContentType>({
+      ...(previewData?.contentType === 'plp' ? previewData : null),
+      contentType: 'plp',
+    }),
+    getGlobalSectionsData(previewData),
+  ])
 
   return {
-    props: { globalSections },
+    props: { ...cmsPage, globalSections },
   }
 }
 
