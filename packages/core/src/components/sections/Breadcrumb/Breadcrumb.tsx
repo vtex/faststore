@@ -5,13 +5,13 @@ import Breadcrumb from 'src/components/ui/Breadcrumb'
 import Section from '../Section'
 
 import {
-  ProductDetailsFragment_ProductFragment,
   ServerCollectionPageQueryQuery,
+  ServerProductPageQueryQuery,
 } from '@generated/graphql'
 import styles from './section.module.scss'
 
 type BreadcrumbContext =
-  | ProductDetailsFragment_ProductFragment
+  | ServerProductPageQueryQuery['product']
   | ServerCollectionPageQueryQuery['collection']
 
 interface BreadcrumbSectionProps {
@@ -20,11 +20,12 @@ interface BreadcrumbSectionProps {
   alt: string
 }
 
-const isProduct = (x: any): x is ProductDetailsFragment_ProductFragment =>
-  !!x?.sku
+const isProduct = (x: any): x is ServerProductPageQueryQuery['product'] =>
+  x?.sku != undefined && x?.sku != null
 const isCollection = (
   x: any
-): x is ServerCollectionPageQueryQuery['collection'] => !!x?.seo
+): x is ServerCollectionPageQueryQuery['collection'] =>
+  x?.seo != undefined && x?.seo != null && x?.sku == undefined
 
 function BreadcrumbSection({ context, ...otherProps }: BreadcrumbSectionProps) {
   const title = isCollection(context) ? context?.seo?.title : 'All Products'
