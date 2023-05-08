@@ -13,7 +13,6 @@ const { Price, DiscountBadge } = Components
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 import OutOfStock from 'src/components/product/OutOfStock'
-import Breadcrumb from 'src/components/ui/Breadcrumb'
 import ImageGallery from 'src/components/ui/ImageGallery'
 import ShippingSimulation from 'src/components/ui/ShippingSimulation'
 import Selectors from 'src/components/ui/SkuSelector'
@@ -170,11 +169,6 @@ function ProductDetails({ context: staleProduct }: Props) {
       className={`${styles.section} section-product-details layout__content layout__section`}
     >
       <section data-fs-product-details>
-        <Breadcrumb
-          breadcrumbList={breadcrumbs.itemListElement}
-          icon="House"
-          alt="Go to homepage"
-        />
         <section data-fs-product-details-body>
           <header data-fs-product-details-title data-fs-product-details-section>
             <UIProductTitle
