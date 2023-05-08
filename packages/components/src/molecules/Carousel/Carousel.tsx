@@ -324,6 +324,7 @@ function Carousel({
         >
           {slides.map((currentSlide, idx) => (
             <CarouselItem
+              id={id}
               index={idx}
               key={String(idx)}
               state={sliderState}
