@@ -337,6 +337,8 @@ export type Query = {
   collection: StoreCollection
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct
+  /** Returns if there's a redirect for a search. */
+  redirect: Maybe<Scalars['String']>
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult
   /** Returns information about shipping simulation. */
@@ -359,6 +361,11 @@ export type QueryCollectionArgs = {
 
 export type QueryProductArgs = {
   locator: Array<IStoreSelectedFacet>
+}
+
+export type QueryRedirectArgs = {
+  selectedFacets: InputMaybe<Array<IStoreSelectedFacet>>
+  term: InputMaybe<Scalars['String']>
 }
 
 export type QuerySearchArgs = {
@@ -996,6 +1003,7 @@ export type ProductGalleryQueryQueryVariables = Exact<{
 }>
 
 export type ProductGalleryQueryQuery = {
+  redirect: string | null
   search: {
     products: { pageInfo: { totalCount: number } }
     facets: Array<
