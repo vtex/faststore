@@ -1,17 +1,17 @@
 import type {
-  UIEvent,
-  ReactNode,
   CSSProperties,
   KeyboardEvent,
   PropsWithChildren,
+  ReactNode,
+  UIEvent,
 } from 'react'
 import React, { useMemo, useRef } from 'react'
 import type { SwipeableProps } from 'react-swipeable'
 
-import CarouselItem from './CarouselItem'
+import { Icon, IconButton } from '../..'
 import { useSlider } from '../../hooks'
 import CarouselBullets from './CarouselBullets'
-import { IconButton, Icon } from '../..'
+import CarouselItem from './CarouselItem'
 
 const createTransformValues = (infinite: boolean, totalItems: number) => {
   const transformMap: Record<number, number> = {}
@@ -375,6 +375,7 @@ function Carousel({
 
       {showPaginationBullets && (
         <CarouselBullets
+          id={id}
           tabIndex={0}
           activeBullet={sliderState.currentPage}
           totalQuantity={pagesCount}
@@ -387,7 +388,7 @@ function Carousel({
             isScrollCarousel && onScrollPagination(idx)
           }}
           onFocus={(event) => event.currentTarget.focus()}
-          ariaControlsGenerator={(idx) => `carousel-item-${idx}`}
+          ariaControlsGenerator={(idx) => `${id}-carousel-item-${idx}`}
         />
       )}
     </section>

@@ -7,6 +7,7 @@ import type { ProductsQueryQueryVariables } from '@generated/graphql'
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
 import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
+import { textToKebabCase } from 'src/utils/utilities'
 
 import Carousel from '../../ui/Carousel'
 import Section from '../Section'
@@ -25,6 +26,7 @@ function ProductShelf({
   withDivisor = false,
   ...variables
 }: ProductShelfProps) {
+  const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
   const { ref, inView } = useInView()
@@ -64,7 +66,7 @@ function ProductShelf({
         loading={products === undefined}
       >
         <UIProductShelf>
-          <Carousel id={id}>
+          <Carousel id={titleId || id}>
             {productEdges.map((product, idx) => (
               <ProductCard
                 bordered
