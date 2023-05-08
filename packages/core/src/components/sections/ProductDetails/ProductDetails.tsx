@@ -26,11 +26,11 @@ import ProductDetailsContent from '../ProducDetailsContent'
 import styles from './section.module.scss'
 
 interface ProductDetailsContextProps {
-  product: ProductDetailsFragment_ProductFragment
+  context: ProductDetailsFragment_ProductFragment
 }
 
 export interface ProductDetailsProps {
-  productDetails: {
+  productTitle: {
     discountBadge?: boolean
     refNumber?: boolean
   }
@@ -41,7 +41,7 @@ export interface ProductDetailsProps {
       alt?: string
     }
   }
-  shippingSimulation: {
+  shippingSimulator: {
     title?: string
     inputLabel?: string
     link: {
@@ -59,19 +59,16 @@ export interface ProductDetailsProps {
 }
 
 function ProductDetails({
-  product: staleProduct,
-  productDetails: {
-    refNumber: showRefNumber,
-    discountBadge: showDiscountBadge,
-  },
+  context: staleProduct,
+  productTitle: { refNumber: showRefNumber, discountBadge: showDiscountBadge },
   buyButton: {
     title: buyButtonTitle,
     icon: { icon: buyButtonIconName, alt: buyButtonIconAlt },
   },
-  shippingSimulation: {
-    title: shippingSimulationTitle,
-    inputLabel: shippingSimulationInputLabel,
-    link: { to: shippingSimulationLinkUrl, text: shippingSimulationLinkText },
+  shippingSimulator: {
+    title: shippingSimulatorTitle,
+    inputLabel: shippingSimulatorInputLabel,
+    link: { to: shippingSimulatorLinkUrl, text: shippingSimulatorLinkText },
   },
   productDetailsContent: {
     initiallyExpanded: productDetailsContentInitiallyExpanded,
@@ -195,11 +192,11 @@ function ProductDetails({
                 seller: seller.identifier,
               }}
               formatter={useFormattedPrice}
-              title={shippingSimulationTitle}
-              inputLabel={shippingSimulationInputLabel}
+              title={shippingSimulatorTitle}
+              inputLabel={shippingSimulatorInputLabel}
               idkPostalCodeLinkProps={
-                <UILink href={shippingSimulationLinkUrl}>
-                  {shippingSimulationLinkText}
+                <UILink href={shippingSimulatorLinkUrl}>
+                  {shippingSimulatorLinkText}
                 </UILink>
               }
             />
