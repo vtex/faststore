@@ -11,11 +11,11 @@ function RegionButton() {
     <UIButton
       variant="tertiary"
       size="small"
-      icon={<Icon name="MapPin" width={24} height={24} />}
+      icon={<Icon name="MapPin" width={18} height={18} weight="bold" />}
       iconPosition="left"
       onClick={openModal}
     >
-      <span>{postalCode ?? 'Set your location'}</span>
+      {postalCode ?? 'Set your location'}
     </UIButton>
   )
 }

@@ -88,10 +88,10 @@ const SearchInputField = forwardRef<
         {...otherProps}
       />
       <IconButton
-        data-fs-icon-button="null"
         type="submit"
         aria-label="Submit Search"
         icon={buttonIcon ?? <Icon name="MagnifyingGlass" />}
+        size="small"
         {...buttonProps}
       />
     </form>

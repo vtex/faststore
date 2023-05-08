@@ -37,7 +37,9 @@
     }
   }
 
-  [data-fs-accordion-button] {
+  [data-fs-accordion-button] { width: 100%; }
+
+  [data-fs-accordion-button] [data-fs-button-wrapper] {
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
