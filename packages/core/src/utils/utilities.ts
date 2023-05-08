@@ -4,7 +4,7 @@ export function textToKebabCase(text: string): string {
   let kebabCase = text.replace(/[^\w\s]/gi, '-')
 
   // Remove whitespace
-  kebabCase = kebabCase.replace(/\s+/g, '')
+  kebabCase = kebabCase.replace(/\s+/g, '-')
 
   // Convert to lowercase
   kebabCase = kebabCase.toLowerCase()
