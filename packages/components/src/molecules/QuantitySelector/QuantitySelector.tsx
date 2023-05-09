@@ -94,6 +94,7 @@ const QuantitySelector = ({
         disabled={isLeftDisabled || disabled}
         onClick={decrease}
         testId={`${testId}-left-button`}
+        size="small"
       />
       <Input
         data-quantity-selector-input
@@ -111,6 +112,7 @@ const QuantitySelector = ({
         icon={<Icon name="Plus" width={16} height={16} weight="bold" />}
         onClick={increase}
         testId={`${testId}-right-button`}
+        size="small"
       />
     </div>
   )

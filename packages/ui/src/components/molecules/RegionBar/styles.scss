@@ -5,7 +5,7 @@
 
   // Default properties
   --fs-region-bar-width                    : 100%;
-  --fs-region-bar-padding                  : var(--fs-spacing-0) var(--fs-spacing-2) var(--fs-spacing-0) var(--fs-spacing-3);
+  --fs-region-bar-padding                  : var(--fs-spacing-0) var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-2);
 
   --fs-region-bar-text-color               : var(--fs-color-text-display);
 
@@ -32,14 +32,17 @@
 
   [data-fs-button] {
     width: var(--fs-region-bar-width);
-    padding: var(--fs-region-bar-padding);
-    color: var(--fs-region-bar-text-color);
-    background-color: var(--fs-region-bar-bkg-color);
-    border-bottom: var(--fs-region-bar-border-bottom-width) solid var(--fs-region-bar-border-bottom-color);
-    border-radius: 0;
 
-    > span {
-      display: contents;
+    [data-fs-button-wrapper]{
+      padding: var(--fs-region-bar-padding);
+      color: var(--fs-region-bar-text-color);
+      background-color: var(--fs-region-bar-bkg-color);
+      border-bottom: var(--fs-region-bar-border-bottom-width) solid var(--fs-region-bar-border-bottom-color);
+      border-radius: 0;
+
+      > span {
+        display: contents;
+      }
     }
   }
 

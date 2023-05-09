@@ -18,7 +18,7 @@ const ButtonSignIn = () => {
       icon={<Icon name="User" width={18} height={18} weight="bold" />}
       iconPosition="left"
     >
-      <span>{person?.id ? 'My Account' : 'Sign In'}</span>
+      {person?.id ? 'My Account' : 'Sign In'}
     </LinkButton>
   )
 }

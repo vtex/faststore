@@ -95,7 +95,6 @@ function ImageGallerySelector({
             data-fs-image-gallery-selector-control-button
             aria-label={navigationButtonLeftAriaLabel}
             icon={<Icon name="ArrowLeft" />}
-            size="small"
             onClick={() =>
               moveScroll(elementsRef.current, -SCROLL_MARGIN_VALUE)
             }
@@ -105,7 +104,7 @@ function ImageGallerySelector({
       <div data-fs-image-gallery-selector-elements ref={elementsRef}>
         {images.map((image, idx) => {
           return (
-            <InView 
+            <InView
               key={idx}
               onChange={(inView) => inViewChange(idx, inView)}>
               <Button
@@ -134,7 +133,6 @@ function ImageGallerySelector({
             data-fs-image-gallery-selector-control-button
             aria-label={navigationButtonRightAriaLabel}
             icon={<Icon name="ArrowLeft" />}
-            size="small"
             onClick={() =>
               moveScroll(elementsRef.current, +SCROLL_MARGIN_VALUE)
             }

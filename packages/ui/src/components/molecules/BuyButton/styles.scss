@@ -25,22 +25,26 @@
   @include focus-ring-visible;
 
   color: var(--fs-buy-button-text-color);
-  background-color: var(--fs-buy-button-bkg-color);
-  border: var(--fs-button-border-width) solid var(--fs-buy-button-border-color);
 
-  &:hover {
+  [data-fs-button-wrapper] {
+    background-color: var(--fs-buy-button-bkg-color);
+    border: var(--fs-button-border-width) solid var(--fs-buy-button-border-color);
+  }
+
+
+  &:hover [data-fs-button-wrapper] {
     color: var(--fs-buy-button-text-color-hover);
     background-color: var(--fs-buy-button-bkg-color-hover);
     border-color: var(--fs-buy-button-border-color-hover);
     box-shadow: var(--fs-buy-button-shadow-hover);
   }
 
-  &:focus, &:focus-visible {
+  &:focus [data-fs-button-wrapper], &:focus-visible [data-fs-button-wrapper] {
     color: var(--fs-buy-button-text-color-hover);
     background-color: var(--fs-buy-button-bkg-color-hover);
   }
 
-  &:active {
+  &:active [data-fs-button-wrapper] {
     color: var(--fs-buy-button-text-color-hover);
     background-color: var(--fs-buy-button-bkg-color-active);
     border-color: var(--fs-buy-button-border-color-active);

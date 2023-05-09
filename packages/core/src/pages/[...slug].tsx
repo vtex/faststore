@@ -11,7 +11,6 @@ import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
-import { Icon } from '@faststore/ui'
 import type {
   ServerCollectionPageQueryQuery,
   ServerCollectionPageQueryQueryVariables,

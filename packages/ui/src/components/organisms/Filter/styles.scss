@@ -21,7 +21,7 @@
   --fs-filter-accordion-button-padding-right-notebook     : var(--fs-spacing-4);
   --fs-filter-accordion-button-padding-left-notebook      : var(--fs-filter-accordion-button-padding-right-notebook);
 
-  --fs-filter-accordion-button-text-size-notebook       : var(--fs-text-size-2);
+  --fs-filter-accordion-button-text-size-notebook         : var(--fs-text-size-2);
   --fs-filter-accordion-button-line-height-notebook       : 1.25;
 
   // Accordion Item Panel
@@ -69,15 +69,16 @@
 
   [data-fs-filter-accordion-item] {
     [data-fs-accordion-button] {
-      font-size: var(--fs-filter-accordion-button-text-size);
-      font-weight: var(--fs-filter-accordion-button-text-weight);
-      line-height: var(--fs-filter-accordion-button-line-height);
-
-      @include media(">=notebook") {
-        padding-right: var(--fs-filter-accordion-button-padding-right-notebook);
-        padding-left: var(--fs-filter-accordion-button-padding-left-notebook);
-        font-size: var(--fs-filter-accordion-button-text-size-notebook);
-        line-height: var(--fs-filter-accordion-button-line-height-notebook);
+      [data-fs-button-wrapper] {
+        font-size: var(--fs-filter-accordion-button-text-size);
+        font-weight: var(--fs-filter-accordion-button-text-weight);
+        line-height: var(--fs-filter-accordion-button-line-height);
+        @include media(">=notebook") {
+          padding-right: var(--fs-filter-accordion-button-padding-right-notebook);
+          padding-left: var(--fs-filter-accordion-button-padding-left-notebook);
+          font-size: var(--fs-filter-accordion-button-text-size-notebook);
+          line-height: var(--fs-filter-accordion-button-line-height-notebook);
+        }
       }
     }
 

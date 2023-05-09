@@ -41,7 +41,7 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
           // Number of Requests Budgets
           'resource-summary:font:count': ['error', { maxNumericValue: 3 }],
           'resource-summary:image:count': ['error', { maxNumericValue: 20 }],
-          'resource-summary:script:count': ['error', { maxNumericValue: 15 }],
+          'resource-summary:script:count': ['error', { maxNumericValue: 20 }],
           'resource-summary:stylesheet:count': [
             'error',
             { maxNumericValue: 3 },

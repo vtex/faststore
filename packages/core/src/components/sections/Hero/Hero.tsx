@@ -41,7 +41,6 @@ const Hero = ({
         <UIHeroImage data-fs-hero-image>
           <Image
             loading="eager"
-            priority
             src={image.src}
             alt={image.alt}
             width={360}
