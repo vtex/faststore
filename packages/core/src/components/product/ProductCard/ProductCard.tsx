@@ -99,6 +99,7 @@ function ProductCard({
           sizes={`${imgProps?.sizes ?? '(max-width: 768px) 40vw, 30vw'}`}
           width={imgProps?.width ?? 360}
           height={Math.round((Number(imgProps?.height) || 360) / aspectRatio)}
+          loading={imgProps?.loading}
         />
       </UIProductCardImage>
       <UIProductCardContent

@@ -35,6 +35,11 @@ function ProductGrid({ products, page, pageSize }: Props) {
               index={pageSize * page + idx + 1}
               bordered
               aspectRatio={aspectRatio}
+              imgProps={{
+                width: 150,
+                height: 150,
+                sizes: '30vw',
+              }}
             />
           </UIProductGridItem>
         ))}
