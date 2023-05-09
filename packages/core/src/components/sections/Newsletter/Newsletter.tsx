@@ -71,8 +71,13 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
     }
 
     return (
-      <Section className={`${styles.section} section-newsletter`}>
-        <div data-fs-newsletter={card ? 'card' : ''}>
+      <Section
+        className={`${styles.section} section-newsletter layout__section`}
+      >
+        <div
+          data-fs-newsletter={card ? 'card' : ''}
+          className={card ? 'layout__content' : ''}
+        >
           <form
             data-fs-newsletter-form
             ref={ref}
