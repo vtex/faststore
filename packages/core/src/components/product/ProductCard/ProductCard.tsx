@@ -96,7 +96,7 @@ function ProductCard({
         <Image
           src={img.url}
           alt={img.alternateName}
-          sizes="(max-width: 768px) 25vw, 30vw"
+          sizes="(max-width: 768px) 50vw, 30vw"
           width={imgProps?.width ?? 360}
           height={Math.round((Number(imgProps?.height) || 360) / aspectRatio)}
         />
