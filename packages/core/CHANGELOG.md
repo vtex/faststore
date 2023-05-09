@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.134-alpha.0](https://github.com/vtex/faststore/compare/v2.0.133-alpha.0...v2.0.134-alpha.0) (2023-05-09)
+
+### Bug Fixes
+
+- Renames `IncentivesHeader` section to `Incentives` ([#1752](https://github.com/vtex/faststore/issues/1752)) ([c46b6b2](https://github.com/vtex/faststore/commit/c46b6b289d971ec2e7925e69e83f649b08b933bd))
+
 ## [2.0.133-alpha.0](https://github.com/vtex/faststore/compare/v2.0.132-alpha.0...v2.0.133-alpha.0) (2023-05-09)
 
 ### Features
