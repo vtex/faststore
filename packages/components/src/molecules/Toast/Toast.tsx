@@ -37,9 +37,7 @@ function Toast() {
       onTransitionEnd={() => !visible && popToast()}
     >
       {toast.icon && (
-        <div data-fs-toast-icon-container>
-          {React.isValidElement(toast.icon) && toast.icon}
-        </div>
+        <div data-fs-toast-icon-container>{!!toast.icon && toast.icon}</div>
       )}
       <div data-fs-toast-content>
         {toast.title && <p data-fs-toast-title>{toast.title}</p>}
