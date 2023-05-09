@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.133-alpha.0](https://github.com/vtex/faststore/compare/v2.0.132-alpha.0...v2.0.133-alpha.0) (2023-05-09)
+
+### Features
+
+- Adjust `Footer` for CMS ([#1743](https://github.com/vtex/faststore/issues/1743)) ([86dd67a](https://github.com/vtex/faststore/commit/86dd67a293dcd3a67a5b96ac45dc27d097f95381))
+
 ## [2.0.132-alpha.0](https://github.com/vtex/faststore/compare/v2.0.131-alpha.0...v2.0.132-alpha.0) (2023-05-09)
 
 ### Bug Fixes
