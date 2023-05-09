@@ -40,10 +40,10 @@ function ProductGallery({ title, searchTerm }: Props) {
   const facets = useDelayedFacets(data)
   const totalCount = data?.search.products.pageInfo.totalCount ?? 0
   const { next, prev } = useDelayedPagination(totalCount)
-  const redirect = data?.redirect
+  const urlRedirect = data?.redirect?.url
 
   // check for a redirect
-  redirect && router.push(redirect)
+  urlRedirect && router.push(urlRedirect)
 
   useProductsPrefetch(prev ? prev.cursor : null)
   useProductsPrefetch(next ? next.cursor : null)

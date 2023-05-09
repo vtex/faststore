@@ -300,6 +300,7 @@ type Query {
 
 """
 Redirect informations, including url returned by the query.
+https://schema.org/Thing
 """
 type StoreRedirect {
   """

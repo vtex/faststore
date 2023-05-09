@@ -926,7 +926,10 @@ export type StorePropertyValue = {
   valueReference: Scalars['String'];
 };
 
-/** Redirect informations, including url returned by the query. */
+/**
+ * Redirect informations, including url returned by the query.
+ * https://schema.org/Thing
+ */
 export type StoreRedirect = {
   __typename?: 'StoreRedirect';
   /** URL to redirect */
