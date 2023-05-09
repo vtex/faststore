@@ -403,7 +403,7 @@ export type Query = {
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
   /** Returns if there's a redirect for a search. */
-  redirect?: Maybe<Scalars['String']>;
+  redirect?: Maybe<StoreRedirect>;
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult;
   /** Returns information about shipping simulation. */
@@ -924,6 +924,13 @@ export type StorePropertyValue = {
   value: Scalars['ObjectOrString'];
   /** Specifies the nature of the value */
   valueReference: Scalars['String'];
+};
+
+/** Redirect informations, including url returned by the query. */
+export type StoreRedirect = {
+  __typename?: 'StoreRedirect';
+  /** URL to redirect */
+  url?: Maybe<Scalars['String']>;
 };
 
 /** Information of a given review. */

@@ -294,6 +294,16 @@ type Query {
     Array of selected search facets.
     """
     selectedFacets: [IStoreSelectedFacet!]
-  ): String
+  ): StoreRedirect
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+}
+
+"""
+Redirect informations, including url returned by the query.
+"""
+type StoreRedirect {
+  """
+  URL to redirect
+  """
+  url: String
 }
