@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.41](https://github.com/vtex/faststore/compare/v1.12.40...v1.12.41) (2023-05-09)
+
+### Features
+
+- implement redirect query ([#1746](https://github.com/vtex/faststore/issues/1746)) ([d9b0ace](https://github.com/vtex/faststore/commit/d9b0ace9e3e66a9b87317149ac0e43e6750d5502))
+
 ## [1.12.40](https://github.com/vtex/faststore/compare/v1.12.39...v1.12.40) (2023-04-13)
 
 **Note:** Version bump only for package faststore
