@@ -14,7 +14,7 @@ import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
 import NavbarLinks from '../NavbarLinks'
 
-import styles from './section.module.scss'
+import styles from '../Navbar/section.module.scss'
 
 function NavbarSlider() {
   const { closeNavbar } = useUI()
