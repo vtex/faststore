@@ -532,7 +532,7 @@
                         ],
                         "enum": [
                           "Visa",
-                          "DinersClub",
+                          "Diners",
                           "Mastercard",
                           "EloCard",
                           "PayPal",

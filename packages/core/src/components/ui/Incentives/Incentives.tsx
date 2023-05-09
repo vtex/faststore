@@ -1,10 +1,15 @@
-import { Icon, Incentive as UIIncentive, List as UIList } from '@faststore/ui'
+import {
+  Icon as UIIcon,
+  List as UIList,
+  Incentive as UIIncentive,
+} from '@faststore/ui'
 
-interface Incentive {
+export type Incentive = {
   icon: string
-  title?: string
+  title: string
   firstLineText: string
   secondLineText?: string
+  alt?: string
 }
 
 export interface IncentivesProps {
@@ -34,16 +39,15 @@ function Incentives({
         {incentives.map((incentive, index) => (
           <li key={String(index)}>
             <UIIncentive>
-              <Icon
+              <UIIcon
                 data-fs-incentive-icon
+                aria-label={incentive.alt}
                 name={incentive.icon}
                 width={32}
                 height={32}
               />
               <div data-fs-incentive-content>
-                {incentive.title && (
-                  <p data-fs-incentive-title>{incentive.title}</p>
-                )}
+                <p data-fs-incentive-title>{incentive.title}</p>
                 <span data-fs-incentive-description>
                   {incentive.firstLineText}
                 </span>
