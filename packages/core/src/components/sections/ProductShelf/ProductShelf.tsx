@@ -77,6 +77,7 @@ function ProductShelf({
                 imgProps={{
                   width: 216,
                   height: 216,
+                  sizes: '(max-width: 768px) 42vw, 30vw',
                 }}
               />
             ))}
