@@ -616,7 +616,9 @@ Object {
 exports[`\`redirect\` query 1`] = `
 Object {
   "data": Object {
-    "redirect": Object {},
+    "redirect": Object {
+      "url": "/technology",
+    },
   },
 }
 `;
@@ -1173,15 +1175,5 @@ Object {
       "messages": Array [],
     },
   },
-}
-`;
-
-exports[`redirect query 1`] = `
-Object {
-  "data": {
-    "redirect": Object {
-      "url": "/technology"
-    }
-  }
 }
 `;

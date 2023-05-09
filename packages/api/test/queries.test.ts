@@ -258,6 +258,5 @@ test('`redirect` query', async () => {
       fetchAPICall.init
     )
   })
-
   expect(response).toMatchSnapshot()
 })

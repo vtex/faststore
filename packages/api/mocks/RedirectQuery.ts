@@ -1,5 +1,7 @@
 export const RedirectQueryTermTech = `query RedirectSearch {
-    redirect(term: "tech") 
+    redirect(term: "tech") {
+        url
+    }
   }
   `
 
