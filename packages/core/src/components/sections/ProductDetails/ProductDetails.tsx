@@ -144,63 +144,68 @@ function ProductDetails({
     <Section
       className={`${styles.section} section-product-details layout__content layout__section`}
     >
-      <section data-fs-product-details-body>
-        <header data-fs-product-details-title data-fs-product-details-section>
-          <UIProductTitle
-            title={<h1>{name}</h1>}
-            label={
-              showDiscountBadge && (
-                <UIDiscountBadge
-                  listPrice={listPrice}
-                  spotPrice={lowPrice}
-                  size="big"
-                />
-              )
-            }
-            refNumber={showRefNumber && productId}
+      <section data-fs-product-details>
+        <section data-fs-product-details-body>
+          <header data-fs-product-details-title data-fs-product-details-section>
+            <UIProductTitle
+              title={<h1>{name}</h1>}
+              label={
+                showDiscountBadge && (
+                  <UIDiscountBadge
+                    listPrice={listPrice}
+                    spotPrice={lowPrice}
+                    size="big"
+                  />
+                )
+              }
+              refNumber={showRefNumber && productId}
+            />
+          </header>
+
+          <ImageGallery
+            data-fs-product-details-gallery
+            images={productImages}
           />
-        </header>
 
-        <ImageGallery data-fs-product-details-gallery images={productImages} />
+          <section data-fs-product-details-info>
+            <section
+              data-fs-product-details-settings
+              data-fs-product-details-section
+            >
+              {availability ? (
+                <ProductDetailsSettings
+                  product={data.product}
+                  isValidating={isValidating}
+                  buyButtonTitle={buyButtonTitle}
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                  buyButtonIcon={buyButtonIconName || buyButtonIconAlt}
+                />
+              ) : (
+                <OutOfStock />
+              )}
+            </section>
 
-        <section data-fs-product-details-info>
-          <section
-            data-fs-product-details-settings
-            data-fs-product-details-section
-          >
-            {availability ? (
-              <ProductDetailsSettings
-                product={data.product}
-                isValidating={isValidating}
-                buyButtonTitle={buyButtonTitle}
-                quantity={quantity}
-                setQuantity={setQuantity}
-                buyButtonIcon={buyButtonIconName || buyButtonIconAlt}
+            {availability && (
+              <ShippingSimulation
+                data-fs-product-details-section
+                data-fs-product-details-shipping
+                productShippingInfo={{
+                  id,
+                  quantity,
+                  seller: seller.identifier,
+                }}
+                formatter={useFormattedPrice}
+                title={shippingSimulatorTitle}
+                inputLabel={shippingSimulatorInputLabel}
+                idkPostalCodeLinkProps={
+                  <UILink href={shippingSimulatorLinkUrl}>
+                    {shippingSimulatorLinkText}
+                  </UILink>
+                }
               />
-            ) : (
-              <OutOfStock />
             )}
           </section>
-
-          {availability && (
-            <ShippingSimulation
-              data-fs-product-details-section
-              data-fs-product-details-shipping
-              productShippingInfo={{
-                id,
-                quantity,
-                seller: seller.identifier,
-              }}
-              formatter={useFormattedPrice}
-              title={shippingSimulatorTitle}
-              inputLabel={shippingSimulatorInputLabel}
-              idkPostalCodeLinkProps={
-                <UILink href={shippingSimulatorLinkUrl}>
-                  {shippingSimulatorLinkText}
-                </UILink>
-              }
-            />
-          )}
 
           <ProductDetailsContent
             labels={{ description: productDetailsContentDetailsTitle }}
