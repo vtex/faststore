@@ -665,9 +665,9 @@
     }
   },
   {
-    "name": "IncentivesHeader",
+    "name": "Incentives",
     "schema": {
-      "title": "Incentives Header",
+      "title": "Incentives",
       "description": "Add Incentives to your shopper",
       "type": "object",
       "properties": {
