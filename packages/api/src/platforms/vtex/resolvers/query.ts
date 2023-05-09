@@ -143,9 +143,8 @@ export const Query = {
         productId: crossSelling.value,
       })
 
-      query = `product:${
-        products.map((x) => x.productId).slice(0, first).join(";")
-      }`
+      query = `product:${products.map((x) => x.productId).slice(0, first).join(";")
+        }`
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0
@@ -279,6 +278,8 @@ export const Query = {
     { term, selectedFacets }: QueryRedirectArgs,
     ctx: Context
   ) => {
+    // Currently the search redirection can be done through a search term or filter (facet) so we limit the redirect query to always have one of these values otherwise we do not execute it.
+    // https://help.vtex.com/en/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/4Gd2wLQFbCwTsh8RUDwSoL?&utm_source=autocomplete
     if (!term && (!selectedFacets || !selectedFacets.length)) {
       return null
     }
@@ -290,6 +291,8 @@ export const Query = {
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
     })
 
-    return redirect
+    return {
+      url: redirect
+    }
   },
 }
