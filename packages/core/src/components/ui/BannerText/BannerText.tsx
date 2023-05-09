@@ -44,7 +44,7 @@ function BannerText({
       data-fs-banner-text-variant={variant}
       data-fs-banner-text-color-variant={colorVariant}
     >
-      <BannerContent data-fs-banner-text-content className="layout__content">
+      <BannerContent data-fs-banner-text-content>
         <div
           data-fs-banner-text-heading
           data-fs-banner-text-color-variant={colorVariant}
