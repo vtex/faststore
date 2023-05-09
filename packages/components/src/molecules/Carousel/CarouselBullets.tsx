@@ -84,6 +84,7 @@ const CarouselBullets = forwardRef<HTMLDivElement, CarouselBulletsProps>(
               aria-label={ariaLabelGenerator(id, idx, isActive)}
               aria-controls={ariaControlsGenerator?.(idx)}
               aria-selected={isActive}
+              variant="tertiary"
             />
           )
         })}
