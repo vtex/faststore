@@ -1,12 +1,12 @@
 import {
+  Icon as UIIcon,
   Badge as UIBadge,
-  Icon,
   IconButton as UIIconButton,
 } from '@faststore/ui'
 
 import { useCartToggleButton } from 'src/sdk/cart/useCartToggleButton'
 
-function CartToggle() {
+function CartToggle({ icon }: { icon: string }) {
   const btnProps = useCartToggleButton()
   const totalItems = btnProps['data-items']
 
@@ -14,7 +14,7 @@ function CartToggle() {
     <UIIconButton
       data-fs-cart-toggle
       aria-label={`Cart with ${totalItems} items`}
-      icon={<Icon name="ShoppingCart" width={32} height={32} />}
+      icon={<UIIcon name={icon} width={32} height={32} />}
       {...btnProps}
     >
       <UIBadge counter>{totalItems}</UIBadge>

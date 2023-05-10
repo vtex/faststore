@@ -10,6 +10,10 @@ import {
   useScrollDirection,
   useUI,
 } from '@faststore/ui'
+import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
+
+import NavbarLinks from '../NavbarLinks'
+import NavbarSlider from '../NavbarSlider'
 
 import CartToggle from 'src/components/cart/CartToggle'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
@@ -19,12 +23,46 @@ import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
 
-import NavbarLinks from '../NavbarLinks'
-import NavbarSlider from '../NavbarSlider'
+export interface NavbarProps {
+  /**
+   * Logo props.
+   */
+  logo: { src: string }
+  /**
+   * Cart props.
+   */
+  cart: { icon: string }
+  /**
+   * Sign In props.
+   */
+  signIn: {
+    button: {
+      icon: string
+      label: string
+    }
+  }
+  /**
+   * Region props.
+   */
+  region: {
+    icon: string
+    label: string
+    shouldDisplayRegion: boolean
+  }
+  /**
+   * Page links.
+   */
+  links: SectionNavbarProps['navigation']['pageLinks']
+}
 
-import styles from './section.module.scss'
-
-function Navbar() {
+function Navbar({
+  links,
+  signIn,
+  region,
+  logo: { src: logoSrc },
+  cart: { icon: cartIcon },
+  signIn: { button: signInButton },
+}: NavbarProps) {
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
   const searchMobileRef = useRef<SearchInputRef>(null)
@@ -36,67 +74,66 @@ function Navbar() {
   }
 
   return (
-    <header className={`section ${styles.section} section-navbar`}>
-      <UINavbar scrollDirection={scrollDirection}>
-        <UINavbarHeader>
-          <UINavbarRow className="layout__content">
-            {!searchExpanded && (
-              <>
-                <UIIconButton
-                  data-fs-navbar-button-menu
-                  aria-label="Open Menu"
-                  icon={<UIIcon name="List" width={32} height={32} />}
-                  onClick={openNavbar}
-                />
-                <Link
-                  href="/"
-                  prefetch={false}
-                  aria-label="Go to Faststore home"
-                  title="Go to Faststore home"
-                  data-fs-navbar-logo
-                >
-                  <Logo />
-                </Link>
-              </>
+    <UINavbar scrollDirection={scrollDirection}>
+      <UINavbarHeader>
+        <UINavbarRow className="layout__content">
+          {!searchExpanded && (
+            <>
+              <UIIconButton
+                data-fs-navbar-button-menu
+                aria-label="Open Menu"
+                icon={<UIIcon name="List" width={32} height={32} />}
+                onClick={openNavbar}
+              />
+              <Link
+                href="/"
+                aria-label="Go to Faststore home"
+                title="Go to Faststore home"
+                data-fs-navbar-logo
+              >
+                <Logo />
+              </Link>
+            </>
+          )}
+
+          <SearchInput />
+
+          <UINavbarButtons searchExpanded={searchExpanded}>
+            {searchExpanded && (
+              <UIIconButton
+                data-fs-button-collapse
+                aria-label="Collapse search bar"
+                icon={<UIIcon name="CaretLeft" width={32} height={32} />}
+                onClick={() => {
+                  setSearchExpanded(false)
+                  searchMobileRef.current?.resetSearchInput()
+                }}
+              />
             )}
 
-            <SearchInput />
+            <SearchInput
+              placeholder=""
+              ref={searchMobileRef}
+              testId="store-input-mobile"
+              buttonTestId="store-input-mobile-button"
+              onSearchClick={handlerExpandSearch}
+            />
 
-            <UINavbarButtons searchExpanded={searchExpanded}>
-              {searchExpanded && (
-                <UIIconButton
-                  data-fs-button-collapse
-                  aria-label="Collapse search bar"
-                  icon={<UIIcon name="CaretLeft" width={32} height={32} />}
-                  onClick={() => {
-                    setSearchExpanded(false)
-                    searchMobileRef.current?.resetSearchInput()
-                  }}
-                />
-              )}
+            <Suspense fallback={<ButtonSignInFallback />}>
+              <ButtonSignIn {...signInButton} />
+            </Suspense>
 
-              <SearchInput
-                placeholder=""
-                ref={searchMobileRef}
-                testId="store-input-mobile"
-                buttonTestId="store-input-mobile-button"
-                onSearchClick={handlerExpandSearch}
-              />
+            <CartToggle icon={cartIcon} />
+          </UINavbarButtons>
+        </UINavbarRow>
+      </UINavbarHeader>
 
-              <Suspense fallback={<ButtonSignInFallback />}>
-                <ButtonSignIn />
-              </Suspense>
+      <NavbarLinks links={links} region={region} className="hidden-mobile" />
 
-              <CartToggle />
-            </UINavbarButtons>
-          </UINavbarRow>
-        </UINavbarHeader>
-
-        <NavbarLinks className="hidden-mobile" />
-
-        {displayNavbar && <NavbarSlider />}
-      </UINavbar>
-    </header>
+      {displayNavbar && (
+        <NavbarSlider links={links} signIn={signIn} region={region} />
+      )}
+    </UINavbar>
   )
 }
 

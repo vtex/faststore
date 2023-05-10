@@ -12,11 +12,23 @@ import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
+
 import NavbarLinks from '../NavbarLinks'
+import type { NavbarProps } from '../Navbar'
 
 import styles from '../Navbar/section.module.scss'
 
-function NavbarSlider() {
+interface NavbarSliderProps {
+  links: NavbarProps['links']
+  region: NavbarProps['region']
+  signIn: NavbarProps['signIn']
+}
+
+function NavbarSlider({
+  links,
+  region,
+  signIn: { button: signInButton },
+}: NavbarSliderProps) {
   const { closeNavbar } = useUI()
   const { fade, fadeOut } = useFadeEffect()
 
@@ -41,11 +53,11 @@ function NavbarSlider() {
         </Link>
       </UINavbarSliderHeader>
       <UINavbarSliderContent>
-        <NavbarLinks onClickLink={fadeOut} />
+        <NavbarLinks onClickLink={fadeOut} links={links} region={region} />
       </UINavbarSliderContent>
       <UINavbarSliderFooter>
         <Suspense fallback={<ButtonSignInFallback />}>
-          <ButtonSignIn />
+          <ButtonSignIn {...signInButton} />
         </Suspense>
       </UINavbarSliderFooter>
     </UINavbarSlider>

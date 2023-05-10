@@ -3,7 +3,7 @@ import { Icon, LinkButton } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
 import { useCart } from '../../../../sdk/cart/index'
 
-const ButtonSignIn = () => {
+const ButtonSignIn = ({ icon, label }: { icon: string; label: string }) => {
   const { id } = useCart()
   const { person } = useSession()
 
@@ -15,10 +15,10 @@ const ButtonSignIn = () => {
       }
       className="text__title-mini"
       variant="tertiary"
-      icon={<Icon name="User" width={18} height={18} weight="bold" />}
+      icon={<Icon name={icon} width={18} height={18} weight="bold" />}
       iconPosition="left"
     >
-      {person?.id ? 'My Account' : 'Sign In'}
+      {person?.id ? 'My Account' : label}
     </LinkButton>
   )
 }
