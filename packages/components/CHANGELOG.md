@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.135-alpha.0](https://github.com/vtex/faststore/compare/v2.0.134-alpha.0...v2.0.135-alpha.0) (2023-05-10)
+
+### Bug Fixes
+
+- Lighthouse Performance 🟢 ([#1751](https://github.com/vtex/faststore/issues/1751)) ([bf8de0e](https://github.com/vtex/faststore/commit/bf8de0e5a8427fbe750b561a80fd186851ffd535))
+
 ## [2.0.133-alpha.0](https://github.com/vtex/faststore/compare/v2.0.132-alpha.0...v2.0.133-alpha.0) (2023-05-09)
 
 ### Features
