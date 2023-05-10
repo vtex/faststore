@@ -50,6 +50,7 @@ function Navbar() {
                 />
                 <Link
                   href="/"
+                  prefetch={false}
                   aria-label="Go to Faststore home"
                   title="Go to Faststore home"
                   data-fs-navbar-logo

@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from 'react'
 import React, { forwardRef, useCallback } from 'react'
 
-import { IconButton, Icon, Link, LinkProps } from '../../'
+import { Icon, IconButton, Link, LinkProps } from '../../'
 
 import type { MouseEvent, ReactNode } from 'react'
 
@@ -61,14 +61,20 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
       data-fs-alert-dismissible={dismissible}
       {...otherProps}
     >
-      {React.isValidElement(icon) && icon}
+      {!!icon && icon}
 
       <p data-fs-alert-content>{children}</p>
 
       {link && <Link data-fs-alert-link variant="inline" {...link} />}
 
       {dismissible && (
-        <IconButton data-fs-alert-button size="small" aria-label="Close" icon={<Icon name="X" />} onClick={handleClose} />
+        <IconButton
+          data-fs-alert-button
+          size="small"
+          aria-label="Close"
+          icon={<Icon name="X" />}
+          onClick={handleClose}
+        />
       )}
     </div>
   )
