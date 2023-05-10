@@ -1,9 +1,9 @@
 import type { HeroProps as UIHeroProps } from '@faststore/ui'
 import {
-  Hero as UIHero,
   HeroHeader as UIHeroHeader,
   HeroImage as UIHeroImage,
 } from '@faststore/ui'
+import { Components, Props } from './Overrides'
 import { ReactNode } from 'react'
 import { Image } from 'src/components/ui/Image'
 import Section from '../Section'
@@ -26,6 +26,8 @@ export type HeroProps = {
   icon?: ReactNode
 }
 
+const { UIHero } = Components
+
 const Hero = ({
   link,
   title,
@@ -37,7 +39,11 @@ const Hero = ({
 }: HeroProps) => {
   return (
     <Section className={`${styles.section} section-hero`}>
-      <UIHero colorVariant={colorVariant} variant={variant}>
+      <UIHero
+        colorVariant={colorVariant}
+        variant={variant}
+        {...Props['UIHero']}
+      >
         <UIHeroImage data-fs-hero-image>
           <Image
             loading="eager"

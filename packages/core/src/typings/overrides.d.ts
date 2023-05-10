@@ -1,6 +1,9 @@
 export const SECTIONS = {
   ProductDetails: { components: ['Price'] },
-  ProductShelf: { components: ['ProductCard'] },
+  ProductShelf: { components: ['ProductCard', 'Carousel'] },
+  Hero: {
+    components: ['UIHero'],
+  },
 } as const
 
 // export type ComponentOrProps =
@@ -11,7 +14,7 @@ export type SectionOverride = {
   [K in keyof typeof SECTIONS]: {
     name: K
     components: {
-      [ComponentKey in (typeof SECTIONS)[K]['components'][number]]?: React.ElementType
+      [ComponentKey in (typeof SECTIONS)[K]['components'][number]]?: any
     }
   }
 }
