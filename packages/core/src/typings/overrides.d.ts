@@ -10,9 +10,9 @@ export const SECTIONS = {
   Newsletter: {},
 } as const
 
-export type ComponentOrProps =
-  | { Component: React.ElementType }
-  | { props: Record<string, unknown> }
+// export type ComponentOrProps =
+//   | { Component: React.ElementType }
+//   | { props: Record<string, unknown> };
 
 export type SectionOverride = {
   [K in keyof typeof SECTIONS]: {
