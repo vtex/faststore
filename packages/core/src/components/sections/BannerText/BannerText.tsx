@@ -1,7 +1,6 @@
-import UIBannerText, {
-  BannerTextProps as UIBannerTextProps,
-} from 'src/components/ui/BannerText'
+import { BannerTextProps as UIBannerTextProps } from 'src/components/ui/BannerText'
 import Section from '../Section'
+import { Components, Props } from './Overrides'
 
 import styles from './section.module.scss'
 
@@ -15,6 +14,8 @@ export interface BannerTextProps {
   colorVariant?: UIBannerTextProps['colorVariant']
   variant?: UIBannerTextProps['variant']
 }
+
+const { UIBannerText } = Components
 
 // TODO: Change actionPath and actionLabel with Link
 function BannerText({
@@ -34,6 +35,7 @@ function BannerText({
           actionPath={link?.url}
           actionLabel={link?.text}
           colorVariant={colorVariant}
+          {...Props['UIBannerText']}
         />
       </div>
     </Section>
