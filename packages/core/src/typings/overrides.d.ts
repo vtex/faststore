@@ -7,6 +7,7 @@ export const SECTIONS = {
   BannerText: {
     components: ['UIBannerText'],
   },
+  Newsletter: {},
 } as const
 
 // export type ComponentOrProps =
