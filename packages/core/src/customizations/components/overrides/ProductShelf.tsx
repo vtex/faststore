@@ -5,8 +5,8 @@ const SECTION = 'ProductShelf' as const
 const overrides: SectionOverride[typeof SECTION] = {
   name: SECTION,
   components: {
-    ProductCard: { props: {} },
     Carousel: { props: {} },
+    ProductCard: { props: {} },
   },
 }
 

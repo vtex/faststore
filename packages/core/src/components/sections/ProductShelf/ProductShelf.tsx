@@ -9,10 +9,10 @@ import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEve
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import { textToKebabCase } from 'src/utils/utilities'
 
-import Carousel from '../../ui/Carousel'
 import Section from '../Section'
-import { Components } from './Overrides'
-const { ProductCard } = Components
+import { Components, Props } from './Overrides'
+
+const { Carousel, ProductCard } = Components
 
 import styles from './section.module.scss'
 
@@ -66,7 +66,7 @@ function ProductShelf({
         loading={products === undefined}
       >
         <UIProductShelf>
-          <Carousel id={titleId || id}>
+          <Carousel id={titleId || id} {...Props['Carousel']}>
             {productEdges.map((product, idx) => (
               <ProductCard
                 bordered
@@ -79,6 +79,7 @@ function ProductShelf({
                   height: 216,
                   sizes: '(max-width: 768px) 42vw, 30vw',
                 }}
+                {...Props['ProductCard']}
               />
             ))}
           </Carousel>
