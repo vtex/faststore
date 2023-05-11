@@ -201,8 +201,6 @@
 
     &:hover [data-fs-button-wrapper] { box-shadow: var(--fs-image-gallery-selector-control-shadow); }
 
-    &:hover { box-shadow: var(--fs-image-gallery-selector-control-shadow); }
-
     @include media(">=notebook") {
       transform: rotate(90deg);
     }
