@@ -1,4 +1,4 @@
-import type { HeroProps as UIHeroProps } from '@faststore/ui'
+import { HeroProps as UIHeroProps } from '@faststore/ui'
 import {
   HeroHeader as UIHeroHeader,
   HeroImage as UIHeroImage,
