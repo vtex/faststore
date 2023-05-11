@@ -149,11 +149,12 @@
       "title": "Navbar",
       "type": "object",
       "description": "Navbar configuration",
-      "required": ["image"],
+      "required": ["logo"],
       "properties": {
         "logo": {
           "title": "Logo",
           "type": "object",
+          "required": ["src"],
           "properties": {
             "src": {
               "title": "Image",
