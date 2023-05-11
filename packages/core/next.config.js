@@ -1,5 +1,6 @@
 // @ts-check
 const storeConfig = require('./faststore.config')
+const path = require('path')
 
 /**
  * @type {import('next').NextConfig}
@@ -35,6 +36,9 @@ const nextConfig = {
     }
 
     return config
+  },
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'node_modules')],
   },
 }
 
