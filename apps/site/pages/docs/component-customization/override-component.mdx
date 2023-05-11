@@ -38,7 +38,7 @@ Also, take in to consideration the following:
 
 - **This feature is experimental**: The feature may not function as expected.
 
-- **Some sections contain multiple instances of the same component**:  When overriding a component or passing additional props to it, consider that all instances will be affected by this.
+- **Some sections contain multiple instances of the same component**: When overriding a component or passing additional props to it, consider that all instances will be affected by this.
 
 ## Step by step
 
@@ -51,6 +51,8 @@ Also, take in to consideration the following:
 3. Copy and paste the following boilerplate on the file:
 
 ```tsx
+import { SectionOverride } from '@faststore/core/src/typings/overrides'
+
 const SECTION = 'ProductDetails'
 
 const overrides: SectionOverride[SECTION] = { name: SECTION, components: {} }
@@ -70,6 +72,8 @@ export default overrides
 2. Add an object with the name of the component you wish to override to the `components` property inside the `overrides` object.
 
 ```tsx
+import { SectionOverride } from '@faststore/core/src/typings/overrides'
+
 const SECTION = 'ProductDetails'
 
 const overrides: SectionOverride[SECTION] = {
@@ -86,23 +90,20 @@ export default overrides
 
 In this step, you will learn how to enhance the functionality or appearance of a component by overriding or passing additional props to it.
 
-
-
 #### Overrinding the Component
 
 1. Inside the `Price` object, add a property called `Component`. This property value should be defined as a React component created by you, that will be used to replace every instance of the `Price` component inside the `ProductDetails` section.
 
 ```tsx
-import CustomPrice from 'src/components/custom/CustomPrice'
+import { SectionOverride } from '@faststore/core/src/typings/overrides'
+import CustomPrice from '../custom/CustomPrice'
 
 const SECTION = 'ProductDetails'
 
 const overrides: SectionOverride[SECTION] = {
   name: SECTION,
   components: {
-    Price: {
-      Component: CustomPrice,
-    },
+    Price: CustomPrice,
   },
 }
 
