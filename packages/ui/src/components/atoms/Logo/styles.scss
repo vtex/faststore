@@ -1,11 +1,10 @@
 [data-fs-logo] {
-  --fs-logo-width : 7rem;
-
+  display: flex;
+  height: 100%;
   width: var(--fs-logo-width);
-  padding: var(--fs-spacing-2) 0;
-  min-height: var(--fs-spacing-6);
 
   [data-fs-image] {
     object-fit: contain;
+    object-position: left;
   }
 }
