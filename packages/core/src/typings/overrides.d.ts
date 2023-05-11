@@ -6,6 +6,9 @@ export const SECTIONS = {
   Hero: {
     components: ['UIHero'],
   },
+  BannerText: {
+    components: ['UIBannerText'],
+  },
 } as const
 
 // export type ComponentOrProps =

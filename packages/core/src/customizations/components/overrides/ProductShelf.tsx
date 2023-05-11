@@ -1,10 +1,13 @@
-import { SectionOverride } from "src/typings/overrides";
+import { SectionOverride } from 'src/typings/overrides'
 
-const SECTION = "ProductShelf" as const;
+const SECTION = 'ProductShelf' as const
 
 const overrides: SectionOverride[typeof SECTION] = {
   name: SECTION,
-  components: {},
-};
+  components: {
+    ProductCard: { props: {} },
+    Carousel: { props: {} },
+  },
+}
 
-export default overrides;
+export default overrides
