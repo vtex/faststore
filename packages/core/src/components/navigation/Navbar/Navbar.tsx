@@ -1,33 +1,35 @@
 import { Suspense, useRef, useState } from 'react'
 
 import {
+  useUI,
+  useScrollDirection,
   Icon as UIIcon,
-  IconButton as UIIconButton,
   Navbar as UINavbar,
+  NavbarRow as UINavbarRow,
+  IconButton as UIIconButton,
   NavbarButtons as UINavbarButtons,
   NavbarHeader as UINavbarHeader,
-  NavbarRow as UINavbarRow,
-  useScrollDirection,
-  useUI,
 } from '@faststore/ui'
-import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
+
+import { mark } from 'src/sdk/tests/mark'
+
+import CartToggle from 'src/components/cart/CartToggle'
+import SearchInput from 'src/components/search/SearchInput'
+import type { SearchInputRef } from 'src/components/search/SearchInput'
+
+import Link from 'src/components/ui/Link'
+import Logo from 'src/components/ui/Logo'
+import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
 
 import NavbarLinks from '../NavbarLinks'
 import NavbarSlider from '../NavbarSlider'
-
-import CartToggle from 'src/components/cart/CartToggle'
-import type { SearchInputRef } from 'src/components/search/SearchInput'
-import SearchInput from 'src/components/search/SearchInput'
-import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
-import Link from 'src/components/ui/Link'
-import Logo from 'src/components/ui/Logo'
-import { mark } from 'src/sdk/tests/mark'
+import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
 
 export interface NavbarProps {
   /**
    * Logo props.
    */
-  logo: { src: string }
+  logo: SectionNavbarProps['logo']
   /**
    * Cart props.
    */
@@ -56,10 +58,10 @@ export interface NavbarProps {
 }
 
 function Navbar({
+  logo,
   links,
   signIn,
   region,
-  logo: { src: logoSrc },
   cart: { icon: cartIcon },
   signIn: { button: signInButton },
 }: NavbarProps) {
@@ -91,7 +93,7 @@ function Navbar({
                 title="Go to Faststore home"
                 data-fs-navbar-logo
               >
-                <Logo />
+                <Logo loading="eager" {...logo} />
               </Link>
             </>
           )}
@@ -131,7 +133,12 @@ function Navbar({
       <NavbarLinks links={links} region={region} className="hidden-mobile" />
 
       {displayNavbar && (
-        <NavbarSlider links={links} signIn={signIn} region={region} />
+        <NavbarSlider
+          logo={logo}
+          links={links}
+          signIn={signIn}
+          region={region}
+        />
       )}
     </UINavbar>
   )

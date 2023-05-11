@@ -11,7 +11,7 @@ import UIFooter, {
 } from '../../common/Footer'
 import type { FooterLinksProps, FooterSocialProps } from '../../common/Footer'
 
-import { Image } from '../../ui/Image'
+import Logo from 'src/components/ui/Logo'
 import UIIncentives from '../../ui/Incentives'
 import type { Incentive } from '../../ui/Incentives'
 
@@ -61,14 +61,7 @@ const Footer = ({
           />
         </UIFooterNavigation>
         <UIFooterInfo>
-          <Image
-            data-fs-footer-logo
-            loading="lazy"
-            src={logoSrc}
-            alt={logoAlt}
-            width={112}
-            height={119}
-          />
+          <Logo alt={logoAlt} src={logoSrc} />
           {showPaymentMethods && (
             <UIPaymentMethods
               flagList={paymentMethods}

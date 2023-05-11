@@ -19,12 +19,14 @@ import type { NavbarProps } from '../Navbar'
 import styles from '../Navbar/section.module.scss'
 
 interface NavbarSliderProps {
+  logo: NavbarProps['logo']
   links: NavbarProps['links']
   region: NavbarProps['region']
   signIn: NavbarProps['signIn']
 }
 
 function NavbarSlider({
+  logo,
   links,
   region,
   signIn: { button: signInButton },
@@ -49,7 +51,7 @@ function NavbarSlider({
           title="Go to FastStore home"
           data-fs-navbar-slider-logo
         >
-          <Logo />
+          <Logo loading="eager" {...logo} />
         </Link>
       </UINavbarSliderHeader>
       <UINavbarSliderContent>

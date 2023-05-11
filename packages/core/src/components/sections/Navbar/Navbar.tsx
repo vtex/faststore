@@ -11,8 +11,8 @@ type PageLinks = {
 
 export interface NavbarProps {
   logo: {
-    src: string
     alt: string
+    src: string
   }
   signInButton: {
     icon: {
@@ -39,7 +39,7 @@ export interface NavbarProps {
 }
 
 function Navbar({
-  logo: { src: logoSrc },
+  logo,
   signInButton: {
     label: signInButtonLabel,
     icon: { icon: signInButtonIcon },
@@ -57,8 +57,8 @@ function Navbar({
   return (
     <Section className={`${styles.section} section-navbar`}>
       <UINavbar
+        logo={logo}
         links={pageLinks}
-        logo={{ src: logoSrc }}
         cart={{ icon: cartIcon }}
         signIn={{
           button: { icon: signInButtonIcon, label: signInButtonLabel },
