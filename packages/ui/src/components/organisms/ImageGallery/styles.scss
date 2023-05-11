@@ -199,10 +199,7 @@
       box-shadow: var(--fs-image-gallery-selector-control-shadow);
     }
 
-    &:hover [data-fs-button-wrapper] { 
-      background-color: var(--fs-image-gallery-selector-control-bkg-color);
-      box-shadow: var(--fs-image-gallery-selector-control-shadow); 
-    }
+    &:hover [data-fs-button-wrapper] { box-shadow: var(--fs-image-gallery-selector-control-shadow); }
 
     @include media(">=notebook") {
       transform: rotate(90deg);
