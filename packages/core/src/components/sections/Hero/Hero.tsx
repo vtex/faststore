@@ -41,12 +41,11 @@ const Hero = ({
         <UIHeroImage data-fs-hero-image>
           <Image
             loading="eager"
-            priority
             src={image.src}
             alt={image.alt}
             width={360}
             height={240}
-            sizes="(max-width: 768px) 70vw, 50vw"
+            sizes="(max-width: 360px) 50vw, (max-width: 768px) 90vw, 50vw"
           />
         </UIHeroImage>
         <UIHeroHeader

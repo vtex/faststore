@@ -6,7 +6,7 @@ import type { ComponentType } from 'react'
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerText from 'src/components/sections/BannerText'
 import Hero from 'src/components/sections/Hero'
-import IncentivesHeader from 'src/components/sections/IncentivesHeader/IncentivesHeader'
+import Incentives from 'src/components/sections/Incentives'
 import Newsletter from 'src/components/sections/Newsletter'
 import ProductShelf from 'src/components/sections/ProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
@@ -24,7 +24,7 @@ import storeConfig from '../../faststore.config'
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Hero,
-  IncentivesHeader,
+  Incentives,
   ProductShelf,
   ProductTiles,
   BannerText,

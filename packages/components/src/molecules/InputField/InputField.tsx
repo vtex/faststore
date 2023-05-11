@@ -107,7 +107,7 @@ const InputField = ({
       {shouldDisplayButton &&
         (displayClearButton || error ? (
           <IconButton
-            data-fs-button-size="small"
+            size="small"
             aria-label="Clear Field"
             icon={<Icon name="XCircle" />}
             onClick={() => {

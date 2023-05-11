@@ -1,16 +1,17 @@
+import { gql } from '@faststore/graphql-utils'
 import {
   ProductCard as UIProductCard,
   ProductCardContent as UIProductCardContent,
   ProductCardImage as UIProductCardImage,
 } from '@faststore/ui'
-import { gql } from '@faststore/graphql-utils'
 import { memo } from 'react'
 
+import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import { ImageProps } from 'next/future/image'
+import NextLink from 'next/link'
 import { Image } from 'src/components/ui/Image'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
-import type { ProductSummary_ProductFragment } from '@generated/graphql'
-import NextLink from 'next/link'
 
 type Variant = 'wide' | 'default'
 
@@ -29,6 +30,10 @@ export interface ProductCardProps {
    * Specifies the ProductCard image's aspect ratio.
    */
   aspectRatio?: number
+  /**
+   * Specifies the ProductCard image's props.
+   */
+  imgProps?: Partial<ImageProps>
   /**
    * Specifies Rating Value of the product.
    */
@@ -53,6 +58,7 @@ function ProductCard({
   bordered = false,
   variant = 'default',
   aspectRatio = 1,
+  imgProps,
   ratingValue,
   buttonLabel = 'Add',
   onButtonClick,
@@ -74,6 +80,7 @@ function ProductCard({
     as: NextLink,
     passHref: true,
     legacyBehavior: false,
+    prefetch: false,
   }
 
   const outOfStock = availability !== 'https://schema.org/InStock'
@@ -90,10 +97,10 @@ function ProductCard({
         <Image
           src={img.url}
           alt={img.alternateName}
-          width={360}
-          height={360 / aspectRatio}
-          sizes="(max-width: 768px) 25vw, 30vw"
-          loading="lazy"
+          sizes={`${imgProps?.sizes ?? '(max-width: 768px) 40vw, 30vw'}`}
+          width={imgProps?.width ?? 360}
+          height={Math.round((Number(imgProps?.height) || 360) / aspectRatio)}
+          loading={imgProps?.loading}
         />
       </UIProductCardImage>
       <UIProductCardContent

@@ -1,127 +1,32 @@
-import {
-  Icon,
-  List as UIList,
-  PaymentMethods as UIPaymentMethods,
-} from '@faststore/ui'
-
-import Link from 'src/components/ui/Link'
-import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
 
-import Incentives from 'src/components/ui/Incentives/Incentives'
-import { incentivesMockFooter } from 'src/components/ui/Incentives/incentivesMock'
-import FooterFlags from './FooterFlags'
-import FooterLinks from './FooterLinks'
-import styles from './section.module.scss'
-
-type FooterProps = {
-  /**
-   * Enables Incentives Section
-   */
-  sectionIncentives?: boolean
-  /**
-   * Enables Social Section
-   */
-  sectionSocial?: boolean
-  /**
-   * Enables Payment Methods Section
-   */
-  sectionPaymentMethods?: boolean
+export function FooterInfo({ children }) {
+  return (
+    <div data-fs-footer-info className="layout__content">
+      {children}
+    </div>
+  )
 }
 
-export function Footer({
-  sectionIncentives = true,
-  sectionSocial = true,
-  sectionPaymentMethods = true,
-}: FooterProps) {
+export function FooterNavigation({ children }) {
   return (
-    <footer className={`section ${styles.section} section-footer`}>
-      <div
-        data-fs-footer
-        data-fs-footer-incentives={sectionIncentives}
-        data-fs-footer-social={sectionSocial}
-        data-fs-footer-payment-methods={sectionPaymentMethods}
-        className="layout__content-full"
-      >
-        {sectionIncentives && <Incentives incentives={incentivesMockFooter} />}
-        <div data-fs-footer-nav className="layout__content">
-          <FooterLinks />
-          {sectionSocial && (
-            <section data-fs-footer-social>
-              <p data-fs-footer-title>Follow us</p>
-              <UIList>
-                <li>
-                  <Link
-                    variant="display"
-                    size="small"
-                    href="https://www.facebook.com/"
-                    title="Facebook"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Icon name="Facebook" />
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    variant="display"
-                    size="small"
-                    href="https://www.instagram.com/"
-                    title="Instagram"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Icon name="Instagram" />
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    variant="display"
-                    size="small"
-                    href="https://www.pinterest.com/"
-                    title="Pinterest"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Icon name="Pinterest" />
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    variant="display"
-                    size="small"
-                    href="https://twitter.com/"
-                    title="Twitter"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Icon name="Twitter" />
-                  </Link>
-                </li>
-              </UIList>
-            </section>
-          )}
-        </div>
-        <div data-fs-footer-note className="layout__content">
-          <Logo />
-          {sectionPaymentMethods && (
-            <UIPaymentMethods
-              title={<p>Payment Methods</p>}
-              flagList={FooterFlags}
-            />
-          )}
-          <div data-fs-footer-copyright className="text__legend">
-            <p>This website uses VTEX technology</p>
-            <p>
-              In-store price may vary. Prices and offers are subject to change.
-              2021 Store name. All rights reserved. Store is a trademark of
-              Store and its affiliated companies.
-            </p>
-            <address>Mount St, 000, New York / NY - 00000.</address>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <div data-fs-footer-navigation className="layout__content">
+      {children}
+    </div>
+  )
+}
+
+export function Footer({ children }) {
+  return (
+    <div
+      data-fs-footer
+      data-fs-footer-social
+      data-fs-footer-incentives
+      data-fs-footer-payment-methods
+      className="layout__content-full"
+    >
+      {children}
+    </div>
   )
 }
 

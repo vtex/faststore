@@ -1,12 +1,8 @@
-import { HTMLAttributes, useCallback, useMemo } from 'react'
+import { HTMLAttributes } from 'react'
 
-import { Image } from '../Image'
-import {
-  SkuSelector as UISkuSelector,
-  SkuSelectorProps,
-  SkuOption,
-} from '@faststore/ui'
+import { SkuSelectorProps, SkuSelector as UISkuSelector } from '@faststore/ui'
 import NextLink from 'next/link'
+import { Image } from '../Image'
 
 export type SkuVariantsByName = Record<
   string,
@@ -32,16 +28,7 @@ const ImageComponent: SkuSelectorProps['ImageComponent'] = ({
   src,
   alt,
   ...otherProps
-}) => (
-  <Image
-    src={src}
-    alt={alt}
-    width={20}
-    height={20}
-    loading="lazy"
-    {...otherProps}
-  />
-)
+}) => <Image src={src} alt={alt} width={34} height={34} {...otherProps} />
 
 function Selectors({
   slugsMap,

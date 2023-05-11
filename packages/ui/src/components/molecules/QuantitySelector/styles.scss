@@ -19,28 +19,17 @@
   --fs-qty-selector-border-color              : var(--fs-border-color);
   --fs-qty-selector-border-color-hover        : var(--fs-border-color-active);
 
-  // Text
   --fs-qty-selector-text-size                 : var(--fs-text-size-base);
   --fs-qty-selector-text-color                : var(--fs-color-text);
-  --fs-qty-selector-text-color-hover          : var(--fs-qty-selector-text-color);
-
-  // Icon
-  --fs-qty-selector-icon-color                : var(--fs-color-link);
 
   // Button
-  --fs-qty-selector-button-shadow             : none;
-  --fs-qty-selector-button-shadow-hover       : none;
   --fs-qty-selector-button-bkg-color          : transparent;
-  --fs-qty-selector-button-bkg-color-hover    : var(--fs-color-primary-bkg-light);
-  --fs-qty-selector-button-bkg-color-focus    : var(--fs-qty-selector-button-bkg-color-hover);
   --fs-qty-selector-button-border-radius      : var(--fs-qty-selector-border-radius);
 
   // Disabled
   --fs-qty-selector-disabled-bkg-color        : var(--fs-color-disabled-bkg);
   --fs-qty-selector-disabled-text-color       : var(--fs-color-disabled-text);
-  --fs-qty-selector-disabled-icon-color       : var(--fs-border-color-light-disabled);
   --fs-qty-selector-disabled-border-color     : var(--fs-qty-selector-disabled-bkg-color);
-  --fs-qty-selector-disabled-button-bkg-color : var(--fs-qty-selector-button-bkg-color-hover);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -56,12 +45,6 @@
   border-radius: var(--fs-qty-selector-border-radius);
   box-shadow: var(--fs-qty-selector-shadow);
 
-  [data-fs-icon] {
-    margin: 0;
-    line-height: 0;
-    color: var(--fs-qty-selector-icon-color);
-  }
-
   [data-quantity-selector-input] {
     width: 100%;
     height: 100%;
@@ -69,74 +52,34 @@
     font-size: var(--fs-qty-selector-text-size);
     color: var(--fs-qty-selector-text-color);
     text-align: center;
+    border: var(--fs-qty-selector-border-width) solid var(--fs-qty-selector-border-color);
   }
 
   [data-quantity-selector-button] {
     position: absolute;
-    background-color: var(--fs-qty-selector-button-bkg-color);
 
-    [data-fs-button-icon] {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      border-radius: var(--fs-qty-selector-button-border-radius);
-      box-shadow: var(--fs-qty-selector-button-shadow);
-    }
+    [data-fs-button-wrapper] { border-radius: var(--fs-qty-selector-button-border-radius); }
 
-    &[data-fs-icon-button] {
-      padding: var(--fs-spacing-1);
+    &:not(:hover):not(:focus-visible) {
+      [data-fs-button-wrapper] {
+        background-color: var(--fs-qty-selector-button-bkg-color);
+      }
     }
 
     &:first-of-type { left: 0; }
-
     &:last-of-type { right: 0; }
 
-    &:hover:not(:disabled) [data-fs-button-icon] {
-      background-color: var(--fs-qty-selector-button-bkg-color-hover);
-      box-shadow: var(--fs-qty-selector-button-shadow-hover);
-    }
-
     &:disabled {
-      cursor: not-allowed;
-      background-color: var(--fs-qty-selector-button-bkg-color);
-
-      &:hover, &:focus-visible {
+      [data-fs-button-wrapper],
+      &:hover [data-fs-button-wrapper],
+      &:focus-visible [data-fs-button-wrapper] {
         background-color: var(--fs-qty-selector-button-bkg-color);
-      }
-
-      [data-fs-button-icon] {
-        color: var(--fs-qty-selector-disabled-icon-color);
-      }
-    }
-
-    &:hover:not(:disabled) {
-      background-color: transparent;
-      box-shadow: none;
-    }
-
-    &:focus:not(:disabled) {
-      background-color: transparent;
-      box-shadow: none;
-    }
-
-    &:focus-visible {
-      background-color: var(--fs-qty-selector-button-bkg-color);
-      outline: none;
-      box-shadow: none;
-
-      [data-fs-button-icon] {
-        @include focus-ring;
-
-        background-color: var(--fs-qty-selector-button-bkg-color-focus);
       }
     }
   }
 
   &:hover {
     [data-quantity-selector-input]:not(:disabled):not(:focus) {
-      color: var(--fs-qty-selector-text-color-hover);
       background-color: var(--fs-qty-selector-bkg-color-hover);
       border-color: var(--fs-qty-selector-border-color-hover);
       border-width: var(--fs-qty-selector-border-width-hover);
@@ -144,14 +87,16 @@
     }
   }
 
-  // --------------------------------------------------------
-  // Variants Styles
-  // --------------------------------------------------------
+}
 
-  &[data-fs-quantity-selector="disabled"] {
-    [data-quantity-selector-input] {
-      border-color: var(--fs-qty-selector-disabled-border-color);
-    }
-    [data-quantity-selector-button]:hover [data-fs-button-icon] { background-color: transparent; }
+// --------------------------------------------------------
+// Variants Styles
+// --------------------------------------------------------
+
+[data-fs-quantity-selector="disabled"] {
+  [data-quantity-selector-input] {
+    background-color: var(--fs-qty-selector-disabled-bkg-color);
+    border-color: var(--fs-qty-selector-disabled-border-color);
+    color: var(--fs-qty-selector-disabled-text-color);
   }
 }

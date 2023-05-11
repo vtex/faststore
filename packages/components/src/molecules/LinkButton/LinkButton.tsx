@@ -40,9 +40,15 @@ function LinkButton({
       data-testid={testId}
       {...otherProps}
     >
-      {React.isValidElement(icon) && iconPosition === 'left' && icon}
-      {children}
-      {React.isValidElement(icon) && iconPosition === 'right' && icon}
+      <div data-fs-button-wrapper>
+        {!!icon && iconPosition === 'left' && (
+          <span data-fs-button-icon>{icon}</span>
+        )}
+        {children && <span>{children}</span>}
+        {!!icon && iconPosition === 'right' && (
+          <span data-fs-button-icon>{icon}</span>
+        )}
+      </div>
     </a>
   )
 }

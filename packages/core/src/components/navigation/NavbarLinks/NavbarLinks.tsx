@@ -45,7 +45,12 @@ function NavbarLinks({ onClickLink, ...otherProps }: NavbarLinksProps) {
         <UINavbarLinksList>
           {collections.map(({ href, name }) => (
             <UINavbarLinksListItem key={name}>
-              <Link variant="display" href={href} onClick={onClickLink}>
+              <Link
+                variant="display"
+                href={href}
+                prefetch={false}
+                onClick={onClickLink}
+              >
                 {name}
               </Link>
             </UINavbarLinksListItem>
