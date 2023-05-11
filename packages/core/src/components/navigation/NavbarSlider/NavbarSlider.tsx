@@ -16,7 +16,7 @@ import { mark } from 'src/sdk/tests/mark'
 import NavbarLinks from '../NavbarLinks'
 import type { NavbarProps } from '../Navbar'
 
-import styles from '../Navbar/section.module.scss'
+import styles from '../../sections/Navbar/section.module.scss'
 
 interface NavbarSliderProps {
   logo: NavbarProps['logo']
