@@ -68,10 +68,6 @@
           border-radius: var(--fs-carousel-controls-border-radius);
           box-shadow: var(--fs-carousel-controls-box-shadow);
           transform: translateY(-50%);
-
-          &:hover [data-fs-button-wrapper] {
-            background-color: transparent;
-          }
         }
 
         [data-fs-carousel-control="left"] {
