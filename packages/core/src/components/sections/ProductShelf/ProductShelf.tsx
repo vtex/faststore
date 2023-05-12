@@ -30,7 +30,10 @@ function ProductShelf({
   const id = useId()
   const viewedOnce = useRef(false)
   const { ref, inView } = useInView()
-  const products = useProductsQuery(variables)
+  const products = useProductsQuery({
+    ...variables,
+    first: 4 /* todo: remove this line after test */,
+  })
   const productEdges = products?.edges ?? []
   const aspectRatio = 1
 
