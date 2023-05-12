@@ -8,6 +8,7 @@
 
   --fs-badge-border-radius                : var(--fs-border-radius-pill);
   --fs-badge-border-width                 : var(--fs-border-width);
+  --fs-badge-border-style                 : none;
   --fs-badge-border-color                 : transparent;
 
   --fs-badge-bkg-color                    : var(--fs-color-neutral-bkg);
@@ -88,6 +89,7 @@
   color: var(--fs-badge-text-color);
   text-transform: uppercase;
   white-space: nowrap;
+  border: var(--fs-badge-border-width) var(--fs-badge-border-style) var(--fs-badge-border-color);
   border-radius: var(--fs-badge-border-radius);
 
   [data-fs-badge-wrapper] {
