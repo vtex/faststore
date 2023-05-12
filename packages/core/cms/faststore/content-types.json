@@ -1,10 +1,5 @@
 [
   {
-    "id": "globalAlert",
-    "name": "Global Alert Page",
-    "configurationSchemaSets": []
-  },
-  {
     "id": "globalSections",
     "name": "Global Sections",
     "configurationSchemaSets": [],

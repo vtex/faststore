@@ -42,15 +42,16 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
     <GlobalSections {...globalSections}>
       {/* SEO */}
       <NextSeo
-        title={settings.seo.title}
-        description={settings.seo.description}
-        titleTemplate={storeConfig.seo.titleTemplate}
-        canonical={settings.seo.canonical ?? storeConfig.storeUrl}
+        title={settings?.seo?.title ?? storeConfig.seo.title}
+        description={settings?.seo?.description ?? storeConfig.seo?.description}
+        titleTemplate={storeConfig.seo?.titleTemplate ?? storeConfig.seo?.title}
+        canonical={settings?.seo?.canonical ?? storeConfig.storeUrl}
         openGraph={{
           type: 'website',
           url: storeConfig.storeUrl,
-          title: settings.seo.title,
-          description: settings.seo.description,
+          title: settings?.seo?.title ?? storeConfig.seo.title,
+          description:
+            settings?.seo?.description ?? storeConfig.seo.description,
         }}
       />
       <SiteLinksSearchBoxJsonLd
