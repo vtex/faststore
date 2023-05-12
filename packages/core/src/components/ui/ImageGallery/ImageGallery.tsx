@@ -35,7 +35,7 @@ const ImageGallery = ({ images, ...otherProps }: ImageGalleryProps) => {
         <Image
           src={currentImage.url}
           alt={currentImage.alternateName}
-          sizes="(max-width: 768px) 25vw, 30vw"
+          sizes="(max-width: 360px) 50vw, (max-width: 768px) 90vw, 50vw"
           width={691}
           height={691 * (3 / 4)}
           loading="eager"
