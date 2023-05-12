@@ -18,7 +18,7 @@ import { Callout } from 'nextra-theme-docs'
 FastStore Onboarding app is a specialized tool designed to simplify the process of setting up a store, allowing you to focus on building your storefront without the hassle of complex configurations.
 
 ## Before you start
-Before starting with the FastStore Onboarding app, please confirm that the app is installed in your store account by contacting the VTEX support team.
+Before starting with the FastStore Onboarding app, please confirm that the app is installed in your store account by contacting the VTEX Growth team.
 
 ## Accessing the FastStore Onboarding app
 
