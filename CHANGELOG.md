@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.138-alpha.0](https://github.com/vtex/faststore/compare/v2.0.137-alpha.0...v2.0.138-alpha.0) (2023-05-12)
+
+### Bug Fixes
+
+- removes global alert content type and page + fix core build. ([#1759](https://github.com/vtex/faststore/issues/1759)) ([a1c6a60](https://github.com/vtex/faststore/commit/a1c6a60b0f8178bd5521281b82697530b0bb13bd))
+
 ## [2.0.137-alpha.0](https://github.com/vtex/faststore/compare/v2.0.136-alpha.0...v2.0.137-alpha.0) (2023-05-11)
 
 **Note:** Version bump only for package faststore
