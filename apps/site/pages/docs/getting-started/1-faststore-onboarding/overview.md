@@ -26,7 +26,7 @@ FastStore Onboarding app is a specialized tool designed to simplify the process 
 
 <Tabs items={['To check your account edition', 'To install apps related to VTEX Intelligent Search']}>
   <Tab>
-      - Using the VTEX IO CLI, login to the VTEX store account by running `vtex login {accounte-name}` in the terminal. 
+      - Using the VTEX IO CLI, login to the VTEX store account by running `vtex login {account-name}` in the terminal. 
       - run `vtex edition get` to display the Edition App version installed on the current account.
   </Tab>
   <Tab>
