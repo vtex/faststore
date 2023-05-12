@@ -11,6 +11,11 @@ body {
   background: var(--fs-body-bkg);
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+}
+
 .layout__main {
   display: flex;
   flex-wrap: wrap;
@@ -18,11 +23,11 @@ body {
 }
 
 .layout__section {
-  padding-bottom: var(--fs-spacing-4);
+  margin-bottom: var(--fs-spacing-4);
   margin-top: var(--fs-spacing-4);
 
   @include media(">=notebook") {
-    padding-bottom: var(--fs-grid-padding);
+    margin-bottom: var(--fs-grid-padding);
     margin-top: var(--fs-grid-padding);
   }
 }
@@ -83,5 +88,5 @@ body {
 // Homepage
 .section-newsletter {
   padding-top: var(--fs-grid-padding);
-  padding-bottom: 0;
+  margin-bottom: 0;
 }
