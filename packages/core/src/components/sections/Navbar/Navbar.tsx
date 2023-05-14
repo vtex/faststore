@@ -20,6 +20,7 @@ export interface NavbarProps {
       icon: string
     }
     label: string
+    myAccountLabel: string
   }
   cartIcon: {
     alt: string
@@ -35,34 +36,42 @@ export interface NavbarProps {
       label: string
     }
     pageLinks: PageLinks[]
+    menu: {
+      icon: {
+        alt: string
+        icon: string
+      }
+    }
+    home: {
+      label: string
+    }
   }
 }
 
 function Navbar({
   logo,
-  signInButton: {
-    label: signInButtonLabel,
-    icon: { icon: signInButtonIcon },
-  },
-  cartIcon: { icon: cartIcon },
+  cartIcon,
+  signInButton,
   navigation: {
-    regionalization: {
-      enabled: shouldDisplayRegion,
-      icon: { icon: regionIcon },
-      label: regionLabel,
-    },
+    menu,
+    home,
     pageLinks,
+    regionalization: {
+      label: regionLabel,
+      icon: { icon: regionIcon },
+      enabled: shouldDisplayRegion,
+    },
   },
 }: NavbarProps) {
   return (
-    <Section className={`${styles.section} section-navbar`}>
+    <Section as="header" className={`${styles.section} section-navbar`}>
       <UINavbar
+        home={home}
+        menu={menu}
         logo={logo}
+        cart={cartIcon}
         links={pageLinks}
-        cart={{ icon: cartIcon }}
-        signIn={{
-          button: { icon: signInButtonIcon, label: signInButtonLabel },
-        }}
+        signIn={{ button: signInButton }}
         region={{
           icon: regionIcon,
           label: regionLabel,

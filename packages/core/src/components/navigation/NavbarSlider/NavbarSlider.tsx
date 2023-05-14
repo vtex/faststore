@@ -20,6 +20,7 @@ import styles from '../../sections/Navbar/section.module.scss'
 
 interface NavbarSliderProps {
   logo: NavbarProps['logo']
+  home: NavbarProps['home']
   links: NavbarProps['links']
   region: NavbarProps['region']
   signIn: NavbarProps['signIn']
@@ -29,6 +30,7 @@ function NavbarSlider({
   logo,
   links,
   region,
+  home: { label: homeLabel },
   signIn: { button: signInButton },
 }: NavbarSliderProps) {
   const { closeNavbar } = useUI()
@@ -47,11 +49,11 @@ function NavbarSlider({
         <Link
           href="/"
           onClick={fadeOut}
-          aria-label="Go to FastStore home"
-          title="Go to FastStore home"
+          title={homeLabel}
+          aria-label={homeLabel}
           data-fs-navbar-slider-logo
         >
-          <Logo loading="eager" {...logo} />
+          <Logo {...logo} />
         </Link>
       </UINavbarSliderHeader>
       <UINavbarSliderContent>

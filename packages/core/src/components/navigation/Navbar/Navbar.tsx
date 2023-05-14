@@ -33,15 +33,12 @@ export interface NavbarProps {
   /**
    * Cart props.
    */
-  cart: { icon: string }
+  cart: SectionNavbarProps['cartIcon']
   /**
    * Sign In props.
    */
   signIn: {
-    button: {
-      icon: string
-      label: string
-    }
+    button: SectionNavbarProps['signInButton']
   }
   /**
    * Region props.
@@ -55,15 +52,28 @@ export interface NavbarProps {
    * Page links.
    */
   links: SectionNavbarProps['navigation']['pageLinks']
+  /**
+   * Home props.
+   */
+  home: SectionNavbarProps['navigation']['home']
+  /**
+   * Menu props.
+   */
+  menu: SectionNavbarProps['navigation']['menu']
 }
 
 function Navbar({
+  cart,
   logo,
+  home,
   links,
   signIn,
   region,
-  cart: { icon: cartIcon },
+  home: { label: homeLabel },
   signIn: { button: signInButton },
+  menu: {
+    icon: { icon: menuIcon, alt: menuIconAlt },
+  },
 }: NavbarProps) {
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
@@ -83,15 +93,16 @@ function Navbar({
             <>
               <UIIconButton
                 data-fs-navbar-button-menu
-                aria-label="Open Menu"
-                icon={<UIIcon name="List" width={32} height={32} />}
                 onClick={openNavbar}
+                aria-label={menuIconAlt}
+                icon={<UIIcon name={menuIcon} width={32} height={32} />}
               />
               <Link
                 href="/"
-                aria-label="Go to Faststore home"
-                title="Go to Faststore home"
                 data-fs-navbar-logo
+                prefetch={false}
+                title={homeLabel}
+                aria-label={homeLabel}
               >
                 <Logo loading="eager" {...logo} />
               </Link>
@@ -125,7 +136,7 @@ function Navbar({
               <ButtonSignIn {...signInButton} />
             </Suspense>
 
-            <CartToggle icon={cartIcon} />
+            <CartToggle {...cart} />
           </UINavbarButtons>
         </UINavbarRow>
       </UINavbarHeader>
@@ -134,6 +145,7 @@ function Navbar({
 
       {displayNavbar && (
         <NavbarSlider
+          home={home}
           logo={logo}
           links={links}
           signIn={signIn}

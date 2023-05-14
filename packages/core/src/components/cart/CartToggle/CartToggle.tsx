@@ -6,14 +6,14 @@ import {
 
 import { useCartToggleButton } from 'src/sdk/cart/useCartToggleButton'
 
-function CartToggle({ icon }: { icon: string }) {
+function CartToggle({ alt, icon }: { alt: string; icon: string }) {
   const btnProps = useCartToggleButton()
   const totalItems = btnProps['data-items']
 
   return (
     <UIIconButton
       data-fs-cart-toggle
-      aria-label={`Cart with ${totalItems} items`}
+      aria-label={alt}
       icon={<UIIcon name={icon} width={32} height={32} />}
       {...btnProps}
     >

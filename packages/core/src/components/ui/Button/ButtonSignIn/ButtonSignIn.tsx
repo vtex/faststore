@@ -3,7 +3,15 @@ import { Icon, LinkButton } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
 import { useCart } from '../../../../sdk/cart/index'
 
-const ButtonSignIn = ({ icon, label }: { icon: string; label: string }) => {
+const ButtonSignIn = ({
+  label,
+  myAccountLabel,
+  icon: { alt, icon },
+}: {
+  label: string
+  myAccountLabel: string
+  icon: { alt: string; icon: string }
+}) => {
   const { id } = useCart()
   const { person } = useSession()
 
@@ -14,11 +22,12 @@ const ButtonSignIn = ({ icon, label }: { icon: string; label: string }) => {
         person?.id ? `/account?orderFormId=${id}` : `/login?orderFormId=${id}`
       }
       className="text__title-mini"
+      aria-label={alt}
       variant="tertiary"
       icon={<Icon name={icon} width={18} height={18} weight="bold" />}
       iconPosition="left"
     >
-      {person?.id ? 'My Account' : label}
+      {person?.id ? myAccountLabel : label}
     </LinkButton>
   )
 }
