@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.139-alpha.0](https://github.com/vtex/faststore/compare/v2.0.138-alpha.0...v2.0.139-alpha.0) (2023-05-15)
+
+### Chores
+
+- Update Badge tokens ([#1761](https://github.com/vtex/faststore/issues/1761)) ([7c1764b](https://github.com/vtex/faststore/commit/7c1764b00b434f2380335ca68c4ba90a951a3c6d))
+
 ## [2.0.137-alpha.0](https://github.com/vtex/faststore/compare/v2.0.136-alpha.0...v2.0.137-alpha.0) (2023-05-11)
 
 **Note:** Version bump only for package @faststore/ui
