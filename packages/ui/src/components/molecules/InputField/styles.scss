@@ -67,6 +67,7 @@
     &:not(:placeholder-shown) + label,
     &:focus + label {
       top: rem(6px);
+      left: var(--fs-border-width);
       font-size: var(--fs-input-field-label-size);
     }
 
