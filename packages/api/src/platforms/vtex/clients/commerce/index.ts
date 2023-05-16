@@ -19,6 +19,7 @@ import { getCookie } from '../../utils/getCookies'
 import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
+import { ShippingDataBody } from './types/ShippingData'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -94,10 +95,10 @@ export const VtexCommerce = (
         body,
       }: {
         id: string
-        body: any
+        body: ShippingDataBody
       }): Promise<OrderForm> => {
         if (body.selectedAddresses) {
-          body.selectedAddresses.forEach((address: { geoCoordinates: never[] | null }) => {
+          body.selectedAddresses.forEach((address) => {
             if (address.geoCoordinates === null) {
               address.geoCoordinates = [];
             }
