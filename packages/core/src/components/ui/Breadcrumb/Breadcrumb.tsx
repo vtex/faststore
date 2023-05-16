@@ -4,28 +4,26 @@ import { memo } from 'react'
 
 import Link from 'src/components/ui/Link'
 
-type ItemElement = {
-  item: string
-  name: string
-  position: number
-}
 export interface BreadcrumbProps extends UIBreadcrumbProps {
-  /**
-   * Array of ItemElement that represents each breadcrumb item.
-   */
-  breadcrumbList: ItemElement[]
+  icon: string
+  alt: string
 }
 
-interface BaseBreadcrumbProps extends BreadcrumbProps {
-  isDesktop?: boolean
-}
-
-const Breadcrumb = ({ breadcrumbList, ...otherProps }: BaseBreadcrumbProps) => (
+const Breadcrumb = ({
+  icon = 'Home',
+  alt = 'Go to homepage',
+  ...otherProps
+}: BreadcrumbProps) => (
   <UIBreadcrumb
-    breadcrumbList={breadcrumbList}
     homeLink={
-      <Link aria-label="Go to homepage" href="/" prefetch={false}>
-        <Icon name="House" width={18} height={18} weight="bold" />
+      <Link
+        data-fs-breadcrumb-link
+        data-fs-breadcrumb-link-home
+        aria-label={alt}
+        href="/"
+        prefetch={false}
+      >
+        <Icon name={icon} width={18} height={18} weight="bold" />
       </Link>
     }
     renderLink={({ itemProps: { item: link, name } }) => (
