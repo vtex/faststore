@@ -188,8 +188,7 @@ export const VtexCommerce = (
         salesChannel,
       }: RegionInput): Promise<Region> => {
         return fetchAPI(
-          `${base}/api/checkout/pub/regions/?postalCode=${postalCode}&country=${country}&sc=${
-            salesChannel ?? ''
+          `${base}/api/checkout/pub/regions/?postalCode=${postalCode}&country=${country}&sc=${salesChannel ?? ''
           }`
         )
       },
