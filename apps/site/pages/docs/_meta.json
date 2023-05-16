@@ -30,6 +30,11 @@
   },
   "global-tokens": "Global Tokens",
   "icons": "Icons",
+  "-- VTEX Integration --": {
+    "type": "separator",
+    "title": "VTEX Platform Integration"
+  },
+  "go-live": "Go-live",
   "-- How To Guides --": {
     "type": "separator",
     "title": "How To Guides"
