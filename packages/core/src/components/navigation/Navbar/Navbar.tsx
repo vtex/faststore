@@ -104,7 +104,7 @@ function Navbar({
                 title={homeLabel}
                 aria-label={homeLabel}
               >
-                <Logo loading="eager" {...logo} />
+                <Logo {...logo} />
               </Link>
             </>
           )}
