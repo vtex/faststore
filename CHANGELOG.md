@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.141-alpha.0](https://github.com/vtex/faststore/compare/v2.0.140-alpha.0...v2.0.141-alpha.0) (2023-05-16)
+
+### Features
+
+- Pages with `RenderSection` + `Breadcrumb` section CMS ([#1747](https://github.com/vtex/faststore/issues/1747)) ([63f1b6a](https://github.com/vtex/faststore/commit/63f1b6a3b6da30b0c24ba78a8bffbc62470eac0a))
+
 ## [2.0.140-alpha.0](https://github.com/vtex/faststore/compare/v2.0.139-alpha.0...v2.0.140-alpha.0) (2023-05-16)
 
 **Note:** Version bump only for package faststore
