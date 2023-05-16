@@ -43,6 +43,7 @@ function BannerText({
       data-fs-banner-text
       data-fs-banner-text-variant={variant}
       data-fs-banner-text-color-variant={colorVariant}
+      data-fs-content="banner-text"
     >
       <BannerContent data-fs-banner-text-content>
         <div

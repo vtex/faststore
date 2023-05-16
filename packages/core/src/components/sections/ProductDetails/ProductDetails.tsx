@@ -165,11 +165,9 @@ function ProductDetails({ context: staleProduct }: Props) {
   ])
 
   return (
-    <Section
-      className={`${styles.section} section-product-details layout__content layout__section`}
-    >
+    <Section className={`${styles.section} section-product-details`}>
       <section data-fs-product-details>
-        <section data-fs-product-details-body>
+        <section data-fs-product-details-body data-fs-content="product-details">
           <header data-fs-product-details-title data-fs-product-details-section>
             <UIProductTitle
               title={<h1>{name}</h1>}

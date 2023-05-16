@@ -76,14 +76,13 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
       >
         <div
           data-fs-newsletter={card ? 'card' : ''}
-          className={card ? 'layout__content' : ''}
+          data-fs-content="newsletter"
         >
           <form
             data-fs-newsletter-form
             ref={ref}
             onSubmit={handleSubmit}
             {...otherProps}
-            className="layout__content"
           >
             <header data-fs-newsletter-header>
               <h3>

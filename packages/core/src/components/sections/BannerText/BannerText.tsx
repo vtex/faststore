@@ -27,17 +27,15 @@ function BannerText({
 }: BannerTextProps) {
   return (
     <Section className={`${styles.section} section-banner layout__section`}>
-      <div className="layout__content">
-        <UIBannerText
-          variant={variant}
-          title={title}
-          caption={caption}
-          actionPath={link?.url}
-          actionLabel={link?.text}
-          colorVariant={colorVariant}
-          {...Props['UIBannerText']}
-        />
-      </div>
+      <UIBannerText
+        variant={variant}
+        title={title}
+        caption={caption}
+        actionPath={link?.url}
+        actionLabel={link?.text}
+        colorVariant={colorVariant}
+        {...Props['UIBannerText']}
+      />
     </Section>
   )
 }

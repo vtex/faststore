@@ -1,5 +1,4 @@
 import { Icon as UIIcon } from '@faststore/ui'
-import Section from '../Section'
 import UIAlert from 'src/components/common/Alert'
 
 export interface AlertProps {

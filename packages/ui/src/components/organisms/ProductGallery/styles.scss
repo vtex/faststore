@@ -4,6 +4,10 @@
   height: 100%;
   padding-top: 0;
 
+  @include media("<notebook") {
+    background-color: var(--fs-color-neutral-bkg);
+  }
+
   [data-fs-empty-state] {
     margin: var(--fs-spacing-3) 0;
   }
@@ -34,8 +38,12 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding-right: 0;
-    padding-left: 0;
+    width: 100%;
+
+    @include media("<notebook") {
+      padding-right: 0;
+      padding-left: 0;
+    }
 
     @include media(">=notebook") {
       display: grid;
@@ -43,8 +51,6 @@
       grid-template-columns: repeat(12, 1fr);
       row-gap: var(--fs-spacing-0);
       column-gap: var(--fs-spacing-4);
-      padding-right: var(--fs-grid-padding);
-      padding-left: var(--fs-grid-padding);
     }
   }
 
@@ -65,8 +71,8 @@
     order: 1;
     width: 100%;
     min-height: rem(68px);
-    padding: var(--fs-spacing-1) var(--fs-spacing-3) var(--fs-spacing-2);
     background-color: var(--fs-color-body-bkg);
+    padding: 0 var(--fs-grid-padding);
 
     [data-fs-product-listing-sort-skeleton] {
       min-width: rem(225px);
@@ -97,7 +103,6 @@
     order: 2;
     min-height: rem(45px);
     padding: var(--fs-spacing-2) var(--fs-spacing-3);
-    background-color: var(--fs-color-neutral-bkg);
 
     @include media(">=notebook") {
       grid-column: 4 /span 2;
@@ -118,7 +123,6 @@
 
     order: 3;
     padding: var(--padding) var(--padding) 0;
-    background-color: var(--fs-color-neutral-bkg);
 
     @include media(">=notebook") {
       grid-column: 4 / span 9;

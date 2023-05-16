@@ -62,8 +62,8 @@ function ProductShelf({
         withDivisor ? 'section__divisor' : ''
       }`}
       ref={ref}
+      title={title}
     >
-      <h2 className="text__title-section layout__content">{title}</h2>
       <ProductShelfSkeleton
         aspectRatio={aspectRatio}
         loading={products === undefined}

@@ -45,9 +45,7 @@ function ProductGallery({ title, searchTerm }: Props) {
 
   if (data && totalCount === 0) {
     return (
-      <Section
-        className={`${styles.section} section-product-gallery layout__content`}
-      >
+      <Section className={`${styles.section} section-product-gallery`}>
         <section data-testid="product-gallery" data-fs-product-listing>
           <EmptyGallery />
         </section>
@@ -61,16 +59,16 @@ function ProductGallery({ title, searchTerm }: Props) {
     >
       <section data-testid="product-gallery" data-fs-product-listing>
         {searchTerm && (
-          <header
-            data-fs-product-listing-search-term
-            className="layout__content"
-          >
+          <header data-fs-product-listing-search-term>
             <h1>
               Showing results for: <span>{searchTerm}</span>
             </h1>
           </header>
         )}
-        <div data-fs-product-listing-content-grid className="layout__content">
+        <div
+          data-fs-product-listing-content-grid
+          data-fs-content="product-gallery"
+        >
           <div data-fs-product-listing-filters>
             <FilterSkeleton loading={facets?.length === 0}>
               <Filter facets={facets} />

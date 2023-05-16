@@ -4,7 +4,7 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-breadcrumb-margin-left                         : calc(-1 * var(--fs-spacing-1));
+  --fs-breadcrumb-margin-left                         : var(--fs-spacing-0);
   --fs-breadcrumb-padding                             : var(--fs-spacing-2) 0;
 
   // List item
@@ -42,15 +42,13 @@
   width: 100%;
   padding: var(--fs-breadcrumb-padding);
 
-  @include media(">=notebook") {
-    width: 50%;
-  }
-
   [data-fs-breadcrumb-list] {
     display: flex;
     align-items: center;
-    margin-left: var(--fs-breadcrumb-margin-left);
     overflow-x: hidden;
+    @include media("<notebook") {
+      margin-left: var(--fs-breadcrumb-margin-left);
+    }
   }
 
   [data-fs-breadcrumb-list-item] {

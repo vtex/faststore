@@ -5,10 +5,8 @@ import styles from './section.module.scss'
 
 function BannerNewsletter() {
   return (
-    <Section
-      className={`${styles.section} section-banner-newsletter layout__content`}
-    >
-      <div data-fs-banner-newsletter>
+    <Section className={`${styles.section} section-banner-newsletter`}>
+      <div data-fs-banner-newsletter data-fs-content="banner-newsletter">
         <BannerText
           title="Get to Know Our Next Release"
           caption="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit nisi, vehicula in turpis sit amet, posuere aliquam nisl. "

@@ -30,7 +30,7 @@ function NavbarLinks({
 }: NavbarLinksProps) {
   return (
     <UINavbarLinks {...otherProps}>
-      <div className="layout__content">
+      <div data-fs-content="navbar">
         {shouldDisplayRegion && (
           <RegionButton icon={regionIcon} label={regionLabel} />
         )}

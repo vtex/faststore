@@ -23,6 +23,14 @@ $base: 16px !default;
   @return #{$rem}rem;
 }
 
+@mixin layout-content {
+  box-sizing: border-box;
+  width: calc(100% - var(--fs-grid-padding) - var(--fs-grid-padding));
+  max-width: var(--fs-grid-max-width);
+  margin-right: auto;
+  margin-left: auto;
+}
+
 @mixin input-focus-ring($outline: #{var(--fs-color-focus-ring)}, $border: #{var(--fs-border-color-active)}) {
   @media not all and (min-resolution: .001dpcm) { // Target only Safari browsers
     @supports (-webkit-appearance:none) {         // Use `focus` instead of `focus-visible`
