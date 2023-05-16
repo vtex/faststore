@@ -147,7 +147,6 @@ function Page({
           first={ITEMS_PER_SECTION}
           sort="score_desc"
           title="You might also like"
-          withDivisor
         />
 
         <ScrollToTopButton />

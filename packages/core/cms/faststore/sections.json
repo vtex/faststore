@@ -878,6 +878,11 @@
               "title": "Show discount badge?",
               "type": "boolean",
               "default": true
+            },
+            "bordered": {
+              "title": "Cards should be bordered?",
+              "type": "boolean",
+              "default": true
             }
           }
         }

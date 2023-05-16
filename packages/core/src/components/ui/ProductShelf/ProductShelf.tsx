@@ -25,21 +25,27 @@ type Sort =
 
 export type ProductShelfProps = {
   title: string
-  first: number
-  after: string
-  sort: Sort
-  term: string
-  selectedFacets: {
+  first?: number
+  after?: string
+  sort?: Sort
+  term?: string
+  selectedFacets?: {
     key: string
     value: string
   }[]
-  productCardConfiguration: {
+  productCardConfiguration?: {
     showDiscountBadge: boolean
+    bordered: boolean
   }
   inView: boolean
 }
 
-function ProductShelf({ title, inView, ...variables }: ProductShelfProps) {
+function ProductShelf({
+  title,
+  inView,
+  productCardConfiguration,
+  ...variables
+}: ProductShelfProps) {
   const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
@@ -77,7 +83,8 @@ function ProductShelf({ title, inView, ...variables }: ProductShelfProps) {
           <Carousel id={titleId || id}>
             {productEdges.map((product, idx) => (
               <ProductCard
-                bordered
+                bordered={productCardConfiguration?.bordered}
+                showDiscountBadge={productCardConfiguration?.showDiscountBadge}
                 key={`${product.node.id}`}
                 product={product.node}
                 index={idx + 1}
