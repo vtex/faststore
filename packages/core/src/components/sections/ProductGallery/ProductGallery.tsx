@@ -15,6 +15,8 @@ import FilterSkeleton from 'src/components/skeletons/FilterSkeleton'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 import { mark } from 'src/sdk/tests/mark'
 
+import { ServerCollectionPageQueryQuery } from '@generated/graphql'
+import { SearchPageContextType } from 'src/pages/s'
 import Section from '../Section'
 import EmptyGallery from './EmptyGallery'
 import styles from './section.module.scss'
@@ -26,12 +28,63 @@ import { useProductsPrefetch } from './usePageProducts'
 const GalleryPage = lazy(() => import('./ProductGalleryPage'))
 const GalleryPageSkeleton = <ProductGridSkeleton loading />
 
-interface Props {
-  title: string
-  searchTerm?: string
+type ProductGalleryContext = ServerCollectionPageQueryQuery['collection']
+
+interface ProductGallerySectionProps {
+  context?: ProductGalleryContext
+  searchTermLabel?: string
+  totalCountLabel?: string
+  filter: {
+    title?: string
+    mobileOnly?: {
+      filterButton?: {
+        label?: string
+        icon?: {
+          name: string
+          alt: string
+        }
+      }
+      clearButtonLabel: string
+      applyButtonLabel: string
+    }
+  }
+  previousPageButton?: {
+    label?: string
+    icon?: {
+      name: string
+      alt: string
+    }
+  }
+  loadMorePageButton?: {
+    label?: string
+    icon?: {
+      name: string
+      alt: string
+    }
+  }
 }
 
-function ProductGallery({ title, searchTerm }: Props) {
+const isSearch = (x: any): x is SearchPageContextType =>
+  x === undefined || x?.title != undefined || x?.searchTerm != undefined
+const isCollection = (
+  x: any
+): x is ServerCollectionPageQueryQuery['collection'] =>
+  x?.seo != undefined && x?.seo != null && x?.sku == undefined
+
+function ProductGallery({
+  context,
+  searchTermLabel,
+  totalCountLabel,
+  filter,
+  previousPageButton,
+  loadMorePageButton,
+}: ProductGallerySectionProps) {
+  const [title, searchTerm] = isSearch(context)
+    ? [context?.title, context?.searchTerm]
+    : isCollection(context)
+    ? [context?.seo?.title]
+    : ['']
+
   const { openFilter } = useUI()
   const { pages, addNextPage, addPrevPage } = useSearch()
 
@@ -66,7 +119,7 @@ function ProductGallery({ title, searchTerm }: Props) {
             className="layout__content"
           >
             <h1>
-              Showing results for: <span>{searchTerm}</span>
+              {searchTermLabel} <span>{searchTerm}</span>
             </h1>
           </header>
         )}
@@ -82,7 +135,9 @@ function ProductGallery({ title, searchTerm }: Props) {
               loading={!data}
               size={{ width: '100%', height: '1.5rem' }}
             >
-              <h2 data-testid="total-product-count">{totalCount} Results</h2>
+              <h2 data-testid="total-product-count">
+                {totalCount} {totalCountLabel}
+              </h2>
             </UISkeleton>
           </div>
           <div data-fs-product-listing-sort>
@@ -101,12 +156,18 @@ function ProductGallery({ title, searchTerm }: Props) {
               <UIButton
                 variant="tertiary"
                 data-testid="open-filter-button"
-                icon={<Icon name="FadersHorizontal" width={16} height={16} />}
+                icon={
+                  <Icon
+                    name={filter?.mobileOnly?.filterButton?.icon?.name}
+                    aria-label={filter?.mobileOnly?.filterButton?.icon?.alt}
+                    width={16}
+                    height={16}
+                  />
+                }
                 iconPosition="left"
-                aria-label="Open Filters"
                 onClick={openFilter}
               >
-                Filters
+                {filter?.mobileOnly?.filterButton?.label}
               </UIButton>
             </UISkeleton>
           </div>
@@ -129,14 +190,18 @@ function ProductGallery({ title, searchTerm }: Props) {
                   iconPosition="left"
                   icon={
                     <Icon
-                      name="ArrowLeft"
+                      name={previousPageButton?.icon?.name}
+                      aria-label={
+                        previousPageButton?.icon?.alt ??
+                        previousPageButton?.label
+                      }
                       width={16}
                       height={16}
                       weight="bold"
                     />
                   }
                 >
-                  Previous Page
+                  {previousPageButton?.label}
                 </UILinkButton>
               </div>
             )}
@@ -171,7 +236,7 @@ function ProductGallery({ title, searchTerm }: Props) {
                   rel="next"
                   variant="secondary"
                 >
-                  Load more products
+                  {loadMorePageButton?.label}
                 </UILinkButton>
               </div>
             )}
