@@ -1,14 +1,12 @@
 export const SECTIONS = {
-  ProductDetails: { components: ['Price', 'ProductCard'] },
-  Hero,
-  BannerText,
-  ProductShelf: { components: ['ProductCard', 'Carousel'] },
   Hero: {
     components: ['UIHero'],
   },
   BannerText: {
     components: ['UIBannerText'],
   },
+  ProductDetails: { components: ['Price', 'ProductCard'] },
+  ProductShelf: { components: ['ProductCard', 'Carousel'] },
 } as const
 
 // export type ComponentOrProps =
