@@ -878,16 +878,6 @@
               "title": "Show discount badge?",
               "type": "boolean",
               "default": true
-            },
-            "showBuyButton": {
-              "title": "Show buy button?",
-              "type": "boolean",
-              "default": true
-            },
-            "buyButtonTitle": {
-              "title": "Buy Button Text",
-              "type": "string",
-              "default": "Buy"
             }
           }
         }
