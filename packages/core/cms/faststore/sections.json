@@ -149,11 +149,12 @@
       "title": "Navbar",
       "type": "object",
       "description": "Navbar configuration",
-      "required": ["image"],
+      "required": ["logo"],
       "properties": {
         "logo": {
           "title": "Logo",
           "type": "object",
+          "required": ["src"],
           "properties": {
             "src": {
               "title": "Image",
@@ -194,6 +195,11 @@
               "title": "Call to Action",
               "type": "string",
               "default": "Sign In"
+            },
+            "myAccountLabel": {
+              "title": "My Account Label",
+              "type": "string",
+              "default": "My Account"
             }
           }
         },
@@ -270,6 +276,41 @@
                     "title": "Link URL",
                     "type": "string"
                   }
+                }
+              }
+            },
+            "menu": {
+              "type": "object",
+              "title": "Menu",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "object",
+                  "properties": {
+                    "icon": {
+                      "title": "Icon",
+                      "type": "string",
+                      "enumNames": ["List"],
+                      "enum": ["List"],
+                      "default": "List"
+                    },
+                    "alt": {
+                      "title": "Alternative Label",
+                      "type": "string",
+                      "default": "List"
+                    }
+                  }
+                }
+              }
+            },
+            "home": {
+              "title": "Home",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Go to Home Label",
+                  "type": "string",
+                  "default": "Go to Home"
                 }
               }
             }

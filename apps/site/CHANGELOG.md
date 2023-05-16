@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.142-alpha.0](https://github.com/vtex/faststore/compare/v2.0.141-alpha.0...v2.0.142-alpha.0) (2023-05-16)
+
+### Features
+
+- Adjust `Navbar` for CMS ([#1756](https://github.com/vtex/faststore/issues/1756)) ([105a8b2](https://github.com/vtex/faststore/commit/105a8b2f69ffd8438532d7c9eb959ed26a567675))
+
 ## [2.0.139-alpha.0](https://github.com/vtex/faststore/compare/v2.0.138-alpha.0...v2.0.139-alpha.0) (2023-05-15)
 
 ### Chores
