@@ -24,8 +24,14 @@ function BannerNewsletter() {
         <Newsletter
           title="Get News and Special Offers!"
           description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+          icon="Envelop"
+          iconAlt="Envelop"
+          privacyPolicy="By subscribing to our newsletter you agree to to our"
+          emailInputLabel="Your email"
+          displayNameInput
+          nameInputLabel="Your name"
+          subscribeButtonLabel="Subscribe"
           card
-          lite
         />
       </div>
     </Section>
