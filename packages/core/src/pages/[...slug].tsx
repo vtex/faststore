@@ -46,6 +46,7 @@ type Props = ServerCollectionPageQueryQuery &
  * Do not import or render components from any other folder in here.
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
+  Hero,
   Breadcrumb,
   ...CUSTOM_COMPONENTS,
 }
@@ -121,16 +122,6 @@ function Page({ sections, globalSections, ...otherProps }: Props) {
           context={collection}
           sections={sections}
           components={COMPONENTS}
-        />
-
-        <Hero
-          variant="secondary"
-          title={title}
-          subtitle={`All the amazing ${title} from the brands we partner with.`}
-          image={{
-            src: 'https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg',
-            alt: 'Quest 2 Controller on a table',
-          }}
         />
 
         <ProductGallery title={title} />
