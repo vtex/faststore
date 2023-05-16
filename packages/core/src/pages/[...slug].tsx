@@ -46,8 +46,9 @@ type Props = ServerCollectionPageQueryQuery &
  * Do not import or render components from any other folder in here.
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
-  Hero,
   Breadcrumb,
+  Hero,
+  ProductGallery,
   ...CUSTOM_COMPONENTS,
 }
 
@@ -123,8 +124,6 @@ function Page({ sections, globalSections, ...otherProps }: Props) {
           sections={sections}
           components={COMPONENTS}
         />
-
-        <ProductGallery title={title} />
 
         <ProductShelf
           first={ITEMS_PER_SECTION}
