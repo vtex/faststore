@@ -1,7 +1,9 @@
 import { memo } from 'react'
 
-import NextImage, { ImageProps } from 'next/future/image'
+import NextImage, { ImageProps as NextImageProps } from 'next/future/image'
 import loader from './loader'
+
+export type ImageProps = NextImageProps
 
 // Next loader function does not handle all props as height and options
 // so we use a custom loader to handle images using thumbor server with VTEX CDN

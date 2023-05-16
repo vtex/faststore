@@ -1,0 +1,85 @@
+import UINavbar from '../../navigation/Navbar'
+
+import Section from '../Section'
+
+import styles from './section.module.scss'
+
+type PageLinks = {
+  url: string
+  text: string
+}
+
+export interface NavbarProps {
+  logo: {
+    alt: string
+    src: string
+  }
+  signInButton: {
+    icon: {
+      alt: string
+      icon: string
+    }
+    label: string
+    myAccountLabel: string
+  }
+  cartIcon: {
+    alt: string
+    icon: string
+  }
+  navigation: {
+    regionalization: {
+      enabled: boolean
+      icon: {
+        alt: string
+        icon: string
+      }
+      label: string
+    }
+    pageLinks: PageLinks[]
+    menu: {
+      icon: {
+        alt: string
+        icon: string
+      }
+    }
+    home: {
+      label: string
+    }
+  }
+}
+
+function Navbar({
+  logo,
+  cartIcon,
+  signInButton,
+  navigation: {
+    menu,
+    home,
+    pageLinks,
+    regionalization: {
+      label: regionLabel,
+      icon: { icon: regionIcon },
+      enabled: shouldDisplayRegion,
+    },
+  },
+}: NavbarProps) {
+  return (
+    <Section as="header" className={`${styles.section} section-navbar`}>
+      <UINavbar
+        home={home}
+        menu={menu}
+        logo={logo}
+        cart={cartIcon}
+        links={pageLinks}
+        signIn={{ button: signInButton }}
+        region={{
+          icon: regionIcon,
+          label: regionLabel,
+          shouldDisplayRegion,
+        }}
+      />
+    </Section>
+  )
+}
+
+export default Navbar
