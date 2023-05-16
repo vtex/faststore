@@ -15,7 +15,7 @@ function Logo({ alt, src, loading = 'lazy' }: LogoProps) {
         src={src}
         width={0}
         height={0}
-        sizes="30vw"
+        sizes="15vw"
         loading={loading}
         style={{ width: '100%', height: 'auto' }}
       />

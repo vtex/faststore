@@ -1,4 +1,4 @@
-import { Suspense, useRef, useState } from 'react'
+import { lazy, Suspense, useRef, useState } from 'react'
 
 import {
   useUI,
@@ -22,8 +22,9 @@ import Logo from 'src/components/ui/Logo'
 import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
 
 import NavbarLinks from '../NavbarLinks'
-import NavbarSlider from '../NavbarSlider'
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
+
+const NavbarSlider = lazy(() => import('../NavbarSlider'))
 
 export interface NavbarProps {
   /**
@@ -144,13 +145,15 @@ function Navbar({
       <NavbarLinks links={links} region={region} className="hidden-mobile" />
 
       {displayNavbar && (
-        <NavbarSlider
-          home={home}
-          logo={logo}
-          links={links}
-          signIn={signIn}
-          region={region}
-        />
+        <Suspense fallback={null}>
+          <NavbarSlider
+            home={home}
+            logo={logo}
+            links={links}
+            signIn={signIn}
+            region={region}
+          />
+        </Suspense>
       )}
     </UINavbar>
   )
