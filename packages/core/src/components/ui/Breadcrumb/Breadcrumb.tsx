@@ -19,11 +19,11 @@ const Breadcrumb = ({
       <Link
         data-fs-breadcrumb-link
         data-fs-breadcrumb-link-home
-        aria-label={`${alt}`}
+        aria-label={alt}
         href="/"
         prefetch={false}
       >
-        <Icon name={`${icon}`} width={18} height={18} weight="bold" />
+        <Icon name={icon} width={18} height={18} weight="bold" />
       </Link>
     }
     renderLink={({ itemProps: { item: link, name } }) => (
