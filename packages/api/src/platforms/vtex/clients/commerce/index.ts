@@ -94,8 +94,15 @@ export const VtexCommerce = (
         body,
       }: {
         id: string
-        body: unknown
+        body: any
       }): Promise<OrderForm> => {
+        if (body.selectedAddresses) {
+          body.selectedAddresses.forEach((address: { geoCoordinates: never[] | null }) => {
+            if (address.geoCoordinates === null) {
+              address.geoCoordinates = [];
+            }
+          });
+        }
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
@@ -188,9 +195,9 @@ export const VtexCommerce = (
         postalCode
           ? params.append('postalCode', postalCode)
           : params.append(
-              'geoCoordinates',
-              `${geoCoordinates?.longitude};${geoCoordinates?.latitude}`
-            )
+            'geoCoordinates',
+            `${geoCoordinates?.longitude};${geoCoordinates?.latitude}`
+          )
 
         const url = `${base}/api/checkout/pub/regions/?${params.toString()}`
         return fetchAPI(url)
