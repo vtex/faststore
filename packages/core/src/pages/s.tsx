@@ -29,11 +29,17 @@ import storeConfig from '../../faststore.config'
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Breadcrumb,
+  ProductGallery,
   ...CUSTOM_COMPONENTS,
 }
 
 type Props = SearchContentType & {
   globalSections: GlobalSectionsData
+}
+
+export interface SearchPageContextType {
+  title: string
+  searchTerm?: string
 }
 
 const useSearchParams = () => {
@@ -92,11 +98,15 @@ function Page({ sections, globalSections }: Props) {
           If needed, wrap your component in a <Section /> component
           (not the HTML tag) before rendering it here.
         */}
-        <RenderSections sections={sections} components={COMPONENTS} />
-
-        <ProductGallery
-          title="Search Results"
-          searchTerm={searchParams.term ?? undefined}
+        <RenderSections
+          sections={sections}
+          components={COMPONENTS}
+          context={
+            {
+              title: 'Search Results',
+              searchTerm: searchParams.term ?? undefined,
+            } as SearchPageContextType
+          }
         />
       </SearchProvider>
     </GlobalSections>
