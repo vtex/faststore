@@ -94,8 +94,15 @@ export const VtexCommerce = (
         body,
       }: {
         id: string
-        body: unknown
+        body: any
       }): Promise<OrderForm> => {
+        if (body.selectedAddresses) {
+          body.selectedAddresses.forEach((address: { geoCoordinates: never[] | null }) => {
+            if (address.geoCoordinates === null) {
+              address.geoCoordinates = [];
+            }
+          });
+        }
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
