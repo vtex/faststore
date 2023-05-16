@@ -5,7 +5,9 @@ export const SECTIONS = {
   BannerText: {
     components: ['UIBannerText'],
   },
-  ProductDetails: { components: ['Price', 'ProductCard'] },
+  ProductDetails: {
+    components: ['UIProductTitle', 'UIDiscountBadge', 'UIBuyButton'],
+  },
   ProductShelf: { components: ['ProductCard', 'Carousel'] },
 } as const
 
