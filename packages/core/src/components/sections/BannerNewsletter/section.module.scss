@@ -3,4 +3,6 @@
   @import "@faststore/ui/src/components/molecules/LinkButton/styles.scss";
   @import "@faststore/ui/src/components/organisms/Banner/styles.scss";
   @import "@faststore/ui/src/components/organisms/BannerNewsletter/styles.scss";
+
+  [data-fs-content="banner-newsletter"] { @include layout-content; }
 }

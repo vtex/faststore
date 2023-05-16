@@ -34,8 +34,9 @@ function Incentives({
       data-fs-incentives
       data-fs-incentives-colored={colored}
       data-fs-incentives-variant={variant}
+      data-fs-content="incentives"
     >
-      <UIList className="layout__content">
+      <UIList>
         {incentives.map((incentive, index) => (
           <li role="listitem" key={String(index)}>
             <UIIncentive tabIndex={0}>

@@ -1,32 +1,24 @@
 import { mark } from 'src/sdk/tests/mark'
 
 export function FooterInfo({ children }) {
-  return (
-    <div data-fs-footer-info className="layout__content">
-      {children}
-    </div>
-  )
+  return <div data-fs-footer-info>{children}</div>
 }
 
 export function FooterNavigation({ children }) {
-  return (
-    <div data-fs-footer-navigation className="layout__content">
-      {children}
-    </div>
-  )
+  return <div data-fs-footer-navigation>{children}</div>
 }
 
 export function Footer({ children }) {
   return (
-    <div
+    <footer
       data-fs-footer
       data-fs-footer-social
       data-fs-footer-incentives
       data-fs-footer-payment-methods
-      className="layout__content-full"
+      data-fs-content="footer"
     >
-      {children}
-    </div>
+      <div data-fs-footer-wrapper>{children}</div>
+    </footer>
   )
 }
 

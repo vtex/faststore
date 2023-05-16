@@ -30,7 +30,7 @@ function NavbarLinks({
 }: NavbarLinksProps) {
   return (
     <NavbarLinksWrapper {...otherProps} {...Props['NavbarLinks']}>
-      <div className="layout__content">
+      <div data-fs-content="navbar">
         {shouldDisplayRegion && (
           <RegionButton icon={regionIcon} label={regionLabel} />
         )}

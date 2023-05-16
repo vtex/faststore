@@ -11,10 +11,8 @@ function BannerNewsletter({
   newsletter: NewsletterProps
 }) {
   return (
-    <Section
-      className={`${styles.section} section-banner-newsletter layout__content`}
-    >
-      <div data-fs-banner-newsletter>
+    <Section className={`${styles.section} section-banner-newsletter`}>
+      <div data-fs-banner-newsletter data-fs-content="banner-newsletter">
         <BannerText
           title={banner.title}
           caption={banner.caption}

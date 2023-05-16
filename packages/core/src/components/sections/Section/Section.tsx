@@ -5,16 +5,22 @@ type BaseProps = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
 
 type SectionProps = BaseProps & {
   as?: 'section' | 'header' | 'footer' | 'aside'
+  title?: string
 }
 
 const Section = forwardRef<HTMLDivElement, SectionProps>(function Section(
-  { as, className = '', ...otherProps },
+  { as, className = '', title, children, ...otherProps },
   ref
 ) {
   const Component = as ?? 'section'
 
   return (
-    <Component ref={ref} className={`section ${className}`} {...otherProps} />
+    <Component ref={ref} className={`section ${className}`} {...otherProps}>
+      {title && (
+        <h2 className="text__title-section layout__content">{title}</h2>
+      )}
+      {children}
+    </Component>
   )
 })
 

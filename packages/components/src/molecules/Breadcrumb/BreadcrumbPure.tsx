@@ -33,7 +33,7 @@ const BreadcrumbPure = forwardRef<HTMLDivElement, BreadcrumbPureProps>(
         data-testid={testId}
         {...otherProps}
       >
-        <List as="ol" data-fs-breadcrumb-list>
+        <List as="ol" data-fs-breadcrumb-list data-fs-content="breadcrumb">
           {React.Children.toArray(children).map(
             (child, index, childrenArray) => {
               const isLastItem = index === childrenArray.length - 1

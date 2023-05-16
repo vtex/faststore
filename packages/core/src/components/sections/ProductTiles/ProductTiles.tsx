@@ -82,26 +82,24 @@ const ProductTiles = ({ title, ...variables }: ProductTilesProps) => {
     <Section
       className={`${styles.section} section-product-tiles layout__section layout__content`}
       ref={ref}
+      title={title}
     >
-      <h2 className="text__title-section">{title}</h2>
-      <div>
-        <ProductTilesSkeleton loading={!products}>
-          <Tiles>
-            {productEdges.map((product, idx) => (
-              <Tile key={product.node.id}>
-                <ProductCard
-                  data-testid="tile-card"
-                  product={product.node}
-                  index={idx + 1}
-                  variant="wide"
-                  aspectRatio={getRatio(productEdges.length, idx)}
-                  imgProps={getSizes(productEdges.length, idx)}
-                />
-              </Tile>
-            ))}
-          </Tiles>
-        </ProductTilesSkeleton>
-      </div>
+      <ProductTilesSkeleton loading={!products}>
+        <Tiles>
+          {productEdges.map((product, idx) => (
+            <Tile key={product.node.id}>
+              <ProductCard
+                data-testid="tile-card"
+                product={product.node}
+                index={idx + 1}
+                variant="wide"
+                aspectRatio={getRatio(productEdges.length, idx)}
+                imgProps={getSizes(productEdges.length, idx)}
+              />
+            </Tile>
+          ))}
+        </Tiles>
+      </ProductTilesSkeleton>
     </Section>
   )
 }

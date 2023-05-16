@@ -4,6 +4,8 @@
 // ----------------------------------------------------------
 
 body {
+  --fs-body-bkg: var(--fs-color-body-bkg);
+
   min-height: 100vh;
   color: var(--fs-color-text);
   background: var(--fs-body-bkg);
@@ -30,23 +32,11 @@ main {
   }
 }
 
-.layout__content-full {
-  width: 100%;
-  padding-top: var(--fs-spacing-4);
-  padding-bottom: var(--fs-spacing-4);
-
-  @include media(">=notebook") {
-    padding-top: var(--fs-grid-padding);
-    padding-bottom: var(--fs-grid-padding);
-  }
-}
-
 .layout__content {
   box-sizing: border-box;
   width: 100%;
+  width: calc(100% - var(--fs-grid-padding) - var(--fs-grid-padding));
   max-width: var(--fs-grid-max-width);
-  padding-right: var(--fs-grid-padding);
-  padding-left: var(--fs-grid-padding);
   margin-right: auto;
   margin-left: auto;
 }
@@ -77,14 +67,4 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-////////////////////
-// Pages
-////////////////////
-
-// Homepage
-.section-newsletter {
-  padding-top: var(--fs-grid-padding);
-  padding-bottom: 0;
 }

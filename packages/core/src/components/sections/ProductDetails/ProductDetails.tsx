@@ -161,11 +161,9 @@ function ProductDetails({
   ])
 
   return (
-    <Section
-      className={`${styles.section} section-product-details layout__content layout__section`}
-    >
+    <Section className={`${styles.section} section-product-details`}>
       <section data-fs-product-details>
-        <section data-fs-product-details-body>
+        <section data-fs-product-details-body data-fs-content="product-details">
           <header data-fs-product-details-title data-fs-product-details-section>
             <ProductTitle
               // TODO: We should review this prop. There's now way to override the title and use the dynamic name value.

@@ -46,6 +46,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
         data-fs-hero
         data-fs-hero-variant={variant}
         data-fs-hero-color-variant={colorVariant}
+        data-fs-content="hero"
         data-testid={testId}
         {...otherProps}
       >
