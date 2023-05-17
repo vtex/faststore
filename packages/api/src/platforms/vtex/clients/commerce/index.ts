@@ -19,6 +19,7 @@ import { getCookie } from '../../utils/getCookies'
 import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
+import { ShippingDataBody } from './types/ShippingData'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -94,8 +95,15 @@ export const VtexCommerce = (
         body,
       }: {
         id: string
-        body: unknown
+        body: ShippingDataBody
       }): Promise<OrderForm> => {
+        if (body.selectedAddresses) {
+          body.selectedAddresses.forEach((address) => {
+            if (address.geoCoordinates === null) {
+              address.geoCoordinates = [];
+            }
+          });
+        }
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
@@ -180,8 +188,7 @@ export const VtexCommerce = (
         salesChannel,
       }: RegionInput): Promise<Region> => {
         return fetchAPI(
-          `${base}/api/checkout/pub/regions/?postalCode=${postalCode}&country=${country}&sc=${
-            salesChannel ?? ''
+          `${base}/api/checkout/pub/regions/?postalCode=${postalCode}&country=${country}&sc=${salesChannel ?? ''
           }`
         )
       },
