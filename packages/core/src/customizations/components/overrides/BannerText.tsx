@@ -1,3 +1,5 @@
+// This is just an example of how should be done on starter.
+
 import { SectionOverride } from 'src/typings/overrides'
 
 const SECTION = 'BannerText' as const
