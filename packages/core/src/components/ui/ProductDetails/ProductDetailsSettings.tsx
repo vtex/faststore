@@ -1,10 +1,9 @@
 import type { Dispatch, SetStateAction } from 'react'
 
 import {
-  BuyButton as UIBuyButton,
-  Price as UIPrice,
-  QuantitySelector as UIQuantitySelector,
   Icon as UIIcon,
+  BuyButton as UIBuyButton,
+  QuantitySelector as UIQuantitySelector,
 } from '@faststore/ui'
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
@@ -14,6 +13,9 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 import Selectors from 'src/components/ui/SkuSelector'
 import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
+
+import { Components } from '../../sections/ProductDetails/Overrides'
+const { Price } = Components
 
 interface ProductDetailsSettingsProps {
   product: ProductDetailsFragment_ProductFragment
@@ -71,7 +73,7 @@ function ProductDetailsSettings({
     <>
       <section data-fs-product-details-values>
         <div data-fs-product-details-prices>
-          <UIPrice
+          <Price
             value={listPrice}
             formatter={useFormattedPrice}
             testId="list-price"
@@ -79,7 +81,7 @@ function ProductDetailsSettings({
             variant="listing"
             SRText="Original price:"
           />
-          <UIPrice
+          <Price
             value={lowPrice}
             formatter={useFormattedPrice}
             testId="price"
