@@ -1,8 +1,4 @@
 import { HeroProps as UIHeroProps } from '@faststore/ui'
-import {
-  HeroHeader as UIHeroHeader,
-  HeroImage as UIHeroImage,
-} from '@faststore/ui'
 import { Components, Props } from './Overrides'
 import { ReactNode } from 'react'
 import { Image } from 'src/components/ui/Image'
@@ -26,7 +22,7 @@ export type HeroProps = {
   icon?: ReactNode
 }
 
-const { UIHero } = Components
+const { UIHero, UIHeroImage, UIHeroHeader } = Components
 
 const Hero = ({
   link,
@@ -44,7 +40,7 @@ const Hero = ({
         variant={variant}
         {...Props['UIHero']}
       >
-        <UIHeroImage data-fs-hero-image>
+        <UIHeroImage>
           <Image
             loading="eager"
             src={image.src}

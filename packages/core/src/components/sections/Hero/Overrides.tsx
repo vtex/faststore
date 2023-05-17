@@ -1,4 +1,8 @@
-import { Hero as UIHero } from '@faststore/ui'
+import {
+  Hero as UIHero,
+  HeroImage as UIHeroImage,
+  HeroHeader as UIHeroHeader,
+} from '@faststore/ui'
 
 import HeroCustomizations from 'src/customizations/components/overrides/Hero'
 
@@ -20,6 +24,8 @@ Object.entries(HeroCustomizations.components).forEach(([key, value]) => {
 
 const Components = {
   UIHero,
+  UIHeroImage,
+  UIHeroHeader,
   ...heroComponentsCustomization,
 }
 
