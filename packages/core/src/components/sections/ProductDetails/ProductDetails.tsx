@@ -19,9 +19,8 @@ import Section from '../Section'
 import OutOfStock from 'src/components/product/OutOfStock'
 import ImageGallery from 'src/components/ui/ImageGallery'
 import ShippingSimulation from 'src/components/ui/ShippingSimulation'
+import ProductDescription from 'src/components/ui/ProductDescription'
 import { ProductDetailsSettings } from 'src/components/ui/ProductDetails'
-
-import ProductDetailsContent from '../ProducDetailsContent'
 
 import styles from './section.module.scss'
 
@@ -31,36 +30,41 @@ interface ProductDetailsContextProps {
 
 export interface ProductDetailsProps {
   productTitle: {
-    discountBadge?: boolean
-    refNumber?: boolean
+    refNumber: boolean
+    discountBadge: {
+      size: 'big' | 'small'
+      showDiscountBadge: boolean
+    }
   }
   buyButton: {
-    title?: string
+    title: string
     icon: {
+      alt: string
       icon: string
-      alt?: string
     }
   }
   shippingSimulator: {
-    title?: string
-    inputLabel?: string
+    title: string
+    inputLabel: string
     link: {
       to: string
-      text?: string
+      text: string
     }
+    shippingOptionsTableTitle: string
   }
-  productDetailsContent: {
+  productDescription: {
+    title: string
+    displayDescription: boolean
     initiallyExpanded: 'first' | 'all' | 'none'
-    details: {
-      displayDescription?: boolean
-      title?: string
-    }
   }
 }
 
 function ProductDetails({
   context: staleProduct,
-  productTitle: { refNumber: showRefNumber, discountBadge: showDiscountBadge },
+  productTitle: {
+    refNumber: showRefNumber,
+    discountBadge: { showDiscountBadge, size: discountBadgeSize },
+  },
   buyButton: {
     title: buyButtonTitle,
     icon: { icon: buyButtonIconName, alt: buyButtonIconAlt },
@@ -68,14 +72,13 @@ function ProductDetails({
   shippingSimulator: {
     title: shippingSimulatorTitle,
     inputLabel: shippingSimulatorInputLabel,
+    shippingOptionsTableTitle: shippingSimulatorOptionsTableTitle,
     link: { to: shippingSimulatorLinkUrl, text: shippingSimulatorLinkText },
   },
-  productDetailsContent: {
-    initiallyExpanded: productDetailsContentInitiallyExpanded,
-    details: {
-      title: productDetailsContentDetailsTitle,
-      displayDescription: productDetailsContentDisplayDescription,
-    },
+  productDescription: {
+    title: productDescriptionDetailsTitle,
+    initiallyExpanded: productDescriptionInitiallyExpanded,
+    displayDescription: productDescriptionDisplayDescription,
   },
 }: ProductDetailsProps & ProductDetailsContextProps) {
   const { currency } = useSession()
@@ -154,7 +157,7 @@ function ProductDetails({
                   <UIDiscountBadge
                     listPrice={listPrice}
                     spotPrice={lowPrice}
-                    size="big"
+                    size={discountBadgeSize}
                   />
                 )
               }
@@ -179,7 +182,7 @@ function ProductDetails({
                   buyButtonTitle={buyButtonTitle}
                   quantity={quantity}
                   setQuantity={setQuantity}
-                  buyButtonIcon={buyButtonIconName || buyButtonIconAlt}
+                  buyButtonIcon={buyButtonIconName}
                 />
               ) : (
                 <OutOfStock />
@@ -203,14 +206,15 @@ function ProductDetails({
                     {shippingSimulatorLinkText}
                   </UILink>
                 }
+                optionsLabel={shippingSimulatorOptionsTableTitle}
               />
             )}
           </section>
 
-          <ProductDetailsContent
-            labels={{ description: productDetailsContentDetailsTitle }}
-            initiallyExpanded={productDetailsContentInitiallyExpanded}
-            shouldDisplayDescription={productDetailsContentDisplayDescription}
+          <ProductDescription
+            labels={{ description: productDescriptionDetailsTitle }}
+            initiallyExpanded={productDescriptionInitiallyExpanded}
+            shouldDisplayDescription={productDescriptionDisplayDescription}
           />
         </section>
       </section>

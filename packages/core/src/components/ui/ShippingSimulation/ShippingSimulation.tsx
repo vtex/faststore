@@ -13,6 +13,7 @@ type ShippingSimulationOptionalProps =
   | 'title'
   | 'formatter'
   | 'inputLabel'
+  | 'optionsLabel'
   | 'idkPostalCodeLinkProps'
 
 interface ShippingSimulationProps
