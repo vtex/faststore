@@ -36,6 +36,7 @@ function ProductGallerySection({
   filter,
   previousPageButton,
   loadMorePageButton,
+  sortBySelector,
 }: ProductGallerySectionProps) {
   const [title, searchTerm] = isSearch(context)
     ? [context?.title, context?.searchTerm]
@@ -73,6 +74,7 @@ function ProductGallerySection({
         filter={filter}
         previousPageButton={previousPageButton}
         loadMorePageButton={loadMorePageButton}
+        sortBySelector={sortBySelector}
       />
     </Section>
   )
