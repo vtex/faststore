@@ -1,32 +1,37 @@
-import BannerText from 'src/components/ui/BannerText'
-import Newsletter from 'src/components/ui/Newsletter'
+import BannerText, { BannerTextProps } from 'src/components/ui/BannerText'
+import Newsletter, { NewsletterProps } from 'src/components/ui/Newsletter'
 import Section from '../Section'
 import styles from './section.module.scss'
 
-function BannerNewsletter() {
+function BannerNewsletter({
+  banner,
+  newsletter,
+}: {
+  banner: BannerTextProps
+  newsletter: NewsletterProps
+}) {
   return (
     <Section
       className={`${styles.section} section-banner-newsletter layout__content`}
     >
       <div data-fs-banner-newsletter>
         <BannerText
-          title="Get to Know Our Next Release"
-          caption="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit nisi, vehicula in turpis sit amet, posuere aliquam nisl. "
-          actionLabel="Shop Now"
-          actionPath="/"
-          variant="secondary"
-          colorVariant="light"
+          title={banner.title}
+          caption={banner.caption}
+          actionLabel={banner.actionLabel}
+          actionPath={banner.actionPath}
+          variant={banner.variant}
+          colorVariant={banner.colorVariant}
         />
         <Newsletter
-          title="Get News and Special Offers!"
-          description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
-          icon="Envelop"
-          iconAlt="Envelop"
-          privacyPolicy="By subscribing to our newsletter you agree to to our"
-          emailInputLabel="Your email"
-          displayNameInput
-          nameInputLabel="Your name"
-          subscribeButtonLabel="Subscribe"
+          title={newsletter.title}
+          description={newsletter.description}
+          icon={newsletter.icon}
+          privacyPolicy={newsletter.privacyPolicy}
+          emailInputLabel={newsletter.emailInputLabel}
+          displayNameInput={newsletter.displayNameInput}
+          nameInputLabel={newsletter.nameInputLabel}
+          subscribeButtonLabel={newsletter.subscribeButtonLabel}
           card
         />
       </div>
