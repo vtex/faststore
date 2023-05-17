@@ -122,7 +122,7 @@
     --padding: var(--fs-spacing-1);
 
     order: 3;
-    padding: var(--padding) var(--padding) 0;
+    padding: 0 var(--padding);
 
     @include media(">=notebook") {
       grid-column: 4 / span 9;
