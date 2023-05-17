@@ -1,6 +1,15 @@
 .section {
   @include media("<notebook") {
     margin-top: 0;
+    &:last-child { margin-bottom: 0; }
+
+    @include section-divisor(bottom, 0);
+  }
+
+  @include media(">=notebook") {
+    &:not(:last-child) {
+      @include section-divisor(bottom);
+    }
   }
 
   @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
@@ -29,4 +38,5 @@
   @import "@faststore/ui/src/components/organisms/ProductGallery/styles.scss";
 
   [data-fs-content="product-gallery"] { @include layout-content; }
+  [data-fs-content="empty-state"] { @include layout-content; }
 }
