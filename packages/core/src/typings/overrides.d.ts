@@ -1,6 +1,6 @@
 export const SECTIONS = {
   Hero: {
-    components: ['UIHero'],
+    components: ['UIHero', 'UIHeroImage', 'UIHeroHeader'],
   },
   BannerText: {
     components: ['UIBannerText'],

@@ -6,6 +6,8 @@ const overrides: SectionOverride[typeof SECTION] = {
   name: SECTION,
   components: {
     UIHero: { props: {} },
+    UIHeroImage: { props: {} },
+    UIHeroHeader: { props: {} },
   },
 }
 
