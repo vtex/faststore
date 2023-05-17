@@ -30,20 +30,18 @@ function NavbarLinks({
 }: NavbarLinksProps) {
   return (
     <UINavbarLinks {...otherProps}>
-      <div data-fs-content="navbar">
-        {shouldDisplayRegion && (
-          <RegionButton icon={regionIcon} label={regionLabel} />
-        )}
-        <UINavbarLinksList>
-          {links.map(({ url, text }) => (
-            <UINavbarLinksListItem key={text}>
-              <Link variant="display" href={url} onClick={onClickLink}>
-                {text}
-              </Link>
-            </UINavbarLinksListItem>
-          ))}
-        </UINavbarLinksList>
-      </div>
+      {shouldDisplayRegion && (
+        <RegionButton icon={regionIcon} label={regionLabel} />
+      )}
+      <UINavbarLinksList>
+        {links.map(({ url, text }) => (
+          <UINavbarLinksListItem key={text}>
+            <Link variant="display" href={url} onClick={onClickLink}>
+              {text}
+            </Link>
+          </UINavbarLinksListItem>
+        ))}
+      </UINavbarLinksList>
     </UINavbarLinks>
   )
 }

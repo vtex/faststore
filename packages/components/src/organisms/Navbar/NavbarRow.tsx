@@ -15,7 +15,6 @@ const NavbarRow = forwardRef<HTMLDivElement, NavbarRowProps>(function NavbarRow(
   return (
     <div
       data-fs-navbar-row
-      data-fs-content="navbar"
       ref={ref}
       data-testid={testId}
       {...otherProps}

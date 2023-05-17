@@ -19,9 +19,10 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(function Navbar(
   return (
     <header
       data-fs-navbar
+      data-fs-navbar-scroll={scrollDirection}
+      data-fs-content="navbar"
       ref={ref}
       data-testid={testId}
-      data-fs-navbar-scroll={scrollDirection}
       {...otherProps}
     >
       {children}
