@@ -53,7 +53,7 @@ const HeroHeader = forwardRef<HTMLDivElement, HeroHeaderProps>(
         data-testid={testId}
         {...otherProps}
       >
-        <div data-fs-hero-wrapper className="layout__content">
+        <div data-fs-hero-wrapper>
           <div data-fs-hero-info>
             <h1 data-fs-hero-title>{title}</h1>
             <p data-fs-hero-subtitle>{subtitle}</p>
