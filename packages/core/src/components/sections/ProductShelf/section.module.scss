@@ -5,6 +5,8 @@
 
     padding-bottom: var(--fs-spacing-5);
 
+    [data-fs-product-shelf-items] { @include layout-content; }
+
     @include media("<tablet") {
       [data-fs-product-shelf-item] {
         &:not(:last-of-type) {
