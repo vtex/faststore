@@ -25,5 +25,4 @@
   @import "@faststore/ui/src/components/organisms/ProductDetails/styles.scss";
 
   [data-fs-content="product-details"] { @include layout-content; }
-  [data-fs-content="breadcrumb"] { @include layout-content; }
 }
