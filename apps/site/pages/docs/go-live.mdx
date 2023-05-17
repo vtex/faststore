@@ -1,4 +1,5 @@
 import { Callout, Tab, Tabs } from 'nextra-theme-docs'
+import { CheckboxField } from '@faststore/ui'
 
 <header>
 
@@ -25,6 +26,186 @@ copy this [store configuration checklist](/tbd) and check if you have configured
  
 
 > ⚠️ The checklist above lists the basic features and configurations required to run a VTEX store. It is your team's responsibility to determine which features to implement in your store and how to configure them to create the desired store experience. Therefore, this list may only cover some of the features your store uses, and you must check all aspects of your store's operation, even if they are not on the suggested list. Ainda assim é importante que verifique todos os aspectos do funcionamento da sua loja, mesmo que não estejam na lista sugerida.
+
+
+## Go-live checklist essentials
+
+To summarize the **essential** steps you **must** take to go-live with stores developed using FastStore, please keep the following in mind:
+
+### Storefront Developement
+
+
+<b><CheckboxField label="Account Edition" id="checkboxfield-default" /></b> 
+
+<details>
+<summary>Ensure that your account edition is set to `vtex.edition-store@5.x` Edition app in your master workspace.</summary>
+
+| Management              | Reference                                                                                                                                                                       |
+| :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Agency and VTEX Support |  If your account has another Edition app major installed, [open a support ticket](https://help.vtex.com/en/support) requesting the installation of the vtex.edition-store@5.x.  |
+</details>
+
+
+
+
+<b><CheckboxField label="FastStore Onboarding" id="checkboxfield-default" /></b> 
+
+<details>
+<summary>Deploy your project using FastStore Onboarding app.</summary>
+
+| Management | Reference                                                 |
+| :--------- | :-------------------------------------------------------- |
+| Agency     | [FastStore Onboarding](/docs/getting-started/onboarding)  |
+</details>
+
+
+
+<b><CheckboxField label="Setting up the project" id="checkboxfield-default" /></b>       
+
+<details>
+<summary>Set up and develop your Storefront.</summary>
+| Management | Reference                                                          |
+| :--------- | :----------------------------------------------------------------- |
+| Agency     | [Setting up the project](/docs/getting-started/settingup-project)  |
+</details>
+
+
+
+
+### VTEX Integration
+
+<b><CheckboxField label="Setting up a VTEX account" id="checkboxfield-default" /></b>       
+
+<details>
+<summary>Set up your VTEX environment and install all the necessary apps.</summary>
+| Management | Reference                                                          |
+| :--------- | :----------------------------------------------------------------- |
+| Agency     | [Setting up a VTEX account for FastStore](/tbd)  |
+</details>
+
+
+<b><CheckboxField label="Configuring external DNS for a custom domain" id="checkboxfield-default" /></b>       
+
+<details>
+<summary>Configure your website's domain and subdomain.</summary>
+| Management | Reference                                                          |
+| :--------- | :----------------------------------------------------------------- |
+| Agency and VTEX Support    | [Configuring external DNS for a custom domain](/tbd)  |
+</details>
+
+
+<b><CheckboxField label="Integrating the VTEX Login" id="checkboxfield-default" /></b>       
+
+<details>
+<summary>Integrate the VTEX Login with your FastStore project.</summary>
+| Management | Reference                                                          |
+| :--------- | :----------------------------------------------------------------- |
+| Agency and VTEX Support    | [Integrating the VTEX Login](/tbd)  |
+</details>
+
+
+<b><CheckboxField label="Integrating the VTEX Checkout" id="checkboxfield-default" /></b>       
+
+<details>
+<summary>Adjust the header by replacing the links to the Checkout and MyAccount pages with the proper paths.</summary>
+| Management | Reference                                                          |
+| :--------- | :----------------------------------------------------------------- |
+| Agency and VTEX Support    | [Integrating the VTEX Checkout](/tbd)  |
+</details>
+
+
+<b><CheckboxField label="Integrating the VTEX Order Placed and My Account" id="checkboxfield-default" /></b>       
+
+<details>
+<summary>Clone, edit, and install the <b><a href="https://github.com/vtex/faststore-vtex-integrations/">faststore-vtex-integrations</a></b> app on your VTEX account.</summary>
+| Management | Reference                                                          |
+| :--------- | :----------------------------------------------------------------- |
+| Agency and VTEX Support    | [Integrating the VTEX Checkout](/tbd)  |
+</details>
+
+
+<b><CheckboxField label="Checking the pages in the secure domain" id="checkboxfield-default" /></b>       
+
+<details>
+<summary>Test your website links to pages being rendered in the secure subdomain, such as the Login, Checkout, My Account, and Order Placed pages.</summary>
+| Management | Reference  -  |
+| :--------- | :------------ |
+| Agency     | Coming soon!  |
+</details>
+
+
+### Headless Customization
+
+<b><CheckboxField label="Integrating the storefront with VTEX Headless CMS" id="checkboxfield-default" /></b>       
+
+<details>
+<summary>Set up the preview flow between the storefront and the Headless CMS</summary>
+| Management | Reference  -  |
+| :--------- | :------------ |
+| Agency     | [VTEX Headless CMS]()  |
+</details>
+
+
+
+### SSL Configuration
+
+<b><CheckboxField label="Checking the pages SSL certificate" id="checkboxfield-default" /></b>       
+
+<details>
+<summary>Check if all pages of your store have the correct SSL certificate configured.</summary>
+| Management | Reference  -  |
+| :--------- | :------------ |
+| Agency     | Coming soon!  |
+</details>
+
+
+### Testing and performance
+
+<b><CheckboxField label="Lighthouse audits" id="checkboxfield-default" /></b>       
+
+<details>
+<summary>Run Lighthouse audits on your store's pages to guarantee you are going live with great performance</summary>
+| Management | Reference  -  |
+| :--------- | :------------ |
+| Agency     | Coming soon!  |
+
+- Run Lighthouse audits on your store's Home Page, Product Listing Page (PLP), Product Details Page (PDP), and custom pages.
+- All pages must have Lighthouse Score equal or more than 60 on mobile devices.
+- Any publication will be automatically blocked by the system until all checks pass.
+</details>
+
+
+<b><CheckboxField label="Sentry" id="checkboxfield-default" /></b>       
+
+<details>
+<summary></summary>
+| Management | Reference  -  |
+| :--------- | :------------ |
+| Agency and VTEX Support    | Coming soon!  |
+
+</details>
+
+
+<b><CheckboxField label="Setting up A/B testing" id="checkboxfield-default" /></b>       
+
+<details>
+<summary>If you already have a live store, set up an A/B test to validate which version of your website is the best for your business needs.</summary>
+| Management | Reference  -  |
+| :--------- | :------------ |
+| Agency    | Coming soon!  |
+
+</details>
+
+### Analytics
+
+<b><CheckboxField label="Analytics module" id="checkboxfield-default" /></b>       
+
+<details>
+<summary></summary>
+| Management | Reference  -  |
+| :--------- | :------------ |
+| Agency    | Coming soon!  |
+</details>
 
 ## Next 
 
