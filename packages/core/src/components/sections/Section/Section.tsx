@@ -21,6 +21,7 @@ const Section = forwardRef<HTMLDivElement, SectionProps>(function Section(
       )}
       {children}
     </Component>
+  )
 })
 
 export default Section
