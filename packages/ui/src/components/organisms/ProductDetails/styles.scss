@@ -163,7 +163,7 @@
   // Content Section
   // -----------------------------
 
-  [data-fs-product-details-content] {
+  [data-fs-product-description] {
     @include media(">=tablet") {
       grid-row: span 10;
       grid-column: span 7;
@@ -175,7 +175,7 @@
     }
   }
 
-  [data-fs-image-gallery="with-selector"] ~ [data-fs-product-details-content] {
+  [data-fs-image-gallery="with-selector"] ~ [data-fs-product-description] {
     @include media(">=notebook") {
       grid-column: 2 / 9;
     }

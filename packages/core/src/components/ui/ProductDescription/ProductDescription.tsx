@@ -79,7 +79,7 @@ const DEFAULT_LABELS: ArticleLabels = {
   learnMore: 'Learn More',
 } as const
 
-function ProductDetailsContent({
+function ProductDescription({
   initiallyExpanded = 'first',
   labels: propLabels = {},
   shouldDisplayDescription,
@@ -105,7 +105,7 @@ function ProductDetailsContent({
   const labels = { ...DEFAULT_LABELS, ...propLabels }
 
   return (
-    <section data-fs-product-details-content>
+    <section data-fs-product-description>
       <UIAccordion
         indices={indices}
         onChange={onChange}
@@ -115,7 +115,7 @@ function ProductDetailsContent({
           as="article"
           index={0}
           data-fs-product-details-description
-          prefixId="product-details-content"
+          prefixId="product-description"
         >
           {shouldDisplayDescription && (
             <UIAccordionButton>{labels.description}</UIAccordionButton>
@@ -131,7 +131,7 @@ function ProductDetailsContent({
           as="article"
           index={1}
           data-fs-product-details-about
-          prefixId="product-details-content"
+          prefixId="product-description"
         >
           <UIAccordionButton>{labels.about}</UIAccordionButton>
           <UIAccordionPanel>
@@ -224,7 +224,7 @@ function ProductDetailsContent({
           className="text__body"
           index={2}
           data-fs-product-details-highlights
-          prefixId="product-details-content"
+          prefixId="product-description"
         >
           <UIAccordionButton>{labels.highlights}</UIAccordionButton>
           <UIAccordionPanel>
@@ -266,7 +266,7 @@ function ProductDetailsContent({
           as="article"
           index={3}
           data-fs-product-details-learn-more
-          prefixId="product-details-content"
+          prefixId="product-description"
         >
           <UIAccordionButton>{labels.learnMore}</UIAccordionButton>
           <UIAccordionPanel>
@@ -286,4 +286,4 @@ function ProductDetailsContent({
   )
 }
 
-export default ProductDetailsContent
+export default ProductDescription
