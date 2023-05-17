@@ -88,7 +88,7 @@ function Navbar({
   return (
     <UINavbar scrollDirection={scrollDirection}>
       <UINavbarHeader>
-        <UINavbarRow className="layout__content">
+        <UINavbarRow>
           {!searchExpanded && (
             <>
               <UIIconButton

@@ -13,7 +13,13 @@ const NavbarRow = forwardRef<HTMLDivElement, NavbarRowProps>(function NavbarRow(
   ref
 ) {
   return (
-    <div data-fs-navbar-row ref={ref} data-testid={testId} {...otherProps}>
+    <div
+      data-fs-navbar-row
+      data-fs-content="navbar"
+      ref={ref}
+      data-testid={testId}
+      {...otherProps}
+    >
       {children}
     </div>
   )
