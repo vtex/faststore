@@ -19,6 +19,7 @@ interface ProductGallerySectionProps {
   filter: ProductGalleryProps['filter']
   previousPageButton?: ProductGalleryProps['previousPageButton']
   loadMorePageButton?: ProductGalleryProps['loadMorePageButton']
+  sortBySelector?: ProductGalleryProps['sortBySelector']
 }
 
 const isSearch = (x: any): x is SearchPageContextType =>

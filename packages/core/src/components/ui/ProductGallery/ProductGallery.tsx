@@ -15,6 +15,7 @@ import FilterSkeleton from 'src/components/skeletons/FilterSkeleton'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
 import { ProductGalleryQueryQuery } from '@generated/graphql'
+import { SortProps } from 'src/components/search/Sort/Sort'
 import { useDelayedFacets } from './useDelayedFacets'
 import { useDelayedPagination } from './useDelayedPagination'
 import { useProductsPrefetch } from './usePageProducts'
@@ -53,6 +54,7 @@ export interface ProductGalleryProps {
   loadMorePageButton?: {
     label?: string
   }
+  sortBySelector?: SortProps
 }
 
 function ProductGallery({
@@ -65,6 +67,7 @@ function ProductGallery({
   filter,
   previousPageButton,
   loadMorePageButton,
+  sortBySelector,
 }: ProductGalleryProps) {
   const { openFilter } = useUI()
   const { pages, addNextPage, addPrevPage } = useSearch()
@@ -86,7 +89,7 @@ function ProductGallery({
       <div data-fs-product-listing-content-grid className="layout__content">
         <div data-fs-product-listing-filters>
           <FilterSkeleton loading={facets?.length === 0}>
-            <Filter facets={facets} />
+            <Filter facets={facets} filter={filter} />
           </FilterSkeleton>
         </div>
         <div data-fs-product-listing-results-count data-count={totalCount}>
@@ -106,7 +109,10 @@ function ProductGallery({
             loading={facets?.length === 0}
             size={{ width: 'auto', height: '1.5rem' }}
           >
-            <Sort />
+            <Sort
+              label={sortBySelector?.label}
+              defaultSelection={sortBySelector?.defaultSelection}
+            />
           </UISkeleton>
           <UISkeleton
             data-fs-product-listing-filter-button-skeleton

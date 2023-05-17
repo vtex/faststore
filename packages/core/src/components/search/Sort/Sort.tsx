@@ -13,15 +13,19 @@ const OptionsMap = {
 }
 
 const keys = Object.keys(OptionsMap) as Array<keyof typeof OptionsMap>
+export interface SortProps {
+  label?: string
+  defaultSelection?: string
+}
 
-function Sort() {
+function Sort({ label = '', defaultSelection = 'score_desc' }: SortProps) {
   const { state, setState } = useSearch()
 
   return (
     <SelectField
       id="sort-select"
       className="sort / text__title-mini-alt"
-      label="Sort by"
+      label={label}
       options={OptionsMap}
       onChange={(e) => {
         const sort = keys[e.target.selectedIndex]
@@ -32,7 +36,7 @@ function Sort() {
           page: 0,
         })
       }}
-      value={state.sort}
+      value={defaultSelection ?? state.sort}
       testId="search-sort"
     />
   )
