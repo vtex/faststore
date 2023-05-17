@@ -139,7 +139,6 @@ function Page({ sections, globalSections, ...otherProps }: Props) {
           first={ITEMS_PER_SECTION}
           sort="score_desc"
           title="You might also like"
-          withDivisor
         />
 
         <ScrollToTopButton />
