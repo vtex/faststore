@@ -55,7 +55,7 @@ function ProductGallery({ title, searchTerm }: Props) {
 
   return (
     <Section
-      className={`${styles.section} section-product-gallery layout__content-full`}
+      className={`${styles.section} section-product-gallery layout__section`}
     >
       <section data-testid="product-gallery" data-fs-product-listing>
         {searchTerm && (

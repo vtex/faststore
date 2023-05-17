@@ -32,17 +32,6 @@ main {
   }
 }
 
-.layout__content-full {
-  width: 100%;
-  padding-top: var(--fs-spacing-4);
-  padding-bottom: var(--fs-spacing-4);
-
-  @include media(">=notebook") {
-    padding-top: var(--fs-grid-padding);
-    padding-bottom: var(--fs-grid-padding);
-  }
-}
-
 .layout__content {
   box-sizing: border-box;
   width: 100%;
