@@ -6,7 +6,13 @@ export const SECTIONS = {
     components: ['UIBannerText'],
   },
   ProductDetails: {
-    components: ['UIProductTitle', 'UIDiscountBadge', 'UIBuyButton'],
+    components: [
+      'UIProductTitle',
+      'UIDiscountBadge',
+      'UIBuyButton',
+      'ShippingSimulation',
+      'Selectors',
+    ],
   },
   ProductShelf: { components: ['ProductCard', 'Carousel'] },
 } as const
