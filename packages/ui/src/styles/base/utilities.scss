@@ -31,6 +31,28 @@ $base: 16px !default;
   margin-left: auto;
 }
 
+@mixin layout-colored( $bkg-color: var(--fs-color-neutral-bkg), $padding-top: var(--fs-spacing-5), $padding-bottom: var(--fs-spacing-7)) {
+  padding-top: $padding-top;
+  padding-bottom: $padding-bottom;
+  background-color: $bkg-color;
+}
+
+@mixin section-divisor($position: "top", $padding: #{var(--fs-grid-padding)}) {
+  @if $position == "top" {
+    padding-top: $padding;
+    border-top: var(--fs-border-width) solid var(--fs-border-color-light);
+
+    @include media(">=notebook") { padding-top: $padding; }
+  }
+
+  @if $position == "bottom" {
+    padding-bottom: $padding;
+    border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
+
+    @include media(">=notebook") { padding-bottom: $padding; }
+  }
+}
+
 @mixin input-focus-ring($outline: #{var(--fs-color-focus-ring)}, $border: #{var(--fs-border-color-active)}) {
   @media not all and (min-resolution: .001dpcm) { // Target only Safari browsers
     @supports (-webkit-appearance:none) {         // Use `focus` instead of `focus-visible`
