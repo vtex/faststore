@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.143-alpha.0](https://github.com/vtex/faststore/compare/v2.0.142-alpha.0...v2.0.143-alpha.0) (2023-05-17)
+
+### Documentation
+
+- Adds Hero's props ([#1771](https://github.com/vtex/faststore/issues/1771)) ([f1ce082](https://github.com/vtex/faststore/commit/f1ce082801ddf7ff24a32ca7163aae26243c5989))
+
 ## [2.0.142-alpha.0](https://github.com/vtex/faststore/compare/v2.0.141-alpha.0...v2.0.142-alpha.0) (2023-05-16)
 
 ### Features
