@@ -103,7 +103,7 @@ function Page({ sections, globalSections }: Props) {
           components={COMPONENTS}
           context={
             {
-              title: 'Search Results',
+              title,
               searchTerm: searchParams.term ?? undefined,
             } as SearchPageContextType
           }
