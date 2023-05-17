@@ -14,7 +14,13 @@ const ProductShelf = forwardRef<HTMLDivElement, ProductShelfProps>(
     ref
   ) {
     return (
-      <div ref={ref} data-fs-product-shelf data-testid={testId} {...otherProps}>
+      <div
+        ref={ref}
+        data-fs-product-shelf
+        data-fs-content="product-shelf"
+        data-testid={testId}
+        {...otherProps}
+      >
         {children}
       </div>
     )

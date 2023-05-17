@@ -22,7 +22,7 @@ function ProductShelfSkeleton({
 }: PropsWithChildren<Props>) {
   return loading ? (
     <UIProductShelf data-fs-product-shelf-skeleton>
-      <ProductShelfItems className="layout__content">
+      <ProductShelfItems>
         {Array.from({ length: ITEMS_PER_SECTION }, (_, index) => (
           <ProductShelfItem key={String(index)}>
             <ProductCardSkeleton aspectRatio={aspectRatio} sectioned bordered />
