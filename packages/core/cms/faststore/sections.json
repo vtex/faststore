@@ -1252,7 +1252,7 @@
       "title": "ProductGallery",
       "type": "object",
       "description": "ProductGallery configuration",
-      "required": [],
+      "required": ["filter"],
       "properties": {
         "searchTermLabel": {
           "title": "Search page term label",
@@ -1267,6 +1267,7 @@
         "previousPageButton": {
           "title": "Previous page button",
           "type": "object",
+          "required": ["icon", "label"],
           "properties": {
             "icon": {
               "title": "Icon",
@@ -1296,6 +1297,7 @@
         "loadMorePageButton": {
           "title": "Load more products Button",
           "type": "object",
+          "required": ["label"],
           "properties": {
             "label": {
               "title": "Load more products label",
@@ -1307,6 +1309,7 @@
         "filter": {
           "title": "Filter",
           "type": "object",
+          "required": ["title", "mobileOnly"],
           "properties": {
             "title": {
               "title": "Filter title",
@@ -1316,10 +1319,16 @@
             "mobileOnly": {
               "title": "Mobile Only",
               "type": "object",
+              "required": [
+                "filterButton",
+                "clearButtonLabel",
+                "applyButtonLabel"
+              ],
               "properties": {
                 "filterButton": {
-                  "title": "Filter button",
+                  "title": "Show filter button",
                   "type": "object",
+                  "required": ["label", "icon"],
                   "properties": {
                     "label": {
                       "title": "Label",
@@ -1329,8 +1338,9 @@
                     "icon": {
                       "title": "Icon",
                       "type": "object",
+                      "required": ["icon", "alt"],
                       "properties": {
-                        "name": {
+                        "icon": {
                           "title": "Icon",
                           "type": "string",
                           "enumNames": ["FadersHorizontal"],
@@ -1357,6 +1367,42 @@
                   "default": "Apply"
                 }
               }
+            }
+          }
+        },
+        "sortBySelector": {
+          "title": "Sort by selector",
+          "type": "object",
+          "properties": {
+            "label": {
+              "title": "Sort by label",
+              "type": "string",
+              "default": "Sort by"
+            },
+            "default selection": {
+              "title": "Default selection value",
+              "type": "string",
+              "default": "score_desc",
+              "enumNames": [
+                "Price, descending",
+                "Price, ascending",
+                "Top sales",
+                "Name, A-Z",
+                "Name, Z-A",
+                "Release date",
+                "Discount",
+                "Relevance"
+              ],
+              "enum": [
+                "price_desc",
+                "price_asc",
+                "orders_desc",
+                "name_asc",
+                "name_desc",
+                "release_desc",
+                "discount_desc",
+                "score_desc"
+              ]
             }
           }
         }
