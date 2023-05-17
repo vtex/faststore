@@ -1121,6 +1121,23 @@
           "type": "object",
           "required": ["title", "description"],
           "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Envelop"],
+                  "enum": ["Envelop"]
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alternative Label",
+                  "default": "Envelop"
+                }
+              }
+            },
             "title": {
               "title": "Title",
               "type": "string",
@@ -1130,6 +1147,30 @@
               "title": "Description",
               "type": "string",
               "default": "Receive our news and promotions in advance"
+            },
+            "privacyPolicy": {
+              "title": "Privacy Policy Disclaimer",
+              "type": "string"
+            },
+            "emailInputLabel": {
+              "title": "Email input label",
+              "type": "string",
+              "default": "Your Email"
+            },
+            "displayNameInput": {
+              "title": "Request name?",
+              "type": "boolean",
+              "default": true
+            },
+            "nameInputLabel": {
+              "title": "Name input label",
+              "type": "string",
+              "default": "Your Name"
+            },
+            "subscribeButtonLabel": {
+              "title": "Subscribe button label",
+              "type": "string",
+              "default": "Subscribe"
             }
           }
         }
