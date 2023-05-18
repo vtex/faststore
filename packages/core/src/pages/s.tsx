@@ -33,7 +33,8 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-type Props = SearchContentType & {
+type Props = {
+  page: SearchContentType
   globalSections: GlobalSectionsData
 }
 
@@ -42,21 +43,32 @@ export interface SearchPageContextType {
   searchTerm?: string
 }
 
-const useSearchParams = () => {
+type UseSearchParams = {
+  sort: SearchState['sort']
+}
+
+const useSearchParams = ({ sort: defaultSort }: UseSearchParams) => {
   const [params, setParams] = useState<SearchState | null>(null)
   const { asPath } = useRouter()
 
   useEffect(() => {
     const url = new URL(asPath, 'http://localhost')
 
+    const shouldUpdateDefaultSort = defaultSort && !url.searchParams.has('sort')
+    if (shouldUpdateDefaultSort) {
+      url.searchParams.set('sort', defaultSort)
+    }
+
     setParams(parseSearchState(url))
-  }, [asPath])
+  }, [asPath, defaultSort])
 
   return params
 }
 
-function Page({ sections, globalSections }: Props) {
-  const searchParams = useSearchParams()
+function Page({ page: { sections, settings }, globalSections }: Props) {
+  const searchParams = useSearchParams({
+    sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
+  })
   const applySearchState = useApplySearchState()
   const title = 'Search Results'
   const { description, titleTemplate } = storeConfig.seo
@@ -69,7 +81,7 @@ function Page({ sections, globalSections }: Props) {
     <GlobalSections {...globalSections}>
       <SearchProvider
         onChange={applySearchState}
-        itemsPerPage={ITEMS_PER_PAGE}
+        itemsPerPage={settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE}
         {...searchParams}
       >
         {/* SEO */}
@@ -118,7 +130,7 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const [cmsPage, globalSections] = await Promise.all([
+  const [page, globalSections] = await Promise.all([
     getPage<SearchContentType>({
       ...(previewData?.contentType === 'search' ? previewData : null),
       contentType: 'search',
@@ -127,7 +139,10 @@ export const getStaticProps: GetStaticProps<
   ])
 
   return {
-    props: { ...cmsPage, globalSections },
+    props: {
+      page,
+      globalSections,
+    },
   }
 }
 

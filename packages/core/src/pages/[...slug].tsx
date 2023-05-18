@@ -63,9 +63,14 @@ const useSearchParams = ({
   const { asPath } = useRouter()
 
   const hrefState = useMemo(() => {
-    const newState = parseSearchState(
-      new URL(`${asPath}?sort=${sort}`, 'http://localhost')
-    )
+    const url = new URL(asPath, 'http://localhost')
+
+    const shouldUpdateDefaultSort = sort && !url.searchParams.has('sort')
+    if (shouldUpdateDefaultSort) {
+      url.searchParams.set('sort', sort)
+    }
+
+    const newState = parseSearchState(url)
     // In case we are in an incomplete url
     if (newState.selectedFacets.length === 0) {
       newState.selectedFacets = selectedFacets
