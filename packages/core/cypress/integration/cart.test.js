@@ -88,8 +88,8 @@ describe('On product description pages', () => {
       // Add to cart
       cy.getById('buy-button')
         .scrollIntoView({ duration: 500 })
-        .click({ force: true })
         .then(() => {
+          cy.getById('buy-button').click({ force: true })
           cy.getById('checkout-button')
             .should('be.visible')
             .should('be.enabled')
@@ -99,8 +99,8 @@ describe('On product description pages', () => {
 
       cy.getById('remove-from-cart-button')
         .scrollIntoView({ duration: 500 })
-        .click({ force: true })
         .then(() => {
+          cy.getById('remove-from-cart-button').click({ force: true })
           cy.getById('fs-cart-item').should('not.exist')
           cy.getById('checkout-button').should('not.exist')
 
