@@ -37,6 +37,7 @@ function CarouselItem({
 
   return (
     <li
+      tabIndex={0}
       style={style}
       id={`${id}-carousel-item-${index}`}
       aria-hidden={isItemVisible(index - Number(infiniteMode)) === false}
