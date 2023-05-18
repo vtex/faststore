@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.145-alpha.0](https://github.com/vtex/faststore/compare/v2.0.144-alpha.0...v2.0.145-alpha.0) (2023-05-18)
+
+### Documentation
+
+- Checkbox Field component props ([#1774](https://github.com/vtex/faststore/issues/1774)) ([90abbd4](https://github.com/vtex/faststore/commit/90abbd4a4da9c30f54a4569e828b990cde0ca59e))
+
 ## [2.0.144-alpha.0](https://github.com/vtex/faststore/compare/v2.0.143-alpha.0...v2.0.144-alpha.0) (2023-05-18)
 
 **Note:** Version bump only for package faststore
