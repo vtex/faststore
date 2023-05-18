@@ -1,4 +1,4 @@
-// This is just an example of how should be done on starter.
+// This is an example of how it can be used on the starter.
 
 import { SectionOverride } from 'src/typings/overrides'
 
