@@ -32,13 +32,20 @@ import GlobalSections, {
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import RenderSections from 'src/components/cms/RenderSections'
+import { ProductGallerySectionProps } from 'src/components/sections/ProductGallery/ProductGallery'
 import CUSTOM_COMPONENTS from 'src/customizations/components'
 import { getPage, PLPContentType } from 'src/server/cms'
 import storeConfig from '../../faststore.config'
 
+export type SearchProviderData = {
+  sort: SearchState['sort']
+  itemsPerPage: ProductGallerySectionProps['itemsPerPage']
+}
+
 type Props = ServerCollectionPageQueryQuery &
   PLPContentType & {
     globalSections: GlobalSectionsData
+    searchProviderData?: SearchProviderData
   }
 
 /**
@@ -52,38 +59,47 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
+type UseSearchParams = ServerCollectionPageQueryQuery & SearchProviderData
 const useSearchParams = ({
   collection,
-}: ServerCollectionPageQueryQuery): SearchState => {
+  sort,
+}: UseSearchParams): SearchState => {
   const selectedFacets = collection?.meta.selectedFacets
   const { asPath } = useRouter()
 
   const hrefState = useMemo(() => {
-    const newState = parseSearchState(new URL(asPath, 'http://localhost'))
-
+    const newState = parseSearchState(
+      new URL(`${asPath}?sort=${sort}`, 'http://localhost')
+    )
     // In case we are in an incomplete url
     if (newState.selectedFacets.length === 0) {
       newState.selectedFacets = selectedFacets
     }
 
     return formatSearchState(newState).href
-  }, [asPath, selectedFacets])
+  }, [asPath, selectedFacets, sort])
 
   return useMemo(() => parseSearchState(new URL(hrefState)), [hrefState])
 }
 
-function Page({ sections, globalSections, ...otherProps }: Props) {
+function Page({
+  sections,
+  globalSections,
+  searchProviderData,
+  ...otherProps
+}: Props) {
   const { collection } = otherProps
   const router = useRouter()
   const applySearchState = useApplySearchState()
-  const searchParams = useSearchParams(otherProps)
+  const searchParams = useSearchParams({ ...otherProps, ...searchProviderData })
 
-  const { page } = searchParams
+  const { page, sort } = searchParams
   const title = collection?.seo.title ?? storeConfig.seo.title
   const description = collection?.seo.description ?? storeConfig.seo.title
   const pageQuery = page !== 0 ? `?page=${page}` : ''
+  const sortQuery = !!sort ? `&sort=${sort}` : ''
   const [pathname] = router.asPath.split('?')
-  const canonical = `${storeConfig.storeUrl}${pathname}${pageQuery}`
+  const canonical = `${storeConfig.storeUrl}${pathname}${pageQuery}${sortQuery}`
 
   return (
     <GlobalSections {...globalSections}>
@@ -192,6 +208,28 @@ export const getStaticProps: GetStaticProps<
 
   if (errors.length > 0) {
     throw errors[0]
+  }
+
+  const productGallerySection = cmsPage?.sections.find(
+    (section) => section.name === 'ProductGallery'
+  )?.data as ProductGallerySectionProps
+
+  if (productGallerySection) {
+    const searchProviderData = {
+      sort:
+        productGallerySection?.sortBySelector?.defaultSelection ?? 'score_desc',
+      itemsPerPage:
+        Number(productGallerySection?.itemsPerPage) ?? ITEMS_PER_PAGE,
+    } as SearchProviderData
+
+    return {
+      props: {
+        ...data,
+        ...cmsPage,
+        globalSections,
+        searchProviderData,
+      },
+    }
   }
 
   return {

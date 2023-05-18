@@ -1,4 +1,4 @@
-import { useSearch } from '@faststore/sdk'
+import { SearchState, useSearch } from '@faststore/sdk'
 import { SelectField } from '@faststore/ui'
 
 const OptionsMap = {
@@ -15,10 +15,10 @@ const OptionsMap = {
 const keys = Object.keys(OptionsMap) as Array<keyof typeof OptionsMap>
 export interface SortProps {
   label?: string
-  defaultSelection?: string
+  defaultSelection?: SearchState['sort']
 }
 
-function Sort({ label = '', defaultSelection = 'score_desc' }: SortProps) {
+function Sort({ label = '' }: SortProps) {
   const { state, setState } = useSearch()
 
   return (
@@ -36,7 +36,7 @@ function Sort({ label = '', defaultSelection = 'score_desc' }: SortProps) {
           page: 0,
         })
       }}
-      value={defaultSelection ?? state.sort}
+      value={state.sort}
       testId="search-sort"
     />
   )

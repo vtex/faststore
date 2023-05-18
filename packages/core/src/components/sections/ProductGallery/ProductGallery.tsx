@@ -12,12 +12,13 @@ import { useGalleryQuery } from './useGalleryQuery'
 
 type ProductGalleryContext = ServerCollectionPageQueryQuery['collection']
 
-interface ProductGallerySectionProps {
+export interface ProductGallerySectionProps {
   context?: ProductGalleryContext
   searchTermLabel?: ProductGalleryProps['searchTermLabel']
   totalCountLabel?: ProductGalleryProps['totalCountLabel']
   filter: ProductGalleryProps['filter']
   previousPageButton?: ProductGalleryProps['previousPageButton']
+  itemsPerPage?: ProductGalleryProps['itemsPerPage']
   loadMorePageButton?: ProductGalleryProps['loadMorePageButton']
   sortBySelector?: ProductGalleryProps['sortBySelector']
 }

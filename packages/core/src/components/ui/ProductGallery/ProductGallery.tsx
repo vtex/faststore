@@ -51,6 +51,7 @@ export interface ProductGalleryProps {
       alt: string
     }
   }
+  itemsPerPage?: number
   loadMorePageButton?: {
     label?: string
   }

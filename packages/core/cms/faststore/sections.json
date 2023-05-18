@@ -1294,6 +1294,11 @@
             }
           }
         },
+        "itemsPerPage": {
+          "title": "Number of ProductCards per page",
+          "type": "integer",
+          "default": 12
+        },
         "loadMorePageButton": {
           "title": "Load more products Button",
           "type": "object",
