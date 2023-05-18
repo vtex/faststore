@@ -306,6 +306,7 @@ function Carousel({
   return (
     <section
       id={id}
+      role="region"
       data-fs-carousel
       className={className}
       data-testid={testId}
@@ -322,6 +323,8 @@ function Carousel({
         {...handlers}
       >
         <ul
+          role="group"
+          aria-roledescription="slide"
           aria-live="polite"
           ref={carouselTrackRef}
           style={carouselTrackStyle}

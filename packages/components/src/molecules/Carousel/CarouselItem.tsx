@@ -38,9 +38,9 @@ function CarouselItem({
   return (
     <li
       style={style}
-      data-fs-carousel-item
-      aria-roledescription="slide"
       id={`${id}-carousel-item-${index}`}
+      aria-hidden={isItemVisible(index - Number(infiniteMode)) || undefined}
+      data-fs-carousel-item
       data-fs-carousel-item-visible={
         isItemVisible(index - Number(infiniteMode)) || undefined
       }
