@@ -5,7 +5,14 @@ import type { PriceDefinition } from '../../typings/PriceDefinition'
 
 import {
   Badge,
-  Button, DiscountBadge, Icon, Link, LinkElementType, LinkProps, Price, Rating
+  Button,
+  DiscountBadge,
+  Icon,
+  Link,
+  LinkElementType,
+  LinkProps,
+  Price,
+  Rating,
 } from '../../'
 
 export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
@@ -80,7 +87,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
         <div data-fs-product-card-heading>
           <h3 data-fs-product-card-title>
             <Link {...linkProps} title={title}>
-              {title}
+              <span>{title}</span>
             </Link>
           </h3>
           <div data-fs-product-card-prices>
@@ -101,7 +108,9 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
               SRText="Sale Price:"
             />
           </div>
-          {ratingValue && <Rating value={ratingValue} icon={<Icon name="Star" />} />}
+          {ratingValue && (
+            <Rating value={ratingValue} icon={<Icon name="Star" />} />
+          )}
         </div>
         {showDiscountBadge && !outOfStock && (
           <DiscountBadge
