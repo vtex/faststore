@@ -138,9 +138,7 @@ function Navbar({
               sort={searchInput?.sort}
             />
 
-            <Suspense fallback={<ButtonSignInFallback />}>
-              <ButtonSignIn {...signInButton} />
-            </Suspense>
+            <ButtonSignIn {...signInButton} />
 
             <CartToggle {...cart} />
           </UINavbarButtons>
