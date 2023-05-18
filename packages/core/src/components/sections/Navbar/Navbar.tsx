@@ -14,6 +14,9 @@ export interface NavbarProps {
     alt: string
     src: string
   }
+  searchInput: {
+    sort: string
+  }
   signInButton: {
     icon: {
       alt: string
@@ -50,6 +53,7 @@ export interface NavbarProps {
 
 function Navbar({
   logo,
+  searchInput,
   cartIcon,
   signInButton,
   navigation: {
@@ -69,6 +73,7 @@ function Navbar({
         home={home}
         menu={menu}
         logo={logo}
+        searchInput={searchInput}
         cart={cartIcon}
         links={pageLinks}
         signIn={{ button: signInButton }}

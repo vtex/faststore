@@ -1,35 +1,39 @@
 import { Suspense, useRef, useState } from 'react'
 
 import {
-  useUI,
-  useScrollDirection,
   Icon as UIIcon,
-  Navbar as UINavbar,
-  NavbarRow as UINavbarRow,
   IconButton as UIIconButton,
+  Navbar as UINavbar,
   NavbarButtons as UINavbarButtons,
   NavbarHeader as UINavbarHeader,
+  NavbarRow as UINavbarRow,
+  useScrollDirection,
+  useUI,
 } from '@faststore/ui'
 
 import { mark } from 'src/sdk/tests/mark'
 
 import CartToggle from 'src/components/cart/CartToggle'
-import SearchInput from 'src/components/search/SearchInput'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
+import SearchInput from 'src/components/search/SearchInput'
 
+import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
-import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
 
+import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
 import NavbarLinks from '../NavbarLinks'
 import NavbarSlider from '../NavbarSlider'
-import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
 
 export interface NavbarProps {
   /**
    * Logo props.
    */
   logo: SectionNavbarProps['logo']
+  /**
+   * Search Input props.
+   */
+  searchInput: SectionNavbarProps['searchInput']
   /**
    * Cart props.
    */
@@ -65,6 +69,7 @@ export interface NavbarProps {
 function Navbar({
   cart,
   logo,
+  searchInput,
   home,
   links,
   signIn,
@@ -109,7 +114,7 @@ function Navbar({
             </>
           )}
 
-          <SearchInput />
+          <SearchInput sort={searchInput?.sort} />
 
           <UINavbarButtons searchExpanded={searchExpanded}>
             {searchExpanded && (
@@ -130,6 +135,7 @@ function Navbar({
               testId="store-input-mobile"
               buttonTestId="store-input-mobile-button"
               onSearchClick={handlerExpandSearch}
+              sort={searchInput?.sort}
             />
 
             <Suspense fallback={<ButtonSignInFallback />}>
