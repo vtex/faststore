@@ -68,7 +68,7 @@ function Navbar({
   },
 }: NavbarProps) {
   return (
-    <Section as="header" className={`${styles.section} section-navbar`}>
+    <Section className={`${styles.section} section-navbar`}>
       <UINavbar
         home={home}
         menu={menu}
