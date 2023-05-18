@@ -24,7 +24,7 @@ export function mapComponentFromMdxPath(
   }
 
   const atomicDesignType = dirs[0] // atoms, molecules, organisms
-  const componentNameWithoutExtension = dirs[1].split('.')[0] // e.g. accordion.mdx -> accordion
+  const componentNameWithoutExtension = dirs[1]?.split('.')[0] // e.g. accordion.mdx -> accordion
   const componentFolder = toPascalCase(componentNameWithoutExtension) // e.g. Accordion
 
   // e.g. <user-path>/faststore/node_modules/@faststore/components/src/molecules/Accordion/Accordion.tsx
