@@ -1,8 +1,11 @@
 import type { BreadcrumbProps as UIBreadcrumbProps } from '@faststore/ui'
-import { Icon, Breadcrumb as UIBreadcrumb } from '@faststore/ui'
+import { Icon } from '@faststore/ui'
 import { memo } from 'react'
 
 import Link from 'src/components/ui/Link'
+
+import { Components } from 'src/components/sections/Breadcrumb/Overrides'
+const { UIBreadcrumb } = Components
 
 export interface BreadcrumbProps extends UIBreadcrumbProps {
   icon: string

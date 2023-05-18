@@ -15,6 +15,9 @@ export const SECTIONS = {
     ],
   },
   ProductShelf: { components: ['ProductCard', 'Carousel'] },
+  Breadcrumb: {
+    components: ['UIBreadcrumb'],
+  },
 } as const
 
 // export type ComponentOrProps =
