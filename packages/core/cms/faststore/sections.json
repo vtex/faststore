@@ -169,6 +169,39 @@
             }
           }
         },
+        "searchInput": {
+          "title": "Search Input",
+          "description": "Search Input configurations",
+          "type": "object",
+          "required": ["sort"],
+          "properties": {
+            "sort": {
+              "title": "Results default sort value",
+              "type": "string",
+              "default": "score_desc",
+              "enumNames": [
+                "Price, descending",
+                "Price, ascending",
+                "Top sales",
+                "Name, A-Z",
+                "Name, Z-A",
+                "Release date",
+                "Discount",
+                "Relevance"
+              ],
+              "enum": [
+                "price_desc",
+                "price_asc",
+                "orders_desc",
+                "name_asc",
+                "name_desc",
+                "release_desc",
+                "discount_desc",
+                "score_desc"
+              ]
+            }
+          }
+        },
         "signInButton": {
           "title": "Sign In Button",
           "type": "object",
