@@ -310,7 +310,6 @@ function Carousel({
       className={className}
       data-testid={testId}
       aria-label={ariaLabel}
-      aria-roledescription="carousel"
     >
       <div
         role="group"

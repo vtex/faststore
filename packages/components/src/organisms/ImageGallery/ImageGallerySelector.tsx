@@ -87,11 +87,9 @@ function ImageGallerySelector({
 
   return (
     <section
-      role="region"
       data-fs-image-gallery-selector
       data-testid={testId}
       aria-label={ariaLabel}
-      aria-roledescription="carousel"
     >
       {elementHasScroll && !firstImageInView && (
         <div data-fs-image-gallery-selector-control>
