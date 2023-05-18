@@ -1,5 +1,5 @@
-import ClientCMS from '@vtex/client-cms'
 import type { ContentData, Locator } from '@vtex/client-cms'
+import ClientCMS from '@vtex/client-cms'
 
 import config from '../../faststore.config'
 
@@ -54,6 +54,8 @@ export const getPage = async <T extends ContentData>(options: Options) => {
 }
 
 export type PDPContentType = ContentData
+export type PLPContentType = ContentData
+export type SearchContentType = ContentData
 
 export type PageContentType = ContentData & {
   settings: {

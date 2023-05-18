@@ -1,10 +1,5 @@
 [
   {
-    "id": "globalAlert",
-    "name": "Global Alert Page",
-    "configurationSchemaSets": []
-  },
-  {
     "id": "globalSections",
     "name": "Global Sections",
     "configurationSchemaSets": [],
@@ -63,6 +58,11 @@
   {
     "id": "plp",
     "name": "Product List Page",
+    "configurationSchemaSets": []
+  },
+  {
+    "id": "search",
+    "name": "Search Page",
     "configurationSchemaSets": []
   }
 ]

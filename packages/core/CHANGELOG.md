@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.142-alpha.0](https://github.com/vtex/faststore/compare/v2.0.141-alpha.0...v2.0.142-alpha.0) (2023-05-16)
+
+### Features
+
+- Adjust `Navbar` for CMS ([#1756](https://github.com/vtex/faststore/issues/1756)) ([105a8b2](https://github.com/vtex/faststore/commit/105a8b2f69ffd8438532d7c9eb959ed26a567675))
+
+## [2.0.141-alpha.0](https://github.com/vtex/faststore/compare/v2.0.140-alpha.0...v2.0.141-alpha.0) (2023-05-16)
+
+### Features
+
+- Pages with `RenderSection` + `Breadcrumb` section CMS ([#1747](https://github.com/vtex/faststore/issues/1747)) ([63f1b6a](https://github.com/vtex/faststore/commit/63f1b6a3b6da30b0c24ba78a8bffbc62470eac0a))
+
+## [2.0.140-alpha.0](https://github.com/vtex/faststore/compare/v2.0.139-alpha.0...v2.0.140-alpha.0) (2023-05-16)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.139-alpha.0](https://github.com/vtex/faststore/compare/v2.0.138-alpha.0...v2.0.139-alpha.0) (2023-05-15)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.138-alpha.0](https://github.com/vtex/faststore/compare/v2.0.137-alpha.0...v2.0.138-alpha.0) (2023-05-12)
+
+### Bug Fixes
+
+- removes global alert content type and page + fix core build. ([#1759](https://github.com/vtex/faststore/issues/1759)) ([a1c6a60](https://github.com/vtex/faststore/commit/a1c6a60b0f8178bd5521281b82697530b0bb13bd))
+
+## [2.0.137-alpha.0](https://github.com/vtex/faststore/compare/v2.0.136-alpha.0...v2.0.137-alpha.0) (2023-05-11)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.135-alpha.0](https://github.com/vtex/faststore/compare/v2.0.134-alpha.0...v2.0.135-alpha.0) (2023-05-10)
+
+### Bug Fixes
+
+- Lighthouse Performance 🟢 ([#1751](https://github.com/vtex/faststore/issues/1751)) ([bf8de0e](https://github.com/vtex/faststore/commit/bf8de0e5a8427fbe750b561a80fd186851ffd535))
+
 ## [2.0.134-alpha.0](https://github.com/vtex/faststore/compare/v2.0.133-alpha.0...v2.0.134-alpha.0) (2023-05-09)
 
 ### Bug Fixes

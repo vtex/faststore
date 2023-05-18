@@ -64,7 +64,7 @@ const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
         data-index={dropdownItemIndex}
         {...otherProps}
       >
-        {React.isValidElement(icon) && icon}
+        {!!icon && icon}
         {children}
       </button>
     )

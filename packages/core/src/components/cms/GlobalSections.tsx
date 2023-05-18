@@ -7,11 +7,11 @@ import { PageContentType, getPage } from 'src/server/cms'
 
 import RegionBar from 'src/components/common/RegionBar'
 import Toast from 'src/components/common/Toast'
-import Navbar from 'src/components/navigation/Navbar'
 import RenderSections from './RenderSections'
 
+import Alert from 'src/components/sections/Alert'
+import Navbar from 'src/components/sections/Navbar'
 import Footer from 'src/components/sections/Footer'
-import Alert from 'src/components/sections/Alert/Alert'
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 
@@ -23,6 +23,7 @@ export type GlobalSectionsData = {
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Alert,
   Footer,
+  Navbar,
   ...CUSTOM_COMPONENTS,
 }
 
@@ -49,7 +50,6 @@ function GlobalSections({
   return (
     <>
       <RenderSections sections={firstSections} components={COMPONENTS} />
-      <Navbar />
 
       <Toast />
 

@@ -7,7 +7,8 @@
   --fs-badge-padding                      : var(--fs-spacing-0) var(--fs-spacing-2);
 
   --fs-badge-border-radius                : var(--fs-border-radius-pill);
-  --fs-badge-border-width                 : var(--fs-border-width);
+  --fs-badge-border-width                 : 0;
+  --fs-badge-border-style                 : none;
   --fs-badge-border-color                 : transparent;
 
   --fs-badge-bkg-color                    : var(--fs-color-neutral-bkg);
@@ -50,19 +51,6 @@
   --fs-badge-danger-text-color            : var(--fs-badge-text-color);
   --fs-badge-danger-border-color          : var(--fs-color-danger-bkg);
 
-  // Discount
-  --fs-badge-discount-low-bkg-color       : var(--fs-badge-success-bkg-color);
-  --fs-badge-discount-low-text-color      : var(--fs-badge-success-text-color);
-  --fs-badge-discount-low-border-color    : var(--fs-badge-success-border-color);
-
-  --fs-badge-discount-medium-bkg-color    : var(--fs-badge-warning-bkg-color);
-  --fs-badge-discount-medium-text-color   : var(--fs-badge-warning-text-color);
-  --fs-badge-discount-medium-border-color : var(--fs-badge-warning-border-color);
-
-  --fs-badge-discount-high-bkg-color      : var(--fs-badge-danger-bkg-color);
-  --fs-badge-discount-high-text-color     : var(--fs-badge-danger-text-color);
-  --fs-badge-discount-high-border-color   : var(--fs-badge-danger-border-color);
-
   // Big
   --fs-badge-big-text-size                : var(--fs-text-size-legend);
   --fs-badge-big-padding                  : var(--fs-spacing-1) var(--fs-spacing-2);
@@ -88,6 +76,7 @@
   color: var(--fs-badge-text-color);
   text-transform: uppercase;
   white-space: nowrap;
+  border: var(--fs-badge-border-width) var(--fs-badge-border-style) var(--fs-badge-border-color);
   border-radius: var(--fs-badge-border-radius);
 
   [data-fs-badge-wrapper] {

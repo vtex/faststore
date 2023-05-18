@@ -146,7 +146,6 @@ function ProductGallery({ title, searchTerm }: Props) {
                 {pages.map((page) => (
                   <GalleryPage
                     key={`gallery-page-${page}`}
-                    showSponsoredProducts={false}
                     page={page}
                     title={title}
                   />

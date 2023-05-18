@@ -80,6 +80,7 @@ function ProductCard({
     as: NextLink,
     passHref: true,
     legacyBehavior: false,
+    prefetch: false,
   }
 
   const outOfStock = availability !== 'https://schema.org/InStock'

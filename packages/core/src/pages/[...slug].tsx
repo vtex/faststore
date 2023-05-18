@@ -25,15 +25,29 @@ import { useApplySearchState } from 'src/sdk/search/state'
 import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
 
-import storeConfig from '../../faststore.config'
+import { Locator } from '@vtex/client-cms'
+import type { ComponentType } from 'react'
 import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { Locator } from '@vtex/client-cms'
+import RenderSections from 'src/components/cms/RenderSections'
+import CUSTOM_COMPONENTS from 'src/customizations/components'
+import { getPage, PLPContentType } from 'src/server/cms'
+import storeConfig from '../../faststore.config'
 
-type Props = ServerCollectionPageQueryQuery & {
-  globalSections: GlobalSectionsData
+type Props = ServerCollectionPageQueryQuery &
+  PLPContentType & {
+    globalSections: GlobalSectionsData
+  }
+
+/**
+ * Sections: Components imported from each store's custom components and '../components/sections' only.
+ * Do not import or render components from any other folder in here.
+ */
+const COMPONENTS: Record<string, ComponentType<any>> = {
+  Breadcrumb,
+  ...CUSTOM_COMPONENTS,
 }
 
 const useSearchParams = ({
@@ -56,11 +70,11 @@ const useSearchParams = ({
   return useMemo(() => parseSearchState(new URL(hrefState)), [hrefState])
 }
 
-function Page({ globalSections, ...props }: Props) {
-  const { collection } = props
+function Page({ sections, globalSections, ...otherProps }: Props) {
+  const { collection } = otherProps
   const router = useRouter()
   const applySearchState = useApplySearchState()
-  const searchParams = useSearchParams(props)
+  const searchParams = useSearchParams(otherProps)
 
   const { page } = searchParams
   const title = collection?.seo.title ?? storeConfig.seo.title
@@ -103,9 +117,10 @@ function Page({ globalSections, ...props }: Props) {
           If needed, wrap your component in a <Section /> component
           (not the HTML tag) before rendering it here.
         */}
-        <Breadcrumb
-          breadcrumbList={collection?.breadcrumbList.itemListElement}
-          name={title}
+        <RenderSections
+          context={collection}
+          sections={sections}
+          components={COMPONENTS}
         />
 
         <Hero
@@ -161,16 +176,21 @@ export const getStaticProps: GetStaticProps<
   Props,
   { slug: string[] },
   Locator
-> = async (context) => {
-  const { params } = context
-
-  const { data, errors = [] } = await execute<
-    ServerCollectionPageQueryQueryVariables,
-    ServerCollectionPageQueryQuery
-  >({
-    variables: { slug: params?.slug.join('/') ?? '' },
-    operationName: query,
-  })
+> = async ({ params, previewData }) => {
+  const [{ data, errors = [] }, cmsPage, globalSections] = await Promise.all([
+    execute<
+      ServerCollectionPageQueryQueryVariables,
+      ServerCollectionPageQueryQuery
+    >({
+      variables: { slug: params?.slug.join('/') ?? '' },
+      operationName: query,
+    }),
+    getPage<PLPContentType>({
+      ...(previewData?.contentType === 'plp' ? previewData : null),
+      contentType: 'plp',
+    }),
+    getGlobalSectionsData(previewData),
+  ])
 
   const notFound = errors.find(isNotFoundError)
 
@@ -184,11 +204,10 @@ export const getStaticProps: GetStaticProps<
     throw errors[0]
   }
 
-  const globalSections = await getGlobalSectionsData(context.previewData)
-
   return {
     props: {
       ...data,
+      ...cmsPage,
       globalSections,
     },
   }
