@@ -27,10 +27,10 @@ export interface SortProps {
   }
 }
 
-function Sort({ label = '', options }: SortProps) {
+function Sort({ label = '', options = OptionsMap }: SortProps) {
   const { state, setState } = useSearch()
 
-  const optionsMap = Object.keys(OptionsMap).reduce((acc, currentKey) => {
+  const optionsMap = Object.keys(options).reduce((acc, currentKey) => {
     acc[currentKey] = options[currentKey] ?? OptionsMap[currentKey]
     return acc
   }, {})
