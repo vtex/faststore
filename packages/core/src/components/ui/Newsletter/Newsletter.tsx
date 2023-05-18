@@ -12,8 +12,8 @@ export interface NewsletterProps
    * Icon for the section.
    */
   icon: {
-    iconName: string
-    iconAlt: string
+    icon: string
+    alt: string
   }
   /**
    * Title for the section.
@@ -112,7 +112,7 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
         >
           <header data-fs-newsletter-header>
             <h3>
-              <Icon name={icon.iconName} width={32} height={32} />
+              <Icon name={icon.icon} width={32} height={32} />
               {title}
             </h3>
             {description && <span> {description}</span>}
@@ -133,14 +133,14 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
                   Privacy Policy.
                 </Link>
               </span>
-              {displayNameInput && (
+              {displayNameInput ? (
                 <UIInputField
                   inputRef={nameInputRef}
                   id="newsletter-name"
                   label={nameInputLabel}
                   required
                 />
-              )}
+              ) : null}
               <UIButton variant="secondary" inverse type="submit">
                 {loading ? 'Loading...' : subscribeButtonLabel}
               </UIButton>
