@@ -54,7 +54,15 @@ export const getPage = async <T extends ContentData>(options: Options) => {
 }
 
 export type PDPContentType = ContentData
-export type PLPContentType = ContentData
+export type PLPContentType = ContentData & {
+  settings: {
+    productGallery: {
+      itemsPerPage: number
+      sortBySelection: string
+    }
+  }
+}
+
 export type SearchContentType = ContentData
 
 export type PageContentType = ContentData & {

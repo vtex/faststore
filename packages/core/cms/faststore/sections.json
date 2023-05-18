@@ -1294,11 +1294,6 @@
             }
           }
         },
-        "itemsPerPage": {
-          "title": "Number of ProductCards per page",
-          "type": "integer",
-          "default": 12
-        },
         "loadMorePageButton": {
           "title": "Load more products Button",
           "type": "object",
@@ -1378,36 +1373,58 @@
         "sortBySelector": {
           "title": "Sort by selector",
           "type": "object",
+          "required": ["options"],
           "properties": {
             "label": {
               "title": "Sort by label",
               "type": "string",
               "default": "Sort by"
             },
-            "defaultSelection": {
-              "title": "Default selection value",
-              "type": "string",
-              "default": "score_desc",
-              "enumNames": [
-                "Price, descending",
-                "Price, ascending",
-                "Top sales",
-                "Name, A-Z",
-                "Name, Z-A",
-                "Release date",
-                "Discount",
-                "Relevance"
-              ],
-              "enum": [
-                "price_desc",
-                "price_asc",
-                "orders_desc",
-                "name_asc",
-                "name_desc",
-                "release_desc",
-                "discount_desc",
-                "score_desc"
-              ]
+            "options": {
+              "title": "Sort by options",
+              "type": "object",
+              "properties": {
+                "price_desc": {
+                  "title": "Sort by option label: Price, descending",
+                  "type": "string",
+                  "default": "Price, descending"
+                },
+                "price_asc": {
+                  "title": "Sort by option label: Price, ascending",
+                  "type": "string",
+                  "default": "Price, ascending"
+                },
+                "orders_desc": {
+                  "title": "Sort by option label: Top sales",
+                  "type": "string",
+                  "default": "Top sales"
+                },
+                "name_asc": {
+                  "title": "Sort by option label: Name, A-Z",
+                  "type": "string",
+                  "default": "Name, A-Z"
+                },
+                "name_desc": {
+                  "title": "Sort by option label: Name, Z-A",
+                  "type": "string",
+                  "default": "Name, Z-A"
+                },
+                "release_desc": {
+                  "title": "Sort by option label: Release date",
+                  "type": "string",
+                  "default": "Release date"
+                },
+                "discount_desc": {
+                  "title": "Sort by option label: Discount",
+                  "type": "string",
+                  "default": "Discount"
+                },
+                "score_desc": {
+                  "title": "Sort by option label: Relevance",
+                  "type": "string",
+                  "default": "Relevance"
+                }
+              }
             }
           }
         }

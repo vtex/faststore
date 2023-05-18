@@ -112,7 +112,7 @@ function ProductGallery({
           >
             <Sort
               label={sortBySelector?.label}
-              defaultSelection={sortBySelector?.defaultSelection}
+              options={sortBySelector?.options}
             />
           </UISkeleton>
           <UISkeleton
