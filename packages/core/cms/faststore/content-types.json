@@ -76,7 +76,7 @@
                   "default": 12
                 },
                 "sortBySelection": {
-                  "title": "Default selection value",
+                  "title": "Default sort by value",
                   "type": "string",
                   "default": "score_desc",
                   "enumNames": [
@@ -128,7 +128,7 @@
                   "default": 12
                 },
                 "sortBySelection": {
-                  "title": "Default selection value",
+                  "title": "Default sort by value",
                   "type": "string",
                   "default": "score_desc",
                   "enumNames": [
