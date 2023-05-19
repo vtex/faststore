@@ -1,0 +1,63 @@
+---
+title: ' Overview'
+sidebar_label: 'Getting Started'
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<header>
+
+# Overview
+
+</header>
+
+<Callout type="warning" emoji="⚠️">
+This documentation is currently under development.
+</Callout>
+
+In this Getting Started track, you'll build and deploy a FastStore Storefront at the domain `https://<account-name>.vtex.app/`.
+
+By the end of this track, you'll have a fully functional store using FastStore, seamlessly integrated with VTEX native solutions like [Headless CMS](https://www.faststore.dev/tutorials/cms/0).
+Here's an example of the final result: [Starter Store](https://starter.vtex.app).
+
+## Before you start
+
+**1. Ensure that you have installed the VTEX IO CLI on your machine.** 
+
+For more information, please refer to [this guide](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference).
+
+
+
+**2. To develop a storefront in FastStore, your account edition must be `vtex.edition-store@5.x`.**
+
+ The `5.x` major ensures that the [VTEX Intelligent Search](https://help.vtex.com/tracks/vtex-intelligent-search) app is installed in your account. After that, you need to activate the app's synchronization in the VTEX Admin.  
+
+If you are using a major above `5.x`, [open a ticket with VTEX Support](https://help.vtex.com/en/support) and specify that you require your store's Edition app to be `vtex.edition-store@5.x` for FastStore development.
+
+> ℹ️ To check your account edition use the VTEX IO CLI, log in to the VTEX store account by running `vtex login {account-name}` in the terminal. After, run `vtex edition get` to display the Edition App version installed on the current account.
+
+
+**3. The FastStore Onboarding app must be installed in your store account.** 
+
+The app is where you start your FastStore project, and to request the installation of the app, [open a ticket with the VTEX support team](https://help.vtex.com/support).
+
+---
+  
+## 1. [FastStore Onboarding](/docs/getting-started/1-faststore-onboarding/overview)
+
+Start your project with the FastStore Onboarding app. It streamlines the process by setting up the essential store configurations, creating a Github repository for your store, and providing a live demo preview of your store.
+
+## 2. [Setting Up the Project](/docs/getting-started/2-setting-up-the-project)
+
+Discover the core technologies that we will be using in this tutorial and set up all the necessary tools to implement your very first FastStore storefront and create your first storefront customization.
+
+## 3. [Understanding the Project Structure](/docs/getting-started/3-project-structure)
+
+Find out how to organize your FastStore project and get to know our recommended conventions for naming files and folders.
+
+## 4. [FastStore CLI](/docs/getting-started/4-faststore-cli)
+The FastStore Command Line Interface (CLI) is the main pre-configured tool for starting, building, and developing FastStore projects.
+
+## 5. [Next Steps](/docs/getting-started/5-next-steps)
+  
+Next, check out the next section for further guidance on how to enhance your store.

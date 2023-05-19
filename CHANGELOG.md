@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.149-alpha.0](https://github.com/vtex/faststore/compare/v2.0.148-alpha.0...v2.0.149-alpha.0) (2023-05-19)
+
+**Note:** Version bump only for package faststore
+
+## [2.0.148-alpha.0](https://github.com/vtex/faststore/compare/v2.0.147-alpha.0...v2.0.148-alpha.0) (2023-05-19)
+
+### Documentation
+
+- Fixes payment flags doc page ([#1776](https://github.com/vtex/faststore/issues/1776)) ([483c612](https://github.com/vtex/faststore/commit/483c612f41908ec5452074b02b3232d7383adc80))
+
+## [2.0.147-alpha.0](https://github.com/vtex/faststore/compare/v2.0.146-alpha.0...v2.0.147-alpha.0) (2023-05-19)
+
+### Chores
+
+- removes required button props ([#1781](https://github.com/vtex/faststore/issues/1781)) ([b2758ee](https://github.com/vtex/faststore/commit/b2758ee37ae4737b3b59a7b6634baec138fe02f6))
+
+## [2.0.146-alpha.0](https://github.com/vtex/faststore/compare/v2.0.145-alpha.0...v2.0.146-alpha.0) (2023-05-19)
+
+### Features
+
+- Hero from CMS in PLP ([#1767](https://github.com/vtex/faststore/issues/1767)) ([7cff1a5](https://github.com/vtex/faststore/commit/7cff1a55e7ce0c3a7fb1bdcb6c3f88c56fc387e2))
+
+## [2.0.145-alpha.0](https://github.com/vtex/faststore/compare/v2.0.144-alpha.0...v2.0.145-alpha.0) (2023-05-18)
+
+### Documentation
+
+- Checkbox Field component props ([#1774](https://github.com/vtex/faststore/issues/1774)) ([90abbd4](https://github.com/vtex/faststore/commit/90abbd4a4da9c30f54a4569e828b990cde0ca59e))
+
+## [2.0.144-alpha.0](https://github.com/vtex/faststore/compare/v2.0.143-alpha.0...v2.0.144-alpha.0) (2023-05-18)
+
+**Note:** Version bump only for package faststore
+
+## [2.0.143-alpha.0](https://github.com/vtex/faststore/compare/v2.0.142-alpha.0...v2.0.143-alpha.0) (2023-05-17)
+
+### Documentation
+
+- Adds Hero's props ([#1771](https://github.com/vtex/faststore/issues/1771)) ([f1ce082](https://github.com/vtex/faststore/commit/f1ce082801ddf7ff24a32ca7163aae26243c5989))
+
 ## [2.0.142-alpha.0](https://github.com/vtex/faststore/compare/v2.0.141-alpha.0...v2.0.142-alpha.0) (2023-05-16)
 
 ### Features

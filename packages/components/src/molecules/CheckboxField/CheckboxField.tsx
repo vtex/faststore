@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react'
 import Checkbox from '../../atoms/Checkbox'
 import Label from '../../atoms/Label'
 
-export type CheckboxFieldProps = {
+export interface CheckboxFieldProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */

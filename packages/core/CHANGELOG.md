@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.147-alpha.0](https://github.com/vtex/faststore/compare/v2.0.146-alpha.0...v2.0.147-alpha.0) (2023-05-19)
+
+### Chores
+
+- removes required button props ([#1781](https://github.com/vtex/faststore/issues/1781)) ([b2758ee](https://github.com/vtex/faststore/commit/b2758ee37ae4737b3b59a7b6634baec138fe02f6))
+
+## [2.0.146-alpha.0](https://github.com/vtex/faststore/compare/v2.0.145-alpha.0...v2.0.146-alpha.0) (2023-05-19)
+
+### Features
+
+- Hero from CMS in PLP ([#1767](https://github.com/vtex/faststore/issues/1767)) ([7cff1a5](https://github.com/vtex/faststore/commit/7cff1a55e7ce0c3a7fb1bdcb6c3f88c56fc387e2))
+
+## [2.0.145-alpha.0](https://github.com/vtex/faststore/compare/v2.0.144-alpha.0...v2.0.145-alpha.0) (2023-05-18)
+
+**Note:** Version bump only for package @faststore/core
+
 ## [2.0.142-alpha.0](https://github.com/vtex/faststore/compare/v2.0.141-alpha.0...v2.0.142-alpha.0) (2023-05-16)
 
 ### Features

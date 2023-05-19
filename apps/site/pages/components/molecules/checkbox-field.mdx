@@ -4,11 +4,39 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Checkbox___5dfb3d931c093ee7ebfac8bc388e68b5.png
 ---
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
-import { TokenTable, TokenRow } from 'site/components/Tokens'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { CheckboxField } from '@faststore/ui'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+
+export const getStaticProps = () => {
+  const checkboxFieldPath = path.resolve(__filename)
+  const components = ['CheckboxField.tsx']
+  const [checkboxFieldProps] = getComponentPropsFrom(checkboxFieldPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        checkboxFieldProps
+      },
+    },
+  }
+}
+
+export const CheckboxFieldPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { checkboxFieldProps } = useSSG()
+  return {
+    CheckboxField: <PropsSection propsList={checkboxFieldProps} />
+  }[component]
+}
+
 
 <header>
 # Checkbox Field
@@ -85,7 +113,9 @@ import '@faststore/ui/src/components/molecules/CheckboxField/styles.scss'
 
 ## Props
 
-<PropsSection name="CheckboxField" />
+### Checkbox Field
+
+<CheckboxFieldPropsSection component="CheckboxField" />
 
 ---
 
