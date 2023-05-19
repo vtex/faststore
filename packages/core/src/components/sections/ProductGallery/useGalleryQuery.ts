@@ -21,9 +21,6 @@ export const query = gql`
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
   ) {
-    redirect(term: $term, selectedFacets: $selectedFacets) {
-      url
-    }
     search(
       first: $first
       after: $after

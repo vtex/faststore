@@ -1009,7 +1009,6 @@ export type ProductGalleryQueryQueryVariables = Exact<{
 }>
 
 export type ProductGalleryQueryQuery = {
-  redirect: { url: string | null } | null
   search: {
     products: { pageInfo: { totalCount: number } }
     facets: Array<
