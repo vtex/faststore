@@ -14,7 +14,13 @@ const Tile = forwardRef<HTMLLIElement, TileProps>(function Tile(
   ref
 ) {
   return (
-    <li ref={ref} data-fs-tile data-testid={testId} {...otherProps}>
+    <li
+      ref={ref}
+      role="listitem"
+      data-fs-tile
+      data-testid={testId}
+      {...otherProps}
+    >
       {children}
     </li>
   )

@@ -136,6 +136,8 @@ function Navbar({
               buttonTestId="store-input-mobile-button"
               onSearchClick={handlerExpandSearch}
               sort={searchInput?.sort}
+              hidden={!searchExpanded}
+              aria-hidden={!searchExpanded}
             />
 
             <ButtonSignIn {...signInButton} />

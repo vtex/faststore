@@ -37,7 +37,6 @@ function CarouselItem({
 
   return (
     <li
-      tabIndex={0}
       style={style}
       id={`${id}-carousel-item-${index}`}
       data-fs-carousel-item
