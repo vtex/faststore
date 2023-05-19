@@ -2,28 +2,23 @@ import { Suspense, useRef, useState } from 'react'
 
 import {
   Icon as UIIcon,
-  IconButton as UIIconButton,
   Navbar as UINavbar,
-  NavbarButtons as UINavbarButtons,
-  NavbarHeader as UINavbarHeader,
   NavbarRow as UINavbarRow,
-  useScrollDirection,
-  useUI,
+  NavbarButtons as UINavbarButtons,
+  IconButton as UIIconButton,
 } from '@faststore/ui'
 
 import { mark } from 'src/sdk/tests/mark'
 
-import CartToggle from 'src/components/cart/CartToggle'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
 
 import Link from 'src/components/ui/Link'
-import Logo from 'src/components/ui/Logo'
-import { ButtonSignIn } from 'src/components/ui/Button'
+import { ButtonSignInFallback } from 'src/components/ui/Button'
 
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
-import NavbarLinks from '../NavbarLinks'
-import NavbarSlider from '../NavbarSlider'
+
+import { Components } from 'src/components/sections/Navbar/Overrides'
 
 export interface NavbarProps {
   /**
@@ -84,6 +79,16 @@ function Navbar({
   const { openNavbar, navbar: displayNavbar } = useUI()
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
+
+  const {
+    UINavbarHeader,
+    NavbarSlider,
+    SearchInput,
+    ButtonSignIn,
+    CartToggle,
+    Logo,
+    NavbarLinks,
+  } = Components
 
   const handlerExpandSearch = () => {
     setSearchExpanded(true)

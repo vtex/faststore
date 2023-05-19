@@ -1,5 +1,9 @@
 import { ProductTitle as UIProductTitle } from '@faststore/ui'
 
-export default function ProductTitle() {
-  return <UIProductTitle title={<h1>Overriding this component</h1>} />
+export interface CustomComponentProps {
+  name: string
+}
+
+export default function ProductTitle({ name = 'Component' }) {
+  return <UIProductTitle title={<h1>Overriding {name}</h1>} />
 }

@@ -15,6 +15,23 @@ export const SECTIONS = {
     ],
   },
   ProductShelf: { components: ['ProductCard', 'Carousel'] },
+  Navbar: {
+    components: [
+      'UINavbarHeader',
+      'UINavbarSliderHeader',
+      'UINavbarSliderContent',
+      'UINavbarSliderFooter',
+      'Navbar',
+      'NavbarLinks',
+      'NavbarSlider',
+      'SearchInput',
+      'RegionButton',
+      'ButtonSignIn',
+      'CartToggle',
+      'Logo',
+      'UINavbarSlider',
+    ],
+  },
   Breadcrumb: {
     components: ['UIBreadcrumb'],
   },

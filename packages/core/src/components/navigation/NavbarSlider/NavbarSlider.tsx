@@ -1,16 +1,15 @@
 import {
-  NavbarSlider as UINavbarSlider,
-  NavbarSliderContent as UINavbarSliderContent,
-  NavbarSliderFooter as UINavbarSliderFooter,
-  NavbarSliderHeader as UINavbarSliderHeader,
+  // NavbarSlider as UINavbarSlider,
+  // NavbarSliderContent as UINavbarSliderContent,
+  // NavbarSliderFooter as UINavbarSliderFooter,
+  // NavbarSliderHeader as UINavbarSliderHeader,
   useFadeEffect,
   useUI,
 } from '@faststore/ui'
 import { Suspense } from 'react'
 
-import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
+import { ButtonSignInFallback } from 'src/components/ui/Button'
 import Link from 'src/components/ui/Link'
-import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
 
 import NavbarLinks from '../NavbarLinks'
@@ -18,6 +17,7 @@ import type { NavbarProps } from '../Navbar'
 
 import styles from '../../sections/Navbar/section.module.scss'
 
+import { Components } from 'src/components/sections/Navbar/Overrides'
 interface NavbarSliderProps {
   logo: NavbarProps['logo']
   home: NavbarProps['home']
@@ -35,6 +35,16 @@ function NavbarSlider({
 }: NavbarSliderProps) {
   const { closeNavbar } = useUI()
   const { fade, fadeOut } = useFadeEffect()
+
+  const {
+    Logo,
+    ButtonSignIn,
+    UINavbarSlider,
+    UINavbarSliderHeader,
+    UINavbarSliderContent,
+    UINavbarSliderFooter,
+    NavbarLinks,
+  } = Components
 
   return (
     <UINavbarSlider
