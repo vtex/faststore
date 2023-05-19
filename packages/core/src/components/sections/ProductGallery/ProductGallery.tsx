@@ -21,6 +21,7 @@ export interface ProductGallerySectionProps {
   itemsPerPage?: ProductGalleryProps['itemsPerPage']
   loadMorePageButton?: ProductGalleryProps['loadMorePageButton']
   sortBySelector?: ProductGalleryProps['sortBySelector']
+  productCard?: ProductGalleryProps['productCard']
 }
 
 const isSearch = (x: any): x is SearchPageContextType =>
@@ -32,12 +33,7 @@ const isCollection = (
 
 function ProductGallerySection({
   context,
-  searchTermLabel,
-  totalCountLabel,
-  filter,
-  previousPageButton,
-  loadMorePageButton,
-  sortBySelector,
+  ...otherProps
 }: ProductGallerySectionProps) {
   const [title, searchTerm] = isSearch(context)
     ? [context?.title, context?.searchTerm]
@@ -70,12 +66,7 @@ function ProductGallerySection({
         searchTerm={searchTerm}
         productGalleryData={productGalleryData}
         totalCount={totalCount}
-        searchTermLabel={searchTermLabel}
-        totalCountLabel={totalCountLabel}
-        filter={filter}
-        previousPageButton={previousPageButton}
-        loadMorePageButton={loadMorePageButton}
-        sortBySelector={sortBySelector}
+        {...otherProps}
       />
     </Section>
   )

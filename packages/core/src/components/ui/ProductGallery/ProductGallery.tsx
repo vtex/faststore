@@ -15,6 +15,7 @@ import FilterSkeleton from 'src/components/skeletons/FilterSkeleton'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
 import { ProductGalleryQueryQuery } from '@generated/graphql'
+import { ProductCardProps } from 'src/components/product/ProductCard'
 import { SortProps } from 'src/components/search/Sort/Sort'
 import { useDelayedFacets } from './useDelayedFacets'
 import { useDelayedPagination } from './useDelayedPagination'
@@ -56,6 +57,7 @@ export interface ProductGalleryProps {
     label?: string
   }
   sortBySelector?: SortProps
+  productCard?: Pick<ProductCardProps, 'showDiscountBadge' | 'bordered'>
 }
 
 function ProductGallery({
@@ -69,6 +71,7 @@ function ProductGallery({
   previousPageButton,
   loadMorePageButton,
   sortBySelector,
+  productCard,
 }: ProductGalleryProps) {
   const { openFilter } = useUI()
   const { pages, addNextPage, addPrevPage } = useSearch()
@@ -179,6 +182,7 @@ function ProductGallery({
                   key={`gallery-page-${page}`}
                   page={page}
                   title={title}
+                  productCard={productCard}
                 />
               ))}
             </Suspense>

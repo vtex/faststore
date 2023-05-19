@@ -1281,9 +1281,9 @@
   {
     "name": "ProductGallery",
     "schema": {
-      "title": "ProductGallery",
+      "title": "Product Gallery",
       "type": "object",
-      "description": "ProductGallery configuration",
+      "description": "Product Gallery configuration",
       "required": ["filter"],
       "properties": {
         "searchTermLabel": {
@@ -1402,61 +1402,19 @@
             }
           }
         },
-        "sortBySelector": {
-          "title": "Sort by selector",
+        "productCard": {
+          "title": "Product Card Configuration",
           "type": "object",
-          "required": ["options"],
           "properties": {
-            "label": {
-              "title": "Sort by label",
-              "type": "string",
-              "default": "Sort by"
+            "showDiscountBadge": {
+              "title": "Show discount badge?",
+              "type": "boolean",
+              "default": true
             },
-            "options": {
-              "title": "Sort by options",
-              "type": "object",
-              "properties": {
-                "price_desc": {
-                  "title": "Sort by option label: Price, descending",
-                  "type": "string",
-                  "default": "Price, descending"
-                },
-                "price_asc": {
-                  "title": "Sort by option label: Price, ascending",
-                  "type": "string",
-                  "default": "Price, ascending"
-                },
-                "orders_desc": {
-                  "title": "Sort by option label: Top sales",
-                  "type": "string",
-                  "default": "Top sales"
-                },
-                "name_asc": {
-                  "title": "Sort by option label: Name, A-Z",
-                  "type": "string",
-                  "default": "Name, A-Z"
-                },
-                "name_desc": {
-                  "title": "Sort by option label: Name, Z-A",
-                  "type": "string",
-                  "default": "Name, Z-A"
-                },
-                "release_desc": {
-                  "title": "Sort by option label: Release date",
-                  "type": "string",
-                  "default": "Release date"
-                },
-                "discount_desc": {
-                  "title": "Sort by option label: Discount",
-                  "type": "string",
-                  "default": "Discount"
-                },
-                "score_desc": {
-                  "title": "Sort by option label: Relevance",
-                  "type": "string",
-                  "default": "Relevance"
-                }
-              }
+            "bordered": {
+              "title": "Cards should be bordered?",
+              "type": "boolean",
+              "default": true
             }
           }
         }
