@@ -21,6 +21,7 @@ import type {
   OrderFormInputItem,
   OrderFormItem
 } from '../clients/commerce/types/OrderForm'
+import { IncrementedAddress } from '../clients/commerce/types/IncrementedAddress'
 
 type Indexed<T> = T & { index?: number }
 
@@ -210,14 +211,14 @@ async function getOrderNumberFromSession(
     const { namespaces } = await commerce.getSessionOrder()
     return namespaces.checkout?.orderFormId?.value
   }
-  return ;
+  return;
 }
 
 // Returns the regionalized orderForm
 const getOrderForm = async (
   id: string,
   session: Maybe<IStoreSession> | undefined,
-  { clients: { commerce } }: Context
+  { clients: { commerce } }: Context,
 ) => {
   const orderForm = await commerce.checkout.orderForm({
     id,
@@ -234,15 +235,26 @@ const getOrderForm = async (
 
   const shouldUpdateShippingData =
     typeof session.postalCode === 'string' &&
-    orderForm.shippingData?.address?.postalCode != session.postalCode
+    orderForm.shippingData?.address?.postalCode !== session.postalCode ||
+    (
+      typeof session.geoCoordinates === 'object' &&
+      typeof session.geoCoordinates?.latitude === 'number' &&
+      typeof session.geoCoordinates.longitude === 'number' &&
+      (orderForm.shippingData?.address?.geoCoordinates[0] !== session.geoCoordinates.longitude ||
+        orderForm.shippingData?.address?.geoCoordinates[1] !== session.geoCoordinates.latitude)
+    );
 
   if (shouldUpdateShippingData) {
+    let incrementedAddress: IncrementedAddress | undefined;
+    if (session.postalCode) {
+      incrementedAddress = await commerce.checkout.incrimentAddress(session.country, session.postalCode)
+    }
     return commerce.checkout.shippingData({
       id: orderForm.orderFormId,
       body: {
         selectedAddresses: [session],
       },
-    })
+    }, incrementedAddress)
   }
 
   return orderForm
@@ -298,11 +310,11 @@ export const validateCart = async (
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
   const isStale = isOrderFormStale(orderForm)
-  
+
   if (isStale && orderNumber) {
     const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
       joinItems
-      )
+    )
     return orderFormToCart(newOrderForm, skuLoader)
   }
 
