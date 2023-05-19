@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.148-alpha.0](https://github.com/vtex/faststore/compare/v2.0.147-alpha.0...v2.0.148-alpha.0) (2023-05-19)
+
+### Documentation
+
+- Fixes payment flags doc page ([#1776](https://github.com/vtex/faststore/issues/1776)) ([483c612](https://github.com/vtex/faststore/commit/483c612f41908ec5452074b02b3232d7383adc80))
+
 ## [2.0.147-alpha.0](https://github.com/vtex/faststore/compare/v2.0.146-alpha.0...v2.0.147-alpha.0) (2023-05-19)
 
 ### Chores
