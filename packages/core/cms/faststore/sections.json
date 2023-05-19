@@ -648,7 +648,7 @@
       "title": "Hero",
       "description": "Add a quick promotion with an image/action pair",
       "type": "object",
-      "required": ["title", "link"],
+      "required": ["title"],
       "properties": {
         "title": {
           "title": "Title",
