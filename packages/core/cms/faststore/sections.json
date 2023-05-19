@@ -661,7 +661,6 @@
         "link": {
           "title": "Call to Action",
           "type": "object",
-          "required": ["text", "url"],
           "properties": {
             "text": {
               "type": "string",
