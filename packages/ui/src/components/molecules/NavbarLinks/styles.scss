@@ -36,6 +36,7 @@
 
   [data-fs-navbar-links-wrapper] {
     @include layout-content;
+
     @include media(">=notebook") {
       display: flex;
       align-items: center;
