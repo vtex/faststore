@@ -116,7 +116,6 @@ export const VtexCommerce = (
           }))
         };
 
-        console.log(mappedBody)
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
