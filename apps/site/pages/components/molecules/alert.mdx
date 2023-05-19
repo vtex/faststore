@@ -4,11 +4,39 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Alert___8853e3dae68a1a6a1c5d6a103b752ede.png
 ---
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { Alert, Icon } from '@faststore/ui'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+
+export const getStaticProps = () => {
+  const alertPath = path.resolve(__filename)
+  const components = ['Alert.tsx']
+  const [alertProps] = getComponentPropsFrom(alertPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        alertProps
+      },
+    },
+  }
+}
+
+export const AlertPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { alertProps } = useSSG()
+  return {
+    Alert: <PropsSection propsList={alertProps} />
+  }[component]
+}
 
 <header>
 
@@ -112,7 +140,7 @@ import '@faststore/ui/src/components/atoms/Alert/styles.scss'
 
 ## Props
 
-<PropsSection name="BuyButton" />
+<AlertPropsSection component="Alert" />
 
 ---
 
