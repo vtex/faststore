@@ -1,18 +1,10 @@
-import {
-  // NavbarSlider as UINavbarSlider,
-  // NavbarSliderContent as UINavbarSliderContent,
-  // NavbarSliderFooter as UINavbarSliderFooter,
-  // NavbarSliderHeader as UINavbarSliderHeader,
-  useFadeEffect,
-  useUI,
-} from '@faststore/ui'
+import { useFadeEffect, useUI } from '@faststore/ui'
 import { Suspense } from 'react'
 
 import { ButtonSignInFallback } from 'src/components/ui/Button'
 import Link from 'src/components/ui/Link'
 import { mark } from 'src/sdk/tests/mark'
 
-import NavbarLinks from '../NavbarLinks'
 import type { NavbarProps } from '../Navbar'
 
 import styles from '../../sections/Navbar/section.module.scss'
