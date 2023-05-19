@@ -14,6 +14,14 @@ function RegionModal() {
   const handleSubmit = async () => {
     const postalCode = inputRef.current?.value
 
+    //remove before merge
+    const addressType = 'search'
+    const country = 'BRA'
+    const deliveryMode = {
+      deliveryChannel: 'pickup-in-point',
+      deliveryMethod: 'pickuppoint (100-200-300-400)',
+    }
+
     if (typeof postalCode !== 'string') {
       return
     }
@@ -24,6 +32,9 @@ function RegionModal() {
       const newSession = {
         ...session,
         postalCode,
+        addressType,
+        deliveryMode,
+        country,
       }
 
       const validatedSession = await validateSession(newSession)

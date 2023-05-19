@@ -246,11 +246,19 @@ const getOrderForm = async (
 
   if (shouldUpdateShippingData) {
     let incrementedAddress: IncrementedAddress | undefined;
+
+    //remove before merge
+    session.country = "BRA"
+
     if (session.postalCode) {
       incrementedAddress = await commerce.checkout.incrimentAddress(session.country, session.postalCode)
     }
+    //remove before merge
+    console.log("selectedAddresses", session)
     return commerce.checkout.shippingData({
       id: orderForm.orderFormId,
+      index: orderForm.items.length,
+      deliveryMode: session.deliveryMode,
       body: {
         selectedAddresses: [session],
       },

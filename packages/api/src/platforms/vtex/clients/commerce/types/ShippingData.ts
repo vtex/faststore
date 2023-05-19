@@ -29,3 +29,8 @@ export interface LogisticsInfo {
     selectedDeliveryChannel?: string;
     selectedSla?: string;
 }
+
+export interface DeliveryMode {
+    deliveryChannel?: string;
+    deliveryMethod?: string;
+}
