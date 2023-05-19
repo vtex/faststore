@@ -8,26 +8,6 @@ import { cypress } from '../../faststore.config'
 
 const { pages } = cypress
 
-function terminalLog(violations) {
-  cy.task(
-    'log',
-    `${violations.length} accessibility violation${
-      violations.length === 1 ? '' : 's'
-    } ${violations.length === 1 ? 'was' : 'were'} detected`
-  )
-  // pluck specific keys to keep the table readable
-  const violationData = violations.map(
-    ({ id, impact, description, nodes }) => ({
-      id,
-      impact,
-      description,
-      nodes: nodes,
-    })
-  )
-
-  cy.task('table', violationData)
-}
-
 describe('Accessibility tests', () => {
   beforeEach(() => {
     cy.clearIDB()
@@ -41,7 +21,7 @@ describe('Accessibility tests', () => {
     cy.getById('product-link').should('exist')
 
     cy.injectAxe()
-    cy.checkA11y(null, null)
+    cy.checkA11y()
   })
 
   it('checks a11y for product page', () => {
@@ -60,6 +40,6 @@ describe('Accessibility tests', () => {
     cy.waitForHydration()
 
     cy.injectAxe()
-    cy.checkA11y(null, null, terminalLog)
+    cy.checkA11y()
   })
 })
