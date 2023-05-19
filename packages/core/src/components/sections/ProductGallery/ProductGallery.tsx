@@ -7,7 +7,6 @@ import {
 import { NextSeo } from 'next-seo'
 import type { MouseEvent } from 'react'
 import { Suspense, lazy } from 'react'
-import router from 'next/router'
 
 import { Icon, useUI } from '@faststore/ui'
 import Filter from 'src/components/search/Filter'
