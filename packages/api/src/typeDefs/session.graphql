@@ -69,6 +69,10 @@ type StoreSession {
   """
   channel: String
   """
+  Session type of address.
+  """
+  addressType: String
+  """
   Session postal code.
   """
   postalCode: String
@@ -102,6 +106,10 @@ input IStoreSession {
   Session input channel.
   """
   channel: String
+  """
+  Session type of address.
+  """
+  addressType: String
   """
   Session input postal code.
   """

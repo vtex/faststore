@@ -234,6 +234,8 @@ export type IStoreSelectedFacet = {
 
 /** Session input. */
 export type IStoreSession = {
+  /** Session type of address. */
+  addressType?: Maybe<Scalars['String']>;
   /** Session input channel. */
   channel?: Maybe<Scalars['String']>;
   /** Session input country. */
@@ -965,6 +967,8 @@ export type StoreSeo = {
 /** Session information. */
 export type StoreSession = {
   __typename?: 'StoreSession';
+  /** Session type of address. */
+  addressType?: Maybe<Scalars['String']>;
   /** Session channel. */
   channel?: Maybe<Scalars['String']>;
   /** Session country. */

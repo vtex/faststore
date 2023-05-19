@@ -22,6 +22,7 @@ export interface Session {
   currency: Currency
   country: string // BRA
   channel: string | null
+  addressType: string | null
   postalCode: string | null
   geoCoordinates: GeoCoordinates | null
   person: Person | null

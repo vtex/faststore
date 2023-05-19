@@ -91,25 +91,37 @@ export const VtexCommerce = (
           }
         )
       },
-      shippingData: ({
+      shippingData: async ({
         id,
         body,
       }: {
         id: string
         body: ShippingDataBody
       }): Promise<OrderForm> => {
-        if (body.selectedAddresses) {
-          body.selectedAddresses.forEach((address) => {
-            if (address.geoCoordinates === null) {
-              address.geoCoordinates = [];
-            }
-          });
-        }
+
+        const mappedBody = {
+          "selectedAddresses": body?.selectedAddresses?.map(address => ({
+            "addressType": address.addressType || null,
+            "receiverName": address.receiverName || null,
+            "postalCode": address.postalCode || null,
+            "city": address.city || null,
+            "state": address.state || null,
+            "country": address.country || null,
+            "street": address.street || null,
+            "number": address.number || null,
+            "neighborhood": address.neighborhood || null,
+            "complement": address.complement || null,
+            "reference": address.reference || null,
+            "geoCoordinates": address.geoCoordinates || []
+          }))
+        };
+
+        console.log(mappedBody)
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
             ...BASE_INIT,
-            body: JSON.stringify(body),
+            body: JSON.stringify(mappedBody),
           }
         )
       },
