@@ -40,7 +40,6 @@ function CarouselItem({
       tabIndex={0}
       style={style}
       id={`${id}-carousel-item-${index}`}
-      aria-hidden={isItemVisible(index - Number(infiniteMode)) === false}
       data-fs-carousel-item
       data-fs-carousel-item-visible={
         isItemVisible(index - Number(infiniteMode)) || undefined

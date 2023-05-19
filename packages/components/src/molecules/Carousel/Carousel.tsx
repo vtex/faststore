@@ -312,7 +312,6 @@ function Carousel({
       aria-label={ariaLabel}
     >
       <div
-        aria-roledescription="slide"
         data-fs-carousel-track-container
         style={{
           width: '100%',
