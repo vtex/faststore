@@ -11,6 +11,7 @@ const initialSession = {
   country: 'USA',
   locale: 'en-US',
   channel: 'test-channel',
+  addressType: null,
   postalCode: null,
   geoCoordinates: null,
   person: null,

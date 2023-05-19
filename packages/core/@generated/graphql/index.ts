@@ -181,6 +181,8 @@ export type IStoreSelectedFacet = {
 
 /** Session input. */
 export type IStoreSession = {
+  /** Session input address Type. */
+  addressType: InputMaybe<Scalars['String']>
   /** Session input channel. */
   channel: InputMaybe<Scalars['String']>
   /** Session input country. */
@@ -851,6 +853,8 @@ export type StoreSeo = {
 
 /** Session information. */
 export type StoreSession = {
+  /** Session address Type. */
+  addressType: Maybe<Scalars['String']>
   /** Session channel. */
   channel: Maybe<Scalars['String']>
   /** Session country. */
@@ -1323,6 +1327,7 @@ export type ValidateSessionMutation = {
     channel: string | null
     country: string
     postalCode: string | null
+    addressType: string | null
     geoCoordinates: { latitude: number; longitude: number } | null
     currency: { code: string; symbol: string }
     person: {
