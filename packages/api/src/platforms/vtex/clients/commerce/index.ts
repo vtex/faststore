@@ -109,6 +109,7 @@ export const VtexCommerce = (
       },
 
       shippingData: ({
+
         id,
         body,
       }: {
