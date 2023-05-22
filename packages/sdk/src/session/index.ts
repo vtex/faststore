@@ -18,7 +18,7 @@ export interface DeliveryWindow {
 export interface DeliveryMode {
   deliveryChannel: string
   deliveryMethod: string
-  deliveryWindow?: DeliveryWindow 
+  deliveryWindow: DeliveryWindow | null
 }
 
 export interface Person {

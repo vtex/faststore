@@ -247,17 +247,28 @@ const getOrderForm = async (
   if (shouldUpdateShippingData) {
     let incrementedAddress: IncrementedAddress | undefined;
 
-    //remove before merge
-    session.country = "BRA"
-
     if (session.postalCode) {
-      incrementedAddress = await commerce.checkout.incrimentAddress(session.country, session.postalCode)
-      
+      incrementedAddress = await commerce.checkout.incrementedAddress(session.country, session.postalCode)
+
       //remove before merge
       console.log("Incremented Address", incrementedAddress)
     }
     //remove before merge
     console.log("selectedAddresses", session)
+    const hasDeliveryWindow = session.deliveryMode?.deliveryWindow ? true : false
+
+    if (hasDeliveryWindow) {
+      // if you have a Delivery Window you have to first get the delivery window to set the desired after
+      await commerce.checkout.getDeliveryWindows({
+        id: orderForm.orderFormId,
+        index: orderForm.items.length,
+        deliveryMode: session.deliveryMode,
+        body: {
+          selectedAddresses: [session],
+        },
+      }, incrementedAddress)
+    }
+
     return commerce.checkout.shippingData({
       id: orderForm.orderFormId,
       index: orderForm.items.length,

@@ -93,7 +93,7 @@ export const VtexCommerce = (
         )
       },
 
-      incrimentAddress: (
+      incrementedAddress: (
         country: string,
         postalCode: string
       ): Promise<IncrementedAddress> => {
@@ -108,7 +108,7 @@ export const VtexCommerce = (
           : Promise.resolve(undefined);
       },
 
-      shippingData: ({
+      getDeliveryWindows: ({
         id,
         index,
         deliveryMode,
@@ -120,7 +120,7 @@ export const VtexCommerce = (
         body: ShippingDataBody
       },
         incrementedAddress?: IncrementedAddress): Promise<OrderForm> => {
-        
+
         const mappedBody = {
           "logisticsInfo": Array.from({ length: index }, (_, itemIndex) => ({
             itemIndex,
@@ -143,7 +143,7 @@ export const VtexCommerce = (
           }))
         };
 
-         //remove before merge
+        //remove before merge
         console.log("Mapped Body for Shipping Data", mappedBody)
 
         return fetchAPI(
@@ -154,6 +154,63 @@ export const VtexCommerce = (
           }
         )
       },
+
+      shippingData: ({
+        id,
+        index,
+        deliveryMode,
+        body,
+      }: {
+        id: string
+        index: number
+        deliveryMode?: DeliveryMode | null
+        body: ShippingDataBody
+      },
+        incrementedAddress?: IncrementedAddress): Promise<OrderForm> => {
+
+        const hasDeliveryWindow = deliveryMode?.deliveryWindow ? true : false
+
+        const deliveryWindow = hasDeliveryWindow ? {
+          "startDateUtc": deliveryMode?.deliveryWindow?.startDate,
+          "endDateUtc": deliveryMode?.deliveryWindow?.endDate,
+        } : null
+
+        const mappedBody = {
+          "logisticsInfo": Array.from({ length: index }, (_, itemIndex) => ({
+            itemIndex,
+            selectedDeliveryChannel: deliveryMode?.deliveryChannel,
+            selectedSla: deliveryMode?.deliveryMethod,
+            deliveryWindow: deliveryWindow
+          })),
+          "selectedAddresses": body?.selectedAddresses?.map(address => ({
+            "addressType": address.addressType || null,
+            "receiverName": address.receiverName || null,
+            "postalCode": address.postalCode || incrementedAddress?.postalCode || null,
+            "city": incrementedAddress?.city || null,
+            "state": incrementedAddress?.state || null,
+            "country": address.country || incrementedAddress?.country || null,
+            "street": incrementedAddress?.street || null,
+            "number": incrementedAddress?.number || null,
+            "neighborhood": incrementedAddress?.neighborhood || null,
+            "complement": incrementedAddress?.complement || null,
+            "reference": incrementedAddress?.reference || null,
+            "geoCoordinates": address.geoCoordinates || incrementedAddress?.geoCoordinates || []
+          }))
+        };
+
+        //remove before merge
+        console.log("Mapped Body for Shipping Data", mappedBody)
+        console.log("Delivery Window", deliveryWindow)
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
+          {
+            ...BASE_INIT,
+            body: JSON.stringify(mappedBody),
+          }
+        )
+      },
+
       orderForm: ({
         id,
         refreshOutdatedData = true,
