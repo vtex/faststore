@@ -3,28 +3,19 @@ import { Suspense } from 'react'
 
 import { ButtonSignInFallback } from 'src/components/ui/Button'
 import Link from 'src/components/ui/Link'
+import NavbarLinks from 'src/components/navigation/NavbarLinks'
 import { mark } from 'src/sdk/tests/mark'
 
 import type { NavbarProps } from '../Navbar'
 
 import styles from '../../sections/Navbar/section.module.scss'
 
-// import {
-//   NavbarHeader as UINavbarHeader,
-//   NavbarSlider as UINavbarSlider,
-//   NavbarSliderHeader as UINavbarSliderHeader,
-//   NavbarSliderContent as UINavbarSliderContent,
-//   NavbarSliderFooter as UINavbarSliderFooter,
-// } from '@faststore/ui'
-
-import NavbarLinks from 'src/components/navigation/NavbarLinks'
-
 import { Components } from 'src/components/sections/Navbar/Overrides'
 
 const {
   ButtonSignIn,
   Logo,
-  NavbarSlider: NavbarSliderOverride,
+  NavbarSlider: NavbarSliderWrapper,
   NavbarSliderHeader,
   NavbarSliderContent,
   NavbarSliderFooter,
@@ -49,7 +40,7 @@ function NavbarSlider({
   const { fade, fadeOut } = useFadeEffect()
 
   return (
-    <NavbarSliderOverride
+    <NavbarSliderWrapper
       fade={fade}
       onDismiss={fadeOut}
       overlayProps={{
@@ -76,7 +67,7 @@ function NavbarSlider({
           <ButtonSignIn {...signInButton} />
         </Suspense>
       </NavbarSliderFooter>
-    </NavbarSliderOverride>
+    </NavbarSliderWrapper>
   )
 }
 

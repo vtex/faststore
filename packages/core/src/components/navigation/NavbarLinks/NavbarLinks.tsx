@@ -11,7 +11,7 @@ import { mark } from 'src/sdk/tests/mark'
 import { Components } from 'src/components/sections/Navbar/Overrides'
 
 const {
-  NavbarLinks: NavbarLinksOverride,
+  NavbarLinks: NavbarLinksWrapper,
   NavbarLinksList,
   RegionButton,
 } = Components
@@ -32,7 +32,7 @@ function NavbarLinks({
   ...otherProps
 }: NavbarLinksProps) {
   return (
-    <NavbarLinksOverride {...otherProps}>
+    <NavbarLinksWrapper {...otherProps}>
       <div className="layout__content">
         {shouldDisplayRegion && (
           <RegionButton icon={regionIcon} label={regionLabel} />
@@ -47,7 +47,7 @@ function NavbarLinks({
           ))}
         </NavbarLinksList>
       </div>
-    </NavbarLinksOverride>
+    </NavbarLinksWrapper>
   )
 }
 

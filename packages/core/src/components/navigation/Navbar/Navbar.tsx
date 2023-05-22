@@ -23,7 +23,7 @@ import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
 import { Components } from 'src/components/sections/Navbar/Overrides'
 
 const {
-  Navbar: NavbarOverride,
+  Navbar: NavbarWrapper,
   Logo,
   SearchInput,
   ButtonSignIn,
@@ -96,7 +96,7 @@ function Navbar({
   }
 
   return (
-    <NavbarOverride scrollDirection={scrollDirection}>
+    <NavbarWrapper scrollDirection={scrollDirection}>
       <UINavbarHeader>
         <UINavbarRow className="layout__content">
           {!searchExpanded && (
@@ -163,7 +163,7 @@ function Navbar({
           region={region}
         />
       )}
-    </NavbarOverride>
+    </NavbarWrapper>
   )
 }
 
