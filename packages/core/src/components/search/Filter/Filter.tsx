@@ -48,6 +48,8 @@ function Filter({
             {...filter}
             testId={testId}
             title={filterCmsData?.title}
+            clearButtonLabel={filterCmsData?.mobileOnly?.clearButtonLabel}
+            applyButtonLabel={filterCmsData?.mobileOnly?.applyButtonLabel}
           />
         </Suspense>
       )}

@@ -16,6 +16,7 @@ import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
 import { ProductGalleryQueryQuery } from '@generated/graphql'
 import { ProductCardProps } from 'src/components/product/ProductCard'
+import { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
 import { SortProps } from 'src/components/search/Sort/Sort'
 import { useDelayedFacets } from './useDelayedFacets'
 import { useDelayedPagination } from './useDelayedPagination'
@@ -41,8 +42,8 @@ export interface ProductGalleryProps {
           alt: string
         }
       }
-      clearButtonLabel: string
-      applyButtonLabel: string
+      clearButtonLabel: FilterSliderProps['clearButtonLabel']
+      applyButtonLabel: FilterSliderProps['applyButtonLabel']
     }
   }
   previousPageButton?: {
