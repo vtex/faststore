@@ -1,4 +1,7 @@
-import { HeroProps as UIHeroProps } from '@faststore/ui'
+import {
+  HeroProps as UIHeroProps,
+  HeroHeaderProps as UIHeroHeaderProps,
+} from '@faststore/ui'
 import { Components, Props } from './Overrides'
 import { ReactNode } from 'react'
 import { Image } from 'src/components/ui/Image'
@@ -7,8 +10,8 @@ import Section from '../Section'
 import styles from './section.module.scss'
 
 export type HeroProps = {
-  title: string
-  subtitle: string
+  title: UIHeroHeaderProps['title']
+  subtitle: UIHeroHeaderProps['subtitle']
   link?: {
     text: string
     url: string
@@ -56,6 +59,7 @@ const Hero = ({
           link={link?.url}
           linkText={link?.text}
           icon={icon}
+          {...Props['HeroHeaderProps']}
         />
       </HeroWrapper>
     </Section>
