@@ -17,9 +17,9 @@ import CartToggle from 'src/components/cart/CartToggle'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
 
-import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
+import { ButtonSignIn } from 'src/components/ui/Button'
 
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
 import NavbarLinks from '../NavbarLinks'
