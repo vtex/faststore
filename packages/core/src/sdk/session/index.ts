@@ -24,7 +24,6 @@ export const mutation = gql`
         deliveryChannel
         deliveryMethod
       }
-      addressType
       geoCoordinates {
         latitude
         longitude
