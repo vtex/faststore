@@ -2,11 +2,11 @@ import { useInView } from 'react-intersection-observer'
 import Section from '../Section'
 
 import styles from './section.module.scss'
-import UIProductShelf, {
-  ProductShelfProps,
-} from 'src/components/ui/ProductShelf'
+import ProductShelf, { ProductShelfProps } from 'src/components/ui/ProductShelf'
 
-function ProductShelf({ ...otherProps }: Omit<ProductShelfProps, 'inView'>) {
+function ProductShelfSection({
+  ...otherProps
+}: Omit<ProductShelfProps, 'inView'>) {
   const { ref, inView } = useInView()
 
   return (
@@ -14,9 +14,9 @@ function ProductShelf({ ...otherProps }: Omit<ProductShelfProps, 'inView'>) {
       className={`${styles.section} section-product-shelf layout__section`}
       ref={ref}
     >
-      <UIProductShelf inView={inView} {...otherProps} />
+      <ProductShelf inView={inView} {...otherProps} />
     </Section>
   )
 }
 
-export default ProductShelf
+export default ProductShelfSection

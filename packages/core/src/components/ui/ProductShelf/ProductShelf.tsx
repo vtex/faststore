@@ -9,9 +9,9 @@ import { textToKebabCase } from 'src/utils/utilities'
 
 import Carousel from '../../ui/Carousel'
 
-const { ProductCard } = Components
-
 import { Components } from 'src/components/ui/ProductShelf/Overrides'
+
+const { ProductCard } = Components
 
 type Sort =
   | 'discount_desc'
