@@ -15,31 +15,30 @@ import { Callout } from 'nextra-theme-docs'
 This documentation is currently under development.
 </Callout>
 
-In this Getting Started track, you'll build and deploy a FastStore Storefront at the domain `https://<account-name>.vtex.app/`.
+In this Getting Started track, you will build and deploy a FastStore storefront at the domain `https://{accountName}.vtex.app/`.
 
 By the end of this track, you'll have a fully functional store using FastStore, seamlessly integrated with VTEX native solutions like [Headless CMS](https://www.faststore.dev/tutorials/cms/0).
 Here's an example of the final result: [Starter Store](https://starter.vtex.app).
 
 ## Before you start
 
-**1. Ensure that you have installed the VTEX IO CLI on your machine.** 
+**1. Install the VTEX IO CLI on your machine.** 
 
 For more information, please refer to [this guide](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference).
 
+**2. Verify the compatibility of your store's Edition App.**
 
+To develop a storefront in FastStore, your account [Edition](https://developers.vtex.com/docs/guides/vtex-io-documentation-edition-app) must be `vtex.edition-store@5.x`. If you are using a different major version, please [open a ticket with VTEX Support](https://help.vtex.com/en/support) and request the installation of the Edition app `vtex.edition-store@5.x`.
 
-**2. To develop a storefront in FastStore, your account edition must be `vtex.edition-store@5.x`.**
+> ℹ️ To check which Edition App version is intalled in your account, open the terminal and use the VTEX IO CLI. Log in to your account by running `vtex login {accountName}` and run `vtex edition get` to see the Edition App version installed on the current account.
 
- The `5.x` major ensures that the [VTEX Intelligent Search](https://help.vtex.com/tracks/vtex-intelligent-search) app is installed in your account. After that, you need to activate the app's synchronization in the VTEX Admin.  
+**3. Run the Intelligent Search integration process.**
 
-If you are using a major above `5.x`, [open a ticket with VTEX Support](https://help.vtex.com/en/support) and specify that you require your store's Edition app to be `vtex.edition-store@5.x` for FastStore development.
+[TODO]
 
-> ℹ️ To check your account edition use the VTEX IO CLI, log in to the VTEX store account by running `vtex login {account-name}` in the terminal. After, run `vtex edition get` to display the Edition App version installed on the current account.
+**4. Request the installation of the FastStore Onboarding app.** 
 
-
-**3. The FastStore Onboarding app must be installed in your store account.** 
-
-The app is where you start your FastStore project, and to request the installation of the app, [open a ticket with the VTEX support team](https://help.vtex.com/support).
+The FastStore Onboarding app is where you start your FastStore project.
 
 ---
   
