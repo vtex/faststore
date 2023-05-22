@@ -19,6 +19,12 @@ const query = gql`
         slas {
           carrier
           price
+          availableDeliveryWindows {
+            startDateUtc
+            endDateUtc
+            price
+            lisPrice
+          }
           shippingEstimate
           localizedEstimates
         }

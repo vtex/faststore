@@ -99,6 +99,20 @@ export type Address = {
   street?: Maybe<Scalars['String']>;
 };
 
+export type AvailableDeliveryWindows = {
+  __typename?: 'AvailableDeliveryWindows';
+  /** Available delivery window end date in UTC */
+  endDateUtc?: Maybe<Scalars['String']>;
+  /** Available delivery window list price */
+  lisPrice?: Maybe<Scalars['Int']>;
+  /** Available delivery window price */
+  price?: Maybe<Scalars['Int']>;
+  /** Available delivery window start date in UTC */
+  startDateUtc?: Maybe<Scalars['String']>;
+  /** Available delivery window tax */
+  tax?: Maybe<Scalars['Int']>;
+};
+
 export type DeliveryIds = {
   __typename?: 'DeliveryIds';
   /** DeliveryIds courier id */
@@ -491,6 +505,8 @@ export type ShippingData = {
 
 export type ShippingSla = {
   __typename?: 'ShippingSLA';
+  /** ShippingSLA available delivery windows. */
+  availableDeliveryWindows?: Maybe<Array<Maybe<AvailableDeliveryWindows>>>;
   /** ShippingSLA carrier. */
   carrier?: Maybe<Scalars['String']>;
   /** ShippingSLA delivery channel. */

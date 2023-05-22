@@ -1133,6 +1133,7 @@ Object {
           "selectedSla": null,
           "slas": Array [
             Object {
+              "availableDeliveryWindows": null,
               "deliveryChannel": "delivery",
               "deliveryIds": Array [
                 Object {
