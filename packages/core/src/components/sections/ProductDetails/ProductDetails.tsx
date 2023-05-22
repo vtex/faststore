@@ -78,7 +78,7 @@ function ProductDetails({
   productDescription: {
     title: productDescriptionDetailsTitle,
     initiallyExpanded: productDescriptionInitiallyExpanded,
-    displayDescription: productDescriptionDisplayDescription,
+    displayDescription: shouldDisplayProductDescription,
   },
 }: ProductDetailsProps & ProductDetailsContextProps) {
   const { currency } = useSession()
@@ -164,12 +164,10 @@ function ProductDetails({
               refNumber={showRefNumber && productId}
             />
           </header>
-
           <ImageGallery
             data-fs-product-details-gallery
             images={productImages}
           />
-
           <section data-fs-product-details-info>
             <section
               data-fs-product-details-settings
@@ -211,11 +209,12 @@ function ProductDetails({
             )}
           </section>
 
-          <ProductDescription
-            labels={{ description: productDescriptionDetailsTitle }}
-            initiallyExpanded={productDescriptionInitiallyExpanded}
-            shouldDisplayDescription={productDescriptionDisplayDescription}
-          />
+          {shouldDisplayProductDescription && (
+            <ProductDescription
+              labels={{ description: productDescriptionDetailsTitle }}
+              initiallyExpanded={productDescriptionInitiallyExpanded}
+            />
+          )}
         </section>
       </section>
     </Section>

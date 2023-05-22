@@ -52,12 +52,6 @@ interface Props {
    * @default {description: 'Description', about: 'About this product', highlights: 'Product highlights', learnMore: 'Learn More' }
    */
   labels?: Partial<ArticleLabels>
-  /**
-   * Defines whether the description should be displayed or not.
-   *
-   * @default true
-   */
-  shouldDisplayDescription?: boolean
 }
 
 /**
@@ -82,7 +76,6 @@ const DEFAULT_LABELS: ArticleLabels = {
 function ProductDescription({
   initiallyExpanded = 'first',
   labels: propLabels = {},
-  shouldDisplayDescription,
 }: Props) {
   const [indices, setIndices] = useState(
     new Set(INITIALLY_EXPANDED_MAP[initiallyExpanded])
@@ -117,9 +110,7 @@ function ProductDescription({
           data-fs-product-details-description
           prefixId="product-description"
         >
-          {shouldDisplayDescription && (
-            <UIAccordionButton>{labels.description}</UIAccordionButton>
-          )}
+          <UIAccordionButton>{labels.description}</UIAccordionButton>
           <UIAccordionPanel>
             <p className="text__body">
               Sony WH-1000XM4 Wireless Industry Leading Noise Canceling Overhead
