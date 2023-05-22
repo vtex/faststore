@@ -8,7 +8,9 @@ const SECTION = 'Breadcrumb' as const
 
 const overrides: SectionOverride[typeof SECTION] = {
   name: SECTION,
-  components: { UIBreadcrumb: CustomProductTitle },
+  components: {
+    // Breadcrumb: CustomProductTitle
+  },
 }
 
 export default overrides

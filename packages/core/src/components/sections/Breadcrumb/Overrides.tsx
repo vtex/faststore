@@ -3,7 +3,7 @@ import { Breadcrumb as UIBreadcrumb } from '@faststore/ui'
 import BreadcrumbCustomizations from 'src/customizations/components/overrides/Breadcrumb'
 
 const Components = {
-  UIBreadcrumb,
+  Breadcrumb: UIBreadcrumb,
   ...BreadcrumbCustomizations.components,
 }
 

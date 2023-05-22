@@ -5,7 +5,7 @@ import { memo } from 'react'
 import Link from 'src/components/ui/Link'
 
 import { Components } from 'src/components/sections/Breadcrumb/Overrides'
-const { UIBreadcrumb } = Components
+const { Breadcrumb: BreadcrumbWrapper } = Components
 
 export interface BreadcrumbProps extends UIBreadcrumbProps {
   icon: string
@@ -17,7 +17,7 @@ const Breadcrumb = ({
   alt = 'Go to homepage',
   ...otherProps
 }: BreadcrumbProps) => (
-  <UIBreadcrumb
+  <BreadcrumbWrapper
     homeLink={
       <Link
         data-fs-breadcrumb-link
@@ -35,7 +35,7 @@ const Breadcrumb = ({
       </Link>
     )}
     {...otherProps}
-  ></UIBreadcrumb>
+  ></BreadcrumbWrapper>
 )
 
 export default memo(Breadcrumb)

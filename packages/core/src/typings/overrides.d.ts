@@ -32,7 +32,7 @@ export const SECTIONS = {
     ],
   },
   Breadcrumb: {
-    components: ['UIBreadcrumb'],
+    components: ['Breadcrumb'],
   },
 } as const
 
