@@ -135,6 +135,9 @@ export const VtexCommerce = (
           }))
         };
 
+         //remove before merge
+        console.log("Mapped Body for Shipping Data", mappedBody)
+
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
