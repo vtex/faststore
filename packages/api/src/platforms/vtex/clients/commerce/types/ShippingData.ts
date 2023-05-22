@@ -24,6 +24,11 @@ export interface GeoCoordinates {
     longitude: GLfloat;
 }
 
+export interface DeliveryWindow {
+    startDate: string;
+    endDate: string;
+}
+
 export interface LogisticsInfo {
     itemIndex?: number;
     selectedDeliveryChannel?: string;
@@ -33,4 +38,5 @@ export interface LogisticsInfo {
 export interface DeliveryMode {
     deliveryChannel?: string;
     deliveryMethod?: string;
+    deliveryWindow?: DeliveryWindow | null ;
 }

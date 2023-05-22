@@ -145,10 +145,20 @@ export type IStoreCurrency = {
 };
 
 export type IStoreDeliveryMode = {
-  /** The latitude of the geographic coordinates. */
+  /** The delivery channel information of the session. */
   deliveryChannel: Scalars['String'];
-  /** The longitude of the geographic coordinates. */
+  /** The delivery method information of the session. */
   deliveryMethod: Scalars['String'];
+  /** The delivery window information of the session. */
+  deliveryWindow?: Maybe<IStoreDeliveryWindow>;
+};
+
+/** Delivery window information. */
+export type IStoreDeliveryWindow = {
+  /** The delivery window end date information. */
+  endDate: Scalars['String'];
+  /** The delivery window start date information. */
+  startDate: Scalars['String'];
 };
 
 export type IStoreGeoCoordinates = {
@@ -691,10 +701,21 @@ export type StoreCurrency = {
 /** Delivery mode information. */
 export type StoreDeliveryMode = {
   __typename?: 'StoreDeliveryMode';
-  /** The latitude of the geographic coordinates. */
+  /** The delivery channel information of the session. */
   deliveryChannel: Scalars['String'];
-  /** The longitude of the geographic coordinates. */
+  /** The delivery method information of the session. */
   deliveryMethod: Scalars['String'];
+  /** The delivery window information of the session. */
+  deliveryWindow?: Maybe<StoreDeliveryWindow>;
+};
+
+/** Delivery window information. */
+export type StoreDeliveryWindow = {
+  __typename?: 'StoreDeliveryWindow';
+  /** The delivery window end date information. */
+  endDate: Scalars['String'];
+  /** The delivery window start date information. */
+  startDate: Scalars['String'];
 };
 
 export type StoreFacet = StoreFacetBoolean | StoreFacetRange;

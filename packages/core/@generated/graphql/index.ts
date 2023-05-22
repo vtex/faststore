@@ -92,10 +92,20 @@ export type IStoreCurrency = {
 }
 
 export type IStoreDeliveryMode = {
-  /** The latitude of the geographic coordinates. */
+  /** The delivery channel information of the session. */
   deliveryChannel: Scalars['String']
-  /** The longitude of the geographic coordinates. */
+  /** The delivery method information of the session. */
   deliveryMethod: Scalars['String']
+  /** The delivery window information of the session. */
+  deliveryWindow: InputMaybe<IStoreDeliveryWindow>
+}
+
+/** Delivery window information. */
+export type IStoreDeliveryWindow = {
+  /** The delivery window end date information. */
+  endDate: Scalars['String']
+  /** The delivery window start date information. */
+  startDate: Scalars['String']
 }
 
 export type IStoreGeoCoordinates = {
@@ -599,10 +609,20 @@ export type StoreCurrency = {
 
 /** Delivery mode information. */
 export type StoreDeliveryMode = {
-  /** The latitude of the geographic coordinates. */
+  /** The delivery channel information of the session. */
   deliveryChannel: Scalars['String']
-  /** The longitude of the geographic coordinates. */
+  /** The delivery method information of the session. */
   deliveryMethod: Scalars['String']
+  /** The delivery window information of the session. */
+  deliveryWindow: Maybe<StoreDeliveryWindow>
+}
+
+/** Delivery window information. */
+export type StoreDeliveryWindow = {
+  /** The delivery window end date information. */
+  endDate: Scalars['String']
+  /** The delivery window start date information. */
+  startDate: Scalars['String']
 }
 
 export type StoreFacet = StoreFacetBoolean | StoreFacetRange
@@ -1347,7 +1367,11 @@ export type ValidateSessionMutation = {
     country: string
     addressType: string | null
     postalCode: string | null
-    deliveryMode: { deliveryChannel: string; deliveryMethod: string } | null
+    deliveryMode: {
+      deliveryChannel: string
+      deliveryMethod: string
+      deliveryWindow: { startDate: string; endDate: string } | null
+    } | null
     geoCoordinates: { latitude: number; longitude: number } | null
     currency: { code: string; symbol: string }
     person: {

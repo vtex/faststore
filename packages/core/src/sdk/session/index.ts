@@ -23,6 +23,10 @@ export const mutation = gql`
       deliveryMode {
         deliveryChannel
         deliveryMethod
+        deliveryWindow {
+          startDate
+          endDate
+        }
       }
       geoCoordinates {
         latitude

@@ -120,11 +120,12 @@ export const VtexCommerce = (
         body: ShippingDataBody
       },
         incrementedAddress?: IncrementedAddress): Promise<OrderForm> => {
+        
         const mappedBody = {
           "logisticsInfo": Array.from({ length: index }, (_, itemIndex) => ({
             itemIndex,
             selectedDeliveryChannel: deliveryMode?.deliveryChannel,
-            selectedSla: deliveryMode?.deliveryMethod
+            selectedSla: deliveryMode?.deliveryMethod,
           })),
           "selectedAddresses": body?.selectedAddresses?.map(address => ({
             "addressType": address.addressType || null,
