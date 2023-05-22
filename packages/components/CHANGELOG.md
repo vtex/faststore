@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.151-alpha.0](https://github.com/vtex/faststore/compare/v2.0.150-alpha.0...v2.0.151-alpha.0) (2023-05-22)
+
+### Features
+
+- Adjust `ProductDetails` for CMS ([#1740](https://github.com/vtex/faststore/issues/1740)) ([5cbd315](https://github.com/vtex/faststore/commit/5cbd31544bf57336f6d53780142338f80b61226b))
+
 ## [2.0.145-alpha.0](https://github.com/vtex/faststore/compare/v2.0.144-alpha.0...v2.0.145-alpha.0) (2023-05-18)
 
 ### Documentation
