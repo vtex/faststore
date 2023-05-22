@@ -10,18 +10,17 @@ const overrides: SectionOverride[typeof SECTION] = {
   name: SECTION,
   components: {
     // Navbar: CustomComponent,
-    // UINavbarHeader: CustomComponent,
+    // Logo: CustomComponent,
     // SearchInput: CustomComponent,
     // ButtonSignIn: CustomComponent,
     // CartToggle: CustomComponent,
-    // Logo: CustomComponent,
     // NavbarLinks: CustomComponent,
+    // NavbarLinksList: CustomComponent,
     // RegionButton: CustomComponent,
     // NavbarSlider: CustomComponent,
-    // UINavbarSlider: CustomComponent,
-    // UINavbarSliderHeader: CustomComponent,
-    // UINavbarSliderContent: CustomComponent,
-    // UINavbarSliderFooter: CustomComponent,
+    // NavbarSliderHeader: CustomComponent,
+    // NavbarSliderContent: CustomComponent,
+    // NavbarSliderFooter: CustomComponent,
   },
 }
 

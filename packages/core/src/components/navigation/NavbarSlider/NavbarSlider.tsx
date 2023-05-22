@@ -9,7 +9,27 @@ import type { NavbarProps } from '../Navbar'
 
 import styles from '../../sections/Navbar/section.module.scss'
 
+// import {
+//   NavbarHeader as UINavbarHeader,
+//   NavbarSlider as UINavbarSlider,
+//   NavbarSliderHeader as UINavbarSliderHeader,
+//   NavbarSliderContent as UINavbarSliderContent,
+//   NavbarSliderFooter as UINavbarSliderFooter,
+// } from '@faststore/ui'
+
+import NavbarLinks from 'src/components/navigation/NavbarLinks'
+
 import { Components } from 'src/components/sections/Navbar/Overrides'
+
+const {
+  ButtonSignIn,
+  Logo,
+  NavbarSlider: NavbarSliderOverride,
+  NavbarSliderHeader,
+  NavbarSliderContent,
+  NavbarSliderFooter,
+} = Components
+
 interface NavbarSliderProps {
   logo: NavbarProps['logo']
   home: NavbarProps['home']
@@ -28,18 +48,8 @@ function NavbarSlider({
   const { closeNavbar } = useUI()
   const { fade, fadeOut } = useFadeEffect()
 
-  const {
-    Logo,
-    ButtonSignIn,
-    UINavbarSlider,
-    UINavbarSliderHeader,
-    UINavbarSliderContent,
-    UINavbarSliderFooter,
-    NavbarLinks,
-  } = Components
-
   return (
-    <UINavbarSlider
+    <NavbarSliderOverride
       fade={fade}
       onDismiss={fadeOut}
       overlayProps={{
@@ -47,7 +57,7 @@ function NavbarSlider({
       }}
       onTransitionEnd={() => fade === 'out' && closeNavbar()}
     >
-      <UINavbarSliderHeader onClose={fadeOut}>
+      <NavbarSliderHeader onClose={fadeOut}>
         <Link
           href="/"
           onClick={fadeOut}
@@ -57,14 +67,16 @@ function NavbarSlider({
         >
           <Logo {...logo} />
         </Link>
-      </UINavbarSliderHeader>
-      <UINavbarSliderContent>
+      </NavbarSliderHeader>
+      <NavbarSliderContent>
         <NavbarLinks onClickLink={fadeOut} links={links} region={region} />
-      </UINavbarSliderContent>
-      <UINavbarSliderFooter>
-        <ButtonSignIn {...signInButton} />
-      </UINavbarSliderFooter>
-    </UINavbarSlider>
+      </NavbarSliderContent>
+      <NavbarSliderFooter>
+        <Suspense fallback={<ButtonSignInFallback />}>
+          <ButtonSignIn {...signInButton} />
+        </Suspense>
+      </NavbarSliderFooter>
+    </NavbarSliderOverride>
   )
 }
 

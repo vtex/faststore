@@ -2,8 +2,7 @@ import Section from '../Section'
 
 import styles from './section.module.scss'
 
-import { Components } from 'src/components/sections/Navbar/Overrides'
-const { Navbar } = Components
+import Navbar from 'src/components/navigation/Navbar'
 
 type PageLinks = {
   url: string

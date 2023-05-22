@@ -2,7 +2,7 @@ import { Suspense, useRef, useState } from 'react'
 
 import {
   Icon as UIIcon,
-  Navbar as UINavbar,
+  NavbarHeader as UINavbarHeader,
   NavbarRow as UINavbarRow,
   NavbarButtons as UINavbarButtons,
   IconButton as UIIconButton,
@@ -13,12 +13,22 @@ import { mark } from 'src/sdk/tests/mark'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
 
+import NavbarLinks from 'src/components/navigation/NavbarLinks'
+import NavbarSlider from 'src/components/navigation/NavbarSlider'
 import Link from 'src/components/ui/Link'
 import { ButtonSignInFallback } from 'src/components/ui/Button'
 
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
 
 import { Components } from 'src/components/sections/Navbar/Overrides'
+
+const {
+  Navbar: NavbarOverride,
+  Logo,
+  SearchInput,
+  ButtonSignIn,
+  CartToggle,
+} = Components
 
 export interface NavbarProps {
   /**
@@ -80,23 +90,13 @@ function Navbar({
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
 
-  const {
-    UINavbarHeader,
-    NavbarSlider,
-    SearchInput,
-    ButtonSignIn,
-    CartToggle,
-    Logo,
-    NavbarLinks,
-  } = Components
-
   const handlerExpandSearch = () => {
     setSearchExpanded(true)
     searchMobileRef.current?.inputRef?.focus()
   }
 
   return (
-    <UINavbar scrollDirection={scrollDirection}>
+    <NavbarOverride scrollDirection={scrollDirection}>
       <UINavbarHeader>
         <UINavbarRow className="layout__content">
           {!searchExpanded && (
@@ -163,7 +163,7 @@ function Navbar({
           region={region}
         />
       )}
-    </UINavbar>
+    </NavbarOverride>
   )
 }
 
