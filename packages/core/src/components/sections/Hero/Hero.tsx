@@ -22,7 +22,7 @@ export type HeroProps = {
   icon?: ReactNode
 }
 
-const { UIHero, UIHeroImage, UIHeroHeader } = Components
+const { Hero: HeroWrapper, HeroImage, HeroHeader } = Components
 
 const Hero = ({
   link,
@@ -35,12 +35,12 @@ const Hero = ({
 }: HeroProps) => {
   return (
     <Section className={`${styles.section} section-hero`}>
-      <UIHero
+      <HeroWrapper
         colorVariant={colorVariant}
         variant={variant}
-        {...Props['UIHero']}
+        {...Props['Hero']}
       >
-        <UIHeroImage>
+        <HeroImage>
           <Image
             loading="eager"
             src={image.src}
@@ -49,15 +49,15 @@ const Hero = ({
             height={240}
             sizes="(max-width: 360px) 50vw, (max-width: 768px) 90vw, 50vw"
           />
-        </UIHeroImage>
-        <UIHeroHeader
+        </HeroImage>
+        <HeroHeader
           title={title}
           subtitle={subtitle}
           link={link?.url}
           linkText={link?.text}
           icon={icon}
         />
-      </UIHero>
+      </HeroWrapper>
     </Section>
   )
 }

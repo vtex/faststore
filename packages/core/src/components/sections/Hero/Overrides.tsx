@@ -23,9 +23,9 @@ Object.entries(HeroCustomizations.components).forEach(([key, value]) => {
 })
 
 const Components = {
-  UIHero,
-  UIHeroImage,
-  UIHeroHeader,
+  Hero: UIHero,
+  HeroImage: UIHeroImage,
+  HeroHeader: UIHeroHeader,
   ...heroComponentsCustomization,
 }
 
