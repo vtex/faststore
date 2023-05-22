@@ -1141,9 +1141,21 @@
           "type": "object",
           "properties": {
             "discountBadge": {
-              "title": "Show Discount Badge?",
-              "type": "boolean",
-              "default": false
+              "title": "Discount Badge",
+              "type": "object",
+              "properties": {
+                "showDiscountBadge": {
+                  "title": "Show Discount Badge?",
+                  "type": "boolean",
+                  "default": false
+                },
+                "size": {
+                  "title": "Size",
+                  "type": "string",
+                  "enumNames": ["Big", "Small"],
+                  "enum": ["big", "small"]
+                }
+              }
             },
             "refNumber": {
               "title": "Show Reference Number?",
@@ -1215,8 +1227,8 @@
             }
           }
         },
-        "productDetailsContent": {
-          "title": "Product Details Content",
+        "productDescription": {
+          "title": "Product Description",
           "type": "object",
           "properties": {
             "initiallyExpanded": {
@@ -1225,20 +1237,15 @@
               "enumNames": ["First", "All", "None"],
               "enum": ["first", "all", "none"]
             },
-            "details": {
-              "type": "object",
-              "properties": {
-                "displayDescription": {
-                  "title": "Should display description?",
-                  "type": "boolean",
-                  "default": true
-                },
-                "title": {
-                  "title": "Description section title",
-                  "type": "string",
-                  "default": "Description"
-                }
-              }
+            "displayDescription": {
+              "title": "Should display description?",
+              "type": "boolean",
+              "default": true
+            },
+            "title": {
+              "title": "Description section title",
+              "type": "string",
+              "default": "Description"
             }
           }
         }
