@@ -141,8 +141,10 @@ export const VtexCommerce = (
             "geoCoordinates": address.geoCoordinates || incrementedAddress?.geoCoordinates || []
           }))
         };
-        //remove before merge
-        console.log("mappedBody", mappedBody)
+
+         //remove before merge
+        console.log("Mapped Body for Shipping Data", mappedBody)
+
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
