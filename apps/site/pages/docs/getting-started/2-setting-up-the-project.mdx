@@ -12,10 +12,10 @@ import { Callout, Tab, Tabs } from 'nextra-theme-docs'
 </header>
 
 <Callout type="warning" emoji="⚠️">
-This documentation is currently under development.
+  This documentation is currently under development.
 </Callout>
 
-Now that your store is up and running, you're ready to set up your development environment and create a unique storefront that reflects your brand. Let's get started!
+Now that your store is up and running after [FastStore Onboarding](/docs/getting-started/1-faststore-onboarding/overview), you're ready to set up your development environment and create a unique storefront that reflects your brand. Let's get started!
 
 In this guide, you will:
 
@@ -23,7 +23,7 @@ In this guide, you will:
 - Run a local development server, usually at http://localhost:3000/.
 - Make your first change in your storefront.
 
-## Prerequisites
+## Before you start
 Before cloning your store's repository, ensure that you have the following tools on your machine:
 
 <details>
@@ -35,7 +35,7 @@ Before cloning your store's repository, ensure that you have the following tools
     <ul>
        <li>- <b><a href="https://nodejs.org/tr/download/package-manager#macos">Install Node.js on macOS using Homebrew</a></b></li>
        <li>- <b><a href="https://nodejs.org/tr/download/package-manager#windows-1">Install Node.js on Windows</a></b> </li>
-       <li>- <b><a href="https://nodejs.org/tr/download/package-manager#debian-and-ubuntu-based-linux-distributions">Install Node.js on Linux</a></b></li> 
+       <li>- <b><a href="https://nodejs.org/tr/download/package-manager#debian-and-ubuntu-based-linux-distributions">Install Node.js on Linux</a></b></li>
     </ul>
   </p>
 </details>
@@ -72,7 +72,7 @@ Before cloning your store's repository, ensure that you have the following tools
   <ul>
        <li>- <strong><a href="https://git-scm.com/download/mac">Install Git on macOS using Homebrew</a></strong></li>
        <li>- <strong><a href="https://git-scm.com/download/win">Install Git on Windows</a></strong> </li>
-       <li>- <strong><a href="https://git-scm.com/download/linux">Install Git on Linux</a></strong></li> 
+       <li>- <strong><a href="https://git-scm.com/download/linux">Install Git on Linux</a></strong></li>
     </ul>
 </details>
 
@@ -99,7 +99,7 @@ Before cloning your store's repository, ensure that you have the following tools
 Replace `{storeName}` for your store's repository.
 </Callout>
 
-3. Change into the working directory by running the following command: 
+3. Change into the working directory by running the following command:
 
 ```bash
 cd {storeName}
@@ -113,7 +113,7 @@ yarn install
 5.  Open up your FastStore project in any code editor of your choice.
 
 <Callout type="info" emoji="ℹ️">
-  Note that your store configuration was already set during the [Onboarding](/docs/getting-started/onboarding#repository-and-live-store-created). Therefore, there is no need to connect your project to your VTEX account. 
+  Note that your store configuration was already set during the [Onboarding](/docs/getting-started/onboarding#repository-and-live-store-created). Therefore, there is no need to connect your project to your VTEX account.
   If you want to review these configurations, you can access the `faststore.config.js` file in the root directory of your project's repository.
 </Callout>
 
@@ -165,76 +165,81 @@ Let's make the first level of customization which is update the store's theme wi
 // GLOBAL TOKENS
 // Theme Soft Blue
 // ----------------------------------------------------------
- 
+
+@import '@faststore/ui/src/styles/base/utilities.scss';
+@import '@faststore/ui/src/styles/base/typography.scss';
+
 .theme {
   // --------------------------------------------------------
   // Colors (Branding Core)
   // --------------------------------------------------------
- 
+
   // PALETTE
   --fs-color-main-0: #ecf0ff;
   --fs-color-main-1: #d8e2ff;
   --fs-color-main-2: #00419e;
   --fs-color-main-3: #002c71;
   --fs-color-main-4: #001947;
- 
+
   --fs-color-accent-0: #ebdcff;
   --fs-color-accent-1: #8d50fd;
   --fs-color-accent-2: #732fe2;
   --fs-color-accent-3: #5900c8;
   --fs-color-accent-4: #4700a0;
- 
+
   // HIERARCHY
   --fs-color-primary-bkg: var(--fs-color-main-4);
   --fs-color-primary-bkg-active: var(--fs-color-main-2);
   --fs-color-primary-bkg-light: var(--fs-color-main-0);
   --fs-color-primary-bkg-light-active: var(--fs-color-main-1);
- 
+
   // SITUATIONS
   --fs-color-success-bkg: #cee8de;
   --fs-color-warning-bkg: #f6e0ba;
- 
+
   // COMPONENTS & STATES
   --fs-color-text-display: var(--fs-color-main-4);
- 
+
   --fs-color-action-bkg: var(--fs-color-accent-3);
   --fs-color-action-bkg-hover: var(--fs-color-accent-2);
   --fs-color-action-bkg-active: var(--fs-color-accent-1);
- 
+
   // --------------------------------------------------------
   // Typography (Branding Core)
   // --------------------------------------------------------
- 
+
   // FACE
   --fs-text-face-body: 'Lato', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
- 
+
   // --------------------------------------------------------
   // Refinements
   // --------------------------------------------------------
- 
+
   // BORDERS
   --fs-border-radius: 0.25rem;
- 
+
   // SHADOW
   --fs-shadow: none;
   --fs-shadow-darker: 0 0 10px rgb(0 0 0 / 20%);
   --fs-shadow-hover: 0 1px 4px rgb(0 0 0 / 10%), 0 6px 8px rgb(0 0 0 / 10%);
- 
+
   // --------------------------------------------------------
   // Components
   // --------------------------------------------------------
- 
-  [data-fs-product-card] {
-    --fs-product-card-border-color: transparent;
-    --fs-product-card-border-color-hover: var(--fs-border-color-light);
- 
-    &[data-fs-product-card-bordered='true'] {
-      --fs-product-card-border-color: var(--fs-border-color-light);
+
+  .section {
+    [data-fs-product-card] {
+      --fs-product-card-border-color: transparent;
+      --fs-product-card-border-color-hover: var(--fs-border-color-light);
+
+      &[data-fs-product-card-bordered='true'] {
+        --fs-product-card-border-color: var(--fs-border-color-light);
+      }
     }
-  }
- 
-  [data-fs-logo] {
-    --fs-logo-width: 8rem;
+
+    [data-fs-logo] {
+      --fs-logo-width: 8rem;
+    }
   }
 }
 
@@ -252,27 +257,27 @@ Let's make the first level of customization which is update the store's theme wi
 ### Customizing a Component (Optional)
 If you are up for another challenge, let's customize a component. We will use the `Listing` variant from the [Price Component](/components/atoms/price) in this tutorial.
 
-1. In the `soft-blue.scss` file, add the `data-fs-price` and  `data-fs-price-variant` data attributes with the `Listing` value: 
+1. In the `soft-blue.scss` file, add the `data-fs-price` and  `data-fs-price-variant` data attributes with the `Listing` value:
 
 ```scss
   ...
   [data-fs-logo] {
     --fs-logo-width: 8rem;
   }
-  
+
   [data-fs-price] [data-fs-price-variant="listing"] {
   }
-  
+
 ```
 
 2. Now, change the color of the `Listing` variant using its [local token](/components/atoms/price#design-tokens). For this tutorial, we will use the shade of red `#cb4242`:
 ```scss
   }
-  
+
   [data-fs-price][data-fs-price-variant="listing"] {
       --fs-price-listing-color: #cb4242;
   }
-  
+
 ```
 
 3. Save your changes and check your browser to see the new color of your listing price. You may need to refresh the page.

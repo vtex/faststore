@@ -20,6 +20,7 @@ export const mutation = gql`
       country
       addressType
       postalCode
+      addressType
       geoCoordinates {
         latitude
         longitude

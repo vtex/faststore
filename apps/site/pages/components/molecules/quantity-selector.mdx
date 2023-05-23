@@ -15,11 +15,11 @@ import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
   const quantitySelectorPath = path.resolve(__filename)
-  const components = [
-    'QuantitySelector.tsx',
-  ]
-  const [quantitySelectorProps] =
-    getComponentPropsFrom(quantitySelectorPath, components)
+  const components = ['QuantitySelector.tsx']
+  const [quantitySelectorProps] = getComponentPropsFrom(
+    quantitySelectorPath,
+    components
+  )
   return {
     props: {
       // We add an `ssg` field to the page props,
@@ -38,7 +38,6 @@ export const QuantitySelectorPropsSection = ({ component }) => {
     QuantitySelector: <PropsSection propsList={quantitySelectorProps} />,
   }[component]
 }
-
 
 <header>
 
@@ -171,7 +170,11 @@ import '@faststore/ui/src/components/molecules/QuantitySelector/styles.scss'
 #### Button
 
 <TokenTable>
-  <TokenRow token="--fs-qty-selector-button-bkg-color" value="transparent" isColor />
+  <TokenRow
+    token="--fs-qty-selector-button-bkg-color"
+    value="transparent"
+    isColor
+  />
   <TokenRow
     token="--fs-qty-selector-button-border-radius"
     value="var(--fs-qty-selector-border-radius)"

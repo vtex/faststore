@@ -1,20 +1,20 @@
-import type { SearchEvent } from '@faststore/sdk'
+import type { SearchEvent, SearchState } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import type {
   SearchInputFieldProps as UISearchInputFieldProps,
   SearchInputFieldRef as UISearchInputFieldRef,
 } from '@faststore/ui'
 import {
+  SearchProviderContextValue,
   SearchInput as UISearchInput,
   SearchInputField as UISearchInputField,
-  SearchProviderContextValue,
 } from '@faststore/ui'
 import { useRouter } from 'next/router'
 import type { CSSProperties } from 'react'
 import {
+  Suspense,
   forwardRef,
   lazy,
-  Suspense,
   useDeferredValue,
   useImperativeHandle,
   useRef,
@@ -34,6 +34,7 @@ export type SearchInputProps = {
   onSearchClick?: () => void
   buttonTestId?: string
   containerStyle?: CSSProperties
+  sort?: string
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
 export type SearchInputRef = UISearchInputFieldRef & {
@@ -53,6 +54,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       onSearchClick,
       buttonTestId = 'fs-search-button',
       containerStyle,
+      sort,
       ...otherProps
     },
     ref
@@ -103,7 +105,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           placeholder="Search everything at the store"
           onChange={(e) => setSearchQuery(e.target.value)}
           onSubmit={(term) => {
-            const path = formatSearchPath(term)
+            const path = formatSearchPath({
+              term,
+              sort: sort as SearchState['sort'],
+            })
 
             onSearchSelection(term, path)
             router.push(path)
@@ -115,7 +120,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
         {searchDropdownVisible && (
           <Suspense fallback={null}>
-            <SearchDropdown />
+            <SearchDropdown sort={sort} />
           </Suspense>
         )}
       </UISearchInput>

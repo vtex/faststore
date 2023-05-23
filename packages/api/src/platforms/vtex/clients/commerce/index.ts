@@ -118,6 +118,7 @@ export const VtexCommerce = (
       },
         incrementedAddress?: IncrementedAddress): Promise<OrderForm> => {
 
+
         const mappedBody = {
           "selectedAddresses": body?.selectedAddresses?.map(address => ({
             "addressType": address.addressType || null,
@@ -132,6 +133,7 @@ export const VtexCommerce = (
             "complement": incrementedAddress?.complement || null,
             "reference": incrementedAddress?.reference || null,
             "geoCoordinates": address.geoCoordinates || incrementedAddress?.geoCoordinates || []
+
           }))
         };
 
