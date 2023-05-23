@@ -169,6 +169,39 @@
             }
           }
         },
+        "searchInput": {
+          "title": "Search Input",
+          "description": "Search Input configurations",
+          "type": "object",
+          "required": ["sort"],
+          "properties": {
+            "sort": {
+              "title": "Results default sort value",
+              "type": "string",
+              "default": "score_desc",
+              "enumNames": [
+                "Price, descending",
+                "Price, ascending",
+                "Top sales",
+                "Name, A-Z",
+                "Name, Z-A",
+                "Release date",
+                "Discount",
+                "Relevance"
+              ],
+              "enum": [
+                "price_desc",
+                "price_asc",
+                "orders_desc",
+                "name_asc",
+                "name_desc",
+                "release_desc",
+                "discount_desc",
+                "score_desc"
+              ]
+            }
+          }
+        },
         "signInButton": {
           "title": "Sign In Button",
           "type": "object",
@@ -1246,6 +1279,149 @@
               "title": "Description section title",
               "type": "string",
               "default": "Description"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "ProductGallery",
+    "schema": {
+      "title": "Product Gallery",
+      "type": "object",
+      "description": "Product Gallery configuration",
+      "required": ["filter"],
+      "properties": {
+        "searchTermLabel": {
+          "title": "Search page term label",
+          "type": "string",
+          "default": "Showing results for:"
+        },
+        "totalCountLabel": {
+          "title": "Total count label",
+          "type": "string",
+          "default": "Results"
+        },
+        "previousPageButton": {
+          "title": "Previous page button",
+          "type": "object",
+          "required": ["icon", "label"],
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["ArrowLeft"],
+                  "enum": ["ArrowLeft"],
+                  "default": "ArrowLeft"
+                },
+                "alt": {
+                  "title": "Alternative label",
+                  "type": "string",
+                  "default": "Arrow Left icon"
+                }
+              }
+            },
+            "label": {
+              "title": "Previous page button",
+              "type": "string",
+              "default": "Previous Page"
+            }
+          }
+        },
+        "loadMorePageButton": {
+          "title": "Load more products Button",
+          "type": "object",
+          "required": ["label"],
+          "properties": {
+            "label": {
+              "title": "Load more products label",
+              "type": "string",
+              "default": "Load more products"
+            }
+          }
+        },
+        "filter": {
+          "title": "Filter",
+          "type": "object",
+          "required": ["title", "mobileOnly"],
+          "properties": {
+            "title": {
+              "title": "Filter title",
+              "type": "string",
+              "default": "Filters"
+            },
+            "mobileOnly": {
+              "title": "Mobile Only",
+              "type": "object",
+              "required": [
+                "filterButton",
+                "clearButtonLabel",
+                "applyButtonLabel"
+              ],
+              "properties": {
+                "filterButton": {
+                  "title": "Show filter button",
+                  "type": "object",
+                  "required": ["label", "icon"],
+                  "properties": {
+                    "label": {
+                      "title": "Label",
+                      "type": "string",
+                      "default": "Filters"
+                    },
+                    "icon": {
+                      "title": "Icon",
+                      "type": "object",
+                      "required": ["icon", "alt"],
+                      "properties": {
+                        "icon": {
+                          "title": "Icon",
+                          "type": "string",
+                          "enumNames": ["FadersHorizontal"],
+                          "enum": ["FadersHorizontal"],
+                          "default": "FadersHorizontal"
+                        },
+                        "alt": {
+                          "title": "Alternative label",
+                          "type": "string",
+                          "default": "Open Filters"
+                        }
+                      }
+                    }
+                  }
+                },
+                "clearButtonLabel": {
+                  "title": "Clear button label",
+                  "type": "string",
+                  "default": "Clear All"
+                },
+                "applyButtonLabel": {
+                  "title": "Apply button label",
+                  "type": "string",
+                  "default": "Apply"
+                }
+              }
+            }
+          }
+        },
+        "productCard": {
+          "title": "Product Card Configuration",
+          "type": "object",
+          "properties": {
+            "showDiscountBadge": {
+              "title": "Show discount badge?",
+              "type": "boolean",
+              "default": true
+            },
+            "bordered": {
+              "title": "Cards should be bordered?",
+              "type": "boolean",
+              "default": true
             }
           }
         }
