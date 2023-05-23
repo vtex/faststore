@@ -249,8 +249,6 @@ const getOrderForm = async (
     if (session.postalCode) {
       incrementedAddress = await commerce.checkout.incrementAddress(session.country, session.postalCode)
       
-      //remove before merge
-      console.log("Incremented Address", incrementedAddress)
     }
     return commerce.checkout.shippingData({
       id: orderForm.orderFormId,
