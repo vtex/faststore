@@ -7,11 +7,11 @@ export const SECTIONS = {
   },
   ProductDetails: {
     components: [
-      'UIProductTitle',
-      'UIDiscountBadge',
-      'UIBuyButton',
+      'ProductTitle',
+      'DiscountBadge',
+      'BuyButton',
+      'SkuSelector',
       'ShippingSimulation',
-      'Selectors',
     ],
   },
   ProductShelf: { components: ['ProductCard', 'Carousel'] },

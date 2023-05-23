@@ -2,17 +2,18 @@ import {
   ProductTitle as UIProductTitle,
   DiscountBadge as UIDiscountBadge,
   BuyButton as UIBuyButton,
+  SkuSelector as UISkuSelector,
+  ShippingSimulation as UIShippingSimulation,
 } from '@faststore/ui'
-
-import ShippingSimulation from 'src/components/ui/ShippingSimulation'
 
 import ProductDetailsCustomizations from 'src/customizations/components/overrides/ProductDetails'
 
 const Components = {
-  UIProductTitle,
-  UIDiscountBadge,
-  UIBuyButton,
-  ShippingSimulation,
+  ProductTitle: UIProductTitle,
+  DiscountBadge: UIDiscountBadge,
+  BuyButton: UIBuyButton,
+  SkuSelector: UISkuSelector,
+  ShippingSimulation: UIShippingSimulation,
   ...ProductDetailsCustomizations.components,
 }
 

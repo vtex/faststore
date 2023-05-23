@@ -1,8 +1,12 @@
 import { HTMLAttributes } from 'react'
 
-import { SkuSelectorProps, SkuSelector as UISkuSelector } from '@faststore/ui'
+import { SkuSelectorProps } from '@faststore/ui'
 import NextLink from 'next/link'
 import { Image } from '../Image'
+
+import { Components } from 'src/components/sections/ProductDetails/Overrides'
+
+const { SkuSelector } = Components
 
 export type SkuVariantsByName = Record<
   string,
@@ -40,7 +44,7 @@ function Selectors({
     <section {...otherProps}>
       {availableVariations &&
         Object.keys(availableVariations).map((skuVariant) => (
-          <UISkuSelector
+          <SkuSelector
             key={skuVariant}
             skuPropertyName={skuVariant}
             availableVariations={availableVariations}
