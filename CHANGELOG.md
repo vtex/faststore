@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.153-alpha.0](https://github.com/vtex/faststore/compare/v2.0.152-alpha.0...v2.0.153-alpha.0) (2023-05-23)
+
+### Features
+
+- Adds `ProductGallery` Sections + `Filter` component from CMS ([#1770](https://github.com/vtex/faststore/issues/1770)) ([3b80811](https://github.com/vtex/faststore/commit/3b808119904d68e6c848eaa4c30be050650ad2bb))
+
 ## [2.0.152-alpha.0](https://github.com/vtex/faststore/compare/v2.0.151-alpha.0...v2.0.152-alpha.0) (2023-05-23)
 
 ### Features
