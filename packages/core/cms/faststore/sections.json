@@ -834,8 +834,8 @@
           ],
           "enumNames": [
             "Discount: higher to lower",
-            "Name: Z-A",
             "Name: A-Z",
+            "Name: Z-A",
             "Orders: higher to lower",
             "Price: lower to higher",
             "Price: higher to lower",
