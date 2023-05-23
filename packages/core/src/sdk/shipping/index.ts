@@ -23,7 +23,7 @@ const query = gql`
             startDateUtc
             endDateUtc
             price
-            lisPrice
+            listPrice
           }
           shippingEstimate
           localizedEstimates

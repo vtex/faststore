@@ -309,7 +309,7 @@ export interface AvailableDeliveryWindows {
   startDateUtc: string,
   endDateUtc: string,
   price: number,
-  lisPrice: number,
+  listPrice: number,
   tax: number,
 }
 

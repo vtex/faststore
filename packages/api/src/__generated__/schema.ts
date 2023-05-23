@@ -104,7 +104,7 @@ export type AvailableDeliveryWindows = {
   /** Available delivery window end date in UTC */
   endDateUtc?: Maybe<Scalars['String']>;
   /** Available delivery window list price */
-  lisPrice?: Maybe<Scalars['Int']>;
+  listPrice?: Maybe<Scalars['Int']>;
   /** Available delivery window price */
   price?: Maybe<Scalars['Int']>;
   /** Available delivery window start date in UTC */

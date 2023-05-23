@@ -188,7 +188,7 @@ type AvailableDeliveryWindows {
   """
   Available delivery window list price
   """
-  lisPrice: Int
+  listPrice: Int
   """
   Available delivery window tax
   """

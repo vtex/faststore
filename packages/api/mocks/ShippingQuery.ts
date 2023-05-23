@@ -31,7 +31,7 @@ export const ShippingSimulationQueryResult = `query ShippingSimulationQuery {
           startDateUtc
           endDateUtc
           price
-          lisPrice
+          listPrice
         }
         shippingEstimate
         shippingEstimateDate
