@@ -18,6 +18,7 @@ export const mutation = gql`
       locale
       channel
       country
+      addressType
       postalCode
       addressType
       geoCoordinates {

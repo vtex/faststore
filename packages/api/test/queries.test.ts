@@ -42,6 +42,7 @@ const apiOptions = {
   channel: '{"salesChannel":"1"}',
   locale: 'en-US',
   hideUnavailableItems: false,
+  incrementAddress: false,
   flags: {
     enableOrderFormSync: true,
   },

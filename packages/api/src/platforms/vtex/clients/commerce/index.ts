@@ -20,6 +20,7 @@ import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import { ShippingDataBody } from './types/ShippingData'
+import { IncrementedAddress } from './types/IncrementedAddress'
 
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
@@ -32,7 +33,7 @@ const BASE_INIT = {
 }
 
 export const VtexCommerce = (
-  { account, environment }: Options,
+  { account, environment, incrementAddress }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br`
@@ -91,28 +92,48 @@ export const VtexCommerce = (
           }
         )
       },
+
+      incrementAddress: (
+        country: string,
+        postalCode: string
+      ): Promise<IncrementedAddress> => {
+
+        return incrementAddress
+          ? fetchAPI(`${base}/api/checkout/pub/postal-code/${country}/${postalCode}`, {
+            method: 'GET',
+            headers: {
+              'content-type': 'application/json'
+            },
+          })
+          : Promise.resolve(undefined);
+      },
+
       shippingData: ({
+
         id,
         body,
       }: {
         id: string
         body: ShippingDataBody
-      }): Promise<OrderForm> => {
+      },
+        incrementedAddress?: IncrementedAddress): Promise<OrderForm> => {
+
 
         const mappedBody = {
           "selectedAddresses": body?.selectedAddresses?.map(address => ({
             "addressType": address.addressType || null,
             "receiverName": address.receiverName || null,
-            "postalCode": address.postalCode || null,
-            "city": address.city || null,
-            "state": address.state || null,
-            "country": address.country || null,
-            "street": address.street || null,
-            "number": address.number || null,
-            "neighborhood": address.neighborhood || null,
-            "complement": address.complement || null,
-            "reference": address.reference || null,
-            "geoCoordinates": address.geoCoordinates || []
+            "postalCode": address.postalCode || incrementedAddress?.postalCode || null,
+            "city": incrementedAddress?.city || null,
+            "state": incrementedAddress?.state || null,
+            "country": address.country || incrementedAddress?.country || null,
+            "street": incrementedAddress?.street || null,
+            "number": incrementedAddress?.number || null,
+            "neighborhood": incrementedAddress?.neighborhood || null,
+            "complement": incrementedAddress?.complement || null,
+            "reference": incrementedAddress?.reference || null,
+            "geoCoordinates": address.geoCoordinates || incrementedAddress?.geoCoordinates || []
+
           }))
         };
 
