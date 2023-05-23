@@ -11,6 +11,8 @@ import {
   writeFileSync,
 } from 'fs-extra'
 
+import path from 'path'
+
 import {
   configFileName,
   coreCMSDir,
@@ -60,7 +62,7 @@ function copyCoreFiles() {
   try {
     copySync(coreDir, tmpDir, {
       filter(src) {
-        const fileOrDirName = src.split('/').pop()
+        const fileOrDirName = path.basename(src)
         const shouldCopy = fileOrDirName
           ? !ignorePaths.includes(fileOrDirName)
           : true
@@ -88,7 +90,7 @@ function copyUserSrcToCustomizations() {
 async function copyTheme() {
   const storeConfig = await import(userStoreConfigFileDir)
   if (storeConfig.theme) {
-    const customTheme = `${userThemesFileDir}/${storeConfig.theme}.scss`
+    const customTheme = path.join(userThemesFileDir, `${storeConfig.theme}.scss`)
     if (existsSync(customTheme)) {
       try {
         copyFileSync(customTheme, tmpThemesCustomizationsFileDir)
@@ -124,8 +126,8 @@ async function copyTheme() {
 }
 
 function mergeCMSFile(fileName: string) {
-  const customFilePath = `${userCMSDir}/${fileName}`
-  const coreFilePath = `${coreCMSDir}/${fileName}`
+  const customFilePath = path.join(userCMSDir, fileName)
+  const coreFilePath = path.join(coreCMSDir, fileName)
 
   const coreFile = readFileSync(coreFilePath, 'utf8')
   const output = [...JSON.parse(coreFile)]
@@ -151,7 +153,7 @@ function mergeCMSFile(fileName: string) {
 
   try {
     writeFileSync(
-      `${tmpCMSDir}/${fileName}`,
+      path.join(tmpCMSDir, fileName),
       JSON.stringify(output)
     )
     console.log(
