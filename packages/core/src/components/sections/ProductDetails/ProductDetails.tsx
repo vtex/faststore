@@ -65,10 +65,7 @@ function ProductDetails({
     refNumber: showRefNumber,
     discountBadge: { showDiscountBadge, size: discountBadgeSize },
   },
-  buyButton: {
-    title: buyButtonTitle,
-    icon: { icon: buyButtonIconName, alt: buyButtonIconAlt },
-  },
+  buyButton: { icon: buyButtonIcon, title: buyButtonTitle },
   shippingSimulator: {
     title: shippingSimulatorTitle,
     inputLabel: shippingSimulatorInputLabel,
@@ -180,7 +177,7 @@ function ProductDetails({
                   buyButtonTitle={buyButtonTitle}
                   quantity={quantity}
                   setQuantity={setQuantity}
-                  buyButtonIcon={buyButtonIconName}
+                  buyButtonIcon={buyButtonIcon}
                 />
               ) : (
                 <OutOfStock />
