@@ -15,7 +15,7 @@ import type { useFilter } from './useFilter'
 
 import styles from './section.module.scss'
 
-interface Props {
+export interface FilterSliderProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -29,6 +29,14 @@ interface Props {
    * Title for the `Filter` component.
    */
   title?: string
+  /**
+   * CMS defined label for the clear button component.
+   */
+  clearButtonLabel?: string
+  /**
+   * CMS defined label for the apply button component.
+   */
+  applyButtonLabel?: string
 }
 
 function FilterSlider({
@@ -38,7 +46,9 @@ function FilterSlider({
   expanded,
   selected,
   title,
-}: Props & ReturnType<typeof useFilter>) {
+  clearButtonLabel,
+  applyButtonLabel,
+}: FilterSliderProps & ReturnType<typeof useFilter>) {
   const { resetInfiniteScroll, setState, state } = useSearch()
 
   return (
@@ -52,7 +62,7 @@ function FilterSlider({
       clearBtnProps={{
         variant: 'secondary',
         onClick: () => dispatch({ type: 'selectFacets', payload: [] }),
-        children: 'Clear All',
+        children: clearButtonLabel ?? 'Clear All',
       }}
       applyBtnProps={{
         variant: 'primary',
@@ -65,7 +75,7 @@ function FilterSlider({
             page: 0,
           })
         },
-        children: 'Apply',
+        children: applyButtonLabel ?? 'Apply',
       }}
       onClose={() => {
         dispatch({

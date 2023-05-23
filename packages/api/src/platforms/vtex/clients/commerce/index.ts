@@ -93,7 +93,7 @@ export const VtexCommerce = (
         )
       },
 
-      incrementedAddress: (
+      incrementAddress: (
         country: string,
         postalCode: string
       ): Promise<IncrementedAddress> => {
@@ -156,6 +156,7 @@ export const VtexCommerce = (
       },
 
       shippingData: ({
+
         id,
         index,
         deliveryMode,
