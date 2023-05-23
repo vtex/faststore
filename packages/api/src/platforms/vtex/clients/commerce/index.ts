@@ -93,7 +93,7 @@ export const VtexCommerce = (
         )
       },
 
-      incrimentAddress: (
+      incrementAddress: (
         country: string,
         postalCode: string
       ): Promise<IncrementedAddress> => {
@@ -109,6 +109,7 @@ export const VtexCommerce = (
       },
 
       shippingData: ({
+
         id,
         index,
         deliveryMode,
@@ -120,6 +121,7 @@ export const VtexCommerce = (
         body: ShippingDataBody
       },
         incrementedAddress?: IncrementedAddress): Promise<OrderForm> => {
+
         const mappedBody = {
           "logisticsInfo": Array.from({ length: index }, (_, itemIndex) => ({
             itemIndex,

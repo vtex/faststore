@@ -248,7 +248,7 @@ const getOrderForm = async (
     let incrementedAddress: IncrementedAddress | undefined;
 
     if (session.postalCode) {
-      incrementedAddress = await commerce.checkout.incrimentAddress(session.country, session.postalCode)
+      incrementedAddress = await commerce.checkout.incrementAddress(session.country, session.postalCode)
     }
 
     return commerce.checkout.shippingData({

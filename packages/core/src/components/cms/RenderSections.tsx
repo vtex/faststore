@@ -1,7 +1,8 @@
 import chalk from 'chalk'
-import { ComponentType } from 'react'
+import { ComponentType, PropsWithChildren, useMemo } from 'react'
 
 import SectionBoundary from './SectionBoundary'
+import { Section } from '@vtex/client-cms'
 
 interface Props {
   components: Record<string, ComponentType<any>>
@@ -9,7 +10,20 @@ interface Props {
   context?: unknown
 }
 
-const RenderSections = ({ sections = [], context, components }: Props) => {
+const useDividedSections = (sections: Section[]) => {
+  return useMemo(() => {
+    const indexChildren = sections.findIndex(({ name }) => name === 'Children')
+    const hasChildren = indexChildren > -1
+
+    return {
+      hasChildren,
+      firstSections: hasChildren ? sections.slice(0, indexChildren) : sections,
+      ...(hasChildren && { lastSections: sections.slice(indexChildren + 1) }),
+    }
+  }, [sections])
+}
+
+const RenderSectionsBase = ({ sections = [], context, components }: Props) => {
   return (
     <>
       {sections.map(({ name, data }, index) => {
@@ -32,6 +46,27 @@ const RenderSections = ({ sections = [], context, components }: Props) => {
           </SectionBoundary>
         )
       })}
+    </>
+  )
+}
+
+function RenderSections({
+  children,
+  sections,
+  ...otherProps
+}: PropsWithChildren<Props>) {
+  const { hasChildren, firstSections, lastSections } =
+    useDividedSections(sections)
+
+  return (
+    <>
+      <RenderSectionsBase sections={firstSections} {...otherProps} />
+
+      {children}
+
+      {hasChildren && (
+        <RenderSectionsBase sections={lastSections} {...otherProps} />
+      )}
     </>
   )
 }

@@ -5,6 +5,7 @@ import {
 } from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
 
+import { SearchState } from '@faststore/sdk'
 import type { StoreSuggestionTerm } from '@generated/graphql'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import useTopSearch from 'src/sdk/search/useTopSearch'
@@ -14,9 +15,13 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
    * List of top searched items
    */
   topTerms?: StoreSuggestionTerm[]
+  /**
+   * Default sort by value
+   */
+  sort?: string
 }
 
-function SearchTop({ topTerms, ...otherProps }: SearchTopProps) {
+function SearchTop({ topTerms, sort, ...otherProps }: SearchTopProps) {
   const {
     values: { onSearchSelection },
   } = useSearch()
@@ -34,9 +39,18 @@ function SearchTop({ topTerms, ...otherProps }: SearchTopProps) {
           value={term.value}
           index={index}
           linkProps={{
-            href: formatSearchPath(term.value),
+            href: formatSearchPath({
+              term: term.value,
+              sort: sort as SearchState['sort'],
+            }),
             onClick: () =>
-              onSearchSelection?.(term.value, formatSearchPath(term.value)),
+              onSearchSelection?.(
+                term.value,
+                formatSearchPath({
+                  term: term.value,
+                  sort: sort as SearchState['sort'],
+                })
+              ),
           }}
         />
       ))}

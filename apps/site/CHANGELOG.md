@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.156-alpha.0](https://github.com/vtex/faststore/compare/v2.0.155-alpha.0...v2.0.156-alpha.0) (2023-05-23)
+
+**Note:** Version bump only for package site
+
+## [2.0.154-alpha.0](https://github.com/vtex/faststore/compare/v2.0.153-alpha.0...v2.0.154-alpha.0) (2023-05-23)
+
+**Note:** Version bump only for package site
+
+## [2.0.152-alpha.0](https://github.com/vtex/faststore/compare/v2.0.151-alpha.0...v2.0.152-alpha.0) (2023-05-23)
+
+### Features
+
+- Fix Styles ([#1775](https://github.com/vtex/faststore/issues/1775)) ([2257f6e](https://github.com/vtex/faststore/commit/2257f6e59bac2dc574cf35d71967de5282374969))
+
+## [2.0.151-alpha.0](https://github.com/vtex/faststore/compare/v2.0.150-alpha.0...v2.0.151-alpha.0) (2023-05-22)
+
+**Note:** Version bump only for package site
+
+## [2.0.150-alpha.0](https://github.com/vtex/faststore/compare/v2.0.149-alpha.0...v2.0.150-alpha.0) (2023-05-22)
+
+**Note:** Version bump only for package site
+
+## [2.0.149-alpha.0](https://github.com/vtex/faststore/compare/v2.0.148-alpha.0...v2.0.149-alpha.0) (2023-05-19)
+
+**Note:** Version bump only for package site
+
+## [2.0.148-alpha.0](https://github.com/vtex/faststore/compare/v2.0.147-alpha.0...v2.0.148-alpha.0) (2023-05-19)
+
+### Documentation
+
+- Fixes payment flags doc page ([#1776](https://github.com/vtex/faststore/issues/1776)) ([483c612](https://github.com/vtex/faststore/commit/483c612f41908ec5452074b02b3232d7383adc80))
+
 ## [2.0.145-alpha.0](https://github.com/vtex/faststore/compare/v2.0.144-alpha.0...v2.0.145-alpha.0) (2023-05-18)
 
 ### Documentation

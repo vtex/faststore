@@ -94,6 +94,7 @@ type StoreSession {
   """
   channel: String
   """
+
   Session delivery mode.
   """
   deliveryMode: StoreDeliveryMode
@@ -136,6 +137,7 @@ input IStoreSession {
   """
   channel: String
   """
+
   Session input delivery mode.
   """
   deliveryMode: IStoreDeliveryMode

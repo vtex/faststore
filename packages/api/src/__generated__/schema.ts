@@ -1,4 +1,5 @@
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -187,7 +188,7 @@ export type IStoreOrder = {
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String'];
   /** Indicates whether or not items with attachments should be split. */
-  shouldSplitItem?: Maybe<Scalars['Boolean']>;
+  shouldSplitItem?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Organization input. */
@@ -211,7 +212,7 @@ export type IStorePerson = {
 /** Product input. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type IStoreProduct = {
   /** Custom Product Additional Properties. */
-  additionalProperty?: Maybe<Array<IStorePropertyValue>>;
+  additionalProperty?: InputMaybe<Array<IStorePropertyValue>>;
   /** Array of product images. */
   image: Array<IStoreImage>;
   /** Product name. */
@@ -224,7 +225,7 @@ export type IStorePropertyValue = {
   /** Property name. */
   name: Scalars['String'];
   /** Property id. This propert changes according to the content of the object. */
-  propertyID?: Maybe<Scalars['String']>;
+  propertyID?: InputMaybe<Scalars['String']>;
   /** Property value. May hold a string or the string representation of an object. */
   value: Scalars['ObjectOrString'];
   /** Specifies the nature of the value */
@@ -244,7 +245,7 @@ export type IStoreSession = {
   /** Session input address type. */
   addressType?: Maybe<Scalars['String']>;
   /** Session input channel. */
-  channel?: Maybe<Scalars['String']>;
+  channel?: InputMaybe<Scalars['String']>;
   /** Session input country. */
   country: Scalars['String'];
   /** Session input currency. */
@@ -252,13 +253,13 @@ export type IStoreSession = {
   /** Session input delivery mode. */
   deliveryMode?: Maybe<IStoreDeliveryMode>;
   /** Session input geoCoordinates. */
-  geoCoordinates?: Maybe<IStoreGeoCoordinates>;
+  geoCoordinates?: InputMaybe<IStoreGeoCoordinates>;
   /** Session input locale. */
   locale: Scalars['String'];
   /** Session input person. */
-  person?: Maybe<IStorePerson>;
+  person?: InputMaybe<IStorePerson>;
   /** Session input postal code. */
-  postalCode?: Maybe<Scalars['String']>;
+  postalCode?: InputMaybe<Scalars['String']>;
 };
 
 export type LogisticsInfo = {
@@ -343,7 +344,7 @@ export type MutationSubscribeToNewsletterArgs = {
 
 export type MutationValidateCartArgs = {
   cart: IStoreCart;
-  session?: Maybe<IStoreSession>;
+  session?: InputMaybe<IStoreSession>;
 };
 
 
@@ -421,13 +422,13 @@ export type Query = {
 
 
 export type QueryAllCollectionsArgs = {
-  after?: Maybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']>;
   first: Scalars['Int'];
 };
 
 
 export type QueryAllProductsArgs = {
-  after?: Maybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']>;
   first: Scalars['Int'];
 };
 
@@ -443,11 +444,11 @@ export type QueryProductArgs = {
 
 
 export type QuerySearchArgs = {
-  after?: Maybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']>;
   first: Scalars['Int'];
-  selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
-  sort?: Maybe<StoreSort>;
-  term?: Maybe<Scalars['String']>;
+  selectedFacets?: InputMaybe<Array<IStoreSelectedFacet>>;
+  sort?: InputMaybe<StoreSort>;
+  term?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -539,12 +540,12 @@ export type SkuVariants = {
 
 
 export type SkuVariantsAvailableVariationsArgs = {
-  dominantVariantName?: Maybe<Scalars['String']>;
+  dominantVariantName?: InputMaybe<Scalars['String']>;
 };
 
 
 export type SkuVariantsSlugsMapArgs = {
-  dominantVariantName?: Maybe<Scalars['String']>;
+  dominantVariantName?: InputMaybe<Scalars['String']>;
 };
 
 /** Aggregate offer information, for a given SKU that is available to be fulfilled by multiple sellers. */

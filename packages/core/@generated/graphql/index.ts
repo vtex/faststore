@@ -870,6 +870,7 @@ export type StoreSeo = {
 
 /** Session information. */
 export type StoreSession = {
+
   /** Session address type. */
   addressType: Maybe<Scalars['String']>
   /** Session channel. */
