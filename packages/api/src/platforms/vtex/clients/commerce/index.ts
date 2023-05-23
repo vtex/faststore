@@ -19,7 +19,7 @@ import { getCookie } from '../../utils/getCookies'
 import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
-import { ShippingDataBody } from './types/ShippingData'
+import { DeliveryMode, ShippingDataBody } from './types/ShippingData'
 import { IncrementedAddress } from './types/IncrementedAddress'
 
 
@@ -111,15 +111,23 @@ export const VtexCommerce = (
       shippingData: ({
 
         id,
+        index,
+        deliveryMode,
         body,
       }: {
         id: string
+        index: number
+        deliveryMode?: DeliveryMode | null
         body: ShippingDataBody
       },
         incrementedAddress?: IncrementedAddress): Promise<OrderForm> => {
 
-
         const mappedBody = {
+          "logisticsInfo": Array.from({ length: index }, (_, itemIndex) => ({
+            itemIndex,
+            selectedDeliveryChannel: deliveryMode?.deliveryChannel,
+            selectedSla: deliveryMode?.deliveryMethod
+          })),
           "selectedAddresses": body?.selectedAddresses?.map(address => ({
             "addressType": address.addressType || null,
             "receiverName": address.receiverName || null,
@@ -133,7 +141,6 @@ export const VtexCommerce = (
             "complement": incrementedAddress?.complement || null,
             "reference": incrementedAddress?.reference || null,
             "geoCoordinates": address.geoCoordinates || incrementedAddress?.geoCoordinates || []
-
           }))
         };
 

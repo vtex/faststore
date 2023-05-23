@@ -10,6 +10,11 @@ export interface GeoCoordinates {
   longitude: GLfloat
 }
 
+export interface DeliveryMode {
+  deliveryChannel: string
+  deliveryMethod: string
+}
+
 export interface Person {
   id: string
   email: string
@@ -22,6 +27,7 @@ export interface Session {
   currency: Currency
   country: string // BRA
   channel: string | null
+  deliveryMode: DeliveryMode | null
   addressType: string | null
   postalCode: string | null
   geoCoordinates: GeoCoordinates | null

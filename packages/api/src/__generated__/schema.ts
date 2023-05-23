@@ -145,6 +145,13 @@ export type IStoreCurrency = {
   symbol: Scalars['String'];
 };
 
+export type IStoreDeliveryMode = {
+  /** The latitude of the geographic coordinates. */
+  deliveryChannel: Scalars['String'];
+  /** The longitude of the geographic coordinates. */
+  deliveryMethod: Scalars['String'];
+};
+
 export type IStoreGeoCoordinates = {
   /** The latitude of the geographic coordinates. */
   latitude: Scalars['Float'];
@@ -235,7 +242,7 @@ export type IStoreSelectedFacet = {
 
 /** Session input. */
 export type IStoreSession = {
-  /** Session input address Type. */
+  /** Session input address type. */
   addressType?: Maybe<Scalars['String']>;
   /** Session input channel. */
   channel?: InputMaybe<Scalars['String']>;
@@ -243,6 +250,8 @@ export type IStoreSession = {
   country: Scalars['String'];
   /** Session input currency. */
   currency: IStoreCurrency;
+  /** Session input delivery mode. */
+  deliveryMode?: Maybe<IStoreDeliveryMode>;
   /** Session input geoCoordinates. */
   geoCoordinates?: InputMaybe<IStoreGeoCoordinates>;
   /** Session input locale. */
@@ -680,6 +689,15 @@ export type StoreCurrency = {
   symbol: Scalars['String'];
 };
 
+/** Delivery mode information. */
+export type StoreDeliveryMode = {
+  __typename?: 'StoreDeliveryMode';
+  /** The latitude of the geographic coordinates. */
+  deliveryChannel: Scalars['String'];
+  /** The longitude of the geographic coordinates. */
+  deliveryMethod: Scalars['String'];
+};
+
 export type StoreFacet = StoreFacetBoolean | StoreFacetRange;
 
 /** Search facet boolean information. */
@@ -968,7 +986,7 @@ export type StoreSeo = {
 /** Session information. */
 export type StoreSession = {
   __typename?: 'StoreSession';
-  /** Session address Type. */
+  /** Session address type. */
   addressType?: Maybe<Scalars['String']>;
   /** Session channel. */
   channel?: Maybe<Scalars['String']>;
@@ -976,6 +994,8 @@ export type StoreSession = {
   country: Scalars['String'];
   /** Session currency. */
   currency: StoreCurrency;
+  /** Session delivery mode. */
+  deliveryMode?: Maybe<StoreDeliveryMode>;
   /** Session input geoCoordinates. */
   geoCoordinates?: Maybe<StoreGeoCoordinates>;
   /** Session locale. */

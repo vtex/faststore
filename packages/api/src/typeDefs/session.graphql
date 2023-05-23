@@ -49,6 +49,31 @@ input IStoreGeoCoordinates {
 }
 
 """
+Delivery mode information.
+"""
+type StoreDeliveryMode {
+  """
+  The latitude of the geographic coordinates.
+  """
+  deliveryChannel: String!
+  """
+  The longitude of the geographic coordinates.
+  """
+  deliveryMethod: String!
+}
+
+input IStoreDeliveryMode {
+  """
+  The latitude of the geographic coordinates.
+  """
+  deliveryChannel: String!
+  """
+  The longitude of the geographic coordinates.
+  """
+  deliveryMethod: String!
+}
+
+"""
 Session information.
 """
 type StoreSession {
@@ -69,7 +94,12 @@ type StoreSession {
   """
   channel: String
   """
-  Session address Type.
+
+  Session delivery mode.
+  """
+  deliveryMode: StoreDeliveryMode
+  """
+  Session address type.
   """
   addressType: String
   """
@@ -107,7 +137,12 @@ input IStoreSession {
   """
   channel: String
   """
-  Session input address Type.
+
+  Session input delivery mode.
+  """
+  deliveryMode: IStoreDeliveryMode
+  """
+  Session input address type.
   """
   addressType: String
   """
