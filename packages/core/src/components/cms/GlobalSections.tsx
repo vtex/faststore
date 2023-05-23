@@ -27,41 +27,19 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-const useDividedSections = (sections: Section[]) => {
-  return useMemo(() => {
-    const indexChildren = sections.findIndex(({ name }) => name === 'Children')
-    const hasChildren = indexChildren > -1
-
-    return {
-      hasChildren,
-      firstSections: hasChildren ? sections.slice(0, indexChildren) : sections,
-      ...(hasChildren && { lastSections: sections.slice(indexChildren + 1) }),
-    }
-  }, [sections])
-}
-
 function GlobalSections({
   children,
-  sections,
+  ...otherProps
 }: PropsWithChildren<GlobalSectionsData>) {
-  const { hasChildren, firstSections, lastSections } =
-    useDividedSections(sections)
-
   return (
-    <>
-      <RenderSections sections={firstSections} components={COMPONENTS} />
-
+    <RenderSections components={COMPONENTS} {...otherProps}>
       <Toast />
 
       <main>
         <RegionBar className="display-mobile" />
         {children}
       </main>
-
-      {hasChildren && (
-        <RenderSections sections={lastSections} components={COMPONENTS} />
-      )}
-    </>
+    </RenderSections>
   )
 }
 
