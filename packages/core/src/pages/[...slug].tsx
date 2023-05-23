@@ -49,6 +49,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   Breadcrumb,
   Hero,
   ProductGallery,
+  ProductShelf,
   ...CUSTOM_COMPONENTS,
 }
 
@@ -141,13 +142,6 @@ function Page({
           context={collection}
           sections={sections}
           components={COMPONENTS}
-        />
-
-        <ProductShelf
-          first={ITEMS_PER_SECTION}
-          sort="score_desc"
-          title="You might also like"
-          withDivisor
         />
 
         <ScrollToTopButton />

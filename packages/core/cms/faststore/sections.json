@@ -834,8 +834,8 @@
           ],
           "enumNames": [
             "Discount: higher to lower",
-            "Name: Z-A",
             "Name: A-Z",
+            "Name: Z-A",
             "Orders: higher to lower",
             "Price: lower to higher",
             "Price: higher to lower",
@@ -879,15 +879,10 @@
               "type": "boolean",
               "default": true
             },
-            "showBuyButton": {
-              "title": "Show buy button?",
+            "bordered": {
+              "title": "Cards should be bordered?",
               "type": "boolean",
               "default": true
-            },
-            "buyButtonTitle": {
-              "title": "Buy Button Text",
-              "type": "string",
-              "default": "Buy"
             }
           }
         }
