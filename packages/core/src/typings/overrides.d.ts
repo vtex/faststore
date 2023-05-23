@@ -3,7 +3,7 @@ export const SECTIONS = {
     components: ['Hero', 'HeroImage', 'HeroHeader'],
   },
   BannerText: {
-    components: ['UIBannerText'],
+    components: ['BannerText'],
   },
   ProductDetails: {
     components: [

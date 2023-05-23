@@ -1,4 +1,4 @@
-import UIBannerText from '../../ui/BannerText'
+import BannerText from '../../ui/BannerText'
 
 import BannerTextCustomizations from 'src/customizations/components/overrides/BannerText'
 
@@ -19,7 +19,7 @@ Object.entries(BannerTextCustomizations.components).forEach(([key, value]) => {
 })
 
 const Components = {
-  UIBannerText,
+  BannerText,
   ...bannerTextComponentsCustomization,
 }
 

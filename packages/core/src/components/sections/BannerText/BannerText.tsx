@@ -15,7 +15,7 @@ export interface BannerTextProps {
   variant?: UIBannerTextProps['variant']
 }
 
-const { UIBannerText } = Components
+const { BannerText: BannerTextWrapper } = Components
 
 // TODO: Change actionPath and actionLabel with Link
 function BannerText({
@@ -28,14 +28,14 @@ function BannerText({
   return (
     <Section className={`${styles.section} section-banner layout__section`}>
       <div className="layout__content">
-        <UIBannerText
+        <BannerTextWrapper
           variant={variant}
           title={title}
           caption={caption}
           actionPath={link?.url}
           actionLabel={link?.text}
           colorVariant={colorVariant}
-          {...Props['UIBannerText']}
+          {...Props['BannerText']}
         />
       </div>
     </Section>
