@@ -20,7 +20,10 @@ const { Price } = Components
 interface ProductDetailsSettingsProps {
   product: ProductDetailsFragment_ProductFragment
   buyButtonTitle: string
-  buyButtonIcon: string
+  buyButtonIcon: {
+    alt: string
+    icon: string
+  }
   isValidating: boolean
   quantity: number
   setQuantity: Dispatch<SetStateAction<number>>
@@ -29,10 +32,10 @@ interface ProductDetailsSettingsProps {
 function ProductDetailsSettings({
   product,
   buyButtonTitle,
-  buyButtonIcon: buyButtonIconName,
   isValidating,
   quantity,
   setQuantity,
+  buyButtonIcon: { icon: buyButtonIconName, alt: buyButtonIconAlt },
 }: ProductDetailsSettingsProps) {
   const {
     id,
@@ -111,10 +114,12 @@ function ProductDetailsSettings({
         ) : (
           <UIBuyButton
             disabled={buyDisabled}
-            icon={<UIIcon name={buyButtonIconName} />}
+            icon={
+              <UIIcon aria-label={buyButtonIconAlt} name={buyButtonIconName} />
+            }
             {...buyProps}
           >
-            {buyButtonTitle || 'Add to Cart'}
+            {buyButtonTitle}
           </UIBuyButton>
         )
       }

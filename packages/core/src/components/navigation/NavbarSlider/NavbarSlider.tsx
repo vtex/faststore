@@ -60,9 +60,7 @@ function NavbarSlider({
         <NavbarLinks onClickLink={fadeOut} links={links} region={region} />
       </UINavbarSliderContent>
       <UINavbarSliderFooter>
-        <Suspense fallback={<ButtonSignInFallback />}>
-          <ButtonSignIn {...signInButton} />
-        </Suspense>
+        <ButtonSignIn {...signInButton} />
       </UINavbarSliderFooter>
     </UINavbarSlider>
   )

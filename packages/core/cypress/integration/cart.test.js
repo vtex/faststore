@@ -85,19 +85,27 @@ describe('On product description pages', () => {
 
       cy.itemsInCart(0)
 
-      cy.getById('buy-button').click()
+      // Add to cart
+      cy.getById('buy-button')
+        .scrollIntoView({ duration: 500 })
+        .then(() => {
+          cy.getById('buy-button').click({ force: true })
+          cy.getById('checkout-button')
+            .should('be.visible')
+            .should('be.enabled')
 
-      cy.itemsInCart(1)
+          cy.itemsInCart(1)
+        })
 
-      cy.getById('checkout-button').should('be.visible').should('be.enabled')
+      cy.getById('remove-from-cart-button')
+        .scrollIntoView({ duration: 500 })
+        .then(() => {
+          cy.getById('remove-from-cart-button').click({ force: true })
+          cy.getById('fs-cart-item').should('not.exist')
+          cy.getById('checkout-button').should('not.exist')
 
-      cy.itemsInCart(1)
-
-      cy.getById('remove-from-cart-button').click()
-      cy.getById('fs-cart-item').should('not.exist')
-      cy.getById('checkout-button').should('not.exist')
-
-      cy.itemsInCart(0)
+          cy.itemsInCart(0)
+        })
     })
   })
 })

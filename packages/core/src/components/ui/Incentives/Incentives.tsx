@@ -37,8 +37,8 @@ function Incentives({
     >
       <UIList className="layout__content">
         {incentives.map((incentive, index) => (
-          <li key={String(index)}>
-            <UIIncentive>
+          <li role="listitem" key={String(index)}>
+            <UIIncentive tabIndex={0}>
               <UIIcon
                 data-fs-incentive-icon
                 aria-label={incentive.alt}

@@ -27,7 +27,7 @@ export interface SortProps {
   }
 }
 
-function Sort({ label = '', options = OptionsMap }: SortProps) {
+function Sort({ label = 'Sort by', options = OptionsMap }: SortProps) {
   const { state, setState } = useSearch()
 
   const optionsMap = Object.keys(options).reduce((acc, currentKey) => {

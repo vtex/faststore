@@ -77,6 +77,7 @@ const AccordionButton = forwardRef<HTMLButtonElement, AccordionButtonProps>(
       <Button
         ref={ref}
         id={button}
+        variant="tertiary"
         data-fs-accordion-button
         aria-expanded={indices.has(index)}
         icon={indices.has(index) ? expandedIcon : collapsedIcon}
