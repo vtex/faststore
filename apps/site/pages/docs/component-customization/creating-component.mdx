@@ -1,5 +1,5 @@
 ---
-title: 'Creating a Component'
+title: 'Creating a component'
 sidebar_label: 'Getting Started'
 ---
 
@@ -7,7 +7,7 @@ import { Callout } from 'nextra-theme-docs'
 
 <header>
 
-# Creating a Component
+# Creating a component
 
 </header>
 
@@ -26,7 +26,7 @@ In this guide, you'll learn how to create a component from scratch and use it in
 
 ### Step 1: Create the `Price` file
 
-1. Open your FastStore project in a code editor and navigate to `src` folder.
+1. Open your FastStore project in a code editor and navigate to the `src` folder.
 2. Create a new folder called `components` inside the `src` folder.
 
 <Callout type="info" emoji="ℹ️">
@@ -37,11 +37,9 @@ In this guide, you'll learn how to create a component from scratch and use it in
 5. Export the following function in the `Price.tsx` file:
 
 ```tsx
-
 export default function Price(props: any) {
   return <div>Price</div>;
 }
-
 ```
 
 <Callout type="info" emoji="ℹ️">
@@ -50,7 +48,8 @@ export default function Price(props: any) {
 
 To use the new `Price` component, you need to override the default `Price` component by following the next step.
 
-## Step 2: Override the default `Price` component
+### Step 2: Override the default `Price` component
+
 Now, let's override the component to render it in the Product Details page.
 
 1. Inside the `components` folder, create a new folder called `overrides`.
