@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.160-alpha.0](https://github.com/vtex/faststore/compare/v2.0.159-alpha.0...v2.0.160-alpha.0) (2023-05-24)
+
+### Bug Fixes
+
+- Integration tests ([#1772](https://github.com/vtex/faststore/issues/1772)) ([b750bcc](https://github.com/vtex/faststore/commit/b750bcc8298e7fd467e6e92da8a9de926d7fcffe))
+
 ## [2.0.154-alpha.0](https://github.com/vtex/faststore/compare/v2.0.153-alpha.0...v2.0.154-alpha.0) (2023-05-23)
 
 ### Features
