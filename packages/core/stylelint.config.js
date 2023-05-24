@@ -29,7 +29,7 @@ module.exports = {
     'selector-pseudo-element-no-unknown': true,
     'comment-no-empty': true,
     'no-descending-specificity': null,
-    'no-invalid-position-at-import-rule': true,
+    'no-invalid-position-at-import-rule': null,
     'no-duplicate-at-import-rules': true,
     'no-extra-semicolons': true,
     'no-invalid-double-slash-comments': true,
