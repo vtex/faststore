@@ -15,6 +15,9 @@ const nextConfig = {
     locales: ['en-US'],
     defaultLocale: 'en-US',
   },
+  sassOptions: {
+    additionalData: `@import "@faststore/ui/src/styles/base/utilities.scss";`,
+  },
   webpack: (config, { isServer, dev }) => {
     // https://github.com/vercel/next.js/discussions/11267#discussioncomment-2479112
     // camel-case style names from css modules
