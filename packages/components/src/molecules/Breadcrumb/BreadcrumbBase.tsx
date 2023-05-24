@@ -31,7 +31,7 @@ type RenderLinkProps = {
   collapsed: boolean
 }
 
-export type BreadcrumbBaseProps = {
+export interface BreadcrumbBaseProps extends BreadcrumbPureProps {
   /**
    * Array of ItemElement that represents each breadcrumb item.
    */
@@ -58,7 +58,7 @@ export type BreadcrumbBaseProps = {
    * @returns Link to be rendered.
    */
   renderLink?: (renderLinkProps: RenderLinkProps) => ReactElement
-} & BreadcrumbPureProps
+}
 
 const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
   function BreadcrumbBase(
