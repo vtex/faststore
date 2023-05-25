@@ -46,11 +46,12 @@ export function getTelemetry(
       platform: APIOptions.platform,
       [`${APIOptions.platform}.account`]: APIOptions.account,
       [`${APIOptions.platform}.environment`]: APIOptions.environment,
-      [`${APIOptions.platform}.options.hideUnavailableItems`]:
-        APIOptions.hideUnavailableItems,
-      [`${APIOptions.platform}.flags.enableOrderFormSync`]:
-        APIOptions.flags?.enableOrderFormSync,
-      channel: APIOptions.channel,
+      // TODO: include the following properties in the logs
+      // [`${APIOptions.platform}.options.hideUnavailableItems`]:
+      //   APIOptions.hideUnavailableItems,
+      // [`${APIOptions.platform}.flags.enableOrderFormSync`]:
+      //   APIOptions.flags?.enableOrderFormSync,
+      // channel: APIOptions.channel,
       locale: APIOptions.locale,
     }),
   })
