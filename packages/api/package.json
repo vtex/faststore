@@ -35,6 +35,7 @@
     "p-limit": "^3.1.0"
   },
   "devDependencies": {
+    "@envelop/core": "^2.6.0",
     "@faststore/shared": "^1.12.37",
     "@graphql-codegen/cli": "2.2.0",
     "@graphql-codegen/typescript": "2.2.2",
@@ -49,6 +50,7 @@
     "typescript": "^4.4.2"
   },
   "peerDependencies": {
+    "@envelop/core": "^1 || ^2",
     "graphql": "^15.6.0"
   }
 }
