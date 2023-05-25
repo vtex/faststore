@@ -13,28 +13,36 @@ import {
 import { OTLPLogsExporter } from '@opentelemetry/exporter-logs-otlp-grpc'
 
 import type { Options } from '../'
-import { getFastStoreTelemetryPlugin } from './useFastStoreTelemetry'
+import { getFaststoreTelemetryPlugin } from './useFaststoreTelemetry'
 import packageJson from '../../package.json'
 
 export type GetTelemetryOptions = {
-  mode?: 'verbose'
+  mode?: 'verbose' | 'dev'
   experimentalSendLogs?: boolean
 }
 
 const FASTSTORE_API_VERSION = packageJson.version
+
+// TODO: These urls are hardcoded for now, but they should be configurable via ENV variables
+// They are only acessible from within the VTEX network, so they are not a security risk
+const TRACE_COLLECTOR_URL = 'opentelemetry-collector.vtex.systems'
+const TRACE_COLLECTOR_URL_DEV = 'opentelemetry-collector-beta.vtex.systems'
+
+const LOG_COLLECTOR_URL = 'opentelemetry-collector.vtex.systems'
 
 export function getTelemetry(
   APIOptions: Options,
   telemetryOptions?: GetTelemetryOptions
 ) {
   const honeycombCollectorOptions = {
-    // url is optional and can be omitted - default is http://localhost:4317
-    url: 'opentelemetry-collector-beta.vtex.systems',
+    url:
+      telemetryOptions?.mode === 'dev'
+        ? TRACE_COLLECTOR_URL_DEV
+        : TRACE_COLLECTOR_URL,
   }
 
   const openSearchCollectorOptions = {
-    // url is optional and can be omitted - default is http://localhost:4317
-    url: 'https://developer-logs.opentelemetry-collector.vtex.systems',
+    url: LOG_COLLECTOR_URL,
   }
 
   // Create a new tracer provider
@@ -78,7 +86,10 @@ export function getTelemetry(
   // Register the log record processor with the log provider
   loggerProvider.addLogRecordProcessor(openSearchLogProcessor)
 
-  if (telemetryOptions?.mode === 'verbose') {
+  if (
+    telemetryOptions?.mode === 'verbose' ||
+    telemetryOptions?.mode === 'dev'
+  ) {
     // Set up a console exporter for verbose mode
     const consoleExporter = new ConsoleSpanExporter()
     const verboseTraceProcessor = new SimpleSpanProcessor(consoleExporter)
@@ -93,7 +104,7 @@ export function getTelemetry(
     loggerProvider.addLogRecordProcessor(veboseLogRecordExporter)
   }
 
-  const useFaststoreTelemetry = getFastStoreTelemetryPlugin(
+  const useFaststoreTelemetry = getFaststoreTelemetryPlugin(
     // The @opentelemetry/sdk-trace-base was renamed from @opentelemetry/tracing but the
     // envelop plugin doesn't support this change yet. This causes the class type to be incompatible,
     // even if they are the same. https://github.com/n1ru4l/envelop/issues/1610
