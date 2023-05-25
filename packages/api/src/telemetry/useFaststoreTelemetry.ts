@@ -11,20 +11,21 @@ import type { Path } from 'graphql/jsutils/Path'
 import type { LoggerProvider } from '@opentelemetry/sdk-logs'
 import type { LogRecord } from '@opentelemetry/api-logs'
 import { SeverityNumber } from '@opentelemetry/api-logs'
-import { print } from 'graphql'
+import { print, Kind, OperationDefinitionNode } from 'graphql'
 
 export enum AttributeName {
-  EXECUTION_ERROR = 'graphql.execute.error',
-  EXECUTION_RESULT = 'graphql.execute.result',
+  EXECUTION_ERROR = 'graphql.error',
+  EXECUTION_RESULT = 'graphql.result',
   RESOLVER_EXECUTION_ERROR = 'graphql.resolver.error',
   RESOLVER_EXCEPTION = 'graphql.resolver.exception',
   RESOLVER_FIELD_NAME = 'graphql.resolver.fieldName',
   RESOLVER_TYPE_NAME = 'graphql.resolver.typeName',
   RESOLVER_RESULT_TYPE = 'graphql.resolver.resultType',
   RESOLVER_ARGS = 'graphql.resolver.args',
-  EXECUTION_OPERATION_NAME = 'graphql.execute.operationName',
-  EXECUTION_OPERATION_DOCUMENT = 'graphql.execute.document',
-  EXECUTION_VARIABLES = 'graphql.execute.variables',
+  EXECUTION_OPERATION_NAME = 'graphql.operation.name',
+  EXECUTION_OPERATION_TYPE = 'graphql.operation.type',
+  EXECUTION_OPERATION_DOCUMENT = 'graphql.document',
+  EXECUTION_VARIABLES = 'graphql.variables',
 }
 
 const tracingSpanSymbol = Symbol('OPEN_TELEMETRY_GRAPHQL')
@@ -150,22 +151,35 @@ export const getFaststoreTelemetryPlugin = (
               }
             }
 
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
             return () => {}
           })
         )
       },
       onExecute({ args, extendContext }) {
-        const executionSpan = tracer.startSpan(
-          `${args.operationName || 'Anonymous Operation'}`,
-          {
-            kind: SpanKind.SERVER,
-            attributes: {
-              [AttributeName.EXECUTION_OPERATION_NAME]:
-                args.operationName ?? undefined,
-            },
-          }
-        )
+        const operationType = args.document.definitions
+          .filter((def) => def.kind === Kind.OPERATION_DEFINITION)
+          .map((def) => (def as OperationDefinitionNode).operation)?.[0]
+
+        // Span name according to Semantic Conventions
+        // https://github.com/open-telemetry/semantic-conventions
+        let spanName = 'GraphQL Operation'
+
+        if (operationType && args.operationName) {
+          spanName = `${operationType} ${args.operationName}`
+        } else if (operationType && !args.operationName) {
+          spanName = operationType
+        }
+
+        const executionSpan = tracer.startSpan(spanName, {
+          kind: SpanKind.SERVER,
+          attributes: {
+            [AttributeName.EXECUTION_OPERATION_NAME]:
+              args.operationName ?? undefined,
+            [AttributeName.EXECUTION_OPERATION_TYPE]:
+              operationType ?? undefined,
+            [AttributeName.EXECUTION_OPERATION_DOCUMENT]: print(args.document),
+          },
+        })
 
         const executeContext = openTelContext.active()
 
