@@ -103,7 +103,7 @@ export const getFastStoreTelemetryPlugin = (
                   ]
               } else {
                 ctx = openTelTrace.setSpan(
-                  context.active(),
+                  openTelContext.active(),
                   context[tracingSpanSymbol]
                 )
 
@@ -150,6 +150,7 @@ export const getFastStoreTelemetryPlugin = (
               }
             }
 
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             return () => {}
           })
         )
