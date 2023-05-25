@@ -22,7 +22,7 @@
     "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
-    "@envelop/on-resolve": "^3.0.0",
+    "@envelop/on-resolve": "^2.0.6",
     "@graphql-tools/schema": "^8.2.0",
     "@opentelemetry/exporter-logs-otlp-grpc": "^0.39.1",
     "@opentelemetry/exporter-trace-otlp-grpc": "^0.39.1",
