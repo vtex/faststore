@@ -1,8 +1,11 @@
 import type { Plugin, OnExecuteHookResult } from '@envelop/core'
 import { isAsyncIterable } from '@envelop/core'
 import { useOnResolve } from '@envelop/on-resolve'
-import { SpanKind } from '@opentelemetry/api'
-import * as opentelemetry from '@opentelemetry/api'
+import { SpanKind, Context, Span } from '@opentelemetry/api'
+import {
+  trace as openTelTrace,
+  context as openTelContext,
+} from '@opentelemetry/api'
 import type { BasicTracerProvider } from '@opentelemetry/sdk-trace-base'
 import type { Path } from 'graphql/jsutils/Path'
 import type { LoggerProvider } from '@opentelemetry/sdk-logs'
@@ -27,7 +30,7 @@ export enum AttributeName {
 const tracingSpanSymbol = Symbol('OPEN_TELEMETRY_GRAPHQL')
 
 export type PluginContext = {
-  [tracingSpanSymbol]: opentelemetry.Span
+  [tracingSpanSymbol]: Span
 }
 
 function getResolverSpanKey(path: Path) {
@@ -64,7 +67,7 @@ export const getFastStoreTelemetryPlugin = (
 
     const resolverContextsByRootSpans: Record<
       string,
-      Record<string, opentelemetry.Context>
+      Record<string, Context>
     > = {}
 
     return {
@@ -86,7 +89,7 @@ export const getFastStoreTelemetryPlugin = (
               const previousResolverSpanKey =
                 path.prev && getResolverSpanKey(path.prev)
 
-              let ctx: opentelemetry.Context | null = null
+              let ctx: Context | null = null
 
               if (
                 previousResolverSpanKey &&
@@ -99,8 +102,8 @@ export const getFastStoreTelemetryPlugin = (
                     previousResolverSpanKey
                   ]
               } else {
-                ctx = opentelemetry.trace.setSpan(
-                  opentelemetry.context.active(),
+                ctx = openTelTrace.setSpan(
+                  context.active(),
                   context[tracingSpanSymbol]
                 )
 
@@ -125,7 +128,7 @@ export const getFastStoreTelemetryPlugin = (
                 ctx
               )
 
-              const resolverCtx = opentelemetry.trace.setSpan(ctx, resolverSpan)
+              const resolverCtx = openTelTrace.setSpan(ctx, resolverSpan)
 
               resolverContextsByRootSpans[rootContextSpanId][
                 getResolverSpanKey(path)
@@ -163,7 +166,7 @@ export const getFastStoreTelemetryPlugin = (
           }
         )
 
-        const executeContext = opentelemetry.context.active()
+        const executeContext = openTelContext.active()
 
         const resultCbs: OnExecuteHookResult<PluginContext> = {
           onExecuteDone({ result }) {
