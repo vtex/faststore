@@ -55,7 +55,7 @@ function getResolverSpanKey(path: Path) {
   return [...nodes].reverse().join('.')
 }
 
-export const getFastStoreTelemetryPlugin = (
+export const getFaststoreTelemetryPlugin = (
   tracingProvider: BasicTracerProvider,
   loggerProvider: LoggerProvider,
   serviceName: string,
