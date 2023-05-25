@@ -27,7 +27,6 @@ const FASTSTORE_API_VERSION = packageJson.version
 // They are only acessible from within the VTEX network, so they are not a security risk
 const TRACE_COLLECTOR_URL = 'opentelemetry-collector.vtex.systems'
 const TRACE_COLLECTOR_URL_DEV = 'opentelemetry-collector-beta.vtex.systems'
-
 const LOG_COLLECTOR_URL = 'opentelemetry-collector.vtex.systems'
 
 export function getTelemetry(
