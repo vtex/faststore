@@ -1,5 +1,4 @@
 export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -128,6 +127,13 @@ export type DeliveryIds = {
   warehouseId?: Maybe<Scalars['String']>;
 };
 
+export type IGeoCoordinates = {
+  /** The latitude of the geographic coordinates. */
+  latitude: Scalars['Float'];
+  /** The longitude of the geographic coordinates. */
+  longitude: Scalars['Float'];
+};
+
 /** Person data input to the newsletter. */
 export type IPersonNewsletter = {
   /** Person's email. */
@@ -212,7 +218,7 @@ export type IStoreOrder = {
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String'];
   /** Indicates whether or not items with attachments should be split. */
-  shouldSplitItem?: InputMaybe<Scalars['Boolean']>;
+  shouldSplitItem?: Maybe<Scalars['Boolean']>;
 };
 
 /** Organization input. */
@@ -236,7 +242,7 @@ export type IStorePerson = {
 /** Product input. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type IStoreProduct = {
   /** Custom Product Additional Properties. */
-  additionalProperty?: InputMaybe<Array<IStorePropertyValue>>;
+  additionalProperty?: Maybe<Array<IStorePropertyValue>>;
   /** Array of product images. */
   image: Array<IStoreImage>;
   /** Product name. */
@@ -249,7 +255,7 @@ export type IStorePropertyValue = {
   /** Property name. */
   name: Scalars['String'];
   /** Property id. This propert changes according to the content of the object. */
-  propertyID?: InputMaybe<Scalars['String']>;
+  propertyID?: Maybe<Scalars['String']>;
   /** Property value. May hold a string or the string representation of an object. */
   value: Scalars['ObjectOrString'];
   /** Specifies the nature of the value */
@@ -269,7 +275,7 @@ export type IStoreSession = {
   /** Session input address type. */
   addressType?: Maybe<Scalars['String']>;
   /** Session input channel. */
-  channel?: InputMaybe<Scalars['String']>;
+  channel?: Maybe<Scalars['String']>;
   /** Session input country. */
   country: Scalars['String'];
   /** Session input currency. */
@@ -277,13 +283,13 @@ export type IStoreSession = {
   /** Session input delivery mode. */
   deliveryMode?: Maybe<IStoreDeliveryMode>;
   /** Session input geoCoordinates. */
-  geoCoordinates?: InputMaybe<IStoreGeoCoordinates>;
+  geoCoordinates?: Maybe<IStoreGeoCoordinates>;
   /** Session input locale. */
   locale: Scalars['String'];
   /** Session input person. */
-  person?: InputMaybe<IStorePerson>;
+  person?: Maybe<IStorePerson>;
   /** Session input postal code. */
-  postalCode?: InputMaybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
 };
 
 export type LogisticsInfo = {
@@ -368,7 +374,7 @@ export type MutationSubscribeToNewsletterArgs = {
 
 export type MutationValidateCartArgs = {
   cart: IStoreCart;
-  session?: InputMaybe<IStoreSession>;
+  session?: Maybe<IStoreSession>;
 };
 
 
@@ -440,19 +446,21 @@ export type Query = {
   product: StoreProduct;
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult;
+  /** Returns a list of sellers available for a specific localization. */
+  sellers?: Maybe<SellersData>;
   /** Returns information about shipping simulation. */
   shipping?: Maybe<ShippingData>;
 };
 
 
 export type QueryAllCollectionsArgs = {
-  after?: InputMaybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
 };
 
 
 export type QueryAllProductsArgs = {
-  after?: InputMaybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
 };
 
@@ -468,11 +476,19 @@ export type QueryProductArgs = {
 
 
 export type QuerySearchArgs = {
-  after?: InputMaybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
-  selectedFacets?: InputMaybe<Array<IStoreSelectedFacet>>;
-  sort?: InputMaybe<StoreSort>;
-  term?: InputMaybe<Scalars['String']>;
+  selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
+  sort?: Maybe<StoreSort>;
+  term?: Maybe<Scalars['String']>;
+};
+
+
+export type QuerySellersArgs = {
+  country: Scalars['String'];
+  geoCoordinates?: Maybe<IGeoCoordinates>;
+  postalCode?: Maybe<Scalars['String']>;
+  salesChannel?: Maybe<Scalars['String']>;
 };
 
 
@@ -489,6 +505,26 @@ export type SearchMetadata = {
   isTermMisspelled: Scalars['Boolean'];
   /** Logical operator used to run the search. */
   logicalOperator: Scalars['String'];
+};
+
+/** Information of sellers. */
+export type SellerInfo = {
+  __typename?: 'SellerInfo';
+  /** Identification of the seller */
+  id?: Maybe<Scalars['String']>;
+  /** Logo of the seller */
+  logo?: Maybe<Scalars['String']>;
+  /** Name of the seller */
+  name?: Maybe<Scalars['String']>;
+};
+
+/** Regionalization with sellers information. */
+export type SellersData = {
+  __typename?: 'SellersData';
+  /** Identification of region. */
+  id?: Maybe<Scalars['String']>;
+  /** List of sellers. */
+  sellers?: Maybe<Array<Maybe<SellerInfo>>>;
 };
 
 /** Shipping Simulation information. */
@@ -566,12 +602,12 @@ export type SkuVariants = {
 
 
 export type SkuVariantsAvailableVariationsArgs = {
-  dominantVariantName?: InputMaybe<Scalars['String']>;
+  dominantVariantName?: Maybe<Scalars['String']>;
 };
 
 
 export type SkuVariantsSlugsMapArgs = {
-  dominantVariantName?: InputMaybe<Scalars['String']>;
+  dominantVariantName?: Maybe<Scalars['String']>;
 };
 
 /** Aggregate offer information, for a given SKU that is available to be fulfilled by multiple sellers. */
