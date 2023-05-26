@@ -334,7 +334,6 @@ type Query {
 }
 
 """
-
 Redirect informations, including url returned by the query.
 https://schema.org/Thing
 """
@@ -343,7 +342,9 @@ type StoreRedirect {
   URL to redirect
   """
   url: String
+}
 
+"""
 Regionalization with sellers information.
 """
 type SellersData {
