@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.164-alpha.0](https://github.com/vtex/faststore/compare/v2.0.163-alpha.0...v2.0.164-alpha.0) (2023-05-26)
+
+### Features
+
+- Apply adjusts in preview and content-types ([#1787](https://github.com/vtex/faststore/issues/1787)) ([bcf3772](https://github.com/vtex/faststore/commit/bcf377282bf21351961f028654d62cc8f046f593))
+
 ## [2.0.163-alpha.0](https://github.com/vtex/faststore/compare/v2.0.162-alpha.0...v2.0.163-alpha.0) (2023-05-26)
 
 ### Features
