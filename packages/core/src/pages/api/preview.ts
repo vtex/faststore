@@ -1,13 +1,7 @@
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import { clientCMS } from 'src/server/cms'
-
-const REDIRECTS_BY_CONTENT_TYPE = {
-  home: '/',
-  plp: '/office',
-  search: '/s?q=headphone',
-  pdp: '/apple-magic-mouse/p',
-}
+import { previewRedirects } from '../../../faststore.config'
 
 class StatusError extends Error {
   constructor(message: string, public status: number) {
@@ -53,7 +47,7 @@ const handler: NextApiHandler = async (req, res) => {
 
     // Redirect to the path from the fetched locator
     // TODO: apply redirect based on the content
-    res.redirect(REDIRECTS_BY_CONTENT_TYPE[locator.contentType] ?? '/')
+    res.redirect(previewRedirects[locator.contentType] ?? '/')
   } catch (error) {
     if (error instanceof StatusError) {
       res.status(error.status).end(error.message)
