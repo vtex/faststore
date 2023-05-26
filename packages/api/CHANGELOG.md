@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.12.43 (2023-05-26)
+
+### Features
+
+- add api telemetry (1.x) ([#1790](https://github.com/vtex/faststore/issues/1790)) ([1c39126](https://github.com/vtex/faststore/commit/1c39126f2f91ae7ffb7a895a45c81bdb3fef1e0e))
+
+### Bug Fixes
+
+- telemetry lint error ([#1796](https://github.com/vtex/faststore/issues/1796)) ([2457832](https://github.com/vtex/faststore/commit/24578329d7c1ecf9bcf61bdcacd3de2a05677663))
+
 ## [1.12.42](https://github.com/vtex/faststore/compare/v1.12.41...v1.12.42) (2023-05-17)
 
 **Note:** Version bump only for package @faststore/api

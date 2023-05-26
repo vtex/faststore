@@ -1,6 +1,6 @@
 {
   "name": "@faststore/ui",
-  "version": "1.12.37",
+  "version": "1.12.43",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",
@@ -57,8 +57,8 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@faststore/shared": "^1.12.37",
-    "@faststore/styles": "^1.12.37",
+    "@faststore/shared": "^1.12.43",
+    "@faststore/styles": "^1.12.43",
     "@size-limit/preset-small-lib": "^7.0.8",
     "@storybook/addon-actions": "^6.4.4",
     "@storybook/addon-docs": "^6.4.4",

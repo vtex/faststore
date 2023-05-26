@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "version": "1.12.37",
+  "version": "1.12.43",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -20,8 +20,8 @@
     "@docusaurus/preset-classic": "2.0.0-beta.20",
     "@docusaurus/remark-plugin-npm2yarn": "2.0.0-beta.20",
     "@docusaurus/theme-live-codeblock": "2.0.0-beta.20",
-    "@faststore/styles": "^1.12.37",
-    "@faststore/ui": "^1.12.37",
+    "@faststore/styles": "^1.12.43",
+    "@faststore/ui": "^1.12.43",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@mdx-js/react": "^1.6.21",
     "@svgr/webpack": "^5.5.0",
