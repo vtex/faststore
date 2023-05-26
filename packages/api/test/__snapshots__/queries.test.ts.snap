@@ -613,6 +613,16 @@ Object {
 }
 `;
 
+exports[`\`redirect\` query 1`] = `
+Object {
+  "data": Object {
+    "redirect": Object {
+      "url": "/technology",
+    },
+  },
+}
+`;
+
 exports[`\`search\` query 1`] = `
 Object {
   "data": Object {

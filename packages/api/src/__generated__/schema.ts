@@ -444,6 +444,8 @@ export type Query = {
   collection: StoreCollection;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
+  /** Returns if there's a redirect for a search. */
+  redirect?: Maybe<StoreRedirect>;
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult;
   /** Returns a list of sellers available for a specific localization. */
@@ -472,6 +474,12 @@ export type QueryCollectionArgs = {
 
 export type QueryProductArgs = {
   locator: Array<IStoreSelectedFacet>;
+};
+
+
+export type QueryRedirectArgs = {
+  selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
+  term?: Maybe<Scalars['String']>;
 };
 
 
@@ -1010,6 +1018,16 @@ export type StorePropertyValue = {
   value: Scalars['ObjectOrString'];
   /** Specifies the nature of the value */
   valueReference: Scalars['String'];
+};
+
+/**
+ * Redirect informations, including url returned by the query.
+ * https://schema.org/Thing
+ */
+export type StoreRedirect = {
+  __typename?: 'StoreRedirect';
+  /** URL to redirect */
+  url?: Maybe<Scalars['String']>;
 };
 
 /** Information of a given review. */

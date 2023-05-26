@@ -371,6 +371,8 @@ export type Query = {
   collection: StoreCollection
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct
+  /** Returns if there's a redirect for a search. */
+  redirect: Maybe<StoreRedirect>
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult
   /** Returns information about shipping simulation. */
@@ -393,6 +395,11 @@ export type QueryCollectionArgs = {
 
 export type QueryProductArgs = {
   locator: Array<IStoreSelectedFacet>
+}
+
+export type QueryRedirectArgs = {
+  selectedFacets: InputMaybe<Array<IStoreSelectedFacet>>
+  term: InputMaybe<Scalars['String']>
 }
 
 export type QuerySearchArgs = {
@@ -861,6 +868,12 @@ export type StorePropertyValue = {
   value: Scalars['ObjectOrString']
   /** Specifies the nature of the value */
   valueReference: Scalars['String']
+}
+
+/** Redirect informations, including url returned by the query. */
+export type StoreRedirect = {
+  /** URL to redirect */
+  url: Maybe<Scalars['String']>
 }
 
 /** Information of a given review. */

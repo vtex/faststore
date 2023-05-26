@@ -295,6 +295,21 @@ type Query {
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
+  Returns if there's a redirect for a search.
+  """
+  redirect(
+    """
+    Search term.
+    """
+    term: String
+    """
+    Array of selected search facets.
+    """
+    selectedFacets: [IStoreSelectedFacet!]
+  ): StoreRedirect
+
+
+  """
   Returns a list of sellers available for a specific localization.
   """
   sellers(
@@ -316,6 +331,17 @@ type Query {
     salesChannel: String
   ): SellersData
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+}
+
+"""
+Redirect informations, including url returned by the query.
+https://schema.org/Thing
+"""
+type StoreRedirect {
+  """
+  URL to redirect
+  """
+  url: String
 }
 
 """
