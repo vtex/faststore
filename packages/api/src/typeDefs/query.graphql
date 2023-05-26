@@ -184,6 +184,17 @@ type StoreSearchResult {
   metadata: SearchMetadata
 }
 
+input IGeoCoordinates {
+  """
+  The latitude of the geographic coordinates.
+  """
+  latitude: Float!
+  """
+  The longitude of the geographic coordinates.
+  """
+  longitude: Float!
+}
+
 type Query {
   """
   Returns the details of a product based on the specified locator.
@@ -282,4 +293,59 @@ type Query {
     country: String!
   ): ShippingData
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+
+  """
+  Returns a list of sellers available for a specific localization.
+  """
+  sellers(
+    """
+    Postal code input to calculate sellers
+    """
+    postalCode: String
+    """
+    Geocoordinates input to calculate sellers
+    """
+    geoCoordinates: IGeoCoordinates
+    """
+    Country of localization
+    """
+    country: String!
+    """
+    Sales channel of the navigation
+    """
+    salesChannel: String
+  ): SellersData
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+}
+
+"""
+Regionalization with sellers information.
+"""
+type SellersData {
+  """
+  Identification of region.
+  """
+  id: String
+  """
+  List of sellers.
+  """
+  sellers: [SellerInfo]
+}
+
+"""
+Information of sellers.
+"""
+type SellerInfo {
+  """
+  Identification of the seller
+  """
+  id: String
+  """
+  Name of the seller
+  """
+  name: String
+  """
+  Logo of the seller
+  """
+  logo: String
 }

@@ -1,6 +1,6 @@
 export interface RegionInput {
-  postalCode: string
-  geoCoordinates: GeoCoordinates | null
+  postalCode?: string | null
+  geoCoordinates?: GeoCoordinates | null
   country: string
   salesChannel?: string | null
 }

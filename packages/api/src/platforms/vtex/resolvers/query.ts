@@ -18,6 +18,7 @@ import type {
   QueryCollectionArgs,
   QueryProductArgs,
   QuerySearchArgs,
+  QuerySellersArgs,
   QueryShippingArgs,
 } from "../../../__generated__/schema"
 import type { CategoryTree } from "../clients/commerce/types/CategoryTree"
@@ -142,9 +143,8 @@ export const Query = {
         productId: crossSelling.value,
       })
 
-      query = `product:${
-        products.map((x) => x.productId).slice(0, first).join(";")
-      }`
+      query = `product:${products.map((x) => x.productId).slice(0, first).join(";")
+        }`
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0
@@ -271,6 +271,25 @@ export const Query = {
     return {
       ...simulation,
       address,
+    }
+  },
+
+  sellers: async (
+    _: unknown,
+    { postalCode, geoCoordinates, country, salesChannel }: QuerySellersArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const regionData = await commerce.checkout.region({ postalCode, geoCoordinates, country, salesChannel })
+    const region = regionData?.[0]
+    const { id, sellers } = region
+
+    return {
+      id,
+      sellers
     }
   },
 }

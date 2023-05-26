@@ -1091,6 +1091,26 @@ Object {
 }
 `;
 
+exports[`\`sellers\` query 1`] = `
+Object {
+  "data": Object {
+    "sellers": Object {
+      "id": "v2.4325C29BA00E6470CBA54999680076F9",
+      "sellers": Array [
+        Object {
+          "id": "storeframework01",
+          "name": "storeframework01",
+        },
+        Object {
+          "id": "storeframework02",
+          "name": "storeframework02",
+        },
+      ],
+    },
+  },
+}
+`;
+
 exports[`\`shipping\` query 1`] = `
 Object {
   "data": Object {
@@ -1133,6 +1153,7 @@ Object {
           "selectedSla": null,
           "slas": Array [
             Object {
+              "availableDeliveryWindows": null,
               "deliveryChannel": "delivery",
               "deliveryIds": Array [
                 Object {

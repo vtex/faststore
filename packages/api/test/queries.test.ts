@@ -34,6 +34,7 @@ import {
   addressFetch,
   ShippingSimulationQueryResult,
 } from '../mocks/ShippingQuery'
+import { SellersQueryResult, regionFetch } from '../mocks/SellersQuery'
 
 const apiOptions = {
   platform: 'vtex',
@@ -227,6 +228,27 @@ test('`shipping` query', async () => {
   const response = await run(ShippingSimulationQueryResult)
 
   expect(mockedFetch).toHaveBeenCalledTimes(2)
+
+  fetchAPICalls.forEach((fetchAPICall) => {
+    expect(mockedFetch).toHaveBeenCalledWith(
+      fetchAPICall.info,
+      fetchAPICall.init
+    )
+  })
+
+  expect(response).toMatchSnapshot()
+})
+
+test('`sellers` query', async () => {
+  const fetchAPICalls = [regionFetch]
+
+  mockedFetch.mockImplementation((info, init) =>
+    pickFetchAPICallResult(info, init, fetchAPICalls)
+  )
+
+  const response = await run(SellersQueryResult)
+
+  expect(mockedFetch).toHaveBeenCalledTimes(1)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(

@@ -65,6 +65,7 @@ const QUERIES = [
   'allProducts',
   'allCollections',
   'shipping',
+  'sellers',
 ]
 
 const MUTATIONS = ['validateCart', 'validateSession', 'subscribeToNewsletter']

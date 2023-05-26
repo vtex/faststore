@@ -49,28 +49,64 @@ input IStoreGeoCoordinates {
 }
 
 """
+Delivery window information.
+"""
+type StoreDeliveryWindow {
+  """
+  The delivery window start date information.
+  """
+  startDate: String!
+  """
+  The delivery window end date information.
+  """
+  endDate: String!
+}
+
+"""
+Delivery window information.
+"""
+input IStoreDeliveryWindow {
+  """
+  The delivery window start date information.
+  """
+  startDate: String!
+  """
+  The delivery window end date information.
+  """
+  endDate: String!
+}
+
+"""
 Delivery mode information.
 """
 type StoreDeliveryMode {
   """
-  The latitude of the geographic coordinates.
+  The delivery channel information of the session.
   """
   deliveryChannel: String!
   """
-  The longitude of the geographic coordinates.
+  The delivery method information of the session.
   """
   deliveryMethod: String!
+  """
+  The delivery window information of the session.
+  """
+  deliveryWindow: StoreDeliveryWindow
 }
 
 input IStoreDeliveryMode {
   """
-  The latitude of the geographic coordinates.
+  The delivery channel information of the session.
   """
   deliveryChannel: String!
   """
-  The longitude of the geographic coordinates.
+  The delivery method information of the session.
   """
   deliveryMethod: String!
+  """
+  The delivery window information of the session.
+  """
+  deliveryWindow: IStoreDeliveryWindow
 }
 
 """
@@ -94,7 +130,6 @@ type StoreSession {
   """
   channel: String
   """
-
   Session delivery mode.
   """
   deliveryMode: StoreDeliveryMode
@@ -137,7 +172,6 @@ input IStoreSession {
   """
   channel: String
   """
-
   Session input delivery mode.
   """
   deliveryMode: IStoreDeliveryMode

@@ -47,6 +47,19 @@ export type Address = {
   street: Maybe<Scalars['String']>
 }
 
+export type AvailableDeliveryWindows = {
+  /** Available delivery window end date in UTC */
+  endDateUtc: Maybe<Scalars['String']>
+  /** Available delivery window list price */
+  listPrice: Maybe<Scalars['Int']>
+  /** Available delivery window price */
+  price: Maybe<Scalars['Int']>
+  /** Available delivery window start date in UTC */
+  startDateUtc: Maybe<Scalars['String']>
+  /** Available delivery window tax */
+  tax: Maybe<Scalars['Int']>
+}
+
 export type DeliveryIds = {
   /** DeliveryIds courier id */
   courierId: Maybe<Scalars['String']>
@@ -92,10 +105,20 @@ export type IStoreCurrency = {
 }
 
 export type IStoreDeliveryMode = {
-  /** The latitude of the geographic coordinates. */
+  /** The delivery channel information of the session. */
   deliveryChannel: Scalars['String']
-  /** The longitude of the geographic coordinates. */
+  /** The delivery method information of the session. */
   deliveryMethod: Scalars['String']
+  /** The delivery window information of the session. */
+  deliveryWindow: InputMaybe<IStoreDeliveryWindow>
+}
+
+/** Delivery window information. */
+export type IStoreDeliveryWindow = {
+  /** The delivery window end date information. */
+  endDate: Scalars['String']
+  /** The delivery window start date information. */
+  startDate: Scalars['String']
 }
 
 export type IStoreGeoCoordinates = {
@@ -407,6 +430,8 @@ export type ShippingData = {
 }
 
 export type ShippingSla = {
+  /** ShippingSLA available delivery windows. */
+  availableDeliveryWindows: Maybe<Array<Maybe<AvailableDeliveryWindows>>>
   /** ShippingSLA carrier. */
   carrier: Maybe<Scalars['String']>
   /** ShippingSLA delivery channel. */
@@ -599,10 +624,20 @@ export type StoreCurrency = {
 
 /** Delivery mode information. */
 export type StoreDeliveryMode = {
-  /** The latitude of the geographic coordinates. */
+  /** The delivery channel information of the session. */
   deliveryChannel: Scalars['String']
-  /** The longitude of the geographic coordinates. */
+  /** The delivery method information of the session. */
   deliveryMethod: Scalars['String']
+  /** The delivery window information of the session. */
+  deliveryWindow: Maybe<StoreDeliveryWindow>
+}
+
+/** Delivery window information. */
+export type StoreDeliveryWindow = {
+  /** The delivery window end date information. */
+  endDate: Scalars['String']
+  /** The delivery window start date information. */
+  startDate: Scalars['String']
 }
 
 export type StoreFacet = StoreFacetBoolean | StoreFacetRange
@@ -870,7 +905,6 @@ export type StoreSeo = {
 
 /** Session information. */
 export type StoreSession = {
-
   /** Session address type. */
   addressType: Maybe<Scalars['String']>
   /** Session channel. */
@@ -1348,7 +1382,11 @@ export type ValidateSessionMutation = {
     country: string
     addressType: string | null
     postalCode: string | null
-    deliveryMode: { deliveryChannel: string; deliveryMethod: string } | null
+    deliveryMode: {
+      deliveryChannel: string
+      deliveryMethod: string
+      deliveryWindow: { startDate: string; endDate: string } | null
+    } | null
     geoCoordinates: { latitude: number; longitude: number } | null
     currency: { code: string; symbol: string }
     person: {
@@ -1374,6 +1412,12 @@ export type ShippingSimulationQueryQuery = {
         price: number | null
         shippingEstimate: string | null
         localizedEstimates: string | null
+        availableDeliveryWindows: Array<{
+          startDateUtc: string | null
+          endDateUtc: string | null
+          price: number | null
+          listPrice: number | null
+        } | null> | null
       } | null> | null
     } | null> | null
     address: { city: string | null; neighborhood: string | null } | null
