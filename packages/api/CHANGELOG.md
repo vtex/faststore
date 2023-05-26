@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.165-alpha.0](https://github.com/vtex/faststore/compare/v2.0.164-alpha.0...v2.0.165-alpha.0) (2023-05-26)
+
+### Features
+
+- add api telemetry ([#1789](https://github.com/vtex/faststore/issues/1789)) ([30c66d7](https://github.com/vtex/faststore/commit/30c66d74abffbd168acfbb44f5bd6f7d56df8b58))
+
 ## [2.0.163-alpha.0](https://github.com/vtex/faststore/compare/v2.0.162-alpha.0...v2.0.163-alpha.0) (2023-05-26)
 
 ### Features
