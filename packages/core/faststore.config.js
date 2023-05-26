@@ -52,6 +52,14 @@ module.exports = {
   loginUrl: 'https://secure.vtexfaststore.com/api/io/login',
   accountUrl: 'https://secure.vtexfaststore.com/api/io/account',
 
+  // Preview redirects
+  previewRedirects: {
+    home: '/',
+    plp: '/office',
+    search: '/s?q=headphone',
+    pdp: '/apple-magic-mouse/p',
+  },
+
   // Lighthouse CI
   lighthouse: {
     server: process.env.BASE_SITE_URL || 'http://localhost:3000',
