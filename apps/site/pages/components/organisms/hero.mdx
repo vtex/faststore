@@ -15,6 +15,40 @@ import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { Hero, HeroImage, HeroHeader, Icon } from '@faststore/ui'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const heroPath = path.resolve(__filename)
+  const components = ['Hero.tsx', 'HeroImage.tsx', 'HeroHeader.tsx']
+  const [heroProps, heroImageProps, heroHeaderProps] = getComponentPropsFrom(
+    heroPath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        heroProps,
+        heroImageProps,
+        heroHeaderProps,
+      },
+    },
+  }
+}
+
+export const HeroPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { heroProps, heroImageProps, heroHeaderProps } = useSSG()
+  return {
+    Hero: <PropsSection propsList={heroProps} />,
+    HeroImage: <PropsSection propsList={heroImageProps} />,
+    HeroHeader: <PropsSection propsList={heroHeaderProps} />,
+  }[component]
+}
+
 <header>
 
 # Hero
@@ -96,15 +130,15 @@ Besides those attributes, the following props are also supported:
 
 ### Hero
 
-<PropsSection name="Hero" />
+<HeroPropsSection component="Hero" />
 
 ### HeroImage
 
-<PropsSection name="HeroImage" />
+<HeroPropsSection component="HeroImage" />
 
 ### HeroHeader
 
-<PropsSection name="HeroHeader" />
+<HeroPropsSection component="HeroHeader" />
 
 ---
 

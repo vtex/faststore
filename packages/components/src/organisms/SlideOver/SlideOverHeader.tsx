@@ -22,9 +22,10 @@ const SlideOverHeader = ({
   children,
   closeBtnProps = {},
   onClose,
+  ...otherProps
 }: SlideOverHeaderProps) => {
   return (
-    <header data-fs-slide-over-header>
+    <header data-fs-slide-over-header {...otherProps}>
       {children}
       <IconButton
         data-fs-slide-over-header-icon

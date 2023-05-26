@@ -20,6 +20,9 @@
   --fs-footer-title-weight                        : var(--fs-text-weight-bold);
   --fs-footer-title-margin-bottom                 : var(--fs-spacing-1);
 
+  // Logo
+  --fs-footer-logo-width                          : var(--fs-logo-width);
+
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
@@ -32,11 +35,8 @@
     padding-top: 0;
   }
 
-  [data-fs-logo] {
-    background-position-y: var(--fs-spacing-0);
-  }
-
-  [data-fs-footer-title] {
+  [data-fs-footer-links-title],
+  [data-fs-footer-social-title] {
     margin-bottom: var(--fs-footer-title-margin-bottom);
     font-size: var(--fs-footer-title-size);
     font-weight: var(--fs-footer-title-weight);
@@ -47,8 +47,8 @@
     }
   }
 
-  [data-fs-footer-note],
-  [data-fs-footer-nav] {
+  [data-fs-footer-info],
+  [data-fs-footer-navigation] {
     position: relative;
     display: flex;
 
@@ -71,16 +71,24 @@
         grid-column: span 12;
       }
     }
+
+    [data-fs-logo] {
+      width: var(--fs-footer-logo-width);
+
+      [data-fs-image] {
+        object-position: left top;
+      }
+    }
   }
 
-  [data-fs-footer-nav] {
+  [data-fs-footer-navigation] {
     @include media(">=notebook") {
       row-gap: var(--fs-footer-spacing-vertical-notebook);
       padding-bottom: var(--fs-footer-spacing-vertical-notebook);
     }
   }
 
-  [data-fs-footer-note] {
+  [data-fs-footer-info] {
     position: relative;
 
     @include media("<notebook") {
@@ -152,12 +160,8 @@
   }
 
   [data-fs-footer-copyright] {
-    p + p {
-      margin: var(--fs-spacing-2) auto;
-    }
-
-    address {
-      font-style: normal;
+    p {
+      white-space: break-spaces;
     }
 
     @include media(">=notebook") {
@@ -197,7 +201,7 @@
   }
 
   &:not([data-fs-footer-social="true"]) {
-    [data-fs-footer-note]::before {
+    [data-fs-footer-info]::before {
       @include media("<notebook") {
         border-color: transparent;
       }

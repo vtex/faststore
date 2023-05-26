@@ -287,7 +287,7 @@ export interface SLA {
   shippingEstimate: string
   shippingEstimateDate: string | null
   lockTTL: string | null
-  availableDeliveryWindows: any[]
+  availableDeliveryWindows: AvailableDeliveryWindows[]
   deliveryWindow: string | null
   price: number
   listPrice: number
@@ -303,6 +303,14 @@ export interface SLA {
   pickupDistance: number | null
   polygonName: string | null
   transitTime: string | null
+}
+
+export interface AvailableDeliveryWindows {
+  startDateUtc: string,
+  endDateUtc: string,
+  price: number,
+  listPrice: number,
+  tax: number,
 }
 
 export interface DeliveryId {

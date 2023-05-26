@@ -7,6 +7,7 @@
   --fs-input-padding                     : var(--fs-spacing-1) var(--fs-spacing-2);
   --fs-input-height                      : var(--fs-control-tap-size);
 
+  --fs-input-bkg-color                   : var(--fs-color-body-bkg);
   --fs-input-box-shadow                  : none;
   --fs-input-box-shadow-hover            : 0 0 0 var(--fs-border-width) var(--fs-border-color-active);
 
@@ -40,6 +41,7 @@
   font-size: var(--fs-input-text-size);
   line-height: var(--fs-input-line-height);
   color: var(--fs-input-text-color);
+  background-color: var(--fs-input-bkg-color);
   border: var(--fs-input-border-width) solid var(--fs-input-border-color);
   border-radius: var(--fs-input-border-radius);
   box-shadow: var(--fs-input-box-shadow);

@@ -1,9 +1,16 @@
+import type { SearchState } from '@faststore/sdk'
 import { formatSearchState, initSearchState } from '@faststore/sdk'
 
-export const formatSearchPath = (term: string) => {
+type FormatSearchPath = {
+  term: string
+  sort?: SearchState['sort']
+}
+
+export const formatSearchPath = ({ term, sort }: FormatSearchPath) => {
   const { pathname, search } = formatSearchState(
     initSearchState({
       term,
+      sort,
       base: '/s',
     })
   )

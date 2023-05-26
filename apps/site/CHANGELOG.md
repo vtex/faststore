@@ -3,6 +3,114 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.162-alpha.0](https://github.com/vtex/faststore/compare/v2.0.161-alpha.0...v2.0.162-alpha.0) (2023-05-26)
+
+**Note:** Version bump only for package site
+
+## [2.0.161-alpha.0](https://github.com/vtex/faststore/compare/v2.0.160-alpha.0...v2.0.161-alpha.0) (2023-05-24)
+
+**Note:** Version bump only for package site
+
+## [2.0.160-alpha.0](https://github.com/vtex/faststore/compare/v2.0.159-alpha.0...v2.0.160-alpha.0) (2023-05-24)
+
+**Note:** Version bump only for package site
+
+## [2.0.159-alpha.0](https://github.com/vtex/faststore/compare/v2.0.158-alpha.0...v2.0.159-alpha.0) (2023-05-24)
+
+**Note:** Version bump only for package site
+
+## [2.0.158-alpha.0](https://github.com/vtex/faststore/compare/v2.0.157-alpha.0...v2.0.158-alpha.0) (2023-05-23)
+
+**Note:** Version bump only for package site
+
+## [2.0.156-alpha.0](https://github.com/vtex/faststore/compare/v2.0.155-alpha.0...v2.0.156-alpha.0) (2023-05-23)
+
+**Note:** Version bump only for package site
+
+## [2.0.154-alpha.0](https://github.com/vtex/faststore/compare/v2.0.153-alpha.0...v2.0.154-alpha.0) (2023-05-23)
+
+**Note:** Version bump only for package site
+
+## [2.0.152-alpha.0](https://github.com/vtex/faststore/compare/v2.0.151-alpha.0...v2.0.152-alpha.0) (2023-05-23)
+
+### Features
+
+- Fix Styles ([#1775](https://github.com/vtex/faststore/issues/1775)) ([2257f6e](https://github.com/vtex/faststore/commit/2257f6e59bac2dc574cf35d71967de5282374969))
+
+## [2.0.151-alpha.0](https://github.com/vtex/faststore/compare/v2.0.150-alpha.0...v2.0.151-alpha.0) (2023-05-22)
+
+**Note:** Version bump only for package site
+
+## [2.0.150-alpha.0](https://github.com/vtex/faststore/compare/v2.0.149-alpha.0...v2.0.150-alpha.0) (2023-05-22)
+
+**Note:** Version bump only for package site
+
+## [2.0.149-alpha.0](https://github.com/vtex/faststore/compare/v2.0.148-alpha.0...v2.0.149-alpha.0) (2023-05-19)
+
+**Note:** Version bump only for package site
+
+## [2.0.148-alpha.0](https://github.com/vtex/faststore/compare/v2.0.147-alpha.0...v2.0.148-alpha.0) (2023-05-19)
+
+### Documentation
+
+- Fixes payment flags doc page ([#1776](https://github.com/vtex/faststore/issues/1776)) ([483c612](https://github.com/vtex/faststore/commit/483c612f41908ec5452074b02b3232d7383adc80))
+
+## [2.0.145-alpha.0](https://github.com/vtex/faststore/compare/v2.0.144-alpha.0...v2.0.145-alpha.0) (2023-05-18)
+
+### Documentation
+
+- Checkbox Field component props ([#1774](https://github.com/vtex/faststore/issues/1774)) ([90abbd4](https://github.com/vtex/faststore/commit/90abbd4a4da9c30f54a4569e828b990cde0ca59e))
+
+## [2.0.144-alpha.0](https://github.com/vtex/faststore/compare/v2.0.143-alpha.0...v2.0.144-alpha.0) (2023-05-18)
+
+**Note:** Version bump only for package site
+
+## [2.0.143-alpha.0](https://github.com/vtex/faststore/compare/v2.0.142-alpha.0...v2.0.143-alpha.0) (2023-05-17)
+
+### Documentation
+
+- Adds Hero's props ([#1771](https://github.com/vtex/faststore/issues/1771)) ([f1ce082](https://github.com/vtex/faststore/commit/f1ce082801ddf7ff24a32ca7163aae26243c5989))
+
+## [2.0.142-alpha.0](https://github.com/vtex/faststore/compare/v2.0.141-alpha.0...v2.0.142-alpha.0) (2023-05-16)
+
+### Features
+
+- Adjust `Navbar` for CMS ([#1756](https://github.com/vtex/faststore/issues/1756)) ([105a8b2](https://github.com/vtex/faststore/commit/105a8b2f69ffd8438532d7c9eb959ed26a567675))
+
+## [2.0.139-alpha.0](https://github.com/vtex/faststore/compare/v2.0.138-alpha.0...v2.0.139-alpha.0) (2023-05-15)
+
+### Chores
+
+- Update Badge tokens ([#1761](https://github.com/vtex/faststore/issues/1761)) ([7c1764b](https://github.com/vtex/faststore/commit/7c1764b00b434f2380335ca68c4ba90a951a3c6d))
+
+## [2.0.137-alpha.0](https://github.com/vtex/faststore/compare/v2.0.136-alpha.0...v2.0.137-alpha.0) (2023-05-11)
+
+**Note:** Version bump only for package site
+
+## [2.0.136-alpha.0](https://github.com/vtex/faststore/compare/v2.0.135-alpha.0...v2.0.136-alpha.0) (2023-05-11)
+
+### Documentation
+
+- Updates override components doc page ([#1758](https://github.com/vtex/faststore/issues/1758)) ([959e3ab](https://github.com/vtex/faststore/commit/959e3abbf05c34e2b1338b599a7bf4410e3f91bc))
+
+## [2.0.135-alpha.0](https://github.com/vtex/faststore/compare/v2.0.134-alpha.0...v2.0.135-alpha.0) (2023-05-10)
+
+**Note:** Version bump only for package site
+
+## [2.0.133-alpha.0](https://github.com/vtex/faststore/compare/v2.0.132-alpha.0...v2.0.133-alpha.0) (2023-05-09)
+
+**Note:** Version bump only for package site
+
+## [2.0.132-alpha.0](https://github.com/vtex/faststore/compare/v2.0.131-alpha.0...v2.0.132-alpha.0) (2023-05-09)
+
+### Bug Fixes
+
+- Lighthouse Checks 🟢 ([#1737](https://github.com/vtex/faststore/issues/1737)) ([b862703](https://github.com/vtex/faststore/commit/b862703ce991065f92765f4cecc88c9946b3d702)), closes [/github.com/GoogleChrome/lighthouse-ci/blob/main/packages/utils/src/presets/all.js#L25](https://github.com/vtex//github.com/GoogleChrome/lighthouse-ci/blob/main/packages/utils/src/presets/all.js/issues/L25)
+
+## [2.0.131-alpha.0](https://github.com/vtex/faststore/compare/v2.0.130-alpha.0...v2.0.131-alpha.0) (2023-05-08)
+
+**Note:** Version bump only for package site
+
 ## [2.0.128-alpha.0](https://github.com/vtex/faststore/compare/v2.0.127-alpha.0...v2.0.128-alpha.0) (2023-05-04)
 
 ### Features

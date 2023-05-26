@@ -8,12 +8,40 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Select___8842f3b6522c3e8db0a887b3f216a6ab.png
 ---
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { Select, SelectField } from '@faststore/ui'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+
+export const getStaticProps = () => {
+  const selectPath = path.resolve(__filename)
+  const components = ['Select.tsx']
+  const [selectProps] = getComponentPropsFrom(selectPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        selectProps
+      },
+    },
+  }
+}
+
+export const SelectPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { selectProps } = useSSG()
+  return {
+    Select: <PropsSection propsList={selectProps} />
+  }[component]
+}
+
 
 <header>
 
@@ -113,7 +141,7 @@ import '@faststore/ui/src/components/atoms/Select/styles.scss'
 
 ## Props
 
-<PropsSection name="Select" />
+<SelectPropsSection component="Select" />
 
 ---
 

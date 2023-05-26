@@ -3,6 +3,126 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.162-alpha.0](https://github.com/vtex/faststore/compare/v2.0.161-alpha.0...v2.0.162-alpha.0) (2023-05-26)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.160-alpha.0](https://github.com/vtex/faststore/compare/v2.0.159-alpha.0...v2.0.160-alpha.0) (2023-05-24)
+
+### Bug Fixes
+
+- Integration tests ([#1772](https://github.com/vtex/faststore/issues/1772)) ([b750bcc](https://github.com/vtex/faststore/commit/b750bcc8298e7fd467e6e92da8a9de926d7fcffe))
+
+## [2.0.159-alpha.0](https://github.com/vtex/faststore/compare/v2.0.158-alpha.0...v2.0.159-alpha.0) (2023-05-24)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.158-alpha.0](https://github.com/vtex/faststore/compare/v2.0.157-alpha.0...v2.0.158-alpha.0) (2023-05-23)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.157-alpha.0](https://github.com/vtex/faststore/compare/v2.0.156-alpha.0...v2.0.157-alpha.0) (2023-05-23)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.156-alpha.0](https://github.com/vtex/faststore/compare/v2.0.155-alpha.0...v2.0.156-alpha.0) (2023-05-23)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.154-alpha.0](https://github.com/vtex/faststore/compare/v2.0.153-alpha.0...v2.0.154-alpha.0) (2023-05-23)
+
+### Features
+
+- Adjust `ProductShelf` for CMS ([#1766](https://github.com/vtex/faststore/issues/1766)) ([1798536](https://github.com/vtex/faststore/commit/1798536f60a508997616350f0b4ac6c11878dc04))
+
+## [2.0.153-alpha.0](https://github.com/vtex/faststore/compare/v2.0.152-alpha.0...v2.0.153-alpha.0) (2023-05-23)
+
+### Features
+
+- Adds `ProductGallery` Sections + `Filter` component from CMS ([#1770](https://github.com/vtex/faststore/issues/1770)) ([3b80811](https://github.com/vtex/faststore/commit/3b808119904d68e6c848eaa4c30be050650ad2bb))
+
+## [2.0.152-alpha.0](https://github.com/vtex/faststore/compare/v2.0.151-alpha.0...v2.0.152-alpha.0) (2023-05-23)
+
+### Features
+
+- Fix Styles ([#1775](https://github.com/vtex/faststore/issues/1775)) ([2257f6e](https://github.com/vtex/faststore/commit/2257f6e59bac2dc574cf35d71967de5282374969))
+
+## [2.0.151-alpha.0](https://github.com/vtex/faststore/compare/v2.0.150-alpha.0...v2.0.151-alpha.0) (2023-05-22)
+
+### Features
+
+- Adjust `ProductDetails` for CMS ([#1740](https://github.com/vtex/faststore/issues/1740)) ([5cbd315](https://github.com/vtex/faststore/commit/5cbd31544bf57336f6d53780142338f80b61226b))
+
+## [2.0.147-alpha.0](https://github.com/vtex/faststore/compare/v2.0.146-alpha.0...v2.0.147-alpha.0) (2023-05-19)
+
+### Chores
+
+- removes required button props ([#1781](https://github.com/vtex/faststore/issues/1781)) ([b2758ee](https://github.com/vtex/faststore/commit/b2758ee37ae4737b3b59a7b6634baec138fe02f6))
+
+## [2.0.146-alpha.0](https://github.com/vtex/faststore/compare/v2.0.145-alpha.0...v2.0.146-alpha.0) (2023-05-19)
+
+### Features
+
+- Hero from CMS in PLP ([#1767](https://github.com/vtex/faststore/issues/1767)) ([7cff1a5](https://github.com/vtex/faststore/commit/7cff1a55e7ce0c3a7fb1bdcb6c3f88c56fc387e2))
+
+## [2.0.145-alpha.0](https://github.com/vtex/faststore/compare/v2.0.144-alpha.0...v2.0.145-alpha.0) (2023-05-18)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.142-alpha.0](https://github.com/vtex/faststore/compare/v2.0.141-alpha.0...v2.0.142-alpha.0) (2023-05-16)
+
+### Features
+
+- Adjust `Navbar` for CMS ([#1756](https://github.com/vtex/faststore/issues/1756)) ([105a8b2](https://github.com/vtex/faststore/commit/105a8b2f69ffd8438532d7c9eb959ed26a567675))
+
+## [2.0.141-alpha.0](https://github.com/vtex/faststore/compare/v2.0.140-alpha.0...v2.0.141-alpha.0) (2023-05-16)
+
+### Features
+
+- Pages with `RenderSection` + `Breadcrumb` section CMS ([#1747](https://github.com/vtex/faststore/issues/1747)) ([63f1b6a](https://github.com/vtex/faststore/commit/63f1b6a3b6da30b0c24ba78a8bffbc62470eac0a))
+
+## [2.0.140-alpha.0](https://github.com/vtex/faststore/compare/v2.0.139-alpha.0...v2.0.140-alpha.0) (2023-05-16)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.139-alpha.0](https://github.com/vtex/faststore/compare/v2.0.138-alpha.0...v2.0.139-alpha.0) (2023-05-15)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.138-alpha.0](https://github.com/vtex/faststore/compare/v2.0.137-alpha.0...v2.0.138-alpha.0) (2023-05-12)
+
+### Bug Fixes
+
+- removes global alert content type and page + fix core build. ([#1759](https://github.com/vtex/faststore/issues/1759)) ([a1c6a60](https://github.com/vtex/faststore/commit/a1c6a60b0f8178bd5521281b82697530b0bb13bd))
+
+## [2.0.137-alpha.0](https://github.com/vtex/faststore/compare/v2.0.136-alpha.0...v2.0.137-alpha.0) (2023-05-11)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.135-alpha.0](https://github.com/vtex/faststore/compare/v2.0.134-alpha.0...v2.0.135-alpha.0) (2023-05-10)
+
+### Bug Fixes
+
+- Lighthouse Performance 🟢 ([#1751](https://github.com/vtex/faststore/issues/1751)) ([bf8de0e](https://github.com/vtex/faststore/commit/bf8de0e5a8427fbe750b561a80fd186851ffd535))
+
+## [2.0.134-alpha.0](https://github.com/vtex/faststore/compare/v2.0.133-alpha.0...v2.0.134-alpha.0) (2023-05-09)
+
+### Bug Fixes
+
+- Renames `IncentivesHeader` section to `Incentives` ([#1752](https://github.com/vtex/faststore/issues/1752)) ([c46b6b2](https://github.com/vtex/faststore/commit/c46b6b289d971ec2e7925e69e83f649b08b933bd))
+
+## [2.0.133-alpha.0](https://github.com/vtex/faststore/compare/v2.0.132-alpha.0...v2.0.133-alpha.0) (2023-05-09)
+
+### Features
+
+- Adjust `Footer` for CMS ([#1743](https://github.com/vtex/faststore/issues/1743)) ([86dd67a](https://github.com/vtex/faststore/commit/86dd67a293dcd3a67a5b96ac45dc27d097f95381))
+
+## [2.0.132-alpha.0](https://github.com/vtex/faststore/compare/v2.0.131-alpha.0...v2.0.132-alpha.0) (2023-05-09)
+
+### Bug Fixes
+
+- Lighthouse Checks 🟢 ([#1737](https://github.com/vtex/faststore/issues/1737)) ([b862703](https://github.com/vtex/faststore/commit/b862703ce991065f92765f4cecc88c9946b3d702)), closes [/github.com/GoogleChrome/lighthouse-ci/blob/main/packages/utils/src/presets/all.js#L25](https://github.com/vtex//github.com/GoogleChrome/lighthouse-ci/blob/main/packages/utils/src/presets/all.js/issues/L25)
+
 ## [2.0.130-alpha.0](https://github.com/vtex/faststore/compare/v2.0.129-alpha.0...v2.0.130-alpha.0) (2023-05-04)
 
 ### Features

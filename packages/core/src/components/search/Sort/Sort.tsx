@@ -13,16 +13,34 @@ const OptionsMap = {
 }
 
 const keys = Object.keys(OptionsMap) as Array<keyof typeof OptionsMap>
+export interface SortProps {
+  label?: string
+  options?: {
+    price_desc?: string
+    price_asc?: string
+    orders_desc?: string
+    name_asc?: string
+    name_desc?: string
+    release_desc?: string
+    discount_desc?: string
+    score_desc?: string
+  }
+}
 
-function Sort() {
+function Sort({ label = 'Sort by', options = OptionsMap }: SortProps) {
   const { state, setState } = useSearch()
+
+  const optionsMap = Object.keys(options).reduce((acc, currentKey) => {
+    acc[currentKey] = options[currentKey] ?? OptionsMap[currentKey]
+    return acc
+  }, {})
 
   return (
     <SelectField
       id="sort-select"
       className="sort / text__title-mini-alt"
-      label="Sort by"
-      options={OptionsMap}
+      label={label}
+      options={optionsMap}
       onChange={(e) => {
         const sort = keys[e.target.selectedIndex]
 

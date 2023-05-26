@@ -107,18 +107,17 @@
   }
 
   [data-fs-button] {
-    justify-content: space-between;
-    min-width: 11.25rem;
     margin-top: var(--fs-spacing-6);
+    [data-fs-button-wrapper] {
+      min-width: 11.25rem;
+      justify-content: space-between;
+    }
   }
 
   [data-fs-hero-icon] {
     color: var(--fs-hero-text-color);
-    height: fit-content;
-    > * {
-      height: var(--fs-spacing-6);
-      width: var(--fs-spacing-6);
-    }
+    height: var(--fs-spacing-4);
+    width: var(--fs-spacing-4);
   }
 
   // --------------------------------------------------------

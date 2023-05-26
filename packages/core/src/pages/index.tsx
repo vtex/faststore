@@ -6,7 +6,7 @@ import type { ComponentType } from 'react'
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerText from 'src/components/sections/BannerText'
 import Hero from 'src/components/sections/Hero'
-import IncentivesHeader from 'src/components/sections/IncentivesHeader/IncentivesHeader'
+import Incentives from 'src/components/sections/Incentives'
 import Newsletter from 'src/components/sections/Newsletter'
 import ProductShelf from 'src/components/sections/ProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
@@ -15,16 +15,16 @@ import { mark } from 'src/sdk/tests/mark'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
-import storeConfig from '../../faststore.config'
 import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import storeConfig from '../../faststore.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Hero,
-  IncentivesHeader,
+  Incentives,
   ProductShelf,
   ProductTiles,
   BannerText,
@@ -42,15 +42,16 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
     <GlobalSections {...globalSections}>
       {/* SEO */}
       <NextSeo
-        title={settings.seo.title}
-        description={settings.seo.description}
-        titleTemplate={storeConfig.seo.titleTemplate}
-        canonical={settings.seo.canonical ?? storeConfig.storeUrl}
+        title={settings?.seo?.title ?? storeConfig.seo.title}
+        description={settings?.seo?.description ?? storeConfig.seo?.description}
+        titleTemplate={storeConfig.seo?.titleTemplate ?? storeConfig.seo?.title}
+        canonical={settings?.seo?.canonical ?? storeConfig.storeUrl}
         openGraph={{
           type: 'website',
           url: storeConfig.storeUrl,
-          title: settings.seo.title,
-          description: settings.seo.description,
+          title: settings?.seo?.title ?? storeConfig.seo.title,
+          description:
+            settings?.seo?.description ?? storeConfig.seo.description,
         }}
       />
       <SiteLinksSearchBoxJsonLd
@@ -84,14 +85,15 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const page = await getPage<PageContentType>({
-    ...(previewData?.contentType === 'page'
-      ? previewData
-      : { filters: { 'settings.seo.slug': '/' } }),
-    contentType: 'page',
-  })
-
-  const globalSections = await getGlobalSectionsData(previewData)
+  const [page, globalSections] = await Promise.all([
+    getPage<PageContentType>({
+      ...(previewData?.contentType === 'page'
+        ? previewData
+        : { filters: { 'settings.seo.slug': '/' } }),
+      contentType: 'page',
+    }),
+    getGlobalSectionsData(previewData),
+  ])
 
   return {
     props: { page, globalSections },

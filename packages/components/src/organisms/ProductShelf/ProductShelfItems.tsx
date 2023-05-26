@@ -1,7 +1,8 @@
 import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-export interface ProductShelfItemsProps extends HTMLAttributes<HTMLUListElement> {
+export interface ProductShelfItemsProps
+  extends HTMLAttributes<HTMLUListElement> {
   /**
    * ID to find this component in testing tools (e.g.: Cypress, Testing Library, and Jest).
    */
@@ -14,7 +15,13 @@ const ProductShelfItems = forwardRef<HTMLUListElement, ProductShelfItemsProps>(
     ref
   ) {
     return (
-      <ul ref={ref} data-fs-product-shelf-items data-testid={testId} {...otherProps}>
+      <ul
+        role="list"
+        ref={ref}
+        data-fs-product-shelf-items
+        data-testid={testId}
+        {...otherProps}
+      >
         {children}
       </ul>
     )

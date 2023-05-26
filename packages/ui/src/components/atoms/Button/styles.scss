@@ -100,7 +100,7 @@
 
   // Small
   --fs-button-small-padding                         : var(--fs-spacing-0) var(--fs-spacing-1);
-  --fs-button-small-min-height                      : var(--fs-spacing-5);
+  --fs-button-small-min-height                      : var(--fs-spacing-7);
   --fs-button-small-gap                             : var(--fs-spacing-1);
   --fs-button-small-icon-width                      : var(--fs-spacing-3);
   --fs-button-small-icon-height                     : var(--fs-button-small-icon-width);
@@ -112,31 +112,52 @@
   // Structural Styles
   // --------------------------------------------------------
 
-  display: inline-flex;
-  column-gap: var(--fs-button-gap);
-  align-items: center;
-  justify-content: center;
+  display: flex;
+  align-items: stretch;
+  width: fit-content;
   min-height: var(--fs-button-height);
-  padding: var(--fs-button-padding);
-  font-size: var(--fs-button-text-size);
-  font-weight: var(--fs-button-text-weight);
-  line-height: var(--fs-button-text-size);
-  text-decoration: none;
+  padding: 0;
   cursor: pointer;
-  border: var(--fs-button-border-width) solid var(--fs-button-border-color);
-  border-radius: var(--fs-button-border-radius);
-  outline: none;
-  box-shadow: var(--fs-button-shadow);
-  transition: var(--fs-button-transition-property) var(--fs-button-transition-timing) var(--fs-button-transition-function);
+
+  [data-fs-button-wrapper] {
+    position: relative;
+    display: inline-flex;
+    column-gap: var(--fs-button-gap);
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: var(--fs-button-padding);
+    font-size: var(--fs-button-text-size);
+    font-weight: var(--fs-button-text-weight);
+    line-height: var(--fs-button-text-size);
+    text-decoration: none;
+    border: var(--fs-button-border-width) solid var(--fs-button-border-color);
+    border-radius: var(--fs-button-border-radius);
+    outline: none;
+    box-shadow: var(--fs-button-shadow);
+    transition: var(--fs-button-transition-property) var(--fs-button-transition-timing) var(--fs-button-transition-function);
+  }
+
 
   // --------------------------------------------------------
   // Variants Styles
   // --------------------------------------------------------
 
   &[data-fs-button-variant] {
-    @include focus-ring-visible;
 
-    &:disabled, &[data-fs-button-disabled="true"] {
+    &:focus, &:focus-visible { box-shadow: none; }
+
+    @media not all and (min-resolution: .001dpcm) {
+      @supports (-webkit-appearance:none) {
+        &:focus [data-fs-button-wrapper],
+        &:focus:hover [data-fs-button-wrapper] { @include focus-ring; }
+      }
+    }
+
+    &:focus-visible [data-fs-button-wrapper],
+    &:focus-visible:hover [data-fs-button-wrapper] { @include focus-ring; }
+
+    &:disabled [data-fs-button-wrapper], &[data-fs-button-disabled="true"] [data-fs-button-wrapper] {
       color: var(--fs-button-disabled-text-color);
       cursor: not-allowed;
       background-color: var(--fs-button-disabled-bkg-color);
@@ -153,58 +174,66 @@
 
   &[data-fs-button-size="small"] {
     --fs-control-tap-size: var(--fs-button-small-min-height);
+    padding: var(--fs-spacing-1);
 
-    column-gap: var(--fs-button-small-gap);
-    padding: var(--fs-button-small-padding);
+    [data-fs-button-wrapper] {
+      column-gap: var(--fs-button-small-gap);
+      padding: var(--fs-button-small-padding);
+    }
 
+    &:not([data-fs-icon-button="true"]) {
       [data-fs-icon] {
         width: var(--fs-button-small-icon-width);
         height: var(--fs-button-small-icon-height);
       }
-
+    }
   }
 
   &[data-fs-button-variant="primary"] {
-    color: var(--fs-button-primary-text-color);
-    background-color: var(--fs-button-primary-bkg-color);
-    border: var(--fs-button-border-width) solid var(--fs-button-primary-border-color);
+    [data-fs-button-wrapper] {
+      color: var(--fs-button-primary-text-color);
+      background-color: var(--fs-button-primary-bkg-color);
+      border: var(--fs-button-border-width) solid var(--fs-button-primary-border-color);
+    }
 
-    &:hover {
+    &:hover [data-fs-button-wrapper] {
       color: var(--fs-button-primary-text-color-hover);
       background-color: var(--fs-button-primary-bkg-color-hover);
       border-color: var(--fs-button-primary-border-color-hover);
       box-shadow: var(--fs-button-primary-shadow-hover);
     }
 
-    &:focus, &:focus-visible {
+    &:focus [data-fs-button-wrapper], &:focus-visible [data-fs-button-wrapper] {
       color: var(--fs-button-primary-text-color-hover);
       background-color: var(--fs-button-primary-bkg-color-hover);
     }
 
-    &:active {
+    &:active [data-fs-button-wrapper] {
       color: var(--fs-button-primary-text-color-active);
       background-color: var(--fs-button-primary-bkg-color-active);
       border-color: var(--fs-button-primary-border-color-active);
     }
 
     &[data-fs-button-inverse="true"] {
-      color: var(--fs-button-primary-inverse-text-color);
-      background-color: var(--fs-button-primary-inverse-bkg-color);
-      border: var(--fs-button-border-width) solid var(--fs-button-primary-inverse-border-color);
+      [data-fs-button-wrapper] {
+        color: var(--fs-button-primary-inverse-text-color);
+        background-color: var(--fs-button-primary-inverse-bkg-color);
+        border: var(--fs-button-border-width) solid var(--fs-button-primary-inverse-border-color);
+      }
 
-      &:hover {
+      &:hover [data-fs-button-wrapper] {
         color: var(--fs-button-primary-inverse-text-color-hover);
         background-color: var(--fs-button-primary-inverse-bkg-color-hover);
         border-color: var(--fs-button-primary-inverse-border-color-hover);
         box-shadow: var(--fs-button-primary-inverse-shadow-hover);
       }
 
-      &:focus, &:focus-visible {
+      &:focus [data-fs-button-wrapper], &:focus-visible [data-fs-button-wrapper] {
         color: var(--fs-button-primary-inverse-text-color-hover);
         background-color: var(--fs-button-primary-inverse-bkg-color-hover);
       }
 
-      &:active {
+      &:active [data-fs-button-wrapper] {
         color: var(--fs-button-primary-inverse-text-color-active);
         background-color: var(--fs-button-primary-inverse-bkg-color-active);
         border-color: var(--fs-button-primary-inverse-border-color-active);
@@ -213,46 +242,52 @@
   }
 
   &[data-fs-button-variant="secondary"] {
-    color: var(--fs-button-secondary-text-color);
-    background-color: var(--fs-button-secondary-bkg-color);
-    border: var(--fs-button-border-width) solid var(--fs-button-secondary-border-color);
 
-    &:hover {
+    [data-fs-button-wrapper] {
+      color: var(--fs-button-secondary-text-color);
+      background-color: var(--fs-button-secondary-bkg-color);
+      border: var(--fs-button-border-width) solid var(--fs-button-secondary-border-color);
+    }
+
+    &:hover [data-fs-button-wrapper] {
       color: var(--fs-button-secondary-text-color-hover);
       background-color: var(--fs-button-secondary-bkg-color-hover);
       border-color: var(--fs-button-secondary-border-color-hover);
       box-shadow: var(--fs-button-secondary-shadow-hover);
     }
 
-    &:focus, &:focus-visible {
+    &:focus [data-fs-button-wrapper], &:focus-visible [data-fs-button-wrapper] {
       color: var(--fs-button-secondary-text-color-hover);
       background-color: var(--fs-button-secondary-bkg-color-hover);
     }
 
-    &:active {
+    &:active [data-fs-button-wrapper] {
       color: var(--fs-button-secondary-text-color-active);
       background-color: var(--fs-button-secondary-bkg-color-active);
       border-color: var(--fs-button-secondary-border-color-active);
     }
 
     &[data-fs-button-inverse="true"] {
-      color: var(--fs-button-secondary-inverse-text-color);
-      background-color: var(--fs-button-secondary-inverse-bkg-color);
-      border: var(--fs-button-border-width) solid var(--fs-button-secondary-inverse-border-color);
 
-      &:hover {
+      [data-fs-button-wrapper] {
+        color: var(--fs-button-secondary-inverse-text-color);
+        background-color: var(--fs-button-secondary-inverse-bkg-color);
+        border: var(--fs-button-border-width) solid var(--fs-button-secondary-inverse-border-color);
+      }
+
+      &:hover [data-fs-button-wrapper] {
         color: var(--fs-button-secondary-inverse-text-color-hover);
         background-color: var(--fs-button-secondary-inverse-bkg-color-hover);
         border-color: var(--fs-button-secondary-inverse-border-color-hover);
         box-shadow: var(--fs-button-secondary-inverse-shadow-hover);
       }
 
-      &:focus, &:focus-visible {
+      &:focus [data-fs-button-wrapper], &:focus-visible [data-fs-button-wrapper] {
         color: var(--fs-button-secondary-inverse-text-color-hover);
         background-color: var(--fs-button-secondary-inverse-bkg-color-hover);
       }
 
-      &:active {
+      &:active [data-fs-button-wrapper] {
         color: var(--fs-button-secondary-inverse-text-color-active);
         background-color: var(--fs-button-secondary-inverse-bkg-color-active);
         border-color: var(--fs-button-secondary-inverse-border-color-active);
@@ -261,46 +296,52 @@
   }
 
   &[data-fs-button-variant="tertiary"] {
-    color: var(--fs-button-tertiary-text-color);
-    background-color: var(--fs-button-tertiary-bkg-color);
-    border: var(--fs-button-border-width) solid var(--fs-button-tertiary-border-color);
 
-    &:hover {
+    [data-fs-button-wrapper] {
+      color: var(--fs-button-tertiary-text-color);
+      background-color: var(--fs-button-tertiary-bkg-color);
+      border: var(--fs-button-border-width) solid var(--fs-button-tertiary-border-color);
+    }
+
+    &:hover [data-fs-button-wrapper] {
       color: var(--fs-button-tertiary-text-color-hover);
       background-color: var(--fs-button-tertiary-bkg-color-hover);
       border-color: var(--fs-button-tertiary-border-color-hover);
       box-shadow: var(--fs-button-tertiary-shadow-hover);
     }
 
-    &:focus, &:focus-visible {
+    &:focus [data-fs-button-wrapper], &:focus-visible [data-fs-button-wrapper] {
       color: var(--fs-button-tertiary-text-color-hover);
       background-color: var(--fs-button-tertiary-bkg-color-hover);
     }
 
-    &:active {
+    &:active [data-fs-button-wrapper] {
       color: var(--fs-button-tertiary-text-color-active);
       background-color: var(--fs-button-tertiary-bkg-color-active);
       border-color: var(--fs-button-tertiary-border-color-active);
     }
 
     &[data-fs-button-inverse="true"] {
-      color: var(--fs-button-tertiary-inverse-text-color);
-      background-color: var(--fs-button-tertiary-inverse-bkg-color);
-      border: var(--fs-button-border-width) solid var(--fs-button-tertiary-inverse-border-color);
 
-      &:hover {
+      [data-fs-button-wrapper] {
+        color: var(--fs-button-tertiary-inverse-text-color);
+        background-color: var(--fs-button-tertiary-inverse-bkg-color);
+        border: var(--fs-button-border-width) solid var(--fs-button-tertiary-inverse-border-color);
+      }
+
+      &:hover [data-fs-button-wrapper] {
         color: var(--fs-button-tertiary-inverse-text-color-hover);
         background-color: var(--fs-button-tertiary-inverse-bkg-color-hover);
         border-color: var(--fs-button-tertiary-inverse-border-color-hover);
         box-shadow: var(--fs-button-tertiary-inverse-shadow-hover);
       }
 
-      &:focus, &:focus-visible {
+      &:focus [data-fs-button-wrapper], &:focus-visible [data-fs-button-wrapper] {
         color: var(--fs-button-tertiary-inverse-text-color-hover);
         background-color: var(--fs-button-tertiary-inverse-bkg-color-hover);
       }
 
-      &:active {
+      &:active [data-fs-button-wrapper] {
         color: var(--fs-button-tertiary-inverse-text-color-active);
         background-color: var(--fs-button-tertiary-inverse-bkg-color-active);
         border-color: var(--fs-button-tertiary-inverse-border-color-active);
@@ -309,18 +350,17 @@
   }
 
   &[data-fs-icon-button="true"] {
-    position: relative;
-    column-gap: 0;
+    width: var(--fs-button-height);
 
-    &[data-fs-button-variant] {
-      width: var(--fs-button-height);
-      height: var(--fs-button-height);
-      padding: var(--fs-button-icon-padding);
+    [data-fs-button-wrapper] {
+      column-gap: 0;
+      padding: 0;
       border-width: 0;
+      width: 100%;
     }
   }
 
-  &[data-fs-button-loading="true"] {
+  &[data-fs-button-loading="true"] [data-fs-button-wrapper] {
     > * {
       opacity: 0;
       pointer-events: none;

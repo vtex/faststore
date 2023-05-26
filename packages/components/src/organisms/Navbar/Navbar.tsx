@@ -17,15 +17,16 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(function Navbar(
   ref
 ) {
   return (
-    <section
+    <header
       data-fs-navbar
+      role="banner"
       ref={ref}
       data-testid={testId}
       data-fs-navbar-scroll={scrollDirection}
       {...otherProps}
     >
       {children}
-    </section>
+    </header>
   )
 })
 

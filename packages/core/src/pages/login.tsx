@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { NextSeo } from 'next-seo'
-import { EmptyState as UIEmptyState, Loader as UILoader } from '@faststore/ui'
 
 import storeConfig from '../../faststore.config'
 import GlobalSections, {
@@ -9,6 +8,9 @@ import GlobalSections, {
 } from 'src/components/cms/GlobalSections'
 import { GetStaticProps } from 'next'
 import { Locator } from '@vtex/client-cms'
+
+import { Loader as UILoader } from '@faststore/ui'
+import EmptyState from 'src/components/sections/EmptyState'
 
 type Props = {
   globalSections: GlobalSectionsData
@@ -23,9 +25,9 @@ function Page({ globalSections }: Props) {
     <GlobalSections {...globalSections}>
       <NextSeo noindex nofollow />
 
-      <UIEmptyState title="Loading" bkgColor="light">
+      <EmptyState title="Loading">
         <UILoader />
-      </UIEmptyState>
+      </EmptyState>
     </GlobalSections>
   )
 }

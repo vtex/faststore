@@ -79,20 +79,32 @@ import '@faststore/ui/src/components/organisms/PaymentMethods/styles.scss'
   </Tab>
   <Tab>
     ```tsx
+    export const flags = [
+      { icon: { icon: 'Visa' }, alt: 'Visa' },
+      { icon: { icon: 'Diners' }, alt: 'Diners Club' },
+      { icon: { icon: 'Mastercard' }, alt: 'Mastercard' },
+      { icon: { icon: 'EloCard' }, alt: 'Elo Card' },
+      { icon: { icon: 'PayPal' }, alt: 'PayPal' },
+      { icon: { icon: 'Stripe' }, alt: 'Stripe' },
+      { icon: { icon: 'GooglePay' }, alt: 'GooglePay' },
+      { icon: { icon: 'ApplePay' }, alt: 'ApplePay' },
+    ]
+
     <PaymentMethods title={<h3>Payment Methods</h3>} flagList={flags} />
     ```
+
   </Tab>
 </Tabs>
 
 export const flags = [
-  { image: <Icon name="Visa" />, text: 'Visa' },
-  { image: <Icon name="Diners" />, text: 'Diners Club' },
-  { image: <Icon name="Mastercard" />, text: 'Mastercard' },
-  { image: <Icon name="EloCard" />, text: 'Elo Card' },
-  { image: <Icon name="PayPal" />, text: 'PayPal' },
-  { image: <Icon name="Stripe" />, text: 'Stripe' },
-  { image: <Icon name="GooglePay" />, text: 'GooglePay' },
-  { image: <Icon name="ApplePay" />, text: 'ApplePay' },
+  { icon: { icon: 'Visa' }, alt: 'Visa' },
+  { icon: { icon: 'Diners' }, alt: 'Diners Club' },
+  { icon: { icon: 'Mastercard' }, alt: 'Mastercard' },
+  { icon: { icon: 'EloCard' }, alt: 'Elo Card' },
+  { icon: { icon: 'PayPal' }, alt: 'PayPal' },
+  { icon: { icon: 'Stripe' }, alt: 'Stripe' },
+  { icon: { icon: 'GooglePay' }, alt: 'GooglePay' },
+  { icon: { icon: 'ApplePay' }, alt: 'ApplePay' },
 ]
 
 ---
@@ -103,12 +115,12 @@ export const flags = [
 
 export const propsFlag = [
   {
-    name: 'image',
-    type: 'ReactNode',
-    description: 'A React component that will represent the flag image.',
+    name: 'icon',
+    type: '{ icon: string }',
+    description: 'An object with the icon name to display the flag image.',
   },
   {
-    name: 'text',
+    name: 'alt',
     type: 'string',
     description:
       'Description of the flag image to be also used for accessibility purposes.',

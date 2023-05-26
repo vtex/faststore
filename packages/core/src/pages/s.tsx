@@ -1,43 +1,74 @@
+import type { SearchState } from '@faststore/sdk'
 import { parseSearchState, SearchProvider } from '@faststore/sdk'
+import { SROnly as UISROnly } from '@faststore/ui'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
+import type { ComponentType } from 'react'
 import { useEffect, useState } from 'react'
-import type { SearchState } from '@faststore/sdk'
-import { SROnly as UISROnly } from '@faststore/ui'
 
 import Breadcrumb from 'src/components/sections/Breadcrumb'
 import ProductGallery from 'src/components/sections/ProductGallery'
 import { ITEMS_PER_PAGE } from 'src/constants'
+import CUSTOM_COMPONENTS from 'src/customizations/components'
 import { useApplySearchState } from 'src/sdk/search/state'
 import { mark } from 'src/sdk/tests/mark'
 
-import storeConfig from '../../faststore.config'
+import { Locator } from '@vtex/client-cms'
+import { GetStaticProps } from 'next'
 import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { Locator } from '@vtex/client-cms'
-import { GetStaticProps } from 'next'
+import RenderSections from 'src/components/cms/RenderSections'
+import { getPage, SearchContentType } from 'src/server/cms'
+import storeConfig from '../../faststore.config'
+
+/**
+ * Sections: Components imported from each store's custom components and '../components/sections' only.
+ * Do not import or render components from any other folder in here.
+ */
+const COMPONENTS: Record<string, ComponentType<any>> = {
+  Breadcrumb,
+  ProductGallery,
+  ...CUSTOM_COMPONENTS,
+}
 
 type Props = {
+  page: SearchContentType
   globalSections: GlobalSectionsData
 }
 
-const useSearchParams = () => {
+export interface SearchPageContextType {
+  title: string
+  searchTerm?: string
+}
+
+type UseSearchParams = {
+  sort: SearchState['sort']
+}
+
+const useSearchParams = ({ sort: defaultSort }: UseSearchParams) => {
   const [params, setParams] = useState<SearchState | null>(null)
   const { asPath } = useRouter()
 
   useEffect(() => {
     const url = new URL(asPath, 'http://localhost')
 
+    const shouldUpdateDefaultSort = defaultSort && !url.searchParams.has('sort')
+    if (shouldUpdateDefaultSort) {
+      url.searchParams.set('sort', defaultSort)
+    }
+
     setParams(parseSearchState(url))
-  }, [asPath])
+  }, [asPath, defaultSort])
 
   return params
 }
 
-function Page({ globalSections }: Props) {
-  const searchParams = useSearchParams()
+function Page({ page: { sections, settings }, globalSections }: Props) {
+  const searchParams = useSearchParams({
+    sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
+  })
   const applySearchState = useApplySearchState()
   const title = 'Search Results'
   const { description, titleTemplate } = storeConfig.seo
@@ -50,7 +81,7 @@ function Page({ globalSections }: Props) {
     <GlobalSections {...globalSections}>
       <SearchProvider
         onChange={applySearchState}
-        itemsPerPage={ITEMS_PER_PAGE}
+        itemsPerPage={settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE}
         {...searchParams}
       >
         {/* SEO */}
@@ -79,11 +110,15 @@ function Page({ globalSections }: Props) {
           If needed, wrap your component in a <Section /> component
           (not the HTML tag) before rendering it here.
         */}
-        <Breadcrumb name="All Products" />
-
-        <ProductGallery
-          title="Search Results"
-          searchTerm={searchParams.term ?? undefined}
+        <RenderSections
+          sections={sections}
+          components={COMPONENTS}
+          context={
+            {
+              title,
+              searchTerm: searchParams.term ?? undefined,
+            } as SearchPageContextType
+          }
         />
       </SearchProvider>
     </GlobalSections>
@@ -95,10 +130,19 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const globalSections = await getGlobalSectionsData(previewData)
+  const [page, globalSections] = await Promise.all([
+    getPage<SearchContentType>({
+      ...(previewData?.contentType === 'search' ? previewData : null),
+      contentType: 'search',
+    }),
+    getGlobalSectionsData(previewData),
+  ])
 
   return {
-    props: { globalSections },
+    props: {
+      page,
+      globalSections,
+    },
   }
 }
 

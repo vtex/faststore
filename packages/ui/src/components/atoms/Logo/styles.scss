@@ -1,12 +1,10 @@
 [data-fs-logo] {
-  --fs-logo-width      : 7rem;
-  --fs-logo-img        : url("~/public/brandless-neutral.png");
-
-  display: block;
-  width: var(--fs-logo-width);
+  display: flex;
   height: 100%;
-  min-height: var(--fs-spacing-6);
-  background: var(--fs-logo-img) no-repeat;
-  background-position: center;
-  background-size: 100% auto;
+  width: var(--fs-logo-width);
+
+  [data-fs-image] {
+    object-fit: contain;
+    object-position: left;
+  }
 }

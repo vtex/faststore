@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.162-alpha.0](https://github.com/vtex/faststore/compare/v2.0.161-alpha.0...v2.0.162-alpha.0) (2023-05-26)
+
+**Note:** Version bump only for package @faststore/sdk
+
+## [2.0.158-alpha.0](https://github.com/vtex/faststore/compare/v2.0.157-alpha.0...v2.0.158-alpha.0) (2023-05-23)
+
+**Note:** Version bump only for package @faststore/sdk
+
+## [2.0.156-alpha.0](https://github.com/vtex/faststore/compare/v2.0.155-alpha.0...v2.0.156-alpha.0) (2023-05-23)
+
+**Note:** Version bump only for package @faststore/sdk
+
 ## [2.0.118-alpha.0](https://github.com/vtex/faststore/compare/v2.0.117-alpha.0...v2.0.118-alpha.0) (2023-04-26)
 
 **Note:** Version bump only for package @faststore/sdk

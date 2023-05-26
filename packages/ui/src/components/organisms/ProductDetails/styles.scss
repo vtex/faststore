@@ -5,7 +5,9 @@
 
   // Default properties
   --fs-product-details-vertical-spacing      : var(--fs-spacing-4);
+  --fs-product-details-horizontal-spacing    : var(--fs-product-details-vertical-spacing);
 
+  --fs-product-details-section-bkg-color     : transparent;
   --fs-product-details-section-border-radius : var(--fs-border-radius);
   --fs-product-details-section-border-color  : var(--fs-border-color-light);
   --fs-product-details-section-border-width  : var(--fs-border-width);
@@ -25,7 +27,7 @@
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       row-gap: 0;
-      column-gap: var(--fs-product-details-vertical-spacing);
+      column-gap: var(--fs-product-details-horizontal-spacing);
     }
   }
 
@@ -62,6 +64,8 @@
 
   [data-fs-product-details-title],
   [data-fs-product-details-info] {
+    background-color: var(--fs-product-details-section-bkg-color);
+
     @include media(">=tablet") {
       grid-column: 8 / span 5;
       height: 100%;
@@ -95,6 +99,7 @@
     @include media(">=tablet") {
       grid-row: span 5;
       row-gap: 0;
+      border-radius: 0 0 var(--fs-product-details-section-border-radius) var(--fs-product-details-section-border-radius);
     }
   }
 
@@ -115,14 +120,6 @@
   [data-fs-product-details-values] {
     display: flex;
     justify-content: space-between;
-  }
-
-  // Shipping
-
-  [data-fs-product-details-shipping] {
-    @include media(">=tablet") {
-      border-radius: 0 0 var(--fs-product-details-section-border-radius) var(--fs-product-details-section-border-radius);
-    }
   }
 
   // -----------------------------
@@ -163,7 +160,7 @@
   // Content Section
   // -----------------------------
 
-  [data-fs-product-details-content] {
+  [data-fs-product-description] {
     @include media(">=tablet") {
       grid-row: span 10;
       grid-column: span 7;
@@ -175,7 +172,7 @@
     }
   }
 
-  [data-fs-image-gallery="with-selector"] ~ [data-fs-product-details-content] {
+  [data-fs-image-gallery="with-selector"] ~ [data-fs-product-description] {
     @include media(">=notebook") {
       grid-column: 2 / 9;
     }

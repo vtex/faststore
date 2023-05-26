@@ -1,21 +1,15 @@
-import { useEffect, useState } from 'react'
 import {
-  ImageGallery as UIImageGallery,
   ImageElementData,
   ImageZoom,
+  ImageGallery as UIImageGallery,
 } from '@faststore/ui'
+import { useEffect, useState } from 'react'
 
-import { Image } from 'src/components/ui/Image'
 import { useRouter } from 'next/router'
+import { Image } from 'src/components/ui/Image'
 
 const ImageComponent = ({ url, alternateName }) => (
-  <Image
-    src={url}
-    alt={alternateName}
-    sizes="(max-width: 72px) 25vw, 30vw"
-    width={72}
-    height={72}
-  />
+  <Image src={url} alt={alternateName} width={68} height={68} />
 )
 
 export interface ImageGalleryProps {
@@ -41,11 +35,10 @@ const ImageGallery = ({ images, ...otherProps }: ImageGalleryProps) => {
         <Image
           src={currentImage.url}
           alt={currentImage.alternateName}
-          sizes="(max-width: 804px) 25vw, 30vw"
-          width={804}
-          height={804 * (3 / 4)}
+          sizes="(max-width: 360px) 50vw, (max-width: 768px) 90vw, 50vw"
+          width={691}
+          height={691 * (3 / 4)}
           loading="eager"
-          priority
         />
       </ImageZoom>
     </UIImageGallery>

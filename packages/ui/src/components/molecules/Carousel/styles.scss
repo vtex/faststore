@@ -5,7 +5,7 @@
 
   // Track
   --fs-carousel-padding-mobile             : 0 var(--fs-grid-padding);
-  --fs-carousel-padding-desktop            : 0 calc((100vw - 1230px)/2);
+  --fs-carousel-padding-desktop            : 0 calc((100vw - 1230px)/2) var(--fs-spacing-0);
 
   // Item
   --fs-carousel-item-width-mobile          : 60%;
@@ -57,17 +57,13 @@
 
         [data-fs-carousel-control] {
           bottom: calc(var(--fs-carousel-controls-height) + var(--fs-control-tap-size));
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: var(--fs-carousel-controls-width);
-          height: var(--fs-carousel-controls-height);
           cursor: pointer;
-          background-color: var(--fs-carousel-controls-bkg-color);
-          border-color: transparent;
-          border-radius: var(--fs-carousel-controls-border-radius);
-          box-shadow: var(--fs-carousel-controls-box-shadow);
           transform: translateY(-50%);
+          [data-fs-button-wrapper] {
+            border-radius: var(--fs-carousel-controls-border-radius);
+            box-shadow: var(--fs-carousel-controls-box-shadow);
+          }
+          &:not(:hover) [data-fs-button-wrapper] { background-color: var(--fs-carousel-controls-bkg-color); }
         }
 
         [data-fs-carousel-control="left"] {
@@ -87,7 +83,6 @@
         }
 
         [data-fs-icon] {
-          display: flex;
           color: var(--fs-carousel-controls-icon-color);
         }
       }
@@ -147,23 +142,23 @@
     }
 
     [data-fs-carousel-bullet] {
-      padding: 0;
-      border-color: transparent;
       width: var(--fs-carousel-bullet-width-mobile);
-      &::after {
-        width: 100%;
+      align-items: center;
+      justify-content: center;
+      [data-fs-button-wrapper] {
+        padding: 0;
         height: var(--fs-carousel-bullet-height-mobile);
         background-color: var(--fs-carousel-bullet-bkg-color);
-        content: "";
+        border-color: transparent;
+        border-radius: 0;
         @include media(">=tablet") {
           width: var(--fs-carousel-bullet-width-desktop);
           height: var(--fs-carousel-bullet-height-desktop);
           margin: 0;
           border-radius: var(--fs-carousel-bullet-border-radius);
-          content: "";
         }
       }
-      &[aria-selected="true"]::after {
+      &[aria-selected="true"] [data-fs-button-wrapper] {
         background-color: var(--fs-carousel-bullet-bkg-color-selected);
       }
     }

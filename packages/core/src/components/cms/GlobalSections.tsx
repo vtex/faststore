@@ -5,12 +5,13 @@ import type { ComponentType } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/components'
 import { PageContentType, getPage } from 'src/server/cms'
 
-import Footer from 'src/components/common/Footer'
 import RegionBar from 'src/components/common/RegionBar'
 import Toast from 'src/components/common/Toast'
-import Navbar from 'src/components/navigation/Navbar'
-import Alert from 'src/components/sections/Alert/Alert'
 import RenderSections from './RenderSections'
+
+import Alert from 'src/components/sections/Alert'
+import Navbar from 'src/components/sections/Navbar'
+import Footer from 'src/components/sections/Footer'
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 
@@ -21,46 +22,24 @@ export type GlobalSectionsData = {
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Alert,
+  Footer,
+  Navbar,
   ...CUSTOM_COMPONENTS,
-}
-
-const useDividedSections = (sections: Section[]) => {
-  return useMemo(() => {
-    const indexChildren = sections.findIndex(({ name }) => name === 'Children')
-    const hasChildren = indexChildren > -1
-
-    return {
-      hasChildren,
-      firstSections: hasChildren ? sections.slice(0, indexChildren) : sections,
-      ...(hasChildren && { lastSections: sections.slice(indexChildren + 1) }),
-    }
-  }, [sections])
 }
 
 function GlobalSections({
   children,
-  sections,
+  ...otherProps
 }: PropsWithChildren<GlobalSectionsData>) {
-  const { hasChildren, firstSections, lastSections } =
-    useDividedSections(sections)
-
   return (
-    <>
-      <RenderSections sections={firstSections} components={COMPONENTS} />
-      <Navbar />
-
+    <RenderSections components={COMPONENTS} {...otherProps}>
       <Toast />
 
       <main>
         <RegionBar className="display-mobile" />
         {children}
       </main>
-
-      <Footer />
-      {hasChildren && (
-        <RenderSections sections={lastSections} components={COMPONENTS} />
-      )}
-    </>
+    </RenderSections>
   )
 }
 

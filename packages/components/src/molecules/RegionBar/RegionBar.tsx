@@ -20,7 +20,12 @@ const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
 ) {
   return (
     <div ref={ref} data-fs-region-bar {...otherProps}>
-      <Button onClick={onButtonClick}>
+      <Button
+        variant="tertiary"
+        iconPosition="right"
+        onClick={onButtonClick}
+        icon={<Icon name="CaretRight" />}
+      >
         <Icon name="MapPin" />
         {postalCode ? (
           <>
@@ -30,7 +35,6 @@ const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
         ) : (
           <span data-fs-region-bar-message>Set your location</span>
         )}
-        <Icon name="CaretRight" />
       </Button>
     </div>
   )

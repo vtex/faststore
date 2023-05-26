@@ -50,16 +50,8 @@ const SearchAutoCompleteTerm = ({
   suggestion,
   term,
   linkProps,
-  icon,
+  icon = <Icon name="MagnifyingGlass" width={18} height={18} />,
 }: SearchAutoCompleteTermProps) => {
-
-  const iconProps = {"data-fs-search-auto-complete-item-icon":true}
-  const autoCompleteIcon = React.isValidElement(icon) ? (
-    React.cloneElement(icon, iconProps)
-  ) : (
-    <Icon name="MagnifyingGlass" data-fs-search-auto-complete-item-icon />
-  )
-
   const suggestionSubstring = suggestion.toLowerCase().split(term.toLowerCase())
 
   return (
@@ -69,7 +61,7 @@ const SearchAutoCompleteTerm = ({
         data-fs-search-auto-complete-item-link
         variant="display"
       >
-        {autoCompleteIcon}
+        <span data-fs-search-auto-complete-item-icon>{icon}</span>
         <p>
           {suggestionSubstring.map((substring, indexSubstring) => (
             <Fragment key={[substring, indexSubstring].join()}>

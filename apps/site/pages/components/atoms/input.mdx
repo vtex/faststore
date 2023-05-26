@@ -4,12 +4,40 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Input___77d0e7a8079b7d310e8223dd9e1994f6.png
 ---
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { Input, InputField } from '@faststore/ui'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+
+export const getStaticProps = () => {
+  const inputPath = path.resolve(__filename)
+  const components = ['Input.tsx']
+  const [inputProps] = getComponentPropsFrom(inputPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        inputProps
+      },
+    },
+  }
+}
+
+export const InputPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { inputProps } = useSSG()
+  return {
+    Input: <PropsSection propsList={inputProps} />
+  }[component]
+}
+
 
 <header>
 
@@ -24,14 +52,14 @@ Inputs are fields used to get user inputs.
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <InputField label="Label" id="inputfield-default" />
-      <InputField label="Input Disabled" id="inputfield-disabled" disabled />
+      <Input placeholder="Label" id="inputfield-default" />
+      <Input placeholder="Input Disabled" id="inputfield-disabled" disabled />
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
-    <InputField label="Label" id="inputfield-default" />
-    <InputField label="Input Disabled" id="inputfield-disabled" disabled />
+     <Input placeholder="Label" id="inputfield-default" />
+     <Input placeholder="Input Disabled" id="inputfield-disabled" disabled />
     ```
   </Tab>
 </Tabs>
@@ -67,7 +95,7 @@ import '@faststore/ui/src/components/atoms/Input/styles.scss'
 
 ## Props
 
-<PropsSection name="Input" />
+<InputPropsSection component="Input" />
 
 ---
 
@@ -80,6 +108,7 @@ import '@faststore/ui/src/components/atoms/Input/styles.scss'
   />
   <TokenRow token="--fs-input-height" value="var(--fs-control-tap-size)" />
   <TokenDivider />
+  <TokenRow token="--fs-input-bkg-color" value="var(--fs-color-body-bkg)" />
   <TokenRow token="--fs-input-box-shadow" value="none" />
   <TokenRow
     token="--fs-input-box-shadow-hover"

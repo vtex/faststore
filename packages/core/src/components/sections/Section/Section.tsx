@@ -1,14 +1,20 @@
 import { forwardRef } from 'react'
 import type { DetailedHTMLProps, HTMLAttributes } from 'react'
 
-type Props = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
+type BaseProps = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
 
-const Section = forwardRef<HTMLDivElement, Props>(function Section(
-  { className = '', ...otherProps },
+type SectionProps = BaseProps & {
+  as?: 'section' | 'header' | 'footer' | 'aside'
+}
+
+const Section = forwardRef<HTMLDivElement, SectionProps>(function Section(
+  { as, className = '', ...otherProps },
   ref
 ) {
+  const Component = as ?? 'section'
+
   return (
-    <section ref={ref} className={`section ${className}`} {...otherProps} />
+    <Component ref={ref} className={`section ${className}`} {...otherProps} />
   )
 })
 

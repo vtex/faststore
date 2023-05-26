@@ -149,11 +149,12 @@
       "title": "Navbar",
       "type": "object",
       "description": "Navbar configuration",
-      "required": ["image"],
+      "required": ["logo"],
       "properties": {
         "logo": {
           "title": "Logo",
           "type": "object",
+          "required": ["src"],
           "properties": {
             "src": {
               "title": "Image",
@@ -165,6 +166,39 @@
             "alt": {
               "title": "Alternative Label",
               "type": "string"
+            }
+          }
+        },
+        "searchInput": {
+          "title": "Search Input",
+          "description": "Search Input configurations",
+          "type": "object",
+          "required": ["sort"],
+          "properties": {
+            "sort": {
+              "title": "Results default sort value",
+              "type": "string",
+              "default": "score_desc",
+              "enumNames": [
+                "Price, descending",
+                "Price, ascending",
+                "Top sales",
+                "Name, A-Z",
+                "Name, Z-A",
+                "Release date",
+                "Discount",
+                "Relevance"
+              ],
+              "enum": [
+                "price_desc",
+                "price_asc",
+                "orders_desc",
+                "name_asc",
+                "name_desc",
+                "release_desc",
+                "discount_desc",
+                "score_desc"
+              ]
             }
           }
         },
@@ -194,6 +228,11 @@
               "title": "Call to Action",
               "type": "string",
               "default": "Sign In"
+            },
+            "myAccountLabel": {
+              "title": "My Account Label",
+              "type": "string",
+              "default": "My Account"
             }
           }
         },
@@ -270,6 +309,41 @@
                     "title": "Link URL",
                     "type": "string"
                   }
+                }
+              }
+            },
+            "menu": {
+              "type": "object",
+              "title": "Menu",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "object",
+                  "properties": {
+                    "icon": {
+                      "title": "Icon",
+                      "type": "string",
+                      "enumNames": ["List"],
+                      "enum": ["List"],
+                      "default": "List"
+                    },
+                    "alt": {
+                      "title": "Alternative Label",
+                      "type": "string",
+                      "default": "List"
+                    }
+                  }
+                }
+              }
+            },
+            "home": {
+              "title": "Home",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Go to Home Label",
+                  "type": "string",
+                  "default": "Go to Home"
                 }
               }
             }
@@ -532,7 +606,7 @@
                         ],
                         "enum": [
                           "Visa",
-                          "DinersClub",
+                          "Diners",
                           "Mastercard",
                           "EloCard",
                           "PayPal",
@@ -607,7 +681,7 @@
       "title": "Hero",
       "description": "Add a quick promotion with an image/action pair",
       "type": "object",
-      "required": ["title", "link"],
+      "required": ["title"],
       "properties": {
         "title": {
           "title": "Title",
@@ -620,7 +694,6 @@
         "link": {
           "title": "Call to Action",
           "type": "object",
-          "required": ["text", "url"],
           "properties": {
             "text": {
               "type": "string",
@@ -665,9 +738,9 @@
     }
   },
   {
-    "name": "IncentivesHeader",
+    "name": "Incentives",
     "schema": {
-      "title": "Incentives Header",
+      "title": "Incentives",
       "description": "Add Incentives to your shopper",
       "type": "object",
       "properties": {
@@ -761,8 +834,8 @@
           ],
           "enumNames": [
             "Discount: higher to lower",
-            "Name: Z-A",
             "Name: A-Z",
+            "Name: Z-A",
             "Orders: higher to lower",
             "Price: lower to higher",
             "Price: higher to lower",
@@ -806,15 +879,10 @@
               "type": "boolean",
               "default": true
             },
-            "showBuyButton": {
-              "title": "Show buy button?",
+            "bordered": {
+              "title": "Cards should be bordered?",
               "type": "boolean",
               "default": true
-            },
-            "buyButtonTitle": {
-              "title": "Buy Button Text",
-              "type": "string",
-              "default": "Buy"
             }
           }
         }
@@ -1101,9 +1169,21 @@
           "type": "object",
           "properties": {
             "discountBadge": {
-              "title": "Show Discount Badge?",
-              "type": "boolean",
-              "default": false
+              "title": "Discount Badge",
+              "type": "object",
+              "properties": {
+                "showDiscountBadge": {
+                  "title": "Show Discount Badge?",
+                  "type": "boolean",
+                  "default": false
+                },
+                "size": {
+                  "title": "Size",
+                  "type": "string",
+                  "enumNames": ["Big", "Small"],
+                  "enum": ["big", "small"]
+                }
+              }
             },
             "refNumber": {
               "title": "Show Reference Number?",
@@ -1175,8 +1255,8 @@
             }
           }
         },
-        "productDetailsContent": {
-          "title": "Product Details Content",
+        "productDescription": {
+          "title": "Product Description",
           "type": "object",
           "properties": {
             "initiallyExpanded": {
@@ -1185,20 +1265,158 @@
               "enumNames": ["First", "All", "None"],
               "enum": ["first", "all", "none"]
             },
-            "details": {
+            "displayDescription": {
+              "title": "Should display description?",
+              "type": "boolean",
+              "default": true
+            },
+            "title": {
+              "title": "Description section title",
+              "type": "string",
+              "default": "Description"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "ProductGallery",
+    "schema": {
+      "title": "Product Gallery",
+      "type": "object",
+      "description": "Product Gallery configuration",
+      "required": ["filter"],
+      "properties": {
+        "searchTermLabel": {
+          "title": "Search page term label",
+          "type": "string",
+          "default": "Showing results for:"
+        },
+        "totalCountLabel": {
+          "title": "Total count label",
+          "type": "string",
+          "default": "Results"
+        },
+        "previousPageButton": {
+          "title": "Previous page button",
+          "type": "object",
+          "required": ["icon", "label"],
+          "properties": {
+            "icon": {
+              "title": "Icon",
               "type": "object",
               "properties": {
-                "displayDescription": {
-                  "title": "Should display description?",
-                  "type": "boolean",
-                  "default": true
-                },
-                "title": {
-                  "title": "Description section title",
+                "icon": {
+                  "title": "Icon",
                   "type": "string",
-                  "default": "Description"
+                  "enumNames": ["ArrowLeft"],
+                  "enum": ["ArrowLeft"],
+                  "default": "ArrowLeft"
+                },
+                "alt": {
+                  "title": "Alternative label",
+                  "type": "string",
+                  "default": "Arrow Left icon"
                 }
               }
+            },
+            "label": {
+              "title": "Previous page button",
+              "type": "string",
+              "default": "Previous Page"
+            }
+          }
+        },
+        "loadMorePageButton": {
+          "title": "Load more products Button",
+          "type": "object",
+          "required": ["label"],
+          "properties": {
+            "label": {
+              "title": "Load more products label",
+              "type": "string",
+              "default": "Load more products"
+            }
+          }
+        },
+        "filter": {
+          "title": "Filter",
+          "type": "object",
+          "required": ["title", "mobileOnly"],
+          "properties": {
+            "title": {
+              "title": "Filter title",
+              "type": "string",
+              "default": "Filters"
+            },
+            "mobileOnly": {
+              "title": "Mobile Only",
+              "type": "object",
+              "required": [
+                "filterButton",
+                "clearButtonLabel",
+                "applyButtonLabel"
+              ],
+              "properties": {
+                "filterButton": {
+                  "title": "Show filter button",
+                  "type": "object",
+                  "required": ["label", "icon"],
+                  "properties": {
+                    "label": {
+                      "title": "Label",
+                      "type": "string",
+                      "default": "Filters"
+                    },
+                    "icon": {
+                      "title": "Icon",
+                      "type": "object",
+                      "required": ["icon", "alt"],
+                      "properties": {
+                        "icon": {
+                          "title": "Icon",
+                          "type": "string",
+                          "enumNames": ["FadersHorizontal"],
+                          "enum": ["FadersHorizontal"],
+                          "default": "FadersHorizontal"
+                        },
+                        "alt": {
+                          "title": "Alternative label",
+                          "type": "string",
+                          "default": "Open Filters"
+                        }
+                      }
+                    }
+                  }
+                },
+                "clearButtonLabel": {
+                  "title": "Clear button label",
+                  "type": "string",
+                  "default": "Clear All"
+                },
+                "applyButtonLabel": {
+                  "title": "Apply button label",
+                  "type": "string",
+                  "default": "Apply"
+                }
+              }
+            }
+          }
+        },
+        "productCard": {
+          "title": "Product Card Configuration",
+          "type": "object",
+          "properties": {
+            "showDiscountBadge": {
+              "title": "Show discount badge?",
+              "type": "boolean",
+              "default": true
+            },
+            "bordered": {
+              "title": "Cards should be bordered?",
+              "type": "boolean",
+              "default": true
             }
           }
         }

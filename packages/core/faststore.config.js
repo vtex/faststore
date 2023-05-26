@@ -18,6 +18,7 @@ module.exports = {
     workspace: 'master',
     environment: 'vtexcommercestable',
     hideUnavailableItems: true,
+    incrementAddress: false,
   },
 
   // Default session
@@ -29,6 +30,8 @@ module.exports = {
     locale: 'en-US',
     channel: '{"salesChannel":"1","regionId":""}',
     country: 'USA',
+    deliveryMode: null,
+    addressType: null,
     postalCode: null,
     geoCoordinates: null,
     person: null,

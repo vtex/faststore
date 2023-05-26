@@ -5,7 +5,7 @@ import {
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
-import ProductCard from '../ProductCard'
+import ProductCard, { ProductCardProps } from '../ProductCard'
 
 interface Props {
   /**
@@ -17,9 +17,13 @@ interface Props {
    * Quantity of products listed.
    */
   pageSize: number
+  /**
+   * CMS defined data to be used in ProductCard component.
+   */
+  productCard?: Pick<ProductCardProps, 'showDiscountBadge' | 'bordered'>
 }
 
-function ProductGrid({ products, page, pageSize }: Props) {
+function ProductGrid({ products, page, pageSize, productCard }: Props) {
   const aspectRatio = 1
 
   return (
@@ -33,8 +37,14 @@ function ProductGrid({ products, page, pageSize }: Props) {
             <ProductCard
               product={product}
               index={pageSize * page + idx + 1}
-              bordered
+              bordered={productCard?.bordered}
+              showDiscountBadge={productCard?.showDiscountBadge}
               aspectRatio={aspectRatio}
+              imgProps={{
+                width: 150,
+                height: 150,
+                sizes: '30vw',
+              }}
             />
           </UIProductGridItem>
         ))}

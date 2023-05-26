@@ -38,6 +38,30 @@
   }
 
   [data-fs-accordion-button] {
+    width: 100%;
+
+    &:active [data-fs-button-wrapper] {
+      color: var(--fs-accordion-button-color);
+      background-color: var(--fs-accordion-button-bkg-color);
+    }
+
+    &:hover [data-fs-button-wrapper] {
+      color: var(--fs-accordion-button-color);
+      background-color: var(--fs-accordion-button-bkg-color);
+    }
+
+    &:focus [data-fs-button-wrapper] {
+      color: var(--fs-accordion-button-color);
+      background-color: var(--fs-accordion-button-bkg-color);
+    }
+
+    &:focus-visible [data-fs-button-wrapper] {
+      color: var(--fs-accordion-button-color);
+      background-color: var(--fs-accordion-button-bkg-color);
+    }
+  }
+
+  [data-fs-accordion-button] [data-fs-button-wrapper] {
     display: inline-flex;
     align-items: center;
     justify-content: space-between;

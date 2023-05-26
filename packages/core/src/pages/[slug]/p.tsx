@@ -11,6 +11,7 @@ import type {
 } from '@generated/graphql'
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
+import Breadcrumb from 'src/components/sections/Breadcrumb'
 import CrossSellingShelf from 'src/components/sections/CrossSellingShelf'
 import ProductDetails from 'src/components/sections/ProductDetails'
 import CUSTOM_COMPONENTS from 'src/customizations/components'
@@ -20,17 +21,18 @@ import { execute } from 'src/server'
 import type { PDPContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
-import storeConfig from '../../../faststore.config'
 import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import storeConfig from '../../../faststore.config'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
  * Do not import or render components from any other folder in here.
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
+  Breadcrumb,
   ProductDetails,
   CrossSellingShelf,
   BannerNewsletter,
@@ -181,15 +183,16 @@ export const getStaticProps: GetStaticProps<
   Locator
 > = async ({ params, previewData }) => {
   const slug = params?.slug ?? ''
-  const [cmsPage, searchResult] = await Promise.all([
-    getPage<PDPContentType>({
-      ...(previewData?.contentType === 'pdp' ? previewData : null),
-      contentType: 'pdp',
-    }),
+  const [searchResult, cmsPage, globalSections] = await Promise.all([
     execute<ServerProductPageQueryQueryVariables, ServerProductPageQueryQuery>({
       variables: { slug },
       operationName: query,
     }),
+    getPage<PDPContentType>({
+      ...(previewData?.contentType === 'pdp' ? previewData : null),
+      contentType: 'pdp',
+    }),
+    getGlobalSectionsData(previewData),
   ])
 
   const { data, errors = [] } = searchResult
@@ -205,8 +208,6 @@ export const getStaticProps: GetStaticProps<
   if (errors.length > 0) {
     throw errors[0]
   }
-
-  const globalSections = await getGlobalSectionsData(previewData)
 
   return {
     props: {

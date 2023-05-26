@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.132-alpha.0](https://github.com/vtex/faststore/compare/v2.0.131-alpha.0...v2.0.132-alpha.0) (2023-05-09)
+
+### Bug Fixes
+
+- Lighthouse Checks 🟢 ([#1737](https://github.com/vtex/faststore/issues/1737)) ([b862703](https://github.com/vtex/faststore/commit/b862703ce991065f92765f4cecc88c9946b3d702)), closes [/github.com/GoogleChrome/lighthouse-ci/blob/main/packages/utils/src/presets/all.js#L25](https://github.com/vtex//github.com/GoogleChrome/lighthouse-ci/blob/main/packages/utils/src/presets/all.js/issues/L25)
+
 ## 2.0.104-alpha.0 (2023-04-10)
 
 **Note:** Version bump only for package @faststore/lighthouse

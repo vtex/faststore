@@ -3,9 +3,6 @@
   // Design Tokens for Navbar Links
   // --------------------------------------------------------
 
-  --fs-navbar-links-padding-top-notebook             : var(--fs-spacing-1);
-  --fs-navbar-links-padding-bottom-notebook          : var(--fs-navbar-links-padding-top-notebook);
-
   --fs-navbar-links-bkg-color                        : var(--fs-color-body-bkg);
 
   --fs-navbar-links-transition-property              : var(--fs-transition-property);
@@ -57,7 +54,7 @@
     margin-left: calc(-1 * var(--fs-spacing-1));
 
     // TODO: remove this after navbar 2.0 is implemented
-    &[data-fs-button-variant="tertiary"] {
+    &[data-fs-button-variant="tertiary"] [data-fs-button-wrapper] {
       color: var(--fs-color-text-display);
     }
 
@@ -67,15 +64,21 @@
   }
 
   @include media(">=notebook") {
-    padding-top: var(--fs-navbar-links-padding-top-notebook);
-    padding-bottom: var(--fs-navbar-links-padding-bottom-notebook);
-
     [data-fs-navbar-links-list] {
+      position: relative;
       display: flex;
+      align-items: center;
       column-gap: var(--fs-spacing-3);
       padding-left: var(--fs-navbar-links-list-padding-left-notebook);
       margin-left: var(--fs-navbar-links-list-margin-left-notebook);
-      border-left: var(--fs-navbar-links-list-border-left-width-notebook) solid var(--fs-navbar-links-list-border-left-color-notebook);
+      &::before {
+        position: absolute;
+        left: calc(-1 * var(--fs-spacing-1));
+        width: var(--fs-navbar-links-list-border-left-width-notebook);
+        height: 60%;
+        content: "";
+        background-color: var(--fs-navbar-links-list-border-left-color-notebook);
+      }
     }
 
     [data-fs-navbar-links-list-item] > [data-fs-link] {

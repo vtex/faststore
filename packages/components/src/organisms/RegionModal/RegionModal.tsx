@@ -90,6 +90,8 @@ function RegionModal({
       data-fs-region-modal
       testId={testId}
       overlayProps={overlayProps}
+      title="Region modal"
+      aria-label="Region modal"
       {...otherProps}
     >
       {({ fadeOut }) => (

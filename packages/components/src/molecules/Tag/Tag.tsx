@@ -43,7 +43,7 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(function Tag(
         aria-label={iconButtonLabel ? iconButtonLabel : 'remove'}
         onClick={onClose}
       >
-        {React.isValidElement(icon) ? icon : <Icon name="X" />}
+        {!!icon ? icon : <Icon name="X" />}
       </button>
     </Badge>
   )

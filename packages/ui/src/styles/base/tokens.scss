@@ -56,6 +56,7 @@ body {
 
   // COMPONENTS & STATES
   --fs-color-body-bkg                  : var(--fs-color-neutral-0);
+  --fs-body-bkg                        : var(--fs-color-body-bkg);
 
   --fs-color-action-text               : var(--fs-color-text-inverse);
   --fs-color-action-bkg                : var(--fs-color-accent-4);
@@ -271,4 +272,7 @@ body {
   --fs-shadow                          : none;
   --fs-shadow-darker                   : 0 0 10px rgb(0 0 0 / 20%);
   --fs-shadow-hover                    : 0 2px 3px rgba(0,0,0,.1);
+
+  // LOGO
+  --fs-logo-width                      : 7rem;
 }

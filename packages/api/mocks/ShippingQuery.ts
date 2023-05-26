@@ -27,6 +27,12 @@ export const ShippingSimulationQueryResult = `query ShippingSimulationQuery {
         id
         name
         price
+        availableDeliveryWindows{
+          startDateUtc
+          endDateUtc
+          price
+          listPrice
+        }
         shippingEstimate
         shippingEstimateDate
         deliveryIds {

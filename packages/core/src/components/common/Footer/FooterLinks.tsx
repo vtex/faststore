@@ -9,101 +9,23 @@ import { useState } from 'react'
 
 import Link from 'src/components/ui/Link'
 
-const links = [
-  {
-    title: 'Our company',
-    items: [
-      {
-        href: '/',
-        name: 'About Us',
-      },
-      {
-        href: '/',
-        name: 'Our Blog',
-      },
-      {
-        href: '/',
-        name: 'Stores',
-      },
-      {
-        href: '/',
-        name: 'Work With Us',
-      },
-    ],
-  },
-  {
-    title: 'Orders & Purchases',
-    items: [
-      {
-        href: '/',
-        name: 'Check Order Status',
-      },
-      {
-        href: '/',
-        name: 'Returns and Exchanges',
-      },
-      {
-        href: '/',
-        name: 'Product Recall',
-      },
-      {
-        href: '/',
-        name: 'Gift Cards',
-      },
-    ],
-  },
-  {
-    title: 'Support & Services',
-    items: [
-      {
-        href: '/',
-        name: 'Support Center',
-      },
-      {
-        href: '/',
-        name: 'Schedule a Service',
-      },
-      {
-        href: '/',
-        name: 'Contact Us',
-      },
-    ],
-  },
-  {
-    title: 'Partnerships',
-    items: [
-      {
-        href: '/',
-        name: 'Affiliate Program',
-      },
-      {
-        href: '/',
-        name: 'Advertise with US',
-      },
-      {
-        href: '/',
-        name: 'Market Place',
-      },
-    ],
-  },
-]
-
-type LinkItem = {
-  href: string
-  name: string
+type Item = {
+  url: string
+  text: string
 }
 
-interface LinksListProps {
-  items: LinkItem[]
+type FooterLink = {
+  items: Item[]
+  sectionTitle: string
 }
 
-function LinksList({ items }: LinksListProps) {
+function Links({ items }: Pick<FooterLink, 'items'>) {
   return (
     <UIList>
       {items.map((item) => (
-        <li key={item.name}>
-          <Link variant="display" size="small" href={item.href}>
-            {item.name}
+        <li key={item.text}>
+          <Link variant="display" size="small" href={item.url}>
+            {item.text}
           </Link>
         </li>
       ))}
@@ -111,7 +33,11 @@ function LinksList({ items }: LinksListProps) {
   )
 }
 
-function FooterLinks() {
+export interface FooterLinksProps {
+  links: FooterLink[]
+}
+
+function FooterLinks({ links }: FooterLinksProps) {
   const [indicesExpanded, setIndicesExpanded] = useState<Set<number>>(
     new Set([])
   )
@@ -129,11 +55,11 @@ function FooterLinks() {
     <section data-fs-footer data-fs-footer-links>
       <div className="display-mobile">
         <UIAccordion indices={indicesExpanded} onChange={onChange}>
-          {links.map((section) => (
-            <UIAccordionItem key={section.title}>
-              <UIAccordionButton>{section.title}</UIAccordionButton>
+          {links.map(({ sectionTitle, items }) => (
+            <UIAccordionItem key={sectionTitle}>
+              <UIAccordionButton>{sectionTitle}</UIAccordionButton>
               <UIAccordionPanel>
-                <LinksList items={section.items} />
+                <Links items={items} />
               </UIAccordionPanel>
             </UIAccordionItem>
           ))}
@@ -142,10 +68,10 @@ function FooterLinks() {
 
       <div className="hidden-mobile">
         <nav data-fs-footer-links-columns>
-          {links.map((section) => (
-            <div key={section.title}>
-              <p data-fs-footer-title>{section.title}</p>
-              <LinksList items={section.items} />
+          {links.map(({ sectionTitle, items }) => (
+            <div key={sectionTitle}>
+              <p data-fs-footer-links-title>{sectionTitle}</p>
+              <Links items={items} />
             </div>
           ))}
         </nav>

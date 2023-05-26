@@ -1,9 +1,9 @@
 import type { GiftProps } from '@faststore/ui'
 import {
+  Icon,
   Gift as UIGift,
   GiftContent as UIGiftContent,
   GiftImage as UIGiftImage,
-  Icon,
 } from '@faststore/ui'
 
 import { Image } from 'src/components/ui/Image'
@@ -19,10 +19,7 @@ export type Props = GiftProps & {
 
 function Gift({ item, ...otherProps }: Props) {
   return (
-    <UIGift
-      icon={<Icon data-fs-gift-icon name="Tag" width={18} height={18} />}
-      {...otherProps}
-    >
+    <UIGift icon={<Icon name="Tag" width={18} height={18} />} {...otherProps}>
       <UIGiftImage>
         <Image
           src={item.itemOffered.image[0].url}

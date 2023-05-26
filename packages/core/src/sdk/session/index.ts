@@ -18,7 +18,16 @@ export const mutation = gql`
       locale
       channel
       country
+      addressType
       postalCode
+      deliveryMode {
+        deliveryChannel
+        deliveryMethod
+        deliveryWindow {
+          startDate
+          endDate
+        }
+      }
       geoCoordinates {
         latitude
         longitude

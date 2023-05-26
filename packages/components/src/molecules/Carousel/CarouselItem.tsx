@@ -1,6 +1,6 @@
+import type { CSSProperties, HTMLAttributes, PropsWithChildren } from 'react'
 import React from 'react'
-import type { CSSProperties, PropsWithChildren, HTMLAttributes } from 'react'
-import { useSlideVisibility, SliderState } from '../../hooks'
+import { SliderState, useSlideVisibility } from '../../hooks'
 
 export interface CarouselItemProps extends HTMLAttributes<HTMLLIElement> {
   index: number
@@ -11,6 +11,7 @@ export interface CarouselItemProps extends HTMLAttributes<HTMLLIElement> {
 }
 
 function CarouselItem({
+  id,
   index,
   state,
   children,
@@ -37,9 +38,8 @@ function CarouselItem({
   return (
     <li
       style={style}
+      id={`${id}-carousel-item-${index}`}
       data-fs-carousel-item
-      aria-roledescription="slide"
-      id={`carousel-item-${index}`}
       data-fs-carousel-item-visible={
         isItemVisible(index - Number(infiniteMode)) || undefined
       }

@@ -33,6 +33,7 @@
   --fs-navbar-search-expanded-button-icon-margin-right   : -4.063rem;
 
   // Logo
+  --fs-navbar-logo-width                                 : var(--fs-logo-width);
   --fs-navbar-logo-border-left-width                     : var(--fs-border-width);
   --fs-navbar-logo-border-left-color                     : var(--fs-border-color-light);
 
@@ -82,6 +83,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    height: 100%;
 
     @include media("<notebook") {
       padding: 0;
@@ -185,9 +187,11 @@
     overflow-x: clip;
     background-color: var(--fs-navbar-bkg-color);
     backdrop-filter: blur(10px);
+    height: 100%;
   }
 
   [data-fs-navbar-logo] {
+    height: 100%;
     align-self: stretch;
 
     @include media("<notebook") {
@@ -195,6 +199,14 @@
       margin-right: auto;
       margin-left: var(--fs-spacing-0);
       border-left: var(--fs-navbar-logo-border-left-width) solid var(--fs-navbar-logo-border-left-color);
+    }
+
+    [data-fs-logo] {
+      width: var(--fs-navbar-logo-width);
+      
+      @include media(">=notebook") {
+        padding: var(--fs-spacing-2) 0;
+      }
     }
   }
 }

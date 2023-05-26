@@ -47,6 +47,19 @@ export type Address = {
   street: Maybe<Scalars['String']>
 }
 
+export type AvailableDeliveryWindows = {
+  /** Available delivery window end date in UTC */
+  endDateUtc: Maybe<Scalars['String']>
+  /** Available delivery window list price */
+  listPrice: Maybe<Scalars['Int']>
+  /** Available delivery window price */
+  price: Maybe<Scalars['Int']>
+  /** Available delivery window start date in UTC */
+  startDateUtc: Maybe<Scalars['String']>
+  /** Available delivery window tax */
+  tax: Maybe<Scalars['Int']>
+}
+
 export type DeliveryIds = {
   /** DeliveryIds courier id */
   courierId: Maybe<Scalars['String']>
@@ -89,6 +102,23 @@ export type IStoreCurrency = {
   code: Scalars['String']
   /** Currency symbol (e.g: $). */
   symbol: Scalars['String']
+}
+
+export type IStoreDeliveryMode = {
+  /** The delivery channel information of the session. */
+  deliveryChannel: Scalars['String']
+  /** The delivery method information of the session. */
+  deliveryMethod: Scalars['String']
+  /** The delivery window information of the session. */
+  deliveryWindow: InputMaybe<IStoreDeliveryWindow>
+}
+
+/** Delivery window information. */
+export type IStoreDeliveryWindow = {
+  /** The delivery window end date information. */
+  endDate: Scalars['String']
+  /** The delivery window start date information. */
+  startDate: Scalars['String']
 }
 
 export type IStoreGeoCoordinates = {
@@ -181,12 +211,16 @@ export type IStoreSelectedFacet = {
 
 /** Session input. */
 export type IStoreSession = {
+  /** Session input address type. */
+  addressType: InputMaybe<Scalars['String']>
   /** Session input channel. */
   channel: InputMaybe<Scalars['String']>
   /** Session input country. */
   country: Scalars['String']
   /** Session input currency. */
   currency: IStoreCurrency
+  /** Session input delivery mode. */
+  deliveryMode: InputMaybe<IStoreDeliveryMode>
   /** Session input geoCoordinates. */
   geoCoordinates: InputMaybe<IStoreGeoCoordinates>
   /** Session input locale. */
@@ -403,6 +437,8 @@ export type ShippingData = {
 }
 
 export type ShippingSla = {
+  /** ShippingSLA available delivery windows. */
+  availableDeliveryWindows: Maybe<Array<Maybe<AvailableDeliveryWindows>>>
   /** ShippingSLA carrier. */
   carrier: Maybe<Scalars['String']>
   /** ShippingSLA delivery channel. */
@@ -591,6 +627,24 @@ export type StoreCurrency = {
   code: Scalars['String']
   /** Currency symbol (e.g: $). */
   symbol: Scalars['String']
+}
+
+/** Delivery mode information. */
+export type StoreDeliveryMode = {
+  /** The delivery channel information of the session. */
+  deliveryChannel: Scalars['String']
+  /** The delivery method information of the session. */
+  deliveryMethod: Scalars['String']
+  /** The delivery window information of the session. */
+  deliveryWindow: Maybe<StoreDeliveryWindow>
+}
+
+/** Delivery window information. */
+export type StoreDeliveryWindow = {
+  /** The delivery window end date information. */
+  endDate: Scalars['String']
+  /** The delivery window start date information. */
+  startDate: Scalars['String']
 }
 
 export type StoreFacet = StoreFacetBoolean | StoreFacetRange
@@ -864,12 +918,16 @@ export type StoreSeo = {
 
 /** Session information. */
 export type StoreSession = {
+  /** Session address type. */
+  addressType: Maybe<Scalars['String']>
   /** Session channel. */
   channel: Maybe<Scalars['String']>
   /** Session country. */
   country: Scalars['String']
   /** Session currency. */
   currency: StoreCurrency
+  /** Session delivery mode. */
+  deliveryMode: Maybe<StoreDeliveryMode>
   /** Session input geoCoordinates. */
   geoCoordinates: Maybe<StoreGeoCoordinates>
   /** Session locale. */
@@ -1335,7 +1393,13 @@ export type ValidateSessionMutation = {
     locale: string
     channel: string | null
     country: string
+    addressType: string | null
     postalCode: string | null
+    deliveryMode: {
+      deliveryChannel: string
+      deliveryMethod: string
+      deliveryWindow: { startDate: string; endDate: string } | null
+    } | null
     geoCoordinates: { latitude: number; longitude: number } | null
     currency: { code: string; symbol: string }
     person: {
@@ -1361,6 +1425,12 @@ export type ShippingSimulationQueryQuery = {
         price: number | null
         shippingEstimate: string | null
         localizedEstimates: string | null
+        availableDeliveryWindows: Array<{
+          startDateUtc: string | null
+          endDateUtc: string | null
+          price: number | null
+          listPrice: number | null
+        } | null> | null
       } | null> | null
     } | null> | null
     address: { city: string | null; neighborhood: string | null } | null

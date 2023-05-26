@@ -1,0 +1,8 @@
+/* stylelint-disable no-invalid-position-at-import-rule */
+@import "@faststore/ui/src/styles/base/utilities.scss";
+
+.section {
+  @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Loader/styles.scss";
+  @import "@faststore/ui/src/components/organisms/EmptyState/styles.scss";
+}

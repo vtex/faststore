@@ -4,10 +4,37 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/IconButton___a815b0a38dda52d079b3f73784c92c6b.png
 ---
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { IconButton, Icon } from '@faststore/ui'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const iconButtonPath = path.resolve(__filename)
+  const components = ['IconButton.tsx']
+  const [iconButtonProps] = getComponentPropsFrom(iconButtonPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        iconButtonProps
+      },
+    },
+  }
+}
+
+export const IconButtonPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { iconButtonProps } = useSSG()
+  return {
+    IconButton: <PropsSection propsList={iconButtonProps} />
+  }[component]
+}
 
 <header>
 
@@ -24,12 +51,16 @@ Icon Buttons are icons that trigger some sort of action, such as adding an item 
     <OverviewSection>
       <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" />
       <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" variant="primary" />
+      <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" size="small" />
+      <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" variant="primary" size="small" />
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
     <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" />
     <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" variant="primary" />
+    <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" size="small" />
+    <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" variant="primary" size="small" />
     ```
   </Tab>
 </Tabs>
@@ -65,7 +96,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 
 ## Props
 
-<PropsSection name="IconButton" />
+<IconButtonPropsSection component="IconButton" />
 
 ---
 

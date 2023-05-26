@@ -67,6 +67,7 @@
     &:not(:placeholder-shown) + label,
     &:focus + label {
       top: rem(6px);
+      left: var(--fs-border-width);
       font-size: var(--fs-input-field-label-size);
     }
 
@@ -117,22 +118,16 @@
 
     [data-fs-button] {
       position: absolute;
-      top: var(--fs-spacing-1);
-      right: var(--fs-spacing-1);
+      top: 0;
+      right: 0;
 
-      &::before {
+      [data-fs-button-wrapper]::before {
         position: absolute;
         left: calc(-1 * var(--fs-spacing-1));
         width: 1px;
         height: 80%;
         content: "";
         background-color: var(--fs-input-field-border-color);
-      }
-    }
-
-    [data-fs-button][data-fs-icon-button] {
-      &::before {
-        left: calc(-1 * var(--fs-spacing-1));
       }
     }
   }

@@ -1,17 +1,18 @@
 import type {
-  UIEvent,
-  ReactNode,
   CSSProperties,
   KeyboardEvent,
   PropsWithChildren,
+  ReactNode,
+  UIEvent,
+  AriaAttributes,
 } from 'react'
 import React, { useMemo, useRef } from 'react'
 import type { SwipeableProps } from 'react-swipeable'
 
-import CarouselItem from './CarouselItem'
+import { Icon, IconButton } from '../..'
 import { useSlider } from '../../hooks'
 import CarouselBullets from './CarouselBullets'
-import { IconButton, Icon } from '../..'
+import CarouselItem from './CarouselItem'
 
 const createTransformValues = (infinite: boolean, totalItems: number) => {
   const transformMap: Record<number, number> = {}
@@ -40,6 +41,11 @@ export interface CarouselProps extends SwipeableProps {
    * Returns the value of element's class content attribute.
    */
   className?: string
+  /**
+   * Defines a string value that labels the current element when
+   * title is not used.
+   */
+  'aria-label'?: AriaAttributes['aria-label']
   /**
    * Whether or not the Carousel is infinite slide/scroll. Only for the `slide` variant.
    * @default true
@@ -79,6 +85,9 @@ export interface CarouselProps extends SwipeableProps {
 }
 
 function Carousel({
+  children,
+  className,
+  'aria-label': ariaLabel,
   infiniteMode = true,
   controls = 'complete',
   testId = 'fs-carousel',
@@ -86,8 +95,6 @@ function Carousel({
     duration: 400,
     property: 'transform',
   },
-  children,
-  className,
   id = 'fs-carousel',
   variant = 'slide',
   itemsPerPage = 1,
@@ -302,8 +309,7 @@ function Carousel({
       data-fs-carousel
       className={className}
       data-testid={testId}
-      aria-label="carousel"
-      aria-roledescription="carousel"
+      aria-label={ariaLabel}
     >
       <div
         data-fs-carousel-track-container
@@ -324,6 +330,7 @@ function Carousel({
         >
           {slides.map((currentSlide, idx) => (
             <CarouselItem
+              id={id}
               index={idx}
               key={String(idx)}
               state={sliderState}
@@ -374,6 +381,7 @@ function Carousel({
 
       {showPaginationBullets && (
         <CarouselBullets
+          id={id}
           tabIndex={0}
           activeBullet={sliderState.currentPage}
           totalQuantity={pagesCount}
@@ -386,7 +394,7 @@ function Carousel({
             isScrollCarousel && onScrollPagination(idx)
           }}
           onFocus={(event) => event.currentTarget.focus()}
-          ariaControlsGenerator={(idx) => `carousel-item-${idx}`}
+          ariaControlsGenerator={(idx) => `${id}-carousel-item-${idx}`}
         />
       )}
     </section>

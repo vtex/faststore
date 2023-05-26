@@ -10,7 +10,8 @@
   }
 
   @include media(">=notebook") {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     column-gap: var(--fs-grid-gap-3);
 
     > section {

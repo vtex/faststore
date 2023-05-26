@@ -35,6 +35,7 @@ const List: ListComponent = forwardRef(function List<
   return (
     <Component
       ref={ref}
+      role="list"
       data-fs-list
       data-fs-list-marker={marker}
       data-testid={testId}

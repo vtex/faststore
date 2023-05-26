@@ -1,10 +1,5 @@
 [
   {
-    "id": "globalAlert",
-    "name": "Global Alert Page",
-    "configurationSchemaSets": []
-  },
-  {
     "id": "globalSections",
     "name": "Global Sections",
     "configurationSchemaSets": [],
@@ -63,6 +58,105 @@
   {
     "id": "plp",
     "name": "Product List Page",
-    "configurationSchemaSets": []
+    "configurationSchemaSets": [
+      {
+        "name": "Settings",
+        "configurations": [
+          {
+            "name": "productGallery",
+            "schema": {
+              "title": "Product Gallery",
+              "description": "ProductGallery options",
+              "type": "object",
+              "required": ["itemsPerPage", "sortBySelection"],
+              "properties": {
+                "itemsPerPage": {
+                  "title": "Number of ProductCards per page",
+                  "type": "integer",
+                  "default": 12
+                },
+                "sortBySelection": {
+                  "title": "Default sort by value",
+                  "type": "string",
+                  "default": "score_desc",
+                  "enumNames": [
+                    "Price, descending",
+                    "Price, ascending",
+                    "Top sales",
+                    "Name, A-Z",
+                    "Name, Z-A",
+                    "Release date",
+                    "Discount",
+                    "Relevance"
+                  ],
+                  "enum": [
+                    "price_desc",
+                    "price_asc",
+                    "orders_desc",
+                    "name_asc",
+                    "name_desc",
+                    "release_desc",
+                    "discount_desc",
+                    "score_desc"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "search",
+    "name": "Search Page",
+    "configurationSchemaSets": [
+      {
+        "name": "Settings",
+        "configurations": [
+          {
+            "name": "productGallery",
+            "schema": {
+              "title": "Product Gallery",
+              "description": "ProductGallery options",
+              "type": "object",
+              "required": ["itemsPerPage", "sortBySelection"],
+              "properties": {
+                "itemsPerPage": {
+                  "title": "Number of ProductCards per page",
+                  "type": "integer",
+                  "default": 12
+                },
+                "sortBySelection": {
+                  "title": "Default sort by value",
+                  "type": "string",
+                  "default": "score_desc",
+                  "enumNames": [
+                    "Price, descending",
+                    "Price, ascending",
+                    "Top sales",
+                    "Name, A-Z",
+                    "Name, Z-A",
+                    "Release date",
+                    "Discount",
+                    "Relevance"
+                  ],
+                  "enum": [
+                    "price_desc",
+                    "price_asc",
+                    "orders_desc",
+                    "name_asc",
+                    "name_desc",
+                    "release_desc",
+                    "discount_desc",
+                    "score_desc"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
   }
 ]

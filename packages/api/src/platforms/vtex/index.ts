@@ -35,6 +35,7 @@ export interface Options {
   channel: string
   locale: string
   hideUnavailableItems: boolean
+  incrementAddress: boolean,
   flags?: FeatureFlags
 }
 
@@ -91,16 +92,16 @@ const Resolvers = {
 
 export const getContextFactory =
   (options: Options) =>
-  (ctx: any): Context => {
-    ctx.storage = {
-      channel: ChannelMarshal.parse(options.channel),
-      flags: options.flags ?? {},
-      locale: options.locale,
-    }
-    ctx.clients = getClients(options, ctx)
-    ctx.loaders = getLoaders(options, ctx)
+    (ctx: any): Context => {
+      ctx.storage = {
+        channel: ChannelMarshal.parse(options.channel),
+        flags: options.flags ?? {},
+        locale: options.locale,
+      }
+      ctx.clients = getClients(options, ctx)
+      ctx.loaders = getLoaders(options, ctx)
 
-    return ctx
-  }
+      return ctx
+    }
 
 export const getResolvers = (_: Options) => Resolvers

@@ -25,19 +25,12 @@ const SearchHistoryTerm = ({
   testId = 'fs-search-history-term',
   value,
   linkProps,
-  icon,
+  icon = <Icon name="ClockClockwise" width={18} height={18} />,
 }: SearchHistoryTermProps) => {
-  const iconProps = {"data-fs-search-history-item-icon": true}
-  
-  const historyIcon = React.isValidElement(icon) ? (
-    React.cloneElement(icon, iconProps)
-  ) : (
-    <Icon name="ClockClockwise" data-fs-search-history-item-icon />
-  )
   return (
     <li data-fs-search-history-item data-testid={testId}>
       <Link {...linkProps} data-fs-search-history-item-link variant="display">
-        {historyIcon}
+        <span data-fs-search-history-item-icon>{icon}</span>
         <span>{value}</span>
       </Link>
     </li>

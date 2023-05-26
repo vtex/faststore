@@ -1,27 +1,28 @@
 import {
+  SearchProducts,
   SearchAutoComplete as UISearchAutoComplete,
   SearchAutoCompleteTerm as UISearchAutoCompleteTerm,
   SearchDropdown as UISearchDropdown,
-  SearchProducts,
   useSearch,
 } from '@faststore/ui'
 
 import { SearchHistory } from '../SearchHistory'
 import { SearchTop } from '../SearchTop'
 
+import { SearchState } from '@faststore/sdk'
+import { ProductSummary_ProductFragment } from '@generated/graphql'
 import SearchProductItem from 'src/components/search/SearchProductItem'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
-import { ProductSummary_ProductFragment } from '@generated/graphql'
 
-function SearchDropdown({ ...otherProps }) {
+function SearchDropdown({ sort, ...otherProps }) {
   const {
     values: { onSearchSelection, products, term, terms },
   } = useSearch()
 
   return (
     <UISearchDropdown {...otherProps}>
-      <SearchHistory />
-      <SearchTop />
+      <SearchHistory sort={sort} />
+      <SearchTop sort={sort} />
       <UISearchAutoComplete>
         {terms?.map(({ value: suggestion }) => (
           <UISearchAutoCompleteTerm
@@ -29,9 +30,18 @@ function SearchDropdown({ ...otherProps }) {
             term={term}
             suggestion={suggestion}
             linkProps={{
-              href: formatSearchPath(suggestion),
+              href: formatSearchPath({
+                term: suggestion,
+                sort: sort as SearchState['sort'],
+              }),
               onClick: () =>
-                onSearchSelection?.(suggestion, formatSearchPath(suggestion)),
+                onSearchSelection?.(
+                  suggestion,
+                  formatSearchPath({
+                    term: suggestion,
+                    sort: sort as SearchState['sort'],
+                  })
+                ),
             }}
           />
         ))}

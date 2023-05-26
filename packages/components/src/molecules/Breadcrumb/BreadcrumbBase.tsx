@@ -13,7 +13,6 @@ import Dropdown, {
   DropdownMenu,
 } from '../Dropdown'
 import BreadcrumbPure, { BreadcrumbPureProps } from './BreadcrumbPure'
-import HomeLink from './HomeLink'
 
 type ItemElement = {
   item: string
@@ -32,7 +31,7 @@ type RenderLinkProps = {
   collapsed: boolean
 }
 
-export type BreadcrumbBaseProps = {
+export interface BreadcrumbBaseProps extends BreadcrumbPureProps {
   /**
    * Array of ItemElement that represents each breadcrumb item.
    */
@@ -59,7 +58,7 @@ export type BreadcrumbBaseProps = {
    * @returns Link to be rendered.
    */
   renderLink?: (renderLinkProps: RenderLinkProps) => ReactElement
-} & BreadcrumbPureProps
+}
 
 const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
   function BreadcrumbBase(
@@ -70,7 +69,7 @@ const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
       breadcrumbList,
       isDesktop = false,
       renderLink,
-      homeLink = <HomeLink />,
+      homeLink,
       dropdownButtonIcon = <Icon name="DotsThree" />,
       collapsedItemsIcon = (
         <Icon data-fs-dropdown-item-icon name="ArrowElbowDownRight" />
@@ -79,15 +78,6 @@ const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
     },
     ref
   ) {
-    const homeLinkProps = {
-      'data-fs-breadcrumb-link': true,
-      'data-fs-breadcrumb-link-home': true,
-      'aria-label': 'Go to homepage',
-      href: '/',
-    }
-
-    const homeLinkWithProps = cloneElement(homeLink, homeLinkProps)
-
     const firstItem = isDesktop ? breadcrumbList[0] : null
     const mediumItems = isDesktop
       ? breadcrumbList.slice(1, -2)
@@ -131,7 +121,7 @@ const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
         data-fs-breadcrumb-is-desktop={isDesktop}
         {...otherProps}
       >
-        {homeLinkWithProps}
+        {homeLink}
 
         {!collapseBreadcrumb &&
           breadcrumbList.map((item, index) => {

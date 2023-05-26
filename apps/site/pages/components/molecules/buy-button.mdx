@@ -8,10 +8,39 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Button___6d6b16886d5d7e2a05dba8c45c075796.png
 ---
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { BuyButton } from '@faststore/ui'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+
+export const getStaticProps = () => {
+  const buyButtonPath = path.resolve(__filename)
+  const components = ['BuyButton.tsx']
+  const [buyButtonProps] = getComponentPropsFrom(buyButtonPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        buyButtonProps
+      },
+    },
+  }
+}
+
+export const BuyButtonPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { buyButtonProps } = useSSG()
+  return {
+    BuyButton: <PropsSection propsList={buyButtonProps} />
+  }[component]
+}
+
 
 <header>
 
@@ -61,7 +90,7 @@ import '@faststore/ui/src/components/atoms/BuyButton/styles.scss'
 
 ## Props
 
-<PropsSection name="BuyButton" />
+<BuyButtonPropsSection component="BuyButton" />
 
 ---
 

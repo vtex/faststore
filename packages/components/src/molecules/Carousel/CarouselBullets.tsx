@@ -6,6 +6,10 @@ import { Button } from '../..'
 export interface CarouselBulletsProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onClick' | 'role'> {
   /**
+   * ID of the current instance of the component.
+   */
+  id: string
+  /**
    * Number of bullets that should be rendered.
    */
   totalQuantity: number
@@ -28,7 +32,7 @@ export interface CarouselBulletsProps
    * to each bullet that is inactive. It receives the bullet index as an
    * argument so that it can be interpolated in the generated string.
    */
-  ariaLabelGenerator?: (index: number, isActive: boolean) => string
+  ariaLabelGenerator?: (id: string, index: number, isActive: boolean) => string
   /**
    * Function that should be used to generate the aria-controls attribute added
    * to each bullet. It receives the bullet index as argument and should return a string.
@@ -36,12 +40,13 @@ export interface CarouselBulletsProps
   ariaControlsGenerator?: (index: number) => string
 }
 
-const defaultAriaLabel = (idx: number, isActive: boolean) =>
-  isActive ? 'Current page' : `Go to page ${idx + 1}`
+const defaultAriaLabel = (id: string, idx: number, isActive: boolean) =>
+  isActive ? `Current page from ${id}` : `Go to page ${idx + 1} from ${id}`
 
 const CarouselBullets = forwardRef<HTMLDivElement, CarouselBulletsProps>(
   function Bullets(
     {
+      id,
       totalQuantity,
       activeBullet,
       onClick,
@@ -70,15 +75,16 @@ const CarouselBullets = forwardRef<HTMLDivElement, CarouselBulletsProps>(
 
           return (
             <Button
-              key={idx}
+              key={`${id}-${idx}`}
               role="tab"
               tabIndex={-1}
               data-fs-carousel-bullet
               testId={`${testId}-bullet`}
               onClick={(e) => onClick(e, idx)}
-              aria-label={ariaLabelGenerator(idx, isActive)}
+              aria-label={ariaLabelGenerator(id, idx, isActive)}
               aria-controls={ariaControlsGenerator?.(idx)}
               aria-selected={isActive}
+              variant="tertiary"
             />
           )
         })}

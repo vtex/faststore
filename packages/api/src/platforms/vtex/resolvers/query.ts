@@ -18,6 +18,7 @@ import type {
   QueryCollectionArgs,
   QueryProductArgs,
   QuerySearchArgs,
+  QuerySellersArgs,
   QueryShippingArgs,
   QueryRedirectArgs
 } from "../../../__generated__/schema"
@@ -273,6 +274,7 @@ export const Query = {
       address,
     }
   },
+
   redirect: async (
     _: unknown,
     { term, selectedFacets }: QueryRedirectArgs,
@@ -293,6 +295,25 @@ export const Query = {
 
     return {
       url: redirect
+    }
+  },
+
+  sellers: async (
+    _: unknown,
+    { postalCode, geoCoordinates, country, salesChannel }: QuerySellersArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const regionData = await commerce.checkout.region({ postalCode, geoCoordinates, country, salesChannel })
+    const region = regionData?.[0]
+    const { id, sellers } = region
+
+    return {
+      id,
+      sellers
     }
   },
 }

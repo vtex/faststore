@@ -38,6 +38,7 @@ import {
   RedirectQueryTermTech,
   redirectTermTechFetch,
 } from '../mocks/RedirectQuery'
+import { SellersQueryResult, regionFetch } from '../mocks/SellersQuery'
 
 const apiOptions = {
   platform: 'vtex',
@@ -46,6 +47,7 @@ const apiOptions = {
   channel: '{"salesChannel":"1"}',
   locale: 'en-US',
   hideUnavailableItems: false,
+  incrementAddress: false,
   flags: {
     enableOrderFormSync: true,
   },
@@ -249,6 +251,27 @@ test('`redirect` query', async () => {
   )
 
   const response = await run(RedirectQueryTermTech)
+
+  expect(mockedFetch).toHaveBeenCalledTimes(1)
+
+  fetchAPICalls.forEach((fetchAPICall) => {
+    expect(mockedFetch).toHaveBeenCalledWith(
+      fetchAPICall.info,
+      fetchAPICall.init
+    )
+  })
+  expect(response).toMatchSnapshot()
+})
+
+
+test('`sellers` query', async () => {
+  const fetchAPICalls = [regionFetch]
+
+  mockedFetch.mockImplementation((info, init) =>
+    pickFetchAPICallResult(info, init, fetchAPICalls)
+  )
+
+  const response = await run(SellersQueryResult)
 
   expect(mockedFetch).toHaveBeenCalledTimes(1)
 
