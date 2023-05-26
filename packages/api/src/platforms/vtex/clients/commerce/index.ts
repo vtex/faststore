@@ -22,7 +22,6 @@ import type { Address, AddressInput } from './types/Address'
 import { DeliveryMode, ShippingDataBody } from './types/ShippingData'
 import { IncrementedAddress } from './types/IncrementedAddress'
 
-
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
 const BASE_INIT = {
@@ -97,54 +96,58 @@ export const VtexCommerce = (
         country: string,
         postalCode: string
       ): Promise<IncrementedAddress> => {
-
         return incrementAddress
-          ? fetchAPI(`${base}/api/checkout/pub/postal-code/${country}/${postalCode}`, {
-            method: 'GET',
-            headers: {
-              'content-type': 'application/json'
-            },
-          })
-          : Promise.resolve(undefined);
+          ? fetchAPI(
+              `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`,
+              {
+                method: 'GET',
+                headers: {
+                  'content-type': 'application/json',
+                },
+              }
+            )
+          : Promise.resolve(undefined)
       },
 
-      getDeliveryWindows: ({
-        id,
-        index,
-        deliveryMode,
-        body,
-      }: {
-        id: string
-        index: number
-        deliveryMode?: DeliveryMode | null
-        body: ShippingDataBody
-      },
-        incrementedAddress?: IncrementedAddress): Promise<OrderForm> => {
-
+      getDeliveryWindows: (
+        {
+          id,
+          index,
+          deliveryMode,
+          body,
+        }: {
+          id: string
+          index: number
+          deliveryMode?: DeliveryMode | null
+          body: ShippingDataBody
+        },
+        incrementedAddress?: IncrementedAddress
+      ): Promise<OrderForm> => {
         const mappedBody = {
-          "logisticsInfo": Array.from({ length: index }, (_, itemIndex) => ({
+          logisticsInfo: Array.from({ length: index }, (_, itemIndex) => ({
             itemIndex,
             selectedDeliveryChannel: deliveryMode?.deliveryChannel,
             selectedSla: deliveryMode?.deliveryMethod,
           })),
-          "selectedAddresses": body?.selectedAddresses?.map(address => ({
-            "addressType": address.addressType || null,
-            "receiverName": address.receiverName || null,
-            "postalCode": address.postalCode || incrementedAddress?.postalCode || null,
-            "city": incrementedAddress?.city || null,
-            "state": incrementedAddress?.state || null,
-            "country": address.country || incrementedAddress?.country || null,
-            "street": incrementedAddress?.street || null,
-            "number": incrementedAddress?.number || null,
-            "neighborhood": incrementedAddress?.neighborhood || null,
-            "complement": incrementedAddress?.complement || null,
-            "reference": incrementedAddress?.reference || null,
-            "geoCoordinates": address.geoCoordinates || incrementedAddress?.geoCoordinates || []
-          }))
-        };
-
-        //remove before merge
-        console.log("Mapped Body for Shipping Data", mappedBody)
+          selectedAddresses: body?.selectedAddresses?.map((address) => ({
+            addressType: address.addressType || null,
+            receiverName: address.receiverName || null,
+            postalCode:
+              address.postalCode || incrementedAddress?.postalCode || null,
+            city: incrementedAddress?.city || null,
+            state: incrementedAddress?.state || null,
+            country: address.country || incrementedAddress?.country || null,
+            street: incrementedAddress?.street || null,
+            number: incrementedAddress?.number || null,
+            neighborhood: incrementedAddress?.neighborhood || null,
+            complement: incrementedAddress?.complement || null,
+            reference: incrementedAddress?.reference || null,
+            geoCoordinates:
+              address.geoCoordinates ||
+              incrementedAddress?.geoCoordinates ||
+              [],
+          })),
+        }
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
@@ -155,53 +158,55 @@ export const VtexCommerce = (
         )
       },
 
-      shippingData: ({
-
-        id,
-        index,
-        deliveryMode,
-        body,
-      }: {
-        id: string
-        index: number
-        deliveryMode?: DeliveryMode | null
-        body: ShippingDataBody
-      },
-        incrementedAddress?: IncrementedAddress): Promise<OrderForm> => {
-
+      shippingData: (
+        {
+          id,
+          index,
+          deliveryMode,
+          body,
+        }: {
+          id: string
+          index: number
+          deliveryMode?: DeliveryMode | null
+          body: ShippingDataBody
+        },
+        incrementedAddress?: IncrementedAddress
+      ): Promise<OrderForm> => {
         const hasDeliveryWindow = deliveryMode?.deliveryWindow ? true : false
 
-        const deliveryWindow = hasDeliveryWindow ? {
-          "startDateUtc": deliveryMode?.deliveryWindow?.startDate,
-          "endDateUtc": deliveryMode?.deliveryWindow?.endDate,
-        } : null
+        const deliveryWindow = hasDeliveryWindow
+          ? {
+              startDateUtc: deliveryMode?.deliveryWindow?.startDate,
+              endDateUtc: deliveryMode?.deliveryWindow?.endDate,
+            }
+          : null
 
         const mappedBody = {
-          "logisticsInfo": Array.from({ length: index }, (_, itemIndex) => ({
+          logisticsInfo: Array.from({ length: index }, (_, itemIndex) => ({
             itemIndex,
             selectedDeliveryChannel: deliveryMode?.deliveryChannel,
             selectedSla: deliveryMode?.deliveryMethod,
-            deliveryWindow: deliveryWindow
+            deliveryWindow: deliveryWindow,
           })),
-          "selectedAddresses": body?.selectedAddresses?.map(address => ({
-            "addressType": address.addressType || null,
-            "receiverName": address.receiverName || null,
-            "postalCode": address.postalCode || incrementedAddress?.postalCode || null,
-            "city": incrementedAddress?.city || null,
-            "state": incrementedAddress?.state || null,
-            "country": address.country || incrementedAddress?.country || null,
-            "street": incrementedAddress?.street || null,
-            "number": incrementedAddress?.number || null,
-            "neighborhood": incrementedAddress?.neighborhood || null,
-            "complement": incrementedAddress?.complement || null,
-            "reference": incrementedAddress?.reference || null,
-            "geoCoordinates": address.geoCoordinates || incrementedAddress?.geoCoordinates || []
-          }))
-        };
-
-        //remove before merge
-        console.log("Mapped Body for Shipping Data", mappedBody)
-        console.log("Delivery Window", deliveryWindow)
+          selectedAddresses: body?.selectedAddresses?.map((address) => ({
+            addressType: address.addressType || null,
+            receiverName: address.receiverName || null,
+            postalCode:
+              address.postalCode || incrementedAddress?.postalCode || null,
+            city: incrementedAddress?.city || null,
+            state: incrementedAddress?.state || null,
+            country: address.country || incrementedAddress?.country || null,
+            street: incrementedAddress?.street || null,
+            number: incrementedAddress?.number || null,
+            neighborhood: incrementedAddress?.neighborhood || null,
+            complement: incrementedAddress?.complement || null,
+            reference: incrementedAddress?.reference || null,
+            geoCoordinates:
+              address.geoCoordinates ||
+              incrementedAddress?.geoCoordinates ||
+              [],
+          })),
+        }
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
@@ -296,9 +301,9 @@ export const VtexCommerce = (
         postalCode
           ? params.append('postalCode', postalCode)
           : params.append(
-            'geoCoordinates',
-            `${geoCoordinates?.longitude};${geoCoordinates?.latitude}`
-          )
+              'geoCoordinates',
+              `${geoCoordinates?.longitude};${geoCoordinates?.latitude}`
+            )
 
         const url = `${base}/api/checkout/pub/regions/?${params.toString()}`
         return fetchAPI(url)
