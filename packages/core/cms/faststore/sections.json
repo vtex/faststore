@@ -1422,5 +1422,136 @@
         }
       }
     }
+  },
+  {
+    "name": "RegionBar",
+    "schema": {
+      "title": "Region Bar",
+      "type": "object",
+      "description": "Region Bar configuration",
+      "required": ["label"],
+      "properties": {
+        "icon": {
+          "title": "Location Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["Map Pin"],
+              "enum": ["MapPin"],
+              "default": "MapPin"
+            },
+            "alt": {
+              "title": "Alternative Label",
+              "type": "string",
+              "default": "Map Pin icon"
+            }
+          }
+        },
+        "label": {
+          "title": "Location label",
+          "type": "string",
+          "default": "Set your location"
+        },
+        "editLabel": {
+          "title": "Location edit label",
+          "type": "string",
+          "default": "Edit"
+        },
+        "buttonIcon": {
+          "title": "Button Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["Caret Right"],
+              "enum": ["CaretRight"],
+              "default": "CaretRight"
+            },
+            "alt": {
+              "title": "Alternative Label",
+              "type": "string",
+              "default": "Caret Right icon"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "RegionModal",
+    "schema": {
+      "title": "Region Modal",
+      "type": "object",
+      "description": "Region Modal configuration",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Set your location"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "default": "Prices, offers and availability may vary according to your location."
+        },
+        "closeButtonAriaLabel": {
+          "title": "Close modal aria-label",
+          "type": "string",
+          "default": "Close Region Modal"
+        },
+        "inputField": {
+          "title": "Input Field",
+          "type": "object",
+          "properties": {
+            "label": {
+              "title": "Input field label",
+              "type": "string",
+              "default": "Postal Code"
+            },
+            "errorMessage": {
+              "title": "Input field error message",
+              "type": "string",
+              "default": "You entered an invalid Postal Code"
+            }
+          }
+        },
+        "idkPostalCodeLink": {
+          "title": "I don't know my postal code link",
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "title": "Link Text",
+              "default": "I don't know my Postal Code"
+            },
+            "to": {
+              "type": "string",
+              "title": "Action link"
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Arrow Square Out"],
+                  "enum": ["ArrowSquareOut"],
+                  "default": "ArrowSquareOut"
+                },
+                "alt": {
+                  "title": "Alternative Label",
+                  "type": "string",
+                  "default": "Arrow Square Out icon"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 ]
