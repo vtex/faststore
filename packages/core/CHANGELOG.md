@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.163-alpha.0](https://github.com/vtex/faststore/compare/v2.0.162-alpha.0...v2.0.163-alpha.0) (2023-05-26)
+
+### Features
+
+- add search redirect at api package 2.x ([#1749](https://github.com/vtex/faststore/issues/1749)) ([fe198e1](https://github.com/vtex/faststore/commit/fe198e1de73eda89c220f8a61bd2e83efbd4af9c))
+
 ## [2.0.162-alpha.0](https://github.com/vtex/faststore/compare/v2.0.161-alpha.0...v2.0.162-alpha.0) (2023-05-26)
 
 **Note:** Version bump only for package @faststore/core
