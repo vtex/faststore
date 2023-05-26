@@ -1,7 +1,7 @@
 import React from 'react'
 
 import type { MutableRefObject } from 'react'
-import { Icon, InputField, Link, Modal, ModalBody, ModalHeader } from '../..'
+import { InputField, Link, Modal, ModalBody, ModalHeader } from '../..'
 import type {
   LinkElementType,
   LinkProps,
@@ -24,6 +24,10 @@ export interface RegionModalProps extends Omit<ModalProps, 'children'> {
    */
   description?: string
   /**
+   * Close button aria-label.
+   */
+  closeButtonAriaLabel?: string
+  /**
    * Props for the link `I don't know my Postal Code`.
    */
   idkPostalCodeLinkProps?: Partial<LinkProps<LinkElementType>>
@@ -43,6 +47,10 @@ export interface RegionModalProps extends Omit<ModalProps, 'children'> {
    * Postal code input's value.
    */
   inputValue?: string
+  /**
+   * Postal code input's label.
+   */
+  inputLabel?: string
   /**
    * Enables fadeOut effect on modal after onSubmit function
    */
@@ -73,10 +81,12 @@ function RegionModal({
   testId = 'fs-region-modal',
   title = 'Set your location',
   description = 'Prices, offers and availability may vary according to your location.',
+  closeButtonAriaLabel = 'Close Region Modal',
   idkPostalCodeLinkProps,
   errorMessage,
   inputRef,
   inputValue,
+  inputLabel = 'Postal Code',
   fadeOutOnSubmit,
   overlayProps,
   onClose,
@@ -104,7 +114,7 @@ function RegionModal({
             title={title}
             description={description}
             closeBtnProps={{
-              'aria-label': 'Close Region Modal',
+              'aria-label': closeButtonAriaLabel,
             }}
           />
           <ModalBody>
@@ -112,7 +122,7 @@ function RegionModal({
               data-fs-region-modal-input
               id={`${testId}-input-field`}
               inputRef={inputRef}
-              label="Postal Code"
+              label={inputLabel}
               actionable
               value={inputValue}
               onInput={(event) => onInput?.(event)}
@@ -124,14 +134,7 @@ function RegionModal({
               error={errorMessage}
             />
 
-            <Link data-fs-region-modal-link {...idkPostalCodeLinkProps}>
-              {idkPostalCodeLinkProps?.children ?? (
-                <>
-                  {"I don't know my Postal Code"}
-                  <Icon name="ArrowSquareOut" width={20} height={20} />
-                </>
-              )}
-            </Link>
+            <Link data-fs-region-modal-link {...idkPostalCodeLinkProps} />
           </ModalBody>
         </>
       )}
