@@ -181,6 +181,23 @@ export const VtexCommerce = (
             }
           : null
 
+        const selectedAddress = body?.selectedAddresses?.[0]
+
+        const longitude =
+          selectedAddress?.geoCoordinates instanceof Array
+            ? null
+            : selectedAddress?.geoCoordinates?.longitude || null
+
+        const latitude =
+          selectedAddress?.geoCoordinates instanceof Array
+            ? null
+            : selectedAddress?.geoCoordinates?.latitude || null
+
+        const geoCoordinates =
+          longitude && latitude
+            ? [longitude, latitude]
+            : incrementedAddress?.geoCoordinates || []
+
         const mappedBody = {
           logisticsInfo: Array.from({ length: index }, (_, itemIndex) => ({
             itemIndex,
@@ -201,10 +218,7 @@ export const VtexCommerce = (
             neighborhood: incrementedAddress?.neighborhood || null,
             complement: incrementedAddress?.complement || null,
             reference: incrementedAddress?.reference || null,
-            geoCoordinates:
-              address.geoCoordinates ||
-              incrementedAddress?.geoCoordinates ||
-              [],
+            geoCoordinates: geoCoordinates,
           })),
         }
 
