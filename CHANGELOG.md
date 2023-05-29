@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.167-alpha.0](https://github.com/vtex/faststore/compare/v2.0.166-alpha.0...v2.0.167-alpha.0) (2023-05-29)
+
+### Chores
+
+- relax bf-cache rule to use warn instead of error ([#1801](https://github.com/vtex/faststore/issues/1801)) ([30c0ce9](https://github.com/vtex/faststore/commit/30c0ce9dc022db5c17a7ddd081d2d291c082bb75))
+
 ## [2.0.166-alpha.0](https://github.com/vtex/faststore/compare/v2.0.165-alpha.0...v2.0.166-alpha.0) (2023-05-29)
 
 ### Features
