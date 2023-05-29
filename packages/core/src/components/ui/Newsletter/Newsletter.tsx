@@ -1,10 +1,43 @@
 import { Button as UIButton, InputField as UIInputField } from '@faststore/ui'
-import type { ComponentPropsWithRef, FormEvent, ReactNode } from 'react'
+import {
+  ComponentPropsWithRef,
+  FormEvent,
+  ReactNode,
+  useEffect,
+  useState,
+} from 'react'
 import { forwardRef, useRef } from 'react'
-
+import { convertFromRaw } from 'draft-js'
+import { stateToHTML } from 'draft-js-export-html'
 import { Icon, useUI } from '@faststore/ui'
 import Link from 'src/components/ui/Link'
 import { useNewsletter } from 'src/sdk/newsletter/useNewsletter'
+
+const cmsToHtml = (content) => {
+  const rawDraftContentState = JSON.parse(content)
+  const html = stateToHTML(convertFromRaw(rawDraftContentState), {
+    entityStyleFn: (entity) => {
+      const entityType = entity.get('type').toLowerCase()
+      if (entityType === 'link') {
+        const data = entity.getData()
+        console.log(data)
+        return {
+          element: 'a',
+          attributes: {
+            'data-fs-link': 'true',
+            'data-fs-link-variant': 'inline',
+            'data-fs-link-inverse': 'true',
+            'data-fs-link-size': 'regular',
+            'data-testid': 'fs-link',
+            href: data.url,
+          },
+        }
+      }
+    },
+  })
+
+  return html
+}
 
 export interface NewsletterProps
   extends Omit<ComponentPropsWithRef<'form'>, 'title' | 'onSubmit'> {
@@ -65,6 +98,12 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
     },
     ref
   ) {
+    // Workaround for dangerouslySetInnerHTML console warning/error.
+    const [render, setRender] = useState(false)
+    useEffect(() => {
+      setRender(true)
+    }, [])
+
     const { subscribeUser, loading, data } = useNewsletter()
     const nameInputRef = useRef<HTMLInputElement>(null)
     const emailInputRef = useRef<HTMLInputElement>(null)
@@ -127,12 +166,12 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
                 type="email"
                 required
               />
-              <span data-fs-newsletter-addendum>
-                {privacyPolicy}
-                <Link href="/" inverse variant="inline">
-                  Privacy Policy.
-                </Link>
-              </span>
+              <span
+                data-fs-newsletter-addendum
+                dangerouslySetInnerHTML={{
+                  __html: render && cmsToHtml(privacyPolicy),
+                }}
+              ></span>
               {displayNameInput ? (
                 <UIInputField
                   inputRef={nameInputRef}
