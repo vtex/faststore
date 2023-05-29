@@ -32,18 +32,18 @@ const Hero = ({
   title,
   subtitle,
   image,
-  variant = 'primary',
-  colorVariant = 'main',
+  variant = Props['Hero'].variant ?? 'primary',
+  colorVariant = Props['Hero'].colorVariant ?? 'main',
   icon,
 }: HeroProps) => {
   return (
     <Section className={`${styles.section} section-hero`}>
       <HeroWrapper
+        {...Props['Hero']}
         colorVariant={colorVariant}
         variant={variant}
-        {...Props['Hero']}
       >
-        <HeroImage>
+        <HeroImage {...Props['HeroImage']}>
           <Image
             loading="eager"
             src={image.src}
@@ -59,7 +59,7 @@ const Hero = ({
           link={link?.url}
           linkText={link?.text}
           icon={icon}
-          {...Props['HeroHeaderProps']}
+          {...Props['HeroHeader']}
         />
       </HeroWrapper>
     </Section>
