@@ -1033,7 +1033,10 @@
         },
         "privacyPolicy": {
           "title": "Privacy Policy Disclaimer",
-          "type": "string"
+          "type": "string",
+          "widget": {
+            "ui:widget": "draftjs-rich-text"
+          }
         },
         "emailInputLabel": {
           "title": "Email input label",
