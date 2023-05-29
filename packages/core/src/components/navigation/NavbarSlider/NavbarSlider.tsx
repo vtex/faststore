@@ -1,20 +1,19 @@
 import { useFadeEffect, useUI } from '@faststore/ui'
 import { Suspense } from 'react'
 
-import { ButtonSignInFallback } from 'src/components/ui/Button'
+import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
 import Link from 'src/components/ui/Link'
 import NavbarLinks from 'src/components/navigation/NavbarLinks'
+import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
 
 import type { NavbarProps } from '../Navbar'
 
 import styles from '../../sections/Navbar/section.module.scss'
 
-import { Components } from 'src/components/sections/Navbar/Overrides'
+import { Components, Props } from 'src/components/sections/Navbar/Overrides'
 
 const {
-  ButtonSignIn,
-  Logo,
   NavbarSlider: NavbarSliderWrapper,
   NavbarSliderHeader,
   NavbarSliderContent,
@@ -47,8 +46,9 @@ function NavbarSlider({
         className: `section ${styles.section} section-navbar-slider`,
       }}
       onTransitionEnd={() => fade === 'out' && closeNavbar()}
+      {...Props['NavbarSlider']}
     >
-      <NavbarSliderHeader onClose={fadeOut}>
+      <NavbarSliderHeader onClose={fadeOut} {...Props['NavbarSliderHeader']}>
         <Link
           href="/"
           onClick={fadeOut}
@@ -59,10 +59,10 @@ function NavbarSlider({
           <Logo {...logo} />
         </Link>
       </NavbarSliderHeader>
-      <NavbarSliderContent>
+      <NavbarSliderContent {...Props['NavbarSliderContent']}>
         <NavbarLinks onClickLink={fadeOut} links={links} region={region} />
       </NavbarSliderContent>
-      <NavbarSliderFooter>
+      <NavbarSliderFooter {...Props['NavbarSliderFooter']}>
         <Suspense fallback={<ButtonSignInFallback />}>
           <ButtonSignIn {...signInButton} />
         </Suspense>

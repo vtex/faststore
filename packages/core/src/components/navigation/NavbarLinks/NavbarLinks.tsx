@@ -4,17 +4,14 @@ import { NavbarLinksListItem as UINavbarLinksListItem } from '@faststore/ui'
 import type { NavbarLinksProps as UINavbarLinksProps } from '@faststore/ui'
 
 import Link from 'src/components/ui/Link'
+import RegionButton from 'src/components/region/RegionButton'
 import type { NavbarProps } from 'src/components/navigation/Navbar'
 
 import { mark } from 'src/sdk/tests/mark'
 
-import { Components } from 'src/components/sections/Navbar/Overrides'
+import { Components, Props } from 'src/components/sections/Navbar/Overrides'
 
-const {
-  NavbarLinks: NavbarLinksWrapper,
-  NavbarLinksList,
-  RegionButton,
-} = Components
+const { NavbarLinks: NavbarLinksWrapper, NavbarLinksList } = Components
 
 interface NavbarLinksProps extends UINavbarLinksProps {
   links: NavbarProps['links']
@@ -32,12 +29,12 @@ function NavbarLinks({
   ...otherProps
 }: NavbarLinksProps) {
   return (
-    <NavbarLinksWrapper {...otherProps}>
+    <NavbarLinksWrapper {...otherProps} {...Props['NavbarLinks']}>
       <div className="layout__content">
         {shouldDisplayRegion && (
           <RegionButton icon={regionIcon} label={regionLabel} />
         )}
-        <NavbarLinksList>
+        <NavbarLinksList {...Props['NavbarLinksList']}>
           {links.map(({ url, text }) => (
             <UINavbarLinksListItem key={text}>
               <Link variant="display" href={url} onClick={onClickLink}>

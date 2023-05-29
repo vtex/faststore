@@ -6,31 +6,43 @@ import {
   NavbarSliderHeader as UINavbarSliderHeader,
   NavbarSliderContent as UINavbarSliderContent,
   NavbarSliderFooter as UINavbarSliderFooter,
+  NavbarHeader as UINavbarHeader,
+  NavbarRow as UINavbarRow,
+  NavbarButtons as UINavbarButtons,
+  IconButton as UIIconButton,
 } from '@faststore/ui'
-
-import SearchInput from 'src/components/search/SearchInput/SearchInput'
-import ButtonSignIn from 'src/components/ui/Button/ButtonSignIn'
-import CartToggle from 'src/components/cart/CartToggle'
-import Logo from 'src/components/ui/Logo'
-
-import RegionButton from 'src/components/region/RegionButton'
 
 import NavbarCustomizations from 'src/customizations/components/overrides/Navbar'
 
+const navbarComponentsCustomization = {}
+
+const navbarPropsCustomization = {} as any
+
+Object.entries(NavbarCustomizations.components).forEach(([key, value]) => {
+  if (value.Component) {
+    navbarComponentsCustomization[key] = value.Component
+  }
+})
+
+Object.entries(NavbarCustomizations.components).forEach(([key, value]) => {
+  if (value.props) {
+    navbarPropsCustomization[key] = value.props
+  }
+})
+
 const Components = {
   Navbar: UINavbar,
-  Logo,
-  SearchInput,
-  ButtonSignIn,
-  CartToggle,
   NavbarLinks: UINavbarLinks,
   NavbarLinksList: UINavbarLinksList,
-  RegionButton,
   NavbarSlider: UINavbarSlider,
   NavbarSliderHeader: UINavbarSliderHeader,
   NavbarSliderContent: UINavbarSliderContent,
   NavbarSliderFooter: UINavbarSliderFooter,
-  ...NavbarCustomizations.components,
+  NavbarHeader: UINavbarHeader,
+  NavbarRow: UINavbarRow,
+  NavbarButtons: UINavbarButtons,
+  IconButton: UIIconButton,
+  ...navbarComponentsCustomization,
 }
 
-export { Components }
+export { Components, navbarPropsCustomization as Props }
