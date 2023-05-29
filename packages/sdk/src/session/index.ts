@@ -10,9 +10,15 @@ export interface GeoCoordinates {
   longitude: GLfloat
 }
 
+export interface DeliveryWindow {
+  startDate: string
+  endDate: string
+}
+
 export interface DeliveryMode {
   deliveryChannel: string
   deliveryMethod: string
+  deliveryWindow: DeliveryWindow | null
 }
 
 export interface Person {
