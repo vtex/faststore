@@ -4,13 +4,15 @@ import { PropsWithChildren, lazy } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/components'
 import { PageContentType, getPage } from 'src/server/cms'
 
-import RegionBar from 'src/components/common/RegionBar'
 import Toast from 'src/components/common/Toast'
 import RenderSections from './RenderSections'
 
 import Alert from 'src/components/sections/Alert'
 import Footer from 'src/components/sections/Footer'
 import Navbar from 'src/components/sections/Navbar'
+import RegionBar from 'src/components/sections/RegionBar'
+
+const RegionModal = lazy(() => import('src/components/region/RegionModal'))
 const CartSidebar = lazy(() => import('src/components/cart/CartSidebar'))
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
@@ -23,6 +25,8 @@ export type GlobalSectionsData = {
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Alert,
   Navbar,
+  RegionBar,
+  RegionModal,
   CartSidebar,
   Footer,
   ...CUSTOM_COMPONENTS,
@@ -36,10 +40,7 @@ function GlobalSections({
     <RenderSections components={COMPONENTS} {...otherProps}>
       <Toast />
 
-      <main>
-        <RegionBar className="display-mobile" />
-        {children}
-      </main>
+      <main>{children}</main>
     </RenderSections>
   )
 }
