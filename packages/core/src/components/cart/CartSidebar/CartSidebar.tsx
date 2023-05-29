@@ -6,10 +6,11 @@ import {
   CartSidebarList as UICartSidebarList,
 } from '@faststore/ui'
 
-import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
-import { useEffect } from 'react'
+import type { CartSidebarProps as UICartSidebarProps } from '@faststore/ui'
 
+import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
 import { Icon, useFadeEffect, useUI } from '@faststore/ui'
+import { Suspense, useEffect } from 'react'
 import { useCart } from 'src/sdk/cart'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
@@ -20,11 +21,41 @@ import EmptyCart from '../EmptyCart'
 import OrderSummary from '../OrderSummary'
 import styles from './section.module.scss'
 
-function CartSidebar() {
+export interface CartSidebarProps {
+  title: UICartSidebarProps['title']
+  alert?: {
+    icon?: {
+      icon: string
+      alt: string
+    }
+    text: UICartSidebarProps['alertText']
+  }
+  checkoutButton: {
+    label: string
+    loadingLabel: string
+    icon?: {
+      icon: string
+      alt: string
+    }
+  }
+}
+
+function CartSidebar({
+  title,
+  alert: {
+    icon: { icon: alertIcon, alt: alertIconAlt },
+    text: alertText,
+  },
+  checkoutButton: {
+    label: checkoutLabel,
+    loadingLabel: checkoutLoadingLabel,
+    icon: { icon: checkoutButtonIcon, alt: checkoutButtonIconAlt },
+  },
+}: CartSidebarProps) {
   const { currency } = useSession()
   const btnProps = useCheckoutButton()
   const cart = useCart()
-  const { closeCart } = useUI()
+  const { cart: displayCart, closeCart } = useUI()
   const { fadeOut } = useFadeEffect()
 
   const { items, gifts, totalItems, isValidating, subTotal, total } = cart
@@ -55,60 +86,72 @@ function CartSidebar() {
   }, [])
 
   return (
-    <UICartSidebar
-      overlayProps={{
-        className: `section ${styles.section} section-cart-sidebar`,
-      }}
-      totalItems={totalItems}
-      alertIcon={<Icon name="Truck" />}
-      alertText="Free shipping starts at $300"
-      onClose={fadeOut}
-    >
-      {isEmpty ? (
-        <EmptyCart onDismiss={closeCart} />
-      ) : (
-        <>
-          <UICartSidebarList>
-            {items.map((item) => (
-              <li key={item.id}>
-                <CartItem item={item} />
-              </li>
-            ))}
-            {gifts.length > 0 && (
+    <>
+      {displayCart && (
+        <Suspense fallback={null}>
+          <UICartSidebar
+            overlayProps={{
+              className: `section ${styles.section} section-cart-sidebar`,
+            }}
+            title={title}
+            totalItems={totalItems}
+            alertIcon={<Icon name={alertIcon} aria-label={alertIconAlt} />}
+            alertText={alertText}
+            onClose={fadeOut}
+          >
+            {isEmpty ? (
+              <EmptyCart onDismiss={closeCart} />
+            ) : (
               <>
-                {gifts.map((item) => (
-                  <li key={item.id}>
-                    <Gift item={item} />
-                  </li>
-                ))}
+                <UICartSidebarList>
+                  {items.map((item) => (
+                    <li key={item.id}>
+                      <CartItem item={item} />
+                    </li>
+                  ))}
+                  {gifts.length > 0 && (
+                    <>
+                      {gifts.map((item) => (
+                        <li key={item.id}>
+                          <Gift item={item} />
+                        </li>
+                      ))}
+                    </>
+                  )}
+                </UICartSidebarList>
+
+                <UICartSidebarFooter>
+                  <OrderSummary
+                    subTotal={subTotal}
+                    total={total}
+                    numberOfItems={totalItems}
+                    checkoutButton={
+                      <UIButton
+                        variant="primary"
+                        icon={
+                          !isValidating && (
+                            <Icon
+                              name={checkoutButtonIcon}
+                              aria-label={checkoutButtonIconAlt}
+                              width={18}
+                              height={18}
+                            />
+                          )
+                        }
+                        iconPosition="right"
+                        {...btnProps}
+                      >
+                        {isValidating ? checkoutLoadingLabel : checkoutLabel}
+                      </UIButton>
+                    }
+                  />
+                </UICartSidebarFooter>
               </>
             )}
-          </UICartSidebarList>
-
-          <UICartSidebarFooter>
-            <OrderSummary
-              subTotal={subTotal}
-              total={total}
-              numberOfItems={totalItems}
-              checkoutButton={
-                <UIButton
-                  variant="primary"
-                  icon={
-                    !isValidating && (
-                      <Icon name="ArrowRight" width={18} height={18} />
-                    )
-                  }
-                  iconPosition="right"
-                  {...btnProps}
-                >
-                  {isValidating ? 'Loading...' : 'Checkout'}
-                </UIButton>
-              }
-            />
-          </UICartSidebarFooter>
-        </>
+          </UICartSidebar>
+        </Suspense>
       )}
-    </UICartSidebar>
+    </>
   )
 }
 

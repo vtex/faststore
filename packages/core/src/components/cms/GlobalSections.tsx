@@ -1,7 +1,6 @@
-import { PropsWithChildren, lazy } from 'react'
-
 import { Locator, Section } from '@vtex/client-cms'
 import type { ComponentType } from 'react'
+import { PropsWithChildren, lazy } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/components'
 import { PageContentType, getPage } from 'src/server/cms'
 
@@ -14,6 +13,7 @@ import Navbar from 'src/components/sections/Navbar'
 import RegionBar from 'src/components/sections/RegionBar'
 
 const RegionModal = lazy(() => import('src/components/region/RegionModal'))
+const CartSidebar = lazy(() => import('src/components/cart/CartSidebar'))
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 
@@ -24,10 +24,11 @@ export type GlobalSectionsData = {
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Alert,
-  Footer,
   Navbar,
   RegionBar,
   RegionModal,
+  CartSidebar,
+  Footer,
   ...CUSTOM_COMPONENTS,
 }
 
