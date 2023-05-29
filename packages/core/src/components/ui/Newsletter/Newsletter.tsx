@@ -79,7 +79,7 @@ export interface NewsletterProps
   /**
    * The card Variant
    */
-  card?: Boolean
+  card: Boolean
 }
 
 const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(

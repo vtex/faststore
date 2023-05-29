@@ -1084,11 +1084,13 @@
           "properties": {
             "title": {
               "title": "Title",
-              "type": "string"
+              "type": "string",
+              "default": "Get to Know Our Next Release"
             },
             "caption": {
               "title": "Caption",
-              "type": "string"
+              "type": "string",
+              "default": "Discover cutting-edge tech, advanced features, and a seamless user experience. Get ready for the future!"
             },
             "link": {
               "title": "Call to Action",
