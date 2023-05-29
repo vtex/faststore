@@ -1,0 +1,35 @@
+---
+title: '  Overview'
+sidebar_label: 'Getting Started'
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<header>
+
+# Component Customization
+
+</header>
+
+<Callout type="warning" emoji="⚠️">
+This documentation is currently under development.
+</Callout>
+
+FastStore offers the ability to extend and customize your store components in three ways:
+
+## 1. Content customization through Headless CMS
+
+Change the behavior of specific components by changing their props in the [Headless CMS](/tbd). 
+In the VTEX Admin, go to **Storefront > Headless** and select the section where the desired component is located. 
+From there, you can customize the component by modifying its props. Find the list of available props for customization in the Headless CMS in [Available props for customization in Headless CMS]().
+
+## 2. Theming customization
+Change the store theme and component styling using theming and design tokens. For detailed instructions on customizing through these methods, refer to the [Store Theme]() and [Styling a Component]() documentation.
+
+## 3. Components and sections customization
+
+You have the following customization options for components and sections:
+- [Add extra properties to a native component](/docs/component-customization/adding-extra-properties-to-a-native-component): Modify the behavior of a specific component by passing additional props to it in your store code. This type of customization overrides any changes made in the props through the [Headless CMS](/tbd).
+- [Override a native component](/docs/component-customization/overriding-a-native-component): Create a new component and override its native equivalent to achieve the desired functionality.
+- [Create a new section](/docs/component-customization/creating-a-new-section): If the available FastStore native sections do not meet your business requirements, you can create a new section and make it available in the Headless CMS.
+
