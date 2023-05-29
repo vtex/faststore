@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.166-alpha.0](https://github.com/vtex/faststore/compare/v2.0.165-alpha.0...v2.0.166-alpha.0) (2023-05-29)
+
+### Features
+
+- Adds `CartSidebar` Section ([#1795](https://github.com/vtex/faststore/issues/1795)) ([c544c45](https://github.com/vtex/faststore/commit/c544c4571b1419ad421b4df57a51de7a0f9e0e2b))
+
 ## [2.0.165-alpha.0](https://github.com/vtex/faststore/compare/v2.0.164-alpha.0...v2.0.165-alpha.0) (2023-05-26)
 
 **Note:** Version bump only for package @faststore/core
