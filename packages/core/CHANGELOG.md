@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.168-alpha.0](https://github.com/vtex/faststore/compare/v2.0.167-alpha.0...v2.0.168-alpha.0) (2023-05-29)
+
+### Features
+
+- Adds `RegionBar` and `RegionModal` Sections ([#1798](https://github.com/vtex/faststore/issues/1798)) ([627fa25](https://github.com/vtex/faststore/commit/627fa25832a7a41a1feebe07bef43b67e5edf13a))
+
 ## [2.0.166-alpha.0](https://github.com/vtex/faststore/compare/v2.0.165-alpha.0...v2.0.166-alpha.0) (2023-05-29)
 
 ### Features
