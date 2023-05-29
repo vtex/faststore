@@ -33,7 +33,7 @@ function BannerNewsletter({
           displayNameInput={newsletter.displayNameInput}
           nameInputLabel={newsletter.nameInputLabel}
           subscribeButtonLabel={newsletter.subscribeButtonLabel}
-          card
+          card={newsletter.card}
         />
       </div>
     </Section>

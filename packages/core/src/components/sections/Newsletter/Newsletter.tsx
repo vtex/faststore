@@ -14,7 +14,7 @@ const Newsletter = function Newsletter({
   displayNameInput,
   nameInputLabel,
   subscribeButtonLabel,
-  card = false,
+  card,
   ...otherProps
 }: UINewsletterProps) {
   return (

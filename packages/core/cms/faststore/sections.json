@@ -1174,6 +1174,11 @@
               "title": "Subscribe button label",
               "type": "string",
               "default": "Subscribe"
+            },
+            "card": {
+              "title": "Newsletter should be in card format?",
+              "type": "boolean",
+              "default": true
             }
           }
         }
