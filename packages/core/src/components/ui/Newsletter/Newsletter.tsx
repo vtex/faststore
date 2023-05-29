@@ -51,11 +51,11 @@ export interface NewsletterProps
   /**
    * Title for the section.
    */
-  title: ReactNode
+  title: string
   /**
    * A description for the section.
    */
-  description?: ReactNode
+  description?: string
   /**
    * The Privacy Policy disclaimer.
    */
