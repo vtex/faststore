@@ -84,6 +84,7 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
 
           // Extra Lighthouse Assertion rules
           'unused-javascript': ['error', { maxLength: 10 }],
+          'bf-cache': ['warn', {}],
 
           ...assertions,
         },

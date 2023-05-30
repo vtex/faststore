@@ -51,13 +51,61 @@
     ]
   },
   {
+    "id": "home",
+    "name": "Home",
+    "isSingleton": true,
+    "configurationSchemaSets": [
+      {
+        "name": "Settings",
+        "configurations": [
+          {
+            "name": "seo",
+            "schema": {
+              "title": "SEO",
+              "description": "Search Engine Optimization options",
+              "type": "object",
+              "widget": {
+                "ui:ObjectFieldTemplate": "GoogleSeoPreview"
+              },
+              "required": ["slug", "title", "description"],
+              "properties": {
+                "slug": {
+                  "title": "Path",
+                  "type": "string",
+                  "default": "/"
+                },
+                "title": {
+                  "title": "Default page title",
+                  "description": "Display this title when no other tile is available",
+                  "type": "string",
+                  "default": "FastStore"
+                },
+                "description": {
+                  "title": "Meta tag description",
+                  "type": "string",
+                  "default": "A beautifuly designed store"
+                },
+                "canonical": {
+                  "title": "Canonical url for the page",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "pdp",
     "name": "Product Page",
+    "isSingleton": true,
     "configurationSchemaSets": []
   },
   {
     "id": "plp",
     "name": "Product List Page",
+    "isSingleton": true,
     "configurationSchemaSets": [
       {
         "name": "Settings",
@@ -110,6 +158,7 @@
   {
     "id": "search",
     "name": "Search Page",
+    "isSingleton": true,
     "configurationSchemaSets": [
       {
         "name": "Settings",

@@ -1,7 +1,7 @@
-import { FACET_CROSS_SELLING_MAP } from "./../utils/facets"
-import { BadRequestError, NotFoundError } from "../../errors"
-import { mutateChannelContext, mutateLocaleContext } from "../utils/contex"
-import { enhanceSku } from "../utils/enhanceSku"
+import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
+import { BadRequestError, NotFoundError } from '../../errors'
+import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
+import { enhanceSku } from '../utils/enhanceSku'
 import {
   findChannel,
   findCrossSelling,
@@ -9,21 +9,23 @@ import {
   findSkuId,
   findSlug,
   transformSelectedFacet,
-} from "../utils/facets"
-import { SORT_MAP } from "../utils/sort"
-import { StoreCollection } from "./collection"
+} from '../utils/facets'
+import { SORT_MAP } from '../utils/sort'
+import { StoreCollection } from './collection'
 import type {
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
   QueryCollectionArgs,
   QueryProductArgs,
   QuerySearchArgs,
+  QuerySellersArgs,
   QueryShippingArgs,
-} from "../../../__generated__/schema"
-import type { CategoryTree } from "../clients/commerce/types/CategoryTree"
-import type { Context } from "../index"
-import { isValidSkuId, pickBestSku } from "../utils/sku"
-import { SearchArgs } from "../clients/search"
+  QueryRedirectArgs,
+} from '../../../__generated__/schema'
+import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
+import type { Context } from '../index'
+import { isValidSkuId, pickBestSku } from '../utils/sku'
+import { SearchArgs } from '../clients/search'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -59,15 +61,16 @@ export const Query = {
        * Here be dragons 🦄🦄🦄
        *
        * In some cases, the slug has a valid skuId for a different
-       * product. This condition makes sure that the fetched sku 
+       * product. This condition makes sure that the fetched sku
        * is the one we actually asked for
        * */
       if (
-        slug && sku.isVariantOf.linkText &&
+        slug &&
+        sku.isVariantOf.linkText &&
         !slug.startsWith(sku.isVariantOf.linkText)
       ) {
         throw new Error(
-          `Slug was set but the fetched sku does not satisfy the slug condition. slug: ${slug}, linkText: ${sku.isVariantOf.linkText}`,
+          `Slug was set but the fetched sku does not satisfy the slug condition. slug: ${slug}, linkText: ${sku.isVariantOf.linkText}`
         )
       }
 
@@ -137,14 +140,17 @@ export const Query = {
      * etc
      */
     if (crossSelling) {
-      const products = await ctx.clients.commerce.catalog.products.crossselling({
-        type: FACET_CROSS_SELLING_MAP[crossSelling.key],
-        productId: crossSelling.value,
-      })
+      const products = await ctx.clients.commerce.catalog.products.crossselling(
+        {
+          type: FACET_CROSS_SELLING_MAP[crossSelling.key],
+          productId: crossSelling.value,
+        }
+      )
 
-      query = `product:${
-        products.map((x) => x.productId).slice(0, first).join(";")
-      }`
+      query = `product:${products
+        .map((x) => x.productId)
+        .slice(0, first)
+        .join(';')}`
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0
@@ -271,6 +277,53 @@ export const Query = {
     return {
       ...simulation,
       address,
+    }
+  },
+
+  redirect: async (
+    _: unknown,
+    { term, selectedFacets }: QueryRedirectArgs,
+    ctx: Context
+  ) => {
+    // Currently the search redirection can be done through a search term or filter (facet) so we limit the redirect query to always have one of these values otherwise we do not execute it.
+    // https://help.vtex.com/en/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/4Gd2wLQFbCwTsh8RUDwSoL?&utm_source=autocomplete
+    if (!term && (!selectedFacets || !selectedFacets.length)) {
+      return null
+    }
+
+    const { redirect } = await ctx.clients.search.products({
+      page: 1,
+      count: 1,
+      query: term ?? undefined,
+      selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
+    })
+
+    return {
+      url: redirect,
+    }
+  },
+
+  sellers: async (
+    _: unknown,
+    { postalCode, geoCoordinates, country, salesChannel }: QuerySellersArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const regionData = await commerce.checkout.region({
+      postalCode,
+      geoCoordinates,
+      country,
+      salesChannel,
+    })
+    const region = regionData?.[0]
+    const { id, sellers } = region
+
+    return {
+      id,
+      sellers,
     }
   },
 }

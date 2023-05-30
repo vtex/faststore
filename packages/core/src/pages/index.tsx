@@ -87,10 +87,10 @@ export const getStaticProps: GetStaticProps<
 > = async ({ previewData }) => {
   const [page, globalSections] = await Promise.all([
     getPage<PageContentType>({
-      ...(previewData?.contentType === 'page'
+      ...(previewData?.contentType === 'home'
         ? previewData
         : { filters: { 'settings.seo.slug': '/' } }),
-      contentType: 'page',
+      contentType: 'home',
     }),
     getGlobalSectionsData(previewData),
   ])

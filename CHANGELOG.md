@@ -3,6 +3,62 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.171-alpha.0](https://github.com/vtex/faststore/compare/v2.0.170-alpha.0...v2.0.171-alpha.0) (2023-05-30)
+
+### Documentation
+
+- Setting up VTEX account for FastStore ([#1797](https://github.com/vtex/faststore/issues/1797)) ([e61e0d4](https://github.com/vtex/faststore/commit/e61e0d46fa02157d390ea5717c105d830e8cb02f)), closes [#1765](https://github.com/vtex/faststore/issues/1765)
+
+## [2.0.170-alpha.0](https://github.com/vtex/faststore/compare/v2.0.169-alpha.0...v2.0.170-alpha.0) (2023-05-30)
+
+**Note:** Version bump only for package faststore
+
+## [2.0.169-alpha.0](https://github.com/vtex/faststore/compare/v2.0.168-alpha.0...v2.0.169-alpha.0) (2023-05-29)
+
+### Chores
+
+- Removes imports utilities styles from core package + enable system fonts ([#1792](https://github.com/vtex/faststore/issues/1792)) ([19de095](https://github.com/vtex/faststore/commit/19de095e0e47548386afb06ef057798ca54f6294))
+
+## [2.0.168-alpha.0](https://github.com/vtex/faststore/compare/v2.0.167-alpha.0...v2.0.168-alpha.0) (2023-05-29)
+
+### Features
+
+- Adds `RegionBar` and `RegionModal` Sections ([#1798](https://github.com/vtex/faststore/issues/1798)) ([627fa25](https://github.com/vtex/faststore/commit/627fa25832a7a41a1feebe07bef43b67e5edf13a))
+
+## [2.0.167-alpha.0](https://github.com/vtex/faststore/compare/v2.0.166-alpha.0...v2.0.167-alpha.0) (2023-05-29)
+
+### Chores
+
+- relax bf-cache rule to use warn instead of error ([#1801](https://github.com/vtex/faststore/issues/1801)) ([30c0ce9](https://github.com/vtex/faststore/commit/30c0ce9dc022db5c17a7ddd081d2d291c082bb75))
+
+## [2.0.166-alpha.0](https://github.com/vtex/faststore/compare/v2.0.165-alpha.0...v2.0.166-alpha.0) (2023-05-29)
+
+### Features
+
+- Adds `CartSidebar` Section ([#1795](https://github.com/vtex/faststore/issues/1795)) ([c544c45](https://github.com/vtex/faststore/commit/c544c4571b1419ad421b4df57a51de7a0f9e0e2b))
+
+## [2.0.165-alpha.0](https://github.com/vtex/faststore/compare/v2.0.164-alpha.0...v2.0.165-alpha.0) (2023-05-26)
+
+### Features
+
+- add api telemetry ([#1789](https://github.com/vtex/faststore/issues/1789)) ([30c66d7](https://github.com/vtex/faststore/commit/30c66d74abffbd168acfbb44f5bd6f7d56df8b58))
+
+## [2.0.164-alpha.0](https://github.com/vtex/faststore/compare/v2.0.163-alpha.0...v2.0.164-alpha.0) (2023-05-26)
+
+### Features
+
+- Apply adjusts in preview and content-types ([#1787](https://github.com/vtex/faststore/issues/1787)) ([bcf3772](https://github.com/vtex/faststore/commit/bcf377282bf21351961f028654d62cc8f046f593))
+
+## [2.0.163-alpha.0](https://github.com/vtex/faststore/compare/v2.0.162-alpha.0...v2.0.163-alpha.0) (2023-05-26)
+
+### Features
+
+- add search redirect at api package 2.x ([#1749](https://github.com/vtex/faststore/issues/1749)) ([fe198e1](https://github.com/vtex/faststore/commit/fe198e1de73eda89c220f8a61bd2e83efbd4af9c))
+
+## [2.0.162-alpha.0](https://github.com/vtex/faststore/compare/v2.0.161-alpha.0...v2.0.162-alpha.0) (2023-05-26)
+
+**Note:** Version bump only for package faststore
+
 ## [2.0.161-alpha.0](https://github.com/vtex/faststore/compare/v2.0.160-alpha.0...v2.0.161-alpha.0) (2023-05-24)
 
 **Note:** Version bump only for package faststore
