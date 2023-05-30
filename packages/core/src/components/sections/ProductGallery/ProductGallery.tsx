@@ -56,7 +56,9 @@ function ProductGallerySection({
   }
 
   return (
-    <Section className={`${styles.section} section-product-gallery`}>
+    <Section
+      className={`${styles.section} section-product-gallery layout__section`}
+    >
       <ProductGallery
         title={title}
         searchTerm={searchTerm}
