@@ -8,8 +8,8 @@ export interface BannerTextProps {
   title: string
   caption: string
   link?: {
-    text: string
-    url: string
+    text?: string
+    url?: string
   }
   colorVariant?: UIBannerTextProps['colorVariant']
   variant?: UIBannerTextProps['variant']
@@ -24,7 +24,7 @@ function BannerText({
   link: {
     url = Props['BannerText'].actionPath,
     text = Props['BannerText'].actionLabel,
-  },
+  } = {},
   variant = Props['BannerText'].variant,
   colorVariant = Props['BannerText'].colorVariant ?? 'main',
 }: BannerTextProps) {

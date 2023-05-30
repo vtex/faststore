@@ -35,19 +35,20 @@ export type ProductShelfProps = {
     value: string
   }[]
   productCardConfiguration?: {
-    showDiscountBadge: boolean
-    bordered: boolean
+    showDiscountBadge?: boolean
+    bordered?: boolean
   }
   inView: boolean
 }
 
+console.log(Props['ProductCard'])
 function ProductShelf({
   title,
   inView,
   productCardConfiguration: {
     bordered = Props['ProductCard'].bordered,
     showDiscountBadge = Props['ProductCard'].showDiscountBadge,
-  },
+  } = {},
   ...variables
 }: ProductShelfProps) {
   const titleId = textToKebabCase(title)
