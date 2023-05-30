@@ -16,31 +16,31 @@ If your feature was working correctly in the past, you will certainly find which
 
 To speed up the process of going back in time, checking version by version of your store, you can use a strategy called **Binary Search**, which is available via the **bisect** Git feature. Below, we present a step by step on how to use `git bisect` with FastStore.
 
-1. Open the terminal on your project's root and run the following command to list all commits made in your repository:
-   ```sh
-   git log
-   ```
-2. Copy the hash of a commit that worked properly in the past.
-3. Use binary search to find the commit that introduced the bug:
-   - _Replace `{commitHash}` with the hash value you copied in the previous step._
-   ```
-   git bisect start HEAD {commitHash}
-   ```
-4. Start a local development server to test this previous version of your store:
-   ```
-   yarn && yarn develop
-   ```
-5. Access your localhost using the browser and test your features.
-
-If everything works as expected, bisect your project as in the following:
-
+### 1. Open the terminal on your project's root and run the following command to list all commits made in your repository:
+```sh
+git log
 ```
+
+### 2. Copy the hash of a commit that worked properly in the past.
+
+### 3. Use binary search to find the commit that introduced the bug:
+Replace `{commitHash}` with the hash value you copied in the previous step.
+```sh
+git bisect start HEAD {commitHash}
+```
+
+### 4. Start a local development server to test this previous version of your store:
+```sh
+yarn && yarn develop
+```
+
+### 5. Access your localhost using the browser and test your features. If everything works as expected, bisect your project as in the following:
+```sh
 git bisect good
 ```
 
 Otherwise, if that version is broken, run the following command:
-
-```
+```sh
 git bisect bad
 ```
 
