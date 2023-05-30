@@ -47,6 +47,21 @@ export const SECTIONS = {
   Breadcrumb: {
     components: ['Breadcrumb', 'Icon'],
   },
+  ProductGallery: {
+    components: [
+      'Button',
+      'FilterIcon',
+      'PrevIcon',
+      'ResultsCountSkeleton',
+      'SortSkeleton',
+      'FilterButtonSkeleton',
+      'LinkButtonPrev',
+      'LinkButtonNext',
+      '__experimentalFilterDesktop',
+      '__experimentalFilterSlider',
+      '__experimentalProductCard',
+    ],
+  },
 } as const
 
 // export type ComponentOrProps =
