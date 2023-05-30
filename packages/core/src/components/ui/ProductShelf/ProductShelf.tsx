@@ -98,7 +98,7 @@ function ProductShelf({
                 {...Props['__experimentalProductCard']}
                 bordered={bordered}
                 showDiscountBadge={showDiscountBadge}
-                // Dynamic props, shouldn't be overridable
+                // Dynamic props shouldn't be overridable
                 // This decision can be reviewed later if needed
                 key={`${product.node.id}`}
                 product={product.node}
