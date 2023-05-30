@@ -21,21 +21,21 @@ const { BannerText: BannerTextWrapper } = Components
 function BannerText({
   title,
   caption,
-  link,
+  link: { url = Props['BannerText'].url, text = Props['BannerText'].text },
   variant,
-  colorVariant = 'main',
+  colorVariant = Props['BannerText'].colorVariant ?? 'main',
 }: BannerTextProps) {
   return (
     <Section className={`${styles.section} section-banner layout__section`}>
       <div className="layout__content">
         <BannerTextWrapper
+          {...Props['BannerText']}
           variant={variant}
           title={title}
           caption={caption}
-          actionPath={link?.url}
-          actionLabel={link?.text}
+          actionPath={url}
+          actionLabel={text}
           colorVariant={colorVariant}
-          {...Props['BannerText']}
         />
       </div>
     </Section>
