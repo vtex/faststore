@@ -1,5 +1,5 @@
-import ProductCard from '../../product/ProductCard'
-import Carousel from '../../ui/Carousel'
+import { ProductShelf as UIProductShelf } from '@faststore/ui'
+import ProductCard from 'src/components/product/ProductCard'
 
 import ProductShelfCustomizations from 'src/customizations/components/overrides/ProductShelf'
 
@@ -24,8 +24,9 @@ Object.entries(ProductShelfCustomizations.components).forEach(
 )
 
 const Components = {
+  ProductShelf: UIProductShelf,
   ProductCard,
-  ...ProductShelfCustomizations.components,
+  ...productShelfComponentsCustomization,
 }
 
 export { Components, productShelfPropsCustomization as Props }
