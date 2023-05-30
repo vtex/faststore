@@ -14,25 +14,24 @@ export const SECTIONS = {
       'ShippingSimulation',
     ],
   },
-  ProductShelf: { components: ['ProductCard', 'Carousel'] },
+  ProductShelf: { components: ['ProductShelf', 'ProductCard'] },
   Navbar: {
     components: [
       'Navbar',
-      'Logo',
-      'SearchInput',
-      'ButtonSignIn',
-      'CartToggle',
       'NavbarLinks',
       'NavbarLinksList',
-      'RegionButton',
       'NavbarSlider',
       'NavbarSliderHeader',
       'NavbarSliderContent',
       'NavbarSliderFooter',
+      'NavbarHeader',
+      'NavbarRow',
+      'NavbarButtons',
+      'IconButton',
     ],
   },
   Breadcrumb: {
-    components: ['Breadcrumb'],
+    components: ['Breadcrumb', 'Icon'],
   },
 } as const
 
