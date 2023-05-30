@@ -12,7 +12,10 @@ import {
   Props,
 } from 'src/components/sections/ProductShelf/Overrides'
 
-const { ProductShelf: ProductShelfWrapper, ProductCard } = Components
+const {
+  ProductShelf: ProductShelfWrapper,
+  __experimentalProductCard: ProductCard,
+} = Components
 
 type Sort =
   | 'discount_desc'
@@ -94,7 +97,7 @@ function ProductShelf({
                   height: 216,
                   sizes: '(max-width: 768px) 42vw, 30vw',
                 }}
-                {...Props['ProductCard']}
+                {...Props['__experimentalProductCard']}
                 bordered={bordered}
                 showDiscountBadge={showDiscountBadge}
                 // Dynamic props, shouldn't be overridable

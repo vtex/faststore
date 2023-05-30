@@ -14,7 +14,7 @@ export const SECTIONS = {
       'ShippingSimulation',
     ],
   },
-  ProductShelf: { components: ['ProductShelf', 'ProductCard'] },
+  ProductShelf: { components: ['ProductShelf', '__experimentalProductCard'] },
   Navbar: {
     components: [
       'Navbar',

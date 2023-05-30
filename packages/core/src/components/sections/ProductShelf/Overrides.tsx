@@ -25,7 +25,7 @@ Object.entries(ProductShelfCustomizations.components).forEach(
 
 const Components = {
   ProductShelf: UIProductShelf,
-  ProductCard,
+  __experimentalProductCard: ProductCard,
   ...productShelfComponentsCustomization,
 }
 
