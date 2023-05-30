@@ -1,11 +1,10 @@
 import type { BreadcrumbProps as UIBreadcrumbProps } from '@faststore/ui'
-import { Icon } from '@faststore/ui'
 import { memo } from 'react'
 
 import Link from 'src/components/ui/Link'
 
-import { Components } from 'src/components/sections/Breadcrumb/Overrides'
-const { Breadcrumb: BreadcrumbWrapper } = Components
+import { Components, Props } from 'src/components/sections/Breadcrumb/Overrides'
+const { Breadcrumb: BreadcrumbWrapper, Icon } = Components
 
 export interface BreadcrumbProps extends UIBreadcrumbProps {
   icon: string
@@ -13,7 +12,7 @@ export interface BreadcrumbProps extends UIBreadcrumbProps {
 }
 
 const Breadcrumb = ({
-  icon = 'Home',
+  icon = Props['Icon'].icon ?? 'Home',
   alt = 'Go to homepage',
   ...otherProps
 }: BreadcrumbProps) => (
@@ -26,7 +25,13 @@ const Breadcrumb = ({
         href="/"
         prefetch={false}
       >
-        <Icon name={icon} width={18} height={18} weight="bold" />
+        <Icon
+          width={18}
+          height={18}
+          weight="bold"
+          {...Props['Icon']}
+          name={icon}
+        />
       </Link>
     }
     renderLink={({ itemProps: { item: link, name } }) => (
@@ -34,8 +39,9 @@ const Breadcrumb = ({
         {name}
       </Link>
     )}
+    {...Props['Breadcrumb']}
     {...otherProps}
-  ></BreadcrumbWrapper>
+  />
 )
 
 export default memo(Breadcrumb)
