@@ -82,8 +82,8 @@ const ProductTiles = ({ title, ...variables }: ProductTilesProps) => {
     <Section
       className={`${styles.section} section-product-tiles layout__section`}
       ref={ref}
-      title={title}
     >
+      <h2 className="text__title-section layout__content">{title}</h2>
       <ProductTilesSkeleton loading={!products}>
         <Tiles>
           {productEdges.map((product, idx) => (
