@@ -19,10 +19,13 @@ const { BannerText: BannerTextWrapper } = Components
 
 // TODO: Change actionPath and actionLabel with Link
 function BannerText({
-  title,
-  caption,
-  link: { url = Props['BannerText'].url, text = Props['BannerText'].text },
-  variant,
+  title = Props['BannerText'].title,
+  caption = Props['BannerText'].caption,
+  link: {
+    url = Props['BannerText'].actionPath,
+    text = Props['BannerText'].actionLabel,
+  },
+  variant = Props['BannerText'].variant,
   colorVariant = Props['BannerText'].colorVariant ?? 'main',
 }: BannerTextProps) {
   return (
