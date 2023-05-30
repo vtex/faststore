@@ -1,17 +1,18 @@
-import { PaymentMethods as UIPaymentMethods } from '@faststore/ui'
 import type { PaymentMethodsProps as UIPaymentMethodProps } from '@faststore/ui'
+import { PaymentMethods as UIPaymentMethods } from '@faststore/ui'
+import { mark } from 'src/sdk/tests/mark'
 
+import type { FooterLinksProps, FooterSocialProps } from '../../common/Footer'
 import UIFooter, {
   FooterLinks,
   FooterSocial,
   FooterInfo as UIFooterInfo,
   FooterNavigation as UIFooterNavigation,
 } from '../../common/Footer'
-import type { FooterLinksProps, FooterSocialProps } from '../../common/Footer'
 
 import Logo from 'src/components/ui/Logo'
-import UIIncentives from '../../ui/Incentives'
 import type { Incentive } from '../../ui/Incentives'
+import UIIncentives from '../../ui/Incentives'
 
 import styles from './section.module.scss'
 
@@ -75,4 +76,5 @@ const Footer = ({
   )
 }
 
-export default Footer
+Footer.displayName = 'Footer'
+export default mark(Footer)

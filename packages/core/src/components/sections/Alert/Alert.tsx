@@ -1,6 +1,6 @@
 import { Icon as UIIcon } from '@faststore/ui'
-import Section from '../Section'
 import UIAlert from 'src/components/common/Alert'
+import { mark } from 'src/sdk/tests/mark'
 
 export interface AlertProps {
   icon: string
@@ -25,4 +25,5 @@ function Alert({ icon, content, link, dismissible }: AlertProps) {
   )
 }
 
-export default Alert
+Alert.displayName = 'Alert'
+export default mark(Alert)

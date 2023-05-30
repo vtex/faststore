@@ -1,5 +1,3 @@
-import { mark } from 'src/sdk/tests/mark'
-
 export function FooterInfo({ children }) {
   return (
     <div data-fs-footer-info className="layout__content">
@@ -30,5 +28,4 @@ export function Footer({ children }) {
   )
 }
 
-Footer.displayName = 'Footer'
-export default mark(Footer)
+export default Footer

@@ -1,3 +1,4 @@
+import { mark } from 'src/sdk/tests/mark'
 import UINavbar from '../../navigation/Navbar'
 
 import Section from '../Section'
@@ -87,4 +88,5 @@ function Navbar({
   )
 }
 
-export default Navbar
+Navbar.displayName = 'Navbar'
+export default mark(Navbar)
