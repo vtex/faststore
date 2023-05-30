@@ -18,7 +18,7 @@ This documentation is currently under development.
 To use an **external domain** for your **FastStore + VTEX** website, you'll need to:
 
  - Set up your external DNS provider to point your custom domain to your VTEX website. Custom domains can be purchased from any **domain registrar**.
- - Configure your custom domains in **VTEX Account Management**.
+ - Configure your custom domains in **VTEX Account Settings**.
  - Associate your custom domains with your **FastStore** project. 
 
 Besides making your FastStore website accessible via a custom domain, the **VTEX Checkout** will also be operational as soon as you complete this guide. You'll then be ready to continue configuring other VTEX solutions, such as **Order Placed**, **Login**, and **My Account**.
@@ -45,7 +45,7 @@ If you still need to configure other VTEX solutions, please **use a fictitious d
 ### Step 1 - Creating the DNS records
 
 1. Access your domain provider website.
-2. Create a **CNAME** DNS record for your www domain (e.g., `www.mystore.com`) that points to `www.{rootDomain}.com.cdn.vtex.com` (e.g., `www.mystore.com.cdn.vtex.com`). _Check the documentation of your domain provider for more information._
+2. Create a **CNAME** DNS record for your `www` domain (e.g., `www.mystore.com`) that points to `www.{rootDomain}.com.cdn.vtex.com` (e.g., `www.mystore.com.cdn.vtex.com`). _Check the documentation of your domain provider for more information._
 3. Now, create a **CNAME** record for the `secure` subdomain (e.g., `secure.mystore.com`) that points to `secure.{rootDomain}.cdn.vtex.com` (e.g., `secure.mystore.com.cdn.vtex.com`). This subdomain will be used by the **Checkout**, **Order Placed**, **Login**, and **My Account** pages.
 
 <Callout type="info" emoji="ℹ️">
@@ -53,14 +53,14 @@ If you still need to configure other VTEX solutions, please **use a fictitious d
 </Callout>
 
 
-### Step 2 - Configuring domains in VTEX account 
+### Step 2 - Configuring domains in VTEX Account Settings 
 
-Now you must set up your VTEX account to use the DNS records created in the previous step. To proceed, make sure your store [is active and in production](https://help.vtex.com/en/tracks/go-live-your-store--4Ns5FxIiksmjsdX2yOTduM/7wFsbWgN4rnZsbjhv8IItX#putting-your-account-into-production).
+Now you must set up your VTEX account to use the DNS records created in the previous step. To proceed, make sure your [store is active and in production](https://help.vtex.com/en/tracks/go-live-your-store--4Ns5FxIiksmjsdX2yOTduM/7wFsbWgN4rnZsbjhv8IItX#putting-your-account-into-production).
 
 1. In the VTEX Admin, click on your profile avatar, which can be identified by the first letter of your email address.
 2. Access **Account Settings > Account**.
 3. Go to the **Stores** tab and in the **Hosts** table, click the *kebab* menu (three vertical dots) and choose **Edit**.
-4. In the **Hosts** field,enter your main domain (e.g., `mystore.com`) to the list.
+4. In the **Hosts** field, enter your main domain (e.g., `mystore.com`) to the list.
 5. Click `Add`.
 6. Add the `secure` subdomain (e.g., `secure.mystore.com`) to the list.
    ![Host configuration](https://vtexhelp.vtexassets.com/assets/docs/src/hostsConfig___cad00ec89023cd77c34f77898cda1b3e.png)
@@ -101,7 +101,7 @@ lighthouse: {
 ```
 4. Save your changes.
 5. Open the `vtex.env` file.
-6. Add the `SITE_HOST` key with the main domain specified in [Configuring domains in VTEX account](/docs/go-live/2-configuring-external-dns#step-2---configuring-domains-in-vtex-account-management) as the value.
+6. Add the `SITE_HOST` key with the main domain specified in [Configuring domains in VTEX Account Settings](/docs/go-live/2-configuring-external-dns#step-2---configuring-domains-in-vtex-account-management) as the value.
    
 ```diff title="vtex.env"
 + SITE_HOST=mystore.com
@@ -123,5 +123,5 @@ The VTEX team will evaluate your request and take the necessary actions to confi
 
 ## Related resources
 
-- [Setting up DNS pointing to VTEX](https://help.vtex.com/en/tutorial/configuring-dns-pointing-to-vtex--tutorials_4280)
+- [Setting up DNS pointing to VTEX](https://help.vtex.com/tracks/go-live-your-store--4Ns5FxIiksmjsdX2yOTduM/12bQlMbJ68Ot0LIaO6Btkj#setting-up-dns-pointing)
 - [How to insert a reverse proxy in front of VTEX services](https://help.vtex.com/en/tutorial/how-to-insert-a-reverse-proxy-in-front-of-vtex-services)
