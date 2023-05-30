@@ -23,6 +23,8 @@ In this guide, you will:
 - Run a local development server, usually at http://localhost:3000/.
 - Make your first change in your storefront.
 
+---
+
 ## Before you start
 Before cloning your store's repository, ensure that you have the following tools on your machine:
 
@@ -89,7 +91,10 @@ Before cloning your store's repository, ensure that you have the following tools
   Although you might opt to use an alternative code editor, note that Visual Studio Code might help you follow along with the FastStore documentation since our documentation may include screenshots from VS Code.
 </Callout>
 
+---
+
 ## Step 1: Cloning the Store's Repository
+
 1. Open the terminal and navigate to the directory where you want to store your project.
 
 <Callout type="info" emoji="ℹ️">
@@ -109,18 +114,20 @@ Replace `{storeName}` for your store's repository.
 ```bash
 cd {storeName}
 ```
-4. Install all the dependencies listed within the `package.json` file by running the following command:
+### 4. Install all the dependencies listed within the `package.json` file by running the following command:
 
 ```bash
 yarn install
 ```
 
-5.  Open up your FastStore project in any code editor of your choice.
+5. Open up your FastStore project in any code editor of your choice.
 
 <Callout type="info" emoji="ℹ️">
   Note that your store configuration was already set during the [Onboarding](/docs/getting-started/onboarding#repository-and-live-store-created). Therefore, there is no need to connect your project to your VTEX account.
   If you want to review these configurations, you can access the `faststore.config.js` file in the root directory of your project's repository.
 </Callout>
+
+---
 
 ## Step 2: Running a local server
 
@@ -148,6 +155,8 @@ This may take a few minutes. Once your development server is ready, the command 
 *Congratulations!* You have just created your very first FastStore store website! 🎉
 
 While your local development server is running, you can preview any changes you make to your files, and saved changes will hot reload in the browser. To stop the development server, return to the terminal and press `Ctrl + C`. To restart it, run `yarn dev` again.
+
+---
 
 ## Step 3: Making the first change in your store frontend
 
@@ -251,7 +260,7 @@ Let's make the first level of customization which is update the store's theme wi
 ```
 
 4. Save your changes.
-5. Restart the server and check your browser to see the changes you have made. You may need to refresh the page.
+5. Restart the server and check your browser to see your changes. You may need to refresh the page.
 
 ![themw-soft-blue](https://vtexhelp.vtexassets.com/assets/docs/src/soft-blue___9eb9e3e506de6396df954598739be8f8.png)
 
@@ -259,7 +268,9 @@ Let's make the first level of customization which is update the store's theme wi
   It is important to highlight that the store's logo is set through the [VTEX Headless CMS](https://www.faststore.dev/tutorials/cms/0).
 </Callout>
 
-### Customizing a Component (Optional)
+---
+
+## Customizing a Component (Optional)
 If you are up for another challenge, let's customize a component. We will use the `Listing` variant from the [Price Component](/components/atoms/price) in this tutorial.
 
 1. In the `soft-blue.scss` file, add the `data-fs-price` and  `data-fs-price-variant` data attributes with the `Listing` value:

@@ -17,6 +17,8 @@ hr.nx-my-8 {
   margin: var(--fs-spacing-9) 0 var(--fs-spacing-8);
 }
 
+hr.nx-my-8 + h2.nx-tracking-tight { margin-top: 0; }
+
 /* Titles */
 h1.nx-tracking-tight {
   margin-top: 0;
@@ -24,19 +26,27 @@ h1.nx-tracking-tight {
 
 h2.nx-tracking-tight {
   border: none;
-  margin-bottom: var(--fs-spacing-4);
   font-size: var(--fs-text-size-4);
 }
 
 h3.nx-tracking-tight {
   font-size: var(--fs-text-size-3);
-  margin-bottom: var(--fs-spacing-4);
+  line-height: 1.2;
+  margin-top: var(--fs-spacing-4);
+  margin-bottom: 0;
 }
 
 h4.nx-tracking-tight {
-  margin-bottom: var(--fs-spacing-4);
   font-weight: var(--fs-text-weight-regular);
-  font-size: var(--fs-text-size-3);
+  font-size: calc(var(--fs-text-size-3) - 1px);
+  margin-top: var(--fs-spacing-4);
+  margin-bottom: var(--fs-spacing-0);
+}
+
+@media screen and (min-width: 1024px) {
+  h4.nx-tracking-tight {
+    font-size: calc(var(--fs-text-size-3) - 2px);
+  }
 }
 
 .nx-leading-7 code {
@@ -64,10 +74,18 @@ h4.nx-tracking-tight {
   font-size: var(--fs-text-size-title-huge);
 }
 
-.nx-list-disc {
-  margin-top: 0;
-  margin-bottom: 1.5rem;
+
+/* Content */
+
+body > div > div > div > article > *.nx-mt-6,
+main > *:not(hr),
+main > *.nx-mt-6,
+main > [data-rehype-pretty-code-fragment] {
+  margin-top: var(--fs-spacing-2);
+  margin-bottom: var(--fs-spacing-2);
 }
+
+[data-rehype-pretty-code-fragment] > pre { margin-bottom: 0; }
 
 /* Components adjusts for documentation purposes */
 
