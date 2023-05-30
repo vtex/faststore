@@ -77,7 +77,10 @@ function Navbar({
   home: { label: homeLabel },
   signIn: { button: signInButton },
   menu: {
-    icon: { icon: menuIcon, alt: menuIconAlt },
+    icon: {
+      icon: menuIcon,
+      alt: menuIconAlt = Props['IconButton']['aria-label'],
+    },
   },
 }: NavbarProps) {
   const scrollDirection = useScrollDirection()
@@ -99,9 +102,9 @@ function Navbar({
               <IconButton
                 data-fs-navbar-button-menu
                 onClick={openNavbar}
-                aria-label={menuIconAlt}
                 icon={<UIIcon name={menuIcon} width={32} height={32} />}
                 {...Props['IconButton']}
+                aria-label={menuIconAlt}
               />
               <Link
                 href="/"
