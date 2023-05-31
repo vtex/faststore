@@ -14,3 +14,44 @@ import { Callout, Tab, Tabs } from 'nextra-theme-docs'
 <Callout type="warning" emoji="⚠️">
 This documentation is currently under development.
 </Callout>
+
+In this guide, you'll learn how to integrate the **VTEX Login** with your **FastStore** project.
+
+The VTEX Login is provided by the `vtexcommercestable` environment and uses a subdomain. Therefore, to successfully integrate the VTEX Login with your FastStore project, you must add a redirect back to the FastStore environment and set up the necessary auth cookies to authenticate client requests and maintain session information. This way, once shoppers finish logging in to your store, they can be redirected back to your website's main domain.
+
+---
+
+## Before you start
+
+- Ensure you have already [configured the custom domain name of your FastStore website](/docs/go-live/2-configuring-external-dns).
+- Stores that currently use Portal (Legacy) technology are required to update their `vtex.edition-business@0.x` to `vtex.edition-store@5.x,`  and to migrate their secure domain to VTEX IO. To make these changes, please open a support ticket with the [VTEX support team](https://help.vtex.com/support) and request that the [Edition App](https://developers.vtex.com/docs/guides/vtex-io-documentation-edition-app) installed in your account be updated and that your secure domain be migrated from Portal (Legacy) to VTEX IO.
+
+---
+
+## Step by step
+
+### Step 1 - Adding a redirect back to your FastStore domain
+
+By the end of this step, changes will be live to all end-users, meaning that once shoppers finish logging in to your store, they will be redirected back to your website's main domain.
+
+1. Access the VTEX Admin.
+2. Go to **Storefront > Layout**.
+3. In the left-side navigation menu, click on **CMS**.
+4. Click on **HTML Templates** and open the **Home** file.
+5. Add the following script to the Home's `<head>`.
+
+   - _Replace the value between curly brackets with your store domain._
+
+   ```xhtml
+   <meta http-equiv="refresh" content="0; URL='https://{maindomain}'" />
+   ```
+
+6. Clean the `<body>` section to remove unnecessary code. By the end of this step, your Home file should look like the following:
+
+![Home Template](https://vtexhelp.vtexassets.com/assets/docs/src/home-template___a12a67566b69529d2a3f19c98f135060.png)
+
+7. Click on the **Save Template** button.
+
+### Step 2 - Setting the auth cookie root domain
+
+To authenticate client requests and maintain session information, you must ensure that the auth cookies are set up for the **Login** subdomain. To do that, [open a support ticket](https://help-tickets.vtex.com/smartlink/sso/login/zendesk) to the Identity team requesting to set up the auth cookie root domain for your FastStore URL.
