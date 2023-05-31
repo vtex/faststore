@@ -10,7 +10,6 @@ import { forwardRef, useRef } from 'react'
 import { convertFromRaw } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
 import { Icon, useUI } from '@faststore/ui'
-import Link from 'src/components/ui/Link'
 import { useNewsletter } from 'src/sdk/newsletter/useNewsletter'
 
 const cmsToHtml = (content) => {
