@@ -162,4 +162,38 @@ export const mobileList = [
 
 ## Add a custom font
 
-Coming Soon.
+1. Create a new `WebFonts.tsx` file in `src/fonts` folder, and add a `<link>` tag for your `font-family` of choice.
+
+```js
+/* eslint-disable @next/next/no-page-custom-font */
+
+function WebFonts() {
+  return (
+    <>
+      {/* Add a <link> tag for your font-family of choice */}
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap"
+      />
+    </>
+  );
+}
+
+export default WebFonts;
+
+```
+
+2. In your custom theme file, usually `src/themes/custom-theme.scss`, use the `--fs-text-face-body` token with the `font-family` you chose.
+> ℹ️ We recommend using fallback fonts as system fonts to ensure quick rendering, consistent and readable content.
+
+```css
+.theme {
+  // --------------------------------------------------------
+  // Typography (Branding Core)
+  // --------------------------------------------------------
+    --fs-text-face-body: 'Lato', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+}
+
+```
+
+3. Run `yarn dev` and check the browser to see the `font-family`.
