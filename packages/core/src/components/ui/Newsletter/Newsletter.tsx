@@ -20,7 +20,6 @@ const cmsToHtml = (content) => {
       const entityType = entity.get('type').toLowerCase()
       if (entityType === 'link') {
         const data = entity.getData()
-        console.log(data)
         return {
           element: 'a',
           attributes: {
@@ -159,6 +158,14 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
 
           <div data-fs-newsletter-controls>
             <>
+              {displayNameInput ? (
+                <UIInputField
+                  inputRef={nameInputRef}
+                  id="newsletter-name"
+                  label={nameInputLabel}
+                  required
+                />
+              ) : null}
               <UIInputField
                 inputRef={emailInputRef}
                 id="newsletter-email"
@@ -172,14 +179,6 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
                   __html: render && cmsToHtml(privacyPolicy),
                 }}
               ></span>
-              {displayNameInput ? (
-                <UIInputField
-                  inputRef={nameInputRef}
-                  id="newsletter-name"
-                  label={nameInputLabel}
-                  required
-                />
-              ) : null}
               <UIButton variant="secondary" inverse type="submit">
                 {loading ? 'Loading...' : subscribeButtonLabel}
               </UIButton>
