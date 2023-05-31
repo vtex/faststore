@@ -15,6 +15,8 @@ const Newsletter = function Newsletter({
   nameInputLabel,
   subscribeButtonLabel,
   card,
+  toastSubscribe,
+  toastSubscribeError,
   ...otherProps
 }: UINewsletterProps) {
   return (
@@ -28,6 +30,8 @@ const Newsletter = function Newsletter({
         displayNameInput={displayNameInput}
         nameInputLabel={nameInputLabel}
         subscribeButtonLabel={subscribeButtonLabel}
+        toastSubscribe={toastSubscribe}
+        toastSubscribeError={toastSubscribeError}
         card={card}
         {...otherProps}
       />
