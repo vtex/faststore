@@ -62,6 +62,9 @@ export const SECTIONS = {
       '__experimentalProductCard',
     ],
   },
+  Alert: {
+    components: ['Alert', 'Icon'],
+  },
 } as const
 
 // export type ComponentOrProps =
