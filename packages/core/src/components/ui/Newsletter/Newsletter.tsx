@@ -39,6 +39,12 @@ const cmsToHtml = (content) => {
   return html
 }
 
+type SubscribeMessage = {
+  title: string
+  message: string
+  icon: string
+}
+
 export interface NewsletterProps
   extends Omit<ComponentPropsWithRef<'form'>, 'title' | 'onSubmit'> {
   /**
@@ -80,6 +86,10 @@ export interface NewsletterProps
    * The card Variant
    */
   card: Boolean
+
+  toastSubscribe: SubscribeMessage
+
+  toastSubscribeError: SubscribeMessage
 }
 
 const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
@@ -94,6 +104,8 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
       nameInputLabel,
       subscribeButtonLabel,
       card,
+      toastSubscribe,
+      toastSubscribeError,
       ...otherProps
     },
     ref
@@ -121,17 +133,15 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
 
       if (data?.subscribeToNewsletter?.id) {
         pushToast({
-          title: 'Hooray!',
-          message: 'Thank for your subscription.',
+          ...toastSubscribe,
           status: 'INFO',
-          icon: <Icon name="CircleWavyCheck" width={30} height={30} />,
+          icon: <Icon name={toastSubscribe.icon} width={30} height={30} />,
         })
       } else {
         pushToast({
-          title: 'Oops.',
-          message: 'Something went wrong. Please Try again.',
+          ...toastSubscribeError,
           status: 'ERROR',
-          icon: <Icon name="CircleWavyWarning" width={30} height={30} />,
+          icon: <Icon name={toastSubscribeError.icon} width={30} height={30} />,
         })
       }
 

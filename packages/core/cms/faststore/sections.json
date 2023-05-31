@@ -1062,6 +1062,56 @@
           "title": "Newsletter should be in card format?",
           "type": "boolean",
           "default": false
+        },
+        "toastSubscribe": {
+          "title": "Toast Subscribe",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "description": "Message Title",
+              "type": "string",
+              "default": "Hooray!"
+            },
+            "message": {
+              "title": "Message",
+              "description": "Message",
+              "type": "string",
+              "default": "Thank for your subscription."
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["CircleWavyCheck"],
+              "enum": ["CircleWavyCheck"],
+              "default": "CircleWavyCheck"
+            }
+          }
+        },
+        "toastSubscribeError": {
+          "title": "Toast Subscribe Error",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "description": "Message Title",
+              "type": "string",
+              "default": "Oops."
+            },
+            "message": {
+              "title": "Message",
+              "description": "Message",
+              "type": "string",
+              "default": "Something went wrong. Please Try again."
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["CircleWavyWarning"],
+              "enum": ["CircleWavyWarning"],
+              "default": "CircleWavyWarning"
+            }
+          }
         }
       }
     }
