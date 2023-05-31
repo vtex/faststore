@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.171-alpha.0](https://github.com/vtex/faststore/compare/v2.0.170-alpha.0...v2.0.171-alpha.0) (2023-05-30)
+
+### Documentation
+
+- Setting up VTEX account for FastStore ([#1797](https://github.com/vtex/faststore/issues/1797)) ([e61e0d4](https://github.com/vtex/faststore/commit/e61e0d46fa02157d390ea5717c105d830e8cb02f)), closes [#1765](https://github.com/vtex/faststore/issues/1765)
+
+## [2.0.170-alpha.0](https://github.com/vtex/faststore/compare/v2.0.169-alpha.0...v2.0.170-alpha.0) (2023-05-30)
+
+**Note:** Version bump only for package site
+
+## [2.0.169-alpha.0](https://github.com/vtex/faststore/compare/v2.0.168-alpha.0...v2.0.169-alpha.0) (2023-05-29)
+
+### Chores
+
+- Removes imports utilities styles from core package + enable system fonts ([#1792](https://github.com/vtex/faststore/issues/1792)) ([19de095](https://github.com/vtex/faststore/commit/19de095e0e47548386afb06ef057798ca54f6294))
+
+## [2.0.162-alpha.0](https://github.com/vtex/faststore/compare/v2.0.161-alpha.0...v2.0.162-alpha.0) (2023-05-26)
+
+**Note:** Version bump only for package site
+
 ## [2.0.161-alpha.0](https://github.com/vtex/faststore/compare/v2.0.160-alpha.0...v2.0.161-alpha.0) (2023-05-24)
 
 **Note:** Version bump only for package site

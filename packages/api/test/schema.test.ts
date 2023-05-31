@@ -65,6 +65,8 @@ const QUERIES = [
   'allProducts',
   'allCollections',
   'shipping',
+  'redirect',
+  'sellers',
 ]
 
 const MUTATIONS = ['validateCart', 'validateSession', 'subscribeToNewsletter']

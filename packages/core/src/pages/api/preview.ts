@@ -1,6 +1,7 @@
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import { clientCMS } from 'src/server/cms'
+import { previewRedirects } from '../../../faststore.config'
 
 class StatusError extends Error {
   constructor(message: string, public status: number) {
@@ -46,7 +47,7 @@ const handler: NextApiHandler = async (req, res) => {
 
     // Redirect to the path from the fetched locator
     // TODO: apply redirect based on the content
-    res.redirect('/')
+    res.redirect(previewRedirects[locator.contentType] ?? '/')
   } catch (error) {
     if (error instanceof StatusError) {
       res.status(error.status).end(error.message)

@@ -8,6 +8,8 @@ The overwhelming majority of ecommerce websites use at least one analytics provi
 
 [Partytown](https://partytown.builder.io/) is a tool that can help reduce this damage by moving 3rd party scripts execution to a webworker. Since Partytown is a beta solution and the 3rd party scripts run on a different environment than what they were built for, some errors are expected to occur. The following topics bring relevant information for debugging Partytown and analytics in general.
 
+---
+
 ## Google Tag Assistant is not working
 
 Debugging Google Tag Manager (GTM) and Google Analytics (GA) using Google Tag Assistant is, as of now, not possible if you're using Partytown. Thus, to debug your tags and GA behavior on your website requires turning partytown down. We recognize this is not ideal, after all, you'll not be debugging in the same environment your users will browse. If you're using Google Analytics 4 (recommended), you can mitigate this effect by debugging the events inside GA: check their [official docs](https://support.google.com/analytics/answer/7201382?hl=pt-BR#zippy=%2Cgerenciador-de-tags-do-google-sites) on how to enable it.
@@ -16,9 +18,13 @@ To help you debug GTM and GA using Google Tag Assistant, we've included a switch
 
 ![enable-gtm-debug-query-string](https://vtexhelp.vtexassets.com/assets/docs/src/enable-gtm-debug-query-string___a500fcb42a88127e93fb8c5e44ce119c.png)
 
+---
+
 ## `gtm_debug=` query string
 
 Whenever the `gtm_debug=` query string is included in the URL, the GTM scripts (and all scripts/tags it injects) run outside Partytown. That's a great way of knowing if the error you're experiencing happens even if it runs without Partytown. You can navigate through pages and GTM will still run without Partytown, as long as you're using the Single Page Application (SPA) navigation, and not an absolute link to other page.
+
+---
 
 ## See events pushed to `dataLayer`
 
@@ -35,6 +41,8 @@ dataLayer.push = (data) => {
 ```
 
 After you run this, every event added to the `dataLayer` will be logged in the browser's console, and will also be available in the `window.dataLayerHistory` variable, so you can check all the events more easely. You can navigate through pages and the events will still be logged and sent as long as you're using the Single Page Application (SPA) navigation, and not an absolute link to other page.
+
+---
 
 ## jQuery is not defined / $ is not defined
 

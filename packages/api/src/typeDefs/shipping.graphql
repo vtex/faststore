@@ -135,6 +135,10 @@ type ShippingSLA {
   """
   localizedEstimates: String
   """
+  ShippingSLA available delivery windows.
+  """
+  availableDeliveryWindows: [AvailableDeliveryWindows]
+  """
   ShippingSLA shipping estimate date.
   """
   shippingEstimateDate: String
@@ -166,6 +170,29 @@ type ShippingSLA {
   ShippingSLA pickup distance.
   """
   pickupDistance: Float
+}
+
+type AvailableDeliveryWindows {
+  """
+  Available delivery window start date in UTC
+  """
+  startDateUtc: String
+  """
+  Available delivery window end date in UTC
+  """
+  endDateUtc: String
+  """
+  Available delivery window price
+  """
+  price: Int
+  """
+  Available delivery window list price
+  """
+  listPrice: Int
+  """
+  Available delivery window tax
+  """
+  tax: Int
 }
 
 type DeliveryIds {
