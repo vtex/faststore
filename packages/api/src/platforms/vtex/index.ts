@@ -42,7 +42,7 @@ interface FeatureFlags {
   enableOrderFormSync?: boolean
 }
 
-export interface Context {
+export interface Context extends Pick<Options, 'hideUnavailableItems'> {
   clients: Clients
   loaders: Loaders
   /**
@@ -99,6 +99,7 @@ export const getContextFactory =
     }
     ctx.clients = getClients(options, ctx)
     ctx.loaders = getLoaders(options, ctx)
+    ctx.hideUnavailableItems = options.hideUnavailableItems
 
     return ctx
   }

@@ -3,6 +3,7 @@ import type { Resolver } from '..'
 import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
 import { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
+import { inStock } from '../utils/productStock'
 
 type Root = {
   searchArgs: Omit<SearchArgs, 'type'>
@@ -53,7 +54,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       products: skus,
     }
   },
-  products: async ({ productSearchPromise }) => {
+  products: async ({ productSearchPromise }, _, ctx) => {
     const productSearchResult = await productSearchPromise
 
     const skus = productSearchResult.products
@@ -72,10 +73,18 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
         endCursor: productSearchResult.recordsFiltered.toString(),
         totalCount: productSearchResult.recordsFiltered,
       },
-      edges: skus.map((sku, index) => ({
-        node: sku,
-        cursor: index.toString(),
-      })),
+      edges: skus
+        .filter((sku) => {
+          if (ctx.hideUnavailableItems) {
+            return sku.sellers.some((item) => inStock(item.commertialOffer))
+          } else {
+            return true
+          }
+        }) // TODO: remove this filter when the IS returns correctly with hideUnavailableItems
+        .map((sku, index) => ({
+          node: sku,
+          cursor: index.toString(),
+        })),
     }
   },
   facets: async ({ searchArgs }, _, ctx) => {
