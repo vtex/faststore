@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.44](https://github.com/vtex/faststore/compare/v1.12.43...v1.12.44) (2023-05-31)
+
+### Bug Fixes
+
+- search result must remove products out of stock ([#1794](https://github.com/vtex/faststore/issues/1794)) ([a6ae87e](https://github.com/vtex/faststore/commit/a6ae87ea706727ffac6845e26f682be6ff61e0f0))
+
 ## 1.12.43 (2023-05-26)
 
 ### Features
