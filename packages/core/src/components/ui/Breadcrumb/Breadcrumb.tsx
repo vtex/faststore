@@ -12,7 +12,7 @@ export interface BreadcrumbProps extends UIBreadcrumbProps {
 }
 
 const Breadcrumb = ({
-  icon = Props['Icon'].icon ?? 'Home',
+  icon = Props['Icon'].name ?? 'Home',
   alt = 'Go to homepage',
   ...otherProps
 }: BreadcrumbProps) => (
