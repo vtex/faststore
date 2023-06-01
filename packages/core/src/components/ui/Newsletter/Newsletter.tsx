@@ -1,11 +1,5 @@
 import { Button as UIButton, InputField as UIInputField } from '@faststore/ui'
-import {
-  ComponentPropsWithRef,
-  FormEvent,
-  ReactNode,
-  useEffect,
-  useState,
-} from 'react'
+import { ComponentPropsWithRef, FormEvent, useEffect, useState } from 'react'
 import { forwardRef, useRef } from 'react'
 import { convertFromRaw } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
@@ -13,6 +7,9 @@ import { Icon, useUI } from '@faststore/ui'
 import { useNewsletter } from 'src/sdk/newsletter/useNewsletter'
 
 const cmsToHtml = (content) => {
+  if (!content) {
+    return ''
+  }
   const rawDraftContentState = JSON.parse(content)
   const html = stateToHTML(convertFromRaw(rawDraftContentState), {
     entityStyleFn: (entity) => {
