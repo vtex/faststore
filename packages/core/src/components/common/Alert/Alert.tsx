@@ -38,7 +38,13 @@ function Alert({
 
   return (
     <Section className={`${styles.section} section-alert`}>
-      <AlertWrapper {...Props['Alert']} onClose={onAlertClose} {...otherProps}>
+      <AlertWrapper
+        {...Props['Alert']}
+        // Dynamic props, shouldn't be overridable
+        // This decision can be reviewed later if needed
+        onClose={onAlertClose}
+        {...otherProps}
+      >
         {content ?? children}
       </AlertWrapper>
     </Section>
