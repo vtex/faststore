@@ -54,7 +54,6 @@ const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
       disabled,
       errorMessage,
       onSubmit,
-      ...otherProps
     },
     ref
   ) {
@@ -64,7 +63,6 @@ const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
         ref={ref}
         data-testid={testId}
         onSubmit={onSubmit}
-        {...otherProps}
       >
         <h2 data-fs-out-of-stock-title>{title}</h2>
         {subtitle && (

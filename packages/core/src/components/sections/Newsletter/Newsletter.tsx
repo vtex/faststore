@@ -30,10 +30,7 @@ export interface NewsletterProps
 }
 
 const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
-  function Newsletter(
-    { title, description, card = false, lite = false, ...otherProps },
-    ref
-  ) {
+  function Newsletter({ title, description, card = false, lite = false }, ref) {
     const { subscribeUser, loading, data } = useNewsletter()
     const nameInputRef = useRef<HTMLInputElement>(null)
     const emailInputRef = useRef<HTMLInputElement>(null)
@@ -74,10 +71,9 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
       <Section className={`${styles.section} section-newsletter`}>
         <div data-fs-newsletter={card ? 'card' : ''}>
           <form
-            data-fs-newsletter-form
             ref={ref}
+            data-fs-newsletter-form
             onSubmit={handleSubmit}
-            {...otherProps}
             className="layout__content"
           >
             <header data-fs-newsletter-header>
