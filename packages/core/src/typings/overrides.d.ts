@@ -68,6 +68,9 @@ export const SECTIONS = {
   EmptyState: {
     components: ['EmptyState'],
   },
+  RegionBar: {
+    components: ['RegionBar', 'LocationIcon', 'ButtonIcon'],
+  },
 } as const
 
 // export type ComponentOrProps =
