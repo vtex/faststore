@@ -48,8 +48,8 @@ function ProductShelf({
   title,
   inView,
   productCardConfiguration: {
-    bordered = Props['ProductCard'].bordered,
-    showDiscountBadge = Props['ProductCard'].showDiscountBadge,
+    bordered = Props['__experimentalProductCard'].bordered,
+    showDiscountBadge = Props['__experimentalProductCard'].showDiscountBadge,
   } = {},
   ...variables
 }: ProductShelfProps) {
