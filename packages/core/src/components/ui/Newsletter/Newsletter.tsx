@@ -78,6 +78,10 @@ export interface NewsletterProps
    */
   subscribeButtonLabel?: string
   /**
+   * The subscribe button loading label.
+   */
+  subscribeButtonLoadingLabel?: string
+  /**
    * The card Variant
    */
   card: Boolean
@@ -98,6 +102,7 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
       displayNameInput,
       nameInputLabel,
       subscribeButtonLabel,
+      subscribeButtonLoadingLabel,
       card,
       toastSubscribe,
       toastSubscribeError,
@@ -180,7 +185,7 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
                 }}
               ></span>
               <UIButton variant="secondary" inverse type="submit">
-                {loading ? 'Loading...' : subscribeButtonLabel}
+                {loading ? subscribeButtonLoadingLabel : subscribeButtonLabel}
               </UIButton>
             </>
           </div>
