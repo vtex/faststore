@@ -7,10 +7,16 @@ import { mark } from 'src/sdk/tests/mark'
 import Section from 'src/components/sections/Section/Section'
 import styles from './section.module.scss'
 
+import { Components, Props } from 'src/components/sections/Alert/Overrides'
+
+const { Alert: AlertWrapper } = Components
+
 export interface AlertProps extends UIAlertProps {
   /**
    * For CMS integration purposes, should be used to pass content through it
    * instead pass through children
+   *
+   * TODO: Remove it? It's not being used
    */
   content?: ReactNode
 }
@@ -32,9 +38,9 @@ function Alert({
 
   return (
     <Section className={`${styles.section} section-alert`}>
-      <UIAlert onClose={onAlertClose} {...otherProps}>
+      <AlertWrapper {...Props['Alert']} onClose={onAlertClose} {...otherProps}>
         {content ?? children}
-      </UIAlert>
+      </AlertWrapper>
     </Section>
   )
 }

@@ -1,6 +1,8 @@
+import CommonAlert from 'src/components/common/Alert'
+
 import { Components, Props } from 'src/components/sections/Alert/Overrides'
 
-const { Alert: AlertWrapper, Icon } = Components
+const { Icon } = Components
 
 export interface AlertProps {
   icon: string
@@ -23,10 +25,10 @@ function Alert({
   dismissible = Props['Alert'].dismissible,
 }: AlertProps) {
   return (
-    <AlertWrapper
+    <CommonAlert
       icon={<Icon {...Props['Icon']} name={icon} />}
-      {...Props['Alert']}
       link={{
+        ...(Props['Alert'].link ?? {}),
         children: text,
         href: to,
         target: Props['Alert'].link?.target ?? '_self',
@@ -34,7 +36,7 @@ function Alert({
       dismissible={dismissible}
     >
       {content}
-    </AlertWrapper>
+    </CommonAlert>
   )
 }
 

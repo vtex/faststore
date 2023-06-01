@@ -1,6 +1,6 @@
 import { Alert as UIAlert, Icon as UIIcon } from '@faststore/ui'
 
-import AlertCustomizations from 'src/customizations/components/overrides/BannerText'
+import AlertCustomizations from 'src/customizations/components/overrides/Alert'
 
 const alertComponentsCustomization = {}
 
