@@ -65,6 +65,9 @@ export const SECTIONS = {
   Alert: {
     components: ['Alert', 'Icon'],
   },
+  EmptyState: {
+    components: ['EmptyState'],
+  },
 } as const
 
 // export type ComponentOrProps =
