@@ -1058,6 +1058,11 @@
           "type": "string",
           "default": "Subscribe"
         },
+        "subscribeButtonLoadingLabel": {
+          "title": "Subscribe button loading label",
+          "type": "string",
+          "default": "Loading..."
+        },
         "card": {
           "title": "Newsletter should be in card format?",
           "type": "boolean",
@@ -1154,11 +1159,13 @@
               "properties": {
                 "text": {
                   "title": "Text",
-                  "type": "string"
+                  "type": "string",
+                  "default": "Shop now"
                 },
                 "url": {
                   "title": "URL",
-                  "type": "string"
+                  "type": "string",
+                  "default": "/"
                 }
               }
             },
@@ -1166,13 +1173,15 @@
               "title": "Color variant",
               "type": "string",
               "enumNames": ["Main", "Light", "Accent"],
-              "enum": ["main", "light", "accent"]
+              "enum": ["main", "light", "accent"],
+              "default": "light"
             },
             "variant": {
               "title": "Variant",
               "type": "string",
               "enumNames": ["Primary", "Secondary"],
-              "enum": ["primary", "secondary"]
+              "enum": ["primary", "secondary"],
+              "default": "secondary"
             }
           }
         },
@@ -1189,7 +1198,8 @@
                   "title": "Icon",
                   "type": "string",
                   "enumNames": ["Envelop"],
-                  "enum": ["Envelop"]
+                  "enum": ["Envelop"],
+                  "default": "Envelop"
                 },
                 "alt": {
                   "type": "string",
@@ -1234,6 +1244,11 @@
               "title": "Subscribe button label",
               "type": "string",
               "default": "Subscribe"
+            },
+            "subscribeButtonLoadingLabel": {
+              "title": "Subscribe button loading label",
+              "type": "string",
+              "default": "Loading..."
             },
             "card": {
               "title": "Newsletter should be in card format?",

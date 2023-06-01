@@ -1,5 +1,5 @@
 import { Button as UIButton, InputField as UIInputField } from '@faststore/ui'
-import { ComponentPropsWithRef, FormEvent, useEffect, useState } from 'react'
+import { ComponentPropsWithRef, FormEvent } from 'react'
 import { forwardRef, useRef } from 'react'
 import { convertFromRaw } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
@@ -34,7 +34,7 @@ const cmsToHtml = (content) => {
   return html
 }
 
-type SubscribeMessage = {
+export type SubscribeMessage = {
   title: string
   message: string
   icon: string
@@ -105,12 +105,6 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
     },
     ref
   ) {
-    // Workaround for dangerouslySetInnerHTML console warning/error.
-    const [render, setRender] = useState(false)
-    useEffect(() => {
-      setRender(true)
-    }, [])
-
     const { subscribeUser, loading, data } = useNewsletter()
     const nameInputRef = useRef<HTMLInputElement>(null)
     const emailInputRef = useRef<HTMLInputElement>(null)
@@ -182,7 +176,7 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
               <span
                 data-fs-newsletter-addendum
                 dangerouslySetInnerHTML={{
-                  __html: render && cmsToHtml(privacyPolicy),
+                  __html: cmsToHtml(privacyPolicy),
                 }}
               ></span>
               <UIButton variant="secondary" inverse type="submit">

@@ -1,6 +1,6 @@
 import BannerText from 'src/components/ui/BannerText'
 import type { BannerTextProps } from 'src/components/sections/BannerText'
-import Newsletter, { NewsletterProps } from 'src/components/ui/Newsletter'
+import Newsletter, { NewsletterProps } from 'src/components/sections/Newsletter'
 import Section from '../Section'
 import styles from './section.module.scss'
 
