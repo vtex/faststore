@@ -44,7 +44,6 @@ export type ProductShelfProps = {
   inView: boolean
 }
 
-console.log(Props['ProductCard'])
 function ProductShelf({
   title,
   inView,
