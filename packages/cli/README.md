@@ -12,7 +12,7 @@ $ npm install -g @faststore/cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/2.0.2-alpha.0 darwin-arm64 node-v16.18.0
+@faststore/cli/2.1.0 darwin-arm64 node-v16.18.0
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND
@@ -33,7 +33,7 @@ USAGE
   $ faststore build
 ```
 
-_See code: [dist/commands/build.ts](https://github.com/vtex/faststore/blob/v2.0.2-alpha.0/dist/commands/build.ts)_
+_See code: [dist/commands/build.ts](https://github.com/vtex/faststore/blob/v2.1.0/dist/commands/build.ts)_
 
 ## `faststore dev`
 
@@ -42,7 +42,7 @@ USAGE
   $ faststore dev
 ```
 
-_See code: [dist/commands/dev.ts](https://github.com/vtex/faststore/blob/v2.0.2-alpha.0/dist/commands/dev.ts)_
+_See code: [dist/commands/dev.ts](https://github.com/vtex/faststore/blob/v2.1.0/dist/commands/dev.ts)_
 
 ## `faststore help [COMMAND]`
 
@@ -62,7 +62,7 @@ DESCRIPTION
   Display help for faststore.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.14/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.22/src/commands/help.ts)_
 
 ## `faststore start`
 
@@ -71,5 +71,5 @@ USAGE
   $ faststore start
 ```
 
-_See code: [dist/commands/start.ts](https://github.com/vtex/faststore/blob/v2.0.2-alpha.0/dist/commands/start.ts)_
+_See code: [dist/commands/start.ts](https://github.com/vtex/faststore/blob/v2.1.0/dist/commands/start.ts)_
 <!-- commandsstop -->
