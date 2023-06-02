@@ -19,10 +19,48 @@ Sections in FastStore are components that organize and encapsulate other compone
 
 For example, the Hero is a native section designed to capture your brand's identity and messaging. To effective function in the store, the Hero comprises three components: UIHero, UIHeroImage, and UIHeroHeader.
 
+---
+
 ## FastStore native sections
+Check out below a list of FastStore native sections, their components, which of the components you can override and if the section have properties that can be changed through Headless CMS.
+
+<details>
+<summary><b>Alert</b></summary>
+
+| Type                                                      | Availability                                         |
+| :---------------------------------------------------------| :----------------------------------------------------|
+| Documentation                                             | [Alert FastStore UI](components/molecules/alert).     |
+| Components                                                | `UIAlert`                                            |
+| Overridable components                                    | There is no overridable components for this section. |
+| Headless CMS: properties customization                    | `Icon` and `dismissible`.                             |
+
+</details>
+
+<details>
+<summary><b>Navbar</b></summary>
 
 
-## Overridable components
-Each native section has the option to override certain components.
+| Type                                                      | Availability                                         |
+| :---------------------------------------------------------| :----------------------------------------------------|
+| Documentation                                             | [Navbar FastStore UI](/components/organisms/navbar).     |
+| Components                                                | `Logo`, `CartToggle`, `ButtonSignIn`, `NavbarLinks (UINavbarLinks)`, `SearchInput`, `RegionBar`, `Navbar (UINavbar)`, `NavbarSlider (UINavbarSlider)`, `NavbarSliderHeader (UINavbarSliderHeader)`, `NavbarSliderContent  (UINavbarSliderContent)` and `NavbarSliderFooter  (NavbarSliderFooter)`. |
+| Overridable components                                    | All components listed above can be override. |
+| Headless CMS: properties customization                    | `Logo`,  `Cart Icon`,  `SignInbutton`, `Navlinks`: `RegionBar` (`Icon`), `shouldDisplayRegion` and `Page Links`.                            |
 
-### Experimental
+</details>
+
+<details>
+<summary><b>Footer</b></summary>
+
+
+| Type                                                      | Availability                                         |
+| :---------------------------------------------------------| :----------------------------------------------------|
+| Documentation                                             | Coming soon!     |
+| Components                                                | `Footer`, `FooterInfo`, `Incentives`, `PaymentMethods`, `FooterNavigation`: `FooterLinks` and `FooterSocial`. |
+| Overridable components                                    | All components listed above can be override. |
+| Headless CMS: properties customization                    | `Incentives`,  `FooterLinks`,  `Logo`, `PaymentMethods`: `showPaymentMethods`.                            |
+
+</details>
+
+
+### Experimental Overridable components
