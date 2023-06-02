@@ -53,7 +53,7 @@ const config: DocsThemeConfig = {
   banner: {
     key: '2.0-release',
     text: (
-      <p>🎉 We are thrilled to introduce FastStore v2. If you are looking for documentation of the previous version of FastStore, please refer to <a href="https://v1.faststore.dev/" target="_blank">https://v1.faststore.dev/</a></p>
+      <p>🎉 We are thrilled to introduce FastStore v2. If you are looking for documentation of the previous version of FastStore, please refer to <a href="https://v1.faststore.dev/" target="_blank">FastStore v1.</a></p>
     )
   }
 }
