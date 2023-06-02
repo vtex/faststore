@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.176-alpha.0](https://github.com/vtex/faststore/compare/v2.0.175-alpha.0...v2.0.176-alpha.0) (2023-06-02)
+
+### Bug Fixes
+
+- Product description mock data ([#1815](https://github.com/vtex/faststore/issues/1815)) ([98bfde8](https://github.com/vtex/faststore/commit/98bfde887b3721de9a75ebc6325aa7b0842707c5))
+
 ## [2.0.175-alpha.0](https://github.com/vtex/faststore/compare/v2.0.174-alpha.0...v2.0.175-alpha.0) (2023-06-02)
 
 ### Features
