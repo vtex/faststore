@@ -4,11 +4,7 @@ import { gql } from '@faststore/graphql-utils'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
-import {
-  Link as UILink,
-  ProductTitle as UIProductTitle,
-  DiscountBadge as UIDiscountBadge,
-} from '@faststore/ui'
+import { Link as UILink } from '@faststore/ui'
 
 import { useSession } from 'src/sdk/session'
 import { useProduct } from 'src/sdk/product/useProduct'
@@ -23,6 +19,10 @@ import ProductDescription from 'src/components/ui/ProductDescription'
 import { ProductDetailsSettings } from 'src/components/ui/ProductDetails'
 
 import styles from './section.module.scss'
+
+import { Components } from 'src/components/sections/ProductDetails/Overrides'
+
+const { ProductTitle, DiscountBadge } = Components
 
 interface ProductDetailsContextProps {
   context: ProductDetailsFragment_ProductFragment
@@ -98,6 +98,7 @@ function ProductDetails({
       name: variantName,
       brand,
       isVariantOf,
+      description,
       isVariantOf: { name, productGroupID: productId },
       image: productImages,
       offers: {
@@ -147,11 +148,11 @@ function ProductDetails({
       <section data-fs-product-details>
         <section data-fs-product-details-body>
           <header data-fs-product-details-title data-fs-product-details-section>
-            <UIProductTitle
+            <ProductTitle
               title={<h1>{name}</h1>}
               label={
                 showDiscountBadge && (
-                  <UIDiscountBadge
+                  <DiscountBadge
                     listPrice={listPrice}
                     spotPrice={lowPrice}
                     size={discountBadgeSize}
@@ -196,11 +197,10 @@ function ProductDetails({
                 formatter={useFormattedPrice}
                 title={shippingSimulatorTitle}
                 inputLabel={shippingSimulatorInputLabel}
-                idkPostalCodeLinkProps={
-                  <UILink href={shippingSimulatorLinkUrl}>
-                    {shippingSimulatorLinkText}
-                  </UILink>
-                }
+                idkPostalCodeLinkProps={{
+                  href: shippingSimulatorLinkUrl,
+                  children: shippingSimulatorLinkText,
+                }}
                 optionsLabel={shippingSimulatorOptionsTableTitle}
               />
             )}
@@ -208,8 +208,10 @@ function ProductDetails({
 
           {shouldDisplayProductDescription && (
             <ProductDescription
-              labels={{ description: productDescriptionDetailsTitle }}
               initiallyExpanded={productDescriptionInitiallyExpanded}
+              descriptionData={[
+                { title: productDescriptionDetailsTitle, content: description },
+              ]}
             />
           )}
         </section>

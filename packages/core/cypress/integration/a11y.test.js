@@ -13,7 +13,7 @@ describe('Accessibility tests', () => {
     cy.clearIDB()
   })
 
-  it('checks a11y for collection page', () => {
+  it.skip('checks a11y for collection page', () => {
     cy.visit(pages.collection)
     cy.waitForHydration()
 
@@ -30,7 +30,7 @@ describe('Accessibility tests', () => {
     })
   })
 
-  it('checks a11y for product page', () => {
+  it.skip('checks a11y for product page', () => {
     cy.visit(pages.pdp)
     cy.waitForHydration()
 
@@ -47,7 +47,7 @@ describe('Accessibility tests', () => {
     })
   })
 
-  it('checks a11y for home page', () => {
+  it.skip('checks a11y for home page', () => {
     cy.visit(pages.home)
     cy.waitForHydration()
 

@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.175-alpha.0](https://github.com/vtex/faststore/compare/v2.0.174-alpha.0...v2.0.175-alpha.0) (2023-06-02)
+
+### Features
+
+- Allows some section's component to be overridable ([#1768](https://github.com/vtex/faststore/issues/1768)) ([e19cba2](https://github.com/vtex/faststore/commit/e19cba222351510ffc91ba130ed61e857e9e6bb5))
+
+## [2.0.174-alpha.0](https://github.com/vtex/faststore/compare/v2.0.173-alpha.0...v2.0.174-alpha.0) (2023-06-02)
+
+**Note:** Version bump only for package faststore
+
+## 2.0.173-alpha.0 (2023-06-01)
+
+### Chores
+
+- temp skip flaky tests ([#1808](https://github.com/vtex/faststore/issues/1808)) ([734b000](https://github.com/vtex/faststore/commit/734b000ec7c8bff756e514cd9acbc77ecf0e9b62))
+
+## [2.0.172-alpha.0](https://github.com/vtex/faststore/compare/v2.0.171-alpha.0...v2.0.172-alpha.0) (2023-05-31)
+
+### Features
+
+- Override `WebFonts` ([#1799](https://github.com/vtex/faststore/issues/1799)) ([5fa4b9a](https://github.com/vtex/faststore/commit/5fa4b9ada4affcf508f05a95acabd542536ceacf))
+
 ## [2.0.171-alpha.0](https://github.com/vtex/faststore/compare/v2.0.170-alpha.0...v2.0.171-alpha.0) (2023-05-30)
 
 ### Documentation

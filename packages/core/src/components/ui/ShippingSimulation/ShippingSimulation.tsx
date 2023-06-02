@@ -1,13 +1,14 @@
-import {
-  ShippingSimulation as UIShippingSimulation,
-  ShippingSimulationProps as UIShippingSimulationProps,
-} from '@faststore/ui'
+import { ShippingSimulationProps as UIShippingSimulationProps } from '@faststore/ui'
 
 import { getShippingSimulation } from 'src/sdk/shipping'
 import { ShippingSla } from '@generated/graphql'
 import { useSession } from 'src/sdk/session'
 import { IShippingItem } from '@faststore/api'
 import { useShippingSimulation } from './useShippingSimulation'
+
+import { Components } from 'src/components/sections/ProductDetails/Overrides'
+
+const { ShippingSimulation: ShippingSimulationWrapper } = Components
 
 type ShippingSimulationOptionalProps =
   | 'title'
@@ -76,7 +77,7 @@ export default function ShippingSimulation({
   const { location, options } = shippingSimulation
 
   return (
-    <UIShippingSimulation
+    <ShippingSimulationWrapper
       formatter={formatter}
       onInput={handleOnInput}
       onSubmit={handleSubmit}

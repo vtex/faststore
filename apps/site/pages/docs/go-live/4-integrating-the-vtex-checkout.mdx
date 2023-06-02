@@ -11,6 +11,60 @@ import { Callout, Tab, Tabs } from 'nextra-theme-docs'
 
 </header>
 
-<Callout type="warning" emoji="⚠️">
-This documentation is currently under development.
-</Callout>
+In this guide, you'll learn how to integrate your **FastStore** project with the [**VTEX Checkout**](https://help.vtex.com/en/tutorial/checkout-vtex-overview--7wcprkM7yZUflOqbzAN5SI). The Checkout comprehends the pages responsible for receiving the shopper's information necessary to process an order.
+
+To successfully integrate the VTEX Checkout with your FastStore project, you must ensure that:
+
+- Shoppers will be presented with an updated version of the Order Placed page once they place an order.
+- All links in the Header and Footer of the Checkout point to your FastStore website.
+
+## Before you start
+
+Before proceeding any further, make sure you have already [configured the custom domain name of your FastStore website](/docs/go-live/2-configuring-external-dns).
+
+---
+
+## Step by step
+
+### Step 1 - Setting up the Order Placed page
+
+Take the following steps to guarantee shoppers will be redirected to the newest version of the **Order Placed** page in your store:
+
+1. In the **VTEX Admin**, access **Store Settings > Storefront > Checkout**.
+2. Click on the **gear button** `⚙` in the **Default** card.
+3. Change to the **Code** tab.
+4. Select `checkout-confirmation-custom.js` under **Files**.
+5. Add the following JavaScript code in the editor:
+
+```jsx {4-5} title="checkout-confirmation-custom.js"
+// WARNING: THE USAGE OF CUSTOM SCRIPTS IS NOT SUPPORTED. VTEX IS NOT LIABLE FOR ANY DAMAGES THIS MAY CAUSE.
+// THIS MAY BREAK YOUR STORE AND STOP SALES. IN CASE OF ERRORS, PLEASE DELETE THE CONTENT OF THIS SCRIPT.
+
+const og = new URLSearchParams(location.search).get('og')
+window.location.assign(
+  `${window.location.origin}/api/io${window.location.pathname}?og=${og}`
+)
+```
+
+6. Click on **Save**. Notice that, as soon as you hit the _Save_ button, your changes will be live to all clients.
+
+![live-example](https://vtexhelp.vtexassets.com/assets/docs/src/orderplacedversion___224b9d7a692b85ae1e56eee5744bd511.png)
+
+### Step 2 - Adjusting the Header and Footer links of the Checkout pages
+
+We now need to update the links presented in the Header and Footer of the Checkout pages, guaranteeing that all links point to your FastStore website. To do that, take the following steps.
+
+1. Still in the VTEX Admin at the **Store Settings > Storefront > Checkout > Default > Code** tab, click on `checkout-header` under **Template**.
+2. Edit the `checkout-header` code according to your scenario, making sure all links are pointing to your FastStore website. For example:
+
+   ```diff title="checkout-header.js"
+   <div class="container">
+   -  <a href="/" title="Home Page">Your logo here!</a>
+   +  <a href="https://www.vtexfaststore.com" title="Home Page">FastStore</a>
+   <hr>
+   </div>
+   ```
+
+3. Click on **Save**. Notice that, as soon as you hit the _Save_ button, your changes will be live to all clients.
+
+Once you adjust all the Header links of the Checkout pages, make sure to repeat the process in the [step 2](/docs/go-live/4-integrating-the-vtex-checkout#step-2---adjusting-the-header-and-footer-links-of-the-checkout-pages) for the `checkout-footer` file to adjust the Checkout Footer.

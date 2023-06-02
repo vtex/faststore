@@ -2,7 +2,7 @@ import type { Dispatch, SetStateAction } from 'react'
 
 import {
   Icon as UIIcon,
-  BuyButton as UIBuyButton,
+  Price as UIPrice,
   QuantitySelector as UIQuantitySelector,
 } from '@faststore/ui'
 
@@ -14,8 +14,9 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import Selectors from 'src/components/ui/SkuSelector'
 import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
 
-import { Components } from '../../sections/ProductDetails/Overrides'
-const { Price } = Components
+import { Components } from 'src/components/sections/ProductDetails/Overrides'
+
+const { BuyButton } = Components
 
 interface ProductDetailsSettingsProps {
   product: ProductDetailsFragment_ProductFragment
@@ -76,7 +77,7 @@ function ProductDetailsSettings({
     <>
       <section data-fs-product-details-values>
         <div data-fs-product-details-prices>
-          <Price
+          <UIPrice
             value={listPrice}
             formatter={useFormattedPrice}
             testId="list-price"
@@ -84,7 +85,7 @@ function ProductDetailsSettings({
             variant="listing"
             SRText="Original price:"
           />
-          <Price
+          <UIPrice
             value={lowPrice}
             formatter={useFormattedPrice}
             testId="price"
@@ -112,15 +113,15 @@ function ProductDetailsSettings({
         isValidating ? (
           <AddToCartLoadingSkeleton />
         ) : (
-          <UIBuyButton
+          <BuyButton
             disabled={buyDisabled}
             icon={
               <UIIcon aria-label={buyButtonIconAlt} name={buyButtonIconName} />
             }
             {...buyProps}
           >
-            {buyButtonTitle}
-          </UIBuyButton>
+            {buyButtonTitle || 'Add to Cart'}
+          </BuyButton>
         )
       }
     </>
