@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.177-alpha.0](https://github.com/vtex/faststore/compare/v2.0.176-alpha.0...v2.0.177-alpha.0) (2023-06-02)
+
+### Documentation
+
+- Configuring external DNS for a custom domain ([#1803](https://github.com/vtex/faststore/issues/1803)) ([d0b8726](https://github.com/vtex/faststore/commit/d0b8726aa0d27791eecfa2aaa9dd4aa0abc0a7c1))
+
 ## [2.0.175-alpha.0](https://github.com/vtex/faststore/compare/v2.0.174-alpha.0...v2.0.175-alpha.0) (2023-06-02)
 
 ### Features
