@@ -21,7 +21,11 @@ FastStore offers the ability to extend and customize your store components in th
 
 Change the behavior of specific components by changing their props in the [Headless CMS](/tbd). 
 In the VTEX Admin, go to **Storefront > Headless** and select the section where the desired component is located. 
-From there, you can customize the component by modifying its props. Find the list of available props for customization in the Headless CMS in [Available props for customization in Headless CMS]().
+From there, you can customize the component by modifying its props. Find the available props in each native section for customization in the Headless CMS in [List of available native sections](/docs/reference-guides/list-of-available-native-sections).
+
+<Callout type="warning" emoji="⚠️">
+The properties changed via Headless CMS overlap the changes made through [override](/docs/component-customization/overriding-a-native-component). For example, if you change a prop through override and also change it using Headless CMS, the final prop's value will be the one added using CMS.
+</Callout>
 
 ## 2. Theming customization
 Change the store theme and component styling using theming and design tokens. For detailed instructions on customizing through these methods, refer to the [Store Theme]() and [Styling a Component]() documentation.
