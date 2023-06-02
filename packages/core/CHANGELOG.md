@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.178-alpha.0](https://github.com/vtex/faststore/compare/v2.0.177-alpha.0...v2.0.178-alpha.0) (2023-06-02)
+
+### Bug Fixes
+
+- A11y tests ([#1817](https://github.com/vtex/faststore/issues/1817)) ([904e830](https://github.com/vtex/faststore/commit/904e830ff3ae47f3d7308fa8b1b9a28949561ed9))
+
 ## [2.0.176-alpha.0](https://github.com/vtex/faststore/compare/v2.0.175-alpha.0...v2.0.176-alpha.0) (2023-06-02)
 
 ### Bug Fixes
