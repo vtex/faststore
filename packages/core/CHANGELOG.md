@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.173-alpha.0 (2023-06-01)
+
+### Chores
+
+- temp skip flaky tests ([#1808](https://github.com/vtex/faststore/issues/1808)) ([734b000](https://github.com/vtex/faststore/commit/734b000ec7c8bff756e514cd9acbc77ecf0e9b62))
+
+## [2.0.172-alpha.0](https://github.com/vtex/faststore/compare/v2.0.171-alpha.0...v2.0.172-alpha.0) (2023-05-31)
+
+### Features
+
+- Override `WebFonts` ([#1799](https://github.com/vtex/faststore/issues/1799)) ([5fa4b9a](https://github.com/vtex/faststore/commit/5fa4b9ada4affcf508f05a95acabd542536ceacf))
+
 ## [2.0.169-alpha.0](https://github.com/vtex/faststore/compare/v2.0.168-alpha.0...v2.0.169-alpha.0) (2023-05-29)
 
 ### Chores

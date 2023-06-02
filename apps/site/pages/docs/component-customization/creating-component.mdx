@@ -22,6 +22,8 @@ In this guide, you'll learn how to create a component from scratch and use it in
 | ![faststore-component](https://vtexhelp.vtexassets.com/assets/docs/src/faststore-component___9fda96b01fa69408c634fe9d4a7b754d.png) | ![custom-component](https://vtexhelp.vtexassets.com/assets/docs/src/custom-component___c0f09a42811eea77e7fc986afd8e5ab3.png) |
 | The **FastStore `Price` component** displays the price of a given product, discount and total values                               | The **custom `Price` component** created can display any information that you set. In this case it renders the name `Price`  |
 
+---
+
 ## Step by step
 
 ### Step 1: Create the `Price` file
@@ -49,8 +51,7 @@ export default function Price(props: any) {
 
 To use the new `Price` component, you need to override the default `Price` component by following the next step.
 
-## Step 2: Override the default `Price` component
-
+### Step 2: Override the default `Price` component
 Now, let's override the component to render it in the Product Details page in the `ProductDetails` section.
 
 1. Inside the `components` folder, create a new folder called `overrides`.
