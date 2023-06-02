@@ -13,7 +13,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
   T extends LinkElementType = 'a'
 >(
   { href, inverse, children, variant = 'default', ...otherProps }: LinkProps<T>,
-  ref: Ref<HTMLAnchorElement> | undefined
+  ref: Ref<HTMLAnchorElement>
 ) {
   const isInternalLink = useMemo(
     () => href[0] === '/' && href[1] !== '/',
@@ -32,7 +32,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
         legacyBehavior={false}
         {...otherProps}
       >
-        <>{children}</>
+        {children}
       </UILink>
     )
   }
