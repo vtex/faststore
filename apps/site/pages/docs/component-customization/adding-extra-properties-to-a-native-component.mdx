@@ -59,7 +59,7 @@ const SECTION = "ProductDetails" as const;
 
 const overrides: SectionOverride[typeof SECTION] = {
     components: {
-        Price: CustomPrice,
+        Price: { Component: CustomPrice },
     },
 };
 
