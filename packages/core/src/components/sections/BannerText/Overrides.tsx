@@ -1,4 +1,7 @@
-import BannerText from '../../ui/BannerText'
+import {
+  Banner as UIBanner,
+  BannerContent as UIBannerContent,
+} from '@faststore/ui'
 
 import BannerTextCustomizations from 'src/customizations/components/overrides/BannerText'
 
@@ -19,7 +22,8 @@ Object.entries(BannerTextCustomizations.components).forEach(([key, value]) => {
 })
 
 const Components = {
-  BannerText,
+  Banner: UIBanner,
+  BannerContent: UIBannerContent,
   ...bannerTextComponentsCustomization,
 }
 
