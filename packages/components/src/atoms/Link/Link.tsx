@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import type { ElementType, ReactElement } from 'react'
+import type { ElementType } from 'react'
 import { PolymorphicComponentPropsWithRef, PolymorphicRef } from '../../typings'
 
 type LinkBaseProps = {
@@ -26,13 +26,7 @@ export type LinkElementType = ElementType
 export type LinkProps<C extends LinkElementType = 'a'> =
   PolymorphicComponentPropsWithRef<C, LinkBaseProps>
 
-type LinkComponent = <C extends LinkElementType = 'a'>(
-  props: LinkProps<C>
-) => ReactElement | null
-
-const Link: LinkComponent = forwardRef(function Link<
-  C extends LinkElementType = 'a'
->(
+const Link = forwardRef(function Link<C extends LinkElementType = 'a'>(
   {
     as,
     children,
