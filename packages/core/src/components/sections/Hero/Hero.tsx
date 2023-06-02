@@ -40,8 +40,8 @@ const Hero = ({
     <Section className={`${styles.section} section-hero`}>
       <HeroWrapper
         {...Props['Hero']}
-        colorVariant={colorVariant}
         variant={variant}
+        colorVariant={colorVariant}
       >
         <HeroImage {...Props['HeroImage']}>
           <Image
