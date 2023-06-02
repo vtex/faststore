@@ -98,6 +98,7 @@ function ProductDetails({
       name: variantName,
       brand,
       isVariantOf,
+      description,
       isVariantOf: { name, productGroupID: productId },
       image: productImages,
       offers: {
@@ -196,11 +197,10 @@ function ProductDetails({
                 formatter={useFormattedPrice}
                 title={shippingSimulatorTitle}
                 inputLabel={shippingSimulatorInputLabel}
-                idkPostalCodeLinkProps={
-                  <UILink href={shippingSimulatorLinkUrl}>
-                    {shippingSimulatorLinkText}
-                  </UILink>
-                }
+                idkPostalCodeLinkProps={{
+                  href: shippingSimulatorLinkUrl,
+                  children: shippingSimulatorLinkText,
+                }}
                 optionsLabel={shippingSimulatorOptionsTableTitle}
               />
             )}
@@ -208,8 +208,10 @@ function ProductDetails({
 
           {shouldDisplayProductDescription && (
             <ProductDescription
-              labels={{ description: productDescriptionDetailsTitle }}
               initiallyExpanded={productDescriptionInitiallyExpanded}
+              descriptionData={[
+                { title: productDescriptionDetailsTitle, content: description },
+              ]}
             />
           )}
         </section>
