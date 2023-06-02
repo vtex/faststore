@@ -164,14 +164,26 @@ Besides those attributes, the following props are also supported:
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-
+      <Banner variant="primary">
+        <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+      </Banner>
     </OverviewSection>
 
   </Tab>
   <Tab>
     ```tsx
-    <Banner>
-
+    <Banner variant="primary">
+      <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
     </Banner>
     ```
 
@@ -190,13 +202,26 @@ Besides those attributes, the following props are also supported:
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <Banner variant="secondary"></Banner>
+     <Banner variant="secondary">
+      <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Banner>
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
-
-         <Banner variant="secondary"></Banner>
+      <Banner variant="secondary">
+        <BannerContent
+          title="Explore more about our amazing products"
+          caption="All the amazing products from the brands we partner with."
+          link="/"
+          linkText="See more"
+        />
+      </Banner>
 
     ```
 
@@ -228,13 +253,26 @@ Besides those attributes, the following props are also supported:
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <Banner variant="secondary"></Banner>
+      <Banner colorVariant="main">
+      <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Banner>
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
-    <Banner variant="secondary"></Banner>
-
+    <Banner colorVariant="main">
+      <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Banner>
     ```
 
   </Tab>
@@ -259,8 +297,13 @@ Besides those attributes, the following props are also supported:
   <Tab>
     <OverviewSection>
       <Banner colorVariant="light">
-
-      </Banner>
+      <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Banner>
     </OverviewSection>
 
   </Tab>
@@ -269,7 +312,7 @@ Besides those attributes, the following props are also supported:
     <Banner colorVariant="light">
       <BannerContent
         title="Explore more about our amazing products"
-        subtitle="All the amazing products from the brands we partner with."
+        caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
