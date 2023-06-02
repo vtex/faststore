@@ -265,4 +265,33 @@ Let's make the first level of customization which is update the store's theme wi
   It is important to highlight that the store's logo is set through the [VTEX Headless CMS](https://www.faststore.dev/tutorials/cms/0).
 </Callout>
 
+---
+
+## Customizing a Component (Optional)
+If you are up for another challenge, let's customize a component. We will use the `Listing` variant from the [Price Component](/components/atoms/price) in this tutorial.
+
+1. In the `soft-blue.scss` file, add the `data-fs-price` and  `data-fs-price-variant` data attributes with the `Listing` value:
+
+```scss
+  ...
+  [data-fs-logo] {
+    --fs-logo-width: 8rem;
+  }
+
+  [data-fs-price] [data-fs-price-variant="listing"] {
+  }
+
+```
+
+2. Now, change the color of the `Listing` variant using its [local token](/components/atoms/price#design-tokens). For this tutorial, we will use the shade of red `#cb4242`:
+```scss
+  }
+
+  [data-fs-price][data-fs-price-variant="listing"] {
+      --fs-price-listing-color: #cb4242;
+  }
+
+```
+
+3. Save your changes and check your browser to see the new color of your listing price. You may need to refresh the page.
 
