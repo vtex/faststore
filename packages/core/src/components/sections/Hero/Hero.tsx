@@ -1,9 +1,8 @@
-import type { HeroProps as UIHeroProps } from '@faststore/ui'
 import {
-  Hero as UIHero,
-  HeroHeader as UIHeroHeader,
-  HeroImage as UIHeroImage,
+  HeroProps as UIHeroProps,
+  HeroHeaderProps as UIHeroHeaderProps,
 } from '@faststore/ui'
+import { Components, Props } from './Overrides'
 import { ReactNode } from 'react'
 import { Image } from 'src/components/ui/Image'
 import Section from '../Section'
@@ -11,8 +10,8 @@ import Section from '../Section'
 import styles from './section.module.scss'
 
 export type HeroProps = {
-  title: string
-  subtitle: string
+  title: UIHeroHeaderProps['title']
+  subtitle: UIHeroHeaderProps['subtitle']
   link?: {
     text: string
     url: string
@@ -26,19 +25,25 @@ export type HeroProps = {
   icon?: ReactNode
 }
 
+const { Hero: HeroWrapper, HeroImage, HeroHeader } = Components
+
 const Hero = ({
   link,
   title,
   subtitle,
   image,
-  variant = 'primary',
-  colorVariant = 'main',
+  variant = Props['Hero'].variant ?? 'primary',
+  colorVariant = Props['Hero'].colorVariant ?? 'main',
   icon,
 }: HeroProps) => {
   return (
     <Section className={`${styles.section} section-hero`}>
-      <UIHero colorVariant={colorVariant} variant={variant}>
-        <UIHeroImage data-fs-hero-image>
+      <HeroWrapper
+        {...Props['Hero']}
+        variant={variant}
+        colorVariant={colorVariant}
+      >
+        <HeroImage {...Props['HeroImage']}>
           <Image
             loading="eager"
             src={image.src}
@@ -47,15 +52,16 @@ const Hero = ({
             height={240}
             sizes="(max-width: 360px) 50vw, (max-width: 768px) 90vw, 50vw"
           />
-        </UIHeroImage>
-        <UIHeroHeader
+        </HeroImage>
+        <HeroHeader
           title={title}
           subtitle={subtitle}
           link={link?.url}
           linkText={link?.text}
           icon={icon}
+          {...Props['HeroHeader']}
         />
-      </UIHero>
+      </HeroWrapper>
     </Section>
   )
 }

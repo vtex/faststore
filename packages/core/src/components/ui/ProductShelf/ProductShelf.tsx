@@ -1,17 +1,20 @@
 import { useEffect, useId, useRef } from 'react'
 
-import { ProductShelf as UIProductShelf } from '@faststore/ui'
-
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
 import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import { textToKebabCase } from 'src/utils/utilities'
 
-import Carousel from '../../ui/Carousel'
+import {
+  Components,
+  Props,
+} from 'src/components/sections/ProductShelf/Overrides'
 
-import { Components } from 'src/components/ui/ProductShelf/Overrides'
-
-const { ProductCard } = Components
+const {
+  ProductShelf: ProductShelfWrapper,
+  __experimentalCarousel: Carousel,
+  __experimentalProductCard: ProductCard,
+} = Components
 
 type Sort =
   | 'discount_desc'
@@ -34,8 +37,8 @@ export type ProductShelfProps = {
     value: string
   }[]
   productCardConfiguration?: {
-    showDiscountBadge: boolean
-    bordered: boolean
+    showDiscountBadge?: boolean
+    bordered?: boolean
   }
   inView: boolean
 }
@@ -43,7 +46,10 @@ export type ProductShelfProps = {
 function ProductShelf({
   title,
   inView,
-  productCardConfiguration,
+  productCardConfiguration: {
+    bordered = Props['__experimentalProductCard'].bordered,
+    showDiscountBadge = Props['__experimentalProductCard'].showDiscountBadge,
+  } = {},
   ...variables
 }: ProductShelfProps) {
   const titleId = textToKebabCase(title)
@@ -79,25 +85,28 @@ function ProductShelf({
         aspectRatio={aspectRatio}
         loading={products === undefined}
       >
-        <UIProductShelf>
-          <Carousel id={titleId || id}>
+        <ProductShelfWrapper {...Props['ProductShelfWrapper']}>
+          <Carousel id={titleId || id} {...Props['__experimentalCarousel']}>
             {productEdges.map((product, idx) => (
               <ProductCard
-                bordered={productCardConfiguration?.bordered}
-                showDiscountBadge={productCardConfiguration?.showDiscountBadge}
-                key={`${product.node.id}`}
-                product={product.node}
-                index={idx + 1}
                 aspectRatio={aspectRatio}
                 imgProps={{
                   width: 216,
                   height: 216,
                   sizes: '(max-width: 768px) 42vw, 30vw',
                 }}
+                {...Props['__experimentalProductCard']}
+                bordered={bordered}
+                showDiscountBadge={showDiscountBadge}
+                // Dynamic props, shouldn't be overridable
+                // This decision can be reviewed later if needed
+                key={`${product.node.id}`}
+                product={product.node}
+                index={idx + 1}
               />
             ))}
           </Carousel>
-        </UIProductShelf>
+        </ProductShelfWrapper>
       </ProductShelfSkeleton>
     </>
   )

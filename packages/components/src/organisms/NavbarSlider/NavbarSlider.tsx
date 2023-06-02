@@ -32,9 +32,9 @@ function NavbarSlider({
   return (
     <SlideOver
       data-fs-navbar-slider
-      size="full"
+      size={size}
       isOpen={isOpen}
-      direction="leftSide"
+      direction={direction}
       data-testid={testId}
       {...otherProps}
     >

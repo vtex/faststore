@@ -1,0 +1,394 @@
+---
+description: Banners are used for advertising brands, products, and/or collections. They comprise an image, some text content, and a call-to-action button.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Hero___c73fdfe80ce87c2ccc4701c07e9d5398.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { Banner, BannerContent } from '@faststore/ui'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const bannerPath = path.resolve(__filename)
+  const components = ['Banner.tsx', 'BannerContent.tsx']
+  const [bannerProps, bannerContentProps] = getComponentPropsFrom(
+    bannerPath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        bannerProps,
+        bannerContentProps,
+      },
+    },
+  }
+}
+
+export const BannerPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { bannerProps, bannerContentProps } = useSSG()
+  return {
+    Banner: <PropsSection propsList={bannerProps} />,
+    BannerContent: <PropsSection propsList={bannerContentProps} />,
+  }[component]
+}
+
+<header>
+
+# Banner
+
+Banners are used for advertising brands, products, and/or collections. They comprise an image, some text content, and a call-to-action button.
+
+</header>
+
+The final `Banner` component is a compound of the following:
+
+- `Banner`: wraps the Banner component.
+- `BannerContent`: the content of the banner, including a title, caption, and Link.
+
+---
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { Banner, BannerContent } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/organisms/Banner/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Banner>
+        <BannerContent
+          title="Explore more about our amazing products"
+          caption="All the amazing products from the brands we partner with."
+          link="/"
+          linkText="See more"
+        />
+      </Banner>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Banner>
+      <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Banner>
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+All banner-related components support all attributes also supported by the `<div>` tag.
+Besides those attributes, the following props are also supported:
+
+### Banner
+
+<BannerPropsSection component="Banner" />
+
+### BannerContent
+
+<BannerPropsSection component="BannerContent" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-banner-padding-mobile" value="var(--fs-spacing-6) 5%" />
+  <TokenRow
+    token="--fs-banner-padding-desktop"
+    value="var(--fs-spacing-9) 15%"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Button Link
+
+<TokenTable>
+  <TokenRow token="--fs-banner-button-link-min-width" value="11.25rem" />
+  <TokenRow
+    token="--fs-banner-button-link-margin-top"
+    value="var(--fs-spacing-6)"
+  />
+</TokenTable>
+
+#### Title
+
+<TokenTable>
+  <TokenRow token="--fs-banner-title-size" value="var(--fs-text-size-lead)" />
+  <TokenRow
+    token="--fs-banner-title-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenRow token="--fs-banner-line-height" value="1.2" />
+</TokenTable>
+
+### Hierarchy
+
+#### Primary
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Banner variant="primary">
+        <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+      </Banner>
+    </OverviewSection>
+
+  </Tab>
+  <Tab>
+    ```tsx
+    <Banner variant="primary">
+      <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Banner>
+    ```
+
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-primary-title-size"
+    value="var(--fs-text-size-title-page)"
+  />
+</TokenTable>
+
+#### Secondary
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+     <Banner variant="secondary">
+      <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Banner>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+      <Banner variant="secondary">
+        <BannerContent
+          title="Explore more about our amazing products"
+          caption="All the amazing products from the brands we partner with."
+          link="/"
+          linkText="See more"
+        />
+      </Banner>
+
+    ```
+
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-banner-secondary-title-size"
+    value="var(--fs-text-size-4)"
+  />
+  <TokenRow
+    token="--fs-banner-secondary-caption-size"
+    value="var(--fs-text-size-base)"
+  />
+  <TokenRow
+    token="--fs-banner-secondary-caption-weight"
+    value="var(--fs-text-weight-regular)"
+  />
+  <TokenRow token="--fs-banner-secondary-caption-line-height" value="1.5" />
+</TokenTable>
+
+---
+
+### Variants
+
+#### Main
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Banner colorVariant="main">
+      <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Banner>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Banner colorVariant="main">
+      <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Banner>
+    ```
+
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-banner-main-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-banner-main-text-color"
+    value="var(--fs-color-primary-text)"
+    isColor
+  />
+</TokenTable>
+
+#### Light
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Banner colorVariant="light">
+      <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Banner>
+    </OverviewSection>
+
+  </Tab>
+  <Tab>
+    ```tsx
+    <Banner colorVariant="light">
+      <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Banner>
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-banner-light-bkg-color"
+    value="var(--fs-color-secondary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-banner-light-text-color"
+    value="var(--fs-color-text-display)"
+    isColor
+  />
+</TokenTable>
+
+#### Accent
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Banner colorVariant="accent">
+        <BannerContent
+          title="Explore more about our amazing products"
+          caption="All the amazing products from the brands we partner with."
+          link="/"
+          linkText="See more"
+        />
+      </Banner>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Banner colorVariant="accent">
+      <BannerContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Banner>
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-banner-accent-bkg-color"
+    value="var(--fs-color-highlighted-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-banner-accent-text-color"
+    value="var(--fs-banner-light-text-color)"
+    globalValue="var(--fs-color-text-display)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+`data-fs-banner`
+
+`data-fs-banner-variant="primary" | "secondary"`
+
+`data-fs-banner-color-variant="main" | "light" | "accent"`
+
+`data-fs-banner-content`
+
+`data-fs-banner-heading`
+
+`data-fs-banner-link`

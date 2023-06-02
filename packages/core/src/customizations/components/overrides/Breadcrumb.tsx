@@ -2,11 +2,14 @@
 
 import { SectionOverride } from 'src/typings/overrides'
 
-const SECTION = 'ProductDetails' as const
+const SECTION = 'Breadcrumb' as const
 
 const overrides: SectionOverride[typeof SECTION] = {
   name: SECTION,
-  components: {},
+  components: {
+    Breadcrumb: { props: {} },
+    Icon: { props: {} },
+  },
 }
 
 export default overrides
