@@ -4,7 +4,6 @@ import { gql } from '@faststore/graphql-utils'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
-import { Link as UILink } from '@faststore/ui'
 
 import { useSession } from 'src/sdk/session'
 import { useProduct } from 'src/sdk/product/useProduct'
