@@ -68,7 +68,7 @@ function NavbarSection({
   },
 }: NavbarProps) {
   return (
-    <Section as="header" className={`${styles.section} section-navbar`}>
+    <Section className={`${styles.section} section-navbar`}>
       <Navbar
         home={home}
         menu={menu}
