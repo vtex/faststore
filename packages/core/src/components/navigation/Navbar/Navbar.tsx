@@ -1,4 +1,4 @@
-import { Suspense, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { useUI, useScrollDirection, Icon as UIIcon } from '@faststore/ui'
 
@@ -11,7 +11,7 @@ import NavbarSlider from 'src/components/navigation/NavbarSlider'
 import CartToggle from 'src/components/cart/CartToggle'
 import Logo from 'src/components/ui/Logo'
 import Link from 'src/components/ui/Link'
-import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
+import { ButtonSignIn } from 'src/components/ui/Button'
 
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
 
