@@ -5,8 +5,6 @@ import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEve
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import { textToKebabCase } from 'src/utils/utilities'
 
-import Carousel from '../../ui/Carousel'
-
 import {
   Components,
   Props,
@@ -14,6 +12,7 @@ import {
 
 const {
   ProductShelf: ProductShelfWrapper,
+  __experimentalCarousel: Carousel,
   __experimentalProductCard: ProductCard,
 } = Components
 
@@ -87,7 +86,7 @@ function ProductShelf({
         loading={products === undefined}
       >
         <ProductShelfWrapper {...Props['ProductShelfWrapper']}>
-          <Carousel id={titleId || id}>
+          <Carousel id={titleId || id} {...Props['__experimentalCarousel']}>
             {productEdges.map((product, idx) => (
               <ProductCard
                 aspectRatio={aspectRatio}

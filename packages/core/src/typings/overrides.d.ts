@@ -14,7 +14,13 @@ export const SECTIONS = {
       'ShippingSimulation',
     ],
   },
-  ProductShelf: { components: ['ProductShelf', '__experimentalProductCard'] },
+  ProductShelf: {
+    components: [
+      'ProductShelf',
+      '__experimentalCarousel',
+      '__experimentalProductCard',
+    ],
+  },
   Navbar: {
     components: [
       'Navbar',

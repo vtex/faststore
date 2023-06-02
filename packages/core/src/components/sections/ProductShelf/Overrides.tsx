@@ -1,5 +1,6 @@
 import { ProductShelf as UIProductShelf } from '@faststore/ui'
 import ProductCard from 'src/components/product/ProductCard'
+import Carousel from 'src/components/ui/Carousel'
 
 import ProductShelfCustomizations from 'src/customizations/components/overrides/ProductShelf'
 
@@ -25,6 +26,7 @@ Object.entries(ProductShelfCustomizations.components).forEach(
 
 const Components = {
   ProductShelf: UIProductShelf,
+  __experimentalCarousel: Carousel,
   __experimentalProductCard: ProductCard,
   ...productShelfComponentsCustomization,
 }
