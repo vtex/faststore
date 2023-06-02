@@ -1,5 +1,5 @@
 ---
-title: 'List of available native sections'
+title: 'List of available native sections and overridable components'
 sidebar_label: 'Reference'
 ---
 
@@ -7,7 +7,7 @@ import { Callout, Tab, Tabs } from 'nextra-theme-docs'
 
 <header>
 
-# List of available native sections
+# List of available native sections and overridable components
 
 </header>
 
@@ -17,12 +17,61 @@ This documentation is currently under development.
 
 Sections in FastStore are components that organize and encapsulate other components, enabling you to create cohesive and functional content for your store.
 
-For example, the Hero is a native section designed to capture your brand's identity and messaging. To effective function in the store, the Hero comprises three components: UIHero, UIHeroImage, and UIHeroHeader.
+For example, the Hero is a native section designed to capture your brand's identity and messaging. To effective function in the store, the Hero comprises three components: `UIHero`, `UIHeroImage`, and `UIHeroHeader`.
 
 ---
 
 ## FastStore native sections
 Check out below a list of FastStore native sections, their components, which of the components you can override and if the section have properties that can be changed through Headless CMS.
+
+<details>
+<summary><b>Hero</b></summary>
+
+| Type                                                      | Availability                                         |
+| :---------------------------------------------------------| :----------------------------------------------------|
+| Documentation                                             | [Hero FastStore UI](/components/organisms/hero).     |
+| Components                                                | <ul><li>- `Hero (UIHero)`</li><li>- `HeroImage (UIHeroImage)`</li><li>- `HeroHeader (UIHeroHeader)`</li> </ul>    |
+| Overridable components                                    | All components listed above can be override. |
+| Headless CMS: properties customization                    | <ul><li>- `ButtonProps (Label, Icon)`</li><li>- `ColorVariant`</li><li>- `Variant`</li></ul>                      |
+
+</details>
+
+<details>
+<summary><b>Breadcrumb</b></summary>
+
+| Type                                                      | Availability                                         |
+| :---------------------------------------------------------| :----------------------------------------------------|
+| Documentation                                             | [Breadcrumb FastStore UI](/components/molecules/breadcrumb).     |
+| Components                                                | `Breadcrumb (UIBreadcrumb)`   |
+| Overridable components                                    | `Breadcrumb (UIBreadcrumb)` |
+| Headless CMS: properties customization                    | `HomeIcon`                      |
+
+</details>
+
+<details>
+<summary><b>Navbar</b></summary>
+
+| Type                                                      | Availability                                         |
+| :---------------------------------------------------------| :----------------------------------------------------|
+| Documentation                                             | [Navbar FastStore UI](/components/organisms/navbar).     |
+| Components                                                | <ul><li>- `Logo`</li> <li>- `CartToggle`</li> <li>- `ButtonSignIn`</li> <li>- `NavbarLinks (UINavbarLinks)`</li> <li>- `SearchInput`</li> <li>- `RegionBar`</li> <li>- `Logo`</li> <li>- `Navbar (UINavbar)`</li> <li>- `NavbarSlider (UINavbarSlider)`</li> <li>- `NavbarSliderHeader (UINavbarSliderHeader)`</li> <li>- `NavbarSliderContent  (UINavbarSliderContent)`</li> <li>- `NavbarSliderFooter  (NavbarSliderFooter)`</li></ul>    |
+| Overridable components                                    | All components listed above can be override. |
+| Headless CMS: properties customization                    | <ul><li>- `Logo`</li> <li>- `Cart Icon`</li> <li>- `SignInbutton`</li> <li>- `SignInbutton`</li> <li>- `Navlinks`: `RegionBar`, `Icon`, `shouldDisplayRegion`, `Page Links`</li></ul>                      |
+
+</details>
+
+<details>
+<summary><b>BannerText</b></summary>
+
+| Type                                                      | Availability                                         |
+| :---------------------------------------------------------| :----------------------------------------------------|
+| Documentation                                             | Coming soon!     |
+| Components                                                | <ul><li>- `Logo`</li> <li>- `CartToggle`</li> <li>- `ButtonSignIn`</li> <li>- `NavbarLinks (UINavbarLinks)`</li> <li>- `SearchInput`</li> <li>- `RegionBar`</li> <li>- `Logo`</li> <li>- `Navbar (UINavbar)`</li> <li>- `NavbarSlider (UINavbarSlider)`</li> <li>- `NavbarSliderHeader (UINavbarSliderHeader)`</li> <li>- `NavbarSliderContent  (UINavbarSliderContent)`</li> <li>- `NavbarSliderFooter  (NavbarSliderFooter)`</li></ul>    |
+| Overridable components                                    | All components listed above can be override. |
+| Headless CMS: properties customization                    | <ul><li>- `Logo`</li> <li>- `Cart Icon`</li> <li>- `SignInbutton`</li> <li>- `SignInbutton`</li> <li>- `Navlinks`: `RegionBar`, `Icon`, `shouldDisplayRegion`, `Page Links`</li></ul>                      |
+
+</details>
+
 
 <details>
 <summary><b>Alert</b></summary>
@@ -62,5 +111,3 @@ Check out below a list of FastStore native sections, their components, which of 
 
 </details>
 
-
-### Experimental Overridable components
