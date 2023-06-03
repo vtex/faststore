@@ -10,6 +10,36 @@ import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { ProductTitle, DiscountBadge } from '@faststore/ui'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const productTitlePath = path.resolve(__filename)
+  const components = ['ProductTitle.tsx']
+  const [productTitleProps] = getComponentPropsFrom(
+    productTitlePath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        productTitleProps,
+      },
+    },
+  }
+}
+
+export const ProductTitlePropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { productTitleProps } = useSSG()
+  return {
+    ProductTitle: <PropsSection propsList={productTitleProps} />,
+  }[component]
+}
+
 <header>
 # Product Title
 
@@ -120,7 +150,7 @@ import '@faststore/ui/src/components/molecules/ProductTitle/styles.scss'
 
 ## Props
 
-<PropsSection name="ProductTitle" />
+<ProductTitlePropsSection component="ProductTitle" />
 
 ---
 

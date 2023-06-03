@@ -2,9 +2,8 @@ import React, { forwardRef, HTMLAttributes } from 'react'
 import type { ReactNode } from 'react'
 
 import { Rating } from '../../'
-import type { RatingProps } from '../../'
 
-export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
+interface ProductTitleProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -29,7 +28,7 @@ export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
    * The current value of the rating, a number from 0 to 5.
    */
   ratingValue?: number
-} & Omit<RatingProps, 'testId' | 'onChange' | 'value' | 'title'>
+}
 
 const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
   function ProductTitle(
