@@ -1427,45 +1427,6 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@faststore/api@^2.0.79-alpha.0":
-  version "2.0.79-alpha.0"
-  resolved "https://registry.yarnpkg.com/@faststore/api/-/api-2.0.79-alpha.0.tgz#9b958be6ab24bca72cd4900ed300d5bd94f51df9"
-  integrity sha512-0UaEPtSjOGevDfMe5F7Z+QESa7jyEwNxF9HM1TOlhgcV20DZTrvM2iJkNJOUiSW0UEs4bFqPsD0gQofQpgA8MQ==
-  dependencies:
-    "@graphql-tools/schema" "^8.2.0"
-    "@rollup/plugin-graphql" "^1.0.0"
-    dataloader "^2.1.0"
-    fast-deep-equal "^3.1.3"
-    isomorphic-unfetch "^3.1.0"
-    p-limit "^3.1.0"
-
-"@faststore/components@*":
-  version "1.12.37"
-  resolved "https://registry.yarnpkg.com/@faststore/components/-/components-1.12.37.tgz#125b59b28f444c0aa13fb92fedb479bf3f984b9f"
-  integrity sha512-IDkMa7/Y7FSAsi+DKBZuRW5EFFqsjFFPSCpUXVWXa3rKPC4EejjhCaQK7EWBTtDeokbuyoSfIkCEutFBhIJ+yQ==
-
-"@faststore/eslint-config@*":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@faststore/eslint-config/-/eslint-config-0.0.1.tgz#c4dea566a157ada8e1d8a688190d9e3f7d720968"
-  integrity sha512-HqsjnT/IcQjWb/cViqrHJiuhQXp2Mi1OPKSQl637pYNsKS7MOpTCI4C+2+VZKnYIt867bbRx0hI9qCXYAINP0A==
-  dependencies:
-    eslint "7.32.0"
-    eslint-config-next "13.0.0"
-    eslint-config-prettier "^8.3.0"
-    eslint-config-turbo latest
-    eslint-plugin-react "7.31.8"
-    next "13.0.7"
-
-"@faststore/graphql-utils@^2.0.3-alpha.0":
-  version "2.0.3-alpha.0"
-  resolved "https://registry.yarnpkg.com/@faststore/graphql-utils/-/graphql-utils-2.0.3-alpha.0.tgz#1d70065f5fcaafc51e9399b11b1b117a28a89f38"
-  integrity sha512-+kOX1fOHWMp/GqY9ooYuOwQbvHREoIoIm3CA/B6twPtwU/3G4W7+NZVYPUK1InVDxBQIEWfqPNSxgVTXvGfrFg==
-  dependencies:
-    "@babel/traverse" "^7.15.4"
-    "@babel/types" "^7.15.6"
-    "@graphql-codegen/plugin-helpers" "^2.2.0"
-    "@graphql-tools/relay-operation-optimizer" "^6.4.0"
-
 "@faststore/lighthouse@^1.12.32":
   version "1.12.32"
   resolved "https://registry.yarnpkg.com/@faststore/lighthouse/-/lighthouse-1.12.32.tgz#840096bc88ce80041217c764df97d9f0b4968658"
