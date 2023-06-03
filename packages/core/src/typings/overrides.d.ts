@@ -10,8 +10,16 @@ export const SECTIONS = {
       'ProductTitle',
       'DiscountBadge',
       'BuyButton',
+      'Icon',
+      'Price',
+      'QuantitySelector',
       'SkuSelector',
       'ShippingSimulation',
+      'ImageGallery',
+      'ImageZoom',
+      '__experimentalImageGalleryImage',
+      '__experimentalImageGallery',
+      '__experimentalShippingSimulation',
     ],
   },
   ProductShelf: {
@@ -38,6 +46,21 @@ export const SECTIONS = {
   },
   Breadcrumb: {
     components: ['Breadcrumb', 'Icon'],
+  },
+  ProductGallery: {
+    components: [
+      'Button',
+      'FilterIcon',
+      'PrevIcon',
+      'ResultsCountSkeleton',
+      'SortSkeleton',
+      'FilterButtonSkeleton',
+      'LinkButtonPrev',
+      'LinkButtonNext',
+      '__experimentalFilterDesktop',
+      '__experimentalFilterSlider',
+      '__experimentalProductCard',
+    ],
   },
 } as const
 

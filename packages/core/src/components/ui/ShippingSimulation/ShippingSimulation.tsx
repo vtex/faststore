@@ -8,8 +8,6 @@ import { useShippingSimulation } from './useShippingSimulation'
 
 import { Components } from 'src/components/sections/ProductDetails/Overrides'
 
-const { ShippingSimulation: ShippingSimulationWrapper } = Components
-
 type ShippingSimulationOptionalProps =
   | 'title'
   | 'formatter'
@@ -58,6 +56,7 @@ export default function ShippingSimulation({
   ...otherProps
 }: ShippingSimulationProps) {
   const { country, postalCode: sessionPostalCode } = useSession()
+  const { ShippingSimulation: ShippingSimulationWrapper } = Components
 
   const {
     input,

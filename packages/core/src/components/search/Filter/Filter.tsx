@@ -1,12 +1,19 @@
 import { gql } from '@faststore/graphql-utils'
 import { useUI } from '@faststore/ui'
 import type { Filter_FacetsFragment } from '@generated/graphql'
-import { lazy, Suspense } from 'react'
+import { Suspense } from 'react'
 import { ProductGalleryProps } from 'src/components/ui/ProductGallery/ProductGallery'
-import FilterDesktop from './FilterDesktop'
 import { useFilter } from './useFilter'
 
-const FilterSlider = lazy(() => import('./FilterSlider'))
+import {
+  Components,
+  Props,
+} from 'src/components/sections/ProductGallery/Overrides'
+
+const {
+  __experimentalFilterDesktop: FilterDesktop,
+  __experimentalFilterSlider: FilterSlider,
+} = Components
 
 interface Props {
   /**
@@ -36,6 +43,7 @@ function Filter({
     <>
       <div className="hidden-mobile">
         <FilterDesktop
+          {...Props['__experimentalFilterDesktop']}
           {...filter}
           testId={testId}
           title={filterCmsData?.title}
@@ -45,6 +53,7 @@ function Filter({
       {displayFilter && (
         <Suspense fallback={null}>
           <FilterSlider
+            {...Props['__experimentalFilterSlider']}
             {...filter}
             testId={testId}
             title={filterCmsData?.title}
