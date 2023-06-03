@@ -3,7 +3,8 @@ import type { ReactNode } from 'react'
 
 import { Rating } from '../../'
 
-interface ProductTitleProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
+export interface ProductTitleProps
+  extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
