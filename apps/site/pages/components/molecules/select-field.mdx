@@ -10,6 +10,33 @@ import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SelectField } from '@faststore/ui'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const selectFieldPath = path.resolve(__filename)
+  const components = ['SelectField.tsx']
+  const [selectFieldProps] = getComponentPropsFrom(selectFieldPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        selectFieldProps,
+      },
+    },
+  }
+}
+
+export const SelectFieldPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { selectFieldProps } = useSSG()
+  return {
+    SelectField: <PropsSection propsList={selectFieldProps} />,
+  }[component]
+}
+
 <header>
 
 # Select Field
@@ -117,7 +144,7 @@ import '@faststore/ui/src/components/molecules/SelectField/styles.scss'
 
 ## Props
 
-<PropsSection name="SelectField" />
+<SelectFieldPropsSection component="SelectField" />
 
 ---
 
