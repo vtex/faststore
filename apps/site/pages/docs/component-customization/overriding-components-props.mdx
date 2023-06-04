@@ -15,7 +15,7 @@ import { Callout } from 'nextra-theme-docs'
   This documentation is currently under development.
 </Callout>
 
-In this guide you'll learn how to customize a native component by adding extra props to it. Adding extra props allows you to customize a component's behavior without modifying the integration built for the native component.
+In this guide you'll learn how to customize a native component by overriding its props. Overriding props allows you to customize a component's behavior without modifying the integration built for the native component.
 This approach is particularly useful when you want to change specific aspects of a native component while preserving its integration.
 
 For example, if you want to change the value set in the Price component in a PDP, you can add a new value for the component though its props.
@@ -24,49 +24,33 @@ For example, if you want to change the value set in the Price component in a PDP
 
 **Choose a native section and the component you want to customize.**
 
-All component customizations in FastStore are done within a section, so choose the native section and component you wish to add extra props to.
-Check out the available native sections and its components in the [List of available native sections](/tbd).
+All component customizations in FastStore are done within a section, so choose the native section and component you wish to override its props.
+Check out the available native sections and its overridable components in the [List of available native sections](/tbd).
+After knowing which components can be overridable, you can find the list of props for this component in our documentation.
 
-For this guide, we'll use the [Price component](/components/atoms/price) as an example. Here's how the initial component looks like with the value prop set as `950.04`:
+For this guide, we'll use the Price component and you can find the list of this component's props on the [Price component documentation](/components/atoms/price#props). Here's how the initial component looks like with the value prop set as `950.04`:
 
 ![native-price-component](https://vtexhelp.vtexassets.com/assets/docs/src/price-component___6f5e46b0ca037bb5e1beff5f67166cf6.png)
 
 ## Step by step
 
-1. Create a `components` folder in the `src` directory.
-2. Inside the `components` folder, create a file named `Price.tsx` and add the following code:
+1. Create an `overrides` folder inside the `components` folder.
+2. Inside the `overrides` folder, create a file named `ProductDetails.tsx`
+3. Open the `ProductDetails.tsx` file and add the following code:
 
 ```tsx
-import React, { FunctionComponent } from 'react'
-import { Price as UIPrice, PriceProps } from '@faststore/ui'
-
-export function Price(props: PriceProps) {
-  return <UIPrice {...props} value={800}></UIPrice>
-}
-```
-
-The code above imports the necessary components and props from the @faststore/ui package. It creates a _Custom Price_ component that sets the `value` prop to `800`.
-
-3. Create an `overrides` folder inside the `components` folder.
-4. Inside the `overrides` folder, create a file named `ProductDetails.tsx`
-5. Open the `ProductDetails.tsx` file and add the following code:
-
-```tsx
-import { Price as CustomPrice } from '../Price'
 import { SectionOverride } from './types'
 
 const SECTION = 'ProductDetails' as const
 
 const overrides: SectionOverride[typeof SECTION] = {
   components: {
-    Price: { Component: CustomPrice },
+    Price: { props: { value: 800 } },
   },
 }
 
 export default overrides
 ```
-
-This code imports the _Custom Price_ component and overrides the native Price component in the `ProductDetails` section.
 
 6. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser to see the updated Price component with the new `value`prop set to `800`:
 

@@ -17,12 +17,13 @@ import { Callout } from 'nextra-theme-docs'
 
 In this guide, you will learn how to override a native component to use a custom component.
 
-The `@faststore/core` package provides a set of native sections. These native sections are made up of various components, each offering distinct functionalities. You can customize specific components within a native section or replace them entirely with alternative options that better align with your desired functionality or appearance. For example, you may want to modify the behavior of the `Price` component from the [TODO] section to meet your business needs.
+The `@faststore/core` package provides a set of native sections. These native sections are made up of various components, each offering distinct functionalities. You can customize specific components within a native section or replace them entirely with alternative options that better align with your desired functionality or appearance. For example, you may want to modify the behavior of the `Price` component from the `ProductDetails` section to meet your business needs.
 
 <Callout type="warning" emoji="⚠️">
   **By overriding a component, you lose all the integration developed on
   [@faststore/core](docs/getting-started/project-structure#faststorecore) for
-  that component.** We highly recommend that you pass additional props and use
+  that component.** We highly recommend trying first [overriding
+  props](/docs/component-customization/overriding-components-props) and/or using
   our [theming tools](/docs/customizing) to achieve the desired behavior without
   compromising the existing integration implemented in `@faststore/core`. You
   can find the available props for each component on the [Components
@@ -56,9 +57,9 @@ Also, consider the following:
 ```tsx
 import { SectionOverride } from '@faststore/core/src/typings/overrides'
 
-const SECTION = 'ProductDetails'
+const SECTION = 'ProductDetails' as const
 
-const overrides: SectionOverride[SECTION] = { name: SECTION, components: {} }
+const overrides: SectionOverride[type of SECTION] = { name: SECTION, components: {} }
 
 export default overrides
 ```
@@ -71,25 +72,48 @@ export default overrides
 
 4. Save your changes.
 
-### Step 2 - Overriding the component
+### Step 2 - Creating your custom component
+
+1. Create a `components` folder in the `src` directory.
+2. Inside the `components` folder, create a file named `Price.tsx` and add the following code:
+
+```tsx
+import React from 'react'
+import { Price as UIPrice, PriceProps } from '@faststore/ui'
+
+export function Price(props: PriceProps) {
+  return <UIPrice {...props} value={800}></UIPrice>
+}
+```
+
+The code above imports the Price component and its props from the @faststore/ui package. It creates a _Custom Price_ component that sets the `value` prop to `800`. You can create any component as you wish.
+
+### Step 3 - Overriding the component
 
 1. Choose a component to override from the [list of overridable components for each native section](/docs/reference-guides/list-of-overridable-components-for-each-native-section). In this example, we are overriding the `Price` component.
-2. Open your FastStore project in any code editor of your preference.
-3. Inside the `components` folder, add a new file with the name of the component you wish to override.
+2. Navigate to `src/components/overrides` that we've created in the previous step.
+3. Open the `ProductDetails.tsx` file and update with the following code:
 
 ```tsx
 import { SectionOverride } from '@faststore/core/src/typings/overrides'
+import { Price as CustomPrice } from '../Price'
 
-const SECTION = 'ProductDetails'
+const SECTION = 'ProductDetails' as const
 
-const overrides: SectionOverride[SECTION] = {
+const overrides: SectionOverride[type of SECTION] = {
   name: SECTION,
   components: {
-    Price: {},
+    Price: { Component: CustomPrice },
   },
 }
 
 export default overrides
 ```
+
+This code imports the _Custom Price_ component and overrides the native Price component in the `ProductDetails` section.
+
+6. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser to see the updated Price component with the new `value`prop set to `800`:
+
+![custom-price](https://vtexhelp.vtexassets.com/assets/docs/src/custom-price___c203101c038f09191e735fd0d8c1d13e.png)
 
 {/* TODO: Add & review Overriding or Passing additional props to a component when implemented */}
