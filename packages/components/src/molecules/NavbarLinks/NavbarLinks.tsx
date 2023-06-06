@@ -15,7 +15,7 @@ const NavbarLinks = forwardRef<HTMLDivElement, NavbarLinksProps>(
   ) {
     return (
       <nav data-fs-navbar-links ref={ref} data-testid={testId} {...otherProps}>
-        <div data-fs-navbar-links-wrapper>{children}</div>
+        {children}
       </nav>
     )
   }

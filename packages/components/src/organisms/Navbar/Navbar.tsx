@@ -21,7 +21,6 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(function Navbar(
       data-fs-navbar
       role="banner"
       data-fs-navbar-scroll={scrollDirection}
-      data-fs-content="navbar"
       ref={ref}
       data-testid={testId}
       {...otherProps}
