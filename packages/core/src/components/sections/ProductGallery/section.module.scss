@@ -36,7 +36,4 @@
   @import "@faststore/ui/src/components/organisms/PriceRange/styles.scss";
   @import "@faststore/ui/src/components/organisms/ProductGrid/styles.scss";
   @import "@faststore/ui/src/components/organisms/ProductGallery/styles.scss";
-
-  [data-fs-content="product-gallery"] { @include layout-content; }
-  [data-fs-content="empty-state"] { @include layout-content; }
 }

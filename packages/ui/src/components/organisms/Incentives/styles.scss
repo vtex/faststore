@@ -42,8 +42,6 @@
     overflow-x: auto;
     overflow-y: hidden;
 
-    @include layout-content;
-
     @include media(">=notebook") {
       justify-content: center;
     }

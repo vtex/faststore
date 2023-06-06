@@ -44,14 +44,13 @@
   height: 100%;
   text-align: center;
 
-  [data-fs-banner-text-content] {
+  [data-fs-banner-content] {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
     padding: var(--fs-banner-padding-mobile);
-    @include layout-content;
     @include media(">=notebook") {
       padding: var(--fs-banner-padding-desktop);
     }

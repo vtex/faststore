@@ -23,6 +23,4 @@
   @import "@faststore/ui/src/components/organisms/ShippingSimulation/styles.scss";
   @import "@faststore/ui/src/components/organisms/ImageGallery/styles.scss";
   @import "@faststore/ui/src/components/organisms/ProductDetails/styles.scss";
-
-  [data-fs-content="product-details"] { @include layout-content; }
 }

@@ -35,10 +35,6 @@
     padding-top: 0;
   }
 
-  [data-fs-footer-wrapper] {
-    @include layout-content;
-  }
-
   [data-fs-footer-links-title],
   [data-fs-footer-social-title] {
     margin-bottom: var(--fs-footer-title-margin-bottom);

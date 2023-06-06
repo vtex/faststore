@@ -1,4 +1,7 @@
 .section {
+
+  [data-fs-content="product-shelf"] { @include layout-content-full; }
+
   [data-fs-product-shelf-skeleton] {
     --fs-carousel-item-width-tablet    : 14.2rem;
     --fs-carousel-item-margin-right    : var(--fs-spacing-3);

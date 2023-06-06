@@ -85,8 +85,6 @@
     gap: var(--fs-spacing-3);
     justify-content: space-between;
 
-    @include layout-content;
-
     @include media(">=tablet") {
       gap: var(--fs-spacing-1);
       justify-content: flex-start;

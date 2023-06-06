@@ -23,6 +23,7 @@ $base: 16px !default;
   @return #{$rem}rem;
 }
 
+
 @mixin layout-content {
   box-sizing: border-box;
   width: calc(100% - var(--fs-grid-padding) - var(--fs-grid-padding));
@@ -31,7 +32,12 @@ $base: 16px !default;
   margin-left: auto;
 }
 
-@mixin layout-colored( $bkg-color: var(--fs-color-neutral-bkg), $padding-top: var(--fs-spacing-5), $padding-bottom: var(--fs-spacing-7)) {
+@mixin layout-content-full {
+  width: 100%;
+  max-width: 100%;
+}
+
+@mixin layout-colored($bkg-color: var(--fs-color-neutral-bkg), $padding-top: var(--fs-spacing-5), $padding-bottom: var(--fs-spacing-7)) {
   padding-top: $padding-top;
   padding-bottom: $padding-bottom;
   background-color: $bkg-color;

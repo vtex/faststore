@@ -15,9 +15,8 @@ export function Footer({ children }) {
       data-fs-footer-social
       data-fs-footer-incentives
       data-fs-footer-payment-methods
-      data-fs-content="footer"
     >
-      <div data-fs-footer-wrapper>{children}</div>
+      <div data-fs-content="footer">{children}</div>
     </footer>
   )
 }

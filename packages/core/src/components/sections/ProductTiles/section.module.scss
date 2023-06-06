@@ -11,6 +11,4 @@
   @import "@faststore/ui/src/components/molecules/ProductTile/styles";
   @import "@faststore/ui/src/components/molecules/ProductCard/styles";
   @import "@faststore/ui/src/components/organisms/Tiles/styles";
-
-  [data-fs-content="tiles"] { @include layout-content; }
 }

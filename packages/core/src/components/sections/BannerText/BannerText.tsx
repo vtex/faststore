@@ -33,7 +33,6 @@ function BannerText({
 }: BannerTextProps) {
   return (
     <Section className={`${styles.section} section-banner layout__section`}>
-      <div className="layout__content">
         <Banner
           {...Props['Banner']}
           variant={variant}
@@ -47,7 +46,6 @@ function BannerText({
             linkText={linkText}
           />
         </Banner>
-      </div>
     </Section>
   )
 }

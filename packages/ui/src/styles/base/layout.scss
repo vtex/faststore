@@ -41,6 +41,8 @@ main {
   margin-left: auto;
 }
 
+[data-fs-content] { @include layout-content; }
+
 .no-scroll {
   overflow: hidden;
   touch-action: none;

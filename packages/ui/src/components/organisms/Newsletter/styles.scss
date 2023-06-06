@@ -33,7 +33,6 @@
   }
 
   [data-fs-newsletter-form] {
-    @include layout-content;
 
     @include media(">=notebook") {
       display: grid;
