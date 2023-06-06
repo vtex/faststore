@@ -1,5 +1,4 @@
-import BannerText from 'src/components/ui/BannerText'
-import type { BannerTextProps } from 'src/components/sections/BannerText'
+import BannerText, { BannerTextProps } from 'src/components/sections/BannerText'
 import Newsletter, { NewsletterProps } from 'src/components/sections/Newsletter'
 import Section from '../Section'
 import styles from './section.module.scss'
@@ -19,8 +18,7 @@ function BannerNewsletter({
         <BannerText
           title={banner.title}
           caption={banner.caption}
-          actionLabel={banner.link.text}
-          actionPath={banner.link.url}
+          link={banner?.link}
           variant={banner.variant}
           colorVariant={banner.colorVariant}
         />
