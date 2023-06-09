@@ -4,8 +4,6 @@
 // ----------------------------------------------------------
 
 body {
-  --fs-body-bkg: var(--fs-color-body-bkg);
-
   min-height: 100vh;
   color: var(--fs-color-text);
   background: var(--fs-body-bkg);
@@ -14,12 +12,6 @@ body {
 main {
   display: flex;
   flex-direction: column;
-}
-
-.layout__main {
-  display: flex;
-  flex-wrap: wrap;
-  background: var(--fs-body-bkg);
 }
 
 .layout__section {
