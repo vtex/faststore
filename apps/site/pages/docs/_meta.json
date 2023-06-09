@@ -17,13 +17,7 @@
     }
   },
   "customizing": {
-    "title": "Customizing Components",
-    "theme": {
-      "layout": "full"
-    }
-  },
-  "customizing-pages": {
-    "title": "Customizing Pages",
+    "title": "Customizing",
     "theme": {
       "layout": "full"
     }
