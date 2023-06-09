@@ -55,7 +55,7 @@ export interface ProductCardProps {
 function ProductCard({
   product,
   index,
-  bordered = false,
+  bordered = true,
   variant = 'default',
   aspectRatio = 1,
   imgProps,
