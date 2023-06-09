@@ -17,7 +17,13 @@
     }
   },
   "customizing": {
-    "title": "Customizing",
+    "title": "Customizing Components",
+    "theme": {
+      "layout": "full"
+    }
+  },
+  "customizing-pages": {
+    "title": "Customizing Pages",
     "theme": {
       "layout": "full"
     }
