@@ -5,7 +5,7 @@
 
   // Track
   --fs-carousel-padding-mobile             : 0 var(--fs-grid-padding);
-  --fs-carousel-padding-desktop            : 0 calc((100vw - 1230px)/2) var(--fs-spacing-0);
+  --fs-carousel-padding-desktop            : 0 calc((100vw - var(--fs-grid-max-width))/2) var(--fs-spacing-0);
 
   // Item
   --fs-carousel-item-width-mobile          : 60%;
