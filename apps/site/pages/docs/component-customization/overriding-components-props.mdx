@@ -1,0 +1,61 @@
+---
+title: "  Overriding native component's props"
+sidebar_label: 'Component Customization'
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<header>
+
+# Overriding native component's props
+
+</header>
+
+<Callout type="warning" emoji="⚠️">
+  This documentation is currently under development.
+</Callout>
+
+In this guide you'll learn how to customize a native component by overriding its props. Overriding props allows you to customize a component's behavior without modifying the integration built for the native component.
+This approach is particularly useful when you want to change specific aspects of a native component while preserving its integration.
+
+For example, if you want to change the value set in the Price component in a PDP, you can add a new value for the component though its props.
+
+## Before you start
+
+**Choose a native section and the component you want to customize.**
+
+All component customizations in FastStore are done within a section, so choose the native section and component you wish to override its props.
+Check out the available native sections and its overridable components in the [List of available native sections](/tbd).
+After knowing which components can be overridable, you can find the list of props for this component in our documentation.
+
+For this guide, we'll use the Price component and you can find the list of this component's props on the [Price component documentation](/components/atoms/price#props). Here's how the initial component looks like with the value prop set as `950.04`:
+
+![native-price-component](https://vtexhelp.vtexassets.com/assets/docs/src/price-component___6f5e46b0ca037bb5e1beff5f67166cf6.png)
+
+## Step by step
+
+1. Create an `overrides` folder inside the `components` folder.
+2. Inside the `overrides` folder, create a file named `ProductDetails.tsx`
+3. Open the `ProductDetails.tsx` file and add the following code:
+
+```tsx
+import { SectionOverride } from './types'
+
+const SECTION = 'ProductDetails' as const
+
+const overrides: SectionOverride[typeof SECTION] = {
+  components: {
+    Price: { props: { value: 800 } },
+  },
+}
+
+export default overrides
+```
+
+6. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser to see the updated Price component with the new `value`prop set to `800`:
+
+![custom-price](https://vtexhelp.vtexassets.com/assets/docs/src/custom-price___c203101c038f09191e735fd0d8c1d13e.png)
+
+<Callout type="warning" emoji="⚠️">
+  The `value` props is only changed in the `ProductDetails` section.
+</Callout>
