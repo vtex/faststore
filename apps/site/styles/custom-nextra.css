@@ -226,6 +226,7 @@ header.hero > p {
   padding-top: var(--fs-spacing-3);
   padding-bottom: var(--fs-spacing-5);
   color: var(--fs-color-text-inverse);
+  margin-top: 0;
 }
 
 .nx-hero-wrapper {
@@ -455,6 +456,7 @@ header.hero > p {
   padding-bottom: var(--fs-spacing-5);
   background-color: var(--fs-color-main-3);
   color: var(--fs-color-text-inverse);
+  margin-bottom: 0;
 }
 
 .nx-banner > div {
