@@ -53,7 +53,7 @@ const config: DocsThemeConfig = {
       <meta property="og:title" content="FastStore Documentation" />
       <meta
         property="og:description"
-        content="Welcome to the FastStore Documentation"
+        content="Welcome to the FastStore Documentation."
       />
       <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     </>
