@@ -1,0 +1,80 @@
+---
+title: ' Overview'
+sidebar_label: 'Global Tokens'
+layout: 'full'
+---
+
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+
+<header className="hero">
+
+# Overview
+
+**Design tokens** are parameters that affect all UI look 'n' feel and they are the **main configuration** file of a Theme. Component-specific tokens often inherit from global tokens but are named specifically to apply those tokens in component development.
+
+</header>
+
+## Global Tokens
+
+FastStore uses a default theme called `Brandless`, which provides structural styles for your components and pages. Please read [Brandless's page](/docs/brandless) to further information about our themeable architecture.
+
+Its presets are defined on `src/base/tokens.scss` in [@faststore/ui](https://github.com/vtex/faststore/blob/main/packages/ui/src/styles/base/tokens.scss) and it's separated in these main areas:
+
+<SectionList grid="column" classes="tokensLinks">
+  <SectionItem
+    title="Colors"
+    actionPath="/docs/global-tokens/colors"
+    description={<>The store palette with all the tones needed.</>}
+  ></SectionItem>
+  <SectionItem
+    title="Typography"
+    actionPath="/docs/global-tokens/typography"
+    description={
+      <>
+        A standard scale and basic definitions for your text:{' '}
+        <code>font family</code>,<code>weight</code> and <code>sizes</code>.
+      </>
+    }
+  ></SectionItem>
+  <SectionItem
+    title="Spacing"
+    actionPath="/docs/global-tokens/spacing"
+    description={
+      <>
+        All tokens used for spacings on the store: <code>padding</code>,{' '}
+        <code>margins</code> and <code>sizes</code>. It's also used as base for
+        grid tokens.
+      </>
+    }
+  ></SectionItem>
+  <SectionItem
+    title="Grid & Layout"
+    actionPath="/docs/global-tokens/grid-and-layout"
+    description={
+      <>
+        <code>Padding</code>, <code>Container</code>, <code>Gaps</code> and{' '}
+        <code>Breakpoints</code> definitions.
+      </>
+    }
+  ></SectionItem>
+  <SectionItem
+    title="Interactive Controls"
+    actionPath="/docs/global-tokens/interactive-controls"
+    description={
+      <>
+        <code>Tap</code>, <code>States</code> and <code>Sizing</code>{' '}
+        definitions.
+      </>
+    }
+  ></SectionItem>
+  <SectionItem
+    title="Refinements"
+    actionPath="/docs/global-tokens/refinements"
+    description={
+      <>
+        <code>Transition</code>, <code>Borders</code> and <code>Shadow</code>{' '}
+        definitions.
+      </>
+    }
+  ></SectionItem>
+</SectionList>

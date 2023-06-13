@@ -1,0 +1,55 @@
+---
+title: ' Overview'
+sidebar_label: 'Themes'
+---
+
+<header className="hero">
+
+# Creating your custom theme
+
+`wip`
+
+</header>
+
+1. Create a new `.scss` file on `src/themes` (e.g. `my-theme.scss`) in your [starter project](https://github.com/vtex-sites/starter.store), and add the tokens you want to overwrite inside the `.theme` class:
+
+```css
+.theme {
+  // --------------------------------------------------------
+  // Colors (Branding Core)
+  // --------------------------------------------------------
+
+  // --------------------------------------------------------
+  // Typography (Branding Core)
+  // --------------------------------------------------------
+
+  // --------------------------------------------------------
+  // Spacing (UI Essentials)
+  // --------------------------------------------------------
+
+  // --------------------------------------------------------
+  // Grid & Layout (UI Essentials)
+  // --------------------------------------------------------
+
+  // --------------------------------------------------------
+  // Interactive Controls (UI Essentials)
+  // --------------------------------------------------------
+
+  // --------------------------------------------------------
+  // Refinements
+  // --------------------------------------------------------
+
+  // --------------------------------------------------------
+  // Components
+  // --------------------------------------------------------
+}
+```
+
+2. Go to `faststore.config.js` and change the `theme` to your file's name:
+
+```js
+// Theming
+theme: 'my-theme',
+```
+
+If you want, you can work on `custom-theme.scss` file that's ready to use. Also, we provide two themes as examples: [soft-blue](/docs/themes/soft-blue) and [midnight](/docs/themes/midnight).

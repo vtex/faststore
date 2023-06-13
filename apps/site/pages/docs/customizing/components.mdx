@@ -1,121 +1,35 @@
-import { SectionItem, SectionList } from 'site/components/SectionItem'
-
 <header className="hero">
 
-# Customizing Components
+# Customizing a component
 
-**Design tokens** are parameters that affect all UI look 'n' feel and they are the **main configuration** file of a Theme. Component-specific tokens often inherit from global tokens but are named specifically to apply those tokens in component development.
+`wip`
 
 </header>
 
-## Global Tokens
+We will use the `Listing` variant from the [Price Component](/components/atoms/price) in this tutorial.
 
-FastStore uses a default theme called `Brandless`, which provides structural styles for your components and pages. Please read [Brandless's page](/docs/brandless) to further information about our themeable architecture.
+1. In the `soft-blue.scss` file, add the `data-fs-price` and  `data-fs-price-variant` data attributes with the `Listing` value:
 
-Its presets are defined on `src/base/tokens.scss` in [@faststore/ui](https://github.com/vtex/faststore/blob/main/packages/ui/src/styles/base/tokens.scss) and it's separated in these main areas:
+```scss
+  ...
+  [data-fs-logo] {
+    --fs-logo-width: 8rem;
+  }
 
-<SectionList grid="column" classes="tokensLinks">
-  <SectionItem
-    title="Colors"
-    actionPath="/docs/global-tokens/colors"
-    description={<>The store palette with all the tones needed.</>}
-  ></SectionItem>
-  <SectionItem
-    title="Typography"
-    actionPath="/docs/global-tokens/typography"
-    description={
-      <>
-        A standard scale and basic definitions for your text:{' '}
-        <code>font family</code>,<code>weight</code> and <code>sizes</code>.
-      </>
-    }
-  ></SectionItem>
-  <SectionItem
-    title="Spacing"
-    actionPath="/docs/global-tokens/spacing"
-    description={
-      <>
-        All tokens used for spacings on the store: <code>padding</code>,{' '}
-        <code>margins</code> and <code>sizes</code>. It's also used as base for
-        grid tokens.
-      </>
-    }
-  ></SectionItem>
-  <SectionItem
-    title="Grid & Layout"
-    actionPath="/docs/global-tokens/grid-and-layout"
-    description={
-      <>
-        <code>Padding</code>, <code>Container</code>, <code>Gaps</code> and{' '}
-        <code>Breakpoints</code> definitions.
-      </>
-    }
-  ></SectionItem>
-  <SectionItem
-    title="Interactive Controls"
-    actionPath="/docs/global-tokens/interactive-controls"
-    description={
-      <>
-        <code>Tap</code>, <code>States</code> and <code>Sizing</code>{' '}
-        definitions.
-      </>
-    }
-  ></SectionItem>
-  <SectionItem
-    title="Refinements"
-    actionPath="/docs/global-tokens/refinements"
-    description={
-      <>
-        <code>Transition</code>, <code>Borders</code> and <code>Shadow</code>{' '}
-        definitions.
-      </>
-    }
-  ></SectionItem>
-</SectionList>
+  [data-fs-price] [data-fs-price-variant="listing"] {
+  }
 
----
-
-## Build your new theme
-
-1. Create a new `.scss` file on `src/themes` (e.g. `my-theme.scss`) in your [starter project](https://github.com/vtex-sites/starter.store), and add the tokens you want to overwrite inside the `.theme` class:
-
-```css
-.theme {
-  // --------------------------------------------------------
-  // Colors (Branding Core)
-  // --------------------------------------------------------
-
-  // --------------------------------------------------------
-  // Typography (Branding Core)
-  // --------------------------------------------------------
-
-  // --------------------------------------------------------
-  // Spacing (UI Essentials)
-  // --------------------------------------------------------
-
-  // --------------------------------------------------------
-  // Grid & Layout (UI Essentials)
-  // --------------------------------------------------------
-
-  // --------------------------------------------------------
-  // Interactive Controls (UI Essentials)
-  // --------------------------------------------------------
-
-  // --------------------------------------------------------
-  // Refinements
-  // --------------------------------------------------------
-
-  // --------------------------------------------------------
-  // Components
-  // --------------------------------------------------------
-}
 ```
 
-2. Go to `faststore.config.js` and change the `theme` to your file's name:
+2. Now, change the color of the `Listing` variant using its [local token](/components/atoms/price#design-tokens). For this tutorial, we will use the shade of red `#cb4242`:
 
-```js
-// Theming
-theme: 'my-theme',
+```scss
+  }
+
+  [data-fs-price][data-fs-price-variant="listing"] {
+      --fs-price-listing-color: #cb4242;
+  }
+
 ```
 
-If you want, you can work on `custom-theme.scss` file that's ready to use. Also, we provide two themes as examples: [soft-blue](/docs/themes/soft-blue) and [midnight](/docs/themes/midnight).
+3. Save your changes and check your browser to see the new color of your listing price. You may need to refresh the page.

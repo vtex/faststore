@@ -22,6 +22,7 @@ In this guide, you will:
 ---
 
 ## Before you start
+
 Before cloning your store's repository, ensure that you have the following tools on your machine:
 
 <details>
@@ -29,11 +30,38 @@ Before cloning your store's repository, ensure that you have the following tools
     <b>Node.js</b>
   </summary>
   <p>
-    <p>To run your FastStore project, you must have the latest <b><a href="">Node.js</a></b> version or a version higher than 15.0.0.</p>
+    <p>
+      To run your FastStore project, you must have the latest{' '}
+      <b>
+        <a href="">Node.js</a>
+      </b>{' '}
+      version or a version higher than 15.0.0.
+    </p>
     <ul>
-       <li>- <b><a href="https://nodejs.org/tr/download/package-manager#macos">Install Node.js on macOS using Homebrew</a></b></li>
-       <li>- <b><a href="https://nodejs.org/tr/download/package-manager#windows-1">Install Node.js on Windows</a></b> </li>
-       <li>- <b><a href="https://nodejs.org/tr/download/package-manager#debian-and-ubuntu-based-linux-distributions">Install Node.js on Linux</a></b></li>
+      <li>
+        -{' '}
+        <b>
+          <a href="https://nodejs.org/tr/download/package-manager#macos">
+            Install Node.js on macOS using Homebrew
+          </a>
+        </b>
+      </li>
+      <li>
+        -{' '}
+        <b>
+          <a href="https://nodejs.org/tr/download/package-manager#windows-1">
+            Install Node.js on Windows
+          </a>
+        </b>{' '}
+      </li>
+      <li>
+        -{' '}
+        <b>
+          <a href="https://nodejs.org/tr/download/package-manager#debian-and-ubuntu-based-linux-distributions">
+            Install Node.js on Linux
+          </a>
+        </b>
+      </li>
     </ul>
   </p>
 </details>
@@ -58,6 +86,7 @@ Before cloning your store's repository, ensure that you have the following tools
             npm install -g yarn
           ```
         </details>
+
 </details>
 
 <details>
@@ -65,13 +94,32 @@ Before cloning your store's repository, ensure that you have the following tools
     <b>Git</b>
   </summary>
   <p>
-    When developing your store's website, you will use [Git](https://git-scm.com/) to push your code to the cloud. You will also use Git to download and install the required files for your project.
+    When developing your store's website, you will use
+    [Git](https://git-scm.com/) to push your code to the cloud. You will also
+    use Git to download and install the required files for your project.
   </p>
   <ul>
-       <li>- <strong><a href="https://git-scm.com/download/mac">Install Git on macOS using Homebrew</a></strong></li>
-       <li>- <strong><a href="https://git-scm.com/download/win">Install Git on Windows</a></strong> </li>
-       <li>- <strong><a href="https://git-scm.com/download/linux">Install Git on Linux</a></strong></li>
-    </ul>
+    <li>
+      -{' '}
+      <strong>
+        <a href="https://git-scm.com/download/mac">
+          Install Git on macOS using Homebrew
+        </a>
+      </strong>
+    </li>
+    <li>
+      -{' '}
+      <strong>
+        <a href="https://git-scm.com/download/win">Install Git on Windows</a>
+      </strong>{' '}
+    </li>
+    <li>
+      -{' '}
+      <strong>
+        <a href="https://git-scm.com/download/linux">Install Git on Linux</a>
+      </strong>
+    </li>
+  </ul>
 </details>
 
 <details>
@@ -79,12 +127,24 @@ Before cloning your store's repository, ensure that you have the following tools
     <b>Visual Studio Code - Code Editor</b>
   </summary>
   <p>
-    When developing your store's website, you will need a code editor to write the code for your project, such as <strong><a href="https://code.visualstudio.com/">Visual Studio Code</a></strong> (a.k.a., VS Code). Visit the <strong><a href="https://code.visualstudio.com/">VS Code</a></strong> website, download and install the version appropriate to your operating system.
+    When developing your store's website, you will need a code editor to write
+    the code for your project, such as{' '}
+    <strong>
+      <a href="https://code.visualstudio.com/">Visual Studio Code</a>
+    </strong>{' '}
+    (a.k.a., VS Code). Visit the{' '}
+    <strong>
+      <a href="https://code.visualstudio.com/">VS Code</a>
+    </strong>{' '}
+    website, download and install the version appropriate to your operating
+    system.
   </p>
 </details>
 
 <Callout type="info" emoji="ℹ️">
-  Although you might opt to use an alternative code editor, note that Visual Studio Code might help you follow along with the FastStore documentation since our documentation may include screenshots from VS Code.
+  Although you might opt to use an alternative code editor, note that Visual
+  Studio Code might help you follow along with the FastStore documentation since
+  our documentation may include screenshots from VS Code.
 </Callout>
 
 ---
@@ -94,15 +154,18 @@ Before cloning your store's repository, ensure that you have the following tools
 1. Open the terminal and navigate to the directory where you want to store your project.
 
 <Callout type="info" emoji="ℹ️">
-  For Windowns users we highly recommend to run the terminal in administrator mode. To run in this mode, right-click on the terminal icon and select `Run as administrator`.
+  For Windowns users we highly recommend to run the terminal in administrator
+  mode. To run in this mode, right-click on the terminal icon and select `Run as
+  administrator`.
 </Callout>
 
 2. Clone the repository created during the [Onboarding](/docs/getting-started/1-faststore-onboarding/onboarding#repository-and-live-store-created) by running the following command in the terminal:
 ```bash
     git clone https://github.com/vtex-sites/{storeName}
 ```
+
 <Callout type="warning" emoji="⚠️">
-Replace `{storeName}` for your store's repository.
+  Replace `{storeName}` for your store's repository.
 </Callout>
 
 3. Change into the working directory by running the following command:
@@ -110,6 +173,7 @@ Replace `{storeName}` for your store's repository.
 ```bash
 cd {storeName}
 ```
+
 ### 4. Install all the dependencies listed within the `package.json` file by running the following command:
 
 ```bash
@@ -134,12 +198,14 @@ Let's check what the project looks like in a web browser so far.
 ```bash
   yarn dev
 ```
+
 This may take a few minutes. Once your development server is ready, the command line will output a similar message as the following:
 
 ```bash
   ready - started server on 0.0.0.0:3000, url: http://localhost:3000
   event - compiled client and server successfully in 333 ms (951 modules)
 ```
+
 <Callout type="info" emoji="ℹ️">
   The `dev` command is a part of the FastStore CLI, a pre-configured command line interface in your starter project. Using the CLI, this command enables you to execute code to keep your store's project up-to-date with the [@faststore/core package](/docs/getting-started/3-project-structure). For more information, refer to the topic on [FastStore CLI](/docs/getting-started/4-faststore-cli).
 </Callout>
@@ -148,7 +214,7 @@ This may take a few minutes. Once your development server is ready, the command 
 
 ![localhost-example](https://vtexhelp.vtexassets.com/assets/docs/src/starter-gif___42003e72ece61064991a34c3f14e398f.gif)
 
-*Congratulations!* You have just created your very first FastStore store website! 🎉
+_Congratulations!_ You have just created your very first FastStore store website! 🎉
 
 While your local development server is running, you can preview any changes you make to your files, and saved changes will hot reload in the browser. To stop the development server, return to the terminal and press `Ctrl + C`. To restart it, run `yarn dev` again.
 
@@ -163,7 +229,7 @@ Let's make the first level of customization which is update the store's theme wi
 1. Open the `faststore.config.js` file and in `theme` and change the name to `soft-blue`.
 
 ```scss
-  theme: 'soft-blue',
+theme: 'soft-blue';
 ```
 
 2. Change the `custom-theme.scss` file's name located in `src/themes` to `soft-blue.scss`. This is the theme of your store website UI.
@@ -249,7 +315,6 @@ Let's make the first level of customization which is update the store's theme wi
     }
   }
 }
-
 ```
 
 4. Save your changes.
@@ -258,36 +323,6 @@ Let's make the first level of customization which is update the store's theme wi
 ![themw-soft-blue](https://vtexhelp.vtexassets.com/assets/docs/src/soft-blue___9eb9e3e506de6396df954598739be8f8.png)
 
 <Callout type="info" emoji="ℹ️">
-  It is important to highlight that the store's logo is set through the [VTEX Headless CMS](https://www.faststore.dev/tutorials/cms/0).
+  It is important to highlight that the store's logo is set through the [VTEX
+  Headless CMS](https://www.faststore.dev/tutorials/cms/0).
 </Callout>
-
----
-
-## Customizing a Component (Optional)
-If you are up for another challenge, let's customize a component. We will use the `Listing` variant from the [Price Component](/components/atoms/price) in this tutorial.
-
-1. In the `soft-blue.scss` file, add the `data-fs-price` and  `data-fs-price-variant` data attributes with the `Listing` value:
-
-```scss
-  ...
-  [data-fs-logo] {
-    --fs-logo-width: 8rem;
-  }
-
-  [data-fs-price] [data-fs-price-variant="listing"] {
-  }
-
-```
-
-2. Now, change the color of the `Listing` variant using its [local token](/components/atoms/price#design-tokens). For this tutorial, we will use the shade of red `#cb4242`:
-```scss
-  }
-
-  [data-fs-price][data-fs-price-variant="listing"] {
-      --fs-price-listing-color: #cb4242;
-  }
-
-```
-
-3. Save your changes and check your browser to see the new color of your listing price. You may need to refresh the page.
-
