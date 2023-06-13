@@ -89,7 +89,7 @@ function copyUserSrcToCustomizations() {
   }
 }
 
-async function copyUserCmsWebhookUrls() {
+function copyUserCmsWebhookUrls() {
   if (existsSync(userCmsWebhookUrlsFileDir)) {
     try {
       copySync(userCmsWebhookUrlsFileDir, tmpCmsWebhookUrlsFileDir)
@@ -97,9 +97,9 @@ async function copyUserCmsWebhookUrls() {
     } catch (err) {
       console.error(`${chalk.red('error')} - ${err}`)
     }
+  } else {
+    console.info(`${chalk.blue('info')} - No CMS webhook URLs file found`)
   }
-
-  console.info(`${chalk.blue('info')} - No CMS webhook URLs file found`)
 }
 
 async function copyTheme() {
