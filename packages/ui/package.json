@@ -1,6 +1,6 @@
 {
   "name": "@faststore/ui",
-  "version": "2.1.4",
+  "version": "2.1.9",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",
@@ -34,7 +34,7 @@
     }
   ],
   "dependencies": {
-    "@faststore/components": "^2.1.4",
+    "@faststore/components": "^2.1.9",
     "include-media": "^1.4.10",
     "modern-normalize": "^1.1.0",
     "react-swipeable": "^7.0.0",
@@ -45,8 +45,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@faststore/eslint-config": "^2.1.1",
-    "@faststore/shared": "^2.1.1",
+    "@faststore/eslint-config": "^2.1.9",
+    "@faststore/shared": "^2.1.9",
     "@size-limit/preset-small-lib": "^7.0.8",
     "@types/tabbable": "^3.1.1",
     "babel-loader": "^8.2.5",

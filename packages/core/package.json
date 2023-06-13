@@ -1,6 +1,6 @@
 {
   "name": "@faststore/core",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "license": "MIT",
   "browserslist": "supports es6-module and not dead",
   "scripts": {
@@ -29,11 +29,11 @@
     "@envelop/graphql-jit": "^1.1.1",
     "@envelop/parser-cache": "^2.2.0",
     "@envelop/validation-cache": "^2.2.0",
-    "@faststore/api": "^2.1.8",
-    "@faststore/components": "^2.1.4",
-    "@faststore/graphql-utils": "^2.1.1",
-    "@faststore/sdk": "^2.1.1",
-    "@faststore/ui": "^2.1.4",
+    "@faststore/api": "^2.1.9",
+    "@faststore/components": "^2.1.9",
+    "@faststore/graphql-utils": "^2.1.9",
+    "@faststore/sdk": "^2.1.9",
+    "@faststore/ui": "^2.1.9",
     "@types/react": "^18.0.14",
     "@vtex/client-cms": "^0.2.12",
     "autoprefixer": "^10.4.0",
@@ -61,7 +61,7 @@
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.9.10",
-    "@faststore/eslint-config": "^2.1.1",
+    "@faststore/eslint-config": "^2.1.9",
     "@faststore/lighthouse": "^1.12.32",
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript": "^2.5.1",

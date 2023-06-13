@@ -12,7 +12,7 @@ $ npm install -g @faststore/cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/2.1.1 linux-x64 node-v16.20.0
+@faststore/cli/2.1.9 linux-x64 node-v16.20.0
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND
@@ -33,7 +33,7 @@ USAGE
   $ faststore build
 ```
 
-_See code: [dist/commands/build.ts](https://github.com/vtex/faststore/blob/v2.1.1/dist/commands/build.ts)_
+_See code: [dist/commands/build.ts](https://github.com/vtex/faststore/blob/v2.1.9/dist/commands/build.ts)_
 
 ## `faststore dev`
 
@@ -42,7 +42,7 @@ USAGE
   $ faststore dev
 ```
 
-_See code: [dist/commands/dev.ts](https://github.com/vtex/faststore/blob/v2.1.1/dist/commands/dev.ts)_
+_See code: [dist/commands/dev.ts](https://github.com/vtex/faststore/blob/v2.1.9/dist/commands/dev.ts)_
 
 ## `faststore help [COMMAND]`
 
@@ -71,5 +71,5 @@ USAGE
   $ faststore start
 ```
 
-_See code: [dist/commands/start.ts](https://github.com/vtex/faststore/blob/v2.1.1/dist/commands/start.ts)_
+_See code: [dist/commands/start.ts](https://github.com/vtex/faststore/blob/v2.1.9/dist/commands/start.ts)_
 <!-- commandsstop -->
