@@ -157,8 +157,8 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
         <form
           ref={ref}
           data-fs-newsletter-form
+          data-fs-content="newsletter"
           onSubmit={handleSubmit}
-          className="layout__content"
         >
           <header data-fs-newsletter-header>
             <h3>
