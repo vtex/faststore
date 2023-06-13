@@ -2,13 +2,12 @@ import { Command } from '@oclif/core'
 import { spawn } from 'child_process'
 import { existsSync } from 'fs-extra'
 import { tmpDir } from '../utils/directory'
+import { generate } from '../utils/generate'
 
 export default class CmsSync extends Command {
   async run() {
     if (!existsSync(tmpDir)) {
-      throw Error(
-        'The ".faststore" directory could not be found. If you are trying to serve your store, run "faststore build" first.'
-      )
+      await generate({ setup: true })
     }
 
     return spawn(`vtex cms sync faststore`, {
