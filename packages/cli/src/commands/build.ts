@@ -9,11 +9,16 @@ import { generate } from '../utils/generate'
 export default class Build extends Command {
   async run() {
     await generate({ setup: true })
-    spawnSync(`yarn build`, {
+
+    const yarnBuildResult = spawnSync(`yarn build`, {
       shell: true,
       cwd: tmpDir,
       stdio: 'inherit',
     })
+
+    if(yarnBuildResult.status && yarnBuildResult.status !== 0) {
+      process.exit(yarnBuildResult.status)
+    }
 
     await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
     await copyResource(
