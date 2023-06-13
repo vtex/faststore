@@ -1033,7 +1033,10 @@
         },
         "privacyPolicy": {
           "title": "Privacy Policy Disclaimer",
-          "type": "string"
+          "type": "string",
+          "widget": {
+            "ui:widget": "draftjs-rich-text"
+          }
         },
         "emailInputLabel": {
           "title": "Email input label",
@@ -1054,6 +1057,66 @@
           "title": "Subscribe button label",
           "type": "string",
           "default": "Subscribe"
+        },
+        "subscribeButtonLoadingLabel": {
+          "title": "Subscribe button loading label",
+          "type": "string",
+          "default": "Loading..."
+        },
+        "card": {
+          "title": "Newsletter should be in card format?",
+          "type": "boolean",
+          "default": false
+        },
+        "toastSubscribe": {
+          "title": "Toast Subscribe",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "description": "Message Title",
+              "type": "string",
+              "default": "Hooray!"
+            },
+            "message": {
+              "title": "Message",
+              "description": "Message",
+              "type": "string",
+              "default": "Thank for your subscription."
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["CircleWavyCheck"],
+              "enum": ["CircleWavyCheck"],
+              "default": "CircleWavyCheck"
+            }
+          }
+        },
+        "toastSubscribeError": {
+          "title": "Toast Subscribe Error",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "description": "Message Title",
+              "type": "string",
+              "default": "Oops."
+            },
+            "message": {
+              "title": "Message",
+              "description": "Message",
+              "type": "string",
+              "default": "Something went wrong. Please Try again."
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["CircleWavyWarning"],
+              "enum": ["CircleWavyWarning"],
+              "default": "CircleWavyWarning"
+            }
+          }
         }
       }
     }
@@ -1081,11 +1144,13 @@
           "properties": {
             "title": {
               "title": "Title",
-              "type": "string"
+              "type": "string",
+              "default": "Get to Know Our Next Release"
             },
             "caption": {
               "title": "Caption",
-              "type": "string"
+              "type": "string",
+              "default": "Discover cutting-edge tech, advanced features, and a seamless user experience. Get ready for the future!"
             },
             "link": {
               "title": "Call to Action",
@@ -1094,11 +1159,13 @@
               "properties": {
                 "text": {
                   "title": "Text",
-                  "type": "string"
+                  "type": "string",
+                  "default": "Shop now"
                 },
                 "url": {
                   "title": "URL",
-                  "type": "string"
+                  "type": "string",
+                  "default": "/"
                 }
               }
             },
@@ -1106,13 +1173,15 @@
               "title": "Color variant",
               "type": "string",
               "enumNames": ["Main", "Light", "Accent"],
-              "enum": ["main", "light", "accent"]
+              "enum": ["main", "light", "accent"],
+              "default": "light"
             },
             "variant": {
               "title": "Variant",
               "type": "string",
               "enumNames": ["Primary", "Secondary"],
-              "enum": ["primary", "secondary"]
+              "enum": ["primary", "secondary"],
+              "default": "secondary"
             }
           }
         },
@@ -1121,6 +1190,24 @@
           "type": "object",
           "required": ["title", "description"],
           "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Envelop"],
+                  "enum": ["Envelop"],
+                  "default": "Envelop"
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alternative Label",
+                  "default": "Envelop"
+                }
+              }
+            },
             "title": {
               "title": "Title",
               "type": "string",
@@ -1130,6 +1217,43 @@
               "title": "Description",
               "type": "string",
               "default": "Receive our news and promotions in advance"
+            },
+            "privacyPolicy": {
+              "title": "Privacy Policy Disclaimer",
+              "type": "string",
+              "widget": {
+                "ui:widget": "draftjs-rich-text"
+              }
+            },
+            "emailInputLabel": {
+              "title": "Email input label",
+              "type": "string",
+              "default": "Your Email"
+            },
+            "displayNameInput": {
+              "title": "Request name?",
+              "type": "boolean",
+              "default": true
+            },
+            "nameInputLabel": {
+              "title": "Name input label",
+              "type": "string",
+              "default": "Your Name"
+            },
+            "subscribeButtonLabel": {
+              "title": "Subscribe button label",
+              "type": "string",
+              "default": "Subscribe"
+            },
+            "subscribeButtonLoadingLabel": {
+              "title": "Subscribe button loading label",
+              "type": "string",
+              "default": "Loading..."
+            },
+            "card": {
+              "title": "Newsletter should be in card format?",
+              "type": "boolean",
+              "default": true
             }
           }
         }
