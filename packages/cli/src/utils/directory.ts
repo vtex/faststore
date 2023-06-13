@@ -38,3 +38,7 @@ export const tmpStoreConfigFileDir = path.join(tmpDir, configFileName)
 
 export const userNodeModulesDir = path.join(userDir, 'node_modules')
 export const tmpNodeModulesDir = path.join(tmpDir, 'node_modules')
+
+export const cmsWebhookUrlsFileName = 'cms-webhook-urls.json'
+export const userCmsWebhookUrlsFileDir = path.join(userDir, cmsWebhookUrlsFileName)
+export const tmpCmsWebhookUrlsFileDir = path.join(tmpDir, cmsWebhookUrlsFileName)
