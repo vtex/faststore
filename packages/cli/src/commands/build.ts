@@ -26,10 +26,6 @@ export default class Build extends Command {
       `${userDir}/lighthouserc.js`
     )
     await copyResource(`${tmpDir}/cypress`, `${userDir}/cypress`)
-    await copyResource(
-      `${tmpDir}/cms-webhook-urls.json`,
-      `${userDir}/cms-webhook-urls.json`
-    )
     if (existsSync(`.next/standalone`)) {
       await copyResource(
         `${userDir}/node_modules`,
