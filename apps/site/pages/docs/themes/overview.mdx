@@ -2,16 +2,46 @@
 title: ' Overview'
 sidebar_label: 'Themes'
 ---
+import { Callout } from 'nextra-theme-docs'
 
 <header className="hero">
 
-# Creating your custom theme
+# Themes
 
-`wip`
+Themes are CSS stylesheets consisting of configurable design tokens. You can create your own theme by setting up global and local tokens as desired.
 
 </header>
 
-1. Create a new `.scss` file on `src/themes` (e.g. `my-theme.scss`) in your [starter project](https://github.com/vtex-sites/starter.store), and add the tokens you want to overwrite inside the `.theme` class:
+A Theme is what enables you to change the look and feel of a FastStore project. It is what differentiates one UI from another and where the store branding lives. In practice, Themes are CSS stylesheets consisting of configurable design tokens.
+![theme-structure](https://vtexhelp.vtexassets.com/assets/docs/src/theme___a7a122b4ca42955e79c8db8083b092f8.png)
+
+- **Global tokens** - structural styles responsible for establishing the behavior (e.g., showing/hiding a dropdown menu) and design pattern of a component.
+
+- **Local tokens** - a set of configurable design tokens responsible for defining the appearance of graphical elements, such as typography, type scale, colors, borders, spacing, and more.
+
+By default, every FastStore project comes with the [Brandless theme](/docs/brandless). However, you have the option to use one of the [available themes](#available-themes) or [create a custom theme](#creating-a-custom-theme).
+
+
+<Callout type="info" emoji="ℹ️">
+  You have the flexibility and freedom to style the theme by overriding it using global or local tokens, or by starting from scratch using your preferred styling tool.
+</Callout>
+
+---
+
+## Available themes
+
+- **[Midnight](/docs/themes/midnight)**
+- **[Soft Blue](/docs/themes/soft-blue)**
+
+---
+
+## Creating a custom theme
+
+1. Create a new `.scss` file on `src/themes` (e.g. `my-theme.scss`) in your [starter project](https://github.com/vtex-sites/starter.store), and add the tokens you want to overwrite inside the `.theme` class.
+
+<Callout type="info" emoji="ℹ️">
+  If you want, you can work on `custom-theme.scss` file that's ready to use.
+</Callout>
 
 ```css
 .theme {
@@ -51,5 +81,9 @@ sidebar_label: 'Themes'
 // Theming
 theme: 'my-theme',
 ```
+---
 
-If you want, you can work on `custom-theme.scss` file that's ready to use. Also, we provide two themes as examples: [soft-blue](/docs/themes/soft-blue) and [midnight](/docs/themes/midnight).
+ ## Related resources
+
+ - [Theming Architecture]()
+ - [Global Tokes](/docs/global-tokens/overview)
