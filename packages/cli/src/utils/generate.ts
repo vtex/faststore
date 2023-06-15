@@ -9,6 +9,7 @@ import {
   removeSync,
   symlinkSync,
   writeFileSync,
+  writeJsonSync
 } from 'fs-extra'
 
 import path from 'path'
@@ -32,6 +33,7 @@ import {
   userStoreConfigFileDir,
   userThemesFileDir,
   userCmsWebhookUrlsFileDir,
+  cmsWebhookUrlsFileName,
 } from './directory'
 
 import chalk from 'chalk'
@@ -99,6 +101,23 @@ function copyUserCmsWebhookUrls() {
     }
   } else {
     console.info(`${chalk.blue('info')} - No CMS webhook URLs file found`)
+  }
+}
+
+async function createCmsWebhookUrlsJsonFile() {
+  const userStoreConfig = await import(userStoreConfigFileDir)
+
+  if (userStoreConfig?.headlessCms) {
+    const webhookUrls = userStoreConfig?.headlessCms
+
+    try {
+      writeJsonSync(tmpCmsWebhookUrlsFileDir, webhookUrls, { spaces: 2 })
+      console.log(`${chalk.green('success')} - CMS webhook URLs file created`)
+    } catch (err) {
+      console.error(`${chalk.red('error')} - ${err}`)
+    }
+  } else {
+    console.info(`${chalk.blue('info')} - No CMS webhook URLs were provided`)
   }
 }
 
@@ -250,7 +269,7 @@ export async function generate(options?: GenerateOptions) {
     setupPromise,
     copyUserSrcToCustomizations(),
     copyTheme(),
-    copyUserCmsWebhookUrls(),
+    createCmsWebhookUrlsJsonFile(),
     mergeCMSFiles(),
     copyStoreConfig(),
   ])
