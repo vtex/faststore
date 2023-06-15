@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.45](https://github.com/vtex/faststore/compare/v1.12.44...v1.12.45) (2023-06-15)
+
+### Bug Fixes
+
+- maybe sku ([#1834](https://github.com/vtex/faststore/issues/1834)) ([6bcd347](https://github.com/vtex/faststore/commit/6bcd34735531084c46dbc939d3064d7a0fd02a03))
+
 ## [1.12.44](https://github.com/vtex/faststore/compare/v1.12.43...v1.12.44) (2023-05-31)
 
 ### Bug Fixes
