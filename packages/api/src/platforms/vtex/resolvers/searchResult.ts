@@ -54,12 +54,14 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       products: skus,
     }
   },
-  products: async ({ productSearchPromise }, _, ctx) => {
+  products: async ({ productSearchPromise }, _) => {
     const productSearchResult = await productSearchPromise
 
     const skus = productSearchResult.products
       .map((product) => {
-        const [maybeSku] = product.items
+        const maybeSku = product.items.find((item) =>
+          item.sellers.some((item) => inStock(item.commertialOffer))
+        )
 
         return maybeSku && enhanceSku(maybeSku, product)
       })
@@ -73,18 +75,10 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
         endCursor: productSearchResult.recordsFiltered.toString(),
         totalCount: productSearchResult.recordsFiltered,
       },
-      edges: skus
-        .filter((sku) => {
-          if (ctx.hideUnavailableItems) {
-            return sku.sellers.some((item) => inStock(item.commertialOffer))
-          } else {
-            return true
-          }
-        }) // TODO: remove this filter when the IS returns correctly with hideUnavailableItems
-        .map((sku, index) => ({
-          node: sku,
-          cursor: index.toString(),
-        })),
+      edges: skus.map((sku, index) => ({
+        node: sku,
+        cursor: index.toString(),
+      })),
     }
   },
   facets: async ({ searchArgs }, _, ctx) => {
