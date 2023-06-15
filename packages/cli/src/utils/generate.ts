@@ -109,10 +109,10 @@ async function createCmsWebhookUrlsJsonFile() {
   const userStoreConfig = await import(userStoreConfigFileDir)
 
   if (userStoreConfig?.headlessCms) {
-    const webhookUrls = userStoreConfig?.headlessCms
+    const { webhookUrls } = userStoreConfig?.headlessCms
 
     try {
-      writeJsonSync(tmpCmsWebhookUrlsFileDir, webhookUrls, { spaces: 2 })
+      writeJsonSync(tmpCmsWebhookUrlsFileDir, { urls: webhookUrls }, { spaces: 2 })
       console.log(`${chalk.green('success')} - CMS webhook URLs file created`)
     } catch (err) {
       console.error(`${chalk.red('error')} - ${err}`)
