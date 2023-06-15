@@ -32,7 +32,8 @@ import {
   userSrcDir,
   userStoreConfigFileDir,
   userThemesFileDir,
-  userCmsWebhookUrlsFileDir,
+  // TODO: Remove when validate the approach
+  // userCmsWebhookUrlsFileDir,
 } from './directory'
 
 import chalk from 'chalk'
