@@ -24,7 +24,10 @@ const { Banner, BannerContent } = Components
 function BannerText({
   title,
   caption,
-  link,
+  link: {
+    url: linkUrl = Props['BannerContent'].link,
+    text: linkText = Props['BannerContent'].linkText,
+  },
   variant = Props['Banner'].variant ?? 'primary',
   colorVariant = Props['Banner'].colorVariant ?? 'main',
 }: BannerTextProps) {
@@ -40,8 +43,8 @@ function BannerText({
             {...Props['BannerContent']}
             title={title}
             caption={caption}
-            link={link?.url}
-            linkText={link?.text}
+            link={linkUrl}
+            linkText={linkText}
           />
         </Banner>
       </div>
