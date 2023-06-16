@@ -32,8 +32,6 @@ import {
   userSrcDir,
   userStoreConfigFileDir,
   userThemesFileDir,
-  // TODO: Remove when validate the approach
-  // userCmsWebhookUrlsFileDir,
 } from './directory'
 
 import chalk from 'chalk'
@@ -91,24 +89,10 @@ function copyUserSrcToCustomizations() {
   }
 }
 
-// TODO: Remove when validate the approach
-// function copyUserCmsWebhookUrls() {
-//   if (existsSync(userCmsWebhookUrlsFileDir)) {
-//     try {
-//       copySync(userCmsWebhookUrlsFileDir, tmpCmsWebhookUrlsFileDir)
-//       console.log(`${chalk.green('success')} - CMS webhook URLs file copied`)
-//     } catch (err) {
-//       console.error(`${chalk.red('error')} - ${err}`)
-//     }
-//   } else {
-//     console.info(`${chalk.blue('info')} - No CMS webhook URLs file found`)
-//   }
-// }
-
 async function createCmsWebhookUrlsJsonFile() {
   const userStoreConfig = await import(userStoreConfigFileDir)
 
-  if (userStoreConfig?.headlessCms) {
+  if (userStoreConfig?.headlessCms && userStoreConfig.headlessCms?.webhookUrls) {
     const { webhookUrls } = userStoreConfig?.headlessCms
 
     try {
