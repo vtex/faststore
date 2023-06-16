@@ -5,17 +5,7 @@
       "layout": "full"
     }
   },
-  "-- Getting Started --": {
-    "type": "separator",
-    "title": "Getting Started"
-  },
-  "getting-started-overview": {
-    "title": "Overview"
-  },
-  "getting-started-requirements": {
-    "title": "Requirements"
-  },
-  "getting-started": "Step by Step",
+  "getting-started": "Getting Started",
   "-- Theming --": {
     "type": "separator",
     "title": "Theming"
@@ -26,35 +16,26 @@
       "layout": "full"
     }
   },
-  "global-tokens": "Global Tokens",
-  "themes": {
-    "title": "Themes",
-    "theme": {
-      "layout": "full"
-    }
-  },
-  "icons": "Icons",
   "customizing": {
     "title": "Customizing",
     "theme": {
       "layout": "full"
     }
   },
+  "themes": {
+    "title": "Themes",
+    "theme": {
+      "layout": "full"
+    }
+  },
+  "global-tokens": "Global Tokens",
+  "icons": "Icons",
   "-- VTEX Headless CMS --": {
     "type": "separator",
     "title": "VTEX Headless CMS"
   },
-
-  "headless-cms-overview": {
-    "title": "Overview"
-  },
-  "headless-cms-integration": {
-    "title": "Integrating your storefront with VTEX Headless CMS"
-  },
-  "headless-cms-troubleshooting": {
-    "title": "Troubleshooting"
-  },
-
+  "vtex-headless-cms": "Introducing VTEX Headless CMS",
+  "integrating-with-headless-cms": "Integrating your storefront with VTEX Headless CMS",
   "-- VTEX Integration --": {
     "type": "separator",
     "title": "VTEX Platform Integration"
@@ -64,8 +45,8 @@
     "type": "separator",
     "title": "How To Guides"
   },
-  "building-sections": {
-    "title": "Building and Customizing sections"
+  "component-customization": {
+    "title": "Component Customization"
   },
   "reference-guides": "Reference"
 }
