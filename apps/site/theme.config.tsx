@@ -55,6 +55,10 @@ const config: DocsThemeConfig = {
         property="og:description"
         content="Welcome to the FastStore documentation, the toolkit for building blazing-fast storefronts."
       />
+      <meta
+        property="og:image"
+        content="https://vtexhelp.vtexassets.com/assets/docs/src/preview-doc-page___4c5004e8a020c8b4841e5ad1a5c781d7.png"
+      />
       <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     </>
   ),
