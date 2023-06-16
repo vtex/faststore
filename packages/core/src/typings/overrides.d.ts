@@ -71,6 +71,16 @@ export const SECTIONS = {
   RegionBar: {
     components: ['RegionBar', 'LocationIcon', 'ButtonIcon'],
   },
+  Newsletter: {
+    components: [
+      'ToastIconSuccess',
+      'ToastIconError',
+      'HeaderIcon',
+      'InputFieldName',
+      'InputFieldEmail',
+      'Button',
+    ],
+  },
 } as const
 
 // export type ComponentOrProps =

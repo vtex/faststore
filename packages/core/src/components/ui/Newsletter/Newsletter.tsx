@@ -1,10 +1,20 @@
-import { Button as UIButton, InputField as UIInputField } from '@faststore/ui'
 import { ComponentPropsWithRef, FormEvent } from 'react'
 import { forwardRef, useRef } from 'react'
 import { convertFromRaw } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
-import { Icon, useUI } from '@faststore/ui'
+import { useUI } from '@faststore/ui'
 import { useNewsletter } from 'src/sdk/newsletter/useNewsletter'
+
+import { Components, Props } from 'src/components/sections/Newsletter/Overrides'
+
+const {
+  ToastIconSuccess,
+  ToastIconError,
+  HeaderIcon,
+  InputFieldEmail,
+  InputFieldName,
+  Button,
+} = Components
 
 const cmsToHtml = (content) => {
   if (!content) {
@@ -129,13 +139,27 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
         pushToast({
           ...toastSubscribe,
           status: 'INFO',
-          icon: <Icon name={toastSubscribe.icon} width={30} height={30} />,
+          icon: (
+            <ToastIconSuccess
+              width={30}
+              height={30}
+              {...Props['ToastIconSuccess']}
+              name={toastSubscribe.icon ?? Props['ToastIconSuccess'].name}
+            />
+          ),
         })
       } else {
         pushToast({
           ...toastSubscribeError,
           status: 'ERROR',
-          icon: <Icon name={toastSubscribeError.icon} width={30} height={30} />,
+          icon: (
+            <ToastIconError
+              width={30}
+              height={30}
+              {...Props['ToastIconError']}
+              name={toastSubscribe.icon ?? Props['ToastIconError'].name}
+            />
+          ),
         })
       }
 
@@ -155,7 +179,12 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
         >
           <header data-fs-newsletter-header>
             <h3>
-              <Icon name={icon.icon} width={32} height={32} />
+              <HeaderIcon
+                width={32}
+                height={32}
+                {...Props['HeaderIcon']}
+                name={icon.icon ?? Props['HeaderIcon'].name}
+              />
               {title}
             </h3>
             {description && <span> {description}</span>}
@@ -164,19 +193,25 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
           <div data-fs-newsletter-controls>
             <>
               {displayNameInput ? (
-                <UIInputField
-                  inputRef={nameInputRef}
+                <InputFieldName
                   id="newsletter-name"
-                  label={nameInputLabel}
                   required
+                  {...Props['InputFieldName']}
+                  label={nameInputLabel ?? Props['InputFieldName'].label}
+                  // Dynamic props shouldn't be overridable
+                  // This decision can be reviewed later if needed
+                  inputRef={nameInputRef}
                 />
               ) : null}
-              <UIInputField
-                inputRef={emailInputRef}
+              <InputFieldEmail
                 id="newsletter-email"
-                label={emailInputLabel}
                 type="email"
                 required
+                {...Props['InputFieldEmail']}
+                label={emailInputLabel ?? Props['InputFieldEmail'].label}
+                // Dynamic props shouldn't be overridable
+                // This decision can be reviewed later if needed
+                inputRef={emailInputRef}
               />
               <span
                 data-fs-newsletter-addendum
@@ -184,9 +219,14 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
                   __html: cmsToHtml(privacyPolicy),
                 }}
               ></span>
-              <UIButton variant="secondary" inverse type="submit">
+              <Button
+                variant="secondary"
+                inverse
+                type="submit"
+                {...Props['Button']}
+              >
                 {loading ? subscribeButtonLoadingLabel : subscribeButtonLabel}
-              </UIButton>
+              </Button>
             </>
           </div>
         </form>
