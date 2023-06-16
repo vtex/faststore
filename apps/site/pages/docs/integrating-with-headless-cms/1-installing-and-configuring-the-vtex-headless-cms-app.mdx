@@ -2,3 +2,52 @@
 title: '1. Installing and configuring the VTEX Headless CMS app'
 sidebar_label: 'integrating-with-headless-cms'
 ---
+
+
+# Part 1: Configuring your VTEX account
+
+## Introduction
+
+To avoid any surprises during the course of this tutorial, let's first set up all the tools you will need to integrate the VTEX Headless CMS with your FastStore project.
+
+First, we will install the **VTEX IO CLI**. The VTEX IO CLI will help you during your development process by allowing you to perform different actions in the VTEX platform. In the following, we will install and configure the VTEX Headless CMS app in your VTEX account.
+
+---
+
+## Step by step
+
+### Step 1 - Setting up the command-line environment
+
+
+### Step 2 - Installing the Headless CMS app on your VTEX account
+
+
+
+### Step 3 - Configuring the Headless CMS
+
+
+
+### Step 4 - Communicating WebOps updates to the Headless CMS
+
+Now, if you are developing your FastStore project with CI/CD and VTEX Headless CMS, you must ensure that CI/CD is aware of every CMS update performed via the VTEX Admin. To do so, you must configure the WebOps webhooks responsible for communicating with the VTEX Headless CMS as in the following.
+
+1. Open your FastStore project in any code editor of your preference.
+2.  Edit the `cms-webhook-urls.json` file in the root directory of your project.
+3. Add the webhooks corresponding to your store website as in the following:
+
+   ```json title="cms-webhook-urls.json"
+   {
+     "urls": ["https://{account}.myvtex.com/cms-releases/webhook-releases"]
+   }
+   ```
+
+4. Open a Pull Request including the previous changes.
+5. Merge the Pull Request.
+
+Now you're ready to start defining which Content Types and Sections will be editable via the VTEX Headless CMS. Let's get started!
+
+---
+
+## Related resources
+
+- [VTEX IO CLI](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference)
