@@ -92,8 +92,8 @@ function copyUserSrcToCustomizations() {
 async function createCmsWebhookUrlsJsonFile() {
   const userStoreConfig = await import(userStoreConfigFileDir)
 
-  if (userStoreConfig?.headlessCms && userStoreConfig.headlessCms?.webhookUrls) {
-    const { webhookUrls } = userStoreConfig?.headlessCms
+  if (userStoreConfig?.vtexHeadlessCms && userStoreConfig.vtexHeadlessCms?.webhookUrls) {
+    const { webhookUrls } = userStoreConfig?.vtexHeadlessCms
 
     try {
       writeJsonSync(tmpCmsWebhookUrlsFileDir, { urls: webhookUrls }, { spaces: 2 })
