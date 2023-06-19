@@ -24,6 +24,7 @@ import type {
   OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
 import { IncrementedAddress } from '../clients/commerce/types/IncrementedAddress'
+import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
 
 type Indexed<T> = T & { index?: number }
 
@@ -234,19 +235,9 @@ const getOrderForm = async (
     return orderForm
   }
 
-  const shouldUpdateShippingData =
-    orderForm.items.length > 0 &&
-    (typeof session.postalCode === 'string' &&
-      orderForm.shippingData?.address?.postalCode !== session.postalCode) ||
-    (typeof session.geoCoordinates === 'object' &&
-      typeof session.geoCoordinates?.latitude === 'number' &&
-      typeof session.geoCoordinates.longitude === 'number' &&
-      (orderForm.shippingData?.address?.geoCoordinates[0] !==
-        session.geoCoordinates.longitude ||
-        orderForm.shippingData?.address?.geoCoordinates[1] !==
-          session.geoCoordinates.latitude)) 
-
-  if (shouldUpdateShippingData) {
+  const updateShipping = shouldUpdateShippingData(orderForm, session)
+  console.log(updateShipping)
+  if (updateShipping) {
     let incrementedAddress: IncrementedAddress | undefined
     
     if (session.postalCode) {
