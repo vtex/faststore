@@ -236,7 +236,7 @@ const getOrderForm = async (
   }
 
   const updateShipping = shouldUpdateShippingData(orderForm, session)
-  console.log(updateShipping)
+
   if (updateShipping) {
     let incrementedAddress: IncrementedAddress | undefined
     
