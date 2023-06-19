@@ -3,6 +3,13 @@ import type { NextApiHandler, NextApiRequest } from 'next'
 import { clientCMS } from 'src/server/cms'
 import { previewRedirects } from '../../../faststore.config'
 
+type Settings = {
+  seo: {
+    slug: string
+    title: string
+    description: string
+  }
+}
 class StatusError extends Error {
   constructor(message: string, public status: number) {
     super(message)
@@ -34,6 +41,8 @@ const handler: NextApiHandler = async (req, res) => {
     // Fetch CMS to check if the provided `locator` exists
     const page = await clientCMS.getCMSPage(locator)
 
+    console.log(page)
+
     // If the content doesn't exist prevent preview mode from being enabled
     if (!page) {
       throw new StatusError(
@@ -46,8 +55,17 @@ const handler: NextApiHandler = async (req, res) => {
     res.setPreviewData(locator, { maxAge: 3600 })
 
     // Redirect to the path from the fetched locator
-    // TODO: apply redirect based on the content
-    res.redirect(previewRedirects[locator.contentType] ?? '/')
+    if (previewRedirects[locator.contentType]) {
+      res.redirect(previewRedirects[locator.contentType])
+      return
+    }
+
+    if (locator.contentType === 'page') {
+      res.redirect(`/l/${(page.settings as Settings)?.seo.slug}`)
+      return
+    }
+
+    res.redirect('/')
   } catch (error) {
     if (error instanceof StatusError) {
       res.status(error.status).end(error.message)

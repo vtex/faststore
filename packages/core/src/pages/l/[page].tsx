@@ -92,8 +92,6 @@ export const getStaticProps: GetStaticProps<
     getGlobalSectionsData(previewData),
   ])
 
-  console.log(page.settings.seo)
-
   if (!page) {
     return {
       notFound: true,
