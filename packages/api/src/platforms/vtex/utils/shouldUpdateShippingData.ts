@@ -1,5 +1,16 @@
-import { IStoreSession } from '../../../__generated__/schema'
-import { OrderForm } from '../clients/commerce/types/OrderForm'
+import {
+  IStoreDeliveryMode,
+  IStoreDeliveryWindow,
+  IStoreGeoCoordinates,
+  IStoreSession,
+} from '../../../__generated__/schema'
+import {
+  CheckoutAddress,
+  OrderForm,
+  LogisticsInfo,
+  DeliveryWindow,
+  SLA,
+} from '../clients/commerce/types/OrderForm'
 
 export const shouldUpdateShippingData = (
   orderForm: OrderForm,
@@ -7,8 +18,7 @@ export const shouldUpdateShippingData = (
 ) => {
   if (
     orderForm.items.length === 0 ||
-    !orderForm.shippingData ||
-    !orderForm.shippingData.logisticsInfo ||
+    !orderForm.shippingData?.logisticsInfo ||
     orderForm.shippingData.logisticsInfo.length === 0
   ) {
     return false
@@ -16,35 +26,100 @@ export const shouldUpdateShippingData = (
 
   const { address, logisticsInfo } = orderForm.shippingData
 
-  const hasDifferentPostalCode =
-    typeof session.postalCode === 'string' &&
-    address?.postalCode !== session.postalCode
-  const hasDifferentGeoCoordinates =
-    typeof session.geoCoordinates === 'object' &&
-    typeof session.geoCoordinates?.latitude === 'number' &&
-    typeof session.geoCoordinates?.longitude === 'number' &&
-    (address?.geoCoordinates[0] !== session.geoCoordinates?.longitude ||
-      address?.geoCoordinates[1] !== session.geoCoordinates?.latitude)
-  const hasDifferentDeliveryMode =
-    session.deliveryMode &&
-    logisticsInfo.some(
-      (info) =>
-        info.selectedDeliveryChannel !==
-          (session.deliveryMode?.deliveryChannel ?? '') ||
-        info.selectedSla !== (session.deliveryMode?.deliveryMethod ?? '') ||
-        (info.slas.length > 0 &&
-          info.slas.some(
-            (sla) =>
-              sla.deliveryWindow?.startDateUtc !==
-                (session.deliveryMode?.deliveryWindow?.startDate ?? '') ||
-              sla.deliveryWindow?.endDateUtc !==
-                (session.deliveryMode?.deliveryWindow?.endDate ?? '')
-          ))
-    )
+  const hasDifferentPostalCode = checkPostalCode(address, session.postalCode)
+  if (hasDifferentPostalCode) {
+    return true
+  }
+  const hasDifferentGeoCoordinates = checkGeoCoordinates(
+    address,
+    session.geoCoordinates
+  )
+  if (hasDifferentGeoCoordinates) {
+    return true
+  }
+  const hasDifferentDeliveryMode = checkDeliveryMode(
+    session.deliveryMode,
+    logisticsInfo
+  )
+  if (hasDifferentDeliveryMode) {
+    return true
+  } else {
+    return false
+  }
+}
 
+const checkPostalCode = (
+  address: CheckoutAddress | null,
+  postalCode: string | null | undefined
+) => {
+  return typeof postalCode === 'string' && address?.postalCode !== postalCode
+}
+
+const checkGeoCoordinates = (
+  address: CheckoutAddress | null,
+  geoCoordinates: IStoreGeoCoordinates | null | undefined
+) => {
   return (
-    hasDifferentPostalCode ||
-    hasDifferentGeoCoordinates ||
-    hasDifferentDeliveryMode
+    typeof geoCoordinates?.latitude === 'number' &&
+    typeof geoCoordinates?.longitude === 'number' &&
+    (address?.geoCoordinates[0] !== geoCoordinates?.longitude ||
+      address?.geoCoordinates[1] !== geoCoordinates?.latitude)
+  )
+}
+
+const checkDeliveryMode = (
+  deliveryMode: IStoreDeliveryMode | null | undefined,
+  logisticsInfo: LogisticsInfo[]
+) => {
+  return (
+    deliveryMode &&
+    logisticsInfo.some((itemLogistics) =>
+      checkDeliveryInfo(itemLogistics, deliveryMode)
+    )
+  )
+}
+
+const checkDeliveryInfo = (
+  itemLogistics: LogisticsInfo,
+  deliveryMode: IStoreDeliveryMode | null | undefined
+) => {
+  return (
+    checkDeliveryChannel(
+      itemLogistics.selectedDeliveryChannel,
+      deliveryMode?.deliveryChannel
+    ) ||
+    checkSelectedSla(itemLogistics.selectedSla, deliveryMode?.deliveryMethod) ||
+    (checkItemSla(itemLogistics.slas) > 0 &&
+      itemLogistics.slas.some((sla) =>
+        checkDeliveryWindow(sla.deliveryWindow, deliveryMode?.deliveryWindow)
+      ))
+  )
+}
+
+const checkDeliveryChannel = (
+  selectedDeliveryChannel: string,
+  deliveryChannel: string
+) => {
+  return selectedDeliveryChannel !== (deliveryChannel ?? '')
+}
+
+const checkSelectedSla = (
+  selectedSla: string | null,
+  deliveryMethod: string
+) => {
+  return selectedSla !== (deliveryMethod ?? '')
+}
+
+const checkItemSla = (slas: SLA[]) => {
+  return slas.length
+}
+
+const checkDeliveryWindow = (
+  deliveryWindow: DeliveryWindow | null,
+  sessionDeliveryWindow: IStoreDeliveryWindow | null | undefined
+) => {
+  return (
+    deliveryWindow?.startDateUtc !== (sessionDeliveryWindow?.startDate ?? '') ||
+    deliveryWindow?.endDateUtc !== (sessionDeliveryWindow?.endDate ?? '')
   )
 }
