@@ -1,4 +1,4 @@
-import type { ContentData, Locator } from '@vtex/client-cms'
+import type { ContentData, ContentTypeOptions, Locator } from '@vtex/client-cms'
 import ClientCMS from '@vtex/client-cms'
 
 import config from '../../faststore.config'
@@ -12,7 +12,7 @@ type Options =
   | Locator
   | {
       contentType: string
-      filters?: Record<string, string>
+      filters?: Partial<ContentTypeOptions>
     }
 
 const isLocator = (x: any): x is Locator =>
