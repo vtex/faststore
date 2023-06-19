@@ -9,7 +9,6 @@ import {
   OrderForm,
   LogisticsInfo,
   DeliveryWindow,
-  SLA,
 } from '../clients/commerce/types/OrderForm'
 
 export const shouldUpdateShippingData = (
@@ -43,7 +42,7 @@ export const shouldUpdateShippingData = (
   )
   if (hasDifferentDeliveryMode) {
     return true
-  } 
+  }
   return false
 }
 
@@ -89,8 +88,8 @@ const checkDeliveryInfo = (
     ) ||
     checkSelectedSla(itemLogistics.selectedSla, deliveryMode?.deliveryMethod) ||
     itemLogistics.slas.some((sla) =>
-    checkDeliveryWindow(sla.deliveryWindow, deliveryMode?.deliveryWindow)
-  )
+      checkDeliveryWindow(sla.deliveryWindow, deliveryMode?.deliveryWindow)
+    )
   )
 }
 
@@ -113,7 +112,9 @@ const checkDeliveryWindow = (
   sessionDeliveryWindow: IStoreDeliveryWindow | null | undefined
 ) => {
   return (
-    deliveryWindow?.startDateUtc !== (sessionDeliveryWindow?.startDate ?? '') ||
-    deliveryWindow?.endDateUtc !== (sessionDeliveryWindow?.endDate ?? '')
+    (deliveryWindow?.startDateUtc ?? '') !==
+      (sessionDeliveryWindow?.startDate ?? '') ||
+    (deliveryWindow?.endDateUtc ?? '') !==
+      (sessionDeliveryWindow?.endDate ?? '')
   )
 }
