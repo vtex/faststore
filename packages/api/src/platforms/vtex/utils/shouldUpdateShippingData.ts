@@ -112,9 +112,7 @@ const checkDeliveryWindow = (
   sessionDeliveryWindow: IStoreDeliveryWindow | null | undefined
 ) => {
   return (
-    (deliveryWindow?.startDateUtc ?? '') !==
-      (sessionDeliveryWindow?.startDate ?? '') ||
-    (deliveryWindow?.endDateUtc ?? '') !==
-      (sessionDeliveryWindow?.endDate ?? '')
+    deliveryWindow?.startDateUtc !== sessionDeliveryWindow?.startDate ||
+    deliveryWindow?.endDateUtc !== sessionDeliveryWindow?.endDate
   )
 }
