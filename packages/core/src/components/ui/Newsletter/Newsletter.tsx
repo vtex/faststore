@@ -155,7 +155,7 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
         >
           <header data-fs-newsletter-header>
             <h3>
-              <Icon name={icon.icon} width={32} height={32} />
+              <Icon name={icon?.icon} width={32} height={32} />
               {title}
             </h3>
             {description && <span> {description}</span>}
