@@ -183,7 +183,7 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
                 width={32}
                 height={32}
                 {...Props['HeaderIcon']}
-                name={icon.icon ?? Props['HeaderIcon'].name}
+                name={icon?.icon ?? Props['HeaderIcon'].name}
               />
               {title}
             </h3>

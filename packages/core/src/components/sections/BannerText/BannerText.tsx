@@ -24,24 +24,27 @@ const { Banner, BannerContent } = Components
 function BannerText({
   title,
   caption,
-  link,
-  variant = Props['BannerText'].variant ?? 'primary',
-  colorVariant = Props['BannerText'].colorVariant ?? 'main',
+  link: {
+    url: linkUrl = Props['BannerContent'].link,
+    text: linkText = Props['BannerContent'].linkText,
+  },
+  variant = Props['Banner'].variant ?? 'primary',
+  colorVariant = Props['Banner'].colorVariant ?? 'main',
 }: BannerTextProps) {
   return (
     <Section className={`${styles.section} section-banner layout__section`}>
       <div className="layout__content">
         <Banner
+          {...Props['Banner']}
           variant={variant}
           colorVariant={colorVariant}
-          {...Props['Banner']}
         >
           <BannerContent
+            {...Props['BannerContent']}
             title={title}
             caption={caption}
-            link={link?.url}
-            linkText={link?.text}
-            {...Props['BannerContent']}
+            link={linkUrl}
+            linkText={linkText}
           />
         </Banner>
       </div>
