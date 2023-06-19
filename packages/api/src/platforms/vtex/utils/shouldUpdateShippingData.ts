@@ -97,15 +97,15 @@ const checkDeliveryInfo = (
 }
 
 const checkDeliveryChannel = (
-  selectedDeliveryChannel: string,
-  deliveryChannel: string
+  selectedDeliveryChannel: string | null,
+  deliveryChannel: string | undefined
 ) => {
   return selectedDeliveryChannel !== (deliveryChannel ?? '')
 }
 
 const checkSelectedSla = (
   selectedSla: string | null,
-  deliveryMethod: string
+  deliveryMethod: string | undefined
 ) => {
   return selectedSla !== (deliveryMethod ?? '')
 }
