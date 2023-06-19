@@ -43,9 +43,8 @@ export const shouldUpdateShippingData = (
   )
   if (hasDifferentDeliveryMode) {
     return true
-  } else {
-    return false
-  }
+  } 
+  return false
 }
 
 const checkPostalCode = (
@@ -89,10 +88,9 @@ const checkDeliveryInfo = (
       deliveryMode?.deliveryChannel
     ) ||
     checkSelectedSla(itemLogistics.selectedSla, deliveryMode?.deliveryMethod) ||
-    (checkItemSla(itemLogistics.slas) > 0 &&
-      itemLogistics.slas.some((sla) =>
-        checkDeliveryWindow(sla.deliveryWindow, deliveryMode?.deliveryWindow)
-      ))
+    itemLogistics.slas.some((sla) =>
+    checkDeliveryWindow(sla.deliveryWindow, deliveryMode?.deliveryWindow)
+  )
   )
 }
 
@@ -108,10 +106,6 @@ const checkSelectedSla = (
   deliveryMethod: string | undefined
 ) => {
   return selectedSla !== (deliveryMethod ?? '')
-}
-
-const checkItemSla = (slas: SLA[]) => {
-  return slas.length
 }
 
 const checkDeliveryWindow = (
