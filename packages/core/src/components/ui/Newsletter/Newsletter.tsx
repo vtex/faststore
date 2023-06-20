@@ -184,7 +184,12 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
                   __html: cmsToHtml(privacyPolicy),
                 }}
               ></span>
-              <UIButton variant="secondary" inverse type="submit">
+              <UIButton
+                variant="secondary"
+                inverse
+                type="submit"
+                aria-label={subscribeButtonLabel}
+              >
                 {loading ? subscribeButtonLoadingLabel : subscribeButtonLabel}
               </UIButton>
             </>
