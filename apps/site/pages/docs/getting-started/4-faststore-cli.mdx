@@ -13,15 +13,16 @@ import { Callout, Tab, Tabs } from 'nextra-theme-docs'
 
 The FastStore Command Line Interface (CLI) is the main pre-configured tool for initializing, building and developing FastStore projects.
 
-Also the CLI is the responsible on keeping the stores up-to-date with the [`@faststore/core`](/docs/getting-started/project-structure#faststorecore) package and enables the cloud platform to understand the FastStore project.
+Also the CLI is the responsible on keeping the stores up-to-date with the [`@faststore/core`](/docs/getting-started/3-project-structure#faststorecore) package and enables the cloud platform to understand the FastStore project.
 
 ---
 
 ## Runnig FastStore CLI on the project
 
-The CLI is a dependency in the `package.json` file of the FastStore project, so once you run `yarn install` during the [set up of the project](/docs/getting-started/settingup-project#step-1-cloning-the-stores-repository) you can start using it on the project.
+The CLI is a dependency in the `package.json` file of the FastStore project, so once you run `yarn install` during the [set up of the project](/docs/getting-started/2-setting-up-the-project) you can start using it on the project.
 
 ### Commands
+
 #### `dev`
 
 Starts the project in the development environment and usally servers it at `http://localhost:3000`. It allows you to make changes to the project and see the results in real-time locally on your machine without affecting the production environment.
@@ -37,7 +38,9 @@ Generates a store in the production environment by compiling the project and opt
 ```bash
   yarn build
 ```
+
 #### `start`
+
 Executes a Next.js project in the root directory and usally servers it at `http://localhost:3000`.
 
 ```bash
@@ -53,12 +56,15 @@ Installing the CLI via `npm` allows you to use its commands in you machine. To i
 ```bash
   npm install -g @faststore/cli
 ```
+
 ### Commands
+
 #### `dev`
 
 ```bash
   faststore dev
 ```
+
 #### `build`
 
 ```bash
