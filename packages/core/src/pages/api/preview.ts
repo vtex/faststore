@@ -41,8 +41,6 @@ const handler: NextApiHandler = async (req, res) => {
     // Fetch CMS to check if the provided `locator` exists
     const page = await clientCMS.getCMSPage(locator)
 
-    console.log(page)
-
     // If the content doesn't exist prevent preview mode from being enabled
     if (!page) {
       throw new StatusError(
@@ -60,8 +58,8 @@ const handler: NextApiHandler = async (req, res) => {
       return
     }
 
-    if (locator.contentType === 'page') {
-      res.redirect(`/l/${(page.settings as Settings)?.seo.slug}`)
+    if (locator.contentType === 'landingPage') {
+      res.redirect(`${(page.settings as Settings)?.seo.slug}`)
       return
     }
 

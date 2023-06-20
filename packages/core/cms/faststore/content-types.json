@@ -6,8 +6,8 @@
     "isSingleton": true
   },
   {
-    "id": "page",
-    "name": "Page",
+    "id": "landingPage",
+    "name": "Landing Page",
     "configurationSchemaSets": [
       {
         "name": "Settings",
