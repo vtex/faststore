@@ -113,6 +113,9 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
     const { subscribeUser, loading, data } = useNewsletter()
     const nameInputRef = useRef<HTMLInputElement>(null)
     const emailInputRef = useRef<HTMLInputElement>(null)
+    const subscriptionButtonLabel = loading
+      ? subscribeButtonLoadingLabel
+      : subscribeButtonLabel
 
     const { pushToast } = useUI()
 
@@ -188,9 +191,9 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
                 variant="secondary"
                 inverse
                 type="submit"
-                aria-label={subscribeButtonLabel}
+                aria-label={subscriptionButtonLabel}
               >
-                {loading ? subscribeButtonLoadingLabel : subscribeButtonLabel}
+                {subscriptionButtonLabel}
               </UIButton>
             </>
           </div>
