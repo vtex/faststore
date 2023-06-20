@@ -15,18 +15,25 @@ The VTEX IO CLI will help you during your development process by allowing you to
 ---
 
 ## Before you start
-Make sure the Onboarding process for your FastStore project was successful. It is during the onboarding that the VTEX Headless CMS is install. For more information, refer to [Starting a new FastStore project](/docs/getting-started/1-faststore-onboarding/onboarding#step-1-setting-up-the-project) tutorial.
+
+Before you proceed with setting up the Headless CMS in your account, please ensure the following:
+
+**1. Successful FastStore Onboarding**
+
+Make sure that the FastStore Onboarding process has been completed successfully. The VTEX Headless CMS is installed during this onboarding phase. For detailed instructions, please refer to the [Starting a new FastStore project](/docs/getting-started/1-faststore-onboarding/onboarding#step-1-setting-up-the-project) tutorial.
+
+**2. Installation of VTEX IO CLI**
+
+Ensure that you have installed the VTEX IO CLI on your machine. This CLI is required to install the Headless CMS plugins and CMS dependencies. For more information, please refer to the [Installing VTEX IO CLI](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-install) guide.
 
 ## Step by step
 
 ### Step 1 - Setting up the command-line environment
 
-1. Install the VTEX IO CLI on your machine. Please refer to [Installing VTEX IO CLI](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-install) guide for more information.
-
-2. Log in to your VTEX account:
+1. Access the VTEX IO CLI and Log in to your VTEX account:
 
 <Callout type="warning" emoji="⚠️">
-  Remember to replace the values between curly brackets according to your scenario.
+  Remember to replace the values between curly brackets according to your account name.
 </Callout>
 
   ```
@@ -48,32 +55,42 @@ Now, check if the installation of the VTEX Headless CMS plugin was successful by
 </Callout>
 
 
-### Step 2 - Configuring the Headless CMS
+### Step 2 - Installing the Headless CMS dependencies on your VTEX account
 
-Next, let's configure the URLs of the webhooks used by the VTEX Headless CMS app.
+Install the VTEX Headless CMS dependencies in your VTEX account by running the following command:
 
-1. In the VTEX Admin, access **Storefront > Headless CMS**
-2. Select **CREATE NEW**.
-3. Fill the name of your Project with `Faststore`.
-4. If you're using the VTEX CI/CD, you must fill in the **Build Webhook URL** field with the following value. 
+```bash
+  vtex install vtex.admin-cms-graphql@0.x vtex.admin-cms-graphql-rc@1.x 
+```
+
+
+### Step 3 - Configuring the Headless CMS
+
+Let's configure the URLs of the webhooks used by the VTEX Headless CMS app.
+
+1. In the VTEX Admin, access **Apps > My apps**
+2. Look for the **CMS (alpha)** app and click on **Settings**.
+3. Select **Add More**.
+4. Fill in the **Project ID** field with `faststore`.
+5. If you're using the VTEX CI/CD, you must fill in the **Build Webhook URL** field with the following value. _Replace the values between curly brackets according to your scenario._
 
    ```
    https://app.io.vtex.com/vtex.cms-builder-sf-jamstack/v1/{account}/{workspace}/build-releases
    ```
-_Replace the values between curly brackets according to your scenario._
+
 
 <Callout type="info" emoji=" ℹ️ ">
   When an editor clicks to publish a page using the VTEX Headless CMS interface, the CMS calls the **Build Webhook URL**, which changes the status of that page to `publishing`. The CMS, then, waits for the content to be built in the background.
 </Callout>
 
 
-5. Now, fill in the **Production base URL** filed with your production URL. _Replace the values between curly brackets according to your scenario._
+6. Fill in the **Production base URL** filed with your production URL. _Replace the values between curly brackets according to your scenario._
 
 ```
-https://www.{account}.com/
+https://{account}.vtex.com/
 ```
 
-8. Click on **CREATE**
+7. Click on **SAVE**
 
 
 ### Step 3 - Communicating WebOps updates to the Headless CMS

@@ -1,0 +1,75 @@
+---
+title: ' Overview'
+sidebar_label: 'Getting Started'
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<header>
+
+# Getting started
+
+</header>
+
+<Callout type="warning" emoji="⚠️">
+  This documentation is currently under development.
+</Callout>
+
+In this Getting Started track, you will build and deploy a FastStore storefront at the domain `https://{accountName}.vtex.app/`.
+
+By the end of this track, you'll have a fully functional store using FastStore, seamlessly integrated with VTEX native solutions like [Headless CMS](/docs/headless-cms-overview/overview-headless-cms).
+Here's an example of the final result: [Starter Store](https://starter.vtex.app).
+
+---
+
+## Before you start
+
+### 1. Install the VTEX IO CLI on your machine.
+
+For more information, please refer to [this guide](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference).
+
+### 2. Verify the compatibility of your store's Edition App.
+
+To develop a storefront in FastStore, your account [Edition](https://developers.vtex.com/docs/guides/vtex-io-documentation-edition-app) must be `vtex.edition-store@5.x`. If you are using a different major version, please [open a ticket with VTEX Support](https://help.vtex.com/en/support) and request the installation of the Edition app `vtex.edition-store@5.x`.
+
+<Callout type="info" emoji="ℹ️">
+  To check which Edition App version is intalled in your account, open the
+  terminal and use the VTEX IO CLI. Log in to your account by running `vtex
+  login {accountName}` and run `vtex edition get` to see the Edition App version
+  installed on the current account.
+</Callout>
+
+### 3. Run the Intelligent Search integration process.
+
+Integrate the [VTEX Intelligent Search](https://help.vtex.com/tracks/vtex-intelligent-search), an advanced VTEX native search solution that provides accurate, personalized search results to enhance the user experience throughout their shopping journey.
+Go to the VTEX Admin and access **Store Settings > Intelligent Search > Integrations** and click on`START INTEGRATION`. For more information, refer to the [VTEX Intelligent Search documentation](https://help.vtex.com/tracks/vtex-intelligent-search).
+
+### 4. Request the installation of the FastStore Onboarding app.
+
+[Open a ticket with the VTEX support team](https://help.vtex.com/support) and request the installation of the FastStore Onboarding app.
+
+---
+
+## Track overview
+
+In this section, you will find a concise summary of the FastStore Getting Started track. It provides an outline of the topics covered in each step, giving you a clear roadmap for your journey.
+
+### 1. [FastStore Onboarding app](/docs/getting-started/1-faststore-onboarding/overview)
+
+Create your project with the FastStore Onboarding app. This app streamlines the creation of a FastStore project by configuring essential store settings, creating a dedicated GitHub repository for your project, and defining a default domain for your store.
+
+### 2. [Setting Up the Project](/docs/getting-started/2-setting-up-the-project)
+
+Discover the core technologies used in this tutorial and set up all the necessary tools to create your very first FastStore storefront.
+
+### 3. [Understanding the Project Structure](/docs/getting-started/3-project-structure)
+
+Learn how to organize your FastStore project and get to know our recommended naming conventions for files and folders.
+
+### 4. [FastStore CLI](/docs/getting-started/4-faststore-cli)
+
+Install the FastStore Command Line Interface (CLI), a development tool for starting, building, and developing FastStore projects.
+
+### 5. [Next Steps](/docs/getting-started/5-next-steps)
+
+Explore additional resources and recommendations to enhance various aspects of your store, including performance and overall user experience.
