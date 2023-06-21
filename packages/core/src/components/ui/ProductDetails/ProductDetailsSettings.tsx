@@ -9,11 +9,11 @@ import Selectors from 'src/components/ui/SkuSelector'
 import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
 
 import {
-  Components,
-  Props,
+  BuyButton,
+  Icon,
+  Price,
+  QuantitySelector,
 } from 'src/components/sections/ProductDetails/Overrides'
-
-const { BuyButton, Icon, Price, QuantitySelector } = Components
 
 interface ProductDetailsSettingsProps {
   product: ProductDetailsFragment_ProductFragment
@@ -34,8 +34,8 @@ function ProductDetailsSettings({
   quantity,
   setQuantity,
   buyButtonIcon: {
-    icon: buyButtonIconName = Props['Icon'].name,
-    alt: buyButtonIconAlt = Props['Icon']['aria-label'],
+    icon: buyButtonIconName = Icon.props.name,
+    alt: buyButtonIconAlt = Icon.props['aria-label'],
   },
 }: ProductDetailsSettingsProps) {
   const {
@@ -77,30 +77,30 @@ function ProductDetailsSettings({
     <>
       <section data-fs-product-details-values>
         <div data-fs-product-details-prices>
-          <Price
+          <Price.Component
             formatter={useFormattedPrice}
             testId="list-price"
             variant="listing"
             SRText="Original price:"
-            {...Props['Price']}
+            {...Price.props}
             value={listPrice}
             data-value={listPrice}
           />
-          <Price
+          <Price.Component
             formatter={useFormattedPrice}
             testId="price"
             variant="spot"
             className="text__lead"
             SRText="Sale Price:"
-            {...Props['Price']}
+            {...Price.props}
             value={lowPrice}
             data-value={lowPrice}
           />
         </div>
-        <QuantitySelector
+        <QuantitySelector.Component
           min={1}
           max={10}
-          {...Props['QuantitySelector']}
+          {...QuantitySelector.props}
           // Dynamic props shouldn't be overridable
           // This decision can be reviewed later if needed
           onChange={setQuantity}
@@ -122,11 +122,11 @@ function ProductDetailsSettings({
         isValidating ? (
           <AddToCartLoadingSkeleton />
         ) : (
-          <BuyButton
-            {...Props['BuyButton']}
+          <BuyButton.Component
+            {...BuyButton.props}
             icon={
-              <Icon
-                {...Props['Icon']}
+              <Icon.Component
+                {...Icon.props}
                 aria-label={buyButtonIconAlt}
                 name={buyButtonIconName}
               />
@@ -135,7 +135,7 @@ function ProductDetailsSettings({
             {...buyProps}
           >
             {buyButtonTitle || 'Add to Cart'}
-          </BuyButton>
+          </BuyButton.Component>
         )
       }
     </>

@@ -6,7 +6,7 @@ import { useSession } from 'src/sdk/session'
 import { IShippingItem } from '@faststore/api'
 import { useShippingSimulation } from './useShippingSimulation'
 
-import { Components } from 'src/components/sections/ProductDetails/Overrides'
+import { ShippingSimulation as ShippingSimulationWrapper } from 'src/components/sections/ProductDetails/Overrides'
 
 type ShippingSimulationOptionalProps =
   | 'title'
@@ -56,7 +56,6 @@ export default function ShippingSimulation({
   ...otherProps
 }: ShippingSimulationProps) {
   const { country, postalCode: sessionPostalCode } = useSession()
-  const { ShippingSimulation: ShippingSimulationWrapper } = Components
 
   const {
     input,
@@ -76,7 +75,7 @@ export default function ShippingSimulation({
   const { location, options } = shippingSimulation
 
   return (
-    <ShippingSimulationWrapper
+    <ShippingSimulationWrapper.Component
       formatter={formatter}
       onInput={handleOnInput}
       onSubmit={handleSubmit}

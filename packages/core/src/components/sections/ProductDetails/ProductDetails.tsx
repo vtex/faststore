@@ -18,16 +18,11 @@ import { ProductDetailsSettings } from 'src/components/ui/ProductDetails'
 import styles from './section.module.scss'
 
 import {
-  Components,
-  Props,
-} from 'src/components/sections/ProductDetails/Overrides'
-
-const {
   ProductTitle,
   DiscountBadge,
-  __experimentalImageGallery: ImageGallery,
-  __experimentalShippingSimulation: ShippingSimulation,
-} = Components
+  __experimentalImageGallery as ImageGallery,
+  __experimentalShippingSimulation as ShippingSimulation,
+} from 'src/components/sections/ProductDetails/Overrides'
 
 interface ProductDetailsContextProps {
   context: ProductDetailsFragment_ProductFragment
@@ -70,25 +65,22 @@ function ProductDetails({
     refNumber: showRefNumber,
     discountBadge: {
       showDiscountBadge,
-      size: discountBadgeSize = Props['DiscountBadge'].size,
+      size: discountBadgeSize = DiscountBadge.props.size,
     },
   },
   buyButton: { icon: buyButtonIcon, title: buyButtonTitle },
   shippingSimulator: {
-    title: shippingSimulatorTitle = Props['__experimentalShippingSimulation']
-      .title,
-    inputLabel: shippingSimulatorInputLabel = Props[
-      '__experimentalShippingSimulation'
-    ].inputLabel,
-    shippingOptionsTableTitle: shippingSimulatorOptionsTableTitle = Props[
-      '__experimentalShippingSimulation'
-    ].optionsLabel,
+    title: shippingSimulatorTitle = ShippingSimulation.props.title,
+    inputLabel: shippingSimulatorInputLabel = ShippingSimulation.props
+      .inputLabel,
+    shippingOptionsTableTitle:
+      shippingSimulatorOptionsTableTitle = ShippingSimulation.props
+        .optionsLabel,
     link: {
-      to: shippingSimulatorLinkUrl = Props['__experimentalShippingSimulation']
+      to: shippingSimulatorLinkUrl = ShippingSimulation.props
         .idkPostalCodeLinkProps?.href,
-      text: shippingSimulatorLinkText = Props[
-        '__experimentalShippingSimulation'
-      ].idkPostalCodeLinkProps?.children,
+      text: shippingSimulatorLinkText = ShippingSimulation.props
+        .idkPostalCodeLinkProps?.children,
     },
   },
   productDescription: {
@@ -167,16 +159,16 @@ function ProductDetails({
       <section data-fs-product-details>
         <section data-fs-product-details-body>
           <header data-fs-product-details-title data-fs-product-details-section>
-            <ProductTitle
+            <ProductTitle.Component
               // TODO: We should review this prop. There's now way to override the title and use the dynamic name value.
               // Maybe passing a ProductTitleHeader component as a prop would be better, as it would be overridable.
               // Maybe now it's worth to make title always a h1 and receive only the name, as it would be easier for users to override.
               title={<h1>{name}</h1>}
-              {...Props['ProductTitle']}
+              {...ProductTitle.props}
               label={
                 showDiscountBadge && (
-                  <DiscountBadge
-                    {...Props['DiscountBadge']}
+                  <DiscountBadge.Component
+                    {...DiscountBadge.props}
                     size={discountBadgeSize}
                     // Dynamic props shouldn't be overridable
                     // This decision can be reviewed later if needed
@@ -188,9 +180,9 @@ function ProductDetails({
               refNumber={showRefNumber && productId}
             />
           </header>
-          <ImageGallery
+          <ImageGallery.Component
             data-fs-product-details-gallery
-            {...Props['__experimentalImageGallery']}
+            {...ImageGallery.props}
             images={productImages}
           />
           <section data-fs-product-details-info>
@@ -213,13 +205,13 @@ function ProductDetails({
             </section>
 
             {availability && (
-              <ShippingSimulation
+              <ShippingSimulation.Component
                 data-fs-product-details-section
                 data-fs-product-details-shipping
                 formatter={useFormattedPrice}
-                {...Props['__experimentalShippingSimulation']}
+                {...ShippingSimulation.props}
                 idkPostalCodeLinkProps={{
-                  ...Props['idkPostalCodeLinkProps'],
+                  ...ShippingSimulation.props.idkPostalCodeLinkProps,
                   href: shippingSimulatorLinkUrl,
                   children: shippingSimulatorLinkText,
                 }}

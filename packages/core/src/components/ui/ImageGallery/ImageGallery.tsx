@@ -4,14 +4,15 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import {
-  Components,
-  Props,
+  ImageGallery as ImageGalleryWrapper,
+  ImageZoom,
+  __experimentalImageGalleryImage as Image,
 } from 'src/components/sections/ProductDetails/Overrides'
 
 const ImageComponent = ({ url, alternateName }) => {
-  const { __experimentalImageGalleryImage: Image } = Components
-
-  return <Image src={url} alt={alternateName} width={68} height={68} />
+  return (
+    <Image.Component src={url} alt={alternateName} width={68} height={68} />
+  )
 }
 
 export interface ImageGalleryProps {
@@ -25,34 +26,27 @@ const ImageGallery = ({ images, ...otherProps }: ImageGalleryProps) => {
 
   useEffect(() => setSelectedImageIdx(0), [dynamicRoute])
 
-  // Deconstructing the object to avoid circular dependency errors
-  const {
-    ImageGallery: ImageGalleryWrapper,
-    ImageZoom,
-    __experimentalImageGalleryImage: Image,
-  } = Components
-
   return (
-    <ImageGalleryWrapper
-      {...Props['ImageGallery']}
+    <ImageGalleryWrapper.Component
+      {...ImageGalleryWrapper.props}
       images={images}
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
       {...otherProps}
     >
-      <ImageZoom {...Props['ImageZoom']}>
-        <Image
+      <ImageZoom.Component {...ImageZoom.props}>
+        <Image.Component
           sizes="(max-width: 360px) 50vw, (max-width: 768px) 90vw, 50vw"
           width={691}
           height={691 * (3 / 4)}
           loading="eager"
-          {...Props['__experimentalImageGalleryImage']}
+          {...Image.props}
           src={currentImage.url}
           alt={currentImage.alternateName}
         />
-      </ImageZoom>
-    </ImageGalleryWrapper>
+      </ImageZoom.Component>
+    </ImageGalleryWrapper.Component>
   )
 }
 
