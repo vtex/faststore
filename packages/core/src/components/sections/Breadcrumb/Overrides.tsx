@@ -1,27 +1,28 @@
 import { Breadcrumb as UIBreadcrumb, Icon as UIIcon } from '@faststore/ui'
 
-import BreadcrumbCustomizations from 'src/customizations/components/overrides/Breadcrumb'
+import type { BreadcrumbProps, IconProps } from '@faststore/ui'
 
-const breadcrumbComponentsCustomization = {}
+import type {
+  SectionOverrideDefinition,
+  ComponentOverrideDefinition,
+} from 'src/typings/overrides'
+import { getSectionOverrides } from 'src/utils/overrides'
+import { override } from 'src/customizations/components/overrides/Breadcrumb'
 
-const breadcrumbPropsCustomization = {} as any
-
-Object.entries(BreadcrumbCustomizations.components).forEach(([key, value]) => {
-  if (value.Component) {
-    breadcrumbComponentsCustomization[key] = value.Component
+export type BreadcrumbOverrideDefinition = SectionOverrideDefinition<
+  'Breadcrumb',
+  {
+    Breadcrumb: ComponentOverrideDefinition<BreadcrumbProps, BreadcrumbProps>
+    Icon: ComponentOverrideDefinition<IconProps, IconProps>
   }
-})
+>
 
-Object.entries(BreadcrumbCustomizations.components).forEach(([key, value]) => {
-  if (value.props) {
-    breadcrumbPropsCustomization[key] = value.props
-  }
-})
+const { Breadcrumb, Icon } = getSectionOverrides(
+  {
+    Breadcrumb: UIBreadcrumb,
+    Icon: UIIcon,
+  },
+  override as BreadcrumbOverrideDefinition
+)
 
-const Components = {
-  Breadcrumb: UIBreadcrumb,
-  Icon: UIIcon,
-  ...breadcrumbComponentsCustomization,
-}
-
-export { Components, breadcrumbPropsCustomization as Props }
+export { Breadcrumb, Icon }
