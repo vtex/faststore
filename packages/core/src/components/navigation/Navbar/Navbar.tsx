@@ -15,15 +15,13 @@ import { ButtonSignIn } from 'src/components/ui/Button'
 
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
 
-import { Components, Props } from 'src/components/sections/Navbar/Overrides'
-
-const {
-  Navbar: NavbarWrapper,
+import {
+  Navbar as NavbarWrapper,
   NavbarHeader,
   NavbarRow,
   NavbarButtons,
   IconButton,
-} = Components
+} from 'src/components/sections/Navbar/Overrides'
 
 export interface NavbarProps {
   /**
@@ -77,10 +75,7 @@ function Navbar({
   home: { label: homeLabel },
   signIn: { button: signInButton },
   menu: {
-    icon: {
-      icon: menuIcon,
-      alt: menuIconAlt = Props['IconButton']['aria-label'],
-    },
+    icon: { icon: menuIcon, alt: menuIconAlt = IconButton.props['aria-label'] },
   },
 }: NavbarProps) {
   const scrollDirection = useScrollDirection()
@@ -99,16 +94,19 @@ function Navbar({
   }, [])
 
   return (
-    <NavbarWrapper scrollDirection={scrollDirection} {...Props['Navbar']}>
-      <NavbarHeader {...Props['NavbarHeader']}>
-        <NavbarRow className="layout__content" {...Props['NavbarRow']}>
+    <NavbarWrapper.Component
+      scrollDirection={scrollDirection}
+      {...NavbarWrapper.props}
+    >
+      <NavbarHeader.Component {...NavbarHeader.props}>
+        <NavbarRow.Component className="layout__content" {...NavbarRow.props}>
           {!searchExpanded && (
             <>
-              <IconButton
+              <IconButton.Component
                 data-fs-navbar-button-menu
                 onClick={openNavbar}
                 icon={<UIIcon name={menuIcon} width={32} height={32} />}
-                {...Props['IconButton']}
+                {...IconButton.props}
                 aria-label={menuIconAlt}
               />
               <Link
@@ -125,17 +123,19 @@ function Navbar({
 
           <SearchInput sort={searchInput?.sort} />
 
-          <NavbarButtons
+          <NavbarButtons.Component
             searchExpanded={searchExpanded}
-            {...Props['NavbarButtons']}
+            {...NavbarButtons.props}
           >
             {searchExpanded && (
-              <IconButton
+              <IconButton.Component
                 data-fs-button-collapse
                 aria-label="Collapse search bar"
                 icon={<UIIcon name="CaretLeft" width={32} height={32} />}
+                {...IconButton.props}
+                // Dynamic props, shouldn't be overridable
+                // This decision can be reviewed later if needed
                 onClick={handleCollapseSearch}
-                {...Props['IconButton']}
               />
             )}
 
@@ -153,9 +153,9 @@ function Navbar({
             <ButtonSignIn {...signInButton} />
 
             <CartToggle {...cart} />
-          </NavbarButtons>
-        </NavbarRow>
-      </NavbarHeader>
+          </NavbarButtons.Component>
+        </NavbarRow.Component>
+      </NavbarHeader.Component>
 
       <NavbarLinks links={links} region={region} className="hidden-mobile" />
 
@@ -168,7 +168,7 @@ function Navbar({
           region={region}
         />
       )}
-    </NavbarWrapper>
+    </NavbarWrapper.Component>
   )
 }
 
