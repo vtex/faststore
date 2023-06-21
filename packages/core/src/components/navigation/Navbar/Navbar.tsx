@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useCallback } from 'react'
 
 import { useUI, useScrollDirection, Icon as UIIcon } from '@faststore/ui'
 
@@ -88,10 +88,15 @@ function Navbar({
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
 
-  const handlerExpandSearch = () => {
+  const handlerExpandSearch = useCallback(() => {
     setSearchExpanded(true)
     searchMobileRef.current?.inputRef?.focus()
-  }
+  }, [])
+
+  const handleCollapseSearch = useCallback(() => {
+    setSearchExpanded(false)
+    searchMobileRef.current?.resetSearchInput()
+  }, [])
 
   return (
     <NavbarWrapper scrollDirection={scrollDirection} {...Props['Navbar']}>
@@ -129,10 +134,7 @@ function Navbar({
                 data-fs-button-collapse
                 aria-label="Collapse search bar"
                 icon={<UIIcon name="CaretLeft" width={32} height={32} />}
-                onClick={() => {
-                  setSearchExpanded(false)
-                  searchMobileRef.current?.resetSearchInput()
-                }}
+                onClick={handleCollapseSearch}
                 {...Props['IconButton']}
               />
             )}
