@@ -3,33 +3,57 @@ import {
   InputField as UIInputField,
   Icon as UIIcon,
 } from '@faststore/ui'
+import type { ButtonProps, IconProps, InputFieldProps } from '@faststore/ui'
 
-import NewsletterCustomizations from 'src/customizations/components/overrides/Newsletter'
+import { getSectionOverrides } from 'src/utils/overrides'
+import type {
+  ComponentOverrideDefinition,
+  SectionOverrideDefinition,
+} from 'src/typings/overrides'
+import { override } from 'src/customizations/components/overrides/Newsletter'
 
-const newsletterComponentsCustomization = {}
-
-const newsletterPropsCustomization = {} as any
-
-Object.entries(NewsletterCustomizations.components).forEach(([key, value]) => {
-  if (value.Component) {
-    newsletterComponentsCustomization[key] = value.Component
+export type NewsletterOverrideDefinition = SectionOverrideDefinition<
+  'Newsletter',
+  {
+    ToastIconSuccess: ComponentOverrideDefinition<IconProps, IconProps>
+    ToastIconError: ComponentOverrideDefinition<IconProps, IconProps>
+    HeaderIcon: ComponentOverrideDefinition<IconProps, IconProps>
+    InputFieldName: ComponentOverrideDefinition<
+      InputFieldProps,
+      Omit<InputFieldProps, 'inputRef'>
+    >
+    InputFieldEmail: ComponentOverrideDefinition<
+      InputFieldProps,
+      Omit<InputFieldProps, 'inputRef'>
+    >
+    Button: ComponentOverrideDefinition<ButtonProps, ButtonProps>
   }
-})
+>
 
-Object.entries(NewsletterCustomizations.components).forEach(([key, value]) => {
-  if (value.props) {
-    newsletterPropsCustomization[key] = value.props
-  }
-})
+const {
+  ToastIconSuccess,
+  ToastIconError,
+  HeaderIcon,
+  InputFieldName,
+  InputFieldEmail,
+  Button,
+} = getSectionOverrides(
+  {
+    ToastIconSuccess: UIIcon,
+    ToastIconError: UIIcon,
+    HeaderIcon: UIIcon,
+    InputFieldName: UIInputField,
+    InputFieldEmail: UIInputField,
+    Button: UIButton,
+  },
+  override as NewsletterOverrideDefinition
+)
 
-const Components = {
-  ToastIconSuccess: UIIcon,
-  ToastIconError: UIIcon,
-  HeaderIcon: UIIcon,
-  InputFieldName: UIInputField,
-  InputFieldEmail: UIInputField,
-  Button: UIButton,
-  ...newsletterComponentsCustomization,
+export {
+  ToastIconSuccess,
+  ToastIconError,
+  HeaderIcon,
+  InputFieldName,
+  InputFieldEmail,
+  Button,
 }
-
-export { Components, newsletterPropsCustomization as Props }
