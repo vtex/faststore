@@ -6,7 +6,7 @@ import type { HeroOverrideDefinition } from 'src/components/sections/Hero/Overri
 import type { NavbarOverrideDefinition } from 'src/components/sections/Navbar/Overrides'
 import type { NewsletterOverrideDefinition } from 'src/components/sections/Newsletter/Overrides'
 import type { ProductDetailsOverrideDefinition } from 'src/components/sections/ProductDetails/Overrides'
-import type { ProductGalleryOverrides } from 'src/components/sections/ProductGallery/Overrides'
+import type { ProductGalleryOverrideDefinition } from 'src/components/sections/ProductGallery/Overrides'
 import type { ProductShelfOverrideDefinition } from 'src/components/sections/ProductShelf/Overrides'
 import type { RegionBarOverrideDefinition } from 'src/components/sections/RegionBar/Overrides'
 
@@ -21,6 +21,7 @@ export type SectionOverride =
   | NavbarOverrideDefinition
   | ProductShelfOverrideDefinition
   | ProductDetailsOverrideDefinition
+  | ProductGalleryOverrideDefinition
 
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
   k: infer I

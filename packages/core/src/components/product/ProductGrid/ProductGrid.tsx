@@ -7,12 +7,7 @@ import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
 import { ProductCardProps } from '../ProductCard'
 
-import {
-  Components,
-  Props,
-} from 'src/components/sections/ProductGallery/Overrides'
-
-const { __experimentalProductCard: ProductCard } = Components
+import { __experimentalProductCard as ProductCard } from 'src/components/sections/ProductGallery/Overrides'
 
 interface Props {
   /**
@@ -35,8 +30,8 @@ function ProductGrid({
   page,
   pageSize,
   productCard: {
-    showDiscountBadge = Props['ProductCard'].showDiscountBadge,
-    bordered = Props['ProductCard'].bordered,
+    showDiscountBadge = ProductCard.props.showDiscountBadge,
+    bordered = ProductCard.props.bordered,
   } = {},
 }: Props) {
   const aspectRatio = 1
@@ -49,14 +44,14 @@ function ProductGrid({
       <UIProductGrid>
         {products.map(({ node: product }, idx) => (
           <UIProductGridItem key={`${product.id}`}>
-            <ProductCard
+            <ProductCard.Component
               aspectRatio={aspectRatio}
               imgProps={{
                 width: 150,
                 height: 150,
                 sizes: '30vw',
               }}
-              {...Props['__experimentalProductCard']}
+              {...ProductCard.props}
               bordered={showDiscountBadge}
               showDiscountBadge={bordered}
               product={product}
