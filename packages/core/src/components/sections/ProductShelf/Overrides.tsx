@@ -1,34 +1,38 @@
 import { ProductShelf as UIProductShelf } from '@faststore/ui'
+import type { ProductShelfProps } from '@faststore/ui'
+
 import ProductCard from 'src/components/product/ProductCard'
 import Carousel from 'src/components/ui/Carousel'
+import type {
+  ComponentOverrideDefinition,
+  SectionOverrideDefinition,
+} from 'src/typings/overrides'
+import { getSectionOverrides } from 'src/utils/overrides'
+import { override } from 'src/customizations/components/overrides/ProductShelf'
 
-import ProductShelfCustomizations from 'src/customizations/components/overrides/ProductShelf'
-
-const productShelfComponentsCustomization = {}
-
-const productShelfPropsCustomization = {} as any
-
-Object.entries(ProductShelfCustomizations.components).forEach(
-  ([key, value]) => {
-    if (value.Component) {
-      productShelfComponentsCustomization[key] = value.Component
-    }
+export type ProductShelfOverrideDefinition = SectionOverrideDefinition<
+  'ProductShelf',
+  {
+    ProductShelf: ComponentOverrideDefinition<
+      ProductShelfProps,
+      ProductShelfProps
+    >
+    __experimentalCarousel: ComponentOverrideDefinition<any, any>
+    __experimentalProductCard: ComponentOverrideDefinition<
+      any,
+      Omit<any, 'key' | 'product' | 'index'>
+    >
   }
-)
+>
 
-Object.entries(ProductShelfCustomizations.components).forEach(
-  ([key, value]) => {
-    if (value.props) {
-      productShelfPropsCustomization[key] = value.props
-    }
-  }
-)
+const { ProductShelf, __experimentalCarousel, __experimentalProductCard } =
+  getSectionOverrides(
+    {
+      ProductShelf: UIProductShelf,
+      __experimentalCarousel: Carousel,
+      __experimentalProductCard: ProductCard,
+    },
+    override as ProductShelfOverrideDefinition
+  )
 
-const Components = {
-  ProductShelf: UIProductShelf,
-  __experimentalCarousel: Carousel,
-  __experimentalProductCard: ProductCard,
-  ...productShelfComponentsCustomization,
-}
-
-export { Components, productShelfPropsCustomization as Props }
+export { ProductShelf, __experimentalCarousel, __experimentalProductCard }

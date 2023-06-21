@@ -7,7 +7,7 @@ import type { NavbarOverrideDefinition } from 'src/components/sections/Navbar/Ov
 import type { NewsletterOverrideDefinition } from 'src/components/sections/Newsletter/Overrides'
 import type { ProductDetailsOverrides } from 'src/components/sections/ProductDetails/Overrides'
 import type { ProductGalleryOverrides } from 'src/components/sections/ProductGallery/Overrides'
-import type { ProductShelfOverrides } from 'src/components/sections/ProductShelf/Overrides'
+import type { ProductShelfOverrideDefinition } from 'src/components/sections/ProductShelf/Overrides'
 import type { RegionBarOverrideDefinition } from 'src/components/sections/RegionBar/Overrides'
 
 export type SectionOverride =
@@ -19,6 +19,7 @@ export type SectionOverride =
   | BreadcrumbOverrideDefinition
   | EmptyStateOverrideDefinition
   | NavbarOverrideDefinition
+  | ProductShelfOverrideDefinition
 
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
   k: infer I
