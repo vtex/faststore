@@ -1,97 +1,76 @@
-export const SECTIONS = {
-  Hero: {
-    components: ['Hero', 'HeroImage', 'HeroHeader'],
-  },
-  BannerText: {
-    components: ['Banner', 'BannerContent'],
-  },
-  ProductDetails: {
-    components: [
-      'ProductTitle',
-      'DiscountBadge',
-      'BuyButton',
-      'Icon',
-      'Price',
-      'QuantitySelector',
-      'SkuSelector',
-      'ShippingSimulation',
-      'ImageGallery',
-      'ImageZoom',
-      '__experimentalImageGalleryImage',
-      '__experimentalImageGallery',
-      '__experimentalShippingSimulation',
-    ],
-  },
-  ProductShelf: {
-    components: [
-      'ProductShelf',
-      '__experimentalCarousel',
-      '__experimentalProductCard',
-    ],
-  },
-  Navbar: {
-    components: [
-      'Navbar',
-      'NavbarLinks',
-      'NavbarLinksList',
-      'NavbarSlider',
-      'NavbarSliderHeader',
-      'NavbarSliderContent',
-      'NavbarSliderFooter',
-      'NavbarHeader',
-      'NavbarRow',
-      'NavbarButtons',
-      'IconButton',
-    ],
-  },
-  Breadcrumb: {
-    components: ['Breadcrumb', 'Icon'],
-  },
-  ProductGallery: {
-    components: [
-      'Button',
-      'FilterIcon',
-      'PrevIcon',
-      'ResultsCountSkeleton',
-      'SortSkeleton',
-      'FilterButtonSkeleton',
-      'LinkButtonPrev',
-      'LinkButtonNext',
-      '__experimentalFilterDesktop',
-      '__experimentalFilterSlider',
-      '__experimentalProductCard',
-    ],
-  },
-  Alert: {
-    components: ['Alert', 'Icon'],
-  },
-  EmptyState: {
-    components: ['EmptyState'],
-  },
-  RegionBar: {
-    components: ['RegionBar', 'LocationIcon', 'ButtonIcon'],
-  },
-  Newsletter: {
-    components: [
-      'ToastIconSuccess',
-      'ToastIconError',
-      'HeaderIcon',
-      'InputFieldName',
-      'InputFieldEmail',
-      'Button',
-    ],
-  },
-} as const
+import type { AlertOverrides } from 'src/components/sections/Alert/Overrides'
+import type { BannerTextOverrides } from 'src/components/sections/BannerText/Overrides'
+import type { BreadcrumbOverrides } from 'src/components/sections/Breadcrumb/Overrides'
+import type { EmptyStateOverrides } from 'src/components/sections/EmptyState/Overrides'
+import type { HeroOverrides } from 'src/components/sections/Hero/Overrides'
+import type { NavbarOverrides } from 'src/components/sections/Navbar/Overrides'
+import type { NewsletterOverrideDefinition } from 'src/components/sections/Newsletter/Overrides'
+import type { ProductDetailsOverrides } from 'src/components/sections/ProductDetails/Overrides'
+import type { ProductGalleryOverrides } from 'src/components/sections/ProductGallery/Overrides'
+import type { ProductShelfOverrides } from 'src/components/sections/ProductShelf/Overrides'
+import type { RegionBarOverrideDefinition } from 'src/components/sections/RegionBar/Overrides'
 
-// export type ComponentOrProps =
-//   | { Component: React.ElementType }
-//   | { props: Record<string, unknown> };
+export type SectionOverride =
+  | NewsletterOverrideDefinition
+  | RegionBarOverrideDefinition
 
-export type SectionOverride = {
-  [K in keyof typeof SECTIONS]: {
-    name: K
-    components: {
-      [ComponentKey in (typeof SECTIONS)[K]['components'][number]]?: any
-    }
-  }
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
+  k: infer I
+) => void
+  ? I
+  : never
+
+type MergeProps<U> = {
+  [K in keyof UnionToIntersection<U>]: UnionToIntersection<U>[K]
 }
+export type GetSectionOverridesReturn<SO extends SectionOverride> = {
+  [Key in keyof SO['components']]: ComponentOverride<
+    MergeProps<SO['components'][Key]>
+  >
+}
+
+export type DefaultSectionComponentsDefinitions<
+  T extends SectionOverrideDefinition
+> = Record<keyof T['components'], React.ComponentType>
+
+export type SectionOverrideDefinition<SectionName extends string, OC> = {
+  name: SectionName
+  components?: Partial<Prettify<OC>>
+}
+
+// Hero: HeroOverrides
+// BannerText: BannerTextOverrides
+// ProductDetails: ProductDetailsOverrides
+// ProductShelf: ProductShelfOverrides
+// Navbar: NavbarOverrides
+// Breadcrumb: BreadcrumbOverrides
+// ProductGallery: ProductGalleryOverrides
+// Alert: AlertOverrides
+// EmptyState: EmptyStateOverrides
+// RegionBar: RegionBarOverrides
+// Newsletter: NewsletterOverrides
+
+export type ComponentOverrideDefinition<ComponentProps, Props> =
+  | {
+      Component?: never
+      props: Partial<Props>
+    }
+  | {
+      Component: React.ComponentType<ComponentProps>
+      props?: never
+    }
+
+export type ComponentOverride<
+  COP extends MergeProps<ComponentOverrideDefinition>
+> = COP extends MergeProps<
+  ComponentOverrideDefinition<infer ComponentProps, infer Props>
+>
+  ? {
+      Component: React.ComponentType<ComponentProps>
+      props: Partial<Props>
+    }
+  : never
+
+export type Prettify<T> = {
+  [K in keyof T]: T[K]
+} & {}
