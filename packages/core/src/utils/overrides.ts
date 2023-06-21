@@ -17,6 +17,11 @@ export function getSectionOverrides<SO extends SectionOverride>(
       | undefined = override.components?.[key]
 
     if (!componentOverride) {
+      overriddenComponents[key] = {
+        Component: value,
+        props: {},
+      }
+
       return
     }
 
