@@ -1,10 +1,14 @@
-import {
+import type {
   BannerProps as UIBannerProps,
   BannerContentProps as UIBannerContentProps,
 } from '@faststore/ui'
-import { Components, Props } from './Overrides'
 
+import {
+  Banner,
+  BannerContent,
+} from 'src/components/sections/BannerText/Overrides'
 import Section from '../Section'
+
 import styles from './section.module.scss'
 
 export interface BannerTextProps {
@@ -18,35 +22,33 @@ export interface BannerTextProps {
   variant?: UIBannerProps['variant']
 }
 
-const { Banner, BannerContent } = Components
-
 // TODO: Change actionPath and actionLabel with Link
 function BannerText({
   title,
   caption,
   link: {
-    url: linkUrl = Props['BannerContent'].link,
-    text: linkText = Props['BannerContent'].linkText,
+    url: linkUrl = BannerContent.props.link,
+    text: linkText = BannerContent.props.linkText,
   },
-  variant = Props['Banner'].variant ?? 'primary',
-  colorVariant = Props['Banner'].colorVariant ?? 'main',
+  variant = Banner.props.variant ?? 'primary',
+  colorVariant = Banner.props.colorVariant ?? 'main',
 }: BannerTextProps) {
   return (
     <Section className={`${styles.section} section-banner layout__section`}>
       <div className="layout__content">
-        <Banner
-          {...Props['Banner']}
+        <Banner.Component
+          {...Banner.props}
           variant={variant}
           colorVariant={colorVariant}
         >
-          <BannerContent
-            {...Props['BannerContent']}
+          <BannerContent.Component
+            {...BannerContent.props}
             title={title}
             caption={caption}
             link={linkUrl}
             linkText={linkText}
           />
-        </Banner>
+        </Banner.Component>
       </div>
     </Section>
   )

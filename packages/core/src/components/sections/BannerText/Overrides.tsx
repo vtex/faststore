@@ -2,29 +2,32 @@ import {
   Banner as UIBanner,
   BannerContent as UIBannerContent,
 } from '@faststore/ui'
+import type { BannerContentProps, BannerProps } from '@faststore/ui'
 
-import BannerTextCustomizations from 'src/customizations/components/overrides/BannerText'
+import type {
+  ComponentOverrideDefinition,
+  SectionOverrideDefinition,
+} from 'src/typings/overrides'
+import { getSectionOverrides } from 'src/utils/overrides'
+import { override } from 'src/customizations/components/overrides/BannerText'
 
-const bannerTextComponentsCustomization = {}
-
-const bannerTextPropsCustomization = {} as any
-
-Object.entries(BannerTextCustomizations.components).forEach(([key, value]) => {
-  if (value.Component) {
-    bannerTextComponentsCustomization[key] = value.Component
+export type BannerOverrideDefinition = SectionOverrideDefinition<
+  'BannerText',
+  {
+    Banner: ComponentOverrideDefinition<BannerProps, BannerProps>
+    BannerContent: ComponentOverrideDefinition<
+      BannerContentProps,
+      BannerContentProps
+    >
   }
-})
+>
 
-Object.entries(BannerTextCustomizations.components).forEach(([key, value]) => {
-  if (value.props) {
-    bannerTextPropsCustomization[key] = value.props
-  }
-})
+const { Banner, BannerContent } = getSectionOverrides(
+  {
+    Banner: UIBanner,
+    BannerContent: UIBannerContent,
+  },
+  override as BannerOverrideDefinition
+)
 
-const Components = {
-  Banner: UIBanner,
-  BannerContent: UIBannerContent,
-  ...bannerTextComponentsCustomization,
-}
-
-export { Components, bannerTextPropsCustomization as Props }
+export { Banner, BannerContent }
