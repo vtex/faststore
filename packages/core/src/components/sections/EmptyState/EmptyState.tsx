@@ -4,9 +4,7 @@ import type { PropsWithChildren } from 'react'
 import Section from '../Section'
 import styles from './section.module.scss'
 
-import { Components, Props } from 'src/components/sections/EmptyState/Overrides'
-
-const { EmptyState: EmptyStateWrapper } = Components
+import { EmptyState as EmptyStateWrapper } from 'src/components/sections/EmptyState/Overrides'
 
 export interface EmptyStateProps {
   title: string
@@ -14,20 +12,20 @@ export interface EmptyStateProps {
 }
 
 function EmptyState({
-  title = Props['EmptyState'].title,
-  titleIcon = Props['EmptyState'].titleIcon,
+  title = EmptyStateWrapper.props.title,
+  titleIcon = EmptyStateWrapper.props.titleIcon,
   children,
 }: PropsWithChildren<EmptyStateProps>) {
   return (
     <Section className={`${styles.section} section-empty-state`}>
-      <EmptyStateWrapper
+      <EmptyStateWrapper.Component
         bkgColor="light"
-        {...Props['EmptyState']}
+        {...EmptyStateWrapper.props}
         title={title}
         titleIcon={titleIcon}
       >
         {children}
-      </EmptyStateWrapper>
+      </EmptyStateWrapper.Component>
     </Section>
   )
 }

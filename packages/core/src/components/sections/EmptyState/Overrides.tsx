@@ -1,26 +1,29 @@
+import type { PropsWithChildren } from 'react'
 import { EmptyState as UIEmptyState } from '@faststore/ui'
+import type { EmptyStateProps } from '@faststore/ui'
 
-import EmptyStateCustomizations from 'src/customizations/components/overrides/EmptyState'
+import type {
+  SectionOverrideDefinition,
+  ComponentOverrideDefinition,
+} from 'src/typings/overrides'
+import { getSectionOverrides } from 'src/utils/overrides'
+import { override } from 'src/customizations/components/overrides/EmptyState'
 
-const emptyStateComponentsCustomization = {}
-
-const emptyStatePropsCustomization = {} as any
-
-Object.entries(EmptyStateCustomizations.components).forEach(([key, value]) => {
-  if (value.Component) {
-    emptyStateComponentsCustomization[key] = value.Component
+export type EmptyStateOverrideDefinition = SectionOverrideDefinition<
+  'EmptyState',
+  {
+    EmptyState: ComponentOverrideDefinition<
+      PropsWithChildren<EmptyStateProps>,
+      EmptyStateProps
+    >
   }
-})
+>
 
-Object.entries(EmptyStateCustomizations.components).forEach(([key, value]) => {
-  if (value.props) {
-    emptyStatePropsCustomization[key] = value.props
-  }
-})
+const { EmptyState } = getSectionOverrides(
+  {
+    EmptyState: UIEmptyState,
+  },
+  override as EmptyStateOverrideDefinition
+)
 
-const Components = {
-  EmptyState: UIEmptyState,
-  ...emptyStateComponentsCustomization,
-}
-
-export { Components, emptyStatePropsCustomization as Props }
+export { EmptyState }

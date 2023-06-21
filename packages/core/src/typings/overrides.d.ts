@@ -17,6 +17,7 @@ export type SectionOverride =
   | AlertOverrideDefinition
   | BannerOverrideDefinition
   | BreadcrumbOverrideDefinition
+  | EmptyStateOverrideDefinition
 
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
   k: infer I

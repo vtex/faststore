@@ -3,11 +3,8 @@ import { SectionOverride } from 'src/typings/overrides'
 
 const SECTION = 'EmptyState' as const
 
-const overrides: SectionOverride[typeof SECTION] = {
+const override: SectionOverride = {
   name: SECTION,
-  components: {
-    EmptyState: { props: {} },
-  },
 }
 
-export default overrides
+export { override }
