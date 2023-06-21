@@ -1,5 +1,5 @@
 import { Button as UIButton, InputField as UIInputField } from '@faststore/ui'
-import { ComponentPropsWithRef, FormEvent } from 'react'
+import { ComponentPropsWithRef, FormEvent, useMemo } from 'react'
 import { forwardRef, useRef } from 'react'
 import { convertFromRaw } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
@@ -10,12 +10,15 @@ const cmsToHtml = (content) => {
   if (!content) {
     return ''
   }
+
   const rawDraftContentState = JSON.parse(content)
   const html = stateToHTML(convertFromRaw(rawDraftContentState), {
     entityStyleFn: (entity) => {
       const entityType = entity.get('type').toLowerCase()
+
       if (entityType === 'link') {
         const data = entity.getData()
+
         return {
           element: 'a',
           attributes: {
@@ -106,13 +109,16 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
       card,
       toastSubscribe,
       toastSubscribeError,
-      ...otherProps
     },
     ref
   ) {
     const { subscribeUser, loading, data } = useNewsletter()
     const nameInputRef = useRef<HTMLInputElement>(null)
     const emailInputRef = useRef<HTMLInputElement>(null)
+    const subscriptionButtonLabel = useMemo(
+      () => (loading ? subscribeButtonLoadingLabel : subscribeButtonLabel),
+      [loading, subscribeButtonLabel, subscribeButtonLoadingLabel]
+    )
 
     const { pushToast } = useUI()
 
@@ -129,13 +135,15 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
         pushToast({
           ...toastSubscribe,
           status: 'INFO',
-          icon: <Icon name={toastSubscribe.icon} width={30} height={30} />,
+          icon: <Icon name={toastSubscribe?.icon} width={30} height={30} />,
         })
       } else {
         pushToast({
           ...toastSubscribeError,
           status: 'ERROR',
-          icon: <Icon name={toastSubscribeError.icon} width={30} height={30} />,
+          icon: (
+            <Icon name={toastSubscribeError?.icon} width={30} height={30} />
+          ),
         })
       }
 
@@ -147,10 +155,9 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
     return (
       <div data-fs-newsletter={card ? 'card' : ''}>
         <form
-          data-fs-newsletter-form
           ref={ref}
+          data-fs-newsletter-form
           onSubmit={handleSubmit}
-          {...otherProps}
           className="layout__content"
         >
           <header data-fs-newsletter-header>
@@ -162,32 +169,58 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
           </header>
 
           <div data-fs-newsletter-controls>
-            <>
-              {displayNameInput ? (
+            {displayNameInput ? (
+              <>
                 <UIInputField
-                  inputRef={nameInputRef}
+                  required
                   id="newsletter-name"
                   label={nameInputLabel}
-                  required
+                  inputRef={nameInputRef}
                 />
-              ) : null}
-              <UIInputField
-                inputRef={emailInputRef}
-                id="newsletter-email"
-                label={emailInputLabel}
-                type="email"
-                required
-              />
-              <span
-                data-fs-newsletter-addendum
-                dangerouslySetInnerHTML={{
-                  __html: cmsToHtml(privacyPolicy),
-                }}
-              ></span>
-              <UIButton variant="secondary" inverse type="submit">
-                {loading ? subscribeButtonLoadingLabel : subscribeButtonLabel}
-              </UIButton>
-            </>
+                <UIInputField
+                  required
+                  type="email"
+                  id="newsletter-email"
+                  label={emailInputLabel}
+                  inputRef={emailInputRef}
+                />
+                <span
+                  data-fs-newsletter-addendum
+                  dangerouslySetInnerHTML={{
+                    __html: cmsToHtml(privacyPolicy),
+                  }}
+                />
+                <UIButton
+                  variant="secondary"
+                  inverse
+                  type="submit"
+                  aria-label={subscriptionButtonLabel}
+                >
+                  {subscriptionButtonLabel}
+                </UIButton>
+              </>
+            ) : (
+              <>
+                <UIInputField
+                  required
+                  actionable
+                  type="email"
+                  id="newsletter-email"
+                  label={emailInputLabel}
+                  inputRef={emailInputRef}
+                  onClear={() => null}
+                  onSubmit={() => null}
+                  displayClearButton={false}
+                  buttonActionText={subscriptionButtonLabel}
+                />
+                <span
+                  data-fs-newsletter-addendum
+                  dangerouslySetInnerHTML={{
+                    __html: cmsToHtml(privacyPolicy),
+                  }}
+                />
+              </>
+            )}
           </div>
         </form>
       </div>

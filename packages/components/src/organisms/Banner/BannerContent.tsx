@@ -57,6 +57,7 @@ const BannerContent = forwardRef<HTMLDivElement, BannerContentProps>(
           href={link}
           variant={variant}
           inverse={colorVariant === 'main'}
+          aria-label={linkText}
         >
           {linkText}
         </LinkButton>
