@@ -4,13 +4,8 @@ import { SectionOverride } from 'src/typings/overrides'
 
 const SECTION = 'Hero' as const
 
-const overrides: SectionOverride[typeof SECTION] = {
+const override: SectionOverride = {
   name: SECTION,
-  components: {
-    Hero: { props: {} },
-    HeroImage: { props: {} },
-    HeroHeader: { props: {} },
-  },
 }
 
-export default overrides
+export { override }

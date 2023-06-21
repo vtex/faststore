@@ -13,6 +13,7 @@ import type { RegionBarOverrideDefinition } from 'src/components/sections/Region
 export type SectionOverride =
   | NewsletterOverrideDefinition
   | RegionBarOverrideDefinition
+  | HeroOverrideDefinition
 
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
   k: infer I
