@@ -60,9 +60,9 @@ import { SectionOverride } from '@faststore/core/src/typings/overrides'
 
 const SECTION = 'ProductDetails' as const
 
-const overrides: SectionOverride[type of SECTION] = { name: SECTION, components: {} }
+const override: SectionOverride = { name: SECTION, components: {} }
 
-export default overrides
+export { override }
 ```
 
 <Callout type="warning" emoji="⚠️">
@@ -101,19 +101,19 @@ import { Price as CustomPrice } from '../Price'
 
 const SECTION = 'ProductDetails' as const
 
-const overrides: SectionOverride[type of SECTION] = {
+const override: SectionOverride = {
   name: SECTION,
   components: {
     Price: { Component: CustomPrice },
   },
 }
 
-export default overrides
+export { override }
 ```
 
 This code imports the _Custom Price_ component and overrides the native Price component in the `ProductDetails` section.
 
-6. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser to see the updated Price component with the new `value`prop set to `800`:
+6. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser to see the updated Price component with the new `value` prop set to `800`:
 
 ![custom-price](https://vtexhelp.vtexassets.com/assets/docs/src/custom-price___c203101c038f09191e735fd0d8c1d13e.png)
 

@@ -43,16 +43,17 @@ import { SectionOverride } from '@faststore/core/src/typings/overrides'
 
 const SECTION = 'ProductDetails' as const
 
-const overrides: SectionOverride[typeof SECTION] = {
+const override: SectionOverride = {
+  name: SECTION,
   components: {
     Price: { props: { value: 800 } },
   },
 }
 
-export default overrides
+export { override }
 ```
 
-6. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser to see the updated Price component with the new `value`prop set to `800`:
+6. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser to see the updated Price component with the new `value` prop set to `800`:
 
 ![custom-price](https://vtexhelp.vtexassets.com/assets/docs/src/custom-price___c203101c038f09191e735fd0d8c1d13e.png)
 
