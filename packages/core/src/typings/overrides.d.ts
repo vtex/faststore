@@ -15,7 +15,7 @@ export type SectionOverride =
   | RegionBarOverrideDefinition
   | HeroOverrideDefinition
   | AlertOverrideDefinition
-  | BannerOverrideDefinition
+  | BannerTextOverrideDefinition
   | BreadcrumbOverrideDefinition
   | EmptyStateOverrideDefinition
   | NavbarOverrideDefinition

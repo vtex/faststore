@@ -11,7 +11,7 @@ import type {
 import { getSectionOverrides } from 'src/utils/overrides'
 import { override } from 'src/customizations/components/overrides/BannerText'
 
-export type BannerOverrideDefinition = SectionOverrideDefinition<
+export type BannerTextOverrideDefinition = SectionOverrideDefinition<
   'BannerText',
   {
     Banner: ComponentOverrideDefinition<BannerProps, BannerProps>
@@ -27,7 +27,7 @@ const { Banner, BannerContent } = getSectionOverrides(
     Banner: UIBanner,
     BannerContent: UIBannerContent,
   },
-  override as BannerOverrideDefinition
+  override as BannerTextOverrideDefinition
 )
 
 export { Banner, BannerContent }
