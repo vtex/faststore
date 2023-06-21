@@ -109,7 +109,6 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
       card,
       toastSubscribe,
       toastSubscribeError,
-      ...otherProps
     },
     ref
   ) {
@@ -136,13 +135,15 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
         pushToast({
           ...toastSubscribe,
           status: 'INFO',
-          icon: <Icon name={toastSubscribe.icon} width={30} height={30} />,
+          icon: <Icon name={toastSubscribe?.icon} width={30} height={30} />,
         })
       } else {
         pushToast({
           ...toastSubscribeError,
           status: 'ERROR',
-          icon: <Icon name={toastSubscribeError.icon} width={30} height={30} />,
+          icon: (
+            <Icon name={toastSubscribeError?.icon} width={30} height={30} />
+          ),
         })
       }
 
@@ -157,7 +158,6 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
           ref={ref}
           data-fs-newsletter-form
           onSubmit={handleSubmit}
-          {...otherProps}
           className="layout__content"
         >
           <header data-fs-newsletter-header>
@@ -165,39 +165,62 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
               <Icon name={icon?.icon} width={32} height={32} />
               {title}
             </h3>
-            {description && <span>{description}</span>}
+            {description && <span> {description}</span>}
           </header>
 
           <div data-fs-newsletter-controls>
-            {displayNameInput && (
-              <UIInputField
-                required
-                id="newsletter-name"
-                label={nameInputLabel}
-                inputRef={nameInputRef}
-              />
+            {displayNameInput ? (
+              <>
+                <UIInputField
+                  required
+                  id="newsletter-name"
+                  label={nameInputLabel}
+                  inputRef={nameInputRef}
+                />
+                <UIInputField
+                  required
+                  type="email"
+                  id="newsletter-email"
+                  label={emailInputLabel}
+                  inputRef={emailInputRef}
+                />
+                <span
+                  data-fs-newsletter-addendum
+                  dangerouslySetInnerHTML={{
+                    __html: cmsToHtml(privacyPolicy),
+                  }}
+                />
+                <UIButton
+                  variant="secondary"
+                  inverse
+                  type="submit"
+                  aria-label={subscriptionButtonLabel}
+                >
+                  {subscriptionButtonLabel}
+                </UIButton>
+              </>
+            ) : (
+              <>
+                <UIInputField
+                  required
+                  actionable
+                  type="email"
+                  id="newsletter-email"
+                  label={emailInputLabel}
+                  inputRef={emailInputRef}
+                  onClear={() => null}
+                  onSubmit={() => null}
+                  displayClearButton={false}
+                  buttonActionText={subscriptionButtonLabel}
+                />
+                <span
+                  data-fs-newsletter-addendum
+                  dangerouslySetInnerHTML={{
+                    __html: cmsToHtml(privacyPolicy),
+                  }}
+                />
+              </>
             )}
-            <UIInputField
-              required
-              type="email"
-              id="newsletter-email"
-              label={emailInputLabel}
-              inputRef={emailInputRef}
-            />
-            <span
-              data-fs-newsletter-addendum
-              dangerouslySetInnerHTML={{
-                __html: cmsToHtml(privacyPolicy),
-              }}
-            />
-            <UIButton
-              variant="secondary"
-              inverse
-              type="submit"
-              aria-label={subscriptionButtonLabel}
-            >
-              {subscriptionButtonLabel}
-            </UIButton>
           </div>
         </form>
       </div>
