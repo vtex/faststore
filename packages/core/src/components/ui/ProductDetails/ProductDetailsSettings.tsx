@@ -83,6 +83,8 @@ function ProductDetailsSettings({
             variant="listing"
             SRText="Original price:"
             {...Price.props}
+            // Dynamic props shouldn't be overridable
+            // This decision can be reviewed later if needed
             value={listPrice}
             data-value={listPrice}
           />
@@ -93,6 +95,8 @@ function ProductDetailsSettings({
             className="text__lead"
             SRText="Sale Price:"
             {...Price.props}
+            // Dynamic props shouldn't be overridable
+            // This decision can be reviewed later if needed
             value={lowPrice}
             data-value={lowPrice}
           />

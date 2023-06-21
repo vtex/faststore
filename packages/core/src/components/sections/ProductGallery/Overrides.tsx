@@ -30,25 +30,31 @@ import { override } from 'src/customizations/components/overrides/ProductGallery
 export type ProductGalleryOverrideDefinition = SectionOverrideDefinition<
   'ProductGallery',
   {
-    Button: ComponentOverrideDefinition<ButtonProps, ButtonProps>
+    Button: ComponentOverrideDefinition<
+      ButtonProps,
+      Omit<ButtonProps, 'onClick'>
+    >
     FilterIcon: ComponentOverrideDefinition<IconProps, IconProps>
     PrevIcon: ComponentOverrideDefinition<IconProps, IconProps>
     ResultsCountSkeleton: ComponentOverrideDefinition<
       SkeletonProps,
-      SkeletonProps
+      Omit<SkeletonProps, 'loading'>
     >
-    SortSkeleton: ComponentOverrideDefinition<SkeletonProps, SkeletonProps>
+    SortSkeleton: ComponentOverrideDefinition<
+      SkeletonProps,
+      Omit<SkeletonProps, 'loading'>
+    >
     FilterButtonSkeleton: ComponentOverrideDefinition<
       SkeletonProps,
-      SkeletonProps
+      Omit<SkeletonProps, 'loading'>
     >
     LinkButtonPrev: ComponentOverrideDefinition<
       LinkButtonProps,
-      LinkButtonProps
+      Omit<LinkButtonProps, 'onClick' | 'href'>
     >
     LinkButtonNext: ComponentOverrideDefinition<
       LinkButtonProps,
-      LinkButtonProps
+      Omit<LinkButtonProps, 'onClick' | 'href'>
     >
     __experimentalFilterDesktop: ComponentOverrideDefinition<any, any>
     __experimentalFilterSlider: ComponentOverrideDefinition<any, any>

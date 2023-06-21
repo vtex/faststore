@@ -44,14 +44,17 @@ export type ProductDetailsOverrideDefinition = SectionOverrideDefinition<
     >
     DiscountBadge: ComponentOverrideDefinition<
       DiscountBadgeProps,
-      DiscountBadgeProps
+      Omit<DiscountBadgeProps, 'listPrice' | 'spotPrice'>
     >
     BuyButton: ComponentOverrideDefinition<ButtonProps, ButtonProps>
     Icon: ComponentOverrideDefinition<IconProps, IconProps>
-    Price: ComponentOverrideDefinition<PriceProps, PriceProps>
+    Price: ComponentOverrideDefinition<
+      PriceProps,
+      Omit<PriceProps, 'value' | 'data-value'>
+    >
     QuantitySelector: ComponentOverrideDefinition<
       QuantitySelectorProps,
-      QuantitySelectorProps
+      Omit<QuantitySelectorProps, 'onChange'>
     >
     SkuSelector: ComponentOverrideDefinition<SkuSelectorProps, SkuSelectorProps>
     ShippingSimulation: ComponentOverrideDefinition<
