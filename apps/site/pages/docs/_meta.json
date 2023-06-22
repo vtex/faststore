@@ -39,8 +39,8 @@
     "type": "separator",
     "title": "How To Guides"
   },
-  "component-customization": {
-    "title": "Component Customization"
+  "building-sections": {
+    "title": "Building and Customizing sections"
   },
   "reference-guides": "Reference"
 }
