@@ -19,7 +19,7 @@ In this guide, you will learn how to configure external domains for your **FastS
 
  - Set up your external DNS provider to point your custom domain to your VTEX website. Custom domains can be purchased from any **domain registration platform**.
  - Configure your custom domains in **VTEX Account Settings**.
- - Associate your custom domains with your **FastStore** project. 
+ - Associate your custom domains with your **FastStore** project.
 
 Besides making your FastStore website accessible via a custom domain, the **VTEX Checkout** will also be operational as soon as you complete this guide. You'll then be ready to continue configuring other VTEX solutions, such as **Order Placed**, **Login**, and **My Account**.
 
@@ -53,7 +53,7 @@ If you still need to configure other VTEX solutions, please **use a fictitious d
 </Callout>
 
 
-### Step 2 - Configuring domains in VTEX Account Settings 
+### Step 2 - Configuring domains in VTEX Account Settings
 
 Now, you must set up your VTEX account to use the DNS records created in the previous step. To proceed, make sure your [store is active and in production](https://help.vtex.com/en/tracks/go-live-your-store--4Ns5FxIiksmjsdX2yOTduM/7wFsbWgN4rnZsbjhv8IItX#putting-your-account-into-production).
 
@@ -82,7 +82,7 @@ Back to your FastStore project, you must also configure your project to point to
 
 Take the following example of how this code block would look after configuring a store with the `mystore.com` domain and `secure` subdomain:
 
-```diff title="faststore.config.js"
+```diff title="/faststore.config.js"
 ...
 
 // Default channel
@@ -102,8 +102,8 @@ lighthouse: {
 4. Save your changes.
 5. Open the `vtex.env` file.
 6. Add the `SITE_HOST` key with the main domain specified in [Configuring domains in VTEX Account Settings](/docs/go-live/2-configuring-external-dns#step-2---configuring-domains-in-vtex-account-management) as the value.
-   
-```diff title="vtex.env"
+
+```diff title="/vtex.env"
 + SITE_HOST=mystore.com
 ```
 
