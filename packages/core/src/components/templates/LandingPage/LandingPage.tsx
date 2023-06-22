@@ -1,25 +1,20 @@
-import type { Locator } from '@vtex/client-cms'
-import type { GetStaticProps } from 'next'
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
+import type { Locator } from '@vtex/client-cms'
 
+import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
 import RenderSections from 'src/components/cms/RenderSections'
-import BannerText from 'src/components/sections/BannerText'
 import Hero from 'src/components/sections/Hero'
 import Incentives from 'src/components/sections/Incentives'
-import Newsletter from 'src/components/sections/Newsletter'
 import ProductShelf from 'src/components/sections/ProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
-import CUSTOM_COMPONENTS from 'src/customizations/components'
-import { mark } from 'src/sdk/tests/mark'
-import type { PageContentType } from 'src/server/cms'
+import BannerText from 'src/components/sections/BannerText'
+import Newsletter from 'src/components/sections/Newsletter'
 import { getPage } from 'src/server/cms'
+import type { PageContentType } from 'src/server/cms'
+import CUSTOM_COMPONENTS from 'src/customizations/components'
 
-import GlobalSections, {
-  GlobalSectionsData,
-  getGlobalSectionsData,
-} from 'src/components/cms/GlobalSections'
-import storeConfig from '../../faststore.config'
+import storeConfig from '../../../../faststore.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -32,14 +27,15 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-type Props = {
+export type LandingPageProps = {
   page: PageContentType
-  globalSections: GlobalSectionsData
 }
 
-function Page({ page: { sections, settings }, globalSections }: Props) {
+export default function LandingPage({
+  page: { sections, settings },
+}: LandingPageProps) {
   return (
-    <GlobalSections {...globalSections}>
+    <>
       {/* SEO */}
       <NextSeo
         title={settings?.seo?.title ?? storeConfig.seo.title}
@@ -76,28 +72,31 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
         (not the HTML tag) before rendering it here.
       */}
       <RenderSections sections={sections} components={COMPONENTS} />
-    </GlobalSections>
+    </>
   )
 }
 
-export const getStaticProps: GetStaticProps<
-  Props,
-  Record<string, string>,
-  Locator
-> = async ({ previewData }) => {
-  const [page, globalSections] = await Promise.all([
-    getPage<PageContentType>({
-      ...(previewData?.contentType === 'home' && previewData),
-      contentType: 'home',
-    }),
-    getGlobalSectionsData(previewData),
-  ])
+export const getLandingPageBySlug = async (
+  slug: string,
+  previewData: Locator
+) => {
+  try {
+    const landingPageData = await getPage<PageContentType>({
+      ...(previewData?.contentType === 'landingPage'
+        ? previewData
+        : {
+            filters: {
+              filters: { 'settings.seo.slug': `/${slug}` },
+            },
+          }),
+      contentType: 'landingPage',
+    })
+    return landingPageData
+  } catch (error) {
+    if (error instanceof MissingContentError) {
+      return null
+    }
 
-  return {
-    props: { page, globalSections },
+    throw error
   }
 }
-
-Page.displayName = 'Page'
-
-export default mark(Page)

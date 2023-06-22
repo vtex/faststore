@@ -51,9 +51,8 @@ export const getGlobalSectionsData = async (
   previewData: Locator
 ): Promise<GlobalSectionsData> => {
   const { sections } = await getPage<PageContentType>({
-    ...(previewData?.contentType === GLOBAL_SECTIONS_CONTENT_TYPE
-      ? previewData
-      : { filters: { 'settings.seo.slug': '/' } }),
+    ...(previewData?.contentType === GLOBAL_SECTIONS_CONTENT_TYPE &&
+      previewData),
     contentType: GLOBAL_SECTIONS_CONTENT_TYPE,
   })
 
