@@ -60,7 +60,7 @@ import { SectionOverride } from '@faststore/core/src/typings/overrides'
 
 const SECTION = 'ProductDetails' as const
 
-const override: SectionOverride = { name: SECTION, components: {} }
+const override: SectionOverride = { section: SECTION, components: {} }
 
 export { override }
 ```
@@ -102,7 +102,7 @@ import { Price as CustomPrice } from '../Price'
 const SECTION = 'ProductDetails' as const
 
 const override: SectionOverride = {
-  name: SECTION,
+  section: SECTION,
   components: {
     Price: { Component: CustomPrice },
   },
