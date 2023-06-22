@@ -138,17 +138,13 @@ const shouldUpdateDeliveryWindow = (
   }
   const { startDate, endDate } = session.deliveryMode.deliveryWindow
   for (const item of logisticsInfo) {
-    const { slas } = item
-    for (const sla of slas) {
-      const { availableDeliveryWindows } = sla
-      if (availableDeliveryWindows) {
-        const matchingWindow = availableDeliveryWindows.find(
-          (window) =>
-            window.startDateUtc === startDate && window.endDateUtc === endDate
-        )
-        if (matchingWindow) {
-          return true
-        }
+    for (const sla of item.slas) {
+      const matchingWindow = sla.availableDeliveryWindows?.some(
+        (window) =>
+          window.startDateUtc === startDate && window.endDateUtc === endDate
+      )
+      if (matchingWindow) {
+        return true
       }
     }
   }
