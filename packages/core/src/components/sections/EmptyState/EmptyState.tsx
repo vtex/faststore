@@ -4,7 +4,9 @@ import type { PropsWithChildren } from 'react'
 import Section from '../Section'
 import styles from './section.module.scss'
 
-import { EmptyState as UIEmptyState } from '@faststore/ui'
+import { Components, Props } from 'src/components/sections/EmptyState/Overrides'
+
+const { EmptyState: EmptyStateWrapper } = Components
 
 export interface EmptyStateProps {
   title: string
@@ -12,15 +14,20 @@ export interface EmptyStateProps {
 }
 
 function EmptyState({
-  title,
-  titleIcon,
+  title = Props['EmptyState'].title,
+  titleIcon = Props['EmptyState'].titleIcon,
   children,
 }: PropsWithChildren<EmptyStateProps>) {
   return (
     <Section className={`${styles.section} section-empty-state`}>
-      <UIEmptyState title={title} titleIcon={titleIcon} bkgColor="light">
+      <EmptyStateWrapper
+        bkgColor="light"
+        {...Props['EmptyState']}
+        title={title}
+        titleIcon={titleIcon}
+      >
         {children}
-      </UIEmptyState>
+      </EmptyStateWrapper>
     </Section>
   )
 }

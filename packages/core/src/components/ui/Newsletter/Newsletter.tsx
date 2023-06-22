@@ -1,10 +1,20 @@
-import { Button as UIButton, InputField as UIInputField } from '@faststore/ui'
 import { ComponentPropsWithRef, FormEvent, useMemo } from 'react'
 import { forwardRef, useRef } from 'react'
 import { convertFromRaw } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
-import { Icon, useUI } from '@faststore/ui'
+import { useUI } from '@faststore/ui'
 import { useNewsletter } from 'src/sdk/newsletter/useNewsletter'
+
+import { Components, Props } from 'src/components/sections/Newsletter/Overrides'
+
+const {
+  ToastIconSuccess,
+  ToastIconError,
+  HeaderIcon,
+  InputFieldEmail,
+  InputFieldName,
+  Button,
+} = Components
 
 const cmsToHtml = (content) => {
   if (!content) {
@@ -135,14 +145,26 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
         pushToast({
           ...toastSubscribe,
           status: 'INFO',
-          icon: <Icon name={toastSubscribe?.icon} width={30} height={30} />,
+          icon: (
+            <ToastIconSuccess
+              width={30}
+              height={30}
+              {...Props['ToastIconSuccess']}
+              name={toastSubscribe.icon ?? Props['ToastIconSuccess'].name}
+            />
+          ),
         })
       } else {
         pushToast({
           ...toastSubscribeError,
           status: 'ERROR',
           icon: (
-            <Icon name={toastSubscribeError?.icon} width={30} height={30} />
+            <ToastIconError
+              width={30}
+              height={30}
+              {...Props['ToastIconError']}
+              name={toastSubscribe.icon ?? Props['ToastIconError'].name}
+            />
           ),
         })
       }
@@ -162,65 +184,55 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
         >
           <header data-fs-newsletter-header>
             <h3>
-              <Icon name={icon?.icon} width={32} height={32} />
+              <HeaderIcon
+                width={32}
+                height={32}
+                {...Props['HeaderIcon']}
+                name={icon?.icon ?? Props['HeaderIcon'].name}
+              />
               {title}
             </h3>
             {description && <span> {description}</span>}
           </header>
 
           <div data-fs-newsletter-controls>
-            {displayNameInput ? (
-              <>
-                <UIInputField
-                  required
+            <>
+              {displayNameInput ? (
+                <InputFieldName
                   id="newsletter-name"
-                  label={nameInputLabel}
+                  required
+                  {...Props['InputFieldName']}
+                  label={nameInputLabel ?? Props['InputFieldName'].label}
+                  // Dynamic props shouldn't be overridable
+                  // This decision can be reviewed later if needed
                   inputRef={nameInputRef}
                 />
-                <UIInputField
-                  required
-                  type="email"
-                  id="newsletter-email"
-                  label={emailInputLabel}
-                  inputRef={emailInputRef}
-                />
-                <span
-                  data-fs-newsletter-addendum
-                  dangerouslySetInnerHTML={{
-                    __html: cmsToHtml(privacyPolicy),
-                  }}
-                />
-                <UIButton
-                  variant="secondary"
-                  inverse
-                  type="submit"
-                  aria-label={subscriptionButtonLabel}
-                >
-                  {subscriptionButtonLabel}
-                </UIButton>
-              </>
-            ) : (
-              <>
-                <UIInputField
-                  required
-                  actionable
-                  type="email"
-                  id="newsletter-email"
-                  label={emailInputLabel}
-                  inputRef={emailInputRef}
-                  onClear={() => null}
-                  onSubmit={() => null}
-                  displayClearButton={false}
-                  buttonActionText={subscriptionButtonLabel}
-                />
-                <span
-                  data-fs-newsletter-addendum
-                  dangerouslySetInnerHTML={{
-                    __html: cmsToHtml(privacyPolicy),
-                  }}
-                />
-              </>
-            )}
+              ) : null}
+              <InputFieldEmail
+                id="newsletter-email"
+                type="email"
+                required
+                {...Props['InputFieldEmail']}
+                label={emailInputLabel ?? Props['InputFieldEmail'].label}
+                // Dynamic props shouldn't be overridable
+                // This decision can be reviewed later if needed
+                inputRef={emailInputRef}
+              />
+              <span
+                data-fs-newsletter-addendum
+                dangerouslySetInnerHTML={{
+                  __html: cmsToHtml(privacyPolicy),
+                }}
+              ></span>
+              <Button
+                variant="secondary"
+                inverse
+                type="submit"
+                {...Props['Button']}
+              >
+                {loading ? subscribeButtonLoadingLabel : subscribeButtonLabel}
+              </Button>
+            </>
           </div>
         </form>
       </div>

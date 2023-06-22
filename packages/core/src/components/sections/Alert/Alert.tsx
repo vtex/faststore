@@ -1,5 +1,8 @@
-import { Icon as UIIcon } from '@faststore/ui'
-import UIAlert from 'src/components/common/Alert'
+import CommonAlert from 'src/components/common/Alert'
+
+import { Components, Props } from 'src/components/sections/Alert/Overrides'
+
+const { Icon } = Components
 
 export interface AlertProps {
   icon: string
@@ -12,15 +15,28 @@ export interface AlertProps {
 }
 
 // TODO: Change actionPath and actionLabel with Link
-function Alert({ icon, content, link, dismissible }: AlertProps) {
+function Alert({
+  icon = Props['Icon'].name,
+  content,
+  link: {
+    text = Props['Alert'].link?.text,
+    to = Props['Alert'].link?.to,
+  } = Props['Alert'].link,
+  dismissible = Props['Alert'].dismissible,
+}: AlertProps) {
   return (
-    <UIAlert
-      icon={<UIIcon name={icon} />}
-      link={{ children: link?.text, href: link?.to, target: '_self' }}
+    <CommonAlert
+      icon={<Icon {...Props['Icon']} name={icon} />}
+      link={{
+        ...(Props['Alert'].link ?? {}),
+        children: text,
+        href: to,
+        target: Props['Alert'].link?.target ?? '_self',
+      }}
       dismissible={dismissible}
     >
       {content}
-    </UIAlert>
+    </CommonAlert>
   )
 }
 

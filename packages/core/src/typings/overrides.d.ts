@@ -62,6 +62,25 @@ export const SECTIONS = {
       '__experimentalProductCard',
     ],
   },
+  Alert: {
+    components: ['Alert', 'Icon'],
+  },
+  EmptyState: {
+    components: ['EmptyState'],
+  },
+  RegionBar: {
+    components: ['RegionBar', 'LocationIcon', 'ButtonIcon'],
+  },
+  Newsletter: {
+    components: [
+      'ToastIconSuccess',
+      'ToastIconError',
+      'HeaderIcon',
+      'InputFieldName',
+      'InputFieldEmail',
+      'Button',
+    ],
+  },
 } as const
 
 // export type ComponentOrProps =
