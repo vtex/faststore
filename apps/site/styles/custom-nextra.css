@@ -94,7 +94,22 @@ main > div { margin: 0; }
 
 p.nx-mt-6 + p.nx-mt-6 { margin-top: 0; }
 
-[data-rehype-pretty-code-fragment] > pre { margin-bottom: 0; }
+[data-rehype-pretty-code-fragment] {
+  border-radius: .75rem;
+  overflow: hidden;
+}
+
+[data-rehype-pretty-code-fragment] > pre {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+[data-rehype-pretty-code-title] {
+  font-size: var(--fs-text-size-1);
+  background-color: #e6effa;
+  padding: var(--fs-spacing-0) var(--fs-spacing-2);
+  color: #374151;
+}
 
 /* Components adjusts for documentation purposes */
 
@@ -574,3 +589,20 @@ header.hero > p {
   --fs-grid-max-width: 900px;
   width: 100%;
 }
+
+.nx-section-checklist {
+  background-color: #f0f7ff;
+  padding: var(--fs-spacing-4);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--fs-spacing-4);
+}
+
+.nx-section-checklist li {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--fs-spacing-1);
+}
+
+.nx-section-checklist details { margin: 0; }
