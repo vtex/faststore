@@ -101,7 +101,7 @@ function Navbar({
   return (
     <NavbarWrapper scrollDirection={scrollDirection} {...Props['Navbar']}>
       <NavbarHeader {...Props['NavbarHeader']}>
-        <NavbarRow className="layout__content" {...Props['NavbarRow']}>
+        <NavbarRow {...Props['NavbarRow']}>
           {!searchExpanded && (
             <>
               <IconButton

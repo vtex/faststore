@@ -5,7 +5,7 @@
 
   // Default properties
   --fs-banner-padding-mobile                : var(--fs-spacing-6) 5%;
-  --fs-banner-padding-desktop               : var(--fs-spacing-9) 15%;
+  --fs-banner-padding-desktop               : var(--fs-spacing-9) 10%;
 
   // Button Link
   --fs-banner-button-link-min-width         : 11.25rem;
@@ -42,12 +42,7 @@
   // --------------------------------------------------------
 
   height: 100%;
-  padding: var(--fs-banner-padding-mobile);
   text-align: center;
-
-  @include media(">=notebook") {
-    padding: var(--fs-banner-padding-desktop);
-  }
 
   [data-fs-banner-content] {
     display: flex;
@@ -55,6 +50,10 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    padding: var(--fs-banner-padding-mobile);
+    @include media(">=notebook") {
+      padding: var(--fs-banner-padding-desktop);
+    }
   }
 
   [data-fs-banner-link] {

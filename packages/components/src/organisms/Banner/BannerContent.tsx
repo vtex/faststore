@@ -44,9 +44,9 @@ const BannerContent = forwardRef<HTMLDivElement, BannerContentProps>(
       <header
         ref={ref}
         data-fs-banner-content
+        data-fs-content="banner-text"
         data-testid={testId}
         {...otherProps}
-        className="layout__content"
       >
         <div data-fs-banner-heading data-fs-banner-color-variant={colorVariant}>
           <h2>{title}</h2>

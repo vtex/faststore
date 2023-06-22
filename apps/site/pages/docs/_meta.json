@@ -16,20 +16,20 @@
       "layout": "full"
     }
   },
-  "customizing": {
-    "title": "Customizing",
-    "theme": {
-      "layout": "full"
-    }
-  },
+  "global-tokens": "Global Tokens",
   "themes": {
     "title": "Themes",
     "theme": {
       "layout": "full"
     }
   },
-  "global-tokens": "Global Tokens",
   "icons": "Icons",
+  "customizing": {
+    "title": "Customizing",
+    "theme": {
+      "layout": "full"
+    }
+  },
   "-- VTEX Integration --": {
     "type": "separator",
     "title": "VTEX Platform Integration"

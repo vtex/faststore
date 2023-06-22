@@ -205,7 +205,7 @@ body {
   --fs-z-index-highest                 : 3;
 
   // CONTAINER
-  --fs-grid-max-width                  : var(--fs-grid-breakpoint-notebook);
+  --fs-grid-max-width                  : calc(var(--fs-grid-breakpoint-notebook) - var(--fs-grid-padding) - var(--fs-grid-padding));
 
   // GAPS
   --fs-grid-gap-0                      : var(--fs-spacing-1);

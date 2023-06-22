@@ -47,9 +47,7 @@ function ProductGallerySection({
 
   if (productGalleryData && totalCount === 0) {
     return (
-      <Section
-        className={`${styles.section} section-product-gallery layout__content`}
-      >
+      <Section className={`${styles.section} section-product-gallery`}>
         <section data-testid="product-gallery" data-fs-product-listing>
           <EmptyGallery />
         </section>
@@ -59,7 +57,7 @@ function ProductGallerySection({
 
   return (
     <Section
-      className={`${styles.section} section-product-gallery layout__content-full`}
+      className={`${styles.section} section-product-gallery layout__section`}
     >
       <ProductGallery
         title={title}
