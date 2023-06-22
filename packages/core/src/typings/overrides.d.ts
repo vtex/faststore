@@ -43,7 +43,7 @@ export type DefaultSectionComponentsDefinitions<
 > = Record<keyof T['components'], React.ComponentType>
 
 export type SectionOverrideDefinition<SectionName extends string, OC> = {
-  name: SectionName
+  section: SectionName
   components?: Partial<Prettify<OC>>
 }
 

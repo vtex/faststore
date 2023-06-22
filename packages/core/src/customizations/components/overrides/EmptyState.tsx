@@ -4,7 +4,7 @@ import { SectionOverride } from 'src/typings/overrides'
 const SECTION = 'EmptyState' as const
 
 const override: SectionOverride = {
-  name: SECTION,
+  section: SECTION,
 }
 
 export { override }

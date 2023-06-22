@@ -5,7 +5,7 @@ import { SectionOverride } from 'src/typings/overrides'
 const SECTION = 'ProductGallery' as const
 
 const override: SectionOverride = {
-  name: SECTION,
+  section: SECTION,
 }
 
 export { override }

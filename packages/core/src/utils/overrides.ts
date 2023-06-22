@@ -27,7 +27,7 @@ export function getSectionOverrides<SO extends SectionOverride>(
 
     if (componentOverride.Component && componentOverride.props) {
       console.warn(
-        `Mixed use of Component and props overrides detected. Defaulting to Component override. Component ${key} in section ${override.name}`
+        `Mixed use of Component and props overrides detected. Defaulting to Component override. Component ${key} in section ${override.section}`
       )
     }
 
