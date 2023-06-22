@@ -5,7 +5,14 @@
       "layout": "full"
     }
   },
-  "getting-started": "Getting Started",
+  "-- Getting Started --": {
+    "type": "separator",
+    "title": "Getting Started"
+  },
+  "getting-started-overview": {
+    "title": "Overview"
+  },
+  "getting-started": "Step by Step",
   "-- Theming --": {
     "type": "separator",
     "title": "Theming"
