@@ -2,6 +2,7 @@ import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 import type { Locator } from '@vtex/client-cms'
 
+import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
 import RenderSections from 'src/components/cms/RenderSections'
 import Hero from 'src/components/sections/Hero'
 import Incentives from 'src/components/sections/Incentives'
@@ -92,6 +93,10 @@ export const getLandingPageBySlug = async (
     })
     return landingPageData
   } catch (error) {
-    return null
+    if (error instanceof MissingContentError) {
+      return null
+    }
+
+    throw error
   }
 }
