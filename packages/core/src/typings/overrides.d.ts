@@ -47,18 +47,6 @@ export type SectionOverrideDefinition<SectionName extends string, OC> = {
   components?: Partial<Prettify<OC>>
 }
 
-// Hero: HeroOverrides
-// BannerText: BannerTextOverrides
-// ProductDetails: ProductDetailsOverrides
-// ProductShelf: ProductShelfOverrides
-// Navbar: NavbarOverrides
-// Breadcrumb: BreadcrumbOverrides
-// ProductGallery: ProductGalleryOverrides
-// Alert: AlertOverrides
-// EmptyState: EmptyStateOverrides
-// RegionBar: RegionBarOverrides
-// Newsletter: NewsletterOverrides
-
 export type ComponentOverrideDefinition<ComponentProps, Props> =
   | {
       Component?: never
