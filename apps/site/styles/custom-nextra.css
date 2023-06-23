@@ -572,6 +572,10 @@ header.hero > p {
   padding: var(--fs-spacing-1);
 }
 
+.nx-simple-table a {
+  color: var(--fs-color-link);
+}
+
 /* Nextra Sections */
 
 .nx-section-layout-colored {
@@ -603,6 +607,8 @@ header.hero > p {
   display: flex;
   flex-direction: column;
   row-gap: var(--fs-spacing-1);
+  
 }
 
 .nx-section-checklist details { margin: 0; }
+
