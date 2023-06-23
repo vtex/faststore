@@ -127,48 +127,49 @@ export const VtexCommerce = (
         },
         incrementedAddress?: IncrementedAddress
       ): Promise<OrderForm> => {
+        const addressSession = body?.selectedAddresses?.map((address) => {
+          const addressSession: SelectedAddress = {
+            addressType: address.addressType || null,
+            receiverName: address.receiverName || null,
+            postalCode:
+              address.postalCode || incrementedAddress?.postalCode || null,
+            city: incrementedAddress?.city || null,
+            state: incrementedAddress?.state || null,
+            country: address.country || incrementedAddress?.country || null,
+            street: incrementedAddress?.street || null,
+            number: incrementedAddress?.number || null,
+            neighborhood: incrementedAddress?.neighborhood || null,
+            complement: incrementedAddress?.complement || null,
+            reference: incrementedAddress?.reference || null,
+            geoCoordinates: [], // Initialize with default value
+          }
+
+          const longitude =
+            address?.geoCoordinates instanceof Array
+              ? null
+              : address?.geoCoordinates?.longitude || null
+
+          const latitude =
+            address?.geoCoordinates instanceof Array
+              ? null
+              : address?.geoCoordinates?.latitude || null
+
+          addressSession.geoCoordinates =
+            longitude && latitude
+              ? [longitude, latitude]
+              : incrementedAddress?.geoCoordinates || []
+
+          return addressSession
+        })
         const mappedBody = {
           logisticsInfo: Array.from({ length: index }, (_, itemIndex) => ({
             itemIndex,
             selectedDeliveryChannel: deliveryMode?.deliveryChannel || null,
             selectedSla: deliveryMode?.deliveryMethod || null,
           })),
-          selectedAddresses: body?.selectedAddresses?.map((address) => {
-            const selectedAddress: SelectedAddress = {
-              addressType: address.addressType || null,
-              receiverName: address.receiverName || null,
-              postalCode:
-                address.postalCode || incrementedAddress?.postalCode || null,
-              city: incrementedAddress?.city || null,
-              state: incrementedAddress?.state || null,
-              country: address.country || incrementedAddress?.country || null,
-              street: incrementedAddress?.street || null,
-              number: incrementedAddress?.number || null,
-              neighborhood: incrementedAddress?.neighborhood || null,
-              complement: incrementedAddress?.complement || null,
-              reference: incrementedAddress?.reference || null,
-              geoCoordinates: [], // Initialize with default value
-            }
-
-            const longitude =
-              address?.geoCoordinates instanceof Array
-                ? null
-                : address?.geoCoordinates?.longitude || null
-
-            const latitude =
-              address?.geoCoordinates instanceof Array
-                ? null
-                : address?.geoCoordinates?.latitude || null
-
-            selectedAddress.geoCoordinates =
-              longitude && latitude
-                ? { longitude, latitude }
-                : incrementedAddress?.geoCoordinates || []
-
-            return selectedAddress
-          }),
+          selectedAddresses: addressSession,
+          address: addressSession,
         }
-
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
@@ -201,6 +202,41 @@ export const VtexCommerce = (
             }
           : null
 
+        const addressSession = body?.selectedAddresses?.map((address) => {
+          const addressSession: SelectedAddress = {
+            addressType: address.addressType || null,
+            receiverName: address.receiverName || null,
+            postalCode:
+              address.postalCode || incrementedAddress?.postalCode || null,
+            city: incrementedAddress?.city || null,
+            state: incrementedAddress?.state || null,
+            country: address.country || incrementedAddress?.country || null,
+            street: incrementedAddress?.street || null,
+            number: incrementedAddress?.number || null,
+            neighborhood: incrementedAddress?.neighborhood || null,
+            complement: incrementedAddress?.complement || null,
+            reference: incrementedAddress?.reference || null,
+            geoCoordinates: [], // Initialize with default value
+          }
+
+          const longitude =
+            address?.geoCoordinates instanceof Array
+              ? null
+              : address?.geoCoordinates?.longitude || null
+
+          const latitude =
+            address?.geoCoordinates instanceof Array
+              ? null
+              : address?.geoCoordinates?.latitude || null
+
+          addressSession.geoCoordinates =
+            longitude && latitude
+              ? [longitude, latitude]
+              : incrementedAddress?.geoCoordinates || []
+
+          return addressSession
+        })
+
         const mappedBody = {
           logisticsInfo: Array.from({ length: index }, (_, itemIndex) => ({
             itemIndex,
@@ -208,42 +244,9 @@ export const VtexCommerce = (
             selectedSla: deliveryMode?.deliveryMethod || null,
             deliveryWindow: deliveryWindow,
           })),
-          selectedAddresses: body?.selectedAddresses?.map((address) => {
-            const selectedAddress: SelectedAddress = {
-              addressType: address.addressType || null,
-              receiverName: address.receiverName || null,
-              postalCode:
-                address.postalCode || incrementedAddress?.postalCode || null,
-              city: incrementedAddress?.city || null,
-              state: incrementedAddress?.state || null,
-              country: address.country || incrementedAddress?.country || null,
-              street: incrementedAddress?.street || null,
-              number: incrementedAddress?.number || null,
-              neighborhood: incrementedAddress?.neighborhood || null,
-              complement: incrementedAddress?.complement || null,
-              reference: incrementedAddress?.reference || null,
-              geoCoordinates: [], // Initialize with default value
-            }
-
-            const longitude =
-              address?.geoCoordinates instanceof Array
-                ? null
-                : address?.geoCoordinates?.longitude || null
-
-            const latitude =
-              address?.geoCoordinates instanceof Array
-                ? null
-                : address?.geoCoordinates?.latitude || null
-
-            selectedAddress.geoCoordinates =
-              longitude && latitude
-                ? [longitude, latitude]
-                : incrementedAddress?.geoCoordinates || []
-
-            return selectedAddress
-          }),
+          selectedAddresses: addressSession,
+          address: addressSession,
         }
-
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
