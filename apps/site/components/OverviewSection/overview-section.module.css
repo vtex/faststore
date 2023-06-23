@@ -3,8 +3,8 @@
   column-gap: 16px;
   align-items: center;
   border-radius: 4px;
+  margin: 0 0 var(--fs-spacing-3);
   padding: var(--fs-spacing-4) var(--fs-spacing-5);
-  margin: var(--fs-spacing-3) 0;
   background-image: radial-gradient(#ededed 1px, transparent 0);
   background-size: 8px 8px;
   background-position: -22px -24px;

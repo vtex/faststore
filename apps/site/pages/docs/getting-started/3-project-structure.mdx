@@ -10,9 +10,6 @@ import { Callout } from 'nextra-theme-docs'
 # Understanding the Project Structure
 
 </header>
-<Callout type="warning" emoji="⚠️">
-This documentation is currently under development.
-</Callout>
 
 In the previous guide of this track, you started your first FastStore store, learned how to run a local server and make your first change in the storefront. Now it's time to understand how our project is structured.
 
@@ -69,7 +66,7 @@ Let's start taking a look at the structure that represents the source code of a 
 
 Defines the project's metadata and handles dependencies and scripts using yarn. Let's take a closer look at three important packages inside this file:
 #### `@faststore/core`
-Bundles FastStore source code including the starter for FatsStore projects: `starter store`. It contains three sub-packages, `Components`, `SDK`, and `API`, which handle the starter.
+Bundles FastStore source code, including the starter for FatsStore projects: `starter store`. It contains three sub-packages, `Components`, `SDK`, and `API`, which handle the starter.
 
 #### `@faststore/ui`
 Provides a design system based on FastStore components using Sass for styling.
@@ -77,4 +74,4 @@ Provides a design system based on FastStore components using Sass for styling.
 
 #### `@faststore/cli`
 
-Combines VTEX code (`@faststore/core`) with the customizations you make in your repository (`/src`). This package helps with debugging and differentiating between VTEX code and customizations. To learn more, refer to the [FastStore CLI documentation](/docs/getting-started/faststore-cli).
+Combines VTEX code (`@faststore/core`) with the customizations you make in your repository (`/src`). This package helps with debugging and differentiating between VTEX code and customizations. To learn more, refer to the [FastStore CLI documentation](/docs/getting-started/4-faststore-cli).

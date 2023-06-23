@@ -4,7 +4,7 @@ import {
   ProductCardContent as UIProductCardContent,
   ProductCardImage as UIProductCardImage,
 } from '@faststore/ui'
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import { ImageProps } from 'next/future/image'
@@ -55,7 +55,7 @@ export interface ProductCardProps {
 function ProductCard({
   product,
   index,
-  bordered = false,
+  bordered = true,
   variant = 'default',
   aspectRatio = 1,
   imgProps,
@@ -83,7 +83,10 @@ function ProductCard({
     prefetch: false,
   }
 
-  const outOfStock = availability !== 'https://schema.org/InStock'
+  const outOfStock = useMemo(
+    () => availability !== 'https://schema.org/InStock',
+    [availability]
+  )
 
   return (
     <UIProductCard

@@ -11,10 +11,6 @@ import { Callout, Tab, Tabs } from 'nextra-theme-docs'
 
 </header>
 
-<Callout type="warning" emoji="⚠️">
-  This documentation is currently under development.
-</Callout>
-
 Now that your store is up and running after [FastStore Onboarding](/docs/getting-started/1-faststore-onboarding/overview), you're ready to set up your development environment and create a unique storefront that reflects your brand. Let's get started!
 
 In this guide, you will:
@@ -33,7 +29,7 @@ Before cloning your store's repository, ensure that you have the following tools
     <b>Node.js</b>
   </summary>
   <p>
-    <p>To run your FastStore project, you must have <b><a href="">Node.js</a></b> version 15.0.0 or later installed on your computer.</p>
+    <p>To run your FastStore project, you must have the latest <b><a href="">Node.js</a></b> version or a version higher than 15.0.0.</p>
     <ul>
        <li>- <b><a href="https://nodejs.org/tr/download/package-manager#macos">Install Node.js on macOS using Homebrew</a></b></li>
        <li>- <b><a href="https://nodejs.org/tr/download/package-manager#windows-1">Install Node.js on Windows</a></b> </li>
@@ -101,7 +97,7 @@ Before cloning your store's repository, ensure that you have the following tools
   For Windowns users we highly recommend to run the terminal in administrator mode. To run in this mode, right-click on the terminal icon and select `Run as administrator`.
 </Callout>
 
-2. Clone the repository created during the [Onboarding](/docs/getting-started/onboarding#repository-and-live-store-created) by running the following command in the terminal:
+2. Clone the repository created during the [Onboarding](/docs/getting-started/1-faststore-onboarding/onboarding#repository-and-live-store-created) by running the following command in the terminal:
 ```bash
     git clone https://github.com/vtex-sites/{storeName}
 ```
@@ -123,7 +119,7 @@ yarn install
 5. Open up your FastStore project in any code editor of your choice.
 
 <Callout type="info" emoji="ℹ️">
-  Note that your store configuration was already set during the [Onboarding](/docs/getting-started/onboarding#repository-and-live-store-created). Therefore, there is no need to connect your project to your VTEX account.
+  Note that your store configuration was already set during the [Onboarding](/docs/getting-started/1-faststore-onboarding/onboarding#repository-and-live-store-created). Therefore, there is no need to connect your project to your VTEX account.
   If you want to review these configurations, you can access the `faststore.config.js` file in the root directory of your project's repository.
 </Callout>
 
@@ -145,7 +141,7 @@ This may take a few minutes. Once your development server is ready, the command 
   event - compiled client and server successfully in 333 ms (951 modules)
 ```
 <Callout type="info" emoji="ℹ️">
-  The `dev` command is a part of the FastStore CLI, a pre-configured command line interface in your starter project. This command enables you to execute code to keep your store's project up-to-date with the [@faststore/core package](/docs/getting-started/project-structure) using the CLI. For more information, you can refer to the topic on [FastStore CLI](/docs/getting-started/faststore-cli).
+  The `dev` command is a part of the FastStore CLI, a pre-configured command line interface in your starter project. Using the CLI, this command enables you to execute code to keep your store's project up-to-date with the [@faststore/core package](/docs/getting-started/3-project-structure). For more information, refer to the topic on [FastStore CLI](/docs/getting-started/4-faststore-cli).
 </Callout>
 
 2. Now, open your favorite web browser and navigate to the localhost served, for example, http://localhost:3000.
@@ -264,33 +260,3 @@ Let's make the first level of customization which is update the store's theme wi
 <Callout type="info" emoji="ℹ️">
   It is important to highlight that the store's logo is set through the [VTEX Headless CMS](https://www.faststore.dev/tutorials/cms/0).
 </Callout>
-
----
-
-## Customizing a Component (Optional)
-If you are up for another challenge, let's customize a component. We will use the `Listing` variant from the [Price Component](/components/atoms/price) in this tutorial.
-
-1. In the `soft-blue.scss` file, add the `data-fs-price` and  `data-fs-price-variant` data attributes with the `Listing` value:
-
-```scss
-  ...
-  [data-fs-logo] {
-    --fs-logo-width: 8rem;
-  }
-
-  [data-fs-price] [data-fs-price-variant="listing"] {
-  }
-
-```
-
-2. Now, change the color of the `Listing` variant using its [local token](/components/atoms/price#design-tokens). For this tutorial, we will use the shade of red `#cb4242`:
-```scss
-  }
-
-  [data-fs-price][data-fs-price-variant="listing"] {
-      --fs-price-listing-color: #cb4242;
-  }
-
-```
-
-3. Save your changes and check your browser to see the new color of your listing price. You may need to refresh the page.

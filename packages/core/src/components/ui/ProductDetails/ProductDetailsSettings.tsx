@@ -1,11 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react'
 
-import {
-  Icon as UIIcon,
-  BuyButton as UIBuyButton,
-  QuantitySelector as UIQuantitySelector,
-} from '@faststore/ui'
-
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
@@ -14,8 +8,12 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import Selectors from 'src/components/ui/SkuSelector'
 import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
 
-import { Components } from '../../sections/ProductDetails/Overrides'
-const { Price } = Components
+import {
+  Components,
+  Props,
+} from 'src/components/sections/ProductDetails/Overrides'
+
+const { BuyButton, Icon, Price, QuantitySelector } = Components
 
 interface ProductDetailsSettingsProps {
   product: ProductDetailsFragment_ProductFragment
@@ -35,7 +33,10 @@ function ProductDetailsSettings({
   isValidating,
   quantity,
   setQuantity,
-  buyButtonIcon: { icon: buyButtonIconName, alt: buyButtonIconAlt },
+  buyButtonIcon: {
+    icon: buyButtonIconName = Props['Icon'].name,
+    alt: buyButtonIconAlt = Props['Icon']['aria-label'],
+  },
 }: ProductDetailsSettingsProps) {
   const {
     id,
@@ -77,24 +78,33 @@ function ProductDetailsSettings({
       <section data-fs-product-details-values>
         <div data-fs-product-details-prices>
           <Price
-            value={listPrice}
             formatter={useFormattedPrice}
             testId="list-price"
-            data-value={listPrice}
             variant="listing"
             SRText="Original price:"
+            {...Props['Price']}
+            value={listPrice}
+            data-value={listPrice}
           />
           <Price
-            value={lowPrice}
             formatter={useFormattedPrice}
             testId="price"
-            data-value={lowPrice}
             variant="spot"
             className="text__lead"
             SRText="Sale Price:"
+            {...Props['Price']}
+            value={lowPrice}
+            data-value={lowPrice}
           />
         </div>
-        <UIQuantitySelector min={1} max={10} onChange={setQuantity} />
+        <QuantitySelector
+          min={1}
+          max={10}
+          {...Props['QuantitySelector']}
+          // Dynamic props shouldn't be overridable
+          // This decision can be reviewed later if needed
+          onChange={setQuantity}
+        />
       </section>
       {skuVariants && (
         <Selectors
@@ -112,15 +122,20 @@ function ProductDetailsSettings({
         isValidating ? (
           <AddToCartLoadingSkeleton />
         ) : (
-          <UIBuyButton
-            disabled={buyDisabled}
+          <BuyButton
+            {...Props['BuyButton']}
             icon={
-              <UIIcon aria-label={buyButtonIconAlt} name={buyButtonIconName} />
+              <Icon
+                {...Props['Icon']}
+                aria-label={buyButtonIconAlt}
+                name={buyButtonIconName}
+              />
             }
+            disabled={buyDisabled}
             {...buyProps}
           >
-            {buyButtonTitle}
-          </UIBuyButton>
+            {buyButtonTitle || 'Add to Cart'}
+          </BuyButton>
         )
       }
     </>

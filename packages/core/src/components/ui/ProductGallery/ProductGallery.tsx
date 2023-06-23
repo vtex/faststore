@@ -1,14 +1,9 @@
 import { useSearch } from '@faststore/sdk'
-import {
-  Button as UIButton,
-  LinkButton as UILinkButton,
-  Skeleton as UISkeleton,
-} from '@faststore/ui'
 import { NextSeo } from 'next-seo'
 import type { MouseEvent } from 'react'
 import { Suspense, lazy } from 'react'
 
-import { Icon, useUI } from '@faststore/ui'
+import { useUI } from '@faststore/ui'
 import Filter from 'src/components/search/Filter'
 import Sort from 'src/components/search/Sort'
 import FilterSkeleton from 'src/components/skeletons/FilterSkeleton'
@@ -21,9 +16,24 @@ import { SortProps } from 'src/components/search/Sort/Sort'
 import { useDelayedFacets } from './useDelayedFacets'
 import { useDelayedPagination } from './useDelayedPagination'
 import { useProductsPrefetch } from './usePageProducts'
+import {
+  Components,
+  Props,
+} from 'src/components/sections/ProductGallery/Overrides'
 
 const GalleryPage = lazy(() => import('./ProductGalleryPage'))
 const GalleryPageSkeleton = <ProductGridSkeleton loading />
+
+const {
+  Button,
+  FilterIcon,
+  PrevIcon,
+  ResultsCountSkeleton,
+  SortSkeleton,
+  FilterButtonSkeleton,
+  LinkButtonPrev,
+  LinkButtonNext,
+} = Components
 
 export interface ProductGalleryProps {
   title?: string
@@ -85,62 +95,84 @@ function ProductGallery({
   return (
     <section data-testid="product-gallery" data-fs-product-listing>
       {searchTerm && (
-        <header data-fs-product-listing-search-term className="layout__content">
+        <header data-fs-product-listing-search-term>
           <h1>
             {searchTermLabel} <span>{searchTerm}</span>
           </h1>
         </header>
       )}
-      <div data-fs-product-listing-content-grid className="layout__content">
+      <div
+        data-fs-product-listing-content-grid
+        data-fs-content="product-gallery"
+      >
         <div data-fs-product-listing-filters>
           <FilterSkeleton loading={facets?.length === 0}>
             <Filter facets={facets} filter={filter} />
           </FilterSkeleton>
         </div>
         <div data-fs-product-listing-results-count data-count={totalCount}>
-          <UISkeleton
+          <ResultsCountSkeleton
             data-fs-product-listing-results-count-skeleton
-            loading={!productGalleryData}
             size={{ width: '100%', height: '1.5rem' }}
+            {...Props['ResultsCountSkeleton']}
+            // Dynamic props shouldn't be overridable
+            // This decision can be reviewed later if needed
+            loading={!productGalleryData}
           >
             <h2 data-testid="total-product-count">
               {totalCount} {totalCountLabel}
             </h2>
-          </UISkeleton>
+          </ResultsCountSkeleton>
         </div>
         <div data-fs-product-listing-sort>
-          <UISkeleton
+          <SortSkeleton
             data-fs-product-listing-sort-skeleton
-            loading={facets?.length === 0}
             size={{ width: 'auto', height: '1.5rem' }}
+            {...Props['SortSkeleton']}
+            // Dynamic props shouldn't be overridable
+            // This decision can be reviewed later if needed
+            loading={facets?.length === 0}
           >
             <Sort
               label={sortBySelector?.label}
               options={sortBySelector?.options}
             />
-          </UISkeleton>
-          <UISkeleton
+          </SortSkeleton>
+          <FilterButtonSkeleton
             data-fs-product-listing-filter-button-skeleton
-            loading={facets?.length === 0}
             size={{ width: '6rem', height: '1.5rem' }}
+            {...Props['FilterButtonSkeleton']}
+            // Dynamic props shouldn't be overridable
+            // This decision can be reviewed later if needed
+            loading={facets?.length === 0}
           >
-            <UIButton
+            <Button
               variant="tertiary"
               data-testid="open-filter-button"
               icon={
-                <Icon
-                  name={filter?.mobileOnly?.filterButton?.icon?.icon}
-                  aria-label={filter?.mobileOnly?.filterButton?.icon?.alt}
+                <FilterIcon
                   width={16}
                   height={16}
+                  {...Props['FilterIcon']}
+                  name={
+                    filter?.mobileOnly?.filterButton?.icon?.icon ??
+                    Props['FilterIcon'].name
+                  }
+                  aria-label={
+                    filter?.mobileOnly?.filterButton?.icon?.alt ??
+                    Props['FilterIcon']['aria-label']
+                  }
                 />
               }
               iconPosition="left"
+              {...Props['Button']}
+              // Dynamic props shouldn't be overridable
+              // This decision can be reviewed later if needed
               onClick={openFilter}
             >
               {filter?.mobileOnly?.filterButton?.label}
-            </UIButton>
-          </UISkeleton>
+            </Button>
+          </FilterButtonSkeleton>
         </div>
         <div data-fs-product-listing-results>
           {/* Add link to previous page. This helps on SEO */}
@@ -149,30 +181,38 @@ function ProductGallery({
               <NextSeo
                 additionalLinkTags={[{ rel: 'prev', href: prev.link }]}
               />
-              <UILinkButton
+              <LinkButtonPrev
+                rel="prev"
+                variant="secondary"
+                iconPosition="left"
+                icon={
+                  <PrevIcon
+                    width={16}
+                    height={16}
+                    weight="bold"
+                    {...Props['PrevIcon']}
+                    name={
+                      previousPageButton?.icon?.icon ?? Props['PrevIcon'].name
+                    }
+                    aria-label={
+                      previousPageButton?.icon?.alt ??
+                      previousPageButton?.label ??
+                      Props['PrevIcon']['aria-label']
+                    }
+                  />
+                }
+                {...Props['LinkButtonPrev']}
+                // Dynamic props shouldn't be overridable
+                // This decision can be reviewed later if needed
                 onClick={(e: MouseEvent<HTMLElement>) => {
                   e.currentTarget.blur()
                   e.preventDefault()
                   addPrevPage()
                 }}
                 href={prev.link}
-                rel="prev"
-                variant="secondary"
-                iconPosition="left"
-                icon={
-                  <Icon
-                    name={previousPageButton?.icon?.icon}
-                    aria-label={
-                      previousPageButton?.icon?.alt ?? previousPageButton?.label
-                    }
-                    width={16}
-                    height={16}
-                    weight="bold"
-                  />
-                }
               >
                 {previousPageButton?.label}
-              </UILinkButton>
+              </LinkButtonPrev>
             </div>
           )}
           {/* Render ALL products */}
@@ -196,19 +236,22 @@ function ProductGallery({
               <NextSeo
                 additionalLinkTags={[{ rel: 'next', href: next.link }]}
               />
-              <UILinkButton
+              <LinkButtonNext
                 testId="show-more"
+                rel="next"
+                variant="secondary"
+                {...Props['LinkButtonNext']}
+                // Dynamic props shouldn't be overridable
+                // This decision can be reviewed later if needed
                 onClick={(e: MouseEvent<HTMLElement>) => {
                   e.currentTarget.blur()
                   e.preventDefault()
                   addNextPage()
                 }}
                 href={next.link}
-                rel="next"
-                variant="secondary"
               >
                 {loadMorePageButton?.label}
-              </UILinkButton>
+              </LinkButtonNext>
             </div>
           )}
         </div>

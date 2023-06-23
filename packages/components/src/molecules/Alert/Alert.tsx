@@ -57,8 +57,9 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
       ref={ref}
       role="alert"
       data-fs-alert
-      data-testid={testId}
       data-fs-alert-dismissible={dismissible}
+      data-fs-content="alert"
+      data-testid={testId}
       {...otherProps}
     >
       {!!icon && icon}

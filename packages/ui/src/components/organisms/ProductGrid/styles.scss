@@ -31,6 +31,8 @@
     }
   }
 
+  @include media("<notebook") { padding-bottom: var(--fs-grid-gap-2); }
+
   @include media(">=notebook") {
     grid-gap: var(--fs-product-grid-gap-desktop);
   }

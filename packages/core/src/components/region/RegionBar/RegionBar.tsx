@@ -1,8 +1,11 @@
 import type { RegionBarProps as UIRegionBarProps } from '@faststore/ui'
-import { Icon, RegionBar as UIRegionBar } from '@faststore/ui'
 
 import { useUI } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
+
+import { Components, Props } from 'src/components/sections/RegionBar/Overrides'
+
+const { RegionBar: RegionBarWrapper, LocationIcon, ButtonIcon } = Components
 
 export interface RegionBarProps {
   /**
@@ -30,19 +33,32 @@ export interface RegionBarProps {
 }
 
 function RegionBar({
-  icon: { icon: locationIcon, alt: locationIconAlt },
-  buttonIcon: { icon: buttonIcon, alt: buttonIconAlt },
+  icon: {
+    icon: locationIcon = Props['LocationIcon'].name,
+    alt: locationIconAlt = Props['LocationIcon']['aria-label'],
+  },
+  buttonIcon: {
+    icon: buttonIcon = Props['ButtonIcon'].name,
+    alt: buttonIconAlt = Props['ButtonIcon']['aria-label'],
+  },
+  label = Props['RegionBar'].label,
+  editLabel = Props['RegionBar'].editLabel,
   ...otherProps
 }: RegionBarProps) {
   const { openModal } = useUI()
   const { postalCode } = useSession()
 
   return (
-    <UIRegionBar
+    <RegionBarWrapper
+      icon={<LocationIcon name={locationIcon} aria-label={locationIconAlt} />}
+      buttonIcon={<ButtonIcon name={buttonIcon} aria-label={buttonIconAlt} />}
+      {...Props['RegionBar']}
+      label={label}
+      editLabel={editLabel}
+      // Dynamic props shouldn't be overridable
+      // This decision can be reviewed later if needed
       onButtonClick={openModal}
       postalCode={postalCode}
-      icon={<Icon name={locationIcon} aria-label={locationIconAlt} />}
-      buttonIcon={<Icon name={buttonIcon} aria-label={buttonIconAlt} />}
       {...otherProps}
     />
   )

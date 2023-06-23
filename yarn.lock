@@ -1427,45 +1427,6 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@faststore/api@^2.0.79-alpha.0":
-  version "2.0.79-alpha.0"
-  resolved "https://registry.yarnpkg.com/@faststore/api/-/api-2.0.79-alpha.0.tgz#9b958be6ab24bca72cd4900ed300d5bd94f51df9"
-  integrity sha512-0UaEPtSjOGevDfMe5F7Z+QESa7jyEwNxF9HM1TOlhgcV20DZTrvM2iJkNJOUiSW0UEs4bFqPsD0gQofQpgA8MQ==
-  dependencies:
-    "@graphql-tools/schema" "^8.2.0"
-    "@rollup/plugin-graphql" "^1.0.0"
-    dataloader "^2.1.0"
-    fast-deep-equal "^3.1.3"
-    isomorphic-unfetch "^3.1.0"
-    p-limit "^3.1.0"
-
-"@faststore/components@*":
-  version "1.12.37"
-  resolved "https://registry.yarnpkg.com/@faststore/components/-/components-1.12.37.tgz#125b59b28f444c0aa13fb92fedb479bf3f984b9f"
-  integrity sha512-IDkMa7/Y7FSAsi+DKBZuRW5EFFqsjFFPSCpUXVWXa3rKPC4EejjhCaQK7EWBTtDeokbuyoSfIkCEutFBhIJ+yQ==
-
-"@faststore/eslint-config@*":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@faststore/eslint-config/-/eslint-config-0.0.1.tgz#c4dea566a157ada8e1d8a688190d9e3f7d720968"
-  integrity sha512-HqsjnT/IcQjWb/cViqrHJiuhQXp2Mi1OPKSQl637pYNsKS7MOpTCI4C+2+VZKnYIt867bbRx0hI9qCXYAINP0A==
-  dependencies:
-    eslint "7.32.0"
-    eslint-config-next "13.0.0"
-    eslint-config-prettier "^8.3.0"
-    eslint-config-turbo latest
-    eslint-plugin-react "7.31.8"
-    next "13.0.7"
-
-"@faststore/graphql-utils@^2.0.3-alpha.0":
-  version "2.0.3-alpha.0"
-  resolved "https://registry.yarnpkg.com/@faststore/graphql-utils/-/graphql-utils-2.0.3-alpha.0.tgz#1d70065f5fcaafc51e9399b11b1b117a28a89f38"
-  integrity sha512-+kOX1fOHWMp/GqY9ooYuOwQbvHREoIoIm3CA/B6twPtwU/3G4W7+NZVYPUK1InVDxBQIEWfqPNSxgVTXvGfrFg==
-  dependencies:
-    "@babel/traverse" "^7.15.4"
-    "@babel/types" "^7.15.6"
-    "@graphql-codegen/plugin-helpers" "^2.2.0"
-    "@graphql-tools/relay-operation-optimizer" "^6.4.0"
-
 "@faststore/lighthouse@^1.12.32":
   version "1.12.32"
   resolved "https://registry.yarnpkg.com/@faststore/lighthouse/-/lighthouse-1.12.32.tgz#840096bc88ce80041217c764df97d9f0b4968658"
@@ -9342,6 +9303,11 @@ core-js@^3.4:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.27.1.tgz#23cc909b315a6bb4e418bf40a52758af2103ba46"
   integrity sha512-GutwJLBChfGCpwwhbYoqfv03LAfmiz7e7D/BNxzeMxwQf10GRSzqiOjx7AmtEk+heiD/JWmBuyBPgFtx0Sg1ww==
 
+core-js@^3.6.4:
+  version "3.30.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.30.2.tgz#6528abfda65e5ad728143ea23f7a14f0dcf503fc"
+  integrity sha512-uBJiDmwqsbJCWHAwjrx3cvjbMXP7xD72Dmsn5LOJpiRmE3WbBbN5rCqQ2Qh6Ek6/eOrjlWngEynBWo4VxerQhg==
+
 core-util-is@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
@@ -9456,6 +9422,13 @@ cross-env@^7.0.2:
   integrity sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==
   dependencies:
     cross-spawn "^7.0.1"
+
+cross-fetch@^3.0.4:
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.6.tgz#bae05aa31a4da760969756318feeee6e70f15d6c"
+  integrity sha512-riRvo06crlE8HiqOwIpQhxwdOk4fOeR7FVM/wXoxchFEqMNUjvbs3bfo4OTgMEMHzppd4DxFBDbyySj8Cv781g==
+  dependencies:
+    node-fetch "^2.6.11"
 
 cross-fetch@^3.1.5:
   version "3.1.5"
@@ -10289,6 +10262,27 @@ dotenv@~10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
   integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
+
+draft-js-export-html@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/draft-js-export-html/-/draft-js-export-html-1.4.1.tgz#7cdad970c6f7f2cdd19ce4c1f5073fdf0f313b4d"
+  integrity sha512-G4VGBSalPowktIE4wp3rFbhjs+Ln9IZ2FhXeHjsZDSw0a2+h+BjKu5Enq+mcsyVb51RW740GBK8Xbf7Iic51tw==
+  dependencies:
+    draft-js-utils "^1.4.0"
+
+draft-js-utils@^1.4.0:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/draft-js-utils/-/draft-js-utils-1.4.1.tgz#a59c792ad621f7050292031a237d524708a6d509"
+  integrity sha512-xE81Y+z/muC5D5z9qWmKfxEW1XyXfsBzSbSBk2JRsoD0yzMGGHQm/0MtuqHl/EUDkaBJJLjJ2EACycoDMY/OOg==
+
+draft-js@^0.11.7:
+  version "0.11.7"
+  resolved "https://registry.yarnpkg.com/draft-js/-/draft-js-0.11.7.tgz#be293aaa255c46d8a6647f3860aa4c178484a206"
+  integrity sha512-ne7yFfN4sEL82QPQEn80xnADR8/Q6ALVworbC5UOSzOvjffmYfFsr3xSZtxbIirti14R7Y33EZC5rivpLgIbsg==
+  dependencies:
+    fbjs "^2.0.0"
+    immutable "~3.7.4"
+    object-assign "^4.1.1"
 
 dset@3.1.2, dset@^3.1.2:
   version "3.1.2"
@@ -11621,6 +11615,20 @@ fbjs-css-vars@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/fbjs-css-vars/-/fbjs-css-vars-1.0.2.tgz#216551136ae02fe255932c3ec8775f18e2c078b8"
   integrity sha512-b2XGFAFdWZWg0phtAWLHCk836A1Xann+I+Dgd3Gk64MHKZO44FfoD1KxyvbSh0qZsIoXQGGlVztIY+oitJPpRQ==
+
+fbjs@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-2.0.0.tgz#01fb812138d7e31831ed3e374afe27b9169ef442"
+  integrity sha512-8XA8ny9ifxrAWlyhAbexXcs3rRMtxWcs3M0lctLfB49jRDHiaxj+Mo0XxbwE7nKZYzgCFoq64FS+WFd4IycPPQ==
+  dependencies:
+    core-js "^3.6.4"
+    cross-fetch "^3.0.4"
+    fbjs-css-vars "^1.0.0"
+    loose-envify "^1.0.0"
+    object-assign "^4.1.0"
+    promise "^7.1.1"
+    setimmediate "^1.0.5"
+    ua-parser-js "^0.7.18"
 
 fbjs@^3.0.0:
   version "3.0.4"
@@ -13443,7 +13451,7 @@ immutable@^4.0.0:
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.2.2.tgz#2da9ff4384a4330c36d4d1bc88e90f9e0b0ccd16"
   integrity sha512-fTMKDwtbvO5tldky9QZ2fMX7slR0mYpY5nbnFWYp0fOzDhHqhgIw9KoYgxLWsoNTS9ZHGauHj18DTyEw6BK3Og==
 
-immutable@~3.7.6:
+immutable@~3.7.4, immutable@~3.7.6:
   version "3.7.6"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.7.6.tgz#13b4d3cb12befa15482a26fe1b2ebae640071e4b"
   integrity sha512-AizQPcaofEtO11RZhPPHBOJRdo/20MKQF9mBLnVkBoyHi1/zXK8fzVdnEpSV9gxqtnh6Qomfp3F0xT5qP/vThw==
@@ -17495,6 +17503,13 @@ node-fetch@2.6.7, node-fetch@^2.6.1, node-fetch@^2.6.7:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"
   integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
+  dependencies:
+    whatwg-url "^5.0.0"
+
+node-fetch@^2.6.11:
+  version "2.6.11"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.11.tgz#cde7fc71deef3131ef80a738919f999e6edfff25"
+  integrity sha512-4I6pdBY1EthSqDmJkiNk3JIT8cswwR9nfeW/cPdUagJYEQG7R95WRH74wpz7ma8Gh/9dI9FP+OU+0E4FvtA55w==
   dependencies:
     whatwg-url "^5.0.0"
 
@@ -22737,6 +22752,11 @@ typeson@^6.0.0, typeson@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/typeson/-/typeson-6.1.0.tgz#5b2a53705a5f58ff4d6f82f965917cabd0d7448b"
   integrity sha512-6FTtyGr8ldU0pfbvW/eOZrEtEkczHRUtduBnA90Jh9kMPCiFNnXIon3vF41N0S4tV1HHQt4Hk1j4srpESziCaA==
+
+ua-parser-js@^0.7.18:
+  version "0.7.35"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.35.tgz#8bda4827be4f0b1dda91699a29499575a1f1d307"
+  integrity sha512-veRf7dawaj9xaWEu9HoTVn5Pggtc/qj+kqTOFvNiN1l0YdxwC1kvel57UCjThjGa3BHBihE8/UJAHI+uQHmd/g==
 
 ua-parser-js@^0.7.30:
   version "0.7.33"

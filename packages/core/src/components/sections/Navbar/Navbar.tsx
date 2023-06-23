@@ -1,8 +1,8 @@
-import UINavbar from '../../navigation/Navbar'
-
 import Section from '../Section'
 
 import styles from './section.module.scss'
+
+import Navbar from 'src/components/navigation/Navbar'
 
 type PageLinks = {
   url: string
@@ -51,7 +51,7 @@ export interface NavbarProps {
   }
 }
 
-function Navbar({
+function NavbarSection({
   logo,
   searchInput,
   cartIcon,
@@ -69,7 +69,7 @@ function Navbar({
 }: NavbarProps) {
   return (
     <Section className={`${styles.section} section-navbar`}>
-      <UINavbar
+      <Navbar
         home={home}
         menu={menu}
         logo={logo}
@@ -87,4 +87,4 @@ function Navbar({
   )
 }
 
-export default Navbar
+export default NavbarSection

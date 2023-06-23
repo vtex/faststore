@@ -113,6 +113,8 @@
       text-decoration: none;
       outline: none;
 
+      > span { @include truncate-title(1); }
+
       &::after {
         position: absolute;
         top: 0;
@@ -189,6 +191,9 @@
     [data-fs-product-card-content] {
       padding-left: var(--fs-product-card-wide-content-padding);
       padding-right: var(--fs-product-card-wide-content-padding);
+
+      [data-fs-link] > span { @include truncate-title(2); }
+
       @include media(">=notebook") {
         flex-direction: row;
         justify-content: space-between;

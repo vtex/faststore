@@ -213,6 +213,9 @@ export { default as QuantitySelector } from './molecules/QuantitySelector'
 export type { QuantitySelectorProps } from './molecules/QuantitySelector'
 
 // Organisms
+export { default as Banner, BannerContent } from './organisms/Banner'
+export type { BannerProps, BannerContentProps } from './organisms/Banner'
+
 export {
   default as CartSidebar,
   CartSidebarList,

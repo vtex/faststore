@@ -41,6 +41,7 @@ function EmptyState({
       data-fs-empty-state
       data-fs-empty-state-variant={variant}
       data-fs-empty-state-bkg-color={bkgColor}
+      data-fs-content="empty-state"
       data-testid={testId}
       {...otherProps}
     >

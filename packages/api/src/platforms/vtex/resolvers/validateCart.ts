@@ -235,6 +235,7 @@ const getOrderForm = async (
   }
 
   const shouldUpdateShippingData =
+    orderForm.items.length > 0 &&
     (typeof session.postalCode === 'string' &&
       orderForm.shippingData?.address?.postalCode !== session.postalCode) ||
     (typeof session.geoCoordinates === 'object' &&
@@ -243,11 +244,11 @@ const getOrderForm = async (
       (orderForm.shippingData?.address?.geoCoordinates[0] !==
         session.geoCoordinates.longitude ||
         orderForm.shippingData?.address?.geoCoordinates[1] !==
-          session.geoCoordinates.latitude))
+          session.geoCoordinates.latitude)) 
 
   if (shouldUpdateShippingData) {
     let incrementedAddress: IncrementedAddress | undefined
-
+    
     if (session.postalCode) {
       incrementedAddress = await commerce.checkout.incrementAddress(
         session.country,
@@ -272,7 +273,7 @@ const getOrderForm = async (
         incrementedAddress
       )
     }
-
+    
     return commerce.checkout.shippingData(
       {
         id: orderForm.orderFormId,

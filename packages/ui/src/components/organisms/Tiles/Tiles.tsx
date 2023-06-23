@@ -54,6 +54,7 @@ const Tiles = forwardRef<HTMLUListElement, TilesProps>(function Tiles(
       role="list"
       data-fs-tiles
       data-fs-tiles-variant={expandedClass}
+      data-fs-content="tiles"
       data-testid={testId}
       {...otherProps}
     >

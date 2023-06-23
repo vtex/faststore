@@ -1,11 +1,11 @@
-[data-fs-banner-text] {
+[data-fs-banner] {
   // --------------------------------------------------------
   // Design Tokens for Banner Text
   // --------------------------------------------------------
 
   // Default properties
   --fs-banner-padding-mobile                : var(--fs-spacing-6) 5%;
-  --fs-banner-padding-desktop               : var(--fs-spacing-9) 15%;
+  --fs-banner-padding-desktop               : var(--fs-spacing-9) 10%;
 
   // Button Link
   --fs-banner-button-link-min-width         : 11.25rem;
@@ -42,22 +42,21 @@
   // --------------------------------------------------------
 
   height: 100%;
-  padding: var(--fs-banner-padding-mobile);
   text-align: center;
 
-  @include media(">=notebook") {
-    padding: var(--fs-banner-padding-desktop);
-  }
-
-  [data-fs-banner-text-content] {
+  [data-fs-banner-content] {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
+    padding: var(--fs-banner-padding-mobile);
+    @include media(">=notebook") {
+      padding: var(--fs-banner-padding-desktop);
+    }
   }
 
-  [data-fs-banner-text-link] [data-fs-link-button] {
+  [data-fs-banner-link] {
     min-width: var(--fs-banner-button-link-min-width);
     margin: var(--fs-banner-button-link-margin-top) auto 0;
   }
@@ -66,7 +65,7 @@
   // Variants Styles
   // --------------------------------------------------------
 
-  &[data-fs-banner-text-variant="primary"] {
+  &[data-fs-banner-variant="primary"] {
     h2 {
       font-size: var(--fs-banner-title-size);
       font-weight: var(--fs-banner-title-weight);
@@ -79,7 +78,7 @@
     }
   }
 
-  &[data-fs-banner-text-variant="secondary"] {
+  &[data-fs-banner-variant="secondary"] {
     h2 {
       margin-bottom: var(--fs-spacing-2);
       font-size: var(--fs-banner-title-size);
@@ -99,26 +98,26 @@
     }
   }
 
-  &[data-fs-banner-text-color-variant="main"] {
+  &[data-fs-banner-color-variant="main"] {
     background-color: var(--fs-banner-main-bkg-color);
 
-    [data-fs-banner-text-heading] {
+    [data-fs-banner-heading] {
       color: var(--fs-banner-main-text-color);
     }
   }
 
-  &[data-fs-banner-text-color-variant="light"] {
+  &[data-fs-banner-color-variant="light"] {
     background-color: var(--fs-banner-light-bkg-color);
 
-    [data-fs-banner-text-heading] {
+    [data-fs-banner-heading] {
       color: var(--fs-banner-light-text-color);
     }
   }
 
-  &[data-fs-banner-text-color-variant="accent"] {
+  &[data-fs-banner-color-variant="accent"] {
     background-color: var(--fs-banner-accent-bkg-color);
 
-    [data-fs-banner-text-heading] {
+    [data-fs-banner-heading] {
       color: var(--fs-banner-accent-text-color);
     }
   }

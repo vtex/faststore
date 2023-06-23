@@ -1,8 +1,14 @@
+---
+title: ' Overview'
+sidebar_label: 'Global Tokens'
+layout: 'full'
+---
+
 import { SectionItem, SectionList } from 'site/components/SectionItem'
 
 <header className="hero">
 
-# Customizing
+# Overview
 
 **Design tokens** are parameters that affect all UI look 'n' feel and they are the **main configuration** file of a Theme. Component-specific tokens often inherit from global tokens but are named specifically to apply those tokens in component development.
 
@@ -72,50 +78,3 @@ Its presets are defined on `src/base/tokens.scss` in [@faststore/ui](https://git
     }
   ></SectionItem>
 </SectionList>
-
----
-
-## Build your new theme
-
-1. Create a new `.scss` file on `src/themes` (e.g. `my-theme.scss`) in your [starter project](https://github.com/vtex-sites/starter.store), and add the tokens you want to overwrite inside the `.theme` class:
-
-```css
-.theme {
-  // --------------------------------------------------------
-  // Colors (Branding Core)
-  // --------------------------------------------------------
-
-  // --------------------------------------------------------
-  // Typography (Branding Core)
-  // --------------------------------------------------------
-
-  // --------------------------------------------------------
-  // Spacing (UI Essentials)
-  // --------------------------------------------------------
-
-  // --------------------------------------------------------
-  // Grid & Layout (UI Essentials)
-  // --------------------------------------------------------
-
-  // --------------------------------------------------------
-  // Interactive Controls (UI Essentials)
-  // --------------------------------------------------------
-
-  // --------------------------------------------------------
-  // Refinements
-  // --------------------------------------------------------
-
-  // --------------------------------------------------------
-  // Components
-  // --------------------------------------------------------
-}
-```
-
-2. Go to `faststore.config.js` and change the `theme` to your file's name:
-
-```js
-// Theming
-theme: 'my-theme',
-```
-
-If you want, you can work on `custom-theme.scss` file that's ready to use. Also, we provide two themes as examples: [soft-blue](/docs/themes/soft-blue) and [midnight](/docs/themes/midnight).

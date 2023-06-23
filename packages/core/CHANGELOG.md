@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.178-alpha.0](https://github.com/vtex/faststore/compare/v2.0.177-alpha.0...v2.0.178-alpha.0) (2023-06-02)
+
+### Bug Fixes
+
+- A11y tests ([#1817](https://github.com/vtex/faststore/issues/1817)) ([904e830](https://github.com/vtex/faststore/commit/904e830ff3ae47f3d7308fa8b1b9a28949561ed9))
+
+## [2.0.176-alpha.0](https://github.com/vtex/faststore/compare/v2.0.175-alpha.0...v2.0.176-alpha.0) (2023-06-02)
+
+### Bug Fixes
+
+- Product description mock data ([#1815](https://github.com/vtex/faststore/issues/1815)) ([98bfde8](https://github.com/vtex/faststore/commit/98bfde887b3721de9a75ebc6325aa7b0842707c5))
+
+## [2.0.175-alpha.0](https://github.com/vtex/faststore/compare/v2.0.174-alpha.0...v2.0.175-alpha.0) (2023-06-02)
+
+### Features
+
+- Allows some section's component to be overridable ([#1768](https://github.com/vtex/faststore/issues/1768)) ([e19cba2](https://github.com/vtex/faststore/commit/e19cba222351510ffc91ba130ed61e857e9e6bb5))
+
+## 2.0.173-alpha.0 (2023-06-01)
+
+### Chores
+
+- temp skip flaky tests ([#1808](https://github.com/vtex/faststore/issues/1808)) ([734b000](https://github.com/vtex/faststore/commit/734b000ec7c8bff756e514cd9acbc77ecf0e9b62))
+
 ## [2.0.172-alpha.0](https://github.com/vtex/faststore/compare/v2.0.171-alpha.0...v2.0.172-alpha.0) (2023-05-31)
 
 ### Features

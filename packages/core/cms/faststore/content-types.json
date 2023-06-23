@@ -6,8 +6,8 @@
     "isSingleton": true
   },
   {
-    "id": "page",
-    "name": "Page",
+    "id": "landingPage",
+    "name": "Landing Page",
     "configurationSchemaSets": [
       {
         "name": "Settings",
@@ -32,12 +32,12 @@
                   "title": "Default page title",
                   "description": "Display this title when no other tile is available",
                   "type": "string",
-                  "default": "FastStore"
+                  "default": "FastStore Starter"
                 },
                 "description": {
                   "title": "Meta tag description",
                   "type": "string",
-                  "default": "A beautifuly designed store"
+                  "default": "A beautifully designed store"
                 },
                 "canonical": {
                   "title": "Canonical url for the page",
@@ -78,12 +78,12 @@
                   "title": "Default page title",
                   "description": "Display this title when no other tile is available",
                   "type": "string",
-                  "default": "FastStore"
+                  "default": "FastStore Starter"
                 },
                 "description": {
                   "title": "Meta tag description",
                   "type": "string",
-                  "default": "A beautifuly designed store"
+                  "default": "A beautifully designed store"
                 },
                 "canonical": {
                   "title": "Canonical url for the page",

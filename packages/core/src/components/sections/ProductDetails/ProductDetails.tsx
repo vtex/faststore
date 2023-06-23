@@ -4,11 +4,6 @@ import { gql } from '@faststore/graphql-utils'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
-import {
-  Link as UILink,
-  ProductTitle as UIProductTitle,
-  DiscountBadge as UIDiscountBadge,
-} from '@faststore/ui'
 
 import { useSession } from 'src/sdk/session'
 import { useProduct } from 'src/sdk/product/useProduct'
@@ -17,12 +12,22 @@ import type { AnalyticsItem } from 'src/sdk/analytics/types'
 
 import Section from '../Section'
 import OutOfStock from 'src/components/product/OutOfStock'
-import ImageGallery from 'src/components/ui/ImageGallery'
-import ShippingSimulation from 'src/components/ui/ShippingSimulation'
 import ProductDescription from 'src/components/ui/ProductDescription'
 import { ProductDetailsSettings } from 'src/components/ui/ProductDetails'
 
 import styles from './section.module.scss'
+
+import {
+  Components,
+  Props,
+} from 'src/components/sections/ProductDetails/Overrides'
+
+const {
+  ProductTitle,
+  DiscountBadge,
+  __experimentalImageGallery: ImageGallery,
+  __experimentalShippingSimulation: ShippingSimulation,
+} = Components
 
 interface ProductDetailsContextProps {
   context: ProductDetailsFragment_ProductFragment
@@ -63,14 +68,28 @@ function ProductDetails({
   context: staleProduct,
   productTitle: {
     refNumber: showRefNumber,
-    discountBadge: { showDiscountBadge, size: discountBadgeSize },
+    discountBadge: {
+      showDiscountBadge,
+      size: discountBadgeSize = Props['DiscountBadge'].size,
+    },
   },
   buyButton: { icon: buyButtonIcon, title: buyButtonTitle },
   shippingSimulator: {
-    title: shippingSimulatorTitle,
-    inputLabel: shippingSimulatorInputLabel,
-    shippingOptionsTableTitle: shippingSimulatorOptionsTableTitle,
-    link: { to: shippingSimulatorLinkUrl, text: shippingSimulatorLinkText },
+    title: shippingSimulatorTitle = Props['__experimentalShippingSimulation']
+      .title,
+    inputLabel: shippingSimulatorInputLabel = Props[
+      '__experimentalShippingSimulation'
+    ].inputLabel,
+    shippingOptionsTableTitle: shippingSimulatorOptionsTableTitle = Props[
+      '__experimentalShippingSimulation'
+    ].optionsLabel,
+    link: {
+      to: shippingSimulatorLinkUrl = Props['__experimentalShippingSimulation']
+        .idkPostalCodeLinkProps?.href,
+      text: shippingSimulatorLinkText = Props[
+        '__experimentalShippingSimulation'
+      ].idkPostalCodeLinkProps?.children,
+    },
   },
   productDescription: {
     title: productDescriptionDetailsTitle,
@@ -98,6 +117,7 @@ function ProductDetails({
       name: variantName,
       brand,
       isVariantOf,
+      description,
       isVariantOf: { name, productGroupID: productId },
       image: productImages,
       offers: {
@@ -141,20 +161,25 @@ function ProductDetails({
   ])
 
   return (
-    <Section
-      className={`${styles.section} section-product-details layout__content layout__section`}
-    >
+    <Section className={`${styles.section} section-product-details`}>
       <section data-fs-product-details>
-        <section data-fs-product-details-body>
+        <section data-fs-product-details-body data-fs-content="product-details">
           <header data-fs-product-details-title data-fs-product-details-section>
-            <UIProductTitle
+            <ProductTitle
+              // TODO: We should review this prop. There's now way to override the title and use the dynamic name value.
+              // Maybe passing a ProductTitleHeader component as a prop would be better, as it would be overridable.
+              // Maybe now it's worth to make title always a h1 and receive only the name, as it would be easier for users to override.
               title={<h1>{name}</h1>}
+              {...Props['ProductTitle']}
               label={
                 showDiscountBadge && (
-                  <UIDiscountBadge
+                  <DiscountBadge
+                    {...Props['DiscountBadge']}
+                    size={discountBadgeSize}
+                    // Dynamic props shouldn't be overridable
+                    // This decision can be reviewed later if needed
                     listPrice={listPrice}
                     spotPrice={lowPrice}
-                    size={discountBadgeSize}
                   />
                 )
               }
@@ -163,6 +188,7 @@ function ProductDetails({
           </header>
           <ImageGallery
             data-fs-product-details-gallery
+            {...Props['__experimentalImageGallery']}
             images={productImages}
           />
           <section data-fs-product-details-info>
@@ -188,19 +214,20 @@ function ProductDetails({
               <ShippingSimulation
                 data-fs-product-details-section
                 data-fs-product-details-shipping
+                formatter={useFormattedPrice}
+                {...Props['__experimentalShippingSimulation']}
+                idkPostalCodeLinkProps={{
+                  ...Props['idkPostalCodeLinkProps'],
+                  href: shippingSimulatorLinkUrl,
+                  children: shippingSimulatorLinkText,
+                }}
                 productShippingInfo={{
                   id,
                   quantity,
                   seller: seller.identifier,
                 }}
-                formatter={useFormattedPrice}
                 title={shippingSimulatorTitle}
                 inputLabel={shippingSimulatorInputLabel}
-                idkPostalCodeLinkProps={
-                  <UILink href={shippingSimulatorLinkUrl}>
-                    {shippingSimulatorLinkText}
-                  </UILink>
-                }
                 optionsLabel={shippingSimulatorOptionsTableTitle}
               />
             )}
@@ -208,8 +235,10 @@ function ProductDetails({
 
           {shouldDisplayProductDescription && (
             <ProductDescription
-              labels={{ description: productDescriptionDetailsTitle }}
               initiallyExpanded={productDescriptionInitiallyExpanded}
+              descriptionData={[
+                { title: productDescriptionDetailsTitle, content: description },
+              ]}
             />
           )}
         </section>
