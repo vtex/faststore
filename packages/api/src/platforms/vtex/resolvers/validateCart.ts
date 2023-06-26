@@ -337,7 +337,7 @@ export const validateCart = async (
   // Social Selling: the vtex_session cookie contains a new orderForm id with Social Selling data
   // My Orders: the customer clicks on reordering through generating a new cart and when returning to the faststore, this information needs to be returned by vtex_session cookie.
   // New session: a new user enters the website and has no orderForm attributed to it (has no relation to the vtex_session cookie).
-  // In both cases, the origin orderForm should replace the copy that's in the browser
+  // In all cases, the origin orderForm should replace the copy that's in the browser
   if (orderForm.orderFormId != orderNumberFromCart) {
     return orderFormToCart(orderForm, skuLoader)
   }
