@@ -16,6 +16,12 @@ function VTEX() {
         async
         src="https://io.vtex.com.br/rc/rc.js"
       />
+      <script
+        key="vtex-af.js-script"
+        type="text/partytown"
+        async
+        src="https://activity-flow.vtex.com/af/af.js"
+      />
     </>
   )
 }
