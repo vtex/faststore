@@ -1,6 +1,6 @@
 {
   "name": "@faststore/core",
-  "version": "2.1.22",
+  "version": "2.1.23",
   "license": "MIT",
   "browserslist": "supports es6-module and not dead",
   "scripts": {
@@ -33,7 +33,7 @@
     "@faststore/components": "^2.1.18",
     "@faststore/graphql-utils": "^2.1.9",
     "@faststore/sdk": "^2.1.9",
-    "@faststore/ui": "^2.1.18",
+    "@faststore/ui": "^2.1.23",
     "@types/react": "^18.0.14",
     "@vtex/client-cms": "^0.2.12",
     "autoprefixer": "^10.4.0",
