@@ -126,7 +126,7 @@ export const VtexCommerce = (
           body: ShippingDataBody
         },
         incrementedAddress?: IncrementedAddress,
-        hasDeliveryWindow?: boolean
+        setDeliveryWindow?: boolean
       ): Promise<OrderForm> => {
         const addressSession = body?.selectedAddresses?.map((address) => {
           const addressSession: SelectedAddress = {
@@ -165,7 +165,7 @@ export const VtexCommerce = (
           return addressSession
         })
 
-        const deliveryWindow = hasDeliveryWindow
+        const deliveryWindow = setDeliveryWindow
           ? {
               startDateUtc: deliveryMode?.deliveryWindow?.startDate,
               endDateUtc: deliveryMode?.deliveryWindow?.endDate,

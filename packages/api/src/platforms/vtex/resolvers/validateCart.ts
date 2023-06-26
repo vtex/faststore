@@ -333,7 +333,11 @@ export const validateCart = async (
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
 
-  // Step1.1: Set the orderForm at the indexedDB for the navigation
+  // Step1.1: Checks if the orderForm id has changed. There are three cases for this:
+  // Social Selling: the vtex_session cookie contains a new orderForm id with Social Selling data
+  // My Orders: the customer clicks on reordering through generating a new cart and when returning to the faststore, this information needs to be returned by vtex_session cookie.
+  // New session: a new user enters the website and has no orderForm attributed to it (has no relation to the vtex_session cookie).
+  // In both cases, the origin orderForm should replace the copy that's in the browser
   if (orderForm.orderFormId != orderNumberFromCart) {
     return orderFormToCart(orderForm, skuLoader)
   }
@@ -397,7 +401,7 @@ export const validateCart = async (
     offerToOrderItemInput
   )
 
-  if (changes.length === 0 && orderForm.orderFormId === orderNumberFromCart) {
+  if (changes.length === 0) {
     return null
   }
 
