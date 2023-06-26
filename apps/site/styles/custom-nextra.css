@@ -561,6 +561,10 @@ header.hero > p {
   padding: var(--fs-spacing-1);
 }
 
+.nx-simple-table td a {
+  color:  #006be6;
+}
+
 /* Nextra Sections */
 
 .nx-section-layout-colored {
