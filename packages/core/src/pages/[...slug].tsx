@@ -15,13 +15,18 @@ import GlobalSections, {
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import { getPage, PageContentType, PLPContentType } from 'src/server/cms'
-import ProductListingPage, {
-  ProductListingPageProps,
-} from 'src/components/templates/ProductListingPage'
-import LandingPage, {
+import { ProductListingPageProps } from 'src/components/templates/ProductListingPage'
+import {
   getLandingPageBySlug,
   LandingPageProps,
 } from 'src/components/templates/LandingPage'
+import { lazy, Suspense } from 'react'
+
+const LandingPage = lazy(() => import('src/components/templates/LandingPage'))
+
+const ProductListingPage = lazy(
+  () => import('src/components/templates/ProductListingPage')
+)
 
 type BaseProps = {
   globalSections: GlobalSectionsData
@@ -43,9 +48,15 @@ function Page({ globalSections, type, ...otherProps }: Props) {
   return (
     <GlobalSections {...globalSections}>
       {type === 'plp' && (
-        <ProductListingPage {...(otherProps as ProductListingPageProps)} />
+        <Suspense fallback={null}>
+          <ProductListingPage {...(otherProps as ProductListingPageProps)} />
+        </Suspense>
       )}
-      {type === 'page' && <LandingPage {...(otherProps as LandingPageProps)} />}
+      {type === 'page' && (
+        <Suspense fallback={null}>
+          <LandingPage {...(otherProps as LandingPageProps)} />
+        </Suspense>
+      )}
     </GlobalSections>
   )
 }
