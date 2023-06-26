@@ -183,7 +183,6 @@ export const VtexCommerce = (
           address: addressSession,
         }
 
-        console.log('Mapped Body', mappedBody)
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
