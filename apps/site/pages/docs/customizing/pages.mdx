@@ -154,7 +154,7 @@ To display a **colored background** with **full width** and maintain the **conte
         @include layout-colored(var(--fs-color-main-2));
       }
 
-      [data-fs-banner] {
+      [data-fs-banner-text] {
         @include layout-colored(var(--fs-color-main-2));
       }
     }
@@ -198,7 +198,7 @@ To add a **colored background** and **centering** the `.section`, add `@include 
         @include layout-content;
       }
 
-      [data-fs-banner] {
+      [data-fs-banner-text] {
         @include layout-colored(var(--fs-color-main-2));
         @include layout-content;
       }
@@ -244,7 +244,7 @@ To use your store section's content with a **full-width layout** you'll need to 
     // Add this to your custom-theme.scss
     .section {
       [data-fs-tiles] [data-fs-content="tiles"] { @include layout-content-full; }
-      [data-fs-banner] [data-fs-content="banner"] { @include layout-content-full; }
+      [data-fs-banner-text] [data-fs-content="banner"] { @include layout-content-full; }
     }
     ```
   </Tab>

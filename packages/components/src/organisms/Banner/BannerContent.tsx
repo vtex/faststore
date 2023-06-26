@@ -30,7 +30,7 @@ export interface BannerContentProps extends HTMLAttributes<HTMLDivElement> {
 const BannerContent = forwardRef<HTMLDivElement, BannerContentProps>(
   function BannerContent(
     {
-      testId = 'fs-banner-content',
+      testId = 'fs-banner-text-content',
       title,
       caption,
       link,
@@ -43,17 +43,20 @@ const BannerContent = forwardRef<HTMLDivElement, BannerContentProps>(
     return (
       <header
         ref={ref}
-        data-fs-banner-content
+        data-fs-banner-text-content
         data-fs-content="banner-text"
         data-testid={testId}
         {...otherProps}
       >
-        <div data-fs-banner-heading data-fs-banner-color-variant={colorVariant}>
+        <div
+          data-fs-banner-text-heading
+          data-fs-banner-text-color-variant={colorVariant}
+        >
           <h2>{title}</h2>
           {variant === 'secondary' && caption && <p>{caption}</p>}
         </div>
         <LinkButton
-          data-fs-banner-link
+          data-fs-banner-text-link
           href={link}
           variant={variant}
           inverse={colorVariant === 'main'}

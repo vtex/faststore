@@ -30,7 +30,7 @@ export interface BannerProps extends HTMLAttributes<HTMLDivElement> {
 const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
   {
     children,
-    testId = 'fs-banner',
+    testId = 'fs-banner-text',
     variant = 'primary',
     colorVariant = 'main',
     ...otherProps
@@ -43,9 +43,9 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
     <BannerContext.Provider value={context}>
       <article
         ref={ref}
-        data-fs-banner
-        data-fs-banner-variant={variant}
-        data-fs-banner-color-variant={colorVariant}
+        data-fs-banner-text
+        data-fs-banner-text-variant={variant}
+        data-fs-banner-text-color-variant={colorVariant}
         data-testid={testId}
         {...otherProps}
       >

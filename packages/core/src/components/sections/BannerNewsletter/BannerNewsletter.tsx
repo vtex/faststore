@@ -12,7 +12,7 @@ function BannerNewsletter({
 }) {
   return (
     <Section className={`${styles.section} section-banner-newsletter`}>
-      <div data-fs-banner-newsletter data-fs-content="banner-newsletter">
+      <div data-fs-banner-text-newsletter data-fs-content="banner-newsletter">
         <BannerText
           title={banner.title}
           caption={banner.caption}
