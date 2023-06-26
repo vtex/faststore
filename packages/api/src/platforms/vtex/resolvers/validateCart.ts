@@ -239,7 +239,7 @@ const getOrderForm = async (
 
   if (updateShipping) {
     let incrementedAddress: IncrementedAddress | undefined
-    
+
     if (session.postalCode) {
       incrementedAddress = await commerce.checkout.incrementAddress(
         session.country,
@@ -252,7 +252,7 @@ const getOrderForm = async (
 
     if (hasDeliveryWindow) {
       // if you have a Delivery Window you have to first get the delivery window to set the desired after
-      await commerce.checkout.getDeliveryWindows(
+      await commerce.checkout.shippingData(
         {
           id: orderForm.orderFormId,
           index: orderForm.items.length,
@@ -261,10 +261,11 @@ const getOrderForm = async (
             selectedAddresses: [session],
           },
         },
-        incrementedAddress
+        incrementedAddress,
+        false
       )
     }
-    
+
     return commerce.checkout.shippingData(
       {
         id: orderForm.orderFormId,
@@ -274,7 +275,8 @@ const getOrderForm = async (
           selectedAddresses: [session],
         },
       },
-      incrementedAddress
+      incrementedAddress,
+      true
     )
   }
 
@@ -331,7 +333,12 @@ export const validateCart = async (
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
 
-  // Step1.5: Check if another system changed the orderForm with this orderNumber
+  // Step1.1: Set the orderForm at the indexedDB for the navigation
+  if (orderForm.orderFormId != orderNumberFromCart) {
+    return orderFormToCart(orderForm, skuLoader)
+  }
+
+  // Step1.2: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
   const isStale = isOrderFormStale(orderForm)
@@ -390,7 +397,7 @@ export const validateCart = async (
     offerToOrderItemInput
   )
 
-  if (changes.length === 0) {
+  if (changes.length === 0 && orderForm.orderFormId === orderNumberFromCart) {
     return null
   }
 

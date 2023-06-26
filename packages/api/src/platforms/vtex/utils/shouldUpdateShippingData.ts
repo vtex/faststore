@@ -12,15 +12,11 @@ export const shouldUpdateShippingData = (
   orderForm: OrderForm,
   session: IStoreSession
 ) => {
-  if (!hasItems(orderForm)) {
-    return false
-  }
-
   if (!hasSessionPostalCodeOrGeoCoordinates(session)) {
     return false
   }
 
-  const { address, logisticsInfo } = orderForm.shippingData!
+  const { address } = orderForm.shippingData ?? { address: null }
 
   if (checkPostalCode(address, session.postalCode)) {
     return true
@@ -29,6 +25,13 @@ export const shouldUpdateShippingData = (
   if (checkGeoCoordinates(address, session.geoCoordinates)) {
     return true
   }
+
+  if (!hasItems(orderForm)) {
+    return false
+  }
+
+  // The logisticsInfo will always exist if there´s at least one item inside the cart
+  const { logisticsInfo } = orderForm.shippingData!
 
   if (shouldUpdateDeliveryChannel(logisticsInfo, session)) {
     return true
@@ -42,11 +45,6 @@ export const shouldUpdateShippingData = (
     return true
   }
   return false
-}
-
-// Validate if theres any item inside the orderForm
-const hasItems = (orderForm: OrderForm) => {
-  return orderForm.items.length !== 0
 }
 
 // Validate if theres any postal Code or GeoCoordinates set at the session
@@ -78,6 +76,11 @@ const checkGeoCoordinates = (
     (address?.geoCoordinates[0] !== geoCoordinates?.longitude ||
       address?.geoCoordinates[1] !== geoCoordinates?.latitude)
   )
+}
+
+// Validate if theres any item inside the orderForm
+const hasItems = (orderForm: OrderForm) => {
+  return orderForm.items.length !== 0
 }
 
 // Validate if the deliveryChannel from the session is different from the selected delivery channel
