@@ -4,12 +4,14 @@ import type { HTMLAttributes } from 'react'
 type Variant = 'primary' | 'secondary'
 type ColorVariant = 'main' | 'light' | 'accent'
 
-interface BannerContext {
+interface BannerTextContext {
   variant: Variant
   colorVariant: ColorVariant
 }
 
-const BannerContext = createContext<BannerContext | undefined>(undefined)
+const BannerTextContext = createContext<BannerTextContext | undefined>(
+  undefined
+)
 
 export interface BannerProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -40,7 +42,7 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
   const context = { variant, colorVariant }
 
   return (
-    <BannerContext.Provider value={context}>
+    <BannerTextContext.Provider value={context}>
       <article
         ref={ref}
         data-fs-banner-text
@@ -51,15 +53,17 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
       >
         {children}
       </article>
-    </BannerContext.Provider>
+    </BannerTextContext.Provider>
   )
 })
 
 export function useBanner() {
-  const context = useContext(BannerContext)
+  const context = useContext(BannerTextContext)
 
   if (context === undefined) {
-    throw new Error('Do not use Banner components outside the Banner context.')
+    throw new Error(
+      'Do not use BannerText components outside the BannerText context.'
+    )
   }
 
   return context
