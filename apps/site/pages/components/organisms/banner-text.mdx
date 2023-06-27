@@ -1,5 +1,5 @@
 ---
-description: Banners are used for advertising brands, products, and/or collections. They comprise an image, some text content, and a call-to-action button.
+description: Banner Text is used for advertising brands, products, and/or collections. They comprise an image, some text content, and a call-to-action button.
 keywords:
   - UI library
   - ecommerce
@@ -13,17 +13,17 @@ import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
-import { Banner, BannerContent } from '@faststore/ui'
+import { BannerText, BannerTextContent } from '@faststore/ui'
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
-  const bannerPath = path.resolve(__filename)
-  const components = ['Banner.tsx', 'BannerContent.tsx']
-  const [bannerProps, bannerContentProps] = getComponentPropsFrom(
-    bannerPath,
+  const bannerTextPath = path.resolve(__filename)
+  const components = ['BannerText.tsx', 'BannerTextContent.tsx']
+  const [bannerTextProps, bannerTextContentProps] = getComponentPropsFrom(
+    bannerTextPath,
     components
   )
   return {
@@ -31,34 +31,34 @@ export const getStaticProps = () => {
       // We add an `ssg` field to the page props,
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
-        bannerProps,
-        bannerContentProps,
+        bannerTextProps,
+        bannerTextContentProps,
       },
     },
   }
 }
 
-export const BannerPropsSection = ({ component }) => {
+export const BannerTextPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
-  const { bannerProps, bannerContentProps } = useSSG()
+  const { bannerTextProps, bannerTextContentProps } = useSSG()
   return {
-    Banner: <PropsSection propsList={bannerProps} />,
-    BannerContent: <PropsSection propsList={bannerContentProps} />,
+    BannerText: <PropsSection propsList={bannerTextProps} />,
+    BannerTextContent: <PropsSection propsList={bannerTextContentProps} />,
   }[component]
 }
 
 <header>
 
-# Banner
+# BannerText
 
-Banners are used for advertising brands, products, and/or collections. They comprise an image, some text content, and a call-to-action button.
+Banner Text is used for advertising brands, products, and/or collections. They comprise an image, some text content, and a call-to-action button.
 
 </header>
 
-The final `Banner` component is a compound of the following:
+The final `BannerText` component is a compound of the following:
 
-- `Banner`: wraps the Banner component.
-- `BannerContent`: the content of the banner, including a title, caption, and Link.
+- `BannerText`: wraps the BannerText component.
+- `BannerTextContent`: the content of the banner, including a title, caption, and Link.
 
 ---
 
@@ -67,13 +67,13 @@ The final `Banner` component is a compound of the following:
 Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { Banner, BannerContent } from '@faststore/ui'
+import { BannerText, BannerTextContent } from '@faststore/ui'
 ```
 
 Import Styles
 
 ```tsx
-import '@faststore/ui/src/components/organisms/Banner/styles.scss'
+import '@faststore/ui/src/components/organisms/BannerText/styles.scss'
 ```
 
 ---
@@ -83,26 +83,26 @@ import '@faststore/ui/src/components/organisms/Banner/styles.scss'
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <Banner>
-        <BannerContent
+      <BannerText>
+        <BannerTextContent
           title="Explore more about our amazing products"
           caption="All the amazing products from the brands we partner with."
           link="/"
           linkText="See more"
         />
-      </Banner>
+      </BannerText>
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
-    <Banner>
-      <BannerContent
+    <BannerText>
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     ```
   </Tab>
 </Tabs>
@@ -111,16 +111,16 @@ import '@faststore/ui/src/components/organisms/Banner/styles.scss'
 
 ## Props
 
-All banner-related components support all attributes also supported by the `<div>` tag.
+All banner text related components support all attributes also supported by the `<div>` tag.
 Besides those attributes, the following props are also supported:
 
-### Banner
+### BannerText
 
-<BannerPropsSection component="Banner" />
+<BannerTextPropsSection component="BannerText" />
 
-### BannerContent
+### BannerTextContent
 
-<BannerPropsSection component="BannerContent" />
+<BannerTextPropsSection component="BannerTextContent" />
 
 ---
 
@@ -164,27 +164,27 @@ Besides those attributes, the following props are also supported:
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <Banner variant="primary">
-        <BannerContent
+      <BannerText variant="primary">
+        <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-      </Banner>
+      </BannerText>
     </OverviewSection>
 
   </Tab>
   <Tab>
     ```tsx
-    <Banner variant="primary">
-      <BannerContent
+    <BannerText variant="primary">
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     ```
 
   </Tab>
@@ -202,26 +202,26 @@ Besides those attributes, the following props are also supported:
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-     <Banner variant="secondary">
-      <BannerContent
+     <BannerText variant="secondary">
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
-      <Banner variant="secondary">
-        <BannerContent
+      <BannerText variant="secondary">
+        <BannerTextContent
           title="Explore more about our amazing products"
           caption="All the amazing products from the brands we partner with."
           link="/"
           linkText="See more"
         />
-      </Banner>
+      </BannerText>
 
     ```
 
@@ -253,26 +253,26 @@ Besides those attributes, the following props are also supported:
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <Banner colorVariant="main">
-      <BannerContent
+      <BannerText colorVariant="main">
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
-    <Banner colorVariant="main">
-      <BannerContent
+    <BannerText colorVariant="main">
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     ```
 
   </Tab>
@@ -296,27 +296,27 @@ Besides those attributes, the following props are also supported:
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <Banner colorVariant="light">
-      <BannerContent
+      <BannerText colorVariant="light">
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     </OverviewSection>
 
   </Tab>
   <Tab>
     ```tsx
-    <Banner colorVariant="light">
-      <BannerContent
+    <BannerText colorVariant="light">
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     ```
   </Tab>
 </Tabs>
@@ -339,26 +339,26 @@ Besides those attributes, the following props are also supported:
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <Banner colorVariant="accent">
-        <BannerContent
+      <BannerText colorVariant="accent">
+        <BannerTextContent
           title="Explore more about our amazing products"
           caption="All the amazing products from the brands we partner with."
           link="/"
           linkText="See more"
         />
-      </Banner>
+      </BannerText>
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
-    <Banner colorVariant="accent">
-      <BannerContent
+    <BannerText colorVariant="accent">
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     ```
   </Tab>
 </Tabs>
