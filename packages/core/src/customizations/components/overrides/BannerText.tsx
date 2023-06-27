@@ -7,8 +7,8 @@ const SECTION = 'BannerText' as const
 const overrides: SectionOverride[typeof SECTION] = {
   name: SECTION,
   components: {
-    Banner: { props: {} },
-    BannerContent: { props: {} },
+    BannerText: { props: {} },
+    BannerTextContent: { props: {} },
   },
 }
 
