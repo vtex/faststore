@@ -630,9 +630,10 @@ header.hero > p {
   box-shadow: 0 5px 12px 0 #46464611;
 }
 
-.nx-card a {
-  padding: var(--fs-spacing-4);
+.nx-card > a {
   height: 100%;
+  display: block;
+  padding: var(--fs-spacing-4);
 }
 
 .nx-card h4.nx-tracking-tight {
