@@ -25,6 +25,7 @@ import type {
 } from '../clients/commerce/types/OrderForm'
 import { IncrementedAddress } from '../clients/commerce/types/IncrementedAddress'
 import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
+import { shouldCreateNewAddress } from '../utils/shouldCreateNewAddress'
 
 type Indexed<T> = T & { index?: number }
 
@@ -246,6 +247,9 @@ const getOrderForm = async (
         session.postalCode
       )
     }
+
+    const addressId = shouldCreateNewAddress(orderForm, session)
+
     const hasDeliveryWindow = session.deliveryMode?.deliveryWindow
       ? true
       : false
@@ -256,6 +260,7 @@ const getOrderForm = async (
         {
           id: orderForm.orderFormId,
           index: orderForm.items.length,
+          addressId: addressId,
           deliveryMode: session.deliveryMode,
           body: {
             selectedAddresses: [session],
@@ -270,6 +275,7 @@ const getOrderForm = async (
       {
         id: orderForm.orderFormId,
         index: orderForm.items.length,
+        addressId: addressId,
         deliveryMode: session.deliveryMode,
         body: {
           selectedAddresses: [session],

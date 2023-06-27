@@ -117,11 +117,13 @@ export const VtexCommerce = (
         {
           id,
           index,
+          addressId,
           deliveryMode,
           body,
         }: {
           id: string
           index: number
+          addressId: string | null
           deliveryMode?: DeliveryMode | null
           body: ShippingDataBody
         },
@@ -130,6 +132,7 @@ export const VtexCommerce = (
       ): Promise<OrderForm> => {
         const addressSession = body?.selectedAddresses?.map((address) => {
           const addressSession: SelectedAddress = {
+            addressId: addressId,
             addressType: address.addressType || null,
             receiverName: address.receiverName || null,
             postalCode:
@@ -180,7 +183,6 @@ export const VtexCommerce = (
             deliveryWindow: deliveryWindow,
           })),
           selectedAddresses: addressSession,
-          address: addressSession,
         }
 
         return fetchAPI(
