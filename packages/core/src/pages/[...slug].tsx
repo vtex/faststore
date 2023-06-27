@@ -15,18 +15,9 @@ import GlobalSections, {
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import { getPage, PageContentType, PLPContentType } from 'src/server/cms'
-import { ProductListingPageProps } from 'src/components/templates/ProductListingPage'
-import {
-  getLandingPageBySlug,
-  LandingPageProps,
-} from 'src/components/templates/LandingPage'
-import { lazy, Suspense } from 'react'
-
-const LandingPage = lazy(() => import('src/components/templates/LandingPage'))
-
-const ProductListingPage = lazy(
-  () => import('src/components/templates/ProductListingPage')
-)
+import { getLandingPageBySlug } from 'src/components/templates/LandingPage'
+import { Suspense } from 'react'
+import dynamic from 'next/dynamic'
 
 type BaseProps = {
   globalSections: GlobalSectionsData
@@ -45,18 +36,21 @@ type Props = BaseProps &
   )
 
 function Page({ globalSections, type, ...otherProps }: Props) {
+  let Page: any = () => <></>
+
+  if (type === 'page') {
+    Page = dynamic(() => import('src/components/templates/LandingPage'))
+  }
+
+  if (type === 'plp') {
+    Page = dynamic(() => import('src/components/templates/ProductListingPage'))
+  }
+
   return (
     <GlobalSections {...globalSections}>
-      {type === 'plp' && (
-        <Suspense fallback={null}>
-          <ProductListingPage {...(otherProps as ProductListingPageProps)} />
-        </Suspense>
-      )}
-      {type === 'page' && (
-        <Suspense fallback={null}>
-          <LandingPage {...(otherProps as LandingPageProps)} />
-        </Suspense>
-      )}
+      <Suspense fallback={null}>
+        <Page {...(otherProps as any)} />
+      </Suspense>
     </GlobalSections>
   )
 }
