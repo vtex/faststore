@@ -44,13 +44,15 @@ Also, consider the following:
 
 - **Some sections contain multiple instances of the same component**: When overriding a component or passing additional props to it, consider that all instances will be affected by this change.
 
+---
+
 ## Step by step
 
 ### Step 1 - Setting up the `overrides` folder
 
 1. Choose the native section to be customized from the [list of available native sections](/docs/reference-guides/list-of-available-native-sections).
 2. Open your FastStore project in any code editor of your preference.
-3. Go to the `src` folder and create the `overrides` folder. 
+3. Go to the `src` folder and create the `overrides` folder.
 4. In `overrides`, create a new file named after the chosen native section. For example, if you chose the `ProductDetails` section for customization, create a new file named `ProductDetails.tsx` under the `src/components/overrides` directory.
 
 5. Copy and paste the following code snippet into the file:
@@ -113,7 +115,7 @@ export default overrides
 
 This code imports the _Custom Price_ component and overrides the native Price component in the `ProductDetails` section.
 
-6. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser to see the updated Price component with the new `value`prop set to `800`:
+4. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser to see the updated Price component with the new `value`prop set to `800`:
 
 ![custom-price](https://vtexhelp.vtexassets.com/assets/docs/src/custom-price___c203101c038f09191e735fd0d8c1d13e.png)
 

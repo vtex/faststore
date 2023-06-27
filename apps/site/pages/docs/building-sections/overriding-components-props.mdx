@@ -20,6 +20,8 @@ This approach is particularly useful when you want to change specific aspects of
 
 For example, if you want to change the value set in the Price component in a PDP, you can add a new value for the component though its props.
 
+---
+
 ## Before you start
 
 **Choose a native section and the component you want to customize.**
@@ -31,6 +33,8 @@ After knowing which components can be overridable, you can find the list of prop
 For this guide, we'll use the Price component and you can find the list of this component's props on the [Price component documentation](/components/atoms/price#props). Here's how the initial component looks like with the value prop set as `950.04`:
 
 ![native-price-component](https://vtexhelp.vtexassets.com/assets/docs/src/price-component___6f5e46b0ca037bb5e1beff5f67166cf6.png)
+
+---
 
 ## Step by step
 
@@ -52,7 +56,7 @@ const overrides: SectionOverride[typeof SECTION] = {
 export default overrides
 ```
 
-6. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser to see the updated Price component with the new `value`prop set to `800`:
+4. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser to see the updated Price component with the new `value`prop set to `800`:
 
 ![custom-price](https://vtexhelp.vtexassets.com/assets/docs/src/custom-price___c203101c038f09191e735fd0d8c1d13e.png)
 

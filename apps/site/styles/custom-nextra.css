@@ -1,3 +1,10 @@
+/* Colors */
+body {
+  --nextra-primary-hue: 227deg;
+}
+
+body .nx-bg-primary-100 { background-color: hsl(var(--nextra-primary-hue)100% 96%/var(--tw-bg-opacity)); }
+
 /* Header */
 .nx-w-full > header {
   padding: var(--fs-spacing-4) var(--fs-spacing-5);
@@ -32,6 +39,9 @@ h2.nx-tracking-tight {
   font-size: var(--fs-text-size-4);
 }
 
+h2.nx-tracking-tight + p.nx-mt-6 { margin-top: 0; }
+h2.nx-tracking-tight + h3.nx-tracking-tight { margin-top: var(--fs-spacing-2); }
+
 h3.nx-tracking-tight {
   font-size: var(--fs-text-size-3);
   line-height: 1.2;
@@ -39,7 +49,7 @@ h3.nx-tracking-tight {
   margin-bottom: 0;
 }
 
-div:not([data-rehype-pretty-code-fragment]) + h3.nx-tracking-tight { margin-top: var(--fs-spacing-10); }
+div:not(.nextra-code-block):not(.nextra-callout) + h3.nx-tracking-tight { margin-top: var(--fs-spacing-10); }
 
 h4.nx-tracking-tight {
   font-weight: var(--fs-text-weight-regular);
@@ -97,8 +107,6 @@ main > [data-rehype-pretty-code-fragment] {
 main > div { margin: 0; }
 
 p.nx-mt-6 + p.nx-mt-6 { margin-top: 0; }
-
-[data-rehype-pretty-code-fragment] > pre { margin-bottom: 0; }
 
 /* Components adjusts for documentation purposes */
 
@@ -430,7 +438,7 @@ header.hero > p {
     max-width: 60%;
   }
 
-  .nx-section-code-desktop > div:first-child {
+  .nx-section-code-desktop > pre {
     background-color: #f8f7fc;
     padding: var(--fs-spacing-1);
     border-radius: 15px 0 0 15px;
@@ -438,7 +446,7 @@ header.hero > p {
     align-items: center;
   }
 
-  .nx-section-code-desktop > div:first-child code {
+  .nx-section-code-desktop > pre code {
     font-size: var(--fs-text-size-0);
   }
 
@@ -561,6 +569,10 @@ header.hero > p {
   padding: var(--fs-spacing-1);
 }
 
+.nx-simple-table a {
+  color: var(--fs-color-link);
+}
+
 /* Nextra Sections */
 
 .nx-section-layout-colored {
@@ -577,4 +589,71 @@ header.hero > p {
 .nx-section-layout {
   --fs-grid-max-width: 900px;
   width: 100%;
+}
+
+.nx-section-checklist {
+  background-color: hsl(var(--nextra-primary-hue)100% 96% / .5);
+  padding: var(--fs-spacing-4);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--fs-spacing-4);
+}
+
+.nx-section-checklist li {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--fs-spacing-1);
+
+}
+
+.nx-section-checklist summary { display: block; }
+.nx-section-checklist details { margin: 0; }
+
+.nx-section-checklist details > div { margin: var(--fs-spacing-2) var(--fs-spacing-4); }
+
+.nx-section-checklist table { width: 100%; }
+
+/* Card */
+.nx-card-list {
+  display: grid;
+  grid-gap: var(--fs-spacing-2);
+  grid-template-columns: 1fr 1fr;
+}
+
+.nx-card {
+  border-radius: var(--fs-spacing-2);
+  border: 1px solid #e5e7eb;
+  transition: all .2s ease-in-out;
+  position: relative;
+  top: 0;
+}
+
+.nx-card:hover {
+  top: -2px;
+  box-shadow: 0 5px 12px 0 #46464611;
+}
+
+.nx-card > a {
+  height: 100%;
+  display: block;
+  padding: var(--fs-spacing-4);
+}
+
+.nx-card h4.nx-tracking-tight {
+  margin: 0;
+  font-weight: var(--fs-text-weight-bold);
+}
+
+.nx-card .nx-mt-6 {
+  margin-top: var(--fs-spacing-1);
+  line-height: 1.5;
+}
+
+/* Nextra Steps */
+div.nextra-steps h3:before {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -4px;
 }
