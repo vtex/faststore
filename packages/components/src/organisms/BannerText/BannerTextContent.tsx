@@ -14,11 +14,11 @@ export interface BannerTextContentProps extends HTMLAttributes<HTMLDivElement> {
    */
   caption: string
   /**
-   * The href used at the link
+   * The href used at the link.
    */
   link: string
   /**
-   * The label used at the link
+   * The label used at the link.
    */
   linkText: string
   /**
