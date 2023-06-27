@@ -113,71 +113,6 @@ export const VtexCommerce = (
           : Promise.resolve(undefined)
       },
 
-      getDeliveryWindows: (
-        {
-          id,
-          index,
-          deliveryMode,
-          body,
-        }: {
-          id: string
-          index: number
-          deliveryMode?: DeliveryMode | null
-          body: ShippingDataBody
-        },
-        incrementedAddress?: IncrementedAddress
-      ): Promise<OrderForm> => {
-        const mappedBody = {
-          logisticsInfo: Array.from({ length: index }, (_, itemIndex) => ({
-            itemIndex,
-            selectedDeliveryChannel: deliveryMode?.deliveryChannel || null,
-            selectedSla: deliveryMode?.deliveryMethod || null,
-          })),
-          selectedAddresses: body?.selectedAddresses?.map((address) => {
-            const selectedAddress: SelectedAddress = {
-              addressType: address.addressType || null,
-              receiverName: address.receiverName || null,
-              postalCode:
-                address.postalCode || incrementedAddress?.postalCode || null,
-              city: incrementedAddress?.city || null,
-              state: incrementedAddress?.state || null,
-              country: address.country || incrementedAddress?.country || null,
-              street: incrementedAddress?.street || null,
-              number: incrementedAddress?.number || null,
-              neighborhood: incrementedAddress?.neighborhood || null,
-              complement: incrementedAddress?.complement || null,
-              reference: incrementedAddress?.reference || null,
-              geoCoordinates: [], // Initialize with default value
-            }
-
-            const longitude =
-              address?.geoCoordinates instanceof Array
-                ? null
-                : address?.geoCoordinates?.longitude || null
-
-            const latitude =
-              address?.geoCoordinates instanceof Array
-                ? null
-                : address?.geoCoordinates?.latitude || null
-
-            selectedAddress.geoCoordinates =
-              longitude && latitude
-                ? { longitude, latitude }
-                : incrementedAddress?.geoCoordinates || []
-
-            return selectedAddress
-          }),
-        }
-
-        return fetchAPI(
-          `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
-          {
-            ...BASE_INIT,
-            body: JSON.stringify(mappedBody),
-          }
-        )
-      },
-
       shippingData: (
         {
           id,
@@ -190,11 +125,47 @@ export const VtexCommerce = (
           deliveryMode?: DeliveryMode | null
           body: ShippingDataBody
         },
-        incrementedAddress?: IncrementedAddress
+        incrementedAddress?: IncrementedAddress,
+        setDeliveryWindow?: boolean
       ): Promise<OrderForm> => {
-        const hasDeliveryWindow = deliveryMode?.deliveryWindow ? true : false
+        const addressSession = body?.selectedAddresses?.map((address) => {
+          const addressSession: SelectedAddress = {
+            addressType: address.addressType || null,
+            receiverName: address.receiverName || null,
+            postalCode:
+              address.postalCode || incrementedAddress?.postalCode || null,
+            city: incrementedAddress?.city || null,
+            state: incrementedAddress?.state || null,
+            country: address.country || incrementedAddress?.country || null,
+            street: incrementedAddress?.street || null,
+            number: incrementedAddress?.number || null,
+            neighborhood: incrementedAddress?.neighborhood || null,
+            complement: incrementedAddress?.complement || null,
+            reference: incrementedAddress?.reference || null,
+            geoCoordinates: [], // Initialize with default value
+          }
 
-        const deliveryWindow = hasDeliveryWindow
+          const geoCoordinates = address?.geoCoordinates
+          if (geoCoordinates) {
+            const latitude =
+              typeof geoCoordinates === 'object' && 'latitude' in geoCoordinates
+                ? geoCoordinates.latitude
+                : null
+            const longitude =
+              typeof geoCoordinates === 'object' &&
+              'longitude' in geoCoordinates
+                ? geoCoordinates.longitude
+                : null
+
+            addressSession.geoCoordinates =
+              latitude !== null && longitude !== null
+                ? [longitude, latitude]
+                : incrementedAddress?.geoCoordinates || []
+          }
+          return addressSession
+        })
+
+        const deliveryWindow = setDeliveryWindow
           ? {
               startDateUtc: deliveryMode?.deliveryWindow?.startDate,
               endDateUtc: deliveryMode?.deliveryWindow?.endDate,
@@ -208,40 +179,8 @@ export const VtexCommerce = (
             selectedSla: deliveryMode?.deliveryMethod || null,
             deliveryWindow: deliveryWindow,
           })),
-          selectedAddresses: body?.selectedAddresses?.map((address) => {
-            const selectedAddress: SelectedAddress = {
-              addressType: address.addressType || null,
-              receiverName: address.receiverName || null,
-              postalCode:
-                address.postalCode || incrementedAddress?.postalCode || null,
-              city: incrementedAddress?.city || null,
-              state: incrementedAddress?.state || null,
-              country: address.country || incrementedAddress?.country || null,
-              street: incrementedAddress?.street || null,
-              number: incrementedAddress?.number || null,
-              neighborhood: incrementedAddress?.neighborhood || null,
-              complement: incrementedAddress?.complement || null,
-              reference: incrementedAddress?.reference || null,
-              geoCoordinates: [], // Initialize with default value
-            }
-
-            const longitude =
-              address?.geoCoordinates instanceof Array
-                ? null
-                : address?.geoCoordinates?.longitude || null
-
-            const latitude =
-              address?.geoCoordinates instanceof Array
-                ? null
-                : address?.geoCoordinates?.latitude || null
-
-            selectedAddress.geoCoordinates =
-              longitude && latitude
-                ? [longitude, latitude]
-                : incrementedAddress?.geoCoordinates || []
-
-            return selectedAddress
-          }),
+          selectedAddresses: addressSession,
+          address: addressSession,
         }
 
         return fetchAPI(
