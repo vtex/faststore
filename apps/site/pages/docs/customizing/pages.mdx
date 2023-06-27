@@ -3,8 +3,8 @@ import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 import { product } from 'site/mocks/product'
 import { OverviewSection } from 'site/components/OverviewSection'
 import {
-  Banner,
-  BannerContent,
+  BannerText,
+  BannerTextContent,
   ProductCard,
   ProductCardContent,
   ProductCardImage,
@@ -90,7 +90,7 @@ export const TilesTemplate = (
   </ul>
 )
 
-<Tabs items={['Tiles', 'Banner', 'Code']} defaultIndex="0">
+<Tabs items={['Tiles', 'BannerText', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection direction="column" containerStyle={{ padding: '0' }}>
       <section class="section layout__section | nx-section-layout">
@@ -101,14 +101,14 @@ export const TilesTemplate = (
   <Tab>
     <OverviewSection direction="column" containerStyle={{ padding: '0' }}>
       <section class="section layout__section | nx-section-layout">
-        <Banner colorVariant="light">
-          <BannerContent
+        <BannerText colorVariant="light">
+          <BannerTextContent
             title="Explore more about our amazing products and discover a world of possibilities."
             caption="All the amazing products from the brands we partner with."
             link="/"
             linkText="See more"
           />
-        </Banner>
+        </BannerText>
       </section>
     </OverviewSection>
   </Tab>
@@ -124,7 +124,7 @@ export const TilesTemplate = (
 
 To display a **colored background** with **full width** and maintain the **content centered**, add `@include layout-colored` to your desired section.
 
-<Tabs items={['Tiles', 'Banner', 'Code']} defaultIndex="0">
+<Tabs items={['Tiles', 'BannerText', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection containerStyle={{ padding: '0' }}>
       <section class="section layout__section | nx-section-layout nx-section-layout-colored">
@@ -135,14 +135,14 @@ To display a **colored background** with **full width** and maintain the **conte
   <Tab>
     <OverviewSection direction="column" containerStyle={{ padding: '0' }}>
       <section class="section layout__section | nx-section-layout nx-section-layout-colored">
-        <Banner colorVariant="light">
-          <BannerContent
+        <BannerText colorVariant="light">
+          <BannerTextContent
             title="Explore more about our amazing products and discover a world of possibilities."
             caption="All the amazing products from the brands we partner with."
             link="/"
             linkText="See more"
           />
-        </Banner>
+        </BannerText>
       </section>
     </OverviewSection>
   </Tab>
@@ -154,7 +154,7 @@ To display a **colored background** with **full width** and maintain the **conte
         @include layout-colored(var(--fs-color-main-2));
       }
 
-      [data-fs-banner] {
+      [data-fs-banner-text] {
         @include layout-colored(var(--fs-color-main-2));
       }
     }
@@ -167,7 +167,7 @@ To display a **colored background** with **full width** and maintain the **conte
 
 To add a **colored background** and **centering** the `.section`, add `@include layout-colored` and `@include layout-content` to your desired section.
 
-<Tabs items={['Tiles', 'Banner', 'Code']} defaultIndex="0">
+<Tabs items={['Tiles', 'BannerText', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection containerStyle={{ padding: '0' }}>
       <section class="section layout__section layout__content | nx-section-layout nx-section-layout-colored">
@@ -178,14 +178,14 @@ To add a **colored background** and **centering** the `.section`, add `@include 
   <Tab>
     <OverviewSection direction="column" containerStyle={{ padding: '0' }}>
       <section class="section layout__section layout__content | nx-section-layout nx-section-layout-colored">
-        <Banner colorVariant="light">
-          <BannerContent
+        <BannerText colorVariant="light">
+          <BannerTextContent
             title="Explore more about our amazing products and discover a world of possibilities."
             caption="All the amazing products from the brands we partner with."
             link="/"
             linkText="See more"
           />
-        </Banner>
+        </BannerText>
       </section>
     </OverviewSection>
   </Tab>
@@ -198,7 +198,7 @@ To add a **colored background** and **centering** the `.section`, add `@include 
         @include layout-content;
       }
 
-      [data-fs-banner] {
+      [data-fs-banner-text] {
         @include layout-colored(var(--fs-color-main-2));
         @include layout-content;
       }
@@ -217,7 +217,7 @@ To use your store section's content with a **full-width layout** you'll need to 
   comes with **layout-content-full** by default.
 </Callout>
 
-<Tabs items={['Tiles', 'Banner', 'Code']} defaultIndex="0">
+<Tabs items={['Tiles', 'BannerText', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection containerStyle={{ padding: '0' }}>
       <section class="section layout__section | nx-section-layout nx-section-layout-full">
@@ -228,14 +228,14 @@ To use your store section's content with a **full-width layout** you'll need to 
   <Tab>
     <OverviewSection containerStyle={{ padding: '0' }}>
       <section class="section layout__section | nx-section-layout nx-section-layout-full">
-        <Banner colorVariant="light">
-          <BannerContent
+        <BannerText colorVariant="light">
+          <BannerTextContent
             title="Explore more about our amazing products and discover a world of possibilities."
             caption="All the amazing products from the brands we partner with."
             link="/"
             linkText="See more"
           />
-        </Banner>
+        </BannerText>
       </section>
     </OverviewSection>
   </Tab>
@@ -244,7 +244,7 @@ To use your store section's content with a **full-width layout** you'll need to 
     // Add this to your custom-theme.scss
     .section {
       [data-fs-tiles] [data-fs-content="tiles"] { @include layout-content-full; }
-      [data-fs-banner] [data-fs-content="banner"] { @include layout-content-full; }
+      [data-fs-banner-text] [data-fs-content="banner"] { @include layout-content-full; }
     }
     ```
   </Tab>
