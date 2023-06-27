@@ -243,7 +243,6 @@ const getOrderForm = async (
   )
 
   if (updateShipping) {
-    console.log(addressChanged)
     let incrementedAddress: IncrementedAddress | undefined
 
     if (session.postalCode && addressChanged) {
