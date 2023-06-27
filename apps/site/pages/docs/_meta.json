@@ -12,6 +12,9 @@
   "getting-started-overview": {
     "title": "Overview"
   },
+  "getting-started-requirements": {
+    "title": "Requirements"
+  },
   "getting-started": "Step by Step",
   "-- Theming --": {
     "type": "separator",
