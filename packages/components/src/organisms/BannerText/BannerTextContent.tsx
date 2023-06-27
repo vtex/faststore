@@ -2,9 +2,9 @@ import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 import { LinkButton } from '../..'
 
-import { useBanner } from './Banner'
+import { useBannerText } from './BannerText'
 
-export interface BannerContentProps extends HTMLAttributes<HTMLDivElement> {
+export interface BannerTextContentProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The content for the h2 tag.
    */
@@ -27,8 +27,8 @@ export interface BannerContentProps extends HTMLAttributes<HTMLDivElement> {
   testId?: string
 }
 
-const BannerContent = forwardRef<HTMLDivElement, BannerContentProps>(
-  function BannerContent(
+const BannerTextContent = forwardRef<HTMLDivElement, BannerTextContentProps>(
+  function BannerTextContent(
     {
       testId = 'fs-banner-text-content',
       title,
@@ -39,7 +39,7 @@ const BannerContent = forwardRef<HTMLDivElement, BannerContentProps>(
     },
     ref
   ) {
-    const { variant, colorVariant } = useBanner()
+    const { variant, colorVariant } = useBannerText()
     return (
       <header
         ref={ref}
@@ -69,4 +69,4 @@ const BannerContent = forwardRef<HTMLDivElement, BannerContentProps>(
   }
 )
 
-export default BannerContent
+export default BannerTextContent

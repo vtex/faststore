@@ -1,6 +1,6 @@
 import {
-  BannerProps as UIBannerProps,
-  BannerContentProps as UIBannerContentProps,
+  BannerTextProps as UIBannerTextProps,
+  BannerTextContentProps as UIBannerTextContentProps,
 } from '@faststore/ui'
 import { Components, Props } from './Overrides'
 
@@ -8,14 +8,14 @@ import Section from '../Section'
 import styles from './section.module.scss'
 
 export interface BannerTextProps {
-  title: UIBannerContentProps['title']
-  caption: UIBannerContentProps['caption']
+  title: UIBannerTextContentProps['title']
+  caption: UIBannerTextContentProps['caption']
   link?: {
     text?: string
     url?: string
   }
-  colorVariant?: UIBannerProps['colorVariant']
-  variant?: UIBannerProps['variant']
+  colorVariant?: UIBannerTextProps['colorVariant']
+  variant?: UIBannerTextProps['variant']
 }
 
 const { Banner, BannerContent } = Components
@@ -33,19 +33,19 @@ function BannerText({
 }: BannerTextProps) {
   return (
     <Section className={`${styles.section} section-banner layout__section`}>
-        <Banner
-          {...Props['Banner']}
-          variant={variant}
-          colorVariant={colorVariant}
-        >
-          <BannerContent
-            {...Props['BannerContent']}
-            title={title}
-            caption={caption}
-            link={linkUrl}
-            linkText={linkText}
-          />
-        </Banner>
+      <Banner
+        {...Props['Banner']}
+        variant={variant}
+        colorVariant={colorVariant}
+      >
+        <BannerContent
+          {...Props['BannerContent']}
+          title={title}
+          caption={caption}
+          link={linkUrl}
+          linkText={linkText}
+        />
+      </Banner>
     </Section>
   )
 }
