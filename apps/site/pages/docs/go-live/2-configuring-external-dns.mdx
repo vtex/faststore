@@ -82,7 +82,7 @@ Back to your FastStore project, you must also configure your project to point to
 
 Take the following example of how this code block would look after configuring a store with the `mystore.com` domain and `secure` subdomain:
 
-```diff title="/faststore.config.js"
+```diff filename="/faststore.config.js"
 ...
 
 // Default channel
@@ -103,7 +103,7 @@ lighthouse: {
 5. Open the `vtex.env` file.
 6. Add the `SITE_HOST` key with the main domain specified in [Configuring domains in VTEX Account Settings](/docs/go-live/2-configuring-external-dns#step-2---configuring-domains-in-vtex-account-management) as the value.
 
-```diff title="/vtex.env"
+```diff filename="/vtex.env"
 + SITE_HOST=mystore.com
 ```
 
