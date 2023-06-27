@@ -1,7 +1,7 @@
 import { ComponentPropsWithRef, FormEvent, useMemo } from 'react'
 import { forwardRef, useRef } from 'react'
-import { convertFromRaw } from 'draft-js'
-import { stateToHTML } from 'draft-js-export-html'
+import convertFromRaw from 'draft-js/lib/convertFromRawToDraftState'
+import stateToHTML from 'draft-js-export-html/lib/stateToHTML'
 import { useUI } from '@faststore/ui'
 import type { InputFieldProps } from '@faststore/ui'
 
