@@ -1,6 +1,6 @@
 {
   "name": "@faststore/core",
-  "version": "2.1.24",
+  "version": "2.1.26",
   "license": "MIT",
   "browserslist": "supports es6-module and not dead",
   "scripts": {
@@ -30,10 +30,10 @@
     "@envelop/parser-cache": "^2.2.0",
     "@envelop/validation-cache": "^2.2.0",
     "@faststore/api": "^2.1.24",
-    "@faststore/components": "^2.1.18",
+    "@faststore/components": "^2.1.26",
     "@faststore/graphql-utils": "^2.1.9",
     "@faststore/sdk": "^2.1.9",
-    "@faststore/ui": "^2.1.23",
+    "@faststore/ui": "^2.1.26",
     "@types/react": "^18.0.14",
     "@vtex/client-cms": "^0.2.12",
     "autoprefixer": "^10.4.0",
