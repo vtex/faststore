@@ -13,38 +13,38 @@ export const shouldUpdateShippingData = (
   session: IStoreSession
 ) => {
   if (!hasSessionPostalCodeOrGeoCoordinates(session)) {
-    return false
+    return { updateShipping: false, addressChanged: false }
   }
 
   const { address } = orderForm.shippingData ?? { address: null }
 
   if (checkPostalCode(address, session.postalCode)) {
-    return true
+    return { updateShipping: true, addressChanged: true }
   }
 
   if (checkGeoCoordinates(address, session.geoCoordinates)) {
-    return true
+    return { updateShipping: true, addressChanged: true }
   }
 
   if (!hasItems(orderForm)) {
-    return false
+    return { updateShipping: false, addressChanged: false }
   }
 
   // The logisticsInfo will always exist if there´s at least one item inside the cart
   const { logisticsInfo } = orderForm.shippingData!
 
   if (shouldUpdateDeliveryChannel(logisticsInfo, session)) {
-    return true
+    return { updateShipping: true, addressChanged: false }
   }
 
   if (shouldUpdateDeliveryMethod(logisticsInfo, session)) {
-    return true
+    return { updateShipping: true, addressChanged: false }
   }
 
   if (shouldUpdateDeliveryWindow(logisticsInfo, session)) {
-    return true
+    return { updateShipping: true, addressChanged: false }
   }
-  return false
+  return { updateShipping: false, addressChanged: false }
 }
 
 // Validate if theres any postal Code or GeoCoordinates set at the session

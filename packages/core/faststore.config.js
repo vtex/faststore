@@ -30,7 +30,11 @@ module.exports = {
     locale: 'en-US',
     channel: '{"salesChannel":"1","regionId":""}',
     country: 'USA',
-    deliveryMode: null,
+    deliveryMode: {
+      deliveryChannel: 'delivery',
+      deliveryMethod: 'Normal',
+      deliveryWindow: null,
+    },
     addressType: null,
     postalCode: null,
     geoCoordinates: null,

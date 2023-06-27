@@ -26,6 +26,7 @@ import type {
 import { IncrementedAddress } from '../clients/commerce/types/IncrementedAddress'
 import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
 import { shouldCreateNewAddress } from '../utils/shouldCreateNewAddress'
+import { SelectedAddress } from '../clients/commerce/types/ShippingData'
 
 type Indexed<T> = T & { index?: number }
 
@@ -236,19 +237,26 @@ const getOrderForm = async (
     return orderForm
   }
 
-  const updateShipping = shouldUpdateShippingData(orderForm, session)
+  const { updateShipping, addressChanged } = shouldUpdateShippingData(
+    orderForm,
+    session
+  )
 
   if (updateShipping) {
+    console.log(addressChanged)
     let incrementedAddress: IncrementedAddress | undefined
 
-    if (session.postalCode) {
+    if (session.postalCode && addressChanged) {
       incrementedAddress = await commerce.checkout.incrementAddress(
         session.country,
         session.postalCode
       )
     }
 
-    const addressId = shouldCreateNewAddress(orderForm, session)
+      const address = shouldCreateNewAddress(orderForm, session, addressChanged, incrementedAddress)
+      const selectedAddresses = (address) as SelectedAddress[];
+
+
 
     const hasDeliveryWindow = session.deliveryMode?.deliveryWindow
       ? true
@@ -260,14 +268,10 @@ const getOrderForm = async (
         {
           id: orderForm.orderFormId,
           index: orderForm.items.length,
-          addressId: addressId,
           deliveryMode: session.deliveryMode,
-          body: {
-            selectedAddresses: [session],
-          },
+          selectedAddresses: selectedAddresses,
         },
-        incrementedAddress,
-        false
+          false
       )
     }
 
@@ -275,13 +279,9 @@ const getOrderForm = async (
       {
         id: orderForm.orderFormId,
         index: orderForm.items.length,
-        addressId: addressId,
         deliveryMode: session.deliveryMode,
-        body: {
-          selectedAddresses: [session],
-        },
+        selectedAddresses: selectedAddresses,
       },
-      incrementedAddress,
       true
     )
   }
