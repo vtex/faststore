@@ -13,38 +13,48 @@ export const shouldUpdateShippingData = (
   session: IStoreSession
 ) => {
   if (!hasSessionPostalCodeOrGeoCoordinates(session)) {
-    return false
+    return { updateShipping: false, addressChanged: false }
   }
 
-  const { address } = orderForm.shippingData ?? { address: null }
+  const selectedAddress = orderForm.shippingData?.selectedAddresses[0]
 
-  if (checkPostalCode(address, session.postalCode)) {
-    return true
+  if (checkPostalCode(selectedAddress, session.postalCode)) {
+    return { updateShipping: true, addressChanged: true }
   }
 
-  if (checkGeoCoordinates(address, session.geoCoordinates)) {
-    return true
+  if (
+    checkGeoCoordinates(
+      selectedAddress,
+      session.geoCoordinates,
+      session.postalCode
+    )
+  ) {
+    return { updateShipping: true, addressChanged: true }
+  }
+
+  if (checkAddressType(selectedAddress, session.addressType)) {
+    return { updateShipping: true, addressChanged: true }
   }
 
   if (!hasItems(orderForm)) {
-    return false
+    return { updateShipping: false, addressChanged: false }
   }
 
   // The logisticsInfo will always exist if there´s at least one item inside the cart
   const { logisticsInfo } = orderForm.shippingData!
 
   if (shouldUpdateDeliveryChannel(logisticsInfo, session)) {
-    return true
+    return { updateShipping: true, addressChanged: false }
   }
 
   if (shouldUpdateDeliveryMethod(logisticsInfo, session)) {
-    return true
+    return { updateShipping: true, addressChanged: false }
   }
 
   if (shouldUpdateDeliveryWindow(logisticsInfo, session)) {
-    return true
+    return { updateShipping: true, addressChanged: false }
   }
-  return false
+  return { updateShipping: false, addressChanged: false }
 }
 
 // Validate if theres any postal Code or GeoCoordinates set at the session
@@ -68,14 +78,23 @@ const checkPostalCode = (
 // Validate if theres a difference between the session geoCoords and orderForm geoCoords
 const checkGeoCoordinates = (
   address: CheckoutAddress | null | undefined,
-  geoCoordinates: IStoreGeoCoordinates | null | undefined
+  geoCoordinates: IStoreGeoCoordinates | null | undefined,
+  postalCode: string | null | undefined
 ) => {
   return (
     typeof geoCoordinates?.latitude === 'number' &&
     typeof geoCoordinates?.longitude === 'number' &&
     (address?.geoCoordinates[0] !== geoCoordinates?.longitude ||
-      address?.geoCoordinates[1] !== geoCoordinates?.latitude)
+      address?.geoCoordinates[1] !== geoCoordinates?.latitude) &&
+    address?.postalCode !== postalCode
   )
+}
+
+const checkAddressType = (
+  address: CheckoutAddress | null | undefined,
+  addressType: string | null | undefined
+) => {
+  return typeof addressType === 'string' && address?.addressType !== addressType
 }
 
 // Validate if theres any item inside the orderForm

@@ -19,12 +19,7 @@ import { getCookie } from '../../utils/getCookies'
 import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
-import {
-  DeliveryMode,
-  ShippingDataBody,
-  SelectedAddress,
-} from './types/ShippingData'
-import { IncrementedAddress } from './types/IncrementedAddress'
+import { DeliveryMode, SelectedAddress } from './types/ShippingData'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -96,75 +91,20 @@ export const VtexCommerce = (
         )
       },
 
-      incrementAddress: (
-        country: string,
-        postalCode: string
-      ): Promise<IncrementedAddress> => {
-        return incrementAddress
-          ? fetchAPI(
-              `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`,
-              {
-                method: 'GET',
-                headers: {
-                  'content-type': 'application/json',
-                },
-              }
-            )
-          : Promise.resolve(undefined)
-      },
-
       shippingData: (
         {
           id,
           index,
           deliveryMode,
-          body,
+          selectedAddresses,
         }: {
           id: string
           index: number
           deliveryMode?: DeliveryMode | null
-          body: ShippingDataBody
+          selectedAddresses: SelectedAddress[]
         },
-        incrementedAddress?: IncrementedAddress,
         setDeliveryWindow?: boolean
       ): Promise<OrderForm> => {
-        const addressSession = body?.selectedAddresses?.map((address) => {
-          const addressSession: SelectedAddress = {
-            addressType: address.addressType || null,
-            receiverName: address.receiverName || null,
-            postalCode:
-              address.postalCode || incrementedAddress?.postalCode || null,
-            city: incrementedAddress?.city || null,
-            state: incrementedAddress?.state || null,
-            country: address.country || incrementedAddress?.country || null,
-            street: incrementedAddress?.street || null,
-            number: incrementedAddress?.number || null,
-            neighborhood: incrementedAddress?.neighborhood || null,
-            complement: incrementedAddress?.complement || null,
-            reference: incrementedAddress?.reference || null,
-            geoCoordinates: [], // Initialize with default value
-          }
-
-          const geoCoordinates = address?.geoCoordinates
-          if (geoCoordinates) {
-            const latitude =
-              typeof geoCoordinates === 'object' && 'latitude' in geoCoordinates
-                ? geoCoordinates.latitude
-                : null
-            const longitude =
-              typeof geoCoordinates === 'object' &&
-              'longitude' in geoCoordinates
-                ? geoCoordinates.longitude
-                : null
-
-            addressSession.geoCoordinates =
-              latitude !== null && longitude !== null
-                ? [longitude, latitude]
-                : incrementedAddress?.geoCoordinates || []
-          }
-          return addressSession
-        })
-
         const deliveryWindow = setDeliveryWindow
           ? {
               startDateUtc: deliveryMode?.deliveryWindow?.startDate,
@@ -179,8 +119,8 @@ export const VtexCommerce = (
             selectedSla: deliveryMode?.deliveryMethod || null,
             deliveryWindow: deliveryWindow,
           })),
-          selectedAddresses: addressSession,
-          address: addressSession,
+          selectedAddresses: selectedAddresses,
+          clearAddressIfPostalCodeNotFound: incrementAddress,
         }
 
         return fetchAPI(

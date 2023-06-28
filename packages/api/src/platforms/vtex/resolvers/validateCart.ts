@@ -23,8 +23,10 @@ import type {
   OrderFormInputItem,
   OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
-import { IncrementedAddress } from '../clients/commerce/types/IncrementedAddress'
 import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
+import { getAddressOrderForm } from '../utils/getAddressOrderForm'
+import { SelectedAddress } from '../clients/commerce/types/ShippingData'
+import { createNewAddress } from '../utils/createNewAddress'
 
 type Indexed<T> = T & { index?: number }
 
@@ -235,17 +237,19 @@ const getOrderForm = async (
     return orderForm
   }
 
-  const updateShipping = shouldUpdateShippingData(orderForm, session)
+  const { updateShipping, addressChanged } = shouldUpdateShippingData(
+    orderForm,
+    session
+  )
 
   if (updateShipping) {
-    let incrementedAddress: IncrementedAddress | undefined
+    // Check if the orderForm address matches the one from the session
+    const oldAddress = getAddressOrderForm(orderForm, session, addressChanged)
 
-    if (session.postalCode) {
-      incrementedAddress = await commerce.checkout.incrementAddress(
-        session.country,
-        session.postalCode
-      )
-    }
+    const address = oldAddress ? oldAddress : createNewAddress(session)
+
+    const selectedAddresses = address as SelectedAddress[]
+
     const hasDeliveryWindow = session.deliveryMode?.deliveryWindow
       ? true
       : false
@@ -257,11 +261,8 @@ const getOrderForm = async (
           id: orderForm.orderFormId,
           index: orderForm.items.length,
           deliveryMode: session.deliveryMode,
-          body: {
-            selectedAddresses: [session],
-          },
+          selectedAddresses: selectedAddresses,
         },
-        incrementedAddress,
         false
       )
     }
@@ -271,11 +272,8 @@ const getOrderForm = async (
         id: orderForm.orderFormId,
         index: orderForm.items.length,
         deliveryMode: session.deliveryMode,
-        body: {
-          selectedAddresses: [session],
-        },
+        selectedAddresses: selectedAddresses,
       },
-      incrementedAddress,
       true
     )
   }

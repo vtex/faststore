@@ -5,6 +5,7 @@ export interface ShippingDataBody {
 }
 
 export interface SelectedAddress {
+  addressId?: string | null
   addressType?: string | null
   receiverName?: string | null
   postalCode?: string | null
