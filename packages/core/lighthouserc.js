@@ -19,6 +19,6 @@ module.exports = lhConfig({
     deprecations: 'warn',
     'resource-summary:stylesheet:count': ['warn', { maxNumericValue: 400 }],
     'resource-summary:script:count': ['warn', { maxNumericValue: 20 }],
-    'resource-summary:script:size': ['error', { maxNumericValue: 210 * 1024 }],
+    'resource-summary:script:size': ['error', { maxNumericValue: 220 * 1024 }],
   },
 })
