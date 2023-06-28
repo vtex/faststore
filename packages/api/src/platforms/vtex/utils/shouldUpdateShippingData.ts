@@ -24,7 +24,7 @@ export const shouldUpdateShippingData = (
     return { updateShipping: true, addressChanged: true }
   }
 
-  if (checkGeoCoordinates(selectedAddress, session.geoCoordinates)) {
+  if (checkGeoCoordinates(selectedAddress, session.geoCoordinates, session.postalCode)) {
     console.log("GeoCoord",address, selectedAddress, session.geoCoordinates)
     return { updateShipping: true, addressChanged: true }
   }
@@ -76,13 +76,15 @@ const checkPostalCode = (
 // Validate if theres a difference between the session geoCoords and orderForm geoCoords
 const checkGeoCoordinates = (
   address: CheckoutAddress | null | undefined,
-  geoCoordinates: IStoreGeoCoordinates | null | undefined
+  geoCoordinates: IStoreGeoCoordinates | null | undefined,
+  postalCode: string | null | undefined
 ) => {
   return (
     typeof geoCoordinates?.latitude === 'number' &&
     typeof geoCoordinates?.longitude === 'number' &&
     (address?.geoCoordinates[0] !== geoCoordinates?.longitude ||
-      address?.geoCoordinates[1] !== geoCoordinates?.latitude)
+      address?.geoCoordinates[1] !== geoCoordinates?.latitude) &&
+      address?.postalCode !== postalCode
   )
 }
 
