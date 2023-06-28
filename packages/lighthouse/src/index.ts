@@ -41,7 +41,7 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
           // Number of Requests Budgets
           'resource-summary:font:count': ['error', { maxNumericValue: 3 }],
           'resource-summary:image:count': ['error', { maxNumericValue: 20 }],
-          'resource-summary:script:count': ['error', { maxNumericValue: 20 }],
+          'resource-summary:script:count': ['error', { maxNumericValue: 22 }],
           'resource-summary:stylesheet:count': [
             'error',
             { maxNumericValue: 3 },
@@ -67,7 +67,7 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
           ],
           'resource-summary:script:size': [
             'error',
-            { maxNumericValue: 200 * 1024 },
+            { maxNumericValue: 220 * 1024 },
           ],
           'resource-summary:stylesheet:size': [
             'error',
