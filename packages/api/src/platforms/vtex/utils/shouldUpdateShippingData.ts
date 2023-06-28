@@ -25,12 +25,12 @@ export const shouldUpdateShippingData = (
   }
 
   if (checkGeoCoordinates(selectedAddress, session.geoCoordinates)) {
-    console.log("GeoCoord", address)
+    console.log("GeoCoord",address, selectedAddress, session.geoCoordinates)
     return { updateShipping: true, addressChanged: true }
   }
 
   if (checkAddressType(selectedAddress, session.addressType)){
-    console.log("Address Type", address)
+    console.log("Address Type", selectedAddress)
     return { updateShipping: true, addressChanged: true }
   }
 
