@@ -18,6 +18,10 @@ if (process.env.NODE_ENV === 'development' && !includeGTM) {
 }
 
 function ThirdPartyScripts() {
+  const forwards = []
+  if (includeVTEX) forwards.push('sendrc', 'vtexaf')
+  if (includeGTM) forwards.push('dataLayer.push')
+
   return (
     <>
       {includeGTM && <GoogleTagManager containerId={gtmContainerId} />}
@@ -25,10 +29,7 @@ function ThirdPartyScripts() {
       <Partytown
         key="partytown"
         // Variables to forward to from main to worker
-        forward={[
-          includeGTM && 'dataLayer.push',
-          includeVTEX && 'sendrc',
-        ].filter(isString)}
+        forward={forwards}
       />
     </>
   )
