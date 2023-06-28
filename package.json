@@ -31,5 +31,6 @@
   "volta": {
     "node": "16.18.0",
     "yarn": "1.19.1"
-  }
+  },
+  "dependencies": {}
 }
