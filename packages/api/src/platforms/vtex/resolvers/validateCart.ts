@@ -262,7 +262,6 @@ const getOrderForm = async (
 
     const selectedAddresses = address as SelectedAddress[]
 
-    console.log("bibi", selectedAddresses)
 
     const hasDeliveryWindow = session.deliveryMode?.deliveryWindow
       ? true

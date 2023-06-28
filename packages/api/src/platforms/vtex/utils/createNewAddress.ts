@@ -33,7 +33,6 @@ export const createNewAddress = (
       typeof geoCoordinates === 'object' && 'longitude' in geoCoordinates
         ? geoCoordinates.longitude
         : null
-    console.log("Session GeoCoords", longitude, latitude)
     addressSession.geoCoordinates =
       latitude !== null && longitude !== null
         ? [longitude, latitude]
