@@ -6,6 +6,7 @@
   "atoms": "Atoms",
   "molecules": "Molecules",
   "organisms": "Organisms",
+  "features": "Features",
   "---": {
     "type": "separator"
   }
