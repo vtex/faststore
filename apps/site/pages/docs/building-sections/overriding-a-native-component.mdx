@@ -21,16 +21,14 @@ The `@faststore/core` package provides a set of native sections. These native se
 
 <Callout type="warning" emoji="⚠️">
   **By overriding a component, you lose all the integration developed on
-  [@faststore/core](docs/getting-started/project-structure#faststorecore) for
+  [@faststore/core](/docs/getting-started/3-project-structure#faststorecore) for
   that component.** We highly recommend trying first [overriding
-  props](/docs/component-customization/overriding-components-props) and/or using
-  our [theming tools](/docs/customizing) to achieve the desired behavior without
+  props](/docs/building-sections/overriding-components-props) and/or using our
+  [theming tools](/docs/themes/overview) to achieve the desired behavior without
   compromising the existing integration implemented in `@faststore/core`. You
   can find the available props for each component on the [Components
-  UI](https://evergreen.faststore.dev/components).
+  UI](/components).
 </Callout>
-
-{/* {Image or gif of the expected behavior after completing the guide} */}
 
 ---
 
@@ -50,7 +48,7 @@ Also, consider the following:
 
 ### Step 1 - Setting up the `overrides` folder
 
-1. Choose the native section to be customized from the [list of available native sections](/docs/reference-guides/list-of-available-native-sections).
+1. Choose the native section to be customized from the [list of available native sections](/docs/reference-guides/list-of-native-sections).
 2. Open your FastStore project in any code editor of your preference.
 3. Go to the `src` folder and create the `overrides` folder.
 4. In `overrides`, create a new file named after the chosen native section. For example, if you chose the `ProductDetails` section for customization, create a new file named `ProductDetails.tsx` under the `src/components/overrides` directory.
@@ -62,7 +60,10 @@ import { SectionOverride } from '@faststore/core/src/typings/overrides'
 
 const SECTION = 'ProductDetails' as const
 
-const overrides: SectionOverride[type of SECTION] = { name: SECTION, components: {} }
+const overrides: SectionOverride[typeof SECTION] = {
+  name: SECTION,
+  components: {},
+}
 
 export default overrides
 ```
@@ -93,7 +94,7 @@ The code above imports the Price component and its props from the @faststore/ui 
 
 ### Step 3 - Overriding the component
 
-1. Choose a component to override from the [list of overridable components for each native section](/docs/reference-guides/list-of-overridable-components-for-each-native-section). In this example, we are overriding the `Price` component.
+1. Choose a component to override from the [list of overridable components for each native section](/docs/reference-guides/list-of-native-sections). In this example, we are overriding the `Price` component.
 2. Navigate to `src/components/overrides` that we've created in the previous step.
 3. Open the `ProductDetails.tsx` file and update with the following code:
 
@@ -103,7 +104,7 @@ import { Price as CustomPrice } from '../Price'
 
 const SECTION = 'ProductDetails' as const
 
-const overrides: SectionOverride[type of SECTION] = {
+const overrides: SectionOverride[typeof SECTION] = {
   name: SECTION,
   components: {
     Price: { Component: CustomPrice },
