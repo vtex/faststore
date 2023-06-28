@@ -9,9 +9,10 @@ export const getAddressOrderForm = (
   const postalCode = session.postalCode
   const geoCoordinates = session.geoCoordinates
   const availableAddresses = orderForm?.shippingData?.availableAddresses ?? []
+  const selectedAddresses = orderForm?.shippingData?.selectedAddresses ?? []
   // Validate if no change for the address was made and the deliveryMode has changed we can return the address from the orderForm
-  if (!addressChanged) {
-    return [orderForm?.shippingData?.selectedAddresses[0]]
+  if (!addressChanged && selectedAddresses.length > 0) {
+    return [selectedAddresses[0]]
   }
 
   // Validate if the address from the session already exists at the availableAddresses from the OrderForm to avoid duplication

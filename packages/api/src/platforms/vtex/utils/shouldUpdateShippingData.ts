@@ -16,7 +16,7 @@ export const shouldUpdateShippingData = (
     return { updateShipping: false, addressChanged: false }
   }
 
-  const selectedAddress = orderForm.shippingData?.selectedAddresses[0]
+  const selectedAddress =  orderForm.shippingData?.selectedAddresses.filter(Boolean)[0] 
 
   if (checkPostalCode(selectedAddress, session.postalCode)) {
     return { updateShipping: true, addressChanged: true }
