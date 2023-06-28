@@ -9,7 +9,7 @@ import {
   removeSync,
   symlinkSync,
   writeFileSync,
-  writeJsonSync
+  writeJsonSync,
 } from 'fs-extra'
 
 import path from 'path'
@@ -92,11 +92,18 @@ function copyUserSrcToCustomizations() {
 async function createCmsWebhookUrlsJsonFile() {
   const userStoreConfig = await import(userStoreConfigFileDir)
 
-  if (userStoreConfig?.vtexHeadlessCms && userStoreConfig.vtexHeadlessCms?.webhookUrls) {
+  if (
+    userStoreConfig?.vtexHeadlessCms &&
+    userStoreConfig.vtexHeadlessCms?.webhookUrls
+  ) {
     const { webhookUrls } = userStoreConfig?.vtexHeadlessCms
 
     try {
-      writeJsonSync(tmpCmsWebhookUrlsFileDir, { urls: webhookUrls }, { spaces: 2 })
+      writeJsonSync(
+        tmpCmsWebhookUrlsFileDir,
+        { urls: webhookUrls },
+        { spaces: 2 }
+      )
       console.log(`${chalk.green('success')} - CMS webhook URLs file created`)
     } catch (err) {
       console.error(`${chalk.red('error')} - ${err}`)

@@ -99,7 +99,7 @@ function Navbar({
       {...NavbarWrapper.props}
     >
       <NavbarHeader.Component {...NavbarHeader.props}>
-        <NavbarRow.Component className="layout__content" {...NavbarRow.props}>
+        <NavbarRow.Component {...NavbarRow.props}>
           {!searchExpanded && (
             <>
               <IconButton.Component

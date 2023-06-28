@@ -203,7 +203,7 @@
 
     [data-fs-logo] {
       width: var(--fs-navbar-logo-width);
-      
+
       @include media(">=notebook") {
         padding: var(--fs-spacing-2) 0;
       }

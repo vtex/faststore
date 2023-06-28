@@ -28,7 +28,7 @@ Before proceeding any further, make sure you already have:
 <Callout type="info" emoji=" ℹ️ ">
 Run `vtex edition get` to check if the `vtex.edition-store` app is installed on your account. If not, [open a support ticket](https://help.vtex.com/en/support) communicating you need the `vtex.edition-store@5.x` to be installed on your account so you can integrate your FastStore project with the VTEX platform.
 </Callout>
-  
+
 
 ---
 
@@ -55,7 +55,7 @@ Replace the value between curly brackets with the name of your account.
 </Callout>
 
 5. Create a new development workspace.
-  
+
 ```sh
 vtex workspace use {workspace}
 ```
@@ -83,7 +83,7 @@ After accessing the Order Placed page, you probably noticed the FastStore logo. 
 1. Save your logo inside the `assets` folder.
 2. Open the `store/blocks/header.jsonc` file and update the `title`, `href`, `url`, and `width` values of your store logo (`logo#desktop` and `logo#mobile`) according to your scenario:
 
-```jsonc title="store/blocks/header.json" {4-7,13-16}
+```jsonc filename="store/blocks/header.json" {4-7,13-16}
 ...
 "logo#desktop": {
   "props": {
@@ -150,7 +150,7 @@ vtex deploy {vendor}.{appname}@{appversion}
 ```
 
 6. Promote your Production workspace to master to make your changes publicly available to your store shoppers.
-   
+
 ```
 vtex workspace promote
 ```

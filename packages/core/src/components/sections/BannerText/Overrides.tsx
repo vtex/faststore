@@ -1,8 +1,8 @@
 import {
-  Banner as UIBanner,
-  BannerContent as UIBannerContent,
+  BannerText as UIBannerText,
+  BannerTextContent as UIBannerTextContent,
 } from '@faststore/ui'
-import type { BannerContentProps, BannerProps } from '@faststore/ui'
+import type { BannerTextContentProps, BannerTextProps } from '@faststore/ui'
 
 import type {
   ComponentOverrideDefinition,
@@ -14,20 +14,20 @@ import { override } from 'src/customizations/components/overrides/BannerText'
 export type BannerTextOverrideDefinition = SectionOverrideDefinition<
   'BannerText',
   {
-    Banner: ComponentOverrideDefinition<BannerProps, BannerProps>
-    BannerContent: ComponentOverrideDefinition<
-      BannerContentProps,
-      BannerContentProps
+    BannerText: ComponentOverrideDefinition<BannerTextProps, BannerTextProps>
+    BannerTextContent: ComponentOverrideDefinition<
+      BannerTextContentProps,
+      BannerTextContentProps
     >
   }
 >
 
-const { Banner, BannerContent } = getSectionOverrides(
+const { BannerText, BannerTextContent } = getSectionOverrides(
   {
-    Banner: UIBanner,
-    BannerContent: UIBannerContent,
+    BannerText: UIBannerText,
+    BannerTextContent: UIBannerTextContent,
   },
   override as BannerTextOverrideDefinition
 )
 
-export { Banner, BannerContent }
+export { BannerText, BannerTextContent }

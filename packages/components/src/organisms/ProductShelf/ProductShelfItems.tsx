@@ -19,6 +19,7 @@ const ProductShelfItems = forwardRef<HTMLUListElement, ProductShelfItemsProps>(
         role="list"
         ref={ref}
         data-fs-product-shelf-items
+        data-fs-content="product-shelf"
         data-testid={testId}
         {...otherProps}
       >

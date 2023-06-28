@@ -1,5 +1,5 @@
 ---
-description: Banners are used for advertising brands, products, and/or collections. They comprise an image, some text content, and a call-to-action button.
+description: Banner Text is used for advertising brands, products, and/or collections. They comprise an image, some text content, and a call-to-action button.
 keywords:
   - UI library
   - ecommerce
@@ -13,17 +13,17 @@ import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
-import { Banner, BannerContent } from '@faststore/ui'
+import { BannerText, BannerTextContent } from '@faststore/ui'
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
-  const bannerPath = path.resolve(__filename)
-  const components = ['Banner.tsx', 'BannerContent.tsx']
-  const [bannerProps, bannerContentProps] = getComponentPropsFrom(
-    bannerPath,
+  const bannerTextPath = path.resolve(__filename)
+  const components = ['BannerText.tsx', 'BannerTextContent.tsx']
+  const [bannerTextProps, bannerTextContentProps] = getComponentPropsFrom(
+    bannerTextPath,
     components
   )
   return {
@@ -31,34 +31,34 @@ export const getStaticProps = () => {
       // We add an `ssg` field to the page props,
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
-        bannerProps,
-        bannerContentProps,
+        bannerTextProps,
+        bannerTextContentProps,
       },
     },
   }
 }
 
-export const BannerPropsSection = ({ component }) => {
+export const BannerTextPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
-  const { bannerProps, bannerContentProps } = useSSG()
+  const { bannerTextProps, bannerTextContentProps } = useSSG()
   return {
-    Banner: <PropsSection propsList={bannerProps} />,
-    BannerContent: <PropsSection propsList={bannerContentProps} />,
+    BannerText: <PropsSection propsList={bannerTextProps} />,
+    BannerTextContent: <PropsSection propsList={bannerTextContentProps} />,
   }[component]
 }
 
 <header>
 
-# Banner
+# Banner Text
 
-Banners are used for advertising brands, products, and/or collections. They comprise an image, some text content, and a call-to-action button.
+Banner Text is used for advertising brands, products, and/or collections. They comprise an image, some text content, and a call-to-action button.
 
 </header>
 
-The final `Banner` component is a compound of the following:
+The final `BannerText` component is a compound of the following:
 
-- `Banner`: wraps the Banner component.
-- `BannerContent`: the content of the banner, including a title, caption, and Link.
+- `BannerText`: wraps the BannerText component.
+- `BannerTextContent`: the content of the banner, including a title, caption, and Link.
 
 ---
 
@@ -67,13 +67,13 @@ The final `Banner` component is a compound of the following:
 Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { Banner, BannerContent } from '@faststore/ui'
+import { BannerText, BannerTextContent } from '@faststore/ui'
 ```
 
 Import Styles
 
 ```tsx
-import '@faststore/ui/src/components/organisms/Banner/styles.scss'
+import '@faststore/ui/src/components/organisms/BannerText/styles.scss'
 ```
 
 ---
@@ -83,26 +83,26 @@ import '@faststore/ui/src/components/organisms/Banner/styles.scss'
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <Banner>
-        <BannerContent
+      <BannerText>
+        <BannerTextContent
           title="Explore more about our amazing products"
           caption="All the amazing products from the brands we partner with."
           link="/"
           linkText="See more"
         />
-      </Banner>
+      </BannerText>
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
-    <Banner>
-      <BannerContent
+    <BannerText>
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     ```
   </Tab>
 </Tabs>
@@ -111,25 +111,28 @@ import '@faststore/ui/src/components/organisms/Banner/styles.scss'
 
 ## Props
 
-All banner-related components support all attributes also supported by the `<div>` tag.
+All banner text related components support all attributes also supported by the `<div>` tag.
 Besides those attributes, the following props are also supported:
 
-### Banner
+### BannerText
 
-<BannerPropsSection component="Banner" />
+<BannerTextPropsSection component="BannerText" />
 
-### BannerContent
+### BannerTextContent
 
-<BannerPropsSection component="BannerContent" />
+<BannerTextPropsSection component="BannerTextContent" />
 
 ---
 
 ## Design Tokens
 
 <TokenTable>
-  <TokenRow token="--fs-banner-padding-mobile" value="var(--fs-spacing-6) 5%" />
   <TokenRow
-    token="--fs-banner-padding-desktop"
+    token="--fs-banner-text-padding-mobile"
+    value="var(--fs-spacing-6) 5%"
+  />
+  <TokenRow
+    token="--fs-banner-text-padding-desktop"
     value="var(--fs-spacing-9) 15%"
   />
 </TokenTable>
@@ -139,9 +142,9 @@ Besides those attributes, the following props are also supported:
 #### Button Link
 
 <TokenTable>
-  <TokenRow token="--fs-banner-button-link-min-width" value="11.25rem" />
+  <TokenRow token="--fs-banner-text-button-link-min-width" value="11.25rem" />
   <TokenRow
-    token="--fs-banner-button-link-margin-top"
+    token="--fs-banner-text-button-link-margin-top"
     value="var(--fs-spacing-6)"
   />
 </TokenTable>
@@ -149,12 +152,15 @@ Besides those attributes, the following props are also supported:
 #### Title
 
 <TokenTable>
-  <TokenRow token="--fs-banner-title-size" value="var(--fs-text-size-lead)" />
   <TokenRow
-    token="--fs-banner-title-weight"
+    token="--fs-banner-text-title-size"
+    value="var(--fs-text-size-lead)"
+  />
+  <TokenRow
+    token="--fs-banner-text-title-weight"
     value="var(--fs-text-weight-bold)"
   />
-  <TokenRow token="--fs-banner-line-height" value="1.2" />
+  <TokenRow token="--fs-banner-text-line-height" value="1.2" />
 </TokenTable>
 
 ### Hierarchy
@@ -164,27 +170,27 @@ Besides those attributes, the following props are also supported:
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <Banner variant="primary">
-        <BannerContent
+      <BannerText variant="primary">
+        <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-      </Banner>
+      </BannerText>
     </OverviewSection>
 
   </Tab>
   <Tab>
     ```tsx
-    <Banner variant="primary">
-      <BannerContent
+    <BannerText variant="primary">
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     ```
 
   </Tab>
@@ -202,26 +208,26 @@ Besides those attributes, the following props are also supported:
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-     <Banner variant="secondary">
-      <BannerContent
+     <BannerText variant="secondary">
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
-      <Banner variant="secondary">
-        <BannerContent
+      <BannerText variant="secondary">
+        <BannerTextContent
           title="Explore more about our amazing products"
           caption="All the amazing products from the brands we partner with."
           link="/"
           linkText="See more"
         />
-      </Banner>
+      </BannerText>
 
     ```
 
@@ -230,18 +236,21 @@ Besides those attributes, the following props are also supported:
 
 <TokenTable>
   <TokenRow
-    token="--fs-banner-secondary-title-size"
+    token="--fs-banner-text-secondary-title-size"
     value="var(--fs-text-size-4)"
   />
   <TokenRow
-    token="--fs-banner-secondary-caption-size"
+    token="--fs-banner-text-secondary-caption-size"
     value="var(--fs-text-size-base)"
   />
   <TokenRow
-    token="--fs-banner-secondary-caption-weight"
+    token="--fs-banner-text-secondary-caption-weight"
     value="var(--fs-text-weight-regular)"
   />
-  <TokenRow token="--fs-banner-secondary-caption-line-height" value="1.5" />
+  <TokenRow
+    token="--fs-banner-text-secondary-caption-line-height"
+    value="1.5"
+  />
 </TokenTable>
 
 ---
@@ -253,26 +262,26 @@ Besides those attributes, the following props are also supported:
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <Banner colorVariant="main">
-      <BannerContent
+      <BannerText colorVariant="main">
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
-    <Banner colorVariant="main">
-      <BannerContent
+    <BannerText colorVariant="main">
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     ```
 
   </Tab>
@@ -280,12 +289,12 @@ Besides those attributes, the following props are also supported:
 
 <TokenTable>
   <TokenRow
-    token="--fs-banner-main-bkg-color"
+    token="--fs-banner-text-main-bkg-color"
     value="var(--fs-color-primary-bkg)"
     isColor
   />
   <TokenRow
-    token="--fs-banner-main-text-color"
+    token="--fs-banner-text-main-text-color"
     value="var(--fs-color-primary-text)"
     isColor
   />
@@ -296,39 +305,39 @@ Besides those attributes, the following props are also supported:
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <Banner colorVariant="light">
-      <BannerContent
+      <BannerText colorVariant="light">
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     </OverviewSection>
 
   </Tab>
   <Tab>
     ```tsx
-    <Banner colorVariant="light">
-      <BannerContent
+    <BannerText colorVariant="light">
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     ```
   </Tab>
 </Tabs>
 
 <TokenTable>
   <TokenRow
-    token="--fs-banner-light-bkg-color"
+    token="--fs-banner-text-light-bkg-color"
     value="var(--fs-color-secondary-bkg-light)"
     isColor
   />
   <TokenRow
-    token="--fs-banner-light-text-color"
+    token="--fs-banner-text-light-text-color"
     value="var(--fs-color-text-display)"
     isColor
   />
@@ -339,39 +348,39 @@ Besides those attributes, the following props are also supported:
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <Banner colorVariant="accent">
-        <BannerContent
+      <BannerText colorVariant="accent">
+        <BannerTextContent
           title="Explore more about our amazing products"
           caption="All the amazing products from the brands we partner with."
           link="/"
           linkText="See more"
         />
-      </Banner>
+      </BannerText>
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
-    <Banner colorVariant="accent">
-      <BannerContent
+    <BannerText colorVariant="accent">
+      <BannerTextContent
         title="Explore more about our amazing products"
         caption="All the amazing products from the brands we partner with."
         link="/"
         linkText="See more"
       />
-    </Banner>
+    </BannerText>
     ```
   </Tab>
 </Tabs>
 
 <TokenTable>
   <TokenRow
-    token="--fs-banner-accent-bkg-color"
+    token="--fs-banner-text-accent-bkg-color"
     value="var(--fs-color-highlighted-bkg)"
     isColor
   />
   <TokenRow
-    token="--fs-banner-accent-text-color"
-    value="var(--fs-banner-light-text-color)"
+    token="--fs-banner-text-accent-text-color"
+    value="var(--fs-banner-text-light-text-color)"
     globalValue="var(--fs-color-text-display)"
     isColor
   />
@@ -381,14 +390,14 @@ Besides those attributes, the following props are also supported:
 
 ## Customization
 
-`data-fs-banner`
+`data-fs-banner-text`
 
-`data-fs-banner-variant="primary" | "secondary"`
+`data-fs-banner-text-variant="primary" | "secondary"`
 
-`data-fs-banner-color-variant="main" | "light" | "accent"`
+`data-fs-banner-text-color-variant="main" | "light" | "accent"`
 
-`data-fs-banner-content`
+`data-fs-banner-text-content`
 
-`data-fs-banner-heading`
+`data-fs-banner-text-heading`
 
-`data-fs-banner-link`
+`data-fs-banner-text-link`

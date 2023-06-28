@@ -1,4 +1,4 @@
-<p align="center">    
+<p align="center">
   <a href="https://github.com/vtex/faststore">
     <img alt="Store Framework" src="https://emoji.slack-edge.com/T02BCPD0X/store-framework/7547b127e929c376.png" width="75" />
   </a>
@@ -365,7 +365,6 @@ The spacing scale is based on `rem` sizes, so it will remain consistent if you c
 List of classes used to create default page grid.
 
 ```scss
-.layout__content-full // Should be used for sections that are side to side, generally with a colored background.
 .layout__content // Should be used for sections that fit centered on the grid.
 .layout__section // This class only adds default vertical margins for page sections.
 ```

@@ -5,7 +5,17 @@
       "layout": "full"
     }
   },
-  "getting-started": "Getting Started",
+  "-- Getting Started --": {
+    "type": "separator",
+    "title": "Getting Started"
+  },
+  "getting-started-overview": {
+    "title": "Overview"
+  },
+  "getting-started-requirements": {
+    "title": "Requirements"
+  },
+  "getting-started": "Step by Step",
   "-- Theming --": {
     "type": "separator",
     "title": "Theming"
@@ -16,20 +26,20 @@
       "layout": "full"
     }
   },
-  "customizing": {
-    "title": "Customizing",
-    "theme": {
-      "layout": "full"
-    }
-  },
+  "global-tokens": "Global Tokens",
   "themes": {
     "title": "Themes",
     "theme": {
       "layout": "full"
     }
   },
-  "global-tokens": "Global Tokens",
   "icons": "Icons",
+  "customizing": {
+    "title": "Customizing",
+    "theme": {
+      "layout": "full"
+    }
+  },
   "-- VTEX Integration --": {
     "type": "separator",
     "title": "VTEX Platform Integration"
@@ -39,8 +49,8 @@
     "type": "separator",
     "title": "How To Guides"
   },
-  "component-customization": {
-    "title": "Component Customization"
+  "building-sections": {
+    "title": "Building and Customizing sections"
   },
   "reference-guides": "Reference"
 }

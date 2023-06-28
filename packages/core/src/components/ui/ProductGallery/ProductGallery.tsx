@@ -90,13 +90,16 @@ function ProductGallery({
   return (
     <section data-testid="product-gallery" data-fs-product-listing>
       {searchTerm && (
-        <header data-fs-product-listing-search-term className="layout__content">
+        <header data-fs-product-listing-search-term>
           <h1>
             {searchTermLabel} <span>{searchTerm}</span>
           </h1>
         </header>
       )}
-      <div data-fs-product-listing-content-grid className="layout__content">
+      <div
+        data-fs-product-listing-content-grid
+        data-fs-content="product-gallery"
+      >
         <div data-fs-product-listing-filters>
           <FilterSkeleton loading={facets?.length === 0}>
             <Filter facets={facets} filter={filter} />

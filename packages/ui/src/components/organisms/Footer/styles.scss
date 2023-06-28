@@ -104,7 +104,7 @@
 
     @include media(">=notebook") {
       row-gap: var(--fs-footer-spacing-vertical-notebook);
-      padding-top: 0;
+      padding-bottom: var(--fs-footer-spacing-vertical-notebook);
     }
   }
 

@@ -10,7 +10,7 @@ interface Props {
 
 function Incentives({ incentives }: Props) {
   return (
-    <Section className={`${styles.section} section-incentives`}>
+    <Section className={`${styles.section} section-incentives layout__section`}>
       <UIIncentives incentives={incentives} colored />
     </Section>
   )

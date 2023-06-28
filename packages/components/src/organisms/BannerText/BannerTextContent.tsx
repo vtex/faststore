@@ -2,9 +2,9 @@ import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 import { LinkButton } from '../..'
 
-import { useBanner } from './Banner'
+import { useBannerText } from './BannerText'
 
-export interface BannerContentProps extends HTMLAttributes<HTMLDivElement> {
+export interface BannerTextContentProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The content for the h2 tag.
    */
@@ -14,11 +14,11 @@ export interface BannerContentProps extends HTMLAttributes<HTMLDivElement> {
    */
   caption: string
   /**
-   * The href used at the link
+   * The href used at the link.
    */
   link: string
   /**
-   * The label used at the link
+   * The label used at the link.
    */
   linkText: string
   /**
@@ -27,10 +27,10 @@ export interface BannerContentProps extends HTMLAttributes<HTMLDivElement> {
   testId?: string
 }
 
-const BannerContent = forwardRef<HTMLDivElement, BannerContentProps>(
-  function BannerContent(
+const BannerTextContent = forwardRef<HTMLDivElement, BannerTextContentProps>(
+  function BannerTextContent(
     {
-      testId = 'fs-banner-content',
+      testId = 'fs-banner-text-content',
       title,
       caption,
       link,
@@ -39,21 +39,24 @@ const BannerContent = forwardRef<HTMLDivElement, BannerContentProps>(
     },
     ref
   ) {
-    const { variant, colorVariant } = useBanner()
+    const { variant, colorVariant } = useBannerText()
     return (
       <header
         ref={ref}
-        data-fs-banner-content
+        data-fs-banner-text-content
+        data-fs-content="banner-text"
         data-testid={testId}
         {...otherProps}
-        className="layout__content"
       >
-        <div data-fs-banner-heading data-fs-banner-color-variant={colorVariant}>
+        <div
+          data-fs-banner-text-heading
+          data-fs-banner-text-color-variant={colorVariant}
+        >
           <h2>{title}</h2>
           {variant === 'secondary' && caption && <p>{caption}</p>}
         </div>
         <LinkButton
-          data-fs-banner-link
+          data-fs-banner-text-link
           href={link}
           variant={variant}
           inverse={colorVariant === 'main'}
@@ -66,4 +69,4 @@ const BannerContent = forwardRef<HTMLDivElement, BannerContentProps>(
   }
 )
 
-export default BannerContent
+export default BannerTextContent

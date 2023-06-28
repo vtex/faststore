@@ -34,8 +34,8 @@
 
   @include media("<notebook") { padding: 0; }
 
-  @include media(">=notebook") {
-    > div {
+  [data-fs-navbar-links-wrapper] {
+    @include media(">=notebook") {
       display: flex;
       align-items: center;
     }

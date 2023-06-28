@@ -19,12 +19,7 @@ import { getCookie } from '../../utils/getCookies'
 import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
-import {
-  DeliveryMode,
-  ShippingDataBody,
-  SelectedAddress,
-} from './types/ShippingData'
-import { IncrementedAddress } from './types/IncrementedAddress'
+import { DeliveryMode, SelectedAddress } from './types/ShippingData'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -96,105 +91,21 @@ export const VtexCommerce = (
         )
       },
 
-      incrementAddress: (
-        country: string,
-        postalCode: string
-      ): Promise<IncrementedAddress> => {
-        return incrementAddress
-          ? fetchAPI(
-              `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`,
-              {
-                method: 'GET',
-                headers: {
-                  'content-type': 'application/json',
-                },
-              }
-            )
-          : Promise.resolve(undefined)
-      },
-
-      getDeliveryWindows: (
-        {
-          id,
-          index,
-          deliveryMode,
-          body,
-        }: {
-          id: string
-          index: number
-          deliveryMode?: DeliveryMode | null
-          body: ShippingDataBody
-        },
-        incrementedAddress?: IncrementedAddress
-      ): Promise<OrderForm> => {
-        const mappedBody = {
-          logisticsInfo: Array.from({ length: index }, (_, itemIndex) => ({
-            itemIndex,
-            selectedDeliveryChannel: deliveryMode?.deliveryChannel || null,
-            selectedSla: deliveryMode?.deliveryMethod || null,
-          })),
-          selectedAddresses: body?.selectedAddresses?.map((address) => {
-            const selectedAddress: SelectedAddress = {
-              addressType: address.addressType || null,
-              receiverName: address.receiverName || null,
-              postalCode:
-                address.postalCode || incrementedAddress?.postalCode || null,
-              city: incrementedAddress?.city || null,
-              state: incrementedAddress?.state || null,
-              country: address.country || incrementedAddress?.country || null,
-              street: incrementedAddress?.street || null,
-              number: incrementedAddress?.number || null,
-              neighborhood: incrementedAddress?.neighborhood || null,
-              complement: incrementedAddress?.complement || null,
-              reference: incrementedAddress?.reference || null,
-              geoCoordinates: [], // Initialize with default value
-            }
-
-            const longitude =
-              address?.geoCoordinates instanceof Array
-                ? null
-                : address?.geoCoordinates?.longitude || null
-
-            const latitude =
-              address?.geoCoordinates instanceof Array
-                ? null
-                : address?.geoCoordinates?.latitude || null
-
-            selectedAddress.geoCoordinates =
-              longitude && latitude
-                ? { longitude, latitude }
-                : incrementedAddress?.geoCoordinates || []
-
-            return selectedAddress
-          }),
-        }
-
-        return fetchAPI(
-          `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
-          {
-            ...BASE_INIT,
-            body: JSON.stringify(mappedBody),
-          }
-        )
-      },
-
       shippingData: (
         {
           id,
           index,
           deliveryMode,
-          body,
+          selectedAddresses,
         }: {
           id: string
           index: number
           deliveryMode?: DeliveryMode | null
-          body: ShippingDataBody
+          selectedAddresses: SelectedAddress[]
         },
-        incrementedAddress?: IncrementedAddress
+        setDeliveryWindow?: boolean
       ): Promise<OrderForm> => {
-        const hasDeliveryWindow = deliveryMode?.deliveryWindow ? true : false
-
-        const deliveryWindow = hasDeliveryWindow
+        const deliveryWindow = setDeliveryWindow
           ? {
               startDateUtc: deliveryMode?.deliveryWindow?.startDate,
               endDateUtc: deliveryMode?.deliveryWindow?.endDate,
@@ -208,40 +119,8 @@ export const VtexCommerce = (
             selectedSla: deliveryMode?.deliveryMethod || null,
             deliveryWindow: deliveryWindow,
           })),
-          selectedAddresses: body?.selectedAddresses?.map((address) => {
-            const selectedAddress: SelectedAddress = {
-              addressType: address.addressType || null,
-              receiverName: address.receiverName || null,
-              postalCode:
-                address.postalCode || incrementedAddress?.postalCode || null,
-              city: incrementedAddress?.city || null,
-              state: incrementedAddress?.state || null,
-              country: address.country || incrementedAddress?.country || null,
-              street: incrementedAddress?.street || null,
-              number: incrementedAddress?.number || null,
-              neighborhood: incrementedAddress?.neighborhood || null,
-              complement: incrementedAddress?.complement || null,
-              reference: incrementedAddress?.reference || null,
-              geoCoordinates: [], // Initialize with default value
-            }
-
-            const longitude =
-              address?.geoCoordinates instanceof Array
-                ? null
-                : address?.geoCoordinates?.longitude || null
-
-            const latitude =
-              address?.geoCoordinates instanceof Array
-                ? null
-                : address?.geoCoordinates?.latitude || null
-
-            selectedAddress.geoCoordinates =
-              longitude && latitude
-                ? [longitude, latitude]
-                : incrementedAddress?.geoCoordinates || []
-
-            return selectedAddress
-          }),
+          selectedAddresses: selectedAddresses,
+          clearAddressIfPostalCodeNotFound: incrementAddress,
         }
 
         return fetchAPI(
