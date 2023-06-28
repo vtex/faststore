@@ -17,6 +17,13 @@ function VTEX() {
         src="https://io.vtex.com.br/rc/rc.js"
       />
       <script
+        key="vtex-af.js-init"
+        type="text/partytown"
+        dangerouslySetInnerHTML={{
+          __html: `f=window.vtexaf=window.vtexaf||function(){(f.q=f.q||[]).push(arguments)};f.l=+new Date`,
+        }}
+      />
+      <script
         key="vtex-af.js-script"
         type="text/partytown"
         async
