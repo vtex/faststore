@@ -25,8 +25,9 @@ import type {
 } from '../clients/commerce/types/OrderForm'
 import { IncrementedAddress } from '../clients/commerce/types/IncrementedAddress'
 import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
-import { shouldCreateNewAddress } from '../utils/shouldCreateNewAddress'
+import { getAddressOrderForm } from '../utils/getAddressOrderForm'
 import { SelectedAddress } from '../clients/commerce/types/ShippingData'
+import { createNewAddress } from '../utils/createNewAddress'
 
 type Indexed<T> = T & { index?: number }
 
@@ -245,17 +246,23 @@ const getOrderForm = async (
   if (updateShipping) {
     let incrementedAddress: IncrementedAddress | undefined
 
-    if (session.postalCode && addressChanged) {
+    // Check if the orderForm address matches the one from the session
+    const oldAddress = getAddressOrderForm(orderForm, session, addressChanged)
+
+    if (session.postalCode && addressChanged && !oldAddress) {
       incrementedAddress = await commerce.checkout.incrementAddress(
         session.country,
         session.postalCode
       )
     }
 
-      const address = shouldCreateNewAddress(orderForm, session, addressChanged, incrementedAddress)
-      const selectedAddresses = (address) as SelectedAddress[];
+    const address = oldAddress
+      ? oldAddress
+      : createNewAddress(session, incrementedAddress)
 
+    const selectedAddresses = address as SelectedAddress[]
 
+    console.log("bibi", selectedAddresses)
 
     const hasDeliveryWindow = session.deliveryMode?.deliveryWindow
       ? true
@@ -270,7 +277,7 @@ const getOrderForm = async (
           deliveryMode: session.deliveryMode,
           selectedAddresses: selectedAddresses,
         },
-          false
+        false
       )
     }
 
