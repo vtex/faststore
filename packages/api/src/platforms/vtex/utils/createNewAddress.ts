@@ -1,27 +1,23 @@
 import { IStoreSession } from '../../../__generated__/schema'
-import { IncrementedAddress } from '../clients/commerce/types/IncrementedAddress'
 import { SelectedAddress } from '../clients/commerce/types/ShippingData'
 
-export const createNewAddress = (
-  session: IStoreSession,
-  incrementedAddress?: IncrementedAddress
-) => {
+export const createNewAddress = (session: IStoreSession) => {
   const postalCode = session.postalCode
   const geoCoordinates = session.geoCoordinates
 
   // If the address from the session has changed and it do not exist we will create the new one
   const addressSession: SelectedAddress = {
     addressType: session.addressType || null,
-    postalCode: postalCode || incrementedAddress?.postalCode || null,
-    city: incrementedAddress?.city || null,
-    state: incrementedAddress?.state || null,
-    country: session.country || incrementedAddress?.country || null,
-    street: incrementedAddress?.street || null,
-    number: incrementedAddress?.number || null,
-    neighborhood: incrementedAddress?.neighborhood || null,
-    complement: incrementedAddress?.complement || null,
-    reference: incrementedAddress?.reference || null,
-    geoCoordinates: [], // Initialize with default value
+    postalCode: postalCode || null,
+    city: null,
+    state: null,
+    country: session.country || null,
+    street: null,
+    number: null,
+    neighborhood: null,
+    complement: null,
+    reference: null,
+    geoCoordinates: [],
   }
 
   if (geoCoordinates) {
@@ -34,9 +30,7 @@ export const createNewAddress = (
         ? geoCoordinates.longitude
         : null
     addressSession.geoCoordinates =
-      latitude !== null && longitude !== null
-        ? [longitude, latitude]
-        : incrementedAddress?.geoCoordinates || []
+      latitude !== null && longitude !== null ? [longitude, latitude] : []
   }
 
   return [addressSession]

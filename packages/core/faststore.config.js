@@ -18,7 +18,7 @@ module.exports = {
     workspace: 'master',
     environment: 'vtexcommercestable',
     hideUnavailableItems: true,
-    incrementAddress: false,
+    incrementAddress: true,
   },
 
   // Default session

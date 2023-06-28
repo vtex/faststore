@@ -23,7 +23,6 @@ import type {
   OrderFormInputItem,
   OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
-import { IncrementedAddress } from '../clients/commerce/types/IncrementedAddress'
 import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
 import { getAddressOrderForm } from '../utils/getAddressOrderForm'
 import { SelectedAddress } from '../clients/commerce/types/ShippingData'
@@ -244,21 +243,10 @@ const getOrderForm = async (
   )
 
   if (updateShipping) {
-    let incrementedAddress: IncrementedAddress | undefined
-
     // Check if the orderForm address matches the one from the session
     const oldAddress = getAddressOrderForm(orderForm, session, addressChanged)
 
-    if (session.postalCode && addressChanged && !oldAddress) {
-      incrementedAddress = await commerce.checkout.incrementAddress(
-        session.country,
-        session.postalCode
-      )
-    }
-
-    const address = oldAddress
-      ? oldAddress
-      : createNewAddress(session, incrementedAddress)
+    const address = oldAddress ? oldAddress : createNewAddress(session)
 
     const selectedAddresses = address as SelectedAddress[]
 

@@ -20,7 +20,6 @@ import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import { DeliveryMode, SelectedAddress } from './types/ShippingData'
-import { IncrementedAddress } from './types/IncrementedAddress'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -92,23 +91,6 @@ export const VtexCommerce = (
         )
       },
 
-      incrementAddress: (
-        country: string,
-        postalCode: string
-      ): Promise<IncrementedAddress> => {
-        return incrementAddress
-          ? fetchAPI(
-              `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`,
-              {
-                method: 'GET',
-                headers: {
-                  'content-type': 'application/json',
-                },
-              }
-            )
-          : Promise.resolve(undefined)
-      },
-
       shippingData: (
         {
           id,
@@ -138,7 +120,9 @@ export const VtexCommerce = (
             deliveryWindow: deliveryWindow,
           })),
           selectedAddresses: selectedAddresses,
+          clearAddressIfPostalCodeNotFound: incrementAddress,
         }
+
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
