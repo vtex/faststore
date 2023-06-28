@@ -17,16 +17,20 @@ export const shouldUpdateShippingData = (
   }
 
   const { address } = orderForm.shippingData ?? { address: null }
+  const selectedAddress = orderForm.shippingData?.selectedAddresses[0]
 
-  if (checkPostalCode(address, session.postalCode)) {
+  if (checkPostalCode(selectedAddress, session.postalCode)) {
+    console.log("PostalCode", address, selectedAddress)
     return { updateShipping: true, addressChanged: true }
   }
 
-  if (checkGeoCoordinates(address, session.geoCoordinates)) {
+  if (checkGeoCoordinates(selectedAddress, session.geoCoordinates)) {
+    console.log("GeoCoord", address)
     return { updateShipping: true, addressChanged: true }
   }
 
-  if (checkAddressType(address, session.addressType)){
+  if (checkAddressType(selectedAddress, session.addressType)){
+    console.log("Address Type", address)
     return { updateShipping: true, addressChanged: true }
   }
 
