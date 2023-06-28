@@ -58,58 +58,57 @@ By the end of this part of this tutorial, you will be able to see the definition
 7. Open the `content-types.json` file in any code editor of your choice and add the following code:
 
 ```json title="cms/faststore/content-types.json"
-    [
+[
+  {
+    "id": "customPage",
+    "name": "Custom Page",
+    "configurationSchemaSets": [
       {
-        "id": "home",
-        "name": "Home Page",
-        "configurationSchemaSets": []
-      },
-      {
-        "id": "institutionalPage",
-        "name": "Institutional page",
-        "configurationSchemaSets": [
+        "name": "Settings",
+        "configurations": [
           {
-            "name": "SEO",
-            "configurations": [
-              {
-                "name": "siteMetadataWithSlug",
-                "schema": {
-                  "title": "Site Metadata",
-                  "description": "Configure global site metadata",
-                  "type": "object",
-                  "widget": {
-                    "ui:ObjectFieldTemplate": "GoogleSeoPreview"
-                  },
-                  "properties": {
-                    "title": {
-                      "title": "Default page title",
-                      "description": "Display this title when no other tile is available",
-                      "type": "string",
-                      "default": "Store Theme | VTEX SFJ"
-                    },
-                    "description": {
-                      "title": "Meta tag description",
-                      "type": "string",
-                      "default": "A beautifully designed site for general VTEX stores"
-                    },
-                    "titleTemplate": {
-                      "title": "Title template to be used in category/product pages",
-                      "type": "string",
-                      "default": "%s | Store Theme"
-                    },
-                    "slug": {
-                      "title": "URL Slug",
-                      "type": "string",
-                      "default": "/landing-page-url"
-                    }
-                  }
+            "name": "seo",
+            "schema": {
+              "title": "SEO",
+              "description": "Search Engine Optimization options",
+              "type": "object",
+              "widget": {
+                "ui:ObjectFieldTemplate": "GoogleSeoPreview"
+              },
+              "required": [
+                "slug",
+                "title",
+                "description"
+              ],
+              "properties": {
+                "slug": {
+                  "title": "Path",
+                  "type": "string",
+                  "default": "/"
+                },
+                "title": {
+                  "title": "Default page title",
+                  "description": "Display this title when no other title is available",
+                  "type": "string",
+                  "default": "FastStore Starter"
+                },
+                "description": {
+                  "title": "Meta tag description",
+                  "type": "string",
+                  "default": "A beautifully designed store"
+                },
+                "canonical": {
+                  "title": "Canonical url for the page",
+                  "type": "string"
                 }
               }
-            ]
+            }
           }
         ]
       }
     ]
+  }
+]
 ```
 <Callout type="info" emoji="ℹ️">
   Don't worry about the structure of this file for now, as we'll learn more about it later in this tutorial. However, notice that we have defined two different Content Types: the **Home Page** and the **Institutional Page**.
