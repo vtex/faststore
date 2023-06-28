@@ -144,7 +144,7 @@ export const VtexCommerce = (
           })),
           selectedAddresses: selectedAddresses,
         }
-
+        console.log("MappedBody", JSON.stringify(mappedBody))
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
