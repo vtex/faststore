@@ -20,18 +20,18 @@ export const getAddressOrderForm = (
       if (postalCode && geoCoordinates) {
         const addressMatcher =
           address.postalCode === postalCode ||
-          address.geoCoordinates[0] === geoCoordinates.longitude &&
-          address.geoCoordinates[1] === geoCoordinates.latitude
+          (address.geoCoordinates[0] === geoCoordinates.longitude &&
+            address.geoCoordinates[1] === geoCoordinates.latitude)
         if (addressMatcher) {
           return [address]
         }
-      } 
+      }
       if (postalCode && !geoCoordinates) {
         const addressMatcher = address.postalCode === postalCode
         if (addressMatcher) {
           return [address]
         }
-      } 
+      }
       if (geoCoordinates && !postalCode) {
         const addressMatcher =
           address.geoCoordinates[0] === geoCoordinates.longitude &&
@@ -39,7 +39,6 @@ export const getAddressOrderForm = (
         if (addressMatcher) {
           return [address]
         }
-
       }
     }
   }

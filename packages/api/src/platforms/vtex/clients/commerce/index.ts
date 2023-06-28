@@ -19,10 +19,7 @@ import { getCookie } from '../../utils/getCookies'
 import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
-import {
-  DeliveryMode,
-  SelectedAddress
-} from './types/ShippingData'
+import { DeliveryMode, SelectedAddress } from './types/ShippingData'
 import { IncrementedAddress } from './types/IncrementedAddress'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
@@ -126,8 +123,6 @@ export const VtexCommerce = (
         },
         setDeliveryWindow?: boolean
       ): Promise<OrderForm> => {
-      
-
         const deliveryWindow = setDeliveryWindow
           ? {
               startDateUtc: deliveryMode?.deliveryWindow?.startDate,

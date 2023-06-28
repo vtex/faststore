@@ -262,7 +262,6 @@ const getOrderForm = async (
 
     const selectedAddresses = address as SelectedAddress[]
 
-
     const hasDeliveryWindow = session.deliveryMode?.deliveryWindow
       ? true
       : false
