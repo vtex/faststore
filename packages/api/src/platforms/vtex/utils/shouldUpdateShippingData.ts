@@ -26,6 +26,10 @@ export const shouldUpdateShippingData = (
     return { updateShipping: true, addressChanged: true }
   }
 
+  if (checkAddressType(address, session.addressType)){
+    return { updateShipping: true, addressChanged: true }
+  }
+
   if (!hasItems(orderForm)) {
     return { updateShipping: false, addressChanged: false }
   }
@@ -76,6 +80,13 @@ const checkGeoCoordinates = (
     (address?.geoCoordinates[0] !== geoCoordinates?.longitude ||
       address?.geoCoordinates[1] !== geoCoordinates?.latitude)
   )
+}
+
+const checkAddressType = (
+  address: CheckoutAddress | null | undefined,
+  addressType: string | null | undefined
+) => {
+  return typeof addressType === 'string' && address?.addressType !== addressType
 }
 
 // Validate if theres any item inside the orderForm
