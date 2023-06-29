@@ -23,19 +23,8 @@ export type SectionOverride =
   | ProductDetailsOverrideDefinition
   | ProductGalleryOverrideDefinition
 
-type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
-  k: infer I
-) => void
-  ? I
-  : never
-
-type MergeProps<U> = {
-  [K in keyof UnionToIntersection<U>]: UnionToIntersection<U>[K]
-}
 export type GetSectionOverridesReturn<SO extends SectionOverride> = {
-  [Key in keyof SO['components']]: ComponentOverride<
-    MergeProps<SO['components'][Key]>
-  >
+  [Key in keyof SO['components']]: Merge<SO['components'][Key]>
 }
 
 export type DefaultSectionComponentsDefinitions<
@@ -44,7 +33,10 @@ export type DefaultSectionComponentsDefinitions<
 
 export type SectionOverrideDefinition<
   SectionName extends string = string,
-  OC extends Record<string, unknown> = Record<string, unknown>
+  OC extends Record<string, ComponentOverrideDefinition<any, any>> = Record<
+    string,
+    ComponentOverrideDefinition<any, any>
+  >
 > = {
   section: SectionName
   components?: Partial<Prettify<OC>>
@@ -60,17 +52,26 @@ export type ComponentOverrideDefinition<ComponentProps, Props> =
       props?: never
     }
 
-export type ComponentOverride<
-  COP extends MergeProps<ComponentOverrideDefinition<any, any>>
-> = COP extends MergeProps<
-  ComponentOverrideDefinition<infer ComponentProps, infer Props>
->
-  ? {
-      Component: React.ComponentType<ComponentProps>
-      props: Partial<Props>
-    }
-  : never
-
 export type Prettify<T> = {
   [K in keyof T]: T[K]
 } & {}
+
+type Subtract<A, C> = A extends C ? never : A
+type AllKeys<T> = T extends any ? keyof T : never
+
+type CommonKeys<T> = keyof T
+type NonCommonKeys<T> = Subtract<AllKeys<T>, CommonKeys<T>>
+
+type PickType<T, K extends AllKeys<T>> = T extends { [k in K]?: any }
+  ? T[K]
+  : undefined
+
+type PickTypeOf<T, K extends string | number | symbol> = K extends AllKeys<T>
+  ? PickType<T, K>
+  : never
+
+type Merge<T> = {
+  [k in CommonKeys<T>]: PickTypeOf<T, k>
+} & {
+  [k in NonCommonKeys<T>]?: PickTypeOf<T, k>
+}
