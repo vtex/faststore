@@ -40,17 +40,17 @@ By the end of this part of this tutorial, you will be able to see the definition
   ```bash
   mkdir cms faststore
   ```
-3. Inside the `faststore` folder, create the three following files:
+3. Create the three files below inside the `faststore` folder by running the `touch` command:
+
+```bash
+    touch cms/faststore/content-types.json cms/faststore/sections.json cms/faststore/translation-keys.json
+```
 
 | File name                | Description                                                                                                                                                    |
 | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `content-types.json`     |  An array of JSON objects that describes the **Content Types** available for customization at the VTEX Headless CMS app.                                       |
 | `sections.json`          | An array of JSON objects that describes the content structure of the frontend **Section** components available for customization at the VTEX Headless CMS app. |
 |  `translation-keys.json` | an array of JSON objects that defines the translation keys of the Sections descriptions.                                                                       |
-
-```bash
-    touch cms/faststore/content-types.json cms/faststore/sections.json cms/faststore/translation-keys.json
-```
 
 5. Update the `sections.json` file with an empty array:
 
