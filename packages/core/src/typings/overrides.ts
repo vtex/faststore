@@ -42,7 +42,10 @@ export type DefaultSectionComponentsDefinitions<
   T extends SectionOverrideDefinition
 > = Record<keyof T['components'], React.ComponentType>
 
-export type SectionOverrideDefinition<SectionName extends string, OC> = {
+export type SectionOverrideDefinition<
+  SectionName extends string = string,
+  OC extends Record<string, unknown> = Record<string, unknown>
+> = {
   section: SectionName
   components?: Partial<Prettify<OC>>
 }
@@ -58,7 +61,7 @@ export type ComponentOverrideDefinition<ComponentProps, Props> =
     }
 
 export type ComponentOverride<
-  COP extends MergeProps<ComponentOverrideDefinition>
+  COP extends MergeProps<ComponentOverrideDefinition<any, any>>
 > = COP extends MergeProps<
   ComponentOverrideDefinition<infer ComponentProps, infer Props>
 >
