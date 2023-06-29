@@ -18,40 +18,44 @@ For more information, please refer to [this guide](https://developers.vtex.com/v
 ### Enable the VTEX Intelligent Search app in your account
 
 The [VTEX Intelligent Search](https://help.vtex.com/tracks/vtex-intelligent-search) app enhances the user experience by providing accurate and personalized search results throughout the shopping journey. 
-Before developing a storefront in FastStore, you need to enable the app on your account. 
+Before developing a storefront in FastStore, you need to enable the app on your account. For more information on the Intelligent Search and its integration, please refer to the [VTEX Intelligent Search](https://help.vtex.com/tracks/vtex-intelligent-search) and [Integration Settings](https://help.vtex.com/en/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/6wKQgKmu2FT6084BJT7z5V) guides.
 
-To enable the app, begin by checking the version of your [Edition Store](https://developers.vtex.com/docs/guides/vtex-io-documentation-edition-app) account. Based on the account version, follow the instructions below.
+To enable the app, begin by checking the version of your [Edition Store](https://developers.vtex.com/docs/guides/vtex-io-documentation-edition-app) account. Based on the edition version, follow the instructions below.
 
 <Callout type="info" emoji="ℹ️">
   To check which Edition App version is installed in your account, open the terminal and use the VTEX IO CLI. Log in to your account by running `vtex login {accountName}` and run `vtex edition get` to see the Edition App version installed on the current account.
 </Callout>
 
-<Tabs items={['Accounts in the vtex.edition-store@5.x', 'Accounts using an edition version below 5.x', 'Accounts that want to migrate to the 5.x.']}>
-  <Tab>
+<details>
+  <summary>
+    <b>Accounts in the `vtex.edition-store@5.x`</b>
+  </summary>
+  <p>
     If your account is using the `vtex.edition-store@5.x` major, the VTEX Intelligent Search app is already included, and you need to integrate the app via VTEX Admin. 
     <br></br>
     To integrate the VTEX Intelligent Search, go to the VTEX Admin and access **Store Settings > Intelligent Search > Integrations** and click on `START INTEGRATION`. 
-  </Tab>
-    
-  <Tab>
-        
-    If the VTEX Intelligent Search app is not installed in your account, make sure to install it before continuing:
+  </p>
+</details>
 
+<details>
+  <summary>
+    <b>Accounts using an edition version below `5.x`</b>
+  </summary>
+  <p>
+    If your account is using the `vtex.edition-store@5.x` major, the VTEX Intelligent Search app is already included, and you need to integrate the app via VTEX Admin. 
+    <br></br>
+    To integrate the VTEX Intelligent Search, go to the VTEX Admin and access **Store Settings > Intelligent Search > Integrations** and click on `START INTEGRATION`. 
+  </p>
+</details>
 
-    1. In the VTEX IO CLI, log in to your VTEX account by running `vtex login {accountName}`. *Remember to replace the value between brackets with your account name.*
-
-    2. Run the following for Intelligent Search:
-
-    ```bash
-    vtex install vtex.search-resolver@1.x vtex.admin-search@1.x
-    ```
-    After successfully installing the app, integrate it by accessing the VTEX Admin, go to **Store Settings > Intelligent Search > Integrations** and click on `START INTEGRATION`. 
-  </Tab>
-
-  <Tab>
-    If you are using a different major version and want to migrate, please [open a ticket with VTEX Support](https://help.vtex.com/en/support) and request the installation of the Edition app `vtex.edition-store@5.x`.
-  </Tab>
-</Tabs>
+<details>
+  <summary>
+    <b>Accounts that want to migrate to the `5.x`</b>
+  </summary>
+  <p>
+    If you are using a different major version and want to migrate, please [open a ticket with VTEX Support](https://help.vtex.com/en/support) and request the installation of the Edition app `vtex.edition-store@5.x`. 
+  </p>
+</details>
 
 ### Request the installation of the FastStore Onboarding app.
 
