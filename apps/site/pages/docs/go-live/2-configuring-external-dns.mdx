@@ -28,7 +28,7 @@ Besides making your FastStore website accessible via a custom domain, the **VTEX
 ## Before you start
 
 - [Set up your VTEX account.](/docs/go-live/1-setting-up-vtex-account-for-faststore)
-- Develop your FastStore project with **Next.js** by following the [Getting Started track](/docs/getting-started/0-getting-started-overview).
+- Develop your FastStore project with **Next.js** by following the [Getting Started track](/docs/getting-started-overview).
 - Deploy your FastStore project.
 - Buy the desired domain.
 - [Redirect the **root domain** to the `www` subdomain.](https://help.vtex.com/en/tutorial/configuring-access-without-www--tutorials_4278#root-domain-redirect-without-www)
@@ -80,7 +80,7 @@ Back to your FastStore project, you must also configure your project to point to
    - **`loginUrl`**: `https://{subdomain}.{rootDomain}/api/io/login`
    - **`accountUrl`**: `https://{subdomain}.{rootDomain}/api/io/account`
 
-Take the following example of how this code block would look after configuring a store with the `mystore.com` domain and `secure` subdomain:
+Take the following example of how this code block would look after configuring a store with the `www.mystore.com` domain and `secure` subdomain:
 
 ```diff filename="/faststore.config.js"
 ...
@@ -89,7 +89,7 @@ Take the following example of how this code block would look after configuring a
 channel: '1',
 
 +  // Production URLs
-+  storeUrl: 'https://mystore.com',
++  storeUrl: 'https://www.mystore.com',
 +  secureSubdomain: 'https://secure.mystore.com',
 +  checkoutUrl: 'https://secure.mystore.com/checkout',
 +  loginUrl: 'https://secure.mystore.com/api/io/login',
@@ -104,7 +104,7 @@ lighthouse: {
 6. Add the `SITE_HOST` key with the main domain specified in [Configuring domains in VTEX Account Settings](/docs/go-live/2-configuring-external-dns#step-2---configuring-domains-in-vtex-account-management) as the value.
 
 ```diff filename="/vtex.env"
-+ SITE_HOST=mystore.com
++ SITE_HOST=www.mystore.com
 ```
 
 7. Save your changes.
