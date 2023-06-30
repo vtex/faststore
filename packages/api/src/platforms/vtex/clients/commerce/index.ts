@@ -123,6 +123,8 @@ export const VtexCommerce = (
           clearAddressIfPostalCodeNotFound: incrementAddress,
         }
 
+        console.log("incrementAddress", mappedBody, incrementAddress)
+
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
