@@ -3,23 +3,10 @@ import {
   HeroImage as UIHeroImage,
   HeroHeader as UIHeroHeader,
 } from '@faststore/ui'
-import type { HeroProps, HeroImageProps, HeroHeaderProps } from '@faststore/ui'
 
-import type {
-  ComponentOverrideDefinition,
-  SectionOverrideDefinition,
-} from 'src/typings/overrides'
 import { getSectionOverrides } from 'src/utils/overrides'
 import { override } from 'src/customizations/components/overrides/Hero'
-
-export type HeroOverrideDefinition = SectionOverrideDefinition<
-  'Hero',
-  {
-    Hero: ComponentOverrideDefinition<HeroProps, HeroProps>
-    HeroImage: ComponentOverrideDefinition<HeroImageProps, HeroImageProps>
-    HeroHeader: ComponentOverrideDefinition<HeroHeaderProps, HeroHeaderProps>
-  }
->
+import type { HeroOverrideDefinition } from 'src/typings/overrides'
 
 const { Hero, HeroImage, HeroHeader } = getSectionOverrides(
   {

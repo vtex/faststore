@@ -11,66 +11,13 @@ import {
   ImageGallery as UIImageGallery,
 } from '@faststore/ui'
 
-import type {
-  ProductTitleProps,
-  ButtonProps,
-  DiscountBadgeProps,
-  IconProps,
-  ImageGalleryProps,
-  ImageZoomProps,
-  PriceProps,
-  QuantitySelectorProps,
-  ShippingSimulationProps,
-  SkuSelectorProps,
-} from '@faststore/ui'
-
 import LocalImageGallery from 'src/components/ui/ImageGallery'
 import LocalShippingSimulation from 'src/components/ui/ShippingSimulation/ShippingSimulation'
 import { Image } from 'src/components/ui/Image'
 
 import { getSectionOverrides } from 'src/utils/overrides'
-import type {
-  ComponentOverrideDefinition,
-  SectionOverrideDefinition,
-} from 'src/typings/overrides'
 import { override } from 'src/customizations/components/overrides/ProductDetails'
-
-export type ProductDetailsOverrideDefinition = SectionOverrideDefinition<
-  'ProductDetails',
-  {
-    ProductTitle: ComponentOverrideDefinition<
-      ProductTitleProps,
-      ProductTitleProps
-    >
-    DiscountBadge: ComponentOverrideDefinition<
-      DiscountBadgeProps,
-      Omit<DiscountBadgeProps, 'listPrice' | 'spotPrice'>
-    >
-    BuyButton: ComponentOverrideDefinition<ButtonProps, ButtonProps>
-    Icon: ComponentOverrideDefinition<IconProps, IconProps>
-    Price: ComponentOverrideDefinition<
-      PriceProps,
-      Omit<PriceProps, 'value' | 'data-value'>
-    >
-    QuantitySelector: ComponentOverrideDefinition<
-      QuantitySelectorProps,
-      Omit<QuantitySelectorProps, 'onChange'>
-    >
-    SkuSelector: ComponentOverrideDefinition<SkuSelectorProps, SkuSelectorProps>
-    ShippingSimulation: ComponentOverrideDefinition<
-      ShippingSimulationProps,
-      ShippingSimulationProps
-    >
-    ImageGallery: ComponentOverrideDefinition<
-      ImageGalleryProps,
-      ImageGalleryProps
-    >
-    ImageZoom: ComponentOverrideDefinition<ImageZoomProps, ImageZoomProps>
-    __experimentalImageGalleryImage: ComponentOverrideDefinition<any, any>
-    __experimentalImageGallery: ComponentOverrideDefinition<any, any>
-    __experimentalShippingSimulation: ComponentOverrideDefinition<any, any>
-  }
->
+import type { ProductDetailsOverrideDefinition } from 'src/typings/overrides'
 
 const {
   ProductTitle,

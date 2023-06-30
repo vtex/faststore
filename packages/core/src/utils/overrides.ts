@@ -1,9 +1,14 @@
 import type {
   DefaultSectionComponentsDefinitions,
-  GetSectionOverridesReturn,
   ComponentOverrideDefinition,
-  SectionOverride,
-} from 'src/typings/overrides'
+  Merge,
+} from 'src/typings/overrideDefinitionUtils'
+
+import type { SectionOverride } from 'src/typings/overrides'
+
+export type GetSectionOverridesReturn<SO extends SectionOverride> = {
+  [Key in keyof SO['components']]: Merge<SO['components'][Key]>
+}
 
 export function getSectionOverrides<SO extends SectionOverride>(
   defaultComponents: DefaultSectionComponentsDefinitions<SO>,
