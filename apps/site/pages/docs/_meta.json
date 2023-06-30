@@ -40,12 +40,15 @@
       "layout": "full"
     }
   },
-
   "-- VTEX Headless CMS --": {
     "type": "separator",
     "title": "VTEX Headless CMS"
   },
-  
+
+  "headless-cms-overview": "Introducing VTEX Headless CMS",
+  "headless-cms-integration": "Integrating your storefront with VTEX Headless CMS",
+  "headless-cms-troubleshooting": "Troubleshooting",
+
   "-- VTEX Integration --": {
     "type": "separator",
     "title": "VTEX Platform Integration"
