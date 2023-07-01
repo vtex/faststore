@@ -1,0 +1,11 @@
+{
+  "component-customization-overview": {
+    "title": "Overview"
+  },
+  "overriding-components-and-props": {
+    "title": "Overriding native components and props"
+  },
+  "creating-a-new-section": {
+    "title": "Creating a new section"
+  }
+}
