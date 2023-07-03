@@ -51,6 +51,22 @@ function Page({ product, sections, globalSections }: Props) {
   const description = seo.description || storeConfig.seo.description
   const canonical = `${storeConfig.storeUrl}${seo.canonical}`
 
+  const getStructuredDataOffers = () => {
+    let offer = {}
+
+    if (product.offers.offers.length > 0) {
+      const { listPrice, ...offerData } = product.offers.offers[0]
+
+      offer = offerData
+    }
+
+    return {
+      ...offer,
+      priceCurrency: product.offers.priceCurrency,
+      url: canonical,
+    }
+  }
+
   return (
     <GlobalSections {...globalSections}>
       {/* SEO */}
@@ -90,12 +106,7 @@ function Page({ product, sections, globalSections }: Props) {
         gtin={product.gtin}
         releaseDate={product.releaseDate}
         images={product.image.map((img) => img.url)} // Somehow, Google does not understand this valid Schema.org schema, so we need to do conversions
-        offersType="AggregateOffer"
-        offers={{
-          ...product.offers,
-          ...product.offers.offers[0],
-          url: canonical,
-        }}
+        offers={getStructuredDataOffers()}
       />
 
       {/*
