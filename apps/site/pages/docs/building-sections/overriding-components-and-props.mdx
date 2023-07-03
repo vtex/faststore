@@ -3,38 +3,54 @@ title: '  Overriding native components and props'
 sidebar_label: 'Component Customization'
 ---
 
-import { Callout } from 'nextra-theme-docs'
+
+import { Callout, Steps } from 'nextra-theme-docs'
 
 <header>
-
-# Overriding Native Component's and Props
+# Overriding Native Components and Props
 
 </header>
 
 <Callout type="warning" emoji="⚠️">
-  This documentation is currently under development.
+  This documentation is currently being developed.
 </Callout>
 
-In this guide, you will learn about:
+In this guide, you will learn how to modify a component's behavior using additional properties in your store code and create new components by overriding their native equivalents. 
 
-- [1. Override native component's props](/docs/building-sections/overriding-components-and-props#1-override-native-component-by-overriding-its-props): Modify the behavior of a specific component by passing additional props to it in your store code.
-- [2. Override a native component](/docs/building-sections/overriding-components-and-props#2-overriding-a-native-component): Create a new component and override its native equivalent to achieve the desired functionality.
+These features are useful when you need a customized behavior for a specific component not available in the [FastStore native options](/docs/reference-guides/list-of-native-sections).
+
+
+<Callout type="warning" emoji="⚠️">
+  When overriding a component, it's important to note that you will lose the integration developed in [`@faststore/core`](/docs/getting-started/3-project-structure#faststorecore) for that component. To avoid compromising the existing integration, we highly recommend to consider [overriding props](#1-override-native-component-by-overriding-its-props) or utilizing the [theming tools](/docs/customizing/components) provided by `@faststore/core` to achieve the desired behavior. For more information about the available props for each component, refer to the [Components UI](/components) guide.
+</Callout>
 
 ---
 
-Before you begin, make sure you have a functioning FastStore project.
+## Before you start
 
-Also, consider the following:
+<Steps>
+ 
+### Ensure you have a functioning FastStore project
 
+Make sure you have a functioning FastStore project after following the [FastStore onboarding](/docs/getting-started/1-faststore-onboarding/overview) and [setting up the project](/docs/getting-started/2-setting-up-the-project).
+
+### Choose a native section and the component you want to customize
+ 
+The [`@faststore/core`](/docs/getting-started/3-project-structure#faststorecore) package provides a set of native sections, each consisting of different components with unique functionalities.
+Refer to the [List of native sections and overridable components](/docs/reference-guides/list-of-native-sections#faststore-native-sections) to explore available native sections.
+ 
+ ### Consider two aspects for this feature
+ Keep in mind the following aspects when using this feature:
+
+ 
 - **This feature is experimental**: The feature may not function as expected.
 
 - **Some sections contain multiple instances of the same component**: When overriding a component or passing additional props to it, consider that all instances will be affected by this change.
 
-## Before you start
 
-**Choose a native section and the component you want to customize.**
+</Steps>
 
-The `@faststore/core` package provides a set of native sections. These native sections are made up of various components, each offering distinct functionalities. You can customize specific components within a native section or replace them entirely with alternative options that better align with your desired functionality or appearance.
+---
 
 ## Step by step
 
