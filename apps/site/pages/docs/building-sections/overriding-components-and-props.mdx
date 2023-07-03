@@ -243,16 +243,16 @@ This approach allows us to incorporate the icon and cart sidebar integration whi
 
 ```tsx filename="CustomBuyButton.tsx"
 import React from 'react'
-import { Button as UIButton } from '@faststore/ui'
+import { Button as UIButton, ButtonProps } from '@faststore/ui'
 
-export function CustomBuyButton(props: any) {
+export function CustomBuyButton(props: ButtonProps) {
   return (
     <UIButton
       {...props}
       variant="primary"
       onClick={(event) => {
         alert('You will love this product!')
-        props?.onClick(event)
+        props.onClick?.(event)
       }}
     >
       My New Buy Button
