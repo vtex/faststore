@@ -167,11 +167,27 @@ For this guide we will create a custom Buy Button that once you click on it, it 
 
 1. Inside the `components` folder, create a file named `CustomBuyButton.tsx`. *If you haven't created the `components` folder yet, see the [Setting up the overrides folder](/docs/building-sections/overriding-components-and-props#step-1---setting-up-the-overrides-folder) step.*
 
-```bash
-touch src/components/CustomBuyButton.tsx
-```
+<Tabs items={['macOS and Linux', 'Windows']}>
+  <Tab>
+    ```bash
+    touch src/components/CustomBuyButton.tsx
+    ```
+  </Tab>
 
-2. Copy and paste the following code into `CustomBuyButton.tsx` file:
+  <Tab>
+    ```bash
+    touch src\components\CustomBuyButton.tsx
+    ```
+  </Tab>
+
+</Tabs>
+
+<Callout type="info" emoji="ℹ️">
+  When creating a custom component, it's important to choose a name that distinguishes it from the native component. For example, you can use a name like `CustomComponentName`.
+</Callout>
+
+
+2. Add the following code into `CustomBuyButton.tsx` file:
 
 ```tsx
 import React from 'react'
@@ -190,8 +206,8 @@ export function CustomBuyButton() {
   )
 }
 ```
-
-The code above imports the Button component from the [@faststore/ui](/components) package, and creates a `CustomBuyButton` component that, when clicked opens an alert. You can create any component as you wish.
+The provided code imports the [Button](/components/atoms/button) component from the [@faststore/ui](/components) package. The code defines the `CustomBuyButton` component that displays an alert message when clicked,  based on the behavior we want. 
+However, you have the flexibility to customize the component to achieve a different behavior if needed.
 
 #### Step 2 - Overriding the component
 
@@ -214,17 +230,6 @@ const override: SectionOverride = {
 
 export { override }
 ```
-
-<Callout type="warning" emoji="⚠️">
-  **By overriding a component, you lose all the integration developed on
-  [@faststore/core](docs/getting-started/project-structure#faststorecore) for
-  that component.** We highly recommend trying first [overriding
-  props](/docs/component-customization/overriding-components-props) and/or using
-  our [theming tools](/docs/customizing) to achieve the desired behavior without
-  compromising the existing integration implemented in `@faststore/core`. You
-  can find the available props for each component on the [Components
-  UI](https://evergreen.faststore.dev/components).
-</Callout>
 
 4. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser. Navigate to the product details page, you should see the CustomBuyButton component in place of the previous BuyButton component.
 
