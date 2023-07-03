@@ -40,7 +40,7 @@ The `@faststore/core` package provides a set of native sections. These native se
 
 ### Step 1 - Setting up the `overrides` folder
 
-1. Choose the native section to be customized from the [list of available native sections](/docs/reference-guides/list-of-available-native-sections).
+1. Choose a native section to be customized from the [list of available native sections](/docs/reference-guides/list-of-available-native-sections).
 2. Open your FastStore project in any code editor of your preference.
 3. Go to the `src` folder, create the `components` folder and inside it, create the `overrides` folder.
 
@@ -72,9 +72,9 @@ export { override }
   `ProductDetails` to override this specific section.
 </Callout>
 
-6. Save your changes.
+6. Save your changes. We will use this file later.
 
-## 1. Override native component by overriding its props
+## 1. Override native component's props
 
 Overriding props allows you to customize a component's behavior without modifying the integration built for the native component.
 This approach is particularly useful when you want to change specific aspects of a native component while preserving its integration.
@@ -108,7 +108,7 @@ const override: SectionOverride = {
 export { override }
 ```
 
-This code will override the `BuyButton` props `size` and `iconPosition`. You'll see a smaller button than the initial one, and the cart icon will be on the right.
+This code will override the `BuyButton` props `size` and `iconPosition`. You'll see a smaller button than the initial one, and the cart icon positioned on the right side.
 
 2. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser and go to product details page to see the updated `BuyButton` component:
 
@@ -118,9 +118,9 @@ This code will override the `BuyButton` props `size` and `iconPosition`. You'll 
 
 Now that you know how to override a component's prop, you will learn how to override a native component to use a custom component.
 
-For example, you may want to modify the behavior of the `BuyButton` component from the `ProductDetails` section to meet your business needs.
+For example, you may want to replace the current `BuyButton` component from the `ProductDetails` section to meet your business needs.
 
-The current behavior of `BuyButton` when clicked is to open the `CartSideBar`:
+Currently, when the `BuyButton` is clicked, it opens the `CartSideBar` as its default behavior:
 
 ![overrides-PDP-buy-button-component](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-buy-button-open-cart___a5853a88238fa31610a93e8a1333bb00.gif)
 
@@ -158,7 +158,7 @@ The code above imports the Button component from the [@faststore/ui](/components
 
 #### Step 2 - Overriding the component
 
-1. Choose a component to override from the [list of overridable components for each native section](/docs/reference-guides/list-of-native-sections). In this example, we are overriding the `BuyButton` component in the `ProductDetails` section.
+1. Choose a component to override from the [list of overridable components of each native section](/docs/reference-guides/list-of-native-sections). In this example, we are overriding the `BuyButton` component in the `ProductDetails` section.
 2. Navigate to `src/components/overrides` that we've created [before](/docs/building-sections/overriding-components-and-props#step-1---setting-up-the-overrides-folder).
 3. Open the `ProductDetails.tsx` file and update it with the following code:
 
@@ -189,6 +189,39 @@ export { override }
   UI](https://evergreen.faststore.dev/components).
 </Callout>
 
-4. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser and go to the product details page to see the `CustomBuyButton` replacing the previous `BuyButton` component:
+4. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser. Navigate to the product details page, you should see the CustomBuyButton component in place of the previous BuyButton component.
 
 ![overrides-PDP-buy-button-component-alert](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-buy-button-open-alert___b62f8cb5f3f98f6bd0f5502081de6a9b.gif)
+
+## Extra: Overriding components and passing props
+
+In certain scenarios, you may have the option to use prior integrations within your custom component.
+Building upon our previous example, we could pass the `BuyButton` props to our new component.
+This approach allows us to incorporate the icon and cart sidebar integration while also introducing additional functionality to the `onClick` function, such as triggering an alert or sending an event to analytics.
+
+```tsx
+//CustomBuyButton.tsx
+import React from 'react'
+import { Button as UIButton } from '@faststore/ui'
+
+export function CustomBuyButton(props: any) {
+  return (
+    <UIButton
+      {...props}
+      variant="primary"
+      onClick={(event) => {
+        alert('You will love this product!')
+        props?.onClick(event)
+      }}
+    >
+      My New Buy Button
+    </UIButton>
+  )
+}
+```
+
+But remember that this will only work if your custom component's props are compatible with the overriding component.
+
+We believe this feature will open up numerous possibilities for exploration and customization in your store. Happy exploring! 🎉
+
+{/* add send analytics example when doc available */}
