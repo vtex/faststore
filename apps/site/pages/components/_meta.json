@@ -1,13 +1,11 @@
 {
   "index": "FastStore UI",
-  "----": {
+  "---": {
+    "title": "",
     "type": "separator"
   },
   "atoms": "Atoms",
   "molecules": "Molecules",
   "organisms": "Organisms",
-  "features": "Features",
-  "---": {
-    "type": "separator"
-  }
+  "features": "Features"
 }
