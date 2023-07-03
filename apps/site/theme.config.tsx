@@ -49,6 +49,7 @@ const config: DocsThemeConfig = {
   docsRepositoryBase: 'https://github.com/vtex/faststore/tree/main/apps/site',
   head: (
     <>
+      <title>FastStore Documentation</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta property="og:title" content="FastStore Documentation" />
       <meta
