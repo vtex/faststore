@@ -16,8 +16,11 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
 
   return {
     ci: {
-      collect: {
+      "collect": {
         url,
+        "setting": {
+          "throttlingMethod": "devtools"
+        }
       },
       assert: {
         preset: 'lighthouse:no-pwa',
