@@ -110,7 +110,8 @@ Replace `{storeName}` for your store's repository.
 ```bash
 cd {storeName}
 ```
-### 4. Install all the dependencies listed within the `package.json` file by running the following command:
+
+4. Install all the dependencies listed within the `package.json` file by running the following command:
 
 ```bash
 yarn install
@@ -158,19 +159,19 @@ While your local development server is running, you can preview any changes you 
 
 Now that your store is up and running locally, let's make a simple change in the store frontend.
 
-Let's make the first level of customization which is update the store's theme with [Theming](/docs/brandless). For this customization we are going to use the [Soft Blue theme](/docs/themes/soft-blue) and we will make some updates on it.
+Let's make the first level of customization which updates the store's [theme](/docs/themes/overview). For this customization, we are going to use the [Soft Blue theme](/docs/themes/soft-blue) and we will make some updates to it.
 
-1. Open the `faststore.config.js` file and in `theme` and change the name to `soft-blue`.
+1. Open the `faststore.config.js` file and changes the `theme` from `custom-theme` to `soft-blue`.
 
 ```scss
   theme: 'soft-blue',
 ```
 
-2. Create a new file `soft-blue.scss` in `src/themes`. This is going to be the new theme of your store.
+2. Create a new file named `soft-blue.scss` in `src/themes`. This is going to be the new theme of your store.
 
 3. Add the following styles to `src/themes/soft-blue.scss`:
 
-```scss
+```scss filename="src/themes/soft-blue.scss"
 // ----------------------------------------------------------
 // GLOBAL TOKENS
 // Theme Soft Blue
@@ -255,7 +256,7 @@ Let's make the first level of customization which is update the store's theme wi
 4. Save your changes.
 5. Restart the server and check your browser to see your changes. You may need to refresh the page.
 
-![themw-soft-blue](https://vtexhelp.vtexassets.com/assets/docs/src/soft-blue___9eb9e3e506de6396df954598739be8f8.png)
+![theme-soft-blue](https://vtexhelp.vtexassets.com/assets/docs/src/soft-blue___9eb9e3e506de6396df954598739be8f8.png)
 
 <Callout type="info" emoji="ℹ️">
   It is important to highlight that the store's logo is set through the [VTEX Headless CMS](https://www.faststore.dev/tutorials/cms/0).
