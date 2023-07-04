@@ -44,7 +44,6 @@
     "type": "separator",
     "title": "VTEX Headless CMS"
   },
-
   "headless-cms-overview": {
     "title": "Overview"
   },
@@ -54,7 +53,6 @@
   "headless-cms-troubleshooting": {
     "title": "Troubleshooting"
   },
-
   "-- VTEX Integration --": {
     "type": "separator",
     "title": "VTEX Platform Integration"
@@ -67,5 +65,6 @@
   "building-sections": {
     "title": "Building and Customizing Sections"
   },
-  "reference-guides": "Reference"
+  "reference-guides": "Reference",
+  "troubleshooting": "Troubleshooting"
 }
