@@ -18,6 +18,7 @@ import {
   Button,
   UIProvider,
   useUI,
+  Icon,
 } from '@faststore/ui'
 
 import path from 'path'
@@ -59,7 +60,11 @@ export const RegionBarUsage = () => {
   const { modal, openModal } = useUI()
   return (
     <>
-      <RegionBar onButtonClick={() => openModal()} />
+      <RegionBar
+        icon={<Icon name="MapPin" />}
+        label="Set your location"
+        onButtonClick={() => openModal()}
+      />
       {modal && <RegionModal fadeOutOnSubmit={true} />}
     </>
   )
@@ -69,7 +74,11 @@ export const RegionBarEditUsage = () => {
   const { modal, openModal } = useUI()
   return (
     <>
-      <RegionBar postalCode={'151515'} onButtonClick={() => openModal()} />
+      <RegionBar
+        icon={<Icon name="MapPin" />}
+        postalCode={'151515'}
+        onButtonClick={() => openModal()}
+      />
       {modal && <RegionModal fadeOutOnSubmit={true} inputValue={'151515'} />}
     </>
   )
@@ -93,7 +102,11 @@ export const RegionBarEditUsage = () => {
     const { modal, openModal } = useUI()
     return (
       <>
-        <RegionBar onButtonClick={() => openModal()} />
+        <RegionBar
+          icon={<Icon name="MapPin" />}
+          postalCode={'151515'}
+          onButtonClick={() => openModal()}
+        />
         {modal && <RegionModal fadeOutOnSubmit={true} />}
       </>
     )
@@ -101,7 +114,10 @@ export const RegionBarEditUsage = () => {
     const { modal, openModal } = useUI()
     return (
       <>
-        <RegionBar postalCode={'151515'} onButtonClick={() => openModal()} />
+        <RegionBar
+          icon={<Icon name="MapPin" />}
+          postalCode={'151515'}
+          onButtonClick={() => openModal()} />
         {modal && <RegionModal fadeOutOnSubmit={true} inputValue={'151515'} />}
       </>
     )
@@ -140,7 +156,11 @@ import '@faststore/ui/src/components/molecules/RegionBar/styles.scss'
 const { modal, openModal } = useUI()
 return (
   <>
-    <RegionBar onButtonClick={() => openModal()} />
+    <RegionBar
+      icon={<Icon name="MapPin" />}
+      postalCode={'151515'}
+      onButtonClick={() => openModal()}
+    />
     {modal && <RegionModal fadeOutOnSubmit={true} />}
   </>
 )
