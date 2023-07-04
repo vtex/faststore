@@ -19,15 +19,7 @@ In this guide, you will learn how to modify a component's behavior using additio
 These features are useful when you need a customized behavior for a specific component not available in the [FastStore native options](/docs/reference-guides/list-of-native-sections).
 
 <Callout type="warning" emoji="⚠️">
-  When overriding a component, it's important to note that you will lose the
-  integration developed in
-  [`@faststore/core`](/docs/getting-started/3-project-structure#faststorecore)
-  for that component. To avoid compromising the existing integration, we highly
-  recommend to consider [overriding
-  props](#1-override-native-component-by-overriding-its-props) or utilizing the
-  [theming tools](/docs/customizing/components) provided by `@faststore/core` to
-  achieve the desired behavior. For more information about the available props
-  for each component, refer to the [Components UI](/components) guide.
+We highly recommend considering [overriding props](#override-native-components-props) or utilizing the [theming tools](/docs/customizing/components) provided by `@faststore/core` to achieve the desired behavior. Overriding a component inside a section will compromise the existing integration developed in [`@faststore/core`](/docs/getting-started/3-project-structure#faststorecore) by losing updates for that component.
 </Callout>
 
 ---
