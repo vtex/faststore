@@ -1,0 +1,12 @@
+.section {
+  @import "@faststore/ui/src/components/atoms/Button/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Link/styles.scss";
+  @import "@faststore/ui/src/components/atoms/List/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Logo/styles.scss";
+  @import "@faststore/ui/src/components/molecules/LinkButton/styles.scss";
+  @import "@faststore/ui/src/components/molecules/Modal/styles.scss";
+  @import "@faststore/ui/src/components/molecules/NavbarLinks/styles.scss";
+  @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
+  @import "@faststore/ui/src/components/organisms/NavbarSlider/styles.scss";
+}
