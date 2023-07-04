@@ -42,7 +42,7 @@ Let's start taking a look at the structure that represents the source code of a 
 - `/.faststore` - Manages and coordinates the FastStore project to deliver a functional starter store. It contains essential packages such as `Components`, `SDK`, and `API`, which provide the core functionality of the FastStore starter.
 
 - `/src` - Contains all of your store's customizations, including your custom components and theme.
-- `/themes` - Keeps your store's theme, such as [midnight](/docs/themes/midnight)
+- `/src/themes` - Keeps your store's theme, such as [midnight](/docs/themes/midnight).
 
 ---
 
@@ -65,11 +65,11 @@ Let's start taking a look at the structure that represents the source code of a 
 ###  `package.json`
 Defines the project's metadata and handles dependencies and scripts using yarn. Let's take a closer look at three important packages inside this file:
 
-### `@faststore/core`
+- #### `@faststore/core`
 Bundles FastStore source code, including the starter for FatsStore projects: `starter store`. It contains three sub-packages, `Components`, `SDK`, and `API`, which handle the starter.
 
-### `@faststore/ui`
+- #### `@faststore/ui`
 Provides a design system based on FastStore components using Sass for styling.
 
-### `@faststore/cli`
+- #### `@faststore/cli`
 Combines VTEX code (`@faststore/core`) with the customizations you make in your repository (`/src`). This package helps with debugging and differentiating between VTEX code and customizations. To learn more, refer to the [FastStore CLI documentation](/docs/getting-started/4-faststore-cli).
