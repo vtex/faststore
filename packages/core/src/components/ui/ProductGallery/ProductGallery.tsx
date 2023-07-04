@@ -17,7 +17,7 @@ import { useDelayedFacets } from './useDelayedFacets'
 import { useDelayedPagination } from './useDelayedPagination'
 import { useProductsPrefetch } from './usePageProducts'
 import {
-  Button,
+  MobileFilterButton,
   FilterIcon,
   PrevIcon,
   ResultsCountSkeleton,
@@ -141,7 +141,7 @@ function ProductGallery({
             // This decision can be reviewed later if needed
             loading={facets?.length === 0}
           >
-            <Button.Component
+            <MobileFilterButton.Component
               variant="tertiary"
               data-testid="open-filter-button"
               icon={
@@ -160,13 +160,13 @@ function ProductGallery({
                 />
               }
               iconPosition="left"
-              {...Button.props}
+              {...MobileFilterButton.props}
               // Dynamic props shouldn't be overridable
               // This decision can be reviewed later if needed
               onClick={openFilter}
             >
               {filter?.mobileOnly?.filterButton?.label}
-            </Button.Component>
+            </MobileFilterButton.Component>
           </FilterButtonSkeleton.Component>
         </div>
         <div data-fs-product-listing-results>

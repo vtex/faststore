@@ -18,7 +18,7 @@ import { override } from 'src/customizations/components/overrides/ProductGallery
 import type { ProductGalleryOverrideDefinition } from 'src/typings/overrides'
 
 const {
-  Button,
+  MobileFilterButton,
   FilterIcon,
   PrevIcon,
   ResultsCountSkeleton,
@@ -31,7 +31,7 @@ const {
   __experimentalProductCard,
 } = getSectionOverrides(
   {
-    Button: UIButton,
+    MobileFilterButton: UIButton,
     FilterIcon: UIIcon,
     PrevIcon: UIIcon,
     ResultsCountSkeleton: UISkeleton,
@@ -47,7 +47,7 @@ const {
 )
 
 export {
-  Button,
+  MobileFilterButton,
   FilterIcon,
   PrevIcon,
   ResultsCountSkeleton,

@@ -207,7 +207,7 @@ export type ProductDetailsOverrideDefinition = SectionOverrideDefinition<
 export type ProductGalleryOverrideDefinition = SectionOverrideDefinition<
   'ProductGallery',
   {
-    Button: ComponentOverrideDefinition<
+    MobileFilterButton: ComponentOverrideDefinition<
       ButtonProps,
       Omit<ButtonProps, 'onClick'>
     >
