@@ -4,13 +4,8 @@ import { SectionOverride } from 'src/typings/overrides'
 
 const SECTION = 'RegionBar' as const
 
-const overrides: SectionOverride[typeof SECTION] = {
-  name: SECTION,
-  components: {
-    RegionBar: { props: {} },
-    LocationIcon: { props: {} },
-    ButtonIcon: { props: {} },
-  },
+const override: SectionOverride = {
+  section: SECTION,
 }
 
-export default overrides
+export { override }

@@ -60,12 +60,9 @@ import { SectionOverride } from '@faststore/core/src/typings/overrides'
 
 const SECTION = 'ProductDetails' as const
 
-const overrides: SectionOverride[typeof SECTION] = {
-  name: SECTION,
-  components: {},
-}
+const override: SectionOverride = { section: SECTION, components: {} }
 
-export default overrides
+export { override }
 ```
 
 <Callout type="warning" emoji="⚠️">
@@ -104,14 +101,14 @@ import { Price as CustomPrice } from '../Price'
 
 const SECTION = 'ProductDetails' as const
 
-const overrides: SectionOverride[typeof SECTION] = {
-  name: SECTION,
+const override: SectionOverride = {
+  section: SECTION,
   components: {
     Price: { Component: CustomPrice },
   },
 }
 
-export default overrides
+export { override }
 ```
 
 This code imports the _Custom Price_ component and overrides the native Price component in the `ProductDetails` section.

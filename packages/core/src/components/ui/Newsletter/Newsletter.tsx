@@ -3,18 +3,17 @@ import { forwardRef, useRef } from 'react'
 import { convertFromRaw } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
 import { useUI } from '@faststore/ui'
+import type { InputFieldProps } from '@faststore/ui'
+
 import { useNewsletter } from 'src/sdk/newsletter/useNewsletter'
-
-import { Components, Props } from 'src/components/sections/Newsletter/Overrides'
-
-const {
+import {
   ToastIconSuccess,
   ToastIconError,
   HeaderIcon,
-  InputFieldEmail,
   InputFieldName,
+  InputFieldEmail,
   Button,
-} = Components
+} from 'src/components/sections/Newsletter/Overrides'
 
 const cmsToHtml = (content) => {
   if (!content) {
@@ -146,11 +145,11 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
           ...toastSubscribe,
           status: 'INFO',
           icon: (
-            <ToastIconSuccess
+            <ToastIconSuccess.Component
               width={30}
               height={30}
-              {...Props['ToastIconSuccess']}
-              name={toastSubscribe.icon ?? Props['ToastIconSuccess'].name}
+              {...ToastIconSuccess.props}
+              name={toastSubscribe.icon ?? ToastIconSuccess.props.name}
             />
           ),
         })
@@ -159,11 +158,11 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
           ...toastSubscribeError,
           status: 'ERROR',
           icon: (
-            <ToastIconError
+            <ToastIconError.Component
               width={30}
               height={30}
-              {...Props['ToastIconError']}
-              name={toastSubscribe.icon ?? Props['ToastIconError'].name}
+              {...ToastIconError.props}
+              name={toastSubscribe.icon ?? ToastIconError.props.name}
             />
           ),
         })
@@ -184,11 +183,11 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
         >
           <header data-fs-newsletter-header>
             <h3>
-              <HeaderIcon
+              <HeaderIcon.Component
                 width={32}
                 height={32}
-                {...Props['HeaderIcon']}
-                name={icon?.icon ?? Props['HeaderIcon'].name}
+                {...HeaderIcon.props}
+                name={icon?.icon ?? HeaderIcon.props.name}
               />
               {title}
             </h3>
@@ -198,22 +197,22 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
           <div data-fs-newsletter-controls>
             <>
               {displayNameInput ? (
-                <InputFieldName
+                <InputFieldName.Component
                   id="newsletter-name"
                   required
-                  {...Props['InputFieldName']}
-                  label={nameInputLabel ?? Props['InputFieldName'].label}
+                  {...(InputFieldName.props as InputFieldProps)}
+                  label={nameInputLabel ?? InputFieldName.props.label}
                   // Dynamic props shouldn't be overridable
                   // This decision can be reviewed later if needed
                   inputRef={nameInputRef}
                 />
               ) : null}
-              <InputFieldEmail
+              <InputFieldEmail.Component
                 id="newsletter-email"
                 type="email"
                 required
-                {...Props['InputFieldEmail']}
-                label={emailInputLabel ?? Props['InputFieldEmail'].label}
+                {...(InputFieldEmail.props as InputFieldProps)}
+                label={emailInputLabel ?? InputFieldEmail.props.label}
                 // Dynamic props shouldn't be overridable
                 // This decision can be reviewed later if needed
                 inputRef={emailInputRef}
@@ -224,14 +223,14 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
                   __html: cmsToHtml(privacyPolicy),
                 }}
               ></span>
-              <Button
+              <Button.Component
                 variant="secondary"
                 inverse
                 type="submit"
-                {...Props['Button']}
+                {...Button.props}
               >
                 {loading ? subscribeButtonLoadingLabel : subscribeButtonLabel}
-              </Button>
+              </Button.Component>
             </>
           </div>
         </form>

@@ -6,15 +6,10 @@ import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import { textToKebabCase } from 'src/utils/utilities'
 
 import {
-  Components,
-  Props,
+  ProductShelf as ProductShelfWrapper,
+  __experimentalCarousel as Carousel,
+  __experimentalProductCard as ProductCard,
 } from 'src/components/sections/ProductShelf/Overrides'
-
-const {
-  ProductShelf: ProductShelfWrapper,
-  __experimentalCarousel: Carousel,
-  __experimentalProductCard: ProductCard,
-} = Components
 
 type Sort =
   | 'discount_desc'
@@ -47,8 +42,8 @@ function ProductShelf({
   title,
   inView,
   productCardConfiguration: {
-    bordered = Props['__experimentalProductCard'].bordered,
-    showDiscountBadge = Props['__experimentalProductCard'].showDiscountBadge,
+    bordered = ProductCard.props.bordered,
+    showDiscountBadge = ProductCard.props.showDiscountBadge,
   } = {},
   ...variables
 }: ProductShelfProps) {
@@ -85,17 +80,17 @@ function ProductShelf({
         aspectRatio={aspectRatio}
         loading={products === undefined}
       >
-        <ProductShelfWrapper {...Props['ProductShelfWrapper']}>
-          <Carousel id={titleId || id} {...Props['__experimentalCarousel']}>
+        <ProductShelfWrapper.Component {...ProductShelfWrapper.props}>
+          <Carousel.Component id={titleId || id} {...Carousel.props}>
             {productEdges.map((product, idx) => (
-              <ProductCard
+              <ProductCard.Component
                 aspectRatio={aspectRatio}
                 imgProps={{
                   width: 216,
                   height: 216,
                   sizes: '(max-width: 768px) 42vw, 30vw',
                 }}
-                {...Props['__experimentalProductCard']}
+                {...ProductCard.props}
                 bordered={bordered}
                 showDiscountBadge={showDiscountBadge}
                 // Dynamic props shouldn't be overridable
@@ -105,8 +100,8 @@ function ProductShelf({
                 index={idx + 1}
               />
             ))}
-          </Carousel>
-        </ProductShelfWrapper>
+          </Carousel.Component>
+        </ProductShelfWrapper.Component>
       </ProductShelfSkeleton>
     </>
   )

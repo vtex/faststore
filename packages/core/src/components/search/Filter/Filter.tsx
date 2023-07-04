@@ -6,14 +6,9 @@ import { ProductGalleryProps } from 'src/components/ui/ProductGallery/ProductGal
 import { useFilter } from './useFilter'
 
 import {
-  Components,
-  Props,
+  __experimentalFilterDesktop as FilterDesktop,
+  __experimentalFilterSlider as FilterSlider,
 } from 'src/components/sections/ProductGallery/Overrides'
-
-const {
-  __experimentalFilterDesktop: FilterDesktop,
-  __experimentalFilterSlider: FilterSlider,
-} = Components
 
 interface Props {
   /**
@@ -42,8 +37,8 @@ function Filter({
   return (
     <>
       <div className="hidden-mobile">
-        <FilterDesktop
-          {...Props['__experimentalFilterDesktop']}
+        <FilterDesktop.Component
+          {...FilterDesktop.props}
           {...filter}
           testId={testId}
           title={filterCmsData?.title}
@@ -52,8 +47,8 @@ function Filter({
 
       {displayFilter && (
         <Suspense fallback={null}>
-          <FilterSlider
-            {...Props['__experimentalFilterSlider']}
+          <FilterSlider.Component
+            {...FilterSlider.props}
             {...filter}
             testId={testId}
             title={filterCmsData?.title}

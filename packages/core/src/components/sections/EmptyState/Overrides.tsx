@@ -1,26 +1,14 @@
 import { EmptyState as UIEmptyState } from '@faststore/ui'
 
-import EmptyStateCustomizations from 'src/customizations/components/overrides/EmptyState'
+import { getSectionOverrides } from 'src/utils/overrides'
+import { override } from 'src/customizations/components/overrides/EmptyState'
+import type { EmptyStateOverrideDefinition } from 'src/typings/overrides'
 
-const emptyStateComponentsCustomization = {}
+const { EmptyState } = getSectionOverrides(
+  {
+    EmptyState: UIEmptyState,
+  },
+  override as EmptyStateOverrideDefinition
+)
 
-const emptyStatePropsCustomization = {} as any
-
-Object.entries(EmptyStateCustomizations.components).forEach(([key, value]) => {
-  if (value.Component) {
-    emptyStateComponentsCustomization[key] = value.Component
-  }
-})
-
-Object.entries(EmptyStateCustomizations.components).forEach(([key, value]) => {
-  if (value.props) {
-    emptyStatePropsCustomization[key] = value.props
-  }
-})
-
-const Components = {
-  EmptyState: UIEmptyState,
-  ...emptyStateComponentsCustomization,
-}
-
-export { Components, emptyStatePropsCustomization as Props }
+export { EmptyState }

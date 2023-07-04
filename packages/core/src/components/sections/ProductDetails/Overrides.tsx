@@ -10,47 +10,60 @@ import {
   ImageZoom as UIImageZoom,
   ImageGallery as UIImageGallery,
 } from '@faststore/ui'
-import ImageGallery from 'src/components/ui/ImageGallery'
-import ShippingSimulation from 'src/components/ui/ShippingSimulation/ShippingSimulation'
+
+import LocalImageGallery from 'src/components/ui/ImageGallery'
+import LocalShippingSimulation from 'src/components/ui/ShippingSimulation/ShippingSimulation'
 import { Image } from 'src/components/ui/Image'
 
-import ProductDetailsCustomizations from 'src/customizations/components/overrides/ProductDetails'
+import { getSectionOverrides } from 'src/utils/overrides'
+import { override } from 'src/customizations/components/overrides/ProductDetails'
+import type { ProductDetailsOverrideDefinition } from 'src/typings/overrides'
 
-const productDetailsComponentsCustomization = {}
-
-const productDetailsPropsCustomization = {} as any
-
-Object.entries(ProductDetailsCustomizations.components).forEach(
-  ([key, value]) => {
-    if (value.Component) {
-      productDetailsComponentsCustomization[key] = value.Component
-    }
-  }
+const {
+  ProductTitle,
+  DiscountBadge,
+  BuyButton,
+  Icon,
+  Price,
+  QuantitySelector,
+  SkuSelector,
+  ShippingSimulation,
+  ImageGallery,
+  ImageZoom,
+  __experimentalImageGalleryImage,
+  __experimentalImageGallery,
+  __experimentalShippingSimulation,
+} = getSectionOverrides(
+  {
+    ProductTitle: UIProductTitle,
+    DiscountBadge: UIDiscountBadge,
+    BuyButton: UIBuyButton,
+    Icon: UIIcon,
+    Price: UIPrice,
+    QuantitySelector: UIQuantitySelector,
+    SkuSelector: UISkuSelector,
+    ShippingSimulation: UIShippingSimulation,
+    ImageGallery: UIImageGallery,
+    ImageZoom: UIImageZoom,
+    __experimentalImageGalleryImage: Image,
+    __experimentalImageGallery: LocalImageGallery,
+    __experimentalShippingSimulation: LocalShippingSimulation,
+  },
+  override as ProductDetailsOverrideDefinition
 )
 
-Object.entries(ProductDetailsCustomizations.components).forEach(
-  ([key, value]) => {
-    if (value.props) {
-      productDetailsPropsCustomization[key] = value.props
-    }
-  }
-)
-
-const Components = {
-  ProductTitle: UIProductTitle,
-  DiscountBadge: UIDiscountBadge,
-  BuyButton: UIBuyButton,
-  Icon: UIIcon,
-  Price: UIPrice,
-  QuantitySelector: UIQuantitySelector,
-  SkuSelector: UISkuSelector,
-  ShippingSimulation: UIShippingSimulation,
-  ImageGallery: UIImageGallery,
-  ImageZoom: UIImageZoom,
-  __experimentalImageGalleryImage: Image,
-  __experimentalImageGallery: ImageGallery,
-  __experimentalShippingSimulation: ShippingSimulation,
-  ...productDetailsComponentsCustomization,
+export {
+  ProductTitle,
+  DiscountBadge,
+  BuyButton,
+  Icon,
+  Price,
+  QuantitySelector,
+  SkuSelector,
+  ShippingSimulation,
+  ImageGallery,
+  ImageZoom,
+  __experimentalImageGalleryImage,
+  __experimentalImageGallery,
+  __experimentalShippingSimulation,
 }
-
-export { Components, productDetailsPropsCustomization as Props }

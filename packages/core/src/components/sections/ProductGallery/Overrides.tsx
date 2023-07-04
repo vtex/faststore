@@ -5,6 +5,7 @@ import {
   Skeleton as UISkeleton,
   Icon as UIIcon,
 } from '@faststore/ui'
+
 import ProductCard from 'src/components/product/ProductCard'
 import FilterDesktop from 'src/components/search/Filter/FilterDesktop'
 
@@ -12,41 +13,49 @@ const FilterSlider = lazy(
   () => import('src/components/search/Filter/FilterSlider')
 )
 
-import ProductGalleryCustomizations from 'src/customizations/components/overrides/ProductGallery'
+import { getSectionOverrides } from 'src/utils/overrides'
+import { override } from 'src/customizations/components/overrides/ProductGallery'
+import type { ProductGalleryOverrideDefinition } from 'src/typings/overrides'
 
-const productGalleryComponentsCustomization = {}
-
-const productGalleryPropsCustomization = {} as any
-
-Object.entries(ProductGalleryCustomizations.components).forEach(
-  ([key, value]) => {
-    if (value.Component) {
-      productGalleryComponentsCustomization[key] = value.Component
-    }
-  }
+const {
+  MobileFilterButton,
+  FilterIcon,
+  PrevIcon,
+  ResultsCountSkeleton,
+  SortSkeleton,
+  FilterButtonSkeleton,
+  LinkButtonPrev,
+  LinkButtonNext,
+  __experimentalFilterDesktop,
+  __experimentalFilterSlider,
+  __experimentalProductCard,
+} = getSectionOverrides(
+  {
+    MobileFilterButton: UIButton,
+    FilterIcon: UIIcon,
+    PrevIcon: UIIcon,
+    ResultsCountSkeleton: UISkeleton,
+    SortSkeleton: UISkeleton,
+    FilterButtonSkeleton: UISkeleton,
+    LinkButtonPrev: UILinkButton,
+    LinkButtonNext: UILinkButton,
+    __experimentalFilterDesktop: FilterDesktop,
+    __experimentalFilterSlider: FilterSlider,
+    __experimentalProductCard: ProductCard,
+  },
+  override as ProductGalleryOverrideDefinition
 )
 
-Object.entries(ProductGalleryCustomizations.components).forEach(
-  ([key, value]) => {
-    if (value.props) {
-      productGalleryPropsCustomization[key] = value.props
-    }
-  }
-)
-
-const Components = {
-  Button: UIButton,
-  FilterIcon: UIIcon,
-  PrevIcon: UIIcon,
-  ResultsCountSkeleton: UISkeleton,
-  SortSkeleton: UISkeleton,
-  FilterButtonSkeleton: UISkeleton,
-  LinkButtonPrev: UILinkButton,
-  LinkButtonNext: UILinkButton,
-  __experimentalFilterDesktop: FilterDesktop,
-  __experimentalFilterSlider: FilterSlider,
-  __experimentalProductCard: ProductCard,
-  ...productGalleryComponentsCustomization,
+export {
+  MobileFilterButton,
+  FilterIcon,
+  PrevIcon,
+  ResultsCountSkeleton,
+  SortSkeleton,
+  FilterButtonSkeleton,
+  LinkButtonPrev,
+  LinkButtonNext,
+  __experimentalFilterDesktop,
+  __experimentalFilterSlider,
+  __experimentalProductCard,
 }
-
-export { Components, productGalleryPropsCustomization as Props }

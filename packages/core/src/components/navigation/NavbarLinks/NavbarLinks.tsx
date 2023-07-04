@@ -9,9 +9,10 @@ import type { NavbarProps } from 'src/components/navigation/Navbar'
 
 import { mark } from 'src/sdk/tests/mark'
 
-import { Components, Props } from 'src/components/sections/Navbar/Overrides'
-
-const { NavbarLinks: NavbarLinksWrapper, NavbarLinksList } = Components
+import {
+  NavbarLinks as NavbarLinksWrapper,
+  NavbarLinksList,
+} from 'src/components/sections/Navbar/Overrides'
 
 interface NavbarLinksProps extends UINavbarLinksProps {
   links: NavbarProps['links']
@@ -29,12 +30,12 @@ function NavbarLinks({
   ...otherProps
 }: NavbarLinksProps) {
   return (
-    <NavbarLinksWrapper {...otherProps} {...Props['NavbarLinks']}>
+    <NavbarLinksWrapper.Component {...otherProps} {...NavbarLinksWrapper.props}>
       <div data-fs-navbar-links-wrapper data-fs-content="navbar">
         {shouldDisplayRegion && (
           <RegionButton icon={regionIcon} label={regionLabel} />
         )}
-        <NavbarLinksList {...Props['NavbarLinksList']}>
+        <NavbarLinksList.Component {...NavbarLinksList.props}>
           {links.map(({ url, text }) => (
             <UINavbarLinksListItem key={text}>
               <Link variant="display" href={url} onClick={onClickLink}>
@@ -42,9 +43,9 @@ function NavbarLinks({
               </Link>
             </UINavbarLinksListItem>
           ))}
-        </NavbarLinksList>
+        </NavbarLinksList.Component>
       </div>
-    </NavbarLinksWrapper>
+    </NavbarLinksWrapper.Component>
   )
 }
 

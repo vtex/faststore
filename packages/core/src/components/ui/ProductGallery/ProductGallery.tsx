@@ -17,15 +17,7 @@ import { useDelayedFacets } from './useDelayedFacets'
 import { useDelayedPagination } from './useDelayedPagination'
 import { useProductsPrefetch } from './usePageProducts'
 import {
-  Components,
-  Props,
-} from 'src/components/sections/ProductGallery/Overrides'
-
-const GalleryPage = lazy(() => import('./ProductGalleryPage'))
-const GalleryPageSkeleton = <ProductGridSkeleton loading />
-
-const {
-  Button,
+  MobileFilterButton,
   FilterIcon,
   PrevIcon,
   ResultsCountSkeleton,
@@ -33,7 +25,10 @@ const {
   FilterButtonSkeleton,
   LinkButtonPrev,
   LinkButtonNext,
-} = Components
+} from 'src/components/sections/ProductGallery/Overrides'
+
+const GalleryPage = lazy(() => import('./ProductGalleryPage'))
+const GalleryPageSkeleton = <ProductGridSkeleton loading />
 
 export interface ProductGalleryProps {
   title?: string
@@ -111,10 +106,10 @@ function ProductGallery({
           </FilterSkeleton>
         </div>
         <div data-fs-product-listing-results-count data-count={totalCount}>
-          <ResultsCountSkeleton
+          <ResultsCountSkeleton.Component
             data-fs-product-listing-results-count-skeleton
             size={{ width: '100%', height: '1.5rem' }}
-            {...Props['ResultsCountSkeleton']}
+            {...ResultsCountSkeleton.props}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
             loading={!productGalleryData}
@@ -122,13 +117,13 @@ function ProductGallery({
             <h2 data-testid="total-product-count">
               {totalCount} {totalCountLabel}
             </h2>
-          </ResultsCountSkeleton>
+          </ResultsCountSkeleton.Component>
         </div>
         <div data-fs-product-listing-sort>
-          <SortSkeleton
+          <SortSkeleton.Component
             data-fs-product-listing-sort-skeleton
             size={{ width: 'auto', height: '1.5rem' }}
-            {...Props['SortSkeleton']}
+            {...SortSkeleton.props}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
             loading={facets?.length === 0}
@@ -137,42 +132,42 @@ function ProductGallery({
               label={sortBySelector?.label}
               options={sortBySelector?.options}
             />
-          </SortSkeleton>
-          <FilterButtonSkeleton
+          </SortSkeleton.Component>
+          <FilterButtonSkeleton.Component
             data-fs-product-listing-filter-button-skeleton
             size={{ width: '6rem', height: '1.5rem' }}
-            {...Props['FilterButtonSkeleton']}
+            {...FilterButtonSkeleton.props}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
             loading={facets?.length === 0}
           >
-            <Button
+            <MobileFilterButton.Component
               variant="tertiary"
               data-testid="open-filter-button"
               icon={
-                <FilterIcon
+                <FilterIcon.Component
                   width={16}
                   height={16}
-                  {...Props['FilterIcon']}
+                  {...FilterIcon.props}
                   name={
                     filter?.mobileOnly?.filterButton?.icon?.icon ??
-                    Props['FilterIcon'].name
+                    FilterIcon.props.name
                   }
                   aria-label={
                     filter?.mobileOnly?.filterButton?.icon?.alt ??
-                    Props['FilterIcon']['aria-label']
+                    FilterIcon.props['aria-label']
                   }
                 />
               }
               iconPosition="left"
-              {...Props['Button']}
+              {...MobileFilterButton.props}
               // Dynamic props shouldn't be overridable
               // This decision can be reviewed later if needed
               onClick={openFilter}
             >
               {filter?.mobileOnly?.filterButton?.label}
-            </Button>
-          </FilterButtonSkeleton>
+            </MobileFilterButton.Component>
+          </FilterButtonSkeleton.Component>
         </div>
         <div data-fs-product-listing-results>
           {/* Add link to previous page. This helps on SEO */}
@@ -181,27 +176,25 @@ function ProductGallery({
               <NextSeo
                 additionalLinkTags={[{ rel: 'prev', href: prev.link }]}
               />
-              <LinkButtonPrev
+              <LinkButtonPrev.Component
                 rel="prev"
                 variant="secondary"
                 iconPosition="left"
                 icon={
-                  <PrevIcon
+                  <PrevIcon.Component
                     width={16}
                     height={16}
                     weight="bold"
-                    {...Props['PrevIcon']}
-                    name={
-                      previousPageButton?.icon?.icon ?? Props['PrevIcon'].name
-                    }
+                    {...PrevIcon.props}
+                    name={previousPageButton?.icon?.icon ?? PrevIcon.props.name}
                     aria-label={
                       previousPageButton?.icon?.alt ??
                       previousPageButton?.label ??
-                      Props['PrevIcon']['aria-label']
+                      PrevIcon.props['aria-label']
                     }
                   />
                 }
-                {...Props['LinkButtonPrev']}
+                {...LinkButtonPrev.props}
                 // Dynamic props shouldn't be overridable
                 // This decision can be reviewed later if needed
                 onClick={(e: MouseEvent<HTMLElement>) => {
@@ -212,7 +205,7 @@ function ProductGallery({
                 href={prev.link}
               >
                 {previousPageButton?.label}
-              </LinkButtonPrev>
+              </LinkButtonPrev.Component>
             </div>
           )}
           {/* Render ALL products */}
@@ -236,11 +229,11 @@ function ProductGallery({
               <NextSeo
                 additionalLinkTags={[{ rel: 'next', href: next.link }]}
               />
-              <LinkButtonNext
+              <LinkButtonNext.Component
                 testId="show-more"
                 rel="next"
                 variant="secondary"
-                {...Props['LinkButtonNext']}
+                {...LinkButtonNext.props}
                 // Dynamic props shouldn't be overridable
                 // This decision can be reviewed later if needed
                 onClick={(e: MouseEvent<HTMLElement>) => {
@@ -251,7 +244,7 @@ function ProductGallery({
                 href={next.link}
               >
                 {loadMorePageButton?.label}
-              </LinkButtonNext>
+              </LinkButtonNext.Component>
             </div>
           )}
         </div>

@@ -4,9 +4,7 @@ import { SkuSelectorProps } from '@faststore/ui'
 import NextLink from 'next/link'
 import { Image } from '../Image'
 
-import { Components } from 'src/components/sections/ProductDetails/Overrides'
-
-const { SkuSelector } = Components
+import { SkuSelector } from 'src/components/sections/ProductDetails/Overrides'
 
 export type SkuVariantsByName = Record<
   string,
@@ -44,16 +42,19 @@ function Selectors({
     <section {...otherProps}>
       {availableVariations &&
         Object.keys(availableVariations).map((skuVariant) => (
-          <SkuSelector
+          <SkuSelector.Component
+            ImageComponent={ImageComponent}
+            {...SkuSelector.props}
             key={skuVariant}
             skuPropertyName={skuVariant}
             availableVariations={availableVariations}
-            ImageComponent={ImageComponent}
             activeVariations={activeVariations}
             slugsMap={slugsMap}
             linkProps={{
-              as: NextLink,
-              legacyBehavior: false,
+              ...(SkuSelector.props.linkProps ?? {}),
+              as: SkuSelector.props.linkProps?.as ?? NextLink,
+              legacyBehavior:
+                SkuSelector.props.linkProps?.legacyBehavior ?? false,
             }}
           />
         ))}

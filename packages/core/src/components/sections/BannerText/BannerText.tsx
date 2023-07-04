@@ -2,9 +2,13 @@ import {
   BannerTextProps as UIBannerTextProps,
   BannerTextContentProps as UIBannerTextContentProps,
 } from '@faststore/ui'
-import { Components, Props } from './Overrides'
 
+import {
+  BannerText as BannerTextWrapper,
+  BannerTextContent,
+} from 'src/components/sections/BannerText/Overrides'
 import Section from '../Section'
+
 import styles from './section.module.scss'
 
 export interface BannerTextProps {
@@ -18,34 +22,34 @@ export interface BannerTextProps {
   variant?: UIBannerTextProps['variant']
 }
 
-const { BannerText: BannerTextWrapper, BannerTextContent } = Components
-
 // TODO: Change actionPath and actionLabel with Link
 function BannerText({
   title,
   caption,
   link: {
-    url: linkUrl = Props['BannerTextContent'].link,
-    text: linkText = Props['BannerTextContent'].linkText,
+    url: linkUrl = BannerTextContent.props.link,
+    text: linkText = BannerTextContent.props.linkText,
   },
-  variant = Props['BannerText'].variant ?? 'primary',
-  colorVariant = Props['BannerText'].colorVariant ?? 'main',
+  variant = BannerTextWrapper.props.variant ?? 'primary',
+  colorVariant = BannerTextWrapper.props.colorVariant ?? 'main',
 }: BannerTextProps) {
   return (
     <Section className={`${styles.section} section-banner layout__section`}>
-      <BannerTextWrapper
-        {...Props['BannerText']}
-        variant={variant}
-        colorVariant={colorVariant}
-      >
-        <BannerTextContent
-          {...Props['BannerTextContent']}
-          title={title}
-          caption={caption}
-          link={linkUrl}
-          linkText={linkText}
-        />
-      </BannerTextWrapper>
+      <div className="layout__content">
+        <BannerTextWrapper.Component
+          {...BannerTextWrapper.props}
+          variant={variant}
+          colorVariant={colorVariant}
+        >
+          <BannerTextContent.Component
+            {...BannerTextContent.props}
+            title={title}
+            caption={caption}
+            link={linkUrl}
+            linkText={linkText}
+          />
+        </BannerTextWrapper.Component>
+      </div>
     </Section>
   )
 }

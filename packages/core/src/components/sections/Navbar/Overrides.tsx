@@ -12,37 +12,49 @@ import {
   IconButton as UIIconButton,
 } from '@faststore/ui'
 
-import NavbarCustomizations from 'src/customizations/components/overrides/Navbar'
+import { getSectionOverrides } from 'src/utils/overrides'
+import { override } from 'src/customizations/components/overrides/Navbar'
+import type { NavbarOverrideDefinition } from 'src/typings/overrides'
 
-const navbarComponentsCustomization = {}
+const {
+  Navbar,
+  NavbarLinks,
+  NavbarLinksList,
+  NavbarSlider,
+  NavbarSliderHeader,
+  NavbarSliderContent,
+  NavbarSliderFooter,
+  NavbarHeader,
+  NavbarRow,
+  NavbarButtons,
+  IconButton,
+} = getSectionOverrides(
+  {
+    Navbar: UINavbar,
+    NavbarLinks: UINavbarLinks,
+    NavbarLinksList: UINavbarLinksList,
+    NavbarSlider: UINavbarSlider,
+    NavbarSliderHeader: UINavbarSliderHeader,
+    NavbarSliderContent: UINavbarSliderContent,
+    NavbarSliderFooter: UINavbarSliderFooter,
+    NavbarHeader: UINavbarHeader,
+    NavbarRow: UINavbarRow,
+    NavbarButtons: UINavbarButtons,
+    IconButton: UIIconButton,
+  },
+  override as NavbarOverrideDefinition
+)
 
-const navbarPropsCustomization = {} as any
-
-Object.entries(NavbarCustomizations.components).forEach(([key, value]) => {
-  if (value.Component) {
-    navbarComponentsCustomization[key] = value.Component
-  }
-})
-
-Object.entries(NavbarCustomizations.components).forEach(([key, value]) => {
-  if (value.props) {
-    navbarPropsCustomization[key] = value.props
-  }
-})
-
-const Components = {
-  Navbar: UINavbar,
-  NavbarLinks: UINavbarLinks,
-  NavbarLinksList: UINavbarLinksList,
-  NavbarSlider: UINavbarSlider,
-  NavbarSliderHeader: UINavbarSliderHeader,
-  NavbarSliderContent: UINavbarSliderContent,
-  NavbarSliderFooter: UINavbarSliderFooter,
-  NavbarHeader: UINavbarHeader,
-  NavbarRow: UINavbarRow,
-  NavbarButtons: UINavbarButtons,
-  IconButton: UIIconButton,
-  ...navbarComponentsCustomization,
+export {
+  Navbar,
+  NavbarLinks,
+  NavbarLinksList,
+  NavbarSlider,
+  NavbarSliderHeader,
+  NavbarSliderContent,
+  NavbarSliderFooter,
+  NavbarHeader,
+  NavbarRow,
+  NavbarButtons,
+  IconButton,
 }
-
-export { Components, navbarPropsCustomization as Props }

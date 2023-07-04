@@ -11,14 +11,12 @@ import type { NavbarProps } from '../Navbar'
 
 import styles from '../../sections/Navbar/section.module.scss'
 
-import { Components, Props } from 'src/components/sections/Navbar/Overrides'
-
-const {
-  NavbarSlider: NavbarSliderWrapper,
+import {
+  NavbarSlider as NavbarSliderWrapper,
   NavbarSliderHeader,
   NavbarSliderContent,
   NavbarSliderFooter,
-} = Components
+} from 'src/components/sections/Navbar/Overrides'
 
 interface NavbarSliderProps {
   logo: NavbarProps['logo']
@@ -39,16 +37,19 @@ function NavbarSlider({
   const { fade, fadeOut } = useFadeEffect()
 
   return (
-    <NavbarSliderWrapper
+    <NavbarSliderWrapper.Component
       fade={fade}
       onDismiss={fadeOut}
       overlayProps={{
         className: `section ${styles.section} section-navbar-slider`,
       }}
       onTransitionEnd={() => fade === 'out' && closeNavbar()}
-      {...Props['NavbarSlider']}
+      {...NavbarSliderWrapper.props}
     >
-      <NavbarSliderHeader onClose={fadeOut} {...Props['NavbarSliderHeader']}>
+      <NavbarSliderHeader.Component
+        onClose={fadeOut}
+        {...NavbarSliderWrapper.props}
+      >
         <Link
           href="/"
           onClick={fadeOut}
@@ -58,16 +59,16 @@ function NavbarSlider({
         >
           <Logo {...logo} />
         </Link>
-      </NavbarSliderHeader>
-      <NavbarSliderContent {...Props['NavbarSliderContent']}>
+      </NavbarSliderHeader.Component>
+      <NavbarSliderContent.Component {...NavbarSliderContent.props}>
         <NavbarLinks onClickLink={fadeOut} links={links} region={region} />
-      </NavbarSliderContent>
-      <NavbarSliderFooter {...Props['NavbarSliderFooter']}>
+      </NavbarSliderContent.Component>
+      <NavbarSliderFooter.Component {...NavbarSliderFooter.props}>
         <Suspense fallback={<ButtonSignInFallback />}>
           <ButtonSignIn {...signInButton} />
         </Suspense>
-      </NavbarSliderFooter>
-    </NavbarSliderWrapper>
+      </NavbarSliderFooter.Component>
+    </NavbarSliderWrapper.Component>
   )
 }
 

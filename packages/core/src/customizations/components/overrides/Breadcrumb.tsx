@@ -4,12 +4,8 @@ import { SectionOverride } from 'src/typings/overrides'
 
 const SECTION = 'Breadcrumb' as const
 
-const overrides: SectionOverride[typeof SECTION] = {
-  name: SECTION,
-  components: {
-    Breadcrumb: { props: {} },
-    Icon: { props: {} },
-  },
+const override: SectionOverride = {
+  section: SECTION,
 }
 
-export default overrides
+export { override }

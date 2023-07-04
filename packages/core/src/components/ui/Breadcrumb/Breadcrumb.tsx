@@ -3,8 +3,10 @@ import { memo } from 'react'
 
 import Link from 'src/components/ui/Link'
 
-import { Components, Props } from 'src/components/sections/Breadcrumb/Overrides'
-const { Breadcrumb: BreadcrumbWrapper, Icon } = Components
+import {
+  Breadcrumb as BreadcrumbWrapper,
+  Icon,
+} from 'src/components/sections/Breadcrumb/Overrides'
 
 export interface BreadcrumbProps extends UIBreadcrumbProps {
   icon: string
@@ -12,11 +14,11 @@ export interface BreadcrumbProps extends UIBreadcrumbProps {
 }
 
 const Breadcrumb = ({
-  icon = Props['Icon'].name ?? 'Home',
+  icon = Icon.props.name ?? 'Home',
   alt = 'Go to homepage',
   ...otherProps
 }: BreadcrumbProps) => (
-  <BreadcrumbWrapper
+  <BreadcrumbWrapper.Component
     homeLink={
       <Link
         data-fs-breadcrumb-link
@@ -25,11 +27,11 @@ const Breadcrumb = ({
         href="/"
         prefetch={false}
       >
-        <Icon
+        <Icon.Component
           width={18}
           height={18}
           weight="bold"
-          {...Props['Icon']}
+          {...Icon.props}
           name={icon}
         />
       </Link>
@@ -39,7 +41,7 @@ const Breadcrumb = ({
         {name}
       </Link>
     )}
-    {...Props['Breadcrumb']}
+    {...BreadcrumbWrapper.props}
     {...otherProps}
   />
 )

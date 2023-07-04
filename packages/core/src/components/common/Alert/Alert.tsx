@@ -1,15 +1,13 @@
 import type { PropsWithChildren, ReactNode } from 'react'
 import { useCallback, useState } from 'react'
 
-import { Alert as UIAlert, AlertProps as UIAlertProps } from '@faststore/ui'
+import { AlertProps as UIAlertProps } from '@faststore/ui'
 import { mark } from 'src/sdk/tests/mark'
 
 import Section from 'src/components/sections/Section/Section'
 import styles from './section.module.scss'
 
-import { Components, Props } from 'src/components/sections/Alert/Overrides'
-
-const { Alert: AlertWrapper } = Components
+import { Alert as AlertWrapper } from 'src/components/sections/Alert/Overrides'
 
 export interface AlertProps extends UIAlertProps {
   /**
@@ -38,15 +36,14 @@ function Alert({
 
   return (
     <Section className={`${styles.section} section-alert`}>
-      <AlertWrapper
-        {...Props['Alert']}
+      <AlertWrapper.Component
+        {...otherProps}
         // Dynamic props, shouldn't be overridable
         // This decision can be reviewed later if needed
         onClose={onAlertClose}
-        {...otherProps}
       >
         {content ?? children}
-      </AlertWrapper>
+      </AlertWrapper.Component>
     </Section>
   )
 }

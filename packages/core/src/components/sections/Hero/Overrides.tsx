@@ -4,29 +4,17 @@ import {
   HeroHeader as UIHeroHeader,
 } from '@faststore/ui'
 
-import HeroCustomizations from 'src/customizations/components/overrides/Hero'
+import { getSectionOverrides } from 'src/utils/overrides'
+import { override } from 'src/customizations/components/overrides/Hero'
+import type { HeroOverrideDefinition } from 'src/typings/overrides'
 
-const heroComponentsCustomization = {}
+const { Hero, HeroImage, HeroHeader } = getSectionOverrides(
+  {
+    Hero: UIHero,
+    HeroImage: UIHeroImage,
+    HeroHeader: UIHeroHeader,
+  },
+  override as HeroOverrideDefinition
+)
 
-const heroPropsCustomization = {} as any
-
-Object.entries(HeroCustomizations.components).forEach(([key, value]) => {
-  if (value.Component) {
-    heroComponentsCustomization[key] = value.Component
-  }
-})
-
-Object.entries(HeroCustomizations.components).forEach(([key, value]) => {
-  if (value.props) {
-    heroPropsCustomization[key] = value.props
-  }
-})
-
-const Components = {
-  Hero: UIHero,
-  HeroImage: UIHeroImage,
-  HeroHeader: UIHeroHeader,
-  ...heroComponentsCustomization,
-}
-
-export { Components, heroPropsCustomization as Props }
+export { Hero, HeroImage, HeroHeader }

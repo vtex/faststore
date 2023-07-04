@@ -1,34 +1,20 @@
 import { ProductShelf as UIProductShelf } from '@faststore/ui'
+
 import ProductCard from 'src/components/product/ProductCard'
 import Carousel from 'src/components/ui/Carousel'
 
-import ProductShelfCustomizations from 'src/customizations/components/overrides/ProductShelf'
+import { getSectionOverrides } from 'src/utils/overrides'
+import { override } from 'src/customizations/components/overrides/ProductShelf'
+import type { ProductShelfOverrideDefinition } from 'src/typings/overrides'
 
-const productShelfComponentsCustomization = {}
+const { ProductShelf, __experimentalCarousel, __experimentalProductCard } =
+  getSectionOverrides(
+    {
+      ProductShelf: UIProductShelf,
+      __experimentalCarousel: Carousel,
+      __experimentalProductCard: ProductCard,
+    },
+    override as ProductShelfOverrideDefinition
+  )
 
-const productShelfPropsCustomization = {} as any
-
-Object.entries(ProductShelfCustomizations.components).forEach(
-  ([key, value]) => {
-    if (value.Component) {
-      productShelfComponentsCustomization[key] = value.Component
-    }
-  }
-)
-
-Object.entries(ProductShelfCustomizations.components).forEach(
-  ([key, value]) => {
-    if (value.props) {
-      productShelfPropsCustomization[key] = value.props
-    }
-  }
-)
-
-const Components = {
-  ProductShelf: UIProductShelf,
-  __experimentalCarousel: Carousel,
-  __experimentalProductCard: ProductCard,
-  ...productShelfComponentsCustomization,
-}
-
-export { Components, productShelfPropsCustomization as Props }
+export { ProductShelf, __experimentalCarousel, __experimentalProductCard }

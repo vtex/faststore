@@ -3,9 +3,11 @@ import type { RegionBarProps as UIRegionBarProps } from '@faststore/ui'
 import { useUI } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
 
-import { Components, Props } from 'src/components/sections/RegionBar/Overrides'
-
-const { RegionBar: RegionBarWrapper, LocationIcon, ButtonIcon } = Components
+import {
+  RegionBar as RegionBarWrapper,
+  LocationIcon,
+  ButtonIcon,
+} from 'src/components/sections/RegionBar/Overrides'
 
 export interface RegionBarProps {
   /**
@@ -34,25 +36,37 @@ export interface RegionBarProps {
 
 function RegionBar({
   icon: {
-    icon: locationIcon = Props['LocationIcon'].name,
-    alt: locationIconAlt = Props['LocationIcon']['aria-label'],
+    icon: locationIcon = LocationIcon.props.name,
+    alt: locationIconAlt = LocationIcon.props['aria-label'],
   },
   buttonIcon: {
-    icon: buttonIcon = Props['ButtonIcon'].name,
-    alt: buttonIconAlt = Props['ButtonIcon']['aria-label'],
+    icon: buttonIcon = ButtonIcon.props.name,
+    alt: buttonIconAlt = ButtonIcon.props['aria-label'],
   },
-  label = Props['RegionBar'].label,
-  editLabel = Props['RegionBar'].editLabel,
+  label = RegionBarWrapper.props.label,
+  editLabel = RegionBarWrapper.props.editLabel,
   ...otherProps
 }: RegionBarProps) {
   const { openModal } = useUI()
   const { postalCode } = useSession()
 
   return (
-    <RegionBarWrapper
-      icon={<LocationIcon name={locationIcon} aria-label={locationIconAlt} />}
-      buttonIcon={<ButtonIcon name={buttonIcon} aria-label={buttonIconAlt} />}
-      {...Props['RegionBar']}
+    <RegionBarWrapper.Component
+      icon={
+        <LocationIcon.Component
+          {...LocationIcon.props}
+          name={locationIcon}
+          aria-label={locationIconAlt}
+        />
+      }
+      buttonIcon={
+        <ButtonIcon.Component
+          {...ButtonIcon.props}
+          name={buttonIcon}
+          aria-label={buttonIconAlt}
+        />
+      }
+      {...RegionBarWrapper.props}
       label={label}
       editLabel={editLabel}
       // Dynamic props shouldn't be overridable

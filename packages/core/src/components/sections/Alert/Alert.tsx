@@ -1,14 +1,17 @@
+import { ReactNode } from 'react'
+
 import CommonAlert from 'src/components/common/Alert'
-
-import { Components, Props } from 'src/components/sections/Alert/Overrides'
-
-const { Icon } = Components
+import {
+  Alert as AlertWrapper,
+  Icon,
+} from 'src/components/sections/Alert/Overrides'
 
 export interface AlertProps {
   icon: string
   content: string
   link: {
-    text: string
+    // It is only ReactNode when overridden as such
+    text: string | ReactNode
     to: string
   }
   dismissible: boolean
@@ -16,22 +19,23 @@ export interface AlertProps {
 
 // TODO: Change actionPath and actionLabel with Link
 function Alert({
-  icon = Props['Icon'].name,
+  icon = Icon.props.name,
   content,
   link: {
-    text = Props['Alert'].link?.text,
-    to = Props['Alert'].link?.to,
-  } = Props['Alert'].link,
-  dismissible = Props['Alert'].dismissible,
+    text = AlertWrapper.props.link?.children,
+    to = AlertWrapper.props.link?.href,
+  },
+  dismissible = AlertWrapper.props.dismissible,
 }: AlertProps) {
   return (
     <CommonAlert
-      icon={<Icon {...Props['Icon']} name={icon} />}
+      icon={<Icon.Component {...Icon.props} name={icon} />}
+      {...AlertWrapper.props}
       link={{
-        ...(Props['Alert'].link ?? {}),
+        ...(AlertWrapper.props.link ?? {}),
         children: text,
         href: to,
-        target: Props['Alert'].link?.target ?? '_self',
+        target: AlertWrapper.props.link?.target ?? '_self',
       }}
       dismissible={dismissible}
     >

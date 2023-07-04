@@ -2,9 +2,14 @@ import {
   HeroProps as UIHeroProps,
   HeroHeaderProps as UIHeroHeaderProps,
 } from '@faststore/ui'
-import { Components, Props } from './Overrides'
 import { ReactNode } from 'react'
 import { Image } from 'src/components/ui/Image'
+import {
+  Hero as HeroWrapper,
+  HeroImage,
+  HeroHeader,
+} from 'src/components/sections/Hero/Overrides'
+
 import Section from '../Section'
 
 import styles from './section.module.scss'
@@ -25,25 +30,23 @@ export type HeroProps = {
   icon?: ReactNode
 }
 
-const { Hero: HeroWrapper, HeroImage, HeroHeader } = Components
-
 const Hero = ({
   link,
   title,
   subtitle,
   image,
-  variant = Props['Hero'].variant ?? 'primary',
-  colorVariant = Props['Hero'].colorVariant ?? 'main',
+  variant = HeroWrapper.props.variant ?? 'primary',
+  colorVariant = HeroWrapper.props.colorVariant ?? 'main',
   icon,
 }: HeroProps) => {
   return (
     <Section className={`${styles.section} section-hero`}>
-      <HeroWrapper
-        {...Props['Hero']}
+      <HeroWrapper.Component
+        {...HeroWrapper.props}
         variant={variant}
         colorVariant={colorVariant}
       >
-        <HeroImage {...Props['HeroImage']}>
+        <HeroImage.Component {...HeroImage.props}>
           <Image
             loading="eager"
             src={image.src}
@@ -52,16 +55,16 @@ const Hero = ({
             height={240}
             sizes="(max-width: 360px) 50vw, (max-width: 768px) 90vw, 50vw"
           />
-        </HeroImage>
-        <HeroHeader
+        </HeroImage.Component>
+        <HeroHeader.Component
           title={title}
           subtitle={subtitle}
           link={link?.url}
           linkText={link?.text}
           icon={icon}
-          {...Props['HeroHeader']}
+          {...HeroHeader.props}
         />
-      </HeroWrapper>
+      </HeroWrapper.Component>
     </Section>
   )
 }
