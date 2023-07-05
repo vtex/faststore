@@ -13,6 +13,7 @@ Themes are CSS stylesheets consisting of configurable design tokens. You can cre
 </header>
 
 A Theme is what enables you to change the look and feel of a FastStore project. It is what differentiates one UI from another and where the store branding lives. In practice, Themes are CSS stylesheets consisting of configurable design tokens.
+
 ![theme-structure](https://vtexhelp.vtexassets.com/assets/docs/src/theme___a7a122b4ca42955e79c8db8083b092f8.png)
 
 - **Global tokens** - structural styles responsible for establishing the behavior (e.g., showing/hiding a dropdown menu) and design pattern of a component.
@@ -28,22 +29,24 @@ By default, every FastStore project comes with the [Brandless theme](/docs/brand
 
 ---
 
-## Available themes
+## Available Themes
 
-- **[Midnight](/docs/themes/midnight)**
-- **[Soft Blue](/docs/themes/soft-blue)**
+- [Midnight](/docs/themes/midnight)
+- [Soft Blue](/docs/themes/soft-blue)
 
 ---
 
-## Creating a custom theme
+## Creating a Custom Theme
 
-1. Create a new `.scss` file on `src/themes` (e.g. `my-theme.scss`) in your [starter project](https://github.com/vtex-sites/starter.store), and add the tokens you want to overwrite inside the `.theme` class.
+1. Create a new `.scss` file on `src/themes` (e.g. `my-theme.scss`) in your [starter](https://github.com/vtex-sites/starter.store), then add the tokens you want to overwrite inside the `.theme` class.
 
 <Callout type="info" emoji="ℹ️">
   If you want, you can work on `custom-theme.scss` file that's ready to use.
 </Callout>
 
-```css
+<br></br>
+
+```css filename="src/themes/my-theme.scss"
 .theme {
   // --------------------------------------------------------
   // Colors (Branding Core)
@@ -74,16 +77,17 @@ By default, every FastStore project comes with the [Brandless theme](/docs/brand
   // --------------------------------------------------------
 }
 ```
+<br></br>
 
-2. Go to `faststore.config.js` and change the `theme` to your file's name:
+2. Go to `faststore.config.js` and changes the `theme` from `custom-theme` to your file's name:
 
-```js
-// Theming
+```js filename="faststore.config.js"
 theme: 'my-theme',
 ```
 ---
 
  ## Related resources
 
- - [Theming Architecture]()
- - [Global Tokes](/docs/global-tokens/overview)
+ - [Theming Architecture](/docs/brandless#theming-architecture)
+ - [Global Tokens](/docs/global-tokens/overview)
+ - [Making the first change in your store frontend](/docs/getting-started/2-setting-up-the-project#step-3-making-the-first-change-in-your-store-frontend)
