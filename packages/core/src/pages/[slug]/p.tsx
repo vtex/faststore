@@ -42,27 +42,28 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 type Props = ServerProductPageQueryQuery &
   PDPContentType & {
     globalSections: GlobalSectionsData
+    meta: {
+      title: string
+      description: string
+      canonical: string
+    }
   }
 
-function Page({ product, sections, globalSections }: Props) {
+function Page({ product, sections, globalSections, offers, meta }: Props) {
   const { currency } = useSession()
-  const { seo } = product
-  const title = seo.title || storeConfig.seo.title
-  const description = seo.description || storeConfig.seo.description
-  const canonical = `${storeConfig.storeUrl}${seo.canonical}`
 
   return (
     <GlobalSections {...globalSections}>
       {/* SEO */}
       <NextSeo
-        title={title}
-        description={description}
-        canonical={canonical}
+        title={meta.title}
+        description={meta.description}
+        canonical={meta.canonical}
         openGraph={{
           type: 'og:product',
-          url: canonical,
-          title,
-          description,
+          url: meta.canonical,
+          title: meta.title,
+          description: meta.description,
           images: product.image.map((img) => ({
             url: img.url,
             alt: img.alternateName,
@@ -90,12 +91,7 @@ function Page({ product, sections, globalSections }: Props) {
         gtin={product.gtin}
         releaseDate={product.releaseDate}
         images={product.image.map((img) => img.url)} // Somehow, Google does not understand this valid Schema.org schema, so we need to do conversions
-        offersType="AggregateOffer"
-        offers={{
-          ...product.offers,
-          ...product.offers.offers[0],
-          url: canonical,
-        }}
+        offers={offers}
       />
 
       {/*
@@ -209,10 +205,33 @@ export const getStaticProps: GetStaticProps<
     throw errors[0]
   }
 
+  const { seo } = data.product
+  const title = seo.title || storeConfig.seo.title
+  const description = seo.description || storeConfig.seo.description
+  const canonical = `${storeConfig.storeUrl}${seo.canonical}`
+
+  const meta = { title, description, canonical }
+
+  let offer = {}
+
+  if (data.product.offers.offers.length > 0) {
+    const { listPrice, ...offerData } = data.product.offers.offers[0]
+
+    offer = offerData
+  }
+
+  const offers = {
+    ...offer,
+    priceCurrency: data.product.offers.priceCurrency,
+    url: canonical,
+  }
+
   return {
     props: {
       ...data,
       ...cmsPage,
+      meta,
+      offers,
       globalSections,
     },
   }
