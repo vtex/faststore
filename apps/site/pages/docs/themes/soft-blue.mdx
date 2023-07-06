@@ -19,16 +19,11 @@ A basic theme created for testing purposes.
 
 ## Use `soft-blue` as your theme
 
-1. In your [starter project](https://github.com/vtex-sites/starter.store), go to `faststore.config.js` and change the `theme` to your file's name:
-
-```js
-// Theming
-theme: 'soft-blue',
-```
+1. In your [starter project](https://github.com/vtex-sites/starter.store), create a new file named `soft-blue.scss` in `src/themes`.
 
 2. Add the following styles to `src/themes/soft-blue.scss`:
 
-```css
+```scss filename="src/themes/soft-blue.scss"
 // ----------------------------------------------------------
 // GLOBAL TOKENS
 // Theme Soft Blue
@@ -110,7 +105,13 @@ theme: 'soft-blue',
 }
 ```
 
-3. Restart the server.
+3. Go to `faststore.config.js` and change the `theme` to `soft-blue`:
+
+```js filename="faststore.config.js"
+theme: 'soft-blue',
+```
+
+4. Restart the server and check the new theme applied to your store. 🎉
 
   </article>
 </section>
