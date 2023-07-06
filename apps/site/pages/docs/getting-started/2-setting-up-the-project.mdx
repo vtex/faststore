@@ -161,15 +161,9 @@ Now that your store is up and running locally, let's make a simple change in the
 
 Let's make the first level of customization which updates the store's [theme](/docs/themes/overview). For this customization, we are going to use the [Soft Blue theme](/docs/themes/soft-blue) and we will make some updates to it.
 
-1. Open the `faststore.config.js` file and changes the `theme` from `custom-theme` to `soft-blue`.
+1. Create a new file named `soft-blue.scss` in `src/themes`. This is going to be the new theme of your store.
 
-```scss
-  theme: 'soft-blue',
-```
-
-2. Create a new file named `soft-blue.scss` in `src/themes`. This is going to be the new theme of your store.
-
-3. Add the following styles to `src/themes/soft-blue.scss`:
+2. Add the following styles to `src/themes/soft-blue.scss`:
 
 ```scss filename="src/themes/soft-blue.scss"
 // ----------------------------------------------------------
@@ -232,10 +226,10 @@ Let's make the first level of customization which updates the store's [theme](/d
   --fs-shadow-hover: 0 1px 4px rgb(0 0 0 / 10%), 0 6px 8px rgb(0 0 0 / 10%);
 
   // --------------------------------------------------------
-  // Components
+  // FS UI Components
   // --------------------------------------------------------
-
   .section {
+    // Add here the customizations for FastStore UI components.
     [data-fs-product-card] {
       --fs-product-card-border-color: transparent;
       --fs-product-card-border-color-hover: var(--fs-border-color-light);
@@ -252,9 +246,13 @@ Let's make the first level of customization which updates the store's [theme](/d
 }
 
 ```
+3. Open the `faststore.config.js` file and changes the `theme` from `custom-theme` to `soft-blue`.
 
-4. Save your changes.
-5. Restart the server and check your browser to see your changes. You may need to refresh the page.
+```js filename="faststore.config.js"
+  theme: 'soft-blue',
+```
+
+4. Restart the server and check the new theme applied to your store. You may need to refresh the page.
 
 ![theme-soft-blue](https://vtexhelp.vtexassets.com/assets/docs/src/soft-blue___9eb9e3e506de6396df954598739be8f8.png)
 
