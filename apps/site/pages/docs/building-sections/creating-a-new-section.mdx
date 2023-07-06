@@ -54,15 +54,32 @@ During the creation of a new section, you will create files such as `sections.js
       "title": "Call To Action",
       "description": "Get your 20% off on the first purchase!",
       "type": "object",
-      "required": ["title", "link"],
+      "required": [
+        "title",
+        "link"
+      ],
       "properties": {
         "title": {
-          "type": "string",
-          "title": "Title"
+          "title": "Title",
+          "type": "string"
         },
-        "Link": {
-          "type": "string",
-          "title": "Link path"
+        "link": {
+          "title": "Link Path",
+          "type": "object",
+          "required": [
+            "text",
+            "url"
+          ],
+          "properties": {
+            "text": {
+              "title": "Text",
+              "type": "string"
+            },
+            "url": {
+              "title": "URL",
+              "type": "string"
+            }
+          }
         }
       }
     }
@@ -80,14 +97,23 @@ To render the `CallToAction` section you created in the previous step, you need 
 2. Inside the `components` folder, create a file named `CallToAction.tsx` and add the following code:
 
 ```tsx filename="CallToAction.tsx"
-import React, { FunctionComponent } from 'react'
+import React from "react";
 
-export default function CallToAction(props: any) {
+export interface CallToActionProps {
+  title: string;
+  link: {
+    text: string;
+    url: string;
+  };
+}
+
+export default function CallToAction(props: CallToActionProps) {
   return (
-    <h1 className="big-call-to-action">
-      <a href={props.link}>{props.title}</a>
-    </h1>
-  )
+    <section>
+      <h2>{props.title}</h2>
+      <a href={props.link.url}>{props.link.text}</a>
+    </section>
+  );
 }
 ```
 
