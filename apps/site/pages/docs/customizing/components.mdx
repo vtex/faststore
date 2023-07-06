@@ -45,7 +45,7 @@ This is how Prices looks like in our current homepage (with the default color bl
 
 2. Now, change the color of the `Listing` variant using its [local token](/components/atoms/price#design-tokens). For this tutorial, we will use the shade of red `#cb4242`:
 
-```scss {8}
+```scss {7} filename="custom-theme.scss"
   ...
   // --------------------------------------------------------
   // FS UI Components
@@ -69,7 +69,81 @@ Since we are not specifying the `Price` component context, we are applying this 
 
 ---
 
- ## Related resources
+## Customizing a Component within a Section
+
+The starter provides a set of [native sections](/docs/reference-guides/list-of-native-sections), each consisting of different components with unique functionalities. You can customize the components inside its section using the available section and the component's data attributes.
+
+In the example below, we will change the color of the [Price](/components/atoms/price#customization) component with the `listing` variant.
+But we only want to apply this change in the `ProductShelf` section. So, we can use the `data-fs-product-shelf` data-attribute to select the [ProductShelf component](/components/organisms/product-shelf#customization) in this section.
+
+<br></br>
+
+1. In your `custom-theme.scss` theme file , add the following code:
+
+```scss filename="custom-theme.scss"
+  ...
+  // --------------------------------------------------------
+  // FS UI Components
+  // --------------------------------------------------------
+  .section {
+    [data-fs-product-shelf] {
+      [data-fs-price][data-fs-price-variant="listing"] {
+        color: var(--fs-color-danger-text);
+      }
+    }
+  }
+```
+
+<Callout type="warning" emoji="⚠️">
+  Your styling code should be added inside the `.section` class to ensure the component looks as expected.
+</Callout>
+
+<br></br>
+
+2. Save your changes and check your browser to see the new color of your listing price inside the `ProductShelf`. You may need to refresh the page.
+
+<br></br>
+
+![homepage-prices-section-red](https://vtexhelp.vtexassets.com/assets/docs/src/homepage-prices-section-red___08a50e4ee716e6fe52e205827a50ad95.png)
+
+<br></br>
+
+Doing so, we can define in which section this styles will be applied and not all the component's ocurrences will change. You can use this same approach whenever you need to syle FastStore UI Components.
+
+---
+
+## Customizing a New Component when using Override
+
+When [overriding a native component](/docs/building-sections/overriding-components-and-props#overriding-a-native-component) and using your custom component, you may need to customize it from scratch.
+We recommend using [CSS Module](https://nextjs.org/docs/app/building-your-application/styling/css-modules) to style your new component.
+
+<Callout type="info" emoji="ℹ️">
+We support [Sass](https://sass-lang.com/) for styling by default, but you can work with your desired tool.
+</Callout>
+
+This is an example of a new `BuyButton` in the `ProductDetails` section. For more info about overriding features, please refer to [Overriding Native Components and Props](/docs/building-sections/overriding-components-and-props) guide.
+<br></br>
+![custom-buy-button-component-code](https://vtexhelp.vtexassets.com/assets/docs/src/custom-buy-button-component-code___8329b7dea7fcad893eef62f207ba477c.png)
+
+```scss filename="CustomBuyButton.module.scss"
+.CustomBuyButton {
+  color: var(--fs-color-text-inverse);
+
+  [data-fs-button-wrapper] {
+    --fs-button-border-radius: var(--fs-border-radius-pill);
+    --fs-button-padding:  0 var(--fs-spacing-5);
+    background-color: #E31C58;
+  }
+}
+```
+
+We recommend using the [global tokens](docs/global-tokens/overview) whenever possible to maintain your application visually consistent with your store [theme](/docs/themes/overview). Also, using [FastStore UI Components](/components) you can take advantage of component's design tokens set.
+<br></br>
+![custom-buy-button-component-preview](https://vtexhelp.vtexassets.com/assets/docs/src/custom-buy-button-component-preview___a8e5bb897bc16e41c8a7540ea7da25ec.png)
+
+---
+
+## Related resources
 
  - [Themes](/docs/themes/overview)
  - [Building and Customizing sections](/docs/building-sections/component-customization-overview)

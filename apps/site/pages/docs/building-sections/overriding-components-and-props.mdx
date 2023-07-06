@@ -69,7 +69,7 @@ Here's how the initial component looks like with the `size` prop set as `regular
 
 #### Step 1 - Setting up the `overrides` folder
 
-1. After choosing a native section to be customized from the [list of available native sections](/docs/reference-guides/list-of-available-native-sections), open your FastStore project in any code editor of your preference.
+1. After choosing a native section to be customized from the [list of available native sections](/docs/reference-guides/list-of-native-sections), open your FastStore project in any code editor of your preference.
 2. Go to the `src` folder, create the `components` folder and inside it, create the `overrides` folder.
 
 <Tabs items={['macOS and Linux', 'Windows']}>
@@ -241,11 +241,14 @@ export { override }
 
 ![overrides-PDP-buy-button-component-alert](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-buy-button-open-alert___b62f8cb5f3f98f6bd0f5502081de6a9b.gif)
 
+By using your custom component, you may need to customize it from scratch. See [Customizing a New Component when using Override](/docs/customizing/components#customizing-a-new-component-when-using-override) guide for more details about styling it.
+
 ---
 
 ## Extra: Overriding components and passing props
 
-In certain scenarios, you may have the option to use prior integrations within your custom component.
+In certain scenarios, when you want to keep the default integration or components configuration partially, you can use prior integrations within your custom component.
+
 Building upon our previous example, we could pass the `BuyButton` props to our new component.
 This approach allows us to incorporate the icon and cart sidebar integration while also introducing additional functionality to the `onClick` function, such as triggering an alert or sending an event to analytics.
 
@@ -273,7 +276,7 @@ export function CustomBuyButton(props: ButtonProps) {
 
 In this example, when clicked, the `CustomBuyButton` component will display an alert message and then open the `CartSideBar` (keeping its default behavior).
 
-But remember that this will only work if your custom component's props are compatible with the overriding component.
+Note that this will only work if your custom component's props are compatible with the overriding component. We encourage using [FastStore UI components](/components) to leverage existing features, basic styles, and better props compatibility.
 
 We believe this feature will open up numerous possibilities for exploration and customization in your store. Happy exploring! 🎉
 
