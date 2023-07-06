@@ -29,7 +29,7 @@ Before cloning your store's repository, ensure that you have the following tools
     <b>Node.js</b>
   </summary>
   <p>
-    <p>To run your FastStore project, you must have the latest <b><a href="">Node.js</a></b> version or a version higher than 15.0.0.</p>
+    <p>To run your FastStore project, you must have the latest <b><a href="">Node.js</a></b> version or a version higher than `15.0.0`.</p>
     <ul>
        <li>- <b><a href="https://nodejs.org/tr/download/package-manager#macos">Install Node.js on macOS using Homebrew</a></b></li>
        <li>- <b><a href="https://nodejs.org/tr/download/package-manager#windows-1">Install Node.js on Windows</a></b> </li>
@@ -84,7 +84,9 @@ Before cloning your store's repository, ensure that you have the following tools
 </details>
 
 <Callout type="info" emoji="ℹ️">
-  Although you might opt to use an alternative code editor, note that Visual Studio Code might help you follow along with the FastStore documentation since our documentation may include screenshots from VS Code.
+  Although you might opt to use an alternative code editor, 
+  note that [Visual Studio Code](https://code.visualstudio.com/) might help you follow along with the FastStore documentation 
+  since our documentation may include screenshots from VS Code.
 </Callout>
 
 ---
@@ -97,7 +99,7 @@ Before cloning your store's repository, ensure that you have the following tools
   For Windowns users we highly recommend to run the terminal in administrator mode. To run in this mode, right-click on the terminal icon and select `Run as administrator`.
 </Callout>
 
-2. Clone the repository created during the [Onboarding](/docs/getting-started/1-faststore-onboarding/onboarding#repository-and-live-store-created) by running the following command in the terminal:
+2. Clone the repository created during the [FastStore Onboarding](/docs/getting-started/1-faststore-onboarding/onboarding#repository-and-live-store-created) by running the following command in the terminal:
 ```bash
     git clone https://github.com/vtex-sites/{storeName}
 ```
@@ -120,7 +122,7 @@ yarn install
 5. Open up your FastStore project in any code editor of your choice.
 
 <Callout type="info" emoji="ℹ️">
-  Note that your store configuration was already set during the [Onboarding](/docs/getting-started/1-faststore-onboarding/onboarding#repository-and-live-store-created). Therefore, there is no need to connect your project to your VTEX account.
+  Note that your store configuration was already set during the [FastStore Onboarding](/docs/getting-started/1-faststore-onboarding/onboarding#repository-and-live-store-created). Therefore, there is no need to connect your project to your VTEX account.
   If you want to review these configurations, you can access the `faststore.config.js` file in the root directory of your project's repository.
 </Callout>
 
@@ -142,7 +144,7 @@ This may take a few minutes. Once your development server is ready, the command 
   event - compiled client and server successfully in 333 ms (951 modules)
 ```
 <Callout type="info" emoji="ℹ️">
-  The `dev` command is a part of the FastStore CLI, a pre-configured command line interface in your starter project. Using the CLI, this command enables you to execute code to keep your store's project up-to-date with the [@faststore/core package](/docs/getting-started/3-project-structure). For more information, refer to the topic on [FastStore CLI](/docs/getting-started/4-faststore-cli).
+  The `dev` command is part of the [FastStore CLI](/docs/getting-started/4-faststore-cli), a pre-configured command line interface in your starter project. Using the CLI, this command enables you to execute code to keep your store's project up-to-date with the [@faststore/core package](/docs/getting-started/3-project-structure).
 </Callout>
 
 2. Now, open your favorite web browser and navigate to the localhost served, for example, http://localhost:3000.
@@ -157,9 +159,9 @@ While your local development server is running, you can preview any changes you 
 
 ## Step 3: Making the first change in your store frontend
 
-Now that your store is up and running locally, let's make a simple change in the store frontend.
+Now that your store is up and running locally, let's make a simple change in the storefront.
 
-Let's make the first level of customization which updates the store's [theme](/docs/themes/overview). For this customization, we are going to use the [Soft Blue theme](/docs/themes/soft-blue) and we will make some updates to it.
+Let's make the first level of customization which updates the store's [theme](/docs/themes/overview). For this customization, we are going to use the [Soft Blue theme](/docs/themes/soft-blue).
 
 1. Create a new file named `soft-blue.scss` in `src/themes`. This is going to be the new theme of your store.
 
@@ -252,10 +254,10 @@ Let's make the first level of customization which updates the store's [theme](/d
   theme: 'soft-blue',
 ```
 
-4. Restart the server and check the new theme applied to your store. You may need to refresh the page.
+4. Restart the server and check in the browser the new theme applied to your store. You may need to refresh the page.
 
 ![theme-soft-blue](https://vtexhelp.vtexassets.com/assets/docs/src/soft-blue___9eb9e3e506de6396df954598739be8f8.png)
 
 <Callout type="info" emoji="ℹ️">
-  It is important to highlight that the store's logo is set through the [VTEX Headless CMS](https://www.faststore.dev/tutorials/cms/0).
+  It is important to highlight that the store's logo is set through the [VTEX Headless CMS](/docs/headless-cms-overview).
 </Callout>
