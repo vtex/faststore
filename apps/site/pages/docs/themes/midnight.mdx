@@ -9,26 +9,21 @@ A darkmode theme created for testing purposes.
 </header>
 
 <section className="section-theme">
- <div className="section-theme-img">
-   <img
-    src="https://vtexhelp.vtexassets.com/assets/docs/src/midnight___2bb274e36a39ff9c2cfa3dcc740cbfab.png"
-  />
- </div>
+  <div className="section-theme-img">
+    <img
+      src="https://vtexhelp.vtexassets.com/assets/docs/src/midnight___2bb274e36a39ff9c2cfa3dcc740cbfab.png"
+    />
+  </div>
 
   <article>
 
 ## Use `midnight` as your theme
 
-1. In your [starter project](https://github.com/vtex-sites/starter.store), go to `faststore.config.js` and change the `theme` to your file's name:
-
-```js
-// Theming
-theme: 'midnight',
-```
+1. In your [starter project](https://github.com/vtex-sites/starter.store), create a new file named `midnight.scss` in `src/themes`.
 
 2. Add the following styles to `src/themes/midnight.scss`:
 
-```css
+```scss filename="src/themes/midnight.scss"
 // ----------------------------------------------------------
 // GLOBAL TOKENS
 // Theme Midnight
@@ -121,10 +116,11 @@ theme: 'midnight',
   --fs-shadow-hover: 0 0 10px rgb(40 21 132 / 30%), 0 0 0 10px var(--fs-color-main-1);
 
   // --------------------------------------------------------
-  // Components
+  // FS UI Components
   // --------------------------------------------------------
-
   .section {
+    // Add here the customizations for FastStore UI components.
+
     [data-fs-skeleton] {
       --fs-skeleton-shimmer-bkg-color: var(--fs-color-disabled-bkg);
     }
@@ -182,7 +178,13 @@ theme: 'midnight',
 }
 ```
 
-3. Restart the server.
+3. Go to `faststore.config.js` and change the `theme` to `midnight`:
+
+```js filename="faststore.config.js"
+theme: 'midnight',
+```
+
+4. Restart the server and check the new theme applied to your store. 🎉
 
   </article>
 </section>
