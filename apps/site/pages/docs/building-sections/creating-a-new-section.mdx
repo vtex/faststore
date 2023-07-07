@@ -34,8 +34,7 @@ All sections must be available in the Headless CMS so they can be added and mana
 
 **2. Knowledge on how sections and content types work on Headless CMS**
 
-During the creation of a new section, you will create files such as `sections.json` and `content-types.json`, which follow a structure established for the Headless CMS. For more information about these files, refer to
-[Adding Content Types and Sections to the VTEX Headless CMS](/tbd)
+During the creation of a new section, you will create files such as `sections.json` and `content-types.json`, which follow a structure established for the Headless CMS.
 
 ## Step by step
 
@@ -44,7 +43,7 @@ During the creation of a new section, you will create files such as `sections.js
 1. In the FastStore root directory, create a folder named `cms`.
 2. Inside `cms`, create the `faststore` folder.
 3. Within the `cms/faststore` folder, create the following files: `content-types.json` and `sections.json`.
-4. In the `sections.json` file add the new section that you want to display in the Headless. The schema below defines how the Headless CMS renders a section:
+4. In the `sections.json` file add the new section that you want to display in the Headless CMS. The schema below defines how the Headless CMS renders a section:
 
 ```json filename="sections.json"
 [
@@ -87,16 +86,16 @@ During the creation of a new section, you will create files such as `sections.js
 ]
 ```
 
-This new section receives a title and a link pointing to somewhere in the store.
+This new section receives a title and a link pointing to somewhere.
 
 ### Step 2: Creating the new section
 
-To render the `CallToAction` section you created in the previous step, you need to create a this section component.
+To render the `CallToAction` section you created in the previous step, you need to create this section component.
 
 1. If you don't already have it, create a folder named `components` inside the `src` directory.
 2. Inside the `components` folder, create a file named `CallToAction.tsx` and add the following code:
 
-```tsx filename="CallToAction.tsx"
+```tsx filename="components/CallToAction.tsx"
 import React from "react";
 
 export interface CallToActionProps {
@@ -130,7 +129,7 @@ This section will receive the `link` and `title` defined previously in the `sect
 
 Open the index.tsx file and add the following code:
 
-```tsx
+```tsx filename="components/index.tsx"
 import CallToAction from './CallToAction'
 
 export default { CallToAction }
@@ -138,7 +137,8 @@ export default { CallToAction }
 
 ### Step 3: Synchronizing the new section with the Headless CMS
 
-1. In the terminal, run `faststore cms-sync`. This command will synchronize the new section you created with the @faststore/core.
+1. In the terminal, run `faststore dev`.
+2. Then, run `faststore cms-sync`. This command will synchronize the new section you created with the CMS.
 2. Go to the VTEX Admin and access **Storefront > Headless CMS**.
 3. Click on the `Home` content type.
 4. In the `Sections` tab, click the `+`, search for the new `Call to Action` section, and add it to your page.
