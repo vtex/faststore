@@ -115,17 +115,32 @@ Notice that in this example, only one section received the change, the `ProductS
 
 ## Customizing a new component when using override
 
-You can customize a native component behavior to match  your store's need and the name of this process in FastStore is **override**. 
+To customize a native component in FastStore to suit your store's needs, you can use the **override** feature.
 When [overriding a native component](/docs/building-sections/overriding-components-and-props#overriding-a-native-component) and using your custom component, 
-you may need to style it from scratch. To style your new component, we recommend using [CSS Module](https://nextjs.org/docs/app/building-your-application/styling/css-modules) to style your new component.
+you may need to style it from scratch. In this section, you'll learn how to style a custom component.
+
+### Before you start
+
+Make sure you have a basic understanding of [overriding native components and props](/docs/building-sections/overriding-components-and-props). 
+Additionally, we recommend to use [CSS Module](https://nextjs.org/docs/app/building-your-application/styling/css-modules) for styling your new component.
 
 <Callout type="info" emoji="ℹ️">
 FastStore components support [Sass](https://sass-lang.com/) for styling by default, but you can work with your desired tool.
 </Callout>
 
-This is an example of a new `BuyButton` in the `ProductDetails` section. For more info about overriding features, please refer to [Overriding Native Components and Props](/docs/building-sections/overriding-components-and-props) guide.
+For better understanding, we will use the example from the [Overriding Native Components and Props](/docs/building-sections/overriding-components-and-props) guide. 
+This example demonstrates how to create a new `BuyButton`, the `CustomBuyButton` in the `ProductDetails` section. 
+To follow along this section, make sure to create the `CustomBuyButton`.
+
+### Step by step
+
+1. Once you have created the `CustomBuyButton` component, create a new file called `CustomBuyButtons.module.scss`.
+
 <br></br>
 ![custom-buy-button-component-code](https://vtexhelp.vtexassets.com/assets/docs/src/custom-buy-button-component-code___8329b7dea7fcad893eef62f207ba477c.png)
+<br></br>
+
+2. Add the following code to the `CustomBuyButtons.module.scss` file:
 
 ```scss filename="CustomBuyButton.module.scss"
 .CustomBuyButton {
@@ -139,7 +154,10 @@ This is an example of a new `BuyButton` in the `ProductDetails` section. For mor
 }
 ```
 
-We recommend using the [global tokens](docs/global-tokens/overview) whenever possible to maintain your application visually consistent with your store [theme](/docs/themes/overview). Also, using [FastStore UI Components](/components) you can take advantage of component's design tokens set.
+To maintain visual consistency with you store's theme, we recommend using the [global tokens](docs/global-tokens/overview) whenever possible. Also, you can take advantage of the design tokens set provided by [FastStore UI Components](/components).
+
+3. Restart the server and check the color of your `CustomBuyButton` component:
+
 <br></br>
 ![custom-buy-button-component-preview](https://vtexhelp.vtexassets.com/assets/docs/src/custom-buy-button-component-preview___a8e5bb897bc16e41c8a7540ea7da25ec.png)
 
