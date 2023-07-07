@@ -90,7 +90,10 @@ function ProductGallery({
   return (
     <section data-testid="product-gallery" data-fs-product-listing>
       {searchTerm && (
-        <header data-fs-product-listing-search-term>
+        <header
+          data-fs-product-listing-search-term
+          data-fs-content="product-gallery"
+        >
           <h1>
             {searchTermLabel} <span>{searchTerm}</span>
           </h1>
