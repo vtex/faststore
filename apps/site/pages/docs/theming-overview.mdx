@@ -1,10 +1,10 @@
 import { LinkButton, Icon } from '@faststore/ui'
 
-import { Callout } from 'nextra-theme-docs'
+import { Callout, Card, Cards } from 'nextra-theme-docs'
 
 <header className="hero">
 
-# Theme
+# Theming
 
 Themes are CSS stylesheets consisting of configurable design tokens. You can create your own theme by setting up global and local tokens as desired.
 </header>
@@ -18,12 +18,7 @@ A Theme is what enables you to change the look and feel of a FastStore project. 
 
 - **Local tokens** - a set of configurable design tokens responsible for defining the appearance of graphical elements, such as typography, type scale, colors, borders, spacing, and more.
 
-By default, every FastStore project comes with the [Brandless theme](/docs/brandless). However, you have the option to use one of the [available themes](#available-themes) or [create a custom theme](#creating-a-custom-theme).
-
-
-<Callout type="info" emoji="ℹ️">
-  You have the flexibility and freedom to style the theme by overriding it using global or local tokens, or by starting from scratch using your preferred styling tool.
-</Callout>
+By default, every FastStore project comes with the [Brandless theme](/docs/theming-overview#brandless-and-theming-structure). However, you have the option to use one of the [available themes](#available-themes) or [create a custom theme](#creating-a-custom-theme).
 
 
 In this guide, you will have an overview of the strucure and architecture of Themes and Design tokens.
@@ -31,11 +26,12 @@ In this guide, you will have an overview of the strucure and architecture of The
 ---
 ## Brandless and theming structure
 
-The **Brandless** theme is made of two complementary layers: **Structural Styles** and **Theme**.
+The Brandless theming structure consists of two important parts: **Structural Styles** and **Theme**.
 
-**Structural Styles**, the first layer, has foundational styles that lay things out in common design patterns for different use cases. It also covers a component's fundamental interactions, like showing/hiding a dropdown or moving a toggle’s knob to make it active.
+**Structural Styles** provide the basic design patterns for different uses. They also handle essential interactions like showing/hiding dropdown menus or activating toggles.
 
-The second, **Theme**, is where the branding lives and what truly differentiates one UI from another. Graphic elements—like typography (and type scale), colors, imagery, borders, spacing, & more—are controlled by design tokens that a developer can easily tweak to create a unique look and feel.
+The **Theme layer** is where the branding comes in. 
+It's what makes each UI unique. Design elements like typography, colors, images, borders, and spacing are controlled through design tokens and you can adjust these tokens to create a distinct look and feel.
 
 <div style={{ display: 'flex', marginTop: '12px' }}>
 <img
@@ -44,13 +40,23 @@ The second, **Theme**, is where the branding lives and what truly differentiates
 />
 </div>
 
-You can also add styles to overwrite what was set in the Structure and/or Theme, reaching a state of total flexibility and freedom, or you can throw away all existing FastStore CSS altogether and build it from scratch.
+You can also customize or override the styles set in the Structural Styles or Theme layers for even more flexibility. 
+Alternatively, you have the option to start from scratch and create your own styles without using any pre-existing FastStore CSS.
+
+By understanding and using the Structural Styles and Theme layers, you can create visually appealing and unique user interfaces while maintaining control and flexibility.
 
 ---
 
 ## Theming architecture
 
-Starting from the bottom up, we have the components: fully-featured UI blocks that belong to a larger whole system. The components have their own CSS that defines their overall appearance and how things are arranged; these scoped stylesheets are the Templates. The Templates' visual properties are tied to local variables—design tokens—that draw the final picture of the component; these local, scoped variables, on the other hand, are tied to global tokens, which form the Theme.
+Let's break down the theming architecture from the bottom up. We start with components, which are fully-featured UI blocks that are part of a larger system. 
+Each component has its own CSS that determines its overall look and arrangement. These CSS stylesheets are called Templates.
+
+The Templates rely on local variables known as design tokens, which define the visual properties of the component. These design tokens are scoped and specific to each component. They play a crucial role in creating the final appearance of the component.
+
+On a higher level, these local design tokens are connected to global tokens, forming the Theme. The global tokens are responsible for setting the overall visual style of the entire system.
+
+Here's an image that illustrates the Theming Architecture:
 
 <img
   src="https://vtexhelp.vtexassets.com/assets/docs/src/theming-architecture___f965569346d8d7d6a3de1f020f06ac99.png"
@@ -92,3 +98,30 @@ Global design tokens are parameters that affect all UI look 'n' feel. They are t
 3. Refinements
 
 ![Theme architecture](https://vtexhelp.vtexassets.com/assets/docs/src/theming-global-tokens___e4e339f287113ecae974234ecbad1bff.png)
+
+---
+
+## Next steps
+
+<Cards>
+  <Card
+    title="Global Tokens"
+    href="/docs/global-tokens/overview"
+  />
+ 
+  <Card
+    title="Themes"
+    href="/docs/themes/overview"
+  />
+
+   <br></br>
+
+  <Card
+    title="Icons"
+    href="/docs/icons"
+  />
+  <Card
+    title="Customizing"
+    href="/docs/customizing/components"
+  />
+</Cards>
