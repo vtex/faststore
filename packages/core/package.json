@@ -88,7 +88,7 @@
     "lint-staged": "^10.5.4",
     "msw-storybook-addon": "^1.6.3",
     "prettier": "^2.2.0",
-    "stylelint": "^14.6.0",
+    "stylelint": "^15.10.1",
     "stylelint-config-recess-order": "^3.0.0",
     "stylelint-config-standard": "^24.0.0",
     "stylelint-config-standard-scss": "^3.0.0",
