@@ -1,21 +1,37 @@
 import { LinkButton, Icon } from '@faststore/ui'
 
+import { Callout } from 'nextra-theme-docs'
+
 <header className="hero">
 
-# Brandless
+# Theme
 
-This themeable structure is made of two complementary layers: a useful and assorted library of templates for the components and sections, alongside a comprehensive set of design tokens to further customize them.
-
-<LinkButton
-  size="small"
-  variant="tertiary"
-  href="/docs/customizing/components"
-  icon={<Icon name="ArrowRight" />}
-  iconPosition="right"
->
-  Customizing your store
-</LinkButton>
+Themes are CSS stylesheets consisting of configurable design tokens. You can create your own theme by setting up global and local tokens as desired.
 </header>
+
+
+
+A Theme is what enables you to change the look and feel of a FastStore project. It is what differentiates one UI from another and where the store branding lives. In practice, Themes are CSS stylesheets consisting of configurable design tokens.
+
+
+- **Global tokens** - structural styles responsible for establishing the behavior (e.g., showing/hiding a dropdown menu) and design pattern of a component.
+
+- **Local tokens** - a set of configurable design tokens responsible for defining the appearance of graphical elements, such as typography, type scale, colors, borders, spacing, and more.
+
+By default, every FastStore project comes with the [Brandless theme](/docs/brandless). However, you have the option to use one of the [available themes](#available-themes) or [create a custom theme](#creating-a-custom-theme).
+
+
+<Callout type="info" emoji="ℹ️">
+  You have the flexibility and freedom to style the theme by overriding it using global or local tokens, or by starting from scratch using your preferred styling tool.
+</Callout>
+
+
+In this guide, you will have an overview of the strucure and architecture of Themes and Design tokens.
+
+---
+## Brandless and theming structure
+
+The **Brandless** theme is made of two complementary layers: **Structural Styles** and **Theme**.
 
 **Structural Styles**, the first layer, has foundational styles that lay things out in common design patterns for different use cases. It also covers a component's fundamental interactions, like showing/hiding a dropdown or moving a toggle’s knob to make it active.
 
@@ -28,7 +44,7 @@ The second, **Theme**, is where the branding lives and what truly differentiates
 />
 </div>
 
-Additional styles can be added to overwrite what was set in the Structure and/or Theme, reaching a state of total flexibility and freedom. Lastly, the developer can throw away all existing FastStore CSS altogether and build it from scratch.
+You can also add styles to overwrite what was set in the Structure and/or Theme, reaching a state of total flexibility and freedom, or you can throw away all existing FastStore CSS altogether and build it from scratch.
 
 ---
 
