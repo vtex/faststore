@@ -84,8 +84,8 @@ Before cloning your store's repository, ensure that you have the following tools
 </details>
 
 <Callout type="info" emoji="ℹ️">
-  Although you might opt to use an alternative code editor, 
-  note that [Visual Studio Code](https://code.visualstudio.com/) might help you follow along with the FastStore documentation 
+  Although you might opt to use an alternative code editor,
+  note that [Visual Studio Code](https://code.visualstudio.com/) might help you follow along with the FastStore documentation
   since our documentation may include screenshots from VS Code.
 </Callout>
 
@@ -230,6 +230,9 @@ Let's make the first level of customization which updates the store's [theme](/d
   // --------------------------------------------------------
   // FS UI Components
   // --------------------------------------------------------
+
+  --fs-logo-width: 8rem;
+
   .section {
     // Add here the customizations for FastStore UI components.
     [data-fs-product-card] {
@@ -239,10 +242,6 @@ Let's make the first level of customization which updates the store's [theme](/d
       &[data-fs-product-card-bordered='true'] {
         --fs-product-card-border-color: var(--fs-border-color-light);
       }
-    }
-
-    [data-fs-logo] {
-      --fs-logo-width: 8rem;
     }
   }
 }
