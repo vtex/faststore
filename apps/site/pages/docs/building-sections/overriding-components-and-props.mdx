@@ -82,8 +82,8 @@ Here's how the initial component looks like with the `size` prop set as `regular
 {' '}
 
 <Tab>
-```bash 
-mkdir src\components src\components\overrides 
+```bash
+mkdir src\components src\components\overrides
 ```
 </Tab>
 
@@ -111,9 +111,9 @@ import { SectionOverride } from '@faststore/core/src/typings/overrides'
 
 const SECTION = 'ProductDetails' as const
 
-const override: SectionOverride = { 
-  section: SECTION, 
-  components: {} 
+const override: SectionOverride = {
+  section: SECTION,
+  components: {}
 }
 
 export { override }
@@ -190,8 +190,8 @@ For this guide we will create a custom Buy Button that once you click on it, it 
 {' '}
 
 <Tab>
-```bash 
-touch src\components\CustomBuyButton.tsx 
+```bash
+touch src\components\CustomBuyButton.tsx
 ```
 
 </Tab>
@@ -252,7 +252,7 @@ export { override }
 
 ![overrides-PDP-buy-button-component-alert](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-buy-button-open-alert___b62f8cb5f3f98f6bd0f5502081de6a9b.gif)
 
-By using your custom component, you may need to customize it from scratch. See [Customizing a New Component when using Override](/docs/customizing/components#customizing-a-new-component-when-using-override) guide for more details about styling it.
+By using your custom component, you may need to customize it from scratch.
 
 ---
 
@@ -261,11 +261,11 @@ By using your custom component, you may need to customize it from scratch. See [
 In specific scenarios, when you want to partially keep the default integration or components configuration, you can use prior integrations within your custom component.
 
 <Callout type="warning" emoji="⚠️">
-  Note that this will only work if your custom component's props are compatible with the overriding component. 
+  Note that this will only work if your custom component's props are compatible with the overriding component.
   We encourage using [FastStore UI components](/components) to leverage existing features, basic styles, and better props compatibility.
 </Callout>
 
-Building upon our previous example, we could pass the `BuyButton` props to our new component. 
+Building upon our previous example, we could pass the `BuyButton` props to our new component.
 This approach allows us to incorporate the icon and cart sidebar integration while introducing additional functionality to the `onClick` function, such as triggering an alert or sending an event to analytics.
 
 ```tsx filename="CustomBuyButton.tsx"
