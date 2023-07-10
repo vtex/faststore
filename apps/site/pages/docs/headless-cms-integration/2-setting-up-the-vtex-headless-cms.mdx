@@ -1,0 +1,115 @@
+---
+title: '2. Setting up the VTEX Headless CMS'
+sidebar_label: 'Integrating your storefront with VTEX Headless CMS'
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<header>
+# Part 2: Setting up the VTEX Headless CMS in your FastStore project
+</header>
+
+Now that you are familiar with the core concepts of the **VTEX Headless CMS** and have set it up in your VTEX account, let's get back to our **FastStore** project to define our own **Content Types** and **Sections**.
+
+By the end of this part of this tutorial, you will be able to see your first definition of a Content Type available for use at the VTEX Headless CMS app. Next, we will dive deeper into how to create these definitions in a smoother way.
+
+---
+
+## Step by step
+
+### Step 1 - Creating the CMS folder
+
+1. Open the terminal and change to the root directory of your FastStore project.
+2. Create a new folder named `cms` at the root of your FastStore project:
+
+    ```bash
+    mkdir cms
+    ```
+
+3. Inside the `cms` folder, create a folder for your project:
+
+    ```bash
+    cd cms
+    mkdir faststore
+    ```
+4. Inside the `faststore` folder, create the three following files:
+
+    - `content-types.json` - an array of JSON objects that describes the **Content Types** available for customization at the VTEX Headless CMS app.
+    - `sections.json` - an array of JSON objects that describes the content structure of the frontend **Section** components available for customization at the VTEX Headless CMS app.
+    - `translation-keys.json` - an array of JSON objects that defines the translation keys of the Sections descriptions.
+
+    ```bash
+    touch cms/faststore/content-types.json cms/faststore/sections.json cms/faststore/translation-keys.json
+    ```
+
+5. Update the `sections.json` file with an empty array:
+
+   ```bash
+   echo "[]" > cms/faststore/sections.json
+   ```
+6. Update the `translation-keys.json` file with an empty object:
+   ```
+   echo "{}" > cms/faststore/translation-keys.json
+   ```
+ 
+    
+ :::info
+  Once you have the 1.0.7 version of @vtex/cli-plugin-cms it is possible to specify the builder that you want to synchronize.  To do that you should update with the    command ```vtex plugins update``` and create a folder to each one of the builders to be able to specify it. Example: cms/faststore/content-types.json"
+:::
+
+7. Now, open the `content-types.json` file in any code editor of your choice and add the following code:
+
+   ```json filename="cms/faststore/content-types.json" copy 
+    [
+      {
+        "id": "home",
+        "name": "Home Page",
+        "configurationSchemaSets": []
+      },
+      {
+        "id": "institutionalPage",
+        "name": "Institutional page",
+        "configurationSchemaSets": [
+          {
+            "name": "SEO",
+            "configurations": [
+              {
+                "name": "siteMetadataWithSlug",
+                "schema": {
+                  "title": "Site Metadata",
+                  "description": "Configure global site metadata",
+                  "type": "object",
+                  "widget": {
+                    "ui:ObjectFieldTemplate": "GoogleSeoPreview"
+                  },
+                  "properties": {
+                    "title": {
+                      "title": "Default page title",
+                      "description": "Display this title when no other tile is available",
+                      "type": "string",
+                      "default": "Store Theme | VTEX SFJ"
+                    },
+                    "description": {
+                      "title": "Meta tag description",
+                      "type": "string",
+                      "default": "A beautifully designed site for general VTEX stores"
+                    },
+                    "titleTemplate": {
+                      "title": "Title template to be used in category/product pages",
+                      "type": "string",
+                      "default": "%s | Store Theme"
+                    },
+                    "slug": {
+                      "title": "URL Slug",
+                      "type": "string",
+                      "default": "/landing-page-url"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+    ```
