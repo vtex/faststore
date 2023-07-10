@@ -1,37 +1,63 @@
 import { LinkButton, Icon } from '@faststore/ui'
 
-import { Callout, Card, Cards } from 'nextra-theme-docs'
+import { Callout, Card, Cards, Steps, Step } from 'nextra-theme-docs'
 
 <header className="hero">
 
 # Theming
 
-Themes are CSS stylesheets consisting of configurable design tokens. You can create your own theme by setting up global and local tokens as desired.
+Theming allows you to change the UI of your project by using CSS stylesheets called themes.
 </header>
 
-
-
-A Theme is what enables you to change the look and feel of a FastStore project. It is what differentiates one UI from another and where the store branding lives. In practice, Themes are CSS stylesheets consisting of configurable design tokens.
-
-
-- **Global tokens** - structural styles responsible for establishing the behavior (e.g., showing/hiding a dropdown menu) and design pattern of a component.
-
-- **Local tokens** - a set of configurable design tokens responsible for defining the appearance of graphical elements, such as typography, type scale, colors, borders, spacing, and more.
-
-By default, every FastStore project comes with the [Brandless theme](/docs/theming-overview#brandless-and-theming-structure). However, you have the option to use one of the [available themes](#available-themes) or [create a custom theme](#creating-a-custom-theme).
-
-
-In this guide, you will have an overview of the strucure and architecture of Themes and Design tokens.
+In this guide, you'll have an overview of theming in FastStore, explaining the concept of theming, the use of global and local tokens, the structure and architecture of themes, and the naming scheme for design tokens.
 
 ---
-## Brandless and theming structure
 
-The Brandless theming structure consists of two important parts: **Structural Styles** and **Theme**.
+## What is Theming?
+Theming refers to the process of customizing the UI of a project by using CSS stylesheets called themes. 
+Themes consist of configurable design tokens that define the look and feel of the UI. 
 
-**Structural Styles** provide the basic design patterns for different uses. They also handle essential interactions like showing/hiding dropdown menus or activating toggles.
+By modifying these design tokens, you can change the colors, typography, spacing, and other visual properties to create a unique look and feel for your store.
 
-The **Theme layer** is where the branding comes in. 
-It's what makes each UI unique. Design elements like typography, colors, images, borders, and spacing are controlled through design tokens and you can adjust these tokens to create a distinct look and feel.
+
+By default, every FastStore project comes with the [Brandless theme](/docs/theming-overview#brandless-and-the-theming-structure), a basic theme to start your FastStore project.
+However, you have the option to use one of the [available themes](/docs/themes/overview#available-themes) or [create a custom theme](/docs/themes/overview#creating-a-custom-theme).
+
+
+<Callout type="info" emoji="ℹ️">
+  You have the flexibility and freedom to style the theme by overriding it using global or local tokens, or by starting from scratch using your preferred styling tool.
+</Callout>
+
+---
+
+## Global and Local Tokens
+
+There are two types of design tokens: global tokens and local tokens.
+
+| Design Token name | Description                                                                                                                                                                         |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Global tokens** | Structural styles that define the behavior and design patterns of components at a system-wide level. They handle interactions such as showing or hiding dropdown menus and toggles. |
+| **Local tokens**  | Design tokens specific to individual components. They control the appearance of graphical elements within components, including typography, colors, borders, and spacing.           |   
+
+By configuring both global and local tokens, you can create consistent visual styles across your application while allowing for customization at both the system and component levels.
+
+---
+
+## Brandless and the Theming structure
+
+ **Brandless**, the FastStore default theme, is a themeable structure, made of two complementary layers: 
+ a useful and assorted library of templates for the components and sections, the **Structural Styles**, alongside a comprehensive set of design tokens to further customize them, the **Theme Layer**.
+
+These two layers are the two main parts of the theming structure:
+
+**Structural Styles** provide the foundational design patterns and handle essential interactions across components. They establish the basic behavior of the UI.
+
+The **Theme layer** is where the branding and customization happen. It allows you to control design elements such as typography, colors, images, borders, and spacing through design tokens. By adjusting these tokens, you can achieve a distinct visual identity for your application.
+
+You have the flexibility to customize or override the styles defined in the Structural Styles or Theme layers. Alternatively, you can start from scratch and create your own styles without relying on pre-existing FastStore CSS.
+
+Understanding the Structural Styles and Theme layers enables you to create visually appealing and unique user interfaces while maintaining control and flexibility.
+
 
 <div style={{ display: 'flex', marginTop: '12px' }}>
 <img
@@ -40,23 +66,31 @@ It's what makes each UI unique. Design elements like typography, colors, images,
 />
 </div>
 
-You can also customize or override the styles set in the Structural Styles or Theme layers for even more flexibility. 
-Alternatively, you have the option to start from scratch and create your own styles without using any pre-existing FastStore CSS.
-
-By understanding and using the Structural Styles and Theme layers, you can create visually appealing and unique user interfaces while maintaining control and flexibility.
-
 ---
 
-## Theming architecture
+## Theming Architecture
 
-Let's break down the theming architecture from the bottom up. We start with components, which are fully-featured UI blocks that are part of a larger system. 
-Each component has its own CSS that determines its overall look and arrangement. These CSS stylesheets are called Templates.
+The theming architecture is structured as follows:
 
-The Templates rely on local variables known as design tokens, which define the visual properties of the component. These design tokens are scoped and specific to each component. They play a crucial role in creating the final appearance of the component.
+<Steps>
 
-On a higher level, these local design tokens are connected to global tokens, forming the Theme. The global tokens are responsible for setting the overall visual style of the entire system.
+### Components
 
-Here's an image that illustrates the Theming Architecture:
+These are fully-featured UI blocks that form part of the larger system. Each component has its own CSS stylesheets called Templates, which determine its appearance and arrangement.
+
+### Local Design Tokens
+
+Components rely on local design tokens, which are specific to each component. These design tokens define the visual properties of the component, such as colors, typography, and spacing.
+
+### Global Design Tokens
+
+Local design tokens are connected to global tokens, forming the Theme. Global tokens are responsible for setting the overall visual style of the entire system. They affect the appearance of multiple components and ensure consistency across the application.
+
+</Steps>
+
+
+The interaction between components, local design tokens, and global design tokens creates a hierarchical structure that allows for modular theming and customization.
+
 
 <img
   src="https://vtexhelp.vtexassets.com/assets/docs/src/theming-architecture___f965569346d8d7d6a3de1f020f06ac99.png"
@@ -66,30 +100,36 @@ Here's an image that illustrates the Theming Architecture:
 
 ---
 
-## Design tokens naming scheme
+## Design Tokens Naming Scheme
 
-### Scoped Tokens (components)
+Design tokens follow a specific naming scheme to ensure predictability and cohesiveness. The naming scheme consists of different parts:
 
-All components' design tokens must follow a strict scheme to achieve predictability and cohesiveness. The tokens parts must tell:
+- **Namespacing:** Indicates whether the token is a global or a component's local token.
 
-- **Namespacing**: Where this token is coming from (is it a global or a component's local part);
-- **Component**: Their semantic meaning;
-- **Type**: What property type it affects;
-- **Category** Which category of this type is going to be affected;
-- **State**: Their interactive state.
+- **Component:** Represents the semantic meaning of the token.
+
+- **Type:** Specifies the type of property the token affects, such as color, typography, or spacing.
+
+- **Category:** Defines the category within the type that the token affects.
+
+- **State:** Indicates the interactive state of the token.
 
 ![Naming scheme](https://vtexhelp.vtexassets.com/assets/docs/src/theming-naming-1___32778b6c40f12a94ac4a54a90879aeef.png)
 
-If needed, we can use other additional incrementation to the token's name, such as:
 
-- **Hierarchy**: Define its tier;
-- **Nested Element**: To sytle elements contained inside the component;
-- **Variant**: What differentiate it from the default;
-- **Situation**: When they should be used;
+Additional increments can be added to the token's name, such as hierarchy, nested element, variant, or situation, to differentiate tokens and provide more context.
+
+
+- **Hierarchy**: Define its tier.
+- **Nested Element**: To sytle elements contained inside the component.
+- **Variant**: What differentiate it from the default.
+- **Situation**: When they should be used.
 
 ![Naming scheme 2](https://vtexhelp.vtexassets.com/assets/docs/src/theming-naming-2___4668c9e8da8bec361681d41b6a2e7266.png)
 
-### Theme (or global design tokens)
+---
+
+## Theme (or global design tokens)
 
 Global design tokens are parameters that affect all UI look 'n' feel. They are the main configuration file of a Theme. It's constituted of three main groups:
 
@@ -98,6 +138,7 @@ Global design tokens are parameters that affect all UI look 'n' feel. They are t
 3. Refinements
 
 ![Theme architecture](https://vtexhelp.vtexassets.com/assets/docs/src/theming-global-tokens___e4e339f287113ecae974234ecbad1bff.png)
+
 
 ---
 
