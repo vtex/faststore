@@ -17,14 +17,15 @@ import NavbarSliderUsage from 'site/components/Navigation/NavbarSliderUsage'
 
 export const getStaticProps = () => {
   const navbarLinksPath = path.resolve(__filename)
-  const components = ['NavbarLinks.tsx']
-  const [navbarLinksProps] = getComponentPropsFrom(navbarLinksPath, components)
+  const components = ['NavbarLinks.tsx', 'NavbarLinksList.tsx']
+  const [navbarLinksProps, navbarLinksListProps] = getComponentPropsFrom(navbarLinksPath, components)
   return {
     props: {
       // We add an `ssg` field to the page props,
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
         navbarLinksProps,
+        navbarLinksListProps,
       },
     },
   }
@@ -32,9 +33,10 @@ export const getStaticProps = () => {
 
 export const NavbarLinksPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
-  const { navbarLinksProps } = useSSG()
+  const { navbarLinksProps, navbarLinksListProps } = useSSG()
   return {
     NavbarLinks: <PropsSection propsList={navbarLinksProps} />,
+    NavbarLinksList: <PropsSection propsList={navbarLinksListProps} />,
   }[component]
 }
 
@@ -117,6 +119,10 @@ import '@faststore/ui/src/components/molecules/NavbarLinks/styles.scss'
 ### Navbar Links
 
 <NavbarLinksPropsSection component="NavbarLinks" />
+
+### Navbar Links List
+
+<NavbarLinksPropsSection component="NavbarLinksList" />
 
 ---
 

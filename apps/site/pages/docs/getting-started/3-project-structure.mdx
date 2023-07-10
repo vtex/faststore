@@ -11,7 +11,7 @@ import { Callout } from 'nextra-theme-docs'
 
 </header>
 
-In the previous guide of this track, you started your first FastStore store, learned how to run a local server and make your first change in the storefront. Now it's time to understand how our project is structured.
+In the previous guide of this track, you started your first FastStore store, learned how to run a local server and made your first change in the storefront. Now it's time to understand how our project is structured.
 
 By understanding the structure of a FastStore project, you can better navigate the codebase and make customizations to fit your specific needs.
 
@@ -41,8 +41,8 @@ Let's start taking a look at the structure that represents the source code of a 
 
 - `/.faststore` - Manages and coordinates the FastStore project to deliver a functional starter store. It contains essential packages such as `Components`, `SDK`, and `API`, which provide the core functionality of the FastStore starter.
 
-- `/src` - Contains all of your store's customizations, including your custom components and theme.
-- `/themes` - Keeps your store's theme, such as [midnight](/docs/themes/midnight)
+- `/src` - Contains all of your store's customizations, including your custom components created through [overriding](/docs/building-sections/overriding-components-and-props) and [theme](/docs/themes/overview).
+- `/src/themes` - Keeps your store's theme, such as [midnight](/docs/themes/midnight).
 
 ---
 
@@ -52,7 +52,7 @@ Let's start taking a look at the structure that represents the source code of a 
 
 - `cypress.json` - Configures the options and preferences required for running tests with Cypress.
 
-- `faststore.config.js` - Configure various aspects of the project such as SEO settings, store ID, and theme using this file. Keep in mind that these configurations are set during the onboarding process, so you won't need to make changes to this file.
+- `faststore.config.js` - Configures various aspects of the project such as SEO settings, store ID, and theme using this file. Keep in mind that most of these configurations are set during the [FastStore Onboarding](/docs/getting-started/1-faststore-onboarding/overview) process.
 
 - `next-env.d.ts` - Generates a TypeScript definition file for Next.js.
 
@@ -65,11 +65,11 @@ Let's start taking a look at the structure that represents the source code of a 
 ###  `package.json`
 Defines the project's metadata and handles dependencies and scripts using yarn. Let's take a closer look at three important packages inside this file:
 
-### `@faststore/core`
+- #### `@faststore/core`
 Bundles FastStore source code, including the starter for FatsStore projects: `starter store`. It contains three sub-packages, `Components`, `SDK`, and `API`, which handle the starter.
 
-### `@faststore/ui`
+- #### `@faststore/ui`
 Provides a design system based on FastStore components using Sass for styling.
 
-### `@faststore/cli`
+- #### `@faststore/cli`
 Combines VTEX code (`@faststore/core`) with the customizations you make in your repository (`/src`). This package helps with debugging and differentiating between VTEX code and customizations. To learn more, refer to the [FastStore CLI documentation](/docs/getting-started/4-faststore-cli).

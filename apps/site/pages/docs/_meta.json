@@ -20,8 +20,8 @@
     "type": "separator",
     "title": "Theming"
   },
-  "brandless": {
-    "title": "Brandless",
+  "theming-overview": {
+    "title": "Overview",
     "theme": {
       "layout": "full"
     }
