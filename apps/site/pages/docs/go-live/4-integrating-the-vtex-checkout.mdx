@@ -38,7 +38,7 @@ Take the following steps to guarantee shoppers will be redirected to the newest 
 4. Select `checkout-confirmation-custom.js` under **Files**.
 5. Add the following JavaScript code in the editor:
 
-```jsx {4-5} filename="checkout-confirmation-custom.js"
+```jsx {4-5} filename="checkout-confirmation-custom.js" copy
 // WARNING: THE USAGE OF CUSTOM SCRIPTS IS NOT SUPPORTED. VTEX IS NOT LIABLE FOR ANY DAMAGES THIS MAY CAUSE.
 // THIS MAY BREAK YOUR STORE AND STOP SALES. IN CASE OF ERRORS, PLEASE DELETE THE CONTENT OF THIS SCRIPT.
 
@@ -59,7 +59,7 @@ We now need to update the links presented in the Header and Footer of the Checko
 1. Still in the VTEX Admin at the **Store Settings > Storefront > Checkout > Default > Code** tab, click on `checkout-header` under **Template**.
 2. Edit the `checkout-header` code according to your scenario, making sure all links are pointing to your FastStore website. For example:
 
-   ```diff filename="checkout-header.js"
+   ```diff filename="checkout-header.js" copy
    <div class="container">
    -  <a href="/" title="Home Page">Your logo here!</a>
    +  <a href="https://www.vtexfaststore.com" title="Home Page">FastStore</a>
