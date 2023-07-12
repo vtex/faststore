@@ -87,7 +87,7 @@ Let's configure the URLs of the webhooks used by the VTEX Headless CMS app.
 
 5. Fill in the **Production base URL** filed with your production URL. _Replace the values between curly brackets according to your scenario._
 
-```
+``` 
 https://{account}.vtex.com/
 ```
 
@@ -102,7 +102,7 @@ Now, if you are developing your FastStore project with CI/CD and VTEX Headless C
 2. Edit the `faststore.config.js` file in the root directory of your project.
 3. In the VTEX Headless CMS configuration, add the `webhookUrls` property corresponding to your store website as in the following:
 
-   ```js filename="faststore.config.js"
+   ```js filename="faststore.config.js" copy
     "vtexHeadlessCms": {
       webhookUrls: [
         "https://{account}.myvtex.com/cms-releases/webhook-releases"

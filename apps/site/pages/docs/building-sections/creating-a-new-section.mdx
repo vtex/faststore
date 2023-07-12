@@ -45,7 +45,7 @@ During the creation of a new section, you will create files such as `sections.js
 3. Within the `cms/faststore` folder, create the following files: `content-types.json` and `sections.json`.
 4. In the `sections.json` file add the new section that you want to display in the Headless CMS. The schema below defines how the Headless CMS renders a section:
 
-```json filename="sections.json"
+```json filename="sections.json" copy
 [
   {
     "name": "CallToAction",
@@ -97,7 +97,7 @@ To render the `CallToAction` section you created in the previous step, you need 
 1. If you don't already have it, create a folder named `components` inside the `src` directory.
 2. Inside the `components` folder, create a file named `CallToAction.tsx` and add the following code:
 
-```tsx filename="src/components/CallToAction.tsx"
+```tsx filename="src/components/CallToAction.tsx" copy
 import React from "react";
 
 export interface CallToActionProps {
@@ -131,7 +131,7 @@ This section will receive the `link` and `title` defined previously in the `sect
 
 Open the `index.ts` file and add the following code:
 
-```tsx filename="src/components/index.ts"
+```tsx filename="src/components/index.ts" copy
 import CallToAction from './CallToAction'
 
 export default { CallToAction }
