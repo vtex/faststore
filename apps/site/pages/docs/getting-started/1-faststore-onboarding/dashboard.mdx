@@ -15,25 +15,35 @@ import { Callout } from 'nextra-theme-docs'
   This documentation is currently under development.
 </Callout>
 
-After completing the deployment process and successfully creating both the repository and the live preview of the store, you can access the Dashboard page to view more information about your store deploys.
+After completing the deployment process and [successfully creating both the repository and the live preview of the store](/docs/getting-started/1-faststore-onboarding/onboarding#repository-and-live-store-created), 
+you can access the Dashboard page to view more information about your store deploys. 
+The Dashboard, displays the current status of your store, including its domains, deployed versions, store preview, and settings.
 
-On the Dashboard, you can check the current status of your store, including its domains, deployed versions, store preview, and settings.
+![dashboard-overview](https://vtexhelp.vtexassets.com/assets/docs/src/dashboard-overview___56923825cfdcfc7018cbfe3a9aa726ee.gif)
 
-The Dashboard page consists of two main views: Overview and Deploys. Refer to the details provided above for more information on each view.
+The Dashboard page consists of two main views: **Overview** and **Deploys**. Refer to the details provided above for more information on each view.
 
 ---
 
 ## Overview
 
+In the **Overview** view displays the production deployment information of your store. Check out the table below for more information:
 
-| Field                 | Description  |
-| :-------------------- | :----------- |
-| Deployment            |              |
-| Domain                |              |
-| Last commit           |              |
-| Status                |              |
-| Preview FastStore     |              |
-| Delete Project        |              |
+
+| Field                 | Description                                                                                                                  |
+| :-------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| **Preview FastStore** | Opens a store preview in a new tab.                                                                                          |
+| **Deployment**        | Opens the deployed version of the store.                                                                                     |
+| **Domain**            | Opens the domain URL of your store. The link is the same as the preview.                                                     |
+| **Last commit**       | Displays the most recent commit made to the store's repository by displaying the monthe, date, year and who made the commit. |
+| **Status**            | Displays the status of the deploy.                         |
+
+The **Status** field displays one of the following types of status: 
+- `Success`: The deploy was successful. If you want to check the commit for it, go to the **Deploys** tab.
+
+- `Error`: There was an error in the pipeline that caused the deploy to fail, but the build can be successful. To understand what happened, go to the **Deploys** tab, check the last commit and open te repository for further investigation.
 
 
 ## Deploys
+
+### Deleting the project
