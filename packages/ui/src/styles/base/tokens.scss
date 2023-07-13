@@ -3,276 +3,278 @@
 // Brandless Theme
 // ----------------------------------------------------------
 
-body {
-  // --------------------------------------------------------
-  // Colors (Branding Core)
-  // --------------------------------------------------------
+@layer base {
+  body {
+    // --------------------------------------------------------
+    // Colors (Branding Core)
+    // --------------------------------------------------------
 
-  // PALETTE
-  // Tone values must range from lightest to darkest.
-  // `0` is more suitable for backgrounds, and `4` for texts.
-  --fs-color-main-0                    : #f1f2f3;
-  --fs-color-main-1                    : #dbdbdb;
-  --fs-color-main-2                    : #00419e;
-  --fs-color-main-3                    : #002c71;
-  --fs-color-main-4                    : #002155;
+    // PALETTE
+    // Tone values must range from lightest to darkest.
+    // `0` is more suitable for backgrounds, and `4` for texts.
+    --fs-color-main-0                    : #f1f2f3;
+    --fs-color-main-1                    : #dbdbdb;
+    --fs-color-main-2                    : #00419e;
+    --fs-color-main-3                    : #002c71;
+    --fs-color-main-4                    : #002155;
 
-  --fs-color-accent-0                  : #efeaf5;
-  --fs-color-accent-1                  : #d3c9de;
-  --fs-color-accent-2                  : #9d8abf;
-  --fs-color-accent-3                  : #74678c;
-  --fs-color-accent-4                  : #423759;
+    --fs-color-accent-0                  : #efeaf5;
+    --fs-color-accent-1                  : #d3c9de;
+    --fs-color-accent-2                  : #9d8abf;
+    --fs-color-accent-3                  : #74678c;
+    --fs-color-accent-4                  : #423759;
 
-  --fs-color-neutral-0                 : #ffffff;
-  --fs-color-neutral-1                 : #f1f2f3;
-  --fs-color-neutral-2                 : #e3e6e8;
-  --fs-color-neutral-3                 : #c7ccd1;
-  --fs-color-neutral-4                 : #9099a2;
-  --fs-color-neutral-5                 : #74808b;
-  --fs-color-neutral-6                 : #5d666f;
-  --fs-color-neutral-7                 : #171a1c;
+    --fs-color-neutral-0                 : #ffffff;
+    --fs-color-neutral-1                 : #f1f2f3;
+    --fs-color-neutral-2                 : #e3e6e8;
+    --fs-color-neutral-3                 : #c7ccd1;
+    --fs-color-neutral-4                 : #9099a2;
+    --fs-color-neutral-5                 : #74808b;
+    --fs-color-neutral-6                 : #5d666f;
+    --fs-color-neutral-7                 : #171a1c;
 
-  // HIERARCHY
-  --fs-color-primary-text              : var(--fs-color-text-inverse);
-  --fs-color-primary-bkg               : var(--fs-color-main-2);
-  --fs-color-primary-bkg-hover         : var(--fs-color-main-3);
-  --fs-color-primary-bkg-active        : var(--fs-color-main-4);
-  --fs-color-primary-bkg-light         : var(--fs-color-main-0);
-  --fs-color-primary-bkg-light-active  : var(--fs-color-main-1);
+    // HIERARCHY
+    --fs-color-primary-text              : var(--fs-color-text-inverse);
+    --fs-color-primary-bkg               : var(--fs-color-main-2);
+    --fs-color-primary-bkg-hover         : var(--fs-color-main-3);
+    --fs-color-primary-bkg-active        : var(--fs-color-main-4);
+    --fs-color-primary-bkg-light         : var(--fs-color-main-0);
+    --fs-color-primary-bkg-light-active  : var(--fs-color-main-1);
 
-  --fs-color-secondary-text            : var(--fs-color-primary-bkg);
-  --fs-color-secondary-bkg             : transparent;
-  --fs-color-secondary-bkg-hover       : var(--fs-color-primary-bkg);
-  --fs-color-secondary-bkg-active      : var(--fs-color-main-3);
-  --fs-color-secondary-bkg-light       : var(--fs-color-main-0);
-  --fs-color-secondary-bkg-light-active: var(--fs-color-secondary-bkg-light);
+    --fs-color-secondary-text            : var(--fs-color-primary-bkg);
+    --fs-color-secondary-bkg             : transparent;
+    --fs-color-secondary-bkg-hover       : var(--fs-color-primary-bkg);
+    --fs-color-secondary-bkg-active      : var(--fs-color-main-3);
+    --fs-color-secondary-bkg-light       : var(--fs-color-main-0);
+    --fs-color-secondary-bkg-light-active: var(--fs-color-secondary-bkg-light);
 
-  --fs-color-tertiary-text             : var(--fs-color-link);
-  --fs-color-tertiary-bkg              : transparent;
-  --fs-color-tertiary-bkg-hover        : var(--fs-color-main-0);
-  --fs-color-tertiary-bkg-active       : var(--fs-color-main-1);
-  --fs-color-tertiary-bkg-light        : var(--fs-color-neutral-0);
-  --fs-color-tertiary-bkg-light-active : var(--fs-color-tertiary-bkg-light);
+    --fs-color-tertiary-text             : var(--fs-color-link);
+    --fs-color-tertiary-bkg              : transparent;
+    --fs-color-tertiary-bkg-hover        : var(--fs-color-main-0);
+    --fs-color-tertiary-bkg-active       : var(--fs-color-main-1);
+    --fs-color-tertiary-bkg-light        : var(--fs-color-neutral-0);
+    --fs-color-tertiary-bkg-light-active : var(--fs-color-tertiary-bkg-light);
 
-  // COMPONENTS & STATES
-  --fs-color-body-bkg                  : var(--fs-color-neutral-0);
-  --fs-body-bkg                        : var(--fs-color-body-bkg);
+    // COMPONENTS & STATES
+    --fs-color-body-bkg                  : var(--fs-color-neutral-0);
+    --fs-body-bkg                        : var(--fs-color-body-bkg);
 
-  --fs-color-action-text               : var(--fs-color-text-inverse);
-  --fs-color-action-bkg                : var(--fs-color-accent-4);
-  --fs-color-action-bkg-hover          : var(--fs-color-accent-3);
-  --fs-color-action-bkg-active         : var(--fs-color-accent-2);
-  --fs-color-action-bkg-light          : var(--fs-color-neutral-0);
-  --fs-color-action-bkg-light-active   : var(--fs-color-tertiary-bkg-light);
+    --fs-color-action-text               : var(--fs-color-text-inverse);
+    --fs-color-action-bkg                : var(--fs-color-accent-4);
+    --fs-color-action-bkg-hover          : var(--fs-color-accent-3);
+    --fs-color-action-bkg-active         : var(--fs-color-accent-2);
+    --fs-color-action-bkg-light          : var(--fs-color-neutral-0);
+    --fs-color-action-bkg-light-active   : var(--fs-color-tertiary-bkg-light);
 
-  --fs-color-link                      : var(--fs-color-main-2);
-  --fs-color-link-hover                : var(--fs-color-main-2);
-  --fs-color-link-active               : var(--fs-color-main-4);
-  --fs-color-link-visited              : #6058ba;
-  --fs-color-link-inverse              : var(--fs-color-neutral-0);
+    --fs-color-link                      : var(--fs-color-main-2);
+    --fs-color-link-hover                : var(--fs-color-main-2);
+    --fs-color-link-active               : var(--fs-color-main-4);
+    --fs-color-link-visited              : #6058ba;
+    --fs-color-link-inverse              : var(--fs-color-neutral-0);
 
-  --fs-color-text                      : var(--fs-color-neutral-7);
-  --fs-color-text-light                : var(--fs-color-neutral-6);
-  --fs-color-text-inverse              : var(--fs-color-neutral-0);
-  --fs-color-text-display              : var(--fs-color-neutral-7);
+    --fs-color-text                      : var(--fs-color-neutral-7);
+    --fs-color-text-light                : var(--fs-color-neutral-6);
+    --fs-color-text-inverse              : var(--fs-color-neutral-0);
+    --fs-color-text-display              : var(--fs-color-neutral-7);
 
-  --fs-color-focus-ring                : #8db6fa;
-  --fs-color-focus-ring-outline        : #8db6fa80;
-  --fs-color-focus-ring-danger         : #e1adad;
+    --fs-color-focus-ring                : #8db6fa;
+    --fs-color-focus-ring-outline        : #8db6fa80;
+    --fs-color-focus-ring-danger         : #e1adad;
 
-  // SITUATIONS
-  --fs-color-success-text              : #1e493b;
-  --fs-color-success-bkg               : #b3ebd5;
-  --fs-color-success-border            : var(--fs-color-success-text);
+    // SITUATIONS
+    --fs-color-success-text              : #1e493b;
+    --fs-color-success-bkg               : #b3ebd5;
+    --fs-color-success-border            : var(--fs-color-success-text);
 
-  --fs-color-warning-text              : var(--fs-color-text);
-  --fs-color-warning-bkg               : #fdec8d;
-  --fs-color-warning-border            : var(--fs-color-warning-text);
+    --fs-color-warning-text              : var(--fs-color-text);
+    --fs-color-warning-bkg               : #fdec8d;
+    --fs-color-warning-border            : var(--fs-color-warning-text);
 
-  --fs-color-danger-text               : #cb4242;
-  --fs-color-danger-bkg                : var(--fs-color-focus-ring-danger);
-  --fs-color-danger-border             : var(--fs-color-danger-text);
+    --fs-color-danger-text               : #cb4242;
+    --fs-color-danger-bkg                : var(--fs-color-focus-ring-danger);
+    --fs-color-danger-border             : var(--fs-color-danger-text);
 
-  --fs-color-info-text                 : var(--fs-color-text);
-  --fs-color-info-bkg                  : var(--fs-color-main-1);
+    --fs-color-info-text                 : var(--fs-color-text);
+    --fs-color-info-bkg                  : var(--fs-color-main-1);
 
-  --fs-color-highlighted-text          : var(--fs-color-text-display);
-  --fs-color-highlighted-bkg           : var(--fs-color-accent-0);
+    --fs-color-highlighted-text          : var(--fs-color-text-display);
+    --fs-color-highlighted-bkg           : var(--fs-color-accent-0);
 
-  --fs-color-neutral-text              : var(--fs-color-text);
-  --fs-color-neutral-bkg               : var(--fs-color-neutral-1);
+    --fs-color-neutral-text              : var(--fs-color-text);
+    --fs-color-neutral-bkg               : var(--fs-color-neutral-1);
 
-  --fs-color-disabled-text             : var(--fs-color-neutral-6);
-  --fs-color-disabled-bkg              : var(--fs-color-neutral-2);
+    --fs-color-disabled-text             : var(--fs-color-neutral-6);
+    --fs-color-disabled-bkg              : var(--fs-color-neutral-2);
 
-  // --------------------------------------------------------
-  // Typography (Branding Core)
-  // --------------------------------------------------------
+    // --------------------------------------------------------
+    // Typography (Branding Core)
+    // --------------------------------------------------------
 
-  // FACE
-  --fs-text-face-body                  : -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
-  --fs-text-face-title                 : var(--fs-text-face-body);
+    // FACE
+    --fs-text-face-body                  : -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+    --fs-text-face-title                 : var(--fs-text-face-body);
 
-  // WEIGHT
-  --fs-text-weight-light               : 300;
-  --fs-text-weight-regular             : 400;
-  --fs-text-weight-bold                : 700;
-  --fs-text-weight-black               : 900;
+    // WEIGHT
+    --fs-text-weight-light               : 300;
+    --fs-text-weight-regular             : 400;
+    --fs-text-weight-bold                : 700;
+    --fs-text-weight-black               : 900;
 
-  // MAX LINES
-  --fs-text-max-lines                  : 2;
+    // MAX LINES
+    --fs-text-max-lines                  : 2;
 
-  // TYPOGRAPHY SCALE
-  // Use a type scale to add rhythm to your typography and
-  // ensure consistency throughout the project.
-  // Access https://type-scale.com and pick a scale that
-  // suits the store's branding.
-  --fs-text-scale-mobile               : 1.13;
-  --fs-text-scale-desktop              : 1.25;
+    // TYPOGRAPHY SCALE
+    // Use a type scale to add rhythm to your typography and
+    // ensure consistency throughout the project.
+    // Access https://type-scale.com and pick a scale that
+    // suits the store's branding.
+    --fs-text-scale-mobile               : 1.13;
+    --fs-text-scale-desktop              : 1.25;
 
-  --fs-scale                           : var(--fs-text-scale-mobile);
+    --fs-scale                           : var(--fs-text-scale-mobile);
 
-  @include media(">=notebook") {
-    --fs-scale                         : var(--fs-text-scale-desktop);
+    @include media(">=notebook") {
+      --fs-scale                         : var(--fs-text-scale-desktop);
+    }
+
+    // NUMERIC SCALE
+    --fs-text-size-base                  : 16px; // 1rem
+
+    --fs-text-size-0                     : 12px; // Smallest
+    --fs-text-size-1                     : 14px; // Smaller                               // Mobile    Desktop
+    --fs-text-size-2                     : var(--fs-text-size-base);                      // 16px      16px
+    --fs-text-size-3                     : calc(var(--fs-text-size-2) * var(--fs-scale)); // 18px      20px
+    --fs-text-size-4                     : calc(var(--fs-text-size-3) * var(--fs-scale)); // 20px      25px
+    --fs-text-size-5                     : calc(var(--fs-text-size-4) * var(--fs-scale)); // 23px      31px
+    --fs-text-size-6                     : calc(var(--fs-text-size-5) * var(--fs-scale)); // 26px      39px
+    --fs-text-size-7                     : calc(var(--fs-text-size-6) * var(--fs-scale)); // 29px      48px
+    --fs-text-size-8                     : calc(var(--fs-text-size-7) * var(--fs-scale)); // 33px      61px
+
+    // HIERARCHY SCALE
+    --fs-text-size-title-huge            : var(--fs-text-size-7);
+    --fs-text-size-title-page            : var(--fs-text-size-6);
+    --fs-text-size-title-product         : var(--fs-text-size-4);
+    --fs-text-size-title-section         : var(--fs-text-size-4);
+    --fs-text-size-title-subsection      : var(--fs-text-size-4);
+    --fs-text-size-title-mini            : var(--fs-text-size-4);
+    --fs-text-size-lead                  : var(--fs-text-size-3);
+    --fs-text-size-menu                  : var(--fs-text-size-base);
+    --fs-text-size-body                  : var(--fs-text-size-base);
+    --fs-text-size-legend                : var(--fs-text-size-1);
+    --fs-text-size-tiny                  : var(--fs-text-size-0);
+
+    // --------------------------------------------------------
+    // Spacing (UI Essentials)
+    // --------------------------------------------------------
+
+    // NUMERIC SCALE
+    --fs-spacing-0                       : .25rem; //  4px
+    --fs-spacing-1                       : .5rem;  //  8px
+    --fs-spacing-2                       : .75rem; // 12px
+    --fs-spacing-3                       : 1rem;   // 16px (--fs-text-size-base)
+    --fs-spacing-4                       : 1.5rem; // 24px
+    --fs-spacing-5                       : 2rem;   // 32px
+    --fs-spacing-6                       : 2.5rem; // 40px
+    --fs-spacing-7                       : 3rem;   // 48px
+    --fs-spacing-8                       : 3.5rem; // 56px
+    --fs-spacing-9                       : 4rem;   // 64px
+    --fs-spacing-10                      : 4.5rem; // 72px
+    --fs-spacing-11                      : 5rem;   // 80px
+    --fs-spacing-12                      : 5.5rem; // 88px
+    --fs-spacing-13                      : 6rem;   // 96px
+
+    // --------------------------------------------------------
+    // Grid & Layout (UI Essentials)
+    // --------------------------------------------------------
+
+    // PADDING
+    --fs-grid-padding                    : var(--fs-spacing-3);
+
+    @include media(">=tablet") {
+      --fs-grid-padding                  : var(--fs-spacing-4);
+    }
+
+    @include media(">=notebook") {
+      --fs-grid-padding                  : var(--fs-spacing-5);
+    }
+
+    // Z-INDEX
+    --fs-z-index-below                   : -1;
+    --fs-z-index-default                 : 0;
+    --fs-z-index-top                     : 1;
+    --fs-z-index-high                    : 2;
+    --fs-z-index-highest                 : 3;
+
+    // CONTAINER
+    --fs-grid-max-width                  : calc(var(--fs-grid-breakpoint-notebook) - var(--fs-grid-padding) - var(--fs-grid-padding));
+
+    // GAPS
+    --fs-grid-gap-0                      : var(--fs-spacing-1);
+    --fs-grid-gap-1                      : var(--fs-spacing-2);
+    --fs-grid-gap-2                      : var(--fs-spacing-3);
+    --fs-grid-gap-3                      : var(--fs-spacing-4);
+    --fs-grid-gap-4                      : var(--fs-spacing-5);
+
+    // BREAKPOINTS
+    --fs-grid-breakpoint-phone           : #{map-get($breakpoints, "phone")};
+    --fs-grid-breakpoint-phonemid        : #{map-get($breakpoints, "phonemid")};
+    --fs-grid-breakpoint-tablet          : #{map-get($breakpoints, "tablet")};
+    --fs-grid-breakpoint-notebook        : #{map-get($breakpoints, "notebook")};
+    --fs-grid-breakpoint-desktop         : #{map-get($breakpoints, "desktop")};
+
+    // --------------------------------------------------------
+    // Interactive Controls (UI Essentials)
+    // --------------------------------------------------------
+
+    // TAP
+    --fs-control-tap-size                : var(--fs-spacing-7); // 3rem = 48px
+    --fs-control-tap-size-smallest       : calc(var(--fs-control-tap-size) / 2);
+    --fs-control-min-height              : var(--fs-control-tap-size);
+
+    @include media(">=notebook") {
+      --fs-control-tap-size              : var(--fs-spacing-7); // This value can be smaller on desktops
+    }
+
+    // STATES
+    --fs-control-bkg                     : var(--fs-color-neutral-0);
+    --fs-control-bkg-disabled            : var(--fs-color-disabled-bkg);
+
+    // --------------------------------------------------------
+    // Refinements
+    // --------------------------------------------------------
+
+    // TRANSITION
+    --fs-transition-timing               : .2s;
+    --fs-transition-property             : all;
+    --fs-transition-function             : ease-in-out;
+
+    // BORDERS
+    --fs-border-radius-small             : 1px;
+    --fs-border-radius                   : 2px;
+    --fs-border-radius-medium            : 8px;
+    --fs-border-radius-pill              : 100px;
+    --fs-border-radius-circle            : 100%;
+
+    --fs-border-width                    : 1px;
+    --fs-border-width-thick              : 2px;
+    --fs-border-width-thickest           : 3px;
+
+    --fs-border-color                    : var(--fs-color-neutral-4);
+    --fs-border-color-hover              : var(--fs-color-main-3);
+    --fs-border-color-active             : var(--fs-color-main-2);
+    --fs-border-color-disabled           : var(--fs-color-neutral-6);
+
+    --fs-border-color-light              : var(--fs-color-neutral-2);
+    --fs-border-color-light-hover        : var(--fs-color-neutral-3);
+    --fs-border-color-light-active       : var(--fs-color-neutral-3);
+    --fs-border-color-light-disabled     : var(--fs-color-neutral-5);
+
+    // SHADOW
+    --fs-shadow                          : none;
+    --fs-shadow-darker                   : 0 0 10px rgb(0 0 0 / 20%);
+    --fs-shadow-hover                    : 0 2px 3px rgba(0,0,0,.1);
+
+    // LOGO
+    --fs-logo-width                      : 7rem;
   }
-
-  // NUMERIC SCALE
-  --fs-text-size-base                  : 16px; // 1rem
-
-  --fs-text-size-0                     : 12px; // Smallest
-  --fs-text-size-1                     : 14px; // Smaller                               // Mobile    Desktop
-  --fs-text-size-2                     : var(--fs-text-size-base);                      // 16px      16px
-  --fs-text-size-3                     : calc(var(--fs-text-size-2) * var(--fs-scale)); // 18px      20px
-  --fs-text-size-4                     : calc(var(--fs-text-size-3) * var(--fs-scale)); // 20px      25px
-  --fs-text-size-5                     : calc(var(--fs-text-size-4) * var(--fs-scale)); // 23px      31px
-  --fs-text-size-6                     : calc(var(--fs-text-size-5) * var(--fs-scale)); // 26px      39px
-  --fs-text-size-7                     : calc(var(--fs-text-size-6) * var(--fs-scale)); // 29px      48px
-  --fs-text-size-8                     : calc(var(--fs-text-size-7) * var(--fs-scale)); // 33px      61px
-
-  // HIERARCHY SCALE
-  --fs-text-size-title-huge            : var(--fs-text-size-7);
-  --fs-text-size-title-page            : var(--fs-text-size-6);
-  --fs-text-size-title-product         : var(--fs-text-size-4);
-  --fs-text-size-title-section         : var(--fs-text-size-4);
-  --fs-text-size-title-subsection      : var(--fs-text-size-4);
-  --fs-text-size-title-mini            : var(--fs-text-size-4);
-  --fs-text-size-lead                  : var(--fs-text-size-3);
-  --fs-text-size-menu                  : var(--fs-text-size-base);
-  --fs-text-size-body                  : var(--fs-text-size-base);
-  --fs-text-size-legend                : var(--fs-text-size-1);
-  --fs-text-size-tiny                  : var(--fs-text-size-0);
-
-  // --------------------------------------------------------
-  // Spacing (UI Essentials)
-  // --------------------------------------------------------
-
-  // NUMERIC SCALE
-  --fs-spacing-0                       : .25rem; //  4px
-  --fs-spacing-1                       : .5rem;  //  8px
-  --fs-spacing-2                       : .75rem; // 12px
-  --fs-spacing-3                       : 1rem;   // 16px (--fs-text-size-base)
-  --fs-spacing-4                       : 1.5rem; // 24px
-  --fs-spacing-5                       : 2rem;   // 32px
-  --fs-spacing-6                       : 2.5rem; // 40px
-  --fs-spacing-7                       : 3rem;   // 48px
-  --fs-spacing-8                       : 3.5rem; // 56px
-  --fs-spacing-9                       : 4rem;   // 64px
-  --fs-spacing-10                      : 4.5rem; // 72px
-  --fs-spacing-11                      : 5rem;   // 80px
-  --fs-spacing-12                      : 5.5rem; // 88px
-  --fs-spacing-13                      : 6rem;   // 96px
-
-  // --------------------------------------------------------
-  // Grid & Layout (UI Essentials)
-  // --------------------------------------------------------
-
-  // PADDING
-  --fs-grid-padding                    : var(--fs-spacing-3);
-
-  @include media(">=tablet") {
-    --fs-grid-padding                  : var(--fs-spacing-4);
-  }
-
-  @include media(">=notebook") {
-    --fs-grid-padding                  : var(--fs-spacing-5);
-  }
-
-  // Z-INDEX
-  --fs-z-index-below                   : -1;
-  --fs-z-index-default                 : 0;
-  --fs-z-index-top                     : 1;
-  --fs-z-index-high                    : 2;
-  --fs-z-index-highest                 : 3;
-
-  // CONTAINER
-  --fs-grid-max-width                  : calc(var(--fs-grid-breakpoint-notebook) - var(--fs-grid-padding) - var(--fs-grid-padding));
-
-  // GAPS
-  --fs-grid-gap-0                      : var(--fs-spacing-1);
-  --fs-grid-gap-1                      : var(--fs-spacing-2);
-  --fs-grid-gap-2                      : var(--fs-spacing-3);
-  --fs-grid-gap-3                      : var(--fs-spacing-4);
-  --fs-grid-gap-4                      : var(--fs-spacing-5);
-
-  // BREAKPOINTS
-  --fs-grid-breakpoint-phone           : #{map-get($breakpoints, "phone")};
-  --fs-grid-breakpoint-phonemid        : #{map-get($breakpoints, "phonemid")};
-  --fs-grid-breakpoint-tablet          : #{map-get($breakpoints, "tablet")};
-  --fs-grid-breakpoint-notebook        : #{map-get($breakpoints, "notebook")};
-  --fs-grid-breakpoint-desktop         : #{map-get($breakpoints, "desktop")};
-
-  // --------------------------------------------------------
-  // Interactive Controls (UI Essentials)
-  // --------------------------------------------------------
-
-  // TAP
-  --fs-control-tap-size                : var(--fs-spacing-7); // 3rem = 48px
-  --fs-control-tap-size-smallest       : calc(var(--fs-control-tap-size) / 2);
-  --fs-control-min-height              : var(--fs-control-tap-size);
-
-  @include media(">=notebook") {
-    --fs-control-tap-size              : var(--fs-spacing-7); // This value can be smaller on desktops
-  }
-
-  // STATES
-  --fs-control-bkg                     : var(--fs-color-neutral-0);
-  --fs-control-bkg-disabled            : var(--fs-color-disabled-bkg);
-
-  // --------------------------------------------------------
-  // Refinements
-  // --------------------------------------------------------
-
-  // TRANSITION
-  --fs-transition-timing               : .2s;
-  --fs-transition-property             : all;
-  --fs-transition-function             : ease-in-out;
-
-  // BORDERS
-  --fs-border-radius-small             : 1px;
-  --fs-border-radius                   : 2px;
-  --fs-border-radius-medium            : 8px;
-  --fs-border-radius-pill              : 100px;
-  --fs-border-radius-circle            : 100%;
-
-  --fs-border-width                    : 1px;
-  --fs-border-width-thick              : 2px;
-  --fs-border-width-thickest           : 3px;
-
-  --fs-border-color                    : var(--fs-color-neutral-4);
-  --fs-border-color-hover              : var(--fs-color-main-3);
-  --fs-border-color-active             : var(--fs-color-main-2);
-  --fs-border-color-disabled           : var(--fs-color-neutral-6);
-
-  --fs-border-color-light              : var(--fs-color-neutral-2);
-  --fs-border-color-light-hover        : var(--fs-color-neutral-3);
-  --fs-border-color-light-active       : var(--fs-color-neutral-3);
-  --fs-border-color-light-disabled     : var(--fs-color-neutral-5);
-
-  // SHADOW
-  --fs-shadow                          : none;
-  --fs-shadow-darker                   : 0 0 10px rgb(0 0 0 / 20%);
-  --fs-shadow-hover                    : 0 2px 3px rgba(0,0,0,.1);
-
-  // LOGO
-  --fs-logo-width                      : 7rem;
 }

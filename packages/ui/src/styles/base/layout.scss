@@ -3,62 +3,64 @@
 // Layout
 // ----------------------------------------------------------
 
-body {
-  min-height: 100vh;
-  color: var(--fs-color-text);
-  background: var(--fs-body-bkg);
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-}
-
-.layout__section {
-  margin-bottom: var(--fs-spacing-4);
-  margin-top: var(--fs-spacing-4);
-
-  @include media(">=notebook") {
-    margin-bottom: var(--fs-grid-padding);
-    margin-top: var(--fs-grid-padding);
+@layer base {
+  body {
+    min-height: 100vh;
+    color: var(--fs-color-text);
+    background: var(--fs-body-bkg);
   }
-}
 
-.layout__content {
-  box-sizing: border-box;
-  width: 100%;
-  width: calc(100% - var(--fs-grid-padding) - var(--fs-grid-padding));
-  max-width: var(--fs-grid-max-width);
-  margin-right: auto;
-  margin-left: auto;
-}
-
-[data-fs-content] { @include layout-content; }
-
-.no-scroll {
-  overflow: hidden;
-  touch-action: none;
-}
-
-// Helper class
-.display-mobile {
-  @include media(">=notebook") {
-    display: none;
-    visibility: hidden;
+  main {
+    display: flex;
+    flex-direction: column;
   }
-}
 
-// Helper class
-.hidden-mobile {
-  @include media("<notebook") {
-    display: none;
-    visibility: hidden;
+  .layout__section {
+    margin-bottom: var(--fs-spacing-4);
+    margin-top: var(--fs-spacing-4);
+
+    @include media(">=notebook") {
+      margin-bottom: var(--fs-grid-padding);
+      margin-top: var(--fs-grid-padding);
+    }
   }
-}
 
-// Image
-[data-fs-image] {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  .layout__content {
+    box-sizing: border-box;
+    width: 100%;
+    width: calc(100% - var(--fs-grid-padding) - var(--fs-grid-padding));
+    max-width: var(--fs-grid-max-width);
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  [data-fs-content] { @include layout-content; }
+
+  .no-scroll {
+    overflow: hidden;
+    touch-action: none;
+  }
+
+  // Helper class
+  .display-mobile {
+    @include media(">=notebook") {
+      display: none;
+      visibility: hidden;
+    }
+  }
+
+  // Helper class
+  .hidden-mobile {
+    @include media("<notebook") {
+      display: none;
+      visibility: hidden;
+    }
+  }
+
+  // Image
+  [data-fs-image] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
