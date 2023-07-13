@@ -25,12 +25,6 @@
     @include media(">=notebook") { font-size: var(--fs-text-size-5); }
   }
 
-  .text__title-subsection {
-    font-size: var(--fs-text-size-3);
-    font-weight: var(--fs-text-weight-bold);
-    line-height: 1.2;
-  }
-
   .text__title-mini {
     font-size: var(--fs-text-size-2);
     font-weight: var(--fs-text-weight-bold);
