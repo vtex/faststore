@@ -1,5 +1,5 @@
 /* establish a layer order up-front, FS UI components has the lowest priority */
-@layer theme, components;
+@layer theme, components, base;
 
 // Sections
 @import "@faststore/ui/src/components/atoms/Overlay/styles.scss";
