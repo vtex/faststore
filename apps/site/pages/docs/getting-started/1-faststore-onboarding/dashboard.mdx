@@ -4,7 +4,6 @@ sidebar_label: 'one-faststore-onboarding'
 ---
 
 import { Callout } from 'nextra-theme-docs'
-import { Icon } from '@faststore/ui'
 
 <header>
 
@@ -12,19 +11,19 @@ import { Icon } from '@faststore/ui'
 
 </header>
 
-After completing the deployment process and [successfully creating both the repository and the live preview of the store](/docs/getting-started/1-faststore-onboarding/onboarding#repository-and-live-store-created), 
-you can access the Dashboard page to view more information about your store deploys. 
-The Dashboard, displays the current status of your store, including its domains, deployed versions, store preview, and settings.
+After [successfully deploying and creating the repository and live preview of your store](/docs/getting-started/1-faststore-onboarding/onboarding#repository-and-live-store-created), 
+you can access the Dashboard page for detailed information about your store deploys. 
+The Dashboard displays the current status of your store, including its domains, deployed versions, store preview, and commits.
 
 ![dashboard-overview](https://vtexhelp.vtexassets.com/assets/docs/src/dashboard-overview___56923825cfdcfc7018cbfe3a9aa726ee.gif)
 
-The Dashboard page consists of two main views: **Overview** and **Deploys**. Refer to the details provided above for more information on each view.
+On the Dashboard page, you will find two main views: Overview and Deploys. For more information about each view, continue reading the next sections.
 
 ---
 
 ## Overview
 
-The **Overview** view displays the production deployment information of your store. 
+The **Overview** view provides information about the production deployment of your store.
 
 ![overview-view](https://vtexhelp.vtexassets.com/assets/docs/src/dashboard-view-overview___7b8f9c67ff14be86263514d62ae471f1.png)
 
@@ -32,35 +31,37 @@ The **Overview** view displays the production deployment information of your sto
 Check out the table below for more information:
 
 
-| Field                 | Description                                                                                                                  |
-| :-------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
-| **Preview FastStore** | Opens a store preview in a new tab.                                                                                          |
-| **Deployment**        | Opens the deployed version of the store.                                                                                     |
-| **Domain**            | Opens the domain URL of your store. The link is the same as the preview.                                                     |
-| **Last commit**       | Displays the most recent commit made to the store's repository by displaying the monthe, date, year and who made the commit. |
-| **Status**            | Displays the status of the deploy.                         |
+| Field                 | Description                                                                                                                           |
+| :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
+| **Preview FastStore** | Opens a preview of your store in a new tab.                                                                                           |
+| **Deployment**        | Opens the deployed version of the store in a new tab.                                                                                 |
+| **Domain**            | Opens the URL of your store's domain, which is the same as the preview.                                                               |
+| **Last commit**       | Displays the most recent commit made to your store's repository, including the date, month, year, and the person who made the commit. |
+| **Status**            | Displays the status of the deployment.                                                                                                |
 
-The **Status** field displays one of the following types of status: 
-- `Success`: The deploy was successful. If you want to check the commit for it, go to the **Deploys** tab.
+The **Status** field can have one of the following values: 
+- `Success`: The deployment was successful. If you want to check the commit associated with it, go to the **Deploys** tab.
 
-- `Error`: There was an error in the pipeline that caused the deploy to fail, but the build can be successful. To understand what happened, go to the **Deploys** tab, check the last commit and open te repository for further investigation.
+- `Error`: There was an error in the pipeline that caused the deployment to fail, but the build can still be successful. 
+To understand what happened, go to the **Deploys** tab, check the last commit, and open the repository for further investigation.
 
+--- 
 
 ## Deploys
 
-The **Deploys** view displays a summary of each deploy made in your store's repository.
+The **Deploys** view provides a summary of each deployment made in your store's repository.
 
 ![deploy-view](https://vtexhelp.vtexassets.com/assets/docs/src/dashboard-view-deploys___e5f04f3e5613d52e4b2864ef48134608.png)
 
-| Field                 | Description                                                                                                                  |
-| :-------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
-| **Preview URL**       | Displays a store preview for a specific commit.                                                                                          |
-| **Commit**            | Displays the commit hash associated with a particular commit.                                                                                     |
-| **Timestamp**         | Displays the date and time of the commit. The date shows as: `dd/mm/yyyy`.                                                     |
-| **Elapsed time**      | Displays the time it took to complete the commit process.   |
-| **Deploy**            | Displays the status of the deploy. Types of status: `Success` and `Error`. For more information on the `Error` status, go to the repository and check what failed in the commit.                   |
-| **Quality checks**            | Displays the status of the quality checks (Lighthouse audits). Types of status: `Success` and `Error`. For more information on the `Error` status, go to the repository and check what failed in the commit. Remember: Lighthouse audits are a fundamental step from the go-live checklist. Make sure guarantee the recommended score to have the lighthouse checks passed.                     |
-| **More actions menu** (`⋮`)           | Opens a card with the following options: <li>**Preview**: Opens the store preview for the commit in a new tab.</li>  <li>**Commit**: Opens a specific commit page in a new tab.</li>                   |
+| Field                         | Description                                                                                                                  |
+| :---------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| **Preview URL**               | Displays a store preview for a specific commit.                                                                                          |
+| **Commit**                    | Displays the commit hash associated with a particular commit.                                                                                     |
+| **Timestamp**                 | Displays the date and time of the commit in the format `dd/mm/yyyy`.                                                     |
+| **Elapsed time**              | Displays the time it took to complete the commit process.   |
+| **Deploy**                    | Indicates the status of the deployment. Possible statuses are `Success` and `Error`. For more information on the `Error` status, go to the repository and check what failed in the commit.                   |
+| **Quality checks**            | Indicates the status of the quality checks (Lighthouse audits). Possible statuses are `Success` and `Error`. For more information on the `Error` status, go to the repository and check what failed in the commit. *Remember: Lighthouse audits are an essential step in the [go-live checklist](/docs/go-live/overview#go-live-checklist).* Ensure you achieve the recommended score for the lighthouse checks to pass.                     |
+| **More actions menu** (`⋮`)    | Opens a card with the following options after being clicked: <li>**Preview**: Opens the store preview for the commit in a new tab.</li>  <li>**Commit**: Opens a specific commit page in GitHub in a new tab.</li>                   |
 
 
 
