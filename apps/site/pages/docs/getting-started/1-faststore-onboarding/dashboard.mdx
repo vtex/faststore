@@ -4,16 +4,13 @@ sidebar_label: 'one-faststore-onboarding'
 ---
 
 import { Callout } from 'nextra-theme-docs'
+import { Icon } from '@faststore/ui'
 
 <header>
 
 # Dashboard
 
 </header>
-
-<Callout type="warning" emoji="⚠️">
-  This documentation is currently under development.
-</Callout>
 
 After completing the deployment process and [successfully creating both the repository and the live preview of the store](/docs/getting-started/1-faststore-onboarding/onboarding#repository-and-live-store-created), 
 you can access the Dashboard page to view more information about your store deploys. 
@@ -27,7 +24,12 @@ The Dashboard page consists of two main views: **Overview** and **Deploys**. Ref
 
 ## Overview
 
-In the **Overview** view displays the production deployment information of your store. Check out the table below for more information:
+The **Overview** view displays the production deployment information of your store. 
+
+![overview-view](https://vtexhelp.vtexassets.com/assets/docs/src/dashboard-view-overview___7b8f9c67ff14be86263514d62ae471f1.png)
+
+
+Check out the table below for more information:
 
 
 | Field                 | Description                                                                                                                  |
@@ -46,4 +48,29 @@ The **Status** field displays one of the following types of status:
 
 ## Deploys
 
-### Deleting the project
+The **Deploys** view displays a summary of each deploy made in your store's repository.
+
+![deploy-view](https://vtexhelp.vtexassets.com/assets/docs/src/dashboard-view-deploys___e5f04f3e5613d52e4b2864ef48134608.png)
+
+| Field                 | Description                                                                                                                  |
+| :-------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| **Preview URL**       | Displays a store preview for a specific commit.                                                                                          |
+| **Commit**            | Displays the commit hash associated with a particular commit.                                                                                     |
+| **Timestamp**         | Displays the date and time of the commit. The date shows as: `dd/mm/yyyy`.                                                     |
+| **Elapsed time**      | Displays the time it took to complete the commit process.   |
+| **Deploy**            | Displays the status of the deploy. Types of status: `Success` and `Error`. For more information on the `Error` status, go to the repository and check what failed in the commit.                   |
+| **Quality checks**            | Displays the status of the quality checks (Lighthouse audits). Types of status: `Success` and `Error`. For more information on the `Error` status, go to the repository and check what failed in the commit. Remember: Lighthouse audits are a fundamental step from the go-live checklist. Make sure guarantee the recommended score to have the lighthouse checks passed.                     |
+| **More actions menu** (`⋮`)           | Opens a card with the following options: <li>**Preview**: Opens the store preview for the commit in a new tab.</li>  <li>**Commit**: Opens a specific commit page in a new tab.</li>                   |
+
+
+
+
+## Deleting the project
+
+If you decide to delete your FastStore project, click the **More actions menu** (`⋮`) > **Delete Project**.
+
+<Callout type="warning" emoji="⚠️">
+ Make this action with caution. This is an irreversible action and once done the project will be permanently deleted, including its deployments and domains.
+</Callout>
+
+![delete-project](https://vtexhelp.vtexassets.com/assets/docs/src/dashboard-delete-project___46d68be9204ce3948c1785235aeae59f.gif)
