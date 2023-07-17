@@ -9,7 +9,7 @@ import { Callout } from 'nextra-theme-docs'
   # Part 1: Configuring your VTEX account with the VTEX Headless CMS
 </header>
 
-Let's set up all the tools you will need to integrate the VTEX Headless CMS with your FastStore project. First, we will install the **VTEX IO CLI**.
+Let's set up all the tools you need to integrate the VTEX Headless CMS with your FastStore project. First, we will install the **VTEX IO CLI**.
 The VTEX IO CLI will help you during your development process by allowing you to perform different actions in the VTEX platform. In the following, we will install and configure the VTEX Headless CMS app in your VTEX account.
 
 ---
@@ -54,10 +54,11 @@ Now, check if the installation of the VTEX Headless CMS plugin was successful by
 ![success-vtex-cms-sync](https://vtexhelp.vtexassets.com/assets/docs/src/faststore-vtex-cms___460365970fb39c94e300b9fbd497e17e.png)
 
 <Callout type="warning" emoji="⚠️">
-  If you use Windows as the operating system and find problems while installing
-  the plugin, please refer to our
+  **Windows user**: if you find problems while installing
+  the plugin, please refer to the
   [Troubleshooting](/docs/headless-cms-troubleshooting/error-installing-headless-cms)
   article.
+  **macOS user**: if you find problems, run `yarn config set ignore-engines true` to ignore the node incompatibility versions while installing, then run `vtex plugins install cms` again.
 </Callout>
 
 ### Step 2 - Installing the Headless CMS dependencies on your VTEX account
