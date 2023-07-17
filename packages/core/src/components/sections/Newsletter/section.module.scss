@@ -1,7 +1,5 @@
 @layer components {
   .section {
-    margin-bottom: 0;
-
     @import "@faststore/ui/src/components/atoms/Button/styles.scss";
     @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
     @import "@faststore/ui/src/components/atoms/Input/styles.scss";

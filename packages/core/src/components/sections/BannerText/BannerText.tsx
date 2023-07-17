@@ -35,21 +35,19 @@ function BannerText({
 }: BannerTextProps) {
   return (
     <Section className={`${styles.section} section-banner layout__section`}>
-      <div className="layout__content">
-        <BannerTextWrapper.Component
-          {...BannerTextWrapper.props}
-          variant={variant}
-          colorVariant={colorVariant}
-        >
-          <BannerTextContent.Component
-            {...BannerTextContent.props}
-            title={title}
-            caption={caption}
-            link={linkUrl}
-            linkText={linkText}
-          />
-        </BannerTextWrapper.Component>
-      </div>
+      <BannerTextWrapper.Component
+        {...BannerTextWrapper.props}
+        variant={variant}
+        colorVariant={colorVariant}
+      >
+        <BannerTextContent.Component
+          {...BannerTextContent.props}
+          title={title}
+          caption={caption}
+          link={linkUrl}
+          linkText={linkText}
+        />
+      </BannerTextWrapper.Component>
     </Section>
   )
 }

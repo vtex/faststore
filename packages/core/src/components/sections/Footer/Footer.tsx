@@ -48,7 +48,9 @@ const Footer = ({
   },
 }: FooterProps) => {
   return (
-    <footer className={`section ${styles.section} section-footer`}>
+    <footer
+      className={`section ${styles.section} section-footer layout__section`}
+    >
       <UIFooter>
         <UIIncentives incentives={incentives} />
         <UIFooterNavigation>
