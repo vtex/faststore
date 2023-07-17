@@ -1,5 +1,6 @@
 import { ComponentPropsWithRef } from 'react'
 import UINewsletter from 'src/components/ui/Newsletter'
+import { NewsletterProps as UINewsletterProps } from 'src/components/ui/Newsletter'
 import { SubscribeMessage } from 'src/components/ui/Newsletter/Newsletter'
 
 import Section from '../Section'
@@ -46,6 +47,10 @@ export interface NewsletterProps
    * The card Variant
    */
   card: Boolean
+  /**
+   * Specifies the component's color variant combination.
+   */
+  colorVariant?: UINewsletterProps['colorVariant']
 
   toastSubscribe: SubscribeMessage
 
@@ -63,11 +68,12 @@ const Newsletter = function Newsletter({
   subscribeButtonLabel,
   card,
   toastSubscribe,
+  colorVariant = 'main',
   toastSubscribeError,
   ...otherProps
 }: NewsletterProps) {
   return (
-    <Section className={`${styles.section} section-newsletter`}>
+    <Section className={`${styles.section} section-newsletter layout__section`}>
       <UINewsletter
         icon={icon}
         title={title}
@@ -79,6 +85,7 @@ const Newsletter = function Newsletter({
         subscribeButtonLabel={subscribeButtonLabel}
         toastSubscribe={toastSubscribe}
         toastSubscribeError={toastSubscribeError}
+        colorVariant={colorVariant}
         card={card}
         {...otherProps}
       />

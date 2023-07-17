@@ -148,6 +148,7 @@
   &[data-fs-newsletter-color-variant="main"] {
     background-color: var(--fs-newsletter-main-bkg-color);
     color: var(--fs-newsletter-main-text-color);
+    [data-fs-link="true"] { color: var(--fs-color-link-inverse); }
   }
 
   &[data-fs-newsletter-color-variant="light"] {

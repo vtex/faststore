@@ -33,7 +33,6 @@ const cmsToHtml = (content) => {
           attributes: {
             'data-fs-link': 'true',
             'data-fs-link-variant': 'inline',
-            'data-fs-link-inverse': 'true',
             'data-fs-link-size': 'regular',
             'data-testid': 'fs-link',
             href: data.url,
@@ -51,6 +50,8 @@ export type SubscribeMessage = {
   message: string
   icon: string
 }
+
+type ColorVariant = 'main' | 'light' | 'accent'
 
 export interface NewsletterProps
   extends Omit<ComponentPropsWithRef<'form'>, 'title' | 'onSubmit'> {
@@ -94,6 +95,10 @@ export interface NewsletterProps
    */
   subscribeButtonLoadingLabel?: string
   /**
+   * Specifies the component's color variant combination.
+   */
+  colorVariant: ColorVariant
+  /**
    * The card Variant
    */
   card: Boolean
@@ -115,6 +120,7 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
       nameInputLabel,
       subscribeButtonLabel,
       subscribeButtonLoadingLabel,
+      colorVariant,
       card,
       toastSubscribe,
       toastSubscribeError,
@@ -174,13 +180,12 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
     }
 
     return (
-      <div data-fs-newsletter={card ? 'card' : ''}>
-        <form
-          ref={ref}
-          data-fs-newsletter-form
-          data-fs-content="newsletter"
-          onSubmit={handleSubmit}
-        >
+      <div
+        data-fs-newsletter={card ? 'card' : ''}
+        data-fs-content="newsletter"
+        data-fs-newsletter-color-variant={colorVariant}
+      >
+        <form ref={ref} data-fs-newsletter-form onSubmit={handleSubmit}>
           <header data-fs-newsletter-header>
             <h3>
               <HeaderIcon.Component
@@ -225,8 +230,8 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
               ></span>
               <Button.Component
                 variant="secondary"
-                inverse
                 type="submit"
+                inverse={colorVariant === 'main'}
                 {...Button.props}
               >
                 {loading ? subscribeButtonLoadingLabel : subscribeButtonLabel}
