@@ -187,13 +187,14 @@ export default WebFonts;
 > ℹ️ We recommend using fallback fonts as system fonts to ensure quick rendering, consistent and readable content.
 
 ```css
-.theme {
-  // --------------------------------------------------------
-  // Typography (Branding Core)
-  // --------------------------------------------------------
-    --fs-text-face-body: 'Lato', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+@layer theme {
+  .theme {
+    // --------------------------------------------------------
+    // Typography (Branding Core)
+    // --------------------------------------------------------
+      --fs-text-face-body: 'Lato', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+  }
 }
-
 ```
 
 3. Run `yarn dev` and check the browser to see the `font-family`.
