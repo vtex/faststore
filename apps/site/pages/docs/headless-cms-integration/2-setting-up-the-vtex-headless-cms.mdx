@@ -3,7 +3,7 @@ title: '2. Setting up the VTEX Headless CMS'
 sidebar_label: 'Integrating your storefront with VTEX Headless CMS'
 ---
 
-import { Callout, Tabs, Tab } from 'nextra-theme-docs'
+import { Callout, Tabs, Tab, Steps } from 'nextra-theme-docs'
 
 
 
@@ -14,6 +14,20 @@ import { Callout, Tabs, Tab } from 'nextra-theme-docs'
 Now that you are familiar with the core concepts of the [VTEX Headless CMS](/docs/headless-cms-overview) and have set it up in your VTEX account, let's get back to our **FastStore** project to define our own **Content Types** and **Sections**.
 
 By the end of this part of this tutorial, you will be able to see your first definition of a Content Type available for use at the VTEX Headless CMS app. Next, we will dive deeper into how to create these definitions in a smoother way.
+
+---
+
+## Before you start
+
+<Steps>
+### 1. Integrate the store with the VTEX Headless CMS
+
+All sections must be available in the Headless CMS so they can be added and managed on your store's pages. To integrate your FastStore project, please refer to the [VTEX Headless CMS integration track](/docs/headless-cms-integration/1-configuring-the-vtex-account).
+
+### 2. Install the FastStore CLI
+
+Make sure to install the FastStore CLI to use its commands locally. Refer to the [FastStore CLI](/docs/getting-started/4-faststore-cli#installing-faststore-cli-globally-using-npm) guide for more information.
+</Steps>
 
 ---
 
@@ -137,7 +151,7 @@ Let's now sync our changes with the VTEX Headless CMS app and see what happens.
 
 2. Create a new development workspace by running the following command. *Remember to replace the values between curly brackets according to your scenario*:
 
-```bash
+```bash copy
    vtex use {workspace}
 ```
 
@@ -149,8 +163,8 @@ Let's now sync our changes with the VTEX Headless CMS app and see what happens.
 
 4. Sync your changes in the `cms` folder with the VTEX Headless CMS app:
 
-```bash
-    yarn faststore cms-sync
+```bash copy
+    faststore cms-sync
 ```
 
 <Callout type="warning" emoji="⚠️">
@@ -159,7 +173,7 @@ Let's now sync our changes with the VTEX Headless CMS app and see what happens.
 
 Once your changes are synced with the VTEX Headless CMS, the terminal will show the following message.
 
-```bash
+```bash copy
   CMS synced successfully...
 ```
 
@@ -169,5 +183,6 @@ Once your changes are synced with the VTEX Headless CMS, the terminal will show 
 2. Go to **Storefront > Headless CMS**.
 3. Click on **Create New**.
 
-You should now see the Content Type we created in the previous step available for use at the VTEX Headless CMS app. However, no sections or translation keys will be available yet. We'll learn more about this in the following part of this tutorial.
+You should now see the Content Type we created in the previous step available for use at the VTEX Headless CMS app. 
+However, no sections or translation keys will be available yet. We'll learn more about this in the following part of this track, [Adding Content Types and Sections](/docs/headless-cms-integration/3-adding-content-types-and-sections).
 
