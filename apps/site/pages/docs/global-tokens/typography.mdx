@@ -5,6 +5,8 @@ import {
   Typeset,
 } from 'site/components/Tokens'
 
+import { Callout } from 'nextra/components'
+
 <header>
 
 # Typography
@@ -160,9 +162,11 @@ export const mobileList = [
 
 ---
 
-## Add a Custom Font
+## Adding a custom font
 
-Using your custom font helps to keep a cohesive brand everywhere. Make sure you are using a font that is easy to read in your store, and choosing the font's correct color and text size is essential. Follow the steps below to add a custom font to your store.
+Using a custom font helps to keep a cohesive brand across your store. 
+To maintain readability in your store, choose an easily readable font and the appropriate color and text size.
+Follow the steps below to add a custom font to your store.
 
 1. Go to the `src` folder, create a `fonts` folder.
 2. Inside the `src/fonts` folder, create a new `WebFonts.tsx` file and add a `<link>` tag for your `font-family` of choice as in the example below.
@@ -187,7 +191,10 @@ export default WebFonts;
 ```
 
 3. In your custom theme file, usually `src/themes/custom-theme.scss`, use the `--fs-text-face-body` token with the `font-family` you chose.
-> ℹ️ We recommend using fallback fonts as system fonts to ensure quick rendering, consistent and readable content.
+
+<Callout type="info" emoji="ℹ️">
+  We recommend using [fallback fonts](https://developer.chrome.com/blog/font-fallbacks/#background) as system fonts to ensure quick rendering, consistent and readable content.
+</Callout>
 
 ```css
 .theme {
