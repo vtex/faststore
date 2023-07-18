@@ -180,7 +180,7 @@ describe('Infinite Scroll pagination', () => {
               .click()
               .then(() => {
                 // make sure we are on the pdp
-                cy.location('pathname').should('match', /p$/)
+                cy.location('pathname').should('match', /\/p$/)
                 // make sure pdp is fully iteractive
                 cy.getById('buy-button').should('exist')
               })
