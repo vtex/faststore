@@ -57,7 +57,7 @@ describe('Search page Filters and Sorting options', () => {
   })
 
   it('Sort products by price_asc', () => {
-    cy.visit('/technology', options)
+    cy.visit(pages.collection_2, options)
     cy.waitForHydration()
 
     const priceId = '[data-fs-product-grid] [data-testid="price"]'
@@ -82,7 +82,7 @@ describe('Search page Filters and Sorting options', () => {
   })
 
   it('Sort products by price_desc', () => {
-    cy.visit('/technology', options)
+    cy.visit(pages.collection_2, options)
     cy.waitForHydration()
     const priceId = '[data-fs-product-grid] [data-testid="price"]'
 
