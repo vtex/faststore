@@ -12,6 +12,33 @@ import PropsSection from 'site/components/PropsSection'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SROnly } from '@faststore/ui'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const sROnlyPath = path.resolve(__filename)
+  const components = ['SROnly.tsx']
+  const [sROnlyProps] = getComponentPropsFrom(sROnlyPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        sROnlyProps,
+      },
+    },
+  }
+}
+
+export const SROnlyPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { sROnlyProps } = useSSG()
+  return {
+    SROnly: <PropsSection propsList={sROnlyProps} />,
+  }[component]
+}
+
 <header>
 
 # SROnly
@@ -51,7 +78,7 @@ import '@faststore/ui/src/components/atoms/SROnly/styles.scss'
 
 ## Props
 
-<PropsSection name="SROnly" />
+<SROnlyPropsSection component="SROnly" />
 
 ---
 
