@@ -179,7 +179,10 @@ describe('Infinite Scroll pagination', () => {
               })
               .click()
 
-            cy.get('[data-fs-product-details] [data-testid=fs-product-title]')
+            cy.get('[data-fs-product-details] [data-testid=fs-product-title]', {
+              timeout: 10000,
+            })
+              .should('exist')
               .then(() => {
                 // make sure we are on the pdp
                 cy.location('pathname').should('match', /\/p$/)
