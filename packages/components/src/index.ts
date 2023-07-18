@@ -293,6 +293,9 @@ export type {
   NavbarSliderFooterProps,
 } from './organisms/NavbarSlider'
 
+export { default as Newsletter } from './organisms/Newsletter'
+export type { NewsletterProps } from './organisms/Newsletter'
+
 export { default as OutOfStock } from './organisms/OutOfStock'
 export type { OutOfStockProps } from './organisms/OutOfStock'
 
