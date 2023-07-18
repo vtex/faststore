@@ -178,6 +178,8 @@ describe('Infinite Scroll pagination', () => {
                 skuIdBeforeNavigate = $card.attr('data-fs-product-card-sku')
               })
               .click()
+
+            cy.get('[data-fs-product-details] [data-testid=fs-product-title]')
               .then(() => {
                 // make sure we are on the pdp
                 cy.location('pathname').should('match', /\/p$/)
