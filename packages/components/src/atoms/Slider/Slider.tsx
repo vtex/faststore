@@ -7,7 +7,7 @@ import React, {
   useImperativeHandle,
   forwardRef,
 } from 'react'
-import type { ReactNode } from 'react'
+import type { HTMLAttributes, ReactNode } from 'react'
 
 interface Range {
   absolute: number
@@ -19,7 +19,7 @@ interface RangeLabel {
   max: string | ReactNode
 }
 
-export type SliderProps = {
+export interface SliderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    *
