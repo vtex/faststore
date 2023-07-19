@@ -9,9 +9,21 @@ import {
 import { useGraphQlJit } from '@envelop/graphql-jit'
 import { useParserCache } from '@envelop/parser-cache'
 import { useValidationCache } from '@envelop/validation-cache'
-import { getContextFactory, getSchema, isFastStoreError } from '@faststore/api'
-import { GraphQLError } from 'graphql'
-import type { Maybe, Options as APIOptions, CacheControl } from '@faststore/api'
+import type { Options as APIOptions, CacheControl, Maybe } from '@faststore/api'
+import {
+  getContextFactory,
+  getSchema,
+  getTypeDefs,
+  isFastStoreError,
+} from '@faststore/api'
+import { loadFilesSync } from '@graphql-tools/load-files'
+import { mergeTypeDefs } from '@graphql-tools/merge'
+import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
+import fs from 'fs'
+import { GraphQLError, print } from 'graphql'
+import path from 'path'
+
+import extensionsResolvers from 'src/customizations/graphql/extensions/resolvers'
 
 import persisted from '../../@generated/graphql/persisted.json'
 import storeConfig from '../../faststore.config'
@@ -37,7 +49,17 @@ const apiOptions: APIOptions = {
   },
 }
 
-export const apiSchema = getSchema(apiOptions)
+export const nativeApiSchema = getSchema(apiOptions)
+
+const extensionsSchema = getExtensionsSchema()
+
+const getMergedSchemas = async () =>
+  mergeSchemas({
+    schemas: [await nativeApiSchema, extensionsSchema].filter(Boolean),
+  })
+
+// Merging schemas into a final schema
+export const apiSchema = getMergedSchemas()
 
 const apiContextFactory = getContextFactory(apiOptions)
 
@@ -103,4 +125,26 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
     errors,
     extensions: { cacheControl: contextValue.cacheControl },
   }
+}
+
+function getExtensionsSchema() {
+  const pathArray = ['src', 'customizations', 'graphql', 'extensions']
+  const typeDefs = loadFilesSync(path.join(...pathArray, 'typeDefs'), {
+    extensions: ['graphql'],
+  })
+  const faststoreApiTypeDefs = getTypeDefs()
+  const mergedTypes = mergeTypeDefs([faststoreApiTypeDefs, typeDefs])
+
+  // we don't need to create a new schema if we use the extensions data as typeDefs and resolvers from mergeSchemas()
+  const schema = makeExecutableSchema({
+    typeDefs: mergedTypes,
+    resolvers: extensionsResolvers,
+  })
+
+  if (storeConfig.api.printSchemas) {
+    const printedTypeDefs = print(mergedTypes)
+    fs.writeFileSync('joined.graphql', printedTypeDefs)
+  }
+
+  return schema
 }
