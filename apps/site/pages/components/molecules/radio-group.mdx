@@ -123,7 +123,28 @@ import { RadioGroup } from '@faststore/ui'
 
 ## Props
 
-<PropsSection name="RadioGroup" />
+export const propsRadioGroup = [
+  {
+    name: 'name',
+    type: 'string',
+    description:
+      'Name to link children by context.',
+    required: true
+  },
+  {
+    name: 'selectedValue',
+    type: 'string | number',
+    description: 'Value of checked child.',
+  },
+  {
+    name: 'onChange',
+    type: 'ChangeEventHandler<HTMLInputElement>',
+    description:
+      "Function that is triggered when any children is checked.",
+  },
+]
+
+<PropsSection propsList={propsRadioGroup} />
 
 ---
 
