@@ -45,7 +45,7 @@ We already know that the `content-types.json` file is an array of JSON objects t
               {
                 "name": "seo",
                 "schema": {
-                  "title": "SEO",
+                  "title": "Settings",
                   "description": "Search Engine Optimization options",
                   "type": "object",
                   "widget": {
@@ -101,14 +101,14 @@ Notice that, to declare a new Content Type, you must specify at least the follow
 | --- | ------------|
 | `id` | The identification key of a Content Type, written in Camel Case.   |
 | `name` | The name presented at the VTEX Headless CMS app.  |
-| **(optional)** `configurationSchemaSets` | Creates a new tab on the page of that Content Type with advanced settings. In our example, the **Custom Page** includes a new tab called SEO with custom SEO settings. Check the [following section](#the-configurationschemasets-property) for more information. |
+| **(optional)** `configurationSchemaSets` | Creates a new tab on the page of that Content Type with advanced settings. In our example, the **Custom Page** includes a new tab called Settings with custom SEO settings. Check the [following section](#the-configurationschemasets-property) for more information. |
 
 #### The `configurationSchemaSets` property
 
 Back to our example, notice that the **Custom Page** Content Type has the `configurationSchemaSets` definition. 
 The `configurationSchemaSets` prop creates a new tab at the VTEX Headless CMS for that Content Type with advanced settings.
 
-For the **Custom Page**, a custom section named SEO, which allows editors to change the site metadata, was created.
+For the **Custom Page**, a custom section named Settings, which allows editors to change the site metadata, was created.
 
 {/* TODO: Add a screenshot of the section in the Admin  ![Configuration Schema Sets]() */}
 
@@ -121,7 +121,7 @@ In its turn, the `configurations` object must include a `name` for identificatio
 
 
 After editing the `cms/content-types.json` file, remember to save your changes and check them live by accessing the VTEX Admin at **Storefront > Headless CMS**. 
-Click on **Create New** and check the available Content Type options. Click on **Custom Page** to create a new **Custom Page** and check the SEO tab.
+Click on **Create New** and check the available Content Type options. Click on **Custom Page** to create a new **Custom Page** and check the Settings tab.
 
 
 ### Step 3: Adding Sections to the VTEX Headless CMS
