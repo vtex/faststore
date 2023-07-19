@@ -12,6 +12,9 @@
   --fs-newsletter-title-size                        : var(--fs-text-size-title-section);
   --fs-newsletter-title-weight                      : var(--fs-text-weight-bold);
 
+  // Icon
+  --fs-newsletter-icon-size                         : var(--fs-spacing-5);
+
   // Card
   --fs-newsletter-card-border-radius                : var(--fs-border-radius);
 
@@ -85,8 +88,8 @@
 
     [data-fs-icon] {
       flex-shrink: 0;
-      width: var(--fs-spacing-5);
-      height: var(--fs-spacing-5);
+      width: var(--fs-newsletter-icon-size);
+      height: var(--fs-newsletter-icon-size);
     }
 
     @include media(">=notebook") {

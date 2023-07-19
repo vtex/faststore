@@ -25,27 +25,27 @@ export interface NewsletterProps
    */
   description?: string
   /**
-   * The Privacy Policy disclaimer.
+   * Specifies the Privacy Policy disclaimer.
    */
   privacyPolicy?: string
   /**
-   * The email input label.
+   * Specifies the email input label.
    */
   emailInputLabel?: string
   /**
-   * The name input visibility.
+   * Specifies the name input visibility.
    */
   displayNameInput?: boolean
   /**
-   * The name input label.
+   * Specifies the name input label.
    */
   nameInputLabel?: string
   /**
-   * The subscribe button label.
+   * Specifies the subscribe button label.
    */
   subscribeButtonLabel?: string
   /**
-   * The subscribe button loading label.
+   * Specifies the subscribe button loading label.
    */
   subscribeButtonLoadingLabel?: string
   /**
@@ -53,10 +53,16 @@ export interface NewsletterProps
    */
   colorVariant: ColorVariant
   /**
-   * The card Variant
+   * Enables the card Variant
    */
   card: Boolean
+  /**
+   * Function called when submit button is clicked.
+   */
   handleSubmit: () => void
+  /**
+   * Enables a loading state.
+   */
   loading: Boolean
   toastSubscribe: SubscribeMessage
   toastSubscribeError: SubscribeMessage
@@ -74,6 +80,8 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
       colorVariant = 'main',
       handleSubmit,
       privacyPolicy,
+      nameInputLabel = 'Name',
+      emailInputLabel = 'Email',
       loading,
       card,
     },
@@ -97,13 +105,17 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
           <div data-fs-newsletter-controls>
             <>
               {displayNameInput ? (
-                <InputField id="newsletter-name" required label="name" />
+                <InputField
+                  id="newsletter-name"
+                  required
+                  label={nameInputLabel}
+                />
               ) : null}
               <InputField
                 id="newsletter-email"
                 type="email"
                 required
-                label="email"
+                label={emailInputLabel}
               />
               <span data-fs-newsletter-addendum>{privacyPolicy}</span>
               <Button
