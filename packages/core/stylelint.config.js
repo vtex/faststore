@@ -29,7 +29,7 @@ module.exports = {
     'selector-pseudo-element-no-unknown': true,
     'comment-no-empty': true,
     'no-descending-specificity': null,
-    'no-invalid-position-at-import-rule': true,
+    'no-invalid-position-at-import-rule': null,
     'no-duplicate-at-import-rules': true,
     'no-extra-semicolons': true,
     'no-invalid-double-slash-comments': true,
@@ -73,7 +73,12 @@ module.exports = {
     'scss/operator-no-newline-before': true,
     'scss/operator-no-unspaced': true,
     'scss/selector-no-redundant-nesting-selector': true,
-    'scss/at-rule-no-unknown': true,
+    'scss/at-rule-no-unknown': [
+      'true',
+      {
+        ignoreAtRules: ['layer'],
+      },
+    ],
     'scss/at-import-partial-extension': null,
     'scss/no-global-function-names': null,
     'selector-class-pattern':
