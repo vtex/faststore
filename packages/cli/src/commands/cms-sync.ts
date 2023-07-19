@@ -1,8 +1,7 @@
 import { Command } from '@oclif/core'
 import { spawn } from 'child_process'
-import { existsSync } from 'fs-extra'
 import { tmpDir } from '../utils/directory'
-import { generate, mergeCMSFiles } from '../utils/generate'
+import { generate } from '../utils/generate'
 export default class CmsSync extends Command {
   async run() {
     await generate({ setup: true })
