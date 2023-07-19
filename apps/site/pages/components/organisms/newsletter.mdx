@@ -1,0 +1,312 @@
+---
+description: The Newsletter component is a section with at least one input text with an action which its value could be submitted..
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Hero___c73fdfe80ce87c2ccc4701c07e9d5398.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { Newsletter, Icon } from '@faststore/ui'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const newsletterPath = path.resolve(__filename)
+  const components = ['Newsletter.tsx']
+  const [newsletterProps] = getComponentPropsFrom(newsletterPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        newsletterProps,
+      },
+    },
+  }
+}
+
+export const NewsletterPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { newsletterProps } = useSSG()
+  return {
+    Newsletter: <PropsSection propsList={newsletterProps} />,
+  }[component]
+}
+
+<header>
+
+# Newsletter
+
+The Newsletter component is a section with at least one input text with an action which its value could be submitted.
+
+</header>
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { Newsletter } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/organisms/Newsletter/styles.scss'
+```
+
+---
+
+## Usage
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Newsletter
+        icon={<Icon name="Envelope" />}
+        title="Get News and Special Offers!"
+        description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+        privacyPolicy="By subscribing to our newsletter you agree to to our Privacy Policy."
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Newsletter
+      icon={<Icon name="Envelope" />}
+      title="Get News and Special Offers!"
+      description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+      privacyPolicy="By subscribing to our newsletter you agree to to our Privacy Policy."
+    />
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+All newsletter related components support all attributes also supported by the `<div>` tag.
+Besides those attributes, the following props are also supported:
+
+<NewsletterPropsSection component="Newsletter" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-newsletter-padding-mobile"
+    value="var(--fs-spacing-5)"
+  />
+  <TokenRow
+    token="--fs-newsletter-padding-desktop"
+    value="var(--fs-spacing-9) 10%"
+  />
+  <TokenRow token="--fs-newsletter-border-radius" value="0" />
+</TokenTable>
+
+### Nested Elements
+
+#### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-newsletter-title-size"
+    value="var(--fs-text-size-title-section)"
+  />
+  <TokenRow
+    token="--fs-newsletter-title-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+</TokenTable>
+
+#### Icon
+
+<TokenTable>
+  <TokenRow token="--fs-newsletter-icon-size" value="var(--fs-spacing-5)" />
+</TokenTable>
+
+### Variants
+
+#### Card
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Newsletter
+        icon={<Icon name="Envelope" />}
+        title="Get News and Special Offers!"
+        description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+        privacyPolicy="By subscribing to our newsletter you agree to to our Privacy Policy."
+        card
+      />
+      <Newsletter
+        icon={<Icon name="Envelope" />}
+        title="Get News and Special Offers!"
+        description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+        privacyPolicy="By subscribing to our newsletter you agree to to our Privacy Policy."
+        colorVariant="light"
+        card
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Newsletter
+      icon={<Icon name="Envelope" />}
+      title="Get News and Special Offers!"
+      description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+      privacyPolicy="By subscribing to our newsletter you agree to to our Privacy Policy."
+      card
+    />
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-newsletter-card-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+#### Main
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Newsletter
+        icon={<Icon name="Envelope" />}
+        title="Get News and Special Offers!"
+        description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+        privacyPolicy="By subscribing to our newsletter you agree to to our Privacy Policy."
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Newsletter
+      icon={<Icon name="Envelope" />}
+      title="Get News and Special Offers!"
+      description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+      privacyPolicy="By subscribing to our newsletter you agree to to our Privacy Policy."
+    />
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-newsletter-main-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+  />
+  <TokenRow
+    token="--fs-newsletter-main-text-color"
+    value="var(--fs-color-primary-text)"
+  />
+</TokenTable>
+
+#### Light
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Newsletter
+        icon={<Icon name="Envelope" />}
+        title="Get News and Special Offers!"
+        description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+        privacyPolicy="By subscribing to our newsletter you agree to to our Privacy Policy."
+        colorVariant="light"
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Newsletter
+      icon={<Icon name="Envelope" />}
+      title="Get News and Special Offers!"
+      description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+      privacyPolicy="By subscribing to our newsletter you agree to to our Privacy Policy."
+      colorVariant="light"
+    />
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-newsletter-light-bkg-color"
+    value="var(--fs-color-secondary-bkg-light)"
+  />
+  <TokenRow
+    token="--fs-newsletter-light-text-color"
+    value="var(--fs-color-text-display)"
+  />
+</TokenTable>
+
+#### Accent
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Newsletter
+        icon={<Icon name="Envelope" />}
+        title="Get News and Special Offers!"
+        description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+        privacyPolicy="By subscribing to our newsletter you agree to to our Privacy Policy."
+        colorVariant="accent"
+      />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Newsletter
+      icon={<Icon name="Envelope" />}
+      title="Get News and Special Offers!"
+      description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+      privacyPolicy="By subscribing to our newsletter you agree to to our Privacy Policy."
+      colorVariant="accent"
+    />
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-newsletter-accent-bkg-color"
+    value="var(--fs-color-highlighted-bkg)"
+  />
+  <TokenRow
+    token="--fs-newsletter-accent-text-color"
+    value="var(--fs-newsletter-light-text-color)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+`data-fs-newsletter`
+
+`data-fs-newsletter-color-variant="main" | "light" | "accent"`
+
+`data-fs-newsletter-form`
+
+`data-fs-newsletter-header`
+
+`data-fs-newsletter-header-title`
+
+`data-fs-newsletter-controls`
+
+`data-fs-newsletter-addendum`
