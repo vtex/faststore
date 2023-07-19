@@ -310,6 +310,11 @@ export const validateCart = async (
     headers,
   } = ctx
 
+  // Remove items with quantity zero
+  const validItems = acceptedOffer.filter(item => item.quantity > 0)
+  acceptedOffer.splice(0)
+  acceptedOffer.push(...validItems)
+
   const channel = session?.channel
   const locale = session?.locale
 
