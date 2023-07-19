@@ -84,14 +84,19 @@ Let's configure the URLs of the webhooks used by the VTEX Headless CMS app.
   When an editor clicks to publish a page using the VTEX Headless CMS interface, the CMS calls the **Build Webhook URL**, which changes the status of that page to `publishing`. The CMS, then, waits for the content to be built in the background.
 </Callout>
 
+5. Fill in the **Preview URL** filed with your production URL. _Replace the values between curly brackets according to your scenario._
 
-5. Fill in the **Production base URL** filed with your production URL. _Replace the values between curly brackets according to your scenario._
+``` 
+https://{account}.vtex.app/api/preview
+```
+
+6. Fill in the **Production base URL** filed with your store endpoint to preview changes in the Headless CMS before publishing them. _Replace the values between curly brackets according to your scenario._
 
 ``` 
 https://{account}.vtex.com/
 ```
 
-6. Click on **SAVE**
+7. Click on **SAVE**
 
 
 ### Step 4 - Communicating WebOps updates to the Headless CMS
