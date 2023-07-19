@@ -57,7 +57,7 @@ describe('Search page Filters and Sorting options', () => {
   })
 
   it('Sort products by price_asc', () => {
-    cy.visit(pages.collection, options)
+    cy.visit(pages.collection_2, options)
     cy.waitForHydration()
 
     const priceId = '[data-fs-product-grid] [data-testid="price"]'
@@ -82,7 +82,7 @@ describe('Search page Filters and Sorting options', () => {
   })
 
   it('Sort products by price_desc', () => {
-    cy.visit(pages.collection, options)
+    cy.visit(pages.collection_2, options)
     cy.waitForHydration()
     const priceId = '[data-fs-product-grid] [data-testid="price"]'
 
@@ -178,6 +178,11 @@ describe('Infinite Scroll pagination', () => {
                 skuIdBeforeNavigate = $card.attr('data-fs-product-card-sku')
               })
               .click()
+
+            cy.get('[data-fs-product-details] [data-testid=fs-product-title]', {
+              timeout: 10000,
+            })
+              .should('exist')
               .then(() => {
                 // make sure we are on the pdp
                 cy.location('pathname').should('match', /\/p$/)

@@ -173,7 +173,8 @@ Let's make the first level of customization which updates the store's [theme](/d
 // Theme Soft Blue
 // ----------------------------------------------------------
 
-.theme {
+@layer theme {
+  .theme {
   // --------------------------------------------------------
   // Colors (Branding Core)
   // --------------------------------------------------------
@@ -230,11 +231,10 @@ Let's make the first level of customization which updates the store's [theme](/d
   // --------------------------------------------------------
   // FS UI Components
   // --------------------------------------------------------
+  // Add here the customizations for FastStore UI components.
 
-  --fs-logo-width: 8rem;
+    --fs-logo-width: 8rem;
 
-  .section {
-    // Add here the customizations for FastStore UI components.
     [data-fs-product-card] {
       --fs-product-card-border-color: transparent;
       --fs-product-card-border-color-hover: var(--fs-border-color-light);
