@@ -10,3 +10,210 @@ import { Callout, Tabs, Tab } from 'nextra-theme-docs'
 <header>
 # Part 3: Adding Content Types and Sections to the VTEX Headless CMS
 </header>
+
+Now that you have created your `cms` folder and have an overall understanding of how you'll use it, let's learn how to structure the Content Type, Section, and Translation Key files so you can create any integrations you desire. You'll also learn to use the `--watch` argument to automatically sync your changes with the VTEX Headless CMS app while developing your schemas.
+
+---
+
+## Step by step
+
+### Step 1 - Automatically syncing your changes
+
+Before we start creating more complex definitions of Content Types and Sections, go to the root of your FastStore project and run the following command to automatically sync your changes in the `cms` folder with the VTEX Headless CMS app. _Remember to use a development workspace._
+
+```bash
+vtex cms sync --watch
+```
+
+Open the **VTEX Admin** at **Headless CMS** and keep it next to your code to see your changes while editing the `cms` folder. Notice that refreshing the Admin may be necessary to see your changes.
+
+### Step 2 - Adding Content Types to the VTEX Headless CMS
+
+We already know that the `content-types.json` file is an array of JSON objects that describes the types of pages available for customization at the VTEX Headless CMS. Therefore, to create new Content Types, we just need to declare a new JSON object for each of our Content Types in the `content-types.json` file. However, we still need to discover which props these objects expect. So let's get back to our previous example.
+
+<Tabs items={['Code', 'CMS']}>
+  <Tab>
+    ```json filename="cms/faststore/content-types.json" copy 
+    [
+       {
+        "id": "customPage",
+        "name": "Custom Page",
+        "configurationSchemaSets": [
+          {
+            "name": "Settings",
+            "configurations": [
+              {
+                "name": "seo",
+                "schema": {
+                  "title": "SEO",
+                  "description": "Search Engine Optimization options",
+                  "type": "object",
+                  "widget": {
+                    "ui:ObjectFieldTemplate": "GoogleSeoPreview"
+                  },
+                  "required": [
+                    "slug",
+                    "title",
+                    "description"
+                  ],
+                  "properties": {
+                    "slug": {
+                      "title": "Path",
+                      "type": "string",
+                      "default": "/"
+                    },
+                    "title": {
+                      "title": "Default page title",
+                      "description": "Display this title when no other title is available",
+                      "type": "string",
+                      "default": "FastStore Starter"
+                    },
+                    "description": {
+                      "title": "Meta tag description",
+                      "type": "string",
+                      "default": "A beautifully designed store"
+                    },
+                    "canonical": {
+                      "title": "Canonical url for the page",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+
+   ```
+  </Tab>
+
+  <Tab>
+    <img src="https://vtexhelp.vtexassets.com/assets/docs/src/cms-custom-page___e603fdbc92945b4627c6c5576e169ea6.png" width="40%" />
+  </Tab>
+</Tabs>
+
+
+Notice that, to declare a new Content Type, you must specify at least the following three parameters:
+
+| Key | Description |
+| --- | ------------|
+| `id` | The identification key of a Content Type, written in Camel Case.   |
+| `name` | The name presented at the VTEX Headless CMS app.  |
+| **(optional)** `configurationSchemaSets` | Creates a new tab on the page of that Content Type with advanced settings. In our example, the **Custom Page** includes a new tab called SEO with custom SEO settings. Check the [following section](#the-configurationschemasets-property) for more information. |
+
+#### The `configurationSchemaSets` property
+
+Back to our example, notice that the **Custom Page** Content Type has the `configurationSchemaSets` definition. 
+The `configurationSchemaSets` prop creates a new tab at the VTEX Headless CMS for that Content Type with advanced settings.
+
+For the **Custom Page**, a custom section named SEO, which allows editors to change the site metadata, was created.
+
+{/* TODO: Add a screenshot of the section in the Admin  ![Configuration Schema Sets]() */}
+
+Also, notice that the `configurationSchemaSets` object must contain a `name`, written in **camel case**, and `configurations`. 
+In its turn, the `configurations` object must include a `name` for identification, written in camel case, and a `schema`, written in [JSON Schema v6](http://json-schema.org/) - a description language for creating forms. The `schema` defines the structure of the form used by editors to submit data.
+
+<Callout type="info" emoji="ℹ️">
+  For more information on how to write a `schema`, check the [`JSON Schema Reference`](https://json-schema.org/understanding-json-schema/index.html).
+</Callout>
+
+
+After editing the `cms/content-types.json` file, remember to save your changes and check them live by accessing the VTEX Admin at **Storefront > Headless CMS**. 
+Click on **Create New** and check the available Content Type options. Click on **Custom Page** to create a new **Custom Page** and check the SEO tab.
+
+
+### Step 3: Adding Sections to the VTEX Headless CMS
+
+Now, let's make some of our frontend components available for editing at the VTEX Headless CMS by writing the content schemas that represent them.
+
+Refer to the guide [Creating a new section](/docs/building-sections/creating-a-new-section) for more information.
+
+#### The **`schema`** property
+
+The `schema` will always be unique for each of your Sections as they create the form that editors will use to submit data and change the content of a given React component.
+
+Notice that you must always declare the following properties inside the `schema` object:
+
+| Key           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `title`       | The name that identifies your component in the VTEX Headles CMS app.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `description` | A brief description that helps editors understand the behavior of your component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `type`        | The data type of your schema. Possible values are [`string`](https://json-schema.org/understanding-json-schema/reference/string.html), [`object`](https://json-schema.org/understanding-json-schema/reference/object.html), [`array`](https://json-schema.org/understanding-json-schema/reference/array.html), [`number`](https://json-schema.org/understanding-json-schema/reference/numeric.html#number), [`integer`](https://json-schema.org/understanding-json-schema/reference/string.html), [`boolean`](https://json-schema.org/understanding-json-schema/reference/boolean.html). |
+
+Depending on the `type` of your schema, you may need to define particular fields related to your component structure. For example, for a schema of the `object` type, you'll need to determine `properties` that map key-value pairs. For a schema of the `array` type, you'll need to define the `items` of that array.
+
+<Callout type="info" emoji="ℹ️">
+  For more information on each property of a `schema`, check the [`JSON Schema Reference`](https://json-schema.org/understanding-json-schema/index.html).
+</Callout>
+
+#### Using widgets
+
+When defining your Section `schema`, you can also use the [`uiSchema`](https://react-jsonschema-form.readthedocs.io/en/docs/api-reference/uiSchema/) along with [`widgets`](https://react-jsonschema-form.readthedocs.io/en/docs/usage/widgets/) to specify which UI widget should be used to render a given field of your schema. Common widgets are `draftjs-rich-text`, `image-uploader`, and `block-select`.
+
+{/* TODO: Check the following example of the `draftjs-rich-text` component being used. */}
+
+### Step 4 - Defining translation keys
+
+After creating our Section schemas and Content Types, we will declare the Translation Keys in the `translation-keys.json` file. Translation Keys are used to translate the form presented for editors to any locale you'd like.
+
+```json filename="cms/translation-keys.json" copy
+{
+  "admin/siteMetadataWithSlug": "Site Metadata",
+  "admin/siteMetadataWithSlugDescription": "Configure global site metadata",
+  "admin/meta/siteMetadataWithSlugTitleFieldTitle": "Default page title",
+  "admin/meta/siteMetadataWithSlugTitleFieldDescription": "Appears on the browser tab and is suggested to search engines",
+  "admin/meta/siteMetadataWithSlugSlugFieldTitle": "URL Slug",
+  "admin/meta/siteMetadataWithSlugFieldDescription": "No spaces allowed",
+  "admin/meta/siteMetadataWithSlugDescriptionFieldTitle": "Meta description",
+  "admin/meta/siteMetadataWithSlugDescriptionFieldDescription": "Suggested to search engines"
+}
+```
+
+<details>
+<summary>
+  Try our generic Translation Key definition.
+</summary>
+ 
+Copy and paste the following code in the `cms/translation-keys.json` file to try our generic Translation Key definitions. Remember to save your changes.
+
+```json filename="cms/translation-keys.json" copy
+{
+  "admin/socialmediaTitle": "Social Media",
+  "admin/meta/socialmediaTitleFieldTitle": "Title",
+  "admin/meta/socialmediaTitleFieldDescription": "Appears when a link to this page is shared on social media",
+  "admin/meta/socialmediaDescriptionFieldTitle": "Description",
+  "admin/meta/socialmediaDescriptionFieldDescription": "Appears when a link to this page is shared on social media",
+  "admin/meta/socialmediaImageFieldTitle": "Thumbnail",
+  "admin/meta/socialmediaImageFieldDescription": "Appears when the page is shared on social media",
+  "admin/headerTitle": "Header",
+  "admin/footerTitle": "Footer",
+  "admin/siteMetadataTitle": "Site Metadata",
+  "admin/siteMetadataDescription": "How search engines see your store",
+  "admin/meta/siteMetadataTitleFieldTitle": "Title",
+  "admin/meta/siteMetadataTitleFieldDescription": "Appears on the browser tab and is suggested to search engines",
+  "admin/meta/siteMetadataSlugFieldTitle": "URL Slug",
+  "admin/meta/siteMetadataSlugFieldDescription": "No spaces allowed",
+  "admin/meta/siteMetadataDescriptionFieldTitle": "Meta description",
+  "admin/meta/siteMetadataDescriptionFieldDescription": "Suggested to search engines",
+  "admin/facebookTitle": "Facebook",
+  "admin/facebookDescription": "How facebook sees your store",
+  "admin/meta/facebookTitleFieldTitle": "Title",
+  "admin/meta/facebookTitleFieldDescription": "How the name of your site will appear in facebook",
+  "admin/meta/facebookThumbnailFieldTitle": "Thumbnail path",
+  "admin/meta/facebookThumbnailFieldDescription": "The path to an image of your site. This is how your site will appear on facebook",
+  "admin/meta/facebookDescriptionFieldTitle": "Description",
+  "admin/meta/facebookDescriptionFieldDescription": "How your site will be described in facebook"
+}
+```
+
+</details>
+
+
+---
+
+## Related resources
+
+- [JSON Schema Reference](https://json-schema.org/understanding-json-schema/index.html)
+- [`react-jsonschema-form` Playground](https://rjsf-team.github.io/react-jsonschema-form/)
