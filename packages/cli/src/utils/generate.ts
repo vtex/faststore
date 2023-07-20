@@ -224,7 +224,7 @@ async function copyStoreConfig() {
   }
 }
 
-export function mergeCMSFiles() {
+function mergeCMSFiles() {
   mergeCMSFile('content-types.json')
   mergeCMSFile('sections.json')
 }
