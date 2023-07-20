@@ -42,8 +42,7 @@ Check out the table below for more information:
 The **Status** field can have one of the following values: 
 - `Success`: The deployment was successful. If you want to check the commit associated with it, go to the **Deploys** tab.
 
-- `Error`: There was an error in the pipeline that caused the deployment to fail, but the build can still be successful. 
-To understand what happened, go to the **Deploys** tab, check the last commit, and open the repository for further investigation.
+- `Error`: An error in the pipeline caused the deploy to fail. To identify the specific step where the error occurred, access the **Deploys** tab and check the last commit. Then, access your store repository and verify the pipeline related to that commit. Note that a deploy can fail even if the build process is successful. In this case, even though the code compiled correctly, the deploy may have failed in a specific step of the pipeline.
 
 --- 
 
