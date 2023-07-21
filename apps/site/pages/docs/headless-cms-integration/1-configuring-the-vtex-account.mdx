@@ -3,7 +3,7 @@ title: '1. Configuring your VTEX account'
 sidebar_label: 'Integrating your storefront with VTEX Headless CMS'
 ---
 
-import { Callout } from 'nextra-theme-docs'
+import { Callout, Steps } from 'nextra-theme-docs'
 
 <header>
   # Part 1: Configuring your VTEX account with the VTEX Headless CMS
@@ -18,14 +18,16 @@ The VTEX IO CLI will help you during your development process by allowing you to
 
 Before you proceed with setting up the Headless CMS in your account, please ensure the following:
 
-**1. Successful FastStore Onboarding**
+<Steps>
+
+### Successful FastStore Onboarding
 
 Make sure that the FastStore Onboarding process has been completed successfully. The VTEX Headless CMS is installed during this onboarding phase. For detailed instructions, please refer to the [Starting a new FastStore project](/docs/getting-started/1-faststore-onboarding/onboarding#step-1-setting-up-the-project) tutorial.
 
-**2. Installation of VTEX IO CLI**
+### Installation of VTEX IO CLI
 
 Ensure that you have installed the VTEX IO CLI on your machine. This CLI is required to install the Headless CMS plugins and CMS dependencies. For more information, please refer to the [Installing VTEX IO CLI](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-install) guide.
-
+</Steps>
 ---
 
 ## Step by step
@@ -96,7 +98,7 @@ Let's configure the URLs of the webhooks used by the VTEX Headless CMS app.
   background.
 </Callout>
 
-5. Fill in the **Preview URL** filed with your production URL. _Replace the values between curly brackets according to your scenario._
+5. Fill in the **Preview URL** filed with your production URL. This URL activates the button on VTEX Headless CMS for you to preview the changes made on a page. made_Replace the values between curly brackets according to your scenario._
 
 ``` 
 https://{account}.vtex.app/api/preview
