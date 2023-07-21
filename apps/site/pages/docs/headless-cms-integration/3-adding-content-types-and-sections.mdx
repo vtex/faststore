@@ -110,9 +110,9 @@ Notice that, to declare a new Content Type, you must specify at least the follow
 Back to our example, notice that the **Custom Page** Content Type has the `configurationSchemaSets` definition. 
 The `configurationSchemaSets` prop creates a new tab at the VTEX Headless CMS for that Content Type with advanced settings.
 
-For the **Custom Page**, a custom section named Settings, which allows editors to change the site metadata, was created.
+For the **Custom Page**, a custom section named **Settings**, which allows editors to change the site metadata, was created.
 
-{/* TODO: Add a screenshot of the section in the Admin  ![Configuration Schema Sets]() */}
+![Configuration Schema Sets](https://vtexhelp.vtexassets.com/assets/docs/src/cms-settings-section___f6c8cfc11de6578e2a208ea1602ed127.png) 
 
 Also, notice that the `configurationSchemaSets` object must contain a `name`, written in **camel case**, and `configurations`. 
 In its turn, the `configurations` object must include a `name` for identification, written in camel case, and a `schema`, written in [JSON Schema v6](http://json-schema.org/) - a description language for creating forms. The `schema` defines the structure of the form used by editors to submit data.
