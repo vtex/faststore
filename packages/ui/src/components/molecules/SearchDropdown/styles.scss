@@ -18,7 +18,7 @@
   --fs-search-dropdown-position-left-mobile : calc(-1 * var(--fs-control-tap-size));
   --fs-search-dropdown-position-left-tablet : calc(var(--fs-search-dropdown-position-left-mobile) - var(--fs-spacing-1));
   --fs-search-dropdown-position-top-mobile  : calc(var(--fs-search-dropdown-position-top-tablet) + 1px);
-  --fs-search-dropdown-position-top-tablet  : calc(var(--fs-control-tap-size) + var(--fs-spacing-2) + var(--fs-border-width));
+  --fs-search-dropdown-position-top-tablet  : calc(var(--fs-control-tap-size) + var(--fs-border-width));
   --fs-search-dropdown-position-top-desktop : var(--fs-search-input-height-desktop);
 
   --fs-search-dropdown-section-border-color : var(--fs-border-color-light);
