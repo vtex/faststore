@@ -20,11 +20,11 @@ By the end of this part of this tutorial, you will be able to see your first def
 ## Before you start
 
 <Steps>
-### 1. Integrate the store with the VTEX Headless CMS
+### Integrate the store with the VTEX Headless CMS
 
 All sections must be available in the Headless CMS so they can be added and managed on your store's pages. To integrate your FastStore project, please refer to the [VTEX Headless CMS integration track](/docs/headless-cms-integration/1-configuring-the-vtex-account).
 
-### 2. Install the FastStore CLI
+### Install the FastStore CLI
 
 Make sure to install the FastStore CLI to use its commands locally. Refer to the [FastStore CLI](/docs/getting-started/4-faststore-cli#installing-faststore-cli-globally-using-npm) guide for more information.
 </Steps>
@@ -36,18 +36,18 @@ Make sure to install the FastStore CLI to use its commands locally. Refer to the
 ### Step 1 - Creating the CMS folder
 
 1. Open the terminal and change to the root directory of your FastStore project.
-2. Create a new folder named `cms` at the root of your FastStore project. Inside `cms` create another folder for your project:
+2. Create a new folder named `cms` at the root of your FastStore project and a subfolder named `faststore` inside the `cms`. Run the following command to create them:
 
 <Tabs items={['macOs and Linux', 'Windows']}>
   <Tab>
   ```bash copy
-  mkdir cms/faststore
+  mkdir -p cms/faststore
   ```
   </Tab>
 
   <Tab>
    ```bash copy
-  mkdir cms\faststore
+  mkdir -p cms\faststore
   ```
   </Tab>
 </Tabs>
@@ -55,9 +55,23 @@ Make sure to install the FastStore CLI to use its commands locally. Refer to the
 
 3. Create the three files below inside the `faststore` folder by running the `touch` command:
 
-```bash copy
+<Tabs items={['macOs and Linux', 'Windows']}>
+  <Tab>
+  ```bash copy
     touch cms/faststore/content-types.json cms/faststore/sections.json cms/faststore/translation-keys.json
-```
+  ```
+  </Tab>
+
+  <Tab>
+   ```bash copy
+  type nul > cms\faststore\content-types.json
+  type nul > cms\faststore\sections.json
+  type nul > cms\faststore\translation-keys.json
+
+  ```
+  </Tab>
+</Tabs>
+
 
 | File name                | Description                                                                                                                                                    |
 | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
