@@ -19,7 +19,7 @@ interface RangeLabel {
   max: string | ReactNode
 }
 
-export interface SliderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface SliderProps extends HTMLDivElement {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    *
