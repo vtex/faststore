@@ -1,6 +1,9 @@
 import React, { ReactNode, HTMLAttributes } from 'react'
 
 export interface ModalBodyProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Children or function as a children
+   */
   children: ReactNode
 }
 
