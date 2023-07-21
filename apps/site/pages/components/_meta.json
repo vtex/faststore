@@ -1,11 +1,42 @@
 {
-  "index": "FastStore UI",
+  "index": {
+    "title": "Overview",
+    "theme": {
+      "layout": "full"
+    }
+  },
+  "getting-started": {
+    "title": "Getting Started",
+    "theme": {
+      "layout": "full"
+    }
+  },
   "---": {
     "title": "",
     "type": "separator"
   },
-  "atoms": "Atoms",
-  "molecules": "Molecules",
-  "organisms": "Organisms",
-  "features": "Features"
+  "atoms": {
+    "title": "Atoms",
+    "theme": {
+      "layout": "full"
+    }
+  },
+  "molecules": {
+    "title": "Molecules",
+    "theme": {
+      "layout": "full"
+    }
+  },
+  "organisms": {
+    "title": "Organisms",
+    "theme": {
+      "layout": "full"
+    }
+  },
+  "features": {
+    "title": "Features",
+    "theme": {
+      "layout": "full"
+    }
+  }
 }

@@ -7,16 +7,24 @@ body .nx-bg-primary-100 { background-color: hsl(var(--nextra-primary-hue)100% 96
 
 /* Header */
 .nx-w-full > header {
-  padding: var(--fs-spacing-4) var(--fs-spacing-5);
-  margin-top: var(--fs-spacing-6);
-  margin-bottom: var(--fs-spacing-6);
-  background-color: #ecf0ff;
-  border-radius: 4px;
+  padding-bottom: var(--fs-spacing-9);
+  margin-top: var(--fs-spacing-10);
+  margin-bottom: var(--fs-spacing-7);
+  border-bottom: 1px solid var(--fs-border-color-light);
+}
+
+.nx-w-full > header h1 {
+  font-size: var(--fs-text-size-8);
+  line-height: 1;
+  font-weight: 900;
 }
 
 .nx-w-full > header p {
   margin-top: var(--fs-spacing-2);
-  line-height: var(--fs-text-size-4);
+  color: var(--fs-color-text-light);
+  font-size: var(--fs-text-size-lead);
+  line-height: 1.5;
+  max-width: 80%;
 }
 
 /* Divider */
@@ -37,6 +45,7 @@ h1.nx-tracking-tight {
 h2.nx-tracking-tight {
   border: none;
   font-size: var(--fs-text-size-4);
+  margin-bottom: var(--fs-spacing-2);
 }
 
 h2.nx-tracking-tight + p.nx-mt-6 { margin-top: 0; }
@@ -46,7 +55,7 @@ h3.nx-tracking-tight {
   font-size: var(--fs-text-size-3);
   line-height: 1.2;
   margin-top: var(--fs-spacing-5);
-  margin-bottom: 0;
+  margin-bottom: var(--fs-spacing-2);
 }
 
 div:not(.nextra-code-block):not(.nextra-callout) + h3.nx-tracking-tight { margin-top: var(--fs-spacing-10); }
@@ -133,16 +142,15 @@ p.nx-mt-6 + p.nx-mt-6 { margin-top: 0; }
 /* Hero */
 
 header.hero {
-  padding: var(--fs-spacing-6) var(--fs-spacing-5);
-  background-image: url("https://vtexhelp.vtexassets.com/assets/docs/src/starters___45131194d6158dfd0612f089a6a91070.png");
+  /* padding: var(--fs-spacing-6) var(--fs-spacing-5); */
+  /* background-image: url("https://vtexhelp.vtexassets.com/assets/docs/src/starters___45131194d6158dfd0612f089a6a91070.png");
   background-repeat: no-repeat;
   background-position: bottom right;
-  background-size: 30% auto;
+  background-size: 30% auto; */
 }
 
 header.hero > p {
   width: 65%;
-  margin-top: var(--fs-spacing-3);
   margin-bottom: var(--fs-spacing-3);
   font-size: var(--fs-text-size-lead);
   line-height: 1.5;
