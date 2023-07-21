@@ -1,0 +1,527 @@
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { CardItem, CardList } from 'site/components/CardList'
+import {
+  Badge,
+  BannerText,
+  BannerTextContent,
+  Button,
+  Checkbox,
+  DiscountBadge,
+  EmptyState,
+  Filter,
+  Hero,
+  HeroImage,
+  HeroHeader,
+  Icon,
+  Input,
+  InputField,
+  Label,
+  Link,
+  List,
+  Loader,
+  OrderSummary,
+  OutOfStock,
+  Overlay,
+  PaymentMethods,
+  Price,
+  ProductGrid,
+  ProductGridItem,
+  ProductCard,
+  ProductCardContent,
+  ProductCardImage,
+  Radio,
+  Select,
+  Skeleton,
+  Slider,
+  SROnly,
+  RegionModal,
+  UIProvider,
+  useUI,
+} from '@faststore/ui'
+import CartSidebarUsage from 'site/components/CartSidebar/CartSidebarUsage'
+import FilterUsage from 'site/components/Filter/FilterUsage'
+import ImageGalleryUsage from 'site/components/ImageGallery/ImageGalleryUsage'
+import NavbarSliderUsage from 'site/components/Navigation/NavbarSliderUsage'
+import NavbarUsage from 'site/components/Navigation/NavbarUsage'
+import PriceRangeUsage from 'site/components/PriceRange/PriceRangeUsage'
+import SearchInputUsage from 'site/components/Search/SearchInputUsage'
+import ShippingSimulationUsage from 'site/components/ShippingSimulation/ShippingSimulationUsage'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+import SlideOverUsage from 'site/components/SlideOver/SlideOverUsage'
+import { products } from 'site/mocks/products'
+import { SearchProvider } from '@faststore/sdk'
+import { useState } from 'react'
+
+<header>
+
+# FastStore UI
+
+FastStore UI is designed and built following the [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/) pattern.
+Atomic Design breaks user interfaces hierarchically into smaller and simpler components and the FastStore components are classified in: **atoms, molecules, organisms** and **features**.
+
+</header>
+
+export const imagesUsage = [
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000',
+    alternateName: 'Magicwhite',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190923/lena-de-fanti-nQ_j5d-klVU-unsplash.jpg?v=637867501523500000',
+    alternateName: 'magicbox',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190924/anthony-choren-e7dG26YCrZU-unsplash.jpg?v=637867501835430000',
+    alternateName: 'magicblackwhite',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190925/maheshkumar-painam-GZdfLeL-MDk-unsplash.jpg?v=637867502064000000',
+    alternateName: 'magiccombo',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190926/math-0U9fBLGP3EY-unsplash.jpg?v=637867502325830000',
+    alternateName: 'magicback',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190927/marek-levak-YPeqMN_wfw0-unsplash.jpg?v=637867502641430000',
+    alternateName: 'magictable',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190928/mouse8.jpg?v=637867504048970000',
+    alternateName: 'magichand',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190929/harpal-singh-KuvEVL7lXYQ-unsplash.jpg?v=637867509459130000',
+    alternateName: 'magicstyle',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190930/chris-hardy-182PzOtcmWc-unsplash.jpg?v=637867509778300000',
+    alternateName: 'magicscale',
+  },
+]
+
+export const flags = [
+  { icon: { icon: 'Visa' }, alt: 'Visa' },
+  { icon: { icon: 'Diners' }, alt: 'Diners Club' },
+  { icon: { icon: 'Mastercard' }, alt: 'Mastercard' },
+  { icon: { icon: 'EloCard' }, alt: 'Elo Card' },
+  { icon: { icon: 'PayPal' }, alt: 'PayPal' },
+  { icon: { icon: 'Stripe' }, alt: 'Stripe' },
+  { icon: { icon: 'GooglePay' }, alt: 'GooglePay' },
+  { icon: { icon: 'ApplePay' }, alt: 'ApplePay' },
+]
+
+export const RegionModalUsage = () => {
+  const { modal, openModal } = useUI()
+  const [input, setInput] = useState('')
+  return (
+    <>
+      <Button variant="primary" onClick={() => openModal()}>
+        Open Region Modal
+      </Button>
+      {modal && (
+        <RegionModal
+          fadeOutOnSubmit={true}
+          inputValue={input}
+          onInput={(e) => setInput(e.currentTarget.value)}
+        />
+      )}
+    </>
+  )
+}
+
+export const SlideOverPartialRight = () => {
+  const { modal, openModal } = useUI()
+  return (
+    <>
+      <Button variant="primary" onClick={openModal} style={{ width: '9rem' }}>
+        Right
+      </Button>
+      {modal && (
+        <SlideOverUsage size="partial" direction="rightSide" isOpen={modal} />
+      )}
+    </>
+  )
+}
+
+## Atoms
+
+<CardList columns={4}>
+  <CardItem
+    title="Badge"
+    description="Badges are status descriptors used to emphasize an item's state."
+    actionPath="/components/atoms/badge"
+  >
+    <Badge variant="success">Success</Badge>
+  </CardItem>
+  <CardItem
+    title="Button"
+    description="Buttons indicate actions that users can take, like adding an item to the cart."
+    actionPath="/components/atoms/button"
+  >
+    <Button variant="primary">Primary</Button>
+  </CardItem>
+  <CardItem
+    title="Checkbox"
+    description="Checkboxes allow users to toggle an option on or off."
+    actionPath="/components/atoms/checkbox"
+  >
+    <Checkbox checked readOnly />
+  </CardItem>
+  <CardItem
+    title="Icon"
+    description="Icons are simplified graphics used to represent concepts and help users navigate the UI."
+    actionPath="/components/atoms/icon"
+  >
+    <Icon name="ShoppingCart" weight="regular" width={24} height={24} />
+  </CardItem>
+  <CardItem
+    title="Input"
+    description="Fields used to get user inputs."
+    actionPath="/components/atoms/input"
+  >
+    <Input placeholder="Label" id="inputfield-default" />
+  </CardItem>
+  <CardItem
+    title="Label"
+    description="Describes the meaning of input fields."
+    actionPath="/components/atoms/label"
+  >
+    <Label>Label</Label>
+  </CardItem>
+  <CardItem
+    title="Link"
+    description="Performs the same behavior of a regular anchor tag (`a`), but can be used as any HTML tag and component."
+    actionPath="/components/atoms/link"
+  >
+    <Link variant="default">Default</Link>
+  </CardItem>
+  <CardItem
+    title="List"
+    description="Lists group related content. They can be ordered or unordered."
+    actionPath="/components/atoms/list"
+  >
+    <List marker>
+      <li>Great Unordered List</li>
+      <li>Ok Unordered List</li>
+      <li>Bad Unordered List</li>
+    </List>
+  </CardItem>
+  <CardItem
+    title="Loader"
+    description="Loaders provide a visual cue that an action is being processed."
+    actionPath="/components/atoms/loader"
+  >
+    <Loader />
+  </CardItem>
+  <CardItem
+    title="Overlay"
+    description="Overlays provide contextual information on top of the current layer of the interface."
+    actionPath="/components/atoms/overlay"
+  >
+    <div
+      style={{
+        position: 'relative',
+        height: '8rem',
+        width: '100%',
+        textAlign: 'center',
+      }}
+    >
+      A content outside me
+      <Overlay style={{ position: 'absolute' }} />
+    </div>
+  </CardItem>
+  <CardItem
+    title="Price"
+    description="Used to display the price of a given product, discount and total values."
+    actionPath="/components/atoms/price"
+  >
+    <Price value={62.5} variant="selling" />
+  </CardItem>
+  <CardItem
+    title="Radio"
+    description="Allow users to select one option from a set."
+    actionPath="/components/atoms/radio"
+  >
+    <Radio checked readOnly />
+  </CardItem>
+  <CardItem
+    title="Select"
+    description="Select components allow users to pick an option from a predefined list."
+    actionPath="/components/atoms/select"
+  >
+    <Select
+      id="select-overview-default"
+      options={{
+        great: 'Great',
+        ok: 'Ok',
+        bad: 'Bad',
+      }}
+    />
+  </CardItem>
+  <CardItem
+    title="Skeleton"
+    description="Improves the store's experience and perceived performance through loading placeholders."
+    actionPath="/components/atoms/skeleton"
+  >
+    <Skeleton size={{ width: '150px', height: '80px' }} borderRadius="32px" />
+  </CardItem>
+  <CardItem
+    title="Slider"
+    description="Allows users to select a single value from a range."
+    actionPath="/components/atoms/slider"
+  >
+    <Slider
+      max={{ absolute: 500, selected: 250 }}
+      min={{ absolute: 0, selected: 100 }}
+      absoluteValuesLabel={{ min: '0', max: '500' }}
+    />
+  </CardItem>
+  <CardItem
+    title="SROnly"
+    description="Hides an element visually. Improve accessibility by providing text to screen readers when applied."
+    actionPath="/components/atoms/sr-only"
+  >
+    <SROnly text="visually hidden text" />
+  </CardItem>
+</CardList>
+
+---
+
+## Molecules
+
+<CardList columns={4}>
+  <CardItem
+    title="Discount Badge"
+    description={
+      <>
+        A custom <code>Badge</code> that display product's discounts.
+      </>
+    }
+    actionPath="/components/molecules/discount-badge"
+  >
+    <DiscountBadge listPrice={80} spotPrice={40} />
+  </CardItem>
+</CardList>
+
+---
+
+## Organisms
+
+<CardList columns={3}>
+  <CardItem
+    title="Banner Text"
+    description="Used for advertising brands, products, and/or collections."
+    actionPath="/components/organisms/banner-text"
+    zoomOut
+  >
+    <BannerText>
+      <BannerTextContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </BannerText>
+  </CardItem>
+  <CardItem
+    title="Cart Sidebar"
+    description="Displays the summary of items added to the cart along with detailed information, and checkout option."
+    actionPath="/components/organisms/cart-sidebar"
+  >
+    <UIProvider>
+      <CartSidebarUsage />
+    </UIProvider>
+  </CardItem>
+  <CardItem
+    title="Empty State"
+    description="Used to represent an empty state."
+    actionPath="/components/organisms/empty-state"
+    zoomOut
+  >
+    <EmptyState
+      title="Your Cart is empty"
+      titleIcon={
+        <Icon name="ShoppingCart" width={56} height={56} weight="thin" />
+      }
+    >
+      <Button variant="secondary">Start Shopping</Button>
+    </EmptyState>
+  </CardItem>
+  <CardItem
+    title="Filter"
+    description="Filters products inside the Product Listing Page (PLP) and Search Page."
+    actionPath="/components/organisms/filter"
+    containerStyle={{ alignItems: 'flex-start' }}
+  >
+    <UIProvider>
+      <SearchProvider onChange={() => ({})}>
+        <FilterUsage />
+      </SearchProvider>
+    </UIProvider>
+  </CardItem>
+  <CardItem
+    title="Hero"
+    description="Full-width banner presented on the above-the-fold section of a web page."
+    actionPath="/components/organisms/hero"
+    zoomOut
+  >
+    <Hero>
+      <HeroImage>
+        <img
+          alt="Controller on a table"
+          src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+        />
+      </HeroImage>
+      <HeroHeader
+        title="Explore our products"
+        subtitle="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Hero>
+  </CardItem>
+  <CardItem
+    title="Image Gallery"
+    description="Used when you want to display a series of photos in a gallery on a post or page."
+    actionPath="/components/organisms/image-gallery"
+    zoomOut
+  >
+    <ImageGalleryUsage images={imagesUsage} />
+  </CardItem>
+  <CardItem
+    title="Navbar"
+    description="Represents the page header and groups features like Search and Regionalization."
+    actionPath="/components/organisms/navbar"
+    zoomOut
+  >
+    <UIProvider>
+      <NavbarUsage />
+    </UIProvider>
+  </CardItem>
+  <CardItem
+    title="Navbar Slider"
+    description={
+      <>
+        As part of the <code>Navbar</code>, this component is its{' '}
+        <strong>mobile version</strong> used to list the navigation links
+        through the <code>NavbarLinks</code>.
+      </>
+    }
+    actionPath="/components/organisms/navbar-slider"
+  >
+    <UIProvider>
+      <NavbarSliderUsage />
+    </UIProvider>
+  </CardItem>
+  <CardItem
+    title="Out of Stock"
+    description="Used to announce to users that the product is out of stock."
+    actionPath="/components/organisms/out-of-stock"
+  >
+    <OutOfStock
+      title="Out of Stock"
+      subtitle="Notify me when available"
+      inputLabel="Email"
+      buttonLabel="Notify Me"
+      onSubmit={() => {}}
+      disabled={false}
+    />
+  </CardItem>
+  <CardItem
+    title="Payment Methods"
+    description="Displays the logos of the available payment options in a store."
+    actionPath="/components/organisms/payment-methods"
+  >
+    <PaymentMethods title={<h3>Payment Methods</h3>} flagList={flags} />
+  </CardItem>
+  <CardItem
+    title="Price Range"
+    description={
+      <>
+        <code>Slider</code> that allows users to select a maximum and minimum
+        price from a range.
+      </>
+    }
+    actionPath="/components/organisms/price-range"
+  >
+    <PriceRangeUsage />
+  </CardItem>
+  <CardItem
+    title="Product Grid"
+    description="A section generally used on PLP pages to list the products available in the store."
+    actionPath="/components/organisms/product-grid"
+    zoomOut
+  >
+    <ProductGrid>
+      {products.map(({ product }, idx) => (
+        <ProductGridItem>
+          <ProductCard>
+            <ProductCardImage>
+              <img
+                data-fs-image
+                src={product.image[0].url}
+                alt={product.image[0].alternateName}
+              />
+            </ProductCardImage>
+            <ProductCardContent
+              title={product.isVariantOf.name}
+              price={{
+                value: product.offers.offers[0].price,
+                listPrice: product.offers.offers[0].listPrice,
+                formatter: useFormattedPrice,
+              }}
+            />
+          </ProductCard>
+        </ProductGridItem>
+      ))}
+    </ProductGrid>
+  </CardItem>
+  <CardItem
+    title="Region Modal"
+    description={
+      <>
+        A <code>Modal</code> with some region configurations. The component is
+        part of <code>Regionalization</code> feature.
+      </>
+    }
+    actionPath="/components/organisms/region-modal"
+  >
+    <UIProvider>
+      <RegionModalUsage />
+    </UIProvider>
+  </CardItem>
+  <CardItem
+    title="Search Input"
+    description={
+      <>
+        Responsible to receive, search and display suggestions. This component
+        is part of the <code>Search</code> feature.
+      </>
+    }
+    actionPath="/components/organisms/search-input"
+  >
+    <SearchInputUsage />
+  </CardItem>
+  <CardItem
+    title="Shipping Simulation"
+    description={
+      <>
+        Lets customers set the <code>PostalCode</code> and see the shipping
+        options in the `PDP`.
+      </>
+    }
+    actionPath="/components/organisms/shipping-simulation"
+  >
+    <ShippingSimulationUsage />
+  </CardItem>
+  <CardItem
+    title="Slide Over"
+    description="Represents an aditional session that complements the screen's information."
+    actionPath="/components/organisms/slide-over"
+  >
+    <UIProvider>
+      <SlideOverPartialRight />
+    </UIProvider>
+  </CardItem>
+</CardList>
