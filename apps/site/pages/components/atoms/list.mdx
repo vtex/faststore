@@ -10,33 +10,6 @@ import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { List } from '@faststore/ui'
 
-import path from 'path'
-import { useSSG } from 'nextra/ssg'
-import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
-
-export const getStaticProps = () => {
-  const listPath = path.resolve(__filename)
-  const components = ['List.tsx']
-  const [listProps] = getComponentPropsFrom(listPath, components)
-  return {
-    props: {
-      // We add an `ssg` field to the page props,
-      // which will be provided to the Nextra `useSSG` hook.
-      ssg: {
-        listProps,
-      },
-    },
-  }
-}
-
-export const ListPropsSection = ({ component }) => {
-  // Get the data from SSG, and render it as a component.
-  const { listProps } = useSSG()
-  return {
-    List: <PropsSection propsList={listProps} />,
-  }[component]
-}
-
 <header>
 
 # List
