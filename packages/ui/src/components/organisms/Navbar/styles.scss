@@ -175,8 +175,14 @@
       }
 
       [data-fs-icon-button="true"] {
+        right: 0;
         margin-right: var(--fs-navbar-search-expanded-button-icon-margin-right);
         transition: margin var(--fs-navbar-transition-timing) var(--fs-navbar-transition-function);
+      }
+
+      [data-fs-cart-toggle] {
+        display: none;
+        right: 0;
       }
     }
   }
@@ -184,7 +190,6 @@
   [data-fs-navbar-header] {
     z-index: var(--fs-z-index-top);
     padding: var(--fs-navbar-header-padding);
-    overflow-x: clip;
     background-color: var(--fs-navbar-bkg-color);
     backdrop-filter: blur(10px);
     height: 100%;
