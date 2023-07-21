@@ -91,7 +91,70 @@ import '@faststore/ui/src/components/molecules/InputField/styles.scss'
 
 ## Props
 
-<PropsSection name="InputField" />
+export const propsInputField = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-input-field'
+  },
+  {
+    name: 'id',
+    type: 'string',
+    description: 'ID to identify input and corresponding label.',
+    required: true
+  },
+  {
+    name: 'label',
+    type: 'string',
+    description: 'The text displayed to identify input text.',
+    required: true
+  },
+  {
+    name: 'error',
+    type: 'string',
+    description: 'The error message is displayed when an error occurs.'
+  },
+  {
+    name: 'inputRef',
+    type: 'MutableRefObject<HTMLInputElement | null>',
+    description: "Component's ref."
+  },
+  {
+    name: 'disabled',
+    type: 'boolean',
+    description: 'Specifies that the whole input component should be disabled.'
+  },
+  {
+    name: 'actionable',
+    type: "boolean",
+    description: 'Adds a Button to the component.'
+  },
+  {
+    name: 'onSubmit',
+    type: "() => void",
+    description: 'Callback function when button is clicked. Required for actionable input.*'
+  },
+  {
+    name: 'onClear',
+    type: "() => void",
+    description: 'Callback function when clear button is clicked. Required for actionable input.*'
+  },
+  {
+    name: 'buttonActionText',
+    type: "string",
+    description: 'The text displayed on the Button. Suggestion: maximum 9 characters.',
+    default: 'Apply'
+  },
+  {
+    name: 'displayClearButton',
+    type: "boolean",
+    description: 'Boolean that controls the clear button.'
+  },
+]
+
+<PropsSection propsList={propsInputField} />
 
 ---
 
