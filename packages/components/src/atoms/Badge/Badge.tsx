@@ -15,7 +15,7 @@ export interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
    */
   testId?: string
   /**
-   * Sets the component's size.
+   * Specifies the size variant.
    */
   size?: 'small' | 'big'
   /**

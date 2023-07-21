@@ -29,8 +29,8 @@ export interface DropdownMenuProps extends ModalContentProps {
    */
   onDismiss?: (event: MouseEvent | KeyboardEvent) => void
 
-  /**
-   * Specifies the size variant
+   /**
+   * Specifies the size variant.
    */
   size?: 'small' | 'regular'
 

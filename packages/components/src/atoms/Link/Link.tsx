@@ -12,13 +12,13 @@ type LinkBaseProps = {
    */
   variant?: 'default' | 'display' | 'inline'
   /**
-   * Defines use of inverted color.
-   */
-  inverse?: boolean
-  /**
-   * Defines size os element
+   * Specifies the size variant.
    */
   size?: 'small' | 'regular'
+  /**
+   * Defines the use of inverted colors.
+   */
+  inverse?: boolean
 }
 
 export type LinkElementType = ElementType
