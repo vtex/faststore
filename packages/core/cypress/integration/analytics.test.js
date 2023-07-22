@@ -358,8 +358,8 @@ describe('search event', () => {
 
     cy.getById('store-input-mobile')
       .click()
-      .type('shirt')
       .within(() => {
+        cy.getById('fs-input').type('shirt')
         cy.getById('store-input-mobile-button')
           .click()
           .then(() => {
