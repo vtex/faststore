@@ -52,16 +52,14 @@ const orderFormItemToOffer = (
 ): Indexed<IStoreOffer> => ({
   listPrice: item.listPrice / 100,
   price: item.priceDefinition?.calculatedSellingPrice
-    ? Number(
-        String(
-          (item.priceDefinition.sellingPrices.reduce(
-            (price, sellingPrice) =>
-              price + sellingPrice.quantity * sellingPrice.value,
-            0
-          ) /
-            item.quantity) *
-            100
-        ).split('.')[0]
+    ? Math.floor(
+        (item.priceDefinition.sellingPrices.reduce(
+          (price, sellingPrice) =>
+            price + sellingPrice.quantity * sellingPrice.value,
+          0
+        ) /
+          item.quantity) *
+          100
       ) / 10000
     : item.sellingPrice,
   quantity: item.quantity,
@@ -141,16 +139,14 @@ const joinItems = (form: OrderForm) => {
       const quantity = items.reduce((acc, i) => acc + i.quantity, 0)
       const totalPrice = items.reduce((acc, i) => {
         const itemPrice = i.priceDefinition?.calculatedSellingPrice
-          ? Number(
-              String(
-                (i.priceDefinition.sellingPrices.reduce(
-                  (price, sellingPrice) =>
-                    price + sellingPrice.quantity * sellingPrice.value,
-                  0
-                ) /
-                  i.quantity) *
-                  100
-              ).split('.')[0]
+          ? Math.floor(
+              (i.priceDefinition.sellingPrices.reduce(
+                (price, sellingPrice) =>
+                  price + sellingPrice.quantity * sellingPrice.value,
+                0
+              ) /
+                i.quantity) *
+                100
             ) / 100
           : i.sellingPrice
         return acc + itemPrice * i.quantity
