@@ -52,10 +52,9 @@ Make sure to install the FastStore CLI to use its commands locally. Refer to the
 1. In the FastStore root directory, create a folder named `cms`.
 2. Inside `cms`, create the `faststore` folder.
 3. Within the `cms/faststore` folder, create the following files: `content-types.json` and `sections.json`.
-4. In the `sections.json` file add the new section that you want to display in the Headless CMS. The schema below defines how the Headless CMS renders a section:
+4. In the `sections.json` file, between the existing brackets, add the new section that you want to display in the Headless CMS:
 
 ```json filename="sections.json" copy
-[
   {
     "name": "CallToAction",
     "schema": {
@@ -92,7 +91,6 @@ Make sure to install the FastStore CLI to use its commands locally. Refer to the
       }
     }
   }
-]
 ```
 
 <Callout type="info" emoji="ℹ️">
