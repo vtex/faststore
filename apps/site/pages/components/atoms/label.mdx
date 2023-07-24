@@ -8,6 +8,33 @@ import PropsSection from 'site/components/PropsSection'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { Label } from '@faststore/ui'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const labelPath = path.resolve(__filename)
+  const components = ['Label.tsx']
+  const [labelProps] = getComponentPropsFrom(labelPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        labelProps,
+      },
+    },
+  }
+}
+
+export const LabelPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { labelProps } = useSSG()
+  return {
+    Label: <PropsSection propsList={labelProps} />,
+  }[component]
+}
+
 <header>
 
 # Label
@@ -50,7 +77,7 @@ import { Label } from '@faststore/ui'
 
 ## Props
 
-<PropsSection name="Label" />
+<LabelPropsSection component="Label" />
 
 ---
 

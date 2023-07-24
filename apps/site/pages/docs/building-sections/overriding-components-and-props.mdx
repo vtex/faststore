@@ -70,23 +70,19 @@ Here's how the initial component looks like with the `size` prop set as `regular
 #### Step 1 - Setting up the `overrides` folder
 
 1. After choosing a native section to be customized from the [list of available native sections](/docs/reference-guides/list-of-native-sections), open your FastStore project in any code editor of your preference.
-2. Go to the `src` folder, create the `components` folder and inside it, create the `overrides` folder.
+2. Go to the `src` folder, create the `components` folder and inside it, create the `overrides` folder.  You can run the following command to create them:
 
 <Tabs items={['macOS and Linux', 'Windows']}>
   <Tab>
-    ```bash
+    ```bash copy
     mkdir src/components src/components/overrides
     ```
   </Tab>
-
-{' '}
-
-<Tab>
-```bash
-mkdir src\components src\components\overrides
-```
-</Tab>
-
+  <Tab>
+    ```bash copy
+    mkdir src\components src\components\overrides
+    ```
+  </Tab>
 </Tabs>
 
 3. Inside the `overrides` folder, create a new file named after the chosen native section. For example, if you chose the `ProductDetails` section for customization, create a new file named `ProductDetails.tsx` under the `src/components/overrides` directory.
@@ -97,15 +93,11 @@ mkdir src\components src\components\overrides
     touch src/components/overrides/ProductDetails.tsx
     ```
   </Tab>
-
-{' '}
-
-<Tab>
-```bash copy
-touch src\components\overrides\ProductDetails.tsx 
-```
-</Tab>
-
+  <Tab>
+    ```bash copy
+    touch src\components\overrides\ProductDetails.tsx
+    ```
+  </Tab>
 </Tabs>
 
 4. Copy and paste the following code snippet into the file:
@@ -135,7 +127,7 @@ export { override }
 
 1. Open the `ProductDetails.tsx` file created in the [Setting up the `overrides` folder step](#step-1-setting-up-the-overrides-folder) and add the following code:
 
-```tsx filename="ProductDetails.tsx" {8-10} copy
+```tsx filename="ProductDetails.tsx" {8-9}
 import { SectionOverride } from '@faststore/core/src/typings/overrides'
 
 const SECTION = 'ProductDetails' as const
@@ -190,14 +182,10 @@ For this guide we will create a custom Buy Button that once you click on it, it 
     touch src/components/CustomBuyButton.tsx
     ```
   </Tab>
-
-{' '}
-
-<Tab>
-```bash copy
-touch src\components\CustomBuyButton.tsx
-```
-
+  <Tab>
+    ```bash copy
+    touch src\components\CustomBuyButton.tsx
+    ```
 </Tab>
 
 </Tabs>
@@ -236,7 +224,7 @@ However, you have the flexibility to customize the component to achieve a differ
 2. Navigate to `src/components/overrides` that we've created [before](/docs/building-sections/overriding-components-and-props#step-1---setting-up-the-overrides-folder).
 3. Open the `ProductDetails.tsx` file and update it with the following code:
 
-```tsx filename="ProductDetails.tsx" copy
+```tsx filename="ProductDetails.tsx" {8-9}
 import { SectionOverride } from '@faststore/core/src/typings/overrides'
 import { CustomBuyButton } from '../CustomBuyButton'
 
@@ -272,7 +260,7 @@ In specific scenarios, when you want to partially keep the default integration o
 Building upon our previous example, we could pass the `BuyButton` props to our new component.
 This approach allows us to incorporate the icon and cart sidebar integration while introducing additional functionality to the `onClick` function, such as triggering an alert or sending an event to analytics.
 
-```tsx filename="CustomBuyButton.tsx" copy
+```tsx filename="CustomBuyButton.tsx"
 import React from 'react'
 import { Button as UIButton, ButtonProps } from '@faststore/ui'
 

@@ -51,8 +51,8 @@ Make sure to install the FastStore CLI to use its commands locally. Refer to the
 
 1. In the FastStore root directory, create a folder named `cms`.
 2. Inside `cms`, create the `faststore` folder.
-3. Within the `cms/faststore` folder, create the following files: `content-types.json` and `sections.json`.
-4. In the `sections.json` file, between the existing brackets, add the new section that you want to display in the Headless CMS:
+3. Within the `cms/faststore` folder, create `sections.json` file.
+4. In the `sections.json` file add the new section that you want to display in the Headless CMS. The schema below defines how the Headless CMS renders a section:
 
 ```json filename="sections.json" copy
   {
@@ -97,12 +97,6 @@ Make sure to install the FastStore CLI to use its commands locally. Refer to the
   This new section receives a title and a link pointing to a specific location.
 </Callout>
 
-5. Update the `content-types.json` file with an empty array:
-
-```bash copy
-  echo "[]" > cms/faststore/content-types.json
- ```
-
 ### Step 2: Creating the new section
 
 To render the `CallToAction` section you created in the previous step, you need to create this section component.
@@ -136,7 +130,7 @@ This section will receive the `link` and `title` defined previously in the `sect
 3. Create a file named `index.ts` inside the components folder.
 
 <Callout type="info" emoji=" ℹ️ ">
-  The `index.tsx` file provides an entry point for importing and using the
+  The `index.ts` file provides an entry point for importing and using the
   `CallToAction` component. It acts as a container for all the components within
   the components folder and allows for easier organization and reusability of
   code.
@@ -152,8 +146,7 @@ export default { CallToAction }
 
 ### Step 3: Synchronizing the new section with the Headless CMS
 
-1. In the terminal, run `yarn dev`.
-2. Then, run `faststore cms-sync`. This command will synchronize the new section you created with the CMS.
+1. In the terminal, run `faststore cms-sync`. This command will synchronize the new section you created with the CMS.
 2. Go to the VTEX Admin and access **Storefront > Headless CMS**.
 3. Click on the `Page` content type.
 

@@ -72,7 +72,17 @@ Radio Group allows users to select a single option from a list of two or more mu
 Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { RadioGroup } from '@faststore/ui'
+import { RadioGroup, RadioField } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/Radio/styles.scss'
+```
+
+```tsx
+import '@faststore/ui/src/components/molecules/RadioField/styles.scss'
 ```
 
 ---
@@ -123,7 +133,28 @@ import { RadioGroup } from '@faststore/ui'
 
 ## Props
 
-<PropsSection name="RadioGroup" />
+export const propsRadioGroup = [
+  {
+    name: 'name',
+    type: 'string',
+    description:
+      'Name to link children by context.',
+    required: true
+  },
+  {
+    name: 'selectedValue',
+    type: 'string | number',
+    description: 'Value of checked child.',
+  },
+  {
+    name: 'onChange',
+    type: 'ChangeEventHandler<HTMLInputElement>',
+    description:
+      "Function that is triggered when any children is checked.",
+  },
+]
+
+<PropsSection propsList={propsRadioGroup} />
 
 ---
 

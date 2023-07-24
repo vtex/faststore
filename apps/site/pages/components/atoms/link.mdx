@@ -74,12 +74,45 @@ import '@faststore/ui/src/components/atoms/Link/styles.scss'
 
 ## Props
 
-The `Link` component supports all attributes supported by the tag chosen through the `as` prop.
-For example, if someone wants to use a wrapper for any external link component (i.e., Next.js `Link` or Gatsby `Link`), the FastStore UI `Link` component can be used with the `as="div"` prop.
+The `Link` component supports all attributes supported by the tag `a`.
+If you need to use it as external link component (i.e., Next.js `Link` or Gatsby `Link`), the FastStore UI `Link` component can be used with the `as={NextLink}` prop.
 
 Besides those attributes, the following props are also supported:
 
-<PropsSection name="link" />
+export const propsLink = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-link',
+  },
+  {
+    name: 'variant',
+    type: "'default' | 'display' | 'inline'",
+    description: 'Specifies the component variant.',
+    default: 'default',
+  },
+  {
+    name: 'size',
+    type: "'small' | 'regular'",
+    description: 'Specifies the size variant.',
+    default: 'regular',
+  },
+  {
+    name: 'inverse',
+    type: 'boolean',
+    description: 'Defines the use of inverted colors.',
+  },
+  {
+    name: 'as',
+    type: 'string | PolymorphicComponentPropsWithRef',
+    description: 'Defines how this component should behave.',
+    default: 'a',
+  },
+]
+
+<PropsSection propsList={propsLink} />
 
 ---
 

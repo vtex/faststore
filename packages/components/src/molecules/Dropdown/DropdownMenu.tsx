@@ -4,22 +4,15 @@ import type {
   PropsWithChildren,
   MouseEvent,
   ReactNode,
-  DetailedHTMLProps,
-  HTMLAttributes
 } from 'react'
 import React from 'react'
 import { createPortal } from 'react-dom'
 
 import { useDropdown } from './hooks/useDropdown'
 import { useDropdownPosition } from './hooks/useDropdownPosition'
+import type { ModalContentProps } from './../Modal/ModalContent'
 
-//TODO: Replace by ModalContentProps when Modal component be brought
-type BaseModalProps = Omit<
-DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-'ref' | 'onClick'
->
-
-export interface DropdownMenuProps extends BaseModalProps {
+export interface DropdownMenuProps extends ModalContentProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -36,8 +29,8 @@ export interface DropdownMenuProps extends BaseModalProps {
    */
   onDismiss?: (event: MouseEvent | KeyboardEvent) => void
 
-  /**
-   * Specifies the size variant
+   /**
+   * Specifies the size variant.
    */
   size?: 'small' | 'regular'
 

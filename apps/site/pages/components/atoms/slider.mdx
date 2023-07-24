@@ -13,6 +13,33 @@ import { Slider, Price, PriceRange } from '@faststore/ui'
 import PriceRangeUsage from 'site/components/PriceRange/PriceRangeUsage'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const sliderPath = path.resolve(__filename)
+  const components = ['Slider.tsx']
+  const [sliderProps] = getComponentPropsFrom(sliderPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        sliderProps,
+      },
+    },
+  }
+}
+
+export const SliderPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { sliderProps } = useSSG()
+  return {
+    Slider: <PropsSection propsList={sliderProps} />,
+  }[component]
+}
+
 <header>
 
 # Slider
@@ -124,7 +151,43 @@ import '@faststore/ui/src/components/atoms/Slider/styles.scss'
 
 ## Props
 
-<PropsSection name="Slider" />
+<SliderPropsSection component="Slider" />
+
+### Range
+
+export const propsRange = [
+  {
+    name: 'absolute',
+    type: 'number',
+    description: 'The absolute value of the slider.',
+  },
+  {
+    name: 'selected',
+    type: 'number',
+    description:
+      'The selected value of the slider.',
+  }
+]
+
+<PropsSection propsList={propsRange} />
+
+### RangeLabel
+
+export const propsRangeLabel = [
+  {
+    name: 'min',
+    type: 'string | ReactNode',
+    description: 'Label for minimum range value.',
+  },
+  {
+    name: 'max',
+    type: 'string | ReactNode',
+    description:
+      'Label for maximum range value.',
+  }
+]
+
+<PropsSection propsList={propsRangeLabel} />
 
 ---
 

@@ -1,12 +1,20 @@
-import type { ReactNode } from 'react'
+import type { PropsWithChildren } from 'react'
 import React, { useRef, useMemo, useState, useEffect, useCallback } from 'react'
 
 import DropdownContext from '../Dropdown/contexts/DropdownContext'
 
-export type DropdownProps = {
-  children: ReactNode
+export interface DropdownProps {
+  /**
+   * Event emitted when the Dropdown is closed.
+   */
   onDismiss?(): void
+  /**
+   * A boolean value that represents the state of the Dropdown.
+   */
   isOpen?: boolean
+  /**
+   * ID to identify Dropdown.
+   */
   id?: string
 }
 
@@ -15,7 +23,7 @@ const Dropdown = ({
   isOpen: isOpenDefault = false,
   onDismiss,
   id = 'fs-dropdown',
-}: DropdownProps) => {
+}: PropsWithChildren<DropdownProps>) => {
   const [isOpen, setIsOpen] = useState(isOpenDefault)
   const dropdownItemsRef = useRef<HTMLButtonElement[]>([])
   const selectedDropdownItemIndexRef = useRef(0)

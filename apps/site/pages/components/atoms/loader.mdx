@@ -11,6 +11,33 @@ import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { Loader, Button } from '@faststore/ui'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const loaderPath = path.resolve(__filename)
+  const components = ['Loader.tsx']
+  const [loaderProps] = getComponentPropsFrom(loaderPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        loaderProps,
+      },
+    },
+  }
+}
+
+export const LoaderPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { loaderProps } = useSSG()
+  return {
+    Loader: <PropsSection propsList={loaderProps} />,
+  }[component]
+}
+
 <header>
 
 # Loader
@@ -73,7 +100,7 @@ import '@faststore/ui/src/components/atoms/Loader/styles.scss'
 
 ## Props
 
-<PropsSection name="Loader" />
+<LoaderPropsSection component="Loader" />
 
 ---
 

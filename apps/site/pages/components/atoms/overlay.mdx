@@ -10,6 +10,33 @@ import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { Overlay } from '@faststore/ui'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const overlayPath = path.resolve(__filename)
+  const components = ['Overlay.tsx']
+  const [overlayProps] = getComponentPropsFrom(overlayPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        overlayProps,
+      },
+    },
+  }
+}
+
+export const OverlayPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { overlayProps } = useSSG()
+  return {
+    Overlay: <PropsSection propsList={overlayProps} />,
+  }[component]
+}
+
 <header>
 
 # Overlay
@@ -104,7 +131,7 @@ import '@faststore/ui/src/components/atoms/Overlay/styles.scss'
 
 ## Props
 
-<PropsSection name="Overlay" />
+<OverlayPropsSection component="Overlay" />
 
 ---
 
