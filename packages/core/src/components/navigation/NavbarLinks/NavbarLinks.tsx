@@ -38,7 +38,12 @@ function NavbarLinks({
         <NavbarLinksList.Component {...NavbarLinksList.props}>
           {links.map(({ url, text }) => (
             <UINavbarLinksListItem key={text}>
-              <Link variant="display" href={url} onClick={onClickLink}>
+              <Link
+                variant="display"
+                href={url}
+                prefetch={false}
+                onClick={onClickLink}
+              >
                 {text}
               </Link>
             </UINavbarLinksListItem>

@@ -9,7 +9,7 @@ import { mark } from 'src/sdk/tests/mark'
 
 import type { NavbarProps } from '../Navbar'
 
-import styles from '../../sections/Navbar/section.module.scss'
+import styles from './section.module.scss'
 
 import {
   NavbarSlider as NavbarSliderWrapper,

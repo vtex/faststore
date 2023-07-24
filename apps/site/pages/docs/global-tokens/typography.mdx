@@ -5,6 +5,8 @@ import {
   Typeset,
 } from 'site/components/Tokens'
 
+import { Callout } from 'nextra/components'
+
 <header>
 
 # Typography
@@ -160,9 +162,14 @@ export const mobileList = [
 
 ---
 
-## Add a custom font
+## Adding a custom font
 
-1. Create a new `WebFonts.tsx` file in `src/fonts` folder, and add a `<link>` tag for your `font-family` of choice.
+Using a custom font helps to keep a cohesive brand across your store. 
+To maintain readability in your store, choose an easily readable font and the appropriate color and text size.
+Follow the steps below to add a custom font to your store.
+
+1. Go to the `src` folder and create the `fonts` folder.
+2. Inside the `src/fonts` folder, create a new `WebFonts.tsx` file and add a `<link>` tag for your `font-family` of choice as in the example below.
 
 ```js
 /* eslint-disable @next/next/no-page-custom-font */
@@ -183,17 +190,21 @@ export default WebFonts;
 
 ```
 
-2. In your custom theme file, usually `src/themes/custom-theme.scss`, use the `--fs-text-face-body` token with the `font-family` you chose.
-> ℹ️ We recommend using fallback fonts as system fonts to ensure quick rendering, consistent and readable content.
+3. In your custom theme file, usually `src/themes/custom-theme.scss`, use the `--fs-text-face-body` token with the `font-family` you chose.
+
+<Callout type="info" emoji="ℹ️">
+  We recommend using [fallback fonts](https://developer.chrome.com/blog/font-fallbacks/#background) as system fonts to ensure quick rendering, consistent and readable content.
+</Callout>
 
 ```css
-.theme {
-  // --------------------------------------------------------
-  // Typography (Branding Core)
-  // --------------------------------------------------------
-    --fs-text-face-body: 'Lato', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+@layer theme {
+  .theme {
+    // --------------------------------------------------------
+    // Typography (Branding Core)
+    // --------------------------------------------------------
+      --fs-text-face-body: 'Lato', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+  }
 }
-
 ```
 
-3. Run `yarn dev` and check the browser to see the `font-family`.
+4. Run `yarn dev` and check the browser to see the new `font-family` applied.

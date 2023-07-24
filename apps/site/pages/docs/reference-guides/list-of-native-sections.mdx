@@ -13,7 +13,7 @@ import { Callout, Tab, Tabs } from 'nextra-theme-docs'
 
 Sections in FastStore are components that organize and encapsulate other components, enabling you to create cohesive and functional content for your store.
 
-For example, the Hero is a native section designed to capture your brand's identity and messaging. To effective function in the store, the Hero comprises three components: `Hero`, `HeroImage`, and `HeroHeader`.
+For example, the [Hero](/components/organisms/hero) is a native section designed to capture your brand's identity and messaging. To effective function in the store, the Hero comprises three components: `Hero`, `HeroImage`, and `HeroHeader`.
 
 ---
 
@@ -23,8 +23,8 @@ Check out below a list of FastStore native sections, their components that can b
 
 <Callout type="warning" emoji="⚠️">
   Components prefixed with `__experimental` indicate that they can be
-  overridden. However, it's important to note that their props are not
-  accessible. We advise against overriding these components unless it is really
+  overridden. However, their props are not
+  accessible. **We do not recommend** overriding these components unless it is
   necessary.
 </Callout>
 
@@ -33,8 +33,7 @@ Check out below a list of FastStore native sections, their components that can b
 
 | Type                              | Availability                                                                                                                                                                          |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Documentation                     | <a href="/components/molecules/alert" target="_blank" className="nx-text-primary-600 nx-underline nx-decoration-from-font [text-underline-position:from-font]">Alert FastStore UI</a> |
-| Overridable components            | `Alert` and `Icon`                                                                                                                                                                    |
+| Overridable components            | <ul className="doc-list"><li>[`Alert`](/components/molecules/alert)</li><li>[`Icon`](/components/atoms/icon)</li></ul>                                                                                                                                                                    |
 | Headless CMS: props customization | <ul className="doc-list"><li> `Icon`</li><li> `dismissible`</li></ul>                                                                                                                 |
 
 </details>
@@ -44,8 +43,7 @@ Check out below a list of FastStore native sections, their components that can b
 
 | Type                              | Availability                                                                                                                                                                                      |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Documentation                     | <a href="/components/organisms/banner-text" target="_blank" className="nx-text-primary-600 nx-underline nx-decoration-from-font [text-underline-position:from-font]">Banner Text FastStore UI</a> |
-| Overridable components            | <ul className="doc-list"><li> `BannerText`</li> <li> `BannerTextContent`</li></ul>                                                                                                                |
+| Overridable components            | <ul className="doc-list"><li> [`BannerText`](/components/organisms/banner-text)</li> <li> [`BannerTextContent`](/components/organisms/banner-text#bannertextcontent)</li></ul>                                                                                                                |
 | Headless CMS: props customization | <ul className="doc-list"><li> `ColorVariant`</li><li> `Variant`</li></ul>                                                                                                                         |
 
 </details>
@@ -55,8 +53,7 @@ Check out below a list of FastStore native sections, their components that can b
 
 | Type                              | Availability                                                                                                                                                                                    |
 | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Documentation                     | <a href="/components/molecules/breadcrumb" target="_blank" className="nx-text-primary-600 nx-underline nx-decoration-from-font [text-underline-position:from-font]">Breadcrumb FastStore UI</a> |
-| Overridable components            | <ul className="doc-list"><li>`Breadcrumb`</li><li>`Icon`</li></ul>                                                                                                                              |
+| Overridable components            | <ul className="doc-list"><li>[`Breadcrumb`](/components/molecules/breadcrumb)</li><li>[`Icon`](/components/atoms/icon)</li></ul>                                                                                                                              |
 | Headless CMS: props customization | <ul className="doc-list"><li>`Icon (HomeIcon)`</li></ul>                                                                                                                                        |
 
 </details>
@@ -66,8 +63,7 @@ Check out below a list of FastStore native sections, their components that can b
 
 | Type                              | Availability                                                                                                                                                                        |
 | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Documentation                     | <a href="/components/organisms/hero" target="_blank" className="nx-text-primary-600 nx-underline nx-decoration-from-font [text-underline-position:from-font]">Hero FastStore UI</a> |
-| Overridable Components            | <ul className="doc-list"><li> `Hero`</li><li> `HeroImage`</li><li> `HeroHeader`</li></ul>                                                                                           |
+| Overridable Components            | <ul className="doc-list"><li> [`Hero`](/components/organisms/hero)</li><li> [`HeroImage`](/components/organisms/hero#heroimage)</li><li> [`HeroHeader`](/components/organisms/hero#heroheader)</li></ul>                                                                                           |
 | Headless CMS: props customization | <ul className="doc-list"><li> `ButtonProps (Label, Icon)`</li><li> `ColorVariant`</li><li> `Variant`</li></ul>                                                                      |
 
 </details>
@@ -76,9 +72,8 @@ Check out below a list of FastStore native sections, their components that can b
 <summary><b>Navbar</b></summary>
 
 | Type                              | Availability                                                                                                                                                                                                                                                                                                                |
-| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Documentation                     | <a href="/components/organisms/navbar" target="_blank" className="nx-text-primary-600 nx-underline nx-decoration-from-font [text-underline-position:from-font]">Navbar FastStore UI</a>                                                                                                                                     |
-| Overridable components            | <ul className="doc-list"><li> `Navbar`</li> <li> `NavbarLinks`</li> <li> `NavbarLinksList`</li> <li> `NavbarSlider`</li> <li> `NavbarSliderHeader`</li> <li> `NavbarSliderContent`</li> <li> `NavbarSliderFooter`</li> <li> `NavbarHeader`</li> <li> `NavbarRow`</li> <li> `NavbarButtons`</li> <li>`IconButton` </li></ul> |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |                                                                                                   |
+| Overridable components            | <ul className="doc-list"><li> [`Navbar`](/components/organisms/navbar)</li> <li> [`NavbarLinks`](/components/molecules/navbar-links)</li> <li> [`NavbarLinksList`](/components/molecules/navbar-links#navbar-links-list)</li> <li> [`NavbarSlider`](/components/organisms/navbar-slider)</li> <li> [`NavbarSliderHeader`](/components/organisms/navbar-slider#navbar-slider-header)</li> <li> [`NavbarSliderContent`](/components/organisms/navbar-slider#navbar-slider-content)</li> <li> [`NavbarSliderFooter`](/components/organisms/navbar-slider#navbar-slider-content)</li> <li> [`NavbarHeader`](/components/organisms/navbar#navbar-header)</li> <li> [`NavbarRow`](/components/organisms/navbar#navbar-row)</li> <li> [`NavbarButtons`](/components/organisms/navbar#navbar-buttons)</li> <li>[`IconButton`](/components/molecules/icon-button)</li></ul> |
 | Headless CMS: props customization | <ul className="doc-list"><li>NavbarRow: `Logo`</li><li>NavbarButtons: `SignIn Button Icon`, `Cart Icon`</li><li>Navigation: ` Regionalization Icon`, `Menu Icon`, `Home Icon`</li></ul>                                                                                                                                     |
 
 </details>
@@ -101,8 +96,7 @@ Check out below a list of FastStore native sections, their components that can b
 
 | Type                              | Availability                                                                                                                                                                                                                                                                                                                                                                                     |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Documentation                     | <a href="/components" target="_blank" className="nx-text-primary-600 nx-underline nx-decoration-from-font [text-underline-position:from-font]">FastStore UI</a>                                                                                                                                                                                                                                  |
-| Overridable components            | <ul className="doc-list"><li> `ProductTitle`</li><li> `DiscountBadge`</li><li> `BuyButton`</li><li> `Icon`</li><li> `Price`</li><li> `QuantitySelector`</li><li> `SkuSelector`</li><li> `ShippingSimulation`</li><li> `ImageGallery`</li><li> `ImageZoom`</li><li> `__experimentalImageGalleryImage`</li><li> `__experimentalImageGallery`</li><li> `__experimentalShippingSimulation`</li></ul> |
+| Overridable components            | <ul className="doc-list"><li>[`ProductTitle`](/components/molecules/product-title)</li><li>[`DiscountBadge`](/components/molecules/discount-badge)</li><li>[`BuyButton`](/components/molecules/buy-button)</li><li>[`Icon`](/components/atoms/icon)</li><li>[`Price`](/components/atoms/price)</li><li>[`QuantitySelector`](/components/molecules/quantity-selector)</li><li>[`SkuSelector`](/components/molecules/sku-selector)</li><li>[`ShippingSimulation`](/components/organisms/shipping-simulation)</li><li>[`ImageGallery`](/components/organisms/image-gallery)</li><li>[`ImageZoom`](/components/organisms/image-gallery)</li><li> `__experimentalImageGalleryImage`</li><li> `__experimentalImageGallery`</li><li> `__experimentalShippingSimulation`</li></ul> |
 | Headless CMS: props customization | <ul className="doc-list"><li>ProductTitle: `showDiscountBadge`, `discountBadgeSize`, `showReferenceNumber`</li><li>BuyButton: `Icon`</li></ul>                                                                                                                                                                                                                                                   |
 
 </details>
@@ -112,8 +106,7 @@ Check out below a list of FastStore native sections, their components that can b
 
 | Type                              | Availability                                                                                                                                                                                          |
 | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Documentation                     | <a href="/components/organisms/product-shelf" target="_blank" className="nx-text-primary-600 nx-underline nx-decoration-from-font [text-underline-position:from-font]">Product Shelf FastStore UI</a> |
-| Overridable components            | <ul className="doc-list"><li> `ProductShelf`</li><li> `__experimentalCarousel`</li><li> `__experimentalProductCard`</li></ul>                                                                         |
+| Overridable components            | <ul className="doc-list"><li> [`ProductShelf`](/components/organisms/product-shelf)</li><li> `__experimentalCarousel`</li><li> `__experimentalProductCard`</li></ul>                                                                         |
 | Headless CMS: props customization | <ul className="doc-list"><li>Product Card Configuration: `showDiscountBadge`, `bordered`</li></ul>                                                                                                    |
 
 </details>
@@ -124,7 +117,7 @@ Check out below a list of FastStore native sections, their components that can b
 | Type                              | Availability                                                                                                                                                                                                                                                                                                                                                                                                     |
 | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Documentation                     | <a href="/components" target="_blank" className="nx-text-primary-600 nx-underline nx-decoration-from-font [text-underline-position:from-font]">FastStore UI</a>                                                                                                                                                                                                                                                  |
-| Overridable components            | <ul className="doc-list"><li> `MobileFilterButton` (Mobile Filter Button)</li><li> `FilterIcon`</li><li> `PrevIcon`</li><li> `ResultsCountSkeleton` (Skeleton)</li><li> `SortSkeleton` (Skeleton)</li><li> `FilterButtonSkeleton` (Skeleton)</li><li> `LinkButtonPrev`</li><li> `LinkButtonNext`</li><li> `__experimentalFilterDesktop`</li><li> `__experimentalFilterSlider`</li><li> `__experimentalProductCard`</li></ul> |
+| Overridable components            | <ul className="doc-list"><li> `MobileFilterButton` [(Button)](/components/atoms/button)</li><li> `FilterIcon` [(Icon)](/components/atoms/icon)</li><li> `PrevIcon` [(Icon)](/components/atoms/icon)</li><li> `ResultsCountSkeleton` [(Skeleton)](/components/atoms/skeleton)</li><li> `SortSkeleton` [(Skeleton)](/components/atoms/skeleton)</li><li> `FilterButtonSkeleton` [(Skeleton)](/components/atoms/skeleton)</li><li> `LinkButtonPrev` [(LinkButton)](/components/molecules/link-button)</li><li> `LinkButtonNext` [(LinkButton)](/components/molecules/link-button)</li><li> `__experimentalFilterDesktop`</li><li> `__experimentalFilterSlider`</li><li> `__experimentalProductCard`</li></ul> |
 | Headless CMS: props customization | <ul className="doc-list"><li>Previous Page Button: `Icon`</li><li>Mobile Filter Button: `Icon`</li><li>Product Card Configuration: `showDiscountBadge`, `bordered`</li></ul>                                                                                                                                                                                                                                     |
 
 </details>
@@ -136,8 +129,7 @@ Check out below a list of FastStore native sections, their components that can b
 
 | Type                              | Availability                                                                                                                                                                                     |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Documentation                     | <a href="/components/molecules/region-bar" target="_blank" className="nx-text-primary-600 nx-underline nx-decoration-from-font [text-underline-position:from-font]"> Region Bar FastStore UI</a> |
-| Overridable components            | <ul className="doc-list"><li> `RegionBar`</li><li> `LocationIcon`</li><li> `ButtonIcon`</li></ul>                                                                                                |
+| Overridable components            | <ul className="doc-list"><li>[`RegionBar`](/components/molecules/region-bar)</li><li> `LocationIcon` [(Icon)](/components/atoms/icon)</li><li> `ButtonIcon` [(Icon)](/components/atoms/icon)</li></ul>                                                                                                |
 | Headless CMS: props customization | <ul className="doc-list"><li>LocationIcon: `Icon`</li><li>ButtonIcon: `Icon`</li></ul>                                                                                                           |
 
 </details>

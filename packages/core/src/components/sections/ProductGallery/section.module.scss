@@ -1,39 +1,41 @@
-.section {
-  @include media("<notebook") {
-    margin-top: 0;
-    &:last-child { margin-bottom: 0; }
+@layer components {
+  .section {
+    @include media("<notebook") {
+      margin-top: 0;
+      &:last-child { margin-bottom: 0; }
 
-    @include section-divisor(bottom, 0);
-  }
-
-  @include media(">=notebook") {
-    &:not(:last-child) {
-      @include section-divisor(bottom);
+      @include section-divisor(bottom, 0);
     }
-  }
 
-  @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Button/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Checkbox/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Input/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Link/styles.scss";
-  @import "@faststore/ui/src/components/atoms/List/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Price/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Select/styles.scss";
-  @import "@faststore/ui/src/components/atoms/Skeleton/styles";
-  @import "@faststore/ui/src/components/atoms/Slider/styles.scss";
-  @import "@faststore/ui/src/components/molecules/Accordion/styles.scss";
-  @import "@faststore/ui/src/components/molecules/DiscountBadge/styles.scss";
-  @import "@faststore/ui/src/components/molecules/InputField/styles.scss";
-  @import "@faststore/ui/src/components/molecules/LinkButton/styles.scss";
-  @import "@faststore/ui/src/components/molecules/ProductCard/styles.scss";
-  @import "@faststore/ui/src/components/molecules/ProductCardSkeleton/styles";
-  @import "@faststore/ui/src/components/molecules/SelectField/styles.scss";
-  @import "@faststore/ui/src/components/organisms/EmptyState/styles.scss";
-  @import "@faststore/ui/src/components/organisms/Filter/styles.scss";
-  @import "@faststore/ui/src/components/organisms/FilterSkeleton/styles.scss";
-  @import "@faststore/ui/src/components/organisms/PriceRange/styles.scss";
-  @import "@faststore/ui/src/components/organisms/ProductGrid/styles.scss";
-  @import "@faststore/ui/src/components/organisms/ProductGallery/styles.scss";
+    @include media(">=notebook") {
+      &:not(:last-child) {
+        @include section-divisor(bottom);
+      }
+    }
+
+    @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Button/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Checkbox/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Input/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Link/styles.scss";
+    @import "@faststore/ui/src/components/atoms/List/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Price/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Select/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Skeleton/styles";
+    @import "@faststore/ui/src/components/atoms/Slider/styles.scss";
+    @import "@faststore/ui/src/components/molecules/Accordion/styles.scss";
+    @import "@faststore/ui/src/components/molecules/DiscountBadge/styles.scss";
+    @import "@faststore/ui/src/components/molecules/InputField/styles.scss";
+    @import "@faststore/ui/src/components/molecules/LinkButton/styles.scss";
+    @import "@faststore/ui/src/components/molecules/ProductCard/styles.scss";
+    @import "@faststore/ui/src/components/molecules/ProductCardSkeleton/styles";
+    @import "@faststore/ui/src/components/molecules/SelectField/styles.scss";
+    @import "@faststore/ui/src/components/organisms/EmptyState/styles.scss";
+    @import "@faststore/ui/src/components/organisms/Filter/styles.scss";
+    @import "@faststore/ui/src/components/organisms/FilterSkeleton/styles.scss";
+    @import "@faststore/ui/src/components/organisms/PriceRange/styles.scss";
+    @import "@faststore/ui/src/components/organisms/ProductGrid/styles.scss";
+    @import "@faststore/ui/src/components/organisms/ProductGallery/styles.scss";
+  }
 }

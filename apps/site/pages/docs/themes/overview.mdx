@@ -2,24 +2,16 @@
 title: ' Overview'
 sidebar_label: 'Themes'
 ---
-import { Callout } from 'nextra-theme-docs'
+import { Callout, Card, Cards } from 'nextra-theme-docs'
 
 <header className="hero">
 
 # Themes
 
-Themes are CSS stylesheets consisting of configurable design tokens. You can create your own theme by setting up global and local tokens as desired.
 
 </header>
 
-A Theme is what enables you to change the look and feel of a FastStore project. It is what differentiates one UI from another and where the store branding lives. In practice, Themes are CSS stylesheets consisting of configurable design tokens.
-![theme-structure](https://vtexhelp.vtexassets.com/assets/docs/src/theme___a7a122b4ca42955e79c8db8083b092f8.png)
-
-- **Global tokens** - structural styles responsible for establishing the behavior (e.g., showing/hiding a dropdown menu) and design pattern of a component.
-
-- **Local tokens** - a set of configurable design tokens responsible for defining the appearance of graphical elements, such as typography, type scale, colors, borders, spacing, and more.
-
-By default, every FastStore project comes with the [Brandless theme](/docs/brandless). However, you have the option to use one of the [available themes](#available-themes) or [create a custom theme](#creating-a-custom-theme).
+By default, every FastStore project comes with the [Brandless theme](/docs/theming-overview#brandless-and-the-theming-structure). However, you have the option to use one of the [available themes](#available-themes) or [create a custom theme](#creating-a-custom-theme).
 
 
 <Callout type="info" emoji="ℹ️">
@@ -28,62 +20,77 @@ By default, every FastStore project comes with the [Brandless theme](/docs/brand
 
 ---
 
-## Available themes
+## Available Themes
 
-- **[Midnight](/docs/themes/midnight)**
-- **[Soft Blue](/docs/themes/soft-blue)**
+
+<Cards num={2}>
+  <Card image arrow title="Midnight" href="/docs/themes/midnight">
+    <>![Midnight](https://vtexhelp.vtexassets.com/assets/docs/src/midnight___197d3bec531d5cbd4959f2cddabacc46.png)</>
+  </Card>
+  <Card image arrow title="Soft Blue" href="/docs/themes/soft-blue">
+    <>![Soft Blue](https://vtexhelp.vtexassets.com/assets/docs/src/soft-blue___1d1970f5ce77ffb61bc8a10be86f69e7.png)</>
+  </Card>
+</Cards>
+
 
 ---
 
-## Creating a custom theme
+## Creating a Custom Theme
 
-1. Create a new `.scss` file on `src/themes` (e.g. `my-theme.scss`) in your [starter project](https://github.com/vtex-sites/starter.store), and add the tokens you want to overwrite inside the `.theme` class.
+1. Create a new `.scss` file on `src/themes` (e.g. `my-theme.scss`) in your [starter](https://github.com/vtex-sites/starter.store), then add the tokens you want to overwrite inside the `.theme` class.
 
 <Callout type="info" emoji="ℹ️">
-  If you want, you can work on `custom-theme.scss` file that's ready to use.
+ If you want, you can work on `custom-theme.scss` file that's ready to use. We are using [CSS cascade layers](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_layers) feature to better deal with styling specificities issues, so keeping the `@layer theme` in the file is recommended.
 </Callout>
 
-```css
-.theme {
-  // --------------------------------------------------------
-  // Colors (Branding Core)
-  // --------------------------------------------------------
+<br></br>
 
-  // --------------------------------------------------------
-  // Typography (Branding Core)
-  // --------------------------------------------------------
+```scss filename="src/themes/my-theme.scss" copy
 
-  // --------------------------------------------------------
-  // Spacing (UI Essentials)
-  // --------------------------------------------------------
+@layer theme {
+  .theme {
+    // --------------------------------------------------------
+    // Colors (Branding Core)
+    // --------------------------------------------------------
 
-  // --------------------------------------------------------
-  // Grid & Layout (UI Essentials)
-  // --------------------------------------------------------
+    // --------------------------------------------------------
+    // Typography (Branding Core)
+    // --------------------------------------------------------
 
-  // --------------------------------------------------------
-  // Interactive Controls (UI Essentials)
-  // --------------------------------------------------------
+    // --------------------------------------------------------
+    // Spacing (UI Essentials)
+    // --------------------------------------------------------
 
-  // --------------------------------------------------------
-  // Refinements
-  // --------------------------------------------------------
+    // --------------------------------------------------------
+    // Grid & Layout (UI Essentials)
+    // --------------------------------------------------------
 
-  // --------------------------------------------------------
-  // Components
-  // --------------------------------------------------------
+    // --------------------------------------------------------
+    // Interactive Controls (UI Essentials)
+    // --------------------------------------------------------
+
+    // --------------------------------------------------------
+    // Refinements
+    // --------------------------------------------------------
+
+    // --------------------------------------------------------
+    // FS UI Components
+    // --------------------------------------------------------
+    // Add here the customizations for FastStore UI components.
+  }
 }
 ```
+<br></br>
 
-2. Go to `faststore.config.js` and change the `theme` to your file's name:
+2. Go to `faststore.config.js` and changes the `theme` from `custom-theme` to your file's name:
 
-```js
-// Theming
+```js filename="faststore.config.js"
 theme: 'my-theme',
 ```
 ---
 
  ## Related resources
 
- - [Theming Architecture]()
- - [Global Tokes](/docs/global-tokens/overview)
+ - [Theme overview](/docs/theming-overview)
+ - [Global Tokens](/docs/global-tokens/overview)
+ - [Making the first change in your store frontend](/docs/getting-started/2-setting-up-the-project#step-3-making-the-first-change-in-your-store-frontend)

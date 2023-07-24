@@ -69,7 +69,7 @@ Here's how the initial component looks like with the `size` prop set as `regular
 
 #### Step 1 - Setting up the `overrides` folder
 
-1. After choosing a native section to be customized from the [list of available native sections](/docs/reference-guides/list-of-available-native-sections), open your FastStore project in any code editor of your preference.
+1. After choosing a native section to be customized from the [list of available native sections](/docs/reference-guides/list-of-native-sections), open your FastStore project in any code editor of your preference.
 2. Go to the `src` folder, create the `components` folder and inside it, create the `overrides` folder.
 
 <Tabs items={['macOS and Linux', 'Windows']}>
@@ -81,7 +81,11 @@ Here's how the initial component looks like with the `size` prop set as `regular
 
 {' '}
 
-<Tab>```bash mkdir src\components src\components\overrides ```</Tab>
+<Tab>
+```bash
+mkdir src\components src\components\overrides
+```
+</Tab>
 
 </Tabs>
 
@@ -107,7 +111,10 @@ import { SectionOverride } from '@faststore/core/src/typings/overrides'
 
 const SECTION = 'ProductDetails' as const
 
-const override: SectionOverride = { section: SECTION, components: {} }
+const override: SectionOverride = {
+  section: SECTION,
+  components: {}
+}
 
 export { override }
 ```
@@ -124,7 +131,7 @@ export { override }
 
 1. Open the `ProductDetails.tsx` file created in the [Setting up the `overrides` folder step](#step-1-setting-up-the-overrides-folder) and add the following code:
 
-```tsx filename="ProductDetails.tsx"
+```tsx filename="ProductDetails.tsx" {8-10}
 import { SectionOverride } from '@faststore/core/src/typings/overrides'
 
 const SECTION = 'ProductDetails' as const
@@ -144,6 +151,14 @@ This code overrides the `BuyButton` props `size` and `iconPosition`. You'll see 
 2. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser and go to product details page to see the updated `BuyButton` component:
 
 ![overrides-PDP-buy-button-props](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-props___898b016bd82c908b5b24c8822be6789a.png)
+
+
+<Callout type="warning" emoji="⚠️">
+  Remember: props changed via Headless CMS overlap the changes made through
+  [override](/docs/building-sections/overriding-components-and-props#override-native-components-props). For example,
+  if you change a prop through override and also change it using Headless CMS,
+  the final prop's value will be the one added using CMS.
+</Callout>
 
 ---
 
@@ -174,14 +189,18 @@ For this guide we will create a custom Buy Button that once you click on it, it 
 
 {' '}
 
-<Tab>```bash touch src\components\CustomBuyButton.tsx ```</Tab>
+<Tab>
+```bash
+touch src\components\CustomBuyButton.tsx
+```
+
+</Tab>
 
 </Tabs>
 
 <Callout type="info" emoji="ℹ️">
   When creating a custom component, it's important to choose a name that
-  distinguishes it from the native component. For example, you can use a name
-  like `CustomComponentName`.
+  distinguishes it from the native component. For example, `Custom{ComponentName}` = `CustomBuyButton`.
 </Callout>
 
 2. Add the following code into `CustomBuyButton.tsx` file:
@@ -233,13 +252,21 @@ export { override }
 
 ![overrides-PDP-buy-button-component-alert](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-buy-button-open-alert___b62f8cb5f3f98f6bd0f5502081de6a9b.gif)
 
+By using your custom component, you may need to customize it from scratch. See [Customizing a New Component when using Override](/docs/customizing/components#customizing-a-new-component-when-using-override) guide for more details about styling it.
+
 ---
 
-## Extra: Overriding components and passing props
+## Overriding components while maintaining default configuration
 
-In certain scenarios, you may have the option to use prior integrations within your custom component.
+In specific scenarios, when you want to partially keep the default integration or components configuration, you can use prior integrations within your custom component.
+
+<Callout type="warning" emoji="⚠️">
+  Note that this will only work if your custom component's props are compatible with the overriding component.
+  We encourage using [FastStore UI components](/components) to leverage existing features, basic styles, and better props compatibility.
+</Callout>
+
 Building upon our previous example, we could pass the `BuyButton` props to our new component.
-This approach allows us to incorporate the icon and cart sidebar integration while also introducing additional functionality to the `onClick` function, such as triggering an alert or sending an event to analytics.
+This approach allows us to incorporate the icon and cart sidebar integration while introducing additional functionality to the `onClick` function, such as triggering an alert or sending an event to analytics.
 
 ```tsx filename="CustomBuyButton.tsx"
 import React from 'react'
@@ -263,10 +290,8 @@ export function CustomBuyButton(props: ButtonProps) {
 
 ![overrides-PDP-buy-button-extra](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-buy-button-extra___324292e9c8c20cf10f515876a9b33ed1.gif)
 
-In this example, when clicked, the `CustomBuyButton` component will display an alert message and then open the `CartSideBar` (keeping its default behavior).
+In this example, when clicked, the `CustomBuyButton` component will display an alert message and then open the `CartSideBar`, keeping its default behavior.
 
-But remember that this will only work if your custom component's props are compatible with the overriding component.
-
-We believe this feature will open up numerous possibilities for exploration and customization in your store. Happy exploring! 🎉
+This feature can open up numerous possibilities for exploration and customization in your store. Happy exploring! 🎉
 
 {/* add send analytics example when doc available */}

@@ -1,3 +1,5 @@
+import { Callout, Steps } from 'nextra-theme-docs'
+
 <header className="hero">
 
 # FastStore
@@ -6,13 +8,33 @@ The ultimate toolkit for building blazing-fast storefronts.
 
 </header>
 
-## What is FastStore
+## What is FastStore?
 
 [FastStore](https://github.com/vtex/faststore) is a powerful yet lightweight **set of libraries** made for developers who want to explore their knowledge and creativity by building comprehensive and unique ecommerce solutions. It supports integration with VTEX headless CMS, allows meaningful analytics capabilities, and gives developers back the freedom of customization.
 
+### Our philosophy
+
+Instead of focussing on the next big thing in ecommerce, we tend to focus on what will never change, and try to nail it really well. Our pillars are:
+
+<Steps>
+ 
+### Performance
+ 
+Amazing UX with great points on Lighthouse and Web Vitals
+ 
+### Stability
+ 
+Your ecommerce should never lose a sale due to provider issues
+
+### Analytics/SEO
+ 
+Understand who's visiting your store and reach a higher organic traffic
+ 
+</Steps>
+
 ---
 
-## What is included
+## What is included?
 
 FastStore consists of three packages that enable the store to work: **FastStore Core**, **FastStore UI**, and **FastStore CLI**.
 
@@ -22,10 +44,13 @@ Provides the starter source code to get your store up and running. It contains t
 
 The `Components` package is a library that crafts the behavior of React components into data attributes. The SDK is an extensible state management library that handles all meaningful states an ecommerce store might have, such as:
 
-- **Session** - handles auth, region, locale, and currency data.
-- **Cart** - handles a store cart's addition, remotion, update, and current state.
-- **Component** - handles the state of the components of a store (e.g., display/hide mini cart).
-- **Search** - handles the state of the faceted search (e.g., apply filters and sort).
+| SDK states    | Description                                                                      |
+| ------------- | -------------------------------------------------------------------------------- |
+| **Session**   | Handles auth, region, locale, and currency data.                                 |
+| **Cart**      |  Handles a store cart's addition, remotion, update, and current state.           |
+| **Component** |  Handles the state of the components of a store (e.g., display/hide mini cart).  |
+| **Search**    | Handles the state of the faceted search (e.g., apply filters and sort).          |
+
 
 Our SDKs also provide GA4 compatible analytics functions to help you create powerful analytics capabilities in your ecommerce.
 Finally, the API package lets you connect to your favorite ecommerce provider by creating interfaces for querying products, collections and manipulating carts.
@@ -34,7 +59,9 @@ Finally, the API package lets you connect to your favorite ecommerce provider by
 
 Gathers the design system based on FastStore components, using [Sass](https://sass-lang.com/) for styling. For more information, refer to the [FastStore UI](/components) guide.
 
-> ℹ️ Although the components use Sass, you can work with the desired tool for styling.
+<Callout type="info" emoji="ℹ️">
+  Although the components use [Sass](https://sass-lang.com/), you can work with the desired tool for styling.
+</Callout>
 
 ### FastStore CLI (@faststore/cli)
 
@@ -45,10 +72,55 @@ FastStore never constrains developers to any proprietary framework. It is opinio
 
 ---
 
-## Our philosophy
+## What prior knowledge is required?
 
-Instead of focussing on the next big thing in ecommerce, we tend to focus on what will never change, and try to nail it really well. Our pillars are:
+To follow along with this documentation, you should be familiar with web development fundamentals, including [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML), [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) and [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), and a basic understanding of the following technologies 
 
-1. Performance: Amazing UX with great points on Lighthouse and Web Vitals
-2. Stability: Your ecommerce should never lose a sale due to provider issues
-3. Analytics/SEO: Understand who's visiting your store and reach a higher organic traffic
+- [TypeScript](https://www.typescriptlang.org/)
+- [React](https://react.dev/)
+- [Next.js](https://nextjs.org/)
+
+---
+
+<ul class="nx-card-list">
+  <li class="nx-card">
+    <a href="/docs/getting-started-overview">
+      #### Getting Started
+      New to FastStore? Start by creating your first FastStore storefront.  
+    </a>
+  </li>
+  <li class="nx-card">
+    <a href="/docs/themes/overview">
+      #### Theming
+      Explore the look-and-feel of your store by using Themes, FastStore CSS stylesheets.
+    </a>
+  </li>
+
+  <li class="nx-card">
+    <a href="/components">
+      #### UI components
+      Enhance your store's features with these components designed to help you quickly implement and customize features in your store.
+    </a>
+  </li>
+
+  <li class="nx-card">
+    <a href="/docs/headless-cms-overview">
+      #### VTEX Headless CMS
+      Empower editors to manage web content with the autonomy to create, edit, and publish web content via the VTEX Admin.
+    </a>
+  </li>
+
+   <li class="nx-card">
+    <a href="/docs/building-sections/component-customization-overview">
+      #### Building and Customizing sections
+      Explore new ways to customize your store components with overriding.
+    </a>
+  </li>
+
+  <li class="nx-card">
+    <a href="/docs/go-live/overview">
+      #### Go-live
+      Integrate FastStore with VTEX for a seamless customer experience. Connect to VTEX's infrastructure, set up payment gateways, configure shipping options, and launch your store.
+    </a>
+  </li>
+</ul>

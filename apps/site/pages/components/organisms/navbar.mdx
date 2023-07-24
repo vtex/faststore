@@ -17,14 +17,17 @@ import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
   const navbarPath = path.resolve(__filename)
-  const components = ['Navbar.tsx']
-  const [navbarProps] = getComponentPropsFrom(navbarPath, components)
+  const components = ['Navbar.tsx', 'NavbarHeader.tsx', 'NavbarRow.tsx', 'NavbarButtons.tsx']
+  const [navbarProps, navbarHeaderProps, navbarRowProps, navbarButtonsProps ] = getComponentPropsFrom(navbarPath, components)
   return {
     props: {
       // We add an `ssg` field to the page props,
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
         navbarProps,
+        navbarHeaderProps,
+        navbarRowProps,
+        navbarButtonsProps
       },
     },
   }
@@ -32,9 +35,12 @@ export const getStaticProps = () => {
 
 export const NavbarPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
-  const { navbarProps } = useSSG()
+  const { navbarProps, navbarHeaderProps, navbarRowProps, navbarButtonsProps } = useSSG()
   return {
     Navbar: <PropsSection propsList={navbarProps} />,
+    NavbarHeader: <PropsSection propsList={navbarHeaderProps} />,
+    NavbarRow: <PropsSection propsList={navbarRowProps} />,
+    NavbarButtons: <PropsSection propsList={navbarButtonsProps} />,
   }[component]
 }
 
@@ -42,9 +48,7 @@ export const NavbarPropsSection = ({ component }) => {
 
 # Navbar
 
-Represents the page header and groups some features like: `Search`, `Regionalization`, `SignIn`, `CartSidebar`.
-
-This component is part of the [Navigation](/components/features/navigation) feature.
+Represents the page header and groups some features like: `Search`, `Regionalization`, `SignIn`, `CartSidebar`. This component is part of the [Navigation](/components/features/navigation) feature.
 
 </header>
 
@@ -132,6 +136,18 @@ The [NavbarLinks](/components/molecules/navbar-links) and [NavbarSlider](/compon
 ### Navbar
 
 <NavbarPropsSection component="Navbar" />
+
+### Navbar Header
+
+<NavbarPropsSection component="NavbarHeader" />
+
+### Navbar Row
+
+<NavbarPropsSection component="NavbarRow" />
+
+### Navbar Buttons
+
+<NavbarPropsSection component="NavbarButtons" />
 
 ---
 

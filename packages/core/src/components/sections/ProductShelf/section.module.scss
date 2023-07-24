@@ -1,39 +1,41 @@
-.section {
+@layer components {
+  .section {
 
-  [data-fs-content="product-shelf"] { @include layout-content-full; }
+    [data-fs-content="product-shelf"] { @include layout-content-full; }
 
-  [data-fs-product-shelf-skeleton] {
-    --fs-carousel-item-width-tablet    : 14.2rem;
-    --fs-carousel-item-margin-right    : var(--fs-spacing-3);
+    [data-fs-product-shelf-skeleton] {
+      --fs-carousel-item-width-tablet    : 14.2rem;
+      --fs-carousel-item-margin-right    : var(--fs-spacing-3);
 
-    padding-bottom: var(--fs-spacing-5);
+      padding-bottom: var(--fs-spacing-5);
 
-    [data-fs-product-shelf-items] { @include layout-content; }
+      [data-fs-product-shelf-items] { @include layout-content; }
 
-    @include media("<tablet") {
-      [data-fs-product-shelf-item] {
-        &:not(:last-of-type) {
-          margin-right: var(--fs-carousel-item-margin-right);
+      @include media("<tablet") {
+        [data-fs-product-shelf-item] {
+          &:not(:last-of-type) {
+            margin-right: var(--fs-carousel-item-margin-right);
+          }
+        }
+
+        [data-fs-product-card-skeleton] {
+          width: var(--fs-carousel-item-width-tablet);
         }
       }
-
-      [data-fs-product-card-skeleton] {
-        width: var(--fs-carousel-item-width-tablet);
-      }
     }
-  }
 
-  @import "@faststore/ui/src/components/atoms/Badge/styles";
-  @import "@faststore/ui/src/components/atoms/Button/styles";
-  @import "@faststore/ui/src/components/atoms/Icon/styles";
-  @import "@faststore/ui/src/components/atoms/Link/styles";
-  @import "@faststore/ui/src/components/atoms/Price/styles";
-  @import "@faststore/ui/src/components/atoms/SROnly/styles";
-  @import "@faststore/ui/src/components/atoms/Skeleton/styles";
-  @import "@faststore/ui/src/components/molecules/Carousel/styles";
-  @import "@faststore/ui/src/components/molecules/DiscountBadge/styles";
-  @import "@faststore/ui/src/components/molecules/Rating/styles";
-  @import "@faststore/ui/src/components/molecules/ProductCard/styles";
-  @import "@faststore/ui/src/components/molecules/ProductCardSkeleton/styles";
-  @import "@faststore/ui/src/components/organisms/ProductShelf/styles";
+    @import "@faststore/ui/src/components/atoms/Badge/styles";
+    @import "@faststore/ui/src/components/atoms/Button/styles";
+    @import "@faststore/ui/src/components/atoms/Icon/styles";
+    @import "@faststore/ui/src/components/atoms/Link/styles";
+    @import "@faststore/ui/src/components/atoms/Price/styles";
+    @import "@faststore/ui/src/components/atoms/SROnly/styles";
+    @import "@faststore/ui/src/components/atoms/Skeleton/styles";
+    @import "@faststore/ui/src/components/molecules/Carousel/styles";
+    @import "@faststore/ui/src/components/molecules/DiscountBadge/styles";
+    @import "@faststore/ui/src/components/molecules/Rating/styles";
+    @import "@faststore/ui/src/components/molecules/ProductCard/styles";
+    @import "@faststore/ui/src/components/molecules/ProductCardSkeleton/styles";
+    @import "@faststore/ui/src/components/organisms/ProductShelf/styles";
+  }
 }
