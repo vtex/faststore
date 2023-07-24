@@ -45,6 +45,9 @@ module.exports = {
     shouldSplitItem: true,
   },
 
+  // Optimistic Cart
+  optimisticCart: false,
+
   // Production URLs
   storeUrl: 'https://vtexfaststore.com',
   secureSubdomain: 'https://secure.vtexfaststore.com',

@@ -11,7 +11,7 @@ import type {
   ValidateCartMutationMutationVariables,
 } from '@generated/graphql'
 
-import storeConfig from '../../../faststore.config'
+import storeConfig, { optimisticCart } from '../../../faststore.config'
 import { request } from '../graphql/request'
 import { sessionStore } from '../session'
 import { createValidationStore, useStore } from '../useStore'
@@ -174,14 +174,20 @@ export const useCart = () => {
         (acc, curr) => acc + (isGift(curr) ? 0 : curr.quantity),
         0
       ),
-      total: cart.items.reduce(
-        (acc, curr) => acc + curr.price * curr.quantity,
-        0
-      ),
-      subTotal: cart.items.reduce(
-        (acc, curr) => acc + curr.listPrice * curr.quantity,
-        0
-      ),
+      total:
+        isValidating && !optimisticCart
+          ? undefined
+          : cart.items.reduce(
+              (acc, curr) => acc + curr.price * curr.quantity,
+              0
+            ),
+      subTotal:
+        isValidating && !optimisticCart
+          ? undefined
+          : cart.items.reduce(
+              (acc, curr) => acc + curr.listPrice * curr.quantity,
+              0
+            ),
     }),
     [cart, isValidating]
   )

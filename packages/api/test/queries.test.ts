@@ -50,6 +50,7 @@ const apiOptions = {
   incrementAddress: false,
   flags: {
     enableOrderFormSync: true,
+    optimisticCart: true,
   },
 } as Options
 
@@ -262,7 +263,6 @@ test('`redirect` query', async () => {
   })
   expect(response).toMatchSnapshot()
 })
-
 
 test('`sellers` query', async () => {
   const fetchAPICalls = [regionFetch]

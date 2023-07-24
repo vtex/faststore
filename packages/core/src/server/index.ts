@@ -34,6 +34,7 @@ const apiOptions: APIOptions = {
   locale: storeConfig.session.locale,
   flags: {
     enableOrderFormSync: true,
+    optimisticCart: storeConfig.optimisticCart,
   },
 }
 

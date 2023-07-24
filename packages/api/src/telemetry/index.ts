@@ -58,6 +58,7 @@ export function getTelemetry(
       //   APIOptions.hideUnavailableItems,
       // [`${APIOptions.platform}.flags.enableOrderFormSync`]:
       //   APIOptions.flags?.enableOrderFormSync,
+      //   APIOptions.flags?.optimisticCart,
       // channel: APIOptions.channel,
       locale: APIOptions.locale,
     }),

@@ -84,6 +84,7 @@ beforeAll(async () => {
     incrementAddress: false,
     flags: {
       enableOrderFormSync: true,
+      optimisticCart: true,
     },
   })
 })
