@@ -11,32 +11,6 @@ sidebar_custom_props:
 import PropsSection from 'site/components/PropsSection'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { SROnly } from '@faststore/ui'
-import path from 'path'
-import { useSSG } from 'nextra/ssg'
-import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
-
-export const getStaticProps = () => {
-  const srOnlyPath = path.resolve(__filename)
-  const components = ['SROnly.tsx']
-  const [srOnlyProps] = getComponentPropsFrom(srOnlyPath, components)
-  return {
-    props: {
-      // We add an `ssg` field to the page props,
-      // which will be provided to the Nextra `useSSG` hook.
-      ssg: {
-        srOnlyProps,
-      },
-    },
-  }
-}
-
-export const SROnlyPropsSection = ({ component }) => {
-  // Get the data from SSG, and render it as a component.
-  const { srOnlyProps } = useSSG()
-  return {
-    SROnly: <PropsSection propsList={srOnlyProps} />,
-  }[component]
-}
 
 <header>
 
@@ -77,7 +51,23 @@ import '@faststore/ui/src/components/atoms/SROnly/styles.scss'
 
 ## Props
 
-<SROnlyPropsSection component="SROnly" />
+export const propsSROnly = [
+  {
+    name: 'text',
+    type: 'string',
+    description:
+      'Defines component element type (e.g.: span).',
+    required: true,
+  },
+  {
+    name: 'as',
+    type: "ElementType",
+    description: 'Defines component element type (e.g.: span, div, h1).',
+    default: 'span',
+  }
+]
+
+<PropsSection propsList={propsSROnly} />
 
 ---
 
