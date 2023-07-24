@@ -5,6 +5,7 @@ export type CardItemProps = {
   actionPath: string
   description: string | ReactNode
   zoomOut?: boolean
+  fullWidth?: boolean
   containerStyle?: CSSProperties
 }
 
@@ -13,6 +14,7 @@ const CardItem = ({
   description,
   children,
   zoomOut,
+  fullWidth,
   actionPath,
   containerStyle,
   ...otherProps
@@ -23,6 +25,7 @@ const CardItem = ({
         <div
           data-doc-card-item-component
           data-doc-card-item-component-zoom={zoomOut}
+          data-doc-card-item-component-full-width={fullWidth}
           style={containerStyle}
         >
           {children}
