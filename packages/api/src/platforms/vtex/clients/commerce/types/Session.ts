@@ -7,7 +7,7 @@ export interface Namespaces {
   profile?: Profile
   store?: Store
   checkout?: Checkout
-  public?: Checkout
+  public?: Public
 }
 
 export interface Value {
@@ -31,4 +31,9 @@ export interface Profile {
 
 export interface Checkout {
   orderFormId?: Value
+}
+
+export interface Public {
+  orderFormId?: Value
+  items?: Value
 }
