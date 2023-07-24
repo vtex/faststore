@@ -51,7 +51,13 @@ const orderFormItemToOffer = (
   index?: number
 ): Indexed<IStoreOffer> => ({
   listPrice: item.listPrice / 100,
-  price: item.sellingPrice / 100,
+  price: item.priceDefinition.calculatedSellingPrice
+    ? item.priceDefinition.sellingPrices.reduce(
+        (price, sellingPrice) =>
+          price + sellingPrice.quantity * sellingPrice.value,
+        0
+      )
+    : item.sellingPrice,
   quantity: item.quantity,
   seller: { identifier: item.seller },
   itemOffered: {
@@ -157,6 +163,7 @@ const orderFormToCart = async (
       text,
       status: status.toUpperCase(),
     })),
+    totalizers: form.totalizers,
   }
 }
 

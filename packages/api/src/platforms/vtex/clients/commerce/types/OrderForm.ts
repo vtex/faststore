@@ -44,16 +44,12 @@ export interface OrderFormItem {
   }
   productCategories: Record<string, string>
   productRefId: string
+  priceDefinition: PriceDefinition
   seller: string
   sellerChain: string[]
   availability: string
   unitMultiplier: number
   skuSpecifications: SKUSpecification[]
-  priceDefinition: {
-    calculatedSellingPrice: number
-    sellingPrices: SellingPrice[]
-    total: number
-  }
   attachments: Attachment[]
 }
 
