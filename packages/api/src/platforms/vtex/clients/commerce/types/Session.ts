@@ -7,6 +7,7 @@ export interface Namespaces {
   profile?: Profile
   store?: Store
   checkout?: Checkout
+  public?: Checkout
 }
 
 export interface Value {
