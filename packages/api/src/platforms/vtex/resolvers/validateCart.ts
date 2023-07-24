@@ -46,22 +46,25 @@ const getId = (item: IStoreOffer) =>
     .filter(Boolean)
     .join('::')
 
+const calculateSellingPrice = (item: OrderFormItem) =>
+  Math.floor(
+    (item.priceDefinition.sellingPrices.reduce(
+      (price, sellingPrice) =>
+        price + sellingPrice.quantity * sellingPrice.value,
+      0
+    ) /
+      item.quantity) *
+      100
+  ) / 100
+
 const orderFormItemToOffer = (
   item: OrderFormItem,
   index?: number
 ): Indexed<IStoreOffer> => ({
   listPrice: item.listPrice / 100,
   price: item.priceDefinition?.calculatedSellingPrice
-    ? Math.floor(
-        (item.priceDefinition.sellingPrices.reduce(
-          (price, sellingPrice) =>
-            price + sellingPrice.quantity * sellingPrice.value,
-          0
-        ) /
-          item.quantity) *
-          100
-      ) / 10000
-    : item.sellingPrice,
+    ? calculateSellingPrice(item) / 100
+    : item.sellingPrice / 100,
   quantity: item.quantity,
   seller: { identifier: item.seller },
   itemOffered: {
@@ -115,7 +118,6 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
 
   const isSameOrder = storeOrder.orderNumber === orderForm.orderFormId
   const orderItemsAreSync = deepEquals(orderFormItems, storeOrderItems)
-
   return isSameOrder && orderItemsAreSync
 }
 
@@ -139,16 +141,9 @@ const joinItems = (form: OrderForm) => {
       const quantity = items.reduce((acc, i) => acc + i.quantity, 0)
       const totalPrice = items.reduce((acc, i) => {
         const itemPrice = i.priceDefinition?.calculatedSellingPrice
-          ? Math.floor(
-              (i.priceDefinition.sellingPrices.reduce(
-                (price, sellingPrice) =>
-                  price + sellingPrice.quantity * sellingPrice.value,
-                0
-              ) /
-                i.quantity) *
-                100
-            ) / 100
+          ? calculateSellingPrice(i)
           : i.sellingPrice
+
         return acc + itemPrice * i.quantity
       }, 0)
       return {
@@ -176,7 +171,6 @@ const orderFormToCart = async (
       text,
       status: status.toUpperCase(),
     })),
-    totalizers: form.totalizers,
   }
 }
 

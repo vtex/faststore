@@ -53,8 +53,7 @@ const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
     },
     ref
   ) {
-    const formatedValue = Math.floor(value * 100)/100
-    const formattedPrice = formatter(formatedValue, variant)
+    const formattedPrice = formatter(value, variant)
     return (
       <Component
         ref={ref}
