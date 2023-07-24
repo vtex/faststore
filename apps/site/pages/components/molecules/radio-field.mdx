@@ -10,6 +10,33 @@ import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { RadioField } from '@faststore/ui'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const radioFieldPath = path.resolve(__filename)
+  const components = ['RadioField.tsx']
+  const [radioFieldProps] = getComponentPropsFrom(radioFieldPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        radioFieldProps,
+      },
+    },
+  }
+}
+
+export const RadioFieldPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { radioFieldProps } = useSSG()
+  return {
+    RadioField: <PropsSection propsList={radioFieldProps} />,
+  }[component]
+}
+
 <header>
 
 # Radio Field
@@ -63,6 +90,10 @@ import { RadioField } from '@faststore/ui'
 Import Styles
 
 ```tsx
+import '@faststore/ui/src/components/atoms/Radio/styles.scss'
+```
+
+```tsx
 import '@faststore/ui/src/components/molecules/RadioField/styles.scss'
 ```
 
@@ -82,7 +113,7 @@ import '@faststore/ui/src/components/molecules/RadioField/styles.scss'
 
 ## Props
 
-<PropsSection name="RadioField" />
+<RadioFieldPropsSection component="RadioField" />
 
 ---
 

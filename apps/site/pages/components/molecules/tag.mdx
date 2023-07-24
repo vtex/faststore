@@ -14,6 +14,33 @@ import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { Tag } from '@faststore/ui'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const tagPath = path.resolve(__filename)
+  const components = ['Tag.tsx']
+  const [tagProps] = getComponentPropsFrom(tagPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        tagProps,
+      },
+    },
+  }
+}
+
+export const TagPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { tagProps } = useSSG()
+  return {
+    Tag: <PropsSection propsList={tagProps} />,
+  }[component]
+}
+
 <header>
 
 # Tag
@@ -85,7 +112,7 @@ import '@faststore/ui/src/components/molecules/Tag/styles.scss'
 
 ## Props
 
-<PropsSection name="Tag" />
+<TagPropsSection component="Tag" />
 
 ---
 

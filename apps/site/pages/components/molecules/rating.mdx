@@ -11,6 +11,33 @@ import { OverviewSection } from 'site/components/OverviewSection'
 import { Rating, Icon } from '@faststore/ui'
 import RatingActionable from 'site/components/Rating/RatingActionable'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const ratingPath = path.resolve(__filename)
+  const components = ['Rating.tsx']
+  const [ratingProps] = getComponentPropsFrom(ratingPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        ratingProps,
+      },
+    },
+  }
+}
+
+export const RatingPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { ratingProps } = useSSG()
+  return {
+    Rating: <PropsSection propsList={ratingProps} />,
+  }[component]
+}
+
 <header>
 
 # Rating
@@ -77,7 +104,7 @@ import '@faststore/ui/src/components/molecules/Rating/styles.scss'
 
 ## Props
 
-<PropsSection name="Rating" />
+<RatingPropsSection component="Rating" />
 
 ---
 

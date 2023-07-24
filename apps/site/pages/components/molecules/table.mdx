@@ -20,6 +20,46 @@ import {
 } from '@faststore/ui'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const tablePath = path.resolve(__filename)
+  const components = ['Table.tsx', 'TableBody.tsx', 'TableHead.tsx', 'TableRow.tsx', 'TableCell.tsx', 'TableFooter.tsx']
+  const [tableProps, tableBodyProps, tableHeadProps, tableRowProps, tableCellProps, tableFooterProps ] = getComponentPropsFrom(
+    tablePath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        tableProps,
+        tableBodyProps,
+        tableHeadProps,
+        tableRowProps,
+        tableCellProps,
+        tableFooterProps
+      },
+    },
+  }
+}
+
+export const TablePropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { tableProps, tableBodyProps, tableHeadProps, tableRowProps, tableCellProps, tableFooterProps } = useSSG()
+  return {
+    Table: <PropsSection propsList={tableProps} />,
+    TableBody: <PropsSection propsList={tableBodyProps} />,
+    TableHead: <PropsSection propsList={tableHeadProps} />,
+    TableRow: <PropsSection propsList={tableRowProps} />,
+    TableCell: <PropsSection propsList={tableCellProps} />,
+    TableFooter: <PropsSection propsList={tableFooterProps} />,
+  }[component]
+}
+
 <header>
 
 # Table
@@ -404,23 +444,27 @@ All table-related components support all attributes also supported by their resp
 
 ### Table
 
-<PropsSection name="Table" />
+<TablePropsSection component="Table" />
 
-### TableBody
+### Table Body
 
-<PropsSection name="TableBody" />
+<TablePropsSection component="TableBody" />
 
-### TableRow
+### Table Head
 
-<PropsSection name="TableRow" />
+<TablePropsSection component="TableHead" />
 
-### TableFooter
+### Table Row
 
-<PropsSection name="TableFooter" />
+<TablePropsSection component="TableRow" />
 
-### TableCell
+### Table Footer
 
-<PropsSection name="TableCell" />
+<TablePropsSection component="TableFooter" />
+
+### Table Cell
+
+<TablePropsSection component="TableCell" />
 
 ---
 

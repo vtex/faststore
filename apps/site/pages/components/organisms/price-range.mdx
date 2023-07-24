@@ -11,6 +11,33 @@ import { OverviewSection } from 'site/components/OverviewSection'
 import { PriceRange } from '@faststore/ui'
 import PriceRangeUsage from 'site/components/PriceRange/PriceRangeUsage'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const priceRangePath = path.resolve(__filename)
+  const components = ['PriceRange.tsx']
+  const [priceRangeProps] = getComponentPropsFrom(priceRangePath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        priceRangeProps,
+      },
+    },
+  }
+}
+
+export const PriceRangePropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { priceRangeProps } = useSSG()
+  return {
+    PriceRange: <PropsSection propsList={priceRangeProps} />,
+  }[component]
+}
+
 <header>
 
 # Price Range
@@ -75,7 +102,7 @@ import '@faststore/ui/src/components/organisms/PriceRange/styles.scss'
 
 ## Props
 
-<PropsSection name="PriceRange" />
+<PriceRangePropsSection component="PriceRange" />
 
 ---
 

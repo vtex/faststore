@@ -1,8 +1,10 @@
-import Label from '../../atoms/Label'
-import Radio from '../../atoms/Radio'
+import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-export type RadioFieldProps = {
+import Label from '../../atoms/Label'
+import Radio from '../../atoms/Radio'
+
+export interface RadioFieldProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */

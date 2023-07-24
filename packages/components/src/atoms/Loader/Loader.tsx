@@ -1,18 +1,19 @@
+import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-export type LoaderProps = {
-  /**
-   * Specifies the component color variant.
-   */
-  variant?: 'light' | 'dark'
+export interface LoaderProps extends HTMLAttributes<HTMLSpanElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+   /**
+   * Specifies the component color variant.
+   */
+   variant?: 'light' | 'dark'
 }
 
 const Loader = forwardRef<HTMLDivElement, LoaderProps>(function Loader(
-  { variant = 'dark', testId = 'fs-loader', ...otherProps }: LoaderProps,
+  { testId = 'fs-loader', variant = 'dark', ...otherProps }: LoaderProps,
   ref
 ) {
   return (

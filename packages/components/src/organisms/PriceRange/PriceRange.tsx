@@ -4,7 +4,7 @@ import type { AriaAttributes } from 'react'
 import { Price, Slider, InputField } from '../../'
 import type { PriceProps, SliderProps } from '../../'
 
-export type PriceRangeProps = Omit<SliderProps, 'absoluteValuesLabel'> & {
+export interface PriceRangeProps extends Omit<SliderProps, 'absoluteValuesLabel'> {
   /**
    * The current use case variant for prices.
    */
