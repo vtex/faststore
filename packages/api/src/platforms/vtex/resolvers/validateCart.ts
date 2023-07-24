@@ -213,9 +213,10 @@ async function getOrderNumberFromSession(
 
   if (cookieSession) {
     const { namespaces } = await commerce.getSessionOrder()
-    //remove before merge
-    console.log("bibi", namespaces)
-    return namespaces.checkout?.orderFormId?.value ?? namespaces.public?.orderFormId?.value
+    return (
+      namespaces.checkout?.orderFormId?.value ??
+      namespaces.public?.orderFormId?.value
+    )
   }
   return
 }
