@@ -36,12 +36,12 @@ export interface Options {
   locale: string
   hideUnavailableItems: boolean
   incrementAddress: boolean
+  optimisticCart: boolean
   flags?: FeatureFlags
 }
 
 interface FeatureFlags {
   enableOrderFormSync?: boolean
-  optimisticCart?: boolean
 }
 
 export interface Context {
