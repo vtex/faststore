@@ -19,11 +19,10 @@ import {
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
-import fs from 'fs'
-import { GraphQLError, print } from 'graphql'
+import { GraphQLError } from 'graphql'
 import path from 'path'
 
-import extensionsResolvers from 'src/customizations/graphql/extensions/resolvers'
+import vtexExtensionsResolvers from 'src/customizations/graphql/vtex/resolvers'
 
 import persisted from '../../@generated/graphql/persisted.json'
 import storeConfig from '../../faststore.config'
@@ -128,23 +127,30 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
 }
 
 function getExtensionsSchema() {
-  const pathArray = ['src', 'customizations', 'graphql', 'extensions']
-  const typeDefs = loadFilesSync(path.join(...pathArray, 'typeDefs'), {
-    extensions: ['graphql'],
-  })
+  const typeDefs = getTypeDefsFromFiles()
+
   const faststoreApiTypeDefs = getTypeDefs()
   const mergedTypes = mergeTypeDefs([faststoreApiTypeDefs, typeDefs])
 
-  // we don't need to create a new schema if we use the extensions data as typeDefs and resolvers from mergeSchemas()
   const schema = makeExecutableSchema({
     typeDefs: mergedTypes,
-    resolvers: extensionsResolvers,
+    resolvers: vtexExtensionsResolvers,
   })
 
-  if (storeConfig.api.printSchemas) {
-    const printedTypeDefs = print(mergedTypes)
-    fs.writeFileSync('joined.graphql', printedTypeDefs)
-  }
-
   return schema
+}
+
+function getTypeDefsFromFiles() {
+  const pathArray = ['src', 'customizations', 'graphql', 'vtex']
+
+  const typeDefs = loadFilesSync(path.join(...pathArray, 'typeDefs'), {
+    extensions: ['graphql'],
+  })
+
+  return (
+    typeDefs ??
+    loadFilesSync(path.join(...pathArray, 'typedefs'), {
+      extensions: ['graphql'],
+    })
+  )
 }

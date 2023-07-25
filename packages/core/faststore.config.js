@@ -19,7 +19,6 @@ module.exports = {
     environment: 'vtexcommercestable',
     hideUnavailableItems: true,
     incrementAddress: true,
-    printSchemas: false,
   },
 
   // Default session
