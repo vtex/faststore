@@ -50,14 +50,13 @@ const apiOptions: APIOptions = {
 
 export const nativeApiSchema = getSchema(apiOptions)
 
-const extensionsSchema = getExtensionsSchema()
+const vtexExtensionsSchema = getVtexExtensionsSchema()
 
 const getMergedSchemas = async () =>
   mergeSchemas({
-    schemas: [await nativeApiSchema, extensionsSchema].filter(Boolean),
+    schemas: [await nativeApiSchema, vtexExtensionsSchema].filter(Boolean),
   })
 
-// Merging schemas into a final schema
 export const apiSchema = getMergedSchemas()
 
 const apiContextFactory = getContextFactory(apiOptions)
@@ -126,8 +125,8 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
   }
 }
 
-function getExtensionsSchema() {
-  const typeDefs = getTypeDefsFromFiles()
+function getVtexExtensionsSchema() {
+  const typeDefs = getTypeDefsFromFolder('vtex')
 
   const faststoreApiTypeDefs = getTypeDefs()
   const mergedTypes = mergeTypeDefs([faststoreApiTypeDefs, typeDefs])
@@ -140,8 +139,8 @@ function getExtensionsSchema() {
   return schema
 }
 
-function getTypeDefsFromFiles() {
-  const pathArray = ['src', 'customizations', 'graphql', 'vtex']
+function getTypeDefsFromFolder(folder: string) {
+  const pathArray = ['src', 'customizations', 'graphql', folder]
 
   const typeDefs = loadFilesSync(path.join(...pathArray, 'typeDefs'), {
     extensions: ['graphql'],
