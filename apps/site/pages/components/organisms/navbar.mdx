@@ -17,8 +17,14 @@ import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
   const navbarPath = path.resolve(__filename)
-  const components = ['Navbar.tsx', 'NavbarHeader.tsx', 'NavbarRow.tsx', 'NavbarButtons.tsx']
-  const [navbarProps, navbarHeaderProps, navbarRowProps, navbarButtonsProps ] = getComponentPropsFrom(navbarPath, components)
+  const components = [
+    'Navbar.tsx',
+    'NavbarHeader.tsx',
+    'NavbarRow.tsx',
+    'NavbarButtons.tsx',
+  ]
+  const [navbarProps, navbarHeaderProps, navbarRowProps, navbarButtonsProps] =
+    getComponentPropsFrom(navbarPath, components)
   return {
     props: {
       // We add an `ssg` field to the page props,
@@ -27,7 +33,7 @@ export const getStaticProps = () => {
         navbarProps,
         navbarHeaderProps,
         navbarRowProps,
-        navbarButtonsProps
+        navbarButtonsProps,
       },
     },
   }
@@ -35,7 +41,8 @@ export const getStaticProps = () => {
 
 export const NavbarPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
-  const { navbarProps, navbarHeaderProps, navbarRowProps, navbarButtonsProps } = useSSG()
+  const { navbarProps, navbarHeaderProps, navbarRowProps, navbarButtonsProps } =
+    useSSG()
   return {
     Navbar: <PropsSection propsList={navbarProps} />,
     NavbarHeader: <PropsSection propsList={navbarHeaderProps} />,
@@ -48,7 +55,7 @@ export const NavbarPropsSection = ({ component }) => {
 
 # Navbar
 
-Represents the page header and groups some features like: `Search`, `Regionalization`, `SignIn`, `CartSidebar`. This component is part of the [Navigation](/components/features/navigation) feature.
+Represents the page header and groups some features like: `Search`, `Regionalization`, `SignIn`, `CartSidebar`. This component is part of the [Navigation](/components/feature-navigation) feature.
 
 </header>
 

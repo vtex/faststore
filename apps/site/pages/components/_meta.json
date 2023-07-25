@@ -1,42 +1,18 @@
 {
-  "index": {
-    "title": "Overview",
-    "theme": {
-      "layout": "full"
-    }
+  "index": "Overview",
+  "getting-started": "Getting Started",
+  "-- Components --": {
+    "type": "separator",
+    "title": "Components"
   },
-  "getting-started": {
-    "title": "Getting Started",
-    "theme": {
-      "layout": "full"
-    }
+  "atoms": "Atoms",
+  "molecules": "Molecules",
+  "organisms": "Organisms",
+  "-- Features --": {
+    "type": "separator",
+    "title": "Features"
   },
-  "---": {
-    "title": "",
-    "type": "separator"
-  },
-  "atoms": {
-    "title": "Atoms",
-    "theme": {
-      "layout": "full"
-    }
-  },
-  "molecules": {
-    "title": "Molecules",
-    "theme": {
-      "layout": "full"
-    }
-  },
-  "organisms": {
-    "title": "Organisms",
-    "theme": {
-      "layout": "full"
-    }
-  },
-  "features": {
-    "title": "Features",
-    "theme": {
-      "layout": "full"
-    }
-  }
+  "feature-navigation": "Navigation",
+  "feature-regionalization": "Regionalization",
+  "feature-search": "Search"
 }
