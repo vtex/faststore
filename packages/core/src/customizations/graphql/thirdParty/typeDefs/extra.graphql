@@ -1,0 +1,11 @@
+type ExtraData {
+  """
+  Data customizing ExtraData
+  """
+  data: String!
+}
+
+type Query {
+  extraData: ExtraData
+  namedExtraData(name: String!): ExtraData
+}
