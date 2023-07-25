@@ -17,6 +17,40 @@ import {
   Button,
 } from '@faststore/ui'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const modalPath = path.resolve(__filename)
+  const components = ['Modal.tsx', 'ModalHeader.tsx','ModalBody.tsx' ]
+  const [modalProps, modalHeaderProp, modalBodyProps ] = getComponentPropsFrom(
+    modalPath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        modalProps,
+        modalHeaderProp,
+        modalBodyProps,
+      },
+    },
+  }
+}
+
+export const ModalPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { modalProps, modalHeaderProp, modalBodyProps  } = useSSG()
+  return {
+    Modal: <PropsSection propsList={modalProps} />,
+    ModalHeader: <PropsSection propsList={modalHeaderProp} />,
+    ModalBody: <PropsSection propsList={modalBodyProps} />,
+  }[component]
+}
+
 <header>
 
 # Modal
@@ -129,15 +163,15 @@ Besides those attributes, the following props are also supported:
 
 ### Modal
 
-<PropsSection name="Modal" />
+<ModalPropsSection component="Modal" />
 
-### ModalHeader
+### Modal Header
 
-<PropsSection name="ModalHeader" />
+<ModalPropsSection component="ModalHeader" />
 
-### ModalBody
+### Modal Body
 
-<PropsSection name="ModalBody" />
+<ModalPropsSection component="ModalBody" />
 
 ---
 

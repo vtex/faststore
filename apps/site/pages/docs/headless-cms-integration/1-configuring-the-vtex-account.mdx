@@ -6,10 +6,10 @@ sidebar_label: 'Integrating your storefront with VTEX Headless CMS'
 import { Callout } from 'nextra-theme-docs'
 
 <header>
-# Part 1: Configuring your VTEX account with the VTEX Headless CMS
+  # Part 1: Configuring your VTEX account with the VTEX Headless CMS
 </header>
 
-Let's set up all the tools you will need to integrate the VTEX Headless CMS with your FastStore project. First, we will install the **VTEX IO CLI**. 
+Let's set up all the tools you need to integrate the VTEX Headless CMS with your FastStore project. First, we will install the **VTEX IO CLI**.
 The VTEX IO CLI will help you during your development process by allowing you to perform different actions in the VTEX platform. In the following, we will install and configure the VTEX Headless CMS app in your VTEX account.
 
 ---
@@ -35,55 +35,66 @@ Ensure that you have installed the VTEX IO CLI on your machine. This CLI is requ
 1. Access the VTEX IO CLI and Log in to your VTEX account:
 
 <Callout type="warning" emoji="⚠️">
-  Remember to replace the values between curly brackets according to your account name.
+  Remember to replace the values between curly brackets according to your
+  account name.
 </Callout>
 
-  ```
-  vtex login {account}
-  ```
+```bash copy
+vtex login {account}
+```
 
 2. Install the VTEX Headless CMS plugin:
 
-  ```sh
-  vtex plugins install cms
-  ```
+```bash copy
+vtex plugins install cms
+```
 
 Now, check if the installation of the VTEX Headless CMS plugin was successful by running `vtex cms`.
 
 ![success-vtex-cms-sync](https://vtexhelp.vtexassets.com/assets/docs/src/faststore-vtex-cms___460365970fb39c94e300b9fbd497e17e.png)
 
 <Callout type="warning" emoji="⚠️">
-  If you use Windows as the operating system and find problems while installing the plugin, please refer to our [Troubleshooting](/docs/headless-cms-troubleshooting/error-installing-headless-cms) article.
-</Callout>
+  <li>**Windows user:** if you find problems while installing
+  the plugin, please refer to the
+  [Troubleshooting](/docs/headless-cms-troubleshooting/error-installing-headless-cms)
+  article.</li> 
+  <br></br>
+  <li>**macOS user:** if you find problems, run `yarn config set ignore-engines true` to ignore the Node.js incompatibility version, then run `vtex plugins install cms` again. 
+  *Remember, we recommend using the latest Node.js version or a version higher than `15.0.0`.* </li> 
 
+</Callout>
 
 ### Step 2 - Installing the Headless CMS dependencies on your VTEX account
 
 Install the VTEX Headless CMS dependencies in your VTEX account by running the following command:
 
-```bash
- vtex install vtex.admin-cms-graphql@0.x vtex.admin-cms-graphql-rc@1.x 
+```bash copy
+ vtex install vtex.admin-cms-graphql@0.x vtex.admin-cms-graphql-rc@1.x
 ```
+
 ![installation-message](https://vtexhelp.vtexassets.com/assets/docs/src/cms-installing-dependencies___ad0f763129cfef77d56b4fdaba54be98.png)
 
 ### Step 3 - Configuring the Headless CMS
 
 Let's configure the URLs of the webhooks used by the VTEX Headless CMS app.
 
-1. In the VTEX Admin, access **Apps > My apps**
+1. In the VTEX Admin, access **Extensions Hub > App Management**
 2. Search for the **CMS (alpha)** app and click on **Settings**.
-3. Select **Add More**.
+3. Expand the pre-filled item, **Item # 0**, which is automatically created during the [FastStore Onboarding](/docs/getting-started/1-faststore-onboarding/overview) process for your project.
 4. If you're using the VTEX CI/CD, you must fill in the **Build Webhook URL** field with the following value. _Replace the values between curly brackets according to your scenario._
 
-   ```
+   ```sh copy
    https://app.io.vtex.com/vtex.cms-builder-sf-jamstack/v1/{account}/{workspace}/build-releases
    ```
-![cms-settings](https://vtexhelp.vtexassets.com/assets/docs/src/cms-alpha-settings___5ec952c685b0e9c70d47378e6718a0d1.png)
+
+   ![cms-settings](https://vtexhelp.vtexassets.com/assets/docs/src/cms-alpha-settings___5ec952c685b0e9c70d47378e6718a0d1.png)
 
 <Callout type="info" emoji=" ℹ️ ">
-  When an editor clicks to publish a page using the VTEX Headless CMS interface, the CMS calls the **Build Webhook URL**, which changes the status of that page to `publishing`. The CMS, then, waits for the content to be built in the background.
+  When an editor clicks to publish a page using the VTEX Headless CMS interface,
+  the CMS calls the **Build Webhook URL**, which changes the status of that page
+  to `publishing`. The CMS, then, waits for the content to be built in the
+  background.
 </Callout>
-
 
 5. Fill in the **Production base URL** filed with your production URL. _Replace the values between curly brackets according to your scenario._
 
@@ -93,7 +104,6 @@ https://{account}.vtex.com/
 
 6. Click on **SAVE**
 
-
 ### Step 4 - Communicating WebOps updates to the Headless CMS
 
 Now, if you are developing your FastStore project with CI/CD and VTEX Headless CMS, you must ensure that CI/CD is aware of every CMS update performed via the VTEX Admin. To do so, you must configure the WebOps webhooks responsible for communicating with the VTEX Headless CMS as in the following.
@@ -102,7 +112,7 @@ Now, if you are developing your FastStore project with CI/CD and VTEX Headless C
 2. Edit the `faststore.config.js` file in the root directory of your project.
 3. In the VTEX Headless CMS configuration, add the `webhookUrls` property corresponding to your store website as in the following:
 
-   ```js filename="faststore.config.js"
+   ```js filename="faststore.config.js" copy
     "vtexHeadlessCms": {
       webhookUrls: [
         "https://{account}.myvtex.com/cms-releases/webhook-releases"
@@ -116,7 +126,6 @@ Now, if you are developing your FastStore project with CI/CD and VTEX Headless C
 Now you can make changes to the Headless CMS and check if commits are being created in the project. In the following example, the `Hero` title was modified to `10% off on first purchase`, and we can see that it generated a commit in the repository.
 
 ![cms-commits](https://vtexhelp.vtexassets.com/assets/docs/src/cms-example-commits___7bb21be1504033098122feb013667b49.png)
-
 
 ---
 

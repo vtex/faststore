@@ -11,6 +11,33 @@ import { OverviewSection } from 'site/components/OverviewSection'
 import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { Toggle, ToggleField } from '@faststore/ui'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const togglePath = path.resolve(__filename)
+  const components = ['Toggle.tsx']
+  const [toggleProps] = getComponentPropsFrom(togglePath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        toggleProps,
+      },
+    },
+  }
+}
+
+export const TogglePropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { toggleProps } = useSSG()
+  return {
+    Toggle: <PropsSection propsList={toggleProps} />,
+  }[component]
+}
+
 <header>
 
 # Toggle
@@ -72,7 +99,7 @@ import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
 
 ## Props
 
-<PropsSection name="Toggle" />
+<TogglePropsSection component="Toggle" />
 
 ---
 

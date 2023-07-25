@@ -40,43 +40,44 @@ By default, every FastStore project comes with the [Brandless theme](/docs/themi
 1. Create a new `.scss` file on `src/themes` (e.g. `my-theme.scss`) in your [starter](https://github.com/vtex-sites/starter.store), then add the tokens you want to overwrite inside the `.theme` class.
 
 <Callout type="info" emoji="ℹ️">
-  If you want, you can work on `custom-theme.scss` file that's ready to use.
+ If you want, you can work on `custom-theme.scss` file that's ready to use. We are using [CSS cascade layers](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_layers) feature to better deal with styling specificities issues, so keeping the `@layer theme` in the file is recommended.
 </Callout>
 
 <br></br>
 
-```scss filename="src/themes/my-theme.scss"
-.theme {
-  // --------------------------------------------------------
-  // Colors (Branding Core)
-  // --------------------------------------------------------
+```scss filename="src/themes/my-theme.scss" copy
 
-  // --------------------------------------------------------
-  // Typography (Branding Core)
-  // --------------------------------------------------------
+@layer theme {
+  .theme {
+    // --------------------------------------------------------
+    // Colors (Branding Core)
+    // --------------------------------------------------------
 
-  // --------------------------------------------------------
-  // Spacing (UI Essentials)
-  // --------------------------------------------------------
+    // --------------------------------------------------------
+    // Typography (Branding Core)
+    // --------------------------------------------------------
 
-  // --------------------------------------------------------
-  // Grid & Layout (UI Essentials)
-  // --------------------------------------------------------
+    // --------------------------------------------------------
+    // Spacing (UI Essentials)
+    // --------------------------------------------------------
 
-  // --------------------------------------------------------
-  // Interactive Controls (UI Essentials)
-  // --------------------------------------------------------
+    // --------------------------------------------------------
+    // Grid & Layout (UI Essentials)
+    // --------------------------------------------------------
 
-  // --------------------------------------------------------
-  // Refinements
-  // --------------------------------------------------------
+    // --------------------------------------------------------
+    // Interactive Controls (UI Essentials)
+    // --------------------------------------------------------
 
-  // --------------------------------------------------------
-  // FS UI Components
-  // --------------------------------------------------------
-    .section {
-      // Add here the customizations for FastStore UI components.
-    }
+    // --------------------------------------------------------
+    // Refinements
+    // --------------------------------------------------------
+
+    // --------------------------------------------------------
+    // FS UI Components
+    // --------------------------------------------------------
+    // Add here the customizations for FastStore UI components.
+  }
 }
 ```
 <br></br>

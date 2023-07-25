@@ -26,6 +26,42 @@ import {
 } from '@faststore/ui'
 import { OverviewSection } from 'site/components/OverviewSection'
 
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const dropdownPath = path.resolve(__filename)
+  const components = ['Dropdown.tsx', 'DropdownItem.tsx', 'DropdownMenu.tsx', 'DropdownButton.tsx']
+  const [dropdownProps, dropdownItemProps, dropdownMenuProps, dropdownButtonProps ] = getComponentPropsFrom(
+    dropdownPath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        dropdownProps,
+        dropdownItemProps,
+        dropdownMenuProps,
+        dropdownButtonProps,
+      },
+    },
+  }
+}
+
+export const DropdownPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { dropdownProps, dropdownItemProps, dropdownMenuProps, dropdownButtonProps } = useSSG()
+  return {
+    Dropdown: <PropsSection propsList={dropdownProps} />,
+    DropdownItem: <PropsSection propsList={dropdownItemProps} />,
+    DropdownMenu: <PropsSection propsList={dropdownMenuProps} />,
+    DropdownButton: <PropsSection propsList={dropdownButtonProps} />,
+  }[component]
+}
+
 <header>
 
 # Dropdown
@@ -175,19 +211,19 @@ import '@faststore/ui/src/components/molecules/Dropdown/styles.scss'
 
 ### Dropdown
 
-<PropsSection name="Dropdown" />
+<DropdownPropsSection component="Dropdown" />
 
-### DropdownItem
+### Dropdown Item
 
-<PropsSection name="DropdownItem" />
+<DropdownPropsSection component="DropdownItem" />
 
-### DropdownMenu
+### Dropdown Menu
 
-<PropsSection name="DropdownMenu" />
+<DropdownPropsSection component="DropdownMenu" />
 
-### DropdownButton
+### Dropdown Button
 
-<PropsSection name="DropdownButton" />
+<DropdownPropsSection component="DropdownButton" />
 
 ---
 
@@ -195,7 +231,7 @@ import '@faststore/ui/src/components/molecules/Dropdown/styles.scss'
 
 ### Compound Components
 
-#### DropdownItem
+#### Dropdown Item
 
 <TokenTable>
   <TokenRow token="--fs-dropdown-item-min-height" value="2.375rem" />
@@ -245,7 +281,7 @@ import '@faststore/ui/src/components/molecules/Dropdown/styles.scss'
   />
 </TokenTable>
 
-#### DropdownMenu
+#### Dropdown Menu
 
 <TokenTable>
   <TokenRow
@@ -285,11 +321,11 @@ import '@faststore/ui/src/components/molecules/Dropdown/styles.scss'
 
 For further customization, you can use the following data attributes:
 
-#### DropdownItem
+#### Dropdown Item
 
 `data-fs-dropdown-item`
 
-#### DropdownMenu
+#### Dropdown Menu
 
 `data-fs-dropdown-menu`
 
@@ -299,7 +335,7 @@ For further customization, you can use the following data attributes:
 
 `data-fs-dropdown-menu-size="small | regular"`
 
-#### DropdownButton
+#### Dropdown Button
 
 `data-fs-dropdown-button`
 

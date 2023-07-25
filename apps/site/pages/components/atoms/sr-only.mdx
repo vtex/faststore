@@ -14,7 +14,7 @@ import { SROnly } from '@faststore/ui'
 
 <header>
 
-# SROnly
+# SR Only
 
 Hides an element visually. Improve accessibility by providing text to
 screen readers when applied.
@@ -51,7 +51,23 @@ import '@faststore/ui/src/components/atoms/SROnly/styles.scss'
 
 ## Props
 
-<PropsSection name="SROnly" />
+export const propsSROnly = [
+  {
+    name: 'text',
+    type: 'string',
+    description:
+      'Defines component element type (e.g.: span).',
+    required: true,
+  },
+  {
+    name: 'as',
+    type: "ElementType",
+    description: 'Defines component element type (e.g.: span, div, h1).',
+    default: 'span',
+  }
+]
+
+<PropsSection propsList={propsSROnly} />
 
 ---
 

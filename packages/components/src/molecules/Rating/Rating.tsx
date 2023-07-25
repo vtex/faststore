@@ -6,6 +6,10 @@ import List from '../../atoms/List'
 export interface RatingProps
   extends Omit<HTMLAttributes<HTMLUListElement>, 'onChange'> {
   /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
+  testId?: string
+  /**
    * The length of child elements.
    */
   length?: number
@@ -21,10 +25,6 @@ export interface RatingProps
    * Function to be triggered when Rating option change. This should only be used if you and an actionable rating list.
    */
   onChange?: (value: number) => void
-  /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
-   */
-  testId?: string
 }
 
 export interface RatingItemProps {

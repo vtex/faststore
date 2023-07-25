@@ -60,7 +60,53 @@ import '@faststore/ui/src/components/molecules/LinkButton/styles.scss'
 
 ## Props
 
-<PropsSection name="LinkButton" />
+The `LinkButton` component supports all attributes supported by the tag `a`.
+
+Besides those attributes, the following props are also supported [Button Props](/components/atoms/button#props):
+
+export const propsLinkButton = [
+  {
+    name: 'testId',
+    type: 'string',
+    description:
+      'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
+    default: 'fs-link-button'
+  },
+  {
+    name: 'variant',
+    type: "'primary' | 'secondary' | 'tertiary'",
+    description: 'Specifies the component color variant.',
+    default: 'primary'
+  },
+  {
+    name: 'size',
+    type: "'small' | 'regular'",
+    description: 'Specifies the size variant.',
+    default: 'regular'
+  },
+  {
+    name: 'inverse',
+    type: 'boolean',
+    description: 'Defines the use of inverted colors.'
+  },
+  {
+    name: 'disabled',
+    type: 'boolean',
+    description: 'Specifies that this button should be disabled.'
+  },
+  {
+    name: 'icon',
+    type: 'ReactNode',
+    description: 'A React component that will be rendered as an icon.'
+  },
+   {
+    name: 'iconPosition',
+    type: "'left' | 'right'",
+    description: 'Specifies where the icon should be positioned.'
+  },
+]
+
+<PropsSection propsList={propsLinkButton} />
 
 ---
 
