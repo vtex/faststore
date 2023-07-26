@@ -32,10 +32,14 @@ import { TokenTable, TokenRow } from 'site/components/Tokens'
 
 ## Breakpoints
 
-<TokenTable title="Global Token" description="Value">
-  <TokenRow token="--fs-grid-breakpoint-phone" value="320px" />
-  <TokenRow token="--fs-grid-breakpoint-phonemid" value="375px" />
-  <TokenRow token="--fs-grid-breakpoint-tablet" value="768px" />
-  <TokenRow token="--fs-grid-breakpoint-notebook" value="1280px" />
-  <TokenRow token="--fs-grid-breakpoint-desktop" value="1440px" />
-</TokenTable>
+In order to help our breakpoint customization, we use [Include-Media](https://eduardoboucas.github.io/include-media/#features), a Sass library for writing CSS media queries in an easy and maintainable way, using a natural and simplistic syntax.
+
+```scss
+$breakpoints: (
+  "phone":         320px,
+  "phonemid":      375px,
+  "tablet":        768px,
+  "notebook":      1280px,
+  "desktop":       1440px,
+)!global;
+```
