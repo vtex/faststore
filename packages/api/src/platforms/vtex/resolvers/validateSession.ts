@@ -34,8 +34,10 @@ export const validateSession = async (
       : Promise.resolve(null),
     clients.commerce.session(params.toString()).catch(() => null),
   ])
-
-  const profile = sessionData?.namespaces.profile ?? null
+  
+  const isAuthenticated =
+    sessionData?.namespaces?.profile?.isAuthenticated?.value ?? false
+  const profile = isAuthenticated ? sessionData?.namespaces.profile : null
   const store = sessionData?.namespaces.store ?? null
   const region = regionData?.[0]
   // Set seller only if it's inside a region
