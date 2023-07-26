@@ -3,8 +3,14 @@ body {
   --nextra-primary-hue: 227deg;
 }
 
+
 body .nx-bg-primary-100 { background-color: hsl(var(--nextra-primary-hue)100% 96%/var(--tw-bg-opacity)); }
 
+a.nx-text-primary-600 { color: var(--fs-color-link); }
+button.nx-border-primary-500 {
+  color: var(--fs-color-link);
+  border-color: var(--fs-color-link);
+}
 
 @media screen and (min-width: 1280px) {
   article.nx-w-full {
