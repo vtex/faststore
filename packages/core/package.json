@@ -34,7 +34,7 @@
     "@faststore/components": "^2.1.51",
     "@faststore/graphql-utils": "^2.1.33",
     "@faststore/sdk": "^2.1.33",
-    "@faststore/ui": "^2.1.33",
+    "@faststore/ui": "^2.1.51",
     "@graphql-tools/load-files": "^7.0.0",
     "@graphql-tools/merge": "^9.0.0",
     "@types/react": "^18.0.14",
