@@ -45,7 +45,7 @@ body .nx-bg-primary-100 { background-color: hsl(var(--nextra-primary-hue)100% 96
 
 /* Divider */
 hr.nx-my-8 {
-  margin: var(--fs-spacing-8) 0;
+  margin: var(--fs-spacing-5) 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -138,7 +138,8 @@ main > div { margin: 0; }
 p.nx-mt-6 + p.nx-mt-6 { margin-top: 0; }
 
 @media screen and (min-width: 1280px) {
-  .nx-w-full > p.nx-mt-6 { max-width: 90%; }
+  .nx-w-full > p.nx-mt-6,
+  .nx-w-full > ul .nx-my-2 { max-width: 90%; }
 }
 
 /* Components adjusts for documentation purposes */
@@ -698,3 +699,9 @@ div.nextra-steps p {
 /* Nextra Tabs */
 
 .nextra-scrollbar > div { margin-top: 0; }
+
+/* Nextra Sidebar */
+
+.nextra-sidebar-container .nextra-scrollbar {
+  overflow-y: scroll;
+}

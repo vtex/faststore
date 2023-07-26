@@ -2,6 +2,7 @@
   display: flex;
   column-gap: 16px;
   align-items: center;
+  justify-content: center;
   border-radius: 4px;
   margin: 0 0 var(--fs-spacing-3);
   padding: var(--fs-spacing-4) var(--fs-spacing-5);

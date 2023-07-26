@@ -221,11 +221,13 @@ For further customization, you can use the following data attributes:
 
 ## Related components
 
-<SectionList grid="column" columns={1}>
+<SectionList grid="column" columns={2}>
   <SectionItem
     title="Navbar"
     description="Represents the page header and groups features like Search and Regionalization."
     actionPath="/components/organisms/navbar"
+    zoomOut
+    smallHeight
   >
     <UIProvider>
       <NavbarUsage />
@@ -235,6 +237,8 @@ For further customization, you can use the following data attributes:
     title="NavbarLinks"
     description="Displays a set of navigation links."
     actionPath="/components/molecules/navbar-links"
+    zoomOut
+    smallHeight
   >
     <UIProvider>
       <Navbar>

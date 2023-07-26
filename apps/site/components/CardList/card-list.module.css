@@ -68,6 +68,11 @@
 .cardList [data-doc-card-item-component] [data-fs-sku-selector] { flex-direction: column; }
 .cardList [data-doc-card-item-component] [data-fs-sku-selector] [data-fs-sku-selector-title] { width: auto; }
 
+.cardList [data-doc-card-item-component] [data-fs-navbar-links-wrapper] [data-fs-button],
+.cardList [data-doc-card-item-component] [data-fs-navbar-links-wrapper] [data-fs-navbar-links-list-item] {
+  white-space: nowrap;
+}
+
 .cardList [data-doc-card-item-component-zoom="true"] {
   height: 430px;
   margin: var(--fs-spacing-8);
