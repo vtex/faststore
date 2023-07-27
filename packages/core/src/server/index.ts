@@ -19,8 +19,7 @@ import {
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
-import fs from 'fs'
-import { GraphQLError, print } from 'graphql'
+import { GraphQLError } from 'graphql'
 import path from 'path'
 
 import vtexExtensionsResolvers from '../customizations/graphql/vtex/resolvers'
@@ -169,14 +168,6 @@ function getCustomSchemas() {
     'thirdParty',
     thirdPartyResolvers
   )
-
-  if (storeConfig.api.printSchemas) {
-    const printedExtensionsTypeDefs = print(vtexExtensionsTypeDefs)
-    const printedThirdPartyTypeDefs = print(thirdPartyTypeDefs)
-
-    fs.writeFileSync('vtex.graphql', printedExtensionsTypeDefs)
-    fs.writeFileSync('thirdParty.graphql', printedThirdPartyTypeDefs)
-  }
 
   return [vtexExtensionsSchema, thirdPartySchema]
 }
