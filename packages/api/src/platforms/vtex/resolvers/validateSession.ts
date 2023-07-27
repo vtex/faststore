@@ -34,7 +34,7 @@ export const validateSession = async (
       : Promise.resolve(null),
     clients.commerce.session(params.toString()).catch(() => null),
   ])
-  
+
   const isAuthenticated =
     sessionData?.namespaces?.profile?.isAuthenticated?.value ?? false
   const profile = isAuthenticated ? sessionData?.namespaces.profile : null
