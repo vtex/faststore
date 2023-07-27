@@ -158,16 +158,13 @@ function loadCustomTypeDefs(customPath: string) {
 }
 
 function getCustomSchemas() {
-  const [vtexExtensionsSchema, vtexExtensionsTypeDefs] = getCustomSchema(
+  const [vtexExtensionsSchema] = getCustomSchema(
     'vtex',
     vtexExtensionsResolvers,
     getTypeDefs()
   )
 
-  const [thirdPartySchema, thirdPartyTypeDefs] = getCustomSchema(
-    'thirdParty',
-    thirdPartyResolvers
-  )
+  const [thirdPartySchema] = getCustomSchema('thirdParty', thirdPartyResolvers)
 
   return [vtexExtensionsSchema, thirdPartySchema]
 }

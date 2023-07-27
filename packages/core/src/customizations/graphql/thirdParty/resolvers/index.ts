@@ -1,7 +1,3 @@
-import { default as StoreExtraResolver } from './extra'
-
-const resolvers = {
-  ...StoreExtraResolver,
-}
+const resolvers = {}
 
 export default resolvers
