@@ -1,6 +1,0 @@
-extend type StoreProduct {
-  """
-  Custom data extending StoreProduct
-  """
-  customData: String!
-}

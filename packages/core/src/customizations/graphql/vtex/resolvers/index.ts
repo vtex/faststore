@@ -1,7 +1,3 @@
-import { default as StoreProductResolver } from './product'
-
-const resolvers = {
-  ...StoreProductResolver,
-}
+const resolvers = {}
 
 export default resolvers
