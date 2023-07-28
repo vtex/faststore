@@ -78,7 +78,6 @@ let nativeSchema: GraphQLSchema
 
 beforeAll(async () => {
   nativeSchema = await nativeApiSchema
-  console.log('🚀 ~ schema:', nativeSchema)
 })
 
 describe('FastStore GraphQL Layer', () => {
