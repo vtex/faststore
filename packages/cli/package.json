@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "2.1.52",
+  "version": "2.1.53",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "bin": {
@@ -28,8 +28,8 @@
     "stringify-object": "^3.3.0"
   },
   "devDependencies": {
-    "@faststore/eslint-config": "^2.1.33",
-    "@faststore/shared": "^2.1.33",
+    "@faststore/eslint-config": "^2.1.53",
+    "@faststore/shared": "^2.1.53",
     "@types/chai": "^4",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^16.11.63",
