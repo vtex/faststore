@@ -213,7 +213,7 @@ async function getOrderNumberFromSession(
 
   if (cookieSession) {
     const { namespaces } = await commerce.getSessionOrder()
-    return namespaces.checkout?.orderFormId?.value ?? undefined
+    return namespaces.public?.orderFormId?.value ?? undefined
   }
   return
 }
