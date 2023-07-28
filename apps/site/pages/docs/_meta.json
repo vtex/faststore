@@ -70,6 +70,8 @@
   "building-sections": {
     "title": "Building and Customizing Sections"
   },
+  "reference-guides": "Reference",
+  "api-extensions": "API Extensions",
   "troubleshooting": "Troubleshooting",
   "-- Reference --": {
     "type": "separator",

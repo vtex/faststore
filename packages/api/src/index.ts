@@ -44,3 +44,6 @@ export const getSchema = async (options: Options) => {
 
   return directives.reduce((s, d) => d.transformer(s), schema)
 }
+
+export * from './platforms/vtex/resolvers/root'
+export { Resolver } from './platforms/vtex'
