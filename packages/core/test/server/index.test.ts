@@ -1,11 +1,14 @@
 import { GraphQLSchema, assertValidSchema } from 'graphql'
 import {
+  execute,
   getEnvelop,
   getMergedSchemas,
   getTypeDefsFromFolder,
   getVtexExtensionsSchema,
   nativeApiSchema,
 } from '../../src/server'
+
+import storeConfig from '../../faststore.config'
 
 const TYPES = [
   'StoreAggregateOffer',
@@ -138,6 +141,14 @@ describe('FastStore GraphQL Layer', () => {
       const envelop = await getEnvelop()
       expect(envelop).toBeDefined()
       expect(envelop._plugins).toHaveLength(6)
+    })
+
+    it('should handle options and execute', async () => {
+      const result = await execute({
+        variables: { slug: storeConfig.cypress.pages.collection.slice(1) },
+        operationName: 'ServerCollectionPageQuery',
+      })
+      expect(result.data).toBeDefined()
     })
   })
 })
