@@ -1,5 +1,6 @@
 import { GraphQLSchema, assertValidSchema } from 'graphql'
 import {
+  getEnvelop,
   getMergedSchemas,
   getTypeDefsFromFolder,
   getVtexExtensionsSchema,
@@ -129,6 +130,14 @@ describe('FastStore GraphQL Layer', () => {
       // `assertValidSchema()` will throw an error if the schema is invalid, and
       // return nothing if it is valid. That's why we're checking for `undefined`.
       expect(assertValidSchema(schema)).toBeUndefined()
+    })
+  })
+
+  describe('Envelop', () => {
+    it('should exist with its plugins', async () => {
+      const envelop = await getEnvelop()
+      expect(envelop).toBeDefined()
+      expect(envelop._plugins).toHaveLength(6)
     })
   })
 })
