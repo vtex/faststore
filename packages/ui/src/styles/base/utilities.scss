@@ -19,6 +19,8 @@ $breakpoints: (
   "desktop":       1440px,
 );
 
+// Global mixins /////////////////////////////////////
+
 // Px to rem.
 $base: 16px !default;
 
@@ -28,6 +30,19 @@ $base: 16px !default;
   @return #{$rem}rem;
 }
 
+@mixin truncate-title($max-lines: var(--fs-text-max-lines)) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-line-clamp: $max-lines;
+  line-clamp: $max-lines;
+  text-overflow: -o-ellipsis-lastline;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+// Layout & Spacing Mixins ///////////////////////////
 
 @mixin layout-content {
   box-sizing: border-box;
@@ -63,6 +78,8 @@ $base: 16px !default;
     @include media(">=notebook") { padding-bottom: $padding; }
   }
 }
+
+// Focus Ring Mixins /////////////////////////////////
 
 @mixin input-focus-ring($outline: #{var(--fs-color-focus-ring)}, $border: #{var(--fs-border-color-active)}) {
   @media not all and (min-resolution: .001dpcm) { // Target only Safari browsers
@@ -102,16 +119,4 @@ $base: 16px !default;
     }
   }
   &:focus-visible { @include focus-ring; }
-}
-
-@mixin truncate-title($max-lines: var(--fs-text-max-lines)) {
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -moz-box-orient: vertical;
-  -webkit-line-clamp: $max-lines;
-  line-clamp: $max-lines;
-  text-overflow: -o-ellipsis-lastline;
-  text-overflow: ellipsis;
-  white-space: normal;
 }
