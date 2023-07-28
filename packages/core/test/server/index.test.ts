@@ -74,14 +74,14 @@ const QUERIES = [
 
 const MUTATIONS = ['validateCart', 'validateSession', 'subscribeToNewsletter']
 
-let nativeSchema: GraphQLSchema
-
-beforeAll(async () => {
-  nativeSchema = await nativeApiSchema
-})
-
 describe('FastStore GraphQL Layer', () => {
   describe('@faststore/api', () => {
+    let nativeSchema: GraphQLSchema
+
+    beforeAll(async () => {
+      nativeSchema = await nativeApiSchema
+    })
+
     it('should return a valid GraphQL schema', async () => {
       // `assertValidSchema()` will throw an error if the schema is invalid, and
       // return nothing if it is valid. That's why we're checking for `undefined`.
