@@ -152,10 +152,6 @@ describe('remove_from_cart event', () => {
   }
 
   context('when removing a product from cart', () => {
-    beforeEach(() => {
-      cy.getById('remove-from-cart-button').should('be.visible').click()
-    })
-
     it('adds remove_from_cart event in the data layer', () => {
       cy.visit(pages.pdp, options)
       cy.waitForHydration()
