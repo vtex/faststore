@@ -1,5 +1,10 @@
 import { GraphQLSchema, assertValidSchema } from 'graphql'
-import { nativeApiSchema } from '../../src/server'
+import {
+  getMergedSchemas,
+  getTypeDefsFromFolder,
+  getVtexExtensionsSchema,
+  nativeApiSchema,
+} from '../../src/server'
 
 const TYPES = [
   'StoreAggregateOffer',
@@ -100,6 +105,31 @@ describe('FastStore GraphQL Layer', () => {
       const mutationFields = nativeSchema.getMutationType()?.getFields() ?? {}
 
       expect(Object.keys(mutationFields)).toEqual(MUTATIONS)
+    })
+  })
+
+  describe('VTEX API Extension', () => {
+    it('should return a valid GraphQL schema', async () => {
+      const schema: GraphQLSchema = await getVtexExtensionsSchema()
+
+      // `assertValidSchema()` will throw an error if the schema is invalid, and
+      // return nothing if it is valid. That's why we're checking for `undefined`.
+      expect(assertValidSchema(schema)).toBeUndefined()
+    })
+
+    it('getTypeDefsFromFolder function should return an Array', async () => {
+      const typeDefs = getTypeDefsFromFolder('vtex')
+      expect(typeDefs).toBeInstanceOf(Array)
+    })
+  })
+
+  describe('Final Schema after merging', () => {
+    it('should return a valid merged GraphQL schema', async () => {
+      const schema: GraphQLSchema = await getMergedSchemas()
+
+      // `assertValidSchema()` will throw an error if the schema is invalid, and
+      // return nothing if it is valid. That's why we're checking for `undefined`.
+      expect(assertValidSchema(schema)).toBeUndefined()
     })
   })
 })
