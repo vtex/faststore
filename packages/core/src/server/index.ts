@@ -20,7 +20,6 @@ import { loadFilesSync } from '@graphql-tools/load-files'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
 import { GraphQLError } from 'graphql'
-import path from 'path'
 
 import vtexExtensionsResolvers from '../customizations/graphql/vtex/resolvers'
 import thirdPartyResolvers from '../customizations/graphql/thirdParty/resolvers'
@@ -51,11 +50,13 @@ const apiOptions: APIOptions = {
 
 export const nativeApiSchema = getSchema(apiOptions)
 
-const customSchemas = getCustomSchemas()
-
 export const getMergedSchemas = async () =>
   mergeSchemas({
-    schemas: [await nativeApiSchema, ...customSchemas].filter(Boolean),
+    schemas: [
+      await nativeApiSchema,
+      getVtexExtensionsSchema(),
+      getThirdPartyExtensionsSchema(),
+    ].filter(Boolean),
   })
 
 export const apiSchema = getMergedSchemas()
@@ -128,19 +129,11 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
 
 type resolversType = Parameters<typeof makeExecutableSchema>[0]['resolvers']
 
-function getCustomSchema(
-  pathMap: string | string[],
+export function getCustomSchema(
+  customTypeDefs: string[],
   resolvers: resolversType,
   mergedTypes: string[] = []
 ) {
-  const pathArray = Array.isArray(pathMap) ? pathMap : [pathMap]
-
-  const basePath = ['src', 'customizations', 'graphql']
-
-  const customTypeDefs =
-    loadCustomTypeDefs(path.join(...basePath, ...pathArray, 'typeDefs')) ??
-    loadCustomTypeDefs(path.join(...basePath, ...pathArray, 'typedefs'))
-
   const typeDefs = mergeTypeDefs([
     ...(Array.isArray(mergedTypes) ? mergedTypes : [mergedTypes]),
     customTypeDefs,
@@ -148,23 +141,32 @@ function getCustomSchema(
 
   const schema = makeExecutableSchema({ typeDefs, resolvers })
 
-  return [schema, typeDefs] as const
+  return schema
 }
 
-function loadCustomTypeDefs(customPath: string) {
-  return loadFilesSync(customPath, {
-    extensions: ['graphql'],
-  })
-}
+export function getTypeDefsFromFolder(customPath: string | string[]) {
+  const basePath = ['src', 'customizations', 'graphql']
 
-function getCustomSchemas() {
-  const [vtexExtensionsSchema] = getCustomSchema(
-    'vtex',
-    vtexExtensionsResolvers,
-    getTypeDefs()
+  const pathArray = Array.isArray(customPath) ? customPath : [customPath]
+
+  return (
+    loadFilesSync([...basePath, ...pathArray, 'typeDefs'], {
+      extensions: ['graphql'],
+    }) ??
+    loadFilesSync([...basePath, ...pathArray, 'typedefs'], {
+      extensions: ['graphql'],
+    })
   )
+}
 
-  const [thirdPartySchema] = getCustomSchema('thirdParty', thirdPartyResolvers)
+export function getVtexExtensionsSchema() {
+  const vtexTypeDefs = getTypeDefsFromFolder('vtex')
 
-  return [vtexExtensionsSchema, thirdPartySchema]
+  return getCustomSchema(vtexTypeDefs, vtexExtensionsResolvers, getTypeDefs())
+}
+
+export function getThirdPartyExtensionsSchema() {
+  const thirdPartyTypeDefs = getTypeDefsFromFolder('thirdParty')
+
+  return getCustomSchema(thirdPartyTypeDefs, thirdPartyResolvers)
 }

@@ -1,8 +1,9 @@
-import { GraphQLSchema, assertValidSchema } from 'graphql'
+import { GraphQLSchema, assertSchema, assertValidSchema } from 'graphql'
 import {
   execute,
   getEnvelop,
   getMergedSchemas,
+  getThirdPartyExtensionsSchema,
   getTypeDefsFromFolder,
   getVtexExtensionsSchema,
   nativeApiSchema,
@@ -122,6 +123,22 @@ describe('FastStore GraphQL Layer', () => {
 
     it('getTypeDefsFromFolder function should return an Array', () => {
       const typeDefs = getTypeDefsFromFolder('vtex')
+      expect(typeDefs).toBeInstanceOf(Array)
+    })
+  })
+
+  describe('Third Party API Extension', () => {
+    it('should return a valid GraphQL schema', () => {
+      const schema = getThirdPartyExtensionsSchema()
+
+      // `assertSchema()` will throw an error if the parameter is not a schema
+      // we are using thi9s assertion because initially the Third Party schema
+      // does not have a root Query type so is not a "valid" schema
+      expect(assertSchema(schema)).toBeTruthy()
+    })
+
+    it('getTypeDefsFromFolder function should return an Array', () => {
+      const typeDefs = getTypeDefsFromFolder('thirdParty')
       expect(typeDefs).toBeInstanceOf(Array)
     })
   })
