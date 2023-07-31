@@ -31,10 +31,9 @@ export default class Build extends Command {
       `${tmpDir}/lighthouserc.js`,
       `${userDir}/lighthouserc.js`
     )
-    // await copyResource(`${tmpDir}/cypress`, `${userDir}/cypress`)
 
+    // EXPERIMENTAL
     if (userStoreConfig.experimental.enableCypressExtension) {
-      // EXPERIMENTAL
       await copySync(`${userDir}/cypress`, `${tmpDir}/cypress/integration`, {overwrite: true})
     }
     
