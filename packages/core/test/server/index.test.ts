@@ -112,15 +112,15 @@ describe('FastStore GraphQL Layer', () => {
   })
 
   describe('VTEX API Extension', () => {
-    it('should return a valid GraphQL schema', async () => {
-      const schema: GraphQLSchema = await getVtexExtensionsSchema()
+    it('should return a valid GraphQL schema', () => {
+      const schema: GraphQLSchema = getVtexExtensionsSchema()
 
       // `assertValidSchema()` will throw an error if the schema is invalid, and
       // return nothing if it is valid. That's why we're checking for `undefined`.
       expect(assertValidSchema(schema)).toBeUndefined()
     })
 
-    it('getTypeDefsFromFolder function should return an Array', async () => {
+    it('getTypeDefsFromFolder function should return an Array', () => {
       const typeDefs = getTypeDefsFromFolder('vtex')
       expect(typeDefs).toBeInstanceOf(Array)
     })
