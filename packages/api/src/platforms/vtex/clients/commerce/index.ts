@@ -237,7 +237,7 @@ export const VtexCommerce = (
 
       params.set(
         'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
+        'profile.id,profile.email,profile.firstName,profile.lastName,profile.isAuthenticated,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
       if (getCookie('vtex_session', ctx.headers.cookie)) {
         // cookie set

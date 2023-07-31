@@ -3,6 +3,10 @@ Client profile data.
 """
 type StorePerson {
   """
+  Client authentication status.
+  """
+  isAuthenticated: String!
+  """
   Client ID.
   """
   id: String!
@@ -24,6 +28,10 @@ type StorePerson {
 Client profile data.
 """
 input IStorePerson {
+  """
+  Client authentication status.
+  """
+  isAuthenticated: String!
   """
   Client ID.
   """

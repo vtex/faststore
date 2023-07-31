@@ -22,6 +22,7 @@ export interface DeliveryMode {
 }
 
 export interface Person {
+  isAuthenticated: string
   id: string
   email: string
   givenName: string

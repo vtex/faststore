@@ -27,6 +27,7 @@ export interface Profile {
   email?: Value
   firstName?: Value
   lastName?: Value
+  isAuthenticated?: Value
 }
 
 export interface Checkout {
