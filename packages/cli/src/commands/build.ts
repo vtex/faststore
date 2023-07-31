@@ -3,12 +3,13 @@ import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
 import { copySync, removeSync } from 'fs-extra'
-import { tmpDir, userDir } from '../utils/directory'
+import { tmpDir, userDir, userStoreConfigFileDir } from '../utils/directory'
 import { generate } from '../utils/generate'
 
 export default class Build extends Command {
   async run() {
     await generate({ setup: true })
+    const userStoreConfig = await import(userStoreConfigFileDir)
 
     const yarnBuildResult = spawnSync(`yarn build`, {
       shell: true,
@@ -30,7 +31,13 @@ export default class Build extends Command {
       `${tmpDir}/lighthouserc.js`,
       `${userDir}/lighthouserc.js`
     )
-    await copyResource(`${tmpDir}/cypress`, `${userDir}/cypress`)
+    // await copyResource(`${tmpDir}/cypress`, `${userDir}/cypress`)
+
+    if (userStoreConfig.experimental.enableCypressExtension) {
+      // EXPERIMENTAL
+      await copySync(`${userDir}/cypress`, `${tmpDir}/cypress/integration`, {overwrite: true})
+    }
+    
     if (existsSync(`.next/standalone`)) {
       await copyResource(
         `${userDir}/node_modules`,
