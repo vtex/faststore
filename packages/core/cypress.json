@@ -4,6 +4,7 @@
   "video": true,
   "trashAssetsBeforeRuns": true,
   "screenshotOnRunFailure": true,
+  "specPattern": ".faststore/cypress/integration/**/*.test.{js,jsx,ts,tsx}",
   "viewportWidth": 1000,
   "viewportHeight": 600
 }
