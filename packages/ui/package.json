@@ -17,7 +17,8 @@
         "import": "./dist/index.js",
         "require": "./dist/index.js",
         "default": "./dist/index.js"
-      }
+    },
+    "./src/styles/*": "./src/styles/*"
   },
   "main": "dist/index.js",
   "module": "dist/index.js",
