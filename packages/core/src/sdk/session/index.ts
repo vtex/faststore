@@ -41,6 +41,7 @@ export const mutation = gql`
         email
         givenName
         familyName
+        isAuthenticated
       }
     }
   }

@@ -73,6 +73,13 @@ export type DeliveryIds = {
   warehouseId: Maybe<Scalars['String']>
 }
 
+export type IGeoCoordinates = {
+  /** The latitude of the geographic coordinates. */
+  latitude: Scalars['Float']
+  /** The longitude of the geographic coordinates. */
+  longitude: Scalars['Float']
+}
+
 /** Person data input to the newsletter. */
 export type IPersonNewsletter = {
   /** Person's email. */
@@ -176,6 +183,8 @@ export type IStorePerson = {
   givenName: Scalars['String']
   /** Client ID. */
   id: Scalars['String']
+  /** Client authentication status. */
+  isAuthenticated: Scalars['String']
 }
 
 /** Product input. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
@@ -375,6 +384,8 @@ export type Query = {
   redirect: Maybe<StoreRedirect>
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult
+  /** Returns a list of sellers available for a specific localization. */
+  sellers: Maybe<SellersData>
   /** Returns information about shipping simulation. */
   shipping: Maybe<ShippingData>
 }
@@ -410,6 +421,13 @@ export type QuerySearchArgs = {
   term?: InputMaybe<Scalars['String']>
 }
 
+export type QuerySellersArgs = {
+  country: Scalars['String']
+  geoCoordinates: InputMaybe<IGeoCoordinates>
+  postalCode: InputMaybe<Scalars['String']>
+  salesChannel: InputMaybe<Scalars['String']>
+}
+
 export type QueryShippingArgs = {
   country: Scalars['String']
   items: Array<IShippingItem>
@@ -422,6 +440,24 @@ export type SearchMetadata = {
   isTermMisspelled: Scalars['Boolean']
   /** Logical operator used to run the search. */
   logicalOperator: Scalars['String']
+}
+
+/** Information of sellers. */
+export type SellerInfo = {
+  /** Identification of the seller */
+  id: Maybe<Scalars['String']>
+  /** Logo of the seller */
+  logo: Maybe<Scalars['String']>
+  /** Name of the seller */
+  name: Maybe<Scalars['String']>
+}
+
+/** Regionalization with sellers information. */
+export type SellersData = {
+  /** Identification of region. */
+  id: Maybe<Scalars['String']>
+  /** List of sellers. */
+  sellers: Maybe<Array<Maybe<SellerInfo>>>
 }
 
 /** Shipping Simulation information. */
@@ -786,6 +822,8 @@ export type StorePerson = {
   givenName: Scalars['String']
   /** Client ID. */
   id: Scalars['String']
+  /** Client authentication status. */
+  isAuthenticated: Scalars['String']
 }
 
 /** Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
@@ -870,7 +908,10 @@ export type StorePropertyValue = {
   valueReference: Scalars['String']
 }
 
-/** Redirect informations, including url returned by the query. */
+/**
+ * Redirect informations, including url returned by the query.
+ * https://schema.org/Thing
+ */
 export type StoreRedirect = {
   /** URL to redirect */
   url: Maybe<Scalars['String']>
@@ -1046,9 +1087,6 @@ export type ProductDetailsFragment_ProductFragment = {
       listPrice: number
       seller: { identifier: string }
     }>
-  }
-  breadcrumbList: {
-    itemListElement: Array<{ item: string; name: string; position: number }>
   }
   additionalProperty: Array<{
     propertyID: string
@@ -1291,9 +1329,6 @@ export type BrowserProductQueryQuery = {
         seller: { identifier: string }
       }>
     }
-    breadcrumbList: {
-      itemListElement: Array<{ item: string; name: string; position: number }>
-    }
     additionalProperty: Array<{
       propertyID: string
       name: string
@@ -1407,6 +1442,7 @@ export type ValidateSessionMutation = {
       email: string
       givenName: string
       familyName: string
+      isAuthenticated: string
     } | null
   } | null
 }
