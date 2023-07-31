@@ -18,8 +18,7 @@
         "require": "./dist/index.js",
         "default": "./dist/index.js"
     },
-    "./src/styles/*": "./src/styles/*",
-    "./src/**/*.scss": "./src/**/*.scss"
+    "./src/*": "./src/*"
   },
   "main": "dist/index.js",
   "module": "dist/index.js",
