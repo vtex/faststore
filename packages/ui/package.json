@@ -19,7 +19,7 @@
         "default": "./dist/index.js"
     },
     "./src/styles/*": "./src/styles/*",
-    "./src/*.scss": "./src/*.scss"
+    "./src/**/*.scss": "./src/**/*.scss"
   },
   "main": "dist/index.js",
   "module": "dist/index.js",
