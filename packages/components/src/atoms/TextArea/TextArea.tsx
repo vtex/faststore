@@ -14,13 +14,10 @@ export interface TextAreaProps
 }
 
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  function TextArea(
-    { variant, testId = 'store-textarea', ...otherProps },
-    ref
-  ) {
+  function TextArea({ variant, testId = 'fs-textarea', ...otherProps }, ref) {
     const variants = {
-      'data-success': variant === 'success' || undefined,
       'data-error': variant === 'error' || undefined,
+      'data-success': variant === 'success' || undefined,
     }
 
     return (
