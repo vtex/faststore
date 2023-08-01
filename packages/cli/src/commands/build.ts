@@ -9,7 +9,6 @@ import { generate } from '../utils/generate'
 export default class Build extends Command {
   async run() {
     await generate({ setup: true })
-    const userStoreConfig = await import(userStoreConfigFileDir)
 
     const yarnBuildResult = spawnSync(`yarn build`, {
       shell: true,
@@ -31,10 +30,6 @@ export default class Build extends Command {
       `${tmpDir}/lighthouserc.js`,
       `${userDir}/lighthouserc.js`
     )
-
-    if (userStoreConfig.experimental.enableCypressExtension) {
-      await copySync(`${userDir}/cypress`, `${tmpDir}/cypress/integration`, {overwrite: true})
-    }
     
     if (existsSync(`.next/standalone`)) {
       await copyResource(

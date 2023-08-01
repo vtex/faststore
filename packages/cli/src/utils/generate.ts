@@ -32,6 +32,7 @@ import {
   userSrcDir,
   userStoreConfigFileDir,
   userThemesFileDir,
+  userDir,
 } from './directory'
 
 import chalk from 'chalk'
@@ -73,6 +74,18 @@ function copyCoreFiles() {
       },
     })
     console.log(`${chalk.green('success')} - Core files copied`)
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+async function copyCypressFiles() {
+  try {
+    const userStoreConfig = await import(userStoreConfigFileDir)
+    if (userStoreConfig.experimental.enableCypressExtension) {
+      copySync(`${userDir}/cypress`, `${tmpDir}/cypress/integration`, {overwrite: true})
+    }
+    console.log(`${chalk.green('success')} - Cypress test files copied`)
   } catch (e) {
     console.error(e)
   }
@@ -251,6 +264,7 @@ export async function generate(options?: GenerateOptions) {
     setupPromise = Promise.all([
       createTmpFolder(),
       copyCoreFiles(),
+      copyCypressFiles(),
       createNodeModulesSymbolicLink(),
     ])
   }
