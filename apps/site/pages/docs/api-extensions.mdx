@@ -133,7 +133,7 @@ That's it, you only need to define these files within the vtex folder for the sa
 
 Also, as stores tend to grow, so does the possibility of consuming new data that is **not provided by default in the FastStore API or other VTEX APIs**. As such, FastStore must consume new data from third-party APIs.
 
-Intending to separate what comes from VTEX and what comes from third-party APIs, as well as improve the metrics collection, is recommended to use the following predefined folder structure in the store's repository for the new types and their respective resolvers:
+Intending to separate what comes from VTEX and what comes from third-party APIs. The store's repository provides the following folder structure for third-party APIs Schema Extensions that is held in the `src/graphql/thirdParty` folder:
 
 ```ts
 starter.store/
