@@ -206,18 +206,6 @@ const resolvers = {
 export default resolvers
 ```
 
-```ts
-//graphql/vtex/resolvers/index.ts
-
-import { default as StoreProductResolver } from './product'
-
-const resolvers = {
-  ...StoreProductResolver,
-}
-
-export default resolvers
-```
-
 In this example, the extra data is accessible by this query:
 
 ```ts
