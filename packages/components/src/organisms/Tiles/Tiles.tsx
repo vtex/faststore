@@ -17,7 +17,7 @@ const NUMBER_ITEMS_TO_EXPAND_FIRST_TWO = 2
 const NUMBER_ITEMS_TO_EXPAND_FIRST = 3
 
 const Tiles = forwardRef<HTMLUListElement, TilesProps>(function Tiles(
-  { testId = 'store-tiles', children, ...otherProps },
+  { children, testId = 'fs-tiles', ...otherProps },
   ref
 ) {
   const childrenCount = Children.count(children)

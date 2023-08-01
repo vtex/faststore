@@ -10,7 +10,7 @@ export interface TileProps extends HTMLAttributes<HTMLLIElement> {
 }
 
 const Tile = forwardRef<HTMLLIElement, TileProps>(function Tile(
-  { testId = 'store-tile', children, ...otherProps },
+  { children, testId = 'fs-tile', ...otherProps },
   ref
 ) {
   return (
