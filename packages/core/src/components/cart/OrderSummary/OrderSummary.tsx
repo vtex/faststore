@@ -1,5 +1,6 @@
 import { OrderSummary as UIOrderSummary } from '@faststore/ui'
 import type { ReactNode } from 'react'
+import OrderSummarySkeleton from 'src/components/skeletons/OrderSummarySkeleton/OrderSummarySkeleton'
 
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
@@ -19,14 +20,22 @@ function OrderSummary({
   const discount = subTotal - total
   const formattedDiscount = useFormattedPrice(discount)
 
+  const subtotalLabel = `Subtotal (${numberOfItems} products)`
+
   return (
     <>
-      <UIOrderSummary
-        subtotalLabel={`Subtotal (${numberOfItems} products)`}
-        subtotalValue={useFormattedPrice(subTotal)}
-        discountValue={discount > 0 ? `-${formattedDiscount}` : undefined}
-        totalValue={useFormattedPrice(total)}
-      />
+      <OrderSummarySkeleton
+        subtotalLabel={subtotalLabel}
+        loading={subTotal && total ? false : true}
+      >
+        <UIOrderSummary
+          subtotalLabel={subtotalLabel}
+          subtotalValue={useFormattedPrice(subTotal)}
+          discountValue={discount > 0 ? `-${formattedDiscount}` : undefined}
+          totalValue={useFormattedPrice(total)}
+        />
+      </OrderSummarySkeleton>
+
       {checkoutButton}
     </>
   )
