@@ -132,7 +132,7 @@ describe('FastStore GraphQL Layer', () => {
       const schema = getThirdPartyExtensionsSchema()
 
       // `assertSchema()` will throw an error if the parameter is not a schema
-      // we are using thi9s assertion because initially the Third Party schema
+      // we are using this assertion because initially the Third Party schema
       // does not have a root Query type so is not a "valid" schema
       expect(assertSchema(schema)).toBeTruthy()
     })
