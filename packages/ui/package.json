@@ -1,6 +1,6 @@
 {
   "name": "@faststore/ui",
-  "version": "2.1.53",
+  "version": "2.1.54",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",
@@ -13,10 +13,10 @@
   "type": "module",
   "exports": {
     ".": {
-        "types": "./dist/index.d.ts",
-        "import": "./dist/index.js",
-        "require": "./dist/index.js",
-        "default": "./dist/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./src/*": "./src/*"
   },
@@ -45,7 +45,7 @@
     }
   ],
   "dependencies": {
-    "@faststore/components": "^2.1.53",
+    "@faststore/components": "^2.1.54",
     "include-media": "^1.4.10",
     "modern-normalize": "^1.1.0",
     "react-swipeable": "^7.0.0",
