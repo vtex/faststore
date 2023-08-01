@@ -16,7 +16,7 @@ function NavbarLinksUsage({ classes }: { classes?: string }) {
   ]
 
   return (
-    <NavbarLinks className={`${classes}`}>
+    <NavbarLinks className={classes}>
       <div data-fs-navbar-links-wrapper data-fs-content="navbar">
         <Button variant="tertiary" size="small">
           Set location
