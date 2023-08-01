@@ -10,7 +10,7 @@ export interface IncentiveProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Incentive = forwardRef<HTMLDivElement, IncentiveProps>(function Incentive(
-  { testId = 'store-incentive', children, ...otherProps },
+  { children, testId = 'fs-incentive', ...otherProps },
   ref
 ) {
   return (
