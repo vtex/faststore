@@ -10,6 +10,8 @@ export { default as Checkbox } from './atoms/Checkbox'
 export type { CheckboxProps } from './atoms/Checkbox'
 export { default as Icon } from './atoms/Icon'
 export type { IconProps } from './atoms/Icon'
+export { default as Incentive } from './atoms/Incentive'
+export type { IncentiveProps } from './atoms/Incentive'
 export { default as Input } from './atoms/Input'
 export type { InputProps } from './atoms/Input'
 export { default as Label } from './atoms/Label'
@@ -33,6 +35,8 @@ export type { SelectProps } from './atoms/Select'
 export { default as Slider } from './atoms/Slider'
 export type { SliderProps } from './atoms/Slider'
 export { default as SROnly } from './atoms/SROnly'
+export { default as TextArea } from './atoms/TextArea'
+export type { TextAreaProps } from './atoms/TextArea'
 
 // Molecules
 export {
@@ -336,3 +340,6 @@ export type {
   SlideOverProps,
   SlideOverHeaderProps,
 } from './organisms/SlideOver'
+
+export { default as Tiles, Tile } from './organisms/Tiles'
+export type { TilesProps, TileProps } from './organisms/Tiles'
