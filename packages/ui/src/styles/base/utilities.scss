@@ -7,9 +7,9 @@
 @use "sass:math";
 /* SQ-ENABLE */
 
-@import "~include-media/dist/include-media";
+// Include Media Overwrites //////////////////////////
 
-// Include Media Breakpoints Overwrites ///////////////
+@import "~include-media/dist/include-media";
 
 $breakpoints: (
   "phone":          320px,
@@ -17,7 +17,7 @@ $breakpoints: (
   "tablet":         768px,
   "notebook":      1280px,
   "desktop":       1440px,
-) !global;
+);
 
 // Global mixins /////////////////////////////////////
 
