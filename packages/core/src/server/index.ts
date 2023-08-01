@@ -22,7 +22,7 @@ import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
 import { GraphQLError } from 'graphql'
 import path from 'path'
 
-import vtexExtensionsResolvers from 'src/customizations/graphql/vtex/resolvers'
+import vtexExtensionsResolvers from '../customizations/graphql/vtex/resolvers'
 
 import persisted from '../../@generated/graphql/persisted.json'
 import storeConfig from '../../faststore.config'
@@ -52,7 +52,7 @@ export const nativeApiSchema = getSchema(apiOptions)
 
 const vtexExtensionsSchema = getVtexExtensionsSchema()
 
-const getMergedSchemas = async () =>
+export const getMergedSchemas = async () =>
   mergeSchemas({
     schemas: [await nativeApiSchema, vtexExtensionsSchema].filter(Boolean),
   })
@@ -71,7 +71,7 @@ const formatError: FormatErrorHandler = (err) => {
   return new GraphQLError('Sorry, something went wrong.')
 }
 
-const getEnvelop = async () =>
+export const getEnvelop = async () =>
   envelop({
     plugins: [
       useAsyncSchema(apiSchema),
@@ -125,7 +125,7 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
   }
 }
 
-function getVtexExtensionsSchema() {
+export function getVtexExtensionsSchema() {
   const typeDefs = getTypeDefsFromFolder('vtex')
 
   const faststoreApiTypeDefs = getTypeDefs()
@@ -139,7 +139,7 @@ function getVtexExtensionsSchema() {
   return schema
 }
 
-function getTypeDefsFromFolder(folder: string) {
+export function getTypeDefsFromFolder(folder: string) {
   const pathArray = ['src', 'customizations', 'graphql', folder]
 
   const typeDefs = loadFilesSync(path.join(...pathArray, 'typeDefs'), {

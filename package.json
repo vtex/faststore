@@ -8,7 +8,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel --no-cache",
     "lint": "turbo run lint",
-    "test": "turbo run test --filter=!./packages/core",
+    "test": "turbo run test",
     "size": "turbo run size",
     "release": "lerna version patch --yes && lerna publish from-git --yes",
     "clean": "turbo run clean && rm -rf node_modules",
