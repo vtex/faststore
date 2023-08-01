@@ -41,9 +41,6 @@ export const validateSession = async (
   // Set seller only if it's inside a region
   const seller = region?.sellers.find((seller) => channel.seller === seller.id)
 
-  // Remover antes de mergear
-  console.log("Autenticado", profile?.isAuthenticated?.value)
-  
   const newSession = {
     ...oldSession,
     currency: {
