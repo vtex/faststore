@@ -96,6 +96,7 @@ function ProductDetails({
   const { data, isValidating } = useProduct(staleProduct.id, {
     product: staleProduct,
   })
+  console.log('🚀 ~ Client Side Data:', data)
 
   if (!data) {
     throw new Error('NotFound')

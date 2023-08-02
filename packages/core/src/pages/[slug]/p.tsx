@@ -50,7 +50,7 @@ type Props = ServerProductPageQueryQuery &
   }
 
 function Page({ product, sections, globalSections, offers, meta }: Props) {
-  console.log('🚀 ~ product:', product)
+  console.log('🚀 ~ Server Side product:', product)
   const { currency } = useSession()
 
   return (
