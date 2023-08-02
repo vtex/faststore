@@ -82,10 +82,10 @@ function copyCoreFiles() {
 async function copyCypressFiles() {
   try {
     const userStoreConfig = await import(userStoreConfigFileDir)
-    if (userStoreConfig.experimental.enableCypressExtension) {
+    if (userStoreConfig?.experimental?.enableCypressExtension) {
       copySync(`${userDir}/cypress`, `${tmpDir}/cypress/integration`, {overwrite: true})
+      console.log(`${chalk.green('success')} - Cypress test files copied`)
     }
-    console.log(`${chalk.green('success')} - Cypress test files copied`)
   } catch (e) {
     console.error(e)
   }
