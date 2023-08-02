@@ -1,7 +1,6 @@
 {
   "extends": "@faststore/shared/tsconfig.json",
   "compilerOptions": {
-    "jsx": "react",
     "outDir": "dist"
   },
   "include": ["src"],

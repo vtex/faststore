@@ -26,7 +26,7 @@ function OrderSummary({
     <>
       <OrderSummarySkeleton
         subtotalLabel={subtotalLabel}
-        loading={subTotal && total ? false : true}
+        loading={!(subTotal && total)}
       >
         <UIOrderSummary
           subtotalLabel={subtotalLabel}

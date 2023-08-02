@@ -32,7 +32,6 @@ const apiOptions: APIOptions = {
   incrementAddress: storeConfig.api.incrementAddress,
   channel: storeConfig.session.channel,
   locale: storeConfig.session.locale,
-  optimisticCart: storeConfig.optimisticCart,
   flags: {
     enableOrderFormSync: true,
   },

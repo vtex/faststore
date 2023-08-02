@@ -10,14 +10,6 @@ interface OrderSummarySkeletonProps {
   subtotalLabel: string
 }
 
-function RawSkeleton() {
-  return (
-    <div style={{ marginTop: '3px' }}>
-      <UISkeleton size={{ width: '85px', height: '1rem' }} />
-    </div>
-  )
-}
-
 function OrderSummarySkeleton({
   children,
   loading = true,
@@ -30,21 +22,30 @@ function OrderSummarySkeleton({
     <List data-fs-order-summary={true}>
       <li data-fs-order-summary-subtotal={true}>
         <span data-fs-order-summary-subtotal-label={true}>{subtotalLabel}</span>
-        <span data-fs-order-summary-subtotal-value={true}>
-          <RawSkeleton />
+        <span
+          data-fs-order-summary-subtotal-value={true}
+          style={{ marginTop: '3px' }}
+        >
+          <UISkeleton size={{ width: '85px', height: '1rem' }} />
         </span>
       </li>
 
       <li data-fs-order-summary-discount={true}>
         <span data-fs-order-summary-discount-label={true}>{discountLabel}</span>
-        <span data-fs-order-summary-discount-value={true}>
-          <RawSkeleton />
+        <span
+          data-fs-order-summary-discount-value={true}
+          style={{ marginTop: '3px' }}
+        >
+          <UISkeleton size={{ width: '85px', height: '1rem' }} />{' '}
         </span>
       </li>
       <li data-fs-order-summary-total={true}>
         <span data-fs-order-summary-total-label={true}>{totalLabel}</span>
-        <span data-fs-order-summary-total-value={true}>
-          <RawSkeleton />
+        <span
+          data-fs-order-summary-total-value={true}
+          style={{ marginTop: '3px' }}
+        >
+          <UISkeleton size={{ width: '85px', height: '1rem' }} />{' '}
         </span>
       </li>
     </List>

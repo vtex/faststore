@@ -175,14 +175,14 @@ export const useCart = () => {
         0
       ),
       total:
-        isValidating && !optimisticCart
+        !optimisticCart && isValidating
           ? undefined
           : cart.items.reduce(
               (acc, curr) => acc + curr.price * curr.quantity,
               0
             ),
       subTotal:
-        isValidating && !optimisticCart
+        !optimisticCart && isValidating
           ? undefined
           : cart.items.reduce(
               (acc, curr) => acc + curr.listPrice * curr.quantity,

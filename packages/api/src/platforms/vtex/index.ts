@@ -36,7 +36,6 @@ export interface Options {
   locale: string
   hideUnavailableItems: boolean
   incrementAddress: boolean
-  optimisticCart: boolean
   flags?: FeatureFlags
 }
 

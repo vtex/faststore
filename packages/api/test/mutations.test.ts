@@ -26,7 +26,6 @@ const apiOptions = {
   locale: 'en-US',
   hideUnavailableItems: false,
   incrementAddress: false,
-  optimisticCart: true,
   flags: {
     enableOrderFormSync: true,
   },
