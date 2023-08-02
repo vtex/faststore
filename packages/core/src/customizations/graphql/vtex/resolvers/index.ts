@@ -1,3 +1,9 @@
-const resolvers = {}
+// graphql/vtex/resolvers/index.ts
+
+import { default as StoreProductResolver } from './product'
+
+const resolvers = {
+  ...StoreProductResolver,
+}
 
 export default resolvers
