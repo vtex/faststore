@@ -1149,7 +1149,7 @@ export type ServerCollectionPageQueryQuery = {
 }
 
 export type ServerProductPageQueryQueryVariables = Exact<{
-  slug: Scalars['String']
+  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
 }>
 
 export type ServerProductPageQueryQuery = {
@@ -1313,6 +1313,7 @@ export type BrowserProductQueryQuery = {
     name: string
     gtin: string
     description: string
+    customData: string
     id: string
     isVariantOf: {
       name: string
