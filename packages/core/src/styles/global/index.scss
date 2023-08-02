@@ -1,4 +1,4 @@
-/* establish a layer order up-front, FS UI base styles has the lowest priority */
+// Establish a layer order up-front, FS UI base styles have the lowest priority
 @layer base, components, theme;
 
 // FastStore UI's base styles

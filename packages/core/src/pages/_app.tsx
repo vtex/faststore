@@ -1,5 +1,5 @@
 // FastStore UI's base styles
-import '../styles/global/components.scss'
+import '../styles/global/index.scss'
 
 import '../customizations/themes/index.scss'
 
