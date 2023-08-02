@@ -116,6 +116,7 @@ function Page({ product, sections, globalSections, offers, meta }: Props) {
 
 const query = gql`
   query ServerProductPageQuery($slug: String!) {
+    ...pdp
     product(locator: [{ key: "slug", value: $slug }]) {
       id: productID
 
