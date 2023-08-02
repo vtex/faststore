@@ -66,6 +66,8 @@ If you want to override this sizing system, follow the following steps:
 ```scss {8} filename="src/styles/custom-mixins.scss" copy
 @import "@faststore/ui/utilities"
 
+// Overwrites Breakpoints & Mixins ////////////////////
+
 $breakpoints: (
   "phone":         320px,
   "phonemid":      375px,
@@ -73,22 +75,21 @@ $breakpoints: (
   "notebook":      1280px,
   "desktop":       1500px,
 );
-```
 
 <Callout type="warning" emoji="⚠️">
-  You need to declare all the variants (phone, phonemid, tablet, notebook and desktop).
+  You need to declare all the variants (phone, phonemid, tablet, notebook and desktop) even when changing only one of the values.
 </Callout>
 
-4. Run `yarn dev` in the terminal to start the development server.
-
+4. Run `yarn dev` in the terminal to start the development server. Your should be able to see the changes.
+Modifying these breakpoints implies changes to certain global tokens. See [Grid & Layout](/docs/global-tokens/grid-and-layout#breakpoints) for more details.
 ---
 
 ## Mixins
 
-We use the [Sass `@mixin`](https://sass-lang.com/documentation/at-rules/mixin/) to allow you to define styles that can be re-used throughout your stylesheet. We divide them into these categories:
+We use the [Sass `@mixin`](https://sass-lang.com/documentation/at-rules/mixin/) to allow you to define styles that can be re-used throughout your application. We divide them into 3 categories: `Global Mixins`, `Layout & Spacing Mixins` and `Focus Ring Mixins`.
 
 
-<Tabs items={['Global mixins', 'Layout & Spacing Mixins', 'Focus Ring Mixins']}>
+<Tabs items={['Global Mixins', 'Layout & Spacing Mixins', 'Focus Ring Mixins']}>
   <Tab>
     ```scss copy
     $base: 16px !default;
@@ -195,11 +196,11 @@ We use the [Sass `@mixin`](https://sass-lang.com/documentation/at-rules/mixin/) 
   </Tab>
 </Tabs>
 
-### Custom Mixins
+### Customizing Mixins
 
-The process of overriding those mixins is really similar to the custom breakpoints steps:
+The process of overriding those mixins is similar to the customizing breakpoints steps. If you already have a `custom-mixin.scss` file, you can skip to Step 3.
 
-1. Go to the `/src` folder and create the `styles` folder and inside it. You can run the following command to create them:
+1. Go to the `src` folder and create the `styles` folder inside it. You can run the following command to create it:
 
 <Tabs items={['macOS and Linux', 'Windows']}>
   <Tab>
@@ -229,7 +230,17 @@ The process of overriding those mixins is really similar to the custom breakpoin
   </Tab>
 </Tabs>
 
-3. Choose the mixin you want to override and add it to the file:
+3. Choose the [mixin](#mixins) you want to override and add it to the file:
+
+```scss {8} filename="src/styles/custom-mixins.scss" copy
+@import "@faststore/ui/utilities"
+
+// Overwrites Breakpoints & Mixins ////////////////////
+
+@mixin input-focus-ring($outline: #{var(--fs-color-focus-ring-danger)}, $border: #{--fs-color-danger-border}) {
+  [...]
+}
+
 
 ```diff copy
 - @mixin input-focus-ring($outline: #{var(--fs-color-focus-ring)}, $border: #{var(--fs-border-color-active)}) {
