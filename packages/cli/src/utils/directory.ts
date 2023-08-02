@@ -34,13 +34,6 @@ export const tmpThemesCustomizationsFileDir = path.join(
   'index.scss'
 )
 
-export const userStylesFileDirs = path.join(userSrcDir, 'styles')
-export const tmpStylesCustomizationsFileDir = path.join(
-  tmpCustomizationsDir,
-  'styles',
-  'custom-utilities.scss'
-)
-
 export const cmsFolderName = path.join('cms', 'faststore')
 export const tmpCMSDir = path.join(tmpDir, cmsFolderName)
 export const coreCMSDir = path.join(coreDir, cmsFolderName)
