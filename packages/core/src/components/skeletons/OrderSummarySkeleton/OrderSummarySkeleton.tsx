@@ -36,7 +36,7 @@ function OrderSummarySkeleton({
           data-fs-order-summary-discount-value={true}
           style={{ marginTop: '3px' }}
         >
-          <UISkeleton size={{ width: '85px', height: '1rem' }} />{' '}
+          <UISkeleton size={{ width: '85px', height: '1rem' }} />
         </span>
       </li>
       <li data-fs-order-summary-total={true}>
@@ -45,7 +45,7 @@ function OrderSummarySkeleton({
           data-fs-order-summary-total-value={true}
           style={{ marginTop: '3px' }}
         >
-          <UISkeleton size={{ width: '85px', height: '1rem' }} />{' '}
+          <UISkeleton size={{ width: '85px', height: '1rem' }} />
         </span>
       </li>
     </List>
