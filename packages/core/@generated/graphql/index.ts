@@ -73,6 +73,13 @@ export type DeliveryIds = {
   warehouseId: Maybe<Scalars['String']>
 }
 
+export type IGeoCoordinates = {
+  /** The latitude of the geographic coordinates. */
+  latitude: Scalars['Float']
+  /** The longitude of the geographic coordinates. */
+  longitude: Scalars['Float']
+}
+
 /** Person data input to the newsletter. */
 export type IPersonNewsletter = {
   /** Person's email. */
@@ -375,6 +382,8 @@ export type Query = {
   redirect: Maybe<StoreRedirect>
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult
+  /** Returns a list of sellers available for a specific localization. */
+  sellers: Maybe<SellersData>
   /** Returns information about shipping simulation. */
   shipping: Maybe<ShippingData>
 }
@@ -410,6 +419,13 @@ export type QuerySearchArgs = {
   term?: InputMaybe<Scalars['String']>
 }
 
+export type QuerySellersArgs = {
+  country: Scalars['String']
+  geoCoordinates: InputMaybe<IGeoCoordinates>
+  postalCode: InputMaybe<Scalars['String']>
+  salesChannel: InputMaybe<Scalars['String']>
+}
+
 export type QueryShippingArgs = {
   country: Scalars['String']
   items: Array<IShippingItem>
@@ -422,6 +438,24 @@ export type SearchMetadata = {
   isTermMisspelled: Scalars['Boolean']
   /** Logical operator used to run the search. */
   logicalOperator: Scalars['String']
+}
+
+/** Information of sellers. */
+export type SellerInfo = {
+  /** Identification of the seller */
+  id: Maybe<Scalars['String']>
+  /** Logo of the seller */
+  logo: Maybe<Scalars['String']>
+  /** Name of the seller */
+  name: Maybe<Scalars['String']>
+}
+
+/** Regionalization with sellers information. */
+export type SellersData = {
+  /** Identification of region. */
+  id: Maybe<Scalars['String']>
+  /** List of sellers. */
+  sellers: Maybe<Array<Maybe<SellerInfo>>>
 }
 
 /** Shipping Simulation information. */
@@ -798,6 +832,8 @@ export type StoreProduct = {
   brand: StoreBrand
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList
+  /** Custom data extending StoreProduct */
+  customData: Scalars['String']
   /** Product description. */
   description: Scalars['String']
   /** Global Trade Item Number. */
@@ -870,7 +906,10 @@ export type StorePropertyValue = {
   valueReference: Scalars['String']
 }
 
-/** Redirect informations, including url returned by the query. */
+/**
+ * Redirect informations, including url returned by the query.
+ * https://schema.org/Thing
+ */
 export type StoreRedirect = {
   /** URL to redirect */
   url: Maybe<Scalars['String']>
@@ -1047,9 +1086,6 @@ export type ProductDetailsFragment_ProductFragment = {
       seller: { identifier: string }
     }>
   }
-  breadcrumbList: {
-    itemListElement: Array<{ item: string; name: string; position: number }>
-  }
   additionalProperty: Array<{
     propertyID: string
     name: string
@@ -1092,6 +1128,12 @@ export type ProductGalleryQueryQuery = {
   }
 }
 
+export type CustomProductDetailsFragment_StoreProductFragment = {
+  customData: string
+}
+
+export type PdpFragment = { product: { customData: string; id: string } }
+
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']
 }>
@@ -1117,6 +1159,7 @@ export type ServerProductPageQueryQuery = {
     name: string
     description: string
     releaseDate: string
+    customData: string
     id: string
     seo: { title: string; description: string; canonical: string }
     brand: { name: string }
@@ -1290,9 +1333,6 @@ export type BrowserProductQueryQuery = {
         listPrice: number
         seller: { identifier: string }
       }>
-    }
-    breadcrumbList: {
-      itemListElement: Array<{ item: string; name: string; position: number }>
     }
     additionalProperty: Array<{
       propertyID: string
