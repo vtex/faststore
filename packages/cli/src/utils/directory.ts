@@ -21,18 +21,10 @@ export const srcFolderName = 'src'
 export const userSrcDir = path.join(userDir, srcFolderName)
 
 export const customizationsFolderName = 'customizations'
-export const tmpCustomizationsDir = path.join(
-  tmpDir,
-  'src',
-  customizationsFolderName
-)
+export const tmpCustomizationsDir = path.join(tmpDir, 'src', customizationsFolderName)
 
 export const userThemesFileDir = path.join(userSrcDir, 'themes')
-export const tmpThemesCustomizationsFileDir = path.join(
-  tmpCustomizationsDir,
-  'themes',
-  'index.scss'
-)
+export const tmpThemesCustomizationsFileDir = path.join(tmpCustomizationsDir, 'themes', 'index.scss')
 
 export const cmsFolderName = path.join('cms', 'faststore')
 export const tmpCMSDir = path.join(tmpDir, cmsFolderName)
@@ -48,7 +40,4 @@ export const userNodeModulesDir = path.join(userDir, 'node_modules')
 export const tmpNodeModulesDir = path.join(tmpDir, 'node_modules')
 
 export const cmsWebhookUrlsFileName = 'cms-webhook-urls.json'
-export const tmpCmsWebhookUrlsFileDir = path.join(
-  tmpDir,
-  cmsWebhookUrlsFileName
-)
+export const tmpCmsWebhookUrlsFileDir = path.join(tmpDir, cmsWebhookUrlsFileName)
