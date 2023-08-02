@@ -75,6 +75,7 @@ $breakpoints: (
   "notebook":      1280px,
   "desktop":       1500px,
 );
+```
 
 <Callout type="warning" emoji="⚠️">
   You need to declare all the variants (phone, phonemid, tablet, notebook and desktop) even when changing only one of the values.
@@ -240,7 +241,9 @@ The process of overriding those mixins is similar to the customizing breakpoints
 @mixin input-focus-ring($outline: #{var(--fs-color-focus-ring-danger)}, $border: #{--fs-color-danger-border}) {
   [...]
 }
+```
 
+4. Make the changes on the `@mixin` declaration.
 
 ```diff copy
 - @mixin input-focus-ring($outline: #{var(--fs-color-focus-ring)}, $border: #{var(--fs-border-color-active)}) {
@@ -249,7 +252,7 @@ The process of overriding those mixins is similar to the customizing breakpoints
 }
 ```
 
-4. Run `yarn dev` in the terminal to start the development server. You should see that all components that use the `focus-ring` are now with a red shadow. Click the input to see the change.
+5. Run `yarn dev` in the terminal to start the development server. You should see that all components that use the `focus-ring` are now with a red shadow. Click the input to see the change.
 
 <OverviewSection containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}>
   <Input placeholder="Default" id="inputfield-default" />
