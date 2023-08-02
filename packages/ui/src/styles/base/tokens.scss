@@ -215,6 +215,13 @@
     --fs-grid-gap-3                      : var(--fs-spacing-4);
     --fs-grid-gap-4                      : var(--fs-spacing-5);
 
+    // BREAKPOINTS
+    --fs-grid-breakpoint-phone           : #{map-get($breakpoints, "phone")};
+    --fs-grid-breakpoint-phonemid        : #{map-get($breakpoints, "phonemid")};
+    --fs-grid-breakpoint-tablet          : #{map-get($breakpoints, "tablet")};
+    --fs-grid-breakpoint-notebook        : #{map-get($breakpoints, "notebook")};
+    --fs-grid-breakpoint-desktop         : #{map-get($breakpoints, "desktop")};
+
     // --------------------------------------------------------
     // Interactive Controls (UI Essentials)
     // --------------------------------------------------------
@@ -269,12 +276,5 @@
 
     // LOGO
     --fs-logo-width                      : 7rem;
-
-    // BREAKPOINTS
-    --fs-grid-breakpoint-phone           : #{map-get($breakpoints, "phone")};
-    --fs-grid-breakpoint-phonemid        : #{map-get($breakpoints, "phonemid")};
-    --fs-grid-breakpoint-tablet          : #{map-get($breakpoints, "tablet")};
-    --fs-grid-breakpoint-notebook        : #{map-get($breakpoints, "notebook")};
-    --fs-grid-breakpoint-desktop         : #{map-get($breakpoints, "desktop")};
   }
 }
