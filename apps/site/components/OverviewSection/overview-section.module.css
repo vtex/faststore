@@ -2,7 +2,6 @@
   display: flex;
   column-gap: 16px;
   align-items: center;
-  justify-content: center;
   border-radius: 4px;
   margin: 0 0 var(--fs-spacing-3);
   padding: var(--fs-spacing-4) var(--fs-spacing-5);
@@ -41,6 +40,12 @@
   display: flex;
   align-items: center;
   column-gap: 60px;
+}
+
+.overviewSection [data-fs-product-shelf-items] { width: 100%; }
+
+@media screen and (min-width: 1280px) {
+  .overviewSection [data-fs-carousel-track-container] { padding: 0 70px; }
 }
 
 .overviewSection>[data-doc-overview-group] [data-doc-overview-group-title] {

@@ -3,10 +3,10 @@ body {
   --nextra-primary-hue: 227deg;
 }
 
-
 body .nx-bg-primary-100 { background-color: hsl(var(--nextra-primary-hue)100% 96%/var(--tw-bg-opacity)); }
 
 a.nx-text-primary-600 { color: var(--fs-color-link); }
+
 button.nx-border-primary-500 {
   color: var(--fs-color-link);
   border-color: var(--fs-color-link);
@@ -33,6 +33,8 @@ button.nx-border-primary-500 {
     margin-bottom: var(--fs-spacing-7);
     padding-bottom: var(--fs-spacing-9);
   }
+
+  .nx-w-full > header + p.nx-mt-6 { margin-top: var(--fs-spacing-10); }
 }
 
 .nx-w-full > header h1 {
@@ -95,7 +97,7 @@ h4.nx-tracking-tight {
   font-weight: var(--fs-text-weight-regular);
   font-size: calc(var(--fs-text-size-4) - 2px);
   margin-top: var(--fs-spacing-5);
-  margin-bottom: var(--fs-spacing-4);
+  margin-bottom: var(--fs-spacing-3);
 }
 
 .nx-leading-7 code {
@@ -128,6 +130,8 @@ h4.nx-tracking-tight {
   list-style-position: inside;
 }
 
+ol.nx-list-decimal.nx-mt-6 > li { margin-top: var(--fs-spacing-4); }
+
 /* Content */
 
 body > div > div > div > article > *.nx-mt-6,
@@ -140,12 +144,12 @@ main > [data-rehype-pretty-code-fragment] {
 
 main > div { margin: 0; }
 
-
 p.nx-mt-6 + p.nx-mt-6 { margin-top: 0; }
 
 @media screen and (min-width: 1280px) {
   .nx-w-full > p.nx-mt-6,
   .nx-w-full > ul .nx-my-2 { max-width: 90%; }
+  .nextra-content { max-width: calc(100% - 16rem); }
 }
 
 /* Components adjusts for documentation purposes */
@@ -695,7 +699,11 @@ div.nextra-steps h3:before {
 
 div.nextra-steps h3 {
   margin-bottom: var(--fs-spacing-1);
-  line-height: .8;
+  line-height: 1.1;
+}
+
+@media screen and (min-width: 768px) {
+  div.nextra-steps h3 { line-height: .8; }
 }
 
 div.nextra-steps p {
@@ -704,6 +712,10 @@ div.nextra-steps p {
 
 /* Nextra Tabs */
 
+.nextra-scrollbar {
+  padding-top: 3px;
+  padding-left: 3px;
+}
 .nextra-scrollbar > div { margin-top: 0; }
 
 /* Nextra Sidebar */
