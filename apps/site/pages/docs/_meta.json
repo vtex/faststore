@@ -65,6 +65,10 @@
   "building-sections": {
     "title": "Building and Customizing Sections"
   },
-  "reference-guides": "Reference",
-  "troubleshooting": "Troubleshooting"
+  "troubleshooting": "Troubleshooting",
+  "-- Reference --": {
+    "type": "separator",
+    "title": "Reference"
+  },
+  "fastore-config-options": "faststore.config.js options"
 }

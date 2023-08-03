@@ -1,0 +1,50 @@
+---
+title: 'enableCypressExtension'
+sidebar_label: 'faststore.config.js options'
+---
+
+import { Callout, Steps } from 'nextra-theme-docs'
+
+<header>
+
+# `enableCypressExtension` 
+
+</header>
+
+<Callout type="warning" emoji="⚠️">
+This is an experimental feature.
+</Callout>
+
+The `enableCypressExtension` feature flag allows you to utilize Cypress extensions within your FastStore project for running customized Cypress tests seamlessly.
+
+Cypress extensions enhance the testing capabilities of your Faststore project by enabling the incorporation of custom Cypress tests alongside the default tests provided by Faststore.
+
+
+
+
+is an experimental feature flag for enable Cypress extensions in your FastStore project, allowing you to run custom Cypress tests within your FastStore project.
+
+Cypress Extensions enhance the testing capabilities of your Faststore project by allowing you to include custom Cypress tests in addition to the default tests provided by Faststore.
+
+By default, Faststore includes standard integration tests for your store and with `enableCypressExtension`, you can integrate custom integration tests into a dedicated Cypress root folder within your store's codebase. 
+This integration ensures that both the conventional integration tests and your personalized tests are executed seamlessly as part of the continuous integration (CI) pipeline.
+
+
+## Step 1: Enabling `enableCypressExtension` 
+
+1. Open the `faststore.config.js` file.
+2. Find the `enableCypressExtension` paramether and set it to `true`.
+
+```bash
+     },
+    experimental: {
+        enableCypressExtension: true,
+  },
+```
+
+## Step 2: Creating the Cypress folder
+
+1. In the root directory of your store, create a new folder named `cypress`.
+2. Add your custom integration tests to the folder.
+3. Run the command `yarn test`.
+4 . {/*What is the expected result? */}
