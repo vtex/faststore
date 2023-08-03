@@ -1018,6 +1018,21 @@ export const SlideOverPartialRight = () => {
     </UIProvider>
   </CardItem>
   <CardItem
+    title="Filter Slider"
+    description={
+      <>
+        The mobile <code>Filter</code> view that is rendered inside a <code>SlideOver</code> component.
+      </>
+    }
+    actionPath="/components/organisms/filter-slider"
+  >
+    <UIProvider>
+      <SearchProvider onChange={() => ({})}>
+        <FilterUsage onlyMobile={true} />
+      </SearchProvider>
+    </UIProvider>
+  </CardItem>
+  <CardItem
     title="Hero"
     description="Full-width banner presented on the above-the-fold section of a web page."
     actionPath="/components/organisms/hero"
