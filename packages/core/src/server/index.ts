@@ -150,7 +150,9 @@ export function getCustomSchema(
       customPath.charAt(0).toUpperCase() + customPath.slice(1)
     console.error(
       `
-      An error occurred while attempting to create the ${capitalizedPath} Extension GraphQL Schema. Check to the custom typeDefs and resolvers located in the 'customizations/graphql/${customPath}' directory. Error message:`,
+      An error occurred while attempting to create the ${capitalizedPath} Extension GraphQL Schema. Check the custom typeDefs and resolvers located in the 'customizations/graphql/${customPath}' directory. This schema will be ignored.
+      
+Error message:`,
       error
     )
   }
