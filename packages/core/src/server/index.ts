@@ -54,7 +54,7 @@ export const getMergedSchemas = async () =>
   mergeSchemas({
     schemas: [
       await nativeApiSchema,
-      getVtexExtensionsSchema(),
+      getVTEXExtensionsSchema(),
       getThirdPartyExtensionsSchema(),
     ].filter(Boolean),
   })
@@ -151,13 +151,11 @@ export function getCustomSchema(
     console.error(
       `
       An error occurred while attempting to create the ${capitalizedPath} Extension GraphQL Schema. Check the custom typeDefs and resolvers located in the 'customizations/graphql/${customPath}' directory. This schema will be ignored.
-      
-Error message:`,
+
+      Error message:`,
       error
     )
   }
-
-  return null
 }
 
 export function getTypeDefsFromFolder(customPath: string | string[]) {
@@ -175,7 +173,7 @@ export function getTypeDefsFromFolder(customPath: string | string[]) {
   )
 }
 
-export function getVtexExtensionsSchema() {
+export function getVTEXExtensionsSchema() {
   return getCustomSchema('vtex', vtexExtensionsResolvers, getTypeDefs())
 }
 
