@@ -15,7 +15,7 @@ import { Input, InputField } from '@faststore/ui'
 
 ## Breakpoints
 
-To ease our screen breakpoint customization, we're using [Include-Media](https://eduardoboucas.github.io/include-media/#features), a Sass library for writing CSS media queries in an easy and maintainable way, using a natural and simplistic syntax. We've defined the 5 following screen breakpoints:
+FastStore simplifies screen breakpoint customization for projects by using [Include-Media](https://eduardoboucas.github.io/include-media/#features), a Sass library for writing CSS media queries in an easy and maintainable way, using a natural and simplistic syntax. Each project has the following five pre-defined screen breakpoints:
 
 ```scss
 $breakpoints: (
@@ -29,7 +29,12 @@ $breakpoints: (
 
 ### Customizing Breakpoints
 
-If you want to override this sizing system, follow the following steps:
+Follow the steps below to override the pre-defined sizing system for the screen breakpoints.
+
+<Callout type="warning" emoji="⚠️">
+  Modifying these breakpoints implies changes to certain global tokens. See [Grid & Layout](/docs/global- tokens/grid-and-layout#breakpoints) for more details.
+</Callout>
+
 
 1. Go to the `src` folder and create the `styles` folder inside it. You can run the following command to create it:
 
@@ -61,9 +66,9 @@ If you want to override this sizing system, follow the following steps:
   </Tab>
 </Tabs>
 
-3. Copy and paste the following code snippet into the file:
+3. Add the following code snippet into the file:
 
-```scss {8} filename="src/styles/custom-mixins.scss" copy
+```scss {10} filename="src/styles/custom-mixins.scss" copy
 @import "@faststore/ui/utilities"
 
 // Overwrites Breakpoints & Mixins ////////////////////
@@ -87,7 +92,7 @@ Modifying these breakpoints implies changes to certain global tokens. See [Grid 
 
 ## Mixins
 
-We use the [Sass `@mixin`](https://sass-lang.com/documentation/at-rules/mixin/) to allow you to define styles that can be re-used throughout your application. We divide them into 3 categories: `Global Mixins`, `Layout & Spacing Mixins` and `Focus Ring Mixins`.
+The [Sass `@mixin`](https://sass-lang.com/documentation/at-rules/mixin/) allows you to define styles that can be re-used throughout your application. Within FastStore projects, these mixins are categorized into three groups: `Global Mixins`, `Layout & Spacing Mixins`, and `Focus Ring Mixins`.
 
 
 <Tabs items={['Global Mixins', 'Layout & Spacing Mixins', 'Focus Ring Mixins']}>
@@ -199,7 +204,7 @@ We use the [Sass `@mixin`](https://sass-lang.com/documentation/at-rules/mixin/) 
 
 ### Customizing Mixins
 
-The process of overriding those mixins is similar to the customizing breakpoints steps. If you already have a `custom-mixin.scss` file, you can skip to Step 3.
+Overriding the predefined mixins follows a process similar to the [customizing breakpoints steps](/docs/customizing/mixins-breakpoints#customizing-breakpoints). If you already have a `custom-mixin.scss` file, you can skip to *Step 3*. Otherwise, follow the steps below:
 
 1. Go to the `src` folder and create the `styles` folder inside it. You can run the following command to create it:
 
