@@ -19,6 +19,7 @@ module.exports = {
     environment: 'vtexcommercestable',
     hideUnavailableItems: true,
     incrementAddress: true,
+    profileVersion: 'v2',
   },
 
   // Default session

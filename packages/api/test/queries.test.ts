@@ -48,6 +48,7 @@ const apiOptions = {
   locale: 'en-US',
   hideUnavailableItems: false,
   incrementAddress: false,
+  profileVersion: 'v1',
   flags: {
     enableOrderFormSync: true,
   },

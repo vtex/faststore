@@ -36,6 +36,7 @@ export interface Options {
   locale: string
   hideUnavailableItems: boolean
   incrementAddress: boolean,
+  profileVersion: string,  
   flags?: FeatureFlags
 }
 

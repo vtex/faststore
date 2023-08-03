@@ -30,6 +30,7 @@ const apiOptions: APIOptions = {
   environment: storeConfig.api.environment as APIOptions['environment'],
   hideUnavailableItems: storeConfig.api.hideUnavailableItems,
   incrementAddress: storeConfig.api.incrementAddress,
+  profileVersion: storeConfig.api.profileVersion,
   channel: storeConfig.session.channel,
   locale: storeConfig.session.locale,
   flags: {

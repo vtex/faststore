@@ -20,6 +20,7 @@ import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import { DeliveryMode, SelectedAddress } from './types/ShippingData'
+import { Profile } from './types/Profile'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -268,6 +269,18 @@ export const VtexCommerce = (
           cookie: ctx.headers.cookie,
         },
       })
+    },
+    getProfile: (email: string): Promise<Profile> => {
+      return fetchAPI(
+        `${base}/api/storage/profile-system/profiles/${email}/unmask?alternativeKey=email&reason=getProfile-FastStore`,
+        {
+          method: 'GET',
+          headers: {
+            'content-type': 'application/json',
+            cookie: ctx.headers.cookie,
+          },
+        }
+      )
     },
     subscribeToNewsletter: (data: {
       name: string

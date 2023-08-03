@@ -1,7 +1,7 @@
 import deepEquals from 'fast-deep-equal'
 
 import ChannelMarshal from '../utils/channel'
-import type { Context } from '..'
+import type { Context, Options } from '..'
 import type {
   MutationValidateSessionArgs,
   StoreSession,
@@ -10,7 +10,8 @@ import type {
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
-  { clients }: Context
+  { clients }: Context,
+  { profileVersion }: Options
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '').replace(/\D/g, '')
@@ -41,6 +42,8 @@ export const validateSession = async (
   // Set seller only if it's inside a region
   const seller = region?.sellers.find((seller) => channel.seller === seller.id)
 
+  const profilev2 = profileVersion.toLowerCase() === "v2" && profile?.email ?  await clients.commerce.getProfile(profile.email.value) : ''
+
   const newSession = {
     ...oldSession,
     currency: {
@@ -57,7 +60,7 @@ export const validateSession = async (
       ? {
           id: profile.id?.value ?? '',
           email: profile.email?.value ?? '',
-          givenName: profile.firstName?.value ?? '',
+          givenName: (profilev2 === '' ? (profile.firstName?.value ?? '') : (profilev2.document?.firstName ?? '')),
           familyName: profile.lastName?.value ?? '',
         }
       : null,
