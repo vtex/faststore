@@ -15,12 +15,21 @@ import { Callout, Steps } from 'nextra-theme-docs'
 This is an experimental feature.
 </Callout>
 
-The `enableCypressExtension` feature flag allows you to utilize Cypress extensions within your FastStore project for running customized Cypress tests seamlessly.
+The `enableCypressExtension` experimental feature flag allows you to utilize Cypress extensions within your FastStore project for running customized Cypress tests seamlessly.
 
 Cypress extensions enhance the testing capabilities of your Faststore project by enabling the incorporation of custom Cypress tests alongside the default tests provided by Faststore.
 
 By default, Faststore includes standard integration tests for your store and with `enableCypressExtension`, you can integrate custom integration tests into a dedicated Cypress root folder within your store's codebase. 
 This integration ensures that both the conventional integration tests and your personalized tests are executed seamlessly as part of the continuous integration (CI) pipeline.
+Learn how to add custom integrations in the following steps.
+
+## Before you start
+
+## Before You Begin
+
+- Please note that this feature is experimental and its functionality may not meet all expectations.
+
+- Ensure that you are using `@faststore/core` and `@faststore/cli` version 2.1.56 or above. If you have a version that is lower than this requirement, go to your `package.json` file and update the versions of `@faststore/core` and `@faststore/cli` to be at least `2.1.56`.
 
 
 ## Step 1: Enabling `enableCypressExtension` 
