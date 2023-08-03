@@ -130,18 +130,32 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
 type resolversType = Parameters<typeof makeExecutableSchema>[0]['resolvers']
 
 export function getCustomSchema(
-  customTypeDefs: string[],
+  customPath: string,
   resolvers: resolversType,
   mergedTypes: string[] = []
 ) {
-  const typeDefs = mergeTypeDefs([
-    ...(Array.isArray(mergedTypes) ? mergedTypes : [mergedTypes]),
-    customTypeDefs,
-  ])
+  const customTypeDefs = getTypeDefsFromFolder(customPath)
 
-  const schema = makeExecutableSchema({ typeDefs, resolvers })
+  try {
+    const typeDefs = mergeTypeDefs([
+      ...(Array.isArray(mergedTypes) ? mergedTypes : [mergedTypes]),
+      customTypeDefs,
+    ])
 
-  return schema
+    const schema = makeExecutableSchema({ typeDefs, resolvers })
+
+    return schema
+  } catch (error) {
+    const capitalizedPath =
+      customPath.charAt(0).toUpperCase() + customPath.slice(1)
+    console.error(
+      `
+      An error occurred while attempting to create the ${capitalizedPath} Extension GraphQL Schema. Check to the custom typeDefs and resolvers located in the 'customizations/graphql/${customPath}' directory. Error message:`,
+      error
+    )
+  }
+
+  return null
 }
 
 export function getTypeDefsFromFolder(customPath: string | string[]) {
@@ -160,13 +174,9 @@ export function getTypeDefsFromFolder(customPath: string | string[]) {
 }
 
 export function getVtexExtensionsSchema() {
-  const vtexTypeDefs = getTypeDefsFromFolder('vtex')
-
-  return getCustomSchema(vtexTypeDefs, vtexExtensionsResolvers, getTypeDefs())
+  return getCustomSchema('vtex', vtexExtensionsResolvers, getTypeDefs())
 }
 
 export function getThirdPartyExtensionsSchema() {
-  const thirdPartyTypeDefs = getTypeDefsFromFolder('thirdParty')
-
-  return getCustomSchema(thirdPartyTypeDefs, thirdPartyResolvers)
+  return getCustomSchema('thirdParty', thirdPartyResolvers)
 }
