@@ -70,5 +70,5 @@
     "type": "separator",
     "title": "Reference"
   },
-  "fastore-config-options": "faststore.config.js options"
+  "faststore-config-options": "faststore.config.js options"
 }

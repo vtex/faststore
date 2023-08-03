@@ -26,18 +26,20 @@ This integration ensures that both the conventional integration tests and your p
 ## Step 1: Enabling `enableCypressExtension` 
 
 1. Open the `faststore.config.js` file.
-2. Find the `enableCypressExtension` paramether and set it to `true`.
+2. Add the `experimental` object with the `enableCypressExtension` as it paramether.
+3. Add the value `true` to the `enableCypressExtension`:
 
-```bash
+```js {2-4}
      },
     experimental: {
         enableCypressExtension: true,
-  },
+  }
 ```
 
 ## Step 2: Creating the Cypress folder
 
 1. In the root directory of your store, create a new folder named `cypress`.
 2. Add your custom integration tests to the folder.
-3. Run the command `yarn test`.
-4 . {/*What is the expected result? */}
+3. Open a pull request with the changes you made.
+4. In the pull request, go to **checks > Integration Tests** and click **Details**.
+5. Check the results to see your custom integrations tests.
