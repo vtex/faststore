@@ -1146,7 +1146,7 @@ export type ServerCollectionPageQueryQuery = {
 }
 
 export type ServerProductPageQueryQueryVariables = Exact<{
-  slug: Scalars['String']
+  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
 }>
 
 export type ServerProductPageQueryQuery = {
