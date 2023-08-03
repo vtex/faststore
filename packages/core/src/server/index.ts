@@ -20,9 +20,9 @@ import { loadFilesSync } from '@graphql-tools/load-files'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
 import { GraphQLError } from 'graphql'
-import path from 'path'
 
 import vtexExtensionsResolvers from '../customizations/graphql/vtex/resolvers'
+import thirdPartyResolvers from '../customizations/graphql/thirdParty/resolvers'
 
 import persisted from '../../@generated/graphql/persisted.json'
 import storeConfig from '../../faststore.config'
@@ -50,11 +50,13 @@ const apiOptions: APIOptions = {
 
 export const nativeApiSchema = getSchema(apiOptions)
 
-const vtexExtensionsSchema = getVtexExtensionsSchema()
-
 export const getMergedSchemas = async () =>
   mergeSchemas({
-    schemas: [await nativeApiSchema, vtexExtensionsSchema].filter(Boolean),
+    schemas: [
+      await nativeApiSchema,
+      getVTEXExtensionsSchema(),
+      getThirdPartyExtensionsSchema(),
+    ].filter(Boolean),
   })
 
 export const apiSchema = getMergedSchemas()
@@ -125,31 +127,56 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
   }
 }
 
-export function getVtexExtensionsSchema() {
-  const typeDefs = getTypeDefsFromFolder('vtex')
+type resolversType = Parameters<typeof makeExecutableSchema>[0]['resolvers']
 
-  const faststoreApiTypeDefs = getTypeDefs()
-  const mergedTypes = mergeTypeDefs([faststoreApiTypeDefs, typeDefs])
+export function getCustomSchema(
+  customPath: string,
+  resolvers: resolversType,
+  mergedTypes: string[] = []
+) {
+  const customTypeDefs = getTypeDefsFromFolder(customPath)
 
-  const schema = makeExecutableSchema({
-    typeDefs: mergedTypes,
-    resolvers: vtexExtensionsResolvers,
-  })
+  try {
+    const typeDefs = mergeTypeDefs([
+      ...(Array.isArray(mergedTypes) ? mergedTypes : [mergedTypes]),
+      customTypeDefs,
+    ])
 
-  return schema
+    const schema = makeExecutableSchema({ typeDefs, resolvers })
+
+    return schema
+  } catch (error) {
+    const capitalizedPath =
+      customPath.charAt(0).toUpperCase() + customPath.slice(1)
+    console.error(
+      `
+      An error occurred while attempting to create the ${capitalizedPath} Extension GraphQL Schema. Check the custom typeDefs and resolvers located in the 'customizations/graphql/${customPath}' directory. This schema will be ignored.
+
+      Error message:`,
+      error
+    )
+  }
 }
 
-export function getTypeDefsFromFolder(folder: string) {
-  const pathArray = ['src', 'customizations', 'graphql', folder]
+export function getTypeDefsFromFolder(customPath: string | string[]) {
+  const basePath = ['src', 'customizations', 'graphql']
 
-  const typeDefs = loadFilesSync(path.join(...pathArray, 'typeDefs'), {
-    extensions: ['graphql'],
-  })
+  const pathArray = Array.isArray(customPath) ? customPath : [customPath]
 
   return (
-    typeDefs ??
-    loadFilesSync(path.join(...pathArray, 'typedefs'), {
+    loadFilesSync([...basePath, ...pathArray, 'typeDefs'], {
+      extensions: ['graphql'],
+    }) ??
+    loadFilesSync([...basePath, ...pathArray, 'typedefs'], {
       extensions: ['graphql'],
     })
   )
+}
+
+export function getVTEXExtensionsSchema() {
+  return getCustomSchema('vtex', vtexExtensionsResolvers, getTypeDefs())
+}
+
+export function getThirdPartyExtensionsSchema() {
+  return getCustomSchema('thirdParty', thirdPartyResolvers)
 }
