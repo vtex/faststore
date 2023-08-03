@@ -42,7 +42,10 @@ export const validateSession = async (
   // Set seller only if it's inside a region
   const seller = region?.sellers.find((seller) => channel.seller === seller.id)
 
-  const profilev2 = profileVersion.toLowerCase() === "v2" && profile?.email ?  await clients.commerce.getProfile(profile.email.value) : ''
+  const profilev2 =
+    profileVersion.toLowerCase() === 'v2' && profile?.email
+      ? await clients.commerce.getProfile(profile.email.value)
+      : ''
 
   const newSession = {
     ...oldSession,
@@ -60,8 +63,14 @@ export const validateSession = async (
       ? {
           id: profile.id?.value ?? '',
           email: profile.email?.value ?? '',
-          givenName: (profilev2 === '' ? (profile.firstName?.value ?? '') : (profilev2.document?.firstName ?? '')),
-          familyName: profile.lastName?.value ?? '',
+          givenName:
+            profilev2 === ''
+              ? profile.firstName?.value ?? ''
+              : profilev2.document?.firstName ?? '',
+          familyName:
+            profilev2 === ''
+              ? profile.lastName?.value ?? ''
+              : profilev2.document?.lastName ?? '',
         }
       : null,
   }
