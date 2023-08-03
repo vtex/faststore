@@ -5,7 +5,7 @@ import {
   getMergedSchemas,
   getThirdPartyExtensionsSchema,
   getTypeDefsFromFolder,
-  getVtexExtensionsSchema,
+  getVTEXExtensionsSchema,
   nativeApiSchema,
 } from '../../src/server'
 
@@ -114,11 +114,11 @@ describe('FastStore GraphQL Layer', () => {
 
   describe('VTEX API Extension', () => {
     it('should return a valid GraphQL schema', () => {
-      const schema: GraphQLSchema = getVtexExtensionsSchema()
+      const schema = getVTEXExtensionsSchema()
 
       // `assertValidSchema()` will throw an error if the schema is invalid, and
       // return nothing if it is valid. That's why we're checking for `undefined`.
-      expect(assertValidSchema(schema)).toBeUndefined()
+      expect(assertValidSchema(schema!)).toBeUndefined()
     })
 
     it('getTypeDefsFromFolder function should return an Array', () => {
