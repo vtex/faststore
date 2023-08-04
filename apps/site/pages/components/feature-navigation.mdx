@@ -31,11 +31,13 @@ There is an available example of the usage of all the related components in our 
 
 ## Components
 
-<SectionList grid="column" columns={1}>
+<SectionList grid="column" columns={2}>
   <SectionItem
     title="Navbar"
     description="Represents the page header and groups features like Search and Regionalization."
     actionPath="/components/organisms/navbar"
+    smallHeight
+    zoomOut
   >
     <UIProvider>
       <NavbarUsage />
@@ -45,6 +47,7 @@ There is an available example of the usage of all the related components in our 
     title="NavbarSlider"
     description="As part of the Navbar, this component it its mobile version used to list the navigation links."
     actionPath="/components/organisms/navbar-slider"
+    smallHeight
   >
     <UIProvider>
       <NavbarSliderUsage />
@@ -54,6 +57,8 @@ There is an available example of the usage of all the related components in our 
     title="NavbarLinks"
     description="Displays a set of navigation links."
     actionPath="/components/molecules/navbar-links"
+    smallHeight
+    zoomOut
   >
     <UIProvider>
       <Navbar>

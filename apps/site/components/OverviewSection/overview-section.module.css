@@ -42,6 +42,12 @@
   column-gap: 60px;
 }
 
+.overviewSection [data-fs-product-shelf-items] { width: 100%; }
+
+@media screen and (min-width: 1280px) {
+  .overviewSection [data-fs-carousel-track-container] { padding: 0 70px; }
+}
+
 .overviewSection>[data-doc-overview-group] [data-doc-overview-group-title] {
   width: 10%;
   line-height: 16px;
