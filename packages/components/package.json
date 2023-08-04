@@ -1,6 +1,8 @@
 {
   "name": "@faststore/components",
   "version": "2.1.54",
+  "module": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "author": "Emerson Laurentino @emersonlaurentino",
   "license": "MIT",
   "scripts": {
@@ -13,18 +15,6 @@
     "url": "https://github.com/vtex/faststore",
     "directory": "packages/components"
   },
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "default": "./dist/index.js"
-    }
-  },
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "typings": "dist/index.d.ts",
   "sideEffects": false,
   "files": [
     "dist",
