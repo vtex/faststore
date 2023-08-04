@@ -16,7 +16,7 @@ import { Callout, Steps, Tab, Tabs } from 'nextra-theme-docs'
 
 In this guide, you will learn how to modify a component's behavior using additional properties in your store code and create new components by overriding their native equivalents.
 
-These features are useful when you need a customized behavior for a specific component not available in the [FastStore native options](/docs/reference-guides/list-of-native-sections).
+These features are useful when you need a customized behavior for a specific component not available in the [FastStore native options](/docs/building-sections/list-of-native-sections).
 
 <Callout type="warning" emoji="⚠️">
 We highly recommend considering [overriding props](#override-native-components-props) or utilizing the [theming tools](/docs/customizing/components) provided by `@faststore/core` to achieve the desired behavior. Overriding a component inside a section will compromise the existing integration developed in [`@faststore/core`](/docs/getting-started/3-project-structure#faststorecore) by losing updates for that component.
@@ -39,7 +39,7 @@ This feature is available for stores using `@faststore/core` 2.1.36 version and 
 ### Choose a native section and the component you want to customize
 
 The [`@faststore/core`](/docs/getting-started/3-project-structure#faststorecore) package provides a set of native sections, each consisting of different components with unique functionalities.
-Refer to the [List of native sections and overridable components](/docs/reference-guides/list-of-native-sections#faststore-native-sections) to explore available native sections.
+Refer to the [List of native sections and overridable components](/docs/building-sections/list-of-native-sections#faststore-native-sections) to explore available native sections.
 
 ### Consider two aspects for this feature
 
@@ -57,7 +57,7 @@ Keep in mind the following aspects when using this feature:
 
 Overriding props allows you to customize a component's behavior while preserving its native integration. This approach is useful when you want to modify specific aspects of a native component.
 
-All component customizations in FastStore are performed within a section and to override props, you need to choose the desired native section and component from the [List of available native sections](/docs/reference-guides/list-of-native-sections#faststore-native-sections).
+All component customizations in FastStore are performed within a section and to override props, you need to choose the desired native section and component from the [List of available native sections](/docs/building-sections/list-of-native-sections#faststore-native-sections).
 
 For this guide, we'll use the [`BuyButton`](/components/molecules/buy-button#props) component to make the customization.
 
@@ -69,7 +69,7 @@ Here's how the initial component looks like with the `size` prop set as `regular
 
 #### Step 1 - Setting up the `overrides` folder
 
-1. After choosing a native section to be customized from the [list of available native sections](/docs/reference-guides/list-of-native-sections), open your FastStore project in any code editor of your preference.
+1. After choosing a native section to be customized from the [list of available native sections](/docs/building-sections/list-of-native-sections), open your FastStore project in any code editor of your preference.
 2. Go to the `src` folder, create the `components` folder and inside it, create the `overrides` folder.  You can run the following command to create them:
 
 <Tabs items={['macOS and Linux', 'Windows']}>
@@ -220,7 +220,7 @@ However, you have the flexibility to customize the component to achieve a differ
 
 #### Step 2 - Overriding the component
 
-1. Choose a component to override from the [list of overridable components of each native section](/docs/reference-guides/list-of-native-sections). In this example, we are overriding the `BuyButton` component in the `ProductDetails` section.
+1. Choose a component to override from the [list of overridable components of each native section](/docs/building-sections/list-of-native-sections). In this example, we are overriding the `BuyButton` component in the `ProductDetails` section.
 2. Navigate to `src/components/overrides` that we've created [before](/docs/building-sections/overriding-components-and-props#step-1---setting-up-the-overrides-folder).
 3. Open the `ProductDetails.tsx` file and update it with the following code:
 
