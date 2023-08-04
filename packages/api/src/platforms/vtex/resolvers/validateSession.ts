@@ -46,7 +46,7 @@ export const validateSession = async (
     profileVersion.toLowerCase() === 'v2' && profile?.email
       ? await clients.commerce.getProfile(profile.email.value)
       : ''
-
+  console.log("Profile V2 Information", profilev2)
   const newSession = {
     ...oldSession,
     currency: {
