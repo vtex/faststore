@@ -2,19 +2,19 @@ import { gql } from '@faststore/graphql-utils'
 import { useCallback, useMemo } from 'react'
 import { useSWRConfig } from 'swr'
 
-import { ITEMS_PER_SECTION } from 'src/constants'
 import type {
-  ProductsQueryQuery,
-  ProductsQueryQueryVariables,
+  BrowserProductsQueryQuery,
+  BrowserProductsQueryQueryVariables,
 } from '@generated/graphql'
+import { ITEMS_PER_SECTION } from 'src/constants'
 
 import { prefetchQuery } from '../graphql/prefetchQuery'
+import type { QueryOptions } from '../graphql/useQuery'
 import { useQuery } from '../graphql/useQuery'
 import { useSession } from '../session'
-import type { QueryOptions } from '../graphql/useQuery'
 
 export const query = gql`
-  query ProductsQuery(
+  query BrowserProductsQuery(
     $first: Int!
     $after: String
     $sort: StoreSort!
@@ -51,7 +51,7 @@ export const useLocalizedVariables = ({
   sort,
   term,
   selectedFacets,
-}: Partial<ProductsQueryQueryVariables>) => {
+}: Partial<BrowserProductsQueryQueryVariables>) => {
   const { channel, locale } = useSession()
 
   return useMemo(() => {
@@ -75,26 +75,25 @@ export const useLocalizedVariables = ({
  * Use this hook for fetching a list of products, like in search results and shelves
  */
 export const useProductsQuery = (
-  variables: Partial<ProductsQueryQueryVariables>,
+  variables: Partial<BrowserProductsQueryQueryVariables>,
   options?: QueryOptions
 ) => {
   const localizedVariables = useLocalizedVariables(variables)
 
-  const { data } = useQuery<ProductsQueryQuery, ProductsQueryQueryVariables>(
-    query,
-    localizedVariables,
-    {
-      fallbackData: null,
-      suspense: true,
-      ...options,
-    }
-  )
+  const { data } = useQuery<
+    BrowserProductsQueryQuery,
+    BrowserProductsQueryQueryVariables
+  >(query, localizedVariables, {
+    fallbackData: null,
+    suspense: true,
+    ...options,
+  })
 
   return data?.search?.products
 }
 
 export const useProductsQueryPrefetch = (
-  variables: ProductsQueryQueryVariables,
+  variables: BrowserProductsQueryQueryVariables,
   options?: QueryOptions
 ) => {
   const localizedVariables = useLocalizedVariables(variables)
