@@ -723,3 +723,25 @@ div.nextra-steps p {
 .nextra-sidebar-container .nextra-scrollbar {
   overflow-y: scroll;
 }
+
+/* Custom Mixin example */
+
+[data-doc-input-mixin]:hover:focus,
+[data-doc-input-mixin]:focus {
+  border-color: var(--fs-color-danger-border);
+  outline: none;
+  box-shadow:
+    0 0 0 1px var(--fs-color-body-bkg),
+    0 0 0 var(--fs-border-width-thickest) var(--fs-color-focus-ring-danger),
+    inset 0 0 0 var(--fs-border-width) var(--fs-color-danger-border);
+}
+
+[data-doc-input-mixin]:focus-visible,
+[data-doc-input-mixin]:hover:focus-visible {
+  border-color: var(--fs-color-danger-border);
+  outline: none;
+  box-shadow:
+    0 0 0 1px var(--fs-color-body-bkg),
+    0 0 0 var(--fs-border-width-thickest) var(--fs-color-focus-ring-danger),
+    inset 0 0 0 var(--fs-border-width) var(--fs-color-danger-border);
+}
