@@ -270,7 +270,7 @@ export const VtexCommerce = (
         },
       })
     },
-    getProfile: (email: string): Promise<Profile> => {
+    getProfile: (email: string): Promise<Profile> | null => {
       if(profileVersion.toLowerCase()==="v2"){
         return fetchAPI(
           `${base}/api/storage/profile-system/profiles/${email}/unmask?alternativeKey=email&reason=getProfile-FastStore`,
