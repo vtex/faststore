@@ -12,23 +12,18 @@ import { Callout, Tabs, Tab } from 'nextra-theme-docs'
 </header>
 
 In this last part of this tutorial, let's guarantee you promote your changes to production.
+If you are happy with your Content type, Section and Translation Keys definitions, you can put them on production by taking the following steps: 
 
-## Step by step
+1. Open the terminal and switch to the `master` workspace.
 
-1. Open a Pull Request and merge it to `main`.
+```bash copy
+vtex use master
+```
 
-    If you are happy with your Content type, Section and Translation Keys definitions, you can put them on production by taking the following steps:
+2. Change to the root directory of your FastStore project and sync your changes in the `cms` folder with the VTEX Headless CMS app.
 
-2. Open the terminal and switch to the `main` workspace.
-
-   ```bash copy
-   vtex use master
-   ```
-
-3. Change to the root directory of your FastStore project and sync your changes in the `cms` folder with the VTEX Headless CMS app.
-
-   ```bash copy
-   faststore cms-sync
-   ```
+```bash copy
+faststore cms-sync
+```
 
 🎉 Congratulations! Your FastStore project is now completed integrated with the VTEX Headless CMS, and editors will now have the autonomy to create, edit, and publish web content via the VTEX Admin with the VTEX Headless CMS app.
