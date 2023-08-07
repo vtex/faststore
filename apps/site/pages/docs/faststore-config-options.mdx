@@ -1,0 +1,92 @@
+---
+sidebar_label: 'faststore.config.js properties'
+---
+
+import { Callout, Steps, Card, Cards } from 'nextra-theme-docs'
+
+<header>
+
+# Configuration Properties in `faststore.config.js`
+
+</header>
+
+<Callout type="warning" emoji="⚠️">
+  This documentation is currently under development.
+</Callout>
+
+The `faststore.config.js` file manages the store settings, such as SEO settings, store ID, theme, and Cypress tests. 
+
+```js filename="faststore.config.js"
+
+module.exports = {
+  seo: {
+  /* SEO config */
+},
+
+"vtexHeadlessCms": {
+  webhookUrls: [
+    /* webhookUrl */
+  ]
+},
+
+  // Theming
+  theme: '/* theme config */',
+
+  // Ecommerce Platform
+  platform: 'vtex',
+
+  // Platform specific configs for API
+  api: {
+    /* API config */
+  },
+
+  // Default session
+  session: {
+    /* session config */
+  },
+
+  // Production URLs
+  storeUrl: " ",
+  secureSubdomain: " ",
+  checkoutUrl: " ",
+  loginUrl: " ",
+  accountUrl: " ",
+
+  // Lighthouse CI
+  lighthouse: {
+    /* lighthouse config  */
+    },
+  },
+
+  // E2E CI
+  cypress: {
+    /* cypress config */
+  },
+
+  analytics: {
+    // https://developers.google.com/tag-platform/tag-manager/web#standard_web_page_installation,
+    gtmContainerId: "/* GTM ID */",
+  },
+}
+
+```
+
+
+These settings are configured using defined properties within this file. Explore the list of available store settings below:
+
+<Cards>
+  <Card
+    title="enableCypressExtension"
+    href="/docs/faststore-config-options/custom-cypress-test"
+  />
+ 
+  <Card
+    title="seo (coming soon)"
+    href=""
+  />
+
+  <Card
+    title="theme (coming soon)"
+    href=""
+  />
+</Cards>
