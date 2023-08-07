@@ -32,7 +32,7 @@ const BASE_INIT = {
 }
 
 export const VtexCommerce = (
-  { account, environment, incrementAddress }: Options,
+  { account, environment, incrementAddress, profileVersion  }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br`
@@ -271,16 +271,19 @@ export const VtexCommerce = (
       })
     },
     getProfile: (email: string): Promise<Profile> => {
-      return fetchAPI(
-        `${base}/api/storage/profile-system/profiles/${email}/unmask?alternativeKey=email&reason=getProfile-FastStore`,
-        {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json',
-            cookie: ctx.headers.cookie,
-          },
-        }
-      )
+      if(profileVersion.toLowerCase()==="v2"){
+        return fetchAPI(
+          `${base}/api/storage/profile-system/profiles/${email}/unmask?alternativeKey=email&reason=getProfile-FastStore`,
+          {
+            method: 'GET',
+            headers: {
+              'content-type': 'application/json',
+              cookie: ctx.headers.cookie,
+            },
+          }
+        )
+      }
+      return null
     },
     subscribeToNewsletter: (data: {
       name: string

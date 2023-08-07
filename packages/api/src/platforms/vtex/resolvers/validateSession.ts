@@ -10,8 +10,7 @@ import type {
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
-  { clients }: Context,
-  { profileVersion }: Options
+  { clients }: Context
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '').replace(/\D/g, '')
@@ -42,10 +41,8 @@ export const validateSession = async (
   // Set seller only if it's inside a region
   const seller = region?.sellers.find((seller) => channel.seller === seller.id)
 
-  const profilev2 =
-    profileVersion.toLowerCase() === 'v2' && profile?.email
-      ? await clients.commerce.getProfile(profile.email.value)
-      : ''
+  const profilev2 = await clients.commerce.getProfile(profile.email.value)
+
   console.log("Profile V2 Information", profilev2)
   const newSession = {
     ...oldSession,
@@ -64,11 +61,11 @@ export const validateSession = async (
           id: profile.id?.value ?? '',
           email: profile.email?.value ?? '',
           givenName:
-            profilev2 === ''
+            profilev2
               ? profile.firstName?.value ?? ''
               : profilev2.document?.firstName ?? '',
           familyName:
-            profilev2 === ''
+            profilev2
               ? profile.lastName?.value ?? ''
               : profilev2.document?.lastName ?? '',
         }
