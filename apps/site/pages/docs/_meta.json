@@ -16,6 +16,11 @@
     "title": "Requirements"
   },
   "getting-started": "Step by Step",
+  
+  "getting-started-glossary": {
+    "title": "Glossary"
+  },
+  
   "-- Theming --": {
     "type": "separator",
     "title": "Theming"
