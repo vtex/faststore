@@ -3,8 +3,8 @@ import { gql } from '@faststore/graphql-utils'
 
 import { useQuery } from 'src/sdk/graphql/useQuery'
 import type {
-  ProductGalleryQueryQuery as Query,
-  ProductGalleryQueryQueryVariables as Variables,
+  BrowserProductGalleryQueryQuery as Query,
+  BrowserProductGalleryQueryQueryVariables as Variables,
 } from '@generated/graphql'
 
 import { useLocalizedVariables } from '../../../sdk/product/useProductsQuery'
@@ -14,7 +14,7 @@ import { useLocalizedVariables } from '../../../sdk/product/useProductsQuery'
  * the current search state of the user
  */
 export const query = gql`
-  query ProductGalleryQuery(
+  query BrowserProductGalleryQuery(
     $first: Int!
     $after: String!
     $sort: StoreSort!
