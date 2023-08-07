@@ -115,8 +115,9 @@ function Page({ product, sections, globalSections, offers, meta }: Props) {
 }
 
 const query = gql`
-  query ServerProductPageQuery($slug: String!) {
-    product(locator: [{ key: "slug", value: $slug }]) {
+  query ServerProductPageQuery($locator: [IStoreSelectedFacet!]!) {
+    ...pdp
+    product(locator: $locator) {
       id: productID
 
       seo {
@@ -181,7 +182,7 @@ export const getStaticProps: GetStaticProps<
   const slug = params?.slug ?? ''
   const [searchResult, cmsPage, globalSections] = await Promise.all([
     execute<ServerProductPageQueryQueryVariables, ServerProductPageQueryQuery>({
-      variables: { slug },
+      variables: { locator: [{ key: 'slug', value: slug }] },
       operationName: query,
     }),
     getPage<PDPContentType>({

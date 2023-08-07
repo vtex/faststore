@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { gql } from '@faststore/graphql-utils'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
-import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
+import type { BrowserProductQueryQuery } from '@generated/graphql'
 
 import { useSession } from 'src/sdk/session'
 import { useProduct } from 'src/sdk/product/useProduct'
@@ -25,7 +25,7 @@ import {
 } from 'src/components/sections/ProductDetails/Overrides'
 
 interface ProductDetailsContextProps {
-  context: ProductDetailsFragment_ProductFragment
+  context: BrowserProductQueryQuery['product']
 }
 
 export interface ProductDetailsProps {
