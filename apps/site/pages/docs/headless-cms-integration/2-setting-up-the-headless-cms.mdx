@@ -1,5 +1,5 @@
 ---
-title: '2. Setting up the VTEX Headless CMS'
+title: '2. Setting up the Headless CMS'
 sidebar_label: 'Integrating your storefront with VTEX Headless CMS'
 ---
 
@@ -8,7 +8,7 @@ import { Callout, Tabs, Tab, Steps } from 'nextra-theme-docs'
 
 
 <header>
-# Part 2: Setting up the VTEX Headless CMS in your FastStore project
+# Part 2: Setting up the Headless CMS in your FastStore project
 </header>
 
 Now that you are familiar with the core concepts of the [VTEX Headless CMS](/docs/headless-cms-overview) and have set it up in your VTEX account, let's get back to our **FastStore** project to define our own **Content Types** and **Sections**.
@@ -27,6 +27,12 @@ All sections must be available in the Headless CMS so they can be added and mana
 ### Install the FastStore CLI
 
 Make sure to install the FastStore CLI to use its commands locally. Refer to the [FastStore CLI](/docs/getting-started/4-faststore-cli#installing-faststore-cli-globally-using-npm) guide for more information.
+
+### Creating CMS-related files
+
+This guide assumes that you are starting without any existing CMS-related files. 
+If your project already includes any of the following files: `content-types.json`, `sections.json`, or `translation-keys.json`, follow the instructions in Step 1 - Establishing the CMS Folder to create only the necessary files for your project's requirements.
+
 </Steps>
 
 ---
@@ -54,6 +60,10 @@ Make sure to install the FastStore CLI to use its commands locally. Refer to the
 
 
 3. Create the three files below inside the `faststore` folder by running the `touch` command:
+
+<Callout type="warning" emoji="⚠️">
+  If your project already includes the CMS-related files: `content-types.json`, `sections.json`, or `translation-keys.json`, only creates the necessary files for your project's requirements.
+</Callout>
 
 <Tabs items={['macOs and Linux', 'Windows']}>
   <Tab>
