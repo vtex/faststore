@@ -1092,7 +1092,7 @@ export type ProductDetailsFragment_ProductFragment = {
   }>
 }
 
-export type ProductGalleryQueryQueryVariables = Exact<{
+export type BrowserProductGalleryQueryQueryVariables = Exact<{
   first: Scalars['Int']
   after: Scalars['String']
   sort: StoreSort
@@ -1100,7 +1100,7 @@ export type ProductGalleryQueryQueryVariables = Exact<{
   selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
 }>
 
-export type ProductGalleryQueryQuery = {
+export type BrowserProductGalleryQueryQuery = {
   search: {
     products: { pageInfo: { totalCount: number } }
     facets: Array<
@@ -1339,7 +1339,7 @@ export type BrowserProductQueryQuery = {
   }
 }
 
-export type ProductsQueryQueryVariables = Exact<{
+export type BrowserProductsQueryQueryVariables = Exact<{
   first: Scalars['Int']
   after: InputMaybe<Scalars['String']>
   sort: StoreSort
@@ -1347,7 +1347,7 @@ export type ProductsQueryQueryVariables = Exact<{
   selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
 }>
 
-export type ProductsQueryQuery = {
+export type BrowserProductsQueryQuery = {
   search: {
     products: {
       pageInfo: { totalCount: number }
