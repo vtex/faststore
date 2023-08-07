@@ -46,7 +46,7 @@ module.exports = {
   },
 
   // Optimistic Cart
-  optimisticCart: true,
+  optimisticCart: false,
 
   // Production URLs
   storeUrl: 'https://vtexfaststore.com',
