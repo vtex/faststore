@@ -68,7 +68,7 @@ If your project already includes any of the following files: `content-types.json
 <Tabs items={['macOs and Linux', 'Windows']}>
   <Tab>
   ```bash copy
-    touch cms/faststore/content-types.json cms/faststore/sections.json cms/faststore/translation-keys.json
+  touch cms/faststore/content-types.json cms/faststore/sections.json cms/faststore/translation-keys.json
   ```
   </Tab>
 
@@ -91,13 +91,13 @@ If your project already includes any of the following files: `content-types.json
 5. Update the `sections.json` file with an empty array:
 
 ```bash copy
-   echo "[]" > cms/faststore/sections.json
+echo "[]" > cms/faststore/sections.json
 ```
 
 6. Update the `translation-keys.json` file with an empty object. :
 
 ```bash copy
-   echo "{}" > cms/faststore/translation-keys.json
+echo "{}" > cms/faststore/translation-keys.json
 ```
 
 7. Open the `content-types.json` file in any code editor of your choice and add the following code:
@@ -178,7 +178,7 @@ Let's now sync our changes with the VTEX Headless CMS app and see what happens.
 2. Create a new development workspace by running the following command. *Remember to replace the values between curly brackets according to your scenario*:
 
 ```bash copy
-   vtex use {workspace}
+vtex use {workspace}
 ```
 
 <Callout type="warning" emoji="⚠️">
@@ -190,7 +190,7 @@ Let's now sync our changes with the VTEX Headless CMS app and see what happens.
 4. Sync your changes in the `cms` folder with the VTEX Headless CMS app:
 
 ```bash copy
-    faststore cms-sync
+faststore cms-sync
 ```
 
 <Callout type="warning" emoji="⚠️">
@@ -200,7 +200,7 @@ Let's now sync our changes with the VTEX Headless CMS app and see what happens.
 Once your changes are synced with the VTEX Headless CMS, the terminal will show the following message:
 
 ```bash copy
-  CMS synced successfully...
+CMS synced successfully...
 ```
 
 ### Step 3 - Checking your changes

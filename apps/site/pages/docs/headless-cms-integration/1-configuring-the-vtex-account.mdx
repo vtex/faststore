@@ -74,7 +74,7 @@ Install the VTEX Headless CMS dependencies in your VTEX account by running the f
 vtex install vtex.admin-cms@1.x
 ```
 
-![installation-message](https://vtexhelp.vtexassets.com/assets/docs/src/cms-installing-dependencies___ad0f763129cfef77d56b4fdaba54be98.png)
+![installation-message](https://vtexhelp.vtexassets.com/assets/docs/src/cms-install___7144afabf5a895ba92905926808507b2.png)
 
 ### Step 3 - Configuring the Headless CMS
 
@@ -85,11 +85,11 @@ Let's configure the URLs of the webhooks used by the VTEX Headless CMS app.
 3. Expand the pre-filled item, **Item # 0**, which is automatically created during the [FastStore Onboarding](/docs/getting-started/1-faststore-onboarding/overview) process for your project.
 4. If you're using the VTEX CI/CD, you must fill in the **Build Webhook URL** field with the following value. _Replace the values between curly brackets according to your scenario._
 
-   ```sh copy
-   https://app.io.vtex.com/vtex.cms-builder-sf-jamstack/v1/{account}/{workspace}/build-releases
-   ```
+```sh copy
+https://app.io.vtex.com/vtex.cms-builder-sf-jamstack/v1/{account}/{workspace}/build-releases
+```
 
-   ![cms-settings](https://vtexhelp.vtexassets.com/assets/docs/src/cms-alpha-settings___5ec952c685b0e9c70d47378e6718a0d1.png)
+![cms-settings](https://vtexhelp.vtexassets.com/assets/docs/src/cms-alpha-settings___5ec952c685b0e9c70d47378e6718a0d1.png)
 
 <Callout type="info" emoji=" ℹ️ ">
   When an editor clicks to publish a page using the VTEX Headless CMS interface,
@@ -120,13 +120,13 @@ Now, if you are developing your FastStore project with CI/CD and VTEX Headless C
 2. Edit the `faststore.config.js` file in the root directory of your project.
 3. In the VTEX Headless CMS configuration, add the `webhookUrls` property corresponding to your store website as in the following:
 
-   ```js filename="faststore.config.js" copy
-    "vtexHeadlessCms": {
-      webhookUrls: [
-        "https://{account}.myvtex.com/cms-releases/webhook-releases"
-      ]
-    }
-   ```
+```js filename="faststore.config.js" copy
+"vtexHeadlessCms": {
+  webhookUrls: [
+    "https://{account}.myvtex.com/cms-releases/webhook-releases"
+  ]
+}
+```
 
 4. Open a Pull Request in your project including the previous changes.
 5. Merge the Pull Request.
