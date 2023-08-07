@@ -1,7 +1,0 @@
-/* establish a layer order up-front, FS UI base styles has the lowest priority */
-@layer base, components, theme;
-
-// Sections
-@import "@faststore/ui/src/components/atoms/Overlay/styles.scss";
-@import "@faststore/ui/src/components/atoms/SROnly/styles.scss";
-@import "src/components/sections/Section/section.scss";
