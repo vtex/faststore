@@ -9,23 +9,23 @@ import Sort from 'src/components/search/Sort'
 import FilterSkeleton from 'src/components/skeletons/FilterSkeleton'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
-import { ProductGalleryQueryQuery } from '@generated/graphql'
+import { ClientProductGalleryQueryQuery } from '@generated/graphql'
 import { ProductCardProps } from 'src/components/product/ProductCard'
 import { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
 import { SortProps } from 'src/components/search/Sort/Sort'
-import { useDelayedFacets } from './useDelayedFacets'
-import { useDelayedPagination } from './useDelayedPagination'
-import { useProductsPrefetch } from './usePageProducts'
 import {
-  MobileFilterButton,
+  FilterButtonSkeleton,
   FilterIcon,
+  LinkButtonNext,
+  LinkButtonPrev,
+  MobileFilterButton,
   PrevIcon,
   ResultsCountSkeleton,
   SortSkeleton,
-  FilterButtonSkeleton,
-  LinkButtonPrev,
-  LinkButtonNext,
 } from 'src/components/sections/ProductGallery/Overrides'
+import { useDelayedFacets } from './useDelayedFacets'
+import { useDelayedPagination } from './useDelayedPagination'
+import { useProductsPrefetch } from './usePageProducts'
 
 const GalleryPage = lazy(() => import('./ProductGalleryPage'))
 const GalleryPageSkeleton = <ProductGridSkeleton loading />
@@ -33,7 +33,7 @@ const GalleryPageSkeleton = <ProductGridSkeleton loading />
 export interface ProductGalleryProps {
   title?: string
   searchTerm?: string
-  productGalleryData?: ProductGalleryQueryQuery
+  productGalleryData?: ClientProductGalleryQueryQuery
   totalCount?: number
   searchTermLabel?: string
   totalCountLabel?: string
