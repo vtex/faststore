@@ -1,12 +1,12 @@
 ---
-sidebar_label: 'faststore.config.js properties'
+sidebar_label: 'Configuration options for faststore.config.js'
 ---
 
 import { Callout, Steps, Card, Cards } from 'nextra-theme-docs'
 
 <header>
 
-# Configuration Properties in `faststore.config.js`
+# Configuration options for `faststore.config.js`
 
 </header>
 
@@ -14,65 +14,95 @@ import { Callout, Steps, Card, Cards } from 'nextra-theme-docs'
   This documentation is currently under development.
 </Callout>
 
-The `faststore.config.js` file manages the store settings, such as SEO settings, store ID, theme, and Cypress tests. 
+The `faststore.config.js` file serves as the central configuration file for managing store settings. 
+It allows you, for example, to set SEO settings, define the store ID, select a theme, and set up custom Cypress tests.
 
-```js filename="faststore.config.js"
 
-module.exports = {
-  seo: {
-  /* SEO config */
-},
+<details>
+  <summary>
+    <p><b>`faststore.config.js` sample code</b></p>
+  </summary>
+  <br></br>
 
-"vtexHeadlessCms": {
-  webhookUrls: [
-    /* webhookUrl */
-  ]
-},
+  ```js filename="faststore.config.js" 
 
-  // Theming
-  theme: '/* theme config */',
-
-  // Ecommerce Platform
-  platform: 'vtex',
-
-  // Platform specific configs for API
-  api: {
-    /* API config */
-  },
-
-  // Default session
-  session: {
-    /* session config */
-  },
-
-  // Production URLs
-  storeUrl: " ",
-  secureSubdomain: " ",
-  checkoutUrl: " ",
-  loginUrl: " ",
-  accountUrl: " ",
-
-  // Lighthouse CI
-  lighthouse: {
-    /* lighthouse config  */
+  module.exports = {
+    seo: {
+    "title": "NextJSStore",
+    "description": "FastStore demo store",
+    "titleTemplate": "%s | FastStore",
+    "author": "FastStore"
     },
-  },
 
-  // E2E CI
-  cypress: {
-    /* cypress config */
-  },
+    // Theming
+    theme: 'custom-theme',
 
-  analytics: {
-    // https://developers.google.com/tag-platform/tag-manager/web#standard_web_page_installation,
-    gtmContainerId: "/* GTM ID */",
-  },
-}
+    // Ecommerce Platform
+    platform: 'vtex',
 
-```
+    // Platform specific configs for API
+    api: {
+      storeId: "faststore",
+      workspace: 'master',
+      environment: 'vtexcommercestable',
+      hideUnavailableItems: true,
+    },
+
+    // Default session
+    session: {
+      currency: {
+        code: "USD",
+        symbol: "$",
+      },
+      locale: "en-US",
+      channel: '{"salesChannel":1,"regionId":"seller"}',
+      country: "USA",
+      postalCode: null,
+      person: null,
+    },
+
+    // Production URLs
+    storeUrl: "https://faststorestarter.com",
+    secureSubdomain: "https://secure.faststorestarter.com/",
+    checkoutUrl: "https://secure.faststorestarter.com/checkout",
+    loginUrl: "https://secure.faststorestarter.com/login",
+    accountUrl: "https://secure.faststorestarter.com/api/io/account",
+
+    // Lighthouse CI
+    lighthouse: {
+      server: process.env.BASE_SITE_URL || 'http://localhost:3000',
+      pages: {
+        home: '/',
+        pdp: "/headphone/p",
+        collection: "/office",
+      },
+    },
+
+    // E2E CI
+    cypress: {
+      pages: {
+        home: '/',
+        pdp: "/headphone/p",
+        collection: "/office",
+        collection_filtered: "/office/?category-1=office&marca=brand&facets=category-1%2Cmarca",
+        search: "/s?q=gray",
+      },
+    },
+
+    analytics: {
+      // https://developers.google.com/tag-platform/tag-manager/web#standard_web_page_installation,
+      gtmContainerId: "GTM-1234567",
+    },
+  }
+
+  ```
+  <br></br>
+</details>
 
 
-These settings are configured using defined properties within this file. Explore the list of available store settings below:
+
+
+Explore more in-depth specific configuration options for `faststore.config.js`:
 
 <Cards>
   <Card
