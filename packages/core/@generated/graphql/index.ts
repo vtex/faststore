@@ -1126,9 +1126,17 @@ export type ClientProductGalleryQueryQuery = {
   }
 }
 
-export type PdpFragment = { product: { id: string } }
+export type BrowserProductQueryFragmentFragment = { product: { id: string } }
 
-export type PlpFragment = { collection: { id: string } }
+export type ServerProductPageQueryFragmentFragment = { product: { id: string } }
+
+export type ServerCollectionPageQueryFragmentFragment = {
+  collection: { id: string }
+}
+
+export type BrowserProductGalleryQueryFragmentFragment = {
+  search: { products: { pageInfo: { totalCount: number } } }
+}
 
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']

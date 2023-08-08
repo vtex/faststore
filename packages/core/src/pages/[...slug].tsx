@@ -52,7 +52,7 @@ function Page({ globalSections, type, ...otherProps }: Props) {
 
 const query = gql`
   query ServerCollectionPageQuery($slug: String!) {
-    ...plp
+    ...ServerCollectionPageQueryFragment
     collection(slug: $slug) {
       seo {
         title

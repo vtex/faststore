@@ -28,6 +28,7 @@ export const query = gql`
       term: $term
       selectedFacets: $selectedFacets
     ) {
+      ...BrowserProductGalleryQueryFragment
       products {
         pageInfo {
           totalCount
