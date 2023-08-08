@@ -19,8 +19,8 @@ import styles from './section.module.scss'
 
 import {
   DiscountBadge,
-  __experimentalImageGallery as ImageGallery,
   ProductTitle,
+  __experimentalImageGallery as ImageGallery,
   __experimentalShippingSimulation as ShippingSimulation,
 } from 'src/components/sections/ProductDetails/Overrides'
 
