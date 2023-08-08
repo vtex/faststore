@@ -1126,17 +1126,21 @@ export type ClientProductGalleryQueryQuery = {
   }
 }
 
-export type BrowserProductQueryFragmentFragment = { product: { id: string } }
+export type ClientProductFragmentFragment = { product: { id: string } }
 
-export type ServerProductPageQueryFragmentFragment = { product: { id: string } }
+export type ClientProductGalleryFragmentFragment = {
+  search: { products: { pageInfo: { totalCount: number } } }
+}
 
-export type ServerCollectionPageQueryFragmentFragment = {
+export type ClientProductsFragmentFragment = {
+  search: { products: { pageInfo: { totalCount: number } } }
+}
+
+export type ServerCollectionPageFragmentFragment = {
   collection: { id: string }
 }
 
-export type BrowserProductGalleryQueryFragmentFragment = {
-  search: { products: { pageInfo: { totalCount: number } } }
-}
+export type ServerProductPageFragmentFragment = { product: { id: string } }
 
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']

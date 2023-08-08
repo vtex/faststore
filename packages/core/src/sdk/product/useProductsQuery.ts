@@ -21,6 +21,7 @@ export const query = gql`
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
   ) {
+    ...ClientProductsFragment
     search(
       first: $first
       after: $after

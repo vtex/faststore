@@ -21,6 +21,7 @@ export const query = gql`
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
   ) {
+    ...ClientProductGalleryFragment
     search(
       first: $first
       after: $after
@@ -28,7 +29,6 @@ export const query = gql`
       term: $term
       selectedFacets: $selectedFacets
     ) {
-      ...BrowserProductGalleryQueryFragment
       products {
         pageInfo {
           totalCount
