@@ -103,7 +103,7 @@ Notice that, to declare a new Content Type, you must specify at least the follow
 | --- | ------------|
 | `id` | The identification key of a Content Type, written in Camel Case.   |
 | `name` | The name presented at the VTEX Headless CMS app.  |
-| **(optional)** `configurationSchemaSets` | Creates a new tab on the page of that Content Type with advanced settings. In our example, the **Custom Page** includes a new tab called Settings with custom SEO settings. Check the [following section](#the-configurationschemasets-property) for more information. |
+| **(optional)** `configurationSchemaSets` | Creates a new tab on the page of that Content Type with advanced settings. In our example, the **Custom Page** includes a new tab called **Settings** with custom SEO settings. Check the [following section](#the-configurationschemasets-property) for more information. |
 
 #### The `configurationSchemaSets` property
 
@@ -160,8 +160,7 @@ When defining your Section `schema`, you can also use the [`uiSchema`](https://r
 
 ### Step 4 - Defining translation keys
 
-After creating our Section schemas and Content Types, 
-we will declare the Translation Keys in the `translation-keys.json` file. 
+After creating our Section schemas and Content Types, we will declare the Translation Keys in the `translation-keys.json` file. 
 Translation Keys are used to translate the form presented for editors to any locale you'd like.
 
 ```json filename="cms/translation-keys.json" copy
