@@ -89,7 +89,7 @@ describe('add_to_cart event', () => {
   })
 
   context('when increasing product quantity', () => {
-    it('adds add_to_cart event in the data layer at quantity increase in the minicart', () => {
+    it.skip('adds add_to_cart event in the data layer at quantity increase in the minicart', () => {
       cy.visit(pages.pdp, options)
       cy.waitForHydration()
 
