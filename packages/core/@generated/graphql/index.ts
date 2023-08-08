@@ -1126,21 +1126,19 @@ export type ClientProductGalleryQueryQuery = {
   }
 }
 
-export type ClientProductFragmentFragment = { product: { id: string } }
+export type ClientProductFragment = { product: { id: string } }
 
-export type ClientProductGalleryFragmentFragment = {
+export type ClientProductGalleryFragment = {
   search: { products: { pageInfo: { totalCount: number } } }
 }
 
-export type ClientProductsFragmentFragment = {
+export type ClientProductsFragment = {
   search: { products: { pageInfo: { totalCount: number } } }
 }
 
-export type ServerCollectionPageFragmentFragment = {
-  collection: { id: string }
-}
+export type ServerCollectionPageFragment = { collection: { id: string } }
 
-export type ServerProductPageFragmentFragment = { product: { id: string } }
+export type ServerProductPageFragment = { product: { id: string } }
 
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']
