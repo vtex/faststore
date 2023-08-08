@@ -21,6 +21,7 @@ import {
   DiscountBadge,
   ProductTitle,
   __experimentalImageGallery as ImageGallery,
+  ProductTitle,
   __experimentalShippingSimulation as ShippingSimulation,
 } from 'src/components/sections/ProductDetails/Overrides'
 
