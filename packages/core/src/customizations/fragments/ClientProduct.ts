@@ -1,9 +1,9 @@
 import { gql } from '@faststore/graphql-utils'
 
 export const fragment = gql`
-  fragment plp on Query {
-    collection(slug: $slug) {
-      id
+  fragment ClientProduct on Query {
+    product(locator: $locator) {
+      id: productID
     }
   }
 `
