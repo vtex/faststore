@@ -9,7 +9,7 @@ import Sort from 'src/components/search/Sort'
 import FilterSkeleton from 'src/components/skeletons/FilterSkeleton'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
-import { BrowserProductGalleryQueryQuery } from '@generated/graphql'
+import { ClientProductGalleryQueryQuery } from '@generated/graphql'
 import { ProductCardProps } from 'src/components/product/ProductCard'
 import { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
 import { SortProps } from 'src/components/search/Sort/Sort'
@@ -33,7 +33,7 @@ const GalleryPageSkeleton = <ProductGridSkeleton loading />
 export interface ProductGalleryProps {
   title?: string
   searchTerm?: string
-  productGalleryData?: BrowserProductGalleryQueryQuery
+  productGalleryData?: ClientProductGalleryQueryQuery
   totalCount?: number
   searchTermLabel?: string
   totalCountLabel?: string

@@ -3,8 +3,8 @@ import { useCallback, useMemo } from 'react'
 import { useSWRConfig } from 'swr'
 
 import type {
-  BrowserProductsQueryQuery,
-  BrowserProductsQueryQueryVariables,
+  ClientProductsQueryQuery,
+  ClientProductsQueryQueryVariables,
 } from '@generated/graphql'
 import { ITEMS_PER_SECTION } from 'src/constants'
 
@@ -14,7 +14,7 @@ import { useQuery } from '../graphql/useQuery'
 import { useSession } from '../session'
 
 export const query = gql`
-  query BrowserProductsQuery(
+  query ClientProductsQuery(
     $first: Int!
     $after: String
     $sort: StoreSort!
@@ -51,7 +51,7 @@ export const useLocalizedVariables = ({
   sort,
   term,
   selectedFacets,
-}: Partial<BrowserProductsQueryQueryVariables>) => {
+}: Partial<ClientProductsQueryQueryVariables>) => {
   const { channel, locale } = useSession()
 
   return useMemo(() => {
@@ -75,14 +75,14 @@ export const useLocalizedVariables = ({
  * Use this hook for fetching a list of products, like in search results and shelves
  */
 export const useProductsQuery = (
-  variables: Partial<BrowserProductsQueryQueryVariables>,
+  variables: Partial<ClientProductsQueryQueryVariables>,
   options?: QueryOptions
 ) => {
   const localizedVariables = useLocalizedVariables(variables)
 
   const { data } = useQuery<
-    BrowserProductsQueryQuery,
-    BrowserProductsQueryQueryVariables
+    ClientProductsQueryQuery,
+    ClientProductsQueryQueryVariables
   >(query, localizedVariables, {
     fallbackData: null,
     suspense: true,
@@ -93,7 +93,7 @@ export const useProductsQuery = (
 }
 
 export const useProductsQueryPrefetch = (
-  variables: BrowserProductsQueryQueryVariables,
+  variables: ClientProductsQueryQueryVariables,
   options?: QueryOptions
 ) => {
   const localizedVariables = useLocalizedVariables(variables)

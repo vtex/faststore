@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import type { BrowserProductsQueryQueryVariables } from '@generated/graphql'
+import type { ClientProductsQueryQueryVariables } from '@generated/graphql'
 import ProductCard from 'src/components/product/ProductCard'
 import ProductTilesSkeleton from 'src/components/skeletons/ProductTilesSkeleton'
 import Tiles, { Tile } from 'src/components/ui/Tiles'
@@ -12,8 +12,7 @@ import Section from '../Section'
 
 import styles from './section.module.scss'
 
-interface ProductTilesProps
-  extends Partial<BrowserProductsQueryQueryVariables> {
+interface ProductTilesProps extends Partial<ClientProductsQueryQueryVariables> {
   title: string
 }
 

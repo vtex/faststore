@@ -1,31 +1,31 @@
 import { useEffect, useState } from 'react'
 
 import { gql } from '@faststore/graphql-utils'
-import { sendAnalyticsEvent } from '@faststore/sdk'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
-import type { BrowserProductQueryQuery } from '@generated/graphql'
+import { sendAnalyticsEvent } from '@faststore/sdk'
+import type { ClientProductQueryQuery } from '@generated/graphql'
 
-import { useSession } from 'src/sdk/session'
-import { useProduct } from 'src/sdk/product/useProduct'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { AnalyticsItem } from 'src/sdk/analytics/types'
+import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { useProduct } from 'src/sdk/product/useProduct'
+import { useSession } from 'src/sdk/session'
 
-import Section from '../Section'
 import OutOfStock from 'src/components/product/OutOfStock'
 import ProductDescription from 'src/components/ui/ProductDescription'
 import { ProductDetailsSettings } from 'src/components/ui/ProductDetails'
+import Section from '../Section'
 
 import styles from './section.module.scss'
 
 import {
-  ProductTitle,
   DiscountBadge,
   __experimentalImageGallery as ImageGallery,
+  ProductTitle,
   __experimentalShippingSimulation as ShippingSimulation,
 } from 'src/components/sections/ProductDetails/Overrides'
 
 interface ProductDetailsContextProps {
-  context: BrowserProductQueryQuery['product']
+  context: ClientProductQueryQuery['product']
 }
 
 export interface ProductDetailsProps {

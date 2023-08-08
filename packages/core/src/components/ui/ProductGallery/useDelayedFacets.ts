@@ -1,11 +1,11 @@
 import { useMemo, useRef } from 'react'
 
 import type {
-  BrowserProductGalleryQueryQuery,
+  ClientProductGalleryQueryQuery,
   Filter_FacetsFragment,
 } from '@generated/graphql'
 
-export const useDelayedFacets = (data?: BrowserProductGalleryQueryQuery) => {
+export const useDelayedFacets = (data?: ClientProductGalleryQueryQuery) => {
   const facets = useRef<Filter_FacetsFragment[]>([])
 
   return useMemo(() => {
