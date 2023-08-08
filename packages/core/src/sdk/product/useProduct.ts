@@ -11,7 +11,7 @@ import { useSession } from '../session'
 
 const query = gql`
   query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {
-    ...pdp
+    ...ClientProduct
     product(locator: $locator) {
       ...ProductDetailsFragment_product
     }

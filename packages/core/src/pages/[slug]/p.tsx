@@ -116,7 +116,7 @@ function Page({ product, sections, globalSections, offers, meta }: Props) {
 
 const query = gql`
   query ServerProductPageQuery($locator: [IStoreSelectedFacet!]!) {
-    ...pdp
+    ...ServerProductPage
     product(locator: $locator) {
       id: productID
 
