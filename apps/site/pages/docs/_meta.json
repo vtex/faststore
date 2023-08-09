@@ -47,13 +47,13 @@
   },
   "-- VTEX Headless CMS --": {
     "type": "separator",
-    "title": "VTEX Headless CMS"
+    "title": "Headless CMS"
   },
   "headless-cms-overview": {
     "title": "Overview"
   },
   "headless-cms-integration": {
-    "title": "Integrating your storefront with VTEX Headless CMS"
+    "title": "Integrating your storefront with Headless CMS"
   },
   "headless-cms-troubleshooting": {
     "title": "Troubleshooting"

@@ -1,0 +1,166 @@
+---
+title: '3. Structuring Content Types and Sections'
+sidebar_label: 'Integrating your storefront with Headless CMS'
+---
+
+import { Callout, Tabs, Tab } from 'nextra-theme-docs'
+
+
+
+<header>
+# Part 3: Structuring Content Types and Sections to the Headless CMS
+</header>
+
+Now that you have created your `cms` folder and have an overall understanding of how you'll use it, let's learn how to structure the Content Type and Section files so you can create any integrations you desire. 
+
+---
+
+## Step by step
+
+### Step 1 - Automatically syncing your changes
+
+1. Before we start creating more complex definitions of Content Types and Sections, go to the root of your FastStore project and run `yarn dev` command to enable the watch mode for the FastStore CLI.  _Remember to use a development workspace._
+
+<Callout type="info" emoji="ℹ️">
+This command will monitor any changes in the project, including the new section you have created, and automatically merge it with the default sections available in [`faststore/core`](/docs/getting-started/3-project-structure#faststorecore).
+</Callout>
+
+2. Open another terminal and run `faststore cms-sync` to automatically sync your changes in the `cms` folder with the Headless CMS app.
+
+2. Open the **VTEX Admin**, access **Storefront > Headless CMS** and keep it next to your code to see your changes while editing the `cms` folder. Refreshing the Admin may be necessary to see your changes.
+
+### Step 2 - Adding Content Types to the Headless CMS
+
+The `content-types.json` file is an array of JSON objects that describes the types of pages available for customization at the Headless CMS. Therefore, to create new Content Types, we need to declare a new JSON object for each of our Content Types in the `content-types.json` file. However, we still need to discover which props these objects expect. So let's get back to our previous example.
+
+<Tabs items={['Code input', 'Outcome in the Headless CMS']}>
+  <Tab>
+    ```json filename="cms/faststore/content-types.json" copy 
+    [
+       {
+        "id": "customPage",
+        "name": "Custom Page",
+        "configurationSchemaSets": [
+          {
+            "name": "Settings",
+            "configurations": [
+              {
+                "name": "seo",
+                "schema": {
+                  "title": "Settings",
+                  "description": "Search Engine Optimization options",
+                  "type": "object",
+                  "widget": {
+                    "ui:ObjectFieldTemplate": "GoogleSeoPreview"
+                  },
+                  "required": [
+                    "slug",
+                    "title",
+                    "description"
+                  ],
+                  "properties": {
+                    "slug": {
+                      "title": "Path",
+                      "type": "string",
+                      "default": "/"
+                    },
+                    "title": {
+                      "title": "Default page title",
+                      "description": "Display this title when no other title is available",
+                      "type": "string",
+                      "default": "FastStore Starter"
+                    },
+                    "description": {
+                      "title": "Meta tag description",
+                      "type": "string",
+                      "default": "A beautifully designed store"
+                    },
+                    "canonical": {
+                      "title": "Canonical url for the page",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+
+   ```
+  </Tab>
+
+  <Tab>
+    <img src="https://vtexhelp.vtexassets.com/assets/docs/src/cms-custom-page___e603fdbc92945b4627c6c5576e169ea6.png" width="40%" />
+  </Tab>
+</Tabs>
+
+
+Notice that, to declare a new Content Type, you must specify at least the following three parameters:
+
+| Key | Description |
+| --- | ------------|
+| `id` | The identification key of a Content Type, written in Camel Case.   |
+| `name` | The name presented at the Headless CMS app.  |
+| **(optional)** `configurationSchemaSets` | Creates a new tab on the page of that Content Type with advanced settings. In our example, the **Custom Page** includes a new tab called **Settings** with custom SEO settings. Check the [following section](#the-configurationschemasets-property) for more information. |
+
+#### The `configurationSchemaSets` property
+
+Back to our example, notice that the **Custom Page** Content Type has the `configurationSchemaSets` definition. 
+The `configurationSchemaSets` prop creates a new tab at the Headless CMS for that Content Type with advanced settings.
+
+For the **Custom Page**, a custom section named **Settings**, which allows editors to change the site metadata, was created.
+
+![Configuration Schema Sets](https://vtexhelp.vtexassets.com/assets/docs/src/cms-settings-section___f6c8cfc11de6578e2a208ea1602ed127.png) 
+
+Also, notice that the `configurationSchemaSets` object must contain a `name`, written in **camel case**, and `configurations`. 
+In its turn, the `configurations` object must include a `name` for identification, written in camel case, and a `schema`, written in [JSON Schema v6](http://json-schema.org/) - a description language for creating forms. The `schema` defines the structure of the form used by editors to submit data.
+
+<Callout type="info" emoji="ℹ️">
+  For more information on how to write a `schema`, check the [`JSON Schema Reference`](https://json-schema.org/understanding-json-schema/index.html).
+</Callout>
+
+After editing the `cms/content-types.json` file, remember to save your changes and check them live:
+1. Access the VTEX Admin and go to **Storefront > Headless CMS**. 
+2. Click on **Create New** and check the available Content Type options. 
+3. Click on **Custom Page** to create a new **Custom Page** and check the Settings tab.
+
+### Step 3: Adding Sections to the Headless CMS
+
+Now, let's make some of our front-end components available for editing at the Headless CMS by writing the content schemas that represent them.
+
+These components are referred to as **Sections**, and to create them, 
+you can follow the instructions provided in the guide [Creating a new section](/docs/building-sections/creating-a-new-section). 
+The guide offers detailed information on the process of creating Sections and integrating them into the Headless CMS for easy editing and management.
+
+#### The **`schema`** property
+
+The `schema` will always be unique for each of your Sections as they create the form that editors will use to submit data and change the content of a given React component.
+
+Notice that you must always declare the following properties inside the `schema` object:
+
+| Key           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `title`       | The name that identifies your component in the Headless CMS app.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `description` | A brief description that helps editors understand the behavior of your component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `type`        | The data type of your schema. Possible values are [`string`](https://json-schema.org/understanding-json-schema/reference/string.html), [`object`](https://json-schema.org/understanding-json-schema/reference/object.html), [`array`](https://json-schema.org/understanding-json-schema/reference/array.html), [`number`](https://json-schema.org/understanding-json-schema/reference/numeric.html#number), [`integer`](https://json-schema.org/understanding-json-schema/reference/string.html), [`boolean`](https://json-schema.org/understanding-json-schema/reference/boolean.html). |
+
+Depending on the `type` of your schema, you may need to define particular fields related to your component structure. For example, for a schema of the `object` type, you'll need to determine `properties` that map key-value pairs. For a schema of the `array` type, you'll need to define the `items` of that array.
+
+<Callout type="info" emoji="ℹ️">
+  For more information on each property of a `schema`, check the [`JSON Schema Reference`](https://json-schema.org/understanding-json-schema/index.html).
+</Callout>
+
+#### Using widgets
+
+When defining your Section `schema`, you can also use the [`uiSchema`](https://react-jsonschema-form.readthedocs.io/en/docs/api-reference/uiSchema/) along with [`widgets`](https://react-jsonschema-form.readthedocs.io/en/docs/usage/widgets/) to specify which UI widget should be used to render a given field of your schema. Common widgets are `draftjs-rich-text`, `image-uploader`, and `block-select`.
+
+{/* TODO: Check the following example of the `draftjs-rich-text` component being used. */}
+
+---
+
+## Related resources
+
+- [JSON Schema Reference](https://json-schema.org/understanding-json-schema/index.html)
+- [`react-jsonschema-form` Playground](https://rjsf-team.github.io/react-jsonschema-form/)
