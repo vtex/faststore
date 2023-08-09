@@ -38,7 +38,7 @@ Run `vtex edition get` to check if the `vtex.edition-store` app is installed on 
 
 1. Open the terminal and clone the [`faststore-vtex-integrations`](https://github.com/vtex/faststore-vtex-integrations/) project into your local files.
 
-```sh
+```bash copy
 npx degit vtex/faststore-vtex-integrations
 ```
 
@@ -46,7 +46,7 @@ npx degit vtex/faststore-vtex-integrations
 3. Open the `manifest.json` file and update the value of the `vendor` field with the name of your VTEX account.
 4. Using the terminal, log in to your VTEX account.
 
-```sh
+```bash copy
 vtex login {account}
 ```
 
@@ -56,7 +56,7 @@ Replace the value between curly brackets with the name of your account.
 
 5. Create a new development workspace.
 
-```sh
+```bash copy
 vtex workspace use {workspace}
 ```
 <Callout type="warning" emoji="⚠️">
@@ -67,7 +67,7 @@ Replace the value between curly brackets with any name of your preference, makin
 
 6. Link your app to sync your local changes with the VTEX IO cloud development environment.
 
-```sh
+```bash copy
 vtex link
 ```
 
@@ -83,7 +83,7 @@ After accessing the Order Placed page, you probably noticed the FastStore logo. 
 1. Save your logo inside the `assets` folder.
 2. Open the `store/blocks/header.jsonc` file and update the `title`, `href`, `url`, and `width` values of your store logo (`logo#desktop` and `logo#mobile`) according to your scenario:
 
-```jsonc filename="store/blocks/header.json" {4-7,13-16}
+```jsonc filename="store/blocks/header.json" {4-7,13-16} copy
 ...
 "logo#desktop": {
   "props": {
@@ -116,26 +116,26 @@ Now that everything is as expected, you need to make your changes publicly avail
 
 1. Open the terminal and create a production workspace.
 
-```
+```bash copy
 vtex use {workspace} --production
 ```
 
 2. Change to the `faststore-vtex-integrations` directory.
 3. Release a new app version.
 
-```
+```bash copy
 vtex release major stable
 ```
 
 3. Publish your app as a candidate version.
 
-```
+```bash copy
 vtex publish
 ```
 
 4. Install the candidate version indicating the app's version as in the following:
 
-```
+```bash copy
 vtex install {vendor}.{name}@{version}
 ```
 
@@ -145,13 +145,13 @@ Replace the values between curly brackets according to the `manifest.json` file 
 
 5. Deploy the candidate version as a stable version.
 
-```
+```bash copy
 vtex deploy {vendor}.{appname}@{appversion}
 ```
 
 6. Promote your Production workspace to master to make your changes publicly available to your store shoppers.
 
-```
+```bash copy
 vtex workspace promote
 ```
 
@@ -161,6 +161,5 @@ That's all. Now, if you place an order in your store, you'll be presented with t
 
 - [Creating a Development workspace](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-creating-a-development-workspace)
 - [Linking an app](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-linking-an-app)
-- [Using CSS Handles for store customization](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-using-css-handles-for-store-customization)
 - [Creating a Production workspace](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-creating-a-production-workspace)
 - [Making your new app version publicly available](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-making-your-new-app-version-publicly-available)
