@@ -11,7 +11,7 @@ import { Callout, Tabs, Tab } from 'nextra-theme-docs'
 # Part 3: Structuring Content types and Sections to the Headless CMS
 </header>
 
-Now that you have created your `cms` folder and have an overall understanding of how you'll use it, let's learn how to structure the Content Type, Section, and Translation Key files so you can create any integrations you desire. 
+Now that you have created your `cms` folder and have an overall understanding of how you'll use it, let's learn how to structure the Content Type and Section files so you can create any integrations you desire. 
 
 ---
 
@@ -25,15 +25,15 @@ Now that you have created your `cms` folder and have an overall understanding of
 This command will monitor any changes in the project, including the new section you have created, and automatically merge it with the default sections available in [`faststore/core`](/docs/getting-started/3-project-structure#faststorecore).
 </Callout>
 
-2. Open another terminal and run `faststore cms-sync` to automatically sync your changes in the `cms` folder with the VTEX Headless CMS app.
+2. Open another terminal and run `faststore cms-sync` to automatically sync your changes in the `cms` folder with the Headless CMS app.
 
 2. Open the **VTEX Admin**, access **Storefront > Headless CMS** and keep it next to your code to see your changes while editing the `cms` folder. Refreshing the Admin may be necessary to see your changes.
 
-### Step 2 - Adding Content Types to the VTEX Headless CMS
+### Step 2 - Adding Content Types to the Headless CMS
 
-The `content-types.json` file is an array of JSON objects that describes the types of pages available for customization at the VTEX Headless CMS. Therefore, to create new Content Types, we need to declare a new JSON object for each of our Content Types in the `content-types.json` file. However, we still need to discover which props these objects expect. So let's get back to our previous example.
+The `content-types.json` file is an array of JSON objects that describes the types of pages available for customization at the Headless CMS. Therefore, to create new Content Types, we need to declare a new JSON object for each of our Content Types in the `content-types.json` file. However, we still need to discover which props these objects expect. So let's get back to our previous example.
 
-<Tabs items={['Code', 'CMS']}>
+<Tabs items={['Code input', 'Outcome in the Headless CMS']}>
   <Tab>
     ```json filename="cms/faststore/content-types.json" copy 
     [
@@ -102,13 +102,13 @@ Notice that, to declare a new Content Type, you must specify at least the follow
 | Key | Description |
 | --- | ------------|
 | `id` | The identification key of a Content Type, written in Camel Case.   |
-| `name` | The name presented at the VTEX Headless CMS app.  |
+| `name` | The name presented at the Headless CMS app.  |
 | **(optional)** `configurationSchemaSets` | Creates a new tab on the page of that Content Type with advanced settings. In our example, the **Custom Page** includes a new tab called **Settings** with custom SEO settings. Check the [following section](#the-configurationschemasets-property) for more information. |
 
 #### The `configurationSchemaSets` property
 
 Back to our example, notice that the **Custom Page** Content Type has the `configurationSchemaSets` definition. 
-The `configurationSchemaSets` prop creates a new tab at the VTEX Headless CMS for that Content Type with advanced settings.
+The `configurationSchemaSets` prop creates a new tab at the Headless CMS for that Content Type with advanced settings.
 
 For the **Custom Page**, a custom section named **Settings**, which allows editors to change the site metadata, was created.
 
@@ -126,13 +126,13 @@ After editing the `cms/content-types.json` file, remember to save your changes a
 2. Click on **Create New** and check the available Content Type options. 
 3. Click on **Custom Page** to create a new **Custom Page** and check the Settings tab.
 
-### Step 3: Adding Sections to the VTEX Headless CMS
+### Step 3: Adding Sections to the Headless CMS
 
-Now, let's make some of our front-end components available for editing at the VTEX Headless CMS by writing the content schemas that represent them.
+Now, let's make some of our front-end components available for editing at the Headless CMS by writing the content schemas that represent them.
 
-These components are referred to as **sections**, and to create them, 
+These components are referred to as **Sections**, and to create them, 
 you can follow the instructions provided in the guide [Creating a new section](/docs/building-sections/creating-a-new-section). 
-This guide offers detailed information on the process of creating sections and integrating them into the VTEX Headless CMS for easy editing and management.
+The guide offers detailed information on the process of creating Sections and integrating them into the Headless CMS for easy editing and management.
 
 #### The **`schema`** property
 
@@ -142,7 +142,7 @@ Notice that you must always declare the following properties inside the `schema`
 
 | Key           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `title`       | The name that identifies your component in the VTEX Headless CMS app.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `title`       | The name that identifies your component in the Headless CMS app.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `description` | A brief description that helps editors understand the behavior of your component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `type`        | The data type of your schema. Possible values are [`string`](https://json-schema.org/understanding-json-schema/reference/string.html), [`object`](https://json-schema.org/understanding-json-schema/reference/object.html), [`array`](https://json-schema.org/understanding-json-schema/reference/array.html), [`number`](https://json-schema.org/understanding-json-schema/reference/numeric.html#number), [`integer`](https://json-schema.org/understanding-json-schema/reference/string.html), [`boolean`](https://json-schema.org/understanding-json-schema/reference/boolean.html). |
 
@@ -157,24 +157,6 @@ Depending on the `type` of your schema, you may need to define particular fields
 When defining your Section `schema`, you can also use the [`uiSchema`](https://react-jsonschema-form.readthedocs.io/en/docs/api-reference/uiSchema/) along with [`widgets`](https://react-jsonschema-form.readthedocs.io/en/docs/usage/widgets/) to specify which UI widget should be used to render a given field of your schema. Common widgets are `draftjs-rich-text`, `image-uploader`, and `block-select`.
 
 {/* TODO: Check the following example of the `draftjs-rich-text` component being used. */}
-
-### Step 4 - Defining translation keys
-
-After creating our Section schemas and Content Types, we will declare the Translation Keys in the `translation-keys.json` file. 
-Translation Keys are used to translate the form presented for editors to any locale you'd like.
-
-```json filename="cms/translation-keys.json" copy
-{
-  "admin/siteMetadataWithSlug": "Site Metadata",
-  "admin/siteMetadataWithSlugDescription": "Configure global site metadata",
-  "admin/meta/siteMetadataWithSlugTitleFieldTitle": "Default page title",
-  "admin/meta/siteMetadataWithSlugTitleFieldDescription": "Appears on the browser tab and is suggested to search engines",
-  "admin/meta/siteMetadataWithSlugSlugFieldTitle": "URL Slug",
-  "admin/meta/siteMetadataWithSlugFieldDescription": "No spaces allowed",
-  "admin/meta/siteMetadataWithSlugDescriptionFieldTitle": "Meta description",
-  "admin/meta/siteMetadataWithSlugDescriptionFieldDescription": "Suggested to search engines"
-}
-```
 
 ---
 
