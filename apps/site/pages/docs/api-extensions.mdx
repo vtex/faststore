@@ -219,4 +219,99 @@ query {
 }
 ```
 
+---
+
+## Consume new fields from pages
+
+GraphQL enables clients to precisely define the required data by crafting specific GraphQL queries. The server then returns only the data that matches the query, eliminating the need for multiple requests, client-side filtering, and reducing the amount of data from requests.
+
+Therefore, it is crucial to avoid requesting unnecessary fields in queries and to be mindful of fragments that may call extraneous data in other contexts. By using GraphQL in this manner, we can optimize performance and streamline data transmission between clients and servers.
+
+When rendering a custom page or adding a custom section to an existing page, sometimes it is necessary to add new fields fetched from the previously defined custom or extended schema. We should determine which fields/fragments we need to request for the rendering of each page and avoid over-fetching unused data. 
+
+## Extending Queries Using Fragments
+
+When developers need to include custom fields in existing server queries, they can utilize the src/fragments folder. Within this directory, they can generate files containing GraphQL fragments, which can then be integrated into the desired queries for extension purposes.
+
+To introduce additional fields to an already established query, developers should generate a new .ts file within the src/fragments folder. This file's name should match the corresponding Query that requires extension.
+
+For instance, if a developer aims to retrieve a new query (illustrated here as newField with a data property) within the context of the ClientProductGallery query, the recommended approach involves creating a src/fragments/ClientProductGallery.ts file. This file should embody code similar to the example provided below:
+
+```ts
+// src/fragments/ClientProductGalery.ts
+
+import { gql } from '@faststore/graphql-utils'
+
+export const fragment = gql`
+  fragment ClientProductGallery on Query {
+    newField {
+      data
+    }
+  }
+`
+```
+
+## Queries to be extended
+
+
+### ClientProductGalleryQuery (Client Side)
+
+Query operation: search
+
+Page: PLP
+
+Where is used: In the hook `useGalleryQuery()` from the `ProductGallery` component.
+
+Return: Products totalCount from StorePageInfo, and facets (StoreFacet) from StoreSearchResult.
+Parameters: Frontend data from the `useSearch()` and `useLocalizedVariables()` hooks, the latter uses `useSession()`.
+
+### ServerCollectionPageQuery (Server Side)
+
+Query operation: collection
+
+Page: PLP
+
+Where is used: In the function `getStaticProps()` from `PLP`.
+
+Return: seo, breadcrumbList and meta data from collection (StoreCollection).
+Parameters: Collection `slug` that comes from URL.
+
+### ServerProductPageQuery (Server Side)
+
+Query operation: product
+
+Page: PDP
+
+Where is used: In the function `getStaticProps()` from `PDP`.
+
+Return: General product data from StoreProduct.
+Parameters: The `locator` with `slug` key/value.
+
+### ClientProductQuery (Client Side)
+
+Query operation: product
+
+Page: PDP
+
+Where is used: In the hook `useProduct()` from `ProductDetails`component.
+
+Return: General product data from StoreProduct to update product data inside `PDP` (product coming from `ServerProductPageQuery` as fallback).
+Parameters: Frontend data from the `useSession()` hook in locator array with `id`, `channel`, `locale` as key/values.
+
+### ClientProductsQuery (Client Side)
+
+Query operation: search
+
+Page: PLP + Pages that use `ProductShelf`, and `ProductTiles` components.
+
+Where is used: 
+- In the hook `useProducts()` from `GalleryPage` from `PLP`. 
+- In the hook `useProductsPrefetch()` to prefetch the previous (prev) and next (next) page from the current `PLP` page.
+- In the hook `useProductsQuery()`, in `ProductShelf`, `ProductTiles` components, that can be used on multiple pages.
+
+Return: General products data (StoreProduct)  with the `totalCount` from StorePageInfo.
+
+Parameters: Frontend data from the `useLocalizedVariables()` and `useSession()` hooks.
+
+
 
