@@ -1,16 +1,16 @@
 ---
 title: '1. Configuring your VTEX account'
-sidebar_label: 'Integrating your storefront with VTEX Headless CMS'
+sidebar_label: 'Integrating your storefront with Headless CMS'
 ---
 
 import { Callout, Steps } from 'nextra-theme-docs'
 
 <header>
-  # Part 1: Configuring your VTEX account with the VTEX Headless CMS
+  # Part 1: Configuring your VTEX account with the Headless CMS
 </header>
 
-Let's set up all the tools you need to integrate the VTEX Headless CMS with your FastStore project. First, we will install the **VTEX IO CLI**.
-The VTEX IO CLI will help you during your development process by allowing you to perform different actions in the VTEX platform. In the following, we will install and configure the VTEX Headless CMS app in your VTEX account.
+Let's set up all the tools you need to integrate the Headless CMS with your FastStore project. First, we will install the **VTEX IO CLI**.
+The VTEX IO CLI will help you during your development process by allowing you to perform different actions in the VTEX platform. In the following, we will install and configure the Headless CMS app in your VTEX account.
 
 ---
 
@@ -22,7 +22,7 @@ Before you proceed with setting up the Headless CMS in your account, please ensu
 
 ### Successful FastStore Onboarding
 
-Make sure that the FastStore Onboarding process has been completed successfully. The VTEX Headless CMS is installed during this onboarding phase. For detailed instructions, please refer to the [Starting a new FastStore project](/docs/getting-started/1-faststore-onboarding/onboarding#step-1-setting-up-the-project) tutorial.
+Make sure the FastStore Onboarding process has been completed successfully. The Headless CMS is installed during this onboarding phase. For detailed instructions, please refer to the [Starting a new FastStore project](/docs/getting-started/1-faststore-onboarding/onboarding#step-1-setting-up-the-project) tutorial.
 
 ### Installation of VTEX IO CLI
 
@@ -45,13 +45,13 @@ Ensure that you have installed the VTEX IO CLI on your machine. This CLI is requ
   vtex login {account}
   ```
 
-2. Install the VTEX Headless CMS plugin:
+2. Install the Headless CMS plugin:
 
   ```bash copy 
   vtex plugins install cms
   ```
 
-Now, check if the installation of the VTEX Headless CMS plugin was successful by running `vtex cms`.
+Now, check if the installation of the Headless CMS plugin was successful by running `vtex cms`.
 
 ![success-vtex-cms-sync](https://vtexhelp.vtexassets.com/assets/docs/src/faststore-vtex-cms___460365970fb39c94e300b9fbd497e17e.png)
 
@@ -68,7 +68,7 @@ Now, check if the installation of the VTEX Headless CMS plugin was successful by
 
 ### Step 2 - Installing the Headless CMS dependencies on your VTEX account
 
-Install the VTEX Headless CMS dependencies in your VTEX account by running the following command:
+Install the Headless CMS dependencies in your VTEX account by running the following command:
 
 ```bash copy
 vtex install vtex.admin-cms@1.x
@@ -78,7 +78,7 @@ vtex install vtex.admin-cms@1.x
 
 ### Step 3 - Configuring the Headless CMS
 
-Let's configure the URLs of the webhooks used by the VTEX Headless CMS app.
+Let's configure the URLs of the webhooks used by the Headless CMS app.
 
 1. In the VTEX Admin, access **Extensions Hub > App management**.
 2. Search for the **CMS (alpha)** app and click on **Settings**.
@@ -92,13 +92,13 @@ https://app.io.vtex.com/vtex.cms-builder-sf-jamstack/v1/{account}/{workspace}/bu
 ![cms-settings](https://vtexhelp.vtexassets.com/assets/docs/src/cms-alpha-settings___5ec952c685b0e9c70d47378e6718a0d1.png)
 
 <Callout type="info" emoji=" ℹ️ ">
-  When an editor clicks to publish a page using the VTEX Headless CMS interface,
+  When an editor clicks to publish a page using the Headless CMS interface,
   the CMS calls the **Build Webhook URL**, which changes the status of that page
   to `publishing`. The CMS, then, waits for the content to be built in the
   background.
 </Callout>
 
-5. Fill in the **Preview URL** field with your production URL. This URL activates the button on VTEX Headless CMS for you to preview the changes made on a page. _Replace the values between curly brackets according to your scenario._
+5. Fill in the **Preview URL** field with your production URL. This URL activates the button on Headless CMS for you to preview the changes made on a page. _Replace the values between curly brackets according to your scenario._
 
 ``` 
 https://{account}.vtex.app/api/preview
@@ -114,11 +114,11 @@ https://{account}.vtex.com/
 
 ### Step 4 - Communicating WebOps updates to the Headless CMS
 
-Now, if you are developing your FastStore project with CI/CD and VTEX Headless CMS, you must ensure that CI/CD is aware of every CMS update performed via the VTEX Admin. To do so, you must configure the WebOps webhooks responsible for communicating with the VTEX Headless CMS as in the following.
+Now, if you are developing your FastStore project with CI/CD and Headless CMS, you must ensure that CI/CD is aware of every CMS update performed via the VTEX Admin. To do so, you must configure the WebOps webhooks responsible for communicating with the Headless CMS as in the following.
 
 1. Open your FastStore project in any code editor of your preference.
 2. Edit the `faststore.config.js` file in the root directory of your project.
-3. In the VTEX Headless CMS configuration, add the `webhookUrls` property corresponding to your store website as in the following:
+3. In the Headless CMS configuration, add the `webhookUrls` property corresponding to your store website as in the following:
 
 ```js filename="faststore.config.js" copy
 "vtexHeadlessCms": {

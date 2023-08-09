@@ -1,6 +1,6 @@
 ---
 title: '2. Setting up the Headless CMS'
-sidebar_label: 'Integrating your storefront with VTEX Headless CMS'
+sidebar_label: 'Integrating your storefront with Headless CMS'
 ---
 
 import { Callout, Tabs, Tab, Steps } from 'nextra-theme-docs'
@@ -11,18 +11,18 @@ import { Callout, Tabs, Tab, Steps } from 'nextra-theme-docs'
 # Part 2: Setting up the Headless CMS in your FastStore project
 </header>
 
-Now that you are familiar with the core concepts of the [VTEX Headless CMS](/docs/headless-cms-overview) and have set it up in your VTEX account, let's get back to our **FastStore** project to define our own **Content Types** and **Sections**.
+Now that you are familiar with the core concepts of the [Headless CMS](/docs/headless-cms-overview) and have set it up in your VTEX account, let's get back to our **FastStore** project to define our own **Content Types** and **Sections**.
 
-By the end of this part of this tutorial, you will be able to see your first definition of a Content Type available for use at the VTEX Headless CMS app. Next, we will dive deeper into how to create these definitions in a smoother way.
+By the end of this part of this tutorial, you will be able to see your first definition of a Content Type available for use at the Headless CMS app. Next, we will dive deeper into how to create these definitions in a smoother way.
 
 ---
 
 ## Before you start
 
 <Steps>
-### Integrate the store with the VTEX Headless CMS
+### Integrate the store with the Headless CMS
 
-All sections must be available in the Headless CMS so they can be added and managed on your store's pages. To integrate your FastStore project, please refer to the [VTEX Headless CMS integration track](/docs/headless-cms-integration/1-configuring-the-vtex-account).
+All sections must be available in the Headless CMS so they can be added and managed on your store's pages. To integrate your FastStore project, please refer to the [Headless CMS integration track](/docs/headless-cms-integration/1-configuring-the-vtex-account).
 
 ### Install the FastStore CLI
 
@@ -83,8 +83,8 @@ If your project already includes any of the following files: `content-types.json
 
 | File name                | Description                                                                                                                                                    |
 | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `content-types.json`     |  An array of JSON objects that describes the **Content Types** available for customization at the VTEX Headless CMS app.                                       |
-| `sections.json`          | An array of JSON objects that describes the content structure of the frontend **Section** components available for customization at the VTEX Headless CMS app. |
+| `content-types.json`     |  An array of JSON objects that describes the **Content Types** available for customization at the Headless CMS app.                                       |
+| `sections.json`          | An array of JSON objects that describes the content structure of the frontend **Section** components available for customization at the Headless CMS app. |
 
 5. Update the `sections.json` file with an empty array:
 
@@ -151,7 +151,7 @@ echo "[]" > cms/faststore/sections.json
 
 <Callout type="info" emoji="ℹ️">
   Don't worry about the structure of this file for now, as we'll learn more about it later in this tutorial. 
-  However, notice that we have defined the **Custom Page** content type.
+  However, notice that we have defined the **Custom Page** Content Type.
 </Callout>
 
 
@@ -178,7 +178,7 @@ vtex use {workspace}
 
 3. Change to the root directory of your FastStore project.
 
-4. Sync your changes in the `cms` folder with the VTEX Headless CMS app:
+4. Sync your changes in the `cms` folder with the Headless CMS app:
 
 ```bash copy
 faststore cms-sync
@@ -188,7 +188,7 @@ faststore cms-sync
    If you have the `@vtex/cli-plugin-cms@1.0.7` installed you can use the `{builderName}` argument to syncronize a specific builder: `vtex cms:sync {builderName}`.
 </Callout>
 
-Once your changes are synced with the VTEX Headless CMS, the terminal will show the following message:
+Once your changes are synced with the Headless CMS, the terminal will show the following message:
 
 ```bash copy
 CMS synced successfully...
@@ -202,5 +202,5 @@ CMS synced successfully...
 
 ![cms-custom-page](https://vtexhelp.vtexassets.com/assets/docs/src/headless-custom-page___c952670d0592c3c66202d6702af3fc17.png)
 
-You should now see the Content Type we created in the previous step available for use at the VTEX Headless CMS app. 
+You should now see the Content Type we created in the previous step available for use at the Headless CMS app. 
 However, no Sections will be available yet. We'll learn more about this in the following part of this track, [Structuring Content Types and Sections](/docs/headless-cms-integration/3-adding-content-types-and-sections).
