@@ -11,7 +11,6 @@ import Alert from 'src/components/sections/Alert'
 import Footer from 'src/components/sections/Footer'
 import Navbar from 'src/components/sections/Navbar'
 import RegionBar from 'src/components/sections/RegionBar'
-import { SectionProvider } from 'src/sdk/ui/SectionContex'
 
 const RegionModal = lazy(() => import('src/components/region/RegionModal'))
 const CartSidebar = lazy(() => import('src/components/cart/CartSidebar'))
@@ -40,6 +39,7 @@ function GlobalSections({
   return (
     <RenderSections components={COMPONENTS} {...otherProps}>
       <Toast />
+
       <main>{children}</main>
     </RenderSections>
   )
