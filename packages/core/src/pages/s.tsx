@@ -22,6 +22,7 @@ import GlobalSections, {
 import RenderSections from 'src/components/cms/RenderSections'
 import { getPage, SearchContentType } from 'src/server/cms'
 import storeConfig from '../../faststore.config'
+import { SectionProvider } from 'src/sdk/ui/SectionContex'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -79,27 +80,33 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
 
   return (
     <GlobalSections {...globalSections}>
-      <SearchProvider
-        onChange={applySearchState}
-        itemsPerPage={settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE}
-        {...searchParams}
+      <SectionProvider
+        globalSections={globalSections.sections}
+        pageSections={sections}
       >
-        {/* SEO */}
-        <NextSeo
-          noindex
-          title={title}
-          description={description}
-          titleTemplate={titleTemplate}
-          openGraph={{
-            type: 'website',
-            title,
-            description,
-          }}
-        />
+        <SearchProvider
+          onChange={applySearchState}
+          itemsPerPage={
+            settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
+          }
+          {...searchParams}
+        >
+          {/* SEO */}
+          <NextSeo
+            noindex
+            title={title}
+            description={description}
+            titleTemplate={titleTemplate}
+            openGraph={{
+              type: 'website',
+              title,
+              description,
+            }}
+          />
 
-        <UISROnly as="h1" text={title} />
+          <UISROnly as="h1" text={title} />
 
-        {/*
+          {/*
           WARNING: Do not import or render components from any
           other folder than '../components/sections' in here.
 
@@ -110,17 +117,18 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
           If needed, wrap your component in a <Section /> component
           (not the HTML tag) before rendering it here.
         */}
-        <RenderSections
-          sections={sections}
-          components={COMPONENTS}
-          context={
-            {
-              title,
-              searchTerm: searchParams.term ?? undefined,
-            } as SearchPageContextType
-          }
-        />
-      </SearchProvider>
+          <RenderSections
+            sections={sections}
+            components={COMPONENTS}
+            context={
+              {
+                title,
+                searchTerm: searchParams.term ?? undefined,
+              } as SearchPageContextType
+            }
+          />
+        </SearchProvider>
+      </SectionProvider>
     </GlobalSections>
   )
 }

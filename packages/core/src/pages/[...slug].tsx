@@ -22,6 +22,7 @@ import LandingPage, {
   getLandingPageBySlug,
   LandingPageProps,
 } from 'src/components/templates/LandingPage'
+import { SectionProvider } from 'src/sdk/ui/SectionContex'
 
 type BaseProps = {
   globalSections: GlobalSectionsData
@@ -42,10 +43,17 @@ type Props = BaseProps &
 function Page({ globalSections, type, ...otherProps }: Props) {
   return (
     <GlobalSections {...globalSections}>
-      {type === 'plp' && (
-        <ProductListingPage {...(otherProps as ProductListingPageProps)} />
-      )}
-      {type === 'page' && <LandingPage {...(otherProps as LandingPageProps)} />}
+      <SectionProvider
+        globalSections={globalSections.sections}
+        pageSections={otherProps.page.sections}
+      >
+        {type === 'plp' && (
+          <ProductListingPage {...(otherProps as ProductListingPageProps)} />
+        )}
+        {type === 'page' && (
+          <LandingPage {...(otherProps as LandingPageProps)} />
+        )}
+      </SectionProvider>
     </GlobalSections>
   )
 }

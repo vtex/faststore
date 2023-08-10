@@ -9,6 +9,7 @@ import GlobalSections, {
 
 import { Icon as UIIcon } from '@faststore/ui'
 import EmptyState from 'src/components/sections/EmptyState'
+import { SectionProvider } from 'src/sdk/ui/SectionContex'
 
 type Props = {
   globalSections: GlobalSectionsData
@@ -29,25 +30,27 @@ function Page({ globalSections }: Props) {
 
   return (
     <GlobalSections {...globalSections}>
-      <NextSeo noindex nofollow />
+      <SectionProvider globalSections={globalSections.sections}>
+        <NextSeo noindex nofollow />
 
-      <EmptyState
-        title="500"
-        titleIcon={
-          <UIIcon
-            name="CircleWavyWarning"
-            width={56}
-            height={56}
-            weight="thin"
-          />
-        }
-      >
-        <h2>Internal Server Error</h2>
+        <EmptyState
+          title="500"
+          titleIcon={
+            <UIIcon
+              name="CircleWavyWarning"
+              width={56}
+              height={56}
+              weight="thin"
+            />
+          }
+        >
+          <h2>Internal Server Error</h2>
 
-        <div>
-          The server errored with id {errorId} when visiting page {fromUrl}
-        </div>
-      </EmptyState>
+          <div>
+            The server errored with id {errorId} when visiting page {fromUrl}
+          </div>
+        </EmptyState>
+      </SectionProvider>
     </GlobalSections>
   )
 }

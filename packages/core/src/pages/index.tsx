@@ -20,6 +20,7 @@ import GlobalSections, {
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import storeConfig from '../../faststore.config'
+import { SectionProvider } from 'src/sdk/ui/SectionContex'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -40,31 +41,39 @@ type Props = {
 function Page({ page: { sections, settings }, globalSections }: Props) {
   return (
     <GlobalSections {...globalSections}>
-      {/* SEO */}
-      <NextSeo
-        title={settings?.seo?.title ?? storeConfig.seo.title}
-        description={settings?.seo?.description ?? storeConfig.seo?.description}
-        titleTemplate={storeConfig.seo?.titleTemplate ?? storeConfig.seo?.title}
-        canonical={settings?.seo?.canonical ?? storeConfig.storeUrl}
-        openGraph={{
-          type: 'website',
-          url: storeConfig.storeUrl,
-          title: settings?.seo?.title ?? storeConfig.seo.title,
-          description:
-            settings?.seo?.description ?? storeConfig.seo.description,
-        }}
-      />
-      <SiteLinksSearchBoxJsonLd
-        url={storeConfig.storeUrl}
-        potentialActions={[
-          {
-            target: `${storeConfig.storeUrl}/s/?q`,
-            queryInput: 'search_term_string',
-          },
-        ]}
-      />
+      <SectionProvider
+        pageSections={sections}
+        globalSections={globalSections.sections}
+      >
+        {/* SEO */}
+        <NextSeo
+          title={settings?.seo?.title ?? storeConfig.seo.title}
+          description={
+            settings?.seo?.description ?? storeConfig.seo?.description
+          }
+          titleTemplate={
+            storeConfig.seo?.titleTemplate ?? storeConfig.seo?.title
+          }
+          canonical={settings?.seo?.canonical ?? storeConfig.storeUrl}
+          openGraph={{
+            type: 'website',
+            url: storeConfig.storeUrl,
+            title: settings?.seo?.title ?? storeConfig.seo.title,
+            description:
+              settings?.seo?.description ?? storeConfig.seo.description,
+          }}
+        />
+        <SiteLinksSearchBoxJsonLd
+          url={storeConfig.storeUrl}
+          potentialActions={[
+            {
+              target: `${storeConfig.storeUrl}/s/?q`,
+              queryInput: 'search_term_string',
+            },
+          ]}
+        />
 
-      {/*
+        {/*
         WARNING: Do not import or render components from any
         other folder than '../components/sections' in here.
 
@@ -75,7 +84,8 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <RenderSections sections={sections} components={COMPONENTS} />
+        <RenderSections sections={sections} components={COMPONENTS} />
+      </SectionProvider>
     </GlobalSections>
   )
 }

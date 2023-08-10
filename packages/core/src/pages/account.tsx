@@ -8,6 +8,7 @@ import GlobalSections, {
 } from 'src/components/cms/GlobalSections'
 import { GetStaticProps } from 'next'
 import { Locator } from '@vtex/client-cms'
+import { SectionProvider } from 'src/sdk/ui/SectionContex'
 
 type Props = {
   globalSections: GlobalSectionsData
@@ -20,9 +21,11 @@ function Page({ globalSections }: Props) {
 
   return (
     <GlobalSections {...globalSections}>
-      <NextSeo noindex nofollow />
+      <SectionProvider globalSections={globalSections.sections}>
+        <NextSeo noindex nofollow />
 
-      <div>loading...</div>
+        <div>loading...</div>
+      </SectionProvider>
     </GlobalSections>
   )
 }

@@ -9,6 +9,7 @@ import { Locator } from '@vtex/client-cms'
 
 import { Icon as UIIcon } from '@faststore/ui'
 import EmptyState from 'src/components/sections/EmptyState'
+import { SectionProvider } from 'src/sdk/ui/SectionContex'
 
 const useErrorState = () => {
   const router = useRouter()
@@ -29,21 +30,23 @@ function Page({ globalSections }: Props) {
 
   return (
     <GlobalSections {...globalSections}>
-      <NextSeo noindex nofollow />
+      <SectionProvider globalSections={globalSections.sections}>
+        <NextSeo noindex nofollow />
 
-      <EmptyState
-        title="Not Found: 404"
-        titleIcon={
-          <UIIcon
-            name="CircleWavyWarning"
-            width={56}
-            height={56}
-            weight="thin"
-          />
-        }
-      >
-        <p>This app could not find url {fromUrl}</p>
-      </EmptyState>
+        <EmptyState
+          title="Not Found: 404"
+          titleIcon={
+            <UIIcon
+              name="CircleWavyWarning"
+              width={56}
+              height={56}
+              weight="thin"
+            />
+          }
+        >
+          <p>This app could not find url {fromUrl}</p>
+        </EmptyState>
+      </SectionProvider>
     </GlobalSections>
   )
 }

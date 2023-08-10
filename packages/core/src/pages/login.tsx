@@ -11,6 +11,7 @@ import { Locator } from '@vtex/client-cms'
 
 import { Loader as UILoader } from '@faststore/ui'
 import EmptyState from 'src/components/sections/EmptyState'
+import { SectionProvider } from 'src/sdk/ui/SectionContex'
 
 type Props = {
   globalSections: GlobalSectionsData
@@ -23,11 +24,13 @@ function Page({ globalSections }: Props) {
 
   return (
     <GlobalSections {...globalSections}>
-      <NextSeo noindex nofollow />
+      <SectionProvider globalSections={globalSections.sections}>
+        <NextSeo noindex nofollow />
 
-      <EmptyState title="Loading">
-        <UILoader />
-      </EmptyState>
+        <EmptyState title="Loading">
+          <UILoader />
+        </EmptyState>
+      </SectionProvider>
     </GlobalSections>
   )
 }

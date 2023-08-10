@@ -38,12 +38,10 @@ function GlobalSections({
   ...otherProps
 }: PropsWithChildren<GlobalSectionsData>) {
   return (
-    <SectionProvider sections={otherProps.sections}>
-      <RenderSections components={COMPONENTS} {...otherProps}>
-        <Toast />
-        <main>{children}</main>
-      </RenderSections>
-    </SectionProvider>
+    <RenderSections components={COMPONENTS} {...otherProps}>
+      <Toast />
+      <main>{children}</main>
+    </RenderSections>
   )
 }
 
