@@ -101,6 +101,7 @@ import NavbarUsage from 'site/components/Navigation/NavbarUsage'
 import NavbarLinksUsage from 'site/components/Navigation/NavbarLinksUsage'
 import NavbarSliderUsage from 'site/components/Navigation/NavbarSliderUsage'
 import PriceRangeUsage from 'site/components/PriceRange/PriceRangeUsage'
+import ProductShelfUsage from 'site/components/ProductShelf/ProductShelfUsage'
 import SearchDropdownUsage from 'site/components/Search/SearchDropdownUsage'
 import SearchInputUsage from 'site/components/Search/SearchInputUsage'
 import ShippingSimulationUsage from 'site/components/ShippingSimulation/ShippingSimulationUsage'
@@ -264,6 +265,33 @@ export const UsageAccordionMultiple = () => {
         </AccordionPanel>
       </AccordionItem>
     </Accordion>
+  )
+}
+
+export const ModalBase = () => {
+  const { modal, openModal } = useUI()
+  return (
+    <>
+      <Button variant="primary" onClick={() => openModal()}>
+        Open Modal
+      </Button>
+      {modal && (
+        <Modal>
+          {({ fadeOut }) => (
+            <>
+              <ModalHeader
+                onClose={() => fadeOut()}
+                title="Modal Title"
+                description="Modal description"
+              />
+              <ModalBody>
+                <p>This is the ModalBody</p>
+              </ModalBody>
+            </>
+          )}
+        </Modal>
+      )}
+    </>
   )
 }
 
@@ -481,7 +509,7 @@ export const SlideOverPartialRight = () => {
   {/* <CardItem
     title="Carousel"
     description="Slides through multiple elements using custom controls."
-    actionPath="/components/molecules/breadcrumb"
+    actionPath="/components/molecules/carousel"
   >
     <CarouselUsage />
   </CardItem> */}
@@ -603,22 +631,15 @@ export const SlideOverPartialRight = () => {
   >
     <LinkButton href="#">Link Button</LinkButton>
   </CardItem>
-  {/* <CardItem
+  <CardItem
     title="Modal"
     description="Are dialog windows that sit on top of an application's main view."
     actionPath="/components/molecules/modal"
   >
-    <Modal>
-      <ModalHeader
-        onClose={() => ()}
-        title="Modal Title"
-        description="Modal description"
-      />
-      <ModalBody>
-        <p>This is the ModalBody</p>
-      </ModalBody>
-    </Modal>
-  </CardItem> */}
+    <UIProvider>
+      <ModalBase />
+    </UIProvider>
+  </CardItem>
   <CardItem
     title="Navbar Links"
     description="Used to display a set of navigation links that self adapts on mobile or desktop screens."
@@ -929,17 +950,19 @@ export const SlideOverPartialRight = () => {
   >
     <Tag variant="highlighted" label="Tag" onClose={() => {}} />
   </CardItem>
-  {/* <CardItem
+  <CardItem
     title="Toast"
     description="Used to display notifications."
     actionPath="/components/molecules/toast"
   >
-    <ToastUsage
-      message={'Simple Toast message.'}
-      status={'INFO'}
-      btnLabel="Simple Toast"
-    />
-  </CardItem> */}
+    <UIProvider>
+      <ToastUsage
+        message={'Simple Toast message.'}
+        status={'INFO'}
+        btnLabel="Simple Toast"
+      />
+    </UIProvider>
+  </CardItem>
   <CardItem
     title="Toggle"
     description="A customized checkbox input styled to look like a switch button."
@@ -1148,6 +1171,14 @@ export const SlideOverPartialRight = () => {
         </ProductGridItem>
       ))}
     </ProductGrid>
+  </CardItem>
+  <CardItem
+    title="Product Shelf"
+    description="Displays a list of products to be used as a section on the store."
+    actionPath="/components/organisms/product-shelf"
+    zoomOut
+  >
+    <ProductShelfUsage items={6}/>
   </CardItem>
   <CardItem
     title="Region Modal"
