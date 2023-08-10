@@ -132,7 +132,7 @@ type resolversType = Parameters<typeof makeExecutableSchema>[0]['resolvers']
 export function getCustomSchema(
   customPath: string,
   resolvers: resolversType,
-  mergedTypes: string[] = []
+  mergedTypes: string[] = getTypeDefs()
 ) {
   const customTypeDefs = getTypeDefsFromFolder(customPath)
 
@@ -174,7 +174,7 @@ export function getTypeDefsFromFolder(customPath: string | string[]) {
 }
 
 export function getVTEXExtensionsSchema() {
-  return getCustomSchema('vtex', vtexExtensionsResolvers, getTypeDefs())
+  return getCustomSchema('vtex', vtexExtensionsResolvers)
 }
 
 export function getThirdPartyExtensionsSchema() {
