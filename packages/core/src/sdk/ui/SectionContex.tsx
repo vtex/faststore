@@ -21,18 +21,18 @@ SectionContext.displayName = 'Section Context'
 export const useSection = (
   sectionName?: string
 ): Section | Section[] | undefined => {
-  const sections = useContext(SectionContext) ?? {
+  const { globalSections, pageSections } = useContext(SectionContext) ?? {
     globalSections: [],
     pageSections: [],
   }
-  const allSections = [...sections.globalSections, ...sections.pageSections]
 
   return useMemo(() => {
+    const convinedSections = [...globalSections, ...pageSections]
     if (sectionName) {
-      return allSections.find((section) => section.name === sectionName)
+      return convinedSections.find((section) => section.name === sectionName)
     }
-    return allSections
-  }, [sectionName])
+    return convinedSections
+  }, [globalSections, pageSections, sectionName])
 }
 
 export const SectionProvider: React.FC<SectionContexProps> = ({
