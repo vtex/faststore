@@ -10,6 +10,7 @@
     "directory": "packages/ui"
   },
   "browserslist": "supports es6-module and not dead and last 2 version",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "sideEffects": false,
