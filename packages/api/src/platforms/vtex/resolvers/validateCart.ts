@@ -285,6 +285,7 @@ const updateOrderFormShippingData = async (
         true
       )
     }
+    return orderForm
   }
 
 /**
