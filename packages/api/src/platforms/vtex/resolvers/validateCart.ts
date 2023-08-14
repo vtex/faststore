@@ -221,65 +221,71 @@ async function getOrderNumberFromSession(
 // Returns the regionalized orderForm
 const getOrderForm = async (
   id: string,
-  session: Maybe<IStoreSession> | undefined,
   { clients: { commerce } }: Context
 ) => {
   const orderForm = await commerce.checkout.orderForm({
     id,
   })
 
+  return orderForm
+}
+
+const updateOrderFormShippingData = async (
+  orderForm: OrderForm,
+  session: Maybe<IStoreSession> | undefined,
+  { clients: { commerce } }: Context)=>
+  {
   // Stores that are not yet providing the session while validating the cart
   // should not be able to update the shipping data
   //
   // This was causing errors while validating regionalizated carts
   // because the following code was trying to change the shippingData to an undefined address/session
-  if (!session) {
-    return orderForm
-  }
 
-  const { updateShipping, addressChanged } = shouldUpdateShippingData(
-    orderForm,
-    session
-  )
-
-  if (updateShipping) {
-    // Check if the orderForm address matches the one from the session
-    const oldAddress = getAddressOrderForm(orderForm, session, addressChanged)
-
-    const address = oldAddress ? oldAddress : createNewAddress(session)
-
-    const selectedAddresses = address as SelectedAddress[]
-
-    const hasDeliveryWindow = session.deliveryMode?.deliveryWindow
-      ? true
-      : false
-
-    if (hasDeliveryWindow) {
-      // if you have a Delivery Window you have to first get the delivery window to set the desired after
-      await commerce.checkout.shippingData(
+    if (!session) {
+      return orderForm
+    }
+  
+    const { updateShipping, addressChanged } = shouldUpdateShippingData(
+      orderForm,
+      session
+    )
+  
+    if (updateShipping) {
+      // Check if the orderForm address matches the one from the session
+      const oldAddress = getAddressOrderForm(orderForm, session, addressChanged)
+  
+      const address = oldAddress ? oldAddress : createNewAddress(session)
+  
+      const selectedAddresses = address as SelectedAddress[]
+  
+      const hasDeliveryWindow = session.deliveryMode?.deliveryWindow
+        ? true
+        : false
+  
+      if (hasDeliveryWindow) {
+        // if you have a Delivery Window you have to first get the delivery window to set the desired after
+        await commerce.checkout.shippingData(
+          {
+            id: orderForm.orderFormId,
+            index: orderForm.items.length,
+            deliveryMode: session.deliveryMode,
+            selectedAddresses: selectedAddresses,
+          },
+          false
+        )
+      }
+  
+      return commerce.checkout.shippingData(
         {
           id: orderForm.orderFormId,
           index: orderForm.items.length,
           deliveryMode: session.deliveryMode,
           selectedAddresses: selectedAddresses,
         },
-        false
+        true
       )
     }
-
-    return commerce.checkout.shippingData(
-      {
-        id: orderForm.orderFormId,
-        index: orderForm.items.length,
-        deliveryMode: session.deliveryMode,
-        selectedAddresses: selectedAddresses,
-      },
-      true
-    )
   }
-
-  return orderForm
-}
 
 /**
  * This resolver implements the optimistic cart behavior. The main idea in here
@@ -328,7 +334,7 @@ export const validateCart = async (
   const orderNumber = orderNumberFromSession ?? orderNumberFromCart ?? ''
 
   // Step1: Get OrderForm from VTEX Commerce
-  const orderForm = await getOrderForm(orderNumber, session, ctx)
+  const orderForm = await getOrderForm(orderNumber, ctx)
 
   // Step1.1: Checks if the orderForm id has changed. There are three cases for this:
   // Social Selling: the vtex_session cookie contains a new orderForm id with Social Selling data
@@ -413,12 +419,12 @@ export const validateCart = async (
     // update orderForm etag so we know last time we touched this orderForm
     .then((form) => setOrderFormEtag(form, commerce))
     .then(joinItems)
-
+  
   // Step5: If no changes detected before/after updating orderForm, the order is validated
   if (equals(order, updatedOrderForm)) {
     return null
   }
-
+  await updateOrderFormShippingData(updatedOrderForm, session, ctx)
   // Step6: There were changes, convert orderForm to StoreCart
   return orderFormToCart(updatedOrderForm, skuLoader)
 }
