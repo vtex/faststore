@@ -421,11 +421,11 @@ export const validateCart = async (
     .then((form) => setOrderFormEtag(form, commerce))
     .then(joinItems)
   
+  await updateOrderFormShippingData(updatedOrderForm, session, ctx)
   // Step5: If no changes detected before/after updating orderForm, the order is validated
   if (equals(order, updatedOrderForm)) {
     return null
   }
-  await updateOrderFormShippingData(updatedOrderForm, session, ctx)
   // Step6: There were changes, convert orderForm to StoreCart
   return orderFormToCart(updatedOrderForm, skuLoader)
 }
