@@ -12,16 +12,13 @@ export const shouldUpdateShippingData = (
   orderForm: OrderForm,
   session: IStoreSession
 ) => {
-  console.log("orderForm:",JSON.stringify(orderForm.shippingData?.logisticsInfo))
   if (!hasSessionPostalCodeOrGeoCoordinates(session)) {
-    console.log("hasSessionPostalCodeOrGeoCoordinates")
     return { updateShipping: false, addressChanged: false }
   }
 
   const selectedAddress = orderForm.shippingData?.selectedAddresses[0]
 
   if (checkPostalCode(selectedAddress, session.postalCode)) {
-    console.log("checkPostalCode")
     return { updateShipping: true, addressChanged: true }
   }
 
@@ -32,17 +29,14 @@ export const shouldUpdateShippingData = (
       session.postalCode
     )
   ) {
-    console.log("checkGeoCoordinates")
     return { updateShipping: true, addressChanged: true }
   }
 
   if (checkAddressType(selectedAddress, session.addressType)) {
-    console.log("checkAddressType")
     return { updateShipping: true, addressChanged: true }
   }
 
   if (!hasItems(orderForm)) {
-    console.log("hasItems")
     return { updateShipping: false, addressChanged: false }
   }
 
@@ -50,20 +44,16 @@ export const shouldUpdateShippingData = (
   const { logisticsInfo } = orderForm.shippingData!
 
   if (shouldUpdateDeliveryChannel(logisticsInfo, session)) {
-    console.log("shouldUpdateDeliveryChannel")
     return { updateShipping: true, addressChanged: false }
   }
 
   if (shouldUpdateDeliveryMethod(logisticsInfo, session)) {
-    console.log("shouldUpdateDeliveryMethod")
     return { updateShipping: true, addressChanged: false }
   }
 
   if (shouldUpdateDeliveryWindow(logisticsInfo, session)) {
-    console.log("shouldUpdateDeliveryWindow")
     return { updateShipping: true, addressChanged: false }
   }
-  console.log("noUpdate")
   return { updateShipping: false, addressChanged: false }
 }
 
