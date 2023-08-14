@@ -12,6 +12,7 @@ export const shouldUpdateShippingData = (
   orderForm: OrderForm,
   session: IStoreSession
 ) => {
+  console.log("orderForm:",orderForm)
   if (!hasSessionPostalCodeOrGeoCoordinates(session)) {
     console.log("hasSessionPostalCodeOrGeoCoordinates")
     return { updateShipping: false, addressChanged: false }
