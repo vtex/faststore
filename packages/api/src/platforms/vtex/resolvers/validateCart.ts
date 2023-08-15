@@ -22,6 +22,7 @@ import type {
   OrderForm,
   OrderFormInputItem,
   OrderFormItem,
+  SellingPrice,
 } from '../clients/commerce/types/OrderForm'
 import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
 import { getAddressOrderForm } from '../utils/getAddressOrderForm'
@@ -131,11 +132,33 @@ const joinItems = (form: OrderForm) => {
         (acc, i) => acc + i.quantity * i.sellingPrice,
         0
       )
+      const priceTags: string[] = []
+      const sellingPrices: SellingPrice[] = []
+
+      items.forEach((item) => {
+        priceTags.push(...item.priceTags)
+
+        const sellingPricesFormatted = item.priceDefinition.sellingPrices.map(sellingPrice => ({
+          ...sellingPrice,
+          value: sellingPrice.value / 1e2
+        }))
+
+        sellingPrices.push(...sellingPricesFormatted)
+      })
+
+      const totalPriceDefinition = sellingPrices.reduce((acc, i) => acc + i.value * i.quantity, 0)
 
       return {
         ...item,
         quantity,
         sellingPrice: totalPrice / quantity,
+        priceTags,
+        priceDefinition: {
+          ...item.priceDefinition,
+          calculatedSellingPrice: item.priceDefinition.calculatedSellingPrice / 1e2,
+          total: totalPriceDefinition,
+          sellingPrices
+        }
       }
     }),
   }
@@ -152,6 +175,10 @@ const orderFormToCart = async (
         ...item,
         product: await skuLoader.load(item.id),
       })),
+      totalizers: form.totalizers.map(totalizer => ({
+        ...totalizer,
+        value: totalizer.value / 1e2
+      }))
     },
     messages: form.messages.map(({ text, status }) => ({
       text,
