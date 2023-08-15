@@ -5,6 +5,7 @@ import { Steps, Step } from 'nextra-theme-docs'
 # API Extensions
 
 In this guide you will learn how to extend the FastStore API schema.
+
 </header>
 
 Although the [FastStore API](https://v1.faststore.dev/reference/api/faststore-api) provides a [GraphQL schema for ecommerce](https://v1.faststore.dev/reference/api/queries) that suits a general use case, some stores may need to access other, more specific, information.
@@ -28,7 +29,7 @@ Inside the repository, there is a clear separation about what comes from VTEX AP
 
 FastStore streamline the way of using data from VTEX APIs that the FastStore API does not expose.
 
-As FastStore uses GraphQL, it's required to write [type definitions](https://graphql.org/learn/schema/#object-types-and-fields) and [resolvers](https://graphql.org/learn/execution/#root-fields-resolvers) to fetch the data you need.  You will learn how to do this using API Extensions by following the steps below.
+As FastStore uses GraphQL, it's required to write [type definitions](https://graphql.org/learn/schema/#object-types-and-fields) and [resolvers](https://graphql.org/learn/execution/#root-fields-resolvers) to fetch the data you need. You will learn how to do this using API Extensions by following the steps below.
 
 ### Folder Structure
 
@@ -95,7 +96,6 @@ const productResolver = {
 }
 
 export default productResolver
-
 ```
 
 As you see, you can leverage the use of TypeScript by typing the root param as [StoreProductRoot](https://v1.faststore.dev/reference/api/root-object-fields#root-product):
@@ -114,7 +114,6 @@ const resolvers = {
 }
 
 export default resolvers
-
 ```
 
 That's it, you only need to define these files within the vtex folder for the sake of exposing the new fields. The entire GraphQL creation process must be transparent and done in the background by the FastStore.
@@ -122,6 +121,7 @@ That's it, you only need to define these files within the vtex folder for the sa
 ### How to use
 
 **TBD - After the Consume new fields from pages features be done. Here we can be inspired by these steps:**
+
 1. add the `customData` field in the `Fragment X` from the `Y file`.
 2. run `yarn dev` in the core package.
 3. run `yarn generate` in the core package (with `yarn dev` running).
@@ -151,9 +151,8 @@ starter.store/
 
 Following this structure, you can use the same pattern mentioned above regarding the VTEX API Schema extensions but using the `thirdParty` folder, with resolvers and typeDefs inside their respective folders and resolvers being imported into the `index.ts` file.
 
-One crucial aspect to consider when developing a third-party extension is the creation of a Query or Mutation schema. This schema plays a vital role in generating new query entry points to access data. 
+One crucial aspect to consider when developing a third-party extension is the creation of a Query or Mutation schema. This schema plays a vital role in generating new query entry points to access data.
 Below, you will find an example code the implementation of a third-party extension:
-
 
 ```ts
 //graphql/thirdParty/typeDefs/extra.graphql
@@ -170,7 +169,6 @@ type Query {
   namedExtraData(name: String!): ExtraData
 }
 ```
-
 
 ```ts
 //graphql/thirdParty/resolvers/extra.ts
@@ -189,7 +187,6 @@ const extraDataResolver = {
     },
   },
 }
-
 
 export default extraDataResolver
 ```
@@ -227,7 +224,7 @@ GraphQL enables clients to precisely define the required data by crafting specif
 
 Therefore, it is crucial to avoid requesting unnecessary fields in queries and to be mindful of fragments that may call extraneous data in other contexts. By using GraphQL in this manner, we can optimize performance and streamline data transmission between clients and servers.
 
-When rendering a custom page or adding a custom section to an existing page, sometimes it is necessary to add new fields fetched from the previously defined custom or extended schema. We should determine which fields/fragments we need to request for the rendering of each page and avoid over-fetching unused data. 
+When rendering a custom page or adding a custom section to an existing page, sometimes it is necessary to add new fields fetched from the previously defined custom or extended schema. We should determine which fields/fragments we need to request for the rendering of each page and avoid over-fetching unused data.
 
 ## Extending Queries Using Fragments
 
@@ -253,65 +250,11 @@ export const fragment = gql`
 
 ## Extendable Queries
 
-
-### ClientProductGalleryQuery (Client Side)
-
-Query operation: search
-
-Page: PLP
-
-Where is used: In the hook `useGalleryQuery()` from the `ProductGallery` component.
-
-Return: Products totalCount from StorePageInfo, and facets (StoreFacet) from StoreSearchResult.
-Parameters: Frontend data from the `useSearch()` and `useLocalizedVariables()` hooks, the latter uses `useSession()`.
-
-### ServerCollectionPageQuery (Server Side)
-
-Query operation: collection
-
-Page: PLP
-
-Where is used: In the function `getStaticProps()` from `PLP`.
-
-Return: seo, breadcrumbList and meta data from collection (StoreCollection).
-Parameters: Collection `slug` that comes from URL.
-
-### ServerProductPageQuery (Server Side)
-
-Query operation: product
-
-Page: PDP
-
-Where is used: In the function `getStaticProps()` from `PDP`.
-
-Return: General product data from StoreProduct.
-Parameters: The `locator` with `slug` key/value.
-
-### ClientProductQuery (Client Side)
-
-Query operation: product
-
-Page: PDP
-
-Where is used: In the hook `useProduct()` from `ProductDetails`component.
-
-Return: General product data from StoreProduct to update product data inside `PDP` (product coming from `ServerProductPageQuery` as fallback).
-Parameters: Frontend data from the `useSession()` hook in locator array with `id`, `channel`, `locale` as key/values.
-
-### ClientProductsQuery (Client Side)
-
-Query operation: search
-
-Page: PLP + Pages that use `ProductShelf`, and `ProductTiles` components.
-
-Where is used: 
-- In the hook `useProducts()` from `GalleryPage` from `PLP`. 
-- In the hook `useProductsPrefetch()` to prefetch the previous (prev) and next (next) page from the current `PLP` page.
-- In the hook `useProductsQuery()`, in `ProductShelf`, `ProductTiles` components, that can be used on multiple pages.
-
-Return: General products data (StoreProduct)  with the `totalCount` from StorePageInfo.
-
-Parameters: Frontend data from the `useLocalizedVariables()` and `useSession()` hooks.
-
-
+| **Query Name** | **Side** | **Query operation** | **Page** | **Where is used** | **Return** | **Parameters** |
+|---|---|---|---|---|---|---|
+| ClientProductGalleryQuery | Client | search | PLP | In the hook `useGalleryQuery()` from the `ProductGallery` component. | Products totalCount from StorePageInfo, and facets (StoreFacet) from StoreSearchResult. | Frontend data from the `useSearch()` and `useLocalizedVariables()` hooks, the latter uses `useSession()`. |
+| ServerCollectionPageQuery | Server | collection | PLP | In the function `getStaticProps()` from `PLP`. | seo, breadcrumbList and meta data from collection (StoreCollection). | Collection `slug` that comes from URL. |
+| ServerProductPageQuery | Server | product | PDP | In the function `getStaticProps()` from `PDP`. | General product data from StoreProduct. | The `locator` with `slug` key/value. |
+| ClientProductQuery | Client | product | PDP | In the hook `useProduct()` from `ProductDetails`component. | General product data from StoreProduct to update product data inside `PDP` (product coming from `ServerProductPageQuery` as fallback). | Frontend data from the `useSession()` hook in locator array with `id`, `channel`, `locale` as key/values. |
+| ClientProductsQuery | Client | search | PLP + Pages that use `ProductShelf`, and `ProductTiles` components. | In the hook `useProducts()` from `GalleryPage` from `PLP`.<br />In the hook `useProductsPrefetch()` to prefetch the previous (prev) and next (next) page from the current `PLP` page.<br />In the hook `useProductsQuery()`, in `ProductShelf`, `ProductTiles` components, that can be used on multiple pages. | General products data (StoreProduct)  with the `totalCount` from StorePageInfo. | Frontend data from the `useLocalizedVariables()` and `useSession()` hooks. |
 
