@@ -404,7 +404,7 @@ export const validateCart = async (
     return null
   }
 
-  // Step5: Apply delta changes to order form
+  // Step4: Apply delta changes to order form
   const updatedOrderForm = await commerce.checkout
     // update orderForm items
     .updateOrderFormItems({
@@ -412,15 +412,16 @@ export const validateCart = async (
       orderItems: changes,
       shouldSplitItem,
     })
+    // update orderForm shippingData
     .then((form: OrderForm) => updateOrderFormShippingData(form, session, ctx))
     // update orderForm etag so we know last time we touched this orderForm
     .then((form: OrderForm) => setOrderFormEtag(form, commerce))
     .then(joinItems)
 
-  // Step6: If no changes detected before/after updating orderForm, the order is validated
+  // Step5: If no changes detected before/after updating orderForm, the order is validated
   if (equals(order, updatedOrderForm)) {
     return null
   }
-  // Step7: There were changes, convert orderForm to StoreCart
+  // Step6: There were changes, convert orderForm to StoreCart
   return orderFormToCart(updatedOrderForm, skuLoader)
 }
