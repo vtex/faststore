@@ -167,7 +167,6 @@ const setOrderFormEtag = async (
   commerce: Context['clients']['commerce']
 ) => {
   try {
-    console.log("Updated Order Form", JSON.stringify(form.items), JSON.stringify(form.shippingData?.logisticsInfo))
     const orderForm = await commerce.checkout.setCustomData({
       id: form.orderFormId,
       appId: 'faststore',
@@ -220,72 +219,69 @@ async function getOrderNumberFromSession(
 }
 
 // Returns the regionalized orderForm
-const getOrderForm = async (
-  id: string,
-  { clients: { commerce } }: Context
-) => {
+const getOrderForm = async (id: string, { clients: { commerce } }: Context) => {
   return await commerce.checkout.orderForm({
     id,
-  }) 
+  })
 }
 
-const updateOrderFormShippingData =  async (
+const updateOrderFormShippingData = async (
   orderForm: OrderForm,
   session: Maybe<IStoreSession> | undefined,
-  { clients: { commerce } }: Context)=>
-  {
+  { clients: { commerce } }: Context
+) => {
   // Stores that are not yet providing the session while validating the cart
   // should not be able to update the shipping data
   //
   // This was causing errors while validating regionalizated carts
   // because the following code was trying to change the shippingData to an undefined address/session
 
-    if (!session) {
-      return orderForm
-    }
-  
-    const { updateShipping, addressChanged } = shouldUpdateShippingData(
-      orderForm,
-      session
-    )
-  
-    if (updateShipping) {
-      // Check if the orderForm address matches the one from the session
-      const oldAddress = getAddressOrderForm(orderForm, session, addressChanged)
-  
-      const address = oldAddress ? oldAddress : createNewAddress(session)
-  
-      const selectedAddresses = address as SelectedAddress[]
-  
-      const hasDeliveryWindow = session.deliveryMode?.deliveryWindow
-        ? true
-        : false
-  
-      if (hasDeliveryWindow) {
-        // if you have a Delivery Window you have to first get the delivery window to set the desired after
-        await commerce.checkout.shippingData(
-          {
-            id: orderForm.orderFormId,
-            index: orderForm.items.length,
-            deliveryMode: session.deliveryMode,
-            selectedAddresses: selectedAddresses,
-          },
-          false
-        )
-      }
-  
-      return commerce.checkout.shippingData(
+  if (!session) {
+    return orderForm
+  }
+
+  const { updateShipping, addressChanged } = shouldUpdateShippingData(
+    orderForm,
+    session
+  )
+
+  if (updateShipping) {
+    // Check if the orderForm address matches the one from the session
+    const oldAddress = getAddressOrderForm(orderForm, session, addressChanged)
+
+    const address = oldAddress ? oldAddress : createNewAddress(session)
+
+    const selectedAddresses = address as SelectedAddress[]
+
+    const hasDeliveryWindow = session.deliveryMode?.deliveryWindow
+      ? true
+      : false
+
+    if (hasDeliveryWindow) {
+      // if you have a Delivery Window you have to first get the delivery window to set the desired after
+      await commerce.checkout.shippingData(
         {
           id: orderForm.orderFormId,
           index: orderForm.items.length,
           deliveryMode: session.deliveryMode,
           selectedAddresses: selectedAddresses,
         },
-        true
+        false
       )
     }
-    return orderForm
+
+    return commerce.checkout.shippingData(
+      {
+        id: orderForm.orderFormId,
+        index: orderForm.items.length,
+        deliveryMode: session.deliveryMode,
+        selectedAddresses: selectedAddresses,
+      },
+      true
+    )
   }
+  return orderForm
+}
 
 /**
  * This resolver implements the optimistic cart behavior. The main idea in here
