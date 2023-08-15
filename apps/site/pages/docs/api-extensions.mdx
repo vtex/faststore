@@ -220,7 +220,7 @@ query {
 
 ## Extending Queries Using Fragments
 
-When developers need to include custom fields in existing server queries, they can utilize the src/fragments folder. Within this directory, they can generate files containing GraphQL fragments, which can then be integrated into the desired queries for extension purposes.
+To add custom fields to existing [extendable queries](/docs/api-extensions#extendable-queries), extend them using fragments located in the `src/fragments` folder. Fragments are GraphQL components that can be integrated into queries to extend functionality.
 
 To introduce additional fields to an already established query, developers should generate a new .ts file within the src/fragments folder. This file's name should match the corresponding Query that requires extension.
 
