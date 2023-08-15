@@ -220,7 +220,7 @@ async function getOrderNumberFromSession(
 
 // Returns the regionalized orderForm
 const getOrderForm = async (id: string, { clients: { commerce } }: Context) => {
-  return await commerce.checkout.orderForm({
+  return commerce.checkout.orderForm({
     id,
   })
 }
