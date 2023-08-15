@@ -1,49 +1,1230 @@
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { CardItem, CardList } from 'site/components/CardList'
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  Alert,
+  Badge,
+  BannerText,
+  BannerTextContent,
+  Breadcrumb,
+  Button,
+  BuyButton,
+  CartItem,
+  CartItemImage,
+  CartItemSummary,
+  Checkbox,
+  CheckboxField,
+  DiscountBadge,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownButton,
+  EmptyState,
+  Filter,
+  Gift,
+  GiftContent,
+  GiftImage,
+  Hero,
+  HeroImage,
+  HeroHeader,
+  Icon,
+  IconButton,
+  Input,
+  InputField,
+  Label,
+  Link,
+  LinkButton,
+  List,
+  Loader,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  Navbar,
+  OrderSummary,
+  OutOfStock,
+  Overlay,
+  PaymentMethods,
+  Price,
+  ProductGrid,
+  ProductGridItem,
+  ProductCard,
+  ProductCardContent,
+  ProductCardImage,
+  ProductShelf,
+  ProductShelfItems,
+  ProductShelfItem,
+  ProductTitle,
+  QuantitySelector,
+  Radio,
+  RadioField,
+  RadioGroup,
+  RegionBar,
+  Rating,
+  SearchAutoComplete,
+  SearchAutoCompleteTerm,
+  SearchHistory,
+  SearchHistoryTerm,
+  SearchInputField,
+  SearchProducts,
+  SearchProductItem,
+  SearchProductItemImage,
+  SearchProductItemContent,
+  SearchTop,
+  SearchTopTerm,
+  Select,
+  SelectField,
+  Skeleton,
+  Slider,
+  SROnly,
+  RegionModal,
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableFooter,
+  Tag,
+  Toast,
+  Toggle,
+  ToggleField,
+  UIProvider,
+  useUI,
+} from '@faststore/ui'
+import CarouselUsage from 'site/components/Carousel/CarouselUsage'
+import CartSidebarUsage from 'site/components/CartSidebar/CartSidebarUsage'
+import FilterUsage from 'site/components/Filter/FilterUsage'
+import ImageGalleryUsage from 'site/components/ImageGallery/ImageGalleryUsage'
+import NavbarUsage from 'site/components/Navigation/NavbarUsage'
+import NavbarLinksUsage from 'site/components/Navigation/NavbarLinksUsage'
+import NavbarSliderUsage from 'site/components/Navigation/NavbarSliderUsage'
+import PriceRangeUsage from 'site/components/PriceRange/PriceRangeUsage'
+import ProductShelfUsage from 'site/components/ProductShelf/ProductShelfUsage'
+import SearchDropdownUsage from 'site/components/Search/SearchDropdownUsage'
+import SearchInputUsage from 'site/components/Search/SearchInputUsage'
+import ShippingSimulationUsage from 'site/components/ShippingSimulation/ShippingSimulationUsage'
+import ToastUsage from 'site/components/Toast/ToastUsage'
+import { SkuSelectorColor } from 'site/components/SkuSelector'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+import SlideOverUsage from 'site/components/SlideOver/SlideOverUsage'
+import { product } from 'site/mocks/product'
+import { products } from 'site/mocks/products'
+import { breadcrumbList } from 'site/mocks/breadcrumbList'
+import { SearchProvider } from '@faststore/sdk'
+import { useState } from 'react'
+
 <header>
 
-# FastStore UI
+# FastStore UI Components
+
+FastStore UI is designed and built following the [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/) pattern.
+Atomic Design breaks user interfaces hierarchically into smaller and simpler components and the FastStore components are classified in: **atoms, molecules, organisms** and **features**.
 
 </header>
 
-FastStore UI is an ecommerce-focused library of [brandless](/docs/theming-overview#brandless-and-the-theming-structure) components you can easily use on your application.
-It provides features & basic style that makes it faster to implement and customize on top of it.
+export const skuActiveVariants =
+  product.isVariantOf.skuVariants.activeVariations
+export const activeVariations = Object.keys(skuActiveVariants).map((key) => ({
+  label: key,
+  option: skuActiveVariants[key],
+}))
 
-FastStore UI is designed and built following the [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/) pattern. 
-Atomic Design breaks user interfaces hierarchically into smaller and simpler components and the FastStore components are classified in: **atoms, molecules, organisms** and **features**.
+export const imagesUsage = [
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000',
+    alternateName: 'Magicwhite',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190923/lena-de-fanti-nQ_j5d-klVU-unsplash.jpg?v=637867501523500000',
+    alternateName: 'magicbox',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190924/anthony-choren-e7dG26YCrZU-unsplash.jpg?v=637867501835430000',
+    alternateName: 'magicblackwhite',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190925/maheshkumar-painam-GZdfLeL-MDk-unsplash.jpg?v=637867502064000000',
+    alternateName: 'magiccombo',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190926/math-0U9fBLGP3EY-unsplash.jpg?v=637867502325830000',
+    alternateName: 'magicback',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190927/marek-levak-YPeqMN_wfw0-unsplash.jpg?v=637867502641430000',
+    alternateName: 'magictable',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190928/mouse8.jpg?v=637867504048970000',
+    alternateName: 'magichand',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190929/harpal-singh-KuvEVL7lXYQ-unsplash.jpg?v=637867509459130000',
+    alternateName: 'magicstyle',
+  },
+  {
+    url: 'https://storeframework.vtexassets.com/arquivos/ids/190930/chris-hardy-182PzOtcmWc-unsplash.jpg?v=637867509778300000',
+    alternateName: 'magicscale',
+  },
+]
+
+export const flags = [
+  { icon: { icon: 'Visa' }, alt: 'Visa' },
+  { icon: { icon: 'Diners' }, alt: 'Diners Club' },
+  { icon: { icon: 'Mastercard' }, alt: 'Mastercard' },
+  { icon: { icon: 'EloCard' }, alt: 'Elo Card' },
+  { icon: { icon: 'PayPal' }, alt: 'PayPal' },
+  { icon: { icon: 'Stripe' }, alt: 'Stripe' },
+  { icon: { icon: 'GooglePay' }, alt: 'GooglePay' },
+  { icon: { icon: 'ApplePay' }, alt: 'ApplePay' },
+]
+
+export const options = [
+  {
+    numberOfInstallments: 1,
+    monthlyPayment: 200,
+    minItems: 1,
+    maxItems: 4,
+    total: 200,
+  },
+  {
+    numberOfInstallments: 2,
+    monthlyPayment: 100,
+    minItems: 10,
+    maxItems: 20,
+    total: 200,
+  },
+  {
+    numberOfInstallments: 3,
+    monthlyPayment: 68,
+    minItems: 1,
+    maxItems: 10,
+    total: 204,
+  },
+]
+
+export const sizes = [
+  {
+    type: 'Width',
+    value: '1.5m',
+  },
+  {
+    type: 'Height',
+    value: '1.5m',
+  },
+  {
+    type: 'Dimensions',
+    value: '7 x 3 x 9 in',
+  },
+]
+
+export const searchContent = 'Appl'
+
+export const suggestions = [{ value: 'apple airpods' }, { value: 'apple tv' }]
+
+export const UsageAccordionMultiple = () => {
+  const [indices, setIndices] = useState(new Set([]))
+  const onChange = (index) => {
+    if (indices.has(index)) {
+      indices.delete(index)
+      setIndices(new Set(indices))
+    } else {
+      setIndices(new Set(indices.add(index)))
+    }
+  }
+  return (
+    <Accordion indices={indices} onChange={onChange}>
+      <AccordionItem>
+        <AccordionButton>Clothing</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Shorts</li>
+            <li>Sweatshirt</li>
+            <li>Tank tops</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>Bags</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Backpacks</li>
+            <li>Necessaire</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>Sale</AccordionButton>
+        <AccordionPanel>
+          <List>
+            <li>Smartphones</li>
+            <li>TVs</li>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+    </Accordion>
+  )
+}
+
+export const ModalBase = () => {
+  const { modal, openModal } = useUI()
+  return (
+    <>
+      <Button variant="primary" onClick={() => openModal()}>
+        Open Modal
+      </Button>
+      {modal && (
+        <Modal>
+          {({ fadeOut }) => (
+            <>
+              <ModalHeader
+                onClose={() => fadeOut()}
+                title="Modal Title"
+                description="Modal description"
+              />
+              <ModalBody>
+                <p>This is the ModalBody</p>
+              </ModalBody>
+            </>
+          )}
+        </Modal>
+      )}
+    </>
+  )
+}
+
+export const RegionModalUsage = () => {
+  const { modal, openModal } = useUI()
+  const [input, setInput] = useState('')
+  return (
+    <>
+      <Button variant="primary" onClick={() => openModal()}>
+        Open Region Modal
+      </Button>
+      {modal && (
+        <RegionModal
+          fadeOutOnSubmit={true}
+          inputValue={input}
+          onInput={(e) => setInput(e.currentTarget.value)}
+        />
+      )}
+    </>
+  )
+}
+
+export const SlideOverPartialRight = () => {
+  const { modal, openModal } = useUI()
+  return (
+    <>
+      <Button variant="primary" onClick={openModal} style={{ width: '9rem' }}>
+        Right
+      </Button>
+      {modal && (
+        <SlideOverUsage size="partial" direction="rightSide" isOpen={modal} />
+      )}
+    </>
+  )
+}
+
+## Atoms
+
+<CardList columns={4}>
+  <CardItem
+    title="Badge"
+    description="Badges are status descriptors used to emphasize an item's state."
+    actionPath="/components/atoms/badge"
+  >
+    <Badge variant="success">Success</Badge>
+  </CardItem>
+  <CardItem
+    title="Button"
+    description="Buttons indicate actions that users can take, like adding an item to the cart."
+    actionPath="/components/atoms/button"
+  >
+    <Button variant="primary">Primary</Button>
+  </CardItem>
+  <CardItem
+    title="Checkbox"
+    description="Checkboxes allow users to toggle an option on or off."
+    actionPath="/components/atoms/checkbox"
+  >
+    <Checkbox checked readOnly />
+  </CardItem>
+  <CardItem
+    title="Icon"
+    description="Icons are simplified graphics used to represent concepts and help users navigate the UI."
+    actionPath="/components/atoms/icon"
+  >
+    <Icon name="ShoppingCart" weight="regular" width={24} height={24} />
+  </CardItem>
+  <CardItem
+    title="Input"
+    description="Fields used to get user inputs."
+    actionPath="/components/atoms/input"
+  >
+    <Input placeholder="Label" id="inputfield-default" />
+  </CardItem>
+  <CardItem
+    title="Label"
+    description="Describes the meaning of input fields."
+    actionPath="/components/atoms/label"
+  >
+    <Label>Label</Label>
+  </CardItem>
+  <CardItem
+    title="Link"
+    description="Performs the same behavior of a regular anchor tag (`a`), but can be used as any HTML tag and component."
+    actionPath="/components/atoms/link"
+  >
+    <Link variant="default">Default</Link>
+  </CardItem>
+  <CardItem
+    title="List"
+    description="Lists group related content. They can be ordered or unordered."
+    actionPath="/components/atoms/list"
+  >
+    <List marker>
+      <li>Great Unordered List</li>
+      <li>Ok Unordered List</li>
+      <li>Bad Unordered List</li>
+    </List>
+  </CardItem>
+  <CardItem
+    title="Loader"
+    description="Loaders provide a visual cue that an action is being processed."
+    actionPath="/components/atoms/loader"
+  >
+    <Loader />
+  </CardItem>
+  <CardItem
+    title="Overlay"
+    description="Overlays provide contextual information on top of the current layer of the interface."
+    actionPath="/components/atoms/overlay"
+  >
+    <div
+      style={{
+        position: 'relative',
+        height: '8rem',
+        width: '100%',
+        textAlign: 'center',
+      }}
+    >
+      A content outside me
+      <Overlay style={{ position: 'absolute' }} />
+    </div>
+  </CardItem>
+  <CardItem
+    title="Price"
+    description="Used to display the price of a given product, discount and total values."
+    actionPath="/components/atoms/price"
+  >
+    <Price value={62.5} variant="selling" />
+  </CardItem>
+  <CardItem
+    title="Radio"
+    description="Allow users to select one option from a set."
+    actionPath="/components/atoms/radio"
+  >
+    <Radio checked readOnly />
+  </CardItem>
+  <CardItem
+    title="Select"
+    description="Select components allow users to pick an option from a predefined list."
+    actionPath="/components/atoms/select"
+  >
+    <Select
+      id="select-overview-default"
+      options={{
+        great: 'Great',
+        ok: 'Ok',
+        bad: 'Bad',
+      }}
+    />
+  </CardItem>
+  <CardItem
+    title="Skeleton"
+    description="Improves the store's experience and perceived performance through loading placeholders."
+    actionPath="/components/atoms/skeleton"
+  >
+    <Skeleton size={{ width: '150px', height: '80px' }} borderRadius="32px" />
+  </CardItem>
+  <CardItem
+    title="Slider"
+    description="Allows users to select a single value from a range."
+    actionPath="/components/atoms/slider"
+  >
+    <Slider
+      max={{ absolute: 500, selected: 250 }}
+      min={{ absolute: 0, selected: 100 }}
+      absoluteValuesLabel={{ min: '0', max: '500' }}
+    />
+  </CardItem>
+  <CardItem
+    title="SROnly"
+    description="Hides an element visually. Improve accessibility by providing text to screen readers when applied."
+    actionPath="/components/atoms/sr-only"
+  >
+    <SROnly text="visually hidden text" />
+  </CardItem>
+</CardList>
 
 ---
 
-## Installation
+## Molecules
 
-Install `@faststore/ui` as a dependency of your project via the command line:
-
-### yarn
-
-```sh copy
-yarn add @faststore/ui
-```
-
-### npm
-
-```sh copy
-npm install @faststore/ui
-```
+<CardList columns={3}>
+  <CardItem
+    title="Accordion"
+    description="Displays an expandable/collapsible list of items."
+    actionPath="/components/molecules/accordion"
+  >
+    {UsageAccordionMultiple()}
+  </CardItem>
+  <CardItem
+    title="Alert"
+    description="Displays short messages related to the behavior of a system, feature or page."
+    actionPath="/components/molecules/alert"
+  >
+    <Alert link={{ children: 'Link', href: '#' }} dismissible>
+      Alert message
+    </Alert>
+  </CardItem>
+  <CardItem
+    title="Breadcrumb"
+    description="Indicates the user's location in a website hierarchy."
+    actionPath="/components/molecules/breadcrumb"
+    zoomOut
+  >
+    <Breadcrumb breadcrumbList={breadcrumbList} />
+  </CardItem>
+  <CardItem
+    title="Buy Button"
+    description="Intends to send the user to the checkout/cart step directly."
+    actionPath="/components/molecules/breadcrumb"
+  >
+    <BuyButton>Buy Now</BuyButton>
+  </CardItem>
+  {/* <CardItem
+    title="Carousel"
+    description="Slides through multiple elements using custom controls."
+    actionPath="/components/molecules/carousel"
+  >
+    <CarouselUsage />
+  </CardItem> */}
+  <CardItem
+    title="Cart Item"
+    description="Used to present the summarized information of a product inside the Cart."
+    actionPath="/components/molecules/cart-item"
+  >
+    <CartItem
+      price={{
+        value: product.offers.offers[0].price,
+        listPrice: product.offers.offers[0].listPrice,
+        formatter: useFormattedPrice,
+      }}
+      quantity={3}
+    >
+      <CartItemImage>
+        <img
+          data-fs-image
+          src={product.image[0].url}
+          alt={product.image[0].alternateName}
+        />
+      </CartItemImage>
+      <CartItemSummary
+        title={product.isVariantOf.name}
+        activeVariations={activeVariations}
+      />
+    </CartItem>
+  </CardItem>
+  <CardItem
+    title="Checkbox Field"
+    description={
+      <>
+        Wraps a <code>Checkbox</code> input and its corresponding{' '}
+        <code>Label</code>. It allows users to select one option from a set.
+      </>
+    }
+    actionPath="/components/molecules/checkbox-field"
+  >
+    <CheckboxField label="Default" id="checkboxfield-default" />
+  </CardItem>
+  <CardItem
+    title="Discount Badge"
+    description={
+      <>
+        A custom <code>Badge</code> that display product's discounts.
+      </>
+    }
+    actionPath="/components/molecules/discount-badge"
+  >
+    <DiscountBadge listPrice={80} spotPrice={40} />
+  </CardItem>
+  <CardItem
+    title="Dropdown"
+    description="Displays a set of actions/items to the user, usually used to show a menu of options."
+    actionPath="/components/molecules/dropdown"
+  >
+    <Dropdown>
+      <DropdownButton icon={<Icon name="CaretDown" />}>
+        {'Dropdown'}
+      </DropdownButton>
+      <DropdownMenu>
+        <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
+          {'Dropdown Item 1'}
+        </DropdownItem>
+        <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
+          {'Dropdown Item 2'}
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+  </CardItem>
+  <CardItem
+    title="Gift"
+    description="Displays an additional item to purchase as a gift."
+    actionPath="/components/molecules/gift"
+  >
+    <Gift icon={<Icon name="Tag" />}>
+      <GiftImage>
+        <img
+          src="https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000"
+          alt="Magicwhite"
+          width={89}
+          height={89}
+        />
+      </GiftImage>
+      <GiftContent
+        productName="Apple Magic Mouse"
+        price={{ value: 999, listPrice: 999, formatter: useFormattedPrice }}
+      />
+    </Gift>
+  </CardItem>
+  <CardItem
+    title="Icon Button"
+    description="icons that trigger some sort of action, such as adding an item to the cart."
+    actionPath="/components/molecules/discount-badge"
+  >
+    <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" />
+  </CardItem>
+  <CardItem
+    title="Input Field"
+    description={
+      <>
+        Wraps an <code>Input</code> and its corresponding <code>Label</code>.
+      </>
+    }
+    actionPath="/components/molecules/input-field"
+  >
+    <InputField label="Input w/ Action" id="inputfield-action" actionable />
+  </CardItem>
+  <CardItem
+    title="Link Button"
+    description={
+      <>
+        Visuallly replicates a <code>Button</code>, however acts as a link to
+        navigate users between pages.
+      </>
+    }
+    actionPath="/components/molecules/link-button"
+  >
+    <LinkButton href="#">Link Button</LinkButton>
+  </CardItem>
+  <CardItem
+    title="Modal"
+    description="Are dialog windows that sit on top of an application's main view."
+    actionPath="/components/molecules/modal"
+  >
+    <UIProvider>
+      <ModalBase />
+    </UIProvider>
+  </CardItem>
+  <CardItem
+    title="Navbar Links"
+    description="Used to display a set of navigation links that self adapts on mobile or desktop screens."
+    actionPath="/components/molecules/navbar-links"
+    zoomOut
+  >
+    <NavbarLinksUsage />
+  </CardItem>
+  <CardItem
+    title="Order Summary"
+    description="Provides a summary of the items in the cart, including the total price, related shipping tax, and discounts."
+    actionPath="/components/molecules/order-summary"
+    fullWidth
+  >
+    <OrderSummary
+      subtotalLabel="Subtotal (3 products)"
+      subtotalValue={useFormattedPrice(1200)}
+      discountValue={`-${useFormattedPrice(100)}`}
+      totalValue={useFormattedPrice(1100)}
+    />
+  </CardItem>
+  <CardItem
+    title="Product Card"
+    description="Displays summarized information about a product."
+    actionPath="/components/molecules/product-card"
+  >
+    <ProductCard bordered>
+      <ProductCardImage>
+        <img
+          data-fs-image
+          src={product.image[1].url}
+          alt={product.image[1].alternateName}
+        />
+      </ProductCardImage>
+      <ProductCardContent
+        title="Mouse"
+        price={{
+          value: product.offers.offers[0].price,
+          listPrice: product.offers.offers[0].listPrice,
+          formatter: useFormattedPrice,
+        }}
+        ratingValue={3.5}
+      />
+    </ProductCard>
+  </CardItem>
+  <CardItem
+    title="Product Title"
+    description="Used on Product Details Page, wraps the product name, a product label and the rating."
+    actionPath="/components/molecules/product-title"
+    fullWidth
+  >
+    <ProductTitle
+      title={<h1>Apple Mouse</h1>}
+      label={<DiscountBadge size="big" listPrice={100} spotPrice={90} />}
+      refNumber="99995945"
+      ratingValue={4}
+    />
+  </CardItem>
+  <CardItem
+    title="Quantity Selector"
+    description="Allows customers to select the quantity of a given product to purchase."
+    actionPath="/components/molecules/quantity-selector"
+  >
+    <QuantitySelector min={1} max={10} initial={5} />
+  </CardItem>
+  <CardItem
+    title="Radio Field"
+    description={
+      <>
+        Wraps a <code>Radio</code> input and its corresponding{' '}
+        <code>Label</code>. It allows users to select one option from a set.
+      </>
+    }
+    actionPath="/components/molecules/radio-field"
+  >
+    <RadioField label="Checked" id="radiofield-checked" checked readOnly />
+  </CardItem>
+  <CardItem
+    title="Radio Group"
+    description="Allows users to select a single option from a list of two or more mutually exclusive options."
+    actionPath="/components/molecules/radio-group"
+  >
+    <RadioGroup name="radiogroup">
+      <RadioField label="First" name="radiogroup" id="radiofield-first" />
+      <RadioField label="Second" name="radiogroup" id="radiofield-second" />
+      <RadioField label="Third" name="radiogroup" id="radiofield-third" />
+    </RadioGroup>
+  </CardItem>
+  <CardItem
+    title="Rating"
+    description="Displays the average rating of a product based on other shoppers' feedback and reviews."
+    actionPath="/components/molecules/rating"
+  >
+    <Rating value={3.5} icon={<Icon name="Star" />} />
+  </CardItem>
+  <CardItem
+    title="Region Bar"
+    description={
+      <>
+        Trigger the <code>RegionModal</code> and is part of{' '}
+        <code>Regionalization</code> feature.
+      </>
+    }
+    actionPath="/components/molecules/region-bar"
+  >
+    <RegionBar icon={<Icon name="MapPin" />} label="Set your location" />
+  </CardItem>
+  <CardItem
+    title="Search Auto Complete"
+    description={
+      <>
+        Lists auto completing suggestions based on searched term. This component
+        is part of the <code>Search</code> feature.
+      </>
+    }
+    actionPath="/components/molecules/search-auto-complete"
+  >
+    <SearchAutoComplete>
+      {suggestions?.map((suggestion) => (
+        <SearchAutoCompleteTerm
+          key={suggestion.value}
+          term={searchContent}
+          suggestion={suggestion.value}
+          linkProps={{ href: '#' }}
+        />
+      ))}
+    </SearchAutoComplete>
+  </CardItem>
+  <CardItem
+    title="Search Dropdown"
+    description={
+      <>
+        Combines all <code>Search</code> components to show all options in{' '}
+        <code>SearchInput</code>. This component is part of the{' '}
+        <code>Search</code> feature.
+      </>
+    }
+    actionPath="/components/molecules/search-dropdown"
+    zoomOut
+  >
+    <SearchDropdownUsage term="App" products={product} />
+  </CardItem>
+  <CardItem
+    title="Search History"
+    description={
+      <>
+        Responsible for showing the latest terms searched by a user. This
+        component is part of the <code>Search</code> feature.
+      </>
+    }
+    actionPath="/components/molecules/search-history"
+  >
+    <SearchHistory title="History">
+      <SearchHistoryTerm value="Headphone" linkProps={{ href: '#' }} />
+      <SearchHistoryTerm value="Audio & Video" linkProps={{ href: '#' }} />
+      <SearchHistoryTerm value="mh-7000" linkProps={{ href: '#' }} />
+    </SearchHistory>
+  </CardItem>
+  <CardItem
+    title="Search Input Field"
+    description={
+      <>
+        An <code>InputField</code> with a search button. This component is part
+        of the <code>Search</code> feature.
+      </>
+    }
+    actionPath="/components/molecules/search-input-field"
+  >
+    <SearchInputField onSubmit={() => {}} />
+  </CardItem>
+  <CardItem
+    title="Search Products"
+    description={
+      <>
+        Shows details of the suggested products. This component is part of the{' '}
+        <code>Search</code> feature.
+      </>
+    }
+    actionPath="/components/molecules/search-products"
+  >
+    <SearchProducts>
+      <SearchProductItem linkProps={{ href: '#' }}>
+        <SearchProductItemImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </SearchProductItemImage>
+        <SearchProductItemContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+        />
+      </SearchProductItem>
+      <SearchProductItem linkProps={{ href: '#' }}>
+        <SearchProductItemImage>
+          <img
+            data-fs-image
+            src={product.image[1].url}
+            alt={product.image[1].alternateName}
+          />
+        </SearchProductItemImage>
+        <SearchProductItemContent
+          title={product.isVariantOf.name}
+          price={{
+            value: product.offers.offers[0].price,
+            listPrice: product.offers.offers[0].listPrice,
+            formatter: useFormattedPrice,
+          }}
+        />
+      </SearchProductItem>
+    </SearchProducts>
+  </CardItem>
+  <CardItem
+    title="Search Top"
+    description={
+      <>
+        Displays the most searched terms by customers. This component is part of
+        the <code>Search</code> feature.
+      </>
+    }
+    actionPath="/components/molecules/search-top"
+  >
+    <SearchTop title="Top Search">
+      <SearchTopTerm value="Notebooks" linkProps={{ href: '#' }} index={0} />
+      <SearchTopTerm
+        value="Laser Printer"
+        linkProps={{ href: '#' }}
+        index={1}
+      />
+      <SearchTopTerm
+        value="Bluetooth Keyboard"
+        linkProps={{ href: '#' }}
+        index={2}
+      />
+    </SearchTop>
+  </CardItem>
+  <CardItem
+    title="Select Field"
+    description={
+      <>
+        Wraps a <code>Select</code> input and its corresponding{' '}
+        <code>Label</code>. It allows users to select one option from a set.
+      </>
+    }
+    actionPath="/components/molecules/select-field"
+  >
+    <SelectField
+      id="select-overview-default"
+      label="Select a Status:"
+      options={{
+        great: 'Great',
+        ok: 'Ok',
+        bad: 'Bad',
+      }}
+    />
+  </CardItem>
+  <CardItem
+    title="SKU Selector"
+    description="Used in Product Details Pages (PDPs) to display all the available variants for a given product."
+    actionPath="/components/molecules/sku-selector"
+  >
+    <SkuSelectorColor />
+  </CardItem>
+  <CardItem
+    title="Table"
+    description="Displays information in a friendly way, allowing users to scan for details quickly."
+    actionPath="/components/molecules/table"
+  >
+    <Table variant="bordered">
+      <TableHead>
+        <TableRow>
+          <TableCell scope="col" variant="header" align="left">
+            Bordered
+          </TableCell>
+          <TableCell scope="col" variant="header" align="right">
+            Total
+          </TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {options.map((option) => (
+          <TableRow key={option.numberOfInstallments}>
+            <TableCell variant="header" align="left">
+              {option.numberOfInstallments}x
+            </TableCell>
+            <TableCell align="right">
+              <Price formatter={useFormattedPrice} value={option.total} />
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  </CardItem>
+  <CardItem
+    title="Tag"
+    description={
+      <>
+        Are an interactive <code>Badge</code>. By default, its have a close
+        button.
+      </>
+    }
+    actionPath="/components/molecules/tag"
+  >
+    <Tag variant="highlighted" label="Tag" onClose={() => {}} />
+  </CardItem>
+  <CardItem
+    title="Toast"
+    description="Used to display notifications."
+    actionPath="/components/molecules/toast"
+  >
+    <UIProvider>
+      <ToastUsage
+        message={'Simple Toast message.'}
+        status={'INFO'}
+        btnLabel="Simple Toast"
+      />
+    </UIProvider>
+  </CardItem>
+  <CardItem
+    title="Toggle"
+    description="A customized checkbox input styled to look like a switch button."
+    actionPath="/components/molecules/toggle"
+  >
+    <Toggle id="toggle-default-checked" checked readOnly />
+  </CardItem>
+  <CardItem
+    title="Toggle Field"
+    description={
+      <>
+        Toggle Field wraps a <code>Toggle</code> input and its corresponding{' '}
+        <code>Label</code>.
+      </>
+    }
+    actionPath="/components/molecules/toggle-field"
+  >
+    <ToggleField id="toggle-field-default" label="Label" />
+  </CardItem>
+</CardList>
 
 ---
 
-## Adding styles
+## Organisms
 
-Import one of the following options:
-
-### All components included
-
-```sh copy
-@import "@faststore/ui/src/styles/components.scss";
-```
-
-### Base styles (& Import the desired components' style individually)
-
-```sh copy
-@import "@faststore/ui/src/styles/base.scss";
-```
-
-<i>Check the component references to import the it's style.</i>
+<CardList columns={3}>
+  <CardItem
+    title="Banner Text"
+    description="Used for advertising brands, products, and/or collections."
+    actionPath="/components/organisms/banner-text"
+    zoomOut
+  >
+    <BannerText>
+      <BannerTextContent
+        title="Explore more about our amazing products"
+        caption="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </BannerText>
+  </CardItem>
+  <CardItem
+    title="Cart Sidebar"
+    description="Displays the summary of items added to the cart along with detailed information, and checkout option."
+    actionPath="/components/organisms/cart-sidebar"
+  >
+    <UIProvider>
+      <CartSidebarUsage />
+    </UIProvider>
+  </CardItem>
+  <CardItem
+    title="Empty State"
+    description="Used to represent an empty state."
+    actionPath="/components/organisms/empty-state"
+    zoomOut
+  >
+    <EmptyState
+      title="Your Cart is empty"
+      titleIcon={
+        <Icon name="ShoppingCart" width={56} height={56} weight="thin" />
+      }
+    >
+      <Button variant="secondary">Start Shopping</Button>
+    </EmptyState>
+  </CardItem>
+  <CardItem
+    title="Filter"
+    description="Filters products inside the Product Listing Page (PLP) and Search Page."
+    actionPath="/components/organisms/filter"
+    containerStyle={{ alignItems: 'flex-start' }}
+  >
+    <UIProvider>
+      <SearchProvider onChange={() => ({})}>
+        <FilterUsage />
+      </SearchProvider>
+    </UIProvider>
+  </CardItem>
+  <CardItem
+    title="Filter Slider"
+    description={
+      <>
+        The mobile <code>Filter</code> view that is rendered inside a <code>SlideOver</code> component.
+      </>
+    }
+    actionPath="/components/organisms/filter-slider"
+  >
+    <UIProvider>
+      <SearchProvider onChange={() => ({})}>
+        <FilterUsage onlyMobile={true} />
+      </SearchProvider>
+    </UIProvider>
+  </CardItem>
+  <CardItem
+    title="Hero"
+    description="Full-width banner presented on the above-the-fold section of a web page."
+    actionPath="/components/organisms/hero"
+    zoomOut
+  >
+    <Hero>
+      <HeroImage>
+        <img
+          alt="Controller on a table"
+          src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+        />
+      </HeroImage>
+      <HeroHeader
+        title="Explore our products"
+        subtitle="All the amazing products from the brands we partner with."
+        link="/"
+        linkText="See more"
+      />
+    </Hero>
+  </CardItem>
+  <CardItem
+    title="Image Gallery"
+    description="Used when you want to display a series of photos in a gallery on a post or page."
+    actionPath="/components/organisms/image-gallery"
+    zoomOut
+  >
+    <ImageGalleryUsage images={imagesUsage} />
+  </CardItem>
+  <CardItem
+    title="Navbar"
+    description="Represents the page header and groups features like Search and Regionalization."
+    actionPath="/components/organisms/navbar"
+    zoomOut
+  >
+    <UIProvider>
+      <NavbarUsage />
+    </UIProvider>
+  </CardItem>
+  <CardItem
+    title="Navbar Slider"
+    description={
+      <>
+        As part of the <code>Navbar</code>, this component is its{' '}
+        <strong>mobile version</strong> used to list the navigation links
+        through the <code>NavbarLinks</code>.
+      </>
+    }
+    actionPath="/components/organisms/navbar-slider"
+  >
+    <UIProvider>
+      <NavbarSliderUsage />
+    </UIProvider>
+  </CardItem>
+  <CardItem
+    title="Out of Stock"
+    description="Used to announce to users that the product is out of stock."
+    actionPath="/components/organisms/out-of-stock"
+  >
+    <OutOfStock
+      title="Out of Stock"
+      subtitle="Notify me when available"
+      inputLabel="Email"
+      buttonLabel="Notify Me"
+      onSubmit={() => {}}
+      disabled={false}
+    />
+  </CardItem>
+  <CardItem
+    title="Payment Methods"
+    description="Displays the logos of the available payment options in a store."
+    actionPath="/components/organisms/payment-methods"
+  >
+    <PaymentMethods title={<h3>Payment Methods</h3>} flagList={flags} />
+  </CardItem>
+  <CardItem
+    title="Price Range"
+    description={
+      <>
+        <code>Slider</code> that allows users to select a maximum and minimum
+        price from a range.
+      </>
+    }
+    actionPath="/components/organisms/price-range"
+  >
+    <PriceRangeUsage />
+  </CardItem>
+  <CardItem
+    title="Product Grid"
+    description="A section generally used on PLP pages to list the products available in the store."
+    actionPath="/components/organisms/product-grid"
+    zoomOut
+  >
+    <ProductGrid>
+      {products.map(({ product }, idx) => (
+        <ProductGridItem>
+          <ProductCard>
+            <ProductCardImage>
+              <img
+                data-fs-image
+                src={product.image[0].url}
+                alt={product.image[0].alternateName}
+              />
+            </ProductCardImage>
+            <ProductCardContent
+              title={product.isVariantOf.name}
+              price={{
+                value: product.offers.offers[0].price,
+                listPrice: product.offers.offers[0].listPrice,
+                formatter: useFormattedPrice,
+              }}
+            />
+          </ProductCard>
+        </ProductGridItem>
+      ))}
+    </ProductGrid>
+  </CardItem>
+  <CardItem
+    title="Product Shelf"
+    description="Displays a list of products to be used as a section on the store."
+    actionPath="/components/organisms/product-shelf"
+    zoomOut
+  >
+    <ProductShelfUsage items={6}/>
+  </CardItem>
+  <CardItem
+    title="Region Modal"
+    description={
+      <>
+        A <code>Modal</code> with some region configurations. The component is
+        part of <code>Regionalization</code> feature.
+      </>
+    }
+    actionPath="/components/organisms/region-modal"
+  >
+    <UIProvider>
+      <RegionModalUsage />
+    </UIProvider>
+  </CardItem>
+  <CardItem
+    title="Search Input"
+    description={
+      <>
+        Responsible to receive, search and display suggestions. This component
+        is part of the <code>Search</code> feature.
+      </>
+    }
+    actionPath="/components/organisms/search-input"
+  >
+    <SearchInputUsage />
+  </CardItem>
+  <CardItem
+    title="Shipping Simulation"
+    description={
+      <>
+        Lets customers set the <code>PostalCode</code> and see the shipping
+        options in the `PDP`.
+      </>
+    }
+    actionPath="/components/organisms/shipping-simulation"
+  >
+    <ShippingSimulationUsage />
+  </CardItem>
+  <CardItem
+    title="Slide Over"
+    description="Represents an aditional session that complements the screen's information."
+    actionPath="/components/organisms/slide-over"
+  >
+    <UIProvider>
+      <SlideOverPartialRight />
+    </UIProvider>
+  </CardItem>
+</CardList>

@@ -1,11 +1,18 @@
 {
-  "index": "FastStore UI",
-  "---": {
-    "title": "",
-    "type": "separator"
+  "index": "FastStore UI Components",
+  "getting-started": "Getting Started",
+  "-- Components --": {
+    "type": "separator",
+    "title": "Components"
   },
   "atoms": "Atoms",
   "molecules": "Molecules",
   "organisms": "Organisms",
-  "features": "Features"
+  "-- Features --": {
+    "type": "separator",
+    "title": "Features"
+  },
+  "feature-navigation": "Navigation",
+  "feature-regionalization": "Regionalization",
+  "feature-search": "Search"
 }

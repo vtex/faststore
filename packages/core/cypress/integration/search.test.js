@@ -30,8 +30,8 @@ describe('Search input', () => {
         .should('exist')
         .scrollIntoView({ duration: 0 })
         .click({ force: true })
-        .type(term)
         .within(() => {
+          cy.getById('fs-input').type(term)
           cy.getById('store-input-mobile-button').click()
         })
 

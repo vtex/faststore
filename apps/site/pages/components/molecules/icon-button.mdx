@@ -22,7 +22,7 @@ export const getStaticProps = () => {
       // We add an `ssg` field to the page props,
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
-        iconButtonProps
+        iconButtonProps,
       },
     },
   }
@@ -32,13 +32,13 @@ export const IconButtonPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
   const { iconButtonProps } = useSSG()
   return {
-    IconButton: <PropsSection propsList={iconButtonProps} />
+    IconButton: <PropsSection propsList={iconButtonProps} />,
   }[component]
 }
 
 <header>
 
-# IconButton
+# Icon Button
 
 Icon Buttons are icons that trigger some sort of action, such as adding an item to the cart.
 
@@ -50,17 +50,43 @@ Icon Buttons are icons that trigger some sort of action, such as adding an item 
   <Tab>
     <OverviewSection>
       <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" />
-      <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" variant="primary" />
-      <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" size="small" />
-      <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" variant="primary" size="small" />
+      <IconButton
+        icon={<Icon name="ShoppingCart" />}
+        aria-label="Buy"
+        variant="primary"
+      />
+      <IconButton
+        icon={<Icon name="ShoppingCart" />}
+        aria-label="Buy"
+        size="small"
+      />
+      <IconButton
+        icon={<Icon name="ShoppingCart" />}
+        aria-label="Buy"
+        variant="primary"
+        size="small"
+      />
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
     <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" />
-    <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" variant="primary" />
-    <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" size="small" />
-    <IconButton icon={<Icon name="ShoppingCart" />} aria-label="Buy" variant="primary" size="small" />
+    <IconButton
+      icon={<Icon name="ShoppingCart" />}
+      aria-label="Buy"
+      variant="primary"
+    />
+    <IconButton
+      icon={<Icon name="ShoppingCart" />}
+      aria-label="Buy"
+      size="small"
+    />
+    <IconButton
+      icon={<Icon name="ShoppingCart" />}
+      aria-label="Buy"
+      variant="primary"
+      size="small"
+    />
     ```
   </Tab>
 </Tabs>

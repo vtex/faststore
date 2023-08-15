@@ -47,14 +47,14 @@ Before cloning your store's repository, ensure that you have the following tools
     </p>
       <details>
           <summary>Install Yarn on macOS by running the following:</summary>
-          ```bash
+          ```bash copy
             brew install yarn
           ```
         </details>
 
         <details>
           <summary>Install Yarn on Windows by running the following:</summary>
-          ```bash
+          ```bash copy
             npm install -g yarn
           ```
         </details>
@@ -100,7 +100,7 @@ Before cloning your store's repository, ensure that you have the following tools
 </Callout>
 
 2. Clone the repository created during the [FastStore Onboarding](/docs/getting-started/1-faststore-onboarding/onboarding#repository-and-live-store-created) by running the following command in the terminal:
-```bash
+```bash copy
     git clone https://github.com/vtex-sites/{storeName}
 ```
 <Callout type="warning" emoji="⚠️">
@@ -109,13 +109,13 @@ Replace `{storeName}` for your store's repository.
 
 3. Change into the working directory by running the following command:
 
-```bash
+```bash copy
 cd {storeName}
 ```
 
 4. Install all the dependencies listed within the `package.json` file by running the following command:
 
-```bash
+```bash copy
 yarn install
 ```
 
@@ -134,12 +134,12 @@ Let's check what the project looks like in a web browser so far.
 
 1. Start a local development server to serve your website:
 
-```bash
+```bash copy
   yarn dev
 ```
 This may take a few minutes. Once your development server is ready, the command line will output a similar message as the following:
 
-```bash
+```bash copy
   ready - started server on 0.0.0.0:3000, url: http://localhost:3000
   event - compiled client and server successfully in 333 ms (951 modules)
 ```
@@ -249,7 +249,7 @@ Let's make the first level of customization which updates the store's [theme](/d
 ```
 3. Open the `faststore.config.js` file and changes the `theme` from `custom-theme` to `soft-blue`.
 
-```js filename="faststore.config.js"
+```js filename="faststore.config.js" copy
   theme: 'soft-blue',
 ```
 
@@ -258,5 +258,5 @@ Let's make the first level of customization which updates the store's [theme](/d
 ![theme-soft-blue](https://vtexhelp.vtexassets.com/assets/docs/src/soft-blue___9eb9e3e506de6396df954598739be8f8.png)
 
 <Callout type="info" emoji="ℹ️">
-  It is important to highlight that the store's logo is set through the [VTEX Headless CMS](/docs/headless-cms-overview).
+  It is important to highlight that the store's logo is set through the [Headless CMS](/docs/headless-cms-overview).
 </Callout>

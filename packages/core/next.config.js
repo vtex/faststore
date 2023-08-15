@@ -16,7 +16,7 @@ const nextConfig = {
     defaultLocale: 'en-US',
   },
   sassOptions: {
-    additionalData: `@import "@faststore/ui/src/styles/base/utilities.scss";`,
+    additionalData: `@import "src/customizations/styles/custom-mixins.scss";`,
   },
   webpack: (config, { isServer, dev }) => {
     // https://github.com/vercel/next.js/discussions/11267#discussioncomment-2479112

@@ -11,6 +11,82 @@ import { Callout } from 'nextra-theme-docs'
 
 </header>
 
+After [successfully deploying and creating the repository and live preview of your store](/docs/getting-started/1-faststore-onboarding/onboarding#repository-and-live-store-created), 
+you can access the Dashboard page for detailed information about your store deploys. 
+The Dashboard displays the current status of your store, including its domains, deployed versions, store preview, and commits.
+
+![dashboard-overview](https://vtexhelp.vtexassets.com/assets/docs/src/dashboard-overview___56923825cfdcfc7018cbfe3a9aa726ee.gif)
+
+On the Dashboard page, you will find two main views: Overview and Deploys. For more information about each view, continue reading the next sections.
+
+---
+
+## Overview
+
+The **Overview** section provides information about the production deployment of your store.
+
+![overview-view](https://vtexhelp.vtexassets.com/assets/docs/src/dashboard-view-overview___7b8f9c67ff14be86263514d62ae471f1.png)
+
+
+Check out the table below for more information:
+
+
+| Field                 | Description                                                                                                                                                                                          |
+| :-------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Preview FastStore** | Opens a preview of your store in a new tab.                                                                                                                                                          |
+| **Deployment**        | Opens the deployed version of the store in a new tab.                                                                                                                                                |
+| **Domain**            | Opens the URL of your store's domain, which is the same as the preview.                                                                                                                              |
+| **Last commit**       | Displays the most recent commit to your store's repository, including the date, month, year, and the GitHub user who made the commit.                                                                |
+| **Status**            | Displays the status of the deployment. For more information on the status values, refer to [Status available values](/docs/getting-started/1-faststore-onboarding/dashboard#status-available-values). |
+
+### Status available values
+
+The **Status** field can have one of the following values: 
+- `Success`: The deployment was successful. If you want to check the commit associated with it, go to the **Deploys** tab.
+
+- `Error`: An error in the pipeline caused the deploy to fail. To identify the specific step where the error occurred, access the **Deploys** tab and check the last commit. 
+Then, access your store repository and verify the pipeline related to that commit. Note that a deploy can fail even if the build process is successful. 
+In this case, even though the code compiled correctly, the deploy may have failed in a specific step of the pipeline.
+
+--- 
+
+## Deploys
+
+The **Deploys** section provides a summary of each deployment made in your store's repository.
+
+![deploy-view](https://vtexhelp.vtexassets.com/assets/docs/src/dashboard-view-deploys___e5f04f3e5613d52e4b2864ef48134608.png)
+
+| Field                         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| :---------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Preview URL**               | Displays the URL to the deploy preview of a specific commit.                                                                                                                                                                                                                                                                                                                                                                                                 |
+| **Commit**                    | Displays the commit hash associated with a particular commit.                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Timestamp**                 | Displays the date and time of the commit in the format `dd/mm/yyyy`.                                                                                                                                                                                                                                                                                                                                                                                         |
+| **Elapsed time**              | Displays the time it took to complete the commit process.                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Deploy**                    | Indicates the status of the deployment. Possible statuses are `Success` and `Failed`. For more information on the `Failed` status, go to the repository and check what failed in the commit.                                                                                                                                                                                                                                                                 |
+| **Quality checks**            | Provides an overview of the status of quality checks, including Lighthouse audits and Integration Tests. These checks help you identify and prevent regressions in your store. For more information on the Quality checks values, refer to [Quality checks available values](/docs/getting-started/1-faststore-onboarding/dashboard#quality-checks-available-values). <br></br>*Remember: Lighthouse audits are an essential step in the [go-live checklist](/docs/go-live/overview#go-live-checklist).* Ensure you achieve the recommended score for the lighthouse checks to pass. |
+| **More actions menu** (`⋮`)    | Opens a list with the following options after being clicked: <li>**Preview**: Opens the store preview for the commit in a new tab.</li>  <li>**Commit**: Opens the commit page in GitHub in a new tab.</li>                                                                                                                                                                                                                                                 |
+
+### Quality checks available values
+
+The **Quality checks** field can have one of the following values:
+
+- `Success`: All checks have passed.
+
+- `Skipped`: In the CI process, specific checks were not performed for certain commits. 
+This often occurs when the commit being tested was never the HEAD commit of the main branch, saving time and resources without compromising code quality.
+
+- `Failed`: For more information on the `Failed` status, go to the repository and check what failed in the commit.
+
+
+
+## Deleting the project
+
+To delete your FastStore project, click the **More actions menu** (`⋮`). Then, click **Delete Project**.
+
+A modal to confirm your choice will open.
+
 <Callout type="warning" emoji="⚠️">
-  This documentation is currently under development.
+ Proceed with caution. Deleting the project is irreversible and will permanently remove all deployments and domains associated with it.
 </Callout>
+
+![delete-project](https://vtexhelp.vtexassets.com/assets/docs/src/dashboard-delete-project___46d68be9204ce3948c1785235aeae59f.gif)

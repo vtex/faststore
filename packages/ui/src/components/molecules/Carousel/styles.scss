@@ -49,49 +49,50 @@
 
   &:hover {
     [data-fs-carousel-controls] {
-      position: relative;
-
       @include media(">=tablet") {
-        display: flex;
-        margin: var(--fs-carousel-padding-desktop);
-
-        [data-fs-carousel-control] {
-          bottom: calc(var(--fs-carousel-controls-height) + var(--fs-control-tap-size));
-          cursor: pointer;
-          transform: translateY(-50%);
-          [data-fs-button-wrapper] {
-            border-radius: var(--fs-carousel-controls-border-radius);
-            box-shadow: var(--fs-carousel-controls-box-shadow);
-          }
-          &:not(:hover) [data-fs-button-wrapper] { background-color: var(--fs-carousel-controls-bkg-color); }
-        }
-
-        [data-fs-carousel-control="left"] {
-          position: absolute;
-          left: var(--fs-carousel-controls-control-right);
-          @include media(">notebook") {
-            left: var(--fs-carousel-controls-control-max-left);
-          }
-        }
-
-        [data-fs-carousel-control="right"] {
-          position: absolute;
-          right: var(--fs-carousel-controls-control-right);
-          @include media(">notebook") {
-            right: var(--fs-carousel-controls-control-max-right);
-          }
-        }
-
-        [data-fs-icon] {
-          color: var(--fs-carousel-controls-icon-color);
-        }
+        opacity: 1;
+        pointer-events: auto;
       }
     }
   }
 
   [data-fs-carousel-controls] {
     position: relative;
-    display: none;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    @include media(">=tablet") { margin: var(--fs-carousel-padding-desktop); }
+  }
+
+  [data-fs-carousel-control] {
+    bottom: calc(var(--fs-carousel-controls-height) + var(--fs-control-tap-size));
+    cursor: pointer;
+    transform: translateY(-50%);
+    [data-fs-button-wrapper] {
+      border-radius: var(--fs-carousel-controls-border-radius);
+      box-shadow: var(--fs-carousel-controls-box-shadow);
+    }
+    &:not(:hover) [data-fs-button-wrapper] { background-color: var(--fs-carousel-controls-bkg-color); }
+  }
+
+  [data-fs-carousel-control="left"] {
+    position: absolute;
+    left: var(--fs-carousel-controls-control-right);
+    @include media(">notebook") {
+      left: var(--fs-carousel-controls-control-max-left);
+    }
+  }
+
+  [data-fs-carousel-control="right"] {
+    position: absolute;
+    right: var(--fs-carousel-controls-control-right);
+    @include media(">notebook") {
+      right: var(--fs-carousel-controls-control-max-right);
+    }
+  }
+
+  [data-fs-icon] {
+    color: var(--fs-carousel-controls-icon-color);
   }
 
   [data-fs-carousel-track] {
