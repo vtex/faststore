@@ -1,4 +1,4 @@
-import { Steps, Step } from 'nextra-theme-docs'
+import { Steps, Step, Callout } from 'nextra-theme-docs'
 
 <header className="hero">
 
@@ -241,6 +241,38 @@ export const fragment = gql`
 ```
 
 ## Extendable Queries
+
+<ul class="nx-section-checklist">
+  <li>
+    <details>
+      <summary>Query: `ClientProductGalleryQuery`</summary>
+
+        <table class="nx-simple-table">
+            <thead>
+                <tr>
+                    <th>Side</th>
+                    <th>Query operation</th>
+                    <th>Page</th>
+                    <th>Where is used</th>
+                    <th>Return</th>
+                    <th>Parameters</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Client</td>
+                    <td><a href="">Search</a></td>
+                    <td>PLP</td>
+                    <td>In the hook `useGalleryQuery()` from the `ProductGallery` component.</td>
+                    <td>Products totalCount from StorePageInfo, and facets (StoreFacet) from StoreSearchResult.</td>
+                    <td>Frontend data from the useSearch() and useLocalizedVariables() hooks, the latter uses useSession().</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </details>
+  </li>
+</ul>
 
 | **Query Name** | **Side** | **Query operation** | **Page** | **Where is used** | **Return** | **Parameters** |
 |---|---|---|---|---|---|---|
