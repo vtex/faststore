@@ -10,7 +10,17 @@
     "directory": "packages/ui"
   },
   "browserslist": "supports es6-module and not dead and last 2 version",
-  "main": "dist/index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs",
+        "default": "./dist/index.js"
+      },
+      "./src/*": "./src/*"
+  },
+  "main": "dist/index.cjs",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "sideEffects": false,
@@ -22,8 +32,8 @@
     "src"
   ],
   "scripts": {
-    "dev": "tsc --watch",
-    "build": "tsc",
+    "dev": "tsup --dts --watch",
+    "build": "tsup --dts",
     "lint": "eslint src/**/*.{ts,tsx}",
     "size": "size-limit",
     "analyze": "size-limit --why"
@@ -31,6 +41,10 @@
   "size-limit": [
     {
       "path": "dist/index.js",
+      "limit": "40 KB"
+    },
+    {
+      "path": "dist/index.cjs",
       "limit": "40 KB"
     }
   ],
@@ -53,6 +67,7 @@
     "babel-loader": "^8.2.5",
     "eslint": "7.32.0",
     "size-limit": "^7.0.8",
+    "tsup": "^7.2.0",
     "typescript": "^4.2.4"
   },
   "volta": {
