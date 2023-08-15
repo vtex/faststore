@@ -223,11 +223,9 @@ const getOrderForm = async (
   id: string,
   { clients: { commerce } }: Context
 ) => {
-  const orderForm = await commerce.checkout.orderForm({
+  return await commerce.checkout.orderForm({
     id,
-  })
-
-  return orderForm
+  }) 
 }
 
 const updateOrderFormShippingData = async (
@@ -242,7 +240,7 @@ const updateOrderFormShippingData = async (
   // because the following code was trying to change the shippingData to an undefined address/session
 
     if (!session) {
-      return orderForm
+      return 
     }
   
     const { updateShipping, addressChanged } = shouldUpdateShippingData(
@@ -285,7 +283,7 @@ const updateOrderFormShippingData = async (
         true
       )
     }
-    return orderForm
+    return 
   }
 
 /**
@@ -409,6 +407,9 @@ export const validateCart = async (
     return null
   }
 
+  // Step5: Update ShippingData from orderForm
+  await updateOrderFormShippingData(orderForm, session, ctx)
+
   // Step4: Apply delta changes to order form
   const updatedOrderForm = await commerce.checkout
     // update orderForm items
@@ -420,9 +421,6 @@ export const validateCart = async (
     // update orderForm etag so we know last time we touched this orderForm
     .then((form) => setOrderFormEtag(form, commerce))
     .then(joinItems)
-  
-  // Step5: Update ShippingData from orderForm
-  await updateOrderFormShippingData(updatedOrderForm, session, ctx)
 
   // Step6: If no changes detected before/after updating orderForm, the order is validated
   if (equals(order, updatedOrderForm)) {
