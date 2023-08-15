@@ -1,0 +1,17 @@
+"""
+Information on order totals.
+"""
+type StoreTotalizer {
+  """
+  Total ID.
+  """  
+  id: String
+  """
+  Total name.
+  """  
+  name: String
+  """
+  Total value.
+  """  
+  value: Float
+}
