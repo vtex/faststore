@@ -218,21 +218,13 @@ query {
 
 ---
 
-## Consume new fields from pages
-
-GraphQL enables clients to precisely define the required data by crafting specific GraphQL queries. The server then returns only the data that matches the query, eliminating the need for multiple requests, client-side filtering, and reducing the amount of data from requests.
-
-Therefore, it is crucial to avoid requesting unnecessary fields in queries and to be mindful of fragments that may call extraneous data in other contexts. By using GraphQL in this manner, we can optimize performance and streamline data transmission between clients and servers.
-
-When rendering a custom page or adding a custom section to an existing page, sometimes it is necessary to add new fields fetched from the previously defined custom or extended schema. We should determine which fields/fragments we need to request for the rendering of each page and avoid over-fetching unused data.
-
 ## Extending Queries Using Fragments
 
 When developers need to include custom fields in existing server queries, they can utilize the src/fragments folder. Within this directory, they can generate files containing GraphQL fragments, which can then be integrated into the desired queries for extension purposes.
 
 To introduce additional fields to an already established query, developers should generate a new .ts file within the src/fragments folder. This file's name should match the corresponding Query that requires extension.
 
-For instance, if a developer aims to retrieve a new query (illustrated here as newField with a data property) within the context of the ClientProductGallery query, the recommended approach involves creating a src/fragments/ClientProductGallery.ts file. This file should embody code similar to the example provided below:
+For instance, if a developer aims to retrieve a new query (illustrated here as customData property) within the context of the ServerProductPage query, the recommended approach involves creating a src/fragments/ServerProductPage.ts file. This file should embody code similar to the example provided below:
 
 ```ts
 // src/fragments/ClientProductGalery.ts
@@ -240,9 +232,9 @@ For instance, if a developer aims to retrieve a new query (illustrated here as n
 import { gql } from '@faststore/graphql-utils'
 
 export const fragment = gql`
-  fragment ClientProductGallery on Query {
-    newField {
-      data
+  fragment ServerProductPage on Query {
+    product(locator: $locator) {
+      customData
     }
   }
 `
