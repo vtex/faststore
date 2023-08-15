@@ -167,6 +167,7 @@ const setOrderFormEtag = async (
   commerce: Context['clients']['commerce']
 ) => {
   try {
+    console.log("Updated Order Form", JSON.stringify(form.items), JSON.stringify(form.shippingData.logisticsInfo))
     const orderForm = await commerce.checkout.setCustomData({
       id: form.orderFormId,
       appId: 'faststore',
@@ -240,7 +241,7 @@ const updateOrderFormShippingData =  async (
   // because the following code was trying to change the shippingData to an undefined address/session
 
     if (!session) {
-      return 
+      return orderForm
     }
   
     const { updateShipping, addressChanged } = shouldUpdateShippingData(
@@ -283,7 +284,7 @@ const updateOrderFormShippingData =  async (
         true
       )
     }
-    return 
+    return orderForm
   }
 
 /**
