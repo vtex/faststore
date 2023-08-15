@@ -28,6 +28,9 @@ import Session from './session.graphql'
 import ShippingSimulation from './shipping.graphql'
 import SkuVariants from './skuVariants.graphql'
 import Status from './status.graphql'
+import Totalizer from './totalizer.graphql'
+import PriceTags from './priceTags.graphql'
+import PriceDefinition from './priceDefinition.graphql'
 
 export const typeDefs = [
   Query,
@@ -58,6 +61,9 @@ export const typeDefs = [
   Newsletter,
   SkuVariants,
   ShippingSimulation,
+  Totalizer,
+  PriceTags,
+  PriceDefinition
 ]
   .map(print)
   .join('\n')

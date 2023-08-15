@@ -1,0 +1,29 @@
+"""
+Array of price tags, each of which, modifies the price in some way, like discounts or rates that apply to the item in the context of the order.
+"""
+type StorePriceTags {
+  """
+  Price tag name.
+  """
+  name: String
+  """
+  Price tag value.
+  """
+  value: Int
+  """
+  Price tag raw value.
+  """  
+  rawValue: Float
+  """
+  Indicates whether price tag value is applied through a percentage.
+  """  
+  isPercentual: Boolean
+  """
+  Price tag identifier.
+  """  
+  identifier: String
+  """
+  Identification of the responsible for the price tag.
+  """  
+  owner: String
+}

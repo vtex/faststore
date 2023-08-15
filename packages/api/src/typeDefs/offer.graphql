@@ -42,6 +42,14 @@ type StoreOffer {
   Number of items offered.
   """
   quantity: Int!
+  """
+  Array of price tags, each of which, modifies the price in some way, like discounts or rates that apply to the item in the context of the order.
+  """
+  priceTags: [StorePriceTags]
+  """
+  Price information for all units of a specific item.
+  """
+  priceDefinition: StorePriceDefinition
 }
 
 """
