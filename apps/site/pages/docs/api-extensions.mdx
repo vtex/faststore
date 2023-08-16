@@ -222,12 +222,20 @@ query {
 
 To add custom fields to existing [extendable queries](/docs/api-extensions#extendable-queries), extend them using fragments located in the `src/fragments` folder. Fragments are GraphQL components that can be integrated into queries to extend functionality.
 
-To introduce additional fields to an already established query, developers should generate a new .ts file within the src/fragments folder. This file's name should match the corresponding Query that requires extension.
+To add additional fields to an existing query, follow the steps below. We will use the `ServerProductPage` query as an example to demonstrate how to extend a query.
 
-For instance, if a developer aims to retrieve a new query (illustrated here as customData property) within the context of the ServerProductPage query, the recommended approach involves creating a src/fragments/ServerProductPage.ts file. This file should embody code similar to the example provided below:
+<Callout type="info" emoji="ℹ️">
+  We will use the `ServerProductPage` query to illustrate.
+</Callout>
+
+Step 1: Create a New File
+Create a new `.ts` file in the `src/fragments` folder named `ServerProductPage.ts`. *The name of the file should match the name of the query you want to extend.*
+
+Step 2: Define the GraphQL Fragment
+In the `ServerProductPage.ts` file, define the GraphQL fragment corresponding to the new fields you want. In this example, the new field is represented by `customData` property to retrieve. Use the following syntax as a guideline: 
 
 ```ts
-// src/fragments/ClientProductGalery.ts
+// src/fragments/ServerProductPage.ts
 
 import { gql } from '@faststore/graphql-utils'
 
