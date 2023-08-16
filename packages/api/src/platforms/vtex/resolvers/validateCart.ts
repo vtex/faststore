@@ -219,20 +219,23 @@ async function getOrderNumberFromSession(
 }
 
 // Returns the regionalized orderForm
-const getOrderForm = async (
-  id: string,
+const getOrderForm = async (id: string, { clients: { commerce } }: Context) => {
+  return commerce.checkout.orderForm({
+    id,
+  })
+}
+
+const updateOrderFormShippingData = async (
+  orderForm: OrderForm,
   session: Maybe<IStoreSession> | undefined,
   { clients: { commerce } }: Context
 ) => {
-  const orderForm = await commerce.checkout.orderForm({
-    id,
-  })
-
   // Stores that are not yet providing the session while validating the cart
   // should not be able to update the shipping data
   //
   // This was causing errors while validating regionalizated carts
   // because the following code was trying to change the shippingData to an undefined address/session
+
   if (!session) {
     return orderForm
   }
@@ -277,7 +280,6 @@ const getOrderForm = async (
       true
     )
   }
-
   return orderForm
 }
 
@@ -328,7 +330,7 @@ export const validateCart = async (
   const orderNumber = orderNumberFromSession ?? orderNumberFromCart ?? ''
 
   // Step1: Get OrderForm from VTEX Commerce
-  const orderForm = await getOrderForm(orderNumber, session, ctx)
+  const orderForm = await getOrderForm(orderNumber, ctx)
 
   // Step1.1: Checks if the orderForm id has changed. There are three cases for this:
   // Social Selling: the vtex_session cookie contains a new orderForm id with Social Selling data
@@ -410,15 +412,16 @@ export const validateCart = async (
       orderItems: changes,
       shouldSplitItem,
     })
+    // update orderForm shippingData
+    .then((form: OrderForm) => updateOrderFormShippingData(form, session, ctx))
     // update orderForm etag so we know last time we touched this orderForm
-    .then((form) => setOrderFormEtag(form, commerce))
+    .then((form: OrderForm) => setOrderFormEtag(form, commerce))
     .then(joinItems)
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated
   if (equals(order, updatedOrderForm)) {
     return null
   }
-
   // Step6: There were changes, convert orderForm to StoreCart
   return orderFormToCart(updatedOrderForm, skuLoader)
 }
