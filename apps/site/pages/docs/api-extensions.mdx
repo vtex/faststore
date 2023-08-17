@@ -36,7 +36,7 @@ As FastStore uses GraphQL, it's required to write [type definitions](https://gra
 
 The store's repository provides the following folder structure for the VTEX APIs Schema Extensions that is held in the `src/graphql/vtex` folder.
 
-```ts
+```ts copy
 starter.store/
 └─ src/
     └─ graphql/
@@ -58,8 +58,7 @@ You can create a new `<typeName>.graphql` files inside the `vtex/typeDefs` folde
 
 See the following code example that creates a `product.graphql` file, that extends the [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct) type from FastStore API and exposes a new `customData` field:
 
-```graphql
-// graphql/vtex/typeDefs/product.graphql
+```graphql filename="graphql/vtex/typeDefs/product.graphql"
 
 extend type StoreProduct {
   """
@@ -83,8 +82,7 @@ The way that it will be organized inside this folder is flexible, it's possible 
 
 See the following code example that creates a `product.ts` resolver file and resolves the `customData` field from `StoreProduct`:
 
-```ts
-// graphql/vtex/resolvers/product.ts
+```ts copy filename="graphql/vtex/resolvers/product.ts"
 
 import type { StoreProductRoot } from '@faststore/api'
 
@@ -105,8 +103,7 @@ As you see, you can leverage the use of TypeScript by typing the root param as [
 
 Then, it's important to import the resolvers inside the `index.ts` file, spread them in the resolver object and re-export the final resolver object.
 
-```ts
-// graphql/vtex/resolvers/index.ts
+```ts copy filename="graphql/vtex/resolvers/index.ts"
 
 import { default as StoreProductResolver } from './product'
 
@@ -136,7 +133,7 @@ Also, as stores tend to grow, so does the possibility of consuming new data that
 
 Intending to separate what comes from VTEX and what comes from third-party APIs. The store's repository provides the following folder structure for third-party APIs Schema Extensions that is held in the `src/graphql/thirdParty` folder:
 
-```ts
+```ts copy
 starter.store/
 └── src/
     └── graphql/
@@ -155,8 +152,7 @@ Following this structure, you can use the same pattern mentioned above regarding
 One crucial aspect to consider when developing a third-party extension is the creation of a Query or Mutation schema. This schema plays a vital role in generating new query entry points to access data.
 Below, you will find an example code the implementation of a third-party extension:
 
-```ts
-//graphql/thirdParty/typeDefs/extra.graphql
+```ts copy filename="graphql/thirdParty/typeDefs/extra.graphql"
 
 type ExtraData {
   """
@@ -171,8 +167,7 @@ type Query {
 }
 ```
 
-```ts
-//graphql/thirdParty/resolvers/extra.ts
+```ts copy filename="graphql/thirdParty/resolvers/extra.ts"
 
 const extraDataResolver = {
   Query: {
@@ -192,8 +187,7 @@ const extraDataResolver = {
 export default extraDataResolver
 ```
 
-```ts
-//graphql/thirdParty/resolvers/index.ts
+```ts copy filename="graphql/thirdParty/resolvers/index.ts"
 
 import { default as StoreExtraResolver } from './extra'
 
@@ -206,7 +200,7 @@ export default resolvers
 
 In this example, the extra data is accessible by this query:
 
-```ts
+```ts copy
 query {
 	extraData {
 		data
@@ -235,8 +229,7 @@ Create a new `.ts` file in the `src/fragments` folder named `ServerProductPage.t
 Step 2: Define the GraphQL Fragment
 In the `ServerProductPage.ts` file, define the GraphQL fragment corresponding to the new fields you want. In this example, the new field is represented by `customData` property to retrieve. Use the following syntax as a guideline:
 
-```ts
-// src/fragments/ServerProductPage.ts
+```ts copy filename="src/fragments/ServerProductPage.ts"
 
 import { gql } from '@faststore/graphql-utils'
 
