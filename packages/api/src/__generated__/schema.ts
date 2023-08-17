@@ -535,6 +535,15 @@ export type SellersData = {
   sellers?: Maybe<Array<Maybe<SellerInfo>>>;
 };
 
+/** Array of objects, each containing value (in cents) and quantity for the different rounding instances that can be combined to form the correctly rounded total. */
+export type SellingPrice = {
+  __typename?: 'SellingPrice';
+  /** Rounding quantity, meaning how many items are rounded to this value. */
+  quantity?: Maybe<Scalars['Int']>;
+  /** Value in cents for that specific rounding. */
+  value?: Maybe<Scalars['Float']>;
+};
+
 /** Shipping Simulation information. */
 export type ShippingData = {
   __typename?: 'ShippingData';
@@ -879,6 +888,10 @@ export type StoreOffer = {
   price: Scalars['Float'];
   /** ISO code of the currency used for the offer prices. */
   priceCurrency: Scalars['String'];
+  /** Price information for all units of a specific item. */
+  priceDefinition?: Maybe<StorePriceDefinition>;
+  /** Array of price tags, each of which, modifies the price in some way, like discounts or rates that apply to the item in the context of the order. */
+  priceTags?: Maybe<Array<Maybe<StorePriceTags>>>;
   /** Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time. */
   priceValidUntil: Scalars['String'];
   /** Number of items offered. */
@@ -931,6 +944,34 @@ export type StorePerson = {
   givenName: Scalars['String'];
   /** Client ID. */
   id: Scalars['String'];
+};
+
+/** Price information for all units of a specific item. */
+export type StorePriceDefinition = {
+  __typename?: 'StorePriceDefinition';
+  /** Item's calculated unitary selling price in cents. */
+  calculatedSellingPrice?: Maybe<Scalars['Float']>;
+  /** Array of objects, each containing value (in cents) and quantity for the different rounding instances that can be combined to form the correctly rounded total. */
+  sellingPrices?: Maybe<Array<Maybe<SellingPrice>>>;
+  /** Total value for all units of the item in cents. */
+  total?: Maybe<Scalars['Float']>;
+};
+
+/** Array of price tags, each of which, modifies the price in some way, like discounts or rates that apply to the item in the context of the order. */
+export type StorePriceTags = {
+  __typename?: 'StorePriceTags';
+  /** Price tag identifier. */
+  identifier?: Maybe<Scalars['String']>;
+  /** Indicates whether price tag value is applied through a percentage. */
+  isPercentual?: Maybe<Scalars['Boolean']>;
+  /** Price tag name. */
+  name?: Maybe<Scalars['String']>;
+  /** Identification of the responsible for the price tag. */
+  owner?: Maybe<Scalars['String']>;
+  /** Price tag raw value. */
+  rawValue?: Maybe<Scalars['Float']>;
+  /** Price tag value. */
+  value?: Maybe<Scalars['Int']>;
 };
 
 /** Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
