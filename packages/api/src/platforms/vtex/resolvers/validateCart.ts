@@ -175,10 +175,6 @@ const orderFormToCart = async (
         ...item,
         product: await skuLoader.load(item.id),
       })),
-      totalizers: form.totalizers.map(totalizer => ({
-        ...totalizer,
-        value: totalizer.value / 1e2
-      }))
     },
     messages: form.messages.map(({ text, status }) => ({
       text,
