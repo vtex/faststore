@@ -3,7 +3,7 @@ import { ExtendableQueryTable } from './../../components/ExtendableQueryTable'
 
 <header className="hero">
 
-# API Extensions
+# API extensions
 
 In this guide you will learn how to extend the FastStore API schema.
 
@@ -15,7 +15,7 @@ You will not be able to add other APIs endpoints to your storefront since this m
 
 ---
 
-## Before starting
+## Before you start
 
 Note that even though you can add information to the FastStore API schema, you must be careful not to over-fetch data on your pages. See the [best practices for fetching data on your storefront](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data).
 
@@ -26,7 +26,7 @@ Inside the repository, there is a clear separation about what comes from VTEX AP
 
 ---
 
-## VTEX APIs Schema Extensions
+## VTEX APIs schema extensions
 
 FastStore streamline the way of using data from VTEX APIs that the FastStore API does not expose.
 
@@ -127,7 +127,7 @@ That's it, you only need to define these files within the vtex folder for the sa
 
 ---
 
-## Third-party APIs Schema Extensions
+## Third-party APIs schema extensions
 
 Also, as stores tend to grow, so does the possibility of consuming new data that is **not provided by default in the FastStore API or other VTEX APIs**. As such, FastStore must consume new data from third-party APIs.
 
@@ -213,21 +213,19 @@ query {
 
 ---
 
-## Extending Queries Using Fragments
+## Extending queries using fragments
 
 To add custom fields to existing [extendable queries](/docs/api-extensions#extendable-queries), extend them using fragments located in the `src/fragments` folder. Fragments are GraphQL components that can be integrated into queries to extend functionality.
 
-To add additional fields to an existing query, follow the steps below. We will use the `ServerProductPage` query as an example to demonstrate how to extend a query.
+To add additional fields to an existing query, follow the steps below. We will use the `ServerProductPage` query as an example to illustrate how to extend a query.
 
-<Callout type="info" emoji="ℹ️">
-  We will use the `ServerProductPage` query to illustrate.
-</Callout>
-
-Step 1: Create a New File
+### Step 1: Create a new file
 Create a new `.ts` file in the `src/fragments` folder named `ServerProductPage.ts`. _The name of the file should match the name of the query you want to extend._
 
-Step 2: Define the GraphQL Fragment
+### Step 2: Define the GraphQL fragment
 In the `ServerProductPage.ts` file, define the GraphQL fragment corresponding to the new fields you want. In this example, the new field is represented by `customData` property to retrieve. Use the following syntax as a guideline:
+
+{/*TO DO: ADD THE EXPECTED RESULT FROM THIS CODE SAMPLE*/}
 
 ```ts copy filename="src/fragments/ServerProductPage.ts"
 
@@ -241,6 +239,8 @@ export const fragment = gql`
   }
 `
 ```
+
+{/*TO DO: ADD THE EXPECTED RESULT FROM THIS CODE SAMPLE*/}
 
 ## Extendable Queries
 
@@ -323,12 +323,12 @@ export const fragment = gql`
           PLP + Pages that use `ProductShelf`, and `ProductTiles` components.
         </td>
         <td>
-          In the hook `useProducts()` from `GalleryPage` from `PLP`.
+          - In the hook `useProducts()` from `GalleryPage` from `PLP`.
           <br />
-          In the hook `useProductsPrefetch()` to prefetch the previous (prev)
+          - In the hook `useProductsPrefetch()` to prefetch the previous (prev)
           and next (next) page from the current `PLP` page.
           <br />
-          In the hook `useProductsQuery()`, in `ProductShelf`, `ProductTiles`
+          - In the hook `useProductsQuery()`, in `ProductShelf`, `ProductTiles`
           components, that can be used on multiple pages.
           <br />
         </td>
