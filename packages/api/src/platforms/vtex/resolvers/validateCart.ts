@@ -22,6 +22,7 @@ import type {
   OrderForm,
   OrderFormInputItem,
   OrderFormItem,
+  SellingPrice,
 } from '../clients/commerce/types/OrderForm'
 import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
 import { getAddressOrderForm } from '../utils/getAddressOrderForm'
@@ -132,10 +133,29 @@ const joinItems = (form: OrderForm) => {
         0
       )
 
+      const sellingPrices: SellingPrice[] = []
+
+      items.forEach((item) => {
+        const sellingPricesFormatted = item.priceDefinition.sellingPrices.map(sellingPrice => ({
+          ...sellingPrice,
+          value: sellingPrice.value / 1e2
+        }))
+
+        sellingPrices.push(...sellingPricesFormatted)
+      })
+
+      const totalPriceDefinition = sellingPrices.reduce((acc, i) => acc + i.value * i.quantity, 0)
+
       return {
         ...item,
         quantity,
         sellingPrice: totalPrice / quantity,
+        priceDefinition: {
+          ...item.priceDefinition,
+          calculatedSellingPrice: item.priceDefinition.calculatedSellingPrice / 1e2,
+          total: totalPriceDefinition,
+          sellingPrices
+        }
       }
     }),
   }

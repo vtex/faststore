@@ -1,0 +1,33 @@
+"""
+Array of objects, each containing value (in cents) and quantity for the different rounding instances that can be combined to form the correctly rounded total.
+"""  
+type SellingPrice {
+  """
+  Value in cents for that specific rounding.
+  """  
+  value: Float
+  """
+  Rounding quantity, meaning how many items are rounded to this value.
+  """    
+  quantity: Int
+}
+
+"""
+Price information for all units of a specific item.
+"""
+type StorePriceDefinition {
+  """
+  Item's calculated unitary selling price in cents.
+  """   
+  calculatedSellingPrice: Float
+  """
+  Total value for all units of the item in cents.
+  """
+  total: Float
+  """
+  Array of objects, each containing value (in cents) and quantity for the different rounding instances that can be combined to form the correctly rounded total.
+  """   
+  sellingPrices: [SellingPrice]
+}
+
+

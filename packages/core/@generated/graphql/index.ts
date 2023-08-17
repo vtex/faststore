@@ -73,6 +73,13 @@ export type DeliveryIds = {
   warehouseId: Maybe<Scalars['String']>
 }
 
+export type IGeoCoordinates = {
+  /** The latitude of the geographic coordinates. */
+  latitude: Scalars['Float']
+  /** The longitude of the geographic coordinates. */
+  longitude: Scalars['Float']
+}
+
 /** Person data input to the newsletter. */
 export type IPersonNewsletter = {
   /** Person's email. */
@@ -375,6 +382,8 @@ export type Query = {
   redirect: Maybe<StoreRedirect>
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult
+  /** Returns a list of sellers available for a specific localization. */
+  sellers: Maybe<SellersData>
   /** Returns information about shipping simulation. */
   shipping: Maybe<ShippingData>
 }
@@ -410,6 +419,13 @@ export type QuerySearchArgs = {
   term?: InputMaybe<Scalars['String']>
 }
 
+export type QuerySellersArgs = {
+  country: Scalars['String']
+  geoCoordinates: InputMaybe<IGeoCoordinates>
+  postalCode: InputMaybe<Scalars['String']>
+  salesChannel: InputMaybe<Scalars['String']>
+}
+
 export type QueryShippingArgs = {
   country: Scalars['String']
   items: Array<IShippingItem>
@@ -422,6 +438,32 @@ export type SearchMetadata = {
   isTermMisspelled: Scalars['Boolean']
   /** Logical operator used to run the search. */
   logicalOperator: Scalars['String']
+}
+
+/** Information of sellers. */
+export type SellerInfo = {
+  /** Identification of the seller */
+  id: Maybe<Scalars['String']>
+  /** Logo of the seller */
+  logo: Maybe<Scalars['String']>
+  /** Name of the seller */
+  name: Maybe<Scalars['String']>
+}
+
+/** Regionalization with sellers information. */
+export type SellersData = {
+  /** Identification of region. */
+  id: Maybe<Scalars['String']>
+  /** List of sellers. */
+  sellers: Maybe<Array<Maybe<SellerInfo>>>
+}
+
+/** Array of objects, each containing value (in cents) and quantity for the different rounding instances that can be combined to form the correctly rounded total. */
+export type SellingPrice = {
+  /** Rounding quantity, meaning how many items are rounded to this value. */
+  quantity: Maybe<Scalars['Int']>
+  /** Value in cents for that specific rounding. */
+  value: Maybe<Scalars['Float']>
 }
 
 /** Shipping Simulation information. */
@@ -738,6 +780,8 @@ export type StoreOffer = {
   price: Scalars['Float']
   /** ISO code of the currency used for the offer prices. */
   priceCurrency: Scalars['String']
+  /** Price information for all units of a specific item. */
+  priceDefinition: Maybe<StorePriceDefinition>
   /** Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time. */
   priceValidUntil: Scalars['String']
   /** Number of items offered. */
@@ -786,6 +830,16 @@ export type StorePerson = {
   givenName: Scalars['String']
   /** Client ID. */
   id: Scalars['String']
+}
+
+/** Price information for all units of a specific item. */
+export type StorePriceDefinition = {
+  /** Item's calculated unitary selling price in cents. */
+  calculatedSellingPrice: Maybe<Scalars['Float']>
+  /** Array of objects, each containing value (in cents) and quantity for the different rounding instances that can be combined to form the correctly rounded total. */
+  sellingPrices: Maybe<Array<Maybe<SellingPrice>>>
+  /** Total value for all units of the item in cents. */
+  total: Maybe<Scalars['Float']>
 }
 
 /** Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
@@ -870,7 +924,10 @@ export type StorePropertyValue = {
   valueReference: Scalars['String']
 }
 
-/** Redirect informations, including url returned by the query. */
+/**
+ * Redirect informations, including url returned by the query.
+ * https://schema.org/Thing
+ */
 export type StoreRedirect = {
   /** URL to redirect */
   url: Maybe<Scalars['String']>
@@ -1046,9 +1103,6 @@ export type ProductDetailsFragment_ProductFragment = {
       listPrice: number
       seller: { identifier: string }
     }>
-  }
-  breadcrumbList: {
-    itemListElement: Array<{ item: string; name: string; position: number }>
   }
   additionalProperty: Array<{
     propertyID: string
@@ -1290,9 +1344,6 @@ export type BrowserProductQueryQuery = {
         listPrice: number
         seller: { identifier: string }
       }>
-    }
-    breadcrumbList: {
-      itemListElement: Array<{ item: string; name: string; position: number }>
     }
     additionalProperty: Array<{
       propertyID: string

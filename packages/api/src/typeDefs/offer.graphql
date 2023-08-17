@@ -42,6 +42,10 @@ type StoreOffer {
   Number of items offered.
   """
   quantity: Int!
+  """
+  Price information for all units of a specific item.
+  """
+  priceDefinition: StorePriceDefinition
 }
 
 """
