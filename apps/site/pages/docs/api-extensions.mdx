@@ -1,4 +1,5 @@
 import { Steps, Step, Callout } from 'nextra-theme-docs'
+import { ExtendableQueryTable } from './../../components/ExtendableQueryTable'
 
 <header className="hero">
 
@@ -229,10 +230,10 @@ To add additional fields to an existing query, follow the steps below. We will u
 </Callout>
 
 Step 1: Create a New File
-Create a new `.ts` file in the `src/fragments` folder named `ServerProductPage.ts`. *The name of the file should match the name of the query you want to extend.*
+Create a new `.ts` file in the `src/fragments` folder named `ServerProductPage.ts`. _The name of the file should match the name of the query you want to extend._
 
 Step 2: Define the GraphQL Fragment
-In the `ServerProductPage.ts` file, define the GraphQL fragment corresponding to the new fields you want. In this example, the new field is represented by `customData` property to retrieve. Use the following syntax as a guideline: 
+In the `ServerProductPage.ts` file, define the GraphQL fragment corresponding to the new fields you want. In this example, the new field is represented by `customData` property to retrieve. Use the following syntax as a guideline:
 
 ```ts
 // src/fragments/ServerProductPage.ts
@@ -250,43 +251,103 @@ export const fragment = gql`
 
 ## Extendable Queries
 
-<ul class="nx-section-checklist">
+<ul>
   <li>
     <details>
       <summary>Query: `ClientProductGalleryQuery`</summary>
-
-        <table class="nx-simple-table">
-            <thead>
-                <tr>
-                    <th>Side</th>
-                    <th>Query operation</th>
-                    <th>Page</th>
-                    <th>Where is used</th>
-                    <th>Return</th>
-                    <th>Parameters</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Client</td>
-                    <td><a href="">Search</a></td>
-                    <td>PLP</td>
-                    <td>In the hook `useGalleryQuery()` from the `ProductGallery` component.</td>
-                    <td>Products totalCount from StorePageInfo, and facets (StoreFacet) from StoreSearchResult.</td>
-                    <td>Frontend data from the useSearch() and useLocalizedVariables() hooks, the latter uses useSession().</td>
-                </tr>
-            </tbody>
-        </table>
-
+      <ExtendableQueryTable>
+        <td>Client</td>
+        <td>search</td>
+        <td>PLP</td>
+        <td>
+          In the hook `useGalleryQuery()` from the `ProductGallery` component.
+        </td>
+        <td>
+          Products totalCount from StorePageInfo, and facets (StoreFacet) from
+          StoreSearchResult.
+        </td>
+        <td>
+          Frontend data from the `useSearch()` and `useLocalizedVariables()`
+          hooks, the latter uses `useSession()`.
+        </td>
+      </ExtendableQueryTable>
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ServerCollectionPageQuery`</summary>
+      <ExtendableQueryTable>
+        <td>Server</td>
+        <td>collection</td>
+        <td>PLP</td>
+        <td>In the function `getStaticProps()` from `PLP`.</td>
+        <td>
+          seo, breadcrumbList and meta data from collection (StoreCollection).
+        </td>
+        <td>Collection `slug` that comes from URL.</td>
+      </ExtendableQueryTable>
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ServerProductPageQuery`</summary>
+      <ExtendableQueryTable>
+        <td>Server</td>
+        <td>product</td>
+        <td>PDP</td>
+        <td>In the function `getStaticProps()` from `PDP`.</td>
+        <td>General product data from StoreProduct.</td>
+        <td>The `locator` with `slug` key/value.</td>
+      </ExtendableQueryTable>
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ClientProductQuery`</summary>
+      <ExtendableQueryTable>
+        <td>Client</td>
+        <td>product</td>
+        <td>PDP</td>
+        <td>In the hook `useProduct()` from `ProductDetails`component.</td>
+        <td>
+          General product data from StoreProduct to update product data inside
+          `PDP` (product coming from `ServerProductPageQuery` as fallback).
+        </td>
+        <td>
+          >Frontend data from the `useSession()` hook in locator array with
+          `id`, `channel`, `locale` as key/values.
+        </td>
+      </ExtendableQueryTable>
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ClientProductsQuery`</summary>
+      <ExtendableQueryTable>
+        <td>Client</td>
+        <td>search</td>
+        <td>
+          PLP + Pages that use `ProductShelf`, and `ProductTiles` components.
+        </td>
+        <td>
+          In the hook `useProducts()` from `GalleryPage` from `PLP`.
+          <br />
+          In the hook `useProductsPrefetch()` to prefetch the previous (prev)
+          and next (next) page from the current `PLP` page.
+          <br />
+          In the hook `useProductsQuery()`, in `ProductShelf`, `ProductTiles`
+          components, that can be used on multiple pages.
+          <br />
+        </td>
+        <td>
+          General products data (StoreProduct) with the `totalCount` from
+          StorePageInfo.
+        </td>
+        <td>
+          Frontend data from the `useLocalizedVariables()` and `useSession()`
+          hooks.
+        </td>
+      </ExtendableQueryTable>
     </details>
   </li>
 </ul>
-
-| **Query Name** | **Side** | **Query operation** | **Page** | **Where is used** | **Return** | **Parameters** |
-|---|---|---|---|---|---|---|
-| ClientProductGalleryQuery | Client | search | PLP | In the hook `useGalleryQuery()` from the `ProductGallery` component. | Products totalCount from StorePageInfo, and facets (StoreFacet) from StoreSearchResult. | Frontend data from the `useSearch()` and `useLocalizedVariables()` hooks, the latter uses `useSession()`. |
-| ServerCollectionPageQuery | Server | collection | PLP | In the function `getStaticProps()` from `PLP`. | seo, breadcrumbList and meta data from collection (StoreCollection). | Collection `slug` that comes from URL. |
-| ServerProductPageQuery | Server | product | PDP | In the function `getStaticProps()` from `PDP`. | General product data from StoreProduct. | The `locator` with `slug` key/value. |
-| ClientProductQuery | Client | product | PDP | In the hook `useProduct()` from `ProductDetails`component. | General product data from StoreProduct to update product data inside `PDP` (product coming from `ServerProductPageQuery` as fallback). | Frontend data from the `useSession()` hook in locator array with `id`, `channel`, `locale` as key/values. |
-| ClientProductsQuery | Client | search | PLP + Pages that use `ProductShelf`, and `ProductTiles` components. | In the hook `useProducts()` from `GalleryPage` from `PLP`.<br />In the hook `useProductsPrefetch()` to prefetch the previous (prev) and next (next) page from the current `PLP` page.<br />In the hook `useProductsQuery()`, in `ProductShelf`, `ProductTiles` components, that can be used on multiple pages. | General products data (StoreProduct)  with the `totalCount` from StorePageInfo. | Frontend data from the `useLocalizedVariables()` and `useSession()` hooks. |
-
