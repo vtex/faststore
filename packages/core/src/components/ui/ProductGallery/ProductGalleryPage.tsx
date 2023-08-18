@@ -4,17 +4,33 @@ import ProductGrid from 'src/components/product/ProductGrid'
 import Sentinel from 'src/sdk/search/Sentinel'
 
 import { ProductCardProps } from 'src/components/product/ProductCard'
-import { useProducts } from './usePageProducts'
+import { memo, useMemo } from 'react'
+import { usePageProductsQuery } from 'src/sdk/product/usePageProductsQuery'
 
 interface Props {
   page: number
   title: string
   productCard?: Pick<ProductCardProps, 'showDiscountBadge' | 'bordered'>
+  itemsPerPage: number
 }
 
-function GalleryPage({ page, title, productCard }: Props) {
-  const products = useProducts(page) ?? []
-  const { itemsPerPage } = useSearch()
+function ProductGalleryPage({ page, title, productCard, itemsPerPage }: Props) {
+  const {
+    state: { term, sort, selectedFacets },
+  } = useSearch()
+
+  const { currentProductsPerPage } = usePageProductsQuery({
+    page,
+    term,
+    sort,
+    selectedFacets,
+    itemsPerPage,
+  })
+
+  const products = useMemo(
+    () => currentProductsPerPage?.data?.search?.products?.edges ?? [],
+    [currentProductsPerPage?.data?.search?.products?.edges]
+  )
 
   return (
     <>
@@ -34,4 +50,4 @@ function GalleryPage({ page, title, productCard }: Props) {
   )
 }
 
-export default GalleryPage
+export default memo(ProductGalleryPage)

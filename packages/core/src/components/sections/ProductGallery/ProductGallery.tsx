@@ -1,19 +1,16 @@
 import { mark } from 'src/sdk/tests/mark'
 
-import { ServerCollectionPageQueryQuery } from '@generated/graphql'
 import ProductGallery, {
   ProductGalleryProps,
 } from 'src/components/ui/ProductGallery/ProductGallery'
-import { SearchPageContextType } from 'src/pages/s'
+import { SearchPageContext } from 'src/pages/s'
 import Section from '../Section'
 import EmptyGallery from './EmptyGallery'
 import styles from './section.module.scss'
-import { useGalleryQuery } from './useGalleryQuery'
-
-type ProductGalleryContext = ServerCollectionPageQueryQuery['collection']
+import { ProductListingPageContext } from 'src/components/templates/ProductListingPage/ProductListingPage'
+import { isPLP, isSearchPage, usePage } from 'src/sdk/overrides/PageProvider'
 
 export interface ProductGallerySectionProps {
-  context?: ProductGalleryContext
   searchTermLabel?: ProductGalleryProps['searchTermLabel']
   totalCountLabel?: ProductGalleryProps['totalCountLabel']
   filter: ProductGalleryProps['filter']
@@ -24,28 +21,17 @@ export interface ProductGallerySectionProps {
   productCard?: ProductGalleryProps['productCard']
 }
 
-const isSearch = (x: any): x is SearchPageContextType =>
-  x === undefined || x?.title != undefined || x?.searchTerm != undefined
-const isCollection = (
-  x: any
-): x is ServerCollectionPageQueryQuery['collection'] =>
-  x?.seo != undefined && x?.seo != null && x?.sku == undefined
-
-function ProductGallerySection({
-  context,
-  ...otherProps
-}: ProductGallerySectionProps) {
-  const [title, searchTerm] = isSearch(context)
-    ? [context?.title, context?.searchTerm]
-    : isCollection(context)
-    ? [context?.seo?.title]
+function ProductGallerySection({ ...otherProps }: ProductGallerySectionProps) {
+  const context = usePage() as SearchPageContext | ProductListingPageContext
+  const [title, searchTerm] = isSearchPage(context)
+    ? [context?.data?.title, context?.data?.searchTerm]
+    : isPLP(context)
+    ? [context?.data?.collection?.seo?.title]
     : ['']
 
-  const { data: productGalleryData } = useGalleryQuery()
-  const totalCount =
-    productGalleryData?.search.products.pageInfo.totalCount ?? 0
+  const totalCount = context?.data?.search?.products?.pageInfo?.totalCount ?? 0
 
-  if (productGalleryData && totalCount === 0) {
+  if (context?.data?.search?.products && totalCount === 0) {
     return (
       <Section className={`${styles.section} section-product-gallery`}>
         <section data-testid="product-gallery" data-fs-product-listing>
@@ -62,7 +48,6 @@ function ProductGallerySection({
       <ProductGallery
         title={title}
         searchTerm={searchTerm}
-        productGalleryData={productGalleryData}
         totalCount={totalCount}
         {...otherProps}
       />
