@@ -7,7 +7,6 @@ import { Section } from '@vtex/client-cms'
 interface Props {
   components: Record<string, ComponentType<any>>
   sections: Array<{ name: string; data: any }>
-  context?: unknown
 }
 
 const useDividedSections = (sections: Section[]) => {
@@ -23,7 +22,7 @@ const useDividedSections = (sections: Section[]) => {
   }, [sections])
 }
 
-const RenderSectionsBase = ({ sections = [], context, components }: Props) => {
+const RenderSectionsBase = ({ sections = [], components }: Props) => {
   return (
     <>
       {sections.map(({ name, data }, index) => {
@@ -42,7 +41,7 @@ const RenderSectionsBase = ({ sections = [], context, components }: Props) => {
 
         return (
           <SectionBoundary key={`cms-section-${index}`} name={name}>
-            <Component {...data} context={context} />
+            <Component {...data} />
           </SectionBoundary>
         )
       })}
