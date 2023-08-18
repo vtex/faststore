@@ -1,10 +1,14 @@
 import type { SearchState } from '@faststore/sdk'
-import { parseSearchState, SearchProvider } from '@faststore/sdk'
+import {
+  formatSearchState,
+  parseSearchState,
+  SearchProvider,
+} from '@faststore/sdk'
 import { SROnly as UISROnly } from '@faststore/ui'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import type { ComponentType } from 'react'
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 
 import Breadcrumb from 'src/components/sections/Breadcrumb'
 import ProductGallery from 'src/components/sections/ProductGallery'
@@ -22,6 +26,13 @@ import GlobalSections, {
 import RenderSections from 'src/components/cms/RenderSections'
 import { getPage, SearchContentType } from 'src/server/cms'
 import storeConfig from '../../faststore.config'
+import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
+import {
+  ProductsPerPage,
+  usePageProductsQuery,
+} from 'src/sdk/product/usePageProductsQuery'
+import { ClientProductGalleryQueryQuery } from '@generated/graphql'
+import PageProvider from 'src/sdk/overrides/PageProvider'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -43,15 +54,19 @@ export interface SearchPageContextType {
   searchTerm?: string
 }
 
+export interface SearchPageContext {
+  data?: SearchPageContextType &
+    ClientProductGalleryQueryQuery & { productsPerPage: ProductsPerPage[] }
+}
+
 type UseSearchParams = {
   sort: SearchState['sort']
 }
 
 const useSearchParams = ({ sort: defaultSort }: UseSearchParams) => {
-  const [params, setParams] = useState<SearchState | null>(null)
   const { asPath } = useRouter()
 
-  useEffect(() => {
+  const hrefState = useMemo(() => {
     const url = new URL(asPath, 'http://localhost')
 
     const shouldUpdateDefaultSort = defaultSort && !url.searchParams.has('sort')
@@ -59,10 +74,11 @@ const useSearchParams = ({ sort: defaultSort }: UseSearchParams) => {
       url.searchParams.set('sort', defaultSort)
     }
 
-    setParams(parseSearchState(url))
+    const newState = parseSearchState(url)
+    return formatSearchState(newState).href
   }, [asPath, defaultSort])
 
-  return params
+  return useMemo(() => parseSearchState(new URL(hrefState)), [hrefState])
 }
 
 function Page({ page: { sections, settings }, globalSections }: Props) {
@@ -73,15 +89,46 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
   const title = 'Search Results'
   const { description, titleTemplate } = storeConfig.seo
 
+  const { page, sort, term, selectedFacets } = searchParams
+  const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
+
+  const { data: pageProductGalleryData } = useProductGalleryQuery({
+    term,
+    sort,
+    selectedFacets,
+    itemsPerPage,
+  })
+
+  const { productsPerPage } = usePageProductsQuery({
+    page,
+    term,
+    sort,
+    selectedFacets,
+    itemsPerPage,
+  })
+
   if (!searchParams) {
     return null
   }
+
+  const server = {
+    title,
+    searchTerm: searchParams.term ?? undefined,
+  } as SearchPageContextType
+
+  const context = {
+    data: {
+      ...server,
+      ...pageProductGalleryData,
+      productsPerPage,
+    },
+  } as SearchPageContext
 
   return (
     <GlobalSections {...globalSections}>
       <SearchProvider
         onChange={applySearchState}
-        itemsPerPage={settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE}
+        itemsPerPage={itemsPerPage}
         {...searchParams}
       >
         {/* SEO */}
@@ -110,16 +157,9 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
           If needed, wrap your component in a <Section /> component
           (not the HTML tag) before rendering it here.
         */}
-        <RenderSections
-          sections={sections}
-          components={COMPONENTS}
-          context={
-            {
-              title,
-              searchTerm: searchParams.term ?? undefined,
-            } as SearchPageContextType
-          }
-        />
+        <PageProvider context={context}>
+          <RenderSections sections={sections} components={COMPONENTS} />
+        </PageProvider>
       </SearchProvider>
     </GlobalSections>
   )
