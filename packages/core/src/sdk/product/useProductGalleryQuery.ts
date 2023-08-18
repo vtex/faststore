@@ -1,13 +1,11 @@
 import { gql } from '@faststore/graphql-utils'
-import { useSearch } from '@faststore/sdk'
 
 import type {
   ClientProductGalleryQueryQuery as Query,
   ClientProductGalleryQueryQueryVariables as Variables,
 } from '@generated/graphql'
 import { useQuery } from 'src/sdk/graphql/useQuery'
-
-import { useLocalizedVariables } from '../../../sdk/product/useProductsQuery'
+import { useLocalizedVariables } from './useLocalizedVariables'
 
 /**
  * This query is run on the browser and contains
@@ -41,12 +39,12 @@ export const query = gql`
   }
 `
 
-export const useGalleryQuery = () => {
-  const {
-    state: { term, sort, selectedFacets },
-    itemsPerPage,
-  } = useSearch()
-
+export const useProductGalleryQuery = ({
+  term,
+  sort,
+  selectedFacets,
+  itemsPerPage,
+}) => {
   const localizedVariables = useLocalizedVariables({
     first: itemsPerPage,
     after: '0',

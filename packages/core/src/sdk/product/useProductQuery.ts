@@ -18,14 +18,16 @@ const query = gql`
   }
 `
 
-export const useProduct = <T extends ClientProductQueryQuery>(
+export const useProductQuery = <T extends ClientProductQueryQuery>(
   productID: string,
   fallbackData?: T
 ) => {
   const { channel, locale } = useSession()
   const variables = useMemo(() => {
     if (!channel) {
-      throw new Error(`useProduct: 'channel' from session is an empty string.`)
+      throw new Error(
+        `useProductQuery: 'channel' from session is an empty string.`
+      )
     }
 
     return {
