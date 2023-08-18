@@ -55,25 +55,31 @@ describe('On product description pages', () => {
 
       cy.itemsInCart(0)
 
+      let skuId, sellerId
+
       // Add to cart
       cy.getById('buy-button')
         .scrollIntoView({ duration: 500 })
         .then(($btn) => {
-          cy.getById('buy-button').click({ force: true })
-          const skuId = $btn.attr('data-sku')
-          const sellerId = $btn.attr('data-seller')
+          cy.getById('buy-button').click({
+            timeout: 5000,
+            waitForAnimations: true,
+          })
 
-          // Wait for optimistic cart to kick in
-          cy.getById('checkout-button')
-            .should('be.visible')
-            .should('be.enabled')
-            .then(() => {
-              cy.getById('fs-cart-item').should(($item) => {
-                expect($item.attr('data-sku')).to.eq(skuId)
-                expect($item.attr('data-seller')).to.eq(sellerId)
-              })
-              cy.itemsInCart(1)
-            })
+          skuId = $btn.attr('data-sku')
+          sellerId = $btn.attr('data-seller')
+        })
+
+      // Wait for optimistic cart to kick in
+      cy.getById('checkout-button')
+        .should('be.visible')
+        .should('be.enabled')
+        .then(() => {
+          cy.getById('fs-cart-item').should(($item) => {
+            expect($item.attr('data-sku')).to.eq(skuId)
+            expect($item.attr('data-seller')).to.eq(sellerId)
+          })
+          cy.itemsInCart(1)
         })
     })
   })

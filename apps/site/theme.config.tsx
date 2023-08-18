@@ -26,6 +26,9 @@ const config: DocsThemeConfig = {
     defaultTheme: 'light',
   },
   darkMode: false,
+  toc: {
+    float: false,
+  },
   logo: (
     <span className="nx-header-logo">
       <VtexIcon />

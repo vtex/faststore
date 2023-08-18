@@ -16,6 +16,11 @@
     "title": "Requirements"
   },
   "getting-started": "Step by Step",
+  
+  "getting-started-glossary": {
+    "title": "Glossary"
+  },
+  
   "-- Theming --": {
     "type": "separator",
     "title": "Theming"
@@ -42,13 +47,13 @@
   },
   "-- VTEX Headless CMS --": {
     "type": "separator",
-    "title": "VTEX Headless CMS"
+    "title": "Headless CMS"
   },
   "headless-cms-overview": {
     "title": "Overview"
   },
   "headless-cms-integration": {
-    "title": "Integrating your storefront with VTEX Headless CMS"
+    "title": "Integrating your storefront with Headless CMS"
   },
   "headless-cms-troubleshooting": {
     "title": "Troubleshooting"
@@ -65,7 +70,11 @@
   "building-sections": {
     "title": "Building and Customizing Sections"
   },
-  "reference-guides": "Reference",
+  "-- Reference --": {
+    "type": "separator",
+    "title": "Reference"
+  },
   "api-extensions": "API Extensions",
+  "faststore-config-options": "faststore.config.js options",
   "troubleshooting": "Troubleshooting"
 }

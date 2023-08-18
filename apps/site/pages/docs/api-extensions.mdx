@@ -1,10 +1,12 @@
-import { Steps, Step } from 'nextra-theme-docs'
+import { Steps, Step, Callout } from 'nextra-theme-docs'
+import { ExtendableQueryTable } from './../../components/ExtendableQueryTable'
 
 <header className="hero">
 
-# API Extensions
+# API extensions
 
 In this guide you will learn how to extend the FastStore API schema.
+
 </header>
 
 Although the [FastStore API](https://v1.faststore.dev/reference/api/faststore-api) provides a [GraphQL schema for ecommerce](https://v1.faststore.dev/reference/api/queries) that suits a general use case, some stores may need to access other, more specific, information.
@@ -13,7 +15,7 @@ You will not be able to add other APIs endpoints to your storefront since this m
 
 ---
 
-## Before starting
+## Before you start
 
 Note that even though you can add information to the FastStore API schema, you must be careful not to over-fetch data on your pages. See the [best practices for fetching data on your storefront](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data).
 
@@ -24,17 +26,17 @@ Inside the repository, there is a clear separation about what comes from VTEX AP
 
 ---
 
-## VTEX APIs Schema Extensions
+## VTEX APIs schema extensions
 
-FastStore streamline the way of using data from VTEX APIs that the FastStore API does not expose.
+FastStore streamlines the way of using data from VTEX APIs that the FastStore API does not expose.
 
-As FastStore uses GraphQL, it's required to write [type definitions](https://graphql.org/learn/schema/#object-types-and-fields) and [resolvers](https://graphql.org/learn/execution/#root-fields-resolvers) to fetch the data you need.  You will learn how to do this using API Extensions by following the steps below.
+As FastStore uses GraphQL, it's required to write [type definitions](https://graphql.org/learn/schema/#object-types-and-fields) and [resolvers](https://graphql.org/learn/execution/#root-fields-resolvers) to fetch the data you need. You will learn how to do this using API Extensions by following the steps below.
 
 ### Folder Structure
 
 The store's repository provides the following folder structure for the VTEX APIs Schema Extensions that is held in the `src/graphql/vtex` folder.
 
-```ts
+```ts copy
 starter.store/
 └─ src/
     └─ graphql/
@@ -56,8 +58,7 @@ You can create a new `<typeName>.graphql` files inside the `vtex/typeDefs` folde
 
 See the following code example that creates a `product.graphql` file, that extends the [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct) type from FastStore API and exposes a new `customData` field:
 
-```graphql
-// graphql/vtex/typeDefs/product.graphql
+```graphql filename="graphql/vtex/typeDefs/product.graphql"
 
 extend type StoreProduct {
   """
@@ -81,8 +82,7 @@ The way that it will be organized inside this folder is flexible, it's possible 
 
 See the following code example that creates a `product.ts` resolver file and resolves the `customData` field from `StoreProduct`:
 
-```ts
-// graphql/vtex/resolvers/product.ts
+```ts copy filename="graphql/vtex/resolvers/product.ts"
 
 import type { StoreProductRoot } from '@faststore/api'
 
@@ -95,7 +95,6 @@ const productResolver = {
 }
 
 export default productResolver
-
 ```
 
 As you see, you can leverage the use of TypeScript by typing the root param as [StoreProductRoot](https://v1.faststore.dev/reference/api/root-object-fields#root-product):
@@ -104,8 +103,7 @@ As you see, you can leverage the use of TypeScript by typing the root param as [
 
 Then, it's important to import the resolvers inside the `index.ts` file, spread them in the resolver object and re-export the final resolver object.
 
-```ts
-// graphql/vtex/resolvers/index.ts
+```ts copy filename="graphql/vtex/resolvers/index.ts"
 
 import { default as StoreProductResolver } from './product'
 
@@ -114,7 +112,6 @@ const resolvers = {
 }
 
 export default resolvers
-
 ```
 
 That's it, you only need to define these files within the vtex folder for the sake of exposing the new fields. The entire GraphQL creation process must be transparent and done in the background by the FastStore.
@@ -122,6 +119,7 @@ That's it, you only need to define these files within the vtex folder for the sa
 ### How to use
 
 **TBD - After the Consume new fields from pages features be done. Here we can be inspired by these steps:**
+
 1. add the `customData` field in the `Fragment X` from the `Y file`.
 2. run `yarn dev` in the core package.
 3. run `yarn generate` in the core package (with `yarn dev` running).
@@ -129,13 +127,13 @@ That's it, you only need to define these files within the vtex folder for the sa
 
 ---
 
-## Third-party APIs Schema Extensions
+## Third-party APIs schema extensions
 
 Also, as stores tend to grow, so does the possibility of consuming new data that is **not provided by default in the FastStore API or other VTEX APIs**. As such, FastStore must consume new data from third-party APIs.
 
 Intending to separate what comes from VTEX and what comes from third-party APIs. The store's repository provides the following folder structure for third-party APIs Schema Extensions that is held in the `src/graphql/thirdParty` folder:
 
-```ts
+```ts copy
 starter.store/
 └── src/
     └── graphql/
@@ -151,12 +149,10 @@ starter.store/
 
 Following this structure, you can use the same pattern mentioned above regarding the VTEX API Schema extensions but using the `thirdParty` folder, with resolvers and typeDefs inside their respective folders and resolvers being imported into the `index.ts` file.
 
-One crucial aspect to consider when developing a third-party extension is the creation of a Query or Mutation schema. This schema plays a vital role in generating new query entry points to access data. 
+One crucial aspect to consider when developing a third-party extension is the creation of a Query or Mutation schema. This schema plays a vital role in generating new query entry points to access data.
 Below, you will find an example code the implementation of a third-party extension:
 
-
-```ts
-//graphql/thirdParty/typeDefs/extra.graphql
+```ts copy filename="graphql/thirdParty/typeDefs/extra.graphql"
 
 type ExtraData {
   """
@@ -171,9 +167,7 @@ type Query {
 }
 ```
 
-
-```ts
-//graphql/thirdParty/resolvers/extra.ts
+```ts copy filename="graphql/thirdParty/resolvers/extra.ts"
 
 const extraDataResolver = {
   Query: {
@@ -190,12 +184,10 @@ const extraDataResolver = {
   },
 }
 
-
 export default extraDataResolver
 ```
 
-```ts
-//graphql/thirdParty/resolvers/index.ts
+```ts copy filename="graphql/thirdParty/resolvers/index.ts"
 
 import { default as StoreExtraResolver } from './extra'
 
@@ -208,7 +200,7 @@ export default resolvers
 
 In this example, the extra data is accessible by this query:
 
-```ts
+```ts copy
 query {
 	extraData {
 		data
@@ -219,4 +211,136 @@ query {
 }
 ```
 
+---
 
+## Extending queries using fragments
+
+To add custom fields to existing [extendable queries](/docs/api-extensions#extendable-queries), extend them using fragments located in the `src/fragments` folder. Fragments are GraphQL components that can be integrated into queries to extend functionality.
+
+To add additional fields to an existing query, follow the steps below. We will use the `ServerProductPage` query as an example to illustrate how to extend a query.
+
+### Step 1: Create a new file
+Create a new `.ts` file in the `src/fragments` folder named `ServerProductPage.ts`. _The name of the file should match the name of the query you want to extend._
+
+### Step 2: Define the GraphQL fragment
+In the `ServerProductPage.ts` file, define the GraphQL fragment corresponding to the new fields you want. In this example, the new field is represented by `customData` property to retrieve. Use the following syntax as a guideline:
+
+{/*TO DO: ADD THE EXPECTED RESULT FROM THIS CODE SAMPLE*/}
+
+```ts copy filename="src/fragments/ServerProductPage.ts"
+
+import { gql } from '@faststore/graphql-utils'
+
+export const fragment = gql`
+  fragment ServerProductPage on Query {
+    product(locator: $locator) {
+      customData
+    }
+  }
+`
+```
+
+{/*TO DO: ADD THE EXPECTED RESULT FROM THIS CODE SAMPLE*/}
+
+## Extendable Queries
+
+<ul>
+  <li>
+    <details>
+      <summary>Query: `ClientProductGalleryQuery`</summary>
+      <ExtendableQueryTable>
+        <td>Client</td>
+        <td>search</td>
+        <td>PLP</td>
+        <td>
+          In the hook `useGalleryQuery()` from the `ProductGallery` component.
+        </td>
+        <td>
+          Products totalCount from StorePageInfo, and facets (StoreFacet) from
+          StoreSearchResult.
+        </td>
+        <td>
+          Frontend data from the `useSearch()` and `useLocalizedVariables()`
+          hooks, the latter uses `useSession()`.
+        </td>
+      </ExtendableQueryTable>
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ServerCollectionPageQuery`</summary>
+      <ExtendableQueryTable>
+        <td>Server</td>
+        <td>collection</td>
+        <td>PLP</td>
+        <td>In the function `getStaticProps()` from `PLP`.</td>
+        <td>
+          seo, breadcrumbList and meta data from collection (StoreCollection).
+        </td>
+        <td>Collection `slug` that comes from URL.</td>
+      </ExtendableQueryTable>
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ServerProductPageQuery`</summary>
+      <ExtendableQueryTable>
+        <td>Server</td>
+        <td>product</td>
+        <td>PDP</td>
+        <td>In the function `getStaticProps()` from `PDP`.</td>
+        <td>General product data from StoreProduct.</td>
+        <td>The `locator` with `slug` key/value.</td>
+      </ExtendableQueryTable>
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ClientProductQuery`</summary>
+      <ExtendableQueryTable>
+        <td>Client</td>
+        <td>product</td>
+        <td>PDP</td>
+        <td>In the hook `useProduct()` from `ProductDetails`component.</td>
+        <td>
+          General product data from StoreProduct to update product data inside
+          `PDP` (product coming from `ServerProductPageQuery` as fallback).
+        </td>
+        <td>
+          >Frontend data from the `useSession()` hook in locator array with
+          `id`, `channel`, `locale` as key/values.
+        </td>
+      </ExtendableQueryTable>
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ClientProductsQuery`</summary>
+      <ExtendableQueryTable>
+        <td>Client</td>
+        <td>search</td>
+        <td>
+          PLP + Pages that use `ProductShelf`, and `ProductTiles` components.
+        </td>
+        <td>
+          - In the hook `useProducts()` from `GalleryPage` from `PLP`.
+          <br />
+          - In the hook `useProductsPrefetch()` to prefetch the previous (prev)
+          and next (next) page from the current `PLP` page.
+          <br />
+          - In the hook `useProductsQuery()`, in `ProductShelf`, `ProductTiles`
+          components, that can be used on multiple pages.
+          <br />
+        </td>
+        <td>
+          General products data (StoreProduct) with the `totalCount` from
+          StorePageInfo.
+        </td>
+        <td>
+          Frontend data from the `useLocalizedVariables()` and `useSession()`
+          hooks.
+        </td>
+      </ExtendableQueryTable>
+    </details>
+  </li>
+</ul>

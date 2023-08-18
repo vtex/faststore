@@ -213,7 +213,7 @@ async function getOrderNumberFromSession(
 
   if (cookieSession) {
     const { namespaces } = await commerce.getSessionOrder()
-    return namespaces.checkout?.orderFormId?.value
+    return namespaces.public?.orderFormId?.value ?? undefined
   }
   return
 }
@@ -325,7 +325,6 @@ export const validateCart = async (
     headers,
     commerce
   )
-
   const orderNumber = orderNumberFromSession ?? orderNumberFromCart ?? ''
 
   // Step1: Get OrderForm from VTEX Commerce

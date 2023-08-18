@@ -129,18 +129,11 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
 
 type resolversType = Parameters<typeof makeExecutableSchema>[0]['resolvers']
 
-export function getCustomSchema(
-  customPath: string,
-  resolvers: resolversType,
-  mergedTypes: string[] = []
-) {
+export function getCustomSchema(customPath: string, resolvers: resolversType) {
   const customTypeDefs = getTypeDefsFromFolder(customPath)
 
   try {
-    const typeDefs = mergeTypeDefs([
-      ...(Array.isArray(mergedTypes) ? mergedTypes : [mergedTypes]),
-      customTypeDefs,
-    ])
+    const typeDefs = mergeTypeDefs([...getTypeDefs(), customTypeDefs])
 
     const schema = makeExecutableSchema({ typeDefs, resolvers })
 
@@ -174,7 +167,7 @@ export function getTypeDefsFromFolder(customPath: string | string[]) {
 }
 
 export function getVTEXExtensionsSchema() {
-  return getCustomSchema('vtex', vtexExtensionsResolvers, getTypeDefs())
+  return getCustomSchema('vtex', vtexExtensionsResolvers)
 }
 
 export function getThirdPartyExtensionsSchema() {

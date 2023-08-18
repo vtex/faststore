@@ -18,11 +18,11 @@
     align-items: stretch;
     overflow-x: auto;
     position: relative;
+    column-gap: var(--fs-product-shelf-items-gap);
 
     [data-fs-product-shelf-item] { width: 100%; }
 
     @include media(">=tablet") {
-      column-gap: var(--fs-product-shelf-items-gap);
       padding-top: var(--fs-product-shelf-items-padding-top);
       padding-bottom: var(--fs-product-shelf-items-padding-bottom);
       overflow-x: auto;

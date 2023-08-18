@@ -1,0 +1,206 @@
+---
+title: '2. Setting up the Headless CMS'
+sidebar_label: 'Integrating your storefront with Headless CMS'
+---
+
+import { Callout, Tabs, Tab, Steps } from 'nextra-theme-docs'
+
+
+
+<header>
+# Part 2: Setting up the Headless CMS in your FastStore project
+</header>
+
+Now that you are familiar with the core concepts of the [Headless CMS](/docs/headless-cms-overview) and have set it up in your VTEX account, let's get back to our **FastStore** project to define our own **Content Types** and **Sections**.
+
+By the end of this part of this tutorial, you will be able to see your first definition of a Content Type available for use at the Headless CMS app. Next, we will dive deeper into how to create these definitions in a smoother way.
+
+---
+
+## Before you start
+
+<Steps>
+### Integrate the store with the Headless CMS
+
+All sections must be available in the Headless CMS so they can be added and managed on your store's pages. To integrate your FastStore project, please refer to the [Headless CMS integration track](/docs/headless-cms-integration/1-configuring-the-vtex-account).
+
+### Install the FastStore CLI
+
+Make sure to install the FastStore CLI to use its commands locally. Refer to the [FastStore CLI](/docs/getting-started/4-faststore-cli#installing-faststore-cli-globally-using-npm) guide for more information.
+
+### Creating CMS-related files
+
+This guide assumes that you are starting without any existing CMS-related files. 
+If your project already includes any of the following files: `content-types.json` or `sections.json`, follow the instructions in [Step 1 - Creating the CMS folder](/docs/headless-cms-integration/2-setting-up-the-headless-cms#step-1---creating-the-cms-folder) to create only the necessary files for your project's requirements.
+
+</Steps>
+
+---
+
+## Step by step
+
+### Step 1 - Creating the CMS folder
+
+1. Open the terminal and change to the root directory of your FastStore project.
+2. Create a new folder named `cms` at the root of your FastStore project and a subfolder named `faststore` inside the `cms`. Run the following command to create them:
+
+<Tabs items={['macOs and Linux', 'Windows']}>
+  <Tab>
+  ```bash copy
+  mkdir -p cms/faststore
+  ```
+  </Tab>
+
+  <Tab>
+   ```bash copy
+  mkdir cms\faststore
+  ```
+  </Tab>
+</Tabs>
+
+
+3. Create the two files below inside the `faststore` folder by running the following command:
+
+<Callout type="warning" emoji="⚠️">
+  If your project already includes the CMS-related files: `content-types.json` or `sections.json`, create only the necessary files for your project's requirements.
+</Callout>
+
+<Tabs items={['macOs and Linux', 'Windows']}>
+  <Tab>
+  ```bash copy
+  touch cms/faststore/content-types.json cms/faststore/sections.json 
+  ```
+  </Tab>
+
+  <Tab>
+   ```bash copy
+  type nul > cms\faststore\content-types.json
+  type nul > cms\faststore\sections.json
+  ```
+  </Tab>
+</Tabs>
+
+
+| File name                | Description                                                                                                                                                    |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `content-types.json`     |  An array of JSON objects that describes the **Content Types** available for customization at the Headless CMS app.                                       |
+| `sections.json`          | An array of JSON objects that describes the content structure of the frontend **Section** components available for customization at the Headless CMS app. |
+
+5. Update the `sections.json` file with an empty array:
+
+```bash copy
+echo "[]" > cms/faststore/sections.json
+```
+
+6. Open the `content-types.json` file in any code editor of your choice and add the following code:
+
+```json filename="cms/faststore/content-types.json" copy 
+[
+   {
+    "id": "customPage",
+    "name": "Custom Page",
+    "configurationSchemaSets": [
+      {
+        "name": "Settings",
+        "configurations": [
+          {
+            "name": "seo",
+            "schema": {
+              "title": "SEO",
+              "description": "Search Engine Optimization options",
+              "type": "object",
+              "widget": {
+                "ui:ObjectFieldTemplate": "GoogleSeoPreview"
+              },
+              "required": [
+                "slug",
+                "title",
+                "description"
+              ],
+              "properties": {
+                "slug": {
+                  "title": "Path",
+                  "type": "string",
+                  "default": "/"
+                },
+                "title": {
+                  "title": "Default page title",
+                  "description": "Display this title when no other title is available",
+                  "type": "string",
+                  "default": "FastStore Starter"
+                },
+                "description": {
+                  "title": "Meta tag description",
+                  "type": "string",
+                  "default": "A beautifully designed store"
+                },
+                "canonical": {
+                  "title": "Canonical url for the page",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
+
+```
+
+<Callout type="info" emoji="ℹ️">
+  Don't worry about the structure of this file for now, as we'll learn more about it later in this tutorial. 
+  However, notice that we have defined the **Custom Page** Content Type.
+</Callout>
+
+
+7. Save your changes in the `content-types.json` file.
+
+8. Open the terminal and run `yarn dev` to enable the watch mode for the FastStore CLI. 
+This command will monitor any changes in the project, including the new section you have created, and automatically merge it with the default sections available in [`faststore/core`](/docs/getting-started/3-project-structure#faststorecore).
+
+### Step 2 - Syncing your changes
+
+Let's now sync the changes with the Headless CMS app and see what happens.
+
+1. Open another terminal and log in to your VTEX account.
+
+2. Create a new development workspace by running the following command. *Remember to replace the values between curly brackets according to your scenario*:
+
+```bash copy
+vtex use {workspace}
+```
+
+<Callout type="warning" emoji="⚠️">
+  Use a development workspace to try your definitions of Sections and Content Types before syncing them with the VTEX `master` workspace.
+</Callout>
+
+3. Change to the root directory of your FastStore project.
+
+4. Sync your changes in the `cms` folder with the Headless CMS app:
+
+```bash copy
+faststore cms-sync
+```
+
+<Callout type="warning" emoji="⚠️">
+   If you have the `@vtex/cli-plugin-cms@1.0.7` installed you can use the `{builderName}` argument to syncronize a specific builder: `vtex cms:sync {builderName}`.
+</Callout>
+
+Once your changes are synced with the Headless CMS, the terminal will show the following message:
+
+```bash copy
+CMS synced successfully...
+```
+
+### Step 3 - Checking your changes
+
+1. Access the VTEX Admin using the workspace you previously created (e.g., `https://{workspace}--{account}.myvtex.com/admin`).
+2. Go to **Storefront > Headless CMS**.
+3. Click on **Create New**.
+
+![cms-custom-page](https://vtexhelp.vtexassets.com/assets/docs/src/headless-custom-page___c952670d0592c3c66202d6702af3fc17.png)
+
+You should now see the Content Type we created in the previous step available for use at the Headless CMS app. 
+However, no Sections will be available yet. We'll learn more about this in the following part of this track, [Structuring Content Types and Sections](/docs/headless-cms-integration/3-adding-content-types-and-sections).

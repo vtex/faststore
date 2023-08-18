@@ -9,10 +9,16 @@
   },
   "docs": {
     "title": "Documentation",
-    "type": "page"
+    "type": "page",
+    "theme": {
+      "layout": "full"
+    }
   },
   "components": {
     "title": "UI Components",
-    "type": "page"
+    "type": "page",
+    "theme": {
+      "layout": "full"
+    }
   }
 }
