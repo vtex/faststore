@@ -2,40 +2,23 @@ import { useEffect, useId, useRef } from 'react'
 
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
 import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
-import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import { textToKebabCase } from 'src/utils/utilities'
 
+import { ClientProductsQueryQuery } from '@generated/graphql'
 import {
   ProductShelf as ProductShelfWrapper,
   __experimentalCarousel as Carousel,
   __experimentalProductCard as ProductCard,
 } from 'src/components/sections/ProductShelf/Overrides'
 
-type Sort =
-  | 'discount_desc'
-  | 'name_asc'
-  | 'name_desc'
-  | 'orders_desc'
-  | 'price_asc'
-  | 'price_desc'
-  | 'release_desc'
-  | 'score_desc'
-
 export type ProductShelfProps = {
   title: string
-  first?: number
-  after?: string
-  sort?: Sort
-  term?: string
-  selectedFacets?: {
-    key: string
-    value: string
-  }[]
   productCardConfiguration?: {
     showDiscountBadge?: boolean
     bordered?: boolean
   }
   inView: boolean
+  products: ClientProductsQueryQuery['search']['products']
 }
 
 function ProductShelf({
@@ -45,12 +28,11 @@ function ProductShelf({
     bordered = ProductCard.props.bordered,
     showDiscountBadge = ProductCard.props.showDiscountBadge,
   } = {},
-  ...variables
+  products,
 }: ProductShelfProps) {
   const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
-  const products = useProductsQuery(variables)
   const productEdges = products?.edges ?? []
   const aspectRatio = 1
 

@@ -56,7 +56,8 @@ const getSizes = (products: number, idx: number) => {
 const ProductTiles = ({ title, ...variables }: ProductTilesProps) => {
   const viewedOnce = useRef(false)
   const { ref, inView } = useInView()
-  const products = useProductsQuery(variables)
+  const data = useProductsQuery(variables)
+  const products = data?.search?.products
   const productEdges = products?.edges ?? []
 
   const { sendViewItemListEvent } = useViewItemListEvent({
