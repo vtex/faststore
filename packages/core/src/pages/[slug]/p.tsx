@@ -29,7 +29,9 @@ import GlobalSections, {
 } from 'src/components/cms/GlobalSections'
 import storeConfig from '../../../faststore.config'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
-import PageProvider from 'src/sdk/overrides/PageProvider'
+import PageProvider, {
+  ProductDetailsPageContext,
+} from 'src/sdk/overrides/PageProvider'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -54,11 +56,6 @@ type Props = PDPContentType & {
 }
 
 const overwriteMerge = (_, sourceArray, __) => sourceArray
-
-export interface ProductDetailsPageContext {
-  data?: ServerProductPageQueryQuery &
-    ClientProductQueryQuery['product'] & { isValidating?: boolean }
-}
 
 function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   const { product } = server

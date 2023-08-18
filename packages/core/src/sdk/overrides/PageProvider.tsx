@@ -1,8 +1,33 @@
+import {
+  ClientProductGalleryQueryQuery,
+  ClientProductQueryQuery,
+  ClientProductsQueryQuery,
+  ServerCollectionPageQueryQuery,
+  ServerProductPageQueryQuery,
+} from '@generated/graphql'
 import type { PropsWithChildren } from 'react'
 import { createContext, useContext, useMemo } from 'react'
-import { ProductListingPageContext } from 'src/components/templates/ProductListingPage/ProductListingPage'
-import { ProductDetailsPageContext } from 'src/pages/[slug]/p'
-import { SearchPageContext } from 'src/pages/s'
+import { SearchPageContextType } from 'src/pages/s'
+
+export interface ProductDetailsPageContext {
+  data?: ServerProductPageQueryQuery &
+    ClientProductQueryQuery['product'] & { isValidating?: boolean }
+}
+
+export type ProductsPerPage = {
+  page: number
+  data: ClientProductsQueryQuery
+}
+
+export interface ProductListingPageContext {
+  data?: ServerCollectionPageQueryQuery &
+    ClientProductGalleryQueryQuery & { productsPerPage: ProductsPerPage[] }
+}
+
+export interface SearchPageContext {
+  data?: SearchPageContextType &
+    ClientProductGalleryQueryQuery & { productsPerPage: ProductsPerPage[] }
+}
 
 export const isPDP = (x: any): x is ProductDetailsPageContext =>
   x?.data?.product?.sku != undefined && x?.data?.product?.sku != null
@@ -17,7 +42,7 @@ export const isSearchPage = (x: any): x is SearchPageContext =>
   x?.data?.title != undefined ||
   x?.data?.searchTerm != undefined
 
-interface PageProviderContextValue {
+export interface PageProviderContextValue {
   context?:
     | ProductDetailsPageContext
     | ProductListingPageContext

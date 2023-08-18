@@ -25,9 +25,11 @@ import {
 import { useDelayedFacets } from './useDelayedFacets'
 import { useDelayedPagination } from './useDelayedPagination'
 import { useProductsPrefetch } from '../../../sdk/product/usePageProductsQuery'
-import { ProductListingPageContext } from 'src/components/templates/ProductListingPage/ProductListingPage'
-import { SearchPageContext } from 'src/pages/s'
-import { usePage } from 'src/sdk/overrides/PageProvider'
+import {
+  ProductListingPageContext,
+  SearchPageContext,
+  usePage,
+} from 'src/sdk/overrides/PageProvider'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const GalleryPageSkeleton = <ProductGridSkeleton loading />

@@ -3,12 +3,16 @@ import { mark } from 'src/sdk/tests/mark'
 import ProductGallery, {
   ProductGalleryProps,
 } from 'src/components/ui/ProductGallery/ProductGallery'
-import { SearchPageContext } from 'src/pages/s'
 import Section from '../Section'
 import EmptyGallery from './EmptyGallery'
 import styles from './section.module.scss'
-import { ProductListingPageContext } from 'src/components/templates/ProductListingPage/ProductListingPage'
-import { isPLP, isSearchPage, usePage } from 'src/sdk/overrides/PageProvider'
+import {
+  ProductListingPageContext,
+  SearchPageContext,
+  isPLP,
+  isSearchPage,
+  usePage,
+} from 'src/sdk/overrides/PageProvider'
 
 export interface ProductGallerySectionProps {
   searchTermLabel?: ProductGalleryProps['searchTermLabel']

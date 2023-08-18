@@ -10,11 +10,7 @@ import { useQuery } from 'src/sdk/graphql/useQuery'
 import { useSWRConfig } from 'swr'
 import { prefetchQuery } from '../graphql/prefetchQuery'
 import { useLocalizedVariables } from './useLocalizedVariables'
-
-export type ProductsPerPage = {
-  page: number
-  data: ClientProductsQueryQuery
-}
+import { ProductsPerPage } from '../overrides/PageProvider'
 
 export const query = gql`
   query ClientProductsQuery(

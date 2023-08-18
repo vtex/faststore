@@ -27,12 +27,8 @@ import RenderSections from 'src/components/cms/RenderSections'
 import { getPage, SearchContentType } from 'src/server/cms'
 import storeConfig from '../../faststore.config'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
-import {
-  ProductsPerPage,
-  usePageProductsQuery,
-} from 'src/sdk/product/usePageProductsQuery'
-import { ClientProductGalleryQueryQuery } from '@generated/graphql'
-import PageProvider from 'src/sdk/overrides/PageProvider'
+import { usePageProductsQuery } from 'src/sdk/product/usePageProductsQuery'
+import PageProvider, { SearchPageContext } from 'src/sdk/overrides/PageProvider'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -52,11 +48,6 @@ type Props = {
 export interface SearchPageContextType {
   title: string
   searchTerm?: string
-}
-
-export interface SearchPageContext {
-  data?: SearchPageContextType &
-    ClientProductGalleryQueryQuery & { productsPerPage: ProductsPerPage[] }
 }
 
 type UseSearchParams = {

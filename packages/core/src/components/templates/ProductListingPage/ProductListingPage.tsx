@@ -26,22 +26,16 @@ import CUSTOM_COMPONENTS from 'src/customizations/components'
 import { PLPContentType } from 'src/server/cms'
 
 import storeConfig from '../../../../faststore.config'
-import {
-  ProductsPerPage,
-  usePageProductsQuery,
-} from 'src/sdk/product/usePageProductsQuery'
+import { usePageProductsQuery } from 'src/sdk/product/usePageProductsQuery'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
-import PageProvider from 'src/sdk/overrides/PageProvider'
+import PageProvider, {
+  ProductListingPageContext,
+} from 'src/sdk/overrides/PageProvider'
 import deepmerge from 'deepmerge'
 
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery
   page: PLPContentType
-}
-
-export interface ProductListingPageContext {
-  data?: ServerCollectionPageQueryQuery &
-    ClientProductGalleryQueryQuery & { productsPerPage: ProductsPerPage[] }
 }
 
 /**
