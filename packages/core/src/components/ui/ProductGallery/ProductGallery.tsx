@@ -91,6 +91,9 @@ function ProductGallery({
   useProductsPrefetch(prev ? prev.cursor : null)
   useProductsPrefetch(next ? next.cursor : null)
 
+  const hasFacets =
+    Boolean(data?.search?.facets) && data.search.facets.length > 0
+
   return (
     <section data-testid="product-gallery" data-fs-product-listing>
       {searchTerm && (
@@ -216,7 +219,7 @@ function ProductGallery({
             </div>
           )}
           {/* Render ALL products */}
-          {data?.search?.facets.length > 0 ? (
+          {hasFacets ? (
             <Suspense fallback={GalleryPageSkeleton}>
               {pages.map((page) => (
                 <ProductGalleryPage
