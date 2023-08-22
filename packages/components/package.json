@@ -1,6 +1,6 @@
 {
   "name": "@faststore/components",
-  "version": "2.1.67",
+  "version": "2.1.76",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "author": "Emerson Laurentino @emersonlaurentino",
