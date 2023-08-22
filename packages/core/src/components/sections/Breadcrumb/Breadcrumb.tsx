@@ -27,7 +27,7 @@ function BreadcrumbSection({ ...otherProps }: BreadcrumbSectionProps) {
 
   return (
     <Section className={`${styles.section} section-breadcrumb`}>
-      <Breadcrumb breadcrumbList={breadcrumbList ?? fallback} {...otherProps} />
+      <Breadcrumb breadcrumbList={breadcrumbList} {...otherProps} />
     </Section>
   )
 }
