@@ -4,7 +4,7 @@ import ProductGrid from 'src/components/product/ProductGrid'
 import Sentinel from 'src/sdk/search/Sentinel'
 
 import { ProductCardProps } from 'src/components/product/ProductCard'
-import { memo, useMemo } from 'react'
+import { memo } from 'react'
 import { usePageProductsQuery } from 'src/sdk/product/usePageProductsQuery'
 
 interface Props {
@@ -27,10 +27,7 @@ function ProductGalleryPage({ page, title, productCard, itemsPerPage }: Props) {
     itemsPerPage,
   })
 
-  const products = useMemo(
-    () => currentProductsPerPage?.data?.search?.products?.edges ?? [],
-    [currentProductsPerPage?.data?.search?.products?.edges]
-  )
+  const products = currentProductsPerPage?.data?.search?.products?.edges ?? []
 
   return (
     <>
