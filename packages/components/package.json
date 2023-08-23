@@ -1,6 +1,6 @@
 {
   "name": "@faststore/components",
-  "version": "2.1.76",
+  "version": "2.1.77",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "typings": "dist/esm/index.d.ts",
