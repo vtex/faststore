@@ -1,4 +1,3 @@
-import { memo } from 'react'
 import { useInView } from 'react-intersection-observer'
 import Section from '../Section'
 
@@ -48,4 +47,4 @@ function ProductShelfSection(props: ProductShelfProps) {
   )
 }
 
-export default memo(ProductShelfSection)
+export default ProductShelfSection
