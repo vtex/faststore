@@ -16,23 +16,17 @@ export const shouldUpdateShippingData = (
     return { updateShipping: false, addressChanged: false }
   }
 
-  const selectedAddress = orderForm.shippingData?.selectedAddresses[0]
-
-  if (checkPostalCode(selectedAddress, session.postalCode)) {
-    return { updateShipping: true, addressChanged: true }
-  }
+  const [selectedAddress] = orderForm?.shippingData?.selectedAddresses ?? []
 
   if (
+    checkPostalCode(selectedAddress, session.postalCode) ||
     checkGeoCoordinates(
       selectedAddress,
       session.geoCoordinates,
       session.postalCode
-    )
+    ) ||
+    checkAddressType(selectedAddress, session.addressType)
   ) {
-    return { updateShipping: true, addressChanged: true }
-  }
-
-  if (checkAddressType(selectedAddress, session.addressType)) {
     return { updateShipping: true, addressChanged: true }
   }
 
@@ -43,17 +37,14 @@ export const shouldUpdateShippingData = (
   // The logisticsInfo will always exist if there´s at least one item inside the cart
   const { logisticsInfo } = orderForm.shippingData!
 
-  if (shouldUpdateDeliveryChannel(logisticsInfo, session)) {
+  if (
+    shouldUpdateDeliveryChannel(logisticsInfo, session) ||
+    shouldUpdateDeliveryMethod(logisticsInfo, session) ||
+    shouldUpdateDeliveryWindow(logisticsInfo, session)
+  ) {
     return { updateShipping: true, addressChanged: false }
   }
 
-  if (shouldUpdateDeliveryMethod(logisticsInfo, session)) {
-    return { updateShipping: true, addressChanged: false }
-  }
-
-  if (shouldUpdateDeliveryWindow(logisticsInfo, session)) {
-    return { updateShipping: true, addressChanged: false }
-  }
   return { updateShipping: false, addressChanged: false }
 }
 
@@ -61,15 +52,13 @@ export const shouldUpdateShippingData = (
 const hasSessionPostalCodeOrGeoCoordinates = (session: IStoreSession) => {
   return (
     !!session.postalCode ||
-    (session.geoCoordinates &&
-      session.geoCoordinates.latitude &&
-      session.geoCoordinates.longitude)
+    (session.geoCoordinates?.latitude && session.geoCoordinates?.longitude)
   )
 }
 
 // Validate if theres a difference between the session postal code and orderForm postal code
 const checkPostalCode = (
-  address: CheckoutAddress | null | undefined,
+  address: CheckoutAddress | null,
   postalCode: string | null | undefined
 ) => {
   return typeof postalCode === 'string' && address?.postalCode !== postalCode
@@ -77,7 +66,7 @@ const checkPostalCode = (
 
 // Validate if theres a difference between the session geoCoords and orderForm geoCoords
 const checkGeoCoordinates = (
-  address: CheckoutAddress | null | undefined,
+  address: CheckoutAddress | null,
   geoCoordinates: IStoreGeoCoordinates | null | undefined,
   postalCode: string | null | undefined
 ) => {
@@ -91,7 +80,7 @@ const checkGeoCoordinates = (
 }
 
 const checkAddressType = (
-  address: CheckoutAddress | null | undefined,
+  address: CheckoutAddress | null,
   addressType: string | null | undefined
 ) => {
   return typeof addressType === 'string' && address?.addressType !== addressType
@@ -106,23 +95,18 @@ const hasItems = (orderForm: OrderForm) => {
 // and if so needs to validate if the deliveryChannel for the session is available inside the slas for the item
 const shouldUpdateDeliveryChannel = (
   logisticsInfo: LogisticsInfo[],
-  session: IStoreSession | null | undefined
+  session: IStoreSession | null
 ) => {
-  if (!session?.deliveryMode?.deliveryChannel) {
-    return false
-  }
-  const { deliveryChannel } = session.deliveryMode
-  for (const item of logisticsInfo) {
-    if (item.selectedDeliveryChannel !== deliveryChannel) {
-      const matchingSla = item.slas.find(
+  const deliveryChannel = session?.deliveryMode?.deliveryChannel
+  return (
+    !!deliveryChannel &&
+    logisticsInfo.some((item) => {
+      const matchingSla = item?.slas?.find(
         (sla) => sla.deliveryChannel === deliveryChannel
       )
-      if (matchingSla) {
-        return true
-      }
-    }
-  }
-  return false
+      return !!matchingSla
+    })
+  )
 }
 
 // Validate if the deliveryMethod from the session is different from the selectedSLA
@@ -131,19 +115,14 @@ const shouldUpdateDeliveryMethod = (
   logisticsInfo: LogisticsInfo[],
   session: IStoreSession
 ) => {
-  if (!session?.deliveryMode?.deliveryMethod) {
-    return false
-  }
-  const { deliveryMethod } = session.deliveryMode
-  for (const item of logisticsInfo) {
-    if (item.selectedSla !== deliveryMethod) {
-      const matchingSla = item.slas.find((sla) => sla.id === deliveryMethod)
-      if (matchingSla) {
-        return true
-      }
-    }
-  }
-  return false
+  const deliveryMethod = session?.deliveryMode?.deliveryMethod
+  return (
+    !!deliveryMethod &&
+    logisticsInfo.some((item) => {
+      const matchingSla = item?.slas?.find((sla) => sla.id === deliveryMethod)
+      return !!matchingSla
+    })
+  )
 }
 
 // Validate if the deliveryWindow from the session is different from the deliveryWindow of the SLA
@@ -152,23 +131,17 @@ const shouldUpdateDeliveryWindow = (
   logisticsInfo: LogisticsInfo[],
   session: IStoreSession
 ) => {
-  if (
-    !session?.deliveryMode?.deliveryWindow?.startDate ||
-    !session?.deliveryMode?.deliveryWindow?.endDate
-  ) {
-    return false
-  }
-  const { startDate, endDate } = session.deliveryMode.deliveryWindow
-  for (const item of logisticsInfo) {
-    for (const sla of item.slas) {
-      const matchingWindow = sla.availableDeliveryWindows?.some(
-        (window) =>
-          window.startDateUtc === startDate && window.endDateUtc === endDate
-      )
-      if (matchingWindow) {
-        return true
-      }
-    }
-  }
-  return false
+  const { startDate, endDate } = session?.deliveryMode?.deliveryWindow || {}
+  return (
+    !!startDate &&
+    !!endDate &&
+    logisticsInfo?.some((item) => {
+      return item?.slas?.some((sla) => {
+        return sla?.availableDeliveryWindows?.some(
+          (window) =>
+            window?.startDateUtc === startDate && window?.endDateUtc === endDate
+        )
+      })
+    })
+  )
 }
