@@ -85,19 +85,10 @@ export function usePage() {
   return context
 }
 
-export function usePDP() {
-  const context = usePage()
-  return context as ProductDetailsPageContext
-}
+export const usePDP = () => usePage() as ProductDetailsPageContext
 
-export function usePLP() {
-  const context = usePage()
-  return context as ProductListingPageContext
-}
+export const usePLP = () => usePage() as ProductListingPageContext
 
-export function useSearchPage() {
-  const context = usePage()
-  return context as SearchPageContext
-}
+export const useSearchPage = () => usePage() as SearchPageContext
 
 export default PageProvider
