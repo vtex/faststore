@@ -1,0 +1,95 @@
+---
+title: '  Extending third-party APIs schema'
+sidebar_label: 'API Extensions'
+---
+
+import { Callout, Step, Steps } from 'nextra-theme-docs'
+import { ExtendableQueryTable } from './../../../components/ExtendableQueryTable'
+
+<header>
+
+# Extending third-party APIs schema
+
+</header>
+
+As stores tend to grow, so does the possibility of consuming new data that is **not provided by default in the FastStore API or other VTEX APIs**. As such, FastStore must consume new data from third-party APIs.
+
+Intending to separate what comes from VTEX and what comes from third-party APIs. The store's repository provides the following folder structure for third-party APIs Schema Extensions that is held in the `src/graphql/thirdParty` folder:
+
+```ts copy
+starter.store/
+└── src/
+    └── graphql/
+        ├── thirdParty/
+        │   ├── resolvers/
+        │       └── index.ts
+        │       └── <resolverName>.ts
+        │       └── …
+        │   ├── typeDefs/
+        │       └── <typeName>.graphql
+        │       └── …
+```
+
+Following this structure, you can use the same pattern mentioned above regarding the VTEX API Schema extensions but using the `thirdParty` folder, with resolvers and typeDefs inside their respective folders and resolvers being imported into the `index.ts` file.
+
+One crucial aspect to consider when developing a third-party extension is the creation of a Query or Mutation schema. This schema plays a vital role in generating new query entry points to access data.
+Below, you will find an example code the implementation of a third-party extension:
+
+```ts copy filename="graphql/thirdParty/typeDefs/extra.graphql"
+
+type ExtraData {
+  """
+  Data customizing ExtraData
+  """
+  data: String!
+}
+
+type Query {
+  extraData: ExtraData
+  namedExtraData(name: String!): ExtraData
+}
+```
+
+```ts copy filename="graphql/thirdParty/resolvers/extra.ts"
+
+const extraDataResolver = {
+  Query: {
+    extraData: () => {
+      return {
+        data: 'Extra data',
+      }
+    },
+    namedExtraData: (_, { name }) => {
+      return {
+        data: `Named extra data: ${name}`,
+      }
+    },
+  },
+}
+
+export default extraDataResolver
+```
+
+```ts copy filename="graphql/thirdParty/resolvers/index.ts"
+
+import { default as StoreExtraResolver } from './extra'
+
+const resolvers = {
+  ...StoreExtraResolver,
+}
+
+export default resolvers
+```
+
+In this example, the extra data is accessible by this query:
+
+```ts copy
+query {
+	extraData {
+		data
+	}
+	namedExtraData(name: "Hello") {
+		data
+	}
+}
+```
