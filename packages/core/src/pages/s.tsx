@@ -57,7 +57,7 @@ type UseSearchParams = {
 const useSearchParams = ({ sort: defaultSort }: UseSearchParams) => {
   const { asPath } = useRouter()
 
-  const hrefState = useMemo(() => {
+  return useMemo(() => {
     const url = new URL(asPath, 'http://localhost')
 
     const shouldUpdateDefaultSort = defaultSort && !url.searchParams.has('sort')
@@ -66,10 +66,9 @@ const useSearchParams = ({ sort: defaultSort }: UseSearchParams) => {
     }
 
     const newState = parseSearchState(url)
-    return formatSearchState(newState).href
+    const hrefState = formatSearchState(newState).href
+    return parseSearchState(new URL(hrefState))
   }, [asPath, defaultSort])
-
-  return useMemo(() => parseSearchState(new URL(hrefState)), [hrefState])
 }
 
 function Page({ page: { sections, settings }, globalSections }: Props) {
