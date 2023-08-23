@@ -81,7 +81,9 @@ const useSearchParams = ({
   return useMemo(() => parseSearchState(new URL(hrefState)), [hrefState])
 }
 
-const overwriteMerge = (_, sourceArray, __) => sourceArray
+// Array merging strategy from deepmerge that makes client arrays overwrite server array
+// https://www.npmjs.com/package/deepmerge
+const overwriteMerge = (_, sourceArray) => sourceArray
 
 export default function ProductListingPage({
   page: { sections, settings },
