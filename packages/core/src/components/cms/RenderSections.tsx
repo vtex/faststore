@@ -1,5 +1,5 @@
 import chalk from 'chalk'
-import { ComponentType, PropsWithChildren, useMemo } from 'react'
+import { ComponentType, PropsWithChildren, memo, useMemo } from 'react'
 
 import SectionBoundary from './SectionBoundary'
 import { Section } from '@vtex/client-cms'
@@ -70,4 +70,4 @@ function RenderSections({
   )
 }
 
-export default RenderSections
+export default memo(RenderSections)
