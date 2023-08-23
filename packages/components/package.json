@@ -1,13 +1,22 @@
 {
   "name": "@faststore/components",
   "version": "2.1.76",
-  "module": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "typings": "dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/esm/index.d.ts",
+      "default": "./dist/esm/index.js"
+    }
+  },
   "author": "Emerson Laurentino @emersonlaurentino",
   "license": "MIT",
   "scripts": {
     "dev": "tsc --watch",
-    "build": "tsc",
+    "build": "tsc --module commonjs --outDir dist/cjs & tsc --module esnext --outDir dist/esm",
     "lint": "eslint src/**/*.{ts,tsx}"
   },
   "repository": {
@@ -20,6 +29,10 @@
     "dist",
     "src"
   ],
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
     "@faststore/eslint-config": "^2.1.53",
     "@faststore/shared": "^2.1.53",
