@@ -16,10 +16,69 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
+  /**
+   * Example:
+   *
+   * ```json
+   * {
+   *   Color: 'Red', Size: '42'
+   * }
+   * ```
+   */
   ActiveVariations: any
+  /**
+   * Example:
+   *
+   * ```json
+   * {
+   *   Color: [
+   *     {
+   *       src: "https://storecomponents.vtexassets.com/...",
+   *       alt: "...",
+   *       label: "...",
+   *       value: "..."
+   *     },
+   *     {
+   *       src: "https://storecomponents.vtexassets.com/...",
+   *       alt: "...",
+   *       label: "...",
+   *       value: "..."
+   *     }
+   *   ],
+   *   Size: [
+   *     {
+   *       src: "https://storecomponents.vtexassets.com/...",
+   *       alt: "...",
+   *       label: "...",
+   *       value: "..."
+   *     }
+   *   ]
+   * }
+   * ```
+   */
   FormattedVariants: any
+  /** A string or the string representation of an object (a stringified object). */
   ObjectOrString: any
+  /**
+   * Example:
+   *
+   * ```json
+   * {
+   *   'Color-Red-Size-40': 'classic-shoes-37'
+   * }
+   * ```
+   */
   SlugsMap: any
+  /**
+   * Example:
+   *
+   * ```json
+   * {
+   *   Color: [ "Red", "Blue", "Green" ],
+   *   Size: [ "40", "41" ]
+   * }
+   * ```
+   */
   VariantsByName: any
 }
 
