@@ -81,19 +81,19 @@ function updatesProductsPerPageRef(
   page: number,
   data: ClientProductsQueryQuery
 ) {
-  const currentProductsPerPage = { page, data }
+  const currentPagedProducts = { page, data }
 
   const index = productsPerPage.findIndex((item) => item.page === page)
   const shouldReplacePage = index !== -1
 
   if (shouldReplacePage) {
-    productsPerPage[index] = currentProductsPerPage
+    productsPerPage[index] = currentPagedProducts
   } else {
-    productsPerPage.push(currentProductsPerPage)
+    productsPerPage.push(currentPagedProducts)
     productsPerPage.sort((a, b) => a.page - b.page)
   }
 
-  return { productsPerPage: [...productsPerPage], currentProductsPerPage }
+  return { productsPerPage: [...productsPerPage], currentPagedProducts }
 }
 
 /**
@@ -119,10 +119,10 @@ export const usePageProductsQuery = (
     suspense: true,
   })
 
-  const { productsPerPage, currentProductsPerPage } = updatesProductsPerPageRef(
+  const { productsPerPage, currentPagedProducts } = updatesProductsPerPageRef(
     productsPerPageState,
     page,
     data
   )
-  return { productsPerPage, currentProductsPerPage }
+  return { productsPerPage, currentPagedProducts }
 }

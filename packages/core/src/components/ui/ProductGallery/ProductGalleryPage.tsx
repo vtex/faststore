@@ -27,7 +27,7 @@ function ProductGalleryPage({ page, title, productCard, itemsPerPage }: Props) {
   const context = usePage() as ProductListingPageContext | SearchPageContext
   const productsPerPage = context?.data?.productsPerPage
 
-  const { currentProductsPerPage } = usePageProductsQuery(
+  const { currentPagedProducts } = usePageProductsQuery(
     {
       page,
       term,
@@ -38,7 +38,7 @@ function ProductGalleryPage({ page, title, productCard, itemsPerPage }: Props) {
     productsPerPage
   )
 
-  const products = currentProductsPerPage?.data?.search?.products?.edges ?? []
+  const products = currentPagedProducts?.data?.search?.products?.edges ?? []
 
   return (
     <>
