@@ -3,24 +3,24 @@ title: '   Extending VTEX APIs schema'
 sidebar_label: 'API Extensions'
 ---
 
-import { Callout, Step, Steps } from 'nextra-theme-docs'
+import { Callout, Step, Steps, FileTree } from 'nextra-theme-docs'
 import { ExtendableQueryTable } from './../../../components/ExtendableQueryTable'
 
 <header>
 
-# Extending VTEX APIs schema
+# Extending VTEX APIs Schema with FastStore
 
 </header>
 
 FastStore streamlines the way of using data from VTEX APIs that the FastStore API does not expose.
 
-As FastStore uses GraphQL, it's required to write [type definitions](https://graphql.org/learn/schema/#object-types-and-fields) and [resolvers](https://graphql.org/learn/execution/#root-fields-resolvers) to fetch the data you need. You will learn how to do this using API Extensions by following the steps below.
+As FastStore uses GraphQL, it's required to write [type definitions](https://graphql.org/learn/schema/#object-types-and-fields) and [resolvers](https://graphql.org/learn/execution/#root-fields-resolvers) to fetch the data you need. 
+Learn how to do this using API Extensions by following the steps below.
 
 ## Step by step
+## Step 1 - Understand the folder structure
 
-### Step 1 - Folder Structure
-
-The store's repository provides the following folder structure for the VTEX APIs Schema Extensions that is held in the `src/graphql/vtex` folder.
+In the store's repository, you'll find the following folder structure for the VTEX API Schema Extensions in the `src/graphql/vtex` folder:
 
 ```ts copy
 starter.store/
@@ -36,7 +36,7 @@ starter.store/
               └─ …
 ```
 
-### Step 2 - TypeDefs
+## Step 2 - Creating type definitions (`TypeDefs`)
 
 Your new type definitions set the data structure for your new fields, extended from the existing FastStore API GraphQL queries and types.
 
@@ -55,16 +55,21 @@ extend type StoreProduct {
 
 ```
 
-The typeDefs files must have `.graphql` extension.
+<Callout type="warning" emoji="⚠️">
+  The typeDefs files must have `.graphql` extension.
 Also, the `index.ts` is not needed for typeDefs, only for resolvers.
 
-### Step 3 - Resolvers
+</Callout>
+
+### Step 3 - Creating resolvers
 
 Resolvers are the functions that give meaning to the data you have structured in the type definitions. This means a resolver will be executed when the corresponding piece of information is queried. These resolver can perform an operation on an existing field, get data from the Root param, or fetch data from VTEX APIs, for example.
 
 You can create new `<resolverName>.ts` files inside the `vtex>resolvers` folder.
 
-The way that it will be organized inside this folder is flexible, it's possible to create multiple resolvers files or group them all together in just one file.
+<Callout type="info" emoji="ℹ️">
+  The way that it will be organized inside this folder is flexible, it's possible to create multiple resolvers files or group them all together in just one file.
+</Callout>
 
 See the following code example that creates a `product.ts` resolver file and resolves the `customData` field from `StoreProduct`:
 
