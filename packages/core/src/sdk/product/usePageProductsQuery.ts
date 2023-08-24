@@ -4,7 +4,7 @@ import {
   ClientProductsQueryQuery,
   ClientProductsQueryQueryVariables,
 } from '@generated/graphql'
-import { MutableRefObject, useEffect, useRef, useCallback } from 'react'
+import { useEffect, useCallback } from 'react'
 import type { QueryOptions } from '../graphql/useQuery'
 import { useQuery } from 'src/sdk/graphql/useQuery'
 import { useSWRConfig } from 'swr'
@@ -77,31 +77,23 @@ export const useProductsPrefetch = (page: number | null) => {
 }
 
 function updatesProductsPerPageRef(
-  productsPerPageRef: MutableRefObject<ProductsPerPage[]>,
+  productsPerPage: ProductsPerPage[] = [],
   page: number,
   data: ClientProductsQueryQuery
 ) {
-  const productsPerPage = productsPerPageRef.current
   const currentProductsPerPage = { page, data }
 
-  if (productsPerPage.length === 0) {
-    productsPerPage.push(currentProductsPerPage)
-    return { productsPerPage, currentProductsPerPage }
-  }
-
   const index = productsPerPage.findIndex((item) => item.page === page)
-  const lastItem = productsPerPage[productsPerPage.length - 1]
-  const shouldReplaceItem = index !== -1
-  const shouldAddNext = page > lastItem.page
+  const shouldReplacePage = index !== -1
 
-  if (shouldReplaceItem) {
-    productsPerPage.splice(index, 1, currentProductsPerPage)
-  } else if (shouldAddNext) {
-    productsPerPage.push(currentProductsPerPage)
+  if (shouldReplacePage) {
+    productsPerPage[index] = currentProductsPerPage
   } else {
-    productsPerPage.unshift(currentProductsPerPage)
+    productsPerPage.push(currentProductsPerPage)
+    productsPerPage.sort((a, b) => a.page - b.page)
   }
-  return { productsPerPage, currentProductsPerPage }
+
+  return { productsPerPage: [...productsPerPage], currentProductsPerPage }
 }
 
 /**
@@ -109,10 +101,8 @@ function updatesProductsPerPageRef(
  */
 export const usePageProductsQuery = (
   { page, itemsPerPage, sort, term, selectedFacets },
-  initialState: ProductsPerPage[] = []
+  productsPerPageState: ProductsPerPage[] = []
 ) => {
-  const productsPerPageRef = useRef<ProductsPerPage[]>(initialState)
-
   const localizedVariables = useLocalizedVariables({
     first: itemsPerPage,
     after: (itemsPerPage * page).toString(),
@@ -130,7 +120,7 @@ export const usePageProductsQuery = (
   })
 
   const { productsPerPage, currentProductsPerPage } = updatesProductsPerPageRef(
-    productsPerPageRef,
+    productsPerPageState,
     page,
     data
   )
