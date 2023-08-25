@@ -5,7 +5,7 @@
   "browserslist": "supports es6-module and not dead",
   "scripts": {
     "generate:schema": "tsx src/server/generateGraphqlSchemaFile.ts",
-    "generate": "yarn generate:schema && graphql-codegen && yarn format:generated",
+    "generate": "./generate.sh",
     "build": "yarn partytown & yarn generate && next build",
     "dev": "yarn partytown & yarn generate && next dev",
     "clean": "rm -r .next",
