@@ -1,4 +1,5 @@
 overwrite: true
+errorsOnly: true
 schema: ./@generated/graphql/schema.graphql
 documents:
   - ./src/**/*.{ts,tsx}
