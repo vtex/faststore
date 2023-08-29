@@ -128,21 +128,28 @@ export const useCreateUseGalleryPage = () => {
       doNotRun: hasSameVariables,
     })
 
-    if (!hasSameVariables && data !== null) {
-      pagesCache.current[page] = getKey(localizedVariables)
+    const shouldUpdatePages = !hasSameVariables && data !== null
 
-      // Update state
-      setPages((oldPages) => {
-        const newPages = [...oldPages]
-        newPages[page] = data
-        return newPages
-      })
+    if (shouldUpdatePages) {
+      pagesCache.current[page] = getKey(localizedVariables)
 
       // Update refs
       const newPages = [...pagesRef.current]
       newPages[page] = data
       pagesRef.current = newPages
     }
+
+    // Prevents error: Cannot update a component (`ProductListing`) while rendering a different component (`ProductGalleryPage`).
+    useEffect(() => {
+      if (shouldUpdatePages) {
+        // Update state
+        setPages((oldPages) => {
+          const newPages = [...oldPages]
+          newPages[page] = data
+          return newPages
+        })
+      }
+    }, [data, page, shouldUpdatePages])
 
     return useMemo(() => {
       if (hasSameVariables) {
