@@ -22,8 +22,13 @@ export const UseGalleryPageContext = createContext<
   return { data: null }
 })
 
-export const useGalleryPage = (page: number) =>
-  useContext(UseGalleryPageContext)(page)
+export const useGalleryPage = (page: number) => {
+  const useGalleryPageCallback = useContext(UseGalleryPageContext)
+  if (!useGalleryPageCallback) {
+    throw new Error('Missing UseGalleryPageContext on React tree')
+  }
+  return useGalleryPageCallback(page)
+}
 
 export const query = gql`
   query ClientProductsQuery(
@@ -58,13 +63,13 @@ export const query = gql`
 const getKey = (object: any) => JSON.stringify(object)
 
 /**
- * Use this hook for fetching a list of products for pages like PLP or Search
+ * Use this hook for managed pages state and creating useGalleryPage hook that will be used for fetching a list of products per pages in PLP or Search
  */
 export const useCreateUseGalleryPage = () => {
-  const [pages, setPages] = useState([])
+  const [pages, setPages] = useState<ClientProductsQueryQuery[]>([])
   // We create pagesRef as a mirror of the pages state so we don't have to add pages as a dependency of the useGalleryPage hook
-  const pagesRef = useRef([])
-  const pagesCache = useRef([])
+  const pagesRef = useRef<ClientProductsQueryQuery[]>([])
+  const pagesCache = useRef<string[]>([])
 
   const useGalleryPage = useCallback(function useGalleryPage(page: number) {
     const {
