@@ -13,10 +13,7 @@ import {
   useMemo,
   useState,
 } from 'react'
-import type { QueryOptions } from '../graphql/useQuery'
 import { useQuery } from 'src/sdk/graphql/useQuery'
-import { useSWRConfig } from 'swr'
-import { prefetchQuery } from '../graphql/prefetchQuery'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
 export const UseGalleryPageContext = createContext<
@@ -58,41 +55,8 @@ export const query = gql`
   }
 `
 
-export const useProductsQueryPrefetch = (
-  variables: ClientProductsQueryQueryVariables,
-  options?: QueryOptions
-) => {
-  const localizedVariables = useLocalizedVariables(variables)
-  const { cache } = useSWRConfig()
-
-  return useCallback(
-    () => prefetchQuery(query, localizedVariables, { cache, ...options }),
-    [localizedVariables, cache, options]
-  )
-}
-
-export const useProductsPrefetch = (page: number | null) => {
-  const {
-    itemsPerPage,
-    state: { sort, term, selectedFacets },
-  } = useSearch()
-
-  const prefetch = useProductsQueryPrefetch({
-    first: itemsPerPage,
-    after: (itemsPerPage * (page ?? 0)).toString(),
-    sort,
-    term: term ?? '',
-    selectedFacets,
-  })
-
-  useEffect(() => {
-    if (page !== null) {
-      prefetch()
-    }
-  }, [page, prefetch])
-}
-
 const getKey = (object: any) => JSON.stringify(object)
+
 /**
  * Use this hook for fetching a list of products for pages like PLP or Search
  */
