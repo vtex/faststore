@@ -48,7 +48,7 @@ export interface PageProviderContextValue {
     | SearchPageContext
 }
 
-const SectionContext = createContext<PageProviderContextValue | null>(null)
+const PageContext = createContext<PageProviderContextValue | null>(null)
 
 function PageProvider({
   context,
@@ -61,13 +61,11 @@ function PageProvider({
     [context]
   )
 
-  return (
-    <SectionContext.Provider value={value}>{children}</SectionContext.Provider>
-  )
+  return <PageContext.Provider value={value}>{children}</PageContext.Provider>
 }
 
 export function usePage() {
-  const { context } = useContext(SectionContext)
+  const { context } = useContext(PageContext)
 
   if (context == null) {
     throw new Error('Missing Overrides context on React tree')
