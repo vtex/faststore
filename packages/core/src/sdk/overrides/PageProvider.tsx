@@ -67,14 +67,6 @@ export function usePage() {
     throw new Error('Missing Overrides context on React tree')
   }
 
-  if (isPLP(context)) {
-    return context as ProductListingPageContext
-  } else if (isSearchPage(context)) {
-    return context as SearchPageContext
-  } else if (isPDP(context)) {
-    return context as ProductDetailsPageContext
-  }
-
   return context
 }
 
