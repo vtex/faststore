@@ -7,13 +7,9 @@ import {
 import { SROnly as UISROnly } from '@faststore/ui'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import type { ComponentType } from 'react'
 import { useMemo } from 'react'
 
-import Breadcrumb from 'src/components/sections/Breadcrumb'
-import ProductGallery from 'src/components/sections/ProductGallery'
 import { ITEMS_PER_PAGE } from 'src/constants'
-import CUSTOM_COMPONENTS from 'src/customizations/components'
 import { useApplySearchState } from 'src/sdk/search/state'
 import { mark } from 'src/sdk/tests/mark'
 
@@ -23,21 +19,9 @@ import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import RenderSections from 'src/components/cms/RenderSections'
 import { getPage, SearchContentType } from 'src/server/cms'
 import storeConfig from '../../faststore.config'
-import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
-import PageProvider, { SearchPageContext } from 'src/sdk/overrides/PageProvider'
-
-/**
- * Sections: Components imported from each store's custom components and '../components/sections' only.
- * Do not import or render components from any other folder in here.
- */
-const COMPONENTS: Record<string, ComponentType<any>> = {
-  Breadcrumb,
-  ProductGallery,
-  ...CUSTOM_COMPONENTS,
-}
+import SearchPage from 'src/components/templates/SearchPage/SearchPage'
 
 type Props = {
   page: SearchContentType
@@ -70,7 +54,8 @@ const useSearchParams = ({ sort: defaultSort }: UseSearchParams) => {
   }, [asPath, defaultSort])
 }
 
-function Page({ page: { sections, settings }, globalSections }: Props) {
+function Page({ page: searchContentType, globalSections }: Props) {
+  const { settings } = searchContentType
   const searchParams = useSearchParams({
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
   })
@@ -78,23 +63,7 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
   const title = 'Search Results'
   const { description, titleTemplate } = storeConfig.seo
 
-  const { page, sort, term, selectedFacets } = searchParams
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
-
-  const { data: pageProductGalleryData } = useProductGalleryQuery({
-    term,
-    sort,
-    selectedFacets,
-    itemsPerPage,
-  })
-
-  // const { productsPerPage } = usePageProductsQuery({
-  //   page,
-  //   term,
-  //   sort,
-  //   selectedFacets,
-  //   itemsPerPage,
-  // })
 
   if (!searchParams) {
     return null
@@ -104,14 +73,6 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
     title,
     searchTerm: searchParams.term ?? undefined,
   } as SearchPageContextType
-
-  const context = {
-    data: {
-      ...server,
-      ...pageProductGalleryData,
-      // productsPerPage,
-    },
-  } as SearchPageContext
 
   return (
     <GlobalSections {...globalSections}>
@@ -146,9 +107,7 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
           If needed, wrap your component in a <Section /> component
           (not the HTML tag) before rendering it here.
         */}
-        <PageProvider context={context}>
-          <RenderSections sections={sections} components={COMPONENTS} />
-        </PageProvider>
+        <SearchPage page={searchContentType} data={server}></SearchPage>
       </SearchProvider>
     </GlobalSections>
   )
