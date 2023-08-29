@@ -13,9 +13,9 @@ interface Props {
 }
 
 function ProductGalleryPage({ page, title, productCard, itemsPerPage }: Props) {
-  const productsPerPage = useGalleryPage(page)
+  const { data } = useGalleryPage(page)
 
-  const products = productsPerPage?.data?.search?.products?.edges ?? []
+  const products = data?.search?.products?.edges ?? []
 
   return (
     <>

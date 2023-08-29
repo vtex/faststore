@@ -68,7 +68,7 @@ export default function ProductListing({
         { ...pageProductGalleryData },
         { arrayMerge: overwriteMerge }
       ),
-      productsPerPage: pages,
+      pages,
     },
   } as ProductListingPageContext
 

@@ -15,18 +15,17 @@ export interface ProductDetailsPageContext {
 }
 
 export type ProductsPerPage = {
-  page: number
   data: ClientProductsQueryQuery
 }
 
 export interface ProductListingPageContext {
   data?: ServerCollectionPageQueryQuery &
-    ClientProductGalleryQueryQuery & { productsPerPage: ProductsPerPage[] }
+    ClientProductGalleryQueryQuery & { pages: ProductsPerPage[] }
 }
 
 export interface SearchPageContext {
   data?: SearchPageContextType &
-    ClientProductGalleryQueryQuery & { productsPerPage: ProductsPerPage[] }
+    ClientProductGalleryQueryQuery & { pages: ProductsPerPage[] }
 }
 
 export const isPDP = (x: any): x is ProductDetailsPageContext =>
