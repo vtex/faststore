@@ -25,7 +25,7 @@ import {
 import { useDelayedFacets } from './useDelayedFacets'
 import { useDelayedPagination } from './useDelayedPagination'
 import {
-  ProductListingPageContext,
+  PLPContext,
   SearchPageContext,
   usePage,
 } from 'src/sdk/overrides/PageProvider'
@@ -83,7 +83,7 @@ function ProductGallery({
 }: ProductGalleryProps) {
   const { openFilter } = useUI()
   const { pages, addNextPage, addPrevPage, itemsPerPage } = useSearch()
-  const context = usePage() as ProductListingPageContext | SearchPageContext
+  const context = usePage() as PLPContext | SearchPageContext
   const data = context?.data
   const facets = useDelayedFacets(data) ?? []
   const { next, prev } = useDelayedPagination(totalCount)

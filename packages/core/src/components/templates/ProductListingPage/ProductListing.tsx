@@ -18,9 +18,7 @@ import {
   UseGalleryPageContext,
 } from 'src/sdk/product/usePageProductsQuery'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
-import PageProvider, {
-  ProductListingPageContext,
-} from 'src/sdk/overrides/PageProvider'
+import PageProvider, { PLPContext } from 'src/sdk/overrides/PageProvider'
 
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery
@@ -70,7 +68,7 @@ export default function ProductListing({
       ),
       pages,
     },
-  } as ProductListingPageContext
+  } as PLPContext
 
   return (
     <>

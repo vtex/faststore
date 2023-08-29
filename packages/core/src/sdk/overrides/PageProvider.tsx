@@ -9,12 +9,12 @@ import type { PropsWithChildren } from 'react'
 import { createContext, useContext, useMemo } from 'react'
 import { SearchPageContextType } from 'src/pages/s'
 
-export interface ProductDetailsPageContext {
+export interface PDPContext {
   data?: ServerProductPageQueryQuery &
     ClientProductQueryQuery['product'] & { isValidating?: boolean }
 }
 
-export interface ProductListingPageContext {
+export interface PLPContext {
   data?: ServerCollectionPageQueryQuery &
     ClientProductGalleryQueryQuery & { pages: ClientProductsQueryQuery[] }
 }
@@ -24,10 +24,10 @@ export interface SearchPageContext {
     ClientProductGalleryQueryQuery & { pages: ClientProductsQueryQuery[] }
 }
 
-export const isPDP = (x: any): x is ProductDetailsPageContext =>
+export const isPDP = (x: any): x is PDPContext =>
   x?.data?.product?.sku != undefined && x?.data?.product?.sku != null
 
-export const isPLP = (x: any): x is ProductListingPageContext =>
+export const isPLP = (x: any): x is PLPContext =>
   x?.data?.collection?.seo != undefined &&
   x?.data?.collection?.seo != null &&
   x?.data?.collection?.sku == undefined
@@ -38,10 +38,7 @@ export const isSearchPage = (x: any): x is SearchPageContext =>
   x?.data?.searchTerm != undefined
 
 export interface PageProviderContextValue {
-  context?:
-    | ProductDetailsPageContext
-    | ProductListingPageContext
-    | SearchPageContext
+  context?: PDPContext | PLPContext | SearchPageContext
 }
 
 const PageContext = createContext<PageProviderContextValue | null>(null)
@@ -70,9 +67,9 @@ export function usePage() {
   return context
 }
 
-export const usePDP = () => usePage() as ProductDetailsPageContext
+export const usePDP = () => usePage() as PDPContext
 
-export const usePLP = () => usePage() as ProductListingPageContext
+export const usePLP = () => usePage() as PLPContext
 
 export const useSearchPage = () => usePage() as SearchPageContext
 

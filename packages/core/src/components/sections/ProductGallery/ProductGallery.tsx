@@ -7,7 +7,7 @@ import Section from '../Section'
 import EmptyGallery from './EmptyGallery'
 import styles from './section.module.scss'
 import {
-  ProductListingPageContext,
+  PLPContext,
   SearchPageContext,
   isPLP,
   isSearchPage,
@@ -26,7 +26,7 @@ export interface ProductGallerySectionProps {
 }
 
 function ProductGallerySection({ ...otherProps }: ProductGallerySectionProps) {
-  const context = usePage() as SearchPageContext | ProductListingPageContext
+  const context = usePage() as SearchPageContext | PLPContext
   const [title, searchTerm] = isSearchPage(context)
     ? [context?.data?.title, context?.data?.searchTerm]
     : isPLP(context)

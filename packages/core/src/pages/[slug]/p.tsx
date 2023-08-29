@@ -29,9 +29,7 @@ import GlobalSections, {
 } from 'src/components/cms/GlobalSections'
 import storeConfig from '../../../faststore.config'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
-import PageProvider, {
-  ProductDetailsPageContext,
-} from 'src/sdk/overrides/PageProvider'
+import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -73,7 +71,7 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
       ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
       isValidating,
     },
-  } as ProductDetailsPageContext
+  } as PDPContext
 
   return (
     <GlobalSections {...globalSections}>
