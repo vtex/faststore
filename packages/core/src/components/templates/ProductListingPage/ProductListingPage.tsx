@@ -6,48 +6,20 @@ import {
 } from '@faststore/sdk'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 
-import type {
-  ClientProductGalleryQueryQuery,
-  ServerCollectionPageQueryQuery,
-} from '@generated/graphql'
-import Breadcrumb from 'src/components/sections/Breadcrumb'
-import Hero from 'src/components/sections/Hero'
-import ProductGallery from 'src/components/sections/ProductGallery'
-import ProductShelf from 'src/components/sections/ProductShelf'
-import ScrollToTopButton from 'src/components/sections/ScrollToTopButton'
+import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
 
-import type { ComponentType } from 'react'
-import RenderSections from 'src/components/cms/RenderSections'
-import CUSTOM_COMPONENTS from 'src/customizations/components'
 import { PLPContentType } from 'src/server/cms'
 
 import storeConfig from '../../../../faststore.config'
-import { usePageProductsQuery } from 'src/sdk/product/usePageProductsQuery'
-import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
-import PageProvider, {
-  ProductListingPageContext,
-} from 'src/sdk/overrides/PageProvider'
-import deepmerge from 'deepmerge'
+import ProductListing from './ProductListing'
 
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery
   page: PLPContentType
-}
-
-/**
- * Sections: Components imported from each store's custom components and '../components/sections' only.
- * Do not import or render components from any other folder in here.
- */
-const COMPONENTS: Record<string, ComponentType<any>> = {
-  Breadcrumb,
-  Hero,
-  ProductGallery,
-  ProductShelf,
-  ...CUSTOM_COMPONENTS,
 }
 
 type UseSearchParams = {
@@ -81,14 +53,11 @@ const useSearchParams = ({
   return useMemo(() => parseSearchState(new URL(hrefState)), [hrefState])
 }
 
-// Array merging strategy from deepmerge that makes client arrays overwrite server array
-// https://www.npmjs.com/package/deepmerge
-const overwriteMerge = (_, sourceArray) => sourceArray
-
 export default function ProductListingPage({
-  page: { sections, settings },
+  page: plpContentType,
   data: server,
 }: ProductListingPageProps) {
+  const { settings } = plpContentType
   const collection = server.collection
   const router = useRouter()
   const applySearchState = useApplySearchState()
@@ -97,7 +66,7 @@ export default function ProductListingPage({
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
   })
 
-  const { page, sort, term, selectedFacets } = searchParams
+  const { page, sort } = searchParams
   const title = collection?.seo.title ?? storeConfig.seo.title
   const description = collection?.seo.description ?? storeConfig.seo.title
   const pageQuery = page !== 0 ? `?page=${page}` : ''
@@ -106,33 +75,6 @@ export default function ProductListingPage({
   const [pathname] = router.asPath.split('?')
   const canonical = `${storeConfig.storeUrl}${pathname}${pageQuery}${sortQuery}`
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
-  const initialPage = useRef(page)
-
-  const { data: pageProductGalleryData } = useProductGalleryQuery({
-    term,
-    sort,
-    selectedFacets,
-    itemsPerPage,
-  })
-
-  const { productsPerPage } = usePageProductsQuery({
-    page: initialPage.current,
-    term,
-    sort,
-    selectedFacets,
-    itemsPerPage,
-  })
-
-  const context = {
-    data: {
-      ...deepmerge(
-        { ...server },
-        { ...pageProductGalleryData },
-        { arrayMerge: overwriteMerge }
-      ),
-      productsPerPage,
-    },
-  } as ProductListingPageContext
 
   return (
     <SearchProvider
@@ -156,22 +98,7 @@ export default function ProductListingPage({
         itemListElements={collection?.breadcrumbList.itemListElement ?? []}
       />
 
-      {/*
-        WARNING: Do not import or render components from any
-        other folder than '../components/sections' in here.
-
-        This is necessary to keep the integration with the CMS
-        easy and consistent, enabling the change and reorder
-        of elements on this page.
-
-        If needed, wrap your component in a <Section /> component
-        (not the HTML tag) before rendering it here.
-      */}
-      <PageProvider context={context}>
-        <RenderSections sections={sections} components={COMPONENTS} />
-      </PageProvider>
-
-      <ScrollToTopButton />
+      <ProductListing page={plpContentType} data={server} />
     </SearchProvider>
   )
 }

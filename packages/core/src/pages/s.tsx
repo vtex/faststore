@@ -27,7 +27,6 @@ import RenderSections from 'src/components/cms/RenderSections'
 import { getPage, SearchContentType } from 'src/server/cms'
 import storeConfig from '../../faststore.config'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
-import { usePageProductsQuery } from 'src/sdk/product/usePageProductsQuery'
 import PageProvider, { SearchPageContext } from 'src/sdk/overrides/PageProvider'
 
 /**
@@ -89,13 +88,13 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
     itemsPerPage,
   })
 
-  const { productsPerPage } = usePageProductsQuery({
-    page,
-    term,
-    sort,
-    selectedFacets,
-    itemsPerPage,
-  })
+  // const { productsPerPage } = usePageProductsQuery({
+  //   page,
+  //   term,
+  //   sort,
+  //   selectedFacets,
+  //   itemsPerPage,
+  // })
 
   if (!searchParams) {
     return null
@@ -110,7 +109,7 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
     data: {
       ...server,
       ...pageProductGalleryData,
-      productsPerPage,
+      // productsPerPage,
     },
   } as SearchPageContext
 

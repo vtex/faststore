@@ -5,12 +5,11 @@ import Sentinel from 'src/sdk/search/Sentinel'
 
 import { ProductCardProps } from 'src/components/product/ProductCard'
 import { memo } from 'react'
-import { usePageProductsQuery } from 'src/sdk/product/usePageProductsQuery'
 import {
   ProductListingPageContext,
   SearchPageContext,
-  usePage,
 } from 'src/sdk/overrides/PageProvider'
+import { useGalleryPage } from 'src/components/templates/ProductListingPage/ProductListing'
 
 interface Props {
   page: number
@@ -24,21 +23,9 @@ function ProductGalleryPage({ page, title, productCard, itemsPerPage }: Props) {
     state: { term, sort, selectedFacets },
   } = useSearch()
 
-  const context = usePage() as ProductListingPageContext | SearchPageContext
-  const productsPerPage = context?.data?.productsPerPage
+  const productsPerPage = useGalleryPage(page)
 
-  const { currentPagedProducts } = usePageProductsQuery(
-    {
-      page,
-      term,
-      sort,
-      selectedFacets,
-      itemsPerPage,
-    },
-    productsPerPage
-  )
-
-  const products = currentPagedProducts?.data?.search?.products?.edges ?? []
+  const products = productsPerPage?.data?.search?.products?.edges ?? []
 
   return (
     <>

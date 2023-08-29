@@ -82,47 +82,55 @@ function updatesProductsPerPageRef(
   data: ClientProductsQueryQuery
 ) {
   const currentPagedProducts = { page, data }
+  // const newProductsPerPage = [...productsPerPage]
+  const newProductsPerPage = productsPerPage
 
-  const index = productsPerPage.findIndex((item) => item.page === page)
+  const index = newProductsPerPage.findIndex((item) => item.page === page)
   const shouldReplacePage = index !== -1
 
   if (shouldReplacePage) {
-    productsPerPage[index] = currentPagedProducts
+    newProductsPerPage[index] = currentPagedProducts
   } else {
-    productsPerPage.push(currentPagedProducts)
-    productsPerPage.sort((a, b) => a.page - b.page)
+    newProductsPerPage.push(currentPagedProducts)
+    newProductsPerPage.sort((a, b) => a.page - b.page)
   }
 
-  return { productsPerPage: [...productsPerPage], currentPagedProducts }
+  return { productsPerPage: newProductsPerPage, currentPagedProducts }
 }
 
 /**
  * Use this hook for fetching a list of products for pages like PLP or Search
  */
-export const usePageProductsQuery = (
-  { page, itemsPerPage, sort, term, selectedFacets },
-  productsPerPageState: ProductsPerPage[] = []
-) => {
-  const localizedVariables = useLocalizedVariables({
-    first: itemsPerPage,
-    after: (itemsPerPage * page).toString(),
-    sort,
-    term: term ?? '',
-    selectedFacets,
-  })
+export const createUsePage = () => {
+  const pages = []
 
-  const { data } = useQuery<
-    ClientProductsQueryQuery,
-    ClientProductsQueryQueryVariables
-  >(query, localizedVariables, {
-    fallbackData: null,
-    suspense: true,
-  })
+  return function usePage(page) {
+    const {
+      state: { sort, term, selectedFacets },
+      itemsPerPage,
+    } = useSearch()
 
-  const { productsPerPage, currentPagedProducts } = updatesProductsPerPageRef(
-    productsPerPageState,
-    page,
-    data
-  )
-  return { productsPerPage, currentPagedProducts }
+    const localizedVariables = useLocalizedVariables({
+      first: itemsPerPage,
+      after: (itemsPerPage * page).toString(),
+      sort,
+      term: term ?? '',
+      selectedFacets,
+    })
+
+    const { data } = useQuery<
+      ClientProductsQueryQuery,
+      ClientProductsQueryQueryVariables
+    >(query, localizedVariables, {
+      fallbackData: null,
+      suspense: true,
+      doNotRun: Boolean(pages[page]),
+    })
+
+    useEffect(() => {
+      pages[page] = data
+    }, [data, page])
+
+    return { data }
+  }
 }
