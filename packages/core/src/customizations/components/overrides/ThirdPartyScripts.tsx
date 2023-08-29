@@ -8,7 +8,7 @@ const RenderThirdPartyScripts = (
   const buildScript = (script: string, index?: number) => (
     <script
       key={`thirdpartyscript-${index}`}
-      type="text/partytown"
+      type="text/javascript"
       dangerouslySetInnerHTML={{
         __html: script,
       }}
