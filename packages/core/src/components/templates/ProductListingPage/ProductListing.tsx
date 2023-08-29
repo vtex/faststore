@@ -1,5 +1,3 @@
-import { createContext, useContext, useRef, useState } from 'react'
-
 import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
 import Breadcrumb from 'src/components/sections/Breadcrumb'
 import Hero from 'src/components/sections/Hero'
@@ -7,19 +5,22 @@ import ProductGallery from 'src/components/sections/ProductGallery'
 import ProductShelf from 'src/components/sections/ProductShelf'
 import ScrollToTopButton from 'src/components/sections/ScrollToTopButton'
 import { ITEMS_PER_PAGE } from 'src/constants'
+import deepmerge from 'deepmerge'
+import { useSearch } from '@faststore/sdk'
 
 import type { ComponentType } from 'react'
 import RenderSections from 'src/components/cms/RenderSections'
 import CUSTOM_COMPONENTS from 'src/customizations/components'
 import { PLPContentType } from 'src/server/cms'
 
-import { createUsePage } from 'src/sdk/product/usePageProductsQuery'
+import {
+  useCreateUseGalleryPage,
+  UseGalleryPageContext,
+} from 'src/sdk/product/usePageProductsQuery'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 import PageProvider, {
   ProductListingPageContext,
 } from 'src/sdk/overrides/PageProvider'
-import deepmerge from 'deepmerge'
-import { useSearch } from '@faststore/sdk'
 
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery
@@ -42,21 +43,12 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 // https://www.npmjs.com/package/deepmerge
 const overwriteMerge = (_, sourceArray) => sourceArray
 
-const UseGalleryPageContext = createContext((_) => {})
-const GalleryPagesContext = createContext({ productsPerPage: [] })
-
-export const useGalleryPage = (...args) =>
-  useContext(UseGalleryPageContext)(args) as unknown as ReturnType<
-    ReturnType<typeof createUsePage>
-  >
-export const useGalleryPages = () => useContext(GalleryPagesContext)
-
 export default function ProductListing({
   page: { sections, settings },
   data: server,
 }: ProductListingPageProps) {
   const {
-    state: { page, sort, term, selectedFacets },
+    state: { sort, term, selectedFacets },
   } = useSearch()
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
@@ -67,7 +59,7 @@ export default function ProductListing({
     itemsPerPage,
   })
 
-  const useGalleryPageValue = createUsePage()
+  const { pages, useGalleryPage } = useCreateUseGalleryPage()
 
   const context = {
     data: {
@@ -76,6 +68,7 @@ export default function ProductListing({
         { ...pageProductGalleryData },
         { arrayMerge: overwriteMerge }
       ),
+      productsPerPage: pages,
     },
   } as ProductListingPageContext
 
@@ -93,10 +86,8 @@ export default function ProductListing({
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
-        <UseGalleryPageContext.Provider value={useGalleryPageValue}>
-          <GalleryPagesContext.Provider value={{ productsPerPage: [] }}>
-            <RenderSections sections={sections} components={COMPONENTS} />
-          </GalleryPagesContext.Provider>
+        <UseGalleryPageContext.Provider value={useGalleryPage}>
+          <RenderSections sections={sections} components={COMPONENTS} />
         </UseGalleryPageContext.Provider>
       </PageProvider>
 

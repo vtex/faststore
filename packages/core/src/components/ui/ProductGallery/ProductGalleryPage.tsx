@@ -1,15 +1,9 @@
-import { useSearch } from '@faststore/sdk'
-
 import ProductGrid from 'src/components/product/ProductGrid'
 import Sentinel from 'src/sdk/search/Sentinel'
 
 import { ProductCardProps } from 'src/components/product/ProductCard'
 import { memo } from 'react'
-import {
-  ProductListingPageContext,
-  SearchPageContext,
-} from 'src/sdk/overrides/PageProvider'
-import { useGalleryPage } from 'src/components/templates/ProductListingPage/ProductListing'
+import { useGalleryPage } from 'src/sdk/product/usePageProductsQuery'
 
 interface Props {
   page: number
@@ -19,10 +13,6 @@ interface Props {
 }
 
 function ProductGalleryPage({ page, title, productCard, itemsPerPage }: Props) {
-  const {
-    state: { term, sort, selectedFacets },
-  } = useSearch()
-
   const productsPerPage = useGalleryPage(page)
 
   const products = productsPerPage?.data?.search?.products?.edges ?? []

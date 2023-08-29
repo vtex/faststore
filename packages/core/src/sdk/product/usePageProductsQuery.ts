@@ -4,13 +4,29 @@ import {
   ClientProductsQueryQuery,
   ClientProductsQueryQueryVariables,
 } from '@generated/graphql'
-import { useEffect, useCallback } from 'react'
+import {
+  useEffect,
+  useCallback,
+  createContext,
+  useContext,
+  useRef,
+  useMemo,
+  useState,
+} from 'react'
 import type { QueryOptions } from '../graphql/useQuery'
 import { useQuery } from 'src/sdk/graphql/useQuery'
 import { useSWRConfig } from 'swr'
 import { prefetchQuery } from '../graphql/prefetchQuery'
 import { useLocalizedVariables } from './useLocalizedVariables'
-import { ProductsPerPage } from '../overrides/PageProvider'
+
+export const UseGalleryPageContext = createContext<
+  ReturnType<typeof useCreateUseGalleryPage>['useGalleryPage']
+>((_: number) => {
+  return { data: null }
+})
+
+export const useGalleryPage = (page: number) =>
+  useContext(UseGalleryPageContext)(page)
 
 export const query = gql`
   query ClientProductsQuery(
@@ -76,35 +92,17 @@ export const useProductsPrefetch = (page: number | null) => {
   }, [page, prefetch])
 }
 
-function updatesProductsPerPageRef(
-  productsPerPage: ProductsPerPage[] = [],
-  page: number,
-  data: ClientProductsQueryQuery
-) {
-  const currentPagedProducts = { page, data }
-  // const newProductsPerPage = [...productsPerPage]
-  const newProductsPerPage = productsPerPage
-
-  const index = newProductsPerPage.findIndex((item) => item.page === page)
-  const shouldReplacePage = index !== -1
-
-  if (shouldReplacePage) {
-    newProductsPerPage[index] = currentPagedProducts
-  } else {
-    newProductsPerPage.push(currentPagedProducts)
-    newProductsPerPage.sort((a, b) => a.page - b.page)
-  }
-
-  return { productsPerPage: newProductsPerPage, currentPagedProducts }
-}
-
+const getKey = (object: any) => JSON.stringify(object)
 /**
  * Use this hook for fetching a list of products for pages like PLP or Search
  */
-export const createUsePage = () => {
-  const pages = []
+export const useCreateUseGalleryPage = () => {
+  const [pages, setPages] = useState([])
+  // We create pagesRef as a mirror of the pages state so we don't have to add pages as a dependency of the useGalleryPage hook
+  const pagesRef = useRef([])
+  const pagesCache = useRef([])
 
-  return function usePage(page) {
+  const useGalleryPage = useCallback(function useGalleryPage(page: number) {
     const {
       state: { sort, term, selectedFacets },
       itemsPerPage,
@@ -118,19 +116,48 @@ export const createUsePage = () => {
       selectedFacets,
     })
 
+    const hasSameVariables =
+      pagesCache.current[page] === getKey(localizedVariables)
+
     const { data } = useQuery<
       ClientProductsQueryQuery,
       ClientProductsQueryQueryVariables
     >(query, localizedVariables, {
       fallbackData: null,
       suspense: true,
-      doNotRun: Boolean(pages[page]),
+      doNotRun: hasSameVariables,
     })
 
-    useEffect(() => {
-      pages[page] = data
-    }, [data, page])
+    if (!hasSameVariables && data !== null) {
+      pagesCache.current[page] = getKey(localizedVariables)
 
-    return { data }
-  }
+      // Update state
+      setPages((oldPages) => {
+        const newPages = [...oldPages]
+        newPages[page] = data
+        return newPages
+      })
+
+      // Update refs
+      const newPages = [...pagesRef.current]
+      newPages[page] = data
+      pagesRef.current = newPages
+    }
+
+    return useMemo(() => {
+      if (hasSameVariables) {
+        return { data: pagesRef.current[page] }
+      }
+
+      return { data }
+    }, [hasSameVariables, data, page])
+  }, [])
+
+  return useMemo(
+    () => ({
+      pages,
+      useGalleryPage,
+    }),
+    [pages, useGalleryPage]
+  )
 }
