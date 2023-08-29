@@ -14,18 +14,14 @@ export interface ProductDetailsPageContext {
     ClientProductQueryQuery['product'] & { isValidating?: boolean }
 }
 
-export type ProductsPerPage = {
-  data: ClientProductsQueryQuery
-}
-
 export interface ProductListingPageContext {
   data?: ServerCollectionPageQueryQuery &
-    ClientProductGalleryQueryQuery & { pages: ProductsPerPage[] }
+    ClientProductGalleryQueryQuery & { pages: ClientProductsQueryQuery[] }
 }
 
 export interface SearchPageContext {
   data?: SearchPageContextType &
-    ClientProductGalleryQueryQuery & { pages: ProductsPerPage[] }
+    ClientProductGalleryQueryQuery & { pages: ClientProductsQueryQuery[] }
 }
 
 export const isPDP = (x: any): x is ProductDetailsPageContext =>
