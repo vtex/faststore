@@ -1,6 +1,6 @@
 {
   "name": "@faststore/ui",
-  "version": "2.1.64",
+  "version": "2.1.78",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",
@@ -10,8 +10,18 @@
     "directory": "packages/ui"
   },
   "browserslist": "supports es6-module and not dead and last 2 version",
-  "module": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "typings": "dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/esm/index.d.ts",
+      "default": "./dist/esm/index.js"
+    },
+    "./src/*": "./src/*"
+  },
   "sideEffects": false,
   "engines": {
     "node": ">=10"
@@ -22,19 +32,23 @@
   ],
   "scripts": {
     "dev": "tsc --watch",
-    "build": "tsc",
+    "build": "tsc --module commonjs --outDir dist/cjs & tsc --module esnext --outDir dist/esm",
     "lint": "eslint src/**/*.{ts,tsx}",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
   "size-limit": [
     {
-      "path": "dist/index.js",
+      "path": "dist/cjs/index.js",
+      "limit": "40 KB"
+    },
+    {
+      "path": "dist/esm/index.js",
       "limit": "40 KB"
     }
   ],
   "dependencies": {
-    "@faststore/components": "^2.1.57",
+    "@faststore/components": "^2.1.78",
     "include-media": "^1.4.10",
     "modern-normalize": "^1.1.0",
     "react-swipeable": "^7.0.0",
@@ -45,8 +59,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@faststore/eslint-config": "^2.1.53",
-    "@faststore/shared": "^2.1.53",
+    "@faststore/eslint-config": "^2.1.78",
+    "@faststore/shared": "^2.1.78",
     "@size-limit/preset-small-lib": "^7.0.8",
     "@types/tabbable": "^3.1.1",
     "babel-loader": "^8.2.5",

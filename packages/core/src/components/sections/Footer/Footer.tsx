@@ -1,6 +1,7 @@
 import { PaymentMethods as UIPaymentMethods } from '@faststore/ui'
 import type { PaymentMethodsProps as UIPaymentMethodProps } from '@faststore/ui'
 
+import Section from '../Section'
 import UIFooter, {
   FooterLinks,
   FooterSocial,
@@ -48,7 +49,7 @@ const Footer = ({
   },
 }: FooterProps) => {
   return (
-    <footer className={`section ${styles.section} section-footer`}>
+    <Section className={`section ${styles.section} section-footer`}>
       <UIFooter>
         <UIIncentives incentives={incentives} />
         <UIFooterNavigation>
@@ -71,7 +72,7 @@ const Footer = ({
           </div>
         </UIFooterInfo>
       </UIFooter>
-    </footer>
+    </Section>
   )
 }
 

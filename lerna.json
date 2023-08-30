@@ -1,10 +1,10 @@
 {
-  "version": "2.1.66",
+  "version": "2.1.79",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
     "publish": {
-      "message": "Release: %v"
+      "message": "[no ci] Release: %v"
     }
   },
   "changelogPreset": {

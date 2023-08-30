@@ -1,6 +1,6 @@
 {
   "name": "@faststore/eslint-config",
-  "version": "2.1.53",
+  "version": "2.1.78",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {

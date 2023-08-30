@@ -79,7 +79,9 @@
 
   [data-fs-sku-selector-list] {
     display: flex;
+    flex-wrap: wrap;
     column-gap: var(--fs-spacing-1);
+    row-gap: var(--fs-spacing-1);
   }
 
   [data-fs-sku-selector-option] {
