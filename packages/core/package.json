@@ -67,7 +67,6 @@
     "@cypress/code-coverage": "^3.9.10",
     "@envelop/testing": "^6.0.0",
     "@faststore/eslint-config": "^2.1.53",
-    "@envelop/testing": "^6.0.0",
     "@faststore/lighthouse": "^1.12.32",
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript": "^2.5.1",
