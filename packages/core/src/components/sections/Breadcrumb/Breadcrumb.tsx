@@ -5,7 +5,13 @@ import Breadcrumb from 'src/components/ui/Breadcrumb'
 import Section from '../Section'
 
 import styles from './section.module.scss'
-import { isPDP, isPLP, usePage } from 'src/sdk/overrides/PageProvider'
+import {
+  PDPContext,
+  PLPContext,
+  isPDP,
+  isPLP,
+  usePage,
+} from 'src/sdk/overrides/PageProvider'
 
 interface BreadcrumbSectionProps {
   icon: string
@@ -13,7 +19,7 @@ interface BreadcrumbSectionProps {
 }
 
 function BreadcrumbSection({ ...otherProps }: BreadcrumbSectionProps) {
-  const context = usePage()
+  const context = usePage<PDPContext | PLPContext>()
   const title = isPLP(context)
     ? context?.data?.collection?.seo?.title
     : 'All Products'

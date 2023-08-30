@@ -57,20 +57,22 @@ function PageProvider({
   return <PageContext.Provider value={value}>{children}</PageContext.Provider>
 }
 
-export function usePage() {
+export function usePage<
+  T extends PLPContext | SearchPageContext | PDPContext
+>(): T {
   const { context } = useContext(PageContext)
 
   if (context == null) {
     throw new Error('Missing Overrides context on React tree')
   }
 
-  return context
+  return context as T
 }
 
-export const usePDP = () => usePage() as PDPContext
+export const usePDP = () => usePage<PDPContext>()
 
-export const usePLP = () => usePage() as PLPContext
+export const usePLP = () => usePage<PLPContext>()
 
-export const useSearchPage = () => usePage() as SearchPageContext
+export const useSearchPage = () => usePage<SearchPageContext>()
 
 export default PageProvider

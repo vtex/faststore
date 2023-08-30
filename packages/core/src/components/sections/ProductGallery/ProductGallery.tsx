@@ -26,7 +26,7 @@ export interface ProductGallerySectionProps {
 }
 
 function ProductGallerySection({ ...otherProps }: ProductGallerySectionProps) {
-  const context = usePage() as SearchPageContext | PLPContext
+  const context = usePage<SearchPageContext | PLPContext>()
   const [title, searchTerm] = isSearchPage(context)
     ? [context?.data?.title, context?.data?.searchTerm]
     : isPLP(context)

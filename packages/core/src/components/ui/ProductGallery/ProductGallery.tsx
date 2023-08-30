@@ -83,7 +83,7 @@ function ProductGallery({
 }: ProductGalleryProps) {
   const { openFilter } = useUI()
   const { pages, addNextPage, addPrevPage, itemsPerPage } = useSearch()
-  const context = usePage() as PLPContext | SearchPageContext
+  const context = usePage<SearchPageContext | PLPContext>()
   const data = context?.data
   const facets = useDelayedFacets(data) ?? []
   const { next, prev } = useDelayedPagination(totalCount)
