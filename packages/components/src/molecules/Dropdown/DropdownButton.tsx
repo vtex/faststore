@@ -1,19 +1,28 @@
-import React, { forwardRef, useImperativeHandle } from 'react'
+import React, { forwardRef, useImperativeHandle, AriaAttributes } from 'react'
 import Button, { ButtonProps } from '../../atoms/Button'
 
 import { useDropdown } from './hooks/useDropdown'
 
 export interface DropdownButtonProps
-  extends Omit<ButtonProps, "variant" | "inverse" >{
+  extends Omit<ButtonProps, 'variant' | 'inverse'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * For accessibility purposes, add an ARIA label to the element when it doesn't have a label.
+   */
+  'aria-label'?: AriaAttributes['aria-label']
 }
 
 const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
   function DropdownButton(
-    { children, testId = 'fs-dropdown-button', ...otherProps },
+    {
+      children,
+      testId = 'fs-dropdown-button',
+      'aria-label': ariaLabel,
+      ...otherProps
+    },
     ref
   ) {
     const { toggle, dropdownButtonRef, isOpen, id } = useDropdown()
@@ -28,10 +37,11 @@ const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
         onClick={toggle}
         data-testid={testId}
         ref={dropdownButtonRef}
+        aria-label={ariaLabel}
         aria-expanded={isOpen}
         aria-haspopup="menu"
         aria-controls={id}
-        variant='tertiary'
+        variant="tertiary"
         {...otherProps}
       >
         {children}
