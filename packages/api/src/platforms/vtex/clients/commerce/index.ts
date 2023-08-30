@@ -131,7 +131,7 @@ export const VtexCommerce = (
             headers: {
               'content-type': 'application/json',
               cookie: ctx.headers.cookie,
-            }
+            },
           }
         )
       },
@@ -238,31 +238,27 @@ export const VtexCommerce = (
     },
     session: (search: string): Promise<Session> => {
       const params = new URLSearchParams(search)
+      const authCookie = {
+        name: `VtexIdclientAutCookie_${account}`,
+        value: getCookie(
+          `VtexIdclientAutCookie_${account}` ?? null,
+          ctx.headers.cookie
+        ),
+      }
 
       params.set(
         'items',
         'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
-      if (getCookie('vtex_session', ctx.headers.cookie)) {
-        // cookie set
-        return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json',
-            cookie: ctx.headers.cookie,
-          },
-        })
-      } else {
-        // cookie unset -> create session
-        return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-            cookie: ctx.headers.cookie,
-          },
-          body: '{}',
-        })
-      }
+
+      return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          cookie: `${authCookie.name}=${authCookie.value}`,
+        },
+        body: '{}',
+      })
     },
     getSessionOrder: (): Promise<Session> => {
       return fetchAPI(`${base}/api/sessions?items=public.orderFormId`, {
