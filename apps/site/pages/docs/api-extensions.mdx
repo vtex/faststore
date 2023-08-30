@@ -362,7 +362,7 @@ Finally, it's time to know how to consume the new fields in your [New Sections](
 It's important to know that FastStore exposes the data that comes from FastStore API along with FastStore API Extensions inside a provider called `PageProvider`.
 This data comes as a `context` in `PageProvider`, and you can use some hooks to access it:
 
-The `usePDP()`, `usePLP()`, and `useSearchPage()` hooks are recommendable in cases where you intend to use your section on just one page.
+The `usePDP()` hook is recommendable in cases where you use your section on PDP.
 
 ```ts copy
 import { usePDP } from "@faststore/core/src/sdk/overrides/PageProvider"
@@ -371,12 +371,16 @@ const context = usePDP()
 
 ```
 
+The `usePLP()` hook is recommendable in cases where you use your section on PLP.
+
 ```ts copy
 import { usePLP } from "@faststore/core/src/sdk/overrides/PageProvider"
 
 const context = usePLP()
 
 ```
+
+The `useSearchPage()` hook is recommendable in cases where you use your section on the Search Page.
 
 ```ts copy
 import { useSearchPage } from "@faststore/core/src/sdk/overrides/PageProvider"
@@ -394,12 +398,12 @@ const context = usePage()
 
 ```
 
-This hook returns one of the following types as context: `PDPContext`, `PLPContext`, or `SearchPageContext` and you can decide how to handle it depending on the page that will use this hook.
+This hook returns one of the following types as context: `PDPContext`, `PLPContext`, or `SearchPageContext`, and you can decide how to handle it depending on the page that will use this hook by passing the types as generics.
 
 ```ts copy
 import { usePage } from "@faststore/core/src/sdk/overrides/PageProvider"
 
-const context = usePage() as PLPContext | SearchPageContext
+const context = usePage<PLPContext | SearchPageContext>()
 
 ```
 
