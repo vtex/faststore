@@ -110,8 +110,8 @@ function Navbar({
                 aria-label={menuIconAlt}
               />
               <Link
-                href="/"
                 data-fs-navbar-logo
+                href={logo.link ? logo.link : '/'}
                 prefetch={false}
                 title={homeLabel}
                 aria-label={homeLabel}

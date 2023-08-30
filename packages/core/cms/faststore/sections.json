@@ -166,6 +166,10 @@
             "alt": {
               "title": "Alternative Label",
               "type": "string"
+            },
+            "link": {
+              "title": "Link URL",
+              "type": "string"
             }
           }
         },

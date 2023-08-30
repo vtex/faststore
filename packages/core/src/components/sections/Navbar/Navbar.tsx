@@ -13,6 +13,7 @@ export interface NavbarProps {
   logo: {
     alt: string
     src: string
+    link: string
   }
   searchInput: {
     sort: string
