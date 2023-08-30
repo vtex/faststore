@@ -15,7 +15,7 @@ In this guide, you will learn how to use the FastStore API Extension.
 
 Although the [FastStore API](https://v1.faststore.dev/reference/api/faststore-api) provides a [GraphQL schema for ecommerce](https://v1.faststore.dev/reference/api/queries) that suits a general use case, some stores may need to access other, more specific, information.
 
-It's not recommendable to add other APIs endpoints to your storefront directly, since this may [impact site performance](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data). 
+It's not recommended to add other API endpoints to your storefront directly, since this may [impact site performance](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data). 
 If you need to fetch more data, it is possible to extend the FastStore API schema, adding new data to the existing [queries](https://v1.faststore.dev/reference/api/queries).
 
 ---
@@ -42,7 +42,7 @@ You will learn how to do this using API Extensions by following the steps below.
 
 ### Folder Structure
 
-The store's repository provides the following folder structure for the VTEX APIs Schema Extensions that is held in the `src/graphql/vtex` folder.
+The store's repository provides the following folder structure for the VTEX APIs Schema Extensions that are held in the `src/graphql/vtex` folder.
 
 ```ts copy
 starter.store/
@@ -86,7 +86,7 @@ Resolvers are the functions that give meaning to the data you have structured in
 
 You can create new `<resolverName>.ts` files inside the `vtex>resolvers` folder.
 
-The way that it will be organized inside this folder is flexible, it's possible to create multiple resolvers files or group them all together in just one file.
+The way that it will be organized inside this folder is flexible, it's possible to create multiple resolver files or group them all together in just one file.
 
 See the following code example that creates a `product.ts` resolver file and resolves the `customData` field from `StoreProduct`:
 
@@ -130,7 +130,7 @@ That's it, for the sake of exposing the new fields you only need to define these
 
 Also, as stores tend to grow, so does the possibility of consuming new data that is **not provided by default in the FastStore API or other VTEX APIs**. As such, FastStore must consume new data from third-party APIs.
 
-Intending to separate what comes from VTEX and what comes from third-party APIs. The store's repository provides the following folder structure for third-party APIs Schema Extensions that is held in the `src/graphql/thirdParty` folder:
+Intending to separate what comes from VTEX and what comes from third-party APIs. The store's repository provides the following folder structure for third-party APIs schema Extensions that are held in the `src/graphql/thirdParty` folder:
 
 ```ts copy
 starter.store/
@@ -314,7 +314,7 @@ export const fragment = gql`
           `PDP` (product coming from `ServerProductPageQuery` as fallback).
         </td>
         <td>
-          Frontend data from the `useSession()` hook in locator array with
+          Frontend data from the `useSession()` hook in the locator array with
           `id`, `channel`, `locale` as key/values.
         </td>
       </ExtendableQueryTable>
