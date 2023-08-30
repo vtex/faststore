@@ -48,7 +48,7 @@ export const getLocalizedEstimates = (estimate: string): string => {
   return localizedEstimates[unit][amountKey].replace('#', amount) ?? ''
 }
 
-type Root = {
+export type Root = {
   name?: string
   friendlyName?: string
   price?: number

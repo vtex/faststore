@@ -1,6 +1,8 @@
 import type { Resolver } from '..'
 import type { FacetValueBoolean } from '../clients/search/types/FacetSearchResult'
 
+
+
 export const StoreFacetValueBoolean: Record<
   string,
   Resolver<FacetValueBoolean>
