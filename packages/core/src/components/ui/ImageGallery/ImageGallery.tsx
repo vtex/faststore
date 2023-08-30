@@ -17,9 +17,14 @@ const ImageComponent = ({ url, alternateName }) => {
 
 export interface ImageGalleryProps {
   images: ImageElementData[]
+  imagePos?: 'top' | 'center' | 'bottom'
 }
 
-const ImageGallery = ({ images, ...otherProps }: ImageGalleryProps) => {
+const ImageGallery = ({
+  images,
+  imagePos,
+  ...otherProps
+}: ImageGalleryProps) => {
   const [selectedImageIdx, setSelectedImageIdx] = useState(0)
   const currentImage = images[selectedImageIdx] ?? images[0]
   const dynamicRoute = useRouter().asPath
@@ -33,6 +38,7 @@ const ImageGallery = ({ images, ...otherProps }: ImageGalleryProps) => {
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
+      imagePos={imagePos}
       {...otherProps}
     >
       <ImageZoom.Component {...ImageZoom.props}>
@@ -41,6 +47,7 @@ const ImageGallery = ({ images, ...otherProps }: ImageGalleryProps) => {
           width={691}
           height={691 * (3 / 4)}
           loading="eager"
+          data-fs-image-gallery-position={imagePos}
           {...Image.props}
           src={currentImage.url}
           alt={currentImage.alternateName}

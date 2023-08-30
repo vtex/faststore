@@ -181,6 +181,7 @@ function ProductDetails({
           <ImageGallery.Component
             data-fs-product-details-gallery
             {...ImageGallery.props}
+            imagePos="center"
             images={productImages}
           />
           <section data-fs-product-details-info>
