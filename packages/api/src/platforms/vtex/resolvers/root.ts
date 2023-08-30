@@ -10,12 +10,3 @@ export type { Root as StoreSkuVariationsRoot } from './skuVariations'
 export type { Root as StoreProductGroupRoot } from './productGroup'
 export type { Root as StoreProductRoot } from './product'
 export type { Root as StoreOrganizationRoot } from './organization'
-
-export type { StoreFacetValueBoolean } from './faceValue'
-export type { StoreReview } from './review'
-export type { StoreAggregateRating } from './aggregateRating'
-
-
-export type { Mutation } from './mutation'
-export type { Query } from './query'
-
