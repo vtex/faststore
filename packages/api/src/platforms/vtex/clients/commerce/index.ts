@@ -206,10 +206,9 @@ export const VtexCommerce = (
       const params = new URLSearchParams(search)
       const authCookie = {
         name: `VtexIdclientAutCookie_${account}`,
-        value: getCookie(
-          `VtexIdclientAutCookie_${account}` ?? null,
-          ctx.headers.cookie
-        ),
+        value:
+          getCookie(`VtexIdclientAutCookie_${account}`, ctx.headers.cookie) ??
+          null,
       }
 
       params.set(
