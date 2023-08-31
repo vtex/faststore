@@ -1,3 +1,4 @@
+export { gql } from '@faststore/graphql-utils'
 export type {
   StoreAggregateOfferRoot,
   StorePropertyValueRoot,
