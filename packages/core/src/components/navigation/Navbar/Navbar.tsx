@@ -113,8 +113,8 @@ function Navbar({
                 data-fs-navbar-logo
                 href={logo.link ? logo.link : '/'}
                 prefetch={false}
-                title={homeLabel}
-                aria-label={homeLabel}
+                title={logo.link ? null : homeLabel}
+                aria-label={logo.link ? null : homeLabel}
               >
                 <Logo {...logo} />
               </Link>
