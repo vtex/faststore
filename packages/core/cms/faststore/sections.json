@@ -563,7 +563,7 @@
               "title": "Alternative Label",
               "type": "string"
             },
-            "url": {
+            "link": {
               "title": "Link URL",
               "type": "string"
             }
