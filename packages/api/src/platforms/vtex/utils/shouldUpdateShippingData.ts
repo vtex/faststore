@@ -13,6 +13,7 @@ export const shouldUpdateShippingData = (
   session: IStoreSession
 ) => {
   if (!hasSessionPostalCodeOrGeoCoordinates(session)) {
+    console.log("No Postal Code and GeoCoord")
     return { updateShipping: false, addressChanged: false }
   }
 
@@ -26,10 +27,12 @@ export const shouldUpdateShippingData = (
     ) ||
     checkAddressType(selectedAddress, session.addressType)
   ) {
+    console.log("Change Postal Code or GeoCoord")
     return { updateShipping: true, addressChanged: true }
   }
 
   if (!hasItems(orderForm)) {
+    console.log("No Items")
     return { updateShipping: false, addressChanged: false }
   }
 
@@ -37,9 +40,10 @@ export const shouldUpdateShippingData = (
   const { logisticsInfo } = orderForm.shippingData!
 
   if (shouldUpdateDeliveryInfo(logisticsInfo, session)) {
+    console.log("Update Delivery Info")
     return { updateShipping: true, addressChanged: false }
   }
-
+  console.log("Nothing to update")
   return { updateShipping: false, addressChanged: false }
 }
 
