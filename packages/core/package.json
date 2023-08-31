@@ -13,7 +13,8 @@
       "types": "./dist/esm/index.d.ts",
       "default": "./dist/esm/index.js"
     },
-    "./src/*": "./src/*"
+    "./src/*": "./src/*",
+    "./src": "./src"
   },
   "scripts": {
     "generate": "graphql-codegen",
