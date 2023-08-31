@@ -50,6 +50,7 @@ const Footer = ({
     paymentMethods,
   },
 }: FooterProps) => {
+  const homeLabel = 'Go to Home'
   return (
     <Section className={`section ${styles.section} section-footer`}>
       <UIFooter>
@@ -62,7 +63,11 @@ const Footer = ({
           />
         </UIFooterNavigation>
         <UIFooterInfo>
-          <Link href={logoLink ? logoLink : '/'}>
+          <Link
+            href={logoLink ? logoLink : '/'}
+            title={logoLink ? null : homeLabel}
+            aria-label={logoLink ? null : homeLabel}
+          >
             <Logo alt={logoAlt} src={logoSrc} />
           </Link>
 
