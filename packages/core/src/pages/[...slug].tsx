@@ -29,10 +29,11 @@ type BaseProps = {
 
 type Props = BaseProps &
   (
-    | ({
+    | {
         type: 'plp'
         page: PLPContentType
-      } & ServerCollectionPageQueryQuery)
+        data: ServerCollectionPageQueryQuery
+      }
     | {
         type: 'page'
         page: PageContentType
@@ -124,7 +125,7 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: {
-      ...data,
+      data,
       page,
       globalSections: await globalSectionsPromise,
       type: 'plp',

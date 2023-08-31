@@ -4,7 +4,8 @@ import type { SWRConfiguration } from 'swr'
 import { request } from './request'
 import type { RequestOptions } from './request'
 
-export type QueryOptions = SWRConfiguration & RequestOptions
+export type QueryOptions = SWRConfiguration &
+  RequestOptions & { doNotRun?: boolean }
 
 export const getKey = <Variables>(
   operationName: string,
@@ -25,16 +26,19 @@ export const useQuery = <Data, Variables = Record<string, unknown>>(
   variables: Variables,
   options?: QueryOptions
 ) =>
-  useSWR<Data>(getKey(operationName, variables), {
-    fetcher: () => {
-      return new Promise((resolve) => {
-        setTimeout(async () => {
-          resolve(
-            await request<Data, Variables>(operationName, variables, options)
-          )
+  useSWR<Data>(
+    () => (options?.doNotRun ? null : getKey(operationName, variables)),
+    {
+      fetcher: () => {
+        return new Promise((resolve) => {
+          setTimeout(async () => {
+            resolve(
+              await request<Data, Variables>(operationName, variables, options)
+            )
+          })
         })
-      })
-    },
-    ...DEFAULT_OPTIONS,
-    ...options,
-  })
+      },
+      ...DEFAULT_OPTIONS,
+      ...options,
+    }
+  )

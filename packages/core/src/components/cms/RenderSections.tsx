@@ -1,5 +1,5 @@
 import chalk from 'chalk'
-import { ComponentType, PropsWithChildren, useMemo } from 'react'
+import { ComponentType, PropsWithChildren, memo, useMemo } from 'react'
 
 import SectionBoundary from './SectionBoundary'
 import { Section } from '@vtex/client-cms'
@@ -7,7 +7,6 @@ import { Section } from '@vtex/client-cms'
 interface Props {
   components: Record<string, ComponentType<any>>
   sections: Array<{ name: string; data: any }>
-  context?: unknown
 }
 
 const useDividedSections = (sections: Section[]) => {
@@ -23,7 +22,7 @@ const useDividedSections = (sections: Section[]) => {
   }, [sections])
 }
 
-const RenderSectionsBase = ({ sections = [], context, components }: Props) => {
+const RenderSectionsBase = ({ sections = [], components }: Props) => {
   return (
     <>
       {sections.map(({ name, data }, index) => {
@@ -42,7 +41,7 @@ const RenderSectionsBase = ({ sections = [], context, components }: Props) => {
 
         return (
           <SectionBoundary key={`cms-section-${index}`} name={name}>
-            <Component {...data} context={context} />
+            <Component {...data} />
           </SectionBoundary>
         )
       })}
@@ -71,4 +70,4 @@ function RenderSections({
   )
 }
 
-export default RenderSections
+export default memo(RenderSections)

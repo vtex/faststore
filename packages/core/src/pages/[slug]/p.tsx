@@ -4,8 +4,10 @@ import type { Locator } from '@vtex/client-cms'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
+import deepmerge from 'deepmerge'
 
 import type {
+  ClientProductQueryQuery,
   ServerProductPageQueryQuery,
   ServerProductPageQueryQueryVariables,
 } from '@generated/graphql'
@@ -26,6 +28,8 @@ import GlobalSections, {
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import storeConfig from '../../../faststore.config'
+import { useProductQuery } from 'src/sdk/product/useProductQuery'
+import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -39,18 +43,35 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-type Props = ServerProductPageQueryQuery &
-  PDPContentType & {
-    globalSections: GlobalSectionsData
-    meta: {
-      title: string
-      description: string
-      canonical: string
-    }
+type Props = PDPContentType & {
+  data: ServerProductPageQueryQuery
+  globalSections: GlobalSectionsData
+  meta: {
+    title: string
+    description: string
+    canonical: string
   }
+}
 
-function Page({ product, sections, globalSections, offers, meta }: Props) {
+// Array merging strategy from deepmerge that makes client arrays overwrite server array
+// https://www.npmjs.com/package/deepmerge
+const overwriteMerge = (_, sourceArray) => sourceArray
+
+function Page({ data: server, sections, globalSections, offers, meta }: Props) {
+  const { product } = server
   const { currency } = useSession()
+
+  // Stale while revalidate the product for fetching the new price etc
+  const { data: client, isValidating } = useProductQuery(product.id, {
+    product: product,
+  })
+
+  const context = {
+    data: {
+      ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
+      isValidating,
+    },
+  } as PDPContext
 
   return (
     <GlobalSections {...globalSections}>
@@ -105,11 +126,9 @@ function Page({ product, sections, globalSections, offers, meta }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <RenderSections
-        context={product}
-        sections={sections}
-        components={COMPONENTS}
-      />
+      <PageProvider context={context}>
+        <RenderSections sections={sections} components={COMPONENTS} />
+      </PageProvider>
     </GlobalSections>
   )
 }
@@ -229,7 +248,7 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: {
-      ...data,
+      data,
       ...cmsPage,
       meta,
       offers,

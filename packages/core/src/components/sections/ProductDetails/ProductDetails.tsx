@@ -3,11 +3,9 @@ import { useEffect, useState } from 'react'
 import { gql } from '@faststore/graphql-utils'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
-import type { ClientProductQueryQuery } from '@generated/graphql'
 
 import type { AnalyticsItem } from 'src/sdk/analytics/types'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import { useProduct } from 'src/sdk/product/useProduct'
 import { useSession } from 'src/sdk/session'
 
 import Section from '../Section'
@@ -23,9 +21,7 @@ import {
   __experimentalShippingSimulation as ShippingSimulation,
 } from 'src/components/sections/ProductDetails/Overrides'
 
-interface ProductDetailsContextProps {
-  context: ClientProductQueryQuery['product']
-}
+import { usePDP } from 'src/sdk/overrides/PageProvider'
 
 export interface ProductDetailsProps {
   productTitle: {
@@ -59,7 +55,6 @@ export interface ProductDetailsProps {
 }
 
 function ProductDetails({
-  context: staleProduct,
   productTitle: {
     refNumber: showRefNumber,
     discountBadge: {
@@ -87,36 +82,31 @@ function ProductDetails({
     initiallyExpanded: productDescriptionInitiallyExpanded,
     displayDescription: shouldDisplayProductDescription,
   },
-}: ProductDetailsProps & ProductDetailsContextProps) {
+}: ProductDetailsProps) {
   const { currency } = useSession()
   const [quantity, setQuantity] = useState(1)
+  const context = usePDP()
+  const { product, isValidating } = context?.data
 
-  // Stale while revalidate the product for fetching the new price etc
-  const { data, isValidating } = useProduct(staleProduct.id, {
-    product: staleProduct,
-  })
-
-  if (!data) {
+  if (!product) {
     throw new Error('NotFound')
   }
 
   const {
-    product: {
-      id,
-      sku,
-      gtin,
-      name: variantName,
-      brand,
-      isVariantOf,
-      description,
-      isVariantOf: { name, productGroupID: productId },
-      image: productImages,
-      offers: {
-        offers: [{ availability, price, listPrice, seller }],
-        lowPrice,
-      },
+    id,
+    sku,
+    gtin,
+    name: variantName,
+    brand,
+    isVariantOf,
+    description,
+    isVariantOf: { name, productGroupID: productId },
+    image: productImages,
+    offers: {
+      offers: [{ availability, price, listPrice, seller }],
+      lowPrice,
     },
-  } = data
+  } = product
 
   useEffect(() => {
     sendAnalyticsEvent<ViewItemEvent<AnalyticsItem>>({
@@ -191,7 +181,7 @@ function ProductDetails({
             >
               {!outOfStock ? (
                 <ProductDetailsSettings
-                  product={data.product}
+                  product={product}
                   isValidating={isValidating}
                   buyButtonTitle={buyButtonTitle}
                   quantity={quantity}
