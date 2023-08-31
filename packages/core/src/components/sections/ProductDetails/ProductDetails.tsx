@@ -8,10 +8,9 @@ import type { AnalyticsItem } from 'src/sdk/analytics/types'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
 
-import OutOfStock from 'src/components/product/OutOfStock'
+import Section from '../Section'
 import ProductDescription from 'src/components/ui/ProductDescription'
 import { ProductDetailsSettings } from 'src/components/ui/ProductDetails'
-import Section from '../Section'
 
 import styles from './section.module.scss'
 
@@ -142,6 +141,8 @@ function ProductDetails({
     gtin,
   ])
 
+  const outOfStock = availability == 'https://schema.org/OutOfStock'
+
   return (
     <Section className={`${styles.section} section-product-details`}>
       <section data-fs-product-details>
@@ -178,7 +179,7 @@ function ProductDetails({
               data-fs-product-details-settings
               data-fs-product-details-section
             >
-              {availability ? (
+              {!outOfStock ? (
                 <ProductDetailsSettings
                   product={product}
                   isValidating={isValidating}
@@ -188,11 +189,12 @@ function ProductDetails({
                   buyButtonIcon={buyButtonIcon}
                 />
               ) : (
-                <OutOfStock />
+                // TODO: Adds <OutOfStock /> when component is ready to use
+                <p>Not Available</p>
               )}
             </section>
 
-            {availability && (
+            {!outOfStock && (
               <ShippingSimulation.Component
                 data-fs-product-details-section
                 data-fs-product-details-shipping

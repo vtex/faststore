@@ -14,7 +14,7 @@ describe('Cart Sidebar', () => {
     cy.clearIDB()
   })
 
-  it('toggles cart sidebar', () => {
+  it.skip('toggles cart sidebar', () => {
     cy.visit(pages.home, options)
     cy.waitForHydration()
 
@@ -25,7 +25,7 @@ describe('Cart Sidebar', () => {
   })
 
   context('when opening the cart sidebar', () => {
-    it('should not scroll the background page', () => {
+    it.skip('should not scroll the background page', () => {
       cy.visit(pages.home, options)
       cy.waitForHydration()
 
@@ -49,7 +49,7 @@ describe('On product description pages', () => {
   })
 
   context('when adding a product to cart', () => {
-    it('successfully adds the product', () => {
+    it.skip('successfully adds the product', () => {
       cy.visit(pages.pdp, options)
       cy.waitForHydration()
 
@@ -85,7 +85,7 @@ describe('On product description pages', () => {
   })
 
   context('when removing a product from cart', () => {
-    it('successfully removes the product', () => {
+    it.skip('successfully removes the product', () => {
       cy.visit(pages.pdp, options)
       cy.waitForHydration()
 

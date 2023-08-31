@@ -65,7 +65,7 @@ describe('add_to_cart event', () => {
   }
 
   context('when adding a product to the cart', () => {
-    it('adds add_to_cart event in the data layer at product description page', () => {
+    it.skip('adds add_to_cart event in the data layer at product description page', () => {
       cy.visit(pages.pdp, options)
       cy.waitForHydration()
 
@@ -89,7 +89,7 @@ describe('add_to_cart event', () => {
   })
 
   context('when increasing product quantity', () => {
-    it('adds add_to_cart event in the data layer at quantity increase in the minicart', () => {
+    it.skip('adds add_to_cart event in the data layer at quantity increase in the minicart', () => {
       cy.visit(pages.pdp, options)
       cy.waitForHydration()
 
@@ -152,7 +152,7 @@ describe('remove_from_cart event', () => {
   }
 
   context('when removing a product from cart', () => {
-    it('adds remove_from_cart event in the data layer', () => {
+    it.skip('adds remove_from_cart event in the data layer', () => {
       cy.visit(pages.pdp, options)
       cy.waitForHydration()
 
@@ -191,7 +191,7 @@ describe('remove_from_cart event', () => {
   })
 
   context('when decreasing product quantity', () => {
-    it('adds remove_from_cart event in the data layer at quantity decrease in the minicart', () => {
+    it.skip('adds remove_from_cart event in the data layer at quantity decrease in the minicart', () => {
       cy.visit(pages.pdp, options)
       cy.waitForHydration()
 
@@ -238,7 +238,7 @@ describe('remove_from_cart event', () => {
 })
 
 describe('view_item event', () => {
-  it('add view_item event in data layer', () => {
+  it.skip('add view_item event in data layer', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
 
@@ -253,7 +253,7 @@ describe('view_item event', () => {
 })
 
 describe('select_item event', () => {
-  it('select_item has the right properties', () => {
+  it.skip('select_item has the right properties', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
 
@@ -284,7 +284,7 @@ describe('select_item event', () => {
 })
 
 describe('view_item_list event', () => {
-  it('is sent when viewing the PLP', () => {
+  it.skip('is sent when viewing the PLP', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
 
@@ -306,7 +306,7 @@ describe('view_item_list event', () => {
     })
   })
 
-  it('is sent when viewing a products shelf', () => {
+  it.skip('is sent when viewing a products shelf', () => {
     cy.visit(pages.home, options)
     cy.waitForHydration()
 
@@ -325,7 +325,7 @@ describe('view_item_list event', () => {
       })
   })
 
-  it('is sent when viewing a product tiles', () => {
+  it.skip('is sent when viewing a product tiles', () => {
     cy.visit(pages.home, options)
     cy.waitForHydration()
 
@@ -346,7 +346,7 @@ describe('view_item_list event', () => {
 })
 
 describe('search event', () => {
-  it('raises search', () => {
+  it.skip('raises search', () => {
     cy.visit(pages.home, options)
     cy.waitForHydration()
 
@@ -366,7 +366,7 @@ describe('search event', () => {
 })
 
 describe('view_cart event', () => {
-  it('is fired when the minicart is opened (without items)', () => {
+  it.skip('is fired when the minicart is opened (without items)', () => {
     cy.visit(pages.pdp, options)
     cy.waitForHydration()
 

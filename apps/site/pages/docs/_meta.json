@@ -70,11 +70,11 @@
   "building-sections": {
     "title": "Building and Customizing Sections"
   },
+  "troubleshooting": "Troubleshooting",
   "-- Reference --": {
     "type": "separator",
     "title": "Reference"
   },
   "api-extensions": "API Extensions",
-  "faststore-config-options": "faststore.config.js options",
-  "troubleshooting": "Troubleshooting"
+  "faststore-config-options": "faststore.config.js options"
 }

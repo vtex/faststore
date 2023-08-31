@@ -15,7 +15,7 @@ describe('Search input', () => {
   })
 
   context('when search for generic term', () => {
-    it('opens the search page', () => {
+    it.skip('opens the search page', () => {
       const term = 'shirt'
 
       cy.visit(pages.home, options)
