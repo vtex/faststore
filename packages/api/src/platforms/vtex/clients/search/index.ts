@@ -102,7 +102,7 @@ export const IntelligentSearch = (
     return withDefaultFacets
   }
 
-  const search = <T>({
+  const search = async <T>({
     query = '',
     page,
     count,
@@ -124,12 +124,20 @@ export const IntelligentSearch = (
       params.append('hideUnavailableItems', hideUnavailableItems.toString())
     }
 
+    const { segmentToken } = await ctx.clients.commerce.getSegment()
+
     const pathname = addDefaultFacets(selectedFacets)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
     return fetchAPI(
-      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
+      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
+      {
+        headers: {
+          'content-type': 'application/json',
+          cookie: `vtex_segment=${segmentToken}`,
+        },
+      }
     )
   }
 

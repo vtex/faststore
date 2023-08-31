@@ -131,7 +131,7 @@ export const VtexCommerce = (
             headers: {
               'content-type': 'application/json',
               cookie: ctx.headers.cookie,
-            }
+            },
           }
         )
       },
@@ -264,6 +264,24 @@ export const VtexCommerce = (
         })
       }
     },
+
+    getSegment: async () => {
+      const authCookie = {
+        name: `VtexIdclientAutCookie_${account}`,
+        value:
+          getCookie(`VtexIdclientAutCookie_${account}`, ctx.headers.cookie) ??
+          null,
+      }
+      return await fetchAPI(`${base}/api/sessions`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          cookie: `${authCookie.name}=${authCookie.value}`,
+        },
+        body: '{}',
+      })
+    },
+
     getSessionOrder: (): Promise<Session> => {
       return fetchAPI(`${base}/api/sessions?items=public.orderFormId`, {
         method: 'GET',
