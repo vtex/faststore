@@ -11,6 +11,7 @@ import UIFooter, {
 import type { FooterLinksProps, FooterSocialProps } from '../../common/Footer'
 
 import Logo from 'src/components/ui/Logo'
+import Link from 'src/components/ui/Link'
 import UIIncentives from '../../ui/Incentives'
 import type { Incentive } from '../../ui/Incentives'
 
@@ -26,6 +27,7 @@ export type FooterProps = {
   logo: {
     src: string
     alt: string
+    link: string
   }
   copyrightInfo: string
   acceptedPaymentMethods: {
@@ -40,7 +42,7 @@ const Footer = ({
   footerLinks,
   footerSocial,
   footerSocial: { title: footerSocialTitle },
-  logo: { src: logoSrc, alt: logoAlt },
+  logo: { src: logoSrc, alt: logoAlt, link: logoLink },
   copyrightInfo,
   acceptedPaymentMethods: {
     showPaymentMethods,
@@ -60,7 +62,10 @@ const Footer = ({
           />
         </UIFooterNavigation>
         <UIFooterInfo>
-          <Logo alt={logoAlt} src={logoSrc} />
+          <Link href={logoLink ? logoLink : '/'}>
+            <Logo alt={logoAlt} src={logoSrc} />
+          </Link>
+
           {showPaymentMethods && (
             <UIPaymentMethods
               flagList={paymentMethods}

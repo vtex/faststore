@@ -560,8 +560,12 @@
               }
             },
             "alt": {
-              "type": "string",
-              "title": "Alternative Label"
+              "title": "Alternative Label",
+              "type": "string"
+            },
+            "url": {
+              "title": "Link URL",
+              "type": "string"
             }
           }
         },
