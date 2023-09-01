@@ -4,7 +4,7 @@ import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
 import { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
 
-type Root = {
+export type Root = {
   searchArgs: Omit<SearchArgs, 'type'>
   productSearchPromise: Promise<ProductSearchResult>
 }
