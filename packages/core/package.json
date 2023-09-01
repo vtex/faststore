@@ -8,7 +8,7 @@
   },
   "scripts": {
     "generate": "graphql-codegen",
-    "build": "yarn partytown && next build && tsc --module commonjs --outDir dist/cjs & tsc --module esnext --outDir dist/esm",
+    "build": "yarn partytown && next build",
     "dev": "yarn partytown && next dev",
     "clean": "rm -r .next",
     "serve": "next start",
