@@ -1,5 +1,5 @@
 import { Partytown } from '@builder.io/partytown/react'
-import OverwriteComponents from 'src/customizations/GlobalOverrides'
+import OverrideComponents from 'src/customizations/GlobalOverrides'
 import storeConfig from '../../../faststore.config'
 import GoogleTagManager from './GoogleTagManager'
 import VTEX from './vtex'
@@ -26,7 +26,7 @@ function ThirdPartyScripts() {
     <>
       {includeGTM && <GoogleTagManager containerId={gtmContainerId} />}
       {includeVTEX && <VTEX />}
-      <OverwriteComponents.ThirdPartyScripts />
+      <OverrideComponents.ThirdPartyScripts />
       <Partytown
         key="partytown"
         // Variables to forward to from main to worker
