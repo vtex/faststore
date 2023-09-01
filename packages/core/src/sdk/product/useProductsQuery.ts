@@ -20,6 +20,7 @@ export const query = gql`
     $sort: StoreSort!
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
+    $fuzzy: String!
   ) {
     search(
       first: $first
@@ -27,6 +28,7 @@ export const query = gql`
       sort: $sort
       term: $term
       selectedFacets: $selectedFacets
+      fuzzy: $fuzzy
     ) {
       products {
         pageInfo {
@@ -51,6 +53,7 @@ export const useLocalizedVariables = ({
   sort,
   term,
   selectedFacets,
+  fuzzy,
 }: Partial<ProductsQueryQueryVariables>) => {
   const { channel, locale } = useSession()
 
@@ -62,13 +65,14 @@ export const useLocalizedVariables = ({
       after: after ?? '0',
       sort: sort ?? ('score_desc' as const),
       term: term ?? '',
+      fuzzy: fuzzy ?? 'auto',
       selectedFacets: [
         ...facets,
         { key: 'channel', value: channel ?? '' },
         { key: 'locale', value: locale },
       ],
     }
-  }, [selectedFacets, first, after, sort, term, channel, locale])
+  }, [selectedFacets, first, after, sort, term, channel, locale, fuzzy])
 }
 
 /**

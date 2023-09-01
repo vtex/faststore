@@ -18,6 +18,7 @@ export const useProductsPrefetch = (page: number | null) => {
     sort,
     term: term ?? '',
     selectedFacets,
+    fuzzy: '0',
   })
 
   useEffect(() => {
@@ -40,6 +41,7 @@ export const useProducts = (page: number) => {
       sort,
       term: term ?? '',
       selectedFacets,
+      fuzzy: '0',
     },
     { suspense: true }
   )
