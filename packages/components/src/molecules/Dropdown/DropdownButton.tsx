@@ -18,9 +18,9 @@ export interface DropdownButtonProps
 const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
   function DropdownButton(
     {
-      children,
       testId = 'fs-dropdown-button',
       'aria-label': ariaLabel,
+       children,
       ...otherProps
     },
     ref
