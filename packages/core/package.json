@@ -3,18 +3,8 @@
   "version": "2.1.78",
   "license": "MIT",
   "browserslist": "supports es6-module and not dead",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "typings": "dist/esm/index.d.ts",
   "exports": {
-    ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js",
-      "types": "./dist/esm/index.d.ts",
-      "default": "./dist/esm/index.js"
-    },
-    "./src/*": "./src/*",
-    "./src": "./src"
+    ".": "./index.ts"
   },
   "scripts": {
     "generate": "graphql-codegen",
