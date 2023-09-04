@@ -100,7 +100,6 @@ export const getContextFactory =
     }
     ctx.clients = getClients(options, ctx)
     ctx.loaders = getLoaders(options, ctx)
-    ctx.headers = { 'content-type': 'application/json', cookie: '' }
 
     return ctx
   }
