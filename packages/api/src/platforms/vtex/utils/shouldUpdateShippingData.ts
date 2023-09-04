@@ -13,7 +13,6 @@ export const shouldUpdateShippingData = (
   session: IStoreSession
 ) => {
   if (!hasSessionPostalCodeOrGeoCoordinates(session)) {
-    console.log('No Postal Code and GeoCoord')
     return { updateShipping: false, addressChanged: false }
   }
 
@@ -24,12 +23,10 @@ export const shouldUpdateShippingData = (
     checkGeoCoordinates(selectedAddress, session.geoCoordinates) ||
     checkAddressType(selectedAddress, session.addressType)
   ) {
-    console.log('Change Postal Code or GeoCoord')
     return { updateShipping: true, addressChanged: true }
   }
 
   if (!hasItems(orderForm)) {
-    console.log('No Items')
     return { updateShipping: false, addressChanged: false }
   }
 
@@ -37,10 +34,8 @@ export const shouldUpdateShippingData = (
   const { logisticsInfo } = orderForm.shippingData!
 
   if (shouldUpdateDeliveryInfo(logisticsInfo, session)) {
-    console.log('Update Delivery Info')
     return { updateShipping: true, addressChanged: false }
   }
-  console.log('Nothing to update')
   return { updateShipping: false, addressChanged: false }
 }
 
@@ -57,7 +52,6 @@ const checkPostalCode = (
   address: CheckoutAddress | null,
   postalCode: string | null | undefined
 ) => {
-  console.log( address?.postalCode !== postalCode, postalCode, address?.postalCode)
   return typeof postalCode === 'string' && address?.postalCode !== postalCode
 }
 
@@ -66,7 +60,6 @@ const checkGeoCoordinates = (
   address: CheckoutAddress | null,
   geoCoordinates: IStoreGeoCoordinates | null | undefined
 ) => {
-  console.log("checkGeoCoordinates",address?.geoCoordinates[0] !== geoCoordinates?.longitude, address?.geoCoordinates[1] !== geoCoordinates?.latitude, address?.geoCoordinates[0], address?.geoCoordinates[1], geoCoordinates?.longitude, geoCoordinates?.latitude)
   return (
     typeof geoCoordinates?.latitude === 'number' &&
     typeof geoCoordinates?.longitude === 'number' &&
@@ -79,7 +72,6 @@ const checkAddressType = (
   address: CheckoutAddress | null,
   addressType: string | null | undefined
 ) => {
-  console.log("checkAddressType",address?.addressType !== addressType, address?.addressType, addressType)
   return typeof addressType === 'string' && address?.addressType !== addressType
 }
 
@@ -98,8 +90,10 @@ const shouldUpdateDeliveryInfo = (
 
   return logisticsInfo.some(
     ({ selectedDeliveryChannel, selectedSla, slas }) => {
-      const checkDeliveryChannel = deliveryChannel && selectedDeliveryChannel !== deliveryChannel
-      const checkDeliveryMethod = deliveryMethod && selectedSla !== deliveryMethod
+      const checkDeliveryChannel =
+        deliveryChannel && selectedDeliveryChannel !== deliveryChannel
+      const checkDeliveryMethod =
+        deliveryMethod && selectedSla !== deliveryMethod
 
       return slas?.some((sla) => {
         if (

@@ -239,10 +239,7 @@ const updateOrderFormShippingData = async (
   if (!session) {
     return orderForm
   }
-  console.log(
-    'Inside Shipping Data',
-    JSON.stringify(orderForm.shippingData?.selectedAddresses)
-  )
+
   const { updateShipping, addressChanged } = shouldUpdateShippingData(
     orderForm,
     session
@@ -354,10 +351,7 @@ export const validateCart = async (
     )
     return orderFormToCart(newOrderForm, skuLoader)
   }
-  console.log(
-    'New Order Form',
-    JSON.stringify(orderForm.shippingData?.selectedAddresses)
-  )
+
   // Step2: Process items from both browser and checkout so they have the same shape
   const browserItemsById = groupById(acceptedOffer)
   const originItemsById = groupById(orderForm.items.map(orderFormItemToOffer))
