@@ -128,7 +128,9 @@ const joinItems = (form: OrderForm) => {
       const [item] = items
       const quantity = items.reduce((acc, i) => acc + i.quantity, 0)
       const totalPrice = items.reduce(
-        (acc, i) => acc + i.priceDefinition.total,
+        (acc, i) =>
+          acc +
+          (i?.priceDefinition?.total ?? i?.quantity * i?.sellingPrice ?? 0),
         0
       )
 
