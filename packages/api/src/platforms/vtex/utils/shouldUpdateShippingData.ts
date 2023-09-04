@@ -57,6 +57,7 @@ const checkPostalCode = (
   address: CheckoutAddress | null,
   postalCode: string | null | undefined
 ) => {
+  console.log( address?.postalCode !== postalCode, postalCode, address?.postalCode)
   return typeof postalCode === 'string' && address?.postalCode !== postalCode
 }
 
@@ -65,6 +66,7 @@ const checkGeoCoordinates = (
   address: CheckoutAddress | null,
   geoCoordinates: IStoreGeoCoordinates | null | undefined
 ) => {
+  console.log("checkGeoCoordinates",address?.geoCoordinates[0] !== geoCoordinates?.longitude, address?.geoCoordinates[1] !== geoCoordinates?.latitude, address?.geoCoordinates[0], address?.geoCoordinates[1], geoCoordinates?.longitude, geoCoordinates?.latitude)
   return (
     typeof geoCoordinates?.latitude === 'number' &&
     typeof geoCoordinates?.longitude === 'number' &&
@@ -77,6 +79,7 @@ const checkAddressType = (
   address: CheckoutAddress | null,
   addressType: string | null | undefined
 ) => {
+  console.log("checkAddressType",address?.addressType !== addressType, address?.addressType, addressType)
   return typeof addressType === 'string' && address?.addressType !== addressType
 }
 
