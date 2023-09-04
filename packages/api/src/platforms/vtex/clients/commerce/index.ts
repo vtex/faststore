@@ -153,7 +153,13 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
-          BASE_INIT
+          {
+            ...BASE_INIT,
+            headers: {
+              'content-type': 'application/json',
+              cookie: ctx.headers.cookie,
+            }
+          }
         )
       },
       updateOrderFormItems: ({
