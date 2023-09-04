@@ -331,7 +331,7 @@ export const validateCart = async (
 
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, ctx)
-
+  console.log("GET OrderForm Information", orderForm)
   // Step1.1: Checks if the orderForm id has changed. There are three cases for this:
   // Social Selling: the vtex_session cookie contains a new orderForm id with Social Selling data
   // My Orders: the customer clicks on reordering through generating a new cart and when returning to the faststore, this information needs to be returned by vtex_session cookie.
