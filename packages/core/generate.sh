@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # ANSI color codes
 RED='\033[0;31m'
@@ -11,13 +11,13 @@ NC='\033[0m' # No Color
 DEBUG_FLAG=false
 
 # Check for --debug flag
-if [ "$1" == "--debug" ]; then
+if [ "$1" = "--debug" ]; then
     DEBUG_FLAG=true
 fi
 
 # Function to display errors with readable messages
 show_error() {
-    local cmd=$3
+    local cmd="$3"
 
     echo -e "${RED}error${NC} $1"
     if [ "$DEBUG_FLAG" = "true" ]; then
@@ -28,7 +28,7 @@ show_error() {
 
 # Function to display warnings
 show_warning() {
-    local cmd=$3
+    local cmd="$3"
 
     echo -e "${YELLOW}warn${NC} $1"
     if [ "$DEBUG_FLAG" = "true" ]; then
@@ -38,18 +38,18 @@ show_warning() {
 
 # Function to run a command and handle errors and warnings
 run_command() {
-    local cmd=$1
-    local error_message=$2
-    local warn=$3
+    local cmd="$1"
+    local error_message="$2"
+    local warn="$3"
     local output
 
     if [ "$DEBUG_FLAG" = "true" ]; then
-        output=$($cmd --debug --verbose 2>&1)
+        output="$($cmd --debug --verbose 2>&1)"
     else
-        output=$($cmd 2>&1)
+        output="$($cmd 2>&1)"
     fi
 
-    local exit_code=$?
+    local exit_code="$?"
     if [ "$warn" = "true" ]; then
         if [ "$exit_code" -ne 0 ]; then
             show_warning "$error_message" "$output" "$cmd"
@@ -68,4 +68,4 @@ run_command "graphql-codegen" "GraphQL was not optimized and TS files were not u
 # Run "yarn format:generated" and display a warning if it produces output
 run_command "yarn format:generated" "Failed to format generated files. 'yarn format:generated' thrown errors" "true"
 
-echo -e "${GREEN}GraphQL schema, types and optimizations successfully generated 🎉${NC}"
+echo -e "${GREEN}GraphQL schema, types, and optimizations successfully generated 🎉${NC}"
