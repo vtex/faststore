@@ -1,9 +1,13 @@
-import { Command } from '@oclif/core'
+import { Command, Flags } from '@oclif/core'
 import { spawn } from 'child_process'
 import { existsSync } from 'fs-extra'
 import { tmpDir } from '../utils/directory'
 
 export default class GenerateGraphql extends Command {
+  static flags = {
+    debug: Flags.boolean({ char: 'd' }),
+  }
+
   async run() {
     if (!existsSync(tmpDir)) {
       throw Error(
@@ -11,7 +15,9 @@ export default class GenerateGraphql extends Command {
       )
     }
 
-    return spawn(`yarn generate`, {
+    const { flags } = await this.parse(GenerateGraphql)
+
+    return spawn(`yarn generate${flags.debug ? ' --debug' : ''}`, {
       shell: true,
       cwd: tmpDir,
       stdio: 'inherit',
