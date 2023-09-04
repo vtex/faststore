@@ -47,7 +47,12 @@ export const isFacetBoolean = (
 ): facet is Facet<FacetValueBoolean> => facet.type === 'TEXT'
 
 export const IntelligentSearch = (
-  { account, environment, hideUnavailableItems }: Options,
+  {
+    account,
+    environment,
+    hideUnavailableItems,
+    fuzzy: fuzzyFromConfig,
+  }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br/api/io`
@@ -116,7 +121,7 @@ export const IntelligentSearch = (
       count: count.toString(),
       query,
       sort,
-      fuzzy,
+      fuzzy: fuzzyFromConfig ?? fuzzy,
       locale: ctx.storage.locale,
     })
 

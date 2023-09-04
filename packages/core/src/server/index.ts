@@ -32,6 +32,7 @@ const apiOptions: APIOptions = {
   incrementAddress: storeConfig.api.incrementAddress,
   channel: storeConfig.session.channel,
   locale: storeConfig.session.locale,
+  fuzzy: storeConfig.api.fuzzy as APIOptions['fuzzy'],
   flags: {
     enableOrderFormSync: true,
   },
