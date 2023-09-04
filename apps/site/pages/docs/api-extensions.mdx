@@ -365,7 +365,7 @@ This data comes as a `context` in `PageProvider`, and you can use some hooks to 
 The `usePDP()` hook is recommendable in cases where you use your section on PDP.
 
 ```ts copy
-import { usePDP } from "@faststore/core/src/sdk/overrides/PageProvider"
+import { usePDP } from "@faststore/core"
 
 const context = usePDP()
 
@@ -374,7 +374,7 @@ const context = usePDP()
 The `usePLP()` hook is recommendable in cases where you use your section on PLP.
 
 ```ts copy
-import { usePLP } from "@faststore/core/src/sdk/overrides/PageProvider"
+import { usePLP } from "@faststore/core"
 
 const context = usePLP()
 
@@ -383,7 +383,7 @@ const context = usePLP()
 The `useSearchPage()` hook is recommendable in cases where you use your section on the Search Page.
 
 ```ts copy
-import { useSearchPage } from "@faststore/core/src/sdk/overrides/PageProvider"
+import { useSearchPage } from "@faststore/core"
 
 const context = useSearchPage()
 
@@ -392,7 +392,7 @@ const context = useSearchPage()
 The `usePage()` hook is recommendable in cases where you have one section that is used in more than one type of page.
 
 ```ts copy
-import { usePage } from "@faststore/core/src/sdk/overrides/PageProvider"
+import { usePage } from "@faststore/core"
 
 const context = usePage()
 
@@ -401,7 +401,7 @@ const context = usePage()
 This hook returns one of the following types as context: `PDPContext`, `PLPContext`, or `SearchPageContext`, and you can decide how to handle it depending on the page that will use this hook by passing the types as generics.
 
 ```ts copy
-import { usePage } from "@faststore/core/src/sdk/overrides/PageProvider"
+import { usePage } from "@faststore/core"
 
 const context = usePage<PLPContext | SearchPageContext>()
 
@@ -410,7 +410,7 @@ const context = usePage<PLPContext | SearchPageContext>()
 Also, you can use type assertion functions so that you can leverage the use of typescript and get the correct types
 
 ```ts copy
-import { isPDP, isPLP, isSearchPage } from "@faststore/core/src/sdk/overrides/PageProvider";
+import { isPDP, isPLP, isSearchPage } from "@faststore/core";
 
 isPDP(context)
 isPLP(context)
@@ -424,7 +424,7 @@ Creates a new section using the [Creating a New Section](/docs/building-sections
 This example represents the `CallToAction` section inside a PLP.
 
 ```ts copy
-import { usePLP }  from "@faststore/core/src/sdk/overrides/PageProvider";
+import { usePLP }  from "@faststore/core";
 
 export interface CallToActionProps {
   title: string
@@ -452,7 +452,7 @@ This example represents the `CustomBuyButton` component that overrides the nativ
 
 ```ts copy
 import { Button as UIButton } from '@faststore/ui'
-import { usePDP }  from "@faststore/core/src/sdk/overrides/PageProvider"
+import { usePDP }  from "@faststore/core"
 
 export function CustomBuyButton(props) {
   const context = usePDP()
