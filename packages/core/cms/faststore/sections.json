@@ -575,8 +575,19 @@
               "type": "string"
             },
             "link": {
-              "title": "Link URL",
-              "type": "string"
+              "title": "Logo Link",
+              "type": "object",
+              "required": ["url", "title"],
+              "properties": {
+                "url": {
+                  "title": "Link URL",
+                  "type": "string"
+                },
+                "title": {
+                  "title": "Link Title",
+                  "type": "string"
+                }
+              }
             }
           }
         },

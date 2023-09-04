@@ -27,7 +27,10 @@ export type FooterProps = {
   logo: {
     src: string
     alt: string
-    link: string
+    link: {
+      url: string
+      title: string
+    }
   }
   copyrightInfo: string
   acceptedPaymentMethods: {
@@ -64,9 +67,8 @@ const Footer = ({
         </UIFooterNavigation>
         <UIFooterInfo>
           <Link
-            href={logoLink ? logoLink : '/'}
-            title={logoLink ? null : homeLabel}
-            aria-label={logoLink ? null : homeLabel}
+            href={logoLink ? logoLink.url : '/'}
+            title={logoLink ? logoLink.title : homeLabel}
           >
             <Logo alt={logoAlt} src={logoSrc} />
           </Link>
