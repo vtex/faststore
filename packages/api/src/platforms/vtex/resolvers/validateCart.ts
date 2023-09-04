@@ -239,7 +239,10 @@ const updateOrderFormShippingData = async (
   if (!session) {
     return orderForm
   }
-  console.log("Inside Shipping Data", JSON.stringify(orderForm.shippingData?.selectedAddresses))
+  console.log(
+    'Inside Shipping Data',
+    JSON.stringify(orderForm.shippingData?.selectedAddresses)
+  )
   const { updateShipping, addressChanged } = shouldUpdateShippingData(
     orderForm,
     session
@@ -331,7 +334,6 @@ export const validateCart = async (
 
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, ctx)
-  console.log("GET OrderForm Information", JSON.stringify(orderForm.shippingData?.selectedAddresses))
   // Step1.1: Checks if the orderForm id has changed. There are three cases for this:
   // Social Selling: the vtex_session cookie contains a new orderForm id with Social Selling data
   // My Orders: the customer clicks on reordering through generating a new cart and when returning to the faststore, this information needs to be returned by vtex_session cookie.
@@ -352,7 +354,10 @@ export const validateCart = async (
     )
     return orderFormToCart(newOrderForm, skuLoader)
   }
-  console.log("New Order Form", JSON.stringify(orderForm.shippingData?.selectedAddresses))
+  console.log(
+    'New Order Form',
+    JSON.stringify(orderForm.shippingData?.selectedAddresses)
+  )
   // Step2: Process items from both browser and checkout so they have the same shape
   const browserItemsById = groupById(acceptedOffer)
   const originItemsById = groupById(orderForm.items.map(orderFormItemToOffer))
@@ -403,7 +408,6 @@ export const validateCart = async (
   if (changes.length === 0) {
     return null
   }
-
   // Step4: Apply delta changes to order form
   const updatedOrderForm = await commerce.checkout
     // update orderForm items

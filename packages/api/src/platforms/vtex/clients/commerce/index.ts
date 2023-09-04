@@ -128,9 +128,8 @@ export const VtexCommerce = (
             ...BASE_INIT,
             body: JSON.stringify(mappedBody),
             headers: {
-              'content-type': 'application/json',
               cookie: ctx.headers.cookie,
-            }
+            },
           }
         )
       },
@@ -154,9 +153,8 @@ export const VtexCommerce = (
           {
             ...BASE_INIT,
             headers: {
-              'content-type': 'application/json',
               cookie: ctx.headers.cookie,
-            }
+            },
           }
         )
       },
@@ -182,6 +180,9 @@ export const VtexCommerce = (
           `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
           {
             ...BASE_INIT,
+            headers: {
+              cookie: ctx.headers.cookie,
+            },
             body: JSON.stringify({
               orderItems,
               noSplitItem: !shouldSplitItem,
