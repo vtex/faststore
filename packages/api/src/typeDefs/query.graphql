@@ -242,10 +242,6 @@ type Query {
     Array of selected search facets.
     """
     selectedFacets: [IStoreSelectedFacet!]
-    """
-    Fuzzy.
-    """
-    fuzzy: String = "auto"
   ): StoreSearchResult!
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
@@ -311,6 +307,7 @@ type Query {
     """
     selectedFacets: [IStoreSelectedFacet!]
   ): StoreRedirect
+
 
   """
   Returns a list of sellers available for a specific localization.

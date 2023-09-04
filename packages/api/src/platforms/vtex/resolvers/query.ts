@@ -25,7 +25,7 @@ import type {
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
-import { Fuzzy, SearchArgs } from '../clients/search'
+import { SearchArgs } from '../clients/search'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -112,14 +112,7 @@ export const Query = {
   },
   search: async (
     _: unknown,
-    {
-      first,
-      after: maybeAfter,
-      sort,
-      term,
-      selectedFacets,
-      fuzzy: maybeFuzzy,
-    }: QuerySearchArgs,
+    { first, after: maybeAfter, sort, term, selectedFacets }: QuerySearchArgs,
     ctx: Context
   ) => {
     // Insert channel in context for later usage
@@ -161,14 +154,11 @@ export const Query = {
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0
-    const fuzzy = (maybeFuzzy ?? 'auto') as Fuzzy
-
     const searchArgs: Omit<SearchArgs, 'type'> = {
       page: Math.ceil(after / first),
       count: first,
       query: query ?? undefined,
       sort: SORT_MAP[sort ?? 'score_desc'],
-      fuzzy,
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
     }
 

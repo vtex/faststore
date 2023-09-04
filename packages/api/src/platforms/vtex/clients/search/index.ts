@@ -22,8 +22,6 @@ export type Sort =
   | 'discount:desc'
   | ''
 
-export type Fuzzy = '0' | '1' | 'auto'
-
 export interface SearchArgs {
   query?: string
   page: number
@@ -31,7 +29,7 @@ export interface SearchArgs {
   type: 'product_search' | 'facets'
   sort?: Sort
   selectedFacets?: SelectedFacet[]
-  fuzzy?: Fuzzy
+  fuzzy?: '0' | '1' | 'auto'
   hideUnavailableItems?: boolean
 }
 
