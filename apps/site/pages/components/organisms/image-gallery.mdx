@@ -132,12 +132,14 @@ export const imagesUsage = [
 
     const [selectedImageIdx, setSelectedImageIdx] = useState(0)
     const currentImage = imagesUsage[selectedImageIdx]
+    const imagePosition: "top" | "center" | "bottom" = "center"
 
     <ImageGallery
       images={imagesUsage}
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
+      imagePosition={imagePosition}
     >
       <ImageZoom>
         <img
@@ -342,12 +344,14 @@ export const propsImageElementData = [
 
     const [selectedImageIdx, setSelectedImageIdx] = useState(0)
     const currentImage = imagesUsage[selectedImageIdx]
+    const imagePosition: "top" | "center" | "bottom" = "center"
 
     <ImageGallery
       images={imagesUsage}
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
+      imagePosition={imagePosition}
     >
       <ImageZoom>
         <img
@@ -383,12 +387,14 @@ export const imagesWithoutSelector = [imagesUsage[0]]
 
     const [selectedImageIdx, setSelectedImageIdx] = useState(0)
     const currentImage = images[selectedImageIdx]
+    const imagePosition: "top" | "center" | "bottom" = "center"
 
     <ImageGallery
       images={images}
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
+      imagePosition={imagePosition}
     >
       <ImageZoom>
         <img
