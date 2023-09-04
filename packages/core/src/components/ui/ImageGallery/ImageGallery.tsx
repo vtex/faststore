@@ -17,12 +17,12 @@ const ImageComponent = ({ url, alternateName }) => {
 
 export interface ImageGalleryProps {
   images: ImageElementData[]
-  imagePos?: 'top' | 'center' | 'bottom'
+  imagePosition?: 'top' | 'center' | 'bottom'
 }
 
 const ImageGallery = ({
   images,
-  imagePos,
+  imagePosition,
   ...otherProps
 }: ImageGalleryProps) => {
   const [selectedImageIdx, setSelectedImageIdx] = useState(0)
@@ -38,7 +38,7 @@ const ImageGallery = ({
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
-      imagePos={imagePos}
+      imagePosition={imagePosition}
       {...otherProps}
     >
       <ImageZoom.Component {...ImageZoom.props}>
@@ -47,7 +47,7 @@ const ImageGallery = ({
           width={691}
           height={691 * (3 / 4)}
           loading="eager"
-          data-fs-image-gallery-position={imagePos}
+          data-fs-image-gallery-position={imagePosition}
           {...Image.props}
           src={currentImage.url}
           alt={currentImage.alternateName}

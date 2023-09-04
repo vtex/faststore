@@ -9,10 +9,10 @@ const ImageComponent = ({ url, alternateName, onLoad }) => (
 
 export interface ImageGalleryUsageProps {
   images?: ImageElementData[]
-  imagePos?: "top" | "center" | "bottom"
+  imagePosition?: "top" | "center" | "bottom"
 }
 
-const ImageGalleryUsage = ({ images, imagePos }: ImageGalleryUsageProps) => {
+const ImageGalleryUsage = ({ images, imagePosition }: ImageGalleryUsageProps) => {
   const [selectedImageIdx, setSelectedImageIdx] = useState(0)
   const currentImage = images[selectedImageIdx]
 
@@ -21,7 +21,7 @@ const ImageGalleryUsage = ({ images, imagePos }: ImageGalleryUsageProps) => {
       images={images}
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
-      imagePos={imagePos}
+      imagePosition={imagePosition}
       setSelectedImageIdx={setSelectedImageIdx}
     >
       <ImageZoom>

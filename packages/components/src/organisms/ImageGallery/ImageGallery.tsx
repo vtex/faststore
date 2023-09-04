@@ -41,7 +41,7 @@ export interface ImageGalleryProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The position of the thumbnail image.
    */
-  imagePos: "top" | "center" | "bottom"
+  imagePosition: "top" | "center" | "bottom"
   /**
    * Event handler for clicks on each thumbnail.
    */
@@ -55,7 +55,7 @@ const ImageGallery = forwardRef<HTMLDivElement, ImageGalleryProps>(
       children,
       ImageComponent,
       selectedImageIdx,
-      imagePos,
+      imagePosition,
       setSelectedImageIdx,
       testId = 'fs-image-gallery',
       ...otherProps
@@ -79,7 +79,7 @@ const ImageGallery = forwardRef<HTMLDivElement, ImageGalleryProps>(
             images={images}
             onSelect={setSelectedImageIdx}
             currentImageIdx={selectedImageIdx}
-            imagePos={imagePos}
+            imagePosition={imagePosition}
             ImageComponent={ImageComponent}
           />
         )}
