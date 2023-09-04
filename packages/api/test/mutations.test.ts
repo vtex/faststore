@@ -41,13 +41,7 @@ const createRunner = () => {
     const schema = await schemaPromise
     const context = contextFactory({})
 
-    return execute(
-      schema,
-      parse(query),
-      null,
-      { ...context, headers: { cookie: '' } },
-      variables
-    )
+    return execute(schema, parse(query), null, context, variables)
   }
 }
 
