@@ -128,6 +128,7 @@ export const VtexCommerce = (
             ...BASE_INIT,
             body: JSON.stringify(mappedBody),
             headers: {
+              'content-type': 'application/json',
               cookie: ctx.headers.cookie,
             },
           }
