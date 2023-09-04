@@ -122,7 +122,7 @@ export const VtexCommerce = (
           selectedAddresses: selectedAddresses,
           clearAddressIfPostalCodeNotFound: incrementAddress,
         }
-
+        console.log("Log for update shipping", JSON.stringify(mappedBody), ctx.headers.cookie)
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
@@ -150,7 +150,7 @@ export const VtexCommerce = (
           refreshOutdatedData: refreshOutdatedData.toString(),
           sc: salesChannel,
         })
-
+        console.log("Get Order Form", ctx.headers.cookie)
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
           {
