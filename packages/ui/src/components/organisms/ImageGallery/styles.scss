@@ -216,9 +216,26 @@
     }
   }
 
-  @include image_pos(top);
-  @include image_pos(center);
-  @include image_pos(bottom);
+  [data-fs-image-gallery-position="top"] {
+    object-position: top;
+    [data-fs-image] {
+      object-position: top;
+    }
+  }
+
+  [data-fs-image-gallery-position="center"] {
+    object-position: center;
+    [data-fs-image] {
+      object-position: center;
+    }
+  }
+
+  [data-fs-image-gallery-position="bottom"] {
+    object-position: bottom;
+    [data-fs-image] {
+      object-position: bottom;
+    }
+  }
 
   // --------------------------------------------------------
   // Variants Styles
