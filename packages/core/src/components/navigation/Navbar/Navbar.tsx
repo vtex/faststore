@@ -111,12 +111,11 @@ function Navbar({
               />
               <Link
                 data-fs-navbar-logo
-                href={logo.link ? logo.link : '/'}
+                href={logo.link ? logo.link.url : '/'}
+                title={logo.link ? logo.link.title : homeLabel}
                 prefetch={false}
-                title={logo.link ? null : homeLabel}
-                aria-label={logo.link ? null : homeLabel}
               >
-                <Logo {...logo} />
+                <Logo src={logo.src} alt={logo.alt} />
               </Link>
             </>
           )}

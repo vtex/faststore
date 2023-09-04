@@ -52,10 +52,9 @@ function NavbarSlider({
       >
         <Link
           data-fs-navbar-slider-logo
-          href={logo.link ? logo.link : '/'}
+          href={logo.link ? logo.link.url : '/'}
+          title={logo.link ? logo.link.title : homeLabel}
           onClick={fadeOut}
-          title={homeLabel}
-          aria-label={homeLabel}
         >
           <Logo alt={logo.alt} src={logo.src} />
         </Link>
