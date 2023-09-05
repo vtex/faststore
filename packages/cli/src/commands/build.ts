@@ -30,10 +30,13 @@ export default class Build extends Command {
       `${tmpDir}/lighthouserc.js`,
       `${userDir}/lighthouserc.js`
     )
-    await copyResource(
-      `${tmpDir}/cms-webhook-urls.json`,
-      `${userDir}/cms-webhook-urls.json`
-    )
+
+    if (existsSync(`${tmpDir}/cms-webhook-urls.json`)) {
+      await copyResource(
+        `${tmpDir}/cms-webhook-urls.json`,
+        `${userDir}/cms-webhook-urls.json`
+      )
+    }
     
     if (existsSync(`.next/standalone`)) {
       await copyResource(

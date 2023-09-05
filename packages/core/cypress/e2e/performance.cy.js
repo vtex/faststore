@@ -25,7 +25,7 @@ describe('React rendering performance', () => {
     cy.clearIDB()
   })
 
-  it.skip('Renders Navbar component once', () => {
+  it('Renders Navbar component once', () => {
     const mark = 'Navbar'
 
     for (const path of paths) {
@@ -33,7 +33,7 @@ describe('React rendering performance', () => {
     }
   })
 
-  it.skip('Renders Footer component once', () => {
+  it('Renders Footer component once', () => {
     const mark = 'Footer'
 
     for (const path of paths) {
@@ -41,7 +41,7 @@ describe('React rendering performance', () => {
     }
   })
 
-  it.skip('Renders Alert component once', () => {
+  it('Renders Alert component once', () => {
     const mark = 'Alert'
 
     for (const path of paths) {
@@ -49,7 +49,7 @@ describe('React rendering performance', () => {
     }
   })
 
-  it.skip('Renders Page component once', () => {
+  it('Renders Page component once', () => {
     const mark = 'Page'
 
     for (const path of paths) {
@@ -57,7 +57,7 @@ describe('React rendering performance', () => {
     }
   })
 
-  it.skip('Renders ProductGallery component once on PLP', () => {
+  it('Renders ProductGallery component once on PLP', () => {
     const mark = 'ProductGallery'
 
     testMark(pages.collection, mark)
