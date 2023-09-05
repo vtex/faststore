@@ -43,9 +43,6 @@ export const getEnvelop = async () =>
       useAsyncSchema(apiSchema),
       useExtendContext(apiContextFactory),
       useMaskedErrors({ formatError }),
-      useGraphQlJit(),
-      useValidationCache(),
-      useParserCache(),
     ],
   })
 
