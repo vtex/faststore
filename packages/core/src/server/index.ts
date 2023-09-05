@@ -9,23 +9,13 @@ import {
 import { useGraphQlJit } from '@envelop/graphql-jit'
 import { useParserCache } from '@envelop/parser-cache'
 import { useValidationCache } from '@envelop/validation-cache'
-import type { Options as APIOptions, CacheControl, Maybe } from '@faststore/api'
-import {
-  getContextFactory,
-  getSchema,
-  getTypeDefs,
-  isFastStoreError,
-} from '@faststore/api'
-import { loadFilesSync } from '@graphql-tools/load-files'
-import { mergeTypeDefs } from '@graphql-tools/merge'
-import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
+import type { CacheControl, Maybe } from '@faststore/api'
+import { getContextFactory, isFastStoreError } from '@faststore/api'
 import { GraphQLError } from 'graphql'
 
-import vtexExtensionsResolvers from '../customizations/graphql/vtex/resolvers'
-import thirdPartyResolvers from '../customizations/graphql/thirdParty/resolvers'
-
 import persisted from '../../@generated/graphql/persisted.json'
-import storeConfig from '../../faststore.config'
+import { apiOptions } from './options'
+import { apiSchema } from './schema'
 
 interface ExecuteOptions<V = Record<string, unknown>> {
   operationName: string
@@ -34,32 +24,6 @@ interface ExecuteOptions<V = Record<string, unknown>> {
 }
 
 const persistedQueries = new Map(Object.entries(persisted))
-
-const apiOptions: APIOptions = {
-  platform: storeConfig.platform as APIOptions['platform'],
-  account: storeConfig.api.storeId,
-  environment: storeConfig.api.environment as APIOptions['environment'],
-  hideUnavailableItems: storeConfig.api.hideUnavailableItems,
-  incrementAddress: storeConfig.api.incrementAddress,
-  channel: storeConfig.session.channel,
-  locale: storeConfig.session.locale,
-  flags: {
-    enableOrderFormSync: true,
-  },
-}
-
-export const nativeApiSchema = getSchema(apiOptions)
-
-export const getMergedSchemas = async () =>
-  mergeSchemas({
-    schemas: [
-      await nativeApiSchema,
-      getVTEXExtensionsSchema(),
-      getThirdPartyExtensionsSchema(),
-    ].filter(Boolean),
-  })
-
-export const apiSchema = getMergedSchemas()
 
 const apiContextFactory = getContextFactory(apiOptions)
 
@@ -125,51 +89,4 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
     errors,
     extensions: { cacheControl: contextValue.cacheControl },
   }
-}
-
-type resolversType = Parameters<typeof makeExecutableSchema>[0]['resolvers']
-
-export function getCustomSchema(customPath: string, resolvers: resolversType) {
-  const customTypeDefs = getTypeDefsFromFolder(customPath)
-
-  try {
-    const typeDefs = mergeTypeDefs([...getTypeDefs(), customTypeDefs])
-
-    const schema = makeExecutableSchema({ typeDefs, resolvers })
-
-    return schema
-  } catch (error) {
-    const capitalizedPath =
-      customPath.charAt(0).toUpperCase() + customPath.slice(1)
-    console.error(
-      `
-      An error occurred while attempting to create the ${capitalizedPath} Extension GraphQL Schema. Check the custom typeDefs and resolvers located in the 'customizations/graphql/${customPath}' directory. This schema will be ignored.
-
-      Error message:`,
-      error
-    )
-  }
-}
-
-export function getTypeDefsFromFolder(customPath: string | string[]) {
-  const basePath = ['src', 'customizations', 'graphql']
-
-  const pathArray = Array.isArray(customPath) ? customPath : [customPath]
-
-  return (
-    loadFilesSync([...basePath, ...pathArray, 'typeDefs'], {
-      extensions: ['graphql'],
-    }) ??
-    loadFilesSync([...basePath, ...pathArray, 'typedefs'], {
-      extensions: ['graphql'],
-    })
-  )
-}
-
-export function getVTEXExtensionsSchema() {
-  return getCustomSchema('vtex', vtexExtensionsResolvers)
-}
-
-export function getThirdPartyExtensionsSchema() {
-  return getCustomSchema('thirdParty', thirdPartyResolvers)
 }

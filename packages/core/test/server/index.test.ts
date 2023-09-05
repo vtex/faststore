@@ -1,14 +1,13 @@
 import { GraphQLSchema, assertSchema, assertValidSchema } from 'graphql'
+
+import { execute, getEnvelop } from '../../src/server'
 import {
-  execute,
-  getEnvelop,
   getMergedSchemas,
   getThirdPartyExtensionsSchema,
   getTypeDefsFromFolder,
   getVTEXExtensionsSchema,
   nativeApiSchema,
-} from '../../src/server'
-
+} from '../../src/server/schema'
 import storeConfig from '../../faststore.config'
 
 const TYPES = [
