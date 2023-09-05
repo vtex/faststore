@@ -51,13 +51,12 @@ function NavbarSlider({
         {...NavbarSliderWrapper.props}
       >
         <Link
-          href="/"
-          onClick={fadeOut}
-          title={homeLabel}
-          aria-label={homeLabel}
           data-fs-navbar-slider-logo
+          href={logo.link ? logo.link.url : '/'}
+          title={logo.link ? logo.link.title : homeLabel}
+          onClick={fadeOut}
         >
-          <Logo {...logo} />
+          <Logo alt={logo.alt} src={logo.src} />
         </Link>
       </NavbarSliderHeader.Component>
       <NavbarSliderContent.Component {...NavbarSliderContent.props}>
