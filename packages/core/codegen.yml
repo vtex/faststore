@@ -1,5 +1,6 @@
 overwrite: true
-schema: http://localhost:3000/api/graphql
+errorsOnly: true
+schema: ./@generated/graphql/schema.graphql
 documents:
   - ./src/**/*.{ts,tsx}
 config:

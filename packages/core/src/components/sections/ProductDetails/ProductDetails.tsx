@@ -3,17 +3,14 @@ import { useEffect, useState } from 'react'
 import { gql } from '@faststore/graphql-utils'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
-import type { ClientProductQueryQuery } from '@generated/graphql'
 
 import type { AnalyticsItem } from 'src/sdk/analytics/types'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import { useProduct } from 'src/sdk/product/useProduct'
 import { useSession } from 'src/sdk/session'
 
-import OutOfStock from 'src/components/product/OutOfStock'
+import Section from '../Section'
 import ProductDescription from 'src/components/ui/ProductDescription'
 import { ProductDetailsSettings } from 'src/components/ui/ProductDetails'
-import Section from '../Section'
 
 import styles from './section.module.scss'
 
@@ -24,9 +21,7 @@ import {
   __experimentalShippingSimulation as ShippingSimulation,
 } from 'src/components/sections/ProductDetails/Overrides'
 
-interface ProductDetailsContextProps {
-  context: ClientProductQueryQuery['product']
-}
+import { usePDP } from 'src/sdk/overrides/PageProvider'
 
 export interface ProductDetailsProps {
   productTitle: {
@@ -60,7 +55,6 @@ export interface ProductDetailsProps {
 }
 
 function ProductDetails({
-  context: staleProduct,
   productTitle: {
     refNumber: showRefNumber,
     discountBadge: {
@@ -88,36 +82,31 @@ function ProductDetails({
     initiallyExpanded: productDescriptionInitiallyExpanded,
     displayDescription: shouldDisplayProductDescription,
   },
-}: ProductDetailsProps & ProductDetailsContextProps) {
+}: ProductDetailsProps) {
   const { currency } = useSession()
   const [quantity, setQuantity] = useState(1)
+  const context = usePDP()
+  const { product, isValidating } = context?.data
 
-  // Stale while revalidate the product for fetching the new price etc
-  const { data, isValidating } = useProduct(staleProduct.id, {
-    product: staleProduct,
-  })
-
-  if (!data) {
+  if (!product) {
     throw new Error('NotFound')
   }
 
   const {
-    product: {
-      id,
-      sku,
-      gtin,
-      name: variantName,
-      brand,
-      isVariantOf,
-      description,
-      isVariantOf: { name, productGroupID: productId },
-      image: productImages,
-      offers: {
-        offers: [{ availability, price, listPrice, seller }],
-        lowPrice,
-      },
+    id,
+    sku,
+    gtin,
+    name: variantName,
+    brand,
+    isVariantOf,
+    description,
+    isVariantOf: { name, productGroupID: productId },
+    image: productImages,
+    offers: {
+      offers: [{ availability, price, listPrice, seller }],
+      lowPrice,
     },
-  } = data
+  } = product
 
   useEffect(() => {
     sendAnalyticsEvent<ViewItemEvent<AnalyticsItem>>({
@@ -151,6 +140,8 @@ function ProductDetails({
     variantName,
     gtin,
   ])
+
+  const outOfStock = availability == 'https://schema.org/OutOfStock'
 
   return (
     <Section className={`${styles.section} section-product-details`}>
@@ -188,9 +179,9 @@ function ProductDetails({
               data-fs-product-details-settings
               data-fs-product-details-section
             >
-              {availability ? (
+              {!outOfStock ? (
                 <ProductDetailsSettings
-                  product={data.product}
+                  product={product}
                   isValidating={isValidating}
                   buyButtonTitle={buyButtonTitle}
                   quantity={quantity}
@@ -198,11 +189,12 @@ function ProductDetails({
                   buyButtonIcon={buyButtonIcon}
                 />
               ) : (
-                <OutOfStock />
+                // TODO: Adds <OutOfStock /> when component is ready to use
+                <p>Not Available</p>
               )}
             </section>
 
-            {availability && (
+            {!outOfStock && (
               <ShippingSimulation.Component
                 data-fs-product-details-section
                 data-fs-product-details-shipping

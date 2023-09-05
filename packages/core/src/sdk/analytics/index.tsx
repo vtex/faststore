@@ -5,6 +5,10 @@ import storeConfig from '../../../faststore.config'
 
 if (typeof window !== 'undefined') {
   window.dataLayer = window.dataLayer ?? []
+  window.VTEX_METADATA = {
+    account: storeConfig.api.storeId,
+    renderer: 'faststore',
+  }
 }
 
 export const AnalyticsHandler = () => {

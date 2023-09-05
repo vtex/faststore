@@ -3,7 +3,7 @@ import type { StoreProduct } from './product'
 import type { PromiseType } from '../../../typings'
 import type { Resolver } from '..'
 
-type Root = PromiseType<ReturnType<typeof StoreProduct.offers>>
+export type Root = PromiseType<ReturnType<typeof StoreProduct.offers>>
 
 export const StoreAggregateOffer: Record<string, Resolver<Root>> & {
   offers: Resolver<Root, any, Root>

@@ -90,24 +90,26 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
               <span>{title}</span>
             </Link>
           </h3>
-          <div data-fs-product-card-prices>
-            <Price
-              value={price?.listPrice ? price.listPrice : 0}
-              formatter={price?.formatter}
-              testId="list-price"
-              data-value={price?.listPrice}
-              variant="listing"
-              SRText="Original price:"
-            />
-            <Price
-              value={price?.value ? price.value : 0}
-              formatter={price?.formatter}
-              testId="price"
-              data-value={price?.value}
-              variant="spot"
-              SRText="Sale Price:"
-            />
-          </div>
+          {!outOfStock && (
+            <div data-fs-product-card-prices>
+              <Price
+                value={price?.listPrice ? price.listPrice : 0}
+                formatter={price?.formatter}
+                testId="list-price"
+                data-value={price?.listPrice}
+                variant="listing"
+                SRText="Original price:"
+              />
+              <Price
+                value={price?.value ? price.value : 0}
+                formatter={price?.formatter}
+                testId="price"
+                data-value={price?.value}
+                variant="spot"
+                SRText="Sale Price:"
+              />
+            </div>
+          )}
           {ratingValue && (
             <Rating value={ratingValue} icon={<Icon name="Star" />} />
           )}

@@ -1,8 +1,8 @@
 import { useInView } from 'react-intersection-observer'
 import Section from '../Section'
 
-import styles from './section.module.scss'
 import ProductShelf, { ProductShelfProps } from 'src/components/ui/ProductShelf'
+import styles from './section.module.scss'
 
 function ProductShelfSection({
   ...otherProps

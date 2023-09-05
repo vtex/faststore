@@ -9,38 +9,21 @@ import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
 import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
-import Breadcrumb from 'src/components/sections/Breadcrumb'
-import Hero from 'src/components/sections/Hero'
-import ProductGallery from 'src/components/sections/ProductGallery'
-import ProductShelf from 'src/components/sections/ProductShelf'
-import ScrollToTopButton from 'src/components/sections/ScrollToTopButton'
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
 
-import type { ComponentType } from 'react'
-import RenderSections from 'src/components/cms/RenderSections'
-import CUSTOM_COMPONENTS from 'src/customizations/components'
 import { PLPContentType } from 'src/server/cms'
 
 import storeConfig from '../../../../faststore.config'
+import ProductListing from './ProductListing'
 
-export type ProductListingPageProps = ServerCollectionPageQueryQuery & {
+export type ProductListingPageProps = {
+  data: ServerCollectionPageQueryQuery
   page: PLPContentType
 }
 
-/**
- * Sections: Components imported from each store's custom components and '../components/sections' only.
- * Do not import or render components from any other folder in here.
- */
-const COMPONENTS: Record<string, ComponentType<any>> = {
-  Breadcrumb,
-  Hero,
-  ProductGallery,
-  ProductShelf,
-  ...CUSTOM_COMPONENTS,
-}
-
-type UseSearchParams = ServerCollectionPageQueryQuery & {
+type UseSearchParams = {
+  collection: ServerCollectionPageQueryQuery['collection']
   sort: SearchState['sort']
 }
 const useSearchParams = ({
@@ -71,14 +54,15 @@ const useSearchParams = ({
 }
 
 export default function ProductListingPage({
-  page: { sections, settings },
-  ...otherProps
+  page: plpContentType,
+  data: server,
 }: ProductListingPageProps) {
-  const { collection } = otherProps
+  const { settings } = plpContentType
+  const collection = server.collection
   const router = useRouter()
   const applySearchState = useApplySearchState()
   const searchParams = useSearchParams({
-    ...otherProps,
+    collection,
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
   })
 
@@ -90,49 +74,31 @@ export default function ProductListingPage({
   const sortQuery = !!sort ? `${separator}sort=${sort}` : ''
   const [pathname] = router.asPath.split('?')
   const canonical = `${storeConfig.storeUrl}${pathname}${pageQuery}${sortQuery}`
+  const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
   return (
-    <>
-      <SearchProvider
-        onChange={applySearchState}
-        itemsPerPage={settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE}
-        {...searchParams}
-      >
-        {/* SEO */}
-        <NextSeo
-          title={title}
-          description={description}
-          titleTemplate={storeConfig.seo.titleTemplate}
-          canonical={canonical}
-          openGraph={{
-            type: 'website',
-            title,
-            description,
-          }}
-        />
-        <BreadcrumbJsonLd
-          itemListElements={collection?.breadcrumbList.itemListElement ?? []}
-        />
+    <SearchProvider
+      onChange={applySearchState}
+      itemsPerPage={itemsPerPage}
+      {...searchParams}
+    >
+      {/* SEO */}
+      <NextSeo
+        title={title}
+        description={description}
+        titleTemplate={storeConfig.seo.titleTemplate}
+        canonical={canonical}
+        openGraph={{
+          type: 'website',
+          title,
+          description,
+        }}
+      />
+      <BreadcrumbJsonLd
+        itemListElements={collection?.breadcrumbList.itemListElement ?? []}
+      />
 
-        {/*
-          WARNING: Do not import or render components from any
-          other folder than '../components/sections' in here.
-
-          This is necessary to keep the integration with the CMS
-          easy and consistent, enabling the change and reorder
-          of elements on this page.
-
-          If needed, wrap your component in a <Section /> component
-          (not the HTML tag) before rendering it here.
-        */}
-        <RenderSections
-          context={collection}
-          sections={sections}
-          components={COMPONENTS}
-        />
-
-        <ScrollToTopButton />
-      </SearchProvider>
-    </>
+      <ProductListing page={plpContentType} data={server} />
+    </SearchProvider>
   )
 }
