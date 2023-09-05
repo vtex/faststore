@@ -73,6 +73,24 @@ export type DeliveryIds = {
   warehouseId: Maybe<Scalars['String']>
 }
 
+export type IGeoCoordinates = {
+  /** The latitude of the geographic coordinates. */
+  latitude: Scalars['Float']
+  /** The longitude of the geographic coordinates. */
+  longitude: Scalars['Float']
+}
+
+export type IMarketingData = {
+  /** The campaign information of the segment. */
+  campaigns: InputMaybe<Scalars['String']>
+  /** The utm campaign information of the segment. */
+  utm_campaign: InputMaybe<Scalars['String']>
+  /** The utm source information of the segment. */
+  utm_source: InputMaybe<Scalars['String']>
+  /** The utmi campaign information of the segment */
+  utmi_campaign: InputMaybe<Scalars['String']>
+}
+
 /** Person data input to the newsletter. */
 export type IPersonNewsletter = {
   /** Person's email. */
@@ -225,6 +243,8 @@ export type IStoreSession = {
   geoCoordinates: InputMaybe<IStoreGeoCoordinates>
   /** Session input locale. */
   locale: Scalars['String']
+  /** Session input marketing information. */
+  marketingData: InputMaybe<IMarketingData>
   /** Session input person. */
   person: InputMaybe<IStorePerson>
   /** Session input postal code. */
@@ -269,6 +289,18 @@ export type LogisticsItem = {
   tax: Maybe<Scalars['Int']>
   /** LogisticsItem unitMultiplier. */
   unitMultiplier: Maybe<Scalars['Int']>
+}
+
+/** Marketing information. */
+export type MarketingData = {
+  /** The campaign information of the segment. */
+  campaigns: Maybe<Scalars['String']>
+  /** The utm campaign information of the segment. */
+  utm_campaign: Maybe<Scalars['String']>
+  /** The utm source information of the segment. */
+  utm_source: Maybe<Scalars['String']>
+  /** The utmi campaign information of the segment */
+  utmi_campaign: Maybe<Scalars['String']>
 }
 
 export type MessageFields = {
@@ -375,6 +407,8 @@ export type Query = {
   redirect: Maybe<StoreRedirect>
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult
+  /** Returns a list of sellers available for a specific localization. */
+  sellers: Maybe<SellersData>
   /** Returns information about shipping simulation. */
   shipping: Maybe<ShippingData>
 }
@@ -410,6 +444,13 @@ export type QuerySearchArgs = {
   term?: InputMaybe<Scalars['String']>
 }
 
+export type QuerySellersArgs = {
+  country: Scalars['String']
+  geoCoordinates: InputMaybe<IGeoCoordinates>
+  postalCode: InputMaybe<Scalars['String']>
+  salesChannel: InputMaybe<Scalars['String']>
+}
+
 export type QueryShippingArgs = {
   country: Scalars['String']
   items: Array<IShippingItem>
@@ -422,6 +463,24 @@ export type SearchMetadata = {
   isTermMisspelled: Scalars['Boolean']
   /** Logical operator used to run the search. */
   logicalOperator: Scalars['String']
+}
+
+/** Information of sellers. */
+export type SellerInfo = {
+  /** Identification of the seller */
+  id: Maybe<Scalars['String']>
+  /** Logo of the seller */
+  logo: Maybe<Scalars['String']>
+  /** Name of the seller */
+  name: Maybe<Scalars['String']>
+}
+
+/** Regionalization with sellers information. */
+export type SellersData = {
+  /** Identification of region. */
+  id: Maybe<Scalars['String']>
+  /** List of sellers. */
+  sellers: Maybe<Array<Maybe<SellerInfo>>>
 }
 
 /** Shipping Simulation information. */
@@ -870,7 +929,10 @@ export type StorePropertyValue = {
   valueReference: Scalars['String']
 }
 
-/** Redirect informations, including url returned by the query. */
+/**
+ * Redirect informations, including url returned by the query.
+ * https://schema.org/Thing
+ */
 export type StoreRedirect = {
   /** URL to redirect */
   url: Maybe<Scalars['String']>
@@ -932,6 +994,8 @@ export type StoreSession = {
   geoCoordinates: Maybe<StoreGeoCoordinates>
   /** Session locale. */
   locale: Scalars['String']
+  /** Session marketing information. */
+  marketingData: Maybe<MarketingData>
   /** Session input person. */
   person: Maybe<StorePerson>
   /** Session postal code. */
@@ -1046,9 +1110,6 @@ export type ProductDetailsFragment_ProductFragment = {
       listPrice: number
       seller: { identifier: string }
     }>
-  }
-  breadcrumbList: {
-    itemListElement: Array<{ item: string; name: string; position: number }>
   }
   additionalProperty: Array<{
     propertyID: string
@@ -1291,9 +1352,6 @@ export type BrowserProductQueryQuery = {
         seller: { identifier: string }
       }>
     }
-    breadcrumbList: {
-      itemListElement: Array<{ item: string; name: string; position: number }>
-    }
     additionalProperty: Array<{
       propertyID: string
       name: string
@@ -1395,6 +1453,12 @@ export type ValidateSessionMutation = {
     country: string
     addressType: string | null
     postalCode: string | null
+    marketingData: {
+      campaigns: string | null
+      utm_campaign: string | null
+      utm_source: string | null
+      utmi_campaign: string | null
+    } | null
     deliveryMode: {
       deliveryChannel: string
       deliveryMethod: string

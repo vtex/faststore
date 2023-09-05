@@ -20,6 +20,7 @@ import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import { DeliveryMode, SelectedAddress } from './types/ShippingData'
+import { Segment } from './types/Segment'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -265,7 +266,17 @@ export const VtexCommerce = (
       }
     },
 
-    getSegment: async () => {
+    getSessionOrder: (): Promise<Session> => {
+      return fetchAPI(`${base}/api/sessions?items=public.orderFormId`, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+          cookie: ctx.headers.cookie,
+        },
+      })
+    },
+
+    getSegment: async (): Promise<Segment> => {
       const authCookie = {
         name: `VtexIdclientAutCookie_${account}`,
         value:
@@ -282,15 +293,6 @@ export const VtexCommerce = (
       })
     },
 
-    getSessionOrder: (): Promise<Session> => {
-      return fetchAPI(`${base}/api/sessions?items=public.orderFormId`, {
-        method: 'GET',
-        headers: {
-          'content-type': 'application/json',
-          cookie: ctx.headers.cookie,
-        },
-      })
-    },
     subscribeToNewsletter: (data: {
       name: string
       email: string

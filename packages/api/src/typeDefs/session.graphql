@@ -110,6 +110,47 @@ input IStoreDeliveryMode {
 }
 
 """
+Marketing information.
+"""
+type MarketingData {
+  """
+  The campaign information of the segment.
+  """
+  campaigns: String
+  """
+  The utm campaign information of the segment.
+  """
+  utm_campaign: String
+  """
+  The utm source information of the segment.
+  """
+  utm_source: String
+  """
+  The utmi campaign information of the segment
+  """
+  utmi_campaign: String
+}
+
+input IMarketingData {
+  """
+  The campaign information of the segment.
+  """
+  campaigns: String
+  """
+  The utm campaign information of the segment.
+  """
+  utm_campaign: String
+  """
+  The utm source information of the segment.
+  """
+  utm_source: String
+  """
+  The utmi campaign information of the segment
+  """
+  utmi_campaign: String
+}
+
+"""
 Session information.
 """
 type StoreSession {
@@ -125,6 +166,10 @@ type StoreSession {
   Session country.
   """
   country: String!
+  """
+  Session marketing information.
+  """
+  marketingData: MarketingData
   """
   Session channel.
   """
@@ -167,6 +212,10 @@ input IStoreSession {
   Session input country.
   """
   country: String!
+  """
+  Session input marketing information.
+  """
+  marketingData: IMarketingData
   """
   Session input channel.
   """
