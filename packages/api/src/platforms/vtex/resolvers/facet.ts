@@ -7,7 +7,7 @@ import type {
 } from '../clients/search/types/FacetSearchResult'
 import type { Resolver } from '..'
 
-type Root = Facet
+export type Root = Facet
 
 export const StoreFacet: Record<string, Resolver<Root>> = {
   __resolveType: ({ type }) =>

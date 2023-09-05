@@ -15,7 +15,7 @@ type OrderFormProduct = OrderFormItem & { product: EnhancedSku }
 type SearchProduct = ArrayElementType<
   ReturnType<typeof StoreAggregateOffer.offers>
 >
-type Root = SearchProduct | OrderFormProduct
+export type Root = SearchProduct | OrderFormProduct
 
 const isSearchItem = (item: Root): item is SearchProduct =>
   'Price' in item && 'seller' in item && 'product' in item

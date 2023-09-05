@@ -8,7 +8,7 @@ import {
   getVariantsByName,
 } from '../utils/skuVariants'
 
-type Root = PromiseType<ReturnType<typeof StoreProduct.isVariantOf>>
+export type Root = PromiseType<ReturnType<typeof StoreProduct.isVariantOf>>
 
 type SlugsMapArgs = {
   dominantVariantName: string

@@ -5,7 +5,7 @@ import type { Brand } from '../clients/commerce/types/Brand'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { CollectionPageType } from '../clients/commerce/types/Portal'
 
-type Root = Brand | (CategoryTree & { level: number }) | CollectionPageType
+export type Root = Brand | (CategoryTree & { level: number }) | CollectionPageType
 
 const isBrand = (x: any): x is Brand | CollectionPageType =>
   x.type === 'brand' ||
