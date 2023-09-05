@@ -155,7 +155,7 @@ export const VtexCommerce = (
             ...BASE_INIT,
             headers: {
               'content-type': 'application/json',
-              cookie: ctx.headers.cookie,
+              cookie: ctx.headers?.cookie ?? '',
             },
           }
         )
@@ -184,7 +184,7 @@ export const VtexCommerce = (
             ...BASE_INIT,
             headers: {
               'content-type': 'application/json',
-              cookie: ctx.headers.cookie,
+              cookie: ctx.headers?.cookie ?? '',
             },
             body: JSON.stringify({
               orderItems,

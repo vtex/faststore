@@ -36,6 +36,7 @@ export const shouldUpdateShippingData = (
   if (shouldUpdateDeliveryInfo(logisticsInfo, session)) {
     return { updateShipping: true, addressChanged: false }
   }
+  console.log("Nothing to Update")
   return { updateShipping: false, addressChanged: false }
 }
 
