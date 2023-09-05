@@ -3,6 +3,9 @@
   "version": "2.1.78",
   "license": "MIT",
   "browserslist": "supports es6-module and not dead",
+  "exports": {
+    ".": "./index.ts"
+  },
   "scripts": {
     "generate:schema": "tsx src/server/generateGraphqlSchemaFile.ts",
     "generate": "./generate.sh",
