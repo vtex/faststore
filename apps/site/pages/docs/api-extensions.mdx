@@ -27,7 +27,7 @@ In this document you'll learn how to:
 
 ---
 
-## Define VTEX APIs schema extensions
+## Defining VTEX APIs schema extensions
 
 FastStore streamlines the way of using data from VTEX APIs that the FastStore API does not expose. As FastStore uses GraphQL, it's required to write [type definitions](https://graphql.org/learn/schema/#object-types-and-fields) and [resolvers](https://graphql.org/learn/execution/#root-fields-resolvers) to fetch the data you need.
 
@@ -118,7 +118,7 @@ That's it! Once you have defined these files in the `vtex` folder, the new field
 
 ---
 
-## Define third-party APIs schema extensions
+## Defining third-party APIs schema extensions
 
 Also, as stores tend to grow, so does the possibility of consuming new data that is **not provided by default in the FastStore API or other VTEX APIs**. As such, FastStore must consume new data from third-party APIs.
 
@@ -404,7 +404,7 @@ isPLP(context)
 isSearchPage(context)
 ```
 
-### Consume API Extensions data from new `Sections`
+### Consuming API Extensions data from new `Sections`
 
 Creates a new section using the [Creating a New Section](/docs/building-sections/creating-a-new-section) doc, and uses one of the hooks mentioned above.
 This example represents the `CallToAction` section inside a PLP.
@@ -430,7 +430,7 @@ export default function CallToAction(props: CallToActionProps) {
 }
 ```
 
-### Consume API Extensions data from custom components in `Section Overrides`
+### Consuming API Extensions data from custom components in `Section Overrides`
 
 After [Overriding Native Components and Props](/docs/building-sections/overriding-components-and-props#overriding-a-native-component), you can also use the hooks inside custom components.
 This example represents the `CustomBuyButton` component that overrides the native `BuyButton` component from the `ProductDetails` section inside the PDP.
