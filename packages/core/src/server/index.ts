@@ -48,7 +48,7 @@ const formatError: FormatErrorHandler = (err) => {
 
   console.error(err)
 
-  return new GraphQLError('Sorry, something went wrongg.')
+  return new GraphQLError('Sorry, something went wrongggg.')
 }
 
 const getEnvelop = async () =>
