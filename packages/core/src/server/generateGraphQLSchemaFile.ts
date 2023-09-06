@@ -58,7 +58,7 @@ export function getThirdPartyExtensionsTypeDefs() {
 
 export const nativeApiSchema = getSchema(apiOptions)
 
-export const getMergedSchema = async () =>
+export const getMergedSchema = (): GraphQLSchema =>
   getCustomSchema(
     [
       getNativeTypeDefs(),
@@ -67,11 +67,11 @@ export const getMergedSchema = async () =>
     ].filter(Boolean)
   )
 
-async function writeGraphqlSchemaFile(apiSchema: Promise<GraphQLSchema>) {
+function writeGraphqlSchemaFile(apiSchema: GraphQLSchema) {
   try {
     writeFileSync(
       [process.cwd(), '@generated', 'graphql', 'schema.graphql'].join('/'),
-      printSchemaWithDirectives(await apiSchema)
+      printSchemaWithDirectives(apiSchema)
     )
 
     console.log('Schema GraphQL file generated successfully')
@@ -83,6 +83,6 @@ async function writeGraphqlSchemaFile(apiSchema: Promise<GraphQLSchema>) {
 }
 
 // Schema with no resolvers - used to generate schema.graphql file
-const mergedApiSchema = getMergedSchema()
+export const mergedApiSchema = getMergedSchema()
 
 writeGraphqlSchemaFile(mergedApiSchema)
