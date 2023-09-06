@@ -7,7 +7,7 @@
     ".": "./index.ts"
   },
   "scripts": {
-    "generate:schema": "tsx src/server/generateGraphqlSchemaFile.ts",
+    "generate:schema": "tsx src/server/generator/generateGraphQLSchemaFile.ts",
     "generate": "./generate.sh",
     "build": "yarn partytown & yarn generate && next build",
     "dev": "yarn partytown & yarn generate && next dev",

@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import path from 'path'
 import type { FormatErrorHandler } from '@envelop/core'
 import {
   envelop,
-  useAsyncSchema,
+  useSchema,
   useExtendContext,
   useMaskedErrors,
 } from '@envelop/core'
@@ -10,12 +11,22 @@ import { useGraphQlJit } from '@envelop/graphql-jit'
 import { useParserCache } from '@envelop/parser-cache'
 import { useValidationCache } from '@envelop/validation-cache'
 import type { CacheControl, Maybe } from '@faststore/api'
-import { getContextFactory, isFastStoreError } from '@faststore/api'
+import {
+  getContextFactory,
+  getResolvers,
+  isFastStoreError,
+} from '@faststore/api'
 import { GraphQLError } from 'graphql'
+import { makeExecutableSchema } from '@graphql-tools/schema'
+import { loadFilesSync } from '@graphql-tools/load-files'
+import type { TypeSource } from '@graphql-tools/utils'
 
 import persisted from '../../@generated/graphql/persisted.json'
+
+import vtexExtensionsResolvers from '../customizations/graphql/vtex/resolvers'
+import thirdPartyResolvers from '../customizations/graphql/thirdParty/resolvers'
+
 import { apiOptions } from './options'
-import { apiSchema } from './schema'
 
 interface ExecuteOptions<V = Record<string, unknown>> {
   operationName: string
@@ -37,10 +48,26 @@ const formatError: FormatErrorHandler = (err) => {
   return new GraphQLError('Sorry, something went wrong.')
 }
 
+function loadGeneratedSchema(): TypeSource {
+  return loadFilesSync(path.join(process.cwd(), '@generated', 'graphql'), {
+    extensions: ['graphql'],
+  })
+}
+
+function getFinalAPISchema() {
+  const generatedSchema = loadGeneratedSchema()
+  const nativeResolvers = getResolvers(apiOptions)
+
+  return makeExecutableSchema({
+    typeDefs: generatedSchema,
+    resolvers: [nativeResolvers, vtexExtensionsResolvers, thirdPartyResolvers],
+  })
+}
+
 export const getEnvelop = async () =>
   envelop({
     plugins: [
-      useAsyncSchema(apiSchema),
+      useSchema(getFinalAPISchema()),
       useExtendContext(apiContextFactory),
       useMaskedErrors({ formatError }),
       useGraphQlJit(),
