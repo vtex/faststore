@@ -2,10 +2,9 @@ import { assertValidSchema } from 'graphql'
 
 import { execute, getEnvelop } from '../../src/server'
 import {
-  mergedApiSchema,
   getTypeDefsFromFolder,
   getMergedSchema,
-} from '../../src/server/generateGraphQLSchemaFile'
+} from '../../src/server/generator/schema'
 import storeConfig from '../../faststore.config'
 
 const TYPES = [
@@ -78,7 +77,7 @@ const MUTATIONS = ['validateCart', 'validateSession', 'subscribeToNewsletter']
 
 describe('FastStore GraphQL Layer', () => {
   describe('@faststore/api', () => {
-    const nativeSchema = mergedApiSchema
+    const nativeSchema = getMergedSchema()
 
     it('should return a valid GraphQL schema', async () => {
       // `assertValidSchema()` will throw an error if the schema is invalid, and

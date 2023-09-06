@@ -7,7 +7,7 @@ import { buildASTSchema } from 'graphql'
 import type { GraphQLSchema } from 'graphql'
 import type { TypeSource } from '@graphql-tools/utils'
 
-import { apiOptions } from './options'
+import { apiOptions } from '../options'
 
 export function getTypeDefsFromFolder(
   customPath: string | string[]
@@ -56,6 +56,7 @@ export function getThirdPartyExtensionsTypeDefs() {
 
 export const nativeApiSchema = getSchema(apiOptions)
 
+// Schema with no resolvers - used to generate schema.graphql file
 export const getMergedSchema = (): GraphQLSchema =>
   getCustomSchema(
     [
@@ -65,7 +66,7 @@ export const getMergedSchema = (): GraphQLSchema =>
     ].filter(Boolean)
   )
 
-function writeGraphqlSchemaFile(apiSchema: GraphQLSchema) {
+export function writeGraphqlSchemaFile(apiSchema: GraphQLSchema) {
   try {
     writeFileSync(
       [process.cwd(), '@generated', 'graphql', 'schema.graphql'].join('/'),
@@ -79,8 +80,3 @@ function writeGraphqlSchemaFile(apiSchema: GraphQLSchema) {
     throw e
   }
 }
-
-// Schema with no resolvers - used to generate schema.graphql file
-export const mergedApiSchema = getMergedSchema()
-
-writeGraphqlSchemaFile(mergedApiSchema)
