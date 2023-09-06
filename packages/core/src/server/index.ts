@@ -16,6 +16,7 @@ import {
   isFastStoreError,
 } from '@faststore/api'
 import { GraphQLError } from 'graphql'
+import path from 'path'
 
 import persisted from '../../@generated/graphql/persisted.json'
 import { loadFilesSync } from '@graphql-tools/load-files'
@@ -27,7 +28,7 @@ import vtexExtensionsResolvers from '../customizations/graphql/vtex/resolvers'
 import thirdPartyResolvers from '../customizations/graphql/thirdParty/resolvers'
 
 const finalApiSchema = makeExecutableSchema({
-  typeDefs: loadFilesSync(['@generated', 'graphql', 'schema.graphql'], {
+  typeDefs: loadFilesSync(path.join(process.cwd(), '@generated', 'graphql'), {
     extensions: ['graphql'],
   }),
   resolvers: [
