@@ -5,7 +5,7 @@ import {
   mergedApiSchema,
   getTypeDefsFromFolder,
   getMergedSchema,
-} from '../../src/server/generateGraphQLSchemaFile'
+} from '../../src/server/generateGraphQLSchema'
 import storeConfig from '../../faststore.config'
 
 const TYPES = [
