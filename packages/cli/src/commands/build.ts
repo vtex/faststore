@@ -41,8 +41,8 @@ export default class Build extends Command {
         `.next/standalone/node_modules`
       )
       await copyResource(
-        `${userDir}/src/customizations/graphql`,
-        `.next/standalone/src/customizations/graphql`
+        `${userDir}/src/customizations`,
+        `.next/standalone/src/customizations`
       )
     }
   }
