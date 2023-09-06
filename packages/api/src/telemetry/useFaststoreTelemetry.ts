@@ -28,7 +28,7 @@ export enum AttributeName {
   EXECUTION_VARIABLES = 'graphql.variables',
 }
 
-const tracingSpanSymbol = Symbol('OPEN_TELEMETRY_GRAPHQL')
+const tracingSpanSymbol = Symbol('OPEN_TELEMETRY_GRAPHQLd')
 
 export type PluginContext = {
   [tracingSpanSymbol]: Span
