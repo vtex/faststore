@@ -9,15 +9,6 @@ In this guide, you will learn how to use the FastStore API Extension.
 
 </header>
 
-The [FastStore API](https://v1.faststore.dev/reference/api/faststore-api) provides a [GraphQL schema](https://v1.faststore.dev/reference/api/queries) that comprehends the basic use cases for an ecommerce. Some stores might need to access other information, be it provided by VTEX's APIs or third-party APIs. In order to be able to consume those APIs we allow the extension of FastStore's GraphQL layer.
-
-In this document you'll learn how to:
-
-1. Define which new fields will be exposed by the FastStore API Extension.
-2. Determine the GraphQL fragments where these fields will be used.
-3. How to consume the new fields using [New Sections](/docs/building-sections/creating-a-new-section) or [Custom Overridable Components](/docs/building-sections/overriding-components-and-props#overriding-a-native-component).
-
----
 
 ## Before you start
 
@@ -31,6 +22,14 @@ Another possibility is to use data that is provided by third-party APIs. In both
 Then, it's necessary to define which new fields will be exposed by the FastStore API Extension.
 
 Inside the repository, there is a clear separation between what comes from VTEX APIs and what comes from third-party APIs. First, let's take a look at the VTEX APIs Schema extension possibility.
+
+The [FastStore API](https://v1.faststore.dev/reference/api/faststore-api) provides a [GraphQL schema](https://v1.faststore.dev/reference/api/queries) that comprehends the basic use cases for an e-commerce. Some stores might need to access other information, be it provided by VTEX's APIs or third-party APIs. In order to be able to consume those APIs we allow the extension of FastStore's GraphQL layer.
+
+In this document you'll learn how to:
+
+1. Define which new fields will be exposed by the FastStore API Extension.
+2. Determine the GraphQL fragments where these fields will be used.
+3. How to consume the new fields using [New Sections](/docs/building-sections/creating-a-new-section) or [Custom Overridable Components](/docs/building-sections/overriding-components-and-props#overriding-a-native-component).
 
 ---
 
