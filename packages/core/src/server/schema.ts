@@ -3,11 +3,7 @@ import { loadFilesSync } from '@graphql-tools/load-files'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
 
-import vtexExtensionsResolvers from '../customizations/graphql/vtex/resolvers'
-import thirdPartyResolvers from '../customizations/graphql/thirdParty/resolvers'
 import { apiOptions } from './options'
-
-type resolversType = Parameters<typeof makeExecutableSchema>[0]['resolvers']
 
 export function getTypeDefsFromFolder(customPath: string | string[]) {
   const basePath = ['src', 'customizations', 'graphql']
@@ -24,13 +20,13 @@ export function getTypeDefsFromFolder(customPath: string | string[]) {
   )
 }
 
-export function getCustomSchema(customPath: string, resolvers: resolversType) {
+export function getCustomSchema(customPath: string) {
   const customTypeDefs = getTypeDefsFromFolder(customPath)
 
   try {
     const typeDefs = mergeTypeDefs([...getTypeDefs(), customTypeDefs])
 
-    const schema = makeExecutableSchema({ typeDefs, resolvers })
+    const schema = makeExecutableSchema({ typeDefs })
 
     return schema
   } catch (error) {
@@ -47,11 +43,11 @@ export function getCustomSchema(customPath: string, resolvers: resolversType) {
 }
 
 export function getVTEXExtensionsSchema() {
-  return getCustomSchema('vtex', vtexExtensionsResolvers)
+  return getCustomSchema('vtex')
 }
 
 export function getThirdPartyExtensionsSchema() {
-  return getCustomSchema('thirdParty', thirdPartyResolvers)
+  return getCustomSchema('thirdParty')
 }
 
 export const nativeApiSchema = getSchema(apiOptions)
@@ -65,4 +61,5 @@ export const getMergedSchemas = async () =>
     ].filter(Boolean),
   })
 
+// Schema with no custom resolvers - used to generate schema.graphql file
 export const apiSchema = getMergedSchemas()

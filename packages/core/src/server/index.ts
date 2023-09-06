@@ -2,7 +2,7 @@
 import type { FormatErrorHandler } from '@envelop/core'
 import {
   envelop,
-  useAsyncSchema,
+  useSchema,
   useExtendContext,
   useMaskedErrors,
 } from '@envelop/core'
@@ -10,12 +10,32 @@ import { useGraphQlJit } from '@envelop/graphql-jit'
 import { useParserCache } from '@envelop/parser-cache'
 import { useValidationCache } from '@envelop/validation-cache'
 import type { CacheControl, Maybe } from '@faststore/api'
-import { getContextFactory, isFastStoreError } from '@faststore/api'
+import {
+  getContextFactory,
+  getResolvers,
+  isFastStoreError,
+} from '@faststore/api'
 import { GraphQLError } from 'graphql'
 
 import persisted from '../../@generated/graphql/persisted.json'
+import { loadFilesSync } from '@graphql-tools/load-files'
+
 import { apiOptions } from './options'
-import { apiSchema } from './schema'
+import { makeExecutableSchema } from '@graphql-tools/schema'
+
+import vtexExtensionsResolvers from '../customizations/graphql/vtex/resolvers'
+import thirdPartyResolvers from '../customizations/graphql/thirdParty/resolvers'
+
+const finalApiSchema = makeExecutableSchema({
+  typeDefs: loadFilesSync(['@generated', 'graphql', 'schema.graphql'], {
+    extensions: ['graphql'],
+  }),
+  resolvers: [
+    getResolvers(apiOptions),
+    vtexExtensionsResolvers,
+    thirdPartyResolvers,
+  ],
+})
 
 interface ExecuteOptions<V = Record<string, unknown>> {
   operationName: string
@@ -40,7 +60,7 @@ const formatError: FormatErrorHandler = (err) => {
 export const getEnvelop = async () =>
   envelop({
     plugins: [
-      useAsyncSchema(apiSchema),
+      useSchema(finalApiSchema),
       useExtendContext(apiContextFactory),
       useMaskedErrors({ formatError }),
       useGraphQlJit(),
