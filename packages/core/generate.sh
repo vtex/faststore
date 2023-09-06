@@ -19,9 +19,9 @@ fi
 show_error() {
     local cmd="$3"
 
-    echo -e "${RED}error${NC} $1"
+    echo "${RED}error${NC} $1"
     if [ "$DEBUG_FLAG" = "true" ]; then
-        echo -e "${PURPLE}DEBUG - \$ $cmd ${RED}error root ↓${NC}\n$2"
+        echo "${PURPLE}DEBUG - \$ $cmd ${RED}error root ↓${NC}\n$2"
     fi
     exit 1
 }
@@ -30,9 +30,9 @@ show_error() {
 show_warning() {
     local cmd="$3"
 
-    echo -e "${YELLOW}warn${NC} $1"
+    echo "${YELLOW}warn${NC} $1"
     if [ "$DEBUG_FLAG" = "true" ]; then
-        echo -e "${PURPLE}DEBUG - \$ $cmd ${YELLOW}warn root ↓${NC}\n$2"
+        echo "${PURPLE}DEBUG - \$ $cmd ${YELLOW}warn root ↓${NC}\n$2"
     fi
 }
 
@@ -68,4 +68,4 @@ run_command "graphql-codegen" "GraphQL was not optimized and TS files were not u
 # Run "yarn format:generated" and display a warning if it produces output
 run_command "yarn format:generated" "Failed to format generated files. 'yarn format:generated' thrown errors" "true"
 
-echo -e "${GREEN}GraphQL schema, types, and optimizations successfully generated 🎉${NC}"
+echo "${GREEN}GraphQL schema, types, and optimizations successfully generated 🎉${NC}"
