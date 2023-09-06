@@ -3,7 +3,7 @@ import { parse } from 'react-docgen-typescript'
 export const faststoreComponentsFromNodeModules = `node_modules/@faststore/components`
 
 function toPascalCase(string) {
-  // matches one or more non-alphanumeric characters ([^a-zA-Z0-9]+) followed by any character ((.)) and replaces the following character with its uppercase version using a callback function.
+  // matches one or more non alphanumeric characters ([^a-zA-Z0-9]+) followed by any character ((.)) and replaces the following character with its uppercase version using a callback function.
   return (' ' + string).toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => {
     return chr.toUpperCase()
   })
