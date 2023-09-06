@@ -9,13 +9,13 @@ In this guide, you will learn how to use the FastStore API Extension.
 
 </header>
 
+The [FastStore API](https://v1.faststore.dev/reference/api/faststore-api) provides a [GraphQL schema](https://v1.faststore.dev/reference/api/queries) that comprehends the basic use cases for an ecommerce. Some stores might need to access other information, be it provided by VTEX's APIs or third-party APIs. In order to be able to consume those APIs we allow the extension of FastStore's GraphQL layer.
+
+In this document you'll learn how to:
+
 1. Define which new fields will be exposed by the FastStore API Extension.
 2. Determine the GraphQL fragments where these fields will be used.
 3. How to consume the new fields using [New Sections](/docs/building-sections/creating-a-new-section) or [Custom Overridable Components](/docs/building-sections/overriding-components-and-props#overriding-a-native-component).
-
-The [FastStore API](https://v1.faststore.dev/reference/api/faststore-api) provides a [GraphQL schema](https://v1.faststore.dev/reference/api/queries) that comprehends the basic use cases for an ecommerce. Some stores might need to access other information, be it provided by VTEX's APIs or third-party APIs. In order to be able to consume those APIs we allow the extension of FastStore's GraphQL layer.
-
-In this document you'll learn how to: 
 
 <Callout type="warning" emoji="⚠️">
   It's not recommended to add other API endpoints to your storefront directly, since this may [impact site performance](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data).
