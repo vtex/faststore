@@ -33,7 +33,11 @@ FastStore streamlines the way of using data from VTEX APIs that the FastStore AP
 
 ### Folder Structure
 
-To declare a new type definition and resolver you need to create a directory structure like the one below. Please note that the `src/graphql/vtex/resolvers` and `src/graphql/vtex/typeDefs` path is mandatory, but you can organize the files inside those directory as you wish.
+To declare a new type definition and resolver you need to create a directory structure like the one below.
+
+<Callout type="warning" emoji="ℹ️">
+  Please note that the `src/graphql/vtex/resolvers` and `src/graphql/vtex/typeDefs` path is mandatory, but you can organize the files inside those directory as you wish.
+</Callout>
 
 ```ts copy
 starter.store/
@@ -110,7 +114,7 @@ const resolvers = {
 export default resolvers
 ```
 
-That's it, for the sake of exposing the new fields you only need to define these files within the `vtex`` folder. The entire GraphQL creation process is transparent and done in the background by the FastStore CLI.
+That's it! Once you have defined these files in the `vtex` folder, the new fields are already exposed. The entire GraphQL creation process is automated and handled in the background by the FastStore CLI.
 
 ---
 
