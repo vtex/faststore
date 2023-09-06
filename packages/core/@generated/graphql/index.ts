@@ -57,7 +57,6 @@ export type Scalars = {
    * ```
    */
   FormattedVariants: any
-  /** A string or the string representation of an object (a stringified object). */
   ObjectOrString: any
   /**
    * Example:
