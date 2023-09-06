@@ -45,7 +45,7 @@ const formatError: FormatErrorHandler = (err) => {
 
   console.error(err)
 
-  return new GraphQLError('Sorry, something went wrong.')
+  return new GraphQLError('Sorry, something went wrongg.')
 }
 
 function loadGeneratedSchema(): TypeSource {
