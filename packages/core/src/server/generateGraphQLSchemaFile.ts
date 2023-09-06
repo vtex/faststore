@@ -33,14 +33,12 @@ export function getCustomSchema(typeDefs: TypeSource[]) {
     const schema = buildASTSchema(mergedTypeDefs)
 
     return schema
-  } catch (error) {
+  } catch (e) {
     console.error(
-      `
-      An error occurred while attempting to merge the GraphQL Schema Extensions. Check the custom typeDefs and resolvers located in the 'customizations/graphql/' directory. The changes since the last successful schema merge will be ignored.
-
-      Error message:`,
-      error
+      'An error occurred while attempting to merge the GraphQL Schema Extensions. Check the custom typeDefs and resolvers located in the "customizations/graphql/" directory. The changes since the last successful schema merge will be ignored.'
     )
+
+    throw e
   }
 }
 
