@@ -3,38 +3,41 @@ import { ExtendableQueryTable } from './../../components/ExtendableQueryTable'
 
 <header className="hero">
 
-# API extensions
+# API Extensions
 
-In this guide you will learn how to extend the FastStore API schema.
+In this guide, you will learn how to use the FastStore API Extension.
 
 </header>
 
-Although the [FastStore API](https://v1.faststore.dev/reference/api/faststore-api) provides a [GraphQL schema for ecommerce](https://v1.faststore.dev/reference/api/queries) that suits a general use case, some stores may need to access other, more specific, information.
+The [FastStore API](https://v1.faststore.dev/reference/api/faststore-api) provides a [GraphQL schema](https://v1.faststore.dev/reference/api/queries) that comprehends the basic use cases for an e-commerce. Some stores might need to access other information, be it provided by VTEX's APIs or third-party APIs. In order to be able to consume those APIs we allow the extension of FastStore's GraphQL layer.
 
-You will not be able to add other APIs endpoints to your storefront since this may [impact site performance](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data). If you need to fetch more data, it is possible to extend the FastStore API schema, adding new data to the existing [queries](https://v1.faststore.dev/reference/api/queries).
+In this document you'll learn how to:
+
+1. Define which new fields will be exposed by the FastStore API Extension.
+2. Determine the GraphQL fragments where these fields will be used.
+3. How to consume the new fields using [New Sections](/docs/building-sections/creating-a-new-section) or [Custom Overridable Components](/docs/building-sections/overriding-components-and-props#overriding-a-native-component).
+
+<br />
+
+<Callout type="info" emoji="ℹ️">
+  **Before you start:**
+
+  Even though you can add information to the FastStore API schema, you must be careful not to over-fetch data on your pages. See the [best practices for fetching data on your storefront](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#fetch-only-the-data-you-need).
+</Callout>
 
 ---
 
-## Before you start
+## Defining VTEX APIs schema extensions
 
-Note that even though you can add information to the FastStore API schema, you must be careful not to over-fetch data on your pages. See the [best practices for fetching data on your storefront](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data).
-
-As stores grow, so does the possibility of using data from VTEX APIs that the FastStore API does not expose.
-Another possibility is to use data that is provided by third-party APIs. In both cases, FastStore provides these features by using API Extensions.
-
-Inside the repository, there is a clear separation about what comes from VTEX APIs and what comes from third-party APIs. First, let's take a look in the VTEX APIs Schema extension possibility.
-
----
-
-## VTEX APIs schema extensions
-
-FastStore streamlines the way of using data from VTEX APIs that the FastStore API does not expose.
-
-As FastStore uses GraphQL, it's required to write [type definitions](https://graphql.org/learn/schema/#object-types-and-fields) and [resolvers](https://graphql.org/learn/execution/#root-fields-resolvers) to fetch the data you need. You will learn how to do this using API Extensions by following the steps below.
+FastStore streamlines the way of using data from VTEX APIs that the FastStore API does not expose. As FastStore uses GraphQL, it's required to write [type definitions](https://graphql.org/learn/schema/#object-types-and-fields) and [resolvers](https://graphql.org/learn/execution/#root-fields-resolvers) to fetch the data you need.
 
 ### Folder Structure
 
-The store's repository provides the following folder structure for the VTEX APIs Schema Extensions that is held in the `src/graphql/vtex` folder.
+To declare a new type definition and resolver you need to create a directory structure like the one below.
+
+<Callout type="warning" emoji="ℹ️">
+  Please note that the `src/graphql/vtex/resolvers` and `src/graphql/vtex/typeDefs` path is mandatory, but you can organize the files inside those directory as you wish.
+</Callout>
 
 ```ts copy
 starter.store/
@@ -54,7 +57,7 @@ starter.store/
 
 Your new type definitions set the data structure for your new fields, extended from the existing FastStore API GraphQL queries and types.
 
-You can create a new `<typeName>.graphql` files inside the `vtex/typeDefs` folder. The way that it will be organized inside this folder is flexible, it's possible to create multiple typeDefs files or group them all together in just one file.
+You can create new `<typeName>.graphql` files inside the `vtex/typeDefs` folder. The way that it will be organized inside this folder is flexible, it's possible to create multiple typeDefs files or group them all together in just one file. During the build process and when running the local server file, all `.graphql` files under this directory will be considered.
 
 See the following code example that creates a `product.graphql` file, that extends the [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct) type from FastStore API and exposes a new `customData` field:
 
@@ -69,16 +72,13 @@ extend type StoreProduct {
 
 ```
 
-The typeDefs files must have `.graphql` extension.
-Also, the `index.ts` is not needed for typeDefs, only for resolvers.
+Please note that the typeDefs files must have `.graphql` extension, and the `index.ts` is not needed for typeDefs, only for resolvers.
 
 ### Resolvers
 
-Resolvers are the functions that give meaning to the data you have structured in the type definitions. This means a resolver will be executed when the corresponding piece of information is queried. These resolver can perform an operation on an existing field, get data from the Root param, or fetch data from VTEX APIs, for example.
+Resolvers are the functions that will provide the data you have declared in the type definitions. This means a resolver will be executed when the corresponding piece of information is queried. These resolvers can perform an operation on an existing field, get data from the Root param, or fetch data from VTEX APIs, for example.
 
-You can create new `<resolverName>.ts` files inside the `vtex>resolvers` folder.
-
-The way that it will be organized inside this folder is flexible, it's possible to create multiple resolvers files or group them all together in just one file.
+New resolvers should be created inside the `src/graphql/vtex/resolvers` folder. The way that files will be organized inside this folder is up to you, it's possible to create multiple resolver files or group them all together in just one file.
 
 See the following code example that creates a `product.ts` resolver file and resolves the `customData` field from `StoreProduct`:
 
@@ -114,24 +114,15 @@ const resolvers = {
 export default resolvers
 ```
 
-That's it, you only need to define these files within the vtex folder for the sake of exposing the new fields. The entire GraphQL creation process must be transparent and done in the background by the FastStore.
-
-### How to use
-
-**TBD - After the Consume new fields from pages features be done. Here we can be inspired by these steps:**
-
-1. add the `customData` field in the `Fragment X` from the `Y file`.
-2. run `yarn dev` in the core package.
-3. run `yarn generate` in the core package (with `yarn dev` running).
-4. Get and use the `customData` as you want in Z section.
+That's it! Once you have defined these files in the `vtex` folder, the new fields are already exposed. The entire GraphQL creation process is automated and handled in the background by the FastStore CLI.
 
 ---
 
-## Third-party APIs schema extensions
+## Defining third-party APIs schema extensions
 
 Also, as stores tend to grow, so does the possibility of consuming new data that is **not provided by default in the FastStore API or other VTEX APIs**. As such, FastStore must consume new data from third-party APIs.
 
-Intending to separate what comes from VTEX and what comes from third-party APIs. The store's repository provides the following folder structure for third-party APIs Schema Extensions that is held in the `src/graphql/thirdParty` folder:
+Intending to separate what comes from VTEX and what comes from third-party APIs. The store's repository provides the following folder structure for third-party APIs schema Extensions that are held in the `src/graphql/thirdParty` folder:
 
 ```ts copy
 starter.store/
@@ -149,8 +140,8 @@ starter.store/
 
 Following this structure, you can use the same pattern mentioned above regarding the VTEX API Schema extensions but using the `thirdParty` folder, with resolvers and typeDefs inside their respective folders and resolvers being imported into the `index.ts` file.
 
-One crucial aspect to consider when developing a third-party extension is the creation of a Query or Mutation schema. This schema plays a vital role in generating new query entry points to access data.
-Below, you will find an example code the implementation of a third-party extension:
+You can extend the [FastStore API Objects](https://v1.faststore.dev/reference/api/objects) as mentioned in the previous section, or even create new Queries entry points to access data.
+Below, you will find an example of the implementation of a third-party extension using new queries:
 
 ```ts copy filename="graphql/thirdParty/typeDefs/extra.graphql"
 
@@ -198,7 +189,7 @@ const resolvers = {
 export default resolvers
 ```
 
-In this example, the extra data is accessible by this query:
+In this example, you can fetch the extra data by using these queries inside the fragments from the next section:
 
 ```ts copy
 query {
@@ -215,17 +206,23 @@ query {
 
 ## Extending queries using fragments
 
-To add custom fields to existing [extendable queries](/docs/api-extensions#extendable-queries), extend them using fragments located in the `src/fragments` folder. Fragments are GraphQL components that can be integrated into queries to extend functionality.
+Once, you define which new fields will be exposed by the FastStore API Extension, it's time to determine the GraphQL fragments where these fields will be used.
 
-To add additional fields to an existing query, follow the steps below. We will use the `ServerProductPage` query as an example to illustrate how to extend a query.
+Fragments are GraphQL components that can be integrated into queries to extend functionality.
+
+FastStore maps the existing queries used on its pages to corresponding fragments which are used to spread the new fields exposed.
+
+You can see the list of queries and their fragments in the [extendable queries](/docs/api-extensions#extendable-queries) section.
+
+To add custom fields to existing [extendable queries](/docs/api-extensions#extendable-queries), extend them using fragments located in the `src/fragments` folder.
+
+In the steps below, we will use the `ServerProductPage` fragment as an example to illustrate how to extend a query.
 
 ### Step 1: Create a new file
 Create a new `.ts` file in the `src/fragments` folder named `ServerProductPage.ts`. _The name of the file should match the name of the query you want to extend._
 
 ### Step 2: Define the GraphQL fragment
-In the `ServerProductPage.ts` file, define the GraphQL fragment corresponding to the new fields you want. In this example, the new field is represented by `customData` property to retrieve. Use the following syntax as a guideline:
-
-{/*TO DO: ADD THE EXPECTED RESULT FROM THIS CODE SAMPLE*/}
+In the `ServerProductPage.ts` file, define the GraphQL fragment corresponding to the new fields you want. In this example, the new field is represented by `customData` field from the product query. Use the following syntax as a guideline:
 
 ```ts copy filename="src/fragments/ServerProductPage.ts"
 
@@ -240,8 +237,6 @@ export const fragment = gql`
 `
 ```
 
-{/*TO DO: ADD THE EXPECTED RESULT FROM THIS CODE SAMPLE*/}
-
 ## Extendable Queries
 
 <ul>
@@ -249,15 +244,16 @@ export const fragment = gql`
     <details>
       <summary>Query: `ClientProductGalleryQuery`</summary>
       <ExtendableQueryTable>
+        <td>ClientProductGallery</td>
         <td>Client</td>
         <td>search</td>
         <td>PLP</td>
         <td>
-          In the hook `useGalleryQuery()` from the `ProductGallery` component.
+          In the hook `useProductGalleryQuery()` from the `ProductListingPage` (`PLP`) and `Search` Pages.
         </td>
         <td>
-          Products totalCount from StorePageInfo, and facets (StoreFacet) from
-          StoreSearchResult.
+          Products totalCount from [StorePageInfo](https://v1.faststore.dev/reference/api/objects#storepageinfo), and facets ([StoreFacet](https://v1.faststore.dev/reference/api/objects#storefacet)) from
+          [StoreSearchResult](https://v1.faststore.dev/reference/api/objects#storesearchresult).
         </td>
         <td>
           Frontend data from the `useSearch()` and `useLocalizedVariables()`
@@ -270,12 +266,13 @@ export const fragment = gql`
     <details>
       <summary>Query: `ServerCollectionPageQuery`</summary>
       <ExtendableQueryTable>
+        <td>ServerCollectionPage</td>
         <td>Server</td>
         <td>collection</td>
         <td>PLP</td>
         <td>In the function `getStaticProps()` from `PLP`.</td>
         <td>
-          seo, breadcrumbList and meta data from collection (StoreCollection).
+          seo, breadcrumbList and meta data from the collection ([StoreCollection](https://v1.faststore.dev/reference/api/objects#storecollection)).
         </td>
         <td>Collection `slug` that comes from URL.</td>
       </ExtendableQueryTable>
@@ -285,11 +282,12 @@ export const fragment = gql`
     <details>
       <summary>Query: `ServerProductPageQuery`</summary>
       <ExtendableQueryTable>
+        <td>ServerProductPage</td>
         <td>Server</td>
         <td>product</td>
         <td>PDP</td>
         <td>In the function `getStaticProps()` from `PDP`.</td>
-        <td>General product data from StoreProduct.</td>
+        <td>General product data from [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct).</td>
         <td>The `locator` with `slug` key/value.</td>
       </ExtendableQueryTable>
     </details>
@@ -298,16 +296,17 @@ export const fragment = gql`
     <details>
       <summary>Query: `ClientProductQuery`</summary>
       <ExtendableQueryTable>
+        <td>ClientProduct</td>
         <td>Client</td>
         <td>product</td>
         <td>PDP</td>
-        <td>In the hook `useProduct()` from `ProductDetails`component.</td>
+        <td>In the hook `useProductQuery()` from `PDP`.</td>
         <td>
-          General product data from StoreProduct to update product data inside
+          General product data from [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct) to update product data inside
           `PDP` (product coming from `ServerProductPageQuery` as fallback).
         </td>
         <td>
-          >Frontend data from the `useSession()` hook in locator array with
+          Frontend data from the `useSession()` hook in the locator array with
           `id`, `channel`, `locale` as key/values.
         </td>
       </ExtendableQueryTable>
@@ -317,30 +316,142 @@ export const fragment = gql`
     <details>
       <summary>Query: `ClientProductsQuery`</summary>
       <ExtendableQueryTable>
+        <td>ClientProducts</td>
         <td>Client</td>
         <td>search</td>
         <td>
-          PLP + Pages that use `ProductShelf`, and `ProductTiles` components.
+          `PLP`, `Search Page`, and pages that use `ProductShelf`, and `ProductTiles` components.
         </td>
         <td>
-          - In the hook `useProducts()` from `GalleryPage` from `PLP`.
+          - In the hook `usePageProductsQuery()` from `PLP` and `Search Page`.
           <br />
           - In the hook `useProductsPrefetch()` to prefetch the previous (prev)
-          and next (next) page from the current `PLP` page.
+          and next (next) page from the current `PLP` or `Search Page`.
           <br />
           - In the hook `useProductsQuery()`, in `ProductShelf`, `ProductTiles`
           components, that can be used on multiple pages.
           <br />
         </td>
         <td>
-          General products data (StoreProduct) with the `totalCount` from
-          StorePageInfo.
+          General products data ([StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct)) with the `totalCount` from [StorePageInfo](https://v1.faststore.dev/reference/api/objects#storepageinfo).
         </td>
         <td>
-          Frontend data from the `useLocalizedVariables()` and `useSession()`
-          hooks.
+          Frontend data from the `useLocalizedVariables()` and `useSession()` hooks.
         </td>
       </ExtendableQueryTable>
     </details>
   </li>
 </ul>
+
+---
+
+## How to consume FastStore API Extension
+
+
+Once you define which new fields will be exposed by the FastStore API Extension, then determine the GraphQL fragments where these fields will be used.
+Finally, it's time to know how to consume the new fields in your [New Sections](/docs/building-sections/creating-a-new-section) or [Custom Overridable Components](/docs/building-sections/overriding-components-and-props).
+
+It's important to know that FastStore exposes the data that comes from FastStore API along with FastStore API Extensions inside a provider called `PageProvider`.
+This data comes as a `context` in `PageProvider`, and you can use some hooks to access it:
+
+The `usePDP()` hook is recommendable in cases where you use your section on PDP.
+
+```ts copy
+import { usePDP } from "@faststore/core"
+
+const context = usePDP()
+```
+
+The `usePLP()` hook is recommendable in cases where you use your section on PLP.
+
+```ts copy
+import { usePLP } from "@faststore/core"
+
+const context = usePLP()
+```
+
+The `useSearchPage()` hook is recommendable in cases where you use your section on the Search Page.
+
+```ts copy
+import { useSearchPage } from "@faststore/core"
+
+const context = useSearchPage()
+```
+
+The `usePage()` hook is recommendable in cases where you have one section that is used in more than one type of page.
+
+```ts copy
+import { usePage } from "@faststore/core"
+
+const context = usePage()
+```
+
+This hook returns one of the following types as context: `PDPContext`, `PLPContext`, or `SearchPageContext`, and you can decide how to handle it depending on the page that will use this hook by passing the types as generics.
+
+```ts copy
+import { usePage } from "@faststore/core"
+
+const context = usePage<PLPContext | SearchPageContext>()
+```
+
+Also, you can use type assertion functions so that you can leverage the use of typescript and get the correct types
+
+```ts copy
+import { isPDP, isPLP, isSearchPage } from "@faststore/core";
+
+isPDP(context)
+isPLP(context)
+isSearchPage(context)
+```
+
+### Consuming API Extensions data from new `Sections`
+
+Creates a new section using the [Creating a New Section](/docs/building-sections/creating-a-new-section) doc, and uses one of the hooks mentioned above.
+This example represents the `CallToAction` section inside a PLP.
+
+```ts copy
+import { usePLP }  from "@faststore/core";
+
+export interface CallToActionProps {
+  title: string
+  link: {
+    text: string
+    url: string
+  }
+}
+
+export default function CallToAction(props: CallToActionProps) {
+  const context = usePLP()
+  return (
+    <section>
+      <h2>{`${props.title} ${context?.data?.namedExtraData?.data}`}</h2>
+    </section>
+  )
+}
+```
+
+### Consuming API Extensions data from custom components in `Section Overrides`
+
+After [Overriding Native Components and Props](/docs/building-sections/overriding-components-and-props#overriding-a-native-component), you can also use the hooks inside custom components.
+In the following, the `CustomBuyButton` component overrides the native `BuyButton` component from the `ProductDetails` section inside the PDP.
+
+```ts copy
+import { Button as UIButton } from '@faststore/ui'
+import { usePDP }  from "@faststore/core"
+
+export function CustomBuyButton(props) {
+  const context = usePDP()
+
+  return (
+    <UIButton
+      variant="primary"
+      onClick={() => {
+        alert('Hello User!')
+      }}
+    >
+      {context?.data?.product.customData}
+    </UIButton>
+  )
+}
+
+```
