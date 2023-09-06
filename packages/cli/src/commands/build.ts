@@ -41,7 +41,7 @@ export default class Build extends Command {
         `.next/standalone/node_modules`
       )
       await copyResource(
-        `${userDir}/src/customizations`,
+        `${tmpDir}/src/customizations`,
         `.next/standalone/src/customizations`
       )
     }
