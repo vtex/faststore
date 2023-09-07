@@ -277,22 +277,21 @@ export const VtexCommerce = (
     },
 
     getSegment: async (): Promise<Segment> => {
-      const authCookie = {
-        name: `VtexIdclientAutCookie_${account}`,
-        value:
-          getCookie(`VtexIdclientAutCookie_${account}`, ctx.headers.cookie) ??
-          null,
-      }
-      const timeStamp = new Date().getTime()
-      console.log ("authCookie", authCookie, timeStamp)
-      return await fetchAPI(`${base}/api/sessions?timeStamp=${timeStamp}`, {
-        method: 'POST',
+      const authCookieValue =
+        getCookie(`VtexIdclientAutCookie_${account}`, ctx.headers?.cookie) ??
+        null
+
+      const requestInit: RequestInit = {
+        ...BASE_INIT,
+        body: JSON.stringify({}),
         headers: {
           'content-type': 'application/json',
-          cookie: `${authCookie.name}=${authCookie.value}`,
+          ...(authCookieValue && {
+            cookie: `VtexIdclientAutCookie_${account}=${authCookieValue}`,
+          }),
         },
-        body: '{}',
-      })
+      }
+      return await fetchAPI(`${base}/api/sessions`, requestInit)
     },
 
     subscribeToNewsletter: (data: {

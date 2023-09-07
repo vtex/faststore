@@ -331,7 +331,12 @@ export const checkoutOrderFormCustomDataInvalidFetch = {
 
 export const productSearchPage1Count1Fetch = {
   info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=1&query=sku%3A2737806&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false',
-  init: undefined,
+  init: {
+    headers: {
+      cookie:
+        'vtex_segment=eyJjYW1wYWlnbnMiOm51bGwsImNoYW5uZWwiOiIxIiwicHJpY2VUYWJsZXMiOm51bGwsInJlZ2lvbklkIjpudWxsLCJ1dG1fY2FtcGFpZ24iOm51bGwsInV0bV9zb3VyY2UiOm51bGwsInV0bWlfY2FtcGFpZ24iOm51bGwsImN1cnJlbmN5Q29kZSI6IlVTRCIsImN1cnJlbmN5U3ltYm9sIjoiJCIsImNvdW50cnlDb2RlIjoiVVNBIiwiY3VsdHVyZUluZm8iOiJlbi1VUyIsImNoYW5uZWxQcml2YWN5IjoicHVibGljIn0',
+    },
+  },
   result: {
     products: [
       {

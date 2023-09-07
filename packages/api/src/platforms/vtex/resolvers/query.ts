@@ -160,8 +160,13 @@ export const Query = {
       sort: SORT_MAP[sort ?? 'score_desc'],
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
     }
+
     const { segmentToken } = await ctx.clients.commerce.getSegment()
-    const productSearchPromise = ctx.clients.search.products(searchArgs, segmentToken)
+
+    const productSearchPromise = ctx.clients.search.products(
+      searchArgs,
+      segmentToken
+    )
 
     return { searchArgs, productSearchPromise }
   },

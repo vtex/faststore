@@ -39,6 +39,7 @@ import {
   redirectTermTechFetch,
 } from '../mocks/RedirectQuery'
 import { SellersQueryResult, regionFetch } from '../mocks/SellersQuery'
+import { getSegmentFetch } from '../mocks/GetSegment'
 
 const apiOptions = {
   platform: 'vtex',
@@ -127,7 +128,11 @@ test('`collection` query', async () => {
 })
 
 test('`product` query', async () => {
-  const fetchAPICalls = [productSearchFetch, salesChannelStaleFetch]
+  const fetchAPICalls = [
+    getSegmentFetch,
+    productSearchFetch,
+    salesChannelStaleFetch,
+  ]
 
   mockedFetch.mockImplementation((info, init) =>
     pickFetchAPICallResult(info, init, fetchAPICalls)
@@ -135,7 +140,7 @@ test('`product` query', async () => {
 
   const response = await run(ProductByIdQuery)
 
-  expect(mockedFetch).toHaveBeenCalledTimes(2)
+  expect(mockedFetch).toHaveBeenCalledTimes(3)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
@@ -199,6 +204,7 @@ test('`allProducts` query', async () => {
 
 test('`search` query', async () => {
   const fetchAPICalls = [
+    getSegmentFetch,
     productSearchCategory1Fetch,
     attributeSearchCategory1Fetch,
     salesChannelStaleFetch,
@@ -210,7 +216,7 @@ test('`search` query', async () => {
 
   const response = await run(SearchQueryFirst5Products)
 
-  expect(mockedFetch).toHaveBeenCalledTimes(3)
+  expect(mockedFetch).toHaveBeenCalledTimes(4)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
@@ -262,7 +268,6 @@ test('`redirect` query', async () => {
   })
   expect(response).toMatchSnapshot()
 })
-
 
 test('`sellers` query', async () => {
   const fetchAPICalls = [regionFetch]

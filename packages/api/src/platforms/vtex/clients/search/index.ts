@@ -101,15 +101,18 @@ export const IntelligentSearch = (
     return withDefaultFacets
   }
 
-  const search = <T>({
-    query = '',
-    page,
-    count,
-    sort = '',
-    selectedFacets = [],
-    type,
-    fuzzy = 'auto',
-  }: SearchArgs, segment?:string): Promise<T> => {
+  const search = <T>(
+    {
+      query = '',
+      page,
+      count,
+      sort = '',
+      selectedFacets = [],
+      type,
+      fuzzy = 'auto',
+    }: SearchArgs,
+    segment?: string
+  ): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
       count: count.toString(),
@@ -126,17 +129,21 @@ export const IntelligentSearch = (
     const pathname = addDefaultFacets(selectedFacets)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
-    console.log("aqui", segment)
-    return fetchAPI(
-      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`, {
-        headers: {
-          cookie: `vtex_segment=${segment ?? ""}`
+
+    const requestHeaders = segment
+      ? {
+          headers: {
+            cookie: `vtex_segment=${segment}`,
+          },
         }
-      }
+      : undefined
+    return fetchAPI(
+      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
+      requestHeaders
     )
   }
 
-  const products = (args: Omit<SearchArgs, 'type'>, segment?:string) =>
+  const products = (args: Omit<SearchArgs, 'type'>, segment?: string) =>
     search<ProductSearchResult>({ ...args, type: 'product_search' }, segment)
 
   const suggestedTerms = (
