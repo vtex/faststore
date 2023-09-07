@@ -10,7 +10,7 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "size": "turbo run size",
-    "release": "lerna version patch --yes && lerna publish from-git --yes",
+    "release": "lerna version preminor --yes && lerna publish from-git --yes",
     "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx,md}\""
   },
