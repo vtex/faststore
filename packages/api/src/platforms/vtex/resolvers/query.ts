@@ -85,7 +85,6 @@ export const Query = {
       if (route.pageType !== 'Product' || !route.id) {
         throw new NotFoundError(`No product found for slug ${slug}`)
       }
-
       const {
         products: [product],
       } = await search.products({
@@ -161,8 +160,8 @@ export const Query = {
       sort: SORT_MAP[sort ?? 'score_desc'],
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
     }
-
-    const productSearchPromise = ctx.clients.search.products(searchArgs)
+    const { segmentToken } = await ctx.clients.commerce.getSegment()
+    const productSearchPromise = ctx.clients.search.products(searchArgs, segmentToken)
 
     return { searchArgs, productSearchPromise }
   },

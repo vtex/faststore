@@ -7,12 +7,14 @@ import type { Options } from '..'
 import type { Clients } from '../clients'
 
 export const getSkuLoader = (_: Options, clients: Clients) => {
+
   const loader = async (skuIds: readonly string[]) => {
+    const { segmentToken } = await clients.commerce.getSegment()
     const { products } = await clients.search.products({
       query: `sku:${skuIds.join(';')}`,
       page: 0,
       count: skuIds.length,
-    })
+    }, segmentToken)
 
     const skuBySkuId = products.reduce((acc, product) => {
       for (const sku of product.items) {

@@ -54,7 +54,6 @@ export const IntelligentSearch = (
 
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
     const { salesChannel } = ctx.storage.channel
-
     if (!salesChannel) {
       return null
     }
@@ -110,7 +109,7 @@ export const IntelligentSearch = (
     selectedFacets = [],
     type,
     fuzzy = 'auto',
-  }: SearchArgs): Promise<T> => {
+  }: SearchArgs, segment?:string): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
       count: count.toString(),
@@ -127,14 +126,18 @@ export const IntelligentSearch = (
     const pathname = addDefaultFacets(selectedFacets)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
-
+    console.log("aqui", segment)
     return fetchAPI(
-      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
+      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`, {
+        headers: {
+          cookie: `vtex_segment=${segment ?? ""}`
+        }
+      }
     )
   }
 
-  const products = (args: Omit<SearchArgs, 'type'>) =>
-    search<ProductSearchResult>({ ...args, type: 'product_search' })
+  const products = (args: Omit<SearchArgs, 'type'>, segment?:string) =>
+    search<ProductSearchResult>({ ...args, type: 'product_search' }, segment)
 
   const suggestedTerms = (
     args: Omit<SearchArgs, 'type'>

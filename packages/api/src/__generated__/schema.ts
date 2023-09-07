@@ -134,17 +134,6 @@ export type IGeoCoordinates = {
   longitude: Scalars['Float'];
 };
 
-export type IMarketingData = {
-  /** The campaign information of the segment. */
-  campaigns?: Maybe<Scalars['String']>;
-  /** The utm campaign information of the segment. */
-  utm_campaign?: Maybe<Scalars['String']>;
-  /** The utm source information of the segment. */
-  utm_source?: Maybe<Scalars['String']>;
-  /** The utmi campaign information of the segment */
-  utmi_campaign?: Maybe<Scalars['String']>;
-};
-
 /** Person data input to the newsletter. */
 export type IPersonNewsletter = {
   /** Person's email. */
@@ -297,8 +286,6 @@ export type IStoreSession = {
   geoCoordinates?: Maybe<IStoreGeoCoordinates>;
   /** Session input locale. */
   locale: Scalars['String'];
-  /** Session input marketing information. */
-  marketingData?: Maybe<IMarketingData>;
   /** Session input person. */
   person?: Maybe<IStorePerson>;
   /** Session input postal code. */
@@ -345,19 +332,6 @@ export type LogisticsItem = {
   tax?: Maybe<Scalars['Int']>;
   /** LogisticsItem unitMultiplier. */
   unitMultiplier?: Maybe<Scalars['Int']>;
-};
-
-/** Marketing information. */
-export type MarketingData = {
-  __typename?: 'MarketingData';
-  /** The campaign information of the segment. */
-  campaigns?: Maybe<Scalars['String']>;
-  /** The utm campaign information of the segment. */
-  utm_campaign?: Maybe<Scalars['String']>;
-  /** The utm source information of the segment. */
-  utm_source?: Maybe<Scalars['String']>;
-  /** The utmi campaign information of the segment */
-  utmi_campaign?: Maybe<Scalars['String']>;
 };
 
 export type MessageFields = {
@@ -1117,8 +1091,6 @@ export type StoreSession = {
   geoCoordinates?: Maybe<StoreGeoCoordinates>;
   /** Session locale. */
   locale: Scalars['String'];
-  /** Session marketing information. */
-  marketingData?: Maybe<MarketingData>;
   /** Session input person. */
   person?: Maybe<StorePerson>;
   /** Session postal code. */

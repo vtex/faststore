@@ -10,7 +10,6 @@ const initialSession = {
   },
   country: 'USA',
   locale: 'en-US',
-  marketingData: null,
   channel: 'test-channel',
   deliveryMode: null,
   addressType: null,

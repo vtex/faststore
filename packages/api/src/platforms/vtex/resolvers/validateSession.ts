@@ -18,8 +18,6 @@ export const validateSession = async (
 
   const country = oldSession.country ?? ''
 
-  const { campaigns, utm_campaign, utm_source, utmi_campaign } =
-    await clients.commerce.getSegment()
 
   const params = new URLSearchParams(search)
   const salesChannel = params.get('sc') ?? channel.salesChannel
@@ -51,12 +49,6 @@ export const validateSession = async (
       symbol: store?.currencySymbol.value ?? oldSession.currency.symbol,
     },
     country: store?.countryCode.value ?? oldSession.country,
-    marketingData: {
-      campaigns: campaigns ?? oldSession.marketingData?.campaigns,
-      utm_campaign: utm_campaign ?? oldSession.marketingData?.utm_campaign,
-      utm_source: utm_source ?? oldSession.marketingData?.utm_source,
-      utmi_campaign: utmi_campaign ?? oldSession.marketingData?.utmi_campaign,
-    },
     channel: ChannelMarshal.stringify({
       salesChannel: store?.channel?.value ?? channel.salesChannel,
       regionId: region?.id ?? channel.regionId,

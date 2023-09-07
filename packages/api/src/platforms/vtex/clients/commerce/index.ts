@@ -283,7 +283,9 @@ export const VtexCommerce = (
           getCookie(`VtexIdclientAutCookie_${account}`, ctx.headers.cookie) ??
           null,
       }
-      return await fetchAPI(`${base}/api/sessions`, {
+      const timeStamp = new Date().getTime()
+      console.log ("authCookie", authCookie, timeStamp)
+      return await fetchAPI(`${base}/api/sessions?timeStamp=${timeStamp}`, {
         method: 'POST',
         headers: {
           'content-type': 'application/json',

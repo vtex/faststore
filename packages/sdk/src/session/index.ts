@@ -28,18 +28,10 @@ export interface Person {
   familyName: string
 }
 
-export interface MarketingData {
-  campaigns: string | null
-  utm_campaign: string | null
-  utm_source: string | null
-  utmi_campaign: string | null
-}
-
 export interface Session {
   locale: string // en-US
   currency: Currency
   country: string // BRA
-  marketingData: MarketingData | null
   channel: string | null
   deliveryMode: DeliveryMode | null
   addressType: string | null

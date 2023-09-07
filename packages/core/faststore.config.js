@@ -28,7 +28,6 @@ module.exports = {
       symbol: '$',
     },
     locale: 'en-US',
-    marketingData: null,
     channel: '{"salesChannel":"1","regionId":""}',
     country: 'USA',
     deliveryMode: null,

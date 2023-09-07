@@ -16,12 +16,6 @@ export const mutation = gql`
   mutation ValidateSession($session: IStoreSession!, $search: String!) {
     validateSession(session: $session, search: $search) {
       locale
-      marketingData {
-        campaigns
-        utm_campaign
-        utm_source
-        utmi_campaign
-      }
       channel
       country
       addressType
