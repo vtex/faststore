@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+      - api-extension-development
+      - versioning-test-alphas
 
 jobs:
   build:
