@@ -216,6 +216,18 @@
     }
   }
 
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-image-gallery="with-selector"] {
+    @include media(">=notebook") {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      column-gap: var(--fs-image-gallery-gap-notebook);
+    }
+  }
+
   [data-fs-image-gallery-position="top"] {
     object-position: top;
     [data-fs-image] {
@@ -234,18 +246,6 @@
     object-position: bottom;
     [data-fs-image] {
       object-position: bottom;
-    }
-  }
-
-  // --------------------------------------------------------
-  // Variants Styles
-  // --------------------------------------------------------
-
-  &[data-fs-image-gallery="with-selector"] {
-    @include media(">=notebook") {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      column-gap: var(--fs-image-gallery-gap-notebook);
     }
   }
 }

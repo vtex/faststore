@@ -410,6 +410,132 @@ export const imagesWithoutSelector = [imagesUsage[0]]
   </Tab>
 </Tabs>
 
+### Image position on top
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ImageGalleryUsage images={imagesWithoutSelector} />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const ImageComponent = ({ url, alternateName }) => (
+      <img data-fs-image src={url} alt={alternateName} />
+    )
+
+    export const images = [imagesUsage[0]]
+
+    const [selectedImageIdx, setSelectedImageIdx] = useState(0)
+    const currentImage = images[selectedImageIdx]
+    const imagePosition: "top" | "center" | "bottom" = "center"
+
+    <ImageGallery
+      images={images}
+      ImageComponent={ImageComponent}
+      selectedImageIdx={selectedImageIdx}
+      setSelectedImageIdx={setSelectedImageIdx}
+      imagePosition={imagePosition}
+      imagePosition="top"
+    >
+      <ImageZoom>
+        <img
+          data-fs-image
+          src={currentImage.url}
+          alt={currentImage.alternateName}
+        />
+      </ImageZoom>
+    </ImageGallery>
+
+    ```
+
+  </Tab>
+</Tabs>
+
+### Image position on center
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ImageGalleryUsage images={imagesWithoutSelector} />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const ImageComponent = ({ url, alternateName }) => (
+      <img data-fs-image src={url} alt={alternateName} />
+    )
+
+    export const images = [imagesUsage[0]]
+
+    const [selectedImageIdx, setSelectedImageIdx] = useState(0)
+    const currentImage = images[selectedImageIdx]
+    const imagePosition: "top" | "center" | "bottom" = "center"
+
+    <ImageGallery
+      images={images}
+      ImageComponent={ImageComponent}
+      selectedImageIdx={selectedImageIdx}
+      setSelectedImageIdx={setSelectedImageIdx}
+      imagePosition={imagePosition}
+      imagePosition="center"
+    >
+      <ImageZoom>
+        <img
+          data-fs-image
+          src={currentImage.url}
+          alt={currentImage.alternateName}
+        />
+      </ImageZoom>
+    </ImageGallery>
+
+    ```
+
+  </Tab>
+</Tabs>
+
+### Image position on bottom
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ImageGalleryUsage images={imagesWithoutSelector} />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const ImageComponent = ({ url, alternateName }) => (
+      <img data-fs-image src={url} alt={alternateName} />
+    )
+
+    export const images = [imagesUsage[0]]
+
+    const [selectedImageIdx, setSelectedImageIdx] = useState(0)
+    const currentImage = images[selectedImageIdx]
+    const imagePosition: "top" | "center" | "bottom" = "center"
+
+    <ImageGallery
+      images={images}
+      ImageComponent={ImageComponent}
+      selectedImageIdx={selectedImageIdx}
+      setSelectedImageIdx={setSelectedImageIdx}
+      imagePosition={imagePosition}
+      imagePosition="bottom"
+    >
+      <ImageZoom>
+        <img
+          data-fs-image
+          src={currentImage.url}
+          alt={currentImage.alternateName}
+        />
+      </ImageZoom>
+    </ImageGallery>
+
+    ```
+
+  </Tab>
+</Tabs>
+
 ---
 
 ## Customization
