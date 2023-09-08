@@ -16,6 +16,8 @@ const randomUUID = () =>
     : (Math.random() * 1e6).toFixed(0)
 
 const createCookie = (key: string, expiresSecond: number) => {
+  // Setting the domain attribute specifies which host can receive it; we need it to make the cookies available on the `secure` subdomain.
+  // Although https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie mentioned leading dot (.) is not needed and ignored. I couldn't set the cookies without it.
   const urlDomain = `.${new URL(config.storeUrl).hostname}`
 
   return () => {
@@ -25,6 +27,7 @@ const createCookie = (key: string, expiresSecond: number) => {
       const value = randomUUID()
 
       document.cookie = `${key}=${value}; max-age=${expiresSecond}; domain=${urlDomain}; path=/;`
+      // Setting the `path=/` makes the cookie accessible on any path of the domain/subdomain
 
       return value
     }
