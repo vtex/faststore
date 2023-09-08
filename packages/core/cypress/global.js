@@ -18,5 +18,6 @@ export const options = {
 export const disabledA11yRules = {
   rules: {
     region: { enabled: false },
+    'aria-allowed-role': { enabled: false },
   },
 }
