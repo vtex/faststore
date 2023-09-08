@@ -149,15 +149,19 @@ export const VtexCommerce = (
           refreshOutdatedData: refreshOutdatedData.toString(),
           sc: salesChannel,
         })
+        const requestInit: RequestInit = ctx.headers
+          ? {
+              ...BASE_INIT,
+              headers: {
+                'content-type': 'application/json',
+                cookie: ctx.headers.cookie,
+              },
+            }
+          : BASE_INIT
+
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
-          {
-            ...BASE_INIT,
-            headers: {
-              'content-type': 'application/json',
-              cookie: ctx.headers?.cookie ?? '',
-            },
-          }
+          requestInit
         )
       },
       updateOrderFormItems: ({
@@ -178,20 +182,31 @@ export const VtexCommerce = (
           sc: salesChannel,
         })
 
+        const items = JSON.stringify({
+          orderItems,
+          noSplitItem: !shouldSplitItem,
+        })
+
+        const requestInit: RequestInit = ctx.headers
+          ? {
+              headers: {
+                'content-type': 'application/json',
+                cookie: ctx.headers.cookie,
+              },
+              body: items,
+              method: 'PATCH',
+            }
+          : {
+              headers: {
+                'content-type': 'application/json',
+              },
+              body: items,
+              method: 'PATCH',
+            }
+
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
-          {
-            ...BASE_INIT,
-            headers: {
-              'content-type': 'application/json',
-              cookie: ctx.headers?.cookie ?? '',
-            },
-            body: JSON.stringify({
-              orderItems,
-              noSplitItem: !shouldSplitItem,
-            }),
-            method: 'PATCH',
-          }
+          requestInit
         )
       },
       setCustomData: ({
