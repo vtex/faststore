@@ -1,7 +1,6 @@
 import deepEquals from 'fast-deep-equal'
 
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
-import { getCookie } from '../utils/getCookies'
 import { md5 } from '../utils/md5'
 import {
   attachmentToPropertyValue,
@@ -130,7 +129,8 @@ const joinItems = (form: OrderForm) => {
       const totalPrice = items.reduce(
         (acc, i) =>
           acc +
-          (i?.priceDefinition?.total ?? (i?.quantity ?? 0) * (i?.sellingPrice ?? 0)),
+          (i?.priceDefinition?.total ??
+            (i?.quantity ?? 0) * (i?.sellingPrice ?? 0)),
         0
       )
 
@@ -205,19 +205,6 @@ const isOrderFormStale = (form: OrderForm) => {
   const newEtag = getOrderFormEtag(form)
 
   return newEtag !== oldEtag
-}
-
-async function getOrderNumberFromSession(
-  headers: Record<string, string> = {},
-  commerce: Context['clients']['commerce']
-) {
-  const cookieSession = getCookie('vtex_session', headers.cookie)
-
-  if (cookieSession) {
-    const { namespaces } = await commerce.getSessionOrder()
-    return namespaces.public?.orderFormId?.value ?? undefined
-  }
-  return
 }
 
 // Returns the regionalized orderForm
@@ -303,15 +290,10 @@ export const validateCart = async (
   { cart: { order }, session }: MutationValidateCartArgs,
   ctx: Context
 ) => {
-  const {
-    orderNumber: orderNumberFromCart,
-    acceptedOffer,
-    shouldSplitItem,
-  } = order
+  const { orderNumber, acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
     loaders: { skuLoader },
-    headers,
   } = ctx
 
   const channel = session?.channel
@@ -325,25 +307,10 @@ export const validateCart = async (
     mutateLocaleContext(ctx, locale)
   }
 
-  const orderNumberFromSession = await getOrderNumberFromSession(
-    headers,
-    commerce
-  )
-  const orderNumber = orderNumberFromSession ?? orderNumberFromCart ?? ''
-
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, ctx)
 
-  // Step1.1: Checks if the orderForm id has changed. There are three cases for this:
-  // Social Selling: the vtex_session cookie contains a new orderForm id with Social Selling data
-  // My Orders: the customer clicks on reordering through generating a new cart and when returning to the faststore, this information needs to be returned by vtex_session cookie.
-  // New session: a new user enters the website and has no orderForm attributed to it (has no relation to the vtex_session cookie).
-  // In all cases, the origin orderForm should replace the copy that's in the browser
-  if (orderForm.orderFormId != orderNumberFromCart) {
-    return orderFormToCart(orderForm, skuLoader)
-  }
-
-  // Step1.2: Check if another system changed the orderForm with this orderNumber
+  // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
   const isStale = isOrderFormStale(orderForm)
