@@ -152,9 +152,19 @@ export const VtexCommerce = (
           sc: salesChannel,
         })
 
+        const requestHeaders = ctx.headers
+          ? {
+              ...BASE_INIT,
+              headers: {
+                'content-type': 'application/json',
+                cookie: ctx.headers.cookie,
+              },
+            }
+          : BASE_INIT
+
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
-          BASE_INIT
+          requestHeaders
         )
       },
       updateOrderFormItems: ({
