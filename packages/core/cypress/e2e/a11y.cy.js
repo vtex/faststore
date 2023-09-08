@@ -4,6 +4,7 @@
  * Cypress tests for a11y (accessibility)
  */
 
+import { disabledA11yRules } from '../global'
 import { cypress } from '../../faststore.config'
 
 const { pages } = cypress
@@ -21,13 +22,7 @@ describe('Accessibility tests', () => {
     cy.getById('product-link').should('exist')
 
     cy.injectAxe()
-
-    // TODO: Bring back the `aria-allowed-role` when the component with the missing/wrong role is found.
-    cy.checkA11y(null, {
-      rules: {
-        'aria-allowed-role': { enabled: false },
-      },
-    })
+    cy.checkA11y(null, disabledA11yRules)
   })
 
   it('checks a11y for product page', () => {
@@ -38,13 +33,7 @@ describe('Accessibility tests', () => {
     cy.getById('buy-button').should('exist')
 
     cy.injectAxe()
-
-    // TODO: Bring back the `aria-allowed-role` when the component with the missing/wrong role is found.
-    cy.checkA11y(null, {
-      rules: {
-        'aria-allowed-role': { enabled: false },
-      },
-    })
+    cy.checkA11y(null, disabledA11yRules)
   })
 
   it('checks a11y for home page', () => {
@@ -52,12 +41,6 @@ describe('Accessibility tests', () => {
     cy.waitForHydration()
 
     cy.injectAxe()
-
-    // TODO: Bring back the `aria-allowed-role` when the component with the missing/wrong role is found.
-    cy.checkA11y(null, {
-      rules: {
-        'aria-allowed-role': { enabled: false },
-      },
-    })
+    cy.checkA11y(null, disabledA11yRules)
   })
 })

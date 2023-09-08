@@ -13,3 +13,10 @@ export const options = {
     }
   },
 }
+
+// TODO: Bring back these rules when the components with missing/wrong role is found.
+export const disabledA11yRules = {
+  rules: {
+    region: { enabled: false },
+  },
+}
