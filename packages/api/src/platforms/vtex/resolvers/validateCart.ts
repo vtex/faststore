@@ -1,7 +1,6 @@
 import deepEquals from 'fast-deep-equal'
 
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
-import { getCookie } from '../utils/getCookies'
 import { md5 } from '../utils/md5'
 import {
   attachmentToPropertyValue,

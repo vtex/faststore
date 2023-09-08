@@ -15,7 +15,6 @@ import type {
 } from './types/Simulation'
 import type { Session } from './types/Session'
 import type { Channel } from '../../utils/channel'
-import { getCookie } from '../../utils/getCookies'
 import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
