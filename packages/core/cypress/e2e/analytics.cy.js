@@ -72,18 +72,18 @@ describe('add_to_cart event', () => {
       cy.itemsInCart(0)
 
       // Add to cart
-      cy.getById('buy-button')
-        .should('be.visible')
-        .scrollIntoView({ duration: 500 })
-        .then(() => {
-          cy.getById('buy-button')
-            .click({ force: true })
-            .then(($btn) => {
-              cy.itemsInCart(1)
-              const skuId = $btn.attr('data-sku')
+      cy.getById('buy-button').as('buy-button')
+      cy.get('@buy-button').contains('Add to Cart').and('be.visible')
+      cy.get('@buy-button')
+        .trigger('click', {
+          force: true,
+          cancelable: false,
+        })
+        .then(($btn) => {
+          cy.itemsInCart(1)
 
-              testAddToCartEvent({ skuId, numberOfEvents: 1 })
-            })
+          const skuId = $btn.attr('data-sku')
+          testAddToCartEvent({ skuId, numberOfEvents: 1 })
         })
     })
   })
@@ -96,29 +96,27 @@ describe('add_to_cart event', () => {
       cy.itemsInCart(0)
 
       // Add to cart
-      cy.getById('buy-button')
-        .should('be.visible')
-        .scrollIntoView({ duration: 500 })
-        .then(() => {
-          cy.getById('buy-button')
-            .click({ force: true })
-            .then(($btn) => {
-              cy.itemsInCart(1)
-              const skuId = $btn.attr('data-sku')
+      cy.getById('buy-button').as('buy-button')
+      cy.get('@buy-button').contains('Add to Cart').and('be.visible')
+      cy.get('@buy-button')
+        .trigger('click', { force: true, cancelable: false })
+        .then(($btn) => {
+          cy.itemsInCart(1)
+          const skuId = $btn.attr('data-sku')
 
-              testAddToCartEvent({ skuId, numberOfEvents: 1 })
-
-              cy.get(
-                '[data-testid=fs-cart-item] [data-testid=fs-quantity-selector-right-button]'
-              )
-                .click()
-                .then(() => {
-                  cy.itemsInCart(2)
-
-                  testAddToCartEvent({ skuId, numberOfEvents: 2 })
-                })
-            })
+          testAddToCartEvent({ skuId, numberOfEvents: 1 })
         })
+
+      cy.get(
+        '[data-testid=fs-cart-item] [data-testid=fs-quantity-selector-right-button]'
+      ).trigger('click', { force: true, cancelable: false })
+
+      cy.get('@buy-button').then(($btn) => {
+        cy.itemsInCart(2)
+        const skuId = $btn.attr('data-sku')
+
+        testAddToCartEvent({ skuId, numberOfEvents: 2 })
+      })
     })
   })
 })
@@ -159,33 +157,27 @@ describe('remove_from_cart event', () => {
       cy.itemsInCart(0)
 
       // Add item to cart
-      cy.getById('buy-button')
-        .should('be.visible')
-        .scrollIntoView({ duration: 500 })
-        .then(() => {
-          cy.getById('buy-button')
-            .click({ force: true })
-            .then(() => {
-              cy.itemsInCart(1)
-              cy.getById('checkout-button')
-                .should('be.visible')
-                .should('be.enabled')
-              cy.itemsInCart(1)
+      cy.getById('buy-button').as('buy-button')
+      cy.get('@buy-button').contains('Add to Cart').and('be.visible')
+      cy.get('@buy-button').trigger('click', { force: true, cancelable: false })
 
-              // Remove the added item
-              cy.getById('remove-from-cart-button')
-                .click({ force: true })
-                .then(($btn) => {
-                  cy.itemsInCart(0)
-                  const skuId = $btn.attr('data-sku')
+      cy.itemsInCart(1)
 
-                  testRemoveFromCartEvent({
-                    skuId,
-                    numberOfEvents: 1,
-                    quantity: 1,
-                  })
-                })
-            })
+      cy.getById('checkout-button').as('checkout-button')
+      cy.get('@checkout-button').should('be.visible').and('be.enabled')
+
+      // Remove the added item
+      cy.getById('remove-from-cart-button')
+        .trigger('click', { force: true, cancelable: false })
+        .then(($btn) => {
+          cy.itemsInCart(0)
+          const skuId = $btn.attr('data-sku')
+
+          testRemoveFromCartEvent({
+            skuId,
+            quantity: 1,
+            numberOfEvents: 1,
+          })
         })
     })
   })
@@ -375,6 +367,8 @@ describe('view_cart event', () => {
 
     dataLayerHasEvent('view_cart')
 
+    cy.itemsInCart(0)
+
     cy.window().then((window) => {
       const event = window.dataLayer.find(
         ({ event: eventName }) => eventName === 'view_cart'
@@ -389,23 +383,32 @@ describe('view_cart event', () => {
     cy.visit(pages.pdp, options)
     cy.waitForHydration()
 
-    cy.getById('buy-button')
-      .should('be.visible')
-      .scrollIntoView({ duration: 500 })
-      .then(() => {
-        cy.getById('buy-button').click({ force: true })
-        cy.getById('fs-cart-sidebar').should('be.visible')
+    cy.itemsInCart(0)
 
-        dataLayerHasEvent('view_cart')
+    cy.getById('buy-button').as('buy-button').scrollIntoView({ duration: 500 })
+    cy.get('@buy-button').contains('Add to Cart').and('be.visible')
+    cy.get('@buy-button').trigger('click', {
+      force: true,
+      cancelable: false,
+    })
 
-        cy.window().then((window) => {
-          const event = window.dataLayer.find(
-            ({ event: eventName }) => eventName === 'view_cart'
-          )
+    dataLayerHasEvent('view_cart')
 
-          expect(event.ecommerce.value).to.equal(950)
-          expect(event.ecommerce.items.length).to.equal(1)
-        })
-      })
+    cy.waitUntil(() =>
+      cy
+        .getById('checkout-button')
+        .and('be.visible')
+        .and('be.enabled')
+        .and('contain.text', 'Checkout')
+    ).then((assert) => expect(assert).to.exist)
+
+    cy.window().then((window) => {
+      const event = window.dataLayer.find(
+        ({ event: eventName }) => eventName === 'view_cart'
+      )
+
+      expect(event.ecommerce.value).to.equal(950)
+      expect(event.ecommerce.items.length).to.equal(1)
+    })
   })
 })
