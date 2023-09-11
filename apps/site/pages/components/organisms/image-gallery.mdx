@@ -126,8 +126,6 @@ export const imagesUsage = [
   </Tab>
   <Tab>
     ```tsx
-    import React, { useState } from 'react'
-
     const ImageComponent = ({ url, alternateName }) => (
       <img data-fs-image src={url} alt={alternateName} />
     )
@@ -338,8 +336,6 @@ export const propsImageElementData = [
   </Tab>
   <Tab>
     ```tsx
-    import React, { useState } from 'react'
-
     const ImageComponent = ({ url, alternateName }) => (
       <img data-fs-image src={url} alt={alternateName} />
     )
@@ -379,8 +375,6 @@ export const imagesWithoutSelector = [imagesUsage[0]]
   </Tab>
   <Tab>
     ```tsx
-    import React, { useState } from 'react'
-
     const ImageComponent = ({ url, alternateName }) => (
       <img data-fs-image src={url} alt={alternateName} />
     )
@@ -410,9 +404,9 @@ export const imagesWithoutSelector = [imagesUsage[0]]
   </Tab>
 </Tabs>
 
-### Thumbnail Image Position
+### Image Position
 
-We provide a customization for the Image Gallery Selector's thumbnail position with the prop `imagePosition`. You can check the first image changing its position on the examples below:
+You can check the first image changing its position on the examples below:
 
 #### Top
 
@@ -424,8 +418,6 @@ We provide a customization for the Image Gallery Selector's thumbnail position w
   </Tab>
   <Tab>
     ```tsx
-    import React, { useState } from 'react'
-
     const ImageComponent = ({ url, alternateName }) => (
       <img data-fs-image src={url} alt={alternateName} />
     )
@@ -456,7 +448,7 @@ We provide a customization for the Image Gallery Selector's thumbnail position w
   </Tab>
 </Tabs>
 
-#### Center
+#### Center (default)
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
@@ -466,8 +458,6 @@ We provide a customization for the Image Gallery Selector's thumbnail position w
   </Tab>
   <Tab>
     ```tsx
-    import React, { useState } from 'react'
-
     const ImageComponent = ({ url, alternateName }) => (
       <img data-fs-image src={url} alt={alternateName} />
     )
@@ -482,7 +472,6 @@ We provide a customization for the Image Gallery Selector's thumbnail position w
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
-      imagePosition="center"
     >
       <ImageZoom>
         <img
@@ -508,8 +497,6 @@ We provide a customization for the Image Gallery Selector's thumbnail position w
   </Tab>
   <Tab>
     ```tsx
-    import React, { useState } from 'react'
-
     const ImageComponent = ({ url, alternateName }) => (
       <img data-fs-image src={url} alt={alternateName} />
     )

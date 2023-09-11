@@ -44,7 +44,6 @@ const ImageGallery = ({
       <ImageZoom.Component {...ImageZoom.props}>
         <Image.Component
           sizes="(max-width: 360px) 50vw, (max-width: 768px) 90vw, 50vw"
-          data-fs-image-gallery-position={imagePosition}
           width={691}
           height={691 * (3 / 4)}
           loading="eager"

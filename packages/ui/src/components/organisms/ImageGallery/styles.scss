@@ -235,23 +235,23 @@
     }
   }
 
-  [data-fs-image-gallery-position="top"] {
-    object-position: top;
-    [data-fs-image] {
+  &[data-fs-image-gallery-position="top"] {
+    > [data-fs-image],
+    [data-fs-image-gallery-selector-thumbnail] [data-fs-image] {
       object-position: top;
     }
   }
 
-  [data-fs-image-gallery-position="center"] {
-    object-position: center;
-    [data-fs-image] {
+  &[data-fs-image-gallery-position="center"] {
+    > [data-fs-image],
+    [data-fs-image-gallery-selector-thumbnail] [data-fs-image] {
       object-position: center;
     }
   }
 
-  [data-fs-image-gallery-position="bottom"] {
-    object-position: bottom;
-    [data-fs-image] {
+  &[data-fs-image-gallery-position="bottom"] {
+    > [data-fs-image],
+    [data-fs-image-gallery-selector-thumbnail] [data-fs-image] {
       object-position: bottom;
     }
   }

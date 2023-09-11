@@ -17,10 +17,6 @@ export interface ImageGallerySelectorProps
    */
   currentImageIdx: number
   /**
-   * The position of the thumbnail image.
-   */
-  imagePosition: "top" | "center" | "bottom"
-  /**
    * For accessibility purposes, define a string that labels the current element.
    */
   'aria-label'?: AriaAttributes['aria-label']
@@ -71,7 +67,6 @@ function ImageGallerySelector({
   onSelect,
   ImageComponent,
   currentImageIdx,
-  imagePosition,
   testId = 'fs-image-gallery-selector',
   'aria-label': ariaLabel = 'Product Images',
   navigationButtonLeftAriaLabel = 'Backward slide image selector',
@@ -121,7 +116,6 @@ function ImageGallerySelector({
                 data-fs-image-gallery-selector-thumbnail={
                   idx === currentImageIdx ? 'selected' : 'true'
                 }
-                data-fs-image-gallery-position={imagePosition}
               >
                 <ImageComponent
                   url={image.url ?? ''}

@@ -70,6 +70,7 @@ const ImageGallery = forwardRef<HTMLDivElement, ImageGalleryProps>(
         data-fs-image-gallery={
           hasSelector ? 'with-selector' : 'without-selector'
         }
+        data-fs-image-gallery-position={imagePosition}
         data-testid={testId}
         {...otherProps}
       >
@@ -79,7 +80,6 @@ const ImageGallery = forwardRef<HTMLDivElement, ImageGalleryProps>(
             images={images}
             onSelect={setSelectedImageIdx}
             currentImageIdx={selectedImageIdx}
-            imagePosition={imagePosition}
             ImageComponent={ImageComponent}
           />
         )}
