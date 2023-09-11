@@ -10,7 +10,7 @@ sidebar_custom_props:
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
-import { Tab, Tabs } from 'nextra-theme-docs'
+import { Callout, Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
@@ -117,6 +117,11 @@ export const imagesUsage = [
     alternateName: 'magicscale',
   },
 ]
+
+<Callout type="warning" emoji="⚠️">
+  Add the `data-fs-image` attribute in all `<img>` tags to ensure they work
+  as expected. You can find an example in the `Code` tab below for reference.
+</Callout>
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
