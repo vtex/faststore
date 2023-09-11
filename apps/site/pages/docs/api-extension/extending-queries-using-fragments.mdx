@@ -1,5 +1,5 @@
 ---
-title: ' Extending queries using fragments'
+title: 'Step 3 - Extending queries using fragments'
 sidebar_label: 'API Extensions'
 ---
 
@@ -12,12 +12,24 @@ import { ExtendableQueryTable } from './../../../components/ExtendableQueryTable
 
 </header>
 
+```
+Questions that this doc should answer:
+- In the and of the tutorial, what's the expected result?
+- Should I run yarn dev?
+```
+
+After defining the new fields exposed by the FastStore API Extension, the next step is to specify where these fields will be utilized within GraphQL fragments.
+
+Fragments in GraphQL are components that enhance query functionality. FastStore associates these fragments with the existing queries used on its pages to incorporate the newly exposed fields.
+
+To access the list of queries and their corresponding fragments, refer to the [extendable queries](/api-extensions#extendable-queries) section.
+
 To add custom fields to existing [extendable queries](/docs/api-extensions#extendable-queries), extend them using fragments located in the `src/fragments` folder. Fragments are GraphQL components that can be integrated into queries to extend functionality.
 
 To add additional fields to an existing query, follow the steps below. We will use the `ServerProductPage` query as an example to illustrate how to extend a query.
 
 ### Step 1: Create a new file
-Create a new `.ts` file in the `src/fragments` folder named `ServerProductPage.ts`. _The name of the file should match the name of the query you want to extend._
+In the `src/fragments` folder create the file named `ServerProductPage.ts`. *The name of the file should match the name of the query you want to extend.*
 
 ### Step 2: Define the GraphQL fragment
 In the `ServerProductPage.ts` file, define the GraphQL fragment corresponding to the new fields you want. In this example, the new field is represented by `customData` property to retrieve. Use the following syntax as a guideline:
