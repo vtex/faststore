@@ -8,17 +8,19 @@ import { ExtendableQueryTable } from './../../../components/ExtendableQueryTable
 
 <header>
 
-# Extending VTEX APIs Schema with FastStore
+# Extending APIs Schema with FastStore
 
 </header>
+
+## Extending VTEX APIs Schema with FastStore
 
 FastStore streamlines the way of using data from VTEX APIs that the FastStore API does not expose.
 
 As FastStore uses GraphQL, it's required to write [type definitions](https://graphql.org/learn/schema/#object-types-and-fields) and [resolvers](https://graphql.org/learn/execution/#root-fields-resolvers) to fetch the data you need. 
 To define new type definitions and resolvers for FastStore using GraphQL, learn how to create a specific directory structure in the following step by step. 
 
-## Step by step
-## Step 1 - Preparing the folders and files 
+### Step by step
+#### Step 1 - Preparing the folders and files 
 
 To declare a new type definition and resolver you need to create a directory structure:
 
@@ -93,7 +95,7 @@ starter.store/
 
 Note that the `<resolverName>.ts` and `<typeName>.graphql` were already declared.
 
-## Step 2 - Creating type definitions (`TypeDefs`)
+#### Step 2 - Creating type definitions (`TypeDefs`)
 
 
 ```
@@ -133,7 +135,7 @@ Also, the `index.ts` is not needed for typeDefs, only for resolvers.
 
 </Callout>
 
-### Step 3 - Creating resolvers
+#### Step 3 - Creating resolvers
 
 ```
 Questions this step should answer:
@@ -187,5 +189,99 @@ const resolvers = {
 export default resolvers
 ```
 
-That's it! Once you have defined these files in the vtex folder, the new fields are already exposed. 
+That's it! Once you have defined these files in the `vtex` folder, the new fields are already exposed. 
 The entire GraphQL creation process is automated and handled in the background by the [FastStore CLI](/docs/getting-started/4-faststore-cli). 
+
+## Extending third-party APIs schema
+
+
+```
+Questions that this doc should answer:
+- If I want to define Third-party and VTEX schema extensions what should be the best in terms of directory structure?
+- The directory structure for both looks similiar. Is that the case we present a basic/general directory structure, including `vtex` and `third-party` and then we present what should be
+added in those subfolders?
+- In the sentence *Intending to separate what comes from VTEX and what comes from third-party APIs*, What is the reason for this separation? Help in the debuging process if needed?
+```
+
+As stores tend to grow, so does the possibility of consuming new data that is **not provided by default in the FastStore API or other VTEX APIs**. 
+As such, FastStore must consume new data from third-party APIs.
+
+Intending to separate what comes from VTEX and what comes from third-party APIs `(Why? Help in the debuging process if needed?)`, the store's repository provides the following folder structure for third-party APIs Schema Extensions that is held in the `src/graphql/thirdParty` folder:
+
+```ts copy
+starter.store/
+└── src/
+    └── graphql/
+        ├── thirdParty/
+        │   ├── resolvers/
+        │       └── index.ts
+        │       └── <resolverName>.ts
+        │       └── …
+        │   ├── typeDefs/
+        │       └── <typeName>.graphql
+        │       └── …
+```
+
+Following this structure, you can use the same pattern mentioned above regarding the VTEX API Schema extensions but using the `thirdParty` folder, with resolvers and typeDefs inside their respective folders and resolvers being imported into the `index.ts` file.
+
+One crucial aspect to consider when developing a third-party extension is the creation of a Query or Mutation schema. This schema plays a vital role in generating new query entry points to access data.
+Below, you will find an example code the implementation of a third-party extension:
+
+```ts copy filename="graphql/thirdParty/typeDefs/extra.graphql"
+
+type ExtraData {
+  """
+  Data customizing ExtraData
+  """
+  data: String!
+}
+
+type Query {
+  extraData: ExtraData
+  namedExtraData(name: String!): ExtraData
+}
+```
+
+```ts copy filename="graphql/thirdParty/resolvers/extra.ts"
+
+const extraDataResolver = {
+  Query: {
+    extraData: () => {
+      return {
+        data: 'Extra data',
+      }
+    },
+    namedExtraData: (_, { name }) => {
+      return {
+        data: `Named extra data: ${name}`,
+      }
+    },
+  },
+}
+
+export default extraDataResolver
+```
+
+```ts copy filename="graphql/thirdParty/resolvers/index.ts"
+
+import { default as StoreExtraResolver } from './extra'
+
+const resolvers = {
+  ...StoreExtraResolver,
+}
+
+export default resolvers
+```
+
+In this example, the extra data is accessible by this query:
+
+```ts copy
+query {
+	extraData {
+		data
+	}
+	namedExtraData(name: "Hello") {
+		data
+	}
+}
+```
