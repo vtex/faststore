@@ -1,0 +1,152 @@
+---
+title: 'Step 4 - Consuming FastStore API extension'
+sidebar_label: 'API Extensions'
+---
+
+import { Callout, Step, Steps } from 'nextra-theme-docs'
+import { ExtendableQueryTable } from './../../../components/ExtendableQueryTable'
+
+<header>
+
+# Consuming FastStore API extension with custom components
+
+</header>
+
+```
+Questions that this doc should answer:
+- Here is the first time we mention PageProvider should we give a further explanation?
+- The hooks available seems to be a prerequisite before consuming data from new sections. Is that right?
+```
+
+In this guide you'll learn how to consume new fields from [custom sections](/docs/building-sections/creating-a-new-section) and [overridable components](/docs/building-sections/overriding-components-and-props).
+
+FastStore exposes the data that comes from FastStore API along with FastStore API Extensions inside a provider called `PageProvider`.
+This data comes as a `context` in `PageProvider`, and you can use the following hooks to access it:
+
+
+<ul>
+  <li>
+    <details>
+      <summary>`usePDP()`: Use this hook when integrating your section with a Product Detail Page (PDP).</summary>
+    
+      ```ts copy
+        import { usePDP } from "@faststore/core"
+
+        const context = usePDP()
+      ```
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>`usePLP()`: Use this hook when integrating your section with a Product Listing Page (PLP).</summary>
+      ```ts copy
+      import { usePLP } from "@faststore/core"
+
+      const context = usePLP()
+      ```
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>`useSearchPage()`: Use this hook when integrating your section on the Search Page.</summary>
+      ```ts copy
+      import { useSearchPage } from "@faststore/core"
+
+      const context = useSearchPage()
+      ```
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>`usePage()`: Use this hook when you have a single section that is used in more than one type of page.</summary>
+      ```ts copy
+      import { usePage } from "@faststore/core"
+
+      const context = usePage()
+      ```
+      This hook returns one of the following types as context: `PDPContext`, `PLPContext`, or `SearchPageContext`, and you can decide how to handle it depending on the page that will use this hook by passing the types as generics.
+      
+      ```ts copy
+      import { usePage } from "@faststore/core"
+
+      const context = usePage<PLPContext | SearchPageContext>()
+      ```
+
+    </details>
+  </li>
+</ul>
+
+Also, you can use type assertion functions so that you can leverage the use of typescript and get the correct types
+
+```ts copy
+import { isPDP, isPLP, isSearchPage } from "@faststore/core";
+
+isPDP(context)
+isPLP(context)
+isSearchPage(context)
+```
+
+### Consuming API Extensions data from custom sections
+
+
+```
+Questions that this doc should answer:
+- What should I expect as an outcome of this topic?
+- After declaring the usePLP, what should I do to expose? Run any CLI command?
+- Do I need the folder structure created in the previous guides?
+```
+
+To illustrate how consume API extensions data from custom sections, we'll use the Call To Action example from the [Creating a new section](http://localhost:3000/docs/building-sections/creating-a-new-section) guide inside a Product Listing Page (PLP). 
+So, ensure to have followed this guide mentioned before to have a new section.
+
+Once you have the `CallToAction` section, add the following import statement inside `src/components/CallToAction.tsx`:
+
+
+```ts {1} filename="src/components/CallToAction.tsx" copy
+import { usePLP }  from "@faststore/core";
+
+export interface CallToActionProps {
+  title: string
+  link: {
+    text: string
+    url: string
+  }
+}
+
+export default function CallToAction(props: CallToActionProps) {
+  const context = usePLP()
+  return (
+    <section>
+      <h2>{`${props.title} ${context?.data?.namedExtraData?.data}`}</h2>
+    </section>
+  )
+}
+```
+
+Now, `{Add the expected outcome or if I need to run any CLI command}`
+
+### Consuming API Extensions data from custom components in section overrides
+
+After [Overriding native components and props](/docs/building-sections/overriding-components-and-props#overriding-a-native-component), you can also use the hooks inside custom components.
+In the following, the `CustomBuyButton` component overrides the native `BuyButton` component from the `ProductDetails` section inside the PDP.
+
+```ts copy
+import { Button as UIButton } from '@faststore/ui'
+import { usePDP }  from "@faststore/core"
+
+export function CustomBuyButton(props) {
+  const context = usePDP()
+
+  return (
+    <UIButton
+      variant="primary"
+      onClick={() => {
+        alert('Hello User!')
+      }}
+    >
+      {context?.data?.product.customData}
+    </UIButton>
+  )
+}
+
+```
