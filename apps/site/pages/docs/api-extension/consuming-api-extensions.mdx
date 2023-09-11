@@ -4,7 +4,6 @@ sidebar_label: 'API Extensions'
 ---
 
 import { Callout, Step, Steps } from 'nextra-theme-docs'
-import { ExtendableQueryTable } from './../../../components/ExtendableQueryTable'
 
 <header>
 
@@ -102,7 +101,7 @@ So, ensure to have followed this guide mentioned before to have a new section.
 Once you have the `CallToAction` section, add the following import statement inside `src/components/CallToAction.tsx`:
 
 
-```ts {1} filename="src/components/CallToAction.tsx" copy
+```ts {1,12} filename="src/components/CallToAction.tsx" copy
 import { usePLP }  from "@faststore/core";
 
 export interface CallToActionProps {
@@ -127,10 +126,17 @@ Now, `{Add the expected outcome or if I need to run any CLI command}`
 
 ### Consuming API Extensions data from custom components in section overrides
 
-After [Overriding native components and props](/docs/building-sections/overriding-components-and-props#overriding-a-native-component), you can also use the hooks inside custom components.
-In the following, the `CustomBuyButton` component overrides the native `BuyButton` component from the `ProductDetails` section inside the PDP.
+```
+Questions that this doc should answer:
+- What should I expect as an outcome of this topic?
+- After declaring the usePLP, what should I do to expose? Run any CLI command?
+- Do I need the folder structure created in the previous guides?
+```
 
-```ts copy
+After [overriding native components and props](/docs/building-sections/overriding-components-and-props#overriding-a-native-component), you can also use the hooks inside custom components to `{add the reason here}`.
+In the following example, the `CustomBuyButton` component overrides the native `BuyButton` component from the `ProductDetails` section inside the Product Details Page (PDP).
+
+```ts {2,5} filename="src/components/CustomBuyButton.tsx" copy
 import { Button as UIButton } from '@faststore/ui'
 import { usePDP }  from "@faststore/core"
 
