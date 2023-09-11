@@ -12,11 +12,15 @@ import { ExtendableQueryTable } from './../../../components/ExtendableQueryTable
 
 </header>
 
-In this guide you will learn how to extend the FastStore API schema.
+In this guide you will learn how to extend the FastStore API schema by adding new
+data to the existing [queries](/).
 
-Although the [FastStore API](https://v1.faststore.dev/reference/api/faststore-api) provides a [GraphQL schema for ecommerce](https://v1.faststore.dev/reference/api/queries) that suits a general use case, some stores may need to access other, more specific, information.
+While the [FastStore API](https://v1.faststore.dev/reference/api/faststore-api) provides a [GraphQL schema for ecommerce](https://v1.faststore.dev/reference/api/queries) that covers a general use case, 
+some stores may need to access other, more specific, information.
 
-You will not be able to add other APIs endpoints to your storefront since this may [impact site performance](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data). If you need to fetch more data, it is possible to extend the FastStore API schema, adding new data to the existing [queries](https://v1.faststore.dev/reference/api/queries).
+Note that adding additional API endpoints to your storefront can potentially impact site performance, as already covered in the guide
+[Best practices for fetching data](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data). 
+If you need to retrieve more data, you can achieve this by extending the FastStore API schema and incorporating new data into the existing [queries](https://v1.faststore.dev/reference/api/queries).
 
 ---
 
@@ -24,31 +28,40 @@ You will not be able to add other APIs endpoints to your storefront since this m
 
 Note that even though you can add information to the FastStore API schema, you must be careful not to over-fetch data on your pages. See the [best practices for fetching data on your storefront](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data).
 
-As stores grow, so does the possibility of using data from VTEX APIs that the FastStore API does not expose.
-Another possibility is to use data that is provided by third-party APIs. In both cases, FastStore provides these features by using API Extensions.
-
-Inside the repository, there is a clear separation about what comes from VTEX APIs and what comes from third-party APIs. First, let's take a look in the VTEX APIs Schema extension possibility.
-
 ---
 
 <ul class="nx-card-list">
   <li class="nx-card">
     <a href="/docs/api-extension/extending-vtex-api-schema">
-      #### Extending VTEX APIs schema
+      #### Step 1 - Extending VTEX APIs schema
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     </a>
   </li>
   
   <li class="nx-card">
     <a href="/docs/api-extension/extending-third-party-api-schema">
-      #### Extending third-party APIs schema
+      #### Step 2 - Extending third-party APIs schema
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     </a>
   </li>
 
   <li class="nx-card">
     <a href="/docs/api-extension/extending-queries-using-fragments">
-      #### Extending queries usign fragments
+      #### Step 3 - Extending queries usign fragments
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </a>
+  </li>
+
+  <li class="nx-card">
+    <a href="/docs/api-extension/consuming-api-extensions">
+      #### Step 4 - Consuming FastStore API extension
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </a>
+  </li>
+
+  <li class="nx-card">
+    <a href="/docs/api-extension/troubleshooting">
+      #### Troubleshooting
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     </a>
   </li>
