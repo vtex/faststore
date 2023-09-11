@@ -126,20 +126,20 @@ export const imagesUsage = [
   </Tab>
   <Tab>
     ```tsx
+    import React, { useState } from 'react'
+
     const ImageComponent = ({ url, alternateName }) => (
       <img data-fs-image src={url} alt={alternateName} />
     )
 
     const [selectedImageIdx, setSelectedImageIdx] = useState(0)
     const currentImage = imagesUsage[selectedImageIdx]
-    const imagePosition: "top" | "center" | "bottom" = "center"
 
     <ImageGallery
       images={imagesUsage}
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
-      imagePosition={imagePosition}
     >
       <ImageZoom>
         <img
@@ -338,20 +338,20 @@ export const propsImageElementData = [
   </Tab>
   <Tab>
     ```tsx
+    import React, { useState } from 'react'
+
     const ImageComponent = ({ url, alternateName }) => (
       <img data-fs-image src={url} alt={alternateName} />
     )
 
     const [selectedImageIdx, setSelectedImageIdx] = useState(0)
     const currentImage = imagesUsage[selectedImageIdx]
-    const imagePosition: "top" | "center" | "bottom" = "center"
 
     <ImageGallery
       images={imagesUsage}
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
-      imagePosition={imagePosition}
     >
       <ImageZoom>
         <img
@@ -379,6 +379,8 @@ export const imagesWithoutSelector = [imagesUsage[0]]
   </Tab>
   <Tab>
     ```tsx
+    import React, { useState } from 'react'
+
     const ImageComponent = ({ url, alternateName }) => (
       <img data-fs-image src={url} alt={alternateName} />
     )
@@ -387,14 +389,12 @@ export const imagesWithoutSelector = [imagesUsage[0]]
 
     const [selectedImageIdx, setSelectedImageIdx] = useState(0)
     const currentImage = images[selectedImageIdx]
-    const imagePosition: "top" | "center" | "bottom" = "center"
 
     <ImageGallery
       images={images}
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
-      imagePosition={imagePosition}
     >
       <ImageZoom>
         <img
@@ -410,16 +410,22 @@ export const imagesWithoutSelector = [imagesUsage[0]]
   </Tab>
 </Tabs>
 
-### Image position on top
+### Thumbnail Image Position
+
+We provide a customization for the Image Gallery Selector's thumbnail position with the prop `imagePosition`. You can check the first image changing its position on the examples below:
+
+#### Top
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <ImageGalleryUsage images={imagesWithoutSelector} />
+      <ImageGalleryUsage images={imagesUsage} imagePosition="top" />
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
+    import React, { useState } from 'react'
+
     const ImageComponent = ({ url, alternateName }) => (
       <img data-fs-image src={url} alt={alternateName} />
     )
@@ -428,14 +434,12 @@ export const imagesWithoutSelector = [imagesUsage[0]]
 
     const [selectedImageIdx, setSelectedImageIdx] = useState(0)
     const currentImage = images[selectedImageIdx]
-    const imagePosition: "top" | "center" | "bottom" = "center"
 
     <ImageGallery
       images={images}
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
-      imagePosition={imagePosition}
       imagePosition="top"
     >
       <ImageZoom>
@@ -452,16 +456,18 @@ export const imagesWithoutSelector = [imagesUsage[0]]
   </Tab>
 </Tabs>
 
-### Image position on center
+#### Center
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <ImageGalleryUsage images={imagesWithoutSelector} />
+      <ImageGalleryUsage images={imagesUsage} imagePosition="center" />
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
+    import React, { useState } from 'react'
+
     const ImageComponent = ({ url, alternateName }) => (
       <img data-fs-image src={url} alt={alternateName} />
     )
@@ -470,14 +476,12 @@ export const imagesWithoutSelector = [imagesUsage[0]]
 
     const [selectedImageIdx, setSelectedImageIdx] = useState(0)
     const currentImage = images[selectedImageIdx]
-    const imagePosition: "top" | "center" | "bottom" = "center"
 
     <ImageGallery
       images={images}
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
-      imagePosition={imagePosition}
       imagePosition="center"
     >
       <ImageZoom>
@@ -494,16 +498,18 @@ export const imagesWithoutSelector = [imagesUsage[0]]
   </Tab>
 </Tabs>
 
-### Image position on bottom
+#### Bottom
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <ImageGalleryUsage images={imagesWithoutSelector} />
+      <ImageGalleryUsage images={imagesUsage} imagePosition="bottom" />
     </OverviewSection>
   </Tab>
   <Tab>
     ```tsx
+    import React, { useState } from 'react'
+
     const ImageComponent = ({ url, alternateName }) => (
       <img data-fs-image src={url} alt={alternateName} />
     )
@@ -512,14 +518,12 @@ export const imagesWithoutSelector = [imagesUsage[0]]
 
     const [selectedImageIdx, setSelectedImageIdx] = useState(0)
     const currentImage = images[selectedImageIdx]
-    const imagePosition: "top" | "center" | "bottom" = "center"
 
     <ImageGallery
       images={images}
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
-      imagePosition={imagePosition}
       imagePosition="bottom"
     >
       <ImageZoom>
