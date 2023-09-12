@@ -30,6 +30,24 @@ Note that even though you can add information to the FastStore API schema, you m
 
 ---
 
+## Main concepts
+
+<ul>
+  <li>
+    <details>
+      <summary>GraphQL Optimizations & types</summary>
+      GraphQL Optimizations are build-time generated mappings of the queries declared in a store.
+      They enable the GraphQL server of the store to be more efficient and secure by enabling it to accepting only previously defined operations.
+      Therefore, if these GraphQL optimizations are not generated, the changes in the GraphQL schema (new queries, addition or deletion a field from a query, changes in a GraphQL type) are not reflected in the store.
+      Changes in resolvers are always visible automatically and don't require generating the optimizations to see them.
+
+      At the same time GraphQL queries are optimized, the TypeScript types for the API are updated to reflect the changes that happened to the GraphQL schema. This process is also transparent.
+    </details>
+  </li>
+</ul>
+
+---
+
 <ul class="nx-card-list">
   <li class="nx-card">
     <a href="/docs/api-extension/extending-vtex-api-schema">
