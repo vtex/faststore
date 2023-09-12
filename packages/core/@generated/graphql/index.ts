@@ -1058,6 +1058,11 @@ export type ProductDetailsFragment_ProductFragment = {
   }>
 }
 
+export type SearchEvent_MetadataFragment = {
+  isTermMisspelled: boolean
+  logicalOperator: string
+}
+
 export type ProductGalleryQueryQueryVariables = Exact<{
   first: Scalars['Int']
   after: Scalars['String']
@@ -1089,6 +1094,7 @@ export type ProductGalleryQueryQuery = {
           max: { selected: number; absolute: number }
         }
     >
+    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
   }
 }
 
@@ -1371,6 +1377,8 @@ export type SearchSuggestionsQueryQuery = {
         }
       }>
     }
+    products: { pageInfo: { totalCount: number } }
+    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
   }
 }
 
