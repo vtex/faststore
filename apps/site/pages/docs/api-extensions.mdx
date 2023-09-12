@@ -430,6 +430,12 @@ export default function CallToAction(props: CallToActionProps) {
 }
 ```
 
+You can also import the `useProductsQuery` and use it inside your custom Sections. This hook fetches data from the [Search query](https://v1.faststore.dev/reference/api/queries/search), and uses the `ClientProducts` fragment to extend API extensions.
+
+```ts copy
+import { useProductsQuery } from "@faststore/core"
+```
+
 ### Consuming API Extensions data from custom components in `Section Overrides`
 
 After [Overriding Native Components and Props](/docs/building-sections/overriding-components-and-props#overriding-a-native-component), you can also use the hooks inside custom components.
