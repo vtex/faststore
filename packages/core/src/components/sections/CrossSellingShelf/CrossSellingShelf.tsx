@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 
 import UIProductShelf from 'src/components/ui/ProductShelf'
 import { useInView } from 'react-intersection-observer'
-import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import { usePDP } from 'src/sdk/overrides/PageProvider'
 import styles from '../ProductShelf/section.module.scss'
 import Section from '../Section'
