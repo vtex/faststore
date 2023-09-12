@@ -265,20 +265,19 @@ export const VtexCommerce = (
     },
 
     getSegment: async (): Promise<Segment> => {
-      const authCookieValue =
-        getCookie(`VtexIdclientAutCookie_${account}`, ctx.headers?.cookie) ??
-        null
-
-      const requestInit: RequestInit = {
-        ...BASE_INIT,
-        body: JSON.stringify({}),
-        headers: {
-          'content-type': 'application/json',
-          ...(authCookieValue && {
-            cookie: `VtexIdclientAutCookie_${account}=${authCookieValue}`,
-          }),
-        },
-      }
+      const requestInit: RequestInit = ctx.headers
+        ? {
+            ...BASE_INIT,
+            body: JSON.stringify({}),
+            headers: {
+              'content-type': 'application/json',
+              cookie: ctx.headers.cookie,
+            },
+          }
+        : {
+            ...BASE_INIT,
+            body: JSON.stringify({}),
+          }
       return await fetchAPI(`${base}/api/sessions`, requestInit)
     },
 

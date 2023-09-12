@@ -2,7 +2,7 @@ export const getSegmentFetch = {
   info: 'https://storeframework.vtexcommercestable.com.br/api/sessions',
   init: {
     body: '{}',
-    headers: { 'content-type': 'application/json' },
+    headers:  { 'content-type': 'application/json' },
     method: 'POST',
   },
   result: {
