@@ -16,18 +16,17 @@ export const shouldUpdateShippingData = (
     return { updateShipping: false, addressChanged: false }
   }
 
-  const [selectedAddress] = orderForm?.shippingData?.selectedAddresses ?? []
+  if (!hasItems(orderForm)) {
+    return { updateShipping: false, addressChanged: false }
+  }
 
+  const [selectedAddress] = orderForm?.shippingData?.selectedAddresses ?? []
   if (
     checkPostalCode(selectedAddress, session.postalCode) ||
     checkGeoCoordinates(selectedAddress, session.geoCoordinates) ||
     checkAddressType(selectedAddress, session.addressType)
   ) {
     return { updateShipping: true, addressChanged: true }
-  }
-
-  if (!hasItems(orderForm)) {
-    return { updateShipping: false, addressChanged: false }
   }
 
   // The logisticsInfo will always exist if there´s at least one item inside the cart
@@ -102,7 +101,6 @@ const shouldUpdateDeliveryInfo = (
         ) {
           return true
         }
-
         return (
           startDate &&
           endDate &&
