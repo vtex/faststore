@@ -226,7 +226,7 @@ In the `ServerProductPage.ts` file, define the GraphQL fragment corresponding to
 
 ```ts copy filename="src/fragments/ServerProductPage.ts"
 
-import { gql } from '@faststore/graphql-utils'
+import { gql } from '@faststore/core/api'
 
 export const fragment = gql`
   fragment ServerProductPage on Query {
