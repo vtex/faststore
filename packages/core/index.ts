@@ -13,3 +13,5 @@ export type {
   PLPContext,
   SearchPageContext,
 } from './src/sdk/overrides/PageProvider'
+
+export { useProductsQuery } from './src/sdk/product/useProductsQuery'
