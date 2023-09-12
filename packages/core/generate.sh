@@ -62,8 +62,8 @@ run_command() {
 # Run "yarn generate:schema" without outputting logs and errors
 run_command "yarn generate:schema" "Failed to run 'yarn generate:schema'. Please check your setup." "false"
 
-# Run graphql-codegen and capture the output
-run_command "graphql-codegen" "GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect" "false"
+# Run "yarn graphql-codegen" and capture the output
+run_command "yarn graphql-codegen" "GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect" "false"
 
 # Run "yarn format:generated" and display a warning if it produces output
 run_command "yarn format:generated" "Failed to format generated files. 'yarn format:generated' thrown errors" "true"
