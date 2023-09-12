@@ -15,7 +15,6 @@ import type {
 } from './types/Simulation'
 import type { Session } from './types/Session'
 import type { Channel } from '../../utils/channel'
-import { getCookie } from '../../utils/getCookies'
 import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
@@ -100,9 +99,9 @@ export const VtexCommerce = (
         if (body.selectedAddresses) {
           body.selectedAddresses.forEach((address) => {
             if (address.geoCoordinates === null) {
-              address.geoCoordinates = [];
+              address.geoCoordinates = []
             }
-          });
+          })
         }
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
@@ -188,7 +187,8 @@ export const VtexCommerce = (
         salesChannel,
       }: RegionInput): Promise<Region> => {
         return fetchAPI(
-          `${base}/api/checkout/pub/regions/?postalCode=${postalCode}&country=${country}&sc=${salesChannel ?? ''
+          `${base}/api/checkout/pub/regions/?postalCode=${postalCode}&country=${country}&sc=${
+            salesChannel ?? ''
           }`
         )
       },
@@ -208,34 +208,13 @@ export const VtexCommerce = (
         'items',
         'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
-      if (getCookie('vtex_session', ctx.headers.cookie)) {
-        // cookie set
-        return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json',
-            cookie: ctx.headers.cookie,
-          },
-        })
-      } else {
-        // cookie unset -> create session
-        return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-            cookie: ctx.headers.cookie,
-          },
-          body: '{}',
-        })
-      }
-    },
-    getSessionOrder: (): Promise<Session> => {
-      return fetchAPI(`${base}/api/sessions?items=checkout.orderFormId`, {
-        method: 'GET',
+      return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
+        method: 'POST',
         headers: {
           'content-type': 'application/json',
           cookie: ctx.headers.cookie,
         },
+        body: '{}',
       })
     },
     subscribeToNewsletter: (data: {

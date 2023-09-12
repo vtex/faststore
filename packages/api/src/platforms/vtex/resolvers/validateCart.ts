@@ -1,25 +1,26 @@
 import deepEquals from 'fast-deep-equal'
 
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
-import { getCookie } from '../utils/getCookies'
 import { md5 } from '../utils/md5'
 import {
   attachmentToPropertyValue,
   getPropertyId,
-  VALUE_REFERENCES
+  VALUE_REFERENCES,
 } from '../utils/propertyValue'
 
 import type { Context } from '..'
 import type {
   IStoreOffer,
   IStoreOrder,
-  IStorePropertyValue, IStoreSession, Maybe,
-  MutationValidateCartArgs
+  IStorePropertyValue,
+  IStoreSession,
+  Maybe,
+  MutationValidateCartArgs,
 } from '../../../__generated__/schema'
 import type {
   OrderForm,
   OrderFormInputItem,
-  OrderFormItem
+  OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
 
 type Indexed<T> = T & { index?: number }
@@ -199,20 +200,6 @@ const isOrderFormStale = (form: OrderForm) => {
   return newEtag !== oldEtag
 }
 
-async function getOrderNumberFromSession(
-  headers: Record<string, string> = {},
-  commerce: Context['clients']['commerce']
-) {
-
-  const cookieSession = getCookie('vtex_session', headers.cookie)
-
-  if (cookieSession) {
-    const { namespaces } = await commerce.getSessionOrder()
-    return namespaces.checkout?.orderFormId?.value
-  }
-  return ;
-}
-
 // Returns the regionalized orderForm
 const getOrderForm = async (
   id: string,
@@ -266,11 +253,10 @@ export const validateCart = async (
   { cart: { order }, session }: MutationValidateCartArgs,
   ctx: Context
 ) => {
-  const { orderNumber:  orderNumberFromCart, acceptedOffer, shouldSplitItem } = order
+  const { orderNumber, acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
     loaders: { skuLoader },
-    headers,
   } = ctx
 
   const channel = session?.channel
@@ -284,13 +270,6 @@ export const validateCart = async (
     mutateLocaleContext(ctx, locale)
   }
 
-  const orderNumberFromSession = await getOrderNumberFromSession(
-    headers,
-    commerce
-  )
-
-  const orderNumber = orderNumberFromSession ?? orderNumberFromCart ?? ''
-
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
 
@@ -298,11 +277,11 @@ export const validateCart = async (
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
   const isStale = isOrderFormStale(orderForm)
-  
+
   if (isStale && orderNumber) {
     const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
       joinItems
-      )
+    )
     return orderFormToCart(newOrderForm, skuLoader)
   }
 
@@ -366,9 +345,7 @@ export const validateCart = async (
       shouldSplitItem,
     })
     // update orderForm etag so we know last time we touched this orderForm
-    .then((form) =>
-      setOrderFormEtag(form, commerce)
-    )
+    .then((form) => setOrderFormEtag(form, commerce))
     .then(joinItems)
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated
