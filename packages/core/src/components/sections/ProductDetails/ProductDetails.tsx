@@ -57,6 +57,9 @@ export interface ProductDetailsProps {
     displayDescription: boolean
     initiallyExpanded: 'first' | 'all' | 'none'
   }
+  imageGallery: {
+    imagePosition: 'top' | 'center' | 'bottom'
+  }
 }
 
 function ProductDetails({
@@ -88,6 +91,7 @@ function ProductDetails({
     initiallyExpanded: productDescriptionInitiallyExpanded,
     displayDescription: shouldDisplayProductDescription,
   },
+  imageGallery: { imagePosition: imagePosition },
 }: ProductDetailsProps & ProductDetailsContextProps) {
   const { currency } = useSession()
   const [quantity, setQuantity] = useState(1)
@@ -181,7 +185,7 @@ function ProductDetails({
           <ImageGallery.Component
             data-fs-product-details-gallery
             {...ImageGallery.props}
-            imagePosition="center"
+            imagePosition={imagePosition}
             images={productImages}
           />
           <section data-fs-product-details-info>
