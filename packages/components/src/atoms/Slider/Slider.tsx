@@ -19,7 +19,8 @@ interface RangeLabel {
   max: string | ReactNode
 }
 
-export interface SliderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface SliderProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    *
@@ -128,7 +129,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
     }))
 
     return (
-      <div data-fs-slider data-testid={testId}>
+      <div data-fs-slider data-testid={testId} {...otherProps}>
         <div data-fs-slider-absolute-values>
           <span>{absoluteValuesLabel.min}</span>
           <span>{absoluteValuesLabel.max}</span>
@@ -162,7 +163,6 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
             aria-valuenow={minVal}
             aria-label={String(minVal)}
             aria-labelledby={getAriaValueText?.(minVal, 'min')}
-            {...otherProps}
           />
           {minValueLabelComponent && (
             <span

@@ -138,7 +138,11 @@ const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
 
         {collapseBreadcrumb && (
           <Dropdown>
-            <DropdownButton data-fs-breadcrumb-dropdown-button size="small">
+            <DropdownButton
+              aria-label="View More"
+              data-fs-breadcrumb-dropdown-button
+              size="small"
+            >
               {dropdownButtonIcon}
             </DropdownButton>
             <DropdownMenu data-fs-breadcrumb-dropdown-menu>
