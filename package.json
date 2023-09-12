@@ -19,7 +19,7 @@
     "apps/*"
   ],
   "devDependencies": {
-    "@faststore/eslint-config": "*",
+    "@faststore/eslint-config": "^2.2.0-alpha.0",
     "conventional-changelog-conventionalcommits": "^5.0.0",
     "lerna": "6.4.1",
     "prettier": "latest",
