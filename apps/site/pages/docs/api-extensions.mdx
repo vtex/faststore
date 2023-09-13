@@ -226,7 +226,7 @@ In the `ServerProductPage.ts` file, define the GraphQL fragment corresponding to
 
 ```ts copy filename="src/fragments/ServerProductPage.ts"
 
-import { gql } from '@faststore/graphql-utils'
+import { gql } from '@faststore/core/api'
 
 export const fragment = gql`
   fragment ServerProductPage on Query {
@@ -428,6 +428,12 @@ export default function CallToAction(props: CallToActionProps) {
     </section>
   )
 }
+```
+
+You can also import the `useProductsQuery` and use it inside your custom Sections. This hook fetches data from the [Search query](https://v1.faststore.dev/reference/api/queries/search), and uses the `ClientProducts` fragment to extend API extensions.
+
+```ts copy
+import { useProductsQuery } from "@faststore/core"
 ```
 
 ### Consuming API Extensions data from custom components in `Section Overrides`
