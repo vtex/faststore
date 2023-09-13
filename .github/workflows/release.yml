@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - api-extension-development
 
 jobs:
   build:

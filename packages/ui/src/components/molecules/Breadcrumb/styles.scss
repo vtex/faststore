@@ -132,10 +132,6 @@
     border-width: 0;
     border-radius: var(--fs-breadcrumb-dropdown-button-border-radius);
     transition: var(--fs-breadcrumb-dropdown-button-transition-property) var(--fs-breadcrumb-dropdown-button-transition-timing) var(--fs-breadcrumb-dropdown-button-transition-function);
-
-    &:focus, &:focus-visible {
-      @include focus-ring;
-    }
   }
 
   &[data-fs-breadcrumb-is-desktop="true"] {

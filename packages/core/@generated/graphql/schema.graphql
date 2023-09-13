@@ -653,7 +653,6 @@ input IStorePerson {
   familyName: String!
 }
 
-"""A string or the string representation of an object (a stringified object)."""
 scalar ObjectOrString
 
 """Currency information."""

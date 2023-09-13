@@ -1,52 +1,63 @@
 ---
 title: 'enableCypressExtension'
-sidebar_label: 'faststore.config.js options'
+sidebar_label: 'Configuration options for faststore.config.js'
 ---
 
 import { Callout, Steps } from 'nextra-theme-docs'
 
 <header>
 
-# `enableCypressExtension` 
+# Enabling Cypress extension
 
 </header>
 
 <Callout type="warning" emoji="⚠️">
-This is an experimental feature.
+  This is an experimental feature.
 </Callout>
 
-The `enableCypressExtension` experimental feature flag allows you to utilize Cypress extensions within your FastStore project for running customized Cypress tests seamlessly.
+The `enableCypressExtension` experimental feature flag allows you to leverage Cypress extensions within your FastStore project, enabling you to run custom [Cypress](https://www.cypress.io) tests seamlessly.
 
-Cypress extensions enhance the testing capabilities of your Faststore project by enabling the incorporation of custom Cypress tests alongside the default tests provided by Faststore.
+Cypress extensions enhance the testing capabilities of your Faststore project by enabling the incorporation of custom Cypress tests alongside the default integration tests provided by Faststore.
 
-By default, Faststore includes standard integration tests for your store and with `enableCypressExtension`, you can integrate custom integration tests into a dedicated Cypress folder within your store's codebase. 
-This integration ensures that both the conventional integration tests and your personalized tests are executed seamlessly as part of the continuous integration (CI) pipeline.
-Learn how to add custom integrations in the following steps.
+With `enableCypressExtension`, you can integrate custom integration tests into a dedicated Cypress folder within your store's codebase. This integration ensures that both the default
+tests and the custom ones you create are executed seamlessly as part of the continuous integration (CI) pipeline.
+Learn how to add custom integration tests in the following steps.
+
+---
 
 ## Before you start
 
-- Please note that this feature is experimental and its functionality may not meet all expectations.
+- Please note that this feature is experimental.
 
-- Ensure that you are using `@faststore/core` and `@faststore/cli` version 2.1.56 or above. If you have a version that is lower than this requirement, go to your `package.json` file and update the versions of `@faststore/core` and `@faststore/cli` to be at least `2.1.56`.
+- Ensure that you are using `@faststore/core` and `@faststore/cli` version 2.1.56 or above. If you have a version that is lower than this requirement, change the following:
+  1. In your store code, open the `package.json` file.
+  2. Navigate to the `@faststore/core` and `@faststore/cli` and and update them to be at least `2.1.56`.
+  3. Run `yarn dev` to update your changes.
 
+---
 
-## Step 1: Enabling `enableCypressExtension` 
+## Step 1: Enabling `enableCypressExtension`
 
 1. Open the `faststore.config.js` file.
 2. Add the `experimental` object with the `enableCypressExtension` as it property.
-3. Set the `enableCypressExtension` value to `true` to:
+3. Set the `enableCypressExtension` value to `true`:
 
-```js {2-4}
-     },
-    experimental: {
-        enableCypressExtension: true,
+```js filename="faststore.config.js" {2-4}
+  },
+  experimental: {
+      enableCypressExtension: true,
   }
 ```
+
+---
 
 ## Step 2: Integrating custom Cypress tests into your FastStore project
 
 1. In the root directory of your store, create a new folder named `cypress`.
-2. Add your custom integration tests within the folder.
+2. Add your custom integration tests within the `cypress` folder.
 3. Open a pull request with the changes you have made.
-4. Within the pull request, navigate to **checks > Integration Tests** and click **Details**.
+4. Within the pull request, navigate to **Checks > Integration Tests** and see **Details**.
+
+![checks-integration-tests](https://vtexhelp.vtexassets.com/assets/docs/src/custom-test-checks___583ac9b78e43ebdafde93a735a47d61b.png)
+
 5. Review the results to check the execution status of your custom integration tests.
