@@ -96,6 +96,7 @@
   }
 
   [data-fs-carousel-track] {
+    display: flex;
     padding: var(--fs-carousel-padding-mobile);
 
     &::-webkit-scrollbar {
@@ -109,6 +110,7 @@
 
   [data-fs-carousel-item] {
     width: var(--fs-carousel-item-width-mobile);
+    flex-shrink: 0;
 
     &:not(:last-of-type) {
       margin-right: var(--fs-carousel-item-margin-right);
@@ -116,7 +118,6 @@
 
     @include media(">=tablet") {
       width: var(--fs-carousel-item-width-tablet);
-      height: 100%;
     }
 
     @include media(">=desktop") {
