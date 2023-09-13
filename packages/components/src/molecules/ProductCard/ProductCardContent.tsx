@@ -1,7 +1,7 @@
-import type { HTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type { HTMLAttributes } from "react";
+import React, { forwardRef } from "react";
 
-import type { PriceDefinition } from '../../typings/PriceDefinition'
+import type { PriceDefinition } from "../../typings/PriceDefinition";
 
 import {
   Badge,
@@ -13,69 +13,72 @@ import {
   LinkProps,
   Price,
   Rating,
-} from '../../'
+} from "../../";
 
 export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
-  testId?: string
+  testId?: string;
   /**
    * Specifies the product's title.
    */
-  title: string
+  title: string;
   /**
    * Props for the link from ProductCard component.
    */
-  linkProps?: Partial<LinkProps<LinkElementType>>
+  linkProps?: Partial<LinkProps<LinkElementType>>;
   /**
    * Specifies product's prices.
    */
-  price?: PriceDefinition
+  price?: PriceDefinition;
   /**
    * Enables a outOfStock status.
    */
-  outOfStock?: boolean
+  outOfStock?: boolean;
   /**
    * Specifies the OutOfStock badge's label.
    */
-  outOfStockLabel?: string
+  outOfStockLabel?: string;
   /**
    * Specifies Rating Value of the product.
    */
-  ratingValue?: number
+  ratingValue?: number;
   /**
    * Specifies the button's label.
    */
-  buttonLabel?: string
+  buttonLabel?: string;
   /**
    * Enables a DiscountBadge to the component.
    */
-  showDiscountBadge?: boolean
+  showDiscountBadge?: boolean;
   /**
    * Callback function when button is clicked.
    */
-  onButtonClick?: () => void
+  onButtonClick?: () => void;
 }
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
   function CardContent(
     {
-      testId = 'fs-product-card-content',
+      testId = "fs-product-card-content",
       title,
       linkProps,
       price,
       outOfStock,
-      outOfStockLabel = 'Out of stock',
+      outOfStockLabel = "Out of stock",
       ratingValue,
       showDiscountBadge,
-      buttonLabel = 'Add',
+      buttonLabel = "Add",
       onButtonClick,
       children,
       ...otherProps
     },
-    ref
+    ref,
   ) {
+    const listPrice = price?.listPrice ?? 0;
+    const sellingPrice = price?.value ?? 0;
+
     return (
       <section
         ref={ref}
@@ -92,22 +95,32 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           </h3>
           {!outOfStock && (
             <div data-fs-product-card-prices>
+              sellingPrice !== listPrice ? (<>
+                <Price
+                  value={listPrice}
+                  formatter={price?.formatter}
+                  testId="list-price"
+                  data-value={listPrice}
+                  variant="listing"
+                  SRText="Original price:"
+                />
+                <Price
+                  value={sellingPrice}
+                  formatter={price?.formatter}
+                  testId="price"
+                  data-value={sellingPrice}
+                  variant="spot"
+                  SRText="Sale Price:"
+                />
+              </>) : (
               <Price
-                value={price?.listPrice ? price.listPrice : 0}
-                formatter={price?.formatter}
-                testId="list-price"
-                data-value={price?.listPrice}
-                variant="listing"
-                SRText="Original price:"
-              />
-              <Price
-                value={price?.value ? price.value : 0}
+                value={sellingPrice}
                 formatter={price?.formatter}
                 testId="price"
-                data-value={price?.value}
+                data-value={sellingPrice}
                 variant="spot"
                 SRText="Sale Price:"
-              />
+              />)
             </div>
           )}
           {ratingValue && (
@@ -135,8 +148,8 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           </div>
         )}
       </section>
-    )
-  }
-)
+    );
+  },
+);
 
-export default ProductCardContent
+export default ProductCardContent;
