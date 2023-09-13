@@ -306,6 +306,8 @@ However, use the `thirdParty` folder, placing resolvers and typeDefs inside thei
 When developing a third-party extension, it's essential to create a Query or Mutation schema. This schema is crucial for generating new query entry points to access data. 
 Below, you'll find an example of code for implementing a third-party extension.
 
+1. Create the `extra.graphql` file inside the `graphql/thirdParty/typeDefs` folder. The `extra.graphql` defines the type definitions in in a GraphQL schema file.
+
 ```ts copy filename="graphql/thirdParty/typeDefs/extra.graphql"
 
 type ExtraData {
@@ -320,6 +322,8 @@ type Query {
   namedExtraData(name: String!): ExtraData
 }
 ```
+
+2. Create the `extra.ts` file inside the the `graphql/thirdParty/resolvers` folder. This file defines the resolvers that handle the logic for the defined queries or mutations. 
 
 ```ts copy filename="graphql/thirdParty/resolvers/extra.ts"
 
@@ -340,6 +344,7 @@ const extraDataResolver = {
 
 export default extraDataResolver
 ```
+3 - In the `graphql/thirdParty/resolvers` folder, create an `index.ts` file to combine all the resolvers into a single object.
 
 ```ts copy filename="graphql/thirdParty/resolvers/index.ts"
 
@@ -352,7 +357,7 @@ const resolvers = {
 export default resolvers
 ```
 
-In this example, the extra data is accessible by this query:
+4 - With the schema and resolvers in place, you can query the data using GraphQL queries. Here's an example query to access the extra data:
 
 ```ts copy
 query {
@@ -364,3 +369,10 @@ query {
 	}
 }
 ```
+
+Once you have defined these files in the `thirdParty` folder, you can query the data you defined. 
+
+<Callout type="warning" emoji="⚠️">
+  If the changes you made still not available, refer to the troubleshooting section [GraphQL changes not visible during development](/docs/api-extension/troubleshooting#graphql-changes-not-visible-during-development).
+</Callout>
+ 
