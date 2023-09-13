@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import {
   ImageGallery as ImageGalleryWrapper,
-  ImageZoom,
+  ImageGalleryViewer,
   __experimentalImageGalleryImage as Image,
 } from 'src/components/sections/ProductDetails/Overrides'
 
@@ -43,7 +43,7 @@ const ImageGallery = ({
       imagePosition={imagePosition}
       {...otherProps}
     >
-      <ImageZoom.Component {...ImageZoom.props}>
+      <ImageGalleryViewer.Component {...ImageGalleryViewer.props}>
         <Image.Component
           sizes="(max-width: 360px) 50vw, (max-width: 768px) 90vw, 50vw"
           width={691}
@@ -53,7 +53,7 @@ const ImageGallery = ({
           src={currentImage.url}
           alt={currentImage.alternateName}
         />
-      </ImageZoom.Component>
+      </ImageGalleryViewer.Component>
     </ImageGalleryWrapper.Component>
   )
 }

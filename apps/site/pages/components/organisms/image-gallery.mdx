@@ -66,7 +66,11 @@ According to the quantity of `Image` to be displayed, the `ImageGallerySelector`
 Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { ImageGallery, ImageGallerySelector, ImageZoom } from '@faststore/ui'
+import {
+  ImageGallery,
+  ImageGallerySelector,
+  ImageGalleryViewer,
+} from '@faststore/ui'
 ```
 
 Import Styles
@@ -144,13 +148,13 @@ export const imagesUsage = [
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
     >
-      <ImageZoom>
+      <ImageGalleryViewer>
         <img
           data-fs-image
           src={currentImage.url}
           alt={currentImage.alternateName}
         />
-      </ImageZoom>
+      </ImageGalleryViewer>
     </ImageGallery>
 
     ```
@@ -354,13 +358,13 @@ export const propsImageElementData = [
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
     >
-      <ImageZoom>
+      <ImageGalleryViewer>
         <img
           data-fs-image
           src={currentImage.url}
           alt={currentImage.alternateName}
         />
-      </ImageZoom>
+      </ImageGalleryViewer>
     </ImageGallery>
 
     ```
@@ -395,13 +399,13 @@ export const imagesWithoutSelector = [imagesUsage[0]]
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
     >
-      <ImageZoom>
+      <ImageGalleryViewer>
         <img
           data-fs-image
           src={currentImage.url}
           alt={currentImage.alternateName}
         />
-      </ImageZoom>
+      </ImageGalleryViewer>
     </ImageGallery>
 
     ```
@@ -439,13 +443,13 @@ The `ImagePosition` prop sets the image position in the thumbnail and the galler
       setSelectedImageIdx={setSelectedImageIdx}
       imagePosition="top"
     >
-      <ImageZoom>
+      <ImageGalleryViewer>
         <img
           data-fs-image
           src={currentImage.url}
           alt={currentImage.alternateName}
         />
-      </ImageZoom>
+      </ImageGalleryViewer>
     </ImageGallery>
 
     ```
@@ -478,13 +482,13 @@ The `ImagePosition` prop sets the image position in the thumbnail and the galler
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
     >
-      <ImageZoom>
+      <ImageGalleryViewer>
         <img
           data-fs-image
           src={currentImage.url}
           alt={currentImage.alternateName}
         />
-      </ImageZoom>
+      </ImageGalleryViewer>
     </ImageGallery>
 
     ```
@@ -518,13 +522,13 @@ The `ImagePosition` prop sets the image position in the thumbnail and the galler
       setSelectedImageIdx={setSelectedImageIdx}
       imagePosition="bottom"
     >
-      <ImageZoom>
+      <ImageGalleryViewer>
         <img
           data-fs-image
           src={currentImage.url}
           alt={currentImage.alternateName}
         />
-      </ImageZoom>
+      </ImageGalleryViewer>
     </ImageGallery>
 
     ```
