@@ -91,7 +91,7 @@ function ProductDetails({
     initiallyExpanded: productDescriptionInitiallyExpanded,
     displayDescription: shouldDisplayProductDescription,
   },
-  imageGallery: { imagePosition: imagePosition },
+  imageGallery: { imagePosition = ImageGallery.props.imagePosition },
 }: ProductDetailsProps & ProductDetailsContextProps) {
   const { currency } = useSession()
   const [quantity, setQuantity] = useState(1)

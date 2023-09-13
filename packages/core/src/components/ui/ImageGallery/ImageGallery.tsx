@@ -19,7 +19,6 @@ const ImageComponent = ({ url, alternateName }) => {
 export interface ImageGalleryProps {
   images: UIImageGalleryProps['images']
   imagePosition?: UIImageGalleryProps['imagePosition']
-  setSelectedImageIdx: UIImageGalleryProps['setSelectedImageIdx']
 }
 
 const ImageGallery = ({
@@ -40,7 +39,7 @@ const ImageGallery = ({
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
-      imagePosition={imagePosition}
+      imagePosition={imagePosition ?? ImageGalleryWrapper.props.imagePosition}
       {...otherProps}
     >
       <ImageGalleryViewer.Component {...ImageGalleryViewer.props}>
