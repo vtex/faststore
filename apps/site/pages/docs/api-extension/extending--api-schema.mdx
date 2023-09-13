@@ -1,5 +1,5 @@
 ---
-title: 'Extending APIs Schema'
+title: 'Extending API schemas'
 sidebar_label: 'API Extensions'
 ---
 
@@ -8,7 +8,7 @@ import { ExtendableQueryTable } from './../../../components/ExtendableQueryTable
 
 <header>
 
-# Extending APIs Schema 
+# Extending API schemas 
 
 </header>
 
@@ -31,7 +31,7 @@ Ensure that your development server is up and running while developing to see th
 
 ---
 
-## Extending VTEX APIs Schema 
+## Extending VTEX API Schemas 
 
 FastStore streamlines the way of using data from VTEX APIs that the FastStore API does not expose.
 
@@ -122,11 +122,6 @@ starter.store/
 #### Step 2 - Creating type definitions (`TypeDefs`)
 
 
-```
-Questions this step should answer:
-- In the last callout on this step 2, *Also, the `index.ts` is not needed for typeDefs, only for resolvers.*, why the index file is only important for the resolvers folder.?
-```
-
 Your new type definitions set the data structure for your new fields, extended from the existing FastStore API GraphQL queries and types.
 
 1. Create a new `<typeName>.graphql` file inside the `vtex/typeDefs` folder. For example, let's extends the [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct) type
@@ -160,13 +155,6 @@ extend type StoreProduct {
 Now, refer to the next step to create the resolvers to provide the actual data to the `customData` field. 
 
 #### Step 3 - Creating resolvers
-
-```
-Questions this step should answer:
-- In *3 - Import the resolvers inside the index.ts file, spread them in the resolver object and re-export the final resolver object.*, What's the purpose?
-- In *That's it! Once you have defined these files in the vtex folder, the new fields are already exposed.*, how can I test it if it's really working?
-- In *The entire GraphQL creation process is automated and handled in the background by the FastStore CLI.*, should I run yarn dev here? It seems some steps is missing here.
-```
 
 Now, you'll create a resolver to define how the new `customData` field should be resolved, or in other words, what data or logic should be associated with them when queried.
 
@@ -220,21 +208,74 @@ Once you have defined these files in the `vtex` folder, the new fields are alrea
 </Callout>
  
 
-## Extending third-party APIs schema
-
-
-```
-Questions that this doc should answer:
-- If I want to define Third-party and VTEX schema extensions what should be the best in terms of directory structure?
-- The directory structure for both looks similiar. Is that the case we present a basic/general directory structure, including `vtex` and `third-party` and then we present what should be
-added in those subfolders?
-- In the sentence *Intending to separate what comes from VTEX and what comes from third-party APIs*, What is the reason for this separation? Help in the debuging process if needed?
-```
+## Extending third-party API schemas
 
 As stores tend to grow, so does the possibility of consuming new data that is not provided by default in the FastStore API or other VTEX APIs. 
 As such, FastStore must consume new data from third-party APIs.
 
-Intending to separate what comes from VTEX and what comes from third-party APIs, the store's repository provides the following folder structure for third-party APIs Schema Extensions that is held in the `src/graphql/thirdParty` folder:
+### Step by step
+#### Step 1- Preparing the folders and files
+
+<Callout type="warning" emoji="⚠️">
+  If you already have a directory structure created in the [Extending VTEX API Schemas](/docs/api-extension/extending--api-schema#step-1---preparing-the-folders-and-files),
+  for third-party API schemas you only need to add the `thirdParty` folder inside `src/graphql`.
+</Callout>
+
+1. In you store repository, go to the `src` folder and create the `graphql` subfolder. You can do this by running the following command in your terminal:
+
+<Tabs items={['macOs and Linux', 'Windows']}>
+  <Tab>
+  ```bash copy
+  mkdir graphql
+  ```
+  </Tab>
+
+  <Tab>
+   ```bash copy
+  mkdir graphql
+  ```
+  </Tab>
+</Tabs>
+
+2. Inside the new `graphql` folder, create the `thirdParty` subfolder.
+
+<Tabs items={['macOs and Linux', 'Windows']}>
+  <Tab>
+  ```bash copy
+  mkdir thirdParty
+  ```
+  </Tab>
+
+  <Tab>
+   ```bash copy
+  mkdir thirdParty
+  ```
+  </Tab>
+</Tabs>
+
+3. In `thirdParty`, create `resolvers` and `typeDefs` subfolders.
+<Tabs items={['macOs and Linux', 'Windows']}>
+  <Tab>
+  ```bash copy
+  mkdir resolvers/typeDefs
+  ```
+  </Tab>
+
+  <Tab>
+   ```bash copy
+  mkdir resolvers\typeDefs
+  ```
+  </Tab>
+</Tabs>
+
+<Callout type="warning" emoji="⚠️">
+  The `src/graphql/vtex/resolvers` and `src/graphql/vtex/typeDefs` path is mandatory, but you can organize the files inside those directory as you wish.
+</Callout>
+
+4. Create a `index.ts` file inside the `resolvers` folder.
+
+Once you have created the essentials folders, you will have a folder structure similiar to the the following:
+
 
 ```ts copy
 starter.store/
@@ -250,10 +291,20 @@ starter.store/
         │       └── …
 ```
 
-Following this structure, you can use the same pattern mentioned above regarding the VTEX API Schema extensions but using the `thirdParty` folder, with resolvers and typeDefs inside their respective folders and resolvers being imported into the `index.ts` file.
+<Callout type="info" emoji="ℹ️">
+  This directory structure distinguishes between data 
+  originating from VTEX and data from third-party APIs, which helps in debugging.
+</Callout>
 
-One crucial aspect to consider when developing a third-party extension is the creation of a Query or Mutation schema. This schema plays a vital role in generating new query entry points to access data.
-Below, you will find an example code the implementation of a third-party extension:
+#### Step 2- Creating type definitions and resolvers
+
+Following this structure, you can use the same steps mentioned in Extending VTEX API schemas, [Step 2 - Creating type definitions (`TypeDefs`)](/docs/api-extension/extending--api-schema#step-2---creating-type-definitions-typedefs) and [Step 3 - Creating resolvers](/docs/api-extension/extending--api-schema#step-3---creating-resolvers).
+However, use the `thirdParty` folder, placing resolvers and typeDefs inside their respective folders and importing resolvers into the `index.ts` file.
+
+#### Step 3- Creating query or mutation schemas
+
+When developing a third-party extension, it's essential to create a Query or Mutation schema. This schema is crucial for generating new query entry points to access data. 
+Below, you'll find an example of code for implementing a third-party extension.
 
 ```ts copy filename="graphql/thirdParty/typeDefs/extra.graphql"
 
