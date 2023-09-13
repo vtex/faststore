@@ -122,9 +122,6 @@ describe('add_to_cart event', () => {
 })
 
 describe('remove_from_cart event', () => {
-  beforeEach(() => {
-    cy.clearIDB()
-  })
   const testRemoveFromCartEvent = ({ skuId, numberOfEvents, quantity }) => {
     cy.window().then((window) => {
       const { dataLayer } = window
@@ -158,13 +155,16 @@ describe('remove_from_cart event', () => {
 
       // Add item to cart
       cy.getById('buy-button').as('buy-button')
-      cy.get('@buy-button').contains('Add to Cart').and('be.visible')
+      cy.get('@buy-button').contains('Add to Cart').should('be.visible')
       cy.get('@buy-button').trigger('click', { force: true, cancelable: false })
 
       cy.itemsInCart(1)
 
       cy.getById('checkout-button').as('checkout-button')
-      cy.get('@checkout-button').should('be.visible').and('be.enabled')
+      cy.get('@checkout-button')
+        .should('be.visible')
+        .and('be.enabled')
+        .and('contain', 'Checkout')
 
       // Remove the added item
       cy.getById('remove-from-cart-button')
@@ -385,21 +385,23 @@ describe('view_cart event', () => {
 
     cy.itemsInCart(0)
 
-    cy.getById('buy-button').as('buy-button').scrollIntoView({ duration: 500 })
-    cy.get('@buy-button').contains('Add to Cart').and('be.visible')
+    cy.getById('buy-button').as('buy-button')
+    cy.get('@buy-button').contains('Add to Cart').should('be.visible')
     cy.get('@buy-button').trigger('click', {
       force: true,
       cancelable: false,
     })
+
+    cy.getById('fs-cart-sidebar').should('be.visible')
 
     dataLayerHasEvent('view_cart')
 
     cy.waitUntil(() =>
       cy
         .getById('checkout-button')
-        .and('be.visible')
+        .should('be.visible')
         .and('be.enabled')
-        .and('contain.text', 'Checkout')
+        .and('contain', 'Checkout')
     ).then((assert) => expect(assert).to.exist)
 
     cy.window().then((window) => {
