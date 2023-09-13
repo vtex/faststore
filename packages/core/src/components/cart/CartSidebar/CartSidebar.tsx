@@ -10,7 +10,7 @@ import type { CartSidebarProps as UICartSidebarProps } from '@faststore/ui'
 
 import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
 import { Icon, useFadeEffect, useUI } from '@faststore/ui'
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, useMemo } from 'react'
 import { useCart } from 'src/sdk/cart'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
@@ -54,15 +54,17 @@ function CartSidebar({
 }: CartSidebarProps) {
   const { currency } = useSession()
   const btnProps = useCheckoutButton()
-  const cart = useCart()
+  const { items, gifts, totalItems, isValidating, subTotal, total } = useCart()
   const { cart: displayCart, closeCart } = useUI()
   const { fadeOut } = useFadeEffect()
 
-  const { items, gifts, totalItems, isValidating, subTotal, total } = cart
-
-  const isEmpty = items.length === 0
+  const isEmpty = useMemo(() => items.length === 0, [items])
 
   useEffect(() => {
+    if (!displayCart) {
+      return
+    }
+
     sendAnalyticsEvent<ViewCartEvent>({
       name: 'view_cart',
       params: {
@@ -82,8 +84,7 @@ function CartSidebar({
         })),
       },
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [currency.code, displayCart, gifts, items, total])
 
   return (
     <>
