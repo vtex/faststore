@@ -1,5 +1,5 @@
 ---
-title: 'Step 1 - Extending VTEX APIs schema'
+title: 'Extending APIs Schema'
 sidebar_label: 'API Extensions'
 ---
 
@@ -8,16 +8,37 @@ import { ExtendableQueryTable } from './../../../components/ExtendableQueryTable
 
 <header>
 
-# Extending APIs Schema with FastStore
+# Extending APIs Schema 
 
 </header>
 
-## Extending VTEX APIs Schema with FastStore
+In this guide, learn how to extend VTEX and third-party APIs to customize them according to your store's needs, allowing you to efficiently retrieve and manipulate the necessary data.
+
+---
+
+## Before you start
+
+<Steps>
+### Avoid over-fetching data on pages
+ 
+Even though you can add information to the FastStore API schema, you must be careful not to over-fetch data on your pages. See the [best practices for fetching data on your storefront](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data).
+ 
+### Ensure your development server is active
+ 
+Ensure that your development server is up and running while developing to see the changes you make. You can do this by running the command `yarn dev` in your terminal, which will monitor the changes.
+
+</Steps>
+
+---
+
+## Extending VTEX APIs Schema 
 
 FastStore streamlines the way of using data from VTEX APIs that the FastStore API does not expose.
 
 As FastStore uses GraphQL, it's required to write [type definitions](https://graphql.org/learn/schema/#object-types-and-fields) and [resolvers](https://graphql.org/learn/execution/#root-fields-resolvers) to fetch the data you need. 
 To define new type definitions and resolvers for FastStore using GraphQL, learn how to create a specific directory structure in the following step by step. 
+
+---
 
 ### Step by step
 #### Step 1 - Preparing the folders and files 
@@ -93,7 +114,10 @@ starter.store/
               └─ …
 ```
 
-Note that the `<resolverName>.ts` and `<typeName>.graphql` were already declared.
+<Callout type="info" emoji="ℹ️">
+  Note that in the code example above, the type definitions and resolvers file were are created ad `<resolverName>.ts` and `<typeName>.graphql`.
+</Callout>
+
 
 #### Step 2 - Creating type definitions (`TypeDefs`)
 
@@ -101,7 +125,6 @@ Note that the `<resolverName>.ts` and `<typeName>.graphql` were already declared
 ```
 Questions this step should answer:
 - In the last callout on this step 2, *Also, the `index.ts` is not needed for typeDefs, only for resolvers.*, why the index file is only important for the resolvers folder.?
-- In *2. Declare the following to the `product.graphql*, what can be the purpose of it to mey store?
 ```
 
 Your new type definitions set the data structure for your new fields, extended from the existing FastStore API GraphQL queries and types.
@@ -115,7 +138,8 @@ from FastStore API, so the name of the file is `product.graphql`.
   During the build process and when running the local server file, all `.graphql` files under this directory will be considered.
 </Callout>
 
-2. Declare the following to the `product.graphql`:
+2. To extend the `StoreProduct`, let's add a `customData` mandatory field in the `product.graphql` and it should return a string value.
+This field can store custom information related to a product in your store. For example, you might use this field to store additional product details that are not present in the native FastStore API schema. 
 
 ```graphql filename="graphql/vtex/typeDefs/product.graphql"
 
@@ -127,13 +151,13 @@ extend type StoreProduct {
 }
 
 ```
-Once you declare it, it will `Add the purpose of it` in your store.
 
 <Callout type="warning" emoji="⚠️">
   The typeDefs files must have `.graphql` extension.
-Also, the `index.ts` is not needed for typeDefs, only for resolvers.
-
+  Also, the `index.ts` is not needed for typeDefs, only for resolvers.
 </Callout>
+
+Now, refer to the next step to create the resolvers to provide the actual data to the `customData` field. 
 
 #### Step 3 - Creating resolvers
 
@@ -144,9 +168,7 @@ Questions this step should answer:
 - In *The entire GraphQL creation process is automated and handled in the background by the FastStore CLI.*, should I run yarn dev here? It seems some steps is missing here.
 ```
 
-Resolvers are the functions that give meaning to the data you have structured in the type definitions. 
-This means a resolver will be executed when the corresponding piece of information is queried. 
-These resolver can perform an operation on an existing field, get data from the Root param, or fetch data from VTEX APIs, for example.
+Now, you'll create a resolver to define how the new `customData` field should be resolved, or in other words, what data or logic should be associated with them when queried.
 
 1. Create a new `<resolver>.graphql` file inside the `vtex/resolvers` folder. Let's continue the [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct) type
 example, so the name of the file is `product.ts`.
@@ -155,7 +177,7 @@ example, so the name of the file is `product.ts`.
   The way that it will be organized inside this folder is flexible, it's possible to create multiple resolvers files or group them all together in just one file.
 </Callout>
 
-2. Declare the following to the `product.ts`:
+2. Define the resolver in the `product.ts` file. This resolver specifies how to fetch the data for the `customData` field based on the root object, which represents the `StoreProduct`.
 
 ```ts copy filename="graphql/vtex/resolvers/product.ts"
 
@@ -176,7 +198,9 @@ Note that you can leverage the use of TypeScript by typing the root param as [St
 
 ![using-root-field-type](https://vtexhelp.vtexassets.com/assets/docs/src/root-field-ts___3a10ec8a1aeba9770c7ee982995d55bc.gif)
 
-3. Import the resolvers inside the `index.ts` file, spread them in the resolver object and re-export the final resolver object. `(What's the purpose?)`
+3. Open the `index.ts` file inside the `vtex/resolvers` folder and import the resolver, `StoreProductResolver`, you created in the previous step. 
+
+4. Create a `resolvers` object that includes the imported resolver(s).
 
 ```ts copy filename="graphql/vtex/resolvers/index.ts"
 
@@ -189,8 +213,12 @@ const resolvers = {
 export default resolvers
 ```
 
-That's it! Once you have defined these files in the `vtex` folder, the new fields are already exposed. 
-The entire GraphQL creation process is automated and handled in the background by the [FastStore CLI](/docs/getting-started/4-faststore-cli). 
+Once you have defined these files in the `vtex` folder, the new fields are already available to use. 
+
+<Callout type="warning" emoji="⚠️">
+  If the changes you made still not available, refer to the troubleshooting section [GraphQL changes not visible during development](/docs/api-extension/troubleshooting#graphql-changes-not-visible-during-development).
+</Callout>
+ 
 
 ## Extending third-party APIs schema
 
@@ -203,10 +231,10 @@ added in those subfolders?
 - In the sentence *Intending to separate what comes from VTEX and what comes from third-party APIs*, What is the reason for this separation? Help in the debuging process if needed?
 ```
 
-As stores tend to grow, so does the possibility of consuming new data that is **not provided by default in the FastStore API or other VTEX APIs**. 
+As stores tend to grow, so does the possibility of consuming new data that is not provided by default in the FastStore API or other VTEX APIs. 
 As such, FastStore must consume new data from third-party APIs.
 
-Intending to separate what comes from VTEX and what comes from third-party APIs `(Why? Help in the debuging process if needed?)`, the store's repository provides the following folder structure for third-party APIs Schema Extensions that is held in the `src/graphql/thirdParty` folder:
+Intending to separate what comes from VTEX and what comes from third-party APIs, the store's repository provides the following folder structure for third-party APIs Schema Extensions that is held in the `src/graphql/thirdParty` folder:
 
 ```ts copy
 starter.store/
