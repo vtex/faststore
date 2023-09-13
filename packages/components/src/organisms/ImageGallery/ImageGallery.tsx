@@ -39,13 +39,13 @@ export interface ImageGalleryProps extends HTMLAttributes<HTMLDivElement> {
    */
   selectedImageIdx: number
   /**
-   * The position of the thumbnail and gallery image.
-   */
-  imagePosition: 'top' | 'center' | 'bottom'
-  /**
    * Event handler for clicks on each thumbnail.
    */
   setSelectedImageIdx: (idx: number) => void
+  /**
+   * The position of the thumbnail and gallery image.
+   */
+  imagePosition: 'top' | 'center' | 'bottom'
 }
 
 const ImageGallery = forwardRef<HTMLDivElement, ImageGalleryProps>(

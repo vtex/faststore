@@ -1,4 +1,3 @@
-import { ImageElementData } from '@faststore/ui'
 import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/router'
@@ -9,6 +8,8 @@ import {
   __experimentalImageGalleryImage as Image,
 } from 'src/components/sections/ProductDetails/Overrides'
 
+import type { ImageGalleryProps as UIImageGalleryProps } from '@faststore/ui'
+
 const ImageComponent = ({ url, alternateName }) => {
   return (
     <Image.Component src={url} alt={alternateName} width={68} height={68} />
@@ -16,8 +17,9 @@ const ImageComponent = ({ url, alternateName }) => {
 }
 
 export interface ImageGalleryProps {
-  images: ImageElementData[]
-  imagePosition?: 'top' | 'center' | 'bottom'
+  images: UIImageGalleryProps['images']
+  imagePosition?: UIImageGalleryProps['imagePosition']
+  setSelectedImageIdx: UIImageGalleryProps['setSelectedImageIdx']
 }
 
 const ImageGallery = ({
