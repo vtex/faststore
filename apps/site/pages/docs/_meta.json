@@ -74,8 +74,8 @@
     "type": "separator",
     "title": "APIs and Reference"
   },
-  "api-reference": "FastStore API",
-  "api-extension": "API Extensions",
+  "faststore-api": "FastStore API",
+  "api-extensions": "API Extensions",
   "faststore-config-options": "faststore.config.js options",
   "troubleshooting": "Troubleshooting"
 }
