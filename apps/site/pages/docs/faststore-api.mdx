@@ -26,9 +26,6 @@ With the FastStore API, you can:
 Also, thanks to a type-safe **GraphQL** protocol, the FastStore API allows developers to fetch only the strongly typed data needed for building robust and responsive solutions. 
 In practice, developers can source the FastStore API to the [**Next.js**](https://nextjs.org/) data layers and consume it on frontend components to create stores.
 
-<Callout type="warning" emoji="⚠️">
-  When building your storefront with FastStore, to avoid comprimising the website performance and lead to `504` timeout errors, do not send requests to APIs other than the FastStore API. If you need to access other data not available in the native FastStore API schema, you must do this by using [API extension](/docs/api-extensions). 
-</Callout>
 
 ```mermaid
 %%{
@@ -65,3 +62,25 @@ Next_js -->|Query data| React_Components(React Components)
 <Callout type="info" emoji="ℹ️">
   To learn more about GraphQL and its main concepts, visit the official [GraphQL website](https://graphql.org/).
 </Callout>
+
+## Key features
+
+FastStore API is based on [**Schema.org**](https://schema.org/) and inspired by **clean architecture**.
+
+### Improved brand findability
+
+FastStore API extends and simplifies [**Schema.org**](https://schema.org/), a set of agreed definitions for implementing structured data developed by Google, Microsoft, Yahoo, and Yandex.
+
+The Schema markup aids search engines in understanding and displaying your content in a relevant way. It may improve your brand's findability by leading your website to a higher ranking in search results and, as a result, to more clicks and interactions with your store's website.
+
+## Going beyond
+
+Extend the FastStore API schema by leveraging [API extensions](/docs/api-extensions):
+
+- **[Extending API schemas](/docs/api-extensions/extending-api-schema):** Extend VTEX and third-party APIs to customize how data is managed and processed in your store.
+
+- **[Extending queries using fragments](/docs/api-extensions/extending-queries-using-fragments):** Extend GraphQL queries using fragments in FastStore API Extension to add custom fields to native queries
+
+- **[Consuming FastStore API extension with custom components](/docs/api-extensions/consuming-api-extensions):** Consume FastStore API extension data with custom components, such as [Sections](/docs/building-sections/creating-a-new-section) and [Override components](/docs/building-sections/overriding-components-and-props).
+
+
