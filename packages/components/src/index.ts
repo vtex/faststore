@@ -258,13 +258,13 @@ export type {
 export {
   default as ImageGallery,
   ImageGallerySelector,
-  ImageZoom,
+  ImageGalleryViewer,
 } from './organisms/ImageGallery'
 export type {
   ImageElementData,
   ImageGalleryProps,
   ImageGallerySelectorProps,
-  ImageZoomProps,
+  ImageGalleryViewerProps,
 } from './organisms/ImageGallery'
 
 export {
