@@ -21,7 +21,7 @@ In this guide, learn how to extend VTEX and third-party APIs to customize them a
 <Steps>
 ### Avoid over-fetching data on pages
  
-Even though you can add information to the FastStore API schema, you must be careful not to over-fetch data on your pages. See the [best practices for fetching data on your storefront](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data).
+Even though you can add information to the FastStore API schema, you must be careful not to over-fetch data on your pages. See the [best practices for fetching data on your storefront](/docs/api-extensions#best-practices-for-fetching-data).
  
 ### Ensure your development server is active
  
@@ -298,7 +298,7 @@ starter.store/
 
 #### Step 2- Creating type definitions and resolvers
 
-Following this structure, you can use the same steps mentioned in Extending VTEX API schemas, [Step 2 - Creating type definitions (`TypeDefs`)](/docs/api-extension/extending--api-schema#step-2---creating-type-definitions-typedefs) and [Step 3 - Creating resolvers](/docs/api-extension/extending--api-schema#step-3---creating-resolvers).
+Following this structure, you can use the same steps mentioned in Extending VTEX API schemas, [Step 2 - Creating type definitions (`TypeDefs`)](/docs/api-extension/extending-api-schema#step-2---creating-type-definitions-typedefs) and [Step 3 - Creating resolvers](/docs/api-extension/extending-api-schema#step-3---creating-resolvers).
 However, use the `thirdParty` folder, placing resolvers and typeDefs inside their respective folders and importing resolvers into the `index.ts` file.
 
 #### Step 3- Creating query or mutation schemas

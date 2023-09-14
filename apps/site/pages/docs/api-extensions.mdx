@@ -42,9 +42,37 @@ If you need to retrieve more data, you can achieve this by extending the FastSto
 
 ---
 
+## Best practices for fetching data
+
+Site performance tends to get worse as more API requests are made by a page. Because of this, the best practices for fetching data on your storefront involve getting precisely the data you need with the minimum number possible of requests to the FastStore API. The sections below go over what you can do to minimize the API requests of your pages.
+
+### Fetch only the data you need
+
+GraphQL allows you to customize your query to get precisely the data you need, which reduces the data returned from the requests. Double-check your queries to make sure they are not over-fetching.
+
+This also means that you must be mindful of the data brought into your query by [GraphQL fragments](https://graphql.org/learn/queries/#fragments). Use them only when they do not include unnecessary data.
+
+### Do not send requests to other APIs
+
+If you need data that is not available on the native [FastStore GraphQL schema](https://v1.faststore.dev/reference/api/objects), check the [root object](https://v1.faststore.dev/reference/api/objects).
+
+The [GraphQL root object](https://graphql.org/learn/execution/#root-fields-resolvers) represents the top-level object returned to a query. You can see what data is available in the root object by adding logs.
+
+If the root object also lacks the information you need, you must [extend the API schema](/docs/api-extensions/extending-api-schema) instead of adding other requests to your page.
+
+### Avoid custom API Routes
+
+We do not recomend using Next.js [API Routes](https://nextjs.org/docs/api-routes/introduction) other than the ones already built in FastStore.
+
+If you do use this type of function, you must be mindful to always check which ones are actually running and remove the ones that are not.
+
+To see what API Routes are running in your project, you can... *(See the code's comment)*  {/* IS THE FOLLOWING STILL VALID? run the command `yarn build` at the root of your project and check the log. Then, check the directory `src/pages/api` of your project and remove functions that are not running or are not included in the [starter](/starters) you used. */}
+
+---
+
 <ul class="nx-card-list">
   <li class="nx-card">
-    <a href="/docs/api-extensions/extending--api-schema">
+    <a href="/docs/api-extensions/extending-api-schema">
       #### Extending VTEX API schemas
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     </a>
