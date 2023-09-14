@@ -9,6 +9,7 @@ const ExtendableQueryTable = ({ children }: ExtendableQueryTableProps) => {
         <table className="nx-simple-table">
             <thead>
                 <tr>
+                    <th>Fragment</th>
                     <th>Side</th>
                     <th>Query operation</th>
                     <th>Page</th>

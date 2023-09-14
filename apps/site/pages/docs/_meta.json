@@ -76,6 +76,7 @@
   },
   "faststore-api": "FastStore API",
   "api-extensions": "API Extensions",
-  "faststore-config-options": "faststore.config.js options",
+
+  "faststore-config-options": "Configuration options for faststore.config.js",
   "troubleshooting": "Troubleshooting"
 }

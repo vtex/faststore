@@ -1,29 +1,34 @@
-FastStore CLI
-=================
+# FastStore CLI
 
 <!-- toc -->
+* [FastStore CLI](#faststore-cli)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
 ```sh-session
 $ npm install -g @faststore/cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/2.1.79 linux-x64 node-v16.20.2
+@faststore/cli/2.2.0-alpha.1 linux-x64 node-v16.20.2
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND
 ...
 ```
 <!-- usagestop -->
+
 # Commands
+
 <!-- commands -->
 * [`faststore build`](#faststore-build)
 * [`faststore cms-sync`](#faststore-cms-sync)
 * [`faststore dev`](#faststore-dev)
+* [`faststore generate-graphql`](#faststore-generate-graphql)
 * [`faststore help [COMMAND]`](#faststore-help-command)
 * [`faststore start`](#faststore-start)
 
@@ -34,7 +39,7 @@ USAGE
   $ faststore build
 ```
 
-_See code: [dist/commands/build.ts](https://github.com/vtex/faststore/blob/v2.1.79/dist/commands/build.ts)_
+_See code: [dist/commands/build.ts](https://github.com/vtex/faststore/blob/v2.2.0-alpha.1/dist/commands/build.ts)_
 
 ## `faststore cms-sync`
 
@@ -43,7 +48,7 @@ USAGE
   $ faststore cms-sync
 ```
 
-_See code: [dist/commands/cms-sync.ts](https://github.com/vtex/faststore/blob/v2.1.79/dist/commands/cms-sync.ts)_
+_See code: [dist/commands/cms-sync.ts](https://github.com/vtex/faststore/blob/v2.2.0-alpha.1/dist/commands/cms-sync.ts)_
 
 ## `faststore dev`
 
@@ -52,7 +57,19 @@ USAGE
   $ faststore dev
 ```
 
-_See code: [dist/commands/dev.ts](https://github.com/vtex/faststore/blob/v2.1.79/dist/commands/dev.ts)_
+_See code: [dist/commands/dev.ts](https://github.com/vtex/faststore/blob/v2.2.0-alpha.1/dist/commands/dev.ts)_
+
+## `faststore generate-graphql`
+
+```
+USAGE
+  $ faststore generate-graphql [-d]
+
+FLAGS
+  -d, --debug
+```
+
+_See code: [dist/commands/generate-graphql.ts](https://github.com/vtex/faststore/blob/v2.2.0-alpha.1/dist/commands/generate-graphql.ts)_
 
 ## `faststore help [COMMAND]`
 
@@ -81,5 +98,5 @@ USAGE
   $ faststore start
 ```
 
-_See code: [dist/commands/start.ts](https://github.com/vtex/faststore/blob/v2.1.79/dist/commands/start.ts)_
+_See code: [dist/commands/start.ts](https://github.com/vtex/faststore/blob/v2.2.0-alpha.1/dist/commands/start.ts)_
 <!-- commandsstop -->

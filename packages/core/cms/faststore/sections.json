@@ -166,6 +166,21 @@
             "alt": {
               "title": "Alternative Label",
               "type": "string"
+            },
+            "link": {
+              "title": "Logo Link",
+              "type": "object",
+              "required": ["url", "title"],
+              "properties": {
+                "url": {
+                  "title": "Link URL",
+                  "type": "string"
+                },
+                "title": {
+                  "title": "Link Title",
+                  "type": "string"
+                }
+              }
             }
           }
         },
@@ -556,8 +571,23 @@
               }
             },
             "alt": {
-              "type": "string",
-              "title": "Alternative Label"
+              "title": "Alternative Label",
+              "type": "string"
+            },
+            "link": {
+              "title": "Logo Link",
+              "type": "object",
+              "required": ["url", "title"],
+              "properties": {
+                "url": {
+                  "title": "Link URL",
+                  "type": "string"
+                },
+                "title": {
+                  "title": "Link Title",
+                  "type": "string"
+                }
+              }
             }
           }
         },
