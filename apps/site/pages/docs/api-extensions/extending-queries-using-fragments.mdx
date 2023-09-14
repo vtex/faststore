@@ -67,25 +67,31 @@ export const fragment = gql`
   }
 `
 ```
+*See code's comment*
 
 {/*TO DO: ADD THE EXPECTED RESULT FROM THIS CODE SAMPLE*/}
 
 ## Extendable Queries
+
+Extendable queries in FastStore's GraphQL API are predefined queries that form the basis for fetching data from the API. 
+These queries enable customization by allowing the addition or modification of fields to align data retrieval with your store-specific requirements.
+
 
 <ul>
   <li>
     <details>
       <summary>Query: `ClientProductGalleryQuery`</summary>
       <ExtendableQueryTable>
+        <td>ClientProductGallery</td>
         <td>Client</td>
         <td>search</td>
         <td>PLP</td>
         <td>
-          In the hook `useGalleryQuery()` from the `ProductGallery` component.
+          In the hook `useProductGalleryQuery()` from the `ProductListingPage` (`PLP`) and `Search` Pages.
         </td>
         <td>
-          Products totalCount from StorePageInfo, and facets (StoreFacet) from
-          StoreSearchResult.
+          Products totalCount from [StorePageInfo](https://v1.faststore.dev/reference/api/objects#storepageinfo), and facets ([StoreFacet](https://v1.faststore.dev/reference/api/objects#storefacet)) from
+          [StoreSearchResult](https://v1.faststore.dev/reference/api/objects#storesearchresult).
         </td>
         <td>
           Frontend data from the `useSearch()` and `useLocalizedVariables()`
@@ -98,12 +104,13 @@ export const fragment = gql`
     <details>
       <summary>Query: `ServerCollectionPageQuery`</summary>
       <ExtendableQueryTable>
+        <td>ServerCollectionPage</td>
         <td>Server</td>
         <td>collection</td>
         <td>PLP</td>
         <td>In the function `getStaticProps()` from `PLP`.</td>
         <td>
-          seo, breadcrumbList and meta data from collection (StoreCollection).
+          seo, breadcrumbList and meta data from the collection ([StoreCollection](https://v1.faststore.dev/reference/api/objects#storecollection)).
         </td>
         <td>Collection `slug` that comes from URL.</td>
       </ExtendableQueryTable>
@@ -113,11 +120,12 @@ export const fragment = gql`
     <details>
       <summary>Query: `ServerProductPageQuery`</summary>
       <ExtendableQueryTable>
+        <td>ServerProductPage</td>
         <td>Server</td>
         <td>product</td>
         <td>PDP</td>
         <td>In the function `getStaticProps()` from `PDP`.</td>
-        <td>General product data from StoreProduct.</td>
+        <td>General product data from [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct).</td>
         <td>The `locator` with `slug` key/value.</td>
       </ExtendableQueryTable>
     </details>
@@ -126,16 +134,17 @@ export const fragment = gql`
     <details>
       <summary>Query: `ClientProductQuery`</summary>
       <ExtendableQueryTable>
+        <td>ClientProduct</td>
         <td>Client</td>
         <td>product</td>
         <td>PDP</td>
-        <td>In the hook `useProduct()` from `ProductDetails`component.</td>
+        <td>In the hook `useProductQuery()` from `PDP`.</td>
         <td>
-          General product data from StoreProduct to update product data inside
+          General product data from [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct) to update product data inside
           `PDP` (product coming from `ServerProductPageQuery` as fallback).
         </td>
         <td>
-          >Frontend data from the `useSession()` hook in locator array with
+          Frontend data from the `useSession()` hook in the locator array with
           `id`, `channel`, `locale` as key/values.
         </td>
       </ExtendableQueryTable>
@@ -145,28 +154,27 @@ export const fragment = gql`
     <details>
       <summary>Query: `ClientProductsQuery`</summary>
       <ExtendableQueryTable>
+        <td>ClientProducts</td>
         <td>Client</td>
         <td>search</td>
         <td>
-          PLP + Pages that use `ProductShelf`, and `ProductTiles` components.
+          `PLP`, `Search Page`, and pages that use `ProductShelf`, and `ProductTiles` components.
         </td>
         <td>
-          - In the hook `useProducts()` from `GalleryPage` from `PLP`.
+          - In the hook `usePageProductsQuery()` from `PLP` and `Search Page`.
           <br />
           - In the hook `useProductsPrefetch()` to prefetch the previous (prev)
-          and next (next) page from the current `PLP` page.
+          and next (next) page from the current `PLP` or `Search Page`.
           <br />
           - In the hook `useProductsQuery()`, in `ProductShelf`, `ProductTiles`
           components, that can be used on multiple pages.
           <br />
         </td>
         <td>
-          General products data (StoreProduct) with the `totalCount` from
-          StorePageInfo.
+          General products data ([StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct)) with the `totalCount` from [StorePageInfo](https://v1.faststore.dev/reference/api/objects#storepageinfo).
         </td>
         <td>
-          Frontend data from the `useLocalizedVariables()` and `useSession()`
-          hooks.
+          Frontend data from the `useLocalizedVariables()` and `useSession()` hooks.
         </td>
       </ExtendableQueryTable>
     </details>
