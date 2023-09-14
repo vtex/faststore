@@ -46,20 +46,19 @@ In practice, developers can source the FastStore API to the [**Next.js**](https:
 
 flowchart LR
 
-
-subgraph A[Data Source]
+subgraph Data_Source[Data Source]
     CMS_API(CMS API <BR /> Headless CMS)
     FastStore_API(FastStore API <BR /> Ecommerce Platform)
     Static_Data(Static Data <BR /> YAML, JSON, CSV)
 end
 
-subgraph B[Data Layer]
+subgraph Data_Layer[Data Layer]
     Next_js((Next.js <br /> Site Generator))
 end
 
-CMS_API -->|Source data|B
-FastStore_API -->|Source data|B
-Static_Data -->|Source data|B
+CMS_API -->|Source data| Next_js
+FastStore_API -->|Source data| Next_js
+Static_Data -->|Source data| Next_js
 Next_js -->|Query data| React_Components(React Components)
 ```
 
