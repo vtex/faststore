@@ -29,13 +29,40 @@ If you need to retrieve more data, you can achieve this by extending the FastSto
 <ul>
   <li>
     <details>
-      <summary>GraphQL Optimizations & types</summary>
-      GraphQL Optimizations are build-time generated mappings of the queries declared in a store.
-      They enable the GraphQL server of the store to be more efficient and secure by enabling it to accepting only previously defined operations.
-      Therefore, if these GraphQL optimizations are not generated, the changes in the GraphQL schema (new queries, addition or deletion a field from a query, changes in a GraphQL type) are not reflected in the store.
-      Changes in resolvers are always visible automatically and don't require generating the optimizations to see them.
+      <summary><b>GraphQL Optimizations & types</b></summary>
+        <br />
+        GraphQL Optimizations are essential for optimizing your GraphQL server and TypeScript types. They provide benefits such as:
 
-      At the same time GraphQL queries are optimized, the TypeScript types for the API are updated to reflect the changes that happened to the GraphQL schema. This process is also transparent.
+        - Build-time generated mappings of declared queries
+        - Improved efficiency and security
+        - Enforcement of predefined operations
+
+        Without these optimizations, any modifications to the GraphQL schema, such as adding or removing fields from a query or altering a GraphQL type, won't be reflected in the store. 
+        On the other hand, changes in resolvers are always visible without the need to generate optimizations.
+
+        Additionally, GraphQL query optimizations update TypeScript types for the API to match schema changes seamlessly.
+        <br />
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary><b>GraphQL Optimization automation</b></summary>
+        <br />
+        GraphQL optimizations are seamlessly executed, requiring no direct intervention from end developers. 
+        They are automatically triggered every time you start a developent server (`yarn dev`) or builds the store (`yarn build`).
+        Resolver changes are automatically and instantly visible, without the need for manual optimization generation.
+        <br />
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary><b>Extendable queries</b></summary>
+        <br />
+        Extendable queries in FastStore's GraphQL API are predefined GraphQL queries that serve as a foundation for retrieving data from the API. 
+        These queries allows you to add or modify fields within the query to tailor the data retrieval process to the store specific needs.
+        <br />
     </details>
   </li>
 </ul>
@@ -43,25 +70,24 @@ If you need to retrieve more data, you can achieve this by extending the FastSto
 ---
 
 ## Best practices for fetching data
-
 Site performance tends to get worse as more API requests are made by a page. Because of this, the best practices for fetching data on your storefront involve getting precisely the data you need with the minimum number possible of requests to the FastStore API. The sections below go over what you can do to minimize the API requests of your pages.
 
 ### Fetch only the data you need
-
 GraphQL allows you to customize your query to get precisely the data you need, which reduces the data returned from the requests. Double-check your queries to make sure they are not over-fetching.
 
 This also means that you must be mindful of the data brought into your query by [GraphQL fragments](https://graphql.org/learn/queries/#fragments). Use them only when they do not include unnecessary data.
 
+
 ### Do not send requests to other APIs
 
-If you need data that is not available on the native [FastStore GraphQL schema](https://v1.faststore.dev/reference/api/objects), check the [root object](https://v1.faststore.dev/reference/api/objects).
+When building your storefront with FastStore, to avoid comprimising the website performance and lead to `504` timeout errors, do not send requests to APIs other than the FastStore API.
+If you need to access other data not available in the native FastStore API schema, you must do this by using [API extension](/docs/api-extensions). *See the code's comment*
 
-The [GraphQL root object](https://graphql.org/learn/execution/#root-fields-resolvers) represents the top-level object returned to a query. You can see what data is available in the root object by adding logs.
+{/*WILL E CONTINUE WITH THIS RECOMMENDATION? If you need data that is not available on the native [FastStore GraphQL schema](https://v1.faststore.dev/reference/api/objects), check the [root object](https://v1.faststore.dev/reference/api/objects).
+The [GraphQL root object](https://graphql.org/learn/execution/#root-fields-resolvers) represents the top-level object returned to a query. You can see what data is available in the root object by adding logs.*/}
 
-If the root object also lacks the information you need, you must [extend the API schema](/docs/api-extensions/extending-api-schema) instead of adding other requests to your page.
 
 ### Avoid custom API Routes
-
 We do not recomend using Next.js [API Routes](https://nextjs.org/docs/api-routes/introduction) other than the ones already built in FastStore.
 
 If you do use this type of function, you must be mindful to always check which ones are actually running and remove the ones that are not.
@@ -74,28 +100,28 @@ To see what API Routes are running in your project, you can... *(See the code's 
   <li class="nx-card">
     <a href="/docs/api-extensions/extending-api-schema">
       #### Extending VTEX API schemas
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Extend VTEX and third-party APIs to customize how data is managed and processed in your store.
     </a>
   </li>
 
   <li class="nx-card">
     <a href="/docs/api-extensions/extending-queries-using-fragments">
       #### Extending queries usign fragments
-      Extend GraphQL queries with fragments to add custom fields and enhance query functionality.
+      Extend GraphQL queries using fragments in FastStore API Extension to add custom fields to predefined queries
     </a>
   </li>
 
   <li class="nx-card">
     <a href="/docs/api-extensions/consuming-api-extensions">
       #### Consuming FastStore API extension with custom components
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Consume FastStore API extension data with custom components, such as [Sections](/docs/building-sections/creating-a-new-section) and [Override components](/docs/building-sections/overriding-components-and-props).
     </a>
   </li>
 
   <li class="nx-card">
     <a href="/docs/api-extensions/troubleshooting">
       #### Troubleshooting
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Check for common errors that can happen while using API extensions.
     </a>
   </li>
 </ul>
