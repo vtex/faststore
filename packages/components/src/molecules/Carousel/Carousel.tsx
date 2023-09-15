@@ -147,7 +147,6 @@ function Carousel({
 
   const slideCarouselTrackStyle: CSSProperties = useMemo(
     () => ({
-      display: 'flex',
       width: `${numberOfSlides * 100}%`,
       transition: sliderState.sliding ? slidingTransition : undefined,
       transform: `translate3d(${
@@ -166,7 +165,6 @@ function Carousel({
   const scrollCarouselTrackStyle: CSSProperties = useMemo(
     () => ({
       width: '100%',
-      display: 'block',
       overflowX: 'scroll',
       whiteSpace: 'nowrap',
     }),
