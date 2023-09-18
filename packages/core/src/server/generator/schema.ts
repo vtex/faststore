@@ -1,3 +1,4 @@
+import path from 'path'
 import { writeFileSync } from 'fs-extra'
 import { getSchema, getTypeDefs } from '@faststore/api'
 import { printSchemaWithDirectives } from '@graphql-tools/utils'
@@ -69,7 +70,7 @@ export const getMergedSchema = (): GraphQLSchema =>
 export function writeGraphqlSchemaFile(apiSchema: GraphQLSchema) {
   try {
     writeFileSync(
-      [process.cwd(), '@generated', 'graphql', 'schema.graphql'].join('/'),
+      path.join(process.cwd(), '@generated', 'graphql', 'schema.graphql'),
       printSchemaWithDirectives(apiSchema)
     )
 
