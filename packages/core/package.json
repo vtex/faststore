@@ -60,7 +60,7 @@
     "typescript": "4.7.3"
   },
   "devDependencies": {
-    "@cypress/code-coverage": "^3.9.10",
+    "@cypress/code-coverage": "^3.12.1",
     "@faststore/eslint-config": "^2.1.82",
     "@faststore/lighthouse": "^1.12.32",
     "@graphql-codegen/cli": "^2.6.2",
