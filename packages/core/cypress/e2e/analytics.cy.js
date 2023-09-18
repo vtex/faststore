@@ -160,6 +160,8 @@ describe('remove_from_cart event', () => {
 
       cy.itemsInCart(1)
 
+      cy.getById('fs-cart-sidebar').should('be.visible')
+
       cy.getById('checkout-button').as('checkout-button')
       cy.get('@checkout-button')
         .should('be.visible')
@@ -396,13 +398,15 @@ describe('view_cart event', () => {
 
     dataLayerHasEvent('view_cart')
 
-    cy.waitUntil(() =>
-      cy
-        .getById('checkout-button')
+    cy.waitUntil(() => {
+      cy.getById('checkout-button').as('checkout-button')
+
+      return cy
+        .get('@checkout-button')
         .should('be.visible')
         .and('be.enabled')
         .and('contain', 'Checkout')
-    ).then((assert) => expect(assert).to.exist)
+    }).then((assert) => expect(assert).to.exist)
 
     cy.window().then((window) => {
       const event = window.dataLayer.find(
