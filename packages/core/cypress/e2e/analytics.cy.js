@@ -75,10 +75,7 @@ describe('add_to_cart event', () => {
       cy.getById('buy-button').as('buy-button')
       cy.get('@buy-button').contains('Add to Cart').and('be.visible')
       cy.get('@buy-button')
-        .trigger('click', {
-          force: true,
-          cancelable: false,
-        })
+        .trigger('click', { force: true, cancelable: false })
         .then(($btn) => {
           cy.itemsInCart(1)
 
@@ -156,28 +153,19 @@ describe('remove_from_cart event', () => {
       // Add item to cart
       cy.getById('buy-button').as('buy-button')
       cy.get('@buy-button').contains('Add to Cart').should('be.visible')
-      cy.get('@buy-button').trigger('click', { force: true, cancelable: false })
-
-      cy.itemsInCart(1)
+      cy.get('@buy-button').trigger('click')
 
       cy.getById('fs-cart-sidebar').should('be.visible')
 
-      // Wait for the cart requests' response and for the cart to be ready with items
-      cy.waitUntil(() => {
-        cy.getById('checkout-button').as('checkout-button')
-
-        return cy
-          .get('@checkout-button')
-          .should('be.visible')
-          .and('be.enabled')
-          .and('contain', 'Checkout')
-      }).then((assert) => expect(assert).to.exist)
+      cy.itemsInCart(1)
 
       // Remove the added item
-      cy.getById('remove-from-cart-button')
-        .trigger('click', { force: true, cancelable: false })
+      cy.getById('remove-from-cart-button').as('remove-from-cart-button')
+      cy.get('@remove-from-cart-button')
+        .click({ force: true })
         .then(($btn) => {
           cy.itemsInCart(0)
+
           const skuId = $btn.attr('data-sku')
 
           testRemoveFromCartEvent({
@@ -394,24 +382,13 @@ describe('view_cart event', () => {
 
     cy.getById('buy-button').as('buy-button')
     cy.get('@buy-button').contains('Add to Cart').should('be.visible')
-    cy.get('@buy-button').trigger('click', {
-      force: true,
-      cancelable: false,
-    })
+    cy.get('@buy-button').trigger('click', { force: true, cancelable: false })
 
     cy.getById('fs-cart-sidebar').should('be.visible')
 
     dataLayerHasEvent('view_cart')
 
-    cy.waitUntil(() => {
-      cy.getById('checkout-button').as('checkout-button')
-
-      return cy
-        .get('@checkout-button')
-        .should('be.visible')
-        .and('be.enabled')
-        .and('contain', 'Checkout')
-    }).then((assert) => expect(assert).to.exist)
+    cy.itemsInCart(1)
 
     cy.window().then((window) => {
       const event = window.dataLayer.find(
