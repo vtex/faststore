@@ -75,7 +75,6 @@
     "@storybook/manager-webpack5": "^6.5.9",
     "@storybook/react": "^6.5.9",
     "@testing-library/cypress": "^10.0.1",
-    "@types/cypress": "^1.1.3",
     "@vtex/prettier-config": "1.0.0",
     "axe-core": "^4.3.3",
     "cypress": "12.17.4",
