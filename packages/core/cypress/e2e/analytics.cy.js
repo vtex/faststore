@@ -162,11 +162,16 @@ describe('remove_from_cart event', () => {
 
       cy.getById('fs-cart-sidebar').should('be.visible')
 
-      cy.getById('checkout-button').as('checkout-button')
-      cy.get('@checkout-button')
-        .should('be.visible')
-        .and('be.enabled')
-        .and('contain', 'Checkout')
+      // Wait for the cart requests' response and for the cart to be ready with items
+      cy.waitUntil(() => {
+        cy.getById('checkout-button').as('checkout-button')
+
+        return cy
+          .get('@checkout-button')
+          .should('be.visible')
+          .and('be.enabled')
+          .and('contain', 'Checkout')
+      }).then((assert) => expect(assert).to.exist)
 
       // Remove the added item
       cy.getById('remove-from-cart-button')
