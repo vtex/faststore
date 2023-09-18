@@ -22,7 +22,8 @@
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["cypress", "cypress-axe"]
   },
   "include": ["*.d.ts", "src/**/*.ts", "src/**/*.tsx", "@generated/**/*.ts"],
   "exclude": ["node_modules", "public", "src/components/search/searchMock.ts"]
