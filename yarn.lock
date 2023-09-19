@@ -5448,18 +5448,18 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
-"@testing-library/cypress@^10.0.1":
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/@testing-library/cypress/-/cypress-10.0.1.tgz#15abae0edb83237316ec6d07e152b71a50b38387"
-  integrity sha512-e8uswjTZIBhaIXjzEcrQQ8nHRWHgZH7XBxKuIWxZ/T7FxfWhCR48nFhUX5nfPizjVOKSThEfOSv67jquc1ASkw==
+"@testing-library/cypress@^8.0.0":
+  version "8.0.7"
+  resolved "https://registry.yarnpkg.com/@testing-library/cypress/-/cypress-8.0.7.tgz#18315eba3cf8852808afadf122e4858406384015"
+  integrity sha512-3HTV725rOS+YHve/gD9coZp/UcPK5xhr4H0GMnq/ni6USdtzVtSOG9WBFtd8rYnrXk8rrGD+0toRFYouJNIG0Q==
   dependencies:
     "@babel/runtime" "^7.14.6"
-    "@testing-library/dom" "^9.0.0"
+    "@testing-library/dom" "^8.1.0"
 
-"@testing-library/dom@^9.0.0":
-  version "9.3.3"
-  resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-9.3.3.tgz#108c23a5b0ef51121c26ae92eb3179416b0434f5"
-  integrity sha512-fB0R+fa3AUqbLHWyxXa2kGVtf1Fe1ZZFr0Zp6AIbIAzXb2mKbEXl+PCQNUOaq5lbTab5tfctfXRNsWXxa2f7Aw==
+"@testing-library/dom@^8.1.0":
+  version "8.20.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-8.20.1.tgz#2e52a32e46fc88369eef7eef634ac2a192decd9f"
+  integrity sha512-/DiOQ5xBxgdYRC8LNk7U+RWat0S3qRLeIw3ZIkMQ9kkVlRmwD/Eg8k8CqIpD6GW7u20JIUOfMKbxtiLutpjQ4g==
   dependencies:
     "@babel/code-frame" "^7.10.4"
     "@babel/runtime" "^7.12.5"
@@ -7281,15 +7281,15 @@ axe-core@^4.2.0:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.6.3.tgz#fc0db6fdb65cc7a80ccf85286d91d64ababa3ece"
   integrity sha512-/BQzOX780JhsxDnPpH4ZiyrJAzcd8AfzFPkv+89veFSr1rcMjuq2JDCwypKaPeB6ljHp9KjXhPpjgCvQlWYuqg==
 
+axe-core@^4.3.3:
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.8.1.tgz#6948854183ee7e7eae336b9877c5bafa027998ea"
+  integrity sha512-9l850jDDPnKq48nbad8SiEelCv4OrUWrKab/cPj0GScVg6cb6NbCCt/Ulk26QEq5jP9NnGr04Bit1BHyV6r5CQ==
+
 axe-core@^4.4.3:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.6.2.tgz#6e566ab2a3d29e415f5115bc0fd2597a5eb3e5e3"
   integrity sha512-b1WlTV8+XKLj9gZy2DZXgQiyDp9xkkoe2a6U6UbYccScq2wgH/YwCeI2/Jq2mgo0HzQxqJOjWZBLeA/mqsk5Mg==
-
-axe-core@^4.8.1:
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.8.1.tgz#6948854183ee7e7eae336b9877c5bafa027998ea"
-  integrity sha512-9l850jDDPnKq48nbad8SiEelCv4OrUWrKab/cPj0GScVg6cb6NbCCt/Ulk26QEq5jP9NnGr04Bit1BHyV6r5CQ==
 
 axios@^1.0.0:
   version "1.2.2"
@@ -9563,10 +9563,10 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha512-NJGVKPS81XejHcLhaLJS7plab0fK3slPh11mESeeDq2W4ZI5kUKK/LRRdVDvjJseojbPB7ZwjnyOybg3Igea/A==
 
-cypress-axe@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/cypress-axe/-/cypress-axe-1.5.0.tgz#95082734583da77b51ce9b7784e14a442016c7a1"
-  integrity sha512-Hy/owCjfj+25KMsecvDgo4fC/781ccL+e8p+UUYoadGVM2ogZF9XIKbiM6KI8Y3cEaSreymdD6ZzccbI2bY0lQ==
+cypress-axe@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/cypress-axe/-/cypress-axe-0.13.0.tgz#3234e1a79a27701f2451fcf2f333eb74204c7966"
+  integrity sha512-fCIy7RiDCm7t30U3C99gGwQrUO307EYE1QqXNaf9ToK4DVqW8y5on+0a/kUHMrHdlls2rENF6TN9ZPpPpwLrnw==
 
 cypress-wait-until@^2.0.1:
   version "2.0.1"
