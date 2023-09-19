@@ -7,6 +7,7 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 import Selectors from 'src/components/ui/SkuSelector'
 import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
+import NotAvailableButton from 'src/components/product/NotAvailableButton'
 
 import {
   BuyButton,
@@ -54,7 +55,7 @@ function ProductDetailsSettings({
     },
   } = product
 
-  const buyDisabled = availability !== 'https://schema.org/InStock'
+  const outOfStock = availability === 'https://schema.org/OutOfStock'
 
   const buyProps = useBuyButton({
     id,
@@ -77,58 +78,60 @@ function ProductDetailsSettings({
 
   return (
     <>
-      <section data-fs-product-details-values>
-        <div data-fs-product-details-prices>
-          {shouldShowDiscountedPrice ? (
-            <>
+      {!outOfStock && (
+        <section data-fs-product-details-values>
+          <div data-fs-product-details-prices>
+            {shouldShowDiscountedPrice ? (
+              <>
+                <Price.Component
+                  formatter={useFormattedPrice}
+                  testId="list-price"
+                  variant="listing"
+                  SRText="Original price:"
+                  {...Price.props}
+                  // Dynamic props shouldn't be overridable
+                  // This decision can be reviewed later if needed
+                  value={listPrice}
+                  data-value={listPrice}
+                />
+                <Price.Component
+                  formatter={useFormattedPrice}
+                  testId="price"
+                  variant="spot"
+                  className="text__lead"
+                  SRText="Sale Price:"
+                  {...Price.props}
+                  // Dynamic props shouldn't be overridable
+                  // This decision can be reviewed later if needed
+                  value={lowPrice}
+                  data-value={lowPrice}
+                />
+              </>
+            ) : (
               <Price.Component
                 formatter={useFormattedPrice}
                 testId="list-price"
-                variant="listing"
-                SRText="Original price:"
-                {...Price.props}
-                // Dynamic props shouldn't be overridable
-                // This decision can be reviewed later if needed
-                value={listPrice}
-                data-value={listPrice}
-              />
-              <Price.Component
-                formatter={useFormattedPrice}
-                testId="price"
                 variant="spot"
                 className="text__lead"
-                SRText="Sale Price:"
+                SRText="Original price:"
                 {...Price.props}
                 // Dynamic props shouldn't be overridable
                 // This decision can be reviewed later if needed
                 value={lowPrice}
                 data-value={lowPrice}
               />
-            </>
-          ) : (
-            <Price.Component
-              formatter={useFormattedPrice}
-              testId="list-price"
-              variant="spot"
-              className="text__lead"
-              SRText="Original price:"
-              {...Price.props}
-              // Dynamic props shouldn't be overridable
-              // This decision can be reviewed later if needed
-              value={lowPrice}
-              data-value={lowPrice}
-            />
-          )}
-        </div>
-        <QuantitySelector.Component
-          min={1}
-          max={10}
-          {...QuantitySelector.props}
-          // Dynamic props shouldn't be overridable
-          // This decision can be reviewed later if needed
-          onChange={setQuantity}
-        />
-      </section>
+            )}
+          </div>
+          <QuantitySelector.Component
+            min={1}
+            max={10}
+            {...QuantitySelector.props}
+            // Dynamic props shouldn't be overridable
+            // This decision can be reviewed later if needed
+            onChange={setQuantity}
+          />
+        </section>
+      )}
       {skuVariants && (
         <Selectors
           slugsMap={skuVariants.slugsMap}
@@ -137,30 +140,31 @@ function ProductDetailsSettings({
           data-fs-product-details-selectors
         />
       )}
-      {
+      {outOfStock ? (
+        // TODO: Adds <OutOfStock /> when component is ready to use
+        <NotAvailableButton>Not Available</NotAvailableButton>
+      ) : isValidating ? (
         /* NOTE: A loading skeleton had to be used to avoid a Lighthouse's
-                  non-composited animation violation due to the button transitioning its
-                  background color when changing from its initial disabled to active state.
-                  See full explanation on commit https://git.io/JyXV5. */
-        isValidating ? (
-          <AddToCartLoadingSkeleton />
-        ) : (
-          <BuyButton.Component
-            {...BuyButton.props}
-            icon={
-              <Icon.Component
-                {...Icon.props}
-                aria-label={buyButtonIconAlt}
-                name={buyButtonIconName}
-              />
-            }
-            disabled={buyDisabled}
-            {...buyProps}
-          >
-            {buyButtonTitle || 'Add to Cart'}
-          </BuyButton.Component>
-        )
-      }
+                    non-composited animation violation due to the button transitioning its
+                    background color when changing from its initial disabled to active state.
+                    See full explanation on commit https://git.io/JyXV5. */
+        <AddToCartLoadingSkeleton />
+      ) : (
+        <BuyButton.Component
+          {...BuyButton.props}
+          icon={
+            <Icon.Component
+              {...Icon.props}
+              aria-label={buyButtonIconAlt}
+              name={buyButtonIconName}
+            />
+          }
+          disabled={outOfStock}
+          {...buyProps}
+        >
+          {buyButtonTitle || 'Add to Cart'}
+        </BuyButton.Component>
+      )}
     </>
   )
 }

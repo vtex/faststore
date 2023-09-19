@@ -194,19 +194,14 @@ function ProductDetails({
               data-fs-product-details-settings
               data-fs-product-details-section
             >
-              {!outOfStock ? (
-                <ProductDetailsSettings
-                  product={data.product}
-                  isValidating={isValidating}
-                  buyButtonTitle={buyButtonTitle}
-                  quantity={quantity}
-                  setQuantity={setQuantity}
-                  buyButtonIcon={buyButtonIcon}
-                />
-              ) : (
-                // TODO: Adds <OutOfStock /> when component is ready to use
-                <p>Not Available</p>
-              )}
+              <ProductDetailsSettings
+                product={data.product}
+                isValidating={isValidating}
+                buyButtonTitle={buyButtonTitle}
+                quantity={quantity}
+                setQuantity={setQuantity}
+                buyButtonIcon={buyButtonIcon}
+              />
             </section>
 
             {!outOfStock && (
