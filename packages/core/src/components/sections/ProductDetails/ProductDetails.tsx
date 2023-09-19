@@ -155,7 +155,7 @@ function ProductDetails({
     gtin,
   ])
 
-  const outOfStock = availability == 'https://schema.org/OutOfStock'
+  const outOfStock = availability === 'https://schema.org/OutOfStock'
 
   return (
     <Section className={`${styles.section} section-product-details`}>
