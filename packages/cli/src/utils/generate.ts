@@ -42,7 +42,7 @@ interface GenerateOptions {
   setup?: boolean
 }
 
-const ignorePaths = ['node_modules']
+const ignorePaths = ['node_modules', 'cypress.config.ts']
 
 function createTmpFolder() {
   try {
@@ -83,7 +83,9 @@ async function copyCypressFiles() {
   try {
     const userStoreConfig = await import(userStoreConfigFileDir)
     if (userStoreConfig?.experimental?.enableCypressExtension) {
-      copySync(`${userDir}/cypress`, `${tmpDir}/cypress/integration`, {overwrite: true})
+      copySync(`${userDir}/cypress`, `${tmpDir}/cypress/integration`, {
+        overwrite: true,
+      })
       console.log(`${chalk.green('success')} - Cypress test files copied`)
     }
   } catch (e) {
