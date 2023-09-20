@@ -59,7 +59,7 @@ export default class Test extends Command {
       watcher.close()
     })
 
-    await generate({ setup: true })
+    await generate({ test: true })
 
     storeTest()
 

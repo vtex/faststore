@@ -40,6 +40,7 @@ import stringifyObject from 'stringify-object'
 
 interface GenerateOptions {
   setup?: boolean
+  test?: boolean
 }
 
 const ignorePaths = ['node_modules', 'cypress.config.ts']
@@ -268,9 +269,13 @@ function createNodeModulesSymbolicLink() {
 }
 
 export async function generate(options?: GenerateOptions) {
-  const { setup = false } = options ?? {}
+  const { setup = false, test = false } = options ?? {}
 
   let setupPromise: Promise<unknown> | null = null
+
+  if (test) {
+    return copyCypressFiles()
+  }
 
   if (setup) {
     setupPromise = Promise.all([
