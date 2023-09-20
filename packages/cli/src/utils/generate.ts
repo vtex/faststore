@@ -81,6 +81,16 @@ function copyCoreFiles() {
 
 async function copyCypressFiles() {
   try {
+    // Cypress 9.x config file
+    if (existsSync(`${userDir}/cypress.json`)) {
+      copySync(`${userDir}/cypress.json`, `${tmpDir}/cypress.json`)
+    }
+
+    // Cypress 12.x config file
+    if (existsSync(`${userDir}/cypress.config.ts`)) {
+      copySync(`${userDir}/cypress.config.ts`, `${tmpDir}/cypress.config.ts`)
+    }
+
     const userStoreConfig = await import(userStoreConfigFileDir)
     if (userStoreConfig?.experimental?.enableCypressExtension) {
       copySync(`${userDir}/cypress`, `${tmpDir}/cypress/integration`, {
