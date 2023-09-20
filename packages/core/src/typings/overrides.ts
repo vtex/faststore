@@ -13,7 +13,7 @@ import type {
   IconButtonProps,
   IconProps,
   ImageGalleryProps,
-  ImageZoomProps,
+  ImageGalleryViewerProps,
   InputFieldProps,
   LinkButtonProps,
   NavbarButtonsProps,
@@ -197,7 +197,10 @@ export type ProductDetailsOverrideDefinition = SectionOverrideDefinition<
       ImageGalleryProps,
       ImageGalleryProps
     >
-    ImageZoom: ComponentOverrideDefinition<ImageZoomProps, ImageZoomProps>
+    ImageGalleryViewer: ComponentOverrideDefinition<
+      ImageGalleryViewerProps,
+      ImageGalleryViewerProps
+    >
     __experimentalImageGalleryImage: ComponentOverrideDefinition<any, any>
     __experimentalImageGallery: ComponentOverrideDefinition<any, any>
     __experimentalShippingSimulation: ComponentOverrideDefinition<any, any>

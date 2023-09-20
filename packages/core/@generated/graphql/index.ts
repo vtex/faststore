@@ -1371,6 +1371,11 @@ export type ClientProductsQueryQuery = {
   }
 }
 
+export type SearchEvent_MetadataFragment = {
+  isTermMisspelled: boolean
+  logicalOperator: string
+}
+
 export type ClientProductGalleryQueryQueryVariables = Exact<{
   first: Scalars['Int']
   after: Scalars['String']
@@ -1402,6 +1407,7 @@ export type ClientProductGalleryQueryQuery = {
           max: { selected: number; absolute: number }
         }
     >
+    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
   }
 }
 
@@ -1475,6 +1481,8 @@ export type SearchSuggestionsQueryQuery = {
         }
       }>
     }
+    products: { pageInfo: { totalCount: number } }
+    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
   }
 }
 

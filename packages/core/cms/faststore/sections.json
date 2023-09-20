@@ -1430,6 +1430,18 @@
               "default": "Description"
             }
           }
+        },
+        "imageGallery": {
+          "title": "Image Gallery",
+          "type": "object",
+          "properties": {
+            "imagePosition": {
+              "type": "string",
+              "title": "Image Position",
+              "enumNames": ["Center", "Top", "Bottom"],
+              "enum": ["center", "top", "bottom"]
+            }
+          }
         }
       }
     }
