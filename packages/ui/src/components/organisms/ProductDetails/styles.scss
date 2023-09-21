@@ -121,11 +121,13 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex: 1;
   }
 
   [data-fs-product-details-values] {
     display: flex;
     justify-content: space-between;
+    gap: .875rem;
   }
 
   // -----------------------------

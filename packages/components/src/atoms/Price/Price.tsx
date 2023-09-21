@@ -38,6 +38,10 @@ export interface PriceProps
    * Text for the screen readers only
    */
   SRText?: string
+  /**
+   * Boolean that represents a loading state.
+   */
+  loading?: boolean
 }
 
 const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
@@ -49,11 +53,21 @@ const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
       testId = 'fs-price',
       formatter = (price) => price,
       SRText,
+      loading = false,
       ...otherProps
     },
     ref
   ) {
     const formattedPrice = formatter(value, variant)
+
+    if (loading) {
+      return (
+        <Skeleton
+          testId={`${testId}_loading`}
+          size={{ width: '100%', height: '100%' }}
+        />
+      )
+    }
 
     return (
       <Component
