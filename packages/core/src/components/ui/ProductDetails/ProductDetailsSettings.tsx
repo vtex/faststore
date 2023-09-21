@@ -74,28 +74,20 @@ function ProductDetailsSettings({
     },
   })
 
+  const shouldShowDiscountedPrice = lowPrice !== listPrice
+
   return (
     <>
       <section data-fs-product-details-values>
         <div data-fs-product-details-prices>
-        {isValidating ? (
-            <>
-              <Skeleton
-                testId="list-price_loading"
-                size={{ width: '55px', height: '23px' }}
-              />
-              <Skeleton
-                testId="price_loading"
-                size={{ width: '100px', height: '28px' }}
-              />
-            </>
-          ) : (
+          {shouldShowDiscountedPrice ? (
             <>
               <Price.Component
                 formatter={useFormattedPrice}
                 testId="list-price"
                 variant="listing"
                 SRText="Original price:"
+                loading={isValidating}
                 {...Price.props}
                 // Dynamic props shouldn't be overridable
                 // This decision can be reviewed later if needed
@@ -108,6 +100,7 @@ function ProductDetailsSettings({
                 variant="spot"
                 className="text__lead"
                 SRText="Sale Price:"
+                loading={isValidating}
                 {...Price.props}
                 // Dynamic props shouldn't be overridable
                 // This decision can be reviewed later if needed
@@ -115,6 +108,20 @@ function ProductDetailsSettings({
                 data-value={lowPrice}
               />
             </>
+          ) : (
+            <Price.Component
+              formatter={useFormattedPrice}
+              testId="list-price"
+              variant="spot"
+              className="text__lead"
+              SRText="Original price:"
+              loading={isValidating}
+              {...Price.props}
+              // Dynamic props shouldn't be overridable
+              // This decision can be reviewed later if needed
+              value={lowPrice}
+              data-value={lowPrice}
+            />
           )}
         </div>
         <QuantitySelector.Component

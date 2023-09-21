@@ -10,7 +10,7 @@ sidebar_custom_props:
 
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
-import { Tab, Tabs } from 'nextra-theme-docs'
+import { Callout, Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
@@ -66,7 +66,11 @@ According to the quantity of `Image` to be displayed, the `ImageGallerySelector`
 Import the component from [@faststore/ui](/../components)
 
 ```tsx
-import { ImageGallery, ImageGallerySelector, ImageZoom } from '@faststore/ui'
+import {
+  ImageGallery,
+  ImageGallerySelector,
+  ImageGalleryViewer,
+} from '@faststore/ui'
 ```
 
 Import Styles
@@ -118,6 +122,11 @@ export const imagesUsage = [
   },
 ]
 
+<Callout type="warning" emoji="⚠️">
+  Add the `data-fs-image` attribute in all `<img>` tags to ensure they work
+  as expected. You can find an example in the `Code` tab below for reference.
+</Callout>
+
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
@@ -139,13 +148,13 @@ export const imagesUsage = [
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
     >
-      <ImageZoom>
+      <ImageGalleryViewer>
         <img
           data-fs-image
           src={currentImage.url}
           alt={currentImage.alternateName}
         />
-      </ImageZoom>
+      </ImageGalleryViewer>
     </ImageGallery>
 
     ```
@@ -349,13 +358,13 @@ export const propsImageElementData = [
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
     >
-      <ImageZoom>
+      <ImageGalleryViewer>
         <img
           data-fs-image
           src={currentImage.url}
           alt={currentImage.alternateName}
         />
-      </ImageZoom>
+      </ImageGalleryViewer>
     </ImageGallery>
 
     ```
@@ -390,13 +399,136 @@ export const imagesWithoutSelector = [imagesUsage[0]]
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
     >
-      <ImageZoom>
+      <ImageGalleryViewer>
         <img
           data-fs-image
           src={currentImage.url}
           alt={currentImage.alternateName}
         />
-      </ImageZoom>
+      </ImageGalleryViewer>
+    </ImageGallery>
+
+    ```
+
+  </Tab>
+</Tabs>
+
+### Image Position
+
+The `ImagePosition` prop sets the image position in the thumbnail and the gallery. You can check the first image changing its position in the examples below:
+
+#### Top
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ImageGalleryUsage images={imagesUsage} imagePosition="top" />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const ImageComponent = ({ url, alternateName }) => (
+      <img data-fs-image src={url} alt={alternateName} />
+    )
+
+    export const images = [imagesUsage[0]]
+
+    const [selectedImageIdx, setSelectedImageIdx] = useState(0)
+    const currentImage = images[selectedImageIdx]
+
+    <ImageGallery
+      images={images}
+      ImageComponent={ImageComponent}
+      selectedImageIdx={selectedImageIdx}
+      setSelectedImageIdx={setSelectedImageIdx}
+      imagePosition="top"
+    >
+      <ImageGalleryViewer>
+        <img
+          data-fs-image
+          src={currentImage.url}
+          alt={currentImage.alternateName}
+        />
+      </ImageGalleryViewer>
+    </ImageGallery>
+
+    ```
+
+  </Tab>
+</Tabs>
+
+#### Center (default)
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ImageGalleryUsage images={imagesUsage} imagePosition="center" />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const ImageComponent = ({ url, alternateName }) => (
+      <img data-fs-image src={url} alt={alternateName} />
+    )
+
+    export const images = [imagesUsage[0]]
+
+    const [selectedImageIdx, setSelectedImageIdx] = useState(0)
+    const currentImage = images[selectedImageIdx]
+
+    <ImageGallery
+      images={images}
+      ImageComponent={ImageComponent}
+      selectedImageIdx={selectedImageIdx}
+      setSelectedImageIdx={setSelectedImageIdx}
+    >
+      <ImageGalleryViewer>
+        <img
+          data-fs-image
+          src={currentImage.url}
+          alt={currentImage.alternateName}
+        />
+      </ImageGalleryViewer>
+    </ImageGallery>
+
+    ```
+
+  </Tab>
+</Tabs>
+
+#### Bottom
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ImageGalleryUsage images={imagesUsage} imagePosition="bottom" />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const ImageComponent = ({ url, alternateName }) => (
+      <img data-fs-image src={url} alt={alternateName} />
+    )
+
+    export const images = [imagesUsage[0]]
+
+    const [selectedImageIdx, setSelectedImageIdx] = useState(0)
+    const currentImage = images[selectedImageIdx]
+
+    <ImageGallery
+      images={images}
+      ImageComponent={ImageComponent}
+      selectedImageIdx={selectedImageIdx}
+      setSelectedImageIdx={setSelectedImageIdx}
+      imagePosition="bottom"
+    >
+      <ImageGalleryViewer>
+        <img
+          data-fs-image
+          src={currentImage.url}
+          alt={currentImage.alternateName}
+        />
+      </ImageGalleryViewer>
     </ImageGallery>
 
     ```
