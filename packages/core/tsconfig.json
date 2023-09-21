@@ -13,7 +13,8 @@
     "allowJs": true,
     "paths": {
       "src/*": ["src/*"],
-      "@generated/*": ["@generated/*"]
+      "@generated/*": ["@generated/*"],
+      "@faststore/core/experimental": ["src/experimental/index.ts"]
     },
     "forceConsistentCasingInFileNames": true,
     "strict": false,
