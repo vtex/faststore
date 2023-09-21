@@ -4,6 +4,7 @@
  * Cypress tests for a11y (accessibility)
  */
 
+import { disabledA11yRules } from '../global'
 import { cypress } from '../../faststore.config'
 
 const { pages } = cypress
@@ -13,7 +14,7 @@ describe('Accessibility tests', () => {
     cy.clearIDB()
   })
 
-  it.skip('checks a11y for collection page', () => {
+  it('checks a11y for collection page', () => {
     cy.visit(pages.collection)
     cy.waitForHydration()
 
@@ -21,16 +22,10 @@ describe('Accessibility tests', () => {
     cy.getById('product-link').should('exist')
 
     cy.injectAxe()
-
-    // TODO: Bring back the `aria-allowed-role` when the component with the missing/wrong role is found.
-    cy.checkA11y(null, {
-      rules: {
-        'aria-allowed-role': { enabled: false },
-      },
-    })
+    cy.checkA11y(null, disabledA11yRules)
   })
 
-  it.skip('checks a11y for product page', () => {
+  it('checks a11y for product page', () => {
     cy.visit(pages.pdp)
     cy.waitForHydration()
 
@@ -38,26 +33,14 @@ describe('Accessibility tests', () => {
     cy.getById('buy-button').should('exist')
 
     cy.injectAxe()
-
-    // TODO: Bring back the `aria-allowed-role` when the component with the missing/wrong role is found.
-    cy.checkA11y(null, {
-      rules: {
-        'aria-allowed-role': { enabled: false },
-      },
-    })
+    cy.checkA11y(null, disabledA11yRules)
   })
 
-  it.skip('checks a11y for home page', () => {
+  it('checks a11y for home page', () => {
     cy.visit(pages.home)
     cy.waitForHydration()
 
     cy.injectAxe()
-
-    // TODO: Bring back the `aria-allowed-role` when the component with the missing/wrong role is found.
-    cy.checkA11y(null, {
-      rules: {
-        'aria-allowed-role': { enabled: false },
-      },
-    })
+    cy.checkA11y(null, disabledA11yRules)
   })
 })
