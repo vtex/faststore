@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ElementType, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
-import { SROnly } from '../../'
+import { SROnly, Skeleton } from '../../'
 
 export type PriceVariant =
   | 'selling'
