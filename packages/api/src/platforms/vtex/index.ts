@@ -56,6 +56,7 @@ export interface Context {
     locale: string
     flags: FeatureFlags
     searchArgs?: Omit<SearchArgs, 'type'>
+    cookies?: string | null
   }
   headers: Record<string, string>
 }
