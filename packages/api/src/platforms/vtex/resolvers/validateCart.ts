@@ -391,6 +391,7 @@ export const validateCart = async (
   if (equals(order, updatedOrderForm)) {
     return null
   }
+
   // Step6: There were changes, convert orderForm to StoreCart
   return orderFormToCart(updatedOrderForm, skuLoader)
 }
