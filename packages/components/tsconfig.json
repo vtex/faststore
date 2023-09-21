@@ -9,6 +9,6 @@
     "src/**/*.test.tsx",
     "src/**/*.stories.ts",
     "src/**/*.stories.tsx",
-    "src/typings/utils.d.ts",
+    "src/typings/utils.d.ts"
   ]
 }
