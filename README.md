@@ -18,7 +18,7 @@
 - <strong>Performance</strong>: Keep yourself calm. We use strict budgets to ensure our libs are always light and fast.
 - <strong>Stability</strong>: Generate your pages ahead by using a Jamstack ready toolkit.
 - <strong>SEO/Analytics</strong>: Connect to your favorite analytics provider.
-- <strong>Freedom</strong>: Use our API/SDK/UI components to connect, manage and display your ecommerce using Next.JS, a powerful React framework
+- <strong>Freedom</strong>: Use our API/SDK/UI components to connect, manage and display your ecommerce using Next.JS, a powerful React framework.
 - <strong>Speed</strong>: Customize our starter to fit your needs. Do not waste time creating tests, thinking about architecture or infrastructure, it's all taken care of.
 
 ## Getting started
