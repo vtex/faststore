@@ -264,7 +264,7 @@ export const VtexCommerce = (
       })
     },
 
-    getSegment: async (): Promise<Segment> => {
+    getSegment: (): Promise<Segment> => {
       const requestInit: RequestInit = ctx.headers
         ? {
             ...BASE_INIT,
@@ -278,7 +278,7 @@ export const VtexCommerce = (
             ...BASE_INIT,
             body: JSON.stringify({}),
           }
-      return await fetchAPI(`${base}/api/sessions`, requestInit)
+      return fetchAPI(`${base}/api/sessions`, requestInit)
     },
 
     subscribeToNewsletter: (data: {

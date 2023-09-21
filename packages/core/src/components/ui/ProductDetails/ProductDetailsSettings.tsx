@@ -6,6 +6,7 @@ import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 import Selectors from 'src/components/ui/SkuSelector'
+import { Skeleton } from 'src/components/ui/Skeleton'
 import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
 
 import {
@@ -77,29 +78,44 @@ function ProductDetailsSettings({
     <>
       <section data-fs-product-details-values>
         <div data-fs-product-details-prices>
-          <Price.Component
-            formatter={useFormattedPrice}
-            testId="list-price"
-            variant="listing"
-            SRText="Original price:"
-            {...Price.props}
-            // Dynamic props shouldn't be overridable
-            // This decision can be reviewed later if needed
-            value={listPrice}
-            data-value={listPrice}
-          />
-          <Price.Component
-            formatter={useFormattedPrice}
-            testId="price"
-            variant="spot"
-            className="text__lead"
-            SRText="Sale Price:"
-            {...Price.props}
-            // Dynamic props shouldn't be overridable
-            // This decision can be reviewed later if needed
-            value={lowPrice}
-            data-value={lowPrice}
-          />
+        {isValidating ? (
+            <>
+              <Skeleton
+                testId="list-price_loading"
+                size={{ width: '55px', height: '23px' }}
+              />
+              <Skeleton
+                testId="price_loading"
+                size={{ width: '100px', height: '28px' }}
+              />
+            </>
+          ) : (
+            <>
+              <Price.Component
+                formatter={useFormattedPrice}
+                testId="list-price"
+                variant="listing"
+                SRText="Original price:"
+                {...Price.props}
+                // Dynamic props shouldn't be overridable
+                // This decision can be reviewed later if needed
+                value={listPrice}
+                data-value={listPrice}
+              />
+              <Price.Component
+                formatter={useFormattedPrice}
+                testId="price"
+                variant="spot"
+                className="text__lead"
+                SRText="Sale Price:"
+                {...Price.props}
+                // Dynamic props shouldn't be overridable
+                // This decision can be reviewed later if needed
+                value={lowPrice}
+                data-value={lowPrice}
+              />
+            </>
+          )}
         </div>
         <QuantitySelector.Component
           min={1}
