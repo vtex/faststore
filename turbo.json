@@ -21,6 +21,9 @@
     "size": {},
     "dev": {
       "cache": false
+    },
+    "dev:server": {
+      "cache": false
     }
   }
 }

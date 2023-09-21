@@ -19,6 +19,7 @@ import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import { DeliveryMode, SelectedAddress } from './types/ShippingData'
+import getCookieByName from '../../../../utils/get-cookie-by-name'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -27,6 +28,18 @@ const BASE_INIT = {
   headers: {
     'content-type': 'application/json',
   },
+}
+
+const setCheckoutOrderFormOwnershipCookie = (
+  headers: Headers,
+  ctx: Context
+) => {
+  if (headers) {
+    ctx.storage.cookies = `CheckoutOrderFormOwnership=${getCookieByName(
+      'CheckoutOrderFormOwnership',
+      headers.get('set-cookie') ?? ''
+    )}`
+  }
 }
 
 export const VtexCommerce = (
@@ -131,7 +144,8 @@ export const VtexCommerce = (
               'content-type': 'application/json',
               cookie: ctx.headers.cookie,
             },
-          }
+          },
+          (headers) => setCheckoutOrderFormOwnershipCookie(headers, ctx)
         )
       },
 
@@ -152,7 +166,8 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
-          BASE_INIT
+          BASE_INIT,
+          (headers) => setCheckoutOrderFormOwnershipCookie(headers, ctx)
         )
       },
       updateOrderFormItems: ({
@@ -182,7 +197,8 @@ export const VtexCommerce = (
               noSplitItem: !shouldSplitItem,
             }),
             method: 'PATCH',
-          }
+          },
+          (headers) => setCheckoutOrderFormOwnershipCookie(headers, ctx)
         )
       },
       setCustomData: ({
@@ -202,7 +218,8 @@ export const VtexCommerce = (
             ...BASE_INIT,
             body: JSON.stringify({ value }),
             method: 'PUT',
-          }
+          },
+          (headers) => setCheckoutOrderFormOwnershipCookie(headers, ctx)
         )
       },
       region: async ({
@@ -242,14 +259,18 @@ export const VtexCommerce = (
         'items',
         'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
-      return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          cookie: ctx.headers.cookie,
+      return fetchAPI(
+        `${base}/api/sessions?${params.toString()}`,
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            cookie: ctx.headers.cookie,
+          },
+          body: '{}',
         },
-        body: '{}',
-      })
+        (headers) => setCheckoutOrderFormOwnershipCookie(headers, ctx)
+      )
     },
     subscribeToNewsletter: (data: {
       name: string
