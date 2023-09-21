@@ -11,7 +11,7 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
 
-import type { useFilter } from './useFilter'
+import type { useFilter } from 'src/sdk/search/useFilter'
 
 import styles from './section.module.scss'
 

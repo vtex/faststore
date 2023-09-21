@@ -9,7 +9,7 @@ import {
 } from '@faststore/ui'
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import { useFilter } from './useFilter'
+import { useFilter } from 'src/sdk/search/useFilter'
 
 interface Props {
   /**

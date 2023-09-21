@@ -15,7 +15,7 @@ import {
   Button,
 } from 'src/components/sections/Newsletter/Overrides'
 
-const cmsToHtml = (content) => {
+export const cmsToHtml = (content) => {
   if (!content) {
     return ''
   }
