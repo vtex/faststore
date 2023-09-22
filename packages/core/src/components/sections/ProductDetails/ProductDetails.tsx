@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 
 import { gql } from '@faststore/graphql-utils'
 import { sendAnalyticsEvent } from '@faststore/sdk'
@@ -162,7 +162,10 @@ function ProductDetails({
     gtin,
   ])
 
-  const outOfStock = availability === 'https://schema.org/OutOfStock'
+  const outOfStock = useMemo(
+    () => availability === 'https://schema.org/OutOfStock',
+    [availability]
+  )
 
   return (
     <Section className={`${styles.section} section-product-details`}>
