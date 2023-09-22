@@ -27,7 +27,7 @@
 
 ## Official Starter
 
-- [NextJS](https://github.com/vtex/faststore): Basic starter with a generic store.
+- [NextJS](https://github.com/vtex-sites/starter.store):  FastStore Starter for a generic store.
 
 ## Learn
 
