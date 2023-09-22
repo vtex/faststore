@@ -21,6 +21,7 @@ import {
   DiscountBadge,
   __experimentalImageGallery as ImageGallery,
   __experimentalShippingSimulation as ShippingSimulation,
+  __experimentalNotAvailableButton as NotAvailableButton,
 } from 'src/components/sections/ProductDetails/Overrides'
 
 interface ProductDetailsContextProps {
@@ -59,6 +60,9 @@ export interface ProductDetailsProps {
   imageGallery: {
     imagePosition: 'top' | 'center' | 'bottom'
   }
+  notAvailableButton: {
+    title: string
+  }
 }
 
 function ProductDetails({
@@ -91,6 +95,9 @@ function ProductDetails({
     displayDescription: shouldDisplayProductDescription,
   },
   imageGallery: { imagePosition = ImageGallery.props.imagePosition },
+  notAvailableButton: {
+    title: notAvailableButtonTitle = NotAvailableButton.props.title,
+  },
 }: ProductDetailsProps & ProductDetailsContextProps) {
   const { currency } = useSession()
   const [quantity, setQuantity] = useState(1)
@@ -201,6 +208,7 @@ function ProductDetails({
                 quantity={quantity}
                 setQuantity={setQuantity}
                 buyButtonIcon={buyButtonIcon}
+                notAvailableButtonTitle={notAvailableButtonTitle}
               />
             </section>
 

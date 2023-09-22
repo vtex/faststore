@@ -1442,6 +1442,18 @@
               "enum": ["center", "top", "bottom"]
             }
           }
+        },
+        "notAvailableButton": {
+          "title": "Not Available Button",
+          "description": "Shown when a SKU is not available",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Not Available"
+            }
+          }
         }
       }
     }

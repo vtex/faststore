@@ -14,6 +14,7 @@ import {
 import LocalImageGallery from 'src/components/ui/ImageGallery'
 import LocalShippingSimulation from 'src/components/ui/ShippingSimulation/ShippingSimulation'
 import { Image } from 'src/components/ui/Image'
+import LocalNotAvailableButton from 'src/components/product/NotAvailableButton'
 
 import { getSectionOverrides } from 'src/utils/overrides'
 import { override } from 'src/customizations/components/overrides/ProductDetails'
@@ -33,6 +34,7 @@ const {
   __experimentalImageGalleryImage,
   __experimentalImageGallery,
   __experimentalShippingSimulation,
+  __experimentalNotAvailableButton,
 } = getSectionOverrides(
   {
     ProductTitle: UIProductTitle,
@@ -48,6 +50,7 @@ const {
     __experimentalImageGalleryImage: Image,
     __experimentalImageGallery: LocalImageGallery,
     __experimentalShippingSimulation: LocalShippingSimulation,
+    __experimentalNotAvailableButton: LocalNotAvailableButton,
   },
   override as ProductDetailsOverrideDefinition
 )
@@ -66,4 +69,5 @@ export {
   __experimentalImageGalleryImage,
   __experimentalImageGallery,
   __experimentalShippingSimulation,
+  __experimentalNotAvailableButton,
 }
