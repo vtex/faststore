@@ -23,7 +23,7 @@
 
 ## Getting started
 
-[Check out the docs](https://faststore.dev/) to quickstart from our official starter and start creating.
+[Check out the docs](https://www.faststore.dev/docs/getting-started-overview) to quickstart from our official starter and start creating.
 
 ## Official Starter
 
