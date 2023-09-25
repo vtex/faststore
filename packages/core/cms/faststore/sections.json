@@ -1374,6 +1374,18 @@
             }
           }
         },
+        "notAvailableButton": {
+          "title": "Not Available Button",
+          "description": "Shown when a SKU is not available",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Not Available"
+            }
+          }
+        },
         "shippingSimulator": {
           "title": "Shipping Simulation",
           "type": "object",
@@ -1440,18 +1452,6 @@
               "title": "Image Position",
               "enumNames": ["Center", "Top", "Bottom"],
               "enum": ["center", "top", "bottom"]
-            }
-          }
-        },
-        "notAvailableButton": {
-          "title": "Not Available Button",
-          "description": "Shown when a SKU is not available",
-          "type": "object",
-          "properties": {
-            "title": {
-              "title": "Title",
-              "type": "string",
-              "default": "Not Available"
             }
           }
         }
