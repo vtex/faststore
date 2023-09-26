@@ -3,7 +3,7 @@ title: '2. Setting Up the Project'
 sidebar_label: 'Getting Started'
 ---
 
-import { Callout, Tab, Tabs } from 'nextra-theme-docs'
+import { Callout, Tab, Tabs, Steps } from 'nextra-theme-docs'
 
 <header>
 
@@ -22,6 +22,10 @@ In this guide, you will:
 ---
 
 ## Before you start
+
+<Steps>
+
+### Required tooling
 Before cloning your store's repository, ensure that you have the following tools on your machine:
 
 <details>
@@ -89,6 +93,18 @@ Before cloning your store's repository, ensure that you have the following tools
   since our documentation may include screenshots from VS Code.
 </Callout>
 
+### Enabling Developer Mode (Windows users)
+We strongly recommend enabling Developer Mode when using the terminal for FastStore projects. 
+Since FastStore projects rely on creating symlinks, this mode grants the necessary permissions and privileges, reducing the chance of errors during development. 
+To activate Developer Mode, refer to Microsoft's official guide on [Enabling your device for development](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development#accessing-settings-for-developers).
+
+<Callout type="warning" emoji="⚠️">
+  Running the FastStore project as an Administrator is not recommended.
+</Callout>
+
+
+</Steps>
+
 ---
 
 ## Step 1: Cloning the Store's Repository
@@ -96,7 +112,7 @@ Before cloning your store's repository, ensure that you have the following tools
 1. Open the terminal and navigate to the directory where you want to store your project.
 
 <Callout type="info" emoji="ℹ️">
-  For Windowns users we highly recommend to run the terminal in administrator mode. To run in this mode, right-click on the terminal icon and select `Run as administrator`.
+  For Windowns users we highly recommend to enable the [Developer mode](/docs/getting-started/2-setting-up-the-project#developer-mode-for-windows-users) to run the terminal. 
 </Callout>
 
 2. Clone the repository created during the [FastStore Onboarding](/docs/getting-started/1-faststore-onboarding/onboarding#repository-and-live-store-created) by running the following command in the terminal:

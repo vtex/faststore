@@ -21,8 +21,16 @@ Installing plugin @vtex/cli-plugin-cms... failed
     Code: EPERM
 ```
 
-To solve this issue, please launch the Windows Terminal as administrator. Then, run `vtex cms`.
+To solve this issue, enable the [Developer Mode](https://docs.microsoft.com/en-us/windows/uwp/get-started/enable-your-device-for-development#accessing-settings-for-developers) in your machine.
+Since FastStore projects rely on creating symbolic links (symlinks), this mode grants the necessary permissions and privileges, reducing the chance of errors during development. 
 
-![administrator-view](https://vtexhelp.vtexassets.com/assets/docs/src/TroubleshootingCMS___fd0e1b6bd9843af1cca2991104370a1a.jpg)
+<Callout type="warning" emoji="⚠️">
+  Running the FastStore project as an Administrator is not recommended.
+</Callout>
 
-This will allow the system to create the [symbolic link](https://en.wikipedia.org/wiki/Symbolic_link) necessary for running commands from the Headless CMS plugin.
+1. To enable Developer Mode, refer to Microsoft's official guide on [Enabling your device for development](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development#accessing-settings-for-developers).
+
+2. After enabling the mode, launch the Windows Terminal and then, run `vtex cms`.
+
+
+This will allow the system to create the symlinks necessary for running commands from the Headless CMS plugin.
