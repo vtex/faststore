@@ -1,9 +1,8 @@
 import { ComponentPropsWithRef, FormEvent, useMemo } from 'react'
 import { forwardRef, useRef } from 'react'
-import { convertFromRaw } from 'draft-js'
-import { stateToHTML } from 'draft-js-export-html'
 import { useUI } from '@faststore/ui'
 import type { InputFieldProps } from '@faststore/ui'
+import draftToHtml from 'draftjs-to-html'
 
 import { useNewsletter } from 'src/sdk/newsletter/useNewsletter'
 import {
@@ -21,28 +20,18 @@ export const cmsToHtml = (content) => {
   }
 
   const rawDraftContentState = JSON.parse(content)
-  const html = stateToHTML(convertFromRaw(rawDraftContentState), {
-    entityStyleFn: (entity) => {
-      const entityType = entity.get('type').toLowerCase()
-
-      if (entityType === 'link') {
-        const data = entity.getData()
-
-        return {
-          element: 'a',
-          attributes: {
-            'data-fs-link': 'true',
-            'data-fs-link-variant': 'inline',
-            'data-fs-link-inverse': 'true',
-            'data-fs-link-size': 'regular',
-            'data-testid': 'fs-link',
-            href: data.url,
-          },
-        }
+  const html = draftToHtml(
+    rawDraftContentState,
+    undefined,
+    undefined,
+    (entity, text) => {
+      if (entity.type !== 'LINK') {
+        return null
       }
-    },
-  })
 
+      return `<a data-fs-link="true" data-fs-link-variant="inline" data-fs-link-inverse="true" data-fs-link-size="regular" data-testid="fs-link" href="${entity.data.url}">${text}</a>`
+    }
+  )
   return html
 }
 
