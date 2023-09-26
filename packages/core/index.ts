@@ -16,4 +16,4 @@ export type {
 
 export { useProductsQuery } from './src/sdk/product/useProductsQuery'
 
-export type * from './src/typings/overrides'
+export * from './src/typings/overrides'
