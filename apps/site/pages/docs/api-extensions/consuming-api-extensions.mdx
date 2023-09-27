@@ -81,7 +81,7 @@ isSearchPage(context)
 
 ## Consuming API Extensions data from custom sections
 
-To illustrate how consume API extensions data from custom sections, we'll use the **Call To Action** example from the [Creating a new section](http://localhost:3000/docs/building-sections/creating-a-new-section) guide inside a Product Listing Page (PLP). 
+To illustrate how to consume API extension data from custom sections, we'll use the **Call To Action** example from the [Creating a new section](/docs/building-sections/creating-a-new-section) guide inside a Product Listing Page (PLP). 
 So, ensure to have followed this guide mentioned before to have a new section.
 
 Once you have the `CallToAction` section, add the following import statement inside `src/components/CallToAction.tsx`:
@@ -112,7 +112,7 @@ Now, `{Add the expected outcome or if I need to run any CLI command}`
 
 ## Consuming API Extensions data from custom components in section overrides
 
-After [overriding native components and props](/docs/building-sections/overriding-components-and-props#overriding-a-native-component), you can also use the hooks inside custom components to `{add the reason here}`.
+After [overriding native components and props](/docs/building-sections/overriding-components-and-props#overriding-a-native-component), you can also use the hooks inside custom components to consume custom data, just as in [custom sections](/docs/api-extensions/consuming-api-extensions#consuming-api-extensions-data-from-custom-sections).
 In the following example, the `CustomBuyButton` component overrides the native `BuyButton` component from the `ProductDetails` section inside the Product Details Page (PDP).
 
 ```ts {2,5} filename="src/components/CustomBuyButton.tsx" copy
