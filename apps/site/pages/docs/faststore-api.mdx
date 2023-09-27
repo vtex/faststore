@@ -50,13 +50,13 @@ subgraph Data_Source[Data Source]
 end
 
 subgraph Data_Layer[Data Layer]
-    FastStore((FastStore Core))
+    FastStore__Core((FastStore Core))
 end
 
-CMS_API -->|Source data| Next_js
-FastStore_API -->|Source data| Next_js
-Static_Data -->|Source data| Next_js
-Next_js -->|Query data| React_Components(React Components)
+CMS_API -->|Source data| FastStore__Core
+FastStore_API -->|Source data| FastStore__Core
+Static_Data -->|Source data| FastStore__Core
+FastStore__Core -->|Query data| React_Components(React Components)
 ```
 
 <Callout type="info" emoji="ℹ️">
