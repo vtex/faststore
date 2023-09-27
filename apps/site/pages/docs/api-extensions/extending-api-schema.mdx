@@ -3,8 +3,7 @@ title: '  Extending API schemas'
 sidebar_label: 'API Extensions'
 ---
 
-import { Callout, Step, Steps, FileTree, Tabs, Tab } from 'nextra-theme-docs'
-import { ExtendableQueryTable } from './../../../components/ExtendableQueryTable'
+import { Callout, Step, Steps, Tabs, Tab } from 'nextra-theme-docs'
 
 <header>
 
@@ -39,9 +38,9 @@ To define new type definitions and resolvers for FastStore using GraphQL, learn 
 ### Step by step
 #### Step 1 - Preparing the folders and files 
 
-To declare a new type definition and resolver you need to create a directory structure:
+To declare a new type definition and resolver, you need to create a directory structure:
 
-1. In you store repository, go to the `src` folder and create the `graphql` subfolder. You can do this by running the following command in your terminal:
+1. In your store repository, go to the `src` folder and create the `graphql` subfolder. You can do this by running the following command in your terminal:
 
 <Tabs items={['macOs and Linux', 'Windows']}>
   <Tab>
@@ -77,13 +76,13 @@ To declare a new type definition and resolver you need to create a directory str
 <Tabs items={['macOs and Linux', 'Windows']}>
   <Tab>
   ```bash copy
-  mkdir resolvers/typeDefs
+  mkdir resolvers typeDefs
   ```
   </Tab>
 
   <Tab>
    ```bash copy
-  mkdir resolvers\typeDefs
+  mkdir resolvers typeDefs
   ```
   </Tab>
 </Tabs>
@@ -111,7 +110,7 @@ starter.store/
 ```
 
 <Callout type="info" emoji="ℹ️">
-  Note that in the code example above, the type definitions and resolvers file were are created ad `<resolverName>.ts` and `<typeName>.graphql`.
+  Note that in the code example above, the type definitions and resolvers files were created at `<resolverName>.ts` and `<typeName>.graphql`.
 </Callout>
 
 
@@ -129,7 +128,7 @@ from FastStore API, so the name of the file is `product.graphql`.
   During the build process and when running the local server file, all `.graphql` files under this directory will be considered.
 </Callout>
 
-2. To extend the `StoreProduct`, let's add a `customData` mandatory field in the `product.graphql` and it should return a string value.
+2. To extend the `StoreProduct`, let's add a `customData` field in the `product.graphql` and it should return a string value.
 This field can store custom information related to a product in your store. For example, you might use this field to store additional product details that are not present in the native FastStore API schema. 
 
 ```graphql filename="graphql/vtex/typeDefs/product.graphql"
@@ -154,18 +153,18 @@ Now, refer to the next step to create the resolvers to provide the actual data t
 
 Now, you'll create a resolver to define how the new `customData` field should be resolved, or in other words, what data or logic should be associated with them when queried.
 
-1. Create a new `<resolver>.graphql` file inside the `vtex/resolvers` folder. Let's continue the [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct) type
+1. Create a new `<resolverName>.ts` file inside the `vtex/resolvers` folder. Let's continue the [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct) type
 example, so the name of the file is `product.ts`.
 
 <Callout type="info" emoji="ℹ️">
   The way that it will be organized inside this folder is flexible, it's possible to create multiple resolvers files or group them all together in just one file.
 </Callout>
 
-2. Define the resolver in the `product.ts` file. This resolver specifies how to fetch the data for the `customData` field based on the root object, which represents the `StoreProduct`.
+2. Define the resolver in the `product.ts` file. This resolver specifies how to fetch the data for the `customData` field based on the root object.
 
 ```ts copy filename="graphql/vtex/resolvers/product.ts"
 
-import type { StoreProductRoot } from '@faststore/api'
+import type { StoreProductRoot } from '@faststore/core/api'
 
 const productResolver = {
   StoreProduct: {
@@ -184,7 +183,7 @@ Note that you can leverage the use of TypeScript by typing the root param as [St
 
 3. Open the `index.ts` file inside the `vtex/resolvers` folder and import the resolver, `StoreProductResolver`, you created in the previous step. 
 
-4. Create a `resolvers` object that includes the imported resolver(s).
+4. Export a new `resolvers` object that includes the imported resolver(s).
 
 ```ts copy filename="graphql/vtex/resolvers/index.ts"
 
@@ -210,13 +209,13 @@ As stores tend to grow, so does the possibility of consuming new data that is no
 As such, FastStore must consume new data from third-party APIs.
 
 ### Step by step
-#### Step 1- Preparing the folders and files
+#### Step 1 - Preparing the folders and files
 
 <Callout type="warning" emoji="⚠️">
   For third-party API schemas, you only need to add the `thirdParty` folder within the 'src/graphql' directory. 
 </Callout>
 
-1. In you store repository, go to the `src` folder and create the `graphql` subfolder. You can do this by running the following command in your terminal:
+1. In your store repository, go to the `src` folder and create the `graphql` subfolder. You can do this by running the following command in your terminal:
 
 <Tabs items={['macOs and Linux', 'Windows']}>
   <Tab>
@@ -252,7 +251,7 @@ As such, FastStore must consume new data from third-party APIs.
 <Tabs items={['macOs and Linux', 'Windows']}>
   <Tab>
   ```bash copy
-  mkdir resolvers/typeDefs
+  mkdir resolvers typeDefs
   ```
   </Tab>
 
@@ -290,17 +289,17 @@ starter.store/
   This directory structure distinguishes between data originating from VTEX and data from third-party APIs.
 </Callout>
 
-#### Step 2- Creating type definitions and resolvers
+#### Step 2 - Creating type definitions and resolvers
 
 Following this structure, you can use the same steps mentioned in Extending VTEX API schemas, [Step 2 - Creating type definitions (`TypeDefs`)](/docs/api-extension/extending-api-schema#step-2---creating-type-definitions-typedefs) and [Step 3 - Creating resolvers](/docs/api-extension/extending-api-schema#step-3---creating-resolvers).
 However, use the `thirdParty` folder, placing resolvers and typeDefs inside their respective folders and importing resolvers into the `index.ts` file.
 
-#### Step 3- Creating query or mutation schemas
+#### Step 3 - Creating query or mutation schemas
 
-When developing a third-party extension, it's essential to create a Query or Mutation schema. This schema is crucial for generating new query entry points to access data. 
-Below, you'll find an example of code for implementing a third-party extension.
+It's important to mention that it's possible to extend the existing [FastStore API Objects](https://v1.faststore.dev/reference/api/objects) as mentioned in the [Extending VTEX API Schemas](/docs/api-extensions/extending-api-schema#extending-vtex-api-schemas), or even create new queries entry points.
+Below, you'll find an example of code for implementing a third-party extension using new queries.
 
-1. Create the `extra.graphql` file inside the `graphql/thirdParty/typeDefs` folder. The `extra.graphql` defines the type definitions in in a GraphQL schema file.
+1. Create the `<typeName>.graphql` file inside the `graphql/thirdParty/typeDefs` folder. As we are creating new queries, the name of the file that defines the type definitions can be `extra.graphql`.
 
 ```ts copy filename="graphql/thirdParty/typeDefs/extra.graphql"
 
@@ -317,7 +316,7 @@ type Query {
 }
 ```
 
-2. Create the `extra.ts` file inside the the `graphql/thirdParty/resolvers` folder. This file defines the resolvers that handle the logic for the defined queries or mutations. 
+2. Create a new `<resolver>.ts` file inside the `graphql/thirdParty/resolvers` folder. Let's continue the example, so the file name can be `extra.ts`. This file defines the resolvers that handle the logic for the defined queries or mutations.
 
 ```ts copy filename="graphql/thirdParty/resolvers/extra.ts"
 
@@ -367,6 +366,6 @@ query {
 Once you have defined these files in the `thirdParty` folder, you can query the data you defined. 
 
 <Callout type="warning" emoji="⚠️">
-  If the changes you made still not available, refer to the troubleshooting section [GraphQL changes not visible during development](/docs/api-extension/troubleshooting#graphql-changes-not-visible-during-development).
+  If the changes you made are still not available, refer to the troubleshooting section [GraphQL changes not visible during development](/docs/api-extension/troubleshooting#graphql-changes-not-visible-during-development).
 </Callout>
  
