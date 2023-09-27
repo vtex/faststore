@@ -72,6 +72,8 @@ Also, you can use type assertion functions so that you can leverage the use of t
 ```ts copy
 import { isPDP, isPLP, isSearchPage } from "@faststore/core";
 
+const context = usePage()
+
 isPDP(context)
 isPLP(context)
 isSearchPage(context)
