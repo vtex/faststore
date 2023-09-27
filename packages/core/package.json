@@ -4,7 +4,8 @@
   "license": "MIT",
   "browserslist": "supports es6-module and not dead",
   "exports": {
-    ".": "./index.ts"
+    ".": "./index.ts",
+    "./experimental": "./src/experimental/index.ts"
   },
   "scripts": {
     "generate:schema": "tsx src/server/generator/generateGraphQLSchemaFile.ts",

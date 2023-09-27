@@ -4,7 +4,7 @@ import { getShippingSimulation } from 'src/sdk/shipping'
 import { ShippingSla } from '@generated/graphql'
 import { useSession } from 'src/sdk/session'
 import { IShippingItem } from '@faststore/api'
-import { useShippingSimulation } from './useShippingSimulation'
+import { useShippingSimulation } from 'src/sdk/shipping/useShippingSimulation'
 
 import { ShippingSimulation as ShippingSimulationWrapper } from 'src/components/sections/ProductDetails/Overrides'
 

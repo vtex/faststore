@@ -22,8 +22,8 @@ import {
   ResultsCountSkeleton,
   SortSkeleton,
 } from 'src/components/sections/ProductGallery/Overrides'
-import { useDelayedFacets } from './useDelayedFacets'
-import { useDelayedPagination } from './useDelayedPagination'
+import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
+import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
 import {
   PLPContext,
   SearchPageContext,

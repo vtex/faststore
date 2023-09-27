@@ -103,7 +103,7 @@ Here's how the initial component looks like with the `size` prop set as `regular
 4. Copy and paste the following code snippet into the file:
 
 ```tsx copy
-import { SectionOverride } from '@faststore/core/src/typings/overrides'
+import { SectionOverride } from '@faststore/core'
 
 const SECTION = 'ProductDetails' as const
 
@@ -128,7 +128,7 @@ export { override }
 1. Open the `ProductDetails.tsx` file created in the [Setting up the `overrides` folder step](#step-1-setting-up-the-overrides-folder) and add the following code:
 
 ```tsx filename="ProductDetails.tsx" {8-9}
-import { SectionOverride } from '@faststore/core/src/typings/overrides'
+import { SectionOverride } from '@faststore/core'
 
 const SECTION = 'ProductDetails' as const
 
@@ -225,7 +225,7 @@ However, you have the flexibility to customize the component to achieve a differ
 3. Open the `ProductDetails.tsx` file and update it with the following code:
 
 ```tsx filename="ProductDetails.tsx" {8-9}
-import { SectionOverride } from '@faststore/core/src/typings/overrides'
+import { SectionOverride } from '@faststore/core'
 import { CustomBuyButton } from '../CustomBuyButton'
 
 const SECTION = 'ProductDetails' as const
