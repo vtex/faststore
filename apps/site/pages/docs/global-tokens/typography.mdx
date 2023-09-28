@@ -47,41 +47,25 @@ export const desktopList = [
   { size: 14, token: 'var(--fs-text-size-1)' },
   { size: 16, token: 'var(--fs-text-size-2)' },
   { size: 20, token: 'var(--fs-text-size-3)' },
-  { size: 25, token: 'var(--fs-text-size-4)' },
-  { size: 31, token: 'var(--fs-text-size-5)' },
-  { size: 39, token: 'var(--fs-text-size-6)' },
-  { size: 48, token: 'var(--fs-text-size-7)' },
-  { size: 61, token: 'var(--fs-text-size-8)' },
+  { size: 24, token: 'var(--fs-text-size-4)' },
+  { size: 28, token: 'var(--fs-text-size-5)' },
+  { size: 32, token: 'var(--fs-text-size-6)' },
+  { size: 40, token: 'var(--fs-text-size-7)' },
+  { size: 48, token: 'var(--fs-text-size-8)' },
+  { size: 56, token: 'var(--fs-text-size-9)' },
 ]
 
 export const mobileList = [
   { size: 12, token: 'var(--fs-text-size-0)' },
   { size: 14, token: 'var(--fs-text-size-1)' },
   { size: 16, token: 'var(--fs-text-size-2)' },
-  {
-    size: 18,
-    token: 'var(--fs-text-size-3)',
-  },
-  {
-    size: 20,
-    token: 'var(--fs-text-size-4)',
-  },
-  {
-    size: 23,
-    token: 'var(--fs-text-size-5)',
-  },
-  {
-    size: 26,
-    token: 'var(--fs-text-size-6)',
-  },
-  {
-    size: 29,
-    token: 'var(--fs-text-size-7)',
-  },
-  {
-    size: 33,
-    token: 'var(--fs-text-size-8)',
-  },
+  { size: 18, token: 'var(--fs-text-size-3)' },
+  { size: 20, token: 'var(--fs-text-size-4)' },
+  { size: 22, token: 'var(--fs-text-size-5)' },
+  { size: 24, token: 'var(--fs-text-size-6)' },
+  { size: 28, token: 'var(--fs-text-size-7)' },
+  { size: 32, token: 'var(--fs-text-size-8)' },
+  { size: 36, token: 'var(--fs-text-size-9)' },
 ]
 
 ### Mobile Scale
@@ -94,35 +78,39 @@ export const mobileList = [
 
 <TokenTable title="Global Token" description="Value">
   <TokenRow token="--fs-text-size-base" value="16px" />
-  <TokenRow token="--fs-text-scale-desktop" value="1.25" />
-  <TokenRow token="--fs-text-scale-mobile" value="1.13" />
+  <TokenRow token="--fs-text-scale-desktop" value="4px" />
+  <TokenRow token="--fs-text-scale-mobile" value="2px" />
   <TokenDivider />
   <TokenRow token="--fs-text-size-0" value="12px" />
   <TokenRow token="--fs-text-size-1" value="14px" />
   <TokenRow token="--fs-text-size-2" value="var(--fs-text-size-base)" />
   <TokenRow
     token="--fs-text-size-3"
-    value="calc(var(--fs-text-size-2) * var(--fs-scale))"
+    value="calc(var(--fs-text-size-2) + var(--fs-scale))"
   />
   <TokenRow
     token="--fs-text-size-4"
-    value="calc(var(--fs-text-size-3) * var(--fs-scale))"
+    value="calc(var(--fs-text-size-3) + var(--fs-scale))"
   />
   <TokenRow
     token="--fs-text-size-5"
-    value="calc(var(--fs-text-size-4) * var(--fs-scale))"
+    value="calc(var(--fs-text-size-4) + var(--fs-scale))"
   />
   <TokenRow
     token="--fs-text-size-6"
-    value="calc(var(--fs-text-size-5) * var(--fs-scale))"
+    value="calc(var(--fs-text-size-5) + var(--fs-scale))"
   />
   <TokenRow
     token="--fs-text-size-7"
-    value="calc(var(--fs-text-size-6) * var(--fs-scale))"
+    value="calc(var(--fs-text-size-6) + (var(--fs-scale) * 2))"
   />
   <TokenRow
     token="--fs-text-size-8"
-    value="calc(var(--fs-text-size-7) * var(--fs-scale))"
+    value="calc(var(--fs-text-size-7) + (var(--fs-scale) * 2))"
+  />
+  <TokenRow
+    token="--fs-text-size-9"
+    value="calc(var(--fs-text-size-8) + (var(--fs-scale) * 2))"
   />
 </TokenTable>
 
@@ -133,8 +121,8 @@ export const mobileList = [
 ### Sizes
 
 <TokenTable title="Global Token" description="Value">
-  <TokenRow token="--fs-text-size-title-huge" value="var(--fs-text-size-7)" />
-  <TokenRow token="--fs-text-size-title-page" value="var(--fs-text-size-6)" />
+  <TokenRow token="--fs-text-size-title-huge" value="var(--fs-text-size-8)" />
+  <TokenRow token="--fs-text-size-title-page" value="var(--fs-text-size-7)" />
   <TokenRow
     token="--fs-text-size-title-product"
     value="var(--fs-text-size-4)"
