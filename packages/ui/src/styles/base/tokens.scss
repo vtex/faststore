@@ -130,8 +130,8 @@
     // ensure consistency throughout the project.
     // Access https://type-scale.com and pick a scale that
     // suits the store's branding.
-    --fs-text-scale-mobile               : 1.13;
-    --fs-text-scale-desktop              : 1.25;
+    --fs-text-scale-mobile               : 2px;
+    --fs-text-scale-desktop              : 4px;
 
     --fs-scale                           : var(--fs-text-scale-mobile);
 
@@ -143,18 +143,19 @@
     --fs-text-size-base                  : 16px; // 1rem
 
     --fs-text-size-0                     : 12px; // Smallest
-    --fs-text-size-1                     : 14px; // Smaller                               // Mobile    Desktop
-    --fs-text-size-2                     : var(--fs-text-size-base);                      // 16px      16px
-    --fs-text-size-3                     : calc(var(--fs-text-size-2) * var(--fs-scale)); // 18px      20px
-    --fs-text-size-4                     : calc(var(--fs-text-size-3) * var(--fs-scale)); // 20px      25px
-    --fs-text-size-5                     : calc(var(--fs-text-size-4) * var(--fs-scale)); // 23px      31px
-    --fs-text-size-6                     : calc(var(--fs-text-size-5) * var(--fs-scale)); // 26px      39px
-    --fs-text-size-7                     : calc(var(--fs-text-size-6) * var(--fs-scale)); // 29px      48px
-    --fs-text-size-8                     : calc(var(--fs-text-size-7) * var(--fs-scale)); // 33px      61px
+    --fs-text-size-1                     : 14px; // Smaller                                     // Mobile    Desktop
+    --fs-text-size-2                     : var(--fs-text-size-base);                            // 16px      16px
+    --fs-text-size-3                     : calc(var(--fs-text-size-2) + var(--fs-scale));       // 18px      20px
+    --fs-text-size-4                     : calc(var(--fs-text-size-3) + var(--fs-scale));       // 20px      24px
+    --fs-text-size-5                     : calc(var(--fs-text-size-4) + var(--fs-scale));       // 22px      28px
+    --fs-text-size-6                     : calc(var(--fs-text-size-5) + var(--fs-scale));       // 24px      32px
+    --fs-text-size-7                     : calc(var(--fs-text-size-6) + (var(--fs-scale) * 2)); // 28px      40px
+    --fs-text-size-8                     : calc(var(--fs-text-size-7) + (var(--fs-scale) * 2)); // 32px      48px
+    --fs-text-size-9                     : calc(var(--fs-text-size-8) + (var(--fs-scale) * 2)); // 36px      56px
 
     // HIERARCHY SCALE
-    --fs-text-size-title-huge            : var(--fs-text-size-7);
-    --fs-text-size-title-page            : var(--fs-text-size-6);
+    --fs-text-size-title-huge            : var(--fs-text-size-8);
+    --fs-text-size-title-page            : var(--fs-text-size-7);
     --fs-text-size-title-product         : var(--fs-text-size-4);
     --fs-text-size-title-section         : var(--fs-text-size-4);
     --fs-text-size-title-subsection      : var(--fs-text-size-4);
