@@ -40,6 +40,7 @@ import type {
   ComponentOverrideDefinition,
   SectionOverrideDefinition,
 } from './overrideDefinitionUtils'
+import { NewsletterAddendumProps } from 'src/components/ui/Newsletter/NewsletterAddendum'
 
 export type SectionOverride =
   | AlertOverrideDefinition
@@ -164,6 +165,7 @@ export type NewsletterOverrideDefinition = SectionOverrideDefinition<
       Omit<InputFieldProps, 'inputRef'>
     >
     Button: ComponentOverrideDefinition<ButtonProps, ButtonProps>
+    __experimentalNewsletterAddendum: ComponentOverrideDefinition<NewsletterAddendumProps, NewsletterAddendumProps>
   }
 >
 

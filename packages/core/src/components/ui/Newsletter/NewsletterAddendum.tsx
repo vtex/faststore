@@ -15,7 +15,7 @@
  */
 import draftToHtml from 'draftjs-to-html'
 
-interface NewsletterAddendumProps {
+export interface NewsletterAddendumProps {
   /**
    * Expects a string of a JSON object in the form of draftjs's raw content state.
    */
@@ -34,12 +34,27 @@ function getLinkElementAsString(url: string, text: string) {
     >${text}</a>`
 }
 
-function cmsToHtml(content: string) {
-  if (!content) {
+function cmsToHtml(addendum: string) {
+  if (!addendum) {
     return ''
   }
 
-  const rawDraftContentState = JSON.parse(content)
+  let rawDraftContentState = null
+
+  try {
+    rawDraftContentState = JSON.parse(addendum)
+  } catch (e) {
+    throw new Error(
+      'Newsletter\'s prop "addendum" is not a JSON string. This is happening because the overridden prop is malformed or the CMS is providing malformed content for that prop.',
+      {
+        cause: e,
+      }
+    )
+  }
+
+  if (!rawDraftContentState) {
+    return ''
+  }
 
   return draftToHtml(
     rawDraftContentState,

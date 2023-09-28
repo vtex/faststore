@@ -4,7 +4,6 @@ import { useUI } from '@faststore/ui'
 import type { InputFieldProps } from '@faststore/ui'
 
 import { useNewsletter } from 'src/sdk/newsletter/useNewsletter'
-import { NewsletterAddendum } from 'src/components/ui/Newsletter/NewsletterAddendum'
 import {
   ToastIconSuccess,
   ToastIconError,
@@ -12,6 +11,7 @@ import {
   InputFieldName,
   InputFieldEmail,
   Button,
+  __experimentalNewsletterAddendum as NewsletterAddendum,
 } from 'src/components/sections/Newsletter/Overrides'
 
 export type SubscribeMessage = {
@@ -185,7 +185,10 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
                 // This decision can be reviewed later if needed
                 inputRef={emailInputRef}
               />
-              <NewsletterAddendum addendum={privacyPolicy} />
+              <NewsletterAddendum.Component
+                addendum={privacyPolicy}
+                {...NewsletterAddendum.props}
+              />
               <Button.Component
                 variant="secondary"
                 inverse
