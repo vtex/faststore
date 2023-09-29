@@ -92,10 +92,6 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
     const { subscribeUser, loading, data } = useNewsletter()
     const nameInputRef = useRef<HTMLInputElement>(null)
     const emailInputRef = useRef<HTMLInputElement>(null)
-    // const subscriptionButtonLabel = useMemo(
-    //   () => (loading ? subscribeButtonLoadingLabel : subscribeButtonLabel),
-    //   [loading, subscribeButtonLabel, subscribeButtonLoadingLabel]
-    // )
 
     const { pushToast } = useUI()
 
