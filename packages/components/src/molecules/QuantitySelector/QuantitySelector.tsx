@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useImperativeHandle } from 'react'
+import type { MutableRefObject } from 'react'
 
 import { Icon, IconButton, Input } from '../../'
+
+export interface QuantitySelectorRef {
+  reset: () => void
+}
 
 export interface QuantitySelectorProps {
   /**
@@ -29,18 +34,27 @@ export interface QuantitySelectorProps {
    * Event emitted when value is changed
    */
   onChange?: (value: number) => void
+  /**
+   * Current quantity selector's input ref.
+   */
+  inputRef?: MutableRefObject<QuantitySelectorRef | null>
 }
 
 const QuantitySelector = ({
   max,
-  min = 1,
   initial,
-  disabled = false,
   onChange,
+  inputRef,
+  min = 1,
+  disabled = false,
   testId = 'fs-quantity-selector',
   ...otherProps
 }: QuantitySelectorProps) => {
   const [quantity, setQuantity] = useState<number>(initial ?? min)
+
+  useImperativeHandle(inputRef, () => ({
+    reset: () => setQuantity(initial ?? min),
+  }))
 
   const isLeftDisabled = quantity === min
   const isRightDisabled = quantity === max

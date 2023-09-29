@@ -210,7 +210,10 @@ export type { ToggleProps } from './molecules/Toggle'
 export { default as ToggleField } from './molecules/ToggleField'
 export type { ToggleFieldProps } from './molecules/ToggleField'
 export { default as QuantitySelector } from './molecules/QuantitySelector'
-export type { QuantitySelectorProps } from './molecules/QuantitySelector'
+export type {
+  QuantitySelectorRef,
+  QuantitySelectorProps,
+} from './molecules/QuantitySelector'
 
 // Organisms
 export {
