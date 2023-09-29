@@ -186,7 +186,7 @@ export type ProductDetailsOverrideDefinition = SectionOverrideDefinition<
     >
     QuantitySelector: ComponentOverrideDefinition<
       QuantitySelectorProps,
-      Omit<QuantitySelectorProps, 'onChange'>
+      Omit<QuantitySelectorProps, 'onChange' | 'inputRef'>
     >
     SkuSelector: ComponentOverrideDefinition<SkuSelectorProps, SkuSelectorProps>
     ShippingSimulation: ComponentOverrideDefinition<

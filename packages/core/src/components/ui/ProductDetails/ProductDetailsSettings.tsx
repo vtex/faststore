@@ -1,6 +1,8 @@
 import type { Dispatch, SetStateAction } from 'react'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
+import { useRouter } from 'next/router'
 
+import type { QuantitySelectorRef } from '@faststore/ui'
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
@@ -42,6 +44,24 @@ function ProductDetailsSettings({
   },
   notAvailableButtonTitle,
 }: ProductDetailsSettingsProps) {
+  const router = useRouter()
+  const quantitySelectorRef = useRef<QuantitySelectorRef | undefined>(null)
+
+  useEffect(() => {
+    function resetQuantitySelector() {
+      if (quantitySelectorRef.current) {
+        quantitySelectorRef.current.reset()
+      }
+    }
+
+    // Reset `QuantitySelector` when navigating between PDPs
+    router.events.on('routeChangeComplete', resetQuantitySelector)
+
+    return () => {
+      router.events.off('routeChangeComplete', resetQuantitySelector)
+    }
+  }, [router.events])
+
   const {
     id,
     sku,
@@ -160,6 +180,7 @@ function ProductDetailsSettings({
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
             onChange={setQuantity}
+            inputRef={quantitySelectorRef}
           />
         </section>
       )}
