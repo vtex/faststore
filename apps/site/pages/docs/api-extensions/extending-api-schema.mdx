@@ -3,7 +3,7 @@ title: '  Extending API schemas'
 sidebar_label: 'API Extensions'
 ---
 
-import { Callout, Step, Steps, Tabs, Tab } from 'nextra-theme-docs'
+import { Callout, Tabs, Tab } from 'nextra-theme-docs'
 
 <header>
 
@@ -17,12 +17,11 @@ In this guide, learn how to extend VTEX and third-party APIs to customize them a
 
 ## Before you start
 
-<Steps>
+
 ### Avoid over-fetching data on pages
  
 Even though you can add information to the FastStore API schema, you must be careful not to over-fetch data on your pages. See the [best practices for fetching data on your storefront](/docs/api-extensions#best-practices-for-fetching-data).
- 
-</Steps>
+
 
 ---
 
@@ -38,54 +37,26 @@ To define new type definitions and resolvers for FastStore using GraphQL, learn 
 ### Step by step
 #### Step 1 - Preparing the folders and files 
 
-To declare a new type definition and resolver, you need to create a directory structure:
+To declare a new type definition and resolver, create the follwoing directory structure:
 
 1. In your store repository, go to the `src` folder and create the `graphql` subfolder. You can do this by running the following command in your terminal:
 
-<Tabs items={['macOs and Linux', 'Windows']}>
-  <Tab>
   ```bash copy
   mkdir graphql
   ```
-  </Tab>
-
-  <Tab>
-   ```bash copy
-  mkdir graphql
-  ```
-  </Tab>
-</Tabs>
+  
 
 2. Inside the new `graphql` folder, create the `vtex` subfolder.
 
-<Tabs items={['macOs and Linux', 'Windows']}>
-  <Tab>
   ```bash copy
   mkdir vtex
   ```
-  </Tab>
 
-  <Tab>
-   ```bash copy
-  mkdir vtex
-  ```
-  </Tab>
-</Tabs>
+3. In the `vtex` folder, create `resolvers` and `typeDefs` subfolders.
 
-3. In `vtex`, create `resolvers` and `typeDefs` subfolders.
-<Tabs items={['macOs and Linux', 'Windows']}>
-  <Tab>
   ```bash copy
   mkdir resolvers typeDefs
   ```
-  </Tab>
-
-  <Tab>
-   ```bash copy
-  mkdir resolvers typeDefs
-  ```
-  </Tab>
-</Tabs>
 
 <Callout type="warning" emoji="⚠️">
   The `src/graphql/vtex/resolvers` and `src/graphql/vtex/typeDefs` paths are mandatory when adding VTEX API Extensions, but you can organize the files inside those directories as you wish.
@@ -131,7 +102,7 @@ from FastStore API, so the name of the file is `product.graphql`.
 2. To extend the `StoreProduct`, let's add a `customData` field in the `product.graphql` and it should return a string value.
 This field can store custom information related to a product in your store. For example, you might use this field to store additional product details that are not present in the native FastStore API schema. 
 
-```graphql filename="graphql/vtex/typeDefs/product.graphql"
+```graphql filename="graphql/vtex/typeDefs/product.graphql" copy
 
 extend type StoreProduct {
   """
@@ -151,7 +122,7 @@ Now, refer to the next step to create the resolvers to provide the actual data t
 
 #### Step 3 - Creating resolvers
 
-Now, you'll create a resolver to define how the new `customData` field should be resolved, or in other words, what data or logic should be associated with them when queried.
+Now, let's create a resolver to define how the new `customData` field should be resolved, or in other words, what data or logic should be associated with them when queried.
 
 1. Create a new `<resolverName>.ts` file inside the `vtex/resolvers` folder. Let's continue the [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct) type
 example, so the name of the file is `product.ts`.
@@ -163,7 +134,6 @@ example, so the name of the file is `product.ts`.
 2. Define the resolver in the `product.ts` file. This resolver specifies how to fetch the data for the `customData` field based on the root object.
 
 ```ts copy filename="graphql/vtex/resolvers/product.ts"
-
 import type { StoreProductRoot } from '@faststore/core/api'
 
 const productResolver = {
@@ -186,7 +156,6 @@ Note that you can leverage the use of TypeScript by typing the root param as [St
 4. Export a new `resolvers` object that includes the imported resolver(s).
 
 ```ts copy filename="graphql/vtex/resolvers/index.ts"
-
 import { default as StoreProductResolver } from './product'
 
 const resolvers = {
