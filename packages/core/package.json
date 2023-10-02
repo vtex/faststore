@@ -23,6 +23,7 @@
   "engines": {
     "node": ">=14"
   },
+  "sideEffects": false,
   "dependencies": {
     "@builder.io/partytown": "^0.6.1",
     "@envelop/core": "^1.2.0",
