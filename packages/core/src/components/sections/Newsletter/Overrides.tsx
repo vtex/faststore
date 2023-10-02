@@ -3,6 +3,7 @@ import {
   InputField as UIInputField,
   Icon as UIIcon,
 } from '@faststore/ui'
+import { NewsletterAddendum } from 'src/components/ui/Newsletter/NewsletterAddendum'
 
 import { getSectionOverrides } from 'src/utils/overrides'
 import { override } from 'src/customizations/components/overrides/Newsletter'
@@ -15,6 +16,7 @@ const {
   InputFieldName,
   InputFieldEmail,
   Button,
+  __experimentalNewsletterAddendum,
 } = getSectionOverrides(
   {
     ToastIconSuccess: UIIcon,
@@ -23,6 +25,7 @@ const {
     InputFieldName: UIInputField,
     InputFieldEmail: UIInputField,
     Button: UIButton,
+    __experimentalNewsletterAddendum: NewsletterAddendum,
   },
   override as NewsletterOverrideDefinition
 )
@@ -34,4 +37,5 @@ export {
   InputFieldName,
   InputFieldEmail,
   Button,
+  __experimentalNewsletterAddendum,
 }
