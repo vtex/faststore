@@ -3,7 +3,7 @@ title: ' Extending queries using fragments'
 sidebar_label: 'API Extensions'
 ---
 
-import { Callout, Step, Steps } from 'nextra-theme-docs'
+import { Callout, Tabs, Tab } from 'nextra-theme-docs'
 import { ExtendableQueryTable } from './../../../components/ExtendableQueryTable'
 
 <header>
@@ -25,12 +25,9 @@ follow the steps below to add custom fields to an [existing query](/docs/api-ext
 ---
 ## Before you start
 
-<Steps>
 ### Avoid over-fetching data on pages
  
 Even though you can add information to the FastStore API schema, you must be careful not to over-fetch data on your pages. See the [best practices for fetching data on your storefront](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data).
- 
-</Steps>
 
 ---
 
@@ -40,7 +37,28 @@ Even though you can add information to the FastStore API schema, you must be car
 
 1. In the `src` folder of your store code, create the `fragments` folder.
 
+<Tabs items={['macOs and Linux', 'Windows']}>
+  <Tab>
+  ```bash copy
+  mkdir src fragments
+  ```
+  </Tab>
+
+  <Tab>
+   ```bash copy
+   mkdir -p src/fragments
+  ```
+  </Tab>
+</Tabs>
+
 2. In the `fragments` folder, create the file named `ServerProductPage.ts`. 
+
+  - **macOs, Linux and Windows:**
+
+  ```bash copy
+  touch src/fragments/ServerProductPage.ts
+  ```
+
 
 <Callout type="warning" emoji="⚠️">
   The name of the file should match the name of the query you want to extend.
@@ -94,6 +112,22 @@ These queries enable customization by allowing the addition or modification of f
           hooks, the latter uses `useSession()`.
         </td>
       </ExtendableQueryTable>
+      <br />
+      
+      ### How to consume it
+          Use the `usePage()` hook when you have a single section that is used in more than one type of page.
+          ```ts copy
+          import { usePage } from "@faststore/core"
+
+          const context = usePage()
+          ```
+          This hook returns one of the following types as context: `PDPContext`, `PLPContext`, or `SearchPageContext`, and you can decide how to handle it depending on the page that will use this hook by passing the types as generics.
+          
+          ```ts copy
+          import { usePage } from "@faststore/core"
+
+          const context = usePage<PLPContext | SearchPageContext>()
+          ```
     </details>
   </li>
   <li>
@@ -110,6 +144,15 @@ These queries enable customization by allowing the addition or modification of f
         </td>
         <td>Collection `slug` that comes from URL.</td>
       </ExtendableQueryTable>
+      <br />
+
+      ### How to consume it
+          Use the `usePLP()` hook when integrating your section with a Product Listing Page (PLP).
+          ```ts copy
+          import { usePLP } from "@faststore/core"
+
+          const context = usePLP()
+          ```
     </details>
   </li>
   <li>
@@ -124,6 +167,16 @@ These queries enable customization by allowing the addition or modification of f
         <td>General product data from [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct).</td>
         <td>The `locator` with `slug` key/value.</td>
       </ExtendableQueryTable>
+      <br />
+
+      ### How to consume it
+          `usePDP()`: Use this hook when integrating your section with a Product Detail Page (PDP).
+    
+          ```ts copy
+            import { usePDP } from "@faststore/core"
+
+            const context = usePDP()
+          ```
     </details>
   </li>
   <li>
@@ -144,6 +197,16 @@ These queries enable customization by allowing the addition or modification of f
           `id`, `channel`, `locale` as key/values.
         </td>
       </ExtendableQueryTable>
+      <br />
+
+      ### How to consume it
+          `usePDP()`: Use this hook when integrating your section with a Product Detail Page (PDP).
+    
+          ```ts copy
+            import { usePDP } from "@faststore/core"
+
+            const context = usePDP()
+          ```
     </details>
   </li>
   <li>
@@ -173,6 +236,22 @@ These queries enable customization by allowing the addition or modification of f
           Frontend data from the `useLocalizedVariables()` and `useSession()` hooks.
         </td>
       </ExtendableQueryTable>
+      <br />
+
+      ### How to consume it
+          Use the `usePage()` hook when you have a single section that is used in more than one type of page.
+          ```ts copy
+          import { usePage } from "@faststore/core"
+
+          const context = usePage()
+          ```
+          This hook returns one of the following types as context: `PDPContext`, `PLPContext`, or `SearchPageContext`, and you can decide how to handle it depending on the page that will use this hook by passing the types as generics.
+          
+          ```ts copy
+          import { usePage } from "@faststore/core"
+
+          const context = usePage<PLPContext | SearchPageContext>()
+          ```
     </details>
   </li>
 </ul>
