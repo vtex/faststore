@@ -18,6 +18,9 @@ const nextConfig = {
   sassOptions: {
     additionalData: `@import "src/customizations/styles/custom-mixins.scss";`,
   },
+  experimental: {
+    scrollRestoration: true,
+  },
   webpack: (config, { isServer, dev }) => {
     // https://github.com/vercel/next.js/discussions/11267#discussioncomment-2479112
     // camel-case style names from css modules
