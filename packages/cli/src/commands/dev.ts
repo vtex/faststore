@@ -29,7 +29,7 @@ const defaultIgnored = [
 const devAbortController = new AbortController()
 
 async function storeDev() {
-  const devProcess = spawn('yarn dev', {
+  const devProcess = spawn('bun dev', {
     shell: true,
     cwd: tmpDir,
     signal: devAbortController.signal,

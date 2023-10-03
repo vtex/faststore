@@ -10,13 +10,13 @@ export default class Build extends Command {
   async run() {
     await generate({ setup: true })
 
-    const yarnBuildResult = spawnSync(`yarn build`, {
+    const yarnBuildResult = spawnSync(`bund build`, {
       shell: true,
       cwd: tmpDir,
       stdio: 'inherit',
     })
 
-    if(yarnBuildResult.status && yarnBuildResult.status !== 0) {
+    if (yarnBuildResult.status && yarnBuildResult.status !== 0) {
       process.exit(yarnBuildResult.status)
     }
 
@@ -34,7 +34,7 @@ export default class Build extends Command {
       `${tmpDir}/cms-webhook-urls.json`,
       `${userDir}/cms-webhook-urls.json`
     )
-    
+
     if (existsSync(`.next/standalone`)) {
       await copyResource(
         `${userDir}/node_modules`,

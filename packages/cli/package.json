@@ -60,8 +60,8 @@
     "build": "shx rm -rf dist && tsc -b",
     "lint": "eslint src/**/*.ts",
     "postpack": "shx rm -f oclif.manifest.json",
-    "posttest": "yarn lint",
-    "prepack": "yarn build && oclif manifest && oclif readme",
+    "posttest": "bun lint",
+    "prepack": "bun build && oclif manifest && oclif readme",
     "version": "oclif readme && git add README.md"
   },
   "bugs": "https://github.com/vtex/faststore/issues",
