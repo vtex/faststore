@@ -1,2 +1,2 @@
-export { default, cmsToHtml } from './Newsletter'
+export { default } from './Newsletter'
 export type { NewsletterProps } from './Newsletter'

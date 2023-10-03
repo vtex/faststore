@@ -372,7 +372,6 @@ export const validateCart = async (
   if (changes.length === 0) {
     return null
   }
-
   // Step4: Apply delta changes to order form
   const updatedOrderForm = await commerce.checkout
     // update orderForm items

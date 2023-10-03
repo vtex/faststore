@@ -67,7 +67,10 @@ const createRunner = () => {
       schema,
       parse(query),
       null,
-      { ...context, headers: { cookie: '' } },
+      {
+        ...context,
+        headers: { 'content-type': 'application/json', cookie: '' },
+      },
       variables
     )
   }
@@ -262,7 +265,6 @@ test('`redirect` query', async () => {
   })
   expect(response).toMatchSnapshot()
 })
-
 
 test('`sellers` query', async () => {
   const fetchAPICalls = [regionFetch]

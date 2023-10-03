@@ -131,6 +131,7 @@ export const getStaticProps: GetStaticProps<
       page,
       globalSections: await globalSectionsPromise,
       type: 'plp',
+      key: slug,
     },
   }
 }

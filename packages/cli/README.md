@@ -1,14 +1,22 @@
 # FastStore CLI
 
 <!-- toc -->
-* [FastStore CLI](#faststore-cli)
-* [Usage](#usage)
-* [Commands](#commands)
+
+- [FastStore CLI](#faststore-cli)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`faststore build`](#faststore-build)
+  - [`faststore cms-sync`](#faststore-cms-sync)
+  - [`faststore dev`](#faststore-dev)
+  - [`faststore generate-graphql`](#faststore-generate-graphql)
+  - [`faststore help [COMMAND]`](#faststore-help-command)
+  - [`faststore start`](#faststore-start)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @faststore/cli
 $ faststore COMMAND
@@ -20,17 +28,22 @@ USAGE
   $ faststore COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`faststore build`](#faststore-build)
-* [`faststore cms-sync`](#faststore-cms-sync)
-* [`faststore dev`](#faststore-dev)
-* [`faststore generate-graphql`](#faststore-generate-graphql)
-* [`faststore help [COMMAND]`](#faststore-help-command)
-* [`faststore start`](#faststore-start)
+
+- [FastStore CLI](#faststore-cli)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`faststore build`](#faststore-build)
+  - [`faststore cms-sync`](#faststore-cms-sync)
+  - [`faststore dev`](#faststore-dev)
+  - [`faststore generate-graphql`](#faststore-generate-graphql)
+  - [`faststore help [COMMAND]`](#faststore-help-command)
+  - [`faststore start`](#faststore-start)
 
 ## `faststore build`
 
@@ -99,4 +112,5 @@ USAGE
 ```
 
 _See code: [dist/commands/start.ts](https://github.com/vtex/faststore/blob/v2.2.0-alpha.3/dist/commands/start.ts)_
+
 <!-- commandsstop -->

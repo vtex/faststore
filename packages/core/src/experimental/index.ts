@@ -56,5 +56,3 @@ export { getShippingSimulation as getShippingSimulation_unstable } from '../../s
 export { useShippingSimulation as useShippingSimulation_unstable } from '../../src/sdk/shipping/useShippingSimulation'
 
 export { Image as Image_unstable } from '../../src/components/ui/Image'
-
-export { cmsToHtml as cmsToHtml_unstable } from '../../src/components/ui/Newsletter'

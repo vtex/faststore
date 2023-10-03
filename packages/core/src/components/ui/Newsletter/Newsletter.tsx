@@ -1,7 +1,5 @@
-import { ComponentPropsWithRef, FormEvent, useMemo } from 'react'
+import { ComponentPropsWithRef, FormEvent } from 'react'
 import { forwardRef, useRef } from 'react'
-import { convertFromRaw } from 'draft-js'
-import { stateToHTML } from 'draft-js-export-html'
 import { useUI } from '@faststore/ui'
 import type { InputFieldProps } from '@faststore/ui'
 
@@ -13,38 +11,8 @@ import {
   InputFieldName,
   InputFieldEmail,
   Button,
+  __experimentalNewsletterAddendum as NewsletterAddendum,
 } from 'src/components/sections/Newsletter/Overrides'
-
-export const cmsToHtml = (content) => {
-  if (!content) {
-    return ''
-  }
-
-  const rawDraftContentState = JSON.parse(content)
-  const html = stateToHTML(convertFromRaw(rawDraftContentState), {
-    entityStyleFn: (entity) => {
-      const entityType = entity.get('type').toLowerCase()
-
-      if (entityType === 'link') {
-        const data = entity.getData()
-
-        return {
-          element: 'a',
-          attributes: {
-            'data-fs-link': 'true',
-            'data-fs-link-variant': 'inline',
-            'data-fs-link-inverse': 'true',
-            'data-fs-link-size': 'regular',
-            'data-testid': 'fs-link',
-            href: data.url,
-          },
-        }
-      }
-    },
-  })
-
-  return html
-}
 
 export type SubscribeMessage = {
   title: string
@@ -124,10 +92,6 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
     const { subscribeUser, loading, data } = useNewsletter()
     const nameInputRef = useRef<HTMLInputElement>(null)
     const emailInputRef = useRef<HTMLInputElement>(null)
-    const subscriptionButtonLabel = useMemo(
-      () => (loading ? subscribeButtonLoadingLabel : subscribeButtonLabel),
-      [loading, subscribeButtonLabel, subscribeButtonLoadingLabel]
-    )
 
     const { pushToast } = useUI()
 
@@ -217,12 +181,10 @@ const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
                 // This decision can be reviewed later if needed
                 inputRef={emailInputRef}
               />
-              <span
-                data-fs-newsletter-addendum
-                dangerouslySetInnerHTML={{
-                  __html: cmsToHtml(privacyPolicy),
-                }}
-              ></span>
+              <NewsletterAddendum.Component
+                addendum={privacyPolicy}
+                {...NewsletterAddendum.props}
+              />
               <Button.Component
                 variant="secondary"
                 inverse
