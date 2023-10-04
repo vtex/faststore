@@ -5,8 +5,8 @@ import { gql } from '@faststore/graphql-utils'
 import { useQuery } from 'src/sdk/graphql/useQuery'
 
 import type {
-  SearchSuggestionsQueryQuery as Query,
-  SearchSuggestionsQueryQueryVariables as Variables,
+  ClientSearchSuggestionsQueryQuery as Query,
+  ClientSearchSuggestionsQueryQueryVariables as Variables,
 } from '@generated/graphql'
 import type { IntelligentSearchQueryEvent } from '../analytics/types'
 
@@ -15,11 +15,11 @@ import { useSession } from '../session'
 const MAX_SUGGESTIONS = 5
 
 const query = gql`
-  query SearchSuggestionsQuery(
+  query ClientSearchSuggestionsQuery(
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]
   ) {
-    ...SearchSuggestions
+    ...ClientSearchSuggestions
     search(first: 5, term: $term, selectedFacets: $selectedFacets) {
       suggestions {
         terms {
