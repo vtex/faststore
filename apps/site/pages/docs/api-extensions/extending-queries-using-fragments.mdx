@@ -37,23 +37,11 @@ Even though you can add information to the FastStore API schema, you must be car
 
 1. In the `src` folder of your store code, create the `fragments` folder.
 
-<Tabs items={['macOs and Linux', 'Windows']}>
-  <Tab>
   ```bash copy
   mkdir src fragments
   ```
-  </Tab>
-
-  <Tab>
-   ```bash copy
-   mkdir -p src/fragments
-  ```
-  </Tab>
-</Tabs>
 
 2. In the `fragments` folder, create the file named `ServerProductPage.ts`. 
-
-  - **macOs, Linux and Windows:**
 
   ```bash copy
   touch src/fragments/ServerProductPage.ts
@@ -67,8 +55,6 @@ Even though you can add information to the FastStore API schema, you must be car
 ### Step 2: Define the GraphQL fragment
 In the `ServerProductPage.ts` file, define the GraphQL fragment corresponding to the new fields you want. In this example, the new field is represented by `customData` property to retrieve. Use the following syntax as a guideline:
 
-{/*TO DO: ADD THE EXPECTED RESULT FROM THIS CODE SAMPLE*/}
-
 ```ts copy filename="src/fragments/ServerProductPage.ts"
 
 import { gql } from '@faststore/core/api'
@@ -81,9 +67,7 @@ export const fragment = gql`
   }
 `
 ```
-*See code's comment*
-
-{/*TO DO: ADD THE EXPECTED RESULT FROM THIS CODE SAMPLE*/}
+Now, the `customData` is available to be consumed by following the [Consuming FastStore API extension with custom components](/docs/api-extensions/consuming-api-extensions)
 
 ## Extendable Queries
 
