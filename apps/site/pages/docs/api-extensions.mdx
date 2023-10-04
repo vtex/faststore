@@ -17,7 +17,7 @@ While the [FastStore API](/docs/faststore-api) provides a [GraphQL schema for ec
 some stores may need to access other, more specific, information.
 
 Note that adding additional API endpoints to your storefront can potentially impact site performance, as already covered in the guide
-[Best practices for fetching data](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data). 
+[Best practices for fetching data](/docs/api-extensions#best-practices-for-fetching-data). 
 If you need to retrieve more data, you can achieve this by extending the FastStore API schema and incorporating new data into the existing [queries](https://v1.faststore.dev/reference/api/queries).
 
 ---
@@ -78,10 +78,11 @@ This also means that you must be mindful of the data brought into your query by 
 ### Do not send requests to other APIs
 
 When building your storefront with FastStore, to avoid comprimising the website performance and lead to `504` timeout errors, do not send requests to APIs other than the FastStore API.
-If you need to access other data not available in the native FastStore API schema, you must do this by using [API extension](/docs/api-extensions). *See the code's comment*
+If you need to access other data not available in the native FastStore API schema, you must do this by using [API extension](/docs/api-extensions). 
 
-{/*WILL WE CONTINUE WITH THIS RECOMMENDATION? If you need data that is not available on the native [FastStore GraphQL schema](https://v1.faststore.dev/reference/api/objects), check the [root object](https://v1.faststore.dev/reference/api/objects).
-The [GraphQL root object](https://graphql.org/learn/execution/#root-fields-resolvers) represents the top-level object returned to a query. You can see what data is available in the root object by adding logs.*/}
+If you need data that is not available on the native [FastStore GraphQL schema](https://v1.faststore.dev/reference/api/objects), check the [root object](https://v1.faststore.dev/reference/api/objects).
+The [GraphQL root object](https://graphql.org/learn/execution/#root-fields-resolvers) represents the top-level object returned to a query. You can see what data is available in the root object by typing the root param in your store code,
+as you can see in the step 2 of [Creating resolvers](by typing the root param).
 
 
 ### Avoid custom API Routes
