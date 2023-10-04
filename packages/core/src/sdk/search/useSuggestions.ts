@@ -19,6 +19,7 @@ const query = gql`
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]
   ) {
+    ...SearchSuggestions
     search(first: 5, term: $term, selectedFacets: $selectedFacets) {
       suggestions {
         terms {
