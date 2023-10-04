@@ -14,6 +14,7 @@ const query = gql`
     $country: String!
     $items: [IShippingItem!]!
   ) {
+    ...ShippingSimulation
     shipping(items: $items, postalCode: $postalCode, country: $country) {
       logisticsInfo {
         slas {
@@ -32,6 +33,7 @@ const query = gql`
       address {
         city
         neighborhood
+        state
       }
     }
   }
