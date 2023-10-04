@@ -1160,9 +1160,21 @@ export type ClientProductsFragment = {
   search: { products: { pageInfo: { totalCount: number } } }
 }
 
+export type SearchSuggestionsFragment = {
+  search: { suggestions: { terms: Array<{ value: string }> } }
+}
+
 export type ServerCollectionPageFragment = { collection: { id: string } }
 
 export type ServerProductPageFragment = { product: { id: string } }
+
+export type ShippingSimulationFragment = {
+  shipping: { address: { city: string | null } | null } | null
+}
+
+export type TopSearchSuggestionsFragment = {
+  search: { suggestions: { terms: Array<{ value: string }> } }
+}
 
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']
@@ -1545,6 +1557,10 @@ export type ShippingSimulationQueryQuery = {
         } | null> | null
       } | null> | null
     } | null> | null
-    address: { city: string | null; neighborhood: string | null } | null
+    address: {
+      city: string | null
+      neighborhood: string | null
+      state: string | null
+    } | null
   } | null
 }
