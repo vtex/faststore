@@ -75,6 +75,7 @@ function useSuggestions(term: string, limit: number = MAX_SUGGESTIONS) {
   })
 
   return {
+    data,
     terms: (data?.search.suggestions.terms ?? []).slice(0, limit),
     products: (data?.search.suggestions.products ?? []).slice(0, limit),
     isLoading: !error && !data,
