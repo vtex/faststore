@@ -61,6 +61,7 @@ export default function ShippingSimulation({
       onClear={handleOnClear}
       location={location}
       options={options}
+      address={shippingSimulation?.address}
       displayClearButton={displayClearButton}
       errorMessage={errorMessage}
       postalCode={postalCode}
