@@ -31,15 +31,13 @@ export default function ShippingSimulation({
   idkPostalCodeLinkProps,
   ...otherProps
 }: ShippingSimulationProps) {
-  const { country, postalCode: sessionPostalCode } = useSession()
-
   const {
     input,
     shippingSimulation,
     handleSubmit,
     handleOnInput,
     handleOnClear,
-  } = useShippingSimulation(productShippingInfo, sessionPostalCode, country)
+  } = useShippingSimulation(productShippingInfo)
 
   const { postalCode, displayClearButton, errorMessage } = input
 

@@ -2,6 +2,7 @@ import type { ChangeEvent } from 'react'
 import { useCallback, useEffect, useReducer } from 'react'
 import { ClientShippingSimulationQueryQuery } from '@generated/graphql'
 import getShippingSimulation from '.'
+import { useSession } from '../session'
 
 export interface ProductShippingInfo {
   id: string
@@ -98,17 +99,14 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
-export const useShippingSimulation = (
-  shippingItem: ProductShippingInfo,
-  sessionPostalCode: string,
-  country: string
-) => {
+export const useShippingSimulation = (shippingItem: ProductShippingInfo) => {
   const [{ input, shippingSimulation }, dispatch] = useReducer(
     reducer,
     null,
     createEmptySimulation
   )
 
+  const { country, postalCode: sessionPostalCode } = useSession()
   const { postalCode: shippingPostalCode } = input
 
   useEffect(() => {
