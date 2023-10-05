@@ -56,7 +56,7 @@ export const getShippingSimulation = async ({
     country,
   })
 
-  return data.shipping
+  return data
 }
 
 export default getShippingSimulation

@@ -116,11 +116,12 @@ export const useShippingSimulation = (shippingItem: ProductShippingInfo) => {
 
     // Use sessionPostalCode if there is no shippingPostalCode
     async function fetchShipping() {
-      const shippingSimulation = await getShippingSimulation({
+      const data = await getShippingSimulation({
         country,
         postalCode: sessionPostalCode ?? '',
         items: [shippingItem],
       })
+      const shippingSimulation = data.shipping
 
       dispatch({
         type: 'update',
@@ -140,11 +141,12 @@ export const useShippingSimulation = (shippingItem: ProductShippingInfo) => {
 
   const handleSubmit = useCallback(async () => {
     try {
-      const shippingSimulation = await getShippingSimulation({
+      const data = await getShippingSimulation({
         country,
         postalCode: shippingPostalCode ?? '',
         items: [shippingItem],
       })
+      const shippingSimulation = data.shipping
 
       dispatch({
         type: 'update',
