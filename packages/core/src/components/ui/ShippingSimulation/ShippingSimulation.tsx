@@ -1,9 +1,6 @@
 import { ShippingSimulationProps as UIShippingSimulationProps } from '@faststore/ui'
 
-import { getShippingSimulation } from 'src/sdk/shipping'
-import { ShippingSla } from '@generated/graphql'
 import { useSession } from 'src/sdk/session'
-import { IShippingItem } from '@faststore/api'
 import { useShippingSimulation } from 'src/sdk/shipping/useShippingSimulation'
 
 import { ShippingSimulation as ShippingSimulationWrapper } from 'src/components/sections/ProductDetails/Overrides'
@@ -26,27 +23,6 @@ interface ShippingSimulationProps
   }
 }
 
-const fetchShippingSimulation = async (
-  shippingItem: IShippingItem,
-  country: string,
-  postalCode: string
-): Promise<[string, ShippingSla[]]> => {
-  const shipping = await getShippingSimulation({
-    country,
-    postalCode: postalCode,
-    items: [shippingItem],
-  })
-
-  const location =
-    [shipping?.address?.neighborhood, shipping?.address?.city]
-      .filter(Boolean)
-      .join(' / ') ?? ''
-
-  const options = shipping?.logisticsInfo?.[0]?.slas ?? []
-
-  return [location, options as ShippingSla[]]
-}
-
 export default function ShippingSimulation({
   productShippingInfo,
   formatter,
@@ -63,16 +39,19 @@ export default function ShippingSimulation({
     handleSubmit,
     handleOnInput,
     handleOnClear,
-  } = useShippingSimulation(
-    productShippingInfo,
-    fetchShippingSimulation,
-    sessionPostalCode,
-    country
-  )
+  } = useShippingSimulation(productShippingInfo, sessionPostalCode, country)
 
   const { postalCode, displayClearButton, errorMessage } = input
 
-  const { location, options } = shippingSimulation
+  const location =
+    [
+      shippingSimulation?.address?.neighborhood,
+      shippingSimulation?.address?.city,
+    ]
+      .filter(Boolean)
+      .join(' / ') ?? ''
+
+  const options = shippingSimulation?.logisticsInfo?.[0]?.slas ?? []
 
   return (
     <ShippingSimulationWrapper.Component
