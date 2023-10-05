@@ -42,6 +42,7 @@ function useTopSearch(
   })
 
   return {
+    data,
     terms: (data?.search.suggestions.terms ?? initialTerms).slice(0, limit),
     isLoading: !error && !data,
   }
