@@ -1,6 +1,6 @@
 import {
   ClientProductGalleryQueryQuery,
-  ClientProductQueryQuery,
+  ClientSingleProductQueryQuery,
   ClientMultipleProductsQueryQuery,
   ServerCollectionPageQueryQuery,
   ServerProductPageQueryQuery,
@@ -11,7 +11,7 @@ import { SearchPageContextType } from 'src/pages/s'
 
 export interface PDPContext {
   data?: ServerProductPageQueryQuery &
-    ClientProductQueryQuery['product'] & { isValidating?: boolean }
+    ClientSingleProductQueryQuery['product'] & { isValidating?: boolean }
 }
 
 export interface PLPContext {

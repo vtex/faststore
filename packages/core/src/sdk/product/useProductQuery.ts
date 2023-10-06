@@ -2,23 +2,23 @@ import { gql } from '@faststore/graphql-utils'
 import { useMemo } from 'react'
 
 import type {
-  ClientProductQueryQuery,
-  ClientProductQueryQueryVariables,
+  ClientSingleProductQueryQuery,
+  ClientSingleProductQueryQueryVariables,
 } from '@generated/graphql'
 
 import { useQuery } from '../graphql/useQuery'
 import { useSession } from '../session'
 
 const query = gql`
-  query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {
-    ...ClientProduct
+  query ClientSingleProductQuery($locator: [IStoreSelectedFacet!]!) {
+    ...ClientSingleProduct
     product(locator: $locator) {
       ...ProductDetailsFragment_product
     }
   }
 `
 
-export const useProductQuery = <T extends ClientProductQueryQuery>(
+export const useProductQuery = <T extends ClientSingleProductQueryQuery>(
   productID: string,
   fallbackData?: T
 ) => {
@@ -40,8 +40,8 @@ export const useProductQuery = <T extends ClientProductQueryQuery>(
   }, [channel, locale, productID])
 
   return useQuery<
-    ClientProductQueryQuery & T,
-    ClientProductQueryQueryVariables
+    ClientSingleProductQueryQuery & T,
+    ClientSingleProductQueryQueryVariables
   >(query, variables, {
     fallbackData,
     revalidateOnMount: true,
