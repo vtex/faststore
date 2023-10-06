@@ -1150,19 +1150,19 @@ export type ProductDetailsFragment_ProductFragment = {
   }>
 }
 
-export type ClientProductFragment = { product: { id: string } }
+export type ClientMultipleProductsFragment = {
+  search: { products: { pageInfo: { totalCount: number } } }
+}
 
 export type ClientProductGalleryFragment = {
   search: { products: { pageInfo: { totalCount: number } } }
 }
 
-export type ClientProductsFragment = {
-  search: { products: { pageInfo: { totalCount: number } } }
-}
+export type ClientSingleProductFragment = { product: { id: string } }
 
 export type ServerCollectionPageFragment = { collection: { id: string } }
 
-export type ServerProductPageFragment = { product: { id: string } }
+export type ServerSingleProductFragment = { product: { id: string } }
 
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']
@@ -1179,11 +1179,11 @@ export type ServerCollectionPageQueryQuery = {
   }
 }
 
-export type ServerProductPageQueryQueryVariables = Exact<{
+export type ServerSingleProductQueryQueryVariables = Exact<{
   locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
 }>
 
-export type ServerProductPageQueryQuery = {
+export type ServerSingleProductQueryQuery = {
   product: {
     sku: string
     gtin: string
@@ -1333,7 +1333,7 @@ export type SubscribeToNewsletterMutation = {
   subscribeToNewsletter: { id: string } | null
 }
 
-export type ClientProductsQueryQueryVariables = Exact<{
+export type ClientMultipleProductsQueryQueryVariables = Exact<{
   first: Scalars['Int']
   after: InputMaybe<Scalars['String']>
   sort: StoreSort
@@ -1341,7 +1341,7 @@ export type ClientProductsQueryQueryVariables = Exact<{
   selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
 }>
 
-export type ClientProductsQueryQuery = {
+export type ClientMultipleProductsQueryQuery = {
   search: {
     products: {
       pageInfo: { totalCount: number }
@@ -1411,11 +1411,11 @@ export type ClientProductGalleryQueryQuery = {
   }
 }
 
-export type ClientProductQueryQueryVariables = Exact<{
+export type ClientSingleProductQueryQueryVariables = Exact<{
   locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
 }>
 
-export type ClientProductQueryQuery = {
+export type ClientSingleProductQueryQuery = {
   product: {
     sku: string
     name: string
