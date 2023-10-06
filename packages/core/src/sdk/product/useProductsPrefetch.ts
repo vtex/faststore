@@ -1,6 +1,6 @@
 import { gql } from '@faststore/graphql-utils'
 import { useSearch } from '@faststore/sdk'
-import { ClientProductsQueryQueryVariables } from '@generated/graphql'
+import { ClientMultipleProductsQueryQueryVariables } from '@generated/graphql'
 import { useEffect, useCallback } from 'react'
 import type { QueryOptions } from '../graphql/useQuery'
 import { useSWRConfig } from 'swr'
@@ -8,14 +8,14 @@ import { prefetchQuery } from '../graphql/prefetchQuery'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
 export const query = gql`
-  query ClientProductsQuery(
+  query ClientMultipleProductsQuery(
     $first: Int!
     $after: String
     $sort: StoreSort!
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
   ) {
-    ...ClientProducts
+    ...ClientMultipleProducts
     search(
       first: $first
       after: $after
@@ -38,7 +38,7 @@ export const query = gql`
 `
 
 export const useProductsQueryPrefetch = (
-  variables: ClientProductsQueryQueryVariables,
+  variables: ClientMultipleProductsQueryQueryVariables,
   options?: QueryOptions
 ) => {
   const localizedVariables = useLocalizedVariables(variables)

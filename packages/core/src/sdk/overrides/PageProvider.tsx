@@ -1,7 +1,7 @@
 import {
   ClientProductGalleryQueryQuery,
   ClientProductQueryQuery,
-  ClientProductsQueryQuery,
+  ClientMultipleProductsQueryQuery,
   ServerCollectionPageQueryQuery,
   ServerProductPageQueryQuery,
 } from '@generated/graphql'
@@ -16,12 +16,16 @@ export interface PDPContext {
 
 export interface PLPContext {
   data?: ServerCollectionPageQueryQuery &
-    ClientProductGalleryQueryQuery & { pages: ClientProductsQueryQuery[] }
+    ClientProductGalleryQueryQuery & {
+      pages: ClientMultipleProductsQueryQuery[]
+    }
 }
 
 export interface SearchPageContext {
   data?: SearchPageContextType &
-    ClientProductGalleryQueryQuery & { pages: ClientProductsQueryQuery[] }
+    ClientProductGalleryQueryQuery & {
+      pages: ClientMultipleProductsQueryQuery[]
+    }
 }
 
 export const isPDP = (x: any): x is PDPContext =>

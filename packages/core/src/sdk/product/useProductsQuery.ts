@@ -1,8 +1,8 @@
 import { gql } from '@faststore/graphql-utils'
 
 import type {
-  ClientProductsQueryQuery,
-  ClientProductsQueryQueryVariables,
+  ClientMultipleProductsQueryQuery,
+  ClientMultipleProductsQueryQueryVariables,
 } from '@generated/graphql'
 
 import type { QueryOptions } from '../graphql/useQuery'
@@ -10,14 +10,14 @@ import { useQuery } from '../graphql/useQuery'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
 export const query = gql`
-  query ClientProductsQuery(
+  query ClientMultipleProductsQuery(
     $first: Int!
     $after: String
     $sort: StoreSort!
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
   ) {
-    ...ClientProducts
+    ...ClientMultipleProducts
     search(
       first: $first
       after: $after
@@ -43,14 +43,14 @@ export const query = gql`
  * Use this hook for fetching a list of products, like shelves and tiles
  */
 export const useProductsQuery = (
-  variables: Partial<ClientProductsQueryQueryVariables>,
+  variables: Partial<ClientMultipleProductsQueryQueryVariables>,
   options?: QueryOptions
 ) => {
   const localizedVariables = useLocalizedVariables(variables)
 
   const { data } = useQuery<
-    ClientProductsQueryQuery,
-    ClientProductsQueryQueryVariables
+    ClientMultipleProductsQueryQuery,
+    ClientMultipleProductsQueryQueryVariables
   >(query, localizedVariables, {
     fallbackData: null,
     suspense: true,
