@@ -19,7 +19,7 @@ type Action =
 // Save the array containing loaded pages before navigating away from the PLP
 function setPagesSessionStorage(pages: number[]) {
   try {
-    // Uses the key to identify a product gallery page
+    // Uses the key to identify a PLP
     const stateKey = window.history.state?.key
     if (!stateKey) {
       return
