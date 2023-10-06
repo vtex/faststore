@@ -1,7 +1,7 @@
 import {
   ClientProductGalleryQueryQuery,
   ClientSingleProductQueryQuery,
-  ClientMultipleProductsQueryQuery,
+  ClientManyProductsQueryQuery,
   ServerCollectionPageQueryQuery,
   ServerSingleProductQueryQuery,
 } from '@generated/graphql'
@@ -17,14 +17,14 @@ export interface PDPContext {
 export interface PLPContext {
   data?: ServerCollectionPageQueryQuery &
     ClientProductGalleryQueryQuery & {
-      pages: ClientMultipleProductsQueryQuery[]
+      pages: ClientManyProductsQueryQuery[]
     }
 }
 
 export interface SearchPageContext {
   data?: SearchPageContextType &
     ClientProductGalleryQueryQuery & {
-      pages: ClientMultipleProductsQueryQuery[]
+      pages: ClientManyProductsQueryQuery[]
     }
 }
 

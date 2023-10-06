@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { ClientMultipleProductsQueryQueryVariables } from '@generated/graphql'
+import { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
 import { useSession } from '../session'
 import { ITEMS_PER_SECTION } from 'src/constants'
 
@@ -12,7 +12,7 @@ export const useLocalizedVariables = ({
   sort,
   term,
   selectedFacets,
-}: Partial<ClientMultipleProductsQueryQueryVariables>) => {
+}: Partial<ClientManyProductsQueryQueryVariables>) => {
   const { channel, locale } = useSession()
 
   return useMemo(() => {
