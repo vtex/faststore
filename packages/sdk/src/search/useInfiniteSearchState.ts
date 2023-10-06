@@ -16,16 +16,32 @@ type Action =
       payload: number
     }
 
-function setPagesSessionStorage(pagesArray: number[]) {
+// Save the array containing loaded pages before navigating away from the PLP
+function setPagesSessionStorage(pages: number[]) {
   try {
+    // Uses the key to identify a product gallery page
     const stateKey = window.history.state?.key
+    if (!stateKey) {
+      return
+    }
+    const storageKey = `__fs_gallery_page_${stateKey}`
 
-    sessionStorage.setItem(
-      `__fs_gallery_pages_${stateKey}`,
-      JSON.stringify(pagesArray)
-    )
+    sessionStorage.setItem(storageKey, JSON.stringify(pages))
   } catch (error) {
     return
+  }
+}
+
+function retrievePagesFromSessionStorage(): number[] | null {
+  try {
+    const stateKey = window.history.state?.key
+    const storageKey = `__fs_gallery_page_${stateKey}`
+
+    const item = sessionStorage.getItem(storageKey)
+
+    return item ? JSON.parse(item) : null
+  } catch (error) {
+    return null
   }
 }
 
@@ -54,21 +70,6 @@ const reducer = (state: State, action: Action) => {
 
     default:
       throw new SDKError('Unknown action for infinite search')
-  }
-}
-
-function retrievePagesFromSessionStorage(): number[] | null {
-
-  try {
-    const stateKey = window.history.state?.key
-    const item = sessionStorage.getItem(`__fs_gallery_pages_${stateKey}`)
-    if (!item) {
-      return null
-    }
-    console.log(item)
-    return JSON.parse(item)
-  } catch (error) {
-    return null
   }
 }
 
