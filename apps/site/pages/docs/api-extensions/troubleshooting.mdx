@@ -1,0 +1,76 @@
+---
+title: 'Troubleshooting'
+sidebar_label: 'API Extensions'
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<header>
+
+# Troubleshooting
+
+</header>
+
+## GraphQL changes not visible during development
+If your GraphQL changes aren't appearing during development, this is because the changes you have made since you started the development server (`yarn dev`) are probably not optimized yet. 
+Follow these steps to trigger the optimization:
+
+- Run `yarn generate` (recommended) or `yarn run faststore generate-graphql`.
+
+    <Callout type="info" emoji="ℹ️">
+        This optimization can also be performed while the development server is running.
+    </Callout>
+
+
+- Alternatively, you can stop the development server and then restart it using `yarn dev`.
+
+---
+
+## Deploy preview/production GraphQL schema different from development
+
+If you notice differences between the GraphQL schema in your deploy preview or production environment compared to your development setup, it may be due to the schema not being optimized since the development server's initiation. 
+The build process optimizes the schema before deployment to accurately reflect the schema declared in the store's code.
+
+Refer to the [GraphQL changes not visible during development](/docs/api-extension/troubleshooting#graphql-changes-not-visible-during-development) topic, to fix the issue.
+
+---
+
+## Generation errors and warnings
+
+A few errors can happen during the GraphQL Optimizations and types generations. Here's how to troubleshoot them:
+
+
+<ul>
+  <li>
+    <details>
+      <summary>`error Failed to run 'yarn generate:schema'. Please check your setup.`</summary>
+      **- Possible cause:** Malformed files in your GraphQL Schema Extensions definitions.
+
+      **- Solution:** Check the graphql files inside the `src/graphql/(vtex or thirdParty)/typeDefs` folders for syntax or definition errors.
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>`error GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect`</summary>
+      **- Possible Cause:** Malformed files or GraphQL types within your GraphQL layer, including errors in GraphQL Schema Extensions, declared queries, and fragments.
+
+      **- Solution:** Check the graphql files inside the `src/graphql/(vtex or thirdParty)/typeDefs` folders and component (.ts, tsx) files declaring queries and fragments in your project for syntax or definition errors.
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>`warn  Failed to format generated files. 'yarn format:generated' thrown errors`</summary>
+      After generating GraphQL Optimization and types files, they are formatted for readability. This step is recommended but not mandatory. If it fails, your changes to the GraphQL layer will still be visible. Therefore, it is a warning, not an error.
+    </details>
+  </li>
+</ul>
+
+### Error details
+
+To access more detailed error information, use the `--debug` flag when manually running the `yarn generate` command to see detailed errors on why the generation has failed.
+
+## GraphQL changes not visible in production/deploy preview
+
+During the build step, the GraphQL optimization and type files are always generated fresh, which means they always reflect the most recent changes present in the code.
+
+If your changes are not visible in production, this means you must not have committed them to the branch you're currently working on. If you see a different GraphQL Schema, queries, or data during development, refer to the [GraphQL changes not visible during development](/docs/api-extension/troubleshooting#graphql-changes-not-visible-during-development) topic.
