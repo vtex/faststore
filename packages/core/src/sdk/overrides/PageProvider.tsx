@@ -1,17 +1,17 @@
 import {
   ClientProductGalleryQueryQuery,
-  ClientSingleProductQueryQuery,
+  ClientProductQueryQuery,
   ClientManyProductsQueryQuery,
   ServerCollectionPageQueryQuery,
-  ServerSingleProductQueryQuery,
+  ServerProductQueryQuery,
 } from '@generated/graphql'
 import type { PropsWithChildren } from 'react'
 import { createContext, useContext, useMemo } from 'react'
 import { SearchPageContextType } from 'src/pages/s'
 
 export interface PDPContext {
-  data?: ServerSingleProductQueryQuery &
-    ClientSingleProductQueryQuery['product'] & { isValidating?: boolean }
+  data?: ServerProductQueryQuery &
+    ClientProductQueryQuery['product'] & { isValidating?: boolean }
 }
 
 export interface PLPContext {
