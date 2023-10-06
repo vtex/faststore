@@ -33,7 +33,7 @@ export interface OrderFormItem {
   parentAssemblyBinding: string | null
   productCategoryIds: string
   priceTags: string[]
-  manualPrice: number
+  manualPrice: number | null
   measurementUnit: string
   additionalInfo: {
     brandName: string
@@ -48,7 +48,7 @@ export interface OrderFormItem {
   sellerChain: string[]
   availability: string
   unitMultiplier: number
-  skuSpecifications: SKUSpecification[]
+  skuSpecifications?: SKUSpecification[] | null
   priceDefinition: {
     calculatedSellingPrice: number
     sellingPrices: SellingPrice[]
@@ -135,7 +135,7 @@ export interface OrderForm {
       currencyGroupSize: number
       startsWithCurrencySymbol: boolean
     }
-    currencyLocale: string
+    currencyLocale: number
     currencySymbol: string
     saveUserData: boolean
     timeZone: string
@@ -146,7 +146,7 @@ export interface OrderForm {
   customData: OrderFormCustomData | null
   itemMetadata: {
     items: MetadataItem[]
-  }
+  } | null
   hooksData: any | null
   ratesAndBenefitsData: {
     rateAndBenefitsIdentifiers: any[]
@@ -229,21 +229,21 @@ export interface PaymentData {
 }
 
 export interface ClientProfileData {
-  email: string
-  firstName: string
-  lastName: string
-  document: string
-  documentType: string
-  phone: string
-  corporateName: string
-  tradeName: string
-  corporateDocument: string
-  stateInscription: string
-  corporatePhone: string
+  email: string | null
+  firstName: string | null
+  lastName: string | null
+  document: string | null
+  documentType: string | null
+  phone: string | null
+  corporateName: string | null
+  tradeName: string | null
+  corporateDocument: string | null
+  stateInscription: string | null
+  corporatePhone: string | null
   isCorporate: boolean
   profileCompleteOnLoading: boolean
   profileErrorOnLoading: boolean
-  customerClass: string
+  customerClass: string | null
 }
 
 export interface ShippingData {
@@ -314,7 +314,7 @@ export interface AvailableDeliveryWindows {
   startDateUtc: string,
   endDateUtc: string,
   price: number,
-  listPrice: number,
+  lisPrice?: number,
   tax: number,
 }
 

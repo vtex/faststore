@@ -141,13 +141,13 @@ For the mobile preview, please refresh the browser after resize it.
 <TokenTable>
   <TokenRow
     token="--fs-carousel-padding-mobile"
-    value="0 var(--fs-grid-padding)"
+    value="var(--fs-spacing-0) var(--fs-grid-padding)"
   />
 </TokenTable>
 <TokenTable>
   <TokenRow
     token="--fs-carousel-padding-desktop"
-    value="0 calc((100% - var(--fs-grid-max-width))/2) var(--fs-spacing-0)"
+    value="var(--fs-spacing-0) calc((100% - var(--fs-grid-max-width))/2) var(--fs-spacing-0)"
   />
 </TokenTable>
 
@@ -302,6 +302,7 @@ For further customization, you can use the following data attributes:
     title="Product Shelf"
     description=" Displays a list of products to be used as a section on the store."
     actionPath="/components/organisms/product-shelf"
+    fullWidth
   >
     <ProductShelf>
       <ProductShelfItems>

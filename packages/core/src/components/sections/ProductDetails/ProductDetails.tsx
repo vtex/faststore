@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 
 import { gql } from '@faststore/graphql-utils'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
@@ -19,6 +19,7 @@ import {
   ProductTitle,
   __experimentalImageGallery as ImageGallery,
   __experimentalShippingSimulation as ShippingSimulation,
+  __experimentalNotAvailableButton as NotAvailableButton,
 } from 'src/components/sections/ProductDetails/Overrides'
 
 import { usePDP } from 'src/sdk/overrides/PageProvider'
@@ -52,6 +53,12 @@ export interface ProductDetailsProps {
     displayDescription: boolean
     initiallyExpanded: 'first' | 'all' | 'none'
   }
+  imageGallery: {
+    imagePosition: 'top' | 'center' | 'bottom'
+  }
+  notAvailableButton: {
+    title: string
+  }
 }
 
 function ProductDetails({
@@ -81,6 +88,10 @@ function ProductDetails({
     title: productDescriptionDetailsTitle,
     initiallyExpanded: productDescriptionInitiallyExpanded,
     displayDescription: shouldDisplayProductDescription,
+  },
+  imageGallery: { imagePosition = ImageGallery.props.imagePosition },
+  notAvailableButton: {
+    title: notAvailableButtonTitle = NotAvailableButton.props.title,
   },
 }: ProductDetailsProps) {
   const { currency } = useSession()
@@ -141,7 +152,10 @@ function ProductDetails({
     gtin,
   ])
 
-  const outOfStock = availability == 'https://schema.org/OutOfStock'
+  const outOfStock = useMemo(
+    () => availability === 'https://schema.org/OutOfStock',
+    [availability]
+  )
 
   return (
     <Section className={`${styles.section} section-product-details`}>
@@ -172,6 +186,7 @@ function ProductDetails({
           <ImageGallery.Component
             data-fs-product-details-gallery
             {...ImageGallery.props}
+            imagePosition={imagePosition}
             images={productImages}
           />
           <section data-fs-product-details-info>
@@ -179,19 +194,15 @@ function ProductDetails({
               data-fs-product-details-settings
               data-fs-product-details-section
             >
-              {!outOfStock ? (
-                <ProductDetailsSettings
-                  product={product}
-                  isValidating={isValidating}
-                  buyButtonTitle={buyButtonTitle}
-                  quantity={quantity}
-                  setQuantity={setQuantity}
-                  buyButtonIcon={buyButtonIcon}
-                />
-              ) : (
-                // TODO: Adds <OutOfStock /> when component is ready to use
-                <p>Not Available</p>
-              )}
+              <ProductDetailsSettings
+                product={product}
+                isValidating={isValidating}
+                buyButtonTitle={buyButtonTitle}
+                quantity={quantity}
+                setQuantity={setQuantity}
+                buyButtonIcon={buyButtonIcon}
+                notAvailableButtonTitle={notAvailableButtonTitle}
+              />
             </section>
 
             {!outOfStock && (

@@ -4,8 +4,8 @@
   // --------------------------------------------------------
 
   // Track
-  --fs-carousel-padding-mobile             : 0 var(--fs-grid-padding);
-  --fs-carousel-padding-desktop            : 0 calc((100% - var(--fs-grid-max-width))/2) var(--fs-spacing-0);
+  --fs-carousel-padding-mobile             : var(--fs-spacing-0) var(--fs-grid-padding);
+  --fs-carousel-padding-desktop            : var(--fs-spacing-0) calc((100% - var(--fs-grid-max-width))/2) var(--fs-spacing-0);
 
   // Item
   --fs-carousel-item-width-mobile          : 60%;
@@ -96,6 +96,7 @@
   }
 
   [data-fs-carousel-track] {
+    display: flex;
     padding: var(--fs-carousel-padding-mobile);
 
     &::-webkit-scrollbar {
@@ -109,6 +110,7 @@
 
   [data-fs-carousel-item] {
     width: var(--fs-carousel-item-width-mobile);
+    flex-shrink: 0;
 
     &:not(:last-of-type) {
       margin-right: var(--fs-carousel-item-margin-right);
@@ -116,7 +118,6 @@
 
     @include media(">=tablet") {
       width: var(--fs-carousel-item-width-tablet);
-      height: 100%;
     }
 
     @include media(">=desktop") {

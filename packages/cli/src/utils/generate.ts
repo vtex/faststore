@@ -40,9 +40,10 @@ import stringifyObject from 'stringify-object'
 
 interface GenerateOptions {
   setup?: boolean
+  test?: boolean
 }
 
-const ignorePaths = ['node_modules']
+const ignorePaths = ['node_modules', 'cypress.config.ts']
 
 function createTmpFolder() {
   try {
@@ -81,9 +82,21 @@ function copyCoreFiles() {
 
 async function copyCypressFiles() {
   try {
+    // Cypress 9.x config file
+    if (existsSync(`${userDir}/cypress.json`)) {
+      copySync(`${userDir}/cypress.json`, `${tmpDir}/cypress.json`)
+    }
+
+    // Cypress 12.x config file
+    if (existsSync(`${userDir}/cypress.config.ts`)) {
+      copySync(`${userDir}/cypress.config.ts`, `${tmpDir}/cypress.config.ts`)
+    }
+
     const userStoreConfig = await import(userStoreConfigFileDir)
     if (userStoreConfig?.experimental?.enableCypressExtension) {
-      copySync(`${userDir}/cypress`, `${tmpDir}/cypress/integration`, {overwrite: true})
+      copySync(`${userDir}/cypress`, `${tmpDir}/cypress/integration`, {
+        overwrite: true,
+      })
       console.log(`${chalk.green('success')} - Cypress test files copied`)
     }
   } catch (e) {
@@ -256,9 +269,13 @@ function createNodeModulesSymbolicLink() {
 }
 
 export async function generate(options?: GenerateOptions) {
-  const { setup = false } = options ?? {}
+  const { setup = false, test = false } = options ?? {}
 
   let setupPromise: Promise<unknown> | null = null
+
+  if (test) {
+    return copyCypressFiles()
+  }
 
   if (setup) {
     setupPromise = Promise.all([

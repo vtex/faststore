@@ -253,6 +253,7 @@ export const getStaticProps: GetStaticProps<
       meta,
       offers,
       globalSections,
+      key: slug,
     },
   }
 }

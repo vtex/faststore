@@ -76,6 +76,9 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
     },
     ref
   ) {
+    const listPrice = price?.listPrice ?? 0
+    const sellingPrice = price?.value ?? 0
+
     return (
       <section
         ref={ref}
@@ -92,22 +95,37 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           </h3>
           {!outOfStock && (
             <div data-fs-product-card-prices>
-              <Price
-                value={price?.listPrice ? price.listPrice : 0}
-                formatter={price?.formatter}
-                testId="list-price"
-                data-value={price?.listPrice}
-                variant="listing"
-                SRText="Original price:"
-              />
-              <Price
-                value={price?.value ? price.value : 0}
-                formatter={price?.formatter}
-                testId="price"
-                data-value={price?.value}
-                variant="spot"
-                SRText="Sale Price:"
-              />
+              {sellingPrice !== listPrice
+                ? (
+                  <>
+                    <Price
+                      value={listPrice}
+                      formatter={price?.formatter}
+                      testId="list-price"
+                      data-value={listPrice}
+                      variant="listing"
+                      SRText="Original price:"
+                    />
+                    <Price
+                      value={sellingPrice}
+                      formatter={price?.formatter}
+                      testId="price"
+                      data-value={sellingPrice}
+                      variant="spot"
+                      SRText="Sale Price:"
+                    />
+                  </>
+                )
+                : (
+                  <Price
+                    value={sellingPrice}
+                    formatter={price?.formatter}
+                    testId="price"
+                    data-value={sellingPrice}
+                    variant="spot"
+                    SRText="Sale Price:"
+                  />
+                )}
             </div>
           )}
           {ratingValue && (

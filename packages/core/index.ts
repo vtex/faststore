@@ -15,3 +15,5 @@ export type {
 } from './src/sdk/overrides/PageProvider'
 
 export { useProductsQuery } from './src/sdk/product/useProductsQuery'
+
+export * from './src/typings/overrides'

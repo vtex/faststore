@@ -7,13 +7,14 @@ import {
   Icon as UIIcon,
   Price as UIPrice,
   QuantitySelector as UIQuantitySelector,
-  ImageZoom as UIImageZoom,
+  ImageGalleryViewer as UIImageGalleryViewer,
   ImageGallery as UIImageGallery,
 } from '@faststore/ui'
 
 import LocalImageGallery from 'src/components/ui/ImageGallery'
 import LocalShippingSimulation from 'src/components/ui/ShippingSimulation/ShippingSimulation'
 import { Image } from 'src/components/ui/Image'
+import LocalNotAvailableButton from 'src/components/product/NotAvailableButton'
 
 import { getSectionOverrides } from 'src/utils/overrides'
 import { override } from 'src/customizations/components/overrides/ProductDetails'
@@ -29,10 +30,11 @@ const {
   SkuSelector,
   ShippingSimulation,
   ImageGallery,
-  ImageZoom,
+  ImageGalleryViewer,
   __experimentalImageGalleryImage,
   __experimentalImageGallery,
   __experimentalShippingSimulation,
+  __experimentalNotAvailableButton,
 } = getSectionOverrides(
   {
     ProductTitle: UIProductTitle,
@@ -44,10 +46,11 @@ const {
     SkuSelector: UISkuSelector,
     ShippingSimulation: UIShippingSimulation,
     ImageGallery: UIImageGallery,
-    ImageZoom: UIImageZoom,
+    ImageGalleryViewer: UIImageGalleryViewer,
     __experimentalImageGalleryImage: Image,
     __experimentalImageGallery: LocalImageGallery,
     __experimentalShippingSimulation: LocalShippingSimulation,
+    __experimentalNotAvailableButton: LocalNotAvailableButton,
   },
   override as ProductDetailsOverrideDefinition
 )
@@ -62,8 +65,9 @@ export {
   SkuSelector,
   ShippingSimulation,
   ImageGallery,
-  ImageZoom,
+  ImageGalleryViewer,
   __experimentalImageGalleryImage,
   __experimentalImageGallery,
   __experimentalShippingSimulation,
+  __experimentalNotAvailableButton,
 }
