@@ -5,8 +5,8 @@
   "browserslist": "supports es6-module and not dead",
   "scripts": {
     "generate": "graphql-codegen",
-    "build": "bun partytown && next build",
-    "dev": "bun partytown && next dev",
+    "build": "bun run partytown && next build",
+    "dev": "bun run partytown && next dev",
     "clean": "rm -r .next",
     "serve": "next start",
     "test": "cypress open",
