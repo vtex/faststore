@@ -1,5 +1,5 @@
 import type { ChangeEvent } from 'react'
-import { useCallback, useEffect, useReducer } from 'react'
+import { useCallback, useEffect, useReducer, useRef } from 'react'
 import { ShippingSimulationProps as UIShippingSimulationProps } from '@faststore/components'
 
 export interface ProductShippingInfo {
@@ -123,9 +123,11 @@ export const useShippingSimulation = (
   )
 
   const { postalCode: shippingPostalCode } = input
+  const shippingPostalCodeRef = useRef(shippingPostalCode)
 
   useEffect(() => {
-    if (!sessionPostalCode || shippingPostalCode) {
+    const shouldFetch = sessionPostalCode && !shippingPostalCodeRef.current
+    if (!shouldFetch) {
       return
     }
 
@@ -154,13 +156,7 @@ export const useShippingSimulation = (
     }
 
     fetchShipping()
-  }, [
-    country,
-    fetchShippingSimulationFn,
-    sessionPostalCode,
-    shippingItem,
-    shippingPostalCode,
-  ])
+  }, [country, fetchShippingSimulationFn, sessionPostalCode, shippingItem])
 
   const handleSubmit = useCallback(async () => {
     try {
