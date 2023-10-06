@@ -2,14 +2,11 @@ import { gql } from '@faststore/graphql-utils'
 
 import { useQuery } from 'src/sdk/graphql/useQuery'
 import type {
-  StoreSuggestionTerm,
   ClientSearchSuggestionsQueryQuery as Query,
   ClientSearchSuggestionsQueryQueryVariables as Variables,
 } from '@generated/graphql'
 
 import { useSession } from '../session'
-
-const MAX_TOP_SEARCH_TERMS = 5
 
 const query = gql`
   query ClientTopSearchSuggestionsQuery(
@@ -27,10 +24,7 @@ const query = gql`
   }
 `
 
-function useTopSearch(
-  initialTerms: StoreSuggestionTerm[] = [],
-  limit: number = MAX_TOP_SEARCH_TERMS
-) {
+function useTopSearch() {
   const { channel, locale } = useSession()
 
   const { data, error } = useQuery<Query, Variables>(query, {
@@ -43,8 +37,7 @@ function useTopSearch(
 
   return {
     data,
-    terms: (data?.search.suggestions.terms ?? initialTerms).slice(0, limit),
-    isLoading: !error && !data,
+    error,
   }
 }
 

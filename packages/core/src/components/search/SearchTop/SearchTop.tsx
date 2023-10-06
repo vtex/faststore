@@ -10,6 +10,8 @@ import type { StoreSuggestionTerm } from '@generated/graphql'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import useTopSearch from 'src/sdk/search/useTopSearch'
 
+const MAX_TOP_SEARCH_TERMS = 5
+
 export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * List of top searched items
@@ -25,7 +27,11 @@ function SearchTop({ topTerms, sort, ...otherProps }: SearchTopProps) {
   const {
     values: { onSearchSelection },
   } = useSearch()
-  const { terms } = useTopSearch(topTerms)
+  const { data } = useTopSearch()
+  const terms = (data?.search.suggestions.terms ?? topTerms).slice(
+    0,
+    MAX_TOP_SEARCH_TERMS
+  )
 
   if (terms.length === 0) {
     return null
