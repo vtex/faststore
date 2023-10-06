@@ -1,6 +1,6 @@
 {
   "name": "@faststore/api",
-  "version": "2.1.105",
+  "version": "2.1.106",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -36,8 +36,8 @@
   },
   "devDependencies": {
     "@envelop/core": "^2.6.0",
-    "@faststore/eslint-config": "^2.1.105",
-    "@faststore/shared": "^2.1.105",
+    "@faststore/eslint-config": "^2.1.106",
+    "@faststore/shared": "^2.1.106",
     "@graphql-codegen/cli": "2.2.0",
     "@graphql-codegen/typescript": "2.2.2",
     "@types/express": "^4.17.16",
