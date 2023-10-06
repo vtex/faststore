@@ -16,24 +16,40 @@ type Action =
       payload: number
     }
 
+function setPagesSessionStorage(pagesArray: number[]) {
+  try {
+    const stateKey = window.history.state?.key
+
+    sessionStorage.setItem(
+      `__fs_gallery_pages_${stateKey}`,
+      JSON.stringify(pagesArray)
+    )
+  } catch (error) {
+    return
+  }
+}
+
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case 'addPrev': {
       const prev = state[0] - 1
-
-      return [prev, ...state]
+      const newState = [prev, ...state]
+      setPagesSessionStorage(newState)
+      return newState
     }
 
     case 'addNext': {
       const next = Number(state[state.length - 1]) + 1
-
-      return [...state, next]
+      const newState = [...state, next]
+      setPagesSessionStorage(newState)
+      return newState
     }
 
     case 'reset': {
       const { payload } = action
-
-      return [payload]
+      const newState = [payload]
+      setPagesSessionStorage(newState)
+      return newState
     }
 
     default:
@@ -41,8 +57,27 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
+function retrievePagesFromSessionStorage(): number[] | null {
+
+  try {
+    const stateKey = window.history.state?.key
+    const item = sessionStorage.getItem(`__fs_gallery_pages_${stateKey}`)
+    if (!item) {
+      return null
+    }
+    console.log(item)
+    return JSON.parse(item)
+  } catch (error) {
+    return null
+  }
+}
+
 export const useSearchInfiniteState = (initialPage: number) => {
-  const [pages, dispatch] = useReducer(reducer, undefined, () => [initialPage])
+  const [pages, dispatch] = useReducer(
+    reducer,
+    undefined,
+    () => retrievePagesFromSessionStorage() ?? [initialPage]
+  )
 
   const actions = useMemo(
     () => ({
