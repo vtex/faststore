@@ -32,7 +32,7 @@ function setPagesSessionStorage(pages: number[]) {
   }
 }
 
-function retrievePagesFromSessionStorage(): number[] | null {
+function getPagesFromSessionStorage(): number[] | null {
   try {
     const stateKey = window.history.state?.key
     const storageKey = `__fs_gallery_page_${stateKey}`
@@ -77,7 +77,7 @@ export const useSearchInfiniteState = (initialPage: number) => {
   const [pages, dispatch] = useReducer(
     reducer,
     undefined,
-    () => retrievePagesFromSessionStorage() ?? [initialPage]
+    () => getPagesFromSessionStorage() ?? [initialPage]
   )
 
   const actions = useMemo(
