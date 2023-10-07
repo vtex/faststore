@@ -35,6 +35,9 @@ function setPagesSessionStorage(pages: number[]) {
 function getPagesFromSessionStorage(): number[] | null {
   try {
     const stateKey = window.history.state?.key
+    if (!stateKey) {
+      return null
+    }
     const storageKey = `__fs_gallery_page_${stateKey}`
 
     const item = sessionStorage.getItem(storageKey)
