@@ -16,24 +16,59 @@ type Action =
       payload: number
     }
 
+// Save the array containing loaded pages before navigating away from the PLP
+function setPagesSessionStorage(pages: number[]) {
+  try {
+    // Uses the key to identify a PLP
+    const stateKey = window.history.state?.key
+    if (!stateKey) {
+      return
+    }
+    const storageKey = `__fs_gallery_page_${stateKey}`
+
+    sessionStorage.setItem(storageKey, JSON.stringify(pages))
+  } catch (_) {
+    return
+  }
+}
+
+function getPagesFromSessionStorage(): number[] | null {
+  try {
+    const stateKey = window.history.state?.key
+    if (!stateKey) {
+      return null
+    }
+    const storageKey = `__fs_gallery_page_${stateKey}`
+
+    const item = sessionStorage.getItem(storageKey)
+
+    return item ? JSON.parse(item) : null
+  } catch (_) {
+    return null
+  }
+}
+
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case 'addPrev': {
       const prev = state[0] - 1
-
-      return [prev, ...state]
+      const newState = [prev, ...state]
+      setPagesSessionStorage(newState)
+      return newState
     }
 
     case 'addNext': {
       const next = Number(state[state.length - 1]) + 1
-
-      return [...state, next]
+      const newState = [...state, next]
+      setPagesSessionStorage(newState)
+      return newState
     }
 
     case 'reset': {
       const { payload } = action
-
-      return [payload]
+      const newState = [payload]
+      setPagesSessionStorage(newState)
+      return newState
     }
 
     default:
@@ -42,7 +77,11 @@ const reducer = (state: State, action: Action) => {
 }
 
 export const useSearchInfiniteState = (initialPage: number) => {
-  const [pages, dispatch] = useReducer(reducer, undefined, () => [initialPage])
+  const [pages, dispatch] = useReducer(
+    reducer,
+    undefined,
+    () => getPagesFromSessionStorage() ?? [initialPage]
+  )
 
   const actions = useMemo(
     () => ({

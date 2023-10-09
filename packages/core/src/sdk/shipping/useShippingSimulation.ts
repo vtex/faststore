@@ -1,5 +1,5 @@
 import type { ChangeEvent } from 'react'
-import { useCallback, useEffect, useReducer } from 'react'
+import { useCallback, useEffect, useReducer, useRef } from 'react'
 import { ClientShippingSimulationQueryQuery } from '@generated/graphql'
 import getShippingSimulation from '.'
 import { useSession } from '../session'
@@ -108,9 +108,11 @@ export const useShippingSimulation = (shippingItem: ProductShippingInfo) => {
 
   const { country, postalCode: sessionPostalCode } = useSession()
   const { postalCode: shippingPostalCode } = input
+  const shippingPostalCodeRef = useRef(shippingPostalCode)
 
   useEffect(() => {
-    if (!sessionPostalCode || shippingPostalCode) {
+    const shouldFetch = sessionPostalCode && !shippingPostalCodeRef.current
+    if (!shouldFetch) {
       return
     }
 
@@ -137,7 +139,7 @@ export const useShippingSimulation = (shippingItem: ProductShippingInfo) => {
     }
 
     fetchShipping()
-  }, [country, sessionPostalCode, shippingItem, shippingPostalCode])
+  }, [country, sessionPostalCode, shippingItem])
 
   const handleSubmit = useCallback(async () => {
     try {

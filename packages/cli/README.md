@@ -25,13 +25,16 @@ USAGE
 # Commands
 
 <!-- commands -->
-* [`faststore build`](#faststore-build)
-* [`faststore cms-sync`](#faststore-cms-sync)
-* [`faststore dev`](#faststore-dev)
-* [`faststore generate-graphql`](#faststore-generate-graphql)
-* [`faststore help [COMMAND]`](#faststore-help-command)
-* [`faststore start`](#faststore-start)
-* [`faststore test`](#faststore-test)
+- [FastStore CLI](#faststore-cli)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`faststore build`](#faststore-build)
+  - [`faststore cms-sync`](#faststore-cms-sync)
+  - [`faststore dev`](#faststore-dev)
+  - [`faststore generate-graphql`](#faststore-generate-graphql)
+  - [`faststore help [COMMAND]`](#faststore-help-command)
+  - [`faststore start`](#faststore-start)
+  - [`faststore test`](#faststore-test)
 
 ## `faststore build`
 

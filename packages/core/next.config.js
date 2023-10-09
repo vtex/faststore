@@ -18,6 +18,10 @@ const nextConfig = {
   sassOptions: {
     additionalData: `@import "src/customizations/styles/custom-mixins.scss";`,
   },
+  // TODO: We won't need to enable this experimental feature when migrating to Next.js 13
+  experimental: {
+    scrollRestoration: true,
+  },
   webpack: (config, { isServer, dev }) => {
     // https://github.com/vercel/next.js/discussions/11267#discussioncomment-2479112
     // camel-case style names from css modules
