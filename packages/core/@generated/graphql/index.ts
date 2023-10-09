@@ -1160,6 +1160,18 @@ export type ClientProductGalleryFragment = {
   search: { products: { pageInfo: { totalCount: number } } }
 }
 
+export type ClientSearchSuggestionsFragment = {
+  search: { suggestions: { terms: Array<{ value: string }> } }
+}
+
+export type ClientShippingSimulationFragment = {
+  shipping: { address: { city: string | null } | null } | null
+}
+
+export type ClientTopSearchSuggestionsFragment = {
+  search: { suggestions: { terms: Array<{ value: string }> } }
+}
+
 export type ServerCollectionPageFragment = { collection: { id: string } }
 
 export type ServerProductFragment = { product: { id: string } }
@@ -1451,12 +1463,12 @@ export type ClientProductQueryQuery = {
   }
 }
 
-export type SearchSuggestionsQueryQueryVariables = Exact<{
+export type ClientSearchSuggestionsQueryQueryVariables = Exact<{
   term: Scalars['String']
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
 }>
 
-export type SearchSuggestionsQueryQuery = {
+export type ClientSearchSuggestionsQueryQuery = {
   search: {
     suggestions: {
       terms: Array<{ value: string }>
@@ -1486,12 +1498,12 @@ export type SearchSuggestionsQueryQuery = {
   }
 }
 
-export type TopSearchSuggestionsQueryQueryVariables = Exact<{
+export type ClientTopSearchSuggestionsQueryQueryVariables = Exact<{
   term: Scalars['String']
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
 }>
 
-export type TopSearchSuggestionsQueryQuery = {
+export type ClientTopSearchSuggestionsQueryQuery = {
   search: { suggestions: { terms: Array<{ value: string }> } }
 }
 
@@ -1523,13 +1535,13 @@ export type ValidateSessionMutation = {
   } | null
 }
 
-export type ShippingSimulationQueryQueryVariables = Exact<{
+export type ClientShippingSimulationQueryQueryVariables = Exact<{
   postalCode: Scalars['String']
   country: Scalars['String']
   items: Array<IShippingItem> | IShippingItem
 }>
 
-export type ShippingSimulationQueryQuery = {
+export type ClientShippingSimulationQueryQuery = {
   shipping: {
     logisticsInfo: Array<{
       slas: Array<{
@@ -1545,6 +1557,10 @@ export type ShippingSimulationQueryQuery = {
         } | null> | null
       } | null> | null
     } | null> | null
-    address: { city: string | null; neighborhood: string | null } | null
+    address: {
+      city: string | null
+      neighborhood: string | null
+      state: string | null
+    } | null
   } | null
 }

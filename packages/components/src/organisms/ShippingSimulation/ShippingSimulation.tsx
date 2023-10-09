@@ -31,6 +31,49 @@ interface ShippingSLA {
   price: number
 }
 
+interface Address {
+  /**
+   * Address postal code
+   */
+  postalCode?: string
+  /**
+   * Address city
+   */
+  city?: string
+  /**
+   * Address state
+   */
+  state?: string
+  /**
+   * Address country
+   */
+  country?: string
+  /**
+   * Address street
+   */
+  street?: string
+  /**
+   * Address number
+   */
+  number?: string
+  /**
+   * Address neighborhood
+   */
+  neighborhood?: string
+  /**
+   * Address complement
+   */
+  complement?: string
+  /**
+   * Address reference
+   */
+  reference?: string
+  /**
+   * Address geoCoordinates
+   */
+  geoCoordinates?: [number]
+}
+
 export interface ShippingSimulationProps
   extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -74,6 +117,10 @@ export interface ShippingSimulationProps
    * Location for shipping.
    */
   location?: string
+  /**
+   * Address for shipping.
+   */
+  address?: Address
   /**
    * Options for shipping simulation.
    */
