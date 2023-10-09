@@ -15,7 +15,6 @@ import type {
 } from './types/Simulation'
 import type { Session } from './types/Session'
 import type { Channel } from '../../utils/channel'
-import { getCookie } from '../../utils/getCookies'
 import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
@@ -122,7 +121,6 @@ export const VtexCommerce = (
           selectedAddresses: selectedAddresses,
           clearAddressIfPostalCodeNotFound: incrementAddress,
         }
-
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
@@ -131,7 +129,7 @@ export const VtexCommerce = (
             headers: {
               'content-type': 'application/json',
               cookie: ctx.headers.cookie,
-            }
+            },
           }
         )
       },
@@ -150,10 +148,19 @@ export const VtexCommerce = (
           refreshOutdatedData: refreshOutdatedData.toString(),
           sc: salesChannel,
         })
+        const requestInit: RequestInit = ctx.headers
+          ? {
+              ...BASE_INIT,
+              headers: {
+                'content-type': 'application/json',
+                cookie: ctx.headers.cookie,
+              },
+            }
+          : BASE_INIT
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
-          BASE_INIT
+          requestInit
         )
       },
       updateOrderFormItems: ({
@@ -174,16 +181,31 @@ export const VtexCommerce = (
           sc: salesChannel,
         })
 
+        const items = JSON.stringify({
+          orderItems,
+          noSplitItem: !shouldSplitItem,
+        })
+
+        const requestInit: RequestInit = ctx.headers
+          ? {
+              headers: {
+                'content-type': 'application/json',
+                cookie: ctx.headers.cookie,
+              },
+              body: items,
+              method: 'PATCH',
+            }
+          : {
+              headers: {
+                'content-type': 'application/json',
+              },
+              body: items,
+              method: 'PATCH',
+            }
+
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
-          {
-            ...BASE_INIT,
-            body: JSON.stringify({
-              orderItems,
-              noSplitItem: !shouldSplitItem,
-            }),
-            method: 'PATCH',
-          }
+          requestInit
         )
       },
       setCustomData: ({
@@ -243,34 +265,13 @@ export const VtexCommerce = (
         'items',
         'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
-      if (getCookie('vtex_session', ctx.headers.cookie)) {
-        // cookie set
-        return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json',
-            cookie: ctx.headers.cookie,
-          },
-        })
-      } else {
-        // cookie unset -> create session
-        return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-            cookie: ctx.headers.cookie,
-          },
-          body: '{}',
-        })
-      }
-    },
-    getSessionOrder: (): Promise<Session> => {
-      return fetchAPI(`${base}/api/sessions?items=public.orderFormId`, {
-        method: 'GET',
+      return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
+        method: 'POST',
         headers: {
           'content-type': 'application/json',
           cookie: ctx.headers.cookie,
         },
+        body: '{}',
       })
     },
     subscribeToNewsletter: (data: {

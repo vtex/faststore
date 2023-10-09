@@ -10,7 +10,7 @@ import type { CartSidebarProps as UICartSidebarProps } from '@faststore/ui'
 
 import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
 import { Icon, useFadeEffect, useUI } from '@faststore/ui'
-import { Suspense, useEffect } from 'react'
+import { Suspense, useCallback, useEffect, useMemo } from 'react'
 import { useCart } from 'src/sdk/cart'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
@@ -20,6 +20,37 @@ import CartItem from '../CartItem'
 import EmptyCart from '../EmptyCart'
 import OrderSummary from '../OrderSummary'
 import styles from './section.module.scss'
+
+function useViewCartEvent() {
+  const {
+    currency: { code },
+  } = useSession()
+  const { items, gifts, total } = useCart()
+
+  const sendViewCartEvent = useCallback(() => {
+    return sendAnalyticsEvent<ViewCartEvent>({
+      name: 'view_cart',
+      params: {
+        currency: code as CurrencyCode,
+        value: total,
+        items: items.concat(gifts).map((item) => ({
+          item_id: item.itemOffered.isVariantOf.productGroupID,
+          item_name: item.itemOffered.isVariantOf.name,
+          item_brand: item.itemOffered.brand.name,
+          item_variant: item.itemOffered.sku,
+          quantity: item.quantity,
+          price: item.price,
+          discount: item.listPrice - item.price,
+          currency: code as CurrencyCode,
+          item_variant_name: item.itemOffered.name,
+          product_reference_id: item.itemOffered.gtin,
+        })),
+      },
+    })
+  }, [code, gifts, items, total])
+
+  return useMemo(() => ({ sendViewCartEvent }), [sendViewCartEvent])
+}
 
 export interface CartSidebarProps {
   title: UICartSidebarProps['title']
@@ -52,38 +83,21 @@ function CartSidebar({
     icon: { icon: checkoutButtonIcon, alt: checkoutButtonIconAlt },
   },
 }: CartSidebarProps) {
-  const { currency } = useSession()
   const btnProps = useCheckoutButton()
-  const cart = useCart()
+  const { items, gifts, totalItems, isValidating, subTotal, total } = useCart()
   const { cart: displayCart, closeCart } = useUI()
   const { fadeOut } = useFadeEffect()
+  const { sendViewCartEvent } = useViewCartEvent()
 
-  const { items, gifts, totalItems, isValidating, subTotal, total } = cart
-
-  const isEmpty = items.length === 0
+  const isEmpty = useMemo(() => items.length === 0, [items])
 
   useEffect(() => {
-    sendAnalyticsEvent<ViewCartEvent>({
-      name: 'view_cart',
-      params: {
-        currency: currency.code as CurrencyCode,
-        value: total,
-        items: items.concat(gifts).map((item) => ({
-          item_id: item.itemOffered.isVariantOf.productGroupID,
-          item_name: item.itemOffered.isVariantOf.name,
-          item_brand: item.itemOffered.brand.name,
-          item_variant: item.itemOffered.sku,
-          quantity: item.quantity,
-          price: item.price,
-          discount: item.listPrice - item.price,
-          currency: currency.code as CurrencyCode,
-          item_variant_name: item.itemOffered.name,
-          product_reference_id: item.itemOffered.gtin,
-        })),
-      },
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    if (!displayCart) {
+      return
+    }
+
+    sendViewCartEvent()
+  }, [displayCart, sendViewCartEvent])
 
   return (
     <>

@@ -45,7 +45,10 @@ const createRunner = () => {
       schema,
       parse(query),
       null,
-      { ...context, headers: { cookie: '' } },
+      {
+        ...context,
+        headers: { 'content-type': 'application/json', cookie: '' },
+      },
       variables
     )
   }

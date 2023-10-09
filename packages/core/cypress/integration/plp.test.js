@@ -14,7 +14,7 @@ describe('Search page Filters and Sorting options', () => {
     cy.clearIDB()
   })
 
-  it.skip('Applies filters after click', () => {
+  it('Applies filters after click', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
 
@@ -56,7 +56,7 @@ describe('Search page Filters and Sorting options', () => {
       })
   })
 
-  it.skip('Sort products by price_asc', () => {
+  it('Sort products by price_asc', () => {
     cy.visit(pages.collection_2, options)
     cy.waitForHydration()
 
@@ -81,7 +81,7 @@ describe('Search page Filters and Sorting options', () => {
     })
   })
 
-  it.skip('Sort products by price_desc', () => {
+  it('Sort products by price_desc', () => {
     cy.visit(pages.collection_2, options)
     cy.waitForHydration()
     const priceId = '[data-fs-product-grid] [data-testid="price"]'
@@ -111,7 +111,7 @@ describe('Infinite Scroll pagination', () => {
     cy.clearIDB()
   })
 
-  it.skip('Shows more products when requested', () => {
+  it('Shows more products when requested', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
 
@@ -138,7 +138,7 @@ describe('Infinite Scroll pagination', () => {
     })
   })
 
-  it.skip('Sticks to last seen page on plp pagination', () => {
+  it('Sticks to last seen page on plp pagination', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
 
@@ -209,7 +209,7 @@ describe('Infinite Scroll pagination', () => {
   })
 
   // Tests: https://developers.google.com/search/blog/2014/02/infinite-scroll-search-friendly
-  it.skip('Changes the page being viewed on scroll', () => {
+  it('Changes the page being viewed on scroll', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
 

@@ -35,7 +35,7 @@ export interface Options {
   channel: string
   locale: string
   hideUnavailableItems: boolean
-  incrementAddress: boolean,
+  incrementAddress: boolean
   flags?: FeatureFlags
 }
 

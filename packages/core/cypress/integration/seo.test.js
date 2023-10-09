@@ -16,7 +16,7 @@ describe('Home Page Seo', () => {
     cy.clearIDB()
   })
 
-  it.skip('has meta/canonical/link tags', () => {
+  it('has meta/canonical/link tags', () => {
     cy.visit(pages.home, options)
     cy.waitForHydration()
 
@@ -34,7 +34,7 @@ describe('Home Page Seo', () => {
       })
   })
 
-  it.skip('has structured data', () => {
+  it('has structured data', () => {
     cy.visit(pages.home, options)
     cy.waitForHydration()
 
@@ -48,7 +48,7 @@ describe('Home Page Seo', () => {
       })
   })
 
-  it.skip('has OpenGraph tags', () => {
+  it('has OpenGraph tags', () => {
     cy.visit(pages.home, options)
     cy.waitForHydration()
 
@@ -77,7 +77,7 @@ describe('Product Page Seo', () => {
     cy.clearIDB()
   })
 
-  it.skip('has meta/canonical/link tags', () => {
+  it('has meta/canonical/link tags', () => {
     cy.visit(pages.pdp, options)
     cy.waitForHydration()
 
@@ -95,7 +95,7 @@ describe('Product Page Seo', () => {
       })
   })
 
-  it.skip('has structured data', () => {
+  it('has structured data', () => {
     cy.visit(pages.pdp, options)
     cy.waitForHydration()
 
@@ -115,7 +115,7 @@ describe('Product Page Seo', () => {
       })
   })
 
-  it.skip('has OpenGraph tags', () => {
+  it('has OpenGraph tags', () => {
     cy.visit(pages.pdp, options)
     cy.waitForHydration()
 
@@ -162,7 +162,7 @@ describe('Collection Page Seo', () => {
     cy.clearIDB()
   })
 
-  it.skip('has meta/canonical/link tags', () => {
+  it('has meta/canonical/link tags', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
 
@@ -182,7 +182,7 @@ describe('Collection Page Seo', () => {
       })
   })
 
-  it.skip('has structured data', () => {
+  it('has structured data', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
 
@@ -201,7 +201,7 @@ describe('Collection Page Seo', () => {
       })
   })
 
-  it.skip('has OpenGraph tags', () => {
+  it('has OpenGraph tags', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
 
@@ -226,7 +226,7 @@ describe('Collection Page Seo', () => {
 })
 
 describe('Filtered Collection Page Seo', () => {
-  it.skip('has canonical pointing to parent url', () => {
+  it('has canonical pointing to parent url', () => {
     cy.visit(pages.collection_filtered, options)
     cy.waitForHydration()
 
@@ -239,7 +239,7 @@ describe('Filtered Collection Page Seo', () => {
       })
   })
 
-  it.skip('has structured data', () => {
+  it('has structured data', () => {
     cy.visit(pages.collection_filtered, options)
     cy.waitForHydration()
 
@@ -258,7 +258,7 @@ describe('Filtered Collection Page Seo', () => {
       })
   })
 
-  it.skip('has OpenGraph tags', () => {
+  it('has OpenGraph tags', () => {
     cy.visit(pages.collection_filtered, options)
     cy.waitForHydration()
 
@@ -283,7 +283,7 @@ describe('Filtered Collection Page Seo', () => {
 })
 
 describe('Search Page Seo', () => {
-  it.skip('has meta/canonical/link tags', () => {
+  it('has meta/canonical/link tags', () => {
     cy.visit(pages.search, options)
     cy.waitForHydration()
 
@@ -297,7 +297,7 @@ describe('Search Page Seo', () => {
     cy.get('link[rel="canonical"]').should('not.exist')
   })
 
-  it.skip('has OpenGraph tags', () => {
+  it('has OpenGraph tags', () => {
     cy.visit(pages.search, options)
     cy.waitForHydration()
 

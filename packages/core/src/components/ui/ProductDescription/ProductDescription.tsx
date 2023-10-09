@@ -77,7 +77,12 @@ function ProductDescription({
           >
             <UIAccordionButton>{title}</UIAccordionButton>
             <UIAccordionPanel>
-              <p className="text__body">{content}</p>
+              <div
+                // Applies display: contents through FastStore UI
+                data-fs-product-details-description-content
+                // The content is already sanitized by FastStore API
+                dangerouslySetInnerHTML={{ __html: content }}
+              />
             </UIAccordionPanel>
           </UIAccordionItem>
         ))}

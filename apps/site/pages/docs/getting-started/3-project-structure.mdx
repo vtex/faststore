@@ -23,7 +23,7 @@ Let's start taking a look at the structure that represents the source code of a 
   |-- /src
       |-- /themes
           |-- custom-theme.scss
-  |-- cypress.json
+  |-- cypress.config.ts
   |-- faststore.config.js
   |-- next-env.d.ts
   |-- package.json
@@ -52,9 +52,9 @@ Let's start taking a look at the structure that represents the source code of a 
 
 - `custom-theme.scss` - Holds the styling information for your store, controlling the graphic elements such as typography, colors, borders, and spacing that provide your store with a unique look and feel.
 
-- `cypress.json` - Configures the options and preferences required for running tests with Cypress.
+- `cypress.config.ts` - Configures the options and preferences required for running tests with Cypress.
 
-- `faststore.config.js` - Configures various aspects of the project such as SEO preferences, VTEX accout options, and theme. Note that these configurations are set during the [onboarding process](/docs/getting-started/1-faststore-onboarding/overview), reducing the need for changes to this file.
+- [`faststore.config.js`](/docs/faststore-config-options) - Configures aspects of the project such as SEO preferences, VTEX accout options, and theme. Note that these configurations are set during the [onboarding process](/docs/getting-started/1-faststore-onboarding/overview), reducing the need for changes to this file.
 For more information on configuratioon options for this file, refer to [Configuration options for faststore.config.js](/docs/faststore-config-options).
 
 - `next-env.d.ts` - Generates a TypeScript definition file for Next.js.

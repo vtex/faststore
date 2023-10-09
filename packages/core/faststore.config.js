@@ -1,6 +1,6 @@
 module.exports = {
   seo: {
-    title: 'NextJSStore',
+    title: 'FastStore Starter',
     description: 'Fast Demo Store',
     titleTemplate: '%s | FastStore',
     author: 'Store Framework',
@@ -89,6 +89,7 @@ module.exports = {
   },
 
   experimental: {
+    cypressVersion: 12,
     enableCypressExtension: false,
   },
 }

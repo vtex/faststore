@@ -117,6 +117,12 @@
     row-gap: var(--fs-product-details-vertical-spacing);
   }
 
+  [data-fs-product-details-prices] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   [data-fs-product-details-values] {
     display: flex;
     justify-content: space-between;
@@ -170,6 +176,18 @@
     @include media(">=notebook") {
       grid-column: span 8;
     }
+  }
+
+  [data-fs-product-details-description-content] {
+    font-size: var(--fs-text-size-body);
+    line-height: 1.5;
+   /**
+    * display: contents allows you to remove an element from the box tree but still keep its contents
+    * It doesn't have padding or margin, for example.
+    * 
+    * https://blogs.igalia.com/mrego/2018/01/11/display-contents-is-coming/
+    */  
+    display: contents;
   }
 
   [data-fs-image-gallery="with-selector"] ~ [data-fs-product-description] {

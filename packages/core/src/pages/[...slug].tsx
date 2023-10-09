@@ -79,8 +79,10 @@ export const getStaticProps: GetStaticProps<
   { slug: string[] },
   Locator
 > = async ({ params, previewData }) => {
+  const slug = params?.slug.join('/') ?? ''
+
   const [landingPagePromise, globalSectionsPromise] = [
-    getLandingPageBySlug(params?.slug[0], previewData),
+    getLandingPageBySlug(slug, previewData),
     getGlobalSectionsData(previewData),
   ]
 
@@ -99,7 +101,7 @@ export const getStaticProps: GetStaticProps<
       ServerCollectionPageQueryQueryVariables,
       ServerCollectionPageQueryQuery
     >({
-      variables: { slug: params?.slug.join('/') ?? '' },
+      variables: { slug },
       operationName: query,
     }),
     getPage<PLPContentType>({
@@ -127,6 +129,7 @@ export const getStaticProps: GetStaticProps<
       page,
       globalSections: await globalSectionsPromise,
       type: 'plp',
+      key: slug,
     },
   }
 }
