@@ -20,7 +20,7 @@ After [defining the new fields exposed by the FastStore API Extension](/docs/api
   To access the list of queries and their corresponding fragments, refer to the [extendable queries](/docs/api-extension/extending-queries-using-fragments#extendable-queries) section.
 </Callout>
 
-follow the steps below to add custom fields to an [existing query](/docs/api-extensions#extendable-queries). We will use the `ServerProductPage` query as an example to illustrate how to extend.
+follow the steps below to add custom fields to an [existing query](/docs/api-extensions#extendable-queries). We will use the `ServerProduct` query as an example to illustrate how to extend.
 
 ---
 ## Before you start
@@ -40,10 +40,10 @@ Even though you can add information to the FastStore API schema, you must be car
   ```bash copy
   mkdir fragments
 
-2. In the `fragments` folder, create the file named `ServerProductPage.ts`. 
+2. In the `fragments` folder, create the file named `ServerProduct.ts`. 
 
   ```bash copy
-  touch ServerProductPage.ts
+  touch ServerProduct.ts
   ```
 
 
@@ -52,14 +52,14 @@ Even though you can add information to the FastStore API schema, you must be car
 </Callout>
 
 ### Step 2: Define the GraphQL fragment
-In the `ServerProductPage.ts` file, define the GraphQL fragment corresponding to the new fields you want. In this example, the new field is represented by `customData` property to retrieve. Use the following syntax as a guideline:
+In the `ServerProduct.ts` file, define the GraphQL fragment corresponding to the new fields you want. In this example, the new field is represented by `customData` property to retrieve. Use the following syntax as a guideline:
 
-```ts copy filename="src/fragments/ServerProductPage.ts"
+```ts copy filename="src/fragments/ServerProduct.ts"
 
 import { gql } from '@faststore/core/api'
 
 export const fragment = gql`
-  fragment ServerProductPage on Query {
+  fragment ServerProduct on Query {
     product(locator: $locator) {
       customData
     }
@@ -140,9 +140,9 @@ These queries enable customization by allowing the addition or modification of f
   </li>
   <li>
     <details>
-      <summary>Query: `ServerProductPageQuery`</summary>
+      <summary>Query: `ServerProductQuery`</summary>
       <ExtendableQueryTable>
-        <td>ServerProductPage</td>
+        <td>ServerProduct</td>
         <td>Server</td>
         <td>product</td>
         <td>PDP</td>
@@ -173,7 +173,7 @@ These queries enable customization by allowing the addition or modification of f
         <td>In the hook `useProductQuery()` from `PDP`.</td>
         <td>
           General product data from [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct) to update product data inside
-          `PDP` (product coming from `ServerProductPageQuery` as fallback).
+          `PDP` (product coming from `ServerProductQuery` as fallback).
         </td>
         <td>
           Frontend data from the `useSession()` hook in the locator array with
@@ -194,9 +194,9 @@ These queries enable customization by allowing the addition or modification of f
   </li>
   <li>
     <details>
-      <summary>Query: `ClientProductsQuery`</summary>
+      <summary>Query: `ClientManyProductsQuery`</summary>
       <ExtendableQueryTable>
-        <td>ClientProducts</td>
+        <td>ClientManyProducts</td>
         <td>Client</td>
         <td>search</td>
         <td>

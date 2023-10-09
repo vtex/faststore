@@ -1,27 +1,31 @@
 import {
   ClientProductGalleryQueryQuery,
   ClientProductQueryQuery,
-  ClientProductsQueryQuery,
+  ClientManyProductsQueryQuery,
   ServerCollectionPageQueryQuery,
-  ServerProductPageQueryQuery,
+  ServerProductQueryQuery,
 } from '@generated/graphql'
 import type { PropsWithChildren } from 'react'
 import { createContext, useContext, useMemo } from 'react'
 import { SearchPageContextType } from 'src/pages/s'
 
 export interface PDPContext {
-  data?: ServerProductPageQueryQuery &
+  data?: ServerProductQueryQuery &
     ClientProductQueryQuery['product'] & { isValidating?: boolean }
 }
 
 export interface PLPContext {
   data?: ServerCollectionPageQueryQuery &
-    ClientProductGalleryQueryQuery & { pages: ClientProductsQueryQuery[] }
+    ClientProductGalleryQueryQuery & {
+      pages: ClientManyProductsQueryQuery[]
+    }
 }
 
 export interface SearchPageContext {
   data?: SearchPageContextType &
-    ClientProductGalleryQueryQuery & { pages: ClientProductsQueryQuery[] }
+    ClientProductGalleryQueryQuery & {
+      pages: ClientManyProductsQueryQuery[]
+    }
 }
 
 export const isPDP = (x: any): x is PDPContext =>

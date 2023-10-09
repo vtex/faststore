@@ -1,7 +1,7 @@
 import { gql } from '@faststore/graphql-utils'
 
 export const fragment = gql`
-  fragment ClientProducts on Query {
+  fragment ClientManyProducts on Query {
     search(
       first: $first
       after: $after
