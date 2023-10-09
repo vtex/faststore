@@ -43,7 +43,7 @@ function getPagesFromSessionStorage(): number[] | null {
     const item = sessionStorage.getItem(storageKey)
 
     return item ? JSON.parse(item) : null
-  } catch (error) {
+  } catch (_) {
     return null
   }
 }
