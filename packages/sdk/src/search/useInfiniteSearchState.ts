@@ -27,7 +27,7 @@ function setPagesSessionStorage(pages: number[]) {
     const storageKey = `__fs_gallery_page_${stateKey}`
 
     sessionStorage.setItem(storageKey, JSON.stringify(pages))
-  } catch (error) {
+  } catch (_) {
     return
   }
 }
