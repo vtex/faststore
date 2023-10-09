@@ -7,9 +7,8 @@ import type { ComponentType } from 'react'
 import deepmerge from 'deepmerge'
 
 import type {
-  ClientProductQueryQuery,
-  ServerProductPageQueryQuery,
-  ServerProductPageQueryQueryVariables,
+  ServerProductQueryQuery,
+  ServerProductQueryQueryVariables,
 } from '@generated/graphql'
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
@@ -44,7 +43,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 type Props = PDPContentType & {
-  data: ServerProductPageQueryQuery
+  data: ServerProductQueryQuery
   globalSections: GlobalSectionsData
   meta: {
     title: string
@@ -134,8 +133,8 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
 }
 
 const query = gql`
-  query ServerProductPageQuery($locator: [IStoreSelectedFacet!]!) {
-    ...ServerProductPage
+  query ServerProductQuery($locator: [IStoreSelectedFacet!]!) {
+    ...ServerProduct
     product(locator: $locator) {
       id: productID
 
@@ -200,7 +199,7 @@ export const getStaticProps: GetStaticProps<
 > = async ({ params, previewData }) => {
   const slug = params?.slug ?? ''
   const [searchResult, cmsPage, globalSections] = await Promise.all([
-    execute<ServerProductPageQueryQueryVariables, ServerProductPageQueryQuery>({
+    execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
       variables: { locator: [{ key: 'slug', value: slug }] },
       operationName: query,
     }),

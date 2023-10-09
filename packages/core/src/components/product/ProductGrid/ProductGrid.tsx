@@ -2,7 +2,7 @@ import {
   ProductGrid as UIProductGrid,
   ProductGridItem as UIProductGridItem,
 } from '@faststore/ui'
-import type { ClientProductsQueryQuery } from '@generated/graphql'
+import type { ClientManyProductsQueryQuery } from '@generated/graphql'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
 import { ProductCardProps } from '../ProductCard'
@@ -14,7 +14,7 @@ interface Props {
   /**
    * Products listed on the grid.
    */
-  products: ClientProductsQueryQuery['search']['products']['edges']
+  products: ClientManyProductsQueryQuery['search']['products']['edges']
   page: number
   /**
    * Quantity of products listed.

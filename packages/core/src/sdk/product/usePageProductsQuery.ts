@@ -1,8 +1,8 @@
 import { gql } from '@faststore/graphql-utils'
 import { useSearch } from '@faststore/sdk'
 import {
-  ClientProductsQueryQuery,
-  ClientProductsQueryQueryVariables,
+  ClientManyProductsQueryQuery,
+  ClientManyProductsQueryQueryVariables,
 } from '@generated/graphql'
 import {
   useEffect,
@@ -31,14 +31,14 @@ export const useGalleryPage = (page: number) => {
 }
 
 export const query = gql`
-  query ClientProductsQuery(
+  query ClientManyProductsQuery(
     $first: Int!
     $after: String
     $sort: StoreSort!
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
   ) {
-    ...ClientProducts
+    ...ClientManyProducts
     search(
       first: $first
       after: $after
@@ -66,9 +66,9 @@ const getKey = (object: any) => JSON.stringify(object)
  * Use this hook for managed pages state and creating useGalleryPage hook that will be used for fetching a list of products per pages in PLP or Search
  */
 export const useCreateUseGalleryPage = () => {
-  const [pages, setPages] = useState<ClientProductsQueryQuery[]>([])
+  const [pages, setPages] = useState<ClientManyProductsQueryQuery[]>([])
   // We create pagesRef as a mirror of the pages state so we don't have to add pages as a dependency of the useGalleryPage hook
-  const pagesRef = useRef<ClientProductsQueryQuery[]>([])
+  const pagesRef = useRef<ClientManyProductsQueryQuery[]>([])
   const pagesCache = useRef<string[]>([])
 
   const useGalleryPage = useCallback(function useGalleryPage(page: number) {
@@ -89,8 +89,8 @@ export const useCreateUseGalleryPage = () => {
       pagesCache.current[page] === getKey(localizedVariables)
 
     const { data } = useQuery<
-      ClientProductsQueryQuery,
-      ClientProductsQueryQueryVariables
+      ClientManyProductsQueryQuery,
+      ClientManyProductsQueryQueryVariables
     >(query, localizedVariables, {
       fallbackData: null,
       suspense: true,
