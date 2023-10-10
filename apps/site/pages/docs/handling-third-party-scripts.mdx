@@ -1,0 +1,54 @@
+---
+title: 'Handling third-party scripts'
+sidebar_label: 'How To Guides'
+---
+
+import { Callout, Steps } from 'nextra-theme-docs'
+
+<header>
+
+# Handling Third-Party Scripts
+
+</header>
+
+<Callout type="warning" emoji="⚠️">
+  This documentation is currently under development.
+</Callout>
+
+In this guide, you'll learn how to add a third-party script into FastStore projects.
+
+Third-party scripts often refer to elements embedded in a webpage and served by a domain different from the one being accessed. These scripts can include social sharing buttons, video player embeds, ads, analytics, and other scripts that make the web more dynamic and interactive.
+
+## Before you start
+
+- To maintain your website's performance without sacrificing the functionality offered by third-party scripts, consider incorporating only those third-party scripts that truly enhance the value of your website.
+
+- Ensure that you are using `@faststore/core` version 2.1.82 or above.
+
+---
+
+## Step by step
+
+1. In the Starter project, inside the `src` folder, create a folder named `scripts`.
+2. Within the `src/scripts` folder, create `ThirdPartyScripts.tsx` file.
+3. In the `ThirdPartyScripts.tsx` file add your script as the example below:
+
+```tsx filename="src/scripts/ThirdPartyScripts.tsx" {7} copy
+const ThirdPartyScripts = () => {
+  return (
+    <script
+      type="text/partytown"
+      dangerouslySetInnerHTML={{
+        // Add your script here and remove the console.log example
+        __html: "console.log('🚀 Hello from a third-party script!')",
+      }}
+    />
+  )
+}
+
+export default ThirdPartyScripts
+```
+
+4. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser and open the Terminal tab. You should be able to see the message ("Hello from a third-party script"):
+
+![third-party-script-example](https://github-production-user-asset-6210df.s3.amazonaws.com/3356699/273743662-1b7df1fa-7400-4c51-bb97-e918adfa982b.png)
