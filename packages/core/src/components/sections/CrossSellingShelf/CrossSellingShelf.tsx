@@ -7,13 +7,13 @@ import styles from '../ProductShelf/section.module.scss'
 import Section from '../Section'
 
 interface Props {
-  items: number
+  numberOfItems: number
   title: string
   context: ProductDetailsFragment_ProductFragment
   kind: 'buy' | 'view'
 }
 
-const CrossSellingShelf = ({ items, title, context, kind }: Props) => {
+const CrossSellingShelf = ({ numberOfItems, title, context, kind }: Props) => {
   const { ref, inView } = useInView()
 
   const selectedFacets = useMemo(
@@ -28,7 +28,7 @@ const CrossSellingShelf = ({ items, title, context, kind }: Props) => {
     >
       <UIProductShelf
         inView={inView}
-        first={items}
+        numberOfItems={numberOfItems}
         title={title}
         selectedFacets={selectedFacets}
       />

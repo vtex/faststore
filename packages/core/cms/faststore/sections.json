@@ -836,9 +836,9 @@
           "type": "string",
           "title": "Title"
         },
-        "first": {
+        "numberOfItems": {
           "type": "integer",
-          "title": "First",
+          "title": "Total number of items",
           "default": 5,
           "description": "Number of items to display"
         },
@@ -931,8 +931,8 @@
           "title": "Title",
           "type": "string"
         },
-        "items": {
-          "title": "First",
+        "numberOfItems": {
+          "title": "Total number of items",
           "type": "integer",
           "default": 5,
           "description": "Number of items to display"
