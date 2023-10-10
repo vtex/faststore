@@ -13,6 +13,7 @@
   main {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 
   .layout__section {
