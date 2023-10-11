@@ -2,18 +2,19 @@ import type { IShippingItem } from '@faststore/api'
 import { gql } from '@faststore/graphql-utils'
 
 import type {
-  ShippingSimulationQueryQuery as Query,
-  ShippingSimulationQueryQueryVariables as Variables,
+  ClientShippingSimulationQueryQuery as Query,
+  ClientShippingSimulationQueryQueryVariables as Variables,
 } from '@generated/graphql'
 
 import { request } from '../graphql/request'
 
 const query = gql`
-  query ShippingSimulationQuery(
+  query ClientShippingSimulationQuery(
     $postalCode: String!
     $country: String!
     $items: [IShippingItem!]!
   ) {
+    ...ClientShippingSimulation
     shipping(items: $items, postalCode: $postalCode, country: $country) {
       logisticsInfo {
         slas {
@@ -32,6 +33,7 @@ const query = gql`
       address {
         city
         neighborhood
+        state
       }
     }
   }
@@ -54,7 +56,7 @@ export const getShippingSimulation = async ({
     country,
   })
 
-  return data.shipping
+  return data
 }
 
 export default getShippingSimulation

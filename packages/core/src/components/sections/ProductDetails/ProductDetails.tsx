@@ -1,14 +1,12 @@
 import { useEffect, useState, useMemo } from 'react'
 
 import { gql } from '@faststore/graphql-utils'
-import { sendAnalyticsEvent } from '@faststore/sdk'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
-import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
+import { sendAnalyticsEvent } from '@faststore/sdk'
 
-import { useSession } from 'src/sdk/session'
-import { useProduct } from 'src/sdk/product/useProduct'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import type { AnalyticsItem } from 'src/sdk/analytics/types'
+import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { useSession } from 'src/sdk/session'
 
 import Section from '../Section'
 import ProductDescription from 'src/components/ui/ProductDescription'
@@ -17,16 +15,14 @@ import { ProductDetailsSettings } from 'src/components/ui/ProductDetails'
 import styles from './section.module.scss'
 
 import {
-  ProductTitle,
   DiscountBadge,
+  ProductTitle,
   __experimentalImageGallery as ImageGallery,
   __experimentalShippingSimulation as ShippingSimulation,
   __experimentalNotAvailableButton as NotAvailableButton,
 } from 'src/components/sections/ProductDetails/Overrides'
 
-interface ProductDetailsContextProps {
-  context: ProductDetailsFragment_ProductFragment
-}
+import { usePDP } from 'src/sdk/overrides/PageProvider'
 
 export interface ProductDetailsProps {
   productTitle: {
@@ -66,7 +62,6 @@ export interface ProductDetailsProps {
 }
 
 function ProductDetails({
-  context: staleProduct,
   productTitle: {
     refNumber: showRefNumber,
     discountBadge: {
@@ -98,36 +93,31 @@ function ProductDetails({
   notAvailableButton: {
     title: notAvailableButtonTitle = NotAvailableButton.props.title,
   },
-}: ProductDetailsProps & ProductDetailsContextProps) {
+}: ProductDetailsProps) {
   const { currency } = useSession()
   const [quantity, setQuantity] = useState(1)
+  const context = usePDP()
+  const { product, isValidating } = context?.data
 
-  // Stale while revalidate the product for fetching the new price etc
-  const { data, isValidating } = useProduct(staleProduct.id, {
-    product: staleProduct,
-  })
-
-  if (!data) {
+  if (!product) {
     throw new Error('NotFound')
   }
 
   const {
-    product: {
-      id,
-      sku,
-      gtin,
-      name: variantName,
-      brand,
-      isVariantOf,
-      description,
-      isVariantOf: { name, productGroupID: productId },
-      image: productImages,
-      offers: {
-        offers: [{ availability, price, listPrice, seller }],
-        lowPrice,
-      },
+    id,
+    sku,
+    gtin,
+    name: variantName,
+    brand,
+    isVariantOf,
+    description,
+    isVariantOf: { name, productGroupID: productId },
+    image: productImages,
+    offers: {
+      offers: [{ availability, price, listPrice, seller }],
+      lowPrice,
     },
-  } = data
+  } = product
 
   useEffect(() => {
     sendAnalyticsEvent<ViewItemEvent<AnalyticsItem>>({
@@ -205,7 +195,7 @@ function ProductDetails({
               data-fs-product-details-section
             >
               <ProductDetailsSettings
-                product={data.product}
+                product={product}
                 isValidating={isValidating}
                 buyButtonTitle={buyButtonTitle}
                 quantity={quantity}

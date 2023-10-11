@@ -16,10 +16,68 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
+  /**
+   * Example:
+   *
+   * ```json
+   * {
+   *   Color: 'Red', Size: '42'
+   * }
+   * ```
+   */
   ActiveVariations: any
+  /**
+   * Example:
+   *
+   * ```json
+   * {
+   *   Color: [
+   *     {
+   *       src: "https://storecomponents.vtexassets.com/...",
+   *       alt: "...",
+   *       label: "...",
+   *       value: "..."
+   *     },
+   *     {
+   *       src: "https://storecomponents.vtexassets.com/...",
+   *       alt: "...",
+   *       label: "...",
+   *       value: "..."
+   *     }
+   *   ],
+   *   Size: [
+   *     {
+   *       src: "https://storecomponents.vtexassets.com/...",
+   *       alt: "...",
+   *       label: "...",
+   *       value: "..."
+   *     }
+   *   ]
+   * }
+   * ```
+   */
   FormattedVariants: any
   ObjectOrString: any
+  /**
+   * Example:
+   *
+   * ```json
+   * {
+   *   'Color-Red-Size-40': 'classic-shoes-37'
+   * }
+   * ```
+   */
   SlugsMap: any
+  /**
+   * Example:
+   *
+   * ```json
+   * {
+   *   Color: [ "Red", "Blue", "Green" ],
+   *   Size: [ "40", "41" ]
+   * }
+   * ```
+   */
   VariantsByName: any
 }
 
@@ -71,6 +129,13 @@ export type DeliveryIds = {
   quantity: Maybe<Scalars['Int']>
   /** DeliveryIds warehouse id */
   warehouseId: Maybe<Scalars['String']>
+}
+
+export type IGeoCoordinates = {
+  /** The latitude of the geographic coordinates. */
+  latitude: Scalars['Float']
+  /** The longitude of the geographic coordinates. */
+  longitude: Scalars['Float']
 }
 
 /** Person data input to the newsletter. */
@@ -375,6 +440,8 @@ export type Query = {
   redirect: Maybe<StoreRedirect>
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult
+  /** Returns a list of sellers available for a specific localization. */
+  sellers: Maybe<SellersData>
   /** Returns information about shipping simulation. */
   shipping: Maybe<ShippingData>
 }
@@ -410,6 +477,13 @@ export type QuerySearchArgs = {
   term?: InputMaybe<Scalars['String']>
 }
 
+export type QuerySellersArgs = {
+  country: Scalars['String']
+  geoCoordinates: InputMaybe<IGeoCoordinates>
+  postalCode: InputMaybe<Scalars['String']>
+  salesChannel: InputMaybe<Scalars['String']>
+}
+
 export type QueryShippingArgs = {
   country: Scalars['String']
   items: Array<IShippingItem>
@@ -422,6 +496,24 @@ export type SearchMetadata = {
   isTermMisspelled: Scalars['Boolean']
   /** Logical operator used to run the search. */
   logicalOperator: Scalars['String']
+}
+
+/** Information of sellers. */
+export type SellerInfo = {
+  /** Identification of the seller */
+  id: Maybe<Scalars['String']>
+  /** Logo of the seller */
+  logo: Maybe<Scalars['String']>
+  /** Name of the seller */
+  name: Maybe<Scalars['String']>
+}
+
+/** Regionalization with sellers information. */
+export type SellersData = {
+  /** Identification of region. */
+  id: Maybe<Scalars['String']>
+  /** List of sellers. */
+  sellers: Maybe<Array<Maybe<SellerInfo>>>
 }
 
 /** Shipping Simulation information. */
@@ -870,7 +962,10 @@ export type StorePropertyValue = {
   valueReference: Scalars['String']
 }
 
-/** Redirect informations, including url returned by the query. */
+/**
+ * Redirect informations, including url returned by the query.
+ * https://schema.org/Thing
+ */
 export type StoreRedirect = {
   /** URL to redirect */
   url: Maybe<Scalars['String']>
@@ -1047,9 +1142,6 @@ export type ProductDetailsFragment_ProductFragment = {
       seller: { identifier: string }
     }>
   }
-  breadcrumbList: {
-    itemListElement: Array<{ item: string; name: string; position: number }>
-  }
   additionalProperty: Array<{
     propertyID: string
     name: string
@@ -1058,45 +1150,31 @@ export type ProductDetailsFragment_ProductFragment = {
   }>
 }
 
-export type SearchEvent_MetadataFragment = {
-  isTermMisspelled: boolean
-  logicalOperator: string
+export type ClientManyProductsFragment = {
+  search: { products: { pageInfo: { totalCount: number } } }
 }
 
-export type ProductGalleryQueryQueryVariables = Exact<{
-  first: Scalars['Int']
-  after: Scalars['String']
-  sort: StoreSort
-  term: Scalars['String']
-  selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
-}>
+export type ClientProductFragment = { product: { id: string } }
 
-export type ProductGalleryQueryQuery = {
-  search: {
-    products: { pageInfo: { totalCount: number } }
-    facets: Array<
-      | {
-          __typename: 'StoreFacetBoolean'
-          key: string
-          label: string
-          values: Array<{
-            label: string
-            value: string
-            selected: boolean
-            quantity: number
-          }>
-        }
-      | {
-          __typename: 'StoreFacetRange'
-          key: string
-          label: string
-          min: { selected: number; absolute: number }
-          max: { selected: number; absolute: number }
-        }
-    >
-    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
-  }
+export type ClientProductGalleryFragment = {
+  search: { products: { pageInfo: { totalCount: number } } }
 }
+
+export type ClientSearchSuggestionsFragment = {
+  search: { suggestions: { terms: Array<{ value: string }> } }
+}
+
+export type ClientShippingSimulationFragment = {
+  shipping: { address: { city: string | null } | null } | null
+}
+
+export type ClientTopSearchSuggestionsFragment = {
+  search: { suggestions: { terms: Array<{ value: string }> } }
+}
+
+export type ServerCollectionPageFragment = { collection: { id: string } }
+
+export type ServerProductFragment = { product: { id: string } }
 
 export type ServerCollectionPageQueryQueryVariables = Exact<{
   slug: Scalars['String']
@@ -1104,6 +1182,7 @@ export type ServerCollectionPageQueryQueryVariables = Exact<{
 
 export type ServerCollectionPageQueryQuery = {
   collection: {
+    id: string
     seo: { title: string; description: string }
     breadcrumbList: {
       itemListElement: Array<{ item: string; name: string; position: number }>
@@ -1112,11 +1191,11 @@ export type ServerCollectionPageQueryQuery = {
   }
 }
 
-export type ServerProductPageQueryQueryVariables = Exact<{
-  slug: Scalars['String']
+export type ServerProductQueryQueryVariables = Exact<{
+  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
 }>
 
-export type ServerProductPageQueryQuery = {
+export type ServerProductQueryQuery = {
   product: {
     sku: string
     gtin: string
@@ -1266,50 +1345,7 @@ export type SubscribeToNewsletterMutation = {
   subscribeToNewsletter: { id: string } | null
 }
 
-export type BrowserProductQueryQueryVariables = Exact<{
-  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
-}>
-
-export type BrowserProductQueryQuery = {
-  product: {
-    sku: string
-    name: string
-    gtin: string
-    description: string
-    id: string
-    isVariantOf: {
-      name: string
-      productGroupID: string
-      skuVariants: {
-        activeVariations: any | null
-        slugsMap: any | null
-        availableVariations: any | null
-      } | null
-    }
-    image: Array<{ url: string; alternateName: string }>
-    brand: { name: string }
-    offers: {
-      lowPrice: number
-      offers: Array<{
-        availability: string
-        price: number
-        listPrice: number
-        seller: { identifier: string }
-      }>
-    }
-    breadcrumbList: {
-      itemListElement: Array<{ item: string; name: string; position: number }>
-    }
-    additionalProperty: Array<{
-      propertyID: string
-      name: string
-      value: any
-      valueReference: string
-    }>
-  }
-}
-
-export type ProductsQueryQueryVariables = Exact<{
+export type ClientManyProductsQueryQueryVariables = Exact<{
   first: Scalars['Int']
   after: InputMaybe<Scalars['String']>
   sort: StoreSort
@@ -1317,7 +1353,7 @@ export type ProductsQueryQueryVariables = Exact<{
   selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
 }>
 
-export type ProductsQueryQuery = {
+export type ClientManyProductsQueryQuery = {
   search: {
     products: {
       pageInfo: { totalCount: number }
@@ -1347,12 +1383,92 @@ export type ProductsQueryQuery = {
   }
 }
 
-export type SearchSuggestionsQueryQueryVariables = Exact<{
+export type SearchEvent_MetadataFragment = {
+  isTermMisspelled: boolean
+  logicalOperator: string
+}
+
+export type ClientProductGalleryQueryQueryVariables = Exact<{
+  first: Scalars['Int']
+  after: Scalars['String']
+  sort: StoreSort
+  term: Scalars['String']
+  selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+}>
+
+export type ClientProductGalleryQueryQuery = {
+  search: {
+    products: { pageInfo: { totalCount: number } }
+    facets: Array<
+      | {
+          __typename: 'StoreFacetBoolean'
+          key: string
+          label: string
+          values: Array<{
+            label: string
+            value: string
+            selected: boolean
+            quantity: number
+          }>
+        }
+      | {
+          __typename: 'StoreFacetRange'
+          key: string
+          label: string
+          min: { selected: number; absolute: number }
+          max: { selected: number; absolute: number }
+        }
+    >
+    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
+  }
+}
+
+export type ClientProductQueryQueryVariables = Exact<{
+  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+}>
+
+export type ClientProductQueryQuery = {
+  product: {
+    sku: string
+    name: string
+    gtin: string
+    description: string
+    id: string
+    isVariantOf: {
+      name: string
+      productGroupID: string
+      skuVariants: {
+        activeVariations: any | null
+        slugsMap: any | null
+        availableVariations: any | null
+      } | null
+    }
+    image: Array<{ url: string; alternateName: string }>
+    brand: { name: string }
+    offers: {
+      lowPrice: number
+      offers: Array<{
+        availability: string
+        price: number
+        listPrice: number
+        seller: { identifier: string }
+      }>
+    }
+    additionalProperty: Array<{
+      propertyID: string
+      name: string
+      value: any
+      valueReference: string
+    }>
+  }
+}
+
+export type ClientSearchSuggestionsQueryQueryVariables = Exact<{
   term: Scalars['String']
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
 }>
 
-export type SearchSuggestionsQueryQuery = {
+export type ClientSearchSuggestionsQueryQuery = {
   search: {
     suggestions: {
       terms: Array<{ value: string }>
@@ -1382,12 +1498,12 @@ export type SearchSuggestionsQueryQuery = {
   }
 }
 
-export type TopSearchSuggestionsQueryQueryVariables = Exact<{
+export type ClientTopSearchSuggestionsQueryQueryVariables = Exact<{
   term: Scalars['String']
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
 }>
 
-export type TopSearchSuggestionsQueryQuery = {
+export type ClientTopSearchSuggestionsQueryQuery = {
   search: { suggestions: { terms: Array<{ value: string }> } }
 }
 
@@ -1419,13 +1535,13 @@ export type ValidateSessionMutation = {
   } | null
 }
 
-export type ShippingSimulationQueryQueryVariables = Exact<{
+export type ClientShippingSimulationQueryQueryVariables = Exact<{
   postalCode: Scalars['String']
   country: Scalars['String']
   items: Array<IShippingItem> | IShippingItem
 }>
 
-export type ShippingSimulationQueryQuery = {
+export type ClientShippingSimulationQueryQuery = {
   shipping: {
     logisticsInfo: Array<{
       slas: Array<{
@@ -1441,6 +1557,10 @@ export type ShippingSimulationQueryQuery = {
         } | null> | null
       } | null> | null
     } | null> | null
-    address: { city: string | null; neighborhood: string | null } | null
+    address: {
+      city: string | null
+      neighborhood: string | null
+      state: string | null
+    } | null
   } | null
 }

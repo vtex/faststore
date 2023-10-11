@@ -29,10 +29,11 @@ type BaseProps = {
 
 type Props = BaseProps &
   (
-    | ({
+    | {
         type: 'plp'
         page: PLPContentType
-      } & ServerCollectionPageQueryQuery)
+        data: ServerCollectionPageQueryQuery
+      }
     | {
         type: 'page'
         page: PageContentType
@@ -52,6 +53,7 @@ function Page({ globalSections, type, ...otherProps }: Props) {
 
 const query = gql`
   query ServerCollectionPageQuery($slug: String!) {
+    ...ServerCollectionPage
     collection(slug: $slug) {
       seo {
         title
@@ -125,7 +127,7 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: {
-      ...data,
+      data,
       page,
       globalSections: await globalSectionsPromise,
       type: 'plp',

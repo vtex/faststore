@@ -9,31 +9,34 @@ import Sort from 'src/components/search/Sort'
 import FilterSkeleton from 'src/components/skeletons/FilterSkeleton'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
-import { ProductGalleryQueryQuery } from '@generated/graphql'
 import { ProductCardProps } from 'src/components/product/ProductCard'
 import { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
 import { SortProps } from 'src/components/search/Sort/Sort'
-import { useDelayedFacets } from './useDelayedFacets'
-import { useDelayedPagination } from './useDelayedPagination'
-import { useProductsPrefetch } from './usePageProducts'
 import {
-  MobileFilterButton,
+  FilterButtonSkeleton,
   FilterIcon,
+  LinkButtonNext,
+  LinkButtonPrev,
+  MobileFilterButton,
   PrevIcon,
   ResultsCountSkeleton,
   SortSkeleton,
-  FilterButtonSkeleton,
-  LinkButtonPrev,
-  LinkButtonNext,
 } from 'src/components/sections/ProductGallery/Overrides'
+import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
+import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
+import {
+  PLPContext,
+  SearchPageContext,
+  usePage,
+} from 'src/sdk/overrides/PageProvider'
+import { useProductsPrefetch } from 'src/sdk/product/useProductsPrefetch'
 
-const GalleryPage = lazy(() => import('./ProductGalleryPage'))
+const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const GalleryPageSkeleton = <ProductGridSkeleton loading />
 
 export interface ProductGalleryProps {
   title?: string
   searchTerm?: string
-  productGalleryData?: ProductGalleryQueryQuery
   totalCount?: number
   searchTermLabel?: string
   totalCountLabel?: string
@@ -69,7 +72,6 @@ export interface ProductGalleryProps {
 function ProductGallery({
   title,
   searchTerm,
-  productGalleryData,
   totalCount,
   searchTermLabel,
   totalCountLabel,
@@ -80,12 +82,17 @@ function ProductGallery({
   productCard,
 }: ProductGalleryProps) {
   const { openFilter } = useUI()
-  const { pages, addNextPage, addPrevPage } = useSearch()
-  const facets = useDelayedFacets(productGalleryData)
+  const { pages, addNextPage, addPrevPage, itemsPerPage } = useSearch()
+  const context = usePage<SearchPageContext | PLPContext>()
+  const data = context?.data
+  const facets = useDelayedFacets(data) ?? []
   const { next, prev } = useDelayedPagination(totalCount)
 
   useProductsPrefetch(prev ? prev.cursor : null)
   useProductsPrefetch(next ? next.cursor : null)
+
+  const hasFacets =
+    Boolean(data?.search?.facets) && data.search.facets.length > 0
 
   return (
     <section data-testid="product-gallery" data-fs-product-listing>
@@ -115,7 +122,7 @@ function ProductGallery({
             {...ResultsCountSkeleton.props}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
-            loading={!productGalleryData}
+            loading={!data?.search}
           >
             <h2 data-testid="total-product-count">
               {totalCount} {totalCountLabel}
@@ -212,14 +219,15 @@ function ProductGallery({
             </div>
           )}
           {/* Render ALL products */}
-          {productGalleryData ? (
+          {hasFacets ? (
             <Suspense fallback={GalleryPageSkeleton}>
               {pages.map((page) => (
-                <GalleryPage
+                <ProductGalleryPage
                   key={`gallery-page-${page}`}
                   page={page}
                   title={title}
                   productCard={productCard}
+                  itemsPerPage={itemsPerPage}
                 />
               ))}
             </Suspense>

@@ -1,0 +1,298 @@
+---
+title: 'Extending queries using fragments'
+sidebar_label: 'API Extensions'
+---
+
+import { Callout, Tabs, Tab } from 'nextra-theme-docs'
+import { ExtendableQueryTable } from './../../../components/ExtendableQueryTable'
+
+<header>
+
+# Extending queries using fragments
+
+</header>
+
+After [defining the new fields exposed by the FastStore API Extension](/docs/api-extension/extending-api-schema), the next step is to specify where these fields will be utilized within GraphQL fragments.
+
+[Fragments](https://graphql.org/learn/queries/#fragments) in GraphQL are reusable units that enhance query functionality. FastStore associates these fragments with the existing queries used on its pages to incorporate the newly exposed fields.
+
+<Callout type="info" emoji="ℹ️">
+  To access the list of queries and their corresponding fragments, refer to the [extendable queries](/docs/api-extension/extending-queries-using-fragments#extendable-queries) section.
+</Callout>
+
+follow the steps below to add custom fields to an [existing query](/docs/api-extensions#extendable-queries). We will use the `ServerProduct` query as an example to illustrate how to extend.
+
+---
+## Before you start
+
+### Avoid over-fetching data on pages
+ 
+Even though you can add information to the FastStore API schema, you must be careful not to over-fetch data on your pages. See the [best practices for fetching data on your storefront](https://v1.faststore.dev/how-to-guides/faststore-api/fetching-api-data#best-practices-for-fetching-data).
+
+---
+
+## Step by step
+
+### Step 1: Create a new file
+
+1. In the `src` folder of your store code, create the `fragments` folder.
+
+  ```bash copy
+  mkdir fragments
+
+2. In the `fragments` folder, create the file named `ServerProduct.ts`. 
+
+  ```bash copy
+  touch ServerProduct.ts
+  ```
+
+
+<Callout type="warning" emoji="⚠️">
+  The name of the file should match the name of the query you want to extend.
+</Callout>
+
+### Step 2: Define the GraphQL fragment
+In the `ServerProduct.ts` file, define the GraphQL fragment corresponding to the new fields you want. In this example, the new field is represented by `customData` property to retrieve. Use the following syntax as a guideline:
+
+```ts copy filename="src/fragments/ServerProduct.ts"
+
+import { gql } from '@faststore/core/api'
+
+export const fragment = gql`
+  fragment ServerProduct on Query {
+    product(locator: $locator) {
+      customData
+    }
+  }
+`
+```
+Now, you can consume `customData` by following the [Consuming FastStore API extension with custom components](/docs/api-extensions/consuming-api-extensions) guide.
+
+## Extendable Queries
+
+Extendable queries in FastStore's GraphQL API are predefined queries that form the basis for fetching data from the API. 
+These queries enable customization by allowing the addition or modification of fields to align data retrieval with your store-specific requirements.
+
+
+<ul>
+  <li>
+    <details>
+      <summary>Query: `ClientProductGalleryQuery`</summary>
+      <ExtendableQueryTable>
+        <td>ClientProductGallery</td>
+        <td>Client</td>
+        <td>search</td>
+        <td>PLP</td>
+        <td>
+          In the hook `useProductGalleryQuery()` from the `ProductListingPage` (`PLP`) and `Search` Pages.
+        </td>
+        <td>
+          Products totalCount from [StorePageInfo](https://v1.faststore.dev/reference/api/objects#storepageinfo), and facets ([StoreFacet](https://v1.faststore.dev/reference/api/objects#storefacet)) from
+          [StoreSearchResult](https://v1.faststore.dev/reference/api/objects#storesearchresult).
+        </td>
+        <td>
+          Frontend data from the `useSearch()` and `useLocalizedVariables()`
+          hooks, the latter uses `useSession()`.
+        </td>
+      </ExtendableQueryTable>
+      <br />
+      
+      ### How to consume it
+          Use the `usePage()` hook when you have a single section that is used in more than one type of page.
+          ```ts copy
+          import { usePage } from "@faststore/core"
+
+          const context = usePage()
+          ```
+          This hook returns one of the following types as context: `PDPContext`, `PLPContext`, or `SearchPageContext`, and you can decide how to handle it depending on the page that will use this hook by passing the types as generics.
+          
+          ```ts copy
+          import { usePage } from "@faststore/core"
+
+          const context = usePage<PLPContext | SearchPageContext>()
+          ```
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ServerCollectionPageQuery`</summary>
+      <ExtendableQueryTable>
+        <td>ServerCollectionPage</td>
+        <td>Server</td>
+        <td>collection</td>
+        <td>PLP</td>
+        <td>In the function `getStaticProps()` from `PLP`.</td>
+        <td>
+          seo, breadcrumbList and meta data from the collection ([StoreCollection](https://v1.faststore.dev/reference/api/objects#storecollection)).
+        </td>
+        <td>Collection `slug` that comes from URL.</td>
+      </ExtendableQueryTable>
+      <br />
+
+      ### How to consume it
+          Use the `usePLP()` hook when integrating your section with a Product Listing Page (PLP).
+          ```ts copy
+          import { usePLP } from "@faststore/core"
+
+          const context = usePLP()
+          ```
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ServerProductQuery`</summary>
+      <ExtendableQueryTable>
+        <td>ServerProduct</td>
+        <td>Server</td>
+        <td>product</td>
+        <td>PDP</td>
+        <td>In the function `getStaticProps()` from `PDP`.</td>
+        <td>General product data from [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct).</td>
+        <td>The `locator` with `slug` key/value.</td>
+      </ExtendableQueryTable>
+      <br />
+
+      ### How to consume it
+          `usePDP()`: Use this hook when integrating your section with a Product Detail Page (PDP).
+    
+          ```ts copy
+            import { usePDP } from "@faststore/core"
+
+            const context = usePDP()
+          ```
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ClientProductQuery`</summary>
+      <ExtendableQueryTable>
+        <td>ClientProduct</td>
+        <td>Client</td>
+        <td>product</td>
+        <td>PDP</td>
+        <td>In the hook `useProductQuery()` from `PDP`.</td>
+        <td>
+          General product data from [StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct) to update product data inside
+          `PDP` (product coming from `ServerProductQuery` as fallback).
+        </td>
+        <td>
+          Frontend data from the `useSession()` hook in the locator array with
+          `id`, `channel`, `locale` as key/values.
+        </td>
+      </ExtendableQueryTable>
+      <br />
+
+      ### How to consume it
+          `usePDP()`: Use this hook when integrating your section with a Product Detail Page (PDP).
+    
+          ```ts copy
+            import { usePDP } from "@faststore/core"
+
+            const context = usePDP()
+          ```
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ClientManyProductsQuery`</summary>
+      <ExtendableQueryTable>
+        <td>ClientManyProducts</td>
+        <td>Client</td>
+        <td>search</td>
+        <td>
+          `PLP`, `Search Page`, and pages that use `ProductShelf`, and `ProductTiles` components.
+        </td>
+        <td>
+          - In the hook `usePageProductsQuery()` from `PLP` and `Search Page`.
+          <br />
+          - In the hook `useProductsPrefetch()` to prefetch the previous (prev)
+          and next (next) page from the current `PLP` or `Search Page`.
+          <br />
+          - In the hook `useProductsQuery()`, in `ProductShelf`, `ProductTiles`
+          components, that can be used on multiple pages.
+          <br />
+        </td>
+        <td>
+          General products data ([StoreProduct](https://v1.faststore.dev/reference/api/objects#storeproduct)) with the `totalCount` from [StorePageInfo](https://v1.faststore.dev/reference/api/objects#storepageinfo).
+        </td>
+        <td>
+          Frontend data from the `useLocalizedVariables()` and `useSession()` hooks.
+        </td>
+      </ExtendableQueryTable>
+      <br />
+
+      ### How to consume it
+          Use the `usePage()` hook when you have a single section that is used in more than one type of page.
+          ```ts copy
+          import { usePage } from "@faststore/core"
+
+          const context = usePage()
+          ```
+          This hook returns one of the following types as context: `PDPContext`, `PLPContext`, or `SearchPageContext`, and you can decide how to handle it depending on the page that will use this hook by passing the types as generics.
+          
+          ```ts copy
+          import { usePage } from "@faststore/core"
+
+          const context = usePage<PLPContext | SearchPageContext>()
+          ```
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ClientShippingSimulationQuery`</summary>
+      <ExtendableQueryTable>
+        <td>ClientShippingSimulation</td>
+        <td>Client</td>
+        <td>shipping</td>
+        <td>PDP</td>
+        <td>In the `ShippingSimulation` component.</td>
+        <td>
+          General shipping simulation data with the `address` and `logisticsInfo`.
+        </td>
+        <td>
+          Frontend `country`, and `postalCode` from `useSession()` hook, and the `items` Array of `IShippingItem` (`id`, `quantity`, and `seller`).
+        </td>
+      </ExtendableQueryTable>
+      <br />
+
+      ### How to consume it
+          You can use the experimental `useShippingSimulation_unstable()` hook, or the `getShippingSimulation_unstable()` function to retrieve shipping data in Overridable (custom) components.
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ClientSearchSuggestionsQuery`</summary>
+      <ExtendableQueryTable>
+        <td>ClientSearchSuggestions</td>
+        <td>Client</td>
+        <td>search</td>
+        <td>`SearchInput` component from `GlobalSection`.</td>
+        <td>In the `SearchInput` component.</td>
+        <td>General search data with the `suggestions` and `products`.</td>
+        <td>Frontend data from `useSession()` hook, and the `term` searched.</td>
+      </ExtendableQueryTable>
+      <br />
+
+      ### How to consume it
+      You can use the experimental `useSuggestions_unstable()` hook to retrieve the search suggestions data in Overridable (custom) components.
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>Query: `ClientTopSearchSuggestionsQuery`</summary>
+      <ExtendableQueryTable>
+        <td>ClientTopSearchSuggestions</td>
+        <td>Client</td>
+        <td>search</td>
+        <td>`SearchInput` component from `GlobalSection`.</td>
+        <td>In the `SearchInput` component.</td>
+        <td>The top searched suggestions.</td>
+        <td>Frontend data from `useSession()` hook.</td>
+      </ExtendableQueryTable>
+      <br />
+
+      ### How to consume it
+      You can use the experimental `useTopSearch_unstable()` hook to retrieve the top search suggestions data in Overridable (custom) components.
+    </details>
+  </li>
+</ul>

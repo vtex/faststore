@@ -2,18 +2,19 @@ import {
   ProductGrid as UIProductGrid,
   ProductGridItem as UIProductGridItem,
 } from '@faststore/ui'
-import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import type { ClientManyProductsQueryQuery } from '@generated/graphql'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
 import { ProductCardProps } from '../ProductCard'
 
 import { __experimentalProductCard as ProductCard } from 'src/components/sections/ProductGallery/Overrides'
+import { memo } from 'react'
 
 interface Props {
   /**
    * Products listed on the grid.
    */
-  products: Array<{ node: ProductSummary_ProductFragment }>
+  products: ClientManyProductsQueryQuery['search']['products']['edges']
   page: number
   /**
    * Quantity of products listed.
@@ -64,4 +65,4 @@ function ProductGrid({
   )
 }
 
-export default ProductGrid
+export default memo(ProductGrid)

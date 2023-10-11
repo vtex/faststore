@@ -11,7 +11,7 @@ if (typeof window !== 'undefined') {
   }
 }
 
-export const AnalyticsHandler = () => {
+const AnalyticsHandler = () => {
   useAnalyticsEvent((event: AnalyticsEvent) => {
     // Cleans the ecommerce object before pushing a new one
     // This prevents the new data from getting merged with the previous one

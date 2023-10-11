@@ -30,6 +30,8 @@ const SearchDropdown = lazy(
   () => import('src/components/search/SearchDropdown')
 )
 
+const MAX_SUGGESTIONS = 5
+
 export type SearchInputProps = {
   onSearchClick?: () => void
   buttonTestId?: string
@@ -84,7 +86,16 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
     useOnClickOutside(searchRef, () => setSearchDropdownVisible(false))
 
-    const { terms, products, isLoading } = useSuggestions(searchQueryDeferred)
+    const { data, error } = useSuggestions(searchQueryDeferred)
+    const terms = (data?.search.suggestions.terms ?? []).slice(
+      0,
+      MAX_SUGGESTIONS
+    )
+    const products = (data?.search.suggestions.products ?? []).slice(
+      0,
+      MAX_SUGGESTIONS
+    )
+    const isLoading = !error && !data
 
     return (
       <UISearchInput
