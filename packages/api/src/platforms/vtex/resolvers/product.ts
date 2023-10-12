@@ -14,7 +14,7 @@ import type { Attachment } from '../clients/commerce/types/OrderForm'
 
 type QueryProduct = PromiseType<ReturnType<typeof Query.product>>
 
-type Root = QueryProduct & {
+export type Root = QueryProduct & {
   attachmentsValues?: Attachment[]
 }
 

@@ -3,7 +3,7 @@ import { useUI } from '@faststore/ui'
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import { Suspense } from 'react'
 import { ProductGalleryProps } from 'src/components/ui/ProductGallery/ProductGallery'
-import { useFilter } from './useFilter'
+import { useFilter } from 'src/sdk/search/useFilter'
 
 import {
   __experimentalFilterDesktop as FilterDesktop,

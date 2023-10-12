@@ -1,0 +1,123 @@
+---
+title: 'API Extensions'
+sidebar_label: 'API Extensions'
+---
+
+
+<header>
+
+# API extension
+
+</header>
+
+In this track, learn how to extend the FastStore API schema by adding new
+data to the existing [queries](https://v1.faststore.dev/reference/api/queries).
+
+While the [FastStore API](/docs/faststore-api) provides a [GraphQL schema for ecommerce](https://v1.faststore.dev/reference/api/queries) that covers a general use case, 
+some stores may need to access other, more specific, information.
+
+Note that adding additional API endpoints to your storefront can potentially impact site performance, as already covered in the guide
+[Best practices for fetching data](/docs/api-extensions#best-practices-for-fetching-data). 
+If you need to retrieve more data, you can achieve this by extending the FastStore API schema and incorporating new data into the existing [queries](https://v1.faststore.dev/reference/api/queries).
+
+---
+
+## Main concepts
+
+<ul>
+  <li>
+    <details>
+      <summary><b>GraphQL Optimizations & types</b></summary>
+        <br />
+        GraphQL Optimizations are essential for optimizing your GraphQL server and TypeScript types. They provide benefits such as:
+
+        - Build-time generated mappings of declared queries
+        - Improved efficiency and security
+        - Enforcement of predefined operations
+
+        Without these optimizations, any modifications to the GraphQL schema, such as adding or removing fields from a query or altering a GraphQL type, won't be reflected in the store. 
+
+        Additionally, GraphQL query optimizations update TypeScript types for the API to match schema changes seamlessly.
+        <br />
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary><b>GraphQL Optimization automation</b></summary>
+        <br />
+        GraphQL optimizations are seamlessly executed, requiring no direct intervention from end developers. 
+        They are automatically triggered every time you start a development server (`yarn dev`) or builds the store (`yarn build`).
+        Resolver changes are automatically and instantly visible, without the need for manual optimization generation.
+        <br />
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary><b>Extendable queries</b></summary>
+        <br />
+        Extendable queries in FastStore's GraphQL API are predefined GraphQL queries that serve as a foundation for retrieving data from the API. 
+        These queries allow you to add or modify fields within the query to tailor the data retrieval process to the store specific needs.
+        <br />
+    </details>
+  </li>
+</ul>
+
+---
+
+## Best practices for fetching data
+Site performance tends to get worse as more API requests are made by a page. Because of this, the best practices for fetching data on your storefront involve getting precisely the data you need with the minimum number possible of requests to the FastStore API. The sections below go over what you can do to minimize the API requests of your pages.
+
+### Fetch only the data you need
+GraphQL allows you to customize your query to get precisely the data you need, which reduces the data returned from the requests. Double-check your queries to make sure they are not over-fetching.
+
+This also means that you must be mindful of the data brought into your query by [GraphQL fragments](https://graphql.org/learn/queries/#fragments). Use them only when they do not include unnecessary data.
+
+
+### Do not send requests to other APIs
+
+When building your storefront with FastStore, to avoid comprimising the website performance and lead to `504` timeout errors, do not send requests to APIs other than the FastStore API.
+If you need to access other data not available in the native FastStore API schema, you must do this by using [API extension](/docs/api-extensions). 
+
+If you need data that is not available on the native [FastStore GraphQL schema](https://v1.faststore.dev/reference/api/objects), check the [root object](https://v1.faststore.dev/reference/api/objects).
+The [GraphQL root object](https://graphql.org/learn/execution/#root-fields-resolvers) represents the top-level object returned to a query. You can see what data is available in the root object by typing the root param in your store code,
+as you can see in the step 2 of [Creating resolvers](/docs/api-extensions/extending-api-schema#step-3---creating-resolvers).
+
+
+### Avoid custom API Routes
+We do not recomend using Next.js [API Routes](https://nextjs.org/docs/api-routes/introduction) other than the ones already built in FastStore.
+
+If you do use this type of function, you must be mindful to always check which ones are actually running and remove the ones that are not.
+
+---
+
+<ul class="nx-card-list">
+  <li class="nx-card">
+    <a href="/docs/api-extensions/extending-api-schema">
+      #### Extending VTEX API schemas
+      Extend VTEX and third-party APIs to customize how data is managed and processed in your store.
+    </a>
+  </li>
+
+  <li class="nx-card">
+    <a href="/docs/api-extensions/extending-queries-using-fragments">
+      #### Extending queries using fragments
+      Extend GraphQL queries using fragments in FastStore API Extension to add custom fields to predefined queries.
+    </a>
+  </li>
+
+  <li class="nx-card">
+    <a href="/docs/api-extensions/consuming-api-extensions">
+      #### Consuming FastStore API extension with custom components
+      Consume FastStore API extension data with custom components, such as [Sections](/docs/building-sections/creating-a-new-section) and [Override components](/docs/building-sections/overriding-components-and-props).
+    </a>
+  </li>
+
+  <li class="nx-card">
+    <a href="/docs/api-extensions/troubleshooting">
+      #### Troubleshooting
+      Check for common errors that can happen while using API extensions.
+    </a>
+  </li>
+</ul>

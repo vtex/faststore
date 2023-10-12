@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import type { ProductsQueryQueryVariables } from '@generated/graphql'
+import type { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
 import ProductCard from 'src/components/product/ProductCard'
 import ProductTilesSkeleton from 'src/components/skeletons/ProductTilesSkeleton'
 import Tiles, { Tile } from 'src/components/ui/Tiles'
@@ -12,7 +12,8 @@ import Section from '../Section'
 
 import styles from './section.module.scss'
 
-interface ProductTilesProps extends Partial<ProductsQueryQueryVariables> {
+interface ProductTilesProps
+  extends Partial<ClientManyProductsQueryQueryVariables> {
   title: string
 }
 
@@ -56,7 +57,8 @@ const getSizes = (products: number, idx: number) => {
 const ProductTiles = ({ title, ...variables }: ProductTilesProps) => {
   const viewedOnce = useRef(false)
   const { ref, inView } = useInView()
-  const products = useProductsQuery(variables)
+  const data = useProductsQuery(variables)
+  const products = data?.search?.products
   const productEdges = products?.edges ?? []
 
   const { sendViewItemListEvent } = useViewItemListEvent({

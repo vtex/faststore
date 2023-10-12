@@ -2,29 +2,32 @@ import { gql } from '@faststore/graphql-utils'
 import { useMemo } from 'react'
 
 import type {
-  BrowserProductQueryQuery,
-  BrowserProductQueryQueryVariables,
+  ClientProductQueryQuery,
+  ClientProductQueryQueryVariables,
 } from '@generated/graphql'
 
 import { useQuery } from '../graphql/useQuery'
 import { useSession } from '../session'
 
 const query = gql`
-  query BrowserProductQuery($locator: [IStoreSelectedFacet!]!) {
+  query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {
+    ...ClientProduct
     product(locator: $locator) {
       ...ProductDetailsFragment_product
     }
   }
 `
 
-export const useProduct = <T extends BrowserProductQueryQuery>(
+export const useProductQuery = <T extends ClientProductQueryQuery>(
   productID: string,
   fallbackData?: T
 ) => {
   const { channel, locale } = useSession()
   const variables = useMemo(() => {
     if (!channel) {
-      throw new Error(`useProduct: 'channel' from session is an empty string.`)
+      throw new Error(
+        `useProductQuery: 'channel' from session is an empty string.`
+      )
     }
 
     return {
@@ -37,8 +40,8 @@ export const useProduct = <T extends BrowserProductQueryQuery>(
   }, [channel, locale, productID])
 
   return useQuery<
-    BrowserProductQueryQuery & T,
-    BrowserProductQueryQueryVariables
+    ClientProductQueryQuery & T,
+    ClientProductQueryQueryVariables
   >(query, variables, {
     fallbackData,
     revalidateOnMount: true,

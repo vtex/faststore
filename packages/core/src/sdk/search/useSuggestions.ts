@@ -5,20 +5,19 @@ import { gql } from '@faststore/graphql-utils'
 import { useQuery } from 'src/sdk/graphql/useQuery'
 
 import type {
-  SearchSuggestionsQueryQuery as Query,
-  SearchSuggestionsQueryQueryVariables as Variables,
+  ClientSearchSuggestionsQueryQuery as Query,
+  ClientSearchSuggestionsQueryQueryVariables as Variables,
 } from '@generated/graphql'
 import type { IntelligentSearchQueryEvent } from '../analytics/types'
 
 import { useSession } from '../session'
 
-const MAX_SUGGESTIONS = 5
-
 const query = gql`
-  query SearchSuggestionsQuery(
+  query ClientSearchSuggestionsQuery(
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]
   ) {
+    ...ClientSearchSuggestions
     search(first: 5, term: $term, selectedFacets: $selectedFacets) {
       suggestions {
         terms {
@@ -40,7 +39,7 @@ const query = gql`
   }
 `
 
-function useSuggestions(term: string, limit: number = MAX_SUGGESTIONS) {
+function useSuggestions(term: string) {
   const { channel, locale } = useSession()
 
   const variables = useMemo(
@@ -74,9 +73,8 @@ function useSuggestions(term: string, limit: number = MAX_SUGGESTIONS) {
   })
 
   return {
-    terms: (data?.search.suggestions.terms ?? []).slice(0, limit),
-    products: (data?.search.suggestions.products ?? []).slice(0, limit),
-    isLoading: !error && !data,
+    data,
+    error,
   }
 }
 

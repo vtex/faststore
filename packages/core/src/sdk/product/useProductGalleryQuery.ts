@@ -1,16 +1,15 @@
-import { sendAnalyticsEvent, useSearch } from '@faststore/sdk'
+import { sendAnalyticsEvent } from '@faststore/sdk'
 import { gql } from '@faststore/graphql-utils'
 
 import { useQuery } from 'src/sdk/graphql/useQuery'
+import { useLocalizedVariables } from './useLocalizedVariables'
+import { useSession } from 'src/sdk/session'
 
 import type {
-  ProductGalleryQueryQuery as Query,
-  ProductGalleryQueryQueryVariables as Variables,
+  ClientProductGalleryQueryQuery as Query,
+  ClientProductGalleryQueryQueryVariables as Variables,
 } from '@generated/graphql'
 import type { IntelligentSearchQueryEvent } from 'src/sdk/analytics/types'
-
-import { useLocalizedVariables } from '../../../sdk/product/useProductsQuery'
-import { useSession } from 'src/sdk/session'
 
 /**
  * This query is run on the browser and contains
@@ -22,13 +21,14 @@ export const query = gql`
     logicalOperator
   }
 
-  query ProductGalleryQuery(
+  query ClientProductGalleryQuery(
     $first: Int!
     $after: String!
     $sort: StoreSort!
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
   ) {
+    ...ClientProductGallery
     search(
       first: $first
       after: $after
@@ -51,14 +51,13 @@ export const query = gql`
   }
 `
 
-export const useGalleryQuery = () => {
-  const {
-    state: { term, sort, selectedFacets },
-    itemsPerPage,
-  } = useSearch()
-
+export const useProductGalleryQuery = ({
+  term,
+  sort,
+  selectedFacets,
+  itemsPerPage,
+}) => {
   const { locale } = useSession()
-
   const localizedVariables = useLocalizedVariables({
     first: itemsPerPage,
     after: '0',

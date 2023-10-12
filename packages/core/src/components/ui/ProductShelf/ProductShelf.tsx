@@ -46,12 +46,13 @@ function ProductShelf({
     showDiscountBadge = ProductCard.props.showDiscountBadge,
   } = {},
   numberOfItems,
-  ...variables
+  ...otherProps
 }: ProductShelfProps) {
   const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
-  const products = useProductsQuery({ first: numberOfItems, ...variables })
+  const data = useProductsQuery({ first: numberOfItems, ...otherProps })
+  const products = data?.search?.products
   const productEdges = products?.edges ?? []
   const aspectRatio = 1
 

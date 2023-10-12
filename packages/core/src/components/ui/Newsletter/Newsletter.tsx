@@ -1,4 +1,4 @@
-import { ComponentPropsWithRef, FormEvent, useMemo } from 'react'
+import { ComponentPropsWithRef, FormEvent } from 'react'
 import { forwardRef, useRef } from 'react'
 import { useUI } from '@faststore/ui'
 import type { InputFieldProps } from '@faststore/ui'

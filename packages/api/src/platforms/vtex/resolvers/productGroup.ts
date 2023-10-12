@@ -4,7 +4,7 @@ import type { PromiseType } from '../../../typings'
 import type { StoreProduct } from './product'
 import { VALUE_REFERENCES } from '../utils/propertyValue'
 
-type Root = PromiseType<ReturnType<typeof StoreProduct.isVariantOf>>
+export type Root = PromiseType<ReturnType<typeof StoreProduct.isVariantOf>>
 
 const BLOCKED_SPECIFICATIONS = new Set(['allSpecifications'])
 
