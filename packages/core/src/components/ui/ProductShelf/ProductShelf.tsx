@@ -31,6 +31,7 @@ export type ProductShelfProps = {
     key: string
     value: string
   }[]
+  itemsPerPage?: number
   productCardConfiguration?: {
     showDiscountBadge?: boolean
     bordered?: boolean
@@ -46,6 +47,7 @@ function ProductShelf({
     showDiscountBadge = ProductCard.props.showDiscountBadge,
   } = {},
   numberOfItems,
+  itemsPerPage,
   ...otherProps
 }: ProductShelfProps) {
   const titleId = textToKebabCase(title)
@@ -83,7 +85,11 @@ function ProductShelf({
         loading={products === undefined}
       >
         <ProductShelfWrapper.Component {...ProductShelfWrapper.props}>
-          <Carousel.Component id={titleId || id} {...Carousel.props}>
+          <Carousel.Component
+            id={titleId || id}
+            itemsPerPage={itemsPerPage}
+            {...Carousel.props}
+          >
             {productEdges.map((product, idx) => (
               <ProductCard.Component
                 aspectRatio={aspectRatio}

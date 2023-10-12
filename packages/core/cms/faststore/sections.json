@@ -842,6 +842,12 @@
           "default": 5,
           "description": "Total number of items"
         },
+        "itemsPerPage": {
+          "type": "integer",
+          "title": "Number of items per page",
+          "default": 5,
+          "description": "Number of items to display per page"
+        },
         "after": {
           "type": "integer",
           "title": "After",
@@ -936,6 +942,12 @@
           "type": "integer",
           "default": 5,
           "description": "Total Number of items"
+        },
+        "itemsPerPage": {
+          "type": "integer",
+          "title": "Number of items per page",
+          "default": 5,
+          "description": "Number of items to display per page"
         },
         "kind": {
           "title": "Kind",

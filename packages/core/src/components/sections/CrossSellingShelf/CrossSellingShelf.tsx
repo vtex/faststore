@@ -8,11 +8,17 @@ import Section from '../Section'
 
 interface Props {
   numberOfItems: number
+  itemsPerPage?: number
   title: string
   kind: 'buy' | 'view'
 }
 
-const CrossSellingShelf = ({ numberOfItems, title, kind }: Props) => {
+const CrossSellingShelf = ({
+  numberOfItems,
+  itemsPerPage,
+  title,
+  kind,
+}: Props) => {
   const { ref, inView } = useInView()
   const context = usePDP()
   const productGroupID = context?.data?.product?.isVariantOf?.productGroupID
@@ -30,6 +36,7 @@ const CrossSellingShelf = ({ numberOfItems, title, kind }: Props) => {
       <UIProductShelf
         inView={inView}
         numberOfItems={numberOfItems}
+        itemsPerPage={itemsPerPage}
         title={title}
         selectedFacets={selectedFacets}
       />
