@@ -830,7 +830,7 @@
       "title": "Product Shelf",
       "description": "Add custom shelves to your store",
       "type": "object",
-      "required": ["title", "first", "after", "sort"],
+      "required": ["title", "numberOfItems", "after", "sort"],
       "properties": {
         "title": {
           "type": "string",
@@ -840,7 +840,7 @@
           "type": "integer",
           "title": "Total number of items",
           "default": 5,
-          "description": "Number of items to display"
+          "description": "Total number of items"
         },
         "after": {
           "type": "integer",
@@ -925,7 +925,7 @@
       "title": "Cross Selling Shelf",
       "description": "Add cross selling product data to your users",
       "type": "object",
-      "required": ["title", "items", "kind"],
+      "required": ["title", "numberOfItems", "kind"],
       "properties": {
         "title": {
           "title": "Title",
@@ -935,7 +935,7 @@
           "title": "Total number of items",
           "type": "integer",
           "default": 5,
-          "description": "Number of items to display"
+          "description": "Total Number of items"
         },
         "kind": {
           "title": "Kind",
