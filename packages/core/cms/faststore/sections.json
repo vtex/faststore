@@ -840,7 +840,7 @@
           "type": "integer",
           "title": "Total number of items",
           "default": 5,
-          "description": "Total number of items. The quantity may be smaller if fewer products are returned in the query."
+          "description": "Total number of items. The quantity may be smaller if the query returns fewer products."
         },
         "after": {
           "type": "integer",
