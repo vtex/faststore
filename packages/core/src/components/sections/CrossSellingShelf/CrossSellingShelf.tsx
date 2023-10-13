@@ -7,12 +7,12 @@ import styles from '../ProductShelf/section.module.scss'
 import Section from '../Section'
 
 interface Props {
-  items: number
+  numberOfItems: number
   title: string
   kind: 'buy' | 'view'
 }
 
-const CrossSellingShelf = ({ items: first, title, kind }: Props) => {
+const CrossSellingShelf = ({ numberOfItems, title, kind }: Props) => {
   const { ref, inView } = useInView()
   const context = usePDP()
   const productGroupID = context?.data?.product?.isVariantOf?.productGroupID
@@ -29,7 +29,7 @@ const CrossSellingShelf = ({ items: first, title, kind }: Props) => {
     >
       <UIProductShelf
         inView={inView}
-        first={first}
+        numberOfItems={numberOfItems}
         title={title}
         selectedFacets={selectedFacets}
       />

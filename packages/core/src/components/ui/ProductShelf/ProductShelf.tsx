@@ -23,7 +23,7 @@ type Sort =
 
 export type ProductShelfProps = {
   title: string
-  first?: number
+  numberOfItems?: number
   after?: string
   sort?: Sort
   term?: string
@@ -45,12 +45,13 @@ function ProductShelf({
     bordered = ProductCard.props.bordered,
     showDiscountBadge = ProductCard.props.showDiscountBadge,
   } = {},
+  numberOfItems,
   ...otherProps
 }: ProductShelfProps) {
   const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
-  const data = useProductsQuery(otherProps)
+  const data = useProductsQuery({ first: numberOfItems, ...otherProps })
   const products = data?.search?.products
   const productEdges = products?.edges ?? []
   const aspectRatio = 1
