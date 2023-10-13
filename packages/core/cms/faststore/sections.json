@@ -840,7 +840,7 @@
           "type": "integer",
           "title": "Total number of items",
           "default": 5,
-          "description": "Total number of items"
+          "description": "Total number of items. The quantity may be smaller if fewer products are returned in the query."
         },
         "after": {
           "type": "integer",
@@ -935,7 +935,7 @@
           "title": "Total number of items",
           "type": "integer",
           "default": 5,
-          "description": "Total Number of items"
+          "description": "Total number of items. The quantity may be smaller if fewer products are returned in the query."
         },
         "kind": {
           "title": "Kind",
