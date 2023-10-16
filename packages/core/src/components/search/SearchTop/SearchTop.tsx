@@ -23,7 +23,7 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
   sort?: string
 }
 
-function SearchTop({ topTerms, sort, ...otherProps }: SearchTopProps) {
+function SearchTop({ topTerms = [], sort, ...otherProps }: SearchTopProps) {
   const {
     values: { onSearchSelection },
   } = useSearch()
