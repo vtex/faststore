@@ -53,8 +53,8 @@ function ProductGrid({
                 sizes: '30vw',
               }}
               {...ProductCard.props}
-              bordered={showDiscountBadge}
-              showDiscountBadge={bordered}
+              bordered={bordered}
+              showDiscountBadge={showDiscountBadge}
               product={product}
               index={pageSize * page + idx + 1}
             />
