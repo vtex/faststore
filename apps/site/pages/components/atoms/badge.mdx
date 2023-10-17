@@ -89,16 +89,23 @@ Badges are status descriptors used to emphasize an item's state.
 
 ## Import
 
-Import the component from [@faststore/ui](/../components)
+### Import the component from [@faststore/ui](/../components)
 
-```tsx
+```tsx copy
 import { Badge } from '@faststore/ui'
 ```
 
-Import Styles
+### Import Styles to your storefront project:
 
-```tsx
-import '@faststore/ui/src/components/atoms/Badge/styles.scss'
+1. In the `src/components` folder, create a CSS Module for the Badge component.
+Name it `Badge.module.scss`.
+
+2. In the `Badge.module.scss` file, add the following:
+
+```scss copy
+.Badge {
+  @import '@faststore/ui/src/components/atoms/Badge/styles.scss'
+}
 ```
 
 ---
