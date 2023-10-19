@@ -20,7 +20,6 @@ import {
   coreDir,
   coreStoreConfigFileDir,
   tmpCMSDir,
-  tmpCustomizationsDir,
   tmpDir,
   tmpFolderName,
   tmpNodeModulesDir,
