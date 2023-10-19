@@ -1,4 +1,3 @@
-import deepmerge from 'deepmerge'
 import {
   copyFileSync,
   copySync,
@@ -15,10 +14,8 @@ import {
 import path from 'path'
 
 import {
-  configFileName,
   coreCMSDir,
   coreDir,
-  coreStoreConfigFileDir,
   tmpCMSDir,
   tmpDir,
   tmpFolderName,
@@ -36,7 +33,6 @@ import {
 } from './directory'
 
 import chalk from 'chalk'
-import stringifyObject from 'stringify-object'
 
 interface GenerateOptions {
   setup?: boolean
@@ -104,14 +100,19 @@ async function copyCypressFiles() {
   }
 }
 
-function copyUserSrcToCustomizations() {
-  if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
-    try {
+function copyUserStarterToCustomizations() {
+  try {
+    if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
       copySync(userSrcDir, tmpCustomizationsSrcDir)
-      console.log(`${chalk.green('success')} - Custom files copied`)
-    } catch (err) {
-      console.error(`${chalk.red('error')} - ${err}`)
     }
+
+    if (existsSync(userStoreConfigFileDir)) {
+      copySync(userStoreConfigFileDir, tmpStoreConfigFileDir)
+    }
+
+    console.log(`${chalk.green('success')} - Starter files copied`)
+  } catch (err) {
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
@@ -214,40 +215,6 @@ function mergeCMSFile(fileName: string) {
   }
 }
 
-function generateStoreConfigFile(content: any) {
-  const prettyObject = stringifyObject(content, {
-    indent: '  ',
-    singleQuotes: false,
-  })
-  return `module.exports = ${prettyObject}\n`
-}
-
-async function copyStoreConfig() {
-  try {
-    const storeConfigFromCore = await import(coreStoreConfigFileDir)
-    const storeConfigFromStore = await import(userStoreConfigFileDir)
-
-    // avoid duplicate default values
-    const { default: _, ...otherCoreProps } = storeConfigFromCore
-    const { default: __, ...otherStoreProps } = storeConfigFromStore
-
-    const mergedStoreConfig = deepmerge(
-      { ...otherCoreProps },
-      { ...otherStoreProps }
-    )
-
-    writeFileSync(
-      tmpStoreConfigFileDir,
-      generateStoreConfigFile(mergedStoreConfig)
-    )
-    console.log(
-      `${chalk.green('success')} - File ${chalk.dim(configFileName)} copied`
-    )
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
-  }
-}
-
 function mergeCMSFiles() {
   mergeCMSFile('content-types.json')
   mergeCMSFile('sections.json')
@@ -288,10 +255,9 @@ export async function generate(options?: GenerateOptions) {
 
   await Promise.all([
     setupPromise,
-    copyUserSrcToCustomizations(),
+    copyUserStarterToCustomizations(),
     copyTheme(),
     createCmsWebhookUrlsJsonFile(),
     mergeCMSFiles(),
-    copyStoreConfig(),
   ])
 }
