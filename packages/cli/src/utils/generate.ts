@@ -33,6 +33,7 @@ import {
   userStoreConfigFileDir,
   userThemesFileDir,
   userDir,
+  tmpCustomizationsSrcDir,
 } from './directory'
 
 import chalk from 'chalk'
@@ -107,7 +108,7 @@ async function copyCypressFiles() {
 function copyUserSrcToCustomizations() {
   if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
     try {
-      copySync(userSrcDir, tmpCustomizationsDir)
+      copySync(userSrcDir, tmpCustomizationsSrcDir)
       console.log(`${chalk.green('success')} - Custom files copied`)
     } catch (err) {
       console.error(`${chalk.red('error')} - ${err}`)
