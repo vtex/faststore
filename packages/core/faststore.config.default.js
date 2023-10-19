@@ -92,5 +92,4 @@ module.exports = {
     cypressVersion: 12,
     enableCypressExtension: false,
   },
-  redirects: undefined,
 }
