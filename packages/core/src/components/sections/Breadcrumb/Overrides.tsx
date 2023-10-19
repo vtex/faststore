@@ -1,7 +1,7 @@
 import { Breadcrumb as UIBreadcrumb, Icon as UIIcon } from '@faststore/ui'
 
 import { getSectionOverrides } from 'src/utils/overrides'
-import { override } from 'src/customizations/components/overrides/Breadcrumb'
+import { override } from 'src/customizations/src/components/overrides/Breadcrumb'
 import type { BreadcrumbOverrideDefinition } from 'src/typings/overrides'
 
 const { Breadcrumb, Icon } = getSectionOverrides(

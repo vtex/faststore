@@ -10,7 +10,7 @@ import { useSearch } from '@faststore/sdk'
 
 import type { ComponentType } from 'react'
 import RenderSections from 'src/components/cms/RenderSections'
-import CUSTOM_COMPONENTS from 'src/customizations/components'
+import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { PLPContentType } from 'src/server/cms'
 
 import {

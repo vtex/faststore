@@ -17,7 +17,7 @@ import { Image } from 'src/components/ui/Image'
 import LocalNotAvailableButton from 'src/components/product/NotAvailableButton'
 
 import { getSectionOverrides } from 'src/utils/overrides'
-import { override } from 'src/customizations/components/overrides/ProductDetails'
+import { override } from 'src/customizations/src/components/overrides/ProductDetails'
 import type { ProductDetailsOverrideDefinition } from 'src/typings/overrides'
 
 const {
