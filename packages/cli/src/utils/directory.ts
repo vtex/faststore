@@ -51,10 +51,8 @@ export const userCMSDir = path.join(userDir, cmsFolderName)
 export const configFileName = 'faststore.config.js'
 // starter's config file dir
 export const userStoreConfigFileDir = path.join(userDir, configFileName)
-// node_modules folder for @faststore/core's config file dir
-export const coreStoreConfigFileDir = path.join(coreDir, configFileName)
 // build folder's config file dir
-export const tmpStoreConfigFileDir = path.join(tmpDir, configFileName)
+export const tmpStoreConfigFileDir = path.join(tmpCustomizationsDir, configFileName)
 
 // starter's node_modules
 export const userNodeModulesDir = path.join(userDir, 'node_modules')
