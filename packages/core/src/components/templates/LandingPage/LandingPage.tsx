@@ -12,7 +12,7 @@ import BannerText from 'src/components/sections/BannerText'
 import Newsletter from 'src/components/sections/Newsletter'
 import { getPage } from 'src/server/cms'
 import type { PageContentType } from 'src/server/cms'
-import CUSTOM_COMPONENTS from 'src/customizations/components'
+import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import storeConfig from '../../../../faststore.config'
 

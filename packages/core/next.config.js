@@ -16,7 +16,7 @@ const nextConfig = {
     defaultLocale: 'en-US',
   },
   sassOptions: {
-    additionalData: `@import "src/customizations/styles/custom-mixins.scss";`,
+    additionalData: `@import "src/customizations/src/styles/custom-mixins.scss";`,
   },
   // TODO: We won't need to enable this experimental feature when migrating to Next.js 13
   experimental: {
@@ -43,6 +43,7 @@ const nextConfig = {
 
     return config
   },
+  redirects: storeConfig.redirects,
 }
 
 module.exports = nextConfig

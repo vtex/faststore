@@ -13,7 +13,7 @@ import {
 } from '@faststore/ui'
 
 import { getSectionOverrides } from 'src/utils/overrides'
-import { override } from 'src/customizations/components/overrides/Navbar'
+import { override } from 'src/customizations/src/components/overrides/Navbar'
 import type { NavbarOverrideDefinition } from 'src/typings/overrides'
 
 const {

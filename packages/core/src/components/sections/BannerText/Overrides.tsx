@@ -4,7 +4,7 @@ import {
 } from '@faststore/ui'
 
 import { getSectionOverrides } from 'src/utils/overrides'
-import { override } from 'src/customizations/components/overrides/BannerText'
+import { override } from 'src/customizations/src/components/overrides/BannerText'
 import type { BannerTextOverrideDefinition } from 'src/typings/overrides'
 
 const { BannerText, BannerTextContent } = getSectionOverrides(

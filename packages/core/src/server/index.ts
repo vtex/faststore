@@ -23,8 +23,8 @@ import type { TypeSource } from '@graphql-tools/utils'
 
 import persisted from '../../@generated/graphql/persisted.json'
 
-import vtexExtensionsResolvers from '../customizations/graphql/vtex/resolvers'
-import thirdPartyResolvers from '../customizations/graphql/thirdParty/resolvers'
+import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolvers'
+import thirdPartyResolvers from '../customizations/src/graphql/thirdParty/resolvers'
 
 import { apiOptions } from './options'
 
