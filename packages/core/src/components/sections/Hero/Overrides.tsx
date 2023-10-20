@@ -5,7 +5,7 @@ import {
 } from '@faststore/ui'
 
 import { getSectionOverrides } from 'src/utils/overrides'
-import { override } from 'src/customizations/components/overrides/Hero'
+import { override } from 'src/customizations/src/components/overrides/Hero'
 import type { HeroOverrideDefinition } from 'src/typings/overrides'
 
 const { Hero, HeroImage, HeroHeader } = getSectionOverrides(

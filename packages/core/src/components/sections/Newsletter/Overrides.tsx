@@ -6,7 +6,7 @@ import {
 import { NewsletterAddendum } from 'src/components/ui/Newsletter/NewsletterAddendum'
 
 import { getSectionOverrides } from 'src/utils/overrides'
-import { override } from 'src/customizations/components/overrides/Newsletter'
+import { override } from 'src/customizations/src/components/overrides/Newsletter'
 import type { NewsletterOverrideDefinition } from 'src/typings/overrides'
 
 const {

@@ -16,7 +16,7 @@ const nextConfig = {
     defaultLocale: 'en-US',
   },
   sassOptions: {
-    additionalData: `@import "src/customizations/styles/custom-mixins.scss";`,
+    additionalData: `@import "src/customizations/src/styles/custom-mixins.scss";`,
   },
   // TODO: We won't need to enable this experimental feature when migrating to Next.js 13
   experimental: {
@@ -43,13 +43,7 @@ const nextConfig = {
 
     return config
   },
-  redirects:
-    typeof storeConfig.redirects === 'function'
-      ? // Ignoring ts for the next line so it doesn't complain BASE_PATH isn't being used
-        // if user declares a redirects function that doesn't use BASE_PATH
-        // @ts-ignore
-        async () => storeConfig.redirects({ BASE_PATH: './src/customizations' })
-      : storeConfig.redirects,
+  redirects: storeConfig.redirects,
 }
 
 module.exports = nextConfig

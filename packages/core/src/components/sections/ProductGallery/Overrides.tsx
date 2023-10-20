@@ -14,7 +14,7 @@ const FilterSlider = lazy(
 )
 
 import { getSectionOverrides } from 'src/utils/overrides'
-import { override } from 'src/customizations/components/overrides/ProductGallery'
+import { override } from 'src/customizations/src/components/overrides/ProductGallery'
 import type { ProductGalleryOverrideDefinition } from 'src/typings/overrides'
 
 const {

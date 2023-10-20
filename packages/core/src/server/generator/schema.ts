@@ -13,7 +13,7 @@ import { apiOptions } from '../options'
 export function getTypeDefsFromFolder(
   customPath: string | string[]
 ): TypeSource {
-  const basePath = ['src', 'customizations', 'graphql']
+  const basePath = ['src', 'customizations', 'src', 'graphql']
 
   const pathArray = Array.isArray(customPath) ? customPath : [customPath]
 
