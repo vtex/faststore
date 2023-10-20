@@ -47,21 +47,10 @@
 
   width: inherit;
 
-  &:hover {
-    [data-fs-carousel-controls] {
-      @include media(">=tablet") {
-        opacity: 1;
-        pointer-events: auto;
-      }
-    }
-  }
-
   [data-fs-carousel-controls] {
     position: relative;
     display: flex;
-    opacity: 0;
-    pointer-events: none;
-    @include media(">=tablet") { margin: var(--fs-carousel-padding-desktop); }
+    pointer-events: auto;
   }
 
   [data-fs-carousel-control] {
