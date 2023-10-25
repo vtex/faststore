@@ -76,6 +76,19 @@ function copyCoreFiles() {
   }
 }
 
+function copyPublicFiles() {
+  try {
+    if (existsSync(`${userDir}/public`)) {
+      copySync(`${userDir}/public`, `${tmpDir}/public`, {
+        overwrite: true,
+      })
+      console.log(`${chalk.green('success')} - Public files copied`)
+    }
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 async function copyCypressFiles() {
   try {
     // Cypress 9.x config file
@@ -248,6 +261,7 @@ export async function generate(options?: GenerateOptions) {
     setupPromise = Promise.all([
       createTmpFolder(),
       copyCoreFiles(),
+      copyPublicFiles(),
       copyCypressFiles(),
       createNodeModulesSymbolicLink(),
     ])
