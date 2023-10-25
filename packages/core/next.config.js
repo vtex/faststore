@@ -44,6 +44,14 @@ const nextConfig = {
     return config
   },
   redirects: storeConfig.redirects,
+  async rewrites() {
+    return [
+      {
+        source: '/robots.txt',
+        destination: '/api/robots',
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
