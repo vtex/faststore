@@ -347,6 +347,7 @@ function Carousel({
           <IconButton
             data-fs-carousel-control="left"
             aria-controls={id}
+            disabled={sliderState.currentPage == 0}
             aria-label="previous"
             icon={
               navigationIcons?.left ?? (
@@ -362,6 +363,7 @@ function Carousel({
           <IconButton
             data-fs-carousel-control="right"
             aria-controls={id}
+            disabled={sliderState.currentPage === sliderState.totalPages - 1}
             aria-label="next"
             icon={
               navigationIcons?.right ?? (
