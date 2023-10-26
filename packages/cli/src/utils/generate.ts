@@ -90,7 +90,7 @@ async function copyCypressFiles() {
 
     const userStoreConfig = await import(userStoreConfigFileDir)
     if (userStoreConfig?.experimental?.enableCypressExtension) {
-      copySync(`${userDir}/cypress`, `${tmpDir}/cypress/integration`, {
+      copySync(`${userDir}/cypress`, `${tmpDir}/cypress/e2e`, {
         overwrite: true,
       })
       console.log(`${chalk.green('success')} - Cypress test files copied`)
