@@ -3,11 +3,15 @@
   // Design Tokens for Carousel
   // --------------------------------------------------------
 
+  // --fs-carousel-item-per-page              : 5;
+
+
   // Track
   --fs-carousel-padding-mobile             : var(--fs-spacing-0) var(--fs-grid-padding);
   --fs-carousel-padding-desktop            : var(--fs-spacing-0) calc((100% - var(--fs-grid-max-width))/2) var(--fs-spacing-0);
 
   // Item
+
   --fs-carousel-item-width-mobile          : 60%;
   --fs-carousel-item-width-tablet          : 14.2rem;
   --fs-carousel-item-width-desktop         : 14.4rem;
@@ -59,9 +63,16 @@
   [data-fs-carousel-controls] {
     position: relative;
     display: flex;
+    pointer-events: auto;
+    max-width: calc(var(--fs-grid-max-width) + 6 * var(--fs-grid-padding));
+    margin: auto;
     opacity: 0;
-    pointer-events: none;
-    @include media(">=tablet") { margin: var(--fs-carousel-padding-desktop); }
+
+    // @include media(">=tablet") {
+    //   opacity: 1;
+    //   pointer-events: auto;
+    // }
+
   }
 
   [data-fs-carousel-control] {
@@ -78,17 +89,11 @@
   [data-fs-carousel-control="left"] {
     position: absolute;
     left: var(--fs-carousel-controls-control-right);
-    @include media(">notebook") {
-      left: var(--fs-carousel-controls-control-max-left);
-    }
   }
 
   [data-fs-carousel-control="right"] {
     position: absolute;
     right: var(--fs-carousel-controls-control-right);
-    @include media(">notebook") {
-      right: var(--fs-carousel-controls-control-max-right);
-    }
   }
 
   [data-fs-icon] {
