@@ -51,15 +51,6 @@
 
   width: inherit;
 
-  &:hover {
-    [data-fs-carousel-controls] {
-      @include media(">=tablet") {
-        opacity: 1;
-        pointer-events: auto;
-      }
-    }
-  }
-
   [data-fs-carousel-controls] {
     position: relative;
     display: flex;
@@ -68,10 +59,10 @@
     margin: auto;
     opacity: 0;
 
-    // @include media(">=tablet") {
-    //   opacity: 1;
-    //   pointer-events: auto;
-    // }
+    @include media(">=tablet") {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
   }
 
