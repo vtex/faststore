@@ -9,6 +9,7 @@ import {
   symlinkSync,
   writeFileSync,
   writeJsonSync,
+  moveSync,
 } from 'fs-extra'
 
 import path from 'path'
@@ -93,6 +94,14 @@ async function copyCypressFiles() {
       copySync(`${userDir}/cypress`, `${tmpDir}/cypress/e2e`, {
         overwrite: true,
       })
+
+      // Set default Cypress 12.x (or superior) support file
+      if (userStoreConfig?.experimental?.cypressVersion > 9) {
+        if (existsSync(`${tmpDir}/cypress/support/index.js`)) {
+          moveSync(`${tmpDir}/cypress/support/index.js`, `${tmpDir}/cypress/support/e2e.ts`)
+        }
+      }
+
       console.log(`${chalk.green('success')} - Cypress test files copied`)
     }
   } catch (e) {
