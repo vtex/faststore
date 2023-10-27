@@ -36,7 +36,6 @@ import chalk from 'chalk'
 
 interface GenerateOptions {
   setup?: boolean
-  test?: boolean
 }
 
 const ignorePaths = ['node_modules', 'cypress.config.ts']
@@ -244,13 +243,9 @@ function createNodeModulesSymbolicLink() {
 }
 
 export async function generate(options?: GenerateOptions) {
-  const { setup = false, test = false } = options ?? {}
+  const { setup = false } = options ?? {}
 
   let setupPromise: Promise<unknown> | null = null
-
-  if (test) {
-    return copyCypressFiles()
-  }
 
   if (setup) {
     setupPromise = Promise.all([

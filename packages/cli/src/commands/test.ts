@@ -1,9 +1,10 @@
 import { Command } from '@oclif/core'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
+import { existsSync } from 'fs-extra'
 
 import { getRoot, tmpDir } from '../utils/directory'
-import { generate } from '../utils/generate'
+import { generate} from '../utils/generate'
 
 /**
  * Taken from toolbelt
@@ -43,6 +44,12 @@ async function storeTest() {
 
 export default class Test extends Command {
   async run() {
+    if (!existsSync(tmpDir)) {
+      throw Error(
+        'The ".faststore" directory could not be found. If you are trying to test your store, run "yarn dev" in another window first.'
+      )
+    }
+
     const watcher = chokidar.watch([...defaultPatterns], {
       atomic: stabilityThreshold,
       awaitWriteFinish: {
@@ -58,8 +65,6 @@ export default class Test extends Command {
     testAbortController.signal.addEventListener('abort', () => {
       watcher.close()
     })
-
-    await generate({ test: true })
 
     storeTest()
 
