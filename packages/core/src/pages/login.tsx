@@ -18,7 +18,14 @@ type Props = {
 
 function Page({ globalSections }: Props) {
   useEffect(() => {
-    window.location.href = `${storeConfig.loginUrl}${window.location.search}`
+    const loginUrl = new URL(storeConfig.loginUrl)
+    const incomingParams = new URLSearchParams(window.location.search)
+
+    for (const [key, value] of Array.from(incomingParams)) {
+      loginUrl.searchParams.append(key, value)
+    }
+
+    window.location.href = loginUrl.toString()
   }, [])
 
   return (
