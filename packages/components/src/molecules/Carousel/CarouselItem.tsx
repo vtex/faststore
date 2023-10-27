@@ -28,7 +28,8 @@ function CarouselItem({
   const style =
     ((!isScrollCarousel && { width: '100%' }) as CSSProperties) ||
     ((isScrollCarousel && {
-      maxWidth: '60%',
+      flex: `0 0 ${95 / state.itemsPerPage}%`,
+      // maxWidth: '60%',
       display: 'inline-block',
     }) as CSSProperties)
 

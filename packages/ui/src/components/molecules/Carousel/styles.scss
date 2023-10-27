@@ -3,16 +3,13 @@
   // Design Tokens for Carousel
   // --------------------------------------------------------
 
-  // --fs-carousel-item-per-page              : 5;
-
-
   // Track
   --fs-carousel-padding-mobile             : var(--fs-spacing-0) var(--fs-grid-padding);
   --fs-carousel-padding-desktop            : var(--fs-spacing-0) calc((100% - var(--fs-grid-max-width))/2) var(--fs-spacing-0);
 
   // Item
 
-  --fs-carousel-item-width-mobile          : 60%;
+  // --fs-carousel-item-width-mobile          : 60%;
   --fs-carousel-item-width-tablet          : 14.2rem;
   --fs-carousel-item-width-desktop         : 14.4rem;
   --fs-carousel-item-margin-right          : var(--fs-spacing-3);
@@ -108,19 +105,10 @@
   }
 
   [data-fs-carousel-item] {
-    width: var(--fs-carousel-item-width-mobile);
     flex-shrink: 0;
 
     &:not(:last-of-type) {
       margin-right: var(--fs-carousel-item-margin-right);
-    }
-
-    @include media(">=tablet") {
-      width: var(--fs-carousel-item-width-tablet);
-    }
-
-    @include media(">=desktop") {
-      width: var(--fs-carousel-item-width-desktop);
     }
   }
 
