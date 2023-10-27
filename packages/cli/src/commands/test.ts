@@ -45,7 +45,7 @@ export default class Test extends Command {
   async run() {
     if (!existsSync(tmpDir)) {
       throw Error(
-        'The ".faststore" directory could not be found. If you are trying to test your store, run "yarn dev" in another window first.'
+        'The ".faststore" directory could not be found. If you are trying to test your store, run "faststore dev" in another window first.'
       )
     }
 
