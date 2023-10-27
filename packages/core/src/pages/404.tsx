@@ -12,11 +12,10 @@ import EmptyState from 'src/components/sections/EmptyState'
 
 const useErrorState = () => {
   const router = useRouter()
-  const { from } = router.query
-  const { pathname } = router
+  const { pathname, asPath } = router
 
   return {
-    fromUrl: from ?? pathname,
+    fromUrl: asPath ?? pathname,
   }
 }
 
