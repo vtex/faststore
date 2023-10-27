@@ -301,6 +301,17 @@ function Carousel({
     }
   }
 
+  const element = document.querySelector('[data-fs-carousel]')
+
+  const marginRight = useMemo(() => {
+    if (element) {
+      return getComputedStyle(element).getPropertyValue(
+        '--fs-carousel-item-margin-right'
+      )
+    }
+    return null
+  }, [element])
+
   return (
     <section
       id={id}
@@ -335,6 +346,7 @@ function Carousel({
               totalItems={childrenCount}
               infiniteMode={infiniteMode}
               isScrollCarousel={isScrollCarousel}
+              marginRightValue={marginRight || '1rem'}
             >
               {currentSlide}
             </CarouselItem>
