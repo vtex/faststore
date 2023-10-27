@@ -4,7 +4,6 @@ import chokidar from 'chokidar'
 import { existsSync } from 'fs-extra'
 
 import { getRoot, tmpDir } from '../utils/directory'
-import { generate} from '../utils/generate'
 
 /**
  * Taken from toolbelt
