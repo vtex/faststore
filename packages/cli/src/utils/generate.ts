@@ -95,7 +95,7 @@ async function copyCypressFiles() {
 
       // Set default Cypress 12.x (or superior) support file
       if (userStoreConfig?.experimental?.cypressVersion > 9) {
-        copySync(`${tmpDir}/cypress/support/index.js`, `${tmpDir}/cypress/support/e2e.ts`, {
+        copySync(`${tmpDir}/cypress/support/index.js`, `${tmpDir}/cypress/support/e2e.js`, {
           overwrite: false,
         })
       }
