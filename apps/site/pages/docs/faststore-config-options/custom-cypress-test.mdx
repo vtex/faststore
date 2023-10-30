@@ -15,24 +15,26 @@ import { Callout, Steps } from 'nextra-theme-docs'
   This is an experimental feature.
 </Callout>
 
-The `enableCypressExtension` experimental feature flag allows you to leverage Cypress extensions within your FastStore project, enabling you to run custom [Cypress](https://www.cypress.io) tests seamlessly.
+The `enableCypressExtension` experimental feature flag allows you to leverage [Cypress](https://www.cypress.io/) extensions within your FastStore project, enabling you to seamlessly run custom Cypress tests.
 
-Cypress extensions enhance the testing capabilities of your Faststore project by enabling the incorporation of custom Cypress tests alongside the default integration tests provided by Faststore.
+Cypress extensions enhance the testing capabilities of your Faststore project by enabling the incorporation of custom Cypress tests alongside the native integration tests provided by Faststore.
 
-With `enableCypressExtension`, you can integrate custom integration tests into a dedicated Cypress folder within your store's codebase. This integration ensures that both the default
-tests and the custom ones you create are executed seamlessly as part of the continuous integration (CI) pipeline.
+With `enableCypressExtension`, you can implement custom integration tests into a dedicated Cypress folder within your storefront project. This integration ensures the smooth execution of both the native tests and the custom ones you create as part of the continuous integration (CI) pipeline.
 Learn how to add custom integration tests in the following steps.
 
 ---
 
-## Before you start
+## Before you begin
 
-- Please note that this feature is experimental.
+- Please be aware that this feature is experimental and may not be suitable for all use cases.
 
-- Ensure that you are using `@faststore/core` and `@faststore/cli` version 2.1.56 or above. If you have a version that is lower than this requirement, change the following:
-  1. In your store code, open the `package.json` file.
-  2. Navigate to the `@faststore/core` and `@faststore/cli` and and update them to be at least `2.1.56`.
-  3. Run `yarn dev` to update your changes.
+- Refer to [Cypress documentation](https://docs.cypress.io/guides/overview/why-cypress) for more information on this testing tool.
+
+- Ensure that you are using `@faststore/core` and `@faststore/cli` version 2.1.56 or above. If you are using a previous version, take the following steps:
+  1. In your storefront project, open the `package.json` file.
+  2. Navigate to the `@faststore/core` and `@faststore/cli` dependencies and and update their versions to be at least `2.1.56`.
+  3. Run `yarn install` to apply these changes.
+
 
 ---
 
@@ -53,10 +55,10 @@ Learn how to add custom integration tests in the following steps.
 
 ## Step 2: Integrating custom Cypress tests into your FastStore project
 
-1. In the root directory of your store, create a new folder named `cypress`.
-2. Add your custom integration tests within the `cypress` folder.
+1. In the root directory of your storefront project, create a new folder named `cypress`.
+2. Add your custom integration tests within the `cypress` folder. 
 3. Open a pull request with the changes you have made.
-4. Within the pull request, navigate to **Checks > Integration Tests** and see **Details**.
+4. Within the pull request, navigate to **Checks > Integration Tests** and check the **Details** section.
 
 ![checks-integration-tests](https://vtexhelp.vtexassets.com/assets/docs/src/custom-test-checks___583ac9b78e43ebdafde93a735a47d61b.png)
 
