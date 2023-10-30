@@ -9,6 +9,7 @@ export type SectionOverrideDefinition<
     ComponentOverrideDefinition<any, any>
   >
 > = {
+  id?: string
   section: SectionName
   components?: Partial<Prettify<OC>>
 }
