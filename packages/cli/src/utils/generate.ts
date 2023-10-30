@@ -81,6 +81,10 @@ function copyPublicFiles() {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
         overwrite: true,
+        filter: (src, dest) => {
+          console.log({src, dest})
+          return true
+        }
       })
       console.log(`${chalk.green('success')} - Public files copied`)
     }
