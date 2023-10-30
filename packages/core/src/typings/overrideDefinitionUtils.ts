@@ -1,18 +1,8 @@
-export type DefaultSectionComponentsDefinitions<
-  T extends SectionOverrideDefinition
-> = Record<keyof T['components'], React.ComponentType>
+import { SectionsOverrides } from './overrides'
 
-export type SectionOverrideDefinition<
-  SectionName extends string = string,
-  OC extends Record<string, ComponentOverrideDefinition<any, any>> = Record<
-    string,
-    ComponentOverrideDefinition<any, any>
-  >
-> = {
-  id?: string
-  section: SectionName
-  components?: Partial<Prettify<OC>>
-}
+export type DefaultSectionComponentsDefinitions<
+  K extends keyof SectionsOverrides
+> = Record<keyof SectionsOverrides[K], React.ComponentType>
 
 export type ComponentOverrideDefinition<ComponentProps, Props> =
   | {

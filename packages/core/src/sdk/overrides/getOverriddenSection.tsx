@@ -1,6 +1,6 @@
 import Alert from 'src/components/sections/Alert'
 import { DefaultSectionComponentsDefinitions } from 'src/typings/overrideDefinitionUtils'
-import { SectionOverride } from 'src/typings/overrides'
+import { SectionOverride, SectionsOverrides } from 'src/typings/overrides'
 import {
   GetSectionOverridesReturn,
   getSectionOverrides,
@@ -16,8 +16,8 @@ const Sections: Partial<
 
 const DefaultComponents: Partial<
   Record<
-    SectionOverride['section'],
-    DefaultSectionComponentsDefinitions<SectionOverride>
+    keyof SectionsOverrides,
+    DefaultSectionComponentsDefinitions<keyof SectionsOverrides>
   >
 > = {
   Alert: alertDefaultComponents,

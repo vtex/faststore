@@ -14,7 +14,7 @@ import {
 
 import { getSectionOverrides } from 'src/utils/overrides'
 import { override } from 'src/customizations/src/components/overrides/Navbar'
-import type { NavbarOverrideDefinition } from 'src/typings/overrides'
+import type { SectionOverrideDefinition } from 'src/typings/overrides'
 
 const {
   Navbar,
@@ -42,7 +42,7 @@ const {
     NavbarButtons: UINavbarButtons,
     IconButton: UIIconButton,
   },
-  override as NavbarOverrideDefinition
+  override as SectionOverrideDefinition<'Navbar'>
 )
 
 export {

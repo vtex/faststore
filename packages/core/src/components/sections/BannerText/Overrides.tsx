@@ -5,14 +5,14 @@ import {
 
 import { getSectionOverrides } from 'src/utils/overrides'
 import { override } from 'src/customizations/src/components/overrides/BannerText'
-import type { BannerTextOverrideDefinition } from 'src/typings/overrides'
+import type { SectionOverrideDefinition } from 'src/typings/overrides'
 
 const { BannerText, BannerTextContent } = getSectionOverrides(
   {
     BannerText: UIBannerText,
     BannerTextContent: UIBannerTextContent,
   },
-  override as BannerTextOverrideDefinition
+  override as SectionOverrideDefinition<'BannerText'>
 )
 
 export { BannerText, BannerTextContent }

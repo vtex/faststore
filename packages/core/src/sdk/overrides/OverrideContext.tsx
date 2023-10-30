@@ -1,9 +1,9 @@
 import { createContext, useContext } from 'react'
-import { SectionOverride } from 'src/typings/overrides'
-import { GetSectionOverridesReturn } from 'src/utils/overrides'
+import { SectionsOverrides } from 'src/typings/overrides'
 
 const OverrideContext = createContext({})
 
 export const OverrideProvider = OverrideContext.Provider
-export const useOverrideContext = <Section extends SectionOverride>() =>
-  useContext(OverrideContext) as GetSectionOverridesReturn<Section>
+export const useOverrideContext = <
+  SectionName extends keyof SectionsOverrides = keyof SectionsOverrides
+>() => useContext(OverrideContext) as SectionsOverrides[SectionName]

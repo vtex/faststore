@@ -11,7 +11,7 @@ export type GetSectionOverridesReturn<SO extends SectionOverride> = {
 }
 
 export function getSectionOverrides<SO extends SectionOverride>(
-  defaultComponents: DefaultSectionComponentsDefinitions<SO>,
+  defaultComponents: DefaultSectionComponentsDefinitions<SO['section']>,
   override: SO
 ): GetSectionOverridesReturn<SO> {
   const overriddenComponents = {} as GetSectionOverridesReturn<SO>

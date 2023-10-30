@@ -6,7 +6,7 @@ import {
 
 import { getSectionOverrides } from 'src/utils/overrides'
 import { override } from 'src/customizations/src/components/overrides/Hero'
-import type { HeroOverrideDefinition } from 'src/typings/overrides'
+import type { SectionOverrideDefinition } from 'src/typings/overrides'
 
 const { Hero, HeroImage, HeroHeader } = getSectionOverrides(
   {
@@ -14,7 +14,7 @@ const { Hero, HeroImage, HeroHeader } = getSectionOverrides(
     HeroImage: UIHeroImage,
     HeroHeader: UIHeroHeader,
   },
-  override as HeroOverrideDefinition
+  override as SectionOverrideDefinition<'Hero'>
 )
 
 export { Hero, HeroImage, HeroHeader }

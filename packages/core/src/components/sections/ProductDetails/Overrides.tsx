@@ -18,7 +18,7 @@ import LocalNotAvailableButton from 'src/components/product/NotAvailableButton'
 
 import { getSectionOverrides } from 'src/utils/overrides'
 import { override } from 'src/customizations/src/components/overrides/ProductDetails'
-import type { ProductDetailsOverrideDefinition } from 'src/typings/overrides'
+import type { SectionOverrideDefinition } from 'src/typings/overrides'
 
 const {
   ProductTitle,
@@ -52,7 +52,7 @@ const {
     __experimentalShippingSimulation: LocalShippingSimulation,
     __experimentalNotAvailableButton: LocalNotAvailableButton,
   },
-  override as ProductDetailsOverrideDefinition
+  override as SectionOverrideDefinition<'ProductDetails'>
 )
 
 export {
