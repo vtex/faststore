@@ -75,7 +75,7 @@ function copyCoreFiles() {
   }
 }
 
-async function copyCypressFiles() {
+export async function copyCypressFiles() {
   try {
     // Cypress 9.x config file
     if (existsSync(`${userDir}/cypress.json`)) {

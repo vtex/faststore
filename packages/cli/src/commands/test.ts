@@ -2,6 +2,7 @@ import { Command } from '@oclif/core'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
 
+import { copyCypressFiles } from '../utils/generate'
 import { getRoot, tmpDir } from '../utils/directory'
 
 /**
@@ -28,12 +29,7 @@ const defaultIgnored = [
 const testAbortController = new AbortController()
 
 async function storeTest() {
-  const detachedDevProcess = spawn('yarn dev', {
-    shell: true,
-    cwd: tmpDir,
-    stdio: 'ignore',
-    detached: true,
-  })
+  await copyCypressFiles()
 
   const testProcess = spawn('yarn test:e2e', {
     shell: true,
@@ -43,12 +39,6 @@ async function storeTest() {
   })
 
   testProcess.on('close', () => {
-    detachedDevProcess.kill()
-    testAbortController.abort()
-  })
-
-  testProcess.on('exit', () => {
-    detachedDevProcess.kill()
     testAbortController.abort()
   })
 }
