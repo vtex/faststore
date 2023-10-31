@@ -1,7 +1,6 @@
 import { Command } from '@oclif/core'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
-import { existsSync } from 'fs-extra'
 
 import { getRoot, tmpDir } from '../utils/directory'
 
