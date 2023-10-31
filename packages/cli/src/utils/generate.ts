@@ -87,20 +87,23 @@ async function copyCypressFiles() {
       copySync(`${userDir}/cypress.config.ts`, `${tmpDir}/cypress.config.ts`)
     }
 
+    // Copy custom Cypress folder and files
     const userStoreConfig = await import(userStoreConfigFileDir)
     if (userStoreConfig?.experimental?.enableCypressExtension) {
       copySync(`${userDir}/cypress`, `${tmpDir}/cypress`, {
         overwrite: true,
       })
 
-      // Set default Cypress 12.x (or superior) support file
-      if (userStoreConfig?.experimental?.cypressVersion > 9) {
-        copySync(`${tmpDir}/cypress/support/index.js`, `${tmpDir}/cypress/support/e2e.js`, {
-          overwrite: false,
-        })
-      }
-
       console.log(`${chalk.green('success')} - Cypress test files copied`)
+    }
+
+    // Create default Cypress 12.x (or superior) support file
+    if (userStoreConfig?.experimental?.cypressVersion > 9) {
+      copySync(
+        `${tmpDir}/cypress/support/index.js`,
+        `${tmpDir}/cypress/support/e2e.js`,
+        { overwrite: false }
+      )
     }
   } catch (e) {
     console.error(e)
