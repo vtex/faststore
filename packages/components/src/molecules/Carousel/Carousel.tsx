@@ -316,6 +316,7 @@ function Carousel({
     <section
       id={id}
       data-fs-carousel
+      data-fs-carousel-variant={variant}
       className={className}
       data-testid={testId}
       aria-label={ariaLabel}

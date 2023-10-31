@@ -57,6 +57,10 @@
     }
   }
 
+  &[data-fs-carousel-variant='scroll'] [data-fs-carousel-item]{
+    flex-shrink: 0;
+  }
+
   [data-fs-carousel-controls] {
     position: absolute;
     bottom: 50%;
@@ -99,8 +103,6 @@
   }
 
   [data-fs-carousel-item] {
-    flex-shrink: 0;
-
     &:not(:last-of-type) {
       margin-right: var(--fs-carousel-item-margin-right);
     }
