@@ -87,9 +87,13 @@ export async function copyCypressFiles() {
       copySync(`${userDir}/cypress.config.ts`, `${tmpDir}/cypress.config.ts`)
     }
 
-    // Copy custom Cypress folder and files
     const userStoreConfig = await import(userStoreConfigFileDir)
-    if (userStoreConfig?.experimental?.enableCypressExtension) {
+
+    // Copy custom Cypress folder and files
+    if (
+      existsSync(`${userDir}/cypress`) &&
+      userStoreConfig?.experimental?.enableCypressExtension
+    ) {
       copySync(`${userDir}/cypress`, `${tmpDir}/cypress`, {
         overwrite: true,
       })
