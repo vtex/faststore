@@ -2,7 +2,7 @@ import { Command } from '@oclif/core'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
 
-import { copyCypressFiles } from '../utils/generate'
+import { generate } from '../utils/generate'
 import { getRoot, tmpDir } from '../utils/directory'
 
 /**
@@ -29,8 +29,6 @@ const defaultIgnored = [
 const testAbortController = new AbortController()
 
 async function storeTest() {
-  await copyCypressFiles()
-
   const testProcess = spawn('yarn test:e2e', {
     shell: true,
     cwd: tmpDir,
@@ -60,6 +58,8 @@ export default class Test extends Command {
     testAbortController.signal.addEventListener('abort', () => {
       watcher.close()
     })
+
+    await generate({ setup: true })
 
     storeTest()
 
