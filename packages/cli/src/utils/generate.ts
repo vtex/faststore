@@ -81,9 +81,11 @@ function copyPublicFiles() {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
         overwrite: true,
-        filter: (src, dest) => {
-          console.log({src, dest})
-          return true
+        filter: (src) => {
+          const allowList = ["json", "txt"]
+          const allow = allowList.some((ext) => src.endsWith(ext))
+
+          return allow
         }
       })
       console.log(`${chalk.green('success')} - Public files copied`)
@@ -168,8 +170,7 @@ async function copyTheme() {
       try {
         copyFileSync(customTheme, tmpThemesCustomizationsFileDir)
         console.log(
-          `${chalk.green('success')} - ${
-            storeConfig.theme
+          `${chalk.green('success')} - ${storeConfig.theme
           } theme has been applied`
         )
       } catch (err) {
@@ -177,10 +178,8 @@ async function copyTheme() {
       }
     } else {
       console.info(
-        `${chalk.blue('info')} - The ${
-          storeConfig.theme
-        } theme was added to the config file but the ${
-          storeConfig.theme
+        `${chalk.blue('info')} - The ${storeConfig.theme
+        } theme was added to the config file but the ${storeConfig.theme
         }.scss file does not exist in the themes folder. Read more: https://www.faststore.dev/docs/themes/overview`
       )
     }
