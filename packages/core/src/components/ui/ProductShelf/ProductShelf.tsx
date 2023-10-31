@@ -55,6 +55,7 @@ function ProductShelf({
   const products = data?.search?.products
   const productEdges = products?.edges ?? []
   const aspectRatio = 1
+  const itemsPerPage = 5
 
   const { sendViewItemListEvent } = useViewItemListEvent({
     products: productEdges,
@@ -81,9 +82,14 @@ function ProductShelf({
       <ProductShelfSkeleton
         aspectRatio={aspectRatio}
         loading={products === undefined}
+        itemsPerPage={itemsPerPage}
       >
         <ProductShelfWrapper.Component {...ProductShelfWrapper.props}>
-          <Carousel.Component id={titleId || id} {...Carousel.props}>
+          <Carousel.Component
+            id={titleId || id}
+            {...Carousel.props}
+            itemsPerPage={itemsPerPage}
+          >
             {productEdges.map((product, idx) => (
               <ProductCard.Component
                 aspectRatio={aspectRatio}

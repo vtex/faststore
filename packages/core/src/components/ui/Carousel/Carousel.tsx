@@ -12,7 +12,7 @@ function Carousel({
   id,
   testId,
   children,
-  itemsPerPage = 5,
+  itemsPerPage,
 }: PropsWithChildren<CarouselProps>) {
   const isMobile = window.innerWidth <= 768
 
