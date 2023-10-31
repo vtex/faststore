@@ -236,6 +236,20 @@ function Carousel({
     }
   }
 
+  let carouselItemsWidth = Number(
+    carouselTrackRef.current?.firstElementChild?.clientWidth
+  )
+
+  const carouselItem = carouselTrackRef.current?.firstElementChild
+
+  let marginRight: string
+
+  if (carouselItem) {
+    marginRight =
+      getComputedStyle(carouselItem).getPropertyValue('margin-right')
+    carouselItemsWidth = carouselItemsWidth + parseInt(marginRight, 10) + 1
+  }
+
   const onScrollPagination = async (
     index: number,
     slideDirection?: 'previous' | 'next'
@@ -252,9 +266,6 @@ function Carousel({
     }
 
     let scrollOffset
-    const carouselItemsWidth = Number(
-      carouselTrackRef.current?.firstElementChild?.clientWidth
-    )
 
     if (itemsPerPage > 1) {
       scrollOffset = index * carouselItemsWidth * itemsPerPage
@@ -300,17 +311,6 @@ function Carousel({
       default:
     }
   }
-
-  const element = document.querySelector('[data-fs-carousel]')
-
-  const marginRight = useMemo(() => {
-    if (element) {
-      return getComputedStyle(element).getPropertyValue(
-        '--fs-carousel-item-margin-right'
-      )
-    }
-    return null
-  }, [element])
 
   return (
     <section

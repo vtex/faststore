@@ -33,7 +33,7 @@ function CarouselItem({
       flex: `0 0 calc((100% - ${marginRightValue} * ${
         state.itemsPerPage - 1
       })/ ${state.itemsPerPage})`,
-      // maxWidth: '60%',
+      maxWidth: '60%',
       display: 'inline-block',
     }) as CSSProperties)
 
