@@ -1,10 +1,8 @@
 @layer components {
   .section {
-
-    [data-fs-content="product-shelf"] { @include layout-content-full; }
+    // [data-fs-content="product-shelf"] { @include layout-content-full; }
 
     [data-fs-product-shelf-skeleton] {
-      --fs-carousel-item-width-tablet    : 14.2rem;
       --fs-carousel-item-margin-right    : var(--fs-spacing-3);
 
       padding-bottom: var(--fs-spacing-5);
@@ -16,10 +14,6 @@
           &:not(:last-of-type) {
             margin-right: var(--fs-carousel-item-margin-right);
           }
-        }
-
-        [data-fs-product-card-skeleton] {
-          width: var(--fs-carousel-item-width-tablet);
         }
       }
     }
