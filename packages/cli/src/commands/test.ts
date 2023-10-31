@@ -29,6 +29,13 @@ const defaultIgnored = [
 const testAbortController = new AbortController()
 
 async function storeTest() {
+  const detachedDevProcess = spawn('yarn dev', {
+    shell: true,
+    cwd: tmpDir,
+    stdio: 'ignore',
+    detached: true,
+  })
+
   const testProcess = spawn('yarn test:e2e', {
     shell: true,
     cwd: tmpDir,
@@ -37,18 +44,18 @@ async function storeTest() {
   })
 
   testProcess.on('close', () => {
+    detachedDevProcess.kill()
+    testAbortController.abort()
+  })
+
+  testProcess.on('exit', () => {
+    detachedDevProcess.kill()
     testAbortController.abort()
   })
 }
 
 export default class Test extends Command {
   async run() {
-    if (!existsSync(tmpDir)) {
-      throw Error(
-        'The ".faststore" directory could not be found. If you are trying to test your store, run "faststore dev" in another window first.'
-      )
-    }
-
     const watcher = chokidar.watch([...defaultPatterns], {
       atomic: stabilityThreshold,
       awaitWriteFinish: {
