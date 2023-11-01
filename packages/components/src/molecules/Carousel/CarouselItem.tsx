@@ -31,7 +31,6 @@ function CarouselItem({
     ((!isScrollCarousel && { width: '100%' }) as CSSProperties) ||
     ((state.itemsPerPage > 1 &&
       isScrollCarousel && {
-        flex: `1 1 auto`,
         width: `calc((100% - ${marginRightValue} * ${
           state.itemsPerPage - 1
         })/ ${state.itemsPerPage})`,
