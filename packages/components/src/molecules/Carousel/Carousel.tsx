@@ -88,7 +88,7 @@ function Carousel({
   children,
   className,
   'aria-label': ariaLabel,
-  infiniteMode = true,
+  infiniteMode = false,
   controls = 'complete',
   testId = 'fs-carousel',
   transition = {
