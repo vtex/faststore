@@ -1,0 +1,10 @@
+.carouselItem {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-text-size-3);
+  font-weight: var(--fs-text-weight-bold);
+  background: var(--fs-color-accent-1);
+}
