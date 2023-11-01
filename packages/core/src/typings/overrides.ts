@@ -38,21 +38,13 @@ import type {
 
 import type {
   ComponentOverrideDefinition,
-  Prettify,
-} from './overrideDefinitionUtils'
+  SectionOverrideDefinition,
+} from './overridesDefinition'
 import { NewsletterAddendumProps } from 'src/components/ui/Newsletter/NewsletterAddendum'
 
 export type SectionOverride = {
   [K in keyof SectionsOverrides]: SectionOverrideDefinition<K>
 }[keyof SectionsOverrides]
-
-export type SectionOverrideDefinition<
-  SectionName extends keyof SectionsOverrides
-> = {
-  id?: string
-  section: SectionName
-  components?: Partial<Prettify<SectionsOverrides[SectionName]>>
-}
 
 /**
  * Originally, these types were defined in their respective Overrides file

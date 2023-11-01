@@ -1,5 +1,20 @@
 import { SectionsOverrides } from './overrides'
 
+export type SectionOverrideDefinition<
+  SectionName extends keyof SectionsOverrides
+> = {
+  id?: string
+  section: SectionName
+  components?: Partial<Prettify<SectionsOverrides[SectionName]>>
+}
+
+export type OverriddenComponents<SectionName extends keyof SectionsOverrides> =
+  {
+    [Key in keyof SectionsOverrides[SectionName]]: Merge<
+      SectionsOverrides[SectionName][Key]
+    >
+  }
+
 export type DefaultSectionComponentsDefinitions<
   K extends keyof SectionsOverrides
 > = Record<keyof SectionsOverrides[K], React.ComponentType>

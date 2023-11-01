@@ -1,28 +1,14 @@
-import Alert from 'src/components/sections/Alert'
-import { DefaultSectionComponentsDefinitions } from 'src/typings/overrideDefinitionUtils'
-import {
-  SectionOverride,
+import { OverrideProvider } from 'src/sdk/overrides/OverrideContext'
+import { DefaultComponents, Sections } from 'src/sdk/overrides/sections'
+
+import { getSectionOverrides } from 'src/sdk/overrides/overrides'
+
+import type {
+  DefaultSectionComponentsDefinitions,
+  OverriddenComponents,
   SectionOverrideDefinition,
-  SectionsOverrides,
-} from 'src/typings/overrides'
-import { OverriddenComponents, getSectionOverrides } from 'src/utils/overrides'
-import { OverrideProvider } from './OverrideContext'
-import { defaultComponents as alertDefaultComponents } from 'src/components/sections/Alert/Overrides'
-
-const Sections: Partial<
-  Record<SectionOverride['section'], React.ComponentType<any>>
-> = {
-  Alert,
-}
-
-const DefaultComponents: Partial<
-  Record<
-    keyof SectionsOverrides,
-    DefaultSectionComponentsDefinitions<keyof SectionsOverrides>
-  >
-> = {
-  Alert: alertDefaultComponents,
-}
+} from 'src/typings/overridesDefinition'
+import type { SectionsOverrides } from 'src/typings/overrides'
 
 function createOverriddenSection<SectionName extends keyof SectionsOverrides>({
   Section,
