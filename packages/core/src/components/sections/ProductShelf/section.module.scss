@@ -1,7 +1,5 @@
 @layer components {
   .section {
-    // [data-fs-content="product-shelf"] { @include layout-content-full; }
-
     [data-fs-product-shelf-skeleton] {
       --fs-carousel-item-margin-right    : var(--fs-spacing-3);
 
