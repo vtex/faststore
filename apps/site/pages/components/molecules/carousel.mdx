@@ -89,9 +89,22 @@ import '@faststore/ui/src/components/molecules/Carousel/styles.scss'
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
+  `itemsPerPage = 1`
     <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselSimpleUsage itemsPerPage={1}/></OverviewSection>
   </Tab>
   <Tab>
+    ```css
+    .carouselItem {
+      width: 100%;
+      height: 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--fs-text-size-3);
+      font-weight: var(--fs-text-weight-bold);
+      background: var(--fs-color-accent-1);
+    }
+    ```
     ```tsx
     <Carousel
       itemsPerPage={1}
@@ -109,6 +122,7 @@ import '@faststore/ui/src/components/molecules/Carousel/styles.scss'
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
+  `itemsPerPage = 5`
     <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselSimpleUsage /></OverviewSection>
   </Tab>
   <Tab>
@@ -129,6 +143,7 @@ import '@faststore/ui/src/components/molecules/Carousel/styles.scss'
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
+  `itemsPerPage = 10`
     <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselSimpleUsage itemsPerPage={10}/></OverviewSection>
   </Tab>
   <Tab>
@@ -331,10 +346,9 @@ For further customization, you can use the following data attributes:
 
 For the mobile preview, please refresh the browser after resize it.
 
-`itemsPerPage = 3`
-
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
+  `itemsPerPage = 3`
     <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselUsage /></OverviewSection>
   </Tab>
   <Tab>
@@ -372,10 +386,9 @@ For the mobile preview, please refresh the browser after resize it.
   </Tab>
 </Tabs>
 
-`itemsPerPage = 8`
-
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
+  `itemsPerPage = 8`
     <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselUsage itemsPerPage={8}/></OverviewSection>
   </Tab>
   <Tab>
@@ -423,11 +436,11 @@ For the mobile preview, please refresh the browser after resize it.
 
 - Always use more than 1 item per page so then the component keeps the proposed navigation behavior for both versions (mobile and desktop).
 - We recommend using Carousel when displaying at least 10 items.
-- Keep the controls (`navigationArrows` & `paginationBullets`) visible. It's important to let people in slider control to move the items.
+- Maintain the visibility of the controls (`navigationArrows` & `paginationBullets`) to ensure that users can easily navigate through the slider. On desktop, these controls are displayed on `hover`, allowing for intuitive item selection.
 
 ### ❌ Don'ts
 
-- Avoid using it when display 1 or 2 items.
+- Avoid using it when display 1 or 2 items (desktop).
 - Don't exaggerate the number of items. You can combine it, providing an alternate navigation path like a `See More` button to a collection.
 
 ---
