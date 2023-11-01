@@ -30,11 +30,11 @@ Learn how to add custom integration tests in the following steps.
 
 - Refer to [Cypress documentation](https://docs.cypress.io/guides/overview/why-cypress) for more information on this testing tool.
 
-- Ensure that you are using `@faststore/core` and `@faststore/cli` version 2.1.56 or above. If you are using a previous version, take the following steps:
+- Ensure you are using `@faststore/core`  `2.1.56` version or above and `@faststore/cli` version `2.2.6` or above. If you have versions lower than these requirements, update them as follows:
   1. In your storefront project, open the `package.json` file.
-  2. Navigate to the `@faststore/core` and `@faststore/cli` dependencies and and update their versions to be at least `2.1.56`.
-  3. Run `yarn install` to apply these changes.
-
+  2. Navigate to the `@faststore/core` and update it to at least `2.1.56`.
+  3. Navigate to the `@faststore/cli` and update it to at least `2.2.6`.
+  4. Run `yarn dev` to apply these changes.
 
 ---
 
@@ -51,15 +51,16 @@ Learn how to add custom integration tests in the following steps.
   }
 ```
 
----
-
 ## Step 2: Integrating custom Cypress tests into your FastStore project
 
+Like any other project using Cypress, you'll follow standard practices, including setting up standard Cypress folders and configuration files. This allows you to seamlessly add and execute your custom integration tests within your project. For further details on Cypress configuration, refer to the official [Cypress configuration](https://docs.cypress.io/guides/references/configuration) guide.
+
 1. In the root directory of your storefront project, create a new folder named `cypress`.
-2. Add your custom integration tests within the `cypress` folder. 
-3. Open a pull request with the changes you have made.
-4. Within the pull request, navigate to **Checks > Integration Tests** and check the **Details** section.
+2. Add your custom integration tests within the `cypress/integration` folder.
+3. With the local server running, run `yarn test` to open the Cypress app and to check your tests execution.
+4. Open a pull request with the changes you have made.
+5. Within the pull request, navigate to **Checks > Integration Tests** and check the **Details** section.
 
 ![checks-integration-tests](https://vtexhelp.vtexassets.com/assets/docs/src/custom-test-checks___583ac9b78e43ebdafde93a735a47d61b.png)
 
-5. Review the results to check the execution status of your custom integration tests.
+6. Review the results to check the execution status of your custom integration tests.

@@ -36,7 +36,6 @@ import chalk from 'chalk'
 
 interface GenerateOptions {
   setup?: boolean
-  test?: boolean
 }
 
 const ignorePaths = ['node_modules', 'cypress.config.ts']
@@ -89,11 +88,26 @@ async function copyCypressFiles() {
     }
 
     const userStoreConfig = await import(userStoreConfigFileDir)
-    if (userStoreConfig?.experimental?.enableCypressExtension) {
-      copySync(`${userDir}/cypress`, `${tmpDir}/cypress/integration`, {
+
+    // Copy custom Cypress folder and files
+    if (
+      existsSync(`${userDir}/cypress`) &&
+      userStoreConfig?.experimental?.enableCypressExtension
+    ) {
+      copySync(`${userDir}/cypress`, `${tmpDir}/cypress`, {
         overwrite: true,
       })
+
       console.log(`${chalk.green('success')} - Cypress test files copied`)
+    }
+
+    // Create default Cypress 12.x (or superior) support file
+    if (userStoreConfig?.experimental?.cypressVersion > 9) {
+      copySync(
+        `${tmpDir}/cypress/support/index.js`,
+        `${tmpDir}/cypress/support/e2e.js`,
+        { overwrite: false }
+      )
     }
   } catch (e) {
     console.error(e)
@@ -236,13 +250,9 @@ function createNodeModulesSymbolicLink() {
 }
 
 export async function generate(options?: GenerateOptions) {
-  const { setup = false, test = false } = options ?? {}
+  const { setup = false } = options ?? {}
 
   let setupPromise: Promise<unknown> | null = null
-
-  if (test) {
-    return copyCypressFiles()
-  }
 
   if (setup) {
     setupPromise = Promise.all([
