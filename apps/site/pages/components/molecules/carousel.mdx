@@ -331,6 +331,8 @@ For further customization, you can use the following data attributes:
 
 For the mobile preview, please refresh the browser after resize it.
 
+`itemsPerPage = 3`
+
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselUsage /></OverviewSection>
@@ -370,6 +372,8 @@ For the mobile preview, please refresh the browser after resize it.
   </Tab>
 </Tabs>
 
+`itemsPerPage = 8`
+
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselUsage itemsPerPage={8}/></OverviewSection>
@@ -403,11 +407,13 @@ For the mobile preview, please refresh the browser after resize it.
         </ProductCard>
       ))}
     </Carousel>
-
     ```
-
   </Tab>
 </Tabs>
+
+<Callout type="warning" emoji="⚠️">
+  Considering the component structure placed inside the `Carousel`, consider to determine the ideal `itemsPerPage` number to properly accommodate the items and achieve the desired UI.
+</Callout>
 
 ---
 
