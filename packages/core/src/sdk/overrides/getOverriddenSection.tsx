@@ -1,10 +1,11 @@
 import Alert from 'src/components/sections/Alert'
 import { DefaultSectionComponentsDefinitions } from 'src/typings/overrideDefinitionUtils'
-import { SectionOverride, SectionsOverrides } from 'src/typings/overrides'
 import {
-  GetSectionOverridesReturn,
-  getSectionOverrides,
-} from 'src/utils/overrides'
+  SectionOverride,
+  SectionOverrideDefinition,
+  SectionsOverrides,
+} from 'src/typings/overrides'
+import { OverriddenComponents, getSectionOverrides } from 'src/utils/overrides'
 import { OverrideProvider } from './OverrideContext'
 import { defaultComponents as alertDefaultComponents } from 'src/components/sections/Alert/Overrides'
 
@@ -23,24 +24,32 @@ const DefaultComponents: Partial<
   Alert: alertDefaultComponents,
 }
 
-function createOverriddenSection({
+function createOverriddenSection<SectionName extends keyof SectionsOverrides>({
   Section,
   sectionOverrides,
+  id,
 }: {
   Section: React.ElementType
-  sectionOverrides: GetSectionOverridesReturn<SectionOverride>
+  sectionOverrides: OverriddenComponents<SectionName>
+  id?: string
 }) {
+  const overrideContextValue = { id, components: sectionOverrides }
+
   return function OverriddenSection(props: any) {
     return (
-      <OverrideProvider value={sectionOverrides}>
+      <OverrideProvider value={overrideContextValue}>
         <Section {...props} />
       </OverrideProvider>
     )
   }
 }
 
-export function getOverriddenSection<SO extends SectionOverride>(override: SO) {
-  const defaultComponents = DefaultComponents[override.section]
+export function getOverriddenSection<
+  SectionName extends keyof SectionsOverrides
+>(override: SectionOverrideDefinition<SectionName>) {
+  const defaultComponents = DefaultComponents[
+    override.section
+  ] as DefaultSectionComponentsDefinitions<SectionName>
 
   if (!defaultComponents) {
     throw new Error(
@@ -53,5 +62,6 @@ export function getOverriddenSection<SO extends SectionOverride>(override: SO) {
   return createOverriddenSection({
     Section: Sections[override.section],
     sectionOverrides: sectionOverrides,
+    id: override.id,
   })
 }
