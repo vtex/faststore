@@ -267,11 +267,7 @@ function Carousel({
 
     let scrollOffset
 
-    if (itemsPerPage > 1) {
-      scrollOffset = index * carouselItemsWidth * itemsPerPage
-    } else {
-      scrollOffset = index * carouselItemsWidth - carouselItemsWidth * 0.125
-    }
+    scrollOffset = index * carouselItemsWidth * itemsPerPage
 
     carouselTrackRef.current?.scrollTo({
       left: scrollOffset,
