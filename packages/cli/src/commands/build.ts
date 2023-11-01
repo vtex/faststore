@@ -2,7 +2,7 @@ import { Command } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
-import {  moveSync, removeSync } from 'fs-extra'
+import { copySync, removeSync } from 'fs-extra'
 import { tmpDir, userDir } from '../utils/directory'
 import { generate } from '../utils/generate'
 
@@ -20,13 +20,13 @@ export default class Build extends Command {
       process.exit(yarnBuildResult.status)
     }
 
-    await moveResource(`${tmpDir}/.next`, `${userDir}/.next`)
-    await moveResource(`${tmpDir}/public`, `${userDir}/public`)
-    await moveResource(
+    await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
+    await copyResource(`${tmpDir}/public`, `${userDir}/public`)
+    await copyResource(
       `${tmpDir}/lighthouserc.js`,
       `${userDir}/lighthouserc.js`
     )
-    await moveResource(
+    await copyResource(
       `${tmpDir}/cms-webhook-urls.json`,
       `${userDir}/cms-webhook-urls.json`
     )
@@ -40,13 +40,13 @@ export default class Build extends Command {
   }
 }
 
-async function moveResource(from: string, to: string) {
+async function copyResource(from: string, to: string) {
   try {
     if (existsSync(to)) {
       removeSync(to)
     }
 
-    moveSync(from, to)
+    copySync(from, to)
     console.log(
       `${chalk.green('success')} - ${chalk.dim(from)} copied to ${chalk.dim(
         to
@@ -56,19 +56,3 @@ async function moveResource(from: string, to: string) {
     console.error(`${chalk.red('error')} - ${err}`)
   }
 }
-// async function copyResource(from: string, to: string) {
-//   try {
-//     if (existsSync(to)) {
-//       removeSync(to)
-//     }
-
-//     copySync(from, to)
-//     console.log(
-//       `${chalk.green('success')} - ${chalk.dim(from)} copied to ${chalk.dim(
-//         to
-//       )}`
-//     )
-//   } catch (err) {
-//     console.error(`${chalk.red('error')} - ${err}`)
-//   }
-// }
