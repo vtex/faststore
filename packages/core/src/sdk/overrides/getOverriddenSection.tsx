@@ -1,9 +1,8 @@
 import type { ComponentProps, ComponentType } from 'react'
+
 import { OverrideProvider } from 'src/sdk/overrides/OverrideContext'
 import { DefaultComponents, Sections } from 'src/sdk/overrides/sections'
-
 import { getSectionOverrides } from 'src/sdk/overrides/overrides'
-
 import type {
   DefaultSectionComponentsDefinitions,
   OverriddenComponents,
