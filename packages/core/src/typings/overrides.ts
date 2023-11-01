@@ -46,6 +46,9 @@ export type SectionOverride = {
   [K in keyof SectionsOverrides]: SectionOverrideDefinition<K>
 }[keyof SectionsOverrides]
 
+/** TODO: every use of this type should be replaced by SectionsOverrides after all sections are supported */
+export type SupportedSectionsOverridesV2 = Pick<SectionsOverrides, 'Alert'>
+
 /**
  * Originally, these types were defined in their respective Overrides file
  * For some reason, typescript wouldn't interpret SectionOverride correctly when
