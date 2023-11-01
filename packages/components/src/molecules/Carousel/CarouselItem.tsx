@@ -29,12 +29,15 @@ function CarouselItem({
 
   const style =
     ((!isScrollCarousel && { width: '100%' }) as CSSProperties) ||
-    ((isScrollCarousel && {
-      flex: `0 0 calc((100% - ${marginRightValue} * ${
-        state.itemsPerPage - 1
-      })/ ${state.itemsPerPage})`,
-      maxWidth: '60%',
-      display: 'inline-block',
+    ((state.itemsPerPage > 1 &&
+      isScrollCarousel && {
+        flex: `1 1 auto`,
+        width: `calc((100% - ${marginRightValue} * ${
+          state.itemsPerPage - 1
+        })/ ${state.itemsPerPage})`,
+      }) as CSSProperties) ||
+    ((state.itemsPerPage === 1 && {
+      width: '100%',
     }) as CSSProperties)
 
   const shouldDisplayItem =
