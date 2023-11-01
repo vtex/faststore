@@ -56,19 +56,19 @@ async function moveResource(from: string, to: string) {
     console.error(`${chalk.red('error')} - ${err}`)
   }
 }
-async function copyResource(from: string, to: string) {
-  try {
-    if (existsSync(to)) {
-      removeSync(to)
-    }
+// async function copyResource(from: string, to: string) {
+//   try {
+//     if (existsSync(to)) {
+//       removeSync(to)
+//     }
 
-    copySync(from, to)
-    console.log(
-      `${chalk.green('success')} - ${chalk.dim(from)} copied to ${chalk.dim(
-        to
-      )}`
-    )
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
-  }
-}
+//     copySync(from, to)
+//     console.log(
+//       `${chalk.green('success')} - ${chalk.dim(from)} copied to ${chalk.dim(
+//         to
+//       )}`
+//     )
+//   } catch (err) {
+//     console.error(`${chalk.red('error')} - ${err}`)
+//   }
+// }
