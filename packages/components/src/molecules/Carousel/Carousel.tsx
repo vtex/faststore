@@ -96,7 +96,7 @@ function Carousel({
     property: 'transform',
   },
   id = 'fs-carousel',
-  variant = 'slide',
+  variant = 'scroll',
   itemsPerPage = 1,
   navigationIcons = undefined,
   ...swipeableConfigOverrides
