@@ -163,16 +163,96 @@ To ensure visual consistency with your store's theme, we highly recommend utiliz
 
 ---
 
-## Importing FastStore UI component style
+## Importing FastStore UI component styles
 
-If you are using a FastStore UI component and you desire to use its styles
-you should import it to your FastStore project. To do so, follow the steps below, 
-for this example we will override the ProductTitle component within the [`ProductDetails`]() section. 
+If you are using a FastStore UI component and want to apply its styles to your 
+FastStore project, follow the steps below. In this example, we will override the 
+[`ProductTitle`]() component within the [`ProductDetails`]() section. 
 
-Step-by-step
+### Before you begin
+As the [Customizing a new component when using override](/docs/customizing/components#customizing-a-new-component-when-using-override)
+you should also have a basic understanding of [overriding native components and props](/docs/building-sections/overriding-components-and-props).
+Additionally, we recommend to use [CSS Module](https://nextjs.org/docs/app/building-your-application/styling/css-modules) for styling your new component.
 
-### Create the component
-1. 
+### Step-by-step
+
+#### Step 1 - Creating the stylesheet
+Create the stylesheet file and export the component 
+
+1. Open your FastStore project and navigate to the `components`, 
+create the `CustomProductTitle.module.scss` file. This file is responsible to import the FastStore UI component style.
+
+<Callout type="info" emoji="ℹ️">
+If you don't have the folder `overrides` yet, go to `src` and create the `components` folder. Inside 
+`components` create the `overrides` folder tha will be use later on this tutorial.
+</Callout>
+
+2. Add the following code to the `CustomProductTitle.module.scss` file.
+
+```scss copy
+.CustomProductTitle {
+    @import "@faststore/ui/src/components/molecules/Tag/styles.scss";
+}
+```
+This will import the [Tag]() styles to the custom component that you are creating.
+
+#### Step 2 - Creating the custom component
+Now, you need to create the custom component that will be overwritten, in this case the ProductTitle:
+
+1. In the `components` folder, create the `CustomProductTitle.tsx` file.
+2. Add the following to the file:
+
+```tsx copy
+import { ProductTitle, Tag } from "@faststore/ui";
+
+import styles from "./CustomProductTitle.module.scss";
+
+import React from "react";
+
+export default function CustomProductTitle() {
+  return (
+    <section className={styles.CustomProductTitle}>
+      <ProductTitle 
+        title={<h1>New headphones</h1>}
+      /> 
+      <Tag variant="warning" label="On sale" onClose={() => {}} />
+    </section>
+  );
+}
+
+```
+This code creates a custom Product Title component that displays the product title, 
+star rating, and a tag indicating that the product is on sale. 
+However to make it available, you need to declare this new component in the Product Details, to do so follow the next section.
+
+#### Step 3 - Overriding the section
+
+1. In the `overrides` folder, create the `ProductDetails.tsx` file.
+2. Add the following code to the `ProductDetails.tsx` file to render the new `CustomProductTitle` component.
+
+```tsx copy
+
+import { SectionOverride } from '@faststore/core';
+
+import CustomProductTitle from "../CustomProductTitle";
+
+const SECTION = "ProductDetails" as const;
+
+const override: SectionOverride = {
+  section: SECTION,
+  components: {
+    ProductTitle: { Component: CustomProductTitle },
+  },
+};
+
+export { override };
+
+```
+
+4. Run `yarn dev` in the terminal and open the local development server to see the changes. 
+You should see a result similar to the image below:
+
+![importing-styles-result](https://vtexhelp.vtexassets.com/assets/docs/src/importing-styles___6de1d121d0acc88b4545d04955c3eb89.png)
 
 ## Related resources
 
