@@ -1,7 +1,8 @@
-import Alert, { AlertDefaultComponents } from 'src/components/sections/Alert'
+import Alert from 'src/components/sections/Alert'
 
 import type { DefaultSectionComponentsDefinitions } from 'src/typings/overridesDefinition'
 import type { SectionsOverrides } from 'src/typings/overrides'
+import { AlertDefaultComponents } from 'src/components/sections/Alert/DefaultComponents'
 
 export const Sections = {
   Alert,
