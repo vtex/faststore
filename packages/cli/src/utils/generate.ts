@@ -264,7 +264,6 @@ export async function generate(options?: GenerateOptions) {
     setupPromise = Promise.all([
       createTmpFolder(),
       copyCoreFiles(),
-      copyPublicFiles(),
       copyCypressFiles(),
       createNodeModulesSymbolicLink(),
     ])
@@ -276,5 +275,6 @@ export async function generate(options?: GenerateOptions) {
     copyTheme(),
     createCmsWebhookUrlsJsonFile(),
     mergeCMSFiles(),
+    copyPublicFiles(),
   ])
 }
