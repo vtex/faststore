@@ -82,7 +82,7 @@ function copyPublicFiles() {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
         overwrite: true,
         filter: (src) => {
-          const allowList = ["json", "txt"]
+          const allowList = ["json", "txt", "public"]
           const allow = allowList.some((ext) => src.endsWith(ext))
 
           return allow
@@ -265,7 +265,8 @@ export async function generate(options?: GenerateOptions) {
       createTmpFolder(),
       copyCoreFiles(),
       copyCypressFiles(),
-      createNodeModulesSymbolicLink(),
+    copyPublicFiles(),
+    createNodeModulesSymbolicLink(),
     ])
   }
 
@@ -275,6 +276,5 @@ export async function generate(options?: GenerateOptions) {
     copyTheme(),
     createCmsWebhookUrlsJsonFile(),
     mergeCMSFiles(),
-    copyPublicFiles(),
   ])
 }
