@@ -20,9 +20,9 @@ function Carousel({
     <UICarousel
       id={id}
       testId={testId}
-      variant="slide"
-      infiniteMode={true}
-      itemsPerPage={isMobile ? 2 : 1}
+      variant="scroll"
+      infiniteMode={false}
+      itemsPerPage={isMobile ? 2.3 : itemsPerPage}
     >
       {children}
     </UICarousel>
