@@ -85,6 +85,8 @@ import '@faststore/ui/src/components/molecules/Carousel/styles.scss'
   cases, we gratefully accept feedback.
 </Callout>
 
+#### Default
+
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselSimpleUsage itemsPerPage={1}/></OverviewSection>
@@ -134,6 +136,33 @@ import '@faststore/ui/src/components/molecules/Carousel/styles.scss'
     <Carousel
       itemsPerPage={10}
       variant="scroll"
+    >
+     {[...Array(10)].map((_, index) => (
+        <div key={index} className={styles.carouselItem}>
+          {index + 1}
+        </div>
+      ))}
+    </Carousel>
+    ```
+  </Tab>
+</Tabs>
+
+#### Infinite Scroll Mode
+
+<Callout type="warning" emoji="⚠️">
+  This mode is only supported given the following props setup: `itemsPerPage={1}`, `variant="slide"` and `infiniteMode={true}`
+</Callout>
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselSimpleUsage itemsPerPage={1} infiniteMode={true} variant='slide'/></OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Carousel
+      itemsPerPage={1}
+      variant="slide"
+      infiniteMode={true}
     >
      {[...Array(10)].map((_, index) => (
         <div key={index} className={styles.carouselItem}>
