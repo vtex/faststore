@@ -22,7 +22,7 @@ function Carousel({
       testId={testId}
       variant="scroll"
       infiniteMode={false}
-      itemsPerPage={isMobile ? 2.3 : itemsPerPage}
+      itemsPerPage={isMobile ? 1.6 : itemsPerPage}
     >
       {children}
     </UICarousel>
