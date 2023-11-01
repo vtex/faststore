@@ -6,7 +6,7 @@ import type {
   UIEvent,
   AriaAttributes,
 } from 'react'
-import React, { useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import type { SwipeableProps } from 'react-swipeable'
 
 import { Icon, IconButton } from '../..'
@@ -120,6 +120,20 @@ function Carousel({
   })
 
   const pagesCount = Math.ceil(childrenCount / sliderState.itemsPerPage)
+
+  const [marginRight, setMarginRight] = useState('16px')
+  const [carouselItemsWidth, setCarouselItemsWidth] = useState(0)
+
+  useEffect(() => {
+    const item = carouselTrackRef.current?.firstElementChild
+
+    if (item) {
+      setMarginRight(getComputedStyle(item).getPropertyValue('margin-right'))
+      setCarouselItemsWidth(
+        Number(item.clientWidth) + parseInt(marginRight, 10) + 1
+      )
+    }
+  }, [marginRight])
 
   const showNavigationArrows =
     pagesCount !== 1 &&
@@ -236,20 +250,6 @@ function Carousel({
     }
   }
 
-  let carouselItemsWidth = Number(
-    carouselTrackRef.current?.firstElementChild?.clientWidth
-  )
-
-  const carouselItem = carouselTrackRef.current?.firstElementChild
-
-  let marginRight: string
-
-  if (carouselItem) {
-    marginRight =
-      getComputedStyle(carouselItem).getPropertyValue('margin-right')
-    carouselItemsWidth = carouselItemsWidth + parseInt(marginRight, 10) + 1
-  }
-
   const onScrollPagination = async (
     index: number,
     slideDirection?: 'previous' | 'next'
@@ -265,9 +265,7 @@ function Carousel({
       return
     }
 
-    let scrollOffset
-
-    scrollOffset = index * carouselItemsWidth * itemsPerPage
+    let scrollOffset = index * carouselItemsWidth * itemsPerPage
 
     carouselTrackRef.current?.scrollTo({
       left: scrollOffset,
@@ -343,7 +341,7 @@ function Carousel({
               totalItems={childrenCount}
               infiniteMode={infiniteMode}
               isScrollCarousel={isScrollCarousel}
-              marginRightValue={marginRight || '1rem'}
+              marginRightValue={marginRight}
             >
               {currentSlide}
             </CarouselItem>
