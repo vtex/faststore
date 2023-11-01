@@ -24,6 +24,7 @@ type Sort =
 export type ProductShelfProps = {
   title: string
   numberOfItems?: number
+  itemsPerPage?: number
   after?: string
   sort?: Sort
   term?: string
@@ -46,6 +47,7 @@ function ProductShelf({
     showDiscountBadge = ProductCard.props.showDiscountBadge,
   } = {},
   numberOfItems,
+  itemsPerPage = 5,
   ...otherProps
 }: ProductShelfProps) {
   const titleId = textToKebabCase(title)
@@ -55,7 +57,6 @@ function ProductShelf({
   const products = data?.search?.products
   const productEdges = products?.edges ?? []
   const aspectRatio = 1
-  const itemsPerPage = 5
 
   const { sendViewItemListEvent } = useViewItemListEvent({
     products: productEdges,
