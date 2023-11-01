@@ -2,7 +2,7 @@ import { Command } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
-import { copySync, moveSync, removeSync } from 'fs-extra'
+import {  moveSync, removeSync } from 'fs-extra'
 import { tmpDir, userDir } from '../utils/directory'
 import { generate } from '../utils/generate'
 
