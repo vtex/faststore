@@ -7,7 +7,7 @@ import { mark } from 'src/sdk/tests/mark'
 import Section from 'src/components/sections/Section/Section'
 import styles from './section.module.scss'
 
-import { Alert as AlertWrapper } from 'src/components/sections/Alert/Overrides'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 export interface AlertProps extends UIAlertProps {
   /**
@@ -18,11 +18,13 @@ export interface AlertProps extends UIAlertProps {
    */
   content?: ReactNode
 }
+
 function Alert({
   content,
   children,
   ...otherProps
 }: PropsWithChildren<AlertProps>) {
+  const { Alert: AlertWrapper } = useOverrideComponents<'Alert'>()
   const [displayAlert, setDisplayAlert] = useState(true)
 
   const onAlertClose = useCallback(
