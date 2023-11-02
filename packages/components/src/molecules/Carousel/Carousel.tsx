@@ -133,11 +133,12 @@ function Carousel({
 
     if (item) {
       setMarginRight(getComputedStyle(item).getPropertyValue('margin-right'))
+
       setCarouselItemsWidth(
         Number(item.clientWidth) + parseInt(marginRight, 10) + 1
       )
     }
-  }, [marginRight])
+  }, [carouselItemsWidth])
 
   const showNavigationArrows =
     pagesCount !== 1 &&
