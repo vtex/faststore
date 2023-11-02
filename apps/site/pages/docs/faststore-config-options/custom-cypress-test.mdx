@@ -30,10 +30,10 @@ Learn how to add custom integration tests in the following steps.
 
 - Refer to [Cypress documentation](https://docs.cypress.io/guides/overview/why-cypress) for more information on this testing tool.
 
-- Ensure you are using `@faststore/core`  `2.1.56` version or above and `@faststore/cli` version `2.2.6` or above. If you have versions lower than these requirements, update them as follows:
+- Ensure you are using `@faststore/core` `2.1.56` version or above and `@faststore/cli` version `2.2.9` or above. If you have versions lower than these requirements, update them as follows:
   1. In your storefront project, open the `package.json` file.
   2. Navigate to the `@faststore/core` and update it to at least `2.1.56`.
-  3. Navigate to the `@faststore/cli` and update it to at least `2.2.6`.
+  3. Navigate to the `@faststore/cli` and update it to at least `2.2.9`.
   4. Run `yarn dev` to apply these changes.
 
 ---
@@ -64,3 +64,59 @@ Like any other project using Cypress, you'll follow standard practices, includin
 ![checks-integration-tests](https://vtexhelp.vtexassets.com/assets/docs/src/custom-test-checks___583ac9b78e43ebdafde93a735a47d61b.png)
 
 6. Review the results to check the execution status of your custom integration tests.
+
+---
+
+## Exclusive execution of your custom Cypress tests
+
+With continuous development, some storefront projects may have changes in the components and/or pages's code that cause errors in the out of the box end-to-end tests that are run for all FastStore projects.
+
+For these cases, there is the option to override the FastStore's out of the box tests using the same name as the original test file:
+
+```js filename="plp.test.js"
+import { cypress } from '../../faststore.config'
+
+const { pages } = cypress
+
+describe('Custom PLP tests', () => {
+  it('visit collection page', () => {
+    cy.visit(pages.collection)
+    cy.get('[data-testid="product-gallery"]').should('exist').and('be.visible')
+  })
+})
+```
+
+Some projects may prefer exclusive execution of its custom Cypress tests. Although it is not our recommendation, for projects using Cypress version 12.x or higher there is the possibility of running the **Integration Tests** check only for your custom tests.
+
+For that, first you need to use at least Cypress 12 by setting the `cypressVersion` experimental feature flag:
+
+1. Open the `faststore.config.js` file.
+2. Inside the `experimental` object, add the `cypressVersion` property.
+3. Set the `cypressVersion` value to `12`.
+
+```js filename="faststore.config.js" {4}
+  },
+  experimental: {
+      enableCypressExtension: true,
+      cypressVersion: 12,
+  }
+```
+
+Furthermore, you need to update your Cypress configuration file (`cypress.json`) to match the latest Cypress configuration file format. Refer to the official [Cypress configuration file](https://docs.cypress.io/guides/references/configuration) guide.
+
+Finally, you need to change your custom Cypress tests directory from `cypress/integration` to `cypress/e2e`:
+
+1. In your storefront project, rename the folder from `cypress/integration` to `cypress/e2e`.
+2. Also change your new Cypress configuration file `e2e` object to match the new custom tests folder `cypress/e2e`:
+
+```ts filename="cypress.config.ts" {7}
+import { defineConfig } from 'cypress'
+
+export default defineConfig({
+  ...,
+  e2e: {
+    ...,
+    specPattern: 'cypress/e2e/**/*.test.{js,jsx,ts,tsx}',
+  },
+})
+```
