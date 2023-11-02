@@ -101,6 +101,10 @@ function Carousel({
   navigationIcons = undefined,
   ...swipeableConfigOverrides
 }: PropsWithChildren<CarouselProps>) {
+  if (itemsPerPage < 1) {
+    throw new Error('itemsPerPage must be greater than or equal to 1')
+  }
+
   const carouselTrackRef = useRef<HTMLUListElement>(null)
   const isSlideCarousel = variant === 'slide'
   const isScrollCarousel = variant === 'scroll'
