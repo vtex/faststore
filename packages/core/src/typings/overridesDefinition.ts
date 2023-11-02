@@ -4,8 +4,8 @@ export type SectionOverrideDefinition<
   SectionName extends keyof SectionsOverrides
 > = {
   /**
-   * CSS class to be appended to the <section> element. Behaves similarly to React's className.
-   * Default classNames from <section> element will still be applied.
+   * CSS class to be appended to the \<section\> element. Behaves similarly to React's className.
+   * Default classNames from \<section\> element will still be applied.
    */
   className?: string
   /** Name of the section to override */
