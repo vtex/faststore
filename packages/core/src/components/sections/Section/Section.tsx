@@ -13,7 +13,7 @@ const Section = forwardRef<HTMLDivElement, SectionProps>(function Section(
   { as, className = '', ...otherProps },
   ref
 ) {
-  const overrideClassName = useOverrideClassName()
+  const overrideClassName = useOverrideClassName() ?? ''
   const Component = as ?? 'section'
 
   return (
