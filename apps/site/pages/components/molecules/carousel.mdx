@@ -128,8 +128,9 @@ import '@faststore/ui/src/components/molecules/Carousel/styles.scss'
   </Tab>
   <Tab>
     ```tsx
+    const isMobile = window.innerWidth <= 768
     <Carousel
-      itemsPerPage={5}
+      itemsPerPage={isMobile ? 1 : 5}
       variant="scroll"
     >
      {[...Array(10)].map((_, index) => (
@@ -149,7 +150,9 @@ import '@faststore/ui/src/components/molecules/Carousel/styles.scss'
   </Tab>
   <Tab>
     ```tsx
+    const isMobile = window.innerWidth <= 768
     <Carousel
+      itemsPerPage={isMobile ? 1 : 10}
       itemsPerPage={10}
       variant="scroll"
     >

@@ -14,9 +14,10 @@ export const CarouselSimpleUsage = ({
   infiniteMode = false,
   variant,
 }: PropsWithChildren<CarouselSimpleProps>) => {
+  const isMobile = window.innerWidth <= 768
   return (
     <Carousel
-      itemsPerPage={itemsPerPage}
+      itemsPerPage={isMobile ? 1 : itemsPerPage}
       variant={variant}
       infiniteMode={infiniteMode}
     >
