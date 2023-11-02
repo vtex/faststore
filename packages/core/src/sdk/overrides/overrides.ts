@@ -3,9 +3,9 @@ import type {
   ComponentOverrideDefinition,
   SectionOverrideDefinition,
   OverriddenComponents,
-} from 'src/typings/overridesDefinition'
+} from '../../typings/overridesDefinition'
 
-import type { SectionsOverrides } from 'src/typings/overrides'
+import type { SectionsOverrides } from '../../typings/overrides'
 
 export function getSectionOverrides<
   SectionName extends keyof SectionsOverrides

@@ -1,14 +1,14 @@
 import type { ComponentProps, ComponentType } from 'react'
 
-import { OverrideProvider } from 'src/sdk/overrides/OverrideContext'
-import { DefaultComponents, Sections } from 'src/sdk/overrides/sections'
-import { getSectionOverrides } from 'src/sdk/overrides/overrides'
+import { OverrideProvider } from './OverrideContext'
+import { DefaultComponents, Sections } from './sections'
+import { getSectionOverrides } from './overrides'
 import type {
   DefaultSectionComponentsDefinitions,
   OverriddenComponents,
   SectionOverrideDefinition,
-} from 'src/typings/overridesDefinition'
-import type { SupportedSectionsOverridesV2 } from 'src/typings/overrides'
+} from '../../typings/overridesDefinition'
+import type { SupportedSectionsOverridesV2 } from '../../typings/overrides'
 
 /**
  * This function adds OverrideContext to the tree. It is essential for the compatible sections
