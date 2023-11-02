@@ -3,8 +3,14 @@ import { SectionsOverrides } from './overrides'
 export type SectionOverrideDefinition<
   SectionName extends keyof SectionsOverrides
 > = {
-  id?: string
+  /**
+   * CSS class to be appended to the <section> element. Behaves similarly to React's className.
+   * Default classNames from <section> element will still be applied.
+   */
+  className?: string
+  /** Name of the section to override */
   section: SectionName
+  /** An object containing component and prop overrides for section components */
   components?: Partial<Prettify<SectionsOverrides[SectionName]>>
 }
 

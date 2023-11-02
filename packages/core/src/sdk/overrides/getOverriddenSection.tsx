@@ -19,14 +19,14 @@ function createOverriddenSection<
 >({
   Section,
   sectionOverrides,
-  id,
+  className,
 }: {
   /** This type wizardry is here because the props won't behave correctly if I do it directly: (typeof Sections)[SectionName] */
   Section: ComponentType<ComponentProps<(typeof Sections)[SectionName]>>
   sectionOverrides: OverriddenComponents<SectionName>
-  id?: string
+  className?: string
 }) {
-  const overrideContextValue = { id, components: sectionOverrides }
+  const overrideContextValue = { className, components: sectionOverrides }
 
   return function OverriddenSection(
     props: React.ComponentProps<typeof Section>
@@ -65,6 +65,6 @@ export function getOverriddenSection<
   return createOverriddenSection({
     Section: Sections[override.section],
     sectionOverrides: sectionOverrides,
-    id: override.id,
+    className: override.className,
   })
 }

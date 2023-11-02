@@ -6,7 +6,7 @@ import type { SectionsOverrides } from '../../typings/overrides'
 type OverrideContextType<
   SectionName extends keyof SectionsOverrides = keyof SectionsOverrides
 > = {
-  id?: string
+  className?: string
   components: OverriddenComponents<SectionName>
 }
 
@@ -24,4 +24,4 @@ export const useOverrideComponents = <
   useContext(OverrideContext)
     .components as OverrideContextType<SectionName>['components']
 
-export const useOverrideId = () => useContext(OverrideContext)?.id
+export const useOverrideClassName = () => useContext(OverrideContext)?.className
