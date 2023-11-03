@@ -6,13 +6,20 @@ export type CarouselProps = {
   id?: string
   testId?: string
   itemsPerPage?: number
-} & Pick<UICarouselProps, 'id' | 'testId' | 'itemsPerPage'>
+  variant?: 'slide' | 'scroll'
+  infiniteMode?: boolean
+} & Pick<
+  UICarouselProps,
+  'id' | 'testId' | 'itemsPerPage' | 'variant' | 'infiniteMode'
+>
 
 function Carousel({
   id,
   testId,
   children,
   itemsPerPage,
+  variant = 'slide',
+  infiniteMode = false,
 }: PropsWithChildren<CarouselProps>) {
   const isMobile = window.innerWidth <= 768
 
@@ -20,8 +27,8 @@ function Carousel({
     <UICarousel
       id={id}
       testId={testId}
-      variant="scroll"
-      infiniteMode={false}
+      variant={variant}
+      infiniteMode={infiniteMode}
       itemsPerPage={isMobile ? 1.6 : itemsPerPage}
     >
       {children}
