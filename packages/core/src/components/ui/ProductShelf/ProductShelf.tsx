@@ -86,11 +86,7 @@ function ProductShelf({
         itemsPerPage={itemsPerPage}
       >
         <ProductShelfWrapper.Component {...ProductShelfWrapper.props}>
-          <Carousel.Component
-            id={titleId || id}
-            {...Carousel.props}
-            itemsPerPage={itemsPerPage}
-          >
+          <Carousel.Component id={titleId || id} {...Carousel.props}>
             {productEdges.map((product, idx) => (
               <ProductCard.Component
                 aspectRatio={aspectRatio}
