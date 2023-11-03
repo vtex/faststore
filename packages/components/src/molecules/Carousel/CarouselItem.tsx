@@ -27,17 +27,18 @@ function CarouselItem({
     itemsPerPage: state.itemsPerPage,
   })
 
-  const style =
-    ((!isScrollCarousel && { width: '100%' }) as CSSProperties) ||
-    ((state.itemsPerPage > 1 &&
-      isScrollCarousel && {
-        width: `calc((100% - ${marginRightValue} * ${
-          state.itemsPerPage - 1
-        })/ ${state.itemsPerPage})`,
-      }) as CSSProperties) ||
-    ((state.itemsPerPage === 1 && {
-      width: '100%',
-    }) as CSSProperties)
+  const defaultStyle = { width: '100%' } as CSSProperties
+  const scrollCarouselStyle = {
+    width: `calc((100% - ${marginRightValue} * ${state.itemsPerPage - 1}) / ${
+      state.itemsPerPage
+    })`,
+  } as CSSProperties
+
+  const style = isScrollCarousel
+    ? state.itemsPerPage > 1
+      ? { ...scrollCarouselStyle }
+      : { ...defaultStyle }
+    : { ...defaultStyle }
 
   const shouldDisplayItem =
     isScrollCarousel || shouldRenderItem(index - Number(infiniteMode))
