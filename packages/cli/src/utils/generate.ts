@@ -77,12 +77,12 @@ function copyCoreFiles() {
 }
 
 function copyPublicFiles() {
+  const allowList = ["json", "txt", "public"]
   try {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
         overwrite: true,
         filter: (src) => {
-          const allowList = ["json", "txt", "public"]
           const allow = allowList.some((ext) => src.endsWith(ext))
 
           return allow
