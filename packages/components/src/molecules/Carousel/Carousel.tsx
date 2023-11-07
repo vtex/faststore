@@ -359,7 +359,7 @@ function Carousel({
           <IconButton
             data-fs-carousel-control="left"
             aria-controls={id}
-            disabled={!infiniteMode && sliderState.currentPage == 0}
+            disabled={!infiniteMode && sliderState.currentPage === 0}
             aria-label="previous"
             icon={
               navigationIcons?.left ?? (
