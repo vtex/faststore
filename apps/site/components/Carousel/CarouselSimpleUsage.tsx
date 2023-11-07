@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { PropsWithChildren } from 'react'
 import { Carousel } from '@faststore/ui'
 import styles from './carousel-item.module.css'
