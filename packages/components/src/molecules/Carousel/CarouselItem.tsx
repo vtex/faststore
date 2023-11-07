@@ -34,10 +34,8 @@ function CarouselItem({
     })`,
   } as CSSProperties
 
-  const style = isScrollCarousel
-    ? state.itemsPerPage > 1
-      ? { ...scrollCarouselStyle }
-      : { ...defaultStyle }
+  const style = isScrollCarousel && state.itemsPerPage > 1
+    ? { ...scrollCarouselStyle }
     : { ...defaultStyle }
 
   const shouldDisplayItem =
