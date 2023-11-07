@@ -8,6 +8,7 @@ export interface CarouselItemProps extends HTMLAttributes<HTMLLIElement> {
   state: SliderState
   infiniteMode: boolean
   isScrollCarousel: boolean
+  marginRightValue: string
 }
 
 function CarouselItem({
@@ -18,6 +19,7 @@ function CarouselItem({
   totalItems,
   infiniteMode,
   isScrollCarousel,
+  marginRightValue,
 }: PropsWithChildren<CarouselItemProps>) {
   const { isItemVisible, shouldRenderItem } = useSlideVisibility({
     totalItems,
@@ -25,12 +27,16 @@ function CarouselItem({
     itemsPerPage: state.itemsPerPage,
   })
 
-  const style =
-    ((!isScrollCarousel && { width: '100%' }) as CSSProperties) ||
-    ((isScrollCarousel && {
-      maxWidth: '60%',
-      display: 'inline-block',
-    }) as CSSProperties)
+  const defaultStyle = { width: '100%' } as CSSProperties
+  const scrollCarouselStyle = {
+    width: `calc((100% - ${marginRightValue} * ${state.itemsPerPage - 1}) / ${
+      state.itemsPerPage
+    })`,
+  } as CSSProperties
+
+  const style = isScrollCarousel && state.itemsPerPage > 1
+    ? { ...scrollCarouselStyle }
+    : { ...defaultStyle }
 
   const shouldDisplayItem =
     isScrollCarousel || shouldRenderItem(index - Number(infiniteMode))

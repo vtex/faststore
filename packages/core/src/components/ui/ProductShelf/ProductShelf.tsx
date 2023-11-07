@@ -24,6 +24,7 @@ type Sort =
 export type ProductShelfProps = {
   title: string
   numberOfItems?: number
+  itemsPerPage?: number
   after?: string
   sort?: Sort
   term?: string
@@ -46,6 +47,7 @@ function ProductShelf({
     showDiscountBadge = ProductCard.props.showDiscountBadge,
   } = {},
   numberOfItems,
+  itemsPerPage = 5,
   ...otherProps
 }: ProductShelfProps) {
   const titleId = textToKebabCase(title)
@@ -81,6 +83,7 @@ function ProductShelf({
       <ProductShelfSkeleton
         aspectRatio={aspectRatio}
         loading={products === undefined}
+        itemsPerPage={itemsPerPage}
       >
         <ProductShelfWrapper.Component {...ProductShelfWrapper.props}>
           <Carousel.Component id={titleId || id} {...Carousel.props}>

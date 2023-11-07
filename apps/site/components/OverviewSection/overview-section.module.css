@@ -46,6 +46,7 @@
 
 @media screen and (min-width: 1280px) {
   .overviewSection [data-fs-carousel-track-container] { padding: 0 70px; }
+  .overviewSection [data-fs-carousel-controls] { width: 100%; }
 }
 
 .overviewSection>[data-doc-overview-group] [data-doc-overview-group-title] {

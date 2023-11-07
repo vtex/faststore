@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import {
   Carousel,
   ProductCard,
@@ -10,11 +10,17 @@ import {
 import { products } from 'site/mocks/products'
 import { useFormattedPrice } from '../utilities/usePriceFormatter'
 
-export const CarouselUsage = () => {
+export type CarouselUsageProps = {
+  itemsPerPage: number
+}
+
+export const CarouselUsage = ({
+  itemsPerPage = 3,
+}: PropsWithChildren<CarouselUsageProps>) => {
   const isMobile = window.innerWidth <= 768
   return (
     <Carousel
-      itemsPerPage={isMobile ? 1 : 3}
+      itemsPerPage={isMobile ? 1 : itemsPerPage}
       variant="scroll"
       infiniteMode={false}
     >
