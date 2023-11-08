@@ -75,6 +75,25 @@ function copyCoreFiles() {
   }
 }
 
+function copyPublicFiles() {
+  const allowList = ["json", "txt", "public"]
+  try {
+    if (existsSync(`${userDir}/public`)) {
+      copySync(`${userDir}/public`, `${tmpDir}/public`, {
+        overwrite: true,
+        filter: (src) => {
+          const allow = allowList.some((ext) => src.endsWith(ext))
+
+          return allow
+        }
+      })
+      console.log(`${chalk.green('success')} - Public files copied`)
+    }
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 async function copyCypressFiles() {
   try {
     // Cypress 9.x config file
@@ -259,6 +278,7 @@ export async function generate(options?: GenerateOptions) {
       createTmpFolder(),
       copyCoreFiles(),
       copyCypressFiles(),
+      copyPublicFiles(),
       createNodeModulesSymbolicLink(),
     ])
   }
