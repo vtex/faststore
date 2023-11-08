@@ -94,7 +94,7 @@ function Page({ page: searchContentType, globalSections }: Props) {
           }}
         />
 
-        <UISROnly as="h1" text={title} />
+        <UISROnly text={title} />
 
         {/*
           WARNING: Do not import or render components from any
