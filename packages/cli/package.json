@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "2.2.9",
+  "version": "2.2.12",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "bin": {
