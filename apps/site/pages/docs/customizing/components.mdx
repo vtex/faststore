@@ -172,9 +172,9 @@ FastStore project, follow the steps below. In this example, we will override the
 ### Before you begin
 As the [Customizing a new component when using override](/docs/customizing/components#customizing-a-new-component-when-using-override)
 you should also have a basic understanding of [overriding native components and props](/docs/building-sections/overriding-components-and-props).
-Additionally, we recommend to use [CSS Module](https://nextjs.org/docs/app/building-your-application/styling/css-modules) for styling your new component.
+Additionally, we recommend to use [CSS Modules](https://nextjs.org/docs/app/building-your-application/styling/css-modules) for styling your new component.
 
-### Step-by-step
+### Step by step
 
 #### Step 1 - Creating the stylesheet
 Create the stylesheet file and export the component 
@@ -203,11 +203,10 @@ Now, you need to create the custom component that will be overwritten, in this c
 2. Add the following to the file:
 
 ```tsx copy
+import React from "react";
 import { ProductTitle, Tag } from "@faststore/ui";
 
 import styles from "./CustomProductTitle.module.scss";
-
-import React from "react";
 
 export default function CustomProductTitle() {
   return (
