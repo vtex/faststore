@@ -9,12 +9,10 @@ const ImageComponent = ({ url, alternateName, onLoad }) => (
 
 export interface ImageGalleryUsageProps {
   images?: ImageElementData[]
-  imagePosition?: 'top' | 'center' | 'bottom'
 }
 
 const ImageGalleryUsage = ({
   images,
-  imagePosition,
 }: ImageGalleryUsageProps) => {
   const [selectedImageIdx, setSelectedImageIdx] = useState(0)
   const currentImage = images[selectedImageIdx]
@@ -24,7 +22,6 @@ const ImageGalleryUsage = ({
       images={images}
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
-      imagePosition={imagePosition}
       setSelectedImageIdx={setSelectedImageIdx}
     >
       <ImageGalleryViewer>

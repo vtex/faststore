@@ -18,14 +18,9 @@ const ImageComponent = ({ url, alternateName }) => {
 
 export interface ImageGalleryProps {
   images: UIImageGalleryProps['images']
-  imagePosition?: UIImageGalleryProps['imagePosition']
 }
 
-const ImageGallery = ({
-  images,
-  imagePosition,
-  ...otherProps
-}: ImageGalleryProps) => {
+const ImageGallery = ({ images, ...otherProps }: ImageGalleryProps) => {
   const [selectedImageIdx, setSelectedImageIdx] = useState(0)
   const currentImage = images[selectedImageIdx] ?? images[0]
   const dynamicRoute = useRouter().asPath
@@ -39,7 +34,6 @@ const ImageGallery = ({
       ImageComponent={ImageComponent}
       selectedImageIdx={selectedImageIdx}
       setSelectedImageIdx={setSelectedImageIdx}
-      imagePosition={imagePosition ?? ImageGalleryWrapper.props.imagePosition}
       {...otherProps}
     >
       <ImageGalleryViewer.Component {...ImageGalleryViewer.props}>
