@@ -53,9 +53,6 @@ export interface ProductDetailsProps {
     displayDescription: boolean
     initiallyExpanded: 'first' | 'all' | 'none'
   }
-  imageGallery: {
-    imagePosition: 'top' | 'center' | 'bottom'
-  }
   notAvailableButton: {
     title: string
   }
@@ -89,7 +86,6 @@ function ProductDetails({
     initiallyExpanded: productDescriptionInitiallyExpanded,
     displayDescription: shouldDisplayProductDescription,
   },
-  imageGallery: { imagePosition = ImageGallery.props.imagePosition },
   notAvailableButton: {
     title: notAvailableButtonTitle = NotAvailableButton.props.title,
   },
@@ -186,7 +182,6 @@ function ProductDetails({
           <ImageGallery.Component
             data-fs-product-details-gallery
             {...ImageGallery.props}
-            imagePosition={imagePosition}
             images={productImages}
           />
           <section data-fs-product-details-info>
