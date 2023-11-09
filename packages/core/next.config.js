@@ -44,6 +44,18 @@ const nextConfig = {
     return config
   },
   redirects: storeConfig.redirects,
+  rewrites: async function rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/test/my-office',
+          destination: `/office`,
+        },
+      ],
+      afterFiles: [],
+      fallback: [],
+    }
+  },
 }
 
 module.exports = nextConfig
