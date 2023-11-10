@@ -21,7 +21,7 @@ function createOverriddenSection<
   sectionOverrides,
   className,
 }: {
-  /** This type wizardry is here because the props won't behave correctly if I do it directly: (typeof Sections)[SectionName] */
+  /** This type wizardry is here because the props won't behave correctly if done directly: (typeof Sections)[SectionName] */
   Section: ComponentType<ComponentProps<(typeof Sections)[SectionName]>>
   sectionOverrides: OverriddenComponents<SectionName>
   className?: string
