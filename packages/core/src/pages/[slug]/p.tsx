@@ -252,7 +252,7 @@ export const getStaticProps: GetStaticProps<
       meta,
       offers,
       globalSections,
-      key: slug,
+      key: seo.canonical,
     },
   }
 }
