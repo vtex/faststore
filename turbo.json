@@ -21,6 +21,9 @@
     "size": {},
     "dev": {
       "cache": false
+    },
+    "@faststore/core#dev": {
+      "dependsOn": ["@faststore/api#build"]
     }
   }
 }
