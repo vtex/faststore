@@ -39,21 +39,15 @@ import type {
 import type {
   ComponentOverrideDefinition,
   SectionOverrideDefinition,
-} from './overrideDefinitionUtils'
+} from './overridesDefinition'
 import { NewsletterAddendumProps } from 'src/components/ui/Newsletter/NewsletterAddendum'
 
-export type SectionOverride =
-  | AlertOverrideDefinition
-  | BannerTextOverrideDefinition
-  | BreadcrumbOverrideDefinition
-  | EmptyStateOverrideDefinition
-  | HeroOverrideDefinition
-  | NavbarOverrideDefinition
-  | NewsletterOverrideDefinition
-  | ProductDetailsOverrideDefinition
-  | ProductGalleryOverrideDefinition
-  | ProductShelfOverrideDefinition
-  | RegionBarOverrideDefinition
+export type SectionOverride = {
+  [K in keyof SectionsOverrides]: SectionOverrideDefinition<K>
+}[keyof SectionsOverrides]
+
+/** TODO: every use of this type should be replaced by SectionsOverrides after all sections are supported */
+export type SupportedSectionsOverridesV2 = Pick<SectionsOverrides, 'Alert'>
 
 /**
  * Originally, these types were defined in their respective Overrides file
@@ -63,55 +57,35 @@ export type SectionOverride =
  * For some reason, defining them in the same file as SectionOverride seems to fix the issue.
  * Consider that before moving them elsewhere and test it on the starter as well.
  */
-export type AlertOverrideDefinition = SectionOverrideDefinition<
-  'Alert',
-  {
+
+export type SectionsOverrides = {
+  Alert: {
     Alert: ComponentOverrideDefinition<AlertProps, Omit<AlertProps, 'onClose'>>
     Icon: ComponentOverrideDefinition<IconProps, IconProps>
   }
->
-
-export type BannerTextOverrideDefinition = SectionOverrideDefinition<
-  'BannerText',
-  {
+  BannerText: {
     BannerText: ComponentOverrideDefinition<BannerTextProps, BannerTextProps>
     BannerTextContent: ComponentOverrideDefinition<
       BannerTextContentProps,
       BannerTextContentProps
     >
   }
->
-
-export type BreadcrumbOverrideDefinition = SectionOverrideDefinition<
-  'Breadcrumb',
-  {
+  Breadcrumb: {
     Breadcrumb: ComponentOverrideDefinition<BreadcrumbProps, BreadcrumbProps>
     Icon: ComponentOverrideDefinition<IconProps, IconProps>
   }
->
-
-export type EmptyStateOverrideDefinition = SectionOverrideDefinition<
-  'EmptyState',
-  {
+  EmptyState: {
     EmptyState: ComponentOverrideDefinition<
       PropsWithChildren<EmptyStateProps>,
       EmptyStateProps
     >
   }
->
-
-export type HeroOverrideDefinition = SectionOverrideDefinition<
-  'Hero',
-  {
+  Hero: {
     Hero: ComponentOverrideDefinition<HeroProps, HeroProps>
     HeroImage: ComponentOverrideDefinition<HeroImageProps, HeroImageProps>
     HeroHeader: ComponentOverrideDefinition<HeroHeaderProps, HeroHeaderProps>
   }
->
-
-export type NavbarOverrideDefinition = SectionOverrideDefinition<
-  'Navbar',
-  {
+  Navbar: {
     Navbar: ComponentOverrideDefinition<NavbarProps, NavbarProps>
     NavbarLinks: ComponentOverrideDefinition<NavbarLinksProps, NavbarLinksProps>
     NavbarLinksList: ComponentOverrideDefinition<
@@ -148,11 +122,7 @@ export type NavbarOverrideDefinition = SectionOverrideDefinition<
       Omit<IconButtonProps, 'onClick'>
     >
   }
->
-
-export type NewsletterOverrideDefinition = SectionOverrideDefinition<
-  'Newsletter',
-  {
+  Newsletter: {
     ToastIconSuccess: ComponentOverrideDefinition<IconProps, IconProps>
     ToastIconError: ComponentOverrideDefinition<IconProps, IconProps>
     HeaderIcon: ComponentOverrideDefinition<IconProps, IconProps>
@@ -165,13 +135,12 @@ export type NewsletterOverrideDefinition = SectionOverrideDefinition<
       Omit<InputFieldProps, 'inputRef'>
     >
     Button: ComponentOverrideDefinition<ButtonProps, ButtonProps>
-    __experimentalNewsletterAddendum: ComponentOverrideDefinition<NewsletterAddendumProps, NewsletterAddendumProps>
+    __experimentalNewsletterAddendum: ComponentOverrideDefinition<
+      NewsletterAddendumProps,
+      NewsletterAddendumProps
+    >
   }
->
-
-export type ProductDetailsOverrideDefinition = SectionOverrideDefinition<
-  'ProductDetails',
-  {
+  ProductDetails: {
     ProductTitle: ComponentOverrideDefinition<
       ProductTitleProps,
       ProductTitleProps
@@ -208,11 +177,7 @@ export type ProductDetailsOverrideDefinition = SectionOverrideDefinition<
     __experimentalShippingSimulation: ComponentOverrideDefinition<any, any>
     __experimentalNotAvailableButton: ComponentOverrideDefinition<any, any>
   }
->
-
-export type ProductGalleryOverrideDefinition = SectionOverrideDefinition<
-  'ProductGallery',
-  {
+  ProductGallery: {
     MobileFilterButton: ComponentOverrideDefinition<
       ButtonProps,
       Omit<ButtonProps, 'onClick'>
@@ -243,11 +208,7 @@ export type ProductGalleryOverrideDefinition = SectionOverrideDefinition<
     __experimentalFilterSlider: ComponentOverrideDefinition<any, any>
     __experimentalProductCard: ComponentOverrideDefinition<any, any>
   }
->
-
-export type ProductShelfOverrideDefinition = SectionOverrideDefinition<
-  'ProductShelf',
-  {
+  ProductShelf: {
     ProductShelf: ComponentOverrideDefinition<
       ProductShelfProps,
       ProductShelfProps
@@ -258,11 +219,7 @@ export type ProductShelfOverrideDefinition = SectionOverrideDefinition<
       Omit<any, 'key' | 'product' | 'index'>
     >
   }
->
-
-export type RegionBarOverrideDefinition = SectionOverrideDefinition<
-  'RegionBar',
-  {
+  RegionBar: {
     RegionBar: ComponentOverrideDefinition<
       RegionBarProps,
       Omit<RegionBarProps, 'onButtonClick' | 'postalCode'>
@@ -270,4 +227,4 @@ export type RegionBarOverrideDefinition = SectionOverrideDefinition<
     LocationIcon: ComponentOverrideDefinition<IconProps, IconProps>
     ButtonIcon: ComponentOverrideDefinition<IconProps, IconProps>
   }
->
+}

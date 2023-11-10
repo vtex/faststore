@@ -17,3 +17,4 @@ export type {
 export { useProductsQuery } from './src/sdk/product/useProductsQuery'
 
 export * from './src/typings/overrides'
+export { getOverriddenSection } from './src/sdk/overrides/getOverriddenSection'

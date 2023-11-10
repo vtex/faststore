@@ -1,14 +1,14 @@
 import { EmptyState as UIEmptyState } from '@faststore/ui'
 
-import { getSectionOverrides } from 'src/utils/overrides'
+import { getSectionOverrides } from 'src/sdk/overrides/overrides'
 import { override } from 'src/customizations/src/components/overrides/EmptyState'
-import type { EmptyStateOverrideDefinition } from 'src/typings/overrides'
+import type { SectionOverrideDefinition } from 'src/typings/overridesDefinition'
 
 const { EmptyState } = getSectionOverrides(
   {
     EmptyState: UIEmptyState,
   },
-  override as EmptyStateOverrideDefinition
+  override as SectionOverrideDefinition<'EmptyState'>
 )
 
 export { EmptyState }

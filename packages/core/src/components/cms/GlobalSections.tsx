@@ -7,7 +7,7 @@ import { PageContentType, getPage } from 'src/server/cms'
 import Toast from 'src/components/common/Toast'
 import RenderSections from './RenderSections'
 
-import Alert from 'src/components/sections/Alert'
+import { OverriddenDefaultAlert as Alert } from 'src/components/sections/Alert/OverriddenDefaultAlert'
 import Footer from 'src/components/sections/Footer'
 import Navbar from 'src/components/sections/Navbar'
 import RegionBar from 'src/components/sections/RegionBar'
