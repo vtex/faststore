@@ -40,7 +40,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductDetails,
   CrossSellingShelf,
   BannerNewsletter,
-  BannerText
+  BannerText,
   ...CUSTOM_COMPONENTS,
 }
 
