@@ -12,6 +12,7 @@ import type {
 } from '@generated/graphql'
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
+import BannerText from 'src/components/sections/BannerText'
 import Breadcrumb from 'src/components/sections/Breadcrumb'
 import CrossSellingShelf from 'src/components/sections/CrossSellingShelf'
 import ProductDetails from 'src/components/sections/ProductDetails'
@@ -39,6 +40,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductDetails,
   CrossSellingShelf,
   BannerNewsletter,
+  BannerText,
   ...CUSTOM_COMPONENTS,
 }
 
