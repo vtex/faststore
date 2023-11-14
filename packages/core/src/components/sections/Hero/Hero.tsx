@@ -1,7 +1,5 @@
-import {
-  HeroProps as UIHeroProps,
-  HeroHeaderProps as UIHeroHeaderProps,
-} from '@faststore/ui'
+import { HeroProps as UIHeroProps } from '@faststore/ui'
+import { CustomHeroHeaderProps } from './CustomHeroHeader'
 import { ReactNode } from 'react'
 import { Image } from 'src/components/ui/Image'
 import {
@@ -15,11 +13,12 @@ import Section from '../Section'
 import styles from './section.module.scss'
 
 export type HeroProps = {
-  title: UIHeroHeaderProps['title']
-  subtitle: UIHeroHeaderProps['subtitle']
+  title: CustomHeroHeaderProps['title']
+  subtitle: CustomHeroHeaderProps['subtitle']
   link?: {
     text: string
     url: string
+    targetBlank: boolean
   }
   image: {
     src: string
@@ -61,7 +60,10 @@ const Hero = ({
           subtitle={subtitle}
           link={link?.url}
           linkText={link?.text}
+          targetBlank={link?.targetBlank}
           icon={icon}
+          variant={variant}
+          colorVariant={colorVariant}
           {...HeroHeader.props}
         />
       </HeroWrapper.Component>
