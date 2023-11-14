@@ -44,6 +44,7 @@ const nextConfig = {
     return config
   },
   redirects: storeConfig.redirects,
+  rewrites: storeConfig.rewrites,
 }
 
 module.exports = nextConfig
