@@ -13,7 +13,7 @@
     "@faststore/api": "^2.2.19",
     "@faststore/sdk": "^2.2.19",
     "@faststore/ui": "^2.2.19",
-    "next": "13.0.7",
+    "next": "13.5.0",
     "nextra": "^2.8.0",
     "nextra-theme-docs": "^2.8.0",
     "react": "^18.2.0",
