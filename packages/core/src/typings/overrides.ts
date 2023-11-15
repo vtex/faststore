@@ -1,11 +1,13 @@
 import type { PropsWithChildren } from 'react'
 import type {
   AlertProps,
+  BannerTextContentProps,
   BannerTextProps,
   BreadcrumbProps,
   ButtonProps,
   DiscountBadgeProps,
   EmptyStateProps,
+  HeroHeaderProps,
   HeroImageProps,
   HeroProps,
   IconButtonProps,
@@ -33,9 +35,6 @@ import type {
   SkeletonProps,
   SkuSelectorProps,
 } from '@faststore/ui'
-
-import type { CustomBannerTextContentProps } from '../components/sections/BannerText/CustomBannerTextContent'
-import type { CustomHeroHeaderProps } from 'src/components/sections/Hero/CustomHeroHeader'
 
 import type {
   ComponentOverrideDefinition,
@@ -67,8 +66,8 @@ export type SectionsOverrides = {
   BannerText: {
     BannerText: ComponentOverrideDefinition<BannerTextProps, BannerTextProps>
     BannerTextContent: ComponentOverrideDefinition<
-      CustomBannerTextContentProps,
-      CustomBannerTextContentProps
+      BannerTextContentProps,
+      BannerTextContentProps
     >
   }
   Breadcrumb: {
@@ -84,7 +83,7 @@ export type SectionsOverrides = {
   Hero: {
     Hero: ComponentOverrideDefinition<HeroProps, HeroProps>
     HeroImage: ComponentOverrideDefinition<HeroImageProps, HeroImageProps>
-    HeroHeader: ComponentOverrideDefinition<CustomHeroHeaderProps, CustomHeroHeaderProps>
+    HeroHeader: ComponentOverrideDefinition<HeroHeaderProps, HeroHeaderProps>
   }
   Navbar: {
     Navbar: ComponentOverrideDefinition<NavbarProps, NavbarProps>

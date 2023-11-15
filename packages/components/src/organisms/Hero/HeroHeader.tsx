@@ -29,6 +29,10 @@ export interface HeroHeaderProps extends HTMLAttributes<HTMLDivElement> {
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * Link opens in a new tab is true
+   */
+  targetBlank?: boolean
 }
 
 const HeroHeader = forwardRef<HTMLDivElement, HeroHeaderProps>(
@@ -38,6 +42,7 @@ const HeroHeader = forwardRef<HTMLDivElement, HeroHeaderProps>(
       link,
       title,
       linkText,
+      targetBlank,
       subtitle,
       children,
       testId = 'fs-hero-heading',
@@ -63,6 +68,7 @@ const HeroHeader = forwardRef<HTMLDivElement, HeroHeaderProps>(
                 inverse={colorVariant === 'main'}
                 icon={<Icon name="ArrowRight" />}
                 iconPosition="right"
+                target={targetBlank ? '_blank' : undefined}
               >
                 {linkText}
               </LinkButton>

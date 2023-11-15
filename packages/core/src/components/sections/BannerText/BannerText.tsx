@@ -1,20 +1,22 @@
-import { BannerTextProps as UIBannerTextProps } from '@faststore/ui'
+import {
+  BannerTextProps as UIBannerTextProps,
+  BannerTextContentProps as UIBannerTextContentProps,
+} from '@faststore/ui'
+
 import {
   BannerText as BannerTextWrapper,
   BannerTextContent,
 } from 'src/components/sections/BannerText/Overrides'
-import { CustomBannerTextContentProps } from './CustomBannerTextContent'
 import Section from '../Section'
 
 import styles from './section.module.scss'
 
 export interface BannerTextProps {
-  title: CustomBannerTextContentProps['title']
-  caption: CustomBannerTextContentProps['caption']
+  title: UIBannerTextContentProps['title']
+  caption: UIBannerTextContentProps['caption']
   link?: {
     text?: string
     url?: string
-    targetBlank?: boolean
   }
   colorVariant?: UIBannerTextProps['colorVariant']
   variant?: UIBannerTextProps['variant']
@@ -27,7 +29,6 @@ function BannerText({
   link: {
     url: linkUrl = BannerTextContent.props.link,
     text: linkText = BannerTextContent.props.linkText,
-    targetBlank,
   },
   variant = BannerTextWrapper.props.variant ?? 'primary',
   colorVariant = BannerTextWrapper.props.colorVariant ?? 'main',
@@ -46,9 +47,6 @@ function BannerText({
             caption={caption}
             link={linkUrl}
             linkText={linkText}
-            variant={variant}
-            colorVariant={colorVariant}
-            targetBlank={targetBlank}
           />
         </BannerTextWrapper.Component>
       </div>
