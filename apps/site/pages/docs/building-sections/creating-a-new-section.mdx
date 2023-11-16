@@ -55,42 +55,44 @@ Make sure to install the FastStore CLI to use its commands locally. Refer to the
 4. In the `sections.json` file add the new section that you want to display in the Headless CMS. The schema below defines how the Headless CMS renders a section:
 
 ```json filename="sections.json" copy
-  {
-    "name": "CallToAction",
-    "schema": {
-      "title": "Call To Action",
-      "description": "Get your 20% off on the first purchase!",
-      "type": "object",
-      "required": [
-        "title",
-        "link"
-      ],
-      "properties": {
-        "title": {
-          "title": "Title",
-          "type": "string"
-        },
-        "link": {
-          "title": "Link Path",
-          "type": "object",
-          "required": [
-            "text",
-            "url"
-          ],
-          "properties": {
-            "text": {
-              "title": "Text",
-              "type": "string"
-            },
-            "url": {
-              "title": "URL",
-              "type": "string"
+  [
+    {
+      "name": "CallToAction",
+      "schema": {
+        "title": "Call To Action",
+        "description": "Get your 20% off on the first purchase!",
+        "type": "object",
+        "required": [
+          "title",
+          "link"
+        ],
+        "properties": {
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "link": {
+            "title": "Link Path",
+            "type": "object",
+            "required": [
+              "text",
+              "url"
+            ],
+            "properties": {
+              "text": {
+                "title": "Text",
+                "type": "string"
+              },
+              "url": {
+                "title": "URL",
+                "type": "string"
+              }
             }
           }
         }
       }
     }
-  }
+  ]
 ```
 
 <Callout type="info" emoji="ℹ️">
