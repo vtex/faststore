@@ -688,7 +688,7 @@
               "title": "URL",
               "type": "string"
             },
-            "targetBlank": {
+            "linkTargetBlank": {
               "type": "boolean",
               "title": "Open link in new window?",
               "default": false
@@ -738,7 +738,7 @@
               "type": "string",
               "title": "URL"
             },
-            "targetBlank": {
+            "linkTargetBlank": {
               "type": "boolean",
               "title": "Open link in new window?",
               "default": false
