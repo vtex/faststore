@@ -1,4 +1,4 @@
-import { Callout } from 'nextra-theme-docs'
+import { Callout, Steps } from 'nextra-theme-docs'
 
 <header className="hero">
 
@@ -170,21 +170,23 @@ FastStore project, follow the steps below. In this example, we will override the
 [`ProductTitle`]() component within the [`ProductDetails`]() section. 
 
 ### Before you begin
+
+<Steps>
+### Knowledge of component override
 As the [Customizing a new component when using override](/docs/customizing/components#customizing-a-new-component-when-using-override)
 you should also have a basic understanding of [overriding native components and props](/docs/building-sections/overriding-components-and-props).
 Additionally, we recommend to use [CSS Modules](https://nextjs.org/docs/app/building-your-application/styling/css-modules) for styling your new component.
 
-### Step by step
-
-#### Step 1 - Creating the custom component
-
-1. Open your FastStore project and navigate to the `components`, 
-create the `CustomProductTitle.module.scss` file. This file is responsible to import the FastStore UI component style.
-
-<Callout type="info" emoji="ℹ️">
+### Create the `overrides` folder
 If you don't have the folder `overrides` yet, go to `src` and create the `components` folder. Inside 
 `components` create the `overrides` folder tha will be use later on this tutorial.
-</Callout>
+</Steps>
+### Step by step
+
+#### Step 1 - Create the custom component
+
+1. Open your FastStore project and navigate to the `components` folder and 
+create the `CustomProductTitle.module.scss` file. This file is responsible to import the FastStore UI component style.
 
 2. Add the following code to the `CustomProductTitle.module.scss` file.
 
@@ -195,11 +197,8 @@ If you don't have the folder `overrides` yet, go to `src` and create the `compon
 ```
 This will import the [Tag]() styles to the custom component that you are creating.
 
-#### Step 2 - Creating the custom component
-Now, you need to create the custom component that will be overwritten, in this case the ProductTitle:
-
-1. In the `components` folder, create the `CustomProductTitle.tsx` file.
-2. Add the following to the file:
+3. In the `components` folder, create the `CustomProductTitle.tsx` file.
+4. Add the following to the file:
 
 ```tsx copy
 import React from "react";
@@ -219,11 +218,10 @@ export default function CustomProductTitle() {
 }
 
 ```
-This code creates a custom Product Title component that displays the product title, 
-star rating, and a tag indicating that the product is on sale. 
-However to make it available, you need to declare this new component in the Product Details, to do so follow the next section.
+This code creates a custom Product Title component displaying the product title, star rating, and a tag indicating that the product is on sale. 
+To make it available, declare this new component in the Product Details, as outlined in the next section.
 
-#### Step 3 - Overriding the section
+#### Step 2 - Overriding the component
 
 1. In the `overrides` folder, create the `ProductDetails.tsx` file.
 2. Add the following code to the `ProductDetails.tsx` file to render the new `CustomProductTitle` component.
