@@ -22,7 +22,7 @@ export interface BannerTextContentProps extends HTMLAttributes<HTMLDivElement> {
    */
   linkText: string
   /**
-   * Link opens in a new tab is true
+   * Specify if the link opens in a new tab.
    */
   targetBlank?: boolean
   /**
