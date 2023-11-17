@@ -2,7 +2,6 @@
 
 1. Fork this repository.
 
-   > Click the "Fork" button in the upper right corner to create a copy (fork) of the repository under your GitHub account.
 
 2. Clone your forked `faststore` repository.
 3. Create a new branch for the changes you are working on.
