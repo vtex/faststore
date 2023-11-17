@@ -11,9 +11,48 @@ import { Callout, Steps, Tab, Tabs } from 'nextra-theme-docs'
 </header>
 
 <Steps>
+
 ### Install the VTEX IO CLI on your machine
 
 For more information, please refer to [this guide](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference).
+
+### Install the Headless CMS and dependencies
+
+The [Headless CMS](/docs/headless-cms-overview) is the content management solution for FastStore projects. During the [Onboarding](/docs/getting-started/1-faststore-onboarding), 
+the integration beteween your project and the Headless CMS is initiate.
+<br></br>
+To prevent content duplicationthat could cause build failures during Onboarding, it is important to confirm the installation of the following apps in your account: `vtex.admin-cms@1.x`,
+`vtex.admin-cms-graphql` and `vtex.admin-cms-graphql-rc`. To check wether you have the them installed, refer to [Installing the Headless CMS app](/docs/getting-started-requirements#installing-the-headless-cms-app).
+
+#### Checking installed apps in your account
+
+1. Open the terminal and log in to your account using the following command. *Remember to replace `{accountName}` with your account's name, for example, `vtex login mystore`*.
+
+ ```bash copy
+ vtex login {accountName}
+ ```
+
+2. Run `vtex ls` to list all the installed apps in your account.
+
+3. Check if the `vtex.admin-cms@1.x`, `vtex.admin-cms-graphql` and `vtex.admin-cms-graphql-rc` are in the list. 
+If yes, proceed to check other requirements. If not, install them by following the instructions in [Installing the Headless CMS app](/docs/getting-started-requirements#installing-the-headless-cms-app-and-its-dependencies).
+
+#### Installing the Headless CMS app and its dependencies
+1. After logging into your account, install `vtex.admin-cms@1.x` by running the following command:
+
+```bash copy
+vtex install vtex.admin-cms@1.x
+```
+A successful message will confirm the installation:
+
+![installation-message](https://vtexhelp.vtexassets.com/assets/docs/src/cms-install___7144afabf5a895ba92905926808507b2.png)
+
+2. Install the Headless CMS dependencies by running the following command:
+
+```bash copy
+vtex install vtex.admin-cms-graphql vtex.admin-cms-graphql-rc
+```
+Once the app and its dependencies are installed, proceed to check the next requirements.
 
 ### Enable the VTEX Intelligent Search app in your account
 
@@ -73,5 +112,5 @@ Based on the edition version, follow the instructions below.
 ### Request the installation of the FastStore Onboarding app.
 
 [Open a ticket with the VTEX support team](https://help.vtex.com/support) and request the installation of the [FastStore Onboarding](/docs/getting-started/1-faststore-onboarding/overview) app.
-</Steps>
 
+</Steps>
