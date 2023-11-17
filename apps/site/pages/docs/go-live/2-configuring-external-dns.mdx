@@ -21,7 +21,7 @@ Besides making your FastStore website accessible via a custom domain, **VTEX Che
 
 ---
 
-## Before you start
+## Before you begin
 
 - [Set up your VTEX account.](/docs/go-live/1-setting-up-vtex-account-for-faststore)
 - Develop your FastStore project with **Next.js** by following the [Getting Started track](/docs/getting-started-overview).
@@ -64,27 +64,6 @@ Now, you must set up your VTEX account to use the DNS records created in the pre
 6. Add the `secure` subdomain (e.g., `secure.mystore.com`) to the list.
    ![Host configuration](https://vtexhelp.vtexassets.com/assets/docs/src/hostsConfig___cad00ec89023cd77c34f77898cda1b3e.png)
 7. Click the **Save** button.
-
-### Step 3 - Associating your custom domain with your FastStore project
-
-Back to your FastStore project, you must also configure your project to point to the right addresses and domains.
-
-1. Open your FastStore project in any code editor of your preference.
-2. Open the `faststore.config.js` file.
-3. Update the `storeUrl`, `secureSubdomain`, `checkoutUrl`, `loginUrl`, and `accountUrl` properties as in the following:
-
-   - **`storeUrl`**: `https://{rootDomain}`
-   - **`secureSubdomain`**: `https://{subdomain}.{rootDomain}`
-   - **`checkoutUrl`**: `https://{subdomain}.{rootDomain}/checkout`
-   - **`loginUrl`**: `https://{subdomain}.{rootDomain}/api/io/login`
-   - **`accountUrl`**: `https://{subdomain}.{rootDomain}/api/io/account`
-
-Take the following example of how this code block would look after configuring a store with the `www.mystore.com` domain and `secure` subdomain:
-4. In the **Hosts** field, enter your main domain (e.g., `mystore.com`) in the list.
-5. Click `Add`.
-6. Add the `secure` subdomain (e.g., `secure.mystore.com`) to the list.
-   ![Host configuration](https://vtexhelp.vtexassets.com/assets/docs/src/hostsConfig___cad00ec89023cd77c34f77898cda1b3e.png)
-7. Click the `Save` button.
 
 ### Step 4 - Associating your custom domain with your FastStore project
 
