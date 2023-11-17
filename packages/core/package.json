@@ -1,6 +1,6 @@
 {
   "name": "@faststore/core",
-  "version": "2.2.24",
+  "version": "2.2.26",
   "license": "MIT",
   "browserslist": "supports es6-module and not dead",
   "exports": {
@@ -77,7 +77,7 @@
   "devDependencies": {
     "@cypress/code-coverage": "^3.12.1",
     "@envelop/testing": "^6.0.0",
-    "@faststore/cli": "^2.2.23",
+    "@faststore/cli": "^2.2.26",
     "@faststore/eslint-config": "^2.2.22",
     "@faststore/lighthouse": "^1.12.32",
     "@lhci/cli": "^0.9.0",
