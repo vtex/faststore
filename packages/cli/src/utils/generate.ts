@@ -76,7 +76,7 @@ function copyCoreFiles() {
 }
 
 function copyPublicFiles() {
-  const allowList = ["json", "txt", "xml", "public"]
+  const allowList = ["json", "txt", "xml", "ico", "public"]
   try {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
