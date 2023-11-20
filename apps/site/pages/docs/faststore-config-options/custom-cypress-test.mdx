@@ -3,7 +3,7 @@ title: 'enableCypressExtension'
 sidebar_label: 'Configuration options for faststore.config.js'
 ---
 
-import { Callout, Steps } from 'nextra-theme-docs'
+import { Callout } from 'nextra-theme-docs'
 
 <header>
 
@@ -67,11 +67,11 @@ Like any other project using Cypress, you'll follow standard practices, includin
 
 ---
 
-## Exclusive execution of your custom Cypress tests
+## Running only custom Cypress tests in FastStore projects
 
-With continuous development, some storefront projects may have changes in the components and/or pages's code that cause errors in the out of the box end-to-end tests that are run for all FastStore projects.
+As storefront projects evolve, changes to component and page code may lead to errors in the default end-to-end tests conducted for all FastStore projects.
 
-For these cases, there is the option to override the FastStore's out of the box tests using the same name as the original test file:
+In such cases, you can override FastStore's default tests using custom tests with the same name as the original test files. For example:
 
 ```js filename="plp.test.js"
 import { cypress } from '../../faststore.config'
@@ -86,9 +86,19 @@ describe('Custom PLP tests', () => {
 })
 ```
 
+<Callout type="warning" emoji="⚠️">
+  Although exclusive execution of custom tests is possible for projects using Cypress version 12.x, we do not recommend this approach. If possible, keep the default Cypress tests.
+</Callout>
+
 Some projects may prefer exclusive execution of its custom Cypress tests. Although it is not our recommendation, for projects using Cypress version 12.x or higher there is the possibility of running the **Integration Tests** check only for your custom tests.
 
-For that, first you need to use at least Cypress 12 by setting the `cypressVersion` experimental feature flag:
+Follow the steps below to configure your project to only run custom Cypress tests:
+
+## Step by step
+
+### Step 1 - Setting Cypress version
+
+First, ensure that you use Cypress version 12 by setting the `cypressVersion` experimental feature flag:
 
 1. Open the `faststore.config.js` file.
 2. Inside the `experimental` object, add the `cypressVersion` property.
@@ -102,12 +112,16 @@ For that, first you need to use at least Cypress 12 by setting the `cypressVersi
   }
 ```
 
-Furthermore, you need to update your Cypress configuration file (`cypress.json`) to match the latest Cypress configuration file format. Refer to the official [Cypress configuration file](https://docs.cypress.io/guides/references/configuration) guide.
+### Step 2 - Updating the Cypress configuration file
 
-Finally, you need to change your custom Cypress tests directory from `cypress/integration` to `cypress/e2e`:
+Ensure that your Cypress configuration file (`cypress.json`) matches the latest Cypress configuration file format. To do so, refer to the official [Cypress configuration file](https://docs.cypress.io/guides/references/configuration) guide.
+
+### Step 3 - Changing the custom Cypress tests directory
+
+Now, change your custom Cypress tests directory from `cypress/integration` to `cypress/e2e`:
 
 1. In your storefront project, rename the folder from `cypress/integration` to `cypress/e2e`.
-2. Also change your new Cypress configuration file `e2e` object to match the new custom tests folder `cypress/e2e`:
+2. Update your new Cypress configuration file `cypress.config.ts` to match the new custom tests folder `cypress/e2e` by specifying the `specPattern`:
 
 ```ts filename="cypress.config.ts" {7}
 import { defineConfig } from 'cypress'
@@ -120,3 +134,5 @@ export default defineConfig({
   },
 })
 ```
+
+3. Run `yarn dev` in the terminal to sync the changes you have made.
