@@ -214,6 +214,15 @@ const getOrderForm = async (id: string, { clients: { commerce } }: Context) => {
   })
 }
 
+const clearOrderFormMessages = async (
+  id: string,
+  { clients: { commerce } }: Context
+) => {
+  return commerce.checkout.clearOrderFormMessages({
+    id,
+  })
+}
+
 const updateOrderFormShippingData = async (
   orderForm: OrderForm,
   session: Maybe<IStoreSession> | undefined,
@@ -310,6 +319,11 @@ export const validateCart = async (
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, ctx)
 
+  // Clear messages so it doesn't keep populating toasts on a loop
+  if (orderForm.messages.length !== 0) {
+    await clearOrderFormMessages(orderNumber, ctx)
+  }
+
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
@@ -385,6 +399,10 @@ export const validateCart = async (
     // update orderForm etag so we know last time we touched this orderForm
     .then((form: OrderForm) => setOrderFormEtag(form, commerce))
     .then(joinItems)
+
+  if (orderForm.messages.length !== updatedOrderForm.messages.length) {
+    return orderFormToCart(updatedOrderForm, skuLoader)
+  }
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated
   if (equals(order, updatedOrderForm)) {
