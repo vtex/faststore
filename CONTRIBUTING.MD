@@ -2,8 +2,8 @@
 
 1. Fork this repository.
 
-
 2. Clone your forked `faststore` repository.
+
 3. Create a new branch for the changes you are working on.
 
 ## Developing Locally
@@ -14,8 +14,11 @@
 
 2. Run `yarn build` at the root of the repo.
 
-3. Run `yarn dev` at each of the packages that depends on the other.
-   > You can run a package individually: `yarn workspace {packageName} dev`
+3. Run `yarn turbo run dev --filter={packageName}` to run a package individually.
+
+> For example, if you want to run the `@faststore/core` package, at the root of the repo run:
+>
+> `yarn turbo run dev --filter=@faststore/core`
 
 ### Developing packages while also testing on a store
 
@@ -31,7 +34,7 @@ To test your changes in a store, you will need to create a pull request (for mor
 
 <img width="502" alt="image" src="https://github.com/vtex/faststore/assets/3356699/8d25cc15-1463-4f6b-9c57-7c8ecddbc22f"></img>
 
-4. Run `yarn` to install the updates and test it.
+4. Run `yarn` to install the updates and test your changes.
 
 ## Creating Pull Requests
 
