@@ -3,7 +3,7 @@ title: 'enableCypressExtension'
 sidebar_label: 'Configuration options for faststore.config.js'
 ---
 
-import { Callout, Steps } from 'nextra-theme-docs'
+import { Callout } from 'nextra-theme-docs'
 
 <header>
 
@@ -30,10 +30,10 @@ Learn how to add custom integration tests in the following steps.
 
 - Refer to [Cypress documentation](https://docs.cypress.io/guides/overview/why-cypress) for more information on this testing tool.
 
-- Ensure you are using `@faststore/core`  `2.1.56` version or above and `@faststore/cli` version `2.2.6` or above. If you have versions lower than these requirements, update them as follows:
+- Ensure you are using `@faststore/core` `2.1.56` version or above and `@faststore/cli` version `2.2.9` or above. If you have versions lower than these requirements, update them as follows:
   1. In your storefront project, open the `package.json` file.
   2. Navigate to the `@faststore/core` and update it to at least `2.1.56`.
-  3. Navigate to the `@faststore/cli` and update it to at least `2.2.6`.
+  3. Navigate to the `@faststore/cli` and update it to at least `2.2.9`.
   4. Run `yarn dev` to apply these changes.
 
 ---
@@ -64,3 +64,75 @@ Like any other project using Cypress, you'll follow standard practices, includin
 ![checks-integration-tests](https://vtexhelp.vtexassets.com/assets/docs/src/custom-test-checks___583ac9b78e43ebdafde93a735a47d61b.png)
 
 6. Review the results to check the execution status of your custom integration tests.
+
+---
+
+## Running only custom Cypress tests in FastStore projects
+
+As storefront projects evolve, changes to component and page code may lead to errors in the default end-to-end tests conducted for all FastStore projects.
+
+In such cases, you can override FastStore's default tests using custom tests with the same name as the original test files. For example:
+
+```js filename="plp.test.js"
+import { cypress } from '../../faststore.config'
+
+const { pages } = cypress
+
+describe('Custom PLP tests', () => {
+  it('visit collection page', () => {
+    cy.visit(pages.collection)
+    cy.get('[data-testid="product-gallery"]').should('exist').and('be.visible')
+  })
+})
+```
+
+<Callout type="warning" emoji="⚠️">
+  Although exclusive execution of custom tests is possible for projects using Cypress version 12.x, we do not recommend this approach. If possible, keep the default Cypress tests.
+</Callout>
+
+Some projects may prefer exclusive execution of its custom Cypress tests. Although it is not our recommendation, for projects using Cypress version 12.x or higher there is the possibility of running the **Integration Tests** check only for your custom tests.
+
+Follow the steps below to configure your project to only run custom Cypress tests:
+
+### Step by step
+
+#### Step 1 - Setting Cypress version
+
+First, ensure that you use Cypress version 12 by setting the `cypressVersion` experimental feature flag:
+
+1. Open the `faststore.config.js` file.
+2. Inside the `experimental` object, add the `cypressVersion` property.
+3. Set the `cypressVersion` value to `12`.
+
+```js filename="faststore.config.js" {4}
+  },
+  experimental: {
+      enableCypressExtension: true,
+      cypressVersion: 12,
+  }
+```
+
+#### Step 2 - Updating the Cypress configuration file
+
+Ensure that your Cypress configuration file (`cypress.json`) matches the latest Cypress configuration file format. To do so, refer to the official [Cypress configuration file](https://docs.cypress.io/guides/references/configuration) guide.
+
+#### Step 3 - Changing the custom Cypress tests directory
+
+Now, change your custom Cypress tests directory from `cypress/integration` to `cypress/e2e`:
+
+1. In your storefront project, rename the folder from `cypress/integration` to `cypress/e2e`.
+2. Update your new Cypress configuration file `cypress.config.ts` to match the new custom tests folder `cypress/e2e` by specifying the `specPattern`:
+
+```ts filename="cypress.config.ts" {7}
+import { defineConfig } from 'cypress'
+
+export default defineConfig({
+  ...,
+  e2e: {
+    ...,
+    specPattern: 'cypress/e2e/**/*.test.{js,jsx,ts,tsx}',
+  },
+})
+```
+
+3. Run `yarn dev` in the terminal to sync the changes you have made.
