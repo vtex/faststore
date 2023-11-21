@@ -320,6 +320,7 @@ export const validateCart = async (
   const orderForm = await getOrderForm(orderNumber, ctx)
 
   // Clear messages so it doesn't keep populating toasts on a loop
+  // In the next validateCart mutation it will only have messages if a new message is created on orderForm
   if (orderForm.messages.length !== 0) {
     await clearOrderFormMessages(orderNumber, ctx)
   }
@@ -400,12 +401,13 @@ export const validateCart = async (
     .then((form: OrderForm) => setOrderFormEtag(form, commerce))
     .then(joinItems)
 
-  if (orderForm.messages.length !== updatedOrderForm.messages.length) {
-    return orderFormToCart(updatedOrderForm, skuLoader)
-  }
+  const equalMessages = deepEquals(
+    orderForm.messages,
+    updatedOrderForm.messages
+  )
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated
-  if (equals(order, updatedOrderForm)) {
+  if (equals(order, updatedOrderForm) && equalMessages) {
     return null
   }
   // Step6: There were changes, convert orderForm to StoreCart
