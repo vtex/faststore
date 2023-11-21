@@ -32,7 +32,7 @@ To test your changes in a store, you will need to create a pull request (for mor
 
 3. Use the `Local Install Instructions` provided for the PR to **add your version of the packages** as dependencies in the `package.json` file of the [starter](https://github.com/vtex-sites/starter.store) or your store.
 
-<img width="502" alt="image" src="https://github.com/vtex/faststore/assets/3356699/8d25cc15-1463-4f6b-9c57-7c8ecddbc22f"></img>
+<img width="502" alt="image" src="https://vtexhelp.vtexassets.com/assets/docs/src/fs-package-local-install___db14cf215e613a08aca9ba5d779eb37a.png"></img>
 
 4. Run `yarn` to install the updates and test your changes.
 
