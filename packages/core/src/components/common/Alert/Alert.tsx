@@ -16,7 +16,7 @@ export interface AlertProps extends UIAlertProps {
    *
    * TODO: Remove it? It's not being used
    */
-  content?: string
+  content?: ReactNode | string
 }
 
 function Alert({
