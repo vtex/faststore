@@ -28,7 +28,7 @@ To test your changes in a store, you will need to create a pull request (for mor
 
 2. In the checks's section, find `ci/codesandbox` and click on `Details`.
 
-<img width="502" alt="checks_details" src="https://github.com/vtex/faststore/assets/3356699/fb4a357d-b077-44d3-888b-41cbd05d39d3"></img>
+<img width="502" alt="checks_details" src="https://vtexhelp.vtexassets.com/assets/docs/src/dropdown-menu-example___338a9acd1892074ba750ada043ab92b4.png"></img>
 
 3. Use the `Local Install Instructions` provided for the PR to **add your version of the packages** as dependencies in the `package.json` file of the [starter](https://github.com/vtex-sites/starter.store) or your store.
 
