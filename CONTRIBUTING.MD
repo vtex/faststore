@@ -26,7 +26,7 @@ To test your changes in a store, you will need to create a pull request (for mor
 
 1. After committing your changes, push them to the remote repo and open a Pull Request.
 
-2. In the checks's section, find `ci/codesandbox` and click on `Details`.
+2. In the checks section, find `ci/codesandbox` and click on `Details`.
 
 <img width="502" alt="checks_details" src="https://vtexhelp.vtexassets.com/assets/docs/src/dropdown-menu-example___338a9acd1892074ba750ada043ab92b4.png"></img>
 
@@ -38,16 +38,16 @@ To test your changes in a store, you will need to create a pull request (for mor
 
 ## Creating Pull Requests
 
-We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for pull request title and commits messages.
+We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for pull request titles and commit messages.
 
 1. After committing your changes, push them to the remote repo and open a Pull Request.
 
-2. Please add a clear and concise title PR title with one the prefixes.
+2. Please add a clear and concise title PR title with one of the prefixes.
 
 - Available prefixes: `feat`, `fix`, `chore`, `docs`, `style`
 - Example: `feat: Add Carousel component`
 
-3. You will be presented with a pull request template. Kindly provide a description of the motivation behind and the changes you made. This information will help reviewers in understanding your contributions.
+3. You will be presented with a pull request template. Kindly describe the motivation behind and the changes you made. This information will help reviewers in understanding your contributions.
 
 4. Wait for checks to pass and reviews to be approved.
 
