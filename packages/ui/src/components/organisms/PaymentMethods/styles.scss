@@ -44,17 +44,15 @@
     justify-content: space-between;
     margin-top: var(--fs-payment-methods-flags-margin-top);
 
-    li {
-      display: flex;
-      place-content: center;
-    }
-
     @include media("<notebook") {
       column-gap: var(--fs-grid-gap-2);
     }
   }
 
   [data-fs-payment-methods-flag] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: var(--fs-payment-methods-flag-width);
     height: var(--fs-payment-methods-flag-height);
     overflow: hidden;
