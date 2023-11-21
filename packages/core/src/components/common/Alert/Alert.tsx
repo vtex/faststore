@@ -9,7 +9,7 @@ import styles from './section.module.scss'
 
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
-export interface AlertProps extends UIAlertProps {
+export interface AlertProps extends Omit<UIAlertProps, 'content'> {
   /**
    * For CMS integration purposes, should be used to pass content through it
    * instead pass through children
