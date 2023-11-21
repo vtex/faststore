@@ -1,17 +1,17 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
-import CommonAlert from 'src/components/common/Alert'
+import CommonAlert, {
+  type AlertProps as CommonAlertProps,
+} from 'src/components/common/Alert'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
-export interface AlertProps {
+export interface AlertProps extends Omit<CommonAlertProps, 'link' | 'icon'> {
   icon: string
-  content: string
   link: {
     // It is only ReactNode when overridden as such
-    text: string | ReactNode
+    text: ReactNode
     to: string
   }
-  dismissible: boolean
 }
 
 // TODO: Change actionPath and actionLabel with Link
