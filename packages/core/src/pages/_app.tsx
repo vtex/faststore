@@ -11,6 +11,8 @@ import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
 
+import { DefaultSeo } from 'next-seo'
+
 function App({ Component, pageProps }: AppProps) {
   return (
     <ErrorBoundary>
@@ -19,6 +21,8 @@ function App({ Component, pageProps }: AppProps) {
         showOnShallow={false}
         options={{ showSpinner: false }}
       />
+
+      <DefaultSeo norobots={true} />
 
       <AnalyticsHandler />
 
