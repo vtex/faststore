@@ -66,6 +66,16 @@ const reducer = (state: State, action: Action): State => {
     }
 
     case 'pushToast': {
+      const isDuplicate = state.toasts.some(
+        (existingToast) =>
+          existingToast.message === action.payload.message &&
+          existingToast.status === action.payload.status
+      )
+
+      if (isDuplicate) {
+        return state
+      }
+
       return {
         ...state,
         toasts: [...state.toasts, action.payload],

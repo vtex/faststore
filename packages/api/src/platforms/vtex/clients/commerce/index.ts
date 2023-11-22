@@ -163,6 +163,17 @@ export const VtexCommerce = (
           requestInit
         )
       },
+
+      clearOrderFormMessages: ({ id }: { id: string }) => {
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${id}/messages/clear`,
+          {
+            ...BASE_INIT,
+            body: '{}',
+          }
+        )
+      },
+
       updateOrderFormItems: ({
         id,
         orderItems,
