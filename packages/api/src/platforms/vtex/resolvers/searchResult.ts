@@ -8,8 +8,9 @@ export type Root = {
   searchArgs: Omit<SearchArgs, 'type'>
   productSearchPromise: Promise<ProductSearchResult>
 }
+const rootFacets = ['category-1', 'brand']
 
-const isRootFacet = (facet: Facet) => facet.key === 'category-1'
+const isRootFacet = (facet: Facet) => rootFacets?.includes(facet.key)
 
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
   suggestions: async (root, _, ctx) => {
