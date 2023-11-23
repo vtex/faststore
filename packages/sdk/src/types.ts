@@ -20,6 +20,10 @@ export interface State {
    * @description selected facets
    * */
   selectedFacets: Facet[]
+    /**
+   * @description previous selected facets
+   * */
+  previousSelectedFacets?: Facet[]
   /** @description full text term */
   term: string | null
   /**

@@ -128,6 +128,18 @@ export const IntelligentSearch = (
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
+    console.log({
+      query,
+      page,
+      count,
+      sort,
+      selectedFacets,
+      type,
+      fuzzy,
+      pathname,
+      apiURL: `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
+    })
+
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
     )
