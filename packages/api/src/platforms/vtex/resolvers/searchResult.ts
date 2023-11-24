@@ -8,9 +8,9 @@ export type Root = {
   searchArgs: Omit<SearchArgs, 'type'>
   productSearchPromise: Promise<ProductSearchResult>
 }
-const rootFacets = ['category-1', 'brand']
 
-const isRootFacet = (facet: Facet) => rootFacets?.includes(facet.key)
+const isRootFacet = (facet: Facet, isDepartament: boolean) =>
+  isDepartament ? facet.key === 'category-1' : facet.key === 'brand'
 
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
   suggestions: async (root, _, ctx) => {
@@ -90,9 +90,15 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const isCollectionPage = !searchArgs.query
 
+    const isDepartment = searchArgs.selectedFacets?.length
+      ? searchArgs.selectedFacets[0].key === 'category-1'
+      : false
+
     const filteredFacets = facets
-      // Remove root facet on category pages
-      .filter((facet) => !isCollectionPage || !isRootFacet(facet))
+      // Remove root facet on category and brand pages
+      .filter(
+        (facet) => !isCollectionPage || !isRootFacet(facet, isDepartment)
+      )
 
     return filteredFacets
   },
