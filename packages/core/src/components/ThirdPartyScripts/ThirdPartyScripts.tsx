@@ -21,7 +21,7 @@ function ThirdPartyScripts() {
 
   return (
     <>
-      {/* We're setting the partytown config (forward property) dynamicly based on the gtm_debug query string
+      {/* We're setting the partytown config (forward property) dynamically based on the gtm_debug query string
        * This helps users see the GTM events properly when using GTM preview. All it does is NOT forward dataLayer.push
        * calls to partytown when the gtm_debug query string is present.
        *
