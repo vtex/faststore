@@ -104,6 +104,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const filteredFacets = facets
       // Remove root facet on category and brand pages
+      // TODO: Hide category filters for category pages. E.g. /office/desks
       .filter(
         (facet) =>
           !isCollectionPage || !isRootFacet(facet, isDepartment, isBrand)
