@@ -39,6 +39,7 @@ Even though you can add information to the FastStore API schema, you must be car
 
   ```bash copy
   mkdir fragments
+  ```
 
 2. In the `fragments` folder, create the file named `ServerProduct.ts`. 
 
@@ -48,7 +49,7 @@ Even though you can add information to the FastStore API schema, you must be car
 
 
 <Callout type="warning" emoji="⚠️">
-  The name of the file should match the name of the query you want to extend.
+  The name of the file should match the name of the query you want to extend without the Query suffix. In our example we're extending the `ServerProductQuery`, so the fragment file must be `ServerProduct.ts`.
 </Callout>
 
 ### Step 2: Define the GraphQL fragment
