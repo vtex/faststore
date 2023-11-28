@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "module": "dist/api.esm.js",
+  "repository": "vtex/faststore",
   "files": [
     "dist",
     "src"
