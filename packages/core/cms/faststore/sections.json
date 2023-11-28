@@ -687,6 +687,11 @@
             "url": {
               "title": "URL",
               "type": "string"
+            },
+            "linkTargetBlank": {
+              "type": "boolean",
+              "title": "Open link in new window?",
+              "default": false
             }
           }
         },
@@ -732,6 +737,11 @@
             "url": {
               "type": "string",
               "title": "URL"
+            },
+            "linkTargetBlank": {
+              "type": "boolean",
+              "title": "Open link in new window?",
+              "default": false
             }
           }
         },

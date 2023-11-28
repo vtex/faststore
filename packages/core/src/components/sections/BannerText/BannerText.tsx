@@ -17,6 +17,7 @@ export interface BannerTextProps {
   link?: {
     text?: string
     url?: string
+    linkTargetBlank?: boolean
   }
   colorVariant?: UIBannerTextProps['colorVariant']
   variant?: UIBannerTextProps['variant']
@@ -29,6 +30,7 @@ function BannerText({
   link: {
     url: linkUrl = BannerTextContent.props.link,
     text: linkText = BannerTextContent.props.linkText,
+    linkTargetBlank: linkTargetBlank = BannerTextContent.props.linkTargetBlank,
   },
   variant = BannerTextWrapper.props.variant ?? 'primary',
   colorVariant = BannerTextWrapper.props.colorVariant ?? 'main',
@@ -47,6 +49,7 @@ function BannerText({
             caption={caption}
             link={linkUrl}
             linkText={linkText}
+            linkTargetBlank={linkTargetBlank}
           />
         </BannerTextWrapper.Component>
       </div>
