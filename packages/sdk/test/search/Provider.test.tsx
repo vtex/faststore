@@ -263,14 +263,13 @@ test('SearchProvider: Remove initial facet', async () => {
     ),
   })
 
-  /** Cannot remove the first facet */
   act(() => {
     result.current.setState({
       ...result.current.state,
       selectedFacets: removeFacet(result.current.state.selectedFacets, facet1),
     })
   })
-  expect(mock).not.toHaveBeenCalled()
+  expect(mock).toHaveBeenCalledTimes(1)
 })
 
 test('SearchProvider: Toggle Facet', async () => {
@@ -302,14 +301,13 @@ test('SearchProvider: Toggle Facet', async () => {
 
   expect(result.current.state.selectedFacets).toEqual([facet1, facet2])
 
-  /** Cannot remove the first facet */
   act(() => {
     result.current.setState({
       ...result.current.state,
       selectedFacets: toggleFacet(result.current.state.selectedFacets, facet1),
     })
   })
-  expect(mock).not.toHaveBeenCalled()
+  expect(mock).toHaveBeenCalledTimes(1)
 
   act(() => {
     result.current.setState({
