@@ -12,7 +12,6 @@ interface Props {
   title: string
   kind: 'buy' | 'view'
 }
-
 const CrossSellingShelf = ({
   numberOfItems,
   itemsPerPage,

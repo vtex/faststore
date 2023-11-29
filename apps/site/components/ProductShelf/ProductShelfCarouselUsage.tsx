@@ -22,7 +22,7 @@ const ProductShelfCarouselUsage = () => {
         infiniteMode={false}
       >
         {products.map(({ product }, idx) => (
-          <ProductCard bordered>
+          <ProductCard bordered key={idx}>
             <ProductCardImage>
               <img
                 data-fs-image

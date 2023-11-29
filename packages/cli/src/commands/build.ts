@@ -22,11 +22,6 @@ export default class Build extends Command {
 
     await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
     await copyResource(
-      `${tmpDir}/faststore.config.js`,
-      `${userDir}/faststore.config.js`
-    )
-    await copyResource(`${tmpDir}/public`, `${userDir}/public`)
-    await copyResource(
       `${tmpDir}/lighthouserc.js`,
       `${userDir}/lighthouserc.js`
     )

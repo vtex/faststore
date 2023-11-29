@@ -1,4 +1,3 @@
-import deepmerge from 'deepmerge'
 import {
   copyFileSync,
   copySync,
@@ -15,12 +14,9 @@ import {
 import path from 'path'
 
 import {
-  configFileName,
   coreCMSDir,
   coreDir,
-  coreStoreConfigFileDir,
   tmpCMSDir,
-  tmpCustomizationsDir,
   tmpDir,
   tmpFolderName,
   tmpNodeModulesDir,
@@ -33,14 +29,13 @@ import {
   userStoreConfigFileDir,
   userThemesFileDir,
   userDir,
+  tmpCustomizationsSrcDir,
 } from './directory'
 
 import chalk from 'chalk'
-import stringifyObject from 'stringify-object'
 
 interface GenerateOptions {
   setup?: boolean
-  test?: boolean
 }
 
 const ignorePaths = ['node_modules', 'cypress.config.ts']
@@ -80,6 +75,25 @@ function copyCoreFiles() {
   }
 }
 
+function copyPublicFiles() {
+  const allowList = ["json", "txt", "xml", "ico", "public"]
+  try {
+    if (existsSync(`${userDir}/public`)) {
+      copySync(`${userDir}/public`, `${tmpDir}/public`, {
+        overwrite: true,
+        filter: (src) => {
+          const allow = allowList.some((ext) => src.endsWith(ext))
+
+          return allow
+        }
+      })
+      console.log(`${chalk.green('success')} - Public files copied`)
+    }
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 async function copyCypressFiles() {
   try {
     // Cypress 9.x config file
@@ -93,25 +107,45 @@ async function copyCypressFiles() {
     }
 
     const userStoreConfig = await import(userStoreConfigFileDir)
-    if (userStoreConfig?.experimental?.enableCypressExtension) {
-      copySync(`${userDir}/cypress`, `${tmpDir}/cypress/integration`, {
+
+    // Copy custom Cypress folder and files
+    if (
+      existsSync(`${userDir}/cypress`) &&
+      userStoreConfig?.experimental?.enableCypressExtension
+    ) {
+      copySync(`${userDir}/cypress`, `${tmpDir}/cypress`, {
         overwrite: true,
       })
+
       console.log(`${chalk.green('success')} - Cypress test files copied`)
+    }
+
+    // Create default Cypress 12.x (or superior) support file
+    if (userStoreConfig?.experimental?.cypressVersion > 9) {
+      copySync(
+        `${tmpDir}/cypress/support/index.js`,
+        `${tmpDir}/cypress/support/e2e.js`,
+        { overwrite: false }
+      )
     }
   } catch (e) {
     console.error(e)
   }
 }
 
-function copyUserSrcToCustomizations() {
-  if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
-    try {
-      copySync(userSrcDir, tmpCustomizationsDir)
-      console.log(`${chalk.green('success')} - Custom files copied`)
-    } catch (err) {
-      console.error(`${chalk.red('error')} - ${err}`)
+function copyUserStarterToCustomizations() {
+  try {
+    if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
+      copySync(userSrcDir, tmpCustomizationsSrcDir)
     }
+
+    if (existsSync(userStoreConfigFileDir)) {
+      copySync(userStoreConfigFileDir, tmpStoreConfigFileDir)
+    }
+
+    console.log(`${chalk.green('success')} - Starter files copied`)
+  } catch (err) {
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
@@ -214,40 +248,6 @@ function mergeCMSFile(fileName: string) {
   }
 }
 
-function generateStoreConfigFile(content: any) {
-  const prettyObject = stringifyObject(content, {
-    indent: '  ',
-    singleQuotes: false,
-  })
-  return `module.exports = ${prettyObject}\n`
-}
-
-async function copyStoreConfig() {
-  try {
-    const storeConfigFromCore = await import(coreStoreConfigFileDir)
-    const storeConfigFromStore = await import(userStoreConfigFileDir)
-
-    // avoid duplicate default values
-    const { default: _, ...otherCoreProps } = storeConfigFromCore
-    const { default: __, ...otherStoreProps } = storeConfigFromStore
-
-    const mergedStoreConfig = deepmerge(
-      { ...otherCoreProps },
-      { ...otherStoreProps }
-    )
-
-    writeFileSync(
-      tmpStoreConfigFileDir,
-      generateStoreConfigFile(mergedStoreConfig)
-    )
-    console.log(
-      `${chalk.green('success')} - File ${chalk.dim(configFileName)} copied`
-    )
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
-  }
-}
-
 function mergeCMSFiles() {
   mergeCMSFile('content-types.json')
   mergeCMSFile('sections.json')
@@ -269,29 +269,25 @@ function createNodeModulesSymbolicLink() {
 }
 
 export async function generate(options?: GenerateOptions) {
-  const { setup = false, test = false } = options ?? {}
+  const { setup = false } = options ?? {}
 
   let setupPromise: Promise<unknown> | null = null
-
-  if (test) {
-    return copyCypressFiles()
-  }
 
   if (setup) {
     setupPromise = Promise.all([
       createTmpFolder(),
       copyCoreFiles(),
       copyCypressFiles(),
+      copyPublicFiles(),
       createNodeModulesSymbolicLink(),
     ])
   }
 
   await Promise.all([
     setupPromise,
-    copyUserSrcToCustomizations(),
+    copyUserStarterToCustomizations(),
     copyTheme(),
     createCmsWebhookUrlsJsonFile(),
     mergeCMSFiles(),
-    copyStoreConfig(),
   ])
 }

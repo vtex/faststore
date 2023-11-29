@@ -20,6 +20,8 @@ import {
 } from '@faststore/ui'
 
 import CarouselUsage from 'site/components/Carousel/CarouselUsage'
+import CarouselSimpleUsage from 'site/components/Carousel/CarouselSimpleUsage'
+
 import { products } from 'site/mocks/products'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 
@@ -56,10 +58,6 @@ Slides through multiple elements using custom controls.
 
 </header>
 
-We recommend using Carousel when displaying at least 10 items.
-
----
-
 ## Import
 
 Import the component from [@faststore/ui](/../components)
@@ -79,52 +77,116 @@ import '@faststore/ui/src/components/molecules/Carousel/styles.scss'
 ## Usage
 
 <Callout type="warning" emoji="⚠️">
-  This component is a work in progress, so it might work as expected in some
-  cases, we gratefully accept feedback.
+ This component is a work in progress, and in some cases, it may not perform as expected.
 </Callout>
 
-For the mobile preview, please refresh the browser after resize it.
+#### Default
 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
-    <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselUsage /></OverviewSection>
+  `itemsPerPage = 1`
+    <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselSimpleUsage itemsPerPage={1}/></OverviewSection>
+  </Tab>
+  <Tab>
+    ```css
+    //  Styles of colored items example (ignore this if you're replacing it)
+    .carouselItem {
+      width: 100%;
+      height: 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--fs-text-size-3);
+      font-weight: var(--fs-text-weight-bold);
+      background: var(--fs-color-accent-1);
+    }
+    ```
+    ```tsx
+    <Carousel
+      itemsPerPage={1}
+      variant="scroll"
+    >
+     {[...Array(10)].map((_, index) => (
+        <div key={index} className={styles.carouselItem}>
+          {index + 1}
+        </div>
+      ))}
+    </Carousel>
+    ```
+  </Tab>
+</Tabs>
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+  `itemsPerPage = 5`
+    <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselSimpleUsage /></OverviewSection>
   </Tab>
   <Tab>
     ```tsx
     const isMobile = window.innerWidth <= 768
-
     <Carousel
-      itemsPerPage={isMobile ? 1 : 3}
+      itemsPerPage={isMobile ? 1 : 5}
       variant="scroll"
-      infiniteMode={false}
     >
-      {products.map(({ product }, idx) => (
-        <ProductCard key={idx}>
-          <ProductCardImage>
-            <img
-              data-fs-image
-              src={product.image[0].url}
-              alt={product.image[0].alternateName}
-            />
-          </ProductCardImage>
-          <ProductCardContent
-            title={product.isVariantOf.name}
-            price={{
-              value: product.offers.offers[0].price,
-              listPrice: product.offers.offers[0].listPrice,
-              formatter: useFormattedPrice,
-            }}
-          />
-        </ProductCard>
+     {[...Array(10)].map((_, index) => (
+        <div key={index} className={styles.carouselItem}>
+          {index + 1}
+        </div>
       ))}
     </Carousel>
-
     ```
-
   </Tab>
 </Tabs>
 
----
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+  `itemsPerPage = 10`
+    <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselSimpleUsage itemsPerPage={10}/></OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const isMobile = window.innerWidth <= 768
+    <Carousel
+      itemsPerPage={isMobile ? 1 : 10}
+      itemsPerPage={10}
+      variant="scroll"
+    >
+     {[...Array(10)].map((_, index) => (
+        <div key={index} className={styles.carouselItem}>
+          {index + 1}
+        </div>
+      ))}
+    </Carousel>
+    ```
+  </Tab>
+</Tabs>
+
+#### Infinite Scroll Mode
+
+<Callout type="warning" emoji="⚠️">
+  This mode is only supported given the following props setup: `itemsPerPage={1}`, `variant="slide"` and `infiniteMode={true}`
+</Callout>
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselSimpleUsage itemsPerPage={1} infiniteMode={true} variant='slide'/></OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Carousel
+      itemsPerPage={1}
+      variant="slide"
+      infiniteMode={true}
+    >
+     {[...Array(10)].map((_, index) => (
+        <div key={index} className={styles.carouselItem}>
+          {index + 1}
+        </div>
+      ))}
+    </Carousel>
+    ```
+  </Tab>
+</Tabs>
 
 ## Props
 
@@ -154,9 +216,6 @@ For the mobile preview, please refresh the browser after resize it.
 #### Item
 
 <TokenTable>
-  <TokenRow token="--fs-carousel-item-width-mobile" value="60%" />
-  <TokenRow token="--fs-carousel-item-width-tablet" value="14.2rem" />
-  <TokenRow token="--fs-carousel-item-width-desktop" value="14.4rem" />
   <TokenRow
     token="--fs-carousel-item-margin-right"
     value="var(--fs-spacing-3)"
@@ -280,18 +339,107 @@ For further customization, you can use the following data attributes:
 
 ---
 
+## Use Cases
+
+### Using `ProductCard` component
+
+For the mobile preview, please refresh the browser after resizing it.
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+  `itemsPerPage = 3`
+    <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselUsage /></OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const isMobile = window.innerWidth <= 768
+
+    <Carousel
+      itemsPerPage={isMobile ? 1 : 3}
+      variant="scroll"
+      infiniteMode={false}
+    >
+      {products.map(({ product }, idx) => (
+        <ProductCard key={idx}>
+          <ProductCardImage>
+            <img
+              data-fs-image
+              src={product.image[0].url}
+              alt={product.image[0].alternateName}
+            />
+          </ProductCardImage>
+          <ProductCardContent
+            title={product.isVariantOf.name}
+            price={{
+              value: product.offers.offers[0].price,
+              listPrice: product.offers.offers[0].listPrice,
+              formatter: useFormattedPrice,
+            }}
+          />
+        </ProductCard>
+      ))}
+    </Carousel>
+
+    ```
+
+  </Tab>
+</Tabs>
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+  `itemsPerPage = 8`
+    <OverviewSection style={{ width: '100%', overflow: 'hidden' }}><CarouselUsage itemsPerPage={8}/></OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    const isMobile = window.innerWidth <= 768
+
+    <Carousel
+      itemsPerPage={isMobile ? 1 : 8}
+      variant="scroll"
+      infiniteMode={false}
+    >
+      {products.map(({ product }, idx) => (
+        <ProductCard key={idx}>
+          <ProductCardImage>
+            <img
+              data-fs-image
+              src={product.image[0].url}
+              alt={product.image[0].alternateName}
+            />
+          </ProductCardImage>
+          <ProductCardContent
+            title={product.isVariantOf.name}
+            price={{
+              value: product.offers.offers[0].price,
+              listPrice: product.offers.offers[0].listPrice,
+              formatter: useFormattedPrice,
+            }}
+          />
+        </ProductCard>
+      ))}
+    </Carousel>
+    ```
+  </Tab>
+</Tabs>
+
+<Callout type="warning" emoji="⚠️">
+Considering the component structure placed inside the `Carousel`, determine the ideal `itemsPerPage` number to accommodate the items and achieve the desired UI properly.
+</Callout>
+
+---
+
 ## Best Practices
 
 ### ✅ Do's
 
-- Always use more than 1 item per page so then the component keeps the proposed navigation behavior for both versions (mobile and desktop).
-- We recommend using Carousel when displaying at least 10 items.
-- Keep the controls (`navigationArrows` & `paginationBullets`) visible. It's important to let people in slider control to move the items.
+- We recommend using Carousel when the total of items being displayed is at least 10 items.
+- Choose an `itemsPerPage` value that effectively accommodates the items within the slide without compromising the UI. Consider proposing different values for mobile and desktop.
+- Maintain the visibility of the controls (`navigationArrows` & `paginationBullets`) to ensure that users can easily navigate through the slider. On desktop, these controls are displayed on `hover`, allowing for intuitive item selection.
 
 ### ❌ Don'ts
 
-- Avoid using it when display 1 or 2 items.
-- Don't exaggerate the number of items. You can combine it, providing an alternate navigation path like a `See More` button to a collection.
+- Don't exaggerate the number of items according to the item's width. You can combine it, providing an alternate navigation path like a `See More` button to a collection. Also, make sure to check how they look in different screens.
 
 ---
 
@@ -307,7 +455,7 @@ For further customization, you can use the following data attributes:
     <ProductShelf>
       <ProductShelfItems>
         {products.map(({ product }, idx) => (
-          <ProductShelfItem>
+          <ProductShelfItem key={idx}>
             <ProductCard>
               <ProductCardImage>
                 <img

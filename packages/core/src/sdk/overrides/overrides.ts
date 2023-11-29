@@ -1,20 +1,19 @@
 import type {
   DefaultSectionComponentsDefinitions,
   ComponentOverrideDefinition,
-  Merge,
-} from 'src/typings/overrideDefinitionUtils'
+  SectionOverrideDefinition,
+  OverriddenComponents,
+} from '../../typings/overridesDefinition'
 
-import type { SectionOverride } from 'src/typings/overrides'
+import type { SectionsOverrides } from '../../typings/overrides'
 
-export type GetSectionOverridesReturn<SO extends SectionOverride> = {
-  [Key in keyof SO['components']]: Merge<SO['components'][Key]>
-}
-
-export function getSectionOverrides<SO extends SectionOverride>(
-  defaultComponents: DefaultSectionComponentsDefinitions<SO>,
-  override: SO
-): GetSectionOverridesReturn<SO> {
-  const overriddenComponents = {} as GetSectionOverridesReturn<SO>
+export function getSectionOverrides<
+  SectionName extends keyof SectionsOverrides
+>(
+  defaultComponents: DefaultSectionComponentsDefinitions<SectionName>,
+  override: SectionOverrideDefinition<SectionName>
+): OverriddenComponents<SectionName> {
+  const overriddenComponents = {} as OverriddenComponents<SectionName>
 
   Object.entries(defaultComponents).forEach(([key, value]) => {
     const componentOverride:

@@ -2,8 +2,8 @@ import { Command } from '@oclif/core'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
 
-import { getRoot, tmpDir } from '../utils/directory'
 import { generate } from '../utils/generate'
+import { getRoot, tmpDir } from '../utils/directory'
 
 /**
  * Taken from toolbelt
@@ -29,7 +29,7 @@ const defaultIgnored = [
 const testAbortController = new AbortController()
 
 async function storeTest() {
-  const testProcess = spawn('yarn test', {
+  const testProcess = spawn('yarn test:e2e', {
     shell: true,
     cwd: tmpDir,
     signal: testAbortController.signal,
@@ -59,7 +59,7 @@ export default class Test extends Command {
       watcher.close()
     })
 
-    await generate({ test: true })
+    await generate({ setup: true })
 
     storeTest()
 

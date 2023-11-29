@@ -6,7 +6,7 @@ import type {
   UIEvent,
   AriaAttributes,
 } from 'react'
-import React, { useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import type { SwipeableProps } from 'react-swipeable'
 
 import { Icon, IconButton } from '../..'
@@ -88,7 +88,7 @@ function Carousel({
   children,
   className,
   'aria-label': ariaLabel,
-  infiniteMode = true,
+  infiniteMode = false,
   controls = 'complete',
   testId = 'fs-carousel',
   transition = {
@@ -96,11 +96,15 @@ function Carousel({
     property: 'transform',
   },
   id = 'fs-carousel',
-  variant = 'slide',
+  variant = 'scroll',
   itemsPerPage = 1,
   navigationIcons = undefined,
   ...swipeableConfigOverrides
 }: PropsWithChildren<CarouselProps>) {
+  if (itemsPerPage < 1) {
+    throw new Error('itemsPerPage must be greater than or equal to 1')
+  }
+
   const carouselTrackRef = useRef<HTMLUListElement>(null)
   const isSlideCarousel = variant === 'slide'
   const isScrollCarousel = variant === 'scroll'
@@ -120,6 +124,21 @@ function Carousel({
   })
 
   const pagesCount = Math.ceil(childrenCount / sliderState.itemsPerPage)
+
+  const [marginRight, setMarginRight] = useState('16px')
+  const [carouselItemsWidth, setCarouselItemsWidth] = useState(0)
+
+  useEffect(() => {
+    const item = carouselTrackRef.current?.firstElementChild
+
+    if (item) {
+      setMarginRight(getComputedStyle(item).getPropertyValue('margin-right'))
+
+      setCarouselItemsWidth(
+        Number(item.clientWidth) + parseInt(marginRight, 10) + 1
+      )
+    }
+  }, [carouselItemsWidth])
 
   const showNavigationArrows =
     pagesCount !== 1 &&
@@ -251,16 +270,7 @@ function Carousel({
       return
     }
 
-    let scrollOffset
-    const carouselItemsWidth = Number(
-      carouselTrackRef.current?.firstElementChild?.clientWidth
-    )
-
-    if (itemsPerPage > 1) {
-      scrollOffset = index * carouselItemsWidth * itemsPerPage
-    } else {
-      scrollOffset = index * carouselItemsWidth - carouselItemsWidth * 0.125
-    }
+    let scrollOffset = index * carouselItemsWidth * itemsPerPage
 
     carouselTrackRef.current?.scrollTo({
       left: scrollOffset,
@@ -305,6 +315,7 @@ function Carousel({
     <section
       id={id}
       data-fs-carousel
+      data-fs-carousel-variant={variant}
       className={className}
       data-testid={testId}
       aria-label={ariaLabel}
@@ -335,6 +346,7 @@ function Carousel({
               totalItems={childrenCount}
               infiniteMode={infiniteMode}
               isScrollCarousel={isScrollCarousel}
+              marginRightValue={marginRight}
             >
               {currentSlide}
             </CarouselItem>
@@ -347,6 +359,7 @@ function Carousel({
           <IconButton
             data-fs-carousel-control="left"
             aria-controls={id}
+            disabled={!infiniteMode && sliderState.currentPage === 0}
             aria-label="previous"
             icon={
               navigationIcons?.left ?? (
@@ -362,6 +375,10 @@ function Carousel({
           <IconButton
             data-fs-carousel-control="right"
             aria-controls={id}
+            disabled={
+              !infiniteMode &&
+              sliderState.currentPage === sliderState.totalPages - 1
+            }
             aria-label="next"
             icon={
               navigationIcons?.right ?? (

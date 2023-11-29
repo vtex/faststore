@@ -104,7 +104,7 @@ import '@faststore/ui/src/components/organisms/ProductShelf/styles.scss'
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection containerStyle={{ justifyContent: 'center' }}>
-      <ProductShelfUsage items={6}/>
+      <ProductShelfUsage items={6} id="shelf-example-1"/>
     </OverviewSection>
   </Tab>
   <Tab>
@@ -112,7 +112,7 @@ import '@faststore/ui/src/components/organisms/ProductShelf/styles.scss'
       <ProductShelf>
         <ProductShelfItems>
           {products.map(({ product }, idx) => (
-            <ProductShelfItem>
+            <ProductShelfItem key={idx}>
               <ProductCard>
                 <ProductCardImage>
                   <img
@@ -189,7 +189,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection containerStyle={{ justifyContent: 'center' }}>
-      <ProductShelfUsage withButton items={4}/>
+      <ProductShelfUsage withButton items={4} id="shelf-example-2"/>
     </OverviewSection>
 
   </Tab>
@@ -198,7 +198,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
       <ProductShelf>
         <ProductShelfItems>
           {products.map(({ product }, idx) => (
-            <ProductShelfItem>
+            <ProductShelfItem key={idx}>
               <ProductCard>
                 <ProductCardImage>
                   <img
@@ -231,7 +231,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection containerStyle={{ justifyContent: 'center' }}>
-     <ProductShelfUsage bordered items={4}/>
+     <ProductShelfUsage bordered items={4} id="shelf-example-3"/>
     </OverviewSection>
 
   </Tab>
@@ -241,7 +241,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
         <ProductShelfItems>
           {products.map(({ product }, idx) => (
             <ProductShelfItem>
-              <ProductCard bordered>
+              <ProductCard bordered key={idx}>
                 <ProductCardImage>
                   <img
                     data-fs-image
@@ -272,7 +272,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection containerStyle={{ justifyContent: 'center' }}>
-      <ProductShelfUsage aspectRatio={3/4}/>
+      <ProductShelfUsage aspectRatio={3/4} id="shelf-example-4"/>
     </OverviewSection>
 
   </Tab>
@@ -281,7 +281,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
       <ProductShelf>
         <ProductShelfItems>
           {products.map(({ product }, idx) => (
-            <ProductShelfItem>
+            <ProductShelfItem key={idx}>
               <ProductCard>
                 <ProductCardImage aspectRatio={3 / 4}>
                   <img
@@ -329,7 +329,7 @@ You can use [ProductCard variants](/components/molecules/product-card#variants) 
             infiniteMode={false}
           >
           {products.map(({ product }, idx) => (
-            <ProductCard>
+            <ProductCard key={idx}>
               <ProductCardImage aspectRatio={3 / 4}>
                 <img
                   data-fs-image

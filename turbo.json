@@ -1,17 +1,34 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["OCLIF_COMPILATION", "NODE_ENV", "DISABLE_3P_SCRIPTS"],
+  "globalEnv": [
+    "OCLIF_COMPILATION",
+    "NODE_ENV",
+    "DISABLE_3P_SCRIPTS"
+  ],
   "pipeline": {
     "site#build": {
-      "dependsOn": ["^build", "$BASE_SITE_URL"],
-      "outputs": [".next/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "env": [
+        "BASE_SITE_URL"
+      ],
+      "outputs": [
+        ".next/**"
+      ]
     },
     "build": {
-      "outputs": ["dist/**"],
-      "dependsOn": ["^build"]
+      "outputs": [
+        "dist/**"
+      ],
+      "dependsOn": [
+        "^build"
+      ]
     },
     "test": {
-      "dependsOn": ["^build"],
+      "dependsOn": [
+        "^build"
+      ],
       "outputs": []
     },
     "lint": {
@@ -21,6 +38,11 @@
     "size": {},
     "dev": {
       "cache": false
+    },
+    "@faststore/core#dev": {
+      "dependsOn": [
+        "@faststore/api#build"
+      ]
     }
   }
 }

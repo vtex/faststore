@@ -17,12 +17,14 @@ export interface ProductShelfUsageProps {
   bordered?: boolean
   aspectRatio?: number
   items?: number
+  id?: string
 }
 
 const ProductShelfUsage = ({
   withButton,
   bordered,
   aspectRatio,
+  id = 'shelf-example-0',
   items = 10,
 }: ProductShelfUsageProps) => {
   const productsArray = items ? products.slice(0, items) : products
@@ -31,7 +33,7 @@ const ProductShelfUsage = ({
     <ProductShelf>
       <ProductShelfItems>
         {productsArray.map(({ product }, idx) => (
-          <ProductShelfItem key={idx}>
+          <ProductShelfItem key={`${id}-${idx}}`}>
             <ProductCard bordered={bordered}>
               <ProductCardImage aspectRatio={aspectRatio}>
                 <img

@@ -20,6 +20,7 @@ export type HeroProps = {
   link?: {
     text: string
     url: string
+    linkTargetBlank: boolean
   }
   image: {
     src: string
@@ -61,6 +62,7 @@ const Hero = ({
           subtitle={subtitle}
           link={link?.url}
           linkText={link?.text}
+          linkTargetBlank={link?.linkTargetBlank}
           icon={icon}
           {...HeroHeader.props}
         />

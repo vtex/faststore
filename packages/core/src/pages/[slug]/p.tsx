@@ -12,10 +12,11 @@ import type {
 } from '@generated/graphql'
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
+import BannerText from 'src/components/sections/BannerText'
 import Breadcrumb from 'src/components/sections/Breadcrumb'
 import CrossSellingShelf from 'src/components/sections/CrossSellingShelf'
 import ProductDetails from 'src/components/sections/ProductDetails'
-import CUSTOM_COMPONENTS from 'src/customizations/components'
+import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { useSession } from 'src/sdk/session'
 import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
@@ -39,6 +40,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductDetails,
   CrossSellingShelf,
   BannerNewsletter,
+  BannerText,
   ...CUSTOM_COMPONENTS,
 }
 
@@ -252,7 +254,7 @@ export const getStaticProps: GetStaticProps<
       meta,
       offers,
       globalSections,
-      key: slug,
+      key: seo.canonical,
     },
   }
 }

@@ -1,8 +1,9 @@
 {
   "name": "@faststore/eslint-config",
-  "version": "2.2.0",
+  "version": "2.2.38",
   "main": "index.js",
   "license": "MIT",
+  "repository": "vtex/faststore",
   "dependencies": {
     "eslint": "7.32.0",
     "eslint-config-next": "13.0.0",

@@ -22,6 +22,10 @@ export interface BannerTextContentProps extends HTMLAttributes<HTMLDivElement> {
    */
   linkText: string
   /**
+   * Specify if the link opens in a new tab.
+   */
+  linkTargetBlank?: boolean
+  /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
@@ -35,6 +39,7 @@ const BannerTextContent = forwardRef<HTMLDivElement, BannerTextContentProps>(
       caption,
       link,
       linkText,
+      linkTargetBlank,
       ...otherProps
     },
     ref
@@ -61,6 +66,7 @@ const BannerTextContent = forwardRef<HTMLDivElement, BannerTextContentProps>(
           variant={variant}
           inverse={colorVariant === 'main'}
           aria-label={linkText}
+          target={linkTargetBlank ? '_blank' : undefined}
         >
           {linkText}
         </LinkButton>

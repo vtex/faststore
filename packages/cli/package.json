@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "2.2.0",
+  "version": "2.2.38",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "bin": {
@@ -22,18 +22,15 @@
     "@oclif/plugin-not-found": "^2.3.3",
     "chalk": "~4.1.2",
     "chokidar": "^3.5.3",
-    "deepmerge": "^4.2.2",
     "fs-extra": "^10.1.0",
-    "path": "^0.12.7",
-    "stringify-object": "^3.3.0"
+    "path": "^0.12.7"
   },
   "devDependencies": {
-    "@faststore/eslint-config": "^2.2.0",
-    "@faststore/shared": "^2.2.0",
+    "@faststore/eslint-config": "^2.2.38",
+    "@faststore/shared": "^2.2.38",
     "@types/chai": "^4",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^16.11.63",
-    "@types/stringify-object": "^3.3.0",
     "chai": "^4",
     "eslint": "7.32.0",
     "oclif": "^3",

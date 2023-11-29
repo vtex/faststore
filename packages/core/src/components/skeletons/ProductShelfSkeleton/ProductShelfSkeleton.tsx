@@ -6,24 +6,24 @@ import {
   ProductShelf as UIProductShelf,
 } from '@faststore/ui'
 
-import { ITEMS_PER_SECTION } from 'src/constants'
-
 import ProductCardSkeleton from '../ProductCardSkeleton'
 
 interface Props {
   loading?: boolean
   aspectRatio?: number
+  itemsPerPage?: number
 }
 
 function ProductShelfSkeleton({
   children,
   aspectRatio,
+  itemsPerPage,
   loading = true,
 }: PropsWithChildren<Props>) {
   return loading ? (
     <UIProductShelf data-fs-product-shelf-skeleton>
       <ProductShelfItems>
-        {Array.from({ length: ITEMS_PER_SECTION }, (_, index) => (
+        {Array.from({ length: itemsPerPage }, (_, index) => (
           <ProductShelfItem key={String(index)}>
             <ProductCardSkeleton aspectRatio={aspectRatio} sectioned bordered />
           </ProductShelfItem>

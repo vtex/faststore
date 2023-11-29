@@ -24,7 +24,7 @@ export const removeFacet = (facets: Facet[], facet: Facet): Facet[] => {
     throw new SDKError(`Cannot remove ${value} from search params`)
   }
 
-  return facets.filter((_, it) => it === 0 || it !== index)
+  return facets.filter((_, it) => it !== index)
 }
 
 export const setFacet = (
