@@ -1,12 +1,13 @@
 import fetch from 'isomorphic-unfetch'
 import packageJson from '../../../../package.json'
+import type { Context } from '../index'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
 
 export const fetchAPI = async (
   info: RequestInfo,
+  ctx: Context,
   init?: RequestInit,
-  getHeaders?: (headers: Headers) => void
 ) => {
   const response = await fetch(info, {
     ...init,
@@ -17,9 +18,7 @@ export const fetchAPI = async (
   })
 
   if (response.ok) {
-    if (getHeaders) {
-      getHeaders(response.headers)
-    }
+    ctx.storage.cookies = response.headers?.get('set-cookie') ?? ''
 
     return response.status !== 204 ? response.json() : undefined
   }

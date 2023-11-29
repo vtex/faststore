@@ -19,7 +19,6 @@ import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import { DeliveryMode, SelectedAddress } from './types/ShippingData'
-import getCookieByName from '../../../../utils/get-cookie-by-name'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -28,18 +27,6 @@ const BASE_INIT = {
   headers: {
     'content-type': 'application/json',
   },
-}
-
-const setCheckoutOrderFormOwnershipCookie = (
-  headers: Headers,
-  ctx: Context
-) => {
-  if (headers) {
-    ctx.storage.cookies = `CheckoutOrderFormOwnership=${getCookieByName(
-      'CheckoutOrderFormOwnership',
-      headers.get('set-cookie') ?? ''
-    )}`
-  }
 }
 
 export const VtexCommerce = (
@@ -51,18 +38,24 @@ export const VtexCommerce = (
   return {
     catalog: {
       salesChannel: (sc: string): Promise<SalesChannel> =>
-        fetchAPI(`${base}/api/catalog_system/pub/saleschannel/${sc}`),
+        fetchAPI(`${base}/api/catalog_system/pub/saleschannel/${sc}`, ctx),
       brand: {
         list: (): Promise<Brand[]> =>
-          fetchAPI(`${base}/api/catalog_system/pub/brand/list`),
+          fetchAPI(`${base}/api/catalog_system/pub/brand/list`, ctx),
       },
       category: {
         tree: (depth = 3): Promise<CategoryTree[]> =>
-          fetchAPI(`${base}/api/catalog_system/pub/category/tree/${depth}`),
+          fetchAPI(
+            `${base}/api/catalog_system/pub/category/tree/${depth}`,
+            ctx
+          ),
       },
       portal: {
         pagetype: (slug: string): Promise<PortalPagetype> =>
-          fetchAPI(`${base}/api/catalog_system/pub/portal/pagetype/${slug}`),
+          fetchAPI(
+            `${base}/api/catalog_system/pub/portal/pagetype/${slug}`,
+            ctx
+          ),
       },
       products: {
         crossselling: ({
@@ -80,7 +73,8 @@ export const VtexCommerce = (
           })
 
           return fetchAPI(
-            `${base}/api/catalog_system/pub/products/crossselling/${type}/${productId}?${params}`
+            `${base}/api/catalog_system/pub/products/crossselling/${type}/${productId}?${params}`,
+            ctx
           )
         },
       },
@@ -96,6 +90,7 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForms/simulation?${params.toString()}`,
+          ctx,
           {
             ...BASE_INIT,
             body: JSON.stringify(args),
@@ -136,6 +131,7 @@ export const VtexCommerce = (
         }
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
+          ctx,
           {
             ...BASE_INIT,
             body: JSON.stringify(mappedBody),
@@ -143,8 +139,7 @@ export const VtexCommerce = (
               'content-type': 'application/json',
               cookie: ctx.headers.cookie,
             },
-          },
-          (headers) => setCheckoutOrderFormOwnershipCookie(headers, ctx)
+          }
         )
       },
 
@@ -174,14 +169,15 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
-          requestInit,
-          (headers) => setCheckoutOrderFormOwnershipCookie(headers, ctx)
+          ctx,
+          requestInit
         )
       },
 
       clearOrderFormMessages: ({ id }: { id: string }) => {
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/messages/clear`,
+          ctx,
           {
             ...BASE_INIT,
             body: '{}',
@@ -231,6 +227,7 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
+          ctx,
           {
             ...requestInit,
             body: JSON.stringify({
@@ -238,8 +235,7 @@ export const VtexCommerce = (
               noSplitItem: !shouldSplitItem,
             }),
             method: 'PATCH',
-          },
-          (headers) => setCheckoutOrderFormOwnershipCookie(headers, ctx)
+          }
         )
       },
       setCustomData: ({
@@ -255,12 +251,12 @@ export const VtexCommerce = (
       }): Promise<OrderForm> => {
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/customData/${appId}/${key}`,
+          ctx,
           {
             ...BASE_INIT,
             body: JSON.stringify({ value }),
             method: 'PUT',
-          },
-          (headers) => setCheckoutOrderFormOwnershipCookie(headers, ctx)
+          }
         )
       },
       region: async ({
@@ -282,14 +278,15 @@ export const VtexCommerce = (
             )
 
         const url = `${base}/api/checkout/pub/regions/?${params.toString()}`
-        return fetchAPI(url)
+        return fetchAPI(url, ctx)
       },
       address: async ({
         postalCode,
         country,
       }: AddressInput): Promise<Address> => {
         return fetchAPI(
-          `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`
+          `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`,
+          ctx
         )
       },
     },
@@ -300,24 +297,20 @@ export const VtexCommerce = (
         'items',
         'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
-      return fetchAPI(
-        `${base}/api/sessions?${params.toString()}`,
-        {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-            cookie: ctx.headers.cookie,
-          },
-          body: '{}',
+      return fetchAPI(`${base}/api/sessions?${params.toString()}`, ctx, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          cookie: ctx.headers.cookie,
         },
-        (headers) => setCheckoutOrderFormOwnershipCookie(headers, ctx)
-      )
+        body: '{}',
+      })
     },
     subscribeToNewsletter: (data: {
       name: string
       email: string
     }): Promise<MasterDataResponse> => {
-      return fetchAPI(`${base}/api/dataentities/NL/documents/`, {
+      return fetchAPI(`${base}/api/dataentities/NL/documents/`, ctx, {
         ...BASE_INIT,
         body: JSON.stringify({ ...data, isNewsletterOptIn: true }),
         method: 'PATCH',
