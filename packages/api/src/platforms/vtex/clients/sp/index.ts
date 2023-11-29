@@ -42,11 +42,11 @@ export type SearchEvent = {
   anonymous?: string
 }
 
-export const SP = ({ account }: Options, _: Context) => {
+export const SP = ({ account }: Options, ctx: Context) => {
   const base = `https://sp.vtex.com/event-api/v1/${account}/event`
 
   const sendEvent = (options: SearchEvent) => {
-    return fetchAPI(base, {
+    return fetchAPI(base, ctx, {
       method: 'POST',
       body: JSON.stringify({
         ...options,

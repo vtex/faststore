@@ -129,7 +129,8 @@ export const IntelligentSearch = (
       .join('/')
 
     return fetchAPI(
-      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
+      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
+      ctx
     )
   }
 
@@ -145,7 +146,8 @@ export const IntelligentSearch = (
     })
 
     return fetchAPI(
-      `${base}/_v/api/intelligent-search/search_suggestions?${params.toString()}`
+      `${base}/_v/api/intelligent-search/search_suggestions?${params.toString()}`,
+      ctx
     )
   }
 
@@ -155,7 +157,8 @@ export const IntelligentSearch = (
     })
 
     return fetchAPI(
-      `${base}/_v/api/intelligent-search/top_searches?${params.toString()}`
+      `${base}/_v/api/intelligent-search/top_searches?${params.toString()}`,
+      ctx
     )
   }
 
