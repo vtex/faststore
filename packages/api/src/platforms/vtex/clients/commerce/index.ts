@@ -19,6 +19,7 @@ import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import { DeliveryMode, SelectedAddress } from './types/ShippingData'
+import { setCookie } from '../../utils/cookies'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -34,27 +35,31 @@ export const VtexCommerce = (
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br`
+  const storeCookies = (headers: Headers) => setCookie(headers, ctx)
 
   return {
     catalog: {
       salesChannel: (sc: string): Promise<SalesChannel> =>
-        fetchAPI(`${base}/api/catalog_system/pub/saleschannel/${sc}`, ctx),
+        fetchAPI(
+          `${base}/api/catalog_system/pub/saleschannel/${sc}`,
+          storeCookies
+        ),
       brand: {
         list: (): Promise<Brand[]> =>
-          fetchAPI(`${base}/api/catalog_system/pub/brand/list`, ctx),
+          fetchAPI(`${base}/api/catalog_system/pub/brand/list`, storeCookies),
       },
       category: {
         tree: (depth = 3): Promise<CategoryTree[]> =>
           fetchAPI(
             `${base}/api/catalog_system/pub/category/tree/${depth}`,
-            ctx
+            storeCookies
           ),
       },
       portal: {
         pagetype: (slug: string): Promise<PortalPagetype> =>
           fetchAPI(
             `${base}/api/catalog_system/pub/portal/pagetype/${slug}`,
-            ctx
+            storeCookies
           ),
       },
       products: {
@@ -74,7 +79,7 @@ export const VtexCommerce = (
 
           return fetchAPI(
             `${base}/api/catalog_system/pub/products/crossselling/${type}/${productId}?${params}`,
-            ctx
+            storeCookies
           )
         },
       },
@@ -90,7 +95,7 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForms/simulation?${params.toString()}`,
-          ctx,
+          storeCookies,
           {
             ...BASE_INIT,
             body: JSON.stringify(args),
@@ -131,7 +136,7 @@ export const VtexCommerce = (
         }
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
-          ctx,
+          storeCookies,
           {
             ...BASE_INIT,
             body: JSON.stringify(mappedBody),
@@ -169,7 +174,7 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
-          ctx,
+          storeCookies,
           requestInit
         )
       },
@@ -177,7 +182,7 @@ export const VtexCommerce = (
       clearOrderFormMessages: ({ id }: { id: string }) => {
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/messages/clear`,
-          ctx,
+          storeCookies,
           {
             ...BASE_INIT,
             body: '{}',
@@ -227,7 +232,7 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
-          ctx,
+          storeCookies,
           {
             ...requestInit,
             body: JSON.stringify({
@@ -251,7 +256,7 @@ export const VtexCommerce = (
       }): Promise<OrderForm> => {
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/customData/${appId}/${key}`,
-          ctx,
+          storeCookies,
           {
             ...BASE_INIT,
             body: JSON.stringify({ value }),
@@ -278,7 +283,7 @@ export const VtexCommerce = (
             )
 
         const url = `${base}/api/checkout/pub/regions/?${params.toString()}`
-        return fetchAPI(url, ctx)
+        return fetchAPI(url, storeCookies)
       },
       address: async ({
         postalCode,
@@ -286,7 +291,7 @@ export const VtexCommerce = (
       }: AddressInput): Promise<Address> => {
         return fetchAPI(
           `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`,
-          ctx
+          storeCookies
         )
       },
     },
@@ -297,20 +302,24 @@ export const VtexCommerce = (
         'items',
         'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
-      return fetchAPI(`${base}/api/sessions?${params.toString()}`, ctx, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          cookie: ctx.headers.cookie,
-        },
-        body: '{}',
-      })
+      return fetchAPI(
+        `${base}/api/sessions?${params.toString()}`,
+        storeCookies,
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            cookie: ctx.headers.cookie,
+          },
+          body: '{}',
+        }
+      )
     },
     subscribeToNewsletter: (data: {
       name: string
       email: string
     }): Promise<MasterDataResponse> => {
-      return fetchAPI(`${base}/api/dataentities/NL/documents/`, ctx, {
+      return fetchAPI(`${base}/api/dataentities/NL/documents/`, storeCookies, {
         ...BASE_INIT,
         body: JSON.stringify({ ...data, isNewsletterOptIn: true }),
         method: 'PATCH',

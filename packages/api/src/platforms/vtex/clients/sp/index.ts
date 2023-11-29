@@ -4,6 +4,7 @@
  */
 import { fetchAPI } from '../fetch'
 import type { Options, Context } from '../../'
+import { setCookie } from '../../utils/cookies'
 
 const THIRTY_MINUTES_S = 30 * 60
 const ONE_YEAR_S = 365 * 24 * 3600
@@ -44,9 +45,10 @@ export type SearchEvent = {
 
 export const SP = ({ account }: Options, ctx: Context) => {
   const base = `https://sp.vtex.com/event-api/v1/${account}/event`
+  const storeCookies = (headers: Headers) => setCookie(headers, ctx)
 
   const sendEvent = (options: SearchEvent) => {
-    return fetchAPI(base, ctx, {
+    return fetchAPI(base, storeCookies, {
       method: 'POST',
       body: JSON.stringify({
         ...options,

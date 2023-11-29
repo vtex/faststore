@@ -93,7 +93,11 @@ function pickFetchAPICallResult(
 }
 
 jest.mock('../src/platforms/vtex/clients/fetch.ts', () => ({
-  fetchAPI: (info: RequestInfo, init?: RequestInit) => mockedFetch(info, init),
+  fetchAPI: (
+    info: RequestInfo,
+    storeCookies?: (headers: Headers) => void,
+    init?: RequestInit
+  ) => mockedFetch(info, storeCookies, init),
 }))
 
 const run = createRunner()
@@ -122,6 +126,7 @@ test('`collection` query', async () => {
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
+      expect.any(Function),
       fetchAPICall.init
     )
   })
@@ -143,6 +148,7 @@ test('`product` query', async () => {
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
+      expect.any(Function),
       fetchAPICall.init
     )
   })
@@ -172,6 +178,7 @@ test('`allCollections` query', async () => {
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
+      expect.any(Function),
       fetchAPICall.init
     )
   })
@@ -193,6 +200,7 @@ test('`allProducts` query', async () => {
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
+      expect.any(Function),
       fetchAPICall.init
     )
   })
@@ -218,6 +226,7 @@ test('`search` query', async () => {
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
+      expect.any(Function),
       fetchAPICall.init
     )
   })
@@ -239,6 +248,7 @@ test('`shipping` query', async () => {
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
+      expect.any(Function),
       fetchAPICall.init
     )
   })
@@ -260,6 +270,7 @@ test('`redirect` query', async () => {
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
+      expect.any(Function),
       fetchAPICall.init
     )
   })
@@ -280,6 +291,7 @@ test('`sellers` query', async () => {
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
+      expect.any(Function),
       fetchAPICall.init
     )
   })
