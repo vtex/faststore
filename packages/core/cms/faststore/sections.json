@@ -856,7 +856,7 @@
           "type": "integer",
           "title": "Number of items per page",
           "default": 5,
-          "description": "Number of items to display per page"
+          "description": "Number of items to display per page in carousel"
         },
         "after": {
           "type": "integer",
@@ -957,7 +957,7 @@
           "type": "integer",
           "title": "Number of items per page",
           "default": 5,
-          "description": "Number of items to display per page"
+          "description": "Number of items to display per page in carousel"
         },
         "kind": {
           "title": "Kind",
