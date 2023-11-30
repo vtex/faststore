@@ -47,7 +47,7 @@ function ProductShelf({
     showDiscountBadge = ProductCard.props.showDiscountBadge,
   } = {},
   numberOfItems,
-  itemsPerPage,
+  itemsPerPage = 5,
   ...otherProps
 }: ProductShelfProps) {
   const titleId = textToKebabCase(title)
@@ -57,7 +57,6 @@ function ProductShelf({
   const products = data?.search?.products
   const productEdges = products?.edges ?? []
   const aspectRatio = 1
-  const itemsPerPageValue = itemsPerPage ? itemsPerPage : 5
 
   const { sendViewItemListEvent } = useViewItemListEvent({
     products: productEdges,
@@ -84,12 +83,12 @@ function ProductShelf({
       <ProductShelfSkeleton
         aspectRatio={aspectRatio}
         loading={products === undefined}
-        itemsPerPage={itemsPerPageValue}
+        itemsPerPage={itemsPerPage}
       >
         <ProductShelfWrapper.Component {...ProductShelfWrapper.props}>
           <Carousel.Component
             id={titleId || id}
-            itemsPerPage={itemsPerPageValue}
+            itemsPerPage={itemsPerPage}
             {...Carousel.props}
           >
             {productEdges.map((product, idx) => (
