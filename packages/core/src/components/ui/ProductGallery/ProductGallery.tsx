@@ -91,7 +91,7 @@ function ProductGallery({
   useProductsPrefetch(prev ? prev.cursor : null)
   useProductsPrefetch(next ? next.cursor : null)
 
-  const hasFacets = Boolean(data?.search?.facets)
+  const hasFacetsLoaded = Boolean(data?.search?.facets)
   const hasProducts = Boolean(data?.search?.products)
 
   return (
@@ -111,8 +111,8 @@ function ProductGallery({
         data-fs-content="product-gallery"
       >
         <div data-fs-product-listing-filters>
-          <FilterSkeleton loading={!hasFacets}>
-            {hasFacets && facets?.length > 0 && (
+          <FilterSkeleton loading={!hasFacetsLoaded}>
+            {hasFacetsLoaded && facets?.length > 0 && (
               <Filter facets={facets} filter={filter} />
             )}
           </FilterSkeleton>
@@ -151,9 +151,9 @@ function ProductGallery({
             {...FilterButtonSkeleton.props}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
-            loading={!hasFacets}
+            loading={!hasFacetsLoaded}
           >
-            {hasFacets && facets?.length > 0 && (
+            {hasFacetsLoaded && facets?.length > 0 && (
               <MobileFilterButton.Component
                 variant="tertiary"
                 data-testid="open-filter-button"
