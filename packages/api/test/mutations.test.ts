@@ -73,9 +73,9 @@ function pickFetchAPICallResult(
 jest.mock('../src/platforms/vtex/clients/fetch.ts', () => ({
   fetchAPI: async (
     info: RequestInfo,
-    storeCookies?: (headers: Headers) => void,
-    init?: RequestInit
-  ) => mockedFetch(info, storeCookies, init),
+    init?: RequestInit,
+    storeCookies?: (headers: Headers) => void
+  ) => mockedFetch(info, init, storeCookies),
 }))
 
 const run = createRunner()
@@ -104,8 +104,8 @@ test('`validateCart` mutation should return `null` when a valid cart is passed',
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
-      expect.any(Function),
-      fetchAPICall.init
+      fetchAPICall.init,
+      expect.any(Function)
     )
   })
 
@@ -133,8 +133,8 @@ test('`validateCart` mutation should return the full order when an invalid cart 
     expect(mockedFetch).toHaveBeenNthCalledWith(
       index + 1,
       fetchAPICall.info,
-      expect.any(Function),
-      fetchAPICall.init
+      fetchAPICall.init,
+      expect.any(Function)
     )
   })
 
@@ -161,8 +161,8 @@ test('`validateCart` mutation should return new cart when etag is stale', async 
     expect(mockedFetch).toHaveBeenNthCalledWith(
       index + 1,
       fetchAPICall.info,
-      expect.any(Function),
-      fetchAPICall.init
+      fetchAPICall.init,
+      expect.any(Function)
     )
   })
 

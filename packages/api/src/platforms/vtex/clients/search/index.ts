@@ -132,6 +132,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
+      undefined,
       storeCookies
     )
   }
@@ -149,6 +150,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/search_suggestions?${params.toString()}`,
+      undefined,
       storeCookies
     )
   }
@@ -160,6 +162,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/top_searches?${params.toString()}`,
+      undefined,
       storeCookies
     )
   }

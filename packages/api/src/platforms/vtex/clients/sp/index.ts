@@ -48,18 +48,22 @@ export const SP = ({ account }: Options, ctx: Context) => {
   const storeCookies = (headers: Headers) => setCookie(headers, ctx)
 
   const sendEvent = (options: SearchEvent) => {
-    return fetchAPI(base, storeCookies, {
-      method: 'POST',
-      body: JSON.stringify({
-        ...options,
-        agent: '@faststore/api',
-        anonymous: user.anonymous(), // 'zZlNhqz1vFJP6iPG5Oqtt'
-        session: user.session(), // 'Om1TNluGvgmSgU5OOTvkkd'
-      }),
-      headers: {
-        'content-type': 'application/json',
+    return fetchAPI(
+      base,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          ...options,
+          agent: '@faststore/api',
+          anonymous: user.anonymous(), // 'zZlNhqz1vFJP6iPG5Oqtt'
+          session: user.session(), // 'Om1TNluGvgmSgU5OOTvkkd'
+        }),
+        headers: {
+          'content-type': 'application/json',
+        },
       },
-    })
+      storeCookies
+    )
   }
 
   return {

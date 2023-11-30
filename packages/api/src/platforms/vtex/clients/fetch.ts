@@ -5,8 +5,8 @@ const USER_AGENT = `${packageJson.name}@${packageJson.version}`
 
 export const fetchAPI = async (
   info: RequestInfo,
-  storeCookies?: (headers: Headers) => void,
   init?: RequestInit,
+  storeCookies?: (headers: Headers) => void
 ) => {
   const response = await fetch(info, {
     ...init,
