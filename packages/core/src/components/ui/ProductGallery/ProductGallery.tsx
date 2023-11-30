@@ -91,8 +91,8 @@ function ProductGallery({
   useProductsPrefetch(prev ? prev.cursor : null)
   useProductsPrefetch(next ? next.cursor : null)
 
-  const hasFacets =
-    Boolean(data?.search?.facets) && data.search.facets.length > 0
+  const hasFacetsLoaded = Boolean(data?.search?.facets)
+  const hasProductsLoaded = Boolean(data?.search?.products)
 
   return (
     <section data-testid="product-gallery" data-fs-product-listing>
@@ -111,8 +111,10 @@ function ProductGallery({
         data-fs-content="product-gallery"
       >
         <div data-fs-product-listing-filters>
-          <FilterSkeleton loading={facets?.length === 0}>
-            <Filter facets={facets} filter={filter} />
+          <FilterSkeleton loading={!hasFacetsLoaded}>
+            {hasFacetsLoaded && facets?.length > 0 && (
+              <Filter facets={facets} filter={filter} />
+            )}
           </FilterSkeleton>
         </div>
         <div data-fs-product-listing-results-count data-count={totalCount}>
@@ -122,7 +124,7 @@ function ProductGallery({
             {...ResultsCountSkeleton.props}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
-            loading={!data?.search}
+            loading={!hasProductsLoaded}
           >
             <h2 data-testid="total-product-count">
               {totalCount} {totalCountLabel}
@@ -136,7 +138,7 @@ function ProductGallery({
             {...SortSkeleton.props}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
-            loading={facets?.length === 0}
+            loading={!hasProductsLoaded}
           >
             <Sort
               label={sortBySelector?.label}
@@ -149,34 +151,36 @@ function ProductGallery({
             {...FilterButtonSkeleton.props}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
-            loading={facets?.length === 0}
+            loading={!hasFacetsLoaded}
           >
-            <MobileFilterButton.Component
-              variant="tertiary"
-              data-testid="open-filter-button"
-              icon={
-                <FilterIcon.Component
-                  width={16}
-                  height={16}
-                  {...FilterIcon.props}
-                  name={
-                    filter?.mobileOnly?.filterButton?.icon?.icon ??
-                    FilterIcon.props.name
-                  }
-                  aria-label={
-                    filter?.mobileOnly?.filterButton?.icon?.alt ??
-                    FilterIcon.props['aria-label']
-                  }
-                />
-              }
-              iconPosition="left"
-              {...MobileFilterButton.props}
-              // Dynamic props shouldn't be overridable
-              // This decision can be reviewed later if needed
-              onClick={openFilter}
-            >
-              {filter?.mobileOnly?.filterButton?.label}
-            </MobileFilterButton.Component>
+            {hasFacetsLoaded && facets?.length > 0 && (
+              <MobileFilterButton.Component
+                variant="tertiary"
+                data-testid="open-filter-button"
+                icon={
+                  <FilterIcon.Component
+                    width={16}
+                    height={16}
+                    {...FilterIcon.props}
+                    name={
+                      filter?.mobileOnly?.filterButton?.icon?.icon ??
+                      FilterIcon.props.name
+                    }
+                    aria-label={
+                      filter?.mobileOnly?.filterButton?.icon?.alt ??
+                      FilterIcon.props['aria-label']
+                    }
+                  />
+                }
+                iconPosition="left"
+                {...MobileFilterButton.props}
+                // Dynamic props shouldn't be overridable
+                // This decision can be reviewed later if needed
+                onClick={openFilter}
+              >
+                {filter?.mobileOnly?.filterButton?.label}
+              </MobileFilterButton.Component>
+            )}
           </FilterButtonSkeleton.Component>
         </div>
         <div data-fs-product-listing-results>
@@ -219,7 +223,7 @@ function ProductGallery({
             </div>
           )}
           {/* Render ALL products */}
-          {hasFacets ? (
+          {hasProductsLoaded ? (
             <Suspense fallback={GalleryPageSkeleton}>
               {pages.map((page) => (
                 <ProductGalleryPage
