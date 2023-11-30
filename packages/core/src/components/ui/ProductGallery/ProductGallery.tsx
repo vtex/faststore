@@ -92,7 +92,7 @@ function ProductGallery({
   useProductsPrefetch(next ? next.cursor : null)
 
   const hasFacetsLoaded = Boolean(data?.search?.facets)
-  const hasProducts = Boolean(data?.search?.products)
+  const hasProductsLoaded = Boolean(data?.search?.products)
 
   return (
     <section data-testid="product-gallery" data-fs-product-listing>
@@ -124,7 +124,7 @@ function ProductGallery({
             {...ResultsCountSkeleton.props}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
-            loading={!hasProducts}
+            loading={!hasProductsLoaded}
           >
             <h2 data-testid="total-product-count">
               {totalCount} {totalCountLabel}
@@ -138,7 +138,7 @@ function ProductGallery({
             {...SortSkeleton.props}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
-            loading={!hasProducts}
+            loading={!hasProductsLoaded}
           >
             <Sort
               label={sortBySelector?.label}
@@ -223,7 +223,7 @@ function ProductGallery({
             </div>
           )}
           {/* Render ALL products */}
-          {hasProducts ? (
+          {hasProductsLoaded ? (
             <Suspense fallback={GalleryPageSkeleton}>
               {pages.map((page) => (
                 <ProductGalleryPage
