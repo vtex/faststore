@@ -46,7 +46,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const skus = productSearchResult.products
       .map((product) => {
-        const [maybeSku] = product.items
+        const maybeSku = pickBestSku(product.items)
 
         return maybeSku && enhanceSku(maybeSku, product)
       })
