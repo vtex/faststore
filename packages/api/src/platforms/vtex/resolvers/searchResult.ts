@@ -3,6 +3,7 @@ import type { Resolver } from '..'
 import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
 import { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
+import { inStock } from '../utils/productStock'
 
 export type Root = {
   searchArgs: Omit<SearchArgs, 'type'>
@@ -45,7 +46,9 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const skus = productSearchResult.products
       .map((product) => {
-        const [maybeSku] = product.items
+        const maybeSku = product.items.find((item) =>
+          item.sellers.some((item) => inStock(item.commertialOffer))
+        )
 
         return maybeSku && enhanceSku(maybeSku, product)
       })
@@ -63,7 +66,9 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const skus = productSearchResult.products
       .map((product) => {
-        const [maybeSku] = product.items
+        const maybeSku = product.items.find((item) =>
+          item.sellers.some((item) => inStock(item.commertialOffer))
+        )
 
         return maybeSku && enhanceSku(maybeSku, product)
       })
