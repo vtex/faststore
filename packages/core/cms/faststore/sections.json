@@ -852,6 +852,12 @@
           "default": 5,
           "description": "Total number of items. The quantity may be smaller if the query returns fewer products."
         },
+        "itemsPerPage": {
+          "type": "integer",
+          "title": "Number of items per page",
+          "default": 5,
+          "description": "Number of items to display per page in carousel"
+        },
         "after": {
           "type": "integer",
           "title": "After",
@@ -946,6 +952,12 @@
           "type": "integer",
           "default": 5,
           "description": "Total number of items. The quantity may be smaller if the query returns fewer products."
+        },
+        "itemsPerPage": {
+          "type": "integer",
+          "title": "Number of items per page",
+          "default": 5,
+          "description": "Number of items to display per page in carousel"
         },
         "kind": {
           "title": "Kind",
