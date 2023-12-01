@@ -78,6 +78,7 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
     <GlobalSections {...globalSections}>
       {/* SEO */}
       <NextSeo
+        robotsProps={{}}
         title={meta.title}
         description={meta.description}
         canonical={meta.canonical}

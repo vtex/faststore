@@ -91,5 +91,6 @@ module.exports = {
   experimental: {
     cypressVersion: 12,
     enableCypressExtension: false,
+    noRobots: false,
   },
 }

@@ -11,6 +11,8 @@ import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
 
+import storeConfig from '../../faststore.config'
+
 import { DefaultSeo } from 'next-seo'
 
 function App({ Component, pageProps }: AppProps) {
@@ -22,7 +24,7 @@ function App({ Component, pageProps }: AppProps) {
         options={{ showSpinner: false }}
       />
 
-      <DefaultSeo norobots={true} />
+      <DefaultSeo norobots={storeConfig.experimental.noRobots} />
 
       <AnalyticsHandler />
 
