@@ -214,9 +214,13 @@ export const getStaticProps: GetStaticProps<
 
   const { data, errors = [] } = searchResult
 
+  const hasPrice = data?.product?.offers.offers.some(
+    (offer) => offer.price !== 0
+  )
+
   const notFound = errors.find(isNotFoundError)
 
-  if (notFound) {
+  if (notFound || !hasPrice) {
     return {
       notFound: true,
     }
