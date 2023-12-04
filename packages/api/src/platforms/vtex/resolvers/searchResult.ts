@@ -46,6 +46,8 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const skus = productSearchResult.products
       .map((product) => {
+        // What determines the presentation of the SKU is the price order
+        // https://help.vtex.com/pt/tutorial/ordenando-imagens-na-vitrine-e-na-pagina-de-produto--tutorials_278
         const maybeSku = pickBestSku(product.items)
 
         return maybeSku && enhanceSku(maybeSku, product)
@@ -64,6 +66,8 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const skus = productSearchResult.products
       .map((product) => {
+        // What determines the presentation of the SKU is the price order
+        // https://help.vtex.com/pt/tutorial/ordenando-imagens-na-vitrine-e-na-pagina-de-produto--tutorials_278
         const maybeSku = pickBestSku(product.items)
 
         return maybeSku && enhanceSku(maybeSku, product)
