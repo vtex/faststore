@@ -19,7 +19,7 @@ import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import { DeliveryMode, SelectedAddress } from './types/ShippingData'
-import { setCookie } from '../../utils/cookies'
+import { getStoreCookie } from '../../utils/cookies'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -35,7 +35,7 @@ export const VtexCommerce = (
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br`
-  const storeCookies = (headers: Headers) => setCookie(headers, ctx)
+  const storeCookies = getStoreCookie(ctx)
 
   return {
     catalog: {
@@ -43,22 +43,20 @@ export const VtexCommerce = (
         fetchAPI(
           `${base}/api/catalog_system/pub/saleschannel/${sc}`,
           undefined,
-          storeCookies
+          { storeCookies }
         ),
       brand: {
         list: (): Promise<Brand[]> =>
-          fetchAPI(
-            `${base}/api/catalog_system/pub/brand/list`,
-            undefined,
-            storeCookies
-          ),
+          fetchAPI(`${base}/api/catalog_system/pub/brand/list`, undefined, {
+            storeCookies,
+          }),
       },
       category: {
         tree: (depth = 3): Promise<CategoryTree[]> =>
           fetchAPI(
             `${base}/api/catalog_system/pub/category/tree/${depth}`,
             undefined,
-            storeCookies
+            { storeCookies }
           ),
       },
       portal: {
@@ -66,7 +64,7 @@ export const VtexCommerce = (
           fetchAPI(
             `${base}/api/catalog_system/pub/portal/pagetype/${slug}`,
             undefined,
-            storeCookies
+            { storeCookies }
           ),
       },
       products: {
@@ -87,7 +85,7 @@ export const VtexCommerce = (
           return fetchAPI(
             `${base}/api/catalog_system/pub/products/crossselling/${type}/${productId}?${params}`,
             undefined,
-            storeCookies
+            { storeCookies }
           )
         },
       },
@@ -107,7 +105,7 @@ export const VtexCommerce = (
             ...BASE_INIT,
             body: JSON.stringify(args),
           },
-          storeCookies
+          { storeCookies }
         )
       },
 
@@ -152,7 +150,7 @@ export const VtexCommerce = (
               cookie: ctx.headers.cookie,
             },
           },
-          storeCookies
+          { storeCookies }
         )
       },
 
@@ -183,7 +181,7 @@ export const VtexCommerce = (
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
           requestInit,
-          storeCookies
+          { storeCookies }
         )
       },
 
@@ -194,7 +192,7 @@ export const VtexCommerce = (
             ...BASE_INIT,
             body: '{}',
           },
-          storeCookies
+          { storeCookies }
         )
       },
 
@@ -248,7 +246,7 @@ export const VtexCommerce = (
             }),
             method: 'PATCH',
           },
-          storeCookies
+          { storeCookies }
         )
       },
       setCustomData: ({
@@ -269,7 +267,7 @@ export const VtexCommerce = (
             body: JSON.stringify({ value }),
             method: 'PUT',
           },
-          storeCookies
+          { storeCookies }
         )
       },
       region: async ({
@@ -291,7 +289,7 @@ export const VtexCommerce = (
             )
 
         const url = `${base}/api/checkout/pub/regions/?${params.toString()}`
-        return fetchAPI(url, undefined, storeCookies)
+        return fetchAPI(url, undefined, { storeCookies })
       },
       address: async ({
         postalCode,
@@ -300,7 +298,7 @@ export const VtexCommerce = (
         return fetchAPI(
           `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`,
           undefined,
-          storeCookies
+          { storeCookies }
         )
       },
     },
@@ -321,7 +319,7 @@ export const VtexCommerce = (
           },
           body: '{}',
         },
-        storeCookies
+        { storeCookies }
       )
     },
     subscribeToNewsletter: (data: {
@@ -335,7 +333,7 @@ export const VtexCommerce = (
           body: JSON.stringify({ ...data, isNewsletterOptIn: true }),
           method: 'PATCH',
         },
-        storeCookies
+        { storeCookies }
       )
     },
   }

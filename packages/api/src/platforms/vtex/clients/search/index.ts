@@ -11,7 +11,7 @@ import type {
   ProductSearchResult,
   Suggestion,
 } from './types/ProductSearchResult'
-import { setCookie } from '../../utils/cookies'
+import { getStoreCookie } from '../../utils/cookies'
 
 export type Sort =
   | 'price:desc'
@@ -52,7 +52,7 @@ export const IntelligentSearch = (
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br/api/io`
-  const storeCookies = (headers: Headers) => setCookie(headers, ctx)
+  const storeCookies = getStoreCookie(ctx)
 
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
     const { salesChannel } = ctx.storage.channel
@@ -133,7 +133,7 @@ export const IntelligentSearch = (
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
       undefined,
-      storeCookies
+      { storeCookies }
     )
   }
 
@@ -151,7 +151,7 @@ export const IntelligentSearch = (
     return fetchAPI(
       `${base}/_v/api/intelligent-search/search_suggestions?${params.toString()}`,
       undefined,
-      storeCookies
+      { storeCookies }
     )
   }
 
@@ -163,7 +163,7 @@ export const IntelligentSearch = (
     return fetchAPI(
       `${base}/_v/api/intelligent-search/top_searches?${params.toString()}`,
       undefined,
-      storeCookies
+      { storeCookies }
     )
   }
 

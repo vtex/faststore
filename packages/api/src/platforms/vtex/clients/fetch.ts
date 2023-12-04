@@ -3,22 +3,26 @@ import packageJson from '../../../../package.json'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
 
+interface FetchAPIOptions {
+  storeCookies?: (headers: Headers) => void
+}
+
 export const fetchAPI = async (
   info: RequestInfo,
   init?: RequestInit,
-  storeCookies?: (headers: Headers) => void
+  options?: FetchAPIOptions
 ) => {
   const response = await fetch(info, {
     ...init,
     headers: {
-      ...init?.headers,
+      ...(init?.headers ?? {}),
       'User-Agent': USER_AGENT,
     },
   })
 
   if (response.ok) {
-    if (storeCookies) {
-      storeCookies(response.headers)
+    if (options?.storeCookies) {
+      options.storeCookies(response.headers)
     }
 
     return response.status !== 204 ? response.json() : undefined
