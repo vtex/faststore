@@ -46,9 +46,10 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const skus = productSearchResult.products
       .map((product) => {
-        const maybeSku = product.items.find((item) =>
-          item.sellers.some((item) => inStock(item.commertialOffer))
-        )
+        const maybeSku =
+          product.items.find((item) =>
+            item.sellers.some((item) => inStock(item.commertialOffer))
+          ) ?? product.items[0]
 
         return maybeSku && enhanceSku(maybeSku, product)
       })
@@ -66,9 +67,10 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const skus = productSearchResult.products
       .map((product) => {
-        const maybeSku = product.items.find((item) =>
-          item.sellers.some((item) => inStock(item.commertialOffer))
-        )
+        const maybeSku =
+          product.items.find((item) =>
+            item.sellers.some((item) => inStock(item.commertialOffer))
+          ) ?? product.items[0]
 
         return maybeSku && enhanceSku(maybeSku, product)
       })
