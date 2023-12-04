@@ -3,7 +3,7 @@ import type { Resolver } from '..'
 import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
 import { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
-import { inStock } from '../utils/productStock'
+import { pickBestSku } from '../utils/sku'
 
 type Root = {
   searchArgs: Omit<SearchArgs, 'type'>
@@ -41,7 +41,9 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const skus = productSearchResult.products
       .map((product) => {
-        const [maybeSku] = product.items
+        // What determines the presentation of the SKU is the price order
+        // https://help.vtex.com/pt/tutorial/ordenando-imagens-na-vitrine-e-na-pagina-de-produto--tutorials_278
+        const maybeSku = pickBestSku(product.items)
 
         return maybeSku && enhanceSku(maybeSku, product)
       })
@@ -59,9 +61,9 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const skus = productSearchResult.products
       .map((product) => {
-        const maybeSku = product.items.find((item) =>
-          item.sellers.some((item) => inStock(item.commertialOffer))
-        )
+        // What determines the presentation of the SKU is the price order
+        // https://help.vtex.com/pt/tutorial/ordenando-imagens-na-vitrine-e-na-pagina-de-produto--tutorials_278
+        const maybeSku = pickBestSku(product.items)
 
         return maybeSku && enhanceSku(maybeSku, product)
       })
