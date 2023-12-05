@@ -96,8 +96,8 @@ jest.mock('../src/platforms/vtex/clients/fetch.ts', () => ({
   fetchAPI: (
     info: RequestInfo,
     init?: RequestInit,
-    storeCookies?: (headers: Headers) => void
-  ) => mockedFetch(info, init, storeCookies),
+    options?: { storeCookies?: (headers: Headers) => void }
+  ) => mockedFetch(info, init, options),
 }))
 
 const run = createRunner()
@@ -127,7 +127,7 @@ test('`collection` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      expect.any(Function)
+      { storeCookies: expect.any(Function) }
     )
   })
 
@@ -149,7 +149,8 @@ test('`product` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      expect.any(Function)
+
+      { storeCookies: expect.any(Function) }
     )
   })
 
@@ -179,7 +180,8 @@ test('`allCollections` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      expect.any(Function)
+
+      { storeCookies: expect.any(Function) }
     )
   })
 
@@ -201,7 +203,8 @@ test('`allProducts` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      expect.any(Function)
+
+      { storeCookies: expect.any(Function) }
     )
   })
 
@@ -227,7 +230,8 @@ test('`search` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      expect.any(Function)
+
+      { storeCookies: expect.any(Function) }
     )
   })
 
@@ -249,7 +253,8 @@ test('`shipping` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      expect.any(Function)
+
+      { storeCookies: expect.any(Function) }
     )
   })
 
@@ -271,7 +276,8 @@ test('`redirect` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      expect.any(Function)
+
+      { storeCookies: expect.any(Function) }
     )
   })
   expect(response).toMatchSnapshot()
@@ -292,7 +298,8 @@ test('`sellers` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      expect.any(Function)
+
+      { storeCookies: expect.any(Function) }
     )
   })
   expect(response).toMatchSnapshot()
