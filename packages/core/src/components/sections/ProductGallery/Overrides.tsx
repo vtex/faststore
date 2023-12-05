@@ -9,6 +9,9 @@ import {
 import ProductCard from 'src/components/product/ProductCard'
 import FilterDesktop from 'src/components/search/Filter/FilterDesktop'
 
+const EmptyGalleryUI = lazy(
+  () => import('src/components/sections/ProductGallery'))
+
 const FilterSlider = lazy(
   () => import('src/components/search/Filter/FilterSlider')
 )
@@ -26,6 +29,7 @@ const {
   FilterButtonSkeleton,
   LinkButtonPrev,
   LinkButtonNext,
+  EmptyGallery,
   __experimentalFilterDesktop,
   __experimentalFilterSlider,
   __experimentalProductCard,
@@ -39,6 +43,7 @@ const {
     FilterButtonSkeleton: UISkeleton,
     LinkButtonPrev: UILinkButton,
     LinkButtonNext: UILinkButton,
+    EmptyGallery: EmptyGalleryUI,
     __experimentalFilterDesktop: FilterDesktop,
     __experimentalFilterSlider: FilterSlider,
     __experimentalProductCard: ProductCard,
@@ -55,6 +60,7 @@ export {
   FilterButtonSkeleton,
   LinkButtonPrev,
   LinkButtonNext,
+  EmptyGallery,
   __experimentalFilterDesktop,
   __experimentalFilterSlider,
   __experimentalProductCard,
