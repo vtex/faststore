@@ -67,6 +67,19 @@ export interface ProductGalleryProps {
   }
   sortBySelector?: SortProps
   productCard?: Pick<ProductCardProps, 'showDiscountBadge' | 'bordered'>
+  emptyGallery?: {
+    title?: string
+    topButton?: {
+      text: string
+      href: string
+      iconName: string
+    }
+    lowerButton?: {
+      text: string
+      href: string
+      iconName: string
+    }
+  }
 }
 
 function ProductGallery({

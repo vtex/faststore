@@ -204,7 +204,6 @@ export type SectionsOverrides = {
       LinkButtonProps,
       Omit<LinkButtonProps, 'onClick' | 'href'>
     >
-    EmptyGallery: ComponentOverrideDefinition<any, any>
     __experimentalFilterDesktop: ComponentOverrideDefinition<any, any>
     __experimentalFilterSlider: ComponentOverrideDefinition<any, any>
     __experimentalProductCard: ComponentOverrideDefinition<any, any>

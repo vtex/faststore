@@ -3,22 +3,24 @@ import {
   LinkButton as UILinkButton,
   EmptyState as UIEmptyState,
 } from '@faststore/ui'
+import { ProductGalleryProps } from 'src/components/ui/ProductGallery/ProductGallery'
 
-function EmptyGallery() {
+function EmptyGallery({ emptyGallery }: ProductGalleryProps) {
+  const { title, topButton, lowerButton } = emptyGallery
   return (
     <UIEmptyState
       variant="rounded"
-      title="Nothing matches with your search"
+      title={title}
       titleIcon={
         <UIIcon name="CircleWavyWarning" width={56} height={56} weight="thin" />
       }
     >
       <UILinkButton
-        href="/office"
+        href={topButton.href}
         variant="secondary"
         icon={
           <UIIcon
-            name="CircleWavyWarning"
+            name={topButton.iconName}
             width={18}
             height={18}
             weight="bold"
@@ -26,17 +28,17 @@ function EmptyGallery() {
         }
         iconPosition="left"
       >
-        Browse Offers
+        {topButton.text}
       </UILinkButton>
       <UILinkButton
-        href="/technology"
+        href={lowerButton.href}
         variant="secondary"
         icon={
-          <UIIcon name="RocketLaunch" width={18} height={18} weight="bold" />
+          <UIIcon name={lowerButton.iconName} width={18} height={18} weight="bold" />
         }
         iconPosition="left"
       >
-        Just Arrived
+        {lowerButton.text}
       </UILinkButton>
     </UIEmptyState>
   )

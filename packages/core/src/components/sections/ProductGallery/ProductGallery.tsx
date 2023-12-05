@@ -23,6 +23,7 @@ export interface ProductGallerySectionProps {
   loadMorePageButton?: ProductGalleryProps['loadMorePageButton']
   sortBySelector?: ProductGalleryProps['sortBySelector']
   productCard?: ProductGalleryProps['productCard']
+  emptyGalery?: ProductGalleryProps['emptyGallery']
 }
 
 function ProductGallerySection({ ...otherProps }: ProductGallerySectionProps) {
@@ -39,7 +40,7 @@ function ProductGallerySection({ ...otherProps }: ProductGallerySectionProps) {
     return (
       <Section className={`${styles.section} section-product-gallery`}>
         <section data-testid="product-gallery" data-fs-product-listing>
-          <EmptyGallery />
+          <EmptyGallery {...otherProps}/>
         </section>
       </Section>
     )
