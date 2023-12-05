@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.12.48 (2023-12-05)
+
+### Chores
+
+- pickBestSku instead of first sku in suggestions query ([#2145](https://github.com/vtex/faststore/issues/2145)) ([c30bd51](https://github.com/vtex/faststore/commit/c30bd51e9710830cdb5b5a58901195845a9582f6))
+
 ## 1.12.43 (2023-05-26)
 
 ### Features

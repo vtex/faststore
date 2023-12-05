@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.12.48 (2023-12-05)
+
+### Chores
+
+- attempts to update lerna according to existing tags ([#2147](https://github.com/vtex/faststore/issues/2147)) ([213fde5](https://github.com/vtex/faststore/commit/213fde5baf752f81a7f618371faa2519e243f840))
+- pickBestSku instead of first sku in suggestions query ([#2145](https://github.com/vtex/faststore/issues/2145)) ([c30bd51](https://github.com/vtex/faststore/commit/c30bd51e9710830cdb5b5a58901195845a9582f6))
+
 ## [1.12.46](https://github.com/vtex/faststore/compare/v1.12.45...v1.12.46) (2023-09-12)
 
 **Note:** Version bump only for package faststore
