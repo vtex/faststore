@@ -8,7 +8,7 @@
 </h1>
 <p align="center">
   <strong>
-    Connect to your favorite ecommerce platform
+    Connect to your favorite ecommerce platform.
   </strong>
 </p>
 
