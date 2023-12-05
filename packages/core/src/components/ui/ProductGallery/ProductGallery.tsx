@@ -69,12 +69,12 @@ export interface ProductGalleryProps {
   productCard?: Pick<ProductCardProps, 'showDiscountBadge' | 'bordered'>
   emptyGallery?: {
     title?: string
-    topButton?: {
+    firstButton?: {
       text: string
       href: string
       iconName: string
     }
-    lowerButton?: {
+    secondButton?: {
       text: string
       href: string
       iconName: string

@@ -1617,8 +1617,8 @@
               "type": "string",
               "default": "Nothing matches with your search"
             },
-            "topButton": {
-              "title": "Top Button",
+            "firstButton": {
+              "title": "First Button",
               "type": "object",
               "properties": {
                 "text": {
@@ -1638,8 +1638,8 @@
                 }
               }
             },
-            "lowerButton": {
-              "title": "Lower Button",
+            "secondButton": {
+              "title": "Second Button",
               "type": "object",
               "properties": {
                 "text": {

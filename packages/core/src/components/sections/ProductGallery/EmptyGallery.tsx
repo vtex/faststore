@@ -6,7 +6,7 @@ import {
 import { ProductGalleryProps } from 'src/components/ui/ProductGallery/ProductGallery'
 
 function EmptyGallery({ emptyGallery }: ProductGalleryProps) {
-  const { title, topButton, lowerButton } = emptyGallery
+  const { title, firstButton, secondButton } = emptyGallery
   return (
     <UIEmptyState
       variant="rounded"
@@ -16,11 +16,11 @@ function EmptyGallery({ emptyGallery }: ProductGalleryProps) {
       }
     >
       <UILinkButton
-        href={topButton.href}
+        href={firstButton.href}
         variant="secondary"
         icon={
           <UIIcon
-            name={topButton.iconName}
+            name={firstButton.iconName}
             width={18}
             height={18}
             weight="bold"
@@ -28,17 +28,17 @@ function EmptyGallery({ emptyGallery }: ProductGalleryProps) {
         }
         iconPosition="left"
       >
-        {topButton.text}
+        {firstButton.text}
       </UILinkButton>
       <UILinkButton
-        href={lowerButton.href}
+        href={secondButton.href}
         variant="secondary"
         icon={
-          <UIIcon name={lowerButton.iconName} width={18} height={18} weight="bold" />
+          <UIIcon name={secondButton.iconName} width={18} height={18} weight="bold" />
         }
         iconPosition="left"
       >
-        {lowerButton.text}
+        {secondButton.text}
       </UILinkButton>
     </UIEmptyState>
   )
