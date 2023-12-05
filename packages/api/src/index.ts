@@ -46,4 +46,4 @@ export const getSchema = async (options: Options) => {
 }
 
 export * from './platforms/vtex/resolvers/root'
-export { Resolver } from './platforms/vtex'
+export type { Resolver } from './platforms/vtex'

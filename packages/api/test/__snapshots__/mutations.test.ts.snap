@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`\`validateCart\` mutation should return new cart when etag is stale 1`] = `
-Object {
-  "data": Object {
-    "validateCart": Object {
-      "messages": Array [],
-      "order": Object {
-        "acceptedOffer": Array [
-          Object {
+{
+  "data": {
+    "validateCart": {
+      "messages": [],
+      "order": {
+        "acceptedOffer": [
+          {
             "availability": "https://schema.org/InStock",
             "itemCondition": "https://schema.org/NewCondition",
-            "itemOffered": Object {
+            "itemOffered": {
               "name": "plum",
             },
             "listPrice": 557.57,
             "price": 349.12,
             "priceCurrency": "USD",
             "quantity": 2,
-            "seller": Object {
+            "seller": {
               "identifier": "1",
             },
             "sellingPrice": 349.12,
@@ -31,23 +31,23 @@ Object {
 `;
 
 exports[`\`validateCart\` mutation should return the full order when an invalid cart is passed 1`] = `
-Object {
-  "data": Object {
-    "validateCart": Object {
-      "messages": Array [],
-      "order": Object {
-        "acceptedOffer": Array [
-          Object {
+{
+  "data": {
+    "validateCart": {
+      "messages": [],
+      "order": {
+        "acceptedOffer": [
+          {
             "availability": "https://schema.org/InStock",
             "itemCondition": "https://schema.org/NewCondition",
-            "itemOffered": Object {
+            "itemOffered": {
               "name": "plum",
             },
             "listPrice": 557.57,
             "price": 349.12,
             "priceCurrency": "USD",
             "quantity": 2,
-            "seller": Object {
+            "seller": {
               "identifier": "1",
             },
             "sellingPrice": 349.12,
