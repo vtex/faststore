@@ -21,8 +21,7 @@ function createOverriddenSection<
   sectionOverrides,
   className,
 }: {
-  /** This type wizardry is here because the props won't behave correctly if done directly: (typeof Sections)[SectionName] */
-  Section: ComponentType<ComponentProps<(typeof Sections)[SectionName]>>
+  Section: (typeof Sections)[SectionName]
   sectionOverrides: OverriddenComponents<SectionName>
   className?: string
 }) {
@@ -31,9 +30,12 @@ function createOverriddenSection<
   return function OverriddenSection(
     props: React.ComponentProps<typeof Section>
   ) {
+    /** This type wizardry is here because the props won't behave correctly nothing is done */
+    const SectionComponent = Section as ComponentType<typeof props>
+
     return (
       <OverrideProvider value={overrideContextValue}>
-        <Section {...props} />
+        <SectionComponent {...props} />
       </OverrideProvider>
     )
   }
