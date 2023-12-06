@@ -48,7 +48,7 @@
     "@graphql-tools/load-files": "^7.0.0",
     "@graphql-tools/merge": "^9.0.0",
     "@graphql-tools/utils": "^9.2.1",
-    "@types/react": "^18.0.14",
+    "@types/react": "^18.2.42",
     "@vtex/client-cms": "^0.2.12",
     "@vtex/prettier-config": "1.0.0",
     "autoprefixer": "^10.4.0",
