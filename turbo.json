@@ -39,10 +39,8 @@
     "dev": {
       "cache": false
     },
-    "@faststore/core#dev": {
-      "dependsOn": [
-        "@faststore/api#build"
-      ]
+    "dev:server": {
+      "cache": false
     }
   }
 }
