@@ -41,6 +41,12 @@
     },
     "dev:server": {
       "cache": false
+    },
+    "@faststore/api#dev:graphql": {
+    },
+    "@faststore/api#build:cjs": {
+    },
+    "@faststore/api#build:esm": {
     }
   }
 }
