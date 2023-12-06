@@ -4,11 +4,8 @@ import {
 } from '@faststore/ui'
 import { ReactNode } from 'react'
 import { Image } from 'src/components/ui/Image'
-import {
-  Hero as HeroWrapper,
-  HeroImage,
-  HeroHeader,
-} from 'src/components/sections/Hero/Overrides'
+
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 import Section from '../Section'
 
@@ -36,16 +33,22 @@ const Hero = ({
   title,
   subtitle,
   image,
-  variant = HeroWrapper.props.variant ?? 'primary',
-  colorVariant = HeroWrapper.props.colorVariant ?? 'main',
+  variant = 'primary',
+  colorVariant = 'main',
   icon,
 }: HeroProps) => {
+  const {
+    Hero: HeroWrapper,
+    HeroImage,
+    HeroHeader,
+  } = useOverrideComponents<'Hero'>()
+
   return (
     <Section className={`${styles.section} section-hero`}>
       <HeroWrapper.Component
         {...HeroWrapper.props}
-        variant={variant}
-        colorVariant={colorVariant}
+        variant={HeroWrapper.props.variant ?? variant}
+        colorVariant={HeroWrapper.props.colorVariant ?? colorVariant}
       >
         <HeroImage.Component {...HeroImage.props}>
           <Image
