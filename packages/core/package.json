@@ -120,6 +120,7 @@
     "workerDirectory": "public"
   },
   "volta": {
-    "extends": "../../package.json"
+    "node": "18.19.0",
+    "yarn": "1.19.1"
   }
 }
