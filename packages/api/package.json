@@ -18,11 +18,10 @@
       "default": "./dist/esm/src/index.js"
     }
   },
-  "browserslist": "node 12",
+  "browserslist": "node 18",
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   },
-  "type": "module",
   "scripts": {
     "dev": "concurrently \"yarn generate -w\" \"tsc --watch\" \"yarn dev:graphql\"",
     "dev:graphql": "nodemon --watch src --ext graphql --exec \"copyfiles \"src/**/*.graphql\" dist/esm\"",
