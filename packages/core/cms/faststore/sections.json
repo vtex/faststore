@@ -1613,7 +1613,7 @@
           "type": "object",
           "properties": {
             "title": {
-              "title": "Icon",
+              "title": "Title",
               "type": "string",
               "default": "Nothing matches with your search"
             },
@@ -1621,20 +1621,21 @@
               "title": "First Button",
               "type": "object",
               "properties": {
-                "text": {
+                "label": {
                   "type": "string",
-                  "title": "Top Button Text",
+                  "title": "Label",
                   "default": "Browse Offers"
                 },
-                "href": {
+                "url": {
                   "type": "string",
                   "title": "URL",
                   "default": "/office"
                 },
-                "iconName": {
-                  "title": "Icon Name",
+                "icon": {
+                  "title": "Icon",
                   "type": "string",
-                  "default": "CircleWavyWarning"
+                  "enumNames": ["Circle Wavy Warning"],
+                  "enum": ["CircleWavyWarning"]
                 }
               }
             },
@@ -1642,20 +1643,21 @@
               "title": "Second Button",
               "type": "object",
               "properties": {
-                "text": {
+                "label": {
                   "type": "string",
-                  "title": "Top Button Text",
+                  "title": "Label",
                   "default": "Just Arrived"
                 },
-                "href": {
+                "url": {
                   "type": "string",
                   "title": "URL",
                   "default": "/technology"
                 },
-                "iconName": {
-                  "title": "Icon Name",
+                "icon": {
+                  "title": "Icon",
                   "type": "string",
-                  "default": "RocketLaunch"
+                  "enumNames": ["Rocket Launch"],
+                  "enum": ["RocketLaunch"]
                 }
               }
             }
