@@ -16,11 +16,11 @@ function EmptyGallery({ emptyGallery }: ProductGalleryProps) {
       }
     >
       <UILinkButton
-        href={firstButton.href}
+        href={firstButton.url}
         variant="secondary"
         icon={
           <UIIcon
-            name={firstButton.iconName}
+            name={firstButton.icon}
             width={18}
             height={18}
             weight="bold"
@@ -28,17 +28,17 @@ function EmptyGallery({ emptyGallery }: ProductGalleryProps) {
         }
         iconPosition="left"
       >
-        {firstButton.text}
+        {firstButton.label}
       </UILinkButton>
       <UILinkButton
-        href={secondButton.href}
+        href={secondButton.url}
         variant="secondary"
         icon={
-          <UIIcon name={secondButton.iconName} width={18} height={18} weight="bold" />
+          <UIIcon name={secondButton.icon} width={18} height={18} weight="bold" />
         }
         iconPosition="left"
       >
-        {secondButton.text}
+        {secondButton.label}
       </UILinkButton>
     </UIEmptyState>
   )

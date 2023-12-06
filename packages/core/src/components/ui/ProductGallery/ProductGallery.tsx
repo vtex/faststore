@@ -70,14 +70,14 @@ export interface ProductGalleryProps {
   emptyGallery?: {
     title?: string
     firstButton?: {
-      text: string
-      href: string
-      iconName: string
+      label: string
+      url: string
+      icon: string
     }
     secondButton?: {
-      text: string
-      href: string
-      iconName: string
+      label: string
+      url: string
+      icon: string
     }
   }
 }

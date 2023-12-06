@@ -23,7 +23,7 @@ export interface ProductGallerySectionProps {
   loadMorePageButton?: ProductGalleryProps['loadMorePageButton']
   sortBySelector?: ProductGalleryProps['sortBySelector']
   productCard?: ProductGalleryProps['productCard']
-  emptyGalery?: ProductGalleryProps['emptyGallery']
+  emptyGallery?: ProductGalleryProps['emptyGallery']
 }
 
 function ProductGallerySection({ ...otherProps }: ProductGallerySectionProps) {
