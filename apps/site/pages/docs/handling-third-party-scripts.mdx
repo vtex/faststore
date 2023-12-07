@@ -11,12 +11,13 @@ import { Callout, Steps } from 'nextra-theme-docs'
 
 </header>
 
-In this guide, learn how to add a third-party scripts to FastStore projects.
+In this guide, learn how to add third-party scripts to FastStore projects.
 
-Third-party scripts are elements embedded in a webpage but served from a different domain than the one the user is visiting. 
-Examples of these scripts include social media buttons, video players, ads, analytics tools, and other elements that contribute to a more dynamic and interactive web experience.
+Third-party scripts are elements embedded in a webpage but served from a different domain than the one the user visits. 
+Examples of these scripts include social media buttons, video players, ads, analytics tools, and other elements contributing to a more dynamic and interactive web experience.
 
 ## Before you begin
+
 <Steps>
 
 ### Choose essential third-party scripts
@@ -25,7 +26,7 @@ by third-party scripts, consider incorporating only those third-party scripts th
 enhance the value of your website.
 
 ### Update the `@faststre/core` version
-Ensure your project is using `@faststore/core` version `2.1.82` or above. If not, follow these steps:
+Ensure your project uses `@faststore/core` version `2.1.82` or above. If not, follow these steps:
 To do this, do the following:
 1. Open the FastStore code project.
 2. Navigate to the `package.json` file.
@@ -34,9 +35,9 @@ To do this, do the following:
 
 ### Verify compatibility with Partytown
 
-FastStore uses [Partytown](https://partytown.builder.io/) for script execution and not all third-party scripts may be compatible with Partytown. 
+FastStore uses [Partytown](https://partytown.builder.io/) for script execution, and not all third-party scripts may be compatible with Partytown. 
 Test third-party scripts with Partytown before implementing them. 
-If any issues or experience occur, avoid using those particular scripts. 
+If any issues occur, avoid using those particular scripts. 
 Refer to the official Partytown documentation on [Common Services](https://partytown.builder.io/common-services) for compatibility details.
 
 </Steps>
@@ -45,7 +46,9 @@ Refer to the official Partytown documentation on [Common Services](https://party
 ## Step by step
 
 1. In your FastStore project, navigate to the `src` folder and create a folder named `scripts`.
+
 2. Within the `src/scripts` folder, create the `ThirdPartyScripts.tsx` file.
+
 3. In the `ThirdPartyScripts.tsx` file, add your script as the example below:
 
 ```tsx filename="src/scripts/ThirdPartyScripts.tsx" {7} copy
@@ -66,6 +69,7 @@ export default ThirdPartyScripts
 
 4. Run `yarn dev` in the terminal to start the development server and execute the script you have added. 
 
-5. Access the provided localhost URL in your browser, open the Developer Tools and go to the `Console` tab. You should be able to see the message: `🚀Hello from a third-party script!`:
+5. Access the provided localhost URL in your browser, open the Developer Tools, and go to the `Console` tab. You should be able to see the message: `🚀Hello from a third-party script!`:
+
 
 ![third-party-script-example](https://vtexhelp.vtexassets.com/assets/docs/src/third-party-scripts___2f9d925975b6217a5c3872ed96fc6bd7.png)
