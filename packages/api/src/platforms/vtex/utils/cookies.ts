@@ -1,7 +1,7 @@
 import type { Context } from '../index'
 
 export const setCookie = (headers: Headers, ctx: Context) => {
-  ctx.storage.cookies = headers?.getSetCookie() ?? []
+  headers.getSetCookie().forEach((cookie) => ctx.storage.cookies.add(cookie))
 }
 
 export const getStoreCookie = (ctx: Context) => (headers: Headers) =>

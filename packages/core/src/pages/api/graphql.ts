@@ -59,8 +59,8 @@ const handler: NextApiHandler = async (request, response) => {
         ? stringifyCacheControl(extensions.cacheControl)
         : 'no-cache, no-store'
 
-    if (extensions.cookies && !hasErrors) {
-      response.setHeader('set-cookie', extensions.cookies)
+    if (extensions.cookies.size > 0 && !hasErrors) {
+      response.setHeader('set-cookie', Array.from(extensions.cookies))
     }
 
     response.setHeader('cache-control', cacheControl)
