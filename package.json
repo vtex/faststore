@@ -30,5 +30,6 @@
     "node": "18.19.0",
     "yarn": "1.19.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "packageManager": "yarn@1.19.1"
 }
