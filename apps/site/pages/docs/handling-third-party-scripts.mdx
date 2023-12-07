@@ -7,29 +7,44 @@ import { Callout, Steps } from 'nextra-theme-docs'
 
 <header>
 
-# Handling Third-Party Scripts
+# Adding third-party scripts
 
 </header>
 
-<Callout type="warning" emoji="⚠️">
-  This documentation is currently under development.
-</Callout>
+In this guide, learn how to add a third-party scripts to FastStore projects.
 
-In this guide, learn how to add a third-party script to FastStore projects.
+Third-party scripts are elements embedded in a webpage but served from a different domain than the one the user is visiting. 
+Examples of these scripts include social media buttons, video players, ads, analytics tools, and other elements that contribute to a more dynamic and interactive web experience.
 
-Third-party scripts often refer to elements embedded in a webpage and served by a domain different from the one the user is visiting. These scripts can include social sharing buttons, video player embeds, ads, analytics, and other scripts that make the web more dynamic and interactive.
+## Before you begin
+<Steps>
 
-## Before you start
+### Choose essential third-party scripts
+To maintain your website's performance without compromising the functionality offered 
+by third-party scripts, consider incorporating only those third-party scripts that
+enhance the value of your website.
 
-- To maintain your website's performance without sacrificing the functionality offered by third-party scripts, consider incorporating only those third-party scripts that truly enhance the value of your website.
+### Update the `@faststre/core` version
+Ensure your project is using `@faststore/core` version `2.1.82` or above. If not, follow these steps:
+To do this, do the following:
+1. Open the FastStore code project.
+2. Navigate to the `package.json` file.
+3. Find the `@faststore/core` package and change its version to `2.1.82`. 
+4. In your terminal, run `yarn dev` to update the package in the project.
 
-- Ensure you are using `@faststore/core` version 2.1.82 or above. If not, upgrade it to the v2.1.82.
+### Verify compatibility with Partytown
 
+FastStore uses [Partytown](https://partytown.builder.io/) for script execution and not all third-party scripts may be compatible with Partytown. 
+Test third-party scripts with Partytown before implementing them. 
+If any issues or experience occur, avoid using those particular scripts. 
+Refer to the official Partytown documentation on [Common Services](https://partytown.builder.io/common-services) for compatibility details.
+
+</Steps>
 ---
 
 ## Step by step
 
-1. In your FastStore project, inside the `src` folder, create a folder named `scripts`.
+1. In your FastStore project, navigate to the `src` folder and create a folder named `scripts`.
 2. Within the `src/scripts` folder, create the `ThirdPartyScripts.tsx` file.
 3. In the `ThirdPartyScripts.tsx` file, add your script as the example below:
 
@@ -49,6 +64,8 @@ const ThirdPartyScripts = () => {
 export default ThirdPartyScripts
 ```
 
-4. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser and open the Terminal tab. You should be able to see the message: `🚀Hello from a third-party script!`:
+4. Run `yarn dev` in the terminal to start the development server and execute the script you have added. 
+
+5. Access the provided localhost URL in your browser, open the Developer Tools and go to the `Console` tab. You should be able to see the message: `🚀Hello from a third-party script!`:
 
 ![third-party-script-example](https://vtexhelp.vtexassets.com/assets/docs/src/third-party-scripts___2f9d925975b6217a5c3872ed96fc6bd7.png)
