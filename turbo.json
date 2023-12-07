@@ -33,16 +33,10 @@
     "lint": {},
     "start": {
       "outputs": [
-        "dist/**",
-        "build/**"
+        "dist/**"
       ]
     },
-    "size": {
-      "outputs": [
-        "dist/**",
-        "build/**"
-      ]
-    },
+    "size": {},
     "dev": {
       "cache": false
     },
@@ -51,20 +45,17 @@
     },
     "@faststore/api#dev:graphql": {
       "outputs": [
-        "dist/**",
-        "build/**"
+        "dist/**"
       ]
     },
     "@faststore/api#build:cjs": {
       "outputs": [
-        "dist/**",
-        "build/**"
+        "dist/**"
       ]
     },
     "@faststore/api#build:esm": {
       "outputs": [
-        "dist/**",
-        "build/**"
+        "dist/**"
       ]
     }
   }
