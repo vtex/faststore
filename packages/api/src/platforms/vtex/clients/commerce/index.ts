@@ -214,32 +214,13 @@ export const VtexCommerce = (
           sc: salesChannel,
         })
 
-        const items = JSON.stringify({
-          orderItems,
-          noSplitItem: !shouldSplitItem,
-        })
-
-        const requestInit: RequestInit = ctx.headers
-          ? {
-              headers: {
-                'content-type': 'application/json',
-                cookie: ctx.headers.cookie,
-              },
-              body: items,
-              method: 'PATCH',
-            }
-          : {
-              headers: {
-                'content-type': 'application/json',
-              },
-              body: items,
-              method: 'PATCH',
-            }
-
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
           {
-            ...requestInit,
+            headers: {
+              'content-type': 'application/json',
+              cookie: ctx.headers?.cookie,
+            },
             body: JSON.stringify({
               orderItems,
               noSplitItem: !shouldSplitItem,
