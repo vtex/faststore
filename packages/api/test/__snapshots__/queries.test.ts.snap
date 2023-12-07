@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`\`allCollections\` query 1`] = `
-Object {
-  "data": Object {
-    "allCollections": Object {
-      "edges": Array [
-        Object {
+{
+  "data": {
+    "allCollections": {
+      "edges": [
+        {
           "cursor": "0",
-          "node": Object {
-            "breadcrumbList": Object {
-              "itemListElement": Array [
-                Object {
+          "node": {
+            "breadcrumbList": {
+              "itemListElement": [
+                {
                   "item": "/brand",
                   "name": "Brand",
                   "position": 1,
@@ -19,15 +19,15 @@ Object {
               "numberOfItems": 1,
             },
             "id": "9280",
-            "meta": Object {
-              "selectedFacets": Array [
-                Object {
+            "meta": {
+              "selectedFacets": [
+                {
                   "key": "brand",
                   "value": "brand",
                 },
               ],
             },
-            "seo": Object {
+            "seo": {
               "canonical": "",
               "description": "Brand",
               "title": "Brand",
@@ -37,12 +37,12 @@ Object {
             "type": "Brand",
           },
         },
-        Object {
+        {
           "cursor": "1",
-          "node": Object {
-            "breadcrumbList": Object {
-              "itemListElement": Array [
-                Object {
+          "node": {
+            "breadcrumbList": {
+              "itemListElement": [
+                {
                   "item": "/skechers",
                   "name": "Skechers",
                   "position": 1,
@@ -51,15 +51,15 @@ Object {
               "numberOfItems": 1,
             },
             "id": "2000001",
-            "meta": Object {
-              "selectedFacets": Array [
-                Object {
+            "meta": {
+              "selectedFacets": [
+                {
                   "key": "brand",
                   "value": "skechers",
                 },
               ],
             },
-            "seo": Object {
+            "seo": {
               "canonical": "",
               "description": "Sport, casual, work, wide, kids' & performance shoes with style, comfort, innovation, quality & value.",
               "title": "Skechers",
@@ -69,12 +69,12 @@ Object {
             "type": "Brand",
           },
         },
-        Object {
+        {
           "cursor": "2",
-          "node": Object {
-            "breadcrumbList": Object {
-              "itemListElement": Array [
-                Object {
+          "node": {
+            "breadcrumbList": {
+              "itemListElement": [
+                {
                   "item": "/acer",
                   "name": "Acer",
                   "position": 1,
@@ -83,15 +83,15 @@ Object {
               "numberOfItems": 1,
             },
             "id": "2000002",
-            "meta": Object {
-              "selectedFacets": Array [
-                Object {
+            "meta": {
+              "selectedFacets": [
+                {
                   "key": "brand",
                   "value": "acer",
                 },
               ],
             },
-            "seo": Object {
+            "seo": {
               "canonical": "",
               "description": "Acer laptops, desktops as well as servers and storage, personal digital assistance (PDA), peripherals, peripherals and e-business services for government, business, education, and home users.",
               "title": "Acer",
@@ -101,12 +101,12 @@ Object {
             "type": "Brand",
           },
         },
-        Object {
+        {
           "cursor": "3",
-          "node": Object {
-            "breadcrumbList": Object {
-              "itemListElement": Array [
-                Object {
+          "node": {
+            "breadcrumbList": {
+              "itemListElement": [
+                {
                   "item": "/irobot",
                   "name": "iRobot",
                   "position": 1,
@@ -115,15 +115,15 @@ Object {
               "numberOfItems": 1,
             },
             "id": "2000003",
-            "meta": Object {
-              "selectedFacets": Array [
-                Object {
+            "meta": {
+              "selectedFacets": [
+                {
                   "key": "brand",
                   "value": "irobot",
                 },
               ],
             },
-            "seo": Object {
+            "seo": {
               "canonical": "",
               "description": "iRobot, the leading global consumer robot company, designs and builds robots that empower people to do more both inside and outside of the home.",
               "title": "iRobot",
@@ -133,12 +133,12 @@ Object {
             "type": "Brand",
           },
         },
-        Object {
+        {
           "cursor": "4",
-          "node": Object {
-            "breadcrumbList": Object {
-              "itemListElement": Array [
-                Object {
+          "node": {
+            "breadcrumbList": {
+              "itemListElement": [
+                {
                   "item": "/adidas",
                   "name": "adidas",
                   "position": 1,
@@ -147,15 +147,15 @@ Object {
               "numberOfItems": 1,
             },
             "id": "2000004",
-            "meta": Object {
-              "selectedFacets": Array [
-                Object {
+            "meta": {
+              "selectedFacets": [
+                {
                   "key": "brand",
                   "value": "adidas",
                 },
               ],
             },
-            "seo": Object {
+            "seo": {
               "canonical": "",
               "description": "adidas shoes, clothing and view new collections for adidas Originals, running, football, soccer, training and much more.",
               "title": "adidas",
@@ -166,7 +166,7 @@ Object {
           },
         },
       ],
-      "pageInfo": Object {
+      "pageInfo": {
         "endCursor": "4",
         "hasNextPage": true,
         "hasPreviousPage": false,
@@ -179,41 +179,41 @@ Object {
 `;
 
 exports[`\`allProducts\` query 1`] = `
-Object {
-  "data": Object {
-    "allProducts": Object {
-      "edges": Array [
-        Object {
+{
+  "data": {
+    "allProducts": {
+      "edges": [
+        {
           "cursor": "0",
-          "node": Object {
-            "description": "4k Philips Monitor 27\\"",
+          "node": {
+            "description": "4k Philips Monitor 27\"",
             "gtin": "1504",
-            "image": Array [
-              Object {
+            "image": [
+              {
                 "alternateName": "Monitor27",
                 "url": "https://storeframework.vtexassets.com/arquivos/ids/190903/unsplash-monitor.jpg?v=637800152494200000",
               },
             ],
-            "isVariantOf": Object {
-              "hasVariant": Array [
-                Object {
+            "isVariantOf": {
+              "hasVariant": [
+                {
                   "name": "Monitor 27",
                   "sku": "99988213",
                 },
               ],
-              "name": "4k Philips Monitor 27\\"",
+              "name": "4k Philips Monitor 27\"",
               "productGroupID": "99995946",
             },
             "name": "Monitor 27",
-            "offers": Object {
+            "offers": {
               "highPrice": 420,
               "lowPrice": 420,
               "offerCount": 1,
-              "offers": Array [
-                Object {
+              "offers": [
+                {
                   "availability": "https://schema.org/InStock",
                   "itemCondition": "https://schema.org/NewCondition",
-                  "itemOffered": Object {
+                  "itemOffered": {
                     "name": "Monitor 27",
                     "sku": "99988213",
                   },
@@ -221,7 +221,7 @@ Object {
                   "price": 420,
                   "priceCurrency": "USD",
                   "quantity": 10000,
-                  "seller": Object {
+                  "seller": {
                     "identifier": "1",
                   },
                   "sellingPrice": 420,
@@ -230,31 +230,31 @@ Object {
               "priceCurrency": "USD",
             },
             "productID": "99988213",
-            "review": Array [],
-            "seo": Object {
+            "review": [],
+            "seo": {
               "canonical": "/4k-philips-monitor/p",
-              "description": "4k Philips Monitor 27\\"",
-              "title": "4k Philips Monitor 27\\"",
+              "description": "4k Philips Monitor 27\"",
+              "title": "4k Philips Monitor 27\"",
               "titleTemplate": "",
             },
             "sku": "99988213",
             "slug": "4k-philips-monitor-99988213",
           },
         },
-        Object {
+        {
           "cursor": "1",
-          "node": Object {
+          "node": {
             "description": "Aedle VK-1 L Headphone",
             "gtin": "1502",
-            "image": Array [
-              Object {
+            "image": [
+              {
                 "alternateName": "aedleheadphone",
                 "url": "https://storeframework.vtexassets.com/arquivos/ids/190901/unsplash-headphone.jpg?v=637800115948430000",
               },
             ],
-            "isVariantOf": Object {
-              "hasVariant": Array [
-                Object {
+            "isVariantOf": {
+              "hasVariant": [
+                {
                   "name": "Leather",
                   "sku": "99988211",
                 },
@@ -263,15 +263,15 @@ Object {
               "productGroupID": "99995944",
             },
             "name": "Leather",
-            "offers": Object {
+            "offers": {
               "highPrice": 130,
               "lowPrice": 130,
               "offerCount": 1,
-              "offers": Array [
-                Object {
+              "offers": [
+                {
                   "availability": "https://schema.org/InStock",
                   "itemCondition": "https://schema.org/NewCondition",
-                  "itemOffered": Object {
+                  "itemOffered": {
                     "name": "Leather",
                     "sku": "99988211",
                   },
@@ -279,7 +279,7 @@ Object {
                   "price": 130,
                   "priceCurrency": "USD",
                   "quantity": 10000,
-                  "seller": Object {
+                  "seller": {
                     "identifier": "1",
                   },
                   "sellingPrice": 130,
@@ -288,8 +288,8 @@ Object {
               "priceCurrency": "USD",
             },
             "productID": "99988211",
-            "review": Array [],
-            "seo": Object {
+            "review": [],
+            "seo": {
               "canonical": "/aedle-vk1-headphone/p",
               "description": "Aedle VK-1 L Headphone",
               "title": "Aedle VK-1 L Headphone",
@@ -299,20 +299,20 @@ Object {
             "slug": "aedle-vk1-headphone-99988211",
           },
         },
-        Object {
+        {
           "cursor": "2",
-          "node": Object {
+          "node": {
             "description": "Echo Dot Smart Speaker",
             "gtin": "1505",
-            "image": Array [
-              Object {
+            "image": [
+              {
                 "alternateName": "echodotwhite",
                 "url": "https://storeframework.vtexassets.com/arquivos/ids/190904/unsplash-smart-speaker.jpg?v=637800166577500000",
               },
             ],
-            "isVariantOf": Object {
-              "hasVariant": Array [
-                Object {
+            "isVariantOf": {
+              "hasVariant": [
+                {
                   "name": "Echo dot white",
                   "sku": "99988214",
                 },
@@ -321,15 +321,15 @@ Object {
               "productGroupID": "99995947",
             },
             "name": "Echo dot white",
-            "offers": Object {
+            "offers": {
               "highPrice": 280,
               "lowPrice": 280,
               "offerCount": 1,
-              "offers": Array [
-                Object {
+              "offers": [
+                {
                   "availability": "https://schema.org/InStock",
                   "itemCondition": "https://schema.org/NewCondition",
-                  "itemOffered": Object {
+                  "itemOffered": {
                     "name": "Echo dot white",
                     "sku": "99988214",
                   },
@@ -337,7 +337,7 @@ Object {
                   "price": 280,
                   "priceCurrency": "USD",
                   "quantity": 10000,
-                  "seller": Object {
+                  "seller": {
                     "identifier": "1",
                   },
                   "sellingPrice": 280,
@@ -346,8 +346,8 @@ Object {
               "priceCurrency": "USD",
             },
             "productID": "99988214",
-            "review": Array [],
-            "seo": Object {
+            "review": [],
+            "seo": {
               "canonical": "/echo-dot-smart-speaker/p",
               "description": "Echo Dot Smart Speaker",
               "title": "Echo Dot Smart Speaker",
@@ -357,20 +357,20 @@ Object {
             "slug": "echo-dot-smart-speaker-99988214",
           },
         },
-        Object {
+        {
           "cursor": "3",
-          "node": Object {
+          "node": {
             "description": "Virtual reality kit",
             "gtin": "1501",
-            "image": Array [
-              Object {
+            "image": [
+              {
                 "alternateName": "oculus",
                 "url": "https://storeframework.vtexassets.com/arquivos/ids/190900/unsplash-vr-glasses.jpg?v=637799586135300000",
               },
             ],
-            "isVariantOf": Object {
-              "hasVariant": Array [
-                Object {
+            "isVariantOf": {
+              "hasVariant": [
+                {
                   "name": "Oculus VR Headset",
                   "sku": "99988210",
                 },
@@ -379,15 +379,15 @@ Object {
               "productGroupID": "99995943",
             },
             "name": "Oculus VR Headset",
-            "offers": Object {
+            "offers": {
               "highPrice": 315,
               "lowPrice": 315,
               "offerCount": 1,
-              "offers": Array [
-                Object {
+              "offers": [
+                {
                   "availability": "https://schema.org/InStock",
                   "itemCondition": "https://schema.org/NewCondition",
-                  "itemOffered": Object {
+                  "itemOffered": {
                     "name": "Oculus VR Headset",
                     "sku": "99988210",
                   },
@@ -395,7 +395,7 @@ Object {
                   "price": 315,
                   "priceCurrency": "USD",
                   "quantity": 10000,
-                  "seller": Object {
+                  "seller": {
                     "identifier": "1",
                   },
                   "sellingPrice": 315,
@@ -404,8 +404,8 @@ Object {
               "priceCurrency": "USD",
             },
             "productID": "99988210",
-            "review": Array [],
-            "seo": Object {
+            "review": [],
+            "seo": {
               "canonical": "/oculus-vr-headset/p",
               "description": "Virtual reality kit",
               "title": "Oculus VR Headset",
@@ -415,20 +415,20 @@ Object {
             "slug": "oculus-vr-headset-99988210",
           },
         },
-        Object {
+        {
           "cursor": "4",
-          "node": Object {
+          "node": {
             "description": "Apple Magic Mouse",
             "gtin": "1503",
-            "image": Array [
-              Object {
+            "image": [
+              {
                 "alternateName": "Magicwhite",
                 "url": "https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000",
               },
             ],
-            "isVariantOf": Object {
-              "hasVariant": Array [
-                Object {
+            "isVariantOf": {
+              "hasVariant": [
+                {
                   "name": "Magic white",
                   "sku": "99988212",
                 },
@@ -437,15 +437,15 @@ Object {
               "productGroupID": "99995945",
             },
             "name": "Magic white",
-            "offers": Object {
+            "offers": {
               "highPrice": 950,
               "lowPrice": 950,
               "offerCount": 1,
-              "offers": Array [
-                Object {
+              "offers": [
+                {
                   "availability": "https://schema.org/InStock",
                   "itemCondition": "https://schema.org/NewCondition",
-                  "itemOffered": Object {
+                  "itemOffered": {
                     "name": "Magic white",
                     "sku": "99988212",
                   },
@@ -453,7 +453,7 @@ Object {
                   "price": 950,
                   "priceCurrency": "USD",
                   "quantity": 10000,
-                  "seller": Object {
+                  "seller": {
                     "identifier": "1",
                   },
                   "sellingPrice": 950,
@@ -462,8 +462,8 @@ Object {
               "priceCurrency": "USD",
             },
             "productID": "99988212",
-            "review": Array [],
-            "seo": Object {
+            "review": [],
+            "seo": {
               "canonical": "/apple-magic-mouse/p",
               "description": "Apple Magic Mouse",
               "title": "Apple Magic Mouse",
@@ -474,7 +474,7 @@ Object {
           },
         },
       ],
-      "pageInfo": Object {
+      "pageInfo": {
         "endCursor": "5347",
         "hasNextPage": true,
         "hasPreviousPage": false,
@@ -487,17 +487,17 @@ Object {
 `;
 
 exports[`\`collection\` query 1`] = `
-Object {
-  "data": Object {
-    "collection": Object {
-      "breadcrumbList": Object {
-        "itemListElement": Array [
-          Object {
+{
+  "data": {
+    "collection": {
+      "breadcrumbList": {
+        "itemListElement": [
+          {
             "item": "/office",
             "name": "Office",
             "position": 1,
           },
-          Object {
+          {
             "item": "/office/desks",
             "name": "Desks",
             "position": 2,
@@ -506,19 +506,19 @@ Object {
         "numberOfItems": 2,
       },
       "id": "9295",
-      "meta": Object {
-        "selectedFacets": Array [
-          Object {
+      "meta": {
+        "selectedFacets": [
+          {
             "key": "category-1",
             "value": "office",
           },
-          Object {
+          {
             "key": "category-2",
             "value": "desks",
           },
         ],
       },
-      "seo": Object {
+      "seo": {
         "canonical": "",
         "description": "Desks for better productivity",
         "title": "Desks",
@@ -532,30 +532,30 @@ Object {
 `;
 
 exports[`\`product\` query 1`] = `
-Object {
-  "data": Object {
-    "product": Object {
-      "additionalProperty": Array [],
-      "aggregateRating": Object {
+{
+  "data": {
+    "product": {
+      "additionalProperty": [],
+      "aggregateRating": {
         "ratingValue": 5,
         "reviewCount": 0,
       },
-      "brand": Object {
+      "brand": {
         "name": "Brand",
       },
-      "breadcrumbList": Object {
-        "itemListElement": Array [
-          Object {
+      "breadcrumbList": {
+        "itemListElement": [
+          {
             "item": "/office/",
             "name": "Office",
             "position": 1,
           },
-          Object {
+          {
             "item": "/office/desks/",
             "name": "Desks",
             "position": 2,
           },
-          Object {
+          {
             "item": "/unbranded-concrete-table-small-64953394/p",
             "name": "Unbranded Concrete Table Small",
             "position": 3,
@@ -564,27 +564,27 @@ Object {
       },
       "description": "Aut omnis nobis tenetur.",
       "gtin": "1346198062637",
-      "image": Array [
-        Object {
+      "image": [
+        {
           "alternateName": "et",
           "url": "https://storeframework.vtexassets.com/arquivos/ids/186495/corporis.jpg?v=637755567185370000",
         },
-        Object {
+        {
           "alternateName": "in",
           "url": "https://storeframework.vtexassets.com/arquivos/ids/186492/qui.jpg?v=637755567174570000",
         },
-        Object {
+        {
           "alternateName": "consectetur",
           "url": "https://storeframework.vtexassets.com/arquivos/ids/186493/possimus.jpg?v=637755567178470000",
         },
-        Object {
+        {
           "alternateName": "ea",
           "url": "https://storeframework.vtexassets.com/arquivos/ids/186494/nihil.jpg?v=637755567181900000",
         },
       ],
-      "isVariantOf": Object {
-        "hasVariant": Array [
-          Object {
+      "isVariantOf": {
+        "hasVariant": [
+          {
             "name": "fuchsia",
             "productID": "64953394",
             "slug": "unbranded-concrete-table-small-64953394",
@@ -592,15 +592,15 @@ Object {
         ],
       },
       "name": "fuchsia",
-      "offers": Object {
+      "offers": {
         "highPrice": 200.64,
         "lowPrice": 200.64,
         "offerCount": 1,
         "priceCurrency": "USD",
       },
       "productID": "64953394",
-      "review": Array [],
-      "seo": Object {
+      "review": [],
+      "seo": {
         "canonical": "/unbranded-concrete-table-small/p",
         "description": "Aut omnis nobis tenetur.",
         "title": "Unbranded Concrete Table Small",
@@ -614,9 +614,9 @@ Object {
 `;
 
 exports[`\`redirect\` query 1`] = `
-Object {
-  "data": Object {
-    "redirect": Object {
+{
+  "data": {
+    "redirect": {
       "url": "/technology",
     },
   },
@@ -624,25 +624,25 @@ Object {
 `;
 
 exports[`\`search\` query 1`] = `
-Object {
-  "data": Object {
-    "search": Object {
-      "facets": Array [
-        Object {
+{
+  "data": {
+    "search": {
+      "facets": [
+        {
           "key": "price",
           "label": "Pre�o",
         },
-        Object {
+        {
           "key": "category-2",
           "label": "Categoria",
-          "values": Array [
-            Object {
+          "values": [
+            {
               "label": "Chairs",
               "quantity": 951,
               "selected": false,
               "value": "chairs",
             },
-            Object {
+            {
               "label": "Desks",
               "quantity": 875,
               "selected": false,
@@ -650,47 +650,47 @@ Object {
             },
           ],
         },
-        Object {
+        {
           "key": "brand",
           "label": "Marca",
-          "values": Array [
-            Object {
+          "values": [
+            {
               "label": "Acer",
               "quantity": 263,
               "selected": false,
               "value": "acer",
             },
-            Object {
+            {
               "label": "adidas",
               "quantity": 231,
               "selected": false,
               "value": "adidas",
             },
-            Object {
+            {
               "label": "BLACK+DECKER",
               "quantity": 254,
               "selected": false,
               "value": "black-decker",
             },
-            Object {
+            {
               "label": "Brand",
               "quantity": 239,
               "selected": false,
               "value": "brand",
             },
-            Object {
+            {
               "label": "iRobot",
               "quantity": 284,
               "selected": false,
               "value": "irobot",
             },
-            Object {
+            {
               "label": "Nike",
               "quantity": 285,
               "selected": false,
               "value": "nike",
             },
-            Object {
+            {
               "label": "Skechers",
               "quantity": 270,
               "selected": false,
@@ -699,45 +699,45 @@ Object {
           ],
         },
       ],
-      "products": Object {
-        "edges": Array [
-          Object {
+      "products": {
+        "edges": [
+          {
             "cursor": "0",
-            "node": Object {
-              "additionalProperty": Array [],
-              "aggregateRating": Object {
+            "node": {
+              "additionalProperty": [],
+              "aggregateRating": {
                 "ratingValue": 5,
                 "reviewCount": 0,
               },
-              "brand": Object {
+              "brand": {
                 "name": "Skechers",
               },
               "description": "Consequatur placeat optio adipisci aut voluptate excepturi.",
               "gtin": "8463905750603",
-              "image": Array [
-                Object {
+              "image": [
+                {
                   "alternateName": "repellat",
                   "url": "https://storeframework.vtexassets.com/arquivos/ids/181666/ut.jpg?v=637755525053770000",
                 },
-                Object {
+                {
                   "alternateName": "ut",
                   "url": "https://storeframework.vtexassets.com/arquivos/ids/181664/qui.jpg?v=637755525048170000",
                 },
-                Object {
+                {
                   "alternateName": "omnis",
                   "url": "https://storeframework.vtexassets.com/arquivos/ids/181665/explicabo.jpg?v=637755525050970000",
                 },
               ],
-              "isVariantOf": Object {
-                "additionalProperty": Array [],
-                "hasVariant": Array [
-                  Object {
+              "isVariantOf": {
+                "additionalProperty": [],
+                "hasVariant": [
+                  {
                     "name": "green",
                     "productID": "2791588",
                     "sku": "2791588",
                     "slug": "licensed-cotton-hat-licensed-2791588",
                   },
-                  Object {
+                  {
                     "name": "red",
                     "productID": "93344885",
                     "sku": "93344885",
@@ -748,16 +748,16 @@ Object {
                 "productGroupID": "6049813",
               },
               "name": "green",
-              "offers": Object {
+              "offers": {
                 "highPrice": 129.09,
                 "lowPrice": 129.09,
                 "offerCount": 1,
-                "offers": Array [
-                  Object {
+                "offers": [
+                  {
                     "availability": "https://schema.org/InStock",
                     "itemCondition": "https://schema.org/NewCondition",
-                    "itemOffered": Object {
-                      "seo": Object {
+                    "itemOffered": {
+                      "seo": {
                         "canonical": "/licensed-cotton-hat-licensed/p",
                         "description": "Consequatur placeat optio adipisci aut voluptate excepturi.",
                         "title": "Licensed Cotton Hat Licensed",
@@ -767,7 +767,7 @@ Object {
                     "listPrice": 185.97,
                     "price": 129.09,
                     "quantity": 10000,
-                    "seller": Object {
+                    "seller": {
                       "identifier": "1",
                     },
                     "sellingPrice": 129.09,
@@ -776,40 +776,40 @@ Object {
                 "priceCurrency": "USD",
               },
               "productID": "2791588",
-              "review": Array [],
+              "review": [],
               "sku": "2791588",
               "slug": "licensed-cotton-hat-licensed-2791588",
             },
           },
-          Object {
+          {
             "cursor": "1",
-            "node": Object {
-              "additionalProperty": Array [],
-              "aggregateRating": Object {
+            "node": {
+              "additionalProperty": [],
+              "aggregateRating": {
                 "ratingValue": 5,
                 "reviewCount": 0,
               },
-              "brand": Object {
+              "brand": {
                 "name": "adidas",
               },
               "description": "Ipsa in sequi incidunt dolores.",
               "gtin": "8169125134781",
-              "image": Array [
-                Object {
+              "image": [
+                {
                   "alternateName": "impedit",
                   "url": "https://storeframework.vtexassets.com/arquivos/ids/184304/a.jpg?v=637755547736000000",
                 },
               ],
-              "isVariantOf": Object {
-                "additionalProperty": Array [],
-                "hasVariant": Array [
-                  Object {
+              "isVariantOf": {
+                "additionalProperty": [],
+                "hasVariant": [
+                  {
                     "name": "red",
                     "productID": "44903104",
                     "sku": "44903104",
                     "slug": "handmade-granite-computer-unbranded-44903104",
                   },
-                  Object {
+                  {
                     "name": "magenta",
                     "productID": "80744096",
                     "sku": "80744096",
@@ -820,16 +820,16 @@ Object {
                 "productGroupID": "48182547",
               },
               "name": "red",
-              "offers": Object {
+              "offers": {
                 "highPrice": 362.36,
                 "lowPrice": 362.36,
                 "offerCount": 1,
-                "offers": Array [
-                  Object {
+                "offers": [
+                  {
                     "availability": "https://schema.org/InStock",
                     "itemCondition": "https://schema.org/NewCondition",
-                    "itemOffered": Object {
-                      "seo": Object {
+                    "itemOffered": {
+                      "seo": {
                         "canonical": "/handmade-granite-computer-unbranded/p",
                         "description": "Ipsa in sequi incidunt dolores.",
                         "title": "Handmade Granite Computer Unbranded",
@@ -839,7 +839,7 @@ Object {
                     "listPrice": 537.5,
                     "price": 362.36,
                     "quantity": 10000,
-                    "seller": Object {
+                    "seller": {
                       "identifier": "1",
                     },
                     "sellingPrice": 362.36,
@@ -848,54 +848,54 @@ Object {
                 "priceCurrency": "USD",
               },
               "productID": "44903104",
-              "review": Array [],
+              "review": [],
               "sku": "44903104",
               "slug": "handmade-granite-computer-unbranded-44903104",
             },
           },
-          Object {
+          {
             "cursor": "2",
-            "node": Object {
-              "additionalProperty": Array [],
-              "aggregateRating": Object {
+            "node": {
+              "additionalProperty": [],
+              "aggregateRating": {
                 "ratingValue": 5,
                 "reviewCount": 0,
               },
-              "brand": Object {
+              "brand": {
                 "name": "Acer",
               },
               "description": "Dolor harum perferendis voluptatem tempora voluptatum ut et sapiente iure.",
               "gtin": "8277738323492",
-              "image": Array [
-                Object {
+              "image": [
+                {
                   "alternateName": "debitis",
                   "url": "https://storeframework.vtexassets.com/arquivos/ids/178292/ea.jpg?v=637755492251130000",
                 },
-                Object {
+                {
                   "alternateName": "et",
                   "url": "https://storeframework.vtexassets.com/arquivos/ids/178290/voluptatum.jpg?v=637755492245200000",
                 },
-                Object {
+                {
                   "alternateName": "itaque",
                   "url": "https://storeframework.vtexassets.com/arquivos/ids/178291/non.jpg?v=637755492248300000",
                 },
               ],
-              "isVariantOf": Object {
-                "additionalProperty": Array [],
-                "hasVariant": Array [
-                  Object {
+              "isVariantOf": {
+                "additionalProperty": [],
+                "hasVariant": [
+                  {
                     "name": "olive",
                     "productID": "96175310",
                     "sku": "96175310",
                     "slug": "small-cotton-cheese-3325400227651-96175310",
                   },
-                  Object {
+                  {
                     "name": "grey",
                     "productID": "47744496",
                     "sku": "47744496",
                     "slug": "small-cotton-cheese-3325400227651-47744496",
                   },
-                  Object {
+                  {
                     "name": "indigo",
                     "productID": "51309679",
                     "sku": "51309679",
@@ -906,16 +906,16 @@ Object {
                 "productGroupID": "8172115",
               },
               "name": "olive",
-              "offers": Object {
+              "offers": {
                 "highPrice": 247.01,
                 "lowPrice": 247.01,
                 "offerCount": 1,
-                "offers": Array [
-                  Object {
+                "offers": [
+                  {
                     "availability": "https://schema.org/InStock",
                     "itemCondition": "https://schema.org/NewCondition",
-                    "itemOffered": Object {
-                      "seo": Object {
+                    "itemOffered": {
+                      "seo": {
                         "canonical": "/small-cotton-cheese-3325400227651/p",
                         "description": "Dolor harum perferendis voluptatem tempora voluptatum ut et sapiente iure.",
                         "title": "Small Cotton Cheese",
@@ -925,7 +925,7 @@ Object {
                     "listPrice": 339.21,
                     "price": 247.01,
                     "quantity": 10000,
-                    "seller": Object {
+                    "seller": {
                       "identifier": "1",
                     },
                     "sellingPrice": 247.01,
@@ -934,40 +934,40 @@ Object {
                 "priceCurrency": "USD",
               },
               "productID": "96175310",
-              "review": Array [],
+              "review": [],
               "sku": "96175310",
               "slug": "small-cotton-cheese-3325400227651-96175310",
             },
           },
-          Object {
+          {
             "cursor": "3",
-            "node": Object {
-              "additionalProperty": Array [],
-              "aggregateRating": Object {
+            "node": {
+              "additionalProperty": [],
+              "aggregateRating": {
                 "ratingValue": 5,
                 "reviewCount": 0,
               },
-              "brand": Object {
+              "brand": {
                 "name": "adidas",
               },
               "description": "Recusandae dolores alias.",
               "gtin": "6486061707855",
-              "image": Array [
-                Object {
+              "image": [
+                {
                   "alternateName": "ipsam",
                   "url": "https://storeframework.vtexassets.com/arquivos/ids/190604/vel.jpg?v=637755602570270000",
                 },
               ],
-              "isVariantOf": Object {
-                "additionalProperty": Array [],
-                "hasVariant": Array [
-                  Object {
+              "isVariantOf": {
+                "additionalProperty": [],
+                "hasVariant": [
+                  {
                     "name": "fuchsia",
                     "productID": "12405783",
                     "sku": "12405783",
                     "slug": "tasty-frozen-tuna-handmade-12405783",
                   },
-                  Object {
+                  {
                     "name": "azure",
                     "productID": "68456079",
                     "sku": "68456079",
@@ -978,16 +978,16 @@ Object {
                 "productGroupID": "31264637",
               },
               "name": "fuchsia",
-              "offers": Object {
+              "offers": {
                 "highPrice": 1.37,
                 "lowPrice": 1.37,
                 "offerCount": 1,
-                "offers": Array [
-                  Object {
+                "offers": [
+                  {
                     "availability": "https://schema.org/InStock",
                     "itemCondition": "https://schema.org/NewCondition",
-                    "itemOffered": Object {
-                      "seo": Object {
+                    "itemOffered": {
+                      "seo": {
                         "canonical": "/tasty-frozen-tuna-handmade/p",
                         "description": "Recusandae dolores alias.",
                         "title": "Tasty Frozen Tuna Handmade",
@@ -997,7 +997,7 @@ Object {
                     "listPrice": 2.01,
                     "price": 1.37,
                     "quantity": 10000,
-                    "seller": Object {
+                    "seller": {
                       "identifier": "1",
                     },
                     "sellingPrice": 1.37,
@@ -1006,44 +1006,44 @@ Object {
                 "priceCurrency": "USD",
               },
               "productID": "12405783",
-              "review": Array [],
+              "review": [],
               "sku": "12405783",
               "slug": "tasty-frozen-tuna-handmade-12405783",
             },
           },
-          Object {
+          {
             "cursor": "4",
-            "node": Object {
-              "additionalProperty": Array [],
-              "aggregateRating": Object {
+            "node": {
+              "additionalProperty": [],
+              "aggregateRating": {
                 "ratingValue": 5,
                 "reviewCount": 0,
               },
-              "brand": Object {
+              "brand": {
                 "name": "Acer",
               },
               "description": "Aliquam a cumque ratione voluptatem in.",
               "gtin": "2231710663034",
-              "image": Array [
-                Object {
+              "image": [
+                {
                   "alternateName": "ea",
                   "url": "https://storeframework.vtexassets.com/arquivos/ids/155949/voluptas.jpg?v=637752878341070000",
                 },
-                Object {
+                {
                   "alternateName": "dolores",
                   "url": "https://storeframework.vtexassets.com/arquivos/ids/155948/molestiae.jpg?v=637752878337300000",
                 },
               ],
-              "isVariantOf": Object {
-                "additionalProperty": Array [],
-                "hasVariant": Array [
-                  Object {
+              "isVariantOf": {
+                "additionalProperty": [],
+                "hasVariant": [
+                  {
                     "name": "olive",
                     "productID": "24041857",
                     "sku": "24041857",
                     "slug": "sleek-metal-pizza-24041857",
                   },
-                  Object {
+                  {
                     "name": "green",
                     "productID": "94486378",
                     "sku": "94486378",
@@ -1054,16 +1054,16 @@ Object {
                 "productGroupID": "52016072",
               },
               "name": "olive",
-              "offers": Object {
+              "offers": {
                 "highPrice": 175.38,
                 "lowPrice": 175.38,
                 "offerCount": 1,
-                "offers": Array [
-                  Object {
+                "offers": [
+                  {
                     "availability": "https://schema.org/InStock",
                     "itemCondition": "https://schema.org/NewCondition",
-                    "itemOffered": Object {
-                      "seo": Object {
+                    "itemOffered": {
+                      "seo": {
                         "canonical": "/sleek-metal-pizza/p",
                         "description": "Aliquam a cumque ratione voluptatem in.",
                         "title": "Sleek Metal Pizza",
@@ -1073,7 +1073,7 @@ Object {
                     "listPrice": 249.14,
                     "price": 175.38,
                     "quantity": 10000,
-                    "seller": Object {
+                    "seller": {
                       "identifier": "1",
                     },
                     "sellingPrice": 175.38,
@@ -1082,13 +1082,13 @@ Object {
                 "priceCurrency": "USD",
               },
               "productID": "24041857",
-              "review": Array [],
+              "review": [],
               "sku": "24041857",
               "slug": "sleek-metal-pizza-24041857",
             },
           },
         ],
-        "pageInfo": Object {
+        "pageInfo": {
           "endCursor": "1826",
           "hasNextPage": true,
           "hasPreviousPage": false,
@@ -1102,16 +1102,16 @@ Object {
 `;
 
 exports[`\`sellers\` query 1`] = `
-Object {
-  "data": Object {
-    "sellers": Object {
+{
+  "data": {
+    "sellers": {
       "id": "v2.4325C29BA00E6470CBA54999680076F9",
-      "sellers": Array [
-        Object {
+      "sellers": [
+        {
           "id": "storeframework01",
           "name": "storeframework01",
         },
-        Object {
+        {
           "id": "storeframework02",
           "name": "storeframework02",
         },
@@ -1122,10 +1122,10 @@ Object {
 `;
 
 exports[`\`shipping\` query 1`] = `
-Object {
-  "data": Object {
-    "shipping": Object {
-      "address": Object {
+{
+  "data": {
+    "shipping": {
+      "address": {
         "city": null,
         "complement": null,
         "country": null,
@@ -1137,8 +1137,8 @@ Object {
         "state": null,
         "street": null,
       },
-      "items": Array [
-        Object {
+      "items": [
+        {
           "availability": "available",
           "id": "99988211",
           "listPrice": 15000,
@@ -1149,7 +1149,7 @@ Object {
           "requestIndex": 0,
           "rewardValue": 0,
           "seller": "1",
-          "sellerChain": Array [
+          "sellerChain": [
             "1",
           ],
           "sellingPrice": 13000,
@@ -1157,16 +1157,16 @@ Object {
           "unitMultiplier": 1,
         },
       ],
-      "logisticsInfo": Array [
-        Object {
+      "logisticsInfo": [
+        {
           "itemIndex": "0",
           "selectedSla": null,
-          "slas": Array [
-            Object {
+          "slas": [
+            {
               "availableDeliveryWindows": null,
               "deliveryChannel": "delivery",
-              "deliveryIds": Array [
-                Object {
+              "deliveryIds": [
+                {
                   "courierId": "1",
                   "courierName": "Transportadora",
                   "dockId": "1",
@@ -1179,7 +1179,7 @@ Object {
               "name": "Normal",
               "pickupDistance": 0,
               "pickupPointId": null,
-              "pickupStoreInfo": Object {
+              "pickupStoreInfo": {
                 "additionalInfo": null,
                 "address": null,
                 "dockId": null,
@@ -1193,7 +1193,7 @@ Object {
           ],
         },
       ],
-      "messages": Array [],
+      "messages": [],
     },
   },
 }
