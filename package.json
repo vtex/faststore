@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build --log-order=grouped",
     "dev": "turbo run dev --parallel --no-cache",
     "lint": "turbo run lint",
     "test": "turbo run test",
