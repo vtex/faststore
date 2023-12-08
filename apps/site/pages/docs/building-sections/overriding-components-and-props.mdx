@@ -201,7 +201,7 @@ For this guide we will create a custom Buy Button that once you click on it, it 
 import React from 'react'
 import { Button as UIButton } from '@faststore/ui'
 
-export function CustomBuyButton() {
+export default function CustomBuyButton() {
   return (
     <UIButton
       variant="primary"
@@ -264,7 +264,7 @@ This approach allows us to incorporate the icon and cart sidebar integration whi
 import React from 'react'
 import { Button as UIButton, ButtonProps } from '@faststore/ui'
 
-export function CustomBuyButton(props: ButtonProps) {
+export default function CustomBuyButton(props: ButtonProps) {
   return (
     <UIButton
       {...props}
