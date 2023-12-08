@@ -1634,8 +1634,7 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["Circle Wavy Warning"],
-                  "enum": ["CircleWavyWarning"]
+                  "default": "CircleWavyWarning"
                 }
               }
             },
