@@ -1,0 +1,469 @@
+import { Callout, Steps } from 'nextra-theme-docs'
+
+<header className="hero">
+
+# Customizing a Component
+
+// TODO: Listar aqui o que vai ser apresentado e objetivo de cada um.
+
+Customize the styling of a component by using design tokens that align with your store's branding.
+
+</header>
+
+In this guide, you'll learn how to customize the style of a FastStore component using its local tokens. For the sake of this tutorial, We will use the `Listing` variant from the [Price Component](/components/atoms/price).
+
+This is how Prices looks like in our current homepage (with the default color black) :
+
+<br></br>
+
+![homepage-prices-default-color-black](https://vtexhelp.vtexassets.com/assets/docs/src/homepage-prices-default___2751f604ab85b1dcfa47c942e318a7cd.png)
+
+<br></br>
+
+<Callout type="info" emoji="ℹ️">
+  Remember that when changing a component's style, you can use [Global
+  tokens](/docs/global-tokens/overview) or styling from scratch using your
+  preferred styling tool. However, changing the value of a global token may
+  affect different parts of your store's interface.
+</Callout>
+
+<br></br>
+
+1. In your `custom-theme.scss` theme file , add the `data-fs-price` and `data-fs-price-variant` data attributes with the `Listing` value:
+
+```scss filename="src/themes/custom-theme.scss" copy
+...
+  // --------------------------------------------------------
+  // FS UI Components
+  // --------------------------------------------------------
+  // Add here the customizations for FastStore UI components.
+  [data-fs-price] {
+}
+```
+
+<Callout type="info" emoji="ℹ️">
+  Each FastStore UI component has a list of data attributes that can be used for
+  further customization. You can find it in the component's [Customization
+  section](/components/atoms/price#customization).
+</Callout>
+
+<br></br>
+
+2. Now, change the color of the `Listing` variant using the `Price` [local token](/components/atoms/price#design-tokens). For this tutorial, we will use the shade of red `#cb4242`:
+
+```scss {6} filename="src/themes/custom-theme.scss" copy
+...
+  // --------------------------------------------------------
+  // FS UI Components
+  // --------------------------------------------------------
+    [data-fs-price] {
+  --fs-price-listing-color: #cb4242;
+}
+```
+
+3. Save your changes and check your browser to see the new color of your listing price. You may need to refresh the page.
+
+<br></br>
+
+![homepage-prices-listing-red](https://vtexhelp.vtexassets.com/assets/docs/src/homepage-prices-design-token-red___cd0b15da26d23e0d0f4a2bd68ae6ca14.png)
+
+<br></br>
+
+Since we are not specifying the `Price` component context, we are applying this change to all the `Price (data-fs-price)` occurrences where the variant is `listing`.
+If you want to apply this change in only one store component, follow the next step [Customizing a component within a section](/docs/customizing/components#customizing-a-component-within-a-section).
+
+---
+
+## Customizing a component within a section
+
+The starter provides a set of [native sections](/docs/reference-guides/list-of-native-sections), each consisting of different components with unique functionalities. You can customize the components inside its section using the available section and the component's data attributes.
+
+In the example below, we will change the color of the [Price](/components/atoms/price#customization) component with the `listing` variant.
+But we only want to apply this change in the `ProductShelf` section. So, we can use the `data-fs-product-shelf` data-attribute to select the [ProductShelf component](/components/organisms/product-shelf#customization) in this section.
+
+<br></br>
+
+1. In your `custom-theme.scss` theme file , add the following code:
+
+```scss {8-12} filename="src/themes/custom-theme.scss" copy
+...
+  // --------------------------------------------------------
+  // FS UI Components
+  // --------------------------------------------------------
+  [data-fs-price] {
+  --fs-price-listing-color: #cb4242;
+}
+[data-fs-product-shelf] {
+  [data-fs-price][data-fs-price-variant='listing'] {
+    background-color: var(--fs-color-warning-bkg);
+  }
+}
+```
+
+<br></br>
+
+2. Save your changes and check your browser to see a yellow background color added to listing prices inside the `ProductShelf`. You may need to refresh the page.
+
+<br></br>
+
+![homepage-prices-section-background](https://vtexhelp.vtexassets.com/assets/docs/src/homepage-prices-section-background___a71b4bbf2239e560c8d61bf66cb6395d.png)
+
+<br></br>
+
+Notice that in this example, only one section received the change, the `ProductShelf`. You can use this same approach whenever you need to syle FastStore UI Components.
+
+---
+
+## Customizing a new component when using override
+
+To customize a native component in FastStore to suit your store's needs, you can use the **override** feature.
+When [overriding a native component](/docs/building-sections/overriding-components-and-props#overriding-a-native-component) and using your custom component,
+you may need to style it from scratch. In this section, you'll learn how to style a custom component.
+
+### Before you start
+
+Make sure you have a basic understanding of [overriding native components and props](/docs/building-sections/overriding-components-and-props).
+Additionally, we recommend to use [CSS Module](https://nextjs.org/docs/app/building-your-application/styling/css-modules) for styling your new component.
+
+<Callout type="info" emoji="ℹ️">
+  FastStore components support [Sass](https://sass-lang.com/) for styling by
+  default, but you can work with your desired tool.
+</Callout>
+
+For better understanding, we will use the example from the [Overriding Native Components and Props](/docs/building-sections/overriding-components-and-props) guide.
+This example demonstrates how to create a new `BuyButton`, the `CustomBuyButton` in the `ProductDetails` section.
+To follow along this section, make sure to create the `CustomBuyButton`.
+
+### Step by step
+
+1. Once you have created the `CustomBuyButton` component, create a new file called `CustomBuyButtons.module.scss`.
+
+<br></br>
+![custom-buy-button-component-code](https://vtexhelp.vtexassets.com/assets/docs/src/custom-buy-button-component-code___25c01fd818e1fab4247e1f0f77df4186.png)
+<br></br>
+
+2. Add the following code to the `CustomBuyButtons.module.scss` file:
+
+```scss filename="CustomBuyButton.module.scss" copy
+.CustomBuyButton {
+  --fs-button-border-radius: var(--fs-border-radius-pill);
+  --fs-button-padding: 0 var(--fs-spacing-5);
+
+  color: var(--fs-color-text-inverse);
+
+  [data-fs-button-wrapper] {
+    background-color: #e31c58;
+  }
+}
+```
+
+<Callout type="info" emoji="ℹ️">
+  You can use FastStore UI components' customization data attribute to ease your
+  styling process. In this example, we used `data-fs-button-wrapper`.
+</Callout>
+
+To ensure visual consistency with your store's theme, we highly recommend utilizing the [global tokens](docs/global-tokens/overview) whenever possible. Also, you can take advantage of the design tokens set provided by [FastStore UI Components](/components).
+
+3. Restart the server and check the color and shape of your `CustomBuyButton` component:
+
+<br></br>
+![custom-buy-button-component-preview](https://vtexhelp.vtexassets.com/assets/docs/src/custom-buy-button-component-preview___a8e5bb897bc16e41c8a7540ea7da25ec.png)
+
+---
+
+## Importing FastStore UI component styles
+
+If you are using a [FastStore UI component](/components) and want to apply its styles to your
+FastStore project, follow the steps below. In this example, we will create a new section in the CMS called `OurStore`.
+
+### Before you begin
+
+You should have a basic understanding of create a new section in the Headless CMS. Refer to [Create a new
+Section](/docs/building-sections/creating-a-new-section) guide for more
+information. Additionally, we recommend to use [CSS
+Modules](https://nextjs.org/docs/app/building-your-application/styling/css-modules)
+for styling your new component.
+
+### Step by step
+
+#### Step 1 - Create a new section in the CMS
+
+1. In the FastStore root directory, create a folder named cms.
+2. Inside cms, create the faststore folder and add a `sections.json` file.
+3. In the `sections.json` file add the new section that you want to display in the Headless CMS. The schema below defines how the Headless CMS renders the `OurStores` section that we will use in the example:
+
+```json filename="sections.json" copy
+[
+  {
+    "name": "OurStores",
+    "schema": {
+      "title": "Our Stores",
+      "description": "Search stores near to the users",
+      "type": "object",
+      "required": ["title", "description"],
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Explore Nearby Stores"
+        },
+        "description": {
+          "title": "Link Path",
+          "type": "string",
+          "default": "Discover the closest store to you and pay us a visit."
+        }
+      }
+    }
+  }
+]
+```
+
+### Step 2: Creating the new section
+
+To render the `OurStores` section you created in the previous step, you need to create this section component.
+
+1. If you don't already have it, create a folder named components inside the src directory.
+2. Inside the components folder, create a file named OurStores.tsx and add the following code:
+
+```tsx filename="src/components/OurStores.tsx" copy
+import React from 'react'
+import { Button, Icon, SelectField } from '@faststore/ui'
+
+export interface OurStoresProps {
+  title: string
+  description: string
+}
+
+export default function OurStores(props: OurStoresProps) {
+  return (
+    <section>
+      <h2>{props.title}</h2>
+      <p>{props.description}</p>
+      <div>
+        <SelectField
+          id="select-state-store"
+          label="State:"
+          options={{
+            newYork: 'New York',
+            arizona: 'Arizona',
+            massachusetts: 'Massachusetts',
+            hawaii: 'Hawaii',
+          }}
+        />
+        <SelectField
+          id="select-city-store"
+          label="City:"
+          options={{
+            newYorkCity: 'New York City',
+            phoenix: 'Phoenix',
+            boston: 'Boston',
+            honolulu: 'Honolulu',
+          }}
+        />
+        <Button
+          variant="secondary"
+          icon={<Icon name="ArrowRight" />}
+          iconPosition="right"
+        >
+          Find Store
+        </Button>
+      </div>
+    </section>
+  )
+}
+```
+
+For this section we will use the following component from the Faststore UI: [Button](/components/atoms/Button), [Icon](/components/atoms/Icon) and [SelectField](/components/molecules/select-field).
+
+3. Create a file named `index.tsx` inside the components folder, and add the following code:
+
+```tsx filename="src/components/index.tsx" copy
+import OurStores from './OurStores'
+
+export default { OurStores }
+```
+
+### Step 3: Synchronizing the new section with the Headless CMS
+
+1. In the terminal, run `faststore cms-sync`.
+2. After the sync, you should be able to see
+   `info: CMS synced successfully...` message. Run `yarn dev` to run the store locally.
+3. Go to the VTEX Admin and access **Storefront > Headless CMS**.
+4. Click on the `Home` content type. (We will add it to the Home just for testing purposes)
+5. In the `Sections` tab, click the `+`, search for the new `Our Stores` section, and add it to your page.
+6. Click on `Save` and `Preview`.
+
+### Step 4: Adding Styles
+
+Now that we have the section in the page, let's add some styles to it:
+
+1. In the `components` folder, create the `OurStores.module.scss` file. This file will import the FastStore UI components styles.
+
+2. Add the following code to the `OurStores.module.scss` file:
+
+```scss filename="src/components/OurStores.module.scss" copy
+.ourStores {
+  @import '@faststore/ui/src/components/atoms/Button/styles.scss';
+  @import '@faststore/ui/src/components/atoms/Select/styles.scss';
+  @import '@faststore/ui/src/components/molecules/SelectField/styles.scss';
+}
+```
+
+This will import the [Button]() and [SelectField]() styles to the custom component that you are creating.
+You'll need to also import `Select` component styles since SelectField inherits it.
+
+3. Now, import this stylesheet to `OurStores.tsx` file and apply it.
+
+```tsx {4-5,13} filename="src/components/OurStores.tsx" copy
+import React from 'react'
+import { Button, Icon, SelectField } from '@faststore/ui'
+
+import styles from './OurStores.module.scss'
+
+export interface OurStoresProps {
+  title: string
+  description: string
+}
+
+export default function OurStores(props: OurStoresProps) {
+  return (
+    <section className={styles.ourStores}>
+      <h2>{props.title}</h2>
+      <p>{props.description}</p>
+      <div>
+        <SelectField
+          id="select-state-store"
+          label="State:"
+          options={{
+            newYork: 'New York',
+            arizona: 'Arizona',
+            massachusetts: 'Massachusetts',
+            hawaii: 'Hawaii',
+          }}
+        />
+        <SelectField
+          id="select-city-store"
+          label="City:"
+          options={{
+            newYorkCity: 'New York City',
+            phoenix: 'Phoenix',
+            boston: 'Boston',
+            honolulu: 'Honolulu',
+          }}
+        />
+        <Button
+          variant="secondary"
+          icon={<Icon name="ArrowRight" />}
+          iconPosition="right"
+        >
+          Find Store
+        </Button>
+      </div>
+    </section>
+  )
+}
+```
+
+You should be able to see something like:
+
+4. Let's add more styles to it. You can customize it using our [design tokens](/docs/global-tokens/overview) and [component's data attributes](/components/atoms/button#customization).
+
+```scss filename="src/components/OurStores.module.scss" copy
+.ourStores {
+  @import '@faststore/ui/src/components/atoms/Button/styles.scss';
+  @import '@faststore/ui/src/components/atoms/Select/styles.scss';
+  @import '@faststore/ui/src/components/molecules/SelectField/styles.scss';
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--fs-spacing-5);
+  margin: auto;
+  background-color: var(--fs-color-neutral-bkg);
+
+  [data-fs-select-field] {
+    flex-direction: column;
+    align-items: flex-start;
+
+    [data-fs-select] {
+      border: var(--fs-border-width) solid var(--fs-border-color);
+      margin-top: var(--fs-spacing-0);
+      width: 10rem;
+      height: var(--fs-control-min-height);
+
+      select {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.ourStores__title {
+  font-size: var(--fs-text-size-title-section);
+  margin-bottom: var(--fs-spacing-1);
+}
+
+.ourStores__content {
+  display: flex;
+  align-items: flex-end;
+  column-gap: var(--fs-spacing-5);
+  margin: var(--fs-spacing-5);
+}
+```
+
+```tsx {14,16} filename="src/components/OurStores.tsx" copy
+import React from 'react'
+import { Button, Icon, SelectField } from '@faststore/ui'
+
+import styles from './OurStores.module.scss'
+
+export interface OurStoresProps {
+  title: string
+  description: string
+}
+
+export default function OurStores(props: OurStoresProps) {
+  return (
+    <section className={styles.ourStores}>
+      <h2 className={styles.ourStores__title}>{props.title}</h2>
+      <p>{props.description}</p>
+      <div className={styles.ourStores__content}>
+        <SelectField
+          id="select-state-store"
+          label="State:"
+          options={{
+            newYork: 'New York',
+            arizona: 'Arizona',
+            massachusetts: 'Massachusetts',
+            hawaii: 'Hawaii',
+          }}
+        />
+        <SelectField
+          id="select-city-store"
+          label="City:"
+          options={{
+            newYorkCity: 'New York City',
+            phoenix: 'Phoenix',
+            boston: 'Boston',
+            honolulu: 'Honolulu',
+          }}
+        />
+        <Button
+          variant="secondary"
+          icon={<Icon name="ArrowRight" />}
+          iconPosition="right"
+        >
+          Find Store
+        </Button>
+      </div>
+    </section>
+  )
+}
+```
+
+## Related resources
+
+- [Themes](/docs/themes/overview)
+- [Building and Customizing sections](/docs/building-sections/component-customization-overview)
