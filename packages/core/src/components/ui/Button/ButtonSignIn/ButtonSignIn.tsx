@@ -1,7 +1,6 @@
 import { Icon, LinkButton } from '@faststore/ui'
 
 import { useSession } from 'src/sdk/session'
-import { useCart } from '../../../../sdk/cart/index'
 
 const ButtonSignIn = ({
   label,
@@ -12,15 +11,12 @@ const ButtonSignIn = ({
   myAccountLabel: string
   icon: { alt: string; icon: string }
 }) => {
-  const { id } = useCart()
   const { person } = useSession()
 
   return (
     <LinkButton
       data-fs-button-signin-link
-      href={
-        person?.id ? `/account?orderFormId=${id}` : `/login?orderFormId=${id}`
-      }
+      href={person?.id ? `/account` : `/login`}
       className="text__title-mini"
       aria-label={alt}
       variant="tertiary"
