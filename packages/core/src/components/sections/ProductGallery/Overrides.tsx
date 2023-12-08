@@ -8,6 +8,7 @@ import {
 
 import ProductCard from 'src/components/product/ProductCard'
 import FilterDesktop from 'src/components/search/Filter/FilterDesktop'
+import EmptyGallery from './EmptyGallery'
 
 const FilterSlider = lazy(
   () => import('src/components/search/Filter/FilterSlider')
@@ -29,6 +30,7 @@ const {
   __experimentalFilterDesktop,
   __experimentalFilterSlider,
   __experimentalProductCard,
+  __experimentalEmptyGallery,
 } = getSectionOverrides(
   {
     MobileFilterButton: UIButton,
@@ -42,6 +44,7 @@ const {
     __experimentalFilterDesktop: FilterDesktop,
     __experimentalFilterSlider: FilterSlider,
     __experimentalProductCard: ProductCard,
+    __experimentalEmptyGallery: EmptyGallery,
   },
   override as SectionOverrideDefinition<'ProductGallery'>
 )
@@ -58,4 +61,5 @@ export {
   __experimentalFilterDesktop,
   __experimentalFilterSlider,
   __experimentalProductCard,
+  __experimentalEmptyGallery,
 }

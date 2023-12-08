@@ -4,7 +4,9 @@ import ProductGallery, {
   ProductGalleryProps,
 } from 'src/components/ui/ProductGallery/ProductGallery'
 import Section from '../Section'
-import EmptyGallery from './EmptyGallery'
+
+import { __experimentalEmptyGallery as EmptyGallery } from 'src/components/sections/ProductGallery/Overrides'
+
 import styles from './section.module.scss'
 import {
   PLPContext,
@@ -39,7 +41,7 @@ function ProductGallerySection({ ...otherProps }: ProductGallerySectionProps) {
     return (
       <Section className={`${styles.section} section-product-gallery`}>
         <section data-testid="product-gallery" data-fs-product-listing>
-          <EmptyGallery />
+          <EmptyGallery.Component />
         </section>
       </Section>
     )
