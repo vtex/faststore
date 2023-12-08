@@ -10,10 +10,8 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { Alert, Icon } from '@faststore/ui'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
-
 
 export const getStaticProps = () => {
   const alertPath = path.resolve(__filename)
@@ -24,7 +22,7 @@ export const getStaticProps = () => {
       // We add an `ssg` field to the page props,
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
-        alertProps
+        alertProps,
       },
     },
   }
@@ -34,7 +32,7 @@ export const AlertPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
   const { alertProps } = useSSG()
   return {
-    Alert: <PropsSection propsList={alertProps} />
+    Alert: <PropsSection propsList={alertProps} />,
   }[component]
 }
 
@@ -109,7 +107,7 @@ import { Alert } from '@faststore/ui'
 
 ### Import Styles into your FastStore project
 
-To use the styles for this component into your FastStore 
+To use the styles for this component into your FastStore
 project, follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/components#importing-faststore-ui-component-styles) tutorial.
 
 ---
