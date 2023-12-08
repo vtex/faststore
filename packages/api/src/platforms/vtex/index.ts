@@ -57,6 +57,7 @@ export interface Context {
     locale: string
     flags: FeatureFlags
     searchArgs?: Omit<SearchArgs, 'type'>
+    cookies: Set<string>
   }
   headers: Record<string, string>
 }
@@ -92,16 +93,17 @@ const Resolvers = {
 
 export const getContextFactory =
   (options: Options) =>
-    (ctx: any): Context => {
-      ctx.storage = {
-        channel: ChannelMarshal.parse(options.channel),
-        flags: options.flags ?? {},
-        locale: options.locale,
-      }
-      ctx.clients = getClients(options, ctx)
-      ctx.loaders = getLoaders(options, ctx)
-
-      return ctx
+  (ctx: any): Context => {
+    ctx.storage = {
+      channel: ChannelMarshal.parse(options.channel),
+      flags: options.flags ?? {},
+      locale: options.locale,
+      cookies: new Set()
     }
+    ctx.clients = getClients(options, ctx)
+    ctx.loaders = getLoaders(options, ctx)
+
+    return ctx
+  }
 
 export const getResolvers = (_: Options) => Resolvers

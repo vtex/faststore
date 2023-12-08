@@ -59,6 +59,10 @@ const handler: NextApiHandler = async (request, response) => {
         ? stringifyCacheControl(extensions.cacheControl)
         : 'no-cache, no-store'
 
+    if (extensions.cookies.size > 0 && !hasErrors) {
+      response.setHeader('set-cookie', Array.from(extensions.cookies))
+    }
+
     response.setHeader('cache-control', cacheControl)
     response.setHeader('content-type', 'application/json')
     response.send(JSON.stringify({ data, errors }))

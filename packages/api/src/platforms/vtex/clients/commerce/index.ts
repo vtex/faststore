@@ -19,6 +19,7 @@ import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import { DeliveryMode, SelectedAddress } from './types/ShippingData'
+import { getStoreCookie } from '../../utils/cookies'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -34,22 +35,37 @@ export const VtexCommerce = (
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br`
+  const storeCookies = getStoreCookie(ctx)
 
   return {
     catalog: {
       salesChannel: (sc: string): Promise<SalesChannel> =>
-        fetchAPI(`${base}/api/catalog_system/pub/saleschannel/${sc}`),
+        fetchAPI(
+          `${base}/api/catalog_system/pub/saleschannel/${sc}`,
+          undefined,
+          { storeCookies }
+        ),
       brand: {
         list: (): Promise<Brand[]> =>
-          fetchAPI(`${base}/api/catalog_system/pub/brand/list`),
+          fetchAPI(`${base}/api/catalog_system/pub/brand/list`, undefined, {
+            storeCookies,
+          }),
       },
       category: {
         tree: (depth = 3): Promise<CategoryTree[]> =>
-          fetchAPI(`${base}/api/catalog_system/pub/category/tree/${depth}`),
+          fetchAPI(
+            `${base}/api/catalog_system/pub/category/tree/${depth}`,
+            undefined,
+            { storeCookies }
+          ),
       },
       portal: {
         pagetype: (slug: string): Promise<PortalPagetype> =>
-          fetchAPI(`${base}/api/catalog_system/pub/portal/pagetype/${slug}`),
+          fetchAPI(
+            `${base}/api/catalog_system/pub/portal/pagetype/${slug}`,
+            undefined,
+            { storeCookies }
+          ),
       },
       products: {
         crossselling: ({
@@ -67,7 +83,9 @@ export const VtexCommerce = (
           })
 
           return fetchAPI(
-            `${base}/api/catalog_system/pub/products/crossselling/${type}/${productId}?${params}`
+            `${base}/api/catalog_system/pub/products/crossselling/${type}/${productId}?${params}`,
+            undefined,
+            { storeCookies }
           )
         },
       },
@@ -86,7 +104,8 @@ export const VtexCommerce = (
           {
             ...BASE_INIT,
             body: JSON.stringify(args),
-          }
+          },
+          { storeCookies }
         )
       },
 
@@ -130,7 +149,8 @@ export const VtexCommerce = (
               'content-type': 'application/json',
               cookie: ctx.headers.cookie,
             },
-          }
+          },
+          { storeCookies }
         )
       },
 
@@ -160,7 +180,8 @@ export const VtexCommerce = (
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
-          requestInit
+          requestInit,
+          { storeCookies }
         )
       },
 
@@ -170,7 +191,8 @@ export const VtexCommerce = (
           {
             ...BASE_INIT,
             body: '{}',
-          }
+          },
+          { storeCookies }
         )
       },
 
@@ -192,31 +214,20 @@ export const VtexCommerce = (
           sc: salesChannel,
         })
 
-        const items = JSON.stringify({
-          orderItems,
-          noSplitItem: !shouldSplitItem,
-        })
-
-        const requestInit: RequestInit = ctx.headers
-          ? {
-              headers: {
-                'content-type': 'application/json',
-                cookie: ctx.headers.cookie,
-              },
-              body: items,
-              method: 'PATCH',
-            }
-          : {
-              headers: {
-                'content-type': 'application/json',
-              },
-              body: items,
-              method: 'PATCH',
-            }
-
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
-          requestInit
+          {
+            headers: {
+              'content-type': 'application/json',
+              cookie: ctx.headers?.cookie,
+            },
+            body: JSON.stringify({
+              orderItems,
+              noSplitItem: !shouldSplitItem,
+            }),
+            method: 'PATCH',
+          },
+          { storeCookies }
         )
       },
       setCustomData: ({
@@ -236,7 +247,8 @@ export const VtexCommerce = (
             ...BASE_INIT,
             body: JSON.stringify({ value }),
             method: 'PUT',
-          }
+          },
+          { storeCookies }
         )
       },
       region: async ({
@@ -258,14 +270,16 @@ export const VtexCommerce = (
             )
 
         const url = `${base}/api/checkout/pub/regions/?${params.toString()}`
-        return fetchAPI(url)
+        return fetchAPI(url, undefined, { storeCookies })
       },
       address: async ({
         postalCode,
         country,
       }: AddressInput): Promise<Address> => {
         return fetchAPI(
-          `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`
+          `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`,
+          undefined,
+          { storeCookies }
         )
       },
     },
@@ -276,24 +290,32 @@ export const VtexCommerce = (
         'items',
         'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
-      return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          cookie: ctx.headers.cookie,
+      return fetchAPI(
+        `${base}/api/sessions?${params.toString()}`,
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            cookie: ctx.headers.cookie,
+          },
+          body: '{}',
         },
-        body: '{}',
-      })
+        { storeCookies }
+      )
     },
     subscribeToNewsletter: (data: {
       name: string
       email: string
     }): Promise<MasterDataResponse> => {
-      return fetchAPI(`${base}/api/dataentities/NL/documents/`, {
-        ...BASE_INIT,
-        body: JSON.stringify({ ...data, isNewsletterOptIn: true }),
-        method: 'PATCH',
-      })
+      return fetchAPI(
+        `${base}/api/dataentities/NL/documents/`,
+        {
+          ...BASE_INIT,
+          body: JSON.stringify({ ...data, isNewsletterOptIn: true }),
+          method: 'PATCH',
+        },
+        { storeCookies }
+      )
     },
   }
 }
