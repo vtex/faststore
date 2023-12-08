@@ -1655,8 +1655,7 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["Rocket Launch"],
-                  "enum": ["RocketLaunch"]
+                  "default": "RocketLaunch"
                 }
               }
             }
