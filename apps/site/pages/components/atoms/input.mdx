@@ -14,7 +14,6 @@ import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { Input, InputField } from '@faststore/ui'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
-
 export const getStaticProps = () => {
   const inputPath = path.resolve(__filename)
   const components = ['Input.tsx']
@@ -24,7 +23,7 @@ export const getStaticProps = () => {
       // We add an `ssg` field to the page props,
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
-        inputProps
+        inputProps,
       },
     },
   }
@@ -34,10 +33,9 @@ export const InputPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
   const { inputProps } = useSSG()
   return {
-    Input: <PropsSection propsList={inputProps} />
+    Input: <PropsSection propsList={inputProps} />,
   }[component]
 }
-
 
 <header>
 
@@ -58,8 +56,8 @@ Inputs are fields used to get user inputs.
   </Tab>
   <Tab>
     ```tsx
-     <Input placeholder="Label" id="inputfield-default" />
-     <Input placeholder="Input Disabled" id="inputfield-disabled" disabled />
+    <Input placeholder="Label" id="inputfield-default" />
+    <Input placeholder="Input Disabled" id="inputfield-disabled" disabled />
     ```
   </Tab>
 </Tabs>
@@ -76,8 +74,13 @@ import { Input } from '@faststore/ui'
 
 ### Import Styles into your FastStore project
 
-To use the styles for this component into your FastStore 
-project, follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/components#importing-faststore-ui-component-styles) tutorial.
+To apply the styles of this component in your FastStore project, import the following into your stylesheet:
+
+```scss copy
+@import '@faststore/ui/src/components/atoms/Input/styles.scsss';
+```
+
+Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/components#importing-faststore-ui-component-styles) tutorial.
 
 ---
 

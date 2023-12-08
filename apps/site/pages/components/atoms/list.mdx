@@ -73,8 +73,13 @@ import { List } from '@faststore/ui'
 
 ### Import Styles into your FastStore project
 
-To use the styles for this component into your FastStore 
-project, follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/components#importing-faststore-ui-component-styles) tutorial.
+To apply the styles of this component in your FastStore project, import the following into your stylesheet:
+
+```scss copy
+@import '@faststore/ui/src/components/atoms/List/styles.scsss';
+```
+
+Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/components#importing-faststore-ui-component-styles) tutorial.
 
 ---
 
@@ -111,8 +116,9 @@ export const propsList = [
   {
     name: 'marker',
     type: 'boolean',
-    description: "Specify whether or not this component should display the list's markers (bullets or numbers).",
-  }
+    description:
+      "Specify whether or not this component should display the list's markers (bullets or numbers).",
+  },
 ]
 
 <PropsSection propsList={propsList} />

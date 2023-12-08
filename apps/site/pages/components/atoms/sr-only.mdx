@@ -31,8 +31,13 @@ import { SROnly } from '@faststore/ui'
 
 ### Import Styles into your FastStore project
 
-To use the styles for this component into your FastStore 
-project, follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/components#importing-faststore-ui-component-styles) tutorial.
+To apply the styles of this component in your FastStore project, import the following into your stylesheet:
+
+```scss copy
+@import '@faststore/ui/src/components/atoms/SROnly/styles.scsss';
+```
+
+Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/components#importing-faststore-ui-component-styles) tutorial.
 
 ---
 
@@ -54,16 +59,15 @@ export const propsSROnly = [
   {
     name: 'text',
     type: 'string',
-    description:
-      'Defines component element type (e.g.: span).',
+    description: 'Defines component element type (e.g.: span).',
     required: true,
   },
   {
     name: 'as',
-    type: "ElementType",
+    type: 'ElementType',
     description: 'Defines component element type (e.g.: span, div, h1).',
     default: 'span',
-  }
+  },
 ]
 
 <PropsSection propsList={propsSROnly} />
