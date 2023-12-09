@@ -112,7 +112,6 @@ export const VtexCommerce = (
           { storeCookies }
         )
       },
-
       shippingData: (
         {
           id,
@@ -144,20 +143,25 @@ export const VtexCommerce = (
           selectedAddresses: selectedAddresses,
           clearAddressIfPostalCodeNotFound: incrementAddress,
         }
+        const cookie = getUpdatedCookie(ctx)
+        const headers: HeadersInit = cookie
+          ? {
+              'content-type': 'application/json',
+              cookie,
+            }
+          : {
+              'content-type': 'application/json',
+            }
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
             ...BASE_INIT,
+            headers,
             body: JSON.stringify(mappedBody),
-            headers: {
-              'content-type': 'application/json',
-              cookie: getUpdatedCookie(ctx),
-            },
           },
           { storeCookies }
         )
       },
-
       orderForm: ({
         id,
         refreshOutdatedData = true,
@@ -172,12 +176,14 @@ export const VtexCommerce = (
           refreshOutdatedData: refreshOutdatedData.toString(),
           sc: salesChannel,
         })
-        const requestInit: RequestInit = ctx.headers
+
+        const cookie = getUpdatedCookie(ctx)
+        const requestInit: RequestInit = cookie
           ? {
               ...BASE_INIT,
               headers: {
                 'content-type': 'application/json',
-                cookie: getUpdatedCookie(ctx),
+                cookie,
               },
             }
           : BASE_INIT
@@ -188,22 +194,26 @@ export const VtexCommerce = (
           { storeCookies }
         )
       },
-
       clearOrderFormMessages: ({ id }: { id: string }) => {
+        const cookie = getUpdatedCookie(ctx)
+        const headers: HeadersInit = cookie
+          ? {
+              'content-type': 'application/json',
+              cookie,
+            }
+          : {
+              'content-type': 'application/json',
+            }
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/messages/clear`,
           {
             ...BASE_INIT,
-            headers: {
-              'content-type': 'application/json',
-              cookie: getUpdatedCookie(ctx),
-            },
+            headers,
             body: '{}',
           },
           { storeCookies }
         )
       },
-
       updateOrderFormItems: ({
         id,
         orderItems,
@@ -222,13 +232,20 @@ export const VtexCommerce = (
           sc: salesChannel,
         })
 
+        const cookie = getUpdatedCookie(ctx)
+        const headers: HeadersInit = cookie
+          ? {
+              'content-type': 'application/json',
+              cookie,
+            }
+          : {
+              'content-type': 'application/json',
+            }
+
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
           {
-            headers: {
-              'content-type': 'application/json',
-              cookie: getUpdatedCookie(ctx),
-            },
+            headers,
             body: JSON.stringify({
               orderItems,
               noSplitItem: !shouldSplitItem,
@@ -249,13 +266,19 @@ export const VtexCommerce = (
         key: string
         value: string
       }): Promise<OrderForm> => {
+        const cookie = getUpdatedCookie(ctx)
+        const headers: HeadersInit = cookie
+          ? {
+              'content-type': 'application/json',
+              cookie,
+            }
+          : {
+              'content-type': 'application/json',
+            }
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/customData/${appId}/${key}`,
           {
-            headers: {
-              'content-type': 'application/json',
-              cookie: getUpdatedCookie(ctx),
-            },
+            headers,
             body: JSON.stringify({ value }),
             method: 'PUT',
           },
@@ -281,13 +304,19 @@ export const VtexCommerce = (
             )
 
         const url = `${base}/api/checkout/pub/regions/?${params.toString()}`
+        const cookie = getUpdatedCookie(ctx)
+        const headers: HeadersInit = cookie
+          ? {
+              'content-type': 'application/json',
+              cookie,
+            }
+          : {
+              'content-type': 'application/json',
+            }
         return fetchAPI(
           url,
           {
-            headers: {
-              'content-type': 'application/json',
-              cookie: getUpdatedCookie(ctx),
-            },
+            headers,
           },
           { storeCookies }
         )
@@ -296,13 +325,19 @@ export const VtexCommerce = (
         postalCode,
         country,
       }: AddressInput): Promise<Address> => {
+        const cookie = getUpdatedCookie(ctx)
+        const headers: HeadersInit = cookie
+          ? {
+              'content-type': 'application/json',
+              cookie,
+            }
+          : {
+              'content-type': 'application/json',
+            }
         return fetchAPI(
           `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`,
           {
-            headers: {
-              'content-type': 'application/json',
-              cookie: getUpdatedCookie(ctx),
-            },
+            headers,
           },
           { storeCookies }
         )
@@ -315,14 +350,20 @@ export const VtexCommerce = (
         'items',
         'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
+      const cookie = getUpdatedCookie(ctx)
+      const headers: HeadersInit = cookie
+        ? {
+            'content-type': 'application/json',
+            cookie,
+          }
+        : {
+            'content-type': 'application/json',
+          }
       return fetchAPI(
         `${base}/api/sessions?${params.toString()}`,
         {
           method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-            cookie: getUpdatedCookie(ctx),
-          },
+          headers,
           body: '{}',
         },
         { storeCookies }
