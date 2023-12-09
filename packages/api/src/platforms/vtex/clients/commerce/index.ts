@@ -36,10 +36,15 @@ export const VtexCommerce = (
 ) => {
   const base = `https://${account}.${environment}.com.br`
   const storeCookies = getStoreCookie(ctx)
-  const forwardedHost = ctx.headers?.origin
-    ? new URL(ctx.headers.origin).hostname
-    : ''
+  const forwardedHost =
+    ctx.headers?.['X-Forwarded-Host'] ??
+    ctx.headers?.['x-forwarded-host'] ??
+    ctx.headers?.['X-FORWARDED-HOST'] ??
+    ctx.headers?.Forwarded ??
+    ctx.headers?.host ??
+    ''
 
+  //new Headers(ctx.headers).get('x-forwarded-host')
   return {
     catalog: {
       salesChannel: (sc: string): Promise<SalesChannel> =>
