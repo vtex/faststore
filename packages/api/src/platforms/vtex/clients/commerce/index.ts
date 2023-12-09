@@ -19,7 +19,7 @@ import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import { DeliveryMode, SelectedAddress } from './types/ShippingData'
-import { getStoreCookie } from '../../utils/cookies'
+import { getUpdatedCookie, getStoreCookie } from '../../utils/cookies'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -103,6 +103,10 @@ export const VtexCommerce = (
           `${base}/api/checkout/pub/orderForms/simulation?${params.toString()}`,
           {
             ...BASE_INIT,
+            headers: {
+              'content-type': 'application/json',
+              cookie: getUpdatedCookie(ctx),
+            },
             body: JSON.stringify(args),
           },
           { storeCookies }
@@ -147,7 +151,7 @@ export const VtexCommerce = (
             body: JSON.stringify(mappedBody),
             headers: {
               'content-type': 'application/json',
-              cookie: ctx.headers.cookie,
+              cookie: getUpdatedCookie(ctx),
             },
           },
           { storeCookies }
@@ -173,7 +177,7 @@ export const VtexCommerce = (
               ...BASE_INIT,
               headers: {
                 'content-type': 'application/json',
-                cookie: ctx.headers.cookie,
+                cookie: getUpdatedCookie(ctx),
               },
             }
           : BASE_INIT
@@ -190,6 +194,10 @@ export const VtexCommerce = (
           `${base}/api/checkout/pub/orderForm/${id}/messages/clear`,
           {
             ...BASE_INIT,
+            headers: {
+              'content-type': 'application/json',
+              cookie: getUpdatedCookie(ctx),
+            },
             body: '{}',
           },
           { storeCookies }
@@ -219,7 +227,7 @@ export const VtexCommerce = (
           {
             headers: {
               'content-type': 'application/json',
-              cookie: ctx.headers?.cookie,
+              cookie: getUpdatedCookie(ctx),
             },
             body: JSON.stringify({
               orderItems,
@@ -244,7 +252,10 @@ export const VtexCommerce = (
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/customData/${appId}/${key}`,
           {
-            ...BASE_INIT,
+            headers: {
+              'content-type': 'application/json',
+              cookie: getUpdatedCookie(ctx),
+            },
             body: JSON.stringify({ value }),
             method: 'PUT',
           },
@@ -270,7 +281,16 @@ export const VtexCommerce = (
             )
 
         const url = `${base}/api/checkout/pub/regions/?${params.toString()}`
-        return fetchAPI(url, undefined, { storeCookies })
+        return fetchAPI(
+          url,
+          {
+            headers: {
+              'content-type': 'application/json',
+              cookie: getUpdatedCookie(ctx),
+            },
+          },
+          { storeCookies }
+        )
       },
       address: async ({
         postalCode,
@@ -278,7 +298,12 @@ export const VtexCommerce = (
       }: AddressInput): Promise<Address> => {
         return fetchAPI(
           `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`,
-          undefined,
+          {
+            headers: {
+              'content-type': 'application/json',
+              cookie: getUpdatedCookie(ctx),
+            },
+          },
           { storeCookies }
         )
       },
@@ -296,7 +321,7 @@ export const VtexCommerce = (
           method: 'POST',
           headers: {
             'content-type': 'application/json',
-            cookie: ctx.headers.cookie,
+            cookie: getUpdatedCookie(ctx),
           },
           body: '{}',
         },
