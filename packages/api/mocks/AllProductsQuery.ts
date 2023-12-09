@@ -74,6 +74,7 @@ export const AllProductsQueryFirst5 = `query AllProducts {
 export const productSearchPage1Count5Fetch = {
   info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false',
   init: undefined,
+  options: { storeCookies: expect.any(Function) },
   result: {
     products: [
       {

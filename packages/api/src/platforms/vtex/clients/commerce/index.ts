@@ -36,6 +36,9 @@ export const VtexCommerce = (
 ) => {
   const base = `https://${account}.${environment}.com.br`
   const storeCookies = getStoreCookie(ctx)
+  const forwardedHost = ctx.headers?.origin
+    ? new URL(ctx.headers.origin).hostname
+    : ''
 
   return {
     catalog: {
@@ -115,8 +118,7 @@ export const VtexCommerce = (
             ...BASE_INIT,
             headers,
             body: JSON.stringify(args),
-          },
-          { storeCookies }
+          }
         )
       },
       shippingData: (
@@ -190,6 +192,7 @@ export const VtexCommerce = (
               ...BASE_INIT,
               headers: {
                 'content-type': 'application/json',
+                'X-FORWARDED-HOST': forwardedHost,
                 cookie,
               },
             }
@@ -217,8 +220,7 @@ export const VtexCommerce = (
             ...BASE_INIT,
             headers,
             body: '{}',
-          },
-          { storeCookies }
+          }
         )
       },
       updateOrderFormItems: ({
@@ -243,10 +245,12 @@ export const VtexCommerce = (
         const headers: HeadersInit = cookie
           ? {
               'content-type': 'application/json',
+              'X-FORWARDED-HOST': forwardedHost,
               cookie,
             }
           : {
               'content-type': 'application/json',
+              'X-FORWARDED-HOST': forwardedHost,
             }
 
         return fetchAPI(
@@ -288,8 +292,7 @@ export const VtexCommerce = (
             headers,
             body: JSON.stringify({ value }),
             method: 'PUT',
-          },
-          { storeCookies }
+          }
         )
       },
       region: async ({

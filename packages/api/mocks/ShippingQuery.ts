@@ -97,6 +97,7 @@ export const ShippingSimulationQueryResult = `query ShippingSimulationQuery {
 export const addressFetch = {
   info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/postal-code/USA/32808',
   init: { headers: { 'content-type': 'application/json' } },
+  options: undefined,
   result: {
     address: {
       postalCode: '32808',
@@ -126,6 +127,7 @@ export const shippingSimulationFetch = {
       items: [{ id: '99988211', quantity: 1, seller: '1' }],
     }),
   },
+  options: undefined,
   result: {
     items: [
       {

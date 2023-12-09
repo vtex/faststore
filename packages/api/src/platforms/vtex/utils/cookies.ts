@@ -1,12 +1,9 @@
 import type { Context } from '../index'
 
-const MATCH_DOMAIN_REGEXP = /(?:^|;\s*)(?:domain=)([^;]+)/i
-// match the first key=value
-const MATCH_COOKIE_FIRST_KEY_VALUE = /^([^=]+)=([^;]*)/
+const MATCH_FIRST_SET_COOKIE_KEY_VALUE = /^([^=]+)=([^;]*)/
 
 /**
  * This function updates the ctx.storage.cookies, that is used in each request.
- * It also replaces original setCookie domain for FastStore API's domain hostname.
  *
  * ctx.storage.cookies is a Map<string[1], Record<string, string>[2]> where,
  * [1] cookie key
@@ -16,22 +13,14 @@ const MATCH_COOKIE_FIRST_KEY_VALUE = /^([^=]+)=([^;]*)/
  *     }
  */
 const updatesContextStorageCookies = (setCookieValue: string, ctx: Context) => {
-  const faststoreAPIHostname = new URL(`https://${ctx.headers.host}`).hostname
-
-  const matchCookie = setCookieValue.match(MATCH_COOKIE_FIRST_KEY_VALUE)
+  const matchCookie = setCookieValue.match(MATCH_FIRST_SET_COOKIE_KEY_VALUE)
   if (matchCookie) {
     const cookieKey = matchCookie[1]
     const cookieValue = matchCookie[2]
 
-    // Replaces original setCookie domain for FastStore API's domain hostname
-    const setCookieWithStoreDomain = setCookieValue.replace(
-      MATCH_DOMAIN_REGEXP,
-      `; domain=${faststoreAPIHostname}`
-    )
-
     ctx.storage.cookies.set(cookieKey, {
       value: cookieValue,
-      setCookie: setCookieWithStoreDomain,
+      setCookie: setCookieValue,
     })
   }
 }

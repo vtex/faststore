@@ -105,7 +105,7 @@ test('`validateCart` mutation should return `null` when a valid cart is passed',
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      { storeCookies: expect.any(Function) }
+      fetchAPICall.options,
     )
   })
 
@@ -134,7 +134,7 @@ test('`validateCart` mutation should return the full order when an invalid cart 
       index + 1,
       fetchAPICall.info,
       fetchAPICall.init,
-      { storeCookies: expect.any(Function) }
+      fetchAPICall.options
     )
   })
 
@@ -162,7 +162,7 @@ test('`validateCart` mutation should return new cart when etag is stale', async 
       index + 1,
       fetchAPICall.info,
       fetchAPICall.init,
-      { storeCookies: expect.any(Function) }
+      fetchAPICall.options
     )
   })
 

@@ -1,6 +1,6 @@
 {
   "name": "@faststore/core",
-  "version": "2.2.46",
+  "version": "2.2.48",
   "license": "MIT",
   "repository": "vtex/faststore",
   "browserslist": "supports es6-module and not dead",
@@ -37,7 +37,7 @@
     "@envelop/graphql-jit": "^1.1.1",
     "@envelop/parser-cache": "^2.2.0",
     "@envelop/validation-cache": "^2.2.0",
-    "@faststore/api": "^2.2.46",
+    "@faststore/api": "^2.2.48",
     "@faststore/components": "^2.2.45",
     "@faststore/graphql-utils": "^2.2.45",
     "@faststore/sdk": "^2.2.45",
