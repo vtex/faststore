@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build --log-order=grouped",
     "dev": "turbo run dev --parallel --no-cache",
     "lint": "turbo run lint",
     "test": "turbo run test",
@@ -21,14 +21,15 @@
   "devDependencies": {
     "@faststore/eslint-config": "^2.2.0-alpha.0",
     "conventional-changelog-conventionalcommits": "^5.0.0",
-    "lerna": "6.4.1",
-    "prettier": "^2",
-    "turbo": "latest"
+    "lerna": "^8.0.0",
+    "prettier": "^3.1.0",
+    "turbo": "^1.11.0"
   },
   "version": "0.0.0",
   "volta": {
-    "node": "16.18.0",
+    "node": "18.19.0",
     "yarn": "1.19.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "packageManager": "yarn@1.19.1"
 }

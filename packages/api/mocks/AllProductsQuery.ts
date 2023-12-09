@@ -79,8 +79,8 @@ export const productSearchPage1Count5Fetch = {
       {
         cacheId: 'sp-99995946',
         productId: '99995946',
-        description: '4k Philips Monitor 27"',
-        productName: '4k Philips Monitor 27"',
+        description: '4k Philips Monitor 27\"',
+        productName: '4k Philips Monitor 27\"',
         linkText: '4k-philips-monitor',
         brand: 'adidas',
         brandId: 2000004,
@@ -202,7 +202,7 @@ export const productSearchPage1Count5Fetch = {
             ],
             itemId: '99988213',
             name: 'Monitor 27',
-            nameComplete: '4k Philips Monitor 27� Monitor 27',
+            nameComplete: '4k Philips Monitor 27\" Monitor 27',
             complementName: '',
             referenceId: [
               {

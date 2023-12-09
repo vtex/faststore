@@ -28,20 +28,34 @@
     "test": {
       "dependsOn": [
         "^build"
-      ],
-      "outputs": []
+      ]
     },
-    "lint": {
-      "outputs": []
+    "lint": {},
+    "start": {
+      "outputs": [
+        "dist/**"
+      ]
     },
-    "start": {},
     "size": {},
     "dev": {
       "cache": false
     },
-    "@faststore/core#dev": {
-      "dependsOn": [
-        "@faststore/api#build"
+    "dev:server": {
+      "cache": false
+    },
+    "@faststore/api#dev:graphql": {
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "@faststore/api#build:cjs": {
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "@faststore/api#build:esm": {
+      "outputs": [
+        "dist/**"
       ]
     }
   }

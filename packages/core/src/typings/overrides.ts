@@ -207,6 +207,7 @@ export type SectionsOverrides = {
     __experimentalFilterDesktop: ComponentOverrideDefinition<any, any>
     __experimentalFilterSlider: ComponentOverrideDefinition<any, any>
     __experimentalProductCard: ComponentOverrideDefinition<any, any>
+    __experimentalEmptyGallery: ComponentOverrideDefinition<any, any>
   }
   ProductShelf: {
     ProductShelf: ComponentOverrideDefinition<
