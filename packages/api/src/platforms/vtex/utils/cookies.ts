@@ -49,7 +49,8 @@ export const getStoreCookie = (ctx: Context) => (headers: Headers) =>
 
 /**
  * This function updates the original cookie (ctx.headers.cookie from the first request)
- * with the cookie values that comes in each request (ctx.storage.cookies)
+ * with the cookie values that comes in each request (ctx.storage.cookies).
+ * If there is no cookies in storage, the ctx.headers?.cookie is used
  *
  * ctx.storage.cookies is a Map<string[1], Record<string, string>[2]> where,
  * [1] cookie key
@@ -59,12 +60,16 @@ export const getStoreCookie = (ctx: Context) => (headers: Headers) =>
  *     }
  */
 export const getUpdatedCookie = (ctx: Context) => {
-  return Array.from(ctx.storage.cookies.entries()).reduce(
-    (cookie, [key, { value }]) => {
-      return updatesCookieValueByKey(cookie, key, value)
-    },
-    ctx.headers?.cookie
-  )
+  const contextStorageCookies = Array.from(ctx.storage.cookies.entries())
+
+  return contextStorageCookies.length > 0
+    ? contextStorageCookies.reduce(
+        (cookie, [key, { value }]) => {
+          return updatesCookieValueByKey(cookie, key, value)
+        },
+        ctx.headers?.cookie
+      )
+    : ctx.headers?.cookie
 }
 
 /**
