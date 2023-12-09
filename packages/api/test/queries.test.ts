@@ -127,7 +127,7 @@ test('`collection` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      { storeCookies: expect.any(Function) }
+      fetchAPICall.options,
     )
   })
 
@@ -149,8 +149,7 @@ test('`product` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-
-      { storeCookies: expect.any(Function) }
+      fetchAPICall.options,
     )
   })
 
@@ -180,8 +179,7 @@ test('`allCollections` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-
-      { storeCookies: expect.any(Function) }
+      fetchAPICall.options,
     )
   })
 
@@ -203,8 +201,7 @@ test('`allProducts` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-
-      { storeCookies: expect.any(Function) }
+      fetchAPICall.options,
     )
   })
 
@@ -230,8 +227,7 @@ test('`search` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-
-      { storeCookies: expect.any(Function) }
+      fetchAPICall.options,
     )
   })
 
@@ -253,8 +249,7 @@ test('`shipping` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-
-      { storeCookies: expect.any(Function) }
+      fetchAPICall.options
     )
   })
 
@@ -276,7 +271,6 @@ test('`redirect` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-
       { storeCookies: expect.any(Function) }
     )
   })
@@ -298,8 +292,7 @@ test('`sellers` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-
-      { storeCookies: expect.any(Function) }
+      fetchAPICall.options,
     )
   })
   expect(response).toMatchSnapshot()

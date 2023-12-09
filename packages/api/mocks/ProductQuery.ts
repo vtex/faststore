@@ -63,6 +63,7 @@ export const ProductByIdQuery = `query ProductQuery {
 export const productSearchFetch = {
   info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=1&query=sku%3A64953394&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false',
   init: undefined,
+  options: { storeCookies: expect.any(Function) },
   result: {
     products: [
       {

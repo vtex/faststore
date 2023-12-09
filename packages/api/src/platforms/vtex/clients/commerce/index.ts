@@ -149,7 +149,6 @@ export const VtexCommerce = (
             body: JSON.stringify(mappedBody),
             headers: {
               'content-type': 'application/json',
-              'X-FORWARDED-HOST': forwardedHost,
               cookie: ctx.headers.cookie,
             },
           }
