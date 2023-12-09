@@ -36,6 +36,9 @@ export const VtexCommerce = (
 ) => {
   const base = `https://${account}.${environment}.com.br`
   const storeCookies = getStoreCookie(ctx)
+  const forwardedHost = ctx.headers?.origin
+    ? new URL(ctx.headers.origin).hostname
+    : ''
 
   return {
     catalog: {
@@ -104,8 +107,7 @@ export const VtexCommerce = (
           {
             ...BASE_INIT,
             body: JSON.stringify(args),
-          },
-          { storeCookies }
+          }
         )
       },
 
@@ -147,10 +149,10 @@ export const VtexCommerce = (
             body: JSON.stringify(mappedBody),
             headers: {
               'content-type': 'application/json',
+              'X-FORWARDED-HOST': forwardedHost,
               cookie: ctx.headers.cookie,
             },
-          },
-          { storeCookies }
+          }
         )
       },
 
@@ -173,6 +175,7 @@ export const VtexCommerce = (
               ...BASE_INIT,
               headers: {
                 'content-type': 'application/json',
+                'X-FORWARDED-HOST': forwardedHost,
                 cookie: ctx.headers.cookie,
               },
             }
@@ -191,8 +194,7 @@ export const VtexCommerce = (
           {
             ...BASE_INIT,
             body: '{}',
-          },
-          { storeCookies }
+          }
         )
       },
 
@@ -220,6 +222,7 @@ export const VtexCommerce = (
             headers: {
               'content-type': 'application/json',
               cookie: ctx.headers?.cookie,
+              'X-FORWARDED-HOST': forwardedHost,
             },
             body: JSON.stringify({
               orderItems,
@@ -247,8 +250,7 @@ export const VtexCommerce = (
             ...BASE_INIT,
             body: JSON.stringify({ value }),
             method: 'PUT',
-          },
-          { storeCookies }
+          }
         )
       },
       region: async ({
@@ -270,7 +272,7 @@ export const VtexCommerce = (
             )
 
         const url = `${base}/api/checkout/pub/regions/?${params.toString()}`
-        return fetchAPI(url, undefined, { storeCookies })
+        return fetchAPI(url, undefined)
       },
       address: async ({
         postalCode,
@@ -278,8 +280,7 @@ export const VtexCommerce = (
       }: AddressInput): Promise<Address> => {
         return fetchAPI(
           `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`,
-          undefined,
-          { storeCookies }
+          undefined
         )
       },
     },
