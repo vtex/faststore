@@ -99,14 +99,21 @@ export const VtexCommerce = (
           sc: salesChannel,
         })
 
+        const cookie = getUpdatedCookie(ctx)
+        const headers: HeadersInit = cookie
+          ? {
+              'content-type': 'application/json',
+              cookie,
+            }
+          : {
+              'content-type': 'application/json',
+            }
+
         return fetchAPI(
           `${base}/api/checkout/pub/orderForms/simulation?${params.toString()}`,
           {
             ...BASE_INIT,
-            headers: {
-              'content-type': 'application/json',
-              cookie: getUpdatedCookie(ctx),
-            },
+            headers,
             body: JSON.stringify(args),
           },
           { storeCookies }
