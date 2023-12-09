@@ -84,7 +84,10 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
 ): Promise<{
   data: D
   errors: unknown[]
-  extensions: { cacheControl?: CacheControl; cookies: Set<string> | null }
+  extensions: {
+    cacheControl?: CacheControl
+    cookies: Map<string, Record<string, string>> | null
+  }
 }> => {
   const { operationName, variables, query: maybeQuery } = options
   const query = maybeQuery ?? persistedQueries.get(operationName)
