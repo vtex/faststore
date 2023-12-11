@@ -91,7 +91,7 @@ export const updatesCookieValueByKey = (
   if (cookieParts) {
     return existingCookies.replace(
       MATCH_FIRST_SET_COOKIE_KEY_VALUE,
-      `${cookieParts[1]}=${cookieParts[2]}`
+      `${cookieParts[1]}=${storageCookieValue}`
     )
   }
 
