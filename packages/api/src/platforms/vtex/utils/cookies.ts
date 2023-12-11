@@ -12,8 +12,9 @@ const MATCH_FIRST_SET_COOKIE_KEY_VALUE = /^([^=]+)=([^;]*)/
  *       setCookie: setCookie used in browser response
  *     }
  */
-const updatesContextStorageCookies = (setCookieValue: string, ctx: Context) => {
+const updatesContextStorageCookies = (ctx: Context, setCookieValue: string) => {
   const matchCookie = setCookieValue.match(MATCH_FIRST_SET_COOKIE_KEY_VALUE)
+
   if (matchCookie) {
     const cookieKey = matchCookie[1]
     const cookieValue = matchCookie[2]
@@ -25,16 +26,16 @@ const updatesContextStorageCookies = (setCookieValue: string, ctx: Context) => {
   }
 }
 
-export const setCookie = (headers: Headers, ctx: Context) => {
+export const setCookie = (ctx: Context, headers: Headers) => {
   headers
     .getSetCookie()
     .forEach((setCookieValue) =>
-      updatesContextStorageCookies(setCookieValue, ctx)
+      updatesContextStorageCookies(ctx, setCookieValue)
     )
 }
 
 export const getStoreCookie = (ctx: Context) => (headers: Headers) =>
-  setCookie(headers, ctx)
+  setCookie(ctx, headers)
 
 /**
  * This function returns a modified copy of the original cookie header (ctx.headers.cookie from the first request)
@@ -69,6 +70,22 @@ export const getUpdatedCookie = (ctx: Context) => {
     ctx.headers.cookie
   )
 }
+
+export const getWithCookie = (ctx: Context) =>
+  function withCookie<T extends Record<string, any>>(
+    headers: T
+  ): T & { cookie?: string } {
+    const updatedCookie = getUpdatedCookie(ctx)
+
+    if (!updatedCookie) {
+      return headers
+    }
+
+    return {
+      ...headers,
+      cookie: updatedCookie,
+    }
+  }
 
 /**
  * This function updates the cookie value based on its key
