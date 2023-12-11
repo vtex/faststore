@@ -57,7 +57,7 @@ export interface Context {
     locale: string
     flags: FeatureFlags
     searchArgs?: Omit<SearchArgs, 'type'>
-    cookies: Set<string>
+    cookies: Map<string, Record<string, string>>
   }
   headers: Record<string, string>
 }
@@ -98,7 +98,7 @@ export const getContextFactory =
       channel: ChannelMarshal.parse(options.channel),
       flags: options.flags ?? {},
       locale: options.locale,
-      cookies: new Set()
+      cookies: new Map<string, Record<string, string>>(),
     }
     ctx.clients = getClients(options, ctx)
     ctx.loaders = getLoaders(options, ctx)

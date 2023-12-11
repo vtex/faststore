@@ -13,8 +13,8 @@ export const SellersQueryResult = `query SellersQuery {
 
 export const regionFetch = {
     info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/regions/?country=USA&sc=&postalCode=32808',
-    init: undefined,
-    options: undefined,
+    init: { headers: { 'content-type': 'application/json', "X-FORWARDED-HOST": "" } },
+    options: { storeCookies: expect.any(Function) },
     result: [
         {
             "id": "v2.4325C29BA00E6470CBA54999680076F9",
