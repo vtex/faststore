@@ -36,9 +36,7 @@ export const VtexCommerce = (
 ) => {
   const base = `https://${account}.${environment}.com.br`
   const storeCookies = getStoreCookie(ctx)
-  const forwardedHost = ctx.headers?.origin
-    ? new URL(ctx.headers.origin).hostname
-    : ''
+  const forwardedHost = new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? ''
 
   return {
     catalog: {
