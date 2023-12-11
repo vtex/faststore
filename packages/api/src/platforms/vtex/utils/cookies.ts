@@ -37,7 +37,7 @@ export const getStoreCookie = (ctx: Context) => (headers: Headers) =>
   setCookie(headers, ctx)
 
 /**
- * This function updates the original cookie (ctx.headers.cookie from the first request)
+ * This function returns a modified copy of the original cookie header (ctx.headers.cookie from the first request)
  * with the cookie values that comes in each request (ctx.storage.cookies).
  * If there is no cookies in storage, the ctx.headers?.cookie is used
  *
@@ -49,36 +49,52 @@ export const getStoreCookie = (ctx: Context) => (headers: Headers) =>
  *     }
  */
 export const getUpdatedCookie = (ctx: Context) => {
+  if (!ctx.headers?.cookie) {
+    return null
+  }
+
   const contextStorageCookies = Array.from(ctx.storage.cookies.entries())
 
-  return contextStorageCookies.length > 0
-    ? contextStorageCookies.reduce(
-        (cookie, [key, { value }]) => {
-          return updatesCookieValueByKey(cookie, key, value)
-        },
-        ctx.headers?.cookie
-      )
-    : ctx.headers?.cookie
+  if (contextStorageCookies.length === 0) {
+    return ctx.headers.cookie
+  }
+
+  return contextStorageCookies.reduce(
+    (existingCookies, [storageCookieKey, { value: storageCookieValue }]) =>
+      updatesCookieValueByKey(
+        existingCookies,
+        storageCookieKey,
+        storageCookieValue
+      ),
+    ctx.headers.cookie
+  )
 }
 
 /**
  * This function updates the cookie value based on its key
  *
- * const cookie = 'key=value1; key2=; key3=value3';
- * const key = 'key2';
- * const newValue = 'value2'
+ * const existingCookies = 'key=value1; key2=; key3=value3';
+ * const storageCookieKey = 'key2';
+ * const storageCookieValue = 'value2'
  *
- * updatesCookieValueByKey(cookie, key, newValue) returns 'key=value1; key2=value2; key3=value3';
+ * updatesCookieValueByKey(existingCookies, storageCookieKey, storageCookieValue) returns 'key=value1; key2=value2; key3=value3';
  */
 export const updatesCookieValueByKey = (
-  cookie: string,
-  key: string,
-  newValue: string = ''
+  existingCookies: string,
+  storageCookieKey: string,
+  storageCookieValue: string
 ) => {
-  const MATCH_COOKIE_KEY_VALUE = new RegExp(`(${key})=([^;]*)`)
-  const match = cookie.match(MATCH_COOKIE_KEY_VALUE)
+  const MATCH_COOKIE_KEY_VALUE = new RegExp(`(${storageCookieKey})=([^;]*)`)
+  const cookieParts = existingCookies.match(MATCH_COOKIE_KEY_VALUE)
 
-  return match
-    ? cookie.replace(MATCH_COOKIE_KEY_VALUE, `${key}=${newValue}`)
-    : cookie
+  // replaces original cookie with the one coming from storage
+  if (cookieParts) {
+    existingCookies.replace(
+      MATCH_FIRST_SET_COOKIE_KEY_VALUE,
+      `${cookieParts[1]}=${cookieParts[2]}`
+    )
+  }
+
+  // add new storage cookie to the original list of cookies
+  return `${existingCookies};${storageCookieKey}:${storageCookieValue}`
 }
