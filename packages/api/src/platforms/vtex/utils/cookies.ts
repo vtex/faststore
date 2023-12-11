@@ -96,5 +96,5 @@ export const updatesCookieValueByKey = (
   }
 
   // add new storage cookie to the original list of cookies
-  return `${existingCookies};${storageCookieKey}:${storageCookieValue}`
+  return `${existingCookies};${storageCookieKey}=${storageCookieValue}`
 }
