@@ -6,7 +6,7 @@ import MissingContentError from 'src/sdk/error/MissingContentError/MissingConten
 import RenderSections from 'src/components/cms/RenderSections'
 import Hero from 'src/components/sections/Hero'
 import Incentives from 'src/components/sections/Incentives'
-import ProductShelf from 'src/components/sections/ProductShelf'
+import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
 import BannerText from 'src/components/sections/BannerText'
 import Newsletter from 'src/components/sections/Newsletter'
