@@ -5,7 +5,7 @@ import type { ComponentType } from 'react'
 
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerText from 'src/components/sections/BannerText'
-import Hero from 'src/components/sections/Hero'
+import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
 import Incentives from 'src/components/sections/Incentives'
 import Newsletter from 'src/components/sections/Newsletter'
 import ProductShelf from 'src/components/sections/ProductShelf'
