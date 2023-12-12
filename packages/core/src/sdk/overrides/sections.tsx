@@ -1,5 +1,5 @@
 import Alert from '../../components/sections/Alert'
-import ProductShelf from '../../components/ui/ProductShelf'
+import ProductShelf from '../../components/sections/ProductShelf'
 
 import type { DefaultSectionComponentsDefinitions } from '../../typings/overridesDefinition'
 import type { SectionsOverrides } from '../../typings/overrides'
