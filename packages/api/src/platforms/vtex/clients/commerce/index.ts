@@ -19,7 +19,7 @@ import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import { DeliveryMode, SelectedAddress } from './types/ShippingData'
-import { getUpdatedCookie, getStoreCookie } from '../../utils/cookies'
+import { getStoreCookie, getWithCookie } from '../../utils/cookies'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -36,8 +36,13 @@ export const VtexCommerce = (
 ) => {
   const base = `https://${account}.${environment}.com.br`
   const storeCookies = getStoreCookie(ctx)
+  const withCookie = getWithCookie(ctx)
   // replacing www. only for testing while www.vtexfaststore.com is configured with www
-  const forwardedHost = (new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? '').replace('www.', '')
+  const forwardedHost = (
+    new Headers(ctx.headers).get('x-forwarded-host') ??
+    ctx.headers?.host ??
+    ''
+  ).replace('www.', '')
 
   return {
     catalog: {
@@ -101,13 +106,10 @@ export const VtexCommerce = (
           sc: salesChannel,
         })
 
-        const headers: HeadersInit = {
+        const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
-        }
-
-        const cookie = getUpdatedCookie(ctx)
-        if (cookie) headers.cookie = cookie
+        })
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForms/simulation?${params.toString()}`,
@@ -151,13 +153,10 @@ export const VtexCommerce = (
           clearAddressIfPostalCodeNotFound: incrementAddress,
         }
 
-        const headers: HeadersInit = {
+        const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
-        }
-
-        const cookie = getUpdatedCookie(ctx)
-        if (cookie) headers.cookie = cookie
+        })
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
@@ -184,13 +183,10 @@ export const VtexCommerce = (
           sc: salesChannel,
         })
 
-        const headers: HeadersInit = {
+        const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
-        }
-
-        const cookie = getUpdatedCookie(ctx)
-        if (cookie) headers.cookie = cookie
+        })
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
@@ -202,13 +198,10 @@ export const VtexCommerce = (
         )
       },
       clearOrderFormMessages: ({ id }: { id: string }) => {
-        const headers: HeadersInit = {
+        const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
-        }
-
-        const cookie = getUpdatedCookie(ctx)
-        if (cookie) headers.cookie = cookie
+        })
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/messages/clear`,
@@ -237,13 +230,10 @@ export const VtexCommerce = (
           sc: salesChannel,
         })
 
-        const headers: HeadersInit = {
+        const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
-        }
-
-        const cookie = getUpdatedCookie(ctx)
-        if (cookie) headers.cookie = cookie
+        })
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
@@ -269,13 +259,10 @@ export const VtexCommerce = (
         key: string
         value: string
       }): Promise<OrderForm> => {
-        const headers: HeadersInit = {
+        const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
-        }
-
-        const cookie = getUpdatedCookie(ctx)
-        if (cookie) headers.cookie = cookie
+        })
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/customData/${appId}/${key}`,
@@ -305,13 +292,10 @@ export const VtexCommerce = (
             )
 
         const url = `${base}/api/checkout/pub/regions/?${params.toString()}`
-        const headers: HeadersInit = {
+        const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
-        }
-
-        const cookie = getUpdatedCookie(ctx)
-        if (cookie) headers.cookie = cookie
+        })
 
         return fetchAPI(
           url,
@@ -325,13 +309,10 @@ export const VtexCommerce = (
         postalCode,
         country,
       }: AddressInput): Promise<Address> => {
-        const headers: HeadersInit = {
+        const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
-        }
-
-        const cookie = getUpdatedCookie(ctx)
-        if (cookie) headers.cookie = cookie
+        })
 
         return fetchAPI(
           `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`,
@@ -349,15 +330,11 @@ export const VtexCommerce = (
         'items',
         'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
       )
-      const cookie = getUpdatedCookie(ctx)
-      const headers: HeadersInit = cookie
-        ? {
-            'content-type': 'application/json',
-            cookie,
-          }
-        : {
-            'content-type': 'application/json',
-          }
+
+      const headers: HeadersInit = withCookie({
+        'content-type': 'application/json',
+      })
+
       return fetchAPI(
         `${base}/api/sessions?${params.toString()}`,
         {
