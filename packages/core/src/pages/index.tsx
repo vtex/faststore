@@ -4,7 +4,7 @@ import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 
 import RenderSections from 'src/components/cms/RenderSections'
-import BannerText from 'src/components/sections/BannerText'
+import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
 import Incentives from 'src/components/sections/Incentives'
 import Newsletter from 'src/components/sections/Newsletter'
