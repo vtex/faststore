@@ -33,8 +33,8 @@ const Hero = ({
   title,
   subtitle,
   image,
-  variant = 'primary',
-  colorVariant = 'main',
+  variant,
+  colorVariant,
   icon,
 }: HeroProps) => {
   const {
@@ -47,8 +47,8 @@ const Hero = ({
     <Section className={`${styles.section} section-hero`}>
       <HeroWrapper.Component
         {...HeroWrapper.props}
-        variant={HeroWrapper.props.variant ?? variant}
-        colorVariant={HeroWrapper.props.colorVariant ?? colorVariant}
+        variant={variant ?? HeroWrapper.props.variant ?? 'primary'}
+        colorVariant={colorVariant ?? HeroWrapper.props.colorVariant ?? 'main'}
       >
         <HeroImage.Component {...HeroImage.props}>
           <Image
