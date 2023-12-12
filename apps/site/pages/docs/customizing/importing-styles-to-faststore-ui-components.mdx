@@ -15,10 +15,8 @@ FastStore project, follow the steps below.
 
 There are two use cases on how to import FastStore UI component styles:
 
-- [Importing styles when overriding a component](/docs/customizing/components-1#importing-styles-when-overriding-a-component)
-- [Importing styles when creating a new section](/)
-
-In this example, we will create a new section in the CMS called `OurStore`.
+- [Importing styles when overriding a component](/docs/customizing/importing-styles-to-faststore-ui-components#importing-styles-when-overriding-a-component): For this use case we will override the ProductTitle component within the ProductDetails section. 
+- [Importing styles when creating a new section](/docs/customizing/importing-styles-to-faststore-ui-components#importing-styles-when-creating-a-new-section): In this example, we will create a new section in the CMS called `OurStore`.
 
 ## Before you begin
 
@@ -36,13 +34,13 @@ ProductDetails section.
 ### Step 1 - Create the custom component
 
 1. Open your FastStore project and navigate to the `components` folder 
-and create the `CustomProductTitle.module.scss` file. 
+and create the `customProductTitle.module.scss` file. 
 This file is responsible to import the FastStore UI component style.
 
-2. Add the following code to the `CustomProductTitle.module.scss` file.
+2. Add the following code to the `customProductTitle.module.scss` file.
 
 ```scss copy
-.CustomProductTitle {
+.customProductTitle {
     @import "@faststore/ui/src/components/molecules/Tag/styles.scss";
 }
 ```
@@ -55,11 +53,11 @@ This will import the [Tag]() styles to the custom component that you are creatin
 import React from "react";
 import { ProductTitle, Tag } from "@faststore/ui";
 
-import styles from "./CustomProductTitle.module.scss";
+import styles from "./customProductTitle.module.scss";
 
 export default function CustomProductTitle() {
   return (
-    <section className={styles.CustomProductTitle}>
+    <section className={styles.customProductTitle}>
       <ProductTitle 
         title={<h1>New headphones</h1>}
       /> 
@@ -215,11 +213,11 @@ export default { OurStores }
 
 Now that we have the section in the page, let's add some styles to it:
 
-1. In the `components` folder, create the `OurStores.module.scss` file. This file will import the FastStore UI components styles.
+1. In the `components` folder, create the `ourStores.module.scss` file. This file will import the FastStore UI components styles.
 
-2. Add the following code to the `OurStores.module.scss` file:
+2. Add the following code to the `ourStores.module.scss` file:
 
-```scss filename="src/components/OurStores.module.scss" copy
+```scss filename="src/components/ourStores.module.scss" copy
 .ourStores {
   @import '@faststore/ui/src/components/atoms/Button/styles.scss';
   @import '@faststore/ui/src/components/atoms/Select/styles.scss';
@@ -286,7 +284,7 @@ You should be able to see something like:
 
 4. Let's add more styles to it. You can customize it using our [design tokens](/docs/global-tokens/overview) and [component's data attributes](/components/atoms/button#customization).
 
-```scss filename="src/components/OurStores.module.scss" copy
+```scss filename="src/components/ourStores.module.scss" copy
 .ourStores {
   @import '@faststore/ui/src/components/atoms/Button/styles.scss';
   @import '@faststore/ui/src/components/atoms/Select/styles.scss';

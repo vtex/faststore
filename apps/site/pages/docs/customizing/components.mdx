@@ -186,12 +186,12 @@ If you don't have the folder `overrides` yet, go to `src` and create the `compon
 #### Step 1 - Create the custom component
 
 1. Open your FastStore project and navigate to the `components` folder and 
-create the `CustomProductTitle.module.scss` file. This file is responsible to import the FastStore UI component style.
+create the `customProductTitle.module.scss` file. This file is responsible to import the FastStore UI component style.
 
-2. Add the following code to the `CustomProductTitle.module.scss` file.
+2. Add the following code to the `customProductTitle.module.scss` file.
 
 ```scss copy
-.CustomProductTitle {
+.customProductTitle {
     @import "@faststore/ui/src/components/molecules/Tag/styles.scss";
 }
 ```
@@ -204,11 +204,11 @@ This will import the [Tag]() styles to the custom component that you are creatin
 import React from "react";
 import { ProductTitle, Tag } from "@faststore/ui";
 
-import styles from "./CustomProductTitle.module.scss";
+import styles from "./customProductTitle.module.scss";
 
 export default function CustomProductTitle() {
   return (
-    <section className={styles.CustomProductTitle}>
+    <section className={styles.customProductTitle}>
       <ProductTitle 
         title={<h1>New headphones</h1>}
       /> 
