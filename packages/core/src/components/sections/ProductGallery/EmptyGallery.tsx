@@ -3,10 +3,22 @@ import {
   LinkButton as UILinkButton,
   EmptyState as UIEmptyState,
 } from '@faststore/ui'
-import { ProductGalleryProps } from 'src/components/ui/ProductGallery/ProductGallery'
 
-function EmptyGallery({ emptyGallery }: ProductGalleryProps) {
-  const { title, firstButton, secondButton } = emptyGallery
+export interface EmptyGalleryProps {
+  title?: string
+  firstButton?: {
+    label: string
+    url: string
+    icon: string
+  }
+  secondButton?: {
+    label: string
+    url: string
+    icon: string
+  }
+}
+
+function EmptyGallery({ title, firstButton, secondButton }: EmptyGalleryProps) {
   return (
     <UIEmptyState
       variant="rounded"
@@ -34,7 +46,12 @@ function EmptyGallery({ emptyGallery }: ProductGalleryProps) {
         href={secondButton.url}
         variant="secondary"
         icon={
-          <UIIcon name={secondButton.icon} width={18} height={18} weight="bold" />
+          <UIIcon
+            name={secondButton.icon}
+            width={18}
+            height={18}
+            weight="bold"
+          />
         }
         iconPosition="left"
       >

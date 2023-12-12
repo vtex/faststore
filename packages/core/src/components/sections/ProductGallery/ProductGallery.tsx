@@ -28,7 +28,10 @@ export interface ProductGallerySectionProps {
   emptyGallery?: ProductGalleryProps['emptyGallery']
 }
 
-function ProductGallerySection({ ...otherProps }: ProductGallerySectionProps) {
+function ProductGallerySection({
+  emptyGallery,
+  ...otherProps
+}: ProductGallerySectionProps) {
   const context = usePage<SearchPageContext | PLPContext>()
   const [title, searchTerm] = isSearchPage(context)
     ? [context?.data?.title, context?.data?.searchTerm]
@@ -42,7 +45,7 @@ function ProductGallerySection({ ...otherProps }: ProductGallerySectionProps) {
     return (
       <Section className={`${styles.section} section-product-gallery`}>
         <section data-testid="product-gallery" data-fs-product-listing>
-          <EmptyGallery.Component {...emptyGallery}/>
+          <EmptyGallery.Component {...emptyGallery} />
         </section>
       </Section>
     )
