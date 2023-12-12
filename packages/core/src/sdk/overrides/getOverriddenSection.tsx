@@ -30,7 +30,7 @@ function createOverriddenSection<
   return function OverriddenSection(
     props: React.ComponentProps<typeof Section>
   ) {
-    /** This type wizardry is here because the props won't behave correctly nothing is done */
+    /** This type wizardry is here because the props won't behave correctly if nothing is done */
     const SectionComponent = Section as ComponentType<typeof props>
 
     return (
