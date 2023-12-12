@@ -1,5 +1,10 @@
 import type { Context } from '../index'
 
+export interface ContextForCookies {
+  headers: Context['headers']
+  storage: Pick<Context['storage'], 'cookies'>
+}
+
 const MATCH_FIRST_SET_COOKIE_KEY_VALUE = /^([^=]+)=([^;]*)/
 
 /**
@@ -12,8 +17,12 @@ const MATCH_FIRST_SET_COOKIE_KEY_VALUE = /^([^=]+)=([^;]*)/
  *       setCookie: setCookie used in browser response
  *     }
  */
-const updatesContextStorageCookies = (setCookieValue: string, ctx: Context) => {
+export const updatesContextStorageCookies = (
+  ctx: Pick<Context, 'storage'>,
+  setCookieValue: string
+) => {
   const matchCookie = setCookieValue.match(MATCH_FIRST_SET_COOKIE_KEY_VALUE)
+
   if (matchCookie) {
     const cookieKey = matchCookie[1]
     const cookieValue = matchCookie[2]
@@ -25,16 +34,17 @@ const updatesContextStorageCookies = (setCookieValue: string, ctx: Context) => {
   }
 }
 
-export const setCookie = (headers: Headers, ctx: Context) => {
+export const setCookie = (ctx: Pick<Context, 'storage'>, headers: Headers) => {
   headers
     .getSetCookie()
     .forEach((setCookieValue) =>
-      updatesContextStorageCookies(setCookieValue, ctx)
+      updatesContextStorageCookies(ctx, setCookieValue)
     )
 }
 
-export const getStoreCookie = (ctx: Context) => (headers: Headers) =>
-  setCookie(headers, ctx)
+export const getStoreCookie =
+  (ctx: Pick<Context, 'storage'>) => (headers: Headers) =>
+    setCookie(ctx, headers)
 
 /**
  * This function returns a modified copy of the original cookie header (ctx.headers.cookie from the first request)
@@ -48,7 +58,7 @@ export const getStoreCookie = (ctx: Context) => (headers: Headers) =>
  *       setCookie: setCookie used in browser response
  *     }
  */
-export const getUpdatedCookie = (ctx: Context) => {
+export const getUpdatedCookie = (ctx: ContextForCookies) => {
   if (!ctx.headers?.cookie) {
     return null
   }
@@ -70,6 +80,22 @@ export const getUpdatedCookie = (ctx: Context) => {
   )
 }
 
+export const getWithCookie = (ctx: ContextForCookies) =>
+  function withCookie<T extends Record<string, any>>(
+    headers: T
+  ): T & { cookie?: string } {
+    const updatedCookie = getUpdatedCookie(ctx)
+
+    if (!updatedCookie) {
+      return headers
+    }
+
+    return {
+      ...headers,
+      cookie: updatedCookie,
+    }
+  }
+
 /**
  * This function updates the cookie value based on its key
  *
@@ -90,7 +116,7 @@ export const updatesCookieValueByKey = (
   // replaces original cookie with the one coming from storage
   if (cookieParts) {
     return existingCookies.replace(
-      MATCH_FIRST_SET_COOKIE_KEY_VALUE,
+      cookieParts[0],
       `${cookieParts[1]}=${storageCookieValue}`
     )
   }
