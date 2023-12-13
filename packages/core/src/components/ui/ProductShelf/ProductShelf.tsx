@@ -46,7 +46,7 @@ function ProductShelf({
     ProductShelf: ProductShelfWrapper,
     __experimentalCarousel: Carousel,
     __experimentalProductCard: ProductCard,
-  } = useOverrideComponents<'ProductShelf'>()
+  } = useOverrideComponents<'ProductShelf' | 'CrossSellingShelf'>()
   const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
