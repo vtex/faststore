@@ -3,10 +3,7 @@ import {
   BannerTextContentProps as UIBannerTextContentProps,
 } from '@faststore/ui'
 
-import {
-  BannerText as BannerTextWrapper,
-  BannerTextContent,
-} from 'src/components/sections/BannerText/Overrides'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import Section from '../Section'
 
 import styles from './section.module.scss'
@@ -27,29 +24,32 @@ export interface BannerTextProps {
 function BannerText({
   title,
   caption,
-  link: {
-    url: linkUrl = BannerTextContent.props.link,
-    text: linkText = BannerTextContent.props.linkText,
-    linkTargetBlank: linkTargetBlank = BannerTextContent.props.linkTargetBlank,
-  },
-  variant = BannerTextWrapper.props.variant ?? 'primary',
-  colorVariant = BannerTextWrapper.props.colorVariant ?? 'main',
+  link: { url: linkUrl, text: linkText, linkTargetBlank },
+  variant,
+  colorVariant,
 }: BannerTextProps) {
+  const { BannerText: BannerTextWrapper, BannerTextContent } =
+    useOverrideComponents<'BannerText'>()
+
   return (
     <Section className={`${styles.section} section-banner layout__section`}>
       <div className="layout__content">
         <BannerTextWrapper.Component
           {...BannerTextWrapper.props}
-          variant={variant}
-          colorVariant={colorVariant}
+          variant={variant ?? BannerTextWrapper.props.variant ?? 'primary'}
+          colorVariant={
+            colorVariant ?? BannerTextWrapper.props.colorVariant ?? 'main'
+          }
         >
           <BannerTextContent.Component
             {...BannerTextContent.props}
             title={title}
             caption={caption}
-            link={linkUrl}
-            linkText={linkText}
-            linkTargetBlank={linkTargetBlank}
+            link={linkUrl ?? BannerTextContent.props.link}
+            linkText={linkText ?? BannerTextContent.props.linkText}
+            linkTargetBlank={
+              linkTargetBlank ?? BannerTextContent.props.linkTargetBlank
+            }
           />
         </BannerTextWrapper.Component>
       </div>

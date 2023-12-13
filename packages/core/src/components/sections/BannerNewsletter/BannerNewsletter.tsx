@@ -1,4 +1,5 @@
-import BannerText, { BannerTextProps } from 'src/components/sections/BannerText'
+import { BannerTextProps } from 'src/components/sections/BannerText'
+import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import Newsletter, { NewsletterProps } from 'src/components/sections/Newsletter'
 import Section from '../Section'
 import styles from './section.module.scss'
