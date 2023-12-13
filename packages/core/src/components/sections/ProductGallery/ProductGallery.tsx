@@ -4,6 +4,7 @@ import ProductGallery, {
   ProductGalleryProps,
 } from 'src/components/ui/ProductGallery/ProductGallery'
 import Section from '../Section'
+import type { EmptyGalleryProps } from './EmptyGallery'
 
 import { __experimentalEmptyGallery as EmptyGallery } from 'src/components/sections/ProductGallery/Overrides'
 
@@ -25,7 +26,7 @@ export interface ProductGallerySectionProps {
   loadMorePageButton?: ProductGalleryProps['loadMorePageButton']
   sortBySelector?: ProductGalleryProps['sortBySelector']
   productCard?: ProductGalleryProps['productCard']
-  emptyGallery?: ProductGalleryProps['emptyGallery']
+  emptyGallery?: EmptyGalleryProps
 }
 
 function ProductGallerySection({

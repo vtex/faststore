@@ -30,7 +30,6 @@ import {
   usePage,
 } from 'src/sdk/overrides/PageProvider'
 import { useProductsPrefetch } from 'src/sdk/product/useProductsPrefetch'
-import { EmptyGalleryProps } from 'src/components/sections/ProductGallery/EmptyGallery'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const GalleryPageSkeleton = <ProductGridSkeleton loading />
@@ -68,7 +67,6 @@ export interface ProductGalleryProps {
   }
   sortBySelector?: SortProps
   productCard?: Pick<ProductCardProps, 'showDiscountBadge' | 'bordered'>
-  emptyGallery?: EmptyGalleryProps
 }
 
 function ProductGallery({
