@@ -15,7 +15,7 @@ import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNew
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import Breadcrumb from 'src/components/sections/Breadcrumb'
 import { OverriddenDefaultCrossSellingShelf as CrossSellingShelf } from 'src/components/sections/CrossSellingShelf/OverriddenDefaultCrossSellingShelf'
-import ProductDetails from 'src/components/sections/ProductDetails'
+import { OverriddenDefaultProductDetails as ProductDetails } from 'src/components/sections/ProductDetails/OverriddenDefaultProductDetails'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { useSession } from 'src/sdk/session'
 import { mark } from 'src/sdk/tests/mark'

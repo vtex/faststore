@@ -9,13 +9,7 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import Selectors from 'src/components/ui/SkuSelector'
 import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
 
-import {
-  BuyButton,
-  Icon,
-  Price,
-  QuantitySelector,
-  __experimentalNotAvailableButton as NotAvailableButton,
-} from 'src/components/sections/ProductDetails/Overrides'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 interface ProductDetailsSettingsProps {
   product: ProductDetailsFragment_ProductFragment
@@ -36,12 +30,17 @@ function ProductDetailsSettings({
   isValidating,
   quantity,
   setQuantity,
-  buyButtonIcon: {
-    icon: buyButtonIconName = Icon.props.name,
-    alt: buyButtonIconAlt = Icon.props['aria-label'],
-  },
+  buyButtonIcon: { icon: buyButtonIconName, alt: buyButtonIconAlt },
   notAvailableButtonTitle,
 }: ProductDetailsSettingsProps) {
+  const {
+    BuyButton,
+    Icon,
+    Price,
+    QuantitySelector,
+    __experimentalNotAvailableButton: NotAvailableButton,
+  } = useOverrideComponents<'ProductDetails'>()
+
   const {
     id,
     sku,
@@ -96,8 +95,8 @@ function ProductDetailsSettings({
         icon={
           <Icon.Component
             {...Icon.props}
-            name={buyButtonIconName}
-            aria-label={buyButtonIconAlt}
+            name={buyButtonIconName ?? Icon.props.name}
+            aria-label={buyButtonIconAlt ?? Icon.props['aria-label']}
           />
         }
         {...buyProps}

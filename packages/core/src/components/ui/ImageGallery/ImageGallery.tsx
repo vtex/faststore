@@ -2,15 +2,13 @@ import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import {
-  ImageGallery as ImageGalleryWrapper,
-  ImageGalleryViewer,
-  __experimentalImageGalleryImage as Image,
-} from 'src/components/sections/ProductDetails/Overrides'
-
 import type { ImageGalleryProps as UIImageGalleryProps } from '@faststore/ui'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 const ImageComponent = ({ url, alternateName }) => {
+  const { __experimentalImageGalleryImage: Image } =
+    useOverrideComponents<'ProductDetails'>()
+
   return (
     <Image.Component src={url} alt={alternateName} width={68} height={68} />
   )
@@ -21,6 +19,12 @@ export interface ImageGalleryProps {
 }
 
 const ImageGallery = ({ images, ...otherProps }: ImageGalleryProps) => {
+  const {
+    ImageGallery: ImageGalleryWrapper,
+    ImageGalleryViewer,
+    __experimentalImageGalleryImage: Image,
+  } = useOverrideComponents<'ProductDetails'>()
+
   const [selectedImageIdx, setSelectedImageIdx] = useState(0)
   const currentImage = images[selectedImageIdx] ?? images[0]
   const dynamicRoute = useRouter().asPath
