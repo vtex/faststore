@@ -1607,6 +1607,59 @@
               "default": true
             }
           }
+        },
+        "emptyGallery": {
+          "title": "Empty Gallery",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Nothing matches with your search"
+            },
+            "firstButton": {
+              "title": "First Button",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "title": "Label",
+                  "default": "Browse Offers"
+                },
+                "url": {
+                  "type": "string",
+                  "title": "URL",
+                  "default": "/office"
+                },
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "default": "CircleWavyWarning"
+                }
+              }
+            },
+            "secondButton": {
+              "title": "Second Button",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "title": "Label",
+                  "default": "Just Arrived"
+                },
+                "url": {
+                  "type": "string",
+                  "title": "URL",
+                  "default": "/technology"
+                },
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "default": "RocketLaunch"
+                }
+              }
+            }
+          }
         }
       }
     }
