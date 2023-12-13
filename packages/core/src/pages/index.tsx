@@ -8,7 +8,7 @@ import { OverriddenDefaultBannerText as BannerText } from 'src/components/sectio
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
 import Incentives from 'src/components/sections/Incentives'
 import Newsletter from 'src/components/sections/Newsletter'
-import ProductShelf from 'src/components/sections/ProductShelf'
+import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { mark } from 'src/sdk/tests/mark'

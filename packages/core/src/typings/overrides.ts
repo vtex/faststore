@@ -47,7 +47,10 @@ export type SectionOverride = {
 }[keyof SectionsOverrides]
 
 /** TODO: every use of this type should be replaced by SectionsOverrides after all sections are supported */
-export type SupportedSectionsOverridesV2 = Pick<SectionsOverrides, 'Alert' | 'Hero' | 'BannerText'>
+export type SupportedSectionsOverridesV2 = Pick<
+  SectionsOverrides,
+  'Alert' | 'BannerText' | 'Hero' | 'ProductShelf'
+>
 
 /**
  * Originally, these types were defined in their respective Overrides file

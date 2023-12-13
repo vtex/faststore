@@ -2,14 +2,9 @@ import { useEffect, useId, useRef } from 'react'
 
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
 import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import { textToKebabCase } from 'src/utils/utilities'
-
-import {
-  ProductShelf as ProductShelfWrapper,
-  __experimentalCarousel as Carousel,
-  __experimentalProductCard as ProductCard,
-} from 'src/components/sections/ProductShelf/Overrides'
 
 type Sort =
   | 'discount_desc'
@@ -42,14 +37,16 @@ export type ProductShelfProps = {
 function ProductShelf({
   title,
   inView,
-  productCardConfiguration: {
-    bordered = ProductCard.props.bordered,
-    showDiscountBadge = ProductCard.props.showDiscountBadge,
-  } = {},
+  productCardConfiguration: { bordered, showDiscountBadge } = {},
   numberOfItems,
   itemsPerPage = 5,
   ...otherProps
 }: ProductShelfProps) {
+  const {
+    ProductShelf: ProductShelfWrapper,
+    __experimentalCarousel: Carousel,
+    __experimentalProductCard: ProductCard,
+  } = useOverrideComponents<'ProductShelf'>()
   const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
@@ -100,8 +97,10 @@ function ProductShelf({
                   sizes: '(max-width: 768px) 42vw, 30vw',
                 }}
                 {...ProductCard.props}
-                bordered={bordered}
-                showDiscountBadge={showDiscountBadge}
+                bordered={bordered ?? ProductCard.props.bordered}
+                showDiscountBadge={
+                  showDiscountBadge ?? ProductCard.props.showDiscountBadge
+                }
                 // Dynamic props shouldn't be overridable
                 // This decision can be reviewed later if needed
                 key={`${product.node.id}`}

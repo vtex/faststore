@@ -1,17 +1,20 @@
 import Alert from '../../components/sections/Alert'
-import Hero from '../../components/sections/Hero'
 import BannerText from '../../components/sections/BannerText'
+import Hero from '../../components/sections/Hero'
+import ProductShelf from '../../components/sections/ProductShelf'
 
 import type { DefaultSectionComponentsDefinitions } from '../../typings/overridesDefinition'
 import type { SectionsOverrides } from '../../typings/overrides'
 import { AlertDefaultComponents } from '../../components/sections/Alert/DefaultComponents'
-import { HeroDefaultComponents } from '../../components/sections/Hero/DefaultComponents'
 import { BannerTextDefaultComponents } from '../../components/sections/BannerText/DefaultComponents'
+import { HeroDefaultComponents } from '../../components/sections/Hero/DefaultComponents'
+import { ProductShelfDefaultComponents } from '../../components/sections/ProductShelf/DefaultComponents'
 
 export const Sections = {
   Alert,
-  Hero,
   BannerText,
+  Hero,
+  ProductShelf,
 }
 
 export const DefaultComponents: Partial<
@@ -21,6 +24,7 @@ export const DefaultComponents: Partial<
   >
 > = {
   Alert: AlertDefaultComponents,
-  Hero: HeroDefaultComponents,
   BannerText: BannerTextDefaultComponents,
+  Hero: HeroDefaultComponents,
+  ProductShelf: ProductShelfDefaultComponents,
 }
