@@ -1,6 +1,6 @@
 import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
 import Breadcrumb from 'src/components/sections/Breadcrumb'
-import Hero from 'src/components/sections/Hero'
+import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
 import ProductGallery from 'src/components/sections/ProductGallery'
 import ProductShelf from 'src/components/sections/ProductShelf'
 import ScrollToTopButton from 'src/components/sections/ScrollToTopButton'
