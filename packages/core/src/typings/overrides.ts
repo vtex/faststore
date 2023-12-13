@@ -49,7 +49,7 @@ export type SectionOverride = {
 /** TODO: every use of this type should be replaced by SectionsOverrides after all sections are supported */
 export type SupportedSectionsOverridesV2 = Pick<
   SectionsOverrides,
-  'Alert' | 'BannerText' | 'Hero' | 'ProductShelf'
+  'Alert' | 'BannerText' | 'CrossSellingShelf' | 'Hero' | 'ProductShelf'
 >
 
 /**
@@ -213,6 +213,17 @@ export type SectionsOverrides = {
     __experimentalEmptyGallery: ComponentOverrideDefinition<any, any>
   }
   ProductShelf: {
+    ProductShelf: ComponentOverrideDefinition<
+      ProductShelfProps,
+      ProductShelfProps
+    >
+    __experimentalCarousel: ComponentOverrideDefinition<any, any>
+    __experimentalProductCard: ComponentOverrideDefinition<
+      any,
+      Omit<any, 'key' | 'product' | 'index'>
+    >
+  }
+  CrossSellingShelf: {
     ProductShelf: ComponentOverrideDefinition<
       ProductShelfProps,
       ProductShelfProps
