@@ -4,7 +4,7 @@ import type { Locator } from '@vtex/client-cms'
 
 import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
 import RenderSections from 'src/components/cms/RenderSections'
-import Hero from 'src/components/sections/Hero'
+import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
 import Incentives from 'src/components/sections/Incentives'
 import ProductShelf from 'src/components/sections/ProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
