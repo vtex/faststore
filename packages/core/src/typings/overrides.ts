@@ -49,7 +49,13 @@ export type SectionOverride = {
 /** TODO: every use of this type should be replaced by SectionsOverrides after all sections are supported */
 export type SupportedSectionsOverridesV2 = Pick<
   SectionsOverrides,
-  'Alert' | 'BannerText' | 'CrossSellingShelf' | 'Hero' | 'ProductShelf' | 'ProductDetails'
+  | 'Alert'
+  | 'BannerText'
+  | 'Breadcrumb'
+  | 'CrossSellingShelf'
+  | 'Hero'
+  | 'ProductShelf'
+  | 'ProductDetails'
 >
 
 /**

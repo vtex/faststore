@@ -1,7 +1,5 @@
 import { memo } from 'react'
 
-import Breadcrumb from 'src/components/ui/Breadcrumb'
-
 import Section from '../Section'
 
 import styles from './section.module.scss'
@@ -12,6 +10,7 @@ import {
   isPLP,
   usePage,
 } from 'src/sdk/overrides/PageProvider'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 interface BreadcrumbSectionProps {
   icon: string
@@ -19,6 +18,8 @@ interface BreadcrumbSectionProps {
 }
 
 function BreadcrumbSection({ ...otherProps }: BreadcrumbSectionProps) {
+  const { Breadcrumb } = useOverrideComponents<'Breadcrumb'>()
+
   const context = usePage<PDPContext | PLPContext>()
   const title = isPLP(context)
     ? context?.data?.collection?.seo?.title
@@ -33,7 +34,7 @@ function BreadcrumbSection({ ...otherProps }: BreadcrumbSectionProps) {
 
   return (
     <Section className={`${styles.section} section-breadcrumb`}>
-      <Breadcrumb breadcrumbList={breadcrumbList} {...otherProps} />
+      <Breadcrumb.Component breadcrumbList={breadcrumbList} {...otherProps} />
     </Section>
   )
 }

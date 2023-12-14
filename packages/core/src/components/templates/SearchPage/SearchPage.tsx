@@ -1,7 +1,7 @@
 import { useSearch } from '@faststore/sdk'
 import type { ComponentType } from 'react'
 
-import Breadcrumb from 'src/components/sections/Breadcrumb'
+import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
 import ProductGallery from 'src/components/sections/ProductGallery'
 import { ITEMS_PER_PAGE } from 'src/constants'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
