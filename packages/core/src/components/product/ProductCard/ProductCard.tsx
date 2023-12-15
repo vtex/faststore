@@ -88,6 +88,8 @@ function ProductCard({
     [availability]
   )
 
+  const hasDiscount = spotPrice <= listPrice
+
   return (
     <UIProductCard
       outOfStock={outOfStock}
@@ -117,7 +119,7 @@ function ProductCard({
         outOfStock={outOfStock}
         onButtonClick={onButtonClick}
         linkProps={linkProps}
-        showDiscountBadge={showDiscountBadge}
+        showDiscountBadge={hasDiscount && showDiscountBadge}
       />
     </UIProductCard>
   )
