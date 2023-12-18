@@ -4,7 +4,7 @@ import { SkuSelectorProps } from '@faststore/ui'
 import NextLink from 'next/link'
 import { Image } from '../Image'
 
-import { SkuSelector } from 'src/components/sections/ProductDetails/Overrides'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 export type SkuVariantsByName = Record<
   string,
@@ -38,6 +38,8 @@ function Selectors({
   availableVariations,
   ...otherProps
 }: Props) {
+  const { SkuSelector } = useOverrideComponents<'ProductDetails'>()
+
   return (
     <section {...otherProps}>
       {availableVariations &&

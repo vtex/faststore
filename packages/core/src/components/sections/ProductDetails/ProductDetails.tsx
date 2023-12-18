@@ -14,15 +14,8 @@ import { ProductDetailsSettings } from 'src/components/ui/ProductDetails'
 
 import styles from './section.module.scss'
 
-import {
-  DiscountBadge,
-  ProductTitle,
-  __experimentalImageGallery as ImageGallery,
-  __experimentalShippingSimulation as ShippingSimulation,
-  __experimentalNotAvailableButton as NotAvailableButton,
-} from 'src/components/sections/ProductDetails/Overrides'
-
 import { usePDP } from 'src/sdk/overrides/PageProvider'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 export interface ProductDetailsProps {
   productTitle: {
@@ -61,35 +54,29 @@ export interface ProductDetailsProps {
 function ProductDetails({
   productTitle: {
     refNumber: showRefNumber,
-    discountBadge: {
-      showDiscountBadge,
-      size: discountBadgeSize = DiscountBadge.props.size,
-    },
+    discountBadge: { showDiscountBadge, size: discountBadgeSize },
   },
   buyButton: { icon: buyButtonIcon, title: buyButtonTitle },
   shippingSimulator: {
-    title: shippingSimulatorTitle = ShippingSimulation.props.title,
-    inputLabel: shippingSimulatorInputLabel = ShippingSimulation.props
-      .inputLabel,
-    shippingOptionsTableTitle:
-      shippingSimulatorOptionsTableTitle = ShippingSimulation.props
-        .optionsLabel,
-    link: {
-      to: shippingSimulatorLinkUrl = ShippingSimulation.props
-        .idkPostalCodeLinkProps?.href,
-      text: shippingSimulatorLinkText = ShippingSimulation.props
-        .idkPostalCodeLinkProps?.children,
-    },
+    title: shippingSimulatorTitle,
+    inputLabel: shippingSimulatorInputLabel,
+    shippingOptionsTableTitle: shippingSimulatorOptionsTableTitle,
+    link: { to: shippingSimulatorLinkUrl, text: shippingSimulatorLinkText },
   },
   productDescription: {
     title: productDescriptionDetailsTitle,
     initiallyExpanded: productDescriptionInitiallyExpanded,
     displayDescription: shouldDisplayProductDescription,
   },
-  notAvailableButton: {
-    title: notAvailableButtonTitle = NotAvailableButton.props.title,
-  },
+  notAvailableButton: { title: notAvailableButtonTitle },
 }: ProductDetailsProps) {
+  const {
+    DiscountBadge,
+    ProductTitle,
+    __experimentalImageGallery: ImageGallery,
+    __experimentalShippingSimulation: ShippingSimulation,
+    __experimentalNotAvailableButton: NotAvailableButton,
+  } = useOverrideComponents<'ProductDetails'>()
   const { currency } = useSession()
   const [quantity, setQuantity] = useState(1)
   const context = usePDP()
@@ -168,7 +155,7 @@ function ProductDetails({
                 showDiscountBadge && (
                   <DiscountBadge.Component
                     {...DiscountBadge.props}
-                    size={discountBadgeSize}
+                    size={discountBadgeSize ?? DiscountBadge.props.size}
                     // Dynamic props shouldn't be overridable
                     // This decision can be reviewed later if needed
                     listPrice={listPrice}
@@ -196,7 +183,9 @@ function ProductDetails({
                 quantity={quantity}
                 setQuantity={setQuantity}
                 buyButtonIcon={buyButtonIcon}
-                notAvailableButtonTitle={notAvailableButtonTitle}
+                notAvailableButtonTitle={
+                  notAvailableButtonTitle ?? NotAvailableButton.props.title
+                }
               />
             </section>
 
@@ -208,17 +197,27 @@ function ProductDetails({
                 {...ShippingSimulation.props}
                 idkPostalCodeLinkProps={{
                   ...ShippingSimulation.props.idkPostalCodeLinkProps,
-                  href: shippingSimulatorLinkUrl,
-                  children: shippingSimulatorLinkText,
+                  href:
+                    shippingSimulatorLinkUrl ??
+                    ShippingSimulation.props.idkPostalCodeLinkProps?.href,
+                  children:
+                    shippingSimulatorLinkText ??
+                    ShippingSimulation.props.idkPostalCodeLinkProps?.children,
                 }}
                 productShippingInfo={{
                   id,
                   quantity,
                   seller: seller.identifier,
                 }}
-                title={shippingSimulatorTitle}
-                inputLabel={shippingSimulatorInputLabel}
-                optionsLabel={shippingSimulatorOptionsTableTitle}
+                title={shippingSimulatorTitle ?? ShippingSimulation.props.title}
+                inputLabel={
+                  shippingSimulatorInputLabel ??
+                  ShippingSimulation.props.inputLabel
+                }
+                optionsLabel={
+                  shippingSimulatorOptionsTableTitle ??
+                  ShippingSimulation.props.optionsLabel
+                }
               />
             )}
           </section>

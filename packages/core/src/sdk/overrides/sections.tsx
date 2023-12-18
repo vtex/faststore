@@ -3,6 +3,7 @@ import BannerText from '../../components/sections/BannerText'
 import Hero from '../../components/sections/Hero'
 import ProductShelf from '../../components/sections/ProductShelf'
 import CrossSellingShelf from '../../components/sections/CrossSellingShelf'
+import ProductDetails from '../../components/sections/ProductDetails'
 
 import type { DefaultSectionComponentsDefinitions } from '../../typings/overridesDefinition'
 import type { SectionsOverrides } from '../../typings/overrides'
@@ -11,12 +12,14 @@ import { BannerTextDefaultComponents } from '../../components/sections/BannerTex
 import { CrossSellingShelfDefaultComponents } from 'src/components/sections/CrossSellingShelf/DefaultComponents'
 import { HeroDefaultComponents } from '../../components/sections/Hero/DefaultComponents'
 import { ProductShelfDefaultComponents } from '../../components/sections/ProductShelf/DefaultComponents'
+import { ProductDetailsDefaultComponents } from '../../components/sections/ProductDetails/DefaultComponents'
 
 export const Sections = {
   Alert,
   BannerText,
   CrossSellingShelf,
   Hero,
+  ProductDetails,
   ProductShelf,
 }
 
@@ -28,7 +31,8 @@ export const DefaultComponents: Partial<
 > = {
   Alert: AlertDefaultComponents,
   BannerText: BannerTextDefaultComponents,
-  Hero: HeroDefaultComponents,
-  ProductShelf: ProductShelfDefaultComponents,
   CrossSellingShelf: CrossSellingShelfDefaultComponents,
+  Hero: HeroDefaultComponents,
+  ProductDetails: ProductDetailsDefaultComponents,
+  ProductShelf: ProductShelfDefaultComponents,
 }

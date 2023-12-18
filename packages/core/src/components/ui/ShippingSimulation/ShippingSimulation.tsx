@@ -1,9 +1,8 @@
 import { ShippingSimulationProps as UIShippingSimulationProps } from '@faststore/ui'
 
-import { useSession } from 'src/sdk/session'
 import { useShippingSimulation } from 'src/sdk/shipping/useShippingSimulation'
 
-import { ShippingSimulation as ShippingSimulationWrapper } from 'src/components/sections/ProductDetails/Overrides'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 type ShippingSimulationOptionalProps =
   | 'title'
@@ -31,6 +30,9 @@ export default function ShippingSimulation({
   idkPostalCodeLinkProps,
   ...otherProps
 }: ShippingSimulationProps) {
+  const { ShippingSimulation: ShippingSimulationWrapper } =
+    useOverrideComponents<'ProductDetails'>()
+
   const {
     input,
     shippingSimulation,
