@@ -19,8 +19,8 @@ export const Sections = {
   BannerText,
   CrossSellingShelf,
   Hero,
-  ProductShelf,
   ProductDetails,
+  ProductShelf,
 }
 
 export const DefaultComponents: Partial<
@@ -31,8 +31,8 @@ export const DefaultComponents: Partial<
 > = {
   Alert: AlertDefaultComponents,
   BannerText: BannerTextDefaultComponents,
-  Hero: HeroDefaultComponents,
-  ProductShelf: ProductShelfDefaultComponents,
   CrossSellingShelf: CrossSellingShelfDefaultComponents,
+  Hero: HeroDefaultComponents,
   ProductDetails: ProductDetailsDefaultComponents,
+  ProductShelf: ProductShelfDefaultComponents,
 }
