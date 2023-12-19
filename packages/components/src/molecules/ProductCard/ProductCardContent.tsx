@@ -11,7 +11,8 @@ import {
   Link,
   LinkElementType,
   LinkProps,
-  Price,
+  // Price,
+  ProductPrice,
   Rating,
 } from '../../'
 
@@ -76,9 +77,6 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
     },
     ref
   ) {
-    const listPrice = price?.listPrice ?? 0
-    const sellingPrice = price?.value ?? 0
-
     return (
       <section
         ref={ref}
@@ -94,39 +92,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
             </Link>
           </h3>
           {!outOfStock && (
-            <div data-fs-product-card-prices>
-              {sellingPrice !== listPrice
-                ? (
-                  <>
-                    <Price
-                      value={listPrice}
-                      formatter={price?.formatter}
-                      testId="list-price"
-                      data-value={listPrice}
-                      variant="listing"
-                      SRText="Original price:"
-                    />
-                    <Price
-                      value={sellingPrice}
-                      formatter={price?.formatter}
-                      testId="price"
-                      data-value={sellingPrice}
-                      variant="spot"
-                      SRText="Sale Price:"
-                    />
-                  </>
-                )
-                : (
-                  <Price
-                    value={sellingPrice}
-                    formatter={price?.formatter}
-                    testId="price"
-                    data-value={sellingPrice}
-                    variant="spot"
-                    SRText="Sale Price:"
-                  />
-                )}
-            </div>
+            <ProductPrice data-fs-product-card-prices price={price} />
           )}
           {ratingValue && (
             <Rating value={ratingValue} icon={<Icon name="Star" />} />
