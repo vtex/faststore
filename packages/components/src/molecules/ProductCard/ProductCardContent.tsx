@@ -11,7 +11,6 @@ import {
   Link,
   LinkElementType,
   LinkProps,
-  // Price,
   ProductPrice,
   Rating,
 } from '../../'
