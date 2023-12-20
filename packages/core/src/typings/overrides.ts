@@ -26,7 +26,6 @@ import type {
   NavbarSliderFooterProps,
   NavbarSliderHeaderProps,
   NavbarSliderProps,
-  PriceProps,
   ProductPriceProps,
   ProductShelfProps,
   ProductTitleProps,
