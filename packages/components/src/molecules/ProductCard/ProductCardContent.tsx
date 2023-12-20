@@ -76,6 +76,9 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
     },
     ref
   ) {
+    const listingPrice = price?.listPrice ? price.listPrice : 0
+    const sellingPrice = price?.value ? price.value : 0
+
     return (
       <section
         ref={ref}
@@ -91,17 +94,19 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
             </Link>
           </h3>
           {!outOfStock && (
-            <ProductPrice data-fs-product-card-prices price={price} />
+            <ProductPrice
+              data-fs-product-card-prices
+              value={sellingPrice}
+              listPrice={listingPrice}
+              formatter={price?.formatter}
+            />
           )}
           {ratingValue && (
             <Rating value={ratingValue} icon={<Icon name="Star" />} />
           )}
         </div>
         {showDiscountBadge && !outOfStock && (
-          <DiscountBadge
-            listPrice={price?.listPrice ? price.listPrice : 0}
-            spotPrice={price?.value ? price.value : 0}
-          />
+          <DiscountBadge listPrice={listingPrice} spotPrice={sellingPrice} />
         )}
         {outOfStock && <Badge>{outOfStockLabel}</Badge>}
         {onButtonClick && !outOfStock && (

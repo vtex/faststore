@@ -25,11 +25,9 @@ const SearchProductItemContent = forwardRef<
       {price.value !== 0 && (
         <ProductPrice
           data-fs-search-product-item-prices
-          price={{
-            listPrice: price.listPrice,
-            value: price.value,
-            formatter: price.formatter,
-          }}
+          listPrice={price.listPrice}
+          value={price.value}
+          formatter={price.formatter}
         />
       )}
     </section>
