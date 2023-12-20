@@ -1,7 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react'
 import { useMemo } from 'react'
 
-import { ProductPrice } from '@faststore/ui'
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
@@ -37,7 +36,7 @@ function ProductDetailsSettings({
   const {
     BuyButton,
     Icon,
-    Price,
+    ProductPrice,
     QuantitySelector,
     __experimentalNotAvailableButton: NotAvailableButton,
   } = useOverrideComponents<'ProductDetails'>()
@@ -53,7 +52,6 @@ function ProductDetailsSettings({
     image: productImages,
     additionalProperty,
     offers: {
-      lowPrice,
       offers: [{ availability, price, listPrice, seller }],
     },
   } = product
@@ -78,10 +76,6 @@ function ProductDetailsSettings({
   const outOfStock = useMemo(
     () => availability === 'https://schema.org/OutOfStock',
     [availability]
-  )
-  const shouldShowDiscountedPrice = useMemo(
-    () => lowPrice !== listPrice,
-    [lowPrice, listPrice]
   )
 
   const AddToCartButton = () => {
@@ -111,14 +105,12 @@ function ProductDetailsSettings({
     <>
       {!outOfStock && (
         <section data-fs-product-details-values>
-          {/* TODO: Fixes component override!!! */}
-          <ProductPrice
+          <ProductPrice.Component
             data-fs-product-details-prices
-            price={{
-              listPrice: listPrice,
-              value: price,
-              formatter: useFormattedPrice,
-            }}
+            value={price}
+            listPrice={listPrice}
+            formatter={useFormattedPrice}
+            {...ProductPrice.props}
           />
           <QuantitySelector.Component
             min={1}
