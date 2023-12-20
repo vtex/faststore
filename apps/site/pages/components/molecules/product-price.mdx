@@ -5,6 +5,7 @@ description: ProductPrice displays product's listing and selling price.
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
 import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
 import { ProductPrice } from '@faststore/ui'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
@@ -57,6 +58,7 @@ Import Styles
 
 ```tsx copy
 import '@faststore/ui/src/components/atoms/Price/styles.scss'
+import '@faststore/ui/src/components/molecules/ProductPrice/styles.scss'
 ```
 
 ---
@@ -101,6 +103,14 @@ export const useFormattedPrice = (price: number) => {
 ## Props
 
 <ProductPricePropsSection component="ProductPrice" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-product-price-gap" value="var(--fs-spacing-1)" />
+</TokenTable>
 
 ---
 
