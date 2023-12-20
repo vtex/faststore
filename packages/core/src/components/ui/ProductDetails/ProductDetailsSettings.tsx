@@ -1,6 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react'
 import { useMemo } from 'react'
 
+import { ProductPrice } from '@faststore/ui'
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
@@ -110,48 +111,15 @@ function ProductDetailsSettings({
     <>
       {!outOfStock && (
         <section data-fs-product-details-values>
-          <div data-fs-product-details-prices>
-            {shouldShowDiscountedPrice ? (
-              <>
-                <Price.Component
-                  formatter={useFormattedPrice}
-                  testId="list-price"
-                  variant="listing"
-                  SRText="Original price:"
-                  {...Price.props}
-                  // Dynamic props shouldn't be overridable
-                  // This decision can be reviewed later if needed
-                  value={listPrice}
-                  data-value={listPrice}
-                />
-                <Price.Component
-                  formatter={useFormattedPrice}
-                  testId="price"
-                  variant="spot"
-                  className="text__lead"
-                  SRText="Sale Price:"
-                  {...Price.props}
-                  // Dynamic props shouldn't be overridable
-                  // This decision can be reviewed later if needed
-                  value={lowPrice}
-                  data-value={lowPrice}
-                />
-              </>
-            ) : (
-              <Price.Component
-                formatter={useFormattedPrice}
-                testId="list-price"
-                variant="spot"
-                className="text__lead"
-                SRText="Original price:"
-                {...Price.props}
-                // Dynamic props shouldn't be overridable
-                // This decision can be reviewed later if needed
-                value={lowPrice}
-                data-value={lowPrice}
-              />
-            )}
-          </div>
+          {/* TODO: Fixes component override!!! */}
+          <ProductPrice
+            data-fs-product-details-prices
+            price={{
+              listPrice: listPrice,
+              value: price,
+              formatter: useFormattedPrice,
+            }}
+          />
           <QuantitySelector.Component
             min={1}
             max={10}
