@@ -1,7 +1,13 @@
 import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Icon, IconButton, IconButtonProps, Price, QuantitySelector } from '../../'
+import {
+  Icon,
+  IconButton,
+  IconButtonProps,
+  ProductPrice,
+  QuantitySelector,
+} from '../../'
 
 import type { PriceDefinition } from '../../typings/PriceDefinition'
 
@@ -65,20 +71,12 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
           initial={quantity}
           onChange={onQuantityChange}
         />
-        <span data-fs-cart-item-prices>
-          <Price
-            value={price?.listPrice ? price.listPrice : 0}
-            formatter={price?.formatter}
-            variant="listing"
-            SRText="Original price:"
-          />
-          <Price
-            value={price?.value ? price.value : 0}
-            formatter={price?.formatter}
-            variant="spot"
-            SRText="Price:"
-          />
-        </span>
+        <ProductPrice
+          data-fs-cart-item-prices
+          listPrice={price?.listPrice ? price.listPrice : 0}
+          value={price?.value ? price.value : 0}
+          formatter={price?.formatter}
+        />
       </div>
     </article>
   )
