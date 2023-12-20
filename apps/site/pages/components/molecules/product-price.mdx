@@ -114,6 +114,15 @@ export const useFormattedPrice = (price: number) => {
 
 ---
 
+## Use Cases
+
+The `ProductPrice` component wraps two instances of the `Price` component, representing the prices with the spot and listing variants.
+
+- In cases where both prices are identical, only the spot price will be presented.
+- If the listing price is set to 0, only the spot price will be shown.
+
+---
+
 ## Customization
 
 For further customization, you can use the following data attributes:
