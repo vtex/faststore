@@ -13,7 +13,7 @@ export const initialize = ({
   sort,
   selectedFacets,
   term,
-  base: base.endsWith('/') ? base : `${base}/`,
+  base,
   page,
 })
 
