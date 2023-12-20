@@ -93,4 +93,5 @@ module.exports = {
     enableCypressExtension: false,
     noRobots: false,
   },
+  releaseId: '',
 }
