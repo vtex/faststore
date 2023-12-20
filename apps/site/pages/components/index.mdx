@@ -53,6 +53,7 @@ import {
   ProductCard,
   ProductCardContent,
   ProductCardImage,
+  ProductPrice,
   ProductShelf,
   ProductShelfItems,
   ProductShelfItem,
@@ -686,6 +687,17 @@ export const SlideOverPartialRight = () => {
     </ProductCard>
   </CardItem>
   <CardItem
+    title="Product Price"
+    description="Displays product's selling and listing prices."
+    actionPath="/components/molecules/product-price"
+  >
+    <ProductPrice
+      value={950.04}
+      listPrice={999}
+      formatter={useFormattedPrice}
+    />
+  </CardItem>
+  <CardItem
     title="Product Title"
     description="Used on Product Details Page, wraps the product name, a product label and the rating."
     actionPath="/components/molecules/product-title"
@@ -1044,7 +1056,8 @@ export const SlideOverPartialRight = () => {
     title="Filter Slider"
     description={
       <>
-        The mobile <code>Filter</code> view that is rendered inside a <code>SlideOver</code> component.
+        The mobile <code>Filter</code> view that is rendered inside a{' '}
+        <code>SlideOver</code> component.
       </>
     }
     actionPath="/components/organisms/filter-slider"
@@ -1178,7 +1191,7 @@ export const SlideOverPartialRight = () => {
     actionPath="/components/organisms/product-shelf"
     zoomOut
   >
-    <ProductShelfUsage items={6}/>
+    <ProductShelfUsage items={6} />
   </CardItem>
   <CardItem
     title="Region Modal"
