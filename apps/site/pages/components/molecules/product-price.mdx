@@ -1,0 +1,111 @@
+---
+description: ProductPrice displays product's listing and selling price.
+---
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import PropsSection from 'site/components/PropsSection'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { ProductPrice } from '@faststore/ui'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const productPricePath = path.resolve(__filename)
+  const components = ['ProductPrice.tsx']
+  const [productPriceProps] = getComponentPropsFrom(
+    productPricePath,
+    components
+  )
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        productPriceProps,
+      },
+    },
+  }
+}
+
+export const ProductPricePropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { productPriceProps } = useSSG()
+  return {
+    ProductPrice: <PropsSection propsList={productPriceProps} />,
+  }[component]
+}
+
+<header>
+
+# Product Price
+
+The `ProductPrice` component displays product's listing and selling price.
+It wraps two [Price](/components/atoms/price) components.
+
+</header>
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { ProductPrice } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx copy
+import '@faststore/ui/src/components/atoms/Price/styles.scss'
+```
+
+---
+
+## Usage
+
+<OverviewSection>
+  <ProductPrice value={950.04} listPrice={999} formatter={useFormattedPrice} />
+</OverviewSection>
+
+```tsx copy
+<ProductPrice value={950.04} listPrice={999} formatter={useFormattedPrice} />
+```
+
+```tsx copy
+// Example of formatter
+interface PriceFormatterOptions {
+  decimals?: boolean
+}
+
+export const usePriceFormatter = ({ decimals }: PriceFormatterOptions = {}) => {
+  return useCallback(
+    (price: number) =>
+      Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: decimals ? 2 : 0,
+      }).format(price),
+    [decimals]
+  )
+}
+
+export const useFormattedPrice = (price: number) => {
+  const formatter = usePriceFormatter()
+
+  return useMemo(() => formatter(price), [formatter, price])
+}
+```
+
+---
+
+## Props
+
+<ProductPricePropsSection component="ProductPrice" />
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-product-price`
