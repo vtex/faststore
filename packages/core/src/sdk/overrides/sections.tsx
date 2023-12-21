@@ -5,6 +5,7 @@ import Hero from '../../components/sections/Hero'
 import ProductShelf from '../../components/sections/ProductShelf'
 import CrossSellingShelf from '../../components/sections/CrossSellingShelf'
 import ProductDetails from '../../components/sections/ProductDetails'
+import RegionBar from '../../components/sections/RegionBar'
 
 import type { DefaultSectionComponentsDefinitions } from '../../typings/overridesDefinition'
 import type { SectionsOverrides } from '../../typings/overrides'
@@ -15,6 +16,7 @@ import { CrossSellingShelfDefaultComponents } from 'src/components/sections/Cros
 import { HeroDefaultComponents } from '../../components/sections/Hero/DefaultComponents'
 import { ProductShelfDefaultComponents } from '../../components/sections/ProductShelf/DefaultComponents'
 import { ProductDetailsDefaultComponents } from '../../components/sections/ProductDetails/DefaultComponents'
+import { RegionBarDefaultComponents } from '../../components/sections/RegionBar/DefaultComponents'
 
 export const Sections = {
   Alert,
@@ -24,6 +26,7 @@ export const Sections = {
   Hero,
   ProductDetails,
   ProductShelf,
+  RegionBar,
 }
 
 export const DefaultComponents: Partial<
@@ -39,4 +42,5 @@ export const DefaultComponents: Partial<
   Hero: HeroDefaultComponents,
   ProductDetails: ProductDetailsDefaultComponents,
   ProductShelf: ProductShelfDefaultComponents,
+  RegionBar: RegionBarDefaultComponents,
 }
