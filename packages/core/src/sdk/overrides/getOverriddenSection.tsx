@@ -1,3 +1,4 @@
+import { lazy } from 'react'
 import type { ComponentProps, ComponentType } from 'react'
 
 import { OverrideProvider } from './OverrideContext'
@@ -17,22 +18,28 @@ import type { SupportedSectionsOverridesV2 } from '../../typings/overrides'
 function createOverriddenSection<
   SectionName extends keyof SupportedSectionsOverridesV2
 >({
-  Section,
+  sectionFactory,
   sectionOverrides,
   className,
 }: {
-  Section: (typeof Sections)[SectionName]
+  sectionFactory: (typeof Sections)[SectionName]
   sectionOverrides: OverriddenComponents<SectionName>
   className?: string
 }) {
   const overrideContextValue = { className, components: sectionOverrides }
 
-  return function OverriddenSection(
-    props: React.ComponentProps<typeof Section>
-  ) {
-    /** This type wizardry is here because the props won't behave correctly if nothing is done */
-    const SectionComponent = Section as ComponentType<typeof props>
+  const sectionComponentPromise = sectionFactory()
 
+  /** This type wizardry is here because the props won't behave correctly if nothing is done */
+  const SectionComponent = lazy<
+    Awaited<ReturnType<typeof sectionFactory>>['default']
+  >(() => sectionComponentPromise) as ComponentType<
+    ComponentProps<Awaited<ReturnType<typeof sectionFactory>>['default']>
+  >
+
+  return function OverriddenSection(
+    props: ComponentProps<typeof SectionComponent>
+  ) {
     return (
       <OverrideProvider value={overrideContextValue}>
         <SectionComponent {...props} />
@@ -65,8 +72,8 @@ export function getOverriddenSection<
   const sectionOverrides = getSectionOverrides(defaultComponents, override)
 
   return createOverriddenSection({
-    Section: Sections[override.section],
+    sectionFactory: Sections[override.section],
     sectionOverrides: sectionOverrides,
-    className: override.className,
+    className: override.section,
   })
 }

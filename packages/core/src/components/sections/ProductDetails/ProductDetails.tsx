@@ -15,7 +15,11 @@ import { ProductDetailsSettings } from 'src/components/ui/ProductDetails'
 import styles from './section.module.scss'
 
 import { usePDP } from 'src/sdk/overrides/PageProvider'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import {
+  DefaultComponentsProvider,
+  useOverrideComponents,
+} from 'src/sdk/overrides/OverrideContext'
+import { ProductDetailsDefaultComponents } from './DefaultComponents'
 
 export interface ProductDetailsProps {
   productTitle: {
@@ -280,4 +284,12 @@ export const fragment = gql`
   }
 `
 
-export default ProductDetails
+function ProductDetailsWithDefaultComponents(props: ProductDetailsProps) {
+  return (
+    <DefaultComponentsProvider value={ProductDetailsDefaultComponents}>
+      <ProductDetails {...props} />
+    </DefaultComponentsProvider>
+  )
+}
+
+export default ProductDetailsWithDefaultComponents

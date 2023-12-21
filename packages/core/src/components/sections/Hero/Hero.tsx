@@ -5,11 +5,15 @@ import {
 import { ReactNode } from 'react'
 import { Image } from 'src/components/ui/Image'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import {
+  DefaultComponentsProvider,
+  useOverrideComponents,
+} from 'src/sdk/overrides/OverrideContext'
 
 import Section from '../Section'
 
 import styles from './section.module.scss'
+import { HeroDefaultComponents } from './DefaultComponents'
 
 export type HeroProps = {
   title: UIHeroHeaderProps['title']
@@ -74,4 +78,12 @@ const Hero = ({
   )
 }
 
-export default Hero
+function HeroWithDefaultComponents(props: HeroProps) {
+  return (
+    <DefaultComponentsProvider value={HeroDefaultComponents}>
+      <Hero {...props} />
+    </DefaultComponentsProvider>
+  )
+}
+
+export default HeroWithDefaultComponents

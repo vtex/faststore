@@ -10,7 +10,11 @@ import {
   isPLP,
   usePage,
 } from 'src/sdk/overrides/PageProvider'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import {
+  DefaultComponentsProvider,
+  useOverrideComponents,
+} from 'src/sdk/overrides/OverrideContext'
+import { BreadcrumbDefaultComponents } from './DefaultComponents'
 
 interface BreadcrumbSectionProps {
   icon: string
@@ -39,4 +43,12 @@ function BreadcrumbSection({ ...otherProps }: BreadcrumbSectionProps) {
   )
 }
 
-export default memo(BreadcrumbSection)
+function BreadcrumbWithDefaultComponents(props: BreadcrumbSectionProps) {
+  return (
+    <DefaultComponentsProvider value={BreadcrumbDefaultComponents}>
+      <BreadcrumbSection {...props} />
+    </DefaultComponentsProvider>
+  )
+}
+
+export default memo(BreadcrumbWithDefaultComponents)

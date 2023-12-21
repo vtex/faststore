@@ -3,7 +3,12 @@ import type { ReactNode } from 'react'
 import CommonAlert, {
   type AlertProps as CommonAlertProps,
 } from 'src/components/common/Alert'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import {
+  DefaultComponentsProvider,
+  OverrideProvider,
+  useOverrideComponents,
+} from 'src/sdk/overrides/OverrideContext'
+import { AlertDefaultComponents } from './DefaultComponents'
 
 export interface AlertProps extends Omit<CommonAlertProps, 'link' | 'icon'> {
   icon: string
@@ -35,4 +40,12 @@ function Alert({ icon, content, link: { text, to }, dismissible }: AlertProps) {
   )
 }
 
-export default Alert
+function AlertWithDefaultComponents(props: AlertProps) {
+  return (
+    <DefaultComponentsProvider value={AlertDefaultComponents}>
+      <Alert {...props} />
+    </DefaultComponentsProvider>
+  )
+}
+
+export default AlertWithDefaultComponents
