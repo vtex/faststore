@@ -54,6 +54,7 @@ export type SupportedSectionsOverridesV2 = Pick<
   | 'Breadcrumb'
   | 'CrossSellingShelf'
   | 'Hero'
+  | 'Navbar'
   | 'ProductShelf'
   | 'ProductDetails'
 >
