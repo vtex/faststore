@@ -8,8 +8,8 @@ import Toast from 'src/components/common/Toast'
 import RenderSections from './RenderSections'
 
 import { OverriddenDefaultAlert as Alert } from 'src/components/sections/Alert/OverriddenDefaultAlert'
+import { OverriddenDefaultNavbar as Navbar } from 'src/components/sections/Navbar/OverriddenDefaultNavbar'
 import Footer from 'src/components/sections/Footer'
-import Navbar from 'src/components/sections/Navbar'
 import RegionBar from 'src/components/sections/RegionBar'
 
 const RegionModal = lazy(() => import('src/components/region/RegionModal'))
