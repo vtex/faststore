@@ -53,6 +53,7 @@ export type SupportedSectionsOverridesV2 = Pick<
   | 'BannerText'
   | 'Breadcrumb'
   | 'CrossSellingShelf'
+  | 'EmptyState'
   | 'Hero'
   | 'ProductShelf'
   | 'ProductDetails'
