@@ -3,11 +3,7 @@ import type { RegionBarProps as UIRegionBarProps } from '@faststore/ui'
 import { useUI } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
 
-import {
-  RegionBar as RegionBarWrapper,
-  LocationIcon,
-  ButtonIcon,
-} from 'src/components/sections/RegionBar/Overrides'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 export interface RegionBarProps {
   /**
@@ -35,18 +31,18 @@ export interface RegionBarProps {
 }
 
 function RegionBar({
-  icon: {
-    icon: locationIcon = LocationIcon.props.name,
-    alt: locationIconAlt = LocationIcon.props['aria-label'],
-  },
-  buttonIcon: {
-    icon: buttonIcon = ButtonIcon.props.name,
-    alt: buttonIconAlt = ButtonIcon.props['aria-label'],
-  },
-  label = RegionBarWrapper.props.label,
-  editLabel = RegionBarWrapper.props.editLabel,
+  icon: { icon: locationIcon, alt: locationIconAlt },
+  buttonIcon: { icon: buttonIcon, alt: buttonIconAlt },
+  label,
+  editLabel,
   ...otherProps
 }: RegionBarProps) {
+  const {
+    RegionBar: RegionBarWrapper,
+    LocationIcon,
+    ButtonIcon,
+  } = useOverrideComponents<'RegionBar'>()
+
   const { openModal } = useUI()
   const { postalCode } = useSession()
 
@@ -55,20 +51,20 @@ function RegionBar({
       icon={
         <LocationIcon.Component
           {...LocationIcon.props}
-          name={locationIcon}
-          aria-label={locationIconAlt}
+          name={locationIcon ?? LocationIcon.props.name}
+          aria-label={locationIconAlt ?? LocationIcon.props['aria-label']}
         />
       }
       buttonIcon={
         <ButtonIcon.Component
           {...ButtonIcon.props}
-          name={buttonIcon}
-          aria-label={buttonIconAlt}
+          name={buttonIcon ?? ButtonIcon.props.name}
+          aria-label={buttonIconAlt ?? ButtonIcon.props['aria-label']}
         />
       }
       {...RegionBarWrapper.props}
-      label={label}
-      editLabel={editLabel}
+      label={label ?? RegionBarWrapper.props.label}
+      editLabel={editLabel ?? RegionBarWrapper.props.editLabel}
       // Dynamic props shouldn't be overridable
       // This decision can be reviewed later if needed
       onButtonClick={openModal}
