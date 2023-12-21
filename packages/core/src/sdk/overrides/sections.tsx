@@ -2,6 +2,7 @@ import Alert from '../../components/sections/Alert'
 import BannerText from '../../components/sections/BannerText'
 import Breadcrumb from '../../components/sections/Breadcrumb'
 import Hero from '../../components/sections/Hero'
+import Newsletter from '../../components/sections/Newsletter'
 import ProductShelf from '../../components/sections/ProductShelf'
 import CrossSellingShelf from '../../components/sections/CrossSellingShelf'
 import ProductDetails from '../../components/sections/ProductDetails'
@@ -15,6 +16,7 @@ import { BannerTextDefaultComponents } from '../../components/sections/BannerTex
 import { BreadcrumbDefaultComponents } from 'src/components/sections/Breadcrumb/DefaultComponents'
 import { CrossSellingShelfDefaultComponents } from 'src/components/sections/CrossSellingShelf/DefaultComponents'
 import { HeroDefaultComponents } from '../../components/sections/Hero/DefaultComponents'
+import { NewsletterDefaultComponents } from '../../components/sections/Newsletter/DefaultComponents'
 import { ProductDetailsDefaultComponents } from '../../components/sections/ProductDetails/DefaultComponents'
 import { ProductGalleryDefaultComponents } from '../../components/sections/ProductGallery/DefaultComponents'
 import { ProductShelfDefaultComponents } from '../../components/sections/ProductShelf/DefaultComponents'
@@ -26,6 +28,7 @@ export const Sections = {
   Breadcrumb,
   CrossSellingShelf,
   Hero,
+  Newsletter,
   ProductDetails,
   ProductGallery,
   ProductShelf,
@@ -43,6 +46,7 @@ export const DefaultComponents: Partial<
   Breadcrumb: BreadcrumbDefaultComponents,
   CrossSellingShelf: CrossSellingShelfDefaultComponents,
   Hero: HeroDefaultComponents,
+  Newsletter: NewsletterDefaultComponents,
   ProductDetails: ProductDetailsDefaultComponents,
   ProductGallery: ProductGalleryDefaultComponents,
   ProductShelf: ProductShelfDefaultComponents,
