@@ -8,7 +8,7 @@ import GlobalSections, {
 } from 'src/components/cms/GlobalSections'
 
 import { Icon as UIIcon } from '@faststore/ui'
-import EmptyState from 'src/components/sections/EmptyState'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 type Props = {
   globalSections: GlobalSectionsData
@@ -26,13 +26,15 @@ const useErrorState = () => {
 
 function Page({ globalSections }: Props) {
   const { errorId, fromUrl } = useErrorState()
+  const { EmptyState: EmptyStateWrapper } =
+    useOverrideComponents<'EmptyState'>()
 
   return (
     <GlobalSections {...globalSections}>
       <NextSeo noindex nofollow />
 
-      <EmptyState
-        title="500"
+      <EmptyStateWrapper.Component
+        title={`${EmptyStateWrapper.props.title ?? '500'}`}
         titleIcon={
           <UIIcon
             name="CircleWavyWarning"
@@ -41,13 +43,14 @@ function Page({ globalSections }: Props) {
             weight="thin"
           />
         }
+        {...EmptyStateWrapper.props}
       >
         <h2>Internal Server Error</h2>
 
         <div>
           The server errored with id {errorId} when visiting page {fromUrl}
         </div>
-      </EmptyState>
+      </EmptyStateWrapper.Component>
     </GlobalSections>
   )
 }

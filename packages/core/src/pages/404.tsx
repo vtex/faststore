@@ -8,7 +8,7 @@ import { GetStaticProps } from 'next'
 import { Locator } from '@vtex/client-cms'
 
 import { Icon as UIIcon } from '@faststore/ui'
-import EmptyState from 'src/components/sections/EmptyState'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 const useErrorState = () => {
   const router = useRouter()
@@ -24,14 +24,16 @@ type Props = {
 }
 
 function Page({ globalSections }: Props) {
+  const { EmptyState: EmptyStateWrapper } =
+    useOverrideComponents<'EmptyState'>()
   const { fromUrl } = useErrorState()
 
   return (
     <GlobalSections {...globalSections}>
       <NextSeo noindex nofollow />
 
-      <EmptyState
-        title="Not Found: 404"
+      <EmptyStateWrapper.Component
+        title={`${EmptyStateWrapper.props.title ?? 'Not Found: 404'}`}
         titleIcon={
           <UIIcon
             name="CircleWavyWarning"
@@ -40,9 +42,10 @@ function Page({ globalSections }: Props) {
             weight="thin"
           />
         }
+        {...EmptyStateWrapper.props}
       >
         <p>This app could not find url {fromUrl}</p>
-      </EmptyState>
+      </EmptyStateWrapper.Component>
     </GlobalSections>
   )
 }

@@ -10,13 +10,16 @@ import { GetStaticProps } from 'next'
 import { Locator } from '@vtex/client-cms'
 
 import { Loader as UILoader } from '@faststore/ui'
-import EmptyState from 'src/components/sections/EmptyState'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 type Props = {
   globalSections: GlobalSectionsData
 }
 
 function Page({ globalSections }: Props) {
+  const { EmptyState: EmptyStateWrapper } =
+    useOverrideComponents<'EmptyState'>()
+
   useEffect(() => {
     const loginUrl = new URL(storeConfig.loginUrl)
     const incomingParams = new URLSearchParams(window.location.search)
@@ -32,9 +35,12 @@ function Page({ globalSections }: Props) {
     <GlobalSections {...globalSections}>
       <NextSeo noindex nofollow />
 
-      <EmptyState title="Loading">
+      <EmptyStateWrapper.Component
+        title={`${EmptyStateWrapper.props.title ?? 'Loading'}`}
+        {...EmptyStateWrapper.props}
+      >
         <UILoader />
-      </EmptyState>
+      </EmptyStateWrapper.Component>
     </GlobalSections>
   )
 }
