@@ -44,9 +44,6 @@ const baseRequest = async <V = any, D = any>(
 ): Promise<GraphQLResponse<D>> => {
   const { operationName, operationHash } = operation['__meta__']
 
-  if (!operationName) {
-    console.log(operation)
-  }
   // Uses method from fetchOptions.
   // If no one is passed, figure out with via heuristic
   const method =
