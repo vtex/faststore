@@ -25,6 +25,12 @@
     "skipLibCheck": true,
     "esModuleInterop": true
   },
-  "include": ["*.d.ts", "src/**/*.ts", "src/**/*.tsx", "@generated/**/*.ts"],
+  "include": [
+    "*.d.ts",
+    "*.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "@generated/**/*.ts"
+  ],
   "exclude": ["node_modules", "public", "src/components/search/searchMock.ts"]
 }
