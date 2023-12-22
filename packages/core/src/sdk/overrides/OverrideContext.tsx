@@ -13,9 +13,6 @@ type OverrideContextType<
 type DefaultComponentsContextType = any
 
 const OverrideContext = createContext<OverrideContextType>(null)
-const DefaultComponentsContext =
-  createContext<DefaultComponentsContextType>(null)
-
 export const OverrideProvider = OverrideContext.Provider
 
 export function DefaultComponentsProvider(
@@ -60,7 +57,3 @@ export const useOverrideComponents = <
     .components as OverrideContextType<SectionName>['components']
 
 export const useOverrideClassName = () => useContext(OverrideContext)?.className
-
-export const useDefaultComponents = <
-  SectionName extends keyof SectionsOverrides = keyof SectionsOverrides
->() => useContext(DefaultComponentsContext) as DefaultComponentsContextType

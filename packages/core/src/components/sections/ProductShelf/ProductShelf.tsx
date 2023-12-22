@@ -4,7 +4,7 @@ import Section from '../Section'
 import ProductShelf, { ProductShelfProps } from 'src/components/ui/ProductShelf'
 import styles from './section.module.scss'
 import { ProductShelfDefaultComponents } from './DefaultComponents'
-import { DefaultComponentsProvider } from 'src/sdk/overrides/OverrideContext'
+import { getOverridableSection } from 'src/sdk/overrides/getOverriddenSection'
 
 function ProductShelfSection({
   ...otherProps
@@ -22,14 +22,10 @@ function ProductShelfSection({
   )
 }
 
-function ProductShelfWithDefaultComponents(
-  props: React.ComponentProps<typeof ProductShelfSection>
-) {
-  return (
-    <DefaultComponentsProvider value={ProductShelfDefaultComponents}>
-      <ProductShelfSection {...props} />
-    </DefaultComponentsProvider>
-  )
-}
+const OverridableProductShelf = getOverridableSection(
+  'ProductShelf',
+  ProductShelfSection,
+  ProductShelfDefaultComponents
+)
 
-export default ProductShelfWithDefaultComponents
+export default OverridableProductShelf

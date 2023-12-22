@@ -38,25 +38,36 @@ import type {
 
 import type {
   ComponentOverrideDefinition,
-  SectionOverrideDefinition,
+  SectionOverrideDefinitionV1,
 } from './overridesDefinition'
-import { NewsletterAddendumProps } from 'src/components/ui/Newsletter/NewsletterAddendum'
+import type { NewsletterAddendumProps } from '../components/ui/Newsletter/NewsletterAddendum'
+import Alert from '../components/sections/Alert'
+import Breadcrumb from '../components/sections/Breadcrumb'
+import BannerText from '../components/sections/BannerText'
+import CrossSellingShelf from '../components/sections/CrossSellingShelf'
+import Hero from '../components/sections/Hero'
+import ProductShelf from '../components/sections/ProductShelf'
+import ProductDetails from '../components/sections/ProductDetails'
 
 export type SectionOverride = {
-  [K in keyof SectionsOverrides]: SectionOverrideDefinition<K>
+  [K in keyof SectionsOverrides]: SectionOverrideDefinitionV1<K>
 }[keyof SectionsOverrides]
 
-/** TODO: every use of this type should be replaced by SectionsOverrides after all sections are supported */
-export type SupportedSectionsOverridesV2 = Pick<
-  SectionsOverrides,
-  | 'Alert'
-  | 'BannerText'
-  | 'Breadcrumb'
-  | 'CrossSellingShelf'
-  | 'Hero'
-  | 'ProductShelf'
-  | 'ProductDetails'
->
+export type SupportedSectionsOverridesV2 = {
+  Alert: typeof Alert
+  BannerText: typeof BannerText
+  Breadcrumb: typeof Breadcrumb
+  CrossSellingShelf: typeof CrossSellingShelf
+  Hero: typeof Hero
+  ProductShelf: typeof ProductShelf
+  ProductDetails: typeof ProductDetails
+  /** TODO: the components below are put as never because they are not supported yet */
+  EmptyState: never
+  Navbar: never
+  Newsletter: never
+  ProductGallery: never
+  RegionBar: never
+}
 
 /**
  * Originally, these types were defined in their respective Overrides file

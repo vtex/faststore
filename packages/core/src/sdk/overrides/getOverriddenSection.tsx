@@ -1,51 +1,57 @@
-import { lazy } from 'react'
-import type { ComponentProps, ComponentType } from 'react'
+import { useMemo, type ComponentProps, type ComponentType } from 'react'
 
-import { OverrideProvider } from './OverrideContext'
-import { DefaultComponents, Sections } from './sections'
-import { getSectionOverrides } from './overrides'
 import type {
   DefaultSectionComponentsDefinitions,
-  OverriddenComponents,
   SectionOverrideDefinition,
 } from '../../typings/overridesDefinition'
 import type { SupportedSectionsOverridesV2 } from '../../typings/overrides'
+import { getSectionOverrides } from './overrides'
+import { OverrideProvider } from './OverrideContext'
 
-/**
- * This function adds OverrideContext to the tree. It is essential for the compatible sections
- * to consume the components it provides.
- */
-function createOverriddenSection<
-  SectionName extends keyof SupportedSectionsOverridesV2
->({
-  sectionFactory,
-  sectionOverrides,
-  className,
-}: {
-  sectionFactory: (typeof Sections)[SectionName]
-  sectionOverrides: OverriddenComponents<SectionName>
-  className?: string
-}) {
-  const overrideContextValue = { className, components: sectionOverrides }
+const OverrideDefinitionSymbol = Symbol('OverrideDefinition')
 
-  const sectionComponentPromise = sectionFactory()
-
-  /** This type wizardry is here because the props won't behave correctly if nothing is done */
-  const SectionComponent = lazy<
-    Awaited<ReturnType<typeof sectionFactory>>['default']
-  >(() => sectionComponentPromise) as ComponentType<
-    ComponentProps<Awaited<ReturnType<typeof sectionFactory>>['default']>
-  >
-
-  return function OverriddenSection(
-    props: ComponentProps<typeof SectionComponent>
+export function getOverridableSection<
+  SectionName extends keyof SupportedSectionsOverridesV2,
+  Section extends ComponentType
+>(
+  sectionName: SectionName,
+  Section: Section,
+  defaultComponents: DefaultSectionComponentsDefinitions<SectionName>
+) {
+  function OverridableSection(
+    propsWithOverrides: ComponentProps<typeof Section> & {
+      [OverrideDefinitionSymbol]?: Omit<
+        SectionOverrideDefinition<SectionName>,
+        'Section'
+      >
+    }
   ) {
+    const { [OverrideDefinitionSymbol]: overrides, ...props } =
+      propsWithOverrides
+
+    const overrideContextValue = useMemo(
+      () => ({
+        ...(overrides ?? {}),
+        components: getSectionOverrides<SectionName>(defaultComponents, {
+          ...(overrides ?? {}),
+          section: sectionName,
+        }),
+      }),
+      [overrides]
+    )
+
+    /** This type wizardry is here because the props won't behave correctly if nothing is done */
+    const SectionComponent = Section as ComponentType<ComponentProps<Section>>
+
     return (
       <OverrideProvider value={overrideContextValue}>
-        <SectionComponent {...props} />
+        <SectionComponent {...(props as ComponentProps<typeof Section>)} />
       </OverrideProvider>
     )
   }
+
+  // This type cast is here so the symbol prop doesn't show up in the type definition
+  return OverridableSection as Section
 }
 
 /**
@@ -59,21 +65,21 @@ function createOverriddenSection<
 export function getOverriddenSection<
   SectionName extends keyof SupportedSectionsOverridesV2
 >(override: SectionOverrideDefinition<SectionName>) {
-  const defaultComponents = DefaultComponents[
-    override.section
-  ] as DefaultSectionComponentsDefinitions<SectionName>
+  const { Section, ...rest } = override
 
-  if (!defaultComponents) {
-    throw new Error(
-      `Section ${override.section} does not exist. Please provide a valid section name to override.`
+  /** This type wizardry is here because the props won't behave correctly if nothing is done */
+  const OverridableSection = Section as ComponentType<
+    ComponentProps<typeof Section>
+  >
+
+  return function OverriddenSection(
+    props: ComponentProps<typeof OverridableSection>
+  ) {
+    return (
+      <OverridableSection
+        {...props}
+        {...{ [OverrideDefinitionSymbol]: rest }}
+      />
     )
   }
-
-  const sectionOverrides = getSectionOverrides(defaultComponents, override)
-
-  return createOverriddenSection({
-    sectionFactory: Sections[override.section],
-    sectionOverrides: sectionOverrides,
-    className: override.section,
-  })
 }

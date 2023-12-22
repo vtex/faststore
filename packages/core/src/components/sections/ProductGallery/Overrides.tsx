@@ -16,7 +16,7 @@ const FilterSlider = lazy(
 
 import { getSectionOverrides } from 'src/sdk/overrides/overrides'
 import { override } from 'src/customizations/src/components/overrides/ProductGallery'
-import type { SectionOverrideDefinition } from 'src/typings/overridesDefinition'
+import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'
 
 const {
   MobileFilterButton,
@@ -46,7 +46,7 @@ const {
     __experimentalProductCard: ProductCard,
     __experimentalEmptyGallery: EmptyGallery,
   },
-  override as SectionOverrideDefinition<'ProductGallery'>
+  override as SectionOverrideDefinitionV1<'ProductGallery'>
 )
 
 export {

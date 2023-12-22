@@ -5,8 +5,8 @@ import { useInView } from 'react-intersection-observer'
 import { usePDP } from 'src/sdk/overrides/PageProvider'
 import styles from '../ProductShelf/section.module.scss'
 import Section from '../Section'
-import { DefaultComponentsProvider } from 'src/sdk/overrides/OverrideContext'
 import { CrossSellingShelfDefaultComponents } from './DefaultComponents'
+import { getOverridableSection } from 'src/sdk/overrides/getOverriddenSection'
 
 interface Props {
   numberOfItems: number
@@ -45,12 +45,10 @@ const CrossSellingShelf = ({
   )
 }
 
-function CrossSellingShelfWithDefaultComponents(props: Props) {
-  return (
-    <DefaultComponentsProvider value={CrossSellingShelfDefaultComponents}>
-      <CrossSellingShelf {...props} />
-    </DefaultComponentsProvider>
-  )
-}
+const OverridableCrossSellingShelf = getOverridableSection(
+  'CrossSellingShelf',
+  CrossSellingShelf,
+  CrossSellingShelfDefaultComponents
+)
 
-export default CrossSellingShelfWithDefaultComponents
+export default OverridableCrossSellingShelf

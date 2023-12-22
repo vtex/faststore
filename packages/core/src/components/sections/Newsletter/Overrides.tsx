@@ -7,7 +7,7 @@ import { NewsletterAddendum } from 'src/components/ui/Newsletter/NewsletterAdden
 
 import { getSectionOverrides } from 'src/sdk/overrides/overrides'
 import { override } from 'src/customizations/src/components/overrides/Newsletter'
-import type { SectionOverrideDefinition } from 'src/typings/overridesDefinition'
+import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'
 
 const {
   ToastIconSuccess,
@@ -27,7 +27,7 @@ const {
     Button: UIButton,
     __experimentalNewsletterAddendum: NewsletterAddendum,
   },
-  override as SectionOverrideDefinition<'Newsletter'>
+  override as SectionOverrideDefinitionV1<'Newsletter'>
 )
 
 export {
