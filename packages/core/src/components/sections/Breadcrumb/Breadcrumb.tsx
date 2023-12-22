@@ -11,6 +11,8 @@ import {
   usePage,
 } from 'src/sdk/overrides/PageProvider'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { BreadcrumbDefaultComponents } from './DefaultComponents'
+import { getOverridableSection } from 'src/sdk/overrides/getOverriddenSection'
 
 interface BreadcrumbSectionProps {
   icon: string
@@ -39,4 +41,10 @@ function BreadcrumbSection({ ...otherProps }: BreadcrumbSectionProps) {
   )
 }
 
-export default memo(BreadcrumbSection)
+const OverridableBreadcrumbSection = getOverridableSection(
+  'Breadcrumb',
+  BreadcrumbSection,
+  BreadcrumbDefaultComponents
+)
+
+export default memo(OverridableBreadcrumbSection)

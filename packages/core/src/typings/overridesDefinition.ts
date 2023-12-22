@@ -1,4 +1,10 @@
-import { SectionsOverrides } from './overrides'
+import { SectionsOverrides, SupportedSectionsOverridesV2 } from './overrides'
+
+export type SectionOverrideDefinitionV1<
+  SectionName extends keyof SectionsOverrides
+> = Omit<SectionOverrideDefinition<SectionName>, 'Section'> & {
+  section: SectionName
+}
 
 export type SectionOverrideDefinition<
   SectionName extends keyof SectionsOverrides
@@ -8,8 +14,8 @@ export type SectionOverrideDefinition<
    * Default classNames from \<section\> element will still be applied.
    */
   className?: string
-  /** Name of the section to override */
-  section: SectionName
+  /** Section to override. Accepts a React Component. */
+  Section: SupportedSectionsOverridesV2[SectionName]
   /** An object containing component and prop overrides for section components */
   components?: Partial<Prettify<SectionsOverrides[SectionName]>>
 }

@@ -1,8 +1,8 @@
 import type {
   DefaultSectionComponentsDefinitions,
   ComponentOverrideDefinition,
-  SectionOverrideDefinition,
   OverriddenComponents,
+  SectionOverrideDefinitionV1,
 } from '../../typings/overridesDefinition'
 
 import type { SectionsOverrides } from '../../typings/overrides'
@@ -11,7 +11,7 @@ export function getSectionOverrides<
   SectionName extends keyof SectionsOverrides
 >(
   defaultComponents: DefaultSectionComponentsDefinitions<SectionName>,
-  override: SectionOverrideDefinition<SectionName>
+  override: SectionOverrideDefinitionV1<SectionName>
 ): OverriddenComponents<SectionName> {
   const overriddenComponents = {} as OverriddenComponents<SectionName>
 

@@ -7,6 +7,8 @@ import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import Section from '../Section'
 
 import styles from './section.module.scss'
+import { BannerTextDefaultComponents } from './DefaultComponents'
+import { getOverridableSection } from 'src/sdk/overrides/getOverriddenSection'
 
 export interface BannerTextProps {
   title: UIBannerTextContentProps['title']
@@ -55,4 +57,10 @@ function BannerText({
   )
 }
 
-export default BannerText
+const OverridableBannerText = getOverridableSection(
+  'BannerText',
+  BannerText,
+  BannerTextDefaultComponents
+)
+
+export default OverridableBannerText
