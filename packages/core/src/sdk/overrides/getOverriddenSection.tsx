@@ -9,8 +9,6 @@ import type { SectionsOverrides } from '../../typings/overrides'
 import { getSectionOverrides } from './overrides'
 import { OverrideProvider } from './OverrideContext'
 
-const OverrideDefinitionSymbol = Symbol('OverrideDefinition')
-
 export function getOverridableSection<
   Section extends ComponentType,
   SectionName extends keyof SectionsOverrides = keyof SectionsOverrides
@@ -21,14 +19,10 @@ export function getOverridableSection<
 ) {
   function OverridableSection(
     propsWithOverrides: ComponentProps<typeof Section> & {
-      [OverrideDefinitionSymbol]?: Omit<
-        SectionOverrideDefinitionV1<SectionName>,
-        'Section'
-      >
+      __overrides?: Omit<SectionOverrideDefinitionV1<SectionName>, 'Section'>
     }
   ) {
-    const { [OverrideDefinitionSymbol]: overrides, ...props } =
-      propsWithOverrides
+    const { __overrides: overrides, ...props } = propsWithOverrides
 
     const overrideContextValue = useMemo(
       () => ({
@@ -74,11 +68,6 @@ export function getOverriddenSection<
   return function OverriddenSection(
     props: ComponentProps<typeof OverridableSection>
   ) {
-    return (
-      <OverridableSection
-        {...props}
-        {...{ [OverrideDefinitionSymbol]: rest }}
-      />
-    )
+    return <OverridableSection {...props} {...{ __overrides: rest }} />
   }
 }
