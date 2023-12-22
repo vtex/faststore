@@ -5,7 +5,7 @@
   "repository": "vtex/faststore",
   "browserslist": "supports es6-module and not dead",
   "exports": {
-    ".": "./index.ts",
+    ".": "./src/index.ts",
     "./experimental": "./src/experimental/index.ts"
   },
   "scripts": {

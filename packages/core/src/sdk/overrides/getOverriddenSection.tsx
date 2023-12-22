@@ -3,8 +3,9 @@ import { useMemo, type ComponentProps, type ComponentType } from 'react'
 import type {
   DefaultSectionComponentsDefinitions,
   SectionOverrideDefinition,
+  SectionOverrideDefinitionV1,
 } from '../../typings/overridesDefinition'
-import type { SupportedSectionsOverridesV2 } from '../../typings/overrides'
+import type { SectionsOverrides } from '../../typings/overrides'
 import { getSectionOverrides } from './overrides'
 import { OverrideProvider } from './OverrideContext'
 
@@ -12,7 +13,7 @@ const OverrideDefinitionSymbol = Symbol('OverrideDefinition')
 
 export function getOverridableSection<
   Section extends ComponentType,
-  SectionName extends keyof SupportedSectionsOverridesV2 = keyof SupportedSectionsOverridesV2
+  SectionName extends keyof SectionsOverrides = keyof SectionsOverrides
 >(
   sectionName: SectionName,
   Section: Section,
@@ -21,7 +22,7 @@ export function getOverridableSection<
   function OverridableSection(
     propsWithOverrides: ComponentProps<typeof Section> & {
       [OverrideDefinitionSymbol]?: Omit<
-        SectionOverrideDefinition<SectionName>,
+        SectionOverrideDefinitionV1<SectionName>,
         'Section'
       >
     }
@@ -63,14 +64,12 @@ export function getOverridableSection<
  * @see https://www.faststore.dev/docs/building-sections/overriding-components-and-props
  */
 export function getOverriddenSection<
-  SectionName extends keyof SupportedSectionsOverridesV2
->(override: SectionOverrideDefinition<SectionName>) {
+  Section extends SectionsOverrides[keyof SectionsOverrides]['Section']
+>(override: SectionOverrideDefinition<Section>) {
   const { Section, ...rest } = override
 
   /** This type wizardry is here because the props won't behave correctly if nothing is done */
-  const OverridableSection = Section as ComponentType<
-    ComponentProps<typeof Section>
-  >
+  const OverridableSection = Section as ComponentType<ComponentProps<Section>>
 
   return function OverriddenSection(
     props: ComponentProps<typeof OverridableSection>
