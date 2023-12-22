@@ -207,5 +207,23 @@
         ]
       }
     ]
+  },
+  {
+    "id": "login",
+    "name": "Login",
+    "configurationSchemaSets": [],
+    "isSingleton": true
+  },
+  {
+    "id": "500",
+    "name": "Error 500",
+    "configurationSchemaSets": [],
+    "isSingleton": true
+  },
+  {
+    "id": "404",
+    "name": "Error 404",
+    "configurationSchemaSets": [],
+    "isSingleton": true
   }
 ]
