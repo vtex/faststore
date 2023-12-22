@@ -34,7 +34,7 @@ function Page({ globalSections }: Props) {
       <NextSeo noindex nofollow />
 
       <EmptyStateWrapper.Component
-        title={`${EmptyStateWrapper.props.title ?? '500'}`}
+        title={EmptyStateWrapper.props.title ?? '500'}
         titleIcon={
           <UIIcon
             name="CircleWavyWarning"

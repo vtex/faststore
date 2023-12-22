@@ -36,7 +36,7 @@ function Page({ globalSections }: Props) {
       <NextSeo noindex nofollow />
 
       <EmptyStateWrapper.Component
-        title={`${EmptyStateWrapper.props.title ?? 'Loading'}`}
+        title={EmptyStateWrapper.props.title ?? 'Loading'}
         {...EmptyStateWrapper.props}
       >
         <UILoader />

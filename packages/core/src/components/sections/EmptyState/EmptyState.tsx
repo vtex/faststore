@@ -1,10 +1,10 @@
 import { ReactNode } from 'react'
 import type { PropsWithChildren } from 'react'
 
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+
 import Section from '../Section'
 import styles from './section.module.scss'
-
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 export interface EmptyStateProps {
   title: string

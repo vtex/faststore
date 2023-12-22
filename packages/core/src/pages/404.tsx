@@ -33,7 +33,7 @@ function Page({ globalSections }: Props) {
       <NextSeo noindex nofollow />
 
       <EmptyStateWrapper.Component
-        title={`${EmptyStateWrapper.props.title ?? 'Not Found: 404'}`}
+        title={EmptyStateWrapper.props.title ?? 'Not Found: 404'}
         titleIcon={
           <UIIcon
             name="CircleWavyWarning"
