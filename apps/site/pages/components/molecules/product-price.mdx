@@ -7,7 +7,8 @@ import { useSSG } from 'nextra/ssg'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { ProductPrice } from '@faststore/ui'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { ProductPrice, Price } from '@faststore/ui'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
@@ -128,3 +129,18 @@ The `ProductPrice` component wraps two instances of the `Price` component, repre
 For further customization, you can use the following data attributes:
 
 `data-fs-product-price`
+
+---
+
+## Related components
+
+<SectionList>
+  <SectionItem
+    title="Price"
+    description="
+ Prices are used to display the price of a given product, discount and total values."
+    actionPath="/components/atoms/price"
+  >
+    <Price value={62.5} variant="selling" />
+  </SectionItem>
+</SectionList>
