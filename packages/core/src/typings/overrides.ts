@@ -56,6 +56,7 @@ export type SupportedSectionsOverridesV2 = Pick<
   | 'Hero'
   | 'ProductShelf'
   | 'ProductDetails'
+  | 'ProductGallery'
 >
 
 /**
