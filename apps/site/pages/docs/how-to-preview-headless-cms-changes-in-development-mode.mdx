@@ -5,7 +5,11 @@ sidebar_label: 'How to preview Headless CMS changes in development mode'
 
 import { Callout } from 'nextra-theme-docs'
 
+<header className="hero">
+
 # How to preview Headless CMS changes in development mode
+
+ </header>
 
 To make local tests, you can use the `dev mode` of the Headless CMS
 to see a preview of your changes.
@@ -19,22 +23,22 @@ to see a preview of your changes.
 
 1. After making changes to your FastStore project directory and syncing them with the Headless CMS, 
 access the VTEX Admin and navigate to **Storefront > Headless CMS**.
-2. Ensure you are in your FastStore project and open the page where changes were made.
+2. Ensure you are in your FastStore project and the server is running.
 3. Open the **Developer Tool** or right-click on the page and choose **Inspect**.
-4. In the Developer Tool terminal and run the following command:
+4. In the Developer Tool terminal, run the following command:
 
 ```bash copy
 localStorage.setItem('cmsDevMode', 1)
 ```
 
-5. Refresh the page and you should see the section **Development Mode**.
+5. Refresh the page and you should see the section **Development Mode** in the right sidebar.
 
 ![development-mode](https://vtexhelp.vtexassets.com/assets/docs/src/development-mode___5cd79e364aea0785e98ce6bb379f2acc.png)
 
 6. Click on `Preview`. A new tab will open; copy the link from this tab containing the
 `contentType`, `documentId` and `versionId`. The link should be similar to the
 following:
-`https://faststore-poc.vtex.com/?contentType=page&documentId=bd9e01d6-534e-4e54-aa76-f864dcbad024&versionId=405118e9-7509-11ed-83ab-0eeee363631w`
+`https://faststore.vtex.app/?contentType=page&documentId=bd9e01d6-534e-4e54-aa76-f864dcbad024&versionId=405118e9-7509-11ed-83ab-0eeee363631w`
 
 7. Now access the preview link locally and change the parameters accordingly:
 
