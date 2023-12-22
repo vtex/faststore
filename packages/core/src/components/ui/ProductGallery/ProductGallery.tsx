@@ -12,16 +12,6 @@ import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 import { ProductCardProps } from 'src/components/product/ProductCard'
 import { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
 import { SortProps } from 'src/components/search/Sort/Sort'
-import {
-  FilterButtonSkeleton,
-  FilterIcon,
-  LinkButtonNext,
-  LinkButtonPrev,
-  MobileFilterButton,
-  PrevIcon,
-  ResultsCountSkeleton,
-  SortSkeleton,
-} from 'src/components/sections/ProductGallery/Overrides'
 import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
 import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
 import {
@@ -30,6 +20,7 @@ import {
   usePage,
 } from 'src/sdk/overrides/PageProvider'
 import { useProductsPrefetch } from 'src/sdk/product/useProductsPrefetch'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const GalleryPageSkeleton = <ProductGridSkeleton loading />
@@ -81,6 +72,17 @@ function ProductGallery({
   sortBySelector,
   productCard,
 }: ProductGalleryProps) {
+  const {
+    FilterButtonSkeleton,
+    FilterIcon,
+    LinkButtonNext,
+    LinkButtonPrev,
+    MobileFilterButton,
+    PrevIcon,
+    ResultsCountSkeleton,
+    SortSkeleton,
+  } = useOverrideComponents<'ProductGallery'>()
+
   const { openFilter } = useUI()
   const { pages, addNextPage, addPrevPage, itemsPerPage } = useSearch()
   const context = usePage<SearchPageContext | PLPContext>()
