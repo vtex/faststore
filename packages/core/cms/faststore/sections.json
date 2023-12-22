@@ -1909,13 +1909,11 @@
               "title": "Icon",
               "type": "string",
               "enumNames": ["CircleWavy Warning"],
-              "enum": ["CircleWavyWarning"],
-              "default": "CircleWavyWarning"
+              "enum": ["CircleWavyWarning"]
             },
             "alt": {
               "title": "Alternative Label",
-              "type": "string",
-              "default": "CircleWavy Warning"
+              "type": "string"
             }
           }
         },
