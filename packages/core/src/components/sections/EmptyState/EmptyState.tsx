@@ -45,11 +45,15 @@ export interface EmptyStateProps {
 
 const useErrorState = () => {
   const router = useRouter()
-  const { errorId, fromUrl } = router.query
+  const {
+    query: { errorId, fromUrl },
+    pathname,
+    asPath,
+  } = router
 
   return {
     errorId,
-    fromUrl,
+    fromUrl: fromUrl ?? asPath ?? pathname,
   }
 }
 
