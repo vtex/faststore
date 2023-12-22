@@ -21,7 +21,7 @@ function ProductShelfSection({
   )
 }
 
-const OverridableProductShelf = getOverridableSection(
+const OverridableProductShelf = getOverridableSection<typeof ProductShelf>(
   'ProductShelf',
   ProductShelfSection,
   ProductShelfDefaultComponents

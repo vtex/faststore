@@ -41,10 +41,8 @@ function BreadcrumbSection({ ...otherProps }: BreadcrumbSectionProps) {
   )
 }
 
-const OverridableBreadcrumbSection = getOverridableSection(
-  'Breadcrumb',
-  BreadcrumbSection,
-  BreadcrumbDefaultComponents
-)
+const OverridableBreadcrumbSection = getOverridableSection<
+  typeof BreadcrumbSection
+>('Breadcrumb', BreadcrumbSection, BreadcrumbDefaultComponents)
 
 export default memo(OverridableBreadcrumbSection)

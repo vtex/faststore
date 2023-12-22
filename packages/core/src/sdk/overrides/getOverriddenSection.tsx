@@ -11,8 +11,8 @@ import { OverrideProvider } from './OverrideContext'
 const OverrideDefinitionSymbol = Symbol('OverrideDefinition')
 
 export function getOverridableSection<
-  SectionName extends keyof SupportedSectionsOverridesV2,
-  Section extends ComponentType
+  Section extends ComponentType,
+  SectionName extends keyof SupportedSectionsOverridesV2 = keyof SupportedSectionsOverridesV2
 >(
   sectionName: SectionName,
   Section: Section,

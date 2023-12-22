@@ -282,7 +282,7 @@ export const fragment = gql`
   }
 `
 
-const OverridableProductDetails = getOverridableSection(
+const OverridableProductDetails = getOverridableSection<typeof ProductDetails>(
   'ProductDetails',
   ProductDetails,
   ProductDetailsDefaultComponents

@@ -57,7 +57,7 @@ function BannerText({
   )
 }
 
-const OverridableBannerText = getOverridableSection(
+const OverridableBannerText = getOverridableSection<typeof BannerText>(
   'BannerText',
   BannerText,
   BannerTextDefaultComponents

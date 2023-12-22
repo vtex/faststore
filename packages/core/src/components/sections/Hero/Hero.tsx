@@ -76,7 +76,7 @@ const Hero = ({
   )
 }
 
-const OverridableHero = getOverridableSection(
+const OverridableHero = getOverridableSection<typeof Hero>(
   'Hero',
   Hero,
   HeroDefaultComponents

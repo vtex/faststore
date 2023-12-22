@@ -45,10 +45,8 @@ const CrossSellingShelf = ({
   )
 }
 
-const OverridableCrossSellingShelf = getOverridableSection(
-  'CrossSellingShelf',
-  CrossSellingShelf,
-  CrossSellingShelfDefaultComponents
-)
+const OverridableCrossSellingShelf = getOverridableSection<
+  typeof CrossSellingShelf
+>('CrossSellingShelf', CrossSellingShelf, CrossSellingShelfDefaultComponents)
 
 export default OverridableCrossSellingShelf
