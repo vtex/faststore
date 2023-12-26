@@ -26,11 +26,22 @@ import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
   const tablePath = path.resolve(__filename)
-  const components = ['Table.tsx', 'TableBody.tsx', 'TableHead.tsx', 'TableRow.tsx', 'TableCell.tsx', 'TableFooter.tsx']
-  const [tableProps, tableBodyProps, tableHeadProps, tableRowProps, tableCellProps, tableFooterProps ] = getComponentPropsFrom(
-    tablePath,
-    components
-  )
+  const components = [
+    'Table.tsx',
+    'TableBody.tsx',
+    'TableHead.tsx',
+    'TableRow.tsx',
+    'TableCell.tsx',
+    'TableFooter.tsx',
+  ]
+  const [
+    tableProps,
+    tableBodyProps,
+    tableHeadProps,
+    tableRowProps,
+    tableCellProps,
+    tableFooterProps,
+  ] = getComponentPropsFrom(tablePath, components)
   return {
     props: {
       // We add an `ssg` field to the page props,
@@ -41,7 +52,7 @@ export const getStaticProps = () => {
         tableHeadProps,
         tableRowProps,
         tableCellProps,
-        tableFooterProps
+        tableFooterProps,
       },
     },
   }
@@ -49,7 +60,14 @@ export const getStaticProps = () => {
 
 export const TablePropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
-  const { tableProps, tableBodyProps, tableHeadProps, tableRowProps, tableCellProps, tableFooterProps } = useSSG()
+  const {
+    tableProps,
+    tableBodyProps,
+    tableHeadProps,
+    tableRowProps,
+    tableCellProps,
+    tableFooterProps,
+  } = useSSG()
   return {
     Table: <PropsSection propsList={tableProps} />,
     TableBody: <PropsSection propsList={tableBodyProps} />,
@@ -392,10 +410,10 @@ import { Table } from '@faststore/ui'
 To apply the styles of this component in your FastStore project, import the following into your stylesheet:
 
 ```scss copy
-@import '@faststore/ui/src/components/molecules/Table/styles.scss'
+@import '@faststore/ui/src/components/molecules/Table/styles.scss';
 ```
 
-Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/components#importing-faststore-ui-component-styles) tutorial.
+Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/importing-styles-to-faststore-ui-components) tutorial.
 
 ---
 

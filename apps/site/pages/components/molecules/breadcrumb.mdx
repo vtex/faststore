@@ -18,7 +18,6 @@ import { Breadcrumb } from '@faststore/ui'
 import { breadcrumbList } from '../../../mocks/breadcrumbList'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
-
 export const getStaticProps = () => {
   const breadcrumbPath = path.resolve(__filename)
   const components = ['Breadcrumb.tsx']
@@ -28,7 +27,7 @@ export const getStaticProps = () => {
       // We add an `ssg` field to the page props,
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
-        breadcrumbProps
+        breadcrumbProps,
       },
     },
   }
@@ -38,7 +37,7 @@ export const BreadcrumbPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
   const { breadcrumbProps } = useSSG()
   return {
-    Breadcrumb: <PropsSection propsList={breadcrumbProps} />
+    Breadcrumb: <PropsSection propsList={breadcrumbProps} />,
   }[component]
 }
 
@@ -117,10 +116,9 @@ To apply the styles of this component in your FastStore project, import the foll
 @import '@faststore/ui/src/components/atoms/Button/styles.scss';
 @import '@faststore/ui/src/components/molecules/Dropdown/styles.scss';
 @import '@faststore/ui/src/components/molecules/Breadcrumb/styles.scss';
-
 ```
 
-Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/components#importing-faststore-ui-component-styles) tutorial.
+Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/importing-styles-to-faststore-ui-components) tutorial.
 
 ---
 

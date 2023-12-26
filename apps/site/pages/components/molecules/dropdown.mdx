@@ -22,7 +22,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownButton,
-  Icon
+  Icon,
 } from '@faststore/ui'
 import { OverviewSection } from 'site/components/OverviewSection'
 
@@ -32,11 +32,18 @@ import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
   const dropdownPath = path.resolve(__filename)
-  const components = ['Dropdown.tsx', 'DropdownItem.tsx', 'DropdownMenu.tsx', 'DropdownButton.tsx']
-  const [dropdownProps, dropdownItemProps, dropdownMenuProps, dropdownButtonProps ] = getComponentPropsFrom(
-    dropdownPath,
-    components
-  )
+  const components = [
+    'Dropdown.tsx',
+    'DropdownItem.tsx',
+    'DropdownMenu.tsx',
+    'DropdownButton.tsx',
+  ]
+  const [
+    dropdownProps,
+    dropdownItemProps,
+    dropdownMenuProps,
+    dropdownButtonProps,
+  ] = getComponentPropsFrom(dropdownPath, components)
   return {
     props: {
       // We add an `ssg` field to the page props,
@@ -53,7 +60,12 @@ export const getStaticProps = () => {
 
 export const DropdownPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
-  const { dropdownProps, dropdownItemProps, dropdownMenuProps, dropdownButtonProps } = useSSG()
+  const {
+    dropdownProps,
+    dropdownItemProps,
+    dropdownMenuProps,
+    dropdownButtonProps,
+  } = useSSG()
   return {
     Dropdown: <PropsSection propsList={dropdownProps} />,
     DropdownItem: <PropsSection propsList={dropdownItemProps} />,
@@ -76,7 +88,9 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
   <Tab>
     <OverviewSection>
       <Dropdown>
-        <DropdownButton icon={<Icon name="CaretDown" />}>{'Dropdown'}</DropdownButton>
+        <DropdownButton icon={<Icon name="CaretDown" />}>
+          {'Dropdown'}
+        </DropdownButton>
         <DropdownMenu>
           <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             {'Dropdown Item 1'}
@@ -90,7 +104,9 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
         </DropdownMenu>
       </Dropdown>
       <Dropdown>
-        <DropdownButton icon={<Icon name="CaretDown" />}>{'Dropdown Small'}</DropdownButton>
+        <DropdownButton icon={<Icon name="CaretDown" />}>
+          {'Dropdown Small'}
+        </DropdownButton>
         <DropdownMenu size="small">
           <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             {'Dropdown Item 1'}
@@ -122,7 +138,9 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
       </DropdownMenu>
     </Dropdown>
     <Dropdown>
-      <DropdownButton icon={<Icon name="CaretDown" />}>Dropdown Small</DropdownButton>
+      <DropdownButton icon={<Icon name="CaretDown" />}>
+        Dropdown Small
+      </DropdownButton>
       <DropdownMenu size="small">
         <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
           Dropdown Item 1
@@ -162,7 +180,7 @@ To apply the styles of this component in your FastStore project, import the foll
 @import '@faststore/ui/src/components/molecules/Dropdown/styles.scss';
 ```
 
-Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/components#importing-faststore-ui-component-styles) tutorial.
+Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/importing-styles-to-faststore-ui-components) tutorial.
 
 ---
 
@@ -172,7 +190,9 @@ Follow the instructions in the [Importing FastStore UI component styles](/docs/c
   <Tab>
     <OverviewSection>
       <Dropdown>
-        <DropdownButton icon={<Icon name="CaretDown" />}>{'Dropdown'}</DropdownButton>
+        <DropdownButton icon={<Icon name="CaretDown" />}>
+          {'Dropdown'}
+        </DropdownButton>
         <DropdownMenu>
           <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             {'Dropdown Item 1'}
@@ -191,7 +211,9 @@ Follow the instructions in the [Importing FastStore UI component styles](/docs/c
     ```tsx
     <OverviewSection>
       <Dropdown>
-        <DropdownButton icon={<Icon name="CaretDown" />}>Dropdown</DropdownButton>
+        <DropdownButton icon={<Icon name="CaretDown" />}>
+          Dropdown
+        </DropdownButton>
         <DropdownMenu>
           <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             Dropdown Item 1

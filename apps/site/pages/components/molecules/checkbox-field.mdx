@@ -13,17 +13,19 @@ import { OverviewSection } from 'site/components/OverviewSection'
 import { CheckboxField } from '@faststore/ui'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
-
 export const getStaticProps = () => {
   const checkboxFieldPath = path.resolve(__filename)
   const components = ['CheckboxField.tsx']
-  const [checkboxFieldProps] = getComponentPropsFrom(checkboxFieldPath, components)
+  const [checkboxFieldProps] = getComponentPropsFrom(
+    checkboxFieldPath,
+    components
+  )
   return {
     props: {
       // We add an `ssg` field to the page props,
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
-        checkboxFieldProps
+        checkboxFieldProps,
       },
     },
   }
@@ -33,10 +35,9 @@ export const CheckboxFieldPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
   const { checkboxFieldProps } = useSSG()
   return {
-    CheckboxField: <PropsSection propsList={checkboxFieldProps} />
+    CheckboxField: <PropsSection propsList={checkboxFieldProps} />,
   }[component]
 }
-
 
 <header>
 # Checkbox Field
@@ -101,7 +102,7 @@ To apply the styles of this component in your FastStore project, import the foll
 @import '@faststore/ui/src/components/molecules/CheckboxField/styles.scss';
 ```
 
-Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/components#importing-faststore-ui-component-styles) tutorial.
+Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/importing-styles-to-faststore-ui-components) tutorial.
 
 ---
 
