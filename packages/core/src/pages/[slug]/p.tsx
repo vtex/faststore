@@ -1,14 +1,14 @@
 import { isNotFoundError } from '@faststore/api'
-import { gql } from '@faststore/graphql-utils'
 import type { Locator } from '@vtex/client-cms'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 import deepmerge from 'deepmerge'
 
-import type {
-  ServerProductQueryQuery,
-  ServerProductQueryQueryVariables,
+import { gql } from '@generated'
+import {
+  type ServerProductQueryQuery,
+  type ServerProductQueryQueryVariables,
 } from '@generated/graphql'
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
@@ -134,7 +134,7 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   )
 }
 
-const query = gql`
+const query = gql(`
   query ServerProductQuery($locator: [IStoreSelectedFacet!]!) {
     ...ServerProduct
     product(locator: $locator) {
@@ -192,7 +192,7 @@ const query = gql`
       ...ProductDetailsFragment_product
     }
   }
-`
+`)
 
 export const getStaticProps: GetStaticProps<
   Props,
@@ -203,7 +203,7 @@ export const getStaticProps: GetStaticProps<
   const [searchResult, cmsPage, globalSections] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
       variables: { locator: [{ key: 'slug', value: slug }] },
-      operationName: query,
+      operation: query,
     }),
     getPage<PDPContentType>({
       ...(previewData?.contentType === 'pdp' ? previewData : null),

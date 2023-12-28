@@ -1,4 +1,3 @@
-import { gql } from '@faststore/graphql-utils'
 import {
   ProductCard as UIProductCard,
   ProductCardContent as UIProductCardContent,
@@ -6,6 +5,7 @@ import {
 } from '@faststore/ui'
 import { memo, useMemo } from 'react'
 
+import { gql } from '@generated'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import { ImageProps } from 'next/future/image'
 import NextLink from 'next/link'
@@ -125,7 +125,7 @@ function ProductCard({
   )
 }
 
-export const fragment = gql`
+export const fragment = gql(`
   fragment ProductSummary_product on StoreProduct {
     id: productID
     slug
@@ -163,6 +163,6 @@ export const fragment = gql`
       }
     }
   }
-`
+`)
 
 export default memo(ProductCard)

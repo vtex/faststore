@@ -3,6 +3,7 @@ import type { SWRConfiguration } from 'swr'
 
 import { request } from './request'
 import type { RequestOptions } from './request'
+import { TypedDocumentString } from '@generated/graphql'
 
 export type QueryOptions = SWRConfiguration &
   RequestOptions & { doNotRun?: boolean }
@@ -22,18 +23,21 @@ export const DEFAULT_OPTIONS = {
 }
 
 export const useQuery = <Data, Variables = Record<string, unknown>>(
-  operationName: string,
+  operation: TypedDocumentString<any, any>,
   variables: Variables,
   options?: QueryOptions
 ) =>
   useSWR<Data>(
-    () => (options?.doNotRun ? null : getKey(operationName, variables)),
+    () =>
+      options?.doNotRun
+        ? null
+        : getKey(operation['__meta__']['operationName'], variables),
     {
       fetcher: () => {
         return new Promise((resolve) => {
           setTimeout(async () => {
             resolve(
-              await request<Data, Variables>(operationName, variables, options)
+              await request<Data, Variables>(operation, variables, options)
             )
           })
         })

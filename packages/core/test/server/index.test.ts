@@ -138,7 +138,12 @@ describe('FastStore GraphQL Layer', () => {
     it('should handle options and execute', async () => {
       const result = await execute({
         variables: { slug: storeConfig.cypress.pages.collection.slice(1) },
-        operationName: 'ServerCollectionPageQuery',
+        operation: {
+          __meta__: {
+            operationName: 'ServerCollectionPageQuery',
+            operationHash: '4b33c5c07f440dc7489e55619dc2211a13786e72',
+          },
+        },
       })
       expect(result.data).toBeDefined()
     })

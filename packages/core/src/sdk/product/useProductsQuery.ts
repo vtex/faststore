@@ -1,5 +1,4 @@
-import { gql } from '@faststore/graphql-utils'
-
+import { gql } from '@generated'
 import type {
   ClientManyProductsQueryQuery,
   ClientManyProductsQueryQueryVariables,
@@ -9,7 +8,7 @@ import type { QueryOptions } from '../graphql/useQuery'
 import { useQuery } from '../graphql/useQuery'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
-export const query = gql`
+export const query = gql(`
   query ClientManyProductsQuery(
     $first: Int!
     $after: String
@@ -37,7 +36,7 @@ export const query = gql`
       }
     }
   }
-`
+`)
 
 /**
  * Use this hook for fetching a list of products, like shelves and tiles

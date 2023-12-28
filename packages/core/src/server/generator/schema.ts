@@ -70,7 +70,7 @@ export const getMergedSchema = (): GraphQLSchema =>
 export function writeGraphqlSchemaFile(apiSchema: GraphQLSchema) {
   try {
     writeFileSync(
-      path.join(process.cwd(), '@generated', 'graphql', 'schema.graphql'),
+      path.join(process.cwd(), '@generated', 'schema.graphql'),
       printSchemaWithDirectives(apiSchema)
     )
 

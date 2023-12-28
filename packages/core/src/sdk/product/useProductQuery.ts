@@ -1,6 +1,6 @@
-import { gql } from '@faststore/graphql-utils'
 import { useMemo } from 'react'
 
+import { gql } from '@generated'
 import type {
   ClientProductQueryQuery,
   ClientProductQueryQueryVariables,
@@ -9,14 +9,14 @@ import type {
 import { useQuery } from '../graphql/useQuery'
 import { useSession } from '../session'
 
-const query = gql`
+const query = gql(`
   query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {
     ...ClientProduct
     product(locator: $locator) {
       ...ProductDetailsFragment_product
     }
   }
-`
+`)
 
 export const useProductQuery = <T extends ClientProductQueryQuery>(
   productID: string,

@@ -21,15 +21,16 @@ import { makeExecutableSchema } from '@graphql-tools/schema'
 import { loadFilesSync } from '@graphql-tools/load-files'
 import type { TypeSource } from '@graphql-tools/utils'
 
-import persisted from '../../@generated/graphql/persisted.json'
+import persisted from '@generated/persisted-documents.json'
 
 import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolvers'
 import thirdPartyResolvers from '../customizations/src/graphql/thirdParty/resolvers'
 
 import { apiOptions } from './options'
+import { TypedDocumentString } from '@generated/graphql'
 
 interface ExecuteOptions<V = Record<string, unknown>> {
-  operationName: string
+  operation: Pick<TypedDocumentString<any, any>, '__meta__'>
   variables: V
   query?: string | null
 }
@@ -49,7 +50,7 @@ const formatError: FormatErrorHandler = (err) => {
 }
 
 function loadGeneratedSchema(): TypeSource {
-  return loadFilesSync(path.join(process.cwd(), '@generated', 'graphql'), {
+  return loadFilesSync(path.join(process.cwd(), '@generated'), {
     extensions: ['graphql'],
   })
 }
@@ -89,11 +90,15 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
     cookies: Map<string, Record<string, string>> | null
   }
 }> => {
-  const { operationName, variables, query: maybeQuery } = options
-  const query = maybeQuery ?? persistedQueries.get(operationName)
+  const { operation, variables, query: maybeQuery } = options
+  const { operationHash, operationName } = operation['__meta__']
+
+  const query = maybeQuery ?? persistedQueries.get(operationHash)
 
   if (query == null) {
-    throw new Error(`No query found for operationName: ${operationName}`)
+    throw new Error(
+      `No query found for operationName ${operationName} and operationHash ${operationHash}`
+    )
   }
 
   const enveloped = await envelopPromise

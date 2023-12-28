@@ -1,6 +1,6 @@
-import { gql } from '@faststore/graphql-utils'
+import { gql } from '@generated'
 
-export const fragment = gql`
+export const fragment = gql(`
   fragment ClientShippingSimulation on Query {
     shipping(items: $items, postalCode: $postalCode, country: $country) {
       address {
@@ -8,4 +8,4 @@ export const fragment = gql`
       }
     }
   }
-`
+`)
