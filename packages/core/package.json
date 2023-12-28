@@ -56,6 +56,7 @@
     "@vtex/prettier-config": "1.0.0",
     "autoprefixer": "^10.4.0",
     "chalk": "^5.2.0",
+    "copy-files": "^0.1.0",
     "css-loader": "^6.7.1",
     "deepmerge": "^4.3.1",
     "draftjs-to-html": "^0.9.1",
