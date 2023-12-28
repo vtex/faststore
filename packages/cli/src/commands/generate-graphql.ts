@@ -2,7 +2,7 @@ import { Command, Flags } from '@oclif/core'
 import { existsSync } from 'fs-extra'
 import chalk from 'chalk'
 
-import { tmpDir } from '../utils/directory'
+import { coreDir, tmpDir } from '../utils/directory'
 import { runCommandSync } from '../utils/runCommandSync'
 
 export default class GenerateGraphql extends Command {
@@ -53,6 +53,18 @@ export default class GenerateGraphql extends Command {
       debug,
       cwd: isCore ? undefined : tmpDir,
     })
+
+    if (!isCore) {
+      // yarn generate:copy-back expects the DESTINATION var to be present so it can copy the files to the correct directory
+      runCommandSync({
+        cmd: `DESTINATION=${coreDir} yarn generate:copy-back`,
+        errorMessage:
+          "Failed to format generated files. 'yarn format:generated' thrown errors",
+        throws: 'warning',
+        debug,
+        cwd: isCore ? undefined : tmpDir,
+      })
+    }
 
     console.log(
       `${chalk.green(
