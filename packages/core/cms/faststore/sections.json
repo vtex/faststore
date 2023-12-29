@@ -1169,6 +1169,13 @@
               "default": "CircleWavyWarning"
             }
           }
+        },
+        "colorVariant": {
+          "title": "Color variant",
+          "type": "string",
+          "enumNames": ["Main", "Light", "Accent"],
+          "enum": ["main", "light", "accent"],
+          "default": "main"
         }
       }
     }
@@ -1306,6 +1313,13 @@
               "title": "Newsletter should be in card format?",
               "type": "boolean",
               "default": true
+            },
+            "colorVariant": {
+              "title": "Color variant",
+              "type": "string",
+              "enumNames": ["Main", "Light", "Accent"],
+              "enum": ["main", "light", "accent"],
+              "default": "main"
             }
           }
         }
