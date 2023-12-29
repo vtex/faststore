@@ -26,6 +26,10 @@ import type {
   NavbarSliderFooterProps,
   NavbarSliderHeaderProps,
   NavbarSliderProps,
+  NewsletterProps,
+  NewsletterContentProps,
+  NewsletterFormProps,
+  NewsletterHeaderProps,
   ProductPriceProps,
   ProductShelfProps,
   ProductTitleProps,
@@ -132,6 +136,23 @@ export type SectionsOverrides = {
     >
   }
   Newsletter: {
+    Newsletter: ComponentOverrideDefinition<NewsletterProps, NewsletterProps>
+    NewsletterAddendum: ComponentOverrideDefinition<
+      NewsletterAddendumProps,
+      NewsletterAddendumProps
+    >
+    NewsletterContent: ComponentOverrideDefinition<
+      NewsletterContentProps,
+      NewsletterContentProps
+    >
+    NewsletterForm: ComponentOverrideDefinition<
+      NewsletterFormProps,
+      NewsletterFormProps
+    >
+    NewsletterHeader: ComponentOverrideDefinition<
+      NewsletterHeaderProps,
+      NewsletterHeaderProps
+    >
     ToastIconSuccess: ComponentOverrideDefinition<IconProps, IconProps>
     ToastIconError: ComponentOverrideDefinition<IconProps, IconProps>
     HeaderIcon: ComponentOverrideDefinition<IconProps, IconProps>
@@ -144,10 +165,6 @@ export type SectionsOverrides = {
       Omit<InputFieldProps, 'inputRef'>
     >
     Button: ComponentOverrideDefinition<ButtonProps, ButtonProps>
-    __experimentalNewsletterAddendum: ComponentOverrideDefinition<
-      NewsletterAddendumProps,
-      NewsletterAddendumProps
-    >
   }
   ProductDetails: {
     ProductTitle: ComponentOverrideDefinition<
