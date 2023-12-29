@@ -129,10 +129,10 @@ export type {
   ProductCardImageProps,
   ProductCardContentProps,
 } from './molecules/ProductCard'
-export { default as ProductTitle } from './molecules/ProductTitle'
-export type { ProductTitleProps } from './molecules/ProductTitle'
 export { default as ProductPrice } from './molecules/ProductPrice'
 export type { ProductPriceProps } from './molecules/ProductPrice'
+export { default as ProductTitle } from './molecules/ProductTitle'
+export type { ProductTitleProps } from './molecules/ProductTitle'
 export { default as RadioField } from './molecules/RadioField'
 export type { RadioFieldProps } from './molecules/RadioField'
 export { default as RadioGroup, RadioOption } from './molecules/RadioGroup'
