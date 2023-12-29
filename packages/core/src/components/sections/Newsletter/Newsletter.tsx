@@ -1,31 +1,41 @@
-import { ComponentPropsWithRef } from 'react'
+import {
+  NewsletterProps as UINewsletterProps,
+  NewsletterAddendumProps as UINewsletterAddendumProps,
+  NewsletterFormProps as UINewsletterFormProps,
+  NewsletterHeaderProps as UINewsletterHeaderProps,
+} from '@faststore/ui'
+
 import UINewsletter from 'src/components/ui/Newsletter'
-import { SubscribeMessage } from 'src/components/ui/Newsletter/Newsletter'
 
 import Section from '../Section'
 import styles from './section.module.scss'
 
-export interface NewsletterProps
-  extends Omit<ComponentPropsWithRef<'form'>, 'title' | 'onSubmit'> {
+type SubscribeMessage = {
+  icon: string
+  title: string
+  message: string
+}
+
+export interface NewsletterProps {
   /**
    * Icon for the section.
    */
-  icon: {
-    icon: string
+  icon?: {
     alt: string
+    icon: string
   }
   /**
    * Title for the section.
    */
-  title: string
+  title: UINewsletterHeaderProps['title']
   /**
    * A description for the section.
    */
-  description?: string
+  description?: UINewsletterHeaderProps['description']
   /**
    * The Privacy Policy disclaimer.
    */
-  privacyPolicy?: string
+  privacyPolicy?: UINewsletterAddendumProps['addendum']
   /**
    * The email input label.
    */
@@ -43,13 +53,21 @@ export interface NewsletterProps
    */
   subscribeButtonLabel?: string
   /**
+   * The subscribe button loading label.
+   */
+  subscribeButtonLoadingLabel?: string
+  /**
    * The card Variant
    */
-  card: Boolean
+  card?: UINewsletterProps['card']
 
-  toastSubscribe: SubscribeMessage
+  toastSubscribe?: SubscribeMessage
 
-  toastSubscribeError: SubscribeMessage
+  toastSubscribeError?: SubscribeMessage
+  /**
+   * Specifies the component's color variant combination.
+   */
+  colorVariant?: UINewsletterProps['colorVariant']
 }
 
 const Newsletter = function Newsletter({
@@ -61,13 +79,15 @@ const Newsletter = function Newsletter({
   displayNameInput,
   nameInputLabel,
   subscribeButtonLabel,
+  subscribeButtonLoadingLabel,
   card,
   toastSubscribe,
   toastSubscribeError,
+  colorVariant,
   ...otherProps
 }: NewsletterProps) {
   return (
-    <Section className={`${styles.section} section-newsletter`}>
+    <Section className={`${styles.section} section-newsletter layout__section`}>
       <UINewsletter
         icon={icon}
         title={title}
@@ -77,9 +97,11 @@ const Newsletter = function Newsletter({
         displayNameInput={displayNameInput}
         nameInputLabel={nameInputLabel}
         subscribeButtonLabel={subscribeButtonLabel}
+        subscribeButtonLoadingLabel={subscribeButtonLoadingLabel}
         toastSubscribe={toastSubscribe}
         toastSubscribeError={toastSubscribeError}
         card={card}
+        colorVariant={colorVariant}
         {...otherProps}
       />
     </Section>

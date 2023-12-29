@@ -17,7 +17,7 @@ import draftToHtml from 'draftjs-to-html'
 import { NewsletterAddendum as UINewsletterAddendum } from '@faststore/ui'
 import type { NewsletterAddendumProps as UINewsletterAddendumProps } from '@faststore/ui'
 
-export interface NewsletterAddendumProps extends UINewsletterAddendumProps {
+export interface NewsletterAddendumProps {
   /**
    * Expects a string of a JSON object in the form of draftjs's raw content state.
    */
