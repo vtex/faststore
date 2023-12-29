@@ -1,23 +1,30 @@
-import React, { ComponentPropsWithRef, PropsWithChildren } from 'react'
-import { forwardRef } from 'react'
+import React, { forwardRef } from 'react'
+import type { FormEvent, HTMLAttributes, DetailedHTMLProps } from 'react'
 
 export interface NewsletterFormProps
-  extends Omit<ComponentPropsWithRef<'form'>, 'onSubmit'> {
+  extends DetailedHTMLProps<
+    Omit<HTMLAttributes<HTMLFormElement>, 'onSubmit'>,
+    HTMLFormElement
+  > {
   /**
    * Function called when submit button is clicked.
    */
-  onSubmit: () => void
+  onSubmit: (event: FormEvent) => void
 }
 
-const NewsletterForm = forwardRef<
-  HTMLFormElement,
-  PropsWithChildren<NewsletterFormProps>
->(function NewsletterForm({ children, onSubmit, ...otherProps }, ref) {
-  return (
-    <form ref={ref} data-fs-newsletter-form onSubmit={onSubmit} {...otherProps}>
-      {children}
-    </form>
-  )
-})
+const NewsletterForm = forwardRef<HTMLFormElement, NewsletterFormProps>(
+  function NewsletterForm({ children, onSubmit, ...otherProps }, ref) {
+    return (
+      <form
+        ref={ref}
+        data-fs-newsletter-form
+        onSubmit={onSubmit}
+        {...otherProps}
+      >
+        {children}
+      </form>
+    )
+  }
+)
 
 export default NewsletterForm

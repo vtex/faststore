@@ -1,7 +1,8 @@
-import React from 'react'
-import { forwardRef } from 'react'
+import React, { forwardRef } from 'react'
+import type { HTMLAttributes, DetailedHTMLProps } from 'react'
 
-export interface NewsletterAddendumProps {
+export interface NewsletterAddendumProps
+  extends DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
   /**
    * Expects a string of a JSON object.
    */

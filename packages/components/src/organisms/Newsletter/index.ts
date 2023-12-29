@@ -5,6 +5,7 @@ export { default as NewsletterAddendum } from './NewsletterAddendum'
 export type { NewsletterAddendumProps } from './NewsletterAddendum'
 
 export { default as NewsletterContent } from './NewsletterContent'
+export type { NewsletterContentProps } from './NewsletterContent'
 
 export { default as NewsletterForm } from './NewsletterForm'
 export type { NewsletterFormProps } from './NewsletterForm'

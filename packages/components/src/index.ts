@@ -305,6 +305,7 @@ export {
 export type {
   NewsletterProps,
   NewsletterAddendumProps,
+  NewsletterContentProps,
   NewsletterFormProps,
   NewsletterHeaderProps,
 } from './organisms/Newsletter'

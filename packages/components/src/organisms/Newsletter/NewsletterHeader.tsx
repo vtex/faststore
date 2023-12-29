@@ -1,7 +1,8 @@
-import React, { ReactNode } from 'react'
-import { forwardRef } from 'react'
+import React, { forwardRef } from 'react'
+import type { ReactNode, HTMLAttributes, DetailedHTMLProps } from 'react'
 
-export interface NewsletterHeaderProps {
+export interface NewsletterHeaderProps
+  extends DetailedHTMLProps<HTMLAttributes<HTMLHeadElement>, HTMLHeadElement> {
   /**
    * Icon for the section.
    */
