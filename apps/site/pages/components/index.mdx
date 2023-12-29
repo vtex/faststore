@@ -1,4 +1,3 @@
-import { SectionItem, SectionList } from 'site/components/SectionItem'
 import { CardItem, CardList } from 'site/components/CardList'
 import {
   Accordion,
@@ -23,7 +22,6 @@ import {
   DropdownMenu,
   DropdownButton,
   EmptyState,
-  Filter,
   Gift,
   GiftContent,
   GiftImage,
@@ -42,7 +40,6 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  Navbar,
   OrderSummary,
   OutOfStock,
   Overlay,
@@ -53,9 +50,7 @@ import {
   ProductCard,
   ProductCardContent,
   ProductCardImage,
-  ProductShelf,
-  ProductShelfItems,
-  ProductShelfItem,
+  ProductPrice,
   ProductTitle,
   QuantitySelector,
   Radio,
@@ -85,15 +80,13 @@ import {
   TableHead,
   TableRow,
   TableCell,
-  TableFooter,
   Tag,
-  Toast,
   Toggle,
   ToggleField,
   UIProvider,
   useUI,
 } from '@faststore/ui'
-import CarouselUsage from 'site/components/Carousel/CarouselUsage'
+import CarouselSimpleUsage from 'site/components/Carousel/CarouselSimpleUsage'
 import CartSidebarUsage from 'site/components/CartSidebar/CartSidebarUsage'
 import FilterUsage from 'site/components/Filter/FilterUsage'
 import ImageGalleryUsage from 'site/components/ImageGallery/ImageGalleryUsage'
@@ -488,7 +481,7 @@ export const SlideOverPartialRight = () => {
     actionPath="/components/molecules/alert"
   >
     <Alert link={{ children: 'Link', href: '#' }} dismissible>
-      Alert message
+      <>Alert message</>
     </Alert>
   </CardItem>
   <CardItem
@@ -506,13 +499,13 @@ export const SlideOverPartialRight = () => {
   >
     <BuyButton>Buy Now</BuyButton>
   </CardItem>
-  {/* <CardItem
+  <CardItem
     title="Carousel"
     description="Slides through multiple elements using custom controls."
     actionPath="/components/molecules/carousel"
   >
-    <CarouselUsage />
-  </CardItem> */}
+    <CarouselSimpleUsage itemsPerPage={3} />
+  </CardItem>
   <CardItem
     title="Cart Item"
     description="Used to present the summarized information of a product inside the Cart."
@@ -684,6 +677,17 @@ export const SlideOverPartialRight = () => {
         ratingValue={3.5}
       />
     </ProductCard>
+  </CardItem>
+  <CardItem
+    title="Product Price"
+    description="Displays product's selling and listing prices."
+    actionPath="/components/molecules/product-price"
+  >
+    <ProductPrice
+      value={950.04}
+      listPrice={999}
+      formatter={useFormattedPrice}
+    />
   </CardItem>
   <CardItem
     title="Product Title"
@@ -1044,7 +1048,8 @@ export const SlideOverPartialRight = () => {
     title="Filter Slider"
     description={
       <>
-        The mobile <code>Filter</code> view that is rendered inside a <code>SlideOver</code> component.
+        The mobile <code>Filter</code> view that is rendered inside a{' '}
+        <code>SlideOver</code> component.
       </>
     }
     actionPath="/components/organisms/filter-slider"
@@ -1150,7 +1155,7 @@ export const SlideOverPartialRight = () => {
   >
     <ProductGrid>
       {products.map(({ product }, idx) => (
-        <ProductGridItem>
+        <ProductGridItem key={`id-${idx}}`}>
           <ProductCard>
             <ProductCardImage>
               <img
@@ -1178,7 +1183,7 @@ export const SlideOverPartialRight = () => {
     actionPath="/components/organisms/product-shelf"
     zoomOut
   >
-    <ProductShelfUsage items={6}/>
+    <ProductShelfUsage items={6} />
   </CardItem>
   <CardItem
     title="Region Modal"

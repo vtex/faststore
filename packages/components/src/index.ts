@@ -129,6 +129,8 @@ export type {
   ProductCardImageProps,
   ProductCardContentProps,
 } from './molecules/ProductCard'
+export { default as ProductPrice } from './molecules/ProductPrice'
+export type { ProductPriceProps } from './molecules/ProductPrice'
 export { default as ProductTitle } from './molecules/ProductTitle'
 export type { ProductTitleProps } from './molecules/ProductTitle'
 export { default as RadioField } from './molecules/RadioField'
