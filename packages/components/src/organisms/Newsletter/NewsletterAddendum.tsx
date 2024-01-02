@@ -15,7 +15,7 @@ export interface NewsletterAddendumProps
 
 const NewsletterAddendum = forwardRef<HTMLSpanElement, NewsletterAddendumProps>(
   function NewsletterAddendum(
-    { addendum, testId = 'fs-newsletter', ...otherProps },
+    { addendum, testId = 'fs-newsletter-addendum', ...otherProps },
     ref
   ) {
     return (
