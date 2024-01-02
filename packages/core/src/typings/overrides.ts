@@ -27,6 +27,7 @@ import type {
   NavbarSliderHeaderProps,
   NavbarSliderProps,
   NewsletterProps,
+  NewsletterAddendumProps,
   NewsletterContentProps,
   NewsletterFormProps,
   NewsletterHeaderProps,
@@ -44,7 +45,6 @@ import type {
   ComponentOverrideDefinition,
   SectionOverrideDefinition,
 } from './overridesDefinition'
-import { NewsletterAddendumProps } from 'src/components/ui/Newsletter/NewsletterAddendum'
 
 export type SectionOverride = {
   [K in keyof SectionsOverrides]: SectionOverrideDefinition<K>
