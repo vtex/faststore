@@ -7,13 +7,21 @@ export interface NewsletterAddendumProps
    * Expects a string of a JSON object.
    */
   addendum: string
+  /**
+   * ID to find this component in testing tools (e.g.: Cypress, Testing Library, and Jest).
+   */
+  testId?: string
 }
 
 const NewsletterAddendum = forwardRef<HTMLSpanElement, NewsletterAddendumProps>(
-  function NewsletterAddendum({ addendum, ...otherProps }, ref) {
+  function NewsletterAddendum(
+    { addendum, testId = 'fs-newsletter', ...otherProps },
+    ref
+  ) {
     return (
       <span
         ref={ref}
+        data-testid={testId}
         data-fs-newsletter-addendum
         dangerouslySetInnerHTML={{ __html: addendum }}
         {...otherProps}

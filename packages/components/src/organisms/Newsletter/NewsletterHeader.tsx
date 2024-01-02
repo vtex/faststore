@@ -15,12 +15,30 @@ export interface NewsletterHeaderProps
    * A description for the section.
    */
   description?: string
+  /**
+   * ID to find this component in testing tools (e.g.: Cypress, Testing Library, and Jest).
+   */
+  testId?: string
 }
 
 const NewsletterHeader = forwardRef<HTMLHeadElement, NewsletterHeaderProps>(
-  function NewsletterHeader({ icon, title, description, ...otherProps }, ref) {
+  function NewsletterHeader(
+    {
+      icon,
+      title,
+      description,
+      testId = 'fs-newsletter-header',
+      ...otherProps
+    },
+    ref
+  ) {
     return (
-      <header ref={ref} data-fs-newsletter-header {...otherProps}>
+      <header
+        ref={ref}
+        data-testid={testId}
+        data-fs-newsletter-header
+        {...otherProps}
+      >
         <h3 data-fs-newsletter-header-title>
           {icon}
           {title}
