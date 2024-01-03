@@ -83,14 +83,11 @@
   &[data-fs-banner-text-variant="secondary"] {
     h2 {
       margin-bottom: var(--fs-spacing-2);
-      font-size: var(--fs-banner-text-title-size);
+      font-size: var(--fs-banner-text-secondary-title-size);
       font-weight: var(--fs-banner-text-title-weight);
       line-height: var(--fs-banner-text-title-line-height);
 
-      @include media(">=notebook") {
-        display: block;
-        font-size: var(--fs-banner-text-secondary-title-size);
-      }
+      @include media(">=notebook") { display: block; }
     }
 
     p {
