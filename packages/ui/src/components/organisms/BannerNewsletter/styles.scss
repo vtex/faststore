@@ -1,8 +1,4 @@
 [data-fs-banner-text-newsletter] {
-  [data-fs-banner-text] {
-    border-radius: var(--fs-border-radius);
-  }
-
   @include media(">=notebook") {
     display: grid;
     grid-template-columns: 1fr 1fr;
