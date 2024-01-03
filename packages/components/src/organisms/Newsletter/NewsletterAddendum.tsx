@@ -4,9 +4,9 @@ import type { HTMLAttributes, DetailedHTMLProps } from 'react'
 export interface NewsletterAddendumProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
   /**
-   * Expects a string of a JSON object.
+   * Specifies the addendum for the subscription.
    */
-  addendum: string
+  addendum?: string
   /**
    * ID to find this component in testing tools (e.g.: Cypress, Testing Library, and Jest).
    */
@@ -23,9 +23,10 @@ const NewsletterAddendum = forwardRef<HTMLSpanElement, NewsletterAddendumProps>(
         ref={ref}
         data-testid={testId}
         data-fs-newsletter-addendum
-        dangerouslySetInnerHTML={{ __html: addendum }}
         {...otherProps}
-      />
+      >
+        {addendum}
+      </span>
     )
   }
 )

@@ -76,5 +76,10 @@ export function NewsletterAddendum({
   addendum,
   ...otherProps
 }: NewsletterAddendumProps) {
-  return <UINewsletterAddendum addendum={cmsToHtml(addendum)} {...otherProps} />
+  return (
+    <UINewsletterAddendum
+      dangerouslySetInnerHTML={{ __html: cmsToHtml(addendum) }}
+      {...otherProps}
+    />
+  )
 }
