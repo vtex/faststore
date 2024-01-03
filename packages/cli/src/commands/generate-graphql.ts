@@ -58,7 +58,7 @@ export default class GenerateGraphql extends Command {
     runCommandSync({
       cmd: `DESTINATION=${coreDir} yarn generate:copy-back`,
       errorMessage:
-        "Failed to format generated files. 'yarn format:generated' thrown errors",
+        "Failed to copy back typings files. 'yarn generate:copy-back' thrown errors",
       throws: 'warning',
       debug,
       cwd: isCore ? undefined : tmpDir,
