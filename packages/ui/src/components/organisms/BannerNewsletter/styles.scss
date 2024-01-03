@@ -1,4 +1,7 @@
 [data-fs-banner-text-newsletter] {
+
+  > section > [data-fs-content] { width: 100%; }
+
   @include media(">=notebook") {
     display: grid;
     grid-template-columns: 1fr 1fr;
