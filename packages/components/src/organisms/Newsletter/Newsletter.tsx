@@ -6,7 +6,7 @@ type ColorVariant = 'main' | 'light' | 'accent'
 export interface NewsletterProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   /**
-   * Enables the card Variant
+   * Enables the card Variant.
    */
   card: boolean
   /**

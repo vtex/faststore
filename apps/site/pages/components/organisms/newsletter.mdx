@@ -1,5 +1,5 @@
 ---
-description: The Newsletter component is a section with at least one input text with an action which its value could be submitted..
+description: The Newsletter component is a section with at least one input text with an action allowing users to submit their input.
 keywords:
   - UI library
   - ecommerce
@@ -72,7 +72,7 @@ export const NewsletterPropsSection = ({ component }) => {
 
 # Newsletter
 
-The Newsletter component is a section with at least one input text with an action which its value could be submitted.
+The Newsletter component is a section with at least one input text with an action allowing users to submit their input.
 
 </header>
 
@@ -208,10 +208,10 @@ Uses `NewsletterForm`, `NewsletterHeader` and `NewsletterContent` as compound co
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
-      <NewsletterUsage />
+      <NewsletterUsage card/>
     </OverviewSection>
     <OverviewSection>
-      <NewsletterUsage card />
+      <NewsletterUsage />
     </OverviewSection>
   </Tab>
   <Tab>
@@ -367,6 +367,8 @@ Uses `NewsletterForm`, `NewsletterHeader` and `NewsletterContent` as compound co
 ---
 
 ## Customization
+
+For further customization, you can use the following data attributes:
 
 `data-fs-newsletter`
 
