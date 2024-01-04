@@ -18,16 +18,17 @@ type SubscribeMessage = {
 
 export interface NewsletterProps {
   /**
-   * Icon for the section.
-   */
-  icon?: {
-    alt: string
-    icon: string
-  }
-  /**
    * Title for the section.
    */
   title: UINewsletterHeaderProps['title']
+  /**
+   * The card Variant
+   */
+  card?: UINewsletterProps['card']
+  /**
+   * Specifies the component's color variant combination.
+   */
+  colorVariant?: UINewsletterProps['colorVariant']
   /**
    * A description for the section.
    */
@@ -45,6 +46,13 @@ export interface NewsletterProps {
    */
   displayNameInput?: boolean
   /**
+   * Icon for the section.
+   */
+  icon?: {
+    alt: string
+    icon: string
+  }
+  /**
    * The name input label.
    */
   nameInputLabel?: string
@@ -57,17 +65,13 @@ export interface NewsletterProps {
    */
   subscribeButtonLoadingLabel?: string
   /**
-   * The card Variant
+   * Toast attributes for successful subscriptions.
    */
-  card?: UINewsletterProps['card']
-
   toastSubscribe?: SubscribeMessage
-
-  toastSubscribeError?: SubscribeMessage
   /**
-   * Specifies the component's color variant combination.
+   * Toast attributes for unsuccessful subscriptions.
    */
-  colorVariant?: UINewsletterProps['colorVariant']
+  toastSubscribeError?: SubscribeMessage
 }
 
 const Newsletter = function Newsletter({
