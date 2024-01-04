@@ -57,6 +57,7 @@ export type SupportedSectionsOverridesV2 = Pick<
   | 'ProductShelf'
   | 'ProductDetails'
   | 'ProductGallery'
+  | 'RegionBar'
 >
 
 /**
