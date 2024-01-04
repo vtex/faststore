@@ -39,11 +39,15 @@ Import the component from [@faststore/ui](/../components)
 import { LinkButton } from '@faststore/ui'
 ```
 
-Import Styles
+### Import Styles into your FastStore project
 
-```tsx
-import '@faststore/ui/src/components/molecules/LinkButton/styles.scss'
+To apply the styles of this component in your FastStore project, import the following into your stylesheet:
+
+```scss copy
+@import '@faststore/ui/src/components/molecules/LinkButton/styles.scss';
 ```
+
+Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/importing-styles-to-faststore-ui-components) tutorial.
 
 ---
 
@@ -70,39 +74,39 @@ export const propsLinkButton = [
     type: 'string',
     description:
       'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).',
-    default: 'fs-link-button'
+    default: 'fs-link-button',
   },
   {
     name: 'variant',
     type: "'primary' | 'secondary' | 'tertiary'",
     description: 'Specifies the component color variant.',
-    default: 'primary'
+    default: 'primary',
   },
   {
     name: 'size',
     type: "'small' | 'regular'",
     description: 'Specifies the size variant.',
-    default: 'regular'
+    default: 'regular',
   },
   {
     name: 'inverse',
     type: 'boolean',
-    description: 'Defines the use of inverted colors.'
+    description: 'Defines the use of inverted colors.',
   },
   {
     name: 'disabled',
     type: 'boolean',
-    description: 'Specifies that this button should be disabled.'
+    description: 'Specifies that this button should be disabled.',
   },
   {
     name: 'icon',
     type: 'ReactNode',
-    description: 'A React component that will be rendered as an icon.'
+    description: 'A React component that will be rendered as an icon.',
   },
-   {
+  {
     name: 'iconPosition',
     type: "'left' | 'right'",
-    description: 'Specifies where the icon should be positioned.'
+    description: 'Specifies where the icon should be positioned.',
   },
 ]
 

@@ -6,8 +6,6 @@ import ProductGallery, {
 import Section from '../Section'
 import type { EmptyGalleryProps } from './EmptyGallery'
 
-import { __experimentalEmptyGallery as EmptyGallery } from 'src/components/sections/ProductGallery/Overrides'
-
 import styles from './section.module.scss'
 import {
   PLPContext,
@@ -16,6 +14,7 @@ import {
   isSearchPage,
   usePage,
 } from 'src/sdk/overrides/PageProvider'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 export interface ProductGallerySectionProps {
   searchTermLabel?: ProductGalleryProps['searchTermLabel']
@@ -33,6 +32,9 @@ function ProductGallerySection({
   emptyGallery,
   ...otherProps
 }: ProductGallerySectionProps) {
+  const { __experimentalEmptyGallery: EmptyGallery } =
+    useOverrideComponents<'ProductGallery'>()
+
   const context = usePage<SearchPageContext | PLPContext>()
   const [title, searchTerm] = isSearchPage(context)
     ? [context?.data?.title, context?.data?.searchTerm]

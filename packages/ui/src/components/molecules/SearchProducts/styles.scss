@@ -37,7 +37,6 @@
   --fs-search-product-item-title-color                    : var(--fs-color-text);
 
   // Item Price
-  --fs-search-product-item-price-gap                      : var(--fs-spacing-1);
   --fs-search-product-item-price-size                     : var(--fs-text-size-base);
 
   // --------------------------------------------------------
@@ -110,11 +109,9 @@
   [data-fs-search-product-item-prices] {
     display: flex;
     align-items: baseline;
-    column-gap: var(--fs-search-product-item-price-gap);
 
     [data-fs-price-variant="spot"] {
       font-size: var(--fs-search-product-item-price-size);
     }
   }
 }
-

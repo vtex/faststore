@@ -58,6 +58,9 @@
   "headless-cms-troubleshooting": {
     "title": "Troubleshooting"
   },
+  "how-to-preview-headless-cms-changes-in-development-mode": {
+    "title": "How to preview changes in development mode"
+  },
   "-- VTEX Integration --": {
     "type": "separator",
     "title": "VTEX Platform Integration"

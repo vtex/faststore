@@ -35,7 +35,6 @@
   --fs-product-card-title-max-lines          : var(--fs-text-max-lines);
 
   // Price
-  --fs-product-card-price-gap                : var(--fs-spacing-1);
   --fs-product-card-price-color              : var(--fs-color-text);
   --fs-product-card-price-size               : var(--fs-text-size-base);
 
@@ -140,7 +139,6 @@
   [data-fs-product-card-prices] {
     display: flex;
     align-items: center;
-    column-gap: var(--fs-product-card-price-gap);
 
     [data-fs-price-variant="spot"] {
       font-size: var(--fs-product-card-price-size);

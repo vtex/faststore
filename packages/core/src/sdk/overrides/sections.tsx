@@ -6,6 +6,8 @@ import Navbar from '../../components/sections/Navbar'
 import ProductShelf from '../../components/sections/ProductShelf'
 import CrossSellingShelf from '../../components/sections/CrossSellingShelf'
 import ProductDetails from '../../components/sections/ProductDetails'
+import ProductGallery from '../../components/sections/ProductGallery'
+import RegionBar from '../../components/sections/RegionBar'
 
 import type { DefaultSectionComponentsDefinitions } from '../../typings/overridesDefinition'
 import type { SectionsOverrides } from '../../typings/overrides'
@@ -15,8 +17,10 @@ import { BreadcrumbDefaultComponents } from 'src/components/sections/Breadcrumb/
 import { CrossSellingShelfDefaultComponents } from 'src/components/sections/CrossSellingShelf/DefaultComponents'
 import { HeroDefaultComponents } from '../../components/sections/Hero/DefaultComponents'
 import { NavbarDefaultComponents } from 'src/components/sections/Navbar/DefaultComponents'
-import { ProductShelfDefaultComponents } from '../../components/sections/ProductShelf/DefaultComponents'
 import { ProductDetailsDefaultComponents } from '../../components/sections/ProductDetails/DefaultComponents'
+import { ProductGalleryDefaultComponents } from '../../components/sections/ProductGallery/DefaultComponents'
+import { ProductShelfDefaultComponents } from '../../components/sections/ProductShelf/DefaultComponents'
+import { RegionBarDefaultComponents } from '../../components/sections/RegionBar/DefaultComponents'
 
 export const Sections = {
   Alert,
@@ -26,7 +30,9 @@ export const Sections = {
   Hero,
   Navbar,
   ProductDetails,
+  ProductGallery,
   ProductShelf,
+  RegionBar,
 }
 
 export const DefaultComponents: Partial<
@@ -42,5 +48,7 @@ export const DefaultComponents: Partial<
   Hero: HeroDefaultComponents,
   Navbar: NavbarDefaultComponents,
   ProductDetails: ProductDetailsDefaultComponents,
+  ProductGallery: ProductGalleryDefaultComponents,
   ProductShelf: ProductShelfDefaultComponents,
+  RegionBar: RegionBarDefaultComponents,
 }

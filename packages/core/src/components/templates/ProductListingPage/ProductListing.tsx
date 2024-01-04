@@ -1,7 +1,7 @@
 import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
-import ProductGallery from 'src/components/sections/ProductGallery'
+import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ScrollToTopButton from 'src/components/sections/ScrollToTopButton'
 import { ITEMS_PER_PAGE } from 'src/constants'

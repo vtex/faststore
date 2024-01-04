@@ -4,7 +4,7 @@ title: ' Mixins & Breakpoints'
 
 import { Callout, Tab, Tabs } from 'nextra-theme-docs'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { Input, InputField } from '@faststore/ui'
+import { Input } from '@faststore/ui'
 
 <header>
 
@@ -12,18 +12,17 @@ import { Input, InputField } from '@faststore/ui'
 
 </header>
 
-
 ## Breakpoints
 
 FastStore simplifies screen breakpoint customization for projects by using [Include-Media](https://eduardoboucas.github.io/include-media/#features), a Sass library for writing CSS media queries in an easy and maintainable way, using a natural and simplistic syntax. Each project has the following five pre-defined screen breakpoints:
 
 ```scss
 $breakpoints: (
-  "phone":         320px,
-  "phonemid":      375px,
-  "tablet":        768px,
-  "notebook":      1280px,
-  "desktop":       1440px,
+  'phone': 320px,
+  'phonemid': 375px,
+  'tablet': 768px,
+  'notebook': 1280px,
+  'desktop': 1440px,
 );
 ```
 
@@ -32,58 +31,44 @@ $breakpoints: (
 Follow the steps below to override the pre-defined sizing system for the screen breakpoints.
 
 <Callout type="warning" emoji="⚠️">
-  Modifying these breakpoints implies changes to certain global tokens. See [Grid & Layout](/docs/global-tokens/grid-and-layout#breakpoints) for more details.
+  Modifying these breakpoints implies changes to certain global tokens. See
+  [Grid & Layout](/docs/global-tokens/grid-and-layout#breakpoints) for more
+  details.
 </Callout>
-
 
 1. Go to the `src` folder and create the `styles` folder inside it. You can run the following command to create it:
 
 <Tabs items={['macOS and Linux', 'Windows']}>
-  <Tab>
-    ```bash copy
-    mkdir src/styles
-    ```
-  </Tab>
-  <Tab>
-    ```bash copy
-    mkdir src\styles
-    ```
-  </Tab>
+  <Tab>```bash copy mkdir src/styles ```</Tab>
+  <Tab>```bash copy mkdir src\styles ```</Tab>
 </Tabs>
 
 2. Inside the `styles` folder, create a new file called `custom-mixins.scss`
 
 <Tabs items={['macOS and Linux', 'Windows']}>
-  <Tab>
-    ```bash copy
-    touch src/styles/custom-mixins.scss
-    ```
-  </Tab>
-  <Tab>
-    ```bash copy
-    type nul > src\styles\custom-mixins.scss
-    ```
-  </Tab>
+  <Tab>```bash copy touch src/styles/custom-mixins.scss ```</Tab>
+  <Tab>```bash copy type nul > src\styles\custom-mixins.scss ```</Tab>
 </Tabs>
 
 3. Add the following code snippet into the file:
 
 ```scss {10} filename="src/styles/custom-mixins.scss" copy
-@import "@faststore/ui/src/styles/base/utilities";
+@import '@faststore/ui/src/styles/base/utilities';
 
 // Overwrites Breakpoints & Mixins ////////////////////
 
 $breakpoints: (
-  "phone":         320px,
-  "phonemid":      375px,
-  "tablet":        768px,
-  "notebook":      1280px,
-  "desktop":       1500px,
+  'phone': 320px,
+  'phonemid': 375px,
+  'tablet': 768px,
+  'notebook': 1280px,
+  'desktop': 1500px,
 );
 ```
 
 <Callout type="warning" emoji="⚠️">
-  You need to declare all the variants (phone, phonemid, tablet, notebook and desktop) even when changing only one of the values.
+  You need to declare all the variants (phone, phonemid, tablet, notebook and
+  desktop) even when changing only one of the values.
 </Callout>
 
 4. Run `yarn dev` in the terminal to start the development server. Your should be able to see the changes.
@@ -93,7 +78,6 @@ $breakpoints: (
 ## Mixins
 
 The [Sass `@mixin`](https://sass-lang.com/documentation/at-rules/mixin/) allows you to define styles that can be re-used throughout your application. Within FastStore projects, these mixins are categorized into three groups: `Global Mixins`, `Layout & Spacing Mixins`, and `Focus Ring Mixins`.
-
 
 <Tabs items={['Global Mixins', 'Layout & Spacing Mixins', 'Focus Ring Mixins']}>
   <Tab>
@@ -118,6 +102,7 @@ The [Sass `@mixin`](https://sass-lang.com/documentation/at-rules/mixin/) allows 
       white-space: normal;
     }
     ```
+
   </Tab>
   <Tab>
     ```scss copy
@@ -156,6 +141,7 @@ The [Sass `@mixin`](https://sass-lang.com/documentation/at-rules/mixin/) allows 
       }
     }
     ```
+
   </Tab>
   <Tab>
     ```scss copy
@@ -199,41 +185,26 @@ The [Sass `@mixin`](https://sass-lang.com/documentation/at-rules/mixin/) allows 
       &:focus-visible { @include focus-ring; }
     }
     ```
+
   </Tab>
 </Tabs>
 
 ### Customizing Mixins
 
-Overriding the predefined mixins follows a process similar to the [customizing breakpoints steps](/docs/customizing/mixins-breakpoints#customizing-breakpoints). If you already have a `custom-mixin.scss` file, you can skip to *Step 3*. Otherwise, follow the steps below:
+Overriding the predefined mixins follows a process similar to the [customizing breakpoints steps](/docs/customizing/mixins-breakpoints#customizing-breakpoints). If you already have a `custom-mixin.scss` file, you can skip to _Step 3_. Otherwise, follow the steps below:
 
 1. Go to the `src` folder and create the `styles` folder inside it. You can run the following command to create it:
 
 <Tabs items={['macOS and Linux', 'Windows']}>
-  <Tab>
-    ```bash copy
-    mkdir src/styles
-    ```
-  </Tab>
-  <Tab>
-    ```bash copy
-    mkdir src\styles
-    ```
-  </Tab>
+  <Tab>```bash copy mkdir src/styles ```</Tab>
+  <Tab>```bash copy mkdir src\styles ```</Tab>
 </Tabs>
 
 2. Inside the `styles` folder, create a new file called `custom-mixins.scss`
 
 <Tabs items={['macOS and Linux', 'Windows']}>
-  <Tab>
-    ```bash copy
-    touch src/styles/custom-mixins.scss
-    ```
-  </Tab>
-  <Tab>
-    ```bash copy
-    type nul > src\styles\custom-mixins.scss
-    ```
-  </Tab>
+  <Tab>```bash copy touch src/styles/custom-mixins.scss ```</Tab>
+  <Tab>```bash copy type nul > src\styles\custom-mixins.scss ```</Tab>
 </Tabs>
 
 3. Choose the [mixin](#mixins) you want to override and add it to the file:
@@ -261,7 +232,9 @@ This code will make the following changes on the default `@mixin input-focus-rin
 
 You should see that all components that use the `focus-ring` now have a red shadow when focused. Click on the input to see the change.
 
-<OverviewSection containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}>
+<OverviewSection
+  containerStyle={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}
+>
   <Input placeholder="Default" id="inputfield-default" />
   <Input placeholder="Overriden" id="inputfield-default" data-doc-input-mixin />
 </OverviewSection>

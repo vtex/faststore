@@ -26,7 +26,12 @@ import type {
   NavbarSliderFooterProps,
   NavbarSliderHeaderProps,
   NavbarSliderProps,
-  PriceProps,
+  NewsletterProps,
+  NewsletterAddendumProps,
+  NewsletterContentProps,
+  NewsletterFormProps,
+  NewsletterHeaderProps,
+  ProductPriceProps,
   ProductShelfProps,
   ProductTitleProps,
   QuantitySelectorProps,
@@ -40,7 +45,6 @@ import type {
   ComponentOverrideDefinition,
   SectionOverrideDefinition,
 } from './overridesDefinition'
-import { NewsletterAddendumProps } from 'src/components/ui/Newsletter/NewsletterAddendum'
 
 export type SectionOverride = {
   [K in keyof SectionsOverrides]: SectionOverrideDefinition<K>
@@ -57,6 +61,8 @@ export type SupportedSectionsOverridesV2 = Pick<
   | 'Navbar'
   | 'ProductShelf'
   | 'ProductDetails'
+  | 'ProductGallery'
+  | 'RegionBar'
 >
 
 /**
@@ -133,6 +139,23 @@ export type SectionsOverrides = {
     >
   }
   Newsletter: {
+    Newsletter: ComponentOverrideDefinition<NewsletterProps, NewsletterProps>
+    NewsletterAddendum: ComponentOverrideDefinition<
+      NewsletterAddendumProps,
+      NewsletterAddendumProps
+    >
+    NewsletterContent: ComponentOverrideDefinition<
+      NewsletterContentProps,
+      NewsletterContentProps
+    >
+    NewsletterForm: ComponentOverrideDefinition<
+      NewsletterFormProps,
+      NewsletterFormProps
+    >
+    NewsletterHeader: ComponentOverrideDefinition<
+      NewsletterHeaderProps,
+      NewsletterHeaderProps
+    >
     ToastIconSuccess: ComponentOverrideDefinition<IconProps, IconProps>
     ToastIconError: ComponentOverrideDefinition<IconProps, IconProps>
     HeaderIcon: ComponentOverrideDefinition<IconProps, IconProps>
@@ -145,10 +168,6 @@ export type SectionsOverrides = {
       Omit<InputFieldProps, 'inputRef'>
     >
     Button: ComponentOverrideDefinition<ButtonProps, ButtonProps>
-    __experimentalNewsletterAddendum: ComponentOverrideDefinition<
-      NewsletterAddendumProps,
-      NewsletterAddendumProps
-    >
   }
   ProductDetails: {
     ProductTitle: ComponentOverrideDefinition<
@@ -161,9 +180,9 @@ export type SectionsOverrides = {
     >
     BuyButton: ComponentOverrideDefinition<ButtonProps, ButtonProps>
     Icon: ComponentOverrideDefinition<IconProps, IconProps>
-    Price: ComponentOverrideDefinition<
-      PriceProps,
-      Omit<PriceProps, 'value' | 'data-value'>
+    ProductPrice: ComponentOverrideDefinition<
+      ProductPriceProps,
+      Omit<ProductPriceProps, 'value'>
     >
     QuantitySelector: ComponentOverrideDefinition<
       QuantitySelectorProps,

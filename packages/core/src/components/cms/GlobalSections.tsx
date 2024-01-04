@@ -9,8 +9,8 @@ import RenderSections from './RenderSections'
 
 import { OverriddenDefaultAlert as Alert } from 'src/components/sections/Alert/OverriddenDefaultAlert'
 import { OverriddenDefaultNavbar as Navbar } from 'src/components/sections/Navbar/OverriddenDefaultNavbar'
+import { OverriddenDefaultRegionBar as RegionBar } from 'src/components/sections/RegionBar/OverriddenDefaultRegionBar'
 import Footer from 'src/components/sections/Footer'
-import RegionBar from 'src/components/sections/RegionBar'
 
 const RegionModal = lazy(() => import('src/components/region/RegionModal'))
 const CartSidebar = lazy(() => import('src/components/cart/CartSidebar'))

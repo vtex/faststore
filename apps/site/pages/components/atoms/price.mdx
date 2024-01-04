@@ -6,9 +6,11 @@ sidebar_custom_props:
 
 import { Tab, Tabs } from 'nextra-theme-docs'
 import PropsSection from 'site/components/PropsSection'
-import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { Price } from '@faststore/ui'
+import { SectionItem, SectionList } from 'site/components/SectionItem'
+import { Price, ProductPrice } from '@faststore/ui'
+import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 import { useMemo } from 'react'
 
 import path from 'path'
@@ -63,7 +65,7 @@ Prices are used to display the price of a given product, discount and total valu
     <Price value={62.5} variant="spot" />
     <Price value={62.5} variant="savings" />
     <Price value={62.5} variant="installment" />
-    ````
+    ```
   </Tab>
 </Tabs>
 
@@ -77,11 +79,15 @@ Import the component from [@faststore/ui](/../components)
 import { Price } from '@faststore/ui'
 ```
 
-Import Styles
+### Import Styles into your FastStore project
 
-```tsx
-import '@faststore/ui/src/components/atoms/Price/styles.scss'
+To apply the styles of this component in your FastStore project, import the following into your stylesheet:
+
+```scss copy
+@import '@faststore/ui/src/components/atoms/Price/styles.scsss';
 ```
+
+Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/importing-styles-to-faststore-ui-components) tutorial.
 
 ---
 
@@ -325,3 +331,22 @@ function customFormatter(price: number) {
   return formattedPrice
 }
 ```
+
+---
+
+## Related components
+
+<SectionList>
+  <SectionItem
+    title="ProductPrice"
+    description="
+ProductPrice displays product's listing and spot price."
+    actionPath="/components/molecules/product-price"
+  >
+    <ProductPrice
+      value={950.04}
+      listPrice={999}
+      formatter={useFormattedPrice}
+    />
+  </SectionItem>
+</SectionList>
