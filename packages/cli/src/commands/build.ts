@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
 import { copySync, removeSync } from 'fs-extra'
-import { tmpDir, userDir } from '../utils/directory'
+import { tmpDir, userDir, tmpFolderName } from '../utils/directory'
 import { generate } from '../utils/generate'
 
 export default class Build extends Command {
@@ -20,7 +20,7 @@ export default class Build extends Command {
       process.exit(yarnBuildResult.status)
     }
 
-    await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
+    await copyResource(`${tmpDir}/.next/${tmpFolderName}`, `${userDir}/.next`)
     await copyResource(
       `${tmpDir}/lighthouserc.js`,
       `${userDir}/lighthouserc.js`
@@ -30,12 +30,12 @@ export default class Build extends Command {
       `${userDir}/cms-webhook-urls.json`
     )
     
-    if (existsSync(`.next/standalone`)) {
-      await copyResource(
-        `${userDir}/node_modules`,
-        `.next/standalone/node_modules`
-      )
-    }
+    // if (existsSync(`.next/standalone`)) {
+    //   await copyResource(
+    //     `${userDir}/node_modules`,
+    //     `.next/standalone/node_modules`
+    //   )
+    // }
   }
 }
 
@@ -45,7 +45,7 @@ async function copyResource(from: string, to: string) {
       removeSync(to)
     }
 
-    await copySync(from, to)
+    copySync(from, to)
     console.log(
       `${chalk.green('success')} - ${chalk.dim(from)} copied to ${chalk.dim(
         to
