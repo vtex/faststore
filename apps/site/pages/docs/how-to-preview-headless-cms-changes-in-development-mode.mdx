@@ -1,0 +1,67 @@
+---
+title: 'How to preview Headless CMS changes in development mode'
+sidebar_label: 'How to preview Headless CMS changes in development mode'
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<header className="hero">
+
+# How to preview Headless CMS changes in development mode
+
+ </header>
+
+To make local tests, you can use the `dev mode` of the Headless CMS
+to see a preview of your changes.
+
+<Callout type="warning" emoji="⚠️">
+  While this guide is applicable to other frontend projects within the Headless
+  CMS, the use case for this guide is for FastStore projects.
+</Callout>
+
+1. After making changes to your FastStore project directory and syncing them with the Headless CMS,
+   access the VTEX Admin and navigate to **Storefront > Headless CMS**.
+2. Ensure you are in your FastStore project and the server is running.
+3. Open the **Developer Tool** or right-click on the page and choose **Inspect**.
+4. In the Developer Tool terminal, run the following command:
+
+```bash copy
+localStorage.setItem('cmsDevMode', 1)
+```
+
+5. Refresh the page and you should see the section **Development Mode** in the right sidebar.
+
+![development-mode](https://vtexhelp.vtexassets.com/assets/docs/src/development-mode___5cd79e364aea0785e98ce6bb379f2acc.png)
+
+6. Click on `Preview`. A new tab will open; copy the link from this tab containing the
+   `contentType`, `documentId` and `versionId`. The link should be similar to the
+   following:
+
+```
+https://faststore.vtex.app/?contentType=page&documentId=bd9e01d6-534e-4e54-aa76-f864dcbad024&versionId=405118e9-7509-11ed-83ab-0eeee363631w
+```
+
+7. Now, access the preview link locally and change the parameters accordingly:
+
+```copy
+localhost:3000/api/preview/?contentType=<contentType>&documentId=<DOCUMENT_ID>&versionId=<VERSION_ID>
+```
+
+<Callout type="warning" emoji="⚠️">
+  Ensure you replace `<contentType>`, `<DOCUMENT_ID>`, and `<VERSION_ID>` with the actual values from your preview link.
+</Callout>
+Given the previous example, the local preview link should be the following:
+
+```
+localhost:3000/api/preview/?contentType= page&documentId=bd9e01d6-534e-4e54-aa76-f864dcbad024&versionId=405118e9-7509-11ed-83ab-0eeee363631w
+```
+
+8. Once you have reviewed your changes, terminate the development mode by accessing the Headless CMS page you've changed.
+   Open the terminal in the `Developer Tools` and run
+   the following:
+
+```bash copy
+localStorage.removeItem('cmsDevMode')
+```
+
+9. Refresh the page and the development mode session is now ended.

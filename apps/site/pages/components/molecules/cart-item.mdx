@@ -9,20 +9,11 @@ sidebar_custom_props:
 ---
 
 import { Tab, Tabs } from 'nextra-theme-docs'
-import { ShoppingCart } from '@faststore/components'
 import PropsSection from 'site/components/PropsSection'
 import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
 import { OverviewSection } from 'site/components/OverviewSection'
-import { SectionItem, SectionList } from 'site/components/SectionItem'
-import {
-  Price,
-  IconButton,
-  CartItem,
-  CartItemImage,
-  CartItemSummary,
-} from '@faststore/ui'
+import { CartItem, CartItemImage, CartItemSummary } from '@faststore/ui'
 
-import { XCircle } from '@faststore/components'
 import { product } from 'site/mocks/product'
 import { useFormattedPrice } from 'site/components/utilities/usePriceFormatter'
 import { propsPriceDefinition } from 'site/components/PriceDefinitionProps/PriceDefinitionProps'
@@ -195,11 +186,17 @@ Import the component from [@faststore/ui](/../components)
 import { CartItem, CartItemImage, CartItemSummary } from '@faststore/ui'
 ```
 
-Import Styles
+### Import Styles into your FastStore project
 
-```tsx
-import '@faststore/ui/src/components/atoms/CartItem/styles.scss'
+To apply the styles of this component in your FastStore project, import the following into your stylesheet:
+
+```scss copy
+@import '@faststore/ui/src/components/atoms/Button/styles.scss';
+@import '@faststore/ui/src/components/atoms/Price/styles.scss';
+@import '@faststore/ui/src/components/molecules/CartItem/styles.scss';
 ```
+
+Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/importing-styles-to-faststore-ui-components) tutorial.
 
 ---
 
@@ -341,12 +338,6 @@ import '@faststore/ui/src/components/atoms/CartItem/styles.scss'
     value="var(--fs-spacing-1)"
   />
   <TokenRow token="--fs-cart-item-skus-row-gap" value="var(--fs-spacing-0)" />
-</TokenTable>
-
-#### Prices
-
-<TokenTable>
-  <TokenRow token="--fs-cart-item-price-gap" value="var(--fs-spacing-1)" />
 </TokenTable>
 
 ---

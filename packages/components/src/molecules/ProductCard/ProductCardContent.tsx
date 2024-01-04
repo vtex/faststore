@@ -11,7 +11,7 @@ import {
   Link,
   LinkElementType,
   LinkProps,
-  Price,
+  ProductPrice,
   Rating,
 } from '../../'
 
@@ -76,8 +76,8 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
     },
     ref
   ) {
-    const listPrice = price?.listPrice ?? 0
-    const sellingPrice = price?.value ?? 0
+    const listingPrice = price?.listPrice ? price.listPrice : 0
+    const sellingPrice = price?.value ? price.value : 0
 
     return (
       <section
@@ -94,49 +94,19 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
             </Link>
           </h3>
           {!outOfStock && (
-            <div data-fs-product-card-prices>
-              {sellingPrice !== listPrice
-                ? (
-                  <>
-                    <Price
-                      value={listPrice}
-                      formatter={price?.formatter}
-                      testId="list-price"
-                      data-value={listPrice}
-                      variant="listing"
-                      SRText="Original price:"
-                    />
-                    <Price
-                      value={sellingPrice}
-                      formatter={price?.formatter}
-                      testId="price"
-                      data-value={sellingPrice}
-                      variant="spot"
-                      SRText="Sale Price:"
-                    />
-                  </>
-                )
-                : (
-                  <Price
-                    value={sellingPrice}
-                    formatter={price?.formatter}
-                    testId="price"
-                    data-value={sellingPrice}
-                    variant="spot"
-                    SRText="Sale Price:"
-                  />
-                )}
-            </div>
+            <ProductPrice
+              data-fs-product-card-prices
+              value={sellingPrice}
+              listPrice={listingPrice}
+              formatter={price?.formatter}
+            />
           )}
           {ratingValue && (
             <Rating value={ratingValue} icon={<Icon name="Star" />} />
           )}
         </div>
         {showDiscountBadge && !outOfStock && (
-          <DiscountBadge
-            listPrice={price?.listPrice ? price.listPrice : 0}
-            spotPrice={price?.value ? price.value : 0}
-          />
+          <DiscountBadge listPrice={listingPrice} spotPrice={sellingPrice} />
         )}
         {outOfStock && <Badge>{outOfStockLabel}</Badge>}
         {onButtonClick && !outOfStock && (

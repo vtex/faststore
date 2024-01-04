@@ -26,7 +26,7 @@ import type {
   NavbarSliderFooterProps,
   NavbarSliderHeaderProps,
   NavbarSliderProps,
-  PriceProps,
+  ProductPriceProps,
   ProductShelfProps,
   ProductTitleProps,
   QuantitySelectorProps,
@@ -56,6 +56,7 @@ export type SupportedSectionsOverridesV2 = Pick<
   | 'Hero'
   | 'ProductShelf'
   | 'ProductDetails'
+  | 'ProductGallery'
   | 'RegionBar'
 >
 
@@ -161,9 +162,9 @@ export type SectionsOverrides = {
     >
     BuyButton: ComponentOverrideDefinition<ButtonProps, ButtonProps>
     Icon: ComponentOverrideDefinition<IconProps, IconProps>
-    Price: ComponentOverrideDefinition<
-      PriceProps,
-      Omit<PriceProps, 'value' | 'data-value'>
+    ProductPrice: ComponentOverrideDefinition<
+      ProductPriceProps,
+      Omit<ProductPriceProps, 'value'>
     >
     QuantitySelector: ComponentOverrideDefinition<
       QuantitySelectorProps,
