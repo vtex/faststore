@@ -47,6 +47,7 @@ const BannerText = forwardRef<HTMLDivElement, BannerTextProps>(
         <article
           ref={ref}
           data-fs-banner-text
+          data-fs-content="banner-text"
           data-fs-banner-text-variant={variant}
           data-fs-banner-text-color-variant={colorVariant}
           data-testid={testId}

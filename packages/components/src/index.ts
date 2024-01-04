@@ -295,6 +295,21 @@ export type {
   NavbarSliderFooterProps,
 } from './organisms/NavbarSlider'
 
+export {
+  default as Newsletter,
+  NewsletterAddendum,
+  NewsletterContent,
+  NewsletterForm,
+  NewsletterHeader,
+} from './organisms/Newsletter'
+export type {
+  NewsletterProps,
+  NewsletterAddendumProps,
+  NewsletterContentProps,
+  NewsletterFormProps,
+  NewsletterHeaderProps,
+} from './organisms/Newsletter'
+
 export { default as OutOfStock } from './organisms/OutOfStock'
 export type { OutOfStockProps } from './organisms/OutOfStock'
 

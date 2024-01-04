@@ -9,7 +9,7 @@ function BannerNewsletter({
   newsletter,
 }: {
   banner: BannerTextProps
-  newsletter: NewsletterProps
+  newsletter: Omit<NewsletterProps, 'card'>
 }) {
   return (
     <Section className={`${styles.section} section-banner-newsletter`}>
@@ -22,6 +22,8 @@ function BannerNewsletter({
           colorVariant={banner.colorVariant}
         />
         <Newsletter
+          card
+          colorVariant={newsletter.colorVariant}
           title={newsletter.title}
           description={newsletter.description}
           icon={newsletter.icon}
@@ -30,9 +32,9 @@ function BannerNewsletter({
           displayNameInput={newsletter.displayNameInput}
           nameInputLabel={newsletter.nameInputLabel}
           subscribeButtonLabel={newsletter.subscribeButtonLabel}
+          subscribeButtonLoadingLabel={newsletter.subscribeButtonLoadingLabel}
           toastSubscribe={newsletter.toastSubscribe}
           toastSubscribeError={newsletter.toastSubscribeError}
-          card={newsletter.card}
         />
       </div>
     </Section>
