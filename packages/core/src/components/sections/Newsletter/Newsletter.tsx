@@ -1,7 +1,6 @@
 import {
   NewsletterProps as UINewsletterProps,
   NewsletterAddendumProps as UINewsletterAddendumProps,
-  NewsletterFormProps as UINewsletterFormProps,
   NewsletterHeaderProps as UINewsletterHeaderProps,
 } from '@faststore/ui'
 
