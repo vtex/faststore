@@ -1063,13 +1063,14 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Envelop"],
-              "enum": ["Envelop"]
+              "enumNames": ["Envelope"],
+              "enum": ["Envelope"],
+              "default": "Envelope"
             },
             "alt": {
               "type": "string",
               "title": "Alternative Label",
-              "default": "Envelop"
+              "default": "Envelope"
             }
           }
         },
@@ -1120,6 +1121,13 @@
           "type": "boolean",
           "default": false
         },
+        "colorVariant": {
+          "title": "Color variant",
+          "type": "string",
+          "enumNames": ["Main", "Light", "Accent"],
+          "enum": ["main", "light", "accent"],
+          "default": "main"
+        },
         "toastSubscribe": {
           "title": "Toast Subscribe",
           "type": "object",
@@ -1169,13 +1177,6 @@
               "default": "CircleWavyWarning"
             }
           }
-        },
-        "colorVariant": {
-          "title": "Color variant",
-          "type": "string",
-          "enumNames": ["Main", "Light", "Accent"],
-          "enum": ["main", "light", "accent"],
-          "default": "main"
         }
       }
     }
@@ -1256,14 +1257,14 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["Envelop"],
-                  "enum": ["Envelop"],
-                  "default": "Envelop"
+                  "enumNames": ["Envelope"],
+                  "enum": ["Envelope"],
+                  "default": "Envelope"
                 },
                 "alt": {
                   "type": "string",
                   "title": "Alternative Label",
-                  "default": "Envelop"
+                  "default": "Envelope"
                 }
               }
             },
@@ -1308,11 +1309,6 @@
               "title": "Subscribe button loading label",
               "type": "string",
               "default": "Loading..."
-            },
-            "card": {
-              "title": "Newsletter should be in card format?",
-              "type": "boolean",
-              "default": true
             },
             "colorVariant": {
               "title": "Color variant",
