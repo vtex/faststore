@@ -73,7 +73,7 @@ export interface NewsletterProps {
   toastSubscribeError?: SubscribeMessage
 }
 
-const Newsletter = function Newsletter({
+function Newsletter({
   icon,
   title,
   description,
