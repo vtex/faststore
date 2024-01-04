@@ -45,7 +45,6 @@ const nextConfig = {
   },
   redirects: storeConfig.redirects,
   rewrites: storeConfig.rewrites,
-  output: 'standalone',
 }
 
 module.exports = nextConfig
