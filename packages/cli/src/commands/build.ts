@@ -20,7 +20,9 @@ export default class Build extends Command {
       process.exit(yarnBuildResult.status)
     }
 
-    await copyResource(`${tmpDir}/.next/${tmpFolderName}`, `${userDir}/.next`)
+    await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
+    await copyResource(`${userDir}/.next/standalone/${tmpFolderName}`, `${userDir}/.next/standalone`)
+
     await copyResource(
       `${tmpDir}/lighthouserc.js`,
       `${userDir}/lighthouserc.js`
