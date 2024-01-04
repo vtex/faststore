@@ -4,11 +4,10 @@ import {
 } from '@faststore/ui'
 import type { ClientManyProductsQueryQuery } from '@generated/graphql'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
-
 import { ProductCardProps } from '../ProductCard'
 
-import { __experimentalProductCard as ProductCard } from 'src/components/sections/ProductGallery/Overrides'
 import { memo } from 'react'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 interface Props {
   /**
@@ -30,11 +29,10 @@ function ProductGrid({
   products,
   page,
   pageSize,
-  productCard: {
-    showDiscountBadge = ProductCard.props.showDiscountBadge,
-    bordered = ProductCard.props.bordered,
-  } = {},
+  productCard: { showDiscountBadge, bordered } = {},
 }: Props) {
+  const { __experimentalProductCard: ProductCard } =
+    useOverrideComponents<'ProductGallery'>()
   const aspectRatio = 1
 
   return (
@@ -53,8 +51,10 @@ function ProductGrid({
                 sizes: '30vw',
               }}
               {...ProductCard.props}
-              bordered={bordered}
-              showDiscountBadge={showDiscountBadge}
+              bordered={bordered ?? ProductCard.props.bordered}
+              showDiscountBadge={
+                showDiscountBadge ?? ProductCard.props.showDiscountBadge
+              }
               product={product}
               index={pageSize * page + idx + 1}
             />
