@@ -3,11 +3,12 @@ import {
   InputField as UIInputField,
   Icon as UIIcon,
   Newsletter as UINewsletter,
-  NewsletterAddendum as UINewsletterAddendum,
   NewsletterContent as UINewsletterContent,
   NewsletterForm as UINewsletterForm,
   NewsletterHeader as UINewsletterHeader,
 } from '@faststore/ui'
+
+import { NewsletterAddendum as UINewsletterAddendum } from 'src/components/ui/Newsletter'
 
 export const NewsletterDefaultComponents = {
   Button: UIButton,
