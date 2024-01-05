@@ -1,0 +1,86 @@
+---
+title: 'Experimental Exports - Hooks & Components'
+sidebar_label: 'Experimental Exports - Hooks & Components'
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<header>
+
+# Experimental Exports - Hooks & Components
+
+</header>
+
+Utilize the helpful hooks and components provided by `@faststore/core` when customizing your application's components.
+
+While some hooks are readily available through `@faststore/sdk`, others, like accessing cart and session data, are not accessible through this method.
+Although users can manually implement some of these hooks, we believe in promoting simplicity, code reuse, and experimentation. To facilitate this, we've made these hooks available for direct import into your Starter project.
+
+<Callout type="warning" emoji="⚠️">
+  It's important to note that all exports are suffixed with `_unstable` to
+  clearly indicate that the support is experimental.
+</Callout>
+
+---
+
+## Usage
+
+You can import it into your component from `@faststore/core/experimental` as the following example:
+
+```tsx copy
+import React from 'react'
+import { Button as UIButton } from '@faststore/ui'
+import { useCartToggleButton_unstable as useCartToggleButton } from '@faststore/core/experimental'
+
+export default function CustomBuyButton() {
+  const { onClick: toggleCart } = useCartToggleButton()
+  return (
+    <UIButton
+      variant="primary"
+      onClick={() => {
+        toggleCart()
+      }}
+    >
+      New Buy Button
+    </UIButton>
+  )
+}
+```
+
+## Available Exports
+
+Explore the functionalities of the hooks and components, also find the up-to-date list of available experimental exports directly within the codebase: [@faststore/core/experimental](https://github.com/vtex/faststore/blob/main/packages/core/src/experimental/index.ts).
+
+#### Hooks
+
+- useSession_unstable
+- sessionStore_unstable
+- validateSession_unstable
+- useCart_unstable
+- cartStore_unstable
+- useBuyButton_unstable
+- useCartToggleButton_unstable
+- useCheckoutButton_unstable
+- useRemoveButton_unstable
+- useQuery_unstable
+- useLazyQuery_unstable
+- useNewsletter_unstable
+- useDiscountPercent_unstable
+- useFormattedPrice_unstable
+- useLocalizedVariables_unstable
+- useProductGalleryQuery_unstable
+- useProductLink_unstable
+- useProductQuery_unstable
+- useProductsPrefetch_unstable
+- useSearchHistory_unstable
+- useSuggestions_unstable
+- useTopSearch_unstable
+- useFilter_unstable
+- useDelayedFacets_unstable
+- useDelayedPagination_unstable
+- getShippingSimulation_unstable
+- useShippingSimulation_unstable
+
+#### Components
+
+- Image_unstable
