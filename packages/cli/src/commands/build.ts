@@ -21,7 +21,6 @@ export default class Build extends Command {
     }
 
     await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
-    await copyResource(`${tmpDir}/.next/standalone/${tmpFolderName}`, `${userDir}/.next/standalone`)
 
     await copyResource(
       `${tmpDir}/lighthouserc.js`,
@@ -47,7 +46,7 @@ async function copyResource(from: string, to: string) {
       removeSync(to)
     }
 
-    copySync(from, to, {errorOnExist: true})
+    copySync(from, to, {errorOnExist: true, filter: (from, to) => { console.log(`${from} -> ${to}`); return true }})
     console.log(
       `${chalk.green('success')} - ${chalk.dim(from)} copied to ${chalk.dim(
         to
