@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
 import { copySync, removeSync } from 'fs-extra'
-import { tmpDir, userDir, tmpFolderName } from '../utils/directory'
+import { tmpDir, userDir } from '../utils/directory'
 import { generate } from '../utils/generate'
 
 export default class Build extends Command {
@@ -46,7 +46,7 @@ async function copyResource(from: string, to: string) {
       removeSync(to)
     }
 
-    copySync(from, to, {errorOnExist: true, filter: (from, to) => { console.log(`${from} -> ${to}`); return true }})
+    copySync(from, to)
     console.log(
       `${chalk.green('success')} - ${chalk.dim(from)} copied to ${chalk.dim(
         to
