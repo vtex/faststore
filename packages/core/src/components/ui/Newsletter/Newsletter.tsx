@@ -5,21 +5,9 @@ import { useUI } from '@faststore/ui'
 import type { InputFieldProps } from '@faststore/ui'
 
 import { useNewsletter } from 'src/sdk/newsletter/useNewsletter'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 import type { NewsletterProps as SectionNewsletterProps } from 'src/components/sections/Newsletter'
-import {
-  Newsletter as NewsletterWrapper,
-  NewsletterAddendum,
-  NewsletterContent,
-  NewsletterForm,
-  NewsletterHeader,
-  ToastIconSuccess,
-  ToastIconError,
-  HeaderIcon,
-  InputFieldName,
-  InputFieldEmail,
-  Button,
-} from 'src/components/sections/Newsletter/Overrides'
 
 export type NewsletterProps = SectionNewsletterProps
 
@@ -38,6 +26,20 @@ function Newsletter({
   toastSubscribeError,
   colorVariant,
 }: NewsletterProps) {
+  const {
+    Button,
+    HeaderIcon,
+    InputFieldName,
+    InputFieldEmail,
+    Newsletter: NewsletterWrapper,
+    NewsletterAddendum,
+    NewsletterContent,
+    NewsletterForm,
+    NewsletterHeader,
+    ToastIconError,
+    ToastIconSuccess,
+  } = useOverrideComponents<'Newsletter'>()
+
   const { pushToast } = useUI()
   const { subscribeUser, loading, data } = useNewsletter()
 

@@ -1,7 +1,6 @@
 import {
   NewsletterProps as UINewsletterProps,
   NewsletterAddendumProps as UINewsletterAddendumProps,
-  NewsletterFormProps as UINewsletterFormProps,
   NewsletterHeaderProps as UINewsletterHeaderProps,
 } from '@faststore/ui'
 
@@ -74,7 +73,7 @@ export interface NewsletterProps {
   toastSubscribeError?: SubscribeMessage
 }
 
-const Newsletter = function Newsletter({
+function Newsletter({
   icon,
   title,
   description,
