@@ -8,11 +8,7 @@ import RegionButton from 'src/components/region/RegionButton'
 import type { NavbarProps } from 'src/components/navigation/Navbar'
 
 import { mark } from 'src/sdk/tests/mark'
-
-import {
-  NavbarLinks as NavbarLinksWrapper,
-  NavbarLinksList,
-} from 'src/components/sections/Navbar/Overrides'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 interface NavbarLinksProps extends UINavbarLinksProps {
   links: NavbarProps['links']
@@ -29,6 +25,8 @@ function NavbarLinks({
   region: { icon: regionIcon, label: regionLabel, shouldDisplayRegion },
   ...otherProps
 }: NavbarLinksProps) {
+  const { NavbarLinks: NavbarLinksWrapper, NavbarLinksList } =
+    useOverrideComponents<'Navbar'>()
   return (
     <NavbarLinksWrapper.Component {...otherProps} {...NavbarLinksWrapper.props}>
       <div data-fs-navbar-links-wrapper data-fs-content="navbar">
