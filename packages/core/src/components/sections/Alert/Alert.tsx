@@ -2,8 +2,10 @@ import type { ReactNode } from 'react'
 
 import CommonAlert, {
   type AlertProps as CommonAlertProps,
-} from 'src/components/common/Alert'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+} from '../../../components/common/Alert'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import { AlertDefaultComponents } from './DefaultComponents'
+import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 
 export interface AlertProps extends Omit<CommonAlertProps, 'link' | 'icon'> {
   icon: string
@@ -35,4 +37,10 @@ function Alert({ icon, content, link: { text, to }, dismissible }: AlertProps) {
   )
 }
 
-export default Alert
+const OverridableAlert = getOverridableSection<typeof Alert>(
+  'Alert',
+  Alert,
+  AlertDefaultComponents
+)
+
+export default OverridableAlert

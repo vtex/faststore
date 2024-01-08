@@ -3,10 +3,12 @@ import {
   BannerTextContentProps as UIBannerTextContentProps,
 } from '@faststore/ui'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import Section from '../Section'
 
 import styles from './section.module.scss'
+import { BannerTextDefaultComponents } from './DefaultComponents'
+import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 
 export interface BannerTextProps {
   title: UIBannerTextContentProps['title']
@@ -55,4 +57,10 @@ function BannerText({
   )
 }
 
-export default BannerText
+const OverridableBannerText = getOverridableSection<typeof BannerText>(
+  'BannerText',
+  BannerText,
+  BannerTextDefaultComponents
+)
+
+export default OverridableBannerText

@@ -4,18 +4,20 @@ import { gql } from '@faststore/graphql-utils'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 
-import type { AnalyticsItem } from 'src/sdk/analytics/types'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import { useSession } from 'src/sdk/session'
+import type { AnalyticsItem } from '../../../sdk/analytics/types'
+import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
+import { useSession } from '../../../sdk/session'
 
 import Section from '../Section'
-import ProductDescription from 'src/components/ui/ProductDescription'
-import { ProductDetailsSettings } from 'src/components/ui/ProductDetails'
+import ProductDescription from '../../../components/ui/ProductDescription'
+import { ProductDetailsSettings } from '../../../components/ui/ProductDetails'
 
 import styles from './section.module.scss'
 
-import { usePDP } from 'src/sdk/overrides/PageProvider'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { usePDP } from '../../../sdk/overrides/PageProvider'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import { ProductDetailsDefaultComponents } from './DefaultComponents'
+import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 
 export interface ProductDetailsProps {
   productTitle: {
@@ -280,4 +282,10 @@ export const fragment = gql`
   }
 `
 
-export default ProductDetails
+const OverridableProductDetails = getOverridableSection<typeof ProductDetails>(
+  'ProductDetails',
+  ProductDetails,
+  ProductDetailsDefaultComponents
+)
+
+export default OverridableProductDetails
