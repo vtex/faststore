@@ -1,8 +1,10 @@
+import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 import Section from '../Section'
 
 import styles from './section.module.scss'
 
-import Navbar from 'src/components/navigation/Navbar'
+import Navbar from '../../../components/navigation/Navbar'
+import { NavbarDefaultComponents } from './DefaultComponents'
 
 type PageLinks = {
   url: string
@@ -91,4 +93,10 @@ function NavbarSection({
   )
 }
 
-export default NavbarSection
+const OverridableNavbar = getOverridableSection<typeof NavbarSection>(
+  'Navbar',
+  NavbarSection,
+  NavbarDefaultComponents
+)
+
+export default OverridableNavbar
