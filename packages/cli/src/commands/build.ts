@@ -29,13 +29,6 @@ export default class Build extends Command {
       `${tmpDir}/cms-webhook-urls.json`,
       `${userDir}/cms-webhook-urls.json`
     )
-    
-    if (existsSync(`.next/standalone`)) {
-      await copyResource(
-        `${userDir}/node_modules`,
-        `.next/standalone/node_modules`
-      )
-    }
   }
 }
 
