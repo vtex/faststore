@@ -4,7 +4,7 @@ import '../styles/global/index.scss'
 import '../customizations/src/themes/index.scss'
 
 import type { AppProps } from 'next/app'
-import { Next13ProgressBar as NextNProgress } from 'next13-progressbar'
+import { PagesProgressBar as NextNProgress } from 'next-nprogress-bar'
 
 import { UIProvider } from '@faststore/ui'
 import Layout from 'src/Layout'
@@ -20,7 +20,6 @@ function App({ Component, pageProps }: AppProps) {
     <ErrorBoundary>
       <NextNProgress
         color="var(--fs-color-primary-bkg);"
-        showOnShallow={false}
         options={{ showSpinner: false }}
       />
 
