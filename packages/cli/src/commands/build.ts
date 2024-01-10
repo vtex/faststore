@@ -20,14 +20,7 @@ export default class Build extends Command {
       process.exit(yarnBuildResult.status)
     }
 
-    // Remove `node_modules` from temporary folder after build.
-    removeSync(`${tmpDir}/node_modules`)
-
-    await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
-    await copyResource(
-      `${tmpDir}/lighthouserc.js`,
-      `${userDir}/lighthouserc.js`
-    )
+    await finish()
   }
 }
 
@@ -46,4 +39,13 @@ async function copyResource(from: string, to: string) {
   } catch (err) {
     console.error(`${chalk.red('error')} - ${err}`)
   }
+}
+
+async function finish() {
+  // Copy necessary resources to user directory
+  await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
+  await copyResource(`${tmpDir}/lighthouserc.js`, `${userDir}/lighthouserc.js`)
+
+  // Remove `node_modules` from temporary directory after build.
+  removeSync(`${tmpDir}/node_modules`)
 }
