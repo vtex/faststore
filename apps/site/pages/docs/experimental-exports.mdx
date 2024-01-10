@@ -84,3 +84,30 @@ Explore the functionalities of the hooks and components, also find the up-to-dat
 #### Components
 
 - Image_unstable
+
+<Callout type="info" emoji="ℹ️">
+  We highly recommend using the Image component when working with images in your
+  application to enhance the storefront performance. This component leverages an
+  image resizing and cropping service, called Thumbor, which caches the results
+  on CDN. (Use it when the image is uploaded in the VTEX admin, whether in the
+  CMS or Catalog.)
+</Callout>
+
+```tsx {2} copy
+import { HeroImage as UIHeroImage } from '@faststore/ui'
+import { Image_unstable as Image } from '@faststore/core/experimental'
+
+export default function CustomHeroImage() {
+  return (
+    <UIHeroImage>
+      <Image
+        src="https://storeframework.vtexassets.com/arquivos/ids/160965/est.jpg?v=637752924295370000"
+        alt="Two puffs and two small desks placed together, accompanied by various color pencils."
+        width={360}
+        height={240}
+        sizes="(max-width: 360px) 50vw, (max-width: 768px) 90vw, 50vw"
+      />
+    </UIHeroImage>
+  )
+}
+```
