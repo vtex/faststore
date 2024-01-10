@@ -35,7 +35,7 @@ interface GenerateOptions {
   setup?: boolean
 }
 
-const ignorePaths = ['node_modules', 'cypress.config.ts']
+const ignorePaths = ['cypress.config.ts']
 
 function createTmpFolder() {
   try {
