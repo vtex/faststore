@@ -4,7 +4,7 @@ import '../styles/global/index.scss'
 import '../customizations/src/themes/index.scss'
 
 import type { AppProps } from 'next/app'
-import NextNProgress from 'nextjs-progressbar'
+import { Next13ProgressBar as NextNProgress } from 'next13-progressbar'
 
 import { UIProvider } from '@faststore/ui'
 import Layout from 'src/Layout'
