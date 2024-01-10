@@ -16,18 +16,17 @@ export default class Build extends Command {
       stdio: 'inherit',
     })
 
-    if(yarnBuildResult.status && yarnBuildResult.status !== 0) {
+    if (yarnBuildResult.status && yarnBuildResult.status !== 0) {
       process.exit(yarnBuildResult.status)
     }
+
+    // Remove `node_modules` from temporary folder after build.
+    removeSync(`${tmpDir}/node_modules`)
 
     await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
     await copyResource(
       `${tmpDir}/lighthouserc.js`,
       `${userDir}/lighthouserc.js`
-    )
-    await copyResource(
-      `${tmpDir}/cms-webhook-urls.json`,
-      `${userDir}/cms-webhook-urls.json`
     )
   }
 }
@@ -38,7 +37,7 @@ async function copyResource(from: string, to: string) {
       removeSync(to)
     }
 
-    await copySync(from, to)
+    copySync(from, to)
     console.log(
       `${chalk.green('success')} - ${chalk.dim(from)} copied to ${chalk.dim(
         to

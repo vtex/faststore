@@ -18,10 +18,12 @@ import {
   tmpCMSDir,
   tmpDir,
   tmpFolderName,
+  tmpNodeModulesDir,
   tmpStoreConfigFileDir,
   tmpThemesCustomizationsFileDir,
   tmpCmsWebhookUrlsFileDir,
   userCMSDir,
+  userNodeModulesDir,
   userSrcDir,
   userStoreConfigFileDir,
   userThemesFileDir,
@@ -73,7 +75,7 @@ function copyCoreFiles() {
 }
 
 function copyPublicFiles() {
-  const allowList = ["json", "txt", "xml", "ico", "public"]
+  const allowList = ['json', 'txt', 'xml', 'ico', 'public']
   try {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
@@ -82,7 +84,7 @@ function copyPublicFiles() {
           const allow = allowList.some((ext) => src.endsWith(ext))
 
           return allow
-        }
+        },
       })
       console.log(`${chalk.green('success')} - Public files copied`)
     }
@@ -250,6 +252,17 @@ function mergeCMSFiles() {
   mergeCMSFile('sections.json')
 }
 
+function copyUserNodeModules() {
+  try {
+    copySync(userNodeModulesDir, tmpNodeModulesDir)
+    console.log(
+      `${chalk.green('success')} - ${chalk.dim('node_modules')} files copied`
+    )
+  } catch (err) {
+    console.error(`${chalk.red('error')} - ${err}`)
+  }
+}
+
 export async function generate(options?: GenerateOptions) {
   const { setup = false } = options ?? {}
 
@@ -261,6 +274,7 @@ export async function generate(options?: GenerateOptions) {
       copyCoreFiles(),
       copyCypressFiles(),
       copyPublicFiles(),
+      copyUserNodeModules(),
     ])
   }
 
