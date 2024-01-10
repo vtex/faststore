@@ -1,12 +1,15 @@
 import { override } from 'src/customizations/src/components/overrides/EmptyState'
 import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
-import type { SectionOverrideDefinition } from 'src/typings/overridesDefinition'
+
+import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'
+import EmptyState from './EmptyState'
 
 /**
  * This component exists to support overrides 1.0
  *
  * This allows users to override the default EmptyState section present in the Headless CMS
  */
-export const OverriddenDefaultEmptyState = getOverriddenSection(
-  override as SectionOverrideDefinition<'EmptyState'>
-)
+export const OverriddenDefaultEmptyState = getOverriddenSection({
+  ...(override as SectionOverrideDefinitionV1<'EmptyState'>),
+  Section: EmptyState,
+})

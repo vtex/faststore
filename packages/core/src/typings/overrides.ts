@@ -49,6 +49,7 @@ import Alert from '../components/sections/Alert'
 import Breadcrumb from '../components/sections/Breadcrumb'
 import BannerText from '../components/sections/BannerText'
 import CrossSellingShelf from '../components/sections/CrossSellingShelf'
+import EmptyState from '../components/sections/EmptyState'
 import Hero from '../components/sections/Hero'
 import ProductShelf from '../components/sections/ProductShelf'
 import ProductDetails from '../components/sections/ProductDetails'
@@ -137,7 +138,7 @@ export type SectionsOverrides = {
     }
   }
   EmptyState: {
-    Section: never
+    Section: typeof EmptyState
     components: {
       EmptyState: ComponentOverrideDefinition<
         PropsWithChildren<EmptyStateProps>,
@@ -154,7 +155,7 @@ export type SectionsOverrides = {
     }
   }
   Navbar: {
-    Section: typeof Navbar,
+    Section: typeof Navbar
     components: {
       Navbar: ComponentOverrideDefinition<NavbarProps, NavbarProps>
       NavbarLinks: ComponentOverrideDefinition<

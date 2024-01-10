@@ -3,10 +3,14 @@ import { useRouter } from 'next/router'
 
 import { Icon as UIIcon, Loader as UILoader } from '@faststore/ui'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 
 import Section from '../Section'
+
 import styles from './section.module.scss'
+
+import { EmptyStateDefaultComponents } from './DefaultComponents'
+import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 
 export interface EmptyStateProps {
   /**
@@ -103,4 +107,10 @@ function EmptyState({
   )
 }
 
-export default EmptyState
+const OverridableEmptyState = getOverridableSection<typeof EmptyState>(
+  'EmptyState',
+  EmptyState,
+  EmptyStateDefaultComponents
+)
+
+export default OverridableEmptyState
