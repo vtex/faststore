@@ -1,44 +1,52 @@
-import type { ComponentProps, ComponentType } from 'react'
+import { useMemo, type ComponentProps, type ComponentType } from 'react'
 
-import { OverrideProvider } from './OverrideContext'
-import { DefaultComponents, Sections } from './sections'
-import { getSectionOverrides } from './overrides'
 import type {
   DefaultSectionComponentsDefinitions,
-  OverriddenComponents,
   SectionOverrideDefinition,
+  SectionOverrideDefinitionV1,
 } from '../../typings/overridesDefinition'
-import type { SupportedSectionsOverridesV2 } from '../../typings/overrides'
+import type { SectionsOverrides } from '../../typings/overrides'
+import { getSectionOverrides } from './overrides'
+import { OverrideProvider } from './OverrideContext'
 
-/**
- * This function adds OverrideContext to the tree. It is essential for the compatible sections
- * to consume the components it provides.
- */
-function createOverriddenSection<
-  SectionName extends keyof SupportedSectionsOverridesV2
->({
-  Section,
-  sectionOverrides,
-  className,
-}: {
-  Section: (typeof Sections)[SectionName]
-  sectionOverrides: OverriddenComponents<SectionName>
-  className?: string
-}) {
-  const overrideContextValue = { className, components: sectionOverrides }
-
-  return function OverriddenSection(
-    props: React.ComponentProps<typeof Section>
+export function getOverridableSection<
+  Section extends ComponentType,
+  SectionName extends keyof SectionsOverrides = keyof SectionsOverrides
+>(
+  sectionName: SectionName,
+  Section: Section,
+  defaultComponents: DefaultSectionComponentsDefinitions<SectionName>
+) {
+  function OverridableSection(
+    propsWithOverrides: ComponentProps<typeof Section> & {
+      __overrides?: Omit<SectionOverrideDefinitionV1<SectionName>, 'Section'>
+    }
   ) {
+    const { __overrides: overrides, ...props } = propsWithOverrides
+
+    const overrideContextValue = useMemo(
+      () => ({
+        ...(overrides ?? {}),
+        components: getSectionOverrides<SectionName>(defaultComponents, {
+          ...(overrides ?? {}),
+          section: sectionName,
+        }),
+      }),
+      [overrides]
+    )
+
     /** This type wizardry is here because the props won't behave correctly if nothing is done */
-    const SectionComponent = Section as ComponentType<typeof props>
+    const SectionComponent = Section as ComponentType<ComponentProps<Section>>
 
     return (
       <OverrideProvider value={overrideContextValue}>
-        <SectionComponent {...props} />
+        <SectionComponent {...(props as ComponentProps<typeof Section>)} />
       </OverrideProvider>
     )
   }
+
+  // This type cast is here so the symbol prop doesn't show up in the type definition
+  return OverridableSection as Section
 }
 
 /**
@@ -50,23 +58,16 @@ function createOverriddenSection<
  * @see https://www.faststore.dev/docs/building-sections/overriding-components-and-props
  */
 export function getOverriddenSection<
-  SectionName extends keyof SupportedSectionsOverridesV2
->(override: SectionOverrideDefinition<SectionName>) {
-  const defaultComponents = DefaultComponents[
-    override.section
-  ] as DefaultSectionComponentsDefinitions<SectionName>
+  Section extends SectionsOverrides[keyof SectionsOverrides]['Section']
+>(override: SectionOverrideDefinition<Section>) {
+  const { Section, ...rest } = override
 
-  if (!defaultComponents) {
-    throw new Error(
-      `Section ${override.section} does not exist. Please provide a valid section name to override.`
-    )
+  /** This type wizardry is here because the props won't behave correctly if nothing is done */
+  const OverridableSection = Section as ComponentType<ComponentProps<Section>>
+
+  return function OverriddenSection(
+    props: ComponentProps<typeof OverridableSection>
+  ) {
+    return <OverridableSection {...props} {...{ __overrides: rest }} />
   }
-
-  const sectionOverrides = getSectionOverrides(defaultComponents, override)
-
-  return createOverriddenSection({
-    Section: Sections[override.section],
-    sectionOverrides: sectionOverrides,
-    className: override.className,
-  })
 }

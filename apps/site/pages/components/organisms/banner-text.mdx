@@ -70,11 +70,15 @@ Import the component from [@faststore/ui](/../components)
 import { BannerText, BannerTextContent } from '@faststore/ui'
 ```
 
-Import Styles
+### Import Styles into your FastStore project
 
-```tsx
-import '@faststore/ui/src/components/organisms/BannerText/styles.scss'
+To apply the styles of this component in your FastStore project, import the following into your stylesheet:
+
+```scss copy
+@import '@faststore/ui/src/components/organisms/BannerText/styles.scss';
 ```
+
+Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/importing-styles-to-faststore-ui-components) tutorial.
 
 ---
 
@@ -134,6 +138,10 @@ Besides those attributes, the following props are also supported:
   <TokenRow
     token="--fs-banner-text-padding-desktop"
     value="var(--fs-spacing-9) 15%"
+  />
+  <TokenRow
+    token="--fs-banner-text-border-radius"
+    value="var(--fs-border-radius)"
   />
 </TokenTable>
 

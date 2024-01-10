@@ -1,0 +1,394 @@
+---
+description: The Newsletter component is a section with at least one input text with an action allowing users to submit their input.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Hero___c73fdfe80ce87c2ccc4701c07e9d5398.png
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+
+import NewsletterUsage from 'site/components/Newsletter/NewsletterUsage'
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const newsletterPath = path.resolve(__filename)
+  const components = [
+    'Newsletter.tsx',
+    'NewsletterAddendum.tsx',
+    'NewsletterContent.tsx',
+    'NewsletterForm.tsx',
+    'NewsletterHeader.tsx',
+  ]
+  const [
+    newsletterProps,
+    newsletterAddendumProps,
+    newsletterContentProps,
+    newsletterFormProps,
+    newsletterHeaderProps,
+  ] = getComponentPropsFrom(newsletterPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        newsletterProps,
+        newsletterAddendumProps,
+        newsletterContentProps,
+        newsletterFormProps,
+        newsletterHeaderProps,
+      },
+    },
+  }
+}
+
+export const NewsletterPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const {
+    newsletterProps,
+    newsletterAddendumProps,
+    newsletterContentProps,
+    newsletterFormProps,
+    newsletterHeaderProps,
+  } = useSSG()
+  return {
+    Newsletter: <PropsSection propsList={newsletterProps} />,
+    NewsletterAddendum: <PropsSection propsList={newsletterAddendumProps} />,
+    NewsletterContent: <PropsSection propsList={newsletterContentProps} />,
+    NewsletterForm: <PropsSection propsList={newsletterFormProps} />,
+    NewsletterHeader: <PropsSection propsList={newsletterHeaderProps} />,
+  }[component]
+}
+
+<header>
+
+# Newsletter
+
+The Newsletter component is a section with at least one input text with an action allowing users to submit their input.
+
+</header>
+
+## Import
+
+Import the components from [@faststore/ui](/../components)
+
+```tsx
+import {
+  Newsletter,
+  NewsletterAddendum,
+  NewsletterContent,
+  NewsletterForm,
+  NewsletterHeader,
+} from '@faststore/ui'
+```
+
+### Import Styles into your FastStore project
+
+To apply the styles of this component in your FastStore project, import the following into your stylesheet:
+
+```scss copy
+@import '@faststore/ui/src/components/organisms/Newsletter/styles.scss';
+```
+
+Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/importing-styles-to-faststore-ui-components) tutorial.
+
+---
+
+## Usage
+
+Uses `NewsletterForm`, `NewsletterHeader` and `NewsletterContent` as compound components.
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <NewsletterUsage />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Newsletter card colorVariant="main">
+      <NewsletterForm onSubmit={() => null}>
+        <NewsletterHeader
+          icon={<Icon name="Envelope" />}
+          title="Get News and Special Offers!"
+          description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+        />
+        <NewsletterContent>
+          <InputField id="newsletter-name" required label="Name" />
+          <InputField
+            id="newsletter-email"
+            type="email"
+            required
+            label="Email"
+          />
+          <NewsletterAddendum addendum="By subscribing to our newsletter you agree to to our Privacy Policy." />
+          <Button
+            variant="secondary"
+            type="submit"
+            inverse={colorVariant === 'main'}
+          >
+            Subscribe
+          </Button>
+        </NewsletterContent>
+      </NewsletterForm>
+    </Newsletter>
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Props
+
+### Newsletter
+
+<NewsletterPropsSection component="Newsletter" />
+
+### NewsletterAddendum
+
+<NewsletterPropsSection component="NewsletterAddendum" />
+
+### NewsletterContent
+
+<NewsletterPropsSection component="NewsletterContent" />
+
+### NewsletterForm
+
+<NewsletterPropsSection component="NewsletterForm" />
+
+### NewsletterHeader
+
+<NewsletterPropsSection component="NewsletterHeader" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-newsletter-padding-mobile"
+    value="var(--fs-spacing-5)"
+  />
+  <TokenRow
+    token="--fs-newsletter-padding-desktop"
+    value="var(--fs-spacing-9) 10%"
+  />
+  <TokenRow
+    token="--fs-newsletter-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-newsletter-title-size"
+    value="var(--fs-text-size-title-section)"
+  />
+  <TokenRow
+    token="--fs-newsletter-title-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+</TokenTable>
+
+#### Icon
+
+<TokenTable>
+  <TokenRow token="--fs-newsletter-icon-size" value="var(--fs-spacing-5)" />
+</TokenTable>
+
+### Variants
+
+#### Card
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <NewsletterUsage card/>
+    </OverviewSection>
+    <OverviewSection>
+      <NewsletterUsage />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Newsletter card>
+      <NewsletterForm onSubmit={() => null}>
+        <NewsletterHeader
+          icon={<Icon name="Envelope" />}
+          title="Get News and Special Offers!"
+          description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+        />
+        <NewsletterContent>
+          <NewsletterAddendum addendum="By subscribing to our newsletter you agree to to our Privacy Policy." />
+        </NewsletterContent>
+      </NewsletterForm>
+    </Newsletter>
+
+    <Newsletter card={false}>
+      <NewsletterForm onSubmit={() => null}>
+        <NewsletterHeader
+          icon={<Icon name="Envelope" />}
+          title="Get News and Special Offers!"
+          description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+        />
+        <NewsletterContent>
+          <NewsletterAddendum addendum="By subscribing to our newsletter you agree to to our Privacy Policy." />
+        </NewsletterContent>
+      </NewsletterForm>
+    </Newsletter>
+    ```
+
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-newsletter-card-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+#### Main
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <NewsletterUsage />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Newsletter card={false} colorVariant="main">
+      <NewsletterForm onSubmit={() => null}>
+        <NewsletterHeader
+          icon={<Icon name="Envelope" />}
+          title="Get News and Special Offers!"
+          description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+        />
+        <NewsletterContent>
+          <NewsletterAddendum addendum="By subscribing to our newsletter you agree to to our Privacy Policy." />
+        </NewsletterContent>
+      </NewsletterForm>
+    </Newsletter>
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-newsletter-main-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+  />
+  <TokenRow
+    token="--fs-newsletter-main-text-color"
+    value="var(--fs-color-primary-text)"
+  />
+</TokenTable>
+
+#### Light
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <NewsletterUsage colorVariant="light" />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Newsletter card={false} colorVariant="light">
+      <NewsletterForm onSubmit={() => null}>
+        <NewsletterHeader
+          icon={<Icon name="Envelope" />}
+          title="Get News and Special Offers!"
+          description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+        />
+        <NewsletterContent>
+          <NewsletterAddendum addendum="By subscribing to our newsletter you agree to to our Privacy Policy." />
+        </NewsletterContent>
+      </NewsletterForm>
+    </Newsletter>
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-newsletter-light-bkg-color"
+    value="var(--fs-color-secondary-bkg-light)"
+  />
+  <TokenRow
+    token="--fs-newsletter-light-text-color"
+    value="var(--fs-color-text-display)"
+  />
+</TokenTable>
+
+#### Accent
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <NewsletterUsage colorVariant="accent" />
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Newsletter card={false} colorVariant="light">
+      <NewsletterForm onSubmit={() => null}>
+        <NewsletterHeader
+          icon={<Icon name="Envelope" />}
+          title="Get News and Special Offers!"
+          description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+        />
+        <NewsletterContent>
+          <NewsletterAddendum addendum="By subscribing to our newsletter you agree to to our Privacy Policy." />
+        </NewsletterContent>
+      </NewsletterForm>
+    </Newsletter>
+    ```
+  </Tab>
+</Tabs>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-newsletter-accent-bkg-color"
+    value="var(--fs-color-highlighted-bkg)"
+  />
+  <TokenRow
+    token="--fs-newsletter-accent-text-color"
+    value="var(--fs-newsletter-light-text-color)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-newsletter`
+
+`data-fs-newsletter-color-variant="main" | "light" | "accent"`
+
+`data-fs-newsletter-form`
+
+`data-fs-newsletter-header`
+
+`data-fs-newsletter-header-title`
+
+`data-fs-newsletter-header-description`
+
+`data-fs-newsletter-content`
+
+`data-fs-newsletter-addendum`

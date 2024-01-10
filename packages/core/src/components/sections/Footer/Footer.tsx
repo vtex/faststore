@@ -55,7 +55,9 @@ const Footer = ({
 }: FooterProps) => {
   const homeLabel = 'Go to Home'
   return (
-    <Section className={`section ${styles.section} section-footer`}>
+    <Section
+      className={`section ${styles.section} section-footer layout__section`}
+    >
       <UIFooter>
         <UIIncentives incentives={incentives} />
         <UIFooterNavigation>

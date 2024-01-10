@@ -4,17 +4,31 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-newsletter-padding-mobile                    : var(--fs-spacing-4) var(--fs-spacing-3) var(--fs-spacing-5);
-  --fs-newsletter-padding-desktop                   : var(--fs-spacing-4) 0 var(--fs-spacing-5);
-  --fs-newsletter-bkg                               : var(--fs-color-primary-bkg);
-  --fs-newsletter-text-color                        : var(--fs-color-text-inverse);
+  --fs-newsletter-padding-mobile                    : var(--fs-spacing-5);
+  --fs-newsletter-padding-desktop                   : var(--fs-spacing-9) 10%;
+  --fs-newsletter-border-radius                     : var(--fs-border-radius);
 
   // Title
   --fs-newsletter-title-size                        : var(--fs-text-size-title-section);
   --fs-newsletter-title-weight                      : var(--fs-text-weight-bold);
 
+  // Icon
+  --fs-newsletter-icon-size                         : var(--fs-spacing-5);
+
   // Card
   --fs-newsletter-card-border-radius                : var(--fs-border-radius);
+
+  // Main
+  --fs-newsletter-main-bkg-color                    : var(--fs-color-primary-bkg);
+  --fs-newsletter-main-text-color                   : var(--fs-color-primary-text);
+
+  // Light
+  --fs-newsletter-light-bkg-color                   : var(--fs-color-secondary-bkg-light);
+  --fs-newsletter-light-text-color                  : var(--fs-color-text-display);
+
+  // Accent
+  --fs-newsletter-accent-bkg-color                  : var(--fs-color-highlighted-bkg);
+  --fs-newsletter-accent-text-color                 : var(--fs-newsletter-light-text-color);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -23,46 +37,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  padding: var(--fs-newsletter-padding-mobile);
-  color: var(--fs-newsletter-text-color);
-  background-color: var(--fs-newsletter-bkg);
-
-  @include media(">=notebook") {
-    padding: var(--fs-newsletter-padding-desktop);
-  }
+  border-radius: var(--fs-newsletter-border-radius);
 
   [data-fs-newsletter-form] {
+    padding: var(--fs-newsletter-padding-mobile);
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--fs-spacing-4);
 
     @include media(">=notebook") {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      column-gap: var(--fs-spacing-8);
-      padding-top: var(--fs-spacing-6);
-      padding-bottom: var(--fs-spacing-6);
-
-      [data-fs-newsletter-header] {
-        align-content: flex-start;
-      }
+      padding: var(--fs-newsletter-padding-desktop);
     }
 
-    [data-fs-newsletter-controls] {
-      @include media(">=notebook") {
-        grid-template-columns: repeat(3, 1fr);
-        margin-top: 0;
+  }
 
-        [data-fs-input-field] {
-          grid-column: 1 / span 3;
-        }
+  [data-fs-newsletter-content] {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--fs-spacing-3);
 
-        [data-fs-button-inverse] {
-          grid-column: 3;
-        }
-
-        [data-fs-newsletter-addendum] {
-          grid-column: 1 / span 3;
-        }
-      }
+    [data-fs-button] {
+      width: 100%;
+      margin-top: var(--fs-spacing-3);
     }
   }
 
@@ -74,32 +70,29 @@
 
     @include media(">=notebook") {
       text-align: left;
+      align-content: flex-start;
     }
   }
 
-  [data-fs-newsletter-header] h3 {
-    display: grid;
-    grid-template-columns: var(--fs-spacing-5) auto;
+  [data-fs-newsletter-header-title] {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: var(--fs-spacing-1);
     column-gap: var(--fs-spacing-1);
     align-items: center;
     justify-content: center;
     font-size: var(--fs-newsletter-title-size);
     font-weight: var(--fs-newsletter-title-weight);
-    color: var(--fs-newsletter-text-color);
+    line-height: 1.2;
+
+    [data-fs-icon] {
+      flex-shrink: 0;
+      width: var(--fs-newsletter-icon-size);
+      height: var(--fs-newsletter-icon-size);
+    }
 
     @include media(">=notebook") {
       justify-content: left;
-    }
-  }
-
-  [data-fs-newsletter-controls] {
-    display: grid;
-    row-gap: var(--fs-spacing-3);
-    margin-top: var(--fs-spacing-4);
-
-    [data-fs-button-inverse] {
-      width: 100%;
-      margin-top: var(--fs-spacing-3);
     }
   }
 
@@ -115,26 +108,50 @@
   // Variants Styles
   // --------------------------------------------------------
 
+  &:not([data-fs-newsletter="card"]) {
+    @include media(">=notebook") {
+      [data-fs-newsletter-form] {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: var(--fs-spacing-8);
+      }
+
+      [data-fs-button] {
+        width: auto;
+        margin-left: auto;
+        min-width: 40%;
+      }
+    }
+  }
+
   &[data-fs-newsletter="card"] {
     text-align: center;
     border-radius: var(--fs-newsletter-card-border-radius);
 
-    [data-fs-newsletter-header] {
+    [data-fs-newsletter-header],
+    [data-fs-newsletter-addendum] {
       text-align: center;
     }
 
-    @include media(">=notebook") {
-      [data-fs-newsletter-form] {
-        display: block;
-      }
-
-      [data-fs-newsletter-controls] {
-        margin-top: var(--fs-spacing-4);
-      }
-    }
-
-    [data-fs-newsletter-header] h3 {
+    [data-fs-newsletter-header-title] {
       justify-content: center;
     }
+  }
+
+  &[data-fs-newsletter-color-variant="main"] {
+    background-color: var(--fs-newsletter-main-bkg-color);
+    color: var(--fs-newsletter-main-text-color);
+
+    [data-fs-link="true"] { color: var(--fs-color-link-inverse); }
+  }
+
+  &[data-fs-newsletter-color-variant="light"] {
+    background-color: var(--fs-newsletter-light-bkg-color);
+    color: var(--fs-newsletter-light-text-color);
+  }
+
+  &[data-fs-newsletter-color-variant="accent"] {
+    background-color: var(--fs-newsletter-accent-bkg-color);
+    color: var(--fs-newsletter-accent-text-color);
   }
 }

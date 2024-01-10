@@ -12,16 +12,9 @@ import CartToggle from 'src/components/cart/CartToggle'
 import Logo from 'src/components/ui/Logo'
 import Link from 'src/components/ui/Link'
 import { ButtonSignIn } from 'src/components/ui/Button'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
-
-import {
-  Navbar as NavbarWrapper,
-  NavbarHeader,
-  NavbarRow,
-  NavbarButtons,
-  IconButton,
-} from 'src/components/sections/Navbar/Overrides'
 
 export interface NavbarProps {
   /**
@@ -75,9 +68,16 @@ function Navbar({
   home: { label: homeLabel },
   signIn: { button: signInButton },
   menu: {
-    icon: { icon: menuIcon, alt: menuIconAlt = IconButton.props['aria-label'] },
+    icon: { icon: menuIcon, alt: menuIconAlt },
   },
 }: NavbarProps) {
+  const {
+    Navbar: NavbarWrapper,
+    NavbarHeader,
+    NavbarRow,
+    NavbarButtons,
+    IconButton,
+  } = useOverrideComponents<'Navbar'>()
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
   const searchMobileRef = useRef<SearchInputRef>(null)
@@ -107,7 +107,7 @@ function Navbar({
                 onClick={openNavbar}
                 icon={<UIIcon name={menuIcon} width={32} height={32} />}
                 {...IconButton.props}
-                aria-label={menuIconAlt}
+                aria-label={menuIconAlt ?? IconButton.props['aria-label']}
               />
               <Link
                 data-fs-navbar-logo

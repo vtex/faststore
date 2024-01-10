@@ -1063,13 +1063,14 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Envelop"],
-              "enum": ["Envelop"]
+              "enumNames": ["Envelope"],
+              "enum": ["Envelope"],
+              "default": "Envelope"
             },
             "alt": {
               "type": "string",
               "title": "Alternative Label",
-              "default": "Envelop"
+              "default": "Envelope"
             }
           }
         },
@@ -1119,6 +1120,13 @@
           "title": "Newsletter should be in card format?",
           "type": "boolean",
           "default": false
+        },
+        "colorVariant": {
+          "title": "Color variant",
+          "type": "string",
+          "enumNames": ["Main", "Light", "Accent"],
+          "enum": ["main", "light", "accent"],
+          "default": "main"
         },
         "toastSubscribe": {
           "title": "Toast Subscribe",
@@ -1249,14 +1257,14 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["Envelop"],
-                  "enum": ["Envelop"],
-                  "default": "Envelop"
+                  "enumNames": ["Envelope"],
+                  "enum": ["Envelope"],
+                  "default": "Envelope"
                 },
                 "alt": {
                   "type": "string",
                   "title": "Alternative Label",
-                  "default": "Envelop"
+                  "default": "Envelope"
                 }
               }
             },
@@ -1302,10 +1310,62 @@
               "type": "string",
               "default": "Loading..."
             },
-            "card": {
-              "title": "Newsletter should be in card format?",
-              "type": "boolean",
-              "default": true
+            "colorVariant": {
+              "title": "Color variant",
+              "type": "string",
+              "enumNames": ["Main", "Light", "Accent"],
+              "enum": ["main", "light", "accent"],
+              "default": "main"
+            },
+            "toastSubscribe": {
+              "title": "Toast Subscribe",
+              "type": "object",
+              "properties": {
+                "title": {
+                  "title": "Title",
+                  "description": "Message Title",
+                  "type": "string",
+                  "default": "Hooray!"
+                },
+                "message": {
+                  "title": "Message",
+                  "description": "Message",
+                  "type": "string",
+                  "default": "Thank for your subscription."
+                },
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["CircleWavyCheck"],
+                  "enum": ["CircleWavyCheck"],
+                  "default": "CircleWavyCheck"
+                }
+              }
+            },
+            "toastSubscribeError": {
+              "title": "Toast Subscribe Error",
+              "type": "object",
+              "properties": {
+                "title": {
+                  "title": "Title",
+                  "description": "Message Title",
+                  "type": "string",
+                  "default": "Oops."
+                },
+                "message": {
+                  "title": "Message",
+                  "description": "Message",
+                  "type": "string",
+                  "default": "Something went wrong. Please Try again."
+                },
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["CircleWavyWarning"],
+                  "enum": ["CircleWavyWarning"],
+                  "default": "CircleWavyWarning"
+                }
+              }
             }
           }
         }

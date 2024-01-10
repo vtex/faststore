@@ -23,8 +23,8 @@ import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
   const modalPath = path.resolve(__filename)
-  const components = ['Modal.tsx', 'ModalHeader.tsx','ModalBody.tsx' ]
-  const [modalProps, modalHeaderProp, modalBodyProps ] = getComponentPropsFrom(
+  const components = ['Modal.tsx', 'ModalHeader.tsx', 'ModalBody.tsx']
+  const [modalProps, modalHeaderProp, modalBodyProps] = getComponentPropsFrom(
     modalPath,
     components
   )
@@ -43,7 +43,7 @@ export const getStaticProps = () => {
 
 export const ModalPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
-  const { modalProps, modalHeaderProp, modalBodyProps  } = useSSG()
+  const { modalProps, modalHeaderProp, modalBodyProps } = useSSG()
   return {
     Modal: <PropsSection propsList={modalProps} />,
     ModalHeader: <PropsSection propsList={modalHeaderProp} />,
@@ -73,11 +73,15 @@ Import the component from [@faststore/ui](/../components)
 import { Modal, ModalHeader, ModalBody } from '@faststore/ui'
 ```
 
-Import Styles
+### Import Styles into your FastStore project
 
-```tsx
-import '@faststore/ui/src/components/molecules/Modal/styles.scss'
+To apply the styles of this component in your FastStore project, import the following into your stylesheet:
+
+```scss copy
+@import '@faststore/ui/src/components/molecules/Modal/styles.scss';
 ```
+
+Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/importing-styles-to-faststore-ui-components) tutorial.
 
 ---
 

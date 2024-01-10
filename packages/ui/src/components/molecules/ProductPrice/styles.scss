@@ -1,0 +1,15 @@
+[data-fs-product-price] {
+  // --------------------------------------------------------
+  // Design Tokens for Product Price
+  // --------------------------------------------------------
+
+  --fs-product-price-gap                     : var(--fs-spacing-1);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  align-items: center;
+  column-gap: var(--fs-product-price-gap);
+}

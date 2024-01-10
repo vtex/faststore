@@ -1,5 +1,6 @@
 import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
+import CrossSellingShelf from '.'
 
 export const OverriddenDefaultCrossSellingShelf = getOverriddenSection({
-  section: 'CrossSellingShelf',
+  Section: CrossSellingShelf,
 })

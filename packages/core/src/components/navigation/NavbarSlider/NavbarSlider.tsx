@@ -10,13 +10,7 @@ import { mark } from 'src/sdk/tests/mark'
 import type { NavbarProps } from '../Navbar'
 
 import styles from './section.module.scss'
-
-import {
-  NavbarSlider as NavbarSliderWrapper,
-  NavbarSliderHeader,
-  NavbarSliderContent,
-  NavbarSliderFooter,
-} from 'src/components/sections/Navbar/Overrides'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 interface NavbarSliderProps {
   logo: NavbarProps['logo']
@@ -33,6 +27,13 @@ function NavbarSlider({
   home: { label: homeLabel },
   signIn: { button: signInButton },
 }: NavbarSliderProps) {
+  const {
+    NavbarSlider: NavbarSliderWrapper,
+    NavbarSliderHeader,
+    NavbarSliderContent,
+    NavbarSliderFooter,
+  } = useOverrideComponents<'Navbar'>()
+
   const { closeNavbar } = useUI()
   const { fade, fadeOut } = useFadeEffect()
 

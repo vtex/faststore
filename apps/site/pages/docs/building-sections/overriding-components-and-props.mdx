@@ -201,7 +201,7 @@ For this guide we will create a custom Buy Button that once you click on it, it 
 import React from 'react'
 import { Button as UIButton } from '@faststore/ui'
 
-export function CustomBuyButton() {
+export default function CustomBuyButton() {
   return (
     <UIButton
       variant="primary"
@@ -226,7 +226,7 @@ However, you have the flexibility to customize the component to achieve a differ
 
 ```tsx filename="ProductDetails.tsx" {8-9}
 import { SectionOverride } from '@faststore/core'
-import { CustomBuyButton } from '../CustomBuyButton'
+import CustomBuyButton from '../CustomBuyButton'
 
 const SECTION = 'ProductDetails' as const
 
@@ -244,7 +244,7 @@ export { override }
 
 ![overrides-PDP-buy-button-component-alert](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-buy-button-open-alert___b62f8cb5f3f98f6bd0f5502081de6a9b.gif)
 
-By using your custom component, you may need to customize it from scratch. See [Customizing a New Component when using Override](/docs/customizing/components#customizing-a-new-component-when-using-override) guide for more details about styling it.
+By using your custom component, you may need to style it from scratch. See [Customizing a New Component when using Override](/docs/customizing/styling-components#customizing-a-new-component-when-using-override) guide for more details about styling it.
 
 ---
 
@@ -264,7 +264,7 @@ This approach allows us to incorporate the icon and cart sidebar integration whi
 import React from 'react'
 import { Button as UIButton, ButtonProps } from '@faststore/ui'
 
-export function CustomBuyButton(props: ButtonProps) {
+export default function CustomBuyButton(props: ButtonProps) {
   return (
     <UIButton
       {...props}

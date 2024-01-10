@@ -1,12 +1,10 @@
-import { mark } from 'src/sdk/tests/mark'
+import { mark } from '../../../sdk/tests/mark'
 
 import ProductGallery, {
   ProductGalleryProps,
-} from 'src/components/ui/ProductGallery/ProductGallery'
+} from '../../ui/ProductGallery/ProductGallery'
 import Section from '../Section'
 import type { EmptyGalleryProps } from './EmptyGallery'
-
-import { __experimentalEmptyGallery as EmptyGallery } from 'src/components/sections/ProductGallery/Overrides'
 
 import styles from './section.module.scss'
 import {
@@ -15,7 +13,10 @@ import {
   isPLP,
   isSearchPage,
   usePage,
-} from 'src/sdk/overrides/PageProvider'
+} from '../../../sdk/overrides/PageProvider'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { ProductGalleryDefaultComponents } from './DefaultComponents'
 
 export interface ProductGallerySectionProps {
   searchTermLabel?: ProductGalleryProps['searchTermLabel']
@@ -33,6 +34,9 @@ function ProductGallerySection({
   emptyGallery,
   ...otherProps
 }: ProductGallerySectionProps) {
+  const { __experimentalEmptyGallery: EmptyGallery } =
+    useOverrideComponents<'ProductGallery'>()
+
   const context = usePage<SearchPageContext | PLPContext>()
   const [title, searchTerm] = isSearchPage(context)
     ? [context?.data?.title, context?.data?.searchTerm]
@@ -67,4 +71,10 @@ function ProductGallerySection({
 }
 
 ProductGallerySection.displayName = 'ProductGallery'
-export default mark(ProductGallerySection)
+const MarkedProductGallery = mark(ProductGallerySection)
+
+const OverridableProductGallery = getOverridableSection<
+  typeof MarkedProductGallery
+>('ProductGallery', MarkedProductGallery, ProductGalleryDefaultComponents)
+
+export default OverridableProductGallery

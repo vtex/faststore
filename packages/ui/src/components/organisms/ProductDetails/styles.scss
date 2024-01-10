@@ -39,12 +39,12 @@
       margin-top: var(--fs-spacing-3);
     }
 
-    [data-fs-price] {
-      display: block;
-
-      &[data-fs-price-variant="spot"] {
-        margin: 0;
-        font-weight: var(--fs-text-weight-black);
+    [data-fs-product-price] {
+      [data-fs-price-variant="spot"]{
+          margin: 0;
+          font-size: var(--fs-text-size-4);
+          font-weight: var(--fs-text-weight-black);
+          line-height: 1.12;
       }
     }
 

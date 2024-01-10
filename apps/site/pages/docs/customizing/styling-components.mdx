@@ -2,11 +2,20 @@ import { Callout } from 'nextra-theme-docs'
 
 <header className="hero">
 
-# Customizing a Component
-
-Customize the styling of a component by using design tokens that align with your store's branding.
+# Styling components
 
 </header>
+
+In this guide, you'll learn how to customize the styling of a component by using design tokens that align with your store's branding.
+The following scenarios for component customization are:
+
+- [Customizing a component's styles using design tokens](#customizing-a-components-styles-using-design-tokens)
+- [Customizing a component within a section](#customizing-a-component-within-a-section)
+- [Customizing a new component when using override](#customizing-a-new-component-when-using-override)
+
+---
+
+## Customizing a component's styles using design tokens
 
 In this guide, you'll learn how to customize the style of a FastStore component using its local tokens. For the sake of this tutorial, We will use the `Listing` variant from the [Price Component](/components/atoms/price).
 
@@ -19,24 +28,30 @@ This is how Prices looks like in our current homepage (with the default color bl
 <br></br>
 
 <Callout type="info" emoji="ℹ️">
-  Remember that when changing a component's style, you can use [Global tokens](/docs/global-tokens/overview) or styling from scratch using your preferred styling tool. However, changing the value of a global token may affect different parts of your store's interface.
+  Remember that when changing a component's style, you can use [Global
+  tokens](/docs/global-tokens/overview) or styling from scratch using your
+  preferred styling tool. However, changing the value of a global token may
+  affect different parts of your store's interface.
 </Callout>
 
 <br></br>
 
-1. In your `custom-theme.scss` theme file , add the `data-fs-price` and  `data-fs-price-variant` data attributes with the `Listing` value:
+1. In your `custom-theme.scss` theme file , add the `data-fs-price` and `data-fs-price-variant` data attributes with the `Listing` value:
 
 ```scss filename="src/themes/custom-theme.scss" copy
-  ...
+...
   // --------------------------------------------------------
   // FS UI Components
   // --------------------------------------------------------
   // Add here the customizations for FastStore UI components.
-  [data-fs-price] {}
+  [data-fs-price] {
+}
 ```
 
 <Callout type="info" emoji="ℹ️">
-  Each FastStore UI component has a list of data attributes that can be used for further customization. You can find it in the component's [Customization section](/components/atoms/price#customization).
+  Each FastStore UI component has a list of data attributes that can be used for
+  further customization. You can find it in the component's [Customization
+  section](/components/atoms/price#customization).
 </Callout>
 
 <br></br>
@@ -44,14 +59,13 @@ This is how Prices looks like in our current homepage (with the default color bl
 2. Now, change the color of the `Listing` variant using the `Price` [local token](/components/atoms/price#design-tokens). For this tutorial, we will use the shade of red `#cb4242`:
 
 ```scss {6} filename="src/themes/custom-theme.scss" copy
-
-  ...
+...
   // --------------------------------------------------------
   // FS UI Components
   // --------------------------------------------------------
     [data-fs-price] {
-      --fs-price-listing-color: #cb4242;
-    }
+  --fs-price-listing-color: #cb4242;
+}
 ```
 
 3. Save your changes and check your browser to see the new color of your listing price. You may need to refresh the page.
@@ -79,19 +93,18 @@ But we only want to apply this change in the `ProductShelf` section. So, we can 
 1. In your `custom-theme.scss` theme file , add the following code:
 
 ```scss {8-12} filename="src/themes/custom-theme.scss" copy
-
-  ...
+...
   // --------------------------------------------------------
   // FS UI Components
   // --------------------------------------------------------
   [data-fs-price] {
-    --fs-price-listing-color: #cb4242;
+  --fs-price-listing-color: #cb4242;
+}
+[data-fs-product-shelf] {
+  [data-fs-price][data-fs-price-variant='listing'] {
+    background-color: var(--fs-color-warning-bkg);
   }
-  [data-fs-product-shelf]{
-    [data-fs-price][data-fs-price-variant="listing"] {
-      background-color: var(--fs-color-warning-bkg);
-    }
-  }
+}
 ```
 
 <br></br>
@@ -120,7 +133,8 @@ Make sure you have a basic understanding of [overriding native components and pr
 Additionally, we recommend to use [CSS Module](https://nextjs.org/docs/app/building-your-application/styling/css-modules) for styling your new component.
 
 <Callout type="info" emoji="ℹ️">
-FastStore components support [Sass](https://sass-lang.com/) for styling by default, but you can work with your desired tool.
+  FastStore components support [Sass](https://sass-lang.com/) for styling by
+  default, but you can work with your desired tool.
 </Callout>
 
 For better understanding, we will use the example from the [Overriding Native Components and Props](/docs/building-sections/overriding-components-and-props) guide.
@@ -129,32 +143,33 @@ To follow along this section, make sure to create the `CustomBuyButton`.
 
 ### Step by step
 
-1. Once you have created the `CustomBuyButton` component, create a new file called `CustomBuyButtons.module.scss`.
+1. Once you have created the `CustomBuyButton` component, create a new file called `customBuyButton.module.scss`.
 
 <br></br>
-![custom-buy-button-component-code](https://vtexhelp.vtexassets.com/assets/docs/src/custom-buy-button-component-code___25c01fd818e1fab4247e1f0f77df4186.png)
+![custom-buy-button-component-code](https://vtexhelp.vtexassets.com/assets/docs/src/custom-buy-button-component-code___90cd52c658d94b9e2fe3c165acaf2706.png)
 <br></br>
 
-2. Add the following code to the `CustomBuyButtons.module.scss` file:
+2. Add the following code to the `customBuyButton.module.scss` file:
 
-```scss filename="CustomBuyButton.module.scss" copy
-.CustomBuyButton {
+```scss filename="customBuyButton.module.scss" copy
+.customBuyButton {
   --fs-button-border-radius: var(--fs-border-radius-pill);
-  --fs-button-padding:  0 var(--fs-spacing-5);
+  --fs-button-padding: 0 var(--fs-spacing-5);
 
   color: var(--fs-color-text-inverse);
 
   [data-fs-button-wrapper] {
-    background-color: #E31C58;
+    background-color: #e31c58;
   }
 }
 ```
 
 <Callout type="info" emoji="ℹ️">
-You can use FastStore UI components' customization data attribute to ease your styling process. In this example, we used `data-fs-button-wrapper`.
+  You can use FastStore UI components' customization data attribute to ease your
+  styling process. In this example, we used `data-fs-button-wrapper`.
 </Callout>
 
-To ensure visual consistency with your store's theme, we highly recommend utilizing the [global tokens](docs/global-tokens/overview) whenever possible. Also, you can take advantage of the design tokens set provided by [FastStore UI Components](/components).
+To ensure visual consistency with your store's theme, we highly recommend utilizing the [global tokens](docs/global-tokens/overview) whenever possible. Also, you can take advantage of the design tokens set provided by [FastStore UI Components](/components). Check another example in this [guide](/docs/customizing/importing-styles-to-faststore-ui-components#importing-styles-when-overriding-a-component).
 
 3. Restart the server and check the color and shape of your `CustomBuyButton` component:
 
@@ -165,5 +180,5 @@ To ensure visual consistency with your store's theme, we highly recommend utiliz
 
 ## Related resources
 
- - [Themes](/docs/themes/overview)
- - [Building and Customizing sections](/docs/building-sections/component-customization-overview)
+- [Themes](/docs/themes/overview)
+- [Building and Customizing sections](/docs/building-sections/component-customization-overview)

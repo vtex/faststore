@@ -1,0 +1,387 @@
+---
+title: 'Importing FastStore UI component styles'
+---
+
+<header className="hero">
+
+# Importing FastStore UI component styles
+
+</header>
+
+If you are using a [FastStore UI component](/components) and want to apply its styles to your
+FastStore project, follow the steps below.
+
+There are two use cases on how to import FastStore UI component styles:
+
+- [Importing styles when overriding a component](/docs/customizing/importing-styles-to-faststore-ui-components#importing-styles-when-overriding-a-component): For this use case we will override the ProductTitle component within the ProductDetails section.
+- [Importing styles when creating a new section](/docs/customizing/importing-styles-to-faststore-ui-components#importing-styles-when-creating-a-new-section): In this example, we will create a new section in the CMS called `OurStore`.
+
+## Before you begin
+
+Ensure you have a basic understanding of creating a new section in the Headless CMS. Refer to [Create a new
+Section](/docs/building-sections/creating-a-new-section) guide for more
+information. Additionally, we recommend using [CSS
+Modules](https://nextjs.org/docs/app/building-your-application/styling/css-modules)
+for styling your new component.
+
+## Importing styles when overriding a component
+
+For this use case we will override the [ProductTitle](/components/molecules/product-title) component within the `ProductDetails` section.
+
+### Step 1 - Create the custom component
+
+1. Open your FastStore project and navigate to the `components` folder
+   and create the `customProductTitle.module.scss` file.
+   This file is responsible to import the FastStore UI component style.
+
+2. Add the following code to the `customProductTitle.module.scss` file.
+
+```scss copy
+.customProductTitle {
+  @import '@faststore/ui/src/components/molecules/Tag/styles.scss';
+}
+```
+
+This will import the [Tag](/components/molecules/tag) styles to the custom component that you are creating.
+
+3. In the `components` folder, create the `CustomProductTitle.tsx` file.
+4. Add the following to the file:
+
+```tsx copy
+import React from 'react'
+import { ProductTitle, Tag } from '@faststore/ui'
+
+import styles from './customProductTitle.module.scss'
+
+export default function CustomProductTitle() {
+  return (
+    <section className={styles.customProductTitle}>
+      <ProductTitle title={<h1>New headphones</h1>} />
+      <Tag variant="warning" label="On sale" onClose={() => {}} />
+    </section>
+  )
+}
+```
+
+This code creates a custom `ProductTitle` component displaying the product title, star rating, and a tag indicating that the product is on sale.
+To make it available, declare this new component in the `ProductDetails`, as outlined in the next section.
+
+#### Step 2 - Overriding the component
+
+1. In the `overrides` folder, create the `ProductDetails.tsx` file.
+2. Add the following code to the `ProductDetails.tsx` file to render the new `CustomProductTitle` component.
+
+```tsx copy
+import { SectionOverride } from '@faststore/core'
+
+import CustomProductTitle from '../CustomProductTitle'
+
+const SECTION = 'ProductDetails' as const
+
+const override: SectionOverride = {
+  section: SECTION,
+  components: {
+    ProductTitle: { Component: CustomProductTitle },
+  },
+}
+
+export { override }
+```
+
+4. Run `yarn dev` in the terminal and open the local development server to see the changes.
+   You should see a result similar to the image below:
+
+![importing-styles-result](https://vtexhelp.vtexassets.com/assets/docs/src/importing-styles___6de1d121d0acc88b4545d04955c3eb89.png)
+
+## Importing styles when creating a new section
+
+### Step 1 - Add a new section object to the Headless CMS
+
+1. In the FastStore root directory of your project, create a folder named `cms`.
+2. Inside `cms`, create the `faststore` folder and add a `sections.json` file.
+3. In the `sections.json` file add the new section that you want to display in the Headless CMS. The schema below defines how the Headless CMS renders the `OurStores` section that we will use in the example:
+
+```json filename="sections.json" copy
+[
+  {
+    "name": "OurStores",
+    "schema": {
+      "title": "Our Stores",
+      "description": "Search stores near to the users",
+      "type": "object",
+      "required": ["title", "description"],
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Explore Nearby Stores"
+        },
+        "description": {
+          "title": "Link Path",
+          "type": "string",
+          "default": "Discover the closest store to you and pay us a visit."
+        }
+      }
+    }
+  }
+]
+```
+
+### Step 2: Create the new section
+
+1. If you don't already have it, create a folder named `components` inside the `src` directory.
+2. Inside the `components` folder, create a file named `OurStores.tsx` and add the following code:
+
+```tsx filename="src/components/OurStores.tsx" copy
+import React from 'react'
+import { Button, Icon, SelectField } from '@faststore/ui'
+
+export interface OurStoresProps {
+  title: string
+  description: string
+}
+
+export default function OurStores(props: OurStoresProps) {
+  return (
+    <section>
+      <h2>{props.title}</h2>
+      <p>{props.description}</p>
+      <div>
+        <SelectField
+          id="select-state-store"
+          label="State:"
+          options={{
+            newYork: 'New York',
+            arizona: 'Arizona',
+            massachusetts: 'Massachusetts',
+            hawaii: 'Hawaii',
+          }}
+        />
+        <SelectField
+          id="select-city-store"
+          label="City:"
+          options={{
+            newYorkCity: 'New York City',
+            phoenix: 'Phoenix',
+            boston: 'Boston',
+            honolulu: 'Honolulu',
+          }}
+        />
+        <Button
+          variant="secondary"
+          icon={<Icon name="ArrowRight" />}
+          iconPosition="right"
+        >
+          Find Store
+        </Button>
+      </div>
+    </section>
+  )
+}
+```
+
+For this section we will use the following component from the Faststore UI: [Button](/components/atoms/Button), [Icon](/components/atoms/Icon) and [SelectField](/components/molecules/select-field).
+
+3. Create a file named `index.tsx` inside the components folder, and add the following code:
+
+```tsx filename="src/components/index.tsx" copy
+import OurStores from './OurStores'
+
+export default { OurStores }
+```
+
+### Step 3: Synchronize the new section with the Headless CMS
+
+1. In the terminal, run `faststore cms-sync`.
+2. After the sync, you should be able to see
+   `info: CMS synced successfully...` message.
+
+3. Run `yarn dev` to run the store locally.
+4. Go to the VTEX Admin and access **Storefront > Headless CMS**.
+5. Click on the `Home` content type. (We will add it to the Home just for testing purposes)
+6. In the `Sections` tab, click the `+`, search for the new `Our Stores` section, and add it to your page.
+7. Click on `Save`. To see the section on the storefront, refer to the [How to preview changes in development mode](/docs/how-to-preview-headless-cms-changes-in-development-mode) guide.
+   You should see the new section but without styles as the example below:
+
+![new-section-structure-without-styles](https://vtexhelp.vtexassets.com/assets/docs/src/section-structure-without-styles___7be40088d6137bdd63cbb4940c2fa599.png)
+
+### Step 4: Add the Styles
+
+Now that we have the section in the page, let's add some styles to it:
+
+1. In the `components` folder, create the `ourStores.module.scss` file. This file will import the FastStore UI components styles.
+
+2. Add the following code to the `ourStores.module.scss` file:
+
+```scss filename="src/components/ourStores.module.scss" copy
+.ourStores {
+  @import '@faststore/ui/src/components/atoms/Button/styles.scss';
+  @import '@faststore/ui/src/components/atoms/Select/styles.scss';
+  @import '@faststore/ui/src/components/molecules/SelectField/styles.scss';
+}
+```
+
+This will import the [Button]() and [SelectField]() styles to the custom component that you are creating.
+You'll need to also import `Select` component styles since SelectField inherits it.
+
+3. Now, import this stylesheet to `OurStores.tsx` file and apply it.
+
+```tsx {4-5,13} filename="src/components/OurStores.tsx" copy
+import React from 'react'
+import { Button, Icon, SelectField } from '@faststore/ui'
+
+import styles from './ourStores.module.scss'
+
+export interface OurStoresProps {
+  title: string
+  description: string
+}
+
+export default function OurStores(props: OurStoresProps) {
+  return (
+    <section className={styles.ourStores}>
+      <h2>{props.title}</h2>
+      <p>{props.description}</p>
+      <div>
+        <SelectField
+          id="select-state-store"
+          label="State:"
+          options={{
+            newYork: 'New York',
+            arizona: 'Arizona',
+            massachusetts: 'Massachusetts',
+            hawaii: 'Hawaii',
+          }}
+        />
+        <SelectField
+          id="select-city-store"
+          label="City:"
+          options={{
+            newYorkCity: 'New York City',
+            phoenix: 'Phoenix',
+            boston: 'Boston',
+            honolulu: 'Honolulu',
+          }}
+        />
+        <Button
+          variant="secondary"
+          icon={<Icon name="ArrowRight" />}
+          iconPosition="right"
+        >
+          Find Store
+        </Button>
+      </div>
+    </section>
+  )
+}
+```
+
+You should be able to see something like:
+
+![new-section-without-styles](https://vtexhelp.vtexassets.com/assets/docs/src/without-styles___4680d2a9a67e4175f3b73eff036ca8ac.png)
+
+4. Let's add more styles to it. You can customize it using our [design tokens](/docs/global-tokens/overview) and [component's data attributes](/components/atoms/button#customization).
+
+```scss filename="src/components/ourStores.module.scss" copy
+.ourStores {
+  @import '@faststore/ui/src/components/atoms/Button/styles.scss';
+  @import '@faststore/ui/src/components/atoms/Select/styles.scss';
+  @import '@faststore/ui/src/components/molecules/SelectField/styles.scss';
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--fs-spacing-5);
+  margin: auto;
+  background-color: var(--fs-color-neutral-bkg);
+
+  [data-fs-select-field] {
+    flex-direction: column;
+    align-items: flex-start;
+
+    [data-fs-select] {
+      border: var(--fs-border-width) solid var(--fs-border-color);
+      margin-top: var(--fs-spacing-0);
+      width: 10rem;
+      height: var(--fs-control-min-height);
+
+      select {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.ourStores__title {
+  font-size: var(--fs-text-size-title-section);
+  margin-bottom: var(--fs-spacing-1);
+}
+
+.ourStores__content {
+  display: flex;
+  align-items: flex-end;
+  column-gap: var(--fs-spacing-5);
+  margin: var(--fs-spacing-5);
+}
+```
+
+```tsx {14,16} filename="src/components/OurStores.tsx" copy
+import React from 'react'
+import { Button, Icon, SelectField } from '@faststore/ui'
+
+import styles from './ourStores.module.scss'
+
+export interface OurStoresProps {
+  title: string
+  description: string
+}
+
+export default function OurStores(props: OurStoresProps) {
+  return (
+    <section className={styles.ourStores}>
+      <h2 className={styles.ourStores__title}>{props.title}</h2>
+      <p>{props.description}</p>
+      <div className={styles.ourStores__content}>
+        <SelectField
+          id="select-state-store"
+          label="State:"
+          options={{
+            newYork: 'New York',
+            arizona: 'Arizona',
+            massachusetts: 'Massachusetts',
+            hawaii: 'Hawaii',
+          }}
+        />
+        <SelectField
+          id="select-city-store"
+          label="City:"
+          options={{
+            newYorkCity: 'New York City',
+            phoenix: 'Phoenix',
+            boston: 'Boston',
+            honolulu: 'Honolulu',
+          }}
+        />
+        <Button
+          variant="secondary"
+          icon={<Icon name="ArrowRight" />}
+          iconPosition="right"
+        >
+          Find Store
+        </Button>
+      </div>
+    </section>
+  )
+}
+```
+
+After applying these additional styles, you should be able to see this final look 🎉:
+
+![new-section-with-styles](https://vtexhelp.vtexassets.com/assets/docs/src/with-styles___4b1cd40d4dcbbba544fd051b1f2dcb36.png)
+
+## Related resources
+
+- [Themes](/docs/themes/overview)
+- [Building and Customizing sections](/docs/building-sections/component-customization-overview)

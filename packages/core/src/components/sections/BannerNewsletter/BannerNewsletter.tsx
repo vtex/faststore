@@ -1,6 +1,9 @@
-import { BannerTextProps } from 'src/components/sections/BannerText'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
-import Newsletter, { NewsletterProps } from 'src/components/sections/Newsletter'
+import type { BannerTextProps } from 'src/components/sections/BannerText'
+
+import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
+import type { NewsletterProps } from 'src/components/sections/Newsletter'
+
 import Section from '../Section'
 import styles from './section.module.scss'
 
@@ -9,7 +12,7 @@ function BannerNewsletter({
   newsletter,
 }: {
   banner: BannerTextProps
-  newsletter: NewsletterProps
+  newsletter: Omit<NewsletterProps, 'card'>
 }) {
   return (
     <Section className={`${styles.section} section-banner-newsletter`}>
@@ -22,6 +25,8 @@ function BannerNewsletter({
           colorVariant={banner.colorVariant}
         />
         <Newsletter
+          card
+          colorVariant={newsletter.colorVariant}
           title={newsletter.title}
           description={newsletter.description}
           icon={newsletter.icon}
@@ -30,9 +35,9 @@ function BannerNewsletter({
           displayNameInput={newsletter.displayNameInput}
           nameInputLabel={newsletter.nameInputLabel}
           subscribeButtonLabel={newsletter.subscribeButtonLabel}
+          subscribeButtonLoadingLabel={newsletter.subscribeButtonLoadingLabel}
           toastSubscribe={newsletter.toastSubscribe}
           toastSubscribeError={newsletter.toastSubscribeError}
-          card={newsletter.card}
         />
       </div>
     </Section>

@@ -6,6 +6,7 @@
   // Default properties
   --fs-banner-text-padding-mobile                : var(--fs-spacing-6) 5%;
   --fs-banner-text-padding-desktop               : var(--fs-spacing-9) 10%;
+  --fs-banner-text-border-radius                 : var(--fs-border-radius);
 
   // Button Link
   --fs-banner-text-button-link-min-width         : 11.25rem;
@@ -43,6 +44,7 @@
 
   height: 100%;
   text-align: center;
+  border-radius: var(--fs-banner-text-border-radius);
 
   [data-fs-banner-text-content] {
     display: flex;
@@ -81,14 +83,11 @@
   &[data-fs-banner-text-variant="secondary"] {
     h2 {
       margin-bottom: var(--fs-spacing-2);
-      font-size: var(--fs-banner-text-title-size);
+      font-size: var(--fs-banner-text-secondary-title-size);
       font-weight: var(--fs-banner-text-title-weight);
       line-height: var(--fs-banner-text-title-line-height);
 
-      @include media(">=notebook") {
-        display: block;
-        font-size: var(--fs-banner-text-secondary-title-size);
-      }
+      @include media(">=notebook") { display: block; }
     }
 
     p {
@@ -114,7 +113,7 @@
     }
   }
 
-  &[data-fs-banner-color-variant="accent"] {
+  &[data-fs-banner-text-color-variant="accent"] {
     background-color: var(--fs-banner-text-accent-bkg-color);
 
     [data-fs-banner-text-heading] {

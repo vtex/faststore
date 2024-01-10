@@ -36,7 +36,7 @@ function ProductDetailsSettings({
   const {
     BuyButton,
     Icon,
-    Price,
+    ProductPrice,
     QuantitySelector,
     __experimentalNotAvailableButton: NotAvailableButton,
   } = useOverrideComponents<'ProductDetails'>()
@@ -52,7 +52,6 @@ function ProductDetailsSettings({
     image: productImages,
     additionalProperty,
     offers: {
-      lowPrice,
       offers: [{ availability, price, listPrice, seller }],
     },
   } = product
@@ -77,10 +76,6 @@ function ProductDetailsSettings({
   const outOfStock = useMemo(
     () => availability === 'https://schema.org/OutOfStock',
     [availability]
-  )
-  const shouldShowDiscountedPrice = useMemo(
-    () => lowPrice !== listPrice,
-    [lowPrice, listPrice]
   )
 
   const AddToCartButton = () => {
@@ -110,48 +105,13 @@ function ProductDetailsSettings({
     <>
       {!outOfStock && (
         <section data-fs-product-details-values>
-          <div data-fs-product-details-prices>
-            {shouldShowDiscountedPrice ? (
-              <>
-                <Price.Component
-                  formatter={useFormattedPrice}
-                  testId="list-price"
-                  variant="listing"
-                  SRText="Original price:"
-                  {...Price.props}
-                  // Dynamic props shouldn't be overridable
-                  // This decision can be reviewed later if needed
-                  value={listPrice}
-                  data-value={listPrice}
-                />
-                <Price.Component
-                  formatter={useFormattedPrice}
-                  testId="price"
-                  variant="spot"
-                  className="text__lead"
-                  SRText="Sale Price:"
-                  {...Price.props}
-                  // Dynamic props shouldn't be overridable
-                  // This decision can be reviewed later if needed
-                  value={lowPrice}
-                  data-value={lowPrice}
-                />
-              </>
-            ) : (
-              <Price.Component
-                formatter={useFormattedPrice}
-                testId="list-price"
-                variant="spot"
-                className="text__lead"
-                SRText="Original price:"
-                {...Price.props}
-                // Dynamic props shouldn't be overridable
-                // This decision can be reviewed later if needed
-                value={lowPrice}
-                data-value={lowPrice}
-              />
-            )}
-          </div>
+          <ProductPrice.Component
+            data-fs-product-details-prices
+            value={price}
+            listPrice={listPrice}
+            formatter={useFormattedPrice}
+            {...ProductPrice.props}
+          />
           <QuantitySelector.Component
             min={1}
             max={10}

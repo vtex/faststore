@@ -1,0 +1,29 @@
+---
+title: 'Permission denied while running vtex cms sync'
+sidebar_label: 'Troubleshooting'
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<header>
+# Permission denied error while running `faststore cms-sync`
+</header>
+
+If you encounter a `Error: Permission denied` or `Error: User indicated by VtexIdclientAutCookie is not authorized to access the indicated resource.` when using `faststore cms-sync` or `vtex cms sync`, this issue is not related to the plugin version but rather to the user's permissions needed to execute the command and save resources.
+To resolve this issue, ask the person who conceived your user Admin access and follow these steps:
+
+1. Open the VTEX Admin, go to **Account Settings > User Roles.**
+
+![license-manager-cms](https://vtexhelp.vtexassets.com/assets/docs/src/cms-license-manager___57f69d96f44f3d29413f2651df7d98c8.png)
+
+2. Under **Roles**, select the role associated with the user requiring CMS permissions, for example **Owner (Admin Super)**.
+
+3. In **Products and Resources**, find and click **CMS**.
+
+![role-permission](https://vtexhelp.vtexassets.com/assets/docs/src/cms-license-manager-role___f67a8717b5411664dd29cfa9de1764bc.gif)
+
+4. Ensure both **See CMS menu on the top-bar** and **Settings** are checked.
+
+5. In the same page, navigate to the section **Users** and add the email from the person who needs to access the CMS.
+
+6. Click `Save`. Ask the person to try to run the `faststore cms-sync` or `vtex cms sync` again and they should be able to sync their changes.
