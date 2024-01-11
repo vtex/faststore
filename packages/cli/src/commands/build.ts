@@ -2,7 +2,7 @@ import { Command } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
-import { copySync, removeSync, moveSync } from 'fs-extra'
+import { copySync, removeSync, moveSync, readdirSync } from 'fs-extra'
 import { tmpDir, userDir } from '../utils/directory'
 import { generate } from '../utils/generate'
 
@@ -20,6 +20,7 @@ export default class Build extends Command {
       process.exit(yarnBuildResult.status)
     }
 
+    await cleanup()
     await finish()
   }
 }
@@ -41,20 +42,31 @@ async function copyResource(from: string, to: string) {
   }
 }
 
+async function cleanup() {
+  // Remove `node_modules` from temporary directory after build
+  removeSync(`${tmpDir}/node_modules`)
+
+  // Fix Next.js standalone build output directory
+  if (existsSync(`${tmpDir}/.next/standalone/.faststore`)) {
+    const standaloneBuildFiles = readdirSync(
+      `${tmpDir}/.next/standalone/.faststore`
+    )
+
+    await Promise.all(
+      standaloneBuildFiles.map((file) =>
+        moveSync(
+          `${tmpDir}/.next/standalone/.faststore/${file}`,
+          `${tmpDir}/.next/standalone/${file}`,
+          { overwrite: true }
+        )
+      )
+    )
+    removeSync(`${tmpDir}/.next/standalone/.faststore`)
+  }
+}
+
 async function finish() {
   // Copy necessary resources to the store directory
   await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
   await copyResource(`${tmpDir}/lighthouserc.js`, `${userDir}/lighthouserc.js`)
-
-  // Fix Next.js standalone build output directory
-  if (existsSync(`${tmpDir}/.next/standalone/.faststore`)) {
-    moveSync(
-      `${tmpDir}/.next/standalone/.faststore/*`,
-      `${tmpDir}/.next/standalone`,
-      { overwrite: true }
-    )
-  }
-
-  // Remove `node_modules` from temporary directory after build
-  removeSync(`${tmpDir}/node_modules`)
 }
