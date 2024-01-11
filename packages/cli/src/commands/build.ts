@@ -48,7 +48,11 @@ async function finish() {
 
   // Fix Next.js standalone build output directory
   if (existsSync(`${tmpDir}/.next/standalone/.faststore`)) {
-    moveSync(`${tmpDir}/.next/standalone/.faststore`, `${tmpDir}/.next/standalone`)
+    moveSync(
+      `${tmpDir}/.next/standalone/.faststore`,
+      `${tmpDir}/.next/standalone`,
+      { overwrite: true }
+    )
   }
 
   // Remove `node_modules` from temporary directory after build
