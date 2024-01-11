@@ -84,11 +84,7 @@ Explore the functionalities of the hooks and components, also find the up-to-dat
 
 - Image_unstable
 
-  We highly recommend using the Image component when working with images in your
-  application to enhance the storefront performance. This component leverages an
-  image resizing and cropping service, called Thumbor, which caches the results
-  on CDN. (Use it when the image is uploaded in the VTEX admin, whether in the
-  CMS or Catalog.)
+We highly recommend using the Image component when working with images in your application to enhance storefront performance. This component utilizes a service called [Thumbor](https://www.thumbor.org/) for image resizing and cropping, with the results cached on a Content Delivery Network (CDN). Utilize it whenever an image is uploaded in the VTEX admin, whether in the CMS or Catalog.
 
 ```tsx {2} copy
 import { HeroImage as UIHeroImage } from '@faststore/ui'
