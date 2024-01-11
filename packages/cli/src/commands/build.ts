@@ -49,7 +49,7 @@ async function finish() {
   // Fix Next.js standalone build output directory
   if (existsSync(`${tmpDir}/.next/standalone/.faststore`)) {
     moveSync(
-      `${tmpDir}/.next/standalone/.faststore`,
+      `${tmpDir}/.next/standalone/.faststore/*`,
       `${tmpDir}/.next/standalone`,
       { overwrite: true }
     )
