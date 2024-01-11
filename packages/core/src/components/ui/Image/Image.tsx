@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-import NextImage, { ImageProps as NextImageProps } from 'next/image'
+import NextImage, { ImageProps as NextImageProps } from 'next/future/image'
 import loader from './loader'
 
 export type ImageProps = NextImageProps
