@@ -48,7 +48,7 @@ async function cleanup() {
   removeSync(`${tmpDir}/node_modules`)
 }
 
-async function normalizeBuildOutputDir() {
+async function normalizeStandaloneBuildDir() {
   // Fix Next.js standalone build output directory
   if (existsSync(`${tmpDir}/.next/standalone/.faststore`)) {
     const standaloneBuildFiles = readdirSync(
