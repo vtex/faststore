@@ -21,6 +21,7 @@ export default class Build extends Command {
     }
 
     await cleanup()
+    await normalizeBuildOutputDir()
     await finish()
   }
 }
@@ -45,7 +46,9 @@ async function copyResource(from: string, to: string) {
 async function cleanup() {
   // Remove `node_modules` from temporary directory after build
   removeSync(`${tmpDir}/node_modules`)
+}
 
+async function normalizeBuildOutputDir() {
   // Fix Next.js standalone build output directory
   if (existsSync(`${tmpDir}/.next/standalone/.faststore`)) {
     const standaloneBuildFiles = readdirSync(
