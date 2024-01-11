@@ -1,0 +1,118 @@
+---
+title: 'Experimental Exports - Hooks & Components'
+sidebar_label: 'Experimental Exports - Hooks & Components'
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<header>
+
+# Experimental Exports - Hooks & Components
+
+</header>
+
+When overriding a native component or creating a new FastStore section, you can import the hooks and components from [`@faststore/core`](/docs#faststore-core-faststorecore) to customize specific functionalities without starting from scratch.
+Although some hooks are accessible through `@faststore/sdk`, certain functionalities, such as accessing cart and session data, require the use of hooks and components from `@faststore/core`.
+
+<Callout type="warning" emoji="⚠️">
+  All exports are suffixed with `_unstable` to indicate that the support is
+  experimental.
+</Callout>
+
+---
+
+## Usage
+
+Import the hook or component into your component from `@faststore/core/experimental`:
+
+```tsx copy
+import { use{ComponentName}_unstable as use{ComponentName} } from '@faststore/core/experimental'
+```
+
+In the following example, the `useCartToggleButton_unstable` hook was imported to enhance the custom buy button
+with the ability to toggle the cart, and benefeting from the behavior of the useCartToggleButton.
+
+```tsx {3} copy
+import React from 'react'
+import { Button as UIButton } from '@faststore/ui'
+import { useCartToggleButton_unstable as useCartToggleButton } from '@faststore/core/experimental'
+
+export default function CustomBuyButton() {
+  const { onClick: toggleCart } = useCartToggleButton()
+  return (
+    <UIButton
+      variant="primary"
+      onClick={() => {
+        toggleCart()
+      }}
+    >
+      New Buy Button
+    </UIButton>
+  )
+}
+```
+
+## Available Exports
+
+Explore the functionalities of the hooks and components, also find the up-to-date list of available experimental exports directly
+within the codebase: [@faststore/core/experimental](https://github.com/vtex/faststore/blob/main/packages/core/src/experimental/index.ts).
+
+- [Hooks](#hooks)
+- [Components](#components)
+
+### Hooks
+
+Functions that provide a way to import some of the functionalities or state of native components to your custom components. The hooks provided by `@faststore/core/experimental` include:
+
+- useSession_unstable
+- sessionStore_unstable
+- validateSession_unstable
+- useCart_unstable
+- cartStore_unstable
+- useBuyButton_unstable
+- useCartToggleButton_unstable
+- useCheckoutButton_unstable
+- useRemoveButton_unstable
+- useQuery_unstable
+- useLazyQuery_unstable
+- useNewsletter_unstable
+- useDiscountPercent_unstable
+- useFormattedPrice_unstable
+- useLocalizedVariables_unstable
+- useProductGalleryQuery_unstable
+- useProductLink_unstable
+- useProductQuery_unstable
+- useProductsPrefetch_unstable
+- useSearchHistory_unstable
+- useSuggestions_unstable
+- useTopSearch_unstable
+- useFilter_unstable
+- useDelayedFacets_unstable
+- useDelayedPagination_unstable
+- getShippingSimulation_unstable
+- useShippingSimulation_unstable
+
+### Components
+
+- [Image_unstable](https://github.com/vtex/faststore/blob/105a8b2f69ffd8438532d7c9eb959ed26a567675/packages/core/src/components/ui/Image/Image.tsx)
+
+We highly recommend using the Image component when working with images in your application to enhance storefront performance. This component utilizes a service called [Thumbor](https://www.thumbor.org/) for image resizing and cropping, with the results cached on a Content Delivery Network (CDN). Utilize it whenever an image is uploaded in the VTEX admin, whether in the CMS or Catalog.
+
+```tsx {2} copy
+import { HeroImage as UIHeroImage } from '@faststore/ui'
+import { Image_unstable as Image } from '@faststore/core/experimental'
+
+export default function CustomHeroImage() {
+  return (
+    <UIHeroImage>
+      <Image
+        src="https://storeframework.vtexassets.com/arquivos/ids/160965/est.jpg?v=637752924295370000"
+        alt="Two puffs and two small desks placed together, accompanied by various color pencils."
+        width={360}
+        height={240}
+        sizes="(max-width: 360px) 50vw, (max-width: 768px) 90vw, 50vw"
+      />
+    </UIHeroImage>
+  )
+}
+```
