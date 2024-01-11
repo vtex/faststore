@@ -72,4 +72,8 @@ async function finish() {
   // Copy necessary resources to the store directory
   await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
   await copyResource(`${tmpDir}/lighthouserc.js`, `${userDir}/lighthouserc.js`)
+  await copyResource(
+    `${tmpDir}/cms-webhook-urls.json`,
+    `${userDir}/cms-webhook-urls.json`
+  )
 }
