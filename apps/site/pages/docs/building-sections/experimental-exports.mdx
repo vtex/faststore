@@ -11,20 +11,26 @@ import { Callout } from 'nextra-theme-docs'
 
 </header>
 
-Utilize the helpful hooks and components provided by `@faststore/core` when customizing your application's components.
-
-While some hooks are readily available through `@faststore/sdk`, others, like accessing cart and session data, are not accessible through this method.
-Although users can manually implement some of these hooks, we believe in promoting simplicity, code reuse, and experimentation. To facilitate this, we've made these hooks available for direct import into your Starter project.
+When overriding a native component or creating a new FastStore section, you can import the hooks and components from [`@faststore/core`](/docs#faststore-core-faststorecore) to customize specific functionalities without starting from scratch.
+Although some hooks are accessible through `@faststore/sdk`, certain functionalities, such as accessing cart and session data, require the use of hooks and components from `@faststore/core`.
 
 <Callout type="warning" emoji="⚠️">
-All exports are suffixed with `_unstable` to indicate that the support is experimental.
+  All exports are suffixed with `_unstable` to indicate that the support is
+  experimental.
 </Callout>
 
 ---
 
 ## Usage
 
-You can import it into your component from `@faststore/core/experimental` as the following example:
+Import the hook or component into your component from `@faststore/core/experimental`:
+
+```tsx copy
+import { use{ComponentName}_unstable as use{ComponentName} } from '@faststore/core/experimental'
+```
+
+In the following example, the `useCartToggleButton_unstable` hook was imported to enhance the custom buy button
+with the ability to toggle the cart, and benefeting from the behavior of the useCartToggleButton.
 
 ```tsx {3} copy
 import React from 'react'
@@ -48,9 +54,12 @@ export default function CustomBuyButton() {
 
 ## Available Exports
 
-Explore the functionalities of the hooks and components, also find the up-to-date list of available experimental exports directly within the codebase: [@faststore/core/experimental](https://github.com/vtex/faststore/blob/main/packages/core/src/experimental/index.ts).
+Explore the functionalities of the hooks and components, also find the up-to-date list of available experimental exports directly
+within the codebase: [@faststore/core/experimental](https://github.com/vtex/faststore/blob/main/packages/core/src/experimental/index.ts).
 
 ### Hooks
+
+Functions that provide a way to import some of the functionalities or state of native components to your custom components. The hooks provided by `@faststore/core/experimental` include:
 
 - useSession_unstable
 - sessionStore_unstable
