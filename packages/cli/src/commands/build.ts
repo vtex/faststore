@@ -21,7 +21,7 @@ export default class Build extends Command {
     }
 
     await cleanup()
-    await normalizeBuildOutputDir()
+    await normalizeStandaloneBuildDir()
     await finish()
   }
 }
