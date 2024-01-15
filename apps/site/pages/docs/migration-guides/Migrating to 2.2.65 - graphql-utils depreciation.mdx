@@ -1,12 +1,39 @@
-# Migrating to 2.2.65 - graphql-utils depreciation
+# Migrating your store to v2.2.65
 
-From 2.2.60 on, the `@faststore/graphql-utils` is officially deprecated. It was previously used internally by `@faststore/core` to handle GraphQL optimizations and GraphQL definitions.
+In this guide, learn how to migrate your store version to v2.2.65 to leverage the latest improvements in the API extension.
+
+Version 2.2.65 and above, introduces the following enhancements to API extension users: 
+
+- Deprecation of the `@faststore/graphql-utils` package in favor of the [`client-preset`](https://the-guild.dev/graphql/codegen/plugins/presets/preset-client) plugin.
+
+- Refinement `gql` helper usage for a smoother and more efficient GraphQL query handling.
+
+- Enhancement security measures to a more secure method for invoking queries and mutations to safeguard your store's data.
+
+- Optimization call processes for queries or mutations defined within `@faststore/core`.
+
+import { Callout } from 'nextra/components'
+ 
+<Callout type="info" emoji="ℹ️">
+  For more details about these changes, also refer to the release note [TBD](/tbd)
+</Callout>
 
 The `@faststore/graphql-utils` has been replaced by open-source solutions maintained by the community that are now re-exported from `@faststore/core`. There are minor breaking changes on how developers should write GraphQL definitions and invoke queries and mutations, which were introduced in version 2.2.60.
+## Before you begin
+Make sure your store version is updated to v2.2.65 or above. If it’s not updated follow the instructions below:
 
-## The `gql` helper
+1. Open your store code and navigate to the `package.json` file.
 
-Previously, it was possible to import the `gql` helper function directly from `@faststore/graphql-utils` - although it was not recommended. This will now throw an error. See the example below:
+2. In `dependencies` > `@faststore/core`, change the version to the following:
+
+```json
+"@faststore/core": "^2.2.65",
+```
+
+3. Open the terminal and run `yarn` to update the version.
+## Updating the `gql` helper usage
+
+The `gql` helper serves as a function to define GraphQL operations such as queries, mutations, or fragments within the store code. Before, the function was imported directly from the `@faststore/graphql-utils` which was not recommended. See the example below:
 
 ```tsx
 // src/fragments/ClientProduct.tsx
@@ -28,9 +55,9 @@ export const fragment = gql`
 `
 ```
 
-The code above should be re-written to accomodate the changes in the `gql` helper, which should be imported from `@faststore/core/api` and be invoked as a function - with the argument between parentesis. This also applies to query and mutation definitions inside the components. See the re-written code below:
+Now with the  v2.2.65, you should import the `gql` helper from `@faststore/core/api`and be called as a function - with the argument between parenthesis. This also applies to query and mutation definitions inside the components. For example:
 
-```tsx
+```tsx {1}
 // src/fragments/ClientProduct.tsx
 import { gql } from '@faststore/core/api'
 
@@ -50,9 +77,9 @@ export const fragment = gql(`
 `)
 ```
 
-## The `useQuery` hook
+## Using `useQuery` hook to call queries and mutations
 
-Another change was made on how queries and mutations were invoked. Previously, it was possible to invoke queries and mutations by using their names - such as `MyCustomQuery` in the example below - just by providing it to the `useQuery` hook. This is no longer possible, as queries and mutations are now invoked using more secure hashes which are randomly generated. Here's an example:
+Previously, it was possible to invoke queries and mutations by using their names - such as `MyCustomQuery` by providing it to the `useQuery` hook. For example:
 
 ```tsx
 import { useQuery_unstable as useQuery } from '@faststore/core/experimental'
@@ -73,7 +100,7 @@ function CustomComponent() {
 }
 ```
 
-To fix it, developers should pass the query or mutation object - result of the `gql` call -  to `useQuery` directly.
+With v2.2.65, queries and mutations are now only invoked using more secure hashes, which are randomly generated and do to that you must pass the query or mutation object - result of the `gql` call - to `useQuery` directly. For example:
 
 ```tsx
 import { gql } from '@faststore/core/api'
@@ -95,10 +122,13 @@ function CustomComponent() {
 }
 ```
 
-### Calling a query or mutation defined by `@faststore/core`
+### Calling queries or mutations defined by `@faststore/core`
 
-Sometimes a custom component needs to call a query or mutation defined by `@faststore/core`, such as `ClientManyProductsQuery`. In those cases, developers should replace the `useQuery` hook call by a call to the specific hook for that query. The availability for such hooks is limited, and we're working to provide support for them. See the example below.
+A custom component can call a query or mutation defined by `@faststore/core`, such as `ClientManyProductsQuery`. In these cases, you replace the `useQuery` hook call with a call to the specific hook for that query. 
 
+<Callout type="warning" emoji="⚠️">
+  The availability of such hooks is limited.
+</Callout>
 ```tsx
 import { useClientManyProducts_unstable as useClientManyProducts } from '@faststore/core/experimental'
 
