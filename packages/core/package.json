@@ -59,7 +59,7 @@
     "graphql": "^15.0.0",
     "include-media": "^1.4.10",
     "msw": "^0.43.1",
-    "next": "^12.3.1",
+    "next": "^13.5.6",
     "next-seo": "^6.4.0",
     "nextjs-progressbar": "^0.0.14",
     "postcss": "^8.4.4",
