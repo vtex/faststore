@@ -1,6 +1,6 @@
 {
   "name": "@faststore/core",
-  "version": "2.2.71",
+  "version": "2.2.73",
   "license": "MIT",
   "repository": "vtex/faststore",
   "browserslist": "supports es6-module and not dead",
@@ -78,7 +78,7 @@
   "devDependencies": {
     "@cypress/code-coverage": "^3.12.1",
     "@envelop/testing": "^6.0.0",
-    "@faststore/cli": "^2.2.69",
+    "@faststore/cli": "^2.2.73",
     "@faststore/eslint-config": "^2.2.69",
     "@faststore/lighthouse": "^1.12.32",
     "@lhci/cli": "^0.9.0",
