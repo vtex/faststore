@@ -21,6 +21,7 @@ export default class Build extends Command {
     }
 
     await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
+
     await copyResource(
       `${tmpDir}/lighthouserc.js`,
       `${userDir}/lighthouserc.js`
@@ -30,12 +31,12 @@ export default class Build extends Command {
       `${userDir}/cms-webhook-urls.json`
     )
     
-    if (existsSync(`.next/standalone`)) {
-      await copyResource(
-        `${userDir}/node_modules`,
-        `.next/standalone/node_modules`
-      )
-    }
+    // if (existsSync(`.next/standalone`)) {
+    //   await copyResource(
+    //     `${userDir}/node_modules`,
+    //     `.next/standalone/node_modules`
+    //   )
+    // }
   }
 }
 
@@ -45,7 +46,7 @@ async function copyResource(from: string, to: string) {
       removeSync(to)
     }
 
-    await copySync(from, to)
+    copySync(from, to)
     console.log(
       `${chalk.green('success')} - ${chalk.dim(from)} copied to ${chalk.dim(
         to
