@@ -6,7 +6,6 @@ const storeConfig = require('./faststore.config')
  * */
 const nextConfig = {
   /* config options here */
-  output: 'standalone',
   images: {
     domains: [`${storeConfig.api.storeId}.vtexassets.com`],
     deviceSizes: [360, 540, 768, 1280, 1440],
