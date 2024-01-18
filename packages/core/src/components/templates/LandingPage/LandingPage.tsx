@@ -29,10 +29,12 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 export type LandingPageProps = {
   page: PageContentType
+  slug?: string
 }
 
 export default function LandingPage({
   page: { sections, settings },
+  slug,
 }: LandingPageProps) {
   return (
     <>
@@ -41,7 +43,9 @@ export default function LandingPage({
         title={settings?.seo?.title ?? storeConfig.seo.title}
         description={settings?.seo?.description ?? storeConfig.seo?.description}
         titleTemplate={storeConfig.seo?.titleTemplate ?? storeConfig.seo?.title}
-        canonical={settings?.seo?.canonical ?? storeConfig.storeUrl}
+        canonical={
+          settings?.seo?.canonical ?? `${storeConfig.storeUrl}/${slug}`
+        }
         openGraph={{
           type: 'website',
           url: storeConfig.storeUrl,
