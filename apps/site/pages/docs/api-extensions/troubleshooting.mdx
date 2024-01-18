@@ -31,7 +31,7 @@ Follow these steps to trigger the optimization:
 If you notice differences between the GraphQL schema in your deploy preview or production environment compared to your development setup, it may be due to the schema not being optimized since the development server's initiation. 
 The build process optimizes the schema before deployment to accurately reflect the schema declared in the store's code.
 
-Refer to the [GraphQL changes not visible during development](/docs/api-extension/troubleshooting#graphql-changes-not-visible-during-development) topic, to fix the issue.
+Refer to the [GraphQL changes not visible during development](/docs/api-extensions/troubleshooting#graphql-changes-not-visible-during-development) topic, to fix the issue.
 
 ---
 
@@ -73,4 +73,4 @@ To access more detailed error information, use the `--debug` flag when manually 
 
 During the build step, the GraphQL optimization and type files are always generated fresh, which means they always reflect the most recent changes present in the code.
 
-If your changes are not visible in production, this means you must not have committed them to the branch you're currently working on. If you see a different GraphQL Schema, queries, or data during development, refer to the [GraphQL changes not visible during development](/docs/api-extension/troubleshooting#graphql-changes-not-visible-during-development) topic.
+If your changes are not visible in production, this means you must not have committed them to the branch you're currently working on. If you see a different GraphQL Schema, queries, or data during development, refer to the [GraphQL changes not visible during development](/docs/api-extensions/troubleshooting#graphql-changes-not-visible-during-development) topic.
