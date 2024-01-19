@@ -1,0 +1,26 @@
+# FAQ
+
+__experimental components exists while components are not migrated to FS UI. When that happens, their API might change
+
+All overridable components are FastStore UI components. They are documented in the FastStore UI documentation. This makes it easy to override and leverage existing props by passing them down.
+
+Prop overrides change the default definitions for that prop. Headless CMS props will always win override or default prop definitions.
+
+An overridden component is nothing different than a regular custom component and should be used in the same way.
+
+For each component, one must override only props or the whole component, never both.
+
+#troubleshooting
+
+# My overrides don't show up
+
+Did you replace the native section for your customized one?
+
+# My prop overrides don't work
+
+Several sections have default prop definitions that, in the moment it is added to the CMS, can bypass your prop overrides. Consider removing default values.
+
+# My custom section class name don't work
+
+check styles, check imports
+
