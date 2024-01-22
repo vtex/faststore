@@ -36,6 +36,7 @@ type Props = BaseProps &
       }
     | {
         type: 'page'
+        slug: string
         page: PageContentType
       }
   )
@@ -94,6 +95,7 @@ export const getStaticProps: GetStaticProps<
         page: await landingPagePromise,
         globalSections: await globalSectionsPromise,
         type: 'page',
+        slug,
       },
     }
   }
