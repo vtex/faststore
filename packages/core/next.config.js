@@ -4,7 +4,7 @@ const storeConfig = require('./faststore.config')
 /**
  * @type {import('next').NextConfig}
  * */
-const nextConfig = {
+let nextConfig = {
   /* config options here */
   images: {
     domains: [`${storeConfig.api.storeId}.vtexassets.com`],
@@ -45,6 +45,10 @@ const nextConfig = {
   },
   redirects: storeConfig.redirects,
   rewrites: storeConfig.rewrites,
+}
+
+if (storeConfig.withNextConfig) {
+  nextConfig = storeConfig.withNextConfig(nextConfig)
 }
 
 module.exports = nextConfig

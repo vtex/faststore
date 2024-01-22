@@ -132,6 +132,26 @@ async function copyCypressFiles() {
   }
 }
 
+async function copyUserConfiguredFiles() {
+  const userStoreConfig = await import(userStoreConfigFileDir)
+
+  if (!Array.isArray(userStoreConfig.copyFiles)) {
+    return
+  }
+
+  for (const file of userStoreConfig.copyFiles) {
+    try {
+      copySync(path.join(userDir, file), path.join(tmpDir, file), {
+        overwrite: true,
+      })
+
+      console.log(`${chalk.green('success')} - ${chalk.dim(file)} copied`)
+    } catch (err) {
+      console.error(`${chalk.red('error')} - ${err}`)
+    }
+  }
+}
+
 function copyUserStarterToCustomizations() {
   try {
     if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
@@ -280,6 +300,7 @@ export async function generate(options?: GenerateOptions) {
 
   await Promise.all([
     setupPromise,
+    copyUserConfiguredFiles(),
     copyUserStarterToCustomizations(),
     copyTheme(),
     createCmsWebhookUrlsJsonFile(),
