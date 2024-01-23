@@ -509,6 +509,8 @@ export type QueryShippingArgs = {
 /** Search result. */
 export type SearchMetadata = {
   __typename?: 'SearchMetadata';
+  /** Indicates how the search engine corrected the misspelled word by using fuzzy logic. */
+  fuzzy: Scalars['String'];
   /** Indicates if the search term was misspelled. */
   isTermMisspelled: Scalars['Boolean'];
   /** Logical operator used to run the search. */

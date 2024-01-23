@@ -123,10 +123,10 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
     }
 
     const productSearchResult = await productSearchPromise
-
     return {
       isTermMisspelled: productSearchResult.correction?.misspelled ?? false,
       logicalOperator: productSearchResult.operator,
+      fuzzy: productSearchResult.fuzzy,
     }
   },
 }
