@@ -1052,6 +1052,26 @@
   resolved "https://registry.yarnpkg.com/@faststore/lighthouse/-/lighthouse-1.12.32.tgz#840096bc88ce80041217c764df97d9f0b4968658"
   integrity sha512-65IiCPRfjdtKyGXSvLXjug46J8z8e7dJr7Otxezjmn8N0F9tWh8IvrEAEAquXZXvg6sjVEjJnQ3S6fYuiqW4iw==
 
+"@floating-ui/core@^1.5.3":
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/@floating-ui/core/-/core-1.5.3.tgz#b6aa0827708d70971c8679a16cf680a515b8a52a"
+  integrity sha512-O0WKDOo0yhJuugCx6trZQj5jVJ9yR0ystG2JaNAemYUWce+pmM6WUEFIibnWyEJKdrDxhm75NoSRME35FNaM/Q==
+  dependencies:
+    "@floating-ui/utils" "^0.2.0"
+
+"@floating-ui/dom@^1.0.0":
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/@floating-ui/dom/-/dom-1.5.4.tgz#28df1e1cb373884224a463235c218dcbd81a16bb"
+  integrity sha512-jByEsHIY+eEdCjnTVu+E3ephzTOzkQ8hgUfGwos+bg7NlH33Zc5uO+QHz1mrQUOgIKKDD1RtS201P9NvAfq3XQ==
+  dependencies:
+    "@floating-ui/core" "^1.5.3"
+    "@floating-ui/utils" "^0.2.0"
+
+"@floating-ui/utils@^0.2.0":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.1.tgz#16308cea045f0fc777b6ff20a9f25474dd8293d2"
+  integrity sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==
+
 "@gar/promisify@^1.0.1", "@gar/promisify@^1.1.3":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
@@ -3256,6 +3276,47 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
+"@remote-ui/async-subscription@^2.1.14":
+  version "2.1.14"
+  resolved "https://registry.yarnpkg.com/@remote-ui/async-subscription/-/async-subscription-2.1.14.tgz#100f31a3e7d8d427ed13e064c335692abe320e20"
+  integrity sha512-m4HQ7LmBNN80d5CDG1d0MzESfXQB3tPK3cEFannUoyqZybxZst/AB8TAnwKKZcXUR1eedkZMTqH6BjEgMRzulQ==
+  dependencies:
+    "@remote-ui/rpc" "^1.4.3"
+
+"@remote-ui/core@^2.2.2":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@remote-ui/core/-/core-2.2.3.tgz#5d53666d8bce9874d4976c21e88dd202e6080cd0"
+  integrity sha512-LWwAlDJw9c+b61dViU6v8ivU0AalgGikvqidVoBLt+CLjTAXMwIkzIeYdjyRyp7JgGxnTYxnmVHUdJdxX144jg==
+  dependencies:
+    "@remote-ui/rpc" "^1.4.3"
+    "@remote-ui/types" "^1.1.3"
+
+"@remote-ui/react@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@remote-ui/react/-/react-5.0.2.tgz#449a935d53eb38265708f691bc9d57674d02be4b"
+  integrity sha512-v1C6QekhR6NrpzHA1dGMPun47N0TBb6VRq+yjIN5b6Z7i7wApf5+ifKc5gYouv4ENfoKPhatXAsOoYblG5iRpw==
+  dependencies:
+    "@remote-ui/async-subscription" "^2.1.14"
+    "@remote-ui/core" "^2.2.2"
+    "@remote-ui/rpc" "^1.4.3"
+    "@types/react" ">=17.0.0 <19.0.0"
+    "@types/react-reconciler" ">=0.26.0 <0.30.0"
+
+"@remote-ui/rpc@^1.2.5", "@remote-ui/rpc@^1.4.3", "@remote-ui/rpc@^1.4.4":
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/@remote-ui/rpc/-/rpc-1.4.4.tgz#94e93ee7adab34b599ac516817d78c04177b5be9"
+  integrity sha512-3XVzEZSTxAw6c8ryDmds36M7QWWJW8Q7mxz+xInqkbrpOeSc6m1plGfNRFlbyaTq0puyH07dLjpsnl+HmWIacw==
+
+"@remote-ui/types@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@remote-ui/types/-/types-1.1.3.tgz#b2a790d5be50fb82d89d4abea9883f87f83a5a25"
+  integrity sha512-P1kN1F3p0oMgnLN8Of1Ie9am3sLvJ7nhqHH1pvzkrxqjVwhhyPVZNcwOHyUNZPKp62izhDavdrcnqrdXzVJqGA==
+
+"@remote-ui/web-workers@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@remote-ui/web-workers/-/web-workers-2.0.0.tgz#0276f5ce0337f8641b94960c501b5b53d2ec9dc1"
+  integrity sha512-oVBgdjzomsZNMSiQw0bUtljxUfCRCPrG2bJ6gPnSjn2wPfqfWVBo08BqQgMkN9JIL1RGyrtwssR9P15Pd5zC/Q==
+
 "@repeaterjs/repeater@3.0.4", "@repeaterjs/repeater@^3.0.4":
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/@repeaterjs/repeater/-/repeater-3.0.4.tgz#a04d63f4d1bf5540a41b01a921c9a7fddc3bd1ca"
@@ -3288,6 +3349,32 @@
   integrity sha512-c/qwwcHyafOQuVQJj0IlBjf5yYgBI7YPJ77k4fOJYesb41jio65eaJODRUmfYKhTOFBrIZ66kgvGPlNbjuoRdQ==
   dependencies:
     any-observable "^0.3.0"
+
+"@shopify/react-hooks@^3.0.5":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@shopify/react-hooks/-/react-hooks-3.0.5.tgz#d2103ecc60f111185b3f61a057893b4cd1841d9f"
+  integrity sha512-FzTkzFELTkfU0ErcURY2eAPRwFP3MkyeAl09STIbvfNLkNcFIG9i3869KAdFrSwRsR7WZ3PdWkWFcLAuRJPvpg==
+
+"@shopify/react-web-worker@^5.0.13":
+  version "5.0.13"
+  resolved "https://registry.yarnpkg.com/@shopify/react-web-worker/-/react-web-worker-5.0.13.tgz#6c15ff060c7edb77e67ef5f2f9f0e3bf62d3a490"
+  integrity sha512-HspNuLNDOPQhtPYes+i6MzFtiyAQicoBl8iYlpRefUwk1mW631LKbcyr/8RWsgZl6g80PByy9bn0OzD9CwN5PA==
+  dependencies:
+    "@shopify/react-hooks" "^3.0.5"
+    "@shopify/useful-types" "^5.1.2"
+    "@shopify/web-worker" "^6.0.5"
+
+"@shopify/useful-types@^5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@shopify/useful-types/-/useful-types-5.1.2.tgz#da8f2aaa8b3496705068b21deb76091cc58fcdc4"
+  integrity sha512-EjwIljAYHT1pfIxdMFp6ytJvCUmKXa5NWsvG7zXFX5EnLs7wYp66M/QCuoyJjI0Lq+5ZVyrJXJqqeBiXQVVs0w==
+
+"@shopify/web-worker@^6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@shopify/web-worker/-/web-worker-6.0.5.tgz#7dbfe6b4a74f5ae2451233ed932f3357c4c1d67c"
+  integrity sha512-vM5diGhV3lVx6SQyl6jhXQEap+CzCqbSTG/rmCmX4HLifmnRpSGRBC3z0HpsUA6FYlLkk8VYqHkm1yGRHEe9BA==
+  dependencies:
+    "@remote-ui/rpc" "^1.2.5"
 
 "@sigstore/bundle@^1.1.0":
   version "1.1.0"
@@ -3817,6 +3904,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-reconciler@>=0.26.0 <0.30.0":
+  version "0.28.8"
+  resolved "https://registry.yarnpkg.com/@types/react-reconciler/-/react-reconciler-0.28.8.tgz#e51710572bcccf214306833c2438575d310b3e98"
+  integrity sha512-SN9c4kxXZonFhbX4hJrZy37yw9e7EIxcpHCxQv5JUS18wDE5ovkQKlqQEkufdJCCMfuI9BnjUJvhYeJ9x5Ra7g==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^18.2.42":
   version "18.2.42"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.42.tgz#6f6b11a904f6d96dda3c2920328a97011a00aba7"
@@ -3830,6 +3924,15 @@
   version "18.0.26"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.26.tgz#8ad59fc01fef8eaf5c74f4ea392621749f0b7917"
   integrity sha512-hCR3PJQsAIXyxhTNSiDFY//LhnMZWpNNr5etoCqx/iUfGc5gXWtQR2Phl908jVR6uPXacojQWTg4qRpkxTuGug==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/react@>=17.0.0 <19.0.0":
+  version "18.2.48"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.48.tgz#11df5664642d0bd879c1f58bc1d37205b064e8f1"
+  integrity sha512-qboRCl6Ie70DQQG9hhNREz81jqC1cs9EVNcjQ1AU+jH6NFfSAhVVbrrY/+nSF+Bsk4AOwm9Qa61InvMCyV+H3w==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -4349,6 +4452,27 @@ aria-query@^4.2.2:
   dependencies:
     "@babel/runtime" "^7.10.2"
     "@babel/runtime-corejs3" "^7.10.2"
+
+ariakit-react-utils@0.17.0-next.27:
+  version "0.17.0-next.27"
+  resolved "https://registry.yarnpkg.com/ariakit-react-utils/-/ariakit-react-utils-0.17.0-next.27.tgz#6749587a659ec9806439fe28209d155aff19f20e"
+  integrity sha512-YyL3sEowwaw6r8wRjENB9S4Hjz/ppyv5nJNeFkb6xaEX/QYUYmqL+lQch50LW04vj9oa8RGHlY2SmyQX3d7g3w==
+  dependencies:
+    ariakit-utils "0.17.0-next.27"
+
+ariakit-utils@0.17.0-next.27:
+  version "0.17.0-next.27"
+  resolved "https://registry.yarnpkg.com/ariakit-utils/-/ariakit-utils-0.17.0-next.27.tgz#c9971d41526f5f8afa9e8ae7596d15ed22b2f977"
+  integrity sha512-IcjtuHl7FZP5mGrpvTSXqPUj+jRuIuBHlJAlxr3y4pxRgYpsYVpyZOClU3yrOoG7KUVApfmJjPOGWy00y+Gi+Q==
+
+ariakit@^2.0.0-next.44:
+  version "2.0.0-next.44"
+  resolved "https://registry.yarnpkg.com/ariakit/-/ariakit-2.0.0-next.44.tgz#2a37b0f111754b6dc06083289e36767a3d46d480"
+  integrity sha512-vWWS+2HUFz4Nii1lXP3QHMa+fxr9vbu4p/sGmD/b80+JfVtW8OicAUSR4FXnyMwX2nVy+77DN6eAw3/LbuzX1g==
+  dependencies:
+    "@floating-ui/dom" "^1.0.0"
+    ariakit-react-utils "0.17.0-next.27"
+    ariakit-utils "0.17.0-next.27"
 
 array-differ@^3.0.0:
   version "3.0.0"
@@ -5346,6 +5470,11 @@ cjs-module-lexer@^1.0.0:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-1.2.3.tgz#6c370ab19f8a3394e318fe682686ec0ac684d107"
   integrity sha512-0TNiGstbQmCFwt4akjjBg5pLRTSyj/PkWQ1ZoO2zntmg9yLqSRxwEa4iCfQLGjqhiqBfOJa7W/E8wfGrTDmlZQ==
+
+classnames@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.5.1.tgz#ba774c614be0f016da105c858e7159eae8e7687b"
+  integrity sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==
 
 clean-stack@^2.0.0:
   version "2.2.0"
@@ -14661,6 +14790,14 @@ react-is@^18.0.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
+
+react-reconciler@^0.29.0:
+  version "0.29.0"
+  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.29.0.tgz#ee769bd362915076753f3845822f2d1046603de7"
+  integrity sha512-wa0fGj7Zht1EYMRhKWwoo1H9GApxYLBuhoAuXN0TlltESAjDssB+Apf0T/DngVqaMyPypDmabL37vw/2aRM98Q==
+  dependencies:
+    loose-envify "^1.1.0"
+    scheduler "^0.23.0"
 
 react-swipeable@^7.0.0:
   version "7.0.0"

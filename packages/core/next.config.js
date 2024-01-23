@@ -1,5 +1,6 @@
 // @ts-check
 const storeConfig = require('./faststore.config')
+const WebWorkerPluginPackage = require('@shopify/web-worker/webpack')
 
 /**
  * @type {import('next').NextConfig}
@@ -34,6 +35,16 @@ const nextConfig = {
           options.modules.exportLocalsConvention = 'camelCase'
         }
       })
+
+    config.plugins = [
+      ...config.plugins,
+      new WebWorkerPluginPackage.WebWorkerPlugin(),
+    ]
+
+    config.output = {
+      ...config.output,
+      globalObject: 'self',
+    }
 
     // Reduce the number of chunks so we ship a smaller first bundle.
     // This should help reducing TBT

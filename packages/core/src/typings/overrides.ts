@@ -56,6 +56,7 @@ import Navbar from '../components/sections/Navbar'
 import Newsletter from '../components/sections/Newsletter'
 import ProductGallery from '../components/sections/ProductGallery'
 import RegionBar from '../components/sections/RegionBar'
+import MainCheckout from '../checkout/main/main'
 
 export type SectionOverride = {
   [K in keyof SectionsOverrides]: SectionOverrideDefinitionV1<K>
@@ -345,6 +346,19 @@ export type SectionsOverrides = {
       >
       LocationIcon: ComponentOverrideDefinition<IconProps, IconProps>
       ButtonIcon: ComponentOverrideDefinition<IconProps, IconProps>
+    }
+  }
+  MainCheckout: {
+    Section: typeof MainCheckout
+    components: {
+      Root: ComponentOverrideDefinition<IconProps, IconProps>,
+      BeforeCartTitle: ComponentOverrideDefinition<IconProps, IconProps>,
+      BeforeCartList: ComponentOverrideDefinition<IconProps, IconProps>,
+      Footer: ComponentOverrideDefinition<IconProps, IconProps>,
+      BeforeSummary: ComponentOverrideDefinition<IconProps, IconProps>,
+      CouponButton: ComponentOverrideDefinition<IconProps, IconProps>,
+      AfterSummary: ComponentOverrideDefinition<IconProps, IconProps>,
+      AfterFinishOrder: ComponentOverrideDefinition<IconProps, IconProps>,
     }
   }
 }

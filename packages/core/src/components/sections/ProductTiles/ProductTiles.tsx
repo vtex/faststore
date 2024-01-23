@@ -11,6 +11,7 @@ import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import Section from '../Section'
 
 import styles from './section.module.scss'
+import OverriddenMainCheckout from 'src/checkout/main/OverriddenMainCheckout'
 
 interface ProductTilesProps
   extends Partial<ClientManyProductsQueryQueryVariables> {
@@ -81,28 +82,31 @@ const ProductTiles = ({ title, ...variables }: ProductTilesProps) => {
   }
 
   return (
-    <Section
-      className={`${styles.section} section-product-tiles layout__section`}
-      ref={ref}
-    >
-      <h2 className="text__title-section layout__content">{title}</h2>
-      <ProductTilesSkeleton loading={!products}>
-        <Tiles>
-          {productEdges.map((product, idx) => (
-            <Tile key={product.node.id}>
-              <ProductCard
-                data-testid="tile-card"
-                product={product.node}
-                index={idx + 1}
-                variant="wide"
-                aspectRatio={getRatio(productEdges.length, idx)}
-                imgProps={getSizes(productEdges.length, idx)}
-              />
-            </Tile>
-          ))}
-        </Tiles>
-      </ProductTilesSkeleton>
-    </Section>
+    <>
+      <Section
+        className={`${styles.section} section-product-tiles layout__section`}
+        ref={ref}
+      >
+        <h2 className="text__title-section layout__content">{title}</h2>
+        <ProductTilesSkeleton loading={!products}>
+          <Tiles>
+            {productEdges.map((product, idx) => (
+              <Tile key={product.node.id}>
+                <ProductCard
+                  data-testid="tile-card"
+                  product={product.node}
+                  index={idx + 1}
+                  variant="wide"
+                  aspectRatio={getRatio(productEdges.length, idx)}
+                  imgProps={getSizes(productEdges.length, idx)}
+                />
+              </Tile>
+            ))}
+          </Tiles>
+        </ProductTilesSkeleton>
+      </Section>
+      <OverriddenMainCheckout />
+    </>
   )
 }
 

@@ -1,4 +1,4 @@
 {
   "presets": ["next/babel"],
-  "plugins": ["@faststore/graphql-utils/babel"]
+  "plugins": ["@faststore/graphql-utils/babel", "@shopify/web-worker/babel"]
 }
