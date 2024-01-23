@@ -10,6 +10,10 @@ type StoreImage {
   Alias for the image.
   """
   alternateName: String!
+  """
+  Keyword for the image.
+  """
+  keywords: String
 }
 
 """
@@ -24,4 +28,8 @@ input IStoreImage {
   Alias for the input image.
   """
   alternateName: String!
+  """
+  Keyword for the image.
+  """
+  keywords: String
 }

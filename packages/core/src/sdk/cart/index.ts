@@ -61,6 +61,7 @@ export const ValidateCartMutation = gql(`
     image {
       url
       alternateName
+      keywords
     }
     brand {
       name

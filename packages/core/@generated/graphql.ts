@@ -208,6 +208,8 @@ export type IStoreGeoCoordinates = {
 export type IStoreImage = {
   /** Alias for the input image. */
   alternateName: Scalars['String']['input']
+  /** Keyword for the image. */
+  keywords: InputMaybe<Scalars['String']['input']>
   /** Image input URL. */
   url: Scalars['String']['input']
 }
@@ -815,6 +817,8 @@ export type StoreGeoCoordinates = {
 export type StoreImage = {
   /** Alias for the image. */
   alternateName: Scalars['String']['output']
+  /** Keyword for the image. */
+  keywords: Maybe<Scalars['String']['output']>
   /** Image URL. */
   url: Scalars['String']['output']
 }
@@ -1144,7 +1148,7 @@ export type ProductDetailsFragment_ProductFragment = {
       availableVariations: any | null
     } | null
   }
-  image: Array<{ url: string; alternateName: string }>
+  image: Array<{ url: string; alternateName: string; keywords: string | null }>
   brand: { name: string }
   offers: {
     lowPrice: number
@@ -1221,7 +1225,11 @@ export type ServerProductQueryQuery = {
     breadcrumbList: {
       itemListElement: Array<{ item: string; name: string; position: number }>
     }
-    image: Array<{ url: string; alternateName: string }>
+    image: Array<{
+      url: string
+      alternateName: string
+      keywords: string | null
+    }>
     offers: {
       lowPrice: number
       highPrice: number
@@ -1272,7 +1280,11 @@ export type ValidateCartMutationMutation = {
           sku: string
           name: string
           gtin: string
-          image: Array<{ url: string; alternateName: string }>
+          image: Array<{
+            url: string
+            alternateName: string
+            keywords: string | null
+          }>
           brand: { name: string }
           isVariantOf: {
             productGroupID: string
@@ -1307,7 +1319,11 @@ export type CartItemFragment = {
     sku: string
     name: string
     gtin: string
-    image: Array<{ url: string; alternateName: string }>
+    image: Array<{
+      url: string
+      alternateName: string
+      keywords: string | null
+    }>
     brand: { name: string }
     isVariantOf: {
       productGroupID: string
@@ -1331,7 +1347,7 @@ export type CartProductItemFragment = {
   sku: string
   name: string
   gtin: string
-  image: Array<{ url: string; alternateName: string }>
+  image: Array<{ url: string; alternateName: string; keywords: string | null }>
   brand: { name: string }
   isVariantOf: {
     productGroupID: string
@@ -1461,7 +1477,11 @@ export type ClientProductQueryQuery = {
         availableVariations: any | null
       } | null
     }
-    image: Array<{ url: string; alternateName: string }>
+    image: Array<{
+      url: string
+      alternateName: string
+      keywords: string | null
+    }>
     brand: { name: string }
     offers: {
       lowPrice: number
@@ -1678,6 +1698,7 @@ export const CartProductItemFragmentDoc = new TypedDocumentString(
   image {
     url
     alternateName
+    keywords
   }
   brand {
     name
@@ -1746,6 +1767,7 @@ export const ProductDetailsFragment_ProductFragmentDoc =
   image {
     url
     alternateName
+    keywords
   }
   brand {
     name
@@ -1910,6 +1932,7 @@ export const CartItemFragmentDoc = new TypedDocumentString(
   image {
     url
     alternateName
+    keywords
   }
   brand {
     name
@@ -1955,7 +1978,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: 'bf778aa3411fa194094d24f73250124d60496121',
+    operationHash: '39dca07bdd286cb7d7fce3c548bdb91ef53964ac',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -1964,7 +1987,7 @@ export const ServerProductQueryDocument = {
 export const ValidateCartMutationDocument = {
   __meta__: {
     operationName: 'ValidateCartMutation',
-    operationHash: '87e1ba227013cb087bcbb35584c1b0b7cdf612ef',
+    operationHash: '700b201c2980a24df0c8f59cddd6d065e6a38421',
   },
 } as unknown as TypedDocumentString<
   ValidateCartMutationMutation,
@@ -2000,7 +2023,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: 'e535e4897bf98968b8ce0a59af64212c4a746e6f',
+    operationHash: '78fce47368ab9e53a42c33058ff7764f6f6ad0e8',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,

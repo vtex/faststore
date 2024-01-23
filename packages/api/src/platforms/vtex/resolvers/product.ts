@@ -22,6 +22,7 @@ const DEFAULT_IMAGE = {
   imageText: 'image',
   imageUrl:
     'https://storecomponents.vtexassets.com/assets/faststore/images/image___117a6d3e229a96ad0e0d0876352566e2.svg',
+  imageLabel: 'label'
 }
 
 const getSlug = (link: string, id: string) => `${link}-${id}`
@@ -74,11 +75,12 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
       numberOfItems: categories.length,
     }
   },
-  image: ({ images }) =>
+  image: ({ images }) => 
     (nonEmptyArray(images) ?? [DEFAULT_IMAGE]).map(
-      ({ imageUrl, imageText }) => ({
+      ({ imageUrl, imageText, imageLabel }) => ({
         alternateName: imageText ?? '',
         url: imageUrl.replace('vteximg.com.br', 'vtexassets.com'),
+        keywords: imageLabel,
       })
     ),
   sku: ({ itemId }) => itemId,
