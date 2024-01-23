@@ -12,12 +12,15 @@ import { ExtendableQueryTable } from './../../../components/ExtendableQueryTable
 
 </header>
 
-After [defining the new fields exposed by the FastStore API Extension](/docs/api-extension/extending-api-schema), the next step is to specify where these fields will be utilized within GraphQL fragments.
+After [defining the new fields exposed by the FastStore API Extension](/docs/api-extensions/extending-api-schema), the next step is to specify where these fields will be utilized within GraphQL fragments.
 
 [Fragments](https://graphql.org/learn/queries/#fragments) in GraphQL are reusable units that enhance query functionality. FastStore associates these fragments with the existing queries used on its pages to incorporate the newly exposed fields.
 
 <Callout type="info" emoji="ℹ️">
-  To access the list of queries and their corresponding fragments, refer to the [extendable queries](/docs/api-extension/extending-queries-using-fragments#extendable-queries) section.
+  To access the list of queries and their corresponding fragments, refer to the
+  [extendable
+  queries](/docs/api-extensions/extending-queries-using-fragments#extendable-queries)
+  section.
 </Callout>
 
 follow the steps below to add custom fields to an [existing query](/docs/api-extensions#extendable-queries). We will use the `ServerProduct` query as an example to illustrate how to extend.
