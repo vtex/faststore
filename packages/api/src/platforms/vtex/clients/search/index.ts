@@ -30,7 +30,7 @@ export interface SearchArgs {
   type: 'product_search' | 'facets'
   sort?: Sort
   selectedFacets?: SelectedFacet[]
-  fuzzy?: '0' | '1' | 'auto'
+  fuzzy?: '0' | '1' | 'auto' | undefined
   hideUnavailableItems?: boolean
 }
 
@@ -39,9 +39,20 @@ export interface ProductLocator {
   value: string
 }
 
+// channel keys
 const POLICY_KEY = 'trade-policy'
 const REGION_KEY = 'region-id'
-const CHANNEL_KEYS = new Set([POLICY_KEY, REGION_KEY])
+
+// search parameters
+const FUZZY_KEY = 'fuzzy'
+const OPERATOR_KEY = 'operator'
+
+const EXTRA_FACETS_KEYS = new Set([
+  POLICY_KEY,
+  REGION_KEY,
+  FUZZY_KEY,
+  OPERATOR_KEY,
+])
 
 export const isFacetBoolean = (
   facet: Facet
@@ -85,7 +96,9 @@ export const IntelligentSearch = (
   }
 
   const addDefaultFacets = (facets: SelectedFacet[]) => {
-    const withDefaultFacets = facets.filter(({ key }) => !CHANNEL_KEYS.has(key))
+    const withDefaultFacets = facets.filter(
+      ({ key }) => !EXTRA_FACETS_KEYS.has(key)
+    )
 
     const policyFacet =
       facets.find(({ key }) => key === POLICY_KEY) ?? getPolicyFacet()
@@ -104,6 +117,23 @@ export const IntelligentSearch = (
     return withDefaultFacets
   }
 
+  const addSearchParamsFacets = (
+    facets: SelectedFacet[],
+    params: URLSearchParams
+  ) => {
+    const fuzzyFacet = facets.find(({ key }) => key === FUZZY_KEY) ?? null
+
+    const operatorFacet = facets.find(({ key }) => key === OPERATOR_KEY) ?? null
+
+    if (fuzzyFacet !== null) {
+      params.append(FUZZY_KEY, fuzzyFacet?.value)
+    }
+
+    if (operatorFacet !== null) {
+      params.append(OPERATOR_KEY, operatorFacet?.value)
+    }
+  }
+
   const search = <T>({
     query = '',
     page,
@@ -111,14 +141,12 @@ export const IntelligentSearch = (
     sort = '',
     selectedFacets = [],
     type,
-    fuzzy = 'auto',
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
       count: count.toString(),
       query,
       sort,
-      fuzzy,
       locale: ctx.storage.locale,
     })
 
@@ -129,6 +157,8 @@ export const IntelligentSearch = (
     const pathname = addDefaultFacets(selectedFacets)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
+
+    addSearchParamsFacets(selectedFacets, params)
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,

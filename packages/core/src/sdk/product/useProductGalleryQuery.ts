@@ -1,4 +1,5 @@
 import { sendAnalyticsEvent } from '@faststore/sdk'
+import { useSearch, setFacet } from '@faststore/sdk'
 
 import { gql } from '@generated'
 import { useQuery } from 'src/sdk/graphql/useQuery'
@@ -10,6 +11,7 @@ import type {
   ClientProductGalleryQueryQueryVariables as Variables,
 } from '@generated/graphql'
 import type { IntelligentSearchQueryEvent } from 'src/sdk/analytics/types'
+import type { Facet } from '@faststore/sdk/dist/types'
 
 /**
  * This query is run on the browser and contains
@@ -60,6 +62,8 @@ export const useProductGalleryQuery = ({
   itemsPerPage,
 }) => {
   const { locale } = useSession()
+  const { state, setState } = useSearch()
+
   const localizedVariables = useLocalizedVariables({
     first: itemsPerPage,
     after: '0',
@@ -68,9 +72,41 @@ export const useProductGalleryQuery = ({
     selectedFacets,
   })
 
+  const findAndSetFacetValue = (
+    facets: Facet[],
+    key: string,
+    newValue: string
+  ) => {
+    const existingFacetValue = facets?.find(
+      (facet: Facet) => facet.key === key
+    )?.value
+
+    if (!existingFacetValue) {
+      setState({
+        ...state,
+        selectedFacets: setFacet(
+          state.selectedFacets,
+          { key, value: newValue },
+          true
+        ),
+      })
+    }
+  }
+
   return useQuery<Query, Variables>(query, localizedVariables, {
     onSuccess: (data) => {
       if (data && term) {
+        findAndSetFacetValue(
+          selectedFacets,
+          'fuzzy',
+          data.search.metadata?.fuzzy
+        )
+        findAndSetFacetValue(
+          selectedFacets,
+          'operator',
+          data.search.metadata?.logicalOperator
+        )
+
         sendAnalyticsEvent<IntelligentSearchQueryEvent>({
           name: 'intelligent_search_query',
           params: {
