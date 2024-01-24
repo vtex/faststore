@@ -83,11 +83,11 @@ export const StoreProduct: ActualStoreProductType  = {
   image: ({ images }, { keywords, count }: StoreProductImageArgs) => {
     const shouldFilter = keywords !== 'all'
 
-    // Normalize count to -1 as we want any negative value to always return the full list of images
+    // Normalize count to undefined as we want any negative value to always return the full list of images
     count = count || -1
-    count = count < -1 ? -1 : count
+    count = count <= -1 ? undefined : count
 
-    let resolvedImages = (nonEmptyArray(images) ?? [DEFAULT_IMAGE]).map(
+    const resolvedImages = (nonEmptyArray(images) ?? [DEFAULT_IMAGE]).map(
       ({ imageUrl, imageText, imageLabel }) => ({
         alternateName: imageText ?? '',
         url: imageUrl.replace('vteximg.com.br', 'vtexassets.com'),
@@ -95,13 +95,15 @@ export const StoreProduct: ActualStoreProductType  = {
       })
     )
 
-    resolvedImages = shouldFilter
+    let filteredImages = shouldFilter
       ? resolvedImages.filter(
           ({ keywords: imageKeywords }) => imageKeywords === keywords
         )
       : resolvedImages
 
-    return resolvedImages.slice(0, count)
+    filteredImages = filteredImages.length === 0 ? resolvedImages : filteredImages
+
+    return filteredImages.slice(0, count)
   },
   sku: ({ itemId }) => itemId,
   gtin: ({ referenceId }) => referenceId[0]?.Value ?? '',
