@@ -31,7 +31,7 @@ const getPath = (link: string, id: string) => `/${getSlug(link, id)}/p`
 const nonEmptyArray = <T>(array: T[] | null | undefined) =>
   Array.isArray(array) && array.length > 0 ? array : null
 
-export const StoreProduct: Record<string, Resolver<Root>> & {
+type ActualStoreProductType = Record<string, Resolver<Root, any>> & {
   offers: Resolver<
     Root,
     any,
@@ -40,8 +40,10 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
 
   isVariantOf: Resolver<Root, any, Root>
 
-  image: Resolver<Root, StoreProductImageArgs, Array<StoreImage>>
-} = {
+  image: Resolver<Root, StoreProductImageArgs, StoreImage[]>
+}
+
+export const StoreProduct: ActualStoreProductType  = {
   productID: ({ itemId }) => itemId,
   name: ({ isVariantOf, name }) => name ?? isVariantOf.productName,
   slug: ({ isVariantOf: { linkText }, itemId }) => getSlug(linkText, itemId),
