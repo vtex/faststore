@@ -436,6 +436,7 @@ export type QuerySearchArgs = {
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
   term?: Maybe<Scalars['String']>;
+  fuzzy?: '0' | '1' | 'auto';
 };
 
 

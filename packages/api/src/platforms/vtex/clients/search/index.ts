@@ -120,6 +120,9 @@ export const IntelligentSearch = (
       params.append('hideUnavailableItems', hideUnavailableItems.toString())
     }
 
+      console.log("params:", params)
+
+
     const pathname = addDefaultFacets(selectedFacets)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
