@@ -976,6 +976,13 @@ export type StoreProduct = {
   slug: Scalars['String'];
 };
 
+
+/** Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
+export type StoreProductImageArgs = {
+  count?: Maybe<Scalars['Int']>;
+  keywords?: Maybe<Scalars['String']>;
+};
+
 /** Product connections, including pagination information and products returned by the query. */
 export type StoreProductConnection = {
   __typename?: 'StoreProductConnection';
