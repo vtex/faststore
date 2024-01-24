@@ -72,40 +72,30 @@ export const useProductGalleryQuery = ({
     selectedFacets,
   })
 
-  const findAndSetFacetValue = (
+  const findFacetValue = (
     facets: Facet[],
-    key: string,
-    newValue: string
-  ) => {
-    const existingFacetValue = facets?.find(
-      (facet: Facet) => facet.key === key
-    )?.value
-
-    if (!existingFacetValue) {
-      setState({
-        ...state,
-        selectedFacets: setFacet(
-          state.selectedFacets,
-          { key, value: newValue },
-          true
-        ),
-      })
-    }
+    searchParam: string
+  ): string | null => {
+    const facet = facets.find(({ key }) => key === searchParam)
+    return facet?.value ?? null
   }
 
   return useQuery<Query, Variables>(query, localizedVariables, {
     onSuccess: (data) => {
       if (data && term) {
-        findAndSetFacetValue(
-          selectedFacets,
-          'fuzzy',
-          data.search.metadata?.fuzzy
-        )
-        findAndSetFacetValue(
-          selectedFacets,
-          'operator',
-          data.search.metadata?.logicalOperator
-        )
+        const fuzzyFacetValue = findFacetValue(selectedFacets, 'fuzzy')
+        const operatorFacetValue = findFacetValue(selectedFacets, 'operator')
+
+        if (!fuzzyFacetValue && !operatorFacetValue) {
+          setState({
+            ...state,
+            selectedFacets: [
+              ...selectedFacets,
+              { key: 'fuzzy', value: data.search.metadata?.fuzzy },
+              { key: 'operator', value: data.search.metadata?.logicalOperator },
+            ],
+          })
+        }
 
         sendAnalyticsEvent<IntelligentSearchQueryEvent>({
           name: 'intelligent_search_query',
