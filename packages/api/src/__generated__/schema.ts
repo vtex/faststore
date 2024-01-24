@@ -113,6 +113,12 @@ export type DeliveryIds = {
   warehouseId?: Maybe<Scalars['String']>;
 };
 
+export const enum Fuzzy {
+  Auto = 'AUTO',
+  One = 'ONE',
+  Zero = 'ZERO'
+};
+
 /** Person data input to the newsletter. */
 export type IPersonNewsletter = {
   /** Person's email. */
@@ -433,10 +439,10 @@ export type QueryRedirectArgs = {
 export type QuerySearchArgs = {
   after?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
+  fuzzy?: Maybe<Fuzzy>;
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
   term?: Maybe<Scalars['String']>;
-  fuzzy?: '0' | '1' | 'auto';
 };
 
 

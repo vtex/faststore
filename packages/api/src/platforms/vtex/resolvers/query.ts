@@ -19,12 +19,19 @@ import type {
   QueryProductArgs,
   QuerySearchArgs,
   QueryShippingArgs,
-  QueryRedirectArgs
+  QueryRedirectArgs,
 } from "../../../__generated__/schema"
+
+import {
+  Fuzzy
+} from "../../../__generated__/schema"
+
+
 import type { CategoryTree } from "../clients/commerce/types/CategoryTree"
 import type { Context } from "../index"
 import { isValidSkuId, pickBestSku } from "../utils/sku"
 import { SearchArgs } from "../clients/search"
+import { FUZZY_MAP } from "../utils/fuzzy"
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -110,7 +117,7 @@ export const Query = {
   },
   search: async (
     _: unknown,
-    { first, after: maybeAfter, sort, term, selectedFacets, fuzzy = 'auto' }: QuerySearchArgs,
+    { first, after: maybeAfter, sort, term, selectedFacets, fuzzy }: QuerySearchArgs,
     ctx: Context
   ) => {
     // Insert channel in context for later usage
@@ -154,7 +161,7 @@ export const Query = {
       query: query ?? undefined,
       sort: SORT_MAP[sort ?? 'score_desc'],
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
-      fuzzy
+      fuzzy: FUZZY_MAP[fuzzy ?? Fuzzy.Auto]
     }
 
     const productSearchPromise = ctx.clients.search.products(searchArgs)
