@@ -8,6 +8,7 @@ import type {
 import type { SectionsOverrides } from '../../typings/overrides'
 import { getSectionOverrides } from './overrides'
 import { OverrideProvider } from './OverrideContext'
+import MainCheckout from '../../checkout/main/main'
 
 export function getOverridableSection<
   Section extends ComponentType,
@@ -68,6 +69,22 @@ export function getOverriddenSection<
   return function OverriddenSection(
     props: ComponentProps<typeof OverridableSection>
   ) {
-    return <OverridableSection {...props} {...{ __overrides: rest }} />
+    return <OverridableSection {...Object(props)} {...{ __overrides: rest }} />
   }
+}
+
+const extensionPoints = {}
+
+export function setExtensionPoint(
+  extensionPoint: string,
+  extension: ComponentType
+) {
+  extensionPoints[extensionPoint] = { Component: extension }
+}
+
+export function extend() {
+  return getOverriddenSection({
+    Section: MainCheckout,
+    components: extensionPoints,
+  })
 }

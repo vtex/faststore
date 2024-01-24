@@ -1,15 +1,12 @@
-import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
-import MainCheckout from './main'
+import {
+  extend,
+  setExtensionPoint,
+} from 'src/sdk/overrides/getOverriddenSection'
 
-const OverriddenMainCheckout = getOverriddenSection({
-  Section: MainCheckout,
-  components: {
-    CouponButton: {
-      Component: function CouponButton() {
-        return <span>Hello World!!!!!!!!!</span>
-      },
-    },
-  },
+setExtensionPoint('CouponButton', function CouponButton() {
+  return <span>Hello World!!!!!!!!!</span>
 })
 
-export default OverriddenMainCheckout
+const OverridenMainCheckout = extend()
+
+export default OverridenMainCheckout
