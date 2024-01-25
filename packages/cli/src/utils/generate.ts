@@ -1,4 +1,5 @@
 import {
+  copy,
   copyFileSync,
   copySync,
   existsSync,
@@ -254,7 +255,7 @@ function mergeCMSFiles() {
 
 function copyUserNodeModules() {
   try {
-    copySync(userNodeModulesDir, tmpNodeModulesDir)
+    copy(userNodeModulesDir, tmpNodeModulesDir)
     console.log(
       `${chalk.green('success')} - ${chalk.dim('node_modules')} files copied`
     )
