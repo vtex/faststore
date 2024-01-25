@@ -9,6 +9,7 @@ import {
   writeFileSync,
   writeJsonSync,
 } from 'fs-extra'
+import { execSync } from 'child_process'
 
 import path from 'path'
 
@@ -254,7 +255,9 @@ function mergeCMSFiles() {
 
 function copyUserNodeModules() {
   try {
-    copySync(userNodeModulesDir, tmpNodeModulesDir, { recursive: true })
+    execSync(`tar -cf ${tmpNodeModulesDir}.tar ${userNodeModulesDir}`)
+    execSync(`tar -xf ${tmpNodeModulesDir}.tar ${tmpNodeModulesDir}`)
+
     console.log(
       `${chalk.green('success')} - ${chalk.dim('node_modules')} files copied`
     )
