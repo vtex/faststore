@@ -1,15 +1,124 @@
 @layer checkout {
   .checkout {
+    @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
     @import "@faststore/ui/src/components/atoms/Button/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Link/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Select/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Price/styles.scss";
+    @import "@faststore/ui/src/components/molecules/Breadcrumb/styles.scss";
+    @import "@faststore/ui/src/components/molecules/DiscountBadge/styles.scss";
+    @import "@faststore/ui/src/components/molecules/Dropdown/styles.scss";
+    @import "@faststore/ui/src/components/molecules/OrderSummary/styles.scss";
+    @import "@faststore/ui/src/components/molecules/ProductPrice/styles.scss";
 
-    // --fs-color-neutral-bkg-active: blue;
-    //     aside {
-    //       --fs-color-neutral-bkg: var(--checkout-bkg-color);
-    //       width: 300px;
-    //       height: 300px;
-    //     }
-    //     div section aside {
-    //         background-color: red
-    //     }
+    display: flex;
+    height: 100vh;
+
+    // Aside
+
+    [data-fs-checkout-aside] {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30%;
+      height: 100%;
+      padding: var(--fs-spacing-4) var(--fs-spacing-9);
+      background-color: var(--fs-color-neutral-bkg);
+      > footer [data-fs-button] { width: 100%; }
+    }
+
+    [data-fs-checkout-subtitle] {
+      font-weight: var(--fs-text-weight-bold);
+    }
+
+    [data-fs-checkout-aside-section] {
+      padding-bottom: var(--fs-spacing-3);
+      margin-bottom: var(--fs-spacing-3);
+      border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
+
+      > header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    // Content
+
+    [data-fs-checkout-content] {
+      width: 70%;
+      padding-top: var(--fs-spacing-8);
+    }
+
+    [data-fs-checkout-header] {
+      padding-top: var(--fs-spacing-6);
+      padding-bottom: var(--fs-spacing-6);
+
+      > h2 {
+        font-size: var(--fs-text-size-5);
+        font-weight: var(--fs-text-weight-bold);
+      }
+
+      > span {
+        display: flex;
+        justify-content: space-between;
+        > p { color: var(--fs-color-text-light); }
+      }
+    }
+
+    [data-fs-checkout-product] {
+      display: flex;
+      column-gap: 20px;
+      width: 100%;
+
+      &:not(:last-child) {
+        padding-bottom: var(--fs-spacing-4);
+        margin-bottom: var(--fs-spacing-4);
+        border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
+      }
+    }
+
+    [data-fs-checkout-product-removable] {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+
+      [data-fs-button] {
+        width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+      }
+    }
+
+    [data-fs-checkout-product-content] {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    [data-fs-checkout-product-title] [data-fs-badge] { margin-bottom: 10px; }
+
+    [data-fs-checkout-product-values] {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      [data-fs-product-price] {
+        flex-direction: column;
+        align-items: flex-end;
+      }
+    }
+
+    [data-fs-checkout-product-image] {
+      display: block;
+      width: 100px;
+      height: 100px;
+      background-color: var(--fs-color-neutral-bkg);
+    }
+
+    [data-fs-order-summary] {
+      --fs-order-summary-padding: var(--fs-spacing-3) 0;
+    }
   }
 }
