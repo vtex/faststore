@@ -17,9 +17,6 @@ export const parse = ({ pathname, searchParams }: URL): State => {
 
   const facets = searchParams.get('facets')?.split(',') ?? []
 
-  console.log("facets:", facets)
-
-
   for (const facet of facets) {
     const values = searchParams.getAll(facet)
 
