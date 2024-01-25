@@ -30,7 +30,7 @@ export interface SearchArgs {
   type: 'product_search' | 'facets'
   sort?: Sort
   selectedFacets?: SelectedFacet[]
-  fuzzy?: '0' | '1' | 'auto' | undefined
+  fuzzy?: '0' | '1' | 'auto'
   hideUnavailableItems?: boolean
 }
 
