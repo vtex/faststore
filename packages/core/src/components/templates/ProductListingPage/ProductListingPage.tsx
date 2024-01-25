@@ -66,14 +66,10 @@ export default function ProductListingPage({
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
   })
 
-  const { page, sort } = searchParams
   const title = collection?.seo.title ?? storeConfig.seo.title
   const description = collection?.seo.description ?? storeConfig.seo.title
-  const pageQuery = page !== 0 ? `?page=${page}` : ''
-  const separator = pageQuery !== '' ? '&' : '?'
-  const sortQuery = !!sort ? `${separator}sort=${sort}` : ''
   const [pathname] = router.asPath.split('?')
-  const canonical = `${storeConfig.storeUrl}${pathname}${pageQuery}${sortQuery}`
+  const canonical = `${storeConfig.storeUrl}${pathname}`
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
   return (
