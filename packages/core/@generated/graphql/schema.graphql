@@ -408,7 +408,7 @@ type StoreProduct {
   """Product description."""
   description: String!
   """Array of images."""
-  image(keywords: String = "all", count: Int = -1): [StoreImage!]!
+  image(context: String = "generic", limit: Int = -1): [StoreImage!]!
   """Aggregate offer information."""
   offers: StoreAggregateOffer!
   """Stock Keeping Unit. Merchant-specific ID for the product."""

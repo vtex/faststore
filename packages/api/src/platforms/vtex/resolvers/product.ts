@@ -91,24 +91,24 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
       return resolvedImages;
     }
 
-    let { keywords, count } = args as StoreProductImageArgs
+    let { context, limit } = args as StoreProductImageArgs
 
-    const shouldFilter = keywords !== 'all'
+    const shouldFilter = context !== "generic"
 
     // Normalize count to undefined as we want any negative value to always return the full list of images
-    count = count || -1
-    count = count <= -1 ? undefined : count
+    limit = limit || -1
+    limit = limit <= -1 ? undefined : limit
 
     let filteredImages = shouldFilter
       ? resolvedImages.filter(
-          ({ keywords: imageKeywords }) => imageKeywords === keywords
+          ({ keywords: imageKeywords }) => imageKeywords === context
         )
       : resolvedImages
 
     filteredImages =
       filteredImages.length === 0 ? resolvedImages : filteredImages
 
-    return filteredImages.slice(0, count)
+    return filteredImages.slice(0, limit)
   },
   sku: ({ itemId }) => itemId,
   gtin: ({ referenceId }) => referenceId[0]?.Value ?? '',
