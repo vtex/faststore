@@ -1,0 +1,126 @@
+# Contextual Images
+
+Sometimes store owners want images to appear only in specific contexts, for example a product
+ image that should appear only on the SKU Selector, but not on the gallery.
+
+For backwards compatibility, whenever a context is not found as a Label on a Product's images
+all the images are returned.
+
+## How to use contextual images
+
+### 1. Use Labels on VTEX Catalog
+On VTEX's catalog, you should set the Label field of the product image to a context name.
+The only label with special meaning is `generic`. If you label an image with `generic` you 
+won't be able to filter for that individual label, you will always end up with the full set 
+of images.
+
+### 2. Query for the correct images on their context
+
+Add fragments to both ServerProductQuery and ClientProductQuery:
+
+```js
+import { gql } from '@faststore/core/api'
+ 
+export const fragment = gql`
+  fragment ServerProduct on Query {
+    product(locator: $locator) {
+      skuImages: image(context: "skuselector", limit: 1) {
+        url
+        alternateName
+      }
+
+      galleryImages: image(context: "gallery", limit: 3) {
+        url
+        alternateName
+      }
+    }
+  }
+`
+```
+
+```js
+import { gql } from '@faststore/core/api'
+ 
+export const fragment = gql`
+  fragment ClientProduct on Query {
+    product(locator: $locator) {
+      skuImages: image(context: "skuselector", limit: 1) {
+        url
+        alternateName
+      }
+
+      galleryImages: image(context: "gallery", limit: 3) {
+        url
+        alternateName
+      }
+    }
+  }
+`
+```
+
+### 3. Override the ImageGallery
+
+Create the `src/components/overrides/ProductDetails.tsx` file and add the following content to it:
+
+```tsx
+import { SectionOverride } from "@faststore/core";
+
+import { usePDP } from "@faststore/core";
+import { Image_unstable as Image } from "@faststore/core/experimental";
+
+import { ImageGallery, ImageGalleryViewer } from "@faststore/ui";
+import { useState } from "react";
+
+const SECTION = "ProductDetails" as const;
+
+const ImageComponent = ({ url, alternateName }: {url: string, alternateName?: string}) => {
+  return <Image src={url} alt={alternateName} width={68} height={68}/>
+}
+
+const override: SectionOverride = {
+  section: SECTION,
+  components: {
+    __experimentalImageGallery: {
+      Component: () => {
+        // The ServerProductQuery and ClientProductQuery fragments are
+        // accessed via the usePDP Hook.
+        const { data } = usePDP();
+        const [selectedIndex, setSelectedIndex] = useState<number>(0);
+
+        // Instead of using the images being passed to the ImageGallery
+        // Component, we are using the galleryImages we specifically asked
+        // for.  
+        const currentImage = data.product.galleryImages[selectedIndex];
+
+        return (
+          <ImageGallery
+            images={data.product.galleryImages}
+            ImageComponent={ImageComponent}
+            selectedImageIdx={selectedIndex}
+            setSelectedImageIdx={setSelectedIndex}
+            data-fs-product-details-gallery="true"
+          >
+            <ImageGalleryViewer>
+              <Image
+                sizes="(max-width: 360px) 50vw, (max-width: 768px) 90vw, 50vw"
+                width={691}
+                height={691 * (3 / 4)}
+                loading="eager"
+                src={currentImage.url}
+                alt={currentImage.alternateName}
+              />
+            </ImageGalleryViewer>
+          </ImageGallery>
+        );
+      },
+    },
+  },
+};
+
+export { override };
+```
+
+## Trade-offs
+
+If you need an image to appear on different contexts (SKU Selector and Swatch) you should 
+upload it twice and set different labels for each of the image.
