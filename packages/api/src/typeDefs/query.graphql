@@ -240,7 +240,9 @@ type Query {
     Array of selected search facets.
     """
     selectedFacets: [IStoreSelectedFacet!]
-
+    """
+    Search fuzzy parameter.
+    """
     fuzzy: Fuzzy = AUTO
 
   ): StoreSearchResult!

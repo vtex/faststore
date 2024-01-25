@@ -8,8 +8,8 @@ const serverPort = '4000'
 
 const apiOptions = {
   platform: 'vtex',
-  account: 'arcaplanet',
-  locale: 'it-IT',
+  account: 'storeframework',
+  locale: 'en-US',
   environment: 'vtexcommercestable',
   channel: '{"salesChannel":"1"}',
 } as Options
