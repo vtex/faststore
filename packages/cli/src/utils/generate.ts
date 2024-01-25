@@ -254,15 +254,12 @@ function mergeCMSFiles() {
 }
 
 function copyUserNodeModules() {
-  const createFileArgs = `${tmpNodeModulesDir}.tar ${userNodeModulesDir}`
-  const extractFileArgs = `${tmpNodeModulesDir}.tar -C tmpNodeModulesDir`
-
-  const createTarFileCommand = 'tar -cf' + createFileArgs
-  const extractTarFileCommand = 'tar -xf' + extractFileArgs
-
   try {
-    execSync(createTarFileCommand)
-    execSync(extractTarFileCommand)
+    // Create .tar file with all user's `node_modules` content
+    execSync(`tar -cf ${tmpNodeModulesDir}.tar ${userNodeModulesDir}`)
+
+    // Extract `node_modules` content to the temporary directory
+    execSync(`tar -xf ${tmpNodeModulesDir}.tar -C ${tmpNodeModulesDir}`)
 
     console.log(
       `${chalk.green('success')} - ${chalk.dim('node_modules')} files copied`
