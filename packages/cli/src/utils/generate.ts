@@ -19,7 +19,6 @@ import {
   tmpCMSDir,
   tmpDir,
   tmpFolderName,
-  tmpNodeModulesDir,
   tmpStoreConfigFileDir,
   tmpThemesCustomizationsFileDir,
   tmpCmsWebhookUrlsFileDir,
@@ -258,7 +257,7 @@ function copyUserNodeModules() {
     const rsync = new Rsync()
       .flags('r')
       .source(userNodeModulesDir)
-      .destination(tmpNodeModulesDir)
+      .destination(tmpDir)
 
     rsync.execute()
 
