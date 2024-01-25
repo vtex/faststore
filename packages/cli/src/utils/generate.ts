@@ -6,10 +6,10 @@ import {
   readdirSync,
   readFileSync,
   removeSync,
-  symlinkSync,
   writeFileSync,
   writeJsonSync,
 } from 'fs-extra'
+import Rsync from 'rsync'
 
 import path from 'path'
 
@@ -76,7 +76,7 @@ function copyCoreFiles() {
 }
 
 function copyPublicFiles() {
-  const allowList = ["json", "txt", "xml", "ico", "public"]
+  const allowList = ['json', 'txt', 'xml', 'ico', 'public']
   try {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
@@ -85,7 +85,7 @@ function copyPublicFiles() {
           const allow = allowList.some((ext) => src.endsWith(ext))
 
           return allow
-        }
+        },
       })
       console.log(`${chalk.green('success')} - Public files copied`)
     }
@@ -255,7 +255,13 @@ function mergeCMSFiles() {
 
 function copyUserNodeModules() {
   try {
-    symlinkSync(userNodeModulesDir, tmpNodeModulesDir)
+    const rsync = new Rsync()
+      .flags('r')
+      .source(userNodeModulesDir)
+      .destination(tmpNodeModulesDir)
+
+    rsync.execute()
+
     console.log(
       `${chalk.green('success')} - ${chalk.dim('node_modules')} files copied`
     )
