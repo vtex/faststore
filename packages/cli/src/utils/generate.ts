@@ -9,7 +9,6 @@ import {
   writeFileSync,
   writeJsonSync,
 } from 'fs-extra'
-import Rsync from 'rsync'
 
 import path from 'path'
 
@@ -19,6 +18,7 @@ import {
   tmpCMSDir,
   tmpDir,
   tmpFolderName,
+  tmpNodeModulesDir,
   tmpStoreConfigFileDir,
   tmpThemesCustomizationsFileDir,
   tmpCmsWebhookUrlsFileDir,
@@ -254,13 +254,7 @@ function mergeCMSFiles() {
 
 function copyUserNodeModules() {
   try {
-    const rsync = new Rsync()
-      .flags('r')
-      .source(userNodeModulesDir)
-      .destination(tmpDir)
-
-    rsync.execute()
-
+    copySync(userNodeModulesDir, tmpNodeModulesDir, { recursive: true })
     console.log(
       `${chalk.green('success')} - ${chalk.dim('node_modules')} files copied`
     )
