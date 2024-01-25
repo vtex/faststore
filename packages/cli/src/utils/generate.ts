@@ -253,9 +253,9 @@ function mergeCMSFiles() {
   mergeCMSFile('sections.json')
 }
 
-function copyUserNodeModules() {
+async function copyUserNodeModules() {
   try {
-    copy(userNodeModulesDir, tmpNodeModulesDir)
+    await copy(userNodeModulesDir, tmpNodeModulesDir)
     console.log(
       `${chalk.green('success')} - ${chalk.dim('node_modules')} files copied`
     )
