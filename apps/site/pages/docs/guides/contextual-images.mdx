@@ -1,18 +1,13 @@
 # Contextual Images
 
-Sometimes store owners want images to appear only in specific contexts, for example a product
- image that should appear only on the SKU Selector, but not on the gallery.
+Sometimes store owners want images to appear only in specific contexts, for example a product image that should appear only on the SKU Selector, but not on the gallery.
 
-For backwards compatibility, whenever a context is not found as a Label on a Product's images
-all the images are returned.
+For backwards compatibility, whenever a context is not found as a Label on a Product's images all the images are returned.
 
 ## How to use contextual images
 
 ### 1. Use Labels on VTEX Catalog
-On VTEX's catalog, you should set the Label field of the product image to a context name.
-The only label with special meaning is `generic`. If you label an image with `generic` you 
-won't be able to filter for that individual label, you will always end up with the full set 
-of images.
+On VTEX's catalog, you should set the Label field of the product image to a context name.  The only label with special meaning is `generic`. If you label an image with `generic` you won't be able to filter for that individual label, you will always end up with the full set of images.
 
 ### 2. Query for the correct images on their context
 
@@ -122,5 +117,4 @@ export { override };
 
 ## Trade-offs
 
-If you need an image to appear on different contexts (SKU Selector and Swatch) you should 
-upload it twice and set different labels for each of the image.
+If you need an image to appear on different contexts (SKU Selector and Swatch) you should upload it twice and set different labels for each of the image.
