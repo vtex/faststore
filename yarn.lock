@@ -3842,6 +3842,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/rsync@^0.4.36":
+  version "0.4.36"
+  resolved "https://registry.yarnpkg.com/@types/rsync/-/rsync-0.4.36.tgz#97adc8c41d3373ba12ba3a74c4840cfafc583608"
+  integrity sha512-K2Frb12sSRvSkSTBJzzwgOED1Q2rj4+54zweCN3yCRHprdc5fO18qZm1ojNdO2QwVGo0UYIqpyYPCYSK3O7pBA==
+  dependencies:
+    "@types/node" "*"
+
 "@types/sanitize-html@^2.9.1":
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/@types/sanitize-html/-/sanitize-html-2.9.1.tgz#6e4b232916cfb3ec0c4733c9899c99e1697ef953"
@@ -15151,6 +15158,11 @@ robust-predicates@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/robust-predicates/-/robust-predicates-3.0.2.tgz#d5b28528c4824d20fc48df1928d41d9efa1ad771"
   integrity sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg==
+
+rsync@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/rsync/-/rsync-0.6.1.tgz#3681a0098bd8750448f8bf9da1fee09f7763742b"
+  integrity sha512-39HcwWuM67CQ9tHloazShXWUOWa2m3SGqX6XQhQMSj0VCQMkSI9PodoxM7/+hKf2p4v2umbhfoarYqd1gwII/w==
 
 run-async@^2.0.0, run-async@^2.2.0, run-async@^2.4.0:
   version "2.4.1"
