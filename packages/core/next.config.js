@@ -41,6 +41,9 @@ const nextConfig = {
       config.optimization.splitChunks.maxInitialRequests = 1
     }
 
+    // Dependencies will be able to be resolved from the symlinked location
+    config.resolve.symlinks = false
+
     return config
   },
   redirects: storeConfig.redirects,
