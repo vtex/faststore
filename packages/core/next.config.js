@@ -1,6 +1,5 @@
-import path from 'path'
-
 // @ts-check
+const path = require('path')
 const storeConfig = require('./faststore.config')
 
 /**
