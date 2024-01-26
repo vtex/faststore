@@ -3,12 +3,20 @@ import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
 import { copySync, removeSync, moveSync, readdirSync } from 'fs-extra'
-import { tmpDir, userDir } from '../utils/directory'
+import {
+  tmpDir,
+  userDir,
+  tmpNodeModulesDir,
+  userNodeModulesDir,
+} from '../utils/directory'
 import { generate } from '../utils/generate'
 
 export default class Build extends Command {
   async run() {
     await generate({ setup: true })
+
+    // Required for production builds
+    await copyResource(userNodeModulesDir, tmpNodeModulesDir)
 
     const yarnBuildResult = spawnSync(`yarn build`, {
       shell: true,
@@ -20,9 +28,9 @@ export default class Build extends Command {
       process.exit(yarnBuildResult.status)
     }
 
-    await cleanup()
+    await postBuildCleanup()
     await normalizeStandaloneBuildDir()
-    await finish()
+    await copyResources()
   }
 }
 
@@ -43,7 +51,7 @@ async function copyResource(from: string, to: string) {
   }
 }
 
-async function cleanup() {
+async function postBuildCleanup() {
   // Remove `node_modules` from temporary directory after build
   removeSync(`${tmpDir}/node_modules`)
 }
@@ -68,8 +76,8 @@ async function normalizeStandaloneBuildDir() {
   }
 }
 
-async function finish() {
-  // Copy necessary resources to the store directory
+// Copy necessary resources to the store directory
+async function copyResources() {
   await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
   await copyResource(`${tmpDir}/lighthouserc.js`, `${userDir}/lighthouserc.js`)
 }
