@@ -6,7 +6,6 @@ import {
   readdirSync,
   readFileSync,
   removeSync,
-  symlinkSync,
   writeFileSync,
   writeJsonSync,
 } from 'fs-extra'
@@ -19,12 +18,10 @@ import {
   tmpCMSDir,
   tmpDir,
   tmpFolderName,
-  tmpNodeModulesDir,
   tmpStoreConfigFileDir,
   tmpThemesCustomizationsFileDir,
   tmpCmsWebhookUrlsFileDir,
   userCMSDir,
-  userNodeModulesDir,
   userSrcDir,
   userStoreConfigFileDir,
   userThemesFileDir,
@@ -253,17 +250,6 @@ function mergeCMSFiles() {
   mergeCMSFile('sections.json')
 }
 
-function createNodeModulesSymLink() {
-  try {
-    symlinkSync(userNodeModulesDir, tmpNodeModulesDir, 'dir')
-    console.log(
-      `${chalk.green('success')} - ${chalk.dim('node_modules')} files copied`
-    )
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
-  }
-}
-
 export async function generate(options?: GenerateOptions) {
   const { setup = false } = options ?? {}
 
@@ -275,7 +261,6 @@ export async function generate(options?: GenerateOptions) {
       copyCoreFiles(),
       copyCypressFiles(),
       copyPublicFiles(),
-      createNodeModulesSymLink(),
     ])
   }
 

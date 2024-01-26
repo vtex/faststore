@@ -3,20 +3,12 @@ import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
 import { copySync, removeSync, moveSync, readdirSync } from 'fs-extra'
-import {
-  tmpDir,
-  userDir,
-  tmpNodeModulesDir,
-  userNodeModulesDir,
-} from '../utils/directory'
+import { tmpDir, userDir } from '../utils/directory'
 import { generate } from '../utils/generate'
 
 export default class Build extends Command {
   async run() {
     await generate({ setup: true })
-
-    // Required for production builds
-    await copyResource(userNodeModulesDir, tmpNodeModulesDir)
 
     const yarnBuildResult = spawnSync(`yarn build`, {
       shell: true,
@@ -28,7 +20,6 @@ export default class Build extends Command {
       process.exit(yarnBuildResult.status)
     }
 
-    await postBuildCleanup()
     await normalizeStandaloneBuildDir()
     await copyResources()
   }
@@ -51,13 +42,8 @@ async function copyResource(from: string, to: string) {
   }
 }
 
-async function postBuildCleanup() {
-  // Remove `node_modules` from temporary directory after build
-  removeSync(`${tmpDir}/node_modules`)
-}
-
 async function normalizeStandaloneBuildDir() {
-  // Fix Next.js standalone build output directory
+  // Fix Next.js v13+ standalone build output directory
   if (existsSync(`${tmpDir}/.next/standalone/.faststore`)) {
     const standaloneBuildFiles = readdirSync(
       `${tmpDir}/.next/standalone/.faststore`
@@ -76,7 +62,6 @@ async function normalizeStandaloneBuildDir() {
   }
 }
 
-// Copy necessary resources to the store directory
 async function copyResources() {
   await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
   await copyResource(`${tmpDir}/lighthouserc.js`, `${userDir}/lighthouserc.js`)
