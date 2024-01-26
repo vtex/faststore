@@ -1,16 +1,15 @@
 import {
   copyFileSync,
   copySync,
-  ensureDirSync,
   existsSync,
   mkdirsSync,
   readdirSync,
   readFileSync,
   removeSync,
+  symlinkSync,
   writeFileSync,
   writeJsonSync,
 } from 'fs-extra'
-import { execSync } from 'child_process'
 
 import path from 'path'
 
@@ -256,13 +255,7 @@ function mergeCMSFiles() {
 
 function copyUserNodeModules() {
   try {
-    ensureDirSync(tmpNodeModulesDir)
-
-    // Create .tar file with all user's `node_modules` content
-    execSync(`tar -cf ${tmpNodeModulesDir}.tar ${userNodeModulesDir}`)
-
-    // Extract `node_modules` content to the temporary directory
-    execSync(`tar -xf ${tmpNodeModulesDir}.tar -C ${tmpNodeModulesDir}`)
+    symlinkSync(userNodeModulesDir, tmpNodeModulesDir, 'dir')
 
     console.log(
       `${chalk.green('success')} - ${chalk.dim('node_modules')} files copied`
