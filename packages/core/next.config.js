@@ -1,4 +1,5 @@
 // @ts-check
+const path = require('path')
 const storeConfig = require('./faststore.config')
 
 /**
@@ -21,6 +22,8 @@ const nextConfig = {
   // TODO: We won't need to enable this experimental feature when migrating to Next.js 13
   experimental: {
     scrollRestoration: true,
+    // Trace user's `node_modules` dir
+    outputFileTracingRoot: path.join(__dirname, '../'),
   },
   webpack: (config, { isServer, dev }) => {
     // https://github.com/vercel/next.js/discussions/11267#discussioncomment-2479112
