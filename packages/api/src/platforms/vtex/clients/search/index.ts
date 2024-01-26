@@ -129,7 +129,7 @@ export const IntelligentSearch = (
       params.append(FUZZY_KEY, fuzzyFacet?.value)
     }
 
-    if (operatorFacet !== null) {
+    if (operatorFacet) {
       params.append(OPERATOR_KEY, operatorFacet?.value)
     }
   }
