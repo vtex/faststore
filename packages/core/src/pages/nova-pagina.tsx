@@ -35,7 +35,7 @@ const breadcrumbList = [
 
 function Page() {
   return (
-    <div className={styles.checkout}>
+    <div className={`section ${styles.section} section-checkout`}>
       <div data-fs-checkout-content>
         <Breadcrumb breadcrumbList={breadcrumbList} />
         <header data-fs-checkout-header data-fs-content="checkout">
