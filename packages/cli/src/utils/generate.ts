@@ -6,6 +6,7 @@ import {
   readdirSync,
   readFileSync,
   removeSync,
+  symlinkSync,
   writeFileSync,
   writeJsonSync,
 } from 'fs-extra'
@@ -254,7 +255,7 @@ function mergeCMSFiles() {
 
 function copyUserNodeModules() {
   try {
-    copySync(userNodeModulesDir, tmpNodeModulesDir)
+    symlinkSync(userNodeModulesDir, tmpNodeModulesDir, 'dir')
     console.log(
       `${chalk.green('success')} - ${chalk.dim('node_modules')} files copied`
     )
