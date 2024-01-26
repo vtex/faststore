@@ -23,6 +23,9 @@ const nextConfig = {
     scrollRestoration: true,
   },
   webpack: (config, { isServer, dev }) => {
+    // Dependencies will be able to be resolved from the symlinked location
+    config.resolve.symlinks = false
+
     // https://github.com/vercel/next.js/discussions/11267#discussioncomment-2479112
     // camel-case style names from css modules
     config.module.rules
@@ -40,9 +43,6 @@ const nextConfig = {
     if (!isServer && !dev && config.optimization?.splitChunks) {
       config.optimization.splitChunks.maxInitialRequests = 1
     }
-
-    // Dependencies will be able to be resolved from the symlinked location
-    config.resolve.symlinks = false
 
     return config
   },
