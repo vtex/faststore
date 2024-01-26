@@ -125,7 +125,7 @@ export const IntelligentSearch = (
 
     const operatorFacet = facets.find(({ key }) => key === OPERATOR_KEY) ?? null
 
-    if (fuzzyFacet !== null) {
+    if (fuzzyFacet) {
       params.append(FUZZY_KEY, fuzzyFacet?.value)
     }
 
