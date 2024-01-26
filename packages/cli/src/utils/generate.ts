@@ -1,6 +1,7 @@
 import {
   copyFileSync,
   copySync,
+  ensureDirSync,
   existsSync,
   mkdirsSync,
   readdirSync,
@@ -255,6 +256,8 @@ function mergeCMSFiles() {
 
 function copyUserNodeModules() {
   try {
+    ensureDirSync(tmpNodeModulesDir)
+
     // Create .tar file with all user's `node_modules` content
     execSync(`tar -cf ${tmpNodeModulesDir}.tar ${userNodeModulesDir}`)
 
