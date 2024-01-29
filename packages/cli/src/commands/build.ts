@@ -20,9 +20,8 @@ export default class Build extends Command {
       process.exit(yarnBuildResult.status)
     }
 
-    await cleanup()
     await normalizeStandaloneBuildDir()
-    await finish()
+    await copyResources()
   }
 }
 
@@ -43,13 +42,8 @@ async function copyResource(from: string, to: string) {
   }
 }
 
-async function cleanup() {
-  // Remove `node_modules` from temporary directory after build
-  removeSync(`${tmpDir}/node_modules`)
-}
-
 async function normalizeStandaloneBuildDir() {
-  // Fix Next.js standalone build output directory
+  // Fix Next.js v13+ standalone build output directory
   if (existsSync(`${tmpDir}/.next/standalone/.faststore`)) {
     const standaloneBuildFiles = readdirSync(
       `${tmpDir}/.next/standalone/.faststore`
@@ -68,8 +62,7 @@ async function normalizeStandaloneBuildDir() {
   }
 }
 
-async function finish() {
-  // Copy necessary resources to the store directory
+async function copyResources() {
   await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
   await copyResource(`${tmpDir}/lighthouserc.js`, `${userDir}/lighthouserc.js`)
 }
