@@ -1,7 +1,11 @@
 import { fetchAPI } from '../fetch'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
 import type { Context, Options } from '../../'
-import type { SelectedFacet } from '../../utils/facets'
+import type {
+  SelectedFacet,
+  FuzzyFacet,
+  OperatorFacet,
+} from '../../utils/facets'
 import type {
   Facet,
   FacetValueBoolean,
@@ -57,6 +61,19 @@ const EXTRA_FACETS_KEYS = new Set([
 export const isFacetBoolean = (
   facet: Facet
 ): facet is Facet<FacetValueBoolean> => facet.type === 'TEXT'
+
+const isFuzzyFacet = (facet: SelectedFacet): facet is FuzzyFacet => {
+  return (
+    facet.key === 'fuzzy' &&
+    (facet.value === '0' || facet.value === '1' || facet.value === 'auto')
+  )
+}
+
+const isOperatorFacet = (facet: SelectedFacet): facet is OperatorFacet => {
+  return (
+    facet.key === 'operator' && (facet.value === 'and' || facet.value === 'or')
+  )
+}
 
 export const IntelligentSearch = (
   { account, environment, hideUnavailableItems }: Options,
@@ -122,15 +139,14 @@ export const IntelligentSearch = (
     params: URLSearchParams
   ) => {
     const fuzzyFacet = facets.find(({ key }) => key === FUZZY_KEY) ?? null
-
     const operatorFacet = facets.find(({ key }) => key === OPERATOR_KEY) ?? null
 
-    if (fuzzyFacet) {
-      params.append(FUZZY_KEY, fuzzyFacet?.value)
+    if (fuzzyFacet && isFuzzyFacet(fuzzyFacet)) {
+      params.append(FUZZY_KEY, fuzzyFacet.value)
     }
 
-    if (operatorFacet) {
-      params.append(OPERATOR_KEY, operatorFacet?.value)
+    if (operatorFacet && isOperatorFacet(operatorFacet)) {
+      params.append(OPERATOR_KEY, operatorFacet.value)
     }
   }
 
