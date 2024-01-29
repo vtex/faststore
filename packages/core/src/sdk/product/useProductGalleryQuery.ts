@@ -82,7 +82,7 @@ export const useProductGalleryQuery = ({
 
   return useQuery<Query, Variables>(query, localizedVariables, {
     onSuccess: (data) => {
-      if (data && term) {
+      if (data) {
         const fuzzyFacetValue = findFacetValue(selectedFacets, 'fuzzy')
         const operatorFacetValue = findFacetValue(selectedFacets, 'operator')
 
@@ -97,17 +97,19 @@ export const useProductGalleryQuery = ({
           })
         }
 
-        sendAnalyticsEvent<IntelligentSearchQueryEvent>({
-          name: 'intelligent_search_query',
-          params: {
-            locale,
-            term,
-            url: window.location.href,
-            logicalOperator: data.search.metadata?.logicalOperator ?? 'and',
-            isTermMisspelled: data.search.metadata?.isTermMisspelled ?? false,
-            totalCount: data.search.products.pageInfo.totalCount,
-          },
-        })
+        if (term) {
+          sendAnalyticsEvent<IntelligentSearchQueryEvent>({
+            name: 'intelligent_search_query',
+            params: {
+              locale,
+              term,
+              url: window.location.href,
+              logicalOperator: data.search.metadata?.logicalOperator ?? 'and',
+              isTermMisspelled: data.search.metadata?.isTermMisspelled ?? false,
+              totalCount: data.search.products.pageInfo.totalCount,
+            },
+          })
+        }
       }
     },
   })

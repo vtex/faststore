@@ -14,8 +14,8 @@ const isRootFacet = (facet: Facet, isDepartment: boolean, isBrand: boolean) =>
   isDepartment
     ? facet.key === 'category-1'
     : isBrand
-    ? facet.key === 'brand'
-    : false
+      ? facet.key === 'brand'
+      : false
 
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
   suggestions: async (root, _, ctx) => {
@@ -117,11 +117,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     return filteredFacets
   },
-  metadata: async ({ searchArgs, productSearchPromise }) => {
-    if (!searchArgs.query) {
-      return null
-    }
-
+  metadata: async ({ productSearchPromise }) => {
     const productSearchResult = await productSearchPromise
     return {
       isTermMisspelled: productSearchResult.correction?.misspelled ?? false,
