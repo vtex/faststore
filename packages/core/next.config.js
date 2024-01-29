@@ -12,8 +12,8 @@ const nextConfig = {
     imageSizes: [34, 68, 154, 320],
   },
   i18n: {
-    locales: ['en-US'],
-    defaultLocale: 'en-US',
+    locales: [storeConfig.session.locale],
+    defaultLocale: storeConfig.session.locale,
   },
   sassOptions: {
     additionalData: `@import "src/customizations/src/styles/custom-mixins.scss";`,
