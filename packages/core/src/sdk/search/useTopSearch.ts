@@ -1,6 +1,5 @@
-import { gql } from '@faststore/graphql-utils'
-
 import { useQuery } from 'src/sdk/graphql/useQuery'
+import { gql } from '@generated'
 import type {
   ClientSearchSuggestionsQueryQuery as Query,
   ClientSearchSuggestionsQueryQueryVariables as Variables,
@@ -8,7 +7,7 @@ import type {
 
 import { useSession } from '../session'
 
-const query = gql`
+const query = gql(`
   query ClientTopSearchSuggestionsQuery(
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]
@@ -22,7 +21,7 @@ const query = gql`
       }
     }
   }
-`
+`)
 
 function useTopSearch() {
   const { channel, locale } = useSession()

@@ -1,6 +1,6 @@
 import { sendAnalyticsEvent } from '@faststore/sdk'
-import { gql } from '@faststore/graphql-utils'
 
+import { gql } from '@generated'
 import { useQuery } from 'src/sdk/graphql/useQuery'
 import { useLocalizedVariables } from './useLocalizedVariables'
 import { useSession } from 'src/sdk/session'
@@ -14,13 +14,10 @@ import type { IntelligentSearchQueryEvent } from 'src/sdk/analytics/types'
 /**
  * This query is run on the browser and contains
  * the current search state of the user
+ *
+ * The query definition has to stay on top, or else it fails
  */
-export const query = gql`
-  fragment SearchEvent_metadata on SearchMetadata {
-    isTermMisspelled
-    logicalOperator
-  }
-
+export const query = gql(`
   query ClientProductGalleryQuery(
     $first: Int!
     $after: String!
@@ -49,7 +46,12 @@ export const query = gql`
       }
     }
   }
-`
+
+  fragment SearchEvent_metadata on SearchMetadata {
+    isTermMisspelled
+    logicalOperator
+  }
+`)
 
 export const useProductGalleryQuery = ({
   term,

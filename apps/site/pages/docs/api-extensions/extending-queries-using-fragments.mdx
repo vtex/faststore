@@ -62,13 +62,13 @@ In the `ServerProduct.ts` file, define the GraphQL fragment corresponding to the
 
 import { gql } from '@faststore/core/api'
 
-export const fragment = gql`
+export const fragment = gql(`
   fragment ServerProduct on Query {
     product(locator: $locator) {
       customData
     }
   }
-`
+`)
 ```
 Now, you can consume `customData` by following the [Consuming FastStore API extension with custom components](/docs/api-extensions/consuming-api-extensions) guide.
 

@@ -1,6 +1,6 @@
-import { gql } from '@faststore/graphql-utils'
+import { gql } from '@generated'
 
-export const fragment = gql`
+export const fragment = gql(`
   fragment ClientProductGallery on Query {
     search(
       first: $first
@@ -16,4 +16,4 @@ export const fragment = gql`
       }
     }
   }
-`
+`)

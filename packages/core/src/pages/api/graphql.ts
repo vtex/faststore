@@ -23,11 +23,12 @@ const replaceSetCookieDomain = (request: NextApiRequest, setCookie: string) => {
 }
 
 const parseRequest = (request: NextApiRequest) => {
-  const { operationName, variables, query } =
+  const { operationName, operationHash, variables, query } =
     request.method === 'POST'
       ? request.body
       : {
           operationName: request.query.operationName,
+          operationHash: request.query.operationHash,
           variables: JSON.parse(
             typeof request.query.variables === 'string'
               ? request.query.variables
@@ -37,7 +38,12 @@ const parseRequest = (request: NextApiRequest) => {
         }
 
   return {
-    operationName,
+    operation: {
+      __meta__: {
+        operationName,
+        operationHash,
+      },
+    },
     variables,
     // Do not allow queries in production, only for devMode so we can use graphql tools
     // like introspection etc. In production, we only accept known queries for better
@@ -53,12 +59,12 @@ const handler: NextApiHandler = async (request, response) => {
     return
   }
 
-  const { operationName, variables, query } = parseRequest(request)
+  const { operation, variables, query } = parseRequest(request)
 
   try {
     const { data, errors, extensions } = await execute(
       {
-        operationName,
+        operation,
         variables,
         query,
       },
