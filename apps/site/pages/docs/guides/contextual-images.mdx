@@ -9,6 +9,8 @@ For backwards compatibility, whenever a context is not found as a Label on a Pro
 ### 1. Use Labels on VTEX Catalog
 On VTEX's catalog, you should set the Label field of the product image to a context name.  The only label with special meaning is `generic`. If you label an image with `generic` you won't be able to filter for that individual label, you will always end up with the full set of images.
 
+In this example we're going to add the `gallery` label to images that we want to display on the PDP's Image Gallery.
+
 ### 2. Query for the correct images on their context
 
 Add fragments to both ServerProductQuery and ClientProductQuery:
@@ -19,11 +21,6 @@ import { gql } from '@faststore/core/api'
 export const fragment = gql`
   fragment ServerProduct on Query {
     product(locator: $locator) {
-      skuImages: image(context: "skuselector", limit: 1) {
-        url
-        alternateName
-      }
-
       galleryImages: image(context: "gallery", limit: 3) {
         url
         alternateName
@@ -39,11 +36,6 @@ import { gql } from '@faststore/core/api'
 export const fragment = gql`
   fragment ClientProduct on Query {
     product(locator: $locator) {
-      skuImages: image(context: "skuselector", limit: 1) {
-        url
-        alternateName
-      }
-
       galleryImages: image(context: "gallery", limit: 3) {
         url
         alternateName
@@ -52,6 +44,8 @@ export const fragment = gql`
   }
 `
 ```
+
+Note that we are only selecting three images by passing the `limit: 3` argument. If we omit this argument, all images labeled `gallery` will be returned.
 
 ### 3. Override the ImageGallery
 
@@ -77,14 +71,11 @@ const override: SectionOverride = {
   components: {
     __experimentalImageGallery: {
       Component: () => {
-        // The ServerProductQuery and ClientProductQuery fragments are
-        // accessed via the usePDP Hook.
+        // The ServerProductQuery and ClientProductQuery fragments are accessed via the usePDP Hook.
         const { data } = usePDP();
         const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
-        // Instead of using the images being passed to the ImageGallery
-        // Component, we are using the galleryImages we specifically asked
-        // for.  
+        // Instead of using the images being passed to the ImageGallery Component, we are using the galleryImages we specifically asked for.  
         const currentImage = data.product.galleryImages[selectedIndex];
 
         return (
@@ -115,6 +106,10 @@ const override: SectionOverride = {
 export { override };
 ```
 
+### 4. Selecting an image for the SKU Selector
+
+The FastStore API defines a special name for images that are supposed to appear on SKU Selector. The first image labeled `skuvariation` on the Catalog will automatically appear on the SKU Selector. If no image has the `skuvariation` label, the first image of the SKU will be displayed.
+
 ## Trade-offs
 
-If you need an image to appear on different contexts (SKU Selector and Swatch) you should upload it twice and set different labels for each of the image.
+If you need an image to appear on different contexts (SKU Selector and Product Gallery) you should upload it twice and set different labels for each of the image.
