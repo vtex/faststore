@@ -363,8 +363,6 @@ type StoreImage {
   url: String!
   """Alias for the image."""
   alternateName: String!
-  """Keyword for the image."""
-  keywords: String
 }
 
 """Image input."""
@@ -373,8 +371,6 @@ input IStoreImage {
   url: String!
   """Alias for the input image."""
   alternateName: String!
-  """Keyword for the image."""
-  keywords: String
 }
 
 """Whenever you make a query that allows for pagination, such as `allProducts` or `allCollections`, you can check `StorePageInfo` to learn more about the complete set of items and use it to paginate your queries."""
