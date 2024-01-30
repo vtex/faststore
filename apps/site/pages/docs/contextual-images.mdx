@@ -1,15 +1,23 @@
+---
+title: 'Using specific product images on different sections'
+sidebar_label: 'Contextual Images'
+---
+
+<header>
+
 # Contextual Images
 
-Sometimes store owners want images to appear only in specific contexts, such as a product image that should appear only on the SKU Selector, not on the gallery.
+</header>
 
-For backward compatibility, all the images are returned whenever a context is not found as a Label on a Product's images.
+Sometimes store owners want images to appear only in specific contexts, such as a product image that should appear only on the SKU Selector, not on the gallery.
 
 ## How to use contextual images
 
 ### 1. Use Labels on VTEX Catalog
-On VTEX's catalog, you should set the Label field of the product image to a context name.  The only label with special meaning is `generic`. If you label an image with `generic` you won't be able to filter for that individual label, you will always end up with the full set of images.
 
-In this example we're going to add the `gallery` label to images that we want to display on the PDP's Image Gallery.
+On VTEX's catalog, you should set the Label field of the product image to a context name. The only labels with special meaning are `generic` and `skuvariation`. If you label an image with `generic` you won't be able to filter for that individual label, you will always end up with the full set of images. 
+
+In this example we're going to [add the `gallery` label](https://help.vtex.com/en/tracks/catalog-101--5AF0XfnjfWeopIFBgs3LIQ/17PxekVPmVYI4c3OCQ0ddJ#adding-an-image-to-the-sku) to images that we want to display on the PDP's Image Gallery.
 
 ### 2. Query for the correct images on their context
 
@@ -45,7 +53,7 @@ export const fragment = gql`
 `
 ```
 
-Note that we are only selecting three images by passing the `limit: 3` argument. If we omit this argument, all images labeled `gallery` will be returned.
+Note that we are only selecting three images by passing the `limit: 3` argument. If we omit this argument, all images labeled `gallery` will be returned. For backward compatibility, all the images are returned whenever a context is not found as a Label on a Product's images.
 
 ### 3. Override the ImageGallery
 
@@ -108,7 +116,7 @@ export { override };
 
 ### 4. Selecting an image for the SKU Selector
 
-The FastStore API defines a special name for images that are supposed to appear on the SKU Selector. The first image labeled `skuvariation` on the Catalog will automatically appear on the SKU Selector. If no image has the `skuvariation` label, the first image of the SKU will be displayed.
+As mentioned above, the FastStore API defines a special name for images that are supposed to appear on the SKU Selector. The first image labeled `skuvariation` on the Catalog will automatically appear on the SKU Selector. If no image has the `skuvariation` label, the first image of the SKU will be displayed.
 
 ## Trade-offs
 
