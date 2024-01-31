@@ -27,7 +27,7 @@ import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import storeConfig from '../../../faststore.config'
+import storeConfig from 'faststore.config'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
 
@@ -210,8 +210,8 @@ export const getStaticProps: GetStaticProps<
 
   let cmsPage
 
-  if (process.env.CMS_DATA) {
-    const cmsData = process.env.CMS_DATA
+  if (storeConfig.cms.data) {
+    const cmsData = storeConfig.cms.data
     const page = cmsData['pdp'][0]
 
     if (page) {

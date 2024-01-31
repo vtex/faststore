@@ -1,5 +1,6 @@
 import { isNotFoundError } from '@faststore/api'
 import type { GetStaticPaths, GetStaticProps } from 'next'
+import storeConfig from 'faststore.config'
 
 import { gql } from '@generated'
 import type {
@@ -117,8 +118,8 @@ export const getStaticProps: GetStaticProps<
 
   let pageData
 
-  if (process.env.CMS_DATA) {
-    const cmsData = process.env.CMS_DATA
+  if (storeConfig.cms.data) {
+    const cmsData = storeConfig.cms.data
     const page = cmsData['plp'][0]
 
     if (page) {

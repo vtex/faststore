@@ -14,7 +14,7 @@ import { getPage, getPageByVersionId } from 'src/server/cms'
 import type { PageContentType } from 'src/server/cms'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
-import storeConfig from '../../../../faststore.config'
+import storeConfig from 'faststore.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -85,8 +85,8 @@ export const getLandingPageBySlug = async (
   previewData: Locator
 ) => {
   try {
-    if (process.env.CMS_DATA) {
-      const cmsData = process.env.CMS_DATA
+    if (storeConfig.cms.data) {
+      const cmsData = storeConfig.cms.data
       const pageBySlug = cmsData['landingPage'].find((page) => {
         slug === page.slug
       })

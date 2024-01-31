@@ -20,7 +20,7 @@ import GlobalSections, {
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import { getPage, getPageByVersionId, SearchContentType } from 'src/server/cms'
-import storeConfig from '../../faststore.config'
+import storeConfig from 'faststore.config'
 import SearchPage from 'src/components/templates/SearchPage/SearchPage'
 
 type Props = {
@@ -120,8 +120,8 @@ export const getStaticProps: GetStaticProps<
 > = async ({ previewData }) => {
   const globalSections = await getGlobalSectionsData(previewData)
 
-  if (process.env.CMS_DATA) {
-    const cmsData = process.env.CMS_DATA
+  if (storeConfig.cms.data) {
+    const cmsData = storeConfig.cms.data
     const page = cmsData['search'][0]
 
     if (page) {

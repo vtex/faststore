@@ -1,6 +1,7 @@
 import { Locator, Section } from '@vtex/client-cms'
 import type { ComponentType } from 'react'
 import { PropsWithChildren, lazy } from 'react'
+import storeConfig from 'faststore.config'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { PageContentType, getPage, getPageByVersionId } from 'src/server/cms'
 
@@ -50,8 +51,8 @@ export default GlobalSections
 export const getGlobalSectionsData = async (
   previewData: Locator
 ): Promise<GlobalSectionsData> => {
-  if (process.env.CMS_DATA) {
-    const cmsData = process.env.CMS_DATA
+  if (storeConfig.cms.data) {
+    const cmsData = storeConfig.cms.data
     const page = cmsData[GLOBAL_SECTIONS_CONTENT_TYPE][0]
 
     if (page) {
