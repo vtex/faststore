@@ -1,4 +1,5 @@
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
+import type { ComponentType } from 'react'
 import type { Locator } from '@vtex/client-cms'
 
 import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
