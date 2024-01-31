@@ -1,6 +1,6 @@
 import type { IShippingItem } from '@faststore/api'
-import { gql } from '@faststore/graphql-utils'
 
+import { gql } from '@generated'
 import type {
   ClientShippingSimulationQueryQuery as Query,
   ClientShippingSimulationQueryQueryVariables as Variables,
@@ -8,7 +8,7 @@ import type {
 
 import { request } from '../graphql/request'
 
-const query = gql`
+const query = gql(`
   query ClientShippingSimulationQuery(
     $postalCode: String!
     $country: String!
@@ -37,7 +37,7 @@ const query = gql`
       }
     }
   }
-`
+`)
 
 export type ShippingQueryData = {
   items: IShippingItem[]

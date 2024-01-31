@@ -89,6 +89,10 @@ packages/gatsby-**/**/*.json
 !packages/gatsby-**/package.json
 !packages/gatsby-**/tsconfig.json
 
+# autogen graphql files
+packages/core/@generated/schema.graphql
+packages/core/@generated/persisted-documents.json
+
 # lighthouse CI autogen files
 .lighthouseci
 

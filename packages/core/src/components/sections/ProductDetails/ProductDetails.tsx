@@ -1,12 +1,12 @@
 import { useEffect, useState, useMemo } from 'react'
 
-import { gql } from '@faststore/graphql-utils'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 
-import type { AnalyticsItem } from '../../../sdk/analytics/types'
-import { useFormattedPrice } from '../../../sdk/product/useFormattedPrice'
-import { useSession } from '../../../sdk/session'
+import { gql } from '@generated'
+import type { AnalyticsItem } from 'src/sdk/analytics/types'
+import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { useSession } from 'src/sdk/session'
 
 import Section from '../Section'
 import ProductDescription from '../../../components/ui/ProductDescription'
@@ -238,7 +238,7 @@ function ProductDetails({
   )
 }
 
-export const fragment = gql`
+export const fragment = gql(`
   fragment ProductDetailsFragment_product on StoreProduct {
     id: productID
     sku
@@ -280,7 +280,7 @@ export const fragment = gql`
     # Contains necessary info to add this item to cart
     ...CartProductItem
   }
-`
+`)
 
 const OverridableProductDetails = getOverridableSection<typeof ProductDetails>(
   'ProductDetails',

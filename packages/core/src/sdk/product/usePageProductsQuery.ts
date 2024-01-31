@@ -1,5 +1,5 @@
-import { gql } from '@faststore/graphql-utils'
 import { useSearch } from '@faststore/sdk'
+import { gql } from '@generated'
 import {
   ClientManyProductsQueryQuery,
   ClientManyProductsQueryQueryVariables,
@@ -30,7 +30,7 @@ export const useGalleryPage = (page: number) => {
   return useGalleryPageCallback(page)
 }
 
-export const query = gql`
+export const query = gql(`
   query ClientManyProductsQuery(
     $first: Int!
     $after: String
@@ -58,7 +58,7 @@ export const query = gql`
       }
     }
   }
-`
+`)
 
 const getKey = (object: any) => JSON.stringify(object)
 

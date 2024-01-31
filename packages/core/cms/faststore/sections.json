@@ -1949,5 +1949,78 @@
         }
       }
     }
+  },
+  {
+    "name": "EmptyState",
+    "schema": {
+      "title": "Empty State",
+      "type": "object",
+      "description": "Empty State configuration",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "titleIcon": {
+          "title": "Title Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["CircleWavy Warning"],
+              "enum": ["CircleWavyWarning"]
+            },
+            "alt": {
+              "title": "Alternative Label",
+              "type": "string"
+            }
+          }
+        },
+        "subtitle": {
+          "title": "Subtitle",
+          "type": "string"
+        },
+        "showLoader": {
+          "type": "boolean",
+          "title": "Show loader?",
+          "default": false
+        },
+        "errorState": {
+          "title": "Error state used for shown errorId and fromUrl properties in 500 and 404 pages",
+          "type": "object",
+          "properties": {
+            "errorId": {
+              "title": "errorId used in 500 and 404 pages",
+              "type": "object",
+              "properties": {
+                "show": {
+                  "type": "boolean",
+                  "title": "Show errorId in the end of message?"
+                },
+                "description": {
+                  "type": "string",
+                  "title": "Description shown before the errorId"
+                }
+              }
+            },
+            "fromUrl": {
+              "title": "fromUrl used in 500 and 404 pages",
+              "type": "object",
+              "properties": {
+                "show": {
+                  "type": "boolean",
+                  "title": "Show fromUrl in the end of message?"
+                },
+                "description": {
+                  "type": "string",
+                  "title": "Description shown before the fromUrl"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 ]

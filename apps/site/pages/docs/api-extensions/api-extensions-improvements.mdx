@@ -1,0 +1,142 @@
+# Improvements to API extensions - v3.0.0
+
+In this guide, learn how to migrate your store version to v3.0.0 to leverage the latest improvements in the API extension.
+
+Version 3.0.0 and above, introduces the following enhancements to API extension users:
+
+- Deprecation of the `@faststore/graphql-utils` package in favor of the [`client-preset`](https://the-guild.dev/graphql/codegen/plugins/presets/preset-client) plugin.
+
+- Refinement `gql` helper usage for a smoother and more efficient GraphQL query handling.
+
+- Enhancement security measures to a more secure method for invoking queries and mutations to safeguard your store's data.
+
+- Optimization call processes for queries or mutations defined within `@faststore/core`.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info" emoji="ℹ️">
+  For more details about these changes, also refer to the [GitHub
+  releases](/tbd) related to this version.
+</Callout>
+
+The `@faststore/graphql-utils` has been replaced by open-source solutions maintained by the community that are now re-exported from `@faststore/core`. There are minor breaking changes on how developers should write GraphQL definitions and invoke queries and mutations, which were introduced in version 3.0.0.
+
+## Before you begin
+
+Make sure your store version is updated to v3.0.0 or above. If it’s not updated follow the instructions below:
+
+1. Open your store code and navigate to the `package.json` file.
+
+2. In `dependencies` > `@faststore/core`, change the version to the following:
+
+```json
+"@faststore/core": "^3.0.0",
+```
+
+3. Open the terminal and run `yarn` to update the version.
+
+## Updating the `gql` helper usage
+
+The `gql` helper serves as a function to define GraphQL operations such as queries, mutations, or fragments within the store code. Before, the function was imported directly from the `@faststore/graphql-utils` which was not recommended. See the example below:
+
+```tsx filename="src/fragments/ClientProduct.tsx"
+import { gql } from '@faststore/graphql-utils'
+
+export const fragment = gql`
+  fragment ClientProduct on Query {
+    product(locator: $locator) {
+      id: productID
+      breadcrumbList {
+        itemListElement {
+          item
+          name
+          position
+        }
+      }
+    }
+  }
+`
+```
+
+Now with the v3.0.0, you should import the `gql` helper from `@faststore/core/api`and be called as a function - with the argument between parenthesis. This also applies to query and mutation definitions inside the components. For example:
+
+```tsx filename="src/fragments/ClientProduct.tsx" {1}
+import { gql } from '@faststore/core/api'
+
+export const fragment = gql(`
+  fragment ClientProduct on Query {
+    product(locator: $locator) {
+      id: productID
+      breadcrumbList {
+        itemListElement {
+          item
+          name
+          position
+        }
+      }
+    }
+  }
+`)
+```
+
+## Using `useQuery` hook to call queries and mutations
+
+Previously, it was possible to invoke queries and mutations by using their names - such as `MyCustomQuery` by providing it to the `useQuery` hook. For example:
+
+```tsx
+import { useQuery_unstable as useQuery } from '@faststore/core/experimental'
+
+const query = gql(`
+  query MyCustomQuery {
+    customQuery() {
+      data
+    }
+  }
+`)
+
+// The useQuery call will now throw an error
+function CustomComponent() {
+  // ...
+  const result = useQuery(`MyCustomQuery`, variables)
+  // ...
+}
+```
+
+With v3.0.0, queries and mutations are now only invoked using more secure hashes, which are randomly generated and do to that you must pass the query or mutation object - result of the `gql` call - to `useQuery` directly. For example:
+
+```tsx
+import { gql } from '@faststore/core/api'
+import { useQuery_unstable as useQuery } from '@faststore/core/experimental'
+
+const query = gql(`
+  query MyCustomQuery {
+    customQuery() {
+      data
+    }
+  }
+`)
+
+// useQuery apropriately calls MyCustomQuery
+function CustomComponent() {
+  // ...
+  const result = useQuery(query, variables)
+  // ...
+}
+```
+
+### Calling queries or mutations defined by `@faststore/core`
+
+A custom component can call a query or mutation defined by `@faststore/core`, such as `ClientManyProductsQuery`. In these cases, you replace the `useQuery` hook call with a call to the specific hook for that query.
+
+<Callout type="warning" emoji="⚠️">
+  The availability of such hooks is limited.
+</Callout>
+```tsx
+import { useClientManyProducts_unstable as useClientManyProducts } from '@faststore/core/experimental'
+
+// ClientManyProductsQuery will be called with the variables passed by CustomComponent
+function CustomComponent() {
+// ...
+const result = useClientManyProducts(variables)
+// ...
+}

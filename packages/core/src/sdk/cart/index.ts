@@ -1,8 +1,8 @@
-import { gql } from '@faststore/graphql-utils'
 import type { Cart as SDKCart, CartItem as SDKCartItem } from '@faststore/sdk'
 import { createCartStore } from '@faststore/sdk'
 import { useMemo } from 'react'
 
+import { gql } from '@generated'
 import type {
   CartItemFragment,
   CartMessageFragment,
@@ -23,7 +23,7 @@ export interface Cart extends SDKCart<CartItem> {
   shouldSplitItem?: boolean
 }
 
-export const ValidateCartMutation = gql`
+export const ValidateCartMutation = gql(`
   mutation ValidateCartMutation($cart: IStoreCart!, $session: IStoreSession!) {
     validateCart(cart: $cart, session: $session) {
       order {
@@ -82,7 +82,7 @@ export const ValidateCartMutation = gql`
       valueReference
     }
   }
-`
+`)
 
 const isGift = (item: CartItem) => item.price === 0
 

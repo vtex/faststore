@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 
 import { sendAnalyticsEvent } from '@faststore/sdk'
-import { gql } from '@faststore/graphql-utils'
 import { useQuery } from 'src/sdk/graphql/useQuery'
 
+import { gql } from '@generated'
 import type {
   ClientSearchSuggestionsQueryQuery as Query,
   ClientSearchSuggestionsQueryQueryVariables as Variables,
@@ -12,7 +12,7 @@ import type { IntelligentSearchQueryEvent } from '../analytics/types'
 
 import { useSession } from '../session'
 
-const query = gql`
+const query = gql(`
   query ClientSearchSuggestionsQuery(
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]
@@ -37,7 +37,7 @@ const query = gql`
       }
     }
   }
-`
+`)
 
 function useSuggestions(term: string) {
   const { channel, locale } = useSession()

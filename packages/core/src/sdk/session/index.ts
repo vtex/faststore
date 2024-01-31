@@ -1,18 +1,18 @@
-import { gql } from '@faststore/graphql-utils'
 import type { Session } from '@faststore/sdk'
 import { createSessionStore } from '@faststore/sdk'
 import { useMemo } from 'react'
 
+import { gql } from '@generated'
 import type {
   ValidateSessionMutation,
   ValidateSessionMutationVariables,
-} from '../../../@generated/graphql/index'
+} from '@generated/graphql'
 import storeConfig from '../../../faststore.config'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
 
-export const mutation = gql`
+export const mutation = gql(`
   mutation ValidateSession($session: IStoreSession!, $search: String!) {
     validateSession(session: $session, search: $search) {
       locale
@@ -44,7 +44,7 @@ export const mutation = gql`
       }
     }
   }
-`
+`)
 
 export const validateSession = async (session: Session) => {
   const data = await request<

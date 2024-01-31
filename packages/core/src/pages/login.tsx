@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { NextSeo } from 'next-seo'
+import type { ComponentType } from 'react'
 
 import storeConfig from '../../faststore.config'
 import GlobalSections, {
@@ -8,15 +9,23 @@ import GlobalSections, {
 } from 'src/components/cms/GlobalSections'
 import { GetStaticProps } from 'next'
 import { Locator } from '@vtex/client-cms'
+import RenderSections from 'src/components/cms/RenderSections'
+import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
+import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import { PageContentType, getPage } from 'src/server/cms'
 
-import { Loader as UILoader } from '@faststore/ui'
-import EmptyState from 'src/components/sections/EmptyState'
+/* A list of components that can be used in the CMS. */
+const COMPONENTS: Record<string, ComponentType<any>> = {
+  EmptyState,
+  ...CUSTOM_COMPONENTS,
+}
 
 type Props = {
+  page: PageContentType
   globalSections: GlobalSectionsData
 }
 
-function Page({ globalSections }: Props) {
+function Page({ page: { sections }, globalSections }: Props) {
   useEffect(() => {
     const loginUrl = new URL(storeConfig.loginUrl)
     const incomingParams = new URLSearchParams(window.location.search)
@@ -31,10 +40,18 @@ function Page({ globalSections }: Props) {
   return (
     <GlobalSections {...globalSections}>
       <NextSeo noindex nofollow />
+      {/*
+        WARNING: Do not import or render components from any
+        other folder than '../components/sections' in here.
 
-      <EmptyState title="Loading">
-        <UILoader />
-      </EmptyState>
+        This is necessary to keep the integration with the CMS
+        easy and consistent, enabling the change and reorder
+        of elements on this page.
+
+        If needed, wrap your component in a <Section /> component
+        (not the HTML tag) before rendering it here.
+      */}
+      <RenderSections sections={sections} components={COMPONENTS} />
     </GlobalSections>
   )
 }
@@ -44,10 +61,16 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const globalSections = await getGlobalSectionsData(previewData)
+  const [page, globalSections] = await Promise.all([
+    getPage<PageContentType>({
+      ...(previewData?.contentType === 'login' && previewData),
+      contentType: 'login',
+    }),
+    getGlobalSectionsData(previewData),
+  ])
 
   return {
-    props: { globalSections },
+    props: { page, globalSections },
   }
 }
 
