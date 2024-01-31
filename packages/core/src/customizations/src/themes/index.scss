@@ -15,6 +15,8 @@
   --fs-color-main-3 : #b30000;
   --fs-color-main-4 : #9a0000;
 
+  --fs-color-neutral-bkg: #eef6ff; // não deveria mudar
+
   // --------------------------------------------------------
   // Typography (Branding Core)
   // --------------------------------------------------------
@@ -51,6 +53,10 @@
       --fs-button-secondary-border-color-active         : var(--fs-button-secondary-bkg-color-active);
       --fs-button-secondary-bkg-color-hover             : transparent;
       --fs-button-secondary-bkg-color-active            : var(--fs-color-neutral-bkg);
+    }
+
+    [data-fs-select] {
+      --fs-select-text-color                            : var(--fs-color-text);
     }
   }
 }
