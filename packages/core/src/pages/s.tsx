@@ -19,7 +19,7 @@ import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { getPage, SearchContentType } from 'src/server/cms'
+import { getPage, getPageByVersionId, SearchContentType } from 'src/server/cms'
 import storeConfig from '../../faststore.config'
 import SearchPage from 'src/components/templates/SearchPage/SearchPage'
 
@@ -118,13 +118,29 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const [page, globalSections] = await Promise.all([
-    getPage<SearchContentType>({
-      ...(previewData?.contentType === 'search' ? previewData : null),
-      contentType: 'search',
-    }),
-    getGlobalSectionsData(previewData),
-  ])
+  const globalSections = await getGlobalSectionsData(previewData)
+
+  if (process.env.CMS_PAGE) {
+    const cmsData = process.env.CMS_PAGE
+    const page = cmsData['search'][0]
+
+    if (page) {
+      const pageData = await getPageByVersionId<SearchContentType>({
+        contentType: 'search',
+        documentId: page.documentId,
+        versionId: page.versionId,
+      })
+
+      return {
+        props: { page: pageData, globalSections },
+      }
+    }
+  }
+
+  const page = await getPage<SearchContentType>({
+    ...(previewData?.contentType === 'search' ? previewData : null),
+    contentType: 'search',
+  })
 
   return {
     props: {

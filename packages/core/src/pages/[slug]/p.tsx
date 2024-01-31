@@ -21,7 +21,7 @@ import { useSession } from 'src/sdk/session'
 import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
 import type { PDPContentType } from 'src/server/cms'
-import { getPage } from 'src/server/cms'
+import { getPage, getPageByVersionId } from 'src/server/cms'
 
 import GlobalSections, {
   GlobalSectionsData,
@@ -205,10 +205,25 @@ export const getStaticProps: GetStaticProps<
       variables: { locator: [{ key: 'slug', value: slug }] },
       operation: query,
     }),
-    getPage<PDPContentType>({
-      ...(previewData?.contentType === 'pdp' ? previewData : null),
-      contentType: 'pdp',
-    }),
+    () => {
+      if (process.env.CMS_PAGE) {
+        const cmsData = process.env.CMS_PAGE
+        const page = cmsData['pdp'][0]
+
+        if (page) {
+          return getPageByVersionId<PDPContentType>({
+            contentType: 'pdp',
+            documentId: page.documentId,
+            versionId: page.versionId,
+          })
+        }
+      }
+
+      return getPage<PDPContentType>({
+        ...(previewData?.contentType === 'pdp' ? previewData : null),
+        contentType: 'pdp',
+      })
+    },
     getGlobalSectionsData(previewData),
   ])
 

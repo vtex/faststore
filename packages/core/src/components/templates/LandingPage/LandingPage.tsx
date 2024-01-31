@@ -1,5 +1,4 @@
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
-import type { ComponentType } from 'react'
 import type { Locator } from '@vtex/client-cms'
 
 import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
@@ -10,7 +9,7 @@ import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sectio
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import Incentives from 'src/components/sections/Incentives'
 import ProductTiles from 'src/components/sections/ProductTiles'
-import { getPage } from 'src/server/cms'
+import { getPage, getPageByVersionId } from 'src/server/cms'
 import type { PageContentType } from 'src/server/cms'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
@@ -85,6 +84,23 @@ export const getLandingPageBySlug = async (
   previewData: Locator
 ) => {
   try {
+    if (process.env.CMS_PAGE) {
+      const cmsData = process.env.CMS_PAGE
+      const pageBySlug = cmsData['landingPage'].find((page) => {
+        slug === page.slug
+      })
+
+      if (pageBySlug) {
+        const pageData = await getPageByVersionId<PageContentType>({
+          contentType: 'landingPage',
+          documentId: pageBySlug.documentId,
+          versionId: pageBySlug.versionId,
+        })
+
+        return pageData
+      }
+    }
+
     const landingPageData = await getPage<PageContentType>({
       ...(previewData?.contentType === 'landingPage'
         ? previewData

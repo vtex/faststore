@@ -14,7 +14,12 @@ import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { getPage, PageContentType, PLPContentType } from 'src/server/cms'
+import {
+  getPage,
+  getPageByVersionId,
+  PageContentType,
+  PLPContentType,
+} from 'src/server/cms'
 import ProductListingPage, {
   ProductListingPageProps,
 } from 'src/components/templates/ProductListingPage'
@@ -108,10 +113,25 @@ export const getStaticProps: GetStaticProps<
       variables: { slug },
       operation: query,
     }),
-    getPage<PLPContentType>({
-      ...(previewData?.contentType === 'plp' ? previewData : null),
-      contentType: 'plp',
-    }),
+    () => {
+      if (process.env.CMS_PAGE) {
+        const cmsData = process.env.CMS_PAGE
+        const page = cmsData['plp'][0]
+
+        if (page) {
+          return getPageByVersionId<PLPContentType>({
+            contentType: 'plp',
+            documentId: page.documentId,
+            versionId: page.versionId,
+          })
+        }
+      }
+
+      return getPage<PLPContentType>({
+        ...(previewData?.contentType === 'plp' ? previewData : null),
+        contentType: 'plp',
+      })
+    },
   ])
 
   const notFound = errors.find(isNotFoundError)
