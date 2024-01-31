@@ -200,32 +200,33 @@ export const getStaticProps: GetStaticProps<
   Locator
 > = async ({ params, previewData }) => {
   const slug = params?.slug ?? ''
-  const [searchResult, cmsPage, globalSections] = await Promise.all([
+  const [searchResult, globalSections] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
       variables: { locator: [{ key: 'slug', value: slug }] },
       operation: query,
     }),
-    () => {
-      if (process.env.CMS_PAGE) {
-        const cmsData = process.env.CMS_PAGE
-        const page = cmsData['pdp'][0]
-
-        if (page) {
-          return getPageByVersionId<PDPContentType>({
-            contentType: 'pdp',
-            documentId: page.documentId,
-            versionId: page.versionId,
-          })
-        }
-      }
-
-      return getPage<PDPContentType>({
-        ...(previewData?.contentType === 'pdp' ? previewData : null),
-        contentType: 'pdp',
-      })
-    },
     getGlobalSectionsData(previewData),
   ])
+
+  let cmsPage
+
+  if (process.env.CMS_PAGE) {
+    const cmsData = process.env.CMS_PAGE
+    const page = cmsData['pdp'][0]
+
+    if (page) {
+      cmsPage = getPageByVersionId<PDPContentType>({
+        contentType: 'pdp',
+        documentId: page.documentId,
+        versionId: page.versionId,
+      })
+    }
+  } else {
+    cmsPage = getPage<PDPContentType>({
+      ...(previewData?.contentType === 'pdp' ? previewData : null),
+      contentType: 'pdp',
+    })
+  }
 
   const { data, errors = [] } = searchResult
 

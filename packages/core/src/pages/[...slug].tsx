@@ -105,7 +105,7 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
-  const [{ data, errors = [] }, page] = await Promise.all([
+  const [{ data, errors = [] }] = await Promise.all([
     execute<
       ServerCollectionPageQueryQueryVariables,
       ServerCollectionPageQueryQuery
@@ -113,26 +113,27 @@ export const getStaticProps: GetStaticProps<
       variables: { slug },
       operation: query,
     }),
-    () => {
-      if (process.env.CMS_PAGE) {
-        const cmsData = process.env.CMS_PAGE
-        const page = cmsData['plp'][0]
-
-        if (page) {
-          return getPageByVersionId<PLPContentType>({
-            contentType: 'plp',
-            documentId: page.documentId,
-            versionId: page.versionId,
-          })
-        }
-      }
-
-      return getPage<PLPContentType>({
-        ...(previewData?.contentType === 'plp' ? previewData : null),
-        contentType: 'plp',
-      })
-    },
   ])
+
+  let pageData
+
+  if (process.env.CMS_PAGE) {
+    const cmsData = process.env.CMS_PAGE
+    const page = cmsData['plp'][0]
+
+    if (page) {
+      pageData = await getPageByVersionId<PLPContentType>({
+        contentType: 'plp',
+        documentId: page.documentId,
+        versionId: page.versionId,
+      })
+    }
+  } else {
+    pageData = await getPage<PLPContentType>({
+      ...(previewData?.contentType === 'plp' ? previewData : null),
+      contentType: 'plp',
+    })
+  }
 
   const notFound = errors.find(isNotFoundError)
 
@@ -150,7 +151,7 @@ export const getStaticProps: GetStaticProps<
   return {
     props: {
       data,
-      page,
+      page: pageData,
       globalSections: await globalSectionsPromise,
       type: 'plp',
       key: slug,
