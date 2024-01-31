@@ -96,7 +96,8 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
     const shouldFilter = context !== "generic"
 
     // Normalize count to undefined as we want any negative value to always return the full list of images
-    limit = limit < 0 ? undefined : limit;
+    limit = limit || -1
+    limit = limit <= -1 ? undefined : limit
 
     let filteredImages = shouldFilter
       ? resolvedImages.filter(
