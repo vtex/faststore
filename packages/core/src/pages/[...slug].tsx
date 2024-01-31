@@ -117,8 +117,8 @@ export const getStaticProps: GetStaticProps<
 
   let pageData
 
-  if (process.env.CMS_PAGE) {
-    const cmsData = process.env.CMS_PAGE
+  if (process.env.CMS_DATA) {
+    const cmsData = process.env.CMS_DATA
     const page = cmsData['plp'][0]
 
     if (page) {

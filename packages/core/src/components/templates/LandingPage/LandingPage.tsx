@@ -85,8 +85,8 @@ export const getLandingPageBySlug = async (
   previewData: Locator
 ) => {
   try {
-    if (process.env.CMS_PAGE) {
-      const cmsData = process.env.CMS_PAGE
+    if (process.env.CMS_DATA) {
+      const cmsData = process.env.CMS_DATA
       const pageBySlug = cmsData['landingPage'].find((page) => {
         slug === page.slug
       })

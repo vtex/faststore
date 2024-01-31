@@ -50,8 +50,8 @@ export default GlobalSections
 export const getGlobalSectionsData = async (
   previewData: Locator
 ): Promise<GlobalSectionsData> => {
-  if (process.env.CMS_PAGE) {
-    const cmsData = process.env.CMS_PAGE
+  if (process.env.CMS_DATA) {
+    const cmsData = process.env.CMS_DATA
     const page = cmsData[GLOBAL_SECTIONS_CONTENT_TYPE][0]
 
     if (page) {
