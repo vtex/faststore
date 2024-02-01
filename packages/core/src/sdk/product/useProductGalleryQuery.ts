@@ -48,10 +48,13 @@ export const query = gql(`
       }
     }
   }
+`)
 
+export const fragment = gql(`
   fragment SearchEvent_metadata on SearchMetadata {
     isTermMisspelled
     logicalOperator
+    fuzzy
   }
 `)
 

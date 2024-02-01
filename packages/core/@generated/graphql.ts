@@ -503,6 +503,8 @@ export type QueryShippingArgs = {
 
 /** Search result. */
 export type SearchMetadata = {
+  /** Indicates how the search engine corrected the misspelled word by using fuzzy logic. */
+  fuzzy: Scalars['String']['output']
   /** Indicates if the search term was misspelled. */
   isTermMisspelled: Scalars['Boolean']['output']
   /** Logical operator used to run the search. */
@@ -1425,13 +1427,18 @@ export type ClientProductGalleryQueryQuery = {
           max: { selected: number; absolute: number }
         }
     >
-    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
+    metadata: {
+      isTermMisspelled: boolean
+      logicalOperator: string
+      fuzzy: string
+    } | null
   }
 }
 
 export type SearchEvent_MetadataFragment = {
   isTermMisspelled: boolean
   logicalOperator: string
+  fuzzy: string
 }
 
 export type ClientProductQueryQueryVariables = Exact<{
@@ -1505,7 +1512,11 @@ export type ClientSearchSuggestionsQueryQuery = {
       }>
     }
     products: { pageInfo: { totalCount: number } }
-    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
+    metadata: {
+      isTermMisspelled: boolean
+      logicalOperator: string
+      fuzzy: string
+    } | null
   }
 }
 
@@ -1927,6 +1938,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(
     fragment SearchEvent_metadata on SearchMetadata {
   isTermMisspelled
   logicalOperator
+  fuzzy
 }
     `,
   { fragmentName: 'SearchEvent_metadata' }
@@ -1979,7 +1991,7 @@ export const ClientManyProductsQueryDocument = {
 export const ClientProductGalleryQueryDocument = {
   __meta__: {
     operationName: 'ClientProductGalleryQuery',
-    operationHash: '6d9e14e3ac08a539b7df06ad644b7f34527d9493',
+    operationHash: '054742a6e1a39f1e09237dcec956879d964f3f20',
   },
 } as unknown as TypedDocumentString<
   ClientProductGalleryQueryQuery,
@@ -1997,7 +2009,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '31f2520a6ab19cf0773667e14b382c27abf5e485',
+    operationHash: 'd145a09bc100dd52d67e3b2624081da2cff66bee',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
