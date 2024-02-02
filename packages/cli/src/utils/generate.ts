@@ -78,6 +78,7 @@ function copyPublicFiles() {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
         overwrite: true,
+        recursive: true,
         filter: (src) => {
           const allow = allowList.some((ext) => src.endsWith(ext))
 
