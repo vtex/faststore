@@ -1,14 +1,31 @@
-# FastStore CLI
+<p align="center">
+  <a href="https://faststore.dev">
+    <img alt="Faststore" src="../ui/static/logo.png" width="60" />
+  </a>
+</p>
+<h1 align="center">
+  FastStore CLI
+</h1>
+<p align="center">
+  <strong>
+    The FastStore Command Line Interface
+  </strong>
+</p>
 
-<!-- toc -->
-* [FastStore CLI](#faststore-cli)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+The FastStore Command Line Interface (CLI) is the main pre-configured tool for initializing, building and developing FastStore projects.
 
-# Usage
+Also the CLI is the responsible on keeping the stores up-to-date with the `@faststore/core` package and enables the cloud platform to understand the FastStore project.
+
+## Installation
+
+From the command line in your project directory, run:
+
+```cmd
+npm install -g @faststore/cli
+```
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @faststore/cli
 $ faststore COMMAND
@@ -20,20 +37,22 @@ USAGE
   $ faststore COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
-# Commands
+## Commands
 
 <!-- commands -->
-* [`faststore build`](#faststore-build)
-* [`faststore cms-sync`](#faststore-cms-sync)
-* [`faststore dev`](#faststore-dev)
-* [`faststore generate-graphql`](#faststore-generate-graphql)
-* [`faststore help [COMMAND]`](#faststore-help-command)
-* [`faststore start`](#faststore-start)
-* [`faststore test`](#faststore-test)
 
-## `faststore build`
+- [`faststore build`](#faststore-build)
+- [`faststore cms-sync`](#faststore-cms-sync)
+- [`faststore dev`](#faststore-dev)
+- [`faststore generate-graphql`](#faststore-generate-graphql)
+- [`faststore help [COMMAND]`](#faststore-help-command)
+- [`faststore start`](#faststore-start)
+- [`faststore test`](#faststore-test)
+
+### `faststore build`
 
 ```
 USAGE
@@ -42,7 +61,7 @@ USAGE
 
 _See code: [dist/commands/build.ts](https://github.com/vtex/faststore/blob/v3.0.1/dist/commands/build.ts)_
 
-## `faststore cms-sync`
+### `faststore cms-sync`
 
 ```
 USAGE
@@ -51,7 +70,7 @@ USAGE
 
 _See code: [dist/commands/cms-sync.ts](https://github.com/vtex/faststore/blob/v3.0.1/dist/commands/cms-sync.ts)_
 
-## `faststore dev`
+### `faststore dev`
 
 ```
 USAGE
@@ -60,7 +79,7 @@ USAGE
 
 _See code: [dist/commands/dev.ts](https://github.com/vtex/faststore/blob/v3.0.1/dist/commands/dev.ts)_
 
-## `faststore generate-graphql`
+### `faststore generate-graphql`
 
 ```
 USAGE
@@ -72,7 +91,7 @@ FLAGS
 
 _See code: [dist/commands/generate-graphql.ts](https://github.com/vtex/faststore/blob/v3.0.1/dist/commands/generate-graphql.ts)_
 
-## `faststore help [COMMAND]`
+### `faststore help [COMMAND]`
 
 Display help for faststore.
 
@@ -92,7 +111,7 @@ DESCRIPTION
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.22/src/commands/help.ts)_
 
-## `faststore start`
+### `faststore start`
 
 ```
 USAGE
@@ -101,7 +120,7 @@ USAGE
 
 _See code: [dist/commands/start.ts](https://github.com/vtex/faststore/blob/v3.0.1/dist/commands/start.ts)_
 
-## `faststore test`
+### `faststore test`
 
 ```
 USAGE
@@ -109,4 +128,5 @@ USAGE
 ```
 
 _See code: [dist/commands/test.ts](https://github.com/vtex/faststore/blob/v3.0.1/dist/commands/test.ts)_
+
 <!-- commandsstop -->
