@@ -208,8 +208,6 @@ export type IStoreGeoCoordinates = {
 export type IStoreImage = {
   /** Alias for the input image. */
   alternateName: Scalars['String']['input']
-  /** Keyword for the image. */
-  keywords: InputMaybe<Scalars['String']['input']>
   /** Image input URL. */
   url: Scalars['String']['input']
 }
@@ -817,8 +815,6 @@ export type StoreGeoCoordinates = {
 export type StoreImage = {
   /** Alias for the image. */
   alternateName: Scalars['String']['output']
-  /** Keyword for the image. */
-  keywords: Maybe<Scalars['String']['output']>
   /** Image URL. */
   url: Scalars['String']['output']
 }
@@ -931,6 +927,12 @@ export type StoreProduct = {
   sku: Scalars['String']['output']
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String']['output']
+}
+
+/** Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
+export type StoreProductImageArgs = {
+  context?: InputMaybe<Scalars['String']['input']>
+  limit?: InputMaybe<Scalars['Int']['input']>
 }
 
 /** Product connections, including pagination information and products returned by the query. */
