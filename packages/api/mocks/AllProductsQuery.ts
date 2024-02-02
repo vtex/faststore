@@ -72,7 +72,7 @@ export const AllProductsQueryFirst5 = `query AllProducts {
 `
 
 export const productSearchPage1Count5Fetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=5&query=&sort=&locale=en-US&hideUnavailableItems=false',
   init: undefined,
   options: { storeCookies: expect.any(Function) },
   result: {
@@ -80,8 +80,8 @@ export const productSearchPage1Count5Fetch = {
       {
         cacheId: 'sp-99995946',
         productId: '99995946',
-        description: '4k Philips Monitor 27\"',
-        productName: '4k Philips Monitor 27\"',
+        description: '4k Philips Monitor 27"',
+        productName: '4k Philips Monitor 27"',
         linkText: '4k-philips-monitor',
         brand: 'adidas',
         brandId: 2000004,
@@ -203,7 +203,7 @@ export const productSearchPage1Count5Fetch = {
             ],
             itemId: '99988213',
             name: 'Monitor 27',
-            nameComplete: '4k Philips Monitor 27\" Monitor 27',
+            nameComplete: '4k Philips Monitor 27" Monitor 27',
             complementName: '',
             referenceId: [
               {
@@ -820,36 +820,36 @@ export const productSearchPage1Count5Fetch = {
       current: {
         index: 1,
         proxyUrl:
-          'search/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=auto&operator=and',
+          'search/trade-policy/1?page=1&count=5&query=&sort=&operator=and&fuzzy=0',
       },
       before: [],
       after: [
         {
           index: 2,
           proxyUrl:
-            'search/trade-policy/1?page=2&count=5&query=&sort=&fuzzy=auto&operator=and',
+            'search/trade-policy/1?page=2&count=5&query=&sort=&operator=and&fuzzy=0',
         },
         {
           index: 3,
           proxyUrl:
-            'search/trade-policy/1?page=3&count=5&query=&sort=&fuzzy=auto&operator=and',
+            'search/trade-policy/1?page=3&count=5&query=&sort=&operator=and&fuzzy=0',
         },
         {
           index: 4,
           proxyUrl:
-            'search/trade-policy/1?page=4&count=5&query=&sort=&fuzzy=auto&operator=and',
+            'search/trade-policy/1?page=4&count=5&query=&sort=&operator=and&fuzzy=0',
         },
         {
           index: 5,
           proxyUrl:
-            'search/trade-policy/1?page=5&count=5&query=&sort=&fuzzy=auto&operator=and',
+            'search/trade-policy/1?page=5&count=5&query=&sort=&operator=and&fuzzy=0',
         },
       ],
       perPage: 5,
       next: {
         index: 2,
         proxyUrl:
-          'search/trade-policy/1?page=2&count=5&query=&sort=&fuzzy=auto&operator=and',
+          'search/trade-policy/1?page=2&count=5&query=&sort=&operator=and&fuzzy=0',
       },
       previous: {
         index: 0,
@@ -860,7 +860,7 @@ export const productSearchPage1Count5Fetch = {
       last: {
         index: 50,
         proxyUrl:
-          'search/trade-policy/1?page=50&count=5&query=&sort=&fuzzy=auto&operator=and',
+          'search/trade-policy/1?page=50&count=5&query=&sort=&operator=and&fuzzy=0',
       },
     },
   },
