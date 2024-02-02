@@ -1109,6 +1109,18 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@faststore/eslint-config@^2.2.0-alpha.0":
+  version "2.2.78"
+  resolved "https://registry.yarnpkg.com/@faststore/eslint-config/-/eslint-config-2.2.78.tgz#f0c5d05243084f2a721c190237935b06b0a8ba5f"
+  integrity sha512-WHbZ9IgCzvLmAKNY7pjGZrxHOlwdjOyGosRwejNL1W/vm5I7rdIzP5+F/u03sXTkQbZRuwzPOL67VPlcGIMrmw==
+  dependencies:
+    eslint "7.32.0"
+    eslint-config-next "13.0.0"
+    eslint-config-prettier "^8.3.0"
+    eslint-config-turbo latest
+    eslint-plugin-react "7.31.8"
+    next "13.0.7"
+
 "@faststore/lighthouse@^1.12.32":
   version "1.12.32"
   resolved "https://registry.yarnpkg.com/@faststore/lighthouse/-/lighthouse-1.12.32.tgz#840096bc88ce80041217c764df97d9f0b4968658"
