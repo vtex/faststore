@@ -8,6 +8,7 @@ import {
   removeSync,
   writeFileSync,
   writeJsonSync,
+  lstatSync,
 } from 'fs-extra'
 
 import path from 'path'
@@ -78,8 +79,11 @@ function copyPublicFiles() {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
         overwrite: true,
-        recursive: true,
         filter: (src) => {
+          if (lstatSync(src).isDirectory()) {
+            return true
+          }
+
           const allow = allowList.some((ext) => src.endsWith(ext))
 
           return allow
