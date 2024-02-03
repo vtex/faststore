@@ -89,7 +89,7 @@ module.exports = {
   },
 
   cms: {
-    data: JSON.parse(process.env.CMS_DATA),
+    data: process.env.CMS_DATA,
   },
 
   experimental: {

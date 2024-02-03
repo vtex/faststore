@@ -52,7 +52,7 @@ export const getGlobalSectionsData = async (
   previewData: Locator
 ): Promise<GlobalSectionsData> => {
   if (storeConfig.cms.data) {
-    const cmsData = storeConfig.cms.data
+    const cmsData = JSON.parse(storeConfig.cms.data)
     const page = cmsData[GLOBAL_SECTIONS_CONTENT_TYPE][0]
 
     if (page) {

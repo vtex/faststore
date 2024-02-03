@@ -88,7 +88,7 @@ export const getStaticProps: GetStaticProps<
   const globalSections = await getGlobalSectionsData(previewData)
 
   if (storeConfig.cms.data) {
-    const cmsData = storeConfig.cms.data
+    const cmsData = JSON.parse(storeConfig.cms.data)
     const page = cmsData['home'][0]
 
     if (page) {

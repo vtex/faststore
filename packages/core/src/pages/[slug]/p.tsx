@@ -211,7 +211,7 @@ export const getStaticProps: GetStaticProps<
   let cmsPage
 
   if (storeConfig.cms.data) {
-    const cmsData = storeConfig.cms.data
+    const cmsData = JSON.parse(storeConfig.cms.data)
     const page = cmsData['pdp'][0]
 
     if (page) {
