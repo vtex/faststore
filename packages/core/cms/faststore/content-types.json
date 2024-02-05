@@ -99,7 +99,40 @@
   {
     "id": "pdp",
     "name": "Product Page",
-    "configurationSchemaSets": []
+    "configurationSchemaSets": [
+      {
+        "name": "Template",
+        "configurations": [
+          {
+            "name": "template",
+            "schema": {
+              "title": "PDP template",
+              "description": "PDP multiple page template.",
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "title": "Template kind.",
+                  "description": "PDP multiple page template kind.",
+                  "type": "string",
+                  "enumNames": [
+                    "Slug",
+                    "Subcategory",
+                    "Category",
+                    "Department"
+                  ],
+                  "enum": ["slug", "subcategory", "category", "department"]
+                },
+                "value": {
+                  "type": "string",
+                  "title": "Value (e.g. Slug: /apple-magic-mouse/p)",
+                  "description": "PDP multiple page template value. Slug should start with '/' (e.g. /apple-magic-mouse/p). Subcategory, Category, and Department should not have '/'. If there is no kind selected, this content-type will be the generic PDP."
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "plp",
