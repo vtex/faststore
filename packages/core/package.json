@@ -63,6 +63,7 @@
     "next-seo": "^6.4.0",
     "nextjs-progressbar": "^0.0.14",
     "postcss": "^8.4.4",
+    "postcss-scss": "^4.0.9",
     "prettier": "^2.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
