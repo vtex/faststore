@@ -99,7 +99,6 @@
   {
     "id": "pdp",
     "name": "Product Page",
-    "isSingleton": true,
     "configurationSchemaSets": []
   },
   {
