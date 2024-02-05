@@ -160,6 +160,10 @@ type SearchMetadata {
   Logical operator used to run the search.
   """
   logicalOperator: String!
+  """
+  Indicates how the search engine corrected the misspelled word by using fuzzy logic.
+  """
+  fuzzy: String!
 }
 
 """

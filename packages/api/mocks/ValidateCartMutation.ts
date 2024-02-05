@@ -347,7 +347,7 @@ export const checkoutOrderFormCustomDataInvalidFetch = {
 }
 
 export const productSearchPage1Count1Fetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=1&query=sku%3A2737806&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=1&query=sku%3A2737806&sort=&locale=en-US&hideUnavailableItems=false',
   init: undefined,
   options: { storeCookies: expect.any(Function) },
   result: {
@@ -523,7 +523,7 @@ export const productSearchPage1Count1Fetch = {
       current: {
         index: 1,
         proxyUrl:
-          'search/trade-policy/1?page=1&count=1&query=sku:2737806&sort=&fuzzy=auto&operator=and',
+          'search/trade-policy/1?page=1&count=1&query=sku:2737806&sort=&locale=en-US&hide-unavailable-items=false&operator=and&fuzzy=0',
       },
       before: [],
       after: [],

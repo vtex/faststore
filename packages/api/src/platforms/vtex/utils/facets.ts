@@ -6,18 +6,28 @@ export interface SelectedFacet {
   value: string
 }
 
+export type FuzzyFacet = {
+  key: 'fuzzy'
+  value: '0' | '1' | 'auto'
+}
+
+export type OperatorFacet = {
+  key: 'operator'
+  value: 'and' | 'or'
+}
+
 export interface CrossSellingFacet {
   key: keyof typeof FACET_CROSS_SELLING_MAP
   value: string
 }
 
 export const FACET_CROSS_SELLING_MAP = {
-  buy: "whoboughtalsobought",
-  view: "whosawalsosaw",
-  similars: "similars",
-  viewAndBought: "whosawalsobought",
-  accessories: "accessories",
-  suggestions: "suggestions",
+  buy: 'whoboughtalsobought',
+  view: 'whosawalsosaw',
+  similars: 'similars',
+  viewAndBought: 'whosawalsobought',
+  accessories: 'accessories',
+  suggestions: 'suggestions',
 } as const
 
 /**
