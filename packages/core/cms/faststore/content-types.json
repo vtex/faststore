@@ -129,6 +129,20 @@
         "name": "Settings",
         "configurations": [
           {
+            "name": "template",
+            "schema": {
+              "title": "Template",
+              "type": "object",
+              "properties": {
+                "value": {
+                  "title": "PLP template value (e.g. Slug: /department/category/subcategory)",
+                  "type": "string",
+                  "description": "PLP slug template (e.g. /office or /office/chairs) representing the /department/category/subcategory template). If this field is empty this template will be the generic PLP."
+                }
+              }
+            }
+          },
+          {
             "name": "productGallery",
             "schema": {
               "title": "Product Gallery",
