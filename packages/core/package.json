@@ -6,6 +6,7 @@
   "browserslist": "supports es6-module and not dead",
   "exports": {
     ".": "./index.ts",
+    "./api": "./api/index.ts",
     "./experimental": "./src/experimental/index.ts"
   },
   "scripts": {
