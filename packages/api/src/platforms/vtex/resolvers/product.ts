@@ -11,6 +11,7 @@ import {
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
 import type { Attachment } from '../clients/commerce/types/OrderForm'
+import { StoreImage, StoreProductImageArgs } from '../../..'
 
 type QueryProduct = PromiseType<ReturnType<typeof Query.product>>
 
@@ -22,6 +23,7 @@ const DEFAULT_IMAGE = {
   imageText: 'image',
   imageUrl:
     'https://storecomponents.vtexassets.com/assets/faststore/images/image___117a6d3e229a96ad0e0d0876352566e2.svg',
+  imageLabel: 'label',
 }
 
 const getSlug = (link: string, id: string) => `${link}-${id}`
@@ -37,6 +39,8 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   >
 
   isVariantOf: Resolver<Root, any, Root>
+
+  image: Resolver<Root, any, StoreImage[]>
 } = {
   productID: ({ itemId }) => itemId,
   name: ({ isVariantOf, name }) => name ?? isVariantOf.productName,
@@ -74,13 +78,38 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
       numberOfItems: categories.length,
     }
   },
-  image: ({ images }) =>
-    (nonEmptyArray(images) ?? [DEFAULT_IMAGE]).map(
-      ({ imageUrl, imageText }) => ({
+  image: ({ images }, args) => {
+    const resolvedImages = (nonEmptyArray(images) ?? [DEFAULT_IMAGE]).map(
+      ({ imageUrl, imageText, imageLabel }) => ({
         alternateName: imageText ?? '',
         url: imageUrl.replace('vteximg.com.br', 'vtexassets.com'),
+        keywords: imageLabel,
       })
-    ),
+    )
+
+    if(typeof args !== 'object') {
+      return resolvedImages;
+    }
+
+    let { context, limit } = args as StoreProductImageArgs
+
+    const shouldFilter = context !== "generic"
+
+    // Normalize count to undefined as we want any negative value to always return the full list of images
+    limit = limit || -1
+    limit = limit <= -1 ? undefined : limit
+
+    let filteredImages = shouldFilter
+      ? resolvedImages.filter(
+          ({ keywords: imageKeywords }) => imageKeywords === context
+        )
+      : resolvedImages
+
+    filteredImages =
+      filteredImages.length === 0 ? resolvedImages : filteredImages
+
+    return filteredImages.slice(0, limit)
+  },
   sku: ({ itemId }) => itemId,
   gtin: ({ referenceId }) => referenceId[0]?.Value ?? '',
   review: () => [],
@@ -116,5 +145,5 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
 
     return [...propertyValueSpecifications, ...propertyValueAttachments]
   },
-  releaseDate: ({ isVariantOf: { releaseDate } }) => releaseDate ?? ''
+  releaseDate: ({ isVariantOf: { releaseDate } }) => releaseDate ?? '',
 }
