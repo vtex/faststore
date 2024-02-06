@@ -1,6 +1,6 @@
 {
   "name": "@faststore/lighthouse",
-  "version": "3.0.1",
+  "version": "3.0.3",
   "author": "Emerson Laurentino",
   "license": "MIT",
   "repository": {
@@ -24,8 +24,8 @@
     "lint": "eslint src/**/*.ts"
   },
   "devDependencies": {
-    "@faststore/eslint-config": "^3.0.1",
-    "@faststore/shared": "^3.0.1",
+    "@faststore/eslint-config": "^3.0.3",
+    "@faststore/shared": "^3.0.3",
     "eslint": "7.32.0",
     "typescript": "^4.2.4"
   }
