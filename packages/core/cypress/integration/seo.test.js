@@ -177,7 +177,7 @@ describe('Collection Page Seo', () => {
       .should('exist')
       .should(($link) => {
         expect($link.attr('href')).to.eq(
-          `${storeUrl}${pages.collection}?sort=score_desc`
+          `${storeUrl}${pages.collection}`
         )
       })
   })
@@ -234,7 +234,7 @@ describe('Filtered Collection Page Seo', () => {
       .should('exist')
       .should(($link) => {
         expect($link.attr('href')).to.eq(
-          `${storeUrl}${pages.collection}?sort=score_desc`
+          `${storeUrl}${pages.collection}`
         )
       })
   })
