@@ -2,7 +2,7 @@
   {
     "id": "globalSections",
     "name": "Global Sections",
-    "scopes": [],
+    "scopes": ["global"],
     "configurationSchemaSets": [],
     "isSingleton": true
   },
