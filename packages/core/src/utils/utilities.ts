@@ -56,6 +56,6 @@ export function findBestPLPTemplate(
   }
 
   return (
-    foundPageTemplate || pages.find((page) => page.settings?.template?.value)
+    foundPageTemplate || pages.find((page) => !page.settings?.template?.value)
   )
 }
