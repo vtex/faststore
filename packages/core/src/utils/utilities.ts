@@ -17,6 +17,10 @@ export function textToKebabCase(text: string): string {
 export function normalizePLPSlug(slug: string) {
   // Remove extra slashes at the beginning and end
   let normalizedSlug = slug.replace(/^\/+|\/+$/g, '')
+  
+  // Remove duplicate slashes and white spaces throughout the string
+  normalizedSlug = normalizedSlug.replace(/\/+/g, '/').replace(/\s+/g, '')
+  
   return '/' + normalizedSlug.toLowerCase()
 }
 
