@@ -14,14 +14,18 @@ import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { getPage, PageContentType, PLPContentType } from 'src/server/cms'
-import ProductListingPage, {
-  ProductListingPageProps,
-} from 'src/components/templates/ProductListingPage'
 import LandingPage, {
   getLandingPageBySlug,
   LandingPageProps,
 } from 'src/components/templates/LandingPage'
+import ProductListingPage, {
+  ProductListingPageProps,
+} from 'src/components/templates/ProductListingPage'
+import {
+  getPLPTemplatePage,
+  PageContentType,
+  PLPContentType,
+} from 'src/server/cms'
 
 type BaseProps = {
   globalSections: GlobalSectionsData
@@ -108,7 +112,7 @@ export const getStaticProps: GetStaticProps<
       variables: { slug },
       operation: query,
     }),
-    getPage<PLPContentType>({
+    getPLPTemplatePage(slug, {
       ...(previewData?.contentType === 'plp' ? previewData : null),
       contentType: 'plp',
     }),
