@@ -1,9 +1,9 @@
 import { isNotFoundError } from '@faststore/api'
 import type { Locator } from '@vtex/client-cms'
+import deepmerge from 'deepmerge'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
-import deepmerge from 'deepmerge'
 
 import { gql } from '@generated'
 import {
@@ -21,15 +21,15 @@ import { useSession } from 'src/sdk/session'
 import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
 import type { PDPContentType } from 'src/server/cms'
-import { getPage } from 'src/server/cms'
+import { getPDPTemplatePage } from 'src/server/cms'
 
 import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import storeConfig from '../../../faststore.config'
-import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
+import { useProductQuery } from 'src/sdk/product/useProductQuery'
+import storeConfig from '../../../faststore.config'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -200,14 +200,10 @@ export const getStaticProps: GetStaticProps<
   Locator
 > = async ({ params, previewData }) => {
   const slug = params?.slug ?? ''
-  const [searchResult, cmsPage, globalSections] = await Promise.all([
+  const [searchResult, globalSections] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
       variables: { locator: [{ key: 'slug', value: slug }] },
       operation: query,
-    }),
-    getPage<PDPContentType>({
-      ...(previewData?.contentType === 'pdp' ? previewData : null),
-      contentType: 'pdp',
     }),
     getGlobalSectionsData(previewData),
   ])
@@ -225,6 +221,11 @@ export const getStaticProps: GetStaticProps<
   if (errors.length > 0) {
     throw errors[0]
   }
+
+  const cmsPage = await getPDPTemplatePage(`/${slug}/p`, data.product, {
+    ...(previewData?.contentType === 'pdp' ? previewData : null),
+    contentType: 'pdp',
+  })
 
   const { seo } = data.product
   const title = seo.title || storeConfig.seo.title
