@@ -2,12 +2,16 @@
   .section {
     @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
     @import "@faststore/ui/src/components/atoms/Button/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Checkbox/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Input/styles.scss";
     @import "@faststore/ui/src/components/atoms/Link/styles.scss";
     @import "@faststore/ui/src/components/atoms/Select/styles.scss";
     @import "@faststore/ui/src/components/atoms/Price/styles.scss";
     @import "@faststore/ui/src/components/molecules/Breadcrumb/styles.scss";
+    @import "@faststore/ui/src/components/molecules/CheckboxField/styles.scss";
     @import "@faststore/ui/src/components/molecules/DiscountBadge/styles.scss";
     @import "@faststore/ui/src/components/molecules/Dropdown/styles.scss";
+    @import "@faststore/ui/src/components/molecules/InputField/styles.scss";
     @import "@faststore/ui/src/components/molecules/OrderSummary/styles.scss";
     @import "@faststore/ui/src/components/molecules/ProductPrice/styles.scss";
 
@@ -41,6 +45,10 @@
         align-items: center;
         justify-content: space-between;
       }
+    }
+
+    [data-fs-order-summary] {
+      --fs-order-summary-padding: var(--fs-spacing-3) 0;
     }
 
     // Content
@@ -117,8 +125,16 @@
       background-color: var(--fs-color-neutral-bkg);
     }
 
-    [data-fs-order-summary] {
-      --fs-order-summary-padding: var(--fs-spacing-3) 0;
+    [data-fs-checkout-inputs] {
+      padding: 0 200px;
+      margin-top: 80px;
+
+      ul {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        margin-top: 20px;
+      }
     }
   }
 }

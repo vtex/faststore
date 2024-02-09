@@ -1,7 +1,9 @@
 import {
   Breadcrumb,
   Button,
+  CheckboxField,
   DiscountBadge,
+  InputField,
   OrderSummary,
   ProductPrice,
   Select,
@@ -109,6 +111,20 @@ function Page() {
                 />
               </div>
             </div>
+          </li>
+          <li data-fs-checkout-inputs>
+            <h3 data-fs-checkout-subtitle>Contact</h3>
+            <ul>
+              <li>
+                <InputField label="Email" id="inputfield-email" />
+              </li>
+              <li>
+                <InputField label="Full Name" id="inputfield-name" />
+              </li>
+              <li>
+                <CheckboxField label="Default" id="checkboxfield-default" />
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
