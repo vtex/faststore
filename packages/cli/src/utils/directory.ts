@@ -1,8 +1,18 @@
 import path from 'path'
 
+// build folder
+export const tmpFolderName = '.faststore'
+
+// always returns the root of the project, AKA the starter root or @faststore/core dir root when running in the monorepo
 export const getRoot = () => {
   if (process.env.OCLIF_COMPILATION) {
     return ''
+  }
+
+  if(process.cwd().endsWith(tmpFolderName)) {
+    // if the current working directory is the build folder (tmp folder), return the starter root
+    // this makes sure the semantics of the starter root are consistent with the directories declared below
+    return path.join(process.cwd(), '..')
   }
 
   return process.cwd()
@@ -14,8 +24,7 @@ export const userDir = getRoot()
 // node_modules folder for faststorer packages
 export const faststoreDir = path.join(userDir, 'node_modules', '@faststore')
 
-// build folder
-export const tmpFolderName = '.faststore'
+// build folder dir
 export const tmpDir = path.join(userDir, tmpFolderName)
 
 // node_modules folder for @faststore/core
