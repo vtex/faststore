@@ -1,6 +1,27 @@
-# @faststore/graphql-utils
+<p align="center">
+  <a href="https://faststore.dev">
+    <img alt="Faststore" src="../ui/static/logo.png" width="60" />
+  </a>
+</p>
+<h1 align="center">
+  Faststore graphql-utils
+</h1>
+<p align="center">
+  <strong>
+    GraphQL utilities to use GraphQL over HTTP with ZERO bundle sizes
+  </strong>
+</p>
 
-GraphQL utilities to use GraphQL over HTTP with ZERO bundle sizes
+<div style="display: flex; justify-content: center; width: 100%">
+  <a href="https://www.npmjs.com/package/@faststore/api" style="padding: 0px 2px 0px 0px">
+    <img src="https://badge.fury.io/js/%40faststore%2Fui.svg" />
+  </a>
+  <a href="https://bundlephobia.com/package/@faststore/api" style="padding: 0px 0px 0px 2px">
+    <img src="https://badgen.net/bundlephobia/dependency-count/@faststore/api" />
+  </a>
+</div>
+
+> ⚠️ Version 3.0.0 and above - Depreciation notice: the gql function should be imported from @faststore/core. Read the [guide](faststore.dev/docs/api-extensions/api-extensions-improvements`) for more information.
 
 # Compatibility
 
