@@ -88,17 +88,17 @@ export const getLandingPageBySlug = async (
     if (storeConfig.cms.data) {
       const cmsData = JSON.parse(storeConfig.cms.data)
       const pageBySlug = cmsData['landingPage'].find((page) => {
-        slug === page.slug
+        slug === page.settings?.seo?.slug
       })
 
       if (pageBySlug) {
-        const pageData = await getPageByVersionId<PageContentType>({
+        const landingPageData = await getPageByVersionId<PageContentType>({
           contentType: 'landingPage',
           documentId: pageBySlug.documentId,
           versionId: pageBySlug.versionId,
         })
 
-        return pageData
+        return landingPageData
       }
     }
 
