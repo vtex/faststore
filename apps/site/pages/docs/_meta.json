@@ -61,6 +61,9 @@
   "how-to-preview-headless-cms-changes-in-development-mode": {
     "title": "How to preview changes in development mode"
   },
+  "multiple-page-templates": {
+    "title": "Multiple page templates"
+  },
   "-- VTEX Integration --": {
     "type": "separator",
     "title": "VTEX Platform Integration"
