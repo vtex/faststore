@@ -1,51 +1,45 @@
 ---
 title: 'Using specific templates in PDPs and PLPs'
-sidebar_label: 'Multiple page template'
+sidebar_label: 'Multiple page templates'
 ---
 
 <header>
 
-# Multiple page template
+# Multiple page templates
 
 </header>
 
 Multiple Page Template means that PDPs and PLPs, previously defined as singleton in the CMS, can now assume different page templates based on some rules. This approach is almost similar to the PDP and PLP, but they will be explained separately since each page type has particularities.
 
-## PDPs
+## PDP Template
 
-When rendering the PDPs, FastStore will use the product information to find the appropriate document from the CMS (template) to render, starting from the most specific template (slug) of the product to the most generic (department or the generic PDP).
+When rendering the PDPs, FastStore will use the product information to find the appropriate document from the CMS (template) to render, starting from the most specific template (slug) of the product to the most generic (`department` or the generic PDP).
 
 The order should be as follows:
 
 1.  A PDP document that matches the product slug;
-2.  A PDP document that matches the product subcategory;
-3.  A PDP document that matches the product category;
-4.  A PDP document that matches the product department (collection);
+2.  A PDP document that matches the product `subcategory`;
+3.  A PDP document that matches the product `category`;
+4.  A PDP document that matches the product `department` (collection);
 5.  If no matches are found, use the generic PDP template.
 
 Let's see the examples below:
 
 While using PDPs, note that this type of page is recognized by the slug pattern [https://starter.vtex.app/apple-magic-mouse/p](https://starter.vtex.app/apple-magic-mouse/p)
 
-You can create the template based on the slug
-
-[/apple-magic-mouse/p](https://starter.vtex.app/apple-magic-mouse/p)
+You can create the template based on the slug `/apple-magic-mouse/p`.
 
 // TODO (CMS with slug template IMAGE HERE)
 
 This is the most specific template, when the slug template exists, it will be rendered.
-
-But there are cases where you would like to render a specific template for products inside a subcategory or a department, for instance, instead of using the slug.
-
-Because of that, the template can assume different behaviors based on the input value beyond the slug: subcategory, category, department, or generic template.
-
-The products in VTEX catalog are under a category tree, usually /department/category/subcategory/.
-
-Note that the product mentioned above is in the Technology department from the catalog. Then, you can create a department template.
+But there are cases where you would like to render a specific template for products inside a `subcategory` or a `department`, for instance, instead of using the slug.
+Because of that, the template can assume different behaviors based on the input value beyond the slug: `subcategory`, `category`, `department`, or the generic template.
+The products in VTEX catalog are under a `category` tree, usually `/department/category/subcategory/`.
+Note that the product mentioned above is in the Technology `department` from the catalog. Then, you can create a `department` template.
 
 // TODO (Department IMAGE HERE)
 
-if this product were under a subcategory, would also be possible to create a template representing this scenario. The category tree is used in the template input, separated by slashes.
+if this product were under a `subcategory`, would also be possible to create a template representing this scenario. The category tree is used in the template input, separated by slashes.
 
 // TODO (IMAGE WITH /department/category/subcategory/)
 
@@ -53,47 +47,42 @@ You can also see the category hierarchy through the breadcrumb.
 
 // TODO (BREADCRUMB IMAGE HERE)
 
-if there are no matches for slug or department, the generic template will be used to render this PDP. So you need to create a document with an empty value in the template input field.
+if there are no matches for slug or `department`, the generic template will be used to render this PDP. So you need to create a document with an empty value in the template input field.
 
 // TODO (empty input IMAGE HERE)
 
 Possible templates in CMS from this product:
 
-- Slug: [/apple-magic-mouse/p](https://starter.vtex.app/apple-magic-mouse/p)
-- Department: /technology/
-- PDP generic template.
+- Slug: `/apple-magic-mouse/p`
+- Department: `/technology/`
+- PDP generic template: (empty value)
 
-### PLPs
+### PLP Template
 
 The PLP multiple-page template approach follows a similar logic to the PDP, but for PLPs FastStore will use only the slug information to find the appropriate document (template) to render. The order should be as follows:
 
 1.  A PLP document that matches the slug;
-    a. A PLP document that matches the sub-category slug;
-    b. A PLP document that matches the category slug;
-    c. A PLP document that matches the department (collection) slug;
+    1. A PLP document that matches the `subcategory` slug;
+    2. A PLP document that matches the `category` slug;
+    3. A PLP document that matches the `department` (collection) slug;
 2.  If no matches are found, use the generic PLP template.
 
 Let's see the examples below:
-
-While using PLPs, note that this type of page is recognized by the slug pattern.
-
-[/office/chairs](https://starter.vtex.app/office/chairs)
+While using PLPs, note that this type of page is recognized by the slug pattern `/office/chairs`.
 
 You can create the template based on the slug: `/office/chairs`
 
 // TODO (CMS with slug template IMAGE HERE)
 
-Note that the slug above represents the department and category separated by slashes (department/category). The products in VTEX catalog are under a category tree, usually /department/category/subcategory.
-
+Note that the slug above represents the `department` and `category` separated by slashes (department/category). The products in VTEX catalog are under a category tree, usually `/department/category/subcategory`.
 When the slug template exists, it will be rendered.
-
-There are cases where you would like to render a specific template for products inside the department without considering the category or even a subcategory. For this case, you can create a department template [/office](https://starter.vtex.app/office/chairs).
+There are cases where you would like to render a specific template for products inside the `department` without considering the `category` or even a `subcategory`. For this case, you can create a `department` template [/office](https://starter.vtex.app/office/chairs).
 
 // TODO (Department IMAGE HERE)
 
-Bear in mind that if another most specific template exists, like [/office/chairs](https://starter.vtex.app/office/chairs), the most specific will be rendered if the slug matches the same pattern.
+Bear in mind that if another most specific template exists, like `/office/chairs`, the most specific will be rendered if the slug matches the same pattern.
 
-if this product were under a subcategory, would also be possible to create a template representing this scenario. The category tree is used in the template slug input, like in the image below.
+if this product were under a `subcategory`, would also be possible to create a template representing this scenario. The category tree is used in the template slug input, like in the image below.
 
 // TODO (IMAGE WITH /department/category/subcategory)
 
@@ -103,6 +92,6 @@ if there are no matches for the slug or department, the generic template will be
 
 Possible templates in CMS from this product:
 
-- Slug: [/office/chairs](https://starter.vtex.app/office/chairs)
-- Slug: [/office](https://starter.vtex.app/office)
+- Slug: `/office/chairs`
+- Slug: `/office`
 - PLP generic.
