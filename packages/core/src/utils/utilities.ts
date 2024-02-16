@@ -26,7 +26,7 @@ export function normalizePLPSlug(slug: string) {
 
 function findPLPTemplateBySlug(pages: PLPContentType[], slug: string) {
   return pages.find((page) => {
-    // general PLP template
+    // generic PLP template
     if (!page.settings?.template?.value) return false
 
     const templateValue = normalizePLPSlug(page.settings?.template?.value)
