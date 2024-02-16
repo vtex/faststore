@@ -112,7 +112,7 @@
                 "value": {
                   "title": "PDP template value (e.g. Slug: /apple-magic-mouse/p OR /department/category/subcategory/)",
                   "type": "string",
-                  "description": "The value can be: the PDP slug template (e.g. /apple-magic-mouse/p). A /department/category/subcategory/ template (e.g. /office/ OR /office/chairs/ OR /office/chairs/classic). If this field is empty this template will be the generic PDP."
+                  "description": "Possible values: the PDP slug template (e.g. '/apple-magic-mouse/p'); A PLP template (e.g. '/department/' OR '/department/category/' OR '/department/category/subcategory/'). If empty, this template will be the generic PDP."
                 }
               }
             }
