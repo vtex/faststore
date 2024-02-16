@@ -40,10 +40,10 @@ export function normalizePDPTemplate(templateValue: string) {
  * Prioritizing the following order:
  *
  * 1. A PDP template that matches the page slug (e.g. slug = /apple-magic-mouse/p).
- * 1. A PDP template that matches the product subcategory (e.g. /department/category/subcategory).
- * 2. A PDP template that matches the product category (e.g. /department/category).
- * 3. A PDP template that matches the product department (e.g. /department).
- * 4. If no matches are found, use the generic PDP template.
+ * 2. A PDP template that matches the product subcategory (e.g. /department/category/subcategory).
+ * 3. A PDP template that matches the product category (e.g. /department/category).
+ * 4. A PDP template that matches the product department (e.g. /department).
+ * 5. If no matches are found, use the generic PDP template.
  *
  * @param pages
  * @param originalSlug
