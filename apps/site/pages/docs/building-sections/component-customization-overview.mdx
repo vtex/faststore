@@ -15,7 +15,7 @@ import { Callout, Steps } from 'nextra-theme-docs'
   This documentation is currently under development.
 </Callout>
 
-FastStore offers the ability to extend and customize your store components in three ways:
+FastStore offers the ability to extend and customize your store components in four ways:
 
 <Steps>
  
@@ -24,7 +24,6 @@ FastStore offers the ability to extend and customize your store components in th
 Change the behavior of specific components by changing their props in the [Headless CMS](/docs/headless-cms-overview).
 In the VTEX Admin, go to **Storefront > Headless CMS** and select the section where the desired component is located.
 From there, you can customize the component by modifying its props. Find the available props in each native section for customization in the Headless CMS in [list of available native sections](/docs/building-sections/list-of-native-sections).
-{/* TODO: create a doc just for CMS props and update link */}
 
 <Callout type="warning" emoji="⚠️">
   The props changed via Headless CMS overlap the changes made through
@@ -44,34 +43,14 @@ You have the following customization options for components and sections:
 - [Override a native component](/docs/building-sections/overriding-components-and-props#overriding-a-native-component): Create a new component and override its native equivalent to achieve the desired functionality.
 - [Create a new section](/docs/building-sections/creating-a-new-section): If the available FastStore native sections do not meet your business requirements, you can create a new section and make it available in the Headless CMS.
 
-</Steps>
-
-
 <Callout type="warning" emoji="⚠️">
   Consider using overrides when [FastStore design tokens (theming tools)](https://www.faststore.dev/docs/theming-overview#what-is-theming) or Headless CMS props alone cannot achieve the customization you need.
   Overrides are suitable for making changes in component behavior or replacing components entirely.
 </Callout>
 
+### API extension
 
-#### Best practices for overrides
+Add new data to existing queries on the FastStore API by exteding it. Refer to the [API extension guide](/docs/api-extensions) for more
+information.
 
-
-**- Working with an experimental feature** 
-
-Keep in mind that this is an experimental feature and may undergo updates that could render your current overrides as legacy code without ongoing support. To keep up with every change, check the [release notes](https://developers.vtex.com/updates/release-notes) for any updates.
-
-
-**- Considering the impact in the store performance**
-
-Using overrides does not significantly impact performance. FastStore's handling of props and design tokens is designed for good performance. However, your customizations may introduce additional work, so consider overall store performance by checking Lighthouse reports on GitHub logs and Pull Requests.
-
-
-![faststore-lighthouse-report](https://vtexhelp.vtexassets.com/assets/docs/src/faststore-lighthouse___2459c5ea41ee8ffb5c98effe38f7c479.png) 
-
-**- Styling custom components**
-
-When styling custom components created for overrides, follow the guidelines provided in [Customizing a new component when using override](https://www.faststore.dev/docs/customizing/components#customizing-a-new-component-when-using-override). These guidelines will help you maintain consistency and ensure your custom components integrate seamlessly with the rest of the FastStore ecosystem.
-
-**- Organizing files and folders**
-
-For effective organization, follow the steps in the [Setting up the overrides folder](https://www.faststore.dev/docs/building-sections/overriding-components-and-props#step-1---setting-up-the-overrides-folder) section. This will help you organize, create, and name the overrides and ensure they are properly integrated into your project.
+</Steps>

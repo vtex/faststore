@@ -6,13 +6,9 @@ sidebar_label: 'Component Customization'
 import { Callout, Steps, Tab, Tabs } from 'nextra-theme-docs'
 
 <header>
-# Overriding Native Components and Props
+# Overriding native components and props
 
 </header>
-
-<Callout type="warning" emoji="⚠️">
-  This documentation is currently being developed.
-</Callout>
 
 In this guide, you will learn how to modify a component's behavior using additional properties in your store code and create new components by overriding their native equivalents.
 
@@ -49,7 +45,7 @@ Refer to the [List of native sections and overridable components](/docs/building
 
 ### Consider the following aspect for this feature
 
-- **Some sections contain multiple instances of the same component**: When overriding a component or passing additional props to it, consider that all instances will be affected by this change.
+**Some sections contain multiple instances of the same component**: When overriding a component or passing additional props to it, consider that all instances will be affected by this change.
 
 </Steps>
 
@@ -80,7 +76,7 @@ Here's how the initial component looks like with the `size` prop set as `regular
   <Tab>```bash copy mkdir src\components src\components\sections ```</Tab>
 </Tabs>
 
-3. Inside the `components` folder, create a new file for your customized section. For example, create a new file named `ProductDetailsWithCustomButton.tsx` under the `src/components/sections` directory.
+3. In the `sections` folder, create a new file for your customized section. For example, create a new file named `ProductDetailsWithCustomButton.tsx` under the `src/components/sections` directory.
 
 <Tabs items={['macOS and Linux', 'Windows']}>
   <Tab>
@@ -115,7 +111,7 @@ export { ProductDetailsWithCustomButton }
 
 #### Step 2 - Setting up the override
 
-1. Open the `ProductDetailsWithCustomButton.tsx` file created in the [Setting up the `overrides` folder step](#step-1-setting-up-the-overrides-folder) and add the following code:
+1. Open the `ProductDetailsWithCustomButton.tsx` file created in the [Step 1 - Setting up the component file](#step-1-setting-up-the-overrides-folder) and add the following code:
 
 ```tsx filename="ProductDetailsWithCustomButton.tsx" {8-9}
 import { ProductDetailsSection, getOverriddenSection } from '@faststore/core'
@@ -132,7 +128,7 @@ export { ProductDetailsWithCustomButton }
 
 This code overrides the `BuyButton` props `size` and `iconPosition`. You'll see a smaller button than the initial one, and the cart icon positioned on the right side.
 
-#### Step 3 - Adding this component to the CMS
+#### Step 3 - Adding the component to the CMS
 
 LINK TO DOC ADDING A COMPONENT TO THE CMS
 LINK TO AVAILABLE DEFAULT NATIVE SECTION CMS DEFINITIONS
