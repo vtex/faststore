@@ -51,7 +51,6 @@ export default GlobalSections
 export const getGlobalSectionsData = async (
   previewData: Locator
 ): Promise<GlobalSectionsData> => {
-  console.log(storeConfig.cms)
   if (storeConfig.cms.data) {
     const cmsData = JSON.parse(storeConfig.cms.data)
     const page = cmsData[GLOBAL_SECTIONS_CONTENT_TYPE][0]

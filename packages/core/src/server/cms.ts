@@ -48,7 +48,6 @@ export type VersionOptions = {
 export const getPageByVersionId = async <T extends ContentData>(
   options: VersionOptions
 ) => {
-  console.log({ options })
   const result = await clientCMS
     .getCMSPage(options)
     .then((page) => ({ data: [page] }))
