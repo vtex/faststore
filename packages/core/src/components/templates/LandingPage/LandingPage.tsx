@@ -10,11 +10,11 @@ import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sectio
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import Incentives from 'src/components/sections/Incentives'
 import ProductTiles from 'src/components/sections/ProductTiles'
-import { getPage } from 'src/server/cms'
+import { getPage, getPageByVersionId } from 'src/server/cms'
 import type { PageContentType } from 'src/server/cms'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
-import storeConfig from '../../../../faststore.config'
+import storeConfig from 'faststore.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -85,6 +85,23 @@ export const getLandingPageBySlug = async (
   previewData: Locator
 ) => {
   try {
+    if (storeConfig.cms.data) {
+      const cmsData = JSON.parse(storeConfig.cms.data)
+      const pageBySlug = cmsData['landingPage'].find((page) => {
+        slug === page.settings?.seo?.slug
+      })
+
+      if (pageBySlug) {
+        const landingPageData = await getPageByVersionId<PageContentType>({
+          contentType: 'landingPage',
+          documentId: pageBySlug.documentId,
+          versionId: pageBySlug.versionId,
+        })
+
+        return landingPageData
+      }
+    }
+
     const landingPageData = await getPage<PageContentType>({
       ...(previewData?.contentType === 'landingPage'
         ? previewData

@@ -88,6 +88,10 @@ module.exports = {
     gtmContainerId: 'GTM-PGHZ95N',
   },
 
+  cms: {
+    data: process.env.CMS_DATA,
+  },
+
   experimental: {
     cypressVersion: 12,
     enableCypressExtension: false,
