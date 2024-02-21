@@ -14,6 +14,7 @@ export type Options =
   | Locator
   | {
       contentType: string
+      releaseId?: string
       filters?: Partial<ContentTypeOptions>
     }
 
@@ -22,6 +23,10 @@ const isLocator = (x: any): x is Locator =>
   (typeof x.releaseId === 'string' || typeof x.documentId === 'string')
 
 export const getPage = async <T extends ContentData>(options: Options) => {
+  if (config.releaseId) {
+    options.releaseId = config.releaseId
+  }
+
   const result = await (isLocator(options)
     ? clientCMS.getCMSPage(options).then((page) => ({ data: [page] }))
     : clientCMS.getCMSPagesByContentType(options.contentType, options.filters))
