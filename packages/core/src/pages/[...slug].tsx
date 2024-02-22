@@ -1,6 +1,6 @@
 import { isNotFoundError } from '@faststore/api'
-import type { GetStaticPaths, GetStaticProps } from 'next'
 import storeConfig from 'faststore.config'
+import type { GetStaticPaths, GetStaticProps } from 'next'
 
 import { gql } from '@generated'
 import type {
@@ -15,19 +15,14 @@ import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import {
-  getPage,
-  getPageByVersionId,
-  PageContentType,
-  PLPContentType,
-} from 'src/server/cms'
-import ProductListingPage, {
-  ProductListingPageProps,
-} from 'src/components/templates/ProductListingPage'
 import LandingPage, {
   getLandingPageBySlug,
   LandingPageProps,
 } from 'src/components/templates/LandingPage'
+import ProductListingPage, {
+  ProductListingPageProps,
+} from 'src/components/templates/ProductListingPage'
+import { getPage, PageContentType, PLPContentType } from 'src/server/cms'
 
 type BaseProps = {
   globalSections: GlobalSectionsData
@@ -123,7 +118,7 @@ export const getStaticProps: GetStaticProps<
     const page = cmsData['plp'][0]
 
     if (page) {
-      pageData = await getPageByVersionId<PLPContentType>({
+      pageData = await getPage<PLPContentType>({
         contentType: 'plp',
         documentId: page.documentId,
         versionId: page.versionId,
