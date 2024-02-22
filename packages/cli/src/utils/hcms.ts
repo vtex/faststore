@@ -104,13 +104,7 @@ async function confirmUserChoice(
   )
 
   if (!goAhead) {
-    console.info(
-      `${chalk.yellow(
-        'info'
-      )} - Skipping merge of local and default ${chalk.dim(fileName)} file.`
-    )
-
-    throw new Error('cms sync aborted.')
+    throw new Error('cms-sync cancelled by user.')
   }
 
   return
