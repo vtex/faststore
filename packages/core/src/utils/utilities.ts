@@ -1,5 +1,5 @@
 import { ServerProductQueryQuery } from '@generated/graphql'
-import { PDPContentType } from 'src/server/cms'
+import { PDPContentType } from 'src/server/cms/pdp'
 
 //Input "Example Text!". Output: example-text
 export function textToKebabCase(text: string): string {
@@ -51,7 +51,7 @@ export function normalizePDPTemplate(templateValue: string) {
  * @returns The best PDP template page for the slug
  */
 export function findBestPDPTemplate(
-  pages: PDPContentType[],
+  pages: Partial<PDPContentType>[],
   slug: string,
   product: ServerProductQueryQuery['product']
 ) {
