@@ -2,12 +2,14 @@
   {
     "id": "globalSections",
     "name": "Global Sections",
+    "scopes": ["global"],
     "configurationSchemaSets": [],
     "isSingleton": true
   },
   {
     "id": "landingPage",
     "name": "Landing Page",
+    "scopes": ["landing", "custom"],
     "configurationSchemaSets": [
       {
         "name": "Settings",
@@ -53,6 +55,7 @@
   {
     "id": "home",
     "name": "Home",
+    "scopes": ["home"],
     "isSingleton": true,
     "configurationSchemaSets": [
       {
@@ -99,6 +102,7 @@
   {
     "id": "pdp",
     "name": "Product Page",
+    "scopes": ["pdp"],
     "configurationSchemaSets": [
       {
         "name": "Settings",
@@ -124,6 +128,7 @@
   {
     "id": "plp",
     "name": "Product List Page",
+    "scopes": ["plp"],
     "isSingleton": true,
     "configurationSchemaSets": [
       {
@@ -177,6 +182,7 @@
   {
     "id": "search",
     "name": "Search Page",
+    "scopes": ["plp", "search"],
     "isSingleton": true,
     "configurationSchemaSets": [
       {

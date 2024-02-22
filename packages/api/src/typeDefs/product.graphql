@@ -33,7 +33,7 @@ type StoreProduct {
   """
   Array of images.
   """
-  image: [StoreImage!]!
+  image(context: String = "generic", limit: Int = -1): [StoreImage!]!
   """
   Aggregate offer information.
   """

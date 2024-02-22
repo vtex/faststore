@@ -73,6 +73,9 @@
   "building-sections": {
     "title": "Building and Customizing Sections"
   },
+  "contextual-images": {
+    "title": "Using specific product images on different sections"
+  },
   "-- APIs and Reference --": {
     "type": "separator",
     "title": "APIs and Reference"

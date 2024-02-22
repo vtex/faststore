@@ -2,13 +2,20 @@ import storeConfig from '../../../faststore.config'
 import { useCart } from './index'
 
 export const useCheckoutButton = () => {
-  const { isValidating } = useCart()
+  const { isValidating, id } = useCart()
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
+    const isDevEnv =
+      window.location.host.includes('.vtex.app') ||
+      window.location.host.includes('localhost')
 
     if (!isValidating) {
-      window.location.href = `${storeConfig.checkoutUrl}`
+      if (!isDevEnv) {
+        window.location.href = `${storeConfig.checkoutUrl}`
+      } else if (id) {
+        window.location.href = `${storeConfig.checkoutUrl}?orderFormId=${id}`
+      }
     }
   }
 

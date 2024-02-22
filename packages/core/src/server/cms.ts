@@ -39,6 +39,32 @@ export const getPage = async <T extends ContentData>(options: Options) => {
   return pages[0] as T
 }
 
+export type VersionOptions = {
+  contentType: string
+  documentId: string
+  versionId: string
+}
+
+export const getPageByVersionId = async <T extends ContentData>(
+  options: VersionOptions
+) => {
+  const result = await clientCMS
+    .getCMSPage(options)
+    .then((page) => ({ data: [page] }))
+
+  const pages = result.data
+
+  if (!pages[0]) {
+    throw new MissingContentError(options)
+  }
+
+  if (pages.length !== 1) {
+    throw new MultipleContentError(options)
+  }
+
+  return pages[0] as T
+}
+
 type ProductGallerySettings = {
   settings: {
     productGallery: {

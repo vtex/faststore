@@ -12,10 +12,12 @@ type FormattedSkuVariant = {
   value: string
 }
 
+const SKU_IMAGE_LABEL = 'skuvariation'
+
 function findSkuVariantImage(availableImages: Item['images']) {
   return (
     availableImages.find(
-      (imageProperties) => imageProperties.imageLabel === 'skuvariation'
+      (imageProperties) => imageProperties.imageLabel === SKU_IMAGE_LABEL
     ) ?? availableImages[0]
   )
 }
@@ -189,7 +191,7 @@ export function getFormattedVariations(
 
       const formattedVariant = {
         src: variantImageToUse.imageUrl,
-        alt: variantImageToUse.imageLabel ?? '',
+        alt: variantImageToUse.imageText ?? '',
         label: `${variationProperty.name}: ${variationProperty.values[0]}`,
         value: variationProperty.values[0],
       }
