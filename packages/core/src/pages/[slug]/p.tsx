@@ -21,15 +21,15 @@ import { useSession } from 'src/sdk/session'
 import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
 import type { PDPContentType } from 'src/server/cms'
-import { getPDPTemplatePage } from 'src/server/cms'
+import { getPage, getPageByVersionId } from 'src/server/cms'
 
+import storeConfig from 'faststore.config'
 import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
-import storeConfig from '../../../faststore.config'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -208,6 +208,26 @@ export const getStaticProps: GetStaticProps<
     getGlobalSectionsData(previewData),
   ])
 
+  let cmsPage
+
+  if (storeConfig.cms.data) {
+    const cmsData = JSON.parse(storeConfig.cms.data)
+    const page = cmsData['pdp'][0]
+
+    if (page) {
+      cmsPage = getPageByVersionId<PDPContentType>({
+        contentType: 'pdp',
+        documentId: page.documentId,
+        versionId: page.versionId,
+      })
+    }
+  } else {
+    cmsPage = getPage<PDPContentType>({
+      ...(previewData?.contentType === 'pdp' ? previewData : null),
+      contentType: 'pdp',
+    })
+  }
+
   const { data, errors = [] } = searchResult
 
   const notFound = errors.find(isNotFoundError)
@@ -221,11 +241,6 @@ export const getStaticProps: GetStaticProps<
   if (errors.length > 0) {
     throw errors[0]
   }
-
-  const cmsPage = await getPDPTemplatePage(`/${slug}/p`, data.product, {
-    ...(previewData?.contentType === 'pdp' ? previewData : null),
-    contentType: 'pdp',
-  })
 
   const { seo } = data.product
   const title = seo.title || storeConfig.seo.title

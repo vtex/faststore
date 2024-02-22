@@ -38,15 +38,15 @@ yarn add @faststore/ui
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+import React from 'react'
 
 import { Button } from '@faststore/ui'
 
 function MyComponent {
-  return <Button>Click Me</Button>
+  return <Button variant="primary">Add to Cart</Button>
 }
 ```
 
 ## Docs
 
-For more information, please refer to our documentation: https://faststore.dev/reference/ui/faststore-ui
+For more information, please refer to our documentation: https://www.faststore.dev/components
