@@ -1,4 +1,4 @@
-import { PLPContentType } from 'src/server/cms'
+import { PLPContentType } from 'src/server/cms/plp'
 
 //Input "Example Text!". Output: example-text
 export function textToKebabCase(text: string): string {
@@ -17,14 +17,14 @@ export function textToKebabCase(text: string): string {
 export function normalizePLPSlug(slug: string) {
   // Remove extra slashes at the beginning and end
   let normalizedSlug = slug.replace(/^\/+|\/+$/g, '')
-  
+
   // Remove duplicate slashes and white spaces throughout the string
   normalizedSlug = normalizedSlug.replace(/\/+/g, '/').replace(/\s+/g, '')
-  
+
   return '/' + normalizedSlug.toLowerCase()
 }
 
-function findPLPTemplateBySlug(pages: PLPContentType[], slug: string) {
+function findPLPTemplateBySlug(pages: Partial<PLPContentType>[], slug: string) {
   return pages.find((page) => {
     // generic PLP template
     if (!page.settings?.template?.value) return false
@@ -48,7 +48,7 @@ function findPLPTemplateBySlug(pages: PLPContentType[], slug: string) {
  * @returns The best PLP template page for the slug
  */
 export function findBestPLPTemplate(
-  pages: PLPContentType[],
+  pages: Partial<PLPContentType>[],
   originalSlug: string
 ) {
   let slug = normalizePLPSlug(originalSlug)
@@ -60,6 +60,8 @@ export function findBestPLPTemplate(
   }
 
   return (
-    foundPageTemplate || pages.find((page) => !page.settings?.template?.value)
+    foundPageTemplate ||
+    pages.find((page) => !page.settings?.template?.value) ||
+    pages[0]
   )
 }
