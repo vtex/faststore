@@ -25,9 +25,12 @@ export const getPDP = async (
   product: ServerProductQueryQuery['product'],
   previewData: Locator
 ) => {
+  console.log('🚀 ~ config.cms.data:', config.cms.data)
   if (config.cms.data) {
     const cmsData = JSON.parse(config.cms.data)
+    console.log('🚀 ~ cmsData:', cmsData)
     const allPDPsFromCmsEnvData: PDPfromCmsEnvData[] = cmsData['pdp']
+    console.log('🚀 ~ allPDPsFromCmsEnvData:', allPDPsFromCmsEnvData)
 
     return await getPDPFromCmsEnvData(
       `/${slug}/p`,
