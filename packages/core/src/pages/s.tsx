@@ -14,14 +14,14 @@ import { useApplySearchState } from 'src/sdk/search/state'
 import { mark } from 'src/sdk/tests/mark'
 
 import { Locator } from '@vtex/client-cms'
+import storeConfig from 'faststore.config'
 import { GetStaticProps } from 'next'
 import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { getPage, getPageByVersionId, SearchContentType } from 'src/server/cms'
-import storeConfig from 'faststore.config'
 import SearchPage from 'src/components/templates/SearchPage/SearchPage'
+import { getPage, SearchContentType } from 'src/server/cms'
 
 type Props = {
   page: SearchContentType
@@ -125,7 +125,7 @@ export const getStaticProps: GetStaticProps<
     const page = cmsData['search'][0]
 
     if (page) {
-      const pageData = await getPageByVersionId<SearchContentType>({
+      const pageData = await getPage<SearchContentType>({
         contentType: 'search',
         documentId: page.documentId,
         versionId: page.versionId,

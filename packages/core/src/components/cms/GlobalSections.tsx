@@ -1,17 +1,17 @@
 import { Locator, Section } from '@vtex/client-cms'
+import storeConfig from 'faststore.config'
 import type { ComponentType } from 'react'
 import { PropsWithChildren, lazy } from 'react'
-import storeConfig from 'faststore.config'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import { PageContentType, getPage, getPageByVersionId } from 'src/server/cms'
+import { PageContentType, getPage } from 'src/server/cms'
 
 import Toast from 'src/components/common/Toast'
 import RenderSections from './RenderSections'
 
 import { OverriddenDefaultAlert as Alert } from 'src/components/sections/Alert/OverriddenDefaultAlert'
+import Footer from 'src/components/sections/Footer'
 import { OverriddenDefaultNavbar as Navbar } from 'src/components/sections/Navbar/OverriddenDefaultNavbar'
 import { OverriddenDefaultRegionBar as RegionBar } from 'src/components/sections/RegionBar/OverriddenDefaultRegionBar'
-import Footer from 'src/components/sections/Footer'
 
 const RegionModal = lazy(() => import('src/components/region/RegionModal'))
 const CartSidebar = lazy(() => import('src/components/cart/CartSidebar'))
@@ -56,7 +56,7 @@ export const getGlobalSectionsData = async (
     const page = cmsData[GLOBAL_SECTIONS_CONTENT_TYPE][0]
 
     if (page) {
-      const pageData = await getPageByVersionId<PageContentType>({
+      const pageData = await getPage<PageContentType>({
         contentType: GLOBAL_SECTIONS_CONTENT_TYPE,
         documentId: page.documentId,
         versionId: page.versionId,
