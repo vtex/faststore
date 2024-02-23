@@ -1,24 +1,24 @@
+import { useSearch } from '@faststore/sdk'
 import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
+import deepmerge from 'deepmerge'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
 import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ScrollToTopButton from 'src/components/sections/ScrollToTopButton'
 import { ITEMS_PER_PAGE } from 'src/constants'
-import deepmerge from 'deepmerge'
-import { useSearch } from '@faststore/sdk'
 
 import type { ComponentType } from 'react'
 import RenderSections from 'src/components/cms/RenderSections'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import { PLPContentType } from 'src/server/cms'
+import { PLPContentType } from 'src/server/cms/plp'
 
+import PageProvider, { PLPContext } from 'src/sdk/overrides/PageProvider'
 import {
   useCreateUseGalleryPage,
   UseGalleryPageContext,
 } from 'src/sdk/product/usePageProductsQuery'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
-import PageProvider, { PLPContext } from 'src/sdk/overrides/PageProvider'
 
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery
