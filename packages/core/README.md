@@ -7,58 +7,20 @@
   A starter powered by FastStore and NextJS
 </h1>
 
-Kickoff your store with this boilerplate. This starter ships with the main FastStore configuration files you might need to get up and running blazing fast with the blazing-fast store for React.
-
-## ⚠️ Before you start
-
-As of Sep, 2022, this starter is still far from covering most basic cases found on VTEX. To summarize what we still do not support that is considered basic on the VTEX commerce platform, we prepared the list below. If the feature you want is listed, you can either wait for us to add support to the feature, or fork the repo and implement on your own. Note that, by forking the repo, you will miss new features and improvements we do in this repo and you will need a developer to backport the feature to your store. Finally, this list is a work in progress, so some features may be missing from both base.store starter and this list.
-
-1. Multiple CMS Previews. Only one user is allowed to preview content from the CMS at a time. If two users preview any content from any page at the CMS, the previews are not consistent and one user may see data from the other.
-2. Price Table
-3. Internationalization
-4. Shared Cart (Carrinho compartilhado)
-5. Clear products that are our of stock from cart
-6. GDPR (LGDP)
-7. Shipping simulation
-8. Sitemap
-9. Promotions via utm
+Kick off your store with this boilerplate.
+This starter ships the main FastStore configuration files to get your store up and running blazing-fast. This source code is the base for FastStore projects starter.
 
 ## 🚀 Quick start
-
-0. **Clone this repo**
-
-   Get up and running by cloning this repo.
-
-   ```shell
-   # Clone this repo into your machine
-   npx degit vtex-sites/nextjs.store awesome.store
-   ```
 
 1. **Install dependencies**
 
    Install dependencies with yarn
 
    ```shell
-   cd awesome.store/
    yarn
    ```
 
-2. **Setup faststore.config.js**
-
-   Choose the ecommerce platform provider of your choice in the `store.config` file and set the corresponding options. For instance, to connect to the VTEX platform on the store `fashioneurope`:
-
-   ```js
-   module.exports = {
-     platform: 'vtex',
-
-     api: {
-       storeId: 'fashioneurope'
-       environment: 'vtexcommercestable'
-     }
-   }
-   ```
-
-3. **Start developing**
+2. **Start developing**
 
    Navigate into your new site’s directory and start it up.
 
@@ -66,45 +28,49 @@ As of Sep, 2022, this starter is still far from covering most basic cases found 
    yarn dev
    ```
 
-4. **Open the source code and start editing!**
+3. **Open the source code and start editing!**
 
    Your site is now running at `http://localhost:3000`!
 
-   Open the `awesome.store` directory in your code editor of choice and edit `src/pages/index.tsx`. Save your changes and the browser will update in real-time!
-
-## :technologist: Contributing
-
-1. **Keep the CHANGELOG updated**
-   We use a CHANGELOG to keep the history of all notable changes made to this repository.
-   Each PR must have at least one entry on the `[UNRELEASED]` section of the `CHANGELOG.md` file.
-
 ## 🧐 What's inside?
 
-A quick look at the top-level files and directories you'll see in a NextJS project.
+A quick look at the top-level files and directories you'll see in a this NextJS project.
 
     ./
     ├── node_modules
+    ├── @generated
+    ├── cms
+    ├── public
     ├── src
-    ├── .gitignore
-    ├── .eslintignore
+    ├── test
+    ├── .babelrc.js
+    ├── .editorconfig
     ├── .prettierignore
     ├── .prettierrrc
-    ├── .eslintrc
-    ├── LICENSE
-    └── yarn.lock
-    ├── package.json
-    ├── tsconfig.json
-    ├── faststore.config.js
-    ├── README.md
+    ├── .stylelintignore
+    ├── .gitignore
+    ├── .eslintignore
     ├── CHANGELOG.md
-    ├── __generated__
-    ├── babel.config.js
+    ├── codegen.ts
     ├── cypress
     ├── cypress.config.ts
+    ├── faststore.config.default.js
+    ├── faststore.config.js
+    ├── index.ts
+    ├── jest.config.js
+    ├── LICENSE
     ├── lighthouserc.js
-    ├── public
+    ├── next-env.d.ts
+    ├── next.config.ts
+    ├── package.json
+    ├── tsconfig.json
+    ├── postcss.config.js
+    ├── postinstall.js
     ├── pull_request_template.md
-    ├── renovate.json
+    ├── README.md
+    ├── stylelint.config.js
+    ├── tsconfig.json
+    ├── vtex.env
 
 1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
 
@@ -114,39 +80,27 @@ A quick look at the top-level files and directories you'll see in a NextJS proje
 
 4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
 
-5.  **`.eslintrc.js`**: This is a configuration file for [ESLint](https://eslint.org/). ESlint is a tool to find and fix problems in your JavaScript code.
+5.  **`LICENSE`**: NextJS is licensed under the MIT license.
 
-6.  **`LICENSE`**: NextJS is licensed under the MIT license.
+6.  **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
 
-7.  **`yarn.lock`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
+7.  **`tsconfig.json`**: The configuration file for the typescript compiler. This will statically analyze your code for errors and bugs before releasing them into production
 
-8.  **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
+8.  **`faststore.config.default.js`**: Configure your e-commerce platform, default sales channel etc.
 
-9.  **`tsconfig.json`**: The configuration file for the typescript compiler. This will statically analyze your code for errors and bugs before releasing them into production
+9.  **`@generated`**: Where TypeScript typings are generated for your GraphQL queries. You can use these files for strongly typing your App
 
-10. **`faststore.config.js`**: Configure your e-commerce platform, default sales channel etc.
+10. **`cypress`**: End to End(e2e) tests using Cypress. Most of the scenarios are covered here. Add your custom flows to avoid regressions
 
-11. **`README.md`**: A text file containing useful reference information about your project.
+11. **`cypress.config.ts`**: [Cypress configuration file](https://docs.cypress.io/guides/references/configuration)
 
-12. **`CHANGELOG.md`**: A text file containing all notable changes to the project.
+12. **`lighthouserc.js`**: Configures [Google Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci). This is where you can turn on/off lighthouse assertions to be used by Lighthouse CI Bot/hook
 
-13. **`__generated__`**: Where TypeScript typings are generated for your GraphQL queries. You can use these files for strongly typing your App
+13. **`pull_request_template.md`**: Template used when creating your Pull Requests
 
-14. **`babel.config.js`**: [Babel configurations](https://babeljs.io/docs/en/configuration#babelrcjson) for you app. This is where you can change the targeted browsers.
+14. **`.prettierignore`**: Ignore listed files when applying prettier rules
 
-15. **`cypress`**: End to End(e2e) tests using Cypress. Most of the scenarios are covered here. Add your custom flows to avoid regressions
-
-16. **`cypress.config.ts`**: [Cypress configuration file](https://docs.cypress.io/guides/references/configuration)
-
-17. **`lighthouserc.js`**: Configures [Google Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci). This is where you can turn on/off lighthouse assertions to be used by Lighthouse CI Bot/hook
-
-18. **`pull_request_template.md`**: Template used when creating your Pull Requests
-
-19. **`renovate.json`**: Renovate configuration file to keep your store always fresh with FastStore's latest versions
-
-20. **`.prettierignore`**: Ignore listed files when applying prettier rules
-
-21. **`.eslintignore`**: Ignore listed files when applying eslint rules
+15. **`.eslintignore`**: Ignore listed files when applying eslint rules
 
 ## 💻 Code Structure
 
@@ -154,8 +108,8 @@ All code is inside the `src` folder. The code is split into folders that impleme
 
 The `controller` is inside the `src/sdk` folder. This is where you will find most logic for the application. This folder contains hooks for adding items to cart, making graphql queries, resizing images, etc. If you need to write a custom business logic this is probably the place to put this logic.
 
-The `views` are written in the `src/components` folder and are subdivided into domain-specific components. Cart related items are inside the `src/components/cart` folder. Search and Product related components like facets, product summary, and search results are in their respective folders. Basic building blocks components are inside the UI folder. Components like button, checkbox, and modal are good candidates for the UI folder.
-Section components are those components that occupy a whole slice on the webpage and are desirable to be changed by a CMS. Section components are Product Gallery, Carousel, Shelf and Product description.
+The `views` are written in the `src/components` folder and are subdivided into domain-specific components. Cart related items are inside the `src/components/cart` folder. Search and Product related components like facets, product summary, and search results are in their respective folders. Basic building blocks components used in the sections are inside the UI folder.
+Section components are those components that occupy a whole slice on the webpage and are desirable to be changed by a CMS. Section components are Product Gallery, Product Shelf and Hero and BannerText.
 
 The `model`, in a website, is where the data fetching occurs. Since this project uses Jamstack, a crucial design decision was made to explicitly split where Static and Dynamic data are fetched. The files inside the `src/pages` folder use [NextJS's File System Route API](https://nextjs.org/docs/routing/introduction) to declare routes and fetch static data.
 
@@ -165,135 +119,11 @@ To summarize:
 2. `src/views`: Receives static data from `src/pages`, enriches this data with dynamic attributes, and render section components along with SEO tags.
 3. `src/components/sections`: Receives necessary data and use domain-specific components (cart/product/search/ui) for rendering a slice on the web page.
 
-## ✏️ Adding Components
-
-What better than an example for learning the best practices while adding components? In this example, we will add a button component.
-Components live on the `src/components` folder. Each component may have, at most, 3 files: a component file, an export file, and a styling file.
-First, let's create a folder and the files.
-
-```sh
-mkdir src/components/ui/Button
-touch src/components/ui/Button/Button.tsx
-touch src/components/ui/Button/index.tsx
-```
-
-The `index.tsx` is just an export file, so its content is simple:
-
-```tsx
-export { default } from './Button'
-```
-
-The real thing happens on `Button.tsx`. On this file let's define the component like:
-
-```tsx
-interface Props {}
-
-function Button(props: Props) {
-  return <button {...props} />
-}
-
-export default Button
-```
-
-And, that's it! Now you have a working button that you can use anywhere on your project. FastStore, however, brings a handy library called `@faststore/ui` with built-in components to help you speed up your development. To use it, just change `Button.tsx` to:
-
-```tsx
-import { Button as UIButton } from '@faststore/ui'
-import type { ButtonProps } from '@faststore/ui'
-
-interface Props extends ButtonProps {}
-
-function Button(props: Props) {
-  return <UIButton {...props} />
-}
-
-export default Button
-```
-
-Now, your Button component is powered by Store UI. However, if you try to use this on your app you will see that the button is lacking styles. To add styles, we will use CSS modules because they allow us to target data attributes. On your terminal, type:
-
-```sh
-touch src/components/ui/Button/button.scss
-```
-
-Now, on `button.scss`:
-
-```css
-[data-fs-button] {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-```
-
-This `data-fs-button` is a CSS data attribute selector. To know which selectors are available, check [FastStore UI docs](https://faststoreui.netlify.app/).
-
-Now, include the component's CSS into the Store's CSS. Open `src/styles/global/components.scss` and import this CSS with:
-
-```scss
-// ...
-@import 'src/components/ui/Button/button.scss';
-// ...
-```
-
-For most components, you would stop here. However, buttons can have different variants. For instance, suppose you want to have a button component with primary and secondary variants. To add variants to the component, update `Button.tsx`:
-
-```tsx
-import { Button as UIButton } from '@faststore/ui'
-import type { ButtonProps } from '@faststore/ui'
-
-interface Props extends ButtonProps {
-  variant: 'secondary' | 'primary'
-}
-
-function Button({ variant, ...props }: Props) {
-  return <UIButton data-button-variant={variant} {...props} />
-}
-
-export default Button
-```
-
-and then, on `button.scss`:
-
-```css
-[data-fs-button][data-button-variant='primary'] {
-  background: blue;
-}
-
-[data-fs-button][data-button-variant='secondary'] {
-  background: pink;
-}
-```
-
-You can also use classes, if you wanted to:
-
-```tsx
-function Button({ variant, ...props }: Props) {
-  return <UIButton className={variant} {...props} />
-}
-```
-
-```css
-.primary[data-fs-button] {
-  background: blue;
-}
-
-.secondary[data-fs-button] {
-  background: pink;
-}
-```
-
-Now we have a styled Button component that accepts different variants!! 🎉
-
 ### Managing SVG Icons
 
 Icons help build web pages by illustrating concepts and improving website navigation. However, using icons can decrease the page's performance. One option to avoid the decrease of the page's performance is to use SVGs from a single SVG file, located in `/static/icons.svg`, and load them with the `ui/Icon` component.
 
 In the following steps, learn how to add and use a new SVG icon and avoid decreasing page performance while using an icon.
-
-> ⚠️ Warning
->
-> This is a recommendation while using icons on a web page. Evaluate if this fits in your project.
 
 #### Adding an SVG icon
 
@@ -316,7 +146,7 @@ An example adding Bell icon:
 
 ```tsx
 // src/components/ui/MyIconButton/MyIconButton.tsx
-import Icon from 'src/components/ui/Icon' // this path can be outdated.
+import Icon from '@faststore/ui'
 
 function ButtonIcon() {
   return (
@@ -330,55 +160,16 @@ export default ButtonIcon
 ```
 
 This project uses SVGs from [Phosphor icons](https://phosphoricons.com/).
+More details, please refer to this [doc](https://www.faststore.dev/docs/icons).
 
 ## 🖊️ Styling Components
 
-Our customized themes are based on [Design Tokens](https://css-tricks.com/what-are-design-tokens/) using [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) or a CSS class for each token. Today, we have the following files in the `src/styles` folder:
-
-### `tokens.scss`
-
-Here you'll find the basic structure to build your theme (font base, color palette, spacing, color-text, body background color...), feel free to update it with your brand guidelines.
-
-#### <b>Colors</b>
-
-We suggest using a color palette of 3 colors and its gradation: `primary`, `secondary` and `neutral`.
-
-We also listed a couple of customizable tokens so you can easily change your body background, for example.
-
-If you feel the need to edit some of the color decisions, you can enter `tokens.scss` and update the semantical tokens. E.g.:
-
-```scss
---fs-border-color: var(--fs-color-neutral-4); // Current
---fs-border-color: var(--fs-color-neutral-5); // Updated
-```
-
-#### <b>Typography</b>
-
-We use the [Modular Scale](https://www.modularscale.com/) setting to create our text-sizes. If you want to change it, just set the `--fs-text-size-base` and the `scale` ratio.
-
-#### <b>Spacing</b>
-
-The spacing scale is based on `rem` sizes, so it will remain consistent if you change the `--fs-text-size-base`.
-
-### `layout.scss`
-
-List of classes used to create default page grid.
-
-```scss
-.layout__content // Should be used for sections that fit centered on the grid.
-.layout__section // This class only adds default vertical margins for page sections.
-```
-
-![grid-example-image](https://user-images.githubusercontent.com/3356699/150801221-4027dc6a-1cc4-40a7-a323-8be7a148458d.png)
-
-### `typography.scss`
-
-For the typography-related styles, we decided to use classes to add extra stylings like `font-weight` and `line-height`. In this file, you'll see all the classes for titles, paragraphs, and default settings on the body. You can create new ones here if needed.
+Our customized themes are based on [Design Tokens](https://css-tricks.com/what-are-design-tokens/) using [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) or a CSS class for each token. We utilize the styles from the `@faststore/ui` package, which are imported into the `src/styles` directory. Additionally, each component's styles are imported directly into the section where they are being used. Refer to [Theming overview](https://www.faststore.dev/docs/theming-overview) for more details.
 
 ## 🍒 Adding queries
 
 We use [graphql-codegen](https://www.graphql-code-generator.com/) to pre-process GraphQL queries. This compilation generates TypeScript typings and configurations for our graphql server under the folder `@generated/graphql`.
-This means we can statically analyse your code in search of bugs and secure your graphql server before each deploy. If, however you need to change any GraphQL Fragment, Query or Mutation, you will need to regenerate the whole thing. To do this, open your terminal and type
+This means we can statically analyze your code in search of bugs and secure your graphql server before each deploy. If, however you need to change any GraphQL Fragment, Query or Mutation, you will need to regenerate the whole thing. To do this, open your terminal and type
 
 ```sh
 $ yarn dev
@@ -396,15 +187,14 @@ That's it! you have just regenerated all graphql queries/fragments for your appl
 
 ## CMS Integration
 
-This store is integrated with [VTEX headless CMS](https://www.faststore.dev/tutorials/cms/0).
+This store is integrated with [VTEX headless CMS](https://v1.faststore.dev/tutorials/cms/0).
 
-The page rendered with CMS is:
-
-- index page: `pages/index.tsx`
+The page rendered with CMS is the index page: `pages/index.tsx`
+The `cms/faststore` contains the `content-types.json` and `sections.json` files.
 
 ### CMS configs
 
-It's possible to change the CMS tenant and workspace at `faststore.config.js`.
+It's possible to change the CMS tenant and workspace at `faststore.config.default.js`.
 
 ## 🎓 Learning the Frameworks
 

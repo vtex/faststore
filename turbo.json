@@ -3,7 +3,8 @@
   "globalEnv": [
     "OCLIF_COMPILATION",
     "NODE_ENV",
-    "DISABLE_3P_SCRIPTS"
+    "DISABLE_3P_SCRIPTS",
+    "CMS_DATA"
   ],
   "pipeline": {
     "site#build": {

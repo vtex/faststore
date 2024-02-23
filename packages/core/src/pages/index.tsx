@@ -13,7 +13,7 @@ import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { mark } from 'src/sdk/tests/mark'
 import type { PageContentType } from 'src/server/cms'
-import { getPage } from 'src/server/cms'
+import { getPage, getPageByVersionId } from 'src/server/cms'
 
 import GlobalSections, {
   GlobalSectionsData,
@@ -85,13 +85,29 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const [page, globalSections] = await Promise.all([
-    getPage<PageContentType>({
-      ...(previewData?.contentType === 'home' && previewData),
-      contentType: 'home',
-    }),
-    getGlobalSectionsData(previewData),
-  ])
+  const globalSections = await getGlobalSectionsData(previewData)
+
+  if (storeConfig.cms.data) {
+    const cmsData = JSON.parse(storeConfig.cms.data)
+    const page = cmsData['home'][0]
+
+    if (page) {
+      const pageData = await getPageByVersionId<PageContentType>({
+        contentType: 'home',
+        documentId: page.documentId,
+        versionId: page.versionId,
+      })
+
+      return {
+        props: { page: pageData, globalSections },
+      }
+    }
+  }
+
+  const page = await getPage<PageContentType>({
+    ...(previewData?.contentType === 'home' && previewData),
+    contentType: 'home',
+  })
 
   return {
     props: { page, globalSections },

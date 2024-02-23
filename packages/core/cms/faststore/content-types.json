@@ -2,12 +2,14 @@
   {
     "id": "globalSections",
     "name": "Global Sections",
+    "scopes": ["global"],
     "configurationSchemaSets": [],
     "isSingleton": true
   },
   {
     "id": "landingPage",
     "name": "Landing Page",
+    "scopes": ["landing", "custom"],
     "configurationSchemaSets": [
       {
         "name": "Settings",
@@ -53,6 +55,7 @@
   {
     "id": "home",
     "name": "Home",
+    "scopes": ["home"],
     "isSingleton": true,
     "configurationSchemaSets": [
       {
@@ -99,6 +102,7 @@
   {
     "id": "pdp",
     "name": "Product Page",
+    "scopes": ["pdp"],
     "configurationSchemaSets": [
       {
         "name": "Settings",
@@ -112,7 +116,7 @@
                 "value": {
                   "title": "PDP template value (e.g. Slug: /apple-magic-mouse/p OR /department/category/subcategory/)",
                   "type": "string",
-                  "description": "The value can be: the PDP slug template (e.g. /apple-magic-mouse/p). A /department/category/subcategory/ template (e.g. /office/ OR /office/chairs/ OR /office/chairs/classic). If this field is empty this template will be the generic PDP."
+                  "description": "Possible values: the PDP slug template (e.g. '/apple-magic-mouse/p'); A PLP template (e.g. '/department/' OR '/department/category/' OR '/department/category/subcategory/'). If empty, this template will be the generic PDP."
                 }
               }
             }
@@ -124,6 +128,7 @@
   {
     "id": "plp",
     "name": "Product List Page",
+    "scopes": ["plp"],
     "configurationSchemaSets": [
       {
         "name": "Settings",
@@ -137,7 +142,7 @@
                 "value": {
                   "title": "PLP template value (e.g. Slug: /department/category/subcategory)",
                   "type": "string",
-                  "description": "PLP slug template (e.g. /office or /office/chairs) representing the /department/category/subcategory template). If this field is empty this template will be the generic PLP."
+                  "description": "PLP slug template (e.g. /office or /office/chairs) representing the /department/category/subcategory template). If this field is left empty, the generic PLP template will be applied."
                 }
               }
             }
@@ -190,6 +195,7 @@
   {
     "id": "search",
     "name": "Search Page",
+    "scopes": ["plp", "search"],
     "isSingleton": true,
     "configurationSchemaSets": [
       {

@@ -55,4 +55,4 @@ function MyComponent {
 
 ## Docs
 
-For more information, please refer to our documentation: https://faststore.dev/reference/sdk/overview
+For more information, please refer to our documentation: https://v1.faststore.dev/reference/sdk/faststore-sdk
