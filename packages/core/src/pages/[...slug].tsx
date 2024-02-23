@@ -14,7 +14,6 @@ import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-
 import LandingPage, {
   getLandingPageBySlug,
   LandingPageProps,
@@ -102,7 +101,7 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
-  const [{ data, errors = [] }] = await Promise.all([
+  const [{ data, errors = [] }, cmsPage] = await Promise.all([
     execute<
       ServerCollectionPageQueryQueryVariables,
       ServerCollectionPageQueryQuery
@@ -110,9 +109,9 @@ export const getStaticProps: GetStaticProps<
       variables: { slug },
       operation: query,
     }),
+    getPLP(slug, previewData),
   ])
 
-  const cmsPage: PLPContentType = await getPLP(slug, previewData)
   console.log('🚀 ~ cmsPage:', cmsPage)
 
   const notFound = errors.find(isNotFoundError)
