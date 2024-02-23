@@ -21,13 +21,13 @@ import { useSession } from 'src/sdk/session'
 import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
 import type { PDPContentType } from 'src/server/cms'
-import { getPage } from 'src/server/cms'
+import { getPage, getPageByVersionId } from 'src/server/cms'
 
 import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import storeConfig from '../../../faststore.config'
+import storeConfig from 'faststore.config'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
 
@@ -200,17 +200,33 @@ export const getStaticProps: GetStaticProps<
   Locator
 > = async ({ params, previewData }) => {
   const slug = params?.slug ?? ''
-  const [searchResult, cmsPage, globalSections] = await Promise.all([
+  const [searchResult, globalSections] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
       variables: { locator: [{ key: 'slug', value: slug }] },
       operation: query,
     }),
-    getPage<PDPContentType>({
-      ...(previewData?.contentType === 'pdp' ? previewData : null),
-      contentType: 'pdp',
-    }),
     getGlobalSectionsData(previewData),
   ])
+
+  let cmsPage
+
+  if (storeConfig.cms.data) {
+    const cmsData = JSON.parse(storeConfig.cms.data)
+    const page = cmsData['pdp'][0]
+
+    if (page) {
+      cmsPage = getPageByVersionId<PDPContentType>({
+        contentType: 'pdp',
+        documentId: page.documentId,
+        versionId: page.versionId,
+      })
+    }
+  } else {
+    cmsPage = getPage<PDPContentType>({
+      ...(previewData?.contentType === 'pdp' ? previewData : null),
+      contentType: 'pdp',
+    })
+  }
 
   const { data, errors = [] } = searchResult
 

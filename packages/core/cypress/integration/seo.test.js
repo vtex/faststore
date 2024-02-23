@@ -176,9 +176,7 @@ describe('Collection Page Seo', () => {
     cy.get('link[rel="canonical"]')
       .should('exist')
       .should(($link) => {
-        expect($link.attr('href')).to.eq(
-          `${storeUrl}${pages.collection}?sort=score_desc`
-        )
+        expect($link.attr('href')).to.eq(`${storeUrl}${pages.collection}`)
       })
   })
 
@@ -233,9 +231,7 @@ describe('Filtered Collection Page Seo', () => {
     cy.get('link[rel="canonical"]')
       .should('exist')
       .should(($link) => {
-        expect($link.attr('href')).to.eq(
-          `${storeUrl}${pages.collection}?sort=score_desc`
-        )
+        expect($link.attr('href')).to.eq(`${storeUrl}${pages.collection}`)
       })
   })
 

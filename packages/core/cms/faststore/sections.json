@@ -1,6 +1,7 @@
 [
   {
     "name": "Search",
+    "requiredScopes": [],
     "schema": {
       "title": "Search Bar",
       "type": "object",
@@ -145,6 +146,7 @@
   },
   {
     "name": "Navbar",
+    "requiredScopes": [],
     "schema": {
       "title": "Navbar",
       "type": "object",
@@ -369,6 +371,7 @@
   },
   {
     "name": "Alert",
+    "requiredScopes": [],
     "schema": {
       "title": "Alert",
       "description": "Add an alert",
@@ -416,6 +419,7 @@
   },
   {
     "name": "Footer",
+    "requiredScopes": [],
     "schema": {
       "title": "Footer",
       "description": "Footer displayed on all pages",
@@ -661,6 +665,7 @@
   },
   {
     "name": "BannerText",
+    "requiredScopes": [],
     "schema": {
       "title": "Banner Text",
       "description": "Add a quick promotion with a text/action pair",
@@ -712,6 +717,7 @@
   },
   {
     "name": "Hero",
+    "requiredScopes": [],
     "schema": {
       "title": "Hero",
       "description": "Add a quick promotion with an image/action pair",
@@ -779,6 +785,7 @@
   },
   {
     "name": "Incentives",
+    "requiredScopes": [],
     "schema": {
       "title": "Incentives",
       "description": "Add Incentives to your shopper",
@@ -836,6 +843,7 @@
   },
   {
     "name": "ProductShelf",
+    "requiredScopes": [],
     "schema": {
       "title": "Product Shelf",
       "description": "Add custom shelves to your store",
@@ -937,6 +945,7 @@
   },
   {
     "name": "CrossSellingShelf",
+    "requiredScopes": ["pdp", "custom"],
     "schema": {
       "title": "Cross Selling Shelf",
       "description": "Add cross selling product data to your users",
@@ -971,6 +980,7 @@
   },
   {
     "name": "ProductTiles",
+    "requiredScopes": [],
     "schema": {
       "title": "Product Tiles",
       "description": "Add custom highlights to your store",
@@ -1050,6 +1060,7 @@
   },
   {
     "name": "Newsletter",
+    "requiredScopes": [],
     "schema": {
       "title": "Newsletter",
       "description": "Allow users to subscribe to your updates",
@@ -1191,6 +1202,7 @@
   },
   {
     "name": "BannerNewsletter",
+    "requiredScopes": [],
     "schema": {
       "title": "Banner Newsletter",
       "description": "Add newsletter with a banner",
@@ -1374,6 +1386,7 @@
   },
   {
     "name": "Breadcrumb",
+    "requiredScopes": ["pdp", "plp"],
     "schema": {
       "title": "Breadcrumb",
       "description": "Configure the breadcrumb icon and depth",
@@ -1395,6 +1408,7 @@
   },
   {
     "name": "ProductDetails",
+    "requiredScopes": ["pdp"],
     "schema": {
       "title": "Product Details",
       "type": "object",
@@ -1530,6 +1544,7 @@
   },
   {
     "name": "ProductGallery",
+    "requiredScopes": ["plp", "search"],
     "schema": {
       "title": "Product Gallery",
       "type": "object",
@@ -1726,6 +1741,7 @@
   },
   {
     "name": "CartSidebar",
+    "requiredScopes": [],
     "schema": {
       "title": "Cart Sidebar",
       "type": "object",
@@ -1821,6 +1837,7 @@
   },
   {
     "name": "RegionBar",
+    "requiredScopes": [],
     "schema": {
       "title": "Region Bar",
       "type": "object",
@@ -1878,6 +1895,7 @@
   },
   {
     "name": "RegionModal",
+    "requiredScopes": [],
     "schema": {
       "title": "Region Modal",
       "type": "object",
