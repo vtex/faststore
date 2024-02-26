@@ -35,7 +35,8 @@ interface GenerateOptions {
   setup?: boolean
 }
 
-const ignorePaths = ['node_modules', 'cypress.config.ts']
+// package.json is copied manually after filtering its content
+const ignorePaths = ['package.json', 'node_modules', 'cypress.config.ts']
 
 function createTmpFolder() {
   try {
@@ -54,6 +55,24 @@ function createTmpFolder() {
   }
 }
 
+/**
+ * Prevents imports from @faststore/core from randomly conflicting
+ * where sometimes the package.json from the .faststore folder
+ * took precedence over @faststore/core's package.json.
+ */
+function filterAndCopyPackageJson() {
+  const corePackageJsonPath = path.join(coreDir, 'package.json')
+
+  const corePackageJsonFile = readFileSync(corePackageJsonPath, 'utf8')
+  let { exports: _, ...filteredFileContent } = JSON.parse(corePackageJsonFile)
+
+  filteredFileContent.name = 'dot-faststore'
+
+  writeJsonSync(path.join(tmpDir, 'package.json'), filteredFileContent, {
+    spaces: 2,
+  })
+}
+
 function copyCoreFiles() {
   try {
     copySync(coreDir, tmpDir, {
@@ -66,6 +85,9 @@ function copyCoreFiles() {
         return shouldCopy
       },
     })
+
+    filterAndCopyPackageJson()
+
     console.log(`${chalk.green('success')} - Core files copied`)
   } catch (e) {
     console.error(e)

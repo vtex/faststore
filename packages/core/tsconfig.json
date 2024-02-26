@@ -14,6 +14,11 @@
     "paths": {
       "src/*": ["src/*"],
       "@generated/*": ["@generated/*"],
+      /**
+       * This makes @faststore/core/api and @faststore/core/experimental imports
+       * inside .faststore source from .faststore, not from @faststore/core package
+       */
+      "@faststore/core/api": ["api/index.ts"],
       "@faststore/core/experimental": ["src/experimental/index.ts"]
     },
     "forceConsistentCasingInFileNames": true,
