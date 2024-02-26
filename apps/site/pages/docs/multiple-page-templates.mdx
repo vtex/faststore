@@ -23,7 +23,7 @@ The order should be as follows:
 4.  A PDP document that matches the product `department` (collection);
 5.  If no matches are found, use the generic PDP template.
 
-![PDP document list](https://vtexhelp.vtexassets.com/assets/docs/src/pdplist___a4862453821a4f753ac1d171cc3708b6.png)
+![PDP document list](https://vtexhelp.vtexassets.com/assets/docs/src/pdplist___d6f00d8bcfc23aecc477c97d487eebca.png)
 
 Let's see the examples below:
 
@@ -31,7 +31,7 @@ While using PDPs, note that this type of page is recognized by the slug pattern 
 
 You can create the template based on the slug `/apple-magic-mouse/p`.
 
-![PDP Slug template](https://vtexhelp.vtexassets.com/assets/docs/src/pdpslug___c271bf0ba13f048deee0da6914dbc601.png)
+![PDP Slug template](https://vtexhelp.vtexassets.com/assets/docs/src/pdpslug___95ada5a5b24e23e34c04f4837d11ade7.png)
 
 This is the most specific template, when the slug template exists, it will be rendered.
 But there are cases where you would like to render a specific template for products inside a `subcategory` or a `department`, for instance, instead of using the slug.
@@ -40,11 +40,11 @@ Because of that, the template can assume different behaviors based on the input 
 The products in VTEX catalog are under a `category` tree, usually `/department/category/subcategory/`.
 Note that the product mentioned above is in the Technology `department` from the catalog. Then, you can create a `department` template.
 
-![PDP Department template](https://vtexhelp.vtexassets.com/assets/docs/src/pdpdepartment___402731c744a6ad033442eefabe442875.png)
+![PDP Department template](https://vtexhelp.vtexassets.com/assets/docs/src/pdpdepartment___387cf641f675d05666afeafc65a3e56b.png)
 
 If this product were under a `subcategory`, would also be possible to create a template representing this scenario. The category tree is used in the template input, separated by slashes.
 
-![PDP subcategory template](https://vtexhelp.vtexassets.com/assets/docs/src/pdpsubcategory___902f100603227e1609763f96600a9e0f.png)
+![PDP subcategory template](https://vtexhelp.vtexassets.com/assets/docs/src/pdpsubcategory___566be1fd3bba2db777dd18881933292c.png)
 
 You can also see the category hierarchy through the breadcrumb.
 
@@ -52,7 +52,7 @@ You can also see the category hierarchy through the breadcrumb.
 
 If there are no matches for slug or `department`, the generic template will be used to render this PDP. So you need to create a document with an empty value in the template input field.
 
-![PDP general template](https://vtexhelp.vtexassets.com/assets/docs/src/pdpgeneral___374a4398e4c35e5374c09c07794498dc.png)
+![PDP general template](https://vtexhelp.vtexassets.com/assets/docs/src/pdpgeneral___cdeeaf6060b529aea029e2e5814efc50.png)
 
 Possible templates in CMS from this product:
 
@@ -75,7 +75,7 @@ While using PLPs, note that this type of page is recognized by the slug pattern 
 
 You can create the template based on the slug: `/office/chairs`
 
-![PLP document list](https://vtexhelp.vtexassets.com/assets/docs/src/plplist___8aceb65f7beec218a30ffc2c30474b64.png)
+![PLP document list](https://vtexhelp.vtexassets.com/assets/docs/src/plplist___854bd00fbbcc43d8ae25169917e85632.png)
 
 Note that the slug above represents the `department` and `category` separated by slashes (department/category).
 
@@ -84,17 +84,17 @@ When the slug template exists, it will be rendered.
 
 There are cases where you would like to render a specific template for products inside the `department` without considering the `category` or even a `subcategory`. For this case, you can create a `department` template [/office](https://starter.vtex.app/office/chairs).
 
-![PLP department template](https://vtexhelp.vtexassets.com/assets/docs/src/plpdepartment___9b99d517fd8e2baef6d643d72f37a90a.png)
+![PLP department template](https://vtexhelp.vtexassets.com/assets/docs/src/plpdepartment___4c520237721ca14a722215a93e8cd4c7.png)
 
 Bear in mind that if another most specific template exists, like `/office/chairs`, the most specific will be rendered if the slug matches the same pattern.
 
 If this product were under a `subcategory`, would also be possible to create a template representing this scenario. The category tree is used in the template slug input, like in the image below.
 
-![PLP subcategory template](https://vtexhelp.vtexassets.com/assets/docs/src/plpsubcategory___10655bbcb281020bf169301c26ec4976.png)
+![PLP subcategory template](https://vtexhelp.vtexassets.com/assets/docs/src/plpsubcategory___ac973acd0b5d1745e848f1a0a94c5988.png)
 
 If there are no matches for the slug or department, the generic template will be used to render this PLP. So you need to create a document with an empty value in the template input field.
 
-![PLP general template](https://vtexhelp.vtexassets.com/assets/docs/src/plpgeneral___318388319c4202f2f445ee99ddafb2e4.png)
+![PLP general template](https://vtexhelp.vtexassets.com/assets/docs/src/plpgeneral___d5ecb7ef0a45bb0bfa6280ec719d9b80.png)
 
 Possible templates in CMS from this product:
 
