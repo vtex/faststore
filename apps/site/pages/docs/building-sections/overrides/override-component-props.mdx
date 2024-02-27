@@ -1,0 +1,118 @@
+
+import { Callout, Steps, Tab, Tabs } from 'nextra-theme-docs'
+
+
+## Override Native Component's Props
+
+Overriding props allows you to customize a component's behavior while preserving its native integration. This approach is useful when you want to customize specific aspects of a native component, for example an icon or a button label. 
+
+For this guide, we'll use the [`BuyButton`](/components/molecules/buy-button#props) component to make the customization. Before we dive in, it's worth mentioning that the `BuyButton` component plays a crucial role in facilitating...
+
+Here's how the initial component looks with the `size` prop set as `regular` in the PDP (Product Details Page):
+
+![overrides-PDP-buy-button-initial](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-initial___a4b7ae9d88ed888da5649b2b6cc1eecd.png)
+
+### Step by step
+
+#### Step 1 - Setting up the component file
+
+1. After choosing a native section to be customized from the [list of available native sections](/docs/building-sections/list-of-native-sections), open your FastStore project in any code editor of your preference.
+2. Go to the `src` folder, create the `components` folder and inside it, create the `sections` folder. 
+
+The naming of the folders is arbitrary, as overrides can be created in any file. You can run the following command to create them:
+
+
+<Tabs items={['macOS and Linux', 'Windows']}>
+  <Tab>```bash copy mkdir src/components src/components/sections ```</Tab>
+  <Tab>```bash copy mkdir src\components src\components\sections ```</Tab>
+</Tabs>
+
+3. In the `sections` folder, create a new file for your customized section. For example, create a new file named `ProductDetailsWithCustomButton.tsx` under the `src/components/sections` directory.
+
+<Tabs items={['macOS and Linux', 'Windows']}>
+  <Tab>
+    ```bash copy touch src/components/sections/ProductDetailsWithCustomButton.tsx ```
+  </Tab>
+  <Tab>
+    ```bash copy type nul > src\components\sections\ProductDetailsWithCustomButton.tsx
+    ```
+  </Tab>
+</Tabs>
+
+4. Copy and paste the following code snippet into the file:
+
+```tsx filename="ProductDetailsWithCustomButton.tsx" copy
+import { ProductDetailsSection, getOverriddenSection } from '@faststore/core'
+
+const ProductDetailsWithCustomButton = getOverriddenSection({
+  Section: ProductDetailsSection,
+  components: {},
+})
+
+export { ProductDetailsWithCustomButton }
+```
+
+<Callout type="info" emoji="ℹ️">
+  Change the value of the `Section` variable to the section you want to
+  override. In the given example, we set the `Section` variable to the component
+  `ProductDetailsSection` to override this specific section.
+</Callout>
+
+5. Save your changes.
+
+#### Step 2 - Setting up the override
+
+1. Open the `ProductDetailsWithCustomButton.tsx` file created in the [Step 1 - Setting up the component file](#step-1-setting-up-the-overrides-folder) and add the following code:
+
+```tsx filename="ProductDetailsWithCustomButton.tsx" {8-9}
+import { ProductDetailsSection, getOverriddenSection } from '@faststore/core'
+
+const ProductDetailsWithCustomButton = getOverriddenSection({
+  Section: ProductDetailsSection,
+  components: {
+    BuyButton: { props: { size: 'small', iconPosition: 'right' } },
+  },
+})
+
+export { ProductDetailsWithCustomButton }
+```
+
+This code overrides the `BuyButton` props `size` and `iconPosition`. You'll see a smaller button than the initial one, and the cart icon positioned on the right side.
+
+#### Step 3 - Adding the component to the CMS
+
+
+1. In the FastStore root directory, create a folder named `cms`.
+2. Inside `cms`, create the `faststore` folder.
+3. Within the `cms/faststore` folder, create `sections.json` file.
+4. In the `sections.json` file add the new section that you want to display in the Headless CMS. The schema below defines how the Headless CMS renders a section:
+
+```json filename="sections.json" copy
+  [
+    {
+      
+    }
+  ]
+```
+
+
+LINK TO DOC ADDING A COMPONENT TO THE CMS
+LINK TO AVAILABLE DEFAULT NATIVE SECTION CMS DEFINITIONS
+
+#### Step 4 - Replacing this component on the page
+
+REMOVE EXISTING PRODUCT DETAILS
+ADD NEW ProductDetailsWithCustomButton TO THE PAGE
+
+### Step 5 - Visualizing the component on the page
+
+1. Run `yarn dev` in the terminal to start the development server. Access the CMS preview in your browser and go to product details page to see the updated `BuyButton` component:
+
+![overrides-PDP-buy-button-props](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-props___898b016bd82c908b5b24c8822be6789a.png)
+
+<Callout type="warning" emoji="⚠️">
+  Remember: props changed via Headless CMS overlap the changes made through
+  [override](/docs/building-sections/overriding-components-and-props#override-native-components-props).
+  For example, if you change a prop through override and also change it using
+  Headless CMS, the final prop's value will be the one added using CMS.
+</Callout>
