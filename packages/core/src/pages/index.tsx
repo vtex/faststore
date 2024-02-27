@@ -6,9 +6,9 @@ import type { ComponentType } from 'react'
 import RenderSections from 'src/components/cms/RenderSections'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
+import Incentives from 'src/components/sections/Incentives'
 import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-import Incentives from 'src/components/sections/Incentives'
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { mark } from 'src/sdk/tests/mark'
@@ -19,6 +19,7 @@ import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import fetchFunctions from 'src/customizations/src/dynamicContent'
 import storeConfig from '../../faststore.config'
 
 /* A list of components that can be used in the CMS. */
@@ -85,6 +86,18 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
+  // Checking if the fetch function corresponding to the home exists
+  const fetchFunction = fetchFunctions['home']
+  let dynamicContent
+
+  if (!fetchFunction) {
+    console.warn('Warning: Fetch function not found for the home page')
+  } else {
+    // Calling the fetch function corresponding to the slug
+    dynamicContent = await fetchFunction()
+    console.log('🚀 ~ dynamicContent:', dynamicContent)
+  }
+
   const globalSections = await getGlobalSectionsData(previewData)
 
   if (storeConfig.cms.data) {
