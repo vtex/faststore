@@ -11,7 +11,6 @@ import type { Options as OptionsVTEX } from './platforms/vtex'
 
 export * from './__generated__/schema'
 export * from './platforms/errors'
-export * from './telemetry'
 export { stringify as stringifyCacheControl } from './directives/cacheControl'
 export type { CacheControl } from './directives/cacheControl'
 
