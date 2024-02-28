@@ -49,7 +49,7 @@ function NavbarSlider({
     >
       <NavbarSliderHeader.Component
         onClose={fadeOut}
-        {...NavbarSliderWrapper.props}
+        {...NavbarSliderHeader.props}
       >
         <Link
           data-fs-navbar-slider-logo
