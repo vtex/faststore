@@ -34,3 +34,5 @@ export { useShippingSimulation as useShippingSimulation_unstable } from '../../s
 
 // Components
 export { Image as Image_unstable } from '../../src/components/ui/Image'
+
+export { execute as execute_unstable } from '../../src/server'
