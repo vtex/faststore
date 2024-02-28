@@ -88,8 +88,9 @@ export const getLandingPageBySlug = async (
 ) => {
   try {
     // Checking if the fetch function corresponding to the slug exists
-    const fetchFunction = fetchFunctions[slug]?.(execute)
+    const fetchFunction = fetchFunctions[slug]
     let dynamicContent
+    let serverData
 
     if (!fetchFunction) {
       console.warn(`Warning: Fetch function not found for slug: ${slug}`)
@@ -98,6 +99,16 @@ export const getLandingPageBySlug = async (
       dynamicContent = await fetchFunction()
       console.log('🚀 ~ dynamicContent:', dynamicContent)
     }
+
+    // TODO if is query, execute the query here from Server Side
+    if (!!dynamicContent && Array.isArray(dynamicContent)) {
+      const query = dynamicContent[0]
+      const variables = dynamicContent[1]
+      serverData = await execute({ operation: query, variables })
+    } else {
+      serverData = dynamicContent
+    }
+    console.log('🚀 ~ serverData:', serverData)
 
     if (storeConfig.cms.data) {
       const cmsData = JSON.parse(storeConfig.cms.data)
