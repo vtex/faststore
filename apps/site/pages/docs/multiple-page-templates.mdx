@@ -28,7 +28,7 @@ Even though the Multipage templates is a FastStore feature, you can benefit from
 
 When rendering Product Detail Pages (PDPs), FastStore uses the product information to find the appropriate template from the Headless CMS to render, starting from the most specific template of the product that has a slug to the most generic (`department` or the generic PDP).
 
-The order should be as follows:
+The order to find and render the template should be as follows:
 
 1.  A PDP document that matches the product slug;
 2.  A PDP document that matches the product `subcategory`;
