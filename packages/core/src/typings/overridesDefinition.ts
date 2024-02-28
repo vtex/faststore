@@ -37,7 +37,7 @@ export type OverriddenComponents<SectionName extends keyof SectionsOverrides> =
 
 export type DefaultSectionComponentsDefinitions<
   K extends keyof SectionsOverrides
-> = Record<keyof SectionsOverrides[K]['components'], React.ComponentType>
+> = Record<keyof SectionsOverrides[K]['components'], React.ElementType>
 
 export type ComponentOverrideDefinition<ComponentProps, Props> =
   | {
@@ -45,7 +45,7 @@ export type ComponentOverrideDefinition<ComponentProps, Props> =
       props: Partial<Props>
     }
   | {
-      Component: React.ComponentType<ComponentProps>
+      Component: React.ElementType<ComponentProps>
       props?: never
     }
 
