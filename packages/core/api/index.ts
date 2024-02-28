@@ -13,6 +13,3 @@ export type {
   StoreProductRoot,
   StoreOrganizationRoot,
 } from '@faststore/api'
-
-// GraphQL utilities
-export { execute as execute_unstable } from '../src/server'
