@@ -14,6 +14,8 @@
     "paths": {
       "src/*": ["src/*"],
       "@generated/*": ["@generated/*"],
+      "@faststore/core": ["index.ts"],
+      "@faststore/core/api": ["api/index.ts"],
       "@faststore/core/experimental": ["src/experimental/index.ts"]
     },
     "forceConsistentCasingInFileNames": true,
