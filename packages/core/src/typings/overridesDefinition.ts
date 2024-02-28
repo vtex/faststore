@@ -45,7 +45,7 @@ export type ComponentOverrideDefinition<ComponentProps, Props> =
       props: Partial<Props>
     }
   | {
-      Component: React.ElementType<ComponentProps>
+      Component: React.ComponentType<ComponentProps>
       props?: never
     }
 
