@@ -16,6 +16,7 @@ import { getPage, getPageByVersionId } from 'src/server/cms'
 
 import storeConfig from 'faststore.config'
 import fetchFunctions from 'src/customizations/src/dynamicContent'
+import { execute } from 'src/server'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -87,7 +88,7 @@ export const getLandingPageBySlug = async (
 ) => {
   try {
     // Checking if the fetch function corresponding to the slug exists
-    const fetchFunction = fetchFunctions[slug]
+    const fetchFunction = fetchFunctions[slug]?.(execute)
     let dynamicContent
 
     if (!fetchFunction) {
