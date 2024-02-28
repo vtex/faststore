@@ -30,12 +30,16 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 export type LandingPageProps = {
   page: PageContentType
   slug?: string
+  serverData?: unknown
 }
 
 export default function LandingPage({
   page: { sections, settings },
   slug,
+  serverData,
 }: LandingPageProps) {
+  console.log('🚀 ~ slug:', slug)
+  console.log('🚀 ~ serverData:', serverData)
   return (
     <>
       {/* SEO */}

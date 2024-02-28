@@ -1,6 +1,6 @@
 import { isNotFoundError } from '@faststore/api'
-import type { GetStaticPaths, GetStaticProps } from 'next'
 import storeConfig from 'faststore.config'
+import type { GetStaticPaths, GetStaticProps } from 'next'
 
 import { gql } from '@generated'
 import type {
@@ -15,20 +15,20 @@ import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import LandingPage, {
+  getLandingPageBySlug,
+  LandingPageProps,
+} from 'src/components/templates/LandingPage'
+import ProductListingPage, {
+  ProductListingPageProps,
+} from 'src/components/templates/ProductListingPage'
+import fetchFunctions from 'src/customizations/src/dynamicContent'
 import {
   getPage,
   getPageByVersionId,
   PageContentType,
   PLPContentType,
 } from 'src/server/cms'
-import ProductListingPage, {
-  ProductListingPageProps,
-} from 'src/components/templates/ProductListingPage'
-import LandingPage, {
-  getLandingPageBySlug,
-  LandingPageProps,
-} from 'src/components/templates/LandingPage'
-import fetchFunctions from 'src/customizations/src/dynamicContent'
 
 type BaseProps = {
   globalSections: GlobalSectionsData
@@ -45,6 +45,7 @@ type Props = BaseProps &
         type: 'page'
         slug: string
         page: PageContentType
+        serverData?: unknown
       }
   )
 
@@ -99,26 +100,15 @@ export const getStaticProps: GetStaticProps<
   if (await landingPagePromise) {
     // Checking if the fetch function corresponding to the slug exists
     const fetchFunction = fetchFunctions[slug]
-    let dynamicContent
     let serverData
 
     if (!fetchFunction) {
       console.warn(`Warning: Fetch function not found for slug: ${slug}`)
     } else {
       // Calling the fetch function corresponding to the slug
-      dynamicContent = await fetchFunction()
-      console.log('🚀 ~ dynamicContent:', dynamicContent)
+      serverData = await fetchFunction()
+      console.log('🚀 ~ serverData:', serverData)
     }
-
-    // TODO if is query, execute the query here from Server Side
-    if (!!dynamicContent && Array.isArray(dynamicContent)) {
-      const query = dynamicContent[0]
-      const variables = dynamicContent[1]
-      serverData = await execute({ operation: query, variables })
-    } else {
-      serverData = dynamicContent
-    }
-    console.log('🚀 ~ serverData:', serverData)
 
     return {
       props: {
@@ -126,6 +116,7 @@ export const getStaticProps: GetStaticProps<
         globalSections: await globalSectionsPromise,
         type: 'page',
         slug,
+        serverData,
       },
     }
   }
