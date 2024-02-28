@@ -112,7 +112,9 @@ There are cases where you need to render a specific template for products inside
 
 ![PLP department template](https://vtexhelp.vtexassets.com/assets/docs/src/plpdepartment___4c520237721ca14a722215a93e8cd4c7.png)
 
-Bear in mind that if another most specific template exists, like `/office/chairs`, the most specific will be rendered if the slug matches the same pattern.
+<Callout type="warning" emoji="⚠️">
+Keep in mind that if a more specific template, such as `/office/chairs`, exists, it will take precedence when the slug matches the same pattern.
+</Callout>
 
 If this product were under a `subcategory`, would also be possible to create a template representing this scenario. The category tree is used in the template slug input, like in the image below.
 
