@@ -2,8 +2,7 @@ import useSWR from 'swr'
 import type { SWRConfiguration } from 'swr'
 
 import { request } from './request'
-import type { RequestOptions } from './request'
-import { TypedDocumentString } from '@generated/graphql'
+import type { Operation, RequestOptions } from './request'
 
 export type QueryOptions = SWRConfiguration &
   RequestOptions & { doNotRun?: boolean }
@@ -23,7 +22,7 @@ export const DEFAULT_OPTIONS = {
 }
 
 export const useQuery = <Data, Variables = Record<string, unknown>>(
-  operation: TypedDocumentString<any, any>,
+  operation: Operation,
   variables: Variables,
   options?: QueryOptions
 ) =>

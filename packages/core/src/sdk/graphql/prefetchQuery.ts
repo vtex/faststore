@@ -3,11 +3,10 @@ import type { Cache } from 'swr'
 
 import { request } from './request'
 import { getKey } from './useQuery'
-import type { RequestOptions } from './request'
-import { TypedDocumentString } from '@generated/graphql'
+import type { Operation, RequestOptions } from './request'
 
 export const prefetchQuery = <Data, Variables = Record<string, unknown>>(
-  operation: TypedDocumentString<any, any>,
+  operation: Operation,
   variables: Variables,
   { cache, ...options }: Partial<RequestOptions> & { cache: Cache }
 ) => {

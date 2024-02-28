@@ -27,10 +27,10 @@ import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolver
 import thirdPartyResolvers from '../customizations/src/graphql/thirdParty/resolvers'
 
 import { apiOptions } from './options'
-import { TypedDocumentString } from '@generated/graphql'
+import { Operation } from '../sdk/graphql/request'
 
 interface ExecuteOptions<V = Record<string, unknown>> {
-  operation: Pick<TypedDocumentString<any, any>, '__meta__'>
+  operation: Operation
   variables: V
   query?: string | null
 }

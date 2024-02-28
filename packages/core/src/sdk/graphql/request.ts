@@ -1,6 +1,7 @@
 import { TypedDocumentString } from '@generated/graphql'
 
 export type RequestOptions = Omit<BaseRequestOptions, 'operation' | 'variables'>
+export type Operation = Pick<TypedDocumentString<any, any>, '__meta__'>
 
 export interface GraphQLResponse<D = any> {
   data: D
@@ -8,7 +9,7 @@ export interface GraphQLResponse<D = any> {
 }
 
 export interface BaseRequestOptions<V = any> {
-  operation: TypedDocumentString<any, any>
+  operation: Operation
   variables: V
   fetchOptions?: RequestInit
 }
@@ -20,7 +21,7 @@ const DEFAULT_HEADERS_BY_VERB: Record<string, Record<string, string>> = {
 }
 
 export const request = async <Query = unknown, Variables = unknown>(
-  operation: TypedDocumentString<any, any>,
+  operation: Operation,
   variables: Variables,
   options?: RequestOptions
 ) => {
