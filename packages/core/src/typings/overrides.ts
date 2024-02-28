@@ -57,6 +57,9 @@ import Navbar from '../components/sections/Navbar'
 import Newsletter from '../components/sections/Newsletter'
 import ProductGallery from '../components/sections/ProductGallery'
 import RegionBar from '../components/sections/RegionBar'
+import { BuyNowSection as BuyNow } from 'src/demo/components/BuyNowSection'
+import { BuyNowBeforeAfterSection as BuyNowBeforeAfter } from 'src/demo/components/BuyNowBeforeAfterSection'
+import { BuyNowWithPathSection as BuyNowWithPath } from 'src/demo/components/BuyNowWithPathSection'
 
 export type SectionOverride = {
   [K in keyof SectionsOverrides]: SectionOverrideDefinitionV1<K>
@@ -346,6 +349,38 @@ export type SectionsOverrides = {
       >
       LocationIcon: ComponentOverrideDefinition<IconProps, IconProps>
       ButtonIcon: ComponentOverrideDefinition<IconProps, IconProps>
+    }
+  }
+  BuyNow: {
+    Section: typeof BuyNow
+    components: {
+      BuyNow: ComponentOverrideDefinition<any, any>
+      Title: ComponentOverrideDefinition<any, any>
+      Description: ComponentOverrideDefinition<any, any>
+      Button: ComponentOverrideDefinition<any, any>
+    }
+  }
+  BuyNowBeforeAfter: {
+    Section: typeof BuyNowBeforeAfter
+    components: {
+      BuyNowBefore: ComponentOverrideDefinition<any, any>
+      BuyNow: ComponentOverrideDefinition<any, any>
+      BuyNowAfter: ComponentOverrideDefinition<any, any>
+      Title: ComponentOverrideDefinition<any, any>
+      Description: ComponentOverrideDefinition<any, any>
+      Button: ComponentOverrideDefinition<any, any>
+    }
+  }
+  BuyNowWithPath: {
+    Section: typeof BuyNowWithPath
+    components: {
+      'root#before': ComponentOverrideDefinition<any, any>
+      root: ComponentOverrideDefinition<any, any>
+      'root#after': ComponentOverrideDefinition<any, any>
+      title: ComponentOverrideDefinition<any, any>
+      description: ComponentOverrideDefinition<any, any>
+      'description.highlight': ComponentOverrideDefinition<any, any>
+      button: ComponentOverrideDefinition<any, any>
     }
   }
 }
