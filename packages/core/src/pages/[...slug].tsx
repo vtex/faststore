@@ -106,9 +106,13 @@ export const getStaticProps: GetStaticProps<
       console.warn(`Warning: Fetch function not found for slug: ${slug}`)
     } else {
       // Calling the fetch function corresponding to the slug
-      const { data } = await fetchFunction()
+      const { data, errors = [] } = await fetchFunction()
       serverData = data
       console.log('🚀 ~ serverData:', serverData)
+
+      if (errors.length > 0) {
+        console.error(...errors)
+      }
     }
 
     return {
