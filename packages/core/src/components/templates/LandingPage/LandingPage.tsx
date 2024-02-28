@@ -15,8 +15,6 @@ import type { PageContentType } from 'src/server/cms'
 import { getPage, getPageByVersionId } from 'src/server/cms'
 
 import storeConfig from 'faststore.config'
-import fetchFunctions from 'src/customizations/src/dynamicContent'
-import { execute } from 'src/server'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -87,29 +85,6 @@ export const getLandingPageBySlug = async (
   previewData: Locator
 ) => {
   try {
-    // Checking if the fetch function corresponding to the slug exists
-    const fetchFunction = fetchFunctions[slug]
-    let dynamicContent
-    let serverData
-
-    if (!fetchFunction) {
-      console.warn(`Warning: Fetch function not found for slug: ${slug}`)
-    } else {
-      // Calling the fetch function corresponding to the slug
-      dynamicContent = await fetchFunction()
-      console.log('🚀 ~ dynamicContent:', dynamicContent)
-    }
-
-    // TODO if is query, execute the query here from Server Side
-    if (!!dynamicContent && Array.isArray(dynamicContent)) {
-      const query = dynamicContent[0]
-      const variables = dynamicContent[1]
-      serverData = await execute({ operation: query, variables })
-    } else {
-      serverData = dynamicContent
-    }
-    console.log('🚀 ~ serverData:', serverData)
-
     if (storeConfig.cms.data) {
       const cmsData = JSON.parse(storeConfig.cms.data)
       const pageBySlug = cmsData['landingPage'].find((page) => {
