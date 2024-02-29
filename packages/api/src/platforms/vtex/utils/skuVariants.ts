@@ -14,12 +14,27 @@ type FormattedSkuVariant = {
 
 const SKU_IMAGE_LABEL = 'skuvariation'
 
-function findSkuVariantImage(availableImages: Item['images']) {
-  return (
-    availableImages.find(
-      (imageProperties) => imageProperties.imageLabel === SKU_IMAGE_LABEL
-    ) ?? availableImages[0]
+function findSkuVariantImage(
+  availableImages: Item['images'],
+  variationName?: string
+) {
+  const variationSpecificImageLabel =
+    `${SKU_IMAGE_LABEL}${variationName}`.toLowerCase()
+
+  const variationSpecificImage = availableImages.find(
+    (imageProperties) =>
+      imageProperties.imageLabel === variationSpecificImageLabel
   )
+
+  if (variationSpecificImage) {
+    return variationSpecificImage
+  }
+
+  const skuImage = availableImages.find(
+    (imageProperties) => imageProperties.imageLabel === SKU_IMAGE_LABEL
+  )
+
+  return skuImage ? skuImage : availableImages[0]
 }
 
 export function createSlugsMap(
