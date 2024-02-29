@@ -158,8 +158,6 @@ export function getFormattedVariations(
       return
     }
 
-    const variantImageToUse = findSkuVariantImage(variant.images)
-
     const dominantVariantEntry = variant.variations.find(
       (variation) => variation.name === dominantVariantName
     )
@@ -178,6 +176,8 @@ export function getFormattedVariations(
       }
 
       previouslySeenPropertyValues.add(nameValueIdentifier)
+
+      const variantImageToUse = findSkuVariantImage(variant.images, dominantVariantName)
 
       const formattedVariant = {
         src: variantImageToUse.imageUrl,
@@ -203,6 +203,8 @@ export function getFormattedVariations(
       }
 
       previouslySeenPropertyValues.add(nameValueIdentifier)
+
+      const variantImageToUse = findSkuVariantImage(variant.images, variationProperty.name)
 
       const formattedVariant = {
         src: variantImageToUse.imageUrl,
