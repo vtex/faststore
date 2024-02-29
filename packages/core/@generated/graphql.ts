@@ -629,6 +629,18 @@ export type StoreAggregateRating = {
   reviewCount: Scalars['Int']['output']
 }
 
+/** Attribute of a given product. */
+export type StoreAttribute = {
+  /** Attribute id. */
+  id: Scalars['String']['output']
+  /** Attribute name. */
+  name: Scalars['String']['output']
+  /** Attribute value. */
+  value: Scalars['String']['output']
+  /** Attribute visibility. */
+  visible: Scalars['Boolean']['output']
+}
+
 /** information about the author of a product review or rating. */
 export type StoreAuthor = {
   /** Author name. */
@@ -899,6 +911,7 @@ export type StoreProduct = {
   additionalProperty: Array<StorePropertyValue>
   /** Aggregate ratings data. */
   aggregateRating: StoreAggregateRating
+  attributes: Array<Maybe<StoreAttribute>>
   /** Product brand. */
   brand: StoreBrand
   /** List of items consisting of chain linked web pages, ending with the current page. */
@@ -1109,6 +1122,12 @@ export type ProductSummary_ProductFragment = {
       seller: { identifier: string }
     }>
   }
+  attributes: Array<{
+    id: string
+    name: string
+    value: string
+    visible: boolean
+  } | null>
 }
 
 type Filter_Facets_StoreFacetBoolean_Fragment = {
@@ -1396,6 +1415,12 @@ export type ClientManyProductsQueryQuery = {
               seller: { identifier: string }
             }>
           }
+          attributes: Array<{
+            id: string
+            name: string
+            value: string
+            visible: boolean
+          } | null>
         }
       }>
     }
@@ -1515,6 +1540,12 @@ export type ClientSearchSuggestionsQueryQuery = {
             seller: { identifier: string }
           }>
         }
+        attributes: Array<{
+          id: string
+          name: string
+          value: string
+          visible: boolean
+        } | null>
       }>
     }
     products: { pageInfo: { totalCount: number } }
@@ -1640,6 +1671,12 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
         identifier
       }
     }
+  }
+  attributes {
+    id
+    name
+    value
+    visible
   }
 }
     `,
@@ -1988,7 +2025,7 @@ export const SubscribeToNewsletterDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: 'b854e384d076dc482f0afe016b604d527f2562a3',
+    operationHash: '7bd51c2c4c23ea5a5eda6f575c0703ecef485b23',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2015,7 +2052,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: 'd145a09bc100dd52d67e3b2624081da2cff66bee',
+    operationHash: '9befe63af17effbdc46ad181708e59d0ee008e21',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,

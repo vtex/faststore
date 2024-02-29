@@ -162,6 +162,13 @@ export const fragment = gql(`
         }
       }
     }
+
+    attributes {
+      id
+      name
+      value
+      visible
+    }
   }
 `)
 

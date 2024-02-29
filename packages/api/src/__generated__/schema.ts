@@ -644,6 +644,19 @@ export type StoreAggregateRating = {
   reviewCount: Scalars['Int'];
 };
 
+/** Attribute of a given product. */
+export type StoreAttribute = {
+  __typename?: 'StoreAttribute';
+  /** Attribute id. */
+  id: Scalars['String'];
+  /** Attribute name. */
+  name: Scalars['String'];
+  /** Attribute value. */
+  value: Scalars['String'];
+  /** Attribute visibility. */
+  visible: Scalars['Boolean'];
+};
+
 /** information about the author of a product review or rating. */
 export type StoreAuthor = {
   __typename?: 'StoreAuthor';
@@ -942,6 +955,7 @@ export type StoreProduct = {
   additionalProperty: Array<StorePropertyValue>;
   /** Aggregate ratings data. */
   aggregateRating: StoreAggregateRating;
+  attributes: Array<Maybe<StoreAttribute>>;
   /** Product brand. */
   brand: StoreBrand;
   /** List of items consisting of chain linked web pages, ending with the current page. */
