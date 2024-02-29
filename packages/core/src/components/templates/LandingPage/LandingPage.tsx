@@ -11,6 +11,7 @@ import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/se
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
+import PageProvider from 'src/sdk/overrides/PageProvider'
 import type { PageContentType } from 'src/server/cms'
 import { getPage, getPageByVersionId } from 'src/server/cms'
 
@@ -40,6 +41,11 @@ export default function LandingPage({
 }: LandingPageProps) {
   console.log('🚀 ~ slug:', slug)
   console.log('🚀 ~ serverData:', serverData)
+
+  const context = {
+    data: serverData,
+  }
+
   return (
     <>
       {/* SEO */}
@@ -79,7 +85,9 @@ export default function LandingPage({
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <RenderSections sections={sections} components={COMPONENTS} />
+      <PageProvider context={context}>
+        <RenderSections sections={sections} components={COMPONENTS} />
+      </PageProvider>
     </>
   )
 }

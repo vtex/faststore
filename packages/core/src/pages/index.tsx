@@ -20,6 +20,7 @@ import GlobalSections, {
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import fetchFunctions from 'src/customizations/src/dynamicContent'
+import PageProvider from 'src/sdk/overrides/PageProvider'
 import storeConfig from '../../faststore.config'
 
 /* A list of components that can be used in the CMS. */
@@ -36,9 +37,21 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 type Props = {
   page: PageContentType
   globalSections: GlobalSectionsData
+  serverData?: unknown
 }
 
-function Page({ page: { sections, settings }, globalSections }: Props) {
+function Page({
+  page: { sections, settings },
+  globalSections,
+  serverData,
+}: Props) {
+  console.log('🚀 ~ home')
+  console.log('🚀 ~ serverData:', serverData)
+
+  const context = {
+    data: serverData,
+  }
+
   return (
     <GlobalSections {...globalSections}>
       {/* SEO */}
@@ -76,7 +89,9 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <RenderSections sections={sections} components={COMPONENTS} />
+      <PageProvider context={context}>
+        <RenderSections sections={sections} components={COMPONENTS} />
+      </PageProvider>
     </GlobalSections>
   )
 }
@@ -88,14 +103,19 @@ export const getStaticProps: GetStaticProps<
 > = async ({ previewData }) => {
   // Checking if the fetch function corresponding to the home exists
   const fetchFunction = fetchFunctions['home']
-  let dynamicContent
+  let serverData
 
   if (!fetchFunction) {
     console.warn('Warning: Fetch function not found for the home page')
   } else {
-    // Calling the fetch function corresponding to the slug
-    dynamicContent = await fetchFunction()
-    console.log('🚀 ~ dynamicContent:', dynamicContent)
+    // Calling the fetch function corresponding to the home
+    const { data, errors = [] } = await fetchFunction()
+    serverData = data
+    console.log('🚀 ~ serverData:', serverData)
+
+    if (errors.length > 0) {
+      console.error(...errors)
+    }
   }
 
   const globalSections = await getGlobalSectionsData(previewData)
@@ -112,7 +132,7 @@ export const getStaticProps: GetStaticProps<
       })
 
       return {
-        props: { page: pageData, globalSections },
+        props: { page: pageData, globalSections, serverData },
       }
     }
   }
