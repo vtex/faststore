@@ -23,12 +23,7 @@ import ProductListingPage, {
   ProductListingPageProps,
 } from 'src/components/templates/ProductListingPage'
 import fetchFunctions from 'src/customizations/src/dynamicContent'
-import {
-  getPage,
-  getPageByVersionId,
-  PageContentType,
-  PLPContentType,
-} from 'src/server/cms'
+import { getPage, PageContentType, PLPContentType } from 'src/server/cms'
 
 type BaseProps = {
   globalSections: GlobalSectionsData
@@ -143,7 +138,7 @@ export const getStaticProps: GetStaticProps<
     const page = cmsData['plp'][0]
 
     if (page) {
-      pageData = await getPageByVersionId<PLPContentType>({
+      pageData = await getPage<PLPContentType>({
         contentType: 'plp',
         documentId: page.documentId,
         versionId: page.versionId,

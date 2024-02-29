@@ -13,7 +13,7 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import type { PageContentType } from 'src/server/cms'
-import { getPage, getPageByVersionId } from 'src/server/cms'
+import { getPage } from 'src/server/cms'
 
 import storeConfig from 'faststore.config'
 
@@ -104,7 +104,7 @@ export const getLandingPageBySlug = async (
       })
 
       if (pageBySlug) {
-        const landingPageData = await getPageByVersionId<PageContentType>({
+        const landingPageData = await getPage<PageContentType>({
           contentType: 'landingPage',
           documentId: pageBySlug.documentId,
           versionId: pageBySlug.versionId,
