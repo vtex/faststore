@@ -28,7 +28,6 @@ export const getPDP = async (
   if (config.cms.data) {
     const cmsData = JSON.parse(config.cms.data)
     const allPDPsFromCmsEnvData: PDPfromCmsEnvData[] = cmsData['pdp']
-    console.log('🚀 ~ allPDPsFromCmsEnvData:', allPDPsFromCmsEnvData)
 
     return await getPDPFromCmsEnvData(
       `/${slug}/p`,
