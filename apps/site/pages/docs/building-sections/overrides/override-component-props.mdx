@@ -2,7 +2,7 @@
 import { Callout, Steps, Tab, Tabs } from 'nextra-theme-docs'
 
 
-## Override Native Component's Props
+## Overriding native component's props
 
 Overriding props allows you to customize a component's behavior while preserving its native integration. This approach is useful when you want to customize specific aspects of a native component, for example an icon or a button label. 
 
@@ -17,10 +17,11 @@ Here's how the initial component looks with the `size` prop set as `regular` in 
 #### Step 1 - Setting up the component file
 
 1. After choosing a native section to be customized from the [list of available native sections](/docs/building-sections/list-of-native-sections), open your FastStore project in any code editor of your preference.
-2. Go to the `src` folder, create the `components` folder and inside it, create the `sections` folder. 
+2. Go to the `src` folder, create the `components` folder and inside it, create the `sections` folder. You can run the following command to create them:
 
-The naming of the folders is arbitrary, as overrides can be created in any file. You can run the following command to create them:
-
+<Callout type="info" emoji="ℹ️">
+  The naming of the folders is arbitrary, as overrides can be created in any file. 
+</Callout>
 
 <Tabs items={['macOS and Linux', 'Windows']}>
   <Tab>```bash copy mkdir src/components src/components/sections ```</Tab>
@@ -81,30 +82,179 @@ This code overrides the `BuyButton` props `size` and `iconPosition`. You'll see 
 
 #### Step 3 - Adding the component to the CMS
 
-
 1. In the FastStore root directory, create a folder named `cms`.
 2. Inside `cms`, create the `faststore` folder.
 3. Within the `cms/faststore` folder, create `sections.json` file.
-4. In the `sections.json` file add the new section that you want to display in the Headless CMS. The schema below defines how the Headless CMS renders a section:
+4. Add the new section, `ProductDetailsWithCustomButton` to the `sections.json` file. 
+The schema defines how the Headless CMS renders this section.
 
-```json filename="sections.json" copy
+```json {46-57} filename="sections.json" copy
   [
     {
-      
+      "name": "ProductDetailsWithCustomButton",
+      "schema": {
+        "title": "Product Details with custom button",
+        "type": "object",
+        "description": "Display Product Details Section",
+        "properties": {
+          "productTitle": {
+            "title": "Product Title",
+            "type": "object",
+            "properties": {
+              "discountBadge": {
+                "title": "Discount Badge",
+                "type": "object",
+                "properties": {
+                  "showDiscountBadge": {
+                    "title": "Show Discount Badge?",
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "size": {
+                    "title": "Size",
+                    "type": "string",
+                    "enumNames": ["Big", "Small"],
+                    "enum": ["big", "small"]
+                  }
+                }
+              },
+              "refNumber": {
+                "title": "Show Reference Number?",
+                "type": "boolean",
+                "default": false
+              }
+            }
+          },
+          "buyButton": {
+            "title": "Buy Button",
+            "type": "object",
+            "properties": {
+              "title": {
+                "title": "Title",
+                "type": "string",
+                "default": "Add to Cart"
+              },
+              "size": {
+                "title": "Size",
+                "type": "string",
+                "enumNames": ["Big", "Small"],
+                "enum": ["big", "small"]
+              },
+              "iconPosition": {
+                "title": "Icon Position",
+                "type": "string",
+                "enumNames": ["Right"],
+                "enum": ["right"]
+              },
+              "icon": {
+                "title": "Icon",
+                "type": "object",
+                "properties": {
+                  "icon": {
+                    "title": "Icon",
+                    "type": "string",
+                    "enumNames": ["Shopping Cart"],
+                    "enum": ["ShoppingCart"]
+                  },
+                  "alt": {
+                    "type": "string",
+                    "title": "Alternative Label",
+                    "default": "Shopping Cart"
+                  }
+                }
+              }
+            }
+          },
+          "notAvailableButton": {
+            "title": "Not Available Button",
+            "description": "Shown when a SKU is not available",
+            "type": "object",
+            "properties": {
+              "title": {
+                "title": "Title",
+                "type": "string",
+                "default": "Not Available"
+              }
+            }
+          },
+          "shippingSimulator": {
+            "title": "Shipping Simulation",
+            "type": "object",
+            "properties": {
+              "title": {
+                "title": "Title",
+                "type": "string",
+                "default": "Shipping"
+              },
+              "inputLabel": {
+                "title": "Input Label",
+                "type": "string",
+                "default": "Postal Code"
+              },
+              "link": {
+                "title": "Postal Code Discovery",
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "title": "Link Text",
+                    "type": "string",
+                    "default": "I don't know my Postal Code"
+                  },
+                  "to": { "title": "URL", "type": "string" }
+                }
+              },
+              "shippingOptionsTableTitle": {
+                "title": "Shipping Options Table Header",
+                "type": "string"
+              }
+            }
+          },
+          "productDescription": {
+            "title": "Product Description",
+            "type": "object",
+            "properties": {
+              "initiallyExpanded": {
+                "type": "string",
+                "title": "Initially Expanded?",
+                "enumNames": ["First", "All", "None"],
+                "enum": ["first", "all", "none"]
+              },
+              "displayDescription": {
+                "title": "Should display description?",
+                "type": "boolean",
+                "default": true
+              },
+              "title": {
+                "title": "Description section title",
+                "type": "string",
+                "default": "Description"
+              }
+            }
+          }
+        }
+      }
     }
   ]
 ```
 
+This schema Adds the new `Product Details with custom button` section and also adds two new properties to the `buyButton` component:
+`size` and `iconPosition`.
 
-LINK TO DOC ADDING A COMPONENT TO THE CMS
-LINK TO AVAILABLE DEFAULT NATIVE SECTION CMS DEFINITIONS
+5. Open your terminal and run `faststore cms-sync`.
+6. In the VTEX Admin, navigate to **Storefront > Headless CMS** and click on the **Product Details Page**.
+7 In the Product Details Page, click the add button (`+`) and add the **Product Details with custom button** section.
+8. Customize the section as you desire.
+
+
+// LINK TO AVAILABLE DEFAULT NATIVE SECTION CMS DEFINITIONS
 
 #### Step 4 - Replacing this component on the page
 
-REMOVE EXISTING PRODUCT DETAILS
-ADD NEW ProductDetailsWithCustomButton TO THE PAGE
+Once you've customized the section, replace the native **Product Details** by deleting it.
 
-### Step 5 - Visualizing the component on the page
+![deleting-native-section](https://vtexhelp.vtexassets.com/assets/docs/src/deleting-native-section___05878a0536143067d17c68dd024fcfa7.gif)
+
+#### Step 5 - Visualizing the component on the page
 
 1. Run `yarn dev` in the terminal to start the development server. Access the CMS preview in your browser and go to product details page to see the updated `BuyButton` component:
 
