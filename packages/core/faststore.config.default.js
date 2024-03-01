@@ -14,7 +14,7 @@ module.exports = {
 
   // Platform specific configs for API
   api: {
-    storeId: 'lojavivara',
+    storeId: 'storeframework',
     workspace: 'master',
     environment: 'vtexcommercestable',
     hideUnavailableItems: false,
