@@ -22,6 +22,7 @@ import LandingPage, {
 import ProductListingPage, {
   ProductListingPageProps,
 } from 'src/components/templates/ProductListingPage'
+import fetchFunctions from 'src/customizations/src/dynamicContent'
 import { getPage, PageContentType, PLPContentType } from 'src/server/cms'
 
 type BaseProps = {
@@ -39,6 +40,7 @@ type Props = BaseProps &
         type: 'page'
         slug: string
         page: PageContentType
+        serverData?: unknown
       }
   )
 
@@ -91,12 +93,30 @@ export const getStaticProps: GetStaticProps<
   ]
 
   if (await landingPagePromise) {
+    // Checking if the fetch function corresponding to the slug exists
+    const fetchFunction = fetchFunctions[slug]
+    let serverData
+
+    if (!fetchFunction) {
+      console.warn(`Warning: Fetch function not found for slug: ${slug}`)
+    } else {
+      // Calling the fetch function corresponding to the slug
+      const { data, errors = [] } = await fetchFunction()
+      serverData = data
+      console.log('🚀 ~ serverData:', serverData)
+
+      if (errors.length > 0) {
+        console.error(...errors)
+      }
+    }
+
     return {
       props: {
         page: await landingPagePromise,
         globalSections: await globalSectionsPromise,
         type: 'page',
         slug,
+        serverData,
       },
     }
   }
