@@ -1,12 +1,11 @@
 import useSWR from 'swr'
 
-import { request } from './request'
+import { type Operation, request } from './request'
 import { DEFAULT_OPTIONS, getKey } from './useQuery'
 import type { QueryOptions } from './useQuery'
-import { TypedDocumentString } from '@generated/graphql'
 
 export const useLazyQuery = <Data, Variables = Record<string, unknown>>(
-  operation: TypedDocumentString<any, any>,
+  operation: Operation,
   variables: Variables,
   options?: QueryOptions
 ) => {

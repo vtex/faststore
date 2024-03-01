@@ -1,6 +1,6 @@
 {
   "name": "@faststore/graphql-utils",
-  "version": "3.0.7",
+  "version": "3.0.13",
   "description": "GraphQL utilities",
   "repository": {
     "type": "git",
@@ -26,11 +26,5 @@
     "cross-env": "^7.0.2",
     "eslint": "7.32.0",
     "typescript": "^4.2.4"
-  },
-  "dependencies": {
-    "@babel/traverse": "^7.15.4",
-    "@babel/types": "^7.15.6",
-    "@graphql-codegen/plugin-helpers": "^2.2.0",
-    "@graphql-tools/relay-operation-optimizer": "^6.4.0"
   }
 }

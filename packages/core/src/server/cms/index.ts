@@ -3,7 +3,7 @@ import ClientCMS from '@vtex/client-cms'
 
 import MissingContentError from 'src/sdk/error/MissingContentError'
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
-import config from '../../faststore.config'
+import config from '../../../faststore.config'
 
 export type Options =
   | Locator
@@ -11,6 +11,30 @@ export type Options =
       contentType: string
       filters?: Partial<ContentTypeOptions>
     }
+
+type ProductGallerySettings = {
+  settings: {
+    productGallery: {
+      itemsPerPage: number
+      sortBySelection: string
+    }
+  }
+}
+
+export type PDPContentType = ContentData
+export type PLPContentType = ContentData & ProductGallerySettings
+export type SearchContentType = ContentData & ProductGallerySettings
+
+export type PageContentType = ContentData & {
+  settings: {
+    seo: {
+      slug: string
+      title: string
+      description: string
+      canonical?: string
+    }
+  }
+}
 
 const isLocator = (x: any): x is Locator =>
   typeof x.contentType === 'string' &&
@@ -20,7 +44,7 @@ const isLocator = (x: any): x is Locator =>
 
 export const clientCMS = new ClientCMS({
   workspace: config.api.workspace,
-  tenant: 'vendemo',
+  tenant: config.api.storeId,
 })
 
 export const getCMSPage = async (options: Options) => {
@@ -43,28 +67,4 @@ export const getPage = async <T extends ContentData>(options: Options) => {
   }
 
   return pages[0] as T
-}
-
-type ProductGallerySettings = {
-  settings: {
-    productGallery: {
-      itemsPerPage: number
-      sortBySelection: string
-    }
-  }
-}
-
-export type PDPContentType = ContentData
-
-export type SearchContentType = ContentData & ProductGallerySettings
-
-export type PageContentType = ContentData & {
-  settings: {
-    seo: {
-      slug: string
-      title: string
-      description: string
-      canonical?: string
-    }
-  }
 }

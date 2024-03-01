@@ -112,7 +112,6 @@ export const getStaticProps: GetStaticProps<
     getPLP(slug, previewData),
   ])
 
-
   const notFound = errors.find(isNotFoundError)
 
   if (notFound) {
