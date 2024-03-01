@@ -503,7 +503,6 @@ export type QueryShippingArgs = {
 
 /** Search result. */
 export type SearchMetadata = {
-  /** Indicates how the search engine corrected the misspelled word by using fuzzy logic. */
   fuzzy: Scalars['String']['output']
   /** Indicates if the search term was misspelled. */
   isTermMisspelled: Scalars['Boolean']['output']
@@ -927,12 +926,6 @@ export type StoreProduct = {
   sku: Scalars['String']['output']
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String']['output']
-}
-
-/** Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
-export type StoreProductImageArgs = {
-  context?: InputMaybe<Scalars['String']['input']>
-  limit?: InputMaybe<Scalars['Int']['input']>
 }
 
 /** Product connections, including pagination information and products returned by the query. */

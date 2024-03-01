@@ -95,7 +95,7 @@ export const getStaticProps: GetStaticProps<
   if (await landingPagePromise) {
     // Checking if the fetch function corresponding to the slug exists
     const fetchFunction = fetchFunctions[slug]
-    let serverData
+    let serverData = null
 
     if (!fetchFunction) {
       console.warn(`Warning: Fetch function not found for slug: ${slug}`)

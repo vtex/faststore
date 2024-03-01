@@ -100,7 +100,7 @@ export const getStaticProps: GetStaticProps<
 > = async ({ previewData }) => {
   // Checking if the fetch function corresponding to the home exists
   const fetchFunction = fetchFunctions['home']
-  let serverData
+  let serverData = null
 
   if (!fetchFunction) {
     console.warn('Warning: Fetch function not found for the home page')
