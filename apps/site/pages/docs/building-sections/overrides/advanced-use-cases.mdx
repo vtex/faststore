@@ -1,17 +1,15 @@
-# Advanced use case: Overriding Sections with Images
+# Advanced use case: Overriding sections with images
 
-This guide demonstrates an advanced use case for `getOverriddenSection` in FastStore, focusing on customizing the icon of an "Alert" section to display an image instead.
+This guide demonstrates an advanced use case for `getOverriddenSection` in FastStore, focusing on customizing the icon of the Alert section to display an image instead.
 
 ## Context
 
 - You want to display an image alongside the text in your alert messages.
-- The pre-built "Alert" section provides an "icon" prop for customization, but you want more control and flexibility over the displayed content.
+- The native Alert section provides an `icon` prop for customization, but you want more control and flexibility over the displayed content.
 
 ## Implementation
 
 By leveraging `getOverriddenSection`, you can create a custom component called `AlertWithImage` that achieves the desired functionality.
-
-**Step-by-step breakdown:**
 
 1. Import necessary components:
 
@@ -21,7 +19,7 @@ By leveraging `getOverriddenSection`, you can create a custom component called `
    import { useMemo } from "react";
    ```
 
-2. **Define the `AlertWithImageProps` interface:**
+2. Define the `AlertWithImageProps` interface:
 
    ```tsx
    interface AlertWithImageProps extends Omit<React.ComponentProps<ReturnType<typeof getOverriddenSection<"Alert">>>, "icon"> {
@@ -30,8 +28,8 @@ By leveraging `getOverriddenSection`, you can create a custom component called `
    ```
 
    - This interface defines the props accepted by the `AlertWithImage` component.
-   - It inherits all props from the original "Alert" component, excluding the "icon" prop as we intend to replace it with an image.
-   - It adds a new prop named "src" which specifies the image source URL.
+   - It inherits all props from the native Alert component, excluding the icon prop as we intend to replace it with an image.
+   - It adds a new prop named `src` which specifies the image source URL.
 
 3. Create the `AlertWithImage` component:
 
@@ -67,12 +65,14 @@ By leveraging `getOverriddenSection`, you can create a custom component called `
    - The core functionality lies within the `useMemo` hook.
        - It defines the `OverriddenAlert` constant using `getOverriddenSection`.
        - The override options specify:
-           - **`section`:** The section to be overridden ("Alert").
-           - **`components`:** An object containing the override for the "Icon" component.
-               - Inside the "Icon" override:
+           - **`section`:** The section to be overridden (Alert).
+           - **`components`:** An object containing the override for the Icon component.
+               - Inside the Icon override:
                    - **`Component`:** A function returning an `Image` component from the `next/image` library. This displays the image specified by the `src` prop.
                    - **`width` and `height`:** Optional props to set the size of the image.
        - The use of `useMemo` ensures this override is only created once, improving performance.
-   - Finally, the function returns the `OverriddenAlert` component, spreading the `otherProps` and setting the "icon" prop to "noop" (effectively disabling the default icon behavior).
+   - Finally, the function returns the `OverriddenAlert` component, spreading the `otherProps` and setting the `icon` prop to `noop` (effectively disabling the default icon behavior).
 
 ## Outcome
+
+{ADD SCREENSHOT}
