@@ -139,7 +139,7 @@ export const getStaticProps: GetStaticProps<
   })
 
   return {
-    props: { page, globalSections },
+    props: { page, globalSections, serverData },
   }
 }
 
