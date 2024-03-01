@@ -28,8 +28,8 @@ export interface SearchPageContext {
     }
 }
 
-export interface DynamicContent {
-  data?: unknown
+export interface DynamicContent<T> {
+  data?: T
 }
 
 export interface PageProviderContextValue {
@@ -40,7 +40,7 @@ type PageProviderContext =
   | PDPContext
   | PLPContext
   | SearchPageContext
-  | DynamicContent
+  | DynamicContent<unknown>
 
 export const isPDP = (x: any): x is PDPContext =>
   x?.data?.product?.sku != undefined && x?.data?.product?.sku != null
@@ -87,6 +87,7 @@ export const usePLP = () => usePage<PLPContext>()
 
 export const useSearchPage = () => usePage<SearchPageContext>()
 
-export const useDynamicContent = () => usePage<DynamicContent>()
+export const useDynamicContent = <T extends unknown>() =>
+  usePage<DynamicContent<T>>()
 
 export default PageProvider
