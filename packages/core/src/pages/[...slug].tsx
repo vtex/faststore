@@ -103,7 +103,6 @@ export const getStaticProps: GetStaticProps<
       // Calling the fetch function corresponding to the slug
       const { data, errors = [] } = await fetchFunction()
       serverData = data
-      console.log('🚀 ~ serverData:', serverData)
 
       if (errors.length > 0) {
         console.error(...errors)

@@ -45,9 +45,6 @@ function Page({
   globalSections,
   serverData,
 }: Props) {
-  console.log('🚀 ~ home')
-  console.log('🚀 ~ serverData:', serverData)
-
   const context = {
     data: serverData,
   }
@@ -111,7 +108,6 @@ export const getStaticProps: GetStaticProps<
     // Calling the fetch function corresponding to the home
     const { data, errors = [] } = await fetchFunction()
     serverData = data
-    console.log('🚀 ~ serverData:', serverData)
 
     if (errors.length > 0) {
       console.error(...errors)

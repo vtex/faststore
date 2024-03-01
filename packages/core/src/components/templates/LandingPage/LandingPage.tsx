@@ -39,9 +39,6 @@ export default function LandingPage({
   slug,
   serverData,
 }: LandingPageProps) {
-  console.log('🚀 ~ slug:', slug)
-  console.log('🚀 ~ serverData:', serverData)
-
   const context = {
     data: serverData,
   }
