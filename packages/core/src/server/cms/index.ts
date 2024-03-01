@@ -21,8 +21,6 @@ type ProductGallerySettings = {
   }
 }
 
-export type PDPContentType = ContentData
-export type PLPContentType = ContentData & ProductGallerySettings
 export type SearchContentType = ContentData & ProductGallerySettings
 
 export type PageContentType = ContentData & {
