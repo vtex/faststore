@@ -112,7 +112,6 @@ export const getStaticProps: GetStaticProps<
     getPLP(slug, previewData),
   ])
 
-  console.log('🚀 ~ cmsPage:', cmsPage)
 
   const notFound = errors.find(isNotFoundError)
 
