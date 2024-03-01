@@ -1180,6 +1180,12 @@ export type ProductDetailsFragment_ProductFragment = {
       seller: { identifier: string }
     }>
   }
+  attributes: Array<{
+    id: string
+    name: string
+    value: string
+    visible: boolean
+  } | null>
   additionalProperty: Array<{
     propertyID: string
     name: string
@@ -1270,6 +1276,12 @@ export type ServerProductQueryQuery = {
         availableVariations: any | null
       } | null
     }
+    attributes: Array<{
+      id: string
+      name: string
+      value: string
+      visible: boolean
+    } | null>
     additionalProperty: Array<{
       propertyID: string
       name: string
@@ -1503,6 +1515,12 @@ export type ClientProductQueryQuery = {
         seller: { identifier: string }
       }>
     }
+    attributes: Array<{
+      id: string
+      name: string
+      value: string
+      visible: boolean
+    } | null>
     additionalProperty: Array<{
       propertyID: string
       name: string
@@ -1781,6 +1799,12 @@ export const ProductDetailsFragment_ProductFragmentDoc =
       }
     }
   }
+  attributes {
+    id
+    name
+    value
+    visible
+  }
   ...CartProductItem
 }
     fragment CartProductItem on StoreProduct {
@@ -1998,7 +2022,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: 'bf778aa3411fa194094d24f73250124d60496121',
+    operationHash: 'f56908ad87938ce9fd56c04a24db70ba8b53bf4f',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2043,7 +2067,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: 'e535e4897bf98968b8ce0a59af64212c4a746e6f',
+    operationHash: 'e9aa9ba0f21a63d5fc832538e75a7900c7fe56e2',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
