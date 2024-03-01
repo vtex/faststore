@@ -12,7 +12,7 @@ import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
 
-import { PLPContentType } from 'src/server/cms'
+import { PLPContentType } from 'src/server/cms/plp'
 
 import storeConfig from '../../../../faststore.config'
 import ProductListing from './ProductListing'

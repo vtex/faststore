@@ -1,14 +1,9 @@
 import type { ContentData, ContentTypeOptions, Locator } from '@vtex/client-cms'
 import ClientCMS from '@vtex/client-cms'
 
-import config from '../../faststore.config'
-import MultipleContentError from 'src/sdk/error/MultipleContentError'
 import MissingContentError from 'src/sdk/error/MissingContentError'
-
-export const clientCMS = new ClientCMS({
-  workspace: config.api.workspace,
-  tenant: config.api.storeId,
-})
+import MultipleContentError from 'src/sdk/error/MultipleContentError'
+import config from '../../faststore.config'
 
 export type Options =
   | Locator
@@ -19,38 +14,23 @@ export type Options =
 
 const isLocator = (x: any): x is Locator =>
   typeof x.contentType === 'string' &&
-  (typeof x.releaseId === 'string' || typeof x.documentId === 'string')
+  (typeof x.releaseId === 'string' ||
+    typeof x.documentId === 'string' ||
+    typeof x.versionId === 'string')
 
-export const getPage = async <T extends ContentData>(options: Options) => {
-  const result = await (isLocator(options)
+export const clientCMS = new ClientCMS({
+  workspace: config.api.workspace,
+  tenant: 'vendemo',
+})
+
+export const getCMSPage = async (options: Options) => {
+  return await (isLocator(options)
     ? clientCMS.getCMSPage(options).then((page) => ({ data: [page] }))
     : clientCMS.getCMSPagesByContentType(options.contentType, options.filters))
-
-  const pages = result.data
-
-  if (!pages[0]) {
-    throw new MissingContentError(options)
-  }
-
-  if (pages.length !== 1) {
-    throw new MultipleContentError(options)
-  }
-
-  return pages[0] as T
 }
 
-export type VersionOptions = {
-  contentType: string
-  documentId: string
-  versionId: string
-}
-
-export const getPageByVersionId = async <T extends ContentData>(
-  options: VersionOptions
-) => {
-  const result = await clientCMS
-    .getCMSPage(options)
-    .then((page) => ({ data: [page] }))
+export const getPage = async <T extends ContentData>(options: Options) => {
+  const result = await getCMSPage(options)
 
   const pages = result.data
 
@@ -75,7 +55,7 @@ type ProductGallerySettings = {
 }
 
 export type PDPContentType = ContentData
-export type PLPContentType = ContentData & ProductGallerySettings
+
 export type SearchContentType = ContentData & ProductGallerySettings
 
 export type PageContentType = ContentData & {

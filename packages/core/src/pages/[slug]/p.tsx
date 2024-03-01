@@ -1,9 +1,9 @@
 import { isNotFoundError } from '@faststore/api'
 import type { Locator } from '@vtex/client-cms'
+import deepmerge from 'deepmerge'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
-import deepmerge from 'deepmerge'
 
 import { gql } from '@generated'
 import {
@@ -21,15 +21,15 @@ import { useSession } from 'src/sdk/session'
 import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
 import type { PDPContentType } from 'src/server/cms'
-import { getPage, getPageByVersionId } from 'src/server/cms'
+import { getPage } from 'src/server/cms'
 
+import storeConfig from 'faststore.config'
 import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import storeConfig from 'faststore.config'
-import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
+import { useProductQuery } from 'src/sdk/product/useProductQuery'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -215,7 +215,7 @@ export const getStaticProps: GetStaticProps<
     const page = cmsData['pdp'][0]
 
     if (page) {
-      cmsPage = getPageByVersionId<PDPContentType>({
+      cmsPage = getPage<PDPContentType>({
         contentType: 'pdp',
         documentId: page.documentId,
         versionId: page.versionId,

@@ -1,18 +1,18 @@
+import type { Locator } from '@vtex/client-cms'
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
-import type { Locator } from '@vtex/client-cms'
 
-import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
 import RenderSections from 'src/components/cms/RenderSections'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
+import Incentives from 'src/components/sections/Incentives'
 import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-import Incentives from 'src/components/sections/Incentives'
 import ProductTiles from 'src/components/sections/ProductTiles'
-import { getPage, getPageByVersionId } from 'src/server/cms'
-import type { PageContentType } from 'src/server/cms'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
+import type { PageContentType } from 'src/server/cms'
+import { getPage } from 'src/server/cms'
 
 import storeConfig from 'faststore.config'
 
@@ -92,7 +92,7 @@ export const getLandingPageBySlug = async (
       })
 
       if (pageBySlug) {
-        const landingPageData = await getPageByVersionId<PageContentType>({
+        const landingPageData = await getPage<PageContentType>({
           contentType: 'landingPage',
           documentId: pageBySlug.documentId,
           versionId: pageBySlug.versionId,
