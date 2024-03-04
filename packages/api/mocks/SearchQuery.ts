@@ -80,6 +80,12 @@ export const SearchQueryFirst5Products = `query SearchQuery {
             name
             value
           }
+          attributes {
+            id
+            name
+            value
+            visible
+          }
         }
         cursor
       }
@@ -247,6 +253,7 @@ export const productSearchCategory1Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
           {
             sellers: [
@@ -343,6 +350,7 @@ export const productSearchCategory1Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
         ],
         origin: 'intelligent-search',
@@ -471,6 +479,7 @@ export const productSearchCategory1Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
           {
             sellers: [
@@ -549,6 +558,7 @@ export const productSearchCategory1Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
         ],
         origin: 'intelligent-search',
@@ -696,6 +706,7 @@ export const productSearchCategory1Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
           {
             sellers: [
@@ -792,6 +803,7 @@ export const productSearchCategory1Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
           {
             sellers: [
@@ -888,6 +900,7 @@ export const productSearchCategory1Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
         ],
         origin: 'intelligent-search',
@@ -1016,6 +1029,7 @@ export const productSearchCategory1Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
           {
             sellers: [
@@ -1094,6 +1108,7 @@ export const productSearchCategory1Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
         ],
         origin: 'intelligent-search',
@@ -1231,6 +1246,7 @@ export const productSearchCategory1Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
           {
             sellers: [
@@ -1318,6 +1334,7 @@ export const productSearchCategory1Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
         ],
         origin: 'intelligent-search',

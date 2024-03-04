@@ -65,6 +65,12 @@ export const AllProductsQueryFirst5 = `query AllProducts {
             }
           }
         }
+        attributes {
+          id
+          name
+          value
+          visible
+        }
       }
     }
   }
@@ -219,6 +225,7 @@ export const productSearchPage1Count5Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
         ],
         origin: 'intelligent-search',
@@ -365,6 +372,7 @@ export const productSearchPage1Count5Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
         ],
         origin: 'intelligent-search',
@@ -511,6 +519,7 @@ export const productSearchPage1Count5Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
         ],
         origin: 'intelligent-search',
@@ -657,6 +666,7 @@ export const productSearchPage1Count5Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
         ],
         origin: 'intelligent-search',
@@ -803,6 +813,7 @@ export const productSearchPage1Count5Fetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
         ],
         origin: 'intelligent-search',

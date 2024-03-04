@@ -56,6 +56,12 @@ export const ProductByIdQuery = `query ProductQuery {
       value
       name
     }
+    attributes {
+      id
+      name
+      value
+      visible
+    }
   }
 }
 `
@@ -217,6 +223,7 @@ export const productSearchFetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
         ],
         origin: 'intelligent-search',
