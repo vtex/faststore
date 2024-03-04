@@ -3,6 +3,7 @@ import {
   copySync,
   existsSync,
   mkdirsSync,
+  readFileSync,
   readdirSync,
   removeSync,
   writeJsonSync,
