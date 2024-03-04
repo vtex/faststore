@@ -14,12 +14,27 @@ type FormattedSkuVariant = {
 
 const SKU_IMAGE_LABEL = 'skuvariation'
 
-function findSkuVariantImage(availableImages: Item['images']) {
-  return (
-    availableImages.find(
-      (imageProperties) => imageProperties.imageLabel === SKU_IMAGE_LABEL
-    ) ?? availableImages[0]
+function findSkuVariantImage(
+  availableImages: Item['images'],
+  variationName?: string
+) {
+  const variationSpecificImageLabel =
+    `${SKU_IMAGE_LABEL}${variationName}`.toLowerCase()
+
+  const variationSpecificImage = availableImages.find(
+    (imageProperties) =>
+      imageProperties.imageLabel === variationSpecificImageLabel
   )
+
+  if (variationSpecificImage) {
+    return variationSpecificImage
+  }
+
+  const skuImage = availableImages.find(
+    (imageProperties) => imageProperties.imageLabel === SKU_IMAGE_LABEL
+  )
+
+  return skuImage ? skuImage : availableImages[0]
 }
 
 export function createSlugsMap(
@@ -143,8 +158,6 @@ export function getFormattedVariations(
       return
     }
 
-    const variantImageToUse = findSkuVariantImage(variant.images)
-
     const dominantVariantEntry = variant.variations.find(
       (variation) => variation.name === dominantVariantName
     )
@@ -163,6 +176,8 @@ export function getFormattedVariations(
       }
 
       previouslySeenPropertyValues.add(nameValueIdentifier)
+
+      const variantImageToUse = findSkuVariantImage(variant.images, dominantVariantName)
 
       const formattedVariant = {
         src: variantImageToUse.imageUrl,
@@ -188,6 +203,8 @@ export function getFormattedVariations(
       }
 
       previouslySeenPropertyValues.add(nameValueIdentifier)
+
+      const variantImageToUse = findSkuVariantImage(variant.images, variationProperty.name)
 
       const formattedVariant = {
         src: variantImageToUse.imageUrl,
