@@ -60,6 +60,8 @@ import RegionBar from '../components/sections/RegionBar'
 import { BuyNowSection as BuyNow } from 'src/demo/components/BuyNowSection'
 import { BuyNowBeforeAfterSection as BuyNowBeforeAfter } from 'src/demo/components/BuyNowBeforeAfterSection'
 import { BuyNowWithPathSection as BuyNowWithPath } from 'src/demo/components/BuyNowWithPathSection'
+import { LoadableSection } from 'src/demo/components/LoadableSection'
+import { LoadableComposableSection, StatelessLoadableSectionProps } from 'src/demo/components/LoadableComposableSection'
 
 export type SectionOverride = {
   [K in keyof SectionsOverrides]: SectionOverrideDefinitionV1<K>
@@ -381,6 +383,21 @@ export type SectionsOverrides = {
       description: ComponentOverrideDefinition<any, any>
       'description.highlight': ComponentOverrideDefinition<any, any>
       button: ComponentOverrideDefinition<any, any>
+    }
+  }
+  Loadable: {
+    Section: typeof LoadableSection
+    components: {
+      'root.loading': ComponentOverrideDefinition<any, any>
+      'root.loaded': ComponentOverrideDefinition<any, any>
+    }
+  }
+  LoadableComposable: {
+    Section: typeof LoadableComposableSection
+    components: {
+      root: ComponentOverrideDefinition<StatelessLoadableSectionProps, StatelessLoadableSectionProps>
+      'root.loading': ComponentOverrideDefinition<any, any>
+      'root.loaded': ComponentOverrideDefinition<any, any>
     }
   }
 }
