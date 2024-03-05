@@ -259,7 +259,7 @@ export type IStorePropertyValue = {
   /** Property value. May hold a string or the string representation of an object. */
   value: Scalars['ObjectOrString'];
   /** Specifies the nature of the value */
-  valueReference: Scalars['String'];
+  valueReference: Scalars['ObjectOrString'];
 };
 
 /** Selected search facet input. */
@@ -955,7 +955,6 @@ export type StoreProduct = {
   additionalProperty: Array<StorePropertyValue>;
   /** Aggregate ratings data. */
   aggregateRating: StoreAggregateRating;
-  attributes: Array<Maybe<StoreAttribute>>;
   /** Product brand. */
   brand: StoreBrand;
   /** List of items consisting of chain linked web pages, ending with the current page. */
@@ -1040,7 +1039,7 @@ export type StorePropertyValue = {
   /** Property value. May hold a string or the string representation of an object. */
   value: Scalars['ObjectOrString'];
   /** Specifies the nature of the value */
-  valueReference: Scalars['String'];
+  valueReference: Scalars['ObjectOrString'];
 };
 
 /**

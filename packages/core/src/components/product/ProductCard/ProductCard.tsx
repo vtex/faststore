@@ -163,11 +163,11 @@ export const fragment = gql(`
       }
     }
 
-    attributes {
-      id
+    additionalProperty {
+      propertyID
       name
       value
-      visible
+      valueReference
     }
   }
 `)

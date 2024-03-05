@@ -66,7 +66,6 @@ type StoreProduct {
   The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601
   """
   releaseDate: String!
-  attributes: [StoreAttribute]!
 }
 
 """

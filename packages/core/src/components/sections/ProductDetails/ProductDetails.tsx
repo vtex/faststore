@@ -277,11 +277,11 @@ export const fragment = gql(`
       }
     }
 
-    attributes {
-      id
+    additionalProperty {
+      propertyID
       name
       value
-      visible
+      valueReference
     }
 
     # Contains necessary info to add this item to cart

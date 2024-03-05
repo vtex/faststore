@@ -77,14 +77,10 @@ export const SearchQueryFirst5Products = `query SearchQuery {
             }
           }
           additionalProperty {
-            name
+            propertyID
             value
-          }
-          attributes {
-            id
             name
-            value
-            visible
+            valueReference
           }
         }
         cursor

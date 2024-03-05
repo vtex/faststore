@@ -53,14 +53,10 @@ export const ProductByIdQuery = `query ProductQuery {
       }
     }
     additionalProperty {
+      propertyID
       value
       name
-    }
-    attributes {
-      id
-      name
-      value
-      visible
+      valueReference
     }
   }
 }

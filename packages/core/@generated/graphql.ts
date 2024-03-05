@@ -274,7 +274,7 @@ export type IStorePropertyValue = {
   /** Property value. May hold a string or the string representation of an object. */
   value: Scalars['ObjectOrString']['input']
   /** Specifies the nature of the value */
-  valueReference: Scalars['String']['input']
+  valueReference: Scalars['ObjectOrString']['input']
 }
 
 /** Selected search facet input. */
@@ -911,7 +911,6 @@ export type StoreProduct = {
   additionalProperty: Array<StorePropertyValue>
   /** Aggregate ratings data. */
   aggregateRating: StoreAggregateRating
-  attributes: Array<Maybe<StoreAttribute>>
   /** Product brand. */
   brand: StoreBrand
   /** List of items consisting of chain linked web pages, ending with the current page. */
@@ -991,7 +990,7 @@ export type StorePropertyValue = {
   /** Property value. May hold a string or the string representation of an object. */
   value: Scalars['ObjectOrString']['output']
   /** Specifies the nature of the value */
-  valueReference: Scalars['String']['output']
+  valueReference: Scalars['ObjectOrString']['output']
 }
 
 /**
@@ -1122,12 +1121,12 @@ export type ProductSummary_ProductFragment = {
       seller: { identifier: string }
     }>
   }
-  attributes: Array<{
-    id: string
+  additionalProperty: Array<{
+    propertyID: string
     name: string
-    value: string
-    visible: boolean
-  } | null>
+    value: any
+    valueReference: any
+  }>
 }
 
 type Filter_Facets_StoreFacetBoolean_Fragment = {
@@ -1180,17 +1179,11 @@ export type ProductDetailsFragment_ProductFragment = {
       seller: { identifier: string }
     }>
   }
-  attributes: Array<{
-    id: string
-    name: string
-    value: string
-    visible: boolean
-  } | null>
   additionalProperty: Array<{
     propertyID: string
     name: string
     value: any
-    valueReference: string
+    valueReference: any
   }>
 }
 
@@ -1276,17 +1269,11 @@ export type ServerProductQueryQuery = {
         availableVariations: any | null
       } | null
     }
-    attributes: Array<{
-      id: string
-      name: string
-      value: string
-      visible: boolean
-    } | null>
     additionalProperty: Array<{
       propertyID: string
       name: string
       value: any
-      valueReference: string
+      valueReference: any
     }>
   }
 }
@@ -1324,7 +1311,7 @@ export type ValidateCartMutationMutation = {
             propertyID: string
             name: string
             value: any
-            valueReference: string
+            valueReference: any
           }>
         }
       }>
@@ -1359,7 +1346,7 @@ export type CartItemFragment = {
       propertyID: string
       name: string
       value: any
-      valueReference: string
+      valueReference: any
     }>
   }
 }
@@ -1383,7 +1370,7 @@ export type CartProductItemFragment = {
     propertyID: string
     name: string
     value: any
-    valueReference: string
+    valueReference: any
   }>
 }
 
@@ -1427,12 +1414,12 @@ export type ClientManyProductsQueryQuery = {
               seller: { identifier: string }
             }>
           }
-          attributes: Array<{
-            id: string
+          additionalProperty: Array<{
+            propertyID: string
             name: string
-            value: string
-            visible: boolean
-          } | null>
+            value: any
+            valueReference: any
+          }>
         }
       }>
     }
@@ -1515,17 +1502,11 @@ export type ClientProductQueryQuery = {
         seller: { identifier: string }
       }>
     }
-    attributes: Array<{
-      id: string
-      name: string
-      value: string
-      visible: boolean
-    } | null>
     additionalProperty: Array<{
       propertyID: string
       name: string
       value: any
-      valueReference: string
+      valueReference: any
     }>
   }
 }
@@ -1558,12 +1539,12 @@ export type ClientSearchSuggestionsQueryQuery = {
             seller: { identifier: string }
           }>
         }
-        attributes: Array<{
-          id: string
+        additionalProperty: Array<{
+          propertyID: string
           name: string
-          value: string
-          visible: boolean
-        } | null>
+          value: any
+          valueReference: any
+        }>
       }>
     }
     products: { pageInfo: { totalCount: number } }
@@ -1690,11 +1671,11 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
       }
     }
   }
-  attributes {
-    id
+  additionalProperty {
+    propertyID
     name
     value
-    visible
+    valueReference
   }
 }
     `,
@@ -1799,11 +1780,11 @@ export const ProductDetailsFragment_ProductFragmentDoc =
       }
     }
   }
-  attributes {
-    id
+  additionalProperty {
+    propertyID
     name
     value
-    visible
+    valueReference
   }
   ...CartProductItem
 }
@@ -2022,7 +2003,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: 'f56908ad87938ce9fd56c04a24db70ba8b53bf4f',
+    operationHash: '50155d908ff90781e8c56134ded29b70d7494aa7',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2049,7 +2030,7 @@ export const SubscribeToNewsletterDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '7bd51c2c4c23ea5a5eda6f575c0703ecef485b23',
+    operationHash: 'c0d7d2ae1d5aaae5d50eea683b389377c36fb57d',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2067,7 +2048,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: 'e9aa9ba0f21a63d5fc832538e75a7900c7fe56e2',
+    operationHash: 'a35530c2f55c1c85bd2b4fe4964356ab27e32622',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
@@ -2076,7 +2057,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '9befe63af17effbdc46ad181708e59d0ee008e21',
+    operationHash: 'a8a27661f6a032e086c047339e0d0f180f0e0161',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
