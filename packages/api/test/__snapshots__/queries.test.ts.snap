@@ -186,7 +186,7 @@ exports[`\`allProducts\` query 1`] = `
         {
           "cursor": "0",
           "node": {
-            "attributes": [],
+            "additionalProperty": [],
             "description": "4k Philips Monitor 27\"",
             "gtin": "1504",
             "image": [
@@ -245,7 +245,7 @@ exports[`\`allProducts\` query 1`] = `
         {
           "cursor": "1",
           "node": {
-            "attributes": [],
+            "additionalProperty": [],
             "description": "Aedle VK-1 L Headphone",
             "gtin": "1502",
             "image": [
@@ -304,7 +304,7 @@ exports[`\`allProducts\` query 1`] = `
         {
           "cursor": "2",
           "node": {
-            "attributes": [],
+            "additionalProperty": [],
             "description": "Echo Dot Smart Speaker",
             "gtin": "1505",
             "image": [
@@ -363,7 +363,7 @@ exports[`\`allProducts\` query 1`] = `
         {
           "cursor": "3",
           "node": {
-            "attributes": [],
+            "additionalProperty": [],
             "description": "Virtual reality kit",
             "gtin": "1501",
             "image": [
@@ -422,7 +422,7 @@ exports[`\`allProducts\` query 1`] = `
         {
           "cursor": "4",
           "node": {
-            "attributes": [],
+            "additionalProperty": [],
             "description": "Apple Magic Mouse",
             "gtin": "1503",
             "image": [
@@ -545,7 +545,6 @@ exports[`\`product\` query 1`] = `
         "ratingValue": 5,
         "reviewCount": 0,
       },
-      "attributes": [],
       "brand": {
         "name": "Brand",
       },
@@ -715,7 +714,6 @@ exports[`\`search\` query 1`] = `
                 "ratingValue": 5,
                 "reviewCount": 0,
               },
-              "attributes": [],
               "brand": {
                 "name": "Skechers",
               },
@@ -796,7 +794,6 @@ exports[`\`search\` query 1`] = `
                 "ratingValue": 5,
                 "reviewCount": 0,
               },
-              "attributes": [],
               "brand": {
                 "name": "adidas",
               },
@@ -869,7 +866,6 @@ exports[`\`search\` query 1`] = `
                 "ratingValue": 5,
                 "reviewCount": 0,
               },
-              "attributes": [],
               "brand": {
                 "name": "Acer",
               },
@@ -956,7 +952,6 @@ exports[`\`search\` query 1`] = `
                 "ratingValue": 5,
                 "reviewCount": 0,
               },
-              "attributes": [],
               "brand": {
                 "name": "adidas",
               },
@@ -1029,7 +1024,6 @@ exports[`\`search\` query 1`] = `
                 "ratingValue": 5,
                 "reviewCount": 0,
               },
-              "attributes": [],
               "brand": {
                 "name": "Acer",
               },

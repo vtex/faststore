@@ -65,11 +65,11 @@ export const AllProductsQueryFirst5 = `query AllProducts {
             }
           }
         }
-        attributes {
-          id
-          name
+        additionalProperty {
+          propertyID
           value
-          visible
+          name
+          valueReference
         }
       }
     }
