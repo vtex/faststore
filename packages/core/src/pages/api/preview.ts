@@ -50,7 +50,12 @@ const handler: NextApiHandler = async (req, res) => {
     }
 
     // Enable Preview Mode by setting the cookies
-    res.setPreviewData(locator, { maxAge: 3600 })
+    // Setting the path to the slug will allow other pages of the
+    // same type to remain the same while previewing a specific path
+    res.setPreviewData(locator, {
+      maxAge: 3600,
+      path: (page.settings as Settings)?.seo.slug,
+    })
 
     // Redirect to the path from the fetched locator
     if (previewRedirects[locator.contentType]) {
