@@ -644,19 +644,6 @@ export type StoreAggregateRating = {
   reviewCount: Scalars['Int'];
 };
 
-/** Attribute of a given product. */
-export type StoreAttribute = {
-  __typename?: 'StoreAttribute';
-  /** Attribute id. */
-  id: Scalars['String'];
-  /** Attribute name. */
-  name: Scalars['String'];
-  /** Attribute value. */
-  value: Scalars['String'];
-  /** Attribute visibility. */
-  visible: Scalars['Boolean'];
-};
-
 /** information about the author of a product review or rating. */
 export type StoreAuthor = {
   __typename?: 'StoreAuthor';
