@@ -2,6 +2,11 @@ import storeConfig from 'faststore.config'
 const THUMBOR_SERVER = `https://${storeConfig.api.storeId}.vtexassets.com`
 
 export default function customImageLoader({ src, width, quality }) {
+  // Special case SVGs to match stock NextJS loader
+  if (src.endsWith('.svg')) {
+    return src
+  }
+
   const preSizeComponents = [THUMBOR_SERVER, 'unsafe']
 
   // proportional to the width, enter a height of 0,
