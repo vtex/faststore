@@ -259,7 +259,7 @@ export type IStorePropertyValue = {
   /** Property value. May hold a string or the string representation of an object. */
   value: Scalars['ObjectOrString'];
   /** Specifies the nature of the value */
-  valueReference: Scalars['String'];
+  valueReference: Scalars['ObjectOrString'];
 };
 
 /** Selected search facet input. */
@@ -1026,7 +1026,7 @@ export type StorePropertyValue = {
   /** Property value. May hold a string or the string representation of an object. */
   value: Scalars['ObjectOrString'];
   /** Specifies the nature of the value */
-  valueReference: Scalars['String'];
+  valueReference: Scalars['ObjectOrString'];
 };
 
 /**

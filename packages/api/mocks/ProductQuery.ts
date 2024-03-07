@@ -53,8 +53,10 @@ export const ProductByIdQuery = `query ProductQuery {
       }
     }
     additionalProperty {
+      propertyID
       value
       name
+      valueReference
     }
   }
 }
@@ -217,6 +219,7 @@ export const productSearchFetch = {
             videos: [],
             attachments: [],
             isKit: false,
+            attributes: [],
           },
         ],
         origin: 'intelligent-search',
