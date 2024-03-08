@@ -3,33 +3,28 @@ import {
   copySync,
   existsSync,
   mkdirsSync,
-  readdirSync,
   readFileSync,
+  readdirSync,
   removeSync,
-  writeFileSync,
   writeJsonSync,
 } from 'fs-extra'
-
 import path from 'path'
+import chalk from 'chalk'
 
 import {
-  coreCMSDir,
   coreDir,
-  tmpCMSDir,
   tmpDir,
   tmpFolderName,
   tmpStoreConfigFileDir,
   tmpThemesCustomizationsFileDir,
   tmpCmsWebhookUrlsFileDir,
-  userCMSDir,
   userSrcDir,
   userStoreConfigFileDir,
   userThemesFileDir,
   userDir,
   tmpCustomizationsSrcDir,
 } from './directory'
-
-import chalk from 'chalk'
+import { mergeCMSFiles } from './hcms'
 
 interface GenerateOptions {
   setup?: boolean
@@ -231,47 +226,6 @@ async function copyTheme() {
   }
 }
 
-function mergeCMSFile(fileName: string) {
-  const customFilePath = path.join(userCMSDir, fileName)
-  const coreFilePath = path.join(coreCMSDir, fileName)
-
-  const coreFile = readFileSync(coreFilePath, 'utf8')
-  const output = [...JSON.parse(coreFile)]
-
-  // TODO: create a validation when has the cms files but doesn't have a component for then
-  if (existsSync(customFilePath)) {
-    const customFile = readFileSync(customFilePath, 'utf8')
-
-    try {
-      output.push(...JSON.parse(customFile))
-    } catch (err) {
-      if (err instanceof SyntaxError) {
-        console.info(
-          `${chalk.red(
-            'error'
-          )} - ${fileName} is a malformed JSON file, ignoring its contents.`
-        )
-      } else {
-        throw err
-      }
-    }
-  }
-
-  try {
-    writeFileSync(path.join(tmpCMSDir, fileName), JSON.stringify(output))
-    console.log(
-      `${chalk.green('success')} - CMS file ${chalk.dim(fileName)} created`
-    )
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
-  }
-}
-
-function mergeCMSFiles() {
-  mergeCMSFile('content-types.json')
-  mergeCMSFile('sections.json')
-}
-
 export async function generate(options?: GenerateOptions) {
   const { setup = false } = options ?? {}
 
@@ -290,7 +244,10 @@ export async function generate(options?: GenerateOptions) {
     setupPromise,
     copyUserStarterToCustomizations(),
     copyTheme(),
-    createCmsWebhookUrlsJsonFile(),
-    mergeCMSFiles(),
   ])
+}
+
+export async function generateCMSFiles() {
+  await createCmsWebhookUrlsJsonFile()
+  await mergeCMSFiles()
 }
