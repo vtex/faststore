@@ -24,6 +24,14 @@ export const useDefineVariant = (options: SkuOption[], variant?: Variant): Varia
 
     const firstImageName = options[0]?.src && getImageName(options[0].src)
 
+    /* 
+     * If there's only one option (options.length === 1) and there is an image
+     * the correct return value is 'image'. 
+     * */
+    if (firstImageName && options.length === 1) {
+      return 'image'
+    }
+
     const areSourcesEqualsOrNull = options.every((option) => {
       if (!option.src) {
         return true
@@ -32,15 +40,6 @@ export const useDefineVariant = (options: SkuOption[], variant?: Variant): Varia
       return optionImageName === firstImageName
     })
 
-    /* There is currently a bug on this line. 
-     *
-     * If there's only one option (options.length === 1) and there is an image
-     * the correct return value is 'image'. But since there's only one image
-     * and they are all equal (it's equal to itself) then this conditional will
-     * fail
-     *
-     * TODO: add a test for this case and fix it
-     * */
     if (!areSourcesEqualsOrNull) {
       return 'image'
     }
