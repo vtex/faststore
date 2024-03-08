@@ -14,6 +14,11 @@ type FormattedSkuVariant = {
 
 const SKU_IMAGE_LABEL = 'skuvariation'
 
+/**
+ * Attempts to find an image labeled by the specific variationName
+ * if none is found, search for the `skuvariation`, defaulting to the
+ * first image of the SKU
+ */
 function findSkuVariantImage(
   availableImages: Item['images'],
   variationName?: string

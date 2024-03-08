@@ -9,6 +9,10 @@ const getImageName = (src: string) => {
   return imageName
 }
 
+/**
+ * This hook infers what kind of SKU Selector will be displayed on the UI. 
+ * There are three different options, color, image, and label (default version).
+ */
 export const useDefineVariant = (options: SkuOption[], variant?: Variant): Variant =>
   useMemo(() => {
     if(variant) return variant
@@ -28,6 +32,15 @@ export const useDefineVariant = (options: SkuOption[], variant?: Variant): Varia
       return optionImageName === firstImageName
     })
 
+    /* There is currently a bug on this line. 
+     *
+     * If there's only one option (options.length === 1) and there is an image
+     * the correct return value is 'image'. But since there's only one image
+     * and they are all equal (it's equal to itself) then this conditional will
+     * fail
+     *
+     * TODO: add a test for this case and fix it
+     * */
     if (!areSourcesEqualsOrNull) {
       return 'image'
     }
