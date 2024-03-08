@@ -54,7 +54,7 @@ const handler: NextApiHandler = async (req, res) => {
     // same type to remain the same while previewing a specific path
     res.setPreviewData(locator, {
       maxAge: 3600,
-      path: (page.settings as Settings)?.seo.slug,
+      path: (page.settings as Settings)?.seo?.slug,
     })
 
     // Redirect to the path from the fetched locator
