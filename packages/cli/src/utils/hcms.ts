@@ -122,7 +122,7 @@ async function mergeCMSFile(fileName: string) {
 
   let output: ContentTypeOrSectionDefinition[] = []
 
-  // TODO: create a validation when has the cms files but doesn't have a component for then
+  // TODO: create a validation when the CMS files exist but don't have a component for them
   if (existsSync(customFilePath)) {
     const customFile = readFileSync(customFilePath, 'utf8')
 

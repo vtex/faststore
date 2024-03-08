@@ -67,7 +67,7 @@ describe('splitCustomDefinitions', () => {
 })
 
 describe('dedupeAndMergeDefinitions', () => {
-  it('should return the the exact same core definitions if there are no duplicates', () => {
+  it('should return the exact same core definitions if there are no duplicates', () => {
     expect(dedupeAndMergeDefinitions(coreContentTypes, [], 'id')).toEqual(
       coreContentTypes
     )
