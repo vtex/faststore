@@ -1,0 +1,29 @@
+{
+    "overrides-overview": {
+        "title": "Overview"
+    },
+    "override-component-props": {
+      "title": "Override component props"
+    },
+    "override-component": {
+      "title": "Override a component"
+    },
+    "override-section-styles": {
+        "title": "Override section styles"
+    },
+    "sending-components-to-the-headless-cms": {
+      "title": "Sending components to the Headless CMS"
+    },
+    "use-cases": {
+      "title": "Use cases"
+    },
+    "list-of-native-sections": {
+      "title": "List of native sections and overridable components"
+    },
+    "best-practices-overrides": {
+      "title": "Best practices"
+    },
+    "specification": {
+        "title": "getOverriddenSection function"
+    }
+  }
