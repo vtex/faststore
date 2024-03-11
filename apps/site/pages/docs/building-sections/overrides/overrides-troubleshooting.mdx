@@ -1,0 +1,26 @@
+
+<header>
+# Troubleshooting
+</header>
+
+## My overrides don't show up
+There are two possibilities for a override not showwing up in your store:
+
+### 1. Import the `getOverriddenSection` functional
+Make sure you have import the function from `@faststore/core` package into the custom component file.
+
+### 2. Add the component to the Headless CMS:
+
+Make sure you add the schema for the new section in the Headless CMS and replace the native section for your customized one.
+Refer to the [Sending components to the Headless CMS](/docs/building-sections/overrides/sending-components-to-the-headless-cms) guide.
+
+
+## My prop overrides don't work
+
+Several sections have default prop definitions that, in the moment it is added to the Headless CMS, can bypass your prop overrides. Consider removing default values.
+
+## My custom section class name don't work
+
+Check if the className added to the section is the same declared in the stylesheet. For example, if in the section
+you declared `className: styles.simpleAlert`, in the stylesheet you must declase `.simpleAlert`
+
