@@ -1,10 +1,10 @@
 # Common use cases: Overriding sections for simple customization
 
-This guide demonstrates a common use case for `getOverriddenSection` in FastStore, focusing on customizing the CMS schema for a section to provide more options.
+This guide demonstrates a common use case for [`getOverriddenSection`](/docs/building-sections/overrides/specification) in FastStore, focusing on customizing the CMS schema for a section to provide more options.
 
 ## Context
 
-- - You want to create a dropdown in the CMS allowing editors to choose from a wider selection of icons supported by the `@faststore/ui` library.
+- You want to create a dropdown in the CMS allowing editors to choose from a wider selection of icons supported by the `@faststore/ui` library.
 - The native Alert section provides a limited set of icon options.
 
 ## Implementation
@@ -37,7 +37,7 @@ By leveraging `getOverriddenSection`, you can customize the Alert section's CMS 
        - **`section`:** The section to be overridden (Alert).
        - Since no further modifications are needed for this basic customization, the options object is empty.
 
-3. Add the component to the Headless CMS by adding a new schema in sections.json:
+3. Add the component to the Headless CMS by adding a new schema in `sections.json`:
 
 ```json
 
