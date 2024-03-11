@@ -1,7 +1,62 @@
 
-# Section override 
+import { Callout } from 'nextra/components'
 
-All component customizations in FastStore are performed within a section. 
-The process of overriding a component within a section returns a new React component, representing the overridden section. These components are no different from any other custom component in your store.
-To override props, you need to choose the desired native section and component from the [List of available native sections](/docs/building-sections/list-of-native-sections#faststore-native-sections). 
+<header>
+# Overview
+</header>
 
+Overriding components allows you to seamlessly replace native components with custom-built ones while retaining core functionalities. 
+For example, you can replace native components like the shopping cart or alerts with tailored solutions specifically for your store.
+
+In FastStore, all component customizations occur within sections, and you can create multiple overrides for native sections.
+The process of overriding a component within a section returns a new React component, representing the overridden section.
+
+<Callout type="info" emoji="ℹ️">
+  Sections are page components that wrap up other components, enabling you to create cohesive and functional content for your store. 
+For example, the Hero section is a native section that includes the following components: `Hero`, `HeroImage`, and `HeroHeader`.
+</Callout> 
+
+## Override options
+
+There are three options to customize your component through overrides:
+
+<ul class="nx-card-list">
+  <li class="nx-card">
+    <a href="https://www.faststore.dev/docs/building-sections/overrides/override-component-props">
+      #### 1. Overriding component props
+      Modify the behavior of a specific component by passing additional props to it in your store code.
+    </a>
+  </li>
+  <li class="nx-card">
+    <a href="https://www.faststore.dev/docs/building-sections/overrides/override-section-styles">
+      #### 2. Overriding section styles
+      Customize the component styles.
+    </a>
+  </li>
+
+  <li class="nx-card">
+    <a href="https://www.faststore.dev/docs/building-sections/overrides/override-component">
+      #### 3. Override a component
+      Create a new component and override its native equivalent to achieve the desired functionality.
+    </a>
+  </li>
+</ul>
+
+## Frequently asked questions
+
+### Why are some components tagged as `__experimental`?
+
+Some components are undergoing migration to FastStore UI. While they are not yet fully migrated, 
+`__experimental` components exists.
+
+
+### What types of components can be overridden within FastStore?
+
+All overridable components are [FastStore UI](/components). This makes it easy to override and leverage existing props by passing them down.
+
+### Which definitions take precedence when overriding props in FastStore, the custom ones or Headless CMS props?
+
+Prop overrides change the default definitions for that prop. Headless CMS props will always win override or default prop definitions.
+
+###  Is it possible to partially override components in FastStore?
+For each component, one must override only props or the whole component, never both.
