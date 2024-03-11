@@ -74,7 +74,7 @@ const config: DocsThemeConfig = {
     text: (
       <p>
         ⚠️ After March 18, 2024, the FastStore documentation will be migrated to the Developer Portal. For more information, access the official{' '}
-        <a class="nx-button nx-button-primary inverse" href="https://developers.vtex.com/updates/release-notes/2024-03-07-faststore-content-in-the-developer-portal" target="_blank" rel="noreferrer">
+        <a className="nx-button-primary:hover" href="https://developers.vtex.com/updates/release-notes/2024-03-07-faststore-content-in-the-developer-portal" target="_blank" rel="noreferrer">
           release note.
         </a>
       </p>
