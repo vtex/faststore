@@ -73,10 +73,9 @@ const config: DocsThemeConfig = {
     key: '2.0-release',
     text: (
       <p>
-        🎉 We are thrilled to introduce FastStore v2. If you are looking for
-        documentation of the previous version of FastStore, please refer to{' '}
-        <a href="https://v1.faststore.dev/" target="_blank" rel="noreferrer">
-          FastStore v1.
+        ⚠️ After March 18, 2024, the FastStore documentation will be migrated to the Developer Portal. For more information, access the official{' '}
+        <a href="https://developers.vtex.com/updates/release-notes/2024-03-07-faststore-content-in-the-developer-portal" target="_blank" rel="noreferrer">
+          release note.
         </a>
       </p>
     ),
