@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "turbo run build --log-order=grouped",
+    "build": "turbo run build --log-order=grouped && rm -rf ./packages/core/.next",
     "dev": "turbo run dev --parallel --no-cache",
     "lint": "turbo run lint",
     "test": "turbo run test",
