@@ -1,5 +1,5 @@
 {
-  "version": "3.0.22",
+  "version": "3.0.23",
   "npmClient": "yarn",
   "command": {
     "publish": {
@@ -42,11 +42,16 @@
         "section": "Tests"
       }
     ],
-    "issuePrefixes": ["#"],
+    "issuePrefixes": [
+      "#"
+    ],
     "issueUrlFormat": "{{host}}/{{owner}}/{{repository}}/issues/{{id}}",
     "commitUrlFormat": "{{host}}/{{owner}}/{{repository}}/commit/{{hash}}",
     "compareUrlFormat": "{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}",
     "userUrlFormat": "{{host}}/{{user}}"
   },
-  "packages": ["packages/*", "apps/*"]
+  "packages": [
+    "packages/*",
+    "apps/*"
+  ]
 }
