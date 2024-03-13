@@ -274,7 +274,7 @@ export type IStorePropertyValue = {
   /** Property value. May hold a string or the string representation of an object. */
   value: Scalars['ObjectOrString']['input']
   /** Specifies the nature of the value */
-  valueReference: Scalars['ObjectOrString']['input']
+  valueReference: Scalars['String']['input']
 }
 
 /** Selected search facet input. */
@@ -629,18 +629,6 @@ export type StoreAggregateRating = {
   reviewCount: Scalars['Int']['output']
 }
 
-/** Attribute of a given product. */
-export type StoreAttribute = {
-  /** Attribute id. */
-  id: Scalars['String']['output']
-  /** Attribute name. */
-  name: Scalars['String']['output']
-  /** Attribute value. */
-  value: Scalars['String']['output']
-  /** Attribute visibility. */
-  visible: Scalars['Boolean']['output']
-}
-
 /** information about the author of a product review or rating. */
 export type StoreAuthor = {
   /** Author name. */
@@ -990,7 +978,7 @@ export type StorePropertyValue = {
   /** Property value. May hold a string or the string representation of an object. */
   value: Scalars['ObjectOrString']['output']
   /** Specifies the nature of the value */
-  valueReference: Scalars['ObjectOrString']['output']
+  valueReference: Scalars['String']['output']
 }
 
 /**
@@ -1125,7 +1113,7 @@ export type ProductSummary_ProductFragment = {
     propertyID: string
     name: string
     value: any
-    valueReference: any
+    valueReference: string
   }>
 }
 
@@ -1183,7 +1171,7 @@ export type ProductDetailsFragment_ProductFragment = {
     propertyID: string
     name: string
     value: any
-    valueReference: any
+    valueReference: string
   }>
 }
 
@@ -1273,7 +1261,7 @@ export type ServerProductQueryQuery = {
       propertyID: string
       name: string
       value: any
-      valueReference: any
+      valueReference: string
     }>
   }
 }
@@ -1311,7 +1299,7 @@ export type ValidateCartMutationMutation = {
             propertyID: string
             name: string
             value: any
-            valueReference: any
+            valueReference: string
           }>
         }
       }>
@@ -1346,7 +1334,7 @@ export type CartItemFragment = {
       propertyID: string
       name: string
       value: any
-      valueReference: any
+      valueReference: string
     }>
   }
 }
@@ -1370,7 +1358,7 @@ export type CartProductItemFragment = {
     propertyID: string
     name: string
     value: any
-    valueReference: any
+    valueReference: string
   }>
 }
 
@@ -1418,7 +1406,7 @@ export type ClientManyProductsQueryQuery = {
             propertyID: string
             name: string
             value: any
-            valueReference: any
+            valueReference: string
           }>
         }
       }>
@@ -1506,7 +1494,7 @@ export type ClientProductQueryQuery = {
       propertyID: string
       name: string
       value: any
-      valueReference: any
+      valueReference: string
     }>
   }
 }
@@ -1543,7 +1531,7 @@ export type ClientSearchSuggestionsQueryQuery = {
           propertyID: string
           name: string
           value: any
-          valueReference: any
+          valueReference: string
         }>
       }>
     }
