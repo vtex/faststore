@@ -4,7 +4,6 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
   const { pathname } = new URL(request.url)
   return NextResponse.json({
-    status: 200,
     message: `Intercepted for ${pathname}!`,
   })
 }
