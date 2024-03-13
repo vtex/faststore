@@ -1,9 +1,11 @@
 
 # `getOverriddenSection` function
 
-This function lets you customize sections in your FastStore project without altering the core component or its behavior. It returns a new React component representing the customized section.
+The `getOverriddenSection` function lets you customize sections in your FastStore project without altering its core components and behavior. Instead, it returns a new React component representing the customized section.
 
-This allows the creation of multiple overrides based on native components and override specific parts of a section without affecting the rest.
+This allows the creation of multiple overrides based on native components, enabling precise adjustments to specific parts of a section without affecting the rest.
+
+## Usage example
 
 Imagine an Alert section with an icon. You want to make the icon bolder without changing anything else. `getOverriddenSection` allows you to target just the Icon component.
 
@@ -32,15 +34,18 @@ const SimpleAlert = getOverriddenSection({
 
 export default SimpleAlert;
 ```
-Let’s break into steps the code above to understand how can we achieved an Alert with a bold icon:
+## Usage
+
+Here's how you can utilize `getOverriddenSection` to customize sections within your FastStore project:
 
 1. Import the `getOverriddenSection` from the `@faststore/core` package.
-2. Import the native `AlertSection` section from `@faststore/core`.
-3. Define a new variable `SimpleAlert` using `getOverriddenSection`.
-4. `getOverriddenSection` uses the original `AlertSection` as the base for customization.
+2. Import the native section from `@faststore/core`. In this example, we considered the `AlertSection`
+3. Define a new component using the `getOverriddenSection` function (e.g., `SimpleAlert`).
+4. In the `Section` parameter of the `getOverriddenSection` function, specify the original section. Note that the `getOverriddenSection` uses the original `AlertSection` as the base for customization.
 5. (Optional) Add a `className` for styling the section.
-6. Define that you want to override the `Icon` component within the section.
-7. Set the weight prop to `bold` within the Icon's props.
+6. In the `components` parameter of the `getOverriddenSection` function, declare the components you wish to override (e.g., `Icon`).
+7. Set the new props for the specified component. In this example, we overrode the weight prop to `bold` within the Icon's props.
+
 
 
 ## Parameters
