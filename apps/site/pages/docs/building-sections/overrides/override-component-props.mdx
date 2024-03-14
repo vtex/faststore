@@ -1,27 +1,21 @@
+# Overriding native component's props
+Overriding props allows you to customize a component's behavior while preserving its native integration. This approach is useful when you want to customize specific aspects of a native component, for example, an icon or a button label. 
 
-import { Callout, Steps, Tab, Tabs } from 'nextra-theme-docs'
-
-
-## Overriding native component's props
-
-Overriding props allows you to customize a component's behavior while preserving its native integration. This approach is useful when you want to customize specific aspects of a native component, for example an icon or a button label. 
-
-For this guide, we'll use the [`BuyButton`](/components/molecules/buy-button#props) component to make the customization. 
+For this guide, we'll use the [Buy Button](https://developers.vtex.com/docs/guides/faststore/molecules-buy-button) component to make the customization. 
 
 Here's how the initial component looks with the `size` prop set as `regular` in the Product Details Page (PDP):
 
+
+
 ![overrides-PDP-buy-button-initial](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-initial___a4b7ae9d88ed888da5649b2b6cc1eecd.png)
 
-### Step by step
+## Step by step
+### Step 1 - Setting up the component file
 
-#### Step 1 - Setting up the component file
+1. After choosing a native section to be customized from the [list of available native sections](/tbd), open your FastStore project in any code editor of your preference.
+2. Go to the `src` folder, create the `components` folder, and inside it, create the `sections` folder. You can run the following command to create them:
 
-1. After choosing a native section to be customized from the [list of available native sections](/docs/building-sections/list-of-native-sections), open your FastStore project in any code editor of your preference.
-2. Go to the `src` folder, create the `components` folder and inside it, create the `sections` folder. You can run the following command to create them:
-
-<Callout type="info" emoji="ℹ️">
-  The naming of the folders is arbitrary, as overrides can be created in any file. 
-</Callout>
+> ℹ️ The naming of the folders is arbitrary, as overrides can be created in any file. 
 
 <Tabs items={['macOS and Linux', 'Windows']}>
   <Tab>```bash copy mkdir src/components src/components/sections ```</Tab>
@@ -53,15 +47,13 @@ const ProductDetailsWithCustomButton = getOverriddenSection({
 export { ProductDetailsWithCustomButton }
 ```
 
-<Callout type="info" emoji="ℹ️">
-  Change the value of the `Section` variable to the section you want to
+> ℹ️ Change the value of the `Section` variable to the section you wish to
   override. In the given example, we set the `Section` variable to the component
   `ProductDetailsSection` to override this specific section.
-</Callout>
 
 5. Save your changes.
 
-#### Step 2 - Setting up the override
+### Step 2 - Setting up the override
 
 1. Open the `ProductDetailsWithCustomButton.tsx` file created in the [Step 1 - Setting up the component file](#step-1-setting-up-the-overrides-folder) and add the following code:
 
@@ -80,11 +72,12 @@ export { ProductDetailsWithCustomButton }
 
 This code overrides the `BuyButton` props `size` and `iconPosition`. You'll see a smaller button than the initial one, and the cart icon positioned on the right side.
 
-#### Step 3 - Adding the component to the CMS
+### Step 3 - Adding the component to the CMS
 
-To make the section available in the [Headless CMS](/docs/headless-cms-overview), first
-refer to the [Sending components to the Headless CMS](/docs/building-sections/overrides/sending-components-to-the-headless-cms) guide
-and on step 4, add the new section, `ProductDetailsWithCustomButton` to the `sections.json` file:
+To make the section available in the [Headless CMS](https://developers.vtex.com/docs/guides/faststore/headless-cms-overview), follow the steps below. For these steps we will use the [Sending components to the Headless CMS](https://docs.google.com/document/d/1WemOyBUwjYCBd7rJzABfUyhgiykP5kIQBnt5ur0cZLo/edit) guide to send the component to the Headless CMS.
+
+Access the VTEX Admin and go to the **Storferont > Headless CMS**.
+In the step 4 of the [Sending components to the Headless CMS](https://docs.google.com/document/d/1WemOyBUwjYCBd7rJzABfUyhgiykP5kIQBnt5ur0cZLo/edit) guide, add the new section, named `ProductDetailsWithCustomButton` to the `sections.json` file:
 
 ```json filename="sections.json" copy
   [
@@ -238,21 +231,17 @@ and on step 4, add the new section, `ProductDetailsWithCustomButton` to the `sec
 This schema Adds the new `Product Details with custom button` section and also adds two new properties to the `buyButton` component:
 `size` and `iconPosition`.
 
-#### Step 4 - Replacing this component on the page
+Complete the remaining steps from the [Sending components to the Headless CMS](https://docs.google.com/document/d/1WemOyBUwjYCBd7rJzABfUyhgiykP5kIQBnt5ur0cZLo/edit) guide.
+Delete the native **BuyButton** section.
 
-Once you've customized the section, replace the native **Product Details** by deleting it in the **VTEX Admin > Headless CMS**.
+### Step 3 - Visualizing the component on the page
 
-![deleting-native-section](https://vtexhelp.vtexassets.com/assets/docs/src/deleting-native-section___05878a0536143067d17c68dd024fcfa7.gif)
+1. Run `yarn dev` in the terminal to start the development server. Access the CMS preview in your browser and go to the product details page to see the updated `BuyButton` component:
 
-#### Step 5 - Visualizing the component on the page
 
-1. Run `yarn dev` in the terminal to start the development server. Access the CMS preview in your browser and go to product details page to see the updated `BuyButton` component:
 
 ![overrides-PDP-buy-button-props](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-props___898b016bd82c908b5b24c8822be6789a.png)
 
-<Callout type="warning" emoji="⚠️">
-  Remember: props changed via Headless CMS overlap the changes made through
-  [override](/docs/building-sections/overriding-components-and-props#override-native-components-props).
+> ⚠️ Remember: props changed via Headless CMS overlap the changes made through [overrides](/tbs).
   For example, if you change a prop through override and also change it using
   Headless CMS, the final prop's value will be the one added using CMS.
-</Callout>
