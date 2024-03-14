@@ -8,7 +8,7 @@ Overriding props allows you to customize a component's behavior while preserving
 
 For this guide, we'll use the [`BuyButton`](/components/molecules/buy-button#props) component to make the customization. 
 
-Here's how the initial component looks with the `size` prop set as `regular` in the PDP (Product Details Page):
+Here's how the initial component looks with the `size` prop set as `regular` in the Product Details Page (PDP):
 
 ![overrides-PDP-buy-button-initial](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-initial___a4b7ae9d88ed888da5649b2b6cc1eecd.png)
 
@@ -86,7 +86,7 @@ To make the section available in the [Headless CMS](/docs/headless-cms-overview)
 refer to the [Sending components to the Headless CMS](/docs/building-sections/overrides/sending-components-to-the-headless-cms) guide
 and on step 4, add the new section, `ProductDetailsWithCustomButton` to the `sections.json` file:
 
-```json {46-57} filename="sections.json" copy
+```json filename="sections.json" copy
   [
     {
       "name": "ProductDetailsWithCustomButton",
@@ -238,12 +238,9 @@ and on step 4, add the new section, `ProductDetailsWithCustomButton` to the `sec
 This schema Adds the new `Product Details with custom button` section and also adds two new properties to the `buyButton` component:
 `size` and `iconPosition`.
 
-
-// LINK TO AVAILABLE DEFAULT NATIVE SECTION CMS DEFINITIONS
-
 #### Step 4 - Replacing this component on the page
 
-Once you've customized the section, replace the native **Product Details** by deleting it.
+Once you've customized the section, replace the native **Product Details** by deleting it in the **VTEX Admin > Headless CMS**.
 
 ![deleting-native-section](https://vtexhelp.vtexassets.com/assets/docs/src/deleting-native-section___05878a0536143067d17c68dd024fcfa7.gif)
 
