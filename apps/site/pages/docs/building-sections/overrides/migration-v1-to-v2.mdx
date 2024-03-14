@@ -1,25 +1,38 @@
----
-title: 'Migrating overrides v1 to v2'
+import { Steps } from 'nextra-theme-docs'
 
----
+<header>
+# Migrating Overrides v1 to v2
+</header>
 
-# Migrating overrides v1 to v2
+Overrides v2 offers a more flexible and customizable approach to component overrides. It's strongly recommended to update your component customization methods accordingly.
 
-Before the `@faststore/core` package version 3.x, FastStore offered the Overrides v1. Now the overrides v2
-offers are more flexibles and customizable way to override a component and we strongly advisaed to update the way you
-customiza your components
+> ⚠️ If you choose to continue using Overrides v1, please refer to the [Overriding components (v1)](/TBD) guide.
 
 ## Main differences
 
-| Feature | Overrides v1 | Overrides v2 |
-| -------- | ------------ | ------------ |
-| Overrides per section         | One override per section | Multiples overrides per section |
-| Native section | The new component overrides the native one | The new component is created based on the native one and can can coexist with it. |
-| Headless CMS property schema | No customization. You can only use the native ones. | You can customize the schema to define new properties. |
+| Feature                        | Overrides v1                           | Overrides v2                           |
+| ------------------------------ | -------------------------------------- | -------------------------------------- |
+| Overrides per section         | One override per section               | Multiple overrides per section         |
+| Native section                | The new component overrides the native one | The new component is based on the native one and can coexist with it |
+| Headless CMS property schema  | No customization, limited to native schemas | Customizable schema allowing definition of new properties |
 
-## Step by Step
+## Step by step
 
-{/*Add the steps on how to migrate to the new version */}
+<Steps>
+
+### Update `@faststore/core` Package
+
+Ensure your store's `@faststore/core` package is version 3.x or higher to utilize Overrides v2. Refer to the [release note](https://github.com/vtex/faststore/releases/tag/v3.0.0) for updating instructions.
+
+### Review Existing Overrides
+
+Identify all overrides in your codebase based on Overrides v1.
+
+### Add the steps on how to migrate to the new version 
+
+</Steps>
+
+
 
 
 
