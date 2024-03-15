@@ -42,7 +42,6 @@
   justify-content: center;
   width: var(--fs-qty-selector-width);
   height: var(--fs-qty-selector-height);
-  border-radius: var(--fs-qty-selector-border-radius);
   box-shadow: var(--fs-qty-selector-shadow);
 
   [data-quantity-selector-input] {
@@ -53,6 +52,7 @@
     color: var(--fs-qty-selector-text-color);
     text-align: center;
     border: var(--fs-qty-selector-border-width) solid var(--fs-qty-selector-border-color);
+    border-radius: var(--fs-qty-selector-border-radius);
   }
 
   [data-quantity-selector-button] {
