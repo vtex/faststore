@@ -64,7 +64,7 @@ export { ProductDetailsWithCustomButton }
 
 1. Open the `ProductDetailsWithCustomButton.tsx` file created in the [Step 1 - Setting up the component file](#step-1-setting-up-the-overrides-folder) and add the following code:
 
-```tsx filename="ProductDetailsWithCustomButton.tsx" {5,6,7}
+```tsx filename="ProductDetailsWithCustomButton.tsx" {5,6,7} copy
 import { ProductDetailsSection, getOverriddenSection } from '@faststore/core'
  
 const ProductDetailsWithCustomButton = getOverriddenSection({
@@ -73,7 +73,15 @@ const ProductDetailsWithCustomButton = getOverriddenSection({
     BuyButton: { props: { size: "small", iconPosition: "right" } } },
 });
  
-export { ProductDetailsWithCustomButton }
+export default ProductDetailsWithCustomButton;
+```
+2. In the `components` folder, create the `index.tsx` file and add the following:
+
+```tsx filename="index.tsx" copy
+import ProductDetailsWithCustomButton from "./sections/ProductDetailsWithCustomButton";
+
+export { ProductDetailsWithCustomButton };
+
 ```
 
 This code overrides the `BuyButton` props `size` and `iconPosition`. You'll see a smaller button than the initial one, and the cart icon positioned on the right side.
@@ -92,11 +100,11 @@ To make the section available in the [Headless CMS](https://developers.vtex.com/
 
 ```json filename="sections.json" copy
   [
-  {
+    {
     "name": "ProductDetailsWithCustomButton",
     "requiredScopes": ["pdp"],
     "schema": {
-      "title": "Product Details With Custom Button",
+      "title": "Product Details WithCustom Button",
       "type": "object",
       "description": "Display Product Details Section with custom button",
       "properties": {
