@@ -1,15 +1,15 @@
-# Common use cases: Overriding sections for simple customization
+# Add other icons option to the Alert component
 
-This guide demonstrates a common use case for [`getOverriddenSection`](/docs/building-sections/overrides/specification) in FastStore, focusing on customizing the CMS schema for a section to provide more options.
+This guide illustrates a common use case for [`getOverriddenSection`](/docs/building-sections/overrides/specification) in FastStore, focusing on customizing the Headless CMS schema for a section to provide more options.
 
 ## Context
 
-- You want to create a dropdown in the CMS allowing editors to choose from a wider selection of icons supported by the `@faststore/ui` library.
+- You want to create a dropdown in the Headless CMS allowing editors to choose from a wider selection of icons supported by the `@faststore/ui` library.
 - The native Alert section provides a limited set of icon options.
 
 ## Implementation
 
-By leveraging `getOverriddenSection`, you can customize the Alert section's CMS schema to offer additional icon options.
+By leveraging `getOverriddenSection`, you can customize the Alert section's Healess CMS schema to offer additional icon options.
 
 1. Import the necessary component:
 
@@ -21,9 +21,9 @@ By leveraging `getOverriddenSection`, you can customize the Alert section's CMS 
 
    ```tsx
    /**
-    * This is an alert override with custom icon options in the CMS.
+    * This is an alert override with custom icon options in the Headless CMS.
     * 
-    * Changes only the CMS schema to include more options for native Icons supported by @faststore/ui.
+    * Changes only the schema to include more options for native Icons supported by @faststore/ui.
     */
    const CustomIconsAlert = getOverriddenSection({
        section: "Alert",

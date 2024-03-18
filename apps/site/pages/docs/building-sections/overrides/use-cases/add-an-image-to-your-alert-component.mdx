@@ -1,6 +1,6 @@
-# Advanced use case: Overriding sections with images
+# Add an image to your Alert component
 
-This guide demonstrates an advanced use case for [`getOverriddenSection`](/docs/building-sections/overrides/specification) in FastStore, focusing on customizing the icon of the Alert section to display an image instead.
+This guide illustrates an advanced use case for [`getOverriddenSection`](/docs/building-sections/overrides/specification) in FastStore, focusing on customizing the icon of the Alert section to display an image instead.
 
 ## Context
 
@@ -40,7 +40,7 @@ By leveraging `getOverriddenSection`, you can create a custom component called `
        /**
         * This is an alert override that contains an Image as an Icon.
         *
-        * Changes the CMS schema to add the src option and remove the icon option.
+        * Changes the Headless CMS schema to add the src option and remove the icon option.
         * Overrides the Icon option and passes down the other props
         *
         * It's memoized to avoid being re-created every time the AlertWithImage component is re-rendered
