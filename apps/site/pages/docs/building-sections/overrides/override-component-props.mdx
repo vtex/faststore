@@ -1,3 +1,5 @@
+import {Tab, Tabs} from 'nextra-theme-docs'
+
 # Overriding native component's props
 Overriding props allows you to customize a component's behavior while preserving its native integration. This approach is useful when you want to customize specific aspects of a native component, for example, an icon or a button label. 
 
@@ -8,6 +10,11 @@ Here's how the initial component looks with the `size` prop set as `regular` in 
 
 
 ![overrides-PDP-buy-button-initial](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-initial___a4b7ae9d88ed888da5649b2b6cc1eecd.png)
+
+## Before you begin
+
+Make sure your `@faststore/core` package has the 3.x version or above. If you need to update
+it, refer to this [release note](https://github.com/vtex/faststore/releases/tag/v3.0.0).
 
 ## Step by step
 ### Step 1 - Setting up the component file
@@ -57,16 +64,15 @@ export { ProductDetailsWithCustomButton }
 
 1. Open the `ProductDetailsWithCustomButton.tsx` file created in the [Step 1 - Setting up the component file](#step-1-setting-up-the-overrides-folder) and add the following code:
 
-```tsx filename="ProductDetailsWithCustomButton.tsx" {8-9}
+```tsx filename="ProductDetailsWithCustomButton.tsx" {5,6,7}
 import { ProductDetailsSection, getOverriddenSection } from '@faststore/core'
-
+ 
 const ProductDetailsWithCustomButton = getOverriddenSection({
   Section: ProductDetailsSection,
   components: {
-    BuyButton: { props: { size: 'small', iconPosition: 'right' } },
-  },
-})
-
+    BuyButton: { props: { size: "small", iconPosition: "right" } } },
+});
+ 
 export { ProductDetailsWithCustomButton }
 ```
 
@@ -74,171 +80,173 @@ This code overrides the `BuyButton` props `size` and `iconPosition`. You'll see 
 
 ### Step 3 - Adding the component to the CMS
 
-To make the section available in the [Headless CMS](https://developers.vtex.com/docs/guides/faststore/headless-cms-overview), follow the steps below. For these steps we will use the [Sending components to the Headless CMS](https://docs.google.com/document/d/1WemOyBUwjYCBd7rJzABfUyhgiykP5kIQBnt5ur0cZLo/edit) guide to send the component to the Headless CMS.
+To make the section available in the [Headless CMS](https://developers.vtex.com/docs/guides/faststore/headless-cms-overview), follow the steps below:
 
-Access the VTEX Admin and go to the **Storferont > Headless CMS**.
-In the step 4 of the [Sending components to the Headless CMS](https://docs.google.com/document/d/1WemOyBUwjYCBd7rJzABfUyhgiykP5kIQBnt5ur0cZLo/edit) guide, add the new section, named `ProductDetailsWithCustomButton` to the `sections.json` file:
+1. In the FastStore root directory, create a folder named `cms`.
+
+2. Inside `cms`, create the `faststore` folder.
+
+3. Within the `cms/faststore` folder, create the `sections.json` file.
+
+4. Add the schema of the new section to the `sections.json` file, named `ProductDetailsWithCustomButton` to the `sections.json` file:
 
 ```json filename="sections.json" copy
   [
-    {
-      "name": "ProductDetailsWithCustomButton",
-      "schema": {
-        "title": "Product Details with custom button",
-        "type": "object",
-        "description": "Display Product Details Section",
-        "properties": {
-          "productTitle": {
-            "title": "Product Title",
-            "type": "object",
-            "properties": {
-              "discountBadge": {
-                "title": "Discount Badge",
-                "type": "object",
-                "properties": {
-                  "showDiscountBadge": {
-                    "title": "Show Discount Badge?",
-                    "type": "boolean",
-                    "default": false
-                  },
-                  "size": {
-                    "title": "Size",
-                    "type": "string",
-                    "enumNames": ["Big", "Small"],
-                    "enum": ["big", "small"]
-                  }
+  {
+    "name": "ProductDetailsWithCustomButton",
+    "requiredScopes": ["pdp"],
+    "schema": {
+      "title": "Product Details With Custom Button",
+      "type": "object",
+      "description": "Display Product Details Section with custom button",
+      "properties": {
+        "productTitle": {
+          "title": "Product Title",
+          "type": "object",
+          "properties": {
+            "discountBadge": {
+              "title": "Discount Badge",
+              "type": "object",
+              "properties": {
+                "showDiscountBadge": {
+                  "title": "Show Discount Badge?",
+                  "type": "boolean",
+                  "default": false
+                },
+                "size": {
+                  "title": "Size",
+                  "type": "string",
+                  "enumNames": ["Big", "Small"],
+                  "enum": ["big", "small"]
                 }
-              },
-              "refNumber": {
-                "title": "Show Reference Number?",
-                "type": "boolean",
-                "default": false
               }
+            },
+            "refNumber": {
+              "title": "Show Reference Number?",
+              "type": "boolean",
+              "default": false
             }
-          },
-          "buyButton": {
-            "title": "Buy Button",
-            "type": "object",
-            "properties": {
-              "title": {
-                "title": "Title",
-                "type": "string",
-                "default": "Add to Cart"
-              },
-              "size": {
-                "title": "Size",
-                "type": "string",
-                "enumNames": ["Big", "Small"],
-                "enum": ["big", "small"]
-              },
-              "iconPosition": {
-                "title": "Icon Position",
-                "type": "string",
-                "enumNames": ["Right"],
-                "enum": ["right"]
-              },
-              "icon": {
-                "title": "Icon",
-                "type": "object",
-                "properties": {
-                  "icon": {
-                    "title": "Icon",
-                    "type": "string",
-                    "enumNames": ["Shopping Cart"],
-                    "enum": ["ShoppingCart"]
-                  },
-                  "alt": {
-                    "type": "string",
-                    "title": "Alternative Label",
-                    "default": "Shopping Cart"
-                  }
+          }
+        },
+        "buyButton": {
+          "title": "Buy Button",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Add to Cart"
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Shopping Cart"],
+                  "enum": ["ShoppingCart"]
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alternative Label",
+                  "default": "Shopping Cart"
                 }
               }
             }
-          },
-          "notAvailableButton": {
-            "title": "Not Available Button",
-            "description": "Shown when a SKU is not available",
-            "type": "object",
-            "properties": {
-              "title": {
-                "title": "Title",
-                "type": "string",
-                "default": "Not Available"
-              }
+          }
+        },
+        "notAvailableButton": {
+          "title": "Not Available Button",
+          "description": "Shown when a SKU is not available",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Not Available"
             }
-          },
-          "shippingSimulator": {
-            "title": "Shipping Simulation",
-            "type": "object",
-            "properties": {
-              "title": {
-                "title": "Title",
-                "type": "string",
-                "default": "Shipping"
-              },
-              "inputLabel": {
-                "title": "Input Label",
-                "type": "string",
-                "default": "Postal Code"
-              },
-              "link": {
-                "title": "Postal Code Discovery",
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "title": "Link Text",
-                    "type": "string",
-                    "default": "I don't know my Postal Code"
-                  },
-                  "to": { "title": "URL", "type": "string" }
-                }
-              },
-              "shippingOptionsTableTitle": {
-                "title": "Shipping Options Table Header",
-                "type": "string"
+          }
+        },
+        "shippingSimulator": {
+          "title": "Shipping Simulation",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Shipping"
+            },
+            "inputLabel": {
+              "title": "Input Label",
+              "type": "string",
+              "default": "Postal Code"
+            },
+            "link": {
+              "title": "Postal Code Discovery",
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "Link Text",
+                  "type": "string",
+                  "default": "I don't know my Postal Code"
+                },
+                "to": { "title": "URL", "type": "string" }
               }
+            },
+            "shippingOptionsTableTitle": {
+              "title": "Shipping Options Table Header",
+              "type": "string"
             }
-          },
-          "productDescription": {
-            "title": "Product Description",
-            "type": "object",
-            "properties": {
-              "initiallyExpanded": {
-                "type": "string",
-                "title": "Initially Expanded?",
-                "enumNames": ["First", "All", "None"],
-                "enum": ["first", "all", "none"]
-              },
-              "displayDescription": {
-                "title": "Should display description?",
-                "type": "boolean",
-                "default": true
-              },
-              "title": {
-                "title": "Description section title",
-                "type": "string",
-                "default": "Description"
-              }
+          }
+        },
+        "productDescription": {
+          "title": "Product Description",
+          "type": "object",
+          "properties": {
+            "initiallyExpanded": {
+              "type": "string",
+              "title": "Initially Expanded?",
+              "enumNames": ["First", "All", "None"],
+              "enum": ["first", "all", "none"]
+            },
+            "displayDescription": {
+              "title": "Should display description?",
+              "type": "boolean",
+              "default": true
+            },
+            "title": {
+              "title": "Description section title",
+              "type": "string",
+              "default": "Description"
             }
           }
         }
       }
     }
-  ]
+  }
+]
 ```
 
-This schema Adds the new `Product Details with custom button` section and also adds two new properties to the `buyButton` component:
-`size` and `iconPosition`.
+This schema Adds the new `Product Details with custom button` section to the Headless CMS.
 
-Complete the remaining steps from the [Sending components to the Headless CMS](https://docs.google.com/document/d/1WemOyBUwjYCBd7rJzABfUyhgiykP5kIQBnt5ur0cZLo/edit) guide.
-Delete the native **BuyButton** section.
+5. Open a new terminal window and log in to your vtex account by running `vtex login {accountName}`.
+
+6. run the following command to sync your changes with the Headless CMS:
+
+```bash
+faststore cms-sync
+```
+7. Access the VTEX Admin and proceed to **Storefront > Headless CMS**.
+
+8. Click on the page you desire to add the new section.
+
+9. Click the add button (`+`) and add the new section.
+
 
 ### Step 3 - Visualizing the component on the page
 
 1. Run `yarn dev` in the terminal to start the development server. Access the CMS preview in your browser and go to the product details page to see the updated `BuyButton` component:
-
-
 
 ![overrides-PDP-buy-button-props](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-props___898b016bd82c908b5b24c8822be6789a.png)
 
