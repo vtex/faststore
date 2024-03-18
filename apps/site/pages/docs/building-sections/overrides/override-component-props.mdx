@@ -1,20 +1,25 @@
 import {Tab, Tabs} from 'nextra-theme-docs'
 
+<header>
 # Overriding native component's props
+</header>
+
 Overriding props allows you to customize a component's behavior while preserving its native integration. This approach is useful when you want to customize specific aspects of a native component, for example, an icon or a button label. 
 
 For this guide, we'll use the [Buy Button](https://developers.vtex.com/docs/guides/faststore/molecules-buy-button) component to make the customization. 
 
 Here's how the initial component looks with the `size` prop set as `regular` in the Product Details Page (PDP):
 
-
-
 ![overrides-PDP-buy-button-initial](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-initial___a4b7ae9d88ed888da5649b2b6cc1eecd.png)
+
+---
 
 ## Before you begin
 
 Make sure your `@faststore/core` package has the 3.x version or above. If you need to update
 it, refer to this [release note](https://github.com/vtex/faststore/releases/tag/v3.0.0).
+
+---
 
 ## Step by step
 ### Step 1 - Setting up the component file
