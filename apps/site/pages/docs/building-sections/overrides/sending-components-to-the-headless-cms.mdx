@@ -6,9 +6,8 @@ is to make the overrided component available in the [Headless CMS]().
 
 1. In the FastStore root directory, create a folder named `cms`.
 2. Inside `cms`, create the `faststore` folder.
-3. Within the `cms/faststore` folder, create `sections.json` file.
-4. Add the schema of the new section, to the `sections.json` file. 
-The schema defines how the Headless CMS renders the section.
+3. Within the `cms/faststore` folder, create the `sections.json` file.
+4. Add the schema of the new section to the `sections.json` file. The schema defines how the Headless CMS renders the section.
 
 import { Callout } from 'nextra/components'
  
@@ -17,10 +16,14 @@ import { Callout } from 'nextra/components'
   Also, refer to the [List of Native Sections and Overridable Components](/docs/building-sections/overrides/list-of-native-sections) to check the schemas for each component.
 </Callout>
 
-5. Open your terminal and run the following:
+5. Open the terminal and log in to your vtex account by running `vtex login {accountName}`.
 
-```bash copy
+6. run the following command to sync your changes with the Headless CMS:
+
+```bash
 faststore cms-sync
 ```
-6. In the VTEX Admin, navigate to **Storefront > Headless CMS** and click on the page you desire to add the new section.
-7. Click the add button (`+`) and add the new section.
+7. Access the VTEX Admin and proceed to **Storefront > Headless CMS**.
+8. Click on the page you desire to add the new section.
+9. Click the add button (`+`) and add the new section.
+
