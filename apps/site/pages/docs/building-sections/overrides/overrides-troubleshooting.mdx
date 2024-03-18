@@ -1,26 +1,29 @@
-
 <header>
 # Troubleshooting
 </header>
 
-## My overrides don't show up
-There are two possibilities for a override not showwing up in your store:
+## I can't display my overrides
 
-### 1. Import the `getOverriddenSection` functional
-Make sure you have import the function from `@faststore/core` package into the custom component file.
+### 1. Missing `getOverriddenSection` function
 
-### 2. Add the component to the Headless CMS:
+**Symptom:** Overrides fail to display in your store.
 
-Make sure you add the schema for the new section in the Headless CMS and replace the native section for your customized one.
-Refer to the [Sending components to the Headless CMS](/docs/building-sections/overrides/sending-components-to-the-headless-cms) guide.
+**Solution:** Ensure that you have imported the `getOverriddenSection` function from the `@faststore/core` package into your custom component file.
 
+### 2. Component missing in the Headless CMS
 
-## My prop overrides don't work
+**Symptom:** Overrides are not reflected in the Headless CMS.
 
-Several sections have default prop definitions that, in the moment it is added to the Headless CMS, can bypass your prop overrides. Consider removing default values.
+**Solution:** Add the schema for the new section to the Headless CMS and replace the native section with your customized one. For detailed instructions, refer to the [Sending Components to the Headless CMS guide](/docs/building-sections/overrides/sending-components-to-the-headless-cms).
 
-## My custom section class name don't work
+## I can't make the override's props function as expected
 
-Check if the className added to the section is the same declared in the stylesheet. For example, if in the section
-you declared `className: styles.simpleAlert`, in the stylesheet you must declase `.simpleAlert`
+**Symptom:** Prop overrides are not behaving as you set.
 
+**Solution:** Default prop definitions in some sections can override your custom props upon addition to the Headless CMS. Consider removing default values to ensure prop overrides work as intended.
+
+## My overrides style is not displaying
+
+**Symptom:** Custom section class names do not apply as expected.
+
+**Solution:** Verify that the `className` added to the section matches the one declared in the stylesheet. For instance, if you declared `className: styles.simpleAlert` in the section, ensure that the corresponding style declaration in the stylesheet is `.simpleAlert`.
