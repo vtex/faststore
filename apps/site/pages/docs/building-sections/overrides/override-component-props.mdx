@@ -51,7 +51,7 @@ const ProductDetailsWithCustomButton = getOverriddenSection({
   components: {},
 })
 
-export { ProductDetailsWithCustomButton }
+export default ProductDetailsWithCustomButton;
 ```
 
 > ℹ️ Change the value of the `Section` variable to the section you wish to
@@ -80,23 +80,30 @@ export default ProductDetailsWithCustomButton;
 ```tsx filename="index.tsx" copy
 import ProductDetailsWithCustomButton from "./sections/ProductDetailsWithCustomButton";
 
-export { ProductDetailsWithCustomButton };
+export default { ProductDetailsWithCustomButton };
 
 ```
 
 This code overrides the `BuyButton` props `size` and `iconPosition`. You'll see a smaller button than the initial one, and the cart icon positioned on the right side.
 
-### Step 3 - Adding the component to the CMS
+### Step 3 - Visualizing the component on the page locally
 
-To make the section available in the [Headless CMS](https://developers.vtex.com/docs/guides/faststore/headless-cms-overview), follow the steps below:
+1. Run `yarn dev` in the terminal to start the development server. 
+2. Access the localhost URL provided and got to a Product Details Page to see the new Buy Button:
 
-1. In the FastStore root directory, create a folder named `cms`.
+![overrides-PDP-buy-button-props](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-props___898b016bd82c908b5b24c8822be6789a.png)
+
+### Step 4 - Adding the component to the CMS
+
+To integrate the section into the [Headless CMS](https://developers.vtex.com/docs/guides/faststore/headless-cms-overview), follow the steps below:
+
+1. Create a folder named `cms` in the FastStore root directory.
 
 2. Inside `cms`, create the `faststore` folder.
 
 3. Within the `cms/faststore` folder, create the `sections.json` file.
 
-4. Add the schema of the new section to the `sections.json` file, named `ProductDetailsWithCustomButton` to the `sections.json` file:
+4. Add the schema of the new section to the `sections.json` file, named `ProductDetailsWithCustomButton`, to the `sections.json` file:
 
 ```json filename="sections.json" copy
   [
@@ -249,15 +256,13 @@ faststore cms-sync
 
 8. Click on the page you desire to add the new section.
 
-9. Click the add button (`+`) and add the new section.
-
-
-### Step 3 - Visualizing the component on the page
-
-1. Run `yarn dev` in the terminal to start the development server. Access the CMS preview in your browser and go to the product details page to see the updated `BuyButton` component:
-
-![overrides-PDP-buy-button-props](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-props___898b016bd82c908b5b24c8822be6789a.png)
+9. Click the add button (`+`) and add the new section and complete values from the sections fields.
 
 > ⚠️ Remember: props changed via Headless CMS overlap the changes made through [overrides](/tbs).
   For example, if you change a prop through override and also change it using
   Headless CMS, the final prop's value will be the one added using CMS.
+
+10. Click `Save` and then `Preview` to verify your changes.
+
+11. If your changes are working, click `Publish` to make the new button available on the production store.
+
