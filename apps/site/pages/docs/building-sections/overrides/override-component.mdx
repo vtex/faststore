@@ -1,5 +1,246 @@
-lembrete: 
-- Considering the impact in the store performance
+import {Tab, Tabs} from 'nextra-theme-docs'
 
-Using overrides does not significantly impact performance. FastStore's handling of props and design tokens is designed for good performance. However, your customizations may introduce additional work, so consider overall store performance by checking Lighthouse reports on GitHub logs and Pull Requests.
+<header>
+# Overriding a native component
+</header>
 
+Overriding a section's component allows you to customize a component's behavior from scratch. 
+
+> ⚠️ Using overrides does not significantly impact performance. FastStore's handling of props and design tokens is designed for good performance. However, your customizations may introduce additional work, so consider overall store performance by checking Lighthouse reports on GitHub logs and Pull Requests.
+
+For this guide, we'll use the [Buy Button](https://developers.vtex.com/docs/guides/faststore/molecules-buy-button) component to make the customization. 
+
+---
+
+## Before you begin
+
+1. Make sure your `@faststore/core` package has the 3.x version or above. If you need to update
+it, refer to this [release note](https://github.com/vtex/faststore/releases/tag/v3.0.0).
+
+2. Using overrides does not significantly impact performance. FastStore's handling of props and design tokens is designed for good performance. However, your customizations may introduce additional work, so consider overall store performance by checking Lighthouse reports on GitHub logs and Pull Requests.
+
+--- 
+
+## Step by step
+### Step 1 - Setting up the component file
+
+1. After choosing a native section to be customized from the [list of available native sections](/tbd), open your FastStore project in any code editor of your preference.
+2. Go to the `src` folder, create the `components` folder, and inside it, create the `sections` folder. You can run the following command to create them:
+
+> ℹ️ The naming of the folders is arbitrary, as overrides can be created in any file. 
+
+<Tabs items={['macOS and Linux', 'Windows']}>
+  <Tab>```bash copy mkdir src/components src/components/sections ```</Tab>
+  <Tab>```bash copy mkdir src\components src\components\sections ```</Tab>
+</Tabs>
+
+3. In the `sections` folder, create a new file for your customized section. For example, create a new file named `CustomBuyButton.tsx` under the `src/components/sections` directory.
+
+4. Copy and paste the following code snippet into the file:
+
+```tsx filename="CustomBuyButton.tsx"
+// src/components/CustomBuyButton.tsx
+import React from 'react';
+import { BuyButton } from 'nextra-theme-docs'; // Replace 'nextra-theme-docs' with the actual package where BuyButton is imported from
+
+const CustomBuyButton: React.FC<{ onClick: () => void }> = ({ onClick }) => {
+  const handleClick = () => {
+    // Add your custom logic here, e.g., displaying a warning message
+    alert('Warning: This action is not available.');
+  };
+
+  return (
+    <BuyButton onClick={handleClick} />
+  );
+};
+
+export default CustomBuyButton;
+
+```
+
+The code above this code creates a custom buy button component that when clicked, the custom buy button displays an alert with a custom message.
+
+5. In the `components` folder, if you don't have already the `index.tsx` file, create the it file and add the following:
+
+```tsx filename="components/index.tsx" copy
+import CustomBuyButton from "./sections/CustomBuyButton";
+
+export default { CustomBuyButton };
+
+```
+
+### Step 3 - Adding the component to the CMS
+
+To integrate the section into the [Headless CMS](https://developers.vtex.com/docs/guides/faststore/headless-cms-overview), follow the steps below:
+
+1. Create a folder named `cms` in the FastStore root directory.
+
+2. Inside `cms`, create the `faststore` folder.
+
+3. Within the `cms/faststore` folder, create the `sections.json` file.
+
+4. Add the schema of the new section to the `sections.json` file, named `CustomBuyButton`, to the `sections.json` file:
+
+```json filename="sections.json" copy
+  [
+    {
+        "name": "CustomBuyButton",
+        "requiredScopes": ["pdp"],
+        "schema": {
+          "title": "Custom Buy Button",
+          "description": "A new buy button to display an alert message.",
+          "type": "object",
+          "properties": {
+            "productTitle": {
+              "title": "Product Title",
+              "type": "object",
+              "properties": {
+                "discountBadge": {
+                  "title": "Discount Badge",
+                  "type": "object",
+                  "properties": {
+                    "showDiscountBadge": {
+                      "title": "Show Discount Badge?",
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "size": {
+                      "title": "Size",
+                      "type": "string",
+                      "enumNames": ["Big", "Small"],
+                      "enum": ["big", "small"]
+                    }
+                  }
+                },
+                "refNumber": {
+                  "title": "Show Reference Number?",
+                  "type": "boolean",
+                  "default": false
+                }
+              }
+            },
+            "buyButton": {
+              "title": "Buy Button",
+              "type": "object",
+              "properties": {
+                "title": {
+                  "title": "Title",
+                  "type": "string",
+                  "default": "Add to Cart"
+                },
+                "customAlert": {
+                  "title": "Custom Alert Message",
+                  "type": "string",
+                  "default": "Customize your alert message here"
+                }
+              }
+            },
+            "notAvailableButton": {
+              "title": "Not Available Button",
+              "description": "Shown when a SKU is not available",
+              "type": "object",
+              "properties": {
+                "title": {
+                  "title": "Title",
+                  "type": "string",
+                  "default": "Not Available"
+                }
+              }
+            },
+            "shippingSimulator": {
+              "title": "Shipping Simulation",
+              "type": "object",
+              "properties": {
+                "title": {
+                  "title": "Title",
+                  "type": "string",
+                  "default": "Shipping"
+                },
+                "inputLabel": {
+                  "title": "Input Label",
+                  "type": "string",
+                  "default": "Postal Code"
+                },
+                "link": {
+                  "title": "Postal Code Discovery",
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "title": "Link Text",
+                      "type": "string",
+                      "default": "I don't know my Postal Code"
+                    },
+                    "to": { "title": "URL", "type": "string" }
+                  }
+                },
+                "shippingOptionsTableTitle": {
+                  "title": "Shipping Options Table Header",
+                  "type": "string"
+                }
+              }
+            },
+            "productDescription": {
+              "title": "Product Description",
+              "type": "object",
+              "properties": {
+                "initiallyExpanded": {
+                  "type": "string",
+                  "title": "Initially Expanded?",
+                  "enumNames": ["First", "All", "None"],
+                  "enum": ["first", "all", "none"]
+                },
+                "displayDescription": {
+                  "title": "Should display description?",
+                  "type": "boolean",
+                  "default": true
+                },
+                "title": {
+                  "title": "Description section title",
+                  "type": "string",
+                  "default": "Description"
+                }
+              }
+            }
+          }
+        }
+      }
+  ]
+```
+
+This schema Adds the new `Custom Buy Button` section to the Headless CMS.
+
+5. Open a new terminal window and log in to your vtex account by running `vtex login {accountName}`.
+
+6. run the following command to sync your changes with the Headless CMS:
+
+```bash
+faststore cms-sync
+```
+7. Access the VTEX Admin and proceed to **Storefront > Headless CMS**.
+
+8. Click on the page you desire to add the new section.
+
+9. Click the add button (`+`) and add the new section and complete values from the sections fields.
+
+10. Click `Save`.
+
+> ⚠️ Remember: props changed via Headless CMS overlap the changes made through [overrides](/tbs).
+  For example, if you change a prop through override and also change it using
+  Headless CMS, the final prop's value will be the one added using CMS.
+
+### Step 4 - Visualizing the component on the page locally
+
+To see your changes locally you need to set the Headless CMS preview to the development mode. 
+Refer to the [How to preview Headless CMS changes in development mode](/docs/how-to-preview-headless-cms-changes-in-development-mode) guide for more information.
+
+Once you have set the preview for development mode, you should see your new Buy Button in a Product Details Page (PDP):
+
+![overrides-PDP-buy-button-component](/tbd)
+
+### Step 5 - Publishing your changes
+
+If your changes are working in the development mode and you want to publish them, follow the steps below:
+
+1. Go to the Headless CMS in the VTEX Admin.
+2. Click on a PDP page.
+3. Click `Publish` to make the new button available on the production store.
