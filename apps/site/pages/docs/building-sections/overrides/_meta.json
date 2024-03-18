@@ -23,7 +23,16 @@
     "best-practices-overrides": {
       "title": "Best practices"
     },
-    "specification": {
+    "getoverriddensection-function": {
         "title": "getOverriddenSection function"
-    }
+    },
+    "migration-v1-to-v2": {
+      "title": "Migrating Overrides v1 to v2"
+  },
+    "overrides-version-1": {
+      "display": "hidden"
+  },
+  "overrides-version-1-new-section": {
+    "display": "hidden"
+}
   }
