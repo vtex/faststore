@@ -3,9 +3,9 @@
 # Override section styles
 </header>
 
-To customize the styles of a native section, you can utilize the `className` property, which functions similarly to [React's className](https://react.dev/reference/react-dom/components/common#applying-css-styles).
+To customize the styles of a native section, you can use the `className` property, which functions similarly to [React's className](https://react.dev/reference/react-dom/components/common#applying-css-styles).
 
-In the example provided in the [getOverriddenSection function](https://www.faststore.dev/building-sections/overrides/specification) guide,
+In the example provided in the [getOverriddenSection function](/docs/building-sections/overrides/getoverriddensection-function) guide,
 the `Simple Alert`component is being overridden with a className added to it:
 
 ```tsx {7} copy
@@ -23,7 +23,7 @@ export default SimpleAlert;
 
 ```
 
-In the code snippet above, the className adds a class to the new component. To define the styles of this component, you need to create a new stylesheet:
+In the code snippet above, the `className` adds a class to the new component. To define the styles of this component, create a new stylesheet by following the steps below:
 
 1. Within the `sections` folder, create the `simple-alert.module.scss` file.
 2. In the `simple-alert.module.scss` file, declare the class that you added in the Simple Alert component, in this case,
@@ -33,7 +33,7 @@ In the code snippet above, the className adds a class to the new component. To d
 ```css copy
 .simpleAlert{
     [data-fs-alert-content] {
-        color: CornflowerBlue;
+        color: Blue;
         font-weight: bold;
     }
 }
