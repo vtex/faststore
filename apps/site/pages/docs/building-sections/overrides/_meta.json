@@ -20,9 +20,6 @@
     "list-of-native-sections": {
       "title": "List of native sections and overridable components"
     },
-    "best-practices-overrides": {
-      "title": "Best practices"
-    },
     "getoverriddensection-function": {
         "title": "getOverriddenSection function"
     },
