@@ -42,10 +42,10 @@ Check the available Headless CMS schema that you can customize for this componen
 
 ```json
 {
-    "name": "Alert",
+    "name": "NewSectionName",
     "schema": {
-      "title": "Alert",
-      "description": "Add an alert",
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
       "type": "object",
       "required": ["icon", "content", "dismissible"],
       "properties": {
@@ -97,22 +97,35 @@ Check the available Headless CMS schema that you can customize for this componen
 
 ```json
  {
-    "name": "BannerText",
+    "name": "NewSectionName",
+       "requiredScopes": [],
     "schema": {
-      "title": "Banner Text",
-      "description": "Add a quick promotion with a text/action pair",
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
       "type": "object",
       "required": ["title", "caption", "link"],
       "properties": {
-        "title": { "title": "Title", "type": "string" },
-        "caption": { "title": "Caption", "type": "string" },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "caption": {
+          "title": "Caption",
+          "type": "string"
+        },
         "link": {
           "title": "Call to Action",
           "type": "object",
           "required": ["text", "url"],
           "properties": {
-            "text": { "title": "Text", "type": "string" },
-            "url": { "title": "URL", "type": "string" },
+            "text": {
+              "title": "Text",
+              "type": "string"
+            },
+            "url": {
+              "title": "URL",
+              "type": "string"
+            },
             "linkTargetBlank": {
               "type": "boolean",
               "title": "Open link in new window?",
@@ -135,7 +148,6 @@ Check the available Headless CMS schema that you can customize for this componen
       }
     }
   }
-
 ```
 </details>
 
@@ -152,10 +164,11 @@ Check the available Headless CMS schema that you can customize for this componen
 
 ```json
 {
-    "name": "Breadcrumb",
+    "name": "NewSectionName",
+    "requiredScopes": ["pdp", "plp"],
     "schema": {
-      "title": "Breadcrumb",
-      "description": "Configure the breadcrumb icon and depth",
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
       "type": "object",
       "required": ["icon", "alt"],
       "properties": {
@@ -165,7 +178,10 @@ Check the available Headless CMS schema that you can customize for this componen
           "enumNames": ["House"],
           "enum": ["House"]
         },
-        "alt": { "title": "Alternative Label", "type": "string" }
+        "alt": {
+          "title": "Alternative Label",
+          "type": "string"
+        }
       }
     }
   }
@@ -186,10 +202,11 @@ Check the available Headless CMS schema that you can customize for this componen
 
 ```json
  {
-    "name": "Hero",
+   "name": "NewSectionName",
+       "requiredScopes": [],
     "schema": {
-      "title": "Hero",
-      "description": "Add a quick promotion with an image/action pair",
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
       "type": "object",
       "required": ["title"],
       "properties": {
@@ -252,11 +269,11 @@ Check the available Headless CMS schema that you can customize for this componen
 
 ```json
 {
-    "name": "Navbar",
+    "name": "NewSectionName",
+    "requiredScopes": [],
     "schema": {
-      "title": "Navbar",
-      "type": "object",
-      "description": "Navbar configuration",
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
       "required": ["logo"],
       "properties": {
         "logo": {
@@ -475,10 +492,11 @@ Check the available Headless CMS schema that you can customize for this componen
 
 ```json
 {
-    "name": "Newsletter",
+    "name": "NewSectionName",
+    "requiredScopes": [],
     "schema": {
-      "title": "Newsletter",
-      "description": "Allow users to subscribe to your updates",
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
       "type": "object",
       "required": ["title"],
       "properties": {
@@ -624,11 +642,12 @@ Check the available Headless CMS schema that you can customize for this componen
 
 ```json
 {
-    "name": "ProductDetails",
+    "name": "NewSectionName",
+    "requiredScopes": ["pdp"],
     "schema": {
-      "title": "Product Details",
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
       "type": "object",
-      "description": "Display Product Details Section",
       "properties": {
         "productTitle": {
           "title": "Product Title",
@@ -772,10 +791,11 @@ Check the available Headless CMS schema that you can customize for this componen
 
 ```json
 {
-    "name": "ProductShelf",
+    "name": "NewSectionName",
+    "requiredScopes": [],
     "schema": {
-      "title": "Product Shelf",
-      "description": "Add custom shelves to your store",
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
       "type": "object",
       "required": ["title", "numberOfItems", "after", "sort"],
       "properties": {
@@ -884,11 +904,12 @@ Check the available Headless CMS schema that you can customize for this componen
 
 ```json
 {
-    "name": "ProductGallery",
+    "name": "NewSectionName",
+    "requiredScopes": ["plp", "search"],
     "schema": {
-      "title": "Product Gallery",
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
       "type": "object",
-      "description": "Product Gallery configuration",
       "required": ["filter"],
       "properties": {
         "searchTermLabel": {
@@ -1096,11 +1117,12 @@ Check the available Headless CMS schema that you can customize for this componen
 
 ```json
  {
-    "name": "RegionBar",
+    "name": "NewSectionName",
+    "requiredScopes": [],
     "schema": {
-      "title": "Region Bar",
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
       "type": "object",
-      "description": "Region Bar configuration",
       "required": ["label"],
       "properties": {
         "icon": {
