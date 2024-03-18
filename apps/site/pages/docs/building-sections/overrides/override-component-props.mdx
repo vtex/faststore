@@ -86,14 +86,7 @@ export default { ProductDetailsWithCustomButton };
 
 This code overrides the `BuyButton` props `size` and `iconPosition`. You'll see a smaller button than the initial one, and the cart icon positioned on the right side.
 
-### Step 3 - Visualizing the component on the page locally
-
-1. Run `yarn dev` in the terminal to start the development server. 
-2. Access the localhost URL provided and got to a Product Details Page to see the new Buy Button:
-
-![overrides-PDP-buy-button-props](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-props___898b016bd82c908b5b24c8822be6789a.png)
-
-### Step 4 - Adding the component to the CMS
+### Step 3 - Adding the component to the CMS
 
 To integrate the section into the [Headless CMS](https://developers.vtex.com/docs/guides/faststore/headless-cms-overview), follow the steps below:
 
@@ -258,11 +251,25 @@ faststore cms-sync
 
 9. Click the add button (`+`) and add the new section and complete values from the sections fields.
 
+10. Click `Save`.
+
 > ⚠️ Remember: props changed via Headless CMS overlap the changes made through [overrides](/tbs).
   For example, if you change a prop through override and also change it using
   Headless CMS, the final prop's value will be the one added using CMS.
 
-10. Click `Save` and then `Preview` to verify your changes.
+### Step 4 - Visualizing the component on the page locally
+To see your changes locally you need to set the Headless CMS preview to the development mode. 
+Refer to the [How to preview Headless CMS changes in development mode](/docs/how-to-preview-headless-cms-changes-in-development-mode) guide for more information.
 
-11. If your changes are working, click `Publish` to make the new button available on the production store.
+Once you have set the preview for development mode, you should see your new Buy Button in a Product Details Page (PDP):
+
+![overrides-PDP-buy-button-props](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-props___898b016bd82c908b5b24c8822be6789a.png)
+
+### Step 5 - Publishing your changes
+
+If your changes are working in the development mode and you want to publish them, follow the steps below:
+
+1. Go to the Headless CMS in the VTEX Admin.
+2. Click on a PDP page.
+3. Click `Publish` to make the new button available on the production store.
 
