@@ -2,10 +2,10 @@
   "component-customization-overview": {
     "title": "Overview"
   },
-  "overriding-components-and-props": {
-    "title": "Overriding Native Components and Props"
+  "experimental-exports": {
+    "title": "Experimental Exports - Hooks & Components"
   },
-  "creating-a-new-section": {
-    "title": "Creating a New Section"
+  "overrides": {
+    "title": "Overrides"
   }
 }
