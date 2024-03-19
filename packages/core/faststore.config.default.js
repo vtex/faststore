@@ -14,7 +14,7 @@ module.exports = {
 
   // Platform specific configs for API
   api: {
-    storeId: 'storeframework',
+    storeId: 'hearstqa',
     workspace: 'master',
     environment: 'vtexcommercestable',
     hideUnavailableItems: false,
@@ -28,7 +28,7 @@ module.exports = {
       symbol: '$',
     },
     locale: 'en-US',
-    channel: '{"salesChannel":"1","regionId":""}',
+    channel: '{"salesChannel":"2","regionId":""}',
     country: 'USA',
     deliveryMode: null,
     addressType: null,
@@ -46,11 +46,11 @@ module.exports = {
   },
 
   // Production URLs
-  storeUrl: 'https://vtexfaststore.com',
-  secureSubdomain: 'https://secure.vtexfaststore.com',
-  checkoutUrl: 'https://secure.vtexfaststore.com/checkout',
-  loginUrl: 'https://secure.vtexfaststore.com/api/io/login',
-  accountUrl: 'https://secure.vtexfaststore.com/api/io/account',
+  storeUrl: 'https://marketplace.qa.ecmapps.net',
+  secureSubdomain: 'https://secure.marketplace.qa.ecmapps.net',
+  checkoutUrl: 'https://secure.marketplace.qa.ecmapps.net/checkout',
+  loginUrl: 'https://secure.marketplace.qa.ecmapps.net/login',
+  accountUrl: 'https://secure.marketplace.qa.ecmapps.net/api/io/account',
 
   // Preview redirects
   previewRedirects: {
@@ -65,8 +65,8 @@ module.exports = {
     server: process.env.BASE_SITE_URL || 'http://localhost:3000',
     pages: {
       home: '/',
-      pdp: '/apple-magic-mouse/p',
-      collection: '/office',
+      pdp: '/fitbit-blaze-1700672404789/p',
+      collection: '/fitness---nutrition',
     },
   },
 
@@ -74,12 +74,11 @@ module.exports = {
   cypress: {
     pages: {
       home: '/',
-      pdp: '/apple-magic-mouse/p',
-      collection: '/office',
-      collection_2: '/technology',
+      pdp: '/mens-ultra-soft-valtech-hoodie/p',
+      collection: '/apparel---home',
       collection_filtered:
-        '/office/?category-1=office&marca=acer&facets=category-1%2Cmarca',
-      search: '/s?q=orange',
+        '/apparel---home?category-1=apparel---home&category-2=t-shirts---merch&facets=category-1%2Ccategory-2',
+      search: '/s?q=Hearst',
     },
   },
 

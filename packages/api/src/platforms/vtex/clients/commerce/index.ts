@@ -42,7 +42,7 @@ export const VtexCommerce = (
     new Headers(ctx.headers).get('x-forwarded-host') ??
     ctx.headers?.host ??
     ''
-  ).replace('www.', '')
+  ).replace('www.', '').replace('shop.', '').replace('marketplace.qa.', '')
 
   return {
     catalog: {
