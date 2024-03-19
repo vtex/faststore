@@ -40,6 +40,7 @@
 
   // Out Of Stock
   --fs-product-card-out-of-stock-bkg-color   : transparent;
+  --fs-product-card-out-of-stock-border-color: var(--fs-color-neutral-1);
   --fs-product-card-out-of-stock-img-opacity : .5;
 
   // Wide
@@ -157,7 +158,8 @@
   // --------------------------------------------------------
 
   &[data-fs-product-card="out-of-stock"] {
-    --fs-product-card-bkg-color    : var(--fs-product-card-out-of-stock-bkg-color);
+    --fs-product-card-bkg-color       : var(--fs-product-card-out-of-stock-bkg-color);
+    --fs-product-card-border-color    : var(--fs-product-card-out-of-stock-border-color);
 
     [data-fs-product-card-image] { opacity: var(--fs-product-card-out-of-stock-img-opacity); }
 
