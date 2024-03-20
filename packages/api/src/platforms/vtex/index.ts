@@ -32,6 +32,7 @@ export interface Options {
   account: string
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
   // Default sales channel to use for fetching products
+  subDomainPrefix: string[]
   channel: string
   locale: string
   hideUnavailableItems: boolean
