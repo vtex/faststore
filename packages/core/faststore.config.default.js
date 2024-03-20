@@ -16,6 +16,7 @@ module.exports = {
   api: {
     storeId: 'storeframework',
     workspace: 'master',
+    subDomainPrefix: ['www'],
     environment: 'vtexcommercestable',
     hideUnavailableItems: false,
     incrementAddress: true,

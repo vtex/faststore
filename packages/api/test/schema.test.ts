@@ -80,6 +80,7 @@ beforeAll(async () => {
     environment: 'vtexcommercestable',
     channel: '{"salesChannel":"1"}',
     locale: 'en-US',
+    subDomainPrefix: ['www'],
     hideUnavailableItems: false,
     incrementAddress: false,
     flags: {
