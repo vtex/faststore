@@ -30,7 +30,7 @@ $ npm install -g @faststore/cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/3.0.22 darwin-arm64 node-v18.19.0
+@faststore/cli/3.0.24 linux-x64 node-v18.19.1
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND
@@ -56,7 +56,7 @@ USAGE
   $ faststore build
 ```
 
-_See code: [dist/commands/build.ts](https://github.com/vtex/faststore/blob/v3.0.22/dist/commands/build.ts)_
+_See code: [dist/commands/build.ts](https://github.com/vtex/faststore/blob/v3.0.24/dist/commands/build.ts)_
 
 ## `faststore cms-sync`
 
@@ -68,7 +68,7 @@ FLAGS
   -d, --dry-run
 ```
 
-_See code: [dist/commands/cms-sync.ts](https://github.com/vtex/faststore/blob/v3.0.22/dist/commands/cms-sync.ts)_
+_See code: [dist/commands/cms-sync.ts](https://github.com/vtex/faststore/blob/v3.0.24/dist/commands/cms-sync.ts)_
 
 ## `faststore dev`
 
@@ -77,7 +77,7 @@ USAGE
   $ faststore dev
 ```
 
-_See code: [dist/commands/dev.ts](https://github.com/vtex/faststore/blob/v3.0.22/dist/commands/dev.ts)_
+_See code: [dist/commands/dev.ts](https://github.com/vtex/faststore/blob/v3.0.24/dist/commands/dev.ts)_
 
 ## `faststore generate-graphql`
 
@@ -89,7 +89,7 @@ FLAGS
   -d, --debug
 ```
 
-_See code: [dist/commands/generate-graphql.ts](https://github.com/vtex/faststore/blob/v3.0.22/dist/commands/generate-graphql.ts)_
+_See code: [dist/commands/generate-graphql.ts](https://github.com/vtex/faststore/blob/v3.0.24/dist/commands/generate-graphql.ts)_
 
 ## `faststore help [COMMAND]`
 
@@ -118,7 +118,7 @@ USAGE
   $ faststore start
 ```
 
-_See code: [dist/commands/start.ts](https://github.com/vtex/faststore/blob/v3.0.22/dist/commands/start.ts)_
+_See code: [dist/commands/start.ts](https://github.com/vtex/faststore/blob/v3.0.24/dist/commands/start.ts)_
 
 ## `faststore test`
 
@@ -127,5 +127,5 @@ USAGE
   $ faststore test
 ```
 
-_See code: [dist/commands/test.ts](https://github.com/vtex/faststore/blob/v3.0.22/dist/commands/test.ts)_
+_See code: [dist/commands/test.ts](https://github.com/vtex/faststore/blob/v3.0.24/dist/commands/test.ts)_
 <!-- commandsstop -->
