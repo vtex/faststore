@@ -7,6 +7,7 @@ import {
   getPropertyId,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
+import { parse } from 'cookie'
 
 import type { Context } from '..'
 import type {
@@ -109,17 +110,20 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
 }
 
 const joinItems = (form: OrderForm) => {
-  const itemsById = form.items.reduce((acc, item) => {
-    const id = getId(orderFormItemToOffer(item))
+  const itemsById = form.items.reduce(
+    (acc, item) => {
+      const id = getId(orderFormItemToOffer(item))
 
-    if (!acc[id]) {
-      acc[id] = []
-    }
+      if (!acc[id]) {
+        acc[id] = []
+      }
 
-    acc[id].push(item)
+      acc[id].push(item)
 
-    return acc
-  }, {} as Record<string, OrderFormItem[]>)
+      return acc
+    },
+    {} as Record<string, OrderFormItem[]>
+  )
 
   return {
     ...form,
@@ -281,6 +285,12 @@ const updateOrderFormShippingData = async (
   return orderForm
 }
 
+const getCookieCheckoutOrderNumber = (ctx: string, nameCookie: string) => {
+  const cookies = parse(ctx)
+  const cookieValue = cookies[nameCookie]
+  return cookieValue ? cookieValue.split('=')[1] : ''
+}
+
 /**
  * This resolver implements the optimistic cart behavior. The main idea in here
  * is that we receive a cart from the UI (as query params) and we validate it with
@@ -299,7 +309,11 @@ export const validateCart = async (
   { cart: { order }, session }: MutationValidateCartArgs,
   ctx: Context
 ) => {
-  const { orderNumber, acceptedOffer, shouldSplitItem } = order
+  const orderNumber = order?.orderNumber
+    ? order.orderNumber
+    : getCookieCheckoutOrderNumber(ctx.headers.cookie, 'checkout.vtex.com')
+
+  const { acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
     loaders: { skuLoader },
