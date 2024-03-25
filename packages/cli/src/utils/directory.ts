@@ -29,7 +29,7 @@ export const tmpDir = path.join(userDir, tmpFolderName)
 
 // node_modules folder for @faststore/core
 export const coreFolderName = 'core'
-export const coreDir = path.join(faststoreDir, coreFolderName)
+export const coreDir = path.dirname(require.resolve('@faststore/core'))
 
 // starter src/ folder
 export const srcFolderName = 'src'
