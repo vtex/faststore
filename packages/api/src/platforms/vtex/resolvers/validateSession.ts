@@ -13,7 +13,7 @@ export const validateSession = async (
   { clients }: Context
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
-  const postalCode = oldSession.postalCode ?? ''
+  const postalCode = String(oldSession.postalCode ?? '')
   const geoCoordinates = oldSession.geoCoordinates ?? null
 
   const country = oldSession.country ?? ''
