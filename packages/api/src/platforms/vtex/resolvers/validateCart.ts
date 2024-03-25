@@ -348,7 +348,7 @@ export const validateCart = async (
     const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
       joinItems
     )
-    if (isStale && orderNumber) {
+    if (orderNumber) {
       return orderFormToCart(newOrderForm, skuLoader)
     }
   }
