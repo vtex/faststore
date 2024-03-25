@@ -344,11 +344,13 @@ export const validateCart = async (
   // to see this new cart state instead of what's stored on the user's browser.
   const isStale = isOrderFormStale(orderForm)
 
-  if (isStale && orderNumber) {
+  if (isStale) {
     const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
       joinItems
     )
-    return orderFormToCart(newOrderForm, skuLoader)
+    if (orderNumber) {
+      return orderFormToCart(newOrderForm, skuLoader)
+    }
   }
 
   // Step2: Process items from both browser and checkout so they have the same shape
