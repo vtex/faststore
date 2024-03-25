@@ -348,7 +348,9 @@ export const validateCart = async (
     const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
       joinItems
     )
-    return orderFormToCart(newOrderForm, skuLoader)
+    if (isStale && orderNumber) {
+      return orderFormToCart(newOrderForm, skuLoader)
+    }
   }
 
   // Step2: Process items from both browser and checkout so they have the same shape
