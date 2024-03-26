@@ -38,16 +38,16 @@ export const VtexCommerce = (
   const storeCookies = getStoreCookie(ctx)
   const withCookie = getWithCookie(ctx)
 
+  const host =
+    new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? ''
+
   const selectedPrefix =
     subDomainPrefix
       .map((prefix) => prefix + '.')
-      .find((prefix) => ctx.headers?.host?.includes(prefix)) || ''
+      .find((prefix) => host.includes(prefix)) || ''
 
-  const forwardedHost = (
-    new Headers(ctx.headers).get('x-forwarded-host') ??
-    ctx.headers?.host ??
-    ''
-  ).replace(selectedPrefix, '')
+  const forwardedHost = host.replace(selectedPrefix, '')
+
   return {
     catalog: {
       salesChannel: (sc: string): Promise<SalesChannel> =>
