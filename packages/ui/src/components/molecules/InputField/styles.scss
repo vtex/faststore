@@ -51,7 +51,7 @@
     color: var(--fs-input-field-color);
 
     &:placeholder-shown + label {
-      top: calc(1.5 * (var(--fs-input-field-size) / 2));
+      top: calc(50% - (var(--fs-input-field-size) * 1.5 / 2));
       overflow: hidden;
     }
 
