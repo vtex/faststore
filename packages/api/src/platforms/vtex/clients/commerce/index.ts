@@ -37,16 +37,17 @@ export const VtexCommerce = (
   const base = `https://${account}.${environment}.com.br`
   const storeCookies = getStoreCookie(ctx)
   const withCookie = getWithCookie(ctx)
-  // replacing www. only for testing while www.vtexfaststore.com is configured with www
+
+  const host =
+    new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? ''
 
   const selectedPrefix =
-    subDomainPrefix.find((prefix) => ctx.headers?.host?.includes(prefix)) || ''
+    subDomainPrefix
+      .map((prefix) => prefix + '.')
+      .find((prefix) => host.includes(prefix)) || ''
 
-  const forwardedHost = (
-    new Headers(ctx.headers).get('x-forwarded-host') ??
-    ctx.headers?.host ??
-    ''
-  ).replace(selectedPrefix, '')
+  const forwardedHost = host.replace(selectedPrefix, '')
+
   return {
     catalog: {
       salesChannel: (sc: string): Promise<SalesChannel> =>
