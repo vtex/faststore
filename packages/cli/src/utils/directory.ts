@@ -9,7 +9,7 @@ export const getRoot = () => {
     return ''
   }
 
-  if(process.cwd().endsWith(tmpFolderName)) {
+  if (process.cwd().endsWith(tmpFolderName)) {
     // if the current working directory is the build folder (tmp folder), return the starter root
     // this makes sure the semantics of the starter root are consistent with the directories declared below
     return path.join(process.cwd(), '..')
@@ -29,7 +29,9 @@ export const tmpDir = path.join(userDir, tmpFolderName)
 
 // node_modules folder for @faststore/core
 export const coreFolderName = 'core'
-export const coreDir = path.dirname(require.resolve('@faststore/core', { paths: [userDir] }))
+export const coreDir = path.dirname(
+  require.resolve('@faststore/core', { paths: [userDir] })
+)
 
 // node_modules folder inside @faststore/core
 export const coreNodeModulesDir = path.join(coreDir, 'node_modules')
@@ -38,17 +40,28 @@ export const coreNodeModulesDir = path.join(coreDir, 'node_modules')
 export const srcFolderName = 'src'
 export const userSrcDir = path.join(userDir, srcFolderName)
 
-// build folder's folder to which starter files should always be copied 
+// build folder's folder to which starter files should always be copied
 export const customizationsFolderName = 'customizations'
-// build folder's root folder for starter files 
-export const tmpCustomizationsDir = path.join(tmpDir, 'src', customizationsFolderName)
+// build folder's root folder for starter files
+export const tmpCustomizationsDir = path.join(
+  tmpDir,
+  'src',
+  customizationsFolderName
+)
 // build folder's starter src files
-export const tmpCustomizationsSrcDir = path.join(tmpCustomizationsDir, srcFolderName)
+export const tmpCustomizationsSrcDir = path.join(
+  tmpCustomizationsDir,
+  srcFolderName
+)
 
 // starter's folder for themes
 export const userThemesFileDir = path.join(userSrcDir, 'themes')
 // build folder's dir for theme
-export const tmpThemesCustomizationsFileDir = path.join(tmpCustomizationsSrcDir, 'themes', 'index.scss')
+export const tmpThemesCustomizationsFileDir = path.join(
+  tmpCustomizationsSrcDir,
+  'themes',
+  'index.scss'
+)
 
 // path segment of cms files for faststore
 export const cmsFolderName = path.join('cms', 'faststore')
@@ -64,7 +77,10 @@ export const configFileName = 'faststore.config.js'
 // starter's config file dir
 export const userStoreConfigFileDir = path.join(userDir, configFileName)
 // build folder's config file dir
-export const tmpStoreConfigFileDir = path.join(tmpCustomizationsDir, configFileName)
+export const tmpStoreConfigFileDir = path.join(
+  tmpCustomizationsDir,
+  configFileName
+)
 
 // starter's node_modules
 export const userNodeModulesDir = path.join(userDir, 'node_modules')
@@ -74,4 +90,7 @@ export const tmpNodeModulesDir = path.join(tmpDir, 'node_modules')
 // cms webhook config file name
 export const cmsWebhookUrlsFileName = 'cms-webhook-urls.json'
 // build folder's dir for webhook config
-export const tmpCmsWebhookUrlsFileDir = path.join(tmpDir, cmsWebhookUrlsFileName)
+export const tmpCmsWebhookUrlsFileDir = path.join(
+  tmpDir,
+  cmsWebhookUrlsFileName
+)
