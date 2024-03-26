@@ -11,88 +11,134 @@ import { Callout, Tab, Tabs } from 'nextra-theme-docs'
 
 </header>
 
-The FastStore Command Line Interface (CLI) is the main pre-configured tool for initializing, building and developing FastStore projects.
-
-Also the CLI is the responsible on keeping the stores up-to-date with the [`@faststore/core`](/docs/getting-started/3-project-structure#faststorecore) package and enables the cloud platform to understand the FastStore project.
+The FastStore Command Line Interface (CLI) provides pre-configured scripts for initializing, building, and developing FastStore projects. It also helps to keep the FastStore projects up-to-date with the [`@faststore/core`](/docs/getting-started/3-project-structure#faststorecore) package.
 
 ---
 
 ## Runnig FastStore CLI on the project
 
-The CLI is a dependency in the `package.json` file of the FastStore project, so once you run `yarn install` during the [set up of the project](/docs/getting-started/2-setting-up-the-project) you can start using it on the project.
+The CLI is automatically added as a dependency in your project's `package.json` file, so once you run `yarn install` during the [setup of the project](/docs/getting-started/2-setting-up-the-project), you can start using it on the project.
 
-### Commands
 
-#### `dev`
-
-Starts the project in the development environment and usually servers it at `http://localhost:3000`. It allows you to make changes to the project and see the results in real-time locally on your machine without affecting the production environment.
-
-```bash copy
-  yarn dev
-```
-
-#### `build`
-
-Generates a store in the production environment by compiling the project and optimizing it for production usage.
-
-```bash copy
-  yarn build
-```
-
-#### `start`
-
-Executes a Next.js project in the root directory and usually servers it at `http://localhost:3000`.
-
-```bash copy
-  yarn start
-```
-
-#### `cms-sync`
-
-Sync your FastStore repository cms folder changes with the Headless CMS app.
-
-```bash copy
-  yarn cms-sync
-```
 
 ---
 
 ## Installing FastStore CLI globally using `npm`
 
-Installing the CLI via `npm` allows you to use its commands in your machine. To install [`@faststore/cli`](https://www.npmjs.com/package/@faststore/cli) package, run the following in the terminal:
+To use FastStore CLI commands globally on your machine, you can install the [`@faststore/cli`](https://www.npmjs.com/package/@faststore/cli) using `npm`. Run the following command in the terminal:
 
 ```bash copy
   npm install -g @faststore/cli
 ```
 
-### Commands
+## Default commands
+Explore the default commands available in the FastStore CLI in the list below. For detailed information about each command, click on the respective command name.
 
-#### `dev`
+<Callout type="warning" emoji="⚠️">
+While using commands through `yarn` is sufficient for store development, 
+[installing the FastStore CLI](/docs/getting-started/4-faststore-cli#installing-faststore-cli-globally-using-npm) is a prerequisite 
+for [setting up your project with the Headless CMS](/docs/headless-cms-integration/2-setting-up-the-headless-cms#install-the-faststore-cli) and [creating new sections](/building-sections/creating-a-new-section).
+</Callout>
+
+| Command name | Description |
+|------------- | ----------- |
+| [`build`](/docs/getting-started/4-faststore-cli#build) | Generates a production-ready storefront.  It compiles the project and optimizes it for production usage. |
+| [`cms-sync`](/docs/getting-started/4-faststore-cli#cms-sync) | Syncs your FastStore project's `cms` folder with the [Headless CMS](). |
+| [`dev`](/docs/getting-started/4-faststore-cli#dev) | Starts the project in the development environment and servers it at `http://localhost:3000` by default. It allows you to make changes to the project and see the results in real-time locally on your machine without affecting the production environment. |
+| [`generate-graphql`](/docs/getting-started/4-faststore-cli#generate-graphql) | Generates the GraphQL types & optimizations from the FastStore project. |
+| [`help`](/docs/getting-started/4-faststore-cli#help) | Displays help for FastStore CLI commands. |
+| [`start`](/docs/getting-started/4-faststore-cli#start) | Executes the FastStore project in the root directory and servers it at `http://localhost:3000` by default. |
+
+
+### `build`
+Generates a production-ready storefront.  It compiles the project and optimizes it for production usage.
+
+#### Usage
 
 ```bash copy
-  faststore dev
+  yarn build
 ```
 
-#### `build`
 
 ```bash copy
   faststore build
 ```
 
-#### `start`
+<div align="right"> 🔼 <a href="#default-commands">Back</a></div>
+
+### `cms-sync`
+Syncs your FastStore project's `cms` folder with the Headless CMS.
+
+#### Usage
 
 ```bash copy
-  faststore start
+  yarn faststore cms-sync
 ```
 
-#### `cms-sync`
 
 ```bash copy
   faststore cms-sync
 ```
 
-#### `help`
+<div align="right"> 🔼 <a href="#default-commands">Back</a></div>
+
+### `dev`
+Starts the project in the development environment and servers it at `http://localhost:3000` by default. It allows you to make changes to the project and see the results in real-time locally on your machine without affecting the production environment.
+
+#### Usage
 
 ```bash copy
-  yarn faststore help [COMMAND] [-n]
+  yarn dev
 ```
+
+```bash copy
+  faststore dev
+```
+
+<div align="right"> 🔼 <a href="#default-commands">Back</a></div>
+
+### `generate-graphql`
+
+Generates the GraphQL types & optimizations from the FastStore project.
+
+#### Usage
+
+```bash copy
+  yarn generate-graphql
+```
+
+```bash copy
+  faststore generate-graphql
+```
+
+<div align="right"> 🔼 <a href="#default-commands">Back</a></div>
+
+### `help`
+
+Displays help for FastStore CLI commands.
+
+#### Usage
+
+```bash copy
+  yarn faststore help
+```
+
+```bash copy
+  faststore help [COMMAND] [-n]
+```
+
+<div align="right"> 🔼 <a href="#default-commands">Back</a></div>
+
+### `start`
+Executes the FastStore project in the root directory and servers it at `http://localhost:3000` by default.
+
+#### Usage
+
+```bash copy
+  yarn start
+```
+
+```bash copy
+  faststore start
+```
+<div align="right"> 🔼 <a href="#default-commands">Back</a></div>
