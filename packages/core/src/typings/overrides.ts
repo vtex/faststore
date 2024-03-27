@@ -57,6 +57,7 @@ import Navbar from '../components/sections/Navbar'
 import Newsletter from '../components/sections/Newsletter'
 import ProductGallery from '../components/sections/ProductGallery'
 import RegionBar from '../components/sections/RegionBar'
+import CartSidebar from '../components/cart/CartSidebar'
 
 export type SectionOverride = {
   [K in keyof SectionsOverrides]: SectionOverrideDefinitionV1<K>
@@ -346,6 +347,12 @@ export type SectionsOverrides = {
       >
       LocationIcon: ComponentOverrideDefinition<IconProps, IconProps>
       ButtonIcon: ComponentOverrideDefinition<IconProps, IconProps>
+    }
+  },
+  CartSidebar: {
+    Section: typeof CartSidebar,
+    components: {
+      AfterCartList: ComponentOverrideDefinition<unknown, unknown>
     }
   }
 }
