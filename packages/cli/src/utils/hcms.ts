@@ -120,7 +120,7 @@ async function mergeCMSFile(fileName: string) {
   const primaryIdentifierForDefinitions =
     fileName === 'content-types.json' ? 'id' : 'name'
 
-  let output: ContentTypeOrSectionDefinition[] = []
+  let output: ContentTypeOrSectionDefinition[] = coreDefinitions
 
   // TODO: create a validation when the CMS files exist but don't have a component for them
   if (existsSync(customFilePath)) {
