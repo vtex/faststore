@@ -1,12 +1,12 @@
-import { Command } from '@oclif/core'
-import { spawn } from 'child_process'
-import chokidar from 'chokidar'
+import { Command } from '@oclif/core';
+import { spawn } from 'child_process';
+import chokidar from 'chokidar';
 import dotenv from 'dotenv';
 
-import { getRoot, tmpDir } from '../utils/directory'
-import { generate } from '../utils/generate'
 import { readFileSync } from 'fs';
-import path from 'path'
+import path from 'path';
+import { getRoot, tmpDir } from '../utils/directory';
+import { generate } from '../utils/generate';
 
 /**
  * Taken from toolbelt
