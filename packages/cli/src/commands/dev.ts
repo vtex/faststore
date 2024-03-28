@@ -1,9 +1,12 @@
 import { Command } from '@oclif/core'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
+import dotenv from 'dotenv';
 
 import { getRoot, tmpDir } from '../utils/directory'
 import { generate } from '../utils/generate'
+import { readFileSync } from 'fs';
+import path from 'path'
 
 /**
  * Taken from toolbelt
@@ -29,11 +32,17 @@ const defaultIgnored = [
 const devAbortController = new AbortController()
 
 async function storeDev() {
+  const envVars = dotenv.parse(readFileSync(path.join(getRoot(), 'vtex.env')))
+
   const devProcess = spawn('yarn dev', {
     shell: true,
     cwd: tmpDir,
     signal: devAbortController.signal,
     stdio: 'inherit',
+    env: {
+      ...process.env,
+      ...envVars,
+    }
   })
 
   devProcess.on('close', () => {
