@@ -1,30 +1,20 @@
 import React, { forwardRef } from 'react'
-import type { FC, ElementType, ReactElement } from 'react'
+import type { FC, ElementType } from 'react'
+import { PolymorphicComponentPropsWithRef, PolymorphicRef } from '../../typings'
 
-import type {
-  PolymorphicRef,
-  PolymorphicComponentPropsWithRef,
-} from '../../typings'
-
-interface Props {
+type LinkBaseProps = {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
 }
 
-export type LinkProps<C extends ElementType> = PolymorphicComponentPropsWithRef<
-  C,
-  Props
->
+export type LinkElementType = ElementType
 
-type LinkComponent = <C extends ElementType = 'a'>(
-  props: LinkProps<C>
-) => ReactElement | null
+export type LinkProps<C extends LinkElementType = 'a'> =
+  PolymorphicComponentPropsWithRef<C, LinkBaseProps>
 
-const Link: LinkComponent = forwardRef(function Link<
-  C extends ElementType = 'a'
->(
+const Link = forwardRef(function Link<C extends LinkElementType = 'a'>(
   { as, children, testId = 'store-link', ...otherProps }: LinkProps<C>,
   ref?: PolymorphicRef<C>
 ) {
@@ -37,11 +27,10 @@ const Link: LinkComponent = forwardRef(function Link<
   )
 })
 
-/**
- * This is only being exported to make it easier to use in Storybook.
- * **DON'T** import this directly to use this component, use the default export
- * instead.
- */
-export const StorybookLink = Link as FC<Props>
+//  This is only being exported to make it easier to use in Storybook.
+//  **DON'T** import this directly to use this component, use the default export
+//  instead.
+
+export const StorybookLink = Link as FC<LinkBaseProps>
 
 export default Link
