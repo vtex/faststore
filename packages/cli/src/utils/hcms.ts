@@ -110,7 +110,7 @@ async function confirmUserChoice(
   return
 }
 
-async function mergeCMSFile(fileName: string) {
+export async function mergeCMSFile(fileName: string) {
   const coreFilePath = path.join(coreCMSDir, fileName)
   const customFilePath = path.join(userCMSDir, fileName)
 
