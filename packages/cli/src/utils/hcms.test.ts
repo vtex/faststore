@@ -1,3 +1,4 @@
+import path from 'path'
 import {
   allNewCustomContentTypes,
   allNewCustomSections,
@@ -8,7 +9,45 @@ import {
   customSectionsWithDuplicates,
   sectionDuplicates,
 } from '../__mocks__/hcms'
-import { dedupeAndMergeDefinitions, splitCustomDefinitions } from './hcms'
+
+import {
+  dedupeAndMergeDefinitions,
+  splitCustomDefinitions,
+  mergeCMSFile,
+} from './hcms'
+import { tmpCMSDir } from './directory'
+
+jest.mock('fs-extra', () => ({
+  readFileSync: jest.fn(),
+  existsSync: jest.fn(),
+  writeFileSync: jest.fn(),
+}))
+
+describe('mergeCMSFile', () => {
+  it("should create a resulting file that contains all core definitions if a custom definitions file doesn't exist", async () => {
+    const { readFileSync, existsSync, writeFileSync } = require('fs-extra')
+
+    existsSync.mockReturnValueOnce(false)
+    readFileSync.mockReturnValueOnce(JSON.stringify(coreContentTypes))
+
+    await mergeCMSFile('content-types.json')
+
+    expect(writeFileSync).toHaveBeenCalledWith(
+      path.join(tmpCMSDir, 'content-types.json'),
+      JSON.stringify(coreContentTypes)
+    )
+
+    existsSync.mockReturnValueOnce(false)
+    readFileSync.mockReturnValueOnce(JSON.stringify(coreSections))
+
+    await mergeCMSFile('sections.json')
+
+    expect(writeFileSync).toHaveBeenCalledWith(
+      path.join(tmpCMSDir, 'sections.json'),
+      JSON.stringify(coreSections)
+    )
+  })
+})
 
 describe('splitCustomDefinitions', () => {
   it('should return empty arrays if there are no custom definitions', () => {

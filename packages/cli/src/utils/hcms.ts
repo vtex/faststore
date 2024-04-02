@@ -110,7 +110,7 @@ async function confirmUserChoice(
   return
 }
 
-async function mergeCMSFile(fileName: string) {
+export async function mergeCMSFile(fileName: string) {
   const coreFilePath = path.join(coreCMSDir, fileName)
   const customFilePath = path.join(userCMSDir, fileName)
 
@@ -120,7 +120,7 @@ async function mergeCMSFile(fileName: string) {
   const primaryIdentifierForDefinitions =
     fileName === 'content-types.json' ? 'id' : 'name'
 
-  let output: ContentTypeOrSectionDefinition[] = []
+  let output: ContentTypeOrSectionDefinition[] = coreDefinitions
 
   // TODO: create a validation when the CMS files exist but don't have a component for them
   if (existsSync(customFilePath)) {
