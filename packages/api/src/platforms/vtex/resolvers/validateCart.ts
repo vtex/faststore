@@ -286,7 +286,10 @@ const updateOrderFormShippingData = async (
 }
 
 const getCookieCheckoutOrderNumber = (ctx: string, nameCookie: string) => {
-  if (!ctx) return ''
+  if (!ctx) {
+    return ''
+  }
+
   const cookies = parse(ctx)
   const cookieValue = cookies[nameCookie]
   return cookieValue ? cookieValue.split('=')[1] : ''
