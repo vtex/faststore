@@ -286,6 +286,10 @@ const updateOrderFormShippingData = async (
 }
 
 const getCookieCheckoutOrderNumber = (ctx: string, nameCookie: string) => {
+  if (!ctx) {
+    return ''
+  }
+
   const cookies = parse(ctx)
   const cookieValue = cookies[nameCookie]
   return cookieValue ? cookieValue.split('=')[1] : ''
@@ -312,7 +316,7 @@ export const validateCart = async (
   const orderNumber = order?.orderNumber
     ? order.orderNumber
     : getCookieCheckoutOrderNumber(ctx.headers.cookie, 'checkout.vtex.com')
-
+  
   const { acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
