@@ -13,13 +13,21 @@ module.exports = {
   platform: 'vtex',
 
   // Platform specific configs for API
+  // api: {
+  //   storeId: 'storeframework',
+  //   workspace: 'master',
+  //   subDomainPrefix: ['www'],
+  //   environment: 'vtexcommercestable',
+  //   hideUnavailableItems: false,
+  //   incrementAddress: true,
+  // },
   api: {
-    storeId: 'storeframework',
+    storeId: 'b2bfaststoredev',
     workspace: 'master',
     subDomainPrefix: ['www'],
     environment: 'vtexcommercestable',
-    hideUnavailableItems: false,
-    incrementAddress: true,
+    hideUnavailableItems: true,
+    incrementAddress: false,
   },
 
   // Default session
@@ -29,7 +37,8 @@ module.exports = {
       symbol: '$',
     },
     locale: 'en-US',
-    channel: '{"salesChannel":"1","regionId":""}',
+    channel:
+      '{"salesChannel":"1","regionId":"", "hasOnlyDefaultSalesChannel": "false"}',
     country: 'USA',
     deliveryMode: null,
     addressType: null,

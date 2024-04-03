@@ -12,6 +12,9 @@ export const validateSession = async (
   { session: oldSession, search }: MutationValidateSessionArgs,
   { clients }: Context
 ): Promise<StoreSession | null> => {
+
+  console.log("OLD SESSION", JSON.stringify(oldSession, null, 2))
+
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')
   const geoCoordinates = oldSession.geoCoordinates ?? null
@@ -41,6 +44,8 @@ export const validateSession = async (
   // Set seller only if it's inside a region
   const seller = region?.sellers.find((seller) => channel.seller === seller.id)
 
+  console.log("SESSION", JSON.stringify(sessionData, null, 2))
+
   const newSession = {
     ...oldSession,
     currency: {
@@ -52,6 +57,7 @@ export const validateSession = async (
       salesChannel: store?.channel?.value ?? channel.salesChannel,
       regionId: region?.id ?? channel.regionId,
       seller: seller?.id,
+      hasOnlyDefaultSalesChannel: !store?.channel?.value
     }),
     person: profile?.id
       ? {

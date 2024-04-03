@@ -12,6 +12,7 @@ import Section from '../Section'
 import styles from './section.module.scss'
 import { HeroDefaultComponents } from './DefaultComponents'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { useSession } from 'src/sdk/session'
 
 export type HeroProps = {
   title: UIHeroHeaderProps['title']
@@ -44,6 +45,10 @@ const Hero = ({
     HeroImage,
     HeroHeader,
   } = useOverrideComponents<'Hero'>()
+
+  const session = useSession()
+
+  console.log(session)
 
   return (
     <Section className={`${styles.section} section-hero`}>
