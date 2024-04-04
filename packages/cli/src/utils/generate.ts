@@ -25,6 +25,7 @@ import {
   tmpCustomizationsSrcDir,
 } from './directory'
 import { mergeCMSFiles } from './hcms'
+import { processAndCopyCheckoutTheme } from './checkoutTheme'
 
 interface GenerateOptions {
   setup?: boolean
@@ -244,6 +245,7 @@ export async function generate(options?: GenerateOptions) {
     setupPromise,
     copyUserStarterToCustomizations(),
     copyTheme(),
+    processAndCopyCheckoutTheme(),
   ])
 }
 
