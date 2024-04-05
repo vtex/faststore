@@ -1,3 +1,4 @@
+import chalk from 'chalk'
 import {
   copyFileSync,
   copySync,
@@ -9,22 +10,20 @@ import {
   writeJsonSync,
 } from 'fs-extra'
 import path from 'path'
-import chalk from 'chalk'
 
 import {
   coreDir,
+  tmpCmsWebhookUrlsFileDir,
+  tmpCustomizationsSrcDir,
   tmpDir,
   tmpFolderName,
   tmpStoreConfigFileDir,
   tmpThemesCustomizationsFileDir,
-  tmpCmsWebhookUrlsFileDir,
+  userDir,
   userSrcDir,
   userStoreConfigFileDir,
   userThemesFileDir,
-  userDir,
-  tmpCustomizationsSrcDir,
 } from './directory'
-import { mergeCMSFiles } from './hcms'
 
 interface GenerateOptions {
   setup?: boolean
@@ -244,10 +243,6 @@ export async function generate(options?: GenerateOptions) {
     setupPromise,
     copyUserStarterToCustomizations(),
     copyTheme(),
+    createCmsWebhookUrlsJsonFile(),
   ])
-}
-
-export async function generateCMSFiles() {
-  await createCmsWebhookUrlsJsonFile()
-  await mergeCMSFiles()
 }
