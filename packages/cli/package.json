@@ -24,7 +24,9 @@
     "chokidar": "^3.5.3",
     "dotenv": "^16.4.5",
     "fs-extra": "^10.1.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "postcss": "^8.4.38",
+    "postcss-scss": "^4.0.9"
   },
   "devDependencies": {
     "@faststore/eslint-config": "^3.0.24",

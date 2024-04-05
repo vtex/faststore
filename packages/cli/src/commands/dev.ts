@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 
 import { readFileSync } from 'fs';
 import path from 'path';
-import { getRoot, tmpDir } from '../utils/directory';
+import { coreNodeModulesDir, getRoot, tmpDir } from '../utils/directory';
 import { generate } from '../utils/generate';
 
 /**
@@ -34,7 +34,14 @@ const devAbortController = new AbortController()
 async function storeDev() {
   const envVars = dotenv.parse(readFileSync(path.join(getRoot(), 'vtex.env')))
 
-  const devProcess = spawn('yarn dev', {
+  // NODE_PATH is needed to run the dev script
+  // It points to an additional node_modules folder that should be used
+  // in case a module is not found in the regular node_modules folder
+  //
+  // This is needed because some modules, such as @faststore/api, might sometimes be located
+  // in the node_modules folder inside node_modules/@faststore/core, which would be normally inaccessible
+  // at the tmp folder (.faststore)
+  const devProcess = spawn(`NODE_PATH="${coreNodeModulesDir}" yarn dev`, {
     shell: true,
     cwd: tmpDir,
     signal: devAbortController.signal,

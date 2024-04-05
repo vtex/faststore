@@ -51,7 +51,7 @@
     color: var(--fs-input-field-color);
 
     &:placeholder-shown + label {
-      top: calc(1.5 * (var(--fs-input-field-size) / 2));
+      top: calc(50% - (var(--fs-input-field-size) / 2));
       overflow: hidden;
     }
 
@@ -80,7 +80,7 @@
     position: absolute;
     padding: var(--fs-input-field-label-padding);
     font-size: var(--fs-input-field-size);
-    line-height: 1.5;
+    line-height: var(--fs-input-field-size);
     color: var(--fs-input-field-label-color);
   }
 
@@ -120,6 +120,7 @@
       position: absolute;
       top: 0;
       right: 0;
+      height: 100%;
 
       [data-fs-button-wrapper]::before {
         position: absolute;

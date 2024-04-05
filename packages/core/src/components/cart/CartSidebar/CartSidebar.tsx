@@ -10,10 +10,12 @@ import type { CartSidebarProps as UICartSidebarProps } from '@faststore/ui'
 
 import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
 import { Icon, useFadeEffect, useUI } from '@faststore/ui'
-import { Suspense, useCallback, useEffect, useMemo } from 'react'
+import { Fragment, Suspense, useCallback, useEffect, useMemo } from 'react'
 import { useCart } from 'src/sdk/cart'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
+import { getOverridableSection } from 'src/sdk/overrides/getOverriddenSection'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 import Gift from '../../ui/Gift'
 import CartItem from '../CartItem'
@@ -91,6 +93,8 @@ function CartSidebar({
 
   const isEmpty = useMemo(() => items.length === 0, [items])
 
+  const { AfterCartList } = useOverrideComponents<'CartSidebar'>()
+
   useEffect(() => {
     if (!displayCart) {
       return
@@ -134,6 +138,8 @@ function CartSidebar({
                   )}
                 </UICartSidebarList>
 
+                <AfterCartList.Component />
+
                 <UICartSidebarFooter>
                   <OrderSummary
                     subTotal={subTotal}
@@ -169,4 +175,12 @@ function CartSidebar({
   )
 }
 
-export default CartSidebar
+const OverridableCartSidebar = getOverridableSection(
+  'CartSidebar',
+  CartSidebar,
+  {
+    AfterCartList: Fragment,
+  }
+)
+
+export default OverridableCartSidebar
