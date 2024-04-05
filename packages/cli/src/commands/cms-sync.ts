@@ -1,7 +1,8 @@
 import { Command, Flags } from '@oclif/core'
 import { spawn } from 'child_process'
 import { tmpDir } from '../utils/directory'
-import { generate, generateCMSFiles } from '../utils/generate'
+import { generate } from '../utils/generate'
+import { mergeCMSFiles } from '../utils/hcms'
 
 export default class CmsSync extends Command {
   static flags = {
@@ -12,7 +13,7 @@ export default class CmsSync extends Command {
     const { flags } = await this.parse(CmsSync)
 
     await generate({ setup: true })
-    await generateCMSFiles()
+    await mergeCMSFiles()
 
     if (flags['dry-run']) {
       return
