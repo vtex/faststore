@@ -24,7 +24,20 @@
      /** noop */
    }
  };
- 
+
+const debounce = <T extends (...args: any[]) => any>(
+  func: T,
+  delay: number
+) => {
+  let timeoutId: ReturnType<typeof setTimeout>
+  return (...args: Parameters<T>) => {
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(() => {
+      func(...args)
+    }, delay)
+  }
+}
+
  export const persisted = <T>(key: string) =>
    (store: Store<T>) => {
      const handler = async () => {
@@ -34,14 +47,19 @@
          store.set(payload ?? store.readInitial());
        }
      };
- 
-     handler();
-     globalThis.addEventListener?.("focus", () => handler());
+
+     const debouncedHandler = debounce(
+       handler,
+       500
+     ) // 500ms debounce
+
+     debouncedHandler()
+     globalThis.addEventListener?.('focus', () => debouncedHandler())
      globalThis.document?.addEventListener(
-       "visibilitychange",
-       () => document.visibilityState === "visible" && handler(),
-     );
- 
+       'visibilitychange',
+       () => document.visibilityState === 'visible' && debouncedHandler()
+     )
+
      store.subscribe((value) => {
        setIDB(key, value);
      });
