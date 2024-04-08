@@ -13,8 +13,6 @@ export const validateSession = async (
   { clients }: Context
 ): Promise<StoreSession | null> => {
 
-  console.log("OLD SESSION", JSON.stringify(oldSession, null, 2))
-
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')
   const geoCoordinates = oldSession.geoCoordinates ?? null
@@ -43,8 +41,6 @@ export const validateSession = async (
   const region = regionData?.[0]
   // Set seller only if it's inside a region
   const seller = region?.sellers.find((seller) => channel.seller === seller.id)
-
-  console.log("SESSION", JSON.stringify(sessionData, null, 2))
 
   const newSession = {
     ...oldSession,
