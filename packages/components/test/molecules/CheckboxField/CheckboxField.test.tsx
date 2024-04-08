@@ -20,20 +20,20 @@ describe('CheckboxField', () => {
       />
     )
   })
-})
 
-describe('#checked', () => {
-  it('should allow the checked property to be passed', () => {
-    render(<CheckboxField id="identifier" label="Label" checked />)
-    const input = screen.getByLabelText('Label') as HTMLInputElement
+  describe('#checked', () => {
+    it('should allow the checked property to be passed', () => {
+      render(<CheckboxField id="identifier" label="Label" checked />)
+      const input = screen.getByLabelText('Label') as HTMLInputElement
 
-    expect(input.checked).toBe(true)
-  })
+      expect(input.checked).toBe(true)
+    })
 
-  it('should not be checked if the `checked `prop is not passed', () => {
-    render(<CheckboxField id="identifier" label="Label" />)
-    const input = screen.getByLabelText('Label') as HTMLInputElement
+    it('should not be checked if the `checked `prop is not passed', () => {
+      render(<CheckboxField id="identifier" label="Label" />)
+      const input = screen.getByLabelText('Label') as HTMLInputElement
 
-    expect(input.checked).toBe(false)
+      expect(input.checked).toBe(false)
+    })
   })
 })
