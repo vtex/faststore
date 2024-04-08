@@ -4,6 +4,7 @@ export {
   sessionStore as sessionStore_unstable,
   validateSession as validateSession_unstable,
 } from '../../src/sdk/session'
+export { useAuth as useAuth_unstable } from '../../src/sdk/auth'
 export {
   useCart as useCart_unstable,
   cartStore as cartStore_unstable,
@@ -34,3 +35,4 @@ export { useShippingSimulation as useShippingSimulation_unstable } from '../../s
 
 // Components
 export { Image as Image_unstable } from '../../src/components/ui/Image'
+export { ProfileChallenge as ProfileChallenge_unstable } from '../../src/components/auth/ProfileChallenge'
