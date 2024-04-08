@@ -1,6 +1,7 @@
 // @ts-check
 const path = require('path')
 const storeConfig = require('./faststore.config')
+const { withNx } = require('@nx/next')
 
 /**
  * @type {import('next').NextConfig}
@@ -52,4 +53,10 @@ const nextConfig = {
   rewrites: storeConfig.rewrites,
 }
 
-module.exports = nextConfig
+if (__dirname.includes('.faststore')) {
+  console.log('Using NX with Faststore')
+}
+
+module.exports = __dirname.includes('.faststore')
+  ? withNx(nextConfig)
+  : nextConfig

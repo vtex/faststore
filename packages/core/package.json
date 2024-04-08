@@ -52,6 +52,7 @@
     "@graphql-tools/merge": "^9.0.0",
     "@graphql-tools/utils": "^9.2.1",
     "@graphql-typed-document-node/core": "^3.2.0",
+    "@nx/next": "^18.2.3",
     "@types/react": "^18.2.42",
     "@vtex/client-cms": "^0.2.12",
     "@vtex/prettier-config": "1.0.0",
