@@ -13,21 +13,13 @@ module.exports = {
   platform: 'vtex',
 
   // Platform specific configs for API
-  // api: {
-  //   storeId: 'storeframework',
-  //   workspace: 'master',
-  //   subDomainPrefix: ['www'],
-  //   environment: 'vtexcommercestable',
-  //   hideUnavailableItems: false,
-  //   incrementAddress: true,
-  // },
   api: {
-    storeId: 'b2bfaststoredev',
+    storeId: 'storeframework',
     workspace: 'master',
     subDomainPrefix: ['www'],
     environment: 'vtexcommercestable',
-    hideUnavailableItems: true,
-    incrementAddress: false,
+    hideUnavailableItems: false,
+    incrementAddress: true,
   },
 
   // Default session
