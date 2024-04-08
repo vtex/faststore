@@ -45,10 +45,10 @@ export const validateSession = async (
   const newSession = {
     ...oldSession,
     currency: {
-      code: store?.currencyCode.value ?? oldSession.currency.code,
-      symbol: store?.currencySymbol.value ?? oldSession.currency.symbol,
+      code: store?.currencyCode?.value ?? oldSession.currency.code,
+      symbol: store?.currencySymbol?.value ?? oldSession.currency.symbol,
     },
-    country: store?.countryCode.value ?? oldSession.country,
+    country: store?.countryCode?.value ?? oldSession.country,
     channel: ChannelMarshal.stringify({
       salesChannel: store?.channel?.value ?? channel.salesChannel,
       regionId: region?.id ?? channel.regionId,

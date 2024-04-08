@@ -29,7 +29,8 @@ module.exports = {
       symbol: '$',
     },
     locale: 'en-US',
-    channel: '{"salesChannel":"1","regionId":""}',
+    channel:
+      '{"salesChannel":"1","regionId":"", ,"hasOnlyDefaultSalesChannel":"true"}',
     country: 'USA',
     deliveryMode: null,
     addressType: null,
