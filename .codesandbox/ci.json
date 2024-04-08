@@ -1,5 +1,5 @@
 {
-  "installCommand": "install --ignore-engines",
+  "installCommand": "yarn install --ignore-engines",
   "buildCommand": "turbo run build --filter=./packages/* --filter=!./packages/shared --filter=!./packages/eslint-config",
   "packages": [
     "packages/api",
