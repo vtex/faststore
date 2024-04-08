@@ -12,7 +12,8 @@
     "size": "turbo run size",
     "release": "lerna version patch --yes && lerna publish from-git --yes",
     "clean": "turbo run clean && rm -rf node_modules",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx,md}\""
+    "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx,md}\"",
+    "install:ignore:engines": "yarn install --ignore-engines"
   },
   "workspaces": [
     "packages/*",
