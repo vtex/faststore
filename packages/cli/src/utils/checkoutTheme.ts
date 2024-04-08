@@ -103,14 +103,14 @@ export async function processAndCopyCheckoutTheme() {
       fs.readFileSync(customTheme, 'utf8'),
       {
         from: customTheme,
-        to: path.join(getRoot(), '../client/src/pages/_document.module.scss'),
+        to: path.join(getRoot(), '../client/src/pages/custom-theme.scss'),
         parser: postcssScss.parse,
         stringifier: postcssScss.stringify,
       }
     )
 
     fs.writeFileSync(
-      path.join(getRoot(), '../client/src/pages/_document.module.scss'),
+      path.join(getRoot(), '../client/src/pages/custom-theme.scss'),
       result.css
     )
 
