@@ -23,16 +23,44 @@ export interface CheckboxFieldProps {
    * Identify checkbox in the same group.
    */
   name?: string
+  /**
+   * Should the checkbox be checked by default.
+   */
+  checked?: boolean
+
+  /**
+   * Identifies whether the checkbox should be disabled.
+   */
+  disabled?: boolean
+
+  /**
+   * Boolean that represents a partial state.
+   */
+  partial?: boolean
 }
 
 const CheckboxField = forwardRef<HTMLDivElement, CheckboxFieldProps>(
   function CheckboxField(
-    { testId = 'fs-checkbox-field', id, label, value, name, ...otherProps },
+    {
+      testId = 'fs-checkbox-field',
+      id,
+      label,
+      value,
+      name,
+      checked,
+      ...otherProps
+    },
     ref
   ) {
     return (
       <div ref={ref} data-fs-checkbox-field data-testid={testId}>
-        <Checkbox id={id} value={value ?? label} name={name} {...otherProps} />
+        <Checkbox
+          id={id}
+          value={value ?? label}
+          name={name}
+          defaultChecked={checked}
+          {...otherProps}
+        />
         <Label htmlFor={id}>{label}</Label>
       </div>
     )
