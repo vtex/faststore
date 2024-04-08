@@ -64,6 +64,7 @@ const TOKEN_ALLOW_LIST = [
   '--fs-badge-big-padding',
   '--fs-slide-over-partial-width-notebook',
   '--fs-slide-over-partial-max-width-notebook',
+  '--fs-tag-text-color',
 ]
 
 const plugin: Plugin = {
