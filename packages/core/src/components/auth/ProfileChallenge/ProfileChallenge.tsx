@@ -2,16 +2,16 @@ import { PropsWithChildren, ReactNode } from 'react'
 import { useAuth } from 'src/sdk/auth'
 
 export type ProfileChallengeProps = {
-  fallback: ReactNode
+  fallback?: ReactNode
 }
 
 const ProfileChallenge = ({
-  fallback,
+  fallback = null,
   children,
 }: PropsWithChildren<ProfileChallengeProps>) => {
   const { isAutenticated } = useAuth()
 
-  return isAutenticated ? children : fallback
+  return <>{isAutenticated ? children : fallback}</>
 }
 
 export default ProfileChallenge
