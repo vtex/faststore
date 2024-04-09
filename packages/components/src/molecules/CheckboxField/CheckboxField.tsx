@@ -1,42 +1,12 @@
 import React, { forwardRef } from 'react'
-import Checkbox from '../../atoms/Checkbox'
+import Checkbox, { CheckboxProps } from '../../atoms/Checkbox'
 import Label from '../../atoms/Label'
 
-export interface CheckboxFieldProps {
-  /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
-   */
-  testId?: string
-  /**
-   * ID to identify input and corresponding label.
-   */
-  id: string
+export interface CheckboxFieldProps extends CheckboxProps {
   /**
    * The text displayed to identify the input checkbox.
    */
   label: string
-  /**
-   * The value to identify the input checkbox.
-   */
-  value?: string
-  /**
-   * Identify checkbox in the same group.
-   */
-  name?: string
-  /**
-   * Should the checkbox be checked by default.
-   */
-  checked?: boolean
-
-  /**
-   * Identifies whether the checkbox should be disabled.
-   */
-  disabled?: boolean
-
-  /**
-   * Boolean that represents a partial state.
-   */
-  partial?: boolean
 }
 
 const CheckboxField = forwardRef<HTMLDivElement, CheckboxFieldProps>(
