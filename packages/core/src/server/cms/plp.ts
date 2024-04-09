@@ -28,13 +28,13 @@ export const getPLP = async (slug: string, previewData: Locator) => {
     const cmsData = JSON.parse(config.cms.data)
     const allPLPsFromCmsEnvData: PLPfromCmsEnvData[] = cmsData['plp']
 
-    return await getPLPFromCmsEnvData(`/${slug}/p`, allPLPsFromCmsEnvData, {
+    return await getPLPFromCmsEnvData(`/${slug}/`, allPLPsFromCmsEnvData, {
       ...(previewData?.contentType === 'plp' ? previewData : null),
       contentType: 'plp',
     })
   }
 
-  return (await getPLPFromCms(`/${slug}/p`, {
+  return (await getPLPFromCms(`/${slug}/`, {
     ...(previewData?.contentType === 'plp' ? previewData : null),
     contentType: 'plp',
   })) as PLPContentType
