@@ -50,7 +50,10 @@ const handler: NextApiHandler = async (req, res) => {
     }
 
     // Enable Preview Mode by setting the cookies
-    res.setPreviewData(locator, { maxAge: 3600 })
+    res.setPreviewData(locator, {
+      maxAge: 3600,
+      path: (page.settings as Settings)?.seo?.slug,
+    })
 
     // Redirect to the path from the fetched locator
     if (previewRedirects[locator.contentType]) {

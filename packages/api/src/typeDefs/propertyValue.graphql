@@ -17,7 +17,7 @@ type StorePropertyValue {
   """
   Specifies the nature of the value
   """
-  valueReference: String!
+  valueReference: ObjectOrString!
 }
 
 input IStorePropertyValue {
@@ -36,5 +36,5 @@ input IStorePropertyValue {
   """
   Specifies the nature of the value
   """
-  valueReference: String!
+  valueReference: ObjectOrString!
 }

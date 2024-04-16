@@ -1,5 +1,6 @@
 import type { ContentData, ContentTypeOptions, Locator } from '@vtex/client-cms'
 import ClientCMS from '@vtex/client-cms'
+
 import MissingContentError from 'src/sdk/error/MissingContentError'
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
 import config from '../../../faststore.config'
@@ -20,7 +21,6 @@ type ProductGallerySettings = {
   }
 }
 
-export type PLPContentType = ContentData & ProductGallerySettings
 export type SearchContentType = ContentData & ProductGallerySettings
 
 export type PageContentType = ContentData & {

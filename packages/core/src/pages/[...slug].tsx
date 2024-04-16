@@ -1,5 +1,4 @@
 import { isNotFoundError } from '@faststore/api'
-import storeConfig from 'faststore.config'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 
 import { gql } from '@generated'
@@ -23,7 +22,8 @@ import ProductListingPage, {
   ProductListingPageProps,
 } from 'src/components/templates/ProductListingPage'
 import fetchFunctions from 'src/customizations/src/dynamicContent'
-import { getPage, PageContentType, PLPContentType } from 'src/server/cms'
+import { PageContentType } from 'src/server/cms'
+import { getPLP, PLPContentType } from 'src/server/cms/plp'
 
 type BaseProps = {
   globalSections: GlobalSectionsData
@@ -120,7 +120,7 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
-  const [{ data, errors = [] }] = await Promise.all([
+  const [{ data, errors = [] }, cmsPage] = await Promise.all([
     execute<
       ServerCollectionPageQueryQueryVariables,
       ServerCollectionPageQueryQuery
@@ -128,27 +128,8 @@ export const getStaticProps: GetStaticProps<
       variables: { slug },
       operation: query,
     }),
+    getPLP(slug, previewData),
   ])
-
-  let pageData
-
-  if (storeConfig.cms.data) {
-    const cmsData = JSON.parse(storeConfig.cms.data)
-    const page = cmsData['plp'][0]
-
-    if (page) {
-      pageData = await getPage<PLPContentType>({
-        contentType: 'plp',
-        documentId: page.documentId,
-        versionId: page.versionId,
-      })
-    }
-  } else {
-    pageData = await getPage<PLPContentType>({
-      ...(previewData?.contentType === 'plp' ? previewData : null),
-      contentType: 'plp',
-    })
-  }
 
   const notFound = errors.find(isNotFoundError)
 
@@ -166,7 +147,7 @@ export const getStaticProps: GetStaticProps<
   return {
     props: {
       data,
-      page: pageData,
+      page: cmsPage,
       globalSections: await globalSectionsPromise,
       type: 'plp',
       key: slug,

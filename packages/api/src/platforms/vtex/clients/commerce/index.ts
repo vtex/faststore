@@ -31,18 +31,22 @@ const BASE_INIT = {
 }
 
 export const VtexCommerce = (
-  { account, environment, incrementAddress }: Options,
+  { account, environment, incrementAddress, subDomainPrefix }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br`
   const storeCookies = getStoreCookie(ctx)
   const withCookie = getWithCookie(ctx)
-  // replacing www. only for testing while www.vtexfaststore.com is configured with www
-  const forwardedHost = (
-    new Headers(ctx.headers).get('x-forwarded-host') ??
-    ctx.headers?.host ??
-    ''
-  ).replace('www.', '')
+
+  const host =
+    new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? ''
+
+  const selectedPrefix =
+    subDomainPrefix
+      .map((prefix) => prefix + '.')
+      .find((prefix) => host.includes(prefix)) || ''
+
+  const forwardedHost = host.replace(selectedPrefix, '')
 
   return {
     catalog: {

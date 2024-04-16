@@ -277,6 +277,13 @@ export const fragment = gql(`
       }
     }
 
+    additionalProperty {
+      propertyID
+      name
+      value
+      valueReference
+    }
+
     # Contains necessary info to add this item to cart
     ...CartProductItem
   }

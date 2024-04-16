@@ -140,6 +140,7 @@ export interface Item {
     itemId: string
     amount: number
   }>
+  attributes: Attribute[]
 }
 
 export interface CommertialOffer {
@@ -213,4 +214,11 @@ interface SpecificationGroup {
     originalName: string
     values: string[]
   }>
+}
+
+export interface Attribute {
+  id: string
+  name: string
+  value: string
+  visible: boolean
 }

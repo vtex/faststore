@@ -8,6 +8,7 @@ import type { PromiseType } from '../../../typings'
 import type { Query } from './query'
 import {
   attachmentToPropertyValue,
+  attributeToPropertyValue,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
 import type { Attachment } from '../clients/commerce/types/OrderForm'
@@ -129,6 +130,7 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
     // Search uses the name variations for specifications
     variations: specifications = [],
     attachmentsValues = [],
+    attributes = [],
   }) => {
     const propertyValueSpecifications = specifications.flatMap(
       ({ name, values }) =>
@@ -143,7 +145,13 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
       attachmentToPropertyValue
     )
 
-    return [...propertyValueSpecifications, ...propertyValueAttachments]
+    const propertyValueAttributes = attributes.map(attributeToPropertyValue)
+
+    return [
+      ...propertyValueSpecifications,
+      ...propertyValueAttachments,
+      ...propertyValueAttributes,
+    ]
   },
   releaseDate: ({ isVariantOf: { releaseDate } }) => releaseDate ?? '',
 }

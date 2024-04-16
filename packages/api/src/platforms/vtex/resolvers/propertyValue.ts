@@ -5,7 +5,7 @@ import { getPropertyId } from '../utils/propertyValue'
 export type Root = StorePropertyValueType
 
 export const StorePropertyValue: Record<string, Resolver<Root>> = {
-  propertyID: (root) => getPropertyId(root),
+  propertyID: (root) => root.propertyID || getPropertyId(root),
   name: ({ name }) => name,
   value: ({ value }) => value,
   valueReference: ({ valueReference }) => valueReference,
