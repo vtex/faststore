@@ -21,7 +21,7 @@ import LandingPage, {
 import ProductListingPage, {
   ProductListingPageProps,
 } from 'src/components/templates/ProductListingPage'
-import fetchFunctions from 'src/customizations/src/dynamicContent'
+import dynamicContent from 'src/customizations/src/dynamicContent'
 import { PageContentType } from 'src/server/cms'
 import { getPLP, PLPContentType } from 'src/server/cms/plp'
 
@@ -94,7 +94,7 @@ export const getStaticProps: GetStaticProps<
 
   if (await landingPagePromise) {
     // Checking if the fetch function corresponding to the slug exists
-    const fetchFunction = fetchFunctions[slug]
+    const fetchFunction = dynamicContent[slug]
     let serverData = null
 
     if (!fetchFunction) {

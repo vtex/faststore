@@ -2,6 +2,6 @@
 // dynamicContent/index.ts
 
 // map the slug to correspondent functions
-const fetchFunctions = {}
+const dynamicContent = {}
 
-export default fetchFunctions
+export default dynamicContent
