@@ -14,7 +14,7 @@ module.exports = {
 
   // Platform specific configs for API
   api: {
-    storeId: 'b2bfaststoredev',
+    storeId: 'storeframwork',
     workspace: 'master',
     subDomainPrefix: ['www'],
     environment: 'vtexcommercestable',

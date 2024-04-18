@@ -42,7 +42,7 @@ const isLocator = (x: any): x is Locator =>
 
 export const clientCMS = new ClientCMS({
   workspace: config.api.workspace,
-  tenant: 'b2bfaststoredev',
+  tenant: config.api.storeId,
 })
 
 export const getCMSPage = async (options: Options) => {
