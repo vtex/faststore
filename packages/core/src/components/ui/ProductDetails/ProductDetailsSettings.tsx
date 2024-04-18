@@ -5,6 +5,7 @@ import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import config from '../../../../faststore.config'
 
 import Selectors from 'src/components/ui/SkuSelector'
 import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
@@ -40,6 +41,8 @@ function ProductDetailsSettings({
     QuantitySelector,
     __experimentalNotAvailableButton: NotAvailableButton,
   } = useOverrideComponents<'ProductDetails'>()
+
+  const useUnitMultiplier = config.api.useUnitMultiplier
 
   const {
     id,
@@ -114,9 +117,10 @@ function ProductDetailsSettings({
             {...ProductPrice.props}
           />
           <QuantitySelector.Component
-            min={unitMultiplier}
+            min={useUnitMultiplier ? unitMultiplier : 1}
             max={10}
-            unitMultiplier={unitMultiplier}
+            unitMultiplier={useUnitMultiplier ? unitMultiplier : 1}
+            initial={useUnitMultiplier ? unitMultiplier : 1}
             {...QuantitySelector.props}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed

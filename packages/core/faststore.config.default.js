@@ -20,6 +20,7 @@ module.exports = {
     environment: 'vtexcommercestable',
     hideUnavailableItems: false,
     incrementAddress: true,
+    useUnitMultiplier: false,
   },
 
   // Default session

@@ -82,10 +82,7 @@ function ProductDetails({
   const { currency } = useSession()
   const context = usePDP()
   const { product, isValidating } = context?.data
-  const useUnitMultiplier = true
-  const [quantity, setQuantity] = useState(
-    useUnitMultiplier ? product.unitMultiplier : 1
-  )
+  const [quantity, setQuantity] = useState(1)
 
   if (!product) {
     throw new Error('NotFound')

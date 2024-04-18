@@ -47,7 +47,7 @@ const QuantitySelector = ({
 }: QuantitySelectorProps) => {
   const [quantity, setQuantity] = useState<number>(initial ?? min)
 
-  const useUnitMultiplier = true
+  const useUnitMultiplier = unitMultiplier !== 1
 
   const roundUpQuantityIfNeeded = (quantity: number) => {
     if(!useUnitMultiplier){

@@ -971,7 +971,7 @@ export type StoreProduct = {
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String'];
   /** Sku Unit Multiplier */
-  unitMultiplier?: Maybe<Scalars['Int']>;
+  unitMultiplier?: Maybe<Scalars['Float']>;
 };
 
 

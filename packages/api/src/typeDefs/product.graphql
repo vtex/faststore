@@ -69,7 +69,7 @@ type StoreProduct {
   """
   Sku Unit Multiplier
   """
-  unitMultiplier: Int
+  unitMultiplier: Float
 }
 
 """
