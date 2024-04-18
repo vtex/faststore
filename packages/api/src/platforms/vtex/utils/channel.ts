@@ -2,6 +2,7 @@ export interface Channel {
   seller?: string
   regionId?: string
   salesChannel?: string
+  hasOnlyDefaultSalesChannel?: boolean
 }
 
 export default class ChannelMarshal {
@@ -13,6 +14,7 @@ export default class ChannelMarshal {
         seller: parsedChannel.seller ?? '',
         regionId: parsedChannel.regionId ?? '',
         salesChannel: parsedChannel.salesChannel ?? '',
+        hasOnlyDefaultSalesChannel: parsedChannel.hasOnlyDefaultSalesChannel ?? true
       }
     } catch (error) {
       console.error(error)
