@@ -45,6 +45,7 @@ function ProductDetailsSettings({
     id,
     sku,
     gtin,
+    unitMultiplier,
     name: variantName,
     brand,
     isVariantOf,
@@ -113,8 +114,9 @@ function ProductDetailsSettings({
             {...ProductPrice.props}
           />
           <QuantitySelector.Component
-            min={1}
+            min={unitMultiplier}
             max={10}
+            unitMultiplier={unitMultiplier}
             {...QuantitySelector.props}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed

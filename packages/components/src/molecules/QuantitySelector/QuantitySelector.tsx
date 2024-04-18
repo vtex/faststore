@@ -22,6 +22,10 @@ export interface QuantitySelectorProps {
    */
   initial?: number
   /**
+   * Controls by how many units the value advances 
+  */
+  unitMultiplier?: number
+  /**
    * Specifies that the whole quantity selector component should be disabled.
    */
   disabled?: boolean
@@ -34,6 +38,7 @@ export interface QuantitySelectorProps {
 const QuantitySelector = ({
   max,
   min = 1,
+  unitMultiplier = 1,
   initial,
   disabled = false,
   onChange,
@@ -42,8 +47,17 @@ const QuantitySelector = ({
 }: QuantitySelectorProps) => {
   const [quantity, setQuantity] = useState<number>(initial ?? min)
 
+  const useUnitMultiplier = true
+
+  const roundUpQuantityIfNeeded = (quantity: number) => {
+    if(!useUnitMultiplier){
+      return quantity
+    }
+    return Math.ceil(quantity / unitMultiplier) * unitMultiplier;
+  }    
+
   const isLeftDisabled = quantity === min
-  const isRightDisabled = quantity === max
+  const isRightDisabled = max ? quantity === roundUpQuantityIfNeeded(max) : false
 
   const changeQuantity = (increaseValue: number) => {
     const quantityValue = validateQuantityBounds(quantity + increaseValue)
@@ -52,14 +66,15 @@ const QuantitySelector = ({
     setQuantity(quantityValue)
   }
 
-  const increase = () => changeQuantity(1)
+  const quantityCounter = useUnitMultiplier ? unitMultiplier : 1 
+  
+  const increase = () => changeQuantity(quantityCounter)
 
-  const decrease = () => changeQuantity(-1)
+  const decrease = () => changeQuantity(-quantityCounter)
 
   function validateQuantityBounds(n: number): number {
     const maxValue = min ? Math.max(n, min) : n
-
-    return max ? Math.min(maxValue, max) : maxValue
+    return roundUpQuantityIfNeeded(max ? Math.min(maxValue, max) : maxValue)
   }
 
   function validateInput(e: React.FormEvent<HTMLInputElement>) {
@@ -68,10 +83,11 @@ const QuantitySelector = ({
     if (!Number.isNaN(Number(val))) {
       setQuantity(() => {
         const quantityValue = validateQuantityBounds(Number(val))
+        const roundedQuantity = roundUpQuantityIfNeeded(quantityValue)
 
-        onChange?.(quantityValue)
+        onChange?.(roundedQuantity)
 
-        return quantityValue
+        return roundedQuantity
       })
     }
   }

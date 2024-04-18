@@ -80,9 +80,12 @@ function ProductDetails({
     __experimentalNotAvailableButton: NotAvailableButton,
   } = useOverrideComponents<'ProductDetails'>()
   const { currency } = useSession()
-  const [quantity, setQuantity] = useState(1)
   const context = usePDP()
   const { product, isValidating } = context?.data
+  const useUnitMultiplier = true
+  const [quantity, setQuantity] = useState(
+    useUnitMultiplier ? product.unitMultiplier : 1
+  )
 
   if (!product) {
     throw new Error('NotFound')
@@ -245,7 +248,7 @@ export const fragment = gql(`
     name
     gtin
     description
-
+    unitMultiplier
     isVariantOf {
       name
       productGroupID

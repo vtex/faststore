@@ -927,6 +927,8 @@ export type StoreProduct = {
   sku: Scalars['String']['output']
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String']['output']
+  /** Sku Unit Multiplier */
+  unitMultiplier: Maybe<Scalars['Int']['output']>
 }
 
 /** Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
@@ -1146,6 +1148,7 @@ export type ProductDetailsFragment_ProductFragment = {
   name: string
   gtin: string
   description: string
+  unitMultiplier: number | null
   id: string
   isVariantOf: {
     name: string
@@ -1227,6 +1230,7 @@ export type ServerProductQueryQuery = {
     name: string
     description: string
     releaseDate: string
+    unitMultiplier: number | null
     id: string
     seo: { title: string; description: string; canonical: string }
     brand: { name: string }
@@ -1469,6 +1473,7 @@ export type ClientProductQueryQuery = {
     name: string
     gtin: string
     description: string
+    unitMultiplier: number | null
     id: string
     isVariantOf: {
       name: string
@@ -1741,6 +1746,7 @@ export const ProductDetailsFragment_ProductFragmentDoc =
   name
   gtin
   description
+  unitMultiplier
   isVariantOf {
     name
     productGroupID
@@ -1991,7 +1997,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '50155d908ff90781e8c56134ded29b70d7494aa7',
+    operationHash: '7e955dd38c5aee49ebec332cb7d6ff542730cbdc',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2036,7 +2042,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: 'a35530c2f55c1c85bd2b4fe4964356ab27e32622',
+    operationHash: '511d2df2394f0413280b0df75ad14a8506f746b5',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
