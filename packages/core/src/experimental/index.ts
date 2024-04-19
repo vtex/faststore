@@ -1,7 +1,13 @@
 // SDK
 export {
-  cartStore as cartStore_unstable,
+  useSession as useSession_unstable,
+  sessionStore as sessionStore_unstable,
+  validateSession as validateSession_unstable,
+} from '../../src/sdk/session'
+export { useAuth as useAuth_unstable } from '../../src/sdk/auth'
+export {
   useCart as useCart_unstable,
+  cartStore as cartStore_unstable,
 } from '../../src/sdk/cart'
 export type { Cart, CartItem } from '../../src/sdk/cart'
 export { useBuyButton as useBuyButton_unstable } from '../../src/sdk/cart/useBuyButton'
@@ -24,15 +30,13 @@ export { useFilter as useFilter_unstable } from '../../src/sdk/search/useFilter'
 export { default as useSearchHistory_unstable } from '../../src/sdk/search/useSearchHistory'
 export { default as useSuggestions_unstable } from '../../src/sdk/search/useSuggestions'
 export { default as useTopSearch_unstable } from '../../src/sdk/search/useTopSearch'
-export {
-  sessionStore as sessionStore_unstable,
-  useSession as useSession_unstable,
-  validateSession as validateSession_unstable,
-} from '../../src/sdk/session'
+
 export { getShippingSimulation as getShippingSimulation_unstable } from '../../src/sdk/shipping'
 export { useShippingSimulation as useShippingSimulation_unstable } from '../../src/sdk/shipping/useShippingSimulation'
 
 // Components
 export { Image as Image_unstable } from '../../src/components/ui/Image'
+export { ProfileChallenge as ProfileChallenge_unstable } from '../../src/components/auth/ProfileChallenge'
 
+// Server GraphQL
 export { execute as execute_unstable } from '../../src/server'

@@ -12,6 +12,7 @@ export const validateSession = async (
   { session: oldSession, search }: MutationValidateSessionArgs,
   { clients }: Context
 ): Promise<StoreSession | null> => {
+
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')
   const geoCoordinates = oldSession.geoCoordinates ?? null
@@ -44,14 +45,15 @@ export const validateSession = async (
   const newSession = {
     ...oldSession,
     currency: {
-      code: store?.currencyCode.value ?? oldSession.currency.code,
-      symbol: store?.currencySymbol.value ?? oldSession.currency.symbol,
+      code: store?.currencyCode?.value ?? oldSession.currency.code,
+      symbol: store?.currencySymbol?.value ?? oldSession.currency.symbol,
     },
-    country: store?.countryCode.value ?? oldSession.country,
+    country: store?.countryCode?.value ?? oldSession.country,
     channel: ChannelMarshal.stringify({
       salesChannel: store?.channel?.value ?? channel.salesChannel,
       regionId: region?.id ?? channel.regionId,
       seller: seller?.id,
+      hasOnlyDefaultSalesChannel: !store?.channel?.value
     }),
     person: profile?.id
       ? {
