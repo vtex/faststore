@@ -19,7 +19,7 @@ import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import fetchFunctions from 'src/customizations/src/dynamicContent'
+import dynamicContent from 'src/customizations/src/dynamicContent'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import storeConfig from '../../faststore.config'
 
@@ -99,7 +99,7 @@ export const getStaticProps: GetStaticProps<
   Locator
 > = async ({ previewData }) => {
   // Checking if the fetch function corresponding to the home exists
-  const fetchFunction = fetchFunctions['home']
+  const fetchFunction = dynamicContent['home']
   let serverData = null
 
   if (!fetchFunction) {
