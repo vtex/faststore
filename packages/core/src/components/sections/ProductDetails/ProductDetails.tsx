@@ -18,6 +18,7 @@ import { usePDP } from '../../../sdk/overrides/PageProvider'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { ProductDetailsDefaultComponents } from './DefaultComponents'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import config from '../../../../faststore.config'
 
 export interface ProductDetailsProps {
   productTitle: {
@@ -82,7 +83,9 @@ function ProductDetails({
   const { currency } = useSession()
   const context = usePDP()
   const { product, isValidating } = context?.data
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState(
+    config.api.useUnitMultiplier ? product.unitMultiplier : 1
+  )
 
   if (!product) {
     throw new Error('NotFound')
