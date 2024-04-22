@@ -2,6 +2,7 @@ import type { SVGProps } from 'react'
 import React, { forwardRef } from 'react'
 
 type IconWeight = 'thin' | 'light' | 'regular' | 'bold'
+type IconSize = 20 | 24 | 32
 
 const mapWeightToValue: Record<IconWeight, number> = {
   bold: 24,
@@ -25,35 +26,55 @@ export interface IconProps extends SVGProps<SVGSVGElement> {
    * SVG weight.
    *
    * @default 'regular'
+   * @deprecated 'weight' prop will be removed in the next major version.
    */
   weight?: IconWeight
   /**
    * SVG width.
    *
    * @default '24'
+   * @deprecated 'width' prop will be removed in the next major version. Use 'size' instead.
    */
   width?: number
   /**
    * SVG height.
    *
    * @default '24'
+   * @deprecated 'height' prop will be removed in the next major version. Use 'size' instead.
    */
   height?: number
+  /**
+   * SVG size.
+   *
+   * @default '20'
+   */
+  size?: IconSize
 }
 
 const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
   { testId = 'fs-icon', name, weight = 'regular', ...otherProps }: IconProps,
   ref
 ) {
-  const { width, height } = otherProps
+  let { width, height, size } = otherProps
+  let library: string = ''
+
+  if (name.startsWith('fs-')) {
+    library = 'material'
+    name = `${name}${size ?? 20}`
+  }
+  else {
+    library = 'phosphor'
+  }
+
   return (
     <svg
       ref={ref}
       data-fs-icon
       data-testid={testId}
-      width={width ?? 24}
-      height={height ?? 24}
-      strokeWidth={mapWeightToValue[weight]}
+      size={size ?? 20}
+      width={library === 'phosphor' ? width ?? 24 : size ?? 20} // TODO: Remove this after width prop is removed
+      height={library === 'phosphor' ? height ?? 24 : size ?? 20} // TODO: Remove this after height prop is removed
+      strokeWidth={mapWeightToValue[weight]} // TODO: Remove this after weight prop is removed
       {...otherProps}
     >
       <use href={`/icons.svg#${name}`} />
