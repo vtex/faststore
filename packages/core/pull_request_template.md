@@ -33,5 +33,4 @@
 
 **Documentation**
 - [ ] PR description
-- [ ] Added to/Updated the Storybook - *if applicable*
 - [ ] For documentation changes, ping `@carolinamenezes` or `@PedroAntunesCosta` to review and update
