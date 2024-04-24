@@ -68,11 +68,19 @@ export default function transformer(file: FileInfo, api: API) {
           : heightAttr?.value?.expression?.value
 
         if (sizeValue) {
+          // Size value can only be 20 | 24 | 32 , if else changes to 20
+
+          let newSizeValue = sizeValue
+
+          if (sizeValue !== 20 || sizeValue !== 24 || sizeValue !== 32) {
+            newSizeValue = 20
+          }
+
           // Create size prop
           const sizeProp = j.jsxAttribute(
             j.jsxIdentifier('size'),
             // To pass as expression size={20}
-            j.jsxExpressionContainer(j.literal(sizeValue))
+            j.jsxExpressionContainer(j.literal(newSizeValue))
           )
 
           // Replace width/height with size prop
