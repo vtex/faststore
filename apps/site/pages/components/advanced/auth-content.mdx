@@ -1,0 +1,111 @@
+import { Steps } from 'nextra-theme-docs'
+
+<header>
+
+# Authenticated Content Access
+
+This feature allows the access control to ensure that only authenticated users can access content 
+ranging from product showcases, texts, links, banners, prices, etc., meeting the demand for security
+and customization.
+
+</header>
+
+## Overview
+
+Authenticated Content Access is a crucial feature to enhance the user experience in online stores. 
+Before and after login, the user experience may differ, especially concerning accessible content 
+and prices. This functionality ensures that only authenticated users have access to certain content,
+such as prices, detailed product descriptions, and exclusive offers, while displaying generic 
+content for non-logged-in users. This not only increases user data security but also provides a 
+smoother and more transparent shopping experience. With Authenticated Content Access, online stores
+can offer a more controlled and secure environment for their customers, ensuring a satisfactory 
+shopping experience.
+
+---
+
+## Usage
+
+> ⚠️  This feature is available starting from version 3.0.39 of the @faststore/core package.
+
+
+<Steps>
+
+### Create a Override Component
+
+Override the component you wish to be visible only when the user is authenticated. 
+For further details, please refer to the [Overriding Native Components](/docs/building-sections/overriding-components-and-props) and Props section.
+
+### Wrapp the component with the ProfileChallenge
+
+The @faststore/core package exports the ProfileChallenge component. 
+This component takes a child as a prop. 
+The child will only be displayed if the user is logged in and has at least one 
+Sales Channel configured. For example:
+
+```tsx
+import { SectionOverride } from "@faststore/core";
+import { ProfileChallenge_unstable as ProfileChallenge } from "@faststore/core/experimental";
+
+import { HeroHeader, HeroImage } from "@faststore/ui";
+
+const SECTION = "Hero" as const;
+
+const override: SectionOverride = {
+  section: SECTION,
+  components: {
+    HeroImage: {
+      Component: (props) => (
+        <ProfileChallenge>
+          <HeroImage {...props} />
+        </ProfileChallenge>
+      ),
+    },
+  },
+};
+
+export { override };
+```
+
+### Create a component Fallback (Optional)
+
+The ```ProfileChallenge``` has a property called ```fallback```. This property is particularly useful when a 
+fallback component should be displayed when the user is not logged in. If the fallback is not 
+provided, nothing is displayed.
+
+```tsx
+import { SectionOverride } from "@faststore/core";
+import { ProfileChallenge_unstable as ProfileChallenge } from "@faststore/core/experimental";
+
+import { HeroHeader, HeroImage } from "@faststore/ui";
+
+const SECTION = "Hero" as const;
+
+const override: SectionOverride = {
+  section: SECTION,
+  components: {
+    HeroHeader: {
+      Component: (props) => {
+        return (
+          <ProfileChallenge
+            fallback={
+              <HeroHeader
+                title="🔒 Auth Hero"
+                subtitle="You should be logged to see this content"
+              />
+            }
+          >
+            <HeroHeader {...props} />
+          </ProfileChallenge>
+        );
+      },
+    },
+  },
+};
+
+export { override };
+
+```
+
+</Steps>
+
+---
