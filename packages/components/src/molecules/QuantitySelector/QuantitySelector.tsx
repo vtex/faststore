@@ -25,6 +25,10 @@ export interface QuantitySelectorProps {
    * Controls by how many units the value advances 
   */
   unitMultiplier?: number
+   /**
+   * Controls wheter you use or not the unitMultiplier 
+  */
+   useUnitMultiplier?: boolean
   /**
    * Specifies that the whole quantity selector component should be disabled.
    */
@@ -39,6 +43,7 @@ const QuantitySelector = ({
   max,
   min = 1,
   unitMultiplier = 1,
+  useUnitMultiplier,
   initial,
   disabled = false,
   onChange,
@@ -46,8 +51,7 @@ const QuantitySelector = ({
   ...otherProps
 }: QuantitySelectorProps) => {
   const [quantity, setQuantity] = useState<number>(initial ?? min)
-
-  const useUnitMultiplier = unitMultiplier !== 1
+  const [multipliedUnit, setMultipliedUnit] = useState<number>(quantity * unitMultiplier)
 
   const roundUpQuantityIfNeeded = (quantity: number) => {
     if(!useUnitMultiplier){
@@ -57,24 +61,22 @@ const QuantitySelector = ({
   }    
 
   const isLeftDisabled = quantity === min
-  const isRightDisabled = max ? quantity === roundUpQuantityIfNeeded(max) : false
+  const isRightDisabled = quantity === max 
 
   const changeQuantity = (increaseValue: number) => {
     const quantityValue = validateQuantityBounds(quantity + increaseValue)
 
     onChange?.(quantityValue)
     setQuantity(quantityValue)
+    setMultipliedUnit(quantityValue * unitMultiplier)
   }
+    
+  const increase = () => changeQuantity(1)
 
-  const quantityCounter = useUnitMultiplier ? unitMultiplier : 1 
-  
-  const increase = () => changeQuantity(quantityCounter)
-
-  const decrease = () => changeQuantity(-quantityCounter)
+  const decrease = () => changeQuantity(-1)
 
   function validateQuantityBounds(n: number): number {
-    const maxValue = min ? Math.max(n, min) : n
-    return roundUpQuantityIfNeeded(max ? Math.min(maxValue, max) : maxValue)
+    return min ? Math.max(n, min) : n
   }
 
   function validateInput(e: React.FormEvent<HTMLInputElement>) {
@@ -85,7 +87,9 @@ const QuantitySelector = ({
         const quantityValue = validateQuantityBounds(Number(val))
         const roundedQuantity = roundUpQuantityIfNeeded(quantityValue)
 
-        onChange?.(roundedQuantity)
+
+        setMultipliedUnit(roundedQuantity)
+        onChange?.(roundedQuantity / unitMultiplier)
 
         return roundedQuantity
       })
@@ -116,7 +120,7 @@ const QuantitySelector = ({
         data-quantity-selector-input
         id="quantity-selector-input"
         aria-label="Quantity"
-        value={quantity}
+        value={useUnitMultiplier ? multipliedUnit : quantity}
         onChange={validateInput}
         disabled={disabled}
       />

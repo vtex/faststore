@@ -1287,6 +1287,7 @@ export type ValidateCartMutationMutation = {
         itemOffered: {
           sku: string
           name: string
+          unitMultiplier: number | null
           gtin: string
           image: Array<{ url: string; alternateName: string }>
           brand: { name: string }
@@ -1322,6 +1323,7 @@ export type CartItemFragment = {
   itemOffered: {
     sku: string
     name: string
+    unitMultiplier: number | null
     gtin: string
     image: Array<{ url: string; alternateName: string }>
     brand: { name: string }
@@ -1346,6 +1348,7 @@ export type CartItemFragment = {
 export type CartProductItemFragment = {
   sku: string
   name: string
+  unitMultiplier: number | null
   gtin: string
   image: Array<{ url: string; alternateName: string }>
   brand: { name: string }
@@ -1710,6 +1713,7 @@ export const CartProductItemFragmentDoc = new TypedDocumentString(
     fragment CartProductItem on StoreProduct {
   sku
   name
+  unitMultiplier
   image {
     url
     alternateName
@@ -1785,6 +1789,7 @@ export const ProductDetailsFragment_ProductFragmentDoc =
     fragment CartProductItem on StoreProduct {
   sku
   name
+  unitMultiplier
   image {
     url
     alternateName
@@ -1949,6 +1954,7 @@ export const CartItemFragmentDoc = new TypedDocumentString(
     fragment CartProductItem on StoreProduct {
   sku
   name
+  unitMultiplier
   image {
     url
     alternateName
@@ -1997,7 +2003,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '7e955dd38c5aee49ebec332cb7d6ff542730cbdc',
+    operationHash: '3ce56e42296689b601347fedc380c89519355ab7',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2006,7 +2012,7 @@ export const ServerProductQueryDocument = {
 export const ValidateCartMutationDocument = {
   __meta__: {
     operationName: 'ValidateCartMutation',
-    operationHash: '87e1ba227013cb087bcbb35584c1b0b7cdf612ef',
+    operationHash: '534fae829675533052d75fd4aa509b9cf85b4d40',
   },
 } as unknown as TypedDocumentString<
   ValidateCartMutationMutation,
@@ -2042,7 +2048,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: '511d2df2394f0413280b0df75ad14a8506f746b5',
+    operationHash: 'cedeb0c3e7ec1678400fe2ae930f5a79382fba1e',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,

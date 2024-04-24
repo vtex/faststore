@@ -58,6 +58,7 @@ export const ValidateCartMutation = gql(`
   fragment CartProductItem on StoreProduct {
     sku
     name
+    unitMultiplier
     image {
       url
       alternateName
