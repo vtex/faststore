@@ -1538,6 +1538,17 @@
               "default": "Description"
             }
           }
+        },
+        "quantitySelector": {
+          "title": "Quantity Selector",
+          "type": "object",
+          "properties": {
+            "useUnitMultiplier": {
+              "title": "Should use unit multiplier?",
+              "type": "boolean",
+              "default": false
+            }
+          }
         }
       }
     }
@@ -1829,6 +1840,17 @@
                   "default": "Arrow Right icon"
                 }
               }
+            }
+          }
+        },
+        "quantitySelector": {
+          "title": "Quantity Selector",
+          "type": "object",
+          "properties": {
+            "useUnitMultiplier": {
+              "title": "Should use unit multiplier?",
+              "type": "boolean",
+              "default": false
             }
           }
         }
