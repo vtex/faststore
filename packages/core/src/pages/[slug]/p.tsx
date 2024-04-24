@@ -60,7 +60,7 @@ const overwriteMerge = (_, sourceArray) => sourceArray
 function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   const { product } = server
   const { currency } = useSession()
-  const { titleTemplate } = storeConfig.seo
+  const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
 
   // Stale while revalidate the product for fetching the new price etc
   const { data: client, isValidating } = useProductQuery(product.id, {
