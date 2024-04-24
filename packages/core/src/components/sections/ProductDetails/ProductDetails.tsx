@@ -52,7 +52,7 @@ export interface ProductDetailsProps {
     title: string
   }
   quantitySelector: {
-    useUnitMultiplier: boolean
+    useUnitMultiplier?: boolean
   }
 }
 
@@ -74,7 +74,7 @@ function ProductDetails({
     displayDescription: shouldDisplayProductDescription,
   },
   notAvailableButton: { title: notAvailableButtonTitle },
-  quantitySelector: { useUnitMultiplier: useUnitMultiplierOnQuantitySelector },
+  quantitySelector,
 }: ProductDetailsProps) {
   const {
     DiscountBadge,
@@ -192,7 +192,7 @@ function ProductDetails({
                 notAvailableButtonTitle={
                   notAvailableButtonTitle ?? NotAvailableButton.props.title
                 }
-                useUnitMultiplier={useUnitMultiplierOnQuantitySelector}
+                useUnitMultiplier={quantitySelector.useUnitMultiplier}
               />
             </section>
 

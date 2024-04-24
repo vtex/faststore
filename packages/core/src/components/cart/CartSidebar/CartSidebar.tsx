@@ -70,7 +70,7 @@ export interface CartSidebarProps {
     }
   }
   quantitySelector: {
-    useUnitMultiplier: boolean
+    useUnitMultiplier?: boolean
   }
 }
 
@@ -85,7 +85,7 @@ function CartSidebar({
     loadingLabel: checkoutLoadingLabel,
     icon: { icon: checkoutButtonIcon, alt: checkoutButtonIconAlt },
   },
-  quantitySelector: { useUnitMultiplier: useUnitMultiplierOnQuantitySelector },
+  quantitySelector,
 }: CartSidebarProps) {
   const btnProps = useCheckoutButton()
   const { items, gifts, totalItems, isValidating, subTotal, total } = useCart()
@@ -126,7 +126,9 @@ function CartSidebar({
                     <li key={item.id}>
                       <CartItem
                         item={item}
-                        useUnitMultiplier={useUnitMultiplierOnQuantitySelector}
+                        useUnitMultiplier={
+                          quantitySelector.useUnitMultiplier ?? false
+                        }
                       />
                     </li>
                   ))}
