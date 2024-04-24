@@ -60,6 +60,7 @@ const overwriteMerge = (_, sourceArray) => sourceArray
 function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   const { product } = server
   const { currency } = useSession()
+  const { titleTemplate } = storeConfig.seo
 
   // Stale while revalidate the product for fetching the new price etc
   const { data: client, isValidating } = useProductQuery(product.id, {
@@ -100,6 +101,7 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
             content: currency.code,
           },
         ]}
+        titleTemplate={titleTemplate}
       />
       <BreadcrumbJsonLd
         itemListElements={product.breadcrumbList.itemListElement}
