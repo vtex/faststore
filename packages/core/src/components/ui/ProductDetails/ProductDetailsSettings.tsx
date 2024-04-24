@@ -23,6 +23,7 @@ interface ProductDetailsSettingsProps {
   quantity: number
   setQuantity: Dispatch<SetStateAction<number>>
   notAvailableButtonTitle: string
+  useUnitMultiplier: boolean
 }
 
 function ProductDetailsSettings({
@@ -33,6 +34,7 @@ function ProductDetailsSettings({
   setQuantity,
   buyButtonIcon: { icon: buyButtonIconName, alt: buyButtonIconAlt },
   notAvailableButtonTitle,
+  useUnitMultiplier,
 }: ProductDetailsSettingsProps) {
   const {
     BuyButton,
@@ -41,8 +43,6 @@ function ProductDetailsSettings({
     QuantitySelector,
     __experimentalNotAvailableButton: NotAvailableButton,
   } = useOverrideComponents<'ProductDetails'>()
-
-  const useUnitMultiplier = config.api.useUnitMultiplier
 
   const {
     id,
@@ -74,6 +74,7 @@ function ProductDetailsSettings({
       brand,
       isVariantOf,
       additionalProperty,
+      unitMultiplier,
     },
   })
 
@@ -117,10 +118,10 @@ function ProductDetailsSettings({
             {...ProductPrice.props}
           />
           <QuantitySelector.Component
-            min={useUnitMultiplier ? unitMultiplier : 1}
+            min={1}
             max={10}
             unitMultiplier={useUnitMultiplier ? unitMultiplier : 1}
-            initial={useUnitMultiplier ? unitMultiplier : 1}
+            useUnitMultiplier={useUnitMultiplier}
             {...QuantitySelector.props}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
