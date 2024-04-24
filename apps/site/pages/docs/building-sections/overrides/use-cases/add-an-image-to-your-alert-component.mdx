@@ -39,7 +39,7 @@ By leveraging `getOverriddenSection`, you can create a custom component called `
 
    ```tsx
     import { AlertSection, getOverriddenSection } from "@faststore/core";
-    import Image from "next/image";
+    import { Image_unstable as Image } from "@faststore/core/experimental";
     import { useMemo } from "react";
     interface AlertWithImageProps
     extends Omit<
@@ -65,7 +65,7 @@ By leveraging `getOverriddenSection`, you can create a custom component called `
         getOverriddenSection({
             Section: AlertSection,
             components: {
-            Icon: { Component: () => <Image src={props.src} width={24} height={24} /> },
+            Icon: { Component: () => <Image src={props.src} alt="custom icon" width={24} height={24} /> },
             },
         }),
         []
@@ -80,7 +80,7 @@ By leveraging `getOverriddenSection`, you can create a custom component called `
    - The core functionality lies within the `useMemo` hook.
        - It defines the `OverriddenAlert` constant using `getOverriddenSection`.
        - The override options specify:
-           - **`section`:** The section to be overridden (Alert).
+           - **`Section`:** The section to be overridden (Alert).
            - **`components`:** An object containing the override for the Icon component.
                - Inside the Icon override:
                    - **`Component`:** A function returning an `Image` component from the `next/image` library. This displays the image specified by the `src` prop.

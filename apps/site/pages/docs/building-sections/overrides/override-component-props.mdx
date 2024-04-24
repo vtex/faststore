@@ -27,7 +27,7 @@ it, refer to this [release note](https://github.com/vtex/faststore/releases/tag/
 1. After choosing a native section to be customized from the [list of available native sections](/tbd), open your FastStore project in any code editor of your preference.
 2. Go to the `src` folder, create the `components` folder, and inside it, create the `sections` folder. You can run the following command to create them:
 
-> ℹ️ The naming of the folders is arbitrary, as overrides can be created in any file. 
+> ℹ️ The naming of the `sections` folder is arbitrary, as overrides can be created in any file, since the import is made in the `src/components/index.tsx` file. 
 
 <Tabs items={['macOS and Linux', 'Windows']}>
   <Tab>```bash copy mkdir src/components src/components/sections ```</Tab>
@@ -105,8 +105,8 @@ To integrate the section into the [Headless CMS](https://developers.vtex.com/doc
 4. Add the schema of the new section to the `sections.json` file, named `ProductDetailsWithCustomButton`, to the `sections.json` file:
 
 ```json filename="sections.json" copy
-  [
-    {
+[
+  {
     "name": "ProductDetailsWithCustomButton",
     "requiredScopes": ["pdp"],
     "schema": {
@@ -249,7 +249,7 @@ This schema Adds the new `Product Details with custom button` section to the Hea
 6. run the following command to sync your changes with the Headless CMS:
 
 ```bash
-faststore cms-sync
+yarn cms-sync
 ```
 7. Access the VTEX Admin and proceed to **Storefront > Headless CMS**.
 
