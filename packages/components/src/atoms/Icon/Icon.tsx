@@ -60,7 +60,7 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
 
   if (name.startsWith('fs-')) {
     library = 'material'
-    name = `${name}${size ?? 20}`
+    name = `${name}-${size ?? 20}`
   }
   else {
     library = 'phosphor'
