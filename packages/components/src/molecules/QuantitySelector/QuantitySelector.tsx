@@ -53,8 +53,6 @@ const QuantitySelector = ({
   const [quantity, setQuantity] = useState<number>(initial ?? min)
   const [multipliedUnit, setMultipliedUnit] = useState<number>(quantity * unitMultiplier)
 
-  console.log(multipliedUnit)
-
   const roundUpQuantityIfNeeded = (quantity: number) => {
     if(!useUnitMultiplier){
       return quantity
