@@ -70,9 +70,9 @@ const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
       isDesktop = false,
       renderLink,
       homeLink,
-      dropdownButtonIcon = <Icon name="DotsThree" />,
+      dropdownButtonIcon = <Icon name="fs-dots-three" />,
       collapsedItemsIcon = (
-        <Icon data-fs-dropdown-item-icon name="ArrowElbowDownRight" />
+        <Icon data-fs-dropdown-item-icon name="fs-arrow-elbow-down-right" />
       ),
       ...otherProps
     },

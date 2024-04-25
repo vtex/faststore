@@ -43,7 +43,7 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(function Tag(
         aria-label={iconButtonLabel ? iconButtonLabel : 'remove'}
         onClick={onClose}
       >
-        {!!icon ? icon : <Icon name="X" />}
+        {!!icon ? icon : <Icon name="fs-x" />}
       </button>
     </Badge>
   )

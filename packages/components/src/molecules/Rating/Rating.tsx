@@ -47,7 +47,7 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
   const [hover, setHover] = useState(0)
 
   const outlineProps = { 'data-fs-rating-icon-outline': true }
-  const ratingIcon = React.isValidElement(icon) ? icon : <Icon name="Star" />
+  const ratingIcon = React.isValidElement(icon) ? icon : <Icon name="fs-star" />
 
   return (
     <List
@@ -96,7 +96,7 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
                 {React.isValidElement(icon) ? (
                   React.cloneElement(icon, outlineProps)
                 ) : (
-                  <Icon name="Star" data-fs-rating-icon-outline />
+                  <Icon name="fs-star" data-fs-rating-icon-outline />
                 )}
               </>
             )}

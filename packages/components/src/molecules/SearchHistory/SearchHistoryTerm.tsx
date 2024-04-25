@@ -25,7 +25,7 @@ const SearchHistoryTerm = ({
   testId = 'fs-search-history-term',
   value,
   linkProps,
-  icon = <Icon name="ClockClockwise" width={18} height={18} />,
+  icon = <Icon name="fs-clock-clockwise" size={20} />,
 }: SearchHistoryTermProps) => {
   return (
     <li data-fs-search-history-item data-testid={testId}>
