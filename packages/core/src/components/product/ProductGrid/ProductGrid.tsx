@@ -49,6 +49,7 @@ function ProductGrid({
                 width: 150,
                 height: 150,
                 sizes: '30vw',
+                loading: idx === 0 ? 'eager' : 'lazy',
               }}
               {...ProductCard.props}
               bordered={bordered ?? ProductCard.props.bordered}
