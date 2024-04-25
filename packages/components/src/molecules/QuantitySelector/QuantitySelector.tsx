@@ -53,6 +53,8 @@ const QuantitySelector = ({
   const [quantity, setQuantity] = useState<number>(initial ?? min)
   const [multipliedUnit, setMultipliedUnit] = useState<number>(quantity * unitMultiplier)
 
+  console.log(multipliedUnit)
+
   const roundUpQuantityIfNeeded = (quantity: number) => {
     if(!useUnitMultiplier){
       return quantity
@@ -76,7 +78,20 @@ const QuantitySelector = ({
   const decrease = () => changeQuantity(-1)
 
   function validateQuantityBounds(n: number): number {
-    return min ? Math.max(n, min) : n
+    const maxValue = min ? Math.max(n, min) : n
+
+    return max ? Math.min(maxValue, useUnitMultiplier ? max * unitMultiplier : max) : maxValue
+  }
+
+  function validateBlur() {
+      const roundedQuantity = roundUpQuantityIfNeeded(quantity)
+
+      setQuantity(() => {
+        setMultipliedUnit(roundedQuantity)
+        onChange?.(roundedQuantity / unitMultiplier)
+
+        return roundedQuantity / unitMultiplier
+      })
   }
 
   function validateInput(e: React.FormEvent<HTMLInputElement>) {
@@ -85,17 +100,15 @@ const QuantitySelector = ({
     if (!Number.isNaN(Number(val))) {
       setQuantity(() => {
         const quantityValue = validateQuantityBounds(Number(val))
-        const roundedQuantity = roundUpQuantityIfNeeded(quantityValue)
+        setMultipliedUnit(quantityValue)
+        onChange?.(quantityValue)
 
-
-        setMultipliedUnit(roundedQuantity)
-        onChange?.(roundedQuantity / unitMultiplier)
-
-        return roundedQuantity
+        return quantityValue
       })
     }
   }
 
+  
   useEffect(() => {
     initial && setQuantity(initial)
   }, [initial])
@@ -122,6 +135,7 @@ const QuantitySelector = ({
         aria-label="Quantity"
         value={useUnitMultiplier ? multipliedUnit : quantity}
         onChange={validateInput}
+        onBlur={validateBlur}
         disabled={disabled}
       />
       <IconButton
