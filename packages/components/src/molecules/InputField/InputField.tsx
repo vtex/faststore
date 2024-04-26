@@ -103,13 +103,12 @@ const InputField = ({
         {...otherProps}
       />
       <Label htmlFor={id}>{label}</Label>
-
       {shouldDisplayButton &&
         (displayClearButton || error ? (
           <IconButton
             size="small"
             aria-label="Clear Field"
-            icon={<Icon name="XCircle" />}
+            icon={<Icon name="fs-x-circle" />}
             onClick={() => {
               onClear?.()
               inputRef?.current?.focus()
