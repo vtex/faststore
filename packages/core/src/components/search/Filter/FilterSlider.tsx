@@ -126,7 +126,11 @@ function FilterSlider({
                   facetKey={facet.key}
                   min={facet.min}
                   max={facet.max}
-                  formatter={useFormattedPrice}
+                  formatter={
+                    facet.key.toLowerCase() === 'price'
+                      ? useFormattedPrice
+                      : undefined
+                  }
                   onFacetChange={(facet) =>
                     dispatch({
                       type: 'setFacet',
