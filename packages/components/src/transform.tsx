@@ -1,8 +1,10 @@
 import { API, FileInfo } from 'jscodeshift'
 
 const kebabCase = (str: string) => {
-  return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
-}
+  return str
+    .replace(/^([A-Z])/, (match: string) => match.toLowerCase()).replace(/([A-Z])/g, '-$1').toLowerCase(); 
+};
+// XYCircle => x-y-circle
 
 export default function transformer(file: FileInfo, api: API) {
   const j = api.jscodeshift.withParser('tsx')
@@ -68,12 +70,15 @@ export default function transformer(file: FileInfo, api: API) {
           : heightAttr?.value?.expression?.value
 
         if (sizeValue) {
-          // Size value can only be 20 | 24 | 32 , if else changes to 20
+          // Size value can only be 20 | 24 | 32 , other size sets default to 20
 
-          let newSizeValue = sizeValue
-
-          if (sizeValue !== 20 || sizeValue !== 24 || sizeValue !== 32) {
-            newSizeValue = 20
+          let newSizeValue;
+          
+          if ([20, 24, 32].includes(sizeValue)) {
+            newSizeValue = sizeValue;
+          } 
+          else {
+            newSizeValue = 20;
           }
 
           // Create size prop
