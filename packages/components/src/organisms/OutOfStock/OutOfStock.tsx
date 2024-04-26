@@ -67,7 +67,7 @@ const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
         <h2 data-fs-out-of-stock-title>{title}</h2>
         {subtitle && (
           <p data-fs-out-of-stock-message>
-            <Icon name="BellRinging" width={16} height={16} />
+            <Icon name="fs-bell-ringing" size={20} />
             {subtitle}
           </p>
         )}
@@ -86,7 +86,7 @@ const OutOfStock = forwardRef<HTMLFormElement, OutOfStockProps>(
           loadingLabel={loadingLabel}
           disabled={disabled}
           variant="primary"
-          icon={<Icon name="BellRinging" />}
+          icon={<Icon name="fs-bell-ringing" />}
           iconPosition="left"
         >
           {buttonLabel}

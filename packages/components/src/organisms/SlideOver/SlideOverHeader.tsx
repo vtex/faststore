@@ -30,7 +30,7 @@ const SlideOverHeader = ({
       <IconButton
         data-fs-slide-over-header-icon
         aria-label="Close"
-        icon={<Icon name="X" />}
+        icon={<Icon name="fs-x" />}
         onClick={onClose}
         {...closeBtnProps}
       />
