@@ -10,8 +10,18 @@ import type { Resolver } from '..'
 export type Root = Facet
 
 export const StoreFacet: Record<string, Resolver<Root>> = {
-  __resolveType: ({ type }) =>
-    type === 'TEXT' ? 'StoreFacetBoolean' : 'StoreFacetRange',
+  __resolveType: ({ type, values }) =>
+    {
+      if (type !== 'TEXT') {
+        return 'StoreFacetRange'
+      }
+
+      if (values.every((value) => (value as FacetValueRange).range)) {
+        return 'StoreFacetRange'
+      }
+
+      return 'StoreFacetBoolean'
+    },
 }
 
 export const StoreFacetBoolean: Record<
