@@ -19,8 +19,8 @@ import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import dynamicContent from 'src/customizations/src/dynamicContent'
 import PageProvider from 'src/sdk/overrides/PageProvider'
+import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../faststore.config'
 
 /* A list of components that can be used in the CMS. */
@@ -98,22 +98,7 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  // Checking if the fetch function corresponding to the home exists
-  const fetchFunction = dynamicContent['home']
-  let serverData = null
-
-  if (!fetchFunction) {
-    console.warn('Warning: Fetch function not found for the home page')
-  } else {
-    // Calling the fetch function corresponding to the home
-    const { data, errors = [] } = await fetchFunction()
-    serverData = data
-
-    if (errors.length > 0) {
-      console.error(...errors)
-    }
-  }
-
+  const serverData = await getDynamicContent({ pageType: 'home' })
   const globalSections = await getGlobalSectionsData(previewData)
 
   if (storeConfig.cms.data) {
