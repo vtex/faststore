@@ -11,7 +11,7 @@ function RegionButton({ icon, label }: { icon: string; label: string }) {
     <UIButton
       variant="tertiary"
       size="small"
-      icon={<Icon name={icon} width={18} height={18} weight="bold" />}
+      icon={<Icon name={icon} size={20} />}
       iconPosition="left"
       onClick={openModal}
     >

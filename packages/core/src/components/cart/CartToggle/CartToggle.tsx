@@ -14,7 +14,7 @@ function CartToggle({ alt, icon }: { alt: string; icon: string }) {
     <UIIconButton
       data-fs-cart-toggle
       aria-label={alt}
-      icon={<UIIcon name={icon} width={32} height={32} />}
+      icon={<UIIcon name={icon} size={32} />}
       {...btnProps}
     >
       <UIBadge counter>{totalItems}</UIBadge>

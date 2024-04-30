@@ -29,9 +29,7 @@ const Breadcrumb = ({
           prefetch={false}
         >
           <Icon.Component
-            width={18}
-            height={18}
-            weight="bold"
+            size={20}
             {...Icon.props}
             name={icon ?? Icon.props.name ?? 'Home'}
           />

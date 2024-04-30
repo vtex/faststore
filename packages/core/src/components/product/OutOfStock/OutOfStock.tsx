@@ -28,7 +28,7 @@ function OutOfStock() {
         title: 'Subscribed successfully!',
         message: "You'll be notified when this product is back to stock.",
         status: 'INFO',
-        icon: <Icon name="CircleWavyCheck" width={30} height={30} />,
+        icon: <Icon name="CircleWavyCheck" size={32} />,
       })
     } catch (err) {
       setError(err.message)
