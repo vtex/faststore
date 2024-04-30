@@ -222,7 +222,6 @@ function CartSidebar({
                           <Icon
                             name={checkoutButtonIcon}
                             aria-label={checkoutButtonIconAlt}
-                            size={20}
                           />
                         )
                       }
