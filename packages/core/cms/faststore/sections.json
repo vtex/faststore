@@ -357,13 +357,9 @@
                     "icon": {
                       "title": "Icon",
                       "type": "string",
-                      "enumNames": [
-                        "List"
-                      ],
-                      "enum": [
-                        "List"
-                      ],
-                      "default": "List"
+                      "enumNames": ["List"],
+                      "enum": ["fs-list"],
+                      "default": "fs-list"
                     },
                     "alt": {
                       "title": "Alternative Label",
