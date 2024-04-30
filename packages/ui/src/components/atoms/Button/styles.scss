@@ -6,7 +6,7 @@
   // Default properties
   --fs-button-padding                               : calc(var(--fs-spacing-1) - (var(--fs-button-border-width) * 2)) var(--fs-spacing-3);
   --fs-button-height                                : var(--fs-control-tap-size);
-  --fs-button-gap                                   : var(--fs-spacing-2);
+  --fs-button-gap                                   : var(--fs-spacing-1);
 
   --fs-button-shadow                                : var(--fs-shadow);
   --fs-button-shadow-hover                          : var(--fs-button-shadow);
@@ -102,8 +102,6 @@
   --fs-button-small-padding                         : var(--fs-spacing-0) var(--fs-spacing-1);
   --fs-button-small-min-height                      : var(--fs-spacing-7);
   --fs-button-small-gap                             : var(--fs-spacing-1);
-  --fs-button-small-icon-width                      : var(--fs-spacing-3);
-  --fs-button-small-icon-height                     : var(--fs-button-small-icon-width);
 
   // Icon
   --fs-button-icon-padding                          : 0 var(--fs-spacing-1);
@@ -179,13 +177,6 @@
     [data-fs-button-wrapper] {
       column-gap: var(--fs-button-small-gap);
       padding: var(--fs-button-small-padding);
-    }
-
-    &:not([data-fs-icon-button="true"]) {
-      [data-fs-icon] {
-        width: var(--fs-button-small-icon-width);
-        height: var(--fs-button-small-icon-height);
-      }
     }
   }
 
