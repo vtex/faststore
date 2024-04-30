@@ -15,7 +15,7 @@ function EmptyCart({ onDismiss }: Props) {
   return (
     <UIEmptyState
       title="Your Cart is empty"
-      titleIcon={<UIIcon name="ShoppingCart" size={32} />}
+      titleIcon={<UIIcon name="fs-shopping-cart" size={32} />}
     >
       <UIButton onClick={onDismiss} variant="secondary">
         Start Shopping

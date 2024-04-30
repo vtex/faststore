@@ -23,21 +23,12 @@ function EmptyGallery({ title, firstButton, secondButton }: EmptyGalleryProps) {
     <UIEmptyState
       variant="rounded"
       title={title ?? 'Nothing matches with your search'}
-      titleIcon={
-        <UIIcon name="CircleWavyWarning" width={56} height={56} weight="thin" />
-      }
+      titleIcon={<UIIcon name="fs-circle-wavy-warning" size={32} />}
     >
       <UILinkButton
         href={firstButton?.url ?? '/office'}
         variant="secondary"
-        icon={
-          <UIIcon
-            name={firstButton?.icon ?? 'CircleWavyWarning'}
-            width={18}
-            height={18}
-            weight="bold"
-          />
-        }
+        icon={<UIIcon name={firstButton?.icon ?? 'fs-circle-wavy-warning'} />}
         iconPosition="left"
       >
         {firstButton?.label ?? 'Browse Offers'}
@@ -45,14 +36,7 @@ function EmptyGallery({ title, firstButton, secondButton }: EmptyGalleryProps) {
       <UILinkButton
         href={secondButton?.url ?? '/technology'}
         variant="secondary"
-        icon={
-          <UIIcon
-            name={secondButton?.icon ?? 'RocketLaunch'}
-            width={18}
-            height={18}
-            weight="bold"
-          />
-        }
+        icon={<UIIcon name={secondButton?.icon ?? 'fs-rocket-launch'} />}
         iconPosition="left"
       >
         {secondButton?.label ?? 'Just Arrived'}
