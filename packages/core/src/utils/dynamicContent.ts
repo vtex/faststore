@@ -7,7 +7,7 @@ export async function getDynamicContent({ pageType }: { pageType: string }) {
 
   if (!fetchFunction) {
     console.warn(
-      `Warning: Dynamic Content not found for the page: ${pageType}. Please follow the instructions from the Dynamic Content documentation for mapping the page and the corresponding data-fetching function: https://developers.vtex.com/docs/guides/faststore/dynamic-content-overview.`
+      `Warning: Dynamic Content not found for the page: ${pageType}. Refer to the Dynamic Content documentation at https://developers.vtex.com/docs/guides/faststore/dynamic-content-overview for mapping the page and the corresponding data-fetching function.`
     )
   } else {
     // Calling the fetch function corresponding to the page
