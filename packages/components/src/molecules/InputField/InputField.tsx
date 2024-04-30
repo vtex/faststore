@@ -108,7 +108,7 @@ const InputField = ({
           <IconButton
             size="small"
             aria-label="Clear Field"
-            icon={<Icon name="fs-x-circle" />}
+            icon={<Icon name="fs-x-circle" size={20} />}
             onClick={() => {
               onClear?.()
               inputRef?.current?.focus()
