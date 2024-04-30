@@ -124,7 +124,7 @@ function Navbar({
               <IconButton.Component
                 data-fs-navbar-button-menu
                 onClick={openNavbar}
-                icon={<UIIcon name={menuIcon} size={32} />}
+                icon={<UIIcon name={menuIcon} />}
                 {...IconButton.props}
                 aria-label={menuIconAlt ?? IconButton.props['aria-label']}
               />
@@ -154,7 +154,7 @@ function Navbar({
               <IconButton.Component
                 data-fs-button-collapse
                 aria-label="Collapse search bar"
-                icon={<UIIcon name="CaretLeft" size={32} />}
+                icon={<UIIcon name="fs-caret-left" />}
                 {...IconButton.props}
                 // Dynamic props, shouldn't be overridable
                 // This decision can be reviewed later if needed
