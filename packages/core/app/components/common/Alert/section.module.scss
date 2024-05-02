@@ -1,0 +1,10 @@
+@layer components {
+  .section {
+    [data-fs-content="alert"] { @include layout-content-full; }
+
+    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Button/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Link/styles.scss";
+    @import "@faststore/ui/src/components/molecules/Alert/styles.scss";
+  }
+}

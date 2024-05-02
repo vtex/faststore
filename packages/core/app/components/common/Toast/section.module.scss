@@ -1,0 +1,6 @@
+@layer components {
+  .section {
+    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+    @import "@faststore/ui/src/components/molecules/Toast/styles.scss";
+  }
+}

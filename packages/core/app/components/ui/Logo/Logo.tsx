@@ -1,0 +1,26 @@
+import type { ImageProps } from 'app/components/ui/Image'
+import { Image } from 'app/components/ui/Image'
+
+interface LogoProps {
+  alt: string
+  src: string
+  loading?: ImageProps['loading']
+}
+
+function Logo({ alt, src, loading = 'lazy' }: LogoProps) {
+  return (
+    <div data-fs-logo>
+      <Image
+        alt={alt}
+        src={src}
+        width={0}
+        height={0}
+        sizes="15vw"
+        loading={loading}
+        style={{ width: '100%', height: 'auto' }}
+      />
+    </div>
+  )
+}
+
+export default Logo
