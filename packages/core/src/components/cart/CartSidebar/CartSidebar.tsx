@@ -127,7 +127,7 @@ function CartSidebar({
                       <CartItem
                         item={item}
                         useUnitMultiplier={
-                          quantitySelector.useUnitMultiplier ?? false
+                          quantitySelector?.useUnitMultiplier ?? false
                         }
                       />
                     </li>

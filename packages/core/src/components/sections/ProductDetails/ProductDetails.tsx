@@ -192,7 +192,7 @@ function ProductDetails({
                 notAvailableButtonTitle={
                   notAvailableButtonTitle ?? NotAvailableButton.props.title
                 }
-                useUnitMultiplier={quantitySelector.useUnitMultiplier}
+                useUnitMultiplier={quantitySelector?.useUnitMultiplier ?? false}
               />
             </section>
 
