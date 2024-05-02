@@ -41,6 +41,7 @@ const nextConfig = {
         }
       })
 
+    // Make css order works as expected in Next 13. See https://github.com/vercel/next.js/issues/51030#issuecomment-2005254907
     config.plugins.push(
       new webpack.BannerPlugin({
         banner: '@layer base, components, theme;',
