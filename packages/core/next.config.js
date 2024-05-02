@@ -1,6 +1,7 @@
 // @ts-check
 const path = require('path')
 const storeConfig = require('./faststore.config')
+const webpack = require('webpack')
 
 /**
  * @type {import('next').NextConfig}
@@ -39,6 +40,15 @@ const nextConfig = {
           options.modules.exportLocalsConvention = 'camelCase'
         }
       })
+
+    config.plugins.push(
+      new webpack.BannerPlugin({
+        banner: '@layer base, components, theme;',
+        test: /\.css$/,
+        raw: true,
+        entryOnly: false,
+      })
+    )
 
     // Reduce the number of chunks so we ship a smaller first bundle.
     // This should help reducing TBT
