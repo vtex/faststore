@@ -63,11 +63,13 @@ export function getOverriddenSection<
   const { Section, ...rest } = override
 
   /** This type wizardry is here because the props won't behave correctly if nothing is done */
+  // @ts-ignore
   const OverridableSection = Section as ComponentType<ComponentProps<Section>>
 
   return function OverriddenSection(
     props: ComponentProps<typeof OverridableSection>
   ) {
+    // @ts-ignore
     return <OverridableSection {...props} {...{ __overrides: rest }} />
   }
 }

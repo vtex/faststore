@@ -42,16 +42,16 @@ import type {
 import type { PropsWithChildren } from 'react'
 
 import Alert from '../components/sections/Alert'
-import BannerText from '../components/sections/BannerText'
-import Breadcrumb from '../components/sections/Breadcrumb'
-import CrossSellingShelf from '../components/sections/CrossSellingShelf'
-import EmptyState from '../components/sections/EmptyState'
-import Hero from '../components/sections/Hero'
+// import BannerText from '../components/sections/BannerText'
+// import Breadcrumb from '../components/sections/Breadcrumb'
+// import CrossSellingShelf from '../components/sections/CrossSellingShelf'
+// import EmptyState from '../components/sections/EmptyState'
+// import Hero from '../components/sections/Hero'
 import Navbar from '../components/sections/Navbar'
-import Newsletter from '../components/sections/Newsletter'
-import ProductDetails from '../components/sections/ProductDetails'
-import ProductGallery from '../components/sections/ProductGallery'
-import ProductShelf from '../components/sections/ProductShelf'
+// import Newsletter from '../components/sections/Newsletter'
+// import ProductDetails from '../components/sections/ProductDetails'
+// import ProductGallery from '../components/sections/ProductGallery'
+// import ProductShelf from '../components/sections/ProductShelf'
 import RegionBar from '../components/sections/RegionBar'
 import type {
   ComponentOverrideDefinition,
@@ -120,40 +120,40 @@ export type SectionsOverrides = {
       Icon: ComponentOverrideDefinition<IconProps, IconProps>
     }
   }
-  BannerText: {
-    Section: typeof BannerText
-    components: {
-      BannerText: ComponentOverrideDefinition<BannerTextProps, BannerTextProps>
-      BannerTextContent: ComponentOverrideDefinition<
-        BannerTextContentProps,
-        BannerTextContentProps
-      >
-    }
-  }
-  Breadcrumb: {
-    Section: typeof Breadcrumb
-    components: {
-      Breadcrumb: ComponentOverrideDefinition<BreadcrumbProps, BreadcrumbProps>
-      Icon: ComponentOverrideDefinition<IconProps, IconProps>
-    }
-  }
-  EmptyState: {
-    Section: typeof EmptyState
-    components: {
-      EmptyState: ComponentOverrideDefinition<
-        PropsWithChildren<EmptyStateProps>,
-        EmptyStateProps
-      >
-    }
-  }
-  Hero: {
-    Section: typeof Hero
-    components: {
-      Hero: ComponentOverrideDefinition<HeroProps, HeroProps>
-      HeroImage: ComponentOverrideDefinition<HeroImageProps, HeroImageProps>
-      HeroHeader: ComponentOverrideDefinition<HeroHeaderProps, HeroHeaderProps>
-    }
-  }
+  // BannerText: {
+  //   Section: typeof BannerText
+  //   components: {
+  //     BannerText: ComponentOverrideDefinition<BannerTextProps, BannerTextProps>
+  //     BannerTextContent: ComponentOverrideDefinition<
+  //       BannerTextContentProps,
+  //       BannerTextContentProps
+  //     >
+  //   }
+  // }
+  // Breadcrumb: {
+  //   Section: typeof Breadcrumb
+  //   components: {
+  //     Breadcrumb: ComponentOverrideDefinition<BreadcrumbProps, BreadcrumbProps>
+  //     Icon: ComponentOverrideDefinition<IconProps, IconProps>
+  //   }
+  // }
+  // EmptyState: {
+  //   Section: typeof EmptyState
+  //   components: {
+  //     EmptyState: ComponentOverrideDefinition<
+  //       PropsWithChildren<EmptyStateProps>,
+  //       EmptyStateProps
+  //     >
+  //   }
+  // }
+  // Hero: {
+  //   Section: typeof Hero
+  //   components: {
+  //     Hero: ComponentOverrideDefinition<HeroProps, HeroProps>
+  //     HeroImage: ComponentOverrideDefinition<HeroImageProps, HeroImageProps>
+  //     HeroHeader: ComponentOverrideDefinition<HeroHeaderProps, HeroHeaderProps>
+  //   }
+  // }
   Navbar: {
     Section: typeof Navbar
     components: {
@@ -197,146 +197,146 @@ export type SectionsOverrides = {
       >
     }
   }
-  Newsletter: {
-    Section: typeof Newsletter
-    components: {
-      Newsletter: ComponentOverrideDefinition<NewsletterProps, NewsletterProps>
-      NewsletterAddendum: ComponentOverrideDefinition<
-        NewsletterAddendumProps,
-        NewsletterAddendumProps
-      >
-      NewsletterContent: ComponentOverrideDefinition<
-        NewsletterContentProps,
-        NewsletterContentProps
-      >
-      NewsletterForm: ComponentOverrideDefinition<
-        NewsletterFormProps,
-        NewsletterFormProps
-      >
-      NewsletterHeader: ComponentOverrideDefinition<
-        NewsletterHeaderProps,
-        NewsletterHeaderProps
-      >
-      ToastIconSuccess: ComponentOverrideDefinition<IconProps, IconProps>
-      ToastIconError: ComponentOverrideDefinition<IconProps, IconProps>
-      HeaderIcon: ComponentOverrideDefinition<IconProps, IconProps>
-      InputFieldName: ComponentOverrideDefinition<
-        InputFieldProps,
-        Omit<InputFieldProps, 'inputRef'>
-      >
-      InputFieldEmail: ComponentOverrideDefinition<
-        InputFieldProps,
-        Omit<InputFieldProps, 'inputRef'>
-      >
-      Button: ComponentOverrideDefinition<ButtonProps, ButtonProps>
-    }
-  }
-  ProductDetails: {
-    Section: typeof ProductDetails
-    components: {
-      ProductTitle: ComponentOverrideDefinition<
-        ProductTitleProps,
-        ProductTitleProps
-      >
-      DiscountBadge: ComponentOverrideDefinition<
-        DiscountBadgeProps,
-        Omit<DiscountBadgeProps, 'listPrice' | 'spotPrice'>
-      >
-      BuyButton: ComponentOverrideDefinition<ButtonProps, ButtonProps>
-      Icon: ComponentOverrideDefinition<IconProps, IconProps>
-      ProductPrice: ComponentOverrideDefinition<
-        ProductPriceProps,
-        Omit<ProductPriceProps, 'value'>
-      >
-      QuantitySelector: ComponentOverrideDefinition<
-        QuantitySelectorProps,
-        Omit<QuantitySelectorProps, 'onChange'>
-      >
-      SkuSelector: ComponentOverrideDefinition<
-        SkuSelectorProps,
-        SkuSelectorProps
-      >
-      ShippingSimulation: ComponentOverrideDefinition<
-        ShippingSimulationProps,
-        ShippingSimulationProps
-      >
-      ImageGallery: ComponentOverrideDefinition<
-        ImageGalleryProps,
-        ImageGalleryProps
-      >
-      ImageGalleryViewer: ComponentOverrideDefinition<
-        ImageGalleryViewerProps,
-        ImageGalleryViewerProps
-      >
-      __experimentalImageGalleryImage: ComponentOverrideDefinition<any, any>
-      __experimentalImageGallery: ComponentOverrideDefinition<any, any>
-      __experimentalShippingSimulation: ComponentOverrideDefinition<any, any>
-      __experimentalNotAvailableButton: ComponentOverrideDefinition<any, any>
-    }
-  }
-  ProductGallery: {
-    Section: typeof ProductGallery
-    components: {
-      MobileFilterButton: ComponentOverrideDefinition<
-        ButtonProps,
-        Omit<ButtonProps, 'onClick'>
-      >
-      FilterIcon: ComponentOverrideDefinition<IconProps, IconProps>
-      PrevIcon: ComponentOverrideDefinition<IconProps, IconProps>
-      ResultsCountSkeleton: ComponentOverrideDefinition<
-        SkeletonProps,
-        Omit<SkeletonProps, 'loading'>
-      >
-      SortSkeleton: ComponentOverrideDefinition<
-        SkeletonProps,
-        Omit<SkeletonProps, 'loading'>
-      >
-      FilterButtonSkeleton: ComponentOverrideDefinition<
-        SkeletonProps,
-        Omit<SkeletonProps, 'loading'>
-      >
-      LinkButtonPrev: ComponentOverrideDefinition<
-        LinkButtonProps,
-        Omit<LinkButtonProps, 'onClick' | 'href'>
-      >
-      LinkButtonNext: ComponentOverrideDefinition<
-        LinkButtonProps,
-        Omit<LinkButtonProps, 'onClick' | 'href'>
-      >
-      __experimentalFilterDesktop: ComponentOverrideDefinition<any, any>
-      __experimentalFilterSlider: ComponentOverrideDefinition<any, any>
-      __experimentalProductCard: ComponentOverrideDefinition<any, any>
-      __experimentalEmptyGallery: ComponentOverrideDefinition<any, any>
-    }
-  }
-  ProductShelf: {
-    Section: typeof ProductShelf
-    components: {
-      ProductShelf: ComponentOverrideDefinition<
-        ProductShelfProps,
-        ProductShelfProps
-      >
-      __experimentalCarousel: ComponentOverrideDefinition<any, any>
-      __experimentalProductCard: ComponentOverrideDefinition<
-        any,
-        Omit<any, 'key' | 'product' | 'index'>
-      >
-    }
-  }
-  CrossSellingShelf: {
-    Section: typeof CrossSellingShelf
-    components: {
-      ProductShelf: ComponentOverrideDefinition<
-        ProductShelfProps,
-        ProductShelfProps
-      >
-      __experimentalCarousel: ComponentOverrideDefinition<any, any>
-      __experimentalProductCard: ComponentOverrideDefinition<
-        any,
-        Omit<any, 'key' | 'product' | 'index'>
-      >
-    }
-  }
+  // Newsletter: {
+  //   Section: typeof Newsletter
+  //   components: {
+  //     Newsletter: ComponentOverrideDefinition<NewsletterProps, NewsletterProps>
+  //     NewsletterAddendum: ComponentOverrideDefinition<
+  //       NewsletterAddendumProps,
+  //       NewsletterAddendumProps
+  //     >
+  //     NewsletterContent: ComponentOverrideDefinition<
+  //       NewsletterContentProps,
+  //       NewsletterContentProps
+  //     >
+  //     NewsletterForm: ComponentOverrideDefinition<
+  //       NewsletterFormProps,
+  //       NewsletterFormProps
+  //     >
+  //     NewsletterHeader: ComponentOverrideDefinition<
+  //       NewsletterHeaderProps,
+  //       NewsletterHeaderProps
+  //     >
+  //     ToastIconSuccess: ComponentOverrideDefinition<IconProps, IconProps>
+  //     ToastIconError: ComponentOverrideDefinition<IconProps, IconProps>
+  //     HeaderIcon: ComponentOverrideDefinition<IconProps, IconProps>
+  //     InputFieldName: ComponentOverrideDefinition<
+  //       InputFieldProps,
+  //       Omit<InputFieldProps, 'inputRef'>
+  //     >
+  //     InputFieldEmail: ComponentOverrideDefinition<
+  //       InputFieldProps,
+  //       Omit<InputFieldProps, 'inputRef'>
+  //     >
+  //     Button: ComponentOverrideDefinition<ButtonProps, ButtonProps>
+  //   }
+  // }
+  // ProductDetails: {
+  //   Section: typeof ProductDetails
+  //   components: {
+  //     ProductTitle: ComponentOverrideDefinition<
+  //       ProductTitleProps,
+  //       ProductTitleProps
+  //     >
+  //     DiscountBadge: ComponentOverrideDefinition<
+  //       DiscountBadgeProps,
+  //       Omit<DiscountBadgeProps, 'listPrice' | 'spotPrice'>
+  //     >
+  //     BuyButton: ComponentOverrideDefinition<ButtonProps, ButtonProps>
+  //     Icon: ComponentOverrideDefinition<IconProps, IconProps>
+  //     ProductPrice: ComponentOverrideDefinition<
+  //       ProductPriceProps,
+  //       Omit<ProductPriceProps, 'value'>
+  //     >
+  //     QuantitySelector: ComponentOverrideDefinition<
+  //       QuantitySelectorProps,
+  //       Omit<QuantitySelectorProps, 'onChange'>
+  //     >
+  //     SkuSelector: ComponentOverrideDefinition<
+  //       SkuSelectorProps,
+  //       SkuSelectorProps
+  //     >
+  //     ShippingSimulation: ComponentOverrideDefinition<
+  //       ShippingSimulationProps,
+  //       ShippingSimulationProps
+  //     >
+  //     ImageGallery: ComponentOverrideDefinition<
+  //       ImageGalleryProps,
+  //       ImageGalleryProps
+  //     >
+  //     ImageGalleryViewer: ComponentOverrideDefinition<
+  //       ImageGalleryViewerProps,
+  //       ImageGalleryViewerProps
+  //     >
+  //     __experimentalImageGalleryImage: ComponentOverrideDefinition<any, any>
+  //     __experimentalImageGallery: ComponentOverrideDefinition<any, any>
+  //     __experimentalShippingSimulation: ComponentOverrideDefinition<any, any>
+  //     __experimentalNotAvailableButton: ComponentOverrideDefinition<any, any>
+  //   }
+  // }
+  // ProductGallery: {
+  //   Section: typeof ProductGallery
+  //   components: {
+  //     MobileFilterButton: ComponentOverrideDefinition<
+  //       ButtonProps,
+  //       Omit<ButtonProps, 'onClick'>
+  //     >
+  //     FilterIcon: ComponentOverrideDefinition<IconProps, IconProps>
+  //     PrevIcon: ComponentOverrideDefinition<IconProps, IconProps>
+  //     ResultsCountSkeleton: ComponentOverrideDefinition<
+  //       SkeletonProps,
+  //       Omit<SkeletonProps, 'loading'>
+  //     >
+  //     SortSkeleton: ComponentOverrideDefinition<
+  //       SkeletonProps,
+  //       Omit<SkeletonProps, 'loading'>
+  //     >
+  //     FilterButtonSkeleton: ComponentOverrideDefinition<
+  //       SkeletonProps,
+  //       Omit<SkeletonProps, 'loading'>
+  //     >
+  //     LinkButtonPrev: ComponentOverrideDefinition<
+  //       LinkButtonProps,
+  //       Omit<LinkButtonProps, 'onClick' | 'href'>
+  //     >
+  //     LinkButtonNext: ComponentOverrideDefinition<
+  //       LinkButtonProps,
+  //       Omit<LinkButtonProps, 'onClick' | 'href'>
+  //     >
+  //     __experimentalFilterDesktop: ComponentOverrideDefinition<any, any>
+  //     __experimentalFilterSlider: ComponentOverrideDefinition<any, any>
+  //     __experimentalProductCard: ComponentOverrideDefinition<any, any>
+  //     __experimentalEmptyGallery: ComponentOverrideDefinition<any, any>
+  //   }
+  // }
+  // ProductShelf: {
+  //   Section: typeof ProductShelf
+  //   components: {
+  //     ProductShelf: ComponentOverrideDefinition<
+  //       ProductShelfProps,
+  //       ProductShelfProps
+  //     >
+  //     __experimentalCarousel: ComponentOverrideDefinition<any, any>
+  //     __experimentalProductCard: ComponentOverrideDefinition<
+  //       any,
+  //       Omit<any, 'key' | 'product' | 'index'>
+  //     >
+  //   }
+  // }
+  // CrossSellingShelf: {
+  //   Section: typeof CrossSellingShelf
+  //   components: {
+  //     ProductShelf: ComponentOverrideDefinition<
+  //       ProductShelfProps,
+  //       ProductShelfProps
+  //     >
+  //     __experimentalCarousel: ComponentOverrideDefinition<any, any>
+  //     __experimentalProductCard: ComponentOverrideDefinition<
+  //       any,
+  //       Omit<any, 'key' | 'product' | 'index'>
+  //     >
+  //   }
+  // }
   RegionBar: {
     Section: typeof RegionBar
     components: {
