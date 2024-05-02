@@ -13,6 +13,7 @@
     "allowJs": true,
     "paths": {
       "src/*": ["src/*"],
+      "app/*": ["app/*"],
       "@generated/*": ["@generated/*"],
       "@faststore/core": ["index.ts"],
       "@faststore/core/api": ["api/index.ts"],
@@ -25,8 +26,22 @@
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": false
   },
-  "include": ["*.d.ts", "src/**/*.ts", "src/**/*.tsx", "@generated/**/*.ts"],
+  "include": [
+    "*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "@generated/**/*.ts",
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
   "exclude": ["node_modules", "public"]
 }
