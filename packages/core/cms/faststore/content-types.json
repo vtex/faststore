@@ -263,5 +263,11 @@
     "name": "Error 404",
     "configurationSchemaSets": [],
     "isSingleton": true
+  },
+  {
+    "id": "cart",
+    "name": "FastCart",
+    "configurationSchemaSets": [],
+    "isSingleton": true
   }
 ]

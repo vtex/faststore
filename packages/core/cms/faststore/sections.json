@@ -1,5 +1,44 @@
 [
   {
+    "name": "Summary",
+    "requiredScopes": [],
+    "schema": {
+      "title": "Order Summary",
+      "type": "object",
+      "description": "Cart Order Summary",
+      "required": ["title"],
+      "properties": {
+        "title": {
+          "title": "Title Field",
+          "type": "object",
+          "properties": {
+            "value": {
+              "title": "Value",
+              "type": "string",
+              "default": "Order Summary"
+            },
+            "style": {
+              "title": "Style",
+              "type": "object",
+              "properties": {
+                "size": {
+                  "title": "Size",
+                  "type": "integer",
+                  "default": 16
+                },
+                "color": {
+                  "title": "Color",
+                  "type": "string",
+                  "default": "#000"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
     "name": "Search",
     "requiredScopes": [],
     "schema": {
