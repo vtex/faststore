@@ -29,7 +29,7 @@
     "overrides-version-1": {
       "display": "hidden"
   },
-  "overrides-version-1-new-section": {
-    "display": "hidden"
+  "creating-new-section": {
+    "title": "Creating a new section"
 }
   }
