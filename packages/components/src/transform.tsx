@@ -10,7 +10,7 @@ export default function transformer(file: FileInfo, api: API) {
   const j = api.jscodeshift.withParser('tsx')
   const root = j(file.source)
 
-  console.log('Processing file:', file.path)
+ 
 
   root
     .find(j.JSXElement, {
@@ -21,10 +21,11 @@ export default function transformer(file: FileInfo, api: API) {
       },
     })
     .forEach((elementPath) => {
+      console.log('Modifying file:', file.path)
+      
       // Step 1: Replace the name prop using kebab-case
-      elementPath.node.openingElement.attributes =
-        elementPath.node.openingElement.attributes
-          ?.map((attr) => {
+      
+      elementPath.node.openingElement.attributes = elementPath.node.openingElement.attributes.map(attr =>  {
             if (
               attr.type === 'JSXAttribute' &&
               attr.name.name === 'name' &&
@@ -61,7 +62,14 @@ export default function transformer(file: FileInfo, api: API) {
               : heightAttr?.value?.expression?.value
     
             if (sizeValue) {
-              const newSizeValue = [20, 24, 32].includes(sizeValue) ? sizeValue : 20
+                let newSizeValue;
+                if (sizeValue <= 20) {
+                    newSizeValue = 20;
+                } else if (sizeValue >= 32) {
+                    newSizeValue = 32;
+                } else {
+                    return;
+                }
     
               // Create size prop
               const sizeProp = j.jsxAttribute(
@@ -70,17 +78,13 @@ export default function transformer(file: FileInfo, api: API) {
                 j.jsxExpressionContainer(j.literal(newSizeValue))
               )
     
+              
               // Replace width/height with size prop
-              elementPath.node.openingElement.attributes = [
-                ...(elementPath.node.openingElement.attributes || []).filter(
-                  (attr: any) =>
-                    attr.name.name !== 'width' && attr.name.name !== 'height'
-                ),
-                sizeProp,
-              ]
+              elementPath.node.openingElement.attributes = elementPath.node.openingElement.attributes.filter(
+                attr => attr.name.name !== 'width' && attr.name.name !== 'height'
+              ).concat(sizeProp);
             }
           }
-          
     })
   return root.toSource()
 }
