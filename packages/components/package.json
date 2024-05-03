@@ -18,8 +18,7 @@
     "dev": "tsc --watch",
     "build": "tsc --module commonjs --outDir dist/cjs && tsc --module esnext --outDir dist/esm",
     "lint": "eslint src/**/*.{ts,tsx}",
-    "test": "jest",
-    "codemod": "jscodeshift -t ./src/transform.tsx src/atoms/**/*.tsx"
+    "codemod": "jscodeshift -t ./src/update-new-icons.tsx src/atoms/**/*.tsx"
   },
   "repository": {
     "type": "git",
