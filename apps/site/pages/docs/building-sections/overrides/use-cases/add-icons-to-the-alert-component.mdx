@@ -13,83 +13,80 @@ By leveraging `getOverriddenSection`, you can customize the Alert section's Heal
 
 1. Import the necessary component:
 
-   ```tsx
-   import { getOverriddenSection } from "@faststore/core";
-   ```
+```tsx
+import { getOverriddenSection } from '@faststore/core'
+```
 
 2. Define the `CustomIconsAlert` component:
 
-   ```tsx
+```tsx
 /**
  * This is an alert override with custom icon options in the Headless CMS.
  *
  * Changes only the schema to include more options for native Icons supported by @faststore/ui.
  */
 
-import { AlertSection, getOverriddenSection } from "@faststore/core";
+import { AlertSection, getOverriddenSection } from '@faststore/core'
 
 const CustomIconsAlert = getOverriddenSection({
   Section: AlertSection,
-});
+})
 
-export default CustomIconsAlert;
+export default CustomIconsAlert
+```
 
-   ```
-
-   - This component is defined using `getOverriddenSection`.
-   - The override options specify:
-       - **`Section`:** The section to be overridden (Alert).
-       - Since no further modifications are needed for this basic customization, the options object is empty.
+- This component is defined using `getOverriddenSection`.
+- The override options specify:
+  - **`Section`:** The section to be overridden (Alert).
+  - Since no further modifications are needed for this basic customization, the options object is empty.
 
 3. Add the section to the Headless CMS by following the instructions available in [Sending components to the Headless CMS](/docs/building-sections/overrides/sending-components-to-the-headless-cms).
-For the schema it was used the following:
+   For the schema it was used the following:
 
 ```json
-
 {
-      "name": "CustomIconsAlert",
-      "schema": {
-        "title": "Alert with more Icon options",
-        "description": "Add an alert that has more Icon options",
-        "type": "object",
-        "required": ["icon", "content", "dismissible"],
-        "properties": {
-          "icon": {
-            "type": "string",
-            "title": "Icon",
-            "enumNames": [
-              "Bell",
-              "BellRinging",
-              "Checked",
-              "Info",
-              "Truck",
-              "User",
-              "Plus",
-              "PlusCircle",
-              "Ruler",
-              "Star",
-              "Storefront",
-              "Twitter"
-            ],
-            "enum": [
-              "Bell",
-              "BellRinging",
-              "Checked",
-              "Info",
-              "Truck",
-              "User",
-              "Plus",
-              "PlusCircle",
-              "Ruler",
-              "Star",
-              "Storefront",
-              "Twitter"
-            ]
-          }
-        }
+  "name": "CustomIconsAlert",
+  "schema": {
+    "title": "Alert with more Icon options",
+    "description": "Add an alert that has more Icon options",
+    "type": "object",
+    "required": ["icon", "content", "dismissible"],
+    "properties": {
+      "icon": {
+        "type": "string",
+        "title": "Icon",
+        "enumNames": [
+          "Bell",
+          "BellRinging",
+          "Checked",
+          "Info",
+          "Truck",
+          "User",
+          "Plus",
+          "PlusCircle",
+          "Ruler",
+          "Star",
+          "Storefront",
+          "Twitter"
+        ],
+        "enum": [
+          "Bell",
+          "BellRinging",
+          "Checked",
+          "Info",
+          "Truck",
+          "User",
+          "Plus",
+          "PlusCircle",
+          "Ruler",
+          "Star",
+          "Storefront",
+          "Twitter"
+        ]
       }
     }
-
+  }
+}
 ```
 
 ## Results
