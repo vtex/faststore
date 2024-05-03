@@ -9,7 +9,7 @@ import NextNProgress from 'nextjs-progressbar'
 import { UIProvider } from '@faststore/ui'
 import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
-import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
+import ErrorBoundary from 'app/sdk/error/ErrorBoundary'
 
 import storeConfig from '../../faststore.config'
 
