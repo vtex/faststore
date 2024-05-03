@@ -1,23 +1,23 @@
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 
 import { gql } from '@generated'
-import type { AnalyticsItem } from 'src/sdk/analytics/types'
+import type { AnalyticsItem } from 'app/sdk/analytics/types'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
 
-import Section from '../Section'
 import ProductDescription from '../../../components/ui/ProductDescription'
 import { ProductDetailsSettings } from '../../../components/ui/ProductDetails'
+import Section from '../Section'
 
 import styles from './section.module.scss'
 
-import { usePDP } from '../../../sdk/overrides/PageProvider'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
-import { ProductDetailsDefaultComponents } from './DefaultComponents'
+import { usePDP } from '../../../sdk/overrides/PageProvider'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { ProductDetailsDefaultComponents } from './DefaultComponents'
 
 export interface ProductDetailsProps {
   productTitle: {

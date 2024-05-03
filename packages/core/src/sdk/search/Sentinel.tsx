@@ -1,12 +1,12 @@
 import { useSearch } from '@faststore/sdk'
-import { useEffect, useRef } from 'react'
-import { useInView } from 'react-intersection-observer'
 import type { NextRouter } from 'next/router'
 import { useRouter } from 'next/router'
+import { useEffect, useRef } from 'react'
+import { useInView } from 'react-intersection-observer'
 
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
-import { useViewItemListEvent } from '../analytics/hooks/useViewItemListEvent'
+import { useViewItemListEvent } from '../../../app/sdk/analytics/hooks/useViewItemListEvent'
 
 interface Props {
   page: number

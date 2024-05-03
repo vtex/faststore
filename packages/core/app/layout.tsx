@@ -5,7 +5,7 @@ import 'src/customizations/src/themes/index.scss'
 
 import ThirdPartyScripts from 'app/components/ThirdPartyScripts'
 import ErrorBoundary from 'app/sdk/error/ErrorBoundary'
-// import AnalyticsHandler from 'app/sdk/analytics'
+import AnalyticsHandler from 'app/sdk/analytics'
 // import UIProvider from 'app/sdk/ui/UIProvider'
 // import { WebFonts } from 'src/customizations/src/GlobalOverrides'
 
@@ -28,10 +28,10 @@ export default async function RootLayout({
   return (
     <ErrorBoundary>
       {/* TODO: we should use metadata api from Next 13 */}
-      {/* <DefaultSeo norobots={storeConfig.experimental.noRobots} />
+      {/* <DefaultSeo norobots={storeConfig.experimental.noRobots} /> */}
 
       <AnalyticsHandler />
-
+      {/*
       <html>
         <head>
           {!process.env.DISABLE_3P_SCRIPTS && <ThirdPartyScripts />}
