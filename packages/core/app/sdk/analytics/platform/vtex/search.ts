@@ -8,7 +8,7 @@ import type {
 } from '../../types'
 
 import config from '../../../../../faststore.config'
-import { getCookie } from '../../../../../src/utils/getCookie'
+import { getCookie } from '../../../../utils/getCookie'
 
 const THIRTY_MINUTES_S = 30 * 60
 const ONE_YEAR_S = 365 * 24 * 3600
