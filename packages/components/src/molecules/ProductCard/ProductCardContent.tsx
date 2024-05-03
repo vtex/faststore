@@ -102,7 +102,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
             />
           )}
           {ratingValue && (
-            <Rating value={ratingValue} icon={<Icon name="Star" />} />
+            <Rating value={ratingValue} icon={<Icon name="fs-star" />} />
           )}
         </div>
         {showDiscountBadge && !outOfStock && (
@@ -113,7 +113,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           <div data-fs-product-card-actions>
             <Button
               variant="primary"
-              icon={<Icon name="ShoppingCart" />}
+              icon={<Icon name="fs-shopping-cart" />}
               iconPosition="left"
               size="small"
               onClick={onButtonClick}

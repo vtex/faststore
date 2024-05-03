@@ -19,7 +19,7 @@ export interface IconProps extends SVGProps<SVGSVGElement> {
   /**
    * Symbol id from element to render. Take a look at `/static/icons.svg`.
    *
-   * Example: <Icon name="Bell" />
+   * Example: <Icon name="fs-bell" />
    */
   name: string
   /**
@@ -46,7 +46,7 @@ export interface IconProps extends SVGProps<SVGSVGElement> {
   /**
    * SVG size.
    *
-   * @default '20'
+   * @default '24'
    */
   size?: IconSize
 }
@@ -60,9 +60,8 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
 
   if (name.startsWith('fs-')) {
     library = 'material'
-    name = `${name}-${size ?? 20}`
-  }
-  else {
+    name = `${name}-${size ?? 24}`
+  } else {
     library = 'phosphor'
   }
 
@@ -71,9 +70,9 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
       ref={ref}
       data-fs-icon
       data-testid={testId}
-      size={size ?? 20}
-      width={library === 'phosphor' ? width ?? 24 : size ?? 20} // TODO: Remove this after width prop is removed
-      height={library === 'phosphor' ? height ?? 24 : size ?? 20} // TODO: Remove this after height prop is removed
+      size={size ?? 24}
+      width={library === 'phosphor' ? width ?? 24 : size ?? 24} // TODO: Remove this after width prop is removed
+      height={library === 'phosphor' ? height ?? 24 : size ?? 24} // TODO: Remove this after height prop is removed
       strokeWidth={mapWeightToValue[weight]} // TODO: Remove this after weight prop is removed
       {...otherProps}
     >

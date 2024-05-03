@@ -353,7 +353,6 @@ function Carousel({
           ))}
         </ul>
       </div>
-
       {showNavigationArrows && (
         <div data-fs-carousel-controls>
           <IconButton
@@ -362,9 +361,7 @@ function Carousel({
             disabled={!infiniteMode && sliderState.currentPage === 0}
             aria-label="previous"
             icon={
-              navigationIcons?.left ?? (
-                <Icon name="ArrowLeft" width={20} height={20} weight="bold" />
-              )
+              navigationIcons?.left ?? <Icon name="fs-arrow-left" size={20} />
             }
             onClick={() => {
               isSlideCarousel && slidePrevious()
@@ -381,9 +378,7 @@ function Carousel({
             }
             aria-label="next"
             icon={
-              navigationIcons?.right ?? (
-                <Icon name="ArrowRight" width={20} height={20} weight="bold" />
-              )
+              navigationIcons?.right ?? <Icon name="fs-arrow-right" size={20} />
             }
             onClick={() => {
               isSlideCarousel && slideNext()
@@ -393,7 +388,6 @@ function Carousel({
           />
         </div>
       )}
-
       {showPaginationBullets && (
         <CarouselBullets
           id={id}

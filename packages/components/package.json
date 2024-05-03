@@ -17,7 +17,8 @@
   "scripts": {
     "dev": "tsc --watch",
     "build": "tsc --module commonjs --outDir dist/cjs & tsc --module esnext --outDir dist/esm",
-    "lint": "eslint src/**/*.{ts,tsx}"
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "codemod": "jscodeshift -t ./src/update-new-icons.tsx src/atoms/**/*.tsx"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
   "devDependencies": {
     "@faststore/eslint-config": "^3.0.7",
     "@faststore/shared": "^3.0.7",
+    "@types/jscodeshift": "^0.11.11",
     "@types/react": "^18.2.42",
     "@types/react-dom": "^18.2.17",
     "eslint": "7.32.0",
@@ -43,5 +45,8 @@
   },
   "volta": {
     "extends": "../../package.json"
+  },
+  "dependencies": {
+    "jscodeshift": "^0.15.2"
   }
 }

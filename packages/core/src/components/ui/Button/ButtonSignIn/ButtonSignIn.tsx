@@ -20,7 +20,7 @@ const ButtonSignIn = ({
       className="text__title-mini"
       aria-label={alt}
       variant="tertiary"
-      icon={<Icon name={icon} width={18} height={18} weight="bold" />}
+      icon={<Icon name={icon} />}
       iconPosition="left"
     >
       {person?.id ? myAccountLabel : label}

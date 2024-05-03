@@ -43,8 +43,6 @@ function Incentives({
                 data-fs-incentive-icon
                 aria-label={incentive.alt}
                 name={incentive.icon}
-                width={32}
-                height={32}
               />
               <div data-fs-incentive-content>
                 <p data-fs-incentive-title>{incentive.title}</p>

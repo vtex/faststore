@@ -14,8 +14,6 @@
   --fs-alert-text-size                 : var(--fs-text-size-1);
 
   // Icon
-  --fs-alert-icon-width                : var(--fs-spacing-4);
-  --fs-alert-icon-height               : var(--fs-alert-icon-width);
   --fs-alert-icon-margin-right         : var(--fs-spacing-1);
   --fs-alert-icon-color                : var(--fs-alert-text-color);
 
@@ -43,8 +41,6 @@
   background-color: var(--fs-alert-bkg-color);
 
   > [data-fs-icon] {
-    width: var(--fs-alert-icon-width);
-    height: var(--fs-alert-icon-height);
     margin-right: var(--fs-alert-icon-margin-right);
     color: var(--fs-alert-icon-color);
   }

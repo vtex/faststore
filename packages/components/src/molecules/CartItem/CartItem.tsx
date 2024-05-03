@@ -61,7 +61,7 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
       <div data-fs-cart-item-content>{children}</div>
       <IconButton
         data-fs-cart-item-remove-button
-        icon={<Icon name="XCircle" />}
+        icon={<Icon name="fs-x-circle" />}
         aria-label="Remove"
         {...removeBtnProps}
       />

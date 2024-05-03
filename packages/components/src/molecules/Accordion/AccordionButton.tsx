@@ -26,8 +26,8 @@ const AccordionButton = forwardRef<HTMLButtonElement, AccordionButtonProps>(
   function AccordionButton(
     {
       testId = 'fs-accordion-button',
-      expandedIcon = <Icon name="MinusCircle" data-icon="expanded" />,
-      collapsedIcon = <Icon name="PlusCircle" data-icon="collapsed" />,
+      expandedIcon = <Icon name="fs-minus-circle" data-icon="expanded" />,
+      collapsedIcon = <Icon name="fs-plus-circle" data-icon="collapsed" />,
       children,
       ...otherProps
     },

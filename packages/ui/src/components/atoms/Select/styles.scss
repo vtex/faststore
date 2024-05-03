@@ -22,8 +22,6 @@
 
   // Icon
   --fs-select-icon-position-right         : var(--fs-spacing-1);
-  --fs-select-icon-width                  : var(--fs-spacing-3);
-  --fs-select-icon-height                 : var(--fs-select-icon-width);
   --fs-select-icon-color                  : var(--fs-color-link);
 
   // Disabled
@@ -72,7 +70,5 @@
     right: var(--fs-select-icon-position-right);
     color: var(--fs-select-icon-color);
     pointer-events: none;
-    width: var(--fs-select-icon-width);
-    height: var(--fs-select-icon-height);
   }
 }

@@ -88,7 +88,7 @@ const QuantitySelector = ({
     >
       <IconButton
         data-quantity-selector-button="left"
-        icon={<Icon name="Minus" width={16} height={16} weight="bold" />}
+        icon={<Icon name="fs-minus" size={20} />}
         aria-label="Decrement Quantity"
         aria-controls="quantity-selector-input"
         disabled={isLeftDisabled || disabled}
@@ -109,7 +109,7 @@ const QuantitySelector = ({
         aria-controls="quantity-selector-input"
         aria-label="Increment Quantity"
         disabled={isRightDisabled || disabled}
-        icon={<Icon name="Plus" width={16} height={16} weight="bold" />}
+        icon={<Icon name="fs-plus" size={20} />}
         onClick={increase}
         testId={`${testId}-right-button`}
         size="small"

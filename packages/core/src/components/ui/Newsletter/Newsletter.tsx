@@ -63,8 +63,6 @@ function Newsletter({
         status: 'INFO',
         icon: (
           <ToastIconSuccess.Component
-            width={30}
-            height={30}
             {...ToastIconSuccess.props}
             name={toastSubscribe.icon ?? ToastIconSuccess.props.name}
           />
@@ -76,8 +74,6 @@ function Newsletter({
         status: 'ERROR',
         icon: (
           <ToastIconError.Component
-            width={30}
-            height={30}
             {...ToastIconError.props}
             name={toastSubscribe.icon ?? ToastIconError.props.name}
           />
@@ -104,8 +100,7 @@ function Newsletter({
           description={description}
           icon={
             <HeaderIcon.Component
-              width={32}
-              height={32}
+              size={32}
               {...HeaderIcon.props}
               name={icon ?? HeaderIcon.props.name}
               aria-label={iconAlt ?? HeaderIcon.props['aria-label']}

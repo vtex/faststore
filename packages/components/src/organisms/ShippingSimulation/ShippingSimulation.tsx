@@ -166,7 +166,6 @@ function ShippingSimulation({
       {...otherProps}
     >
       <h2 data-fs-shipping-simulation-title>{title}</h2>
-
       <InputField
         actionable
         error={errorMessage}
@@ -178,7 +177,6 @@ function ShippingSimulation({
         onClear={() => onClear?.()}
         displayClearButton={displayClearButton}
       />
-
       <Link
         href="/"
         data-fs-shipping-simulation-link
@@ -188,11 +186,10 @@ function ShippingSimulation({
         {idkPostalCodeLinkProps?.children ?? (
           <>
             {"I don't know my Postal Code"}
-            <Icon name="ArrowSquareOut" width={20} height={20} />
+            <Icon name="fs-arrow-square-out" size={20} />
           </>
         )}
       </Link>
-
       {hasShippingOptions && (
         <>
           <header data-fs-shipping-simulation-header>
