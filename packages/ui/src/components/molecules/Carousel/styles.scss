@@ -83,10 +83,11 @@
       box-shadow: var(--fs-carousel-controls-box-shadow);
     }
     &:not(:hover) [data-fs-button-wrapper] { background-color: var(--fs-carousel-controls-bkg-color); }
-  }
+    &:hover:not(:disabled) [data-fs-button-wrapper] { box-shadow: var(--fs-carousel-controls-box-shadow); }
 
-  [data-fs-icon] {
-    color: var(--fs-carousel-controls-icon-color);
+    [data-fs-icon] {
+      color: var(--fs-carousel-controls-icon-color);
+    }
   }
 
   [data-fs-carousel-track] {
