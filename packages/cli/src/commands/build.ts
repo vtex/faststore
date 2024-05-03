@@ -3,6 +3,8 @@ import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
 import { copySync, moveSync, readdirSync, removeSync } from 'fs-extra'
+import webpack from 'webpack'
+import { ModuleFederationPlugin } from '@module-federation/enhanced'
 import { tmpCustomizationsSrcDir, tmpDir, userDir } from '../utils/directory'
 import { generate } from '../utils/generate'
 
@@ -37,16 +39,68 @@ export default class Build extends Command {
  * folder and then we can build the fast checkout components
  */
 function buildFastCheckoutComponents() {
-  const allowList = ['Summary']
-
-  const components = readdirSync(`${tmpCustomizationsSrcDir}/components`)
-  const allowedComponents = components.filter((component) => {
-    const componentName = component.split('.')[0]
-    return allowList.includes(componentName)
+  const compiler = webpack({
+    entry: `${tmpCustomizationsSrcDir}/components/index.tsx`,
+    target: 'web',
+    mode: 'production',
+    output: {
+      publicPath: 'auto',
+    },
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js'],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(ts|tsx)$/,
+          loader: 'babel-loader',
+          exclude: /node_modules/,
+          options: {
+            presets: [
+              '@babel/preset-env',
+              ['@babel/preset-react', { runtime: 'automatic' }],
+              '@babel/preset-typescript',
+            ],
+          },
+        },
+      ],
+    },
+    plugins: [
+      new ModuleFederationPlugin({
+        name: 'customizations',
+        library: { type: 'var', name: 'customizations' },
+        filename: 'customizations.js',
+        exposes: {
+          /*
+           *  TODO: We're generating an artifact including all the components
+           *  even the ones are not used by FastCheckout. Ideally, we would filter
+           *  only for the ones used by FC (we can achieve that, by scoping
+           *  using a folder named "cart" or "checkout" for instance).
+           */
+          './cart': `${tmpCustomizationsSrcDir}/components/index.tsx`,
+        },
+        shared: {
+          react: {
+            import: 'react',
+            shareKey: 'react',
+            shareScope: 'default',
+            singleton: true,
+          },
+          'react/jsx-runtime': {
+            singleton: true,
+          },
+          'react-dom': {
+            singleton: true,
+          },
+        },
+      }),
+    ],
   })
 
-  console.log('components', components)
-  console.log('allowedComponents', allowedComponents)
+  compiler.run(() => {
+    console.log('Completed ✅')
+    compiler.close(() => {})
+  })
 }
 
 async function copyResource(from: string, to: string) {
