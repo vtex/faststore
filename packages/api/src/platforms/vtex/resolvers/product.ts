@@ -18,6 +18,7 @@ type QueryProduct = PromiseType<ReturnType<typeof Query.product>>
 
 export type Root = QueryProduct & {
   attachmentsValues?: Attachment[]
+  unitMultiplier: number
 }
 
 const DEFAULT_IMAGE = {
@@ -53,6 +54,7 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
     canonical: canonicalFromProduct(isVariantOf),
   }),
   brand: ({ isVariantOf: { brand } }) => ({ name: brand }),
+  unitMultiplier: ({unitMultiplier}) => unitMultiplier,
   breadcrumbList: ({
     isVariantOf: { categories, productName, linkText },
     itemId,
