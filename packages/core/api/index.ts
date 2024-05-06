@@ -13,3 +13,5 @@ export type {
   StoreProductRoot,
   StoreOrganizationRoot,
 } from '@faststore/api'
+
+export * from '../@generated/graphql'

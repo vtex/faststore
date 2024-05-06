@@ -1,7 +1,7 @@
 import {
+  ClientManyProductsQueryQuery,
   ClientProductGalleryQueryQuery,
   ClientProductQueryQuery,
-  ClientManyProductsQueryQuery,
   ServerCollectionPageQueryQuery,
   ServerProductQueryQuery,
 } from '@generated/graphql'
@@ -28,6 +28,20 @@ export interface SearchPageContext {
     }
 }
 
+export interface DynamicContent<T> {
+  data?: T
+}
+
+export interface PageProviderContextValue {
+  context?: PageProviderContext
+}
+
+type PageProviderContext =
+  | PDPContext
+  | PLPContext
+  | SearchPageContext
+  | DynamicContent<unknown>
+
 export const isPDP = (x: any): x is PDPContext =>
   x?.data?.product?.sku != undefined && x?.data?.product?.sku != null
 
@@ -40,10 +54,6 @@ export const isSearchPage = (x: any): x is SearchPageContext =>
   x === undefined ||
   x?.data?.title != undefined ||
   x?.data?.searchTerm != undefined
-
-export interface PageProviderContextValue {
-  context?: PDPContext | PLPContext | SearchPageContext
-}
 
 const PageContext = createContext<PageProviderContextValue | null>(null)
 
@@ -61,9 +71,7 @@ function PageProvider({
   return <PageContext.Provider value={value}>{children}</PageContext.Provider>
 }
 
-export function usePage<
-  T extends PLPContext | SearchPageContext | PDPContext
->(): T {
+export function usePage<T extends PageProviderContext>(): T {
   const { context } = useContext(PageContext)
 
   if (context == null) {
@@ -78,5 +86,8 @@ export const usePDP = () => usePage<PDPContext>()
 export const usePLP = () => usePage<PLPContext>()
 
 export const useSearchPage = () => usePage<SearchPageContext>()
+
+export const useDynamicContent = <T extends unknown>() =>
+  usePage<DynamicContent<T>>()
 
 export default PageProvider

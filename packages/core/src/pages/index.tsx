@@ -19,6 +19,8 @@ import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import PageProvider from 'src/sdk/overrides/PageProvider'
+import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../faststore.config'
 
 /* A list of components that can be used in the CMS. */
@@ -35,9 +37,18 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 type Props = {
   page: PageContentType
   globalSections: GlobalSectionsData
+  serverData?: unknown
 }
 
-function Page({ page: { sections, settings }, globalSections }: Props) {
+function Page({
+  page: { sections, settings },
+  globalSections,
+  serverData,
+}: Props) {
+  const context = {
+    data: serverData,
+  }
+
   return (
     <GlobalSections {...globalSections}>
       {/* SEO */}
@@ -75,7 +86,9 @@ function Page({ page: { sections, settings }, globalSections }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <RenderSections sections={sections} components={COMPONENTS} />
+      <PageProvider context={context}>
+        <RenderSections sections={sections} components={COMPONENTS} />
+      </PageProvider>
     </GlobalSections>
   )
 }
@@ -85,6 +98,7 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
+  const serverData = await getDynamicContent({ pageType: 'home' })
   const globalSections = await getGlobalSectionsData(previewData)
 
   if (storeConfig.cms.data) {
@@ -99,7 +113,7 @@ export const getStaticProps: GetStaticProps<
       })
 
       return {
-        props: { page: pageData, globalSections },
+        props: { page: pageData, globalSections, serverData },
       }
     }
   }
@@ -110,7 +124,7 @@ export const getStaticProps: GetStaticProps<
   })
 
   return {
-    props: { page, globalSections },
+    props: { page, globalSections, serverData },
   }
 }
 
