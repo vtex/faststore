@@ -25,11 +25,11 @@
     },
     "migration-v1-to-v2": {
       "title": "Migrating Overrides v1 to v2"
-  },
+    },
     "overrides-version-1": {
       "display": "hidden"
-  },
-  "creating-new-section": {
-    "title": "Creating a new section"
+    },
+    "creating-new-section": {
+      "title": "Creating a new section"
+    }
 }
-  }

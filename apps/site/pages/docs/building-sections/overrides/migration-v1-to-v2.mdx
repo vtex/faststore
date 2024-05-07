@@ -40,7 +40,7 @@ Identify all overrides currently implemented using Overrides v1 (refer to the [O
 Previously in Overrides v1, you passed the section name as a string to the `section` key within the `getOverriddenSection` method's overrides object. 
 Here's an example:
 
-```
+```js
 const NewAlert = getOverriddenSection({  
   section: 'Alert',  
   components: {  
@@ -53,7 +53,7 @@ export default NewAlert;
 
 Overrides v2 introduces a clearer syntax. Now you import the section component itself (e.g., `AlertSection` from `@faststore/core`) and pass it to the `Section` key (uppercase `S`) within the overrides object. This emphasizes the component-based approach of v2.
 
-```
+```js
 import { AlertSection, getOverriddenSection } from "@faststore/core";  
 
 const NewAlert = getOverriddenSection({ 

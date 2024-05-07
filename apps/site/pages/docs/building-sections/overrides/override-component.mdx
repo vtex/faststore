@@ -51,6 +51,8 @@ const ProductDetailsWithCustomButton = getOverriddenSection({
     BuyButton: { Component: CustomBuyButton },
   },
 })
+
+export default ProductDetailsWithCustomButton;
 ```
 
 #### Step 2 - Overriding the component
@@ -61,9 +63,9 @@ In this example, we are overriding the `BuyButton` component in the `ProductDeta
 2. In the `components` folder, if you don't have already the `index.tsx` file, create the file and add the following:
 
 ```tsx filename="components/index.tsx" copy
-import CustomBuyButton from "./sections/CustomBuyButton";
+import ProductDetailsWithCustomButton from "./sections/ProductDetailsWithCustomButton";
 
-export default { CustomBuyButton };
+export default { ProductDetailsWithCustomButton };
 
 ```
 

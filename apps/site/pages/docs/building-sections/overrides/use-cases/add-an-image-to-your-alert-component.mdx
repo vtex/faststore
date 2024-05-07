@@ -83,7 +83,7 @@ By leveraging `getOverriddenSection`, you can create a custom component called `
            - **`Section`:** The section to be overridden (Alert).
            - **`components`:** An object containing the override for the Icon component.
                - Inside the Icon override:
-                   - **`Component`:** A function returning an `Image` component from the `next/image` library. This displays the image specified by the `src` prop.
+                   - **`Component`:** A function returning an `Image` component. This displays the image specified by the `src` prop.
                    - **`width`** and **`height`:** Optional props to set the size of the image.
        - The use of `useMemo` ensures this override is only created once, improving performance.
    - The function returns the `OverriddenAlert` component, spreading the `otherProps` and setting the `icon` prop to `noop` (effectively disabling the default icon behavior).
