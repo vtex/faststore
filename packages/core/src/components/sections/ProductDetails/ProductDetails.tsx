@@ -51,6 +51,9 @@ export interface ProductDetailsProps {
   notAvailableButton: {
     title: string
   }
+  quantitySelector: {
+    useUnitMultiplier?: boolean
+  }
 }
 
 function ProductDetails({
@@ -71,6 +74,7 @@ function ProductDetails({
     displayDescription: shouldDisplayProductDescription,
   },
   notAvailableButton: { title: notAvailableButtonTitle },
+  quantitySelector,
 }: ProductDetailsProps) {
   const {
     DiscountBadge,
@@ -80,9 +84,9 @@ function ProductDetails({
     __experimentalNotAvailableButton: NotAvailableButton,
   } = useOverrideComponents<'ProductDetails'>()
   const { currency } = useSession()
-  const [quantity, setQuantity] = useState(1)
   const context = usePDP()
   const { product, isValidating } = context?.data
+  const [quantity, setQuantity] = useState(1)
 
   if (!product) {
     throw new Error('NotFound')
@@ -188,6 +192,7 @@ function ProductDetails({
                 notAvailableButtonTitle={
                   notAvailableButtonTitle ?? NotAvailableButton.props.title
                 }
+                useUnitMultiplier={quantitySelector?.useUnitMultiplier ?? false}
               />
             </section>
 
@@ -245,7 +250,7 @@ export const fragment = gql(`
     name
     gtin
     description
-
+    unitMultiplier
     isVariantOf {
       name
       productGroupID

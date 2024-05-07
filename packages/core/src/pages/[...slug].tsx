@@ -23,6 +23,7 @@ import ProductListingPage, {
 } from 'src/components/templates/ProductListingPage'
 import { PageContentType } from 'src/server/cms'
 import { getPLP, PLPContentType } from 'src/server/cms/plp'
+import { getDynamicContent } from 'src/utils/dynamicContent'
 
 type BaseProps = {
   globalSections: GlobalSectionsData
@@ -39,6 +40,7 @@ type Props = BaseProps &
         type: 'page'
         slug: string
         page: PageContentType
+        serverData?: unknown
       }
   )
 
@@ -91,12 +93,15 @@ export const getStaticProps: GetStaticProps<
   ]
 
   if (await landingPagePromise) {
+    const serverData = await getDynamicContent({ pageType: slug })
+
     return {
       props: {
         page: await landingPagePromise,
         globalSections: await globalSectionsPromise,
         type: 'page',
         slug,
+        serverData,
       },
     }
   }

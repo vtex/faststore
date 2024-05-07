@@ -25,6 +25,14 @@ export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
    */
   quantity?: number
   /**
+   * Controls by how many units the value advances 
+   **/
+  unitMultiplier?: number
+    /**
+   * Controls wheter you use or not the unitMultiplier 
+  */
+  useUnitMultiplier?: boolean
+   /** 
    * Specifies that this product is unavailable.
    */
   unavailable?: boolean
@@ -45,6 +53,8 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
     quantity,
     unavailable,
     onQuantityChange,
+    unitMultiplier,
+    useUnitMultiplier,
     children,
     removeBtnProps,
     ...otherProps
@@ -69,6 +79,8 @@ const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
         <QuantitySelector
           min={1}
           initial={quantity}
+          unitMultiplier={unitMultiplier}
+          useUnitMultiplier={useUnitMultiplier}
           onChange={onQuantityChange}
         />
         <ProductPrice

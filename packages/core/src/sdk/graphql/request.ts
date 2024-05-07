@@ -1,7 +1,7 @@
-import { TypedDocumentString } from '@generated/graphql'
-
 export type RequestOptions = Omit<BaseRequestOptions, 'operation' | 'variables'>
-export type Operation = Pick<TypedDocumentString<any, any>, '__meta__'>
+export type Operation = {
+  __meta__?: Record<string, any>
+}
 
 export interface GraphQLResponse<D = any> {
   data: D

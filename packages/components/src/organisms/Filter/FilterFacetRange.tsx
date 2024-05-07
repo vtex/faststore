@@ -16,9 +16,9 @@ export interface FilterFacetRangeProps {
    */
   facetKey: string
   /**
-   * Formatter function that transforms the raw price value and render the result.
+   * Formatter function that transforms the raw value and render the result.
    */
-  formatter: (price: number) => string
+  formatter: (value: number) => string
   /**
    * This function is called when `Checkbox` from the facet changes.
    */
