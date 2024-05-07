@@ -62,7 +62,7 @@ function useCartItemEvent() {
 
 interface Props {
   item: ICartItem
-  useUnitMultiplier: boolean
+  useUnitMultiplier?: boolean
 }
 
 function CartItem({ item, useUnitMultiplier = false }: Props) {
