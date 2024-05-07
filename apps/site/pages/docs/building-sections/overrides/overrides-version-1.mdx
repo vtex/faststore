@@ -6,7 +6,7 @@ import { Callout, Steps, Tab, Tabs } from 'nextra-theme-docs'
 </header>
 
 <Callout type="warning" emoji="⚠️">
-  This documentation is only for Overrides v1. With you want to know more about Overrides v2 or migrate to the newer version, refer to the [Overrides overview](/docs/building-sections/overrides/overrides-overview) and [Migrating overrides v1 to v2](/docs/building-sections/overrides/migration-v1-to-v2) guides.
+  This documentation is only for Overrides v1. If you want to know more about Overrides v2 or migrate to the newer version, refer to the [Overrides overview](/docs/building-sections/overrides/overrides-overview) and [Migrating overrides v1 to v2](/docs/building-sections/overrides/migration-v1-to-v2) guides.
 </Callout>
 
 In this guide, you will learn how to modify a component's behavior using additional properties in your store code and create new components by overriding their native equivalents.
@@ -36,7 +36,7 @@ This feature is available for stores using `@faststore/core` 2.1.36 version and 
 The [`@faststore/core`](/docs/getting-started/3-project-structure#faststorecore) package provides a set of native sections, each consisting of different components with unique functionalities.
 Refer to the [List of native sections and overridable components](/docs/building-sections/list-of-native-sections#faststore-native-sections) to explore available native sections.
 
-### Consider two aspects for this feature
+### Consider two aspects of this feature
 
 Keep in mind the following aspects when using this feature:
 
@@ -139,7 +139,7 @@ export { override }
 
 This code overrides the `BuyButton` props `size` and `iconPosition`. You'll see a smaller button than the initial one, and the cart icon positioned on the right side.
 
-2. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser and go to product details page to see the updated `BuyButton` component:
+2. Run `yarn dev` in the terminal to start the development server. Access the provided localhost URL in your browser and go to the product details page to see the updated `BuyButton` component:
 
 ![overrides-PDP-buy-button-props](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-props___898b016bd82c908b5b24c8822be6789a.png)
 
