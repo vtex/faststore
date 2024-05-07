@@ -2,10 +2,10 @@ import { useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 
 import type { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
+import { useViewItemListEvent } from 'app/sdk/analytics/hooks/useViewItemListEvent'
 import ProductCard from 'src/components/product/ProductCard'
 import ProductTilesSkeleton from 'src/components/skeletons/ProductTilesSkeleton'
 import Tiles, { Tile } from 'src/components/ui/Tiles'
-import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 
 import Section from '../Section'

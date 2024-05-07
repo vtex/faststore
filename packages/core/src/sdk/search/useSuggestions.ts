@@ -8,7 +8,7 @@ import type {
   ClientSearchSuggestionsQueryQuery as Query,
   ClientSearchSuggestionsQueryQueryVariables as Variables,
 } from '@generated/graphql'
-import type { IntelligentSearchQueryEvent } from '../analytics/types'
+import type { IntelligentSearchQueryEvent } from '../../../app/sdk/analytics/types'
 
 import { useSession } from '../session'
 
