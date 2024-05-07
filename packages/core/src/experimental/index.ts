@@ -30,9 +30,13 @@ export { default as useTopSearch_unstable } from '../../src/sdk/search/useTopSea
 export { useFilter as useFilter_unstable } from '../../src/sdk/search/useFilter'
 export { useDelayedFacets as useDelayedFacets_unstable } from '../../src/sdk/search/useDelayedFacets'
 export { useDelayedPagination as useDelayedPagination_unstable } from '../../src/sdk/search/useDelayedPagination'
+
 export { getShippingSimulation as getShippingSimulation_unstable } from '../../src/sdk/shipping'
 export { useShippingSimulation as useShippingSimulation_unstable } from '../../src/sdk/shipping/useShippingSimulation'
 
 // Components
 export { Image as Image_unstable } from '../../src/components/ui/Image'
 export { ProfileChallenge as ProfileChallenge_unstable } from '../../src/components/auth/ProfileChallenge'
+
+// Server GraphQL
+export { execute as execute_unstable } from '../../src/server'

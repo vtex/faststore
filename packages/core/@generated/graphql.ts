@@ -927,6 +927,8 @@ export type StoreProduct = {
   sku: Scalars['String']['output']
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String']['output']
+  /** Sku Unit Multiplier */
+  unitMultiplier: Maybe<Scalars['Float']['output']>
 }
 
 /** Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
@@ -1146,6 +1148,7 @@ export type ProductDetailsFragment_ProductFragment = {
   name: string
   gtin: string
   description: string
+  unitMultiplier: number | null
   id: string
   isVariantOf: {
     name: string
@@ -1227,6 +1230,7 @@ export type ServerProductQueryQuery = {
     name: string
     description: string
     releaseDate: string
+    unitMultiplier: number | null
     id: string
     seo: { title: string; description: string; canonical: string }
     brand: { name: string }
@@ -1283,6 +1287,7 @@ export type ValidateCartMutationMutation = {
         itemOffered: {
           sku: string
           name: string
+          unitMultiplier: number | null
           gtin: string
           image: Array<{ url: string; alternateName: string }>
           brand: { name: string }
@@ -1318,6 +1323,7 @@ export type CartItemFragment = {
   itemOffered: {
     sku: string
     name: string
+    unitMultiplier: number | null
     gtin: string
     image: Array<{ url: string; alternateName: string }>
     brand: { name: string }
@@ -1342,6 +1348,7 @@ export type CartItemFragment = {
 export type CartProductItemFragment = {
   sku: string
   name: string
+  unitMultiplier: number | null
   gtin: string
   image: Array<{ url: string; alternateName: string }>
   brand: { name: string }
@@ -1469,6 +1476,7 @@ export type ClientProductQueryQuery = {
     name: string
     gtin: string
     description: string
+    unitMultiplier: number | null
     id: string
     isVariantOf: {
       name: string
@@ -1705,6 +1713,7 @@ export const CartProductItemFragmentDoc = new TypedDocumentString(
     fragment CartProductItem on StoreProduct {
   sku
   name
+  unitMultiplier
   image {
     url
     alternateName
@@ -1741,6 +1750,7 @@ export const ProductDetailsFragment_ProductFragmentDoc =
   name
   gtin
   description
+  unitMultiplier
   isVariantOf {
     name
     productGroupID
@@ -1779,6 +1789,7 @@ export const ProductDetailsFragment_ProductFragmentDoc =
     fragment CartProductItem on StoreProduct {
   sku
   name
+  unitMultiplier
   image {
     url
     alternateName
@@ -1943,6 +1954,7 @@ export const CartItemFragmentDoc = new TypedDocumentString(
     fragment CartProductItem on StoreProduct {
   sku
   name
+  unitMultiplier
   image {
     url
     alternateName
@@ -1991,7 +2003,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '50155d908ff90781e8c56134ded29b70d7494aa7',
+    operationHash: '3ce56e42296689b601347fedc380c89519355ab7',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2000,7 +2012,7 @@ export const ServerProductQueryDocument = {
 export const ValidateCartMutationDocument = {
   __meta__: {
     operationName: 'ValidateCartMutation',
-    operationHash: '87e1ba227013cb087bcbb35584c1b0b7cdf612ef',
+    operationHash: '534fae829675533052d75fd4aa509b9cf85b4d40',
   },
 } as unknown as TypedDocumentString<
   ValidateCartMutationMutation,
@@ -2036,7 +2048,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: 'a35530c2f55c1c85bd2b4fe4964356ab27e32622',
+    operationHash: 'cedeb0c3e7ec1678400fe2ae930f5a79382fba1e',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,

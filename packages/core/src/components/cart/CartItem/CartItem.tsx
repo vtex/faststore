@@ -62,9 +62,10 @@ function useCartItemEvent() {
 
 interface Props {
   item: ICartItem
+  useUnitMultiplier?: boolean
 }
 
-function CartItem({ item }: Props) {
+function CartItem({ item, useUnitMultiplier = false }: Props) {
   const btnProps = useRemoveButton(item)
 
   const { sendCartItemEvent } = useCartItemEvent()
@@ -97,6 +98,8 @@ function CartItem({ item }: Props) {
       removeBtnProps={btnProps}
       data-sku={item.itemOffered.sku}
       data-seller={item.seller.identifier}
+      unitMultiplier={item.itemOffered.unitMultiplier}
+      useUnitMultiplier={useUnitMultiplier}
     >
       <UICartItemImage>
         <Image
