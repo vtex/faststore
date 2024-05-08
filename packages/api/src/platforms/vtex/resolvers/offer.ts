@@ -10,6 +10,7 @@ import type { StoreAggregateOffer } from './aggregateOffer'
 import type { ArrayElementType } from '../../../typings'
 import type { EnhancedSku } from '../utils/enhanceSku'
 import type { OrderFormItem } from '../clients/commerce/types/OrderForm'
+import { withTax } from '../utils/withTaxes'
 
 type OrderFormProduct = OrderFormItem & { product: EnhancedSku }
 type SearchProduct = ArrayElementType<
@@ -83,6 +84,17 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
 
     return null
   },
+  priceWithTaxes: (root) => {
+    if (isSearchItem(root)) {
+      return withTax(price(root), root.Tax, root.product.unitMultiplier)
+    }
+
+    if (isOrderFormItem(root)) {
+      return withTax(root.sellingPrice, root.tax, root.unitMultiplier)
+    }
+
+    return null
+  },
   sellingPrice: (root) => {
     if (isSearchItem(root)) {
       return sellingPrice(root)
@@ -101,6 +113,17 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
 
     if (isOrderFormItem(root)) {
       return root.listPrice / 1e2
+    }
+
+    return null
+  },
+  listPriceWithTaxes: (root) => {
+    if (isSearchItem(root)) {
+      return withTax(root.ListPrice, root.Tax, root.product.unitMultiplier)
+    }
+
+    if (isOrderFormItem(root)) {
+      return withTax(root.listPrice, root.tax, root.unitMultiplier)
     }
 
     return null

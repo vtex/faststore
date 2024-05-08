@@ -52,6 +52,7 @@ export interface ProductDetailsProps {
   quantitySelector: {
     useUnitMultiplier?: boolean
   }
+  usePriceWithTaxes?: boolean
 }
 
 function ProductDetails({
@@ -73,6 +74,7 @@ function ProductDetails({
   },
   notAvailableButton: { title: notAvailableButtonTitle },
   quantitySelector,
+  usePriceWithTaxes = true,
 }: ProductDetailsProps) {
   const {
     DiscountBadge,
@@ -103,8 +105,9 @@ function ProductDetails({
     isVariantOf: { name, productGroupID: productId },
     image: productImages,
     offers: {
-      offers: [{ availability, price, listPrice, seller }],
+      offers: [{ availability, price, listPrice, listPriceWithTaxes, seller }],
       lowPrice,
+      lowPriceWithTaxes,
     },
   } = product
 
@@ -164,8 +167,10 @@ function ProductDetails({
                     size={discountBadgeSize ?? DiscountBadge.props.size}
                     // Dynamic props shouldn't be overridable
                     // This decision can be reviewed later if needed
-                    listPrice={listPrice}
-                    spotPrice={lowPrice}
+                    listPrice={
+                      usePriceWithTaxes ? listPriceWithTaxes : listPrice
+                    }
+                    spotPrice={usePriceWithTaxes ? lowPriceWithTaxes : lowPrice}
                   />
                 )
               }
@@ -196,6 +201,7 @@ function ProductDetails({
                 setQuantity={setQuantity}
                 product={product}
                 isValidating={isValidating}
+                usePriceWithTaxes={usePriceWithTaxes}
               />
             </section>
 
@@ -279,10 +285,13 @@ export const fragment = gql(`
 
     offers {
       lowPrice
+      lowPriceWithTaxes
       offers {
         availability
         price
+        priceWithTaxes
         listPrice
+        listPriceWithTaxes
         seller {
           identifier
         }

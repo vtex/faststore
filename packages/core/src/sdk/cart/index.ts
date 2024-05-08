@@ -49,7 +49,9 @@ export const ValidateCartMutation = gql(`
     }
     quantity
     price
+    priceWithTaxes
     listPrice
+    listPriceWithTaxes
     itemOffered {
       ...CartProductItem
     }
@@ -115,18 +117,20 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
             seller,
             quantity,
             itemOffered,
-          }): IStoreOffer => ({
-            price,
-            listPrice,
-            seller,
-            quantity,
-            itemOffered: {
-              sku: itemOffered.sku,
-              image: itemOffered.image,
-              name: itemOffered.name,
-              additionalProperty: itemOffered.additionalProperty,
-            },
-          })
+          }): IStoreOffer => {
+            return {
+              price,
+              listPrice,
+              seller,
+              quantity,
+              itemOffered: {
+                sku: itemOffered.sku,
+                image: itemOffered.image,
+                name: itemOffered.name,
+                additionalProperty: itemOffered.additionalProperty,
+              },
+            }
+          }
         ),
       },
     },
@@ -181,6 +185,14 @@ export const useCart = () => {
       ),
       subTotal: cart.items.reduce(
         (acc, curr) => acc + curr.listPrice * curr.quantity,
+        0
+      ),
+      totalWithTaxes: cart.items.reduce(
+        (acc, curr) => acc + curr.priceWithTaxes * curr.quantity,
+        0
+      ),
+      subTotalWithTaxes: cart.items.reduce(
+        (acc, curr) => acc + curr.listPriceWithTaxes * curr.quantity,
         0
       ),
     }),
