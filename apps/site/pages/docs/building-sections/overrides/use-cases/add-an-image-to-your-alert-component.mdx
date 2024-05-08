@@ -1,6 +1,8 @@
 # Add an image to your Alert component
 
-This guide illustrates an advanced use case for [`getOverriddenSection`](/docs/building-sections/overrides/specification) in FastStore, focusing on customizing the icon of the Alert section to display an image instead.
+This guide illustrates an advanced use case for [`getOverriddenSection`](/docs/building-sections/overrides/specification) in FastStore. It focuses on customizing the icon of the Alert section to display an image instead. 
+
+> ℹ️ For detailed instructions on overriding components, refer to [overriding component props](https://developers.vtex.com/docs/guides/faststore/overrides-component-props) and [overriding a component](https://developers.vtex.com/docs/guides/faststore/overrides-native-component).
 
 ## Context
 
@@ -33,7 +35,7 @@ By leveraging `getOverriddenSection`, you can create a custom component called `
 
    - This interface defines the props accepted by the `AlertWithImage` component.
    - It inherits all props from the native Alert component, excluding the icon prop as we intend to replace it with an image.
-   - It adds a new prop named `src` which specifies the image source URL.
+   - It adds a new prop named `src`, which specifies the image source URL.
 
 3. Create the `AlertWithImage` component:
 
