@@ -613,6 +613,8 @@ export type StoreAggregateOffer = {
   highPrice: Scalars['Float']['output']
   /** Lowest price among all sellers. */
   lowPrice: Scalars['Float']['output']
+  /** Lowest price among all sellers with current Taxes. */
+  lowPriceWithTaxes: Scalars['Float']['output']
   /** Number of sellers selling this SKU. */
   offerCount: Scalars['Int']['output']
   /** Array with information on each available offer. */
@@ -839,12 +841,16 @@ export type StoreOffer = {
   itemOffered: StoreProduct
   /** This is displayed as the "from" price in the context of promotions' price comparison. This may change before it reaches the shelf. */
   listPrice: Scalars['Float']['output']
+  /** List price among with current taxes. */
+  listPriceWithTaxes: Scalars['Float']['output']
   /** Also known as spot price. */
   price: Scalars['Float']['output']
   /** ISO code of the currency used for the offer prices. */
   priceCurrency: Scalars['String']['output']
   /** Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time. */
   priceValidUntil: Scalars['String']['output']
+  /** Also known as spot price with taxes. */
+  priceWithTaxes: Scalars['Float']['output']
   /** Number of items offered. */
   quantity: Scalars['Int']['output']
   /** Seller responsible for the offer. */
@@ -1163,10 +1169,13 @@ export type ProductDetailsFragment_ProductFragment = {
   brand: { name: string }
   offers: {
     lowPrice: number
+    lowPriceWithTaxes: number
     offers: Array<{
       availability: string
       price: number
+      priceWithTaxes: number
       listPrice: number
+      listPriceWithTaxes: number
       seller: { identifier: string }
     }>
   }
@@ -1241,6 +1250,7 @@ export type ServerProductQueryQuery = {
     offers: {
       lowPrice: number
       highPrice: number
+      lowPriceWithTaxes: number
       priceCurrency: string
       offers: Array<{
         availability: string
@@ -1248,7 +1258,9 @@ export type ServerProductQueryQuery = {
         priceValidUntil: string
         priceCurrency: string
         itemCondition: string
+        priceWithTaxes: number
         listPrice: number
+        listPriceWithTaxes: number
         seller: { identifier: string }
       }>
     }
@@ -1282,7 +1294,9 @@ export type ValidateCartMutationMutation = {
       acceptedOffer: Array<{
         quantity: number
         price: number
+        priceWithTaxes: number
         listPrice: number
+        listPriceWithTaxes: number
         seller: { identifier: string }
         itemOffered: {
           sku: string
@@ -1318,7 +1332,9 @@ export type CartMessageFragment = { text: string; status: StoreStatus }
 export type CartItemFragment = {
   quantity: number
   price: number
+  priceWithTaxes: number
   listPrice: number
+  listPriceWithTaxes: number
   seller: { identifier: string }
   itemOffered: {
     sku: string
@@ -1491,10 +1507,13 @@ export type ClientProductQueryQuery = {
     brand: { name: string }
     offers: {
       lowPrice: number
+      lowPriceWithTaxes: number
       offers: Array<{
         availability: string
         price: number
+        priceWithTaxes: number
         listPrice: number
+        listPriceWithTaxes: number
         seller: { identifier: string }
       }>
     }
@@ -1769,10 +1788,13 @@ export const ProductDetailsFragment_ProductFragmentDoc =
   }
   offers {
     lowPrice
+    lowPriceWithTaxes
     offers {
       availability
       price
+      priceWithTaxes
       listPrice
+      listPriceWithTaxes
       seller {
         identifier
       }
@@ -1946,7 +1968,9 @@ export const CartItemFragmentDoc = new TypedDocumentString(
   }
   quantity
   price
+  priceWithTaxes
   listPrice
+  listPriceWithTaxes
   itemOffered {
     ...CartProductItem
   }
@@ -2003,7 +2027,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '3ce56e42296689b601347fedc380c89519355ab7',
+    operationHash: '46103bee661405bde706d72126fdbf9b0a0c9e6e',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2012,7 +2036,7 @@ export const ServerProductQueryDocument = {
 export const ValidateCartMutationDocument = {
   __meta__: {
     operationName: 'ValidateCartMutation',
-    operationHash: '534fae829675533052d75fd4aa509b9cf85b4d40',
+    operationHash: '324471076994dca94a47adcaf1c6b8f7896e1b4f',
   },
 } as unknown as TypedDocumentString<
   ValidateCartMutationMutation,
@@ -2048,7 +2072,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: 'cedeb0c3e7ec1678400fe2ae930f5a79382fba1e',
+    operationHash: '7d121ef8d4dc99174e64e4429a9b977b8bbebed8',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,

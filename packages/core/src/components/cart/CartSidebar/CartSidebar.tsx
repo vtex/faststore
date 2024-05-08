@@ -72,6 +72,7 @@ export interface CartSidebarProps {
   quantitySelector: {
     useUnitMultiplier?: boolean
   }
+  usePriceWithTaxes?: boolean
 }
 
 function CartSidebar({
@@ -86,9 +87,19 @@ function CartSidebar({
     icon: { icon: checkoutButtonIcon, alt: checkoutButtonIconAlt },
   },
   quantitySelector,
+  usePriceWithTaxes = true,
 }: CartSidebarProps) {
   const btnProps = useCheckoutButton()
-  const { items, gifts, totalItems, isValidating, subTotal, total } = useCart()
+  const {
+    items,
+    gifts,
+    totalItems,
+    isValidating,
+    subTotal,
+    total,
+    subTotalWithTaxes,
+    totalWithTaxes,
+  } = useCart()
   const { cart: displayCart, closeCart } = useUI()
   const { fadeOut } = useFadeEffect()
   const { sendViewCartEvent } = useViewCartEvent()
@@ -125,6 +136,7 @@ function CartSidebar({
                   {items.map((item) => (
                     <li key={item.id}>
                       <CartItem
+                        usePriceWithTaxes={usePriceWithTaxes}
                         item={item}
                         useUnitMultiplier={
                           quantitySelector?.useUnitMultiplier ?? false
@@ -145,8 +157,8 @@ function CartSidebar({
 
                 <UICartSidebarFooter>
                   <OrderSummary
-                    subTotal={subTotal}
-                    total={total}
+                    subTotal={usePriceWithTaxes ? subTotalWithTaxes : subTotal}
+                    total={usePriceWithTaxes ? totalWithTaxes : total}
                     numberOfItems={totalItems}
                     checkoutButton={
                       <UIButton

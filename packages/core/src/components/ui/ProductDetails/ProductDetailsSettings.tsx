@@ -24,6 +24,7 @@ interface ProductDetailsSettingsProps {
   setQuantity: Dispatch<SetStateAction<number>>
   notAvailableButtonTitle: string
   useUnitMultiplier: boolean
+  usePriceWithTaxes: boolean
 }
 
 function ProductDetailsSettings({
@@ -35,6 +36,7 @@ function ProductDetailsSettings({
   buyButtonIcon: { icon: buyButtonIconName, alt: buyButtonIconAlt },
   notAvailableButtonTitle,
   useUnitMultiplier,
+  usePriceWithTaxes,
 }: ProductDetailsSettingsProps) {
   const {
     BuyButton,
@@ -56,14 +58,25 @@ function ProductDetailsSettings({
     image: productImages,
     additionalProperty,
     offers: {
-      offers: [{ availability, price, listPrice, seller }],
+      offers: [
+        {
+          availability,
+          price,
+          priceWithTaxes,
+          listPrice,
+          seller,
+          listPriceWithTaxes,
+        },
+      ],
     },
   } = product
 
   const buyProps = useBuyButton({
     id,
     price,
+    priceWithTaxes,
     listPrice,
+    listPriceWithTaxes,
     seller,
     quantity,
     itemOffered: {
@@ -112,8 +125,8 @@ function ProductDetailsSettings({
         <section data-fs-product-details-values>
           <ProductPrice.Component
             data-fs-product-details-prices
-            value={price}
-            listPrice={listPrice}
+            value={usePriceWithTaxes ? priceWithTaxes : price}
+            listPrice={usePriceWithTaxes ? listPriceWithTaxes : listPrice}
             formatter={useFormattedPrice}
             {...ProductPrice.props}
           />
