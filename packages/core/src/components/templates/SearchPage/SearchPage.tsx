@@ -1,19 +1,25 @@
 import { useSearch } from '@faststore/sdk'
 import type { ComponentType } from 'react'
 
+import RenderSections from 'src/components/cms/RenderSections'
+import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
+import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
+import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
+import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
+import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
+import ProductTiles from 'src/components/sections/ProductTiles'
 import { ITEMS_PER_PAGE } from 'src/constants'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import RenderSections from 'src/components/cms/RenderSections'
-import { SearchContentType } from 'src/server/cms'
-import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
+import { SearchPageContextType } from 'src/pages/s'
 import PageProvider, { SearchPageContext } from 'src/sdk/overrides/PageProvider'
 import {
   useCreateUseGalleryPage,
   UseGalleryPageContext,
 } from 'src/sdk/product/usePageProductsQuery'
-import { SearchPageContextType } from 'src/pages/s'
+import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
+import { SearchContentType } from 'src/server/cms'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -21,7 +27,13 @@ import { SearchPageContextType } from 'src/pages/s'
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Breadcrumb,
+  BannerText,
+  BannerNewsletter,
+  Newsletter,
+  Hero,
   ProductGallery,
+  ProductShelf,
+  ProductTiles,
   ...CUSTOM_COMPONENTS,
 }
 
