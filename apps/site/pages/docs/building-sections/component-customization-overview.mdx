@@ -17,13 +17,13 @@ FastStore offers the ability to extend and customize your store components in fo
  
 ### Content customization with Headless CMS
  
-Change the behavior of specific components by changing their props in the [Headless CMS](/docs/headless-cms-overview).
+Change the behavior of specific components by changing their props in the [Headless CMS](https://developers.vtex.com/docs/guides/faststore/headless-cms-overview).
 In the VTEX Admin, go to **Storefront > Headless CMS** and select the section where the desired component is located.
 From there, you can customize the component by modifying its props. Find the available props in each native section for customization in the Headless CMS in [list of available native sections](/docs/building-sections/list-of-native-sections).
 
 <Callout type="warning" emoji="⚠️">
   The props changed via Headless CMS overlap the changes made through
-  [override](/docs/building-sections/overriding-components-and-props#override-native-components-props). For example,
+  [override](https://developers.vtex.com/docs/guides/faststore/building-sections-overriding-components-and-props). For example,
   if you change a prop through override and also change it using Headless CMS,
   the final prop's value will be the one added using CMS.
 </Callout>
@@ -35,18 +35,18 @@ Change the store theme and component styling using theming and design tokens. Fo
 ### Components and sections customization
 You have the following customization options for components and sections:
 
-- [Override native component's props](/docs/building-sections/overriding-components-and-props#override-native-components-props): Modify the behavior of a specific component by passing additional props to it in your store code.
-- [Override a native component](/docs/building-sections/overriding-components-and-props#overriding-a-native-component): Create a new component and override its native equivalent to achieve the desired functionality.
-- [Create a new section](/docs/building-sections/creating-a-new-section): If the available FastStore native sections do not meet your business requirements, you can create a new section and make it available in the Headless CMS.
+- [Override native component's props](https://developers.vtex.com/docs/guides/faststore/building-sections-overriding-components-and-props#override-native-components-props): Modify the behavior of a specific component by passing additional props to it in your store code.
+- [Override a native component](https://developers.vtex.com/docs/guides/faststore/building-sections-overriding-components-and-props#overriding-a-native-component): Create a new component and override its native equivalent to achieve the desired functionality.
+- [Create a new section](https://developers.vtex.com/docs/guides/faststore/building-sections-creating-a-new-section): If the available FastStore native sections do not meet your business requirements, you can create a new section and make it available in the Headless CMS.
 
 <Callout type="warning" emoji="⚠️">
-  Consider using overrides when [FastStore design tokens (theming tools)](https://www.faststore.dev/docs/theming-overview#what-is-theming) or Headless CMS props alone cannot achieve the customization you need.
+  Consider using overrides when [FastStore design tokens (theming tools)](https://developers.vtex.com/docs/guides/faststore/using-themes-overview#what-is-theming) or Headless CMS props alone cannot achieve the customization you need.
   Overrides are suitable for making changes in component behavior or replacing components entirely.
 </Callout>
 
 ### API extension
 
-Add new data to existing queries on the FastStore API by extending it. Refer to the [API extension guide](/docs/api-extensions) for more
+Add new data to existing queries on the FastStore API by extending it. Refer to the [API extension guide](https://developers.vtex.com/docs/guides/faststore/api-extensions-overview) for more
 information.
 
 </Steps>
