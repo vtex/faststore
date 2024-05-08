@@ -1,8 +1,11 @@
 # Add an image to your Alert component
 
 This guide illustrates an advanced use case for [`getOverriddenSection`](/docs/building-sections/overrides/specification) in FastStore. It focuses on customizing the icon of the Alert section to display an image instead. 
+import { Callout } from 'nextra/components'
 
-> ℹ️ For detailed instructions on overriding components, refer to [overriding component props](https://developers.vtex.com/docs/guides/faststore/overrides-component-props) and [overriding a component](https://developers.vtex.com/docs/guides/faststore/overrides-native-component).
+<Callout type="info" emoji=" ℹ️ ">
+ For detailed instructions on overriding components, refer to [overriding component props](https://developers.vtex.com/docs/guides/faststore/overrides-component-props) and [overriding a component](https://developers.vtex.com/docs/guides/faststore/overrides-native-component).
+</Callout>
 
 ## Context
 
@@ -90,7 +93,7 @@ By leveraging `getOverriddenSection`, you can create a custom component called `
        - The use of `useMemo` ensures this override is only created once, improving performance.
    - The function returns the `OverriddenAlert` component, spreading the `otherProps` and setting the `icon` prop to `noop` (effectively disabling the default icon behavior).
 
-4. Add the section to the Headless CMS by following the instructions available in [Sending components to the Headless CMS](/docs/building-sections/overrides/sending-components-to-the-headless-cms).
+4. Add the section to the Headless CMS by following the instructions available in [Sending components to the Headless CMS](https://developers.vtex.com/docs/guides/faststore/building-sections-list-of-native-sections).
 For the schema it was used the following:
 
 ```json copy
