@@ -15,6 +15,7 @@ import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNew
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
 import { OverriddenDefaultCrossSellingShelf as CrossSellingShelf } from 'src/components/sections/CrossSellingShelf/OverriddenDefaultCrossSellingShelf'
+import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import { OverriddenDefaultProductDetails as ProductDetails } from 'src/components/sections/ProductDetails/OverriddenDefaultProductDetails'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { useSession } from 'src/sdk/session'
@@ -39,6 +40,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductDetails,
   CrossSellingShelf,
   BannerNewsletter,
+  ProductShelf,
   BannerText,
   ...CUSTOM_COMPONENTS,
 }

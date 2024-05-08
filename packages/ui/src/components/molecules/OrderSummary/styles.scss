@@ -6,6 +6,7 @@
   // Default properties
   --fs-order-summary-padding                         : var(--fs-spacing-3);
   --fs-order-summary-margin-bottom                   : var(--fs-spacing-2);
+  --fs-order-summary-row-gap                         : 0;
 
   --fs-order-summary-discount-text-color             : var(--fs-color-success-text);
 
@@ -15,7 +16,10 @@
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
+  display: flex;
+  flex-direction: column;
   padding: var(--fs-order-summary-padding);
+  row-gap: var(--fs-order-summary-row-gap);
 
   li {
     display: flex;
