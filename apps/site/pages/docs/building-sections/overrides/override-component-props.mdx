@@ -30,18 +30,29 @@ it, refer to this [release note](https://github.com/vtex/faststore/releases/tag/
 > ℹ️ The naming of the `sections` folder is arbitrary, as overrides can be created in any file, since the import is made in the `src/components/index.tsx` file. 
 
 <Tabs items={['macOS and Linux', 'Windows']}>
-  <Tab>```bash copy mkdir src/components src/components/sections ```</Tab>
-  <Tab>```bash copy mkdir src\components src\components\sections ```</Tab>
+<Tab>
+    ```bash copy 
+    mkdir src/components src/components/sections
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    mkdir src\components src\components\sections
+    ```
+  </Tab>
 </Tabs>
 
 3. In the `sections` folder, create a new file for your customized section. For example, create a new file named `ProductDetailsWithCustomButton.tsx` under the `src/components/sections` directory.
 
 <Tabs items={['macOS and Linux', 'Windows']}>
   <Tab>
-    ```bash copy touch src/components/sections/ProductDetailsWithCustomButton.tsx ```
+    ```bash copy 
+    touch src/components/sections/ProductDetailsWithCustomButton.tsx
+    ```
   </Tab>
   <Tab>
-    ```bash copy type nul > src\components\sections\ProductDetailsWithCustomButton.tsx
+    ```bash copy
+    type nul > src\components\sections\ProductDetailsWithCustomButton.tsx
     ```
   </Tab>
 </Tabs>
