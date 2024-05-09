@@ -41,10 +41,11 @@ export const VtexCommerce = (
   const host =
     new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? ''
 
-  const selectedPrefix =
+  const selectedPrefix = subDomainPrefix ?
     subDomainPrefix
       .map((prefix) => prefix + '.')
       .find((prefix) => host.includes(prefix)) || ''
+    : ''
 
   const forwardedHost = host.replace(selectedPrefix, '')
 
@@ -141,9 +142,9 @@ export const VtexCommerce = (
       ): Promise<OrderForm> => {
         const deliveryWindow = setDeliveryWindow
           ? {
-              startDateUtc: deliveryMode?.deliveryWindow?.startDate,
-              endDateUtc: deliveryMode?.deliveryWindow?.endDate,
-            }
+            startDateUtc: deliveryMode?.deliveryWindow?.startDate,
+            endDateUtc: deliveryMode?.deliveryWindow?.endDate,
+          }
           : null
 
         const mappedBody = {
@@ -291,9 +292,9 @@ export const VtexCommerce = (
         postalCode
           ? params.append('postalCode', postalCode)
           : params.append(
-              'geoCoordinates',
-              `${geoCoordinates?.longitude};${geoCoordinates?.latitude}`
-            )
+            'geoCoordinates',
+            `${geoCoordinates?.longitude};${geoCoordinates?.latitude}`
+          )
 
         const url = `${base}/api/checkout/pub/regions/?${params.toString()}`
         const headers: HeadersInit = withCookie({
