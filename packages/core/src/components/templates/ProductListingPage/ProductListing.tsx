@@ -1,10 +1,14 @@
 import { useSearch } from '@faststore/sdk'
 import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
 import deepmerge from 'deepmerge'
+import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
+import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
+import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
+import ProductTiles from 'src/components/sections/ProductTiles'
 import ScrollToTopButton from 'src/components/sections/ScrollToTopButton'
 import { ITEMS_PER_PAGE } from 'src/constants'
 
@@ -31,9 +35,13 @@ export type ProductListingPageProps = {
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Breadcrumb,
+  BannerText,
+  BannerNewsletter,
   Hero,
+  Newsletter,
   ProductGallery,
   ProductShelf,
+  ProductTiles,
   ...CUSTOM_COMPONENTS,
 }
 

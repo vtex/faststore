@@ -3,7 +3,9 @@ import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 
 import RenderSections from 'src/components/cms/RenderSections'
+import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
+import { OverriddenDefaultCrossSellingShelf as CrossSellingShelf } from 'src/components/sections/CrossSellingShelf/OverriddenDefaultCrossSellingShelf'
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
 import Incentives from 'src/components/sections/Incentives'
 import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
@@ -20,11 +22,13 @@ import storeConfig from 'faststore.config'
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Hero,
+  BannerText,
+  BannerNewsletter,
+  CrossSellingShelf,
   Incentives,
+  Newsletter,
   ProductShelf,
   ProductTiles,
-  BannerText,
-  Newsletter,
   ...CUSTOM_COMPONENTS,
 }
 
