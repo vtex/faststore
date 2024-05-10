@@ -76,7 +76,7 @@ function ProductDetails({
   },
   notAvailableButton: { title: notAvailableButtonTitle },
   quantitySelector,
-  usePriceWithTaxes = true,
+  usePriceWithTaxes = false,
 }: ProductDetailsProps) {
   const {
     DiscountBadge,

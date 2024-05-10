@@ -1109,10 +1109,12 @@ export type ProductSummary_ProductFragment = {
   image: Array<{ url: string; alternateName: string }>
   offers: {
     lowPrice: number
+    lowPriceWithTaxes: number
     offers: Array<{
       availability: string
       price: number
       listPrice: number
+      listPriceWithTaxes: number
       quantity: number
       seller: { identifier: string }
     }>
@@ -1417,10 +1419,12 @@ export type ClientManyProductsQueryQuery = {
           image: Array<{ url: string; alternateName: string }>
           offers: {
             lowPrice: number
+            lowPriceWithTaxes: number
             offers: Array<{
               availability: string
               price: number
               listPrice: number
+              listPriceWithTaxes: number
               quantity: number
               seller: { identifier: string }
             }>
@@ -1546,10 +1550,12 @@ export type ClientSearchSuggestionsQueryQuery = {
         image: Array<{ url: string; alternateName: string }>
         offers: {
           lowPrice: number
+          lowPriceWithTaxes: number
           offers: Array<{
             availability: string
             price: number
             listPrice: number
+            listPriceWithTaxes: number
             quantity: number
             seller: { identifier: string }
           }>
@@ -1676,10 +1682,12 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
   }
   offers {
     lowPrice
+    lowPriceWithTaxes
     offers {
       availability
       price
       listPrice
+      listPriceWithTaxes
       quantity
       seller {
         identifier
@@ -2054,7 +2062,7 @@ export const SubscribeToNewsletterDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: 'c0d7d2ae1d5aaae5d50eea683b389377c36fb57d',
+    operationHash: '99012563e9885c3b27a716ca212a2c317e7ec12f',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2081,7 +2089,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: 'a8a27661f6a032e086c047339e0d0f180f0e0161',
+    operationHash: '47af7b9c9e0fb18b01050767daf3e765f67819ac',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,

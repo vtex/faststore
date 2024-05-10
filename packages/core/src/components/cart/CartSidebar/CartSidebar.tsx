@@ -87,7 +87,7 @@ function CartSidebar({
     icon: { icon: checkoutButtonIcon, alt: checkoutButtonIconAlt },
   },
   quantitySelector,
-  usePriceWithTaxes = true,
+  usePriceWithTaxes = false,
 }: CartSidebarProps) {
   const btnProps = useCheckoutButton()
   const {
@@ -136,8 +136,8 @@ function CartSidebar({
                   {items.map((item) => (
                     <li key={item.id}>
                       <CartItem
-                        usePriceWithTaxes={usePriceWithTaxes}
                         item={item}
+                        usePriceWithTaxes={usePriceWithTaxes}
                         useUnitMultiplier={
                           quantitySelector?.useUnitMultiplier ?? false
                         }

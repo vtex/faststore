@@ -62,8 +62,8 @@ function useCartItemEvent() {
 
 interface Props {
   item: ICartItem
-  useUnitMultiplier: boolean
-  usePriceWithTaxes: boolean
+  useUnitMultiplier?: boolean
+  usePriceWithTaxes?: boolean
 }
 
 function CartItem({
