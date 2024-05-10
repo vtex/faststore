@@ -22,8 +22,8 @@ interface ProductDetailsSettingsProps {
   quantity: number
   setQuantity: Dispatch<SetStateAction<number>>
   notAvailableButtonTitle: string
-  useUnitMultiplier: boolean
-  usePriceWithTaxes: boolean
+  useUnitMultiplier?: boolean
+  usePriceWithTaxes?: boolean
 }
 
 function ProductDetailsSettings({
@@ -34,8 +34,8 @@ function ProductDetailsSettings({
   setQuantity,
   buyButtonIcon: { icon: buyButtonIconName, alt: buyButtonIconAlt },
   notAvailableButtonTitle,
-  useUnitMultiplier,
-  usePriceWithTaxes,
+  useUnitMultiplier = false,
+  usePriceWithTaxes = false,
 }: ProductDetailsSettingsProps) {
   const {
     BuyButton,

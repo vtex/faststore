@@ -50,6 +50,10 @@ export interface ProductCardProps {
    * Enables a DiscountBadge to the component.
    */
   showDiscountBadge?: boolean
+  /**
+   * Difine if Product uses taxes in price
+   */
+  usePriceWithTaxes?: boolean
 }
 
 function ProductCard({
@@ -63,6 +67,7 @@ function ProductCard({
   buttonLabel = 'Add',
   onButtonClick,
   showDiscountBadge = true,
+  usePriceWithTaxes = false,
   ...otherProps
 }: ProductCardProps) {
   const {
@@ -70,8 +75,9 @@ function ProductCard({
     isVariantOf: { name },
     image: [img],
     offers: {
-      lowPrice: spotPrice,
-      offers: [{ listPrice, availability }],
+      lowPrice,
+      lowPriceWithTaxes,
+      offers: [{ listPrice: listPriceBase, availability, listPriceWithTaxes }],
     },
   } = product
 
@@ -87,6 +93,9 @@ function ProductCard({
     () => availability !== 'https://schema.org/InStock',
     [availability]
   )
+
+  const spotPrice = usePriceWithTaxes ? lowPriceWithTaxes : lowPrice
+  const listPrice = usePriceWithTaxes ? listPriceWithTaxes : listPriceBase
 
   const hasDiscount = spotPrice <= listPrice
 
@@ -152,10 +161,12 @@ export const fragment = gql(`
 
     offers {
       lowPrice
+      lowPriceWithTaxes
       offers {
         availability
         price
         listPrice
+        listPriceWithTaxes
         quantity
         seller {
           identifier
