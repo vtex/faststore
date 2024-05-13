@@ -13,12 +13,14 @@ interface Props {
   itemsPerPage?: number
   title: string
   kind: 'buy' | 'view'
+  usePriceWithTaxes?: boolean
 }
 const CrossSellingShelf = ({
   numberOfItems,
   itemsPerPage,
   title,
   kind,
+  usePriceWithTaxes = false,
 }: Props) => {
   const { ref, inView } = useInView()
   const context = usePDP()
@@ -40,6 +42,7 @@ const CrossSellingShelf = ({
         itemsPerPage={itemsPerPage}
         title={title}
         selectedFacets={selectedFacets}
+        usePriceWithTaxes={usePriceWithTaxes}
       />
     </Section>
   )

@@ -984,6 +984,11 @@
           "default": "buy",
           "enum": ["buy", "view"],
           "enumNames": ["Who bought also bought", "Who saw also saw"]
+        },
+        "usePriceWithTaxes": {
+          "title": "Should use taxes to calculate the price?",
+          "type": "boolean",
+          "default": false
         }
       }
     }
