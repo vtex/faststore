@@ -929,6 +929,11 @@
             }
           }
         },
+        "usePriceWithTaxes": {
+          "title": "Should use taxes to calculate the price?",
+          "type": "boolean",
+          "default": false
+        },
         "productCardConfiguration": {
           "title": "Product Card Configuration",
           "type": "object",
@@ -1554,6 +1559,11 @@
               "default": false
             }
           }
+        },
+        "usePriceWithTaxes": {
+          "title": "Should use taxes to calculate the price?",
+          "type": "boolean",
+          "default": false
         }
       }
     }
@@ -1696,6 +1706,11 @@
               "title": "Cards should be bordered?",
               "type": "boolean",
               "default": true
+            },
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
             }
           }
         },
@@ -1858,6 +1873,11 @@
               "default": false
             }
           }
+        },
+        "usePriceWithTaxes": {
+          "title": "Should use taxes to calculate the price?",
+          "type": "boolean",
+          "default": false
         }
       }
     }
