@@ -9,7 +9,9 @@ import ThirdPartyScripts from 'app/components/ThirdPartyScripts'
 import AnalyticsHandler from 'app/sdk/analytics'
 import ErrorBoundary from 'app/sdk/error/ErrorBoundary'
 import UIProvider from 'app/sdk/ui/UIProvider'
-import { WebFonts } from 'src/customizations/src/GlobalOverrides'
+
+// The path will probably change when overriding fonts in the future
+import DefaultFont from 'app/styles/fonts'
 
 // import GlobalSections from './components/cms/GlobalSections'
 
@@ -78,11 +80,13 @@ export default async function RootLayout({
       <AnalyticsHandler />
 
       <html>
-        <head>
-          {!process.env.DISABLE_3P_SCRIPTS && <ThirdPartyScripts />}
-          <WebFonts />
-        </head>
-        <body className="theme">
+        <head>{!process.env.DISABLE_3P_SCRIPTS && <ThirdPartyScripts />}</head>
+        {/**
+         * Later when overriding fonts we should use the font variable in CSS files
+         * https://nextjs.org/docs/app/api-reference/components/font#css-variables
+         */}
+        <body className={DefaultFont.className}>
+          FS Next Update page using Inter font.
           <UIProvider>
             <>
               {/*    <GlobalSections {...globalSections}>{children}</GlobalSections>*/}
