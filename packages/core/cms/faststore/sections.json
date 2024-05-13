@@ -1069,6 +1069,11 @@
               }
             }
           }
+        },
+        "usePriceWithTaxes": {
+          "title": "Should use taxes to calculate the price?",
+          "type": "boolean",
+          "default": false
         }
       }
     }
