@@ -159,6 +159,7 @@ function CartSidebar({
                   <OrderSummary
                     subTotal={usePriceWithTaxes ? subTotalWithTaxes : subTotal}
                     total={usePriceWithTaxes ? totalWithTaxes : total}
+                    includeTaxes={usePriceWithTaxes}
                     numberOfItems={totalItems}
                     checkoutButton={
                       <UIButton

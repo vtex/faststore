@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
 
-import { List } from '../../'
+import { Label, List } from '../../'
 
 export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
   /**
@@ -33,6 +33,14 @@ export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
    * Total value of the order.
    */
   totalValue?: string
+  /**
+   * Enables a include taxes status.
+   */
+  includeTaxes?: boolean
+  /**
+   * Label for determine if the price are with taxes included.
+   */
+  includeTaxesLabel?: string
 }
 
 const OrderSummary = forwardRef<HTMLUListElement, OrderSummaryProps>(
@@ -45,6 +53,8 @@ const OrderSummary = forwardRef<HTMLUListElement, OrderSummaryProps>(
       discountValue,
       totalLabel = 'Total',
       totalValue,
+      includeTaxes = false,
+      includeTaxesLabel = "Tax included",
       ...otherProps
     },
     ref
@@ -102,6 +112,11 @@ const OrderSummary = forwardRef<HTMLUListElement, OrderSummaryProps>(
             {totalValue}
           </span>
         </li>
+        {includeTaxes && (
+          <li data-fs-order-summary-taxes-label>
+            <Label>{includeTaxesLabel}</Label>
+          </li>
+          )}
       </List>
     )
   }
