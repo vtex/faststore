@@ -45,10 +45,32 @@ export const clientCMS = new ClientCMS({
   tenant: config.api.storeId,
 })
 
-export const getCMSPage = async (options: Options) => {
-  return await (isLocator(options)
-    ? clientCMS.getCMSPage(options).then((page) => ({ data: [page] }))
-    : clientCMS.getCMSPagesByContentType(options.contentType, options.filters))
+export const getCMSPage = async (
+  options: Options,
+  cmsClient: ClientCMS = clientCMS
+) => {
+  if (isLocator(options)) {
+    return await cmsClient
+      .getCMSPage(options)
+      .then((page) => ({ data: [page] }))
+  }
+
+  const pages = []
+  let page = 1
+  let hasNextPage = true
+
+  while (hasNextPage) {
+    const response = await cmsClient.getCMSPagesByContentType(
+      options.contentType,
+      { ...options.filters, page: page }
+    )
+
+    page = page + 1
+    hasNextPage = response.hasNextPage
+    pages.push(...response.data)
+  }
+
+  return { data: pages }
 }
 
 export const getPage = async <T extends ContentData>(options: Options) => {
