@@ -129,6 +129,7 @@ function ProductCard({
         onButtonClick={onButtonClick}
         linkProps={linkProps}
         showDiscountBadge={hasDiscount && showDiscountBadge}
+        includeTaxes={usePriceWithTaxes}
       />
     </UIProductCard>
   )

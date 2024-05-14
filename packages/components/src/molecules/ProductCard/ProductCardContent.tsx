@@ -8,6 +8,7 @@ import {
   Button,
   DiscountBadge,
   Icon,
+  Label,
   Link,
   LinkElementType,
   LinkProps,
@@ -56,6 +57,14 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    * Callback function when button is clicked.
    */
   onButtonClick?: () => void
+  /**
+   * Enables a include taxes status.
+   */
+  includeTaxes?: boolean
+  /**
+   * Label for determine if the price are with taxes included.
+   */
+  includeTaxesLabel?: string
 }
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
@@ -72,6 +81,8 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       buttonLabel = 'Add',
       onButtonClick,
       children,
+      includeTaxes = false,
+      includeTaxesLabel = "Tax included",
       ...otherProps
     },
     ref
@@ -100,6 +111,11 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
               listPrice={listingPrice}
               formatter={price?.formatter}
             />
+          )}
+          {includeTaxes && (
+            (<Label data-fs-product-card-taxes-label>
+              {includeTaxesLabel}
+            </Label>)
           )}
           {ratingValue && (
             <Rating value={ratingValue} icon={<Icon name="Star" />} />

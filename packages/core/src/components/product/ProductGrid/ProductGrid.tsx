@@ -22,14 +22,17 @@ interface Props {
   /**
    * CMS defined data to be used in ProductCard component.
    */
-  productCard?: Pick<ProductCardProps, 'showDiscountBadge' | 'bordered'>
+  productCard?: Pick<
+    ProductCardProps,
+    'showDiscountBadge' | 'bordered' | 'usePriceWithTaxes'
+  >
 }
 
 function ProductGrid({
   products,
   page,
   pageSize,
-  productCard: { showDiscountBadge, bordered } = {},
+  productCard: { showDiscountBadge, bordered, usePriceWithTaxes } = {},
 }: Props) {
   const { __experimentalProductCard: ProductCard } =
     useOverrideComponents<'ProductGallery'>()
@@ -58,6 +61,9 @@ function ProductGrid({
               }
               product={product}
               index={pageSize * page + idx + 1}
+              usePriceWithTaxes={
+                usePriceWithTaxes ?? ProductCard.props.usePriceWithTaxes
+              }
             />
           </UIProductGridItem>
         ))}
