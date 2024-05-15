@@ -1,13 +1,14 @@
 {
   "name": "@faststore/core",
-  "version": "3.0.54",
+  "version": "3.0.55",
   "license": "MIT",
   "repository": "vtex/faststore",
   "browserslist": "supports es6-module and not dead",
   "exports": {
     ".": "./index.ts",
     "./api": "./api/index.ts",
-    "./experimental": "./src/experimental/index.ts"
+    "./experimental": "./src/experimental/index.ts",
+    "./experimental/server": "./src/experimental/server/index.ts"
   },
   "scripts": {
     "generate:schema": "tsx src/server/generator/generateGraphQLSchemaFile.ts",
