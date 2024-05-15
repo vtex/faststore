@@ -57,17 +57,34 @@ export const getCMSPage = async (
 
   const pages = []
   let page = 1
-  let hasNextPage = true
+  const perPage = 10
+  const response = await cmsClient.getCMSPagesByContentType(
+    options.contentType,
+    { ...options.filters, page: page, perPage }
+  )
 
-  while (hasNextPage) {
-    const response = await cmsClient.getCMSPagesByContentType(
-      options.contentType,
-      { ...options.filters, page: page }
+  pages.push(...response.data)
+
+  const totalPagesToFetch = Math.ceil(response.totalItems / perPage) // How many pages have content
+  const pagesToFetch = Array.from(
+    { length: totalPagesToFetch - 1 }, // We want all those pages minus the first one that we fetched
+    (_, i) => i + 2 // + 1 because indices are 0 based, and + 1 because we already fetched the first
+  )
+
+  if (response.totalItems > pages.length) {
+    const restOfPages = await Promise.all(
+      pagesToFetch.map((i) =>
+        cmsClient.getCMSPagesByContentType(options.contentType, {
+          ...options.filters,
+          page: i,
+          perPage,
+        })
+      )
     )
 
-    page = page + 1
-    hasNextPage = response.hasNextPage
-    pages.push(...response.data)
+    restOfPages.forEach((response) => {
+      pages.push(...response.data)
+    })
   }
 
   return { data: pages }
