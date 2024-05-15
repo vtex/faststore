@@ -7,7 +7,8 @@
   "exports": {
     ".": "./index.ts",
     "./api": "./api/index.ts",
-    "./experimental": "./src/experimental/index.ts"
+    "./experimental": "./src/experimental/index.ts",
+    "./experimental/server": "./src/experimental/server/index.ts"
   },
   "scripts": {
     "generate:schema": "tsx src/server/generator/generateGraphQLSchemaFile.ts",
