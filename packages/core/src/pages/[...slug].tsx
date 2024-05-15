@@ -1,4 +1,5 @@
 import { isNotFoundError } from '@faststore/api'
+import storeConfig from 'faststore.config'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 
 import { gql } from '@generated'
@@ -86,6 +87,7 @@ export const getStaticProps: GetStaticProps<
   Locator
 > = async ({ params, previewData }) => {
   const slug = params?.slug.join('/') ?? ''
+  const rewrites = await storeConfig.rewrites?.()
 
   const [landingPagePromise, globalSectionsPromise] = [
     getLandingPageBySlug(slug, previewData),
@@ -114,7 +116,7 @@ export const getStaticProps: GetStaticProps<
       variables: { slug },
       operation: query,
     }),
-    getPLP(slug, previewData),
+    getPLP(slug, previewData, rewrites),
   ])
 
   const notFound = errors.find(isNotFoundError)

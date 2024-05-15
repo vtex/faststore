@@ -1,6 +1,10 @@
 import { ContentData, Locator } from '@vtex/client-cms'
 import MissingContentError from 'src/sdk/error/MissingContentError'
-import { findBestPLPTemplate } from 'src/utils/utilities'
+import {
+  Rewrite,
+  RewritesConfig,
+  findBestPLPTemplate,
+} from 'src/utils/multipleTemplates'
 import config from '../../../faststore.config'
 import { Options, getCMSPage, getPage } from '../cms'
 
@@ -23,27 +27,41 @@ type PLPfromCmsEnvData = {
 
 export type PLPContentType = ContentData & PLPSettings
 
-export const getPLP = async (slug: string, previewData: Locator) => {
+export const getPLP = async (
+  slug: string,
+  previewData: Locator,
+  rewrites: Rewrite[] | RewritesConfig
+) => {
   if (config.cms.data) {
     const cmsData = JSON.parse(config.cms.data)
     const allPLPsFromCmsEnvData: PLPfromCmsEnvData[] = cmsData['plp']
 
-    return await getPLPFromCmsEnvData(`/${slug}/`, allPLPsFromCmsEnvData, {
-      ...(previewData?.contentType === 'plp' ? previewData : null),
-      contentType: 'plp',
-    })
+    return await getPLPFromCmsEnvData(
+      `/${slug}/`,
+      allPLPsFromCmsEnvData,
+      {
+        ...(previewData?.contentType === 'plp' ? previewData : null),
+        contentType: 'plp',
+      },
+      rewrites
+    )
   }
 
-  return (await getPLPFromCms(`/${slug}/`, {
-    ...(previewData?.contentType === 'plp' ? previewData : null),
-    contentType: 'plp',
-  })) as PLPContentType
+  return (await getPLPFromCms(
+    `/${slug}/`,
+    {
+      ...(previewData?.contentType === 'plp' ? previewData : null),
+      contentType: 'plp',
+    },
+    rewrites
+  )) as PLPContentType
 }
 
 const getPLPFromCmsEnvData = async (
   slug: string,
   allPLPsFromCMSData: PLPfromCmsEnvData[],
-  options: Options
+  options: Options,
+  rewrites: Rewrite[] | RewritesConfig
 ): Promise<PLPContentType> => {
   const pages: PLPfromCmsEnvData[] = allPLPsFromCMSData ?? []
 
@@ -51,7 +69,7 @@ const getPLPFromCmsEnvData = async (
     throw new MissingContentError(options)
   }
 
-  const template = findBestPLPTemplate(pages, slug)
+  const template = findBestPLPTemplate(pages, slug, rewrites)
 
   return getPage<PLPContentType>({
     contentType: 'plp',
@@ -62,7 +80,8 @@ const getPLPFromCmsEnvData = async (
 
 export const getPLPFromCms = async (
   slug: string,
-  options: Options
+  options: Options,
+  rewrites: Rewrite[] | RewritesConfig
 ): Promise<Partial<PLPContentType>> => {
   const pages = (await getCMSPage(options)).data
 
@@ -70,5 +89,5 @@ export const getPLPFromCms = async (
     throw new MissingContentError(options)
   }
 
-  return findBestPLPTemplate(pages, slug)
+  return findBestPLPTemplate(pages, slug, rewrites)
 }
