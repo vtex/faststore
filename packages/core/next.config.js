@@ -61,6 +61,7 @@ const nextConfig = {
       tls: false,
       fs: false,
       net: false,
+      http2: false,
     }
 
     return config
