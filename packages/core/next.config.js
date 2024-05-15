@@ -57,6 +57,12 @@ const nextConfig = {
       config.optimization.splitChunks.maxInitialRequests = 1
     }
 
+    config.resolve.fallback = {
+      tls: false,
+      fs: false,
+      net: false,
+    }
+
     return config
   },
   redirects: storeConfig.redirects,
