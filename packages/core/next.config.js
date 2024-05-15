@@ -62,6 +62,7 @@ const nextConfig = {
       fs: false,
       net: false,
       http2: false,
+      dns: false,
     }
 
     return config
