@@ -45,6 +45,19 @@ export const clientCMS = new ClientCMS({
   tenant: config.api.storeId,
 })
 
+/*
+ * This in memory cache exists because for each page (think category or department)
+ * we are fetching all the pages of the same content type from the headless CMS to
+ * find the one that matches the slug.
+ *
+ * So instead of making multiple request for the Headless CMS API for each page we make
+ * one for each content-type and reuse the results for the next page.
+ *
+ * Since we rebuild on a CMS publication the server will go away and will "invalidate"
+ * the cache
+ */
+const getCMSPageCache = {}
+
 export const getCMSPage = async (
   options: Options,
   cmsClient: ClientCMS = clientCMS
@@ -55,39 +68,42 @@ export const getCMSPage = async (
       .then((page) => ({ data: [page] }))
   }
 
-  const pages = []
-  let page = 1
-  const perPage = 10
-  const response = await cmsClient.getCMSPagesByContentType(
-    options.contentType,
-    { ...options.filters, page: page, perPage }
-  )
-
-  pages.push(...response.data)
-
-  const totalPagesToFetch = Math.ceil(response.totalItems / perPage) // How many pages have content
-  const pagesToFetch = Array.from(
-    { length: totalPagesToFetch - 1 }, // We want all those pages minus the first one that we fetched
-    (_, i) => i + 2 // + 1 because indices are 0 based, and + 1 because we already fetched the first
-  )
-
-  if (response.totalItems > pages.length) {
-    const restOfPages = await Promise.all(
-      pagesToFetch.map((i) =>
-        cmsClient.getCMSPagesByContentType(options.contentType, {
-          ...options.filters,
-          page: i,
-          perPage,
-        })
-      )
+  if (!getCMSPageCache[options.contentType]) {
+    const pages = []
+    let page = 1
+    const perPage = 10
+    const response = await cmsClient.getCMSPagesByContentType(
+      options.contentType,
+      { ...options.filters, page: page, perPage }
     )
 
-    restOfPages.forEach((response) => {
-      pages.push(...response.data)
-    })
+    pages.push(...response.data)
+
+    const totalPagesToFetch = Math.ceil(response.totalItems / perPage) // How many pages have content
+    const pagesToFetch = Array.from(
+      { length: totalPagesToFetch - 1 }, // We want all those pages minus the first one that we fetched
+      (_, i) => i + 2 // + 1 because indices are 0 based, and + 1 because we already fetched the first
+    )
+
+    if (response.totalItems > pages.length) {
+      const restOfPages = await Promise.all(
+        pagesToFetch.map((i) =>
+          cmsClient.getCMSPagesByContentType(options.contentType, {
+            ...options.filters,
+            page: i,
+            perPage,
+          })
+        )
+      )
+
+      restOfPages.forEach((response) => {
+        pages.push(...response.data)
+      })
+    }
+    getCMSPageCache[options.contentType] = { data: pages }
   }
 
-  return { data: pages }
+  return getCMSPageCache[options.contentType]
 }
 
 export const getPage = async <T extends ContentData>(options: Options) => {
