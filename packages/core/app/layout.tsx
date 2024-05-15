@@ -85,7 +85,7 @@ export default async function RootLayout({
          * Later when overriding fonts we should use the font variable in CSS files
          * https://nextjs.org/docs/app/api-reference/components/font#css-variables
          */}
-        <body className={DefaultFont.className}>
+        <body className={`theme ${DefaultFont.className}`}>
           FS Next Update page using Inter font.
           <UIProvider>
             <>
