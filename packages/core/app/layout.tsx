@@ -86,7 +86,6 @@ export default async function RootLayout({
          * https://nextjs.org/docs/app/api-reference/components/font#css-variables
          */}
         <body className={`theme ${DefaultFont.className}`}>
-          FS Next Update page using Inter font.
           <UIProvider>
             <>
               {/*    <GlobalSections {...globalSections}>{children}</GlobalSections>*/}
