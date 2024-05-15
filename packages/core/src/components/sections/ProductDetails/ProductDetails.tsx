@@ -8,7 +8,6 @@ import type { AnalyticsItem } from 'app/sdk/analytics/types'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
 
-import ProductDescription from '../../../components/ui/ProductDescription'
 import { ProductDetailsSettings } from '../../../components/ui/ProductDetails'
 import Section from '../Section'
 
@@ -82,6 +81,7 @@ function ProductDetails({
     __experimentalImageGallery: ImageGallery,
     __experimentalShippingSimulation: ShippingSimulation,
     __experimentalNotAvailableButton: NotAvailableButton,
+    __experimentalProductDescription: ProductDescription,
   } = useOverrideComponents<'ProductDetails'>()
   const { currency } = useSession()
   const context = usePDP()
@@ -230,11 +230,19 @@ function ProductDetails({
           </section>
 
           {shouldDisplayProductDescription && (
-            <ProductDescription
-              initiallyExpanded={productDescriptionInitiallyExpanded}
-              descriptionData={[
-                { title: productDescriptionDetailsTitle, content: description },
-              ]}
+            <ProductDescription.Component
+              initiallyExpanded={
+                productDescriptionInitiallyExpanded ??
+                ProductDescription.props.initiallyExpanded
+              }
+              descriptionData={
+                [
+                  {
+                    content: description,
+                    title: productDescriptionDetailsTitle,
+                  },
+                ] ?? ProductDescription.props.descriptionData
+              }
             />
           )}
         </section>
