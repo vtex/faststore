@@ -27,7 +27,10 @@ export type ProductShelfProps = {
     key: string
     value: string
   }[]
-  usePriceWithTaxes?: boolean
+  taxesConfiguration: {
+    usePriceWithTaxes?: boolean
+    taxesLabel?: string
+  }
   productCardConfiguration?: {
     showDiscountBadge?: boolean
     bordered?: boolean
@@ -41,7 +44,7 @@ function ProductShelf({
   productCardConfiguration: { bordered, showDiscountBadge } = {},
   numberOfItems,
   itemsPerPage = 5,
-  usePriceWithTaxes = false,
+  taxesConfiguration,
   ...otherProps
 }: ProductShelfProps) {
   const {
@@ -103,9 +106,7 @@ function ProductShelf({
                 showDiscountBadge={
                   showDiscountBadge ?? ProductCard.props.showDiscountBadge
                 }
-                usePriceWithTaxes={
-                  usePriceWithTaxes ?? ProductCard.props.usePriceWithTaxes
-                }
+                taxesConfiguration={taxesConfiguration}
                 // Dynamic props shouldn't be overridable
                 // This decision can be reviewed later if needed
                 key={`${product.node.id}`}

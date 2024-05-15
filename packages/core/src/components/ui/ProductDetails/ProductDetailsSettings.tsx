@@ -24,8 +24,10 @@ interface ProductDetailsSettingsProps {
   setQuantity: Dispatch<SetStateAction<number>>
   notAvailableButtonTitle: string
   useUnitMultiplier?: boolean
-  usePriceWithTaxes?: boolean
-  taxesLabel?: string
+  taxesConfiguration?: {
+    usePriceWithTaxes?: boolean
+    taxesLabel?: string
+  }
 }
 
 function ProductDetailsSettings({
@@ -37,8 +39,7 @@ function ProductDetailsSettings({
   buyButtonIcon: { icon: buyButtonIconName, alt: buyButtonIconAlt },
   notAvailableButtonTitle,
   useUnitMultiplier = false,
-  usePriceWithTaxes = false,
-  taxesLabel = 'Tax included',
+  taxesConfiguration,
 }: ProductDetailsSettingsProps) {
   const {
     BuyButton,
@@ -128,14 +129,20 @@ function ProductDetailsSettings({
           <div data-fs-product-details-values-wrapper>
             <ProductPrice.Component
               data-fs-product-details-prices
-              value={usePriceWithTaxes ? priceWithTaxes : price}
-              listPrice={usePriceWithTaxes ? listPriceWithTaxes : listPrice}
+              value={
+                taxesConfiguration?.usePriceWithTaxes ? priceWithTaxes : price
+              }
+              listPrice={
+                taxesConfiguration?.usePriceWithTaxes
+                  ? listPriceWithTaxes
+                  : listPrice
+              }
               formatter={useFormattedPrice}
               {...ProductPrice.props}
             />
-            {usePriceWithTaxes && (
+            {taxesConfiguration?.usePriceWithTaxes && (
               <UILabel data-fs-product-details-taxes-label>
-                {taxesLabel}
+                {taxesConfiguration?.taxesLabel}
               </UILabel>
             )}
           </div>

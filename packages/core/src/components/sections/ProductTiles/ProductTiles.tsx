@@ -15,7 +15,10 @@ import styles from './section.module.scss'
 interface ProductTilesProps
   extends Partial<ClientManyProductsQueryQueryVariables> {
   title: string
-  usePriceWithTaxes?: boolean
+  taxesConfiguration?: {
+    usePriceWithTaxes?: boolean
+    taxesLabel?: string
+  }
 }
 
 const NUMBER_ITEMS_TO_EXPAND_FIRST = 3
@@ -57,7 +60,7 @@ const getSizes = (products: number, idx: number) => {
 
 const ProductTiles = ({
   title,
-  usePriceWithTaxes = false,
+  taxesConfiguration,
   ...variables
 }: ProductTilesProps) => {
   const viewedOnce = useRef(false)
@@ -102,7 +105,7 @@ const ProductTiles = ({
                 variant="wide"
                 aspectRatio={getRatio(productEdges.length, idx)}
                 imgProps={getSizes(productEdges.length, idx)}
-                usePriceWithTaxes={usePriceWithTaxes}
+                taxesConfiguration={taxesConfiguration}
               />
             </Tile>
           ))}

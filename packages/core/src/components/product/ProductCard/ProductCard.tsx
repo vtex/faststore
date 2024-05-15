@@ -51,9 +51,12 @@ export interface ProductCardProps {
    */
   showDiscountBadge?: boolean
   /**
-   * Difine if Product uses taxes in price
+   * Define if taxes configuration
    */
-  usePriceWithTaxes?: boolean
+  taxesConfiguration?: {
+    usePriceWithTaxes?: boolean
+    taxesLabel?: string
+  }
 }
 
 function ProductCard({
@@ -67,7 +70,7 @@ function ProductCard({
   buttonLabel = 'Add',
   onButtonClick,
   showDiscountBadge = true,
-  usePriceWithTaxes = false,
+  taxesConfiguration,
   ...otherProps
 }: ProductCardProps) {
   const {
@@ -94,8 +97,12 @@ function ProductCard({
     [availability]
   )
 
-  const spotPrice = usePriceWithTaxes ? lowPriceWithTaxes : lowPrice
-  const listPrice = usePriceWithTaxes ? listPriceWithTaxes : listPriceBase
+  const spotPrice = taxesConfiguration?.usePriceWithTaxes
+    ? lowPriceWithTaxes
+    : lowPrice
+  const listPrice = taxesConfiguration?.usePriceWithTaxes
+    ? listPriceWithTaxes
+    : listPriceBase
 
   const hasDiscount = spotPrice <= listPrice
 
@@ -129,7 +136,8 @@ function ProductCard({
         onButtonClick={onButtonClick}
         linkProps={linkProps}
         showDiscountBadge={hasDiscount && showDiscountBadge}
-        includeTaxes={usePriceWithTaxes}
+        includeTaxes={taxesConfiguration?.usePriceWithTaxes}
+        includeTaxesLabel={taxesConfiguration?.taxesLabel}
       />
     </UIProductCard>
   )

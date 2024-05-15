@@ -929,10 +929,21 @@
             }
           }
         },
-        "usePriceWithTaxes": {
-          "title": "Should use taxes to calculate the price?",
-          "type": "boolean",
-          "default": false
+        "taxesConfiguration": {
+          "title": "Taxes Configuration",
+          "type": "object",
+          "properties": {
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
+            },
+            "taxesLabel": {
+              "title": "Tax label to be displayed",
+              "type": "string",
+              "default": "Tax included"
+            }
+          }
         },
         "productCardConfiguration": {
           "title": "Product Card Configuration",
@@ -985,10 +996,21 @@
           "enum": ["buy", "view"],
           "enumNames": ["Who bought also bought", "Who saw also saw"]
         },
-        "usePriceWithTaxes": {
-          "title": "Should use taxes to calculate the price?",
-          "type": "boolean",
-          "default": false
+        "taxesConfiguration": {
+          "title": "Taxes Configuration",
+          "type": "object",
+          "properties": {
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
+            },
+            "taxesLabel": {
+              "title": "Tax label to be displayed",
+              "type": "string",
+              "default": "Tax included"
+            }
+          }
         }
       }
     }
@@ -1070,10 +1092,21 @@
             }
           }
         },
-        "usePriceWithTaxes": {
-          "title": "Should use taxes to calculate the price?",
-          "type": "boolean",
-          "default": false
+        "taxesConfiguration": {
+          "title": "Taxes Configuration",
+          "type": "object",
+          "properties": {
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
+            },
+            "taxesLabel": {
+              "title": "Tax label to be displayed",
+              "type": "string",
+              "default": "Tax included"
+            }
+          }
         }
       }
     }
@@ -1570,10 +1603,21 @@
             }
           }
         },
-        "usePriceWithTaxes": {
-          "title": "Should use taxes to calculate the price?",
-          "type": "boolean",
-          "default": false
+        "taxesConfiguration": {
+          "title": "Taxes Configuration",
+          "type": "object",
+          "properties": {
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
+            },
+            "taxesLabel": {
+              "title": "Tax label to be displayed",
+              "type": "string",
+              "default": "Tax included"
+            }
+          }
         }
       }
     }
@@ -1717,10 +1761,21 @@
               "type": "boolean",
               "default": true
             },
-            "usePriceWithTaxes": {
-              "title": "Should use taxes to calculate the price?",
-              "type": "boolean",
-              "default": false
+            "taxesConfiguration": {
+              "title": "Taxes Configuration",
+              "type": "object",
+              "properties": {
+                "usePriceWithTaxes": {
+                  "title": "Should use taxes to calculate the price?",
+                  "type": "boolean",
+                  "default": false
+                },
+                "taxesLabel": {
+                  "title": "Tax label to be displayed",
+                  "type": "string",
+                  "default": "Tax included"
+                }
+              }
             }
           }
         },
@@ -1884,10 +1939,21 @@
             }
           }
         },
-        "usePriceWithTaxes": {
-          "title": "Should use taxes to calculate the price?",
-          "type": "boolean",
-          "default": false
+        "taxesConfiguration": {
+          "title": "Taxes Configuration",
+          "type": "object",
+          "properties": {
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
+            },
+            "taxesLabel": {
+              "title": "Tax label to be displayed",
+              "type": "string",
+              "default": "Tax included"
+            }
+          }
         }
       }
     }

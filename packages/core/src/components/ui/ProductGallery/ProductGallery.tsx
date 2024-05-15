@@ -57,7 +57,10 @@ export interface ProductGalleryProps {
     label?: string
   }
   sortBySelector?: SortProps
-  productCard?: Pick<ProductCardProps, 'showDiscountBadge' | 'bordered'>
+  productCard?: Pick<
+    ProductCardProps,
+    'showDiscountBadge' | 'bordered' | 'taxesConfiguration'
+  >
 }
 
 function ProductGallery({

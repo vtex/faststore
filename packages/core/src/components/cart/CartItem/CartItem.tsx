@@ -63,13 +63,16 @@ function useCartItemEvent() {
 interface Props {
   item: ICartItem
   useUnitMultiplier?: boolean
-  usePriceWithTaxes?: boolean
+  taxesConfiguration?: {
+    usePriceWithTaxes?: boolean
+    taxesLabel?: string
+  }
 }
 
 function CartItem({
   item,
   useUnitMultiplier = false,
-  usePriceWithTaxes = false,
+  taxesConfiguration,
 }: Props) {
   const btnProps = useRemoveButton(item)
 
@@ -94,8 +97,12 @@ function CartItem({
   return (
     <UICartItem
       price={{
-        value: usePriceWithTaxes ? item.priceWithTaxes : item.price,
-        listPrice: usePriceWithTaxes ? item.listPriceWithTaxes : item.listPrice,
+        value: taxesConfiguration?.usePriceWithTaxes
+          ? item.priceWithTaxes
+          : item.price,
+        listPrice: taxesConfiguration?.usePriceWithTaxes
+          ? item.listPriceWithTaxes
+          : item.listPrice,
         formatter: useFormattedPrice,
       }}
       quantity={item.quantity}

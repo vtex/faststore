@@ -52,7 +52,10 @@ export interface ProductDetailsProps {
   quantitySelector: {
     useUnitMultiplier?: boolean
   }
-  usePriceWithTaxes?: boolean
+  taxesConfiguration?: {
+    usePriceWithTaxes?: boolean
+    taxesLabel?: string
+  }
 }
 
 function ProductDetails({
@@ -74,7 +77,7 @@ function ProductDetails({
   },
   notAvailableButton: { title: notAvailableButtonTitle },
   quantitySelector,
-  usePriceWithTaxes = false,
+  taxesConfiguration,
 }: ProductDetailsProps) {
   const {
     DiscountBadge,
@@ -168,9 +171,15 @@ function ProductDetails({
                     // Dynamic props shouldn't be overridable
                     // This decision can be reviewed later if needed
                     listPrice={
-                      usePriceWithTaxes ? listPriceWithTaxes : listPrice
+                      taxesConfiguration?.usePriceWithTaxes
+                        ? listPriceWithTaxes
+                        : listPrice
                     }
-                    spotPrice={usePriceWithTaxes ? lowPriceWithTaxes : lowPrice}
+                    spotPrice={
+                      taxesConfiguration?.usePriceWithTaxes
+                        ? lowPriceWithTaxes
+                        : lowPrice
+                    }
                   />
                 )
               }
@@ -202,6 +211,7 @@ function ProductDetails({
                 product={product}
                 isValidating={isValidating}
                 usePriceWithTaxes={usePriceWithTaxes}
+                taxesConfiguration={taxesConfiguration}
               />
             </section>
 

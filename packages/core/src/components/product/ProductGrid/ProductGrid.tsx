@@ -24,7 +24,7 @@ interface Props {
    */
   productCard?: Pick<
     ProductCardProps,
-    'showDiscountBadge' | 'bordered' | 'usePriceWithTaxes'
+    'showDiscountBadge' | 'bordered' | 'taxesConfiguration'
   >
 }
 
@@ -32,7 +32,7 @@ function ProductGrid({
   products,
   page,
   pageSize,
-  productCard: { showDiscountBadge, bordered, usePriceWithTaxes } = {},
+  productCard: { showDiscountBadge, bordered, taxesConfiguration } = {},
 }: Props) {
   const { __experimentalProductCard: ProductCard } =
     useOverrideComponents<'ProductGallery'>()
@@ -61,9 +61,7 @@ function ProductGrid({
               }
               product={product}
               index={pageSize * page + idx + 1}
-              usePriceWithTaxes={
-                usePriceWithTaxes ?? ProductCard.props.usePriceWithTaxes
-              }
+              taxesConfiguration={taxesConfiguration}
             />
           </UIProductGridItem>
         ))}
