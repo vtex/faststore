@@ -37,6 +37,3 @@ export { useShippingSimulation as useShippingSimulation_unstable } from '../../s
 // Components
 export { Image as Image_unstable } from '../../src/components/ui/Image'
 export { ProfileChallenge as ProfileChallenge_unstable } from '../../src/components/auth/ProfileChallenge'
-
-// Server GraphQL
-export { execute as execute_unstable } from '../../src/server'
