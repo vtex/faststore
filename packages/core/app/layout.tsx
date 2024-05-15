@@ -10,7 +10,7 @@ import AnalyticsHandler from 'app/sdk/analytics'
 import ErrorBoundary from 'app/sdk/error/ErrorBoundary'
 import UIProvider from 'app/sdk/ui/UIProvider'
 
-// The path will probably change when overriding fonts in the future
+// TODO: The path will probably change when overriding fonts in the future
 import DefaultFont from 'app/styles/fonts'
 
 // import GlobalSections from './components/cms/GlobalSections'
@@ -82,7 +82,7 @@ export default async function RootLayout({
       <html>
         <head>{!process.env.DISABLE_3P_SCRIPTS && <ThirdPartyScripts />}</head>
         {/**
-         * Later when overriding fonts we should use the font variable in CSS files
+         * TODO: Later when overriding fonts we should use the font variable in CSS files
          * https://nextjs.org/docs/app/api-reference/components/font#css-variables
          */}
         <body className={`theme ${DefaultFont.className}`}>
