@@ -10,6 +10,7 @@ import Selectors from 'src/components/ui/SkuSelector'
 import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
 
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { Label as UILabel } from '@faststore/ui'
 
 interface ProductDetailsSettingsProps {
   product: ProductDetailsFragment_ProductFragment
@@ -24,6 +25,7 @@ interface ProductDetailsSettingsProps {
   notAvailableButtonTitle: string
   useUnitMultiplier?: boolean
   usePriceWithTaxes?: boolean
+  taxesLabel?: string
 }
 
 function ProductDetailsSettings({
@@ -36,6 +38,7 @@ function ProductDetailsSettings({
   notAvailableButtonTitle,
   useUnitMultiplier = false,
   usePriceWithTaxes = false,
+  taxesLabel = 'Tax included',
 }: ProductDetailsSettingsProps) {
   const {
     BuyButton,
@@ -122,13 +125,20 @@ function ProductDetailsSettings({
     <>
       {!outOfStock && (
         <section data-fs-product-details-values>
-          <ProductPrice.Component
-            data-fs-product-details-prices
-            value={usePriceWithTaxes ? priceWithTaxes : price}
-            listPrice={usePriceWithTaxes ? listPriceWithTaxes : listPrice}
-            formatter={useFormattedPrice}
-            {...ProductPrice.props}
-          />
+          <div data-fs-product-details-values-wrapper>
+            <ProductPrice.Component
+              data-fs-product-details-prices
+              value={usePriceWithTaxes ? priceWithTaxes : price}
+              listPrice={usePriceWithTaxes ? listPriceWithTaxes : listPrice}
+              formatter={useFormattedPrice}
+              {...ProductPrice.props}
+            />
+            {usePriceWithTaxes && (
+              <UILabel data-fs-product-details-taxes-label>
+                {taxesLabel}
+              </UILabel>
+            )}
+          </div>
           <QuantitySelector.Component
             min={1}
             max={10}
