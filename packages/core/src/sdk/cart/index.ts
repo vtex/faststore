@@ -167,35 +167,37 @@ export const useCart = () => {
   const cart = useStore(cartStore)
   const isValidating = useStore(validationStore)
 
-  return useMemo(
-    () => ({
+  return useMemo(() => {
+    const cartTotals = cart.items.reduce(
+      (totals, curr) => {
+        const quantityMultiplier =
+          curr.quantity * (curr?.itemOffered?.unitMultiplier ?? 1)
+
+        totals.totalItems += isGift(curr) ? 0 : quantityMultiplier
+        totals.total += curr.price * quantityMultiplier
+        totals.subTotal += curr.listPrice * quantityMultiplier
+        totals.totalWithTaxes += curr.priceWithTaxes * quantityMultiplier
+        totals.subTotalWithTaxes += curr.listPriceWithTaxes * quantityMultiplier
+
+        return totals
+      },
+      {
+        totalItems: 0,
+        total: 0,
+        subTotal: 0,
+        totalWithTaxes: 0,
+        subTotalWithTaxes: 0,
+      }
+    )
+
+    return {
       ...cart,
+      ...cartTotals,
       isValidating,
       messages: cart.messages,
       gifts: cart.items.filter((item) => isGift(item)),
       items: cart.items.filter((item) => !isGift(item)),
       totalUniqueItems: cart.items.length,
-      totalItems: cart.items.reduce(
-        (acc, curr) => acc + (isGift(curr) ? 0 : curr.quantity),
-        0
-      ),
-      total: cart.items.reduce(
-        (acc, curr) => acc + curr.price * curr.quantity,
-        0
-      ),
-      subTotal: cart.items.reduce(
-        (acc, curr) => acc + curr.listPrice * curr.quantity,
-        0
-      ),
-      totalWithTaxes: cart.items.reduce(
-        (acc, curr) => acc + curr.priceWithTaxes * curr.quantity,
-        0
-      ),
-      subTotalWithTaxes: cart.items.reduce(
-        (acc, curr) => acc + curr.listPriceWithTaxes * curr.quantity,
-        0
-      ),
-    }),
-    [cart, isValidating]
-  )
+    }
+  }, [cart, isValidating])
 }

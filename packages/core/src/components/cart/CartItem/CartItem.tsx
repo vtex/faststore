@@ -94,15 +94,19 @@ function CartItem({
     option: skuActiveVariants[key],
   }))
 
+  const price = taxesConfiguration?.usePriceWithTaxes
+    ? item.priceWithTaxes
+    : item.price
+
+  const listPrice = taxesConfiguration?.usePriceWithTaxes
+    ? item.listPriceWithTaxes
+    : item.listPrice
+
   return (
     <UICartItem
       price={{
-        value: taxesConfiguration?.usePriceWithTaxes
-          ? item.priceWithTaxes
-          : item.price,
-        listPrice: taxesConfiguration?.usePriceWithTaxes
-          ? item.listPriceWithTaxes
-          : item.listPrice,
+        value: price,
+        listPrice,
         formatter: useFormattedPrice,
       }}
       quantity={item.quantity}
