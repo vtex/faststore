@@ -87,7 +87,7 @@ export const getStaticProps: GetStaticProps<
   Locator
 > = async ({ params, previewData }) => {
   const slug = params?.slug.join('/') ?? ''
-  const rewrites = await storeConfig.rewrites?.()
+  const rewrites = (await storeConfig.rewrites?.()) ?? []
 
   const [landingPagePromise, globalSectionsPromise] = [
     getLandingPageBySlug(slug, previewData),
