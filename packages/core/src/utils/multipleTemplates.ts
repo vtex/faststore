@@ -35,7 +35,7 @@ function findPLPTemplateBySlug(
     const templateValue = normalizePLPSlug(page.settings?.template?.value)
     return (
       templateValue === slug ||
-      hasRewritesConfigForSlug(rewrites, templateValue, slug)
+      hasRewritesConfigForSlug({ rewrites, templateValue, slug })
     )
   })
 }
@@ -49,11 +49,15 @@ function findPLPTemplateBySlug(
  * @param slug
  * @returns boolean indicating if the slug exist as a rewrite destination
  */
-export function hasRewritesConfigForSlug(
-  rewrites: Rewrite[] | RewritesConfig,
-  templateValue: string,
+export function hasRewritesConfigForSlug({
+  rewrites,
+  templateValue,
+  slug,
+}: {
+  rewrites: Rewrite[] | RewritesConfig
+  templateValue: string
   slug: string
-): boolean {
+}): boolean {
   let allRewrites: Rewrite[] = []
 
   if (Array.isArray(rewrites)) {
