@@ -71,7 +71,7 @@ export const getCMSPage = async (
   extraOptions?: ExtraOptions
 ) => {
   const cmsClient = extraOptions?.cmsClient ?? clientCMS
-  const cache = extraOptions.cache ?? getCMSPageCache
+  const cache = extraOptions?.cache ?? getCMSPageCache
 
   if (isLocator(options)) {
     return await cmsClient
