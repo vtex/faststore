@@ -29,7 +29,10 @@ describe('CMS Integration', () => {
       })
       clientCMS.getCMSPagesByContentType = mockFunction
 
-      const result = await getCMSPage({ contentType: 'plp' }, clientCMS)
+      const result = await getCMSPage(
+        { contentType: 'plp' },
+        { cmsClient: clientCMS }
+      )
 
       expect(mockFunction.mock.calls.length).toBe(1)
       expect(result.data.length).toBe(3)
@@ -56,10 +59,37 @@ describe('CMS Integration', () => {
 
       clientCMS.getCMSPagesByContentType = mockFunction
 
-      const result = await getCMSPage({ contentType: 'plp' }, clientCMS)
+      const result = await getCMSPage(
+        { contentType: 'plp' },
+        { cmsClient: clientCMS, cache: {} }
+      )
 
       expect(mockFunction.mock.calls.length).toBe(2)
       expect(result.data.length).toBe(15)
+    })
+
+    it('it makes no request if the cache is filled', async () => {
+      const mockFunction: jest.Mock<typeof clientCMS.getCMSPagesByContentType> =
+        jest.fn()
+
+      mockFunction.mockImplementationOnce(() => {
+        return Promise.resolve({
+          data: mockData(10),
+          hasNextPage: true,
+          totalItems: 15,
+        })
+      })
+
+      clientCMS.getCMSPagesByContentType = mockFunction
+
+      const cache = { plp: { data: [] } }
+      const result = await getCMSPage(
+        { contentType: 'plp' },
+        { cmsClient: clientCMS, cache: cache }
+      )
+
+      expect(mockFunction.mock.calls.length).toBe(0)
+      expect(result.data.length).toBe(0)
     })
   })
 })

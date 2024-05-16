@@ -5,6 +5,14 @@ import MissingContentError from 'src/sdk/error/MissingContentError'
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
 import config from '../../../faststore.config'
 
+type Cache<T> = {
+  [key: string]: { data: Array<T> }
+}
+type ExtraOptions = {
+  cmsClient?: ClientCMS
+  cache?: Cache<ContentData>
+}
+
 export type Options =
   | Locator
   | {
@@ -60,15 +68,18 @@ const getCMSPageCache = {}
 
 export const getCMSPage = async (
   options: Options,
-  cmsClient: ClientCMS = clientCMS
+  extraOptions?: ExtraOptions
 ) => {
+  const cmsClient = extraOptions?.cmsClient ?? clientCMS
+  const cache = extraOptions.cache ?? getCMSPageCache
+
   if (isLocator(options)) {
     return await cmsClient
       .getCMSPage(options)
       .then((page) => ({ data: [page] }))
   }
 
-  if (!getCMSPageCache[options.contentType]) {
+  if (!cache[options.contentType]) {
     const pages = []
     let page = 1
     const perPage = 10
@@ -100,10 +111,10 @@ export const getCMSPage = async (
         pages.push(...response.data)
       })
     }
-    getCMSPageCache[options.contentType] = { data: pages }
+    cache[options.contentType] = { data: pages }
   }
 
-  return getCMSPageCache[options.contentType]
+  return cache[options.contentType]
 }
 
 export const getPage = async <T extends ContentData>(options: Options) => {
