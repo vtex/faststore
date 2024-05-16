@@ -41,6 +41,16 @@ describe('Multiple page templates', () => {
       expect(result).toBe(false)
     })
 
+    it('should return false when the rewrites is empty array', () => {
+      const rewritesArr = []
+      const result = hasRewritesConfigForSlug({
+        rewrites: rewritesArr,
+        templateValue: '/test/my-office',
+        slug: '/office',
+      })
+      expect(result).toBe(false)
+    })
+
     it('should return false when the desired destination is found but the source is different', () => {
       const rewritesArr: Rewrite[] = [
         { source: '/test/my-home', destination: '/office' },

@@ -58,15 +58,19 @@ export function hasRewritesConfigForSlug({
   templateValue: string
   slug: string
 }): boolean {
+  if (!rewrites) {
+    return false
+  }
+
   let allRewrites: Rewrite[] = []
 
   if (Array.isArray(rewrites)) {
     allRewrites = rewrites
   } else {
     allRewrites = [
-      ...(rewrites.beforeFiles || []),
-      ...(rewrites.afterFiles || []),
-      ...(rewrites.fallback || []),
+      ...(rewrites?.beforeFiles || []),
+      ...(rewrites?.afterFiles || []),
+      ...(rewrites?.fallback || []),
     ]
   }
 
