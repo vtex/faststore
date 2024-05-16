@@ -235,14 +235,10 @@ function ProductDetails({
                 productDescriptionInitiallyExpanded ??
                 ProductDescription.props.initiallyExpanded
               }
-              descriptionData={
-                [
-                  {
-                    content: description,
-                    title: productDescriptionDetailsTitle,
-                  },
-                ] ?? ProductDescription.props.descriptionData
-              }
+              descriptionData={[
+                { content: description, title: productDescriptionDetailsTitle },
+              ]}
+              {...ProductDescription.props}
             />
           )}
         </section>
