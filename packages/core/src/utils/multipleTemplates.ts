@@ -135,6 +135,16 @@ export function normalizePDPTemplate(templateValue: string) {
   return formattedValue.toLowerCase()
 }
 
+// Returns the slug without the skuId at the end ("-{number}/p") if it matches the pattern "-{number}-{skuId}/p", otherwise returns the slug as is.
+const getSlugWithoutSkuIdFromPDP = (slug: string) => {
+  const match = slug.match(/-(\d+)-(\d+)\/p$/) // Matches the pattern "-{number}-{skuId}/p" at the end of the slug
+  if (match) {
+    const newSlug = slug.replace(`-${match[2]}/p`, '/p') // Replace the last number (skuId) before '/p'
+    return newSlug
+  }
+  return slug
+}
+
 /**
  * Find the best PDP template from the CMS based on the slug or in the product category tree.
  * Prioritizing the following order:
@@ -155,24 +165,50 @@ export function findBestPDPTemplate(
   slug: string,
   product: ServerProductQueryQuery['product']
 ) {
-  // productSlugAndCategoryTree with the prioritized order. [slug, subcategory tree, category tree, department]
-  const productSlugAndCategoryTree = product?.breadcrumbList?.itemListElement
-    ? [...product?.breadcrumbList?.itemListElement]
-        .reverse()
-        .map(({ item }) => item)
-    : []
-  productSlugAndCategoryTree.unshift(slug)
+  const templateValues = getPDPTemplateValues({
+    slug,
+    itemListElement: product?.breadcrumbList?.itemListElement ?? [],
+  })
 
-  for (const item of productSlugAndCategoryTree) {
+  for (const template of templateValues) {
     for (const page of pages) {
       if (!page.settings?.template?.value) continue
 
-      const templateValue = normalizePDPTemplate(page.settings.template.value)
-      if (templateValue === item) {
+      const templateValueFromCms = normalizePDPTemplate(
+        page.settings.template.value
+      )
+      if (templateValueFromCms === template) {
         return page
       }
     }
   }
 
   return pages.find((page) => !page.settings?.template?.value) || pages[0]
+}
+
+export function getPDPTemplateValues({
+  slug,
+  itemListElement = [],
+}: {
+  slug: string
+  itemListElement: ServerProductQueryQuery['product']['breadcrumbList']['itemListElement']
+}) {
+  // productSlugAndCategoryTree with the prioritized order. [link-skuId/p, subcategory tree, category tree, department]
+  const productSlugAndCategoryTree = [...itemListElement]
+    .reverse()
+    .map(({ item }) => item)
+
+  // PDP slug comes from FastStore API with the format `${link}-${skuId}/p`, the most specific for multiple page templates,
+  // so it should be the first element
+  const slugWithSkuId = productSlugAndCategoryTree?.[0] ?? slug
+
+  // PDP slug without skuId `${link}/p`, should be the second element
+  const slugWithoutSkuId = getSlugWithoutSkuIdFromPDP(slug)
+
+  // removes duplicated and undefined
+  return [
+    slugWithSkuId,
+    slugWithoutSkuId,
+    ...productSlugAndCategoryTree.slice(1),
+  ].filter((item, index, arr) => item && arr.indexOf(item) === index)
 }
