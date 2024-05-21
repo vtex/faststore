@@ -50,7 +50,7 @@
     "@graphql-codegen/typescript": "^3.0.4",
     "@graphql-codegen/typescript-operations": "^3.0.4",
     "@graphql-tools/load-files": "^7.0.0",
-    "@graphql-tools/schema": "^9.0.0",
+    "@graphql-tools/schema": "^10.0.3",
     "@graphql-tools/merge": "^9.0.0",
     "@graphql-tools/utils": "^9.2.1",
     "@graphql-typed-document-node/core": "^3.2.0",
