@@ -18,7 +18,6 @@ const productItemListElementMock = [
     name: 'test',
     position: 1,
   }, // Subcategory tree
-  { item: '/slug-product-test-111111-2222/p', name: 'test', position: 1 }, // PDP slug with skuId
 ]
 
 describe('Multiple page templates', () => {
@@ -85,14 +84,18 @@ describe('Multiple page templates', () => {
   })
 
   describe('PDP getPDPTemplateValues', () => {
-    it('should return correct template values when PDP slug has skuId', () => {
+    it('should return correct template values when productItemListElement first item has skuId and numbers', () => {
+      const mock = [
+        ...productItemListElementMock,
+        { item: '/slug-product-test-111111-2222/p', name: 'test', position: 1 },
+      ] // PDP slug with skuId and number
       const result = getPDPTemplateValues({
-        slug: '/slug-product-test-111111-2222/p',
-        itemListElement: productItemListElementMock,
+        itemListElement: mock,
       })
       expect(result).toEqual([
         '/slug-product-test-111111-2222/p', // PDP slug with skuId
         '/slug-product-test-111111/p', // PDP slug without skuId
+        '/slug-product-test/p', // PDP slug without number
         '/department/category/subcategory/subcategory2/subcategory3/', // Subcategory tree
         '/department/category/subcategory/subcategory2/', //  Subcategory tree
         '/department/category/subcategory/', // Subcategory
@@ -101,14 +104,17 @@ describe('Multiple page templates', () => {
       ])
     })
 
-    it('should return correct template values when PDP slug does not have skuId', () => {
+    it('should return correct template values when productItemListElement first item have skuId', () => {
+      const mock = [
+        ...productItemListElementMock,
+        { item: '/slug-product-test-111111/p', name: 'test', position: 1 },
+      ] // PDP slug with skuId
       const result = getPDPTemplateValues({
-        slug: '/slug-product-test-111111/p',
-        itemListElement: productItemListElementMock,
+        itemListElement: mock,
       })
       expect(result).toEqual([
-        '/slug-product-test-111111-2222/p', // PDP slug with skuId
-        '/slug-product-test-111111/p', // PDP slug without skuId
+        '/slug-product-test-111111/p', // PDP slug with skuId
+        '/slug-product-test/p', // PDP slug without number
         '/department/category/subcategory/subcategory2/subcategory3/', // Subcategory tree
         '/department/category/subcategory/subcategory2/', //  Subcategory tree
         '/department/category/subcategory/', // Subcategory
@@ -117,13 +123,15 @@ describe('Multiple page templates', () => {
       ])
     })
 
-    it('should return the PDPs slug with skuId and without skuId when slug do not have skuId and other number before skuId', () => {
+    it('should return correct template values productItemListElement first item do not have skuId and other number', () => {
+      const mock = [
+        ...productItemListElementMock,
+        { item: '/slug-product-test/p', name: 'test', position: 1 },
+      ] // PDP slug with skuId
       const result = getPDPTemplateValues({
-        slug: '/slug-product-test/p',
-        itemListElement: productItemListElementMock,
+        itemListElement: mock,
       })
       expect(result).toEqual([
-        '/slug-product-test-111111-2222/p', // PDP slug with skuId
         '/slug-product-test/p', // PDP slug without skuId
         '/department/category/subcategory/subcategory2/subcategory3/', // Subcategory tree
         '/department/category/subcategory/subcategory2/', //  Subcategory tree
@@ -131,25 +139,6 @@ describe('Multiple page templates', () => {
         '/department/category/', // Category
         '/department/', // Department
       ])
-    })
-
-    it('should return the PDPs slugs with and without skuId when itemListElement is undefined and slug has skuId', () => {
-      const result = getPDPTemplateValues({
-        slug: '/slug-product-test-111111-2222/p',
-        itemListElement: undefined,
-      })
-      expect(result).toEqual([
-        '/slug-product-test-111111-2222/p',
-        '/slug-product-test-111111/p',
-      ])
-    })
-
-    it('should return the PDPs slug with skuId when itemListElement is undefined and slug do not have skuId', () => {
-      const result = getPDPTemplateValues({
-        slug: '/slug-product-test-111111/p',
-        itemListElement: undefined,
-      })
-      expect(result).toEqual(['/slug-product-test-111111/p'])
     })
   })
 })

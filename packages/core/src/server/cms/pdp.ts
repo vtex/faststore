@@ -29,25 +29,19 @@ export const getPDP = async (
     const cmsData = JSON.parse(config.cms.data)
     const allPDPsFromCmsEnvData: PDPfromCmsEnvData[] = cmsData['pdp']
 
-    return await getPDPFromCmsEnvData(
-      `/${slug}/p`,
-      product,
-      allPDPsFromCmsEnvData,
-      {
-        ...(previewData?.contentType === 'pdp' ? previewData : null),
-        contentType: 'pdp',
-      }
-    )
+    return await getPDPFromCmsEnvData(product, allPDPsFromCmsEnvData, {
+      ...(previewData?.contentType === 'pdp' ? previewData : null),
+      contentType: 'pdp',
+    })
   }
 
-  return (await getPDPFromCms(`/${slug}/p`, product, {
+  return (await getPDPFromCms(product, {
     ...(previewData?.contentType === 'pdp' ? previewData : null),
     contentType: 'pdp',
   })) as PDPContentType
 }
 
 const getPDPFromCmsEnvData = async (
-  slug: string,
   product: ServerProductQueryQuery['product'],
   allPDPsFromCMSData: PDPfromCmsEnvData[],
   options: Options
@@ -58,7 +52,7 @@ const getPDPFromCmsEnvData = async (
     throw new MissingContentError(options)
   }
 
-  const template = findBestPDPTemplate(pages, slug, product)
+  const template = findBestPDPTemplate(pages, product)
 
   return getPage<PDPContentType>({
     contentType: 'pdp',
@@ -68,7 +62,6 @@ const getPDPFromCmsEnvData = async (
 }
 
 const getPDPFromCms = async (
-  slug: string,
   product: ServerProductQueryQuery['product'],
   options: Options
 ): Promise<Partial<PDPContentType>> => {
@@ -78,5 +71,5 @@ const getPDPFromCms = async (
     throw new MissingContentError(options)
   }
 
-  return findBestPDPTemplate(pages, slug, product)
+  return findBestPDPTemplate(pages, product)
 }
