@@ -21,7 +21,6 @@ type PDPfromCmsEnvData = {
 export type PDPContentType = ContentData & PDPSettings
 
 export const getPDP = async (
-  slug: string,
   product: ServerProductQueryQuery['product'],
   previewData: Locator
 ) => {
