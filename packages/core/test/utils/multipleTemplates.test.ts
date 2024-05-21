@@ -117,6 +117,22 @@ describe('Multiple page templates', () => {
       ])
     })
 
+    it('should return the PDPs slug with skuId and without skuId when slug do not have skuId and other number before skuId', () => {
+      const result = getPDPTemplateValues({
+        slug: '/slug-product-test/p',
+        itemListElement: productItemListElementMock,
+      })
+      expect(result).toEqual([
+        '/slug-product-test-111111-2222/p', // PDP slug with skuId
+        '/slug-product-test/p', // PDP slug without skuId
+        '/department/category/subcategory/subcategory2/subcategory3/', // Subcategory tree
+        '/department/category/subcategory/subcategory2/', //  Subcategory tree
+        '/department/category/subcategory/', // Subcategory
+        '/department/category/', // Category
+        '/department/', // Department
+      ])
+    })
+
     it('should return the PDPs slugs with and without skuId when itemListElement is undefined and slug has skuId', () => {
       const result = getPDPTemplateValues({
         slug: '/slug-product-test-111111-2222/p',
