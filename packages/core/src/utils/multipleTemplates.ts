@@ -174,7 +174,6 @@ export function findBestPDPTemplate(
     itemListElement: product.breadcrumbList.itemListElement ?? [],
   })
 
-  console.log('🚀 ~ templateValues:', templateValues)
   for (const template of templateValues) {
     for (const page of pages) {
       if (!page.settings?.template?.value) continue
