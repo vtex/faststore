@@ -1198,9 +1198,9 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@faststore/cli@https://pkg.csb.dev/vtex/faststore/commit/5930e638/@faststore/cli":
+"@faststore/cli@https://pkg.csb.dev/vtex/faststore/commit/72402f57/@faststore/cli":
   version "3.0.54"
-  resolved "https://pkg.csb.dev/vtex/faststore/commit/5930e638/@faststore/cli#278ba02930de4456addee96211e301a7c17da554"
+  resolved "https://pkg.csb.dev/vtex/faststore/commit/72402f57/@faststore/cli#5742aae96fbe244a8cb21c1a951250ceb428f8bb"
   dependencies:
     "@oclif/core" "^1.16.4"
     "@oclif/plugin-help" "^5"

@@ -84,7 +84,7 @@
   "devDependencies": {
     "@cypress/code-coverage": "^3.12.1",
     "@envelop/testing": "^6.0.0",
-    "@faststore/cli": "https://pkg.csb.dev/vtex/faststore/commit/5930e638/@faststore/cli",
+    "@faststore/cli": "https://pkg.csb.dev/vtex/faststore/commit/72402f57/@faststore/cli",
     "@faststore/eslint-config": "^3.0.54",
     "@faststore/lighthouse": "^1.12.32",
     "@lhci/cli": "^0.9.0",
