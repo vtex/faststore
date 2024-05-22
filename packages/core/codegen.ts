@@ -17,7 +17,9 @@ const getOperationName = (document: DocumentNode) => {
 
 const config: CodegenConfig = {
   overwrite: true,
-  errorsOnly: true,
+  errorsOnly: false,
+  debug: true,
+  verbose: true,
   schema: './@generated/schema.graphql',
   documents: ['./src/**/*.{ts,tsx}'],
   generates: {
