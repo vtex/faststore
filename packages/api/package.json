@@ -36,7 +36,7 @@
   "dependencies": {
     "@envelop/on-resolve": "^2.0.6",
     "@graphql-tools/load-files": "^7.0.0",
-    "@graphql-tools/schema": "^9.0.0",
+    "@graphql-tools/schema": "^10.0.3",
     "@opentelemetry/exporter-logs-otlp-grpc": "^0.39.1",
     "@opentelemetry/exporter-trace-otlp-grpc": "^0.39.1",
     "@opentelemetry/sdk-logs": "^0.39.1",
