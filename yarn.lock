@@ -1198,6 +1198,19 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@faststore/cli@https://pkg.csb.dev/vtex/faststore/commit/cd82923b/@faststore/cli":
+  version "3.0.54"
+  resolved "https://pkg.csb.dev/vtex/faststore/commit/cd82923b/@faststore/cli#ad8343d84182851668f64c9795e81be6e80f73ce"
+  dependencies:
+    "@oclif/core" "^1.16.4"
+    "@oclif/plugin-help" "^5"
+    "@oclif/plugin-not-found" "^2.3.3"
+    chalk "~4.1.2"
+    chokidar "^3.5.3"
+    dotenv "^16.4.5"
+    fs-extra "^10.1.0"
+    path "^0.12.7"
+
 "@faststore/lighthouse@^1.12.32":
   version "1.12.32"
   resolved "https://registry.yarnpkg.com/@faststore/lighthouse/-/lighthouse-1.12.32.tgz#840096bc88ce80041217c764df97d9f0b4968658"
