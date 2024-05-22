@@ -27,7 +27,7 @@ export default class GenerateGraphql extends Command {
       process.exit(1)
     }
 
-    runCommandSync({
+    await runCommandSync({
       cmd: 'yarn generate:schema',
       errorMessage:
         "Failed to run 'yarn generate:schema'. Please check your setup.",
@@ -36,7 +36,7 @@ export default class GenerateGraphql extends Command {
       cwd: isCore ? undefined : tmpDir,
     })
 
-    runCommandSync({
+    await runCommandSync({
       cmd: 'yarn generate:codegen',
       errorMessage:
         'GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect',
@@ -45,7 +45,7 @@ export default class GenerateGraphql extends Command {
       cwd: isCore ? undefined : tmpDir,
     })
 
-    runCommandSync({
+    await runCommandSync({
       cmd: 'yarn format:generated',
       errorMessage:
         "Failed to format generated files. 'yarn format:generated' thrown errors",
@@ -55,7 +55,7 @@ export default class GenerateGraphql extends Command {
     })
 
     // yarn generate:copy-back expects the DESTINATION var to be present so it can copy the files to the correct directory
-    runCommandSync({
+    await runCommandSync({
       cmd: `DESTINATION=${coreDir} yarn generate:copy-back`,
       errorMessage:
         "Failed to copy back typings files. 'yarn generate:copy-back' thrown errors",
