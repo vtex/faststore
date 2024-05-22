@@ -58,12 +58,21 @@ export const runCommandSync = async ({
   cwd?: string
 }) => {
   try {
-    console.log(`[START] ${cmd}}`)
-    execSync(debug ? `${cmd} --debug --verbose 2>&1` : `${cmd} 2>&1`, {
-      stdio: 'pipe',
-      cwd,
-    })
-    console.log(`[FINISH] ${cmd}}`)
+    if (debug) {
+      console.log(`[STARTED] ${cmd}`)
+    }
+
+    const res = execSync(
+      debug ? `${cmd} --debug --verbose 2>&1` : `${cmd} 2>&1`,
+      {
+        stdio: 'pipe',
+        cwd,
+      }
+    )
+    if (debug) {
+      console.log(`[STATUS] ${res.toString()}`)
+      console.log(`[FINISHED] ${cmd}}`)
+    }
   } catch (error) {
     const sanitizedError = debug ? (error as ExecSyncError) : undefined
 
