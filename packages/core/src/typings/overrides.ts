@@ -272,6 +272,7 @@ export type SectionsOverrides = {
       __experimentalImageGallery: ComponentOverrideDefinition<any, any>
       __experimentalShippingSimulation: ComponentOverrideDefinition<any, any>
       __experimentalNotAvailableButton: ComponentOverrideDefinition<any, any>
+      __experimentalProductDescription: ComponentOverrideDefinition<any, any>
     }
   }
   ProductGallery: {
