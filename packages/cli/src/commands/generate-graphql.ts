@@ -1,6 +1,6 @@
 import { Command, Flags } from '@oclif/core'
-import { existsSync } from 'fs-extra'
 import chalk from 'chalk'
+import { existsSync } from 'fs-extra'
 
 import { coreDir, tmpDir } from '../utils/directory'
 import { runCommandSync } from '../utils/runCommandSync'
@@ -35,6 +35,9 @@ export default class GenerateGraphql extends Command {
       debug,
       cwd: isCore ? undefined : tmpDir,
     })
+
+    // forces wait the schema generation
+    await new Promise((resolve) => setTimeout(resolve, 2000))
 
     await runCommandSync({
       cmd: 'yarn generate:codegen',

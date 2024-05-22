@@ -71,7 +71,7 @@ export const runCommandSync = async ({
     )
     if (debug) {
       console.log(`[STATUS] ${res.toString()}`)
-      console.log(`[FINISHED] ${cmd}}`)
+      console.log(`[FINISHED] ${cmd}`)
     }
   } catch (error) {
     const sanitizedError = debug ? (error as ExecSyncError) : undefined
