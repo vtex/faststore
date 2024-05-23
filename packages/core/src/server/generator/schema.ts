@@ -56,7 +56,6 @@ export function getThirdPartyExtensionsTypeDefs() {
 // Schema with no resolvers - used to generate schema.graphql file
 export const getMergedSchema = (): GraphQLSchema => {
   const nativeTypeDefs = getNativeTypeDefs()
-  console.log('🚀 ~ nativeTypeDefs:', nativeTypeDefs)
   return getCustomSchema(
     [
       nativeTypeDefs,
