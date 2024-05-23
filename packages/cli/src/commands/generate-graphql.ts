@@ -1,6 +1,6 @@
 import { Command, Flags } from '@oclif/core'
-import chalk from 'chalk'
 import { existsSync } from 'fs-extra'
+import chalk from 'chalk'
 
 import { coreDir, tmpDir } from '../utils/directory'
 import { runCommandSync } from '../utils/runCommandSync'
