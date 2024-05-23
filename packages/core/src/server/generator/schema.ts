@@ -1,12 +1,12 @@
-import path from 'path'
-import { writeFileSync } from 'fs-extra'
 import { getTypeDefs } from '@faststore/api'
-import { printSchemaWithDirectives } from '@graphql-tools/utils'
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { mergeTypeDefs } from '@graphql-tools/merge'
-import { buildASTSchema } from 'graphql'
-import type { GraphQLSchema } from 'graphql'
 import type { TypeSource } from '@graphql-tools/utils'
+import { printSchemaWithDirectives } from '@graphql-tools/utils'
+import { writeFileSync } from 'fs-extra'
+import type { GraphQLSchema } from 'graphql'
+import { buildASTSchema } from 'graphql'
+import path from 'path'
 
 export function getTypeDefsFromFolder(
   customPath: string | string[]
@@ -65,9 +65,11 @@ export const getMergedSchema = (): GraphQLSchema =>
 
 export function writeGraphqlSchemaFile(apiSchema: GraphQLSchema) {
   try {
+    const schema = printSchemaWithDirectives(apiSchema)
+    console.log('🚀 ~ schema:', schema)
     writeFileSync(
       path.join(process.cwd(), '@generated', 'schema.graphql'),
-      printSchemaWithDirectives(apiSchema)
+      schema
     )
 
     console.log('Schema GraphQL file generated successfully')
