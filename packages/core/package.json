@@ -40,7 +40,7 @@
     "@envelop/graphql-jit": "^1.1.1",
     "@envelop/parser-cache": "^2.2.0",
     "@envelop/validation-cache": "^2.2.0",
-    "@faststore/api": "^3.0.54",
+    "@faststore/api": "https://pkg.csb.dev/vtex/faststore/commit/00d5e2a8/@faststore/api",
     "@faststore/components": "^3.0.54",
     "@faststore/graphql-utils": "^3.0.54",
     "@faststore/sdk": "^3.0.54",
@@ -85,7 +85,7 @@
   "devDependencies": {
     "@cypress/code-coverage": "^3.12.1",
     "@envelop/testing": "^6.0.0",
-    "@faststore/cli": "https://pkg.csb.dev/vtex/faststore/commit/72402f57/@faststore/cli",
+    "@faststore/cli": "https://pkg.csb.dev/vtex/faststore/commit/00d5e2a8/@faststore/cli",
     "@faststore/eslint-config": "^3.0.54",
     "@faststore/lighthouse": "^1.12.32",
     "@lhci/cli": "^0.9.0",
