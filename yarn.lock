@@ -1198,9 +1198,9 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@faststore/api@https://pkg.csb.dev/vtex/faststore/commit/f1ba61b7/@faststore/api":
+"@faststore/api@https://pkg.csb.dev/vtex/faststore/commit/d610e93a/@faststore/api":
   version "3.0.54"
-  resolved "https://pkg.csb.dev/vtex/faststore/commit/f1ba61b7/@faststore/api#2f54eb07b50baf617f664c3a2f592ff42231d725"
+  resolved "https://pkg.csb.dev/vtex/faststore/commit/d610e93a/@faststore/api#029c484425d580b41dd9e102bcdb573a2442c8c0"
   dependencies:
     "@envelop/on-resolve" "^2.0.6"
     "@graphql-tools/load-files" "^7.0.0"
@@ -1217,9 +1217,9 @@
     p-limit "^3.1.0"
     sanitize-html "^2.11.0"
 
-"@faststore/cli@https://pkg.csb.dev/vtex/faststore/commit/f1ba61b7/@faststore/cli":
+"@faststore/cli@https://pkg.csb.dev/vtex/faststore/commit/d610e93a/@faststore/cli":
   version "3.0.54"
-  resolved "https://pkg.csb.dev/vtex/faststore/commit/f1ba61b7/@faststore/cli#756ad0aade4c2763ef58f11a3f959674ecfafd86"
+  resolved "https://pkg.csb.dev/vtex/faststore/commit/d610e93a/@faststore/cli#756ad0aade4c2763ef58f11a3f959674ecfafd86"
   dependencies:
     "@oclif/core" "^1.16.4"
     "@oclif/plugin-help" "^5"
