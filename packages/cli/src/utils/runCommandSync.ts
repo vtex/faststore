@@ -44,7 +44,7 @@ const showWarning = ({
   }
 }
 
-export const runCommandSync = async ({
+export const runCommandSync = ({
   cmd,
   errorMessage,
   throws,
