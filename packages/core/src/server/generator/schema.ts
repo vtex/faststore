@@ -54,16 +54,14 @@ export function getThirdPartyExtensionsTypeDefs() {
 }
 
 // Schema with no resolvers - used to generate schema.graphql file
-export const getMergedSchema = (): GraphQLSchema => {
-  const nativeTypeDefs = getNativeTypeDefs()
-  return getCustomSchema(
+export const getMergedSchema = (): GraphQLSchema =>
+  getCustomSchema(
     [
-      nativeTypeDefs,
+      getNativeTypeDefs(),
       getVTEXExtensionsTypeDefs(),
       getThirdPartyExtensionsTypeDefs(),
     ].filter(Boolean)
   )
-}
 
 export function writeGraphqlSchemaFile(apiSchema: GraphQLSchema) {
   try {
