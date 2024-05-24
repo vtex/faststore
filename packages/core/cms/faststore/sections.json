@@ -192,6 +192,11 @@
           "type": "object",
           "required": ["sort"],
           "properties": {
+            "placeholder": {
+              "title": "Placeholder for Search Bar",
+              "type": "string",
+              "default": "Search everything at the store"
+            },
             "sort": {
               "title": "Results default sort value",
               "type": "string",

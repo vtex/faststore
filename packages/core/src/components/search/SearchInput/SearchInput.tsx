@@ -36,6 +36,7 @@ export type SearchInputProps = {
   onSearchClick?: () => void
   buttonTestId?: string
   containerStyle?: CSSProperties
+  placeholder?: string
   sort?: string
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
@@ -57,6 +58,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       buttonTestId = 'fs-search-button',
       containerStyle,
       sort,
+      placeholder,
       ...otherProps
     },
     ref
@@ -113,7 +115,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
             onClick: onSearchClick,
             testId: buttonTestId,
           }}
-          placeholder="Search everything at the store"
+          placeholder={placeholder}
           onChange={(e) => setSearchQuery(e.target.value)}
           onSubmit={(term) => {
             const path = formatSearchPath({
