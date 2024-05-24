@@ -15,6 +15,7 @@ import LocalImageGallery from 'src/components/ui/ImageGallery'
 import LocalShippingSimulation from 'src/components/ui/ShippingSimulation/ShippingSimulation'
 import { Image } from 'src/components/ui/Image'
 import LocalNotAvailableButton from 'src/components/product/NotAvailableButton'
+import LocalProductDescription from 'src/components/ui/ProductDescription'
 
 export const ProductDetailsDefaultComponents = {
   ProductTitle: UIProductTitle,
@@ -31,4 +32,5 @@ export const ProductDetailsDefaultComponents = {
   __experimentalImageGallery: LocalImageGallery,
   __experimentalShippingSimulation: LocalShippingSimulation,
   __experimentalNotAvailableButton: LocalNotAvailableButton,
+  __experimentalProductDescription: LocalProductDescription,
 }
