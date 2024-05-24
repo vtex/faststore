@@ -1,0 +1,61 @@
+<header>
+# `getOverriddenSection` function
+</header>
+
+The `getOverriddenSection` function lets you customize sections in your FastStore project without altering its core components and behavior. Instead, it returns a new React component representing the customized section.
+
+This allows the creation of multiple overrides based on native components, enabling precise adjustments to specific parts of a section without affecting the rest.
+
+## Usage example
+
+Imagine an Alert section with an icon. You want to make the icon bolder without changing anything else. `getOverriddenSection` allows you to target just the Icon component.
+
+```tsx
+import { getOverriddenSection } from '@faststore/core';
+import { AlertSection } from '@faststore/core';
+import styles from './simple-alert.module.scss'
+
+const SimpleAlert = getOverriddenSection({
+  // Specify the original section to be overridden
+  Section: AlertSection,
+  // Add a class for potential styling (optional)
+  className: styles.simpleAlert,
+  // Define components to override within the section
+  components: {
+    // Override the "Icon" component
+    Icon: {
+      // Change only the "props" of the Icon
+      props: {
+        // Set the "weight" prop to "bold"
+        weight: "bold"
+      }
+    }
+  }
+});
+
+export default SimpleAlert;
+```
+## Usage
+
+Here's how you can utilize `getOverriddenSection` to customize sections within your FastStore project:
+
+1. Import the `getOverriddenSection` from the `@faststore/core` package.
+2. Import the native section from `@faststore/core`. In this example, we considered the `AlertSection`
+3. Define a new component using the `getOverriddenSection` function (e.g., `SimpleAlert`).
+4. In the `Section` parameter of the `getOverriddenSection` function, specify the original section. Note that the `getOverriddenSection` uses the original `AlertSection` as the base for customization.
+5. (Optional) Add a `className` for styling the section.
+6. In the `components` parameter of the `getOverriddenSection` function, declare the components you wish to override (e.g., `Icon`).
+7. Set the new props for the specified component. In this example, we overrode the weight prop to `bold` within the Icon's props.
+
+> ℹ️ Additional props can be applied to the overridden section. Refer to the [List of native sections and overridable components](https://developers.vtex.com/docs/guides/faststore/building-sections-list-of-native-sections) to check the available props for each component.
+
+## Parameters
+
+### `override` 
+Define how to override the native section. This parameter can have the following properties:             
+
+| Properties | Description |
+| ---------- | ----------- |
+| `Section`  | React component representing the overridden section.  |
+| `components` | An object containing overrides for specific components within the section. The keys of this object should match the component names used in the section, and the values should be objects defining overrides for those components.  For more details on overrides, refer to [Overriding components props](LINK) and [Overriding a component](LINK). |
+| `className`  | Property that behaves similar to [React's `className`](https://react.dev/reference/react-dom/components/common#applying-css-styles).             |

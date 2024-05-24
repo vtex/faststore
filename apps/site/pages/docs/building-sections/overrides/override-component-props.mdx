@@ -1,0 +1,292 @@
+import {Tab, Tabs} from 'nextra-theme-docs'
+
+<header>
+# Overriding native component's props
+</header>
+
+Overriding props allows you to customize a component's behavior while preserving its native integration. This approach is useful when you want to customize specific aspects of a native component, for example, an icon or a button label. 
+
+For this guide, we'll use the [Buy Button](https://developers.vtex.com/docs/guides/faststore/molecules-buy-button) component to make the customization. 
+
+Here's how the initial component looks with the `size` prop set as `regular` in the Product Details Page (PDP):
+
+![overrides-PDP-buy-button-initial](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-initial___a4b7ae9d88ed888da5649b2b6cc1eecd.png)
+
+---
+
+## Before you begin
+
+Make sure your `@faststore/core` package has the 3.x version or above. If you need to update
+it, refer to this [release note](https://github.com/vtex/faststore/releases/tag/v3.0.0).
+
+---
+
+## Step by step
+### Step 1 - Setting up the component file
+
+1. After choosing a native section to be customized from the [list of available native sections](/LINK), open your FastStore project in any code editor of your preference.
+2. Go to the `src` folder, create the `components` folder, and inside it, create the `sections` folder. You can run the following command to create them:
+
+> ℹ️ The naming of the `sections` folder is arbitrary, as overrides can be created in any file, since the import is made in the `src/components/index.tsx` file. 
+
+<Tabs items={['macOS and Linux', 'Windows']}>
+<Tab>
+    ```bash copy 
+    mkdir src/components src/components/sections
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    mkdir src\components src\components\sections
+    ```
+  </Tab>
+</Tabs>
+
+3. In the `sections` folder, create a new file for your customized section. For example, create a new file named `ProductDetailsWithCustomButton.tsx` under the `src/components/sections` directory.
+
+<Tabs items={['macOS and Linux', 'Windows']}>
+  <Tab>
+    ```bash copy 
+    touch src/components/sections/ProductDetailsWithCustomButton.tsx
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    type nul > src\components\sections\ProductDetailsWithCustomButton.tsx
+    ```
+  </Tab>
+</Tabs>
+
+4. Copy and paste the following code snippet into the file:
+
+```tsx filename="ProductDetailsWithCustomButton.tsx" copy
+import { ProductDetailsSection, getOverriddenSection } from '@faststore/core'
+
+const ProductDetailsWithCustomButton = getOverriddenSection({
+  Section: ProductDetailsSection,
+  components: {},
+})
+
+export default ProductDetailsWithCustomButton;
+```
+
+> ℹ️ Change the value of the `Section` variable to the section you wish to
+  override. In the given example, we set the `Section` variable to the component
+  `ProductDetailsSection` to override this specific section.
+
+5. Save your changes.
+
+### Step 2 - Setting up the override
+
+1. Open the `ProductDetailsWithCustomButton.tsx` file created in the [Step 1 - Setting up the component file](#step-1-setting-up-the-overrides-folder) and add the following code:
+
+```tsx filename="ProductDetailsWithCustomButton.tsx" {5,6,7} copy
+import { ProductDetailsSection, getOverriddenSection } from '@faststore/core'
+ 
+const ProductDetailsWithCustomButton = getOverriddenSection({
+  Section: ProductDetailsSection,
+  components: {
+    BuyButton: { props: { size: "small", iconPosition: "right" } } 
+  },
+});
+ 
+export default ProductDetailsWithCustomButton;
+```
+2. In the `components` folder, create the `index.tsx` file and add the following:
+
+```tsx filename="index.tsx" copy
+import ProductDetailsWithCustomButton from "./sections/ProductDetailsWithCustomButton";
+
+export default { ProductDetailsWithCustomButton };
+
+```
+
+This code overrides the `BuyButton` props `size` and `iconPosition`. You'll see a smaller button than the initial one, and the cart icon positioned on the right side.
+
+### Step 3 - Adding the component to the CMS
+
+To integrate the section into the [Headless CMS](https://developers.vtex.com/docs/guides/faststore/headless-cms-overview), follow the steps below:
+
+1. Create a folder named `cms` in the FastStore root directory.
+
+2. Inside `cms`, create the `faststore` folder.
+
+3. Within the `cms/faststore` folder, create the `sections.json` file.
+
+4. Add the schema of the new section to the `sections.json` file, named `ProductDetailsWithCustomButton`, to the `sections.json` file:
+
+```json filename="sections.json" copy
+[
+  {
+    "name": "ProductDetailsWithCustomButton",
+    "requiredScopes": ["pdp"],
+    "schema": {
+      "title": "Product Details WithCustom Button",
+      "type": "object",
+      "description": "Display Product Details Section with custom button",
+      "properties": {
+        "productTitle": {
+          "title": "Product Title",
+          "type": "object",
+          "properties": {
+            "discountBadge": {
+              "title": "Discount Badge",
+              "type": "object",
+              "properties": {
+                "showDiscountBadge": {
+                  "title": "Show Discount Badge?",
+                  "type": "boolean",
+                  "default": false
+                },
+                "size": {
+                  "title": "Size",
+                  "type": "string",
+                  "enumNames": ["Big", "Small"],
+                  "enum": ["big", "small"]
+                }
+              }
+            },
+            "refNumber": {
+              "title": "Show Reference Number?",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "buyButton": {
+          "title": "Buy Button",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Add to Cart"
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Shopping Cart"],
+                  "enum": ["ShoppingCart"]
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alternative Label",
+                  "default": "Shopping Cart"
+                }
+              }
+            }
+          }
+        },
+        "notAvailableButton": {
+          "title": "Not Available Button",
+          "description": "Shown when a SKU is not available",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Not Available"
+            }
+          }
+        },
+        "shippingSimulator": {
+          "title": "Shipping Simulation",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Shipping"
+            },
+            "inputLabel": {
+              "title": "Input Label",
+              "type": "string",
+              "default": "Postal Code"
+            },
+            "link": {
+              "title": "Postal Code Discovery",
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "Link Text",
+                  "type": "string",
+                  "default": "I don't know my Postal Code"
+                },
+                "to": { "title": "URL", "type": "string" }
+              }
+            },
+            "shippingOptionsTableTitle": {
+              "title": "Shipping Options Table Header",
+              "type": "string"
+            }
+          }
+        },
+        "productDescription": {
+          "title": "Product Description",
+          "type": "object",
+          "properties": {
+            "initiallyExpanded": {
+              "type": "string",
+              "title": "Initially Expanded?",
+              "enumNames": ["First", "All", "None"],
+              "enum": ["first", "all", "none"]
+            },
+            "displayDescription": {
+              "title": "Should display description?",
+              "type": "boolean",
+              "default": true
+            },
+            "title": {
+              "title": "Description section title",
+              "type": "string",
+              "default": "Description"
+            }
+          }
+        }
+      }
+    }
+  }
+]
+```
+
+This schema Adds the new `Product Details with custom button` section to the Headless CMS.
+
+5. Open a new terminal window and log in to your vtex account by running `vtex login {accountName}`.
+
+6. run the following command to sync your changes with the Headless CMS:
+
+```bash
+yarn cms-sync
+```
+7. Access the VTEX Admin and proceed to **Storefront > Headless CMS**.
+
+8. Click on the page you desire to add the new section.
+
+9. Click the add button (`+`) and add the new section and complete values from the sections fields.
+
+10. Click `Save`.
+
+> ⚠️ Remember: props changed via Headless CMS overlap the changes made through [overrides](/tbs).
+  For example, if you change a prop through override and also change it using
+  Headless CMS, the final prop's value will be the one added using CMS.
+
+### Step 4 - Visualizing the component on the page locally
+To see your changes locally you need to set the Headless CMS preview to the development mode. 
+Refer to the [How to preview Headless CMS changes in development mode](/docs/how-to-preview-headless-cms-changes-in-development-mode) guide for more information.
+
+Once you have set the preview for development mode, you should see your new Buy Button in a Product Details Page (PDP):
+
+![overrides-PDP-buy-button-props](https://vtexhelp.vtexassets.com/assets/docs/src/overrides-pdp-buy-button-props___898b016bd82c908b5b24c8822be6789a.png)
+
+### Step 5 - Publishing your changes
+
+If your changes are working in the development mode and you want to publish them, follow the steps below:
+
+1. Go to the Headless CMS in the VTEX Admin.
+2. Click on a PDP page.
+3. Click `Publish` to make the new button available on the production store.
+

@@ -4,17 +4,18 @@ sidebar_label: 'Reference'
 ---
 
 {/* ADD ALL SCHEMAS TO EACH COMPONENT, NAME EACH SECTION COMPONENT FOR EVERY SETION */}
+
 import { Callout } from 'nextra-theme-docs'
 
 <header>
 
-# List of Native Sections and Overridable Components
+# List of native sections and overridable components
 
 </header>
 
 Sections in FastStore are components that organize and encapsulate other components, enabling you to create cohesive and functional content for your store.
 
-For example, the [Hero](/components/organisms/hero) is a native section designed to capture your brand's identity and messaging. To effective function in the store, the Hero comprises three components: `Hero`, `HeroImage`, and `HeroHeader`.
+For example, the [Hero](https://developers.vtex.com/docs/guides/faststore/organisms-hero) is a native section designed to capture your brand's identity and messaging. To effective function in the store, the Hero comprises three components: `Hero`, `HeroImage`, and `HeroHeader`.
 
 ---
 
@@ -33,8 +34,53 @@ Check out below a list of FastStore native sections, their components that can b
 
 | Type                              | Availability                                                                                                           |
 | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| Overridable components            | <ul className="doc-list"><li>[`Alert`](/components/molecules/alert)</li><li>[`Icon`](/components/atoms/icon)</li></ul> |
+| Overridable components            | <ul className="doc-list"><li>[`Alert`](https://developers.vtex.com/docs/guides/faststore/molecules-alert)</li><li>[`Icon`](https://developers.vtex.com/docs/guides/faststore/reference-icons)</li></ul> |
 | Headless CMS: props customization | <ul className="doc-list"><li> `Icon`</li><li> `dismissible`</li></ul>                                                  |
+
+### Available schema 
+Check the available Headless CMS schema that you can customize for this component:
+
+```json
+{
+    "name": "NewSectionName",
+    "schema": {
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
+      "type": "object",
+      "required": ["icon", "content", "dismissible"],
+      "properties": {
+        "icon": {
+          "type": "string",
+          "title": "Icon",
+          "enumNames": [
+            "Bell",
+            "BellRinging",
+            "Checked",
+            "Info",
+            "Truck",
+            "User"
+          ],
+          "enum": ["Bell", "BellRinging", "Checked", "Info", "Truck", "User"]
+        },
+        "content": { "type": "string", "title": "Content" },
+        "link": {
+          "title": "Link",
+          "type": "object",
+          "properties": {
+            "text": { "type": "string", "title": "Link Text" },
+            "to": { "type": "string", "title": "Action link" }
+          }
+        },
+        "dismissible": {
+          "type": "boolean",
+          "default": false,
+          "title": "Is dismissible?"
+        }
+      }
+    }
+  }
+
+```
 
 </details>
 
@@ -43,9 +89,66 @@ Check out below a list of FastStore native sections, their components that can b
 
 | Type                              | Availability                                                                                                                                                                   |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Overridable components            | <ul className="doc-list"><li> [`BannerText`](/components/organisms/banner-text)</li> <li> [`BannerTextContent`](/components/organisms/banner-text#bannertextcontent)</li></ul> |
+| Overridable components            | <ul className="doc-list"><li> [`BannerText`](https://developers.vtex.com/docs/guides/faststore/organisms-banner-text)</li> <li> [`BannerTextContent`](https://developers.vtex.com/docs/guides/faststore/organisms-banner-text#banner-text-content)</li></ul> |
 | Headless CMS: props customization | <ul className="doc-list"><li> `ColorVariant`</li><li> `Variant`</li></ul>                                                                                                      |
 
+### Available schema 
+Check the available Headless CMS schema that you can customize for this component:
+
+```json
+ {
+    "name": "NewSectionName",
+       "requiredScopes": [],
+    "schema": {
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
+      "type": "object",
+      "required": ["title", "caption", "link"],
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "caption": {
+          "title": "Caption",
+          "type": "string"
+        },
+        "link": {
+          "title": "Call to Action",
+          "type": "object",
+          "required": ["text", "url"],
+          "properties": {
+            "text": {
+              "title": "Text",
+              "type": "string"
+            },
+            "url": {
+              "title": "URL",
+              "type": "string"
+            },
+            "linkTargetBlank": {
+              "type": "boolean",
+              "title": "Open link in new window?",
+              "default": false
+            }
+          }
+        },
+        "colorVariant": {
+          "type": "string",
+          "title": "Color variant",
+          "enumNames": ["Main", "Light", "Accent"],
+          "enum": ["main", "light", "accent"]
+        },
+        "variant": {
+          "type": "string",
+          "title": "Variant",
+          "enumNames": ["Primary", "Secondary"],
+          "enum": ["primary", "secondary"]
+        }
+      }
+    }
+  }
+```
 </details>
 
 <details>
@@ -53,8 +156,36 @@ Check out below a list of FastStore native sections, their components that can b
 
 | Type                              | Availability                                                                                                                     |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Overridable components            | <ul className="doc-list"><li>[`Breadcrumb`](/components/molecules/breadcrumb)</li><li>[`Icon`](/components/atoms/icon)</li></ul> |
+| Overridable components            | <ul className="doc-list"><li>[`Breadcrumb`](https://developers.vtex.com/docs/guides/faststore/molecules-breadcrumb)</li><li>[`Icon`](https://developers.vtex.com/docs/guides/faststore/atoms-icon)</li></ul> |
 | Headless CMS: props customization | <ul className="doc-list"><li>`Icon (HomeIcon)`</li></ul>                                                                         |
+
+### Available schema 
+Check the available Headless CMS schema that you can customize for this component:
+
+```json
+{
+    "name": "NewSectionName",
+    "requiredScopes": ["pdp", "plp"],
+    "schema": {
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
+      "type": "object",
+      "required": ["icon", "alt"],
+      "properties": {
+        "icon": {
+          "title": "Icon",
+          "type": "string",
+          "enumNames": ["House"],
+          "enum": ["House"]
+        },
+        "alt": {
+          "title": "Alternative Label",
+          "type": "string"
+        }
+      }
+    }
+  }
+```
 
 </details>
 
@@ -63,8 +194,65 @@ Check out below a list of FastStore native sections, their components that can b
 
 | Type                              | Availability                                                                                                                                                                                             |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Overridable Components            | <ul className="doc-list"><li> [`Hero`](/components/organisms/hero)</li><li> [`HeroImage`](/components/organisms/hero#heroimage)</li><li> [`HeroHeader`](/components/organisms/hero#heroheader)</li></ul> |
+| Overridable Components            | <ul className="doc-list"><li> [`Hero`](https://developers.vtex.com/docs/guides/faststore/organisms-hero)</li><li> [`HeroImage`](https://developers.vtex.com/docs/guides/faststore/organisms-hero#heroimage)</li><li> [`HeroHeader`](https://developers.vtex.com/docs/guides/faststore/organisms-hero#heroheader)</li></ul> |
 | Headless CMS: props customization | <ul className="doc-list"><li> `ButtonProps (Label, Icon)`</li><li> `ColorVariant`</li><li> `Variant`</li></ul>                                                                                           |
+
+### Available schema 
+Check the available Headless CMS schema that you can customize for this component:
+
+```json
+ {
+   "name": "NewSectionName",
+       "requiredScopes": [],
+    "schema": {
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": { "title": "Title", "type": "string" },
+        "subtitle": { "title": "Subtitle", "type": "string" },
+        "link": {
+          "title": "Call to Action",
+          "type": "object",
+          "properties": {
+            "text": { "type": "string", "title": "Text" },
+            "url": { "type": "string", "title": "URL" },
+            "linkTargetBlank": {
+              "type": "boolean",
+              "title": "Open link in new window?",
+              "default": false
+            }
+          }
+        },
+        "image": {
+          "type": "object",
+          "title": "Image",
+          "properties": {
+            "src": {
+              "type": "string",
+              "title": "Image",
+              "widget": { "ui:widget": "media-gallery" }
+            },
+            "alt": { "type": "string", "title": "Alternative Label" }
+          }
+        },
+        "colorVariant": {
+          "type": "string",
+          "title": "Color variant",
+          "enumNames": ["Main", "Light", "Accent"],
+          "enum": ["main", "light", "accent"]
+        },
+        "variant": {
+          "type": "string",
+          "title": "Variant",
+          "enumNames": ["Primary", "Secondary"],
+          "enum": ["primary", "secondary"]
+        }
+      }
+    }
+  }
+```
 
 </details>
 
@@ -72,19 +260,371 @@ Check out below a list of FastStore native sections, their components that can b
 <summary><b>Navbar</b></summary>
 
 | Type | Availability |
-| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | |
-| Overridable components | <ul className="doc-list"><li> [`Navbar`](/components/organisms/navbar)</li> <li> [`NavbarLinks`](/components/molecules/navbar-links)</li> <li> [`NavbarLinksList`](/components/molecules/navbar-links#navbar-links-list)</li> <li> [`NavbarSlider`](/components/organisms/navbar-slider)</li> <li> [`NavbarSliderHeader`](/components/organisms/navbar-slider#navbar-slider-header)</li> <li> [`NavbarSliderContent`](/components/organisms/navbar-slider#navbar-slider-content)</li> <li> [`NavbarSliderFooter`](/components/organisms/navbar-slider#navbar-slider-content)</li> <li> [`NavbarHeader`](/components/organisms/navbar#navbar-header)</li> <li> [`NavbarRow`](/components/organisms/navbar#navbar-row)</li> <li> [`NavbarButtons`](/components/organisms/navbar#navbar-buttons)</li> <li>[`IconButton`](/components/molecules/icon-button)</li></ul> |
-| Headless CMS: props customization | <ul className="doc-list"><li>NavbarRow: `Logo`</li><li>NavbarButtons: `SignIn Button Icon`, `Cart Icon`</li><li>Navigation: ` Regionalization Icon`, `Menu Icon`, `Home Icon`</li></ul> |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Overridable components | <ul className="doc-list"><li> [`Navbar`](https://developers.vtex.com/docs/guides/faststore/organisms-navbar)</li> <li> [`NavbarLinks`](https://developers.vtex.com/docs/guides/faststore/molecules-navbar-links)</li> <li> [`NavbarLinksList`](https://developers.vtex.com/docs/guides/faststore/molecules-navbar-links#navbar-links-list)</li> <li> [`NavbarSlider`](https://developers.vtex.com/docs/guides/faststore/organisms-navbar-slider)</li> <li> [`NavbarSliderHeader`](https://developers.vtex.com/docs/guides/faststore/organisms-navbar-slider#navbar-slider-header)</li> <li> [`NavbarSliderContent`](https://developers.vtex.com/docs/guides/faststore/organisms-navbar-slider#navbar-slider-content)</li> <li> [`NavbarSliderFooter`](https://developers.vtex.com/docs/guides/faststore/organisms-navbar-slider#navbar-slider-content)</li> <li> [`NavbarHeader`](https://developers.vtex.com/docs/guides/faststore/organisms-navbar#navbar-header)</li> <li> [`NavbarRow`](https://developers.vtex.com/docs/guides/faststore/organisms-navbar#navbar-row)</li> <li> [`NavbarButtons`](https://developers.vtex.com/docs/guides/faststore/organisms-navbar#navbar-buttons)</li> <li>[`IconButton`](https://developers.vtex.com/docs/guides/faststore/molecules-icon-button)</li></ul> |
+| Headless CMS: props customization | <ul className="doc-list"><li>NavbarRow: `Logo`</li><li>NavbarButtons: `SignIn Button Icon`, `Cart Icon`</li><li>Navigation: `Regionalization Icon`, `Menu Icon`, `Home Icon`</li></ul> |
+
+### Available schema 
+Check the available Headless CMS schema that you can customize for this component:
+
+```json
+{
+    "name": "NewSectionName",
+    "requiredScopes": [],
+    "schema": {
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
+      "required": ["logo"],
+      "properties": {
+        "logo": {
+          "title": "Logo",
+          "type": "object",
+          "required": ["src"],
+          "properties": {
+            "src": {
+              "title": "Image",
+              "type": "string",
+              "widget": { "ui:widget": "media-gallery" }
+            },
+            "alt": { "title": "Alternative Label", "type": "string" },
+            "link": {
+              "title": "Logo Link",
+              "type": "object",
+              "required": ["url", "title"],
+              "properties": {
+                "url": { "title": "Link URL", "type": "string" },
+                "title": { "title": "Link Title", "type": "string" }
+              }
+            }
+          }
+        },
+        "searchInput": {
+          "title": "Search Input",
+          "description": "Search Input configurations",
+          "type": "object",
+          "required": ["sort"],
+          "properties": {
+            "sort": {
+              "title": "Results default sort value",
+              "type": "string",
+              "default": "score_desc",
+              "enumNames": [
+                "Price, descending",
+                "Price, ascending",
+                "Top sales",
+                "Name, A-Z",
+                "Name, Z-A",
+                "Release date",
+                "Discount",
+                "Relevance"
+              ],
+              "enum": [
+                "price_desc",
+                "price_asc",
+                "orders_desc",
+                "name_asc",
+                "name_desc",
+                "release_desc",
+                "discount_desc",
+                "score_desc"
+              ]
+            }
+          }
+        },
+        "signInButton": {
+          "title": "Sign In Button",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["User"],
+                  "enum": ["User"],
+                  "default": "User"
+                },
+                "alt": {
+                  "title": "Alternative Label",
+                  "type": "string",
+                  "default": "User"
+                }
+              }
+            },
+            "label": {
+              "title": "Call to Action",
+              "type": "string",
+              "default": "Sign In"
+            },
+            "myAccountLabel": {
+              "title": "My Account Label",
+              "type": "string",
+              "default": "My Account"
+            }
+          }
+        },
+        "cartIcon": {
+          "title": "Cart Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["Shopping Cart"],
+              "enum": ["ShoppingCart"],
+              "default": "ShoppingCart"
+            },
+            "alt": {
+              "title": "Alternative Label",
+              "type": "string",
+              "default": "Shopping Cart"
+            }
+          }
+        },
+        "navigation": {
+          "title": "Navigation",
+          "type": "object",
+          "properties": {
+            "regionalization": {
+              "type": "object",
+              "title": "Regionalization",
+              "properties": {
+                "enabled": {
+                  "type": "boolean",
+                  "title": "Use Regionalization?",
+                  "default": true
+                },
+                "icon": {
+                  "title": "Icon",
+                  "type": "object",
+                  "properties": {
+                    "icon": {
+                      "title": "Icon",
+                      "type": "string",
+                      "enumNames": ["Map Pin"],
+                      "enum": ["MapPin"],
+                      "default": "MapPin"
+                    },
+                    "alt": {
+                      "title": "Alternative Label",
+                      "type": "string",
+                      "default": "MapPin"
+                    }
+                  }
+                },
+                "label": {
+                  "title": "Call to Action",
+                  "type": "string",
+                  "default": "Set Location"
+                }
+              }
+            },
+            "pageLinks": {
+              "title": "Links",
+              "type": "array",
+              "maxItems": 8,
+              "items": {
+                "title": "Link",
+                "type": "object",
+                "required": ["text", "url"],
+                "properties": {
+                  "text": { "title": "Link Text", "type": "string" },
+                  "url": { "title": "Link URL", "type": "string" }
+                }
+              }
+            },
+            "menu": {
+              "type": "object",
+              "title": "Menu",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "object",
+                  "properties": {
+                    "icon": {
+                      "title": "Icon",
+                      "type": "string",
+                      "enumNames": ["List"],
+                      "enum": ["List"],
+                      "default": "List"
+                    },
+                    "alt": {
+                      "title": "Alternative Label",
+                      "type": "string",
+                      "default": "List"
+                    }
+                  }
+                }
+              }
+            },
+            "home": {
+              "title": "Home",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Go to Home Label",
+                  "type": "string",
+                  "default": "Go to Home"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+```
 
 </details>
 
 <details>
 <summary><b>Newsletter</b></summary>
 
-| Type | Availability |
-| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | |
-| Overridable components | <ul className="doc-list"><li> [`Newsletter`](/components/organisms/newsletter)</li><li> [`NewsletterAddendum`](/components/organisms/newsletter#newsletteraddendum)</li><li> [`NewsletterContent`](/components/organisms/newsletter#newslettercontent)</li><li> [`NewsletterForm`](/components/organisms/newsletter#newsletterform)</li><li> [`NewsletterHeader`](/components/organisms/newsletter#newsletterheader)</li> <li> `ToastIconSuccess`[(Icon)](/components/atoms/icon)</li> <li> `ToastIconError`[(Icon)](/components/atoms/icon)</li> <li> `HeaderIcon`[(Icon)](/components/atoms/icon)</li> <li> `InputFieldName`[(InputField)](/components/molecules/input-field)</li> <li> `InputFieldEmail`[(InputField)](/components/molecules/input-field)</li> <li> [`Button`](/components/molecules/button)</li></ul> |
-| Headless CMS: props customization | <ul className="doc-list"><li> `Icon`</li><li> `Card Format`</li><li> `Color Variant (Main / Light / Accent)`</li></ul> |
+| Type                              | Availability                                                                                                                                                                           |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Documentation                     | Coming soon!                                                                                                                                                                           |
+| Overridable components            | <ul className="doc-list"><li> `ToastIconSuccess`</li> <li> `ToastIconError`</li> <li> `HeaderIcon`</li> <li> `InputFieldName`</li> <li> `InputFieldEmail`</li> <li> `Button`</li></ul> |
+| Headless CMS: props customization | <ul className="doc-list"><li> `Icon`</li><li> `Variant (Lite / Full)`</li></ul>                                                                                                        |
+
+### Available schema 
+Check the available Headless CMS schema that you can customize for this component:
+
+```json
+{
+    "name": "NewSectionName",
+    "requiredScopes": [],
+    "schema": {
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "icon": {
+          "title": "Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["Envelope"],
+              "enum": ["Envelope"],
+              "default": "Envelope"
+            },
+            "alt": {
+              "type": "string",
+              "title": "Alternative Label",
+              "default": "Envelope"
+            }
+          }
+        },
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Get News and Special Offers!"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "default": "Receive our news and promotions in advance"
+        },
+        "privacyPolicy": {
+          "title": "Privacy Policy Disclaimer",
+          "type": "string",
+          "widget": { "ui:widget": "draftjs-rich-text" }
+        },
+        "emailInputLabel": {
+          "title": "Email input label",
+          "type": "string",
+          "default": "Your Email"
+        },
+        "displayNameInput": {
+          "title": "Request name?",
+          "type": "boolean",
+          "default": true
+        },
+        "nameInputLabel": {
+          "title": "Name input label",
+          "type": "string",
+          "default": "Your Name"
+        },
+        "subscribeButtonLabel": {
+          "title": "Subscribe button label",
+          "type": "string",
+          "default": "Subscribe"
+        },
+        "subscribeButtonLoadingLabel": {
+          "title": "Subscribe button loading label",
+          "type": "string",
+          "default": "Loading..."
+        },
+        "card": {
+          "title": "Newsletter should be in card format?",
+          "type": "boolean",
+          "default": false
+        },
+        "colorVariant": {
+          "title": "Color variant",
+          "type": "string",
+          "enumNames": ["Main", "Light", "Accent"],
+          "enum": ["main", "light", "accent"],
+          "default": "main"
+        },
+        "toastSubscribe": {
+          "title": "Toast Subscribe",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "description": "Message Title",
+              "type": "string",
+              "default": "Hooray!"
+            },
+            "message": {
+              "title": "Message",
+              "description": "Message",
+              "type": "string",
+              "default": "Thank for your subscription."
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["CircleWavyCheck"],
+              "enum": ["CircleWavyCheck"],
+              "default": "CircleWavyCheck"
+            }
+          }
+        },
+        "toastSubscribeError": {
+          "title": "Toast Subscribe Error",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "description": "Message Title",
+              "type": "string",
+              "default": "Oops."
+            },
+            "message": {
+              "title": "Message",
+              "description": "Message",
+              "type": "string",
+              "default": "Something went wrong. Please Try again."
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["CircleWavyWarning"],
+              "enum": ["CircleWavyWarning"],
+              "default": "CircleWavyWarning"
+            }
+          }
+        }
+      }
+    }
+  }
+```
 
 </details>
 
@@ -93,10 +633,149 @@ Check out below a list of FastStore native sections, their components that can b
   <b>ProductDetails</b>
 </summary>
 
-| Type                              | Availability                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Overridable components            | <ul className="doc-list"><li>[`ProductTitle`](/components/molecules/product-title)</li><li>[`DiscountBadge`](/components/molecules/discount-badge)</li><li>[`BuyButton`](/components/molecules/buy-button)</li><li>[`Icon`](/components/atoms/icon)</li><li>[`ProductPrice`](/components/molecules/product-price)</li><li>[`QuantitySelector`](/components/molecules/quantity-selector)</li><li>[`SkuSelector`](/components/molecules/sku-selector)</li><li>[`ShippingSimulation`](/components/organisms/shipping-simulation)</li><li>[`ImageGallery`](/components/organisms/image-gallery)</li><li>[`ImageGalleryViewer`](/components/organisms/image-gallery)</li><li> `__experimentalImageGalleryImage`</li><li> `__experimentalImageGallery`</li><li> `__experimentalShippingSimulation`</li></ul> |
-| Headless CMS: props customization | <ul className="doc-list"><li>ProductTitle: `showDiscountBadge`, `discountBadgeSize`, `showReferenceNumber`</li><li>BuyButton: `Icon`</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Type                              | Availability                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Overridable components            | <ul className="doc-list"><li>[`ProductTitle`](https://developers.vtex.com/docs/guides/faststore/molecules-product-title)</li><li>[`DiscountBadge`](https://developers.vtex.com/docs/guides/faststore/molecules-discount-badge)</li><li>[`BuyButton`](https://developers.vtex.com/docs/guides/faststore/molecules-buy-button)</li><li>[`Icon`](https://developers.vtex.com/docs/guides/faststore/atoms-icon)</li><li>[`Price`](https://developers.vtex.com/docs/guides/faststore/atoms-price)</li><li>[`QuantitySelector`](https://developers.vtex.com/docs/guides/faststore/molecules-quantity-selector)</li><li>[`SkuSelector`](https://developers.vtex.com/docs/guides/faststore/molecules-sku-selector)</li><li>[`ShippingSimulation`](https://developers.vtex.com/docs/guides/faststore/organisms-shipping-simulation)</li><li>[`ImageGallery`](https://developers.vtex.com/docs/guides/faststore/organisms-image-gallery)</li><li>[`ImageGalleryViewer`](https://developers.vtex.com/docs/guides/faststore/organisms-image-gallery)</li><li> `__experimentalImageGalleryImage`</li><li> `__experimentalImageGallery`</li><li> `__experimentalShippingSimulation`</li><li> `__experimentalNotAvailableButton`</li>`__experimentalProductDescription`</li></ul> |
+| Headless CMS: props customization | <ul className="doc-list"><li>ProductTitle: `showDiscountBadge`, `discountBadgeSize`, `showReferenceNumber`</li><li>BuyButton: `Icon`</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+
+### Available schema 
+Check the available Headless CMS schema that you can customize for this component:
+
+```json
+{
+    "name": "NewSectionName",
+    "requiredScopes": ["pdp"],
+    "schema": {
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
+      "type": "object",
+      "properties": {
+        "productTitle": {
+          "title": "Product Title",
+          "type": "object",
+          "properties": {
+            "discountBadge": {
+              "title": "Discount Badge",
+              "type": "object",
+              "properties": {
+                "showDiscountBadge": {
+                  "title": "Show Discount Badge?",
+                  "type": "boolean",
+                  "default": false
+                },
+                "size": {
+                  "title": "Size",
+                  "type": "string",
+                  "enumNames": ["Big", "Small"],
+                  "enum": ["big", "small"]
+                }
+              }
+            },
+            "refNumber": {
+              "title": "Show Reference Number?",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "buyButton": {
+          "title": "Buy Button",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Add to Cart"
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Shopping Cart"],
+                  "enum": ["ShoppingCart"]
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alternative Label",
+                  "default": "Shopping Cart"
+                }
+              }
+            }
+          }
+        },
+        "notAvailableButton": {
+          "title": "Not Available Button",
+          "description": "Shown when a SKU is not available",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Not Available"
+            }
+          }
+        },
+        "shippingSimulator": {
+          "title": "Shipping Simulation",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Shipping"
+            },
+            "inputLabel": {
+              "title": "Input Label",
+              "type": "string",
+              "default": "Postal Code"
+            },
+            "link": {
+              "title": "Postal Code Discovery",
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "Link Text",
+                  "type": "string",
+                  "default": "I don't know my Postal Code"
+                },
+                "to": { "title": "URL", "type": "string" }
+              }
+            },
+            "shippingOptionsTableTitle": {
+              "title": "Shipping Options Table Header",
+              "type": "string"
+            }
+          }
+        },
+        "productDescription": {
+          "title": "Product Description",
+          "type": "object",
+          "properties": {
+            "initiallyExpanded": {
+              "type": "string",
+              "title": "Initially Expanded?",
+              "enumNames": ["First", "All", "None"],
+              "enum": ["first", "all", "none"]
+            },
+            "displayDescription": {
+              "title": "Should display description?",
+              "type": "boolean",
+              "default": true
+            },
+            "title": {
+              "title": "Description section title",
+              "type": "string",
+              "default": "Description"
+            }
+          }
+        }
+      }
+    }
+  }
+```
 
 </details>
 
@@ -105,8 +784,110 @@ Check out below a list of FastStore native sections, their components that can b
 
 | Type                              | Availability                                                                                                                                                         |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Overridable components            | <ul className="doc-list"><li> [`ProductShelf`](/components/organisms/product-shelf)</li><li> `__experimentalCarousel`</li><li> `__experimentalProductCard`</li></ul> |
+| Overridable components            | <ul className="doc-list"><li> [`ProductShelf`](https://developers.vtex.com/docs/guides/faststore/organisms-product-shelf)</li><li> `__experimentalCarousel`</li><li> `__experimentalProductCard`</li></ul> |
 | Headless CMS: props customization | <ul className="doc-list"><li>Product Card Configuration: `showDiscountBadge`, `bordered`</li></ul>                                                                   |
+
+### Available schema 
+Check the available Headless CMS schema that you can customize for this component:
+
+```json
+{
+    "name": "NewSectionName",
+    "requiredScopes": [],
+    "schema": {
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
+      "type": "object",
+      "required": ["title", "numberOfItems", "after", "sort"],
+      "properties": {
+        "title": { "type": "string", "title": "Title" },
+        "numberOfItems": {
+          "type": "integer",
+          "title": "Total number of items",
+          "default": 5,
+          "description": "Total number of items. The quantity may be smaller if the query returns fewer products."
+        },
+        "itemsPerPage": {
+          "type": "integer",
+          "title": "Number of items per page",
+          "default": 5,
+          "description": "Number of items to display per page in carousel"
+        },
+        "after": {
+          "type": "integer",
+          "title": "After",
+          "default": "0",
+          "description": "Initial pagination item"
+        },
+        "sort": {
+          "title": "Sort",
+          "description": "Items order",
+          "default": "score_desc",
+          "enum": [
+            "discount_desc",
+            "name_asc",
+            "name_desc",
+            "orders_desc",
+            "price_asc",
+            "price_desc",
+            "release_desc",
+            "score_desc"
+          ],
+          "enumNames": [
+            "Discount: higher to lower",
+            "Name: A-Z",
+            "Name: Z-A",
+            "Orders: higher to lower",
+            "Price: lower to higher",
+            "Price: higher to lower",
+            "Release date: newer to older",
+            "Relevance: higher to lower"
+          ]
+        },
+        "term": { "type": "string", "title": "Search term" },
+        "selectedFacets": {
+          "title": "Facets",
+          "type": "array",
+          "items": {
+            "title": "Facet",
+            "type": "object",
+            "required": ["key", "value"],
+            "properties": {
+              "key": {
+                "title": "Key",
+                "description": "For collections use: productClusterIds",
+                "type": "string",
+                "default": "productClusterIds"
+              },
+              "value": {
+                "title": "Value",
+                "description": "E.g. For 'Most Wanted' collection, use: 140. To consult your collection ids go to Collections page",
+                "type": "string",
+                "default": "140"
+              }
+            }
+          }
+        },
+        "productCardConfiguration": {
+          "title": "Product Card Configuration",
+          "type": "object",
+          "properties": {
+            "showDiscountBadge": {
+              "title": "Show discount badge?",
+              "type": "boolean",
+              "default": true
+            },
+            "bordered": {
+              "title": "Cards should be bordered?",
+              "type": "boolean",
+              "default": true
+            }
+          }
+        }
+      }
+    }
+  }
+```
 
 </details>
 
@@ -116,19 +897,284 @@ Check out below a list of FastStore native sections, their components that can b
 | Type                              | Availability                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Documentation                     | <a href="/components" target="_blank" className="nx-text-primary-600 nx-underline nx-decoration-from-font [text-underline-position:from-font]">FastStore UI</a>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| Overridable components            | <ul className="doc-list"><li> `MobileFilterButton` [(Button)](/components/atoms/button)</li><li> `FilterIcon` [(Icon)](/components/atoms/icon)</li><li> `PrevIcon` [(Icon)](/components/atoms/icon)</li><li> `ResultsCountSkeleton` [(Skeleton)](/components/atoms/skeleton)</li><li> `SortSkeleton` [(Skeleton)](/components/atoms/skeleton)</li><li> `FilterButtonSkeleton` [(Skeleton)](/components/atoms/skeleton)</li><li> `LinkButtonPrev` [(LinkButton)](/components/molecules/link-button)</li><li> `LinkButtonNext` [(LinkButton)](/components/molecules/link-button)</li><li> `__experimentalFilterDesktop`</li><li> `__experimentalFilterSlider`</li><li> `__experimentalProductCard`</li><li> `__experimentalEmptyGallery`</li></ul> |
+| Overridable components            | <ul className="doc-list"><li> `MobileFilterButton` [(Button)](https://developers.vtex.com/docs/guides/faststore/atoms-button)</li><li> `FilterIcon` [(Icon)](https://developers.vtex.com/docs/guides/faststore/atoms-icon)</li><li> `PrevIcon` [(Icon)](https://developers.vtex.com/docs/guides/faststore/atoms-icon)</li><li> `ResultsCountSkeleton` [(Skeleton)](https://developers.vtex.com/docs/guides/faststore/atoms-skeleton)</li><li> `SortSkeleton` [(Skeleton)](https://developers.vtex.com/docs/guides/faststore/atoms-skeleton)</li><li> `FilterButtonSkeleton` [(Skeleton)](https://developers.vtex.com/docs/guides/faststore/atoms-skeleton)</li><li> `LinkButtonPrev` [(LinkButton)](https://developers.vtex.com/docs/guides/faststore/molecules-link-button)</li><li> `LinkButtonNext` [(LinkButton)](https://developers.vtex.com/docs/guides/faststore/molecules-link-button)</li><li> `__experimentalFilterDesktop`</li><li> `__experimentalFilterSlider`</li><li> `__experimentalProductCard`</li><li> `__experimentalEmptyGallery`</li></ul> |
 | Headless CMS: props customization | <ul className="doc-list"><li>Previous Page Button: `Icon`</li><li>Mobile Filter Button: `Icon`</li><li>Product Card Configuration: `showDiscountBadge`, `bordered`</li></ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 
-</details>
+### Available schema 
+Check the available Headless CMS schema that you can customize for this component:
 
-{/* Improve the component list, is not very clear what is it */}
+```json
+{
+    "name": "NewSectionName",
+    "requiredScopes": ["plp", "search"],
+    "schema": {
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
+      "type": "object",
+      "required": ["filter"],
+      "properties": {
+        "searchTermLabel": {
+          "title": "Search page term label",
+          "type": "string",
+          "default": "Showing results for:"
+        },
+        "totalCountLabel": {
+          "title": "Total count label",
+          "type": "string",
+          "default": "Results"
+        },
+        "previousPageButton": {
+          "title": "Previous page button",
+          "type": "object",
+          "required": ["icon", "label"],
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["ArrowLeft"],
+                  "enum": ["ArrowLeft"],
+                  "default": "ArrowLeft"
+                },
+                "alt": {
+                  "title": "Alternative label",
+                  "type": "string",
+                  "default": "Arrow Left icon"
+                }
+              }
+            },
+            "label": {
+              "title": "Previous page button",
+              "type": "string",
+              "default": "Previous Page"
+            }
+          }
+        },
+        "loadMorePageButton": {
+          "title": "Load more products Button",
+          "type": "object",
+          "required": ["label"],
+          "properties": {
+            "label": {
+              "title": "Load more products label",
+              "type": "string",
+              "default": "Load more products"
+            }
+          }
+        },
+        "filter": {
+          "title": "Filter",
+          "type": "object",
+          "required": ["title", "mobileOnly"],
+          "properties": {
+            "title": {
+              "title": "Filter title",
+              "type": "string",
+              "default": "Filters"
+            },
+            "mobileOnly": {
+              "title": "Mobile Only",
+              "type": "object",
+              "required": [
+                "filterButton",
+                "clearButtonLabel",
+                "applyButtonLabel"
+              ],
+              "properties": {
+                "filterButton": {
+                  "title": "Show filter button",
+                  "type": "object",
+                  "required": ["label", "icon"],
+                  "properties": {
+                    "label": {
+                      "title": "Label",
+                      "type": "string",
+                      "default": "Filters"
+                    },
+                    "icon": {
+                      "title": "Icon",
+                      "type": "object",
+                      "required": ["icon", "alt"],
+                      "properties": {
+                        "icon": {
+                          "title": "Icon",
+                          "type": "string",
+                          "enumNames": ["FadersHorizontal"],
+                          "enum": ["FadersHorizontal"],
+                          "default": "FadersHorizontal"
+                        },
+                        "alt": {
+                          "title": "Alternative label",
+                          "type": "string",
+                          "default": "Open Filters"
+                        }
+                      }
+                    }
+                  }
+                },
+                "clearButtonLabel": {
+                  "title": "Clear button label",
+                  "type": "string",
+                  "default": "Clear All"
+                },
+                "applyButtonLabel": {
+                  "title": "Apply button label",
+                  "type": "string",
+                  "default": "Apply"
+                }
+              }
+            }
+          }
+        },
+        "productCard": {
+          "title": "Product Card Configuration",
+          "type": "object",
+          "properties": {
+            "showDiscountBadge": {
+              "title": "Show discount badge?",
+              "type": "boolean",
+              "default": true
+            },
+            "bordered": {
+              "title": "Cards should be bordered?",
+              "type": "boolean",
+              "default": true
+            }
+          }
+        },
+        "emptyGallery": {
+          "title": "Empty Gallery",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Nothing matches with your search"
+            },
+            "firstButton": {
+              "title": "First Button",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "title": "Label",
+                  "default": "Browse Offers"
+                },
+                "url": {
+                  "type": "string",
+                  "title": "URL",
+                  "default": "/office"
+                },
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "default": "CircleWavyWarning"
+                }
+              }
+            },
+            "secondButton": {
+              "title": "Second Button",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "title": "Label",
+                  "default": "Just Arrived"
+                },
+                "url": {
+                  "type": "string",
+                  "title": "URL",
+                  "default": "/technology"
+                },
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "default": "RocketLaunch"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+```
+
+</details>
 
 <details>
 <summary><b>RegionBar</b></summary>
 
 | Type                              | Availability                                                                                                                                                                                           |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Overridable components            | <ul className="doc-list"><li>[`RegionBar`](/components/molecules/region-bar)</li><li> `LocationIcon` [(Icon)](/components/atoms/icon)</li><li> `ButtonIcon` [(Icon)](/components/atoms/icon)</li></ul> |
+| Overridable components            | <ul className="doc-list"><li>[`RegionBar`](https://developers.vtex.com/docs/guides/faststore/molecules-region-bar)</li><li> `LocationIcon` [(Icon)](https://developers.vtex.com/docs/guides/faststore/atoms-icon)</li><li> `ButtonIcon` [(Icon)](https://developers.vtex.com/docs/guides/faststore/atoms-icon)</li></ul> |
 | Headless CMS: props customization | <ul className="doc-list"><li>LocationIcon: `Icon`</li><li>ButtonIcon: `Icon`</li></ul>                                                                                                                 |
+
+### Available schema 
+Check the available Headless CMS schema that you can customize for this component:
+
+```json
+ {
+    "name": "NewSectionName",
+    "requiredScopes": [],
+    "schema": {
+      "title": "Add the Section name",
+      "description": "Short description for the the section's purpose",
+      "type": "object",
+      "required": ["label"],
+      "properties": {
+        "icon": {
+          "title": "Location Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["Map Pin"],
+              "enum": ["MapPin"],
+              "default": "MapPin"
+            },
+            "alt": {
+              "title": "Alternative Label",
+              "type": "string",
+              "default": "Map Pin icon"
+            }
+          }
+        },
+        "label": {
+          "title": "Location label",
+          "type": "string",
+          "default": "Set your location"
+        },
+        "editLabel": {
+          "title": "Location edit label",
+          "type": "string",
+          "default": "Edit"
+        },
+        "buttonIcon": {
+          "title": "Button Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["Caret Right"],
+              "enum": ["CaretRight"],
+              "default": "CaretRight"
+            },
+            "alt": {
+              "title": "Alternative Label",
+              "type": "string",
+              "default": "Caret Right icon"
+            }
+          }
+        }
+      }
+    }
+  }
+```
 
 </details>

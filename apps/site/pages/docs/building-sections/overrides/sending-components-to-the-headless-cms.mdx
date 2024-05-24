@@ -1,0 +1,34 @@
+
+# Syncing components with the Headless CMS
+
+During the override of [components](/) and [props](/) one of the steps
+is to make the overrided component available in the [Headless CMS]().
+
+1. In the FastStore root directory, create a folder named `cms`.
+2. Inside `cms`, create the `faststore` folder.
+3. Within the `cms/faststore` folder, create the `sections.json` file.
+4. Add the schema of the new section to the `sections.json` file. The schema defines how the Headless CMS renders the section.
+
+import { Callout } from 'nextra/components'
+ 
+<Callout type="warning" emoji="⚠️">
+  To structure the schema correctly refer to the [Step 3: Adding sections to the Headless CMS](/docs/headless-cms-integration/3-adding-content-types-and-sections#step-3-adding-sections-to-the-headless-cms). 
+  Also, refer to the [List of Native Sections and Overridable Components](/docs/building-sections/overrides/list-of-native-sections) to check the schemas for each component.
+</Callout>
+
+5. Open the terminal and log in to your vtex account by running `vtex login {accountName}`.
+
+6. run the following command to sync your changes with the Headless CMS:
+
+```bash
+yarn cms-sync
+```
+7. Access the VTEX Admin and proceed to **Storefront > Headless CMS**.
+8. Click on the page you desire to add the new section.
+9. Click the add button (`+`) and add the new section.
+10. Fill with the necessary values from the sections field.
+
+## Previewing changes in the development mode
+
+To see your changes locally you need to set the Headless CMS preview to the development mode. 
+Refer to the [How to preview Headless CMS changes in development mode](/docs/how-to-preview-headless-cms-changes-in-development-mode) guide for more information.

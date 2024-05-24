@@ -1,0 +1,59 @@
+# Section overrides troubleshooting
+
+During the [Section overriding process](LINK), you can experience issues such as the overridden component not appearing or not behaving as you expected.
+
+Below are various troubleshooting checks and instructions you can use to solve your store's issue:
+
+- [Checking the `getOverriddenSection` function](#checking-the-getoverriddensection-function): Overrides fail to display in your store.
+- [Adding the section’s schema in the Headless CMS](#adding-the-sections-schema-in-the-headless-cms): Overrides are not reflected in the Headless CMS.
+- [Removing default props](#removing-default-props): Prop overrides not behaving as expected.
+- [Checking Custom section class names](#checking-custom-section-class-names): Styles are not being applied to the component.
+
+## Solution
+
+To identify the meaning and determine the specific correction for each error, see the table below:
+
+### Checking the `getOverriddenSection` function
+
+If you encounter an error message mentioning a missing function named `getOverriddenSection`, it means you need to import it into your code.
+
+This function is important for displaying product overrides within your store. It allows you to customize specific sections of a product page. Follow the steps below to import the function to your project:
+
+Open the file where you are overriding the section, for example, `ProductDetailsWithCustomButton.tsx`.
+At the top of the file, include the following import statement:
+
+```js
+import { getOverriddenSection } from '@faststore/core';
+```
+Here's an example of how to use getOverriddenSection in your ProductDetailsWithCustomButton.tsx file:
+
+```
+import { ProductDetailsSection, getOverriddenSection } from '@faststore/core'
+
+const ProductDetailsWithCustomButton = getOverriddenSection({
+  Section: ProductDetailsSection,
+  components: {
+    BuyButton: { Component: CustomBuyButton },
+  },
+})
+```
+
+Run `yarn dev` to sync your changes.
+
+### Adding the section’s schema in the Headless CMS
+
+If you can’t see the changes in the Headless CMS after [overriding a prop ](LINK) or a [section](LINK), that can be caused by the schema. The Headless CMS won’t display your custom section without a schema.
+
+To fix it, add the schema for the new section to the Headless CMS and replace the native section with your custom one. For detailed instructions, refer to the [Syncing components with the Headless CMS](LINK) guide.
+
+### Removing default props
+
+If after [overriding a prop](LINK), the changes you made are not being reflected or not behaving as you expected, that can be caused by default prop definitions. They might override yours when adding the section to the Headless CMS. The Headless CMS might have default values for some props that conflict with your custom ones.
+
+Consider removing default values to ensure your overrides work.
+
+### Checking Custom section class names
+
+If the style you created is not being applied, verify that the `className` added to the section matches the one declared in the stylesheet. For instance, if you declared `className: styles.simpleAlert` in the section, ensure that the corresponding style declaration in the stylesheet is `.simpleAlert`.
+
+Refer to the [Override section styles](LINK) article for more information.
