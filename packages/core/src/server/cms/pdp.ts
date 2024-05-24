@@ -1,7 +1,7 @@
 import { ServerProductQueryQuery } from '@generated/graphql'
 import type { ContentData, Locator } from '@vtex/client-cms'
 import MissingContentError from 'src/sdk/error/MissingContentError'
-import { findBestPDPTemplate } from 'src/utils/utilities'
+import { findBestPDPTemplate } from 'src/utils/multipleTemplates'
 import { Options, getCMSPage, getPage } from '.'
 import config from '../../../faststore.config'
 
