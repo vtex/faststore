@@ -231,7 +231,7 @@ export const getStaticProps: GetStaticProps<
     throw errors[0]
   }
 
-  const cmsPage: PDPContentType = await getPDP(slug, data.product, previewData)
+  const cmsPage: PDPContentType = await getPDP(data.product, previewData)
 
   const { seo } = data.product
   const title = seo.title || storeConfig.seo.title
