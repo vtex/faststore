@@ -99,16 +99,4 @@ module.exports = {
     enableCypressExtension: false,
     noRobots: false,
   },
-  rewrites: async function rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: '/test/my-office',
-          destination: `/office`,
-        },
-      ],
-      afterFiles: [],
-      fallback: [],
-    }
-  },
 }
