@@ -21,6 +21,7 @@ export interface NavbarProps {
     }
   }
   searchInput: {
+    placeholder?: string
     sort: string
   }
   signInButton: {
