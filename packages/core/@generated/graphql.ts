@@ -1430,6 +1430,7 @@ export type ClientProductGalleryQueryQueryVariables = Exact<{
 }>
 
 export type ClientProductGalleryQueryQuery = {
+  redirect: { url: string | null } | null
   search: {
     products: { pageInfo: { totalCount: number } }
     facets: Array<
@@ -2039,7 +2040,7 @@ export const ClientManyProductsQueryDocument = {
 export const ClientProductGalleryQueryDocument = {
   __meta__: {
     operationName: 'ClientProductGalleryQuery',
-    operationHash: '054742a6e1a39f1e09237dcec956879d964f3f20',
+    operationHash: 'bfc40da32b60f9404a4adb96b0856e3fbb04b076',
   },
 } as unknown as TypedDocumentString<
   ClientProductGalleryQueryQuery,
