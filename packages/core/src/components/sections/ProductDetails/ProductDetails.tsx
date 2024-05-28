@@ -8,7 +8,6 @@ import type { AnalyticsItem } from 'app/sdk/analytics/types'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
 
-import { ProductDetailsSettings } from '../../../components/ui/ProductDetails'
 import Section from '../Section'
 
 import styles from './section.module.scss'
@@ -82,6 +81,7 @@ function ProductDetails({
     __experimentalShippingSimulation: ShippingSimulation,
     __experimentalNotAvailableButton: NotAvailableButton,
     __experimentalProductDescription: ProductDescription,
+    __experimentalProductDetailsSettings: ProductDetailsSettings,
   } = useOverrideComponents<'ProductDetails'>()
   const { currency } = useSession()
   const context = usePDP()
@@ -182,17 +182,20 @@ function ProductDetails({
               data-fs-product-details-settings
               data-fs-product-details-section
             >
-              <ProductDetailsSettings
-                product={product}
-                isValidating={isValidating}
+              <ProductDetailsSettings.Component
                 buyButtonTitle={buyButtonTitle}
-                quantity={quantity}
-                setQuantity={setQuantity}
                 buyButtonIcon={buyButtonIcon}
                 notAvailableButtonTitle={
                   notAvailableButtonTitle ?? NotAvailableButton.props.title
                 }
                 useUnitMultiplier={quantitySelector?.useUnitMultiplier ?? false}
+                {...ProductDetailsSettings.props}
+                // Dynamic props shouldn't be overridable
+                // This decision can be reviewed later if needed
+                quantity={quantity}
+                setQuantity={setQuantity}
+                product={product}
+                isValidating={isValidating}
               />
             </section>
 
