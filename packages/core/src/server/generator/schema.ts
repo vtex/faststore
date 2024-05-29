@@ -1,14 +1,12 @@
 import path from 'path'
 import { writeFileSync } from 'fs-extra'
-import { getSchema, getTypeDefs } from '@faststore/api'
+import { getTypeDefs } from '@faststore/api'
 import { printSchemaWithDirectives } from '@graphql-tools/utils'
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { buildASTSchema } from 'graphql'
 import type { GraphQLSchema } from 'graphql'
 import type { TypeSource } from '@graphql-tools/utils'
-
-import { apiOptions } from '../options'
 
 export function getTypeDefsFromFolder(
   customPath: string | string[]
@@ -55,8 +53,6 @@ export function getThirdPartyExtensionsTypeDefs() {
   return getTypeDefsFromFolder('thirdParty')
 }
 
-export const nativeApiSchema = getSchema(apiOptions)
-
 // Schema with no resolvers - used to generate schema.graphql file
 export const getMergedSchema = (): GraphQLSchema =>
   getCustomSchema(
@@ -69,9 +65,11 @@ export const getMergedSchema = (): GraphQLSchema =>
 
 export function writeGraphqlSchemaFile(apiSchema: GraphQLSchema) {
   try {
+    // getting the schema before write because somehow this fixes the validation step of codegen from codesandbox
+    const schema = printSchemaWithDirectives(apiSchema)
     writeFileSync(
       path.join(process.cwd(), '@generated', 'schema.graphql'),
-      printSchemaWithDirectives(apiSchema)
+      schema
     )
 
     console.log('Schema GraphQL file generated successfully')

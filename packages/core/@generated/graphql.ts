@@ -1253,8 +1253,8 @@ export type ServerProductQueryQuery = {
       }>
     }
     isVariantOf: {
-      productGroupID: string
       name: string
+      productGroupID: string
       skuVariants: {
         activeVariations: any | null
         slugsMap: any | null
