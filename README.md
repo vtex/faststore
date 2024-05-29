@@ -8,7 +8,7 @@
 </h1>
 <p align="center">
   <strong>
-    Fullstack ecommerce toolkit
+    Fullstack ecommerce toolkit.
   </strong>
 </p>
 <p align="center">
