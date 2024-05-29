@@ -120,7 +120,10 @@ function Navbar({
             </>
           )}
 
-          <SearchInput sort={searchInput?.sort} />
+          <SearchInput
+            placeholder={searchInput?.placeholder}
+            sort={searchInput?.sort}
+          />
 
           <NavbarButtons.Component
             searchExpanded={searchExpanded}

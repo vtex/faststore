@@ -65,9 +65,11 @@ export const getMergedSchema = (): GraphQLSchema =>
 
 export function writeGraphqlSchemaFile(apiSchema: GraphQLSchema) {
   try {
+    // getting the schema before write because somehow this fixes the validation step of codegen from codesandbox
+    const schema = printSchemaWithDirectives(apiSchema)
     writeFileSync(
       path.join(process.cwd(), '@generated', 'schema.graphql'),
-      printSchemaWithDirectives(apiSchema)
+      schema
     )
 
     console.log('Schema GraphQL file generated successfully')
