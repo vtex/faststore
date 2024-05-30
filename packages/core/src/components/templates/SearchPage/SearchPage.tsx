@@ -1,6 +1,5 @@
 import { useSearch } from '@faststore/sdk'
 import type { ComponentType } from 'react'
-import router from 'next/router'
 
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
@@ -58,9 +57,6 @@ function SearchPage({
     selectedFacets,
     itemsPerPage,
   })
-
-  const urlRedirect = pageProductGalleryData?.redirect?.url
-  urlRedirect && router.push(urlRedirect)
 
   const { pages, useGalleryPage } = useCreateUseGalleryPage()
 
