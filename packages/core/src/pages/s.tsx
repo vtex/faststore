@@ -15,13 +15,19 @@ import { mark } from 'src/sdk/tests/mark'
 
 import { Locator } from '@vtex/client-cms'
 import storeConfig from 'faststore.config'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import SearchPage from 'src/components/templates/SearchPage/SearchPage'
 import { getPage, SearchContentType } from 'src/server/cms'
+import type {
+  ClientProductGalleryQueryQuery as ClientProductGalleryQuery,
+  ClientProductGalleryQueryQueryVariables as ClientProductGalleryQueryVariables,
+} from '@generated/graphql'
+import { execute } from 'src/server'
+import { query as ProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 
 type Props = {
   page: SearchContentType
@@ -113,11 +119,45 @@ function Page({ page: searchContentType, globalSections }: Props) {
   )
 }
 
-export const getStaticProps: GetStaticProps<
+export const getServerSideProps: GetServerSideProps<
   Props,
   Record<string, string>,
   Locator
-> = async ({ previewData }) => {
+> = async ({ previewData, query: parsedUrlQuery }) => {
+  // Redirect when there are registered Intelligent Search redirects
+  const queryTerm = parsedUrlQuery?.q as string
+
+  if (queryTerm) {
+    try {
+      const {
+        data: { redirect },
+      } = await execute<
+        ClientProductGalleryQueryVariables,
+        ClientProductGalleryQuery
+      >({
+        variables: {
+          first: 1,
+          after: '0',
+          sort: 'score_desc' as const,
+          term: queryTerm,
+          selectedFacets: [],
+        },
+        operation: ProductGalleryQuery,
+      })
+
+      if (redirect?.url) {
+        return {
+          props: null,
+          redirect: {
+            permanent: false,
+            destination: redirect.url,
+          },
+        }
+      }
+    } catch (error) {
+      console.error(`Failed to redirect. Error: ${error}`)
+    }
+  }
   const globalSections = await getGlobalSectionsData(previewData)
 
   if (storeConfig.cms.data) {
