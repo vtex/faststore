@@ -27,6 +27,9 @@ export const query = gql(`
     $selectedFacets: [IStoreSelectedFacet!]!
   ) {
     ...ClientProductGallery
+    redirect(term: $term, selectedFacets: $selectedFacets) {
+      url
+    }
     search(
       first: $first
       after: $after
