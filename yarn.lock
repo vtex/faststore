@@ -1217,19 +1217,6 @@
     p-limit "^3.1.0"
     sanitize-html "^2.11.0"
 
-"@faststore/cli@https://pkg.csb.dev/vtex/faststore/commit/5e82d1d0/@faststore/cli":
-  version "3.0.54"
-  resolved "https://pkg.csb.dev/vtex/faststore/commit/5e82d1d0/@faststore/cli#756ad0aade4c2763ef58f11a3f959674ecfafd86"
-  dependencies:
-    "@oclif/core" "^1.16.4"
-    "@oclif/plugin-help" "^5"
-    "@oclif/plugin-not-found" "^2.3.3"
-    chalk "~4.1.2"
-    chokidar "^3.5.3"
-    dotenv "^16.4.5"
-    fs-extra "^10.1.0"
-    path "^0.12.7"
-
 "@faststore/lighthouse@^1.12.32":
   version "1.12.32"
   resolved "https://registry.yarnpkg.com/@faststore/lighthouse/-/lighthouse-1.12.32.tgz#840096bc88ce80041217c764df97d9f0b4968658"
