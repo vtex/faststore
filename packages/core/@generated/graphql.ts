@@ -578,6 +578,7 @@ export type ShippingSla = {
 export type SkuVariants = {
   /** SKU property values for the current SKU. */
   activeVariations: Maybe<Scalars['ActiveVariations']['output']>
+  allVariantProducts: Maybe<Array<Maybe<StoreProduct>>>
   /** All available options for each SKU variant property, indexed by their name. */
   allVariantsByName: Maybe<Scalars['VariantsByName']['output']>
   /**
@@ -1150,6 +1151,12 @@ export type ProductDetailsFragment_ProductFragment = {
   description: string
   unitMultiplier: number | null
   id: string
+  additionalProperty: Array<{
+    value: any
+    name: string
+    propertyID: string
+    valueReference: any
+  }>
   isVariantOf: {
     name: string
     productGroupID: string
@@ -1157,6 +1164,16 @@ export type ProductDetailsFragment_ProductFragment = {
       activeVariations: any | null
       slugsMap: any | null
       availableVariations: any | null
+      allVariantProducts: Array<{
+        sku: string
+        name: string
+        gtin: string
+        description: string
+        unitMultiplier: number | null
+        id: string
+        additionalProperty: Array<{ value: any; name: string }>
+        image: Array<{ url: string; alternateName: string }>
+      } | null> | null
     } | null
   }
   image: Array<{ url: string; alternateName: string }>
@@ -1170,12 +1187,6 @@ export type ProductDetailsFragment_ProductFragment = {
       seller: { identifier: string }
     }>
   }
-  additionalProperty: Array<{
-    propertyID: string
-    name: string
-    value: any
-    valueReference: any
-  }>
 }
 
 export type ClientManyProductsFragment = {
@@ -1259,12 +1270,22 @@ export type ServerProductQueryQuery = {
         activeVariations: any | null
         slugsMap: any | null
         availableVariations: any | null
+        allVariantProducts: Array<{
+          sku: string
+          name: string
+          gtin: string
+          description: string
+          unitMultiplier: number | null
+          id: string
+          additionalProperty: Array<{ value: any; name: string }>
+          image: Array<{ url: string; alternateName: string }>
+        } | null> | null
       } | null
     }
     additionalProperty: Array<{
-      propertyID: string
-      name: string
       value: any
+      name: string
+      propertyID: string
       valueReference: any
     }>
   }
@@ -1478,6 +1499,12 @@ export type ClientProductQueryQuery = {
     description: string
     unitMultiplier: number | null
     id: string
+    additionalProperty: Array<{
+      value: any
+      name: string
+      propertyID: string
+      valueReference: any
+    }>
     isVariantOf: {
       name: string
       productGroupID: string
@@ -1485,6 +1512,16 @@ export type ClientProductQueryQuery = {
         activeVariations: any | null
         slugsMap: any | null
         availableVariations: any | null
+        allVariantProducts: Array<{
+          sku: string
+          name: string
+          gtin: string
+          description: string
+          unitMultiplier: number | null
+          id: string
+          additionalProperty: Array<{ value: any; name: string }>
+          image: Array<{ url: string; alternateName: string }>
+        } | null> | null
       } | null
     }
     image: Array<{ url: string; alternateName: string }>
@@ -1498,12 +1535,6 @@ export type ClientProductQueryQuery = {
         seller: { identifier: string }
       }>
     }
-    additionalProperty: Array<{
-      propertyID: string
-      name: string
-      value: any
-      valueReference: any
-    }>
   }
 }
 
@@ -1748,6 +1779,10 @@ export const ProductDetailsFragment_ProductFragmentDoc =
   id: productID
   sku
   name
+  additionalProperty {
+    value
+    name
+  }
   gtin
   description
   unitMultiplier
@@ -1758,6 +1793,22 @@ export const ProductDetailsFragment_ProductFragmentDoc =
       activeVariations
       slugsMap
       availableVariations
+      allVariantProducts {
+        id: productID
+        sku
+        name
+        additionalProperty {
+          value
+          name
+        }
+        gtin
+        description
+        unitMultiplier
+        image {
+          url
+          alternateName
+        }
+      }
     }
   }
   image {
@@ -2003,7 +2054,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '3ce56e42296689b601347fedc380c89519355ab7',
+    operationHash: 'a20a7c71f5a978e662580c6a7e0124645fbe6a74',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2048,7 +2099,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: 'cedeb0c3e7ec1678400fe2ae930f5a79382fba1e',
+    operationHash: '07fd092778c595e6d875ad0b2a04cd500218f5bc',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,

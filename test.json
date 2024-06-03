@@ -1,0 +1,10 @@
+[
+    {
+        "categoryID": 1,
+        "sku-fields": [ "Color", "Size", "Kind"]
+    },
+    {
+        "categoryID": 2,
+        "sku-fields": [ "Memory", "Processor", "Color"]
+    }
+]

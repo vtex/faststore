@@ -252,6 +252,10 @@ export const fragment = gql(`
     id: productID
     sku
     name
+    additionalProperty {
+      value
+      name
+    }
     gtin
     description
     unitMultiplier
@@ -262,6 +266,22 @@ export const fragment = gql(`
         activeVariations
         slugsMap
         availableVariations
+        allVariantProducts {
+          id: productID
+          sku
+          name
+          additionalProperty {
+            value
+            name
+          }
+          gtin
+          description
+          unitMultiplier
+          image {
+            url
+            alternateName
+          }
+        }
       }
     }
 

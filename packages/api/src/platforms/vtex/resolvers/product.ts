@@ -44,13 +44,12 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
 
   image: Resolver<Root, any, StoreImage[]>
 } = {
-  productID: ({ itemId }) => itemId,
+  productID: (root) => root.itemId,
   name: ({ isVariantOf, name }) => name ?? isVariantOf.productName,
-  slug: ({ isVariantOf: { linkText }, itemId }) => getSlug(linkText, itemId),
+  lala: ({ isVariantOf: { linkText }, itemId }) => getSlug(linkText, itemId),
   description: ({ isVariantOf: { description } }) => description,
   seo: ({ isVariantOf }) => ({
     title: isVariantOf.productName,
-    description: isVariantOf.description,
     canonical: canonicalFromProduct(isVariantOf),
   }),
   brand: ({ isVariantOf: { brand } }) => ({ name: brand }),

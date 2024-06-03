@@ -74,6 +74,8 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   const { data: client, isValidating } = useProductQuery(product.id, {
     product: product,
   })
+  console.log(product.isVariantOf)
+  console.log(product.isVariantOf.skuVariants.allVariantProducts)
 
   const context = {
     data: {

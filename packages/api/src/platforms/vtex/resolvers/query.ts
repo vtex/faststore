@@ -1,14 +1,10 @@
 import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
-import { BadRequestError, NotFoundError } from '../../errors'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { enhanceSku } from '../utils/enhanceSku'
 import {
   findChannel,
   findCrossSelling,
-  findLocale,
-  findSkuId,
-  findSlug,
-  transformSelectedFacet,
+  findLocale, transformSelectedFacet
 } from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
 import { StoreCollection } from './collection'
@@ -24,84 +20,12 @@ import type {
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
-import { isValidSkuId, pickBestSku } from '../utils/sku'
 import { SearchArgs } from '../clients/search'
+import { getProductLoader } from '../loaders/product'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
-    // Insert channel in context for later usage
-    const channel = findChannel(locator)
-    const locale = findLocale(locator)
-    const id = findSkuId(locator)
-    const slug = findSlug(locator)
-
-    if (channel) {
-      mutateChannelContext(ctx, channel)
-    }
-
-    if (locale) {
-      mutateLocaleContext(ctx, locale)
-    }
-
-    const {
-      loaders: { skuLoader },
-      clients: { commerce, search },
-    } = ctx
-
-    try {
-      const skuId = id ?? slug?.split('-').pop() ?? ''
-
-      if (!isValidSkuId(skuId)) {
-        throw new Error('Invalid SkuId')
-      }
-
-      const sku = await skuLoader.load(skuId)
-
-      /**
-       * Here be dragons 🦄🦄🦄
-       *
-       * In some cases, the slug has a valid skuId for a different
-       * product. This condition makes sure that the fetched sku
-       * is the one we actually asked for
-       * */
-      if (
-        slug &&
-        sku.isVariantOf.linkText &&
-        !slug.startsWith(sku.isVariantOf.linkText)
-      ) {
-        throw new Error(
-          `Slug was set but the fetched sku does not satisfy the slug condition. slug: ${slug}, linkText: ${sku.isVariantOf.linkText}`
-        )
-      }
-
-      return sku
-    } catch (err) {
-      if (slug == null) {
-        throw new BadRequestError('Missing slug or id')
-      }
-
-      const route = await commerce.catalog.portal.pagetype(`${slug}/p`)
-
-      if (route.pageType !== 'Product' || !route.id) {
-        throw new NotFoundError(`No product found for slug ${slug}`)
-      }
-
-      const {
-        products: [product],
-      } = await search.products({
-        page: 0,
-        count: 1,
-        query: `product:${route.id}`,
-      })
-
-      if (!product) {
-        throw new NotFoundError(`No product found for id ${route.id}`)
-      }
-
-      const sku = pickBestSku(product.items)
-
-      return enhanceSku(sku, product)
-    }
+    return getProductLoader(locator, ctx)
   },
   collection: (_: unknown, { slug }: QueryCollectionArgs, ctx: Context) => {
     const {
@@ -279,7 +203,7 @@ export const Query = {
       address,
     }
   },
-
+  
   redirect: async (
     _: unknown,
     { term, selectedFacets }: QueryRedirectArgs,
@@ -302,7 +226,7 @@ export const Query = {
       url: redirect,
     }
   },
-
+  
   sellers: async (
     _: unknown,
     { postalCode, geoCoordinates, country, salesChannel }: QuerySellersArgs,
