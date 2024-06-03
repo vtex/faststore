@@ -6,12 +6,12 @@ import type { ReactNode } from 'react'
 
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
-type OrderSummaryProps = {
+type OrderSummaryProps = UIOrderSummaryProps & {
   subTotal: number
   total: number
   numberOfItems: number
   checkoutButton?: ReactNode
-} & UIOrderSummaryProps
+}
 
 function OrderSummary({
   subTotal,

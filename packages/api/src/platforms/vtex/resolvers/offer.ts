@@ -10,7 +10,7 @@ import type { StoreAggregateOffer } from './aggregateOffer'
 import type { ArrayElementType } from '../../../typings'
 import type { EnhancedSku } from '../utils/enhanceSku'
 import type { OrderFormItem } from '../clients/commerce/types/OrderForm'
-import { withTax } from '../utils/withTaxes'
+import { withTax } from '../utils/taxes'
 
 type OrderFormProduct = OrderFormItem & { product: EnhancedSku }
 type SearchProduct = ArrayElementType<

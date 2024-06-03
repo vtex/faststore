@@ -34,7 +34,7 @@ export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
    */
   totalValue?: string
   /**
-   * Enables a include taxes status.
+   * Enables an include taxes status.
    */
   includeTaxes?: boolean
   /**

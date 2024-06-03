@@ -27,7 +27,7 @@ export type ProductShelfProps = {
     key: string
     value: string
   }[]
-  taxesConfiguration: {
+  taxesConfiguration?: {
     usePriceWithTaxes?: boolean
     taxesLabel?: string
   }
@@ -44,7 +44,7 @@ function ProductShelf({
   productCardConfiguration: { bordered, showDiscountBadge } = {},
   numberOfItems,
   itemsPerPage = 5,
-  taxesConfiguration,
+  taxesConfiguration = {},
   ...otherProps
 }: ProductShelfProps) {
   const {

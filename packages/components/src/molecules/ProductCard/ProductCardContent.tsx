@@ -58,7 +58,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   onButtonClick?: () => void
   /**
-   * Enables a include taxes status.
+   * Enables an include taxes status.
    */
   includeTaxes?: boolean
   /**
@@ -113,9 +113,9 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
             />
           )}
           {includeTaxes && (
-            (<Label data-fs-product-card-taxes-label>
+            <Label data-fs-product-card-taxes-label>
               {includeTaxesLabel}
-            </Label>)
+            </Label>
           )}
           {ratingValue && (
             <Rating value={ratingValue} icon={<Icon name="Star" />} />

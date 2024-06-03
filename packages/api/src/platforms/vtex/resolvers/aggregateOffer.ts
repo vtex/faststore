@@ -2,7 +2,7 @@ import { inStock, price } from '../utils/productStock'
 import type { StoreProduct } from './product'
 import type { PromiseType } from '../../../typings'
 import type { Resolver } from '..'
-import { withTax } from '../utils/withTaxes'
+import { withTax } from '../utils/taxes'
 
 export type Root = PromiseType<ReturnType<typeof StoreProduct.offers>>
 
@@ -12,9 +12,7 @@ const getHighPrice = (
 ) => {
   const availableOffers = offers.filter(inStock)
   const highOffer = availableOffers[availableOffers.length - 1]
-  options
-  const highPrice = highOffer != null ? price(highOffer) : 0
-
+  const highPrice = highOffer ? price(highOffer) : 0
   if (!options.includeTaxes) {
     return highPrice
   }
