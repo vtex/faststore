@@ -1,17 +1,14 @@
 export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
   /**
    * Example:
    *
@@ -21,7 +18,7 @@ export type Scalars = {
    * }
    * ```
    */
-  ActiveVariations: { input: any; output: any; }
+  ActiveVariations: any;
   /**
    * Example:
    *
@@ -52,8 +49,8 @@ export type Scalars = {
    * }
    * ```
    */
-  FormattedVariants: { input: any; output: any; }
-  ObjectOrString: { input: any; output: any; }
+  FormattedVariants: any;
+  ObjectOrString: any;
   /**
    * Example:
    *
@@ -63,7 +60,7 @@ export type Scalars = {
    * }
    * ```
    */
-  SlugsMap: { input: any; output: any; }
+  SlugsMap: any;
   /**
    * Example:
    *
@@ -74,85 +71,85 @@ export type Scalars = {
    * }
    * ```
    */
-  VariantsByName: { input: any; output: any; }
+  VariantsByName: any;
 };
 
 /** Address information. */
 export type Address = {
   __typename?: 'Address';
   /** Address city */
-  city?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']>;
   /** Address complement */
-  complement?: Maybe<Scalars['String']['output']>;
+  complement?: Maybe<Scalars['String']>;
   /** Address country */
-  country?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Scalars['String']>;
   /** Address geoCoordinates */
-  geoCoordinates?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  geoCoordinates?: Maybe<Array<Maybe<Scalars['Float']>>>;
   /** Address neighborhood */
-  neighborhood?: Maybe<Scalars['String']['output']>;
+  neighborhood?: Maybe<Scalars['String']>;
   /** Address number */
-  number?: Maybe<Scalars['String']['output']>;
+  number?: Maybe<Scalars['String']>;
   /** Address postal code */
-  postalCode?: Maybe<Scalars['String']['output']>;
+  postalCode?: Maybe<Scalars['String']>;
   /** Address reference */
-  reference?: Maybe<Scalars['String']['output']>;
+  reference?: Maybe<Scalars['String']>;
   /** Address state */
-  state?: Maybe<Scalars['String']['output']>;
+  state?: Maybe<Scalars['String']>;
   /** Address street */
-  street?: Maybe<Scalars['String']['output']>;
+  street?: Maybe<Scalars['String']>;
 };
 
 export type AvailableDeliveryWindows = {
   __typename?: 'AvailableDeliveryWindows';
   /** Available delivery window end date in UTC */
-  endDateUtc?: Maybe<Scalars['String']['output']>;
+  endDateUtc?: Maybe<Scalars['String']>;
   /** Available delivery window list price */
-  listPrice?: Maybe<Scalars['Int']['output']>;
+  listPrice?: Maybe<Scalars['Int']>;
   /** Available delivery window price */
-  price?: Maybe<Scalars['Int']['output']>;
+  price?: Maybe<Scalars['Int']>;
   /** Available delivery window start date in UTC */
-  startDateUtc?: Maybe<Scalars['String']['output']>;
+  startDateUtc?: Maybe<Scalars['String']>;
   /** Available delivery window tax */
-  tax?: Maybe<Scalars['Int']['output']>;
+  tax?: Maybe<Scalars['Int']>;
 };
 
 export type DeliveryIds = {
   __typename?: 'DeliveryIds';
   /** DeliveryIds courier id */
-  courierId?: Maybe<Scalars['String']['output']>;
+  courierId?: Maybe<Scalars['String']>;
   /** DeliveryIds courier name */
-  courierName?: Maybe<Scalars['String']['output']>;
+  courierName?: Maybe<Scalars['String']>;
   /** DeliveryIds dock id */
-  dockId?: Maybe<Scalars['String']['output']>;
+  dockId?: Maybe<Scalars['String']>;
   /** DeliveryIds quantity */
-  quantity?: Maybe<Scalars['Int']['output']>;
+  quantity?: Maybe<Scalars['Int']>;
   /** DeliveryIds warehouse id */
-  warehouseId?: Maybe<Scalars['String']['output']>;
+  warehouseId?: Maybe<Scalars['String']>;
 };
 
 export type IGeoCoordinates = {
   /** The latitude of the geographic coordinates. */
-  latitude: Scalars['Float']['input'];
+  latitude: Scalars['Float'];
   /** The longitude of the geographic coordinates. */
-  longitude: Scalars['Float']['input'];
+  longitude: Scalars['Float'];
 };
 
 /** Person data input to the newsletter. */
 export type IPersonNewsletter = {
   /** Person's email. */
-  email: Scalars['String']['input'];
+  email: Scalars['String'];
   /** Person's name. */
-  name: Scalars['String']['input'];
+  name: Scalars['String'];
 };
 
 /** Shipping Simulation item input. */
 export type IShippingItem = {
   /** ShippingItem ID / Sku. */
-  id: Scalars['String']['input'];
+  id: Scalars['String'];
   /** Number of items. */
-  quantity: Scalars['Int']['input'];
+  quantity: Scalars['Int'];
   /** Seller responsible for the ShippingItem. */
-  seller: Scalars['String']['input'];
+  seller: Scalars['String'];
 };
 
 /** Shopping cart input. */
@@ -163,41 +160,41 @@ export type IStoreCart = {
 
 export type IStoreCurrency = {
   /** Currency code (e.g: USD). */
-  code: Scalars['String']['input'];
+  code: Scalars['String'];
   /** Currency symbol (e.g: $). */
-  symbol: Scalars['String']['input'];
+  symbol: Scalars['String'];
 };
 
 export type IStoreDeliveryMode = {
   /** The delivery channel information of the session. */
-  deliveryChannel: Scalars['String']['input'];
+  deliveryChannel: Scalars['String'];
   /** The delivery method information of the session. */
-  deliveryMethod: Scalars['String']['input'];
+  deliveryMethod: Scalars['String'];
   /** The delivery window information of the session. */
-  deliveryWindow?: InputMaybe<IStoreDeliveryWindow>;
+  deliveryWindow?: Maybe<IStoreDeliveryWindow>;
 };
 
 /** Delivery window information. */
 export type IStoreDeliveryWindow = {
   /** The delivery window end date information. */
-  endDate: Scalars['String']['input'];
+  endDate: Scalars['String'];
   /** The delivery window start date information. */
-  startDate: Scalars['String']['input'];
+  startDate: Scalars['String'];
 };
 
 export type IStoreGeoCoordinates = {
   /** The latitude of the geographic coordinates. */
-  latitude: Scalars['Float']['input'];
+  latitude: Scalars['Float'];
   /** The longitude of the geographic coordinates. */
-  longitude: Scalars['Float']['input'];
+  longitude: Scalars['Float'];
 };
 
 /** Image input. */
 export type IStoreImage = {
   /** Alias for the input image. */
-  alternateName: Scalars['String']['input'];
+  alternateName: Scalars['String'];
   /** Image input URL. */
-  url: Scalars['String']['input'];
+  url: Scalars['String'];
 };
 
 /** Offer input. */
@@ -205,11 +202,11 @@ export type IStoreOffer = {
   /** Information on the item being offered. */
   itemOffered: IStoreProduct;
   /** This is displayed as the "from" price in the context of promotions' price comparison. This may change before it reaches the shelf. */
-  listPrice: Scalars['Float']['input'];
+  listPrice: Scalars['Float'];
   /** Also known as spot price. */
-  price: Scalars['Float']['input'];
+  price: Scalars['Float'];
   /** Number of items offered. */
-  quantity: Scalars['Int']['input'];
+  quantity: Scalars['Int'];
   /** Seller responsible for the offer. */
   seller: IStoreOrganization;
 };
@@ -219,88 +216,88 @@ export type IStoreOrder = {
   /** Array with information on each accepted offer. */
   acceptedOffer: Array<IStoreOffer>;
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
-  orderNumber: Scalars['String']['input'];
+  orderNumber: Scalars['String'];
   /** Indicates whether or not items with attachments should be split. */
-  shouldSplitItem?: InputMaybe<Scalars['Boolean']['input']>;
+  shouldSplitItem?: Maybe<Scalars['Boolean']>;
 };
 
 /** Organization input. */
 export type IStoreOrganization = {
   /** Organization ID. */
-  identifier: Scalars['String']['input'];
+  identifier: Scalars['String'];
 };
 
 /** Client profile data. */
 export type IStorePerson = {
   /** Client email. */
-  email: Scalars['String']['input'];
+  email: Scalars['String'];
   /** Client last name. */
-  familyName: Scalars['String']['input'];
+  familyName: Scalars['String'];
   /** Client first name. */
-  givenName: Scalars['String']['input'];
+  givenName: Scalars['String'];
   /** Client ID. */
-  id: Scalars['String']['input'];
+  id: Scalars['String'];
 };
 
 /** Product input. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type IStoreProduct = {
   /** Custom Product Additional Properties. */
-  additionalProperty?: InputMaybe<Array<IStorePropertyValue>>;
+  additionalProperty?: Maybe<Array<IStorePropertyValue>>;
   /** Array of product images. */
   image: Array<IStoreImage>;
   /** Product name. */
-  name: Scalars['String']['input'];
+  name: Scalars['String'];
   /** Stock Keeping Unit. Merchant-specific ID for the product. */
-  sku: Scalars['String']['input'];
+  sku: Scalars['String'];
 };
 
 export type IStorePropertyValue = {
   /** Property name. */
-  name: Scalars['String']['input'];
+  name: Scalars['String'];
   /** Property id. This propert changes according to the content of the object. */
-  propertyID?: InputMaybe<Scalars['String']['input']>;
+  propertyID?: Maybe<Scalars['String']>;
   /** Property value. May hold a string or the string representation of an object. */
-  value: Scalars['ObjectOrString']['input'];
+  value: Scalars['ObjectOrString'];
   /** Specifies the nature of the value */
-  valueReference: Scalars['ObjectOrString']['input'];
+  valueReference: Scalars['ObjectOrString'];
 };
 
 /** Selected search facet input. */
 export type IStoreSelectedFacet = {
   /** Selected search facet key. */
-  key: Scalars['String']['input'];
+  key: Scalars['String'];
   /** Selected search facet value. */
-  value: Scalars['String']['input'];
+  value: Scalars['String'];
 };
 
 /** Session input. */
 export type IStoreSession = {
   /** Session input address type. */
-  addressType?: InputMaybe<Scalars['String']['input']>;
+  addressType?: Maybe<Scalars['String']>;
   /** Session input channel. */
-  channel?: InputMaybe<Scalars['String']['input']>;
+  channel?: Maybe<Scalars['String']>;
   /** Session input country. */
-  country: Scalars['String']['input'];
+  country: Scalars['String'];
   /** Session input currency. */
   currency: IStoreCurrency;
   /** Session input delivery mode. */
-  deliveryMode?: InputMaybe<IStoreDeliveryMode>;
+  deliveryMode?: Maybe<IStoreDeliveryMode>;
   /** Session input geoCoordinates. */
-  geoCoordinates?: InputMaybe<IStoreGeoCoordinates>;
+  geoCoordinates?: Maybe<IStoreGeoCoordinates>;
   /** Session input locale. */
-  locale: Scalars['String']['input'];
+  locale: Scalars['String'];
   /** Session input person. */
-  person?: InputMaybe<IStorePerson>;
+  person?: Maybe<IStorePerson>;
   /** Session input postal code. */
-  postalCode?: InputMaybe<Scalars['String']['input']>;
+  postalCode?: Maybe<Scalars['String']>;
 };
 
 export type LogisticsInfo = {
   __typename?: 'LogisticsInfo';
   /** LogisticsInfo itemIndex. */
-  itemIndex?: Maybe<Scalars['String']['output']>;
+  itemIndex?: Maybe<Scalars['String']>;
   /** LogisticsInfo selectedSla. */
-  selectedSla?: Maybe<Scalars['String']['output']>;
+  selectedSla?: Maybe<Scalars['String']>;
   /** List of LogisticsInfo ShippingSLA. */
   slas?: Maybe<Array<Maybe<ShippingSla>>>;
 };
@@ -309,54 +306,54 @@ export type LogisticsInfo = {
 export type LogisticsItem = {
   __typename?: 'LogisticsItem';
   /** LogisticsItem availability. */
-  availability?: Maybe<Scalars['String']['output']>;
+  availability?: Maybe<Scalars['String']>;
   /** LogisticsItem ID / Sku. */
-  id?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']>;
   /** LogisticsItem listPrice. */
-  listPrice?: Maybe<Scalars['Int']['output']>;
+  listPrice?: Maybe<Scalars['Int']>;
   /** LogisticsItem measurementUnit. */
-  measurementUnit?: Maybe<Scalars['String']['output']>;
+  measurementUnit?: Maybe<Scalars['String']>;
   /** LogisticsItem price. */
-  price?: Maybe<Scalars['Int']['output']>;
+  price?: Maybe<Scalars['Int']>;
   /** Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time. */
-  priceValidUntil?: Maybe<Scalars['String']['output']>;
+  priceValidUntil?: Maybe<Scalars['String']>;
   /** Number of items. */
-  quantity?: Maybe<Scalars['Int']['output']>;
-  requestIndex?: Maybe<Scalars['Int']['output']>;
+  quantity?: Maybe<Scalars['Int']>;
+  requestIndex?: Maybe<Scalars['Int']>;
   /** LogisticsItem rewardValue. */
-  rewardValue?: Maybe<Scalars['Int']['output']>;
+  rewardValue?: Maybe<Scalars['Int']>;
   /** Seller responsible for the ShippingItem. */
-  seller?: Maybe<Scalars['String']['output']>;
+  seller?: Maybe<Scalars['String']>;
   /** List of Sellers. */
-  sellerChain?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  sellerChain?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** LogisticsItem sellingPrice. */
-  sellingPrice?: Maybe<Scalars['Int']['output']>;
+  sellingPrice?: Maybe<Scalars['Int']>;
   /** LogisticsItem tax. */
-  tax?: Maybe<Scalars['Int']['output']>;
+  tax?: Maybe<Scalars['Int']>;
   /** LogisticsItem unitMultiplier. */
-  unitMultiplier?: Maybe<Scalars['Int']['output']>;
+  unitMultiplier?: Maybe<Scalars['Int']>;
 };
 
 export type MessageFields = {
   __typename?: 'MessageFields';
   /** MessageFields ean. */
-  ean?: Maybe<Scalars['String']['output']>;
+  ean?: Maybe<Scalars['String']>;
   /** MessageFields item index. */
-  itemIndex?: Maybe<Scalars['String']['output']>;
+  itemIndex?: Maybe<Scalars['String']>;
   /** MessageFields sku name. */
-  skuName?: Maybe<Scalars['String']['output']>;
+  skuName?: Maybe<Scalars['String']>;
 };
 
 export type MessageInfo = {
   __typename?: 'MessageInfo';
   /** MessageInfo code. */
-  code?: Maybe<Scalars['String']['output']>;
+  code?: Maybe<Scalars['String']>;
   /** MessageInfo fields. */
   fields?: Maybe<MessageFields>;
   /** MessageInfo status. */
-  status?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Scalars['String']>;
   /** MessageInfo text. */
-  text?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -377,12 +374,12 @@ export type MutationSubscribeToNewsletterArgs = {
 
 export type MutationValidateCartArgs = {
   cart: IStoreCart;
-  session?: InputMaybe<IStoreSession>;
+  session?: Maybe<IStoreSession>;
 };
 
 
 export type MutationValidateSessionArgs = {
-  search: Scalars['String']['input'];
+  search: Scalars['String'];
   session: IStoreSession;
 };
 
@@ -390,51 +387,51 @@ export type MutationValidateSessionArgs = {
 export type PersonNewsletter = {
   __typename?: 'PersonNewsletter';
   /** Person's ID in the newsletter list. */
-  id: Scalars['String']['output'];
+  id: Scalars['String'];
 };
 
 export type PickupAddress = {
   __typename?: 'PickupAddress';
   /** PickupAddress address id. */
-  addressId?: Maybe<Scalars['String']['output']>;
+  addressId?: Maybe<Scalars['String']>;
   /** PickupAddress address type. */
-  addressType?: Maybe<Scalars['String']['output']>;
+  addressType?: Maybe<Scalars['String']>;
   /** PickupAddress city. */
-  city?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']>;
   /** PickupAddress complement. */
-  complement?: Maybe<Scalars['String']['output']>;
+  complement?: Maybe<Scalars['String']>;
   /** PickupAddress country. */
-  country?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Scalars['String']>;
   /** PickupAddress geo coordinates. */
-  geoCoordinates?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
+  geoCoordinates?: Maybe<Array<Maybe<Scalars['Float']>>>;
   /** PickupAddress neighborhood. */
-  neighborhood?: Maybe<Scalars['String']['output']>;
+  neighborhood?: Maybe<Scalars['String']>;
   /** PickupAddress number. */
-  number?: Maybe<Scalars['String']['output']>;
+  number?: Maybe<Scalars['String']>;
   /** PickupAddress postal code. */
-  postalCode?: Maybe<Scalars['String']['output']>;
+  postalCode?: Maybe<Scalars['String']>;
   /** PickupAddress receiver name. */
-  receiverName?: Maybe<Scalars['String']['output']>;
+  receiverName?: Maybe<Scalars['String']>;
   /** PickupAddress reference. */
-  reference?: Maybe<Scalars['String']['output']>;
+  reference?: Maybe<Scalars['String']>;
   /** PickupAddress state. */
-  state?: Maybe<Scalars['String']['output']>;
+  state?: Maybe<Scalars['String']>;
   /** PickupAddress street. */
-  street?: Maybe<Scalars['String']['output']>;
+  street?: Maybe<Scalars['String']>;
 };
 
 export type PickupStoreInfo = {
   __typename?: 'PickupStoreInfo';
   /** PickupStoreInfo additional information. */
-  additionalInfo?: Maybe<Scalars['String']['output']>;
+  additionalInfo?: Maybe<Scalars['String']>;
   /** PickupStoreInfo address. */
   address?: Maybe<PickupAddress>;
   /** PickupStoreInfo dock id. */
-  dockId?: Maybe<Scalars['String']['output']>;
+  dockId?: Maybe<Scalars['String']>;
   /** PickupStoreInfo friendly name. */
-  friendlyName?: Maybe<Scalars['String']['output']>;
+  friendlyName?: Maybe<Scalars['String']>;
   /** Information if the store has pickup enable. */
-  isPickupStore?: Maybe<Scalars['Boolean']['output']>;
+  isPickupStore?: Maybe<Scalars['Boolean']>;
 };
 
 export type Query = {
@@ -459,19 +456,19 @@ export type Query = {
 
 
 export type QueryAllCollectionsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  first: Scalars['Int']['input'];
+  after?: Maybe<Scalars['String']>;
+  first: Scalars['Int'];
 };
 
 
 export type QueryAllProductsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  first: Scalars['Int']['input'];
+  after?: Maybe<Scalars['String']>;
+  first: Scalars['Int'];
 };
 
 
 export type QueryCollectionArgs = {
-  slug: Scalars['String']['input'];
+  slug: Scalars['String'];
 };
 
 
@@ -481,61 +478,61 @@ export type QueryProductArgs = {
 
 
 export type QueryRedirectArgs = {
-  selectedFacets?: InputMaybe<Array<IStoreSelectedFacet>>;
-  term?: InputMaybe<Scalars['String']['input']>;
+  selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
+  term?: Maybe<Scalars['String']>;
 };
 
 
 export type QuerySearchArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  first: Scalars['Int']['input'];
-  selectedFacets?: InputMaybe<Array<IStoreSelectedFacet>>;
-  sort?: InputMaybe<StoreSort>;
-  term?: InputMaybe<Scalars['String']['input']>;
+  after?: Maybe<Scalars['String']>;
+  first: Scalars['Int'];
+  selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
+  sort?: Maybe<StoreSort>;
+  term?: Maybe<Scalars['String']>;
 };
 
 
 export type QuerySellersArgs = {
-  country: Scalars['String']['input'];
-  geoCoordinates?: InputMaybe<IGeoCoordinates>;
-  postalCode?: InputMaybe<Scalars['String']['input']>;
-  salesChannel?: InputMaybe<Scalars['String']['input']>;
+  country: Scalars['String'];
+  geoCoordinates?: Maybe<IGeoCoordinates>;
+  postalCode?: Maybe<Scalars['String']>;
+  salesChannel?: Maybe<Scalars['String']>;
 };
 
 
 export type QueryShippingArgs = {
-  country: Scalars['String']['input'];
+  country: Scalars['String'];
   items: Array<IShippingItem>;
-  postalCode: Scalars['String']['input'];
+  postalCode: Scalars['String'];
 };
 
 /** Search result. */
 export type SearchMetadata = {
   __typename?: 'SearchMetadata';
   /** Indicates how the search engine corrected the misspelled word by using fuzzy logic. */
-  fuzzy: Scalars['String']['output'];
+  fuzzy: Scalars['String'];
   /** Indicates if the search term was misspelled. */
-  isTermMisspelled: Scalars['Boolean']['output'];
+  isTermMisspelled: Scalars['Boolean'];
   /** Logical operator used to run the search. */
-  logicalOperator: Scalars['String']['output'];
+  logicalOperator: Scalars['String'];
 };
 
 /** Information of sellers. */
 export type SellerInfo = {
   __typename?: 'SellerInfo';
   /** Identification of the seller */
-  id?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']>;
   /** Logo of the seller */
-  logo?: Maybe<Scalars['String']['output']>;
+  logo?: Maybe<Scalars['String']>;
   /** Name of the seller */
-  name?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']>;
 };
 
 /** Regionalization with sellers information. */
 export type SellersData = {
   __typename?: 'SellersData';
   /** Identification of region. */
-  id?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']>;
   /** List of sellers. */
   sellers?: Maybe<Array<Maybe<SellerInfo>>>;
 };
@@ -558,42 +555,42 @@ export type ShippingSla = {
   /** ShippingSLA available delivery windows. */
   availableDeliveryWindows?: Maybe<Array<Maybe<AvailableDeliveryWindows>>>;
   /** ShippingSLA carrier. */
-  carrier?: Maybe<Scalars['String']['output']>;
+  carrier?: Maybe<Scalars['String']>;
   /** ShippingSLA delivery channel. */
-  deliveryChannel?: Maybe<Scalars['String']['output']>;
+  deliveryChannel?: Maybe<Scalars['String']>;
   /** List of ShippingSLA delivery ids. */
   deliveryIds?: Maybe<Array<Maybe<DeliveryIds>>>;
   /** ShippingSLA friendly name. */
-  friendlyName?: Maybe<Scalars['String']['output']>;
+  friendlyName?: Maybe<Scalars['String']>;
   /** ShippingSLA id. */
-  id?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']>;
   /**
    * ShippingSLA localized shipping estimate.
    * Note: this will always return a localized string for locale `en-US`.
    */
-  localizedEstimates?: Maybe<Scalars['String']['output']>;
+  localizedEstimates?: Maybe<Scalars['String']>;
   /** ShippingSLA name. */
-  name?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']>;
   /** ShippingSLA pickup distance. */
-  pickupDistance?: Maybe<Scalars['Float']['output']>;
+  pickupDistance?: Maybe<Scalars['Float']>;
   /** ShippingSLA pickup point id. */
-  pickupPointId?: Maybe<Scalars['String']['output']>;
+  pickupPointId?: Maybe<Scalars['String']>;
   /** ShippingSLA pickup store info. */
   pickupStoreInfo?: Maybe<PickupStoreInfo>;
   /** ShippingSLA price. */
-  price?: Maybe<Scalars['Float']['output']>;
+  price?: Maybe<Scalars['Float']>;
   /** ShippingSLA shipping estimate. */
-  shippingEstimate?: Maybe<Scalars['String']['output']>;
+  shippingEstimate?: Maybe<Scalars['String']>;
   /** ShippingSLA shipping estimate date. */
-  shippingEstimateDate?: Maybe<Scalars['String']['output']>;
+  shippingEstimateDate?: Maybe<Scalars['String']>;
 };
 
 export type SkuVariants = {
   __typename?: 'SkuVariants';
   /** SKU property values for the current SKU. */
-  activeVariations?: Maybe<Scalars['ActiveVariations']['output']>;
+  activeVariations?: Maybe<Scalars['ActiveVariations']>;
   /** All available options for each SKU variant property, indexed by their name. */
-  allVariantsByName?: Maybe<Scalars['VariantsByName']['output']>;
+  allVariantsByName?: Maybe<Scalars['VariantsByName']>;
   /**
    * Available options for each varying SKU property, taking into account the
    * `dominantVariantName` property. Returns all available options for the
@@ -602,7 +599,7 @@ export type SkuVariants = {
    * If `dominantVariantName` is not present, the first variant will be
    * considered the dominant one.
    */
-  availableVariations?: Maybe<Scalars['FormattedVariants']['output']>;
+  availableVariations?: Maybe<Scalars['FormattedVariants']>;
   /**
    * Maps property value combinations to their respective SKU's slug. Enables
    * us to retrieve the slug for the SKU that matches the currently selected
@@ -610,55 +607,55 @@ export type SkuVariants = {
    * If `dominantVariantName` is not present, the first variant will be
    * considered the dominant one.
    */
-  slugsMap?: Maybe<Scalars['SlugsMap']['output']>;
+  slugsMap?: Maybe<Scalars['SlugsMap']>;
 };
 
 
 export type SkuVariantsAvailableVariationsArgs = {
-  dominantVariantName?: InputMaybe<Scalars['String']['input']>;
+  dominantVariantName?: Maybe<Scalars['String']>;
 };
 
 
 export type SkuVariantsSlugsMapArgs = {
-  dominantVariantName?: InputMaybe<Scalars['String']['input']>;
+  dominantVariantName?: Maybe<Scalars['String']>;
 };
 
 /** Aggregate offer information, for a given SKU that is available to be fulfilled by multiple sellers. */
 export type StoreAggregateOffer = {
   __typename?: 'StoreAggregateOffer';
   /** Highest price among all sellers. */
-  highPrice: Scalars['Float']['output'];
+  highPrice: Scalars['Float'];
   /** Lowest price among all sellers. */
-  lowPrice: Scalars['Float']['output'];
+  lowPrice: Scalars['Float'];
   /** Number of sellers selling this SKU. */
-  offerCount: Scalars['Int']['output'];
+  offerCount: Scalars['Int'];
   /** Array with information on each available offer. */
   offers: Array<StoreOffer>;
   /** ISO code of the currency used for the offer prices. */
-  priceCurrency: Scalars['String']['output'];
+  priceCurrency: Scalars['String'];
 };
 
 /** Average rating, based on multiple ratings or reviews. */
 export type StoreAggregateRating = {
   __typename?: 'StoreAggregateRating';
   /** Value of the aggregate rating. */
-  ratingValue: Scalars['Float']['output'];
+  ratingValue: Scalars['Float'];
   /** Total number of ratings. */
-  reviewCount: Scalars['Int']['output'];
+  reviewCount: Scalars['Int'];
 };
 
 /** information about the author of a product review or rating. */
 export type StoreAuthor = {
   __typename?: 'StoreAuthor';
   /** Author name. */
-  name: Scalars['String']['output'];
+  name: Scalars['String'];
 };
 
 /** Brand of a given product. */
 export type StoreBrand = {
   __typename?: 'StoreBrand';
   /** Brand name. */
-  name: Scalars['String']['output'];
+  name: Scalars['String'];
 };
 
 /** List of items consisting of chain linked web pages, ending with the current page. */
@@ -667,7 +664,7 @@ export type StoreBreadcrumbList = {
   /** Array with breadcrumb elements. */
   itemListElement: Array<StoreListItem>;
   /** Number of breadcrumbs in the list. */
-  numberOfItems: Scalars['Int']['output'];
+  numberOfItems: Scalars['Int'];
 };
 
 /** Shopping cart information. */
@@ -685,7 +682,7 @@ export type StoreCartMessage = {
   /** Shopping cart message status, which can be `INFO`, `WARNING` or `ERROR`. */
   status: StoreStatus;
   /** Shopping cart message text. */
-  text: Scalars['String']['output'];
+  text: Scalars['String'];
 };
 
 /** Product collection information. */
@@ -694,13 +691,13 @@ export type StoreCollection = {
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
   /** Collection ID. */
-  id: Scalars['ID']['output'];
+  id: Scalars['ID'];
   /** Collection meta information. Used for search. */
   meta: StoreCollectionMeta;
   /** Meta tag data. */
   seo: StoreSeo;
   /** Corresponding collection URL slug, with which to retrieve this entity. */
-  slug: Scalars['String']['output'];
+  slug: Scalars['String'];
   /** Collection type. */
   type: StoreCollectionType;
 };
@@ -718,7 +715,7 @@ export type StoreCollectionConnection = {
 export type StoreCollectionEdge = {
   __typename?: 'StoreCollectionEdge';
   /** Collection cursor. Used as pagination reference. */
-  cursor: Scalars['String']['output'];
+  cursor: Scalars['String'];
   /** Each collection node contains the information of a product collection returned by the query. */
   node: StoreCollection;
 };
@@ -727,9 +724,9 @@ export type StoreCollectionEdge = {
 export type StoreCollectionFacet = {
   __typename?: 'StoreCollectionFacet';
   /** Facet key. */
-  key: Scalars['String']['output'];
+  key: Scalars['String'];
   /** Facet value. */
-  value: Scalars['String']['output'];
+  value: Scalars['String'];
 };
 
 /** Collection meta information. Used for search. */
@@ -759,18 +756,18 @@ export const enum StoreCollectionType {
 export type StoreCurrency = {
   __typename?: 'StoreCurrency';
   /** Currency code (e.g: USD). */
-  code: Scalars['String']['output'];
+  code: Scalars['String'];
   /** Currency symbol (e.g: $). */
-  symbol: Scalars['String']['output'];
+  symbol: Scalars['String'];
 };
 
 /** Delivery mode information. */
 export type StoreDeliveryMode = {
   __typename?: 'StoreDeliveryMode';
   /** The delivery channel information of the session. */
-  deliveryChannel: Scalars['String']['output'];
+  deliveryChannel: Scalars['String'];
   /** The delivery method information of the session. */
-  deliveryMethod: Scalars['String']['output'];
+  deliveryMethod: Scalars['String'];
   /** The delivery window information of the session. */
   deliveryWindow?: Maybe<StoreDeliveryWindow>;
 };
@@ -779,9 +776,9 @@ export type StoreDeliveryMode = {
 export type StoreDeliveryWindow = {
   __typename?: 'StoreDeliveryWindow';
   /** The delivery window end date information. */
-  endDate: Scalars['String']['output'];
+  endDate: Scalars['String'];
   /** The delivery window start date information. */
-  startDate: Scalars['String']['output'];
+  startDate: Scalars['String'];
 };
 
 export type StoreFacet = StoreFacetBoolean | StoreFacetRange;
@@ -790,9 +787,9 @@ export type StoreFacet = StoreFacetBoolean | StoreFacetRange;
 export type StoreFacetBoolean = {
   __typename?: 'StoreFacetBoolean';
   /** Facet key. */
-  key: Scalars['String']['output'];
+  key: Scalars['String'];
   /** Facet label. */
-  label: Scalars['String']['output'];
+  label: Scalars['String'];
   /** Array with information on each facet value. */
   values: Array<StoreFacetValueBoolean>;
 };
@@ -801,9 +798,9 @@ export type StoreFacetBoolean = {
 export type StoreFacetRange = {
   __typename?: 'StoreFacetRange';
   /** Facet key. */
-  key: Scalars['String']['output'];
+  key: Scalars['String'];
   /** Facet label. */
-  label: Scalars['String']['output'];
+  label: Scalars['String'];
   /** Maximum facet range value. */
   max: StoreFacetValueRange;
   /** Minimum facet range value. */
@@ -822,76 +819,76 @@ export const enum StoreFacetType {
 export type StoreFacetValueBoolean = {
   __typename?: 'StoreFacetValueBoolean';
   /** Facet value label. */
-  label: Scalars['String']['output'];
+  label: Scalars['String'];
   /** Number of items with this facet. */
-  quantity: Scalars['Int']['output'];
+  quantity: Scalars['Int'];
   /** Indicates whether facet is selected. */
-  selected: Scalars['Boolean']['output'];
+  selected: Scalars['Boolean'];
   /** Facet value. */
-  value: Scalars['String']['output'];
+  value: Scalars['String'];
 };
 
 /** Search facet range value information. Used for minimum and maximum range values. */
 export type StoreFacetValueRange = {
   __typename?: 'StoreFacetValueRange';
   /** Search facet range absolute value. */
-  absolute: Scalars['Float']['output'];
+  absolute: Scalars['Float'];
   /** Search facet range selected value. */
-  selected: Scalars['Float']['output'];
+  selected: Scalars['Float'];
 };
 
 /** Geographic coordinates information. */
 export type StoreGeoCoordinates = {
   __typename?: 'StoreGeoCoordinates';
   /** The latitude of the geographic coordinates. */
-  latitude: Scalars['Float']['output'];
+  latitude: Scalars['Float'];
   /** The longitude of the geographic coordinates. */
-  longitude: Scalars['Float']['output'];
+  longitude: Scalars['Float'];
 };
 
 /** Image. */
 export type StoreImage = {
   __typename?: 'StoreImage';
   /** Alias for the image. */
-  alternateName: Scalars['String']['output'];
+  alternateName: Scalars['String'];
   /** Image URL. */
-  url: Scalars['String']['output'];
+  url: Scalars['String'];
 };
 
 /** Item of a list. */
 export type StoreListItem = {
   __typename?: 'StoreListItem';
   /** List item value. */
-  item: Scalars['String']['output'];
+  item: Scalars['String'];
   /** Name of the list item. */
-  name: Scalars['String']['output'];
+  name: Scalars['String'];
   /** Position of the item in the list. */
-  position: Scalars['Int']['output'];
+  position: Scalars['Int'];
 };
 
 /** Offer information. */
 export type StoreOffer = {
   __typename?: 'StoreOffer';
   /** Offer item availability. */
-  availability: Scalars['String']['output'];
+  availability: Scalars['String'];
   /** Offer item condition. */
-  itemCondition: Scalars['String']['output'];
+  itemCondition: Scalars['String'];
   /** Information on the item being offered. */
   itemOffered: StoreProduct;
   /** This is displayed as the "from" price in the context of promotions' price comparison. This may change before it reaches the shelf. */
-  listPrice: Scalars['Float']['output'];
+  listPrice: Scalars['Float'];
   /** Also known as spot price. */
-  price: Scalars['Float']['output'];
+  price: Scalars['Float'];
   /** ISO code of the currency used for the offer prices. */
-  priceCurrency: Scalars['String']['output'];
+  priceCurrency: Scalars['String'];
   /** Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time. */
-  priceValidUntil: Scalars['String']['output'];
+  priceValidUntil: Scalars['String'];
   /** Number of items offered. */
-  quantity: Scalars['Int']['output'];
+  quantity: Scalars['Int'];
   /** Seller responsible for the offer. */
   seller: StoreOrganization;
   /** Computed price before applying coupons, taxes or benefits. This may change before it reaches the shelf. */
-  sellingPrice: Scalars['Float']['output'];
+  sellingPrice: Scalars['Float'];
 };
 
 /** Information of a specific order. */
@@ -900,42 +897,42 @@ export type StoreOrder = {
   /** Array with information on each accepted offer. */
   acceptedOffer: Array<StoreOffer>;
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
-  orderNumber: Scalars['String']['output'];
+  orderNumber: Scalars['String'];
 };
 
 /** Organization. */
 export type StoreOrganization = {
   __typename?: 'StoreOrganization';
   /** Organization ID. */
-  identifier: Scalars['String']['output'];
+  identifier: Scalars['String'];
 };
 
 /** Whenever you make a query that allows for pagination, such as `allProducts` or `allCollections`, you can check `StorePageInfo` to learn more about the complete set of items and use it to paginate your queries. */
 export type StorePageInfo = {
   __typename?: 'StorePageInfo';
   /** Cursor corresponding to the last possible item. */
-  endCursor: Scalars['String']['output'];
+  endCursor: Scalars['String'];
   /** Indicates whether there is at least one more page with items after the ones returned in the current query. */
-  hasNextPage: Scalars['Boolean']['output'];
+  hasNextPage: Scalars['Boolean'];
   /** Indicates whether there is at least one more page with items before the ones returned in the current query. */
-  hasPreviousPage: Scalars['Boolean']['output'];
+  hasPreviousPage: Scalars['Boolean'];
   /** Cursor corresponding to the first possible item. */
-  startCursor: Scalars['String']['output'];
+  startCursor: Scalars['String'];
   /** Total number of items (products or collections), not pages. */
-  totalCount: Scalars['Int']['output'];
+  totalCount: Scalars['Int'];
 };
 
 /** Client profile data. */
 export type StorePerson = {
   __typename?: 'StorePerson';
   /** Client email. */
-  email: Scalars['String']['output'];
+  email: Scalars['String'];
   /** Client last name. */
-  familyName: Scalars['String']['output'];
+  familyName: Scalars['String'];
   /** Client first name. */
-  givenName: Scalars['String']['output'];
+  givenName: Scalars['String'];
   /** Client ID. */
-  id: Scalars['String']['output'];
+  id: Scalars['String'];
 };
 
 /** Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
@@ -950,38 +947,38 @@ export type StoreProduct = {
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
   /** Product description. */
-  description: Scalars['String']['output'];
+  description: Scalars['String'];
   /** Global Trade Item Number. */
-  gtin: Scalars['String']['output'];
+  gtin: Scalars['String'];
   /** Array of images. */
   image: Array<StoreImage>;
   /** Indicates product group related to this product. */
   isVariantOf: StoreProductGroup;
   /** Product name. */
-  name: Scalars['String']['output'];
+  name: Scalars['String'];
   /** Aggregate offer information. */
   offers: StoreAggregateOffer;
   /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
-  productID: Scalars['String']['output'];
+  productID: Scalars['String'];
   /** The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601 */
-  releaseDate: Scalars['String']['output'];
+  releaseDate: Scalars['String'];
   /** Array with review information. */
   review: Array<StoreReview>;
   /** Meta tag data. */
   seo: StoreSeo;
   /** Stock Keeping Unit. Merchant-specific ID for the product. */
-  sku: Scalars['String']['output'];
+  sku: Scalars['String'];
   /** Corresponding collection URL slug, with which to retrieve this entity. */
-  slug: Scalars['String']['output'];
+  slug: Scalars['String'];
   /** Sku Unit Multiplier */
-  unitMultiplier?: Maybe<Scalars['Float']['output']>;
+  unitMultiplier?: Maybe<Scalars['Float']>;
 };
 
 
 /** Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type StoreProductImageArgs = {
-  context?: InputMaybe<Scalars['String']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
+  context?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
 };
 
 /** Product connections, including pagination information and products returned by the query. */
@@ -997,7 +994,7 @@ export type StoreProductConnection = {
 export type StoreProductEdge = {
   __typename?: 'StoreProductEdge';
   /** Product cursor. Used as pagination reference. */
-  cursor: Scalars['String']['output'];
+  cursor: Scalars['String'];
   /** Each product node contains the information of a product returned by the query. */
   node: StoreProduct;
 };
@@ -1010,9 +1007,9 @@ export type StoreProductGroup = {
   /** Array of variants related to product group. Variants are equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). */
   hasVariant: Array<StoreProduct>;
   /** Product group name. */
-  name: Scalars['String']['output'];
+  name: Scalars['String'];
   /** Product group ID. */
-  productGroupID: Scalars['String']['output'];
+  productGroupID: Scalars['String'];
   /**
    * Object containing data structures to facilitate handling different SKU
    * variant properties. Specially useful for implementing SKU selection
@@ -1025,13 +1022,13 @@ export type StoreProductGroup = {
 export type StorePropertyValue = {
   __typename?: 'StorePropertyValue';
   /** Property name. */
-  name: Scalars['String']['output'];
+  name: Scalars['String'];
   /** Property id. This propert changes according to the content of the object. */
-  propertyID: Scalars['String']['output'];
+  propertyID: Scalars['String'];
   /** Property value. May hold a string or the string representation of an object. */
-  value: Scalars['ObjectOrString']['output'];
+  value: Scalars['ObjectOrString'];
   /** Specifies the nature of the value */
-  valueReference: Scalars['ObjectOrString']['output'];
+  valueReference: Scalars['ObjectOrString'];
 };
 
 /**
@@ -1041,7 +1038,7 @@ export type StorePropertyValue = {
 export type StoreRedirect = {
   __typename?: 'StoreRedirect';
   /** URL to redirect */
-  url?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']>;
 };
 
 /** Information of a given review. */
@@ -1057,9 +1054,9 @@ export type StoreReview = {
 export type StoreReviewRating = {
   __typename?: 'StoreReviewRating';
   /** Best rating value. */
-  bestRating: Scalars['Float']['output'];
+  bestRating: Scalars['Float'];
   /** Rating value. */
-  ratingValue: Scalars['Float']['output'];
+  ratingValue: Scalars['Float'];
 };
 
 /** Search result. */
@@ -1079,24 +1076,24 @@ export type StoreSearchResult = {
 export type StoreSeo = {
   __typename?: 'StoreSeo';
   /** Canonical tag. */
-  canonical: Scalars['String']['output'];
+  canonical: Scalars['String'];
   /** Description tag. */
-  description: Scalars['String']['output'];
+  description: Scalars['String'];
   /** Title tag. */
-  title: Scalars['String']['output'];
+  title: Scalars['String'];
   /** Title template tag. */
-  titleTemplate: Scalars['String']['output'];
+  titleTemplate: Scalars['String'];
 };
 
 /** Session information. */
 export type StoreSession = {
   __typename?: 'StoreSession';
   /** Session address type. */
-  addressType?: Maybe<Scalars['String']['output']>;
+  addressType?: Maybe<Scalars['String']>;
   /** Session channel. */
-  channel?: Maybe<Scalars['String']['output']>;
+  channel?: Maybe<Scalars['String']>;
   /** Session country. */
-  country: Scalars['String']['output'];
+  country: Scalars['String'];
   /** Session currency. */
   currency: StoreCurrency;
   /** Session delivery mode. */
@@ -1104,11 +1101,11 @@ export type StoreSession = {
   /** Session input geoCoordinates. */
   geoCoordinates?: Maybe<StoreGeoCoordinates>;
   /** Session locale. */
-  locale: Scalars['String']['output'];
+  locale: Scalars['String'];
   /** Session input person. */
   person?: Maybe<StorePerson>;
   /** Session postal code. */
-  postalCode?: Maybe<Scalars['String']['output']>;
+  postalCode?: Maybe<Scalars['String']>;
 };
 
 /** Product search results sorting options. */
@@ -1142,9 +1139,9 @@ export const enum StoreStatus {
 export type StoreSuggestionTerm = {
   __typename?: 'StoreSuggestionTerm';
   /** Its occurrences count. */
-  count: Scalars['Int']['output'];
+  count: Scalars['Int'];
   /** The term. */
-  value: Scalars['String']['output'];
+  value: Scalars['String'];
 };
 
 /** Suggestions information. */
