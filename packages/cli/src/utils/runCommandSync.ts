@@ -39,7 +39,7 @@ const showWarning = ({
   console.log(`${chalk.yellow('warn')} - ${message}`)
 
   if (debug && cmd && error) {
-    console.log(`${chalk.magenta('DEBUG')} - $ ${cmd} warn root ↓`)
+    console.log(`${chalk.magenta('DEBUG')} - $ ${cmd} warn root ↓:`)
     console.log(error.stdout?.toString())
   }
 }
