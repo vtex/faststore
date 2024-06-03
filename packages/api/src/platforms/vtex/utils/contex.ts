@@ -1,5 +1,5 @@
-import ChannelMarshal from './channel'
 import type { Context } from '..'
+import ChannelMarshal from './channel'
 
 export const mutateChannelContext = (ctx: Context, channelString: string) => {
   ctx.storage.channel = ChannelMarshal.parse(channelString)
