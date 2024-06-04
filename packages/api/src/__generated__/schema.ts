@@ -628,7 +628,7 @@ export type StoreAggregateOffer = {
   /** Lowest price among all sellers. */
   lowPrice: Scalars['Float'];
   /** Lowest price among all sellers with current Taxes. */
-  lowPriceWithTaxes: Scalars['Float']['output'];
+  lowPriceWithTaxes: Scalars['Float'];
   /** Number of sellers selling this SKU. */
   offerCount: Scalars['Int'];
   /** Array with information on each available offer. */
@@ -880,7 +880,7 @@ export type StoreOffer = {
   /** This is displayed as the "from" price in the context of promotions' price comparison. This may change before it reaches the shelf. */
   listPrice: Scalars['Float'];
   /** List price among with current taxes. */
-  listPriceWithTaxes: Scalars['Float']['output'];
+  listPriceWithTaxes: Scalars['Float'];
   /** Also known as spot price. */
   price: Scalars['Float'];
   /** ISO code of the currency used for the offer prices. */
@@ -888,7 +888,7 @@ export type StoreOffer = {
   /** Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time. */
   priceValidUntil: Scalars['String'];
   /** Also known as spot price with taxes. */
-  priceWithTaxes: Scalars['Float']['output'];
+  priceWithTaxes: Scalars['Float'];
   /** Number of items offered. */
   quantity: Scalars['Int'];
   /** Seller responsible for the offer. */
