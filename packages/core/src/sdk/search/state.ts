@@ -6,10 +6,15 @@ export const useApplySearchState = () => {
 
   return useCallback(
     (url: URL) => {
+      const currentUrl = new URL(window.location.href)
       const newUrl = `${url.pathname}${url.search}`
-      return url.searchParams.has('fuzzy') && url.searchParams.has('operator')
-        ? router.replace(newUrl)
-        : router.push(newUrl)
+      if (currentUrl.href !== newUrl) {
+        if (url.searchParams.has('fuzzy') && url.searchParams.has('operator')) {
+          window.history.replaceState({}, '', newUrl)
+        } else {
+          router.push(newUrl)
+        }
+      }
     },
     [router]
   )
