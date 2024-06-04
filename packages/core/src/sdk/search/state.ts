@@ -8,7 +8,7 @@ export const useApplySearchState = () => {
     (url: URL) => {
       const newUrl = `${url.pathname}${url.search}`
       return url.searchParams.has('fuzzy') && url.searchParams.has('operator')
-        ? router.replace(newUrl)
+        ? window.history.replaceState(window.history.state, '', newUrl)
         : router.push(newUrl)
     },
     [router]

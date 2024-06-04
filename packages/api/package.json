@@ -1,6 +1,6 @@
 {
   "name": "@faststore/api",
-  "version": "3.0.63",
+  "version": "3.0.66",
   "license": "MIT",
   "main": "dist/cjs/src/index.js",
   "typings": "dist/esm/src/index.d.ts",
@@ -36,7 +36,7 @@
   "dependencies": {
     "@envelop/on-resolve": "^2.0.6",
     "@graphql-tools/load-files": "^7.0.0",
-    "@graphql-tools/schema": "^10.0.3",
+    "@graphql-tools/schema": "^9.0.0",
     "@opentelemetry/exporter-logs-otlp-grpc": "^0.39.1",
     "@opentelemetry/exporter-trace-otlp-grpc": "^0.39.1",
     "@opentelemetry/sdk-logs": "^0.39.1",
@@ -51,10 +51,10 @@
   },
   "devDependencies": {
     "@envelop/core": "^2.6.0",
-    "@faststore/eslint-config": "^3.0.63",
-    "@faststore/shared": "^3.0.63",
-    "@graphql-codegen/cli": "^5.0.2",
-    "@graphql-codegen/typescript": "^4.0.7",
+    "@faststore/eslint-config": "^3.0.66",
+    "@faststore/shared": "^3.0.66",
+    "@graphql-codegen/cli": "2.2.0",
+    "@graphql-codegen/typescript": "2.2.2",
     "@parcel/watcher": "^2.4.0",
     "@types/cookie": "^0.6.0",
     "@types/express": "^4.17.16",
