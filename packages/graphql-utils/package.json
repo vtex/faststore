@@ -25,6 +25,6 @@
     "@faststore/shared": "^3.0.68",
     "cross-env": "^7.0.2",
     "eslint": "7.32.0",
-    "typescript": "^4.2.4"
+    "typescript": "^4.8.4"
   }
 }
