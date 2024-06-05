@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router'
 import { useSearch } from '@faststore/sdk'
-import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 
 import type { SearchContentType } from 'src/server/cms'
 import type { SearchPageContextType } from 'src/pages/s'
+import EmptyState from 'src/components/sections/EmptyState'
+import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 
 import SearchPage from './SearchPage'
 
@@ -32,7 +33,7 @@ export default function SearchWrapper({
   )
 
   if (isValidating || !pageProductGalleryData) {
-    return null
+    return <EmptyState title="Loading..." />
   }
 
   // Redirect when there are registered Intelligent Search redirects on VTEX Admin
@@ -41,7 +42,7 @@ export default function SearchWrapper({
       shallow: true,
     })
 
-    return null
+    return <EmptyState title="Loading..." />
   }
 
   return (
