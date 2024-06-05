@@ -103,7 +103,6 @@ function Page({ page: searchContentType, globalSections }: Props) {
           If needed, wrap your component in a <Section /> component
           (not the HTML tag) before rendering it here.
         */}
-        {/* <SearchPage page={searchContentType} data={server}></SearchPage> */}
         <SearchWrapper
           itemsPerPage={itemsPerPage}
           searchContentType={searchContentType}

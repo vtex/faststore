@@ -2,7 +2,6 @@ import { useRouter } from 'next/router'
 import { useSearch } from '@faststore/sdk'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 
-import type { SearchState } from '@faststore/sdk'
 import type { SearchContentType } from 'src/server/cms'
 import type { SearchPageContextType } from 'src/pages/s'
 
