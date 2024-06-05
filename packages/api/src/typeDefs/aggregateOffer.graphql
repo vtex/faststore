@@ -11,7 +11,7 @@ type StoreAggregateOffer {
   """
   lowPrice: Float!
   """
-  Lowest price among all sellers with current Taxes.
+  Lowest price among all sellers with current taxes.
   """
   lowPriceWithTaxes: Float!
   """

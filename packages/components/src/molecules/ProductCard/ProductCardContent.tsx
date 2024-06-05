@@ -58,11 +58,11 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   onButtonClick?: () => void
   /**
-   * Enables an include taxes status.
+   * Enables to include taxes status.
    */
   includeTaxes?: boolean
   /**
-   * Label for determine if the price are with taxes included.
+   * Label to determine if the price is with taxes included.
    */
   includeTaxesLabel?: string
 }
