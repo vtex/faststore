@@ -627,7 +627,7 @@ export type StoreAggregateOffer = {
   highPrice: Scalars['Float'];
   /** Lowest price among all sellers. */
   lowPrice: Scalars['Float'];
-  /** Lowest price among all sellers with current Taxes. */
+  /** Lowest price among all sellers with current taxes. */
   lowPriceWithTaxes: Scalars['Float'];
   /** Number of sellers selling this SKU. */
   offerCount: Scalars['Int'];
