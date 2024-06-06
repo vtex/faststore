@@ -4,7 +4,7 @@
   </a>
 </p>
 <h1 align="center">
-  A starter powered by FastStore and NextJS
+  A starter powered by FastStore and NextJS.
 </h1>
 
 Kick off your store with this boilerplate.
