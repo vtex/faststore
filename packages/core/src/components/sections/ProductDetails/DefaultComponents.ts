@@ -16,6 +16,7 @@ import LocalShippingSimulation from 'src/components/ui/ShippingSimulation/Shippi
 import { Image } from 'src/components/ui/Image'
 import LocalNotAvailableButton from 'src/components/product/NotAvailableButton'
 import LocalProductDescription from 'src/components/ui/ProductDescription'
+import { ProductDetailsSettings as LocalProductDetailsSettings } from 'src/components/ui/ProductDetails'
 
 export const ProductDetailsDefaultComponents = {
   ProductTitle: UIProductTitle,
@@ -33,4 +34,5 @@ export const ProductDetailsDefaultComponents = {
   __experimentalShippingSimulation: LocalShippingSimulation,
   __experimentalNotAvailableButton: LocalNotAvailableButton,
   __experimentalProductDescription: LocalProductDescription,
+  __experimentalProductDetailsSettings: LocalProductDetailsSettings,
 }
