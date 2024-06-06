@@ -10,7 +10,7 @@ import ProductGalleryStyles from 'src/components/sections/ProductGallery/section
 
 import SearchPage from './SearchPage'
 
-function LoadingState() {
+function EmptySearch() {
   return (
     <Section
       className={`${ProductGalleryStyles.section} section-product-gallery`}
@@ -47,7 +47,7 @@ export default function SearchWrapper({
   )
 
   if (isValidating || !pageProductGalleryData) {
-    return <LoadingState />
+    return <EmptySearch />
   }
 
   // Redirect when there are registered Intelligent Search redirects on VTEX Admin
@@ -56,7 +56,7 @@ export default function SearchWrapper({
       shallow: true,
     })
 
-    return <LoadingState />
+    return <EmptySearch />
   }
 
   return (
