@@ -1,3 +1,8 @@
+import { useMemo } from 'react'
+import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
+import type { GetStaticProps } from 'next'
+
 import type { SearchState } from '@faststore/sdk'
 import {
   formatSearchState,
@@ -5,9 +10,6 @@ import {
   SearchProvider,
 } from '@faststore/sdk'
 import { SROnly as UISROnly } from '@faststore/ui'
-import { NextSeo } from 'next-seo'
-import { useRouter } from 'next/router'
-import { useMemo } from 'react'
 
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
@@ -15,12 +17,11 @@ import { mark } from 'src/sdk/tests/mark'
 
 import { Locator } from '@vtex/client-cms'
 import storeConfig from 'faststore.config'
-import { GetStaticProps } from 'next'
 import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import SearchPage from 'src/components/templates/SearchPage/SearchPage'
+import { SearchWrapper } from 'src/components/templates/SearchPage'
 import { getPage, SearchContentType } from 'src/server/cms'
 
 type Props = {
@@ -33,11 +34,11 @@ export interface SearchPageContextType {
   searchTerm?: string
 }
 
-type UseSearchParams = {
+const useSearchParams = ({
+  sort: defaultSort,
+}: {
   sort: SearchState['sort']
-}
-
-const useSearchParams = ({ sort: defaultSort }: UseSearchParams) => {
+}) => {
   const { asPath } = useRouter()
 
   return useMemo(() => {
@@ -56,23 +57,18 @@ const useSearchParams = ({ sort: defaultSort }: UseSearchParams) => {
 
 function Page({ page: searchContentType, globalSections }: Props) {
   const { settings } = searchContentType
+  const applySearchState = useApplySearchState()
   const searchParams = useSearchParams({
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
   })
-  const applySearchState = useApplySearchState()
+
   const title = 'Search Results'
   const { description, titleTemplate } = storeConfig.seo
-
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
   if (!searchParams) {
     return null
   }
-
-  const server = {
-    title,
-    searchTerm: searchParams.term ?? undefined,
-  } as SearchPageContextType
 
   return (
     <GlobalSections {...globalSections}>
@@ -107,7 +103,14 @@ function Page({ page: searchContentType, globalSections }: Props) {
           If needed, wrap your component in a <Section /> component
           (not the HTML tag) before rendering it here.
         */}
-        <SearchPage page={searchContentType} data={server}></SearchPage>
+        <SearchWrapper
+          itemsPerPage={itemsPerPage}
+          searchContentType={searchContentType}
+          serverData={{
+            title,
+            searchTerm: searchParams.term ?? undefined,
+          }}
+        />
       </SearchProvider>
     </GlobalSections>
   )

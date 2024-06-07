@@ -27,6 +27,9 @@ export const query = gql(`
     $selectedFacets: [IStoreSelectedFacet!]!
   ) {
     ...ClientProductGallery
+    redirect(term: $term, selectedFacets: $selectedFacets) {
+      url
+    }
     search(
       first: $first
       after: $after
@@ -85,6 +88,11 @@ export const useProductGalleryQuery = ({
   return useQuery<Query, Variables>(query, localizedVariables, {
     onSuccess: (data) => {
       if (data) {
+        // Cancel query onSuccess event when redirecting
+        if (data?.redirect?.url) {
+          return
+        }
+
         const fuzzyFacetValue = findFacetValue(selectedFacets, 'fuzzy')
         const operatorFacetValue = findFacetValue(selectedFacets, 'operator')
 

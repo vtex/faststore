@@ -1,4 +1,3 @@
-import { useSearch } from '@faststore/sdk'
 import type { ComponentType } from 'react'
 
 import RenderSections from 'src/components/cms/RenderSections'
@@ -10,7 +9,6 @@ import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sectio
 import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
-import { ITEMS_PER_PAGE } from 'src/constants'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { SearchPageContextType } from 'src/pages/s'
 import PageProvider, { SearchPageContext } from 'src/sdk/overrides/PageProvider'
@@ -18,8 +16,8 @@ import {
   useCreateUseGalleryPage,
   UseGalleryPageContext,
 } from 'src/sdk/product/usePageProductsQuery'
-import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 import { SearchContentType } from 'src/server/cms'
+import type { ClientProductGalleryQueryQuery as ClientProductGalleryQuery } from '@generated/graphql'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -38,32 +36,16 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 export type SearchPageProps = {
-  data: SearchPageContextType
+  data: SearchPageContextType & ClientProductGalleryQuery
   page: SearchContentType
 }
 
-function SearchPage({
-  page: { sections, settings },
-  data: server,
-}: SearchPageProps) {
-  const {
-    state: { sort, term, selectedFacets },
-  } = useSearch()
-  const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
-
-  const { data: pageProductGalleryData } = useProductGalleryQuery({
-    term,
-    sort,
-    selectedFacets,
-    itemsPerPage,
-  })
-
+function SearchPage({ page: { sections }, data: serverData }: SearchPageProps) {
   const { pages, useGalleryPage } = useCreateUseGalleryPage()
 
   const context = {
     data: {
-      ...server,
-      ...pageProductGalleryData,
+      ...serverData,
       pages,
     },
   } as SearchPageContext
