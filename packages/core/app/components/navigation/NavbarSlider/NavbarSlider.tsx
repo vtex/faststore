@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 
 import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
 import Link from 'src/components/ui/Link'
-import NavbarLinks from 'src/components/navigation/NavbarLinks'
+import NavbarLinks from 'app/components/navigation/NavbarLinks'
 import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
 

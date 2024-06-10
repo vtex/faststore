@@ -1,9 +1,9 @@
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
-import Section from '../Section'
+import Section from '../../../../src/components/sections/Section'
+import { getOverridableSection } from '../../../../src/sdk/overrides/getOverriddenSection'
 
 import styles from './section.module.scss'
 
-import Navbar from '../../../components/navigation/Navbar'
+import Navbar from '../../../../app/components/navigation/Navbar'
 import { NavbarDefaultComponents } from './DefaultComponents'
 
 type PageLinks = {
