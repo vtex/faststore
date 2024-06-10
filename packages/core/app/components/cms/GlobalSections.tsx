@@ -1,12 +1,12 @@
 import { Section } from '@vtex/client-cms'
 import type { ComponentType } from 'react'
-import { PropsWithChildren, lazy } from 'react'
+import { PropsWithChildren } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 // import Toast from 'src/components/common/Toast'
 import RenderSections from './RenderSections'
 
-// import { OverriddenDefaultAlert as Alert } from 'src/components/sections/Alert/OverriddenDefaultAlert'
+import { OverriddenDefaultAlert as Alert } from 'app/components/sections/Alert/OverriddenDefaultAlert'
 // import Footer from 'src/components/sections/Footer'
 // import { OverriddenDefaultNavbar as Navbar } from 'src/components/sections/Navbar/OverriddenDefaultNavbar'
 // import { OverriddenDefaultRegionBar as RegionBar } from 'src/components/sections/RegionBar/OverriddenDefaultRegionBar'
@@ -22,7 +22,7 @@ export type GlobalSectionsData = {
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
-  // Alert,
+  Alert,
   // Navbar,
   // RegionBar,
   // RegionModal,

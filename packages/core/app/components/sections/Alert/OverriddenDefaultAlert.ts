@@ -1,3 +1,5 @@
+'use client'
+
 import { override } from 'src/customizations/src/components/overrides/Alert'
 import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
 import Alert from '.'
