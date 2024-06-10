@@ -3,8 +3,8 @@ import { Suspense } from 'react'
 
 import NavbarLinks from 'app/components/navigation/NavbarLinks'
 import { ButtonSignIn, ButtonSignInFallback } from 'app/components/ui/Button'
-import Link from 'src/components/ui/Link'
-import Logo from 'src/components/ui/Logo'
+import Link from 'app/components/ui/Link'
+import Logo from 'app/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
 
 import type { NavbarProps } from '../Navbar'
