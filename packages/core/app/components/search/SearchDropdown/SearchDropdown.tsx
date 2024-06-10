@@ -12,7 +12,7 @@ import { SearchTop } from '../SearchTop'
 import { SearchState } from '@faststore/sdk'
 import { ProductSummary_ProductFragment } from '@generated/graphql'
 import SearchProductItem from 'app/components/search/SearchProductItem'
-import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import { formatSearchPath } from 'app/sdk/search/formatSearchPath'
 
 function SearchDropdown({ sort, ...otherProps }) {
   const {

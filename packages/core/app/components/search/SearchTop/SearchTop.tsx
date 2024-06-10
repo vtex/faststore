@@ -7,8 +7,8 @@ import type { HTMLAttributes } from 'react'
 
 import { SearchState } from '@faststore/sdk'
 import type { StoreSuggestionTerm } from '@generated/graphql'
-import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
-import useTopSearch from 'src/sdk/search/useTopSearch'
+import { formatSearchPath } from 'app/sdk/search/formatSearchPath'
+import useTopSearch from 'app/sdk/search/useTopSearch'
 
 const MAX_TOP_SEARCH_TERMS = 5
 

@@ -21,10 +21,10 @@ import {
   useState,
 } from 'react'
 
-import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
-import useSearchHistory from 'src/sdk/search/useSearchHistory'
-import useSuggestions from 'src/sdk/search/useSuggestions'
-import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
+import { formatSearchPath } from 'app/sdk/search/formatSearchPath'
+import useSearchHistory from 'app/sdk/search/useSearchHistory'
+import useSuggestions from 'app/sdk/search/useSuggestions'
+import useOnClickOutside from 'app/sdk/ui/useOnClickOutside'
 
 const SearchDropdown = lazy(
   () => import('app/components/search/SearchDropdown')
