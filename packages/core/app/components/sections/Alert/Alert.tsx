@@ -4,8 +4,8 @@ import CommonAlert, {
   type AlertProps as CommonAlertProps,
 } from '../../common/Alert'
 import { useOverrideComponents } from '../../../../src/sdk/overrides/OverrideContext'
-import { getOverridableSection } from '../../../../src/sdk/overrides/getOverriddenSection'
 import { AlertDefaultComponents } from './DefaultComponents'
+import { getOverridableSection } from '../../../../src/sdk/overrides/getOverriddenSection'
 
 export interface AlertProps extends Omit<CommonAlertProps, 'link' | 'icon'> {
   icon: string
