@@ -3,7 +3,7 @@ import {
   SearchHistoryTerm as UISearchHistoryTerm,
   useSearch,
 } from '@faststore/ui'
-import useSearchHistory from 'src/sdk/search/useSearchHistory'
+import useSearchHistory from 'app/sdk/search/useSearchHistory'
 
 const SearchHistory = ({ ...props }) => {
   const {
