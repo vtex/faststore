@@ -3,7 +3,7 @@
 import { PaymentMethods as UIPaymentMethods } from '@faststore/ui'
 import type { PaymentMethodsProps as UIPaymentMethodProps } from '@faststore/ui'
 
-import Section from '../Section'
+import Section from '../../../../src/components/sections/Section'
 import UIFooter, {
   FooterLinks,
   FooterSocial,
@@ -14,8 +14,8 @@ import type { FooterLinksProps, FooterSocialProps } from '../../common/Footer'
 
 import Logo from 'src/components/ui/Logo'
 import Link from 'src/components/ui/Link'
-import UIIncentives from '../../ui/Incentives'
-import type { Incentive } from '../../ui/Incentives'
+import UIIncentives from '../../../../src/components/ui/Incentives'
+import type { Incentive } from '../../../../src/components/ui/Incentives'
 
 import styles from './section.module.scss'
 
