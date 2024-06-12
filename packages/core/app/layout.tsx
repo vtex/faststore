@@ -3,8 +3,6 @@ import 'src/styles/global/index.scss'
 
 import 'src/customizations/src/themes/index.scss'
 
-import { Metadata } from 'next'
-
 import ThirdPartyScripts from 'app/components/ThirdPartyScripts'
 import AnalyticsHandler from 'app/sdk/analytics'
 import ErrorBoundary from 'app/sdk/error/ErrorBoundary'
@@ -49,23 +47,6 @@ async function getGlobalSectionsData() {
   return { sections }
 }
 
-// SEO metadata and tags
-export const metadata: Metadata = {
-  robots: {
-    /*******************
-     * TODO: This will be the default config when the `app` directory be in use
-     *  // index: !storeConfig.experimental.noRobots,
-     *  // follow: !storeConfig.experimental.noRobots,
-     */
-    index: false,
-    follow: false,
-    googleBot: {
-      index: false,
-      follow: false,
-    },
-  },
-}
-
 export default async function RootLayout({
   children,
 }: {
@@ -75,6 +56,9 @@ export default async function RootLayout({
 
   return (
     <ErrorBoundary>
+      {/* TODO: we should use metadata api from Next 13 */}
+      {/* <DefaultSeo norobots={storeConfig.experimental.noRobots} /> */}
+
       <AnalyticsHandler />
 
       <html>
