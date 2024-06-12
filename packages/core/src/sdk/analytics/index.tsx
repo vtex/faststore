@@ -1,5 +1,3 @@
-'use client'
-
 import type { AnalyticsEvent } from '@faststore/sdk'
 import { useAnalyticsEvent } from '@faststore/sdk'
 

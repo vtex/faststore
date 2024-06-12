@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef } from 'react'
 
-import { useViewItemListEvent } from 'app/sdk/analytics/hooks/useViewItemListEvent'
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
+import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import { textToKebabCase } from 'src/utils/utilities'
