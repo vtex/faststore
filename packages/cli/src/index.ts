@@ -9,11 +9,11 @@ import { default as GenerateGraphql } from './commands/generate-graphql'
 import { default as Test } from './commands/test'
 
 export const commands = {
-  Dev,
-  Build,
-  Init,
-  Serve,
-  CmsSync,
-  GenerateGraphql,
-  Test,
+  dev: Dev,
+  build: Build,
+  init: Init,
+  serve: Serve,
+  'cms-sync': CmsSync,
+  'generate-graphql': GenerateGraphql,
+  test: Test,
 }
