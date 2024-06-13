@@ -1,6 +1,6 @@
 import { Head, Html, Main, NextScript } from 'next/document'
 
-import ThirdPartyScripts from 'app/components/ThirdPartyScripts'
+import ThirdPartyScripts from 'src/components/ThirdPartyScripts'
 import { WebFonts } from 'src/customizations/src/GlobalOverrides'
 
 function Document() {

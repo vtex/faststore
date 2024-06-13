@@ -1,8 +1,3 @@
-import type {
-  AddToCartEvent,
-  CurrencyCode,
-  RemoveFromCartEvent,
-} from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import {
   CartItem as UICartItem,
@@ -10,14 +5,19 @@ import {
   CartItemSummary as UICartItemSummary,
 } from '@faststore/ui'
 import { useCallback, useMemo } from 'react'
+import type {
+  AddToCartEvent,
+  CurrencyCode,
+  RemoveFromCartEvent,
+} from '@faststore/sdk'
 
-import type { AnalyticsItem } from 'app/sdk/analytics/types'
 import { Image } from 'src/components/ui/Image'
-import type { CartItem as ICartItem } from 'src/sdk/cart'
 import { cartStore } from 'src/sdk/cart'
-import { useRemoveButton } from 'src/sdk/cart/useRemoveButton'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
+import { useRemoveButton } from 'src/sdk/cart/useRemoveButton'
+import type { CartItem as ICartItem } from 'src/sdk/cart'
+import type { AnalyticsItem } from 'src/sdk/analytics/types'
 
 function useCartItemEvent() {
   const {

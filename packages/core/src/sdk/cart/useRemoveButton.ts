@@ -1,12 +1,12 @@
-import type { CurrencyCode, RemoveFromCartEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import { useCallback } from 'react'
+import type { CurrencyCode, RemoveFromCartEvent } from '@faststore/sdk'
 
-import type { AnalyticsItem } from 'app/sdk/analytics/types'
+import type { AnalyticsItem } from 'src/sdk/analytics/types'
 
-import type { CartItem } from '.'
 import { useSession } from '../session'
 import { cartStore } from './index'
+import type { CartItem } from '.'
 
 export const useRemoveButton = (item: CartItem | null) => {
   const {
