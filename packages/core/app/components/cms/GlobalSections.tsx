@@ -1,11 +1,13 @@
 import { Section } from '@vtex/client-cms'
 import type { ComponentType } from 'react'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, lazy } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import RenderSections from './RenderSections'
 
 import { OverriddenDefaultAlert as Alert } from 'app/components/sections/Alert/OverriddenDefaultAlert'
+
+const CartSidebar = lazy(() => import('app/components/cart/CartSidebar'))
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 
@@ -19,7 +21,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   // Navbar,
   // RegionBar,
   // RegionModal,
-  // CartSidebar,
+  CartSidebar,
   // Footer,
   ...CUSTOM_COMPONENTS,
 }

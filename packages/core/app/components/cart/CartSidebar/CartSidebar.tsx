@@ -1,3 +1,5 @@
+'use client'
+
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import {
   Button as UIButton,
@@ -10,9 +12,9 @@ import type { CartSidebarProps as UICartSidebarProps } from '@faststore/ui'
 
 import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
 import { Icon, useFadeEffect, useUI } from '@faststore/ui'
+import { useCart } from 'app/sdk/cart'
+import { useCheckoutButton } from 'app/sdk/cart/useCheckoutButton'
 import { Suspense, useCallback, useEffect, useMemo } from 'react'
-import { useCart } from 'src/sdk/cart'
-import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
 
 import Gift from '../../ui/Gift'
