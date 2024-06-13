@@ -1,10 +1,10 @@
 'use client'
 
+import Section from '../../../../src/components/sections/Section/Section'
+import { getOverridableSection } from '../../../../src/sdk/overrides/getOverriddenSection'
 import RegionBar, { RegionBarProps } from '../../region/RegionBar/RegionBar'
-import Section from '../Section/Section'
-import styles from './section.module.scss'
 import { RegionBarDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../..//sdk/overrides/getOverriddenSection'
+import styles from './section.module.scss'
 
 type RegionBarSectionProps = {
   /**

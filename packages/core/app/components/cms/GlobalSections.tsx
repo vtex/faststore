@@ -6,6 +6,7 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import RenderSections from './RenderSections'
 
 import { OverriddenDefaultAlert as Alert } from 'app/components/sections/Alert/OverriddenDefaultAlert'
+import { OverriddenDefaultRegionBar as RegionBar } from 'app/components/sections/RegionBar/OverriddenDefaultRegionBar'
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 
@@ -17,7 +18,7 @@ export type GlobalSectionsData = {
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Alert,
   // Navbar,
-  // RegionBar,
+  RegionBar,
   // RegionModal,
   // CartSidebar,
   // Footer,

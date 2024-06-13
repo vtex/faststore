@@ -23,4 +23,4 @@ export { default as NewsletterSection } from './src/components/sections/Newslett
 export { default as ProductDetailsSection } from './src/components/sections/ProductDetails'
 export { default as ProductGallerySection } from './src/components/sections/ProductGallery'
 export { default as ProductShelfSection } from './src/components/sections/ProductShelf'
-export { default as RegionBarSection } from './src/components/sections/RegionBar'
+export { default as RegionBarSection } from './app/components/sections/RegionBar'
