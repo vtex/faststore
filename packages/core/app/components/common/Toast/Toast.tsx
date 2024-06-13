@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect } from 'react'
 
 import { Toast as UIToast, useUI } from '@faststore/ui'

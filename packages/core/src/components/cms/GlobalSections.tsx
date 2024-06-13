@@ -5,7 +5,7 @@ import { PropsWithChildren, lazy } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { PageContentType, getPage } from 'src/server/cms'
 
-import Toast from 'src/components/common/Toast'
+import Toast from 'app/components/common/Toast'
 import RenderSections from '../../../app/components/cms/RenderSections'
 
 import { OverriddenDefaultAlert as Alert } from 'app/components/sections/Alert/OverriddenDefaultAlert'
