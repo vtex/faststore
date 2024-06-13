@@ -14,8 +14,8 @@ import type { FooterLinksProps, FooterSocialProps } from '../../common/Footer'
 
 import Logo from 'src/components/ui/Logo'
 import Link from 'src/components/ui/Link'
-import UIIncentives from '../../../../src/components/ui/Incentives'
-import type { Incentive } from '../../../../src/components/ui/Incentives'
+import UIIncentives from '../../ui/Incentives'
+import type { Incentive } from '../../ui/Incentives'
 
 import styles from './section.module.scss'
 
