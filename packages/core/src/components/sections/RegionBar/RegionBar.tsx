@@ -1,3 +1,5 @@
+'use client'
+
 import RegionBar, { RegionBarProps } from '../../region/RegionBar/RegionBar'
 import Section from '../Section/Section'
 import styles from './section.module.scss'

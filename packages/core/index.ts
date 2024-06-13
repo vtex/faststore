@@ -12,7 +12,7 @@ export * from './src/typings/overrides'
 export { getOverriddenSection } from './src/sdk/overrides/getOverriddenSection'
 
 // Overridable Sections
-export { default as AlertSection } from './src/components/sections/Alert'
+export { default as AlertSection } from './app/components/sections/Alert'
 export { default as BannerTextSection } from './src/components/sections/BannerText'
 export { default as BreadcrumbSection } from './src/components/sections/Breadcrumb'
 export { default as CrossSellingShelfSection } from './src/components/sections/CrossSellingShelf'

@@ -1,3 +1,5 @@
+'use client'
+
 import {
   BannerTextProps as UIBannerTextProps,
   BannerTextContentProps as UIBannerTextContentProps,
