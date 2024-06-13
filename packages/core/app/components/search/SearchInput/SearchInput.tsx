@@ -9,7 +9,7 @@ import {
   SearchInput as UISearchInput,
   SearchInputField as UISearchInputField,
 } from '@faststore/ui'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import type { CSSProperties } from 'react'
 import {
   Suspense,
