@@ -1,6 +1,6 @@
 import { Icon as UIIcon, List as UIList } from '@faststore/ui'
 
-import Link from 'src/components/ui/Link'
+import Link from 'app/components/ui/Link'
 
 type FooterSocialLink = {
   icon: {

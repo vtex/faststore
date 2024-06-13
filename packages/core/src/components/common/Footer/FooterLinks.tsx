@@ -7,7 +7,7 @@ import {
 } from '@faststore/ui'
 import { useState } from 'react'
 
-import Link from 'src/components/ui/Link'
+import Link from 'app/components/ui/Link'
 
 type Item = {
   url: string
