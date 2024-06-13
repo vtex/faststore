@@ -8,6 +8,7 @@ import RegionButton from 'app/components/region/RegionButton'
 import type { NavbarProps } from 'src/components/navigation/Navbar'
 
 import { mark } from 'src/sdk/tests/mark'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 interface NavbarLinksProps extends UINavbarLinksProps {
   links: NavbarProps['links']
