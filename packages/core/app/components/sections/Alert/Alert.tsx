@@ -1,11 +1,13 @@
+'use client'
+
 import type { ReactNode } from 'react'
 
 import CommonAlert, {
   type AlertProps as CommonAlertProps,
-} from '../../../components/common/Alert'
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+} from '../../common/Alert'
+import { useOverrideComponents } from '../../../../src/sdk/overrides/OverrideContext'
 import { AlertDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { getOverridableSection } from '../../../../src/sdk/overrides/getOverriddenSection'
 
 export interface AlertProps extends Omit<CommonAlertProps, 'link' | 'icon'> {
   icon: string

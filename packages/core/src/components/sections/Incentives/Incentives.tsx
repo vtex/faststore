@@ -1,3 +1,5 @@
+'use client'
+
 import UIIncentives from 'src/components/ui/Incentives/Incentives'
 import type { Incentive } from 'src/components/ui/Incentives'
 

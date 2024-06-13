@@ -13,7 +13,7 @@ import UIProvider from 'app/sdk/ui/UIProvider'
 // TODO: The path will probably change when overriding fonts in the future
 import DefaultFont from 'app/styles/fonts'
 
-// import GlobalSections from './components/cms/GlobalSections'
+import GlobalSections from './components/cms/GlobalSections'
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 
@@ -87,9 +87,7 @@ export default async function RootLayout({
          */}
         <body className={`theme ${DefaultFont.className}`}>
           <UIProvider>
-            <>
-              {/*    <GlobalSections {...globalSections}>{children}</GlobalSections>*/}
-            </>
+            <GlobalSections {...globalSections}>{children}</GlobalSections>
           </UIProvider>
         </body>
       </html>

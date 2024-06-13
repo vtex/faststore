@@ -13,7 +13,7 @@ import ScrollToTopButton from 'src/components/sections/ScrollToTopButton'
 import { ITEMS_PER_PAGE } from 'src/constants'
 
 import type { ComponentType } from 'react'
-import RenderSections from 'src/components/cms/RenderSections'
+import RenderSections from 'app/components/cms/RenderSections'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { PLPContentType } from 'src/server/cms/plp'
 

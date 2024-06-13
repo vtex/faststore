@@ -45,7 +45,7 @@ import type {
   ComponentOverrideDefinition,
   SectionOverrideDefinitionV1,
 } from './overridesDefinition'
-import Alert from '../components/sections/Alert'
+import Alert from '../../app/components/sections/Alert'
 import Breadcrumb from '../components/sections/Breadcrumb'
 import BannerText from '../components/sections/BannerText'
 import CrossSellingShelf from '../components/sections/CrossSellingShelf'
