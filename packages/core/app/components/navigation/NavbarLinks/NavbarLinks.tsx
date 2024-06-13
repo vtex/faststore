@@ -5,7 +5,7 @@ import type { NavbarLinksProps as UINavbarLinksProps } from '@faststore/ui'
 
 import Link from 'src/components/ui/Link'
 import RegionButton from 'src/components/region/RegionButton'
-import type { NavbarProps } from 'src/components/navigation/Navbar'
+import type { NavbarProps } from 'app/components/navigation/Navbar'
 
 import { mark } from 'src/sdk/tests/mark'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'

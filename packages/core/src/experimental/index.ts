@@ -11,7 +11,7 @@ export {
 } from '../../src/sdk/cart'
 export type { CartItem, Cart } from '../../src/sdk/cart'
 export { useBuyButton as useBuyButton_unstable } from '../../src/sdk/cart/useBuyButton'
-export { useCartToggleButton as useCartToggleButton_unstable } from '../../src/sdk/cart/useCartToggleButton'
+export { useCartToggleButton as useCartToggleButton_unstable } from '../../app/sdk/cart/useCartToggleButton'
 export { useCheckoutButton as useCheckoutButton_unstable } from '../../src/sdk/cart/useCheckoutButton'
 export { useRemoveButton as useRemoveButton_unstable } from '../../src/sdk/cart/useRemoveButton'
 export { useQuery as useQuery_unstable } from '../../src/sdk/graphql/useQuery'

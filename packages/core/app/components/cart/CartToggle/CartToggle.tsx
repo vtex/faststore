@@ -4,7 +4,7 @@ import {
   IconButton as UIIconButton,
 } from '@faststore/ui'
 
-import { useCartToggleButton } from 'src/sdk/cart/useCartToggleButton'
+import { useCartToggleButton } from 'app/sdk/cart/useCartToggleButton'
 
 function CartToggle({ alt, icon }: { alt: string; icon: string }) {
   const btnProps = useCartToggleButton()
