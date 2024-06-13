@@ -8,9 +8,9 @@ import type {
   ClientSearchSuggestionsQueryQuery as Query,
   ClientSearchSuggestionsQueryQueryVariables as Variables,
 } from '@generated/graphql'
-import type { IntelligentSearchQueryEvent } from '../../../app/sdk/analytics/types'
+import type { IntelligentSearchQueryEvent } from '../analytics/types'
 
-import { useSession } from '../session'
+import { useSession } from '../../../src/sdk/session'
 
 const query = gql(`
   query ClientSearchSuggestionsQuery(

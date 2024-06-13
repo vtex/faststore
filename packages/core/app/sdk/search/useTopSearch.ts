@@ -1,11 +1,11 @@
-import { useQuery } from 'src/sdk/graphql/useQuery'
 import { gql } from '@generated'
 import type {
   ClientSearchSuggestionsQueryQuery as Query,
   ClientSearchSuggestionsQueryQueryVariables as Variables,
 } from '@generated/graphql'
+import { useQuery } from 'src/sdk/graphql/useQuery'
 
-import { useSession } from '../session'
+import { useSession } from '../../../src/sdk/session'
 
 const query = gql(`
   query ClientTopSearchSuggestionsQuery(
