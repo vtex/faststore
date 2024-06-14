@@ -12,9 +12,9 @@ import type {
 } from '@generated/graphql'
 
 import storeConfig from '../../../faststore.config'
-import { request } from '../graphql/request'
-import { sessionStore } from '../session'
-import { createValidationStore, useStore } from '../useStore'
+import { request } from '../../../src/sdk/graphql/request'
+import { sessionStore } from '../../../src/sdk/session'
+import { createValidationStore, useStore } from '../../../src/sdk/useStore'
 
 export interface CartItem extends SDKCartItem, CartItemFragment {}
 

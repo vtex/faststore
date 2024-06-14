@@ -13,8 +13,8 @@ import Footer from 'app/components/sections/Footer'
 import { OverriddenDefaultNavbar as Navbar } from 'app/components/sections/Navbar/OverriddenDefaultNavbar'
 import { OverriddenDefaultRegionBar as RegionBar } from 'app/components/sections/RegionBar/OverriddenDefaultRegionBar'
 
+const CartSidebar = lazy(() => import('app/components/cart/CartSidebar'))
 const RegionModal = lazy(() => import('app/components/region/RegionModal'))
-const CartSidebar = lazy(() => import('src/components/cart/CartSidebar'))
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 

@@ -8,10 +8,11 @@ import RenderSections from './RenderSections'
 import { OverriddenDefaultAlert as Alert } from 'app/components/sections/Alert/OverriddenDefaultAlert'
 import { OverriddenDefaultNavbar as Navbar } from 'app/components/sections/Navbar/OverriddenDefaultNavbar'
 import { OverriddenDefaultRegionBar as RegionBar } from 'app/components/sections/RegionBar/OverriddenDefaultRegionBar'
+
+const CartSidebar = lazy(() => import('app/components/cart/CartSidebar'))
 const RegionModal = lazy(() => import('app/components/region/RegionModal'))
 const Toast = lazy(() => import('app/components/common/Toast'))
 
-// const CartSidebar = lazy(() => import('src/components/cart/CartSidebar'))
 import Footer from 'app/components/sections/Footer'
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
@@ -26,7 +27,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   Navbar,
   RegionBar,
   RegionModal,
-  // CartSidebar,
+  CartSidebar,
   Footer,
   ...CUSTOM_COMPONENTS,
 }

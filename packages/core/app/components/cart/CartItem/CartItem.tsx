@@ -12,10 +12,10 @@ import {
 import { useCallback, useMemo } from 'react'
 
 import type { AnalyticsItem } from 'app/sdk/analytics/types'
+import type { CartItem as ICartItem } from 'app/sdk/cart'
+import { cartStore } from 'app/sdk/cart'
+import { useRemoveButton } from 'app/sdk/cart/useRemoveButton'
 import { Image } from 'src/components/ui/Image'
-import type { CartItem as ICartItem } from 'src/sdk/cart'
-import { cartStore } from 'src/sdk/cart'
-import { useRemoveButton } from 'src/sdk/cart/useRemoveButton'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
 

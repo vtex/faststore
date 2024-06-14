@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 
-import { useBuyButton } from 'src/sdk/cart/useBuyButton'
+import { useBuyButton } from 'app/sdk/cart/useBuyButton'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 import Selectors from 'src/components/ui/SkuSelector'

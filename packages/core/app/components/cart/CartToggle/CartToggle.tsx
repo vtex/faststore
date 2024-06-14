@@ -1,6 +1,6 @@
 import {
-  Icon as UIIcon,
   Badge as UIBadge,
+  Icon as UIIcon,
   IconButton as UIIconButton,
 } from '@faststore/ui'
 
