@@ -1191,6 +1191,60 @@ export type CartProductItemFragment = {
   }>
 }
 
+export type ClientSearchSuggestionsQueryQueryVariables = Exact<{
+  term: Scalars['String']['input']
+  selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
+}>
+
+export type ClientSearchSuggestionsQueryQuery = {
+  search: {
+    suggestions: {
+      terms: Array<{ value: string }>
+      products: Array<{
+        slug: string
+        sku: string
+        name: string
+        gtin: string
+        id: string
+        brand: { name: string; brandName: string }
+        isVariantOf: { productGroupID: string; name: string }
+        image: Array<{ url: string; alternateName: string }>
+        offers: {
+          lowPrice: number
+          offers: Array<{
+            availability: string
+            price: number
+            listPrice: number
+            quantity: number
+            seller: { identifier: string }
+          }>
+        }
+        additionalProperty: Array<{
+          propertyID: string
+          name: string
+          value: any
+          valueReference: any
+        }>
+      }>
+    }
+    products: { pageInfo: { totalCount: number } }
+    metadata: {
+      isTermMisspelled: boolean
+      logicalOperator: string
+      fuzzy: string
+    } | null
+  }
+}
+
+export type ClientTopSearchSuggestionsQueryQueryVariables = Exact<{
+  term: Scalars['String']['input']
+  selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
+}>
+
+export type ClientTopSearchSuggestionsQueryQuery = {
+  search: { suggestions: { terms: Array<{ value: string }> } }
+}
+
 export type ProductSummary_ProductFragment = {
   slug: string
   sku: string
@@ -1506,60 +1560,6 @@ export type ClientProductQueryQuery = {
       valueReference: any
     }>
   }
-}
-
-export type ClientSearchSuggestionsQueryQueryVariables = Exact<{
-  term: Scalars['String']['input']
-  selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
-}>
-
-export type ClientSearchSuggestionsQueryQuery = {
-  search: {
-    suggestions: {
-      terms: Array<{ value: string }>
-      products: Array<{
-        slug: string
-        sku: string
-        name: string
-        gtin: string
-        id: string
-        brand: { name: string; brandName: string }
-        isVariantOf: { productGroupID: string; name: string }
-        image: Array<{ url: string; alternateName: string }>
-        offers: {
-          lowPrice: number
-          offers: Array<{
-            availability: string
-            price: number
-            listPrice: number
-            quantity: number
-            seller: { identifier: string }
-          }>
-        }
-        additionalProperty: Array<{
-          propertyID: string
-          name: string
-          value: any
-          valueReference: any
-        }>
-      }>
-    }
-    products: { pageInfo: { totalCount: number } }
-    metadata: {
-      isTermMisspelled: boolean
-      logicalOperator: string
-      fuzzy: string
-    } | null
-  }
-}
-
-export type ClientTopSearchSuggestionsQueryQueryVariables = Exact<{
-  term: Scalars['String']['input']
-  selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
-}>
-
-export type ClientTopSearchSuggestionsQueryQuery = {
-  search: { suggestions: { terms: Array<{ value: string }> } }
 }
 
 export type ValidateSessionMutationVariables = Exact<{
@@ -2001,6 +2001,24 @@ export const ValidateCartMutationDocument = {
   ValidateCartMutationMutation,
   ValidateCartMutationMutationVariables
 >
+export const ClientSearchSuggestionsQueryDocument = {
+  __meta__: {
+    operationName: 'ClientSearchSuggestionsQuery',
+    operationHash: 'a8a27661f6a032e086c047339e0d0f180f0e0161',
+  },
+} as unknown as TypedDocumentString<
+  ClientSearchSuggestionsQueryQuery,
+  ClientSearchSuggestionsQueryQueryVariables
+>
+export const ClientTopSearchSuggestionsQueryDocument = {
+  __meta__: {
+    operationName: 'ClientTopSearchSuggestionsQuery',
+    operationHash: 'e2385b0f11726d0068f96548f57a8dd441c064e3',
+  },
+} as unknown as TypedDocumentString<
+  ClientTopSearchSuggestionsQueryQuery,
+  ClientTopSearchSuggestionsQueryQueryVariables
+>
 export const ServerCollectionPageQueryDocument = {
   __meta__: {
     operationName: 'ServerCollectionPageQuery',
@@ -2054,24 +2072,6 @@ export const ClientProductQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
   ClientProductQueryQueryVariables
->
-export const ClientSearchSuggestionsQueryDocument = {
-  __meta__: {
-    operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: 'a8a27661f6a032e086c047339e0d0f180f0e0161',
-  },
-} as unknown as TypedDocumentString<
-  ClientSearchSuggestionsQueryQuery,
-  ClientSearchSuggestionsQueryQueryVariables
->
-export const ClientTopSearchSuggestionsQueryDocument = {
-  __meta__: {
-    operationName: 'ClientTopSearchSuggestionsQuery',
-    operationHash: 'e2385b0f11726d0068f96548f57a8dd441c064e3',
-  },
-} as unknown as TypedDocumentString<
-  ClientTopSearchSuggestionsQueryQuery,
-  ClientTopSearchSuggestionsQueryQueryVariables
 >
 export const ValidateSessionDocument = {
   __meta__: {

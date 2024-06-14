@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
 import { useUI } from '@faststore/ui'
-import { useCart } from './index'
+import { useCart } from '../../../src/sdk/cart/index'
 
 export const useCartToggleButton = () => {
   const { totalItems } = useCart()

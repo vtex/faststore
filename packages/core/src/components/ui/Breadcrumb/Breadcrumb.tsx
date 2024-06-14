@@ -1,7 +1,7 @@
 import type { BreadcrumbProps as UIBreadcrumbProps } from '@faststore/ui'
 import { memo } from 'react'
 
-import Link from 'src/components/ui/Link'
+import Link from 'app/components/ui/Link'
 
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 

@@ -53,10 +53,10 @@ import EmptyState from '../components/sections/EmptyState'
 import Hero from '../components/sections/Hero'
 import ProductShelf from '../components/sections/ProductShelf'
 import ProductDetails from '../components/sections/ProductDetails'
-import Navbar from '../components/sections/Navbar'
+import Navbar from '../../app/components/sections/Navbar'
 import Newsletter from '../components/sections/Newsletter'
 import ProductGallery from '../components/sections/ProductGallery'
-import RegionBar from '../components/sections/RegionBar'
+import RegionBar from '../../app/components/sections/RegionBar'
 
 export type SectionOverride = {
   [K in keyof SectionsOverrides]: SectionOverrideDefinitionV1<K>
