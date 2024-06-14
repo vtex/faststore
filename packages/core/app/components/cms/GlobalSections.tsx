@@ -1,12 +1,13 @@
 import { Section } from '@vtex/client-cms'
 import type { ComponentType } from 'react'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, lazy } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import RenderSections from './RenderSections'
 
 import { OverriddenDefaultAlert as Alert } from 'app/components/sections/Alert/OverriddenDefaultAlert'
 import { OverriddenDefaultNavbar as Navbar } from 'app/components/sections/Navbar/OverriddenDefaultNavbar'
+const Toast = lazy(() => import('app/components/common/Toast'))
 
 // import Footer from 'src/components/sections/Footer'
 // import { OverriddenDefaultRegionBar as RegionBar } from 'src/components/sections/RegionBar/OverriddenDefaultRegionBar'
@@ -38,7 +39,7 @@ function GlobalSections({
 }: PropsWithChildren<GlobalSectionsData>) {
   return (
     <RenderSections components={COMPONENTS} {...otherProps}>
-      {/* <Toast /> */}
+      <Toast />
 
       <main>{children}</main>
     </RenderSections>
