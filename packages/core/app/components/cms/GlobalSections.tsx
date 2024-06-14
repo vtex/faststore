@@ -6,6 +6,7 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import RenderSections from './RenderSections'
 
 import { OverriddenDefaultAlert as Alert } from 'app/components/sections/Alert/OverriddenDefaultAlert'
+import Footer from 'app/components/sections/Footer'
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 
@@ -20,7 +21,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   // RegionBar,
   // RegionModal,
   // CartSidebar,
-  // Footer,
+  Footer,
   ...CUSTOM_COMPONENTS,
 }
 

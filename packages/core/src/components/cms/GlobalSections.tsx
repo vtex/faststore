@@ -9,7 +9,7 @@ import Toast from 'src/components/common/Toast'
 import RenderSections from '../../../app/components/cms/RenderSections'
 
 import { OverriddenDefaultAlert as Alert } from 'app/components/sections/Alert/OverriddenDefaultAlert'
-import Footer from 'src/components/sections/Footer'
+import Footer from 'app/components/sections/Footer'
 import { OverriddenDefaultNavbar as Navbar } from 'src/components/sections/Navbar/OverriddenDefaultNavbar'
 import { OverriddenDefaultRegionBar as RegionBar } from 'src/components/sections/RegionBar/OverriddenDefaultRegionBar'
 
