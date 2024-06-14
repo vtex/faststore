@@ -56,7 +56,7 @@ import ProductDetails from '../components/sections/ProductDetails'
 import Navbar from '../../app/components/sections/Navbar'
 import Newsletter from '../components/sections/Newsletter'
 import ProductGallery from '../components/sections/ProductGallery'
-import RegionBar from '../components/sections/RegionBar'
+import RegionBar from '../../app/components/sections/RegionBar'
 
 export type SectionOverride = {
   [K in keyof SectionsOverrides]: SectionOverrideDefinitionV1<K>
