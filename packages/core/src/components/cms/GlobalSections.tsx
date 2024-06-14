@@ -5,13 +5,13 @@ import { PropsWithChildren, lazy } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { PageContentType, getPage } from 'src/server/cms'
 
-import Toast from 'src/components/common/Toast'
-import RenderSections from '../../../app/components/cms/RenderSections'
+import RenderSections from 'app/components/cms/RenderSections'
+import Toast from 'app/components/common/Toast'
 
 import { OverriddenDefaultAlert as Alert } from 'app/components/sections/Alert/OverriddenDefaultAlert'
+import Footer from 'app/components/sections/Footer'
+import { OverriddenDefaultNavbar as Navbar } from 'app/components/sections/Navbar/OverriddenDefaultNavbar'
 import { OverriddenDefaultRegionBar as RegionBar } from 'app/components/sections/RegionBar/OverriddenDefaultRegionBar'
-import Footer from 'src/components/sections/Footer'
-import { OverriddenDefaultNavbar as Navbar } from 'src/components/sections/Navbar/OverriddenDefaultNavbar'
 
 const RegionModal = lazy(() => import('app/components/region/RegionModal'))
 const CartSidebar = lazy(() => import('src/components/cart/CartSidebar'))

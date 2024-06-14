@@ -1,6 +1,3 @@
-// TODO: we should remove this file once the migration is complete.
-// This file is here only because the useRouter API changed for Next 13 version (import { useRouter } from 'next/navigation').
-
 import type { SearchEvent, SearchState } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import type {
@@ -12,7 +9,7 @@ import {
   SearchInput as UISearchInput,
   SearchInputField as UISearchInputField,
 } from '@faststore/ui'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import type { CSSProperties } from 'react'
 import {
   Suspense,

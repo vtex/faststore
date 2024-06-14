@@ -18,7 +18,7 @@ export { default as BreadcrumbSection } from './src/components/sections/Breadcru
 export { default as CrossSellingShelfSection } from './src/components/sections/CrossSellingShelf'
 export { default as EmptyState } from './src/components/sections/EmptyState'
 export { default as HeroSection } from './src/components/sections/Hero'
-export { default as NavbarSection } from './src/components/sections/Navbar'
+export { default as NavbarSection } from './app/components/sections/Navbar'
 export { default as NewsletterSection } from './src/components/sections/Newsletter'
 export { default as ProductDetailsSection } from './src/components/sections/ProductDetails'
 export { default as ProductGallerySection } from './src/components/sections/ProductGallery'

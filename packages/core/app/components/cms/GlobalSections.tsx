@@ -6,8 +6,13 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import RenderSections from './RenderSections'
 
 import { OverriddenDefaultAlert as Alert } from 'app/components/sections/Alert/OverriddenDefaultAlert'
+import { OverriddenDefaultNavbar as Navbar } from 'app/components/sections/Navbar/OverriddenDefaultNavbar'
 import { OverriddenDefaultRegionBar as RegionBar } from 'app/components/sections/RegionBar/OverriddenDefaultRegionBar'
 const RegionModal = lazy(() => import('app/components/region/RegionModal'))
+const Toast = lazy(() => import('app/components/common/Toast'))
+
+// const CartSidebar = lazy(() => import('src/components/cart/CartSidebar'))
+import Footer from 'app/components/sections/Footer'
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 
@@ -18,11 +23,11 @@ export type GlobalSectionsData = {
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Alert,
-  // Navbar,
+  Navbar,
   RegionBar,
   RegionModal,
   // CartSidebar,
-  // Footer,
+  Footer,
   ...CUSTOM_COMPONENTS,
 }
 
@@ -32,7 +37,7 @@ function GlobalSections({
 }: PropsWithChildren<GlobalSectionsData>) {
   return (
     <RenderSections components={COMPONENTS} {...otherProps}>
-      {/* <Toast /> */}
+      <Toast />
 
       <main>{children}</main>
     </RenderSections>
