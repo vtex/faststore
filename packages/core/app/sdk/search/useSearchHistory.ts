@@ -1,6 +1,6 @@
 import { createStore } from '@faststore/sdk'
 
-import { useStore } from '../useStore'
+import { useStore } from '../../../src/sdk/useStore'
 
 export const searchHistoryStore = createStore(
   [] as History[],

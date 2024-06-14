@@ -1,20 +1,20 @@
-import { useRef, useState, useCallback } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
-import { useUI, useScrollDirection, Icon as UIIcon } from '@faststore/ui'
+import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
 import { mark } from 'src/sdk/tests/mark'
 
-import type { SearchInputRef } from 'src/components/search/SearchInput'
-import SearchInput from 'src/components/search/SearchInput'
-import NavbarLinks from 'src/components/navigation/NavbarLinks'
-import NavbarSlider from 'src/components/navigation/NavbarSlider'
-import CartToggle from 'src/components/cart/CartToggle'
-import Logo from 'src/components/ui/Logo'
-import Link from 'src/components/ui/Link'
-import { ButtonSignIn } from 'src/components/ui/Button'
+import CartToggle from 'app/components/cart/CartToggle'
+import NavbarLinks from 'app/components/navigation/NavbarLinks'
+import NavbarSlider from 'app/components/navigation/NavbarSlider'
+import type { SearchInputRef } from 'app/components/search/SearchInput'
+import SearchInput from 'app/components/search/SearchInput'
+import { ButtonSignIn } from 'app/components/ui/Button'
+import Link from 'app/components/ui/Link'
+import Logo from 'app/components/ui/Logo'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
-import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
+import type { NavbarProps as SectionNavbarProps } from 'app/components/sections/Navbar'
 
 export interface NavbarProps {
   /**

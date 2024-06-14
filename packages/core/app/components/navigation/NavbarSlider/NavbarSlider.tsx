@@ -1,16 +1,16 @@
 import { useFadeEffect, useUI } from '@faststore/ui'
 import { Suspense } from 'react'
 
-import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
-import Link from 'src/components/ui/Link'
-import NavbarLinks from 'src/components/navigation/NavbarLinks'
-import Logo from 'src/components/ui/Logo'
+import NavbarLinks from 'app/components/navigation/NavbarLinks'
+import { ButtonSignIn, ButtonSignInFallback } from 'app/components/ui/Button'
+import Link from 'app/components/ui/Link'
+import Logo from 'app/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
 
 import type { NavbarProps } from '../Navbar'
 
-import styles from './section.module.scss'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import styles from './section.module.scss'
 
 interface NavbarSliderProps {
   logo: NavbarProps['logo']
