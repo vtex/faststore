@@ -3,7 +3,7 @@
 import { PaymentMethods as UIPaymentMethods } from '@faststore/ui'
 import type { PaymentMethodsProps as UIPaymentMethodProps } from '@faststore/ui'
 
-import Section from '../Section'
+import Section from '../../../../src/components/sections/Section'
 import UIFooter, {
   FooterLinks,
   FooterSocial,
