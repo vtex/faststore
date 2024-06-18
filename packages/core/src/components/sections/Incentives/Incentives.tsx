@@ -1,5 +1,7 @@
-import UIIncentives from 'src/components/ui/Incentives/Incentives'
-import type { Incentive } from 'src/components/ui/Incentives'
+'use client'
+
+import UIIncentives from 'app/components/ui/Incentives/Incentives'
+import type { Incentive } from 'app/components/ui/Incentives'
 
 import Section from '../Section'
 import styles from './section.module.scss'

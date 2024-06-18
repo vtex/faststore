@@ -7,7 +7,7 @@ import GlobalSections, {
 } from 'src/components/cms/GlobalSections'
 import type { ComponentType } from 'react'
 
-import RenderSections from 'src/components/cms/RenderSections'
+import RenderSections from 'app/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { PageContentType, getPage } from 'src/server/cms'

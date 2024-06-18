@@ -1,3 +1,5 @@
+'use client'
+
 import {
   HeroProps as UIHeroProps,
   HeroHeaderProps as UIHeroHeaderProps,

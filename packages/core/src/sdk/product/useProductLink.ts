@@ -1,11 +1,14 @@
+import type { CurrencyCode, SelectItemEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import { useCallback } from 'react'
-import type { CurrencyCode, SelectItemEvent } from '@faststore/sdk'
 
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
+import type {
+  AnalyticsItem,
+  SearchSelectItemEvent,
+} from '../../../app/sdk/analytics/types'
 import { useSession } from '../session'
-import type { AnalyticsItem, SearchSelectItemEvent } from '../analytics/types'
 
 export type ProductLinkOptions = {
   index: number

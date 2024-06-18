@@ -1,3 +1,5 @@
+'use client'
+
 import { mark } from '../../../sdk/tests/mark'
 
 import ProductGallery, {

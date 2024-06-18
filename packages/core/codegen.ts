@@ -21,7 +21,7 @@ const config: CodegenConfig = {
   debug: true,
   verbose: true,
   schema: './@generated/schema.graphql',
-  documents: ['./src/**/*.{ts,tsx}'],
+  documents: ['./src/**/*.{ts,tsx}', './app/**/*.{ts,tsx}'],
   generates: {
     './@generated/': {
       preset: 'client',

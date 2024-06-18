@@ -1,3 +1,5 @@
+'use client'
+
 import {
   NewsletterProps as UINewsletterProps,
   NewsletterAddendumProps as UINewsletterAddendumProps,

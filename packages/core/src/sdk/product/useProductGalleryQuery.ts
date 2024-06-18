@@ -1,17 +1,16 @@
-import { sendAnalyticsEvent } from '@faststore/sdk'
-import { useSearch, setFacet } from '@faststore/sdk'
+import { sendAnalyticsEvent, useSearch } from '@faststore/sdk'
 
 import { gql } from '@generated'
 import { useQuery } from 'src/sdk/graphql/useQuery'
-import { useLocalizedVariables } from './useLocalizedVariables'
 import { useSession } from 'src/sdk/session'
+import { useLocalizedVariables } from './useLocalizedVariables'
 
+import type { Facet } from '@faststore/sdk/dist/types'
 import type {
   ClientProductGalleryQueryQuery as Query,
   ClientProductGalleryQueryQueryVariables as Variables,
 } from '@generated/graphql'
-import type { IntelligentSearchQueryEvent } from 'src/sdk/analytics/types'
-import type { Facet } from '@faststore/sdk/dist/types'
+import type { IntelligentSearchQueryEvent } from 'app/sdk/analytics/types'
 
 /**
  * This query is run on the browser and contains

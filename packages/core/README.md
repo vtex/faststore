@@ -43,7 +43,6 @@ A quick look at the top-level files and directories you'll see in a this NextJS 
     ├── public
     ├── src
     ├── test
-    ├── .babelrc.js
     ├── .editorconfig
     ├── .prettierignore
     ├── .prettierrrc

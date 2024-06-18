@@ -1,3 +1,6 @@
+// TODO: we should remove this file once the migration is complete.
+// This file is here only because the useRouter API changed for Next 13 version (import { useRouter } from 'next/navigation').
+
 import type { SearchEvent, SearchState } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import type {
@@ -21,13 +24,13 @@ import {
   useState,
 } from 'react'
 
-import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
-import useSearchHistory from 'src/sdk/search/useSearchHistory'
-import useSuggestions from 'src/sdk/search/useSuggestions'
-import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
+import { formatSearchPath } from 'app/sdk/search/formatSearchPath'
+import useSearchHistory from 'app/sdk/search/useSearchHistory'
+import useSuggestions from 'app/sdk/search/useSuggestions'
+import useOnClickOutside from 'app/sdk/ui/useOnClickOutside'
 
 const SearchDropdown = lazy(
-  () => import('src/components/search/SearchDropdown')
+  () => import('app/components/search/SearchDropdown')
 )
 
 const MAX_SUGGESTIONS = 5

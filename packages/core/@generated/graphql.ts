@@ -1092,6 +1092,159 @@ export type StoreSuggestions = {
   terms: Array<StoreSuggestionTerm>
 }
 
+export type ValidateCartMutationMutationVariables = Exact<{
+  cart: IStoreCart
+  session: IStoreSession
+}>
+
+export type ValidateCartMutationMutation = {
+  validateCart: {
+    order: {
+      orderNumber: string
+      acceptedOffer: Array<{
+        quantity: number
+        price: number
+        listPrice: number
+        seller: { identifier: string }
+        itemOffered: {
+          sku: string
+          name: string
+          unitMultiplier: number | null
+          gtin: string
+          image: Array<{ url: string; alternateName: string }>
+          brand: { name: string }
+          isVariantOf: {
+            productGroupID: string
+            name: string
+            skuVariants: {
+              activeVariations: any | null
+              slugsMap: any | null
+              availableVariations: any | null
+            } | null
+          }
+          additionalProperty: Array<{
+            propertyID: string
+            name: string
+            value: any
+            valueReference: any
+          }>
+        }
+      }>
+    }
+    messages: Array<{ text: string; status: StoreStatus }>
+  } | null
+}
+
+export type CartMessageFragment = { text: string; status: StoreStatus }
+
+export type CartItemFragment = {
+  quantity: number
+  price: number
+  listPrice: number
+  seller: { identifier: string }
+  itemOffered: {
+    sku: string
+    name: string
+    unitMultiplier: number | null
+    gtin: string
+    image: Array<{ url: string; alternateName: string }>
+    brand: { name: string }
+    isVariantOf: {
+      productGroupID: string
+      name: string
+      skuVariants: {
+        activeVariations: any | null
+        slugsMap: any | null
+        availableVariations: any | null
+      } | null
+    }
+    additionalProperty: Array<{
+      propertyID: string
+      name: string
+      value: any
+      valueReference: any
+    }>
+  }
+}
+
+export type CartProductItemFragment = {
+  sku: string
+  name: string
+  unitMultiplier: number | null
+  gtin: string
+  image: Array<{ url: string; alternateName: string }>
+  brand: { name: string }
+  isVariantOf: {
+    productGroupID: string
+    name: string
+    skuVariants: {
+      activeVariations: any | null
+      slugsMap: any | null
+      availableVariations: any | null
+    } | null
+  }
+  additionalProperty: Array<{
+    propertyID: string
+    name: string
+    value: any
+    valueReference: any
+  }>
+}
+
+export type ClientSearchSuggestionsQueryQueryVariables = Exact<{
+  term: Scalars['String']['input']
+  selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
+}>
+
+export type ClientSearchSuggestionsQueryQuery = {
+  search: {
+    suggestions: {
+      terms: Array<{ value: string }>
+      products: Array<{
+        slug: string
+        sku: string
+        name: string
+        gtin: string
+        id: string
+        brand: { name: string; brandName: string }
+        isVariantOf: { productGroupID: string; name: string }
+        image: Array<{ url: string; alternateName: string }>
+        offers: {
+          lowPrice: number
+          offers: Array<{
+            availability: string
+            price: number
+            listPrice: number
+            quantity: number
+            seller: { identifier: string }
+          }>
+        }
+        additionalProperty: Array<{
+          propertyID: string
+          name: string
+          value: any
+          valueReference: any
+        }>
+      }>
+    }
+    products: { pageInfo: { totalCount: number } }
+    metadata: {
+      isTermMisspelled: boolean
+      logicalOperator: string
+      fuzzy: string
+    } | null
+  }
+}
+
+export type ClientTopSearchSuggestionsQueryQueryVariables = Exact<{
+  term: Scalars['String']['input']
+  selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
+}>
+
+export type ClientTopSearchSuggestionsQueryQuery = {
+  search: { suggestions: { terms: Array<{ value: string }> } }
+}
+
 export type ProductSummary_ProductFragment = {
   slug: string
   sku: string
@@ -1270,105 +1423,6 @@ export type ServerProductQueryQuery = {
   }
 }
 
-export type ValidateCartMutationMutationVariables = Exact<{
-  cart: IStoreCart
-  session: IStoreSession
-}>
-
-export type ValidateCartMutationMutation = {
-  validateCart: {
-    order: {
-      orderNumber: string
-      acceptedOffer: Array<{
-        quantity: number
-        price: number
-        listPrice: number
-        seller: { identifier: string }
-        itemOffered: {
-          sku: string
-          name: string
-          unitMultiplier: number | null
-          gtin: string
-          image: Array<{ url: string; alternateName: string }>
-          brand: { name: string }
-          isVariantOf: {
-            productGroupID: string
-            name: string
-            skuVariants: {
-              activeVariations: any | null
-              slugsMap: any | null
-              availableVariations: any | null
-            } | null
-          }
-          additionalProperty: Array<{
-            propertyID: string
-            name: string
-            value: any
-            valueReference: any
-          }>
-        }
-      }>
-    }
-    messages: Array<{ text: string; status: StoreStatus }>
-  } | null
-}
-
-export type CartMessageFragment = { text: string; status: StoreStatus }
-
-export type CartItemFragment = {
-  quantity: number
-  price: number
-  listPrice: number
-  seller: { identifier: string }
-  itemOffered: {
-    sku: string
-    name: string
-    unitMultiplier: number | null
-    gtin: string
-    image: Array<{ url: string; alternateName: string }>
-    brand: { name: string }
-    isVariantOf: {
-      productGroupID: string
-      name: string
-      skuVariants: {
-        activeVariations: any | null
-        slugsMap: any | null
-        availableVariations: any | null
-      } | null
-    }
-    additionalProperty: Array<{
-      propertyID: string
-      name: string
-      value: any
-      valueReference: any
-    }>
-  }
-}
-
-export type CartProductItemFragment = {
-  sku: string
-  name: string
-  unitMultiplier: number | null
-  gtin: string
-  image: Array<{ url: string; alternateName: string }>
-  brand: { name: string }
-  isVariantOf: {
-    productGroupID: string
-    name: string
-    skuVariants: {
-      activeVariations: any | null
-      slugsMap: any | null
-      availableVariations: any | null
-    } | null
-  }
-  additionalProperty: Array<{
-    propertyID: string
-    name: string
-    value: any
-    valueReference: any
-  }>
-}
-
 export type SubscribeToNewsletterMutationVariables = Exact<{
   data: IPersonNewsletter
 }>
@@ -1508,60 +1562,6 @@ export type ClientProductQueryQuery = {
   }
 }
 
-export type ClientSearchSuggestionsQueryQueryVariables = Exact<{
-  term: Scalars['String']['input']
-  selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
-}>
-
-export type ClientSearchSuggestionsQueryQuery = {
-  search: {
-    suggestions: {
-      terms: Array<{ value: string }>
-      products: Array<{
-        slug: string
-        sku: string
-        name: string
-        gtin: string
-        id: string
-        brand: { name: string; brandName: string }
-        isVariantOf: { productGroupID: string; name: string }
-        image: Array<{ url: string; alternateName: string }>
-        offers: {
-          lowPrice: number
-          offers: Array<{
-            availability: string
-            price: number
-            listPrice: number
-            quantity: number
-            seller: { identifier: string }
-          }>
-        }
-        additionalProperty: Array<{
-          propertyID: string
-          name: string
-          value: any
-          valueReference: any
-        }>
-      }>
-    }
-    products: { pageInfo: { totalCount: number } }
-    metadata: {
-      isTermMisspelled: boolean
-      logicalOperator: string
-      fuzzy: string
-    } | null
-  }
-}
-
-export type ClientTopSearchSuggestionsQueryQueryVariables = Exact<{
-  term: Scalars['String']['input']
-  selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
-}>
-
-export type ClientTopSearchSuggestionsQueryQuery = {
-  search: { suggestions: { terms: Array<{ value: string }> } }
-}
-
 export type ValidateSessionMutationVariables = Exact<{
   session: IStoreSession
   search: Scalars['String']['input']
@@ -1634,6 +1634,91 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value
   }
 }
+export const CartMessageFragmentDoc = new TypedDocumentString(
+  `
+    fragment CartMessage on StoreCartMessage {
+  text
+  status
+}
+    `,
+  { fragmentName: 'CartMessage' }
+) as unknown as TypedDocumentString<CartMessageFragment, unknown>
+export const CartProductItemFragmentDoc = new TypedDocumentString(
+  `
+    fragment CartProductItem on StoreProduct {
+  sku
+  name
+  unitMultiplier
+  image {
+    url
+    alternateName
+  }
+  brand {
+    name
+  }
+  isVariantOf {
+    productGroupID
+    name
+    skuVariants {
+      activeVariations
+      slugsMap
+      availableVariations
+    }
+  }
+  gtin
+  additionalProperty {
+    propertyID
+    name
+    value
+    valueReference
+  }
+}
+    `,
+  { fragmentName: 'CartProductItem' }
+) as unknown as TypedDocumentString<CartProductItemFragment, unknown>
+export const CartItemFragmentDoc = new TypedDocumentString(
+  `
+    fragment CartItem on StoreOffer {
+  seller {
+    identifier
+  }
+  quantity
+  price
+  listPrice
+  itemOffered {
+    ...CartProductItem
+  }
+}
+    fragment CartProductItem on StoreProduct {
+  sku
+  name
+  unitMultiplier
+  image {
+    url
+    alternateName
+  }
+  brand {
+    name
+  }
+  isVariantOf {
+    productGroupID
+    name
+    skuVariants {
+      activeVariations
+      slugsMap
+      availableVariations
+    }
+  }
+  gtin
+  additionalProperty {
+    propertyID
+    name
+    value
+    valueReference
+  }
+}`,
+  { fragmentName: 'CartItem' }
+) as unknown as TypedDocumentString<CartItemFragment, unknown>
 export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
   `
     fragment ProductSummary_product on StoreProduct {
@@ -1709,39 +1794,6 @@ export const Filter_FacetsFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'Filter_facets' }
 ) as unknown as TypedDocumentString<Filter_FacetsFragment, unknown>
-export const CartProductItemFragmentDoc = new TypedDocumentString(
-  `
-    fragment CartProductItem on StoreProduct {
-  sku
-  name
-  unitMultiplier
-  image {
-    url
-    alternateName
-  }
-  brand {
-    name
-  }
-  isVariantOf {
-    productGroupID
-    name
-    skuVariants {
-      activeVariations
-      slugsMap
-      availableVariations
-    }
-  }
-  gtin
-  additionalProperty {
-    propertyID
-    name
-    value
-    valueReference
-  }
-}
-    `,
-  { fragmentName: 'CartProductItem' }
-) as unknown as TypedDocumentString<CartProductItemFragment, unknown>
 export const ProductDetailsFragment_ProductFragmentDoc =
   new TypedDocumentString(
     `
@@ -1930,58 +1982,6 @@ export const ServerProductFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'ServerProduct' }
 ) as unknown as TypedDocumentString<ServerProductFragment, unknown>
-export const CartMessageFragmentDoc = new TypedDocumentString(
-  `
-    fragment CartMessage on StoreCartMessage {
-  text
-  status
-}
-    `,
-  { fragmentName: 'CartMessage' }
-) as unknown as TypedDocumentString<CartMessageFragment, unknown>
-export const CartItemFragmentDoc = new TypedDocumentString(
-  `
-    fragment CartItem on StoreOffer {
-  seller {
-    identifier
-  }
-  quantity
-  price
-  listPrice
-  itemOffered {
-    ...CartProductItem
-  }
-}
-    fragment CartProductItem on StoreProduct {
-  sku
-  name
-  unitMultiplier
-  image {
-    url
-    alternateName
-  }
-  brand {
-    name
-  }
-  isVariantOf {
-    productGroupID
-    name
-    skuVariants {
-      activeVariations
-      slugsMap
-      availableVariations
-    }
-  }
-  gtin
-  additionalProperty {
-    propertyID
-    name
-    value
-    valueReference
-  }
-}`,
-  { fragmentName: 'CartItem' }
-) as unknown as TypedDocumentString<CartItemFragment, unknown>
 export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(
   `
     fragment SearchEvent_metadata on SearchMetadata {
@@ -1992,6 +1992,33 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(
     `,
   { fragmentName: 'SearchEvent_metadata' }
 ) as unknown as TypedDocumentString<SearchEvent_MetadataFragment, unknown>
+export const ValidateCartMutationDocument = {
+  __meta__: {
+    operationName: 'ValidateCartMutation',
+    operationHash: '534fae829675533052d75fd4aa509b9cf85b4d40',
+  },
+} as unknown as TypedDocumentString<
+  ValidateCartMutationMutation,
+  ValidateCartMutationMutationVariables
+>
+export const ClientSearchSuggestionsQueryDocument = {
+  __meta__: {
+    operationName: 'ClientSearchSuggestionsQuery',
+    operationHash: 'a8a27661f6a032e086c047339e0d0f180f0e0161',
+  },
+} as unknown as TypedDocumentString<
+  ClientSearchSuggestionsQueryQuery,
+  ClientSearchSuggestionsQueryQueryVariables
+>
+export const ClientTopSearchSuggestionsQueryDocument = {
+  __meta__: {
+    operationName: 'ClientTopSearchSuggestionsQuery',
+    operationHash: 'e2385b0f11726d0068f96548f57a8dd441c064e3',
+  },
+} as unknown as TypedDocumentString<
+  ClientTopSearchSuggestionsQueryQuery,
+  ClientTopSearchSuggestionsQueryQueryVariables
+>
 export const ServerCollectionPageQueryDocument = {
   __meta__: {
     operationName: 'ServerCollectionPageQuery',
@@ -2009,15 +2036,6 @@ export const ServerProductQueryDocument = {
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
   ServerProductQueryQueryVariables
->
-export const ValidateCartMutationDocument = {
-  __meta__: {
-    operationName: 'ValidateCartMutation',
-    operationHash: '534fae829675533052d75fd4aa509b9cf85b4d40',
-  },
-} as unknown as TypedDocumentString<
-  ValidateCartMutationMutation,
-  ValidateCartMutationMutationVariables
 >
 export const SubscribeToNewsletterDocument = {
   __meta__: {
@@ -2054,24 +2072,6 @@ export const ClientProductQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
   ClientProductQueryQueryVariables
->
-export const ClientSearchSuggestionsQueryDocument = {
-  __meta__: {
-    operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: 'a8a27661f6a032e086c047339e0d0f180f0e0161',
-  },
-} as unknown as TypedDocumentString<
-  ClientSearchSuggestionsQueryQuery,
-  ClientSearchSuggestionsQueryQueryVariables
->
-export const ClientTopSearchSuggestionsQueryDocument = {
-  __meta__: {
-    operationName: 'ClientTopSearchSuggestionsQuery',
-    operationHash: 'e2385b0f11726d0068f96548f57a8dd441c064e3',
-  },
-} as unknown as TypedDocumentString<
-  ClientTopSearchSuggestionsQueryQuery,
-  ClientTopSearchSuggestionsQueryQueryVariables
 >
 export const ValidateSessionDocument = {
   __meta__: {

@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Icon as UIIcon,
   LinkButton as UILinkButton,

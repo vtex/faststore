@@ -1,3 +1,5 @@
+'use client'
+
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import type { BannerTextProps } from 'src/components/sections/BannerText'
 
