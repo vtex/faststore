@@ -210,7 +210,6 @@ function ProductDetails({
                 setQuantity={setQuantity}
                 product={product}
                 isValidating={isValidating}
-                usePriceWithTaxes={usePriceWithTaxes}
                 taxesConfiguration={taxesConfiguration}
               />
             </section>
