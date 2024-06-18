@@ -79,7 +79,7 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
     }
 
     if (isOrderFormItem(root)) {
-      return root.sellingPrice / 1e2 / root.unitMultiplier
+      return root.sellingPrice / 1e2 / (root.unitMultiplier ?? 1)
     }
 
     return null
@@ -90,7 +90,7 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
     }
 
     if (isOrderFormItem(root)) {
-      return withTax(root.sellingPrice  / 1e2 / root.unitMultiplier, root.tax / 1e2, root.unitMultiplier)
+      return withTax(root.sellingPrice / 1e2 / (root.unitMultiplier ?? 1), root.tax / 1e2, root.unitMultiplier)
     }
 
     return null
