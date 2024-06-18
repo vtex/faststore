@@ -2,7 +2,7 @@ import { Command } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
-import { copySync, removeSync, moveSync, readdirSync } from 'fs-extra'
+import { copySync, moveSync, readdirSync, removeSync } from 'fs-extra'
 import { tmpDir, userDir } from '../utils/directory'
 import { generate } from '../utils/generate'
 
@@ -65,4 +65,5 @@ async function normalizeStandaloneBuildDir() {
 async function copyResources() {
   await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
   await copyResource(`${tmpDir}/lighthouserc.js`, `${userDir}/lighthouserc.js`)
+  await copyResource(`${tmpDir}/public`, `${userDir}/public`)
 }
