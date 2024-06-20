@@ -14,11 +14,12 @@ function getSkuSlug(
 
   const possibleVariants = Object.keys(slugsMap)
 
-  const firstVariationForDominantValue = possibleVariants.find((slug) =>
-    slug.includes(
-      `${dominantVariation}-${selectedVariations[dominantVariation]}`
+  const firstVariationForDominantValue = possibleVariants.find((slug) => {
+    return (
+      slug.toLowerCase() ===
+      `${dominantVariation}-${selectedVariations[dominantVariation]}`.toLowerCase()
     )
-  )
+  })
 
   return slugsMap[firstVariationForDominantValue ?? possibleVariants[0]]
 }
@@ -31,7 +32,7 @@ export const useSkuSlug = (
 ) => {
   const getItemHref = useCallback(
     (option: SkuOption) => {
-      if(getItemHrefProp) return { getItemHrefProp }
+      if (getItemHrefProp) return { getItemHrefProp }
 
       const currentItemHref = `/${getSkuSlug(
         slugsMap,
