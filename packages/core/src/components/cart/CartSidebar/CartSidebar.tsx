@@ -102,7 +102,7 @@ function CartSidebar({
     total,
     subTotalWithTaxes,
     totalWithTaxes,
-  } = useCart()
+  } = useCart({ useUnitMultiplier: quantitySelector?.useUnitMultiplier })
   const { cart: displayCart, closeCart } = useUI()
   const { fadeOut } = useFadeEffect()
   const { sendViewCartEvent } = useViewCartEvent()

@@ -163,20 +163,24 @@ export const cartStore = {
   },
 }
 
-export const useCart = () => {
+export const useCart = (
+  { useUnitMultiplier } = { useUnitMultiplier: false }
+) => {
   const cart = useStore(cartStore)
   const isValidating = useStore(validationStore)
 
   return useMemo(() => {
     const cartTotals = cart.items.reduce(
       (totals, curr) => {
-        const quantityMultiplier =
-          curr.quantity * (curr?.itemOffered?.unitMultiplier ?? 1)
+        totals.total += curr.listPrice * curr.quantity
+        totals.totalWithTaxes += curr.priceWithTaxes * curr.quantity
+
+        const quantityMultiplier = useUnitMultiplier
+          ? curr.quantity * (curr?.itemOffered?.unitMultiplier ?? 1)
+          : curr.quantity
 
         totals.totalItems += isGift(curr) ? 0 : quantityMultiplier
-        totals.total += curr.price * quantityMultiplier
-        totals.subTotal += curr.listPrice * quantityMultiplier
-        totals.totalWithTaxes += curr.priceWithTaxes * quantityMultiplier
+        totals.subTotal += curr.price * quantityMultiplier
         totals.subTotalWithTaxes += curr.listPriceWithTaxes * quantityMultiplier
 
         return totals

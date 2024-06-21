@@ -102,11 +102,13 @@ function CartItem({
     ? item.listPriceWithTaxes
     : item.listPrice
 
+  const unitMultiplier = item.itemOffered.unitMultiplier ?? 1
+
   return (
     <UICartItem
       price={{
         value: price,
-        listPrice,
+        listPrice: useUnitMultiplier ? listPrice * unitMultiplier : listPrice,
         formatter: useFormattedPrice,
       }}
       quantity={item.quantity}
