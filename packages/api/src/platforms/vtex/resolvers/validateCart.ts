@@ -285,16 +285,6 @@ const updateOrderFormShippingData = async (
   return orderForm
 }
 
-const getCookieCheckoutOrderNumber = (ctx: string, nameCookie: string) => {
-  if (!ctx) {
-    return ''
-  }
-
-  const cookies = parse(ctx)
-  const cookieValue = cookies[nameCookie]
-  return cookieValue ? cookieValue.split('=')[1] : ''
-}
-
 /**
  * This resolver implements the optimistic cart behavior. The main idea in here
  * is that we receive a cart from the UI (as query params) and we validate it with
