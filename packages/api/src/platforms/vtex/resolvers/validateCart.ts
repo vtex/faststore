@@ -313,11 +313,7 @@ export const validateCart = async (
   { cart: { order }, session }: MutationValidateCartArgs,
   ctx: Context
 ) => {
-  const orderNumber = order?.orderNumber
-    ? order.orderNumber
-    : getCookieCheckoutOrderNumber(ctx.headers.cookie, 'checkout.vtex.com')
-  
-  const { acceptedOffer, shouldSplitItem } = order
+  const { orderNumber, acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
     loaders: { skuLoader },
@@ -352,9 +348,7 @@ export const validateCart = async (
     const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
       joinItems
     )
-    if (orderNumber) {
-      return orderFormToCart(newOrderForm, skuLoader)
-    }
+    return orderFormToCart(newOrderForm, skuLoader)
   }
 
   // Step2: Process items from both browser and checkout so they have the same shape
