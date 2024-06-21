@@ -348,7 +348,7 @@ export const validateCart = async (
   // to see this new cart state instead of what's stored on the user's browser.
   const isStale = isOrderFormStale(orderForm)
 
-  if (isStale) {
+  if (isStale && orderNumber) {
     const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
       joinItems
     )
