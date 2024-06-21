@@ -172,7 +172,7 @@ export const useCart = (
   return useMemo(() => {
     const cartTotals = cart.items.reduce(
       (totals, curr) => {
-        totals.total += curr.listPrice * curr.quantity
+        totals.total += curr.price * curr.quantity
         totals.totalWithTaxes += curr.priceWithTaxes * curr.quantity
 
         const quantityMultiplier = useUnitMultiplier
@@ -180,7 +180,7 @@ export const useCart = (
           : curr.quantity
 
         totals.totalItems += isGift(curr) ? 0 : quantityMultiplier
-        totals.subTotal += curr.price * quantityMultiplier
+        totals.subTotal += curr.listPrice * quantityMultiplier
         totals.subTotalWithTaxes += curr.listPriceWithTaxes * quantityMultiplier
 
         return totals
