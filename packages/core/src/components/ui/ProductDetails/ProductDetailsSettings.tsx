@@ -135,9 +135,9 @@ function ProductDetailsSettings({
                   : price) * (unitMultiplier ?? 1)
               }
               listPrice={
-                taxesConfiguration?.usePriceWithTaxes
+                (taxesConfiguration?.usePriceWithTaxes
                   ? listPriceWithTaxes
-                  : listPrice
+                  : listPrice) * (unitMultiplier ?? 1)
               }
               formatter={useFormattedPrice}
               {...ProductPrice.props}
