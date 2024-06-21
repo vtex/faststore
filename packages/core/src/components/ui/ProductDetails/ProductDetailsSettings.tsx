@@ -130,7 +130,9 @@ function ProductDetailsSettings({
             <ProductPrice.Component
               data-fs-product-details-prices
               value={
-                taxesConfiguration?.usePriceWithTaxes ? priceWithTaxes : price
+                (taxesConfiguration?.usePriceWithTaxes
+                  ? priceWithTaxes
+                  : price) * (unitMultiplier ?? 1)
               }
               listPrice={
                 taxesConfiguration?.usePriceWithTaxes

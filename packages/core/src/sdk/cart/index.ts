@@ -170,14 +170,11 @@ export const useCart = () => {
   return useMemo(() => {
     const cartTotals = cart.items.reduce(
       (totals, curr) => {
-        const quantityMultiplier =
-          curr.quantity * (curr?.itemOffered?.unitMultiplier ?? 1)
-
-        totals.totalItems += isGift(curr) ? 0 : quantityMultiplier
-        totals.total += curr.price * quantityMultiplier
-        totals.subTotal += curr.listPrice * quantityMultiplier
-        totals.totalWithTaxes += curr.priceWithTaxes * quantityMultiplier
-        totals.subTotalWithTaxes += curr.listPriceWithTaxes * quantityMultiplier
+        totals.totalItems += isGift(curr) ? 0 : curr.quantity
+        totals.total += curr.price * curr.quantity
+        totals.subTotal += curr.listPrice * curr.quantity
+        totals.totalWithTaxes += curr.priceWithTaxes * curr.quantity
+        totals.subTotalWithTaxes += curr.listPriceWithTaxes * curr.quantity
 
         return totals
       },
