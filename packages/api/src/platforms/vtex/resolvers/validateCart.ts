@@ -7,7 +7,6 @@ import {
   getPropertyId,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
-import { parse } from 'cookie'
 
 import type { Context } from '..'
 import type {
