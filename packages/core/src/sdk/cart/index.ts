@@ -203,5 +203,5 @@ export const useCart = (
       items: cart.items.filter((item) => !isGift(item)),
       totalUniqueItems: cart.items.length,
     }
-  }, [cart, isValidating])
+  }, [cart, isValidating, useUnitMultiplier])
 }
