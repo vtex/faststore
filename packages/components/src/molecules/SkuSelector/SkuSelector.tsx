@@ -5,7 +5,6 @@ import { Label, SROnly, Link, LinkProps, LinkElementType } from '../..'
 import { useDefineVariant, Variant } from './useDefineVariant'
 import { useSkuSlug } from './useSkuSlug'
 
-
 // TODO: Change by ImageComponent when it be right
 const ImageComponentFallback: SkuSelectorProps['ImageComponent'] = ({
   src,
@@ -104,11 +103,20 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
     ref
   ) {
     const activeSelectorValue = activeVariations[skuPropertyName]
+    console.log('teste activeSelectorValue ', activeSelectorValue)
+
     const options = availableVariations[skuPropertyName]
 
     const variant = useDefineVariant(options, variantProp)
 
-    const { getItemHref } = useSkuSlug(activeVariations, slugsMap, skuPropertyName, getItemHrefProp)
+    const { getItemHref } = useSkuSlug(
+      activeVariations,
+      slugsMap,
+      skuPropertyName,
+      getItemHrefProp
+    )
+
+    console.log('all options: ', options)
 
     return (
       <div
@@ -118,6 +126,7 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
         data-fs-sku-selector-variant={variant}
         {...otherProps}
       >
+        <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
         {skuPropertyName && (
           <Label data-fs-sku-selector-title>
             {skuPropertyName}: <strong>{activeSelectorValue}</strong>
@@ -125,6 +134,8 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
         )}
         <ul data-fs-sku-selector-list>
           {options.map((option, index) => {
+            console.log('option: ', option)
+
             return (
               <li
                 key={String(index)}
