@@ -15,15 +15,8 @@ function getSkuSlug(
   const possibleVariants = Object.keys(slugsMap)
 
   const firstVariationForDominantValue = possibleVariants.find((slug) => {
-    console.log(
-      'firstVariationForDominantValue',
-      slug.toLowerCase() ===
-        `${dominantVariation}-${selectedVariations[dominantVariation]}`.toLowerCase()
-    )
-
-    return (
-      slug.toLowerCase() ===
-      `${dominantVariation}-${selectedVariations[dominantVariation]}`.toLowerCase()
+    return slug.includes(
+      `${dominantVariation}-${selectedVariations[dominantVariation]}-`
     )
   })
 

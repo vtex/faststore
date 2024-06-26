@@ -103,7 +103,6 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
     ref
   ) {
     const activeSelectorValue = activeVariations[skuPropertyName]
-    console.log('teste activeSelectorValue ', activeSelectorValue)
 
     const options = availableVariations[skuPropertyName]
 
@@ -116,8 +115,6 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
       getItemHrefProp
     )
 
-    console.log('all options: ', options)
-
     return (
       <div
         ref={ref}
@@ -126,7 +123,6 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
         data-fs-sku-selector-variant={variant}
         {...otherProps}
       >
-        <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
         {skuPropertyName && (
           <Label data-fs-sku-selector-title>
             {skuPropertyName}: <strong>{activeSelectorValue}</strong>
@@ -134,8 +130,6 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
         )}
         <ul data-fs-sku-selector-list>
           {options.map((option, index) => {
-            console.log('option: ', option)
-
             return (
               <li
                 key={String(index)}
