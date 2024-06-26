@@ -2,7 +2,7 @@ import { Command, Flags } from '@oclif/core'
 import { existsSync } from 'fs-extra'
 import chalk from 'chalk'
 
-import { coreDir, tmpDir } from '../utils/directory'
+import { coreDir, coreNodeModulesDir, tmpDir } from '../utils/directory'
 import { runCommandSync } from '../utils/runCommandSync'
 
 export default class GenerateGraphql extends Command {
@@ -28,7 +28,7 @@ export default class GenerateGraphql extends Command {
     }
 
     runCommandSync({
-      cmd: 'yarn generate:schema',
+      cmd: `NODE_PATH="${coreNodeModulesDir}" yarn generate:schema`,
       errorMessage:
         "Failed to run 'yarn generate:schema'. Please check your setup.",
       throws: 'error',
@@ -37,7 +37,7 @@ export default class GenerateGraphql extends Command {
     })
 
     runCommandSync({
-      cmd: 'yarn generate:codegen',
+      cmd: `NODE_PATH="${coreNodeModulesDir}" yarn generate:codegen`,
       errorMessage:
         'GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect',
       throws: 'error',
@@ -46,7 +46,7 @@ export default class GenerateGraphql extends Command {
     })
 
     runCommandSync({
-      cmd: 'yarn format:generated',
+      cmd: `NODE_PATH="${coreNodeModulesDir}" yarn format:generated`,
       errorMessage:
         "Failed to format generated files. 'yarn format:generated' thrown errors",
       throws: 'warning',
@@ -56,7 +56,7 @@ export default class GenerateGraphql extends Command {
 
     // yarn generate:copy-back expects the DESTINATION var to be present so it can copy the files to the correct directory
     runCommandSync({
-      cmd: `DESTINATION=${coreDir} yarn generate:copy-back`,
+      cmd: `NODE_PATH="${coreNodeModulesDir}" DESTINATION=${coreDir} yarn generate:copy-back`,
       errorMessage:
         "Failed to copy back typings files. 'yarn generate:copy-back' thrown errors",
       throws: 'warning',
