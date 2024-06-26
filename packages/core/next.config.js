@@ -49,7 +49,19 @@ const nextConfig = {
     return config
   },
   redirects: storeConfig.redirects,
-  rewrites: storeConfig.rewrites,
+  async rewrites() {
+    return [
+      ...(await storeConfig.rewrites),
+      {
+        source: '/login',
+        destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/api/io/login`,
+      },
+      {
+        source: '/checkout',
+        destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/checkout`,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
