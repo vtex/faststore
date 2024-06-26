@@ -181,6 +181,7 @@ const query = gql(`
       offers {
         lowPrice
         highPrice
+        lowPriceWithTaxes
         priceCurrency
         offers {
           availability

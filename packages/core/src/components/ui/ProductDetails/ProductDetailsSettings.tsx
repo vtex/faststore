@@ -10,6 +10,7 @@ import Selectors from 'src/components/ui/SkuSelector'
 import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
 
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { Label as UILabel } from '@faststore/ui'
 
 interface ProductDetailsSettingsProps {
   product: ProductDetailsFragment_ProductFragment
@@ -22,7 +23,11 @@ interface ProductDetailsSettingsProps {
   quantity: number
   setQuantity: Dispatch<SetStateAction<number>>
   notAvailableButtonTitle: string
-  useUnitMultiplier: boolean
+  useUnitMultiplier?: boolean
+  taxesConfiguration?: {
+    usePriceWithTaxes?: boolean
+    taxesLabel?: string
+  }
 }
 
 function ProductDetailsSettings({
@@ -33,7 +38,8 @@ function ProductDetailsSettings({
   setQuantity,
   buyButtonIcon: { icon: buyButtonIconName, alt: buyButtonIconAlt },
   notAvailableButtonTitle,
-  useUnitMultiplier,
+  useUnitMultiplier = false,
+  taxesConfiguration,
 }: ProductDetailsSettingsProps) {
   const {
     BuyButton,
@@ -55,14 +61,25 @@ function ProductDetailsSettings({
     image: productImages,
     additionalProperty,
     offers: {
-      offers: [{ availability, price, listPrice, seller }],
+      offers: [
+        {
+          availability,
+          price,
+          priceWithTaxes,
+          listPrice,
+          seller,
+          listPriceWithTaxes,
+        },
+      ],
     },
   } = product
 
   const buyProps = useBuyButton({
     id,
     price,
+    priceWithTaxes,
     listPrice,
+    listPriceWithTaxes,
     seller,
     quantity,
     itemOffered: {
@@ -109,13 +126,28 @@ function ProductDetailsSettings({
     <>
       {!outOfStock && (
         <section data-fs-product-details-values>
-          <ProductPrice.Component
-            data-fs-product-details-prices
-            value={price}
-            listPrice={listPrice}
-            formatter={useFormattedPrice}
-            {...ProductPrice.props}
-          />
+          <div data-fs-product-details-values-wrapper>
+            <ProductPrice.Component
+              data-fs-product-details-prices
+              value={
+                (taxesConfiguration?.usePriceWithTaxes
+                  ? priceWithTaxes
+                  : price) * (unitMultiplier ?? 1)
+              }
+              listPrice={
+                (taxesConfiguration?.usePriceWithTaxes
+                  ? listPriceWithTaxes
+                  : listPrice) * (unitMultiplier ?? 1)
+              }
+              formatter={useFormattedPrice}
+              {...ProductPrice.props}
+            />
+            {taxesConfiguration?.usePriceWithTaxes && (
+              <UILabel data-fs-product-details-taxes-label>
+                {taxesConfiguration?.taxesLabel}
+              </UILabel>
+            )}
+          </div>
           <QuantitySelector.Component
             min={1}
             max={10}

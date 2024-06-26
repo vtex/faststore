@@ -8,7 +8,10 @@ import { useGalleryPage } from 'src/sdk/product/usePageProductsQuery'
 interface Props {
   page: number
   title: string
-  productCard?: Pick<ProductCardProps, 'showDiscountBadge' | 'bordered'>
+  productCard?: Pick<
+    ProductCardProps,
+    'showDiscountBadge' | 'bordered' | 'taxesConfiguration'
+  >
   itemsPerPage: number
 }
 

@@ -49,7 +49,9 @@ export const ValidateCartMutation = gql(`
     }
     quantity
     price
+    priceWithTaxes
     listPrice
+    listPriceWithTaxes
     itemOffered {
       ...CartProductItem
     }
@@ -115,18 +117,20 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
             seller,
             quantity,
             itemOffered,
-          }): IStoreOffer => ({
-            price,
-            listPrice,
-            seller,
-            quantity,
-            itemOffered: {
-              sku: itemOffered.sku,
-              image: itemOffered.image,
-              name: itemOffered.name,
-              additionalProperty: itemOffered.additionalProperty,
-            },
-          })
+          }): IStoreOffer => {
+            return {
+              price,
+              listPrice,
+              seller,
+              quantity,
+              itemOffered: {
+                sku: itemOffered.sku,
+                image: itemOffered.image,
+                name: itemOffered.name,
+                additionalProperty: itemOffered.additionalProperty,
+              },
+            }
+          }
         ),
       },
     },
@@ -159,31 +163,45 @@ export const cartStore = {
   },
 }
 
-export const useCart = () => {
+export const useCart = (
+  { useUnitMultiplier } = { useUnitMultiplier: false }
+) => {
   const cart = useStore(cartStore)
   const isValidating = useStore(validationStore)
 
-  return useMemo(
-    () => ({
+  return useMemo(() => {
+    const cartTotals = cart.items.reduce(
+      (totals, curr) => {
+        totals.total += curr.price * curr.quantity
+        totals.totalWithTaxes += curr.priceWithTaxes * curr.quantity
+
+        const quantityMultiplier = useUnitMultiplier
+          ? curr.quantity * (curr?.itemOffered?.unitMultiplier ?? 1)
+          : curr.quantity
+
+        totals.totalItems += isGift(curr) ? 0 : quantityMultiplier
+        totals.subTotal += curr.listPrice * quantityMultiplier
+        totals.subTotalWithTaxes += curr.listPriceWithTaxes * quantityMultiplier
+
+        return totals
+      },
+      {
+        totalItems: 0,
+        total: 0,
+        subTotal: 0,
+        totalWithTaxes: 0,
+        subTotalWithTaxes: 0,
+      }
+    )
+
+    return {
       ...cart,
+      ...cartTotals,
       isValidating,
       messages: cart.messages,
       gifts: cart.items.filter((item) => isGift(item)),
       items: cart.items.filter((item) => !isGift(item)),
       totalUniqueItems: cart.items.length,
-      totalItems: cart.items.reduce(
-        (acc, curr) => acc + (isGift(curr) ? 0 : curr.quantity),
-        0
-      ),
-      total: cart.items.reduce(
-        (acc, curr) => acc + curr.price * curr.quantity,
-        0
-      ),
-      subTotal: cart.items.reduce(
-        (acc, curr) => acc + curr.listPrice * curr.quantity,
-        0
-      ),
-    }),
-    [cart, isValidating]
-  )
+    }
+  }, [cart, isValidating, useUnitMultiplier])
 }
