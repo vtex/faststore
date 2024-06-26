@@ -51,7 +51,7 @@ const nextConfig = {
   redirects: storeConfig.redirects,
   async rewrites() {
     return [
-      ...(await storeConfig.rewrites),
+      ...(storeConfig.rewrites ? await storeConfig.rewrites : []),
       {
         source: '/login',
         destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/api/io/login`,
