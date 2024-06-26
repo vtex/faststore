@@ -28,7 +28,7 @@ function VTEX() {
       <script
         key="vtex-af.js-script"
         type="text/partytown"
-        an={storeConfig.api.storeId}
+        data-an={storeConfig.api.storeId}
         async
         src="https://activity-flow.vtex.com/af/af.js"
       />
