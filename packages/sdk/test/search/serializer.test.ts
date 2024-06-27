@@ -90,6 +90,7 @@ test('Search State Serializer: Basic parsing', async () => {
     sort: 'score_desc',
     term: 'Hello World',
     page: 0,
+    passThrough: new URLSearchParams()
   })
 
   expect(
@@ -104,6 +105,7 @@ test('Search State Serializer: Basic parsing', async () => {
     sort: 'score_desc',
     term: 'Hello World',
     page: 1,
+    passThrough: new URLSearchParams()
   })
 
   expect(
@@ -116,5 +118,56 @@ test('Search State Serializer: Basic parsing', async () => {
     sort: 'score_desc',
     term: 'Hello World',
     page: 10,
+    passThrough: new URLSearchParams()
+  })
+})
+
+test('Search State Serializer: Passthrough param parsing', async () => {
+  expect(
+    parseSearchState(
+      new URL(
+        'http://localhost/pt-br/sale?q=Hello+World&&sort=score_desc&price=10%3A100&page=0&facets=price&foo=bar'
+      )
+    )
+  ).toEqual({
+    base: '/pt-br/sale',
+    selectedFacets: [
+      {
+        key: 'price',
+        value: '10:100',
+      },
+    ],
+    sort: 'score_desc',
+    term: 'Hello World',
+    page: 0,
+    passThrough: new URLSearchParams({ foo: 'bar' })
+  })
+
+  expect(
+    parseSearchState(
+      new URL(
+        'http://localhost/pt-br/sale?q=Hello+World&sort=score_desc&page=1&foo=bar'
+      )
+    )
+  ).toEqual({
+    base: '/pt-br/sale',
+    selectedFacets: [],
+    sort: 'score_desc',
+    term: 'Hello World',
+    page: 1,
+    passThrough: new URLSearchParams({ foo: 'bar' })
+  })
+
+  expect(
+    parseSearchState(
+      new URL('http://localhost?q=Hello+World&sort=score_desc&page=10&foo=bar')
+    )
+  ).toEqual({
+    base: '/',
+    selectedFacets: [],
+    sort: 'score_desc',
+    term: 'Hello World',
+    page: 10,
+    passThrough: new URLSearchParams({ foo: 'bar' })
   })
 })

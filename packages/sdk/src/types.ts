@@ -30,4 +30,8 @@ export interface State {
    * @description current pagination cursor
    */
   page: number
+  /**
+   * @description params from other sources to preserve when building URLs
+   */
+  passThrough: URLSearchParams
 }
