@@ -72,6 +72,10 @@ const nextConfig = {
         source: '/api/:source((?!graphql))/:rest*',
         destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/api/:source/:rest*`,
       },
+      {
+        source: '/_v/:path*',
+        destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/_v/:path*`,
+      },
     ]
   },
 }
