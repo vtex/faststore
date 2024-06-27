@@ -61,16 +61,16 @@ const nextConfig = {
         destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/checkout`,
       },
       {
-        source: '/files',
-        destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/files`,
+        source: '/files/:path*',
+        destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/files/:path*`,
       },
       {
-        source: '/arquivos',
-        destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/arquivos`,
+        source: '/arquivos/:path*',
+        destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/arquivos/:path*`,
       },
       {
-        source: '/api/:source((?!graphql))/:extra',
-        destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/:source/:extra`,
+        source: '/api/:source((?!graphql))/:rest*',
+        destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/api/:source/:rest*`,
       },
     ]
   },
