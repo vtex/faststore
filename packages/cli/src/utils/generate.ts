@@ -8,6 +8,8 @@ import {
   readdirSync,
   removeSync,
   writeJsonSync,
+  lstatSync,
+  readlinkSync
 } from 'fs-extra'
 import path from 'path'
 
@@ -69,7 +71,21 @@ function filterAndCopyPackageJson() {
 
 function copyCoreFiles() {
   try {
-    copySync(coreDir, tmpDir, {
+    let actualCoreDir = coreDir
+    const coreDirStat = lstatSync(coreDir)
+
+    if (coreDirStat.isSymbolicLink()) {
+      // NOTE: This symlink magic is to enable this to work with pnpm
+      // this might be simplified with yarn's issues around phantom packages
+      //
+      // We try to find coreDir but it's a symlink an the symlink is relative
+      // to the directory where the symlink is. So the first '..' is to go
+      // to the directory of the symlink (instead of the symlink), and the we
+      // resolve the relative path.
+      actualCoreDir = path.resolve(coreDir, '..', readlinkSync(coreDir))
+    }
+
+    copySync(actualCoreDir, tmpDir, {
       filter(src) {
         const fileOrDirName = path.basename(src)
         const shouldCopy = fileOrDirName
@@ -197,8 +213,7 @@ async function copyTheme() {
       try {
         copyFileSync(customTheme, tmpThemesCustomizationsFileDir)
         console.log(
-          `${chalk.green('success')} - ${
-            storeConfig.theme
+          `${chalk.green('success')} - ${storeConfig.theme
           } theme has been applied`
         )
       } catch (err) {
@@ -206,10 +221,8 @@ async function copyTheme() {
       }
     } else {
       console.info(
-        `${chalk.blue('info')} - The ${
-          storeConfig.theme
-        } theme was added to the config file but the ${
-          storeConfig.theme
+        `${chalk.blue('info')} - The ${storeConfig.theme
+        } theme was added to the config file but the ${storeConfig.theme
         }.scss file does not exist in the themes folder. Read more: https://www.faststore.dev/docs/themes/overview`
       )
     }

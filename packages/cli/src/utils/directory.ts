@@ -1,4 +1,5 @@
-import path from 'path'
+import { existsSync } from 'fs';
+import path from 'path';
 
 // build folder
 export const tmpFolderName = '.faststore'
@@ -9,13 +10,15 @@ export const getRoot = () => {
     return ''
   }
 
-  if(process.cwd().endsWith(tmpFolderName)) {
+  const cwd = process.cwd()
+
+  if (cwd.endsWith(tmpFolderName)) {
     // if the current working directory is the build folder (tmp folder), return the starter root
     // this makes sure the semantics of the starter root are consistent with the directories declared below
-    return path.join(process.cwd(), '..')
+    return path.join(cwd, '..')
   }
 
-  return process.cwd()
+  return existsSync(path.join(cwd, 'vtex.env')) ? cwd : path.join(cwd, 'discovery')
 }
 
 // starter root
