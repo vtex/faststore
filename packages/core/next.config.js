@@ -60,6 +60,18 @@ const nextConfig = {
         source: '/checkout',
         destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/checkout`,
       },
+      {
+        source: '/files',
+        destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/files`,
+      },
+      {
+        source: '/arquivos',
+        destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/arquivos`,
+      },
+      {
+        source: '/api/:source((?!graphql))/:extra',
+        destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/:source/:extra`,
+      },
     ]
   },
 }
