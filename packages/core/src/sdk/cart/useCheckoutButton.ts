@@ -1,4 +1,3 @@
-import storeConfig from '../../../faststore.config'
 import { useCart } from './index'
 
 export const useCheckoutButton = () => {
@@ -12,9 +11,9 @@ export const useCheckoutButton = () => {
 
     if (!isValidating) {
       if (!isDevEnv) {
-        window.location.href = `${storeConfig.checkoutUrl}`
+        window.location.href = `/checkout`
       } else if (id) {
-        window.location.href = `${storeConfig.checkoutUrl}?orderFormId=${id}`
+        window.location.href = `/checkout?orderFormId=${id}`
       }
     }
   }
