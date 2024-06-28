@@ -3,12 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [Unreleased] - 2024-06-10
-
-### Bug Fixes
-
-- Remove ambiguities when setting SKU slug.
-
 ## [2.0.178-alpha.0](https://github.com/vtex/faststore/compare/v2.0.177-alpha.0...v2.0.178-alpha.0) (2023-06-02)
 
 ### Bug Fixes
