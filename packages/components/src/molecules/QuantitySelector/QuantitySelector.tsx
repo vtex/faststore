@@ -22,13 +22,13 @@ export interface QuantitySelectorProps {
    */
   initial?: number
   /**
-   * Controls by how many units the value advances 
-  */
+   * Controls by how many units the value advances
+   */
   unitMultiplier?: number
-   /**
-   * Controls wheter you use or not the unitMultiplier 
-  */
-   useUnitMultiplier?: boolean
+  /**
+   * Controls wheter you use or not the unitMultiplier
+   */
+  useUnitMultiplier?: boolean
   /**
    * Specifies that the whole quantity selector component should be disabled.
    */
@@ -51,17 +51,19 @@ const QuantitySelector = ({
   ...otherProps
 }: QuantitySelectorProps) => {
   const [quantity, setQuantity] = useState<number>(initial ?? min)
-  const [multipliedUnit, setMultipliedUnit] = useState<number>(quantity * unitMultiplier)
+  const [multipliedUnit, setMultipliedUnit] = useState<number>(
+    quantity * unitMultiplier
+  )
 
   const roundUpQuantityIfNeeded = (quantity: number) => {
-    if(!useUnitMultiplier){
+    if (!useUnitMultiplier) {
       return quantity
     }
-    return Math.ceil(quantity / unitMultiplier) * unitMultiplier;
-  }    
+    return Math.ceil(quantity / unitMultiplier) * unitMultiplier
+  }
 
   const isLeftDisabled = quantity === min
-  const isRightDisabled = quantity === max 
+  const isRightDisabled = quantity === max
 
   const changeQuantity = (increaseValue: number) => {
     const quantityValue = validateQuantityBounds(quantity + increaseValue)
@@ -70,7 +72,7 @@ const QuantitySelector = ({
     setQuantity(quantityValue)
     setMultipliedUnit(quantityValue * unitMultiplier)
   }
-    
+
   const increase = () => changeQuantity(1)
 
   const decrease = () => changeQuantity(-1)
@@ -78,38 +80,30 @@ const QuantitySelector = ({
   function validateQuantityBounds(n: number): number {
     const maxValue = min ? Math.max(n, min) : n
 
-    return max ? Math.min(maxValue, useUnitMultiplier ? max * unitMultiplier : max) : maxValue
+    return max
+      ? Math.min(maxValue, useUnitMultiplier ? max * unitMultiplier : max)
+      : maxValue
   }
 
   function validateBlur() {
-      const roundedQuantity = roundUpQuantityIfNeeded(quantity)
+    const quantityValue = validateQuantityBounds(quantity)
+    const roundedQuantity = roundUpQuantityIfNeeded(quantityValue)
 
-      setQuantity(() => {
-        setMultipliedUnit(roundedQuantity)
-        onChange?.(roundedQuantity / unitMultiplier)
+    setQuantity(() => {
+      setMultipliedUnit(roundedQuantity)
+      onChange?.(roundedQuantity / unitMultiplier)
 
-        return roundedQuantity / unitMultiplier
-      })
+      return roundedQuantity / unitMultiplier
+    })
   }
 
-  function validateInput(e: React.FormEvent<HTMLInputElement>) {
-    const val = e.currentTarget.value
-
-    if (!Number.isNaN(Number(val))) {
-      setQuantity(() => {
-        const quantityValue = validateQuantityBounds(Number(val))
-        setMultipliedUnit(quantityValue)
-        onChange?.(quantityValue)
-
-        return quantityValue
-      })
-    }
-  }
-
-  
   useEffect(() => {
     initial && setQuantity(initial)
   }, [initial])
+
+  const changeValueInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuantity(Number(e.currentTarget.value))
+  }
 
   return (
     <div
@@ -132,7 +126,7 @@ const QuantitySelector = ({
         id="quantity-selector-input"
         aria-label="Quantity"
         value={useUnitMultiplier ? multipliedUnit : quantity}
-        onChange={validateInput}
+        onChange={changeValueInput}
         onBlur={validateBlur}
         disabled={disabled}
       />
