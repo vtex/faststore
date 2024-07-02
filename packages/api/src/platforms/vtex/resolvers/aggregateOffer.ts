@@ -17,7 +17,7 @@ const getHighPrice = (
     return highPrice
   }
 
-  return withTax(highPrice, highOffer.Tax, highOffer.product.unitMultiplier)
+  return withTax(highPrice, highOffer?.Tax, highOffer?.product?.unitMultiplier)
 }
 
 const getLowPrice = (
@@ -32,7 +32,7 @@ const getLowPrice = (
     return lowPrice
   }
 
-  return withTax(lowPrice, lowOffer.Tax, lowOffer.product.unitMultiplier)
+  return withTax(lowPrice, lowOffer?.Tax, lowOffer?.product?.unitMultiplier)
 }
 
 export const StoreAggregateOffer: Record<string, Resolver<Root>> & {
