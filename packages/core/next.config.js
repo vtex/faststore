@@ -5,7 +5,7 @@ const storeConfig = require('./faststore.config')
 /**
  * @type {import('next').NextConfig}
  * */
-const nextConfig = {
+let nextConfig = {
   /* config options here */
   /* Replaces terser by swc for minifying. It's the default in NextJS 13 */
   swcMinify: true,
@@ -50,6 +50,10 @@ const nextConfig = {
   },
   redirects: storeConfig.redirects,
   rewrites: storeConfig.rewrites,
+}
+
+if (storeConfig.withNextConfig) {
+  nextConfig = storeConfig.withNextConfig(nextConfig)
 }
 
 module.exports = nextConfig
