@@ -5,7 +5,6 @@ import { Label, SROnly, Link, LinkProps, LinkElementType } from '../..'
 import { useDefineVariant, Variant } from './useDefineVariant'
 import { useSkuSlug } from './useSkuSlug'
 
-
 // TODO: Change by ImageComponent when it be right
 const ImageComponentFallback: SkuSelectorProps['ImageComponent'] = ({
   src,
@@ -104,11 +103,17 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
     ref
   ) {
     const activeSelectorValue = activeVariations[skuPropertyName]
+
     const options = availableVariations[skuPropertyName]
 
     const variant = useDefineVariant(options, variantProp)
 
-    const { getItemHref } = useSkuSlug(activeVariations, slugsMap, skuPropertyName, getItemHrefProp)
+    const { getItemHref } = useSkuSlug(
+      activeVariations,
+      slugsMap,
+      skuPropertyName,
+      getItemHrefProp
+    )
 
     return (
       <div
