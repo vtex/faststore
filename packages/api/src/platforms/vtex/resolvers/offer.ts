@@ -86,7 +86,7 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
   },
   priceWithTaxes: (root) => {
     if (isSearchItem(root)) {
-      return withTax(price(root), root.Tax, root.product.unitMultiplier)
+      return withTax(price(root), root?.Tax, root.product.unitMultiplier)
     }
 
     if (isOrderFormItem(root)) {
@@ -119,7 +119,7 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
   },
   listPriceWithTaxes: (root) => {
     if (isSearchItem(root)) {
-      return withTax(root.ListPrice ?? 0, root.Tax, root.product.unitMultiplier)
+      return withTax(root.ListPrice ?? 0, root?.Tax, root.product.unitMultiplier)
     }
 
     if (isOrderFormItem(root)) {
