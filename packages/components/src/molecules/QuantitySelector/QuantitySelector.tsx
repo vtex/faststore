@@ -37,6 +37,10 @@ export interface QuantitySelectorProps {
    * Event emitted when value is changed
    */
   onChange?: (value: number) => void
+  /**
+   * Event emitted when value is out of the min and max bounds
+   */
+  onValidateBlur?: (min: number, maxValue: number, quantity: number) => void
 }
 
 const QuantitySelector = ({
@@ -47,6 +51,7 @@ const QuantitySelector = ({
   initial,
   disabled = false,
   onChange,
+  onValidateBlur,
   testId = 'fs-quantity-selector',
   ...otherProps
 }: QuantitySelectorProps) => {
@@ -88,6 +93,12 @@ const QuantitySelector = ({
   function validateBlur() {
     const quantityValue = validateQuantityBounds(quantity)
     const roundedQuantity = roundUpQuantityIfNeeded(quantityValue)
+
+    const maxValue = max ?? (min ? Math.max(quantity, min) : quantity)
+    const isOutOfBounds = quantity > maxValue || quantity < min
+    if (isOutOfBounds) {
+      onValidateBlur?.(min, maxValue, roundedQuantity)
+    }
 
     setQuantity(() => {
       setMultipliedUnit(roundedQuantity)
