@@ -22,7 +22,7 @@ describe('directory with base path', () => {
   })
 
   describe('userDir', () => {
-    it('returns the directory of the starters package.json', () => {
+    it("returns the directory of the starter's package.json", () => {
       expect(pathsToMatch(userSrcDir, './src')).toBe(true)
     })
   })
@@ -34,7 +34,7 @@ describe('directory with base path', () => {
   })
 
   describe('userThemesFileDir', () => {
-    it('returns the directory of the starters package.json', () => {
+    it("returns the directory of the starter's theme directory", () => {
       expect(pathsToMatch(userThemesFileDir, './src/themes')).toBe(true)
     })
   })
