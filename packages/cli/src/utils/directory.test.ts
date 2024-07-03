@@ -1,5 +1,5 @@
 import path from "path"
-import { coreCMSDir, coreDir, tmpCMSDir, tmpCMSWebhookUrlsFile, tmpCustomizationsSrcDir, tmpDir, tmpStoreConfigFile, tmpThemesCustomizationsFile, userCMSDir, userSrcDir, userStoreConfigFile, userThemesFileDir, withBasePath } from "./directory"
+import { coreCMSDir, coreDir, tmpCMSDir, tmpCMSWebhookUrlsFile, tmpCustomizationsSrcDir, tmpDir, tmpStoreConfigFile, tmpThemesCustomizationsFile, userCMSDir, userSrcDir, userStoreConfigFile, userThemesFileDir } from "./directory"
 
 const pathsToMatch = (expected: string, desired: string) => {
   const expectedResolved = path.resolve(expected)
