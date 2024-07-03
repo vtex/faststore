@@ -18,7 +18,7 @@ import {
   tmpDir,
   tmpFolderName,
   tmpStoreConfigFile,
-  tmpThemesCustomizationsFileDir,
+  tmpThemesCustomizationsFile,
   userDir,
   userSrcDir,
   userStoreConfigFile,
@@ -195,7 +195,7 @@ async function copyTheme() {
     )
     if (existsSync(customTheme)) {
       try {
-        copyFileSync(customTheme, tmpThemesCustomizationsFileDir)
+        copyFileSync(customTheme, tmpThemesCustomizationsFile)
         console.log(
           `${chalk.green('success')} - ${
             storeConfig.theme

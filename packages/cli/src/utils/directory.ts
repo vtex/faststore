@@ -45,7 +45,7 @@ export const tmpCustomizationsSrcDir = path.join(tmpCustomizationsDir, srcFolder
 // starter's folder for themes
 export const userThemesFileDir = path.join(userSrcDir, 'themes')
 // build folder's dir for theme
-export const tmpThemesCustomizationsFileDir = path.join(tmpCustomizationsSrcDir, 'themes', 'index.scss')
+export const tmpThemesCustomizationsFile = path.join(tmpCustomizationsSrcDir, 'themes', 'index.scss')
 
 // path segment of cms files for faststore
 const cmsFolderName = path.join('cms', 'faststore')
