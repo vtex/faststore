@@ -16,7 +16,7 @@ export default class CmsSync extends Command {
     const { tmpDir } = withBasePath(basePath)
 
     await generate({ setup: true, basePath })
-    await mergeCMSFiles()
+    await mergeCMSFiles(basePath)
 
     if (flags['dry-run']) {
       return

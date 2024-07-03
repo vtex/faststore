@@ -3,11 +3,7 @@ import chalk from 'chalk'
 import { CliUx } from '@oclif/core'
 import { readFileSync, existsSync, writeFileSync } from 'fs-extra'
 
-// FIXME: Use withBasePath
-// import { userCMSDir, coreCMSDir, tmpCMSDir } from './directory'
-const userCMSDir = ''
-const coreCMSDir = ''
-const tmpCMSDir = ''
+import { withBasePath } from './directory'
 
 export interface ContentTypeOrSectionDefinition {
   id?: string
@@ -113,7 +109,9 @@ async function confirmUserChoice(
   return
 }
 
-export async function mergeCMSFile(fileName: string) {
+export async function mergeCMSFile(fileName: string, basePath: string) {
+  const { coreCMSDir, userCMSDir, tmpCMSDir } = withBasePath(basePath)
+
   const coreFilePath = path.join(coreCMSDir, fileName)
   const customFilePath = path.join(userCMSDir, fileName)
 
@@ -175,10 +173,10 @@ export async function mergeCMSFile(fileName: string) {
   }
 }
 
-export async function mergeCMSFiles() {
+export async function mergeCMSFiles(basePath: string) {
   try {
-    await mergeCMSFile('content-types.json')
-    await mergeCMSFile('sections.json')
+    await mergeCMSFile('content-types.json', basePath)
+    await mergeCMSFile('sections.json', basePath)
   } catch (err) {
     console.error(`${chalk.red('error')} - ${err}`)
   }

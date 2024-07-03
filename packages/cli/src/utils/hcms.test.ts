@@ -15,8 +15,7 @@ import {
   splitCustomDefinitions,
   mergeCMSFile,
 } from './hcms'
-// FIXME: use withBasePath
-// import { tmpCMSDir } from './directory'
+import { withBasePath } from './directory'
 
 jest.mock('fs-extra', () => ({
   readFileSync: jest.fn(),
@@ -25,14 +24,14 @@ jest.mock('fs-extra', () => ({
 }))
 
 describe('mergeCMSFile', () => {
-  it.skip("should create a resulting file that contains all core definitions if a custom definitions file doesn't exist", async () => {
+  it("should create a resulting file that contains all core definitions if a custom definitions file doesn't exist", async () => {
     const { readFileSync, existsSync, writeFileSync } = require('fs-extra')
-    const tmpCMSDir = ''
+    const { tmpCMSDir } = withBasePath('.')
 
     existsSync.mockReturnValueOnce(false)
     readFileSync.mockReturnValueOnce(JSON.stringify(coreContentTypes))
 
-    await mergeCMSFile('content-types.json')
+    await mergeCMSFile('content-types.json', '.')
 
     expect(writeFileSync).toHaveBeenCalledWith(
       path.join(tmpCMSDir, 'content-types.json'),
@@ -42,7 +41,7 @@ describe('mergeCMSFile', () => {
     existsSync.mockReturnValueOnce(false)
     readFileSync.mockReturnValueOnce(JSON.stringify(coreSections))
 
-    await mergeCMSFile('sections.json')
+    await mergeCMSFile('sections.json', '.')
 
     expect(writeFileSync).toHaveBeenCalledWith(
       path.join(tmpCMSDir, 'sections.json'),
@@ -52,7 +51,7 @@ describe('mergeCMSFile', () => {
 })
 
 describe('splitCustomDefinitions', () => {
-  it.skip('should return empty arrays if there are no custom definitions', () => {
+  it('should return empty arrays if there are no custom definitions', () => {
     // content-types
     expect(splitCustomDefinitions(coreContentTypes, [], 'id')).toEqual({
       duplicates: [],
@@ -66,7 +65,7 @@ describe('splitCustomDefinitions', () => {
     })
   })
 
-  it.skip('should return empty duplicates array if all custom definitions are new', () => {
+  it('should return empty duplicates array if all custom definitions are new', () => {
     // content-types
     expect(
       splitCustomDefinitions(coreContentTypes, allNewCustomContentTypes, 'id')
@@ -84,7 +83,7 @@ describe('splitCustomDefinitions', () => {
     })
   })
 
-  it.skip('should return expected split definitions', () => {
+  it('should return expected split definitions', () => {
     // content-types
     expect(
       splitCustomDefinitions(
@@ -108,7 +107,7 @@ describe('splitCustomDefinitions', () => {
 })
 
 describe('dedupeAndMergeDefinitions', () => {
-  it.skip('should return the exact same core definitions if there are no duplicates', () => {
+  it('should return the exact same core definitions if there are no duplicates', () => {
     expect(dedupeAndMergeDefinitions(coreContentTypes, [], 'id')).toEqual(
       coreContentTypes
     )
@@ -118,7 +117,7 @@ describe('dedupeAndMergeDefinitions', () => {
     )
   })
 
-  it.skip('should return expected merged definitions, applying overrides based on duplicates', () => {
+  it('should return expected merged definitions, applying overrides based on duplicates', () => {
     expect(
       dedupeAndMergeDefinitions(coreContentTypes, contentTypeDuplicates, 'id')
     ).toEqual([
