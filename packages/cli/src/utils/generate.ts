@@ -13,7 +13,7 @@ import path from 'path'
 
 import {
   coreDir,
-  tmpCmsWebhookUrlsFileDir,
+  tmpCMSWebhookUrlsFile,
   tmpCustomizationsSrcDir,
   tmpDir,
   tmpFolderName,
@@ -173,7 +173,7 @@ async function createCmsWebhookUrlsJsonFile() {
 
     try {
       writeJsonSync(
-        tmpCmsWebhookUrlsFileDir,
+        tmpCMSWebhookUrlsFile,
         { urls: webhookUrls },
         { spaces: 2 }
       )

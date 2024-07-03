@@ -66,4 +66,4 @@ export const tmpStoreConfigFile = path.join(tmpCustomizationsDir, configFileName
 // cms webhook config file name
 const cmsWebhookUrlsFileName = 'cms-webhook-urls.json'
 // build folder's dir for webhook config
-export const tmpCmsWebhookUrlsFileDir = path.join(tmpDir, cmsWebhookUrlsFileName)
+export const tmpCMSWebhookUrlsFile = path.join(tmpDir, cmsWebhookUrlsFileName)
