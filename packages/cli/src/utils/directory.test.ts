@@ -32,15 +32,10 @@ describe('withBasePath as the current dir `.`', () => {
   })
 
   describe('userDir', () => {
-<<<<<<< cli-arbitraty-path-prep
-    it('returns the directory of the starters package.json', () => {
+    it("returns the directory of the starter's package.json", () => {
       const { userSrcDir: userSrcDirWithBase } = withBasePath(basePath)
 
       expect(pathsToMatch(userSrcDirWithBase, './src')).toBe(true)
-=======
-    it("returns the directory of the starter's package.json", () => {
-      expect(pathsToMatch(userSrcDir, './src')).toBe(true)
->>>>>>> chore/dev-arbitrary-path
     })
   })
 
@@ -53,15 +48,10 @@ describe('withBasePath as the current dir `.`', () => {
   })
 
   describe('userThemesFileDir', () => {
-<<<<<<< cli-arbitraty-path-prep
-    it('returns the directory of the starters package.json', () => {
+    it("returns the directory of the starter's theme directory", () => {
       const { userThemesFileDir: userThemesFileDirWithBase } = withBasePath(basePath)
 
       expect(pathsToMatch(userThemesFileDirWithBase, './src/themes')).toBe(true)
-=======
-    it("returns the directory of the starter's theme directory", () => {
-      expect(pathsToMatch(userThemesFileDir, './src/themes')).toBe(true)
->>>>>>> chore/dev-arbitrary-path
     })
   })
 
@@ -146,7 +136,7 @@ describe('withBasePath as an arbitrary dir', () => {
   })
 
   describe('userDir', () => {
-    it('returns the directory of the starters package.json', () => {
+    it("returns the directory of the starter's package.json", () => {
       const { userSrcDir: userSrcDirWithBase } = withBasePath(basePath)
 
       expect(pathsToMatch(userSrcDirWithBase, './src/__mocks__/store/src')).toBe(true)
@@ -162,7 +152,7 @@ describe('withBasePath as an arbitrary dir', () => {
   })
 
   describe('userThemesFileDir', () => {
-    it('returns the directory of the starters package.json', () => {
+    it("returns the directory of the starter's theme directory", () => {
       const { userThemesFileDir: userThemesFileDirWithBase } = withBasePath(basePath)
 
       expect(pathsToMatch(userThemesFileDirWithBase, './src/__mocks__/store/src/themes')).toBe(true)
