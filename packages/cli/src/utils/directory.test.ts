@@ -32,10 +32,15 @@ describe('withBasePath as the current dir `.`', () => {
   })
 
   describe('userDir', () => {
+<<<<<<< cli-arbitraty-path-prep
     it('returns the directory of the starters package.json', () => {
       const { userSrcDir: userSrcDirWithBase } = withBasePath(basePath)
 
       expect(pathsToMatch(userSrcDirWithBase, './src')).toBe(true)
+=======
+    it("returns the directory of the starter's package.json", () => {
+      expect(pathsToMatch(userSrcDir, './src')).toBe(true)
+>>>>>>> chore/dev-arbitrary-path
     })
   })
 
@@ -48,10 +53,15 @@ describe('withBasePath as the current dir `.`', () => {
   })
 
   describe('userThemesFileDir', () => {
+<<<<<<< cli-arbitraty-path-prep
     it('returns the directory of the starters package.json', () => {
       const { userThemesFileDir: userThemesFileDirWithBase } = withBasePath(basePath)
 
       expect(pathsToMatch(userThemesFileDirWithBase, './src/themes')).toBe(true)
+=======
+    it("returns the directory of the starter's theme directory", () => {
+      expect(pathsToMatch(userThemesFileDir, './src/themes')).toBe(true)
+>>>>>>> chore/dev-arbitrary-path
     })
   })
 
