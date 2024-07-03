@@ -52,9 +52,8 @@ async function storeDev() {
 
 export default class Dev extends Command {
   async run() {
-    const queueChange = (/* path: string, remove: boolean */) => {
-      // getContentFromPath(path, remove)
 
+    const queueChange = (/* path: string, remove: boolean */) => {
       generate()
     }
 
