@@ -5,7 +5,6 @@ import { Label, SROnly, Link, LinkProps, LinkElementType } from '../..'
 import { useDefineVariant, Variant } from './useDefineVariant'
 import { useSkuSlug } from './useSkuSlug'
 
-
 // TODO: Change by ImageComponent when it be right
 const ImageComponentFallback: SkuSelectorProps['ImageComponent'] = ({
   src,
@@ -108,8 +107,27 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
 
     const variant = useDefineVariant(options, variantProp)
 
-    const { getItemHref } = useSkuSlug(activeVariations, slugsMap, skuPropertyName, getItemHrefProp)
+    const { getItemHref } = useSkuSlug(
+      activeVariations,
+      slugsMap,
+      skuPropertyName,
+      getItemHrefProp
+    )
 
+    const isNumeric = (value) => {
+      return !isNaN(value - parseFloat(value))
+    }
+
+    const sortOptions = (options) => {
+      return options.sort((a, b) => {
+        if (isNumeric(a.value) && isNumeric(b.value)) {
+          return parseFloat(a.value) - parseFloat(b.value)
+        }
+        return a.value.localeCompare(b.value)
+      })
+    }
+
+    const sortedOptions = sortOptions(options)
     return (
       <div
         ref={ref}
@@ -124,7 +142,7 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
           </Label>
         )}
         <ul data-fs-sku-selector-list>
-          {options.map((option, index) => {
+          {sortedOptions.map((option, index) => {
             return (
               <li
                 key={String(index)}
