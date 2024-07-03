@@ -76,7 +76,7 @@ export default class Dev extends Command {
       watcher.close()
     })
 
-    await generate({ setup: true })
+    await generate({ setup: true, basePath })
 
     storeDev(getRoot(), tmpDir)
 
