@@ -135,8 +135,8 @@ function ProductDetailsSettings({
               quantity: number
             ) => {
               pushToast({
-                title: 'Invalid Value!',
-                message: `The value you entered is outside the range of ${min} to ${maxValue}. The value was set to ${quantity}.`,
+                title: 'Invalid quantity!',
+                message: `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`,
                 status: 'INFO',
                 icon: (
                   <UIIcon name="CircleWavyWarning" width={30} height={30} />
