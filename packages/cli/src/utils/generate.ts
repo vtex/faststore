@@ -17,11 +17,11 @@ import {
   tmpCustomizationsSrcDir,
   tmpDir,
   tmpFolderName,
-  tmpStoreConfigFileDir,
+  tmpStoreConfigFile,
   tmpThemesCustomizationsFileDir,
   userDir,
   userSrcDir,
-  userStoreConfigFileDir,
+  userStoreConfigFile,
   userThemesFileDir,
 } from './directory'
 
@@ -119,7 +119,7 @@ async function copyCypressFiles() {
       copySync(`${userDir}/cypress.config.ts`, `${tmpDir}/cypress.config.ts`)
     }
 
-    const userStoreConfig = await import(userStoreConfigFileDir)
+    const userStoreConfig = await import(userStoreConfigFile)
 
     // Copy custom Cypress folder and files
     if (
@@ -152,8 +152,8 @@ function copyUserStarterToCustomizations() {
       copySync(userSrcDir, tmpCustomizationsSrcDir)
     }
 
-    if (existsSync(userStoreConfigFileDir)) {
-      copySync(userStoreConfigFileDir, tmpStoreConfigFileDir)
+    if (existsSync(userStoreConfigFile)) {
+      copySync(userStoreConfigFile, tmpStoreConfigFile)
     }
 
     console.log(`${chalk.green('success')} - Starter files copied`)
@@ -163,7 +163,7 @@ function copyUserStarterToCustomizations() {
 }
 
 async function createCmsWebhookUrlsJsonFile() {
-  const userStoreConfig = await import(userStoreConfigFileDir)
+  const userStoreConfig = await import(userStoreConfigFile)
 
   if (
     userStoreConfig?.vtexHeadlessCms &&
@@ -187,7 +187,7 @@ async function createCmsWebhookUrlsJsonFile() {
 }
 
 async function copyTheme() {
-  const storeConfig = await import(userStoreConfigFileDir)
+  const storeConfig = await import(userStoreConfigFile)
   if (storeConfig.theme) {
     const customTheme = path.join(
       userThemesFileDir,
