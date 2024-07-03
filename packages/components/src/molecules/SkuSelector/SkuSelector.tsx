@@ -118,8 +118,8 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
       return !isNaN(value - parseFloat(value))
     }
 
-    const sortOptions = (options) => {
-      return options.sort((a, b) => {
+    const sortOptions = (opt) => {
+      return opt.sort((a, b) => {
         if (isNumeric(a.value) && isNumeric(b.value)) {
           return parseFloat(a.value) - parseFloat(b.value)
         }
