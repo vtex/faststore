@@ -10,7 +10,7 @@ const pathsToMatch = (expected: string, desired: string) => {
 
 describe('directory with base path', () => {
   describe('coreDir', () => {
-    it('is the fastsstoreDir + core', () => {
+    it('is the faststoreDir + core', () => {
       expect(pathsToMatch(coreDir, './node_modules/@faststore/core')).toBe(true)
     })
   })
