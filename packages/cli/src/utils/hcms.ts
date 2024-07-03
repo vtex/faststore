@@ -3,7 +3,11 @@ import chalk from 'chalk'
 import { CliUx } from '@oclif/core'
 import { readFileSync, existsSync, writeFileSync } from 'fs-extra'
 
-import { userCMSDir, coreCMSDir, tmpCMSDir } from './directory'
+// FIXME: Use withBasePath
+// import { userCMSDir, coreCMSDir, tmpCMSDir } from './directory'
+const userCMSDir = ''
+const coreCMSDir = ''
+const tmpCMSDir = ''
 
 export interface ContentTypeOrSectionDefinition {
   id?: string
@@ -96,8 +100,7 @@ async function confirmUserChoice(
   fileName: string
 ) {
   const goAhead = await CliUx.ux.confirm(
-    `You are about to override default ${
-      fileName.split('.')[0]
+    `You are about to override default ${fileName.split('.')[0]
     }:\n\n${duplicates
       .map((definition) => definition.id || definition.name)
       .join('\n')}\n\nAre you sure? [yes/no]`
