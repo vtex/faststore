@@ -5,10 +5,21 @@ import { existsSync } from 'fs'
 import { copySync, moveSync, readdirSync, removeSync } from 'fs-extra'
 import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
+import { ArgInput } from '@oclif/core/lib/interfaces'
 
 export default class Build extends Command {
+
+  static args: ArgInput = [
+    {
+      name: 'path',
+      description: 'The path where the FastStore being built is. Defaults to cwd.',
+    }
+  ]
+
   async run() {
-    const basePath = process.cwd()
+    const { args } = await this.parse(Build)
+
+    const basePath = args.path ?? process.cwd()
 
     const { tmpDir } = withBasePath(basePath)
 
