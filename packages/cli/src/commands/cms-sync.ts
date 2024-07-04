@@ -9,10 +9,18 @@ export default class CmsSync extends Command {
     ['dry-run']: Flags.boolean({ char: 'd' }),
   }
 
-  async run() {
-    const { flags } = await this.parse(CmsSync)
+  static args = [
+    {
+      name: 'path',
+      description: 'The path where the FastStore being synched with the CMS is. Defaults to cwd.',
+    }
+  ]
 
-    const basePath = process.cwd()
+
+  async run() {
+    const { flags, args } = await this.parse(CmsSync)
+
+    const basePath = args.path ?? process.cwd()
     const { tmpDir } = withBasePath(basePath)
 
     await generate({ setup: true, basePath })
