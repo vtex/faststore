@@ -15,7 +15,7 @@ import { withBasePath } from './directory'
 
 interface GenerateOptions {
   setup?: boolean
-  basePath?: string
+  basePath: string
 }
 
 // package.json is copied manually after filtering its content
@@ -225,8 +225,8 @@ async function copyTheme(basePath: string) {
   }
 }
 
-export async function generate(options?: GenerateOptions) {
-  const { setup = false, basePath = process.cwd() } = options ?? {}
+export async function generate(options: GenerateOptions) {
+  const { basePath, setup = false } = options
 
   let setupPromise: Promise<unknown> | null = null
 
