@@ -51,8 +51,16 @@ async function storeDev(rootDir: string, tmpDir: string) {
 }
 
 export default class Dev extends Command {
+  static args = [
+    {
+      name: 'path',
+      description: 'The path where the FastStore being run is. Defaults to cwd.',
+    }
+  ]
+
   async run() {
-    const basePath = process.cwd()
+    const { args } = await this.parse(Dev)
+    const basePath = args.path ?? process.cwd()
 
     const { getRoot, tmpDir } = withBasePath(basePath)
 
