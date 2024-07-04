@@ -1,6 +1,6 @@
 {
   "name": "@faststore/components",
-  "version": "3.0.68",
+  "version": "3.0.77",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "typings": "dist/esm/index.d.ts",
@@ -16,7 +16,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsc --watch",
-    "build": "tsc --module commonjs --outDir dist/cjs & tsc --module esnext --outDir dist/esm",
+    "build": "tsc --module commonjs --outDir dist/cjs && tsc --module esnext --outDir dist/esm",
     "lint": "eslint src/**/*.{ts,tsx}",
     "test": "jest"
   },

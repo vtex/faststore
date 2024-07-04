@@ -1,6 +1,6 @@
 {
   "name": "@faststore/ui",
-  "version": "3.0.68",
+  "version": "3.0.77",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",
@@ -32,7 +32,7 @@
   ],
   "scripts": {
     "dev": "tsc --watch",
-    "build": "tsc --module commonjs --outDir dist/cjs & tsc --module esnext --outDir dist/esm",
+    "build": "tsc --module commonjs --outDir dist/cjs && tsc --module esnext --outDir dist/esm",
     "lint": "eslint src/**/*.{ts,tsx}",
     "size": "size-limit",
     "analyze": "size-limit --why"
@@ -48,7 +48,7 @@
     }
   ],
   "dependencies": {
-    "@faststore/components": "^3.0.68",
+    "@faststore/components": "^3.0.77",
     "include-media": "^1.4.10",
     "modern-normalize": "^1.1.0",
     "react-swipeable": "^7.0.0",

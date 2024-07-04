@@ -72,6 +72,10 @@ export interface CartSidebarProps {
   quantitySelector: {
     useUnitMultiplier?: boolean
   }
+  taxesConfiguration?: {
+    usePriceWithTaxes?: boolean
+    taxesLabel?: string
+  }
 }
 
 function CartSidebar({
@@ -86,9 +90,19 @@ function CartSidebar({
     icon: { icon: checkoutButtonIcon, alt: checkoutButtonIconAlt },
   },
   quantitySelector,
+  taxesConfiguration,
 }: CartSidebarProps) {
   const btnProps = useCheckoutButton()
-  const { items, gifts, totalItems, isValidating, subTotal, total } = useCart()
+  const {
+    items,
+    gifts,
+    totalItems,
+    isValidating,
+    subTotal,
+    total,
+    subTotalWithTaxes,
+    totalWithTaxes,
+  } = useCart({ useUnitMultiplier: quantitySelector?.useUnitMultiplier })
   const { cart: displayCart, closeCart } = useUI()
   const { fadeOut } = useFadeEffect()
   const { sendViewCartEvent } = useViewCartEvent()
@@ -126,6 +140,7 @@ function CartSidebar({
                     <li key={item.id}>
                       <CartItem
                         item={item}
+                        taxesConfiguration={taxesConfiguration}
                         useUnitMultiplier={
                           quantitySelector?.useUnitMultiplier ?? false
                         }
@@ -145,8 +160,18 @@ function CartSidebar({
 
                 <UICartSidebarFooter>
                   <OrderSummary
-                    subTotal={subTotal}
-                    total={total}
+                    subTotal={
+                      taxesConfiguration?.usePriceWithTaxes
+                        ? subTotalWithTaxes
+                        : subTotal
+                    }
+                    total={
+                      taxesConfiguration?.usePriceWithTaxes
+                        ? totalWithTaxes
+                        : total
+                    }
+                    includeTaxes={taxesConfiguration?.usePriceWithTaxes}
+                    includeTaxesLabel={taxesConfiguration?.taxesLabel}
                     numberOfItems={totalItems}
                     checkoutButton={
                       <UIButton

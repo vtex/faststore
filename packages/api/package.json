@@ -1,6 +1,6 @@
 {
   "name": "@faststore/api",
-  "version": "3.0.68",
+  "version": "3.0.76",
   "license": "MIT",
   "main": "dist/cjs/src/index.js",
   "typings": "dist/esm/src/index.d.ts",
@@ -26,7 +26,7 @@
     "dev": "concurrently \"yarn generate -w\" \"tsc --watch\" \"yarn dev:graphql\"",
     "dev:graphql": "nodemon --watch src --ext graphql --exec \"copyfiles \"src/**/*.graphql\" dist/esm\"",
     "dev:server": "tsx --no-cache ./local/server.ts",
-    "build": "graphql-codegen --config codegen.yml && (yarn build:cjs & yarn build:esm)",
+    "build": "graphql-codegen --config codegen.yml && (yarn build:cjs && yarn build:esm)",
     "build:cjs": "tsc --module commonjs --moduleResolution node10 --outDir dist/cjs && copyfiles \"src/**/*.graphql\" dist/cjs",
     "build:esm": "tsc && copyfiles \"src/**/*.graphql\" dist/esm",
     "lint": "eslint src/**/*.ts",

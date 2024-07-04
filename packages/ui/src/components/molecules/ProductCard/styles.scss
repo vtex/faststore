@@ -42,6 +42,11 @@
   --fs-product-card-out-of-stock-bkg-color   : var(--fs-color-disabled-bkg);
   --fs-product-card-out-of-stock-img-opacity : .5;
 
+  // Taxes label
+  --fs-product-card-taxes-label-color        : var(--fs-color-info-text);
+  --fs-product-card-taxes-text-size          : var(--fs-text-size-tiny);
+  --fs-product-card-taxes-text-weight        : var(--fs-text-weight-regular);
+
   // Wide
   --fs-product-card-wide-padding             : 0;
   --fs-product-card-wide-content-padding     : var(--fs-spacing-2);
@@ -104,6 +109,12 @@
     display: flex;
     flex-direction: column;
     row-gap: var(--fs-product-card-gap);
+
+    [data-fs-product-card-taxes-label] {
+      color: var(--fs-product-card-taxes-label-color);
+      font-size: var(--fs-product-card-taxes-text-size);
+      font-weight: var(--fs-product-card-taxes-text-weight);
+    }
 
     [data-fs-link] {
       min-height: 100%;
