@@ -168,7 +168,7 @@ describe('withBasePath as an arbitrary dir', () => {
   })
 
   describe('tmpCMSDir', () => {
-    it('returns the path of the theme file on the .faststore dir', () => {
+    it('returns the path of the CMS dir on the .faststore dir', () => {
       const { tmpCMSDir: tmpCMSDirWithBase } = withBasePath(basePath)
 
       expect(pathsToMatch(tmpCMSDirWithBase, './src/__mocks__/store/.faststore/cms/faststore')).toBe(true)
