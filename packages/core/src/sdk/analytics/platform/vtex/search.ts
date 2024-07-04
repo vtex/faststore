@@ -21,7 +21,10 @@ const randomUUID = () =>
 const createOrRefreshCookie = (key: string, expiresSecond: number) => {
   // Setting the domain attribute specifies which host can receive it; we need it to make the cookies available on the `secure` subdomain.
   // Although https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie mentioned leading dot (.) is not needed and ignored. I couldn't set the cookies without it.
-  const urlDomain = `.${new URL(config.storeUrl).hostname}`
+  const urlDomain =
+    process.env.NODE_ENV === 'development'
+      ? '.localhost'
+      : `.${new URL(config.storeUrl).hostname}`
 
   return () => {
     let currentValue = getCookie(key)
