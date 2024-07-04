@@ -112,7 +112,7 @@ const QuantitySelector = ({
     initial && setQuantity(initial)
   }, [initial])
 
-  const changeValueInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const changeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuantity(Number(e.currentTarget.value))
   }
 
@@ -137,7 +137,7 @@ const QuantitySelector = ({
         id="quantity-selector-input"
         aria-label="Quantity"
         value={useUnitMultiplier ? multipliedUnit : quantity}
-        onChange={changeValueInput}
+        onChange={changeInputValue}
         onBlur={validateBlur}
         disabled={disabled}
       />
