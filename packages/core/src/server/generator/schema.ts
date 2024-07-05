@@ -68,7 +68,8 @@ export function writeGraphqlSchemaFile(apiSchema: GraphQLSchema) {
     // getting the schema before write because somehow this fixes the validation step of codegen from codesandbox
     const schema = printSchemaWithDirectives(apiSchema)
     writeFileSync(
-      path.join(process.cwd(), '@generated', 'schema.graphql'),
+      path.join(__dirname, '..', '..', '..', '@generated', 'schema.graphql'),
+      // path.join(process.cwd(), '@generated', 'schema.graphql'),
       schema
     )
 
