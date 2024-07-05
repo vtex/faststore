@@ -1,6 +1,6 @@
 export { run } from '@oclif/core'
 
-import { default as Init } from './commands/init'
+import { default as Init } from './commands/discovery/init'
 import { default as Dev } from './commands/dev'
 import { default as Build } from './commands/build'
 import { default as Serve } from './commands/start'

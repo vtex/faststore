@@ -1,4 +1,5 @@
-import degit from 'degit'
+
+import degit from 'degit';
 import { Command } from '@oclif/core';
 
 export default class Init extends Command {
