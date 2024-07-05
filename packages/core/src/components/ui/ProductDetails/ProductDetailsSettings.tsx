@@ -9,6 +9,7 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import Selectors from 'src/components/ui/SkuSelector'
 import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
 
+import { Icon as UIIcon, useUI } from '@faststore/ui'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { Label as UILabel } from '@faststore/ui'
 
@@ -48,6 +49,8 @@ function ProductDetailsSettings({
     QuantitySelector,
     __experimentalNotAvailableButton: NotAvailableButton,
   } = useOverrideComponents<'ProductDetails'>()
+
+  const { pushToast } = useUI()
 
   const {
     id,
@@ -157,6 +160,21 @@ function ProductDetailsSettings({
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
             onChange={setQuantity}
+            // TODO: we should get the Toast values from the hCMS
+            onValidateBlur={(
+              min: number,
+              maxValue: number,
+              quantity: number
+            ) => {
+              pushToast({
+                title: 'Invalid quantity!',
+                message: `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`,
+                status: 'INFO',
+                icon: (
+                  <UIIcon name="CircleWavyWarning" width={30} height={30} />
+                ),
+              })
+            }}
           />
         </section>
       )}
