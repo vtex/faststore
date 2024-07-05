@@ -69,7 +69,6 @@ export function writeGraphqlSchemaFile(apiSchema: GraphQLSchema) {
     const schema = printSchemaWithDirectives(apiSchema)
     writeFileSync(
       path.join(__dirname, '..', '..', '..', '@generated', 'schema.graphql'),
-      // path.join(process.cwd(), '@generated', 'schema.graphql'),
       schema
     )
 
