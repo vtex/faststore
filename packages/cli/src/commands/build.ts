@@ -3,12 +3,16 @@ import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
 import { copySync, moveSync, readdirSync, removeSync } from 'fs-extra'
-import { tmpDir, userDir } from '../utils/directory'
+import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 
 export default class Build extends Command {
   async run() {
-    await generate({ setup: true })
+    const basePath = process.cwd()
+
+    const { tmpDir } = withBasePath(basePath)
+
+    await generate({ setup: true, basePath })
 
     const yarnBuildResult = spawnSync(`yarn build`, {
       shell: true,
@@ -20,8 +24,8 @@ export default class Build extends Command {
       process.exit(yarnBuildResult.status)
     }
 
-    await normalizeStandaloneBuildDir()
-    await copyResources()
+    await normalizeStandaloneBuildDir(basePath)
+    await copyResources(basePath)
   }
 }
 
@@ -42,7 +46,9 @@ async function copyResource(from: string, to: string) {
   }
 }
 
-async function normalizeStandaloneBuildDir() {
+async function normalizeStandaloneBuildDir(basePath: string) {
+  const { tmpDir } = withBasePath(basePath)
+
   // Fix Next.js v13+ standalone build output directory
   if (existsSync(`${tmpDir}/.next/standalone/.faststore`)) {
     const standaloneBuildFiles = readdirSync(
@@ -62,7 +68,9 @@ async function normalizeStandaloneBuildDir() {
   }
 }
 
-async function copyResources() {
+async function copyResources(basePath: string) {
+  const { tmpDir, userDir } = withBasePath(basePath)
+
   await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
   await copyResource(`${tmpDir}/lighthouserc.js`, `${userDir}/lighthouserc.js`)
   await copyResource(`${tmpDir}/public`, `${userDir}/public`)
