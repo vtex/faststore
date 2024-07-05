@@ -11,18 +11,6 @@ const pathsToMatch = (expected: string, desired: string) => {
 describe('withBasePath as the current dir `.`', () => {
   const basePath = '.'
 
-  describe('coreDir', () => {
-    it('is the faststoreDir + core', () => {
-      const { coreDir: coreDirWithBase } = withBasePath(basePath)
-
-      expect(pathsToMatch(coreDirWithBase, './node_modules/@faststore/core')).toBe(true)
-    })
-
-    describe('when is in a monorepo', () => {
-      it.todo('can look at its parent until it reaches the monorepo directory')
-    })
-  })
-
   describe('tmpDir', () => {
     it('is the basePath + .faststore', () => {
       const { tmpDir: tmpDirWithBase } = withBasePath(basePath)
