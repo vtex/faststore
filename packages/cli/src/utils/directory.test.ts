@@ -67,14 +67,6 @@ describe('withBasePath as the current dir `.`', () => {
     })
   })
 
-  describe('coreCMSDir', () => {
-    it('returns the path of the CMS dir on @faststore/core package', () => {
-      const { coreCMSDir: coreCMSDirWithBase } = withBasePath(basePath)
-
-      expect(pathsToMatch(coreCMSDirWithBase, './node_modules/@faststore/core/cms/faststore')).toBe(true)
-    })
-  })
-
   describe('tmpCMSWebhookUrlsFile', () => {
     it('returns the path of the CMS webhooks file on the .faststore dir', () => {
       const { tmpCMSWebhookUrlsFile: tmpCMSWebhookUrlsFileWithBase } = withBasePath(basePath)
@@ -111,7 +103,11 @@ describe('withBasePath as an arbitrary dir', () => {
     })
 
     describe('when is in a monorepo', () => {
-      it.todo('can look at its parent until it reaches the monorepo directory')
+      it('can look at its parent until it reaches the monorepo directory', () => {
+        const { coreDir: coreDirWithBase } = withBasePath(path.join(__dirname, '..', '__mocks__', 'monorepo', 'discovery'))
+
+        expect(pathsToMatch(coreDirWithBase, './src/__mocks__/monorepo/node_modules/@faststore/core')).toBe(true)
+      })
     })
   })
 
