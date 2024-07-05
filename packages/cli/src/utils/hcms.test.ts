@@ -15,7 +15,7 @@ import {
   splitCustomDefinitions,
   mergeCMSFile,
 } from './hcms'
-import { tmpCMSDir } from './directory'
+import { withBasePath } from './directory'
 
 jest.mock('fs-extra', () => ({
   readFileSync: jest.fn(),
@@ -26,11 +26,12 @@ jest.mock('fs-extra', () => ({
 describe('mergeCMSFile', () => {
   it("should create a resulting file that contains all core definitions if a custom definitions file doesn't exist", async () => {
     const { readFileSync, existsSync, writeFileSync } = require('fs-extra')
+    const { tmpCMSDir } = withBasePath('.')
 
     existsSync.mockReturnValueOnce(false)
     readFileSync.mockReturnValueOnce(JSON.stringify(coreContentTypes))
 
-    await mergeCMSFile('content-types.json')
+    await mergeCMSFile('content-types.json', '.')
 
     expect(writeFileSync).toHaveBeenCalledWith(
       path.join(tmpCMSDir, 'content-types.json'),
@@ -40,7 +41,7 @@ describe('mergeCMSFile', () => {
     existsSync.mockReturnValueOnce(false)
     readFileSync.mockReturnValueOnce(JSON.stringify(coreSections))
 
-    await mergeCMSFile('sections.json')
+    await mergeCMSFile('sections.json', '.')
 
     expect(writeFileSync).toHaveBeenCalledWith(
       path.join(tmpCMSDir, 'sections.json'),

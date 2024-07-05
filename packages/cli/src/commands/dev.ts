@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 
 import { readFileSync } from 'fs';
 import path from 'path';
-import { getRoot, tmpDir } from '../utils/directory';
+import { withBasePath } from '../utils/directory';
 import { generate } from '../utils/generate';
 
 /**
@@ -31,8 +31,8 @@ const defaultIgnored = [
 
 const devAbortController = new AbortController()
 
-async function storeDev() {
-  const envVars = dotenv.parse(readFileSync(path.join(getRoot(), 'vtex.env')))
+async function storeDev(rootDir: string, tmpDir: string) {
+  const envVars = dotenv.parse(readFileSync(path.join(rootDir, 'vtex.env')))
 
   const devProcess = spawn('yarn dev', {
     shell: true,
@@ -52,9 +52,12 @@ async function storeDev() {
 
 export default class Dev extends Command {
   async run() {
+    const basePath = process.cwd()
+
+    const { getRoot, tmpDir } = withBasePath(basePath)
 
     const queueChange = (/* path: string, remove: boolean */) => {
-      generate()
+      generate({ basePath })
     }
 
     const watcher = chokidar.watch([...defaultPatterns], {
@@ -73,9 +76,9 @@ export default class Dev extends Command {
       watcher.close()
     })
 
-    await generate({ setup: true })
+    await generate({ setup: true, basePath })
 
-    storeDev()
+    storeDev(getRoot(), tmpDir)
 
     return await new Promise((resolve, reject) => {
       watcher

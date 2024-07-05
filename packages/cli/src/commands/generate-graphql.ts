@@ -2,7 +2,7 @@ import { Command, Flags } from '@oclif/core'
 import { existsSync } from 'fs-extra'
 import chalk from 'chalk'
 
-import { coreDir, tmpDir } from '../utils/directory'
+import { withBasePath } from '../utils/directory'
 import { runCommandSync } from '../utils/runCommandSync'
 
 export default class GenerateGraphql extends Command {
@@ -13,6 +13,9 @@ export default class GenerateGraphql extends Command {
 
   async run() {
     const { flags } = await this.parse(GenerateGraphql)
+
+    const basePath = process.cwd()
+    const { tmpDir, coreDir } = withBasePath(basePath)
 
     const debug = flags.debug ?? false
     const isCore = flags.core ?? false

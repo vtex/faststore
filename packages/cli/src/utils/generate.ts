@@ -11,28 +11,19 @@ import {
 } from 'fs-extra'
 import path from 'path'
 
-import {
-  coreDir,
-  tmpCMSWebhookUrlsFile,
-  tmpCustomizationsSrcDir,
-  tmpDir,
-  tmpFolderName,
-  tmpStoreConfigFile,
-  tmpThemesCustomizationsFile,
-  userDir,
-  userSrcDir,
-  userStoreConfigFile,
-  userThemesFileDir,
-} from './directory'
+import { withBasePath } from './directory'
 
 interface GenerateOptions {
   setup?: boolean
+  basePath?: string
 }
 
 // package.json is copied manually after filtering its content
 const ignorePaths = ['package.json', 'node_modules', 'cypress.config.ts']
 
-function createTmpFolder() {
+function createTmpFolder(basePath: string) {
+  const { tmpDir, tmpFolderName } = withBasePath(basePath)
+
   try {
     if (existsSync(tmpDir)) {
       removeSync(tmpDir)
@@ -54,7 +45,9 @@ function createTmpFolder() {
  * where sometimes the package.json from the .faststore folder
  * took precedence over @faststore/core's package.json.
  */
-function filterAndCopyPackageJson() {
+function filterAndCopyPackageJson(basePath: string) {
+  const { coreDir, tmpDir } = withBasePath(basePath)
+
   const corePackageJsonPath = path.join(coreDir, 'package.json')
 
   const corePackageJsonFile = readFileSync(corePackageJsonPath, 'utf8')
@@ -67,7 +60,9 @@ function filterAndCopyPackageJson() {
   })
 }
 
-function copyCoreFiles() {
+function copyCoreFiles(basePath: string) {
+  const { coreDir, tmpDir } = withBasePath(basePath)
+
   try {
     copySync(coreDir, tmpDir, {
       filter(src) {
@@ -80,7 +75,7 @@ function copyCoreFiles() {
       },
     })
 
-    filterAndCopyPackageJson()
+    filterAndCopyPackageJson(basePath)
 
     console.log(`${chalk.green('success')} - Core files copied`)
   } catch (e) {
@@ -88,7 +83,9 @@ function copyCoreFiles() {
   }
 }
 
-function copyPublicFiles() {
+function copyPublicFiles(basePath: string) {
+  const { userDir, tmpDir } = withBasePath(basePath)
+
   const allowList = ['json', 'txt', 'xml', 'ico', 'public']
   try {
     if (existsSync(`${userDir}/public`)) {
@@ -107,7 +104,9 @@ function copyPublicFiles() {
   }
 }
 
-async function copyCypressFiles() {
+async function copyCypressFiles(basePath: string) {
+  const { userDir, userStoreConfigFile, tmpDir } = withBasePath(basePath)
+
   try {
     // Cypress 9.x config file
     if (existsSync(`${userDir}/cypress.json`)) {
@@ -146,7 +145,9 @@ async function copyCypressFiles() {
   }
 }
 
-function copyUserStarterToCustomizations() {
+function copyUserStarterToCustomizations(basePath: string) {
+  const { userSrcDir, tmpCustomizationsSrcDir, userStoreConfigFile, tmpStoreConfigFile } = withBasePath(basePath)
+
   try {
     if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
       copySync(userSrcDir, tmpCustomizationsSrcDir)
@@ -162,7 +163,8 @@ function copyUserStarterToCustomizations() {
   }
 }
 
-async function createCmsWebhookUrlsJsonFile() {
+async function createCmsWebhookUrlsJsonFile(basePath: string) {
+  const { userStoreConfigFile, tmpCMSWebhookUrlsFile } = withBasePath(basePath)
   const userStoreConfig = await import(userStoreConfigFile)
 
   if (
@@ -186,7 +188,8 @@ async function createCmsWebhookUrlsJsonFile() {
   }
 }
 
-async function copyTheme() {
+async function copyTheme(basePath: string) {
+  const { userStoreConfigFile, userThemesFileDir, tmpThemesCustomizationsFile } = withBasePath(basePath)
   const storeConfig = await import(userStoreConfigFile)
   if (storeConfig.theme) {
     const customTheme = path.join(
@@ -197,8 +200,7 @@ async function copyTheme() {
       try {
         copyFileSync(customTheme, tmpThemesCustomizationsFile)
         console.log(
-          `${chalk.green('success')} - ${
-            storeConfig.theme
+          `${chalk.green('success')} - ${storeConfig.theme
           } theme has been applied`
         )
       } catch (err) {
@@ -206,10 +208,8 @@ async function copyTheme() {
       }
     } else {
       console.info(
-        `${chalk.blue('info')} - The ${
-          storeConfig.theme
-        } theme was added to the config file but the ${
-          storeConfig.theme
+        `${chalk.blue('info')} - The ${storeConfig.theme
+        } theme was added to the config file but the ${storeConfig.theme
         }.scss file does not exist in the themes folder. Read more: https://www.faststore.dev/docs/themes/overview`
       )
     }
@@ -226,23 +226,23 @@ async function copyTheme() {
 }
 
 export async function generate(options?: GenerateOptions) {
-  const { setup = false } = options ?? {}
+  const { setup = false, basePath = process.cwd() } = options ?? {}
 
   let setupPromise: Promise<unknown> | null = null
 
   if (setup) {
     setupPromise = Promise.all([
-      createTmpFolder(),
-      copyCoreFiles(),
-      copyCypressFiles(),
-      copyPublicFiles(),
+      createTmpFolder(basePath),
+      copyCoreFiles(basePath),
+      copyCypressFiles(basePath),
+      copyPublicFiles(basePath),
     ])
   }
 
   await Promise.all([
     setupPromise,
-    copyUserStarterToCustomizations(),
-    copyTheme(),
-    createCmsWebhookUrlsJsonFile(),
+    copyUserStarterToCustomizations(basePath),
+    copyTheme(basePath),
+    createCmsWebhookUrlsJsonFile(basePath),
   ])
 }

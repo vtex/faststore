@@ -3,7 +3,7 @@ import { spawn } from 'child_process'
 import chokidar from 'chokidar'
 
 import { generate } from '../utils/generate'
-import { getRoot, tmpDir } from '../utils/directory'
+import { withBasePath } from '../utils/directory'
 
 /**
  * Taken from toolbelt
@@ -28,7 +28,7 @@ const defaultIgnored = [
 
 const testAbortController = new AbortController()
 
-async function storeTest() {
+async function storeTest(tmpDir: string) {
   const testProcess = spawn('yarn test:e2e', {
     shell: true,
     cwd: tmpDir,
@@ -43,6 +43,9 @@ async function storeTest() {
 
 export default class Test extends Command {
   async run() {
+    const basePath = process.cwd()
+    const { getRoot, tmpDir } = withBasePath(basePath)
+
     const watcher = chokidar.watch([...defaultPatterns], {
       atomic: stabilityThreshold,
       awaitWriteFinish: {
@@ -59,9 +62,9 @@ export default class Test extends Command {
       watcher.close()
     })
 
-    await generate({ setup: true })
+    await generate({ setup: true, basePath })
 
-    storeTest()
+    storeTest(tmpDir)
 
     return await new Promise((resolve, reject) => {
       watcher
