@@ -74,6 +74,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
       {...otherProps}
     >
       <div data-fs-button-wrapper>
+        testing
         {loading && (
           <p data-fs-button-loading-label>
             {loadingLabel}
