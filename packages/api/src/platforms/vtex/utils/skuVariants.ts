@@ -132,7 +132,12 @@ function sortVariants(variantsByName: SkuVariantsByName) {
   const sortedVariants = variantsByName
 
   for (const variantProperty in variantsByName) {
-    variantsByName[variantProperty].sort((a, b) => compare(a.value, b.value))
+
+    const allNumbers = variantsByName[variantProperty].every(
+      (option: any) => !Number.isNaN(option.label)
+    )
+
+    allNumbers ?? variantsByName[variantProperty].sort((a, b) => compare(a.value, b.value))
   }
 
   return sortedVariants
