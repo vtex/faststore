@@ -1,15 +1,28 @@
+
 import fs from 'node:fs';
 import degit from 'degit';
 import { Command } from '@oclif/core';
 import { confirm } from '@inquirer/prompts'
 
 export default class Init extends Command {
+  static args = [
+    {
+      name: 'path',
+      description: 'The path where the Discovery folder will be created.'
+    }
+  ]
+
   static description = "Creates a discovery folder based on the starter.store template.";
 
-  static examples = ["$ yarn faststore discovery init"];
+  static examples = ["$ yarn faststore init discovery"];
 
   async run() {
-    const discoveryFolderExists = fs.existsSync('discovery');
+    const { args } = await this.parse(Init)
+
+    const basePath = args.path ?? "."
+    const discoveryPath = `${basePath}/discovery`
+
+    const discoveryFolderExists = fs.existsSync(discoveryPath);
 
     if (discoveryFolderExists) {
       const confirmOverride = await confirm({ message: 'It looks like you already have a discovery folder in your store. Do you want to override it?' });
@@ -23,8 +36,8 @@ export default class Init extends Command {
 
     this.log('Pulling starter.store template...');
 
-    discoveryEmitter.clone('discovery').then(() => {
-      this.log('Discovery created successfuly! You can find it at discovery/');
+    discoveryEmitter.clone(discoveryPath).then(() => {
+      this.log(`Discovery created successfully! You can find it at ${discoveryPath}`);
     })
   }
 }
