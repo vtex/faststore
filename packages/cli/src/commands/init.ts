@@ -19,9 +19,7 @@ export default class Init extends Command {
   async run() {
     const { args } = await this.parse(Init)
 
-    const basePath = args.path ?? "."
-    const discoveryPath = `${basePath}/discovery`
-
+    const discoveryPath = args.path ?? "./discovery"
     const discoveryFolderExists = fs.existsSync(discoveryPath);
 
     if (discoveryFolderExists) {
