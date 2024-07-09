@@ -13,7 +13,7 @@
   "scripts": {
     "generate:schema": "tsx src/server/generator/generateGraphQLSchemaFile.ts",
     "generate:codegen": "graphql-codegen",
-    "generate:copy-back": "copyfiles \"@generated/**/*\" $DESTINATION",
+    "generate:copy-back": "node scripts/copy-generated.js \"@generated\" $DESTINATION",
     "generate": "faststore generate-graphql -c -d",
     "build": "yarn partytown & yarn generate && next build",
     "dev": "yarn partytown & yarn generate && next dev",
@@ -60,7 +60,6 @@
     "@vtex/prettier-config": "1.0.0",
     "autoprefixer": "^10.4.0",
     "chalk": "^5.2.0",
-    "copyfiles": "^2.4.1",
     "css-loader": "^6.7.1",
     "deepmerge": "^4.3.1",
     "draftjs-to-html": "^0.9.1",
