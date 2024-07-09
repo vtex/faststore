@@ -8,7 +8,7 @@ export default class Init extends Command {
   static args = [
     {
       name: 'path',
-      description: 'The path where the Discovery folder will be created.'
+      description: 'The path where the Discovery folder will be created. Defaults to ./discovery.'
     }
   ]
 
