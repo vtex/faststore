@@ -3,7 +3,7 @@ import { spawn } from 'child_process';
 import chokidar from 'chokidar';
 import dotenv from 'dotenv';
 
-import { readFileSync } from 'fs';
+import { readFileSync, cpSync } from 'fs';
 import path from 'path';
 import { withBasePath } from '../utils/directory';
 import { generate } from '../utils/generate';
@@ -45,6 +45,13 @@ async function storeDev(rootDir: string, tmpDir: string) {
     }
   })
 
+  devProcess.on('message', (message) => {
+    console.log(message)
+  })
+
+  // const { success } = this.copyGenerated(join(tmpDir, '@generated'), coreDir)
+
+
   devProcess.on('close', () => {
     devAbortController.abort()
   })
@@ -57,6 +64,16 @@ export default class Dev extends Command {
       description: 'The path where the FastStore being run is. Defaults to cwd.',
     }
   ]
+
+  copyGenerated(from: string, to: string) {
+    try {
+      cpSync(from, to, { recursive: true, force: true })
+
+      return { success: true }
+    } catch (err) {
+      return { success: false }
+    }
+  }
 
   async run() {
     const { args } = await this.parse(Dev)
