@@ -13,7 +13,6 @@
   "scripts": {
     "generate:schema": "tsx src/server/generator/generateGraphQLSchemaFile.ts",
     "generate:codegen": "graphql-codegen",
-    "generate:copy-back": "copyfiles \"@generated/**/*\" $DESTINATION",
     "format:generated": "prettier --write \"@generated/**/*.{ts,js,tsx,jsx,json}\" --loglevel error",
     "generate": "yarn generate:schema && yarn generate:codegen && yarn format:generated",
     "build": "yarn partytown & yarn generate && next build",
