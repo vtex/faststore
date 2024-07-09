@@ -50,12 +50,9 @@ const formatError: FormatErrorHandler = (err) => {
 }
 
 function loadGeneratedSchema(): TypeSource {
-  return loadFilesSync(
-    path.join(process.cwd(), '@generated', 'schema.graphql'),
-    {
-      extensions: ['graphql'],
-    }
-  )
+  return loadFilesSync(path.join(process.cwd(), '@generated'), {
+    extensions: ['graphql'],
+  })
 }
 
 function getFinalAPISchema() {
