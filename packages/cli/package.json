@@ -27,6 +27,7 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
+    "@antfu/ni": "^0.21.12",
     "@faststore/eslint-config": "^3.0.68",
     "@faststore/shared": "^3.0.68",
     "@types/chai": "^4",
@@ -60,8 +61,8 @@
     "lint": "eslint src/**/*.ts",
     "test": "jest src/**/*.test.ts",
     "postpack": "shx rm -f oclif.manifest.json",
-    "posttest": "yarn lint",
-    "prepack": "yarn build && oclif manifest && oclif readme",
+    "posttest": "na run lint",
+    "prepack": "na run && oclif manifest && oclif readme",
     "version": "oclif readme && git add README.md"
   },
   "bugs": "https://github.com/vtex/faststore/issues",

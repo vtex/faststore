@@ -7,6 +7,7 @@ import { readFileSync } from 'fs';
 import path from 'path';
 import { withBasePath } from '../utils/directory';
 import { generate } from '../utils/generate';
+import { getPreferredPackageManager } from '../utils/commands';
 
 /**
  * Taken from toolbelt
@@ -34,7 +35,9 @@ const devAbortController = new AbortController()
 async function storeDev(rootDir: string, tmpDir: string) {
   const envVars = dotenv.parse(readFileSync(path.join(rootDir, 'vtex.env')))
 
-  const devProcess = spawn('yarn dev', {
+  const packageManager = getPreferredPackageManager()
+
+  const devProcess = spawn(`${packageManager} run dev`, {
     shell: true,
     cwd: tmpDir,
     signal: devAbortController.signal,

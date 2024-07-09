@@ -5,6 +5,7 @@ import { existsSync } from 'fs'
 import { copySync, moveSync, readdirSync, removeSync } from 'fs-extra'
 import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
+import { getPreferredPackageManager } from '../utils/commands'
 
 export default class Build extends Command {
   async run() {
@@ -14,14 +15,16 @@ export default class Build extends Command {
 
     await generate({ setup: true, basePath })
 
-    const yarnBuildResult = spawnSync(`yarn build`, {
+    const packageManager = getPreferredPackageManager()
+
+    const buildResult = spawnSync(`${packageManager} run build`, {
       shell: true,
       cwd: tmpDir,
       stdio: 'inherit',
     })
 
-    if (yarnBuildResult.status && yarnBuildResult.status !== 0) {
-      process.exit(yarnBuildResult.status)
+    if (buildResult.status && buildResult.status !== 0) {
+      process.exit(buildResult.status)
     }
 
     await normalizeStandaloneBuildDir(basePath)

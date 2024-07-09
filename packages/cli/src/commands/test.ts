@@ -29,7 +29,7 @@ const defaultIgnored = [
 const testAbortController = new AbortController()
 
 async function storeTest(tmpDir: string) {
-  const testProcess = spawn('yarn test:e2e', {
+  const testProcess = spawn('na run test:e2e', {
     shell: true,
     cwd: tmpDir,
     signal: testAbortController.signal,
