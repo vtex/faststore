@@ -23,7 +23,7 @@ export default class Init extends Command {
     const discoveryFolderExists = fs.existsSync(discoveryPath);
 
     if (discoveryFolderExists) {
-      const confirmOverride = await confirm({ message: 'It looks like you already have a discovery folder in your store. Do you want to override it?' });
+      const confirmOverride = await confirm({ message: `It looks like you already have a discovery folder named "${discoveryPath}" in your store. Do you want to override it?` });
 
       if (!confirmOverride) return this.log('🛑 Interrupted initializing discovery');
     }
