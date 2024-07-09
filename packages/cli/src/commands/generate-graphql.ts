@@ -7,8 +7,7 @@ import { runCommandSync } from '../utils/runCommandSync'
 
 export default class GenerateGraphql extends Command {
   static flags = {
-    debug: Flags.boolean({ char: 'd' }),
-    core: Flags.boolean({ char: 'c', hidden: true }),
+    debug: Flags.boolean({ char: 'd' })
   }
 
   static args = [
@@ -25,9 +24,8 @@ export default class GenerateGraphql extends Command {
     const { tmpDir, coreDir } = withBasePath(basePath)
 
     const debug = flags.debug ?? false
-    const isCore = flags.core ?? false
 
-    if (!isCore && !existsSync(tmpDir)) {
+    if (!existsSync(tmpDir)) {
       console.log(
         `${chalk.red(
           'error'
@@ -38,30 +36,12 @@ export default class GenerateGraphql extends Command {
     }
 
     runCommandSync({
-      cmd: 'yarn generate:schema',
+      cmd: 'yarn generate',
       errorMessage:
         "Failed to run 'yarn generate:schema'. Please check your setup.",
       throws: 'error',
       debug,
-      cwd: isCore ? undefined : tmpDir,
-    })
-
-    runCommandSync({
-      cmd: 'yarn generate:codegen',
-      errorMessage:
-        'GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect',
-      throws: 'error',
-      debug,
-      cwd: isCore ? undefined : tmpDir,
-    })
-
-    runCommandSync({
-      cmd: 'yarn format:generated',
-      errorMessage:
-        "Failed to format generated files. 'yarn format:generated' thrown errors",
-      throws: 'warning',
-      debug,
-      cwd: isCore ? undefined : tmpDir,
+      cwd: tmpDir,
     })
 
     // yarn generate:copy-back expects the DESTINATION var to be present so it can copy the files to the correct directory
@@ -71,7 +51,7 @@ export default class GenerateGraphql extends Command {
         "Failed to copy back typings files. 'yarn generate:copy-back' thrown errors",
       throws: 'warning',
       debug,
-      cwd: isCore ? undefined : tmpDir,
+      cwd: tmpDir,
     })
 
     console.log(
