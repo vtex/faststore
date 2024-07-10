@@ -14,6 +14,8 @@ This starter ships the main FastStore configuration files to get your store up a
 
 1. **Install dependencies**
 
+> PS: you can install dependencies using the package manager of your choosing. In this guide, we'll be using `yarn` as an example.
+
    Install dependencies with yarn
 
    ```shell

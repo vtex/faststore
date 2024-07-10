@@ -15,8 +15,8 @@
     "generate:codegen": "graphql-codegen",
     "generate:copy-back": "copyfiles \"@generated/**/*\" $DESTINATION",
     "generate": "faststore generate-graphql -c -d",
-    "build": "yarn partytown & yarn generate && next build",
-    "dev": "yarn partytown & yarn generate && next dev",
+    "build": "na run partytown & na run generate && next build",
+    "dev": "na run partytown & na run generate && next dev",
     "clean": "rm -r .next",
     "serve": "next start",
     "test:e2e": "cypress open",
@@ -84,6 +84,7 @@
     "typescript": "4.7.3"
   },
   "devDependencies": {
+    "@antfu/ni": "^0.21.12",
     "@cypress/code-coverage": "^3.12.1",
     "@envelop/testing": "^6.0.0",
     "@faststore/cli": "^3.0.80",
