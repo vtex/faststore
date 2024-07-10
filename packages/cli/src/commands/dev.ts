@@ -7,6 +7,7 @@ import { readFileSync, cpSync } from 'fs';
 import path from 'path';
 import { withBasePath } from '../utils/directory';
 import { generate } from '../utils/generate';
+import { runCommandSync } from '../utils/runCommandSync';
 
 /**
  * Taken from toolbelt
@@ -31,30 +32,46 @@ const defaultIgnored = [
 
 const devAbortController = new AbortController()
 
-async function storeDev(rootDir: string, tmpDir: string) {
+async function storeDev(rootDir: string, tmpDir: string, coreDir: string) {
   const envVars = dotenv.parse(readFileSync(path.join(rootDir, 'vtex.env')))
 
-  const devProcess = spawn('yarn dev', {
+  runCommandSync({
+    cmd: 'yarn predev',
+    errorMessage:
+      'GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect',
+    throws: 'error',
+    debug: false,
+    cwd: tmpDir,
+  })
+
+  copyGenerated(path.join(tmpDir, '@generated'), path.join(coreDir, '@generated'))
+
+  const devProcess = spawn('yarn dev-only', {
     shell: true,
     cwd: tmpDir,
     signal: devAbortController.signal,
-    stdio: 'inherit',
+    stdio: ['inherit', 'inherit', 'inherit', 'ipc'],
     env: {
       ...process.env,
       ...envVars,
     }
   })
 
-  devProcess.on('message', (message) => {
-    console.log(message)
-  })
-
-  // const { success } = this.copyGenerated(join(tmpDir, '@generated'), coreDir)
-
+  devProcess.on('message', () => { })
 
   devProcess.on('close', () => {
     devAbortController.abort()
   })
+}
+
+function copyGenerated(from: string, to: string) {
+  try {
+    cpSync(from, to, { recursive: true, force: true })
+
+    return { success: true }
+  } catch (err) {
+    return { success: false }
+  }
 }
 
 export default class Dev extends Command {
@@ -65,21 +82,11 @@ export default class Dev extends Command {
     }
   ]
 
-  copyGenerated(from: string, to: string) {
-    try {
-      cpSync(from, to, { recursive: true, force: true })
-
-      return { success: true }
-    } catch (err) {
-      return { success: false }
-    }
-  }
-
   async run() {
     const { args } = await this.parse(Dev)
     const basePath = args.path ?? process.cwd()
 
-    const { getRoot, tmpDir } = withBasePath(basePath)
+    const { getRoot, tmpDir, coreDir } = withBasePath(basePath)
 
     const queueChange = (/* path: string, remove: boolean */) => {
       generate({ basePath })
@@ -103,7 +110,7 @@ export default class Dev extends Command {
 
     await generate({ setup: true, basePath })
 
-    storeDev(getRoot(), tmpDir)
+    storeDev(getRoot(), tmpDir, coreDir)
 
     return await new Promise((resolve, reject) => {
       watcher
