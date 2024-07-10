@@ -50,7 +50,7 @@ async function storeDev(rootDir: string, tmpDir: string, coreDir: string) {
     shell: true,
     cwd: tmpDir,
     signal: devAbortController.signal,
-    stdio: ['inherit', 'inherit', 'inherit', 'ipc'],
+    stdio: 'inherit',
     env: {
       ...process.env,
       ...envVars,
