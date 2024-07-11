@@ -7,6 +7,7 @@ import { useLocalizedVariables } from './useLocalizedVariables'
 import { useSession } from 'src/sdk/session'
 
 import type {
+  ClientManyProductsQueryQueryVariables,
   ClientProductGalleryQueryQuery as Query,
   ClientProductGalleryQueryQueryVariables as Variables,
 } from '@generated/graphql'
@@ -61,12 +62,19 @@ export const fragment = gql(`
   }
 `)
 
+type ProductGalleryQueryOptions = {
+  itemsPerPage: number
+  selectedFacets: Facet[]
+  sort: ClientManyProductsQueryQueryVariables['sort']
+  term: ClientManyProductsQueryQueryVariables['term']
+}
+
 export const useProductGalleryQuery = ({
   term,
   sort,
   selectedFacets,
   itemsPerPage,
-}) => {
+}: ProductGalleryQueryOptions) => {
   const { locale } = useSession()
   const { state, setState } = useSearch()
 

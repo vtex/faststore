@@ -22,13 +22,14 @@
       ]
     },
     "forceConsistentCasingInFileNames": true,
-    "strict": false,
+    "noImplicitAny": true,
     "incremental": true,
     "isolatedModules": true,
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strict": false
   },
   "include": ["*.d.ts", "src/**/*.ts", "src/**/*.tsx", "@generated/**/*.ts"],
   "exclude": ["node_modules", "public"]

@@ -27,13 +27,18 @@ export interface SortProps {
   }
 }
 
+type SortOptionKeys = keyof SortProps['options']
+
 function Sort({ label = 'Sort by', options = OptionsMap }: SortProps) {
   const { state, setState } = useSearch()
 
-  const optionsMap = Object.keys(options).reduce((acc, currentKey) => {
-    acc[currentKey] = options[currentKey] ?? OptionsMap[currentKey]
-    return acc
-  }, {})
+  const optionsMap = Object.keys(options).reduce(
+    (acc, currentKey: SortOptionKeys) => {
+      acc[currentKey] = options[currentKey] ?? OptionsMap[currentKey]
+      return acc
+    },
+    {} as Record<SortOptionKeys, string>
+  )
 
   return (
     <SelectField

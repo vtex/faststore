@@ -14,7 +14,12 @@ import { ProductSummary_ProductFragment } from '@generated/graphql'
 import SearchProductItem from 'src/components/search/SearchProductItem'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 
-function SearchDropdown({ sort, ...otherProps }) {
+interface SearchDropdownProps {
+  sort: SearchState['sort']
+  [key: string]: any
+}
+
+function SearchDropdown({ sort, ...otherProps }: SearchDropdownProps) {
   const {
     values: { onSearchSelection, products, term, terms },
   } = useSearch()
@@ -32,14 +37,14 @@ function SearchDropdown({ sort, ...otherProps }) {
             linkProps={{
               href: formatSearchPath({
                 term: suggestion,
-                sort: sort as SearchState['sort'],
+                sort: sort,
               }),
               onClick: () =>
                 onSearchSelection?.(
                   suggestion,
                   formatSearchPath({
                     term: suggestion,
-                    sort: sort as SearchState['sort'],
+                    sort: sort,
                   })
                 ),
             }}

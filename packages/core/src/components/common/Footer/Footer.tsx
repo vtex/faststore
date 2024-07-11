@@ -1,14 +1,19 @@
+import { ReactNode } from 'react'
 import { mark } from 'src/sdk/tests/mark'
 
-export function FooterInfo({ children }) {
+interface FooterProps {
+  children: ReactNode
+}
+
+export function FooterInfo({ children }: FooterProps) {
   return <div data-fs-footer-info>{children}</div>
 }
 
-export function FooterNavigation({ children }) {
+export function FooterNavigation({ children }: FooterProps) {
   return <div data-fs-footer-navigation>{children}</div>
 }
 
-export function Footer({ children }) {
+export function Footer({ children }: FooterProps) {
   return (
     <footer
       data-fs-footer

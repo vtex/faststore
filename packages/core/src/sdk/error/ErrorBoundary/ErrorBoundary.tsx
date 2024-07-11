@@ -15,8 +15,20 @@ if (typeof window !== 'undefined') {
   window.setInterval(() => setReloads(0), 30e3)
 }
 
-class ErrorBoundary extends Component<{ children: ReactNode }> {
-  public state = { hasError: false, error: null }
+interface ErrorBoundaryProps {
+  children: ReactNode
+}
+
+interface ErrorBoundaryState {
+  hasError: Boolean
+  error: Error | null
+}
+
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  public state: ErrorBoundaryState = {
+    hasError: false,
+    error: null,
+  }
 
   public static getDerivedStateFromError(error: Error) {
     return {
