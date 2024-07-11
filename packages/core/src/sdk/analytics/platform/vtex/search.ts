@@ -1,5 +1,5 @@
 /**
- * More info at: https://www.notion.so/vtexhandbook/Event-API-Documentation-48eee26730cf4d7f80f8fd7262231f84
+ * More info at: https://developers.vtex.com/docs/api-reference/intelligent-search-events-api-headless
  */
 import type { AnalyticsEvent } from '@faststore/sdk'
 import type {
@@ -15,7 +15,7 @@ const ONE_YEAR_S = 365 * 24 * 3600
 
 const randomUUID = () =>
   typeof crypto.randomUUID === 'function'
-    ? crypto.randomUUID()
+    ? crypto.randomUUID().replaceAll('-', '')
     : (Math.random() * 1e6).toFixed(0)
 
 const createOrRefreshCookie = (key: string, expiresSecond: number) => {
@@ -42,8 +42,8 @@ const createOrRefreshCookie = (key: string, expiresSecond: number) => {
 }
 
 const user = {
-  anonymous: createOrRefreshCookie('vtex-faststore-anonymous', ONE_YEAR_S),
-  session: createOrRefreshCookie('vtex-faststore-session', THIRTY_MINUTES_S),
+  anonymous: createOrRefreshCookie('vtex-search-anonymous', ONE_YEAR_S),
+  session: createOrRefreshCookie('vtex-search-session', THIRTY_MINUTES_S),
 }
 
 type SearchEvent =
