@@ -35,6 +35,7 @@
   },
   "sideEffects": false,
   "dependencies": {
+    "@antfu/ni": "^0.21.12",
     "@builder.io/partytown": "^0.6.1",
     "@envelop/core": "^1.2.0",
     "@envelop/graphql-jit": "^1.1.1",
@@ -84,7 +85,6 @@
     "typescript": "4.7.3"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.21.12",
     "@cypress/code-coverage": "^3.12.1",
     "@envelop/testing": "^6.0.0",
     "@faststore/cli": "^3.0.80",

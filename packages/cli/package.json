@@ -17,6 +17,7 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
+    "@antfu/ni": "^0.21.12",
     "@oclif/core": "^1.16.4",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-not-found": "^2.3.3",
@@ -27,7 +28,6 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.21.12",
     "@faststore/eslint-config": "^3.0.68",
     "@faststore/shared": "^3.0.68",
     "@types/chai": "^4",
