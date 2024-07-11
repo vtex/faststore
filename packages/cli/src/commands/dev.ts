@@ -57,8 +57,6 @@ async function storeDev(rootDir: string, tmpDir: string, coreDir: string) {
     }
   })
 
-  devProcess.on('message', () => { })
-
   devProcess.on('close', () => {
     devAbortController.abort()
   })
