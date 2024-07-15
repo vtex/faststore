@@ -26,7 +26,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   title: string
   /**
-   * Props for the link from ProductCard component.
+   * Props for the link from the ProductCard component.
    */
   linkProps?: Partial<LinkProps<LinkElementType>>
   /**
@@ -34,7 +34,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   price?: PriceDefinition
   /**
-   * Enables a outOfStock status.
+   * Enables an outOfStock status.
    */
   outOfStock?: boolean
   /**
@@ -42,7 +42,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   outOfStockLabel?: string
   /**
-   * Specifies Rating Value of the product.
+   * Specifies the Rating Value of the product.
    */
   ratingValue?: number
   /**
@@ -54,15 +54,15 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   showDiscountBadge?: boolean
   /**
-   * Callback function when button is clicked.
+   * Callback function when the button is clicked.
    */
   onButtonClick?: () => void
   /**
-   * Enables to include taxes status.
+   * Specifies whether the displayed price should include taxes.
    */
   includeTaxes?: boolean
   /**
-   * Label to determine if the price is with taxes included.
+   * Label to determine if the price includes taxes.
    */
   includeTaxesLabel?: string
 }
