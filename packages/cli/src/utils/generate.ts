@@ -60,6 +60,25 @@ function filterAndCopyPackageJson(basePath: string) {
   })
 }
 
+const TS_CONFIG_STRICT_RULES_ENABLED = ['noImplicitAny'] as const
+
+function disableTsConfigStrictRules(basePath: string) {
+  const { coreDir, tmpDir } = withBasePath(basePath)
+
+  const coreTsConfigPath = path.join(coreDir, 'tsconfig.json')
+
+  const coreTsConfigFile = readFileSync(coreTsConfigPath, 'utf8')
+  const tsConfig = JSON.parse(coreTsConfigFile)
+
+  TS_CONFIG_STRICT_RULES_ENABLED.forEach(strictRule => {
+    tsConfig.compilerOptions[strictRule] = false
+  })
+
+  writeJsonSync(path.join(tmpDir, 'tsconfig.json'), tsConfig, {
+    spaces: 2,
+  })
+}
+
 function copyCoreFiles(basePath: string) {
   const { coreDir, tmpDir } = withBasePath(basePath)
 
@@ -76,6 +95,7 @@ function copyCoreFiles(basePath: string) {
     })
 
     filterAndCopyPackageJson(basePath)
+    disableTsConfigStrictRules(basePath)
 
     console.log(`${chalk.green('success')} - Core files copied`)
   } catch (e) {
