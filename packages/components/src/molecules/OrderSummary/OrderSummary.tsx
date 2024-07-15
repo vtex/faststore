@@ -28,6 +28,10 @@ export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
   /**
    * Label for the total value of the order.
    */
+  totalLabel?: string
+  /**
+   * Total value of the order.
+   */
   totalValue?: string
   /**
    * Specifies whether the displayed price should include taxes.
