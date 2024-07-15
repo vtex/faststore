@@ -66,7 +66,7 @@ export default class GenerateGraphql extends Command {
       cwd: isCore ? undefined : tmpDir,
     })
 
-    // ${packageManager} generate:copy-back expects the DESTINATION var to be present so it can copy the files to the correct directory
+    // The command generate:copy-back expects the DESTINATION var to be present so it can copy the files to the correct directory
     runCommandSync({
       cmd: `DESTINATION=${coreDir} ${packageManager} run generate:copy-back`,
       errorMessage:
