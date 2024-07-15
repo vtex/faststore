@@ -4,17 +4,12 @@ import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 
 import RenderSections from 'src/components/cms/RenderSections'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
-import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
-import Incentives from 'src/components/sections/Incentives'
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
-import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { mark } from 'src/sdk/tests/mark'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
+
+import dynamic from 'next/dynamic'
 
 import GlobalSections, {
   GlobalSectionsData,
@@ -24,15 +19,61 @@ import PageProvider from 'src/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../faststore.config'
 
+// function nextDynamic(path: string, module: string) {
+//   return dynamic(() => import(path).then((mod: any) => mod[module]) as Promise<React.FC<any>>)
+// }
+
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
-  Hero,
-  Incentives,
-  ProductShelf,
-  ProductTiles,
-  BannerText,
-  BannerNewsletter,
-  Newsletter,
+  // Hero: nextDynamic('src/components/sections/Hero/OverriddenDefaultHero', 'OverriddenDefaultHero'),
+  Hero: dynamic(
+    () =>
+      import('src/components/sections/Hero/OverriddenDefaultHero').then(
+        (mod: any) => mod['OverriddenDefaultHero']
+      ) as Promise<React.FC<any>>
+  ),
+  Incentives: dynamic(
+    () =>
+      import('src/components/sections/Incentives').then(
+        (mod: any) => mod
+      ) as Promise<React.FC<any>>
+  ),
+  ProductShelf: dynamic(
+    () =>
+      import(
+        'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
+      ).then((mod: any) => mod['OverriddenDefaultProductShelf']) as Promise<
+        React.FC<any>
+      >
+  ),
+  ProductTiles: dynamic(
+    () =>
+      import('src/components/sections/ProductTiles').then(
+        (mod: any) => mod
+      ) as Promise<React.FC<any>>
+  ),
+  BannerText: dynamic(
+    () =>
+      import(
+        'src/components/sections/BannerText/OverriddenDefaultBannerText'
+      ).then((mod: any) => mod['OverriddenDefaultBannerText']) as Promise<
+        React.FC<any>
+      >
+  ),
+  BannerNewsletter: dynamic(
+    () =>
+      import('src/components/sections/BannerNewsletter/BannerNewsletter').then(
+        (mod: any) => mod
+      ) as Promise<React.FC<any>>
+  ),
+  Newsletter: dynamic(
+    () =>
+      import(
+        'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
+      ).then((mod: any) => mod['OverriddenDefaultNewsletter']) as Promise<
+        React.FC<any>
+      >
+  ),
   ...CUSTOM_COMPONENTS,
 }
 
