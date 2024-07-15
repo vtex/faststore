@@ -40,7 +40,7 @@ async function storeDev(rootDir: string, tmpDir: string, coreDir: string) {
     errorMessage:
       'GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect',
     throws: 'error',
-    debug: false,
+    debug: true,
     cwd: tmpDir,
   })
 
