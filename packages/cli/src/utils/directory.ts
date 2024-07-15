@@ -1,4 +1,5 @@
 import path from 'path'
+import fs from 'node:fs'
 
 export const withBasePath = (basepath: string) => {
   const tmpFolderName = '.faststore'
@@ -16,10 +17,30 @@ export const withBasePath = (basepath: string) => {
 
     return basepath
   }
-  const getFastStorePath = () => {
 
-    // TODO: a more complex version of this would look into the monorepo parent
-    return path.join(basepath, 'node_modules', '@faststore')
+  /* 
+   * This will loop from the basepath until the process.cwd() looking for node_modules/@faststore/core
+   * 
+   * If it reaches process.cwd() (or /, as a safeguard), without finding it, it will throw an exception
+   */
+  const getCorePackagePath = () => {
+    const coreFromNodeModules = path.join('node_modules', '@faststore', 'core')
+    const resolvedCwd = path.resolve(process.cwd())
+
+    const parents: string[] = []
+
+    let attemptedPath
+    do {
+      attemptedPath = path.join(basepath, ...parents, coreFromNodeModules)
+
+      if (fs.existsSync(attemptedPath)) {
+        return attemptedPath
+      }
+
+      parents.push('..')
+    } while (path.resolve(attemptedPath) !== resolvedCwd || path.resolve(attemptedPath) !== '/')
+
+    throw `Could not find @node_modules on ${basepath} or any of its parents until ${attemptedPath}`
   }
 
   const tmpDir = path.join(getRoot(), tmpFolderName)
@@ -41,7 +62,7 @@ export const withBasePath = (basepath: string) => {
     tmpCMSWebhookUrlsFile: path.join(tmpDir, 'cms-webhook-urls.json'),
     tmpStoreConfigFile: path.join(tmpDir, 'src', 'customizations', 'faststore.config.js'),
 
-    coreDir: path.join(getFastStorePath(), 'core'),
-    coreCMSDir: path.join(getFastStorePath(), 'core', 'cms', 'faststore'),
+    coreDir: getCorePackagePath(),
+    coreCMSDir: path.join(getCorePackagePath(), 'cms', 'faststore'),
   }
 }

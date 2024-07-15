@@ -12,10 +12,17 @@ export default class GenerateGraphql extends Command {
     core: Flags.boolean({ char: 'c', hidden: true }),
   }
 
-  async run() {
-    const { flags } = await this.parse(GenerateGraphql)
+  static args = [
+    {
+      name: 'path',
+      description: 'The path where the FastStore GraphQL customization is. Defaults to cwd.',
+    }
+  ]
 
-    const basePath = process.cwd()
+  async run() {
+    const { flags, args } = await this.parse(GenerateGraphql)
+
+    const basePath = args.path ?? process.cwd()
     const { tmpDir, coreDir } = withBasePath(basePath)
 
     const debug = flags.debug ?? false

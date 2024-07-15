@@ -8,8 +8,18 @@ import { generate } from '../utils/generate'
 import { getPreferredPackageManager } from '../utils/commands'
 
 export default class Build extends Command {
+
+  static args = [
+    {
+      name: 'path',
+      description: 'The path where the FastStore being built is. Defaults to cwd.',
+    }
+  ]
+
   async run() {
-    const basePath = process.cwd()
+    const { args } = await this.parse(Build)
+
+    const basePath = args.path ?? process.cwd()
 
     const { tmpDir } = withBasePath(basePath)
 

@@ -42,8 +42,16 @@ async function storeTest(tmpDir: string) {
 }
 
 export default class Test extends Command {
+  static args = [
+    {
+      name: 'path',
+      description: 'The path where the FastStore being tested is. Defaults to cwd.',
+    }
+  ]
+
   async run() {
-    const basePath = process.cwd()
+    const { args } = await this.parse(Test)
+    const basePath = args.path ?? process.cwd()
     const { getRoot, tmpDir } = withBasePath(basePath)
 
     const watcher = chokidar.watch([...defaultPatterns], {
