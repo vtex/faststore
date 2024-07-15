@@ -4,6 +4,7 @@ import chokidar from 'chokidar'
 
 import { generate } from '../utils/generate'
 import { withBasePath } from '../utils/directory'
+import { getPreferredPackageManager } from '../utils/commands'
 
 /**
  * Taken from toolbelt
@@ -29,7 +30,9 @@ const defaultIgnored = [
 const testAbortController = new AbortController()
 
 async function storeTest(tmpDir: string) {
-  const testProcess = spawn('na run test:e2e', {
+  const packageManager = getPreferredPackageManager()
+
+  const testProcess = spawn(`${packageManager} run test:e2e`, {
     shell: true,
     cwd: tmpDir,
     signal: testAbortController.signal,
