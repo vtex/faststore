@@ -22,9 +22,10 @@ const format = (params: State): URL => {
   url.searchParams.set('sort', sort)
   url.searchParams.set('page', page.toString())
 
-  if (Array.from(passThrough?.entries())) {
-    for (const [key, value] of passThrough.entries()) {
-      url.searchParams.append(key, value);
+  if (passThrough && passThrough.size > 0) {
+    const entriesArray = Array.from(passThrough.entries())
+    for (const [key, value] of entriesArray) {
+      url.searchParams.append(key, value)
     }
   }
 
