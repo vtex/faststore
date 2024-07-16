@@ -1,20 +1,31 @@
-import { useRef, useState, useCallback } from 'react'
+import { lazy, useCallback, useRef, useState } from 'react'
 
-import { useUI, useScrollDirection, Icon as UIIcon } from '@faststore/ui'
+import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
 import { mark } from 'src/sdk/tests/mark'
 
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
-import NavbarLinks from 'src/components/navigation/NavbarLinks'
-import NavbarSlider from 'src/components/navigation/NavbarSlider'
+// import NavbarLinks from 'src/components/navigation/NavbarLinks'
 import CartToggle from 'src/components/cart/CartToggle'
-import Logo from 'src/components/ui/Logo'
+import NavbarSlider from 'src/components/navigation/NavbarSlider'
 import Link from 'src/components/ui/Link'
-import { ButtonSignIn } from 'src/components/ui/Button'
+import Logo from 'src/components/ui/Logo'
+// import { ButtonSignIn } from 'src/components/ui/Button'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
+
+const ButtonSignIn = lazy(() =>
+  import('src/components/ui/Button').then((module) => ({
+    default: module['ButtonSignIn'],
+  }))
+)
+// const SearchInput = lazy(() => import('src/components/search/SearchInput'))
+const NavbarLinks = lazy(() => import('src/components/navigation/NavbarLinks'))
+// const NavbarSlider = lazy(
+//   () => import('src/components/navigation/NavbarSlider')
+// )
 
 export interface NavbarProps {
   /**
