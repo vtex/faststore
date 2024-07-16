@@ -14,7 +14,6 @@ import type { CSSProperties } from 'react'
 import {
   Suspense,
   forwardRef,
-  lazy,
   useDeferredValue,
   useImperativeHandle,
   useRef,
@@ -26,9 +25,7 @@ import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
 
-const SearchDropdown = lazy(
-  () => import('src/components/search/SearchDropdown')
-)
+import SearchDropdown from 'src/components/search/SearchDropdown'
 
 const MAX_SUGGESTIONS = 5
 
