@@ -8,6 +8,7 @@ import path from 'path';
 import { withBasePath } from '../utils/directory';
 import { generate } from '../utils/generate';
 import { runCommandSync } from '../utils/runCommandSync';
+import chalk from 'chalk';
 
 /**
  * Taken from toolbelt
@@ -44,7 +45,12 @@ async function storeDev(rootDir: string, tmpDir: string, coreDir: string) {
     cwd: tmpDir,
   })
 
-  copyGenerated(path.join(tmpDir, '@generated'), path.join(coreDir, '@generated'))
+  const { success } = copyGenerated(path.join(tmpDir, '@generated'), path.join(coreDir, '@generated'))
+
+  if (!success) {
+    console.log(`${chalk.yellow('warn')} - Failed to copy @generated schema back to node_modules, autocomplete and DX might be impacted.`)
+    console.log(`Attempted to copy from ${path.join(tmpDir, '@generated')} to ${path.join(coreDir, '@generated')}`)
+  }
 
   const devProcess = spawn('yarn dev-only', {
     shell: true,
