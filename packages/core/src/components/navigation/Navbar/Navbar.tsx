@@ -6,7 +6,6 @@ import { mark } from 'src/sdk/tests/mark'
 
 import CartToggle from 'src/components/cart/CartToggle'
 import NavbarLinks from 'src/components/navigation/NavbarLinks'
-// import NavbarSlider from 'src/components/navigation/NavbarSlider'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
 import { ButtonSignIn } from 'src/components/ui/Button'
@@ -16,13 +15,6 @@ import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
 
-// const ButtonSignIn = lazy(() =>
-//   import('src/components/ui/Button').then((module) => ({
-//     default: module['ButtonSignIn'],
-//   }))
-// )
-// const SearchInput = lazy(() => import('src/components/search/SearchInput'))
-// const NavbarLinks = lazy(() => import('src/components/navigation/NavbarLinks'))
 const NavbarSlider = lazy(
   () => import('src/components/navigation/NavbarSlider')
 )
