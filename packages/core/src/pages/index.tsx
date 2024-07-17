@@ -7,7 +7,7 @@ import RenderSections from 'src/components/cms/RenderSections'
 // import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 // import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
-// import Incentives from 'src/components/sections/Incentives'
+import Incentives from 'src/components/sections/Incentives'
 // import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 // import ProductTiles from 'src/components/sections/ProductTiles'
@@ -24,7 +24,6 @@ import PageProvider from 'src/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../faststore.config'
 
-const Incentives = lazy(() => import('src/components/sections/Incentives'))
 const ProductTiles = lazy(() => import('src/components/sections/ProductTiles'))
 const BannerNewsletter = lazy(
   () => import('src/components/sections/BannerNewsletter/BannerNewsletter')
