@@ -4,11 +4,11 @@ import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
 import { mark } from 'src/sdk/tests/mark'
 
+import CartToggle from 'src/components/cart/CartToggle'
+import NavbarLinks from 'src/components/navigation/NavbarLinks'
+// import NavbarSlider from 'src/components/navigation/NavbarSlider'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
-// import NavbarLinks from 'src/components/navigation/NavbarLinks'
-import CartToggle from 'src/components/cart/CartToggle'
-import NavbarSlider from 'src/components/navigation/NavbarSlider'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 // import { ButtonSignIn } from 'src/components/ui/Button'
@@ -22,10 +22,10 @@ const ButtonSignIn = lazy(() =>
   }))
 )
 // const SearchInput = lazy(() => import('src/components/search/SearchInput'))
-const NavbarLinks = lazy(() => import('src/components/navigation/NavbarLinks'))
-// const NavbarSlider = lazy(
-//   () => import('src/components/navigation/NavbarSlider')
-// )
+// const NavbarLinks = lazy(() => import('src/components/navigation/NavbarLinks'))
+const NavbarSlider = lazy(
+  () => import('src/components/navigation/NavbarSlider')
+)
 
 export interface NavbarProps {
   /**
