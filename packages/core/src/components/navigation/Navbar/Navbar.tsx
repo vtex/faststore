@@ -77,6 +77,7 @@ function Navbar({
     NavbarRow,
     NavbarButtons,
     IconButton,
+    _experimentalSignInButton: SignInButton,
   } = useOverrideComponents<'Navbar'>()
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
@@ -152,7 +153,7 @@ function Navbar({
               aria-hidden={!searchExpanded}
             />
 
-            <ButtonSignIn {...signInButton} />
+            <SignInButton.Component {...signInButton} />
 
             <CartToggle {...cart} />
           </NavbarButtons.Component>
