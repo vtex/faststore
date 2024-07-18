@@ -17,6 +17,7 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
+    "@faststore/core": "^3.0.81",
     "@inquirer/prompts": "^5.1.2",
     "@oclif/core": "^1.16.4",
     "@oclif/plugin-help": "^5",
