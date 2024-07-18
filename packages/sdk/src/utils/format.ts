@@ -2,7 +2,7 @@ import type { State } from '../types'
 
 const format = (params: State): URL => {
   const url = new URL(params.base, 'http://localhost')
-  const { page, selectedFacets, sort, term } = params
+  const { page, selectedFacets, sort, term, passThrough } = params
 
   if (term !== null) {
     url.searchParams.set('q', term)
@@ -21,6 +21,12 @@ const format = (params: State): URL => {
 
   url.searchParams.set('sort', sort)
   url.searchParams.set('page', page.toString())
+
+if (passThrough) {
+    for (const [key, value] of passThrough.entries()) {
+      url.searchParams.append(key, value)
+    }
+  }
 
   return url
 }

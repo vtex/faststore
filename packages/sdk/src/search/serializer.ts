@@ -3,6 +3,24 @@ import { isSearchSort, setFacet } from './facets'
 import { initialize } from './useSearchState'
 import type { SearchSort, State } from '../types'
 
+function getPassThroughSearchParams(
+  params: URLSearchParams,
+  denyList: string[]
+) {
+  const passthroughParams = new URLSearchParams()
+  const denySet = new Set(denyList)
+
+  const entriesArray = Array.from(params.entries())
+
+  for (const [key, value] of entriesArray) {
+    if (!denySet.has(key)) {
+      passthroughParams.append(key, value)
+    }
+  }
+
+  return passthroughParams
+}
+
 export const parse = ({ pathname, searchParams }: URL): State => {
   const state = initialize({
     base: pathname,
@@ -27,6 +45,14 @@ export const parse = ({ pathname, searchParams }: URL): State => {
       })
     }
   }
+
+  state.passThrough = getPassThroughSearchParams(searchParams, [
+    'q',
+    'sort',
+    'page',
+    'facets',
+    ...facets,
+  ])
 
   return state
 }
