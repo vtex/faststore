@@ -60,8 +60,14 @@ function filterAndCopyPackageJson(basePath: string) {
   })
 }
 
+// Temporary array of strict rules enabled so far.
 const TS_CONFIG_STRICT_RULES_ENABLED = ['noImplicitAny'] as const
 
+/**
+ * Modify TypeScript compilation settings (tsconfig.json) to disable specific strict
+ * type checking rules when files are moved to the .faststore folder. 
+ * When all strict rules are migrated. The idea is to only change the strict to false
+ */
 function disableTsConfigStrictRules(basePath: string) {
   const { coreDir, tmpDir } = withBasePath(basePath)
 
