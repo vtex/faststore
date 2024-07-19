@@ -132,12 +132,13 @@ function sortVariants(variantsByName: SkuVariantsByName) {
   const sortedVariants = variantsByName
 
   for (const variantProperty in variantsByName) {
-
-    const allNumbers = variantsByName[variantProperty].every(
-      (option: any) => !Number.isNaN(option.label)
+    const areAllNumbers = variantsByName[variantProperty].every(
+      (option: any) => !Number.isNaN(Number(option.value))
     )
 
-    allNumbers ?? variantsByName[variantProperty].sort((a, b) => compare(a.value, b.value))
+    // Preserve Admin's variants order for cases variants are strings
+    areAllNumbers &&
+      variantsByName[variantProperty].sort((a, b) => compare(a.value, b.value))
   }
 
   return sortedVariants
@@ -187,7 +188,10 @@ export function getFormattedVariations(
 
       previouslySeenPropertyValues.add(nameValueIdentifier)
 
-      const variantImageToUse = findSkuVariantImage(variant.images, dominantVariantName)
+      const variantImageToUse = findSkuVariantImage(
+        variant.images,
+        dominantVariantName
+      )
 
       const formattedVariant = {
         src: variantImageToUse.imageUrl,
@@ -214,7 +218,10 @@ export function getFormattedVariations(
 
       previouslySeenPropertyValues.add(nameValueIdentifier)
 
-      const variantImageToUse = findSkuVariantImage(variant.images, variationProperty.name)
+      const variantImageToUse = findSkuVariantImage(
+        variant.images,
+        variationProperty.name
+      )
 
       const formattedVariant = {
         src: variantImageToUse.imageUrl,
