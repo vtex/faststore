@@ -2,6 +2,7 @@ import { Command } from '@oclif/core'
 import { spawn } from 'child_process'
 import { existsSync } from 'fs-extra'
 import { withBasePath } from '../utils/directory'
+import { getPreferredPackageManager } from '../utils/commands'
 
 export default class Start extends Command {
   static args = [
@@ -15,6 +16,7 @@ export default class Start extends Command {
     const { args } = await this.parse(Start)
     const basePath = args.path ?? process.cwd()
     const { tmpDir } = withBasePath(basePath)
+    const packageManager = getPreferredPackageManager()
 
     if (!existsSync(tmpDir)) {
       throw Error(
@@ -22,7 +24,7 @@ export default class Start extends Command {
       )
     }
 
-    return spawn(`yarn serve`, {
+    return spawn(`${packageManager} run serve`, {
       shell: true,
       cwd: tmpDir,
       stdio: 'inherit',

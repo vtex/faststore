@@ -1,5 +1,6 @@
 import { Command } from '@oclif/core';
 import { spawn } from 'child_process';
+import chalk from 'chalk';
 import chokidar from 'chokidar';
 import dotenv from 'dotenv';
 
@@ -7,8 +8,9 @@ import { readFileSync, cpSync } from 'fs';
 import path from 'path';
 import { withBasePath } from '../utils/directory';
 import { generate } from '../utils/generate';
+import { getPreferredPackageManager } from '../utils/commands';
 import { runCommandSync } from '../utils/runCommandSync';
-import chalk from 'chalk';
+
 
 /**
  * Taken from toolbelt
@@ -36,8 +38,10 @@ const devAbortController = new AbortController()
 async function storeDev(rootDir: string, tmpDir: string, coreDir: string) {
   const envVars = dotenv.parse(readFileSync(path.join(rootDir, 'vtex.env')))
 
+  const packageManager = getPreferredPackageManager()
+
   runCommandSync({
-    cmd: 'yarn predev',
+    cmd: `${packageManager} predev`,
     errorMessage:
       'GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect',
     throws: 'error',
@@ -52,7 +56,7 @@ async function storeDev(rootDir: string, tmpDir: string, coreDir: string) {
     console.log(`Attempted to copy from ${path.join(tmpDir, '@generated')} to ${path.join(coreDir, '@generated')}`)
   }
 
-  const devProcess = spawn('yarn dev-only', {
+  const devProcess = spawn(`${packageManager} dev-only`, {
     shell: true,
     cwd: tmpDir,
     signal: devAbortController.signal,

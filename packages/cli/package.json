@@ -17,6 +17,7 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
+    "@antfu/ni": "^0.21.12",
     "@faststore/core": "^3.0.87",
     "@inquirer/prompts": "^5.1.2",
     "@oclif/core": "^1.16.4",
@@ -64,8 +65,8 @@
     "lint": "eslint src/**/*.ts",
     "test": "jest src/**/*.test.ts",
     "postpack": "shx rm -f oclif.manifest.json",
-    "posttest": "yarn lint",
-    "prepack": "yarn build && oclif manifest && oclif readme",
+    "posttest": "na run lint",
+    "prepack": "na run && oclif manifest && oclif readme",
     "version": "oclif readme && git add README.md"
   },
   "bugs": "https://github.com/vtex/faststore/issues",
