@@ -13,6 +13,7 @@
   // Flag
   --fs-payment-methods-flag-width           : var(--fs-spacing-5);
   --fs-payment-methods-flag-height          : var(--fs-spacing-4);
+  --fs-payment-methods-flag-bkg-color       : var(--fs-color-neutral-0);
   --fs-payment-methods-flag-border-width    : var(--fs-border-width);
   --fs-payment-methods-flag-border-color    : var(--fs-color-neutral-3);
   --fs-payment-methods-flag-border-radius   : var(--fs-border-radius-small);
@@ -58,5 +59,6 @@
     overflow: hidden;
     border: var(--fs-payment-methods-flag-border-width) solid var(--fs-payment-methods-flag-border-color);
     border-radius: var(--fs-payment-methods-flag-border-radius);
+    background-color: var(--fs-payment-methods-flag-bkg-color);
   }
 }
