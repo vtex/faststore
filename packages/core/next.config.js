@@ -26,6 +26,7 @@ const nextConfig = {
     scrollRestoration: true,
     // Trace user's `node_modules` dir
     outputFileTracingRoot: path.join(__dirname, '../'),
+    optimizeCss: true,
   },
   webpack: (config, { isServer, dev }) => {
     // https://github.com/vercel/next.js/discussions/11267#discussioncomment-2479112
