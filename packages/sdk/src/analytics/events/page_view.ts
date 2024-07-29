@@ -1,7 +1,7 @@
 export interface PageViewParams {
   page_title?: string,
   location?: string,
-  send_page_view?: string,
+  send_page_view?: boolean,
 }
 
 export interface PageViewEvent {
