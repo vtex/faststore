@@ -54,6 +54,10 @@ export interface ProductDetailsProps {
   quantitySelector: {
     useUnitMultiplier?: boolean
   }
+  taxesConfiguration?: {
+    usePriceWithTaxes?: boolean
+    taxesLabel?: string
+  }
 }
 
 function ProductDetails({
@@ -75,6 +79,7 @@ function ProductDetails({
   },
   notAvailableButton: { title: notAvailableButtonTitle },
   quantitySelector,
+  taxesConfiguration,
 }: ProductDetailsProps) {
   const {
     DiscountBadge,
@@ -105,8 +110,9 @@ function ProductDetails({
     isVariantOf: { name, productGroupID: productId },
     image: productImages,
     offers: {
-      offers: [{ availability, price, listPrice, seller }],
+      offers: [{ availability, price, listPrice, listPriceWithTaxes, seller }],
       lowPrice,
+      lowPriceWithTaxes,
     },
   } = product
 
@@ -166,8 +172,16 @@ function ProductDetails({
                     size={discountBadgeSize ?? DiscountBadge.props.size}
                     // Dynamic props shouldn't be overridable
                     // This decision can be reviewed later if needed
-                    listPrice={listPrice}
-                    spotPrice={lowPrice}
+                    listPrice={
+                      taxesConfiguration?.usePriceWithTaxes
+                        ? listPriceWithTaxes
+                        : listPrice
+                    }
+                    spotPrice={
+                      taxesConfiguration?.usePriceWithTaxes
+                        ? lowPriceWithTaxes
+                        : lowPrice
+                    }
                   />
                 )
               }
@@ -198,6 +212,7 @@ function ProductDetails({
                 setQuantity={setQuantity}
                 product={product}
                 isValidating={isValidating}
+                taxesConfiguration={taxesConfiguration}
               />
             </section>
 
@@ -281,10 +296,13 @@ export const fragment = gql(`
 
     offers {
       lowPrice
+      lowPriceWithTaxes
       offers {
         availability
         price
+        priceWithTaxes
         listPrice
+        listPriceWithTaxes
         seller {
           identifier
         }

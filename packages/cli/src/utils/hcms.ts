@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import { CliUx } from '@oclif/core'
 import { readFileSync, existsSync, writeFileSync } from 'fs-extra'
 
-import { userCMSDir, coreCMSDir, tmpCMSDir } from './directory'
+import { withBasePath } from './directory'
 
 export interface ContentTypeOrSectionDefinition {
   id?: string
@@ -96,8 +96,7 @@ async function confirmUserChoice(
   fileName: string
 ) {
   const goAhead = await CliUx.ux.confirm(
-    `You are about to override default ${
-      fileName.split('.')[0]
+    `You are about to override default ${fileName.split('.')[0]
     }:\n\n${duplicates
       .map((definition) => definition.id || definition.name)
       .join('\n')}\n\nAre you sure? [yes/no]`
@@ -110,7 +109,9 @@ async function confirmUserChoice(
   return
 }
 
-export async function mergeCMSFile(fileName: string) {
+export async function mergeCMSFile(fileName: string, basePath: string) {
+  const { coreCMSDir, userCMSDir, tmpCMSDir } = withBasePath(basePath)
+
   const coreFilePath = path.join(coreCMSDir, fileName)
   const customFilePath = path.join(userCMSDir, fileName)
 
@@ -172,10 +173,10 @@ export async function mergeCMSFile(fileName: string) {
   }
 }
 
-export async function mergeCMSFiles() {
+export async function mergeCMSFiles(basePath: string) {
   try {
-    await mergeCMSFile('content-types.json')
-    await mergeCMSFile('sections.json')
+    await mergeCMSFile('content-types.json', basePath)
+    await mergeCMSFile('sections.json', basePath)
   } catch (err) {
     console.error(`${chalk.red('error')} - ${err}`)
   }

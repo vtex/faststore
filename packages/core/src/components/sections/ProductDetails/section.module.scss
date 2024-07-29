@@ -1,5 +1,10 @@
 @layer components {
   .section {
+    // Taxes label
+    --fs-product-details-taxes-label-color        : var(--fs-color-info-text);
+    --fs-product-details-taxes-text-size          : var(--fs-text-size-tiny);
+    --fs-product-details-taxes-text-weight        : var(--fs-text-weight-regular);
+
     margin-top: 0;
 
     @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
@@ -24,5 +29,11 @@
     @import "@faststore/ui/src/components/organisms/ShippingSimulation/styles.scss";
     @import "@faststore/ui/src/components/organisms/ImageGallery/styles.scss";
     @import "@faststore/ui/src/components/organisms/ProductDetails/styles.scss";
+
+    [data-fs-product-details-taxes-label] {
+      font-size: var(--fs-product-details-taxes-text-size);
+      font-weight: var(--fs-product-details-taxes-text-weight);
+      color: var(--fs-product-details-taxes-label-color);
+    }
   }
 }

@@ -50,6 +50,13 @@ export interface ProductCardProps {
    * Enables a DiscountBadge to the component.
    */
   showDiscountBadge?: boolean
+  /**
+   * Define taxes configuration, if taxes should be considered
+   */
+  taxesConfiguration?: {
+    usePriceWithTaxes?: boolean
+    taxesLabel?: string
+  }
 }
 
 function ProductCard({
@@ -63,6 +70,7 @@ function ProductCard({
   buttonLabel = 'Add',
   onButtonClick,
   showDiscountBadge = true,
+  taxesConfiguration,
   ...otherProps
 }: ProductCardProps) {
   const {
@@ -70,8 +78,9 @@ function ProductCard({
     isVariantOf: { name },
     image: [img],
     offers: {
-      lowPrice: spotPrice,
-      offers: [{ listPrice, availability }],
+      lowPrice,
+      lowPriceWithTaxes,
+      offers: [{ listPrice: listPriceBase, availability, listPriceWithTaxes }],
     },
   } = product
 
@@ -87,6 +96,13 @@ function ProductCard({
     () => availability !== 'https://schema.org/InStock',
     [availability]
   )
+
+  const spotPrice = taxesConfiguration?.usePriceWithTaxes
+    ? lowPriceWithTaxes
+    : lowPrice
+  const listPrice = taxesConfiguration?.usePriceWithTaxes
+    ? listPriceWithTaxes
+    : listPriceBase
 
   const hasDiscount = spotPrice <= listPrice
 
@@ -120,6 +136,8 @@ function ProductCard({
         onButtonClick={onButtonClick}
         linkProps={linkProps}
         showDiscountBadge={hasDiscount && showDiscountBadge}
+        includeTaxes={taxesConfiguration?.usePriceWithTaxes}
+        includeTaxesLabel={taxesConfiguration?.taxesLabel}
       />
     </UIProductCard>
   )
@@ -152,10 +170,12 @@ export const fragment = gql(`
 
     offers {
       lowPrice
+      lowPriceWithTaxes
       offers {
         availability
         price
         listPrice
+        listPriceWithTaxes
         quantity
         seller {
           identifier

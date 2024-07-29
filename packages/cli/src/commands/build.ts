@@ -2,26 +2,43 @@ import { Command } from '@oclif/core'
 import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
-import { copySync, removeSync, moveSync, readdirSync } from 'fs-extra'
-import { tmpDir, userDir } from '../utils/directory'
+import { copySync, moveSync, readdirSync, removeSync } from 'fs-extra'
+import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
+import { getPreferredPackageManager } from '../utils/commands'
 
 export default class Build extends Command {
-  async run() {
-    await generate({ setup: true })
 
-    const yarnBuildResult = spawnSync(`yarn build`, {
+  static args = [
+    {
+      name: 'path',
+      description: 'The path where the FastStore being built is. Defaults to cwd.',
+    }
+  ]
+
+  async run() {
+    const { args } = await this.parse(Build)
+
+    const basePath = args.path ?? process.cwd()
+
+    const { tmpDir } = withBasePath(basePath)
+
+    await generate({ setup: true, basePath })
+
+    const packageManager = getPreferredPackageManager()
+
+    const buildResult = spawnSync(`${packageManager} run build`, {
       shell: true,
       cwd: tmpDir,
       stdio: 'inherit',
     })
 
-    if (yarnBuildResult.status && yarnBuildResult.status !== 0) {
-      process.exit(yarnBuildResult.status)
+    if (buildResult.status && buildResult.status !== 0) {
+      process.exit(buildResult.status)
     }
 
-    await normalizeStandaloneBuildDir()
-    await copyResources()
+    await normalizeStandaloneBuildDir(basePath)
+    await copyResources(basePath)
   }
 }
 
@@ -42,7 +59,9 @@ async function copyResource(from: string, to: string) {
   }
 }
 
-async function normalizeStandaloneBuildDir() {
+async function normalizeStandaloneBuildDir(basePath: string) {
+  const { tmpDir } = withBasePath(basePath)
+
   // Fix Next.js v13+ standalone build output directory
   if (existsSync(`${tmpDir}/.next/standalone/.faststore`)) {
     const standaloneBuildFiles = readdirSync(
@@ -62,7 +81,10 @@ async function normalizeStandaloneBuildDir() {
   }
 }
 
-async function copyResources() {
+async function copyResources(basePath: string) {
+  const { tmpDir, userDir } = withBasePath(basePath)
+
   await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
   await copyResource(`${tmpDir}/lighthouserc.js`, `${userDir}/lighthouserc.js`)
+  await copyResource(`${tmpDir}/public`, `${userDir}/public`)
 }

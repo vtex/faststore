@@ -929,6 +929,22 @@
             }
           }
         },
+        "taxesConfiguration": {
+          "title": "Taxes Configuration",
+          "type": "object",
+          "properties": {
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
+            },
+            "taxesLabel": {
+              "title": "Tax label to be displayed",
+              "type": "string",
+              "default": "Tax included"
+            }
+          }
+        },
         "productCardConfiguration": {
           "title": "Product Card Configuration",
           "type": "object",
@@ -979,6 +995,22 @@
           "default": "buy",
           "enum": ["buy", "view"],
           "enumNames": ["Who bought also bought", "Who saw also saw"]
+        },
+        "taxesConfiguration": {
+          "title": "Taxes Configuration",
+          "type": "object",
+          "properties": {
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
+            },
+            "taxesLabel": {
+              "title": "Tax label to be displayed",
+              "type": "string",
+              "default": "Tax included"
+            }
+          }
         }
       }
     }
@@ -1057,6 +1089,22 @@
                 "type": "string",
                 "default": "140"
               }
+            }
+          }
+        },
+        "taxesConfiguration": {
+          "title": "Taxes Configuration",
+          "type": "object",
+          "properties": {
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
+            },
+            "taxesLabel": {
+              "title": "Tax label to be displayed",
+              "type": "string",
+              "default": "Tax included"
             }
           }
         }
@@ -1554,6 +1602,22 @@
               "default": false
             }
           }
+        },
+        "taxesConfiguration": {
+          "title": "Taxes Configuration",
+          "type": "object",
+          "properties": {
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
+            },
+            "taxesLabel": {
+              "title": "Tax label to be displayed",
+              "type": "string",
+              "default": "Tax included"
+            }
+          }
         }
       }
     }
@@ -1696,6 +1760,22 @@
               "title": "Cards should be bordered?",
               "type": "boolean",
               "default": true
+            },
+            "taxesConfiguration": {
+              "title": "Taxes Configuration",
+              "type": "object",
+              "properties": {
+                "usePriceWithTaxes": {
+                  "title": "Should use taxes to calculate the price?",
+                  "type": "boolean",
+                  "default": false
+                },
+                "taxesLabel": {
+                  "title": "Tax label to be displayed",
+                  "type": "string",
+                  "default": "Tax included"
+                }
+              }
             }
           }
         },
@@ -1856,6 +1936,22 @@
               "title": "Should use unit multiplier?",
               "type": "boolean",
               "default": false
+            }
+          }
+        },
+        "taxesConfiguration": {
+          "title": "Taxes Configuration",
+          "type": "object",
+          "properties": {
+            "usePriceWithTaxes": {
+              "title": "Should use taxes to calculate the price?",
+              "type": "boolean",
+              "default": false
+            },
+            "taxesLabel": {
+              "title": "Tax label to be displayed",
+              "type": "string",
+              "default": "Tax included"
             }
           }
         }
