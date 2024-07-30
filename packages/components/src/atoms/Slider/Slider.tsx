@@ -1,13 +1,15 @@
+'use client'
+
 /**
  * This code is inspired by the work of [sandra-lewis](https://codesandbox.io/u/sandra-lewis)
  */
-import React, {
-  useState,
-  useMemo,
-  useImperativeHandle,
-  forwardRef,
-} from 'react'
 import type { HTMLAttributes, ReactNode } from 'react'
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react'
 
 interface Range {
   absolute: number

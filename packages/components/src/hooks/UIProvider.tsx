@@ -1,3 +1,5 @@
+'use client'
+
 import type { PropsWithChildren, ReactNode } from 'react'
 import React, { createContext, useContext, useMemo, useReducer } from 'react'
 

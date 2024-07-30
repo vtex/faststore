@@ -6,7 +6,7 @@ import {
   Icon as UIIcon,
 } from '@faststore/ui'
 
-import ProductCard from 'src/components/product/ProductCard'
+import ProductCard from 'app/components/product/ProductCard'
 import FilterDesktop from 'src/components/search/Filter/FilterDesktop'
 import EmptyGallery from './EmptyGallery'
 

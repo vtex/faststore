@@ -19,7 +19,7 @@ export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 
 import { Section } from '@vtex/client-cms'
 import storeConfig from 'faststore.config'
-import { PageContentType, getPage } from 'src/server/cms'
+import { PageContentType, getPage } from 'app/server/cms'
 
 export type GlobalSectionsData = {
   sections: Section[]

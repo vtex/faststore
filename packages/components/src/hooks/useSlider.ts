@@ -1,3 +1,5 @@
+'use client'
+
 import type { Dispatch } from 'react'
 import { useReducer } from 'react'
 import type { SwipeableProps } from 'react-swipeable'

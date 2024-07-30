@@ -6,7 +6,7 @@ import type {
   ClientProductQueryQueryVariables,
 } from '@generated/graphql'
 
-import { useQuery } from '../graphql/useQuery'
+import { useQuery } from 'app/sdk/graphql/useQuery'
 import { useSession } from '../session'
 
 const query = gql(`

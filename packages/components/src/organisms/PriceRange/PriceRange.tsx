@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react'
 import type { AriaAttributes } from 'react'
 

@@ -22,9 +22,9 @@ import LandingPage, {
 import ProductListingPage, {
   ProductListingPageProps,
 } from 'src/components/templates/ProductListingPage'
-import { PageContentType } from 'src/server/cms'
-import { getPLP, PLPContentType } from 'src/server/cms/plp'
-import { getDynamicContent } from 'src/utils/dynamicContent'
+import { PageContentType } from 'app/server/cms'
+import { getPLP, PLPContentType } from 'app/server/cms/plp'
+import { getDynamicContent } from 'app/utils/dynamicContent'
 
 type BaseProps = {
   globalSections: GlobalSectionsData

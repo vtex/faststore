@@ -1,8 +1,7 @@
-import chalk from 'chalk'
 import { ComponentType, PropsWithChildren, memo, useMemo } from 'react'
 
-import SectionBoundary from './SectionBoundary'
 import { Section } from '@vtex/client-cms'
+import SectionBoundary from './SectionBoundary'
 
 interface Props {
   components: Record<string, ComponentType<any>>
@@ -30,10 +29,8 @@ const RenderSectionsBase = ({ sections = [], components }: Props) => {
 
         if (!Component) {
           // TODO: add a documentation link to help to do this
-          console.info(
-            `${chalk.yellow(
-              'warn'
-            )} - ${name} not found. Add a new component for this section or remove it from the CMS`
+          console.warn(
+            `${name} not found. Add a new component for this section or remove it from the CMS`
           )
 
           return null

@@ -1,23 +1,23 @@
 import type { ComponentType } from 'react'
 
+import type { ClientProductGalleryQueryQuery as ClientProductGalleryQuery } from '@generated/graphql'
 import RenderSections from 'app/components/cms/RenderSections'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
+import BannerNewsletter from 'app/components/sections/BannerNewsletter/BannerNewsletter'
+import { OverriddenDefaultBannerText as BannerText } from 'app/components/sections/BannerText/OverriddenDefaultBannerText'
+import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
+import { OverriddenDefaultNewsletter as Newsletter } from 'app/components/sections/Newsletter/OverriddenDefaultNewsletter'
+import { OverriddenDefaultProductShelf as ProductShelf } from 'app/components/sections/ProductShelf/OverriddenDefaultProductShelf'
+import ProductTiles from 'app/components/sections/ProductTiles'
+import PageProvider, { SearchPageContext } from 'app/sdk/overrides/PageProvider'
+import { SearchContentType } from 'app/server/cms'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
-import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
-import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { SearchPageContextType } from 'src/pages/s'
-import PageProvider, { SearchPageContext } from 'src/sdk/overrides/PageProvider'
 import {
   useCreateUseGalleryPage,
   UseGalleryPageContext,
 } from 'src/sdk/product/usePageProductsQuery'
-import { SearchContentType } from 'src/server/cms'
-import type { ClientProductGalleryQueryQuery as ClientProductGalleryQuery } from '@generated/graphql'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.

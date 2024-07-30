@@ -6,7 +6,7 @@ import type {
   ClientShippingSimulationQueryQueryVariables as Variables,
 } from '@generated/graphql'
 
-import { request } from '../graphql/request'
+import { request } from 'app/sdk/graphql/request'
 
 const query = gql(`
   query ClientShippingSimulationQuery(

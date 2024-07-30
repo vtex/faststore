@@ -7,9 +7,9 @@ import type {
   ValidateSessionMutation,
   ValidateSessionMutationVariables,
 } from '@generated/graphql'
+import { cartStore } from 'app/sdk/cart'
+import { request } from 'app/sdk/graphql/request'
 import storeConfig from '../../../faststore.config'
-import { cartStore } from '../../../app/sdk/cart'
-import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
 
 export const mutation = gql(`

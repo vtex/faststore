@@ -2,9 +2,9 @@ import { useSearch } from '@faststore/sdk'
 
 import { gql } from '@generated'
 import { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
-import { useEffect, useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 
-import type { QueryOptions } from '../graphql/useQuery'
+import type { QueryOptions } from 'app/sdk/graphql/useQuery'
 import { useSWRConfig } from 'swr'
 import { prefetchQuery } from '../graphql/prefetchQuery'
 import { useLocalizedVariables } from './useLocalizedVariables'

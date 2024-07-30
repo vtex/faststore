@@ -22,7 +22,7 @@ import GlobalSections, {
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import { SearchWrapper } from 'src/components/templates/SearchPage'
-import { getPage, SearchContentType } from 'src/server/cms'
+import { getPage, SearchContentType } from 'app/server/cms'
 
 type Props = {
   page: SearchContentType

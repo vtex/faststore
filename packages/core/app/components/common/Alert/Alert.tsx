@@ -1,15 +1,13 @@
-'use client'
-
 import type { PropsWithChildren, ReactNode } from 'react'
 import { useCallback, useState } from 'react'
 
 import { AlertProps as UIAlertProps } from '@faststore/ui'
 import { mark } from 'src/sdk/tests/mark'
 
-import Section from 'src/components/sections/Section/Section'
+import Section from 'app/components/sections/Section/Section'
 import styles from './section.module.scss'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
 export interface AlertProps extends Omit<UIAlertProps, 'content'> {
   /**

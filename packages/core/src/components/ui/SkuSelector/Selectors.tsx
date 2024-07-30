@@ -1,10 +1,10 @@
 import { HTMLAttributes } from 'react'
 
 import { SkuSelectorProps } from '@faststore/ui'
+import { Image } from 'app/components/ui/Image'
 import NextLink from 'next/link'
-import { Image } from '../Image'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
 export type SkuVariantsByName = Record<
   string,

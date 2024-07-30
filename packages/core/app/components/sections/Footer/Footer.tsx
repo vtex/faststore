@@ -1,21 +1,21 @@
 'use client'
 
-import { PaymentMethods as UIPaymentMethods } from '@faststore/ui'
 import type { PaymentMethodsProps as UIPaymentMethodProps } from '@faststore/ui'
+import { PaymentMethods as UIPaymentMethods } from '@faststore/ui'
 
-import Section from '../../../../src/components/sections/Section'
+import type { FooterLinksProps, FooterSocialProps } from '../../common/Footer'
 import UIFooter, {
   FooterLinks,
   FooterSocial,
   FooterInfo as UIFooterInfo,
   FooterNavigation as UIFooterNavigation,
 } from '../../common/Footer'
-import type { FooterLinksProps, FooterSocialProps } from '../../common/Footer'
+import Section from '../Section'
 
-import Logo from 'app/components/ui/Logo'
 import Link from 'app/components/ui/Link'
-import UIIncentives from '../../ui/Incentives'
+import Logo from 'app/components/ui/Logo'
 import type { Incentive } from '../../ui/Incentives'
+import UIIncentives from '../../ui/Incentives'
 
 import styles from './section.module.scss'
 

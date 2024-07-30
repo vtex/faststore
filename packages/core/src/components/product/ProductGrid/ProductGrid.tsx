@@ -3,11 +3,11 @@ import {
   ProductGridItem as UIProductGridItem,
 } from '@faststore/ui'
 import type { ClientManyProductsQueryQuery } from '@generated/graphql'
+import { ProductCardProps } from 'app/components/product/ProductCard'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
-import { ProductCardProps } from '../ProductCard'
 
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 import { memo } from 'react'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 interface Props {
   /**

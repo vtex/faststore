@@ -4,7 +4,7 @@ import {
 } from '@faststore/ui'
 import type { ReactNode } from 'react'
 
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { useFormattedPrice } from 'app/sdk/product/useFormattedPrice'
 
 type OrderSummaryProps = UIOrderSummaryProps & {
   subTotal: number

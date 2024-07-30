@@ -1,7 +1,7 @@
 import { sendAnalyticsEvent, useSearch } from '@faststore/sdk'
 
 import { gql } from '@generated'
-import { useQuery } from 'src/sdk/graphql/useQuery'
+import { useQuery } from 'app/sdk/graphql/useQuery'
 import { useSession } from 'src/sdk/session'
 import { useLocalizedVariables } from './useLocalizedVariables'
 

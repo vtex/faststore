@@ -1,6 +1,6 @@
+import { getOverriddenSection } from 'app/sdk/overrides/getOverriddenSection'
+import type { SectionOverrideDefinitionV1 } from 'app/typings/overridesDefinition'
 import { override } from 'src/customizations/src/components/overrides/ProductGallery'
-import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
-import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'
 import ProductGallery from '.'
 
 /**

@@ -1,3 +1,5 @@
+'use client'
+
 import type { Dispatch, PropsWithChildren } from 'react'
 import React, { createContext, useMemo, useReducer } from 'react'
 

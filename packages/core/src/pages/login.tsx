@@ -12,7 +12,7 @@ import { Locator } from '@vtex/client-cms'
 import RenderSections from 'app/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import { PageContentType, getPage } from 'src/server/cms'
+import { PageContentType, getPage } from 'app/server/cms'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {

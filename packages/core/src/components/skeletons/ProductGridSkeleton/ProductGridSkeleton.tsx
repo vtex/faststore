@@ -2,7 +2,7 @@ import type { PropsWithChildren } from 'react'
 
 import { ITEMS_PER_PAGE } from 'src/constants'
 
-import ProductCardSkeleton from '../ProductCardSkeleton'
+import ProductCardSkeleton from '../../../../app/components/skeletons/ProductCardSkeleton'
 
 interface ProductGridSkeletonProps {
   loading?: boolean

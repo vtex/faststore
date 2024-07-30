@@ -1,3 +1,5 @@
+'use client'
+
 import React, { forwardRef, useContext, createContext } from 'react'
 import type { HTMLAttributes } from 'react'
 

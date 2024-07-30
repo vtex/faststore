@@ -5,10 +5,10 @@ import {
   useSearch,
 } from '@faststore/ui'
 
-import { Image } from 'src/components/ui/Image'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import { useProductLink } from 'src/sdk/product/useProductLink'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import { Image } from 'app/components/ui/Image'
+import { useFormattedPrice } from 'app/sdk/product/useFormattedPrice'
+import { useProductLink } from 'app/sdk/product/useProductLink'
 
 type SearchProductItemProps = {
   /**

@@ -7,16 +7,16 @@ import { sendAnalyticsEvent } from '@faststore/sdk'
 
 import { gql } from '@generated'
 import type { AnalyticsItem } from 'app/sdk/analytics/types'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { useFormattedPrice } from 'app/sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
 
-import Section from '../Section'
+import Section from '../../../../app/components/sections/Section'
 
 import styles from './section.module.scss'
 
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
-import { usePDP } from '../../../sdk/overrides/PageProvider'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { getOverridableSection } from '../../../../app/sdk/overrides/getOverriddenSection'
+import { useOverrideComponents } from '../../../../app/sdk/overrides/OverrideContext'
+import { usePDP } from '../../../../app/sdk/overrides/PageProvider'
 import { ProductDetailsDefaultComponents } from './DefaultComponents'
 
 export interface ProductDetailsProps {
