@@ -2,6 +2,7 @@ import chalk from 'chalk'
 import {
   copyFileSync,
   copySync,
+  createFileSync,
   existsSync,
   mkdirsSync,
   readFileSync,
@@ -188,6 +189,31 @@ async function createCmsWebhookUrlsJsonFile(basePath: string) {
   }
 }
 
+async function generateCustomProductPagePath(basePath: string) {
+  const { userStoreConfigFile, tmpDir } = withBasePath(basePath)
+  const storeConfig = await import(path.resolve(userStoreConfigFile))
+
+  if(!storeConfig?.experimental?.customProductPagePath) {
+    return
+  }
+
+  // todo: validate the pattern of the customProductPagePath. [slug] is required
+  // todo: handle errors
+
+  console.log(storeConfig?.experimental?.customProductPagePath)
+
+  const defaultProductPageFilePath = `${tmpDir}/src/pages/[slug]/p.tsx`
+  const customProductPageFilePath = `${tmpDir}/src/pages${storeConfig.experimental.customProductPagePath}`
+
+  // create a file inside src/pages with value of storeConfig?.experimental?.customProductPagePath
+  createFileSync(customProductPageFilePath)
+  // copy the the content from the default product page to the custom product page
+  copyFileSync(defaultProductPageFilePath, customProductPageFilePath)
+  // remove the default product page
+  removeSync(defaultProductPageFilePath)
+}
+
+
 async function copyTheme(basePath: string) {
   const { userStoreConfigFile, userThemesFileDir, tmpThemesCustomizationsFile } = withBasePath(basePath)
   const storeConfig = await import(path.resolve(userStoreConfigFile))
@@ -225,6 +251,8 @@ async function copyTheme(basePath: string) {
   }
 }
 
+
+
 export async function generate(options: GenerateOptions) {
   const { basePath, setup = false } = options
 
@@ -244,5 +272,6 @@ export async function generate(options: GenerateOptions) {
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
     createCmsWebhookUrlsJsonFile(basePath),
+    generateCustomProductPagePath(basePath),
   ])
 }
