@@ -1,16 +1,12 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
-import type { ComponentType } from 'react'
+import { lazy, type ComponentType } from 'react'
 
 import RenderSections from 'src/components/cms/RenderSections'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
 import Incentives from 'src/components/sections/Incentives'
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { mark } from 'src/sdk/tests/mark'
 import type { PageContentType } from 'src/server/cms'
@@ -23,6 +19,27 @@ import GlobalSections, {
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../faststore.config'
+
+const ProductTiles = lazy(() => import('src/components/sections/ProductTiles'))
+const BannerNewsletter = lazy(
+  () => import('src/components/sections/BannerNewsletter/BannerNewsletter')
+)
+
+const Newsletter = lazy(() =>
+  import('src/components/sections/Newsletter/OverriddenDefaultNewsletter').then(
+    (module) => ({
+      default: module['OverriddenDefaultNewsletter'],
+    })
+  )
+)
+
+const BannerText = lazy(() =>
+  import('src/components/sections/BannerText/OverriddenDefaultBannerText').then(
+    (module) => ({
+      default: module['OverriddenDefaultBannerText'],
+    })
+  )
+)
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
