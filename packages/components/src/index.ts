@@ -68,6 +68,13 @@ export type {
 } from './molecules/Carousel'
 
 export {
+  default as Card
+} from './molecules/Card'
+export type {
+  CardProps
+} from './molecules/Card'
+
+export {
   default as CartItem,
   CartItemImage,
   CartItemSummary,
