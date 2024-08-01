@@ -58,7 +58,7 @@ const Hero = ({
             alt={image.alt}
             width={360}
             height={240}
-            sizes="(max-width: 360px) 50vw, (max-width: 768px) 90vw, 50vw"
+            sizes="(max-width: 360px) 40vw, (max-width: 768px) 90vw, 50vw"
           />
         </HeroImage.Component>
         <HeroHeader.Component
