@@ -13,9 +13,8 @@
  *
  * This is a limitation not only for this component, but for every native & custom component that makes use of Rich Text.
  */
-import draftToHtml from 'draftjs-to-html'
-import { NewsletterAddendum as UINewsletterAddendum } from '@faststore/ui'
 import type { NewsletterAddendumProps as UINewsletterAddendumProps } from '@faststore/ui'
+import { NewsletterAddendum as UINewsletterAddendum } from '@faststore/ui'
 
 export interface NewsletterAddendumProps {
   /**
@@ -36,7 +35,7 @@ function getLinkElementAsString(url: string, text: string) {
     >${text}</a>`
 }
 
-function cmsToHtml(addendum: string) {
+async function cmsToHtml(addendum: string) {
   if (!addendum) {
     return ''
   }
@@ -57,6 +56,9 @@ function cmsToHtml(addendum: string) {
   if (!rawDraftContentState) {
     return ''
   }
+
+  // Dynamically load draftToHtml
+  const draftToHtml = (await import('draftjs-to-html')).default
 
   return draftToHtml(
     rawDraftContentState,
