@@ -1,0 +1,28 @@
+[data-fs-card] {
+    --fs-card-border-radius: var(--fs-border-radius-medium);
+    --fs-card-border-width: 1px;
+    --fs-card-border-style: solid;
+    --fs-card-border-color: var(--fs-color-neutral-4);
+    border: var(--fs-card-border-width) var(--fs-card-border-style) var(--fs-card-border-color);
+    border-radius: var(--fs-card-border-radius);
+
+    [data-fs-card-header] {
+        --fs-card-border-top-left-radius: var(--fs-border-radius-medium);
+        --fs-card-border-top-right-radius: var(--fs-border-radius-medium);
+        --fs-card-header-padding: 1rem;
+        --fs-card-header-background-color: #2E69E20A;
+        --fs-card-header-font-weight: 600;
+
+        border-top-left-radius: var(--fs-card-border-top-left-radius);
+        border-top-right-radius: var(--fs-card-border-top-right-radius);
+        padding: var(--fs-card-header-padding);
+        background-color: var(--fs-card-header-background-color);
+        font-weight: var(--fs-card-header-font-weight);
+    }
+
+    [data-fs-card-body] {
+        --fs-card-body-padding: 1rem;
+
+        padding: 1rem;
+    }
+}
