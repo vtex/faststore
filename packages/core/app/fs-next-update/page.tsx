@@ -27,18 +27,23 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 async function getHomePageData() {
-  const serverData = await getDynamicContent({ pageType: 'home' })
+  const serverDataPromise = getDynamicContent({ pageType: 'home' })
 
   if (storeConfig.cms.data) {
     const cmsData = JSON.parse(storeConfig.cms.data)
     const page = cmsData['home'][0]
 
     if (page) {
-      const pageData = await getPage<PageContentType>({
+      const pageDataPromise = getPage<PageContentType>({
         contentType: 'home',
         documentId: page.documentId,
         versionId: page.versionId,
       })
+
+      const [serverData, pageData] = await Promise.all([
+        serverDataPromise,
+        pageDataPromise,
+      ])
 
       return {
         props: { page: pageData, serverData },
@@ -46,14 +51,17 @@ async function getHomePageData() {
     }
   }
 
-  {
-    /* TODO: we should use DraftMode instead of preview mode in Next 13 */
-  }
-  const page = await getPage<PageContentType>({
+  // TODO: we should use DraftMode instead of preview mode in Next 13
+  const pagePromise = getPage<PageContentType>({
     contentType: 'home',
   })
 
-  return { page, serverData }
+  const [serverData, pageData] = await Promise.all([
+    serverDataPromise,
+    pagePromise,
+  ])
+
+  return { page: pageData, serverData }
 }
 
 export default async function Page() {

@@ -2,8 +2,8 @@ import type { HTMLAttributes, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 import { Icon, LinkButton } from '../..'
 
-import { useHero } from './Hero'
-
+type Variant = 'primary' | 'secondary'
+type ColorVariant = 'main' | 'light' | 'accent'
 export interface HeroHeaderProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Content for the h1 tag.
@@ -33,6 +33,14 @@ export interface HeroHeaderProps extends HTMLAttributes<HTMLDivElement> {
    * Specify if the link opens in a new tab.
    */
   linkTargetBlank?: boolean
+  /**
+   * Specifies the component variant.
+   */
+  variant?: Variant
+  /**
+   * Specifies the component's color variant combination.
+   */
+  colorVariant?: ColorVariant
 }
 
 const HeroHeader = forwardRef<HTMLDivElement, HeroHeaderProps>(
@@ -44,13 +52,14 @@ const HeroHeader = forwardRef<HTMLDivElement, HeroHeaderProps>(
       linkText,
       linkTargetBlank,
       subtitle,
+      variant = 'primary',
+      colorVariant = 'main',
       children,
       testId = 'fs-hero-heading',
       ...otherProps
     },
     ref
   ) {
-    const { variant, colorVariant } = useHero()
     return (
       <header
         ref={ref}

@@ -1,5 +1,3 @@
-'use client'
-
 import {
   HeroHeaderProps as UIHeroHeaderProps,
   HeroProps as UIHeroProps,
@@ -7,11 +5,11 @@ import {
 import { ReactNode } from 'react'
 import { Image } from '../../ui/Image'
 
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import { OverrideContextType } from '../../../sdk/overrides/OverrideContext'
 
 import Section from 'app/components/sections/Section/Section'
 
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { getOverridableServerSection } from '../../../sdk/overrides/getOverriddenSection'
 import { HeroDefaultComponents } from './DefaultComponents'
 import styles from './section.module.scss'
 
@@ -30,6 +28,7 @@ export type HeroProps = {
   variant?: UIHeroProps['variant']
   colorVariant?: UIHeroProps['colorVariant']
   icon?: ReactNode
+  context: OverrideContextType<'Hero'>['components']
 }
 
 const Hero = ({
@@ -40,12 +39,10 @@ const Hero = ({
   variant,
   colorVariant,
   icon,
+  context,
 }: HeroProps) => {
-  const {
-    Hero: HeroWrapper,
-    HeroImage,
-    HeroHeader,
-  } = useOverrideComponents<'Hero'>()
+  console.log('🚀 ~ Hero:')
+  const { Hero: HeroWrapper, HeroImage, HeroHeader } = context
 
   return (
     <Section className={`${styles.section} section-hero`}>
@@ -71,6 +68,8 @@ const Hero = ({
           linkText={link?.text}
           linkTargetBlank={link?.linkTargetBlank}
           icon={icon}
+          variant={variant}
+          colorVariant={colorVariant}
           {...HeroHeader.props}
         />
       </HeroWrapper.Component>
@@ -78,7 +77,7 @@ const Hero = ({
   )
 }
 
-const OverridableHero = getOverridableSection<typeof Hero>(
+const OverridableHero = getOverridableServerSection<typeof Hero>(
   'Hero',
   Hero,
   HeroDefaultComponents

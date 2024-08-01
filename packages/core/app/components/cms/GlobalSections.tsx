@@ -36,6 +36,7 @@ function GlobalSections({
   children,
   ...otherProps
 }: PropsWithChildren<GlobalSectionsData>) {
+  console.log('🚀 ~ GlobalSections:')
   return (
     <RenderSections components={COMPONENTS} {...otherProps}>
       <Toast />

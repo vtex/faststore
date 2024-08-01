@@ -1,14 +1,12 @@
-'use client'
-
 import {
   BannerTextContentProps as UIBannerTextContentProps,
   BannerTextProps as UIBannerTextProps,
 } from '@faststore/ui'
 
 import Section from '../../../../app/components/sections/Section'
-import { useOverrideComponents } from '../../../../app/sdk/overrides/OverrideContext'
+import { OverrideContextType } from '../../../../app/sdk/overrides/OverrideContext'
 
-import { getOverridableSection } from '../../../../app/sdk/overrides/getOverriddenSection'
+import { getOverridableServerSection } from '../../../../app/sdk/overrides/getOverriddenSection'
 import { BannerTextDefaultComponents } from './DefaultComponents'
 import styles from './section.module.scss'
 
@@ -22,6 +20,7 @@ export interface BannerTextProps {
   }
   colorVariant?: UIBannerTextProps['colorVariant']
   variant?: UIBannerTextProps['variant']
+  context: OverrideContextType<'BannerText'>['components']
 }
 
 // TODO: Change actionPath and actionLabel with Link
@@ -31,9 +30,10 @@ function BannerText({
   link: { url: linkUrl, text: linkText, linkTargetBlank },
   variant,
   colorVariant,
+  context,
 }: BannerTextProps) {
-  const { BannerText: BannerTextWrapper, BannerTextContent } =
-    useOverrideComponents<'BannerText'>()
+  console.log('🚀 ~ BannerText:')
+  const { BannerText: BannerTextWrapper, BannerTextContent } = context
 
   return (
     <Section className={`${styles.section} section-banner layout__section`}>
@@ -53,13 +53,17 @@ function BannerText({
           linkTargetBlank={
             linkTargetBlank ?? BannerTextContent.props.linkTargetBlank
           }
+          variant={variant ?? BannerTextWrapper.props.variant ?? 'primary'}
+          colorVariant={
+            colorVariant ?? BannerTextWrapper.props.colorVariant ?? 'main'
+          }
         />
       </BannerTextWrapper.Component>
     </Section>
   )
 }
 
-const OverridableBannerText = getOverridableSection<typeof BannerText>(
+const OverridableBannerText = getOverridableServerSection<typeof BannerText>(
   'BannerText',
   BannerText,
   BannerTextDefaultComponents

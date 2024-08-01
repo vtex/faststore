@@ -3,7 +3,7 @@ import Section from '../Section'
 
 import styles from './section.module.scss'
 
-import Navbar from '../../../../app/components/navigation/Navbar'
+import Navbar from '../../navigation/Navbar'
 import { NavbarDefaultComponents } from './DefaultComponents'
 
 type PageLinks = {
@@ -74,6 +74,7 @@ function NavbarSection({
     },
   },
 }: NavbarProps) {
+  console.log('🚀 ~ NavbarSection:')
   return (
     <Section className={`${styles.section} section-navbar`}>
       <Navbar

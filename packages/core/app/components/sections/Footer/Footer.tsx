@@ -1,5 +1,3 @@
-'use client'
-
 import type { PaymentMethodsProps as UIPaymentMethodProps } from '@faststore/ui'
 import { PaymentMethods as UIPaymentMethods } from '@faststore/ui'
 

@@ -48,6 +48,46 @@ export function getOverridableSection<
   // This type cast is here so the symbol prop doesn't show up in the type definition
   return OverridableSection as Section
 }
+export function getOverridableServerSection<
+  Section extends ComponentType,
+  SectionName extends keyof SectionsOverrides = keyof SectionsOverrides
+>(
+  sectionName: SectionName,
+  Section: Section,
+  defaultComponents: DefaultSectionComponentsDefinitions<SectionName>
+) {
+  function OverridableSection(
+    propsWithOverrides: ComponentProps<typeof Section> & {
+      __overrides?: Omit<SectionOverrideDefinitionV1<SectionName>, 'Section'>
+    }
+  ) {
+    const { __overrides: overrides, ...props } = propsWithOverrides
+
+    const overrideContextValue = useMemo(
+      () => ({
+        ...(overrides ?? {}),
+        components: getSectionOverrides<SectionName>(defaultComponents, {
+          ...(overrides ?? {}),
+          section: sectionName,
+        }),
+      }),
+      [overrides]
+    )
+
+    /** This type wizardry is here because the props won't behave correctly if nothing is done */
+    const SectionComponent = Section as ComponentType<ComponentProps<Section>>
+
+    return (
+      <SectionComponent
+        {...(props as ComponentProps<typeof Section>)}
+        context={overrideContextValue.components}
+      />
+    )
+  }
+
+  // This type cast is here so the symbol prop doesn't show up in the type definition
+  return OverridableSection as Section
+}
 
 /**
  * Accepts override options and returns a React component for the overridden section.

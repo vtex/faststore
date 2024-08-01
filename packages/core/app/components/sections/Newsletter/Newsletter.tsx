@@ -93,6 +93,7 @@ function Newsletter({
   colorVariant,
   ...otherProps
 }: NewsletterProps) {
+  console.log('🚀 ~ Newsletter:')
   return (
     <Section className={`${styles.section} section-newsletter layout__section`}>
       <UINewsletter

@@ -18,8 +18,8 @@ import GlobalSections from './components/cms/GlobalSections'
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 
 import { Section } from '@vtex/client-cms'
-import storeConfig from 'faststore.config'
 import { PageContentType, getPage } from 'app/server/cms'
+import storeConfig from 'faststore.config'
 
 export type GlobalSectionsData = {
   sections: Section[]
@@ -73,6 +73,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  console.log('🚀 ~ RootLayout:')
   const globalSections = await getGlobalSectionsData()
 
   return (

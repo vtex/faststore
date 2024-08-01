@@ -1,4 +1,10 @@
-import { ComponentType, PropsWithChildren, memo, useMemo } from 'react'
+import {
+  ComponentType,
+  PropsWithChildren,
+  Suspense,
+  memo,
+  useMemo,
+} from 'react'
 
 import { Section } from '@vtex/client-cms'
 import SectionBoundary from './SectionBoundary'
@@ -22,6 +28,7 @@ const useDividedSections = (sections: Section[]) => {
 }
 
 const RenderSectionsBase = ({ sections = [], components }: Props) => {
+  console.log('🚀 ~ RenderSectionsBase:')
   return (
     <>
       {sections.map(({ name, data }, index) => {
@@ -38,7 +45,9 @@ const RenderSectionsBase = ({ sections = [], components }: Props) => {
 
         return (
           <SectionBoundary key={`cms-section-${index}`} name={name}>
-            <Component {...data} />
+            <Suspense fallback={<p>Loading...</p>}>
+              <Component {...data} />
+            </Suspense>
           </SectionBoundary>
         )
       })}
