@@ -3,7 +3,7 @@ import type {
   ClientSearchSuggestionsQueryQuery as Query,
   ClientSearchSuggestionsQueryQueryVariables as Variables,
 } from '@generated/graphql'
-import { useQuery } from 'src/sdk/graphql/useQuery'
+import { useQuery } from 'app/sdk/graphql/useQuery'
 
 import { useSession } from '../../../src/sdk/session'
 

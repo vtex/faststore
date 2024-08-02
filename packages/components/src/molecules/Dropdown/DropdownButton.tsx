@@ -1,3 +1,5 @@
+'use client'
+
 import React, { forwardRef, useImperativeHandle, AriaAttributes } from 'react'
 import Button, { ButtonProps } from '../../atoms/Button'
 

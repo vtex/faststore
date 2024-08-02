@@ -1,3 +1,5 @@
+'use client'
+
 import type { ChangeEventHandler } from 'react'
 import { createContext, useContext } from 'react'
 

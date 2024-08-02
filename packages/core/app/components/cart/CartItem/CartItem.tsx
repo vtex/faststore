@@ -11,12 +11,12 @@ import {
 } from '@faststore/ui'
 import { useCallback, useMemo } from 'react'
 
+import { Image } from 'app/components/ui/Image'
 import type { AnalyticsItem } from 'app/sdk/analytics/types'
 import type { CartItem as ICartItem } from 'app/sdk/cart'
 import { cartStore } from 'app/sdk/cart'
 import { useRemoveButton } from 'app/sdk/cart/useRemoveButton'
-import { Image } from 'src/components/ui/Image'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { useFormattedPrice } from 'app/sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
 
 function useCartItemEvent() {

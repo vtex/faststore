@@ -1,9 +1,9 @@
-import { mutate } from 'swr'
 import type { Cache } from 'swr'
+import { mutate } from 'swr'
 
-import { request } from './request'
-import { getKey } from './useQuery'
-import type { Operation, RequestOptions } from './request'
+import type { Operation, RequestOptions } from 'app/sdk/graphql/request'
+import { request } from 'app/sdk/graphql/request'
+import { getKey } from 'app/sdk/graphql/useQuery'
 
 export const prefetchQuery = <Data, Variables = Record<string, unknown>>(
   operation: Operation,

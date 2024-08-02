@@ -1,3 +1,5 @@
+'use client'
+
 import type { PropsWithChildren } from 'react'
 import React, { useRef, useMemo, useState, useEffect, useCallback } from 'react'
 

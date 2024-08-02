@@ -6,9 +6,9 @@ import {
   GiftImage as UIGiftImage,
 } from '@faststore/ui'
 
+import { Image } from 'app/components/ui/Image'
 import type { CartItem as ICartItem } from 'app/sdk/cart'
-import { Image } from 'src/components/ui/Image'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { useFormattedPrice } from 'app/sdk/product/useFormattedPrice'
 
 export type Props = GiftProps & {
   /**

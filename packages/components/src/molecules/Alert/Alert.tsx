@@ -1,9 +1,10 @@
 import type { HTMLAttributes } from 'react'
-import React, { forwardRef, useCallback } from 'react'
+import React, { forwardRef } from 'react'
 
-import { Icon, IconButton, Link, LinkProps } from '../../'
+import { Icon, Link, LinkProps } from '../../'
 
 import type { MouseEvent, ReactNode } from 'react'
+import AlertCloseButton from './AlertCloseButton'
 
 export interface AlertProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> {
@@ -42,16 +43,6 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
   },
   ref
 ) {
-  const handleClose = useCallback(
-    (event: MouseEvent<HTMLElement>) => {
-      if (event.defaultPrevented) {
-        return
-      }
-
-      onClose?.(event)
-    },
-    [onClose]
-  )
   return (
     <div
       ref={ref}
@@ -69,12 +60,11 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
       {link && <Link data-fs-alert-link variant="inline" {...link} />}
 
       {dismissible && (
-        <IconButton
-          data-fs-alert-button
+        <AlertCloseButton
           size="small"
           aria-label="Close"
           icon={<Icon name="X" />}
-          onClick={handleClose}
+          onClick={onClose}
         />
       )}
     </div>

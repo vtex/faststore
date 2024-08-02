@@ -2,7 +2,8 @@ import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 import { LinkButton } from '../..'
 
-import { useBannerText } from './BannerText'
+type Variant = 'primary' | 'secondary'
+type ColorVariant = 'main' | 'light' | 'accent'
 
 export interface BannerTextContentProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -25,6 +26,14 @@ export interface BannerTextContentProps extends HTMLAttributes<HTMLDivElement> {
    * Specify if the link opens in a new tab.
    */
   linkTargetBlank?: boolean
+   /**
+   * Specifies the component direction variant.
+   */
+   variant?: Variant
+   /**
+    * Specifies the component's color variant combination.
+    */
+   colorVariant?: ColorVariant
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -40,11 +49,12 @@ const BannerTextContent = forwardRef<HTMLDivElement, BannerTextContentProps>(
       link,
       linkText,
       linkTargetBlank,
+      variant = 'primary',
+      colorVariant = 'main',
       ...otherProps
     },
     ref
   ) {
-    const { variant, colorVariant } = useBannerText()
     return (
       <header
         ref={ref}

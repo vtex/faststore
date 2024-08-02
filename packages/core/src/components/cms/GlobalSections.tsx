@@ -3,7 +3,7 @@ import storeConfig from 'faststore.config'
 import type { ComponentType } from 'react'
 import { PropsWithChildren, lazy } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import { PageContentType, getPage } from 'src/server/cms'
+import { PageContentType, getPage } from 'app/server/cms'
 
 import RenderSections from 'app/components/cms/RenderSections'
 import Toast from 'app/components/common/Toast'

@@ -1,3 +1,5 @@
+'use client'
+
 import { useCallback, useEffect } from 'react'
 
 import { ANALYTICS_EVENT_TYPE, unwrap } from './wrap'

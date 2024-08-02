@@ -8,7 +8,7 @@ import {
   FilterFacets as UIFilterFacets,
 } from '@faststore/ui'
 import type { Filter_FacetsFragment } from '@generated/graphql'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { useFormattedPrice } from 'app/sdk/product/useFormattedPrice'
 import { useFilter } from 'src/sdk/search/useFilter'
 
 interface Props {

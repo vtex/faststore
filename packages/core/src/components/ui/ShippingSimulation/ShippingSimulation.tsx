@@ -2,7 +2,7 @@ import { ShippingSimulationProps as UIShippingSimulationProps } from '@faststore
 
 import { useShippingSimulation } from 'src/sdk/shipping/useShippingSimulation'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
 type ShippingSimulationOptionalProps =
   | 'title'

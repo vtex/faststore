@@ -3,8 +3,8 @@
 import { useEffect } from 'react'
 
 import { Toast as UIToast, useUI } from '@faststore/ui'
+import Section from 'app/components/sections/Section/Section'
 import { useCart } from 'app/sdk/cart'
-import Section from 'src/components/sections/Section/Section'
 import styles from './section.module.scss'
 
 function Toast() {

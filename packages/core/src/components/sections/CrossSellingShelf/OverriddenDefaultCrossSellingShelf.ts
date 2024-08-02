@@ -1,6 +1,6 @@
+import { getOverriddenSection } from 'app/sdk/overrides/getOverriddenSection'
+import type { SectionOverrideDefinitionV1 } from 'app/typings/overridesDefinition'
 import { override } from 'src/customizations/src/components/overrides/CrossSellingShelf'
-import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
-import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'
 import CrossSellingShelf from '.'
 
 /**

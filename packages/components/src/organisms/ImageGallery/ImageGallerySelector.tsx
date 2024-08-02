@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useRef, useState, useCallback } from 'react'
 import type { AriaAttributes } from 'react'
 import { InView } from 'react-intersection-observer'

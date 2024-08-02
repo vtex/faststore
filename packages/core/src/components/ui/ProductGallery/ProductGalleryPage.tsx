@@ -1,7 +1,7 @@
 import ProductGrid from 'src/components/product/ProductGrid'
 import Sentinel from 'src/sdk/search/Sentinel'
 
-import { ProductCardProps } from 'src/components/product/ProductCard'
+import { ProductCardProps } from 'app/components/product/ProductCard'
 import { memo } from 'react'
 import { useGalleryPage } from 'src/sdk/product/usePageProductsQuery'
 

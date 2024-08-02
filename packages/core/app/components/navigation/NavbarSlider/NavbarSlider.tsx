@@ -9,7 +9,7 @@ import { mark } from 'src/sdk/tests/mark'
 
 import type { NavbarProps } from '../Navbar'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 import styles from './section.module.scss'
 
 interface NavbarSliderProps {

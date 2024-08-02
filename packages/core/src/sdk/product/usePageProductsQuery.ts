@@ -4,16 +4,16 @@ import {
   ClientManyProductsQueryQuery,
   ClientManyProductsQueryQueryVariables,
 } from '@generated/graphql'
+import { useQuery } from 'app/sdk/graphql/useQuery'
 import {
-  useEffect,
-  useCallback,
   createContext,
+  useCallback,
   useContext,
-  useRef,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react'
-import { useQuery } from 'src/sdk/graphql/useQuery'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
 export const UseGalleryPageContext = createContext<

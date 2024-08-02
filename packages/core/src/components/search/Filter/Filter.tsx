@@ -3,8 +3,8 @@ import type { Filter_FacetsFragment } from '@generated/graphql'
 import { Suspense } from 'react'
 
 import { gql } from '@generated'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 import { ProductGalleryProps } from 'src/components/ui/ProductGallery/ProductGallery'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useFilter } from 'src/sdk/search/useFilter'
 
 interface Props {

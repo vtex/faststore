@@ -11,8 +11,8 @@ import type {
   ValidateCartMutationMutationVariables,
 } from '@generated/graphql'
 
+import { request } from 'app/sdk/graphql/request'
 import storeConfig from '../../../faststore.config'
-import { request } from '../../../src/sdk/graphql/request'
 import { sessionStore } from '../../../src/sdk/session'
 import { createValidationStore, useStore } from '../../../src/sdk/useStore'
 

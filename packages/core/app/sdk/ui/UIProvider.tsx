@@ -7,5 +7,6 @@ export default function UIProvider({
 }: {
   children: React.ReactNode
 }) {
+  console.log('🚀 ~ UIProvider:')
   return <UIProviderWrapper>{children}</UIProviderWrapper>
 }

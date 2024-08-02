@@ -4,14 +4,13 @@ import { useMemo } from 'react'
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 
 import { useBuyButton } from 'app/sdk/cart/useBuyButton'
-import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+import { useFormattedPrice } from 'app/sdk/product/useFormattedPrice'
 
 import Selectors from 'src/components/ui/SkuSelector'
 import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
 
-import { Icon as UIIcon, useUI } from '@faststore/ui'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
-import { Label as UILabel } from '@faststore/ui'
+import { Icon as UIIcon, Label as UILabel, useUI } from '@faststore/ui'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
 interface ProductDetailsSettingsProps {
   product: ProductDetailsFragment_ProductFragment

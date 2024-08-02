@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState, useTransition } from 'react'
 
 export const useScrollDirection = () => {

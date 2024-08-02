@@ -1,6 +1,6 @@
 // This is an example of how it can be used on the starter.
 
-import { SectionOverride } from 'src/typings/overrides'
+import { SectionOverride } from 'app/typings/overrides'
 
 const SECTION = 'ProductDetails' as const
 

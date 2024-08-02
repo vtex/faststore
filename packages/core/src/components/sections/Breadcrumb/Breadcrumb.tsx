@@ -2,19 +2,19 @@
 
 import { memo } from 'react'
 
-import Section from '../Section'
+import Section from '../../../../app/components/sections/Section'
 
-import styles from './section.module.scss'
+import { getOverridableSection } from '../../../../app/sdk/overrides/getOverriddenSection'
+import { useOverrideComponents } from '../../../../app/sdk/overrides/OverrideContext'
 import {
   PDPContext,
   PLPContext,
   isPDP,
   isPLP,
   usePage,
-} from '../../../sdk/overrides/PageProvider'
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+} from '../../../../app/sdk/overrides/PageProvider'
 import { BreadcrumbDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import styles from './section.module.scss'
 
 interface BreadcrumbSectionProps {
   icon: string

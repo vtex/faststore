@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { sendAnalyticsEvent } from '@faststore/sdk'
-import { useQuery } from 'src/sdk/graphql/useQuery'
+import { useQuery } from 'app/sdk/graphql/useQuery'
 
 import { gql } from '@generated'
 import type {

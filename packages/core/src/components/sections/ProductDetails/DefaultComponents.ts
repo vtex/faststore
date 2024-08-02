@@ -1,22 +1,22 @@
 import {
-  ProductTitle as UIProductTitle,
-  DiscountBadge as UIDiscountBadge,
   BuyButton as UIBuyButton,
-  SkuSelector as UISkuSelector,
-  ShippingSimulation as UIShippingSimulation,
+  DiscountBadge as UIDiscountBadge,
   Icon as UIIcon,
-  ProductPrice as UIProductPrice,
-  QuantitySelector as UIQuantitySelector,
-  ImageGalleryViewer as UIImageGalleryViewer,
   ImageGallery as UIImageGallery,
+  ImageGalleryViewer as UIImageGalleryViewer,
+  ProductPrice as UIProductPrice,
+  ProductTitle as UIProductTitle,
+  QuantitySelector as UIQuantitySelector,
+  ShippingSimulation as UIShippingSimulation,
+  SkuSelector as UISkuSelector,
 } from '@faststore/ui'
 
+import { Image } from 'app/components/ui/Image'
 import LocalImageGallery from 'src/components/ui/ImageGallery'
-import LocalShippingSimulation from 'src/components/ui/ShippingSimulation/ShippingSimulation'
-import { Image } from 'src/components/ui/Image'
 import LocalNotAvailableButton from 'src/components/product/NotAvailableButton'
 import LocalProductDescription from 'src/components/ui/ProductDescription'
 import { ProductDetailsSettings as LocalProductDetailsSettings } from 'src/components/ui/ProductDetails'
+import LocalShippingSimulation from 'src/components/ui/ShippingSimulation/ShippingSimulation'
 
 export const ProductDetailsDefaultComponents = {
   ProductTitle: UIProductTitle,

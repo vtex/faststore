@@ -1,23 +1,23 @@
 import { useSearch } from '@faststore/sdk'
 import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
+import BannerNewsletter from 'app/components/sections/BannerNewsletter/BannerNewsletter'
+import { OverriddenDefaultBannerText as BannerText } from 'app/components/sections/BannerText/OverriddenDefaultBannerText'
+import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
+import { OverriddenDefaultNewsletter as Newsletter } from 'app/components/sections/Newsletter/OverriddenDefaultNewsletter'
+import { OverriddenDefaultProductShelf as ProductShelf } from 'app/components/sections/ProductShelf/OverriddenDefaultProductShelf'
+import ProductTiles from 'app/components/sections/ProductTiles'
 import deepmerge from 'deepmerge'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
-import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
-import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
 import ScrollToTopButton from 'src/components/sections/ScrollToTopButton'
 import { ITEMS_PER_PAGE } from 'src/constants'
 
-import type { ComponentType } from 'react'
 import RenderSections from 'app/components/cms/RenderSections'
+import { PLPContentType } from 'app/server/cms/plp'
+import type { ComponentType } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import { PLPContentType } from 'src/server/cms/plp'
 
-import PageProvider, { PLPContext } from 'src/sdk/overrides/PageProvider'
+import PageProvider, { PLPContext } from 'app/sdk/overrides/PageProvider'
 import {
   useCreateUseGalleryPage,
   UseGalleryPageContext,

@@ -1,3 +1,5 @@
+'use client'
+
 import type { AnchorHTMLAttributes, FocusEvent } from 'react'
 import React, { useRef } from 'react'
 

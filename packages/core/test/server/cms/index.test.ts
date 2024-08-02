@@ -1,6 +1,6 @@
-import { clientCMS, getCMSPage } from '../../../src/server/cms'
 import { jest } from '@jest/globals'
 import { ContentData } from '@vtex/client-cms'
+import { clientCMS, getCMSPage } from '../../../app/server/cms'
 
 describe('CMS Integration', () => {
   const mockData = (count = 1) => {

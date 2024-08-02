@@ -2,23 +2,23 @@
 
 import { mark } from '../../../sdk/tests/mark'
 
+import Section from '../../../../app/components/sections/Section'
 import ProductGallery, {
   ProductGalleryProps,
 } from '../../ui/ProductGallery/ProductGallery'
-import Section from '../Section'
 import type { EmptyGalleryProps } from './EmptyGallery'
 
-import styles from './section.module.scss'
+import { getOverridableSection } from '../../../../app/sdk/overrides/getOverriddenSection'
+import { useOverrideComponents } from '../../../../app/sdk/overrides/OverrideContext'
 import {
   PLPContext,
   SearchPageContext,
   isPLP,
   isSearchPage,
   usePage,
-} from '../../../sdk/overrides/PageProvider'
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+} from '../../../../app/sdk/overrides/PageProvider'
 import { ProductGalleryDefaultComponents } from './DefaultComponents'
+import styles from './section.module.scss'
 
 export interface ProductGallerySectionProps {
   searchTermLabel?: ProductGalleryProps['searchTermLabel']

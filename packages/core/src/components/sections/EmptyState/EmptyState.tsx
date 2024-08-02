@@ -1,18 +1,18 @@
 'use client'
 
-import type { PropsWithChildren } from 'react'
 import { useRouter } from 'next/router'
+import type { PropsWithChildren } from 'react'
 
 import { Icon as UIIcon, Loader as UILoader } from '@faststore/ui'
 
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import { useOverrideComponents } from '../../../../app/sdk/overrides/OverrideContext'
 
-import Section from '../Section'
+import Section from '../../../../app/components/sections/Section'
 
 import styles from './section.module.scss'
 
+import { getOverridableSection } from '../../../../app/sdk/overrides/getOverriddenSection'
 import { EmptyStateDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 
 export interface EmptyStateProps {
   /**

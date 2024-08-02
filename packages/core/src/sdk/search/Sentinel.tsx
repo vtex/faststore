@@ -1,3 +1,5 @@
+'use client'
+
 import { useSearch } from '@faststore/sdk'
 import type { NextRouter } from 'next/router'
 import { useRouter } from 'next/router'

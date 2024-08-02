@@ -1,25 +1,19 @@
-import {
-  Accordion as UIAccordion,
-  AccordionButton as UIAccordionButton,
-  AccordionItem as UIAccordionItem,
-  AccordionPanel as UIAccordionPanel,
-  List as UIList,
-} from '@faststore/ui'
-import { useState } from 'react'
+import { List as UIList } from '@faststore/ui'
 
 import Link from 'app/components/ui/Link'
+import Accordion from './client/Accordion'
 
-type Item = {
+export type Item = {
   url: string
   text: string
 }
 
-type FooterLink = {
+export type FooterLink = {
   items: Item[]
   sectionTitle: string
 }
 
-function Links({ items }: Pick<FooterLink, 'items'>) {
+export function Links({ items }: Pick<FooterLink, 'items'>) {
   return (
     <UIList>
       {items.map((item) => (
@@ -38,32 +32,11 @@ export interface FooterLinksProps {
 }
 
 function FooterLinks({ links }: FooterLinksProps) {
-  const [indicesExpanded, setIndicesExpanded] = useState<Set<number>>(
-    new Set([])
-  )
-
-  const onChange = (index: number) => {
-    if (indicesExpanded.has(index)) {
-      indicesExpanded.delete(index)
-      setIndicesExpanded(new Set(indicesExpanded))
-    } else {
-      setIndicesExpanded(new Set(indicesExpanded.add(index)))
-    }
-  }
-
+  console.log('🚀 ~ FooterLinks:')
   return (
     <section data-fs-footer data-fs-footer-links>
       <div className="display-mobile">
-        <UIAccordion indices={indicesExpanded} onChange={onChange}>
-          {links.map(({ sectionTitle, items }) => (
-            <UIAccordionItem key={sectionTitle}>
-              <UIAccordionButton>{sectionTitle}</UIAccordionButton>
-              <UIAccordionPanel>
-                <Links items={items} />
-              </UIAccordionPanel>
-            </UIAccordionItem>
-          ))}
-        </UIAccordion>
+        <Accordion links={links}></Accordion>
       </div>
 
       <div className="hidden-mobile">

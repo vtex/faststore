@@ -1,6 +1,6 @@
 import { ServerProductQueryQuery } from '@generated/graphql'
-import { PDPContentType } from 'src/server/cms/pdp'
-import { PLPContentType } from 'src/server/cms/plp'
+import { PDPContentType } from 'app/server/cms/pdp'
+import { PLPContentType } from 'app/server/cms/plp'
 
 export type Rewrite = {
   source: string
