@@ -37,14 +37,14 @@ function SearchDropdown({ sort, ...otherProps }: SearchDropdownProps) {
             linkProps={{
               href: formatSearchPath({
                 term: suggestion,
-                sort: sort,
+                sort,
               }),
               onClick: () =>
                 onSearchSelection?.(
                   suggestion,
                   formatSearchPath({
                     term: suggestion,
-                    sort: sort,
+                    sort,
                   })
                 ),
             }}
