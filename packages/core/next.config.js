@@ -55,7 +55,6 @@ const nextConfig = {
     // This should help reducing TBT
     if (!isServer && !dev && config.optimization?.splitChunks) {
       config.optimization.splitChunks.maxInitialRequests = 1
-      config.optimization.splitChunks.maxSize = 30000
     }
 
     return config
