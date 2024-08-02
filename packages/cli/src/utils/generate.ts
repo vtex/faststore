@@ -66,7 +66,7 @@ const TS_CONFIG_STRICT_RULES_ENABLED = ['noImplicitAny'] as const
 /**
  * Modify TypeScript compilation settings (tsconfig.json) to disable specific strict
  * type checking rules when files are moved to the .faststore folder. 
- * The idea is to change the strict to false when all strict rules are migrated.
+ * TODO: The idea is to change the strict to false when all strict rules are migrated.
  */
 function disableTsConfigStrictRules(basePath: string) {
   const { coreDir, tmpDir } = withBasePath(basePath)
