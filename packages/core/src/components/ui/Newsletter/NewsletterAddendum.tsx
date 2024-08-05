@@ -14,7 +14,7 @@
  * This is a limitation not only for this component, but for every native & custom component that makes use of Rich Text.
  */
 
-// @ts-ignore motivation: cannot find the draftjs-to-html package types.
+// @ts-expect-error motivation: cannot find the draftjs-to-html package types.
 import draftToHtml from 'draftjs-to-html'
 import { NewsletterAddendum as UINewsletterAddendum } from '@faststore/ui'
 import type { NewsletterAddendumProps as UINewsletterAddendumProps } from '@faststore/ui'
