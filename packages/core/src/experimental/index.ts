@@ -38,3 +38,4 @@ export { useShippingSimulation as useShippingSimulation_unstable } from '../../s
 export { Image as Image_unstable } from '../../src/components/ui/Image'
 export { ProfileChallenge as ProfileChallenge_unstable } from '../../src/components/auth/ProfileChallenge'
 export { default as Selectors_unstable } from '../../src/components/ui/SkuSelector'
+export { ButtonSignIn as ButtonSignIn_unstable } from '../../src/components/ui/Button'

@@ -12,6 +12,8 @@ import {
   IconButton as UIIconButton,
 } from '@faststore/ui'
 
+import { ButtonSignIn } from 'src/components/ui/Button'
+
 export const NavbarDefaultComponents = {
   Navbar: UINavbar,
   NavbarLinks: UINavbarLinks,
@@ -24,4 +26,5 @@ export const NavbarDefaultComponents = {
   NavbarRow: UINavbarRow,
   NavbarButtons: UINavbarButtons,
   IconButton: UIIconButton,
+  _experimentalButtonSignIn: ButtonSignIn,
 } as const
