@@ -74,7 +74,7 @@ async function storeDev(rootDir: string, tmpDir: string, coreDir: string) {
 
 function copyGenerated(from: string, to: string) {
   try {
-    cpSync(from, to, { recursive: true, force: true })
+    cpSync(from, to, { recursive: true, force: true, dereference: true })
 
     return { success: true }
   } catch (err) {

@@ -65,6 +65,7 @@ function copyCoreFiles(basePath: string) {
 
   try {
     copySync(coreDir, tmpDir, {
+      dereference: true,
       filter(src) {
         const fileOrDirName = path.basename(src)
         const shouldCopy = fileOrDirName
@@ -90,6 +91,7 @@ function copyPublicFiles(basePath: string) {
   try {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
+        dereference: true,
         overwrite: true,
         filter: (src) => {
           const allow = allowList.some((ext) => src.endsWith(ext))
@@ -110,12 +112,12 @@ async function copyCypressFiles(basePath: string) {
   try {
     // Cypress 9.x config file
     if (existsSync(`${userDir}/cypress.json`)) {
-      copySync(`${userDir}/cypress.json`, `${tmpDir}/cypress.json`)
+      copySync(`${userDir}/cypress.json`, `${tmpDir}/cypress.json`, { dereference: true })
     }
 
     // Cypress 12.x config file
     if (existsSync(`${userDir}/cypress.config.ts`)) {
-      copySync(`${userDir}/cypress.config.ts`, `${tmpDir}/cypress.config.ts`)
+      copySync(`${userDir}/cypress.config.ts`, `${tmpDir}/cypress.config.ts`, { dereference: true })
     }
 
     const userStoreConfig = await import(path.resolve(userStoreConfigFile))
@@ -127,6 +129,7 @@ async function copyCypressFiles(basePath: string) {
     ) {
       copySync(`${userDir}/cypress`, `${tmpDir}/cypress`, {
         overwrite: true,
+        dereference: true
       })
 
       console.log(`${chalk.green('success')} - Cypress test files copied`)
@@ -150,11 +153,11 @@ function copyUserStarterToCustomizations(basePath: string) {
 
   try {
     if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
-      copySync(userSrcDir, tmpCustomizationsSrcDir)
+      copySync(userSrcDir, tmpCustomizationsSrcDir, { dereference: true })
     }
 
     if (existsSync(userStoreConfigFile)) {
-      copySync(userStoreConfigFile, tmpStoreConfigFile)
+      copySync(userStoreConfigFile, tmpStoreConfigFile, { dereference: true })
     }
 
     console.log(`${chalk.green('success')} - Starter files copied`)
