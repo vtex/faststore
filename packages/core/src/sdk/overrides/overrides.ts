@@ -8,7 +8,7 @@ import type {
 import type { SectionsOverrides } from '../../typings/overrides'
 
 /* TODO: Fix typescript errors. It is necessary to further investigate the typing 
-issues of this file. Error lines have been marked with the @ts-expect-error comment*/
+issues of this file. Error lines have been marked with the @ts-ignore comment*/
 
 export function getSectionOverrides<
   SectionName extends keyof SectionsOverrides
@@ -23,11 +23,11 @@ export function getSectionOverrides<
       const componentOverride:
         | ComponentOverrideDefinition<React.ComponentType, unknown>
         | undefined =
-        // @ts-expect-error
+        // @ts-ignore
         override.components?.[key]
 
       if (!componentOverride) {
-        // @ts-expect-error
+        // @ts-ignore
         overriddenComponents[key] = {
           Component: value,
           props: {},
@@ -43,13 +43,13 @@ export function getSectionOverrides<
       }
 
       if (componentOverride.Component) {
-        // @ts-expect-error
+        // @ts-ignore
         overriddenComponents[key] = {
           Component: componentOverride.Component,
           props: {},
         }
       } else {
-        // @ts-expect-error
+        // @ts-ignore
         overriddenComponents[key] = {
           Component: value,
           props: componentOverride.props ?? {},
