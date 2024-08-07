@@ -60,11 +60,37 @@ function filterAndCopyPackageJson(basePath: string) {
   })
 }
 
+// Temporary array of strict rules enabled so far.
+const TS_CONFIG_STRICT_RULES_ENABLED = ['noImplicitAny'] as const
+
+/**
+ * Modify TypeScript compilation settings (tsconfig.json) to disable specific strict
+ * type checking rules when files are moved to the .faststore folder. 
+ * TODO: The idea is to change the strict to false when all strict rules are migrated.
+ */
+function disableTsConfigStrictRules(basePath: string) {
+  const { coreDir, tmpDir } = withBasePath(basePath)
+
+  const coreTsConfigPath = path.join(coreDir, 'tsconfig.json')
+
+  const coreTsConfigFile = readFileSync(coreTsConfigPath, 'utf8')
+  const tsConfig = JSON.parse(coreTsConfigFile)
+
+  TS_CONFIG_STRICT_RULES_ENABLED.forEach(strictRule => {
+    tsConfig.compilerOptions[strictRule] = false
+  })
+
+  writeJsonSync(path.join(tmpDir, 'tsconfig.json'), tsConfig, {
+    spaces: 2,
+  })
+}
+
 function copyCoreFiles(basePath: string) {
   const { coreDir, tmpDir } = withBasePath(basePath)
 
   try {
     copySync(coreDir, tmpDir, {
+      dereference: true,
       filter(src) {
         const fileOrDirName = path.basename(src)
         const shouldCopy = fileOrDirName
@@ -76,6 +102,7 @@ function copyCoreFiles(basePath: string) {
     })
 
     filterAndCopyPackageJson(basePath)
+    disableTsConfigStrictRules(basePath)
 
     console.log(`${chalk.green('success')} - Core files copied`)
   } catch (e) {
@@ -90,6 +117,7 @@ function copyPublicFiles(basePath: string) {
   try {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
+        dereference: true,
         overwrite: true,
         filter: (src) => {
           const allow = allowList.some((ext) => src.endsWith(ext))
@@ -110,12 +138,12 @@ async function copyCypressFiles(basePath: string) {
   try {
     // Cypress 9.x config file
     if (existsSync(`${userDir}/cypress.json`)) {
-      copySync(`${userDir}/cypress.json`, `${tmpDir}/cypress.json`)
+      copySync(`${userDir}/cypress.json`, `${tmpDir}/cypress.json`, { dereference: true })
     }
 
     // Cypress 12.x config file
     if (existsSync(`${userDir}/cypress.config.ts`)) {
-      copySync(`${userDir}/cypress.config.ts`, `${tmpDir}/cypress.config.ts`)
+      copySync(`${userDir}/cypress.config.ts`, `${tmpDir}/cypress.config.ts`, { dereference: true })
     }
 
     const userStoreConfig = await import(path.resolve(userStoreConfigFile))
@@ -127,6 +155,7 @@ async function copyCypressFiles(basePath: string) {
     ) {
       copySync(`${userDir}/cypress`, `${tmpDir}/cypress`, {
         overwrite: true,
+        dereference: true
       })
 
       console.log(`${chalk.green('success')} - Cypress test files copied`)
@@ -150,11 +179,11 @@ function copyUserStarterToCustomizations(basePath: string) {
 
   try {
     if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
-      copySync(userSrcDir, tmpCustomizationsSrcDir)
+      copySync(userSrcDir, tmpCustomizationsSrcDir, { dereference: true })
     }
 
     if (existsSync(userStoreConfigFile)) {
-      copySync(userStoreConfigFile, tmpStoreConfigFile)
+      copySync(userStoreConfigFile, tmpStoreConfigFile, { dereference: true })
     }
 
     console.log(`${chalk.green('success')} - Starter files copied`)

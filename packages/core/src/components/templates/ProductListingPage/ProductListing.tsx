@@ -47,7 +47,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 
 // Array merging strategy from deepmerge that makes client arrays overwrite server array
 // https://www.npmjs.com/package/deepmerge
-const overwriteMerge = (_, sourceArray) => sourceArray
+const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 
 export default function ProductListing({
   page: { sections, settings },

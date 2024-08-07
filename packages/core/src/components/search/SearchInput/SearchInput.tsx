@@ -3,6 +3,7 @@
 
 import type { SearchEvent, SearchState } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
+
 import type {
   SearchInputFieldProps as UISearchInputFieldProps,
   SearchInputFieldRef as UISearchInputFieldRef,
@@ -136,7 +137,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
         {searchDropdownVisible && (
           <Suspense fallback={null}>
-            <SearchDropdown sort={sort} />
+            <SearchDropdown sort={sort as SearchState['sort']} />
           </Suspense>
         )}
       </UISearchInput>

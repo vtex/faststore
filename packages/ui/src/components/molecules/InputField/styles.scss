@@ -18,6 +18,9 @@
   --fs-input-field-label-color                 : var(--fs-color-text-light);
   --fs-input-field-label-size                  : var(--fs-text-size-tiny);
 
+  // Button
+  --fs-input-field-button-height               : var(--fs-control-tap-size);
+
   // Error
   --fs-input-field-error-message-size          : var(--fs-text-size-legend);
   --fs-input-field-error-message-line-height   : 1.1;
@@ -41,17 +44,18 @@
   display: flex;
   flex-flow: column;
 
-  input,
-  label {
+  [data-fs-input],
+  [data-fs-label] {
     transition: var(--fs-input-field-transition-property) var(--fs-input-field-transition-timing) var(--fs-input-field-transition-function);
   }
 
-  input {
+  [data-fs-input] {
+    --fs-input-padding: var(--fs-input-field-padding);
     padding: var(--fs-input-field-padding);
     color: var(--fs-input-field-color);
 
     &:placeholder-shown + label {
-      top: calc(1.5 * (var(--fs-input-field-size) / 2));
+      top: calc(50% - (var(--fs-input-field-size) / 2));
       overflow: hidden;
     }
 
@@ -76,11 +80,11 @@
     }
   }
 
-  label {
+  [data-fs-label] {
     position: absolute;
     padding: var(--fs-input-field-label-padding);
     font-size: var(--fs-input-field-size);
-    line-height: 1.5;
+    line-height: var(--fs-input-field-size);
     color: var(--fs-input-field-label-color);
   }
 
@@ -89,11 +93,12 @@
   // --------------------------------------------------------
 
   &[data-fs-input-field-error="true"] {
-    input {
+    [data-fs-input] {
       border-color: var(--fs-input-field-error-border-color);
-
-      @include input-focus-ring($outline: #{var(--fs-input-field-error-focus-ring)},
-      $border: #{var(--fs-input-field-error-border-color)});
+      @include input-focus-ring(
+        $outline: #{var(--fs-input-field-error-focus-ring)},
+        $border: #{var(--fs-input-field-error-border-color)}
+      );
 
       &:hover:not(:disabled):not(:focus-visible):not(:focus) {
         border-color: var(--fs-input-field-error-border-color);
@@ -112,14 +117,13 @@
   &[data-fs-input-field-actionable="true"] {
     min-width: rem(250px);
 
-    input {
-      padding-right: var(--fs-spacing-13);
-    }
+    [data-fs-input] { padding-right: var(--fs-spacing-13); }
 
     [data-fs-button] {
       position: absolute;
       top: 0;
       right: 0;
+      height: var(--fs-input-field-button-height);
 
       [data-fs-button-wrapper]::before {
         position: absolute;

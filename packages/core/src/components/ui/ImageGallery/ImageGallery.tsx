@@ -5,7 +5,13 @@ import { useRouter } from 'next/router'
 import type { ImageGalleryProps as UIImageGalleryProps } from '@faststore/ui'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
-const ImageComponent = ({ url, alternateName }) => {
+const ImageComponent = ({
+  url,
+  alternateName,
+}: {
+  url: string
+  alternateName?: string
+}) => {
   const { __experimentalImageGalleryImage: Image } =
     useOverrideComponents<'ProductDetails'>()
 

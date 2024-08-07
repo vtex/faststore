@@ -23,7 +23,7 @@
       ]
     },
     "forceConsistentCasingInFileNames": true,
-    "strict": false,
+    "noImplicitAny": true,
     "incremental": true,
     "isolatedModules": true,
     "target": "es5",
@@ -35,7 +35,8 @@
         "name": "next"
       }
     ],
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "strict": false
   },
   "include": [
     "*.d.ts",

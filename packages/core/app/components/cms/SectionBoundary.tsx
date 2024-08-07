@@ -3,11 +3,24 @@
 import { Component } from 'react'
 import type { ErrorInfo, ReactNode } from 'react'
 
-class SectionBoundary extends Component<{
+interface ErrorBoundaryProps {
   children: ReactNode
   name: string
-}> {
-  public state = { hasError: false, error: null }
+}
+
+interface ErrorBoundaryState {
+  hasError: Boolean
+  error: Error | null
+}
+
+class SectionBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
+  public state: ErrorBoundaryState = {
+    hasError: false,
+    error: null,
+  }
 
   public static getDerivedStateFromError(error: Error) {
     return {

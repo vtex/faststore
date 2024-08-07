@@ -9,7 +9,6 @@ import NavbarLinks from 'app/components/navigation/NavbarLinks'
 import NavbarSlider from 'app/components/navigation/NavbarSlider'
 import type { SearchInputRef } from 'app/components/search/SearchInput'
 import SearchInput from 'app/components/search/SearchInput'
-import { ButtonSignIn } from 'app/components/ui/Button'
 import Link from 'app/components/ui/Link'
 import Logo from 'app/components/ui/Logo'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
@@ -77,6 +76,7 @@ function Navbar({
     NavbarRow,
     NavbarButtons,
     IconButton,
+    _experimentalButtonSignIn: ButtonSignIn,
   } = useOverrideComponents<'Navbar'>()
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
@@ -152,7 +152,7 @@ function Navbar({
               aria-hidden={!searchExpanded}
             />
 
-            <ButtonSignIn {...signInButton} />
+            <ButtonSignIn.Component {...signInButton} />
 
             <CartToggle {...cart} />
           </NavbarButtons.Component>
