@@ -58,6 +58,10 @@ export type {
   ViewItemListParams,
 } from "./analytics/events/view_item_list";
 export type {
+  PageViewEvent,
+  PageViewParams,
+} from "./analytics/events/page_view";
+export type {
   CurrencyCode,
   Item,
   ItemId,
