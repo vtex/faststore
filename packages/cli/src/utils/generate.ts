@@ -60,6 +60,31 @@ function filterAndCopyPackageJson(basePath: string) {
   })
 }
 
+// Temporary array of strict rules enabled so far.
+const TS_CONFIG_STRICT_RULES_ENABLED = ['noImplicitAny'] as const
+
+/**
+ * Modify TypeScript compilation settings (tsconfig.json) to disable specific strict
+ * type checking rules when files are moved to the .faststore folder. 
+ * TODO: The idea is to change the strict to false when all strict rules are migrated.
+ */
+function disableTsConfigStrictRules(basePath: string) {
+  const { coreDir, tmpDir } = withBasePath(basePath)
+
+  const coreTsConfigPath = path.join(coreDir, 'tsconfig.json')
+
+  const coreTsConfigFile = readFileSync(coreTsConfigPath, 'utf8')
+  const tsConfig = JSON.parse(coreTsConfigFile)
+
+  TS_CONFIG_STRICT_RULES_ENABLED.forEach(strictRule => {
+    tsConfig.compilerOptions[strictRule] = false
+  })
+
+  writeJsonSync(path.join(tmpDir, 'tsconfig.json'), tsConfig, {
+    spaces: 2,
+  })
+}
+
 function copyCoreFiles(basePath: string) {
   const { coreDir, tmpDir } = withBasePath(basePath)
 
@@ -77,6 +102,7 @@ function copyCoreFiles(basePath: string) {
     })
 
     filterAndCopyPackageJson(basePath)
+    disableTsConfigStrictRules(basePath)
 
     console.log(`${chalk.green('success')} - Core files copied`)
   } catch (e) {
