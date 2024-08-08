@@ -49,7 +49,39 @@ const nextConfig = {
     return config
   },
   redirects: storeConfig.redirects,
-  rewrites: storeConfig.rewrites,
+  async rewrites() {
+    return {
+      beforeFiles: [
+        ...(storeConfig.rewrites ? await storeConfig.rewrites : []),
+        {
+          source: '/login',
+          destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/api/io/login`,
+        },
+        {
+          source: '/checkout',
+          destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/checkout`,
+        },
+        {
+          source: '/files/:path*',
+          destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/files/:path*`,
+        },
+        {
+          source: '/arquivos/:path*',
+          destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/arquivos/:path*`,
+        },
+        {
+          source: '/_v/:path*',
+          destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/_v/:path*`,
+        },
+      ],
+      afterFiles: [
+        {
+          source: '/api/:rest*',
+          destination: `https://${storeConfig.api.storeId}.${storeConfig.api.environment}.com.br/api/:rest*`,
+        },
+      ],
+    }
+  },
 }
 
 module.exports = nextConfig
