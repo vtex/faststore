@@ -1,8 +1,19 @@
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
+import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../faststore.config'
+import { ComponentType } from 'react'
+import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
+import PageProvider from 'src/sdk/overrides/PageProvider'
+import RenderSections from 'app/components/cms/RenderSections'
+
+/* A list of components that can be used in the CMS. */
+const COMPONENTS: Record<string, ComponentType<any>> = {
+  Hero,
+  ...CUSTOM_COMPONENTS,
+}
 
 const getHomeData = async () => {
   const serverData = await getDynamicContent({ pageType: 'home' })
@@ -30,18 +41,23 @@ const getHomeData = async () => {
 }
 
 async function Page() {
-  const { page } = await getHomeData()
+  const {
+    page: { sections },
+    serverData,
+  } = await getHomeData()
+
+  const context = {
+    data: serverData,
+  }
 
   return (
-    <>
-      <h1>App router: Home</h1>
-      <br />
-
-      {JSON.stringify(page, null, 2)}
-    </>
+    <PageProvider context={context}>
+      <RenderSections sections={sections} components={COMPONENTS} />
+    </PageProvider>
   )
 }
 
 Page.displayName = 'Page'
 
+/*TODO: We should change the mark function to support server components*/
 export default Page
