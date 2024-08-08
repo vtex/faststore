@@ -1,6 +1,6 @@
 import { Command, Flags } from '@oclif/core'
 import { spawn } from 'child_process'
-import { tmpDir } from '../utils/directory'
+import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
 import { mergeCMSFiles } from '../utils/hcms'
 
@@ -9,11 +9,22 @@ export default class CmsSync extends Command {
     ['dry-run']: Flags.boolean({ char: 'd' }),
   }
 
-  async run() {
-    const { flags } = await this.parse(CmsSync)
+  static args = [
+    {
+      name: 'path',
+      description: 'The path where the FastStore being synched with the CMS is. Defaults to cwd.',
+    }
+  ]
 
-    await generate({ setup: true })
-    await mergeCMSFiles()
+
+  async run() {
+    const { flags, args } = await this.parse(CmsSync)
+
+    const basePath = args.path ?? process.cwd()
+    const { tmpDir } = withBasePath(basePath)
+
+    await generate({ setup: true, basePath })
+    await mergeCMSFiles(basePath)
 
     if (flags['dry-run']) {
       return

@@ -11,28 +11,19 @@ import {
 } from 'fs-extra'
 import path from 'path'
 
-import {
-  coreDir,
-  tmpCmsWebhookUrlsFileDir,
-  tmpCustomizationsSrcDir,
-  tmpDir,
-  tmpFolderName,
-  tmpStoreConfigFileDir,
-  tmpThemesCustomizationsFileDir,
-  userDir,
-  userSrcDir,
-  userStoreConfigFileDir,
-  userThemesFileDir,
-} from './directory'
+import { withBasePath } from './directory'
 
 interface GenerateOptions {
   setup?: boolean
+  basePath: string
 }
 
 // package.json is copied manually after filtering its content
 const ignorePaths = ['package.json', 'node_modules', 'cypress.config.ts']
 
-function createTmpFolder() {
+function createTmpFolder(basePath: string) {
+  const { tmpDir, tmpFolderName } = withBasePath(basePath)
+
   try {
     if (existsSync(tmpDir)) {
       removeSync(tmpDir)
@@ -54,7 +45,9 @@ function createTmpFolder() {
  * where sometimes the package.json from the .faststore folder
  * took precedence over @faststore/core's package.json.
  */
-function filterAndCopyPackageJson() {
+function filterAndCopyPackageJson(basePath: string) {
+  const { coreDir, tmpDir } = withBasePath(basePath)
+
   const corePackageJsonPath = path.join(coreDir, 'package.json')
 
   const corePackageJsonFile = readFileSync(corePackageJsonPath, 'utf8')
@@ -67,9 +60,37 @@ function filterAndCopyPackageJson() {
   })
 }
 
-function copyCoreFiles() {
+// Temporary array of strict rules enabled so far.
+const TS_CONFIG_STRICT_RULES_ENABLED = ['noImplicitAny'] as const
+
+/**
+ * Modify TypeScript compilation settings (tsconfig.json) to disable specific strict
+ * type checking rules when files are moved to the .faststore folder. 
+ * TODO: The idea is to change the strict to false when all strict rules are migrated.
+ */
+function disableTsConfigStrictRules(basePath: string) {
+  const { coreDir, tmpDir } = withBasePath(basePath)
+
+  const coreTsConfigPath = path.join(coreDir, 'tsconfig.json')
+
+  const coreTsConfigFile = readFileSync(coreTsConfigPath, 'utf8')
+  const tsConfig = JSON.parse(coreTsConfigFile)
+
+  TS_CONFIG_STRICT_RULES_ENABLED.forEach(strictRule => {
+    tsConfig.compilerOptions[strictRule] = false
+  })
+
+  writeJsonSync(path.join(tmpDir, 'tsconfig.json'), tsConfig, {
+    spaces: 2,
+  })
+}
+
+function copyCoreFiles(basePath: string) {
+  const { coreDir, tmpDir } = withBasePath(basePath)
+
   try {
     copySync(coreDir, tmpDir, {
+      dereference: true,
       filter(src) {
         const fileOrDirName = path.basename(src)
         const shouldCopy = fileOrDirName
@@ -80,7 +101,8 @@ function copyCoreFiles() {
       },
     })
 
-    filterAndCopyPackageJson()
+    filterAndCopyPackageJson(basePath)
+    disableTsConfigStrictRules(basePath)
 
     console.log(`${chalk.green('success')} - Core files copied`)
   } catch (e) {
@@ -88,11 +110,14 @@ function copyCoreFiles() {
   }
 }
 
-function copyPublicFiles() {
+function copyPublicFiles(basePath: string) {
+  const { userDir, tmpDir } = withBasePath(basePath)
+
   const allowList = ['json', 'txt', 'xml', 'ico', 'public']
   try {
     if (existsSync(`${userDir}/public`)) {
       copySync(`${userDir}/public`, `${tmpDir}/public`, {
+        dereference: true,
         overwrite: true,
         filter: (src) => {
           const allow = allowList.some((ext) => src.endsWith(ext))
@@ -107,19 +132,21 @@ function copyPublicFiles() {
   }
 }
 
-async function copyCypressFiles() {
+async function copyCypressFiles(basePath: string) {
+  const { userDir, userStoreConfigFile, tmpDir } = withBasePath(basePath)
+
   try {
     // Cypress 9.x config file
     if (existsSync(`${userDir}/cypress.json`)) {
-      copySync(`${userDir}/cypress.json`, `${tmpDir}/cypress.json`)
+      copySync(`${userDir}/cypress.json`, `${tmpDir}/cypress.json`, { dereference: true })
     }
 
     // Cypress 12.x config file
     if (existsSync(`${userDir}/cypress.config.ts`)) {
-      copySync(`${userDir}/cypress.config.ts`, `${tmpDir}/cypress.config.ts`)
+      copySync(`${userDir}/cypress.config.ts`, `${tmpDir}/cypress.config.ts`, { dereference: true })
     }
 
-    const userStoreConfig = await import(userStoreConfigFileDir)
+    const userStoreConfig = await import(path.resolve(userStoreConfigFile))
 
     // Copy custom Cypress folder and files
     if (
@@ -128,6 +155,7 @@ async function copyCypressFiles() {
     ) {
       copySync(`${userDir}/cypress`, `${tmpDir}/cypress`, {
         overwrite: true,
+        dereference: true
       })
 
       console.log(`${chalk.green('success')} - Cypress test files copied`)
@@ -146,14 +174,16 @@ async function copyCypressFiles() {
   }
 }
 
-function copyUserStarterToCustomizations() {
+function copyUserStarterToCustomizations(basePath: string) {
+  const { userSrcDir, tmpCustomizationsSrcDir, userStoreConfigFile, tmpStoreConfigFile } = withBasePath(basePath)
+
   try {
     if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
-      copySync(userSrcDir, tmpCustomizationsSrcDir)
+      copySync(userSrcDir, tmpCustomizationsSrcDir, { dereference: true })
     }
 
-    if (existsSync(userStoreConfigFileDir)) {
-      copySync(userStoreConfigFileDir, tmpStoreConfigFileDir)
+    if (existsSync(userStoreConfigFile)) {
+      copySync(userStoreConfigFile, tmpStoreConfigFile, { dereference: true })
     }
 
     console.log(`${chalk.green('success')} - Starter files copied`)
@@ -162,8 +192,9 @@ function copyUserStarterToCustomizations() {
   }
 }
 
-async function createCmsWebhookUrlsJsonFile() {
-  const userStoreConfig = await import(userStoreConfigFileDir)
+async function createCmsWebhookUrlsJsonFile(basePath: string) {
+  const { userStoreConfigFile, tmpCMSWebhookUrlsFile } = withBasePath(basePath)
+  const userStoreConfig = await import(path.resolve(userStoreConfigFile))
 
   if (
     userStoreConfig?.vtexHeadlessCms &&
@@ -173,7 +204,7 @@ async function createCmsWebhookUrlsJsonFile() {
 
     try {
       writeJsonSync(
-        tmpCmsWebhookUrlsFileDir,
+        tmpCMSWebhookUrlsFile,
         { urls: webhookUrls },
         { spaces: 2 }
       )
@@ -186,8 +217,9 @@ async function createCmsWebhookUrlsJsonFile() {
   }
 }
 
-async function copyTheme() {
-  const storeConfig = await import(userStoreConfigFileDir)
+async function copyTheme(basePath: string) {
+  const { userStoreConfigFile, userThemesFileDir, tmpThemesCustomizationsFile } = withBasePath(basePath)
+  const storeConfig = await import(path.resolve(userStoreConfigFile))
   if (storeConfig.theme) {
     const customTheme = path.join(
       userThemesFileDir,
@@ -195,10 +227,9 @@ async function copyTheme() {
     )
     if (existsSync(customTheme)) {
       try {
-        copyFileSync(customTheme, tmpThemesCustomizationsFileDir)
+        copyFileSync(customTheme, tmpThemesCustomizationsFile)
         console.log(
-          `${chalk.green('success')} - ${
-            storeConfig.theme
+          `${chalk.green('success')} - ${storeConfig.theme
           } theme has been applied`
         )
       } catch (err) {
@@ -206,10 +237,8 @@ async function copyTheme() {
       }
     } else {
       console.info(
-        `${chalk.blue('info')} - The ${
-          storeConfig.theme
-        } theme was added to the config file but the ${
-          storeConfig.theme
+        `${chalk.blue('info')} - The ${storeConfig.theme
+        } theme was added to the config file but the ${storeConfig.theme
         }.scss file does not exist in the themes folder. Read more: https://www.faststore.dev/docs/themes/overview`
       )
     }
@@ -225,24 +254,24 @@ async function copyTheme() {
   }
 }
 
-export async function generate(options?: GenerateOptions) {
-  const { setup = false } = options ?? {}
+export async function generate(options: GenerateOptions) {
+  const { basePath, setup = false } = options
 
   let setupPromise: Promise<unknown> | null = null
 
   if (setup) {
     setupPromise = Promise.all([
-      createTmpFolder(),
-      copyCoreFiles(),
-      copyCypressFiles(),
-      copyPublicFiles(),
+      createTmpFolder(basePath),
+      copyCoreFiles(basePath),
+      copyCypressFiles(basePath),
+      copyPublicFiles(basePath),
     ])
   }
 
   await Promise.all([
     setupPromise,
-    copyUserStarterToCustomizations(),
-    copyTheme(),
-    createCmsWebhookUrlsJsonFile(),
+    copyUserStarterToCustomizations(basePath),
+    copyTheme(basePath),
+    createCmsWebhookUrlsJsonFile(basePath),
   ])
 }

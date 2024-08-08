@@ -1,7 +1,12 @@
 import storeConfig from 'faststore.config'
+import { ImageLoaderProps } from 'next/image'
 const THUMBOR_SERVER = `https://${storeConfig.api.storeId}.vtexassets.com`
 
-export default function customImageLoader({ src, width, quality }) {
+export default function customImageLoader({
+  src,
+  width,
+  quality,
+}: ImageLoaderProps) {
   const preSizeComponents = [THUMBOR_SERVER, 'unsafe']
 
   // proportional to the width, enter a height of 0,

@@ -1,16 +1,18 @@
 import {
+  IconButton as UIIconButton,
   Navbar as UINavbar,
+  NavbarButtons as UINavbarButtons,
+  NavbarHeader as UINavbarHeader,
   NavbarLinks as UINavbarLinks,
   NavbarLinksList as UINavbarLinksList,
+  NavbarRow as UINavbarRow,
   NavbarSlider as UINavbarSlider,
-  NavbarSliderHeader as UINavbarSliderHeader,
   NavbarSliderContent as UINavbarSliderContent,
   NavbarSliderFooter as UINavbarSliderFooter,
-  NavbarHeader as UINavbarHeader,
-  NavbarRow as UINavbarRow,
-  NavbarButtons as UINavbarButtons,
-  IconButton as UIIconButton,
+  NavbarSliderHeader as UINavbarSliderHeader,
 } from '@faststore/ui'
+
+import { ButtonSignIn } from 'app/components/ui/Button'
 
 export const NavbarDefaultComponents = {
   Navbar: UINavbar,
@@ -24,4 +26,5 @@ export const NavbarDefaultComponents = {
   NavbarRow: UINavbarRow,
   NavbarButtons: UINavbarButtons,
   IconButton: UIIconButton,
+  _experimentalButtonSignIn: ButtonSignIn,
 } as const

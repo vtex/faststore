@@ -11,6 +11,6 @@
 
 // export default dynamicContent;
 
-const dynamicContent = {}
+const dynamicContent: Record<string, any> = {}
 
 export default dynamicContent

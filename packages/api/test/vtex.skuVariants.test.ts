@@ -111,16 +111,16 @@ describe('getFormattedVariations', () => {
     const expected = {
       Color: [
         {
-          src: 'https://storecomponents.vtexassets.com/arquivos/ids/155559/pink-sku-variation.png?v=637087508159070000',
-          alt: 'skuvariation',
-          label: 'Color: Green',
-          value: 'Green',
-        },
-        {
           src: 'https://storecomponents.vtexassets.com/arquivos/ids/155560/pink-cool-sku-variation.png?v=637063239809000000',
           alt: 'skuvariation',
           label: 'Color: Red',
           value: 'Red',
+        },
+        {
+          src: 'https://storecomponents.vtexassets.com/arquivos/ids/155559/pink-sku-variation.png?v=637087508159070000',
+          alt: 'skuvariation',
+          label: 'Color: Green',
+          value: 'Green',
         },
         {
           src: 'https://storecomponents.vtexassets.com/arquivos/ids/155561/white-sku-variation.png?v=637087507771770000',

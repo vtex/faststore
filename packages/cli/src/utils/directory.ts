@@ -1,74 +1,68 @@
 import path from 'path'
+import fs from 'node:fs'
 
-// build folder
-export const tmpFolderName = '.faststore'
+export const withBasePath = (basepath: string) => {
+  const tmpFolderName = '.faststore'
 
-// always returns the root of the project, AKA the starter root or @faststore/core dir root when running in the monorepo
-export const getRoot = () => {
-  if (process.env.OCLIF_COMPILATION) {
-    return ''
+  const getRoot = () => {
+    if (process.env.OCLIF_COMPILATION) {
+      return ''
+    }
+
+    if (basepath.endsWith(tmpFolderName)) {
+      // if the current working directory is the build folder (tmp folder), return the starter root
+      // this makes sure the semantics of the starter root are consistent with the directories declared below
+      return path.join(basepath, '..')
+    }
+
+    return basepath
   }
 
-  if(process.cwd().endsWith(tmpFolderName)) {
-    // if the current working directory is the build folder (tmp folder), return the starter root
-    // this makes sure the semantics of the starter root are consistent with the directories declared below
-    return path.join(process.cwd(), '..')
+  /* 
+   * This will loop from the basepath until the process.cwd() looking for node_modules/@faststore/core
+   * 
+   * If it reaches process.cwd() (or /, as a safeguard), without finding it, it will throw an exception
+   */
+  const getCorePackagePath = () => {
+    const coreFromNodeModules = path.join('node_modules', '@faststore', 'core')
+    const resolvedCwd = path.resolve(process.cwd())
+
+    const parents: string[] = []
+
+    let attemptedPath
+    do {
+      attemptedPath = path.join(basepath, ...parents, coreFromNodeModules)
+
+      if (fs.existsSync(attemptedPath)) {
+        return attemptedPath
+      }
+
+      parents.push('..')
+    } while (path.resolve(attemptedPath) !== resolvedCwd || path.resolve(attemptedPath) !== '/')
+
+    throw `Could not find @node_modules on ${basepath} or any of its parents until ${attemptedPath}`
   }
 
-  return process.cwd()
+  const tmpDir = path.join(getRoot(), tmpFolderName)
+  const userSrcDir = path.join(getRoot(), 'src')
+
+  return {
+    getRoot,
+    userDir: getRoot(),
+    userSrcDir,
+    userThemesFileDir: path.join(userSrcDir, 'themes'),
+    userCMSDir: path.join(getRoot(), 'cms', 'faststore'),
+    userStoreConfigFile: path.join(getRoot(), 'faststore.config.js'),
+
+    tmpFolderName,
+    tmpDir,
+    tmpCustomizationsSrcDir: path.join(tmpDir, 'src', 'customizations', 'src'),
+    tmpThemesCustomizationsFile: path.join(tmpDir, 'src', 'customizations', 'src', 'themes', 'index.scss'),
+    tmpCMSDir: path.join(tmpDir, 'cms', 'faststore'),
+    tmpCMSWebhookUrlsFile: path.join(tmpDir, 'cms-webhook-urls.json'),
+    tmpStoreConfigFile: path.join(tmpDir, 'src', 'customizations', 'faststore.config.js'),
+
+    coreDir: getCorePackagePath(),
+    coreCMSDir: path.join(getCorePackagePath(), 'cms', 'faststore'),
+  }
 }
-
-// starter root
-export const userDir = getRoot()
-
-// node_modules folder for faststorer packages
-export const faststoreDir = path.join(userDir, 'node_modules', '@faststore')
-
-// build folder dir
-export const tmpDir = path.join(userDir, tmpFolderName)
-
-// node_modules folder for @faststore/core
-export const coreFolderName = 'core'
-export const coreDir = path.join(faststoreDir, coreFolderName)
-
-// starter src/ folder
-export const srcFolderName = 'src'
-export const userSrcDir = path.join(userDir, srcFolderName)
-
-// build folder's folder to which starter files should always be copied 
-export const customizationsFolderName = 'customizations'
-// build folder's root folder for starter files 
-export const tmpCustomizationsDir = path.join(tmpDir, 'src', customizationsFolderName)
-// build folder's starter src files
-export const tmpCustomizationsSrcDir = path.join(tmpCustomizationsDir, srcFolderName)
-
-// starter's folder for themes
-export const userThemesFileDir = path.join(userSrcDir, 'themes')
-// build folder's dir for theme
-export const tmpThemesCustomizationsFileDir = path.join(tmpCustomizationsSrcDir, 'themes', 'index.scss')
-
-// path segment of cms files for faststore
-export const cmsFolderName = path.join('cms', 'faststore')
-// build folder's cms folder
-export const tmpCMSDir = path.join(tmpDir, cmsFolderName)
-// node_modules folder for @faststore/core's cms folder
-export const coreCMSDir = path.join(coreDir, cmsFolderName)
-// starter folder's cms folder
-export const userCMSDir = path.join(userDir, cmsFolderName)
-
-// file name for faststore configs
-export const configFileName = 'faststore.config.js'
-// starter's config file dir
-export const userStoreConfigFileDir = path.join(userDir, configFileName)
-// build folder's config file dir
-export const tmpStoreConfigFileDir = path.join(tmpCustomizationsDir, configFileName)
-
-// starter's node_modules
-export const userNodeModulesDir = path.join(userDir, 'node_modules')
-// build folder's node_modules
-export const tmpNodeModulesDir = path.join(tmpDir, 'node_modules')
-
-// cms webhook config file name
-export const cmsWebhookUrlsFileName = 'cms-webhook-urls.json'
-// build folder's dir for webhook config
-export const tmpCmsWebhookUrlsFileDir = path.join(tmpDir, cmsWebhookUrlsFileName)

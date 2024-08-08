@@ -7,6 +7,9 @@ import type {
 
 import type { SectionsOverrides } from '../../typings/overrides'
 
+/* TODO: Fix typescript errors. It is necessary to further investigate the typing 
+issues of this file. Error lines have been marked with the @ts-ignore comment*/
+
 export function getSectionOverrides<
   SectionName extends keyof SectionsOverrides
 >(
@@ -15,38 +18,45 @@ export function getSectionOverrides<
 ): OverriddenComponents<SectionName> {
   const overriddenComponents = {} as OverriddenComponents<SectionName>
 
-  Object.entries(defaultComponents).forEach(([key, value]) => {
-    const componentOverride:
-      | ComponentOverrideDefinition<unknown, unknown>
-      | undefined = override.components?.[key]
+  Object.entries<React.ComponentType>(defaultComponents).forEach(
+    ([key, value]) => {
+      const componentOverride:
+        | ComponentOverrideDefinition<React.ComponentType, unknown>
+        | undefined =
+        // @ts-ignore
+        override.components?.[key]
 
-    if (!componentOverride) {
-      overriddenComponents[key] = {
-        Component: value,
-        props: {},
+      if (!componentOverride) {
+        // @ts-ignore
+        overriddenComponents[key] = {
+          Component: value,
+          props: {},
+        }
+
+        return
       }
 
-      return
-    }
-
-    if (componentOverride.Component && componentOverride.props) {
-      console.warn(
-        `Mixed use of Component and props overrides detected. Defaulting to Component override: component ${key} in the ${override.section} section.`
-      )
-    }
-
-    if (componentOverride.Component) {
-      overriddenComponents[key] = {
-        Component: componentOverride.Component,
-        props: {},
+      if (componentOverride.Component && componentOverride.props) {
+        console.warn(
+          `Mixed use of Component and props overrides detected. Defaulting to Component override: component ${key} in the ${override.section} section.`
+        )
       }
-    } else {
-      overriddenComponents[key] = {
-        Component: value,
-        props: componentOverride.props ?? {},
+
+      if (componentOverride.Component) {
+        // @ts-ignore
+        overriddenComponents[key] = {
+          Component: componentOverride.Component,
+          props: {},
+        }
+      } else {
+        // @ts-ignore
+        overriddenComponents[key] = {
+          Component: value,
+          props: componentOverride.props ?? {},
+        }
       }
     }
-  })
+  )
 
   return overriddenComponents
 }

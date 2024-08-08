@@ -13,7 +13,7 @@ if (typeof window !== 'undefined') {
   }
 }
 
-const AnalyticsHandler = () => {
+const AnalyticsHandler = (): null => {
   useAnalyticsEvent((event: AnalyticsEvent) => {
     // Cleans the ecommerce object before pushing a new one
     // This prevents the new data from getting merged with the previous one

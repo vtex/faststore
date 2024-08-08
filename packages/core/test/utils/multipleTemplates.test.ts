@@ -61,7 +61,7 @@ describe('Multiple page templates', () => {
     })
 
     it('should return false when the rewrites is empty array', () => {
-      const rewritesArr = []
+      const rewritesArr: Rewrite[] = []
       const result = hasRewritesConfigForSlug({
         rewrites: rewritesArr,
         templateValue: '/test/my-office',

@@ -7,6 +7,10 @@ type StoreOffer {
   """
   listPrice: Float!
   """
+  List price among with current taxes.
+  """
+  listPriceWithTaxes: Float!
+  """
   Computed price before applying coupons, taxes or benefits. This may change before it reaches the shelf.
   """
   sellingPrice: Float!
@@ -18,6 +22,10 @@ type StoreOffer {
   Also known as spot price.
   """
   price: Float!
+  """
+  Also known as spot price with taxes.
+  """
+  priceWithTaxes: Float!
   """
   Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time.
   """

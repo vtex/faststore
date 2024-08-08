@@ -1,12 +1,16 @@
 import { Command } from '@oclif/core';
 import { spawn } from 'child_process';
+import chalk from 'chalk';
 import chokidar from 'chokidar';
 import dotenv from 'dotenv';
 
-import { readFileSync } from 'fs';
+import { readFileSync, cpSync } from 'fs';
 import path from 'path';
-import { getRoot, tmpDir } from '../utils/directory';
+import { withBasePath } from '../utils/directory';
 import { generate } from '../utils/generate';
+import { getPreferredPackageManager } from '../utils/commands';
+import { runCommandSync } from '../utils/runCommandSync';
+
 
 /**
  * Taken from toolbelt
@@ -31,10 +35,28 @@ const defaultIgnored = [
 
 const devAbortController = new AbortController()
 
-async function storeDev() {
-  const envVars = dotenv.parse(readFileSync(path.join(getRoot(), 'vtex.env')))
+async function storeDev(rootDir: string, tmpDir: string, coreDir: string) {
+  const envVars = dotenv.parse(readFileSync(path.join(rootDir, 'vtex.env')))
 
-  const devProcess = spawn('yarn dev', {
+  const packageManager = getPreferredPackageManager()
+
+  runCommandSync({
+    cmd: `${packageManager} predev`,
+    errorMessage:
+      'GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect',
+    throws: 'error',
+    debug: true,
+    cwd: tmpDir,
+  })
+
+  const { success } = copyGenerated(path.join(tmpDir, '@generated'), path.join(coreDir, '@generated'))
+
+  if (!success) {
+    console.log(`${chalk.yellow('warn')} - Failed to copy @generated schema back to node_modules, autocomplete and DX might be impacted.`)
+    console.log(`Attempted to copy from ${path.join(tmpDir, '@generated')} to ${path.join(coreDir, '@generated')}`)
+  }
+
+  const devProcess = spawn(`${packageManager} dev-only`, {
     shell: true,
     cwd: tmpDir,
     signal: devAbortController.signal,
@@ -50,12 +72,32 @@ async function storeDev() {
   })
 }
 
-export default class Dev extends Command {
-  async run() {
-    const queueChange = (/* path: string, remove: boolean */) => {
-      // getContentFromPath(path, remove)
+function copyGenerated(from: string, to: string) {
+  try {
+    cpSync(from, to, { recursive: true, force: true, dereference: true })
 
-      generate()
+    return { success: true }
+  } catch (err) {
+    return { success: false }
+  }
+}
+
+export default class Dev extends Command {
+  static args = [
+    {
+      name: 'path',
+      description: 'The path where the FastStore being run is. Defaults to cwd.',
+    }
+  ]
+
+  async run() {
+    const { args } = await this.parse(Dev)
+    const basePath = args.path ?? process.cwd()
+
+    const { getRoot, tmpDir, coreDir } = withBasePath(basePath)
+
+    const queueChange = (/* path: string, remove: boolean */) => {
+      generate({ basePath })
     }
 
     const watcher = chokidar.watch([...defaultPatterns], {
@@ -74,9 +116,9 @@ export default class Dev extends Command {
       watcher.close()
     })
 
-    await generate({ setup: true })
+    await generate({ setup: true, basePath })
 
-    storeDev()
+    storeDev(getRoot(), tmpDir, coreDir)
 
     return await new Promise((resolve, reject) => {
       watcher

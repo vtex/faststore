@@ -1,28 +1,28 @@
 import React, { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
 
-import { List } from '../../'
+import { Label, List } from '../../'
 
 export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
   /**
-   * ID to find this component in testing tools (e.g.: cypress,
+   * ID to find this component in testing tools (e.g., cypress,
    * testing-library, and jest).
    */
   testId?: string
   /**
-   * Label for the subtotal value of the order. Will only show if subtotalValue is provided.
+   * Label for the subtotal value of the order. It will only show if subtotalValue is provided.
    */
   subtotalLabel?: string
   /**
-   * Subtotal value of the order. If provided, subtotal label and value will be shown.
+   * Subtotal value of the order. If provided, a subtotal label and value will be shown.
    */
   subtotalValue?: string
   /**
-   * Label for the discount value for the order. Will only show if discountValue is provided.
+   * Label for the discount value for the order. It will only show if discountValue is provided.
    */
   discountLabel?: string
   /**
-   * Discount value for the order. If provided, discount label and value will be shown.
+   * Discount value for the order. If provided, a discount label and value will be shown.
    */
   discountValue?: string
   /**
@@ -33,6 +33,14 @@ export interface OrderSummaryProps extends HTMLAttributes<HTMLUListElement> {
    * Total value of the order.
    */
   totalValue?: string
+  /**
+   * Specifies whether the displayed price should include taxes.
+   */
+  includeTaxes?: boolean
+  /**
+   * Label to determine if the price includes taxes.
+   */
+  includeTaxesLabel?: string
 }
 
 const OrderSummary = forwardRef<HTMLUListElement, OrderSummaryProps>(
@@ -45,6 +53,8 @@ const OrderSummary = forwardRef<HTMLUListElement, OrderSummaryProps>(
       discountValue,
       totalLabel = 'Total',
       totalValue,
+      includeTaxes = false,
+      includeTaxesLabel = "Tax included",
       ...otherProps
     },
     ref
@@ -102,6 +112,11 @@ const OrderSummary = forwardRef<HTMLUListElement, OrderSummaryProps>(
             {totalValue}
           </span>
         </li>
+        {includeTaxes && (
+          <li data-fs-order-summary-taxes-label>
+            <Label>{includeTaxesLabel}</Label>
+          </li>
+          )}
       </List>
     )
   }

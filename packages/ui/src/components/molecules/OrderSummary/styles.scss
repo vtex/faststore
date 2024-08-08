@@ -6,16 +6,25 @@
   // Default properties
   --fs-order-summary-padding                         : var(--fs-spacing-3);
   --fs-order-summary-margin-bottom                   : var(--fs-spacing-2);
+  --fs-order-summary-row-gap                         : 0;
 
   --fs-order-summary-discount-text-color             : var(--fs-color-success-text);
 
   --fs-order-summary-total-text-size                 : var(--fs-text-size-3);
   --fs-order-summary-total-text-font-weight          : var(--fs-text-weight-bold);
 
+  // Taxes label
+  --fs-order-summary-taxes-label-color               : var(--fs-color-info-text);
+  --fs-order-summary-taxes-text-size                 : var(--fs-text-size-tiny);
+  --fs-order-summary-taxes-text-weight               : var(--fs-text-weight-regular);
+
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
+  display: flex;
+  flex-direction: column;
   padding: var(--fs-order-summary-padding);
+  row-gap: var(--fs-order-summary-row-gap);
 
   li {
     display: flex;
@@ -29,6 +38,12 @@
     &[data-fs-order-summary-total] {
       font-size: var(--fs-order-summary-total-text-size);
       font-weight: var(--fs-order-summary-total-text-font-weight);
+    }
+
+    &[data-fs-order-summary-taxes-label] {
+      color: var(--fs-order-summary-taxes-label-color);
+      font-size: var(--fs-order-summary-taxes-text-size);
+      font-weight: var(--fs-order-summary-taxes-text-weight);
     }
 
     &:last-of-type {

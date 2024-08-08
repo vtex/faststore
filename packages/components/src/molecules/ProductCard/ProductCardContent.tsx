@@ -8,6 +8,7 @@ import {
   Button,
   DiscountBadge,
   Icon,
+  Label,
   Link,
   LinkElementType,
   LinkProps,
@@ -25,7 +26,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   title: string
   /**
-   * Props for the link from ProductCard component.
+   * Props for the link from the ProductCard component.
    */
   linkProps?: Partial<LinkProps<LinkElementType>>
   /**
@@ -33,7 +34,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   price?: PriceDefinition
   /**
-   * Enables a outOfStock status.
+   * Enables an outOfStock status.
    */
   outOfStock?: boolean
   /**
@@ -41,7 +42,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   outOfStockLabel?: string
   /**
-   * Specifies Rating Value of the product.
+   * Specifies the Rating Value of the product.
    */
   ratingValue?: number
   /**
@@ -53,9 +54,17 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   showDiscountBadge?: boolean
   /**
-   * Callback function when button is clicked.
+   * Callback function when the button is clicked.
    */
   onButtonClick?: () => void
+  /**
+   * Specifies whether the displayed price should include taxes.
+   */
+  includeTaxes?: boolean
+  /**
+   * Label to determine if the price includes taxes.
+   */
+  includeTaxesLabel?: string
 }
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
@@ -72,6 +81,8 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       buttonLabel = 'Add',
       onButtonClick,
       children,
+      includeTaxes = false,
+      includeTaxesLabel = "Tax included",
       ...otherProps
     },
     ref
@@ -100,6 +111,11 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
               listPrice={listingPrice}
               formatter={price?.formatter}
             />
+          )}
+          {includeTaxes && (
+            <Label data-fs-product-card-taxes-label>
+              {includeTaxesLabel}
+            </Label>
           )}
           {ratingValue && (
             <Rating value={ratingValue} icon={<Icon name="Star" />} />

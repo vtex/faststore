@@ -3,7 +3,8 @@ import { spawn } from 'child_process'
 import chokidar from 'chokidar'
 
 import { generate } from '../utils/generate'
-import { getRoot, tmpDir } from '../utils/directory'
+import { withBasePath } from '../utils/directory'
+import { getPreferredPackageManager } from '../utils/commands'
 
 /**
  * Taken from toolbelt
@@ -28,8 +29,10 @@ const defaultIgnored = [
 
 const testAbortController = new AbortController()
 
-async function storeTest() {
-  const testProcess = spawn('yarn test:e2e', {
+async function storeTest(tmpDir: string) {
+  const packageManager = getPreferredPackageManager()
+
+  const testProcess = spawn(`${packageManager} run test:e2e`, {
     shell: true,
     cwd: tmpDir,
     signal: testAbortController.signal,
@@ -42,7 +45,18 @@ async function storeTest() {
 }
 
 export default class Test extends Command {
+  static args = [
+    {
+      name: 'path',
+      description: 'The path where the FastStore being tested is. Defaults to cwd.',
+    }
+  ]
+
   async run() {
+    const { args } = await this.parse(Test)
+    const basePath = args.path ?? process.cwd()
+    const { getRoot, tmpDir } = withBasePath(basePath)
+
     const watcher = chokidar.watch([...defaultPatterns], {
       atomic: stabilityThreshold,
       awaitWriteFinish: {
@@ -59,9 +73,9 @@ export default class Test extends Command {
       watcher.close()
     })
 
-    await generate({ setup: true })
+    await generate({ setup: true, basePath })
 
-    storeTest()
+    storeTest(tmpDir)
 
     return await new Promise((resolve, reject) => {
       watcher

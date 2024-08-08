@@ -47,6 +47,8 @@ storybook-static/
 node_modules/
 jspm_packages/
 
+!packages/cli/src/__mocks__/**/node_modules
+
 # Optional npm cache directory
 .npm
 

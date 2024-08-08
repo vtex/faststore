@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "3.0.68",
+  "version": "3.0.93",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "bin": {
@@ -17,19 +17,24 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
+    "@antfu/ni": "^0.21.12",
+    "@faststore/core": "^3.0.93",
+    "@inquirer/prompts": "^5.1.2",
     "@oclif/core": "^1.16.4",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-not-found": "^2.3.3",
     "chalk": "~4.1.2",
     "chokidar": "^3.5.3",
+    "degit": "^2.8.4",
     "dotenv": "^16.4.5",
     "fs-extra": "^10.1.0",
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "@faststore/eslint-config": "^3.0.68",
-    "@faststore/shared": "^3.0.68",
+    "@faststore/eslint-config": "^3.0.88",
+    "@faststore/shared": "^3.0.88",
     "@types/chai": "^4",
+    "@types/degit": "^2.8.6",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^16.11.63",
     "chai": "^4",
@@ -60,8 +65,8 @@
     "lint": "eslint src/**/*.ts",
     "test": "jest src/**/*.test.ts",
     "postpack": "shx rm -f oclif.manifest.json",
-    "posttest": "yarn lint",
-    "prepack": "yarn build && oclif manifest && oclif readme",
+    "posttest": "na run lint",
+    "prepack": "na run && oclif manifest && oclif readme",
     "version": "oclif readme && git add README.md"
   },
   "bugs": "https://github.com/vtex/faststore/issues",

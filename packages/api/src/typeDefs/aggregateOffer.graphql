@@ -11,6 +11,10 @@ type StoreAggregateOffer {
   """
   lowPrice: Float!
   """
+  Lowest price among all sellers with current taxes.
+  """
+  lowPriceWithTaxes: Float!
+  """
   Number of sellers selling this SKU.
   """
   offerCount: Int!

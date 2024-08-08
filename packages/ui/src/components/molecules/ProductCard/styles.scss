@@ -39,8 +39,14 @@
   --fs-product-card-price-size               : var(--fs-text-size-base);
 
   // Out Of Stock
-  --fs-product-card-out-of-stock-bkg-color   : var(--fs-color-disabled-bkg);
+  --fs-product-card-out-of-stock-bkg-color   : transparent;
+  --fs-product-card-out-of-stock-border-color: var(--fs-color-neutral-1);
   --fs-product-card-out-of-stock-img-opacity : .5;
+
+  // Taxes label
+  --fs-product-card-taxes-label-color        : var(--fs-color-info-text);
+  --fs-product-card-taxes-text-size          : var(--fs-text-size-tiny);
+  --fs-product-card-taxes-text-weight        : var(--fs-text-weight-regular);
 
   // Wide
   --fs-product-card-wide-padding             : 0;
@@ -105,6 +111,12 @@
     flex-direction: column;
     row-gap: var(--fs-product-card-gap);
 
+    [data-fs-product-card-taxes-label] {
+      color: var(--fs-product-card-taxes-label-color);
+      font-size: var(--fs-product-card-taxes-text-size);
+      font-weight: var(--fs-product-card-taxes-text-weight);
+    }
+
     [data-fs-link] {
       min-height: 100%;
       padding: 0;
@@ -157,7 +169,8 @@
   // --------------------------------------------------------
 
   &[data-fs-product-card="out-of-stock"] {
-    --fs-product-card-bkg-color    : var(--fs-product-card-out-of-stock-bkg-color);
+    --fs-product-card-bkg-color       : var(--fs-product-card-out-of-stock-bkg-color);
+    --fs-product-card-border-color    : var(--fs-product-card-out-of-stock-border-color);
 
     [data-fs-product-card-image] { opacity: var(--fs-product-card-out-of-stock-img-opacity); }
 
