@@ -115,6 +115,7 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
         itemListElements={product.breadcrumbList.itemListElement}
       />
       <ProductJsonLd
+        {...product}
         productName={product.name}
         description={product.description}
         brand={product.brand.name}
