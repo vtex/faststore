@@ -5,15 +5,15 @@ import {
   HeroHeaderProps as UIHeroHeaderProps,
 } from '@faststore/ui'
 import { ReactNode } from 'react'
-import { Image } from '../../../components/ui/Image'
+import { Image } from 'src/components/ui/Image'
 
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
-import Section from '../Section'
+import Section from 'src/components/sections/Section'
 
 import styles from './section.module.scss'
 import { HeroDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { getOverridableSection } from 'src/sdk/overrides/getOverriddenSection'
 
 export type HeroProps = {
   title: UIHeroHeaderProps['title']

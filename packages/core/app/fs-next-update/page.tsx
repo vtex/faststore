@@ -5,7 +5,7 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../faststore.config'
 import { ComponentType } from 'react'
-import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
+import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import RenderSections from 'app/components/cms/RenderSections'
 
