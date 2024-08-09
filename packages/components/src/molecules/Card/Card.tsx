@@ -33,17 +33,19 @@ export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> 
 const Card = forwardRef<HTMLDivElement, CardProps>(function Card({
     title,
     children,
-    iconAction = () => (alert('Icon Action')),
-    maxWidth = '300px',
+    maxWidth,
     testId = 'fs-card',
-    iconName = 'PlusCircle',
-    iconColor = '#0D47A1',
+    iconName,
+    iconColor,
+    iconAction
 }, ref) {
     return (
         <div data-testid={testId} ref={ref} data-fs-card style={{ maxWidth: `${maxWidth}` }}>
             <div data-fs-card-header style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div data-fs-card-title>{title}</div>
-                <Icon name={iconName} width={20} height={20} weight="bold" color={iconColor} onClick={iconAction} />
+                {iconName && (
+                    <Icon name={iconName} width={20} height={20} weight="bold" color={iconColor} onClick={iconAction} />
+                )}
             </div>
             <div data-fs-card-body>
                 {children}
