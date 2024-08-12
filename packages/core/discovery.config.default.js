@@ -14,7 +14,7 @@ module.exports = {
 
   // Platform specific configs for API
   api: {
-    storeId: 'storefra1mework',
+    storeId: 'storeframework',
     workspace: 'master',
     subDomainPrefix: ['www'],
     environment: 'vtexcommercestable',
