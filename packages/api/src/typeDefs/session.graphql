@@ -149,6 +149,14 @@ type StoreSession {
   Session input person.
   """
   person: StorePerson
+  """
+  B2B Information.
+  """
+  b2b: StoreB2B
+}
+
+type StoreB2B {
+  customerId: String!
 }
 
 """
