@@ -5,7 +5,7 @@ import { Icon } from '../..'
 
 export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> {
     /**
-    * Specfies the text to be loaded into the header.
+    * Specifies the text to be loaded into the header.
     */
     title?: string
     /**
