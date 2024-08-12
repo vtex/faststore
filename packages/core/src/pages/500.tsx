@@ -1,16 +1,16 @@
 import { Locator } from '@vtex/client-cms'
 import { GetStaticProps } from 'next'
 import { NextSeo } from 'next-seo'
+import type { ComponentType } from 'react'
 import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import type { ComponentType } from 'react'
 
 import RenderSections from 'app/components/cms/RenderSections'
+import { PageContentType, getPage } from 'app/server/cms'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import { PageContentType, getPage } from 'src/server/cms'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {

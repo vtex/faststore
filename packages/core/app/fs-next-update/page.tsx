@@ -1,6 +1,6 @@
+import type { PageContentType } from 'app/server/cms'
+import { getPage } from 'app/server/cms'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import type { PageContentType } from 'src/server/cms'
-import { getPage } from 'src/server/cms'
 
 import RenderSections from 'app/components/cms/RenderSections'
 import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
