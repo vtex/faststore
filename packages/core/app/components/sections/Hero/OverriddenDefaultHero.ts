@@ -1,7 +1,7 @@
 'use client'
 
-import { override } from 'src/customizations/src/components/overrides/Hero'
 import { getOverriddenSection } from 'app/sdk/overrides/getOverriddenSection'
+import { override } from 'src/customizations/src/components/overrides/Hero'
 import Hero from '.'
 
 import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'

@@ -1,13 +1,13 @@
+import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
-import { getDynamicContent } from 'src/utils/dynamicContent'
-import storeConfig from '../../faststore.config'
-import { ComponentType } from 'react'
+import RenderSections from 'app/components/cms/RenderSections'
 import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
 import PageProvider from 'app/sdk/overrides/PageProvider'
-import RenderSections from 'app/components/cms/RenderSections'
+import { ComponentType } from 'react'
+import { getDynamicContent } from 'src/utils/dynamicContent'
+import storeConfig from '../../faststore.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
