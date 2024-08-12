@@ -637,6 +637,10 @@ export type StoreAuthor = {
   name: Scalars['String']['output']
 }
 
+export type StoreB2B = {
+  customerId: Scalars['String']['output']
+}
+
 /** Brand of a given product. */
 export type StoreBrand = {
   /** Brand name. */
@@ -1042,6 +1046,8 @@ export type StoreSeo = {
 export type StoreSession = {
   /** Session address type. */
   addressType: Maybe<Scalars['String']['output']>
+  /** B2B Information. */
+  b2b: Maybe<StoreB2B>
   /** Session channel. */
   channel: Maybe<Scalars['String']['output']>
   /** Session country. */
@@ -1612,6 +1618,7 @@ export type ValidateSessionMutation = {
       givenName: string
       familyName: string
     } | null
+    b2b: { customerId: string } | null
   } | null
 }
 
@@ -2108,7 +2115,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '5696202828f9275216a445e316ebf516f168c506',
+    operationHash: '1e69c734ed31bd9e763a34fe9660f5bbad3fd143',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,
