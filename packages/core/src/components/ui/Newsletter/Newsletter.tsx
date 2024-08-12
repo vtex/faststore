@@ -5,7 +5,7 @@ import { useUI } from '@faststore/ui'
 import type { InputFieldProps } from '@faststore/ui'
 
 import { useNewsletter } from 'src/sdk/newsletter/useNewsletter'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
 import type { NewsletterProps as SectionNewsletterProps } from 'src/components/sections/Newsletter'
 

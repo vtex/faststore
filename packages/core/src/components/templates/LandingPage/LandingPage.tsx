@@ -13,7 +13,7 @@ import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/se
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
-import PageProvider from 'src/sdk/overrides/PageProvider'
+import PageProvider from 'app/sdk/overrides/PageProvider'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 

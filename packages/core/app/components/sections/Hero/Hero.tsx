@@ -7,13 +7,13 @@ import {
 import { ReactNode } from 'react'
 import { Image } from 'src/components/ui/Image'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
 import Section from 'src/components/sections/Section'
 
 import styles from './section.module.scss'
 import { HeroDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from 'src/sdk/overrides/getOverriddenSection'
+import { getOverridableSection } from 'app/sdk/overrides/getOverriddenSection'
 
 export type HeroProps = {
   title: UIHeroHeaderProps['title']

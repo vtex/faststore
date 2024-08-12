@@ -1,5 +1,5 @@
 import { override } from 'src/customizations/src/components/overrides/Breadcrumb'
-import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
+import { getOverriddenSection } from 'app/sdk/overrides/getOverriddenSection'
 import Breadcrumb from '.'
 
 import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'

@@ -1,5 +1,5 @@
 import { override } from 'src/customizations/src/components/overrides/ProductDetails'
-import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
+import { getOverriddenSection } from 'app/sdk/overrides/getOverriddenSection'
 import ProductDetails from './ProductDetails'
 
 import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'

@@ -11,7 +11,7 @@ import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/se
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { SearchPageContextType } from 'src/pages/s'
-import PageProvider, { SearchPageContext } from 'src/sdk/overrides/PageProvider'
+import PageProvider, { SearchPageContext } from 'app/sdk/overrides/PageProvider'
 import {
   useCreateUseGalleryPage,
   UseGalleryPageContext,

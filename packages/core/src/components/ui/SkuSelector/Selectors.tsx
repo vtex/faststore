@@ -4,7 +4,7 @@ import { SkuSelectorProps } from '@faststore/ui'
 import NextLink from 'next/link'
 import { Image } from '../Image'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
 export type SkuVariantsByName = Record<
   string,

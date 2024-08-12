@@ -20,7 +20,7 @@ import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import PageProvider from 'src/sdk/overrides/PageProvider'
+import PageProvider from 'app/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../faststore.config'
 

@@ -4,8 +4,8 @@ import type {
   DefaultSectionComponentsDefinitions,
   SectionOverrideDefinition,
   SectionOverrideDefinitionV1,
-} from '../../typings/overridesDefinition'
-import type { SectionsOverrides } from '../../typings/overrides'
+} from 'src/typings/overridesDefinition'
+import type { SectionsOverrides } from 'src/typings/overrides'
 import { getSectionOverrides } from './overrides'
 import { OverrideProvider } from './OverrideContext'
 

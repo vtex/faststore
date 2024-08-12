@@ -14,9 +14,9 @@ import Section from '../Section'
 
 import styles from './section.module.scss'
 
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
-import { usePDP } from '../../../sdk/overrides/PageProvider'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { useOverrideComponents } from '../../../../app/sdk/overrides/OverrideContext'
+import { usePDP } from '../../../../app/sdk/overrides/PageProvider'
+import { getOverridableSection } from '../../../../app/sdk/overrides/getOverriddenSection'
 import { ProductDetailsDefaultComponents } from './DefaultComponents'
 
 export interface ProductDetailsProps {

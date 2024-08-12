@@ -1,7 +1,7 @@
 'use client'
 
 import { override } from 'src/customizations/src/components/overrides/Navbar'
-import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
+import { getOverriddenSection } from 'app/sdk/overrides/getOverriddenSection'
 import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'
 import Navbar from './Navbar'
 

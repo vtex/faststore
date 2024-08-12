@@ -7,7 +7,7 @@ import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 import { ProductCardProps } from '../ProductCard'
 
 import { memo } from 'react'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
 interface Props {
   /**

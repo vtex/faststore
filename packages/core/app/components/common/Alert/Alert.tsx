@@ -9,7 +9,7 @@ import { mark } from 'src/sdk/tests/mark'
 import Section from 'src/components/sections/Section/Section'
 import styles from './section.module.scss'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
 export interface AlertProps extends Omit<UIAlertProps, 'content'> {
   /**

@@ -5,14 +5,14 @@ import { useRouter } from 'next/router'
 
 import { Icon as UIIcon, Loader as UILoader } from '@faststore/ui'
 
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import { useOverrideComponents } from '../../../../app/sdk/overrides/OverrideContext'
 
 import Section from '../Section'
 
 import styles from './section.module.scss'
 
 import { EmptyStateDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { getOverridableSection } from '../../../../app/sdk/overrides/getOverriddenSection'
 
 export interface EmptyStateProps {
   /**

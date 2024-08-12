@@ -8,7 +8,7 @@ import ProductShelf, {
 } from '../../../components/ui/ProductShelf'
 import styles from './section.module.scss'
 import { ProductShelfDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { getOverridableSection } from '../../../../app/sdk/overrides/getOverriddenSection'
 
 function ProductShelfSection({
   ...otherProps

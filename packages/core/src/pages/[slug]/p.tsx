@@ -30,7 +30,7 @@ import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
+import PageProvider, { PDPContext } from 'app/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import { PDPContentType, getPDP } from 'src/server/cms/pdp'
 

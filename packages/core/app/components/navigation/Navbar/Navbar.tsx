@@ -11,7 +11,7 @@ import type { SearchInputRef } from 'app/components/search/SearchInput'
 import SearchInput from 'app/components/search/SearchInput'
 import Link from 'app/components/ui/Link'
 import Logo from 'app/components/ui/Logo'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
 import type { NavbarProps as SectionNavbarProps } from 'app/components/sections/Navbar'
 

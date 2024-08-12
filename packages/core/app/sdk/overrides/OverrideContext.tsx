@@ -2,8 +2,8 @@
 
 import { createContext, useContext } from 'react'
 
-import type { OverriddenComponents } from '../../typings/overridesDefinition'
-import type { SectionsOverrides } from '../../typings/overrides'
+import type { OverriddenComponents } from 'src/typings/overridesDefinition'
+import type { SectionsOverrides } from 'src/typings/overrides'
 
 type OverrideContextType<
   SectionName extends keyof SectionsOverrides = keyof SectionsOverrides

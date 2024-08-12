@@ -18,9 +18,9 @@ import {
   PLPContext,
   SearchPageContext,
   usePage,
-} from 'src/sdk/overrides/PageProvider'
+} from 'app/sdk/overrides/PageProvider'
 import { useProductsPrefetch } from 'src/sdk/product/useProductsPrefetch'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const GalleryPageSkeleton = <ProductGridSkeleton loading />

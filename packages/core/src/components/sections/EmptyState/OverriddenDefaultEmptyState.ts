@@ -1,5 +1,5 @@
 import { override } from 'src/customizations/src/components/overrides/EmptyState'
-import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
+import { getOverriddenSection } from 'app/sdk/overrides/getOverriddenSection'
 
 import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'
 import EmptyState from './EmptyState'

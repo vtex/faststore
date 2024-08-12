@@ -17,7 +17,7 @@ import RenderSections from 'app/components/cms/RenderSections'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { PLPContentType } from 'src/server/cms/plp'
 
-import PageProvider, { PLPContext } from 'src/sdk/overrides/PageProvider'
+import PageProvider, { PLPContext } from 'app/sdk/overrides/PageProvider'
 import {
   useCreateUseGalleryPage,
   UseGalleryPageContext,

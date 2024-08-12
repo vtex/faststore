@@ -15,9 +15,9 @@ import {
   isPLP,
   isSearchPage,
   usePage,
-} from '../../../sdk/overrides/PageProvider'
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+} from '../../../../app/sdk/overrides/PageProvider'
+import { useOverrideComponents } from '../../../../app/sdk/overrides/OverrideContext'
+import { getOverridableSection } from '../../../../app/sdk/overrides/getOverriddenSection'
 import { ProductGalleryDefaultComponents } from './DefaultComponents'
 
 export interface ProductGallerySectionProps {
