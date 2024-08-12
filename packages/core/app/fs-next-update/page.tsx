@@ -5,8 +5,8 @@ import { getPage } from 'src/server/cms'
 import RenderSections from 'app/components/cms/RenderSections'
 import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
 import PageProvider from 'app/sdk/overrides/PageProvider'
+import { getDynamicContent } from 'app/utils/dynamicContent'
 import { ComponentType } from 'react'
-import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../faststore.config'
 
 /* A list of components that can be used in the CMS. */

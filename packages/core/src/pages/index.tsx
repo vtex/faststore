@@ -4,9 +4,9 @@ import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 
 import RenderSections from 'app/components/cms/RenderSections'
+import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
-import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
 import Incentives from 'src/components/sections/Incentives'
 import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
@@ -16,12 +16,12 @@ import { mark } from 'src/sdk/tests/mark'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
+import PageProvider from 'app/sdk/overrides/PageProvider'
+import { getDynamicContent } from 'app/utils/dynamicContent'
 import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import PageProvider from 'app/sdk/overrides/PageProvider'
-import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../faststore.config'
 
 /* A list of components that can be used in the CMS. */

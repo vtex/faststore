@@ -11,6 +11,7 @@ import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
 
 import { Locator } from '@vtex/client-cms'
+import { getDynamicContent } from 'app/utils/dynamicContent'
 import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
@@ -24,7 +25,6 @@ import ProductListingPage, {
 } from 'src/components/templates/ProductListingPage'
 import { PageContentType } from 'src/server/cms'
 import { getPLP, PLPContentType } from 'src/server/cms/plp'
-import { getDynamicContent } from 'src/utils/dynamicContent'
 
 type BaseProps = {
   globalSections: GlobalSectionsData
