@@ -651,6 +651,11 @@ export type StoreAuthor = {
   name: Scalars['String'];
 };
 
+export type StoreB2B = {
+  __typename?: 'StoreB2B';
+  customerId: Scalars['String'];
+};
+
 /** Brand of a given product. */
 export type StoreBrand = {
   __typename?: 'StoreBrand';
@@ -1094,6 +1099,8 @@ export type StoreSession = {
   __typename?: 'StoreSession';
   /** Session address type. */
   addressType?: Maybe<Scalars['String']>;
+  /** B2B Information. */
+  b2b?: Maybe<StoreB2B>;
   /** Session channel. */
   channel?: Maybe<Scalars['String']>;
   /** Session country. */
