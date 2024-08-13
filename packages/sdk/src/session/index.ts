@@ -42,7 +42,7 @@ export interface Session {
   postalCode: string | null
   geoCoordinates: GeoCoordinates | null
   person: Person | null
-  b2b?: b2bInfo | null
+  b2b: b2bInfo | null
 }
 
 export const createSessionStore = (
