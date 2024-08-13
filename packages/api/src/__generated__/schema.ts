@@ -154,6 +154,8 @@ export type IShippingItem = {
 
 /** Shopping cart input. */
 export type IStoreCart = {
+  /** Set to create a new cart. */
+  forceNewCart?: Maybe<Scalars['Boolean']>;
   /** Order information, including `orderNumber`, `acceptedOffer` and `shouldSplitItem`. */
   order: IStoreOrder;
 };

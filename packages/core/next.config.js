@@ -6,6 +6,7 @@ const storeConfig = require('./faststore.config')
  * @type {import('next').NextConfig}
  * */
 const nextConfig = {
+  crossOrigin: 'anonymous',
   /* config options here */
   /* Replaces terser by swc for minifying. It's the default in NextJS 13 */
   swcMinify: true,
