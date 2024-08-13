@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
@@ -10,12 +10,10 @@ import { useSession } from 'src/sdk/session'
 
 import Section from '../Section'
 
-import styles from './section.module.scss'
-
-import { usePDP } from '../../../sdk/overrides/PageProvider'
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
-import { ProductDetailsDefaultComponents } from './DefaultComponents'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import { usePDP } from '../../../sdk/overrides/PageProvider'
+import { ProductDetailsDefaultComponents } from './DefaultComponents'
 
 export interface ProductDetailsProps {
   productTitle: {
@@ -153,7 +151,7 @@ function ProductDetails({
   )
 
   return (
-    <Section className={`${styles.section} section-product-details`}>
+    <Section className={`section-product-details`}>
       <section data-fs-product-details>
         <section data-fs-product-details-body data-fs-content="product-details">
           <header data-fs-product-details-title data-fs-product-details-section>

@@ -6,7 +6,7 @@ import ProductGallery, {
 import Section from '../Section'
 import type { EmptyGalleryProps } from './EmptyGallery'
 
-import styles from './section.module.scss'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import {
   PLPContext,
   SearchPageContext,
@@ -14,7 +14,6 @@ import {
   isSearchPage,
   usePage,
 } from '../../../sdk/overrides/PageProvider'
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 import { ProductGalleryDefaultComponents } from './DefaultComponents'
 
@@ -48,7 +47,7 @@ function ProductGallerySection({
 
   if (context?.data?.search?.products && totalCount === 0) {
     return (
-      <Section className={`${styles.section} section-product-gallery`}>
+      <Section className={`section-product-gallery`}>
         <section data-testid="product-gallery" data-fs-product-listing>
           <EmptyGallery.Component {...emptyGallery} />
         </section>
@@ -57,9 +56,7 @@ function ProductGallerySection({
   }
 
   return (
-    <Section
-      className={`${styles.section} section-product-gallery layout__section`}
-    >
+    <Section className={`section-product-gallery layout__section`}>
       <ProductGallery
         title={title}
         searchTerm={searchTerm}
