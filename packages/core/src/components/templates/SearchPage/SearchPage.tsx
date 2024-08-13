@@ -1,10 +1,11 @@
 import type { ComponentType } from 'react'
 
+import type { ClientProductGalleryQueryQuery as ClientProductGalleryQuery } from '@generated/graphql'
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
-import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
+import Hero from 'src/components/sections/Hero'
 import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
@@ -17,7 +18,6 @@ import {
   UseGalleryPageContext,
 } from 'src/sdk/product/usePageProductsQuery'
 import { SearchContentType } from 'src/server/cms'
-import type { ClientProductGalleryQueryQuery as ClientProductGalleryQuery } from '@generated/graphql'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.

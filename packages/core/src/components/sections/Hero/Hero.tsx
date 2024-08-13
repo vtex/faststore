@@ -1,17 +1,16 @@
 import {
-  HeroProps as UIHeroProps,
+  HeroHeader,
+  HeroImage,
+  Hero as HeroWrapper,
   HeroHeaderProps as UIHeroHeaderProps,
+  HeroProps as UIHeroProps,
 } from '@faststore/ui'
 import { ReactNode } from 'react'
 import { Image } from '../../../components/ui/Image'
 
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
-
 import Section from '../Section'
 
 import styles from './section.module.scss'
-import { HeroDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 
 export type HeroProps = {
   title: UIHeroHeaderProps['title']
@@ -39,20 +38,13 @@ const Hero = ({
   colorVariant,
   icon,
 }: HeroProps) => {
-  const {
-    Hero: HeroWrapper,
-    HeroImage,
-    HeroHeader,
-  } = useOverrideComponents<'Hero'>()
-
   return (
     <Section className={`${styles.section} section-hero`}>
-      <HeroWrapper.Component
-        {...HeroWrapper.props}
-        variant={variant ?? HeroWrapper.props.variant ?? 'primary'}
-        colorVariant={colorVariant ?? HeroWrapper.props.colorVariant ?? 'main'}
+      <HeroWrapper
+        variant={variant ?? 'primary'}
+        colorVariant={colorVariant ?? 'main'}
       >
-        <HeroImage.Component {...HeroImage.props}>
+        <HeroImage>
           <Image
             loading="eager"
             src={image.src}
@@ -61,25 +53,18 @@ const Hero = ({
             height={240}
             sizes="(max-width: 360px) 40vw, (max-width: 768px) 90vw, 50vw"
           />
-        </HeroImage.Component>
-        <HeroHeader.Component
+        </HeroImage>
+        <HeroHeader
           title={title}
           subtitle={subtitle}
           link={link?.url}
           linkText={link?.text}
           linkTargetBlank={link?.linkTargetBlank}
           icon={icon}
-          {...HeroHeader.props}
         />
-      </HeroWrapper.Component>
+      </HeroWrapper>
     </Section>
   )
 }
 
-const OverridableHero = getOverridableSection<typeof Hero>(
-  'Hero',
-  Hero,
-  HeroDefaultComponents
-)
-
-export default OverridableHero
+export default Hero
