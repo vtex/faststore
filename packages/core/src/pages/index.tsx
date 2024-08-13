@@ -3,17 +3,39 @@ import type { GetStaticProps } from 'next'
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 
+import dynamic from 'next/dynamic'
+
 import RenderSections from 'src/components/cms/RenderSections'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import BannerText from 'src/components/sections/BannerText'
 import Hero from 'src/components/sections/Hero'
 import Incentives from 'src/components/sections/Incentives'
-import Newsletter from 'src/components/sections/Newsletter'
-import ProductShelf from 'src/components/sections/ProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
+
+const BannerNewsletter = dynamic(
+  () => import('src/components/sections/BannerNewsletter/BannerNewsletter'),
+  {
+    ssr: false,
+  }
+)
+const BannerText = dynamic(() => import('src/components/sections/BannerText'), {
+  ssr: false,
+})
+const Newsletter = dynamic(() => import('src/components/sections/Newsletter'), {
+  ssr: false,
+})
+const ProductShelf = dynamic(
+  () => import('src/components/sections/ProductShelf'),
+  {
+    ssr: false,
+  }
+)
+const ProductTiles = dynamic(
+  () => import('src/components/sections/ProductTiles'),
+  {
+    ssr: false,
+  }
+)
 
 import GlobalSections, {
   GlobalSectionsData,
