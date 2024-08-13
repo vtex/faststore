@@ -1,19 +1,19 @@
 'use client'
 
 import {
-  HeroProps as UIHeroProps,
   HeroHeaderProps as UIHeroHeaderProps,
+  HeroProps as UIHeroProps,
 } from '@faststore/ui'
 import { ReactNode } from 'react'
-import { Image } from '../../../components/ui/Image'
+import { Image } from 'src/components/ui/Image'
 
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
-import Section from '../Section'
+import Section from 'src/components/sections/Section'
 
-import styles from './section.module.scss'
+import { getOverridableSection } from 'app/sdk/overrides/getOverriddenSection'
 import { HeroDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import styles from './section.module.scss'
 
 export type HeroProps = {
   title: UIHeroHeaderProps['title']

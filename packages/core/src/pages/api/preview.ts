@@ -1,6 +1,6 @@
 import type { NextApiHandler, NextApiRequest } from 'next'
 
-import { clientCMS } from 'src/server/cms'
+import { clientCMS } from 'app/server/cms'
 import { previewRedirects } from '../../../faststore.config'
 
 type Settings = {

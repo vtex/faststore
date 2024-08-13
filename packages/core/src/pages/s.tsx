@@ -1,7 +1,7 @@
-import { useMemo } from 'react'
+import type { GetStaticProps } from 'next'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import type { GetStaticProps } from 'next'
+import { useMemo } from 'react'
 
 import type { SearchState } from '@faststore/sdk'
 import {
@@ -16,13 +16,13 @@ import { useApplySearchState } from 'src/sdk/search/state'
 import { mark } from 'src/sdk/tests/mark'
 
 import { Locator } from '@vtex/client-cms'
+import { getPage, SearchContentType } from 'app/server/cms'
 import storeConfig from 'faststore.config'
 import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import { SearchWrapper } from 'src/components/templates/SearchPage'
-import { getPage, SearchContentType } from 'src/server/cms'
 
 type Props = {
   page: SearchContentType

@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import type { DetailedHTMLProps, HTMLAttributes } from 'react'
 
-import { useOverrideClassName } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideClassName } from 'app/sdk/overrides/OverrideContext'
 
 type BaseProps = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
 

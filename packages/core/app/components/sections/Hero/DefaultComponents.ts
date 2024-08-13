@@ -1,7 +1,7 @@
 import {
   Hero as UIHero,
-  HeroImage as UIHeroImage,
   HeroHeader as UIHeroHeader,
+  HeroImage as UIHeroImage,
 } from '@faststore/ui'
 
 export const HeroDefaultComponents = {

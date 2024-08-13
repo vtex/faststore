@@ -5,9 +5,9 @@ import type { ReactNode } from 'react'
 import CommonAlert, {
   type AlertProps as CommonAlertProps,
 } from '../../common/Alert'
-import { useOverrideComponents } from '../../../../src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { AlertDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../../src/sdk/overrides/getOverriddenSection'
+import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 
 export interface AlertProps extends Omit<CommonAlertProps, 'link' | 'icon'> {
   icon: string

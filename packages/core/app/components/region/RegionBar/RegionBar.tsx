@@ -3,7 +3,7 @@ import type { RegionBarProps as UIRegionBarProps } from '@faststore/ui'
 import { useUI } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
 export interface RegionBarProps {
   /**

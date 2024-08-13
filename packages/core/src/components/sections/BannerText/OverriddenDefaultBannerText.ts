@@ -1,8 +1,8 @@
+import { getOverriddenSection } from 'app/sdk/overrides/getOverriddenSection'
 import { override } from 'src/customizations/src/components/overrides/BannerText'
-import { getOverriddenSection } from 'src/sdk/overrides/getOverriddenSection'
 import BannerText from '.'
 
-import type { SectionOverrideDefinitionV1 } from 'src/typings/overridesDefinition'
+import type { SectionOverrideDefinitionV1 } from 'app/typings/overridesDefinition'
 
 /**
  * This component exists to support overrides 1.0

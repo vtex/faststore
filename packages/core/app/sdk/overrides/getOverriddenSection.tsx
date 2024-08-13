@@ -1,13 +1,13 @@
 import { useMemo, type ComponentProps, type ComponentType } from 'react'
 
+import type { SectionsOverrides } from 'app/typings/overrides'
 import type {
   DefaultSectionComponentsDefinitions,
   SectionOverrideDefinition,
   SectionOverrideDefinitionV1,
-} from '../../typings/overridesDefinition'
-import type { SectionsOverrides } from '../../typings/overrides'
-import { getSectionOverrides } from './overrides'
+} from 'app/typings/overridesDefinition'
 import { OverrideProvider } from './OverrideContext'
+import { getSectionOverrides } from './overrides'
 
 export function getOverridableSection<
   Section extends ComponentType,

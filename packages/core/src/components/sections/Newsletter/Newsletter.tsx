@@ -10,7 +10,7 @@ import UINewsletter from '../../ui/Newsletter'
 
 import Section from '../Section'
 import styles from './section.module.scss'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { getOverridableSection } from '../../../../app/sdk/overrides/getOverriddenSection'
 import { NewsletterDefaultComponents } from './DefaultComponents'
 
 type SubscribeMessage = {

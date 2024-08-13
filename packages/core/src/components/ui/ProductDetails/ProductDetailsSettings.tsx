@@ -10,7 +10,7 @@ import Selectors from 'src/components/ui/SkuSelector'
 import AddToCartLoadingSkeleton from './AddToCartLoadingSkeleton'
 
 import { Icon as UIIcon, useUI } from '@faststore/ui'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 import { Label as UILabel } from '@faststore/ui'
 
 interface ProductDetailsSettingsProps {

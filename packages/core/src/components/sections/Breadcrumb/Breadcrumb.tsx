@@ -11,10 +11,10 @@ import {
   isPDP,
   isPLP,
   usePage,
-} from '../../../sdk/overrides/PageProvider'
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+} from '../../../../app/sdk/overrides/PageProvider'
+import { useOverrideComponents } from '../../../../app/sdk/overrides/OverrideContext'
 import { BreadcrumbDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { getOverridableSection } from '../../../../app/sdk/overrides/getOverriddenSection'
 
 interface BreadcrumbSectionProps {
   icon: string

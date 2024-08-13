@@ -1,4 +1,3 @@
-import type { PropsWithChildren } from 'react'
 import type {
   AlertProps,
   BannerTextContentProps,
@@ -26,11 +25,11 @@ import type {
   NavbarSliderFooterProps,
   NavbarSliderHeaderProps,
   NavbarSliderProps,
-  NewsletterProps,
   NewsletterAddendumProps,
   NewsletterContentProps,
   NewsletterFormProps,
   NewsletterHeaderProps,
+  NewsletterProps,
   ProductPriceProps,
   ProductShelfProps,
   ProductTitleProps,
@@ -40,23 +39,24 @@ import type {
   SkeletonProps,
   SkuSelectorProps,
 } from '@faststore/ui'
+import type { PropsWithChildren } from 'react'
 
+import BannerText from '../../src/components/sections/BannerText'
+import Breadcrumb from '../../src/components/sections/Breadcrumb'
+import CrossSellingShelf from '../../src/components/sections/CrossSellingShelf'
+import EmptyState from '../../src/components/sections/EmptyState'
+import Newsletter from '../../src/components/sections/Newsletter'
+import ProductDetails from '../../src/components/sections/ProductDetails'
+import ProductGallery from '../../src/components/sections/ProductGallery'
+import ProductShelf from '../../src/components/sections/ProductShelf'
+import Alert from '../components/sections/Alert'
+import Hero from '../components/sections/Hero'
+import Navbar from '../components/sections/Navbar'
+import RegionBar from '../components/sections/RegionBar'
 import type {
   ComponentOverrideDefinition,
   SectionOverrideDefinitionV1,
 } from './overridesDefinition'
-import Alert from '../../app/components/sections/Alert'
-import Breadcrumb from '../components/sections/Breadcrumb'
-import BannerText from '../components/sections/BannerText'
-import CrossSellingShelf from '../components/sections/CrossSellingShelf'
-import EmptyState from '../components/sections/EmptyState'
-import Hero from '../components/sections/Hero'
-import ProductShelf from '../components/sections/ProductShelf'
-import ProductDetails from '../components/sections/ProductDetails'
-import Navbar from '../../app/components/sections/Navbar'
-import Newsletter from '../components/sections/Newsletter'
-import ProductGallery from '../components/sections/ProductGallery'
-import RegionBar from '../../app/components/sections/RegionBar'
 
 export type SectionOverride = {
   [K in keyof SectionsOverrides]: SectionOverrideDefinitionV1<K>
@@ -81,19 +81,19 @@ export type SectionOverride = {
 export type OverrideComponentsForSection<
   Section extends SectionsOverrides[keyof SectionsOverrides]['Section']
 > = {
-    // The first 'extends' condition is used to filter out sections that don't have overrides (typed 'never')
-    [K in keyof SectionsOverrides as SectionsOverrides[K] extends {
-      Section: never
-    }
+  // The first 'extends' condition is used to filter out sections that don't have overrides (typed 'never')
+  [K in keyof SectionsOverrides as SectionsOverrides[K] extends {
+    Section: never
+  }
     ? never
     : // In the second 'extends' condition, we check if the section matches the one we're looking for
     SectionsOverrides[K] extends {
-      Section: Section
-    }
+        Section: Section
+      }
     ? // If it does, we return the components. Otherwise, we return 'never', which is filtered out
-    K
+      K
     : never]: SectionsOverrides[K]['components']
-  }
+}
 
 // This type is used to extract only the list of components from the section override
 export type ComponentsFromSection<
@@ -274,7 +274,10 @@ export type SectionsOverrides = {
       __experimentalShippingSimulation: ComponentOverrideDefinition<any, any>
       __experimentalNotAvailableButton: ComponentOverrideDefinition<any, any>
       __experimentalProductDescription: ComponentOverrideDefinition<any, any>
-      __experimentalProductDetailsSettings: ComponentOverrideDefinition<any, any>
+      __experimentalProductDetailsSettings: ComponentOverrideDefinition<
+        any,
+        any
+      >
     }
   }
   ProductGallery: {

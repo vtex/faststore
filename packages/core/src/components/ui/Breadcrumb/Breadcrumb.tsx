@@ -3,7 +3,7 @@ import { memo } from 'react'
 
 import Link from 'app/components/ui/Link'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
 export interface BreadcrumbProps extends UIBreadcrumbProps {
   icon: string

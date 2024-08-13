@@ -1,4 +1,4 @@
-import { Options } from 'src/server/cms'
+import { Options } from 'app/server/cms'
 
 export default class MissingContentError extends Error {
   constructor(options: Options) {

@@ -1,11 +1,11 @@
 import type {
-  DefaultSectionComponentsDefinitions,
   ComponentOverrideDefinition,
+  DefaultSectionComponentsDefinitions,
   OverriddenComponents,
   SectionOverrideDefinitionV1,
-} from '../../typings/overridesDefinition'
+} from 'app/typings/overridesDefinition'
 
-import type { SectionsOverrides } from '../../typings/overrides'
+import type { SectionsOverrides } from 'app/typings/overrides'
 
 /* TODO: Fix typescript errors. It is necessary to further investigate the typing 
 issues of this file. Error lines have been marked with the @ts-ignore comment*/
