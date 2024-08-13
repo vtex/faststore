@@ -1,14 +1,13 @@
 import {
-  NewsletterProps as UINewsletterProps,
   NewsletterAddendumProps as UINewsletterAddendumProps,
   NewsletterHeaderProps as UINewsletterHeaderProps,
+  NewsletterProps as UINewsletterProps,
 } from '@faststore/ui'
 
 import UINewsletter from '../../ui/Newsletter'
 
-import Section from '../Section'
-import styles from './section.module.scss'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import Section from '../Section'
 import { NewsletterDefaultComponents } from './DefaultComponents'
 
 type SubscribeMessage = {
@@ -92,7 +91,7 @@ function Newsletter({
   ...otherProps
 }: NewsletterProps) {
   return (
-    <Section className={`${styles.section} section-newsletter layout__section`}>
+    <Section className={`section-newsletter layout__section`}>
       <UINewsletter
         icon={icon}
         title={title}

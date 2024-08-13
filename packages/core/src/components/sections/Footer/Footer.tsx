@@ -1,21 +1,19 @@
-import { PaymentMethods as UIPaymentMethods } from '@faststore/ui'
 import type { PaymentMethodsProps as UIPaymentMethodProps } from '@faststore/ui'
+import { PaymentMethods as UIPaymentMethods } from '@faststore/ui'
 
-import Section from '../Section'
+import type { FooterLinksProps, FooterSocialProps } from '../../common/Footer'
 import UIFooter, {
   FooterLinks,
   FooterSocial,
   FooterInfo as UIFooterInfo,
   FooterNavigation as UIFooterNavigation,
 } from '../../common/Footer'
-import type { FooterLinksProps, FooterSocialProps } from '../../common/Footer'
+import Section from '../Section'
 
-import Logo from 'src/components/ui/Logo'
 import Link from 'src/components/ui/Link'
-import UIIncentives from '../../ui/Incentives'
+import Logo from 'src/components/ui/Logo'
 import type { Incentive } from '../../ui/Incentives'
-
-import styles from './section.module.scss'
+import UIIncentives from '../../ui/Incentives'
 
 export type FooterProps = {
   incentives: Incentive[]
@@ -55,9 +53,7 @@ const Footer = ({
 }: FooterProps) => {
   const homeLabel = 'Go to Home'
   return (
-    <Section
-      className={`section ${styles.section} section-footer layout__section`}
-    >
+    <Section className={`section section-footer layout__section`}>
       <UIFooter>
         <UIIncentives incentives={incentives} />
         <UIFooterNavigation>

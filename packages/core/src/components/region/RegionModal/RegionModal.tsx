@@ -8,8 +8,6 @@ import { Suspense, useRef, useState } from 'react'
 
 import { sessionStore, useSession, validateSession } from 'src/sdk/session'
 
-import styles from './section.module.scss'
-
 interface RegionModalProps {
   title?: UIRegionModalProps['title']
   description?: UIRegionModalProps['description']
@@ -93,7 +91,7 @@ function RegionModal({
             title={title}
             description={description}
             overlayProps={{
-              className: `section ${styles.section} section-region-modal`,
+              className: `section section-region-modal`,
             }}
             closeButtonAriaLabel={closeButtonAriaLabel}
             inputRef={inputRef}

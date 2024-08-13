@@ -10,8 +10,6 @@ import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 
 import Section from '../Section'
 
-import styles from './section.module.scss'
-
 interface ProductTilesProps
   extends Partial<ClientManyProductsQueryQueryVariables> {
   title: string
@@ -89,10 +87,7 @@ const ProductTiles = ({
   }
 
   return (
-    <Section
-      className={`${styles.section} section-product-tiles layout__section`}
-      ref={ref}
-    >
+    <Section className={`section-product-tiles layout__section`} ref={ref}>
       <h2 className="text__title-section layout__content">{title}</h2>
       <ProductTilesSkeleton loading={!products}>
         <Tiles>

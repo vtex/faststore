@@ -5,7 +5,6 @@ import { AlertProps as UIAlertProps } from '@faststore/ui'
 import { mark } from 'src/sdk/tests/mark'
 
 import Section from 'src/components/sections/Section/Section'
-import styles from './section.module.scss'
 
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
@@ -37,7 +36,7 @@ function Alert({
   }
 
   return (
-    <Section className={`${styles.section} section-alert`}>
+    <Section className={`section-alert`}>
       <AlertWrapper.Component
         {...otherProps}
         // Dynamic props, shouldn't be overridable

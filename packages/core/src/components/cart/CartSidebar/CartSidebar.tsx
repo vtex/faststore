@@ -19,7 +19,6 @@ import Gift from '../../ui/Gift'
 import CartItem from '../CartItem'
 import EmptyCart from '../EmptyCart'
 import OrderSummary from '../OrderSummary'
-import styles from './section.module.scss'
 
 function useViewCartEvent() {
   const {
@@ -123,7 +122,7 @@ function CartSidebar({
         <Suspense fallback={null}>
           <UICartSidebar
             overlayProps={{
-              className: `section ${styles.section} section-cart-sidebar`,
+              className: `section section-cart-sidebar`,
             }}
             title={title}
             totalItems={totalItems}
