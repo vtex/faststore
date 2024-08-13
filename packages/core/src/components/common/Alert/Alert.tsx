@@ -2,7 +2,6 @@ import type { PropsWithChildren, ReactNode } from 'react'
 import { useCallback, useState } from 'react'
 
 import { AlertProps as UIAlertProps } from '@faststore/ui'
-import { mark } from 'src/sdk/tests/mark'
 
 import Section from 'src/components/sections/Section/Section'
 import styles from './section.module.scss'
@@ -49,5 +48,4 @@ function Alert({
   )
 }
 
-Alert.displayName = 'Alert'
-export default mark(Alert)
+export default Alert

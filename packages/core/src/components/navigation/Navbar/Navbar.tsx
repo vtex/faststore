@@ -2,8 +2,6 @@ import { useCallback, useRef, useState } from 'react'
 
 import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
-import { mark } from 'src/sdk/tests/mark'
-
 import CartToggle from 'src/components/cart/CartToggle'
 import NavbarLinks from 'src/components/navigation/NavbarLinks'
 import NavbarSlider from 'src/components/navigation/NavbarSlider'
@@ -167,5 +165,4 @@ function Navbar({
   )
 }
 
-Navbar.displayName = 'Navbar'
-export default mark(Navbar)
+export default Navbar

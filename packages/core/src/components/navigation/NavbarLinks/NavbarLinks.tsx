@@ -12,8 +12,6 @@ import {
   NavbarLinks as NavbarLinksWrapper,
 } from '@faststore/ui'
 
-import { mark } from 'src/sdk/tests/mark'
-
 interface NavbarLinksProps extends UINavbarLinksProps {
   links: NavbarProps['links']
   region: NavbarProps['region']
@@ -56,4 +54,4 @@ function NavbarLinks({
   )
 }
 
-export default mark(NavbarLinks)
+export default NavbarLinks

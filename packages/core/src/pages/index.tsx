@@ -12,7 +12,6 @@ import Newsletter from 'src/components/sections/Newsletter'
 import ProductShelf from 'src/components/sections/ProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import { mark } from 'src/sdk/tests/mark'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
@@ -142,6 +141,4 @@ export const getStaticProps: GetStaticProps<
   }
 }
 
-Page.displayName = 'Page'
-
-export default mark(Page)
+export default Page
