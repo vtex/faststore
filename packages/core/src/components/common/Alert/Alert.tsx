@@ -7,7 +7,7 @@ import { mark } from 'src/sdk/tests/mark'
 import Section from 'src/components/sections/Section/Section'
 import styles from './section.module.scss'
 
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { Alert as AlertWrapper } from '@faststore/ui'
 
 export interface AlertProps extends Omit<UIAlertProps, 'content'> {
   /**
@@ -24,7 +24,6 @@ function Alert({
   children,
   ...otherProps
 }: PropsWithChildren<AlertProps>) {
-  const { Alert: AlertWrapper } = useOverrideComponents<'Alert'>()
   const [displayAlert, setDisplayAlert] = useState(true)
 
   const onAlertClose = useCallback(
@@ -38,14 +37,14 @@ function Alert({
 
   return (
     <Section className={`${styles.section} section-alert`}>
-      <AlertWrapper.Component
+      <AlertWrapper
         {...otherProps}
         // Dynamic props, shouldn't be overridable
         // This decision can be reviewed later if needed
         onClose={onAlertClose}
       >
         {content ?? children}
-      </AlertWrapper.Component>
+      </AlertWrapper>
     </Section>
   )
 }
