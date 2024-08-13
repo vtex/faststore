@@ -1,6 +1,6 @@
 import {
-  HeroProps as UIHeroProps,
   HeroHeaderProps as UIHeroHeaderProps,
+  HeroProps as UIHeroProps,
 } from '@faststore/ui'
 import { ReactNode } from 'react'
 import { Image } from '../../../components/ui/Image'
@@ -9,9 +9,8 @@ import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 
 import Section from '../Section'
 
-import styles from './section.module.scss'
-import { HeroDefaultComponents } from './DefaultComponents'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { HeroDefaultComponents } from './DefaultComponents'
 
 export type HeroProps = {
   title: UIHeroHeaderProps['title']
@@ -46,7 +45,7 @@ const Hero = ({
   } = useOverrideComponents<'Hero'>()
 
   return (
-    <Section className={`${styles.section} section-hero`}>
+    <Section className={`section-hero`}>
       <HeroWrapper.Component
         {...HeroWrapper.props}
         variant={variant ?? HeroWrapper.props.variant ?? 'primary'}

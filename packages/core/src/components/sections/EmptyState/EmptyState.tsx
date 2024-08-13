@@ -1,5 +1,5 @@
-import type { PropsWithChildren } from 'react'
 import { useRouter } from 'next/router'
+import type { PropsWithChildren } from 'react'
 
 import { Icon as UIIcon, Loader as UILoader } from '@faststore/ui'
 
@@ -7,10 +7,8 @@ import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 
 import Section from '../Section'
 
-import styles from './section.module.scss'
-
-import { EmptyStateDefaultComponents } from './DefaultComponents'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { EmptyStateDefaultComponents } from './DefaultComponents'
 
 export interface EmptyStateProps {
   /**
@@ -86,7 +84,7 @@ function EmptyState({
   )
 
   return (
-    <Section className={`${styles.section} section-empty-state`}>
+    <Section className={`section-empty-state`}>
       <EmptyStateWrapper.Component
         bkgColor="light"
         {...EmptyStateWrapper.props}

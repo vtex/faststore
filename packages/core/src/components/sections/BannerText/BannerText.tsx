@@ -1,14 +1,13 @@
 import {
-  BannerTextProps as UIBannerTextProps,
   BannerTextContentProps as UIBannerTextContentProps,
+  BannerTextProps as UIBannerTextProps,
 } from '@faststore/ui'
 
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import Section from '../Section'
 
-import styles from './section.module.scss'
-import { BannerTextDefaultComponents } from './DefaultComponents'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { BannerTextDefaultComponents } from './DefaultComponents'
 
 export interface BannerTextProps {
   title: UIBannerTextContentProps['title']
@@ -34,7 +33,7 @@ function BannerText({
     useOverrideComponents<'BannerText'>()
 
   return (
-    <Section className={`${styles.section} section-banner layout__section`}>
+    <Section className={`section-banner layout__section`}>
       <BannerTextWrapper.Component
         {...BannerTextWrapper.props}
         variant={variant ?? BannerTextWrapper.props.variant ?? 'primary'}

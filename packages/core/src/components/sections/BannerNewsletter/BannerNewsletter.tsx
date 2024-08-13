@@ -1,11 +1,10 @@
-import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import type { BannerTextProps } from 'src/components/sections/BannerText'
+import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import type { NewsletterProps } from 'src/components/sections/Newsletter'
+import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 
 import Section from '../Section'
-import styles from './section.module.scss'
 
 function BannerNewsletter({
   banner,
@@ -15,7 +14,7 @@ function BannerNewsletter({
   newsletter: Omit<NewsletterProps, 'card'>
 }) {
   return (
-    <Section className={`${styles.section} section-banner-newsletter`}>
+    <Section className={`section-banner-newsletter`}>
       <div data-fs-banner-text-newsletter data-fs-content="banner-newsletter">
         <BannerText
           title={banner.title}

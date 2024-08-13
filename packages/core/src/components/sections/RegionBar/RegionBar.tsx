@@ -1,8 +1,7 @@
+import { getOverridableSection } from '../../..//sdk/overrides/getOverriddenSection'
 import RegionBar, { RegionBarProps } from '../../region/RegionBar/RegionBar'
 import Section from '../Section/Section'
-import styles from './section.module.scss'
 import { RegionBarDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../..//sdk/overrides/getOverriddenSection'
 
 type RegionBarSectionProps = {
   /**
@@ -32,7 +31,7 @@ function RegionBarSection({
   ...otherProps
 }: RegionBarSectionProps) {
   return (
-    <Section className={`${styles.section} section-region-bar ${className}`}>
+    <Section className={`section-region-bar ${className}`}>
       <RegionBar {...otherProps} />
     </Section>
   )

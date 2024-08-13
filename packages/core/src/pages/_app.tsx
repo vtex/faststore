@@ -1,6 +1,4 @@
 // FastStore UI's base styles
-import '../styles/global/index.scss'
-
 import '../customizations/src/themes/index.scss'
 
 import type { AppProps } from 'next/app'

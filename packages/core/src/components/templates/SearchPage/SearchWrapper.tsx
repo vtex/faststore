@@ -1,20 +1,17 @@
-import { useRouter } from 'next/router'
 import { useSearch } from '@faststore/sdk'
+import { useRouter } from 'next/router'
 
-import type { SearchContentType } from 'src/server/cms'
+import EmptyState from 'src/components/sections/EmptyState'
+import Section from 'src/components/sections/Section'
 import type { SearchPageContextType } from 'src/pages/s'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
-import Section from 'src/components/sections/Section'
-import EmptyState from 'src/components/sections/EmptyState'
-import ProductGalleryStyles from 'src/components/sections/ProductGallery/section.module.scss'
+import type { SearchContentType } from 'src/server/cms'
 
 import SearchPage from './SearchPage'
 
 function EmptySearch() {
   return (
-    <Section
-      className={`${ProductGalleryStyles.section} section-product-gallery`}
-    >
+    <Section className={`section-product-gallery`}>
       <section data-testid="product-gallery" data-fs-product-listing>
         <EmptyState title="" showLoader />
       </section>

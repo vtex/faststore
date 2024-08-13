@@ -4,9 +4,8 @@ import Section from '../Section'
 import ProductShelf, {
   ProductShelfProps,
 } from '../../../components/ui/ProductShelf'
-import styles from './section.module.scss'
-import { ProductShelfDefaultComponents } from './DefaultComponents'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { ProductShelfDefaultComponents } from './DefaultComponents'
 
 function ProductShelfSection({
   ...otherProps
@@ -14,10 +13,7 @@ function ProductShelfSection({
   const { ref, inView } = useInView()
 
   return (
-    <Section
-      className={`${styles.section} section-product-shelf layout__section`}
-      ref={ref}
-    >
+    <Section className={`section-product-shelf layout__section`} ref={ref}>
       <ProductShelf inView={inView} {...otherProps} />
     </Section>
   )

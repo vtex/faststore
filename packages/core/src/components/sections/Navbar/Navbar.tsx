@@ -1,8 +1,6 @@
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 import Section from '../Section'
 
-import styles from './section.module.scss'
-
 import Navbar from '../../../components/navigation/Navbar'
 import { NavbarDefaultComponents } from './DefaultComponents'
 
@@ -75,7 +73,7 @@ function NavbarSection({
   },
 }: NavbarProps) {
   return (
-    <Section className={`${styles.section} section-navbar`}>
+    <Section className={`section-navbar`}>
       <Navbar
         home={home}
         menu={menu}

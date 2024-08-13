@@ -2,7 +2,8 @@ import { memo } from 'react'
 
 import Section from '../Section'
 
-import styles from './section.module.scss'
+import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import {
   PDPContext,
   PLPContext,
@@ -10,9 +11,7 @@ import {
   isPLP,
   usePage,
 } from '../../../sdk/overrides/PageProvider'
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { BreadcrumbDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 
 interface BreadcrumbSectionProps {
   icon: string
@@ -35,7 +34,7 @@ function BreadcrumbSection({ ...otherProps }: BreadcrumbSectionProps) {
     : fallback
 
   return (
-    <Section className={`${styles.section} section-breadcrumb`}>
+    <Section className={`section-breadcrumb`}>
       <Breadcrumb.Component breadcrumbList={breadcrumbList} {...otherProps} />
     </Section>
   )

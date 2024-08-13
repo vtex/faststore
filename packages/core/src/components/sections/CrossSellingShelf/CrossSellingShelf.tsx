@@ -1,12 +1,11 @@
 import { useMemo } from 'react'
 
-import UIProductShelf from '../../../components/ui/ProductShelf'
 import { useInView } from 'react-intersection-observer'
 import { usePDP } from 'src/sdk/overrides/PageProvider'
-import styles from '../ProductShelf/section.module.scss'
+import UIProductShelf from '../../../components/ui/ProductShelf'
+import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 import Section from '../Section'
 import { CrossSellingShelfDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 
 interface Props {
   numberOfItems: number
@@ -35,10 +34,7 @@ const CrossSellingShelf = ({
   )
 
   return (
-    <Section
-      className={`${styles.section} section-product-shelf layout__section`}
-      ref={ref}
-    >
+    <Section className={`section-product-shelf layout__section`} ref={ref}>
       <UIProductShelf
         inView={inView}
         numberOfItems={numberOfItems}

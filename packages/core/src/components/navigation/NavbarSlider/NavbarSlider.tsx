@@ -1,15 +1,14 @@
 import { useFadeEffect, useUI } from '@faststore/ui'
 import { Suspense } from 'react'
 
+import NavbarLinks from 'src/components/navigation/NavbarLinks'
 import { ButtonSignInFallback } from 'src/components/ui/Button'
 import Link from 'src/components/ui/Link'
-import NavbarLinks from 'src/components/navigation/NavbarLinks'
 import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
 
 import type { NavbarProps } from '../Navbar'
 
-import styles from './section.module.scss'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 interface NavbarSliderProps {
@@ -43,7 +42,7 @@ function NavbarSlider({
       fade={fade}
       onDismiss={fadeOut}
       overlayProps={{
-        className: `section ${styles.section} section-navbar-slider`,
+        className: `section section-navbar-slider`,
       }}
       onTransitionEnd={() => fade === 'out' && closeNavbar()}
       {...NavbarSliderWrapper.props}
