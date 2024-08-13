@@ -1,15 +1,13 @@
 import {
-  NewsletterProps as UINewsletterProps,
   NewsletterAddendumProps as UINewsletterAddendumProps,
   NewsletterHeaderProps as UINewsletterHeaderProps,
+  NewsletterProps as UINewsletterProps,
 } from '@faststore/ui'
 
 import UINewsletter from '../../ui/Newsletter'
 
 import Section from '../Section'
 import styles from './section.module.scss'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
-import { NewsletterDefaultComponents } from './DefaultComponents'
 
 type SubscribeMessage = {
   icon: string
@@ -113,10 +111,4 @@ function Newsletter({
   )
 }
 
-const OverridableNewsletter = getOverridableSection<typeof Newsletter>(
-  'Newsletter',
-  Newsletter,
-  NewsletterDefaultComponents
-)
-
-export default OverridableNewsletter
+export default Newsletter
