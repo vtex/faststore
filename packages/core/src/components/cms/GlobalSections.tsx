@@ -11,7 +11,7 @@ import RenderSections from './RenderSections'
 import Alert from 'src/components/sections/Alert'
 import Footer from 'src/components/sections/Footer'
 import Navbar from 'src/components/sections/Navbar'
-import { OverriddenDefaultRegionBar as RegionBar } from 'src/components/sections/RegionBar/OverriddenDefaultRegionBar'
+import RegionBar from 'src/components/sections/RegionBar'
 
 import CartSidebar from 'src/components/cart/CartSidebar'
 import RegionModal from 'src/components/region/RegionModal'
