@@ -181,6 +181,10 @@ export type IShippingItem = {
   seller: Scalars['String']['input']
 }
 
+export type IStoreB2B = {
+  customerId: Scalars['String']['input']
+}
+
 /** Shopping cart input. */
 export type IStoreCart = {
   /** Order information, including `orderNumber`, `acceptedOffer` and `shouldSplitItem`. */
@@ -303,6 +307,8 @@ export type IStoreSelectedFacet = {
 export type IStoreSession = {
   /** Session input address type. */
   addressType: InputMaybe<Scalars['String']['input']>
+  /** Session input b2b. */
+  b2b: InputMaybe<IStoreB2B>
   /** Session input channel. */
   channel: InputMaybe<Scalars['String']['input']>
   /** Session input country. */
