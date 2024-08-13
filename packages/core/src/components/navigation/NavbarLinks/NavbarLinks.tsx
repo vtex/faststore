@@ -1,14 +1,18 @@
 import type { AnchorHTMLAttributes } from 'react'
 
-import { NavbarLinksListItem as UINavbarLinksListItem } from '@faststore/ui'
 import type { NavbarLinksProps as UINavbarLinksProps } from '@faststore/ui'
+import { NavbarLinksListItem as UINavbarLinksListItem } from '@faststore/ui'
 
-import Link from 'src/components/ui/Link'
-import RegionButton from 'src/components/region/RegionButton'
 import type { NavbarProps } from 'src/components/navigation/Navbar'
+import RegionButton from 'src/components/region/RegionButton'
+import Link from 'src/components/ui/Link'
+
+import {
+  NavbarLinksList,
+  NavbarLinks as NavbarLinksWrapper,
+} from '@faststore/ui'
 
 import { mark } from 'src/sdk/tests/mark'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 interface NavbarLinksProps extends UINavbarLinksProps {
   links: NavbarProps['links']
@@ -25,15 +29,15 @@ function NavbarLinks({
   region: { icon: regionIcon, label: regionLabel, shouldDisplayRegion },
   ...otherProps
 }: NavbarLinksProps) {
-  const { NavbarLinks: NavbarLinksWrapper, NavbarLinksList } =
-    useOverrideComponents<'Navbar'>()
+  // const { NavbarLinks: NavbarLinksWrapper, NavbarLinksList } =
+  //   useOverrideComponents<'Navbar'>()
   return (
-    <NavbarLinksWrapper.Component {...otherProps} {...NavbarLinksWrapper.props}>
+    <NavbarLinksWrapper {...otherProps}>
       <div data-fs-navbar-links-wrapper data-fs-content="navbar">
         {shouldDisplayRegion && (
           <RegionButton icon={regionIcon} label={regionLabel} />
         )}
-        <NavbarLinksList.Component {...NavbarLinksList.props}>
+        <NavbarLinksList>
           {links.map(({ url, text }) => (
             <UINavbarLinksListItem key={text}>
               <Link
@@ -46,9 +50,9 @@ function NavbarLinks({
               </Link>
             </UINavbarLinksListItem>
           ))}
-        </NavbarLinksList.Component>
+        </NavbarLinksList>
       </div>
-    </NavbarLinksWrapper.Component>
+    </NavbarLinksWrapper>
   )
 }
 

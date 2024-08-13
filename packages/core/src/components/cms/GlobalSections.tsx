@@ -10,7 +10,7 @@ import RenderSections from './RenderSections'
 
 import Alert from 'src/components/sections/Alert'
 import Footer from 'src/components/sections/Footer'
-import { OverriddenDefaultNavbar as Navbar } from 'src/components/sections/Navbar/OverriddenDefaultNavbar'
+import Navbar from 'src/components/sections/Navbar'
 import { OverriddenDefaultRegionBar as RegionBar } from 'src/components/sections/RegionBar/OverriddenDefaultRegionBar'
 
 import CartSidebar from 'src/components/cart/CartSidebar'
