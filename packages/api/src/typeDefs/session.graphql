@@ -159,6 +159,10 @@ type StoreB2B {
   customerId: String!
 }
 
+input IStoreB2B {
+  customerId: String!
+}
+
 """
 Session input.
 """
@@ -199,4 +203,8 @@ input IStoreSession {
   Session input person.
   """
   person: IStorePerson
+  """
+  Session input b2b.
+  """
+  b2b: IStoreB2B
 }
