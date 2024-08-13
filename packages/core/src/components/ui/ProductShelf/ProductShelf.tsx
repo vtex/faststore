@@ -2,9 +2,12 @@ import { useEffect, useId, useRef } from 'react'
 
 import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
 import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import { textToKebabCase } from 'src/utils/utilities'
+
+import { ProductShelf as ProductShelfWrapper } from '@faststore/ui'
+import ProductCard from 'src/components/product/ProductCard'
+import Carousel from 'src/components/ui/Carousel'
 
 type Sort =
   | 'discount_desc'
@@ -47,11 +50,6 @@ function ProductShelf({
   taxesConfiguration = {},
   ...otherProps
 }: ProductShelfProps) {
-  const {
-    ProductShelf: ProductShelfWrapper,
-    __experimentalCarousel: Carousel,
-    __experimentalProductCard: ProductCard,
-  } = useOverrideComponents<'ProductShelf' | 'CrossSellingShelf'>()
   const titleId = textToKebabCase(title)
   const id = useId()
   const viewedOnce = useRef(false)
@@ -87,25 +85,18 @@ function ProductShelf({
         loading={products === undefined}
         itemsPerPage={itemsPerPage}
       >
-        <ProductShelfWrapper.Component {...ProductShelfWrapper.props}>
-          <Carousel.Component
-            id={titleId || id}
-            itemsPerPage={itemsPerPage}
-            {...Carousel.props}
-          >
+        <ProductShelfWrapper>
+          <Carousel id={titleId || id} itemsPerPage={itemsPerPage}>
             {productEdges.map((product, idx) => (
-              <ProductCard.Component
+              <ProductCard
                 aspectRatio={aspectRatio}
                 imgProps={{
                   width: 216,
                   height: 216,
                   sizes: '(max-width: 768px) 42vw, 30vw',
                 }}
-                {...ProductCard.props}
-                bordered={bordered ?? ProductCard.props.bordered}
-                showDiscountBadge={
-                  showDiscountBadge ?? ProductCard.props.showDiscountBadge
-                }
+                bordered={bordered}
+                showDiscountBadge={showDiscountBadge}
                 taxesConfiguration={taxesConfiguration}
                 // Dynamic props shouldn't be overridable
                 // This decision can be reviewed later if needed
@@ -114,8 +105,8 @@ function ProductShelf({
                 index={idx + 1}
               />
             ))}
-          </Carousel.Component>
-        </ProductShelfWrapper.Component>
+          </Carousel>
+        </ProductShelfWrapper>
       </ProductShelfSkeleton>
     </>
   )
