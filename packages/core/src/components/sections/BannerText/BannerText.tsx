@@ -1,14 +1,15 @@
 import {
-  BannerTextProps as UIBannerTextProps,
   BannerTextContentProps as UIBannerTextContentProps,
+  BannerTextProps as UIBannerTextProps,
 } from '@faststore/ui'
 
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import Section from '../Section'
 
+import {
+  BannerTextContent,
+  BannerText as BannerTextWrapper,
+} from '@faststore/ui'
 import styles from './section.module.scss'
-import { BannerTextDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 
 export interface BannerTextProps {
   title: UIBannerTextContentProps['title']
@@ -30,37 +31,22 @@ function BannerText({
   variant,
   colorVariant,
 }: BannerTextProps) {
-  const { BannerText: BannerTextWrapper, BannerTextContent } =
-    useOverrideComponents<'BannerText'>()
-
   return (
     <Section className={`${styles.section} section-banner layout__section`}>
-      <BannerTextWrapper.Component
-        {...BannerTextWrapper.props}
-        variant={variant ?? BannerTextWrapper.props.variant ?? 'primary'}
-        colorVariant={
-          colorVariant ?? BannerTextWrapper.props.colorVariant ?? 'main'
-        }
+      <BannerTextWrapper
+        variant={variant ?? 'primary'}
+        colorVariant={colorVariant ?? 'main'}
       >
-        <BannerTextContent.Component
-          {...BannerTextContent.props}
+        <BannerTextContent
           title={title}
           caption={caption}
-          link={linkUrl ?? BannerTextContent.props.link}
-          linkText={linkText ?? BannerTextContent.props.linkText}
-          linkTargetBlank={
-            linkTargetBlank ?? BannerTextContent.props.linkTargetBlank
-          }
+          link={linkUrl}
+          linkText={linkText}
+          linkTargetBlank={linkTargetBlank}
         />
-      </BannerTextWrapper.Component>
+      </BannerTextWrapper>
     </Section>
   )
 }
 
-const OverridableBannerText = getOverridableSection<typeof BannerText>(
-  'BannerText',
-  BannerText,
-  BannerTextDefaultComponents
-)
-
-export default OverridableBannerText
+export default BannerText
