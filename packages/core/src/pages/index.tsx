@@ -100,19 +100,25 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const serverData = await getDynamicContent({ pageType: 'home' })
-  const globalSections = await getGlobalSectionsData(previewData)
+  const globalSectionsPromise = getGlobalSectionsData(previewData)
+  const serverDataPromise = getDynamicContent({ pageType: 'home' })
 
   if (storeConfig.cms.data) {
     const cmsData = JSON.parse(storeConfig.cms.data)
     const page = cmsData['home'][0]
 
     if (page) {
-      const pageData = await getPage<PageContentType>({
+      const pageDataPromise = getPage<PageContentType>({
         contentType: 'home',
         documentId: page.documentId,
         versionId: page.versionId,
       })
+
+      const [pageData, globalSections, serverData] = await Promise.all([
+        pageDataPromise,
+        globalSectionsPromise,
+        serverDataPromise,
+      ])
 
       return {
         props: { page: pageData, globalSections, serverData },
@@ -120,10 +126,16 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
-  const page = await getPage<PageContentType>({
+  const pagePromise = getPage<PageContentType>({
     ...(previewData?.contentType === 'home' && previewData),
     contentType: 'home',
   })
+
+  const [page, globalSections, serverData] = await Promise.all([
+    pagePromise,
+    globalSectionsPromise,
+    serverDataPromise,
+  ])
 
   return {
     props: { page, globalSections, serverData },
