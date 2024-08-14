@@ -271,6 +271,8 @@ export const fragment = gql(`
     sku
     name
     gtin
+    categoryId
+
     description
     unitMultiplier
     isVariantOf {
