@@ -1135,6 +1135,7 @@ export type ProductSummary_ProductFragment = {
   sku: string
   name: string
   gtin: string
+  categoryId: string
   id: string
   brand: { name: string; brandName: string }
   isVariantOf: { productGroupID: string; name: string }
@@ -1449,6 +1450,7 @@ export type ClientManyProductsQueryQuery = {
           sku: string
           name: string
           gtin: string
+          categoryId: string
           id: string
           brand: { name: string; brandName: string }
           isVariantOf: { productGroupID: string; name: string }
@@ -1583,6 +1585,7 @@ export type ClientSearchSuggestionsQueryQuery = {
         sku: string
         name: string
         gtin: string
+        categoryId: string
         id: string
         brand: { name: string; brandName: string }
         isVariantOf: { productGroupID: string; name: string }
@@ -1710,6 +1713,7 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
   }
   name
   gtin
+  categoryId
   isVariantOf {
     productGroupID
     name
