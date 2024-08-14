@@ -1,3 +1,4 @@
+/* eslint-disable turbo/no-undeclared-env-vars */
 import type { Cart as SDKCart, CartItem as SDKCartItem } from '@faststore/sdk'
 import { createCartStore } from '@faststore/sdk'
 import { useMemo } from 'react'
@@ -101,6 +102,31 @@ const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
     .filter(Boolean)
     .join('::')
 
+const fetchLastOrder = async () => {
+  let response = undefined
+  const account = storeConfig.api.storeId
+  const environment = storeConfig.api.environment
+
+  try {
+    response = await fetch(
+      `https://${account}.${environment}.com.br/api/oms/pvt/orders?orderBy=creationDate,desc&per_page=1`,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-VTEX-API-AppKey': process.env.APPKEY,
+          'X-VTEX-API-AppToken': process.env.APPTOKEN,
+        },
+      }
+    )
+  } catch {
+    console.log('Do nothing')
+    // Do nothing
+  }
+
+  return response
+}
+
 type Order = {
   orderFormId: string
   orderIsComplete: boolean
@@ -112,25 +138,10 @@ type Orders = {
 
 const validateCart = async (cart: Cart): Promise<Cart | null> => {
   let shouldForceNewCart = false
-  const response = await fetch(
-    'https://storeframework.vtexcommercestable.com.br/api/oms/pvt/orders?orderBy=creationDate,desc&per_page=5',
-    {
-      // mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST',
-        'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
-        VtexIdclientAutCookie:
-          'eyJhbGciOiJFUzI1NiIsImtpZCI6IkQ3NjYwNjE2Mjc3NzFBQ0FFQTdCN0ZBOUM5MzAyNUFENzhFNzQwNjgiLCJ0eXAiOiJqd3QifQ.eyJzdWIiOiJsdWNhcy5wb3J0ZWxhQHZ0ZXguY29tIiwiYWNjb3VudCI6InN0b3JlZnJhbWV3b3JrIiwiYXVkaWVuY2UiOiJhZG1pbiIsInNlc3MiOiI2MzBlMDE2Ny1iN2M3LTQwNmMtOWVjYi0wMzg3YTJjOGVlNTUiLCJleHAiOjE3MjM2NDI3MTUsInR5cGUiOiJ1c2VyIiwidXNlcklkIjoiODM2Zjk1ZmQtYzQ5MS00NzVkLTg3YTgtZjRiYTE1NGEyOGViIiwiaWF0IjoxNzIzNTU2MzE1LCJpc3MiOiJ0b2tlbi1lbWl0dGVyIiwianRpIjoiZGY5ZTEzM2YtNDI0Mi00OGJjLThiODgtMDJlYzI4MWY3NmU5In0.aqyKrj7bdL5CoNs7WMdKybOvUBfaSJxqIb4JreHsRzt3W76G95kNa-sdAt7s2AJ5WNUTMttM4Qs9TiVBEOoj4w',
-      },
-    }
-  )
-  console.log('responseeeeee', response)
+  const lastOrderResponse = await fetchLastOrder()
 
-  if (response.ok) {
-    const orders = (await response.json()) as Orders
+  if (lastOrderResponse.ok) {
+    const orders = (await lastOrderResponse.json()) as Orders
     const placedOrder = orders.list.find(
       ({ orderFormId }) => orderFormId === cart.id
     )
