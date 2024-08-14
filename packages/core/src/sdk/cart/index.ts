@@ -103,7 +103,12 @@ const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
     .join('::')
 
 const fetchLastOrder = async () => {
-  let response = undefined
+  const isDevEnv =
+    process.env.NODE_ENV === 'development' ||
+    window.location.host.includes('localhost')
+  if (isDevEnv) return null
+
+  let response = null
   const account = storeConfig.api.storeId
   const environment = storeConfig.api.environment
 
@@ -120,8 +125,7 @@ const fetchLastOrder = async () => {
       }
     )
   } catch {
-    console.log('Do nothing')
-    // Do nothing
+    /* Do nothing */
   }
 
   return response
@@ -140,7 +144,7 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
   let shouldForceNewCart = false
   const lastOrderResponse = await fetchLastOrder()
 
-  if (lastOrderResponse.ok) {
+  if (lastOrderResponse && lastOrderResponse?.ok) {
     const orders = (await lastOrderResponse.json()) as Orders
     const placedOrder = orders.list.find(
       ({ orderFormId }) => orderFormId === cart.id
