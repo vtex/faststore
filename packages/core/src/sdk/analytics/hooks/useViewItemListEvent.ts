@@ -7,6 +7,8 @@ import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
 import type { AnalyticsItem } from '../types'
 
+import { createCategoryObject } from '../../../utils/createCategoryObject'
+
 type Props = {
   products: Array<{ node: ProductSummary_ProductFragment }>
   title: string
@@ -44,6 +46,7 @@ export const useViewItemListEvent = ({
           currency: code as CurrencyCode,
           item_variant_name: product.name,
           product_reference_id: product.gtin,
+          // ...createCategoryObject(products.categories.map(item => item.name))
         })),
       },
     })

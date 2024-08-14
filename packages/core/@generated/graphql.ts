@@ -667,6 +667,12 @@ export type StoreCartMessage = {
   text: Scalars['String']['output']
 }
 
+/** Item of a Category. */
+export type StoreCategoryItem = {
+  /** Name of the Category. */
+  name: Scalars['String']['output']
+}
+
 /** Product collection information. */
 export type StoreCollection = {
   /** List of items consisting of chain linked web pages, ending with the current page. */
@@ -910,6 +916,8 @@ export type StoreProduct = {
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList
   /** Product categories. */
+  categories: Array<StoreCategoryItem>
+  /** Product category Id. */
   categoryId: Scalars['String']['output']
   /** Product description. */
   description: Scalars['String']['output']
@@ -1108,6 +1116,7 @@ export type ProductSummary_ProductFragment = {
   categoryId: string
   id: string
   brand: { name: string; brandName: string }
+  categories: Array<{ name: string }>
   isVariantOf: { productGroupID: string; name: string }
   image: Array<{ url: string; alternateName: string }>
   offers: {
@@ -1162,6 +1171,7 @@ export type ProductDetailsFragment_ProductFragment = {
   description: string
   unitMultiplier: number | null
   id: string
+  categories: Array<{ name: string }>
   isVariantOf: {
     name: string
     productGroupID: string
@@ -1280,6 +1290,7 @@ export type ServerProductQueryQuery = {
         availableVariations: any | null
       } | null
     }
+    categories: Array<{ name: string }>
     additionalProperty: Array<{
       propertyID: string
       name: string
@@ -1421,6 +1432,7 @@ export type ClientManyProductsQueryQuery = {
           categoryId: string
           id: string
           brand: { name: string; brandName: string }
+          categories: Array<{ name: string }>
           isVariantOf: { productGroupID: string; name: string }
           image: Array<{ url: string; alternateName: string }>
           offers: {
@@ -1506,6 +1518,7 @@ export type ClientProductQueryQuery = {
     description: string
     unitMultiplier: number | null
     id: string
+    categories: Array<{ name: string }>
     isVariantOf: {
       name: string
       productGroupID: string
@@ -1555,6 +1568,7 @@ export type ClientSearchSuggestionsQueryQuery = {
         categoryId: string
         id: string
         brand: { name: string; brandName: string }
+        categories: Array<{ name: string }>
         isVariantOf: { productGroupID: string; name: string }
         image: Array<{ url: string; alternateName: string }>
         offers: {
@@ -1679,6 +1693,9 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
   name
   gtin
   categoryId
+  categories {
+    name
+  }
   isVariantOf {
     productGroupID
     name
@@ -1787,6 +1804,9 @@ export const ProductDetailsFragment_ProductFragmentDoc =
   name
   gtin
   categoryId
+  categories {
+    name
+  }
   description
   unitMultiplier
   isVariantOf {
@@ -2046,7 +2066,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '517b4ec34753b76b9fca9e72f6ce0a9427d22a05',
+    operationHash: 'b66995c497b41d1bd968b4cd66d1810a99037308',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2073,7 +2093,7 @@ export const SubscribeToNewsletterDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: 'c1da168d1070355bd99268eb196c8479f5c714bb',
+    operationHash: 'd7e5f9d71b0c6b53defd32131b4334990aa8ec1d',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2091,7 +2111,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: '5839f2e715b02f93045c3aa76993ec1072e33f63',
+    operationHash: 'c3d5097bd0ee3df9f81802e5fd59348f3a6785df',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
@@ -2100,7 +2120,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '930191332cee0b0b30fef83f105855f965c241cf',
+    operationHash: '87b5bfc88c26a2a0b236dc57ad6331e31565c642',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,

@@ -154,6 +154,9 @@ export const fragment = gql(`
     name
     gtin
     categoryId
+    categories {
+      name
+    }
 
     isVariantOf {
       productGroupID

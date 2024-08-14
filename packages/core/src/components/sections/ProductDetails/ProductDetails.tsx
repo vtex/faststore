@@ -272,6 +272,9 @@ export const fragment = gql(`
     name
     gtin
     categoryId
+    categories {
+      name
+    }
 
     description
     unitMultiplier
