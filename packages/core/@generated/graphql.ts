@@ -1105,6 +1105,7 @@ export type ProductSummary_ProductFragment = {
   sku: string
   name: string
   gtin: string
+  categoryId: string
   id: string
   brand: { name: string; brandName: string }
   isVariantOf: { productGroupID: string; name: string }
@@ -1417,6 +1418,7 @@ export type ClientManyProductsQueryQuery = {
           sku: string
           name: string
           gtin: string
+          categoryId: string
           id: string
           brand: { name: string; brandName: string }
           isVariantOf: { productGroupID: string; name: string }
@@ -1550,6 +1552,7 @@ export type ClientSearchSuggestionsQueryQuery = {
         sku: string
         name: string
         gtin: string
+        categoryId: string
         id: string
         brand: { name: string; brandName: string }
         isVariantOf: { productGroupID: string; name: string }
@@ -1675,6 +1678,7 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
   }
   name
   gtin
+  categoryId
   isVariantOf {
     productGroupID
     name
@@ -2069,7 +2073,7 @@ export const SubscribeToNewsletterDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '99012563e9885c3b27a716ca212a2c317e7ec12f',
+    operationHash: 'c1da168d1070355bd99268eb196c8479f5c714bb',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2096,7 +2100,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '47af7b9c9e0fb18b01050767daf3e765f67819ac',
+    operationHash: '930191332cee0b0b30fef83f105855f965c241cf',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
