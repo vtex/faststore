@@ -4,7 +4,6 @@ import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 
 import RenderSections from 'src/components/cms/RenderSections'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import BannerText from 'src/components/sections/BannerText'
 import Hero from 'src/components/sections/Hero'
 import Incentives from 'src/components/sections/Incentives'
@@ -30,7 +29,6 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductShelf,
   ProductTiles,
   BannerText,
-  BannerNewsletter,
   Newsletter,
   ...CUSTOM_COMPONENTS,
 }
