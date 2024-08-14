@@ -1,0 +1,24 @@
+"""
+Buyer Organization.
+"""
+type CustomField {
+    key: String
+    value: String
+}
+
+type BuyerOrg {
+    id: String
+    email: String
+    name: String
+    tradeName: String
+    document: String
+    approved: String
+    stateRegistration: String
+    unitIds: [String]
+    priceTables: [String]
+    sellers: [String]
+    categories: [String]
+    tradePolicies: [String]
+    paymentTerms: [String]
+    customFields: [CustomField]
+}

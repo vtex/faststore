@@ -250,6 +250,16 @@ type Query {
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
+  Returns Buyer Org for customer identifier.
+  """
+  buyerOrg(
+    """
+    Identifier for customer.
+    """
+    customerId: String!
+  ): BuyerOrg
+
+  """
   Returns information about all products.
   """
   allProducts(

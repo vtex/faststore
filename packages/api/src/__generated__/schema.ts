@@ -113,6 +113,31 @@ export type AvailableDeliveryWindows = {
   tax?: Maybe<Scalars['Int']>;
 };
 
+export type BuyerOrg = {
+  __typename?: 'BuyerOrg';
+  approved?: Maybe<Scalars['String']>;
+  categories?: Maybe<Array<Maybe<Scalars['String']>>>;
+  customFields?: Maybe<Array<Maybe<CustomField>>>;
+  document?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  paymentTerms?: Maybe<Array<Maybe<Scalars['String']>>>;
+  priceTables?: Maybe<Array<Maybe<Scalars['String']>>>;
+  sellers?: Maybe<Array<Maybe<Scalars['String']>>>;
+  stateRegistration?: Maybe<Scalars['String']>;
+  tradeName?: Maybe<Scalars['String']>;
+  tradePolicies?: Maybe<Array<Maybe<Scalars['String']>>>;
+  unitIds?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+/** Buyer Organization. */
+export type CustomField = {
+  __typename?: 'CustomField';
+  key?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+};
+
 export type DeliveryIds = {
   __typename?: 'DeliveryIds';
   /** DeliveryIds courier id */
@@ -440,6 +465,8 @@ export type Query = {
   allCollections: StoreCollectionConnection;
   /** Returns information about all products. */
   allProducts: StoreProductConnection;
+  /** Returns Buyer Org for customer identifier. */
+  buyerOrg?: Maybe<BuyerOrg>;
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection;
   /** Returns the details of a product based on the specified locator. */
@@ -464,6 +491,11 @@ export type QueryAllCollectionsArgs = {
 export type QueryAllProductsArgs = {
   after?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
+};
+
+
+export type QueryBuyerOrgArgs = {
+  customerId: Scalars['String'];
 };
 
 

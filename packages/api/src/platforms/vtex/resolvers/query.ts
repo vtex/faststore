@@ -21,6 +21,7 @@ import type {
   QuerySellersArgs,
   QueryShippingArgs,
   QueryRedirectArgs,
+  QueryBuyerOrgArgs,
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
@@ -326,4 +327,16 @@ export const Query = {
       sellers,
     }
   },
+
+  buyerOrg: async (
+    _: unknown,
+    { customerId }: QueryBuyerOrgArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { buyerOrg },
+    } = ctx
+
+    return buyerOrg.buyerOrg(customerId)     
+  }
 }

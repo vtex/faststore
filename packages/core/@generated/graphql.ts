@@ -129,6 +129,29 @@ export type AvailableDeliveryWindows = {
   tax: Maybe<Scalars['Int']['output']>
 }
 
+export type BuyerOrg = {
+  approved: Maybe<Scalars['String']['output']>
+  categories: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  customFields: Maybe<Array<Maybe<CustomField>>>
+  document: Maybe<Scalars['String']['output']>
+  email: Maybe<Scalars['String']['output']>
+  id: Maybe<Scalars['String']['output']>
+  name: Maybe<Scalars['String']['output']>
+  paymentTerms: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  priceTables: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  sellers: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  stateRegistration: Maybe<Scalars['String']['output']>
+  tradeName: Maybe<Scalars['String']['output']>
+  tradePolicies: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  unitIds: Maybe<Array<Maybe<Scalars['String']['output']>>>
+}
+
+/** Buyer Organization. */
+export type CustomField = {
+  key: Maybe<Scalars['String']['output']>
+  value: Maybe<Scalars['String']['output']>
+}
+
 export type DeliveryIds = {
   /** DeliveryIds courier id */
   courierId: Maybe<Scalars['String']['output']>
@@ -443,6 +466,8 @@ export type Query = {
   allCollections: StoreCollectionConnection
   /** Returns information about all products. */
   allProducts: StoreProductConnection
+  /** Returns Buyer Org for customer identifier. */
+  buyerOrg: Maybe<BuyerOrg>
   /** Returns the details of a collection based on the collection slug. */
   collection: StoreCollection
   /** Returns the details of a product based on the specified locator. */
@@ -465,6 +490,10 @@ export type QueryAllCollectionsArgs = {
 export type QueryAllProductsArgs = {
   after: InputMaybe<Scalars['String']['input']>
   first: Scalars['Int']['input']
+}
+
+export type QueryBuyerOrgArgs = {
+  customerId: Scalars['String']['input']
 }
 
 export type QueryCollectionArgs = {
@@ -1284,6 +1313,14 @@ export type ServerProductQueryQuery = {
   }
 }
 
+export type ClientBuyerOrgQueryQueryVariables = Exact<{
+  customerId: Scalars['String']['input']
+}>
+
+export type ClientBuyerOrgQueryQuery = {
+  buyerOrg: { name: string | null; email: string | null } | null
+}
+
 export type ValidateCartMutationMutationVariables = Exact<{
   cart: IStoreCart
   session: IStoreSession
@@ -2041,6 +2078,15 @@ export const ServerProductQueryDocument = {
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
   ServerProductQueryQueryVariables
+>
+export const ClientBuyerOrgQueryDocument = {
+  __meta__: {
+    operationName: 'ClientBuyerOrgQuery',
+    operationHash: 'd68ca2d6ef5fe5f34d353d088b125a303f62e595',
+  },
+} as unknown as TypedDocumentString<
+  ClientBuyerOrgQueryQuery,
+  ClientBuyerOrgQueryQueryVariables
 >
 export const ValidateCartMutationDocument = {
   __meta__: {
