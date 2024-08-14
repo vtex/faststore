@@ -3,6 +3,7 @@ import { getPage } from 'app/server/cms'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import RenderSections from 'app/components/cms/RenderSections'
+import { OverriddenDefaultBannerText as BannerText } from 'app/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
 import PageProvider from 'app/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'app/utils/dynamicContent'
@@ -12,6 +13,7 @@ import storeConfig from '../../faststore.config'
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Hero,
+  BannerText,
   ...CUSTOM_COMPONENTS,
 }
 

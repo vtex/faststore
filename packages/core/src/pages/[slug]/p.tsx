@@ -11,9 +11,9 @@ import {
   type ServerProductQueryQueryVariables,
 } from '@generated/graphql'
 import RenderSections from 'app/components/cms/RenderSections'
+import { OverriddenDefaultBannerText as BannerText } from 'app/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
 import { OverriddenDefaultCrossSellingShelf as CrossSellingShelf } from 'src/components/sections/CrossSellingShelf/OverriddenDefaultCrossSellingShelf'
 import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
@@ -26,11 +26,11 @@ import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
 
 import PageProvider, { PDPContext } from 'app/sdk/overrides/PageProvider'
-import { PDPContentType, getPDP } from 'app/server/cms/pdp'
+import { getPDP, PDPContentType } from 'app/server/cms/pdp'
 import storeConfig from 'faststore.config'
 import GlobalSections, {
-  GlobalSectionsData,
   getGlobalSectionsData,
+  GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
 
