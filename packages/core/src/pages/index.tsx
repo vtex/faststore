@@ -5,14 +5,13 @@ import type { ComponentType } from 'react'
 
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
-import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
+import BannerText from 'src/components/sections/BannerText'
+import Hero from 'src/components/sections/Hero'
 import Incentives from 'src/components/sections/Incentives'
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
-import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
+import Newsletter from 'src/components/sections/Newsletter'
+import ProductShelf from 'src/components/sections/ProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import { mark } from 'src/sdk/tests/mark'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
@@ -142,6 +141,4 @@ export const getStaticProps: GetStaticProps<
   }
 }
 
-Page.displayName = 'Page'
-
-export default mark(Page)
+export default Page

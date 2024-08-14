@@ -1,17 +1,24 @@
-import { useRef, useState, useCallback } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
-import { useUI, useScrollDirection, Icon as UIIcon } from '@faststore/ui'
+import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
-import { mark } from 'src/sdk/tests/mark'
-
-import type { SearchInputRef } from 'src/components/search/SearchInput'
-import SearchInput from 'src/components/search/SearchInput'
+import CartToggle from 'src/components/cart/CartToggle'
 import NavbarLinks from 'src/components/navigation/NavbarLinks'
 import NavbarSlider from 'src/components/navigation/NavbarSlider'
-import CartToggle from 'src/components/cart/CartToggle'
-import Logo from 'src/components/ui/Logo'
+import type { SearchInputRef } from 'src/components/search/SearchInput'
+import SearchInput from 'src/components/search/SearchInput'
 import Link from 'src/components/ui/Link'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import Logo from 'src/components/ui/Logo'
+
+import {
+  IconButton,
+  NavbarButtons,
+  NavbarHeader,
+  NavbarRow,
+  Navbar as NavbarWrapper,
+} from '@faststore/ui'
+
+import { ButtonSignIn } from 'src/components/ui/Button'
 
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
 
@@ -70,14 +77,6 @@ function Navbar({
     icon: { icon: menuIcon, alt: menuIconAlt },
   },
 }: NavbarProps) {
-  const {
-    Navbar: NavbarWrapper,
-    NavbarHeader,
-    NavbarRow,
-    NavbarButtons,
-    IconButton,
-    _experimentalButtonSignIn: ButtonSignIn,
-  } = useOverrideComponents<'Navbar'>()
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
   const searchMobileRef = useRef<SearchInputRef>(null)
@@ -94,20 +93,16 @@ function Navbar({
   }, [])
 
   return (
-    <NavbarWrapper.Component
-      scrollDirection={scrollDirection}
-      {...NavbarWrapper.props}
-    >
-      <NavbarHeader.Component {...NavbarHeader.props}>
-        <NavbarRow.Component {...NavbarRow.props}>
+    <NavbarWrapper scrollDirection={scrollDirection}>
+      <NavbarHeader>
+        <NavbarRow>
           {!searchExpanded && (
             <>
-              <IconButton.Component
+              <IconButton
                 data-fs-navbar-button-menu
                 onClick={openNavbar}
                 icon={<UIIcon name={menuIcon} width={32} height={32} />}
-                {...IconButton.props}
-                aria-label={menuIconAlt ?? IconButton.props['aria-label']}
+                aria-label={menuIconAlt}
               />
               <Link
                 data-fs-navbar-logo
@@ -125,16 +120,12 @@ function Navbar({
             sort={searchInput?.sort}
           />
 
-          <NavbarButtons.Component
-            searchExpanded={searchExpanded}
-            {...NavbarButtons.props}
-          >
+          <NavbarButtons searchExpanded={searchExpanded}>
             {searchExpanded && (
-              <IconButton.Component
+              <IconButton
                 data-fs-button-collapse
                 aria-label="Collapse search bar"
                 icon={<UIIcon name="CaretLeft" width={32} height={32} />}
-                {...IconButton.props}
                 // Dynamic props, shouldn't be overridable
                 // This decision can be reviewed later if needed
                 onClick={handleCollapseSearch}
@@ -152,12 +143,12 @@ function Navbar({
               aria-hidden={!searchExpanded}
             />
 
-            <ButtonSignIn.Component {...signInButton} />
+            <ButtonSignIn {...signInButton} />
 
             <CartToggle {...cart} />
-          </NavbarButtons.Component>
-        </NavbarRow.Component>
-      </NavbarHeader.Component>
+          </NavbarButtons>
+        </NavbarRow>
+      </NavbarHeader>
 
       <NavbarLinks links={links} region={region} className="hidden-mobile" />
 
@@ -170,9 +161,8 @@ function Navbar({
           region={region}
         />
       )}
-    </NavbarWrapper.Component>
+    </NavbarWrapper>
   )
 }
 
-Navbar.displayName = 'Navbar'
-export default mark(Navbar)
+export default Navbar
