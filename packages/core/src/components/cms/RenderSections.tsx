@@ -1,10 +1,12 @@
 import { ComponentType, PropsWithChildren, memo, useMemo } from 'react'
 
-import SectionBoundary from './SectionBoundary'
 import { Section } from '@vtex/client-cms'
+import SectionBoundary from './SectionBoundary'
+
+import COMPONENTS from './Components'
 
 interface Props {
-  components: Record<string, ComponentType<any>>
+  components?: Record<string, ComponentType<any>>
   sections: Array<{ name: string; data: any }>
 }
 
@@ -21,7 +23,10 @@ const useDividedSections = (sections: Section[]) => {
   }, [sections])
 }
 
-const RenderSectionsBase = ({ sections = [], components }: Props) => {
+const RenderSectionsBase = ({
+  sections = [],
+  components = COMPONENTS,
+}: Props) => {
   return (
     <>
       {sections.map(({ name, data }, index) => {

@@ -1,16 +1,8 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
-import type { ComponentType } from 'react'
 
 import RenderSections from 'src/components/cms/RenderSections'
-import BannerText from 'src/components/sections/BannerText'
-import Hero from 'src/components/sections/Hero'
-import Incentives from 'src/components/sections/Incentives'
-import Newsletter from 'src/components/sections/Newsletter'
-import ProductShelf from 'src/components/sections/ProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
@@ -21,17 +13,6 @@ import GlobalSections, {
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../faststore.config'
-
-/* A list of components that can be used in the CMS. */
-const COMPONENTS: Record<string, ComponentType<any>> = {
-  Hero,
-  Incentives,
-  ProductShelf,
-  ProductTiles,
-  BannerText,
-  Newsletter,
-  ...CUSTOM_COMPONENTS,
-}
 
 type Props = {
   page: PageContentType
@@ -86,7 +67,7 @@ function Page({
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
-        <RenderSections sections={sections} components={COMPONENTS} />
+        <RenderSections sections={sections} />
       </PageProvider>
     </GlobalSections>
   )
