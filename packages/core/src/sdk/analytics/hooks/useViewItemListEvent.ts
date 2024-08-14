@@ -46,7 +46,7 @@ export const useViewItemListEvent = ({
           currency: code as CurrencyCode,
           item_variant_name: product.name,
           product_reference_id: product.gtin,
-          // ...createCategoryObject(products.categories.map(item => item.name))
+          ...createCategoryObject(product.categories.map((item) => item.name)),
         })),
       },
     })
