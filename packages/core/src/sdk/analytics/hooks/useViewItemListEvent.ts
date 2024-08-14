@@ -24,6 +24,8 @@ export const useViewItemListEvent = ({
     currency: { code },
   } = useSession()
 
+  console.log(`products33333`, products)
+
   const sendViewItemListEvent = useCallback(() => {
     sendAnalyticsEvent<ViewItemListEvent<AnalyticsItem>>({
       name: 'view_item_list',

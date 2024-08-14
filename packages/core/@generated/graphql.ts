@@ -909,6 +909,8 @@ export type StoreProduct = {
   brand: StoreBrand
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList
+  /** Product categories. */
+  categoryId: Scalars['String']['output']
   /** Product description. */
   description: Scalars['String']['output']
   /** Global Trade Item Number. */
