@@ -31,9 +31,13 @@ type StoreProduct {
   """
   description: String!
   """
-  Product categories.
+  Product category Id.
   """
   categoryId: String!
+    """
+  Product categories.
+  """
+  categories: [StoreCategoryItem!]!
   """
   Array of images.
   """
