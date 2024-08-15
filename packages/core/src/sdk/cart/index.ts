@@ -176,8 +176,6 @@ export const useCart = (
   const cart = useStore(cartStore)
   const isValidating = useStore(validationStore)
 
-  console.log(`cartStore`, cart)
-
   return useMemo(() => {
     const cartTotals = cart.items.reduce(
       (totals, curr) => {
