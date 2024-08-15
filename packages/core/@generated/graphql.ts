@@ -865,6 +865,8 @@ export type StoreListItem = {
 export type StoreOffer = {
   /** Offer item availability. */
   availability: Scalars['String']['output']
+  /** Product categories. */
+  categories: Array<StoreCategoryItem>
   /** Offer item condition. */
   itemCondition: Scalars['String']['output']
   /** Information on the item being offered. */
@@ -1348,6 +1350,7 @@ export type ValidateCartMutationMutation = {
         listPrice: number
         listPriceWithTaxes: number
         seller: { identifier: string }
+        categories: Array<{ name: string }>
         itemOffered: {
           sku: string
           name: string
@@ -1355,7 +1358,6 @@ export type ValidateCartMutationMutation = {
           gtin: string
           image: Array<{ url: string; alternateName: string }>
           brand: { name: string }
-          categories: Array<{ name: string }>
           isVariantOf: {
             productGroupID: string
             name: string
@@ -1387,6 +1389,7 @@ export type CartItemFragment = {
   listPrice: number
   listPriceWithTaxes: number
   seller: { identifier: string }
+  categories: Array<{ name: string }>
   itemOffered: {
     sku: string
     name: string
@@ -1394,7 +1397,6 @@ export type CartItemFragment = {
     gtin: string
     image: Array<{ url: string; alternateName: string }>
     brand: { name: string }
-    categories: Array<{ name: string }>
     isVariantOf: {
       productGroupID: string
       name: string
@@ -1420,7 +1422,6 @@ export type CartProductItemFragment = {
   gtin: string
   image: Array<{ url: string; alternateName: string }>
   brand: { name: string }
-  categories: Array<{ name: string }>
   isVariantOf: {
     productGroupID: string
     name: string
@@ -1817,9 +1818,6 @@ export const CartProductItemFragmentDoc = new TypedDocumentString(
   brand {
     name
   }
-  categories {
-    name
-  }
   isVariantOf {
     productGroupID
     name
@@ -1901,9 +1899,6 @@ export const ProductDetailsFragment_ProductFragmentDoc =
     alternateName
   }
   brand {
-    name
-  }
-  categories {
     name
   }
   isVariantOf {
@@ -2058,6 +2053,9 @@ export const CartItemFragmentDoc = new TypedDocumentString(
   priceWithTaxes
   listPrice
   listPriceWithTaxes
+  categories {
+    name
+  }
   itemOffered {
     ...CartProductItem
   }
@@ -2071,9 +2069,6 @@ export const CartItemFragmentDoc = new TypedDocumentString(
     alternateName
   }
   brand {
-    name
-  }
-  categories {
     name
   }
   isVariantOf {
@@ -2117,7 +2112,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '95a15ae444251c9ab5d244a1deb1e45866aa0925',
+    operationHash: 'b66995c497b41d1bd968b4cd66d1810a99037308',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2162,7 +2157,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: 'fe46ea558419c9762643e9af6307ddb4b7554da7',
+    operationHash: 'c3d5097bd0ee3df9f81802e5fd59348f3a6785df',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,

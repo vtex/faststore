@@ -55,6 +55,9 @@ export const ValidateCartMutation = gql(`
     priceWithTaxes
     listPrice
     listPriceWithTaxes
+    categories {
+      name
+    }
     itemOffered {
       ...CartProductItem
     }
@@ -69,9 +72,6 @@ export const ValidateCartMutation = gql(`
       alternateName
     }
     brand {
-      name
-    }
-    categories {
       name
     }
     isVariantOf {
