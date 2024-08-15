@@ -12,7 +12,7 @@ import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNew
 import { OverriddenDefaultCrossSellingShelf as CrossSellingShelf } from 'src/components/sections/CrossSellingShelf/OverriddenDefaultCrossSellingShelf'
 import Incentives from 'src/components/sections/Incentives'
 import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
-import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
+import { OverriddenDefaultProductShelf as ProductShelf } from 'app/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'

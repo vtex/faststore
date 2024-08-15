@@ -1,14 +1,12 @@
 'use client'
 
 import { useInView } from 'react-intersection-observer'
-import Section from '../Section'
+import Section from 'src/components/sections/Section'
 
-import ProductShelf, {
-  ProductShelfProps,
-} from '../../../components/ui/ProductShelf'
+import ProductShelf, { ProductShelfProps } from 'app/components/ui/ProductShelf'
 import styles from './section.module.scss'
 import { ProductShelfDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../../app/sdk/overrides/getOverriddenSection'
+import { getOverridableSection } from 'app/sdk/overrides/getOverriddenSection'
 
 function ProductShelfSection({
   ...otherProps
