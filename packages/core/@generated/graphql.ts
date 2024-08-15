@@ -1318,7 +1318,11 @@ export type ClientBuyerOrgQueryQueryVariables = Exact<{
 }>
 
 export type ClientBuyerOrgQueryQuery = {
-  buyerOrg: { name: string | null; email: string | null } | null
+  buyerOrg: {
+    id: string | null
+    name: string | null
+    email: string | null
+  } | null
 }
 
 export type ValidateCartMutationMutationVariables = Exact<{
@@ -2082,7 +2086,7 @@ export const ServerProductQueryDocument = {
 export const ClientBuyerOrgQueryDocument = {
   __meta__: {
     operationName: 'ClientBuyerOrgQuery',
-    operationHash: 'd68ca2d6ef5fe5f34d353d088b125a303f62e595',
+    operationHash: '0981c3eff0a9226a7533851eca8c498f27cd9a10',
   },
 } as unknown as TypedDocumentString<
   ClientBuyerOrgQueryQuery,

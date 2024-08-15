@@ -10,6 +10,7 @@ import { useQuery } from '../graphql/useQuery'
 export const query = gql(`
   query ClientBuyerOrgQuery($customerId: String!) {
     buyerOrg(customerId: $customerId) {
+      id
       name
       email
     }
