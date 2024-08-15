@@ -2,7 +2,7 @@ import { HTMLAttributes } from 'react'
 
 import { SkuSelectorProps } from '@faststore/ui'
 import NextLink from 'next/link'
-import { Image } from '../Image'
+import { Image } from '../../../../app/components/ui/Image'
 
 import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 

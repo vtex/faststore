@@ -13,7 +13,7 @@ import {
 
 import LocalImageGallery from 'src/components/ui/ImageGallery'
 import LocalShippingSimulation from 'src/components/ui/ShippingSimulation/ShippingSimulation'
-import { Image } from 'src/components/ui/Image'
+import { Image } from 'app/components/ui/Image'
 import LocalNotAvailableButton from 'src/components/product/NotAvailableButton'
 import LocalProductDescription from 'src/components/ui/ProductDescription'
 import { ProductDetailsSettings as LocalProductDetailsSettings } from 'src/components/ui/ProductDetails'
