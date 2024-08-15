@@ -34,8 +34,4 @@ input IStoreCart {
   Order information, including `orderNumber`, `acceptedOffer` and `shouldSplitItem`.
   """
   order: IStoreOrder!
-  """
-  Set to create a new cart.
-  """
-  forceNewCart: Boolean
 }

@@ -21,7 +21,6 @@ export interface CartItem extends SDKCartItem, CartItemFragment {}
 export interface Cart extends SDKCart<CartItem> {
   messages?: CartMessageFragment[]
   shouldSplitItem?: boolean
-  forceNewCart?: boolean
 }
 
 export const ValidateCartMutation = gql(`
@@ -101,52 +100,13 @@ const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
     .filter(Boolean)
     .join('::')
 
-type Order = {
-  orderFormId: string
-  orderIsComplete: boolean
-}
-
-type Orders = {
-  list: Order[]
-}
-
 const validateCart = async (cart: Cart): Promise<Cart | null> => {
-  let shouldForceNewCart = false
-  const response = await fetch(
-    'https://storeframework.vtexcommercestable.com.br/api/oms/pvt/orders?orderBy=creationDate,desc&per_page=5',
-    {
-      // mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST',
-        'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
-        VtexIdclientAutCookie:
-          'eyJhbGciOiJFUzI1NiIsImtpZCI6IkQ3NjYwNjE2Mjc3NzFBQ0FFQTdCN0ZBOUM5MzAyNUFENzhFNzQwNjgiLCJ0eXAiOiJqd3QifQ.eyJzdWIiOiJsdWNhcy5wb3J0ZWxhQHZ0ZXguY29tIiwiYWNjb3VudCI6InN0b3JlZnJhbWV3b3JrIiwiYXVkaWVuY2UiOiJhZG1pbiIsInNlc3MiOiI2MzBlMDE2Ny1iN2M3LTQwNmMtOWVjYi0wMzg3YTJjOGVlNTUiLCJleHAiOjE3MjM2NDI3MTUsInR5cGUiOiJ1c2VyIiwidXNlcklkIjoiODM2Zjk1ZmQtYzQ5MS00NzVkLTg3YTgtZjRiYTE1NGEyOGViIiwiaWF0IjoxNzIzNTU2MzE1LCJpc3MiOiJ0b2tlbi1lbWl0dGVyIiwianRpIjoiZGY5ZTEzM2YtNDI0Mi00OGJjLThiODgtMDJlYzI4MWY3NmU5In0.aqyKrj7bdL5CoNs7WMdKybOvUBfaSJxqIb4JreHsRzt3W76G95kNa-sdAt7s2AJ5WNUTMttM4Qs9TiVBEOoj4w',
-      },
-    }
-  )
-  console.log('responseeeeee', response)
-
-  if (response.ok) {
-    const orders = (await response.json()) as Orders
-    const placedOrder = orders.list.find(
-      ({ orderFormId }) => orderFormId === cart.id
-    )
-
-    if (placedOrder.orderIsComplete) {
-      shouldForceNewCart = true
-    }
-  }
-
   const { validateCart: validated = null } = await request<
     ValidateCartMutationMutation,
     ValidateCartMutationMutationVariables
   >(ValidateCartMutation, {
     session: sessionStore.read(),
     cart: {
-      forceNewCart: shouldForceNewCart,
       order: {
         orderNumber: cart.id,
         shouldSplitItem: cart.shouldSplitItem,

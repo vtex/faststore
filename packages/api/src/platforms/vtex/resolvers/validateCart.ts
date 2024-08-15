@@ -212,14 +212,9 @@ const isOrderFormStale = (form: OrderForm) => {
 }
 
 // Returns the regionalized orderForm
-const getOrderForm = async (
-  id: string,
-  { clients: { commerce } }: Context,
-  forceNewCart: boolean
-) => {
+const getOrderForm = async (id: string, { clients: { commerce } }: Context) => {
   return commerce.checkout.orderForm({
     id,
-    forceNewCart,
   })
 }
 
@@ -315,13 +310,13 @@ const getCookieCheckoutOrderNumber = (ctx: string, nameCookie: string) => {
  */
 export const validateCart = async (
   _: unknown,
-  { cart: { order, forceNewCart = false }, session }: MutationValidateCartArgs,
+  { cart: { order }, session }: MutationValidateCartArgs,
   ctx: Context
 ) => {
   const orderNumber = order?.orderNumber
     ? order.orderNumber
     : getCookieCheckoutOrderNumber(ctx.headers.cookie, 'checkout.vtex.com')
-
+  
   const { acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
@@ -340,7 +335,7 @@ export const validateCart = async (
   }
 
   // Step1: Get OrderForm from VTEX Commerce
-  const orderForm = await getOrderForm(orderNumber, ctx, forceNewCart ?? false)
+  const orderForm = await getOrderForm(orderNumber, ctx)
 
   // Clear messages so it doesn't keep populating toasts on a loop
   // In the next validateCart mutation it will only have messages if a new message is created on orderForm
