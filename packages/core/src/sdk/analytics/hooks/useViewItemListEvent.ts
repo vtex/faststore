@@ -25,7 +25,6 @@ export const useViewItemListEvent = ({
     currency: { code },
   } = useSession()
 
-
   const sendViewItemListEvent = useCallback(() => {
     import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
       sendAnalyticsEvent<ViewItemListEvent<AnalyticsItem>>({

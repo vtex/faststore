@@ -69,6 +69,9 @@ export const ValidateCartMutation = gql(`
     brand {
       name
     }
+    categories {
+      name
+    }
     isVariantOf {
       productGroupID
       name

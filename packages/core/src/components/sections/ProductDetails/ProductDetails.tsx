@@ -16,6 +16,8 @@ import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { usePDP } from '../../../sdk/overrides/PageProvider'
 import { ProductDetailsDefaultComponents } from './DefaultComponents'
 
+import { createCategoryObject } from '../../../utils/createCategoryObject'
+
 export interface ProductDetailsProps {
   productTitle: {
     refNumber: boolean
@@ -114,6 +116,7 @@ function ProductDetails({
   } = product
 
   useEffect(() => {
+<<<<<<< HEAD
     import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
       sendAnalyticsEvent<ViewItemEvent<AnalyticsItem>>({
         name: 'view_item',
@@ -135,6 +138,30 @@ function ProductDetails({
           ],
         },
       })
+=======
+    sendAnalyticsEvent<ViewItemEvent<AnalyticsItem>>({
+      name: 'view_item',
+      params: {
+        currency: currency.code as CurrencyCode,
+        value: price,
+        items: [
+          {
+            item_id: isVariantOf.productGroupID,
+            item_name: isVariantOf.name,
+            item_brand: brand.name,
+            item_variant: sku,
+            price,
+            discount: listPrice - price,
+            currency: currency.code as CurrencyCode,
+            item_variant_name: variantName,
+            product_reference_id: gtin,
+            ...createCategoryObject(
+              product.categories.map((item) => item.name)
+            ),
+          },
+        ],
+      },
+>>>>>>> ab2a4f2fd (chore: update GA event "view_item"and "select_item)
     })
   }, [
     isVariantOf.productGroupID,
@@ -146,6 +173,7 @@ function ProductDetails({
     currency.code,
     variantName,
     gtin,
+    product.categories,
   ])
 
   const outOfStock = useMemo(

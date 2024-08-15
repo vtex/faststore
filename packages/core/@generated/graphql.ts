@@ -1355,6 +1355,7 @@ export type ValidateCartMutationMutation = {
           gtin: string
           image: Array<{ url: string; alternateName: string }>
           brand: { name: string }
+          categories: Array<{ name: string }>
           isVariantOf: {
             productGroupID: string
             name: string
@@ -1393,6 +1394,7 @@ export type CartItemFragment = {
     gtin: string
     image: Array<{ url: string; alternateName: string }>
     brand: { name: string }
+    categories: Array<{ name: string }>
     isVariantOf: {
       productGroupID: string
       name: string
@@ -1418,6 +1420,7 @@ export type CartProductItemFragment = {
   gtin: string
   image: Array<{ url: string; alternateName: string }>
   brand: { name: string }
+  categories: Array<{ name: string }>
   isVariantOf: {
     productGroupID: string
     name: string
@@ -1814,6 +1817,9 @@ export const CartProductItemFragmentDoc = new TypedDocumentString(
   brand {
     name
   }
+  categories {
+    name
+  }
   isVariantOf {
     productGroupID
     name
@@ -1895,6 +1901,9 @@ export const ProductDetailsFragment_ProductFragmentDoc =
     alternateName
   }
   brand {
+    name
+  }
+  categories {
     name
   }
   isVariantOf {
@@ -2064,6 +2073,9 @@ export const CartItemFragmentDoc = new TypedDocumentString(
   brand {
     name
   }
+  categories {
+    name
+  }
   isVariantOf {
     productGroupID
     name
@@ -2105,7 +2117,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: 'b66995c497b41d1bd968b4cd66d1810a99037308',
+    operationHash: '95a15ae444251c9ab5d244a1deb1e45866aa0925',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2150,7 +2162,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: 'c3d5097bd0ee3df9f81802e5fd59348f3a6785df',
+    operationHash: 'fe46ea558419c9762643e9af6307ddb4b7554da7',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
