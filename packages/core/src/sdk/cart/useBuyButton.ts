@@ -8,6 +8,8 @@ import { useUI } from '@faststore/ui'
 import { useSession } from '../session'
 import { cartStore } from './index'
 
+import { createCategoryObject } from '../../utils/createCategoryObject'
+
 export const useBuyButton = (item: CartItem | null) => {
   const { openCart } = useUI()
   const {
@@ -42,6 +44,9 @@ export const useBuyButton = (item: CartItem | null) => {
                 currency: code as CurrencyCode,
                 item_variant_name: item.itemOffered.name,
                 product_reference_id: item.itemOffered.gtin,
+                ...createCategoryObject(
+                  item.categories.map((item: any) => item.name)
+                ),
               },
             ],
           },

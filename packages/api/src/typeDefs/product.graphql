@@ -34,7 +34,7 @@ type StoreProduct {
   Product category Id.
   """
   categoryId: String!
-    """
+  """
   Product categories.
   """
   categories: [StoreCategoryItem!]!

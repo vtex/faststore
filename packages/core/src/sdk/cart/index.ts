@@ -16,7 +16,9 @@ import { request } from '../graphql/request'
 import { sessionStore } from '../session'
 import { createValidationStore, useStore } from '../useStore'
 
-export interface CartItem extends SDKCartItem, CartItemFragment {}
+export interface CartItem extends SDKCartItem, CartItemFragment {
+  categories: Array<{ name: string }>
+}
 
 export interface Cart extends SDKCart<CartItem> {
   messages?: CartMessageFragment[]
@@ -173,6 +175,8 @@ export const useCart = (
 ) => {
   const cart = useStore(cartStore)
   const isValidating = useStore(validationStore)
+
+  console.log(`cartStore`, cart)
 
   return useMemo(() => {
     const cartTotals = cart.items.reduce(

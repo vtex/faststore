@@ -62,6 +62,7 @@ function ProductDetailsSettings({
     isVariantOf: { skuVariants },
     image: productImages,
     additionalProperty,
+    categories,
     offers: {
       offers: [
         {
@@ -84,6 +85,7 @@ function ProductDetailsSettings({
     listPriceWithTaxes,
     seller,
     quantity,
+    categories,
     itemOffered: {
       sku,
       name: variantName,
