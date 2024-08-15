@@ -6,10 +6,10 @@ import type { ComponentType } from 'react'
 import RenderSections from 'app/components/cms/RenderSections'
 import { OverriddenDefaultBannerText as BannerText } from 'app/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
+import Incentives from 'app/components/sections/Incentives'
 import type { PageContentType } from 'app/server/cms'
 import { getPage } from 'app/server/cms'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import Incentives from 'src/components/sections/Incentives'
 import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'app/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
@@ -20,7 +20,7 @@ import PageProvider from 'app/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'app/utils/dynamicContent'
 import GlobalSections, {
   getGlobalSectionsData,
-  GlobalSectionsData,
+  GlobalSectionsData
 } from 'src/components/cms/GlobalSections'
 import storeConfig from '../../faststore.config'
 

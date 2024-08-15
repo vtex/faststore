@@ -7,6 +7,7 @@ import { OverriddenDefaultBannerText as BannerText } from 'app/components/sectio
 import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'app/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 
+import Incentives from 'app/components/ui/Incentives'
 import PageProvider from 'app/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'app/utils/dynamicContent'
 import { ComponentType } from 'react'
@@ -15,6 +16,7 @@ import storeConfig from '../../faststore.config'
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Hero,
+  Incentives,
   ProductShelf,
   BannerText,
   ...CUSTOM_COMPONENTS,
