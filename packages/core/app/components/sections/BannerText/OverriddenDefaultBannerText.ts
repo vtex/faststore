@@ -1,3 +1,5 @@
+'use client'
+
 import { getOverriddenSection } from 'app/sdk/overrides/getOverriddenSection'
 import { override } from 'src/customizations/src/components/overrides/BannerText'
 import BannerText from '.'
