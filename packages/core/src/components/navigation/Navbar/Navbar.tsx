@@ -1,14 +1,19 @@
+import dynamic from 'next/dynamic'
 import { useCallback, useRef, useState } from 'react'
 
 import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
 import CartToggle from 'src/components/cart/CartToggle'
-import NavbarLinks from 'src/components/navigation/NavbarLinks'
-import NavbarSlider from 'src/components/navigation/NavbarSlider'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
+const NavbarLinks = dynamic(
+  () => import('src/components/navigation/NavbarLinks')
+)
+const NavbarSlider = dynamic(
+  () => import('src/components/navigation/NavbarSlider')
+)
 
 import {
   IconButton,
