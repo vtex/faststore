@@ -314,9 +314,9 @@ export const validateCart = async (
   ctx: Context
 ) => {
   const orderNumber = order?.orderNumber
-    ? order.orderNumber
-    : getCookieCheckoutOrderNumber(ctx.headers.cookie, 'checkout.vtex.com')
-  
+    ? getCookieCheckoutOrderNumber(ctx.headers.cookie, 'checkout.vtex.com')
+    : order.orderNumber
+
   const { acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
