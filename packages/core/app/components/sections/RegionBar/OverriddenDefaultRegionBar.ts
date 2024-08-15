@@ -1,3 +1,5 @@
+'use client'
+
 import { getOverriddenSection } from 'app/sdk/overrides/getOverriddenSection'
 import type { SectionOverrideDefinitionV1 } from 'app/typings/overridesDefinition'
 import { override } from 'src/customizations/src/components/overrides/RegionBar'

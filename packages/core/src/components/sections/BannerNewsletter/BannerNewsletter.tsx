@@ -1,10 +1,10 @@
 'use client'
 
-import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
-import type { BannerTextProps } from 'src/components/sections/BannerText'
+import type { BannerTextProps } from 'app/components/sections/BannerText'
+import { OverriddenDefaultBannerText as BannerText } from 'app/components/sections/BannerText/OverriddenDefaultBannerText'
 
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import type { NewsletterProps } from 'src/components/sections/Newsletter'
+import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 
 import Section from '../Section'
 import styles from './section.module.scss'

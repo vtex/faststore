@@ -1,16 +1,16 @@
 'use client'
 
 import {
-  BannerTextProps as UIBannerTextProps,
   BannerTextContentProps as UIBannerTextContentProps,
+  BannerTextProps as UIBannerTextProps,
 } from '@faststore/ui'
 
-import { useOverrideComponents } from '../../../../app/sdk/overrides/OverrideContext'
-import Section from '../Section'
+import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
+import Section from 'src/components/sections/Section'
 
-import styles from './section.module.scss'
+import { getOverridableSection } from 'app/sdk/overrides/getOverriddenSection'
 import { BannerTextDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../../app/sdk/overrides/getOverriddenSection'
+import styles from './section.module.scss'
 
 export interface BannerTextProps {
   title: UIBannerTextContentProps['title']
