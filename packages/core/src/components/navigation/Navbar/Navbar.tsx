@@ -9,10 +9,18 @@ import SearchInput from 'src/components/search/SearchInput'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 const NavbarLinks = dynamic(
-  () => import('src/components/navigation/NavbarLinks')
+  () =>
+    /* webpackChunkName: "NavbarLinks" */ import(
+      'src/components/navigation/NavbarLinks'
+    ),
+  { ssr: false }
 )
 const NavbarSlider = dynamic(
-  () => import('src/components/navigation/NavbarSlider')
+  () =>
+    /* webpackChunkName: "NavbarSlider" */ import(
+      'src/components/navigation/NavbarSlider'
+    ),
+  { ssr: false }
 )
 
 import {

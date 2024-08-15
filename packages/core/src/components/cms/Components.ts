@@ -7,16 +7,52 @@ import Incentives from 'src/components/sections/Incentives'
 import Navbar from 'src/components/sections/Navbar'
 import RegionBar from 'src/components/sections/RegionBar'
 
-const Footer = dynamic(() => import('src/components/sections/Footer'))
-const CartSidebar = dynamic(() => import('src/components/cart/CartSidebar'))
-const RegionModal = dynamic(() => import('src/components/region/RegionModal'))
-const BannerText = dynamic(() => import('src/components/sections/BannerText'))
-const Newsletter = dynamic(() => import('src/components/sections/Newsletter'))
+const Footer = dynamic(
+  () =>
+    import(/* webpackChunkName: "Footer" */ 'src/components/sections/Footer'),
+  { ssr: false }
+)
+const CartSidebar = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "CartSidebar" */ 'src/components/cart/CartSidebar'
+    ),
+  { ssr: false }
+)
+const RegionModal = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "RegionModal" */ 'src/components/region/RegionModal'
+    ),
+  { ssr: false }
+)
+const BannerText = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "BannerText" */ 'src/components/sections/BannerText'
+    ),
+  { ssr: false }
+)
+const Newsletter = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "Newsletter" */ 'src/components/sections/Newsletter'
+    ),
+  { ssr: false }
+)
 const ProductShelf = dynamic(
-  () => import('src/components/sections/ProductShelf')
+  () =>
+    import(
+      /* webpackChunkName: "ProductShelf" */ 'src/components/sections/ProductShelf'
+    ),
+  { ssr: false }
 )
 const ProductTiles = dynamic(
-  () => import('src/components/sections/ProductTiles')
+  () =>
+    import(
+      /* webpackChunkName: "ProductTiles" */ 'src/components/sections/ProductTiles'
+    ),
+  { ssr: false }
 )
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
