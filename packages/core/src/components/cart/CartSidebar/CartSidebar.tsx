@@ -15,6 +15,8 @@ import { useCart } from 'src/sdk/cart'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
 
+import { createCategoryObject } from '../../../utils/createCategoryObject'
+
 import Gift from '../../ui/Gift'
 import CartItem from '../CartItem'
 import EmptyCart from '../EmptyCart'
@@ -44,6 +46,9 @@ function useViewCartEvent() {
           currency: code as CurrencyCode,
           item_variant_name: item.itemOffered.name,
           product_reference_id: item.itemOffered.gtin,
+          ...createCategoryObject(
+            item.categories.map((cat: { name: any }) => cat.name)
+          ),
         })),
       },
     })
