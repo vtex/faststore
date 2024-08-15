@@ -880,6 +880,8 @@ export type StoreOffer = {
   __typename?: 'StoreOffer';
   /** Offer item availability. */
   availability: Scalars['String'];
+  /** Product categories. */
+  categories: Array<StoreCategoryItem>;
   /** Offer item condition. */
   itemCondition: Scalars['String'];
   /** Information on the item being offered. */
