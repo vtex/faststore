@@ -11,9 +11,9 @@ import {
   type ServerProductQueryQueryVariables,
 } from '@generated/graphql'
 import RenderSections from 'app/components/cms/RenderSections'
+import BannerNewsletter from 'app/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'app/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
 import { OverriddenDefaultCrossSellingShelf as CrossSellingShelf } from 'src/components/sections/CrossSellingShelf/OverriddenDefaultCrossSellingShelf'
 import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'

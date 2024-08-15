@@ -3,6 +3,7 @@ import { getPage } from 'app/server/cms'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import RenderSections from 'app/components/cms/RenderSections'
+import BannerNewsletter from 'app/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'app/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'app/components/sections/ProductShelf/OverriddenDefaultProductShelf'
@@ -17,6 +18,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   Hero,
   ProductShelf,
   BannerText,
+  BannerNewsletter,
   ...CUSTOM_COMPONENTS,
 }
 
