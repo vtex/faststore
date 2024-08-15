@@ -23,6 +23,8 @@ export const useBuyButton = (item: CartItem | null) => {
         return
       }
 
+      console.log(`pdp item`, item)
+
       sendAnalyticsEvent<AddToCartEvent<AnalyticsItem>>({
         name: 'add_to_cart',
         params: {

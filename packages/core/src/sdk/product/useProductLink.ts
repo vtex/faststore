@@ -7,16 +7,20 @@ import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import { useSession } from '../session'
 import type { AnalyticsItem, SearchSelectItemEvent } from '../analytics/types'
 
+import { createCategoryObject } from '../../utils/createCategoryObject'
+
 export type ProductLinkOptions = {
   index: number
   product: ProductSummary_ProductFragment
   selectedOffer: number
+  list_name: string
 }
 
 export const useProductLink = ({
   index,
   product,
   selectedOffer,
+  list_name,
 }: ProductLinkOptions) => {
   const { slug } = product
   const {
@@ -33,6 +37,7 @@ export const useProductLink = ({
             item_name: product.isVariantOf.name,
             item_brand: product.brand.name,
             item_variant: product.sku,
+            item_list_name: list_name ? list_name : '',
             index,
             price: product.offers.offers[selectedOffer].price,
             discount:
@@ -41,6 +46,9 @@ export const useProductLink = ({
             currency: code as CurrencyCode,
             item_variant_name: product.name,
             product_reference_id: product.gtin,
+            ...createCategoryObject(
+              product.categories.map((item) => item.name)
+            ),
           },
         ],
       },

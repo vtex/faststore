@@ -17,6 +17,8 @@ import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { ProductDetailsDefaultComponents } from './DefaultComponents'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 
+import { createCategoryObject } from '../../../utils/createCategoryObject'
+
 export interface ProductDetailsProps {
   productTitle: {
     refNumber: boolean
@@ -131,6 +133,9 @@ function ProductDetails({
             currency: currency.code as CurrencyCode,
             item_variant_name: variantName,
             product_reference_id: gtin,
+            ...createCategoryObject(
+              product.categories.map((item) => item.name)
+            ),
           },
         ],
       },
@@ -145,6 +150,7 @@ function ProductDetails({
     currency.code,
     variantName,
     gtin,
+    product.categories,
   ])
 
   const outOfStock = useMemo(

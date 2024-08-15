@@ -110,6 +110,7 @@ function ProductShelf({
                 // Dynamic props shouldn't be overridable
                 // This decision can be reviewed later if needed
                 key={`${product.node.id}`}
+                list_name={title}
                 product={product.node}
                 index={idx + 1}
               />

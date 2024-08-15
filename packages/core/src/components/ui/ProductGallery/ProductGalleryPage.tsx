@@ -10,7 +10,7 @@ interface Props {
   title: string
   productCard?: Pick<
     ProductCardProps,
-    'showDiscountBadge' | 'bordered' | 'taxesConfiguration'
+    'showDiscountBadge' | 'bordered' | 'taxesConfiguration' | 'list_name'
   >
   itemsPerPage: number
 }
