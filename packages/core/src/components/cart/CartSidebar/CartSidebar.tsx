@@ -12,6 +12,9 @@ import { useCart } from 'src/sdk/cart'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
 
+import { createCategoryObject } from '../../../utils/createCategoryObject'
+
+
 const UIButton = dynamic<ButtonProps>(
   () =>
     import(/* webpackChunkName: "UIButton" */ '@faststore/ui').then(
@@ -85,6 +88,9 @@ function useViewCartEvent() {
             currency: code as CurrencyCode,
             item_variant_name: item.itemOffered.name,
             product_reference_id: item.itemOffered.gtin,
+            ...createCategoryObject(
+              item.categories.map((cat: { name: any }) => cat.name)
+            ),
           })),
         },
       })

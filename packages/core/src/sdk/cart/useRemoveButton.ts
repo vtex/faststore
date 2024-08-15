@@ -7,6 +7,8 @@ import type { CartItem } from '.'
 import { useSession } from '../session'
 import { cartStore } from './index'
 
+import { createCategoryObject } from '../../utils/createCategoryObject'
+
 export const useRemoveButton = (item: CartItem | null) => {
   const {
     currency: { code },
@@ -38,6 +40,9 @@ export const useRemoveButton = (item: CartItem | null) => {
                 currency: code as CurrencyCode,
                 item_variant_name: item.itemOffered.name,
                 product_reference_id: item.itemOffered.gtin,
+                ...createCategoryObject(
+                  item.categories.map((cat: { name: any }) => cat.name)
+                ),
               },
             ],
           },
