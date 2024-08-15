@@ -74,7 +74,6 @@ function CartItem({
   useUnitMultiplier = false,
   taxesConfiguration,
 }: Props) {
-  console.log(`CartItem`, item)
   const btnProps = useRemoveButton(item)
 
   const { sendCartItemEvent } = useCartItemEvent()
