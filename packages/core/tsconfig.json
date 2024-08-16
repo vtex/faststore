@@ -29,8 +29,20 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "strict": false
+    "strict": false,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
   },
-  "include": ["*.d.ts", "src/**/*.ts", "src/**/*.tsx", "@generated/**/*.ts"],
+  "include": [
+    "*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "@generated/**/*.ts",
+    ".next/types/**/*.ts"
+  ],
   "exclude": ["node_modules", "public"]
 }

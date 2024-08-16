@@ -53,7 +53,8 @@ export const withBasePath = (basepath: string) => {
     userThemesFileDir: path.join(userSrcDir, 'themes'),
     userCMSDir: path.join(getRoot(), 'cms', 'faststore'),
     userStoreConfigFile: path.join(getRoot(), 'faststore.config.js'),
-
+    
+    tmpSeoConfig: path.join(tmpDir, 'next-seo.config.ts'),
     tmpFolderName,
     tmpDir,
     tmpCustomizationsSrcDir: path.join(tmpDir, 'src', 'customizations', 'src'),

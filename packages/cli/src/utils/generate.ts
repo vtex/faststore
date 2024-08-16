@@ -7,6 +7,7 @@ import {
   readFileSync,
   readdirSync,
   removeSync,
+  writeFileSync,
   writeJsonSync,
 } from 'fs-extra'
 import path from 'path'
@@ -65,7 +66,7 @@ const TS_CONFIG_STRICT_RULES_ENABLED = ['noImplicitAny'] as const
 
 /**
  * Modify TypeScript compilation settings (tsconfig.json) to disable specific strict
- * type checking rules when files are moved to the .faststore folder. 
+ * type checking rules when files are moved to the .faststore folder.
  * TODO: The idea is to change the strict to false when all strict rules are migrated.
  */
 function disableTsConfigStrictRules(basePath: string) {
@@ -76,7 +77,7 @@ function disableTsConfigStrictRules(basePath: string) {
   const coreTsConfigFile = readFileSync(coreTsConfigPath, 'utf8')
   const tsConfig = JSON.parse(coreTsConfigFile)
 
-  TS_CONFIG_STRICT_RULES_ENABLED.forEach(strictRule => {
+  TS_CONFIG_STRICT_RULES_ENABLED.forEach((strictRule) => {
     tsConfig.compilerOptions[strictRule] = false
   })
 
@@ -138,12 +139,16 @@ async function copyCypressFiles(basePath: string) {
   try {
     // Cypress 9.x config file
     if (existsSync(`${userDir}/cypress.json`)) {
-      copySync(`${userDir}/cypress.json`, `${tmpDir}/cypress.json`, { dereference: true })
+      copySync(`${userDir}/cypress.json`, `${tmpDir}/cypress.json`, {
+        dereference: true,
+      })
     }
 
     // Cypress 12.x config file
     if (existsSync(`${userDir}/cypress.config.ts`)) {
-      copySync(`${userDir}/cypress.config.ts`, `${tmpDir}/cypress.config.ts`, { dereference: true })
+      copySync(`${userDir}/cypress.config.ts`, `${tmpDir}/cypress.config.ts`, {
+        dereference: true,
+      })
     }
 
     const userStoreConfig = await import(path.resolve(userStoreConfigFile))
@@ -155,7 +160,7 @@ async function copyCypressFiles(basePath: string) {
     ) {
       copySync(`${userDir}/cypress`, `${tmpDir}/cypress`, {
         overwrite: true,
-        dereference: true
+        dereference: true,
       })
 
       console.log(`${chalk.green('success')} - Cypress test files copied`)
@@ -175,7 +180,12 @@ async function copyCypressFiles(basePath: string) {
 }
 
 function copyUserStarterToCustomizations(basePath: string) {
-  const { userSrcDir, tmpCustomizationsSrcDir, userStoreConfigFile, tmpStoreConfigFile } = withBasePath(basePath)
+  const {
+    userSrcDir,
+    tmpCustomizationsSrcDir,
+    userStoreConfigFile,
+    tmpStoreConfigFile,
+  } = withBasePath(basePath)
 
   try {
     if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
@@ -203,11 +213,7 @@ async function createCmsWebhookUrlsJsonFile(basePath: string) {
     const { webhookUrls } = userStoreConfig?.vtexHeadlessCms
 
     try {
-      writeJsonSync(
-        tmpCMSWebhookUrlsFile,
-        { urls: webhookUrls },
-        { spaces: 2 }
-      )
+      writeJsonSync(tmpCMSWebhookUrlsFile, { urls: webhookUrls }, { spaces: 2 })
       console.log(`${chalk.green('success')} - CMS webhook URLs file created`)
     } catch (err) {
       console.error(`${chalk.red('error')} - ${err}`)
@@ -218,7 +224,11 @@ async function createCmsWebhookUrlsJsonFile(basePath: string) {
 }
 
 async function copyTheme(basePath: string) {
-  const { userStoreConfigFile, userThemesFileDir, tmpThemesCustomizationsFile } = withBasePath(basePath)
+  const {
+    userStoreConfigFile,
+    userThemesFileDir,
+    tmpThemesCustomizationsFile,
+  } = withBasePath(basePath)
   const storeConfig = await import(path.resolve(userStoreConfigFile))
   if (storeConfig.theme) {
     const customTheme = path.join(
@@ -229,7 +239,8 @@ async function copyTheme(basePath: string) {
       try {
         copyFileSync(customTheme, tmpThemesCustomizationsFile)
         console.log(
-          `${chalk.green('success')} - ${storeConfig.theme
+          `${chalk.green('success')} - ${
+            storeConfig.theme
           } theme has been applied`
         )
       } catch (err) {
@@ -237,8 +248,10 @@ async function copyTheme(basePath: string) {
       }
     } else {
       console.info(
-        `${chalk.blue('info')} - The ${storeConfig.theme
-        } theme was added to the config file but the ${storeConfig.theme
+        `${chalk.blue('info')} - The ${
+          storeConfig.theme
+        } theme was added to the config file but the ${
+          storeConfig.theme
         }.scss file does not exist in the themes folder. Read more: https://www.faststore.dev/docs/themes/overview`
       )
     }
@@ -251,6 +264,25 @@ async function copyTheme(basePath: string) {
         'info'
       )} - The theme needs to be added to the config file to be applied. Read more: https://www.faststore.dev/docs/themes/overview`
     )
+  }
+}
+
+function updateBuildTime(basePath: string) {
+  try {
+    const { tmpSeoConfig } = withBasePath(basePath)
+    let config = readFileSync(tmpSeoConfig, 'utf8')
+    const newBuildTime = new Date().toISOString()
+
+    config = config.replace(
+      /const buildTime = .*?;/,
+      `const buildTime = '${newBuildTime}';`
+    )
+
+    writeFileSync(tmpSeoConfig, config)
+
+    console.log(`${chalk.green('success')} - Build time updated`, newBuildTime)
+  } catch (error) {
+    console.error(`${chalk.red('error')} - Updating build time:`, error)
   }
 }
 
@@ -270,6 +302,7 @@ export async function generate(options: GenerateOptions) {
 
   await Promise.all([
     setupPromise,
+    updateBuildTime(basePath),
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
     createCmsWebhookUrlsJsonFile(basePath),
