@@ -12,7 +12,7 @@ import { getPage } from 'app/server/cms'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultNewsletter as Newsletter } from 'app/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'app/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
+import ProductTiles from 'app/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { mark } from 'src/sdk/tests/mark'
 

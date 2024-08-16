@@ -10,7 +10,7 @@ import ProductTilesSkeleton from 'src/components/skeletons/ProductTilesSkeleton'
 import Tiles, { Tile } from 'src/components/ui/Tiles'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 
-import Section from '../Section'
+import Section from '../../../../src/components/sections/Section'
 
 import styles from './section.module.scss'
 
