@@ -1,9 +1,9 @@
 'use client'
 
-import UIIncentives from 'app/components/ui/Incentives/Incentives'
 import type { Incentive } from 'app/components/ui/Incentives'
+import UIIncentives from 'app/components/ui/Incentives/Incentives'
 
-import Section from '../Section'
+import Section from 'src/components/sections/Section'
 import styles from './section.module.scss'
 
 interface Props {

@@ -1,7 +1,7 @@
 import {
   Icon as UIIcon,
-  List as UIList,
   Incentive as UIIncentive,
+  List as UIList,
 } from '@faststore/ui'
 
 export type Incentive = {
