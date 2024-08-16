@@ -1,5 +1,3 @@
-'use client'
-
 import {
   Icon as UIIcon,
   Incentive as UIIncentive,
