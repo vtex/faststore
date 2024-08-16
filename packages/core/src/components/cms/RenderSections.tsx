@@ -49,7 +49,6 @@ const RenderSectionsBase = ({
   components = COMPONENTS,
 }: Props) => {
   const sortedSections = sections.sort(sortCmsSections)
-  console.log('🚀 ~ sortedSections:', sortedSections)
 
   return (
     <>
