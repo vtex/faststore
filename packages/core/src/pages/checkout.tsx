@@ -1,13 +1,14 @@
-import { useEffect } from 'react'
 import { NextSeo } from 'next-seo'
+import { useEffect } from 'react'
 
-import storeConfig from '../../faststore.config'
-import GlobalSections, {
+import { Locator } from '@vtex/client-cms'
+import { GetStaticProps } from 'next'
+import {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { GetStaticProps } from 'next'
-import { Locator } from '@vtex/client-cms'
+import RenderSections from 'src/components/cms/RenderSections'
+import storeConfig from '../../faststore.config'
 
 type Props = {
   globalSections: GlobalSectionsData
@@ -19,11 +20,11 @@ function Page({ globalSections }: Props) {
   }, [])
 
   return (
-    <GlobalSections {...globalSections}>
+    <RenderSections {...globalSections}>
       <NextSeo noindex nofollow />
 
       <div>loading...</div>
-    </GlobalSections>
+    </RenderSections>
   )
 }
 

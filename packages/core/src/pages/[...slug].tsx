@@ -11,7 +11,7 @@ import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
 
 import { Locator } from '@vtex/client-cms'
-import GlobalSections, {
+import {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
@@ -47,12 +47,20 @@ type Props = BaseProps &
 
 function Page({ globalSections, type, ...otherProps }: Props) {
   return (
-    <GlobalSections {...globalSections}>
+    <>
       {type === 'plp' && (
-        <ProductListingPage {...(otherProps as ProductListingPageProps)} />
+        <ProductListingPage
+          globalSections={globalSections.sections}
+          {...(otherProps as ProductListingPageProps)}
+        />
       )}
-      {type === 'page' && <LandingPage {...(otherProps as LandingPageProps)} />}
-    </GlobalSections>
+      {type === 'page' && (
+        <LandingPage
+          globalSections={globalSections.sections}
+          {...(otherProps as LandingPageProps)}
+        />
+      )}
+    </>
   )
 }
 

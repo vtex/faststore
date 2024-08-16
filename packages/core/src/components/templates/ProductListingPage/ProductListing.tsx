@@ -27,6 +27,7 @@ import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery
   page: PLPContentType
+  globalSections?: Array<{ name: string; data: any }>
 }
 
 /**
@@ -52,6 +53,7 @@ const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 export default function ProductListing({
   page: { sections, settings },
   data: server,
+  globalSections,
 }: ProductListingPageProps) {
   const {
     state: { sort, term, selectedFacets },
@@ -93,7 +95,11 @@ export default function ProductListing({
       */}
       <PageProvider context={context}>
         <UseGalleryPageContext.Provider value={useGalleryPage}>
-          <RenderSections sections={sections} components={COMPONENTS} />
+          <RenderSections
+            sections={sections}
+            globalSections={globalSections}
+            components={COMPONENTS}
+          />
         </UseGalleryPageContext.Provider>
       </PageProvider>
 

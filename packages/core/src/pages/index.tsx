@@ -2,14 +2,14 @@ import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
-import RenderSections from 'src/components/cms/RenderSections'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
-import GlobalSections, {
+import {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import RenderSections from 'src/components/cms/RenderSections'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../faststore.config'
@@ -28,9 +28,8 @@ function Page({
   const context = {
     data: serverData,
   }
-
   return (
-    <GlobalSections {...globalSections}>
+    <>
       {/* SEO */}
       <NextSeo
         title={settings?.seo?.title ?? storeConfig.seo.title}
@@ -67,9 +66,12 @@ function Page({
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
-        <RenderSections sections={sections} />
+        <RenderSections
+          globalSections={globalSections.sections}
+          sections={sections}
+        />
       </PageProvider>
-    </GlobalSections>
+    </>
   )
 }
 

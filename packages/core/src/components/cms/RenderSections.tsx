@@ -1,14 +1,21 @@
 import { ComponentType, PropsWithChildren, memo, useMemo } from 'react'
 
 import { Section } from '@vtex/client-cms'
-import SectionBoundary from './SectionBoundary'
-
+import dynamic from 'next/dynamic'
 import COMPONENTS from './Components'
+import Intersection from './Intersection'
+import SectionBoundary from './SectionBoundary'
 
 interface Props {
   components?: Record<string, ComponentType<any>>
+  globalSections?: Array<{ name: string; data: any }>
   sections: Array<{ name: string; data: any }>
 }
+
+const Toast = dynamic(
+  () => import(/* webpackChunkName: "Toast" */ '../common/Toast'),
+  { ssr: false }
+)
 
 const useDividedSections = (sections: Section[]) => {
   return useMemo(() => {
@@ -29,7 +36,7 @@ const RenderSectionsBase = ({
 }: Props) => {
   return (
     <>
-      {sections.map(({ name, data }, index) => {
+      {sections.map(({ name, data = {} }, index) => {
         const Component = components[name]
 
         if (!Component) {
@@ -42,8 +49,10 @@ const RenderSectionsBase = ({
         }
 
         return (
-          <SectionBoundary key={`cms-section-${index}`} name={name}>
-            <Component {...data} />
+          <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
+            <Intersection>
+              <Component {...data} />
+            </Intersection>
           </SectionBoundary>
         )
       })}
@@ -53,21 +62,27 @@ const RenderSectionsBase = ({
 
 function RenderSections({
   children,
+  globalSections,
   sections,
-  ...otherProps
+  components = COMPONENTS,
 }: PropsWithChildren<Props>) {
-  const { hasChildren, firstSections, lastSections } =
-    useDividedSections(sections)
+  const { firstSections, lastSections } = useDividedSections(
+    globalSections ?? sections
+  )
 
   return (
     <>
-      <RenderSectionsBase sections={firstSections} {...otherProps} />
-
-      {children}
-
-      {hasChildren && (
-        <RenderSectionsBase sections={lastSections} {...otherProps} />
+      {firstSections && (
+        <RenderSectionsBase sections={firstSections} components={components} />
       )}
+      {sections && (
+        <RenderSectionsBase sections={sections} components={components} />
+      )}
+      {children}
+      {lastSections && (
+        <RenderSectionsBase sections={lastSections} components={components} />
+      )}
+      <Toast />
     </>
   )
 }

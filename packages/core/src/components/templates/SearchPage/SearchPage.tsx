@@ -38,9 +38,14 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 export type SearchPageProps = {
   data: SearchPageContextType & ClientProductGalleryQuery
   page: SearchContentType
+  globalSections?: Array<{ name: string; data: any }>
 }
 
-function SearchPage({ page: { sections }, data: serverData }: SearchPageProps) {
+function SearchPage({
+  page: { sections },
+  data: serverData,
+  globalSections,
+}: SearchPageProps) {
   const { pages, useGalleryPage } = useCreateUseGalleryPage()
 
   const context = {
@@ -65,7 +70,11 @@ function SearchPage({ page: { sections }, data: serverData }: SearchPageProps) {
         */}
       <PageProvider context={context}>
         <UseGalleryPageContext.Provider value={useGalleryPage}>
-          <RenderSections sections={sections} components={COMPONENTS} />
+          <RenderSections
+            sections={sections}
+            globalSections={globalSections}
+            components={COMPONENTS}
+          />
         </UseGalleryPageContext.Provider>
       </PageProvider>
     </>

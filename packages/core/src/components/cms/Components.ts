@@ -6,6 +6,7 @@ import Hero from 'src/components/sections/Hero'
 import Incentives from 'src/components/sections/Incentives'
 import Navbar from 'src/components/sections/Navbar'
 import RegionBar from 'src/components/sections/RegionBar'
+import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 const Footer = dynamic(
   () =>
@@ -57,17 +58,18 @@ const ProductTiles = dynamic(
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Alert,
-  Footer,
   Navbar,
   RegionBar,
-  CartSidebar,
-  RegionModal,
-  BannerText,
   Hero,
   Incentives,
+  CartSidebar,
+  RegionModal,
   Newsletter,
   ProductShelf,
   ProductTiles,
+  BannerText,
+  Footer,
+  ...CUSTOM_COMPONENTS,
 }
 
 export default COMPONENTS
