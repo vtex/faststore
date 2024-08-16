@@ -35,6 +35,6 @@ export { getShippingSimulation as getShippingSimulation_unstable } from '../../s
 export { useShippingSimulation as useShippingSimulation_unstable } from '../../src/sdk/shipping/useShippingSimulation'
 
 // Components
-export { Image as Image_unstable } from '../../src/components/ui/Image'
+export { Image as Image_unstable } from '../../app/components/ui/Image'
 export { ProfileChallenge as ProfileChallenge_unstable } from '../../src/components/auth/ProfileChallenge'
 export { default as Selectors_unstable } from '../../src/components/ui/SkuSelector'

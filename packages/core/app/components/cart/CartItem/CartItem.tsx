@@ -15,7 +15,7 @@ import type { AnalyticsItem } from 'app/sdk/analytics/types'
 import type { CartItem as ICartItem } from 'app/sdk/cart'
 import { cartStore } from 'app/sdk/cart'
 import { useRemoveButton } from 'app/sdk/cart/useRemoveButton'
-import { Image } from 'src/components/ui/Image'
+import { Image } from 'app/components/ui/Image'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
 

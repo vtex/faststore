@@ -5,7 +5,7 @@ import {
   HeroProps as UIHeroProps,
 } from '@faststore/ui'
 import { ReactNode } from 'react'
-import { Image } from 'src/components/ui/Image'
+import { Image } from 'app/components/ui/Image'
 
 import { useOverrideComponents } from 'app/sdk/overrides/OverrideContext'
 
