@@ -5,7 +5,6 @@ import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
 import CartToggle from 'src/components/cart/CartToggle'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
-import SearchInput from 'src/components/search/SearchInput'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 const NavbarLinks = dynamic(
@@ -19,6 +18,13 @@ const NavbarSlider = dynamic(
   () =>
     /* webpackChunkName: "NavbarSlider" */ import(
       'src/components/navigation/NavbarSlider'
+    ),
+  { ssr: false }
+)
+const SearchInput = dynamic(
+  () =>
+    /* webpackChunkName: "SearchInput" */ import(
+      'src/components/search/SearchInput'
     ),
   { ssr: false }
 )
@@ -95,6 +101,9 @@ function Navbar({
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
 
+  // lazy load components to improve performance (PSI)
+  const isMobile = window.innerWidth <= 412
+
   const handlerExpandSearch = useCallback(() => {
     setSearchExpanded(true)
     searchMobileRef.current?.inputRef?.focus()
@@ -128,10 +137,12 @@ function Navbar({
             </>
           )}
 
-          <SearchInput
-            placeholder={searchInput?.placeholder}
-            sort={searchInput?.sort}
-          />
+          {!isMobile && (
+            <SearchInput
+              placeholder={searchInput?.placeholder}
+              sort={searchInput?.sort}
+            />
+          )}
 
           <NavbarButtons searchExpanded={searchExpanded}>
             {searchExpanded && (
@@ -163,7 +174,9 @@ function Navbar({
         </NavbarRow>
       </NavbarHeader>
 
-      <NavbarLinks links={links} region={region} className="hidden-mobile" />
+      {!isMobile && (
+        <NavbarLinks links={links} region={region} className="hidden-mobile" />
+      )}
 
       {displayNavbar && (
         <NavbarSlider
