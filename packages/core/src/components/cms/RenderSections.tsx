@@ -30,29 +30,13 @@ const useDividedSections = (sections: Section[]) => {
   }, [sections])
 }
 
-const sortCmsSections = (
-  a: { name: string; data: any },
-  b: { name: string; data: any }
-) => {
-  const componentNames = Object.keys(COMPONENTS)
-  const indexA = componentNames.indexOf(a.name)
-  const indexB = componentNames.indexOf(b.name)
-
-  if (indexA === -1) return 1
-  if (indexB === -1) return -1
-
-  return indexA - indexB
-}
-
 const RenderSectionsBase = ({
   sections = [],
   components = COMPONENTS,
 }: Props) => {
-  const sortedSections = sections.sort(sortCmsSections)
-
   return (
     <>
-      {sortedSections.map(({ name, data = {} }, index) => {
+      {sections.map(({ name, data = {} }, index) => {
         const Component = components[name]
 
         if (!Component) {
@@ -95,12 +79,12 @@ function RenderSections({
         <RenderSectionsBase sections={sections} components={components} />
       )}
       {children}
-      {lastSections && (
-        <RenderSectionsBase sections={lastSections} components={components} />
-      )}
       <Intersection>
         <Toast />
       </Intersection>
+      {lastSections && (
+        <RenderSectionsBase sections={lastSections} components={components} />
+      )}
     </>
   )
 }
