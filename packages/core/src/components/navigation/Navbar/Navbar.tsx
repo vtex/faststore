@@ -12,7 +12,11 @@ const NavbarLinks = dynamic(
     /* webpackChunkName: "NavbarLinks" */ import(
       'src/components/navigation/NavbarLinks'
     ),
-  { ssr: false }
+  {
+    ssr: false,
+    // Fix CLS - Cumulative Layout Shift
+    loading: () => <div style={{ height: 48 }}></div>,
+  }
 )
 const NavbarSlider = dynamic(
   () =>
@@ -26,7 +30,18 @@ const SearchInput = dynamic(
     /* webpackChunkName: "SearchInput" */ import(
       'src/components/search/SearchInput'
     ),
-  { ssr: false }
+  {
+    ssr: false,
+    // Fix CLS - Cumulative Layout Shift
+    loading: () => (
+      <div
+        style={{
+          width: 600,
+          height: 'var(--fs-spacing-6)',
+        }}
+      ></div>
+    ),
+  }
 )
 
 import {
@@ -156,16 +171,18 @@ function Navbar({
               />
             )}
 
-            <SearchInput
-              placeholder=""
-              ref={searchMobileRef}
-              testId="store-input-mobile"
-              buttonTestId="store-input-mobile-button"
-              onSearchClick={handlerExpandSearch}
-              sort={searchInput?.sort}
-              hidden={!searchExpanded}
-              aria-hidden={!searchExpanded}
-            />
+            {isMobile && (
+              <SearchInput
+                placeholder=""
+                ref={searchMobileRef}
+                testId="store-input-mobile"
+                buttonTestId="store-input-mobile-button"
+                onSearchClick={handlerExpandSearch}
+                sort={searchInput?.sort}
+                hidden={!searchExpanded}
+                aria-hidden={!searchExpanded}
+              />
+            )}
 
             <ButtonSignIn {...signInButton} />
 
