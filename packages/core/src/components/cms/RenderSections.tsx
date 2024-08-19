@@ -69,12 +69,9 @@ function RenderSections({
   const { firstSections, lastSections } = useDividedSections(
     globalSections ?? sections
   )
-
   return (
     <>
-      {firstSections && (
-        <RenderSectionsBase sections={firstSections} components={components} />
-      )}
+      {firstSections && <RenderSectionsBase sections={firstSections} />}
       {sections && (
         <RenderSectionsBase sections={sections} components={components} />
       )}
@@ -82,9 +79,8 @@ function RenderSections({
       <Intersection>
         <Toast />
       </Intersection>
-      {lastSections && (
-        <RenderSectionsBase sections={lastSections} components={components} />
-      )}
+
+      {lastSections && <RenderSectionsBase sections={lastSections} />}
     </>
   )
 }
