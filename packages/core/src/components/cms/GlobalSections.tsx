@@ -1,31 +1,12 @@
 import { Locator, Section } from '@vtex/client-cms'
 import storeConfig from 'faststore.config'
-import { PropsWithChildren } from 'react'
 import { PageContentType, getPage } from 'src/server/cms'
-
-import Toast from 'src/components/common/Toast'
-import RenderSections from './RenderSections'
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 
 export type GlobalSectionsData = {
   sections: Section[]
 }
-
-function GlobalSections({
-  children,
-  ...otherProps
-}: PropsWithChildren<GlobalSectionsData>) {
-  return (
-    <RenderSections {...otherProps}>
-      <Toast />
-
-      <main>{children}</main>
-    </RenderSections>
-  )
-}
-
-export default GlobalSections
 
 export const getGlobalSectionsData = async (
   previewData: Locator
