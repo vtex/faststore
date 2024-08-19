@@ -7,6 +7,7 @@ export type {
 } from './src/sdk/overrides/PageProvider'
 
 export { useProductsQuery } from './src/sdk/product/useProductsQuery'
+export { useBuyerOrgQuery } from './src/sdk/buyerOrg/useBuyerOrgQuery'
 
 export * from './src/typings/overrides'
 export { getOverriddenSection } from './src/sdk/overrides/getOverriddenSection'

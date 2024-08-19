@@ -20,7 +20,7 @@ export const query = gql(`
 /**
  * Use this hook for fetching a buyer org data for a customer
  */
-export const useProductsQuery = (
+export const useBuyerOrgQuery = (
   variables: ClientBuyerOrgQueryQueryVariables,
   options?: QueryOptions
 ) => {
