@@ -36,9 +36,11 @@ const Intersection: FC<
     <>
       <div
         ref={ref}
+        // height value like 500 is required to make sections out of the viewport to be rendered on demand
         style={{
           // border: isShow ? '2px solid red' : '2px solid blue', // debug
           height: isShow ? 0 : 500,
+          width: '100%',
         }}
       ></div>
       {isShow && children}
