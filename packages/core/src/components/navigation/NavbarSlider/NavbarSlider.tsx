@@ -6,17 +6,9 @@ import { ButtonSignInFallback } from 'src/components/ui/Button'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 
-import { ButtonSignIn } from 'src/components/ui/Button'
-
-import {
-  NavbarSliderContent,
-  NavbarSliderFooter,
-  NavbarSliderHeader,
-  NavbarSlider as NavbarSliderWrapper,
-} from '@faststore/ui'
-
 import type { NavbarProps } from '../Navbar'
 
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import styles from './section.module.scss'
 
 interface NavbarSliderProps {
@@ -34,19 +26,31 @@ function NavbarSlider({
   home: { label: homeLabel },
   signIn: { button: signInButton },
 }: NavbarSliderProps) {
+  const {
+    NavbarSlider: NavbarSliderWrapper,
+    NavbarSliderHeader,
+    NavbarSliderContent,
+    NavbarSliderFooter,
+    _experimentalButtonSignIn: ButtonSignIn,
+  } = useOverrideComponents<'Navbar'>()
+
   const { closeNavbar } = useUI()
   const { fade, fadeOut } = useFadeEffect()
 
   return (
-    <NavbarSliderWrapper
+    <NavbarSliderWrapper.Component
       fade={fade}
       onDismiss={fadeOut}
       overlayProps={{
         className: `section ${styles.section} section-navbar-slider`,
       }}
       onTransitionEnd={() => fade === 'out' && closeNavbar()}
+      {...NavbarSliderWrapper.props}
     >
-      <NavbarSliderHeader onClose={fadeOut}>
+      <NavbarSliderHeader.Component
+        onClose={fadeOut}
+        {...NavbarSliderHeader.props}
+      >
         <Link
           data-fs-navbar-slider-logo
           href={logo.link ? logo.link.url : '/'}
@@ -55,16 +59,16 @@ function NavbarSlider({
         >
           <Logo alt={logo.alt} src={logo.src} />
         </Link>
-      </NavbarSliderHeader>
-      <NavbarSliderContent>
+      </NavbarSliderHeader.Component>
+      <NavbarSliderContent.Component {...NavbarSliderContent.props}>
         <NavbarLinks onClickLink={fadeOut} links={links} region={region} />
-      </NavbarSliderContent>
-      <NavbarSliderFooter>
+      </NavbarSliderContent.Component>
+      <NavbarSliderFooter.Component {...NavbarSliderFooter.props}>
         <Suspense fallback={<ButtonSignInFallback />}>
-          <ButtonSignIn {...signInButton} />
+          <ButtonSignIn.Component {...signInButton} />
         </Suspense>
-      </NavbarSliderFooter>
-    </NavbarSliderWrapper>
+      </NavbarSliderFooter.Component>
+    </NavbarSliderWrapper.Component>
   )
 }
 

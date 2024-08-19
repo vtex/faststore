@@ -1,14 +1,13 @@
 import type { ComponentType } from 'react'
 
-import type { ClientProductGalleryQueryQuery as ClientProductGalleryQuery } from '@generated/graphql'
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import BannerText from 'src/components/sections/BannerText'
+import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
-import Hero from 'src/components/sections/Hero'
-import Newsletter from 'src/components/sections/Newsletter'
+import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
+import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
-import ProductShelf from 'src/components/sections/ProductShelf'
+import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { SearchPageContextType } from 'src/pages/s'
@@ -18,6 +17,7 @@ import {
   UseGalleryPageContext,
 } from 'src/sdk/product/usePageProductsQuery'
 import { SearchContentType } from 'src/server/cms'
+import type { ClientProductGalleryQueryQuery as ClientProductGalleryQuery } from '@generated/graphql'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.

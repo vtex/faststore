@@ -1,11 +1,11 @@
 import dynamic from 'next/dynamic'
 import { ComponentType } from 'react'
 
-import Alert from 'src/components/sections/Alert'
+import { OverriddenDefaultAlert as Alert } from 'src/components/sections/Alert/OverriddenDefaultAlert'
 import Hero from 'src/components/sections/Hero'
 import Incentives from 'src/components/sections/Incentives'
-import Navbar from 'src/components/sections/Navbar'
-import RegionBar from 'src/components/sections/RegionBar'
+import { OverriddenDefaultNavbar as Navbar } from 'src/components/sections/Navbar/OverriddenDefaultNavbar'
+import { OverriddenDefaultRegionBar as RegionBar } from 'src/components/sections/RegionBar/OverriddenDefaultRegionBar'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 const Footer = dynamic(

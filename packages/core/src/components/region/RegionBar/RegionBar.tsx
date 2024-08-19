@@ -3,7 +3,7 @@ import type { RegionBarProps as UIRegionBarProps } from '@faststore/ui'
 import { useUI } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
 
-import { Icon, RegionBar as RegionBarWrapper } from '@faststore/ui'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 export interface RegionBarProps {
   /**
@@ -37,15 +37,34 @@ function RegionBar({
   editLabel,
   ...otherProps
 }: RegionBarProps) {
+  const {
+    RegionBar: RegionBarWrapper,
+    LocationIcon,
+    ButtonIcon,
+  } = useOverrideComponents<'RegionBar'>()
+
   const { openModal } = useUI()
   const { postalCode } = useSession()
 
   return (
-    <RegionBarWrapper
-      icon={<Icon name={locationIcon} aria-label={locationIconAlt} />}
-      buttonIcon={<Icon name={buttonIcon} aria-label={buttonIconAlt} />}
-      label={label}
-      editLabel={editLabel}
+    <RegionBarWrapper.Component
+      icon={
+        <LocationIcon.Component
+          {...LocationIcon.props}
+          name={locationIcon ?? LocationIcon.props.name}
+          aria-label={locationIconAlt ?? LocationIcon.props['aria-label']}
+        />
+      }
+      buttonIcon={
+        <ButtonIcon.Component
+          {...ButtonIcon.props}
+          name={buttonIcon ?? ButtonIcon.props.name}
+          aria-label={buttonIconAlt ?? ButtonIcon.props['aria-label']}
+        />
+      }
+      {...RegionBarWrapper.props}
+      label={label ?? RegionBarWrapper.props.label}
+      editLabel={editLabel ?? RegionBarWrapper.props.editLabel}
       // Dynamic props shouldn't be overridable
       // This decision can be reviewed later if needed
       onButtonClick={openModal}

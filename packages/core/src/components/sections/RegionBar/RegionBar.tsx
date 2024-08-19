@@ -1,6 +1,8 @@
 import RegionBar, { RegionBarProps } from '../../region/RegionBar/RegionBar'
 import Section from '../Section/Section'
 import styles from './section.module.scss'
+import { RegionBarDefaultComponents } from './DefaultComponents'
+import { getOverridableSection } from '../../..//sdk/overrides/getOverriddenSection'
 
 type RegionBarSectionProps = {
   /**
@@ -36,4 +38,10 @@ function RegionBarSection({
   )
 }
 
-export default RegionBarSection
+const OverridableRegionBar = getOverridableSection<typeof RegionBarSection>(
+  'RegionBar',
+  RegionBarSection,
+  RegionBarDefaultComponents
+)
+
+export default OverridableRegionBar

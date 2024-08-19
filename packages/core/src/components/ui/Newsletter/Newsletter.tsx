@@ -1,20 +1,11 @@
-import type { FormEvent } from 'react'
 import { useRef } from 'react'
+import type { FormEvent } from 'react'
 
 import { useUI } from '@faststore/ui'
+import type { InputFieldProps } from '@faststore/ui'
 
-import {
-  Button,
-  Icon,
-  InputField,
-  NewsletterContent,
-  NewsletterForm,
-  NewsletterHeader,
-  Newsletter as NewsletterWrapper,
-} from '@faststore/ui'
 import { useNewsletter } from 'src/sdk/newsletter/useNewsletter'
-
-import { NewsletterAddendum } from 'src/components/ui/Newsletter'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 import type { NewsletterProps as SectionNewsletterProps } from 'src/components/sections/Newsletter'
 
@@ -35,6 +26,20 @@ function Newsletter({
   toastSubscribeError,
   colorVariant,
 }: NewsletterProps) {
+  const {
+    Button,
+    HeaderIcon,
+    InputFieldName,
+    InputFieldEmail,
+    Newsletter: NewsletterWrapper,
+    NewsletterAddendum,
+    NewsletterContent,
+    NewsletterForm,
+    NewsletterHeader,
+    ToastIconError,
+    ToastIconSuccess,
+  } = useOverrideComponents<'Newsletter'>()
+
   const { pushToast } = useUI()
   const { subscribeUser, loading, data } = useNewsletter()
 
@@ -56,13 +61,27 @@ function Newsletter({
       pushToast({
         ...toastSubscribe,
         status: 'INFO',
-        icon: <Icon width={30} height={30} name={toastSubscribe.icon} />,
+        icon: (
+          <ToastIconSuccess.Component
+            width={30}
+            height={30}
+            {...ToastIconSuccess.props}
+            name={toastSubscribe.icon ?? ToastIconSuccess.props.name}
+          />
+        ),
       })
     } else {
       pushToast({
         ...toastSubscribeError,
         status: 'ERROR',
-        icon: <Icon width={30} height={30} name={toastSubscribe.icon} />,
+        icon: (
+          <ToastIconError.Component
+            width={30}
+            height={30}
+            {...ToastIconError.props}
+            name={toastSubscribe.icon ?? ToastIconError.props.name}
+          />
+        ),
       })
     }
 
@@ -70,43 +89,68 @@ function Newsletter({
   }
 
   return (
-    <NewsletterWrapper card={card} colorVariant={colorVariant}>
-      <NewsletterForm ref={formRef} onSubmit={onSubmit}>
-        <NewsletterHeader
+    <NewsletterWrapper.Component
+      card={card}
+      colorVariant={colorVariant}
+      {...NewsletterWrapper.props}
+    >
+      <NewsletterForm.Component
+        ref={formRef}
+        onSubmit={onSubmit}
+        {...NewsletterForm.props}
+      >
+        <NewsletterHeader.Component
           title={title}
           description={description}
           icon={
-            <Icon width={32} height={32} name={icon} aria-label={iconAlt} />
+            <HeaderIcon.Component
+              width={32}
+              height={32}
+              {...HeaderIcon.props}
+              name={icon ?? HeaderIcon.props.name}
+              aria-label={iconAlt ?? HeaderIcon.props['aria-label']}
+            />
           }
+          {...NewsletterHeader.props}
         />
 
-        <NewsletterContent>
+        <NewsletterContent.Component {...NewsletterContent.props}>
           {displayNameInput && (
-            <InputField
+            <InputFieldName.Component
               id="newsletter-name"
               required
-              label={nameInputLabel}
+              {...(InputFieldName.props as InputFieldProps)}
+              label={nameInputLabel ?? InputFieldName.props.label}
               // Dynamic props shouldn't be overridable
               // This decision can be reviewed later if needed
               inputRef={nameInputRef}
             />
           )}
-          <InputField
+          <InputFieldEmail.Component
             id="newsletter-email"
             type="email"
             required
-            label={emailInputLabel}
+            {...(InputFieldEmail.props as InputFieldProps)}
+            label={emailInputLabel ?? InputFieldEmail.props.label}
             // Dynamic props shouldn't be overridable
             // This decision can be reviewed later if needed
             inputRef={emailInputRef}
           />
-          <NewsletterAddendum addendum={privacyPolicy} />
-          <Button variant="secondary" inverse type="submit">
+          <NewsletterAddendum.Component
+            addendum={privacyPolicy}
+            {...NewsletterAddendum.props}
+          />
+          <Button.Component
+            variant="secondary"
+            inverse
+            type="submit"
+            {...Button.props}
+          >
             {loading ? subscribeButtonLoadingLabel : subscribeButtonLabel}
-          </Button>
-        </NewsletterContent>
-      </NewsletterForm>
-    </NewsletterWrapper>
+          </Button.Component>
+        </NewsletterContent.Component>
+      </NewsletterForm.Component>
+    </NewsletterWrapper.Component>
   )
 }
 
