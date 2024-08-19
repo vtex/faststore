@@ -27,8 +27,6 @@ export default class Build extends Command {
 
     const packageManager = getPreferredPackageManager()
 
-    console.log('tmpDir', tmpDir)
-
     const buildResult = spawnSync(`${packageManager} run build`, {
       shell: true,
       cwd: tmpDir,
