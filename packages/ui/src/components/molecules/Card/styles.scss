@@ -1,36 +1,36 @@
 [data-fs-card] {
-    // --------------------------------------------------------
-    // Design Tokens for Card
-    // --------------------------------------------------------
+  // --------------------------------------------------------
+  // Design Tokens for Card
+  // --------------------------------------------------------
 
-    // Default properties
-    --fs-card-border-radius                         : var(--fs-border-radius);
-    --fs-card-border-width                          : var(--fs-border-width);
-    --fs-card-border-color                          : var(--fs-border-color-light);
+  // Default properties
+  --fs-card-border-radius                         : var(--fs-border-radius);
+  --fs-card-border-width                          : var(--fs-border-width);
+  --fs-card-border-color                          : var(--fs-border-color-light);
 
-    // Header
-    --fs-card-header-padding                        : var(--fs-spacing-3);
-    --fs-card-header-bkg-color                      : var(--fs-color-neutral-bkg);
-    --fs-card-header-font-weight                    : var(--fs-text-weight-bold);
+  // Header
+  --fs-card-header-padding                        : var(--fs-spacing-3);
+  --fs-card-header-bkg-color                      : var(--fs-color-neutral-bkg);
+  --fs-card-header-font-weight                    : var(--fs-text-weight-bold);
 
-    // Body
-    --fs-card-body-padding                          : var(--fs-spacing-3);
+  // Body
+  --fs-card-body-padding                          : var(--fs-spacing-3);
 
-    // --------------------------------------------------------
-    // Structural Styles
-    // --------------------------------------------------------
-    border: var(--fs-card-border-width) solid var(--fs-card-border-color);
-    border-radius: var(--fs-card-border-radius);
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+  border: var(--fs-card-border-width) solid var(--fs-card-border-color);
+  border-radius: var(--fs-card-border-radius);
 
-    [data-fs-card-header] {
-        border-top-left-radius: var(--fs-card-border-radius);
-        border-top-right-radius: var(--fs-card-border-radius);
-        padding: var(--fs-card-header-padding);
-        background-color: var(--fs-card-header-bkg-color);
-        font-weight: var(--fs-card-header-font-weight);
-    }
+  [data-fs-card-header] {
+      border-top-left-radius: var(--fs-card-border-radius);
+      border-top-right-radius: var(--fs-card-border-radius);
+      padding: var(--fs-card-header-padding);
+      background-color: var(--fs-card-header-bkg-color);
+      font-weight: var(--fs-card-header-font-weight);
+  }
 
-    [data-fs-card-body] {
-        padding: var(--fs-card-body-padding);
-    }
+  [data-fs-card-body] {
+      padding: var(--fs-card-body-padding);
+  }
 }
