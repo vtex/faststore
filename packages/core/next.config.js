@@ -62,10 +62,4 @@ const nextConfig = {
   rewrites: storeConfig.rewrites,
 }
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  // eslint-disable-next-line turbo/no-undeclared-env-vars
-  enabled: process.env.ANALYZE === 'true',
-})
-
-// @ts-ignore
-module.exports = withBundleAnalyzer(nextConfig)
+module.exports = nextConfig
