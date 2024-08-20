@@ -6,6 +6,7 @@ import RenderSections from 'app/components/cms/RenderSections'
 import { OverriddenDefaultBannerText as BannerText } from 'app/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'app/components/sections/ProductShelf/OverriddenDefaultProductShelf'
+import { OverriddenDefaultNewsletter as Newsletter } from 'app/components/sections/Newsletter/OverriddenDefaultNewsletter'
 
 import Incentives from 'app/components/sections/Incentives'
 import PageProvider from 'app/sdk/overrides/PageProvider'
@@ -19,6 +20,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   Incentives,
   ProductShelf,
   BannerText,
+  Newsletter,
   ...CUSTOM_COMPONENTS,
 }
 
