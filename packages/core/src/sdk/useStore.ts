@@ -1,3 +1,5 @@
+'use client'
+
 import { createBaseStore } from '@faststore/sdk'
 import { useSyncExternalStore } from 'react'
 import type { Store } from '@faststore/sdk'
