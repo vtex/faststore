@@ -13,7 +13,7 @@ export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> 
   */
   testId?: string
   /**
-  * Specifies the card max width, if not informed it will be of 300px.
+  * Specifies the card max width.
   */
   maxWidth?: string
   /**
@@ -32,16 +32,17 @@ export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> 
 
 const Card = forwardRef<HTMLDivElement, CardProps>(function Card({
   title,
-  children,
   maxWidth,
   testId = 'fs-card',
   iconName,
   iconColor,
-  iconAction
+  iconAction,
+  children,
+  ...otherProps
 }, ref) {
   return (
-    <div data-testid={testId} ref={ref} data-fs-card style={{ maxWidth: `${maxWidth}` }}>
-      <div data-fs-card-header style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <section data-testid={testId} ref={ref} data-fs-card style={{ maxWidth: `${maxWidth}` }} {...otherProps}>
+      <div data-fs-card-header>
         <div data-fs-card-title>{title}</div>
         {iconName && (
           <Icon name={iconName} width={20} height={20} weight="bold" color={iconColor} onClick={iconAction} />
@@ -50,7 +51,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(function Card({
       <div data-fs-card-body>
         {children}
       </div>
-    </div >
+    </section >
   )
 })
 
