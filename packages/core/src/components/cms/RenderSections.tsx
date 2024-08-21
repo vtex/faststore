@@ -48,7 +48,7 @@ const OUT_OF_VIEWPORT_SECTIONS = ['CartSidebar', 'RegionModal']
  * @param name
  * @returns
  */
-const LazyLoadingSection = ({
+export const LazyLoadingSection = ({
   name,
   children,
 }: {
@@ -57,14 +57,13 @@ const LazyLoadingSection = ({
 }) => {
   const { cart: displayCart, modal: displayModal } = useUI()
 
-  const shouldLoad =
-    (name === 'CartSidebar' && displayCart) ||
-    (name === 'RegionModal' && displayModal)
-
   if (OUT_OF_VIEWPORT_SECTIONS.includes(name)) {
+    const shouldLoad =
+      (name === 'CartSidebar' && displayCart) ||
+      (name === 'RegionModal' && displayModal)
     return shouldLoad ? <>{children}</> : null
   } else {
-    return <Intersection>{children}</Intersection>
+    return <Intersection name={name}>{children}</Intersection>
   }
 }
 
@@ -109,13 +108,13 @@ function RenderSections({
       {firstSections && (
         <RenderSectionsBase sections={firstSections} components={components} />
       )}
-      {sections && (
+      {sections && sections.length > 0 && (
         <RenderSectionsBase sections={sections} components={components} />
       )}
       {children}
-      <Intersection>
+      <LazyLoadingSection name="Toast">
         <Toast />
-      </Intersection>
+      </LazyLoadingSection>
 
       {lastSections && (
         <RenderSectionsBase sections={lastSections} components={components} />

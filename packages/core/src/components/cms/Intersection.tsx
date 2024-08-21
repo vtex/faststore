@@ -1,12 +1,22 @@
-import type { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from 'react'
+import type {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  PropsWithChildren,
+} from 'react'
 import { useEffect, useRef, useState } from 'react'
 
-const Intersection: FC<
-  {
-    children: ReactNode
-  } & IntersectionObserverInit &
-    DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
-> = ({ children, root = null, rootMargin, threshold = 0, ...otherProps }) => {
+type IntersectionProps = {
+  name?: string
+} & IntersectionObserverInit &
+  DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
+
+function Intersection({
+  name = '',
+  children,
+  root = null,
+  rootMargin,
+  threshold = 0,
+}: PropsWithChildren<IntersectionProps>) {
   const [isShow, setShow] = useState(false)
   const ref = useRef(null)
 
@@ -34,15 +44,19 @@ const Intersection: FC<
 
   return (
     <>
-      <div
-        ref={ref}
-        // height value like 500 is required to make sections out of the viewport to be rendered on demand
-        style={{
-          // border: isShow ? '2px solid red' : '2px solid blue', // debug
-          height: isShow ? 0 : 500,
-          width: '100%',
-        }}
-      ></div>
+      {!isShow && (
+        <div
+          data-section-name={name}
+          ref={ref}
+          // height value like 500 is required to make sections out of the viewport to be rendered on demand
+          style={{
+            // border: isShow ? '2px solid red' : '2px solid blue', // debug
+            height: 500,
+            width: '100%',
+          }}
+        ></div>
+      )}
+
       {isShow && children}
     </>
   )
