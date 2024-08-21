@@ -10,20 +10,26 @@ import type {
 import { execute } from 'src/server'
 
 import { Locator } from '@vtex/client-cms'
+import dynamic from 'next/dynamic'
 import {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import LandingPage, {
+import {
   getLandingPageBySlug,
   LandingPageProps,
 } from 'src/components/templates/LandingPage'
-import ProductListingPage, {
-  ProductListingPageProps,
-} from 'src/components/templates/ProductListingPage'
+import { ProductListingPageProps } from 'src/components/templates/ProductListingPage'
 import { PageContentType } from 'src/server/cms'
 import { getPLP, PLPContentType } from 'src/server/cms/plp'
 import { getDynamicContent } from 'src/utils/dynamicContent'
+
+const LandingPage = dynamic(
+  () => import('src/components/templates/LandingPage')
+)
+const ProductListingPage = dynamic(
+  () => import('src/components/templates/ProductListingPage')
+)
 
 type BaseProps = {
   globalSections: GlobalSectionsData
