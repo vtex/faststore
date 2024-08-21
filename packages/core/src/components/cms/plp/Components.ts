@@ -1,32 +1,12 @@
 import dynamic from 'next/dynamic'
 import { ComponentType } from 'react'
 
-import { OverriddenDefaultAlert as Alert } from 'src/components/sections/Alert/OverriddenDefaultAlert'
+import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
-import Incentives from 'src/components/sections/Incentives'
-import { OverriddenDefaultNavbar as Navbar } from 'src/components/sections/Navbar/OverriddenDefaultNavbar'
-import { OverriddenDefaultRegionBar as RegionBar } from 'src/components/sections/RegionBar/OverriddenDefaultRegionBar'
+import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import { default as GLOBAL_COMPONENTS } from '../global/Components'
 
-const Footer = dynamic(
-  () =>
-    import(/* webpackChunkName: "Footer" */ 'src/components/sections/Footer'),
-  { ssr: false }
-)
-const CartSidebar = dynamic(
-  () =>
-    import(
-      /* webpackChunkName: "CartSidebar" */ 'src/components/cart/CartSidebar'
-    ),
-  { ssr: false }
-)
-const RegionModal = dynamic(
-  () =>
-    import(
-      /* webpackChunkName: "RegionModal" */ 'src/components/region/RegionModal'
-    ),
-  { ssr: false }
-)
 const BannerText = dynamic(
   () =>
     import(
@@ -55,20 +35,24 @@ const ProductTiles = dynamic(
     ),
   { ssr: false }
 )
+const ScrollToTopButton = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "ScrollToTopButton" */ 'src/components/sections/ScrollToTopButton'
+    ),
+  { ssr: false }
+)
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
-  Alert,
-  Navbar,
-  RegionBar,
+  ...GLOBAL_COMPONENTS,
   Hero,
-  Incentives,
   BannerText,
-  CartSidebar,
-  RegionModal,
   Newsletter,
   ProductShelf,
   ProductTiles,
-  Footer,
+  Breadcrumb,
+  ProductGallery,
+  ScrollToTopButton,
   ...CUSTOM_COMPONENTS,
 }
 

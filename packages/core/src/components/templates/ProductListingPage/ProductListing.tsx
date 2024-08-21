@@ -1,22 +1,13 @@
 import { useSearch } from '@faststore/sdk'
 import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
 import deepmerge from 'deepmerge'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
-import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
-import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
-import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
-import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
 import ScrollToTopButton from 'src/components/sections/ScrollToTopButton'
 import { ITEMS_PER_PAGE } from 'src/constants'
 
-import type { ComponentType } from 'react'
 import RenderSections from 'src/components/cms/RenderSections'
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { PLPContentType } from 'src/server/cms/plp'
 
+import COMPONENTS from 'src/components/cms/plp/Components'
 import PageProvider, { PLPContext } from 'src/sdk/overrides/PageProvider'
 import {
   useCreateUseGalleryPage,
@@ -28,22 +19,6 @@ export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery
   page: PLPContentType
   globalSections?: Array<{ name: string; data: any }>
-}
-
-/**
- * Sections: Components imported from each store's custom components and '../components/sections' only.
- * Do not import or render components from any other folder in here.
- */
-const COMPONENTS: Record<string, ComponentType<any>> = {
-  Breadcrumb,
-  BannerText,
-  BannerNewsletter,
-  Hero,
-  Newsletter,
-  ProductGallery,
-  ProductShelf,
-  ProductTiles,
-  ...CUSTOM_COMPONENTS,
 }
 
 // Array merging strategy from deepmerge that makes client arrays overwrite server array

@@ -1,10 +1,17 @@
-import { ComponentType, PropsWithChildren, memo, useMemo } from 'react'
+import {
+  ComponentType,
+  PropsWithChildren,
+  ReactNode,
+  memo,
+  useMemo,
+} from 'react'
 
+import { useUI } from '@faststore/ui'
 import { Section } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
-import COMPONENTS from './Components'
 import Intersection from './Intersection'
 import SectionBoundary from './SectionBoundary'
+import COMPONENTS from './global/Components'
 
 interface Props {
   components?: Record<string, ComponentType<any>>
@@ -30,10 +37,38 @@ const useDividedSections = (sections: Section[]) => {
   }, [sections])
 }
 
-const RenderSectionsBase = ({
-  sections = [],
-  components = COMPONENTS,
-}: Props) => {
+// PSI - lazy loading components that are out of viewport
+const OUT_OF_VIEWPORT_SECTIONS = ['CartSidebar', 'RegionModal']
+
+/**
+ * This component is responsible for lazy loading Sections that are out of the viewport.
+ * by using the IntersectionObserver API for Sections below the fold OR
+ * by checking the UI context for Sections that are not in the viewport, like the CartSidebar or regionModal.
+ *
+ * @param name
+ * @returns
+ */
+const LazyLoadingSection = ({
+  name,
+  children,
+}: {
+  name: string
+  children: ReactNode
+}) => {
+  const { cart: displayCart, modal: displayModal } = useUI()
+
+  const shouldLoad =
+    (name === 'CartSidebar' && displayCart) ||
+    (name === 'RegionModal' && displayModal)
+
+  if (OUT_OF_VIEWPORT_SECTIONS.includes(name)) {
+    return shouldLoad ? <>{children}</> : null
+  } else {
+    return <Intersection>{children}</Intersection>
+  }
+}
+
+const RenderSectionsBase = ({ sections = [], components }: Props) => {
   return (
     <>
       {sections.map(({ name, data = {} }, index) => {
@@ -50,9 +85,9 @@ const RenderSectionsBase = ({
 
         return (
           <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
-            <Intersection>
+            <LazyLoadingSection name={name}>
               <Component {...data} />
-            </Intersection>
+            </LazyLoadingSection>
           </SectionBoundary>
         )
       })}
@@ -71,7 +106,9 @@ function RenderSections({
   )
   return (
     <>
-      {firstSections && <RenderSectionsBase sections={firstSections} />}
+      {firstSections && (
+        <RenderSectionsBase sections={firstSections} components={components} />
+      )}
       {sections && (
         <RenderSectionsBase sections={sections} components={components} />
       )}
@@ -80,7 +117,9 @@ function RenderSections({
         <Toast />
       </Intersection>
 
-      {lastSections && <RenderSectionsBase sections={lastSections} />}
+      {lastSections && (
+        <RenderSectionsBase sections={lastSections} components={components} />
+      )}
     </>
   )
 }

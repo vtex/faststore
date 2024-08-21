@@ -9,6 +9,7 @@ import {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import COMPONENTS from 'src/components/cms/home/Components'
 import RenderSections from 'src/components/cms/RenderSections'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'src/utils/dynamicContent'
@@ -69,6 +70,7 @@ function Page({
         <RenderSections
           globalSections={globalSections.sections}
           sections={sections}
+          components={COMPONENTS}
         />
       </PageProvider>
     </>
