@@ -6,12 +6,8 @@ import {
 } from '@faststore/ui'
 
 import dynamic from 'next/dynamic'
+import ProductCard from 'src/components/product/ProductCard'
 
-const ProductCard = dynamic(
-  () =>
-    /* webpackChunkName: "ProductCard" */
-    import('src/components/product/ProductCard')
-)
 const EmptyGallery = dynamic(
   () =>
     /* webpackChunkName: "EmptyGallery" */
