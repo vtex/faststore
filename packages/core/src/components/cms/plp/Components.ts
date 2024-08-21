@@ -10,48 +10,53 @@ import { default as GLOBAL_COMPONENTS } from '../global/Components'
 const BannerText = dynamic(
   () =>
     import(
-      /* webpackChunkName: "BannerText" */ 'src/components/sections/BannerText/OverriddenDefaultBannerText'
+      /* webpackChunkName: "BannerText" */
+      'src/components/sections/BannerText/OverriddenDefaultBannerText'
     ).then((mod) => ({ default: mod.OverriddenDefaultBannerText })),
   { ssr: false }
 )
 const Newsletter = dynamic(
   () =>
     import(
-      /* webpackChunkName: "Newsletter" */ 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
+      /* webpackChunkName: "Newsletter" */
+      'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
     ).then((mod) => ({ default: mod.OverriddenDefaultNewsletter })),
   { ssr: false }
 )
 const ProductShelf = dynamic(
   () =>
     import(
-      /* webpackChunkName: "ProductShelf" */ 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
+      /* webpackChunkName: "ProductShelf" */
+      'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
     ).then((mod) => ({ default: mod.OverriddenDefaultProductShelf })),
   { ssr: false }
 )
 const ProductTiles = dynamic(
   () =>
     import(
-      /* webpackChunkName: "ProductTiles" */ 'src/components/sections/ProductTiles'
+      /* webpackChunkName: "ProductTiles" */
+      'src/components/sections/ProductTiles'
     ),
   { ssr: false }
 )
 const ScrollToTopButton = dynamic(
   () =>
     import(
-      /* webpackChunkName: "ScrollToTopButton" */ 'src/components/sections/ScrollToTopButton'
+      /* webpackChunkName: "ScrollToTopButton" */
+      'src/components/sections/ScrollToTopButton'
     ),
   { ssr: false }
 )
 
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
+  Breadcrumb,
   Hero,
+  ProductGallery,
   BannerText,
   Newsletter,
   ProductShelf,
   ProductTiles,
-  Breadcrumb,
-  ProductGallery,
   ScrollToTopButton,
   ...CUSTOM_COMPONENTS,
 }
