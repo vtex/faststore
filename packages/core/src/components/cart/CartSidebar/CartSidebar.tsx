@@ -1,20 +1,39 @@
 import { sendAnalyticsEvent } from '@faststore/sdk'
-import {
-  Button as UIButton,
-  CartSidebarFooter as UICartSidebarFooter,
-  CartSidebarList as UICartSidebarList,
-} from '@faststore/ui'
 import dynamic from 'next/dynamic'
 
-import type { CartSidebarProps as UICartSidebarProps } from '@faststore/ui'
+import type {
+  ButtonProps,
+  CartSidebarProps as UICartSidebarProps,
+} from '@faststore/ui'
 
 import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
 import { Icon, useFadeEffect, useUI } from '@faststore/ui'
-import { useCallback, useEffect, useMemo } from 'react'
+import { ReactNode, useCallback, useEffect, useMemo } from 'react'
 import { useCart } from 'src/sdk/cart'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
 
+const UIButton = dynamic<ButtonProps>(
+  () =>
+    import(/* webpackChunkName: "UIButton" */ '@faststore/ui').then(
+      (mod) => mod.Button
+    ),
+  { ssr: false }
+)
+const UICartSidebarFooter = dynamic<{ children: ReactNode }>(
+  () =>
+    import(/* webpackChunkName: "UICartSidebarFooter" */ '@faststore/ui').then(
+      (mod) => mod.CartSidebarFooter
+    ),
+  { ssr: false }
+)
+const UICartSidebarList = dynamic<{ children: ReactNode }>(
+  () =>
+    import(/* webpackChunkName: "UICartSidebarList" */ '@faststore/ui').then(
+      (mod) => mod.CartSidebarList
+    ),
+  { ssr: false }
+)
 const UICartSidebar = dynamic<UICartSidebarProps>(
   () =>
     import(/* webpackChunkName: "UICartSidebar" */ '@faststore/ui').then(
@@ -22,11 +41,25 @@ const UICartSidebar = dynamic<UICartSidebarProps>(
     ),
   { ssr: false }
 )
+const EmptyCart = dynamic(
+  () => import(/* webpackChunkName: "EmptyCart" */ '../EmptyCart'),
+  { ssr: false }
+)
+const Gift = dynamic(
+  () => import(/* webpackChunkName: "Gift" */ '../../ui/Gift'),
+  {
+    ssr: false,
+  }
+)
+const CartItem = dynamic(
+  () => import(/* webpackChunkName: "CartItem" */ '../CartItem'),
+  { ssr: false }
+)
+const OrderSummary = dynamic(
+  () => import(/* webpackChunkName: "OrderSummary" */ '../OrderSummary'),
+  { ssr: false }
+)
 
-import Gift from '../../ui/Gift'
-import CartItem from '../CartItem'
-import EmptyCart from '../EmptyCart'
-import OrderSummary from '../OrderSummary'
 import styles from './section.module.scss'
 
 function useViewCartEvent() {
