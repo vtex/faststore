@@ -75,11 +75,7 @@ export default function ProductListingPage({
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
   return (
-    <SearchProvider
-      onChange={applySearchState}
-      itemsPerPage={itemsPerPage}
-      {...searchParams}
-    >
+    <>
       {/* SEO */}
       <NextSeo
         title={title}
@@ -95,12 +91,17 @@ export default function ProductListingPage({
       <BreadcrumbJsonLd
         itemListElements={collection?.breadcrumbList.itemListElement ?? []}
       />
-
-      <ProductListing
-        globalSections={globalSections}
-        page={plpContentType}
-        data={server}
-      />
-    </SearchProvider>
+      <SearchProvider
+        onChange={applySearchState}
+        itemsPerPage={itemsPerPage}
+        {...searchParams}
+      >
+        <ProductListing
+          globalSections={globalSections}
+          page={plpContentType}
+          data={server}
+        />
+      </SearchProvider>
+    </>
   )
 }
