@@ -9,7 +9,11 @@ import {
 } from '@faststore/ui'
 import dynamic from 'next/dynamic'
 
-import { ButtonSignIn } from 'src/components/ui/Button'
+const ButtonSignIn = dynamic(() =>
+  import(
+    /* webpackChunkName: "ButtonSignIn" */ 'src/components/ui/Button'
+  ).then((module) => module.ButtonSignIn)
+)
 
 const UINavbarSlider = dynamic(() =>
   import(/* webpackChunkName: "UINavbarSlider" */ '@faststore/ui').then(

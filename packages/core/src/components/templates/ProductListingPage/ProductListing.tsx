@@ -1,12 +1,14 @@
 import { useSearch } from '@faststore/sdk'
 import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
 import deepmerge from 'deepmerge'
-import ScrollToTopButton from 'src/components/sections/ScrollToTopButton'
 import { ITEMS_PER_PAGE } from 'src/constants'
 
-import RenderSections from 'src/components/cms/RenderSections'
+import RenderSections, {
+  LazyLoadingSection,
+} from 'src/components/cms/RenderSections'
 import { PLPContentType } from 'src/server/cms/plp'
 
+import dynamic from 'next/dynamic'
 import COMPONENTS from 'src/components/cms/plp/Components'
 import PageProvider, { PLPContext } from 'src/sdk/overrides/PageProvider'
 import {
@@ -14,6 +16,14 @@ import {
   UseGalleryPageContext,
 } from 'src/sdk/product/usePageProductsQuery'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
+
+const ScrollToTopButton = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "ScrollToTopButton" */
+      'src/components/sections/ScrollToTopButton'
+    )
+)
 
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery
@@ -74,11 +84,13 @@ export default function ProductListing({
             sections={sections}
             globalSections={globalSections}
             components={COMPONENTS}
-          />
+          >
+            <LazyLoadingSection name="ScrollToTopButton">
+              <ScrollToTopButton />
+            </LazyLoadingSection>
+          </RenderSections>
         </UseGalleryPageContext.Provider>
       </PageProvider>
-
-      <ScrollToTopButton />
     </>
   )
 }
