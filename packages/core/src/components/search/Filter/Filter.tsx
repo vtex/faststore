@@ -1,11 +1,11 @@
 import { useUI } from '@faststore/ui'
 import type { Filter_FacetsFragment } from '@generated/graphql'
-import { Suspense } from 'react'
 
 import { gql } from '@generated'
 import { ProductGalleryProps } from 'src/components/ui/ProductGallery/ProductGallery'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useFilter } from 'src/sdk/search/useFilter'
+import useDeviceDetect from 'src/sdk/ui/useDeviceDetect'
 
 interface Props {
   /**
@@ -33,31 +33,33 @@ function Filter({
     __experimentalFilterSlider: FilterSlider,
   } = useOverrideComponents<'ProductGallery'>()
 
+  const isMobile = useDeviceDetect()
+
   const filter = useFilter(allFacets)
   const { filter: displayFilter } = useUI()
 
   return (
     <>
       <div className="hidden-mobile">
-        <FilterDesktop.Component
-          {...FilterDesktop.props}
-          {...filter}
-          testId={testId}
-          title={filterCmsData?.title}
-        />
-      </div>
-
-      {displayFilter && (
-        <Suspense fallback={null}>
-          <FilterSlider.Component
-            {...FilterSlider.props}
+        {!isMobile && (
+          <FilterDesktop.Component
+            {...FilterDesktop.props}
             {...filter}
             testId={testId}
             title={filterCmsData?.title}
-            clearButtonLabel={filterCmsData?.mobileOnly?.clearButtonLabel}
-            applyButtonLabel={filterCmsData?.mobileOnly?.applyButtonLabel}
           />
-        </Suspense>
+        )}
+      </div>
+
+      {displayFilter && (
+        <FilterSlider.Component
+          {...FilterSlider.props}
+          {...filter}
+          testId={testId}
+          title={filterCmsData?.title}
+          clearButtonLabel={filterCmsData?.mobileOnly?.clearButtonLabel}
+          applyButtonLabel={filterCmsData?.mobileOnly?.applyButtonLabel}
+        />
       )}
     </>
   )
