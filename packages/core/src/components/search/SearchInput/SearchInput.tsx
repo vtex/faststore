@@ -1,5 +1,4 @@
 import type { SearchEvent, SearchState } from '@faststore/sdk'
-import { sendAnalyticsEvent } from '@faststore/sdk'
 
 import type {
   SearchInputFieldProps as UISearchInputFieldProps,
@@ -46,9 +45,11 @@ export type SearchInputRef = UISearchInputFieldRef & {
 }
 
 const sendAnalytics = async (term: string) => {
-  sendAnalyticsEvent<SearchEvent>({
-    name: 'search',
-    params: { search_term: term },
+  import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+    sendAnalyticsEvent<SearchEvent>({
+      name: 'search',
+      params: { search_term: term },
+    })
   })
 }
 
