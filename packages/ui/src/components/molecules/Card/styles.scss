@@ -23,14 +23,14 @@
   border-radius: var(--fs-card-border-radius);
 
   [data-fs-card-header] {
-      border-top-left-radius: var(--fs-card-border-radius);
-      border-top-right-radius: var(--fs-card-border-radius);
-      padding: var(--fs-card-header-padding);
-      background-color: var(--fs-card-header-bkg-color);
-      font-weight: var(--fs-card-header-font-weight);
+    border-top-left-radius: var(--fs-card-border-radius);
+    border-top-right-radius: var(--fs-card-border-radius);
+    padding: var(--fs-card-header-padding);
+    background-color: var(--fs-card-header-bkg-color);
+    font-weight: var(--fs-card-header-font-weight);
   }
 
   [data-fs-card-body] {
-      padding: var(--fs-card-body-padding);
+    padding: var(--fs-card-body-padding);
   }
 }
