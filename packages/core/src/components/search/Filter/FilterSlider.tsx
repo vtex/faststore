@@ -1,18 +1,36 @@
 import { useSearch } from '@faststore/sdk'
-import {
-  Filter as UIFilter,
-  FilterFacetBoolean as UIFilterFacetBoolean,
-  FilterFacetBooleanItem as UIFilterFacetBooleanItem,
-  FilterFacetRange as UIFilterFacetRange,
-  FilterFacets as UIFilterFacets,
-  FilterSlider as UIFilterSlider,
-} from '@faststore/ui'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+
+const UIFilter = dynamic<any>(() =>
+  /* webpackChunkName: "UIFilter" */
+  import('@faststore/ui').then((mod) => mod.Filter)
+)
+const UIFilterFacetBoolean = dynamic<any>(() =>
+  /* webpackChunkName: "UIFilterFacetBoolean" */
+  import('@faststore/ui').then((mod) => mod.FilterFacetBoolean)
+)
+const UIFilterFacetBooleanItem = dynamic<any>(() =>
+  /* webpackChunkName: "UIFilterFacetBooleanItem" */
+  import('@faststore/ui').then((mod) => mod.FilterFacetBooleanItem)
+)
+const UIFilterFacetRange = dynamic<any>(() =>
+  /* webpackChunkName: "UIFilterFacetRange" */
+  import('@faststore/ui').then((mod) => mod.FilterFacetRange)
+)
+const UIFilterFacets = dynamic<any>(() =>
+  /* webpackChunkName: "UIFilterFacets" */
+  import('@faststore/ui').then((mod) => mod.FilterFacets)
+)
+const UIFilterSlider = dynamic<any>(() =>
+  /* webpackChunkName: "UIFilterSlider" */
+  import('@faststore/ui').then((mod) => mod.FilterSlider)
+)
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
 
 import type { useFilter } from 'src/sdk/search/useFilter'
 
+import dynamic from 'next/dynamic'
 import styles from './section.module.scss'
 
 export interface FilterSliderProps {
@@ -87,7 +105,7 @@ function FilterSlider({
       <UIFilter
         testId={`mobile-${testId}`}
         indicesExpanded={expanded}
-        onAccordionChange={(index) =>
+        onAccordionChange={(index: number) =>
           dispatch({ type: 'toggleExpanded', payload: index })
         }
       >
@@ -109,7 +127,7 @@ function FilterSlider({
                       key={`${testId}-${facet.label}-${item.label}`}
                       id={`${testId}-${facet.label}-${item.label}`}
                       testId={`mobile-${testId}`}
-                      onFacetChange={(facet) =>
+                      onFacetChange={(facet: any) =>
                         dispatch({ type: 'toggleFacet', payload: facet })
                       }
                       selected={item.selected}
@@ -131,7 +149,7 @@ function FilterSlider({
                       ? useFormattedPrice
                       : undefined
                   }
-                  onFacetChange={(facet) =>
+                  onFacetChange={(facet: any) =>
                     dispatch({
                       type: 'setFacet',
                       payload: { facet, unique: true },
