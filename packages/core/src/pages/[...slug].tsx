@@ -19,16 +19,15 @@ import {
   getLandingPageBySlug,
   LandingPageProps,
 } from 'src/components/templates/LandingPage'
-import { ProductListingPageProps } from 'src/components/templates/ProductListingPage'
+import ProductListingPage, {
+  ProductListingPageProps,
+} from 'src/components/templates/ProductListingPage'
 import { PageContentType } from 'src/server/cms'
 import { getPLP, PLPContentType } from 'src/server/cms/plp'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 
 const LandingPage = dynamic(
   () => import('src/components/templates/LandingPage')
-)
-const ProductListingPage = dynamic(
-  () => import('src/components/templates/ProductListingPage')
 )
 
 type BaseProps = {
@@ -107,13 +106,18 @@ export const getStaticProps: GetStaticProps<
     getGlobalSectionsData(previewData),
   ]
 
-  if (await landingPagePromise) {
-    const serverData = await getDynamicContent({ pageType: slug })
+  const landingPage = await landingPagePromise
+
+  if (landingPage) {
+    const [serverData, globalSections] = await Promise.all([
+      getDynamicContent({ pageType: slug }),
+      globalSectionsPromise,
+    ])
 
     return {
       props: {
-        page: await landingPagePromise,
-        globalSections: await globalSectionsPromise,
+        page: landingPage,
+        globalSections,
         type: 'page',
         slug,
         serverData,
@@ -121,7 +125,7 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
-  const [{ data, errors = [] }, cmsPage] = await Promise.all([
+  const [{ data, errors = [] }, cmsPage, globalSections] = await Promise.all([
     execute<
       ServerCollectionPageQueryQueryVariables,
       ServerCollectionPageQueryQuery
@@ -130,6 +134,7 @@ export const getStaticProps: GetStaticProps<
       operation: query,
     }),
     getPLP(slug, previewData, rewrites),
+    globalSectionsPromise,
   ])
 
   const notFound = errors.find(isNotFoundError)
@@ -149,7 +154,7 @@ export const getStaticProps: GetStaticProps<
     props: {
       data,
       page: cmsPage,
-      globalSections: await globalSectionsPromise,
+      globalSections,
       type: 'plp',
       key: slug,
     },
