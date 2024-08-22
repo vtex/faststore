@@ -1,6 +1,6 @@
 {
   "name": "site",
-  "version": "3.0.89",
+  "version": "3.0.94",
   "author": "Emerson Laurentino @emersonlaurentino",
   "license": "MIT",
   "private": true,
@@ -10,9 +10,9 @@
     "start": "next start"
   },
   "dependencies": {
-    "@faststore/api": "^3.0.88",
-    "@faststore/sdk": "^3.0.88",
-    "@faststore/ui": "^3.0.89",
+    "@faststore/api": "^3.0.94",
+    "@faststore/sdk": "^3.0.94",
+    "@faststore/ui": "^3.0.94",
     "next": "13.0.7",
     "nextra": "^2.8.0",
     "nextra-theme-docs": "^2.8.0",
@@ -21,7 +21,7 @@
     "sass": "^1.57.1"
   },
   "devDependencies": {
-    "@faststore/eslint-config": "^3.0.88",
+    "@faststore/eslint-config": "^3.0.94",
     "@types/node": "^18.11.16",
     "eslint": "7.32.0",
     "react-docgen-typescript": "^2.2.2",

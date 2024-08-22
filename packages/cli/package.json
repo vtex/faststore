@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "3.0.93",
+  "version": "3.0.94",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "bin": {
@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "@antfu/ni": "^0.21.12",
-    "@faststore/core": "^3.0.93",
+    "@faststore/core": "^3.0.94",
     "@inquirer/prompts": "^5.1.2",
     "@oclif/core": "^1.16.4",
     "@oclif/plugin-help": "^5",
@@ -31,8 +31,8 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "@faststore/eslint-config": "^3.0.88",
-    "@faststore/shared": "^3.0.88",
+    "@faststore/eslint-config": "^3.0.94",
+    "@faststore/shared": "^3.0.94",
     "@types/chai": "^4",
     "@types/degit": "^2.8.6",
     "@types/fs-extra": "^9.0.13",

@@ -1,6 +1,6 @@
 {
   "name": "@faststore/shared",
-  "version": "3.0.88",
+  "version": "3.0.94",
   "private": true,
   "files": [
     "tsconfig.json"
