@@ -5,6 +5,7 @@ import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
 import CartToggle from 'src/components/cart/CartToggle'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
+import SearchInput from 'src/components/search/SearchInput'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 const NavbarLinks = dynamic(
@@ -24,17 +25,6 @@ const NavbarSlider = dynamic(
       'src/components/navigation/NavbarSlider'
     ),
   { ssr: false }
-)
-const SearchInput = dynamic(
-  () =>
-    /* webpackChunkName: "SearchInput" */ import(
-      'src/components/search/SearchInput'
-    ),
-  {
-    ssr: false,
-    // Fix CLS - Cumulative Layout Shift
-    loading: () => <div style={{ height: 'var(--fs-spacing-6)' }}></div>,
-  }
 )
 
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
