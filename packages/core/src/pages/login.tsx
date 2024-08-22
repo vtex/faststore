@@ -1,18 +1,18 @@
-import { useEffect } from 'react'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
+import { useEffect } from 'react'
 
-import storeConfig from '../../faststore.config'
-import GlobalSections, {
+import { Locator } from '@vtex/client-cms'
+import { GetStaticProps } from 'next'
+import {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { GetStaticProps } from 'next'
-import { Locator } from '@vtex/client-cms'
 import RenderSections from 'src/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { PageContentType, getPage } from 'src/server/cms'
+import storeConfig from '../../faststore.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -38,7 +38,7 @@ function Page({ page: { sections }, globalSections }: Props) {
   }, [])
 
   return (
-    <GlobalSections {...globalSections}>
+    <>
       <NextSeo noindex nofollow />
       {/*
         WARNING: Do not import or render components from any
@@ -51,8 +51,12 @@ function Page({ page: { sections }, globalSections }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <RenderSections sections={sections} components={COMPONENTS} />
-    </GlobalSections>
+      <RenderSections
+        sections={sections}
+        globalSections={globalSections.sections}
+        components={COMPONENTS}
+      />
+    </>
   )
 }
 

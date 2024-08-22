@@ -26,7 +26,7 @@ import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
 
 import storeConfig from 'faststore.config'
-import GlobalSections, {
+import {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
@@ -83,7 +83,7 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   } as PDPContext
 
   return (
-    <GlobalSections {...globalSections}>
+    <>
       {/* SEO */}
       <NextSeo
         title={meta.title}
@@ -137,9 +137,13 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
-        <RenderSections sections={sections} components={COMPONENTS} />
+        <RenderSections
+          sections={sections}
+          globalSections={globalSections.sections}
+          components={COMPONENTS}
+        />
       </PageProvider>
-    </GlobalSections>
+    </>
   )
 }
 

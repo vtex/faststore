@@ -1,11 +1,11 @@
 import { Locator } from '@vtex/client-cms'
 import { GetStaticProps } from 'next'
 import { NextSeo } from 'next-seo'
-import GlobalSections, {
+import type { ComponentType } from 'react'
+import {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import type { ComponentType } from 'react'
 
 import RenderSections from 'src/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
@@ -25,7 +25,7 @@ type Props = {
 
 function Page({ page: { sections }, globalSections }: Props) {
   return (
-    <GlobalSections {...globalSections}>
+    <>
       <NextSeo noindex nofollow />
 
       {/*
@@ -39,8 +39,12 @@ function Page({ page: { sections }, globalSections }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <RenderSections sections={sections} components={COMPONENTS} />
-    </GlobalSections>
+      <RenderSections
+        sections={sections}
+        globalSections={globalSections.sections}
+        components={COMPONENTS}
+      />
+    </>
   )
 }
 

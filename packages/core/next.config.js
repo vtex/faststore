@@ -11,7 +11,7 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: [`${storeConfig.api.storeId}.vtexassets.com`],
-    deviceSizes: [360, 540, 768, 1280, 1440],
+    deviceSizes: [360, 412, 540, 768, 1280, 1440],
     imageSizes: [34, 68, 154, 320],
   },
   i18n: {
@@ -44,6 +44,16 @@ const nextConfig = {
     // This should help reducing TBT
     if (!isServer && !dev && config.optimization?.splitChunks) {
       config.optimization.splitChunks.maxInitialRequests = 1
+    }
+
+    // Replace React with Preact only in client production build
+    if (!isServer && !dev) {
+      Object.assign(config.resolve.alias, {
+        // 'react/jsx-runtime.js': 'preact/compat/jsx-runtime',
+        react: 'preact/compat',
+        'react-dom/test-utils': 'preact/test-utils',
+        'react-dom': 'preact/compat',
+      })
     }
 
     return config

@@ -20,6 +20,7 @@ import ProductListing from './ProductListing'
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery
   page: PLPContentType
+  globalSections?: Array<{ name: string; data: any }>
 }
 
 type UseSearchParams = {
@@ -56,6 +57,7 @@ const useSearchParams = ({
 export default function ProductListingPage({
   page: plpContentType,
   data: server,
+  globalSections,
 }: ProductListingPageProps) {
   const { settings } = plpContentType
   const collection = server.collection
@@ -73,11 +75,7 @@ export default function ProductListingPage({
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
   return (
-    <SearchProvider
-      onChange={applySearchState}
-      itemsPerPage={itemsPerPage}
-      {...searchParams}
-    >
+    <>
       {/* SEO */}
       <NextSeo
         title={title}
@@ -93,8 +91,17 @@ export default function ProductListingPage({
       <BreadcrumbJsonLd
         itemListElements={collection?.breadcrumbList.itemListElement ?? []}
       />
-
-      <ProductListing page={plpContentType} data={server} />
-    </SearchProvider>
+      <SearchProvider
+        onChange={applySearchState}
+        itemsPerPage={itemsPerPage}
+        {...searchParams}
+      >
+        <ProductListing
+          globalSections={globalSections}
+          page={plpContentType}
+          data={server}
+        />
+      </SearchProvider>
+    </>
   )
 }

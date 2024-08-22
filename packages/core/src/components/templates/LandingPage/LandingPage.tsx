@@ -36,12 +36,14 @@ export type LandingPageProps = {
   page: PageContentType
   slug?: string
   serverData?: unknown
+  globalSections?: Array<{ name: string; data: any }>
 }
 
 export default function LandingPage({
   page: { sections, settings },
   slug,
   serverData,
+  globalSections,
 }: LandingPageProps) {
   const context = {
     data: serverData,
@@ -87,7 +89,11 @@ export default function LandingPage({
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
-        <RenderSections sections={sections} components={COMPONENTS} />
+        <RenderSections
+          sections={sections}
+          globalSections={globalSections}
+          components={COMPONENTS}
+        />
       </PageProvider>
     </>
   )

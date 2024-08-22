@@ -31,6 +31,7 @@
 
   // Logo
   --fs-navbar-logo-width                                 : var(--fs-logo-width);
+  --fs-navbar-logo-height-desktop                        : 4.239rem;
   --fs-navbar-logo-border-left-width                     : var(--fs-border-width);
   --fs-navbar-logo-border-left-color                     : var(--fs-border-color-light);
 
@@ -197,6 +198,10 @@
       margin-right: auto;
       margin-left: var(--fs-spacing-0);
       border-left: var(--fs-navbar-logo-border-left-width) solid var(--fs-navbar-logo-border-left-color);
+    }
+
+    @include media(">=notebook") {
+      height: var(--fs-navbar-logo-height-desktop);
     }
 
     [data-fs-logo] {

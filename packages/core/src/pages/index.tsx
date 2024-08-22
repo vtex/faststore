@@ -1,40 +1,19 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
-import type { ComponentType } from 'react'
 
-import RenderSections from 'src/components/cms/RenderSections'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
-import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
-import Incentives from 'src/components/sections/Incentives'
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
-import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import { mark } from 'src/sdk/tests/mark'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
-import GlobalSections, {
+import {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import COMPONENTS from 'src/components/cms/home/Components'
+import RenderSections from 'src/components/cms/RenderSections'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../faststore.config'
-
-/* A list of components that can be used in the CMS. */
-const COMPONENTS: Record<string, ComponentType<any>> = {
-  Hero,
-  Incentives,
-  ProductShelf,
-  ProductTiles,
-  BannerText,
-  BannerNewsletter,
-  Newsletter,
-  ...CUSTOM_COMPONENTS,
-}
 
 type Props = {
   page: PageContentType
@@ -50,9 +29,8 @@ function Page({
   const context = {
     data: serverData,
   }
-
   return (
-    <GlobalSections {...globalSections}>
+    <>
       {/* SEO */}
       <NextSeo
         title={settings?.seo?.title ?? storeConfig.seo.title}
@@ -89,9 +67,13 @@ function Page({
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
-        <RenderSections sections={sections} components={COMPONENTS} />
+        <RenderSections
+          globalSections={globalSections.sections}
+          sections={sections}
+          components={COMPONENTS}
+        />
       </PageProvider>
-    </GlobalSections>
+    </>
   )
 }
 
@@ -100,19 +82,25 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const serverData = await getDynamicContent({ pageType: 'home' })
-  const globalSections = await getGlobalSectionsData(previewData)
+  const globalSectionsPromise = getGlobalSectionsData(previewData)
+  const serverDataPromise = getDynamicContent({ pageType: 'home' })
 
   if (storeConfig.cms.data) {
     const cmsData = JSON.parse(storeConfig.cms.data)
     const page = cmsData['home'][0]
 
     if (page) {
-      const pageData = await getPage<PageContentType>({
+      const pageDataPromise = getPage<PageContentType>({
         contentType: 'home',
         documentId: page.documentId,
         versionId: page.versionId,
       })
+
+      const [pageData, globalSections, serverData] = await Promise.all([
+        pageDataPromise,
+        globalSectionsPromise,
+        serverDataPromise,
+      ])
 
       return {
         props: { page: pageData, globalSections, serverData },
@@ -120,16 +108,20 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
-  const page = await getPage<PageContentType>({
+  const pagePromise = getPage<PageContentType>({
     ...(previewData?.contentType === 'home' && previewData),
     contentType: 'home',
   })
+
+  const [page, globalSections, serverData] = await Promise.all([
+    pagePromise,
+    globalSectionsPromise,
+    serverDataPromise,
+  ])
 
   return {
     props: { page, globalSections, serverData },
   }
 }
 
-Page.displayName = 'Page'
-
-export default mark(Page)
+export default Page
