@@ -270,6 +270,7 @@ function ProductGallery({
                   productCard={productCard}
                   itemsPerPage={itemsPerPage}
                   products={data?.search?.products?.edges}
+                  firstPage={pages[0]}
                 />
               ))}
             </>

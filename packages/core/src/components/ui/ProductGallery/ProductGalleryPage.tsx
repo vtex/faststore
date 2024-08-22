@@ -15,6 +15,7 @@ interface Props {
   >
   itemsPerPage: number
   products: ClientManyProductsQueryQuery['search']['products']['edges']
+  firstPage: number
 }
 
 function ProductGalleryPage({
@@ -23,6 +24,7 @@ function ProductGalleryPage({
   productCard,
   itemsPerPage,
   products: productsFallback,
+  firstPage,
 }: Props) {
   const { data } = useGalleryPage(page)
 
@@ -41,6 +43,7 @@ function ProductGalleryPage({
         page={page}
         pageSize={itemsPerPage}
         productCard={productCard}
+        firstPage={firstPage}
       />
     </>
   )
