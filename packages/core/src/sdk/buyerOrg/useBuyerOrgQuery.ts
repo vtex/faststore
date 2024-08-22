@@ -33,5 +33,5 @@ export const useBuyerOrgQuery = (
     ...options,
   })
 
-  return data
+  return data?.buyerOrg
 }
