@@ -5,12 +5,12 @@ import {
   ClientManyProductsQueryQueryVariables,
 } from '@generated/graphql'
 import {
-  useEffect,
-  useCallback,
   createContext,
+  useCallback,
   useContext,
-  useRef,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react'
 import { useQuery } from 'src/sdk/graphql/useQuery'
@@ -70,6 +70,40 @@ export const useCreateUseGalleryPage = () => {
   // We create pagesRef as a mirror of the pages state so we don't have to add pages as a dependency of the useGalleryPage hook
   const pagesRef = useRef<ClientManyProductsQueryQuery[]>([])
   const pagesCache = useRef<string[]>([])
+
+  const updatesPages = useCallback(
+    ({
+      page,
+      data,
+      localizedVariablesKey,
+    }: {
+      page: number
+      data: ClientManyProductsQueryQuery
+      localizedVariablesKey: string
+    }) => {
+      const hasSameVariables =
+        pagesCache.current[page] === localizedVariablesKey
+
+      const shouldUpdatePages = !hasSameVariables && data !== null
+
+      if (shouldUpdatePages) {
+        pagesCache.current[page] = localizedVariablesKey
+
+        const newPages = [...pagesRef.current]
+        newPages[page] = data
+        pagesRef.current = newPages
+
+        // Update state
+        setPages((oldPages) => {
+          const newPages = [...oldPages]
+          newPages[page] = data
+          return newPages
+        })
+      }
+      return pagesRef.current
+    },
+    []
+  )
 
   const useGalleryPage = useCallback(function useGalleryPage(page: number) {
     const {
@@ -133,7 +167,8 @@ export const useCreateUseGalleryPage = () => {
     () => ({
       pages,
       useGalleryPage,
+      updatesPages,
     }),
-    [pages, useGalleryPage]
+    [pages, useGalleryPage, updatesPages]
   )
 }

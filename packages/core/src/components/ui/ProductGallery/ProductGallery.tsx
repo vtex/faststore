@@ -269,6 +269,7 @@ function ProductGallery({
                   title={title}
                   productCard={productCard}
                   itemsPerPage={itemsPerPage}
+                  products={data?.search?.products?.edges}
                 />
               ))}
             </>

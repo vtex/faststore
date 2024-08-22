@@ -1452,7 +1452,39 @@ export type ClientProductGalleryQueryQueryVariables = Exact<{
 export type ClientProductGalleryQueryQuery = {
   redirect: { url: string | null } | null
   search: {
-    products: { pageInfo: { totalCount: number } }
+    products: {
+      pageInfo: { totalCount: number }
+      edges: Array<{
+        node: {
+          slug: string
+          sku: string
+          name: string
+          gtin: string
+          id: string
+          brand: { name: string; brandName: string }
+          isVariantOf: { productGroupID: string; name: string }
+          image: Array<{ url: string; alternateName: string }>
+          offers: {
+            lowPrice: number
+            lowPriceWithTaxes: number
+            offers: Array<{
+              availability: string
+              price: number
+              listPrice: number
+              listPriceWithTaxes: number
+              quantity: number
+              seller: { identifier: string }
+            }>
+          }
+          additionalProperty: Array<{
+            propertyID: string
+            name: string
+            value: any
+            valueReference: any
+          }>
+        }
+      }>
+    }
     facets: Array<
       | {
           __typename: 'StoreFacetBoolean'
@@ -2072,7 +2104,7 @@ export const ClientManyProductsQueryDocument = {
 export const ClientProductGalleryQueryDocument = {
   __meta__: {
     operationName: 'ClientProductGalleryQuery',
-    operationHash: 'bfc40da32b60f9404a4adb96b0856e3fbb04b076',
+    operationHash: 'c4dadaeb47f2d07bee30c57a27185044253b883c',
   },
 } as unknown as TypedDocumentString<
   ClientProductGalleryQueryQuery,

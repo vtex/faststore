@@ -1,5 +1,8 @@
 import { useSearch } from '@faststore/sdk'
-import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
+import type {
+  ClientManyProductsQueryQuery,
+  ServerCollectionPageQueryQuery,
+} from '@generated/graphql'
 import deepmerge from 'deepmerge'
 import { ITEMS_PER_PAGE } from 'src/constants'
 
@@ -9,6 +12,7 @@ import RenderSections, {
 import { PLPContentType } from 'src/server/cms/plp'
 
 import dynamic from 'next/dynamic'
+import { useMemo, useRef } from 'react'
 import COMPONENTS from 'src/components/cms/plp/Components'
 import PageProvider, { PLPContext } from 'src/sdk/overrides/PageProvider'
 import {
@@ -40,30 +44,51 @@ export default function ProductListing({
   data: server,
   globalSections,
 }: ProductListingPageProps) {
+  const shouldUpdatePages = useRef(true)
   const {
-    state: { sort, term, selectedFacets },
+    state: { sort, term, selectedFacets, page },
   } = useSearch()
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
-  const { data: pageProductGalleryData } = useProductGalleryQuery({
-    term,
-    sort,
-    selectedFacets,
-    itemsPerPage,
-  })
+  const { data: pageProductGalleryData, localizedVariablesKey } =
+    useProductGalleryQuery({
+      term,
+      sort,
+      selectedFacets,
+      itemsPerPage,
+    })
 
-  const { pages, useGalleryPage } = useCreateUseGalleryPage()
+  const { pages, useGalleryPage, updatesPages } = useCreateUseGalleryPage()
 
-  const context = {
-    data: {
-      ...deepmerge(
-        { ...server },
-        { ...pageProductGalleryData },
-        { arrayMerge: overwriteMerge }
-      ),
-      pages,
-    },
-  } as PLPContext
+  // Performance - updates page just in first fetch of gallery page
+  let pagesFromFirstFetch: ClientManyProductsQueryQuery[] = []
+  if (shouldUpdatePages.current && pageProductGalleryData) {
+    pagesFromFirstFetch = updatesPages({
+      page,
+      data: pageProductGalleryData as ClientManyProductsQueryQuery,
+      localizedVariablesKey,
+    })
+
+    if (pages.length === 0) {
+      pages[page] = pagesFromFirstFetch[page]
+    }
+    shouldUpdatePages.current = false
+  }
+
+  const context = useMemo(
+    () =>
+      ({
+        data: {
+          ...deepmerge(
+            { ...server },
+            { ...pageProductGalleryData },
+            { arrayMerge: overwriteMerge }
+          ),
+          pages,
+        },
+      } as PLPContext),
+    [server, pageProductGalleryData, pages]
+  )
 
   return (
     <>

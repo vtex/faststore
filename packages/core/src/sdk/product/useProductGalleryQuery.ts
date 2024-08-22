@@ -42,6 +42,11 @@ export const query = gql(`
         pageInfo {
           totalCount
         }
+        edges {
+          node {
+            ...ProductSummary_product
+          }
+        }
       }
       facets {
         ...Filter_facets
@@ -68,6 +73,8 @@ type ProductGalleryQueryOptions = {
   term: ClientManyProductsQueryQueryVariables['term']
 }
 
+const getKey = (object: any) => JSON.stringify(object)
+
 export const useProductGalleryQuery = ({
   term,
   sort,
@@ -79,7 +86,7 @@ export const useProductGalleryQuery = ({
 
   const localizedVariables = useLocalizedVariables({
     first: itemsPerPage,
-    after: '0',
+    after: (itemsPerPage * state.page).toString() ?? '0',
     sort,
     term: term ?? '',
     selectedFacets,
@@ -93,7 +100,7 @@ export const useProductGalleryQuery = ({
     return facet?.value ?? null
   }
 
-  return useQuery<Query, Variables>(query, localizedVariables, {
+  const result = useQuery<Query, Variables>(query, localizedVariables, {
     onSuccess: (data) => {
       if (data) {
         // Cancel query onSuccess event when redirecting
@@ -131,4 +138,8 @@ export const useProductGalleryQuery = ({
       }
     },
   })
+
+  const localizedVariablesKey = getKey(localizedVariables)
+
+  return { ...result, localizedVariablesKey }
 }
