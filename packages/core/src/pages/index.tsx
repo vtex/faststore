@@ -10,7 +10,7 @@ import Incentives from 'app/components/sections/Incentives'
 import type { PageContentType } from 'app/server/cms'
 import { getPage } from 'app/server/cms'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
+import { OverriddenDefaultNewsletter as Newsletter } from 'app/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'app/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
@@ -20,7 +20,7 @@ import PageProvider from 'app/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'app/utils/dynamicContent'
 import GlobalSections, {
   getGlobalSectionsData,
-  GlobalSectionsData
+  GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import storeConfig from '../../faststore.config'
 

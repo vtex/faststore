@@ -1,3 +1,5 @@
+'use client'
+
 import Section from '../../../../src/components/sections/Section'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 

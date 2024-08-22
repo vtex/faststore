@@ -6,11 +6,11 @@ import {
   NewsletterHeaderProps as UINewsletterHeaderProps,
 } from '@faststore/ui'
 
-import UINewsletter from '../../ui/Newsletter'
+import UINewsletter from 'app/components/ui/Newsletter'
 
-import Section from '../Section'
+import Section from 'src/components/sections/Section'
 import styles from './section.module.scss'
-import { getOverridableSection } from '../../../../app/sdk/overrides/getOverriddenSection'
+import { getOverridableSection } from 'app/sdk/overrides/getOverriddenSection'
 import { NewsletterDefaultComponents } from './DefaultComponents'
 
 type SubscribeMessage = {
