@@ -1,7 +1,6 @@
 import { useSearch } from '@faststore/sdk'
 import { NextSeo } from 'next-seo'
 import type { MouseEvent } from 'react'
-import { Suspense, lazy } from 'react'
 
 import { useUI } from '@faststore/ui'
 import Sort from 'src/components/search/Sort'
@@ -22,8 +21,8 @@ import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
 import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
 import { useFilter } from 'src/sdk/search/useFilter'
 import useDeviceDetect from 'src/sdk/ui/useDeviceDetect'
+import ProductGalleryPage from './ProductGalleryPage'
 
-const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const FilterSkeleton = dynamic(
   () =>
     import(
@@ -262,7 +261,7 @@ function ProductGallery({
           )}
           {/* Render ALL products */}
           {hasProductsLoaded ? (
-            <Suspense fallback={GalleryPageSkeleton}>
+            <>
               {pages.map((page) => (
                 <ProductGalleryPage
                   key={`gallery-page-${page}`}
@@ -272,7 +271,7 @@ function ProductGallery({
                   itemsPerPage={itemsPerPage}
                 />
               ))}
-            </Suspense>
+            </>
           ) : (
             GalleryPageSkeleton
           )}

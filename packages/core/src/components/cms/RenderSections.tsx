@@ -84,18 +84,9 @@ const RenderSectionsBase = ({ sections = [], components }: Props) => {
 
         return (
           <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
-            {name === 'ProductGallery' ? (
-              <>
-                <div style={{ height: 700 }}></div>
-                <LazyLoadingSection name={name}>
-                  <Component {...data} />
-                </LazyLoadingSection>
-              </>
-            ) : (
-              <LazyLoadingSection name={name}>
-                <Component {...data} />
-              </LazyLoadingSection>
-            )}
+            <LazyLoadingSection name={name}>
+              <Component {...data} />
+            </LazyLoadingSection>
           </SectionBoundary>
         )
       })}
