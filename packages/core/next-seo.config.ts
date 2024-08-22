@@ -7,7 +7,7 @@ const config: DefaultSeoProps = {
   norobots: storeConfig.experimental.noRobots,
   additionalMetaTags: [
     {
-      name: 'data-generated-at',
+      name: 'generated-at',
       content: buildTime,
     },
   ],
