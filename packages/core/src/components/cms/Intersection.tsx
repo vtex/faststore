@@ -51,7 +51,7 @@ function Intersection({
           // height value like 500 is required to make sections out of the viewport to be rendered on demand
           style={{
             // border: isShow ? '2px solid red' : '2px solid blue', // debug
-            height: 500,
+            height: 850,
             width: '100%',
           }}
         ></div>
