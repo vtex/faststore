@@ -3,17 +3,17 @@ import chalk from 'chalk'
 import { spawnSync } from 'child_process'
 import { existsSync } from 'fs'
 import { copySync, moveSync, readdirSync, removeSync } from 'fs-extra'
+import { getPreferredPackageManager } from '../utils/commands'
 import { withBasePath } from '../utils/directory'
 import { generate } from '../utils/generate'
-import { getPreferredPackageManager } from '../utils/commands'
 
 export default class Build extends Command {
-
   static args = [
     {
       name: 'path',
-      description: 'The path where the FastStore being built is. Defaults to cwd.',
-    }
+      description:
+        'The path where the FastStore being built is. Defaults to cwd.',
+    },
   ]
 
   async run() {

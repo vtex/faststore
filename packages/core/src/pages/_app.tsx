@@ -1,17 +1,12 @@
-// FastStore UI's base styles
-import '../styles/global/index.scss'
-
-import '../customizations/src/themes/index.scss'
-
+import { UIProvider } from '@faststore/ui'
 import type { AppProps } from 'next/app'
 import NextNProgress from 'nextjs-progressbar'
-
-import { UIProvider } from '@faststore/ui'
 import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
-
-import storeConfig from '../../faststore.config'
+import SEO from '../../next-seo.config'
+import '../customizations/src/themes/index.scss'
+import '../styles/global/index.scss'
 
 import { DefaultSeo } from 'next-seo'
 
@@ -24,7 +19,7 @@ function App({ Component, pageProps }: AppProps) {
         options={{ showSpinner: false }}
       />
 
-      <DefaultSeo norobots={storeConfig.experimental.noRobots} />
+      <DefaultSeo {...SEO} />
 
       <AnalyticsHandler />
 
