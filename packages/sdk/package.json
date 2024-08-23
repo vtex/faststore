@@ -1,6 +1,6 @@
 {
   "name": "@faststore/sdk",
-  "version": "3.0.94",
+  "version": "3.0.95",
   "description": "Hooks for creating your next component library",
   "license": "MIT",
   "repository": {
@@ -37,7 +37,7 @@
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@faststore/shared": "^3.0.94",
+    "@faststore/shared": "^3.0.95",
     "@size-limit/preset-small-lib": "^7.0.8",
     "@testing-library/react-hooks": "^8.0.1",
     "fake-indexeddb": "^3.1.3",
