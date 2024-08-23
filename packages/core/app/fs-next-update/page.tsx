@@ -80,10 +80,30 @@ async function Page() {
     data: serverData,
   }
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    url: storeConfig.storeUrl,
+    potentialAction: [
+      {
+        '@type': 'SearchAction',
+        target: `${storeConfig.storeUrl}/s/?q={search_term_string}`,
+        'query-input': 'required name=search_term_string',
+      },
+    ],
+  }
+
   return (
-    <PageProvider context={context}>
-      <RenderSections sections={sections} components={COMPONENTS} />
-    </PageProvider>
+    <>
+      {/* Adding JSON-LD schema to the page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <PageProvider context={context}>
+        <RenderSections sections={sections} components={COMPONENTS} />
+      </PageProvider>
+    </>
   )
 }
 
