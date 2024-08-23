@@ -6,7 +6,7 @@ import { OverriddenDefaultBannerText as BannerText } from 'app/components/sectio
 import type { NewsletterProps } from 'app/components/sections/Newsletter'
 import { OverriddenDefaultNewsletter as Newsletter } from 'app/components/sections/Newsletter/OverriddenDefaultNewsletter'
 
-import Section from '../Section'
+import Section from 'src/components/sections/Section'
 import styles from './section.module.scss'
 
 function BannerNewsletter({
