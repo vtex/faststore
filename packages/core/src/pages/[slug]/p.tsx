@@ -19,7 +19,7 @@ import { OverriddenDefaultCrossSellingShelf as CrossSellingShelf } from 'src/com
 import { OverriddenDefaultNewsletter as Newsletter } from 'app/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductDetails as ProductDetails } from 'src/components/sections/ProductDetails/OverriddenDefaultProductDetails'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'app/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
+import ProductTiles from 'app/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { useSession } from 'src/sdk/session'
 import { mark } from 'src/sdk/tests/mark'
