@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from "react";
 import React, { forwardRef } from 'react'
 
-import { Icon } from '../..'
+import { IconButton, Icon } from '../..'
 
 export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> {
   /**
@@ -45,7 +45,8 @@ const Card = forwardRef<HTMLDivElement, CardProps>(function Card({
       <div data-fs-card-header>
         <div data-fs-card-title>{title}</div>
         {iconName && (
-          <Icon name={iconName} width={20} height={20} weight="bold" color={iconColor} onClick={iconAction} />
+          <IconButton icon={<Icon name={iconName} width={20} height={20} />}
+            aria-label={`${title} action`} color={iconColor} onClick={iconAction} />
         )}
       </div>
       <div data-fs-card-body>
