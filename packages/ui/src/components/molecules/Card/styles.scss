@@ -12,6 +12,7 @@
   --fs-card-header-padding                        : var(--fs-spacing-3);
   --fs-card-header-bkg-color                      : var(--fs-color-neutral-bkg);
   --fs-card-header-font-weight                    : var(--fs-text-weight-bold);
+  --fs-card-header-icon-color                     : var(--fs-color-main-2);
 
   // Body
   --fs-card-body-padding                          : var(--fs-spacing-3);
@@ -32,6 +33,9 @@
     justify-content: space-between;
     [data-fs-button]{
       --fs-button-height: var(--fs-spacing-4);
+    }
+    [data-fs-icon]{
+      color: var(--fs-card-header-icon-color);
     }
   }
 

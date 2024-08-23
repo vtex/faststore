@@ -7,7 +7,7 @@ export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> 
   /**
   * Specifies the text to be loaded into the header.
   */
-  title?: string
+  title: string
   /**
   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
   */
@@ -21,10 +21,6 @@ export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> 
   */
   iconName?: string
   /**
-  * Specifies the icon's color
-  */
-  iconColor?: string
-  /**
   * Function that should be executed when the icon is clicked
   */
   iconAction?: () => void
@@ -35,7 +31,6 @@ const Card = forwardRef<HTMLDivElement, CardProps>(function Card({
   maxWidth,
   testId = 'fs-card',
   iconName,
-  iconColor,
   iconAction,
   children,
   ...otherProps
@@ -46,7 +41,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(function Card({
         <div data-fs-card-title>{title}</div>
         {iconName && (
           <IconButton icon={<Icon name={iconName} width={20} height={20} />}
-            aria-label={`${title} action`} color={iconColor} onClick={iconAction} />
+            aria-label={`${title} action`} onClick={iconAction} />
         )}
       </div>
       <div data-fs-card-body>
