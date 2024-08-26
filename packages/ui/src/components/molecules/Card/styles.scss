@@ -31,9 +31,11 @@
     font-weight: var(--fs-card-header-font-weight);
     display: flex;
     justify-content: space-between;
+
     [data-fs-button]{
       --fs-button-height: var(--fs-spacing-4);
     }
+
     [data-fs-icon]{
       color: var(--fs-card-header-icon-color);
     }
