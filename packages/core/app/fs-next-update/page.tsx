@@ -63,6 +63,7 @@ export async function generateMetadata() {
     alternates: {
       canonical: settings?.seo?.canonical ?? storeConfig.storeUrl,
     },
+    metadataBase: new URL(storeConfig.storeUrl),
     openGraph: {
       type: 'website',
       url: storeConfig.storeUrl,
