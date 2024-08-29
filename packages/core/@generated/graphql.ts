@@ -1473,18 +1473,13 @@ export type ClientProductGalleryQueryQuery = {
           max: { selected: number; absolute: number }
         }
     >
-    metadata: {
-      isTermMisspelled: boolean
-      logicalOperator: string
-      fuzzy: string
-    } | null
+    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
   }
 }
 
 export type SearchEvent_MetadataFragment = {
   isTermMisspelled: boolean
   logicalOperator: string
-  fuzzy: string
 }
 
 export type ClientProductQueryQueryVariables = Exact<{
@@ -1570,11 +1565,7 @@ export type ClientSearchSuggestionsQueryQuery = {
       }>
     }
     products: { pageInfo: { totalCount: number } }
-    metadata: {
-      isTermMisspelled: boolean
-      logicalOperator: string
-      fuzzy: string
-    } | null
+    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
   }
 }
 
@@ -2019,7 +2010,6 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(
     fragment SearchEvent_metadata on SearchMetadata {
   isTermMisspelled
   logicalOperator
-  fuzzy
 }
     `,
   { fragmentName: 'SearchEvent_metadata' }
@@ -2072,7 +2062,7 @@ export const ClientManyProductsQueryDocument = {
 export const ClientProductGalleryQueryDocument = {
   __meta__: {
     operationName: 'ClientProductGalleryQuery',
-    operationHash: 'bfc40da32b60f9404a4adb96b0856e3fbb04b076',
+    operationHash: '177fe68cb385737b0901fc9e105f0a4813e18a20',
   },
 } as unknown as TypedDocumentString<
   ClientProductGalleryQueryQuery,
@@ -2090,7 +2080,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '47af7b9c9e0fb18b01050767daf3e765f67819ac',
+    operationHash: '71809c86cb940861f01bcc57dbaf57e6f41cb378',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
