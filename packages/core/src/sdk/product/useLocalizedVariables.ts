@@ -13,12 +13,7 @@ export const useLocalizedVariables = ({
   term,
   selectedFacets,
 }: Partial<ClientManyProductsQueryQueryVariables>) => {
-  const { channel: sessionChannel, locale } = useSession()
-  // It's not needed to send hasOnlyDefaultSalesChannel on the query,
-  // so we remove it from the channel object to avoid unnecessary cache invalidations and query executions
-  const { hasOnlyDefaultSalesChannel, ...filteredChannel } =
-    JSON.parse(sessionChannel)
-  const channel = JSON.stringify(filteredChannel)
+  const { channel, locale } = useSession()
 
   return useMemo(() => {
     const facets = toArray(selectedFacets)
