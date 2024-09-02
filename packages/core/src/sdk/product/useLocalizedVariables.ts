@@ -1,7 +1,7 @@
-import { useMemo } from 'react'
 import { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
-import { useSession } from '../session'
+import { useMemo } from 'react'
 import { ITEMS_PER_SECTION } from 'src/constants'
+import { useSession } from '../session'
 
 const toArray = <T>(x: T[] | T | undefined) =>
   Array.isArray(x) ? x : x ? [x] : []
@@ -13,7 +13,12 @@ export const useLocalizedVariables = ({
   term,
   selectedFacets,
 }: Partial<ClientManyProductsQueryQueryVariables>) => {
-  const { channel, locale } = useSession()
+  const { channel: sessionChannel, locale } = useSession()
+  // It's not needed to send hasOnlyDefaultSalesChannel on the query,
+  // so we remove it from the channel object to avoid unnecessary cache invalidations and query executions
+  const { hasOnlyDefaultSalesChannel, ...filteredChannel } =
+    JSON.parse(sessionChannel)
+  const channel = JSON.stringify(filteredChannel)
 
   return useMemo(() => {
     const facets = toArray(selectedFacets)
