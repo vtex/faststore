@@ -291,6 +291,7 @@ export const Query = {
       return null
     }
 
+    // TODO pass showSponsored here
     const { redirect } = await ctx.clients.search.products({
       page: 1,
       count: 1,

@@ -13,6 +13,7 @@ import type {
 } from './types/FacetSearchResult'
 import type {
   ProductSearchResult,
+  SponsoredSearchResult,
   Suggestion,
 } from './types/ProductSearchResult'
 import { getStoreCookie } from '../../utils/cookies'
@@ -31,11 +32,12 @@ export interface SearchArgs {
   query?: string
   page: number
   count: number
-  type: 'product_search' | 'facets'
+  type: 'product_search' | 'facets' | 'sponsored_products'
   sort?: Sort
   selectedFacets?: SelectedFacet[]
   fuzzy?: '0' | '1' | 'auto'
   hideUnavailableItems?: boolean
+  showSponsored?: boolean
 }
 
 export interface ProductLocator {
@@ -76,7 +78,7 @@ const isOperatorFacet = (facet: SelectedFacet): facet is OperatorFacet => {
 }
 
 export const IntelligentSearch = (
-  { account, environment, hideUnavailableItems }: Options,
+  { account, environment, hideUnavailableItems, showSponsored }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br/api/io`
@@ -170,6 +172,10 @@ export const IntelligentSearch = (
       params.append('hideUnavailableItems', hideUnavailableItems.toString())
     }
 
+    if (showSponsored !== undefined) {
+      params.append('showSponsored', showSponsored.toString())
+    }
+
     const pathname = addDefaultFacets(selectedFacets)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
@@ -185,6 +191,9 @@ export const IntelligentSearch = (
 
   const products = (args: Omit<SearchArgs, 'type'>) =>
     search<ProductSearchResult>({ ...args, type: 'product_search' })
+
+  const sponsoredProducts = (args: Omit<SearchArgs, 'type'>) =>
+    search<SponsoredSearchResult>({ ...args, type: 'sponsored_products' })
 
   const suggestedTerms = (
     args: Omit<SearchArgs, 'type'>
@@ -219,6 +228,7 @@ export const IntelligentSearch = (
   return {
     facets,
     products,
+    sponsoredProducts,
     suggestedTerms,
     topSearches,
   }
