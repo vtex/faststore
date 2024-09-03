@@ -93,8 +93,8 @@ function ProductGallery({
   const facets = useDelayedFacets(data) ?? []
   const { next, prev } = useDelayedPagination(totalCount)
 
-  useProductsPrefetch(prev ? prev.cursor : null)
-  useProductsPrefetch(next ? next.cursor : null)
+  // useProductsPrefetch(prev ? prev.cursor : null)
+  // useProductsPrefetch(next ? next.cursor : null)
 
   const hasFacetsLoaded = Boolean(data?.search?.facets)
   const hasProductsLoaded = Boolean(data?.search?.products)
