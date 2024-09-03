@@ -1,11 +1,7 @@
 import { fetchAPI } from '../fetch'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
 import type { Context, Options } from '../../'
-import type {
-  SelectedFacet,
-  FuzzyFacet,
-  OperatorFacet,
-} from '../../utils/facets'
+import type { SelectedFacet } from '../../utils/facets'
 import type {
   Facet,
   FacetValueBoolean,
@@ -43,37 +39,13 @@ export interface ProductLocator {
   value: string
 }
 
-// channel keys
 const POLICY_KEY = 'trade-policy'
 const REGION_KEY = 'region-id'
-
-// search parameters
-const FUZZY_KEY = 'fuzzy'
-const OPERATOR_KEY = 'operator'
-
-const EXTRA_FACETS_KEYS = new Set([
-  POLICY_KEY,
-  REGION_KEY,
-  FUZZY_KEY,
-  OPERATOR_KEY,
-])
+const CHANNEL_KEYS = new Set([POLICY_KEY, REGION_KEY])
 
 export const isFacetBoolean = (
   facet: Facet
 ): facet is Facet<FacetValueBoolean> => facet.type === 'TEXT'
-
-const isFuzzyFacet = (facet: SelectedFacet): facet is FuzzyFacet => {
-  return (
-    facet.key === 'fuzzy' &&
-    (facet.value === '0' || facet.value === '1' || facet.value === 'auto')
-  )
-}
-
-const isOperatorFacet = (facet: SelectedFacet): facet is OperatorFacet => {
-  return (
-    facet.key === 'operator' && (facet.value === 'and' || facet.value === 'or')
-  )
-}
 
 export const IntelligentSearch = (
   { account, environment, hideUnavailableItems }: Options,
@@ -113,9 +85,7 @@ export const IntelligentSearch = (
   }
 
   const addDefaultFacets = (facets: SelectedFacet[]) => {
-    const withDefaultFacets = facets.filter(
-      ({ key }) => !EXTRA_FACETS_KEYS.has(key)
-    )
+    const withDefaultFacets = facets.filter(({ key }) => !CHANNEL_KEYS.has(key))
 
     const policyFacet =
       facets.find(({ key }) => key === POLICY_KEY) ?? getPolicyFacet()
@@ -134,22 +104,6 @@ export const IntelligentSearch = (
     return withDefaultFacets
   }
 
-  const addSearchParamsFacets = (
-    facets: SelectedFacet[],
-    params: URLSearchParams
-  ) => {
-    const fuzzyFacet = facets.find(({ key }) => key === FUZZY_KEY) ?? null
-    const operatorFacet = facets.find(({ key }) => key === OPERATOR_KEY) ?? null
-
-    if (fuzzyFacet && isFuzzyFacet(fuzzyFacet)) {
-      params.append(FUZZY_KEY, fuzzyFacet.value)
-    }
-
-    if (operatorFacet && isOperatorFacet(operatorFacet)) {
-      params.append(OPERATOR_KEY, operatorFacet.value)
-    }
-  }
-
   const search = <T>({
     query = '',
     page,
@@ -157,12 +111,14 @@ export const IntelligentSearch = (
     sort = '',
     selectedFacets = [],
     type,
+    fuzzy = 'auto',
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
       count: count.toString(),
       query,
       sort,
+      fuzzy,
       locale: ctx.storage.locale,
     })
 
@@ -173,8 +129,6 @@ export const IntelligentSearch = (
     const pathname = addDefaultFacets(selectedFacets)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
-
-    addSearchParamsFacets(selectedFacets, params)
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,

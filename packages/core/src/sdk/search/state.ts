@@ -5,12 +5,7 @@ export const useApplySearchState = () => {
   const router = useRouter()
 
   return useCallback(
-    (url: URL) => {
-      const newUrl = `${url.pathname}${url.search}`
-      return url.searchParams.has('fuzzy') && url.searchParams.has('operator')
-        ? router.replace(newUrl)
-        : router.push(newUrl)
-    },
+    (url: URL) => router.push(`${url.pathname}${url.search}`),
     [router]
   )
 }

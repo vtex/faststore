@@ -1,18 +1,17 @@
 import { sendAnalyticsEvent } from '@faststore/sdk'
-import { useSearch, setFacet } from '@faststore/sdk'
 
 import { gql } from '@generated'
 import { useQuery } from 'src/sdk/graphql/useQuery'
-import { useLocalizedVariables } from './useLocalizedVariables'
 import { useSession } from 'src/sdk/session'
+import { useLocalizedVariables } from './useLocalizedVariables'
 
+import { Facet } from '@faststore/sdk/dist/types'
 import type {
   ClientManyProductsQueryQueryVariables,
   ClientProductGalleryQueryQuery as Query,
   ClientProductGalleryQueryQueryVariables as Variables,
 } from '@generated/graphql'
 import type { IntelligentSearchQueryEvent } from 'src/sdk/analytics/types'
-import type { Facet } from '@faststore/sdk/dist/types'
 
 /**
  * This query is run on the browser and contains
@@ -52,13 +51,10 @@ export const query = gql(`
       }
     }
   }
-`)
 
-export const fragment = gql(`
   fragment SearchEvent_metadata on SearchMetadata {
     isTermMisspelled
     logicalOperator
-    fuzzy
   }
 `)
 
@@ -76,8 +72,6 @@ export const useProductGalleryQuery = ({
   itemsPerPage,
 }: ProductGalleryQueryOptions) => {
   const { locale } = useSession()
-  const { state, setState } = useSearch()
-
   const localizedVariables = useLocalizedVariables({
     first: itemsPerPage,
     after: '0',
@@ -86,49 +80,20 @@ export const useProductGalleryQuery = ({
     selectedFacets,
   })
 
-  const findFacetValue = (
-    facets: Facet[],
-    searchParam: string
-  ): string | null => {
-    const facet = facets.find(({ key }) => key === searchParam)
-    return facet?.value ?? null
-  }
-
   return useQuery<Query, Variables>(query, localizedVariables, {
     onSuccess: (data) => {
-      if (data) {
-        // Cancel query onSuccess event when redirecting
-        if (data?.redirect?.url) {
-          return
-        }
-
-        const fuzzyFacetValue = findFacetValue(selectedFacets, 'fuzzy')
-        const operatorFacetValue = findFacetValue(selectedFacets, 'operator')
-
-        if (!fuzzyFacetValue && !operatorFacetValue) {
-          setState({
-            ...state,
-            selectedFacets: [
-              ...selectedFacets,
-              { key: 'fuzzy', value: data.search.metadata?.fuzzy },
-              { key: 'operator', value: data.search.metadata?.logicalOperator },
-            ],
-          })
-        }
-
-        if (term) {
-          sendAnalyticsEvent<IntelligentSearchQueryEvent>({
-            name: 'intelligent_search_query',
-            params: {
-              locale,
-              term,
-              url: window.location.href,
-              logicalOperator: data.search.metadata?.logicalOperator ?? 'and',
-              isTermMisspelled: data.search.metadata?.isTermMisspelled ?? false,
-              totalCount: data.search.products.pageInfo.totalCount,
-            },
-          })
-        }
+      if (data && term) {
+        sendAnalyticsEvent<IntelligentSearchQueryEvent>({
+          name: 'intelligent_search_query',
+          params: {
+            locale,
+            term,
+            url: window.location.href,
+            logicalOperator: data.search.metadata?.logicalOperator ?? 'and',
+            isTermMisspelled: data.search.metadata?.isTermMisspelled ?? false,
+            totalCount: data.search.products.pageInfo.totalCount,
+          },
+        })
       }
     },
   })
