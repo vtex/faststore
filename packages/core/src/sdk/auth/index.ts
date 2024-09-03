@@ -1,7 +1,11 @@
 import { useSession } from '../session'
 
 export const useAuth = () => {
-  const { person, isValidating, channel: channelJson } = useSession()
+  const {
+    person,
+    isValidating,
+    channel: channelJson,
+  } = useSession({ filter: false })
 
   const channel = JSON.parse(channelJson) as {
     salesChannel: number

@@ -69,15 +69,37 @@ export const sessionStore = {
   },
 }
 
-export const useSession = () => {
-  const session = useStore(sessionStore)
+interface SessionOptions {
+  filter?: boolean
+}
+
+/**
+ * This custom hook is used to retrieve the session data and filter the channel object.
+ * The channel object filtering removes the hasOnlyDefaultSalesChannel key.
+ * This key is used only in the useAuth hook and is only required to send on the ValidateSession mutation,
+ * so we remove it from the session's channel object to avoid unnecessary cache invalidations and query executions.
+ *
+ * @param options - Optional configuration for the hook.
+ * @param options.filter - A boolean value indicating whether to filter the channel object or not. Default is true.
+ * @returns An object containing the session data, channel object, and a flag indicating whether the session is being validated.
+ */
+
+export const useSession = ({ filter }: SessionOptions = { filter: true }) => {
+  let { channel, ...session } = useStore(sessionStore)
   const isValidating = useStore(validationStore)
+
+  if (filter) {
+    const { hasOnlyDefaultSalesChannel, ...filteredChannel } =
+      JSON.parse(channel)
+    channel = JSON.stringify(filteredChannel)
+  }
 
   return useMemo(
     () => ({
       ...session,
+      channel,
       isValidating,
     }),
-    [isValidating, session]
+    [isValidating, session, channel]
   )
 }
