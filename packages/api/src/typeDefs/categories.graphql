@@ -1,0 +1,10 @@
+"""
+Item of a Category.
+"""
+type StoreCategoryItem {
+  """
+  Name of the Category.
+  """
+  name: String!
+
+}

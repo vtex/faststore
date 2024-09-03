@@ -45,6 +45,19 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   image: Resolver<Root, any, StoreImage[]>
 } = {
   productID: ({ itemId }) => itemId,
+  categoryId: ({ isVariantOf: { categoryId }}) => categoryId,
+  categories: ({ isVariantOf: { categories }}) => {
+    const categoriesOnj = categories.reverse().map((categoryPath:string, index:number) => {
+      const splitted = categoryPath.split('/')
+      const name = splitted[splitted.length - 2]
+
+      return {
+        name,
+        position: index + 1,
+      }
+    })
+    return  categoriesOnj
+  },
   name: ({ isVariantOf, name }) => name ?? isVariantOf.productName,
   slug: ({ isVariantOf: { linkText }, itemId }) => getSlug(linkText, itemId),
   description: ({ isVariantOf: { description } }) => description,
