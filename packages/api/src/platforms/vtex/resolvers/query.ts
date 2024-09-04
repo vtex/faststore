@@ -86,6 +86,8 @@ export const Query = {
         throw new NotFoundError(`No product found for slug ${slug}`)
       }
 
+      console.log('@faststore/api ~> vtex/resolvers/query slug', slug)
+
       const {
         products: [product],
       } = await search.products({

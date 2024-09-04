@@ -69,7 +69,7 @@ export const IntelligentSearch = (
   const getRegionFacet = (region?: string): IStoreSelectedFacet | null => {
     const { regionId, seller } = ctx.storage.channel
     const sellerRegionId = seller ? Buffer.from(`SW#${seller}`).toString('base64') : null
-    const facet = sellerRegionId ?? regionId ?? region
+    const facet = sellerRegionId ?? region ?? regionId
 
     console.log('@faststore/api ~> getRegionFacet', facet)
 
