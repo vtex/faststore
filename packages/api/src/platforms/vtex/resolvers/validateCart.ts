@@ -156,7 +156,7 @@ const orderFormToCart = async (
       orderNumber: form.orderFormId,
       acceptedOffer: form.items.map(async (item) => ({
         ...item,
-        product: await skuLoader.load(item.id),
+        product: await skuLoader.load(`${item.id}-invisibleItems`),
       })),
     },
     messages: form.messages.map(({ text, status }) => ({
@@ -316,7 +316,7 @@ export const validateCart = async (
   const orderNumber = order?.orderNumber
     ? order.orderNumber
     : getCookieCheckoutOrderNumber(ctx.headers.cookie, 'checkout.vtex.com')
-  
+
   const { acceptedOffer, shouldSplitItem } = order
   const {
     clients: { commerce },
