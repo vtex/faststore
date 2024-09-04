@@ -109,18 +109,18 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
   return isSameOrder && orderItemsAreSync
 }
 
-function hasChild(items: OrderFormItem[], itemId: string) {
+function hasChildItem(items: OrderFormItem[], itemId: string) {
   return items.some(item => item.parentItemIndex && items[item.parentItemIndex].id === itemId)
 }
 
-function hasParent(items: OrderFormItem[], itemId: string) {
+function hasParentItem(items: OrderFormItem[], itemId: string) {
   return items.some(item => item.id === itemId && item.parentItemIndex !== null)
 }
 
 const joinItems = (form: OrderForm) => {
   const itemsById = form.items.reduce(
     (acc, item, idx) => {
-      const id = hasParent(form.items, item.id) || hasChild(form.items, item.id) ? 
+      const id = hasParentItem(form.items, item.id) || hasChildItem(form.items, item.id) ? 
         `${getId(orderFormItemToOffer(item))}::${idx}` : 
         getId(orderFormItemToOffer(item))
 
@@ -388,10 +388,10 @@ export const validateCart = async (
       // Update existing items
       const [head, ...tail] = maybeOriginItem
 
-      if(hasParent(orderForm.items, head.itemOffered.sku) || hasChild(orderForm.items, head.itemOffered.sku)) {
+      if(hasParentItem(orderForm.items, head.itemOffered.sku) || hasChildItem(orderForm.items, head.itemOffered.sku)) {
         acc.itemsToUpdate.push(head)
 
-        return acc;
+        return acc
       }
 
       const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
