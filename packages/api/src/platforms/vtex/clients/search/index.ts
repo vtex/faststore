@@ -31,6 +31,7 @@ export interface SearchArgs {
   selectedFacets?: SelectedFacet[]
   fuzzy?: '0' | '1' | 'auto'
   hideUnavailableItems?: boolean
+  showInvisibleItems?: boolean
 }
 
 export interface ProductLocator {
@@ -106,6 +107,7 @@ export const IntelligentSearch = (
     selectedFacets = [],
     type,
     fuzzy = 'auto',
+    showInvisibleItems,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
@@ -115,6 +117,10 @@ export const IntelligentSearch = (
       fuzzy,
       locale: ctx.storage.locale,
     })
+
+    if (showInvisibleItems) {
+      params.append('show-invisible-items', 'true')
+    }
 
     if (hideUnavailableItems !== undefined) {
       params.append('hideUnavailableItems', hideUnavailableItems.toString())
