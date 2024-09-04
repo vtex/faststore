@@ -31,6 +31,7 @@ export interface SearchArgs {
   selectedFacets?: SelectedFacet[]
   fuzzy?: '0' | '1' | 'auto'
   hideUnavailableItems?: boolean
+  region?: string
 }
 
 export interface ProductLocator {
@@ -65,10 +66,12 @@ export const IntelligentSearch = (
     }
   }
 
-  const getRegionFacet = (): IStoreSelectedFacet | null => {
+  const getRegionFacet = (region?: string): IStoreSelectedFacet | null => {
     const { regionId, seller } = ctx.storage.channel
     const sellerRegionId = seller ? Buffer.from(`SW#${seller}`).toString('base64') : null
-    const facet = sellerRegionId ?? regionId
+    const facet = sellerRegionId ?? regionId ?? region
+
+    console.log('@faststore/api ~> getRegionFacet', facet)
 
     if (!facet) {
       return null
@@ -80,14 +83,14 @@ export const IntelligentSearch = (
     }
   }
 
-  const addDefaultFacets = (facets: SelectedFacet[]) => {
+  const addDefaultFacets = (facets: SelectedFacet[], region?: string) => {
     const withDefaltFacets = facets.filter(({ key }) => !CHANNEL_KEYS.has(key))
 
     const policyFacet =
       facets.find(({ key }) => key === POLICY_KEY) ?? getPolicyFacet()
 
     const regionFacet =
-      facets.find(({ key }) => key === REGION_KEY) ?? getRegionFacet()
+      facets.find(({ key }) => key === REGION_KEY) ?? getRegionFacet(region)
 
     if (policyFacet !== null) {
       withDefaltFacets.push(policyFacet)
@@ -108,6 +111,7 @@ export const IntelligentSearch = (
     selectedFacets = [],
     type,
     fuzzy = 'auto',
+    region,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
@@ -122,7 +126,7 @@ export const IntelligentSearch = (
       params.append('hideUnavailableItems', hideUnavailableItems.toString())
     }
 
-    const pathname = addDefaultFacets(selectedFacets)
+    const pathname = addDefaultFacets(selectedFacets, region)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
