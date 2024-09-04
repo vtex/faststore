@@ -66,15 +66,17 @@ export const IntelligentSearch = (
   }
 
   const getRegionFacet = (): IStoreSelectedFacet | null => {
-    const { regionId } = ctx.storage.channel
+    const { regionId, seller } = ctx.storage.channel
+    const sellerRegionId = seller ? Buffer.from(`SW#${seller}`).toString('base64') : null
+    const facet = sellerRegionId ?? regionId
 
-    if (!regionId) {
+    if (!facet) {
       return null
     }
 
     return {
       key: REGION_KEY,
-      value: regionId,
+      value: facet,
     }
   }
 

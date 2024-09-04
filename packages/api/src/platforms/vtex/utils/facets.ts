@@ -1,4 +1,3 @@
-import ChannelMarshal from './channel'
 import type { Maybe } from '../../../__generated__/schema'
 import { BadRequestError } from '../../errors'
 
@@ -27,27 +26,12 @@ export const FACET_CROSS_SELLING_MAP = {
  * */
 export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
   switch (key) {
-    case 'channel': {
-      const channel = ChannelMarshal.parse(value)
-      const channelFacets = [
-        { key: 'trade-policy', value: channel.salesChannel },
-      ]
-
-      if (channel.regionId) {
-        channelFacets.push({ key: 'region-id', value: channel.regionId })
-      }
-
-      return channelFacets
-    }
-
-    case 'locale': {
-      return [] // remove this facet from search
-    }
-
     case 'price': {
       return { key, value: value.replace('-to-', ':') }
     }
 
+    case 'channel':
+    case 'locale':
     case "buy":
     case "view":
     case "similars":

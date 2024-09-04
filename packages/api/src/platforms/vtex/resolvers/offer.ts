@@ -57,10 +57,10 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
 
     return null
   },
-  seller: (root) => {
+  seller: (root, _, ctx) => {
     if (isSearchItem(root)) {
       return {
-        identifier: root.seller.sellerId ?? '',
+        identifier: ctx.storage.channel?.seller || root.seller.sellerId || '',
       }
     }
 

@@ -1,4 +1,5 @@
 export interface Channel {
+  seller?: string
   regionId?: string
   salesChannel?: string
 }
@@ -9,6 +10,7 @@ export default class ChannelMarshal {
       const parsedChannel = JSON.parse(channelString) as Channel
 
       return {
+        seller: parsedChannel.seller ?? '',
         regionId: parsedChannel.regionId ?? '',
         salesChannel: parsedChannel.salesChannel ?? '',
       }
