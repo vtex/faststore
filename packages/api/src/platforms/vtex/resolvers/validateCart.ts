@@ -110,11 +110,11 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
 }
 
 function hasChildItem(items: OrderFormItem[], itemId: string) {
-  return items.some(item => item.parentItemIndex && items[item.parentItemIndex].id === itemId)
+  return items?.some(item => item.parentItemIndex && items[item.parentItemIndex].id === itemId)
 }
 
 function hasParentItem(items: OrderFormItem[], itemId: string) {
-  return items.some(item => item.id === itemId && item.parentItemIndex !== null)
+  return items?.some(item => item.id === itemId && item.parentItemIndex !== null)
 }
 
 const joinItems = (form: OrderForm) => {
