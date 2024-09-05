@@ -1,9 +1,13 @@
 import { describe, expect, it } from '@jest/globals'
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
+import { axe, toHaveNoViolations } from 'jest-axe'
+
 import React from 'react'
 
 import { Card } from '../../../src/index'
+
+expect.extend(toHaveNoViolations)
 
 describe('Card', () => {
   const mockIconAction = jest.fn()
@@ -40,5 +44,12 @@ describe('Card', () => {
     iconButton.click()
 
     expect(mockIconAction).toHaveBeenCalled()
+  })
+
+  it('should not fail any accessibility tests', async () => {
+    const { container } = render(
+      <Card title="Test Card" iconName="star" iconAction={mockIconAction} />
+    )
+    expect(await axe(container)).toHaveNoViolations()
   })
 })
