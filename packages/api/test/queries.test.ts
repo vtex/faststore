@@ -1,18 +1,5 @@
 import { execute, parse } from 'graphql'
 
-import type { Options } from '../src'
-import { getSchema, getContextFactory } from '../src'
-import {
-  AllProductsQueryFirst5,
-  productSearchPage1Count5Fetch,
-} from '../mocks/AllProductsQuery'
-import {
-  CollectionDesksQuery,
-  pageTypeDesksFetch,
-  pageTypeOfficeDesksFetch,
-  pageTypeOfficeFetch,
-} from '../mocks/CollectionQuery'
-import { ProductByIdQuery, productSearchFetch } from '../mocks/ProductQuery'
 import {
   AllCollectionsQueryFirst5,
   catalogBrandListFetch,
@@ -21,24 +8,37 @@ import {
   catalogPageTypeAdidas,
   catalogPageTypeBrand,
   catalogPageTypeIRobot,
-  catalogPageTypeSkechers,
+  catalogPageTypeSkechers
 } from '../mocks/AllCollectionsQuery'
 import {
-  SearchQueryFirst5Products,
-  productSearchCategory1Fetch,
-  attributeSearchCategory1Fetch,
-} from '../mocks/SearchQuery'
-import { salesChannelStaleFetch } from '../mocks/salesChannel'
+  AllProductsQueryFirst5,
+  productSearchPage1Count5Fetch
+} from '../mocks/AllProductsQuery'
 import {
-  shippingSimulationFetch,
-  addressFetch,
-  ShippingSimulationQueryResult,
-} from '../mocks/ShippingQuery'
+  CollectionDesksQuery,
+  pageTypeDesksFetch,
+  pageTypeOfficeDesksFetch,
+  pageTypeOfficeFetch
+} from '../mocks/CollectionQuery'
+import { ProductByIdQuery, productSearchFetch } from '../mocks/ProductQuery'
 import {
   RedirectQueryTermTech,
-  redirectTermTechFetch,
+  redirectTermTechFetch
 } from '../mocks/RedirectQuery'
-import { SellersQueryResult, regionFetch } from '../mocks/SellersQuery'
+import { salesChannelStaleFetch } from '../mocks/salesChannel'
+import {
+  attributeSearchCategory1Fetch,
+  productSearchCategory1Fetch,
+  SearchQueryFirst5Products
+} from '../mocks/SearchQuery'
+import { regionFetch, SellersQueryResult } from '../mocks/SellersQuery'
+import {
+  addressFetch,
+  shippingSimulationFetch,
+  ShippingSimulationQueryResult
+} from '../mocks/ShippingQuery'
+import type { Options } from '../src'
+import { getContextFactory, getSchema } from '../src'
 
 const apiOptions = {
   platform: 'vtex',
@@ -47,7 +47,10 @@ const apiOptions = {
   channel: '{"salesChannel":"1"}',
   locale: 'en-US',
   subDomainPrefix: ['www'],
-  hideUnavailableItems: false,
+  searchOptions: {
+    hideUnavailableItems: false,
+    simulationBehavior: 'skip',
+  },
   incrementAddress: false,
   flags: {
     enableOrderFormSync: true,
@@ -128,7 +131,7 @@ test('`collection` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      fetchAPICall.options,
+      fetchAPICall.options
     )
   })
 
@@ -150,7 +153,7 @@ test('`product` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      fetchAPICall.options,
+      fetchAPICall.options
     )
   })
 
@@ -180,7 +183,7 @@ test('`allCollections` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      fetchAPICall.options,
+      fetchAPICall.options
     )
   })
 
@@ -202,7 +205,7 @@ test('`allProducts` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      fetchAPICall.options,
+      fetchAPICall.options
     )
   })
 
@@ -228,7 +231,7 @@ test('`search` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      fetchAPICall.options,
+      fetchAPICall.options
     )
   })
 
@@ -293,7 +296,7 @@ test('`sellers` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      fetchAPICall.options,
+      fetchAPICall.options
     )
   })
   expect(response).toMatchSnapshot()

@@ -81,7 +81,9 @@ beforeAll(async () => {
     channel: '{"salesChannel":"1"}',
     locale: 'en-US',
     subDomainPrefix: ['www'],
-    hideUnavailableItems: false,
+    searchOptions: {
+      hideUnavailableItems: false,
+    },
     incrementAddress: false,
     flags: {
       enableOrderFormSync: true,
