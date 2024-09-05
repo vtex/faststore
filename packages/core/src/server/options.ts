@@ -7,8 +7,13 @@ export const apiOptions: APIOptions = {
   account: storeConfig.api.storeId,
   environment: storeConfig.api.environment as APIOptions['environment'],
   subDomainPrefix: storeConfig.api.subDomainPrefix ?? ['www'],
-  hideUnavailableItems: storeConfig.api.hideUnavailableItems,
-  simulationBehavior: storeConfig.api.simulationBehavior,
+  searchOptions: {
+    hideUnavailableItems: storeConfig.api.hideUnavailableItems,
+    simulationBehavior: (storeConfig.api as Record<string, any>)
+      .simulationBehavior,
+    productOriginVtex: (storeConfig.api as Record<string, any>)
+      .productOriginVtex,
+  },
   incrementAddress: storeConfig.api.incrementAddress,
   channel: storeConfig.session.channel,
   locale: storeConfig.session.locale,

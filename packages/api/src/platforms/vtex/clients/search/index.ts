@@ -4,7 +4,9 @@ import { getStoreCookie } from '../../utils/cookies'
 import type { SelectedFacet } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 import type {
-  Facet, FacetSearchResult, FacetValueBoolean
+  Facet,
+  FacetSearchResult,
+  FacetValueBoolean
 } from './types/FacetSearchResult'
 import type {
   ProductSearchResult,
@@ -30,7 +32,6 @@ export interface SearchArgs {
   selectedFacets?: SelectedFacet[]
   fuzzy?: '0' | '1' | 'auto'
   hideUnavailableItems?: boolean
-  simulationBehavior?: 'default' | 'skip' | 'only1P'
 }
 
 export interface ProductLocator {
@@ -47,7 +48,15 @@ export const isFacetBoolean = (
 ): facet is Facet<FacetValueBoolean> => facet.type === 'TEXT'
 
 export const IntelligentSearch = (
-  { account, environment, hideUnavailableItems, simulationBehavior }: Options,
+  {
+    account,
+    environment,
+    searchOptions: {
+      hideUnavailableItems,
+      simulationBehavior,
+      productOriginVtex,
+    },
+  }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br/api/io`
@@ -127,6 +136,10 @@ export const IntelligentSearch = (
 
     if (simulationBehavior !== undefined) {
       params.append('simulationBehavior', simulationBehavior.toString())
+    }
+
+    if (productOriginVtex !== undefined) {
+      params.append('productOriginVtex', productOriginVtex.toString())
     }
 
     const pathname = addDefaultFacets(selectedFacets)

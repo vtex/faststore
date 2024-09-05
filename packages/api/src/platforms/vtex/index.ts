@@ -35,9 +35,12 @@ export interface Options {
   subDomainPrefix: string[]
   channel: string
   locale: string
-  hideUnavailableItems: boolean
   incrementAddress: boolean
-  simulationBehavior?: 'default' | 'skip' | 'only1P'
+  searchOptions: {
+    hideUnavailableItems: boolean
+    simulationBehavior?: 'default' | 'skip' | 'only1P'
+    productOriginVtex?: boolean
+  }
   flags?: FeatureFlags
 }
 
