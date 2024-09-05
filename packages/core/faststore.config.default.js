@@ -19,6 +19,7 @@ module.exports = {
     subDomainPrefix: ['www'],
     environment: 'vtexcommercestable',
     hideUnavailableItems: false,
+    showSponsored: false,
     incrementAddress: true,
   },
 
