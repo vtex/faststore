@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.50](https://github.com/vtex/faststore/compare/v1.12.49...v1.12.50) (2024-09-05)
+
+### Features
+
+- Consider `regionId` from PDP query ([#2433](https://github.com/vtex/faststore/issues/2433)) ([5fc392e](https://github.com/vtex/faststore/commit/5fc392ed13c24abb24ccafbc969970272aaa3cb7))
+
 ## 1.12.48 (2023-12-05)
 
 ### Chores
