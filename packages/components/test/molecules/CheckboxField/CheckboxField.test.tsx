@@ -1,4 +1,4 @@
-import { describe, it, expect } from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 import { render, screen } from '@testing-library/react'
 import React from 'react'
 
@@ -29,7 +29,7 @@ describe('CheckboxField', () => {
       expect(input.checked).toBe(true)
     })
 
-    it('should not be checked if the `checked `prop is not passed', () => {
+    it('should not be checked if the `checked` prop is not passed', () => {
       render(<CheckboxField id="identifier" label="Label" />)
       const input = screen.getByLabelText('Label') as HTMLInputElement
 
