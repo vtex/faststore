@@ -1,5 +1,6 @@
 import { execute, parse } from 'graphql'
 
+import { salesChannelStaleFetch } from '../mocks/salesChannel'
 import {
   checkoutOrderFormCustomDataInvalidFetch,
   checkoutOrderFormCustomDataStaleFetch,
@@ -12,11 +13,10 @@ import {
   InvalidCart,
   productSearchPage1Count1Fetch,
   ValidateCartMutation,
-  ValidCart,
+  ValidCart
 } from '../mocks/ValidateCartMutation'
-import { getContextFactory, getSchema } from '../src'
-import { salesChannelStaleFetch } from '../mocks/salesChannel'
 import type { Options } from '../src'
+import { getContextFactory, getSchema } from '../src'
 
 const apiOptions = {
   platform: 'vtex',
@@ -25,7 +25,9 @@ const apiOptions = {
   channel: '{"salesChannel":"1"}',
   locale: 'en-US',
   subDomainPrefix: ['www'],
-  hideUnavailableItems: false,
+  searchOptions: {
+    hideUnavailableItems: false,
+  },
   incrementAddress: false,
   flags: {
     enableOrderFormSync: true,
@@ -106,7 +108,7 @@ test('`validateCart` mutation should return `null` when a valid cart is passed',
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      fetchAPICall.options,
+      fetchAPICall.options
     )
   })
 
