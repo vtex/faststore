@@ -1,6 +1,6 @@
 {
   "name": "site",
-  "version": "2.2.78",
+  "version": "2.2.79",
   "author": "Emerson Laurentino @emersonlaurentino",
   "license": "MIT",
   "private": true,
@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@faststore/api": "^2.2.78",
+    "@faststore/api": "^2.2.79",
     "@faststore/sdk": "^2.2.78",
     "@faststore/ui": "^2.2.78",
     "next": "13.0.7",
