@@ -5,8 +5,8 @@ import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
 import SEO from '../../next-seo.config'
-import '../customizations/src/themes/index.scss'
 import '../styles/global/index.scss'
+import '../customizations/src/themes/index.scss'
 
 import { DefaultSeo } from 'next-seo'
 
