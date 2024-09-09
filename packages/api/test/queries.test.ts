@@ -47,10 +47,8 @@ const apiOptions = {
   channel: '{"salesChannel":"1"}',
   locale: 'en-US',
   subDomainPrefix: ['www'],
-  searchOptions: {
-    hideUnavailableItems: false,
-    simulationBehavior: 'skip',
-  },
+  hideUnavailableItems: false,
+  simulationBehavior: 'skip',
   incrementAddress: false,
   flags: {
     enableOrderFormSync: true,

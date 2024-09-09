@@ -35,10 +35,8 @@ export interface Options {
   subDomainPrefix: string[]
   channel: string
   locale: string
-  searchOptions: {
-    hideUnavailableItems: boolean
-    simulationBehavior?: 'default' | 'skip' | 'only1P'
-  }
+  hideUnavailableItems: boolean
+  simulationBehavior?: 'default' | 'skip' | 'only1P'
   incrementAddress: boolean
   flags?: FeatureFlags
 }

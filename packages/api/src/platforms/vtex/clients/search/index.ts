@@ -4,11 +4,13 @@ import { getStoreCookie } from '../../utils/cookies'
 import type { SelectedFacet } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 import type {
-  Facet, FacetSearchResult, FacetValueBoolean
+  Facet,
+  FacetSearchResult,
+  FacetValueBoolean,
 } from './types/FacetSearchResult'
 import type {
   ProductSearchResult,
-  Suggestion
+  Suggestion,
 } from './types/ProductSearchResult'
 
 export type Sort =
@@ -47,11 +49,7 @@ export const isFacetBoolean = (
 ): facet is Facet<FacetValueBoolean> => facet.type === 'TEXT'
 
 export const IntelligentSearch = (
-  {
-    account,
-    environment,
-    searchOptions: { hideUnavailableItems, simulationBehavior },
-  }: Options,
+  { account, environment, hideUnavailableItems, simulationBehavior }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br/api/io`

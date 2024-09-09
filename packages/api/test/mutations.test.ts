@@ -13,7 +13,7 @@ import {
   InvalidCart,
   productSearchPage1Count1Fetch,
   ValidateCartMutation,
-  ValidCart
+  ValidCart,
 } from '../mocks/ValidateCartMutation'
 import type { Options } from '../src'
 import { getContextFactory, getSchema } from '../src'
@@ -25,9 +25,7 @@ const apiOptions = {
   channel: '{"salesChannel":"1"}',
   locale: 'en-US',
   subDomainPrefix: ['www'],
-  searchOptions: {
-    hideUnavailableItems: false,
-  },
+  hideUnavailableItems: false,
   incrementAddress: false,
   flags: {
     enableOrderFormSync: true,
