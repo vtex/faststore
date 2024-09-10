@@ -1,17 +1,17 @@
-import { fetchAPI } from '../fetch'
-import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
 import type { Context, Options } from '../../'
+import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
+import { getStoreCookie } from '../../utils/cookies'
 import type { SelectedFacet } from '../../utils/facets'
+import { fetchAPI } from '../fetch'
 import type {
   Facet,
-  FacetValueBoolean,
   FacetSearchResult,
+  FacetValueBoolean,
 } from './types/FacetSearchResult'
 import type {
   ProductSearchResult,
   Suggestion,
 } from './types/ProductSearchResult'
-import { getStoreCookie } from '../../utils/cookies'
 
 export type Sort =
   | 'price:desc'
@@ -49,7 +49,7 @@ export const isFacetBoolean = (
 ): facet is Facet<FacetValueBoolean> => facet.type === 'TEXT'
 
 export const IntelligentSearch = (
-  { account, environment, hideUnavailableItems }: Options,
+  { account, environment, hideUnavailableItems, simulationBehavior }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br/api/io`
@@ -130,6 +130,10 @@ export const IntelligentSearch = (
 
     if (hideUnavailableItems !== undefined) {
       params.append('hideUnavailableItems', hideUnavailableItems.toString())
+    }
+
+    if (simulationBehavior !== undefined) {
+      params.append('simulationBehavior', simulationBehavior.toString())
     }
 
     const pathname = addDefaultFacets(selectedFacets)

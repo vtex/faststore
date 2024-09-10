@@ -1,4 +1,7 @@
+import type { Clients } from './clients'
 import { getClients } from './clients'
+import type { SearchArgs } from './clients/search'
+import type { Loaders } from './loaders'
 import { getLoaders } from './loaders'
 import { StoreAggregateOffer } from './resolvers/aggregateOffer'
 import { StoreAggregateRating } from './resolvers/aggregateRating'
@@ -6,7 +9,7 @@ import { StoreCollection } from './resolvers/collection'
 import {
   StoreFacet,
   StoreFacetBoolean,
-  StoreFacetRange,
+  StoreFacetRange
 } from './resolvers/facet'
 import { StoreFacetValueBoolean } from './resolvers/faceValue'
 import { Mutation } from './resolvers/mutation'
@@ -21,11 +24,8 @@ import { StoreSearchResult } from './resolvers/searchResult'
 import { StoreSeo } from './resolvers/seo'
 import { ShippingSLA } from './resolvers/shippingSLA'
 import { SkuVariants } from './resolvers/skuVariations'
-import ChannelMarshal from './utils/channel'
-import type { Loaders } from './loaders'
-import type { Clients } from './clients'
 import type { Channel } from './utils/channel'
-import type { SearchArgs } from './clients/search'
+import ChannelMarshal from './utils/channel'
 
 export interface Options {
   platform: 'vtex'
@@ -36,6 +36,7 @@ export interface Options {
   channel: string
   locale: string
   hideUnavailableItems: boolean
+  simulationBehavior?: 'default' | 'skip' | 'only1P'
   incrementAddress: boolean
   flags?: FeatureFlags
 }
