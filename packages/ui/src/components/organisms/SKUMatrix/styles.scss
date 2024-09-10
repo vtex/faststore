@@ -1,0 +1,26 @@
+[data-fs-sku-matrix-sidebar] {
+  // --------------------------------------------------------
+  // Design Tokens for Cart Sidebar
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-sku-matrix-sidebar-bkg-color: var(--fs-color-neutral-bkg);
+  --fs-sku-matrix-sidebar-title-bkg-color: var(--fs-color-neutral-0);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
+
+  &[data-fs-slide-over] {
+    background-color: var(--fs-cart-sidebar-bkg-color);
+  }
+
+  > * {
+    flex-shrink: 0;
+  }
+}

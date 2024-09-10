@@ -67,12 +67,8 @@ export type {
   CarouselBulletsProps,
 } from './molecules/Carousel'
 
-export {
-  default as Card
-} from './molecules/Card'
-export type {
-  CardProps
-} from './molecules/Card'
+export { default as Card } from './molecules/Card'
+export type { CardProps } from './molecules/Card'
 
 export {
   default as CartItem,
@@ -360,3 +356,12 @@ export type {
   SlideOverProps,
   SlideOverHeaderProps,
 } from './organisms/SlideOver'
+
+export {
+  default as SKUMatrixTrigger,
+  SKUMatrixSidebar,
+} from './organisms/SKUMatrix'
+export type {
+  SKUMatrixTriggerProps,
+  SKUMatrixSidebarProps,
+} from './organisms/SKUMatrix'
