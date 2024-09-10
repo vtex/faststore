@@ -9,7 +9,7 @@ import { CheckboxField } from '../../../src/index'
 expect.extend(toHaveNoViolations)
 
 describe('CheckboxField', () => {
-  it('renders the CheckboxField component default state', () => {
+  it('renders the default state', () => {
     render(<CheckboxField label="Default" id="checkboxfield-default" />)
 
     const input = screen.getByLabelText('Default') as HTMLInputElement
@@ -17,14 +17,14 @@ describe('CheckboxField', () => {
     expect(input.checked).toBe(false)
   })
 
-  it('renders the CheckboxField component checked state', () => {
+  it('renders the checked state', () => {
     render(<CheckboxField label="Checked" id="checkboxfield-checked" checked />)
 
     const input = screen.getByLabelText('Checked') as HTMLInputElement
     expect(input.checked).toBe(true)
   })
 
-  it('renders the CheckboxField component with disabled state', () => {
+  it('renders the disabled state', () => {
     render(
       <CheckboxField label="Disabled" id="checkboxfield-disabled" disabled />
     )
@@ -33,7 +33,7 @@ describe('CheckboxField', () => {
     expect(input.disabled).toBe(true)
   })
 
-  it('renders the CheckboxField component with checked/partial state', () => {
+  it('renders the checked/partial state', () => {
     render(
       <CheckboxField
         label="Checked & Partial"
