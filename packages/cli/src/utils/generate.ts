@@ -286,6 +286,46 @@ function updateBuildTime(basePath: string) {
   }
 }
 
+function checkDependencies(basePath: string, packagesToCheck: string[]) {
+  const { coreDir, getRoot } = withBasePath(basePath)
+
+  const corePackageJsonPath = path.join(coreDir, 'package.json')
+  const rootPackageJsonPath = path.join(getRoot(), 'package.json')
+
+  const corePackageJson = require(corePackageJsonPath)
+  const rootPackageJson = require(rootPackageJsonPath)
+
+  packagesToCheck.forEach((packageName) => {
+    const coreVersion =
+      corePackageJson.devDependencies[packageName] ||
+      corePackageJson.dependencies[packageName]
+    const rootVersion =
+      rootPackageJson.devDependencies[packageName] ||
+      rootPackageJson.dependencies[packageName]
+
+    if (!coreVersion || !rootVersion) {
+      console.warn(
+        `${chalk.yellow(
+          'warning'
+        )} - Package ${packageName} not found in both core or root dependencies.`
+      )
+    } else if (coreVersion !== rootVersion) {
+      console.error(
+        `${chalk.red(
+          'error'
+        )} - ${packageName} versions are different. Core: ${coreVersion}, Customization: ${rootVersion}`
+      )
+      process.exit(1)
+    } else {
+      console.log(
+        `${chalk.green(
+          'success'
+        )} - ${packageName} versions match: ${coreVersion}`
+      )
+    }
+  })
+}
+
 export async function generate(options: GenerateOptions) {
   const { basePath, setup = false } = options
 
@@ -302,6 +342,7 @@ export async function generate(options: GenerateOptions) {
 
   await Promise.all([
     setupPromise,
+    checkDependencies(basePath, ['typescript']),
     updateBuildTime(basePath),
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
