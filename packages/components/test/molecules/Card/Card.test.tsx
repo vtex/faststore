@@ -11,21 +11,21 @@ expect.extend(toHaveNoViolations)
 
 describe('Card', () => {
   const mockIconAction = jest.fn()
-  it('renders the Card component with title', () => {
+  it('renders with title', () => {
     render(<Card title="Test Card" />)
 
     const cardTitle = screen.getByText('Test Card')
     expect(cardTitle).toBeInTheDocument()
   })
 
-  it('renders the Card component with custom max width', () => {
+  it('renders with custom max width', () => {
     render(<Card title="Test Card" maxWidth="500px" />)
 
     const card = screen.getByTestId('fs-card')
     expect(card).toHaveStyle('max-width: 500px')
   })
 
-  it('renders the Card component with icon', () => {
+  it('renders with icon', () => {
     render(<Card title="Test Card" iconName="star" />)
 
     const iconButton = screen.getByLabelText(
