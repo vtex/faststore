@@ -6,7 +6,7 @@ import { OverriddenDefaultBannerText as BannerText } from 'app/components/sectio
 import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
 import PageProvider, { SearchPageContext } from 'app/sdk/overrides/PageProvider'
 import { SearchContentType } from 'app/server/cms'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
+import BannerNewsletter from 'app/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
 import { OverriddenDefaultNewsletter as Newsletter } from 'app/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'

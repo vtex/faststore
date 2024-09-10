@@ -7,6 +7,7 @@ import { OverriddenDefaultBannerText as BannerText } from 'app/components/sectio
 import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'app/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import { OverriddenDefaultNewsletter as Newsletter } from 'app/components/sections/Newsletter/OverriddenDefaultNewsletter'
+import BannerNewsletter from 'app/components/sections/BannerNewsletter/BannerNewsletter'
 import ProductTiles from 'app/components/sections/ProductTiles'
 
 import Incentives from 'app/components/sections/Incentives'
@@ -21,6 +22,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   Incentives,
   ProductShelf,
   BannerText,
+  BannerNewsletter,
   Newsletter,
   ProductTiles,
   ...CUSTOM_COMPONENTS,
