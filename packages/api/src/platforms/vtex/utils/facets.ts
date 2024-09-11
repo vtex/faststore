@@ -107,3 +107,6 @@ export const findChannel = (facets?: Maybe<SelectedFacet[]>) =>
 
 export const findRegionId = (facets?: Maybe<SelectedFacet[]>) =>
   facets?.find((facet) => facet.key === 'regionId')?.value ?? undefined
+
+export const findExclude = (facets?: Maybe<SelectedFacet[]>) =>
+  facets?.find((facet) => facet.key === 'exclude')?.value ?? []

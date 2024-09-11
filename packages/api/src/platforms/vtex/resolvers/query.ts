@@ -10,6 +10,7 @@ import {
   findSlug,
   transformSelectedFacet,
   findRegionId,
+  findExclude,
 } from "../utils/facets"
 import { SORT_MAP } from "../utils/sort"
 import { StoreCollection } from "./collection"
@@ -33,6 +34,7 @@ export const Query = {
     const channel = findChannel(locator)
     const locale = findLocale(locator)
     const regionId = findRegionId(locator)
+    const exclude = findExclude(locator) as string[]
     const id = findSkuId(locator)
     const slug = findSlug(locator)
 
@@ -93,6 +95,7 @@ export const Query = {
         count: 1,
         query: `product:${route.id}`,
         regionId,
+        exclude,
       })
 
       if (!product) {

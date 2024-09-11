@@ -33,6 +33,7 @@ export interface SearchArgs {
   hideUnavailableItems?: boolean
   showInvisibleItems?: boolean
   regionId?: string
+  exclude?: string[]
 }
 
 export interface ProductLocator {
@@ -111,6 +112,7 @@ export const IntelligentSearch = (
     fuzzy = 'auto',
     showInvisibleItems,
     regionId,
+    exclude,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
@@ -132,6 +134,17 @@ export const IntelligentSearch = (
     const pathname = addDefaultFacets(selectedFacets, regionId)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
+
+    console.log('before exclude params', params)
+
+    // Exclude selected params
+    exclude?.forEach(paramToExclude => {
+      if (params.has(paramToExclude)) {
+        params.delete(paramToExclude)
+      }
+    })
+
+    console.log('after exclude params', params)
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
