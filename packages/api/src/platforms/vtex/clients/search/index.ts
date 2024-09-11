@@ -137,8 +137,10 @@ export const IntelligentSearch = (
 
     // Exclude selected params
     if (params.has(exclude as string)) params.delete(exclude as string)
-
-    console.log('REQUEST: ', `.../_v/api/intelligent-search/...?${params.toString()}`)
+    console.log('QUERY: ', query)
+    console.log('REGION ID: ', regionId)
+    console.log('REQUEST: ', `.../_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`)
+    console.log('***********************************')
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
