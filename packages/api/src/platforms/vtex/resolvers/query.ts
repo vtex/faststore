@@ -34,7 +34,7 @@ export const Query = {
     const channel = findChannel(locator)
     const locale = findLocale(locator)
     const regionId = findRegionId(locator)
-    const exclude = findExclude(locator) as string[]
+    const exclude = findExclude(locator)
     const id = findSkuId(locator)
     const slug = findSlug(locator)
 
