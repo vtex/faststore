@@ -135,8 +135,6 @@ export const IntelligentSearch = (
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
-    console.log('before exclude params', params)
-
     // Exclude selected params
     exclude?.forEach(paramToExclude => {
       if (params.has(paramToExclude)) {
@@ -144,7 +142,7 @@ export const IntelligentSearch = (
       }
     })
 
-    console.log('after exclude params', params)
+    console.log('REQUEST: ', `.../_v/api/intelligent-search/...?${params.toString()}`)
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
