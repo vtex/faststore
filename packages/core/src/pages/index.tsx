@@ -9,7 +9,7 @@ import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/Over
 import Incentives from 'app/components/sections/Incentives'
 import type { PageContentType } from 'app/server/cms'
 import { getPage } from 'app/server/cms'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
+import BannerNewsletter from 'app/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultNewsletter as Newsletter } from 'app/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'app/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'app/components/sections/ProductTiles'
