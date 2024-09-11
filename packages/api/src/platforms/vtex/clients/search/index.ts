@@ -33,7 +33,7 @@ export interface SearchArgs {
   hideUnavailableItems?: boolean
   showInvisibleItems?: boolean
   regionId?: string
-  exclude: string
+  exclude?: string
 }
 
 export interface ProductLocator {
@@ -136,7 +136,7 @@ export const IntelligentSearch = (
       .join('/')
 
     // Exclude selected params
-    if (params.has(exclude)) params.delete(exclude)
+    if (params.has(exclude as string)) params.delete(exclude as string)
 
     console.log('REQUEST: ', `.../_v/api/intelligent-search/...?${params.toString()}`)
 
