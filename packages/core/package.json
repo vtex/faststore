@@ -13,7 +13,7 @@
     "generate:codegen": "graphql-codegen",
     "generate": "faststore generate-graphql -c",
     "build": "yarn partytown && yarn generate && next build",
-    "dev": "yarn partytown & yarn generate && next dev",
+    "dev": "yarn partytown && yarn generate && next dev",
     "clean": "rm -r .next",
     "serve": "next start",
     "test:e2e": "cypress open",
