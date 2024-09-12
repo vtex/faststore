@@ -3,7 +3,7 @@ import degit from 'degit'
 import { Command } from '@oclif/core'
 import { confirm } from '@inquirer/prompts'
 
-export default class Init extends Command {
+export default class Create extends Command {
   static args = [
     {
       name: 'path',
@@ -18,7 +18,7 @@ export default class Init extends Command {
   static examples = ['$ yarn faststore init discovery']
 
   async run() {
-    const { args } = await this.parse(Init)
+    const { args } = await this.parse(Create)
 
     const discoveryPath = args.path ?? './discovery'
     const discoveryFolderExists = fs.existsSync(discoveryPath)
