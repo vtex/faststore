@@ -30,7 +30,7 @@ $ npm install -g @faststore/cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/3.0.103 linux-x64 node-v18.20.4
+@faststore/cli/3.0.105 linux-x64 node-v18.20.4
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND
@@ -43,10 +43,10 @@ USAGE
 <!-- commands -->
 * [`faststore build [PATH]`](#faststore-build-path)
 * [`faststore cms-sync [PATH]`](#faststore-cms-sync-path)
+* [`faststore create [PATH]`](#faststore-create-path)
 * [`faststore dev [PATH]`](#faststore-dev-path)
 * [`faststore generate-graphql [PATH]`](#faststore-generate-graphql-path)
 * [`faststore help [COMMAND]`](#faststore-help-command)
-* [`faststore init [PATH]`](#faststore-init-path)
 * [`faststore start [PATH]`](#faststore-start-path)
 * [`faststore test [PATH]`](#faststore-test-path)
 
@@ -60,7 +60,7 @@ ARGUMENTS
   PATH  The path where the FastStore being built is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/build.ts](https://github.com/vtex/faststore/blob/v3.0.103/dist/commands/build.ts)_
+_See code: [dist/commands/build.ts](https://github.com/vtex/faststore/blob/v3.0.105/dist/commands/build.ts)_
 
 ## `faststore cms-sync [PATH]`
 
@@ -75,7 +75,27 @@ FLAGS
   -d, --dry-run
 ```
 
-_See code: [dist/commands/cms-sync.ts](https://github.com/vtex/faststore/blob/v3.0.103/dist/commands/cms-sync.ts)_
+_See code: [dist/commands/cms-sync.ts](https://github.com/vtex/faststore/blob/v3.0.105/dist/commands/cms-sync.ts)_
+
+## `faststore create [PATH]`
+
+Creates a discovery folder based on the starter.store template.
+
+```
+USAGE
+  $ faststore create [PATH]
+
+ARGUMENTS
+  PATH  The path where the Discovery folder will be created. Defaults to ./discovery.
+
+DESCRIPTION
+  Creates a discovery folder based on the starter.store template.
+
+EXAMPLES
+  $ yarn faststore create discovery
+```
+
+_See code: [dist/commands/create.ts](https://github.com/vtex/faststore/blob/v3.0.105/dist/commands/create.ts)_
 
 ## `faststore dev [PATH]`
 
@@ -87,7 +107,7 @@ ARGUMENTS
   PATH  The path where the FastStore being run is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/dev.ts](https://github.com/vtex/faststore/blob/v3.0.103/dist/commands/dev.ts)_
+_See code: [dist/commands/dev.ts](https://github.com/vtex/faststore/blob/v3.0.105/dist/commands/dev.ts)_
 
 ## `faststore generate-graphql [PATH]`
 
@@ -102,7 +122,7 @@ FLAGS
   -d, --debug
 ```
 
-_See code: [dist/commands/generate-graphql.ts](https://github.com/vtex/faststore/blob/v3.0.103/dist/commands/generate-graphql.ts)_
+_See code: [dist/commands/generate-graphql.ts](https://github.com/vtex/faststore/blob/v3.0.105/dist/commands/generate-graphql.ts)_
 
 ## `faststore help [COMMAND]`
 
@@ -124,26 +144,6 @@ DESCRIPTION
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.22/src/commands/help.ts)_
 
-## `faststore init [PATH]`
-
-Creates a discovery folder based on the starter.store template.
-
-```
-USAGE
-  $ faststore init [PATH]
-
-ARGUMENTS
-  PATH  The path where the Discovery folder will be created. Defaults to ./discovery.
-
-DESCRIPTION
-  Creates a discovery folder based on the starter.store template.
-
-EXAMPLES
-  $ yarn faststore init discovery
-```
-
-_See code: [dist/commands/init.ts](https://github.com/vtex/faststore/blob/v3.0.103/dist/commands/init.ts)_
-
 ## `faststore start [PATH]`
 
 ```
@@ -154,7 +154,7 @@ ARGUMENTS
   PATH  The path where the FastStore being run is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/start.ts](https://github.com/vtex/faststore/blob/v3.0.103/dist/commands/start.ts)_
+_See code: [dist/commands/start.ts](https://github.com/vtex/faststore/blob/v3.0.105/dist/commands/start.ts)_
 
 ## `faststore test [PATH]`
 
@@ -166,5 +166,5 @@ ARGUMENTS
   PATH  The path where the FastStore being tested is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/test.ts](https://github.com/vtex/faststore/blob/v3.0.103/dist/commands/test.ts)_
+_See code: [dist/commands/test.ts](https://github.com/vtex/faststore/blob/v3.0.105/dist/commands/test.ts)_
 <!-- commandsstop -->
