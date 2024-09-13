@@ -25,6 +25,7 @@ npm install -g @faststore/cli
 ```
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @faststore/cli
 $ faststore COMMAND
@@ -36,19 +37,21 @@ USAGE
   $ faststore COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 ## Commands
 
 <!-- commands -->
-* [`faststore build [PATH]`](#faststore-build-path)
-* [`faststore cms-sync [PATH]`](#faststore-cms-sync-path)
-* [`faststore dev [PATH]`](#faststore-dev-path)
-* [`faststore generate-graphql [PATH]`](#faststore-generate-graphql-path)
-* [`faststore help [COMMAND]`](#faststore-help-command)
-* [`faststore init [PATH]`](#faststore-init-path)
-* [`faststore start [PATH]`](#faststore-start-path)
-* [`faststore test [PATH]`](#faststore-test-path)
+
+- [`faststore build [PATH]`](#faststore-build-path)
+- [`faststore cms-sync [PATH]`](#faststore-cms-sync-path)
+- [`faststore dev [PATH]`](#faststore-dev-path)
+- [`faststore generate-graphql [PATH]`](#faststore-generate-graphql-path)
+- [`faststore help [COMMAND]`](#faststore-help-command)
+- [`faststore create [PATH]`](#faststore-create-path)
+- [`faststore start [PATH]`](#faststore-start-path)
+- [`faststore test [PATH]`](#faststore-test-path)
 
 ## `faststore build [PATH]`
 
@@ -124,13 +127,13 @@ DESCRIPTION
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.22/src/commands/help.ts)_
 
-## `faststore init [PATH]`
+## `faststore create [PATH]`
 
 Creates a discovery folder based on the starter.store template.
 
 ```
 USAGE
-  $ faststore init [PATH]
+  $ faststore create [PATH]
 
 ARGUMENTS
   PATH  The path where the Discovery folder will be created. Defaults to ./discovery.
@@ -139,10 +142,10 @@ DESCRIPTION
   Creates a discovery folder based on the starter.store template.
 
 EXAMPLES
-  $ yarn faststore init discovery
+  $ yarn faststore create discovery
 ```
 
-_See code: [dist/commands/init.ts](https://github.com/vtex/faststore/blob/v3.0.103/dist/commands/init.ts)_
+_See code: [dist/commands/create.ts](https://github.com/vtex/faststore/blob/v3.0.103/dist/commands/create.ts)_
 
 ## `faststore start [PATH]`
 
@@ -167,4 +170,5 @@ ARGUMENTS
 ```
 
 _See code: [dist/commands/test.ts](https://github.com/vtex/faststore/blob/v3.0.103/dist/commands/test.ts)_
+
 <!-- commandsstop -->
