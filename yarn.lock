@@ -1059,11 +1059,6 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@faststore/lighthouse@^1.12.32":
-  version "1.12.32"
-  resolved "https://registry.npmjs.org/@faststore/lighthouse/-/lighthouse-1.12.32.tgz"
-  integrity sha512-65IiCPRfjdtKyGXSvLXjug46J8z8e7dJr7Otxezjmn8N0F9tWh8IvrEAEAquXZXvg6sjVEjJnQ3S6fYuiqW4iw==
-
 "@gar/promisify@^1.0.1", "@gar/promisify@^1.1.3":
   version "1.1.3"
   resolved "https://registry.npmjs.org/@gar/promisify/-/promisify-1.1.3.tgz"
