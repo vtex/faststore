@@ -16,7 +16,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsc --watch",
-    "build": "tsc --module commonjs --outDir dist/cjs & tsc --module esnext --outDir dist/esm",
+    "build": "tsc --module commonjs --outDir dist/cjs && tsc --module esnext --outDir dist/esm",
     "lint": "eslint src/**/*.{ts,tsx}"
   },
   "repository": {
