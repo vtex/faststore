@@ -28,7 +28,7 @@ export interface Person {
   familyName: string
 }
 
-export interface b2bInfo {
+export interface B2bInfo {
   customerId: string
 }
 
@@ -42,7 +42,7 @@ export interface Session {
   postalCode: string | null
   geoCoordinates: GeoCoordinates | null
   person: Person | null
-  b2b: b2bInfo | null
+  b2b: B2bInfo | null
 }
 
 export const createSessionStore = (
