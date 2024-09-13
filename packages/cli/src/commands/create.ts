@@ -15,7 +15,7 @@ export default class Create extends Command {
   static description =
     'Creates a discovery folder based on the starter.store template.'
 
-  static examples = ['$ yarn faststore init discovery']
+  static examples = ['$ yarn faststore create discovery']
 
   async run() {
     const { args } = await this.parse(Create)
