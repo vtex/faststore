@@ -4,8 +4,8 @@
  * Cypress tests for a11y (accessibility)
  */
 
-import { disabledA11yRules } from '../global'
 import { cypress } from '../../faststore.config'
+import { disabledA11yRules } from '../global'
 
 const { pages } = cypress
 
@@ -30,7 +30,7 @@ describe('Accessibility tests', () => {
     cy.waitForHydration()
 
     // Wait for product to be available and page to be interactive
-    cy.getById('buy-button').should('exist')
+    cy.get('[data-testid="buy-button"]').should('exist')
 
     cy.injectAxe()
     cy.checkA11y(null, disabledA11yRules)
