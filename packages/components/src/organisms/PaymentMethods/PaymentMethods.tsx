@@ -1,7 +1,7 @@
-import type { ReactNode, AriaAttributes } from 'react'
+import type { AriaAttributes, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
-import { List, SROnly, Icon } from '../../index'
+import { Icon, List, SROnly } from '../../index'
 
 type Flag = {
   icon: {
@@ -48,9 +48,14 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
         ref={ref}
         data-fs-payment-methods
         data-testid={testId}
+        aria-labelledby={title ? 'payment-methods-title' : 'Payment Methods'}
         {...otherProps}
       >
-        {!!title && <div data-fs-payment-methods-title>{title}</div>}
+        {!!title && (
+          <div data-fs-payment-methods-title id="payment-methods-title">
+            {title}
+          </div>
+        )}
         <List
           data-fs-payment-methods-flags
           aria-label={title ? undefined : ariaLabel}

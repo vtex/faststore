@@ -13,12 +13,19 @@ type FooterSocialLink = {
 export interface FooterSocialProps {
   title: string
   links: FooterSocialLink[]
+  id?: string
 }
 
-function FooterSocial({ title, links }: FooterSocialProps) {
+function FooterSocial({
+  title,
+  links,
+  id = 'footer-social-title',
+}: FooterSocialProps) {
   return (
-    <section data-fs-footer-social>
-      <p data-fs-footer-social-title>{title}</p>
+    <section data-fs-footer-social aria-labelledby={id}>
+      <p data-fs-footer-social-title id={id}>
+        {title}
+      </p>
       <UIList>
         {links.map(({ icon: { icon }, url }) => (
           <li key={icon}>

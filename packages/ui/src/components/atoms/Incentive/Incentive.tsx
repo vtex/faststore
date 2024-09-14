@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
+import React, { forwardRef } from 'react'
 
 export interface IncentiveProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -14,9 +14,9 @@ const Incentive = forwardRef<HTMLDivElement, IncentiveProps>(function Incentive(
   ref
 ) {
   return (
-    <div ref={ref} data-fs-incentive data-testid={testId} {...otherProps}>
+    <section ref={ref} data-fs-incentive data-testid={testId} {...otherProps}>
       {children}
-    </div>
+    </section>
   )
 })
 
