@@ -152,6 +152,10 @@ export type IShippingItem = {
   seller: Scalars['String'];
 };
 
+export type IStoreB2B = {
+  customerId: Scalars['String'];
+};
+
 /** Shopping cart input. */
 export type IStoreCart = {
   /** Order information, including `orderNumber`, `acceptedOffer` and `shouldSplitItem`. */
@@ -274,6 +278,8 @@ export type IStoreSelectedFacet = {
 export type IStoreSession = {
   /** Session input address type. */
   addressType?: Maybe<Scalars['String']>;
+  /** Session input b2b. */
+  b2b?: Maybe<IStoreB2B>;
   /** Session input channel. */
   channel?: Maybe<Scalars['String']>;
   /** Session input country. */
@@ -649,6 +655,11 @@ export type StoreAuthor = {
   __typename?: 'StoreAuthor';
   /** Author name. */
   name: Scalars['String'];
+};
+
+export type StoreB2B = {
+  __typename?: 'StoreB2B';
+  customerId: Scalars['String'];
 };
 
 /** Brand of a given product. */
@@ -1094,6 +1105,8 @@ export type StoreSession = {
   __typename?: 'StoreSession';
   /** Session address type. */
   addressType?: Maybe<Scalars['String']>;
+  /** B2B Information. */
+  b2b?: Maybe<StoreB2B>;
   /** Session channel. */
   channel?: Maybe<Scalars['String']>;
   /** Session country. */

@@ -36,6 +36,7 @@ module.exports = {
     addressType: null,
     postalCode: null,
     geoCoordinates: null,
+    b2b: null,
     person: null,
   },
 
