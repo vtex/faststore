@@ -8,11 +8,6 @@ export interface Namespaces {
   store?: Store
   checkout?: Checkout
   public?: Public
-  authentication?: Authentication
-}
-
-export interface Authentication {
-  customerId: Value
 }
 
 export interface Value {

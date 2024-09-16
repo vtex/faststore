@@ -16,7 +16,6 @@ const initialSession = {
   postalCode: null,
   geoCoordinates: null,
   person: null,
-  b2b: null,
 }
 
 test('Session Provider: Set initial session values', async () => {
