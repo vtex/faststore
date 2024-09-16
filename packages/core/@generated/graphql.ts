@@ -167,10 +167,6 @@ export type IShippingItem = {
   seller: Scalars['String']['input']
 }
 
-export type IStoreB2B = {
-  customerId: Scalars['String']['input']
-}
-
 /** Shopping cart input. */
 export type IStoreCart = {
   /** Order information, including `orderNumber`, `acceptedOffer` and `shouldSplitItem`. */
@@ -293,8 +289,6 @@ export type IStoreSelectedFacet = {
 export type IStoreSession = {
   /** Session input address type. */
   addressType: InputMaybe<Scalars['String']['input']>
-  /** Session input b2b. */
-  b2b: InputMaybe<IStoreB2B>
   /** Session input channel. */
   channel: InputMaybe<Scalars['String']['input']>
   /** Session input country. */
@@ -639,10 +633,6 @@ export type StoreAggregateRating = {
 export type StoreAuthor = {
   /** Author name. */
   name: Scalars['String']['output']
-}
-
-export type StoreB2B = {
-  customerId: Scalars['String']['output']
 }
 
 /** Brand of a given product. */
@@ -1050,8 +1040,6 @@ export type StoreSeo = {
 export type StoreSession = {
   /** Session address type. */
   addressType: Maybe<Scalars['String']['output']>
-  /** B2B Information. */
-  b2b: Maybe<StoreB2B>
   /** Session channel. */
   channel: Maybe<Scalars['String']['output']>
   /** Session country. */
@@ -1613,7 +1601,6 @@ export type ValidateSessionMutation = {
       givenName: string
       familyName: string
     } | null
-    b2b: { customerId: string } | null
   } | null
 }
 
@@ -2109,7 +2096,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '1e69c734ed31bd9e763a34fe9660f5bbad3fd143',
+    operationHash: '5696202828f9275216a445e316ebf516f168c506',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,

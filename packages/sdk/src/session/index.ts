@@ -28,10 +28,6 @@ export interface Person {
   familyName: string
 }
 
-export interface B2bInfo {
-  customerId: string
-}
-
 export interface Session {
   locale: string // en-US
   currency: Currency
@@ -42,7 +38,6 @@ export interface Session {
   postalCode: string | null
   geoCoordinates: GeoCoordinates | null
   person: Person | null
-  b2b: B2bInfo | null
 }
 
 export const createSessionStore = (

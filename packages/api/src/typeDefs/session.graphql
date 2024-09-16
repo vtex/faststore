@@ -149,18 +149,6 @@ type StoreSession {
   Session input person.
   """
   person: StorePerson
-  """
-  B2B Information.
-  """
-  b2b: StoreB2B
-}
-
-type StoreB2B {
-  customerId: String!
-}
-
-input IStoreB2B {
-  customerId: String!
 }
 
 """
@@ -203,8 +191,4 @@ input IStoreSession {
   Session input person.
   """
   person: IStorePerson
-  """
-  Session input b2b.
-  """
-  b2b: IStoreB2B
 }
