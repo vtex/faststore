@@ -5,8 +5,8 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import RenderSections from 'app/components/cms/RenderSections'
 import { OverriddenDefaultBannerText as BannerText } from 'app/components/sections/BannerText/OverriddenDefaultBannerText'
 import { OverriddenDefaultHero as Hero } from 'app/components/sections/Hero/OverriddenDefaultHero'
-import { OverriddenDefaultProductShelf as ProductShelf } from 'app/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import { OverriddenDefaultNewsletter as Newsletter } from 'app/components/sections/Newsletter/OverriddenDefaultNewsletter'
+import { OverriddenDefaultProductShelf as ProductShelf } from 'app/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import BannerNewsletter from 'app/components/sections/BannerNewsletter/BannerNewsletter'
 import ProductTiles from 'app/components/sections/ProductTiles'
 
@@ -14,6 +14,7 @@ import Incentives from 'app/components/sections/Incentives'
 import PageProvider from 'app/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'app/utils/dynamicContent'
 import { ComponentType } from 'react'
+
 import storeConfig from '../../faststore.config'
 
 /* A list of components that can be used in the CMS. */
@@ -53,6 +54,27 @@ const getHomeData = async () => {
   return { page, serverData }
 }
 
+export async function generateMetadata() {
+  const {
+    page: { settings },
+  } = await getHomeData()
+  return {
+    title: settings?.seo?.title ?? storeConfig.seo.title,
+    description: settings?.seo?.description ?? storeConfig.seo?.description,
+    titleTemplate: storeConfig.seo?.titleTemplate ?? storeConfig.seo?.title,
+    alternates: {
+      canonical: settings?.seo?.canonical ?? storeConfig.storeUrl,
+    },
+    metadataBase: new URL(storeConfig.storeUrl),
+    openGraph: {
+      type: 'website',
+      url: storeConfig.storeUrl,
+      title: settings?.seo?.title ?? storeConfig.seo.title,
+      description: settings?.seo?.description ?? storeConfig.seo.description,
+    },
+  }
+}
+
 async function Page() {
   const {
     page: { sections },
@@ -63,10 +85,30 @@ async function Page() {
     data: serverData,
   }
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    url: storeConfig.storeUrl,
+    potentialAction: [
+      {
+        '@type': 'SearchAction',
+        target: `${storeConfig.storeUrl}/s/?q={search_term_string}`,
+        'query-input': 'required name=search_term_string',
+      },
+    ],
+  }
+
   return (
-    <PageProvider context={context}>
-      <RenderSections sections={sections} components={COMPONENTS} />
-    </PageProvider>
+    <>
+      {/* Adding JSON-LD schema to the page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <PageProvider context={context}>
+        <RenderSections sections={sections} components={COMPONENTS} />
+      </PageProvider>
+    </>
   )
 }
 
