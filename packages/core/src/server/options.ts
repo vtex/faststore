@@ -9,6 +9,8 @@ export const apiOptions: APIOptions = {
   subDomainPrefix: storeConfig.api.subDomainPrefix ?? ['www'],
   hideUnavailableItems: storeConfig.api.hideUnavailableItems,
   showSponsored: storeConfig.api.showSponsored,
+  simulationBehavior: (storeConfig.api as Record<string, any>)
+    .simulationBehavior,
   incrementAddress: storeConfig.api.incrementAddress,
   channel: storeConfig.session.channel,
   locale: storeConfig.session.locale,

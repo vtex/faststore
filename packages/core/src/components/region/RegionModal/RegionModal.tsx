@@ -22,7 +22,7 @@ interface RegionModalProps {
     text?: string
     to?: string
     icon?: {
-      icon: string
+      icon?: string
       alt: string
     }
   }
@@ -73,7 +73,7 @@ function RegionModal({
     children: (
       <>
         {idkPostalCodeLinkText}
-        {!!idkPostalCodeLinkIcon ?? (
+        {!!idkPostalCodeLinkIcon && (
           <Icon
             name={idkPostalCodeLinkIcon}
             aria-label={idkPostalCodeLinkIconAlt}

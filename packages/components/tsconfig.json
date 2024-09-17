@@ -1,7 +1,8 @@
 {
   "extends": "@faststore/shared/tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "types": ["@testing-library/jest-dom/jest-globals"]
   },
   "include": ["src"],
   "exclude": [
@@ -9,6 +10,6 @@
     "src/**/*.test.tsx",
     "src/**/*.stories.ts",
     "src/**/*.stories.tsx",
-    "src/typings/utils.d.ts",
+    "src/typings/utils.d.ts"
   ]
 }

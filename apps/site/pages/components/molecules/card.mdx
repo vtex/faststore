@@ -1,0 +1,197 @@
+---
+description: Display some information divided into a body and a header.
+---
+
+import path from 'path'
+import { useSSG } from 'nextra/ssg'
+import { Tab, Tabs } from 'nextra-theme-docs'
+import PropsSection from 'site/components/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from 'site/components/Tokens'
+import { OverviewSection } from 'site/components/OverviewSection'
+import { Card } from '@faststore/ui'
+import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+
+export const getStaticProps = () => {
+  const cardPath = path.resolve(__filename)
+  const components = ['Card.tsx']
+  const [cardProps] = getComponentPropsFrom(cardPath, components)
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        cardProps,
+      },
+    },
+  }
+}
+
+export const CardPropsSection = ({ component }) => {
+  // Get the data from SSG, and render it as a component.
+  const { cardProps } = useSSG()
+  return {
+    Card: <PropsSection propsList={cardProps} />,
+  }[component]
+}
+
+<header>
+
+# Card
+
+Card displays some information divided into a body and a header.
+
+</header>
+
+## Overview
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+  <OverviewSection>
+    <Card
+      iconName="PlusCircle"
+      title="Card with Icon"
+      style={{width: '300px'}}>
+      <p> First Product </p>
+      <hr/>
+      <p> Second Product </p>
+    </Card>
+  </OverviewSection>
+
+  <OverviewSection>
+    <Card
+      title="Card without Icon"
+      style={{width: '300px'}}>
+      <p> Message </p>
+    </Card>
+  </OverviewSection>
+
+  </Tab>
+    ```tsx
+    <Card
+        iconName="PlusCircle"
+        title="Card with Icon"
+        style={{width: '300px'}}>
+        <p> First Product </p>
+        <hr/>
+        <p> Second Product </p>
+      </Card>
+    ```
+
+    ```tsx
+     <Card
+      title="Card without Icon"
+      style={{width: '300px'}}>
+      <p> Message </p>
+    </Card>
+    ```
+
+  <Tab>
+  Code Example
+
+  </Tab>
+</Tabs>
+
+---
+
+## Import
+
+Import the component from [@faststore/ui](/../components)
+
+```tsx
+import { Card } from '@faststore/ui'
+```
+
+### Import Styles into your FastStore project
+
+To apply the styles of this component in your FastStore project, import the following into your stylesheet:
+
+```scss copy
+@import '@faststore/ui/src/components/molecules/Card/styles.scss';
+```
+
+Follow the instructions in the [Importing FastStore UI component styles](/docs/customizing/importing-styles-to-faststore-ui-components) tutorial.
+
+---
+
+## Usage
+
+<OverviewSection>
+  <Card
+    iconName="PlusCircle"
+    title="Product List"
+    style={{width: '300px'}}>
+    <p> First Product </p>
+    <hr/>
+    <p> Second Product </p>
+  </Card>
+</OverviewSection>
+```tsx
+ <Card
+    iconName="PlusCircle"
+    title="Product List"
+    style={{width: '300px'}}>
+    <p> First Product </p>
+    <hr/>
+    <p> Second Product </p>
+  </Card>
+```
+
+---
+
+## Props
+
+<CardPropsSection component="Card" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-card-border-radius" value="var(--fs-border-radius)" />
+  <TokenRow token="--fs-card-border-width" value="var(--fs-border-width)" />
+  <TokenRow
+    token="--fs-card-border-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-card-header-padding"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-card-header-bkg-color"
+    value="var(--fs-color-neutral-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-card-header-font-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+    <TokenRow
+    token="--fs-card-header-icon-color"
+    value="var(--fs-color-main-2)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-card-body-padding"
+    value="var(--fs-spacing-3)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-card`
+
+`data-fs-card-header`
+
+`data-fs-card-title`
+
+`data-fs-card-body`
+
+---

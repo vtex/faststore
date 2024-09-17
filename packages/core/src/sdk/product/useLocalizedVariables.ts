@@ -1,7 +1,7 @@
-import { useMemo } from 'react'
 import { ClientManyProductsQueryQueryVariables } from '@generated/graphql'
-import { useSession } from '../session'
+import { useMemo } from 'react'
 import { ITEMS_PER_SECTION } from 'src/constants'
+import { useSession } from '../session'
 
 const toArray = <T>(x: T[] | T | undefined) =>
   Array.isArray(x) ? x : x ? [x] : []
