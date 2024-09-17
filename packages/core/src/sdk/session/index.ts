@@ -42,9 +42,6 @@ export const mutation = gql(`
         givenName
         familyName
       }
-      b2b {
-        customerId
-      }
     }
   }
 `)
