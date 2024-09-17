@@ -219,7 +219,7 @@ interface SpecificationGroup {
 
 interface Advertisement {
   adId: string
-  campaingId: string
+  campaignId: string
   actionCost: number
   adRequestId: string
   adResponseId: string

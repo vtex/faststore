@@ -116,6 +116,20 @@ export type Address = {
   street: Maybe<Scalars['String']['output']>
 }
 
+/** Advertisement information about a specific product in a campaign */
+export type Advertisement = {
+  /** Cost of the action, usually Cost Per Click. */
+  actionCost: Scalars['Float']['output']
+  /** Advertiser ID of the product. */
+  adId: Scalars['String']['output']
+  /** Advertiser Request ID. */
+  adRequestId: Scalars['String']['output']
+  /** Advertiser Response ID. */
+  adResponseId: Scalars['String']['output']
+  /** Campaign ID. */
+  campaignId: Scalars['String']['output']
+}
+
 export type AvailableDeliveryWindows = {
   /** Available delivery window end date in UTC */
   endDateUtc: Maybe<Scalars['String']['output']>
@@ -903,6 +917,8 @@ export type StorePerson = {
 export type StoreProduct = {
   /** Array of additional properties. */
   additionalProperty: Array<StorePropertyValue>
+  /** Advertisement information about the product. */
+  advertisement: Maybe<Advertisement>
   /** Aggregate ratings data. */
   aggregateRating: StoreAggregateRating
   /** Product brand. */
@@ -1125,6 +1141,13 @@ export type ProductSummary_ProductFragment = {
     value: any
     valueReference: any
   }>
+  advertisement: {
+    adId: string
+    campaignId: string
+    actionCost: number
+    adRequestId: string
+    adResponseId: string
+  } | null
 }
 
 type Filter_Facets_StoreFacetBoolean_Fragment = {
@@ -1435,6 +1458,13 @@ export type ClientManyProductsQueryQuery = {
             value: any
             valueReference: any
           }>
+          advertisement: {
+            adId: string
+            campaignId: string
+            actionCost: number
+            adRequestId: string
+            adResponseId: string
+          } | null
         }
       }>
     }
@@ -1567,6 +1597,13 @@ export type ClientSearchSuggestionsQueryQuery = {
           value: any
           valueReference: any
         }>
+        advertisement: {
+          adId: string
+          campaignId: string
+          actionCost: number
+          adRequestId: string
+          adResponseId: string
+        } | null
       }>
     }
     products: { pageInfo: { totalCount: number } }
@@ -1700,6 +1737,13 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
     name
     value
     valueReference
+  }
+  advertisement {
+    adId
+    campaignId
+    actionCost
+    adRequestId
+    adResponseId
   }
 }
     `,
@@ -2063,7 +2107,7 @@ export const SubscribeToNewsletterDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '99012563e9885c3b27a716ca212a2c317e7ec12f',
+    operationHash: 'ad5bbc5b94a6ca3624cbf1dd839bd6e4a4d09373',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2090,7 +2134,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '47af7b9c9e0fb18b01050767daf3e765f67819ac',
+    operationHash: '6830fac3ca8c2caeafc1ba9bb18fd000c5bc7587',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,

@@ -99,6 +99,21 @@ export type Address = {
   street?: Maybe<Scalars['String']>;
 };
 
+/** Advertisement information about a specific product in a campaign */
+export type Advertisement = {
+  __typename?: 'Advertisement';
+  /** Cost of the action, usually Cost Per Click. */
+  actionCost: Scalars['Float'];
+  /** Advertiser ID of the product. */
+  adId: Scalars['String'];
+  /** Advertiser Request ID. */
+  adRequestId: Scalars['String'];
+  /** Advertiser Response ID. */
+  adResponseId: Scalars['String'];
+  /** Campaign ID. */
+  campaignId: Scalars['String'];
+};
+
 export type AvailableDeliveryWindows = {
   __typename?: 'AvailableDeliveryWindows';
   /** Available delivery window end date in UTC */
@@ -946,6 +961,8 @@ export type StoreProduct = {
   __typename?: 'StoreProduct';
   /** Array of additional properties. */
   additionalProperty: Array<StorePropertyValue>;
+  /** Advertisement information about the product. */
+  advertisement?: Maybe<Advertisement>;
   /** Aggregate ratings data. */
   aggregateRating: StoreAggregateRating;
   /** Product brand. */
