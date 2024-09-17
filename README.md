@@ -8,7 +8,7 @@
 </h1>
 <p align="center">
   <strong>
-    Fullstack ecommerce toolkit
+    Teste Feijó
   </strong>
 </p>
 <p align="center">
