@@ -10,12 +10,13 @@ import { prefetchQuery } from '../graphql/prefetchQuery'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
 export const query = gql(`
-  query ClientManyProductsQuery(
+  query ClientManyProductsQueryProducts(
     $first: Int!
     $after: String
     $sort: StoreSort!
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
+    $fuzzy: String
   ) {
     ...ClientManyProducts
     search(
@@ -24,6 +25,7 @@ export const query = gql(`
       sort: $sort
       term: $term
       selectedFacets: $selectedFacets
+      fuzzy: $fuzzy
     ) {
       products {
         pageInfo {
@@ -55,7 +57,7 @@ export const useProductsQueryPrefetch = (
 export const useProductsPrefetch = (page: number | null) => {
   const {
     itemsPerPage,
-    state: { sort, term, selectedFacets },
+    state: { sort, term, selectedFacets, fuzzy },
   } = useSearch()
 
   const prefetch = useProductsQueryPrefetch({
@@ -64,6 +66,7 @@ export const useProductsPrefetch = (page: number | null) => {
     sort,
     term: term ?? '',
     selectedFacets,
+    fuzzy,
   })
 
   useEffect(() => {

@@ -31,12 +31,13 @@ export const useGalleryPage = (page: number) => {
 }
 
 export const query = gql(`
-  query ClientManyProductsQuery(
+  query ClientManyProductsQueryPage(
     $first: Int!
     $after: String
     $sort: StoreSort!
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
+    $fuzzy: String
   ) {
     ...ClientManyProducts
     search(
@@ -45,6 +46,7 @@ export const query = gql(`
       sort: $sort
       term: $term
       selectedFacets: $selectedFacets
+      fuzzy: $fuzzy
     ) {
       products {
         pageInfo {
@@ -73,7 +75,7 @@ export const useCreateUseGalleryPage = () => {
 
   const useGalleryPage = useCallback(function useGalleryPage(page: number) {
     const {
-      state: { sort, term, selectedFacets },
+      state: { sort, term, selectedFacets, fuzzy },
       itemsPerPage,
     } = useSearch()
 
@@ -83,6 +85,7 @@ export const useCreateUseGalleryPage = () => {
       sort,
       term: term ?? '',
       selectedFacets,
+      fuzzy,
     })
 
     const hasSameVariables =

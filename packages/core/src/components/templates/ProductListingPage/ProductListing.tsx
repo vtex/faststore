@@ -54,7 +54,7 @@ export default function ProductListing({
   data: server,
 }: ProductListingPageProps) {
   const {
-    state: { sort, term, selectedFacets },
+    state: { sort, term, selectedFacets, fuzzy },
   } = useSearch()
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
@@ -63,6 +63,7 @@ export default function ProductListing({
     sort,
     selectedFacets,
     itemsPerPage,
+    fuzzy,
   })
 
   const { pages, useGalleryPage } = useCreateUseGalleryPage()

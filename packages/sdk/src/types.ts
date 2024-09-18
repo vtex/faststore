@@ -34,4 +34,8 @@ export interface State {
    * @description params from other sources to preserve when building URLs
    */
   passThrough: URLSearchParams
+  /**
+   * @description params from other sources to preserve when building URLs
+   */
+  fuzzy?: string
 }

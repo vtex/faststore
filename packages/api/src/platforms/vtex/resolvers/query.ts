@@ -112,7 +112,14 @@ export const Query = {
   },
   search: async (
     _: unknown,
-    { first, after: maybeAfter, sort, term, selectedFacets }: QuerySearchArgs,
+    {
+      first,
+      after: maybeAfter,
+      sort,
+      term,
+      selectedFacets,
+      fuzzy,
+    }: QuerySearchArgs,
     ctx: Context
   ) => {
     // Insert channel in context for later usage
@@ -154,12 +161,17 @@ export const Query = {
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0
+
     const searchArgs: Omit<SearchArgs, 'type'> = {
       page: Math.ceil(after / first),
       count: first,
       query: query ?? undefined,
       sort: SORT_MAP[sort ?? 'score_desc'],
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
+      fuzzy:
+        fuzzy && (fuzzy === '0' || fuzzy === '1' || fuzzy === 'auto')
+          ? fuzzy
+          : 'auto',
     }
 
     const productSearchPromise = ctx.clients.search.products(searchArgs)

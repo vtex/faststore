@@ -27,6 +27,7 @@ export const parse = ({ pathname, searchParams }: URL): State => {
     term: searchParams.get('q') ?? null,
     sort: (searchParams.get('sort') as SearchSort) ?? undefined,
     page: Number(searchParams.get('page') ?? 0),
+    fuzzy: searchParams.get('fuzzy') ?? 'auto',
   })
 
   if (!isSearchSort(state.sort)) {
@@ -51,6 +52,7 @@ export const parse = ({ pathname, searchParams }: URL): State => {
     'sort',
     'page',
     'facets',
+    'fuzzy',
     ...facets,
   ])
 

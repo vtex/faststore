@@ -26,6 +26,7 @@ export interface IntelligentSearchQueryParams {
   locale: string
   term: string
   logicalOperator: string
+  fuzzy?: string
   isTermMisspelled: boolean
   totalCount: number
 }

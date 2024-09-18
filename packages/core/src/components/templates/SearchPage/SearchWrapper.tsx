@@ -35,7 +35,7 @@ export default function SearchWrapper({
 }: SearchWrapperProps) {
   const router = useRouter()
   const {
-    state: { term, sort, selectedFacets },
+    state: { term, sort, selectedFacets, fuzzy },
   } = useSearch()
   const { data: pageProductGalleryData, isValidating } = useProductGalleryQuery(
     {
@@ -43,6 +43,7 @@ export default function SearchWrapper({
       sort,
       itemsPerPage,
       selectedFacets,
+      fuzzy,
     }
   )
 

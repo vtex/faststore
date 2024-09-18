@@ -483,6 +483,7 @@ export type QueryRedirectArgs = {
 export type QuerySearchArgs = {
   after: InputMaybe<Scalars['String']['input']>
   first: Scalars['Int']['input']
+  fuzzy: InputMaybe<Scalars['String']['input']>
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet>>
   sort?: InputMaybe<StoreSort>
   term?: InputMaybe<Scalars['String']['input']>
@@ -1393,15 +1394,16 @@ export type SubscribeToNewsletterMutation = {
   subscribeToNewsletter: { id: string } | null
 }
 
-export type ClientManyProductsQueryQueryVariables = Exact<{
+export type ClientManyProductsQueryPageQueryVariables = Exact<{
   first: Scalars['Int']['input']
   after: InputMaybe<Scalars['String']['input']>
   sort: StoreSort
   term: Scalars['String']['input']
   selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+  fuzzy: InputMaybe<Scalars['String']['input']>
 }>
 
-export type ClientManyProductsQueryQuery = {
+export type ClientManyProductsQueryPageQuery = {
   search: {
     products: {
       pageInfo: { totalCount: number }
@@ -1445,6 +1447,7 @@ export type ClientProductGalleryQueryQueryVariables = Exact<{
   sort: StoreSort
   term: Scalars['String']['input']
   selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+  fuzzy: InputMaybe<Scalars['String']['input']>
 }>
 
 export type ClientProductGalleryQueryQuery = {
@@ -1521,6 +1524,100 @@ export type ClientProductQueryQuery = {
       value: any
       valueReference: any
     }>
+  }
+}
+
+export type ClientManyProductsQueryProductsQueryVariables = Exact<{
+  first: Scalars['Int']['input']
+  after: InputMaybe<Scalars['String']['input']>
+  sort: StoreSort
+  term: Scalars['String']['input']
+  selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+  fuzzy: InputMaybe<Scalars['String']['input']>
+}>
+
+export type ClientManyProductsQueryProductsQuery = {
+  search: {
+    products: {
+      pageInfo: { totalCount: number }
+      edges: Array<{
+        node: {
+          slug: string
+          sku: string
+          name: string
+          gtin: string
+          id: string
+          brand: { name: string; brandName: string }
+          isVariantOf: { productGroupID: string; name: string }
+          image: Array<{ url: string; alternateName: string }>
+          offers: {
+            lowPrice: number
+            lowPriceWithTaxes: number
+            offers: Array<{
+              availability: string
+              price: number
+              listPrice: number
+              listPriceWithTaxes: number
+              quantity: number
+              seller: { identifier: string }
+            }>
+          }
+          additionalProperty: Array<{
+            propertyID: string
+            name: string
+            value: any
+            valueReference: any
+          }>
+        }
+      }>
+    }
+  }
+}
+
+export type ClientManyProductsQueryQueryVariables = Exact<{
+  first: Scalars['Int']['input']
+  after: InputMaybe<Scalars['String']['input']>
+  sort: StoreSort
+  term: Scalars['String']['input']
+  selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+  fuzzy: InputMaybe<Scalars['String']['input']>
+}>
+
+export type ClientManyProductsQueryQuery = {
+  search: {
+    products: {
+      pageInfo: { totalCount: number }
+      edges: Array<{
+        node: {
+          slug: string
+          sku: string
+          name: string
+          gtin: string
+          id: string
+          brand: { name: string; brandName: string }
+          isVariantOf: { productGroupID: string; name: string }
+          image: Array<{ url: string; alternateName: string }>
+          offers: {
+            lowPrice: number
+            lowPriceWithTaxes: number
+            offers: Array<{
+              availability: string
+              price: number
+              listPrice: number
+              listPriceWithTaxes: number
+              quantity: number
+              seller: { identifier: string }
+            }>
+          }
+          additionalProperty: Array<{
+            propertyID: string
+            name: string
+            value: any
+            valueReference: any
+          }>
+        }
+      }>
+    }
   }
 }
 
@@ -1848,6 +1945,7 @@ export const ClientManyProductsFragmentDoc = new TypedDocumentString(
     sort: $sort
     term: $term
     selectedFacets: $selectedFacets
+    fuzzy: $fuzzy
   ) {
     products {
       pageInfo {
@@ -1878,6 +1976,7 @@ export const ClientProductGalleryFragmentDoc = new TypedDocumentString(
     sort: $sort
     term: $term
     selectedFacets: $selectedFacets
+    fuzzy: $fuzzy
   ) {
     products {
       pageInfo {
@@ -2048,19 +2147,19 @@ export const SubscribeToNewsletterDocument = {
   SubscribeToNewsletterMutation,
   SubscribeToNewsletterMutationVariables
 >
-export const ClientManyProductsQueryDocument = {
+export const ClientManyProductsQueryPageDocument = {
   __meta__: {
-    operationName: 'ClientManyProductsQuery',
-    operationHash: '99012563e9885c3b27a716ca212a2c317e7ec12f',
+    operationName: 'ClientManyProductsQueryPage',
+    operationHash: '9ab525a6d2a321c99a3553d2ff1bdef14c01f880',
   },
 } as unknown as TypedDocumentString<
-  ClientManyProductsQueryQuery,
-  ClientManyProductsQueryQueryVariables
+  ClientManyProductsQueryPageQuery,
+  ClientManyProductsQueryPageQueryVariables
 >
 export const ClientProductGalleryQueryDocument = {
   __meta__: {
     operationName: 'ClientProductGalleryQuery',
-    operationHash: '177fe68cb385737b0901fc9e105f0a4813e18a20',
+    operationHash: '65cd9b9509a9cf62bbe315f947b2820bf9f250e2',
   },
 } as unknown as TypedDocumentString<
   ClientProductGalleryQueryQuery,
@@ -2074,6 +2173,24 @@ export const ClientProductQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
   ClientProductQueryQueryVariables
+>
+export const ClientManyProductsQueryProductsDocument = {
+  __meta__: {
+    operationName: 'ClientManyProductsQueryProducts',
+    operationHash: '4c37afcc6f4f0a7537ab5ea83dcd48b28ef3edcb',
+  },
+} as unknown as TypedDocumentString<
+  ClientManyProductsQueryProductsQuery,
+  ClientManyProductsQueryProductsQueryVariables
+>
+export const ClientManyProductsQueryDocument = {
+  __meta__: {
+    operationName: 'ClientManyProductsQuery',
+    operationHash: 'bc199e270b76ba33335dbecf3116a175988f831b',
+  },
+} as unknown as TypedDocumentString<
+  ClientManyProductsQueryQuery,
+  ClientManyProductsQueryQueryVariables
 >
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
