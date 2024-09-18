@@ -106,15 +106,22 @@ function ProductCard({
     : listPriceBase
 
   const hasDiscount = spotPrice <= listPrice
+
+  const advertisementDataAttributes = advertisement
+    ? {
+        'data-van-res-id': advertisement.adResponseId,
+        'data-van-aid': advertisement.adId,
+        'data-van-prod-name': name,
+      }
+    : {}
+
   return (
     <UIProductCard
       outOfStock={outOfStock}
       bordered={bordered}
       variant={variant}
       data-fs-product-card-sku={sku}
-      data-van-res-id={advertisement?.adResponseId ?? ''}
-      data-van-aid={advertisement?.adId ?? ''}
-      data-van-prod-name={advertisement ? name : ''}
+      {...advertisementDataAttributes}
       {...otherProps}
     >
       <UIProductCardImage aspectRatio={aspectRatio}>
