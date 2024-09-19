@@ -2122,7 +2122,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '71809c86cb940861f01bcc57dbaf57e6f41cb378',
+    operationHash: '72b5719fbebfa030c6c2603c91adcf0a3658c341',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,

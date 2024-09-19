@@ -133,12 +133,12 @@ export const IntelligentSearch = (
       params.append('hideUnavailableItems', hideUnavailableItems.toString())
     }
 
-    if (showSponsored !== undefined) {
-      params.append('showSponsored', showSponsored.toString())
-    }
-
     if (simulationBehavior !== undefined) {
       params.append('simulationBehavior', simulationBehavior.toString())
+    }
+
+    if (showSponsored !== undefined) {
+      params.append('showSponsored', showSponsored.toString())
     }
 
     const pathname = addDefaultFacets(selectedFacets)
