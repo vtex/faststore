@@ -33,6 +33,7 @@ export interface SearchArgs {
   fuzzy?: '0' | '1' | 'auto'
   hideUnavailableItems?: boolean
   showInvisibleItems?: boolean
+  regionId?: string
 }
 
 export interface ProductLocator {
@@ -68,12 +69,12 @@ export const IntelligentSearch = (
     }
   }
 
-  const getRegionFacet = (): IStoreSelectedFacet | null => {
-    const { regionId, seller } = ctx.storage.channel
+  const getRegionFacet = (regionIdFromQuery?: string): IStoreSelectedFacet | null => {
+    const { regionId: regionIdFromChannel, seller } = ctx.storage.channel
     const sellerRegionId = seller
       ? Buffer.from(`SW#${seller}`).toString('base64')
       : null
-    const facet = sellerRegionId ?? regionId
+    const facet = sellerRegionId ?? regionIdFromQuery ?? regionIdFromChannel
 
     if (!facet) {
       return null
@@ -85,14 +86,14 @@ export const IntelligentSearch = (
     }
   }
 
-  const addDefaultFacets = (facets: SelectedFacet[]) => {
+  const addDefaultFacets = (facets: SelectedFacet[], regionIdFromQuery?: string) => {
     const withDefaultFacets = facets.filter(({ key }) => !CHANNEL_KEYS.has(key))
 
     const policyFacet =
       facets.find(({ key }) => key === POLICY_KEY) ?? getPolicyFacet()
 
     const regionFacet =
-      facets.find(({ key }) => key === REGION_KEY) ?? getRegionFacet()
+      facets.find(({ key }) => key === REGION_KEY) ?? getRegionFacet(regionIdFromQuery)
 
     if (policyFacet !== null) {
       withDefaultFacets.push(policyFacet)
@@ -114,6 +115,7 @@ export const IntelligentSearch = (
     type,
     fuzzy = 'auto',
     showInvisibleItems,
+    regionId = undefined,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
@@ -136,7 +138,7 @@ export const IntelligentSearch = (
       params.append('simulationBehavior', simulationBehavior.toString())
     }
 
-    const pathname = addDefaultFacets(selectedFacets)
+    const pathname = addDefaultFacets(selectedFacets, regionId)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 

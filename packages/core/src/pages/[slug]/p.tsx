@@ -1,7 +1,7 @@
 import { isNotFoundError } from '@faststore/api'
 import type { Locator } from '@vtex/client-cms'
 import deepmerge from 'deepmerge'
-import type { GetStaticPaths, GetStaticProps } from 'next'
+import type { GetServerSideProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 
@@ -204,21 +204,26 @@ const query = gql(`
   }
 `)
 
-export const getStaticProps: GetStaticProps<
+export const getServerSideProps: GetServerSideProps<
   Props,
   { slug: string },
   Locator
-> = async ({ params, previewData }) => {
+> = async ({ params, previewData, req }) => {
   const slug = params?.slug ?? ''
-  const [searchResult, globalSections] = await Promise.all([
-    execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
-      variables: { locator: [{ key: 'slug', value: slug }] },
-      operation: query,
-    }),
-    getGlobalSectionsData(previewData),
-  ])
+  const regionId = req.cookies['fs_regionid'] ?? ''
 
-  const { data, errors = [] } = searchResult
+  const { data, errors = [] } = await execute<
+    ServerProductQueryQueryVariables,
+    ServerProductQueryQuery
+  >({
+    variables: {
+      locator: [
+        { key: 'slug', value: slug },
+        { key: 'regionId', value: regionId },
+      ],
+    },
+    operation: query,
+  })
 
   const notFound = errors.find(isNotFoundError)
 
@@ -232,17 +237,17 @@ export const getStaticProps: GetStaticProps<
     throw errors[0]
   }
 
+  const globalSections = await getGlobalSectionsData(previewData)
   const cmsPage: PDPContentType = await getPDP(data.product, previewData)
 
   const { seo } = data.product
-  const title = seo.title || storeConfig.seo.title
-  const description = seo.description || storeConfig.seo.description
-  const canonical = `${storeConfig.storeUrl}${seo.canonical}`
-
-  const meta = { title, description, canonical }
+  const meta = {
+    title: seo.title || storeConfig.seo.title,
+    description: seo.description || storeConfig.seo.description,
+    canonical: `${storeConfig.storeUrl}${seo.canonical}`,
+  }
 
   let offer = {}
-
   if (data.product.offers.offers.length > 0) {
     const { listPrice, ...offerData } = data.product.offers.offers[0]
 
@@ -252,7 +257,7 @@ export const getStaticProps: GetStaticProps<
   const offers = {
     ...offer,
     priceCurrency: data.product.offers.priceCurrency,
-    url: canonical,
+    url: meta.canonical,
   }
 
   return {
@@ -264,13 +269,6 @@ export const getStaticProps: GetStaticProps<
       globalSections,
       key: seo.canonical,
     },
-  }
-}
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: 'blocking',
   }
 }
 
