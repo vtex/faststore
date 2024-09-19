@@ -56,7 +56,7 @@ export const getGlobalSectionsData = async (
     const page = cmsData[GLOBAL_SECTIONS_CONTENT_TYPE][0]
 
     if (page) {
-      const pageData = await getPage<PageContentType>({
+      const pageData = getPage<PageContentType>({
         contentType: GLOBAL_SECTIONS_CONTENT_TYPE,
         documentId: page.documentId,
         versionId: page.versionId,
@@ -66,11 +66,11 @@ export const getGlobalSectionsData = async (
     }
   }
 
-  const { sections } = await getPage<PageContentType>({
+  const pageData = getPage<PageContentType>({
     ...(previewData?.contentType === GLOBAL_SECTIONS_CONTENT_TYPE &&
       previewData),
     contentType: GLOBAL_SECTIONS_CONTENT_TYPE,
   })
 
-  return { sections }
+  return pageData
 }
