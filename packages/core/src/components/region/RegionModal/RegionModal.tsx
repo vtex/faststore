@@ -68,6 +68,7 @@ function RegionModal({
       const newSession = {
         ...session,
         postalCode,
+        country: 'BRA',
       }
 
       const validatedSession = await validateSession(newSession)
