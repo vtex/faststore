@@ -105,20 +105,6 @@ export const IntelligentSearch = (
     return withDefaultFacets
   }
 
-  // function fuzzyFacet(selectedFacets: SelectedFacet[]) {
-  //   const fuzzyFacet = selectedFacets.find(({ key }) => key === 'fuzzy')
-
-  //   if (
-  //     fuzzyFacet &&
-  //     (fuzzyFacet.value === '0' ||
-  //       fuzzyFacet.value === '1' ||
-  //       fuzzyFacet.value === 'auto')
-  //   ) {
-  //     return fuzzyFacet.value
-  //   }
-  //   return 'auto'
-  // }
-
   const search = <T>({
     query = '',
     page,
