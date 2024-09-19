@@ -202,9 +202,6 @@ export const fragment = gql(`
 
     advertisement {
       adId
-      campaignId
-      actionCost
-      adRequestId
       adResponseId
     }
   }

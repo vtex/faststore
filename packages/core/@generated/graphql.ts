@@ -1139,13 +1139,7 @@ export type ProductSummary_ProductFragment = {
     value: any
     valueReference: any
   }>
-  advertisement: {
-    adId: string
-    campaignId: string
-    actionCost: number
-    adRequestId: string
-    adResponseId: string
-  } | null
+  advertisement: { adId: string; adResponseId: string } | null
 }
 
 type Filter_Facets_StoreFacetBoolean_Fragment = {
@@ -1456,13 +1450,7 @@ export type ClientManyProductsQueryQuery = {
             value: any
             valueReference: any
           }>
-          advertisement: {
-            adId: string
-            campaignId: string
-            actionCost: number
-            adRequestId: string
-            adResponseId: string
-          } | null
+          advertisement: { adId: string; adResponseId: string } | null
         }
       }>
     }
@@ -1590,13 +1578,7 @@ export type ClientSearchSuggestionsQueryQuery = {
           value: any
           valueReference: any
         }>
-        advertisement: {
-          adId: string
-          campaignId: string
-          actionCost: number
-          adRequestId: string
-          adResponseId: string
-        } | null
+        advertisement: { adId: string; adResponseId: string } | null
       }>
     }
     products: { pageInfo: { totalCount: number } }
@@ -1729,9 +1711,6 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
   }
   advertisement {
     adId
-    campaignId
-    actionCost
-    adRequestId
     adResponseId
   }
 }
@@ -2095,7 +2074,7 @@ export const SubscribeToNewsletterDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: 'ad5bbc5b94a6ca3624cbf1dd839bd6e4a4d09373',
+    operationHash: 'ad2eb78cfccb9dbd5a9f2d1e150cc70fea5da99a',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2122,7 +2101,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '72b5719fbebfa030c6c2603c91adcf0a3658c341',
+    operationHash: '4d9f934764d8578aea08673b8ba57e8bf738f534',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
