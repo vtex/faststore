@@ -10,7 +10,7 @@ import { prefetchQuery } from '../graphql/prefetchQuery'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
 export const query = gql(`
-  query ClientManyProductsQueryProducts(
+  query ClientManyProductsQuery(
     $first: Int!
     $after: String
     $sort: StoreSort!

@@ -31,7 +31,7 @@ export const useGalleryPage = (page: number) => {
 }
 
 export const query = gql(`
-  query ClientManyProductsQueryPage(
+  query ClientManyProductsQuery(
     $first: Int!
     $after: String
     $sort: StoreSort!
