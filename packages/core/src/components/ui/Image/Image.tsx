@@ -14,11 +14,16 @@ const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
 ) {
   return (
     <NextImage
-      ref={ref}
       data-fs-image
       loader={loader}
       loading={loading}
       priority={loading === 'eager'}
+      onLoadingComplete={(image) => {
+        // NextImage does not directly forward the ref to the <img /> element, so we need to do that manually.
+        if (ref && typeof ref === 'object' && ref.current) {
+          ref.current = image
+        }
+      }}
       {...otherProps}
     />
   )
