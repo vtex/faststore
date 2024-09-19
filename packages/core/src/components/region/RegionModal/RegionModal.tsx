@@ -1,12 +1,15 @@
+import { Suspense, useRef, useState } from 'react'
+
 import {
   Icon,
   RegionModal as UIRegionModal,
   RegionModalProps as UIRegionModalProps,
   useUI,
 } from '@faststore/ui'
-import { Suspense, useRef, useState } from 'react'
+import type { Session } from '@faststore/sdk'
 
 import { sessionStore, useSession, validateSession } from 'src/sdk/session'
+import { setCookie } from 'src/utils/cookies'
 
 import styles from './section.module.scss'
 
@@ -45,6 +48,13 @@ function RegionModal({
   const [input, setInput] = useState<string>('')
   const { modal: displayModal } = useUI()
 
+  async function setRegionIdCookie(session: Session) {
+    const THIRTY_DAYS_S = 30 * 24 * 3600
+    const channel = JSON.parse(session.channel ?? 'null')
+
+    setCookie('fs_regionid', channel?.regionId as string, THIRTY_DAYS_S)
+  }
+
   const handleSubmit = async () => {
     const postalCode = inputRef.current?.value
 
@@ -61,6 +71,9 @@ function RegionModal({
       }
 
       const validatedSession = await validateSession(newSession)
+
+      // Set cookie for the regionId
+      await setRegionIdCookie(validatedSession ?? newSession)
 
       sessionStore.set(validatedSession ?? newSession)
     } catch (error) {
