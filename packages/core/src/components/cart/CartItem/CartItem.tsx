@@ -1,23 +1,22 @@
-import { sendAnalyticsEvent } from '@faststore/sdk'
+import type {
+  AddToCartEvent,
+  CurrencyCode,
+  RemoveFromCartEvent,
+} from '@faststore/sdk'
 import {
   CartItem as UICartItem,
   CartItemImage as UICartItemImage,
   CartItemSummary as UICartItemSummary,
 } from '@faststore/ui'
 import { useCallback, useMemo } from 'react'
-import type {
-  AddToCartEvent,
-  CurrencyCode,
-  RemoveFromCartEvent,
-} from '@faststore/sdk'
 
 import { Image } from 'src/components/ui/Image'
+import type { AnalyticsItem } from 'src/sdk/analytics/types'
+import type { CartItem as ICartItem } from 'src/sdk/cart'
 import { cartStore } from 'src/sdk/cart'
+import { useRemoveButton } from 'src/sdk/cart/useRemoveButton'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useSession } from 'src/sdk/session'
-import { useRemoveButton } from 'src/sdk/cart/useRemoveButton'
-import type { CartItem as ICartItem } from 'src/sdk/cart'
-import type { AnalyticsItem } from 'src/sdk/analytics/types'
 
 function useCartItemEvent() {
   const {
@@ -28,30 +27,32 @@ function useCartItemEvent() {
     (item: Props['item'], quantity: number) => {
       const quantityDelta = quantity - item.quantity
 
-      return sendAnalyticsEvent<
-        AddToCartEvent<AnalyticsItem> | RemoveFromCartEvent<AnalyticsItem>
-      >({
-        name: quantityDelta > 0 ? 'add_to_cart' : 'remove_from_cart',
-        params: {
-          currency: code as CurrencyCode,
-          // TODO: In the future, we can explore more robust ways of
-          // calculating the value (gift items, discounts, etc.).
-          value: item.price * Math.abs(quantityDelta),
-          items: [
-            {
-              item_id: item.itemOffered.isVariantOf.productGroupID,
-              item_name: item.itemOffered.isVariantOf.name,
-              item_brand: item.itemOffered.brand.name,
-              item_variant: item.itemOffered.sku,
-              quantity: Math.abs(quantityDelta),
-              price: item.price,
-              discount: item.listPrice - item.price,
-              currency: code as CurrencyCode,
-              item_variant_name: item.itemOffered.name,
-              product_reference_id: item.itemOffered.gtin,
-            },
-          ],
-        },
+      import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+        return sendAnalyticsEvent<
+          AddToCartEvent<AnalyticsItem> | RemoveFromCartEvent<AnalyticsItem>
+        >({
+          name: quantityDelta > 0 ? 'add_to_cart' : 'remove_from_cart',
+          params: {
+            currency: code as CurrencyCode,
+            // TODO: In the future, we can explore more robust ways of
+            // calculating the value (gift items, discounts, etc.).
+            value: item.price * Math.abs(quantityDelta),
+            items: [
+              {
+                item_id: item.itemOffered.isVariantOf.productGroupID,
+                item_name: item.itemOffered.isVariantOf.name,
+                item_brand: item.itemOffered.brand.name,
+                item_variant: item.itemOffered.sku,
+                quantity: Math.abs(quantityDelta),
+                price: item.price,
+                discount: item.listPrice - item.price,
+                currency: code as CurrencyCode,
+                item_variant_name: item.itemOffered.name,
+                product_reference_id: item.itemOffered.gtin,
+              },
+            ],
+          },
+        })
       })
     },
     [code]

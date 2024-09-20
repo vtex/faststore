@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 
-import { sendAnalyticsEvent } from '@faststore/sdk'
 import { useQuery } from 'src/sdk/graphql/useQuery'
 
 import { gql } from '@generated'
@@ -55,18 +54,20 @@ function useSuggestions(term: string) {
   const { data, error } = useQuery<Query, Variables>(query, variables, {
     onSuccess: (callbackData) => {
       if (callbackData && term) {
-        sendAnalyticsEvent<IntelligentSearchQueryEvent>({
-          name: 'intelligent_search_query',
-          params: {
-            locale,
-            term,
-            url: window.location.href,
-            logicalOperator:
-              callbackData.search.metadata?.logicalOperator ?? 'and',
-            isTermMisspelled:
-              callbackData.search.metadata?.isTermMisspelled ?? false,
-            totalCount: callbackData.search.products.pageInfo.totalCount,
-          },
+        import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+          sendAnalyticsEvent<IntelligentSearchQueryEvent>({
+            name: 'intelligent_search_query',
+            params: {
+              locale,
+              term,
+              url: window.location.href,
+              logicalOperator:
+                callbackData.search.metadata?.logicalOperator ?? 'and',
+              isTermMisspelled:
+                callbackData.search.metadata?.isTermMisspelled ?? false,
+              totalCount: callbackData.search.products.pageInfo.totalCount,
+            },
+          })
         })
       }
     },

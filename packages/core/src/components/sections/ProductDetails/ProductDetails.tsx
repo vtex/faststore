@@ -1,7 +1,6 @@
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
-import { sendAnalyticsEvent } from '@faststore/sdk'
 
 import { gql } from '@generated'
 import type { AnalyticsItem } from 'src/sdk/analytics/types'
@@ -12,10 +11,10 @@ import Section from '../Section'
 
 import styles from './section.module.scss'
 
-import { usePDP } from '../../../sdk/overrides/PageProvider'
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
-import { ProductDetailsDefaultComponents } from './DefaultComponents'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
+import { usePDP } from '../../../sdk/overrides/PageProvider'
+import { ProductDetailsDefaultComponents } from './DefaultComponents'
 
 export interface ProductDetailsProps {
   productTitle: {
@@ -115,25 +114,27 @@ function ProductDetails({
   } = product
 
   useEffect(() => {
-    sendAnalyticsEvent<ViewItemEvent<AnalyticsItem>>({
-      name: 'view_item',
-      params: {
-        currency: currency.code as CurrencyCode,
-        value: price,
-        items: [
-          {
-            item_id: isVariantOf.productGroupID,
-            item_name: isVariantOf.name,
-            item_brand: brand.name,
-            item_variant: sku,
-            price,
-            discount: listPrice - price,
-            currency: currency.code as CurrencyCode,
-            item_variant_name: variantName,
-            product_reference_id: gtin,
-          },
-        ],
-      },
+    import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+      sendAnalyticsEvent<ViewItemEvent<AnalyticsItem>>({
+        name: 'view_item',
+        params: {
+          currency: currency.code as CurrencyCode,
+          value: price,
+          items: [
+            {
+              item_id: isVariantOf.productGroupID,
+              item_name: isVariantOf.name,
+              item_brand: brand.name,
+              item_variant: sku,
+              price,
+              discount: listPrice - price,
+              currency: currency.code as CurrencyCode,
+              item_variant_name: variantName,
+              product_reference_id: gtin,
+            },
+          ],
+        },
+      })
     })
   }, [
     isVariantOf.productGroupID,

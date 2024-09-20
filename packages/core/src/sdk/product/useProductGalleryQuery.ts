@@ -1,5 +1,3 @@
-import { sendAnalyticsEvent } from '@faststore/sdk'
-
 import { gql } from '@generated'
 import { useQuery } from 'src/sdk/graphql/useQuery'
 import { useSession } from 'src/sdk/session'
@@ -83,16 +81,18 @@ export const useProductGalleryQuery = ({
   return useQuery<Query, Variables>(query, localizedVariables, {
     onSuccess: (data) => {
       if (data && term) {
-        sendAnalyticsEvent<IntelligentSearchQueryEvent>({
-          name: 'intelligent_search_query',
-          params: {
-            locale,
-            term,
-            url: window.location.href,
-            logicalOperator: data.search.metadata?.logicalOperator ?? 'and',
-            isTermMisspelled: data.search.metadata?.isTermMisspelled ?? false,
-            totalCount: data.search.products.pageInfo.totalCount,
-          },
+        import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+          sendAnalyticsEvent<IntelligentSearchQueryEvent>({
+            name: 'intelligent_search_query',
+            params: {
+              locale,
+              term,
+              url: window.location.href,
+              logicalOperator: data.search.metadata?.logicalOperator ?? 'and',
+              isTermMisspelled: data.search.metadata?.isTermMisspelled ?? false,
+              totalCount: data.search.products.pageInfo.totalCount,
+            },
+          })
         })
       }
     },
