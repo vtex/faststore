@@ -867,38 +867,31 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@envelop/core@^1.2.0":
-  version "1.7.1"
-  resolved "https://registry.npmjs.org/@envelop/core/-/core-1.7.1.tgz"
-  integrity sha512-ZxeQs4G0FOzoFAH+zskubx5aM9kx6BiUvcSI9Lo3MfYBmnK7cjwcwDdwk6Mq48QDuAeVdGfDmQz+BiWg0k2GmQ==
+"@envelop/core@^3.0.0":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@envelop/core/-/core-3.0.6.tgz#e55c3564d05d648b0356a1c465aa90b0c51f485d"
+  integrity sha512-06t1xCPXq6QFN7W1JUEf68aCwYN0OUDNAIoJe7bAqhaoa2vn7NCcuX1VHkJ/OWpmElUgCsRO6RiBbIru1in0Ig==
   dependencies:
-    "@envelop/types" "1.5.1"
+    "@envelop/types" "3.0.2"
+    tslib "^2.5.0"
 
-"@envelop/core@^2.6.0":
-  version "2.6.0"
-  resolved "https://registry.npmjs.org/@envelop/core/-/core-2.6.0.tgz"
-  integrity sha512-yTptKinJN//i6m1kXUbnLBl/FobzddI4ehURAMS08eRUOQwAuXqJU9r8VdTav8nIZLb4t6cuDWFb3n331LiwLw==
-  dependencies:
-    "@envelop/types" "2.4.0"
-    tslib "2.4.0"
-
-"@envelop/graphql-jit@^1.1.1":
-  version "1.3.1"
-  resolved "https://registry.npmjs.org/@envelop/graphql-jit/-/graphql-jit-1.3.1.tgz"
-  integrity sha512-9BdMuQVt0/g1YkSQRzipCzgxp9UAC5DQw2yQXuCrXcdWPEaLxf6Nxokx0GznoxGxulGLiR/iTuboqH6Kt24HLA==
+"@envelop/graphql-jit@^3.0.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@envelop/graphql-jit/-/graphql-jit-3.1.0.tgz#8427fc72ce18038dd99bd245bb34bf108b51bd97"
+  integrity sha512-WC45dCmZRFMdxIHZ5H3MFtNVFoVBiUMS4Xl9bKAUIIiGP50FgfV+NtuNIKTzbbPxADpGCIXPYsjNbdPOBnGCDg==
   dependencies:
     graphql-jit "^0.7.0"
     tiny-lru "7.0.6"
 
-"@envelop/on-resolve@^2.0.6":
-  version "2.0.6"
-  resolved "https://registry.npmjs.org/@envelop/on-resolve/-/on-resolve-2.0.6.tgz"
-  integrity sha512-l4vH0RKF0gdzyUcetaio/UP/BE84iw2TXvHXGAqDGoiMjRy0MVoeWF30SzwDb5IwNme2XaOsPlRmYRw1K0DAVA==
+"@envelop/on-resolve@^3.0.0":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@envelop/on-resolve/-/on-resolve-3.0.3.tgz#cfba1726c2b79b6b2d9e7333878a5b6e1c95e3f5"
+  integrity sha512-Mo2w3CHmyLCScFuIO2VS2Co44vlPSc4zwujz0x+/zyaJ+eCwBQMRuE9u+9ORjvKImNxrbXI9FQVNlbF0iDk4iQ==
 
-"@envelop/parser-cache@^2.2.0":
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/@envelop/parser-cache/-/parser-cache-2.2.1.tgz"
-  integrity sha512-7PHYjln5Jl0JieCd5mVCKZoCpxyL3EQf2etxvmB1ALB6D9QjLYSv+zSPQRT/rmeDtLDohFKVN6cIyhYNSUG2bQ==
+"@envelop/parser-cache@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@envelop/parser-cache/-/parser-cache-3.0.0.tgz#2b24131fe1a715c06e0ab50d376777477f8fcf50"
+  integrity sha512-1Pf4pnxrpPBM2N+dDdhRYoUbIK9K0xxzW4PbjWPCQe2C2owOfc+ndZad1nn9Yi1i5hibqwcltsQPmeUCsVPltw==
   dependencies:
     tiny-lru "7.0.6"
 
@@ -910,22 +903,17 @@
     "@graphql-tools/utils" "^10.0.0"
     tslib "^2.5.0"
 
-"@envelop/types@1.5.1":
-  version "1.5.1"
-  resolved "https://registry.npmjs.org/@envelop/types/-/types-1.5.1.tgz"
-  integrity sha512-NrwLVzyNqiSzgRRqOxkU2IgRc5hSGS73VsgxqchU3jl36rYo7AXVAnITkytmB9wk+jN2vUOVvayLkaTXooARwg==
-
-"@envelop/types@2.4.0":
-  version "2.4.0"
-  resolved "https://registry.npmjs.org/@envelop/types/-/types-2.4.0.tgz"
-  integrity sha512-pjxS98cDQBS84X29VcwzH3aJ/KiLCGwyMxuj7/5FkdiaCXAD1JEvKEj9LARWlFYj1bY43uII4+UptFebrhiIaw==
+"@envelop/types@3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@envelop/types/-/types-3.0.2.tgz#a4b29375b7fcee39bb5830f87f66bbc815cf305e"
+  integrity sha512-pOFea9ha0EkURWxJ/35axoH9fDGP5S2cUu/5Mmo9pb8zUf+TaEot8vB670XXihFEn/92759BMjLJNWBKmNhyng==
   dependencies:
-    tslib "^2.4.0"
+    tslib "^2.5.0"
 
-"@envelop/validation-cache@^2.2.0":
-  version "2.3.0"
-  resolved "https://registry.npmjs.org/@envelop/validation-cache/-/validation-cache-2.3.0.tgz"
-  integrity sha512-yCsACrSo3psIjxakfn5tJBG2jG7XAjCCyZJ1YCY3/jogzHAXL2ypRh4r5x0K/aivygf4TrgQQkyizYwM8v5ETw==
+"@envelop/validation-cache@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@envelop/validation-cache/-/validation-cache-3.0.0.tgz#3cac3f25a709a53c4d9d504fd84380ce7cd04281"
+  integrity sha512-JqTA6huTygAlQilaVEM77DlFdGSptf5ElOWX7wdu0VC15h2Np7MmnsyOcy7xQI1Sc7B3oaNSo12l3QD6K28vOQ==
   dependencies:
     tiny-lru "7.0.6"
 
@@ -17466,11 +17454,6 @@ tsconfig-paths@^4.1.2:
     json5 "^2.2.2"
     minimist "^1.2.6"
     strip-bom "^3.0.0"
-
-tslib@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
-  integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
 tslib@^1.8.1, tslib@^1.9.0:
   version "1.14.1"
