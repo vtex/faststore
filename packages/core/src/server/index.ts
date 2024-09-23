@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import type { MaskError } from '@envelop/core'
 import {
   envelop,
+  MaskError,
+  useEngine,
   useExtendContext,
   useMaskedErrors,
   useSchema,
@@ -18,6 +19,7 @@ import {
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { makeExecutableSchema } from '@graphql-tools/schema'
 import type { TypeSource } from '@graphql-tools/utils'
+import * as GraphQLJS from 'graphql'
 import { GraphQLError } from 'graphql'
 import path from 'path'
 
@@ -68,6 +70,7 @@ function getFinalAPISchema() {
 export const getEnvelop = async () =>
   envelop({
     plugins: [
+      useEngine(GraphQLJS),
       useSchema(getFinalAPISchema()),
       useExtendContext(apiContextFactory),
       useMaskedErrors({ maskError: customFormatError }),
