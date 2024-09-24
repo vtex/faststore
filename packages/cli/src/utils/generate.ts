@@ -304,24 +304,18 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
       rootPackageJson.dependencies[packageName]
 
     if (!coreVersion || !rootVersion) {
-      console.warn(
+       console.warn(
         `${chalk.yellow(
           'warning'
         )} - Package ${packageName} not found in both core or root dependencies.`
       )
     } else if (coreVersion !== rootVersion) {
-      console.error(
-        `${chalk.red(
-          'error'
+      console.warn(
+        `${chalk.yellow(
+          'warning'
         )} - ${packageName} versions are different. Core: ${coreVersion}, Customization: ${rootVersion}`
       )
-      process.exit(1)
-    } else {
-      console.log(
-        `${chalk.green(
-          'success'
-        )} - ${packageName} versions match: ${coreVersion}`
-      )
+     
     }
   })
 }
