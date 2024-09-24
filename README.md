@@ -4,7 +4,7 @@
   </a>
 </p>
 <h1 align="center">
-  FastStore v2
+  FastStore v3
 </h1>
 <p align="center">
   <strong>

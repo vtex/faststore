@@ -1,6 +1,6 @@
 {
   "name": "@faststore/components",
-  "version": "3.0.103",
+  "version": "3.0.110",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "typings": "dist/esm/index.d.ts",
@@ -35,8 +35,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@faststore/eslint-config": "^3.0.97",
-    "@faststore/shared": "^3.0.97",
+    "@faststore/eslint-config": "^3.0.110",
+    "@faststore/shared": "^3.0.110",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^14.3.0",
     "@types/jest-axe": "^3.5.9",
