@@ -24,7 +24,7 @@ export const usePageViewEvent = () => {
     return () => {
       router.events.off('routeChangeComplete', sendPageViewEvent)
     }
-  }, [router])
+  }, [router, sendPageViewEvent])
 
   return { sendPageViewEvent }
 }
