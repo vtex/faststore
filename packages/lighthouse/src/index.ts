@@ -22,14 +22,11 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
       assert: {
         preset: 'lighthouse:no-pwa',
         assertions: {
-          // Final Lighthouse score Budgets
+          // Final Ligthouse score Budgets
           'categories:accessibility': ['error', { minScore: 1 }],
           'categories:best-practices': ['error', { minScore: 1 }],
           'categories:performance': ['error', { minScore: 0.95 }],
-          'categories:seo':
-            process.env.NODE_ENV !== 'production'
-              ? ['error', { minScore: 1 }]
-              : ['warn', { minScore: 1 }],
+          'categories:seo': ['error', { minScore: 1 }],
           'categories:pwa': 'off',
 
           // Lighthouse Metrics Budgets
