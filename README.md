@@ -35,7 +35,7 @@ Check out our [Overview](https://www.faststore.dev/docs/getting-started-overview
 
 ## Contributing
 
-This is still a work in progress, however, if you are also an adventurous person, you can read the code and have some fun!
+This is a work in progress. If you are an adventurous person, you can read the code and have some fun! Refer to [Contributing guidelines](CONTRIBUTING.MD) for more information.
 
 ## Getting help
 
