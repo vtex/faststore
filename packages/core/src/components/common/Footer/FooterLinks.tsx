@@ -67,7 +67,7 @@ function FooterLinks({ links }: FooterLinksProps) {
       </div>
 
       <div className="hidden-mobile">
-        <nav data-fs-footer-links-columns>
+        <nav data-fs-footer-links-columns aria-label="Footer Links Navigation">
           {links.map(({ sectionTitle, items }) => (
             <div key={sectionTitle}>
               <p data-fs-footer-links-title>{sectionTitle}</p>

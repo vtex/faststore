@@ -6,11 +6,15 @@ interface FooterProps {
 }
 
 export function FooterInfo({ children }: FooterProps) {
-  return <div data-fs-footer-info>{children}</div>
+  return (
+    <section data-fs-footer-info aria-label="Footer Information">
+      {children}
+    </section>
+  )
 }
 
 export function FooterNavigation({ children }: FooterProps) {
-  return <div data-fs-footer-navigation>{children}</div>
+  return <section data-fs-footer-navigation>{children}</section>
 }
 
 export function Footer({ children }: FooterProps) {

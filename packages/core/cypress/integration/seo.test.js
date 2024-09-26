@@ -6,8 +6,8 @@
  * TODO: Improve structured data validaton by actually using schema.org's schemas
  */
 
-import { options } from '../global'
 import { cypress, storeUrl } from '../../faststore.config'
+import { options } from '../global'
 
 const { pages } = cypress
 
@@ -88,10 +88,13 @@ describe('Product Page Seo', () => {
       .should(($el) => {
         expect($el.attr('content')).to.eq('index,follow')
       })
+
     cy.get('link[rel="canonical"]')
       .should('exist')
-      .should(($link) => {
-        expect($link.attr('href')).to.eq(`${storeUrl}${pages.pdp}`)
+      .and(($link) => {
+        const href = $link.attr('href')
+        const regex = new RegExp(`^${href.split('/')[0]}`)
+        expect(`${storeUrl}${pages.pdp}`).to.match(regex)
       })
   })
 

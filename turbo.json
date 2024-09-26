@@ -8,34 +8,21 @@
   ],
   "pipeline": {
     "site#build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "env": [
-        "BASE_SITE_URL"
-      ],
-      "outputs": [
-        ".next/**"
-      ]
+      "dependsOn": ["^build"],
+      "env": ["BASE_SITE_URL"],
+      "outputs": [".next/**"]
     },
     "build": {
-      "outputs": [
-        "dist/**"
-      ],
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"],
+      "env": ["BASE_SITE_URL"],
+      "outputs": ["dist/**"]
     },
     "test": {
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "lint": {},
     "start": {
-      "outputs": [
-        "dist/**"
-      ]
+      "outputs": ["dist/**"]
     },
     "size": {},
     "dev": {
@@ -45,19 +32,13 @@
       "cache": false
     },
     "@faststore/api#dev:graphql": {
-      "outputs": [
-        "dist/**"
-      ]
+      "outputs": ["dist/**"]
     },
     "@faststore/api#build:cjs": {
-      "outputs": [
-        "dist/**"
-      ]
+      "outputs": ["dist/**"]
     },
     "@faststore/api#build:esm": {
-      "outputs": [
-        "dist/**"
-      ]
+      "outputs": ["dist/**"]
     }
   }
 }

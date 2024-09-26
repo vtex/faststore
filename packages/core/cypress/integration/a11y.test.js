@@ -4,7 +4,6 @@
  * Cypress tests for a11y (accessibility)
  */
 
-import { disabledA11yRules } from '../global'
 import { cypress } from '../../faststore.config'
 
 const { pages } = cypress
@@ -22,7 +21,12 @@ describe('Accessibility tests', () => {
     cy.getById('product-link').should('exist')
 
     cy.injectAxe()
-    cy.checkA11y(null, disabledA11yRules)
+
+    cy.checkA11y(null, {
+      rules: {
+        'aria-allowed-role': { enabled: true },
+      },
+    })
   })
 
   it('checks a11y for product page', () => {
@@ -30,10 +34,14 @@ describe('Accessibility tests', () => {
     cy.waitForHydration()
 
     // Wait for product to be available and page to be interactive
-    cy.getById('buy-button').should('exist')
+    cy.get('[data-testid="buy-button"]').should('exist')
 
     cy.injectAxe()
-    cy.checkA11y(null, disabledA11yRules)
+    cy.checkA11y(null, {
+      rules: {
+        'aria-allowed-role': { enabled: true },
+      },
+    })
   })
 
   it('checks a11y for home page', () => {
@@ -41,6 +49,10 @@ describe('Accessibility tests', () => {
     cy.waitForHydration()
 
     cy.injectAxe()
-    cy.checkA11y(null, disabledA11yRules)
+    cy.checkA11y(null, {
+      rules: {
+        'aria-allowed-role': { enabled: true },
+      },
+    })
   })
 })
