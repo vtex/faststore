@@ -51,6 +51,7 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
         aria-labelledby={title ? 'payment-methods-title' : 'Payment Methods'}
         {...otherProps}
       >
+        {/* TODO: We can consider removing and make title always required or add it via heading */}
         {!!title && (
           <div data-fs-payment-methods-title id="payment-methods-title">
             {title}

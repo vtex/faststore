@@ -12,6 +12,7 @@ interface Props {
 function Incentives({ incentives, label }: Props) {
   return (
     <Section className={`${styles.section} section-incentives layout__section`}>
+      {/* Leaving label as an empty string isn’t ideal, but it works for now. Ideally, we should receive a label from the CMS to identify which Incentive section we’re referring to. */}
       <UIIncentives incentives={incentives} colored label={label ?? ''} />
     </Section>
   )
