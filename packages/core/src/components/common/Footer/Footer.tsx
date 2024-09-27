@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import { mark } from 'src/sdk/tests/mark'
 
 interface FooterProps {
   children: ReactNode
@@ -30,5 +29,4 @@ export function Footer({ children }: FooterProps) {
   )
 }
 
-Footer.displayName = 'Footer'
-export default mark(Footer)
+export default Footer
