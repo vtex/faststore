@@ -50,7 +50,7 @@
     "sanitize-html": "^2.11.0"
   },
   "devDependencies": {
-    "@envelop/core": "^3.0.0",
+    "@envelop/core": "^4.0.0",
     "@faststore/eslint-config": "^3.0.116",
     "@faststore/shared": "^3.0.116",
     "@graphql-codegen/cli": "2.2.0",
@@ -73,7 +73,7 @@
     "typescript": "^5.3.2"
   },
   "peerDependencies": {
-    "@envelop/core": "^3",
+    "@envelop/core": "^4",
     "graphql": "^15.6.0"
   },
   "volta": {
