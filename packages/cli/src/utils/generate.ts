@@ -86,8 +86,27 @@ function disableTsConfigStrictRules(basePath: string) {
   })
 }
 
-function copyCoreFiles(basePath: string) {
-  const { coreDir, tmpDir } = withBasePath(basePath)
+async function copyMiddlewareFile(basePath: string) { 
+  const { tmpDir, userDir } = withBasePath(basePath)
+
+  const middlewarePath = path.join(userDir, 'middleware.ts')
+
+  if(!existsSync(middlewarePath)) { 
+    console.log(`${chalk.yellow('warning')} - middleware.ts file not found`)
+    return
+  }
+
+  console.log(middlewarePath)
+  try {
+    copyFileSync(middlewarePath, path.join(tmpDir, 'src' , 'middleware.ts'))
+    console.log(`${chalk.green('success')} - Middleware file copied`)
+  }catch(error) {
+    console.error(error)
+  }
+}
+
+async function copyCoreFiles(basePath: string) {
+  const { coreDir, tmpDir, userStoreConfigFile } = withBasePath(basePath)
 
   try {
     copySync(coreDir, tmpDir, {
@@ -104,6 +123,12 @@ function copyCoreFiles(basePath: string) {
 
     filterAndCopyPackageJson(basePath)
     disableTsConfigStrictRules(basePath)
+
+    const userStoreConfig = await import(path.resolve(userStoreConfigFile))
+    console.log('enableMiddleware', userStoreConfig?.experimental?.enableMiddleware)
+    if(userStoreConfig?.experimental?.enableMiddleware) {
+      copyMiddlewareFile(basePath)
+    }
 
     console.log(`${chalk.green('success')} - Core files copied`)
   } catch (e) {
