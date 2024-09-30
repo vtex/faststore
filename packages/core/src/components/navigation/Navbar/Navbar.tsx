@@ -1,14 +1,14 @@
-import { useRef, useState, useCallback } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
-import { useUI, useScrollDirection, Icon as UIIcon } from '@faststore/ui'
+import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
-import type { SearchInputRef } from 'src/components/search/SearchInput'
-import SearchInput from 'src/components/search/SearchInput'
+import CartToggle from 'src/components/cart/CartToggle'
 import NavbarLinks from 'src/components/navigation/NavbarLinks'
 import NavbarSlider from 'src/components/navigation/NavbarSlider'
-import CartToggle from 'src/components/cart/CartToggle'
-import Logo from 'src/components/ui/Logo'
+import type { SearchInputRef } from 'src/components/search/SearchInput'
+import SearchInput from 'src/components/search/SearchInput'
 import Link from 'src/components/ui/Link'
+import Logo from 'src/components/ui/Logo'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
@@ -121,6 +121,7 @@ function Navbar({
           <SearchInput
             placeholder={searchInput?.placeholder}
             sort={searchInput?.sort}
+            name="store-search-input"
           />
 
           <NavbarButtons.Component
@@ -148,6 +149,7 @@ function Navbar({
               sort={searchInput?.sort}
               hidden={!searchExpanded}
               aria-hidden={!searchExpanded}
+              name="store-search-input-mobile"
             />
 
             <ButtonSignIn.Component {...signInButton} />
