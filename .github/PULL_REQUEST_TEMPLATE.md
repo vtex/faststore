@@ -4,7 +4,7 @@
 
 ## How it works?
 
-<!--- Tell us the role of the new feature, or component, in its context. --->
+<!--- Tell us the role of the new feature, or component, in its context. Provide details about what you have implemented and screenshots if applicable.  --->
 
 ## How to test it?
 
@@ -12,7 +12,7 @@
 
 ### Starters Deploy Preview
 
-<!--- Add a link to a deploy preview from `gatsby.store` AND `nextjs.store` with this branch being used. --->
+<!--- Add a link to a deploy preview from `starter.store` with this branch being used. --->
 
 <!--- Tip: You can get an installable version of this branch from the CodeSandbox generated when this PR is created. --->
 
@@ -21,3 +21,20 @@
 <!--- Spread the knowledge: is there any content you used to create this PR that is worth sharing? --->
 
 <!--- Extra tip: adding references to related issues or mentioning people important to this PR may be good for the documentation and reviewing process --->
+
+## Checklist
+
+<em>You may erase this after checking them all :wink:</em>
+
+**PR Title and Commit Messages**
+
+- [ ] PR title and commit messages follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification
+  - Available prefixes: `feat`, `fix`, `chore`, `docs`, `style`, `refactor` and `test`
+
+**PR Description**
+
+- [ ] Added a label according to the PR goal - `breaking change`, `bug`, `contributing`, `performance`, `documentation`..
+
+**Dependencies**
+
+- [ ] Committed the `yarn.lock` file when there were changes to the packages
