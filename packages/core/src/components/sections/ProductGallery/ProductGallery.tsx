@@ -1,5 +1,3 @@
-import { mark } from '../../../sdk/tests/mark'
-
 import ProductGallery, {
   ProductGalleryProps,
 } from '../../ui/ProductGallery/ProductGallery'
@@ -70,11 +68,8 @@ function ProductGallerySection({
   )
 }
 
-ProductGallerySection.displayName = 'ProductGallery'
-const MarkedProductGallery = mark(ProductGallerySection)
-
 const OverridableProductGallery = getOverridableSection<
-  typeof MarkedProductGallery
->('ProductGallery', MarkedProductGallery, ProductGalleryDefaultComponents)
+  typeof ProductGallerySection
+>('ProductGallery', ProductGallerySection, ProductGalleryDefaultComponents)
 
 export default OverridableProductGallery

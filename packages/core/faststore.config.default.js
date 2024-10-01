@@ -67,7 +67,7 @@ module.exports = {
     server: process.env.BASE_SITE_URL || 'http://localhost:3000',
     pages: {
       home: '/',
-      pdp: '/apple-magic-mouse/p',
+      pdp: '/4k-philips-monitor-99988213/p',
       collection: '/office',
     },
   },
@@ -76,7 +76,7 @@ module.exports = {
   cypress: {
     pages: {
       home: '/',
-      pdp: '/apple-magic-mouse/p',
+      pdp: '/4k-philips-monitor-99988213/p',
       collection: '/office',
       collection_2: '/technology',
       collection_filtered:

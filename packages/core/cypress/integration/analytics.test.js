@@ -4,8 +4,8 @@
  * Cypress tests for testing the Analytics module
  */
 
-import { options } from '../global'
 import { cypress } from '../../faststore.config'
+import { options } from '../global'
 
 const { pages } = cypress
 
@@ -395,7 +395,7 @@ describe('view_cart event', () => {
         ({ event: eventName }) => eventName === 'view_cart'
       )
 
-      expect(event.ecommerce.value).to.equal(950)
+      expect(event.ecommerce.value).to.equal(420)
       expect(event.ecommerce.items.length).to.equal(1)
     })
   })

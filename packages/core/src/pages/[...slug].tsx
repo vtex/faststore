@@ -7,7 +7,6 @@ import type {
   ServerCollectionPageQueryQuery,
   ServerCollectionPageQueryQueryVariables,
 } from '@generated/graphql'
-import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
 
 import { Locator } from '@vtex/client-cms'
@@ -150,5 +149,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-Page.displayName = 'Page'
-export default mark(Page)
+export default Page

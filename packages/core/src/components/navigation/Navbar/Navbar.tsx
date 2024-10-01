@@ -2,8 +2,6 @@ import { useRef, useState, useCallback } from 'react'
 
 import { useUI, useScrollDirection, Icon as UIIcon } from '@faststore/ui'
 
-import { mark } from 'src/sdk/tests/mark'
-
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
 import NavbarLinks from 'src/components/navigation/NavbarLinks'
@@ -174,5 +172,4 @@ function Navbar({
   )
 }
 
-Navbar.displayName = 'Navbar'
-export default mark(Navbar)
+export default Navbar

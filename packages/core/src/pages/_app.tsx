@@ -1,6 +1,5 @@
 import { UIProvider } from '@faststore/ui'
 import type { AppProps } from 'next/app'
-import NextNProgress from 'nextjs-progressbar'
 import Layout from 'src/Layout'
 import AnalyticsHandler from 'src/sdk/analytics'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
@@ -15,12 +14,6 @@ import { DefaultSeo } from 'next-seo'
 function App({ Component, pageProps }: AppProps) {
   return (
     <ErrorBoundary>
-      <NextNProgress
-        color="var(--fs-color-primary-bkg);"
-        showOnShallow={false}
-        options={{ showSpinner: false }}
-      />
-
       <DefaultSeo {...SEO} />
 
       <AnalyticsHandler />

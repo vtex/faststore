@@ -1,16 +1,19 @@
 import { ReactNode } from 'react'
-import { mark } from 'src/sdk/tests/mark'
 
 interface FooterProps {
   children: ReactNode
 }
 
 export function FooterInfo({ children }: FooterProps) {
-  return <div data-fs-footer-info>{children}</div>
+  return (
+    <section data-fs-footer-info aria-label="Footer Information">
+      {children}
+    </section>
+  )
 }
 
 export function FooterNavigation({ children }: FooterProps) {
-  return <div data-fs-footer-navigation>{children}</div>
+  return <section data-fs-footer-navigation>{children}</section>
 }
 
 export function Footer({ children }: FooterProps) {
@@ -26,5 +29,4 @@ export function Footer({ children }: FooterProps) {
   )
 }
 
-Footer.displayName = 'Footer'
-export default mark(Footer)
+export default Footer

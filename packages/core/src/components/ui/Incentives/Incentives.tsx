@@ -1,7 +1,7 @@
 import {
   Icon as UIIcon,
-  List as UIList,
   Incentive as UIIncentive,
+  List as UIList,
 } from '@faststore/ui'
 
 export type Incentive = {
@@ -22,18 +22,24 @@ export interface IncentivesProps {
    * Controls the component's direction.
    */
   variant?: 'horizontal' | 'vertical'
+  /**
+   * Label to identify the incentive list and offer better accessibility
+   */
+  label?: string
 }
 
 function Incentives({
   incentives,
   variant = 'horizontal',
   colored = false,
+  label,
 }: IncentivesProps) {
   return (
-    <div
+    <section
       data-fs-incentives
       data-fs-incentives-colored={colored}
       data-fs-incentives-variant={variant}
+      aria-label={`Incentives List ${label}`}
     >
       <UIList data-fs-content="incentives">
         {incentives.map((incentive, index) => (
@@ -46,7 +52,7 @@ function Incentives({
                 width={32}
                 height={32}
               />
-              <div data-fs-incentive-content>
+              <section data-fs-incentive-content>
                 <p data-fs-incentive-title>{incentive.title}</p>
                 <span data-fs-incentive-description>
                   {incentive.firstLineText}
@@ -56,12 +62,12 @@ function Incentives({
                     {incentive.secondLineText}
                   </span>
                 )}
-              </div>
+              </section>
             </UIIncentive>
           </li>
         ))}
       </UIList>
-    </div>
+    </section>
   )
 }
 
