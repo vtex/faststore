@@ -116,6 +116,20 @@ export type Address = {
   street: Maybe<Scalars['String']['output']>
 }
 
+/** Advertisement information about a specific product in a campaign */
+export type Advertisement = {
+  /** Cost of the action, usually Cost Per Click. */
+  actionCost: Scalars['Float']['output']
+  /** Advertiser ID of the product. */
+  adId: Scalars['String']['output']
+  /** Advertiser Request ID. */
+  adRequestId: Scalars['String']['output']
+  /** Advertiser Response ID. */
+  adResponseId: Scalars['String']['output']
+  /** Campaign ID. */
+  campaignId: Scalars['String']['output']
+}
+
 export type AvailableDeliveryWindows = {
   /** Available delivery window end date in UTC */
   endDateUtc: Maybe<Scalars['String']['output']>
@@ -901,6 +915,8 @@ export type StorePerson = {
 export type StoreProduct = {
   /** Array of additional properties. */
   additionalProperty: Array<StorePropertyValue>
+  /** Advertisement information about the product. */
+  advertisement: Maybe<Advertisement>
   /** Aggregate ratings data. */
   aggregateRating: StoreAggregateRating
   /** Product brand. */
@@ -1123,6 +1139,7 @@ export type ProductSummary_ProductFragment = {
     value: any
     valueReference: any
   }>
+  advertisement: { adId: string; adResponseId: string } | null
 }
 
 type Filter_Facets_StoreFacetBoolean_Fragment = {
@@ -1433,6 +1450,7 @@ export type ClientManyProductsQueryQuery = {
             value: any
             valueReference: any
           }>
+          advertisement: { adId: string; adResponseId: string } | null
         }
       }>
     }
@@ -1560,6 +1578,7 @@ export type ClientSearchSuggestionsQueryQuery = {
           value: any
           valueReference: any
         }>
+        advertisement: { adId: string; adResponseId: string } | null
       }>
     }
     products: { pageInfo: { totalCount: number } }
@@ -1689,6 +1708,10 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
     name
     value
     valueReference
+  }
+  advertisement {
+    adId
+    adResponseId
   }
 }
     `,
@@ -2051,7 +2074,7 @@ export const SubscribeToNewsletterDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '99012563e9885c3b27a716ca212a2c317e7ec12f',
+    operationHash: 'ad2eb78cfccb9dbd5a9f2d1e150cc70fea5da99a',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2078,7 +2101,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '71809c86cb940861f01bcc57dbaf57e6f41cb378',
+    operationHash: '4d9f934764d8578aea08673b8ba57e8bf738f534',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,

@@ -8,6 +8,7 @@ export const apiOptions: APIOptions = {
   environment: storeConfig.api.environment as APIOptions['environment'],
   subDomainPrefix: storeConfig.api.subDomainPrefix ?? ['www'],
   hideUnavailableItems: storeConfig.api.hideUnavailableItems,
+  showSponsored: storeConfig.api.showSponsored,
   simulationBehavior: (storeConfig.api as Record<string, any>)
     .simulationBehavior,
   incrementAddress: storeConfig.api.incrementAddress,

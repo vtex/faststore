@@ -70,6 +70,10 @@ type StoreProduct {
   Sku Unit Multiplier
   """
   unitMultiplier: Float
+  """
+  Advertisement information about the product.
+  """
+  advertisement: Advertisement
 }
 
 """

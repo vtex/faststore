@@ -12,6 +12,7 @@ const apiOptions = {
   locale: 'en-US',
   environment: 'vtexcommercestable',
   channel: '{"salesChannel":"1"}',
+  showSponsored: false,
 } as Options
 
 const graphQLContext = getContextFactory(apiOptions)

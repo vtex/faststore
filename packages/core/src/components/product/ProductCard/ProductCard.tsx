@@ -77,6 +77,7 @@ function ProductCard({
     sku,
     isVariantOf: { name },
     image: [img],
+    advertisement,
     offers: {
       lowPrice,
       lowPriceWithTaxes,
@@ -106,12 +107,21 @@ function ProductCard({
 
   const hasDiscount = spotPrice <= listPrice
 
+  const advertisementDataAttributes = advertisement
+    ? {
+        'data-van-res-id': advertisement.adResponseId,
+        'data-van-aid': advertisement.adId,
+        'data-van-prod-name': name,
+      }
+    : {}
+
   return (
     <UIProductCard
       outOfStock={outOfStock}
       bordered={bordered}
       variant={variant}
       data-fs-product-card-sku={sku}
+      {...advertisementDataAttributes}
       {...otherProps}
     >
       <UIProductCardImage aspectRatio={aspectRatio}>
@@ -188,6 +198,11 @@ export const fragment = gql(`
       name
       value
       valueReference
+    }
+
+    advertisement {
+      adId
+      adResponseId
     }
   }
 `)
