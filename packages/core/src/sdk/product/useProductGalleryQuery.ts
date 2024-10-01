@@ -26,6 +26,7 @@ export const query = gql(`
     $sort: StoreSort!
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
+    $fuzzy: String
   ) {
     ...ClientProductGallery
     redirect(term: $term, selectedFacets: $selectedFacets) {
@@ -37,6 +38,7 @@ export const query = gql(`
       sort: $sort
       term: $term
       selectedFacets: $selectedFacets
+      fuzzy: $fuzzy
     ) {
       products {
         pageInfo {
@@ -63,6 +65,7 @@ type ProductGalleryQueryOptions = {
   selectedFacets: Facet[]
   sort: ClientManyProductsQueryQueryVariables['sort']
   term: ClientManyProductsQueryQueryVariables['term']
+  fuzzy?: string
 }
 
 export const useProductGalleryQuery = ({
@@ -70,14 +73,17 @@ export const useProductGalleryQuery = ({
   sort,
   selectedFacets,
   itemsPerPage,
+  fuzzy,
 }: ProductGalleryQueryOptions) => {
   const { locale } = useSession()
+
   const localizedVariables = useLocalizedVariables({
     first: itemsPerPage,
     after: '0',
     sort,
     term: term ?? '',
     selectedFacets,
+    fuzzy,
   })
 
   return useQuery<Query, Variables>(query, localizedVariables, {

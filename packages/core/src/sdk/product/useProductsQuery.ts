@@ -15,6 +15,7 @@ export const query = gql(`
     $sort: StoreSort!
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
+    $fuzzy: String
   ) {
     ...ClientManyProducts
     search(
@@ -23,6 +24,7 @@ export const query = gql(`
       sort: $sort
       term: $term
       selectedFacets: $selectedFacets
+      fuzzy: $fuzzy
     ) {
       products {
         pageInfo {

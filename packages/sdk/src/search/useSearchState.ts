@@ -9,7 +9,8 @@ export const initialize = ({
   term = null,
   base = '/',
   page = 0,
-  passThrough = new URLSearchParams()
+  passThrough = new URLSearchParams(),
+  fuzzy = 'auto',
 }: Partial<State> | undefined = {}) => ({
   sort,
   selectedFacets,
@@ -17,6 +18,7 @@ export const initialize = ({
   base,
   page,
   passThrough,
+  fuzzy,
 })
 
 const equals = (s1: State, s2: State) => format(s1).href === format(s2).href

@@ -483,6 +483,7 @@ export type QueryRedirectArgs = {
 export type QuerySearchArgs = {
   after: InputMaybe<Scalars['String']['input']>
   first: Scalars['Int']['input']
+  fuzzy: InputMaybe<Scalars['String']['input']>
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet>>
   sort?: InputMaybe<StoreSort>
   term?: InputMaybe<Scalars['String']['input']>
@@ -1399,6 +1400,7 @@ export type ClientManyProductsQueryQueryVariables = Exact<{
   sort: StoreSort
   term: Scalars['String']['input']
   selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+  fuzzy: InputMaybe<Scalars['String']['input']>
 }>
 
 export type ClientManyProductsQueryQuery = {
@@ -1445,6 +1447,7 @@ export type ClientProductGalleryQueryQueryVariables = Exact<{
   sort: StoreSort
   term: Scalars['String']['input']
   selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+  fuzzy: InputMaybe<Scalars['String']['input']>
 }>
 
 export type ClientProductGalleryQueryQuery = {
@@ -1848,6 +1851,7 @@ export const ClientManyProductsFragmentDoc = new TypedDocumentString(
     sort: $sort
     term: $term
     selectedFacets: $selectedFacets
+    fuzzy: $fuzzy
   ) {
     products {
       pageInfo {
@@ -1878,6 +1882,7 @@ export const ClientProductGalleryFragmentDoc = new TypedDocumentString(
     sort: $sort
     term: $term
     selectedFacets: $selectedFacets
+    fuzzy: $fuzzy
   ) {
     products {
       pageInfo {
@@ -2051,7 +2056,7 @@ export const SubscribeToNewsletterDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '99012563e9885c3b27a716ca212a2c317e7ec12f',
+    operationHash: 'bc199e270b76ba33335dbecf3116a175988f831b',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2060,7 +2065,7 @@ export const ClientManyProductsQueryDocument = {
 export const ClientProductGalleryQueryDocument = {
   __meta__: {
     operationName: 'ClientProductGalleryQuery',
-    operationHash: '177fe68cb385737b0901fc9e105f0a4813e18a20',
+    operationHash: '65cd9b9509a9cf62bbe315f947b2820bf9f250e2',
   },
 } as unknown as TypedDocumentString<
   ClientProductGalleryQueryQuery,

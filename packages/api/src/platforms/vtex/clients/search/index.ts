@@ -30,7 +30,7 @@ export interface SearchArgs {
   type: 'product_search' | 'facets'
   sort?: Sort
   selectedFacets?: SelectedFacet[]
-  fuzzy?: '0' | '1' | 'auto'
+  fuzzy?: string
   hideUnavailableItems?: boolean
   showInvisibleItems?: boolean
 }
@@ -112,7 +112,7 @@ export const IntelligentSearch = (
     sort = '',
     selectedFacets = [],
     type,
-    fuzzy = 'auto',
+    fuzzy,
     showInvisibleItems,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
@@ -120,7 +120,7 @@ export const IntelligentSearch = (
       count: count.toString(),
       query,
       sort,
-      fuzzy,
+      fuzzy: fuzzy ?? 'auto',
       locale: ctx.storage.locale,
     })
 

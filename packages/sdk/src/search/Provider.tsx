@@ -9,6 +9,7 @@ import { useSearchState } from './useSearchState'
 
 export interface SearchContext extends UseSearchInfiniteState, UseSearchState {
   itemsPerPage: number
+  fuzzy?: string
 }
 
 export const Context = createContext<SearchContext | undefined>(undefined)
@@ -34,6 +35,7 @@ export const Provider = ({
       pages,
       ...infiniteActions,
       itemsPerPage,
+      fuzzy: 'auto',
     }),
     [infiniteActions, itemsPerPage, pages, searchActions, state]
   )
