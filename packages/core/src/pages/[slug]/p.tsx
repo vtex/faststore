@@ -24,7 +24,7 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
 
-import storeConfig from 'faststore.config'
+import storeConfig from 'discovery.config'
 import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,

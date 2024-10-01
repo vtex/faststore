@@ -1,6 +1,6 @@
 // @ts-check
 const path = require('path')
-const storeConfig = require('./faststore.config')
+const storeConfig = require('./discovery.config')
 
 /**
  * @type {import('next').NextConfig}

@@ -5,7 +5,7 @@
  */
 
 import { options } from '../global'
-import { cypress } from '../../faststore.config'
+import { cypress } from '../../discovery.config'
 
 const { pages } = cypress
 

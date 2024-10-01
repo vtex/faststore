@@ -17,7 +17,7 @@ import PageProvider from 'src/sdk/overrides/PageProvider'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
-import storeConfig from 'faststore.config'
+import storeConfig from 'discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {

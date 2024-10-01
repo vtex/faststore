@@ -21,7 +21,7 @@ import GlobalSections, {
 } from 'src/components/cms/GlobalSections'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'src/utils/dynamicContent'
-import storeConfig from '../../faststore.config'
+import storeConfig from '../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {

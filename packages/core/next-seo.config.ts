@@ -1,5 +1,5 @@
 import { DefaultSeoProps } from 'next-seo'
-import storeConfig from './faststore.config'
+import storeConfig from './discovery.config'
 
 const buildTime = new Date().toISOString()
 

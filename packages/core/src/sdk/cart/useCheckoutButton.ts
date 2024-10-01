@@ -1,4 +1,4 @@
-import storeConfig from '../../../faststore.config'
+import storeConfig from '../../../discovery.config'
 import { useCart } from './index'
 
 export const useCheckoutButton = () => {
