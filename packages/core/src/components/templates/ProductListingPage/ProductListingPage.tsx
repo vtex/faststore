@@ -16,6 +16,7 @@ import { PLPContentType } from 'src/server/cms/plp'
 
 import storeConfig from '../../../../faststore.config'
 import ProductListing from './ProductListing'
+import { usePageViewEvent } from 'src/sdk/analytics/hooks/usePageViewEvent'
 
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery
@@ -71,6 +72,8 @@ export default function ProductListingPage({
   const [pathname] = router.asPath.split('?')
   const canonical = `${storeConfig.storeUrl}${pathname}`
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
+
+  usePageViewEvent({ pageTitle: title })
 
   return (
     <SearchProvider

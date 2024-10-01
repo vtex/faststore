@@ -18,6 +18,7 @@ import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
 import storeConfig from 'faststore.config'
+import { usePageViewEvent } from 'src/sdk/analytics/hooks/usePageViewEvent'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -46,6 +47,8 @@ export default function LandingPage({
   const context = {
     data: serverData,
   }
+
+  usePageViewEvent({ pageTitle: settings?.seo?.title ?? storeConfig.seo.title })
 
   return (
     <>
