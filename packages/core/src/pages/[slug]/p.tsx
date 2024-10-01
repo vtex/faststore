@@ -33,6 +33,7 @@ import GlobalSections, {
 import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import { PDPContentType, getPDP } from 'src/server/cms/pdp'
+import { usePageViewEvent } from 'src/sdk/analytics/hooks/usePageViewEvent'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -81,6 +82,8 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
       isValidating,
     },
   } as PDPContext
+
+  usePageViewEvent({ pageTitle: meta.title })
 
   return (
     <GlobalSections {...globalSections}>

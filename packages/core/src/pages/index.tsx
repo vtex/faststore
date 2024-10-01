@@ -22,6 +22,7 @@ import GlobalSections, {
 } from 'src/components/cms/GlobalSections'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'src/utils/dynamicContent'
+import { usePageViewEvent } from 'src/sdk/analytics/hooks/usePageViewEvent'
 import storeConfig from '../../faststore.config'
 
 /* A list of components that can be used in the CMS. */
@@ -50,6 +51,8 @@ function Page({
   const context = {
     data: serverData,
   }
+
+  usePageViewEvent({ pageTitle: settings?.seo?.title ?? storeConfig.seo.title })
 
   return (
     <GlobalSections {...globalSections}>

@@ -23,6 +23,7 @@ import GlobalSections, {
 } from 'src/components/cms/GlobalSections'
 import { SearchWrapper } from 'src/components/templates/SearchPage'
 import { getPage, SearchContentType } from 'src/server/cms'
+import { usePageViewEvent } from 'src/sdk/analytics/hooks/usePageViewEvent'
 
 type Props = {
   page: SearchContentType
@@ -65,6 +66,8 @@ function Page({ page: searchContentType, globalSections }: Props) {
   const title = 'Search Results'
   const { description, titleTemplate } = storeConfig.seo
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
+
+  usePageViewEvent({ pageTitle: title })
 
   if (!searchParams) {
     return null
