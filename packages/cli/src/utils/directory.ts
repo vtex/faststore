@@ -20,6 +20,8 @@ export const withBasePath = (basepath: string) => {
 
   function getUserStoreConfigFile() {
     const discovery = path.join(getRoot(), 'discovery.config.js')
+    // This is a fallback for the old faststore.config.js file
+    // It will be removed in the future
     const faststore = path.join(getRoot(), 'faststore.config.js')
     return fs.existsSync(discovery) ? discovery : faststore
   }
@@ -31,6 +33,8 @@ export const withBasePath = (basepath: string) => {
       'customizations',
       'discovery.config.js'
     )
+    // This is a fallback for the old faststore.config.js file
+    // It will be removed in the future
     const faststore = path.join(
       tmpDir,
       'src',
