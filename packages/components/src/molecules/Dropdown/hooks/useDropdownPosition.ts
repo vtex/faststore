@@ -7,12 +7,12 @@ type DropdownPosition = Pick<React.CSSProperties, 'position' | 'top' | 'left'>
  * @returns Style with positions.
  */
 export const useDropdownPosition = (): DropdownPosition => {
-  const { dropdownButtonRef } = useDropdown()
+  const { dropdownTriggerRef } = useDropdown()
 
   // Necessary to use this component in SSR
   const isBrowser = typeof window !== 'undefined'
 
-  const buttonRect = dropdownButtonRef?.current?.getBoundingClientRect()
+  const buttonRect = dropdownTriggerRef?.current?.getBoundingClientRect()
   const topLevel = buttonRect?.top ?? 0
   const topOffset = buttonRect?.height ?? 0
   const leftLevel = buttonRect?.left ?? 0

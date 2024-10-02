@@ -29,6 +29,7 @@ import { OverviewSection } from 'site/components/OverviewSection'
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+import { useState } from 'react'
 
 export const getStaticProps = () => {
   const dropdownPath = path.resolve(__filename)
@@ -84,25 +85,38 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
 
 ## Overview
 
-<Tabs items={['Example', 'Code']} defaultIndex="0">
-  <Tab>
-    <OverviewSection>
-      <Dropdown>
-        <DropdownButton icon={<Icon name="CaretDown" />}>
-          {'Dropdown'}
+export const ControlledDropdown = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  return (
+      <Dropdown isOpen={isOpen} onDismiss={() => {console.log("Dismiss"); setIsOpen(false)}}>
+        <DropdownButton asChild>
+          <button onClick={() => setIsOpen(old => !old)}>{'Dropdown'}</button>
         </DropdownButton>
         <DropdownMenu>
           <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
-            {'Dropdown Item 1'}
+          <Icon name="ArrowElbowDownRight" />
+                <input type="checkbox" id="scales" name="scales" />
+    <label for="scales">Scales</label>
+            
           </DropdownItem>
           <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
-            {'Dropdown Item 2'}
+            {'B - Dropdown Item 2'}
           </DropdownItem>
           <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
-            {'Dropdown Item 3'}
+            {'C - Dropdown Item 3'}
+          </DropdownItem>
+                    <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
+            {'B - Dropdown Item 3'}
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
+  )
+}
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ControlledDropdown />
       <Dropdown>
         <DropdownButton icon={<Icon name="CaretDown" />}>
           {'Dropdown Small'}

@@ -1,6 +1,18 @@
 import { createContext } from 'react'
 
-export type DropdownContextState = {
+export type DropdownTriggerElement = {
+  focus(): void
+  getBoundingClientRect(): DOMRect
+} & Element
+
+export type DropdownItemElement = {
+  focus(): void
+} & Element
+
+export type DropdownContextState<
+  T extends DropdownTriggerElement = DropdownTriggerElement,
+  E extends DropdownItemElement = DropdownItemElement,
+> = {
   /**
    * Control de Dropdown state as Opened (true) or Closed (false).
    */
@@ -8,7 +20,7 @@ export type DropdownContextState = {
   /**
    * Reference to DropdownButton, used to calculate a position for the DropdownMenu.
    */
-  dropdownButtonRef: React.RefObject<HTMLButtonElement> | null
+  dropdownTriggerRef: React.MutableRefObject<T | null> | null
   /**
    * Reference to a selected DropdownItem, used to manipulate focus.
    */
@@ -16,11 +28,7 @@ export type DropdownContextState = {
   /**
    * Array of References to dropdownItems in a DropdownMenu.
    */
-  dropdownItemsRef: React.MutableRefObject<HTMLButtonElement[]> | null
-  /**
-   * Close DropdownMenu event inherited from Modal.
-   */
-  onDismiss?(): void
+  dropdownItemsRef: React.MutableRefObject<E[]> | null
   /**
    * Function responsible for close the DropdownMenu in this context.
    */
@@ -38,11 +46,13 @@ export type DropdownContextState = {
    * Identifier to be used in aria-controls
    */
   id: string
+
+  addDropdownTriggerRef?(ref: T | null): void
 }
 
 const defaultState: DropdownContextState = {
   isOpen: false,
-  dropdownButtonRef: null,
+  dropdownTriggerRef: null,
   selectedDropdownItemIndexRef: null,
   dropdownItemsRef: null,
   id: 'fs-dropdown',

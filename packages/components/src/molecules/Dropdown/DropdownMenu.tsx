@@ -29,7 +29,7 @@ export interface DropdownMenuProps extends ModalContentProps {
    */
   onDismiss?: (event: MouseEvent | KeyboardEvent) => void
 
-   /**
+  /**
    * Specifies the size variant.
    */
   size?: 'small' | 'regular'
@@ -50,8 +50,14 @@ const DropdownMenu = ({
   style,
   ...otherProps
 }: PropsWithChildren<DropdownMenuProps>) => {
-  const { isOpen, close, dropdownItemsRef, selectedDropdownItemIndexRef, dropdownButtonRef, id } =
-    useDropdown()
+  const {
+    isOpen,
+    close,
+    dropdownItemsRef,
+    selectedDropdownItemIndexRef,
+    dropdownTriggerRef,
+    id,
+  } = useDropdown()
 
   const dropdownPosition = useDropdownPosition()
 
@@ -89,25 +95,58 @@ const DropdownMenu = ({
 
   const handleEscapePress = () => {
     close?.()
-    dropdownButtonRef?.current?.focus()
+    dropdownTriggerRef?.current?.focus()
   }
 
+  const handleKeyNavigatePress = (key: string) => {
+    const dropdownItems = dropdownItemsRef?.current ?? [];
+    const selectedIndex = selectedDropdownItemIndexRef!.current;
+  
+    const rearrangedDropdownItems = [
+      ...dropdownItems.slice(selectedIndex + 1),
+      ...dropdownItems.slice(0, selectedIndex + 1),
+    ];
+  
+    const matchItem = rearrangedDropdownItems.find(
+      (item) => item.textContent?.[0].toLowerCase() === key.toLowerCase()
+    );
+  
+    if (matchItem) {
+      selectedDropdownItemIndexRef!.current = dropdownItems.indexOf(matchItem);
+      matchItem.focus();
+    }
+  };
+  
+
   const handleBackdropKeyDown = (event: KeyboardEvent) => {
-    if (event.defaultPrevented || event.key === 'Enter') {
+    console.log(event.keyCode)
+    if (event.defaultPrevented || event.key === 'Enter' || event.keyCode === 32) {
       return
     }
+    
 
     event.preventDefault()
 
-    event.key === 'Escape' && handleEscapePress()
-
-    event.key === 'ArrowDown' && handleDownPress()
-
-    event.key === 'ArrowUp' && handleUpPress()
-
-    event.key === 'Home' && handleHomePress()
-
-    event.key === 'End' && handleEndPress()
+    switch (event.key) {
+      case 'Escape':
+        handleEscapePress()
+        break
+      case 'ArrowDown':
+        handleDownPress()
+        break
+      case 'ArrowUp':
+        handleUpPress()
+        break
+      case 'Home':
+        handleHomePress()
+        break
+      case 'End':
+        handleEndPress()
+        break
+      default:
+        handleKeyNavigatePress(event.key)
+        break
+    }
 
     event.stopPropagation()
   }
