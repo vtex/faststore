@@ -183,8 +183,10 @@ function copyUserStarterToCustomizations(basePath: string) {
   const {
     userSrcDir,
     tmpCustomizationsSrcDir,
+    userLegacyStoreConfigFile,
     userStoreConfigFile,
     tmpStoreConfigFile,
+    tmpLegacyStoreConfigFile,
   } = withBasePath(basePath)
 
   try {
@@ -194,6 +196,16 @@ function copyUserStarterToCustomizations(basePath: string) {
 
     if (existsSync(userStoreConfigFile)) {
       copySync(userStoreConfigFile, tmpStoreConfigFile, { dereference: true })
+    } else if (existsSync(userLegacyStoreConfigFile)) {
+      copySync(userLegacyStoreConfigFile, tmpLegacyStoreConfigFile, {
+        dereference: true,
+      })
+    } else {
+      console.info(
+        `${chalk.blue(
+          'info'
+        )} - No store config file was found in the root directory`
+      )
     }
 
     console.log(`${chalk.green('success')} - Starter files copied`)

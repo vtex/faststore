@@ -79,6 +79,8 @@ describe('withBasePath as the current dir `.`', () => {
     it('returns the path of the user discovery.config file', () => {
       const { userStoreConfigFile: userStoreConfigFileWithBase } = withBasePath(basePath)
 
+      console.log('userStoreConfigFileWithBase', userStoreConfigFileWithBase);
+
       expect(pathsToMatch(userStoreConfigFileWithBase, './discovery.config.js')).toBe(true)
     })
   })

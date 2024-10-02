@@ -18,32 +18,6 @@ export const withBasePath = (basepath: string) => {
     return basepath
   }
 
-  function getUserStoreConfigFile() {
-    const discovery = path.join(getRoot(), 'discovery.config.js')
-    // This is a fallback for the old faststore.config.js file
-    // It will be removed in the future
-    const faststore = path.join(getRoot(), 'faststore.config.js')
-    return fs.existsSync(discovery) ? discovery : faststore
-  }
-
-  function getTmpStoreConfigFile() {
-    const discovery = path.join(
-      tmpDir,
-      'src',
-      'customizations',
-      'discovery.config.js'
-    )
-    // This is a fallback for the old faststore.config.js file
-    // It will be removed in the future
-    const faststore = path.join(
-      tmpDir,
-      'src',
-      'customizations',
-      'faststore.config.js'
-    )
-    return fs.existsSync(discovery) ? discovery : faststore
-  }
-
   /* 
    * This will loop from the basepath until the process.cwd() looking for node_modules/@faststore/core
    * 
@@ -78,7 +52,8 @@ export const withBasePath = (basepath: string) => {
     userSrcDir,
     userThemesFileDir: path.join(userSrcDir, 'themes'),
     userCMSDir: path.join(getRoot(), 'cms', 'faststore'),
-    userStoreConfigFile: getUserStoreConfigFile(),
+    userLegacyStoreConfigFile: path.join(getRoot(), 'faststore.config.js'),
+    userStoreConfigFile: path.join(getRoot(), 'discovery.config.js'),
     
     tmpSeoConfig: path.join(tmpDir, 'next-seo.config.ts'),
     tmpFolderName,
@@ -87,7 +62,18 @@ export const withBasePath = (basepath: string) => {
     tmpThemesCustomizationsFile: path.join(tmpDir, 'src', 'customizations', 'src', 'themes', 'index.scss'),
     tmpCMSDir: path.join(tmpDir, 'cms', 'faststore'),
     tmpCMSWebhookUrlsFile: path.join(tmpDir, 'cms-webhook-urls.json'),
-    tmpStoreConfigFile: getTmpStoreConfigFile(),
+    tmpLegacyStoreConfigFile: path.join(
+      tmpDir,
+      'src',
+      'customizations',
+      'faststore.config.js'
+    ),
+    tmpStoreConfigFile: path.join(
+      tmpDir,
+      'src',
+      'customizations',
+      'discovery.config.js'
+    ),
 
     coreDir: getCorePackagePath(),
     coreCMSDir: path.join(getCorePackagePath(), 'cms', 'faststore'),
