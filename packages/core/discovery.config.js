@@ -14,6 +14,4 @@ try {
  * */
 const finalConfig = deepmerge(defaultConfig, starterConfig)
 
-console.log('finalConfig', finalConfig)
-
-module.exports = starterConfig
+module.exports = finalConfig
