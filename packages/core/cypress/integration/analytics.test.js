@@ -4,7 +4,7 @@
  * Cypress tests for testing the Analytics module
  */
 
-import { cypress } from '../../faststore.config'
+import { cypress } from '../../discovery.config'
 import { options } from '../global'
 
 const { pages } = cypress

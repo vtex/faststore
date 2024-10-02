@@ -5,7 +5,7 @@ import {
   getTypeDefsFromFolder,
   getMergedSchema,
 } from '../../src/server/generator/schema'
-import storeConfig from '../../faststore.config'
+import storeConfig from '../../discovery.config'
 
 const TYPES = [
   'StoreAggregateOffer',

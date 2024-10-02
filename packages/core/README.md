@@ -56,8 +56,8 @@ A quick look at the top-level files and directories you'll see in a this NextJS 
     ├── codegen.ts
     ├── cypress
     ├── cypress.config.ts
-    ├── faststore.config.default.js
-    ├── faststore.config.js
+    ├── discovery.config.default.js
+    ├── discovery.config.js
     ├── index.ts
     ├── jest.config.js
     ├── LICENSE
@@ -88,7 +88,7 @@ A quick look at the top-level files and directories you'll see in a this NextJS 
 
 7.  **`tsconfig.json`**: The configuration file for the typescript compiler. This will statically analyze your code for errors and bugs before releasing them into production
 
-8.  **`faststore.config.default.js`**: Configure your e-commerce platform, default sales channel etc.
+8.  **`discovery.config.default.js`**: Configure your e-commerce platform, default sales channel etc.
 
 9.  **`@generated`**: Where TypeScript typings are generated for your GraphQL queries. You can use these files for strongly typing your App
 
@@ -196,7 +196,7 @@ The `cms/faststore` contains the `content-types.json` and `sections.json` files.
 
 ### CMS configs
 
-It's possible to change the CMS tenant and workspace at `faststore.config.default.js`.
+It's possible to change the CMS tenant and workspace at `discovery.config.default.js`.
 
 ## 🎓 Learning the Frameworks
 

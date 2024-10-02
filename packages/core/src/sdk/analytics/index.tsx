@@ -1,7 +1,7 @@
 import type { AnalyticsEvent } from '@faststore/sdk'
 import { useAnalyticsEvent } from '@faststore/sdk'
 
-import storeConfig from '../../../faststore.config'
+import storeConfig from '../../../discovery.config'
 
 if (typeof window !== 'undefined') {
   window.dataLayer = window.dataLayer ?? []

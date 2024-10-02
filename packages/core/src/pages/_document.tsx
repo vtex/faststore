@@ -1,5 +1,5 @@
 import { Head, Html, Main, NextScript } from 'next/document'
-import storeConfig from '../../faststore.config'
+import storeConfig from '../../discovery.config'
 
 import ThirdPartyScripts from 'src/components/ThirdPartyScripts'
 import { WebFonts } from 'src/customizations/src/GlobalOverrides'

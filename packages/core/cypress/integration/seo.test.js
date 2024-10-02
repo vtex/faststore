@@ -6,7 +6,7 @@
  * TODO: Improve structured data validaton by actually using schema.org's schemas
  */
 
-import { cypress, storeUrl } from '../../faststore.config'
+import { cypress, storeUrl } from '../../discovery.config'
 import { options } from '../global'
 
 const { pages } = cypress

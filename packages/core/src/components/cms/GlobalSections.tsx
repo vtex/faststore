@@ -1,5 +1,5 @@
 import { Locator, Section } from '@vtex/client-cms'
-import storeConfig from 'faststore.config'
+import storeConfig from 'discovery.config'
 import type { ComponentType } from 'react'
 import { PropsWithChildren } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'

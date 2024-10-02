@@ -1,7 +1,7 @@
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import { clientCMS } from 'src/server/cms'
-import { previewRedirects } from '../../../faststore.config'
+import { previewRedirects } from '../../../discovery.config'
 
 type Settings = {
   seo: {

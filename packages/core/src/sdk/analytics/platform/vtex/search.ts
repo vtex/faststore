@@ -7,7 +7,7 @@ import type {
   SearchSelectItemEvent,
 } from '../../types'
 
-import config from '../../../../../faststore.config'
+import config from '../../../../../discovery.config'
 import { getCookie } from '../../../../utils/getCookie'
 
 const THIRTY_MINUTES_S = 30 * 60
