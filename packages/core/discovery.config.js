@@ -6,7 +6,14 @@ let starterConfig
 try {
   starterConfig = require('./src/customizations/discovery.config')
 } catch (e) {
-  starterConfig = require('./src/customizations/faststore.config')
+  try {
+    starterConfig = require('./src/customizations/faststore.config')
+  } catch (e) {
+    console.error(
+      "Failed to load './src/customizations/faststore.config'. Please ensure the file exists."
+    )
+    throw e // Re-throw the error after logging
+  }
 }
 
 /**

@@ -76,18 +76,20 @@ describe('withBasePath as the current dir `.`', () => {
   })
 
   describe('userStoreConfigFile', () => {
-    it('returns the path of the user faststore.config file', () => {
+    it('returns the path of the user discovery.config file', () => {
       const { userStoreConfigFile: userStoreConfigFileWithBase } = withBasePath(basePath)
 
-      expect(pathsToMatch(userStoreConfigFileWithBase, './faststore.config.js')).toBe(true)
+      console.log('userStoreConfigFileWithBase', userStoreConfigFileWithBase);
+
+      expect(pathsToMatch(userStoreConfigFileWithBase, './discovery.config.js')).toBe(true)
     })
   })
 
   describe('tmpStoreConfigFile', () => {
-    it('returns the path of the faststore.config file in the customizations dir', () => {
+    it('returns the path of the discovery.config file in the customizations dir', () => {
       const { tmpStoreConfigFile: tmpStoreConfigFileWithBase } = withBasePath(basePath)
 
-      expect(pathsToMatch(tmpStoreConfigFileWithBase, './.faststore/src/customizations/faststore.config.js')).toBe(true)
+      expect(pathsToMatch(tmpStoreConfigFileWithBase, './.faststore/src/customizations/discovery.config.js')).toBe(true)
     })
   })
 })
@@ -184,18 +186,18 @@ describe('withBasePath as an arbitrary dir', () => {
   })
 
   describe('userStoreConfigFile', () => {
-    it('returns the path of the user faststore.config file', () => {
+    it('returns the path of the user discovery.config file', () => {
       const { userStoreConfigFile: userStoreConfigFileWithBase } = withBasePath(basePath)
 
-      expect(pathsToMatch(userStoreConfigFileWithBase, './src/__mocks__/store/faststore.config.js')).toBe(true)
+      expect(pathsToMatch(userStoreConfigFileWithBase, './src/__mocks__/store/discovery.config.js')).toBe(true)
     })
   })
 
   describe('tmpStoreConfigFile', () => {
-    it('returns the path of the faststore.config file in the customizations dir', () => {
+    it('returns the path of the discovery.config file in the customizations dir', () => {
       const { tmpStoreConfigFile: tmpStoreConfigFileWithBase } = withBasePath(basePath)
 
-      expect(pathsToMatch(tmpStoreConfigFileWithBase, './src/__mocks__/store/.faststore/src/customizations/faststore.config.js')).toBe(true)
+      expect(pathsToMatch(tmpStoreConfigFileWithBase, './src/__mocks__/store/.faststore/src/customizations/discovery.config.js')).toBe(true)
     })
   })
 })
