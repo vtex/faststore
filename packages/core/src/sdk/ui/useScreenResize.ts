@@ -17,7 +17,7 @@ function useScreenResize() {
     }
   }, [])
 
-  return isMobile
+  return { isMobile }
 }
 
 export default useScreenResize
