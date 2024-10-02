@@ -1,17 +1,8 @@
 import { createContext } from 'react'
 
-export type DropdownTriggerElement = {
-  focus(): void
-  getBoundingClientRect(): DOMRect
-} & Element
-
-export type DropdownItemElement = {
-  focus(): void
-} & Element
-
 export type DropdownContextState<
-  T extends DropdownTriggerElement = DropdownTriggerElement,
-  E extends DropdownItemElement = DropdownItemElement,
+  T extends HTMLElement = HTMLElement,
+  E extends HTMLElement = HTMLElement,
 > = {
   /**
    * Control de Dropdown state as Opened (true) or Closed (false).

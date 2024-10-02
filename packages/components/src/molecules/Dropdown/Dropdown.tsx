@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react'
 import React, { useRef, useMemo, useState, useEffect, useCallback } from 'react'
 
-import DropdownContext, { DropdownItemElement, DropdownTriggerElement } from '../Dropdown/contexts/DropdownContext'
+import DropdownContext from '../Dropdown/contexts/DropdownContext'
 
 export interface DropdownProps {
   /**
@@ -25,9 +25,9 @@ const Dropdown = ({
   id = 'fs-dropdown',
 }: PropsWithChildren<DropdownProps>) => {
   const [isOpenInternal, setIsOpenInternal] = useState(false)
-  const dropdownItemsRef = useRef<DropdownItemElement[]>([])
+  const dropdownItemsRef = useRef<HTMLElement[]>([])
   const selectedDropdownItemIndexRef = useRef(0)
-  const dropdownTriggerRef = useRef<DropdownTriggerElement | null>(null)
+  const dropdownTriggerRef = useRef<HTMLElement | null>(null)
 
   const isOpen = isOpenControlled ?? isOpenInternal
 

@@ -1,17 +1,16 @@
 import React, { useImperativeHandle, useRef, useState } from 'react'
 
-import { DropdownItemElement } from '../contexts/DropdownContext'
 import { useDropdown } from './useDropdown'
 
 export type UseDropdownItemProps<
-  E extends DropdownItemElement = DropdownItemElement,
+  E extends HTMLElement = HTMLElement,
 > = {
   ref: React.ForwardedRef<E>
   onClick?: React.MouseEventHandler<E>
 }
 
 export const useDropdownItem = <
-  E extends DropdownItemElement = DropdownItemElement,
+  E extends HTMLElement = HTMLElement,
 >({
   ref,
   onClick,
@@ -38,8 +37,8 @@ export const useDropdownItem = <
   }
 
   const onFocusItem = () => {
-    selectedDropdownItemIndexRef!.current = dropdownItemIndex
-    dropdownItemsRef?.current[selectedDropdownItemIndexRef!.current]?.focus()
+    selectedDropdownItemIndexRef!.current = dropdownItemIndex;
+    (dropdownItemsRef?.current[selectedDropdownItemIndexRef!.current])?.focus()
   }
 
   const handleOnClickItem = (

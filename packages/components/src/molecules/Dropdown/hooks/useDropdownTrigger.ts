@@ -1,13 +1,12 @@
-import { DropdownTriggerElement } from '../contexts/DropdownContext'
 import { useDropdown } from './useDropdown'
 import React, { useImperativeHandle } from 'react'
 
-type UseDropdownTriggerProps<T extends DropdownTriggerElement = DropdownTriggerElement> = {
+type UseDropdownTriggerProps<T extends HTMLElement = HTMLElement> = {
   triggerRef: React.ForwardedRef<T>
   label?: string
 }
 
-export const useDropdownTrigger = <T extends DropdownTriggerElement = DropdownTriggerElement>({
+export const useDropdownTrigger = <T extends HTMLElement = HTMLElement>({
   triggerRef,
 }: UseDropdownTriggerProps<T>) => {
   const { toggle, dropdownTriggerRef, addDropdownTriggerRef, isOpen, id } =
