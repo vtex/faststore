@@ -4,12 +4,8 @@ const deepmerge = require('deepmerge')
 let starterConfig
 
 try {
-  console.log("Attempting to load './src/customizations/discovery.config'")
   starterConfig = require('./src/customizations/discovery.config')
 } catch (e) {
-  console.log(
-    "Failed to load './src/customizations/discovery.config', attempting to load './src/customizations/faststore.config'"
-  )
   try {
     starterConfig = require('./src/customizations/faststore.config')
   } catch (e) {
