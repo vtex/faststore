@@ -2,6 +2,8 @@ import type { PropsWithChildren } from 'react'
 import { Carousel as UICarousel } from '@faststore/ui'
 import type { CarouselProps as UICarouselProps } from '@faststore/ui'
 
+import useScreenResize from 'src/sdk/ui/useScreenResize'
+
 export type CarouselProps = {
   id?: string
   testId?: string
@@ -21,7 +23,7 @@ function Carousel({
   variant = 'scroll',
   infiniteMode = false,
 }: PropsWithChildren<CarouselProps>) {
-  const isMobile = window.innerWidth <= 768
+  const { isMobile } = useScreenResize()
 
   return (
     <UICarousel

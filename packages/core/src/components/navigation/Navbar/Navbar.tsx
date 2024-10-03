@@ -12,6 +12,7 @@ import Link from 'src/components/ui/Link'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
+import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 export interface NavbarProps {
   /**
@@ -78,6 +79,8 @@ function Navbar({
   } = useOverrideComponents<'Navbar'>()
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
+  const { isMobile } = useScreenResize()
+
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
 
@@ -157,7 +160,7 @@ function Navbar({
         </NavbarRow.Component>
       </NavbarHeader.Component>
 
-      <NavbarLinks links={links} region={region} className="hidden-mobile" />
+      {!isMobile && <NavbarLinks links={links} region={region} />}
 
       {displayNavbar && (
         <NavbarSlider
