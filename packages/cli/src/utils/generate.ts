@@ -134,7 +134,8 @@ function copyPublicFiles(basePath: string) {
 }
 
 async function copyCypressFiles(basePath: string) {
-  const { userDir, userStoreConfigFile, tmpDir } = withBasePath(basePath)
+  const { userDir, userStoreConfigFile, userLegacyStoreConfigFile, tmpDir } =
+    withBasePath(basePath)
 
   try {
     // Cypress 9.x config file
@@ -151,7 +152,19 @@ async function copyCypressFiles(basePath: string) {
       })
     }
 
-    const userStoreConfig = await import(path.resolve(userStoreConfigFile))
+    let userStoreConfig
+
+    if (existsSync(userStoreConfigFile)) {
+      userStoreConfig = await import(path.resolve(userStoreConfigFile))
+    } else if (existsSync(userLegacyStoreConfigFile)) {
+      userStoreConfig = await import(path.resolve(userLegacyStoreConfigFile))
+    } else {
+      console.info(
+        `${chalk.blue(
+          'info'
+        )} - No store config file was found in the root directory`
+      )
+    }
 
     // Copy custom Cypress folder and files
     if (
@@ -186,7 +199,6 @@ function copyUserStarterToCustomizations(basePath: string) {
     userLegacyStoreConfigFile,
     userStoreConfigFile,
     tmpStoreConfigFile,
-    tmpLegacyStoreConfigFile,
   } = withBasePath(basePath)
 
   try {
@@ -197,7 +209,7 @@ function copyUserStarterToCustomizations(basePath: string) {
     if (existsSync(userStoreConfigFile)) {
       copySync(userStoreConfigFile, tmpStoreConfigFile, { dereference: true })
     } else if (existsSync(userLegacyStoreConfigFile)) {
-      copySync(userLegacyStoreConfigFile, tmpLegacyStoreConfigFile, {
+      copySync(userLegacyStoreConfigFile, tmpStoreConfigFile, {
         dereference: true,
       })
     } else {
@@ -215,8 +227,24 @@ function copyUserStarterToCustomizations(basePath: string) {
 }
 
 async function createCmsWebhookUrlsJsonFile(basePath: string) {
-  const { userStoreConfigFile, tmpCMSWebhookUrlsFile } = withBasePath(basePath)
-  const userStoreConfig = await import(path.resolve(userStoreConfigFile))
+  const {
+    userStoreConfigFile,
+    userLegacyStoreConfigFile,
+    tmpCMSWebhookUrlsFile,
+  } = withBasePath(basePath)
+  let userStoreConfig
+
+  if (existsSync(userStoreConfigFile)) {
+    userStoreConfig = await import(path.resolve(userStoreConfigFile))
+  } else if (existsSync(userLegacyStoreConfigFile)) {
+    userStoreConfig = await import(path.resolve(userLegacyStoreConfigFile))
+  } else {
+    console.info(
+      `${chalk.blue(
+        'info'
+      )} - No store config file was found in the root directory`
+    )
+  }
 
   if (
     userStoreConfig?.vtexHeadlessCms &&
@@ -240,8 +268,23 @@ async function copyTheme(basePath: string) {
     userStoreConfigFile,
     userThemesFileDir,
     tmpThemesCustomizationsFile,
+    userLegacyStoreConfigFile,
   } = withBasePath(basePath)
-  const storeConfig = await import(path.resolve(userStoreConfigFile))
+
+  let storeConfig
+
+  if (existsSync(userStoreConfigFile)) {
+    storeConfig = await import(path.resolve(userStoreConfigFile))
+  } else if (existsSync(userLegacyStoreConfigFile)) {
+    storeConfig = await import(path.resolve(userLegacyStoreConfigFile))
+  } else {
+    console.info(
+      `${chalk.blue(
+        'info'
+      )} - No store config file was found in the root directory`
+    )
+  }
+
   if (storeConfig.theme) {
     const customTheme = path.join(
       userThemesFileDir,
