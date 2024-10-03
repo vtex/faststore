@@ -7,6 +7,7 @@ export type UseDropdownItemProps<
 > = {
   ref: React.ForwardedRef<E>
   onClick?: React.MouseEventHandler<E>
+  dismissOnClick?: boolean
 }
 
 export const useDropdownItem = <
@@ -14,9 +15,10 @@ export const useDropdownItem = <
 >({
   ref,
   onClick,
+  dismissOnClick = true
 }: UseDropdownItemProps<E>) => {
   const { dropdownItemsRef, selectedDropdownItemIndexRef, 
-    // close 
+    close 
   } = useDropdown<
     never,
     E
@@ -45,7 +47,7 @@ export const useDropdownItem = <
     event: React.MouseEvent<E, MouseEvent>
   ) => {
     onClick?.(event)
-    // close?.()
+    dismissOnClick && close?.()
   }
 
   useImperativeHandle(ref, () => dropdownItemRef.current!, [])

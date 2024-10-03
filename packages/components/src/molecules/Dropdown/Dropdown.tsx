@@ -60,8 +60,8 @@ const Dropdown = ({
   }, [isOpenControlled])
 
   useEffect(() => {
-    isOpenInternal && dropdownItemsRef?.current[0]?.focus()
-  }, [isOpenInternal])
+    isOpen && dropdownItemsRef?.current[0]?.focus()
+  }, [isOpen])
 
   useEffect(() => {
     let firstClick = true

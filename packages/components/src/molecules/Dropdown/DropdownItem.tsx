@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import React, { forwardRef } from 'react'
+import React, { cloneElement, forwardRef } from 'react'
 
 import { useDropdownItem } from './hooks/useDropdownItem'
 
@@ -13,25 +13,39 @@ export interface DropdownItemProps
    * A React component that will be rendered as an icon.
    */
   icon?: ReactNode
+
+  asChild?: boolean
+
+  dismissOnClick?: boolean
 }
 
 const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
   function Button(
-    { children, icon, onClick, testId = 'fs-dropdown-item', ...otherProps },
+    { children, asChild, icon, onClick, dismissOnClick = true, testId = 'fs-dropdown-item', ...otherProps },
     ref
   ) {
-    const itemProps = useDropdownItem({ ref, onClick })
+    const itemProps = useDropdownItem({ ref, onClick, dismissOnClick })
+
+    const asChildrenItem = React.isValidElement(children)
+    ? cloneElement(children, { ...itemProps, ...children.props })
+    : children;
 
     return (
-      <button
-        data-fs-dropdown-item
-        data-testid={testId}
-        {...itemProps}
-        {...otherProps}
-      >
-        {!!icon && icon}
-        {children}
-      </button>
+      <>
+      {asChild ? (
+        asChildrenItem
+      ) : (
+        <button
+          data-fs-dropdown-item
+          data-testid={testId}
+          {...itemProps}
+          {...otherProps}
+        >
+          {!!icon && icon}
+          {children}
+        </button>
+        )}
+      </>
     )
   }
 )

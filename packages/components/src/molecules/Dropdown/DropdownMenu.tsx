@@ -59,7 +59,7 @@ const DropdownMenu = ({
     id,
   } = useDropdown()
 
-  const dropdownPosition = useDropdownPosition()
+  const { loading: loadingPosition, ...dropdownPosition } = useDropdownPosition()
 
   const childrenLength = React.Children.toArray(children).length
 
@@ -108,7 +108,7 @@ const DropdownMenu = ({
     ];
   
     const matchItem = rearrangedDropdownItems.find(
-      (item) => item.textContent?.[0].toLowerCase() === key.toLowerCase()
+      (item) => item.textContent?.[0]?.toLowerCase() === key.toLowerCase()
     );
   
     if (matchItem) {
@@ -119,11 +119,9 @@ const DropdownMenu = ({
   
 
   const handleBackdropKeyDown = (event: KeyboardEvent) => {
-    console.log(event.keyCode)
-    if (event.defaultPrevented || event.key === 'Enter' || event.keyCode === 32) {
+    if (event.defaultPrevented || event.key === 'Enter' || event.key === ' ') {
       return
     }
-    
 
     event.preventDefault()
 
@@ -157,7 +155,7 @@ const DropdownMenu = ({
     return null
   }
 
-  return isOpen
+  return (isOpen && !loadingPosition)
     ? createPortal(
         <div
           role="presentation"
