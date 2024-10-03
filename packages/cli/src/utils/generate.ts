@@ -313,7 +313,8 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
       console.warn(
         `${chalk.yellow(
           'warning'
-        )} - ${packageName} versions are different. Core: ${coreVersion}, Customization: ${rootVersion}`
+        )} - Version mismatch detected for ${packageName}. 
+          Core: ${coreVersion}, Customization: ${rootVersion}. Please align both versions to prevent issues`
       )
      
     }
