@@ -1,5 +1,5 @@
 {
-  "version": "3.0.120",
+  "version": "3.0.121",
   "npmClient": "yarn",
   "command": {
     "publish": {
