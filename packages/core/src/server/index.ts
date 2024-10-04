@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import path from 'path'
-import type { FormatErrorHandler } from '@envelop/core'
 import {
   envelop,
-  useSchema,
+  MaskError,
+  useEngine,
   useExtendContext,
   useMaskedErrors,
+  useSchema,
 } from '@envelop/core'
 import { useGraphQlJit } from '@envelop/graphql-jit'
 import { useParserCache } from '@envelop/parser-cache'
@@ -16,18 +16,20 @@ import {
   getResolvers,
   isFastStoreError,
 } from '@faststore/api'
-import { GraphQLError } from 'graphql'
-import { makeExecutableSchema } from '@graphql-tools/schema'
 import { loadFilesSync } from '@graphql-tools/load-files'
+import { makeExecutableSchema } from '@graphql-tools/schema'
 import type { TypeSource } from '@graphql-tools/utils'
+import * as GraphQLJS from 'graphql'
+import { GraphQLError } from 'graphql'
+import path from 'path'
 
 import persisted from '@generated/persisted-documents.json'
 
-import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolvers'
 import thirdPartyResolvers from '../customizations/src/graphql/thirdParty/resolvers'
+import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolvers'
 
-import { apiOptions } from './options'
 import { Operation } from '../sdk/graphql/request'
+import { apiOptions } from './options'
 
 interface ExecuteOptions<V = Record<string, unknown>> {
   operation: Operation
@@ -39,7 +41,7 @@ const persistedQueries = new Map(Object.entries(persisted))
 
 const apiContextFactory = getContextFactory(apiOptions)
 
-const formatError: FormatErrorHandler = (err) => {
+const customFormatError: MaskError = (err) => {
   if (err instanceof GraphQLError && isFastStoreError(err.originalError)) {
     return err
   }
@@ -68,9 +70,10 @@ function getFinalAPISchema() {
 export const getEnvelop = async () =>
   envelop({
     plugins: [
+      useEngine(GraphQLJS),
       useSchema(getFinalAPISchema()),
       useExtendContext(apiContextFactory),
-      useMaskedErrors({ formatError }),
+      useMaskedErrors({ maskError: customFormatError }),
       useGraphQlJit(),
       useValidationCache(),
       useParserCache(),
