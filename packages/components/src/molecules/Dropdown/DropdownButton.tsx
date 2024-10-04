@@ -8,7 +8,7 @@ export interface DropdownButtonProps
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
-
+  /** Replace the default rendered element with the one passed as a child, merging their props and behavior. */
   asChild?: boolean
 }
 

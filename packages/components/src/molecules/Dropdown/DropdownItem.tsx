@@ -13,9 +13,13 @@ export interface DropdownItemProps
    * A React component that will be rendered as an icon.
    */
   icon?: ReactNode
-
+  /** 
+   * Replace the default rendered element with the one passed as a child, merging their props and behavior. 
+   * */
   asChild?: boolean
-
+  /**
+   *  Emit onDismiss eventwhen the component is clicked.
+   */
   dismissOnClick?: boolean
 }
 
