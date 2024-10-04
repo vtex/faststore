@@ -31,7 +31,7 @@ export const withBasePath = (basepath: string) => {
 
     let attemptedPath
     do {
-      attemptedPath = path.join(basepath, ...parents, coreFromNodeModules)
+      attemptedPath = path.join(resolvedCwd, basepath, ...parents, coreFromNodeModules)
 
       if (fs.existsSync(attemptedPath)) {
         return attemptedPath
