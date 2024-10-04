@@ -1,20 +1,7 @@
 const defaultConfig = require('./discovery.config.default')
+const starterConfig = require('./src/customizations/discovery.config')
+
 const deepmerge = require('deepmerge')
-
-let starterConfig
-
-try {
-  starterConfig = require('./src/customizations/discovery.config')
-} catch (e) {
-  try {
-    starterConfig = require('./src/customizations/faststore.config')
-  } catch (e) {
-    console.error(
-      "Failed to load './src/customizations/faststore.config'. Please ensure the file exists."
-    )
-    throw e // Re-throw the error after logging
-  }
-}
 
 /**
  * @type {typeof defaultConfig & Record<string, any>}
