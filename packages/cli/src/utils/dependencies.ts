@@ -1,6 +1,6 @@
 import chalk from "chalk"
 import { getPreferredPackageManager } from "./commands"
-import { runCommandSync } from "./runCommandSync"
+import { execSync } from "node:child_process"
 
 type InstallDependenciesOptions = { 
     dependencies: string[]
@@ -9,26 +9,15 @@ type InstallDependenciesOptions = {
     successMessage: string,
 }
 
-const installCommandByPackageManager: Record<string, string> = { 
-  yarn: 'add',
-  npm: 'install',
-  pnpm: 'add'
-}
-
 export function installDependencies(
  { dependencies,
-  cwd, errorMessage, successMessage }: InstallDependenciesOptions
+  cwd, successMessage }: InstallDependenciesOptions
 ) {
 
   const packageManager = getPreferredPackageManager() 
-  const installCommand = installCommandByPackageManager[packageManager]
-
-  runCommandSync({
+  const installCommand = packageManager === 'npm' ? 'install' : 'add'
+  execSync(`${packageManager} ${installCommand} ${dependencies.join(' ')}`, {
     cwd,
-    cmd: `${packageManager} ${installCommand} ${dependencies.join(' ')}`,
-    errorMessage,
-    debug: false,
-    throws: 'error'
   })
 
   console.log(`${chalk.green('success')} - ${successMessage}`)
