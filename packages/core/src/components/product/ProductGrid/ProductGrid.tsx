@@ -7,6 +7,7 @@ import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 import { ProductCardProps } from '../ProductCard'
 
 import { memo } from 'react'
+import ViewportObserver from 'src/components/cms/ViewportObserver'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 interface Props {
@@ -76,28 +77,29 @@ function ProductGrid({
               </UIProductGridItem>
             ))}
             <></>
-
-            {products.slice(2).map(({ node: product }, idx) => (
-              <UIProductGridItem key={`${product.id}`}>
-                <ProductCard.Component
-                  aspectRatio={aspectRatio}
-                  imgProps={{
-                    width: 150,
-                    height: 150,
-                    sizes: '30vw',
-                    loading: 'lazy',
-                  }}
-                  {...ProductCard.props}
-                  bordered={bordered ?? ProductCard.props.bordered}
-                  showDiscountBadge={
-                    showDiscountBadge ?? ProductCard.props.showDiscountBadge
-                  }
-                  product={product}
-                  index={pageSize * page + idx + 1}
-                  taxesConfiguration={taxesConfiguration}
-                />
-              </UIProductGridItem>
-            ))}
+            <ViewportObserver name="UIProductGrid-out-viewport">
+              {products.slice(2).map(({ node: product }, idx) => (
+                <UIProductGridItem key={`${product.id}`}>
+                  <ProductCard.Component
+                    aspectRatio={aspectRatio}
+                    imgProps={{
+                      width: 150,
+                      height: 150,
+                      sizes: '30vw',
+                      loading: 'lazy',
+                    }}
+                    {...ProductCard.props}
+                    bordered={bordered ?? ProductCard.props.bordered}
+                    showDiscountBadge={
+                      showDiscountBadge ?? ProductCard.props.showDiscountBadge
+                    }
+                    product={product}
+                    index={pageSize * page + idx + 1}
+                    taxesConfiguration={taxesConfiguration}
+                  />
+                </UIProductGridItem>
+              ))}
+            </ViewportObserver>
           </>
         ) : (
           <>
