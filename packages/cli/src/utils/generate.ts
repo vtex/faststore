@@ -13,6 +13,7 @@ import {
 import path from 'path'
 
 import { withBasePath } from './directory'
+import { installDependencies } from './dependencies'
 
 interface GenerateOptions {
   setup?: boolean
@@ -376,10 +377,33 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
   })
 }
 
+async function installRequiredDependencies(basePath: string) {
+  const { userDir, userStoreConfigFile } = withBasePath(basePath)
+  console.log(userDir, userStoreConfigFile)
+  if (!existsSync(userStoreConfigFile)) {
+    return 
+  }
+
+  const userStoreConfig = await import(path.resolve(userStoreConfigFile))
+
+  if(userStoreConfig.experimental.preact) {
+    installDependencies({
+      dependencies: ['preact@10.23.1', 'preact-render-to-string@6.5.8'],
+      cwd: userDir,
+      errorMessage: 'Failed to install Preact dependencies',
+      successMessage: 'Preact dependencies installed',
+    })
+  }
+}
+
+
 export async function generate(options: GenerateOptions) {
   const { basePath, setup = false } = options
 
   let setupPromise: Promise<unknown> | null = null
+
+
+  await installRequiredDependencies(basePath)
 
   if (setup) {
     setupPromise = Promise.all([
