@@ -12,10 +12,10 @@ export const withBasePath = (basepath: string) => {
     if (basepath.endsWith(tmpFolderName)) {
       // if the current working directory is the build folder (tmp folder), return the starter root
       // this makes sure the semantics of the starter root are consistent with the directories declared below
-      return path.join(basepath, '..')
+      return path.resolve(process.cwd(), path.join(basepath, '..'))
     }
 
-    return basepath
+    return path.resolve(process.cwd(), basepath)
   }
 
   /* 
@@ -31,7 +31,7 @@ export const withBasePath = (basepath: string) => {
 
     let attemptedPath
     do {
-      attemptedPath = path.join(basepath, ...parents, coreFromNodeModules)
+      attemptedPath = path.join(resolvedCwd, basepath, ...parents, coreFromNodeModules)
 
       if (fs.existsSync(attemptedPath)) {
         return attemptedPath

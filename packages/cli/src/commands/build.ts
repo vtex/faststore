@@ -10,6 +10,11 @@ import { generate } from '../utils/generate'
 export default class Build extends Command {
   static args = [
     {
+      name: 'account',
+      description:
+        'The account for which the Discovery is running. Currently noop.',
+    },
+    {
       name: 'path',
       description:
         'The path where the FastStore being built is. Defaults to cwd.',
