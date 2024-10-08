@@ -96,7 +96,7 @@ export default class Dev extends Command {
     },
     {
       name: 'port',
-      description: 'The port where FastStore should run.',
+      description: 'The port where FastStore should run. Defaults to 3000.',
     },
   ]
 
