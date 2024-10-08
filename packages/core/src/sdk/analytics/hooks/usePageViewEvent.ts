@@ -5,14 +5,16 @@ import type { PageViewEvent } from '@faststore/sdk'
 
 export const usePageViewEvent = () => {
   const sendPageViewEvent = useCallback(() => {
-    sendAnalyticsEvent<PageViewEvent>({
-      name: 'page_view',
-      params: {
-        page_title: document.title,
-        page_location: location.href,
-        send_page_view: true,
-      },
-    })
+    setTimeout(() => {
+      sendAnalyticsEvent<PageViewEvent>({
+        name: 'page_view',
+        params: {
+          page_title: document.title,
+          page_location: location.href,
+          send_page_view: true,
+        },
+      })
+    }, 0)
   }, [])
 
   const router = useRouter()
