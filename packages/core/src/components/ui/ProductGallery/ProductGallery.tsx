@@ -12,15 +12,15 @@ import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 import { ProductCardProps } from 'src/components/product/ProductCard'
 import { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
 import { SortProps } from 'src/components/search/Sort/Sort'
-import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
-import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import {
   PLPContext,
   SearchPageContext,
   usePage,
 } from 'src/sdk/overrides/PageProvider'
 import { useProductsPrefetch } from 'src/sdk/product/useProductsPrefetch'
-import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
+import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const GalleryPageSkeleton = <ProductGridSkeleton loading />
@@ -237,6 +237,7 @@ function ProductGallery({
                   title={title}
                   productCard={productCard}
                   itemsPerPage={itemsPerPage}
+                  firstPage={pages[0]}
                 />
               ))}
             </Suspense>
