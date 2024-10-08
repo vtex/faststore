@@ -6,9 +6,10 @@ import type { PageViewEvent } from '@faststore/sdk'
 export const usePageViewEvent = () => {
   const sendPageViewEvent = useCallback(() => {
     setTimeout(() => {
-      sendAnalyticsEvent<PageViewEvent>({
+      sendAnalyticsEvent<any>({
         name: 'page_view',
         params: {
+          test: true,
           page_title: document.title,
           page_location: location.href,
           send_page_view: true,
