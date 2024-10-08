@@ -10,6 +10,7 @@ export interface DropdownItemProps
    */
   testId?: string
   /**
+   * @deprecated
    * A React component that will be rendered as an icon.
    */
   icon?: ReactNode

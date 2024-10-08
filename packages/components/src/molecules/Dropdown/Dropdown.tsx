@@ -60,7 +60,14 @@ const Dropdown = ({
   }, [isOpenControlled])
 
   useEffect(() => {
-    isOpen && dropdownItemsRef?.current[0]?.focus()
+    if(isOpen) {
+      dropdownItemsRef?.current[0]?.focus()
+      document.body.style.overflow = 'hidden'
+
+      return
+    }
+
+    document.body.style.overflow = 'auto'
   }, [isOpen])
 
   useEffect(() => {

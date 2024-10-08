@@ -22,17 +22,19 @@ export interface DropdownMenuProps extends ModalContentProps {
    * @see aria-labelledby https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby
    */
   'aria-labelledby'?: AriaAttributes['aria-label']
-
   /**
    * This function is called whenever the user hits "Escape" or clicks outside
    * the dialog.
    */
   onDismiss?: (event: MouseEvent | KeyboardEvent) => void
-
   /**
    * Specifies the size variant.
    */
   size?: 'small' | 'regular'
+  /**
+   * Alignment for the dropdown
+   */
+  align?: 'left' | 'right' | 'center'
 
   children: ReactNode[] | ReactNode
 }
@@ -47,6 +49,7 @@ const DropdownMenu = ({
   children,
   testId = 'fs-dropdown-menu',
   size = 'regular',
+  align = 'left',
   style,
   ...otherProps
 }: PropsWithChildren<DropdownMenuProps>) => {
@@ -59,7 +62,7 @@ const DropdownMenu = ({
     id,
   } = useDropdown()
 
-  const { loading: loadingPosition, ...dropdownPosition } = useDropdownPosition()
+  const { loading: loadingPosition, ...dropdownPosition } = useDropdownPosition(align)
 
   const childrenLength = React.Children.toArray(children).length
 
