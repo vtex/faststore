@@ -15,6 +15,7 @@ import { useEffect } from 'react'
 
 function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
+
   useEffect(() => {
     const handleRouteChange = () => {
       window.dataLayer = window.dataLayer || []
@@ -23,12 +24,13 @@ function App({ Component, pageProps }: AppProps) {
         pageTitle: document.title,
       })
     }
+
     router.events.on('routeChangeComplete', handleRouteChange)
 
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
-  }, [])
+  }, [router.events])
   return (
     <ErrorBoundary>
       <DefaultSeo {...SEO} />
