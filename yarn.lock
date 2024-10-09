@@ -867,33 +867,35 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@envelop/core@^3.0.0":
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/@envelop/core/-/core-3.0.6.tgz#e55c3564d05d648b0356a1c465aa90b0c51f485d"
-  integrity sha512-06t1xCPXq6QFN7W1JUEf68aCwYN0OUDNAIoJe7bAqhaoa2vn7NCcuX1VHkJ/OWpmElUgCsRO6RiBbIru1in0Ig==
+"@envelop/core@^4.0.0":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@envelop/core/-/core-4.0.3.tgz#6bc3e1ed3b31aa41d81106eb5071a9b8eec188d0"
+  integrity sha512-O0Vz8E0TObT6ijAob8jYFVJavcGywKThM3UAsxUIBBVPYZTMiqI9lo2gmAnbMUnrDcAYkUTZEW9FDYPRdF5l6g==
   dependencies:
-    "@envelop/types" "3.0.2"
+    "@envelop/types" "4.0.1"
     tslib "^2.5.0"
 
-"@envelop/graphql-jit@^3.0.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@envelop/graphql-jit/-/graphql-jit-3.1.0.tgz#8427fc72ce18038dd99bd245bb34bf108b51bd97"
-  integrity sha512-WC45dCmZRFMdxIHZ5H3MFtNVFoVBiUMS4Xl9bKAUIIiGP50FgfV+NtuNIKTzbbPxADpGCIXPYsjNbdPOBnGCDg==
+"@envelop/graphql-jit@^4.0.0":
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/@envelop/graphql-jit/-/graphql-jit-4.6.0.tgz#3b771d1fa7c6907f7d64120382a3e9f405a8cbaa"
+  integrity sha512-6RM+uSfKN7i9rlEcaAvraF/GsFNB4JoCuEUDEdMjOxJVoADvg1MsmzgGPoIAlpZZIQ//A8Pp+A+qWkJW4Wn4PA==
   dependencies:
     graphql-jit "^0.7.0"
-    tiny-lru "7.0.6"
+    lru-cache "^6.0.0"
+    tslib "^2.4.0"
 
 "@envelop/on-resolve@^3.0.0":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@envelop/on-resolve/-/on-resolve-3.0.3.tgz#cfba1726c2b79b6b2d9e7333878a5b6e1c95e3f5"
   integrity sha512-Mo2w3CHmyLCScFuIO2VS2Co44vlPSc4zwujz0x+/zyaJ+eCwBQMRuE9u+9ORjvKImNxrbXI9FQVNlbF0iDk4iQ==
 
-"@envelop/parser-cache@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@envelop/parser-cache/-/parser-cache-3.0.0.tgz#2b24131fe1a715c06e0ab50d376777477f8fcf50"
-  integrity sha512-1Pf4pnxrpPBM2N+dDdhRYoUbIK9K0xxzW4PbjWPCQe2C2owOfc+ndZad1nn9Yi1i5hibqwcltsQPmeUCsVPltw==
+"@envelop/parser-cache@^4.0.0":
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/@envelop/parser-cache/-/parser-cache-4.7.0.tgz#fc438d8ed390c88fa24bf56da3e4da36f088e3fc"
+  integrity sha512-63NfXDcW/vGn4U6NFxaZ0JbYWAcJb9A6jhTvghsSz1ZS+Dny/ci8bVSgVmM1q+N56hPyGsVPuyI+rIc71mPU5g==
   dependencies:
-    tiny-lru "7.0.6"
+    lru-cache "^6.0.0"
+    tslib "^2.4.0"
 
 "@envelop/testing@^6.0.0":
   version "6.0.0"
@@ -903,19 +905,20 @@
     "@graphql-tools/utils" "^10.0.0"
     tslib "^2.5.0"
 
-"@envelop/types@3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@envelop/types/-/types-3.0.2.tgz#a4b29375b7fcee39bb5830f87f66bbc815cf305e"
-  integrity sha512-pOFea9ha0EkURWxJ/35axoH9fDGP5S2cUu/5Mmo9pb8zUf+TaEot8vB670XXihFEn/92759BMjLJNWBKmNhyng==
+"@envelop/types@4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@envelop/types/-/types-4.0.1.tgz#145690d8266a003cdb06dd58fa1236e3c80050a9"
+  integrity sha512-ULo27/doEsP7uUhm2iTnElx13qTO6I5FKvmLoX41cpfuw8x6e0NUFknoqhEsLzAbgz8xVS5mjwcxGCXh4lDYzg==
   dependencies:
     tslib "^2.5.0"
 
-"@envelop/validation-cache@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@envelop/validation-cache/-/validation-cache-3.0.0.tgz#3cac3f25a709a53c4d9d504fd84380ce7cd04281"
-  integrity sha512-JqTA6huTygAlQilaVEM77DlFdGSptf5ElOWX7wdu0VC15h2Np7MmnsyOcy7xQI1Sc7B3oaNSo12l3QD6K28vOQ==
+"@envelop/validation-cache@^4.0.0":
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/@envelop/validation-cache/-/validation-cache-4.7.0.tgz#6871116c5387cd7c310b9ae9187d29c2793ae33f"
+  integrity sha512-PzL+GfWJRT+JjsJqZAIxHKEkvkM3hxkeytS5O0QLXT8kURNBV28r+Kdnn2RCF5+6ILhyGpiDb60vaquBi7g4lw==
   dependencies:
-    tiny-lru "7.0.6"
+    lru-cache "^6.0.0"
+    tslib "^2.4.0"
 
 "@esbuild/android-arm64@0.18.20":
   version "0.18.20"
@@ -17239,11 +17242,6 @@ timed-out@4.0.1:
   version "4.0.1"
   resolved "https://registry.npmjs.org/timed-out/-/timed-out-4.0.1.tgz"
   integrity sha512-G7r3AhovYtr5YKOWQkta8RKAPb+J9IsO4uVmzjl8AZwfhs8UcUwTiD6gcJYSgOtzyjvQKrKYn41syHbUWMkafA==
-
-tiny-lru@7.0.6:
-  version "7.0.6"
-  resolved "https://registry.npmjs.org/tiny-lru/-/tiny-lru-7.0.6.tgz"
-  integrity sha512-zNYO0Kvgn5rXzWpL0y3RS09sMK67eGaQj9805jlK9G6pSadfriTczzLHFXa/xcW4mIRfmlB9HyQ/+SgL0V1uow==
 
 title-case@^3.0.3:
   version "3.0.3"
