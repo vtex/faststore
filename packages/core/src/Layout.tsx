@@ -1,9 +1,23 @@
-import { type PropsWithChildren } from 'react'
+import { useEffect, type PropsWithChildren } from 'react'
 
-import { usePageViewEvent } from './sdk/analytics/hooks/usePageViewEvent'
+import { useRouter } from 'next/router'
 
 function Layout({ children }: PropsWithChildren) {
-  usePageViewEvent()
+  const router = useRouter()
+  useEffect(() => {
+    const handleRouteChange = () => {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({
+        event: 'pageview',
+        pageTitle: document.title,
+      })
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [])
 
   return <>{children}</>
 }
