@@ -116,6 +116,20 @@ export type Address = {
   street: Maybe<Scalars['String']['output']>
 }
 
+/** Advertisement information about a specific product in a campaign */
+export type Advertisement = {
+  /** Cost of the action, usually Cost Per Click. */
+  actionCost: Scalars['Float']['output']
+  /** Advertiser ID of the product. */
+  adId: Scalars['String']['output']
+  /** Advertiser Request ID. */
+  adRequestId: Scalars['String']['output']
+  /** Advertiser Response ID. */
+  adResponseId: Scalars['String']['output']
+  /** Campaign ID. */
+  campaignId: Scalars['String']['output']
+}
+
 export type AvailableDeliveryWindows = {
   /** Available delivery window end date in UTC */
   endDateUtc: Maybe<Scalars['String']['output']>
@@ -165,6 +179,10 @@ export type IShippingItem = {
   quantity: Scalars['Int']['input']
   /** Seller responsible for the ShippingItem. */
   seller: Scalars['String']['input']
+}
+
+export type IStoreB2B = {
+  customerId: Scalars['String']['input']
 }
 
 /** Shopping cart input. */
@@ -289,6 +307,8 @@ export type IStoreSelectedFacet = {
 export type IStoreSession = {
   /** Session input address type. */
   addressType: InputMaybe<Scalars['String']['input']>
+  /** Session input b2b. */
+  b2b: InputMaybe<IStoreB2B>
   /** Session input channel. */
   channel: InputMaybe<Scalars['String']['input']>
   /** Session input country. */
@@ -640,6 +660,10 @@ export type StoreAuthor = {
   name: Scalars['String']['output']
 }
 
+export type StoreB2B = {
+  customerId: Scalars['String']['output']
+}
+
 /** Brand of a given product. */
 export type StoreBrand = {
   /** Brand name. */
@@ -906,6 +930,8 @@ export type StorePerson = {
 export type StoreProduct = {
   /** Array of additional properties. */
   additionalProperty: Array<StorePropertyValue>
+  /** Advertisement information about the product. */
+  advertisement: Maybe<Advertisement>
   /** Aggregate ratings data. */
   aggregateRating: StoreAggregateRating
   /** Product brand. */
@@ -1045,6 +1071,8 @@ export type StoreSeo = {
 export type StoreSession = {
   /** Session address type. */
   addressType: Maybe<Scalars['String']['output']>
+  /** B2B Information. */
+  b2b: Maybe<StoreB2B>
   /** Session channel. */
   channel: Maybe<Scalars['String']['output']>
   /** Session country. */
@@ -1128,6 +1156,7 @@ export type ProductSummary_ProductFragment = {
     value: any
     valueReference: any
   }>
+  advertisement: { adId: string; adResponseId: string } | null
 }
 
 type Filter_Facets_StoreFacetBoolean_Fragment = {
@@ -1440,6 +1469,7 @@ export type ClientManyProductsQueryQuery = {
             value: any
             valueReference: any
           }>
+          advertisement: { adId: string; adResponseId: string } | null
         }
       }>
     }
@@ -1568,6 +1598,7 @@ export type ClientSearchSuggestionsQueryQuery = {
           value: any
           valueReference: any
         }>
+        advertisement: { adId: string; adResponseId: string } | null
       }>
     }
     products: { pageInfo: { totalCount: number } }
@@ -1609,6 +1640,7 @@ export type ValidateSessionMutation = {
       givenName: string
       familyName: string
     } | null
+    b2b: { customerId: string } | null
   } | null
 }
 
@@ -1697,6 +1729,10 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
     name
     value
     valueReference
+  }
+  advertisement {
+    adId
+    adResponseId
   }
 }
     `,
@@ -2063,7 +2099,7 @@ export const SubscribeToNewsletterDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '99012563e9885c3b27a716ca212a2c317e7ec12f',
+    operationHash: 'ad2eb78cfccb9dbd5a9f2d1e150cc70fea5da99a',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2090,7 +2126,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '71809c86cb940861f01bcc57dbaf57e6f41cb378',
+    operationHash: '4d9f934764d8578aea08673b8ba57e8bf738f534',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
@@ -2108,7 +2144,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '5696202828f9275216a445e316ebf516f168c506',
+    operationHash: '1e69c734ed31bd9e763a34fe9660f5bbad3fd143',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,

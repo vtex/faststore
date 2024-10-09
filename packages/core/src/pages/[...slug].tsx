@@ -1,5 +1,5 @@
 import { isNotFoundError } from '@faststore/api'
-import storeConfig from 'faststore.config'
+import storeConfig from 'discovery.config'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 
 import { gql } from '@generated'

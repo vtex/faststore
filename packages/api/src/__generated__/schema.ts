@@ -99,6 +99,21 @@ export type Address = {
   street?: Maybe<Scalars['String']>;
 };
 
+/** Advertisement information about a specific product in a campaign */
+export type Advertisement = {
+  __typename?: 'Advertisement';
+  /** Cost of the action, usually Cost Per Click. */
+  actionCost: Scalars['Float'];
+  /** Advertiser ID of the product. */
+  adId: Scalars['String'];
+  /** Advertiser Request ID. */
+  adRequestId: Scalars['String'];
+  /** Advertiser Response ID. */
+  adResponseId: Scalars['String'];
+  /** Campaign ID. */
+  campaignId: Scalars['String'];
+};
+
 export type AvailableDeliveryWindows = {
   __typename?: 'AvailableDeliveryWindows';
   /** Available delivery window end date in UTC */
@@ -150,6 +165,10 @@ export type IShippingItem = {
   quantity: Scalars['Int'];
   /** Seller responsible for the ShippingItem. */
   seller: Scalars['String'];
+};
+
+export type IStoreB2B = {
+  customerId: Scalars['String'];
 };
 
 /** Shopping cart input. */
@@ -274,6 +293,8 @@ export type IStoreSelectedFacet = {
 export type IStoreSession = {
   /** Session input address type. */
   addressType?: Maybe<Scalars['String']>;
+  /** Session input b2b. */
+  b2b?: Maybe<IStoreB2B>;
   /** Session input channel. */
   channel?: Maybe<Scalars['String']>;
   /** Session input country. */
@@ -653,6 +674,11 @@ export type StoreAuthor = {
   name: Scalars['String'];
 };
 
+export type StoreB2B = {
+  __typename?: 'StoreB2B';
+  customerId: Scalars['String'];
+};
+
 /** Brand of a given product. */
 export type StoreBrand = {
   __typename?: 'StoreBrand';
@@ -946,6 +972,8 @@ export type StoreProduct = {
   __typename?: 'StoreProduct';
   /** Array of additional properties. */
   additionalProperty: Array<StorePropertyValue>;
+  /** Advertisement information about the product. */
+  advertisement?: Maybe<Advertisement>;
   /** Aggregate ratings data. */
   aggregateRating: StoreAggregateRating;
   /** Product brand. */
@@ -1096,6 +1124,8 @@ export type StoreSession = {
   __typename?: 'StoreSession';
   /** Session address type. */
   addressType?: Maybe<Scalars['String']>;
+  /** B2B Information. */
+  b2b?: Maybe<StoreB2B>;
   /** Session channel. */
   channel?: Maybe<Scalars['String']>;
   /** Session country. */

@@ -1,4 +1,4 @@
-import storeConfig from 'faststore.config'
+import storeConfig from 'discovery.config'
 import { ImageLoaderProps } from 'next/image'
 const THUMBOR_SERVER = `https://${storeConfig.api.storeId}.vtexassets.com`
 

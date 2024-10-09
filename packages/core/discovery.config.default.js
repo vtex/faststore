@@ -19,6 +19,7 @@ module.exports = {
     subDomainPrefix: ['www'],
     environment: 'vtexcommercestable',
     hideUnavailableItems: false,
+    showSponsored: false,
     incrementAddress: true,
   },
 
@@ -36,6 +37,7 @@ module.exports = {
     addressType: null,
     postalCode: null,
     geoCoordinates: null,
+    b2b: null,
     person: null,
   },
 

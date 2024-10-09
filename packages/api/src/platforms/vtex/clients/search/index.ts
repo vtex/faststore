@@ -27,12 +27,13 @@ export interface SearchArgs {
   query?: string
   page: number
   count: number
-  type: 'product_search' | 'facets'
+  type: 'product_search' | 'facets' | 'sponsored_products'
   sort?: Sort
   selectedFacets?: SelectedFacet[]
   fuzzy?: '0' | '1' | 'auto'
   hideUnavailableItems?: boolean
   showInvisibleItems?: boolean
+  showSponsored?: boolean
 }
 
 export interface ProductLocator {
@@ -49,7 +50,7 @@ export const isFacetBoolean = (
 ): facet is Facet<FacetValueBoolean> => facet.type === 'TEXT'
 
 export const IntelligentSearch = (
-  { account, environment, hideUnavailableItems, simulationBehavior }: Options,
+  { account, environment, hideUnavailableItems, simulationBehavior, showSponsored }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br/api/io`
@@ -134,6 +135,10 @@ export const IntelligentSearch = (
 
     if (simulationBehavior !== undefined) {
       params.append('simulationBehavior', simulationBehavior.toString())
+    }
+
+    if (showSponsored !== undefined) {
+      params.append('showSponsored', showSponsored.toString())
     }
 
     const pathname = addDefaultFacets(selectedFacets)

@@ -37,6 +37,7 @@ export interface Options {
   locale: string
   hideUnavailableItems: boolean
   simulationBehavior?: 'default' | 'skip' | 'only1P'
+  showSponsored: boolean
   incrementAddress: boolean
   flags?: FeatureFlags
 }

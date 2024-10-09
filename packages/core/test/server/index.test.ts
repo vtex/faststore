@@ -5,7 +5,7 @@ import {
   getTypeDefsFromFolder,
   getMergedSchema,
 } from '../../src/server/generator/schema'
-import storeConfig from '../../faststore.config'
+import storeConfig from '../../discovery.config'
 
 const TYPES = [
   'StoreAggregateOffer',
@@ -132,7 +132,7 @@ describe('FastStore GraphQL Layer', () => {
     it('should exist with its plugins', async () => {
       const envelop = await getEnvelop()
       expect(envelop).toBeDefined()
-      expect(envelop._plugins).toHaveLength(6)
+      expect(envelop._plugins).toHaveLength(7)
     })
 
     it('should handle options and execute', async () => {

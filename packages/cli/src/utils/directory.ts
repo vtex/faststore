@@ -12,10 +12,10 @@ export const withBasePath = (basepath: string) => {
     if (basepath.endsWith(tmpFolderName)) {
       // if the current working directory is the build folder (tmp folder), return the starter root
       // this makes sure the semantics of the starter root are consistent with the directories declared below
-      return path.join(basepath, '..')
+      return path.resolve(process.cwd(), path.join(basepath, '..'))
     }
 
-    return basepath
+    return path.resolve(process.cwd(), basepath)
   }
 
   /* 
@@ -31,7 +31,7 @@ export const withBasePath = (basepath: string) => {
 
     let attemptedPath
     do {
-      attemptedPath = path.join(basepath, ...parents, coreFromNodeModules)
+      attemptedPath = path.join(resolvedCwd, basepath, ...parents, coreFromNodeModules)
 
       if (fs.existsSync(attemptedPath)) {
         return attemptedPath
@@ -52,7 +52,8 @@ export const withBasePath = (basepath: string) => {
     userSrcDir,
     userThemesFileDir: path.join(userSrcDir, 'themes'),
     userCMSDir: path.join(getRoot(), 'cms', 'faststore'),
-    userStoreConfigFile: path.join(getRoot(), 'faststore.config.js'),
+    userLegacyStoreConfigFile: path.join(getRoot(), 'faststore.config.js'),
+    userStoreConfigFile: path.join(getRoot(), 'discovery.config.js'),
     
     tmpSeoConfig: path.join(tmpDir, 'next-seo.config.ts'),
     tmpFolderName,
@@ -61,7 +62,12 @@ export const withBasePath = (basepath: string) => {
     tmpThemesCustomizationsFile: path.join(tmpDir, 'src', 'customizations', 'src', 'themes', 'index.scss'),
     tmpCMSDir: path.join(tmpDir, 'cms', 'faststore'),
     tmpCMSWebhookUrlsFile: path.join(tmpDir, 'cms-webhook-urls.json'),
-    tmpStoreConfigFile: path.join(tmpDir, 'src', 'customizations', 'faststore.config.js'),
+    tmpStoreConfigFile: path.join(
+      tmpDir,
+      'src',
+      'customizations',
+      'discovery.config.js'
+    ),
 
     coreDir: getCorePackagePath(),
     coreCMSDir: path.join(getCorePackagePath(), 'cms', 'faststore'),

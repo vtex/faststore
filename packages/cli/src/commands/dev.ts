@@ -35,7 +35,7 @@ const defaultIgnored = [
 
 const devAbortController = new AbortController()
 
-async function storeDev(rootDir: string, tmpDir: string, coreDir: string) {
+async function storeDev(rootDir: string, tmpDir: string, coreDir: string, port: number) {
   const envVars = dotenv.parse(readFileSync(path.join(rootDir, 'vtex.env')))
 
   const packageManager = getPreferredPackageManager()
@@ -56,7 +56,7 @@ async function storeDev(rootDir: string, tmpDir: string, coreDir: string) {
     console.log(`Attempted to copy from ${path.join(tmpDir, '@generated')} to ${path.join(coreDir, '@generated')}`)
   }
 
-  const devProcess = spawn(`${packageManager} dev-only`, {
+  const devProcess = spawn(`${packageManager} dev-only --port ${port}`, {
     shell: true,
     cwd: tmpDir,
     signal: devAbortController.signal,
@@ -85,14 +85,25 @@ function copyGenerated(from: string, to: string) {
 export default class Dev extends Command {
   static args = [
     {
+      name: 'account',
+      description:
+      'The account for which the Discovery is running. Currently noop.',
+    },
+    {
       name: 'path',
-      description: 'The path where the FastStore being run is. Defaults to cwd.',
-    }
+      description:
+      'The path where the FastStore being run is. Defaults to cwd.',
+    },
+    {
+      name: 'port',
+      description: 'The port where FastStore should run. Defaults to 3000.',
+    },
   ]
 
   async run() {
     const { args } = await this.parse(Dev)
     const basePath = args.path ?? process.cwd()
+    const port = args.port ?? 3000
 
     const { getRoot, tmpDir, coreDir } = withBasePath(basePath)
 
@@ -118,7 +129,7 @@ export default class Dev extends Command {
 
     await generate({ setup: true, basePath })
 
-    storeDev(getRoot(), tmpDir, coreDir)
+    storeDev(getRoot(), tmpDir, coreDir, port)
 
     return await new Promise((resolve, reject) => {
       watcher

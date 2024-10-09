@@ -92,6 +92,7 @@ export interface Product {
   properties: Array<{ name: string; values: string[] }>
   selectedProperties: Array<{ key: string; value: string }>
   releaseDate: string
+  advertisement?: Advertisement
 }
 
 interface Image {
@@ -214,6 +215,14 @@ interface SpecificationGroup {
     originalName: string
     values: string[]
   }>
+}
+
+interface Advertisement {
+  adId: string
+  campaignId: string
+  actionCost: number
+  adRequestId: string
+  adResponseId: string
 }
 
 export interface Attribute {

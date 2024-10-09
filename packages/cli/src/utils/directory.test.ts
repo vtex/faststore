@@ -8,6 +8,12 @@ const pathsToMatch = (expected: string, desired: string) => {
   return expectedResolved === desiredResolved
 }
 
+const originalProcessCwd = process.cwd
+
+beforeEach(() => {
+  process.cwd = originalProcessCwd
+})
+
 describe('withBasePath as the current dir `.`', () => {
   const basePath = '.'
 
@@ -76,18 +82,18 @@ describe('withBasePath as the current dir `.`', () => {
   })
 
   describe('userStoreConfigFile', () => {
-    it('returns the path of the user faststore.config file', () => {
+    it('returns the path of the user discovery.config file', () => {
       const { userStoreConfigFile: userStoreConfigFileWithBase } = withBasePath(basePath)
 
-      expect(pathsToMatch(userStoreConfigFileWithBase, './faststore.config.js')).toBe(true)
+      expect(pathsToMatch(userStoreConfigFileWithBase, './discovery.config.js')).toBe(true)
     })
   })
 
   describe('tmpStoreConfigFile', () => {
-    it('returns the path of the faststore.config file in the customizations dir', () => {
+    it('returns the path of the discovery.config file in the customizations dir', () => {
       const { tmpStoreConfigFile: tmpStoreConfigFileWithBase } = withBasePath(basePath)
 
-      expect(pathsToMatch(tmpStoreConfigFileWithBase, './.faststore/src/customizations/faststore.config.js')).toBe(true)
+      expect(pathsToMatch(tmpStoreConfigFileWithBase, './.faststore/src/customizations/discovery.config.js')).toBe(true)
     })
   })
 })
@@ -97,6 +103,8 @@ describe('withBasePath as an arbitrary dir', () => {
 
   describe('coreDir', () => {
     it('is the faststoreDir + core', () => {
+      const mockedCwd = jest.fn(() => { return './src/__mocks__/store' })
+      process.cwd = mockedCwd
       const { coreDir: coreDirWithBase } = withBasePath(basePath)
 
       expect(pathsToMatch(coreDirWithBase, './src/__mocks__/store/node_modules/@faststore/core')).toBe(true)
@@ -104,6 +112,9 @@ describe('withBasePath as an arbitrary dir', () => {
 
     describe('when is in a monorepo', () => {
       it('can look at its parent until it reaches the monorepo directory', () => {
+        const mockedCwd = jest.fn(() => { return './src/__mocks__/monorepo' })
+        process.cwd = mockedCwd
+
         const { coreDir: coreDirWithBase } = withBasePath(path.join(__dirname, '..', '__mocks__', 'monorepo', 'discovery'))
 
         expect(pathsToMatch(coreDirWithBase, './src/__mocks__/monorepo/node_modules/@faststore/core')).toBe(true)
@@ -169,6 +180,9 @@ describe('withBasePath as an arbitrary dir', () => {
 
   describe('coreCMSDir', () => {
     it('returns the path of the CMS dir on @faststore/core package', () => {
+      const mockedCwd = jest.fn(() => { return './src/__mocks__/store' })
+      process.cwd = mockedCwd
+
       const { coreCMSDir: coreCMSDirWithBase } = withBasePath(basePath)
 
       expect(pathsToMatch(coreCMSDirWithBase, './src/__mocks__/store/node_modules/@faststore/core/cms/faststore')).toBe(true)
@@ -184,18 +198,18 @@ describe('withBasePath as an arbitrary dir', () => {
   })
 
   describe('userStoreConfigFile', () => {
-    it('returns the path of the user faststore.config file', () => {
+    it('returns the path of the user discovery.config file', () => {
       const { userStoreConfigFile: userStoreConfigFileWithBase } = withBasePath(basePath)
 
-      expect(pathsToMatch(userStoreConfigFileWithBase, './src/__mocks__/store/faststore.config.js')).toBe(true)
+      expect(pathsToMatch(userStoreConfigFileWithBase, './src/__mocks__/store/discovery.config.js')).toBe(true)
     })
   })
 
   describe('tmpStoreConfigFile', () => {
-    it('returns the path of the faststore.config file in the customizations dir', () => {
+    it('returns the path of the discovery.config file in the customizations dir', () => {
       const { tmpStoreConfigFile: tmpStoreConfigFileWithBase } = withBasePath(basePath)
 
-      expect(pathsToMatch(tmpStoreConfigFileWithBase, './src/__mocks__/store/.faststore/src/customizations/faststore.config.js')).toBe(true)
+      expect(pathsToMatch(tmpStoreConfigFileWithBase, './src/__mocks__/store/.faststore/src/customizations/discovery.config.js')).toBe(true)
     })
   })
 })

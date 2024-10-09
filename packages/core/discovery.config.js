@@ -1,5 +1,5 @@
-const defaultConfig = require('./faststore.config.default')
-const starterConfig = require('./src/customizations/faststore.config')
+const defaultConfig = require('./discovery.config.default')
+const starterConfig = require('./src/customizations/discovery.config')
 
 const deepmerge = require('deepmerge')
 

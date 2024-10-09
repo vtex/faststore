@@ -49,6 +49,7 @@ const apiOptions = {
   subDomainPrefix: ['www'],
   hideUnavailableItems: false,
   simulationBehavior: 'skip',
+  showSponsored: false,
   incrementAddress: false,
   flags: {
     enableOrderFormSync: true,

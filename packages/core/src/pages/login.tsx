@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 
-import storeConfig from '../../faststore.config'
+import storeConfig from '../../discovery.config'
 import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,

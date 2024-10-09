@@ -1,0 +1,25 @@
+"""
+Advertisement information about a specific product in a campaign
+"""
+type Advertisement { 
+    """
+    Advertiser ID of the product.
+    """
+    adId: String!
+    """
+    Campaign ID.
+    """
+    campaignId: String!
+    """
+    Cost of the action, usually Cost Per Click.
+    """
+    actionCost: Float!
+    """
+    Advertiser Request ID.
+    """
+    adRequestId: String!
+    """
+    Advertiser Response ID.
+    """
+    adResponseId: String!
+}

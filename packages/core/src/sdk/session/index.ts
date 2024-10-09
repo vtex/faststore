@@ -7,7 +7,7 @@ import type {
   ValidateSessionMutation,
   ValidateSessionMutationVariables,
 } from '@generated/graphql'
-import storeConfig from '../../../faststore.config'
+import storeConfig from '../../../discovery.config'
 import { cartStore } from '../cart'
 import { request } from '../graphql/request'
 import { createValidationStore, useStore } from '../useStore'
@@ -41,6 +41,9 @@ export const mutation = gql(`
         email
         givenName
         familyName
+      }
+      b2b {
+        customerId
       }
     }
   }

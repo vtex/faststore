@@ -15,7 +15,7 @@ import { ITEMS_PER_PAGE } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
 
 import { Locator } from '@vtex/client-cms'
-import storeConfig from 'faststore.config'
+import storeConfig from 'discovery.config'
 import GlobalSections, {
   getGlobalSectionsData,
   GlobalSectionsData,

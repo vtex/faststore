@@ -1,5 +1,4 @@
 import type { SearchEvent, SearchState } from '@faststore/sdk'
-import { sendAnalyticsEvent } from '@faststore/sdk'
 
 import type {
   SearchInputFieldProps as UISearchInputFieldProps,
@@ -22,7 +21,6 @@ import {
   useState,
 } from 'react'
 
-import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
@@ -46,9 +44,11 @@ export type SearchInputRef = UISearchInputFieldRef & {
 }
 
 const sendAnalytics = async (term: string) => {
-  sendAnalyticsEvent<SearchEvent>({
-    name: 'search',
-    params: { search_term: term },
+  import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+    sendAnalyticsEvent<SearchEvent>({
+      name: 'search',
+      params: { search_term: term },
+    })
   })
 }
 
@@ -119,13 +119,17 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           placeholder={placeholder}
           onChange={(e) => setSearchQuery(e.target.value)}
           onSubmit={(term) => {
-            const path = formatSearchPath({
-              term,
-              sort: sort as SearchState['sort'],
-            })
+            import('src/sdk/search/formatSearchPath').then(
+              ({ formatSearchPath }) => {
+                const path = formatSearchPath({
+                  term,
+                  sort: sort as SearchState['sort'],
+                })
 
-            onSearchSelection(term, path)
-            router.push(path)
+                onSearchSelection(term, path)
+                router.push(path)
+              }
+            )
           }}
           onFocus={() => setSearchDropdownVisible(true)}
           value={searchQuery}
