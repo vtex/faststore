@@ -30,7 +30,7 @@ $ npm install -g @faststore/cli
 $ faststore COMMAND
 running command...
 $ faststore (--version)
-@faststore/cli/3.0.128 linux-x64 node-v18.20.4
+@faststore/cli/3.0.129 linux-x64 node-v18.20.4
 $ faststore --help [COMMAND]
 USAGE
   $ faststore COMMAND
@@ -61,7 +61,7 @@ ARGUMENTS
   PATH     The path where the FastStore being built is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/build.ts](https://github.com/vtex/faststore/blob/v3.0.128/dist/commands/build.ts)_
+_See code: [dist/commands/build.ts](https://github.com/vtex/faststore/blob/v3.0.129/dist/commands/build.ts)_
 
 ## `faststore cms-sync [PATH]`
 
@@ -76,7 +76,7 @@ FLAGS
   -d, --dry-run
 ```
 
-_See code: [dist/commands/cms-sync.ts](https://github.com/vtex/faststore/blob/v3.0.128/dist/commands/cms-sync.ts)_
+_See code: [dist/commands/cms-sync.ts](https://github.com/vtex/faststore/blob/v3.0.129/dist/commands/cms-sync.ts)_
 
 ## `faststore create [PATH]`
 
@@ -96,7 +96,7 @@ EXAMPLES
   $ yarn faststore create discovery
 ```
 
-_See code: [dist/commands/create.ts](https://github.com/vtex/faststore/blob/v3.0.128/dist/commands/create.ts)_
+_See code: [dist/commands/create.ts](https://github.com/vtex/faststore/blob/v3.0.129/dist/commands/create.ts)_
 
 ## `faststore dev [ACCOUNT] [PATH] [PORT]`
 
@@ -110,7 +110,7 @@ ARGUMENTS
   PORT     The port where FastStore should run. Defaults to 3000.
 ```
 
-_See code: [dist/commands/dev.ts](https://github.com/vtex/faststore/blob/v3.0.128/dist/commands/dev.ts)_
+_See code: [dist/commands/dev.ts](https://github.com/vtex/faststore/blob/v3.0.129/dist/commands/dev.ts)_
 
 ## `faststore generate-graphql [PATH]`
 
@@ -125,7 +125,7 @@ FLAGS
   -d, --debug
 ```
 
-_See code: [dist/commands/generate-graphql.ts](https://github.com/vtex/faststore/blob/v3.0.128/dist/commands/generate-graphql.ts)_
+_See code: [dist/commands/generate-graphql.ts](https://github.com/vtex/faststore/blob/v3.0.129/dist/commands/generate-graphql.ts)_
 
 ## `faststore help [COMMAND]`
 
@@ -159,7 +159,7 @@ ARGUMENTS
   PORT     The port where FastStore should run. Defaults to 3000.
 ```
 
-_See code: [dist/commands/start.ts](https://github.com/vtex/faststore/blob/v3.0.128/dist/commands/start.ts)_
+_See code: [dist/commands/start.ts](https://github.com/vtex/faststore/blob/v3.0.129/dist/commands/start.ts)_
 
 ## `faststore test [PATH]`
 
@@ -171,5 +171,5 @@ ARGUMENTS
   PATH  The path where the FastStore being tested is. Defaults to cwd.
 ```
 
-_See code: [dist/commands/test.ts](https://github.com/vtex/faststore/blob/v3.0.128/dist/commands/test.ts)_
+_See code: [dist/commands/test.ts](https://github.com/vtex/faststore/blob/v3.0.129/dist/commands/test.ts)_
 <!-- commandsstop -->
