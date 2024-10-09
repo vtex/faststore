@@ -1,28 +1,22 @@
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { sendAnalyticsEvent } from '@faststore/sdk'
-import type { PageViewEvent } from '@faststore/sdk'
 
 export const usePageViewEvent = () => {
   const router = useRouter()
-
   useEffect(() => {
-    const sendPageViewEvent = () => {
-      sendAnalyticsEvent<any>({
-        name: 'page_view',
-        params: {
-          page_title: document.title,
-          page_location: location.href,
-          send_page_view: true,
-        },
+    const handleRouteChange = () => {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({
+        event: 'pageview',
+        pageTitle: document.title,
       })
     }
-    router.events.on('routeChangeComplete', sendPageViewEvent)
+    router.events.on('routeChangeComplete', handleRouteChange)
 
     return () => {
-      router.events.off('routeChangeComplete', sendPageViewEvent)
+      router.events.off('routeChangeComplete', handleRouteChange)
     }
-  }, [router])
+  }, [])
 
   return
 }
