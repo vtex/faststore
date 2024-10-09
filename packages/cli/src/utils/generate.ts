@@ -406,13 +406,12 @@ function validateAndInstallMissingDependencies(basePath: string) {
     })
 
     if(dependenciesToInstall.length > 0) {
-      const spinner = ora(`Installing missing dependencies ${dependenciesToInstall.join(' ')}...`).start()
+      const spinner = ora(`Installing ${feature} missing dependencies\n`).start()
 
       installDependencies({
         dependencies: dependenciesToInstall,
         cwd: userDir,
         errorMessage: `failed to install ${feature} dependencies`,
-        successMessage: `${feature} dependencies installed`,
       })
 
       spinner.stop()
