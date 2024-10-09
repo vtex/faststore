@@ -12,6 +12,8 @@ import {
 } from 'fs-extra'
 import path from 'path'
 
+import ora from 'ora'
+
 import { withBasePath } from './directory'
 import { installDependencies } from './dependencies'
 
@@ -377,9 +379,10 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
   })
 }
 
-async function installRequiredDependencies(basePath: string) {
+
+async function validateAndInstallMissingDependencies(basePath: string) {
   const { userDir, userStoreConfigFile } = withBasePath(basePath)
-  console.log(userDir, userStoreConfigFile)
+
   if (!existsSync(userStoreConfigFile)) {
     return 
   }
@@ -387,12 +390,19 @@ async function installRequiredDependencies(basePath: string) {
   const userStoreConfig = await import(path.resolve(userStoreConfigFile))
 
   if(userStoreConfig.experimental.preact) {
+    const preactDependencies = ['preact@10.23.1', 'preact-render-to-string@6.5.8']
+
+    const spinner = ora(`Installing missing dependencies ${preactDependencies.join(' ')}...`).start()
+
     installDependencies({
-      dependencies: ['preact@10.23.1', 'preact-render-to-string@6.5.8'],
+      dependencies: preactDependencies,
       cwd: userDir,
-      errorMessage: 'Failed to install Preact dependencies',
-      successMessage: 'Preact dependencies installed',
+      errorMessage: 'failed to install preact dependencies',
+      successMessage: 'preact dependencies installed',
     })
+
+    spinner.stop()
+
   }
 }
 
@@ -403,7 +413,7 @@ export async function generate(options: GenerateOptions) {
   let setupPromise: Promise<unknown> | null = null
 
 
-  await installRequiredDependencies(basePath)
+  await validateAndInstallMissingDependencies(basePath)
 
   if (setup) {
     setupPromise = Promise.all([
