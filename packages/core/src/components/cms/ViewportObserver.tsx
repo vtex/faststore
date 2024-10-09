@@ -5,7 +5,9 @@ import type {
 } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-const viewportSize = 825 // mobile height to prevent sections that are outside the viewport from being rendered initially. We are using Moto G Power devices as a reference.
+// Mobile height to prevent sections outside the viewport from being rendered initially. 
+// We are using the Moto G Power device measurement as a reference because it's the one PageSpeed Insights uses.
+const VIEWPORT_SIZE = 825 
 
 type ViewportObserverProps = {
   /**
