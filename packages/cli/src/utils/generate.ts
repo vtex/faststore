@@ -380,30 +380,43 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
 }
 
 
-async function validateAndInstallMissingDependencies(basePath: string) {
+function validateAndInstallMissingDependencies(basePath: string) {
   const { userDir, userStoreConfigFile } = withBasePath(basePath)
 
   if (!existsSync(userStoreConfigFile)) {
     return 
   }
 
-  const userStoreConfig = await import(path.resolve(userStoreConfigFile))
+  const userStoreConfig = require(userStoreConfigFile)
+  const userPackageJson = require(path.join(userDir, 'package.json'))
 
-  if(userStoreConfig.experimental.preact) {
-    const preactDependencies = ['preact@10.23.1', 'preact-render-to-string@6.5.8']
+  const missingDependencies: Array<{ feature: string, dependencies: string[] }> = [] 
 
-    const spinner = ora(`Installing missing dependencies ${preactDependencies.join(' ')}...`).start()
-
-    installDependencies({
-      dependencies: preactDependencies,
-      cwd: userDir,
-      errorMessage: 'failed to install preact dependencies',
-      successMessage: 'preact dependencies installed',
+  if(userStoreConfig.experimental.preact) { 
+    missingDependencies.push({
+      feature: 'Preact',
+      dependencies: ['preact@10.23.1', 'preact-render-to-string@6.5.8']
+    })
+  }
+ 
+  missingDependencies.forEach(({ feature, dependencies }) => {
+    const dependenciesToInstall = dependencies.filter((dependency) => {
+      const dependencyName = dependency.split('@')[0]
+      return !userPackageJson.dependencies[dependencyName]
     })
 
-    spinner.stop()
+    if(dependenciesToInstall.length > 0) {
+      const spinner = ora(`Installing missing dependencies ${dependenciesToInstall.join(' ')}...`).start()
 
-  }
+      installDependencies({
+        dependencies: dependenciesToInstall,
+        cwd: userDir,
+        errorMessage: `failed to install ${feature} dependencies`,
+        successMessage: `${feature} dependencies installed`,
+      })
+
+      spinner.stop()
+    }})
 }
 
 
@@ -413,7 +426,7 @@ export async function generate(options: GenerateOptions) {
   let setupPromise: Promise<unknown> | null = null
 
 
-  await validateAndInstallMissingDependencies(basePath)
+  validateAndInstallMissingDependencies(basePath)
 
   if (setup) {
     setupPromise = Promise.all([
