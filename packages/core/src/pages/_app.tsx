@@ -10,8 +10,25 @@ import '../styles/global/index.scss'
 import '../customizations/src/themes/index.scss'
 
 import { DefaultSeo } from 'next-seo'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 function App({ Component, pageProps }: AppProps) {
+  const router = useRouter()
+  useEffect(() => {
+    const handleRouteChange = () => {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({
+        event: 'pageview',
+        pageTitle: document.title,
+      })
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [])
   return (
     <ErrorBoundary>
       <DefaultSeo {...SEO} />
