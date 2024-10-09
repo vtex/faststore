@@ -5,9 +5,9 @@ import type {
 } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-// Mobile height to prevent sections outside the viewport from being rendered initially. 
-// We are using the Moto G Power device measurement as a reference because it's the one PageSpeed Insights uses.
-const VIEWPORT_SIZE = 825 
+// Mobile height to prevent sections outside the viewport from being rendered initially.
+// We are using the Moto G Power device measurement as a reference, as used by PageSpeed Insights.
+const VIEWPORT_SIZE = 825
 
 type ViewportObserverProps = {
   /**
@@ -75,7 +75,7 @@ function ViewportObserver({
                 : '8px solid blue'
               : undefined,
             backgroundColor: debug ? (isShow ? 'gray' : 'pink') : undefined,
-            height: viewportSize, // required to make sections out of the viewport to be rendered on demand
+            height: VIEWPORT_SIZE, // required to make sections out of the viewport to be rendered on demand
             width: '100%',
           }}
         ></div>
