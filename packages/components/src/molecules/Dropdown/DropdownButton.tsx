@@ -1,51 +1,62 @@
-import React, { forwardRef, useImperativeHandle, AriaAttributes } from 'react'
-import Button, { ButtonProps } from '../../atoms/Button'
-
-import { useDropdown } from './hooks/useDropdown'
+import React, { cloneElement, forwardRef, ReactNode } from 'react'
+import Button, { ButtonProps, IconPosition } from '../../atoms/Button'
+import { useDropdownTrigger } from './hooks/useDropdownTrigger'
 
 export interface DropdownButtonProps
-  extends Omit<ButtonProps, 'variant' | 'inverse'> {
+  extends Omit<ButtonProps, 'variant' | 'inverse' | 'icon' | 'iconPosition' > {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /** Replace the default rendered element with the one passed as a child, merging their props and behavior. */
+  asChild?: boolean
   /**
-   * For accessibility purposes, add an ARIA label to the element when it doesn't have a label.
+   * Boolean that represents a loading state.
    */
-  'aria-label'?: AriaAttributes['aria-label']
+  loading?: boolean
+  /**
+   * Specifies a label for loading state.
+   */
+  loadingLabel?: string
+  /**
+   * @deprecated
+   * A React component that will be rendered as an icon.
+   */
+  icon?: ReactNode
+  /**
+   * @deprecated
+   * Specifies where the icon should be positioned
+   */
+  iconPosition?: IconPosition
 }
 
 const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
   function DropdownButton(
-    {
-      testId = 'fs-dropdown-button',
-      'aria-label': ariaLabel,
-       children,
-      ...otherProps
-    },
-    ref
+    { testId = 'fs-dropdown-button', children, asChild = false, ...otherProps },
+    triggerRef
   ) {
-    const { toggle, dropdownButtonRef, isOpen, id } = useDropdown()
+    const triggerProps = useDropdownTrigger({ triggerRef })
 
-    useImperativeHandle(ref, () => dropdownButtonRef!.current!, [
-      dropdownButtonRef,
-    ])
+    const asChildrenTrigger = React.isValidElement(children)
+    ? cloneElement(children, { ...triggerProps, ...children.props })
+    : children;
 
     return (
-      <Button
-        data-fs-dropdown-button
-        onClick={toggle}
-        data-testid={testId}
-        ref={dropdownButtonRef}
-        aria-label={ariaLabel}
-        aria-expanded={isOpen}
-        aria-haspopup="menu"
-        aria-controls={id}
-        variant="tertiary"
-        {...otherProps}
-      >
-        {children}
-      </Button>
+      <>
+        {asChild ? (
+          asChildrenTrigger
+        ) : (
+          <Button
+            data-fs-dropdown-button
+            data-testid={testId}
+            variant="tertiary"
+            {...triggerProps}
+            {...otherProps}
+          >
+            {children}
+          </Button>
+        )}
+      </>
     )
   }
 )
