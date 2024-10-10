@@ -29,7 +29,7 @@ function ViewportObserver({
   children,
   debug = false,
 }: PropsWithChildren<ViewportObserverProps>) {
-  const [isShow, setShow] = useState(false)
+  const [isVisible, setVisible] = useState(false)
   const ref = useRef<HTMLDivElement | null>(null)
 
   const observerCallback = useCallback(
@@ -39,12 +39,12 @@ function ViewportObserver({
           console.log(`section '${name}' VISIBLE`)
           document.body.style.border = '2px solid green'
         }
-        setShow(true)
+        setVisible(true)
         if (ref.current) {
           obs.unobserve(ref.current)
         }
       } else {
-        setShow(false)
+        setVisible(false)
         if (debug) {
           console.log(`section '${name}' NOT VISIBLE`)
           document.body.style.border = '2px solid red'
@@ -72,7 +72,7 @@ function ViewportObserver({
 
   return (
     <>
-      {!isShow && (
+      {!isVisible && (
         <div
           data-store-section-name={name}
           ref={ref}
@@ -85,7 +85,7 @@ function ViewportObserver({
         ></div>
       )}
 
-      {isShow && children}
+      {isVisible && children}
     </>
   )
 }
