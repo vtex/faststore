@@ -48,8 +48,6 @@ const nextConfig = {
 
     if (storeConfig.experimental.preact && !isServer && !dev) {
       Object.assign(config.resolve.alias, {
-        // 'react/jsx-runtime.js': 'preact/compat/jsx-runtime',
-
         react: 'preact/compat',
 
         'react-dom/test-utils': 'preact/test-utils',
