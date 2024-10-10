@@ -12,7 +12,10 @@ import {
 } from 'fs-extra'
 import path from 'path'
 
+import ora from 'ora'
+
 import { withBasePath } from './directory'
+import { installDependencies } from './dependencies'
 
 interface GenerateOptions {
   setup?: boolean
@@ -376,10 +379,53 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
   })
 }
 
+
+function validateAndInstallMissingDependencies(basePath: string) {
+  const { userDir, userStoreConfigFile } = withBasePath(basePath)
+
+  if (!existsSync(userStoreConfigFile)) {
+    return 
+  }
+
+  const userStoreConfig = require(userStoreConfigFile)
+  const userPackageJson = require(path.join(userDir, 'package.json'))
+
+  const missingDependencies: Array<{ feature: string, dependencies: string[] }> = [] 
+
+  if(userStoreConfig.experimental.preact) { 
+    missingDependencies.push({
+      feature: 'Preact',
+      dependencies: ['preact@10.23.1', 'preact-render-to-string@6.5.8']
+    })
+  }
+ 
+  missingDependencies.forEach(({ feature, dependencies }) => {
+    const dependenciesToInstall = dependencies.filter((dependency) => {
+      const dependencyName = dependency.split('@')[0]
+      return !userPackageJson.dependencies[dependencyName]
+    })
+
+    if(dependenciesToInstall.length > 0) {
+      const spinner = ora(`Installing ${feature} missing dependencies\n`).start()
+
+      installDependencies({
+        dependencies: dependenciesToInstall,
+        cwd: userDir,
+        errorMessage: `failed to install ${feature} dependencies`,
+      })
+
+      spinner.stop()
+    }})
+}
+
+
 export async function generate(options: GenerateOptions) {
   const { basePath, setup = false } = options
 
   let setupPromise: Promise<unknown> | null = null
+
+
+  validateAndInstallMissingDependencies(basePath)
 
   if (setup) {
     setupPromise = Promise.all([

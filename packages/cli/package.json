@@ -28,6 +28,7 @@
     "degit": "^2.8.4",
     "dotenv": "^16.4.5",
     "fs-extra": "^10.1.0",
+    "ora": "5.4.1",
     "path": "^0.12.7"
   },
   "devDependencies": {
