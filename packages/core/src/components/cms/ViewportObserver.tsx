@@ -15,7 +15,7 @@ type ViewportObserverProps = {
    */
   name?: string
   /**
-   * Just for debugging/testing purposes to better see the section in the viewport
+   * Debug/test purposes: enables visual debugging to identify the visibility of the section.
    */
   debug?: boolean
 } & IntersectionObserverInit &
