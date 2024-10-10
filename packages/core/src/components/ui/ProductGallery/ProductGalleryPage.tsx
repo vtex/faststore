@@ -1,8 +1,8 @@
 import ProductGrid from 'src/components/product/ProductGrid'
 import Sentinel from 'src/sdk/search/Sentinel'
 
-import { ProductCardProps } from 'src/components/product/ProductCard'
 import { memo } from 'react'
+import { ProductCardProps } from 'src/components/product/ProductCard'
 import { useGalleryPage } from 'src/sdk/product/usePageProductsQuery'
 
 interface Props {
@@ -13,9 +13,16 @@ interface Props {
     'showDiscountBadge' | 'bordered' | 'taxesConfiguration'
   >
   itemsPerPage: number
+  firstPage: number
 }
 
-function ProductGalleryPage({ page, title, productCard, itemsPerPage }: Props) {
+function ProductGalleryPage({
+  page,
+  title,
+  productCard,
+  itemsPerPage,
+  firstPage,
+}: Props) {
   const { data } = useGalleryPage(page)
 
   const products = data?.search?.products?.edges ?? []
@@ -33,6 +40,7 @@ function ProductGalleryPage({ page, title, productCard, itemsPerPage }: Props) {
         page={page}
         pageSize={itemsPerPage}
         productCard={productCard}
+        firstPage={firstPage}
       />
     </>
   )
