@@ -23,7 +23,9 @@ function Carousel({
   variant = 'scroll',
   infiniteMode = false,
 }: PropsWithChildren<CarouselProps>) {
-  const { isMobile } = useScreenResize()
+  const { loading, isTablet, isMobile } = useScreenResize()
+
+  if (loading) return null
 
   return (
     <UICarousel
@@ -31,7 +33,7 @@ function Carousel({
       testId={testId}
       variant={variant}
       infiniteMode={infiniteMode}
-      itemsPerPage={isMobile ? 1.6 : itemsPerPage}
+      itemsPerPage={isTablet || isMobile ? 1.6 : itemsPerPage}
     >
       {children}
     </UICarousel>

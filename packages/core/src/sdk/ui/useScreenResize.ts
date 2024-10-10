@@ -5,9 +5,9 @@ const MAX_TABLET_WIDTH = 768
 const MIN_NOTEBOOK_WIDTH = 1280
 
 function useScreenResize() {
-  const [isMobile, setIsMobile] = useState(false)
-  const [isTablet, setIsTablet] = useState(false)
-  const [isDesktop, setIsDesktop] = useState(false)
+  const [isMobile, setIsMobile] = useState(undefined)
+  const [isTablet, setIsTablet] = useState(undefined)
+  const [isDesktop, setIsDesktop] = useState(undefined)
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,7 +28,15 @@ function useScreenResize() {
     }
   }, [])
 
-  return { isMobile, isTablet, isDesktop }
+  return {
+    isMobile,
+    isTablet,
+    isDesktop,
+    loading:
+      isMobile === undefined ||
+      isTablet === undefined ||
+      isDesktop === undefined,
+  }
 }
 
 export default useScreenResize
