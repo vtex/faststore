@@ -7,7 +7,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 // Mobile height to prevent sections outside the viewport from being rendered initially.
 // We are using the Moto G Power device measurement as a reference, as used by PageSpeed Insights.
-const VIEWPORT_SIZE = 825
+const VIEWPORT_SIZE = 823
 
 type ViewportObserverProps = {
   /**
@@ -35,17 +35,25 @@ function ViewportObserver({
   const observerCallback = useCallback(
     ([entry]: IntersectionObserverEntry[], obs: IntersectionObserver) => {
       if (entry.isIntersecting) {
-        if (debug) console.log('IN')
+        if (debug) {
+          console.log(`section '${name}' VISIBLE`)
+          document.body.style.border = '2px solid green'
+        }
         setShow(true)
         if (ref.current) {
           obs.unobserve(ref.current)
         }
       } else {
         setShow(false)
-        if (debug) console.log('OUT')
+        if (debug) {
+          console.log(`section '${name}' NOT VISIBLE`)
+          document.body.style.border = '2px solid red'
+          document.body.style.height = `${VIEWPORT_SIZE}px`
+          document.body.style.boxSizing = 'border-box'
+        }
       }
     },
-    []
+    [debug, name]
   )
 
   useEffect(() => {
@@ -69,12 +77,8 @@ function ViewportObserver({
           data-store-section-name={name}
           ref={ref}
           style={{
-            border: debug
-              ? isShow
-                ? '8px solid red'
-                : '8px solid blue'
-              : undefined,
-            backgroundColor: debug ? (isShow ? 'gray' : 'pink') : undefined,
+            border: debug ? '2px solid red' : undefined,
+            backgroundColor: debug ? 'red' : undefined,
             height: VIEWPORT_SIZE, // required to make sections out of the viewport to be rendered on demand
             width: '100%',
           }}
