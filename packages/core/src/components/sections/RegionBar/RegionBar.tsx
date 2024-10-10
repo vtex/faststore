@@ -3,6 +3,7 @@ import Section from '../Section/Section'
 import styles from './section.module.scss'
 import { RegionBarDefaultComponents } from './DefaultComponents'
 import { getOverridableSection } from '../../..//sdk/overrides/getOverriddenSection'
+import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 type RegionBarSectionProps = {
   /**
@@ -28,13 +29,17 @@ type RegionBarSectionProps = {
 }
 
 function RegionBarSection({
-  className = 'display-mobile',
+  className = '',
   ...otherProps
 }: RegionBarSectionProps) {
+  const { isMobile } = useScreenResize()
+
   return (
-    <Section className={`${styles.section} section-region-bar ${className}`}>
-      <RegionBar {...otherProps} />
-    </Section>
+    isMobile && (
+      <Section className={`${styles.section} section-region-bar ${className}`}>
+        <RegionBar {...otherProps} />
+      </Section>
+    )
   )
 }
 
