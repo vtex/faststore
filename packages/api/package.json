@@ -1,6 +1,6 @@
 {
   "name": "@faststore/api",
-  "version": "3.0.129",
+  "version": "3.0.130",
   "license": "MIT",
   "main": "dist/cjs/src/index.js",
   "typings": "dist/esm/src/index.d.ts",
@@ -34,7 +34,7 @@
     "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
-    "@envelop/on-resolve": "^3.0.0",
+    "@envelop/on-resolve": "^4.1.1",
     "@graphql-tools/load-files": "^7.0.0",
     "@graphql-tools/schema": "^9.0.0",
     "@opentelemetry/exporter-logs-otlp-grpc": "^0.39.1",
@@ -50,7 +50,7 @@
     "sanitize-html": "^2.11.0"
   },
   "devDependencies": {
-    "@envelop/core": "^4.0.0",
+    "@envelop/core": "^5.0.2",
     "@faststore/eslint-config": "^3.0.116",
     "@faststore/shared": "^3.0.116",
     "@graphql-codegen/cli": "2.2.0",
@@ -73,7 +73,7 @@
     "typescript": "^5.3.2"
   },
   "peerDependencies": {
-    "@envelop/core": "^4",
+    "@envelop/core": "^5",
     "graphql": "^15.6.0"
   },
   "volta": {
