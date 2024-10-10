@@ -39,7 +39,7 @@ export interface FooterLinksProps {
 }
 
 function FooterLinks({ links }: FooterLinksProps) {
-  const { isMobile } = useScreenResize()
+  const { isMobile, isDesktop } = useScreenResize()
   const [indicesExpanded, setIndicesExpanded] = useState<Set<number>>(
     new Set([])
   )
@@ -68,7 +68,7 @@ function FooterLinks({ links }: FooterLinksProps) {
         </UIAccordion>
       )}
 
-      {!isMobile && (
+      {isDesktop && (
         <nav data-fs-footer-links-columns aria-label="Footer Links Navigation">
           {links.map(({ sectionTitle, items }) => (
             <div key={sectionTitle}>

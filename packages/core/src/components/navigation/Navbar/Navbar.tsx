@@ -79,7 +79,7 @@ function Navbar({
   } = useOverrideComponents<'Navbar'>()
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
-  const { isMobile } = useScreenResize()
+  const { isDesktop } = useScreenResize()
 
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -160,7 +160,7 @@ function Navbar({
         </NavbarRow.Component>
       </NavbarHeader.Component>
 
-      {!isMobile && <NavbarLinks links={links} region={region} />}
+      {isDesktop && <NavbarLinks links={links} region={region} />}
 
       {displayNavbar && (
         <NavbarSlider

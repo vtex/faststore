@@ -36,11 +36,11 @@ function Filter({
 
   const filter = useFilter(allFacets)
   const { filter: displayFilter } = useUI()
-  const { isMobile } = useScreenResize()
+  const { isDesktop } = useScreenResize()
 
   return (
     <>
-      {!isMobile && (
+      {isDesktop && (
         <FilterDesktop.Component
           {...FilterDesktop.props}
           {...filter}
