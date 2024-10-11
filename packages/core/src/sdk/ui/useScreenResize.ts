@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+// We are using the Moto G Power device measurement as a reference (mobile), as used by PageSpeed Insights.
 const MAX_MOBILE_WIDTH = 420
 const MAX_TABLET_WIDTH = 768
 const MIN_NOTEBOOK_WIDTH = 1280

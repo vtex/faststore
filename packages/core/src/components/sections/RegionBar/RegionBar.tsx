@@ -28,15 +28,12 @@ type RegionBarSectionProps = {
   buttonIcon?: RegionBarProps['buttonIcon']
 }
 
-function RegionBarSection({
-  className = '',
-  ...otherProps
-}: RegionBarSectionProps) {
+function RegionBarSection({ ...otherProps }: RegionBarSectionProps) {
   const { isMobile } = useScreenResize()
 
   return (
     isMobile && (
-      <Section className={`${styles.section} section-region-bar ${className}`}>
+      <Section className={`${styles.section} section-region-bar`}>
         <RegionBar {...otherProps} />
       </Section>
     )
