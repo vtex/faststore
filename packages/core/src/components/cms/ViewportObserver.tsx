@@ -13,7 +13,7 @@ type ViewportObserverProps = {
   /**
    * Identify the store section
    */
-  name?: string
+  sectionName?: string
   /**
    * Debug/test purposes: enables visual debugging to identify the visibility of the section.
    */
@@ -22,7 +22,7 @@ type ViewportObserverProps = {
   DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
 
 function ViewportObserver({
-  name = '',
+  sectionName = '',
   threshold = 0,
   root = null,
   rootMargin,
@@ -36,7 +36,7 @@ function ViewportObserver({
     ([entry]: IntersectionObserverEntry[], obs: IntersectionObserver) => {
       if (entry.isIntersecting) {
         if (debug) {
-          console.log(`section '${name}' VISIBLE`)
+          console.log(`section '${sectionName}' VISIBLE`)
           document.body.style.border = '2px solid green'
         }
         setVisible(true)
@@ -46,14 +46,14 @@ function ViewportObserver({
       } else {
         setVisible(false)
         if (debug) {
-          console.log(`section '${name}' NOT VISIBLE`)
+          console.log(`section '${sectionName}' NOT VISIBLE`)
           document.body.style.border = '2px solid red'
           document.body.style.height = `${VIEWPORT_SIZE}px`
           document.body.style.boxSizing = 'border-box'
         }
       }
     },
-    [debug, name]
+    [debug, sectionName]
   )
 
   useEffect(() => {
@@ -74,7 +74,7 @@ function ViewportObserver({
     <>
       {!isVisible && (
         <div
-          data-store-section-name={name}
+          data-store-section-name={sectionName}
           ref={ref}
           style={{
             border: debug ? '2px solid red' : undefined,

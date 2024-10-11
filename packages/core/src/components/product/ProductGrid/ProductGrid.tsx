@@ -77,7 +77,7 @@ function ProductGrid({
               </UIProductGridItem>
             ))}
             <></>
-            <ViewportObserver name="UIProductGrid-out-viewport">
+            <ViewportObserver sectionName="UIProductGrid-out-viewport">
               {products.slice(2).map(({ node: product }, idx) => (
                 <UIProductGridItem key={`${product.id}`}>
                   <ProductCard.Component
