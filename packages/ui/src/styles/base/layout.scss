@@ -42,6 +42,22 @@
     touch-action: none;
   }
 
+  // Helper class
+  .display-mobile {
+    @include media(">=notebook") {
+      display: none;
+      visibility: hidden;
+    }
+  }
+
+  // Helper class
+  .hidden-mobile {
+    @include media("<notebook") {
+      display: none;
+      visibility: hidden;
+    }
+  }
+
   // Image
   [data-fs-image] {
     width: 100%;
