@@ -1,8 +1,4 @@
-import type {
-  DetailedHTMLProps,
-  HTMLAttributes,
-  PropsWithChildren,
-} from 'react'
+import type { PropsWithChildren } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 // Mobile height to prevent sections outside the viewport from being rendered initially.
@@ -18,8 +14,7 @@ type ViewportObserverProps = {
    * Debug/test purposes: enables visual debugging to identify the visibility of the section.
    */
   debug?: boolean
-} & IntersectionObserverInit &
-  DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
+} & IntersectionObserverInit
 
 function ViewportObserver({
   sectionName = '',
