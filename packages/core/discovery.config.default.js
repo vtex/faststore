@@ -100,5 +100,6 @@ module.exports = {
     cypressVersion: 12,
     enableCypressExtension: false,
     noRobots: false,
+    preact: false,
   },
 }
