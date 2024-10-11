@@ -1,7 +1,6 @@
 import { getPreferredPackageManager } from "./commands"
 import { runCommandSync } from "./runCommandSync"
 
-
 type InstallDependenciesOptions = { 
     dependencies: string[]
     cwd: string,
