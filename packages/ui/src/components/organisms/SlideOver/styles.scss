@@ -1,23 +1,27 @@
 [data-fs-slide-over] {
-
   // --------------------------------------------------------
   // Design Tokens for Slide Over
   // --------------------------------------------------------
 
   // Default properties
-  --fs-slide-over-bkg-color                  : var(--fs-color-body-bkg);
-  --fs-slide-over-transition-timing          : var(--fs-transition-timing);
+  --fs-slide-over-bkg-color: var(--fs-color-body-bkg);
+  --fs-slide-over-transition-timing: var(--fs-transition-timing);
 
   // Header
-  --fs-slide-over-header-padding             : var(--fs-spacing-2) var(--fs-spacing-3) var(--fs-spacing-2);
-  --fs-slide-over-header-bkg-color           : var(--fs-color-neutral-0);
+  --fs-slide-over-header-padding: var(--fs-spacing-2) var(--fs-spacing-3)
+    var(--fs-spacing-2);
+  --fs-slide-over-header-bkg-color: var(--fs-color-neutral-0);
 
   // Partial
-  --fs-slide-over-partial-gap                : calc(2 * var(--fs-grid-padding));
-  --fs-slide-over-partial-width-mobile       : calc(100vw - var(--fs-slide-over-partial-gap));
+  --fs-slide-over-partial-gap: calc(2 * var(--fs-grid-padding));
+  --fs-slide-over-partial-width-mobile: calc(
+    100vw - var(--fs-slide-over-partial-gap)
+  );
 
-  --fs-slide-over-partial-width-notebook     : calc(100% / 3);
-  --fs-slide-over-partial-max-width-notebook : calc(var(--fs-grid-breakpoint-notebook) / 3);
+  --fs-slide-over-partial-width-notebook: calc(100% / 3);
+  --fs-slide-over-partial-max-width-notebook: calc(
+    var(--fs-grid-breakpoint-notebook) / 3
+  );
 
   // --------------------------------------------------------
   // Structural Styles
@@ -27,40 +31,40 @@
   height: 100vh;
   background-color: var(--fs-slide-over-bkg-color);
 
-  &[data-fs-slide-over-size="full"] {
+  &[data-fs-slide-over-size='full'] {
     width: 100vw;
   }
 
-  &[data-fs-slide-over-size="partial"] {
+  &[data-fs-slide-over-size='partial'] {
     width: var(--fs-slide-over-partial-width-mobile);
 
-    @include media(">=notebook") {
+    @include media('>=notebook') {
       width: var(--fs-slide-over-partial-width-notebook);
       max-width: var(--fs-slide-over-partial-max-width-notebook);
     }
   }
 
-  &[data-fs-slide-over-state="in"] {
+  &[data-fs-slide-over-state='in'] {
     transition: transform var(--fs-slide-over-transition-timing) ease-in;
     transform: translateX(0);
   }
 
-  &[data-fs-slide-over-state="out"] {
+  &[data-fs-slide-over-state='out'] {
     transition: transform var(--fs-slide-over-transition-timing) ease-out;
   }
 
-  &[data-fs-slide-over-direction="leftSide"] {
+  &[data-fs-slide-over-direction='leftSide'] {
     left: 0;
 
-    &[data-fs-slide-over-state="out"] {
+    &[data-fs-slide-over-state='out'] {
       transform: translateX(-100%);
     }
   }
 
-  &[data-fs-slide-over-direction="rightSide"] {
+  &[data-fs-slide-over-direction='rightSide'] {
     right: 0;
 
-    &[data-fs-slide-over-state="out"] {
+    &[data-fs-slide-over-state='out'] {
       transform: translateX(100%);
     }
   }

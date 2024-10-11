@@ -5,7 +5,7 @@ import {
   useEngine,
   useExtendContext,
   useMaskedErrors,
-  useSchema
+  useSchema,
 } from '@envelop/core'
 import { useGraphQlJit } from '@envelop/graphql-jit'
 import { useParserCache } from '@envelop/parser-cache'
@@ -14,7 +14,7 @@ import type { CacheControl, Maybe } from '@faststore/api'
 import {
   getContextFactory,
   getResolvers,
-  isFastStoreError
+  isFastStoreError,
 } from '@faststore/api'
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { makeExecutableSchema } from '@graphql-tools/schema'
