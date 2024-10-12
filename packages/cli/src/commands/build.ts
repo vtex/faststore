@@ -89,7 +89,18 @@ async function normalizeStandaloneBuildDir(basePath: string) {
 async function copyResources(basePath: string) {
   const { tmpDir, userDir } = withBasePath(basePath)
 
-  await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
-  await copyResource(`${tmpDir}/lighthouserc.js`, `${userDir}/lighthouserc.js`)
-  await copyResource(`${tmpDir}/public`, `${userDir}/public`)
+  // eslint-disable-next-line turbo/no-undeclared-env-vars
+  if (process.env.VERCEL_BUILD) {
+    const toDir = process.cwd()
+    await copyResource(`${tmpDir}/.next`, `${toDir}/.next`)
+    await copyResource(`${tmpDir}/lighthouserc.js`, `${toDir}/lighthouserc.js`)
+    await copyResource(`${tmpDir}/public`, `${toDir}/public`)
+  } else {
+    await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
+    await copyResource(
+      `${tmpDir}/lighthouserc.js`,
+      `${userDir}/lighthouserc.js`
+    )
+    await copyResource(`${tmpDir}/public`, `${userDir}/public`)
+  }
 }
