@@ -92,8 +92,7 @@ async function copyResources(basePath: string) {
   // eslint-disable-next-line turbo/no-undeclared-env-vars
   if (process.env.VERCEL_BUILD) {
     const toDir = process.cwd()
-    await copyResource(`${tmpDir}/.next`, `${toDir}/.next`)
-    await copyResource(`${tmpDir}/lighthouserc.js`, `${toDir}/lighthouserc.js`)
+    await copyResource(`${tmpDir}/.next`, `${toDir}/.faststore/.next`)
     await copyResource(`${tmpDir}/public`, `${toDir}/public`)
   } else {
     await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
