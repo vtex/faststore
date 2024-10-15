@@ -1901,6 +1901,11 @@ export const ProductDetailsFragment_ProductFragmentDoc =
   isVariantOf {
     name
     productGroupID
+		skuVariants {
+      activeVariations
+      slugsMap
+      availableVariations
+    }
   }
   image {
     url
