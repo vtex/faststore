@@ -597,6 +597,8 @@ export type SkuVariants = {
   /** SKU property values for the current SKU. */
   activeVariations: Maybe<Scalars['ActiveVariations']['output']>
   /** All available options for each SKU variant property, indexed by their name. */
+  allVariantProducts: Maybe<Array<StoreProduct>>
+  /** All available options for each SKU variant property, indexed by their name. */
   allVariantsByName: Maybe<Scalars['VariantsByName']['output']>
   /**
    * Available options for each varying SKU property, taking into account the
@@ -1216,6 +1218,49 @@ export type ProductDetailsFragment_ProductFragment = {
   }>
 }
 
+export type ProductSkuMatrixSidebarFragment_ProductFragment = {
+  id: string
+  isVariantOf: {
+    name: string
+    productGroupID: string
+    skuVariants: {
+      activeVariations: any | null
+      slugsMap: any | null
+      availableVariations: any | null
+      allVariantProducts: Array<{
+        sku: string
+        name: string
+        image: Array<{ url: string; alternateName: string }>
+        offers: {
+          highPrice: number
+          lowPrice: number
+          lowPriceWithTaxes: number
+          offerCount: number
+          priceCurrency: string
+          offers: Array<{
+            listPrice: number
+            listPriceWithTaxes: number
+            sellingPrice: number
+            priceCurrency: string
+            price: number
+            priceWithTaxes: number
+            priceValidUntil: string
+            itemCondition: string
+            availability: string
+            quantity: number
+          }>
+        }
+        additionalProperty: Array<{
+          propertyID: string
+          value: any
+          name: string
+          valueReference: any
+        }>
+      }> | null
+    } | null
+  }
+}
+
 export type ClientManyProductsFragment = {
   search: { products: { pageInfo: { totalCount: number } } }
 }
@@ -1420,6 +1465,55 @@ export type SubscribeToNewsletterMutationVariables = Exact<{
 
 export type SubscribeToNewsletterMutation = {
   subscribeToNewsletter: { id: string } | null
+}
+
+export type ClientAllVariantProductsQueryQueryVariables = Exact<{
+  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+}>
+
+export type ClientAllVariantProductsQueryQuery = {
+  product: {
+    id: string
+    isVariantOf: {
+      name: string
+      productGroupID: string
+      skuVariants: {
+        activeVariations: any | null
+        slugsMap: any | null
+        availableVariations: any | null
+        allVariantProducts: Array<{
+          sku: string
+          name: string
+          image: Array<{ url: string; alternateName: string }>
+          offers: {
+            highPrice: number
+            lowPrice: number
+            lowPriceWithTaxes: number
+            offerCount: number
+            priceCurrency: string
+            offers: Array<{
+              listPrice: number
+              listPriceWithTaxes: number
+              sellingPrice: number
+              priceCurrency: string
+              price: number
+              priceWithTaxes: number
+              priceValidUntil: string
+              itemCondition: string
+              availability: string
+              quantity: number
+            }>
+          }
+          additionalProperty: Array<{
+            propertyID: string
+            value: any
+            name: string
+            valueReference: any
+          }>
+        }> | null
+      } | null
+    }
+  }
 }
 
 export type ClientManyProductsQueryQueryVariables = Exact<{
@@ -1807,11 +1901,6 @@ export const ProductDetailsFragment_ProductFragmentDoc =
   isVariantOf {
     name
     productGroupID
-    skuVariants {
-      activeVariations
-      slugsMap
-      availableVariations
-    }
   }
   image {
     url
@@ -1873,6 +1962,60 @@ export const ProductDetailsFragment_ProductFragmentDoc =
     { fragmentName: 'ProductDetailsFragment_product' }
   ) as unknown as TypedDocumentString<
     ProductDetailsFragment_ProductFragment,
+    unknown
+  >
+export const ProductSkuMatrixSidebarFragment_ProductFragmentDoc =
+  new TypedDocumentString(
+    `
+    fragment ProductSKUMatrixSidebarFragment_product on StoreProduct {
+  id: productID
+  isVariantOf {
+    name
+    productGroupID
+    skuVariants {
+      activeVariations
+      slugsMap
+      availableVariations
+      allVariantProducts {
+        sku
+        name
+        image {
+          url
+          alternateName
+        }
+        offers {
+          highPrice
+          lowPrice
+          lowPriceWithTaxes
+          offerCount
+          priceCurrency
+          offers {
+            listPrice
+            listPriceWithTaxes
+            sellingPrice
+            priceCurrency
+            price
+            priceWithTaxes
+            priceValidUntil
+            itemCondition
+            availability
+            quantity
+          }
+        }
+        additionalProperty {
+          propertyID
+          value
+          name
+          valueReference
+        }
+      }
+    }
+  }
+}
+    `,
+    { fragmentName: 'ProductSKUMatrixSidebarFragment_product' }
+  ) as unknown as TypedDocumentString<
+    ProductSkuMatrixSidebarFragment_ProductFragment,
     unknown
   >
 export const ClientManyProductsFragmentDoc = new TypedDocumentString(
@@ -2060,7 +2203,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '46103bee661405bde706d72126fdbf9b0a0c9e6e',
+    operationHash: '59d53edc20e918b9ac3b89e52e1eb6343f71db18',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2084,6 +2227,15 @@ export const SubscribeToNewsletterDocument = {
   SubscribeToNewsletterMutation,
   SubscribeToNewsletterMutationVariables
 >
+export const ClientAllVariantProductsQueryDocument = {
+  __meta__: {
+    operationName: 'ClientAllVariantProductsQuery',
+    operationHash: '4039e05f01a2fe449e20e8b82170d0ba94b1fbe9',
+  },
+} as unknown as TypedDocumentString<
+  ClientAllVariantProductsQueryQuery,
+  ClientAllVariantProductsQueryQueryVariables
+>
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
@@ -2105,7 +2257,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: '7d121ef8d4dc99174e64e4429a9b977b8bbebed8',
+    operationHash: '17eebe56abfc90a2e34761d871926a2475c32350',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
