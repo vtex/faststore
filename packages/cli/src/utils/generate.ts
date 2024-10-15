@@ -1,4 +1,5 @@
 import chalk from 'chalk'
+
 import {
   copyFileSync,
   copySync,
@@ -359,7 +360,7 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
       rootPackageJson.dependencies[packageName]
 
     if (!coreVersion || !rootVersion) {
-       console.warn(
+      console.warn(
         `${chalk.yellow(
           'warning'
         )} - Package ${packageName} not found in both core or root dependencies.`
@@ -371,7 +372,6 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
         )} - Version mismatch detected for ${packageName}. 
           Core: ${coreVersion}, Customization: ${rootVersion}. Please align both versions to prevent issues`
       )
-     
     }
   })
 }
