@@ -376,6 +376,20 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
   })
 }
 
+function updateNextConfig(basePath: string) {
+  const { tmpDir } = withBasePath(basePath)
+
+  const nextConfigPath = path.join(tmpDir, 'next.config.js')
+
+  let nextConfigData = String(readFileSync(nextConfigPath))
+  nextConfigData = nextConfigData.replace(
+    /outputFileTracingRoot\:\s+(.*),/,
+    `outputFileTracingRoot: '${basePath}',`
+  )
+
+  writeFileSync(nextConfigPath, nextConfigData)
+}
+
 export async function generate(options: GenerateOptions) {
   const { basePath, setup = false } = options
 
@@ -397,5 +411,6 @@ export async function generate(options: GenerateOptions) {
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
     createCmsWebhookUrlsJsonFile(basePath),
+    updateNextConfig(basePath),
   ])
 }
