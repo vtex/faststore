@@ -4,7 +4,8 @@
     "OCLIF_COMPILATION",
     "NODE_ENV",
     "DISABLE_3P_SCRIPTS",
-    "CMS_DATA"
+    "CMS_DATA",
+    "HOMEBREW_API_ENVIRONMENT"
   ],
   "pipeline": {
     "site#build": {
