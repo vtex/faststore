@@ -1,34 +1,85 @@
 import fetch from 'isomorphic-unfetch'
 import packageJson from '../../../../package.json'
+import { Options as ApiOptions } from '..'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
 
-interface FetchAPIOptions {
-  storeCookies?: (headers: Headers) => void
+const VTEX_API_TO_INTERNAL_API_NAME: { [key: string]: string } = {
+  catalog: 'catalogapi',
+  checkout: 'checkoutapi',
+  io: 'ioapi',
+  md: 'mdapi',
+  sessions: 'sessionsapi',
 }
 
-export const fetchAPI = async (
-  info: RequestInfo,
-  init?: RequestInit,
-  options?: FetchAPIOptions
-) => {
-  const response = await fetch(info, {
-    ...init,
+type RequestOptions = {
+  account: string
+  environment: ApiOptions['environment']
+  storeCookies?: (headers: Headers) => void
+  vtexApi: 'catalog' | 'checkout' | 'io' | 'md' | 'sessions'
+}
+
+type FetchAPI = {
+  requestPath: string
+  requestInit?: RequestInit
+  requestOptions: RequestOptions
+}
+
+const getBasePrefix = async ({
+  vtexApi,
+  account,
+  environment,
+}: {
+  account: string
+  environment: string
+  vtexApi: RequestOptions['vtexApi']
+}) => {
+  if (environment === 'vtexinternal') {
+    return `https://${VTEX_API_TO_INTERNAL_API_NAME[vtexApi]}.${environment}.com`
+  }
+
+  return `https://${account}.${environment}.com.br`
+}
+
+export const fetchAPI = async ({
+  requestPath,
+  requestInit,
+  requestOptions,
+}: FetchAPI) => {
+  const requestInfoPrefix = await getBasePrefix({
+    account: requestOptions.account,
+    environment: requestOptions.environment,
+    vtexApi: requestOptions.vtexApi,
+  })
+
+  let requestInfo = requestInfoPrefix + requestPath
+
+  // Check the environment to specify the account
+  if (requestOptions.environment === 'vtexinternal') {
+    const hasParams = requestInfo.includes('?')
+
+    requestInfo += hasParams
+      ? `&an=${requestOptions.account}`
+      : `?an=${requestOptions.account}`
+  }
+
+  const response = await fetch(requestInfo, {
+    ...requestInit,
     headers: {
-      ...(init?.headers ?? {}),
+      ...(requestInit?.headers ?? {}),
       'User-Agent': USER_AGENT,
     },
   })
 
   if (response.ok) {
-    if (options?.storeCookies) {
-      options.storeCookies(response.headers)
+    if (requestOptions?.storeCookies) {
+      requestOptions.storeCookies(response.headers)
     }
 
     return response.status !== 204 ? response.json() : undefined
   }
 
-  console.error(info, init, response)
+  console.error(requestInfo, requestInit, response)
   const text = await response.text()
 
   throw new Error(text)
