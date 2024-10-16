@@ -101,9 +101,14 @@ export const SearchQueryFirst5Products = `query SearchQuery {
 }`
 
 export const productSearchCategory1Fetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false',
+  path: '/api/io/_v/api/intelligent-search/product_search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false',
   init: undefined,
-  options: { storeCookies: expect.any(Function) },
+  options: {
+    account: 'storeframework',
+    environment: 'vtexcommercestable',
+    storeCookies: expect.any(Function),
+    vtexApi: 'io',
+  },
   result: {
     products: [
       {
@@ -1395,9 +1400,14 @@ export const productSearchCategory1Fetch = {
 }
 
 export const attributeSearchCategory1Fetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/facets/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false',
+  path: '/api/io/_v/api/intelligent-search/facets/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false',
   init: undefined,
-  options: { storeCookies: expect.any(Function) },
+  options: {
+    account: 'storeframework',
+    environment: 'vtexcommercestable',
+    storeCookies: expect.any(Function),
+    vtexApi: 'io',
+  },
   result: {
     facets: [
       {

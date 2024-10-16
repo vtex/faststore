@@ -17,6 +17,7 @@ import {
 } from '../mocks/ValidateCartMutation'
 import type { Options } from '../src'
 import { getContextFactory, getSchema } from '../src'
+import type { FetchAPI } from '../src/platforms/vtex/clients/fetch'
 
 const apiOptions = {
   platform: 'vtex',
@@ -56,27 +57,26 @@ const createRunner = () => {
 }
 
 function pickFetchAPICallResult(
-  info: RequestInfo,
+  path: string,
   _: RequestInit | undefined,
-  expectedFetchAPICalls: Array<Record<'info' | 'init' | 'result', unknown>>
+  expectedFetchAPICalls: Array<
+    Record<'path' | 'init' | 'options' | 'result', unknown>
+  >
 ) {
   for (const call of expectedFetchAPICalls) {
-    if (info === call.info) {
+    if (path === call.path) {
       return call.result
     }
   }
 
   throw new Error(
-    `fetchAPI was called with an unexpected 'info' argument.\ninfo: ${info}`
+    `fetchAPI was called with an unexpected 'path' argument.\npath: ${path}`
   )
 }
 
 jest.mock('../src/platforms/vtex/clients/fetch.ts', () => ({
-  fetchAPI: async (
-    info: RequestInfo,
-    init?: RequestInit,
-    options?: { storeCookies?: (headers: Headers) => void }
-  ) => mockedFetch(info, init, options),
+  fetchAPI: async ({ path, init, options }: FetchAPI) =>
+    mockedFetch(path, init, options),
 }))
 
 const run = createRunner()
@@ -94,8 +94,8 @@ test('`validateCart` mutation should return `null` when a valid cart is passed',
     checkoutOrderFormCustomDataValidFetch,
   ]
 
-  mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, fetchAPICalls)
+  mockedFetch.mockImplementation((path, init) =>
+    pickFetchAPICallResult(path, init, fetchAPICalls)
   )
 
   const response = await run(ValidateCartMutation, { cart: ValidCart })
@@ -104,7 +104,7 @@ test('`validateCart` mutation should return `null` when a valid cart is passed',
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
-      fetchAPICall.info,
+      fetchAPICall.path,
       fetchAPICall.init,
       fetchAPICall.options
     )
@@ -122,8 +122,8 @@ test('`validateCart` mutation should return the full order when an invalid cart 
     salesChannelStaleFetch,
   ]
 
-  mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, fetchAPICalls)
+  mockedFetch.mockImplementation((path, init) =>
+    pickFetchAPICallResult(path, init, fetchAPICalls)
   )
 
   const response = await run(ValidateCartMutation, { cart: InvalidCart })
@@ -133,7 +133,7 @@ test('`validateCart` mutation should return the full order when an invalid cart 
   fetchAPICalls.forEach((fetchAPICall, index) => {
     expect(mockedFetch).toHaveBeenNthCalledWith(
       index + 1,
-      fetchAPICall.info,
+      fetchAPICall.path,
       fetchAPICall.init,
       fetchAPICall.options
     )
@@ -150,8 +150,8 @@ test('`validateCart` mutation should return new cart when etag is stale', async 
     salesChannelStaleFetch,
   ]
 
-  mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, fetchAPICalls)
+  mockedFetch.mockImplementation((path, init) =>
+    pickFetchAPICallResult(path, init, fetchAPICalls)
   )
 
   const response = await run(ValidateCartMutation, { cart: InvalidCart })
@@ -161,7 +161,7 @@ test('`validateCart` mutation should return new cart when etag is stale', async 
   fetchAPICalls.forEach((fetchAPICall, index) => {
     expect(mockedFetch).toHaveBeenNthCalledWith(
       index + 1,
-      fetchAPICall.info,
+      fetchAPICall.path,
       fetchAPICall.init,
       fetchAPICall.options
     )

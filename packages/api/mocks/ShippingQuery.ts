@@ -95,11 +95,16 @@ export const ShippingSimulationQueryResult = `query ShippingSimulationQuery {
 }`
 
 export const addressFetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/postal-code/USA/32808',
+  path: '/api/checkout/pub/postal-code/USA/32808',
   init: {
     headers: { 'content-type': 'application/json', 'X-FORWARDED-HOST': '' },
   },
-  options: { storeCookies: expect.any(Function) },
+  options: {
+    account: 'storeframework',
+    environment: 'vtexcommercestable',
+    storeCookies: expect.any(Function),
+    vtexApi: 'checkout',
+  },
   result: {
     address: {
       postalCode: '32808',
@@ -117,7 +122,7 @@ export const addressFetch = {
 }
 
 export const shippingSimulationFetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForms/simulation?sc=1',
+  path: '/api/checkout/pub/orderForms/simulation?sc=1',
   init: {
     method: 'POST',
     headers: {
@@ -130,7 +135,12 @@ export const shippingSimulationFetch = {
       items: [{ id: '99988211', quantity: 1, seller: '1' }],
     }),
   },
-  options: { storeCookies: expect.any(Function) },
+  options: {
+    account: 'storeframework',
+    environment: 'vtexcommercestable',
+    storeCookies: expect.any(Function),
+    vtexApi: 'checkout',
+  },
   result: {
     items: [
       {
