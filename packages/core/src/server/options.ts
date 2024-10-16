@@ -5,7 +5,8 @@ import storeConfig from '../../discovery.config'
 export const apiOptions: APIOptions = {
   platform: storeConfig.platform as APIOptions['platform'],
   account: storeConfig.api.storeId,
-  environment: storeConfig.api.environment as APIOptions['environment'],
+  environment: (process.env.HOMEBREW_API_ENVIRONMENT ??
+    storeConfig.api.environment) as APIOptions['environment'],
   subDomainPrefix: storeConfig.api.subDomainPrefix ?? ['www'],
   hideUnavailableItems: storeConfig.api.hideUnavailableItems,
   showSponsored: storeConfig.api.showSponsored,
