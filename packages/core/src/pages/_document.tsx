@@ -3,8 +3,10 @@ import storeConfig from '../../faststore.config'
 
 import ThirdPartyScripts from 'src/components/ThirdPartyScripts'
 import { WebFonts } from 'src/customizations/src/GlobalOverrides'
+import { usePageViewEvent } from 'src/sdk/analytics/hooks/usePageViewEvent'
 
 function Document() {
+  usePageViewEvent()
   return (
     <Html>
       <Head>
