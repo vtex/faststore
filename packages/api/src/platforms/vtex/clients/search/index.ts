@@ -50,10 +50,15 @@ export const isFacetBoolean = (
 ): facet is Facet<FacetValueBoolean> => facet.type === 'TEXT'
 
 export const IntelligentSearch = (
-  { account, environment, hideUnavailableItems, simulationBehavior, showSponsored }: Options,
+  {
+    account,
+    environment,
+    hideUnavailableItems,
+    simulationBehavior,
+    showSponsored,
+  }: Options,
   ctx: Context
 ) => {
-  const base = `https://${account}.${environment}.com.br/api/io`
   const storeCookies = getStoreCookie(ctx)
 
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
@@ -145,11 +150,15 @@ export const IntelligentSearch = (
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
-    return fetchAPI(
-      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
-      undefined,
-      { storeCookies }
-    )
+    return fetchAPI({
+      requestPath: `/api/io/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
+      requestOptions: {
+        account,
+        environment,
+        storeCookies,
+        vtexApi: 'io',
+      },
+    })
   }
 
   const products = (args: Omit<SearchArgs, 'type'>) =>
@@ -163,11 +172,15 @@ export const IntelligentSearch = (
       locale: ctx.storage.locale,
     })
 
-    return fetchAPI(
-      `${base}/_v/api/intelligent-search/search_suggestions?${params.toString()}`,
-      undefined,
-      { storeCookies }
-    )
+    return fetchAPI({
+      requestPath: `/api/io/_v/api/intelligent-search/search_suggestions?${params.toString()}`,
+      requestOptions: {
+        account,
+        environment,
+        storeCookies,
+        vtexApi: 'io',
+      },
+    })
   }
 
   const topSearches = (): Promise<Suggestion> => {
@@ -175,11 +188,15 @@ export const IntelligentSearch = (
       locale: ctx.storage.locale,
     })
 
-    return fetchAPI(
-      `${base}/_v/api/intelligent-search/top_searches?${params.toString()}`,
-      undefined,
-      { storeCookies }
-    )
+    return fetchAPI({
+      requestPath: `/api/io/_v/api/intelligent-search/top_searches?${params.toString()}`,
+      requestOptions: {
+        account,
+        environment,
+        storeCookies,
+        vtexApi: 'io',
+      },
+    })
   }
 
   const facets = (args: Omit<SearchArgs, 'type'>) =>
