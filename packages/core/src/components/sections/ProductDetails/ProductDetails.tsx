@@ -60,7 +60,7 @@ export interface ProductDetailsProps {
     triggerButtonLabel: string
     columns: {
       name: string
-      additionalColumns?: Array<{ label: string; value: string }>
+      additionalColumns: Array<{ label: string; value: string }>
       availability: {
         label: string
         stockDisplaySettings: 'showAvailability' | 'showStockQuantity'
