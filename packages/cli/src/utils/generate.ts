@@ -1,5 +1,4 @@
 import chalk from 'chalk'
-
 import {
   copyFileSync,
   copySync,
