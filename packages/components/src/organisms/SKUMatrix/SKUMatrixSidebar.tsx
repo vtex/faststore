@@ -45,7 +45,7 @@ export interface SKUMatrixSidebarProps extends HTMLAttributes<HTMLDivElement> {
    */
   columns: {
     name: string
-    additionalColumns?: Array<{ label: string; value: string }>
+    additionalColumns: Array<{ label: string; value: string }>
     availability: {
       label: string
       stockDisplaySettings: 'showStockQuantity' | 'showAvailability'
