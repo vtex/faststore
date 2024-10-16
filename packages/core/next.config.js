@@ -51,6 +51,16 @@ const nextConfig = {
       config.optimization.splitChunks.maxInitialRequests = 1
     }
 
+    if (storeConfig.experimental.preact && !isServer && !dev) {
+      Object.assign(config.resolve.alias, {
+        react: 'preact/compat',
+
+        'react-dom/test-utils': 'preact/test-utils',
+
+        'react-dom': 'preact/compat',
+      })
+    }
+
     return config
   },
   redirects: storeConfig.redirects,

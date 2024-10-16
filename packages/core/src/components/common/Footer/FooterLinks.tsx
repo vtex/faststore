@@ -8,6 +8,7 @@ import {
 import { useState } from 'react'
 
 import Link from 'src/components/ui/Link'
+import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 type Item = {
   url: string
@@ -38,6 +39,7 @@ export interface FooterLinksProps {
 }
 
 function FooterLinks({ links }: FooterLinksProps) {
+  const { isDesktop } = useScreenResize()
   const [indicesExpanded, setIndicesExpanded] = useState<Set<number>>(
     new Set([])
   )
@@ -53,7 +55,7 @@ function FooterLinks({ links }: FooterLinksProps) {
 
   return (
     <section data-fs-footer data-fs-footer-links>
-      <div className="display-mobile">
+      {!isDesktop && (
         <UIAccordion indices={indicesExpanded} onChange={onChange}>
           {links.map(({ sectionTitle, items }) => (
             <UIAccordionItem key={sectionTitle}>
@@ -64,9 +66,9 @@ function FooterLinks({ links }: FooterLinksProps) {
             </UIAccordionItem>
           ))}
         </UIAccordion>
-      </div>
+      )}
 
-      <div className="hidden-mobile">
+      {isDesktop && (
         <nav data-fs-footer-links-columns aria-label="Footer Links Navigation">
           {links.map(({ sectionTitle, items }) => (
             <div key={sectionTitle}>
@@ -75,7 +77,7 @@ function FooterLinks({ links }: FooterLinksProps) {
             </div>
           ))}
         </nav>
-      </div>
+      )}
     </section>
   )
 }
