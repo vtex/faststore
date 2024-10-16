@@ -45,7 +45,7 @@ export interface SKUMatrixSidebarProps extends HTMLAttributes<HTMLDivElement> {
    */
   columns: {
     name: string
-    additionalColumns?: Array<{ label: string; value: string }>
+    additionalColumns: Array<{ label: string; value: string }>
     availability: {
       label: string
       stockDisplaySettings: 'showStockQuantity' | 'showAvailability'
@@ -147,11 +147,17 @@ function SKUMatrixSidebar({
               {columns.name}
             </TableCell>
 
-            {columns.additionalColumns?.map(({ label, value }) => (
-              <TableCell key={value} align="left" variant="header" scope="col">
-                {label}
-              </TableCell>
-            ))}
+            {!!columns.additionalColumns.length &&
+              columns.additionalColumns.map(({ label, value }) => (
+                <TableCell
+                  key={value}
+                  align="left"
+                  variant="header"
+                  scope="col"
+                >
+                  {label}
+                </TableCell>
+              ))}
 
             <TableCell align="left" variant="header" scope="col">
               {columns.availability.label}
