@@ -147,17 +147,11 @@ function SKUMatrixSidebar({
               {columns.name}
             </TableCell>
 
-            {!!columns.additionalColumns.length &&
-              columns.additionalColumns.map(({ label, value }) => (
-                <TableCell
-                  key={value}
-                  align="left"
-                  variant="header"
-                  scope="col"
-                >
-                  {label}
-                </TableCell>
-              ))}
+            {columns.additionalColumns.map(({ label, value }) => (
+              <TableCell key={value} align="left" variant="header" scope="col">
+                {label}
+              </TableCell>
+            ))}
 
             <TableCell align="left" variant="header" scope="col">
               {columns.availability.label}
