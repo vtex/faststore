@@ -151,8 +151,8 @@ export const IntelligentSearch = (
       .join('/')
 
     return fetchAPI({
-      requestPath: `/api/io/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
-      requestOptions: {
+      path: `/api/io/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
+      options: {
         account,
         environment,
         storeCookies,
@@ -173,8 +173,8 @@ export const IntelligentSearch = (
     })
 
     return fetchAPI({
-      requestPath: `/api/io/_v/api/intelligent-search/search_suggestions?${params.toString()}`,
-      requestOptions: {
+      path: `/api/io/_v/api/intelligent-search/search_suggestions?${params.toString()}`,
+      options: {
         account,
         environment,
         storeCookies,
@@ -189,8 +189,8 @@ export const IntelligentSearch = (
     })
 
     return fetchAPI({
-      requestPath: `/api/io/_v/api/intelligent-search/top_searches?${params.toString()}`,
-      requestOptions: {
+      path: `/api/io/_v/api/intelligent-search/top_searches?${params.toString()}`,
+      options: {
         account,
         environment,
         storeCookies,

@@ -19,10 +19,10 @@ type RequestOptions = {
   vtexApi: 'catalog' | 'checkout' | 'io' | 'md' | 'sessions'
 }
 
-type FetchAPI = {
-  requestPath: string
-  requestInit?: RequestInit
-  requestOptions: RequestOptions
+export type FetchAPI = {
+  path: string
+  init?: RequestInit
+  options: RequestOptions
 }
 
 const getBasePrefix = async ({
@@ -41,45 +41,39 @@ const getBasePrefix = async ({
   return `https://${account}.${environment}.com.br`
 }
 
-export const fetchAPI = async ({
-  requestPath,
-  requestInit,
-  requestOptions,
-}: FetchAPI) => {
+export const fetchAPI = async ({ path, init, options }: FetchAPI) => {
   const requestInfoPrefix = await getBasePrefix({
-    account: requestOptions.account,
-    environment: requestOptions.environment,
-    vtexApi: requestOptions.vtexApi,
+    account: options.account,
+    environment: options.environment,
+    vtexApi: options.vtexApi,
   })
 
-  let requestInfo = requestInfoPrefix + requestPath
+  let info = requestInfoPrefix + path
 
   // Check the environment to specify the account
-  if (requestOptions.environment === 'vtexinternal') {
-    const hasParams = requestInfo.includes('?')
+  if (options.environment === 'vtexinternal') {
+    const hasParams = info.includes('?')
 
-    requestInfo += hasParams
-      ? `&an=${requestOptions.account}`
-      : `?an=${requestOptions.account}`
+    info += hasParams ? `&an=${options.account}` : `?an=${options.account}`
   }
 
-  const response = await fetch(requestInfo, {
-    ...requestInit,
+  const response = await fetch(info, {
+    ...init,
     headers: {
-      ...(requestInit?.headers ?? {}),
+      ...(init?.headers ?? {}),
       'User-Agent': USER_AGENT,
     },
   })
 
   if (response.ok) {
-    if (requestOptions?.storeCookies) {
-      requestOptions.storeCookies(response.headers)
+    if (options?.storeCookies) {
+      options.storeCookies(response.headers)
     }
 
     return response.status !== 204 ? response.json() : undefined
   }
 
-  console.error(requestInfo, requestInit, response)
+  console.error(info, init, response)
   const text = await response.text()
 
   throw new Error(text)

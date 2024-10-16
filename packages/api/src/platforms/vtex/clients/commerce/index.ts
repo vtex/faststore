@@ -52,8 +52,8 @@ export const VtexCommerce = (
     catalog: {
       salesChannel: (sc: string): Promise<SalesChannel> =>
         fetchAPI({
-          requestPath: `/api/catalog_system/pub/saleschannel/${sc}`,
-          requestOptions: {
+          path: `/api/catalog_system/pub/saleschannel/${sc}`,
+          options: {
             account,
             environment,
             storeCookies,
@@ -63,8 +63,8 @@ export const VtexCommerce = (
       brand: {
         list: (): Promise<Brand[]> =>
           fetchAPI({
-            requestPath: `/api/catalog_system/pub/brand/list`,
-            requestOptions: {
+            path: `/api/catalog_system/pub/brand/list`,
+            options: {
               account,
               environment,
               storeCookies,
@@ -75,8 +75,8 @@ export const VtexCommerce = (
       category: {
         tree: (depth = 3): Promise<CategoryTree[]> =>
           fetchAPI({
-            requestPath: `/api/catalog_system/pub/category/tree/${depth}`,
-            requestOptions: {
+            path: `/api/catalog_system/pub/category/tree/${depth}`,
+            options: {
               account,
               environment,
               storeCookies,
@@ -87,8 +87,8 @@ export const VtexCommerce = (
       portal: {
         pagetype: (slug: string): Promise<PortalPagetype> =>
           fetchAPI({
-            requestPath: `/api/catalog_system/pub/portal/pagetype/${slug}`,
-            requestOptions: {
+            path: `/api/catalog_system/pub/portal/pagetype/${slug}`,
+            options: {
               account,
               environment,
               storeCookies,
@@ -112,8 +112,8 @@ export const VtexCommerce = (
           })
 
           return fetchAPI({
-            requestPath: `/api/catalog_system/pub/products/crossselling/${type}/${productId}?${params}`,
-            requestOptions: {
+            path: `/api/catalog_system/pub/products/crossselling/${type}/${productId}?${params}`,
+            options: {
               account,
               environment,
               storeCookies,
@@ -138,13 +138,13 @@ export const VtexCommerce = (
         })
 
         return fetchAPI({
-          requestPath: `/api/checkout/pub/orderForms/simulation?${params.toString()}`,
-          requestInit: {
+          path: `/api/checkout/pub/orderForms/simulation?${params.toString()}`,
+          init: {
             ...BASE_INIT,
             headers,
             body: JSON.stringify(args),
           },
-          requestOptions: {
+          options: {
             account,
             environment,
             storeCookies,
@@ -190,13 +190,13 @@ export const VtexCommerce = (
         })
 
         return fetchAPI({
-          requestPath: `/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
-          requestInit: {
+          path: `/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
+          init: {
             ...BASE_INIT,
             headers,
             body: JSON.stringify(mappedBody),
           },
-          requestOptions: {
+          options: {
             account,
             environment,
             storeCookies,
@@ -225,9 +225,9 @@ export const VtexCommerce = (
         })
 
         return fetchAPI({
-          requestPath: `/api/checkout/pub/orderForm/${id}?${params.toString()}`,
-          requestInit: { ...BASE_INIT, headers },
-          requestOptions: {
+          path: `/api/checkout/pub/orderForm/${id}?${params.toString()}`,
+          init: { ...BASE_INIT, headers },
+          options: {
             account,
             environment,
             storeCookies,
@@ -242,9 +242,9 @@ export const VtexCommerce = (
         })
 
         return fetchAPI({
-          requestPath: `/api/checkout/pub/orderForm/${id}/messages/clear`,
-          requestInit: { ...BASE_INIT, headers, body: '{}' },
-          requestOptions: { account, environment, vtexApi: 'checkout' },
+          path: `/api/checkout/pub/orderForm/${id}/messages/clear`,
+          init: { ...BASE_INIT, headers, body: '{}' },
+          options: { account, environment, vtexApi: 'checkout' },
         })
       },
       updateOrderFormItems: ({
@@ -271,8 +271,8 @@ export const VtexCommerce = (
         })
 
         return fetchAPI({
-          requestPath: `/api/checkout/pub/orderForm/${id}/items?${params}`,
-          requestInit: {
+          path: `/api/checkout/pub/orderForm/${id}/items?${params}`,
+          init: {
             headers,
             body: JSON.stringify({
               orderItems,
@@ -280,7 +280,7 @@ export const VtexCommerce = (
             }),
             method: 'PATCH',
           },
-          requestOptions: {
+          options: {
             account,
             environment,
             storeCookies,
@@ -305,13 +305,13 @@ export const VtexCommerce = (
         })
 
         return fetchAPI({
-          requestPath: `/api/checkout/pub/orderForm/${id}/customData/${appId}/${key}`,
-          requestInit: {
+          path: `/api/checkout/pub/orderForm/${id}/customData/${appId}/${key}`,
+          init: {
             headers,
             body: JSON.stringify({ value }),
             method: 'PUT',
           },
-          requestOptions: { account, environment, vtexApi: 'checkout' },
+          options: { account, environment, vtexApi: 'checkout' },
         })
       },
       region: async ({
@@ -338,9 +338,9 @@ export const VtexCommerce = (
         })
 
         return fetchAPI({
-          requestPath: `/api/checkout/pub/regions/?${params.toString()}`,
-          requestInit: { headers },
-          requestOptions: {
+          path: `/api/checkout/pub/regions/?${params.toString()}`,
+          init: { headers },
+          options: {
             account,
             environment,
             storeCookies,
@@ -358,9 +358,9 @@ export const VtexCommerce = (
         })
 
         return fetchAPI({
-          requestPath: `/api/checkout/pub/postal-code/${country}/${postalCode}`,
-          requestInit: { headers },
-          requestOptions: {
+          path: `/api/checkout/pub/postal-code/${country}/${postalCode}`,
+          init: { headers },
+          options: {
             account,
             environment,
             storeCookies,
@@ -382,13 +382,13 @@ export const VtexCommerce = (
       })
 
       return fetchAPI({
-        requestPath: `/api/sessions?${params.toString()}`,
-        requestInit: {
+        path: `/api/sessions?${params.toString()}`,
+        init: {
           method: 'POST',
           headers,
           body: '{}',
         },
-        requestOptions: {
+        options: {
           account,
           environment,
           storeCookies,
@@ -401,13 +401,13 @@ export const VtexCommerce = (
       email: string
     }): Promise<MasterDataResponse> => {
       return fetchAPI({
-        requestPath: `/api/dataentities/NL/documents/`,
-        requestInit: {
+        path: `/api/dataentities/NL/documents/`,
+        init: {
           ...BASE_INIT,
           body: JSON.stringify({ ...data, isNewsletterOptIn: true }),
           method: 'PATCH',
         },
-        requestOptions: { account, environment, storeCookies, vtexApi: 'md' },
+        options: { account, environment, storeCookies, vtexApi: 'md' },
       })
     },
   }
