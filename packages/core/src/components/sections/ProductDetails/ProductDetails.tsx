@@ -121,7 +121,11 @@ function ProductDetails({
     brand,
     isVariantOf,
     description,
-    isVariantOf: { name, productGroupID: productId },
+    isVariantOf: {
+      name,
+      productGroupID: productId,
+      skuVariants: { slugsMap },
+    },
     image: productImages,
     offers: {
       offers: [{ availability, price, listPrice, listPriceWithTaxes, seller }],
@@ -231,23 +235,24 @@ function ProductDetails({
                 taxesConfiguration={taxesConfiguration}
               />
 
-              {skuMatrix?.shouldDisplaySKUMatrix && (
-                <>
-                  <div data-fs-product-details-settings-separator>Or</div>
+              {skuMatrix?.shouldDisplaySKUMatrix &&
+                Object.keys(slugsMap).length > 1 && (
+                  <>
+                    <div data-fs-product-details-settings-separator>Or</div>
 
-                  <SKUMatrix.Component>
-                    <SKUMatrixTrigger.Component disabled={isValidating}>
-                      {skuMatrix.triggerButtonLabel}
-                    </SKUMatrixTrigger.Component>
+                    <SKUMatrix.Component>
+                      <SKUMatrixTrigger.Component disabled={isValidating}>
+                        {skuMatrix.triggerButtonLabel}
+                      </SKUMatrixTrigger.Component>
 
-                    <SKUMatrixSidebar.Component
-                      formatter={useFormattedPrice}
-                      columns={skuMatrix.columns}
-                      overlayProps={{ className: styles.section }}
-                    />
-                  </SKUMatrix.Component>
-                </>
-              )}
+                      <SKUMatrixSidebar.Component
+                        formatter={useFormattedPrice}
+                        columns={skuMatrix.columns}
+                        overlayProps={{ className: styles.section }}
+                      />
+                    </SKUMatrix.Component>
+                  </>
+                )}
             </section>
 
             {!outOfStock && (
