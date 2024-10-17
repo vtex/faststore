@@ -1,6 +1,6 @@
 {
   "name": "@faststore/graphql-utils",
-  "version": "3.0.131",
+  "version": "3.0.134",
   "description": "GraphQL utilities",
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
     "graphql": "^15.6.1"
   },
   "devDependencies": {
-    "@faststore/eslint-config": "^3.0.131",
+    "@faststore/eslint-config": "^3.0.134",
     "@faststore/shared": "^3.0.131",
     "cross-env": "^7.0.2",
     "eslint": "7.32.0",
