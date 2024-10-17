@@ -93,7 +93,7 @@ async function copyResources(basePath: string) {
   if (process.env.BUILD_CONTEXT === 'vercel') {
     const toDir = process.cwd()
 
-    await copyResource(`${tmpDir}/.next`, `${toDir}/.faststore/.next`) // yay
+    await copyResource(`${tmpDir}/.next`, `${toDir}/.faststore/.next`)
     await copyResource(`${tmpDir}/public`, `${toDir}/public`)
   } else {
     await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
