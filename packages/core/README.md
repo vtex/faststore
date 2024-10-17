@@ -52,7 +52,6 @@ A quick look at the top-level files and directories you'll see in a this NextJS 
     ├── .stylelintignore
     ├── .gitignore
     ├── .eslintignore
-    ├── CHANGELOG.md
     ├── codegen.ts
     ├── cypress
     ├── cypress.config.ts
