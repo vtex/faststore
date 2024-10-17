@@ -27,7 +27,7 @@ const nextConfig = {
     /*
      * The FastStore Discovery CLI will update this value to match the path where the
      * command is being run, because that is where the node_modules directory is.
-     * For discovery-only paths, that the user directory, for monorepo, that the base
+     * For discovery-only paths, that is the user directory, and for monorepo, that is the base
      * of the monorepo
      * */
     outputFileTracingRoot: path.join(__dirname, '../'),
