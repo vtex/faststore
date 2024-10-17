@@ -4,7 +4,8 @@
     "OCLIF_COMPILATION",
     "NODE_ENV",
     "DISABLE_3P_SCRIPTS",
-    "CMS_DATA"
+    "CMS_DATA",
+    "DISCOVERY_DEBUG"
   ],
   "pipeline": {
     "site#build": {

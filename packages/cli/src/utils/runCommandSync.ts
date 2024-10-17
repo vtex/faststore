@@ -48,15 +48,15 @@ export const runCommandSync = ({
   cmd,
   errorMessage,
   throws,
-  debug,
   cwd,
 }: {
   cmd: string
   errorMessage: string
   throws: 'warning' | 'error'
-  debug: boolean
   cwd?: string
 }) => {
+  const debug = process.env.DISCOVERY_DEBUG === 'true' ? true : false
+
   try {
     if (debug) {
       console.log(`[STARTED] ${cmd}`)

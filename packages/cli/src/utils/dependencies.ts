@@ -1,27 +1,25 @@
-import { getPreferredPackageManager } from "./commands"
-import { runCommandSync } from "./runCommandSync"
+import { getPreferredPackageManager } from './commands'
+import { runCommandSync } from './runCommandSync'
 
-type InstallDependenciesOptions = { 
-    dependencies: string[]
-    cwd: string,
-    errorMessage: string,
+type InstallDependenciesOptions = {
+  dependencies: string[]
+  cwd: string
+  errorMessage: string
 }
 
-export function installDependencies(
- { 
+export function installDependencies({
   dependencies,
-  cwd, 
-  errorMessage 
-}: InstallDependenciesOptions
-) {
-  const packageManager = getPreferredPackageManager() 
+  cwd,
+  errorMessage,
+}: InstallDependenciesOptions) {
+  const packageManager = getPreferredPackageManager()
   const installCommand = packageManager === 'npm' ? 'install' : 'add'
 
   runCommandSync({
     cmd: `${packageManager} ${installCommand} ${dependencies.join(' ')}`,
     errorMessage,
     throws: 'error',
-    debug: false,
     cwd,
   })
 }
+

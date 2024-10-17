@@ -8,15 +8,15 @@ import { getPreferredPackageManager } from '../utils/commands'
 
 export default class GenerateGraphql extends Command {
   static flags = {
-    debug: Flags.boolean({ char: 'd' }),
     core: Flags.boolean({ char: 'c', hidden: true }),
   }
 
   static args = [
     {
       name: 'path',
-      description: 'The path where the FastStore GraphQL customization is. Defaults to cwd.',
-    }
+      description:
+        'The path where the FastStore GraphQL customization is. Defaults to cwd.',
+    },
   ]
 
   async run() {
@@ -25,7 +25,6 @@ export default class GenerateGraphql extends Command {
     const basePath = args.path ?? process.cwd()
     const { tmpDir, coreDir } = withBasePath(basePath)
 
-    const debug = flags.debug ?? false
     const isCore = flags.core ?? false
 
     const packageManager = getPreferredPackageManager()
@@ -44,7 +43,6 @@ export default class GenerateGraphql extends Command {
       cmd: `${packageManager} run generate:schema`,
       errorMessage: `Failed to run '${packageManager} generate:schema'. Please check your setup.`,
       throws: 'error',
-      debug,
       cwd: isCore ? undefined : tmpDir,
     })
 
@@ -53,26 +51,21 @@ export default class GenerateGraphql extends Command {
       errorMessage:
         'GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect',
       throws: 'error',
-      debug,
       cwd: isCore ? undefined : tmpDir,
     })
 
     runCommandSync({
       cmd: `${packageManager} run format:generated`,
-      errorMessage:
-        `Failed to format generated files. '${packageManager} format:generated' thrown errors`,
+      errorMessage: `Failed to format generated files. '${packageManager} format:generated' thrown errors`,
       throws: 'warning',
-      debug,
       cwd: isCore ? undefined : tmpDir,
     })
 
     // The command generate:copy-back expects the DESTINATION var to be present so it can copy the files to the correct directory
     runCommandSync({
       cmd: `DESTINATION=${coreDir} ${packageManager} run generate:copy-back`,
-      errorMessage:
-        `Failed to copy back typings files. '${packageManager} generate:copy-back' thrown errors`,
+      errorMessage: `Failed to copy back typings files. '${packageManager} generate:copy-back' thrown errors`,
       throws: 'warning',
-      debug,
       cwd: isCore ? undefined : tmpDir,
     })
 
