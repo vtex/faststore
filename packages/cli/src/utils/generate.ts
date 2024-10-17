@@ -362,7 +362,7 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
       rootPackageJson.dependencies[packageName]
 
     if (!coreVersion || !rootVersion) {
-       console.warn(
+      console.warn(
         `${chalk.yellow(
           'warning'
         )} - Package ${packageName} not found in both core or root dependencies.`
@@ -374,11 +374,23 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
         )} - Version mismatch detected for ${packageName}. 
           Core: ${coreVersion}, Customization: ${rootVersion}. Please align both versions to prevent issues`
       )
-     
     }
   })
 }
 
+function updateNextConfig(basePath: string) {
+  const { tmpDir } = withBasePath(basePath)
+
+  const nextConfigPath = path.join(tmpDir, 'next.config.js')
+
+  let nextConfigData = String(readFileSync(nextConfigPath))
+  nextConfigData = nextConfigData.replace(
+    /outputFileTracingRoot\:\s+(.*),/,
+    `outputFileTracingRoot: '${process.cwd()}',`
+  )
+
+  writeFileSync(nextConfigPath, nextConfigData)
+}
 
 function validateAndInstallMissingDependencies(basePath: string) {
   const { userDir, userStoreConfigFile } = withBasePath(basePath)
@@ -418,7 +430,6 @@ function validateAndInstallMissingDependencies(basePath: string) {
     }})
 }
 
-
 export async function generate(options: GenerateOptions) {
   const { basePath, setup = false } = options
 
@@ -443,5 +454,6 @@ export async function generate(options: GenerateOptions) {
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
     createCmsWebhookUrlsJsonFile(basePath),
+    updateNextConfig(basePath),
   ])
 }
