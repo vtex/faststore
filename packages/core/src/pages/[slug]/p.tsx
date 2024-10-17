@@ -263,6 +263,7 @@ export const getStaticProps: GetStaticProps<
       globalSections,
       key: seo.canonical,
     },
+    revalidate: 3e2,
   }
 }
 
