@@ -81,7 +81,7 @@ function SKUMatrixSidebar({
   size = 'partial',
   children,
   columns,
-  buyProps,
+  buyProps: { onClick: buyButtonOnClick, ...buyProps },
   loading,
   formatter,
   ...otherProps
@@ -116,6 +116,16 @@ function SKUMatrixSidebar({
     handleChangeQuantityItem(id, value)
   }
 
+  function onClose() {
+    resetQuantityItems()
+    setOpen(false)
+  }
+
+  function handleAddToCart(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    buyButtonOnClick(e)
+    onClose()
+  }
+
   const totalColumnsSkeletonLength =
     Object.keys(columns).length - 1 + (columns.additionalColumns?.length ?? 0)
 
@@ -129,12 +139,7 @@ function SKUMatrixSidebar({
       overlayProps={overlayProps}
       {...otherProps}
     >
-      <SlideOverHeader
-        onClose={() => {
-          resetQuantityItems()
-          setOpen(false)
-        }}
-      >
+      <SlideOverHeader onClose={onClose}>
         <h2 data-fs-sku-matrix-sidebar-title>{title}</h2>
       </SlideOverHeader>
 
@@ -302,7 +307,12 @@ function SKUMatrixSidebar({
           />
         </div>
 
-        <Button variant="primary" disabled={!cartDetails.amount} {...buyProps}>
+        <Button
+          variant="primary"
+          disabled={!cartDetails.amount}
+          onClick={handleAddToCart}
+          {...buyProps}
+        >
           Add to Cart
         </Button>
       </footer>
