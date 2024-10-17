@@ -6,7 +6,7 @@
     "DISABLE_3P_SCRIPTS",
     "CMS_DATA"
   ],
-  "pipeline": {
+  "tasks": {
     "site#build": {
       "dependsOn": ["^build"],
       "env": ["BASE_SITE_URL"],
