@@ -8,37 +8,38 @@ import {
   catalogPageTypeAdidas,
   catalogPageTypeBrand,
   catalogPageTypeIRobot,
-  catalogPageTypeSkechers
+  catalogPageTypeSkechers,
 } from '../mocks/AllCollectionsQuery'
 import {
   AllProductsQueryFirst5,
-  productSearchPage1Count5Fetch
+  productSearchPage1Count5Fetch,
 } from '../mocks/AllProductsQuery'
 import {
   CollectionDesksQuery,
   pageTypeDesksFetch,
   pageTypeOfficeDesksFetch,
-  pageTypeOfficeFetch
+  pageTypeOfficeFetch,
 } from '../mocks/CollectionQuery'
 import { ProductByIdQuery, productSearchFetch } from '../mocks/ProductQuery'
 import {
   RedirectQueryTermTech,
-  redirectTermTechFetch
+  redirectTermTechFetch,
 } from '../mocks/RedirectQuery'
 import { salesChannelStaleFetch } from '../mocks/salesChannel'
 import {
   attributeSearchCategory1Fetch,
   productSearchCategory1Fetch,
-  SearchQueryFirst5Products
+  SearchQueryFirst5Products,
 } from '../mocks/SearchQuery'
 import { regionFetch, SellersQueryResult } from '../mocks/SellersQuery'
 import {
   addressFetch,
   shippingSimulationFetch,
-  ShippingSimulationQueryResult
+  ShippingSimulationQueryResult,
 } from '../mocks/ShippingQuery'
 import type { Options } from '../src'
 import { getContextFactory, getSchema } from '../src'
+import type { FetchAPI } from '../src/platforms/vtex/clients/fetch'
 
 const apiOptions = {
   platform: 'vtex',
@@ -80,27 +81,26 @@ const createRunner = () => {
 }
 
 function pickFetchAPICallResult(
-  info: RequestInfo,
+  path: string,
   _: RequestInit | undefined,
-  expectedFetchAPICalls: Array<Record<'info' | 'init' | 'result', unknown>>
+  expectedFetchAPICalls: Array<
+    Record<'path' | 'init' | 'options' | 'result', unknown>
+  >
 ) {
   for (const call of expectedFetchAPICalls) {
-    if (info === call.info) {
+    if (path === call.path) {
       return call.result
     }
   }
 
   throw new Error(
-    `fetchAPI was called with an unexpected 'info' argument.\ninfo: ${info}`
+    `fetchAPI was called with an unexpected 'path' argument.\npath: ${path}`
   )
 }
 
 jest.mock('../src/platforms/vtex/clients/fetch.ts', () => ({
-  fetchAPI: (
-    info: RequestInfo,
-    init?: RequestInit,
-    options?: { storeCookies?: (headers: Headers) => void }
-  ) => mockedFetch(info, init, options),
+  fetchAPI: ({ path, init, options }: FetchAPI) =>
+    mockedFetch(path, init, options),
 }))
 
 const run = createRunner()
@@ -118,8 +118,8 @@ test('`collection` query', async () => {
     pageTypeOfficeDesksFetch,
   ]
 
-  mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, fetchAPICalls)
+  mockedFetch.mockImplementation((path, init) =>
+    pickFetchAPICallResult(path, init, fetchAPICalls)
   )
 
   const response = await run(CollectionDesksQuery)
@@ -128,7 +128,7 @@ test('`collection` query', async () => {
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
-      fetchAPICall.info,
+      fetchAPICall.path,
       fetchAPICall.init,
       fetchAPICall.options
     )
@@ -140,8 +140,8 @@ test('`collection` query', async () => {
 test('`product` query', async () => {
   const fetchAPICalls = [productSearchFetch, salesChannelStaleFetch]
 
-  mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, fetchAPICalls)
+  mockedFetch.mockImplementation((path, init) =>
+    pickFetchAPICallResult(path, init, fetchAPICalls)
   )
 
   const response = await run(ProductByIdQuery)
@@ -150,7 +150,7 @@ test('`product` query', async () => {
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
-      fetchAPICall.info,
+      fetchAPICall.path,
       fetchAPICall.init,
       fetchAPICall.options
     )
@@ -170,8 +170,8 @@ test('`allCollections` query', async () => {
     catalogPageTypeBrand,
   ]
 
-  mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, fetchAPICalls)
+  mockedFetch.mockImplementation((path, init) =>
+    pickFetchAPICallResult(path, init, fetchAPICalls)
   )
 
   const response = await run(AllCollectionsQueryFirst5)
@@ -180,7 +180,7 @@ test('`allCollections` query', async () => {
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
-      fetchAPICall.info,
+      fetchAPICall.path,
       fetchAPICall.init,
       fetchAPICall.options
     )
@@ -192,8 +192,8 @@ test('`allCollections` query', async () => {
 test('`allProducts` query', async () => {
   const fetchAPICalls = [productSearchPage1Count5Fetch, salesChannelStaleFetch]
 
-  mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, fetchAPICalls)
+  mockedFetch.mockImplementation((path, init) =>
+    pickFetchAPICallResult(path, init, fetchAPICalls)
   )
 
   const response = await run(AllProductsQueryFirst5)
@@ -202,7 +202,7 @@ test('`allProducts` query', async () => {
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
-      fetchAPICall.info,
+      fetchAPICall.path,
       fetchAPICall.init,
       fetchAPICall.options
     )
@@ -218,8 +218,8 @@ test('`search` query', async () => {
     salesChannelStaleFetch,
   ]
 
-  mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, fetchAPICalls)
+  mockedFetch.mockImplementation((path, init) =>
+    pickFetchAPICallResult(path, init, fetchAPICalls)
   )
 
   const response = await run(SearchQueryFirst5Products)
@@ -228,7 +228,7 @@ test('`search` query', async () => {
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
-      fetchAPICall.info,
+      fetchAPICall.path,
       fetchAPICall.init,
       fetchAPICall.options
     )
@@ -240,8 +240,8 @@ test('`search` query', async () => {
 test('`shipping` query', async () => {
   const fetchAPICalls = [addressFetch, shippingSimulationFetch]
 
-  mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, fetchAPICalls)
+  mockedFetch.mockImplementation((path, init) =>
+    pickFetchAPICallResult(path, init, fetchAPICalls)
   )
 
   const response = await run(ShippingSimulationQueryResult)
@@ -250,7 +250,7 @@ test('`shipping` query', async () => {
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
-      fetchAPICall.info,
+      fetchAPICall.path,
       fetchAPICall.init,
       fetchAPICall.options
     )
@@ -262,8 +262,8 @@ test('`shipping` query', async () => {
 test('`redirect` query', async () => {
   const fetchAPICalls = [redirectTermTechFetch]
 
-  mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, fetchAPICalls)
+  mockedFetch.mockImplementation((path, init) =>
+    pickFetchAPICallResult(path, init, fetchAPICalls)
   )
 
   const response = await run(RedirectQueryTermTech)
@@ -272,9 +272,9 @@ test('`redirect` query', async () => {
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
-      fetchAPICall.info,
+      fetchAPICall.path,
       fetchAPICall.init,
-      { storeCookies: expect.any(Function) }
+      fetchAPICall.options
     )
   })
   expect(response).toMatchSnapshot()
@@ -283,8 +283,8 @@ test('`redirect` query', async () => {
 test('`sellers` query', async () => {
   const fetchAPICalls = [regionFetch]
 
-  mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, fetchAPICalls)
+  mockedFetch.mockImplementation((path, init) =>
+    pickFetchAPICallResult(path, init, fetchAPICalls)
   )
 
   const response = await run(SellersQueryResult)
@@ -293,7 +293,7 @@ test('`sellers` query', async () => {
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
-      fetchAPICall.info,
+      fetchAPICall.path,
       fetchAPICall.init,
       fetchAPICall.options
     )

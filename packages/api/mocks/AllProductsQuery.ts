@@ -78,16 +78,21 @@ export const AllProductsQueryFirst5 = `query AllProducts {
 `
 
 export const productSearchPage1Count5Fetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false',
+  path: '/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false',
   init: undefined,
-  options: { storeCookies: expect.any(Function) },
+  options: {
+    account: 'storeframework',
+    environment: 'vtexcommercestable',
+    storeCookies: expect.any(Function),
+    vtexApi: 'io',
+  },
   result: {
     products: [
       {
         cacheId: 'sp-99995946',
         productId: '99995946',
-        description: '4k Philips Monitor 27\"',
-        productName: '4k Philips Monitor 27\"',
+        description: '4k Philips Monitor 27"',
+        productName: '4k Philips Monitor 27"',
         linkText: '4k-philips-monitor',
         brand: 'adidas',
         brandId: 2000004,
@@ -209,7 +214,7 @@ export const productSearchPage1Count5Fetch = {
             ],
             itemId: '99988213',
             name: 'Monitor 27',
-            nameComplete: '4k Philips Monitor 27\" Monitor 27',
+            nameComplete: '4k Philips Monitor 27" Monitor 27',
             complementName: '',
             referenceId: [
               {
