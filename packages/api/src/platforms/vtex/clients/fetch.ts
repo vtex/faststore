@@ -48,22 +48,32 @@ export const fetchAPI = async ({ path, init, options }: FetchAPI) => {
     vtexApi: options.vtexApi,
   })
 
-  let info = requestInfoPrefix + path
-
-  // Check the environment to specify the account
-  if (options.environment === 'vtexinternal') {
-    const hasParams = info.includes('?')
-
-    info += hasParams ? `&an=${options.account}` : `?an=${options.account}`
-  }
-
-  const response = await fetch(info, {
+  let requestInfo = requestInfoPrefix + path
+  let requestInit: RequestInit = {
     ...init,
     headers: {
       ...(init?.headers ?? {}),
       'User-Agent': USER_AGENT,
     },
-  })
+  }
+
+  // Check the environment to specify the account
+  if (options.environment === 'vtexinternal') {
+    const hasParams = requestInfo.includes('?')
+
+    requestInfo += hasParams
+      ? `&an=${options.account}`
+      : `?an=${options.account}`
+    requestInit = {
+      ...requestInit,
+      headers: {
+        ...requestInit.headers,
+        Host: `${options.account}.myvtex.com`,
+      },
+    }
+  }
+
+  const response = await fetch(requestInfo, requestInit)
 
   if (response.ok) {
     if (options?.storeCookies) {
@@ -73,7 +83,7 @@ export const fetchAPI = async ({ path, init, options }: FetchAPI) => {
     return response.status !== 204 ? response.json() : undefined
   }
 
-  console.error(info, init, response)
+  console.error(requestInfo, requestInit, response)
   const text = await response.text()
 
   throw new Error(text)
