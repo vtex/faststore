@@ -60,11 +60,25 @@ async function storeDev(rootDir: string, tmpDir: string, coreDir: string, port: 
     shell: true,
     cwd: tmpDir,
     signal: devAbortController.signal,
-    stdio: 'inherit',
+    stdio: ['inherit', 'pipe', 'inherit'],
     env: {
       ...process.env,
       ...envVars,
     }
+  })
+
+  let nextStdout = ''
+  devProcess.stdout.on('data', function (chunk) {
+    nextStdout += chunk
+    const lines = nextStdout.split('\n')
+    while(lines.length > 1) {
+      const line = lines.shift()
+      console.log('[DISCOVERY] ', line)
+    }
+    nextStdout = lines.shift() || ''
+  })
+  devProcess.stdout.on('end', function () {
+    console.log('[DISCOVERY] ', nextStdout)
   })
 
   devProcess.on('close', () => {
