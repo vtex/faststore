@@ -68,7 +68,8 @@ export const fetchAPI = async ({ path, init, options }: FetchAPI) => {
       ...requestInit,
       headers: {
         ...requestInit.headers,
-        Host: `${options.account}.myvtex.com`,
+        // We should avoid the *.myvtex.com host since it is only meant to be used by Admin
+        Host: `${options.account}.vtexcommercestable.com.br`,
       },
     }
   }
