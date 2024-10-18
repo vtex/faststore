@@ -9,6 +9,7 @@ import path from 'path';
 import { withBasePath } from '../utils/directory';
 import { generate } from '../utils/generate';
 import { getPreferredPackageManager } from '../utils/commands';
+import { logger } from '../utils/logger';
 import { runCommandSync } from '../utils/runCommandSync';
 
 
@@ -45,15 +46,14 @@ async function storeDev(rootDir: string, tmpDir: string, coreDir: string, port: 
     errorMessage:
       'GraphQL was not optimized and TS files were not updated. Changes in the GraphQL layer did not take effect',
     throws: 'error',
-    debug: true,
     cwd: tmpDir,
   })
 
   const { success } = copyGenerated(path.join(tmpDir, '@generated'), path.join(coreDir, '@generated'))
 
   if (!success) {
-    console.log(`${chalk.yellow('warn')} - Failed to copy @generated schema back to node_modules, autocomplete and DX might be impacted.`)
-    console.log(`Attempted to copy from ${path.join(tmpDir, '@generated')} to ${path.join(coreDir, '@generated')}`)
+    logger.log(`${chalk.yellow('warn')} - Failed to copy @generated schema back to node_modules, autocomplete and DX might be impacted.`)
+    logger.log(`Attempted to copy from ${path.join(tmpDir, '@generated')} to ${path.join(coreDir, '@generated')}`)
   }
 
   const devProcess = spawn(`${packageManager} dev-only --port ${port}`, {
