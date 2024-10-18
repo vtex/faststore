@@ -30,7 +30,7 @@ import ChannelMarshal from './utils/channel'
 export interface Options {
   platform: 'vtex'
   account: string
-  environment: 'vtexcommercestable' | 'vtexcommercebeta'
+  environment: 'vtexcommercestable' | 'vtexcommercebeta' | 'vtexinternal'
   // Default sales channel to use for fetching products
   subDomainPrefix: string[]
   channel: string
