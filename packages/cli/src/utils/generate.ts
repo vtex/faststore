@@ -16,6 +16,7 @@ import ora from 'ora'
 
 import { withBasePath } from './directory'
 import { installDependencies } from './dependencies'
+import { logger } from './logger'
 
 interface GenerateOptions {
   setup?: boolean
@@ -34,13 +35,13 @@ function createTmpFolder(basePath: string) {
     }
 
     mkdirsSync(tmpDir)
-    console.log(
+    logger.log(
       `${chalk.green('success')} - Temporary folder ${chalk.dim(
         tmpFolderName
       )} created`
     )
   } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
+    logger.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
@@ -108,9 +109,9 @@ function copyCoreFiles(basePath: string) {
     filterAndCopyPackageJson(basePath)
     disableTsConfigStrictRules(basePath)
 
-    console.log(`${chalk.green('success')} - Core files copied`)
+    logger.log(`${chalk.green('success')} - Core files copied`)
   } catch (e) {
-    console.error(e)
+    logger.error(e)
   }
 }
 
@@ -129,10 +130,10 @@ function copyPublicFiles(basePath: string) {
           return allow
         },
       })
-      console.log(`${chalk.green('success')} - Public files copied`)
+      logger.log(`${chalk.green('success')} - Public files copied`)
     }
   } catch (e) {
-    console.error(e)
+    logger.error(e)
   }
 }
 
@@ -162,7 +163,7 @@ async function copyCypressFiles(basePath: string) {
     } else if (existsSync(userLegacyStoreConfigFile)) {
       userStoreConfig = await import(path.resolve(userLegacyStoreConfigFile))
     } else {
-      console.info(
+      logger.info(
         `${chalk.blue(
           'info'
         )} - No store config file was found in the root directory`
@@ -179,7 +180,7 @@ async function copyCypressFiles(basePath: string) {
         dereference: true,
       })
 
-      console.log(`${chalk.green('success')} - Cypress test files copied`)
+      logger.log(`${chalk.green('success')} - Cypress test files copied`)
     }
 
     // Create default Cypress 12.x (or superior) support file
@@ -191,7 +192,7 @@ async function copyCypressFiles(basePath: string) {
       )
     }
   } catch (e) {
-    console.error(e)
+    logger.error(e)
   }
 }
 
@@ -216,16 +217,16 @@ function copyUserStarterToCustomizations(basePath: string) {
         dereference: true,
       })
     } else {
-      console.info(
+      logger.info(
         `${chalk.blue(
           'info'
         )} - No store config file was found in the root directory`
       )
     }
 
-    console.log(`${chalk.green('success')} - Starter files copied`)
+    logger.log(`${chalk.green('success')} - Starter files copied`)
   } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
+    logger.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
@@ -242,7 +243,7 @@ async function createCmsWebhookUrlsJsonFile(basePath: string) {
   } else if (existsSync(userLegacyStoreConfigFile)) {
     userStoreConfig = await import(path.resolve(userLegacyStoreConfigFile))
   } else {
-    console.info(
+    logger.info(
       `${chalk.blue(
         'info'
       )} - No store config file was found in the root directory`
@@ -257,12 +258,12 @@ async function createCmsWebhookUrlsJsonFile(basePath: string) {
 
     try {
       writeJsonSync(tmpCMSWebhookUrlsFile, { urls: webhookUrls }, { spaces: 2 })
-      console.log(`${chalk.green('success')} - CMS webhook URLs file created`)
+      logger.log(`${chalk.green('success')} - CMS webhook URLs file created`)
     } catch (err) {
-      console.error(`${chalk.red('error')} - ${err}`)
+      logger.error(`${chalk.red('error')} - ${err}`)
     }
   } else {
-    console.info(`${chalk.blue('info')} - No CMS webhook URLs were provided`)
+    logger.info(`${chalk.blue('info')} - No CMS webhook URLs were provided`)
   }
 }
 
@@ -281,7 +282,7 @@ async function copyTheme(basePath: string) {
   } else if (existsSync(userLegacyStoreConfigFile)) {
     storeConfig = await import(path.resolve(userLegacyStoreConfigFile))
   } else {
-    console.info(
+    logger.info(
       `${chalk.blue(
         'info'
       )} - No store config file was found in the root directory`
@@ -296,16 +297,16 @@ async function copyTheme(basePath: string) {
     if (existsSync(customTheme)) {
       try {
         copyFileSync(customTheme, tmpThemesCustomizationsFile)
-        console.log(
+        logger.log(
           `${chalk.green('success')} - ${
             storeConfig.theme
           } theme has been applied`
         )
       } catch (err) {
-        console.error(`${chalk.red('error')} - ${err}`)
+        logger.error(`${chalk.red('error')} - ${err}`)
       }
     } else {
-      console.info(
+      logger.info(
         `${chalk.blue('info')} - The ${
           storeConfig.theme
         } theme was added to the config file but the ${
@@ -317,7 +318,7 @@ async function copyTheme(basePath: string) {
     existsSync(userThemesFileDir) &&
     readdirSync(userThemesFileDir).length > 0
   ) {
-    console.info(
+    logger.info(
       `${chalk.blue(
         'info'
       )} - The theme needs to be added to the config file to be applied. Read more: https://www.faststore.dev/docs/themes/overview`
@@ -338,9 +339,9 @@ function updateBuildTime(basePath: string) {
 
     writeFileSync(tmpSeoConfig, config)
 
-    console.log(`${chalk.green('success')} - Build time updated`, newBuildTime)
+    logger.log(`${chalk.green('success')} - Build time updated`, newBuildTime)
   } catch (error) {
-    console.error(`${chalk.red('error')} - Updating build time:`, error)
+    logger.error(`${chalk.red('error')} - Updating build time:`, error)
   }
 }
 
@@ -362,13 +363,13 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
       rootPackageJson.dependencies[packageName]
 
     if (!coreVersion || !rootVersion) {
-      console.warn(
+      logger.warn(
         `${chalk.yellow(
           'warning'
         )} - Package ${packageName} not found in both core or root dependencies.`
       )
     } else if (coreVersion !== rootVersion) {
-      console.warn(
+      logger.warn(
         `${chalk.yellow(
           'warning'
         )} - Version mismatch detected for ${packageName}. 
@@ -396,29 +397,34 @@ function validateAndInstallMissingDependencies(basePath: string) {
   const { userDir, userStoreConfigFile } = withBasePath(basePath)
 
   if (!existsSync(userStoreConfigFile)) {
-    return 
+    return
   }
 
   const userStoreConfig = require(userStoreConfigFile)
   const userPackageJson = require(path.join(userDir, 'package.json'))
 
-  const missingDependencies: Array<{ feature: string, dependencies: string[] }> = [] 
+  const missingDependencies: Array<{
+    feature: string
+    dependencies: string[]
+  }> = []
 
-  if(userStoreConfig.experimental.preact) { 
+  if (userStoreConfig.experimental.preact) {
     missingDependencies.push({
       feature: 'Preact',
-      dependencies: ['preact@10.23.1', 'preact-render-to-string@6.5.8']
+      dependencies: ['preact@10.23.1', 'preact-render-to-string@6.5.8'],
     })
   }
- 
+
   missingDependencies.forEach(({ feature, dependencies }) => {
     const dependenciesToInstall = dependencies.filter((dependency) => {
       const dependencyName = dependency.split('@')[0]
       return !userPackageJson.dependencies[dependencyName]
     })
 
-    if(dependenciesToInstall.length > 0) {
-      const spinner = ora(`Installing ${feature} missing dependencies\n`).start()
+    if (dependenciesToInstall.length > 0) {
+      const spinner = ora(
+        `Installing ${feature} missing dependencies\n`
+      ).start()
 
       installDependencies({
         dependencies: dependenciesToInstall,
@@ -427,14 +433,14 @@ function validateAndInstallMissingDependencies(basePath: string) {
       })
 
       spinner.stop()
-    }})
+    }
+  })
 }
 
 export async function generate(options: GenerateOptions) {
   const { basePath, setup = false } = options
 
   let setupPromise: Promise<unknown> | null = null
-
 
   validateAndInstallMissingDependencies(basePath)
 
