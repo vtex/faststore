@@ -1,9 +1,9 @@
 import React, { cloneElement, forwardRef, ReactNode } from 'react'
-import Button, { ButtonProps, IconPosition } from '../../atoms/Button'
+import Button, { ButtonProps, ButtonIconPosition } from '../../atoms/Button'
 import { useDropdownTrigger } from './hooks/useDropdownTrigger'
 
 export interface DropdownButtonProps
-  extends Omit<ButtonProps, 'variant' | 'inverse' | 'icon' | 'iconPosition' > {
+  extends Omit<ButtonProps, 'variant' | 'inverse' | 'icon' | 'iconPosition'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -29,7 +29,7 @@ export interface DropdownButtonProps
    * @deprecated
    * Specifies where the icon should be positioned
    */
-  iconPosition?: IconPosition
+  iconPosition?: ButtonIconPosition
 }
 
 const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
@@ -40,8 +40,8 @@ const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
     const triggerProps = useDropdownTrigger({ triggerRef })
 
     const asChildrenTrigger = React.isValidElement(children)
-    ? cloneElement(children, { ...triggerProps, ...children.props })
-    : children;
+      ? cloneElement(children, { ...triggerProps, ...children.props })
+      : children
 
     return (
       <>

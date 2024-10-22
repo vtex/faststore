@@ -2,24 +2,18 @@ import React, { useImperativeHandle, useRef, useState } from 'react'
 
 import { useDropdown } from './useDropdown'
 
-export type UseDropdownItemProps<
-  E extends HTMLElement = HTMLElement,
-> = {
+export type UseDropdownItemProps<E extends HTMLElement = HTMLElement> = {
   ref: React.ForwardedRef<E>
   onClick?: React.MouseEventHandler<E>
   dismissOnClick?: boolean
 }
 
-export const useDropdownItem = <
-  E extends HTMLElement = HTMLElement,
->({
+export const useDropdownItem = <E extends HTMLElement = HTMLElement>({
   ref,
   onClick,
-  dismissOnClick = true
+  dismissOnClick = true,
 }: UseDropdownItemProps<E>) => {
-  const { dropdownItemsRef, selectedDropdownItemIndexRef, 
-    close 
-  } = useDropdown<
+  const { dropdownItemsRef, selectedDropdownItemIndexRef, close } = useDropdown<
     never,
     E
   >()
@@ -39,13 +33,11 @@ export const useDropdownItem = <
   }
 
   const onFocusItem = () => {
-    selectedDropdownItemIndexRef!.current = dropdownItemIndex;
-    (dropdownItemsRef?.current[selectedDropdownItemIndexRef!.current])?.focus()
+    selectedDropdownItemIndexRef!.current = dropdownItemIndex
+    dropdownItemsRef?.current[selectedDropdownItemIndexRef!.current]?.focus()
   }
 
-  const handleOnClickItem = (
-    event: React.MouseEvent<E, MouseEvent>
-  ) => {
+  const handleOnClickItem = (event: React.MouseEvent<E, MouseEvent>) => {
     onClick?.(event)
     dismissOnClick && close?.()
   }

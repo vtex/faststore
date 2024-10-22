@@ -38,6 +38,9 @@ export type DropdownContextState<
    */
   id: string
 
+  /**
+   * Associates the dropdown trigger element's ref for managing its position and interaction events.
+   */
   addDropdownTriggerRef?(ref: T | null): void
 }
 
