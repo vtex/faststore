@@ -3,6 +3,8 @@ import packageJson from '../../../../package.json'
 import { Options as ApiOptions } from '..'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
+const PRODUCTION_MODE = process.env.NODE_ENV === 'production'
+const DEFAULT_PUBLIC_API_HOST = 'vtexcommercestable'
 
 const VTEX_API_TO_INTERNAL_API_NAME: { [key: string]: string } = {
   catalog: 'catalogapi',
@@ -34,11 +36,12 @@ const getBasePrefix = async ({
   environment: string
   vtexApi: RequestOptions['vtexApi']
 }) => {
-  if (environment === 'vtexinternal') {
-    return `http://${VTEX_API_TO_INTERNAL_API_NAME[vtexApi]}.${environment}.com`
+  if (PRODUCTION_MODE && environment === 'vtexinternal') {
+    return `http://${VTEX_API_TO_INTERNAL_API_NAME[vtexApi]}.vtexinternal.com`
   }
 
-  return `https://${account}.${environment}.com.br`
+  // We should not use `environment` here when its value is `vtexinternal`
+  return `https://${account}.${environment === 'vtexinternal' ? DEFAULT_PUBLIC_API_HOST : environment}.com.br`
 }
 
 export const fetchAPI = async ({ path, init, options }: FetchAPI) => {
@@ -58,7 +61,7 @@ export const fetchAPI = async ({ path, init, options }: FetchAPI) => {
   }
 
   // Check the environment to specify the account
-  if (options.environment === 'vtexinternal') {
+  if (PRODUCTION_MODE && options.environment === 'vtexinternal') {
     const hasParams = requestInfo.includes('?')
 
     requestInfo += hasParams
