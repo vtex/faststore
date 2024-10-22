@@ -35,7 +35,7 @@ const getBasePrefix = async ({
   vtexApi: RequestOptions['vtexApi']
 }) => {
   if (environment === 'vtexinternal') {
-    return `https://${VTEX_API_TO_INTERNAL_API_NAME[vtexApi]}.${environment}.com`
+    return `http://${VTEX_API_TO_INTERNAL_API_NAME[vtexApi]}.${environment}.com`
   }
 
   return `https://${account}.${environment}.com.br`
