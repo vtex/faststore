@@ -32,12 +32,10 @@ export type DropdownContextState<
    * Function responsible for switch the the DropdownMenu state in this context.
    */
   toggle?(): void
-
   /**
    * Identifier to be used in aria-controls
    */
   id: string
-
   /**
    * Associates the dropdown trigger element's ref for managing its position and interaction events.
    */
