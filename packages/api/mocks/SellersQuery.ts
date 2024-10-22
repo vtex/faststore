@@ -12,24 +12,31 @@ export const SellersQueryResult = `query SellersQuery {
     }`
 
 export const regionFetch = {
-    info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/regions/?country=USA&sc=&postalCode=32808',
-    init: { headers: { 'content-type': 'application/json', "X-FORWARDED-HOST": "" } },
-    options: { storeCookies: expect.any(Function) },
-    result: [
+  path: '/api/checkout/pub/regions/?country=USA&sc=&postalCode=32808',
+  init: {
+    headers: { 'content-type': 'application/json', 'X-FORWARDED-HOST': '' },
+  },
+  options: {
+    account: 'storeframework',
+    environment: 'vtexcommercestable',
+    storeCookies: expect.any(Function),
+    vtexApi: 'checkout',
+  },
+  result: [
+    {
+      id: 'v2.4325C29BA00E6470CBA54999680076F9',
+      sellers: [
         {
-            "id": "v2.4325C29BA00E6470CBA54999680076F9",
-            "sellers": [
-                {
-                    "id": "storeframework01",
-                    "name": "storeframework01",
-                    "logo": ""
-                },
-                {
-                    "id": "storeframework02",
-                    "name": "storeframework02",
-                    "logo": ""
-                }
-            ]
-        }
-    ]
+          id: 'storeframework01',
+          name: 'storeframework01',
+          logo: '',
+        },
+        {
+          id: 'storeframework02',
+          name: 'storeframework02',
+          logo: '',
+        },
+      ],
+    },
+  ],
 }
