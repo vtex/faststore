@@ -27,7 +27,6 @@ import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
 import { getAddressOrderForm } from '../utils/getAddressOrderForm'
 import { SelectedAddress } from '../clients/commerce/types/ShippingData'
 import { createNewAddress } from '../utils/createNewAddress'
-import debug from 'debug'
 
 type Indexed<T> = T & { index?: number }
 
