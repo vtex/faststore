@@ -390,6 +390,18 @@ export const validateCart = async (
         return acc
       }
 
+      // Update existing items
+      const [head, ...tail] = maybeOriginItem
+
+      if (
+        hasParentItem(orderForm.items, head.itemOffered.sku) ||
+        hasChildItem(orderForm.items, head.itemOffered.sku)
+      ) {
+        acc.itemsToUpdate.push(head)
+
+        return acc
+      }
+
       return acc
     },
     {
