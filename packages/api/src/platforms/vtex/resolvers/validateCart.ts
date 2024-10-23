@@ -120,6 +120,9 @@ function hasParentItem(items: OrderFormItem[], itemId: string) {
     (item) => item.id === itemId && item.parentItemIndex !== null
   )
 }
+function hasBrotherItem(items: OrderFormItem[], itemId: string) {
+  return items?.some((item) => item.id === itemId)
+}
 
 const joinItems = (form: OrderForm) => {
   const itemsById = form.items.reduce(
@@ -383,40 +386,35 @@ export const validateCart = async (
     (acc, [id, items]) => {
       const maybeOriginItem = originItemsById.get(id)
 
-      // Add new items to the cart if they don't exist
+      // Adding new items to cart
       if (!maybeOriginItem) {
         items.forEach((item) => acc.itemsToAdd.push(item))
+
         return acc
       }
 
-      // Handle existing items
+      // Update existing items
       const [head, ...tail] = maybeOriginItem
 
       if (
         hasParentItem(orderForm.items, head.itemOffered.sku) ||
-        hasChildItem(orderForm.items, head.itemOffered.sku)
+        hasChildItem(orderForm.items, head.itemOffered.sku) ||
+        hasBrotherItem(orderForm.items, head.itemOffered.sku)
       ) {
-        // If the item has a parent or child, keep the item as is (no quantity change)
         acc.itemsToUpdate.push(head)
+
         return acc
       }
 
-      // Instead of calculating total quantity for fragments, we maintain the original structure
-      items.forEach((item, index) => {
-        const originItem = maybeOriginItem[index]
-        if (originItem) {
-          // Keep the same quantity if it already exists
-          acc.itemsToUpdate.push({
-            ...originItem,
-            quantity: originItem.quantity,
-          })
-        } else {
-          // Add new items that are not in the origin
-          acc.itemsToAdd.push(item)
-        }
+      const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
+
+      // set total quantity to first item
+      acc.itemsToUpdate.push({
+        ...head,
+        quantity: totalQuantity,
       })
 
-      // Remove all remaining fragmented items (set their quantity to 0)
+      // Remove all the rest
       tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
 
       return acc
