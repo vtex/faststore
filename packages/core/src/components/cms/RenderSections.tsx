@@ -17,6 +17,8 @@ interface Props {
   sections: Array<{ name: string; data: any }>
 }
 
+const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
+
 const useDividedSections = (sections: Section[]) => {
   return useMemo(() => {
     const indexChildren = sections.findIndex(({ name }) => name === 'Children')
@@ -29,8 +31,6 @@ const useDividedSections = (sections: Section[]) => {
     }
   }, [sections])
 }
-
-const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
 
 /**
  * This component is responsible for lazy loading Sections that are out of the viewport.
@@ -54,12 +54,15 @@ export const LazyLoadingSection = ({
     const shouldLoad =
       (sectionName === 'CartSidebar' && displayCart) ||
       (sectionName === 'RegionModal' && displayModal)
-    return shouldLoad ? <>{children}</> : null
-  } else {
-    return (
-      <ViewportObserver sectionName={sectionName}>{children}</ViewportObserver>
-    )
+    if (!shouldLoad) {
+      return null
+    }
+
+    return <>{children}</>
   }
+  return (
+    <ViewportObserver sectionName={sectionName}>{children}</ViewportObserver>
+  )
 }
 
 const RenderSectionsBase = ({ sections = [], components }: Props) => {
