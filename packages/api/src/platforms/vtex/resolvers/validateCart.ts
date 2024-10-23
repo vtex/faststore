@@ -383,32 +383,49 @@ export const validateCart = async (
     (acc, [id, items]) => {
       const maybeOriginItem = originItemsById.get(id)
 
-      // Adding new items to cart
+      // If the item doesn't exist in the cart, add it as new
       if (!maybeOriginItem) {
         items.forEach((item) => acc.itemsToAdd.push(item))
-
         return acc
       }
 
-      // Update existing items
+      // Handle existing items (including attachments)
       const [head, ...tail] = maybeOriginItem
 
-      if (hasChildItem(orderForm.items, head.itemOffered.sku)) {
-        acc.itemsToUpdate.push(head)
+      // Check if the item is a parent or child (attachment)
+      if (
+        hasParentItem(orderForm.items, head.itemOffered.sku) ||
+        hasChildItem(orderForm.items, head.itemOffered.sku)
+      ) {
+        // Maintain original quantity for existing attachments
+        acc.itemsToUpdate.push({
+          ...head,
+          quantity: head.quantity, // Keep the quantity unchanged for attachments
+        })
+      } else {
+        // For the main product, we need to sum quantities from items
+        const totalQuantity = items.reduce(
+          (acc, curr) => acc + curr.quantity,
+          0
+        )
 
-        return acc
+        // Update the main product's quantity
+        acc.itemsToUpdate.push({
+          ...head,
+          quantity: totalQuantity, // Update only the main product's quantity
+        })
       }
 
-      const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
-
-      // set total quantity to first item
-      acc.itemsToUpdate.push({
-        ...head,
-        quantity: totalQuantity,
-      })
-
-      // Remove all the rest
+      // Reset quantity of remaining fragments if necessary
       tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
+
+      // Add new items (both products and attachments)
+      items.forEach((item) => {
+        const originItem = maybeOriginItem.find((i) => i.id === item.id)
+        if (!originItem) {
+          acc.itemsToAdd.push(item)
+        }
+      })
 
       return acc
     },
