@@ -398,8 +398,6 @@ export const validateCart = async (
         hasChildItem(orderForm.items, head.itemOffered.sku)
       ) {
         acc.itemsToUpdate.push(head)
-
-        return acc
       }
 
       return acc
