@@ -391,7 +391,7 @@ export const validateCart = async (
       }
 
       // Update existing items
-      const [head, ...tail] = maybeOriginItem
+      const [head] = maybeOriginItem
 
       if (
         hasParentItem(orderForm.items, head.itemOffered.sku) ||
@@ -401,11 +401,6 @@ export const validateCart = async (
 
         return acc
       }
-
-      // set total quantity to first item
-
-      // Remove all the rest
-      tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
 
       return acc
     },
