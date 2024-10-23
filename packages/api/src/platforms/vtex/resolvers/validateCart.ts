@@ -421,7 +421,9 @@ export const validateCart = async (
 
       // Add new items (both products and attachments)
       items.forEach((item) => {
-        const originItem = maybeOriginItem.find((i) => i.id === item.id)
+        const originItem = maybeOriginItem.find(
+          (i) => i.itemOffered.sku === item.itemOffered.sku
+        )
         if (!originItem) {
           acc.itemsToAdd.push(item)
         }
