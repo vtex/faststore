@@ -392,27 +392,9 @@ export const validateCart = async (
       }
 
       // Update existing items
-      const [head, ...tail] = maybeOriginItem
+      const [head] = maybeOriginItem
 
-      if (
-        hasParentItem(orderForm.items, head.itemOffered.sku) ||
-        hasChildItem(orderForm.items, head.itemOffered.sku)
-      ) {
-        acc.itemsToUpdate.push(head)
-
-        return acc
-      }
-
-      const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
-
-      // set total quantity to first item
-      acc.itemsToUpdate.push({
-        ...head,
-        quantity: totalQuantity,
-      })
-      debug
-      // Remove all the rest
-      tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
+      acc.itemsToUpdate.push(head)
 
       return acc
     },
