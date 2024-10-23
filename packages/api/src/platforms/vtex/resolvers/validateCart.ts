@@ -27,6 +27,7 @@ import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
 import { getAddressOrderForm } from '../utils/getAddressOrderForm'
 import { SelectedAddress } from '../clients/commerce/types/ShippingData'
 import { createNewAddress } from '../utils/createNewAddress'
+import debug from 'debug'
 
 type Indexed<T> = T & { index?: number }
 
@@ -391,7 +392,7 @@ export const validateCart = async (
       }
 
       // Update existing items
-      const [head] = maybeOriginItem
+      const [head, ...tail] = maybeOriginItem
 
       if (
         hasParentItem(orderForm.items, head.itemOffered.sku) ||
@@ -401,6 +402,17 @@ export const validateCart = async (
 
         return acc
       }
+
+      const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
+
+      // set total quantity to first item
+      acc.itemsToUpdate.push({
+        ...head,
+        quantity: totalQuantity,
+      })
+      debug
+      // Remove all the rest
+      tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
 
       return acc
     },
