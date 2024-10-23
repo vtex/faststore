@@ -112,7 +112,7 @@ export const Query = {
   },
   search: async (
     _: unknown,
-    { first, after: maybeAfter, sort, term, selectedFacets }: QuerySearchArgs,
+    { first, after: maybeAfter, sort, term, selectedFacets, sponsoredCount }: QuerySearchArgs,
     ctx: Context
   ) => {
     // Insert channel in context for later usage
@@ -160,6 +160,7 @@ export const Query = {
       query: query ?? undefined,
       sort: SORT_MAP[sort ?? 'score_desc'],
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
+      sponsoredCount: sponsoredCount ?? undefined
     }
 
     const productSearchPromise = ctx.clients.search.products(searchArgs)

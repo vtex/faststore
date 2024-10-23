@@ -34,6 +34,7 @@ export interface SearchArgs {
   hideUnavailableItems?: boolean
   showInvisibleItems?: boolean
   showSponsored?: boolean
+  sponsoredCount?: number
 }
 
 export interface ProductLocator {
@@ -115,6 +116,7 @@ export const IntelligentSearch = (
     type,
     fuzzy = 'auto',
     showInvisibleItems,
+    sponsoredCount
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
@@ -139,6 +141,10 @@ export const IntelligentSearch = (
 
     if (showSponsored !== undefined) {
       params.append('showSponsored', showSponsored.toString())
+    }
+
+    if (sponsoredCount !== undefined) {
+      params.append('sponsoredCount', sponsoredCount.toString())
     }
 
     const pathname = addDefaultFacets(selectedFacets)
