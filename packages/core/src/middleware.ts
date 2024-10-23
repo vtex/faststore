@@ -6,8 +6,9 @@ import storeConfig from 'discovery.config.default'
 const redirectsClient = new RedirectsClient()
 
 //cache-control: max-age=300, stale-while-revalidate=31536000
-
+// faststore-redirects-time: 10
 export async function middleware(request: NextRequest) {
+  const startTime = Date.now()
   const { pathname } = request.nextUrl
 
   const redirect = await redirectsClient.get(pathname)
@@ -23,6 +24,11 @@ export async function middleware(request: NextRequest) {
       'Cache-Control',
       'public, max-age=300, stale-while-revalidate=31536000'
     )
+
+    const endTime = Date.now()
+    const executionTime = endTime - startTime
+
+    response.headers.set('faststore-redirects-time', executionTime.toString())
 
     return response
   }
