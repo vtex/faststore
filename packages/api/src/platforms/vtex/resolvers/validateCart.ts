@@ -377,42 +377,10 @@ export const validateCart = async (
   const originItemsById = groupById(orderForm.items.map(orderFormItemToOffer))
   const originItems = Array.from(originItemsById.entries()) // items on the VTEX platform backend
   const browserItems = Array.from(browserItemsById.entries()) // items on the user's browser
-
+  console.log('vamo velho')
   // Step3: Compute delta changes
   const { itemsToAdd, itemsToUpdate } = browserItems.reduce(
-    (acc, [id, items]) => {
-      const maybeOriginItem = originItemsById.get(id)
-
-      // Adding new items to cart
-      if (!maybeOriginItem) {
-        items.forEach((item) => acc.itemsToAdd.push(item))
-
-        return acc
-      }
-
-      // Update existing items
-      const [head, ...tail] = maybeOriginItem
-
-      // if (
-      //   hasParentItem(orderForm.items, head.itemOffered.sku) ||
-      //   hasChildItem(orderForm.items, head.itemOffered.sku)
-      // ) {
-      //   acc.itemsToUpdate.push(head)
-
-      //   return acc
-      // }
-
-      const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
-
-      // set total quantity to first item
-      acc.itemsToUpdate.push({
-        ...head,
-        quantity: totalQuantity,
-      })
-
-      // Remove all the rest
-      tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
-
+    (acc) => {
       return acc
     },
     {
