@@ -393,14 +393,14 @@ export const validateCart = async (
       // Update existing items
       const [head, ...tail] = maybeOriginItem
 
-      if (
-        hasParentItem(orderForm.items, head.itemOffered.sku) ||
-        hasChildItem(orderForm.items, head.itemOffered.sku)
-      ) {
-        acc.itemsToUpdate.push(head)
+      // if (
+      //   hasParentItem(orderForm.items, head.itemOffered.sku) ||
+      //   hasChildItem(orderForm.items, head.itemOffered.sku)
+      // ) {
+      //   acc.itemsToUpdate.push(head)
 
-        return acc
-      }
+      //   return acc
+      // }
 
       const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
 
