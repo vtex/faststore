@@ -1,7 +1,16 @@
-import { ComponentType, PropsWithChildren, memo, useMemo } from 'react'
+import {
+  ComponentType,
+  PropsWithChildren,
+  ReactNode,
+  memo,
+  useMemo,
+} from 'react'
 
-import SectionBoundary from './SectionBoundary'
 import { Section } from '@vtex/client-cms'
+import SectionBoundary from './SectionBoundary'
+import ViewportObserver from './ViewportObserver'
+
+import { useUI } from '@faststore/ui'
 
 interface Props {
   components: Record<string, ComponentType<any>>
@@ -19,6 +28,38 @@ const useDividedSections = (sections: Section[]) => {
       ...(hasChildren && { lastSections: sections.slice(indexChildren + 1) }),
     }
   }, [sections])
+}
+
+const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
+
+/**
+ * This component is responsible for lazy loading Sections that are out of the viewport.
+ * It achieves this by:
+ * 1. Using the IntersectionObserver API for Sections below the fold.
+ * 2. Checking the UI context for Sections that are not in the viewport, such as the CartSidebar and RegionModal.
+ *
+ * @param sectionName
+ * @returns
+ */
+export const LazyLoadingSection = ({
+  sectionName,
+  children,
+}: {
+  sectionName: string
+  children: ReactNode
+}) => {
+  const { cart: displayCart, modal: displayModal } = useUI()
+
+  if (SECTIONS_OUT_OF_VIEWPORT.includes(sectionName)) {
+    const shouldLoad =
+      (sectionName === 'CartSidebar' && displayCart) ||
+      (sectionName === 'RegionModal' && displayModal)
+    return shouldLoad ? <>{children}</> : null
+  } else {
+    return (
+      <ViewportObserver sectionName={sectionName}>{children}</ViewportObserver>
+    )
+  }
 }
 
 const RenderSectionsBase = ({ sections = [], components }: Props) => {
