@@ -391,14 +391,25 @@ export const validateCart = async (
       }
 
       // Update existing items
-      const [head] = maybeOriginItem
+      const [head, ...tail] = maybeOriginItem
 
       if (
         hasParentItem(orderForm.items, head.itemOffered.sku) ||
         hasChildItem(orderForm.items, head.itemOffered.sku)
       ) {
         acc.itemsToUpdate.push(head)
+
+        return acc
       }
+
+      // Instead of setting total quantity, preserve original quantity
+      acc.itemsToUpdate.push({
+        ...head,
+        quantity: head.quantity, // Preserve the original quantity
+      })
+
+      // Remove all the rest
+      tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
 
       return acc
     },
