@@ -377,10 +377,19 @@ export const validateCart = async (
   const originItemsById = groupById(orderForm.items.map(orderFormItemToOffer))
   const originItems = Array.from(originItemsById.entries()) // items on the VTEX platform backend
   const browserItems = Array.from(browserItemsById.entries()) // items on the user's browser
-  console.log('vamo velho')
+
   // Step3: Compute delta changes
   const { itemsToAdd, itemsToUpdate } = browserItems.reduce(
-    (acc) => {
+    (acc, [id, items]) => {
+      const maybeOriginItem = originItemsById.get(id)
+
+      // Adding new items to cart
+      if (!maybeOriginItem) {
+        items.forEach((item) => acc.itemsToAdd.push(item))
+
+        return acc
+      }
+
       return acc
     },
     {
@@ -412,7 +421,7 @@ export const validateCart = async (
     .then((form: OrderForm) => updateOrderFormShippingData(form, session, ctx))
     // update orderForm etag so we know last time we touched this orderForm
     .then((form: OrderForm) => setOrderFormEtag(form, commerce))
-  // .then(joinItems)
+    .then(joinItems)
 
   const equalMessages = deepEquals(
     orderForm.messages,
