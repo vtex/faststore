@@ -383,42 +383,38 @@ export const validateCart = async (
     (acc, [id, items]) => {
       const maybeOriginItem = originItemsById.get(id)
 
-      // Add new items to the cart
+      // Add new items to the cart if they don't exist
       if (!maybeOriginItem) {
         items.forEach((item) => acc.itemsToAdd.push(item))
-
         return acc
       }
 
-      // Update existing items
+      // Handle existing items
       const [head, ...tail] = maybeOriginItem
 
       if (
         hasParentItem(orderForm.items, head.itemOffered.sku) ||
         hasChildItem(orderForm.items, head.itemOffered.sku)
       ) {
+        // If the item has a parent or child, keep the item as is (no quantity change)
         acc.itemsToUpdate.push(head)
-
         return acc
       }
 
-      // Check if the total quantity is different only if it's a new item
-      const existingQuantity = head.quantity
-      const newTotalQuantity = items.reduce(
-        (acc, curr) => acc + curr.quantity,
-        0
-      )
-
-      // If the quantity has changed (but not from fragment), we update
-      if (existingQuantity !== newTotalQuantity) {
-        acc.itemsToUpdate.push({
-          ...head,
-          quantity: newTotalQuantity, // Update only if necessary
-        })
-      } else {
-        // Otherwise, keep the current quantity
-        acc.itemsToUpdate.push(head)
-      }
+      // Instead of calculating total quantity for fragments, we maintain the original structure
+      items.forEach((item, index) => {
+        const originItem = maybeOriginItem[index]
+        if (originItem) {
+          // Keep the same quantity if it already exists
+          acc.itemsToUpdate.push({
+            ...originItem,
+            quantity: originItem.quantity,
+          })
+        } else {
+          // Add new items that are not in the origin
+          acc.itemsToAdd.push(item)
+        }
+      })
 
       // Remove all remaining fragmented items (set their quantity to 0)
       tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
