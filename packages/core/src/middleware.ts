@@ -6,13 +6,13 @@ import storeConfig from 'discovery.config.default'
 const redirectsClient = new RedirectsClient()
 
 //cache-control: max-age=300, stale-while-revalidate=31536000
-// faststore-redirects-time: 10
+//faststore-redirects-time: 10
 export async function middleware(request: NextRequest) {
   const startTime = Date.now()
   const { pathname } = request.nextUrl
 
   const redirect = await redirectsClient.get(pathname)
-  console.log('redirect response: ', redirect)
+
   if (redirect) {
     const pathnameToRedirect = redirect.to
     const redirectUrl = storeConfig.storeUrl + pathnameToRedirect
@@ -33,7 +33,13 @@ export async function middleware(request: NextRequest) {
     return response
   }
 
-  return NextResponse.next()
+  const endTime = Date.now()
+  const executionTime = endTime - startTime
+
+  const response = NextResponse.next()
+
+  response.headers.set('faststore-redirects-time', executionTime.toString())
+  return response
 }
 
 export const config = {
