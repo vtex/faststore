@@ -5,26 +5,26 @@ import storeConfig from 'discovery.config.default'
 
 const redirectsClient = new RedirectsClient()
 
-export async function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl
+//cache-control: max-age=300, stale-while-revalidate=31536000
+
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl
 
   const redirect = await redirectsClient.get(pathname)
-  console.log({ pathname })
-
+  console.log('redirect response: ', redirect)
   if (redirect) {
-    console.log('redirect matched', redirect)
     const pathnameToRedirect = redirect.to
     const redirectUrl = storeConfig.storeUrl + pathnameToRedirect
 
-    // const url = req.nextUrl.clone()
-    // url.pathname = redirect.to
-    // url.host = storeConfig.storeUrl
-    // console.log(url)
+    const redirectStatusCode = redirect.type === 'permanent' ? 301 : 302
+    const response = NextResponse.redirect(redirectUrl, redirectStatusCode)
 
-    console.log(redirectUrl)
+    response.headers.set(
+      'Cache-Control',
+      'public, max-age=300, stale-while-revalidate=31536000'
+    )
 
-    const redirectStatusCode = redirect.type === 'permanent' ? 308 : 307
-    return NextResponse.redirect(redirectUrl, redirectStatusCode)
+    return response
   }
 
   return NextResponse.next()
