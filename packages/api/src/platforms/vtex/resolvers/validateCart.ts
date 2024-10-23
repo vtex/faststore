@@ -383,42 +383,31 @@ export const validateCart = async (
     (acc, [id, items]) => {
       const maybeOriginItem = originItemsById.get(id)
 
-      // If the item doesn't exist in the cart, add it as new
+      // Adding new items to cart
       if (!maybeOriginItem) {
         items.forEach((item) => acc.itemsToAdd.push(item))
+
         return acc
       }
 
-      // Handle existing items (including fragmented ones)
+      // Update existing items
       const [head, ...tail] = maybeOriginItem
 
-      // Handle items with parent or child relationships (fragmented items)
-      if (
-        hasParentItem(orderForm.items, head.itemOffered.sku) ||
-        hasChildItem(orderForm.items, head.itemOffered.sku)
-      ) {
-        // We only update the item without changing the quantity
+      if (hasChildItem(orderForm.items, head.itemOffered.sku)) {
         acc.itemsToUpdate.push(head)
+
         return acc
       }
 
-      // Add the new items while maintaining existing ones
-      items.forEach((item, index) => {
-        const originItem = maybeOriginItem[index]
+      const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
 
-        // If the item exists (fragment), keep its original quantity
-        if (originItem) {
-          acc.itemsToUpdate.push({
-            ...originItem,
-            quantity: originItem.quantity,
-          })
-        } else {
-          // If the item is new, add it to the list of new items
-          acc.itemsToAdd.push(item)
-        }
+      // set total quantity to first item
+      acc.itemsToUpdate.push({
+        ...head,
+        quantity: totalQuantity,
       })
 
-      // Ensure remaining fragments are reset to quantity 0 if necessary
+      // Remove all the rest
       tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
 
       return acc
