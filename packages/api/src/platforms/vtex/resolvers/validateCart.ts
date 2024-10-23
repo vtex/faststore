@@ -383,7 +383,7 @@ export const validateCart = async (
     (acc, [id, items]) => {
       const maybeOriginItem = originItemsById.get(id)
 
-      // Adding new items to cart
+      // Add new items to the cart
       if (!maybeOriginItem) {
         items.forEach((item) => acc.itemsToAdd.push(item))
 
@@ -402,13 +402,25 @@ export const validateCart = async (
         return acc
       }
 
-      // Instead of setting total quantity, preserve original quantity
-      acc.itemsToUpdate.push({
-        ...head,
-        quantity: head.quantity, // Preserve the original quantity
-      })
+      // Check if the total quantity is different only if it's a new item
+      const existingQuantity = head.quantity
+      const newTotalQuantity = items.reduce(
+        (acc, curr) => acc + curr.quantity,
+        0
+      )
 
-      // Remove all the rest
+      // If the quantity has changed (but not from fragment), we update
+      if (existingQuantity !== newTotalQuantity) {
+        acc.itemsToUpdate.push({
+          ...head,
+          quantity: newTotalQuantity, // Update only if necessary
+        })
+      } else {
+        // Otherwise, keep the current quantity
+        acc.itemsToUpdate.push(head)
+      }
+
+      // Remove all remaining fragmented items (set their quantity to 0)
       tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
 
       return acc
