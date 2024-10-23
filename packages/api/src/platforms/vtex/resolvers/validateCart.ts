@@ -391,7 +391,7 @@ export const validateCart = async (
       }
 
       // Update existing items
-      const [head, ...tail] = maybeOriginItem
+      const [head] = maybeOriginItem
 
       if (
         hasParentItem(orderForm.items, head.itemOffered.sku) ||
