@@ -123,42 +123,55 @@ function hasParentItem(items: OrderFormItem[], itemId: string) {
 
 const joinItems = (form: OrderForm) => {
   const itemsById = form.items.reduce(
-    (acc, item, idx) => {
-      const id =
-        hasParentItem(form.items, item.id) || hasChildItem(form.items, item.id)
-          ? `${getId(orderFormItemToOffer(item))}::${idx}`
-          : getId(orderFormItemToOffer(item))
+    (acc, item) => {
+      const id = getId(orderFormItemToOffer(item))
 
-      if (!acc[id]) {
-        acc[id] = []
+      // Se o item for um anexo, precisamos garantir que ele seja tratado corretamente
+      if (item.parentItemIndex != null) {
+        // Para itens que têm um pai, crie um id específico para o anexo
+        acc[id] = acc[id] || { attachments: [], baseItem: null }
+        acc[id].attachments.push(item)
+      } else {
+        // Para itens principais, armazene o item base
+        acc[id] = acc[id] || { attachments: [], baseItem: item }
+        acc[id].baseItem = item
       }
-
-      acc[id].push(item)
 
       return acc
     },
-    {} as Record<string, OrderFormItem[]>
+    {} as Record<
+      string,
+      { baseItem: OrderFormItem | null; attachments: OrderFormItem[] }
+    >
   )
 
+  // Agora, crie uma nova lista de itens a partir da estrutura criada
   return {
     ...form,
-    items: Object.values(itemsById).map((items) => {
-      const [item] = items
-      const quantity = items.reduce((acc, i) => acc + i.quantity, 0)
-      const totalPrice = items.reduce(
-        (acc, i) =>
-          acc +
-          (i?.priceDefinition?.total ??
-            (i?.quantity ?? 0) * (i?.sellingPrice ?? 0)),
-        0
-      )
+    items: Object.values(itemsById)
+      .map(({ baseItem, attachments }) => {
+        if (!baseItem) return null // Caso não haja item base, ignore
 
-      return {
-        ...item,
-        quantity,
-        sellingPrice: totalPrice / quantity,
-      }
-    }),
+        const totalQuantity = attachments.reduce(
+          (acc, i) => acc + i.quantity,
+          baseItem.quantity
+        )
+        const totalPrice = attachments.reduce(
+          (acc, i) =>
+            acc +
+            (i?.priceDefinition?.total ??
+              (i?.quantity ?? 0) * (i?.sellingPrice ?? 0)),
+          0
+        )
+
+        return {
+          ...baseItem,
+          quantity: totalQuantity,
+          sellingPrice: totalPrice / totalQuantity, // Pode ser alterado conforme a lógica de preço
+          attachments, // Manter os anexos se precisar
+        }
+      })
+      .filter(Boolean), // Remover qualquer item nulo
   }
 }
 
@@ -364,7 +377,7 @@ export const validateCart = async (
   const isStale = isOrderFormStale(orderForm)
 
   if (isStale) {
-    const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
+    const newOrderForm: any = await setOrderFormEtag(orderForm, commerce).then(
       joinItems
     )
     if (orderNumber) {
@@ -449,7 +462,7 @@ export const validateCart = async (
     return null
   }
   // Step4: Apply delta changes to order form
-  const updatedOrderForm = await commerce.checkout
+  const updatedOrderForm: any = await commerce.checkout
     // update orderForm items
     .updateOrderFormItems({
       id: orderForm.orderFormId,
