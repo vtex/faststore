@@ -81,8 +81,10 @@ const RenderSectionsBase = ({ sections = [], components }: Props) => {
         }
 
         return (
-          <SectionBoundary key={`cms-section-${index}`} name={name}>
-            <Component {...data} />
+          <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
+            <LazyLoadingSection sectionName={name}>
+              <Component {...data} />
+            </LazyLoadingSection>
           </SectionBoundary>
         )
       })}
