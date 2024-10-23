@@ -110,19 +110,24 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
 }
 
 function hasChildItem(items: OrderFormItem[], itemId: string) {
-  return items?.some(item => item.parentItemIndex && items[item.parentItemIndex].id === itemId)
+  return items?.some(
+    (item) => item.parentItemIndex && items[item.parentItemIndex].id === itemId
+  )
 }
 
 function hasParentItem(items: OrderFormItem[], itemId: string) {
-  return items?.some(item => item.id === itemId && item.parentItemIndex !== null)
+  return items?.some(
+    (item) => item.id === itemId && item.parentItemIndex !== null
+  )
 }
 
 const joinItems = (form: OrderForm) => {
   const itemsById = form.items.reduce(
     (acc, item, idx) => {
-      const id = hasParentItem(form.items, item.id) || hasChildItem(form.items, item.id) ? 
-        `${getId(orderFormItemToOffer(item))}::${idx}` : 
-        getId(orderFormItemToOffer(item))
+      const id =
+        hasParentItem(form.items, item.id) || hasChildItem(form.items, item.id)
+          ? `${getId(orderFormItemToOffer(item))}::${idx}`
+          : getId(orderFormItemToOffer(item))
 
       if (!acc[id]) {
         acc[id] = []
@@ -378,31 +383,42 @@ export const validateCart = async (
     (acc, [id, items]) => {
       const maybeOriginItem = originItemsById.get(id)
 
-      // Adding new items to cart
+      // If the item doesn't exist in the cart, add it as new
       if (!maybeOriginItem) {
         items.forEach((item) => acc.itemsToAdd.push(item))
-
         return acc
       }
 
-      // Update existing items
+      // Handle existing items (including fragmented ones)
       const [head, ...tail] = maybeOriginItem
 
-      if(hasParentItem(orderForm.items, head.itemOffered.sku) || hasChildItem(orderForm.items, head.itemOffered.sku)) {
+      // Handle items with parent or child relationships (fragmented items)
+      if (
+        hasParentItem(orderForm.items, head.itemOffered.sku) ||
+        hasChildItem(orderForm.items, head.itemOffered.sku)
+      ) {
+        // We only update the item without changing the quantity
         acc.itemsToUpdate.push(head)
-
         return acc
       }
 
-      const totalQuantity = items.reduce((acc, curr) => acc + curr.quantity, 0)
+      // Add the new items while maintaining existing ones
+      items.forEach((item, index) => {
+        const originItem = maybeOriginItem[index]
 
-      // set total quantity to first item
-      acc.itemsToUpdate.push({
-        ...head,
-        quantity: totalQuantity,
+        // If the item exists (fragment), keep its original quantity
+        if (originItem) {
+          acc.itemsToUpdate.push({
+            ...originItem,
+            quantity: originItem.quantity,
+          })
+        } else {
+          // If the item is new, add it to the list of new items
+          acc.itemsToAdd.push(item)
+        }
       })
 
-      // Remove all the rest
+      // Ensure remaining fragments are reset to quantity 0 if necessary
       tail.forEach((item) => acc.itemsToUpdate.push({ ...item, quantity: 0 }))
 
       return acc
