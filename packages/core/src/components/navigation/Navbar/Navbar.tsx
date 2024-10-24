@@ -22,6 +22,14 @@ const NavbarLinks = dynamic(
     ),
   {
     ssr: false,
+    loading: () => (
+      <div
+        style={{
+          height: 'var(--fs-control-tap-size)',
+          background: 'var(--fs-navbar-bkg-color)',
+        }}
+      ></div>
+    ),
   }
 )
 
