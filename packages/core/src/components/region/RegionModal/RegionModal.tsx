@@ -1,14 +1,22 @@
 import {
   Icon,
-  RegionModal as UIRegionModal,
   RegionModalProps as UIRegionModalProps,
   useUI,
 } from '@faststore/ui'
-import { Suspense, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { sessionStore, useSession, validateSession } from 'src/sdk/session'
 
+import dynamic from 'next/dynamic'
 import styles from './section.module.scss'
+
+const UIRegionModal = dynamic<UIRegionModalProps>(
+  () =>
+    import(/* webpackChunkName: "UIRegionModal" */ '@faststore/ui').then(
+      (mod) => mod.RegionModal
+    ),
+  { ssr: false }
+)
 
 interface RegionModalProps {
   title?: UIRegionModalProps['title']
@@ -88,28 +96,26 @@ function RegionModal({
   return (
     <>
       {displayModal && (
-        <Suspense fallback={null}>
-          <UIRegionModal
-            title={title}
-            description={description}
-            overlayProps={{
-              className: `section ${styles.section} section-region-modal`,
-            }}
-            closeButtonAriaLabel={closeButtonAriaLabel}
-            inputRef={inputRef}
-            inputValue={input}
-            inputLabel={inputFieldLabel}
-            errorMessage={errorMessage}
-            idkPostalCodeLinkProps={idkPostalCodeLinkProps}
-            onInput={(e) => {
-              errorMessage !== '' && setErrorMessage('')
-              setInput(e.currentTarget.value)
-            }}
-            onSubmit={handleSubmit}
-            fadeOutOnSubmit={true}
-            onClear={() => setInput('')}
-          />
-        </Suspense>
+        <UIRegionModal
+          title={title}
+          description={description}
+          overlayProps={{
+            className: `section ${styles.section} section-region-modal`,
+          }}
+          closeButtonAriaLabel={closeButtonAriaLabel}
+          inputRef={inputRef}
+          inputValue={input}
+          inputLabel={inputFieldLabel}
+          errorMessage={errorMessage}
+          idkPostalCodeLinkProps={idkPostalCodeLinkProps}
+          onInput={(e) => {
+            errorMessage !== '' && setErrorMessage('')
+            setInput(e.currentTarget.value)
+          }}
+          onSubmit={handleSubmit}
+          fadeOutOnSubmit={true}
+          onClear={() => setInput('')}
+        />
       )}
     </>
   )
