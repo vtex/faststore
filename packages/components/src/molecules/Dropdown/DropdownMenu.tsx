@@ -22,17 +22,19 @@ export interface DropdownMenuProps extends ModalContentProps {
    * @see aria-labelledby https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby
    */
   'aria-labelledby'?: AriaAttributes['aria-label']
-
   /**
    * This function is called whenever the user hits "Escape" or clicks outside
    * the dialog.
    */
   onDismiss?: (event: MouseEvent | KeyboardEvent) => void
-
-   /**
+  /**
    * Specifies the size variant.
    */
   size?: 'small' | 'regular'
+  /**
+   * Alignment for the dropdown
+   */
+  align?: 'left' | 'right' | 'center'
 
   children: ReactNode[] | ReactNode
 }
@@ -47,13 +49,20 @@ const DropdownMenu = ({
   children,
   testId = 'fs-dropdown-menu',
   size = 'regular',
+  align = 'left',
   style,
   ...otherProps
 }: PropsWithChildren<DropdownMenuProps>) => {
-  const { isOpen, close, dropdownItemsRef, selectedDropdownItemIndexRef, dropdownButtonRef, id } =
-    useDropdown()
+  const {
+    isOpen,
+    close,
+    dropdownItemsRef,
+    selectedDropdownItemIndexRef,
+    dropdownTriggerRef,
+    id,
+  } = useDropdown()
 
-  const dropdownPosition = useDropdownPosition()
+  const { loading: loadingPosition, ...dropdownPosition } = useDropdownPosition(align)
 
   const childrenLength = React.Children.toArray(children).length
 
@@ -89,25 +98,56 @@ const DropdownMenu = ({
 
   const handleEscapePress = () => {
     close?.()
-    dropdownButtonRef?.current?.focus()
+    dropdownTriggerRef?.current?.focus()
   }
 
+  const handleKeyNavigatePress = (key: string) => {
+    const dropdownItems = dropdownItemsRef?.current ?? [];
+    const selectedIndex = selectedDropdownItemIndexRef!.current;
+  
+    const rearrangedDropdownItems = [
+      ...dropdownItems.slice(selectedIndex + 1),
+      ...dropdownItems.slice(0, selectedIndex + 1),
+    ];
+  
+    const matchItem = rearrangedDropdownItems.find(
+      (item) => item.textContent?.[0]?.toLowerCase() === key.toLowerCase()
+    );
+  
+    if (matchItem) {
+      selectedDropdownItemIndexRef!.current = dropdownItems.indexOf(matchItem);
+      matchItem.focus();
+    }
+  };
+  
+
   const handleBackdropKeyDown = (event: KeyboardEvent) => {
-    if (event.defaultPrevented || event.key === 'Enter') {
+    if (event.defaultPrevented || event.key === 'Enter' || event.key === ' ') {
       return
     }
 
     event.preventDefault()
 
-    event.key === 'Escape' && handleEscapePress()
-
-    event.key === 'ArrowDown' && handleDownPress()
-
-    event.key === 'ArrowUp' && handleUpPress()
-
-    event.key === 'Home' && handleHomePress()
-
-    event.key === 'End' && handleEndPress()
+    switch (event.key) {
+      case 'Escape':
+        handleEscapePress()
+        break
+      case 'ArrowDown':
+        handleDownPress()
+        break
+      case 'ArrowUp':
+        handleUpPress()
+        break
+      case 'Home':
+        handleHomePress()
+        break
+      case 'End':
+        handleEndPress()
+        break
+      default:
+        handleKeyNavigatePress(event.key)
+        break
+    }
 
     event.stopPropagation()
   }
@@ -118,7 +158,7 @@ const DropdownMenu = ({
     return null
   }
 
-  return isOpen
+  return (isOpen && !loadingPosition)
     ? createPortal(
         <div
           role="presentation"
