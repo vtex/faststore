@@ -6,7 +6,6 @@ import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
 
 import CartToggle from 'src/components/cart/CartToggle'
-import NavbarSlider from 'src/components/navigation/NavbarSlider'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
@@ -22,15 +21,15 @@ const NavbarLinks = dynamic(
     ),
   {
     ssr: false,
-    loading: () => (
-      <div
-        style={{
-          height: 'var(--fs-control-tap-size)',
-          background: 'var(--fs-navbar-bkg-color)',
-        }}
-      ></div>
-    ),
   }
+)
+
+const NavbarSlider = dynamic(
+  () =>
+    /* webpackChunkName: "NavbarSlider" */ import(
+      'src/components/navigation/NavbarSlider'
+    ),
+  { ssr: false }
 )
 
 export interface NavbarProps {
