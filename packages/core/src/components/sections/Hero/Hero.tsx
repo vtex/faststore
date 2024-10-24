@@ -60,6 +60,7 @@ const Hero = ({
             width={360}
             height={240}
             sizes="(max-width: 412px) 40vw, (max-width: 768px) 90vw, 50vw"
+            priority={true}
           />
         </HeroImage.Component>
         <HeroHeader.Component
