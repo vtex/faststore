@@ -21,7 +21,6 @@ export function installDependencies(
     cmd: `${packageManager} ${installCommand} ${dependencies.join(' ')}`,
     errorMessage,
     throws: 'error',
-    debug: false,
     cwd,
   })
 }
