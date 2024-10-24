@@ -960,6 +960,10 @@
               "default": true
             }
           }
+        },
+        "sponsoredCount": {
+          "type": "integer",
+          "title": "Quantity Products sponsored"
         }
       }
     }
