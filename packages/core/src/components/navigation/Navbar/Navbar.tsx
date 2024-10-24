@@ -175,7 +175,7 @@ function Navbar({
               />
             )}
 
-            <ButtonSignIn.Component {...signInButton} />
+            {!isMobile && <ButtonSignIn.Component {...signInButton} />}
 
             <CartToggle {...cart} />
           </NavbarButtons.Component>
