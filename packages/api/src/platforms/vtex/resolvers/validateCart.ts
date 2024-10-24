@@ -110,19 +110,27 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
 }
 
 function hasChildItem(items: OrderFormItem[], itemId: string) {
-  return items?.some(item => item.parentItemIndex && items[item.parentItemIndex].id === itemId)
+  return items?.some(
+    (item) =>
+      item.parentItemIndex !== null &&
+      item.parentItemIndex !== undefined &&
+      items[item.parentItemIndex]?.id === itemId
+  )
 }
 
 function hasParentItem(items: OrderFormItem[], itemId: string) {
-  return items?.some(item => item.id === itemId && item.parentItemIndex !== null)
+  return items?.some(
+    (item) => item.id === itemId && item.parentItemIndex !== null
+  )
 }
 
 const joinItems = (form: OrderForm) => {
   const itemsById = form.items.reduce(
     (acc, item, idx) => {
-      const id = hasParentItem(form.items, item.id) || hasChildItem(form.items, item.id) ? 
-        `${getId(orderFormItemToOffer(item))}::${idx}` : 
-        getId(orderFormItemToOffer(item))
+      const id =
+        hasParentItem(form.items, item.id) || hasChildItem(form.items, item.id)
+          ? `${getId(orderFormItemToOffer(item))}::${idx}`
+          : getId(orderFormItemToOffer(item))
 
       if (!acc[id]) {
         acc[id] = []
@@ -388,7 +396,10 @@ export const validateCart = async (
       // Update existing items
       const [head, ...tail] = maybeOriginItem
 
-      if(hasParentItem(orderForm.items, head.itemOffered.sku) || hasChildItem(orderForm.items, head.itemOffered.sku)) {
+      if (
+        hasParentItem(orderForm.items, head.itemOffered.sku) ||
+        hasChildItem(orderForm.items, head.itemOffered.sku)
+      ) {
         acc.itemsToUpdate.push(head)
 
         return acc
