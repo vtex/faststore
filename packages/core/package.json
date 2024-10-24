@@ -38,6 +38,7 @@
   "sideEffects": false,
   "dependencies": {
     "@antfu/ni": "^0.21.12",
+    "@aws-sdk/client-dynamodb": "^3.670.0",
     "@builder.io/partytown": "^0.6.1",
     "@envelop/core": "^5.0.2",
     "@envelop/graphql-jit": "^8.0.3",
