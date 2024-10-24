@@ -97,7 +97,7 @@ function Navbar({
   } = useOverrideComponents<'Navbar'>()
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
-  const { isDesktop } = useScreenResize()
+  const { isMobile } = useScreenResize()
 
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -139,10 +139,12 @@ function Navbar({
             </>
           )}
 
-          <SearchInput
-            placeholder={searchInput?.placeholder}
-            sort={searchInput?.sort}
-          />
+          {!isMobile && (
+            <SearchInput
+              placeholder={searchInput?.placeholder}
+              sort={searchInput?.sort}
+            />
+          )}
 
           <NavbarButtons.Component
             searchExpanded={searchExpanded}
@@ -160,16 +162,18 @@ function Navbar({
               />
             )}
 
-            <SearchInput
-              placeholder=""
-              ref={searchMobileRef}
-              testId="store-input-mobile"
-              buttonTestId="store-input-mobile-button"
-              onSearchClick={handlerExpandSearch}
-              sort={searchInput?.sort}
-              hidden={!searchExpanded}
-              aria-hidden={!searchExpanded}
-            />
+            {isMobile && (
+              <SearchInput
+                placeholder=""
+                ref={searchMobileRef}
+                testId="store-input-mobile"
+                buttonTestId="store-input-mobile-button"
+                onSearchClick={handlerExpandSearch}
+                sort={searchInput?.sort}
+                hidden={!searchExpanded}
+                aria-hidden={!searchExpanded}
+              />
+            )}
 
             <ButtonSignIn.Component {...signInButton} />
 
@@ -178,7 +182,7 @@ function Navbar({
         </NavbarRow.Component>
       </NavbarHeader.Component>
 
-      {isDesktop && <NavbarLinks links={links} region={region} />}
+      {!isMobile && <NavbarLinks links={links} region={region} />}
 
       {displayNavbar && (
         <NavbarSlider
