@@ -58,7 +58,7 @@ export const LazyLoadingSection = ({
       return null
     }
 
-    return <>{children}</>
+    return children
   }
   return (
     <ViewportObserver sectionName={sectionName}>{children}</ViewportObserver>
