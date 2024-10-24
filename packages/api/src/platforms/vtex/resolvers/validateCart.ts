@@ -111,7 +111,10 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
 
 function hasChildItem(items: OrderFormItem[], itemId: string) {
   return items?.some(
-    (item) => item.parentItemIndex && items[item.parentItemIndex].id === itemId
+    (item) =>
+      item.parentItemIndex !== null &&
+      item.parentItemIndex !== undefined &&
+      items[item.parentItemIndex]?.id === itemId
   )
 }
 
@@ -119,9 +122,6 @@ function hasParentItem(items: OrderFormItem[], itemId: string) {
   return items?.some(
     (item) => item.id === itemId && item.parentItemIndex !== null
   )
-}
-function hasBrotherItem(items: OrderFormItem[], itemId: string) {
-  return items?.some((item) => item.id === itemId)
 }
 
 const joinItems = (form: OrderForm) => {
@@ -398,8 +398,7 @@ export const validateCart = async (
 
       if (
         hasParentItem(orderForm.items, head.itemOffered.sku) ||
-        hasChildItem(orderForm.items, head.itemOffered.sku) ||
-        hasBrotherItem(orderForm.items, head.itemOffered.sku)
+        hasChildItem(orderForm.items, head.itemOffered.sku)
       ) {
         acc.itemsToUpdate.push(head)
 
