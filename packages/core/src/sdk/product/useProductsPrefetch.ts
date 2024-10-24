@@ -42,7 +42,7 @@ export const query = gql(`
 `)
 
 export const useProductsQueryPrefetch = (
-  variables: ClientManyProductsQueryQueryVariables,
+  variables: Partial<ClientManyProductsQueryQueryVariables>,
   options?: QueryOptions
 ) => {
   const localizedVariables = useLocalizedVariables(variables)
