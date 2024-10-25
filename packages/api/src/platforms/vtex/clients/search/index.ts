@@ -57,7 +57,14 @@ export const IntelligentSearch = (
   const storeCookies = getStoreCookie(ctx)
 
   console.log("ctx", ctx)
-  console.log("storeCookies", storeCookies)
+  const getVtexSegment = (cookies: string) => {
+    const match = cookies.match(/vtex_segment=([^;]*)/)
+    return match ? match[1] : null
+  }
+
+  const vtexSegment = ctx ? getVtexSegment(ctx.headers.cookie) : null
+
+  console.log("vtexSegment", vtexSegment)
 
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
     const { salesChannel } = ctx.storage.channel
