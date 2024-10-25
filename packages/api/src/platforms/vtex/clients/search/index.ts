@@ -62,6 +62,8 @@ export const IntelligentSearch = (
     }
 
     const match = cookies.match(/vtex_segment=([^;]*)/);
+
+    console.log("match", match)
     return match ? match[1] : null;
   };
 

@@ -29,7 +29,6 @@ import { SearchArgs } from '../clients/search'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
-    console.log("product faststore", ctx)
     // Insert channel in context for later usage
     const channel = findChannel(locator)
     const locale = findLocale(locator)
