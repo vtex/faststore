@@ -2,7 +2,7 @@ import type { Context, Options } from '../../'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
 import { getStoreCookie } from '../../utils/cookies'
 import type { SelectedFacet } from '../../utils/facets'
-import { fetchAPI, fetchIS } from '../fetch'
+import { fetchAPI } from '../fetch'
 import type {
   Facet,
   FacetSearchResult,
@@ -56,10 +56,14 @@ export const IntelligentSearch = (
   const base = `https://${account}.${environment}.com.br/api/io`
   const storeCookies = getStoreCookie(ctx)
 
-  const getVtexSegment = (cookies: string) => {
-    const match = cookies.match(/vtex_segment=([^;]*)/)
-    return match ? match[1] : null
-  }
+  const getVtexSegment = (cookies?: string) => {
+    if (typeof cookies !== 'string') {
+      return null;
+    }
+
+    const match = cookies.match(/vtex_segment=([^;]*)/);
+    return match ? match[1] : null;
+  };
 
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
     const { salesChannel } = ctx.storage.channel
@@ -150,15 +154,14 @@ export const IntelligentSearch = (
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
-    const vtexSegment = ctx ? getVtexSegment(ctx.headers.cookie) : null
+    const segmentCookie = ctx ? getVtexSegment(ctx.headers.cookie) : null
 
-    console.log("search", vtexSegment)
+    console.log("search", segmentCookie)
 
-    return fetchIS(
+    return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
       undefined,
-      { storeCookies },
-      vtexSegment
+      { storeCookies, segmentCookie },
     )
   }
 
