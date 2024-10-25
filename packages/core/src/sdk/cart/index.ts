@@ -31,6 +31,7 @@ export const ValidateCartMutation = gql(`
         acceptedOffer {
           ...CartItem
         }
+        shouldSplitItem
       }
       messages {
         ...CartMessage

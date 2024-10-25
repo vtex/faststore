@@ -167,7 +167,8 @@ const joinItems = (form: OrderForm) => {
 
 const orderFormToCart = async (
   form: OrderForm,
-  skuLoader: Context['loaders']['skuLoader']
+  skuLoader: Context['loaders']['skuLoader'],
+  shouldSplitItem?: boolean | null
 ) => {
   return {
     order: {
@@ -176,6 +177,7 @@ const orderFormToCart = async (
         ...item,
         product: await skuLoader.load(`${item.id}-invisibleItems`),
       })),
+      shouldSplitItem,
     },
     messages: form.messages.map(({ text, status }) => ({
       text,
@@ -371,7 +373,7 @@ export const validateCart = async (
       joinItems
     )
     if (orderNumber) {
-      return orderFormToCart(newOrderForm, skuLoader)
+      return orderFormToCart(newOrderForm, skuLoader, order.shouldSplitItem)
     }
   }
 
@@ -460,5 +462,5 @@ export const validateCart = async (
   }
 
   // Step6: There were changes, convert orderForm to StoreCart
-  return orderFormToCart(updatedOrderForm, skuLoader)
+  return orderFormToCart(updatedOrderForm, skuLoader, order.shouldSplitItem)
 }
