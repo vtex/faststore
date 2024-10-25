@@ -7,18 +7,6 @@ interface FetchAPIOptions {
   storeCookies?: (headers: Headers) => void
 }
 
-const buildHeaders = (initHeaders?: HeadersInit, segment?: string | null): HeadersInit => {
-  const headers = new Headers(initHeaders);
-
-  headers.set('User-Agent', USER_AGENT);
-
-  if (segment) {
-    headers.set('Cookie', `vtex_segment=${segment}`);
-  }
-
-  return headers;
-};
-
 export const fetchAPI = async (
   info: RequestInfo,
   init?: RequestInit,
@@ -27,10 +15,14 @@ export const fetchAPI = async (
 ) => {
   const response = await fetch(info, {
     ...init,
-    headers: buildHeaders(init?.headers, segment),
-  });
+    headers: {
+      ...(init?.headers ?? {}),
+      'User-Agent': USER_AGENT,
+      ...(segment ? { Cookie: `vtex_segment=${segment}` } : {}),
+    },
+  })
 
-  console.log('fetchAPI', response)
+  console.log("response", response?.status)
 
   if (response.ok) {
     if (options?.storeCookies) {
