@@ -11,7 +11,7 @@ export const fetchAPI = async (
   info: RequestInfo,
   init?: RequestInit,
   options?: FetchAPIOptions,
-  segment?: string
+  segment?: string | null | undefined
 ) => {
   const response = await fetch(info, {
     ...init,
