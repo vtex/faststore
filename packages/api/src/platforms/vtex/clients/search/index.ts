@@ -53,7 +53,7 @@ export const IntelligentSearch = (
   { account, environment, hideUnavailableItems, simulationBehavior, showSponsored }: Options,
   ctx: Context
 ) => {
-  console.log("IntelligentSearch faststore", ctx)
+  console.log("IntelligentSearch faststore", ctx?.headers?.cookie)
   const base = `https://${account}.${environment}.com.br/api/io`
   const storeCookies = getStoreCookie(ctx)
 
@@ -65,6 +65,8 @@ export const IntelligentSearch = (
     const match = cookies.match(/vtex_segment=([^;]*)/);
     return match ? match[1] : null;
   };
+
+  const segmentCookie = ctx ? getVtexSegment(ctx.headers.cookie) : null
 
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
     const { salesChannel } = ctx.storage.channel
@@ -154,8 +156,6 @@ export const IntelligentSearch = (
     const pathname = addDefaultFacets(selectedFacets)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
-
-    const segmentCookie = ctx ? getVtexSegment(ctx.headers.cookie) : null
 
     console.log("search", segmentCookie)
 
