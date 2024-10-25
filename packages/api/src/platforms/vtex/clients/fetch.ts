@@ -10,13 +10,15 @@ interface FetchAPIOptions {
 export const fetchAPI = async (
   info: RequestInfo,
   init?: RequestInit,
-  options?: FetchAPIOptions
+  options?: FetchAPIOptions,
+  segment?: string
 ) => {
   const response = await fetch(info, {
     ...init,
     headers: {
       ...(init?.headers ?? {}),
       'User-Agent': USER_AGENT,
+      ...(segment ? { Cookie: `vtex_segment=${segment}` } : {}),
     },
   })
 

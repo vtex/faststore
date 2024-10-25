@@ -56,7 +56,6 @@ export const IntelligentSearch = (
   const base = `https://${account}.${environment}.com.br/api/io`
   const storeCookies = getStoreCookie(ctx)
 
-  console.log("ctx", ctx)
   const getVtexSegment = (cookies: string) => {
     const match = cookies.match(/vtex_segment=([^;]*)/)
     return match ? match[1] : null
@@ -155,10 +154,12 @@ export const IntelligentSearch = (
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
+    console.log("search")
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
       undefined,
-      { storeCookies }
+      { storeCookies },
+      vtexSegment
     )
   }
 
