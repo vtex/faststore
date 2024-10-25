@@ -75,8 +75,10 @@ export const Query = {
         )
       }
 
+      console.log("product faststore sku")
       return sku
     } catch (err) {
+      console.log("catch")
       if (slug == null) {
         throw new BadRequestError('Missing slug or id')
       }
