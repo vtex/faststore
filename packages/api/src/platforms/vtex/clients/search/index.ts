@@ -56,6 +56,9 @@ export const IntelligentSearch = (
   const base = `https://${account}.${environment}.com.br/api/io`
   const storeCookies = getStoreCookie(ctx)
 
+  console.log("ctx", ctx)
+  console.log("storeCookies", storeCookies)
+
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
     const { salesChannel } = ctx.storage.channel
 
