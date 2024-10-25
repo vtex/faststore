@@ -158,11 +158,18 @@ export const IntelligentSearch = (
 
     console.log("search", segmentCookie)
 
+    const headers = segmentCookie
+    ? {
+        headers: {
+          'Cookie': `vtex_segment=${segmentCookie}`,
+        },
+      }
+    : undefined
+
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
-      undefined,
-      { storeCookies},
-      segmentCookie
+      headers,
+      { storeCookies}
     )
   }
 
