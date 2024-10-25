@@ -2,7 +2,7 @@ import type { Context, Options } from '../../'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
 import { getStoreCookie } from '../../utils/cookies'
 import type { SelectedFacet } from '../../utils/facets'
-import { fetchAPI } from '../fetch'
+import { fetchAPI, fetchIS } from '../fetch'
 import type {
   Facet,
   FacetSearchResult,
@@ -151,8 +151,10 @@ export const IntelligentSearch = (
       .join('/')
 
     const vtexSegment = ctx ? getVtexSegment(ctx.headers.cookie) : null
+
     console.log("search", vtexSegment)
-    return fetchAPI(
+
+    return fetchIS(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
       undefined,
       { storeCookies },

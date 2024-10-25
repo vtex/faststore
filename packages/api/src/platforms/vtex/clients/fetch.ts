@@ -10,19 +10,15 @@ interface FetchAPIOptions {
 export const fetchAPI = async (
   info: RequestInfo,
   init?: RequestInit,
-  options?: FetchAPIOptions,
-  segment?: string | null
+  options?: FetchAPIOptions
 ) => {
   const response = await fetch(info, {
     ...init,
     headers: {
       ...(init?.headers ?? {}),
       'User-Agent': USER_AGENT,
-      ...(segment ? { Cookie: `vtex_segment=${segment}` } : {}),
     },
   })
-
-  console.log("response", response?.status)
 
   if (response.ok) {
     if (options?.storeCookies) {
@@ -37,3 +33,33 @@ export const fetchAPI = async (
 
   throw new Error(text)
 }
+
+export const fetchIS = async (
+  info: RequestInfo,
+  init?: RequestInit,
+  options?: FetchAPIOptions,
+  segment?: string | null
+) => {
+  const response = await fetch(info, {
+    ...init,
+    headers: {
+      ...(init?.headers ?? {}),
+      'User-Agent': USER_AGENT,
+      ...(segment ? { 'X-Vtex-Segment': segment } : {}),
+    },
+  })
+
+  if (response.ok) {
+    if (options?.storeCookies) {
+      options.storeCookies(response.headers)
+    }
+
+    return response.status !== 204 ? response.json() : undefined
+  }
+
+  console.error(info, init, response)
+  const text = await response.text()
+
+  throw new Error(text)
+}
+
