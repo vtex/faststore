@@ -53,6 +53,7 @@ export const IntelligentSearch = (
   { account, environment, hideUnavailableItems, simulationBehavior, showSponsored }: Options,
   ctx: Context
 ) => {
+  console.log("IntelligentSearch faststore", ctx)
   const base = `https://${account}.${environment}.com.br/api/io`
   const storeCookies = getStoreCookie(ctx)
 
