@@ -63,8 +63,6 @@ export const IntelligentSearch = (
 
   const vtexSegment = ctx ? getVtexSegment(ctx.headers.cookie) : null
 
-  console.log("vtexSegment", vtexSegment)
-
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
     const { salesChannel } = ctx.storage.channel
 
@@ -154,7 +152,7 @@ export const IntelligentSearch = (
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
-    console.log("search")
+    console.log("search", vtexSegment)
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
       undefined,
