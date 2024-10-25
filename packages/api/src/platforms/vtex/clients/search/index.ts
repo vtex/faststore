@@ -161,7 +161,8 @@ export const IntelligentSearch = (
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
       undefined,
-      { storeCookies, segmentCookie },
+      { storeCookies},
+      segmentCookie
     )
   }
 

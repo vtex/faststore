@@ -5,20 +5,20 @@ const USER_AGENT = `${packageJson.name}@${packageJson.version}`
 
 interface FetchAPIOptions {
   storeCookies?: (headers: Headers) => void
-  segmentCookie?: string | null
 }
 
 export const fetchAPI = async (
   info: RequestInfo,
   init?: RequestInit,
-  options?: FetchAPIOptions
+  options?: FetchAPIOptions,
+  segmentCookie?: string | null
 ) => {
   const response = await fetch(info, {
     ...init,
     headers: {
       ...(init?.headers ?? {}),
       'User-Agent': USER_AGENT,
-      ...(options.segment ? { Cookie: `vtex_segment=${options.segment}` } : {}),
+      ...(segmentCookie ? { Cookie: `vtex_segment=${segmentCookie}` } : {}),
     },
   })
 
