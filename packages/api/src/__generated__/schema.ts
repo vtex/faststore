@@ -698,7 +698,7 @@ export type StoreCart = {
   __typename?: 'StoreCart';
   /** List of shopping cart messages. */
   messages: Array<StoreCartMessage>;
-  /** Order information, including `orderNumber` and `acceptedOffer`. */
+  /** Order information, including `orderNumber`, `acceptedOffer` and `shouldSplitItem`. */
   order: StoreOrder;
 };
 
@@ -928,6 +928,8 @@ export type StoreOrder = {
   acceptedOffer: Array<StoreOffer>;
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String'];
+  /** Indicates whether or not items with attachments should be split. */
+  shouldSplitItem?: Maybe<Scalars['Boolean']>;
 };
 
 /** Organization. */
