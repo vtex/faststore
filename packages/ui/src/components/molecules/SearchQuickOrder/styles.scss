@@ -1,0 +1,34 @@
+[data-fs-search-products] {
+  // --------------------------------------------------------
+  // Design Tokens for Search Products
+  // --------------------------------------------------------
+  
+	// Search Quick Order Spacing
+  --fs-search-quick-order-spacing-0                     : var(--fs-spacing-0);
+  --fs-search-quick-order-spacing-1                     : var(--fs-spacing-1);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+	
+	[data-fs-search-quick-order] {
+		display: flex;
+		width: 100%;
+	}
+
+	[data-fs-search-quick-order-badge] {
+		margin-bottom: var(--fs-search-quick-order-spacing-0);
+
+		& + p {
+			color: var(--fs-color-neutral-6);
+			font-weight: var(--fs-text-weight-medium);
+		}
+	}
+	
+	[data-fs-search-quick-order-actions] {
+		display: flex;
+		margin-left: auto;
+		gap: var(--fs-search-quick-order-spacing-1);
+	}
+}
