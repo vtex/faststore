@@ -34,6 +34,7 @@ export interface SearchArgs {
   hideUnavailableItems?: boolean
   showInvisibleItems?: boolean
   showSponsored?: boolean
+  segment?: string
 }
 
 export interface ProductLocator {
@@ -55,19 +56,6 @@ export const IntelligentSearch = (
 ) => {
   const base = `https://${account}.${environment}.com.br/api/io`
   const storeCookies = getStoreCookie(ctx)
-
-  const getVtexSegment = (cookies?: string) => {
-    if (typeof cookies !== 'string') {
-      return null;
-    }
-
-    const match = cookies.match(/vtex_segment=([^;]*)/);
-
-    console.log("match", match)
-    return match ? match[1] : null;
-  };
-
-  const segmentCookie = ctx ? getVtexSegment(ctx.headers.cookie) : null
 
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
     const { salesChannel } = ctx.storage.channel
@@ -128,6 +116,7 @@ export const IntelligentSearch = (
     type,
     fuzzy = 'auto',
     showInvisibleItems,
+    segment = undefined,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
@@ -158,12 +147,10 @@ export const IntelligentSearch = (
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
-    console.log("search", segmentCookie)
-
-    const headers = segmentCookie
+    const headers = segment
     ? {
         headers: {
-          'Cookie': `vtex_segment=${segmentCookie}`,
+          'Cookie': `vtex_segment=${segment}`,
         },
       }
     : undefined
