@@ -115,3 +115,5 @@ packages/core/@generated/persisted-documents.json
 /package-lock.json
 /tmp
 oclif.manifest.json
+
+.idea
