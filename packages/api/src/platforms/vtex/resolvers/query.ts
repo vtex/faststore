@@ -57,7 +57,7 @@ export const Query = {
         throw new Error('Invalid SkuId')
       }
 
-      const sku = await skuLoader.load(`${skuId}-segment:${segment}`)
+      const sku = await skuLoader.load(segment ? `${skuId}-segment:${segment}` : skuId)
 
       /**
        * Here be dragons 🦄🦄🦄
@@ -168,6 +168,7 @@ export const Query = {
       query: query ?? undefined,
       sort: SORT_MAP[sort ?? 'score_desc'],
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
+      segment
     }
 
     const productSearchPromise = ctx.clients.search.products(searchArgs)
