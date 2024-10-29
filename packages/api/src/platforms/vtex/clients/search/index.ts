@@ -107,6 +107,15 @@ export const IntelligentSearch = (
     return withDefaultFacets
   }
 
+  const getVtexSegment = (cookies?: string) => {
+    if (typeof cookies !== 'string') {
+      return null;
+    }
+
+    const match = cookies.match(/fs_segment=([^;]*)/);
+    return match ? match[1] : null;
+  };
+
   const search = <T>({
     query = '',
     page,
@@ -148,18 +157,23 @@ export const IntelligentSearch = (
       .join('/')
 
     console.log("search IS", segment)
-    const headers = segment
-    ? {
+
+    const segmentCookie = ctx ? getVtexSegment(ctx.headers.cookie) : null;
+
+    console.log("search segmentCookie", segmentCookie)
+
+    const headers = segmentCookie || segment
+      ? {
         headers: {
-          'Cookie': `vtex_segment=${segment}`,
+          'Cookie': `vtex_segment=${segmentCookie || segment}`,
         },
       }
-    : undefined
+      : undefined;
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
       headers,
-      { storeCookies}
+      { storeCookies }
     )
   }
 

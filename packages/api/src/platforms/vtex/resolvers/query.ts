@@ -31,6 +31,7 @@ import { SearchArgs } from '../clients/search'
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
     // Insert channel in context for later usage
+    console.log("ctx product query", ctx)
     const channel = findChannel(locator)
     const locale = findLocale(locator)
     const id = findSkuId(locator)
@@ -124,9 +125,6 @@ export const Query = {
     const channel = findChannel(selectedFacets)
     const locale = findLocale(selectedFacets)
     const crossSelling = findCrossSelling(selectedFacets)
-    const segment = findSegment(selectedFacets)
-
-    console.log("search segment", segment)
 
     if (channel) {
       mutateChannelContext(ctx, channel)
@@ -167,8 +165,7 @@ export const Query = {
       count: first,
       query: query ?? undefined,
       sort: SORT_MAP[sort ?? 'score_desc'],
-      selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
-      segment
+      selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? []
     }
 
     const productSearchPromise = ctx.clients.search.products(searchArgs)
