@@ -147,6 +147,7 @@ export const IntelligentSearch = (
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
+    console.log("search IS", segment)
     const headers = segment
     ? {
         headers: {

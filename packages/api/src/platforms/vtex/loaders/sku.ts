@@ -14,12 +14,13 @@ export const getSkuLoader = (_: Options, clients: Clients) => {
     const segmentKey = keys.find((key) => key.split('-')[1]?.startsWith('segment:'))
     const segment = segmentKey ? segmentKey.split('segment:')[1] : undefined
 
+    console.log("segment getSkuLoader", segment)
     const { products } = await clients.search.products({
       query: `sku:${skuIds.join(';')}`,
       page: 0,
       count: skuIds.length,
       showInvisibleItems,
-      segment
+      ...(segment && { segment })
     })
 
     const skuBySkuId = products.reduce((acc, product) => {
