@@ -37,7 +37,8 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
     case "similars":
     case "viewAndBought":
     case "accessories":
-    case "suggestions": {
+    case "suggestions": 
+    case "segment": {
       return [] // remove this facet from search
     }
 

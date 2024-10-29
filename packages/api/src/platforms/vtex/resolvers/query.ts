@@ -57,7 +57,7 @@ export const Query = {
         throw new Error('Invalid SkuId')
       }
 
-      const sku = await skuLoader.load(skuId)
+      const sku = await skuLoader.load(`${skuId}-segment:${segment}`)
 
       /**
        * Here be dragons 🦄🦄🦄

@@ -7,15 +7,19 @@ import type { Options } from '..'
 import type { Clients } from '../clients'
 
 export const getSkuLoader = (_: Options, clients: Clients) => {
-  const loader = async (keys: readonly string[]) => {
+  const loader = async (keys: readonly string[]) => { 
     const skuIds = keys.map((key) => key.split('-')[0]);
     const showInvisibleItems = keys.some((key) => key.split('-')[1] === 'invisibleItems')
+
+    const segmentKey = keys.find((key) => key.split('-')[1]?.startsWith('segment:'))
+    const segment = segmentKey ? segmentKey.split('segment:')[1] : undefined
 
     const { products } = await clients.search.products({
       query: `sku:${skuIds.join(';')}`,
       page: 0,
       count: skuIds.length,
-      showInvisibleItems
+      showInvisibleItems,
+      segment
     })
 
     const skuBySkuId = products.reduce((acc, product) => {
