@@ -54,6 +54,15 @@ export const IntelligentSearch = (
   const base = `https://${account}.${environment}.com.br/api/io`
   const storeCookies = getStoreCookie(ctx)
 
+  const getVtexSegment = (cookies?: string) => {
+    if (typeof cookies !== 'string') {
+      return null;
+    }
+
+    const match = cookies.match(/fs_segment=([^;]*)/);
+    return match ? match[1] : null;
+  };
+
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
     const { salesChannel } = ctx.storage.channel
 
@@ -130,9 +139,21 @@ export const IntelligentSearch = (
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
+      const segmentCookie = ctx ? getVtexSegment(ctx.headers.cookie) : null;
+
+      console.log("search segmentCookie", segmentCookie)
+
+      const headers = segmentCookie
+        ? {
+          headers: {
+            'Cookie': `vtex_segment=${segmentCookie}`,
+          },
+        }
+      : undefined
+
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
-      undefined,
+      headers,
       { storeCookies }
     )
   }
