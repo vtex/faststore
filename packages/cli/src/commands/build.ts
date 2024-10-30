@@ -93,7 +93,13 @@ async function copyResources(basePath: string) {
   if (process.env.BUILD_CONTEXT === 'vercel') {
     const toDir = process.cwd()
 
-    await copyResource(`${tmpDir}/.next`, `${toDir}/.faststore/.next`)
+    // Because of how copyResource works (delete the target directory if it exists),
+    // if we're moving something to the same place it is it will break.
+    const nextOutputDirectory = `${tmpDir}/.next`
+    const expectedOutputDirectory = `${toDir}/.faststore/.next`
+    if (nextOutputDirectory !== expectedOutputDirectory) {
+      await copyResource(nextOutputDirectory, expectedOutputDirectory)
+    }
     await copyResource(`${tmpDir}/public`, `${toDir}/public`)
   } else {
     await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
