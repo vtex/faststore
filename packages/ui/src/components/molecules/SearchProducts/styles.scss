@@ -38,6 +38,10 @@
 
   // Item Price
   --fs-search-product-item-price-size                     : var(--fs-text-size-base);
+  
+	// Quick order spacing
+  --fs-search-product-item-quick-order-spacing-0          : var(--fs-spacing-0);
+  --fs-search-product-item-quick-order-spacing-1          : var(--fs-spacing-1);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -118,4 +122,23 @@
       font-size: var(--fs-search-product-item-price-size);
     }
   }
+
+	[data-fs-search-product-item-content-wrapper] {
+		display: flex;
+	}
+
+	[data-fs-search-product-item-badge] {
+		margin-bottom: var(--fs-search-product-item-quick-order-spacing-0);
+
+		& + p {
+			color: var(--fs-color-neutral-6);
+			font-weight: var(--fs-text-weight-medium);
+		}
+	}
+	
+	[data-fs-search-product-item-quick-order-actions] {
+		display: flex;
+		margin-left: auto;
+		gap: var(--fs-search-product-item-quick-order-spacing-1);
+	}
 }
