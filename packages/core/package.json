@@ -21,7 +21,7 @@
     "dev": "next dev",
     "dev-only": "next dev",
     "clean": "rm -r .next",
-    "serve": "tsx customserver.ts",
+    "serve": "node server.js",
     "test:e2e": "cypress open",
     "test": "jest",
     "lhci": "lhci autorun",
