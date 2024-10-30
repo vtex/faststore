@@ -24,7 +24,6 @@ const app = new NextServer({
 
 const handle = app.getRequestHandler()
 
-/*
 const getLogger = () => {
   return pinoLogger({
     level: 'debug', // TODO: define by env
@@ -32,14 +31,21 @@ const getLogger = () => {
 }
 let logger = getLogger()
 
- */
-
 app.prepare().then(() => {
   http
     .createServer((req, res) => {
       let startTime = Date.now()
       const parsedUrl = parse(req.url, true)
-      handle(req, res, parsedUrl)
+      handle(req, res, parsedUrl).then(() => {
+        logger.info({
+          url: req.url,
+          method: req.method,
+          headers: req.headers,
+          code: res.statusCode,
+          startTime: startTime,
+          endTime: Date.now(),
+        })
+      })
     })
     .listen(port, () => {
       console.log(
