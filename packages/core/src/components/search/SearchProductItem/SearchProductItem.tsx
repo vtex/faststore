@@ -9,6 +9,7 @@ import { Image } from 'src/components/ui/Image'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import { useMemo } from 'react'
 
 type SearchProductItemProps = {
   /**
@@ -41,7 +42,7 @@ function SearchProductItem({
     image: [img],
     offers: {
       lowPrice: spotPrice,
-      offers: [{ listPrice }],
+      offers: [{ listPrice, availability }],
     },
   } = product
 
@@ -54,8 +55,20 @@ function SearchProductItem({
     ...baseLinkProps,
   }
 
+  const outOfStock = useMemo(
+    () => availability === 'https://schema.org/OutOfStock',
+    [availability]
+  )
+
   return (
-    <UISearchProductItem linkProps={linkProps} {...otherProps}>
+    <UISearchProductItem
+      linkProps={linkProps}
+      quickOrder={{
+        enabled: true,
+        availability: !outOfStock,
+      }}
+      {...otherProps}
+    >
       <UISearchProductItemImage>
         <Image src={img.url} alt={img.alternateName} width={56} height={56} />
       </UISearchProductItemImage>
