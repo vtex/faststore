@@ -2,7 +2,6 @@ const http = require('http')
 const url = require('url')
 const NextServer = require('next/dist/server/next-server').default
 const { config } = require('./.next/required-server-files.json')
-const pinoLogger = require('pino')
 const { parse } = require('url')
 
 // eslint-disable-next-line turbo/no-undeclared-env-vars
@@ -24,20 +23,13 @@ const app = new NextServer({
 
 const handle = app.getRequestHandler()
 
-const getLogger = () => {
-  return pinoLogger({
-    level: 'debug', // TODO: define by env
-  })
-}
-let logger = getLogger()
-
 app.prepare().then(() => {
   http
     .createServer((req, res) => {
       let startTime = Date.now()
       const parsedUrl = parse(req.url, true)
       handle(req, res, parsedUrl).then(() => {
-        logger.info({
+        console.log({
           url: req.url,
           method: req.method,
           headers: req.headers,
