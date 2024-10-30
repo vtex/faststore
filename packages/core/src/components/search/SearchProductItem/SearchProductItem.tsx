@@ -66,14 +66,7 @@ function SearchProductItem({
   )
 
   return (
-    <UISearchProductItem
-      linkProps={linkProps}
-      quickOrder={{
-        enabled: true,
-        availability: !outOfStock,
-      }}
-      {...otherProps}
-    >
+    <UISearchProductItem linkProps={linkProps} {...otherProps}>
       <UISearchProductItemImage>
         <Image src={img.url} alt={img.alternateName} width={56} height={56} />
       </UISearchProductItemImage>
@@ -83,6 +76,10 @@ function SearchProductItem({
           value: spotPrice,
           listPrice: listPrice,
           formatter: useFormattedPrice,
+        }}
+        quickOrder={{
+          enabled: true,
+          availability: !outOfStock,
         }}
       ></UISearchProductItemContent>
     </UISearchProductItem>
