@@ -2,7 +2,7 @@ const http = require('http')
 const url = require('url')
 const NextServer = require('next/dist/server/next-server').default
 const { config } = require('./.next/required-server-files.json')
-// const pinoLogger = require("pino");
+const pinoLogger = require('pino')
 const { parse } = require('url')
 
 // eslint-disable-next-line turbo/no-undeclared-env-vars
