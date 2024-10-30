@@ -9,7 +9,7 @@ import {
   findSkuId,
   findSlug,
   transformSelectedFacet,
-  findSegment
+  // findSegment
 } from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
 import { StoreCollection } from './collection'
@@ -36,7 +36,7 @@ export const Query = {
     const locale = findLocale(locator)
     const id = findSkuId(locator)
     const slug = findSlug(locator)
-    const segment = findSegment(locator)
+    // const segment = findSegment(locator)
 
     if (channel) {
       mutateChannelContext(ctx, channel)
@@ -58,7 +58,7 @@ export const Query = {
         throw new Error('Invalid SkuId')
       }
 
-      const sku = await skuLoader.load(segment ? `${skuId}-segment:${segment}` : skuId)
+      const sku = await skuLoader.load(skuId)
 
       /**
        * Here be dragons 🦄🦄🦄
@@ -77,7 +77,7 @@ export const Query = {
         )
       }
 
-      console.log("product faststore sku")
+      // console.log("product faststore sku")
       return sku
     } catch (err) {
       console.log("catch")
@@ -97,7 +97,6 @@ export const Query = {
         page: 0,
         count: 1,
         query: `product:${route.id}`,
-        segment
       })
 
       if (!product) {

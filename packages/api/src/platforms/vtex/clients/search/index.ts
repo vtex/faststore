@@ -160,12 +160,10 @@ export const IntelligentSearch = (
 
     const segmentCookie = ctx ? getVtexSegment(ctx.headers.cookie) : null;
 
-    console.log("search segmentCookie", segmentCookie)
-
-    const headers = segmentCookie || segment
+    const headers = segmentCookie
       ? {
         headers: {
-          'Cookie': `vtex_segment=${segmentCookie || segment}`,
+          'Cookie': `vtex_segment=${segmentCookie}`,
         },
       }
       : undefined;

@@ -37,8 +37,7 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
     case "similars":
     case "viewAndBought":
     case "accessories":
-    case "suggestions": 
-    case "segment": {
+    case "suggestions": {
       return [] // remove this facet from search
     }
 
@@ -90,5 +89,5 @@ export const findLocale = (facets?: Maybe<SelectedFacet[]>) =>
 export const findChannel = (facets?: Maybe<SelectedFacet[]>) =>
   facets?.find((facet) => facet.key === 'channel')?.value ?? null
 
-export const findSegment = (facets?: Maybe<SelectedFacet[]>) =>
-  facets?.find((facet) => facet.key === 'segment')?.value ?? undefined
+// export const findSegment = (facets?: Maybe<SelectedFacet[]>) =>
+//   facets?.find((facet) => facet.key === 'segment')?.value ?? undefined
