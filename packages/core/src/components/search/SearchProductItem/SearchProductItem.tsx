@@ -84,10 +84,6 @@ function SearchProductItem({
           listPrice: listPrice,
           formatter: useFormattedPrice,
         }}
-        quickOrder={{
-          enabled: true,
-          availability: !outOfStock,
-        }}
       ></UISearchProductItemContent>
     </UISearchProductItem>
   )

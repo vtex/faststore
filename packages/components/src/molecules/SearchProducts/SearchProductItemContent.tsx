@@ -1,8 +1,7 @@
-import React, { forwardRef, useCallback } from 'react'
+import React, { forwardRef } from 'react'
 import { ProductPrice } from '../..'
 
 import type { PriceDefinition } from '../../typings/PriceDefinition'
-import { SearchQuickOrderContent } from '../SearchQuickOrderContent'
 
 export interface SearchProductItemContentProps {
   /**
@@ -13,57 +12,23 @@ export interface SearchProductItemContentProps {
    * Specifies product's prices.
    */
   price: PriceDefinition
-  /**
-   * Quick order condition.
-   */
-  quickOrder?: {
-    enabled: boolean
-    availability: boolean
-		//FIXME - Remove optional prop
-    buyProps?: {
-      onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
-      'data-testid': string
-      'data-sku': string
-      'data-seller': string
-    }
-  }
 }
 
 const SearchProductItemContent = forwardRef<
   HTMLElement,
   SearchProductItemContentProps
->(function SearchProductItemContent(
-  { price, title, quickOrder, ...otherProps },
-  ref
-) {
-  const renderProductItemContent = useCallback(() => {
-    return (
-      <>
-        <p data-fs-search-product-item-title>{title}</p>
-
-        {price.value !== 0 && (
-          <ProductPrice
-            data-fs-search-product-item-prices
-            listPrice={price.listPrice}
-            value={price.value}
-            formatter={price.formatter}
-          />
-        )}
-      </>
-    )
-  }, [quickOrder?.enabled])
-
+>(function SearchProductItemContent({ price, title, ...otherProps }, ref) {
   return (
     <section ref={ref} data-fs-search-product-item-content {...otherProps}>
-      {!quickOrder?.enabled && renderProductItemContent()}
+      <p data-fs-search-product-item-title>{title}</p>
 
-      {quickOrder?.enabled && (
-        <SearchQuickOrderContent
-          availability={quickOrder.availability} 
-          {...quickOrder.buyProps}
-        >
-          {renderProductItemContent()}
-        </SearchQuickOrderContent>
+      {price.value !== 0 && (
+        <ProductPrice
+          data-fs-search-product-item-prices
+          listPrice={price.listPrice}
+          value={price.value}
+          formatter={price.formatter}
+        />
       )}
     </section>
   )

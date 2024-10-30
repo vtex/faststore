@@ -597,6 +597,8 @@ export type SkuVariants = {
   /** SKU property values for the current SKU. */
   activeVariations: Maybe<Scalars['ActiveVariations']['output']>
   /** All available options for each SKU variant property, indexed by their name. */
+  allVariantProducts: Maybe<Array<StoreProduct>>
+  /** All available options for each SKU variant property, indexed by their name. */
   allVariantsByName: Maybe<Scalars['VariantsByName']['output']>
   /**
    * Available options for each varying SKU property, taking into account the

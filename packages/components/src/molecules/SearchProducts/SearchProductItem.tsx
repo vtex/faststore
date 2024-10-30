@@ -5,8 +5,7 @@ import { Link, LinkElementType, LinkProps } from '../..'
 
 type StatusButtonAddToCartType = 'default' | 'inProgress' | 'completed'
 
-export interface SearchProductItemProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'onClick'> {
+export interface SearchProductItemProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -22,22 +21,19 @@ export interface SearchProductItemProps
   quickOrder?: {
     enabled: boolean
     availability: boolean
+    //FIXME - Remove optional prop
+    buyProps?: {
+      onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
+      'data-testid': string
+      'data-sku': string
+      'data-seller': string
+    }
   }
-  /**
-   * onClick from buyButton.
-   */
-  onClick?(e: React.MouseEvent<HTMLButtonElement>): void
 }
 
 const SearchProductItem = forwardRef<HTMLLIElement, SearchProductItemProps>(
   function ProductItem(
-    {
-      testId = 'fs-search-product-item',
-      linkProps,
-      children,
-      quickOrder,
-      onClick,
-    },
+    { testId = 'fs-search-product-item', linkProps, children, quickOrder },
     ref
   ) {
     const [statusAddToCart, setStatusAddToCart] =
@@ -49,10 +45,10 @@ const SearchProductItem = forwardRef<HTMLLIElement, SearchProductItemProps>(
     }
 
     function handleAddToCart(event: React.MouseEvent<HTMLButtonElement>) {
-      if (onClick) {
+      if (quickOrder?.buyProps?.onClick) {
         setStatusAddToCart('inProgress')
 
-        onClick(event)
+        quickOrder.buyProps.onClick(event)
 
         setTimeout(() => setStatusAddToCart('completed'), 4000)
         setTimeout(() => setStatusAddToCart('default'), 6000)
