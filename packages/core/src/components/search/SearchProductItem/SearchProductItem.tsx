@@ -65,6 +65,15 @@ function SearchProductItem({
     [availability]
   )
 
+  const hasVariants = useMemo(
+    () =>
+      Boolean(
+        Object.keys(product.isVariantOf.skuVariants.allVariantsByName).length
+      ),
+
+    [product]
+  )
+
   return (
     <UISearchProductItem linkProps={linkProps} {...otherProps}>
       <UISearchProductItemImage>
@@ -80,6 +89,7 @@ function SearchProductItem({
         quickOrder={{
           enabled: true,
           availability: !outOfStock,
+          hasVariants,
         }}
       ></UISearchProductItemContent>
     </UISearchProductItem>

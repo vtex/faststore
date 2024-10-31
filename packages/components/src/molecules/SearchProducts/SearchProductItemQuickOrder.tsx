@@ -5,13 +5,14 @@ export interface SearchQuickOrderContentProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onClick'> {
   children: React.ReactNode
   availability: boolean
+  hasVariants: boolean
   onClick?(e: React.MouseEvent<HTMLButtonElement>): void
 }
 const SearchProductItemQuickOrder = forwardRef<
   HTMLDivElement,
   SearchQuickOrderContentProps
 >(function SearchQuickOrderContent(
-  { availability, children, onClick, ...otherProps },
+  { availability, children, hasVariants, onClick, ...otherProps },
   ref
 ) {
   const [statusAddToCart, setStatusAddToCart] =
@@ -47,13 +48,16 @@ const SearchProductItemQuickOrder = forwardRef<
     >
       <div data-fs-search-product-item-quick-order-content>
         {!availability && (
-          <Badge data-fs-search-product-item-quick-order-badge variant="warning">
+          <Badge
+            data-fs-search-product-item-quick-order-badge
+            variant="warning"
+          >
             Out of Stock
           </Badge>
         )}
         {children}
       </div>
-      {availability && (
+      {availability && !hasVariants && (
         <div
           data-fs-search-product-item-quick-order-actions
           role="group"
@@ -69,6 +73,8 @@ const SearchProductItemQuickOrder = forwardRef<
           />
         </div>
       )}
+
+      {availability && hasVariants && <button>Select multiple</button>}
     </div>
   )
 })

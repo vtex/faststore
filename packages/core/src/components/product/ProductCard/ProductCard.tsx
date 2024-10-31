@@ -167,6 +167,9 @@ export const fragment = gql(`
     isVariantOf {
       productGroupID
       name
+			skuVariants {
+				allVariantsByName
+			}
     }
 
     image {
