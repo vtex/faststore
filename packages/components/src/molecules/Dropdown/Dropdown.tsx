@@ -51,23 +51,19 @@ const Dropdown = ({
     })
   }, [onDismiss])
 
-  const addDropdownTriggerRef = useCallback(<T extends HTMLElement = HTMLElement>(ref: T) => {
-    dropdownTriggerRef.current = ref
-  }, [])
+  const addDropdownTriggerRef = useCallback(
+    <T extends HTMLElement = HTMLElement>(ref: T) => {
+      dropdownTriggerRef.current = ref
+    },
+    []
+  )
 
   useEffect(() => {
     setIsOpenInternal(isOpenControlled ?? false)
   }, [isOpenControlled])
 
   useEffect(() => {
-    if(isOpen) {
-      dropdownItemsRef?.current[0]?.focus()
-      document.body.style.overflow = 'hidden'
-
-      return
-    }
-
-    document.body.style.overflow = 'auto'
+    isOpen && dropdownItemsRef?.current[0]?.focus()
   }, [isOpen])
 
   useEffect(() => {
