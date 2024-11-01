@@ -96,7 +96,8 @@ async function confirmUserChoice(
   fileName: string
 ) {
   const goAhead = await CliUx.ux.confirm(
-    `You are about to override default ${fileName.split('.')[0]
+    `You are about to override default ${
+      fileName.split('.')[0]
     }:\n\n${duplicates
       .map((definition) => definition.id || definition.name)
       .join('\n')}\n\nAre you sure? [yes/no]`
@@ -123,8 +124,26 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
 
   let output: ContentTypeOrSectionDefinition[] = coreDefinitions
 
+  const { userDir, tmpStoreConfigFile } = withBasePath(basePath)
+
+  const { plugins } = await import(tmpStoreConfigFile)
+
+  const customizations = []
+
+  if (plugins && plugins.length > 0) {
+    const pluginPath = path.join(userDir, 'node_modules', plugins[0])
+
+    if (existsSync(path.join(pluginPath, 'src', 'cms', fileName))) {
+      customizations.push(path.join(pluginPath, 'src', 'cms', fileName))
+    }
+  }
+
   // TODO: create a validation when the CMS files exist but don't have a component for them
   if (existsSync(customFilePath)) {
+    customizations.push(customFilePath)
+  }
+
+  for (const customFilePath of customizations) {
     const customFile = readFileSync(customFilePath, 'utf8')
 
     try {
@@ -175,6 +194,7 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
 
 export async function mergeCMSFiles(basePath: string) {
   try {
+    // TODO: Add plugin CMS files
     await mergeCMSFile('content-types.json', basePath)
     await mergeCMSFile('sections.json', basePath)
   } catch (err) {

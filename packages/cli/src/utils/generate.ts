@@ -17,6 +17,7 @@ import ora from 'ora'
 import { withBasePath } from './directory'
 import { installDependencies } from './dependencies'
 import { logger } from './logger'
+import { mkdirSync } from 'fs'
 
 interface GenerateOptions {
   setup?: boolean
@@ -437,6 +438,101 @@ function validateAndInstallMissingDependencies(basePath: string) {
   })
 }
 
+export async function installPlugins(basePath: string) {
+  const { userDir, tmpStoreConfigFile, tmpDir } = withBasePath(basePath)
+
+  const { plugins } = await import(tmpStoreConfigFile)
+
+  if (plugins && plugins.length > 0) {
+    const pluginPath = path.join(userDir, 'node_modules', plugins[0])
+    const plugin = await import(pluginPath)
+
+    const sections = plugin.default.sections
+
+    for (let index = 0; index < sections.length; index++) {
+      const section = sections[index] as Function
+      const sectionPath = path.join(
+        tmpDir,
+        'src',
+        'plugins',
+        'components',
+        section.name + '.jsx'
+      )
+
+      const sectionContent = `
+// GENERATED FILE
+import { default as plugin } from '${plugins[0]}'
+
+export default function ${section.name}(...props) {
+  return plugin.sections[${index}](...props)
+}
+`
+
+      mkdirSync(path.dirname(sectionPath), { recursive: true })
+      writeFileSync(sectionPath, sectionContent)
+      logger.log('Writing Section')
+      logger.log(sectionPath)
+      logger.log(sectionContent)
+    }
+
+    for (let index = 0; index < plugin.default.pages.length; index++) {
+      const page = plugin.default.pages[index]
+
+      logger.log('Writing')
+      logger.log(
+        path.join(
+          tmpDir,
+          'src',
+          'pages',
+          page.config.path.replace('/', '') + '.jsx'
+        )
+      )
+
+      // TODO: If this becomes true, move this to a template
+      const fileContent = `
+// GENERATED FILE
+import { default as plugin } from '${plugins[0]}';
+import GlobalSections, {
+  getGlobalSectionsData,
+} from 'src/components/cms/GlobalSections'
+
+export async function getStaticProps({previewData}) {
+  const noop = async function() {}
+  const loaderData = await (plugin.pages[${index}].loader || noop)()
+
+  let globalSections = null;
+  if(plugin.pages[${index}].config.appLayout) {
+    globalSections = await getGlobalSectionsData(previewData)
+  }
+
+  return { props: { data: loaderData, globalSections: globalSections } }
+}
+
+export default function Page(props) { 
+  const useAppLayout = plugin.pages[${index}].config.appLayout 
+  return useAppLayout ? (
+          <GlobalSections {...props.globalSections}>
+            {plugin.pages[${index}].default(props.data)}
+          </GlobalSections>
+        ) : plugin.pages[${index}].default(props.data)
+}
+`
+
+      logger.log(fileContent)
+
+      writeFileSync(
+        path.join(
+          tmpDir,
+          'src',
+          'pages',
+          page.config.path.replace('/', '') + '.jsx'
+        ),
+        fileContent
+      )
+    }
+  }
+}
+
 export async function generate(options: GenerateOptions) {
   const { basePath, setup = false } = options
 
@@ -461,5 +557,7 @@ export async function generate(options: GenerateOptions) {
     copyTheme(basePath),
     createCmsWebhookUrlsJsonFile(basePath),
     updateNextConfig(basePath),
+
+    installPlugins(basePath),
   ])
 }
