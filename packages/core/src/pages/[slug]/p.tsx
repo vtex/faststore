@@ -21,6 +21,12 @@ import { OverriddenDefaultProductDetails as ProductDetails } from 'src/component
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+/*
+ * The sections from the plugins could be written to this specific
+ * directory like the custom components. The 'writing' would be
+ * responsibility of the `generate` command.
+ */
+// import PLUGIN_COMPONENTS from 'src/customizations/src/plugins'
 import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
 
@@ -47,6 +53,10 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductShelf,
   ProductTiles,
   CrossSellingShelf,
+  // As pointed by Arthur Andrade, the plugin components have to before
+  // spread BEFORE the CUSTOM_COMPONENTS, so the customizations override
+  // anything
+  // ...PLUGIN_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 
