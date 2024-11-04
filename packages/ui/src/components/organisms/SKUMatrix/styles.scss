@@ -16,18 +16,9 @@
   --fs-sku-matrix-sidebar-table-cell-font-size			: var(--fs-text-size-0);
   --fs-sku-matrix-sidebar-table-cell-text-weight		: var(--fs-text-weight-medium);
 
-  // Font weight
-  --fs-sku-matrix-sidebar-text-weight-medium			: var(--fs-text-weight-medium);
-  --fs-sku-matrix-sidebar-text-weight-semibold			: var(--fs-text-weight-semibold);
 
   // Spacing
-  --fs-sku-matrix-sidebar-spacing-2				: var(--fs-spacing-2);
-  --fs-sku-matrix-sidebar-spacing-3				: var(--fs-spacing-3);
-  --fs-sku-matrix-sidebar-spacing-4				: var(--fs-spacing-4);
-  --fs-sku-matrix-sidebar-spacing-8				: var(--fs-spacing-8);
-
-  // Radius
-  --fs-sku-matrix-sidebar-button-radius-pill			: var(--fs-border-radius-pill);
+  --fs-sku-matrix-sidebar-padding				: var(--fs-spacing-8);
 
   // Partial
   --fs-sku-matrix-slide-over-partial-gap			: calc(2 * var(--fs-grid-padding));
@@ -44,7 +35,7 @@
 
   > * {
     flex-shrink: 0;
-    padding: var(--fs-sku-matrix-sidebar-spacing-8);
+    padding: var(--fs-sku-matrix-sidebar-padding);
     padding-bottom: 0;
   }
 
@@ -52,7 +43,7 @@
     background-color: var(--fs-sku-matrix-sidebar-bkg-color);
 
     [data-fs-slide-over-header] {
-      padding: var(--fs-sku-matrix-sidebar-spacing-8);
+      padding: var(--fs-sku-matrix-sidebar-padding);
       padding-bottom: 0;
     }
 
@@ -94,7 +85,7 @@
 
   [data-fs-table-cell],
   [data-fs-price-variant="spot"] {
-    font-weight: var(--fs-sku-matrix-sidebar-text-weight-medium);
+    font-weight: var(--fs-text-weight-medium);
   }
 
   [data-fs-table-cell]:first-child,
@@ -115,7 +106,7 @@
   [data-fs-sku-matrix-sidebar-cell-image] {
     display: flex;
     align-items: center;
-    gap: var(--fs-sku-matrix-sidebar-spacing-2);
+    gap: var(--fs-spacing-2);
 
     > div {
       img {
@@ -143,18 +134,18 @@
 
     background-color: var(--fs-sku-matrix-sidebar-bkg-color);
 
-    padding: var(--fs-sku-matrix-sidebar-spacing-4)
-      var(--fs-sku-matrix-sidebar-spacing-8);
-    border-top: 1px solid --fs-color-neutral-2;
+    padding: var(--fs-spacing-4)
+      var(--fs-sku-matrix-sidebar-padding);
+    border-top: var(--fs-border-width) solid var(--fs-border-color-light);
     width: 100%;
 
     > div {
       display: flex;
-      gap: var(--fs-sku-matrix-sidebar-spacing-3);
+      gap: var(--fs-spacing-3);
       align-items: center;
 
       > p {
-        font-weight: var(--fs-sku-matrix-sidebar-text-weight-semibold);
+        font-weight: var(--fs-text-weight-semibold);
         color: var(--fs-color-neutral-5);
       }
     }
