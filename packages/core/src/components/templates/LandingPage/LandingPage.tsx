@@ -12,6 +12,7 @@ import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sectio
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import type { PageContentType } from 'src/server/cms'
@@ -29,6 +30,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   Newsletter,
   ProductShelf,
   ProductTiles,
+  ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 
