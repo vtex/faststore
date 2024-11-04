@@ -7,7 +7,7 @@ export function useSKUMatrix() {
 
   if (!context) {
     throw new Error(
-      'Do not use SKUMatrix components outside the SKUMatrix context'
+      'Do not use SKUMatrix components outside the SKUMatrix context.'
     )
   }
 
