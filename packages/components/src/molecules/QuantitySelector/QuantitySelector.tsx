@@ -142,7 +142,9 @@ const QuantitySelector = ({
         onBlur={validateBlur}
         onInput={(event: React.FormEvent<HTMLInputElement>) => {
           const input = event.currentTarget
-          input.value = input.value.replace(/\D/g, '')
+          input.value = isNaN(Number(input.value))
+            ? ''
+            : input.value.replace(/\D/g, '')
         }}
         disabled={disabled}
       />
