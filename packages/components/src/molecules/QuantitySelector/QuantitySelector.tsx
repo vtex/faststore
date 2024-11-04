@@ -140,12 +140,11 @@ const QuantitySelector = ({
         value={useUnitMultiplier ? multipliedUnit : quantity}
         onChange={changeInputValue}
         onBlur={validateBlur}
-        onInput={(event: React.FormEvent<HTMLInputElement>) => {
-          const input = event.currentTarget
-          input.value = isNaN(Number(input.value))
-            ? ''
-            : input.value.replace(/\D/g, '')
-        }}
+        type="number"
+        // onInput={(event: React.FormEvent<HTMLInputElement>) => {
+        //   const input = event.currentTarget
+        //   input.value = input.value.replace(/\D/g, '')
+        // }}
         disabled={disabled}
       />
       <IconButton
