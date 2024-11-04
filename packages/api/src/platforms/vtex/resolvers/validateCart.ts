@@ -373,7 +373,7 @@ export const validateCart = async (
       joinItems
     )
     if (orderNumber) {
-      return orderFormToCart(newOrderForm, skuLoader, order.shouldSplitItem)
+      return orderFormToCart(newOrderForm, skuLoader, shouldSplitItem)
     }
   }
 
@@ -462,5 +462,5 @@ export const validateCart = async (
   }
 
   // Step6: There were changes, convert orderForm to StoreCart
-  return orderFormToCart(updatedOrderForm, skuLoader, order.shouldSplitItem)
+  return orderFormToCart(updatedOrderForm, skuLoader, shouldSplitItem)
 }
