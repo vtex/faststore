@@ -29,6 +29,7 @@ import { OverviewSection } from 'site/components/OverviewSection'
 import path from 'path'
 import { useSSG } from 'nextra/ssg'
 import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
+import { useState } from 'react'
 
 export const getStaticProps = () => {
   const dropdownPath = path.resolve(__filename)
@@ -88,10 +89,8 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
   <Tab>
     <OverviewSection>
       <Dropdown>
-        <DropdownButton icon={<Icon name="CaretDown" />}>
-          {'Dropdown'}
-        </DropdownButton>
-        <DropdownMenu>
+        <DropdownButton icon={<Icon name="CaretDown" />}>Dropdown</DropdownButton>
+        <DropdownMenu size="regular" align="left">
           <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             {'Dropdown Item 1'}
           </DropdownItem>
@@ -107,7 +106,7 @@ Displays a set of actions/items to the user, usually used to show a menu of opti
         <DropdownButton icon={<Icon name="CaretDown" />}>
           {'Dropdown Small'}
         </DropdownButton>
-        <DropdownMenu size="small">
+        <DropdownMenu size="small"  align="center">
           <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             {'Dropdown Item 1'}
           </DropdownItem>
@@ -186,6 +185,8 @@ Follow the instructions in the [Importing FastStore UI component styles](/docs/c
 
 ## Usage
 
+#### Default
+
 <Tabs items={['Example', 'Code']} defaultIndex="0">
   <Tab>
     <OverviewSection>
@@ -223,6 +224,101 @@ Follow the instructions in the [Importing FastStore UI component styles](/docs/c
           </DropdownItem>
           <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             Dropdown Item 3
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </OverviewSection>
+    ```
+  </Tab>
+</Tabs>
+
+#### Controlled
+
+export const ControlledDropdown = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <Dropdown isOpen={isOpen} onDismiss={() => {setIsOpen(false)}}>
+      <DropdownButton onClick={()=> setIsOpen(true)}>Controlled Dropdown</DropdownButton>
+      <DropdownMenu>
+        <DropdownItem>A - Dropdown item</DropdownItem>
+        <DropdownItem>B - Dropdown item</DropdownItem>
+        <DropdownItem>C - Dropdown item</DropdownItem>
+        <DropdownItem>D - Dropdown item</DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+  )
+}
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <ControlledDropdown/>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <OverviewSection>
+      const [isOpen, setIsOpen] = useState(false)
+      return (
+        <Dropdown isOpen={isOpen} onDismiss={() => {setIsOpen(false)}}>
+          <DropdownButton>Controlled Dropdown</DropdownButton>
+          <DropdownMenu>
+            <DropdownItem>A - Dropdown item</DropdownItem>
+            <DropdownItem>B - Dropdown item</DropdownItem>
+            <DropdownItem>C - Dropdown item</DropdownItem>
+            <DropdownItem>D - Dropdown item</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+    </OverviewSection>
+    ```
+  </Tab>
+</Tabs>
+
+#### As Child
+
+<Tabs items={['Example', 'Code']} defaultIndex="0">
+  <Tab>
+    <OverviewSection>
+      <Dropdown>
+        <DropdownButton asChild>
+          <button>{'Dropdown with trigger as child'}</button>
+        </DropdownButton>
+        <DropdownMenu style={{ backgroundColor: "white"}}>
+          <DropdownItem  asChild>
+            <button>A - Dropdown item as child</button>
+          </DropdownItem>
+          <DropdownItem  asChild>
+            <button>B - Dropdown item as child</button>
+          </DropdownItem>
+          <DropdownItem  asChild>
+            <button>C - Dropdown item as child</button>
+          </DropdownItem>
+          <DropdownItem  asChild>
+            <button>D - Dropdown item as child</button>
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </OverviewSection>
+  </Tab>
+  <Tab>
+    ```tsx
+    <OverviewSection>
+      <Dropdown>
+        <DropdownButton asChild>
+          <button>{'Dropdown with trigger as child'}</button>
+        </DropdownButton>
+        <DropdownMenu style={{ backgroundColor: "white"}}>
+          <DropdownItem  asChild>
+            <button>A - Dropdown item as child</button>
+          </DropdownItem>
+          <DropdownItem  asChild>
+            <button>B - Dropdown item as child</button>
+          </DropdownItem>
+          <DropdownItem  asChild>
+            <button>C - Dropdown item as child</button>
+          </DropdownItem>
+          <DropdownItem  asChild>
+            <button>D - Dropdown item as child</button>
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>

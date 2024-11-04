@@ -20,38 +20,47 @@ export interface DropdownProps {
 
 const Dropdown = ({
   children,
-  isOpen: isOpenDefault = false,
+  isOpen: isOpenControlled,
   onDismiss,
   id = 'fs-dropdown',
 }: PropsWithChildren<DropdownProps>) => {
-  const [isOpen, setIsOpen] = useState(isOpenDefault)
-  const dropdownItemsRef = useRef<HTMLButtonElement[]>([])
+  const [isOpenInternal, setIsOpenInternal] = useState(false)
+  const dropdownItemsRef = useRef<HTMLElement[]>([])
   const selectedDropdownItemIndexRef = useRef(0)
-  const dropdownButtonRef = useRef<HTMLButtonElement>(null)
+  const dropdownTriggerRef = useRef<HTMLElement | null>(null)
+
+  const isOpen = isOpenControlled ?? isOpenInternal
 
   const close = useCallback(() => {
-    setIsOpen(false)
+    setIsOpenInternal(false)
     onDismiss?.()
   }, [onDismiss])
 
   const open = () => {
-    setIsOpen(true)
+    setIsOpenInternal(true)
   }
 
   const toggle = useCallback(() => {
-    setIsOpen((old) => {
-      if (old) {
+    setIsOpenInternal((currentIsOpen) => {
+      if (currentIsOpen) {
         onDismiss?.()
-        dropdownButtonRef.current?.focus()
+        dropdownTriggerRef.current?.focus()
       }
 
-      return !old
+      return !currentIsOpen
     })
   }, [onDismiss])
 
+  const addDropdownTriggerRef = useCallback(
+    <T extends HTMLElement = HTMLElement>(ref: T) => {
+      dropdownTriggerRef.current = ref
+    },
+    []
+  )
+
   useEffect(() => {
-    setIsOpen(isOpenDefault)
-  }, [isOpenDefault])
+    setIsOpenInternal(isOpenControlled ?? false)
+  }, [isOpenControlled])
 
   useEffect(() => {
     isOpen && dropdownItemsRef?.current[0]?.focus()
@@ -61,8 +70,8 @@ const Dropdown = ({
     let firstClick = true
 
     const event = (e: MouseEvent) => {
-      const someItemWasClicked = dropdownItemsRef?.current.some(
-        (item) => e.target === item
+      const wasSomeItemClicked = dropdownItemsRef?.current.some(
+        (item) => e.target === item || item.contains(e.target as Node)
       )
 
       if (firstClick) {
@@ -71,7 +80,7 @@ const Dropdown = ({
         return
       }
 
-      !someItemWasClicked && close()
+      !wasSomeItemClicked && close()
     }
 
     if (isOpen) {
@@ -91,13 +100,13 @@ const Dropdown = ({
       close,
       open,
       toggle,
-      dropdownButtonRef,
-      onDismiss,
+      dropdownTriggerRef,
+      addDropdownTriggerRef,
       selectedDropdownItemIndexRef,
       dropdownItemsRef,
       id,
     }
-  }, [close, id, isOpen, onDismiss, toggle])
+  }, [isOpen, close, toggle, addDropdownTriggerRef, id])
 
   return (
     <DropdownContext.Provider value={value}>
