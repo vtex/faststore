@@ -1,18 +1,41 @@
 import {
+  IconButton as UIIconButton,
   Navbar as UINavbar,
+  NavbarButtons as UINavbarButtons,
+  NavbarHeader as UINavbarHeader,
   NavbarLinks as UINavbarLinks,
   NavbarLinksList as UINavbarLinksList,
-  NavbarSlider as UINavbarSlider,
-  NavbarSliderHeader as UINavbarSliderHeader,
-  NavbarSliderContent as UINavbarSliderContent,
-  NavbarSliderFooter as UINavbarSliderFooter,
-  NavbarHeader as UINavbarHeader,
   NavbarRow as UINavbarRow,
-  NavbarButtons as UINavbarButtons,
-  IconButton as UIIconButton,
 } from '@faststore/ui'
 
-import { ButtonSignIn } from 'src/components/ui/Button'
+import dynamic from 'next/dynamic'
+
+const ButtonSignIn = dynamic(() =>
+  import(
+    /* webpackChunkName: "ButtonSignIn" */ 'src/components/ui/Button'
+  ).then((module) => module.ButtonSignIn)
+)
+
+const UINavbarSlider = dynamic(() =>
+  import(/* webpackChunkName: "UINavbarSlider" */ '@faststore/ui').then(
+    (module) => module.NavbarSlider
+  )
+)
+const UINavbarSliderHeader = dynamic(() =>
+  import(/* webpackChunkName: "UINavbarSliderHeader" */ '@faststore/ui').then(
+    (module) => module.NavbarSliderHeader
+  )
+)
+const UINavbarSliderContent = dynamic(() =>
+  import(/* webpackChunkName: "UINavbarSliderContent" */ '@faststore/ui').then(
+    (module) => module.NavbarSliderContent
+  )
+)
+const UINavbarSliderFooter = dynamic(() =>
+  import(/* webpackChunkName: "UINavbarSliderFooter" */ '@faststore/ui').then(
+    (module) => module.NavbarSliderFooter
+  )
+)
 
 export const NavbarDefaultComponents = {
   Navbar: UINavbar,
