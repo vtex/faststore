@@ -31,6 +31,7 @@ const nextConfig = {
      * of the monorepo
      * */
     outputFileTracingRoot: path.join(__dirname, '../'),
+    serverComponentsExternalPackages: ['pino'],
   },
   webpack: (config, { isServer, dev }) => {
     // https://github.com/vercel/next.js/discussions/11267#discussioncomment-2479112
