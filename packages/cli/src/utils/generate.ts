@@ -549,6 +549,7 @@ export async function addPluginsOverrides(basePath: string) {
       )
     )
     .map((plugin) => {
+      // NOTE: This is a very naive way to convert a plugin name into a reference and should be improved in the future
       const pluginReference =
         plugin
           .split('@faststore/')[1]
