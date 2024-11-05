@@ -536,26 +536,32 @@ export default function Page(props) {
 }
 
 export async function addPluginsOverrides(basePath: string) {
-  const { tmpStoreConfigFile, tmpDir } = withBasePath(basePath)
+  const { userDir, tmpStoreConfigFile, tmpDir } = withBasePath(basePath)
 
   const { plugins } = (await import(tmpStoreConfigFile)) as {
     plugins: string[]
   }
 
-  const indexPluginsOverrides = plugins.map((plugin) => {
-    const pluginReference =
-      plugin
-        .split('@faststore/')[1]
-        .toLowerCase()
-        .split('-')
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join('') + 'Components'
+  const indexPluginsOverrides = plugins
+    .filter((plugin) =>
+      existsSync(
+        path.join(userDir, 'node_modules', `${plugin}/dist/components/index.js`)
+      )
+    )
+    .map((plugin) => {
+      const pluginReference =
+        plugin
+          .split('@faststore/')[1]
+          .toLowerCase()
+          .split('-')
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join('') + 'Components'
 
-    return {
-      import: `import { default as ${pluginReference} } from '${plugin}/dist/components'`,
-      pluginReference,
-    }
-  })
+      return {
+        import: `import { default as ${pluginReference} } from '${plugin}/dist/components'`,
+        pluginReference,
+      }
+    })
 
   const pluginsImportFileContent = `
   ${indexPluginsOverrides.map((plugin) => plugin.import).join('\n')}
