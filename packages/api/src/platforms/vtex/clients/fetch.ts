@@ -11,8 +11,8 @@ export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
   if (IS_PRODUCTION && customInfo.includes('vtexcommercestable')) {
     const url = new URL(customInfo)
     url.protocol = 'http'
-    url.hostname = `${packageJson.name}.vtexinternal.com`
     url.searchParams.append('an', url.hostname.split('.')[0])
+    url.hostname = `vtexioapi.vtexinternal.com`
     customInfo = url.toString()
   }
 
