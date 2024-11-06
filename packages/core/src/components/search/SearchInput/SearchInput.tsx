@@ -50,6 +50,7 @@ export type SearchInputProps = {
   buttonTestId?: string
   containerStyle?: CSSProperties
   placeholder?: string
+  quickOrder?: boolean
   sort?: string
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
@@ -74,6 +75,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       containerStyle,
       sort,
       placeholder,
+      quickOrder = false,
       ...otherProps
     },
     ref
@@ -163,7 +165,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
             {searchDropdownVisible && (
               <Suspense fallback={null}>
-                <SearchDropdown sort={sort as SearchState['sort']} />
+                <SearchDropdown 
+                  sort={sort as SearchState['sort']} 
+                  quickOrder={quickOrder}
+                />
               </Suspense>
             )}
           </UISearchInput>

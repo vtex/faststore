@@ -23,6 +23,7 @@ export interface NavbarProps {
   searchInput: {
     placeholder?: string
     sort: string
+    quickOrder?: boolean
   }
   signInButton: {
     icon: {

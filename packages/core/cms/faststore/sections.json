@@ -221,6 +221,12 @@
                 "discount_desc",
                 "score_desc"
               ]
+            },
+            "quickOrder": {
+              "title": "Enable Quick Order?",
+              "description": "Allows adding products directly to the cart through search terms, streamlining the purchase.",
+              "type": "boolean",
+              "default": false
             }
           }
         },
