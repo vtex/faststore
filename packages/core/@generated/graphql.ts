@@ -1131,7 +1131,11 @@ export type ProductSummary_ProductFragment = {
   gtin: string
   id: string
   brand: { name: string; brandName: string }
-  isVariantOf: { productGroupID: string; name: string }
+  isVariantOf: {
+    productGroupID: string
+    name: string
+    skuVariants: { allVariantsByName: any | null } | null
+  }
   image: Array<{ url: string; alternateName: string }>
   offers: {
     lowPrice: number
@@ -1442,7 +1446,11 @@ export type ClientManyProductsQueryQuery = {
           gtin: string
           id: string
           brand: { name: string; brandName: string }
-          isVariantOf: { productGroupID: string; name: string }
+          isVariantOf: {
+            productGroupID: string
+            name: string
+            skuVariants: { allVariantsByName: any | null } | null
+          }
           image: Array<{ url: string; alternateName: string }>
           offers: {
             lowPrice: number
@@ -1570,7 +1578,11 @@ export type ClientSearchSuggestionsQueryQuery = {
         gtin: string
         id: string
         brand: { name: string; brandName: string }
-        isVariantOf: { productGroupID: string; name: string }
+        isVariantOf: {
+          productGroupID: string
+          name: string
+          skuVariants: { allVariantsByName: any | null } | null
+        }
         image: Array<{ url: string; alternateName: string }>
         offers: {
           lowPrice: number
@@ -1694,6 +1706,9 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
   isVariantOf {
     productGroupID
     name
+    skuVariants {
+      allVariantsByName
+    }
   }
   image {
     url
@@ -2087,7 +2102,7 @@ export const SubscribeToNewsletterDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: 'ad2eb78cfccb9dbd5a9f2d1e150cc70fea5da99a',
+    operationHash: '7f1853b2027533bece55cb7d8c7db30cc9cacb14',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2114,7 +2129,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '4d9f934764d8578aea08673b8ba57e8bf738f534',
+    operationHash: 'c0f40b2f776f9ce267543b7cf1a146a4731199b5',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
