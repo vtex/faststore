@@ -9,6 +9,7 @@ import { Image } from 'src/components/ui/Image'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import { useMemo } from 'react'
 
 type SearchProductItemProps = {
   /**
@@ -19,11 +20,16 @@ type SearchProductItemProps = {
    * Index to generate product link.
    */
   index: number
+  /**
+   * Enable Quick Order.
+   */
+  quickOrder?: boolean
 }
 
 function SearchProductItem({
   product,
   index,
+  quickOrder,
   ...otherProps
 }: SearchProductItemProps) {
   const {
@@ -37,11 +43,12 @@ function SearchProductItem({
   })
 
   const {
+    id,
     isVariantOf: { name },
     image: [img],
     offers: {
       lowPrice: spotPrice,
-      offers: [{ listPrice }],
+      offers: [{ listPrice, availability }],
     },
   } = product
 
@@ -54,6 +61,20 @@ function SearchProductItem({
     ...baseLinkProps,
   }
 
+  const outOfStock = useMemo(
+    () => availability === 'https://schema.org/OutOfStock',
+    [availability]
+  )
+
+  const hasVariants = useMemo(
+    () =>
+      Boolean(
+        Object.keys(product.isVariantOf.skuVariants.allVariantsByName).length
+      ),
+
+    [product]
+  )
+
   return (
     <UISearchProductItem linkProps={linkProps} {...otherProps}>
       <UISearchProductItemImage>
@@ -65,6 +86,13 @@ function SearchProductItem({
           value: spotPrice,
           listPrice: listPrice,
           formatter: useFormattedPrice,
+        }}
+        quickOrder={{
+          enabled: quickOrder,
+          availability: !outOfStock,
+          hasVariants,
+          // FIXME: Use SKU Matrix component
+          skuMatrixControl: <button>Select multiple</button>,
         }}
       ></UISearchProductItemContent>
     </UISearchProductItem>

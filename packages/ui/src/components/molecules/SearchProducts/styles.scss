@@ -89,6 +89,10 @@
     padding-right: var(--fs-search-products-padding-right);
   }
 
+	[data-fs-search-product-item-content] {
+		flex-grow: 1;
+	}
+
   [data-fs-search-product-item-image] {
     display: flex;
     width: var(--fs-search-product-item-image-size);
