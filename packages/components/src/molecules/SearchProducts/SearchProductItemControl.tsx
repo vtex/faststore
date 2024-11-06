@@ -7,6 +7,7 @@ export interface SearchProductItemControlProps
   children: React.ReactNode
   availability: boolean
   hasVariants: boolean
+  skuMatrixControl: React.ReactNode
   onClick?(e: React.MouseEvent<HTMLButtonElement>): void
 }
 
@@ -14,7 +15,7 @@ const SearchProductItemControl = forwardRef<
   HTMLDivElement,
   SearchProductItemControlProps
 >(function SearchProductItemControl(
-  { availability, children, hasVariants, onClick, ...otherProps },
+  { availability, children, hasVariants, skuMatrixControl, onClick,...otherProps },
   ref
 ) {
   const [statusAddToCart, setStatusAddToCart] =
@@ -41,6 +42,9 @@ const SearchProductItemControl = forwardRef<
         return <Icon name="ShoppingCart" width={24} height={24} />
     }
   }, [statusAddToCart])
+
+	const showSKUMatrixControl = availability && hasVariants;
+
   return (
     <div
       ref={ref}
@@ -76,8 +80,7 @@ const SearchProductItemControl = forwardRef<
         </div>
       )}
 
-			{/* TODO: Use SKU Matrix */}
-      {availability && hasVariants && <button>Select multiple</button>}
+      {showSKUMatrixControl && skuMatrixControl}
     </div>
   )
 })
