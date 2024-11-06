@@ -38,6 +38,10 @@
 
   // Item Price
   --fs-search-product-item-price-size                     : var(--fs-text-size-base);
+  
+	// Item Control
+  --fs-search-product-item-control-padding-0          : var(--fs-spacing-0);
+  --fs-search-product-item-control-padding-1          : var(--fs-spacing-1);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -114,4 +118,25 @@
       font-size: var(--fs-search-product-item-price-size);
     }
   }
+
+	[data-fs-search-product-item-control] {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	[data-fs-search-product-item-control-badge] {
+		margin-bottom: var(--fs-search-product-item-control-padding-0);
+
+		& + p {
+			color: var(--fs-color-neutral-6);
+			font-weight: var(--fs-text-weight-medium);
+		}
+	}
+	
+	[data-fs-search-product-item-control-actions] {
+		display: flex;
+		margin-left: auto;
+		gap: var(--fs-search-product-item-control-padding-1);
+	}
 }
