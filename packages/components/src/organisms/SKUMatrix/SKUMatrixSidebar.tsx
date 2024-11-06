@@ -1,10 +1,9 @@
 import Image from 'next/image'
-import type { HTMLAttributes } from 'react'
 import React, { useMemo } from 'react'
-import { Badge, Button, OverlayProps, QuantitySelector, Skeleton } from '../..'
+import { Badge, Button, QuantitySelector, Skeleton } from '../..'
 import Price, { PriceFormatter } from '../../atoms/Price'
 import Icon from '../../atoms/Icon'
-import { useFadeEffect, useSKUMatrix, useUI } from '../../hooks'
+import { useSKUMatrix, useUI } from '../../hooks'
 import {
   Table,
   TableBody,
@@ -13,46 +12,31 @@ import {
   TableRow,
 } from '../../molecules/Table'
 import SlideOver, {
-  SlideOverDirection,
   SlideOverHeader,
-  SlideOverWidthSize,
+  SlideOverProps,
 } from '../SlideOver'
 
-export interface SKUMatrixSidebarProps extends HTMLAttributes<HTMLDivElement> {
-  /**
-   * ID to find this component in testing tools (e.g.: cypress,
-   * testing-library, and jest).
-   */
-  testId?: string
+interface VariationProductColumn {
+  name: string
+  additionalColumns: Array<{ label: string; value: string }>
+  availability: {
+    label: string
+    stockDisplaySettings: 'showStockQuantity' | 'showAvailability'
+  }
+  price: number
+  quantitySelector: number
+}
+
+
+export interface SKUMatrixSidebarProps extends SlideOverProps {
   /**
    * Title for the SKUMatrixSidebar component.
    */
   title?: string
   /**
-   * Represents the side that the SKUMatrixSidebar comes from.
+   * Represents the variations products to building the table.
    */
-  direction?: SlideOverDirection
-  /**
-   * Represents the size of the SKUMatrixSidebar.
-   */
-  size?: SlideOverWidthSize
-  /**
-   * Props forwarded to the `Overlay` component.
-   */
-  overlayProps?: OverlayProps
-  /**
-   * Columns.
-   */
-  columns: {
-    name: string
-    additionalColumns: Array<{ label: string; value: string }>
-    availability: {
-      label: string
-      stockDisplaySettings: 'showStockQuantity' | 'showAvailability'
-    }
-    price: number
-    quantitySelector: number
-  }
+  columns: VariationProductColumn
 
   /**
    * Properties related to the 'add to cart' button
@@ -86,9 +70,7 @@ function SKUMatrixSidebar({
   formatter,
   ...otherProps
 }: SKUMatrixSidebarProps) {
-  const { fade } = useFadeEffect()
   const {
-    isOpen,
     setIsOpen,
     setAllVariantProducts,
     allVariantProducts,
@@ -132,8 +114,6 @@ function SKUMatrixSidebar({
   return (
     <SlideOver
       data-fs-sku-matrix-sidebar
-      isOpen={isOpen}
-      fade={fade}
       size={size}
       direction={direction}
       overlayProps={overlayProps}
