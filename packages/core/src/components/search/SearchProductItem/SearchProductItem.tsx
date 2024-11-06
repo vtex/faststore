@@ -9,7 +9,8 @@ import { Image } from 'src/components/ui/Image'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
+import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 
 type SearchProductItemProps = {
   /**
@@ -42,14 +43,31 @@ function SearchProductItem({
     index,
   })
 
+  const [quantity, setQuantity] = useState<number>(1)
+
   const {
     id,
-    isVariantOf: { name },
+    sku,
+    gtin,
+    name,
+    brand,
+    isVariantOf,
+    unitMultiplier,
     image: [img],
     offers: {
       lowPrice: spotPrice,
-      offers: [{ listPrice, availability }],
+      offers: [
+        {
+          listPrice,
+          availability,
+          price,
+          listPriceWithTaxes,
+          seller,
+          priceWithTaxes,
+        },
+      ],
     },
+    additionalProperty,
   } = product
 
   const linkProps = {
@@ -75,6 +93,29 @@ function SearchProductItem({
     [product]
   )
 
+  const buyProps = useBuyButton(
+    {
+      id,
+      price,
+      priceWithTaxes,
+      listPrice,
+      listPriceWithTaxes,
+      seller,
+      quantity,
+      itemOffered: {
+        sku,
+        name,
+        gtin,
+        image: [img],
+        brand,
+        isVariantOf,
+        additionalProperty,
+        unitMultiplier,
+      },
+    },
+    false
+  )
+
   return (
     <UISearchProductItem linkProps={linkProps} {...otherProps}>
       <UISearchProductItemImage>
@@ -91,6 +132,9 @@ function SearchProductItem({
           enabled: quickOrder,
           availability: !outOfStock,
           hasVariants,
+          buyProps,
+          quantity,
+          onChangeQuantity: setQuantity,
           // FIXME: Use SKU Matrix component
           skuMatrixControl: <button>Select multiple</button>,
         }}
