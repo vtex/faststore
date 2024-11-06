@@ -16,10 +16,15 @@ import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 
 interface SearchDropdownProps {
   sort: SearchState['sort']
+  quickOrder?: boolean
   [key: string]: any
 }
 
-function SearchDropdown({ sort, ...otherProps }: SearchDropdownProps) {
+function SearchDropdown({
+  sort,
+  quickOrder,
+  ...otherProps
+}: SearchDropdownProps) {
   const {
     values: { onSearchSelection, products, term, terms },
   } = useSearch()
@@ -59,6 +64,7 @@ function SearchDropdown({ sort, ...otherProps }: SearchDropdownProps) {
               key={productParsed.id}
               product={productParsed}
               index={index}
+              quickOrder={quickOrder}
             />
           )
         })}
