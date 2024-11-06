@@ -19,11 +19,16 @@ type SearchProductItemProps = {
    * Index to generate product link.
    */
   index: number
+  /**
+   * Enable Quick Order.
+   */
+  quickOrder?: boolean
 }
 
 function SearchProductItem({
   product,
   index,
+  quickOrder,
   ...otherProps
 }: SearchProductItemProps) {
   const {

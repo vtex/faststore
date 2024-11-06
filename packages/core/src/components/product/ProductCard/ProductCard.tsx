@@ -163,10 +163,17 @@ export const fragment = gql(`
     }
     name
     gtin
+		unitMultiplier
 
     isVariantOf {
       productGroupID
       name
+			skuVariants {
+				allVariantsByName
+				activeVariations
+				slugsMap
+				availableVariations
+			}
     }
 
     image {
@@ -186,6 +193,7 @@ export const fragment = gql(`
         price
         listPrice
         listPriceWithTaxes
+				priceWithTaxes
         quantity
         seller {
           identifier
