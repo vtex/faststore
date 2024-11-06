@@ -45,9 +45,9 @@ const SearchProductItemControl = forwardRef<
       }, 1000)
 
       setTimeout(() => {
-	setStatusAddToCart('default')
-	onChangeQuantity(1)
-      }, 2000)
+				setStatusAddToCart('default')
+				onChangeQuantity(1)
+			}, 2000)
     }
   }
   const getIcon = React.useCallback(() => {
@@ -89,7 +89,7 @@ const SearchProductItemControl = forwardRef<
         >
           <QuantitySelector
             disabled={statusAddToCart !== 'default'}
-	    initial={quantity}
+						initial={quantity}
             onChange={onChangeQuantity}
           />
           <IconButton
