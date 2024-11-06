@@ -26,6 +26,9 @@ export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
     requestInfo = url
   }
 
+  console.log('requestInfo', requestInfo);
+  console.log('headers', headers);
+
   const response = await fetch(requestInfo, { ...init, headers })
 
   if (response.ok) {
