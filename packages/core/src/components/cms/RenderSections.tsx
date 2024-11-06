@@ -7,6 +7,7 @@ import {
 } from 'react'
 
 import { Section } from '@vtex/client-cms'
+import dynamic from 'next/dynamic'
 import SectionBoundary from './SectionBoundary'
 import ViewportObserver from './ViewportObserver'
 
@@ -18,6 +19,11 @@ interface Props {
 }
 
 const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
+
+const Toast = dynamic(
+  () => import(/* webpackChunkName: "Toast" */ '../common/Toast'),
+  { ssr: false }
+)
 
 const useDividedSections = (sections: Section[]) => {
   return useMemo(() => {
@@ -102,6 +108,7 @@ function RenderSections({
     <>
       <RenderSectionsBase sections={firstSections} {...otherProps} />
 
+      <Toast />
       {children}
 
       {hasChildren && (
