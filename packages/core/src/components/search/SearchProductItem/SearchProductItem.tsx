@@ -21,7 +21,7 @@ type SearchProductItemProps = {
    */
   index: number
   /**
-   * Quick order.
+   * Enable Quick Order.
    */
   quickOrder?: boolean
 }
@@ -87,7 +87,7 @@ function SearchProductItem({
           formatter: useFormattedPrice,
         }}
         quickOrder={{
-          enabled: true,
+          enabled: quickOrder,
           availability: !outOfStock,
           hasVariants,
           // FIXME: Use SKU Matrix component
