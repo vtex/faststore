@@ -97,7 +97,7 @@ function Navbar({
   } = useOverrideComponents<'Navbar'>()
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
-  const { isMobile } = useScreenResize()
+  const { isDesktop } = useScreenResize()
 
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -139,12 +139,10 @@ function Navbar({
             </>
           )}
 
-          {!isMobile && (
-            <SearchInput
-              placeholder={searchInput?.placeholder}
-              sort={searchInput?.sort}
-            />
-          )}
+          <SearchInput
+            placeholder={searchInput?.placeholder}
+            sort={searchInput?.sort}
+          />
 
           <NavbarButtons.Component
             searchExpanded={searchExpanded}
@@ -162,27 +160,25 @@ function Navbar({
               />
             )}
 
-            {isMobile && (
-              <SearchInput
-                placeholder=""
-                ref={searchMobileRef}
-                testId="store-input-mobile"
-                buttonTestId="store-input-mobile-button"
-                onSearchClick={handlerExpandSearch}
-                sort={searchInput?.sort}
-                hidden={!searchExpanded}
-                aria-hidden={!searchExpanded}
-              />
-            )}
+            <SearchInput
+              placeholder=""
+              ref={searchMobileRef}
+              testId="store-input-mobile"
+              buttonTestId="store-input-mobile-button"
+              onSearchClick={handlerExpandSearch}
+              sort={searchInput?.sort}
+              hidden={!searchExpanded}
+              aria-hidden={!searchExpanded}
+            />
 
-            {!isMobile && <ButtonSignIn.Component {...signInButton} />}
+            <ButtonSignIn.Component {...signInButton} />
 
             <CartToggle {...cart} />
           </NavbarButtons.Component>
         </NavbarRow.Component>
       </NavbarHeader.Component>
 
-      {!isMobile && <NavbarLinks links={links} region={region} />}
+      {isDesktop && <NavbarLinks links={links} region={region} />}
 
       {displayNavbar && (
         <NavbarSlider
