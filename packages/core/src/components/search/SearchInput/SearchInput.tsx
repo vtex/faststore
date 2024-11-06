@@ -1,15 +1,3 @@
-import type { SearchEvent, SearchState } from '@faststore/sdk'
-
-import type {
-  SearchInputFieldProps as UISearchInputFieldProps,
-  SearchInputFieldRef as UISearchInputFieldRef,
-} from '@faststore/ui'
-import {
-  SearchProviderContextValue,
-  SearchInput as UISearchInput,
-  SearchInputField as UISearchInputField,
-} from '@faststore/ui'
-import { useRouter } from 'next/router'
 import type { CSSProperties } from 'react'
 import {
   Suspense,
@@ -21,12 +9,34 @@ import {
   useState,
 } from 'react'
 
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
+
+import type { SearchEvent, SearchState } from '@faststore/sdk'
+
+import type {
+  SearchInputFieldProps as UISearchInputFieldProps,
+  SearchInputFieldRef as UISearchInputFieldRef,
+  SearchInputProps as UISearchInputProps,
+} from '@faststore/ui'
+import { SearchProviderContextValue } from '@faststore/ui'
+
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
 
 const SearchDropdown = lazy(
+  /* webpackChunkName: "SearchDropdown" */
   () => import('src/components/search/SearchDropdown')
+)
+
+const UISearchInput = dynamic<UISearchInputProps & any>(() =>
+  /* webpackChunkName: "UISearchInput" */
+  import('@faststore/ui').then((module) => module.SearchInput)
+)
+const UISearchInputField = dynamic<UISearchInputFieldProps & any>(() =>
+  /* webpackChunkName: "UISearchInputField" */
+  import('@faststore/ui').then((module) => module.SearchInputField)
 )
 
 const MAX_SUGGESTIONS = 5
