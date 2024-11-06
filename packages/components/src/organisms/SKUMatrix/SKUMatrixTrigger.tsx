@@ -10,14 +10,14 @@ const SKUMatrixTrigger = forwardRef<HTMLButtonElement, SKUMatrixTriggerProps>(
     { children, variant = 'secondary', onClick, ...otherProps },
     ref
   ) {
-    const { setOpen } = useSKUMatrix()
+    const { setIsOpen } = useSKUMatrix()
 
     return (
       <Button
         ref={ref}
         variant={variant}
         onClick={(event) => {
-          setOpen(true)
+          setIsOpen(true)
           onClick?.(event)
         }}
         {...otherProps}

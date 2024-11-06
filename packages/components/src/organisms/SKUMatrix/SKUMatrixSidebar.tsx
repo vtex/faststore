@@ -88,8 +88,8 @@ function SKUMatrixSidebar({
 }: SKUMatrixSidebarProps) {
   const { fade } = useFadeEffect()
   const {
-    open,
-    setOpen,
+    isOpen,
+    setIsOpen,
     setAllVariantProducts,
     allVariantProducts,
     handleChangeQuantityItem,
@@ -118,7 +118,7 @@ function SKUMatrixSidebar({
 
   function onClose() {
     resetQuantityItems()
-    setOpen(false)
+    setIsOpen(false)
   }
 
   function handleAddToCart(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -132,7 +132,7 @@ function SKUMatrixSidebar({
   return (
     <SlideOver
       data-fs-sku-matrix-sidebar
-      isOpen={open}
+      isOpen={isOpen}
       fade={fade}
       size={size}
       direction={direction}
