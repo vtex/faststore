@@ -9,7 +9,11 @@ export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
   let customInfo = info.toString()
 
   if (IS_PRODUCTION && customInfo.includes('vtexcommercestable')) {
-    customInfo = customInfo.replace('vtexcommercestable', 'vtexinternal')
+    const url = new URL(customInfo)
+    url.protocol = 'http'
+    url.hostname = `${packageJson.name}.vtexinternal.com`
+    url.searchParams.append('an', url.hostname.split('.')[0])
+    customInfo = url.toString()
   }
 
   const response = await fetch(customInfo, {
