@@ -438,7 +438,7 @@ function validateAndInstallMissingDependencies(basePath: string) {
 }
 
 // TODO: Read the value from an environment variable
-const ENABLE_REDIRECTS_MIDDLEWARE = true
+const ENABLE_REDIRECTS_MIDDLEWARE = false
 
 // Enable redirects middleware by renaming the file from middleware__DISABLED.ts to middleware.tsß
 function enableRedirectsMiddleware(basePath: string) {
