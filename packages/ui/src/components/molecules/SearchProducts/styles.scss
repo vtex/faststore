@@ -119,24 +119,24 @@
     }
   }
 
-	[data-fs-search-product-item-control] {
-		display: flex;
-		justify-content: space-between;
-		width: 100%;
-	}
+  [data-fs-search-product-item-control] {
+     display: flex;
+     justify-content: space-between;
+     width: 100%;
+ }
 
-	[data-fs-search-product-item-control-badge] {
-		margin-bottom: var(--fs-search-product-item-control-padding-0);
+ [data-fs-search-product-item-control-badge] {
+    margin-bottom: var(--fs-search-product-item-control-padding-0);
 
-		& + p {
-			color: var(--fs-color-neutral-6);
-			font-weight: var(--fs-text-weight-medium);
-		}
-	}
+    & + p {
+      color: var(--fs-color-neutral-6);
+      font-weight: var(--fs-text-weight-medium);
+    }
+ }
 	
-	[data-fs-search-product-item-control-actions] {
-		display: flex;
-		margin-left: auto;
-		gap: var(--fs-search-product-item-control-padding-1);
-	}
+ [data-fs-search-product-item-control-actions] {
+    display: flex;
+    margin-left: auto;
+    gap: var(--fs-search-product-item-control-padding-1);
+  }
 }
