@@ -8,14 +8,25 @@ export interface SearchProductItemControlProps
   availability: boolean
   hasVariants: boolean
   skuMatrixControl: React.ReactNode
+  quantity: number
   onClick?(e: React.MouseEvent<HTMLButtonElement>): void
+  onChangeQuantity(value: number): void
 }
 
 const SearchProductItemControl = forwardRef<
   HTMLDivElement,
   SearchProductItemControlProps
 >(function SearchProductItemControl(
-  { availability, children, hasVariants, skuMatrixControl, onClick,...otherProps },
+  {
+    availability,
+    children,
+    hasVariants,
+    skuMatrixControl,
+		quantity,
+    onClick,
+    onChangeQuantity,
+    ...otherProps
+  },
   ref
 ) {
   const [statusAddToCart, setStatusAddToCart] =
@@ -25,11 +36,18 @@ const SearchProductItemControl = forwardRef<
     e.stopPropagation()
   }
   function handleAddToCart(event: React.MouseEvent<HTMLButtonElement>) {
-		if (onClick) {
-			setStatusAddToCart('inProgress')
-			onClick(event)
-			setTimeout(() => setStatusAddToCart('completed'), 1000)
-			setTimeout(() => setStatusAddToCart('default'), 2000)
+    if (onClick) {
+      setStatusAddToCart('inProgress')
+
+      setTimeout(() => {
+        setStatusAddToCart('completed')
+        onClick(event)
+      }, 1000)
+
+      setTimeout(() => {
+				setStatusAddToCart('default')
+				onChangeQuantity(1)
+			}, 2000)
     }
   }
   const getIcon = React.useCallback(() => {
@@ -69,7 +87,11 @@ const SearchProductItemControl = forwardRef<
           role="group"
           onClick={stopPropagationClick}
         >
-          <QuantitySelector disabled={statusAddToCart !== 'default'} />
+          <QuantitySelector
+            disabled={statusAddToCart !== 'default'}
+						initial={quantity}
+            onChange={onChangeQuantity}
+          />
           <IconButton
             variant="primary"
             aria-label="Add product to cart"
