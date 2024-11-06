@@ -25,11 +25,11 @@ const SearchProductItemControl = forwardRef<
     e.stopPropagation()
   }
   function handleAddToCart(event: React.MouseEvent<HTMLButtonElement>) {
-    if (onClick) {
-      setStatusAddToCart('inProgress')
-      onClick(event)
-      setTimeout(() => setStatusAddToCart('completed'), 200)
-      setTimeout(() => setStatusAddToCart('default'), 400)
+		if (onClick) {
+			setStatusAddToCart('inProgress')
+			onClick(event)
+			setTimeout(() => setStatusAddToCart('completed'), 1000)
+			setTimeout(() => setStatusAddToCart('default'), 2000)
     }
   }
   const getIcon = React.useCallback(() => {
