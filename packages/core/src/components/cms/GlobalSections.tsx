@@ -5,7 +5,6 @@ import { PropsWithChildren } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { PageContentType, getPage } from 'src/server/cms'
 
-import Toast from 'src/components/common/Toast'
 import RenderSections from './RenderSections'
 
 import { OverriddenDefaultAlert as Alert } from 'src/components/sections/Alert/OverriddenDefaultAlert'
@@ -39,8 +38,6 @@ function GlobalSections({
 }: PropsWithChildren<GlobalSectionsData>) {
   return (
     <RenderSections components={COMPONENTS} {...otherProps}>
-      <Toast />
-
       <main>{children}</main>
     </RenderSections>
   )
