@@ -6,7 +6,7 @@ const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 
 const getProductionRequestInfo = (info: string) => {
   const url = new URL(info)
-  url.protocol = 'https'
+  url.protocol = 'http'
   const account = url.hostname.split('.')[0]
   url.searchParams.append('an', account)
   url.hostname = `vtexioapi.vtexinternal.com`
