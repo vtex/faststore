@@ -19,7 +19,8 @@ export interface SearchProductItemContentProps {
   quickOrder?: {
     enabled: boolean
     availability: boolean
-		hasVariants: boolean;
+    hasVariants: boolean
+    skuMatrixControl: React.ReactNode
     //FIXME - Remove optional prop
     buyProps?: {
       onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
@@ -61,6 +62,7 @@ const SearchProductItemContent = forwardRef<
         <SearchProductItemControl
           availability={quickOrder.availability}
           hasVariants={quickOrder.hasVariants}
+          skuMatrixControl={quickOrder.skuMatrixControl}
           {...quickOrder.buyProps}
         >
           {renderProductItemContent()}

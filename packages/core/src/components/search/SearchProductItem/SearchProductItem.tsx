@@ -90,6 +90,8 @@ function SearchProductItem({
           enabled: true,
           availability: !outOfStock,
           hasVariants,
+          // FIXME: Use SKU Matrix component
+          skuMatrixControl: <button>Select multiple</button>,
         }}
       ></UISearchProductItemContent>
     </UISearchProductItem>
