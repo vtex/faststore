@@ -2,27 +2,31 @@ import fetch from 'isomorphic-unfetch'
 import packageJson from '../../../../package.json'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
-
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 
-export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
-  let customInfo = info.toString()
+const getProductionRequestInfo = (info: string) => {
+  const url = new URL(info)
+  url.protocol = 'https'
+  const account = url.hostname.split('.')[0]
+  url.searchParams.append('an', account)
+  url.hostname = `vtexioapi.vtexinternal.com`
+  return { url: url.toString(), host: `${account}.vtexcommercestable.com.br` }
+}
 
-  if (IS_PRODUCTION && customInfo.includes('vtexcommercestable')) {
-    const url = new URL(customInfo)
-    url.protocol = 'http'
-    url.searchParams.append('an', url.hostname.split('.')[0])
-    url.hostname = `vtexioapi.vtexinternal.com`
-    customInfo = url.toString()
+export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
+  let requestInfo = info.toString()
+  let headers: HeadersInit = {
+    ...init?.headers,
+    'User-Agent': USER_AGENT,
   }
 
-  const response = await fetch(customInfo, {
-    ...init,
-    headers: {
-      ...init?.headers,
-      'User-Agent': USER_AGENT,
-    },
-  })
+  if (IS_PRODUCTION && requestInfo.includes('vtexcommercestable')) {
+    const { url, host } = getProductionRequestInfo(requestInfo)
+    headers = { ...headers, Host: host }
+    requestInfo = url
+  }
+
+  const response = await fetch(requestInfo, { ...init, headers })
 
   if (response.ok) {
     return response.status !== 204 ? response.json() : undefined
