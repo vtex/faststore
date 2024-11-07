@@ -10,7 +10,10 @@ const getProductionRequestInfo = (info: string) => {
   const account = url.hostname.split('.')[0]
   url.searchParams.append('an', account)
   url.hostname = `vtexioapi.vtexinternal.com`
-  return { url: url.toString(), host: `${account}.vtexcommercestable.com.br` }
+  return {
+    url: url.toString(),
+    host: `secure.${account}.vtexcommercestable.com.br`,
+  }
 }
 
 export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
@@ -20,20 +23,27 @@ export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
     'User-Agent': USER_AGENT,
   }
 
-  if (IS_PRODUCTION && requestInfo.includes('vtexcommercestable')) {
-    const { url, host } = getProductionRequestInfo(requestInfo)
-    headers = { ...headers, Host: host }
-    requestInfo = url
+  try {
+    if (IS_PRODUCTION && requestInfo.includes('vtexcommercestable')) {
+      const { url, host } = getProductionRequestInfo(requestInfo)
+      headers = { ...headers, Host: host }
+      requestInfo = url
+    }
+
+    console.log('~~request headers', headers)
+    console.log('~~request info', requestInfo)
+
+    const response = await fetch(requestInfo, { ...init, headers })
+
+    if (response.ok) {
+      return response.status !== 204 ? response.json() : undefined
+    }
+
+    console.error(info, init, response)
+    const text = await response.text()
+
+    throw new Error(text)
+  } catch (e) {
+    console.log('~~FS error: ', e)
   }
-
-  const response = await fetch(requestInfo, { ...init, headers })
-
-  if (response.ok) {
-    return response.status !== 204 ? response.json() : undefined
-  }
-
-  console.error(info, init, response)
-  const text = await response.text()
-
-  throw new Error(text)
 }
