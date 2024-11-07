@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch'
+import fetch from 'node-fetch'
 import packageJson from '../../../../package.json'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
@@ -23,27 +23,20 @@ export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
     'User-Agent': USER_AGENT,
   }
 
-  try {
-    if (IS_PRODUCTION && requestInfo.includes('vtexcommercestable')) {
-      const { url, host } = getProductionRequestInfo(requestInfo)
-      headers = { ...headers, Host: host }
-      requestInfo = url
-    }
-
-    console.log('~~request info', requestInfo)
-    console.log('~~request init', { ...init, headers })
-
-    const response = await fetch(requestInfo, { ...init, headers })
-
-    if (response.ok) {
-      return response.status !== 204 ? response.json() : undefined
-    }
-
-    console.error(requestInfo, { ...init, headers }, response)
-    const text = await response.text()
-
-    throw new Error(text)
-  } catch (e) {
-    console.log('~~FS error: ', e)
+  if (IS_PRODUCTION && requestInfo.includes('vtexcommercestable')) {
+    const { url, host } = getProductionRequestInfo(requestInfo)
+    headers = { ...headers, Host: host }
+    requestInfo = url
   }
+
+  const response = await fetch(requestInfo, { ...init, headers })
+
+  if (response.ok) {
+    return response.status !== 204 ? response.json() : undefined
+  }
+
+  console.error(requestInfo, { ...init, headers }, response)
+  const text = await response.text()
+
+  throw new Error(text)
 }
