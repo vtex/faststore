@@ -14,7 +14,11 @@ import { useRouter } from 'next/router'
 
 import type { SearchEvent, SearchState } from '@faststore/sdk'
 
-import { Icon, IconButton, SearchInput as UISearchInput } from '@faststore/ui'
+import {
+  Icon as UIIcon,
+  IconButton as UIIconButton,
+  SearchInput as UISearchInput,
+} from '@faststore/ui'
 
 import type {
   SearchInputFieldProps as UISearchInputFieldProps,
@@ -119,10 +123,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     return (
       <>
         {hidden ? (
-          <IconButton
+          <UIIconButton
             type="submit"
             aria-label="Submit Search"
-            icon={<Icon name="MagnifyingGlass" />}
+            icon={<UIIcon name="MagnifyingGlass" />}
             size="small"
             {...buttonProps}
           />
