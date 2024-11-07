@@ -19,7 +19,7 @@ const getProductionRequestInfo = (info: string) => {
 export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
   let requestInfo = info.toString()
   let headers: HeadersInit = {
-    ...init?.headers,
+    ...(init?.headers ?? {}),
     'User-Agent': USER_AGENT,
   }
 
@@ -30,8 +30,8 @@ export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
       requestInfo = url
     }
 
-    console.log('~~request headers', headers)
     console.log('~~request info', requestInfo)
+    console.log('~~request init', { ...init, headers })
 
     const response = await fetch(requestInfo, { ...init, headers })
 
@@ -39,7 +39,7 @@ export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
       return response.status !== 204 ? response.json() : undefined
     }
 
-    console.error(info, init, response)
+    console.error(requestInfo, { ...init, headers }, response)
     const text = await response.text()
 
     throw new Error(text)
