@@ -10,7 +10,7 @@ const getProductionRequestInfo = (info: string) => {
   const account = url.hostname.split('.')[0]
   url.searchParams.append('an', account)
   url.hostname = `vtexioapi.vtexinternal.com`
-  return { url: url.toString(), host: `${account}.myvtex.com` }
+  return { url: url.toString(), host: `${account}.vtexcommercestable.com.br` }
 }
 
 export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
@@ -25,9 +25,6 @@ export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
     headers = { ...headers, Host: host }
     requestInfo = url
   }
-
-  console.log('requestInfo', requestInfo);
-  console.log('headers', headers);
 
   const response = await fetch(requestInfo, { ...init, headers })
 
