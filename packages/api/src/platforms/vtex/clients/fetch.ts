@@ -1,22 +1,44 @@
-import fetch from 'isomorphic-unfetch'
+import fetch, { HeadersInit, RequestInit } from 'node-fetch'
 import packageJson from '../../../../package.json'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
+const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 
-export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
-  const response = await fetch(info, {
-    ...init,
-    headers: {
-      ...init?.headers,
-      'User-Agent': USER_AGENT,
-    },
-  })
+const getProductionRequestInfo = (info: string) => {
+  const url = new URL(info)
+  url.protocol = 'http'
+  const account = url.hostname.split('.')[0]
+  url.searchParams.append('an', account)
+  url.hostname = `vtexioapi.vtexinternal.com`
+  return {
+    url: url.toString(),
+    host: `secure.vivara.com.br`,
+  }
+}
 
-  if (response.ok) {
-    return response.status !== 204 ? response.json() : undefined
+export const fetchAPI = async <T>(
+  info: RequestInfo,
+  init?: RequestInit
+): Promise<T> => {
+  let requestInfo = info.toString()
+  let headers: HeadersInit = {
+    ...(init?.headers ?? {}),
+    'User-Agent': USER_AGENT,
   }
 
-  console.error(info, init, response)
+  if (IS_PRODUCTION && requestInfo.includes('vtexcommercestable')) {
+    const { url, host } = getProductionRequestInfo(requestInfo)
+    headers = { ...headers, Host: host }
+    requestInfo = url
+  }
+
+  const response = await fetch(requestInfo, { ...init, headers })
+
+  if (response.ok) {
+    return (response.status !== 204 ? response.json() : undefined) as Promise<T>
+  }
+
+  console.error(requestInfo, { ...init, headers }, response)
   const text = await response.text()
 
   throw new Error(text)
