@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'
+import fetch, { HeadersInit, RequestInit } from 'node-fetch'
 import packageJson from '../../../../package.json'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
@@ -16,7 +16,10 @@ const getProductionRequestInfo = (info: string) => {
   }
 }
 
-export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
+export const fetchAPI = async <T>(
+  info: RequestInfo,
+  init?: RequestInit
+): Promise<T> => {
   let requestInfo = info.toString()
   let headers: HeadersInit = {
     ...(init?.headers ?? {}),
@@ -32,7 +35,7 @@ export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
   const response = await fetch(requestInfo, { ...init, headers })
 
   if (response.ok) {
-    return response.status !== 204 ? response.json() : undefined
+    return (response.status !== 204 ? response.json() : undefined) as Promise<T>
   }
 
   console.error(requestInfo, { ...init, headers }, response)
