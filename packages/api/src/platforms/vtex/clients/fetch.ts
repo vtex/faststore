@@ -12,7 +12,7 @@ const getProductionRequestInfo = (info: string) => {
   url.hostname = `vtexioapi.vtexinternal.com`
   return {
     url: url.toString(),
-    host: `secure.${account}.vtexcommercestable.com.br`,
+    host: `secure.vivara.vtexcommercestable.com.br`,
   }
 }
 
