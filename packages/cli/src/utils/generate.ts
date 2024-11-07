@@ -467,6 +467,7 @@ function enableRedirectsMiddleware(basePath: string) {
     }
   } catch (error) {
     logger.error(error)
+    throw error
   }
 }
 
