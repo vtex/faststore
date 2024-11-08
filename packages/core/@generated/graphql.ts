@@ -1129,9 +1129,19 @@ export type ProductSummary_ProductFragment = {
   sku: string
   name: string
   gtin: string
+  unitMultiplier: number | null
   id: string
   brand: { name: string; brandName: string }
-  isVariantOf: { productGroupID: string; name: string }
+  isVariantOf: {
+    productGroupID: string
+    name: string
+    skuVariants: {
+      allVariantsByName: any | null
+      activeVariations: any | null
+      slugsMap: any | null
+      availableVariations: any | null
+    } | null
+  }
   image: Array<{ url: string; alternateName: string }>
   offers: {
     lowPrice: number
@@ -1141,6 +1151,7 @@ export type ProductSummary_ProductFragment = {
       price: number
       listPrice: number
       listPriceWithTaxes: number
+      priceWithTaxes: number
       quantity: number
       seller: { identifier: string }
     }>
@@ -1440,9 +1451,19 @@ export type ClientManyProductsQueryQuery = {
           sku: string
           name: string
           gtin: string
+          unitMultiplier: number | null
           id: string
           brand: { name: string; brandName: string }
-          isVariantOf: { productGroupID: string; name: string }
+          isVariantOf: {
+            productGroupID: string
+            name: string
+            skuVariants: {
+              allVariantsByName: any | null
+              activeVariations: any | null
+              slugsMap: any | null
+              availableVariations: any | null
+            } | null
+          }
           image: Array<{ url: string; alternateName: string }>
           offers: {
             lowPrice: number
@@ -1452,6 +1473,7 @@ export type ClientManyProductsQueryQuery = {
               price: number
               listPrice: number
               listPriceWithTaxes: number
+              priceWithTaxes: number
               quantity: number
               seller: { identifier: string }
             }>
@@ -1568,9 +1590,19 @@ export type ClientSearchSuggestionsQueryQuery = {
         sku: string
         name: string
         gtin: string
+        unitMultiplier: number | null
         id: string
         brand: { name: string; brandName: string }
-        isVariantOf: { productGroupID: string; name: string }
+        isVariantOf: {
+          productGroupID: string
+          name: string
+          skuVariants: {
+            allVariantsByName: any | null
+            activeVariations: any | null
+            slugsMap: any | null
+            availableVariations: any | null
+          } | null
+        }
         image: Array<{ url: string; alternateName: string }>
         offers: {
           lowPrice: number
@@ -1580,6 +1612,7 @@ export type ClientSearchSuggestionsQueryQuery = {
             price: number
             listPrice: number
             listPriceWithTaxes: number
+            priceWithTaxes: number
             quantity: number
             seller: { identifier: string }
           }>
@@ -1691,9 +1724,16 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
   }
   name
   gtin
+  unitMultiplier
   isVariantOf {
     productGroupID
     name
+    skuVariants {
+      allVariantsByName
+      activeVariations
+      slugsMap
+      availableVariations
+    }
   }
   image {
     url
@@ -1710,6 +1750,7 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
       price
       listPrice
       listPriceWithTaxes
+      priceWithTaxes
       quantity
       seller {
         identifier
@@ -2087,7 +2128,7 @@ export const SubscribeToNewsletterDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: 'ad2eb78cfccb9dbd5a9f2d1e150cc70fea5da99a',
+    operationHash: 'e7bbfcfafb21aa4bd6da4214051cd8f16aa1327a',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2114,7 +2155,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '4d9f934764d8578aea08673b8ba57e8bf738f534',
+    operationHash: 'b1f6ae39a92bcb3aab858edfecb283b71ff9fb27',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
