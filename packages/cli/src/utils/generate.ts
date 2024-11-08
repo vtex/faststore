@@ -441,7 +441,9 @@ function validateAndInstallMissingDependencies(basePath: string) {
 export async function installPlugins(basePath: string) {
   const { userDir, tmpStoreConfigFile, tmpDir } = withBasePath(basePath)
 
-  const { plugins } = await import(tmpStoreConfigFile)
+  const { plugins } = (await import(tmpStoreConfigFile)) as {
+    plugins: string[]
+  }
 
   if (plugins && plugins.length > 0) {
     const pluginPath = path.join(userDir, 'node_modules', plugins[0])
@@ -533,6 +535,50 @@ export default function Page(props) {
   }
 }
 
+export async function addPluginsOverrides(basePath: string) {
+  const { userDir, tmpStoreConfigFile, tmpDir } = withBasePath(basePath)
+
+  const { plugins } = (await import(tmpStoreConfigFile)) as {
+    plugins: string[]
+  }
+
+  const indexPluginsOverrides = plugins
+    .filter((plugin) =>
+      existsSync(
+        path.join(userDir, 'node_modules', `${plugin}/dist/components/index.js`)
+      )
+    )
+    .map((plugin) => {
+      // NOTE: This is a very naive way to convert a plugin name into a reference and should be improved in the future
+      const pluginReference =
+        plugin
+          .split('@faststore/')[1]
+          .toLowerCase()
+          .split('-')
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join('') + 'Components'
+
+      return {
+        import: `import { default as ${pluginReference} } from '${plugin}/dist/components'`,
+        pluginReference,
+      }
+    })
+
+  const pluginsImportFileContent = `
+  ${indexPluginsOverrides.map((plugin) => plugin.import).join('\n')}
+
+  export default {
+    ${indexPluginsOverrides.map((plugin) => `...${plugin.pluginReference}`).join(',\n')}
+  }
+  `
+
+  const sectionPath = path.join(tmpDir, 'src', 'plugins', 'index.tsx')
+  writeFileSync(sectionPath, pluginsImportFileContent)
+  logger.log('Writing plugins overrides')
+  logger.log(sectionPath)
+  logger.log(pluginsImportFileContent)
+}
+
 export async function generate(options: GenerateOptions) {
   const { basePath, setup = false } = options
 
@@ -559,5 +605,6 @@ export async function generate(options: GenerateOptions) {
     updateNextConfig(basePath),
 
     installPlugins(basePath),
+    addPluginsOverrides(basePath),
   ])
 }

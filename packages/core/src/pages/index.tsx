@@ -11,6 +11,7 @@ import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sectio
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
@@ -30,6 +31,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductTiles,
   BannerText,
   Newsletter,
+  ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 

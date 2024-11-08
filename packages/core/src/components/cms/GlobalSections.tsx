@@ -3,6 +3,7 @@ import storeConfig from 'discovery.config'
 import type { ComponentType } from 'react'
 import { PropsWithChildren } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import { PageContentType, getPage } from 'src/server/cms'
 
 import Toast from 'src/components/common/Toast'
@@ -30,6 +31,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   RegionModal,
   CartSidebar,
   Footer,
+  ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 

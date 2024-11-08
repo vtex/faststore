@@ -126,7 +126,13 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
 
   const { userDir, tmpStoreConfigFile } = withBasePath(basePath)
 
-  const { plugins } = await import(tmpStoreConfigFile)
+  const plugins: string[] = []
+
+  if (existsSync(tmpStoreConfigFile)) {
+    const { plugins: storePlugins } = await import(tmpStoreConfigFile)
+
+    plugins.push(...storePlugins)
+  }
 
   const customizations = []
 
