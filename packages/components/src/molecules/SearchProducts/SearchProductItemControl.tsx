@@ -1,5 +1,5 @@
 import React, { forwardRef, HTMLAttributes } from 'react'
-import { Badge, Icon, IconButton, Loader, QuantitySelector } from '../..'
+import { Badge, Icon, IconButton, Input, Loader, QuantitySelector } from '../..'
 type StatusButtonAddToCartType = 'default' | 'inProgress' | 'completed'
 
 export interface SearchProductItemControlProps
@@ -22,7 +22,7 @@ const SearchProductItemControl = forwardRef<
     children,
     hasVariants,
     skuMatrixControl,
-		quantity,
+    quantity,
     onClick,
     onChangeQuantity,
     ...otherProps
@@ -50,6 +50,7 @@ const SearchProductItemControl = forwardRef<
       }, 2000)
     }
   }
+	
   const getIcon = React.useCallback(() => {
     switch (statusAddToCart) {
       case 'inProgress':
@@ -61,7 +62,8 @@ const SearchProductItemControl = forwardRef<
     }
   }, [statusAddToCart])
 
-  const showSKUMatrixControl = availability && hasVariants;
+	const showSKUMatrixControl = availability && hasVariants;
+	const isMobile = window.innerWidth <= 768
 
   return (
     <div
@@ -87,11 +89,24 @@ const SearchProductItemControl = forwardRef<
           role="group"
           onClick={stopPropagationClick}
         >
-          <QuantitySelector
-            disabled={statusAddToCart !== 'default'}
-	    initial={quantity}
-            onChange={onChangeQuantity}
-          />
+          {!isMobile && (
+            <QuantitySelector
+              disabled={statusAddToCart !== 'default'}
+              initial={quantity}
+              onChange={onChangeQuantity}
+            />
+          )}
+
+          {isMobile && (
+						<Input
+							data-fs-product-item-control-input
+							type="number"
+							min={1}
+							value={quantity}
+							onChange={(e) => onChangeQuantity(e.target.valueAsNumber)}
+						/>
+					)}
+
           <IconButton
             variant="primary"
             aria-label="Add product to cart"
