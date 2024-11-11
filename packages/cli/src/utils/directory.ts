@@ -18,29 +18,41 @@ export const withBasePath = (basepath: string) => {
     return path.resolve(process.cwd(), basepath)
   }
 
-  /* 
+  /*
    * This will loop from the basepath until the process.cwd() looking for node_modules/@faststore/core
-   * 
+   *
    * If it reaches process.cwd() (or /, as a safeguard), without finding it, it will throw an exception
    */
-  const getCorePackagePath = () => {
-    const coreFromNodeModules = path.join('node_modules', '@faststore', 'core')
+  const getPackagePath = (...packagePath: string[]) => {
+    const packageFromNodeModules = path.join('node_modules', ...packagePath)
     const resolvedCwd = path.resolve(process.cwd())
 
     const parents: string[] = []
 
     let attemptedPath
     do {
-      attemptedPath = path.join(resolvedCwd, basepath, ...parents, coreFromNodeModules)
+      attemptedPath = path.join(
+        resolvedCwd,
+        basepath,
+        ...parents,
+        packageFromNodeModules
+      )
 
       if (fs.existsSync(attemptedPath)) {
         return attemptedPath
       }
 
       parents.push('..')
-    } while (path.resolve(attemptedPath) !== resolvedCwd || path.resolve(attemptedPath) !== '/')
+    } while (
+      path.resolve(attemptedPath) !== resolvedCwd ||
+      path.resolve(attemptedPath) !== '/'
+    )
 
     throw `Could not find @node_modules on ${basepath} or any of its parents until ${attemptedPath}`
+  }
+
+  const getCorePackagePath = () => {
+    return getPackagePath('@faststore', 'core')
   }
 
   const tmpDir = path.join(getRoot(), tmpFolderName)
@@ -48,19 +60,29 @@ export const withBasePath = (basepath: string) => {
 
   return {
     getRoot,
+    getPackagePath,
     userDir: getRoot(),
     userSrcDir,
     userThemesFileDir: path.join(userSrcDir, 'themes'),
     userCMSDir: path.join(getRoot(), 'cms', 'faststore'),
     userLegacyStoreConfigFile: path.join(getRoot(), 'faststore.config.js'),
     userStoreConfigFile: path.join(getRoot(), 'discovery.config.js'),
-    
+
     tmpSeoConfig: path.join(tmpDir, 'next-seo.config.ts'),
     tmpFolderName,
     tmpDir,
     tmpCustomizationsSrcDir: path.join(tmpDir, 'src', 'customizations', 'src'),
-    tmpThemesCustomizationsFile: path.join(tmpDir, 'src', 'customizations', 'src', 'themes', 'index.scss'),
+    tmpThemesCustomizationsFile: path.join(
+      tmpDir,
+      'src',
+      'customizations',
+      'src',
+      'themes',
+      'index.scss'
+    ),
     tmpCMSDir: path.join(tmpDir, 'cms', 'faststore'),
+    tmpPagesDir: path.join(tmpDir, 'src', 'pages'),
+    tmpPluginsDir: path.join(tmpDir, 'src', 'plugins'),
     tmpCMSWebhookUrlsFile: path.join(tmpDir, 'cms-webhook-urls.json'),
     tmpStoreConfigFile: path.join(
       tmpDir,
