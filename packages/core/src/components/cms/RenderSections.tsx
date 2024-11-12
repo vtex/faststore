@@ -47,7 +47,6 @@ const useDividedSections = (sections: Section[]) => {
  * 2. Checking the UI context for Sections that are not in the viewport, such as the CartSidebar and RegionModal.
  *
  * @param sectionName
- * @returns
  */
 export const LazyLoadingSection = ({
   sectionName,
@@ -62,11 +61,8 @@ export const LazyLoadingSection = ({
     const shouldLoad =
       (sectionName === 'CartSidebar' && displayCart) ||
       (sectionName === 'RegionModal' && displayModal)
-    if (!shouldLoad) {
-      return null
-    }
 
-    return children
+    return shouldLoad ? <>{children}</> : null
   }
   return (
     <ViewportObserver sectionName={sectionName}>{children}</ViewportObserver>
