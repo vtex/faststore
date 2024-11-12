@@ -93,13 +93,18 @@ export const getStaticProps: GetStaticProps<
     getGlobalSectionsData(previewData),
   ]
 
-  if (await landingPagePromise) {
-    const serverData = await getDynamicContent({ pageType: slug })
+  const landingPage = await landingPagePromise
+
+  if (landingPage) {
+    const [serverData, globalSections] = await Promise.all([
+      getDynamicContent({ pageType: slug }),
+      globalSectionsPromise,
+    ])
 
     return {
       props: {
-        page: await landingPagePromise,
-        globalSections: await globalSectionsPromise,
+        page: landingPage,
+        globalSections,
         type: 'page',
         slug,
         serverData,
@@ -107,7 +112,7 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
-  const [{ data, errors = [] }, cmsPage] = await Promise.all([
+  const [{ data, errors = [] }, cmsPage, globalSections] = await Promise.all([
     execute<
       ServerCollectionPageQueryQueryVariables,
       ServerCollectionPageQueryQuery
@@ -116,6 +121,7 @@ export const getStaticProps: GetStaticProps<
       operation: query,
     }),
     getPLP(slug, previewData, rewrites),
+    globalSectionsPromise,
   ])
 
   const notFound = errors.find(isNotFoundError)
@@ -135,7 +141,7 @@ export const getStaticProps: GetStaticProps<
     props: {
       data,
       page: cmsPage,
-      globalSections: await globalSectionsPromise,
+      globalSections,
       type: 'plp',
       key: slug,
     },
