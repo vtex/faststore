@@ -10,6 +10,7 @@ import Incentives from 'src/components/sections/Incentives'
 import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
@@ -30,6 +31,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductTiles,
   BannerText,
   Newsletter,
+  ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 

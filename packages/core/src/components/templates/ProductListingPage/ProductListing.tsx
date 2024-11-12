@@ -14,6 +14,7 @@ import { ITEMS_PER_PAGE } from 'src/constants'
 
 import type { ComponentType } from 'react'
 import RenderSections from 'src/components/cms/RenderSections'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { PLPContentType } from 'src/server/cms/plp'
 
@@ -42,6 +43,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductGallery,
   ProductShelf,
   ProductTiles,
+  ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 

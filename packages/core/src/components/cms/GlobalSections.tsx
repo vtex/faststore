@@ -2,6 +2,7 @@ import { Locator, Section } from '@vtex/client-cms'
 import storeConfig from 'discovery.config'
 import type { ComponentType } from 'react'
 import { PropsWithChildren } from 'react'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { PageContentType, getPage } from 'src/server/cms'
 
@@ -29,6 +30,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   RegionModal,
   CartSidebar,
   Footer,
+  ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 
