@@ -139,11 +139,11 @@ export const IntelligentSearch = (
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
-      const segmentCookie = ctx ? getVtexSegment(ctx.headers.cookie) : null;
+    const segmentCookie = ctx ? getVtexSegment(ctx.headers.cookie) : null;
 
-      console.log("search segmentCookie", segmentCookie)
+    console.log("search segmentCookie", segmentCookie)
 
-      const headers = segmentCookie
+    const headers = segmentCookie
         ? {
           headers: {
             'Cookie': `vtex_segment=${segmentCookie}`,
