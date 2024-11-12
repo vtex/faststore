@@ -10,11 +10,13 @@ import { Section } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
 import SectionBoundary from './SectionBoundary'
 import ViewportObserver from './ViewportObserver'
+import COMPONENTS from './global/Components'
 
 import { useUI } from '@faststore/ui'
 
 interface Props {
-  components: Record<string, ComponentType<any>>
+  components?: Record<string, ComponentType<any>>
+  globalSections?: Array<{ name: string; data: any }>
   sections: Array<{ name: string; data: any }>
 }
 
@@ -74,7 +76,7 @@ export const LazyLoadingSection = ({
 const RenderSectionsBase = ({ sections = [], components }: Props) => {
   return (
     <>
-      {sections.map(({ name, data }, index) => {
+      {sections.map(({ name, data = {} }, index) => {
         const Component = components[name]
 
         if (!Component) {
@@ -88,7 +90,9 @@ const RenderSectionsBase = ({ sections = [], components }: Props) => {
 
         return (
           <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
-            <Component {...data} />
+            <LazyLoadingSection sectionName={name}>
+              <Component {...data} />
+            </LazyLoadingSection>
           </SectionBoundary>
         )
       })}
@@ -98,21 +102,29 @@ const RenderSectionsBase = ({ sections = [], components }: Props) => {
 
 function RenderSections({
   children,
+  globalSections,
   sections,
-  ...otherProps
+  components = COMPONENTS,
 }: PropsWithChildren<Props>) {
-  const { hasChildren, firstSections, lastSections } =
-    useDividedSections(sections)
+  const { firstSections, lastSections } = useDividedSections(
+    globalSections ?? sections
+  )
 
   return (
     <>
-      <RenderSectionsBase sections={firstSections} {...otherProps} />
-
-      <Toast />
+      {firstSections && (
+        <RenderSectionsBase sections={firstSections} components={components} />
+      )}
+      {sections && sections.length > 0 && (
+        <RenderSectionsBase sections={sections} components={components} />
+      )}
       {children}
+      <LazyLoadingSection sectionName="Toast">
+        <Toast />
+      </LazyLoadingSection>
 
-      {hasChildren && (
-        <RenderSectionsBase sections={lastSections} {...otherProps} />
+      {lastSections && (
+        <RenderSectionsBase sections={lastSections} components={components} />
       )}
     </>
   )
