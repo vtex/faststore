@@ -1,4 +1,4 @@
-import { copySync, mkdirSync, writeFileSync } from 'fs-extra'
+import { copySync, existsSync, mkdirSync, writeFileSync } from 'fs-extra'
 import { withBasePath } from './directory'
 import path from 'path'
 import { logger } from './logger'
@@ -11,8 +11,18 @@ type PageConfig = {
 
 const pluginConfigFileName = 'plugin.config.js'
 
-const sanitizePluginName = (pluginName: string) => {
-  return pluginName.split('/')[1]
+const sanitizePluginName = (pluginName: string, pascalCase = false) => {
+  const sanitized = pluginName.split('/')[1]
+
+  if (pascalCase) {
+    return sanitized
+      .toLowerCase()
+      .split('-')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join('')
+  }
+
+  return sanitized
 }
 
 const getPluginSrcPath = async (basePath: string, pluginName: string) => {
@@ -111,9 +121,43 @@ const generatePluginPages = async (basePath: string, plugins: string[]) => {
   })
 }
 
+export async function addPluginsSections(basePath: string, plugins: string[]) {
+  const { tmpPluginsDir, getPackagePath } = withBasePath(basePath)
+
+  logger.log('Adding plugin sections')
+
+  const indexPluginsOverrides = plugins
+    .filter((plugin) =>
+      existsSync(getPackagePath(plugin, 'src', 'components', 'index.ts'))
+    )
+    .map((plugin) => {
+      const pluginReference = sanitizePluginName(plugin, true) + 'Components'
+
+      return {
+        import: `import { default as ${pluginReference} } from 'src/plugins/${sanitizePluginName(plugin)}/components'`,
+        pluginReference,
+      }
+    })
+
+  const pluginsImportFileContent = `
+  ${indexPluginsOverrides.map((plugin) => plugin.import).join('\n')}
+
+  export default {
+    ${indexPluginsOverrides.map((plugin) => `...${plugin.pluginReference}`).join(',\n')}
+  }
+  `
+
+  const sectionPath = path.join(tmpPluginsDir, 'index.ts')
+  writeFileSync(sectionPath, pluginsImportFileContent)
+  logger.log('Writing plugins overrides')
+  logger.log(sectionPath)
+  logger.log(pluginsImportFileContent)
+}
+
 export const installPlugins = async (basePath: string) => {
   const plugins = await getPluginsList(basePath)
 
-  await copyPluginsSrc(basePath, plugins)
-  await generatePluginPages(basePath, plugins)
+  copyPluginsSrc(basePath, plugins)
+  generatePluginPages(basePath, plugins)
+  addPluginsSections(basePath, plugins)
 }
