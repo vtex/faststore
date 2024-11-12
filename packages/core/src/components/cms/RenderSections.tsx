@@ -17,7 +17,7 @@ import { useUI } from '@faststore/ui'
 interface Props {
   components?: Record<string, ComponentType<any>>
   globalSections?: Array<{ name: string; data: any }>
-  sections: Array<{ name: string; data: any }>
+  sections?: Array<{ name: string; data: any }>
 }
 
 const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
