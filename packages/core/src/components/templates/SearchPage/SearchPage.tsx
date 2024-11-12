@@ -1,15 +1,6 @@
-import type { ComponentType } from 'react'
-
+import type { ClientProductGalleryQueryQuery as ClientProductGalleryQuery } from '@generated/graphql'
 import RenderSections from 'src/components/cms/RenderSections'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
-import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
-import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
-import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
-import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import COMPONENTS from 'src/components/cms/search/Components'
 import { SearchPageContextType } from 'src/pages/s'
 import PageProvider, { SearchPageContext } from 'src/sdk/overrides/PageProvider'
 import {
@@ -17,30 +8,18 @@ import {
   UseGalleryPageContext,
 } from 'src/sdk/product/usePageProductsQuery'
 import { SearchContentType } from 'src/server/cms'
-import type { ClientProductGalleryQueryQuery as ClientProductGalleryQuery } from '@generated/graphql'
-
-/**
- * Sections: Components imported from each store's custom components and '../components/sections' only.
- * Do not import or render components from any other folder in here.
- */
-const COMPONENTS: Record<string, ComponentType<any>> = {
-  Breadcrumb,
-  BannerText,
-  BannerNewsletter,
-  Newsletter,
-  Hero,
-  ProductGallery,
-  ProductShelf,
-  ProductTiles,
-  ...CUSTOM_COMPONENTS,
-}
 
 export type SearchPageProps = {
   data: SearchPageContextType & ClientProductGalleryQuery
   page: SearchContentType
+  globalSections?: Array<{ name: string; data: any }>
 }
 
-function SearchPage({ page: { sections }, data: serverData }: SearchPageProps) {
+function SearchPage({
+  page: { sections },
+  data: serverData,
+  globalSections,
+}: SearchPageProps) {
   const { pages, useGalleryPage } = useCreateUseGalleryPage()
 
   const context = {
@@ -65,7 +44,11 @@ function SearchPage({ page: { sections }, data: serverData }: SearchPageProps) {
         */}
       <PageProvider context={context}>
         <UseGalleryPageContext.Provider value={useGalleryPage}>
-          <RenderSections sections={sections} components={COMPONENTS} />
+          <RenderSections
+            sections={sections}
+            globalSections={globalSections}
+            components={COMPONENTS}
+          />
         </UseGalleryPageContext.Provider>
       </PageProvider>
     </>

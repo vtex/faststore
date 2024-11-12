@@ -1,7 +1,7 @@
-import { useMemo } from 'react'
+import type { GetStaticProps } from 'next'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import type { GetStaticProps } from 'next'
+import { useMemo } from 'react'
 
 import type { SearchState } from '@faststore/sdk'
 import {
@@ -16,7 +16,7 @@ import { useApplySearchState } from 'src/sdk/search/state'
 
 import { Locator } from '@vtex/client-cms'
 import storeConfig from 'discovery.config'
-import GlobalSections, {
+import {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
@@ -70,7 +70,7 @@ function Page({ page: searchContentType, globalSections }: Props) {
   }
 
   return (
-    <GlobalSections {...globalSections}>
+    <>
       <SearchProvider
         onChange={applySearchState}
         itemsPerPage={itemsPerPage}
@@ -109,9 +109,10 @@ function Page({ page: searchContentType, globalSections }: Props) {
             title,
             searchTerm: searchParams.term ?? undefined,
           }}
+          globalSections={globalSections.sections}
         />
       </SearchProvider>
-    </GlobalSections>
+    </>
   )
 }
 
