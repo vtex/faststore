@@ -437,6 +437,40 @@ function validateAndInstallMissingDependencies(basePath: string) {
   })
 }
 
+// TODO: Read the value from an environment variable
+const ENABLE_REDIRECTS_MIDDLEWARE = false
+
+// Enable redirects middleware by renaming the file from middleware__DISABLED.ts to middleware.tsß
+function enableRedirectsMiddleware(basePath: string) {
+  if (!ENABLE_REDIRECTS_MIDDLEWARE) {
+    return
+  }
+
+  try {
+    const { tmpDir } = withBasePath(basePath)
+
+    const disabledMiddlewarePath = path.join(
+      tmpDir,
+      'src',
+      'middleware__DISABLED.ts'
+    )
+
+    /* Rename the file to enable middleware functionality and then remove the disabled middleware file */
+    if (existsSync(disabledMiddlewarePath)) {
+      const enabledMiddlewarePath = path.join(tmpDir, 'src', 'middleware.ts')
+      copyFileSync(disabledMiddlewarePath, enabledMiddlewarePath)
+      removeSync(disabledMiddlewarePath)
+
+      logger.log(
+        `${chalk.green('success')} Redirects middleware has been enabled`
+      )
+    }
+  } catch (error) {
+    logger.error(error)
+    throw error
+  }
+}
+
 export async function generate(options: GenerateOptions) {
   const { basePath, setup = false } = options
 
@@ -461,5 +495,6 @@ export async function generate(options: GenerateOptions) {
     copyTheme(basePath),
     createCmsWebhookUrlsJsonFile(basePath),
     updateNextConfig(basePath),
+    enableRedirectsMiddleware(basePath),
   ])
 }
