@@ -4,6 +4,7 @@ import { CliUx } from '@oclif/core'
 import { readFileSync, existsSync, writeFileSync } from 'fs-extra'
 
 import { withBasePath } from './directory'
+import { getPluginsList } from './plugins'
 
 export interface ContentTypeOrSectionDefinition {
   id?: string
@@ -96,7 +97,8 @@ async function confirmUserChoice(
   fileName: string
 ) {
   const goAhead = await CliUx.ux.confirm(
-    `You are about to override default ${fileName.split('.')[0]
+    `You are about to override default ${
+      fileName.split('.')[0]
     }:\n\n${duplicates
       .map((definition) => definition.id || definition.name)
       .join('\n')}\n\nAre you sure? [yes/no]`
@@ -110,7 +112,8 @@ async function confirmUserChoice(
 }
 
 export async function mergeCMSFile(fileName: string, basePath: string) {
-  const { coreCMSDir, userCMSDir, tmpCMSDir } = withBasePath(basePath)
+  const { coreCMSDir, userCMSDir, tmpCMSDir, getPackagePath } =
+    withBasePath(basePath)
 
   const coreFilePath = path.join(coreCMSDir, fileName)
   const customFilePath = path.join(userCMSDir, fileName)
@@ -123,8 +126,18 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
 
   let output: ContentTypeOrSectionDefinition[] = coreDefinitions
 
+  const plugins = await getPluginsList(basePath)
+
+  const pluginPaths = plugins.map((plugin) =>
+    getPackagePath(plugin, 'src', 'cms', fileName)
+  )
+
+  const customizations = [...pluginPaths, customFilePath].filter((pluginPath) =>
+    existsSync(pluginPath)
+  )
+
   // TODO: create a validation when the CMS files exist but don't have a component for them
-  if (existsSync(customFilePath)) {
+  for (const customFilePath of customizations) {
     const customFile = readFileSync(customFilePath, 'utf8')
 
     try {

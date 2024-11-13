@@ -23,8 +23,12 @@ export const withBasePath = (basepath: string) => {
    *
    * If it reaches process.cwd() (or /, as a safeguard), without finding it, it will throw an exception
    */
-  const getPackagePath = (...packagePath: string[]) => {
-    const packageFromNodeModules = path.join('node_modules', ...packagePath)
+  const getCorePackagePath = () => {
+    const packageFromNodeModules = path.join(
+      'node_modules',
+      '@faststore',
+      'core'
+    )
     const resolvedCwd = path.resolve(process.cwd())
 
     const parents: string[] = []
@@ -51,12 +55,10 @@ export const withBasePath = (basepath: string) => {
     throw `Could not find @node_modules on ${basepath} or any of its parents until ${attemptedPath}`
   }
 
-  const getCorePackagePath = () => {
-    return getPackagePath('@faststore', 'core')
-  }
-
   const tmpDir = path.join(getRoot(), tmpFolderName)
   const userSrcDir = path.join(getRoot(), 'src')
+  const getPackagePath = (...packagePath: string[]) =>
+    path.join(getRoot(), 'node_modules', ...packagePath)
 
   return {
     getRoot,
