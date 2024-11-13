@@ -30,12 +30,12 @@ const getPluginSrcPath = async (basePath: string, pluginName: string) => {
   return getPackagePath(pluginName, 'src')
 }
 
-const getPluginsList = async (basePath: string) => {
+export const getPluginsList = async (basePath: string): Promise<string[]> => {
   const { tmpStoreConfigFile } = withBasePath(basePath)
 
-  const { plugins } = await import(tmpStoreConfigFile)
+  const { plugins = [] } = await import(tmpStoreConfigFile)
 
-  return (plugins ?? []) as string[]
+  return plugins
 }
 
 const copyPluginsSrc = async (basePath: string, plugins: string[]) => {
