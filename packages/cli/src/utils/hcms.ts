@@ -4,7 +4,7 @@ import { CliUx } from '@oclif/core'
 import { readFileSync, existsSync, writeFileSync } from 'fs-extra'
 
 import { withBasePath } from './directory'
-import { getPluginsList } from './plugins'
+import { getPluginName, getPluginsList } from './plugins'
 
 export interface ContentTypeOrSectionDefinition {
   id?: string
@@ -129,7 +129,7 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
   const plugins = await getPluginsList(basePath)
 
   const pluginPaths = plugins.map((plugin) =>
-    getPackagePath(plugin, 'src', 'cms', fileName)
+    getPackagePath(getPluginName(plugin), 'src', 'cms', fileName)
   )
 
   const customizations = [...pluginPaths, customFilePath].filter((pluginPath) =>

@@ -9,6 +9,14 @@ type PageConfig = {
   name: string
 }
 
+type Plugin =
+  | string
+  | {
+      [pluginName: string]: {
+        pages?: { [pageName: string]: Partial<PageConfig> }
+      }
+    }
+
 const pluginConfigFileName = 'plugin.config.js'
 
 const sanitizePluginName = (pluginName: string, pascalCase = false) => {
@@ -25,12 +33,28 @@ const sanitizePluginName = (pluginName: string, pascalCase = false) => {
   return sanitized
 }
 
+export const getPluginName = (plugin: Plugin) => {
+  if (typeof plugin === 'string') {
+    return plugin
+  }
+
+  return Object.keys(plugin)[0]
+}
+
+const getPluginCustomConfig = (plugin: Plugin) => {
+  if (typeof plugin === 'string') {
+    return {}
+  }
+
+  return plugin[Object.keys(plugin)[0]]
+}
+
 const getPluginSrcPath = async (basePath: string, pluginName: string) => {
   const { getPackagePath } = withBasePath(basePath)
   return getPackagePath(pluginName, 'src')
 }
 
-export const getPluginsList = async (basePath: string): Promise<string[]> => {
+export const getPluginsList = async (basePath: string): Promise<Plugin[]> => {
   const { tmpStoreConfigFile } = withBasePath(basePath)
 
   const { plugins = [] } = await import(tmpStoreConfigFile)
@@ -38,13 +62,17 @@ export const getPluginsList = async (basePath: string): Promise<string[]> => {
   return plugins
 }
 
-const copyPluginsSrc = async (basePath: string, plugins: string[]) => {
+const copyPluginsSrc = async (basePath: string, plugins: Plugin[]) => {
   const { tmpPluginsDir } = withBasePath(basePath)
 
   logger.log('Copying plugins files')
 
-  plugins.forEach(async (pluginName) => {
-    const pluginSrcPath = await getPluginSrcPath(basePath, pluginName)
+  plugins.forEach(async (plugin) => {
+    const pluginName = getPluginName(plugin)
+    const pluginSrcPath = await getPluginSrcPath(
+      basePath,
+      getPluginName(pluginName)
+    )
     const pluginDestPath = path.join(
       tmpPluginsDir,
       sanitizePluginName(pluginName)
@@ -87,17 +115,23 @@ export default function Page(props) {
 }
       `
 
-const generatePluginPages = async (basePath: string, plugins: string[]) => {
+const generatePluginPages = async (basePath: string, plugins: Plugin[]) => {
   const { tmpPagesDir, getPackagePath } = withBasePath(basePath)
 
   logger.log('Generating plugin pages')
 
-  plugins.forEach(async (pluginName) => {
+  plugins.forEach(async (plugin) => {
+    const pluginName = getPluginName(plugin)
     const pluginConfigPath = getPackagePath(pluginName, pluginConfigFileName)
 
     const pluginConfig = await import(pluginConfigPath)
 
-    const pagesConfig: Record<string, PageConfig> = pluginConfig.pages ?? {}
+    const { pages: pagesCustom } = getPluginCustomConfig(plugin)
+
+    const pagesConfig: Record<string, PageConfig> = {
+      ...(pluginConfig.pages ?? {}),
+      ...pagesCustom,
+    }
 
     const pages = Object.keys(pagesConfig)
 
@@ -121,20 +155,23 @@ const generatePluginPages = async (basePath: string, plugins: string[]) => {
   })
 }
 
-export async function addPluginsSections(basePath: string, plugins: string[]) {
+export async function addPluginsSections(basePath: string, plugins: Plugin[]) {
   const { tmpPluginsDir, getPackagePath } = withBasePath(basePath)
 
   logger.log('Adding plugin sections')
 
   const indexPluginsOverrides = plugins
     .filter((plugin) =>
-      existsSync(getPackagePath(plugin, 'src', 'components', 'index.ts'))
+      existsSync(
+        getPackagePath(getPluginName(plugin), 'src', 'components', 'index.ts')
+      )
     )
     .map((plugin) => {
-      const pluginReference = sanitizePluginName(plugin, true) + 'Components'
+      const pluginReference =
+        sanitizePluginName(getPluginName(plugin), true) + 'Components'
 
       return {
-        import: `import { default as ${pluginReference} } from 'src/plugins/${sanitizePluginName(plugin)}/components'`,
+        import: `import { default as ${pluginReference} } from 'src/plugins/${sanitizePluginName(getPluginName(plugin))}/components'`,
         pluginReference,
       }
     })
