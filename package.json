@@ -14,7 +14,8 @@
     "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx,md}\"",
     "prepare": "husky",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "commit": "git-cz"
   },
   "workspaces": [
     "packages/*",
@@ -23,7 +24,9 @@
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
+    "@commitlint/prompt": "^19.5.0",
     "@faststore/eslint-config": "^3.0.0",
+    "commitizen": "^4.3.1",
     "husky": "^9.1.6",
     "lerna": "^8.0.0",
     "lint-staged": "^15.2.10",
@@ -46,6 +49,11 @@
     "*.scss": [
       "stylelint --fix"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "dependencies": {},
   "packageManager": "yarn@1.19.1"
