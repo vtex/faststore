@@ -33,6 +33,7 @@ export interface SearchArgs {
   fuzzy?: '0' | '1' | 'auto'
   hideUnavailableItems?: boolean
   showInvisibleItems?: boolean
+  segment?: string
 }
 
 export interface ProductLocator {
@@ -123,6 +124,7 @@ export const IntelligentSearch = (
     type,
     fuzzy = 'auto',
     showInvisibleItems,
+    segment = undefined,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
@@ -147,15 +149,16 @@ export const IntelligentSearch = (
 
     const segmentCookie = ctx ? getVtexSegment(ctx.headers.cookie) : null;
 
-    console.log("search feijo", segmentCookie)
+    console.log("segmentCookie", segmentCookie)
+    console.log("segment pdp", segment)
   
-    const headers = segmentCookie
-          ? {
-            headers: {
-              'Cookie': `vtex_segment=${segmentCookie}`,
-            },
-          }
-        : undefined
+    const headers = segmentCookie || segment
+      ? {
+        headers: {
+          'Cookie': `vtex_segment=${segmentCookie || segment}`,
+        },
+      }
+      : undefined;
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,

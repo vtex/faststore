@@ -9,6 +9,7 @@ import {
   findSkuId,
   findSlug,
   transformSelectedFacet,
+  findSegment
 } from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
 import { StoreCollection } from './collection'
@@ -34,6 +35,7 @@ export const Query = {
     const locale = findLocale(locator)
     const id = findSkuId(locator)
     const slug = findSlug(locator)
+    const segment = findSegment(locator)
 
     if (channel) {
       mutateChannelContext(ctx, channel)
@@ -55,7 +57,7 @@ export const Query = {
         throw new Error('Invalid SkuId')
       }
 
-      const sku = await skuLoader.load(skuId)
+      const sku = await skuLoader.load(segment ? `${skuId}-segment:${segment}` : skuId)
 
       /**
        * Here be dragons 🦄🦄🦄
@@ -92,6 +94,7 @@ export const Query = {
         page: 0,
         count: 1,
         query: `product:${route.id}`,
+        segment
       })
 
       if (!product) {

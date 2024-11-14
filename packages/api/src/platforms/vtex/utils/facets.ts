@@ -88,3 +88,6 @@ export const findLocale = (facets?: Maybe<SelectedFacet[]>) =>
 
 export const findChannel = (facets?: Maybe<SelectedFacet[]>) =>
   facets?.find((facet) => facet.key === 'channel')?.value ?? null
+
+export const findSegment = (facets?: Maybe<SelectedFacet[]>) =>
+  facets?.find((facet) => facet.key === 'segment')?.value ?? undefined
