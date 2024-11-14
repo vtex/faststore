@@ -7,19 +7,30 @@ import { mergeTypeDefs } from '@graphql-tools/merge'
 import { buildASTSchema } from 'graphql'
 import type { GraphQLSchema } from 'graphql'
 import type { TypeSource } from '@graphql-tools/utils'
+import storeConfig from '../../../discovery.config'
 
-export function getTypeDefsFromFolder(
-  customPath: string | string[]
-): TypeSource {
-  const basePath = ['src', 'customizations', 'src', 'graphql']
+type PageConfig = {
+  path: string
+  appLayout: boolean
+  name: string
+}
 
-  const pathArray = Array.isArray(customPath) ? customPath : [customPath]
+type Plugin =
+  | string
+  | {
+      [pluginName: string]: {
+        pages?: { [pageName: string]: Partial<PageConfig> }
+      }
+    }
 
+const customBasePath = ['src', 'customizations', 'src', 'graphql']
+
+export function getTypeDefsFromFolder(...customPath: string[]): TypeSource {
   return (
-    loadFilesSync([...basePath, ...pathArray, 'typeDefs'], {
+    loadFilesSync([...customPath, 'typeDefs'], {
       extensions: ['graphql'],
     }) ??
-    loadFilesSync([...basePath, ...pathArray, 'typedefs'], {
+    loadFilesSync([...customPath, 'typedefs'], {
       extensions: ['graphql'],
     })
   )
@@ -41,16 +52,34 @@ export function getCustomSchema(typeDefs: TypeSource[]) {
   }
 }
 
+export const getPluginsTypeDefs = (): TypeSource[] => {
+  const { plugins = [] } = storeConfig
+
+  return (plugins as Plugin[])
+    .map((plugin) => {
+      if (typeof plugin === 'string') {
+        return plugin
+      }
+
+      return Object.keys(plugin)[0]
+    })
+    .map((pluginName) => {
+      const pluginPath = path.join(process.cwd(), 'node_modules', pluginName)
+
+      return getTypeDefsFromFolder(pluginPath, 'graphql')
+    })
+}
+
 export function getNativeTypeDefs() {
   return getTypeDefs() as TypeSource
 }
 
 export function getVTEXExtensionsTypeDefs() {
-  return getTypeDefsFromFolder('vtex')
+  return getTypeDefsFromFolder(...customBasePath, 'vtex')
 }
 
 export function getThirdPartyExtensionsTypeDefs() {
-  return getTypeDefsFromFolder('thirdParty')
+  return getTypeDefsFromFolder(...customBasePath, 'thirdParty')
 }
 
 // Schema with no resolvers - used to generate schema.graphql file
@@ -60,6 +89,7 @@ export const getMergedSchema = (): GraphQLSchema =>
       getNativeTypeDefs(),
       getVTEXExtensionsTypeDefs(),
       getThirdPartyExtensionsTypeDefs(),
+      ...getPluginsTypeDefs(),
     ].filter(Boolean)
   )
 
