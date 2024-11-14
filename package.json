@@ -13,13 +13,16 @@
     "release": "lerna version patch --yes && lerna publish from-git --yes",
     "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,ts,tsx,md}\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "commitlint": "commitlint --edit"
   },
   "workspaces": [
     "packages/*",
     "apps/*"
   ],
   "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
     "@faststore/eslint-config": "^3.0.0",
     "husky": "^9.1.6",
     "lerna": "^8.0.0",
