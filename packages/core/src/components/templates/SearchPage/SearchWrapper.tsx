@@ -3,7 +3,7 @@ import { useSearch } from '@faststore/sdk'
 
 import type { SearchContentType } from 'src/server/cms'
 import type { SearchPageContextType } from 'src/pages/s'
-import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
+import { findFacetValue, useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 import Section from 'src/components/sections/Section'
 import EmptyState from 'src/components/sections/EmptyState'
 import ProductGalleryStyles from 'src/components/sections/ProductGallery/section.module.scss'
@@ -28,6 +28,7 @@ export type SearchWrapperProps = {
   serverData: SearchPageContextType
 }
 
+
 export default function SearchWrapper({
   itemsPerPage,
   searchContentType,
@@ -37,6 +38,8 @@ export default function SearchWrapper({
   const {
     state: { term, sort, selectedFacets },
   } = useSearch()
+
+  
   const { data: pageProductGalleryData, isValidating } = useProductGalleryQuery(
     {
       term,
@@ -45,8 +48,14 @@ export default function SearchWrapper({
       selectedFacets,
     }
   )
-
+  
   if (isValidating || !pageProductGalleryData) {
+    return <EmptySearch />
+  }
+
+  const hasFuzzy = findFacetValue(selectedFacets, 'fuzzy')
+
+  if(!hasFuzzy) {
     return <EmptySearch />
   }
 

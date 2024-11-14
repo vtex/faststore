@@ -20,6 +20,16 @@ export const FACET_CROSS_SELLING_MAP = {
   suggestions: "suggestions",
 } as const
 
+export type FuzzyFacet = {
+  key: 'fuzzy'
+  value: '0' | '1' | 'auto'
+}
+
+export type OperatorFacet = {
+  key: 'operator'
+  value: 'and' | 'or'
+}
+
 /**
  * Transform facets from the store to VTEX platform facets.
  * For instance, the channel in Store becomes trade-policy and regionId in VTEX's realm
