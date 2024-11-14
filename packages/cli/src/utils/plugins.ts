@@ -3,21 +3,23 @@ import { withBasePath } from './directory'
 import path from 'path'
 import { logger } from './logger'
 
-type PageConfig = {
+export type PageConfig = {
   path: string
   appLayout: boolean
   name: string
 }
 
-type Plugin =
+export type PluginConfig = {
+  pages?: { [pageName: string]: Partial<PageConfig> }
+}
+
+export type Plugin =
   | string
   | {
-      [pluginName: string]: {
-        pages?: { [pageName: string]: Partial<PageConfig> }
-      }
+      [pluginName: string]: PluginConfig
     }
 
-const pluginConfigFileName = 'plugin.config.js'
+const PLUGIN_CONFIG_FILE = 'plugin.config.js'
 
 const sanitizePluginName = (pluginName: string, pascalCase = false) => {
   const sanitized = pluginName.split('/')[1]
@@ -46,7 +48,7 @@ const getPluginCustomConfig = (plugin: Plugin) => {
     return {}
   }
 
-  return plugin[Object.keys(plugin)[0]]
+  return plugin[getPluginName(plugin)]
 }
 
 const getPluginSrcPath = async (basePath: string, pluginName: string) => {
@@ -122,7 +124,7 @@ const generatePluginPages = async (basePath: string, plugins: Plugin[]) => {
 
   plugins.forEach(async (plugin) => {
     const pluginName = getPluginName(plugin)
-    const pluginConfigPath = getPackagePath(pluginName, pluginConfigFileName)
+    const pluginConfigPath = getPackagePath(pluginName, PLUGIN_CONFIG_FILE)
 
     const pluginConfig = await import(pluginConfigPath)
 
