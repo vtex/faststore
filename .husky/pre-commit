@@ -1,0 +1,7 @@
+echo "Running pre-commit hook"
+
+echo "Make sure that lockfile is up to date"
+yarn
+
+echo "Making sure that the code is formatted correctly"
+yarn lint-staged
