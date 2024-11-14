@@ -82,10 +82,11 @@ export const withBasePath = (basepath: string) => {
       'themes',
       'index.scss'
     ),
+    tmpThemesPluginsFile: path.join(tmpDir, 'src', 'plugins', 'index.scss'),
     tmpCMSDir: path.join(tmpDir, 'cms', 'faststore'),
+    tmpCMSWebhookUrlsFile: path.join(tmpDir, 'cms-webhook-urls.json'),
     tmpPagesDir: path.join(tmpDir, 'src', 'pages'),
     tmpPluginsDir: path.join(tmpDir, 'src', 'plugins'),
-    tmpCMSWebhookUrlsFile: path.join(tmpDir, 'cms-webhook-urls.json'),
     tmpStoreConfigFile: path.join(
       tmpDir,
       'src',

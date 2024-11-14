@@ -1,5 +1,6 @@
 import chalk from 'chalk'
 import {
+  copyFileSync,
   copySync,
   existsSync,
   mkdirsSync,
@@ -16,7 +17,7 @@ import ora from 'ora'
 import { withBasePath } from './directory'
 import { installDependencies } from './dependencies'
 import { logger } from './logger'
-import { generateThemeIndexPluginsContent, installPlugins } from './plugins'
+import { installPlugins } from './plugins'
 
 interface GenerateOptions {
   setup?: boolean
@@ -296,12 +297,7 @@ async function copyTheme(basePath: string) {
     )
     if (existsSync(customTheme)) {
       try {
-        const themeIndexPluginsContent = await generateThemeIndexPluginsContent(
-          basePath,
-          `@import "./${storeConfig.theme}.scss";`
-        )
-
-        writeFileSync(tmpThemesCustomizationsFile, themeIndexPluginsContent)
+        copyFileSync(customTheme, tmpThemesCustomizationsFile)
         logger.log(
           `${chalk.green('success')} - ${
             storeConfig.theme
@@ -311,10 +307,6 @@ async function copyTheme(basePath: string) {
         logger.error(`${chalk.red('error')} - ${err}`)
       }
     } else {
-      const themeIndexPluginsContent =
-        await generateThemeIndexPluginsContent(basePath)
-      writeFileSync(tmpThemesCustomizationsFile, themeIndexPluginsContent)
-
       logger.info(
         `${chalk.blue('info')} - The ${
           storeConfig.theme

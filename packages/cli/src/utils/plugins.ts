@@ -214,10 +214,28 @@ export const generateThemeIndexPluginsContent = async (
   return [...pluginImports, ...customImports].join('\n')
 }
 
+const addPluginsTheme = async (basePath: string, plugins: Plugin[]) => {
+  const { getPackagePath, tmpThemesPluginsFile } = withBasePath(basePath)
+
+  const pluginImportsContent = plugins
+    .filter((plugin) =>
+      existsSync(
+        getPackagePath(getPluginName(plugin), 'src', 'themes', 'index.scss')
+      )
+    )
+    .map(
+      (plugin) => `@import "${getPluginName(plugin)}/src/themes/index.scss";`
+    )
+    .join('\n')
+
+  writeFileSync(tmpThemesPluginsFile, pluginImportsContent)
+}
+
 export const installPlugins = async (basePath: string) => {
   const plugins = await getPluginsList(basePath)
 
   copyPluginsSrc(basePath, plugins)
   generatePluginPages(basePath, plugins)
   addPluginsSections(basePath, plugins)
+  addPluginsTheme(basePath, plugins)
 }
