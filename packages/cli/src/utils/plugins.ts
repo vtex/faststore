@@ -191,6 +191,27 @@ export async function addPluginsSections(basePath: string, plugins: Plugin[]) {
   logger.log(pluginsImportFileContent)
 }
 
+export const generateThemeIndexPluginsContent = async (
+  basePath: string,
+  ...customImports: string[]
+) => {
+  const { getPackagePath } = withBasePath(basePath)
+
+  const plugins = await getPluginsList(basePath)
+
+  const pluginImports = plugins
+    .filter((plugin) =>
+      existsSync(
+        getPackagePath(getPluginName(plugin), 'src', 'themes', 'index.scss')
+      )
+    )
+    .map(
+      (plugin) => `@import "${getPluginName(plugin)}/src/themes/index.scss";`
+    )
+
+  return [...pluginImports, ...customImports].join('\n')
+}
+
 export const installPlugins = async (basePath: string) => {
   const plugins = await getPluginsList(basePath)
 
