@@ -128,12 +128,12 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
 
   const plugins = await getPluginsList(basePath)
 
-  const pluginPaths = plugins.map((plugin) =>
-    getPackagePath(getPluginName(plugin), 'src', 'cms', fileName)
+  const pluginCMSFilePaths = plugins.map((plugin) =>
+    getPackagePath(getPluginName(plugin), 'cms', 'faststore', fileName)
   )
 
-  const customizations = [...pluginPaths, customFilePath].filter((pluginPath) =>
-    existsSync(pluginPath)
+  const customizations = [...pluginCMSFilePaths, customFilePath].filter(
+    (pluginCMSFilePath) => existsSync(pluginCMSFilePath)
   )
 
   // TODO: create a validation when the CMS files exist but don't have a component for them

@@ -59,9 +59,14 @@ const getPluginSrcPath = async (basePath: string, pluginName: string) => {
 export const getPluginsList = async (basePath: string): Promise<Plugin[]> => {
   const { tmpStoreConfigFile } = withBasePath(basePath)
 
-  const { plugins = [] } = await import(tmpStoreConfigFile)
+  try {
+    const { plugins } = await import(tmpStoreConfigFile)
+    return plugins
+  } catch (error) {
+    logger.error(`Could not load plugins from store config`)
+  }
 
-  return plugins
+  return []
 }
 
 const copyPluginsSrc = async (basePath: string, plugins: Plugin[]) => {
@@ -94,7 +99,7 @@ const getPluginPageFileContent = (
 import * as page from 'src/plugins/${pluginName}/pages/${pageName}';
 ${appLayout ? `import GlobalSections, { getGlobalSectionsData } from 'src/components/cms/GlobalSections'` : ``}
 
-export async function getStaticProps({previewData}) {
+export async function getStaticProps(${appLayout ? '{previewData}' : ''}) {
   const noop = async function() {}
   const loaderData = await (page.loader || noop)()
 ${appLayout ? `const globalSections = await getGlobalSectionsData(previewData)` : ``}
