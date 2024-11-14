@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch'
+import fetch, { RequestInfo, RequestInit } from 'node-fetch'
 import packageJson from '../../../../package.json'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
