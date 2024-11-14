@@ -678,7 +678,7 @@ export type StoreBreadcrumbList = {
 export type StoreCart = {
   /** List of shopping cart messages. */
   messages: Array<StoreCartMessage>
-  /** Order information, including `orderNumber` and `acceptedOffer`. */
+  /** Order information, including `orderNumber`, `acceptedOffer` and `shouldSplitItem`. */
   order: StoreOrder
 }
 
@@ -888,6 +888,8 @@ export type StoreOrder = {
   acceptedOffer: Array<StoreOffer>
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String']['output']
+  /** Indicates whether or not items with attachments should be split. */
+  shouldSplitItem: Maybe<Scalars['Boolean']['output']>
 }
 
 /** Organization. */
@@ -1321,6 +1323,7 @@ export type ValidateCartMutationMutation = {
   validateCart: {
     order: {
       orderNumber: string
+      shouldSplitItem: boolean | null
       acceptedOffer: Array<{
         quantity: number
         price: number
@@ -2072,7 +2075,7 @@ export const ServerProductQueryDocument = {
 export const ValidateCartMutationDocument = {
   __meta__: {
     operationName: 'ValidateCartMutation',
-    operationHash: '324471076994dca94a47adcaf1c6b8f7896e1b4f',
+    operationHash: 'c2b3f8bff73ebf6ac79d758c66cabbc21ba9fcc0',
   },
 } as unknown as TypedDocumentString<
   ValidateCartMutationMutation,

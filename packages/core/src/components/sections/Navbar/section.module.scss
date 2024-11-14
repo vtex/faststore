@@ -23,5 +23,12 @@
     @import "@faststore/ui/src/components/molecules/SearchTop/styles.scss";
     @import "@faststore/ui/src/components/organisms/SearchInput/styles.scss";
     @import "@faststore/ui/src/components/organisms/Navbar/styles.scss";
+
+    // Sets Navbar height on desktop to avoid CLS issue - Cumulative Layout Shift
+    --fs-navbar-height-desktop: 4.5rem;
+
+    @include media(">=notebook") {
+      height: var(--fs-navbar-height-desktop);
+    }
   }
 }

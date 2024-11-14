@@ -1,16 +1,4 @@
-import type { SearchEvent, SearchState } from '@faststore/sdk'
-
-import type {
-  SearchInputFieldProps as UISearchInputFieldProps,
-  SearchInputFieldRef as UISearchInputFieldRef,
-} from '@faststore/ui'
-import {
-  SearchProviderContextValue,
-  SearchInput as UISearchInput,
-  SearchInputField as UISearchInputField,
-} from '@faststore/ui'
-import { useRouter } from 'next/router'
-import type { CSSProperties } from 'react'
+import type { CSSProperties, SetStateAction } from 'react'
 import {
   Suspense,
   forwardRef,
@@ -21,12 +9,38 @@ import {
   useState,
 } from 'react'
 
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
+
+import type { SearchEvent, SearchState } from '@faststore/sdk'
+
+import {
+  Icon as UIIcon,
+  IconButton as UIIconButton,
+  SearchInput as UISearchInput,
+} from '@faststore/ui'
+
+import type {
+  SearchInputFieldProps as UISearchInputFieldProps,
+  SearchInputFieldRef as UISearchInputFieldRef,
+} from '@faststore/ui'
+
+import { SearchProviderContextValue } from '@faststore/ui'
+
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
 
+import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+
 const SearchDropdown = lazy(
+  /* webpackChunkName: "SearchDropdown" */
   () => import('src/components/search/SearchDropdown')
+)
+
+const UISearchInputField = dynamic<UISearchInputFieldProps & any>(() =>
+  /* webpackChunkName: "UISearchInputField" */
+  import('@faststore/ui').then((module) => module.SearchInputField)
 )
 
 const MAX_SUGGESTIONS = 5
@@ -64,6 +78,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     },
     ref
   ) {
+    const { hidden } = otherProps
     const [searchQuery, setSearchQuery] = useState<string>('')
     const searchQueryDeferred = useDeferredValue(searchQuery)
     const [searchDropdownVisible, setSearchDropdownVisible] =
@@ -100,27 +115,39 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     )
     const isLoading = !error && !data
 
+    const buttonProps = {
+      onClick: onSearchClick,
+      testId: buttonTestId,
+    }
+
     return (
-      <UISearchInput
-        ref={searchRef}
-        visibleDropdown={searchDropdownVisible}
-        onSearchSelection={onSearchSelection}
-        term={searchQueryDeferred}
-        terms={terms}
-        products={products}
-        isLoading={isLoading}
-      >
-        <UISearchInputField
-          ref={ref}
-          buttonProps={{
-            onClick: onSearchClick,
-            testId: buttonTestId,
-          }}
-          placeholder={placeholder}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onSubmit={(term) => {
-            import('src/sdk/search/formatSearchPath').then(
-              ({ formatSearchPath }) => {
+      <>
+        {hidden ? (
+          <UIIconButton
+            type="submit"
+            aria-label="Submit Search"
+            icon={<UIIcon name="MagnifyingGlass" />}
+            size="small"
+            {...buttonProps}
+          />
+        ) : (
+          <UISearchInput
+            ref={searchRef}
+            visibleDropdown={searchDropdownVisible}
+            onSearchSelection={onSearchSelection}
+            term={searchQueryDeferred}
+            terms={terms}
+            products={products}
+            isLoading={isLoading}
+          >
+            <UISearchInputField
+              ref={ref}
+              buttonProps={buttonProps}
+              placeholder={placeholder}
+              onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                setSearchQuery(e.target.value)
+              }
+              onSubmit={(term: string) => {
                 const path = formatSearchPath({
                   term,
                   sort: sort as SearchState['sort'],
@@ -128,20 +155,20 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
                 onSearchSelection(term, path)
                 router.push(path)
-              }
-            )
-          }}
-          onFocus={() => setSearchDropdownVisible(true)}
-          value={searchQuery}
-          {...otherProps}
-        />
+              }}
+              onFocus={() => setSearchDropdownVisible(true)}
+              value={searchQuery}
+              {...otherProps}
+            />
 
-        {searchDropdownVisible && (
-          <Suspense fallback={null}>
-            <SearchDropdown sort={sort as SearchState['sort']} />
-          </Suspense>
+            {searchDropdownVisible && (
+              <Suspense fallback={null}>
+                <SearchDropdown sort={sort as SearchState['sort']} />
+              </Suspense>
+            )}
+          </UISearchInput>
         )}
-      </UISearchInput>
+      </>
     )
   }
 )

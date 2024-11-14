@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
+import React, { cloneElement, forwardRef } from 'react'
 
-import { useDropdown } from './hooks/useDropdown'
+import { useDropdownItem } from './hooks/useDropdownItem'
 
 export interface DropdownItemProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -10,63 +10,55 @@ export interface DropdownItemProps
    */
   testId?: string
   /**
+   * @deprecated
    * A React component that will be rendered as an icon.
    */
   icon?: ReactNode
+  /**
+   * Replace the default rendered element with the one passed as a child, merging their props and behavior.
+   * */
+  asChild?: boolean
+  /**
+   * Emit onDismiss event when the component is clicked.
+   */
+  dismissOnClick?: boolean
 }
 
 const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
   function Button(
-    { children, icon, onClick, testId = 'fs-dropdown-item', ...otherProps },
+    {
+      children,
+      asChild,
+      icon,
+      onClick,
+      dismissOnClick = true,
+      testId = 'fs-dropdown-item',
+      ...otherProps
+    },
     ref
   ) {
-    const { dropdownItemsRef, selectedDropdownItemIndexRef, close } =
-      useDropdown()
+    const itemProps = useDropdownItem({ ref, onClick, dismissOnClick })
 
-    const [dropdownItemIndex, setDropdownItemIndex] = useState(0)
-    const dropdownItemRef = useRef<HTMLButtonElement>()
-
-    const addToRefs = (el: HTMLButtonElement) => {
-      if (el && !dropdownItemsRef?.current.includes(el)) {
-        dropdownItemsRef?.current.push(el)
-        setDropdownItemIndex(
-          dropdownItemsRef?.current.findIndex((element) => element === el) ?? 0
-        )
-      }
-
-      dropdownItemRef.current = el
-    }
-
-    const onFocusItem = () => {
-      selectedDropdownItemIndexRef!.current = dropdownItemIndex
-      dropdownItemsRef?.current[selectedDropdownItemIndexRef!.current]?.focus()
-    }
-
-    const handleOnClickItem = (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => {
-      onClick?.(event)
-      close?.()
-    }
-
-    useImperativeHandle(ref, () => dropdownItemRef.current!, [])
+    const asChildrenItem = React.isValidElement(children)
+      ? cloneElement(children, { ...itemProps, ...children.props })
+      : children
 
     return (
-      <button
-        data-fs-dropdown-item
-        data-testid={testId}
-        ref={addToRefs}
-        onFocus={onFocusItem}
-        onMouseEnter={onFocusItem}
-        onClick={handleOnClickItem}
-        role="menuitem"
-        tabIndex={-1}
-        data-index={dropdownItemIndex}
-        {...otherProps}
-      >
-        {!!icon && icon}
-        {children}
-      </button>
+      <>
+        {asChild ? (
+          asChildrenItem
+        ) : (
+          <button
+            data-fs-dropdown-item
+            data-testid={testId}
+            {...itemProps}
+            {...otherProps}
+          >
+            {!!icon && icon}
+            {children}
+          </button>
+        )}
+      </>
     )
   }
 )

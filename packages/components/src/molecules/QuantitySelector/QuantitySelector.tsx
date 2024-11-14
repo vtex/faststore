@@ -113,7 +113,8 @@ const QuantitySelector = ({
   }, [initial])
 
   const changeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuantity(Number(e.currentTarget.value))
+    const numericValue = e.target.value.replace(/\D/g, '')
+    setQuantity(Number(numericValue))
   }
 
   return (
@@ -139,6 +140,10 @@ const QuantitySelector = ({
         value={useUnitMultiplier ? multipliedUnit : quantity}
         onChange={changeInputValue}
         onBlur={validateBlur}
+        onInput={(event: React.FormEvent<HTMLInputElement>) => {
+          const input = event.currentTarget
+          input.value = input.value.replace(/\D/g, '')
+        }}
         disabled={disabled}
       />
       <IconButton
