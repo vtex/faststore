@@ -3,7 +3,7 @@ import { useSearch } from '@faststore/sdk'
 
 import type { SearchContentType } from 'src/server/cms'
 import type { SearchPageContextType } from 'src/pages/s'
-import { findFacetValue, useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
+import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 import Section from 'src/components/sections/Section'
 import EmptyState from 'src/components/sections/EmptyState'
 import ProductGalleryStyles from 'src/components/sections/ProductGallery/section.module.scss'
@@ -53,11 +53,6 @@ export default function SearchWrapper({
     return <EmptySearch />
   }
 
-  const hasFuzzy = findFacetValue(selectedFacets, 'fuzzy')
-
-  if(!hasFuzzy) {
-    return <EmptySearch />
-  }
 
   // Redirect when there are registered Intelligent Search redirects on VTEX Admin
   if (pageProductGalleryData?.redirect?.url) {

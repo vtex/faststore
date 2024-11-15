@@ -89,38 +89,50 @@ export const useProductGalleryQuery = ({
     selectedFacets,
   })
 
-  return useQuery<Query, Variables>(query, localizedVariables, {
-    onSuccess: (data) => {
-      if (data) {
-        const fuzzyFacetValue = findFacetValue(selectedFacets, 'fuzzy')
-        const operatorFacetValue = findFacetValue(selectedFacets, 'operator')
- 
-        if (!fuzzyFacetValue && !operatorFacetValue) {
-          setState({
-            ...state,
-            selectedFacets: [
-              ...selectedFacets,
-              { key: 'fuzzy', value: data.search.metadata?.fuzzy },
-              { key: 'operator', value: data.search.metadata?.logicalOperator },
-            ],
+  const fuzzyFacetValue = findFacetValue(selectedFacets, 'fuzzy')
+  const operatorFacetValue = findFacetValue(selectedFacets, 'operator')
+
+  const queryResult = useQuery<Query, Variables>(
+    query,
+    localizedVariables,
+    {
+      onSuccess: (data) => {
+        if (data && term) {
+          import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+            sendAnalyticsEvent<IntelligentSearchQueryEvent>({
+              name: 'intelligent_search_query',
+              params: {
+                locale,
+                term,
+                url: window.location.href,
+                logicalOperator: data.search.metadata?.logicalOperator ?? 'and',
+                isTermMisspelled:
+                  data.search.metadata?.isTermMisspelled ?? false,
+                totalCount: data.search.products.pageInfo.totalCount,
+              },
+            })
           })
         }
-      }
-      if (data && term) {
-        import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
-          sendAnalyticsEvent<IntelligentSearchQueryEvent>({
-            name: 'intelligent_search_query',
-            params: {
-              locale,
-              term,
-              url: window.location.href,
-              logicalOperator: data.search.metadata?.logicalOperator ?? 'and',
-              isTermMisspelled: data.search.metadata?.isTermMisspelled ?? false,
-              totalCount: data.search.products.pageInfo.totalCount,
-            },
-          })
-        })
-      }
-    },
-  })
+      },
+    }
+  )
+
+  // If there is no fuzzy or operator facet, we need to add them to the selectedFacets and re-fetch the query
+  if (!fuzzyFacetValue && !operatorFacetValue) {
+    if (queryResult.data) {
+      setState({
+        ...state,
+        selectedFacets: [
+          ...selectedFacets,
+          { key: 'fuzzy', value: queryResult.data.search.metadata?.fuzzy },
+          { key: 'operator', value: queryResult.data.search.metadata?.logicalOperator },
+        ],
+      })
+    }
+
+    // The first result is not relevant, so we return data null to avoid rendering the page while the query is being re-fetched
+    return { ...queryResult, data: null }
+  }
+
+  return queryResult
 }
