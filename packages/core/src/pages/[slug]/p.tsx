@@ -1,6 +1,4 @@
 import { isNotFoundError } from '@faststore/api'
-import type { Locator } from '@vtex/client-cms'
-import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
 
@@ -60,16 +58,13 @@ type Props = PDPContentType & {
   }
 }
 
-// Array merging strategy from deepmerge that makes client arrays overwrite server array
-// https://www.npmjs.com/package/deepmerge
-const overwriteMerge = (_, sourceArray) => sourceArray
-
 function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   const { product } = server
   const { currency } = useSession()
   const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
 
-  const { data: client } = useProductQuery(product.id)
+  // Stale while revalidate the product for fetching the new price etc
+  const { data, isValidating } = useProductQuery(product.id)
 
   return (
     <GlobalSections {...globalSections}>
@@ -125,7 +120,7 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <PageProvider context={{ data: client }}>
+      <PageProvider context={{ data, isValidating }}>
         <RenderSections sections={sections} components={COMPONENTS} />
       </PageProvider>
     </GlobalSections>
@@ -193,11 +188,7 @@ const query = gql(`
   }
 `)
 
-export const getStaticProps: GetStaticProps<
-  Props,
-  { slug: string },
-  Locator
-> = async ({ params, previewData }) => {
+export const getStaticProps = async ({ params, previewData }) => {
   const slug = params?.slug ?? ''
   const [searchResult, globalSections] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
@@ -256,7 +247,7 @@ export const getStaticProps: GetStaticProps<
   }
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths = async () => {
   return {
     paths: [],
     fallback: 'blocking',
