@@ -1,4 +1,5 @@
 import {
+  Button,
   SearchProductItem as UISearchProductItem,
   SearchProductItemContent as UISearchProductItemContent,
   SearchProductItemImage as UISearchProductItemImage,
@@ -136,7 +137,9 @@ function SearchProductItem({
           quantity,
           onChangeQuantity: setQuantity,
           // FIXME: Use SKU Matrix component
-          skuMatrixControl: <button>Select multiple</button>,
+          skuMatrixControl: (
+            <Button variant="tertiary">Select Multiples</Button>
+          ),
         }}
       ></UISearchProductItemContent>
     </UISearchProductItem>
