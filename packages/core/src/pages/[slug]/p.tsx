@@ -1,6 +1,5 @@
 import { isNotFoundError } from '@faststore/api'
 import type { Locator } from '@vtex/client-cms'
-import deepmerge from 'deepmerge'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
@@ -30,7 +29,7 @@ import GlobalSections, {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
+import PageProvider from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import { PDPContentType, getPDP } from 'src/server/cms/pdp'
 
@@ -70,17 +69,7 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   const { currency } = useSession()
   const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
 
-  // Stale while revalidate the product for fetching the new price etc
-  const { data: client, isValidating } = useProductQuery(product.id, {
-    product: product,
-  })
-
-  const context = {
-    data: {
-      ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
-      isValidating,
-    },
-  } as PDPContext
+  const { data: client } = useProductQuery(product.id)
 
   return (
     <GlobalSections {...globalSections}>
@@ -136,7 +125,7 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <PageProvider context={context}>
+      <PageProvider context={{ data: client }}>
         <RenderSections sections={sections} components={COMPONENTS} />
       </PageProvider>
     </GlobalSections>
