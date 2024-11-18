@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch'
+import fetch, { RequestInfo, RequestInit, Headers } from 'node-fetch'
 import packageJson from '../../../../package.json'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
@@ -7,7 +7,7 @@ interface FetchAPIOptions {
   storeCookies?: (headers: Headers) => void
 }
 
-export const fetchAPI = async (
+export const fetchAPI = async <T>(
   info: RequestInfo,
   init?: RequestInit,
   options?: FetchAPIOptions
@@ -25,7 +25,7 @@ export const fetchAPI = async (
       options.storeCookies(response.headers)
     }
 
-    return response.status !== 204 ? response.json() : undefined
+    return (response.status !== 204 ? response.json() : undefined) as Promise<T>
   }
 
   console.error(info, init, response)

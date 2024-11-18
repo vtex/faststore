@@ -1,4 +1,5 @@
 import type { Context } from '../index'
+import { Headers } from 'node-fetch'
 
 export interface ContextForCookies {
   headers: Context['headers']
@@ -36,7 +37,7 @@ export const updatesContextStorageCookies = (
 
 export const setCookie = (ctx: Pick<Context, 'storage'>, headers: Headers) => {
   headers
-    .getSetCookie()
+    .raw()['set-cookie']
     .forEach((setCookieValue) =>
       updatesContextStorageCookies(ctx, setCookieValue)
     )
