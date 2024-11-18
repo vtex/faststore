@@ -3,6 +3,7 @@ import { useQuery } from 'src/sdk/graphql/useQuery'
 import { useSession } from 'src/sdk/session'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
+import { useSearch } from '@faststore/sdk'
 import { Facet } from '@faststore/sdk/dist/types'
 import type {
   ClientManyProductsQueryQueryVariables,
@@ -10,7 +11,6 @@ import type {
   ClientProductGalleryQueryQueryVariables as Variables,
 } from '@generated/graphql'
 import type { IntelligentSearchQueryEvent } from 'src/sdk/analytics/types'
-import { useSearch } from '@faststore/sdk'
 
 /**
  * This query is run on the browser and contains
@@ -94,7 +94,7 @@ export const useProductGalleryQuery = ({
 
   const queryResult = useQuery<Query, Variables>(query, localizedVariables, {
     onSuccess: (data) => {
-      if (data && term) {
+      if (data && term && (fuzzyFacetValue || operatorFacetValue)) {
         import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
           sendAnalyticsEvent<IntelligentSearchQueryEvent>({
             name: 'intelligent_search_query',
@@ -115,6 +115,7 @@ export const useProductGalleryQuery = ({
   // If there is no fuzzy or operator facet, we need to add them to the selectedFacets and re-fetch the query
   const shouldRefetchQuery =
     !queryResult.error && (!fuzzyFacetValue || !operatorFacetValue)
+
   if (shouldRefetchQuery) {
     if (queryResult.data) {
       setState({
@@ -130,7 +131,7 @@ export const useProductGalleryQuery = ({
       })
     }
 
-    // The first result is not relevant, so we return data null to avoid rendering the page while the query is being re-fetched
+    // The first result is not relevant, return null data to avoid rendering the page while the query is being re-fetched
     return { ...queryResult, isValidating: true, data: null }
   }
 
