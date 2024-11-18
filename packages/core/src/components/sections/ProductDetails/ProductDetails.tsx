@@ -90,7 +90,7 @@ function ProductDetails({
   } = useOverrideComponents<'ProductDetails'>()
   const { currency } = useSession()
   const context = usePDP()
-  const { product, isValidating } = context?.data
+  const { product } = context?.data
   const [quantity, setQuantity] = useState(1)
 
   if (!product) {
@@ -209,7 +209,7 @@ function ProductDetails({
                 quantity={quantity}
                 setQuantity={setQuantity}
                 product={product}
-                isValidating={isValidating}
+                isValidating={context.isValidating}
                 taxesConfiguration={taxesConfiguration}
               />
             </section>
