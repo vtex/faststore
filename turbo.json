@@ -37,6 +37,7 @@
         "dist/**"
       ]
     },
+    "serve": {},
     "size": {},
     "dev": {
       "cache": false

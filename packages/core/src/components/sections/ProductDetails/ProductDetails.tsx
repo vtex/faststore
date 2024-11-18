@@ -90,6 +90,7 @@ function ProductDetails({
   } = useOverrideComponents<'ProductDetails'>()
   const { currency } = useSession()
   const context = usePDP()
+
   const { product } = context?.data
   const [quantity, setQuantity] = useState(1)
 
@@ -151,6 +152,27 @@ function ProductDetails({
     () => availability === 'https://schema.org/OutOfStock',
     [availability]
   )
+
+  if (context.isValidating) {
+    return (
+      <Section className={`${styles.section} section-product-details`}>
+        <section data-fs-product-details>
+          <section
+            data-fs-product-details-body
+            data-fs-content="product-details"
+            style={{
+              height: '682px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <div>Loading...</div>
+          </section>
+        </section>
+      </Section>
+    )
+  }
 
   return (
     <Section className={`${styles.section} section-product-details`}>
