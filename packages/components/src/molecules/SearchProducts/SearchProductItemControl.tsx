@@ -45,12 +45,12 @@ const SearchProductItemControl = forwardRef<
       }, 1000)
 
       setTimeout(() => {
-				setStatusAddToCart('default')
-				onChangeQuantity(1)
-			}, 2000)
+        setStatusAddToCart('default')
+        onChangeQuantity(1)
+      }, 2000)
     }
   }
-	
+
   const getIcon = React.useCallback(() => {
     switch (statusAddToCart) {
       case 'inProgress':
@@ -62,8 +62,8 @@ const SearchProductItemControl = forwardRef<
     }
   }, [statusAddToCart])
 
-	const showSKUMatrixControl = availability && hasVariants;
-	const isMobile = window.innerWidth <= 768
+  const showSKUMatrixControl = availability && hasVariants
+  const isMobile = window.innerWidth <= 768
 
   return (
     <div
@@ -74,10 +74,7 @@ const SearchProductItemControl = forwardRef<
     >
       <div data-fs-search-product-item-control-content>
         {!availability && (
-          <Badge
-            data-fs-search-product-item-control-badge
-            variant="warning"
-          >
+          <Badge data-fs-search-product-item-control-badge variant="warning">
             Out of Stock
           </Badge>
         )}
@@ -98,14 +95,14 @@ const SearchProductItemControl = forwardRef<
           )}
 
           {isMobile && (
-						<Input
-							data-fs-product-item-control-input
-							type="number"
-							min={1}
-							value={quantity}
-							onChange={(e) => onChangeQuantity(e.target.valueAsNumber)}
-						/>
-					)}
+            <Input
+              data-fs-product-item-control-input
+              type="number"
+              min={1}
+              value={quantity}
+              onChange={(e) => onChangeQuantity(e.target.valueAsNumber)}
+            />
+          )}
 
           <IconButton
             variant="primary"

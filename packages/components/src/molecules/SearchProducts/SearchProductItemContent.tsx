@@ -21,8 +21,8 @@ export interface SearchProductItemContentProps {
     availability: boolean
     hasVariants: boolean
     skuMatrixControl: React.ReactNode
-		quantity: number,
-		onChangeQuantity(value: number): void
+    quantity: number
+    onChangeQuantity(value: number): void
     buyProps?: {
       onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
       'data-testid': string
@@ -64,8 +64,8 @@ const SearchProductItemContent = forwardRef<
           availability={quickOrder.availability}
           hasVariants={quickOrder.hasVariants}
           skuMatrixControl={quickOrder.skuMatrixControl}
-					quantity={quickOrder.quantity}
-					onChangeQuantity={quickOrder.onChangeQuantity}
+          quantity={quickOrder.quantity}
+          onChangeQuantity={quickOrder.onChangeQuantity}
           {...quickOrder.buyProps}
         >
           {renderProductItemContent()}
