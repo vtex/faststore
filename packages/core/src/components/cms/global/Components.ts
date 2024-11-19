@@ -33,7 +33,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   RegionBar,
   CartSidebar, // out of viewport
   RegionModal, // out of viewport
-  Footer,
+  Footer, // out of viewport
   ...CUSTOM_COMPONENTS,
 }
 
