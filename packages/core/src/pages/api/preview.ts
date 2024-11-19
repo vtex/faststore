@@ -45,7 +45,7 @@ const handler: NextApiHandler = async (req, res) => {
       )
     }
 
-    // Check if querystring params are present
+    // Check if at least one of the querystring params are present
     if (!locator.versionId && !locator.releaseId) {
       throw new StatusError(
         `One of the following querystring params are required: versionId, releaseId`,
@@ -53,7 +53,7 @@ const handler: NextApiHandler = async (req, res) => {
       )
     }
 
-    // Filter undefined keys
+    // Filter undefined key
     Object.keys(locator).forEach(
       (key) => locator[key] === undefined && delete locator[key]
     )
