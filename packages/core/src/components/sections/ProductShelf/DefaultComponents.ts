@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 const UIProductShelf = dynamic(() =>
   /* webpackChunkName: "UIProductShelf" */
-  import('@faststore/ui').then((mod) => ({ default: mod.ProductShelf }))
+  import('@faststore/ui').then((mod) => mod.ProductShelf)
 )
 
 const Carousel = dynamic(
