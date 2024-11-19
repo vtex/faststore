@@ -137,31 +137,33 @@ export async function mergeCMSFile(fileName: string, basePath: string) {
   )
 
   // TODO: create a validation when the CMS files exist but don't have a component for them
-  for (const customFilePath of customizations) {
-    const customFile = readFileSync(customFilePath, 'utf8')
+  for (const newFilePath of customizations) {
+    const customFile = readFileSync(newFilePath, 'utf8')
 
     try {
       const customDefinitions = JSON.parse(customFile)
 
       const { duplicates, newDefinitions } = splitCustomDefinitions(
-        coreDefinitions,
+        output,
         customDefinitions,
         primaryIdentifierForDefinitions
       )
 
       if (duplicates.length) {
-        await confirmUserChoice(duplicates, fileName)
+        if (newFilePath === customFilePath) {
+          await confirmUserChoice(duplicates, fileName)
+        }
 
         output = [
           ...dedupeAndMergeDefinitions(
-            coreDefinitions,
+            output,
             duplicates,
             primaryIdentifierForDefinitions
           ),
           ...newDefinitions,
         ]
       } else {
-        output = [...coreDefinitions, ...newDefinitions]
+        output = [...output, ...newDefinitions]
       }
     } catch (err) {
       if (err instanceof SyntaxError) {
