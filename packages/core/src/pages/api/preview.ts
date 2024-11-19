@@ -76,8 +76,9 @@ const handler: NextApiHandler = async (req, res) => {
     })
 
     // Redirect to the path from the fetched locator
-    if (previewRedirects[locator.contentType]) {
-      res.redirect(previewRedirects[locator.contentType])
+    const redirects = previewRedirects as Record<string, string>
+    if (redirects[locator.contentType]) {
+      res.redirect(redirects[locator.contentType])
       return
     }
 
