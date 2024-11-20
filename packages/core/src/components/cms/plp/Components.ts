@@ -40,6 +40,10 @@ const ProductTiles = dynamic(
   { ssr: false }
 )
 
+/**
+ * Sections: Components imported from each store's custom components and '../components/sections' only.
+ * Do not import or render components from any other folder in here.
+ */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
   Breadcrumb,
