@@ -12,7 +12,7 @@ const BannerText = dynamic(
     import(
       /* webpackChunkName: "BannerText" */
       'src/components/sections/BannerText/OverriddenDefaultBannerText'
-    ).then((mod) => ({ default: mod.OverriddenDefaultBannerText })),
+    ).then((mod) => mod.OverriddenDefaultBannerText),
   { ssr: false }
 )
 const Newsletter = dynamic(
@@ -20,7 +20,7 @@ const Newsletter = dynamic(
     import(
       /* webpackChunkName: "Newsletter" */
       'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
-    ).then((mod) => ({ default: mod.OverriddenDefaultNewsletter })),
+    ).then((mod) => mod.OverriddenDefaultNewsletter),
   { ssr: false }
 )
 const ProductShelf = dynamic(
@@ -28,7 +28,7 @@ const ProductShelf = dynamic(
     import(
       /* webpackChunkName: "ProductShelf" */
       'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-    ).then((mod) => ({ default: mod.OverriddenDefaultProductShelf })),
+    ).then((mod) => mod.OverriddenDefaultProductShelf),
   { ssr: false }
 )
 const ProductTiles = dynamic(
