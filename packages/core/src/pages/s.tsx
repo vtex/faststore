@@ -70,28 +70,27 @@ function Page({ page: searchContentType, globalSections }: Props) {
   }
 
   return (
-    <>
-      <SearchProvider
-        onChange={applySearchState}
-        itemsPerPage={itemsPerPage}
-        {...searchParams}
-      >
-        {/* SEO */}
-        <NextSeo
-          noindex
-          title={title}
-          description={description}
-          titleTemplate={titleTemplate}
-          openGraph={{
-            type: 'website',
-            title,
-            description,
-          }}
-        />
+    <SearchProvider
+      onChange={applySearchState}
+      itemsPerPage={itemsPerPage}
+      {...searchParams}
+    >
+      {/* SEO */}
+      <NextSeo
+        noindex
+        title={title}
+        description={description}
+        titleTemplate={titleTemplate}
+        openGraph={{
+          type: 'website',
+          title,
+          description,
+        }}
+      />
 
-        <UISROnly text={title} />
+      <UISROnly text={title} />
 
-        {/*
+      {/*
           WARNING: Do not import or render components from any
           other folder than '../components/sections' in here.
 
@@ -102,17 +101,16 @@ function Page({ page: searchContentType, globalSections }: Props) {
           If needed, wrap your component in a <Section /> component
           (not the HTML tag) before rendering it here.
         */}
-        <SearchWrapper
-          itemsPerPage={itemsPerPage}
-          searchContentType={searchContentType}
-          serverData={{
-            title,
-            searchTerm: searchParams.term ?? undefined,
-          }}
-          globalSections={globalSections.sections}
-        />
-      </SearchProvider>
-    </>
+      <SearchWrapper
+        itemsPerPage={itemsPerPage}
+        searchContentType={searchContentType}
+        serverData={{
+          title,
+          searchTerm: searchParams.term ?? undefined,
+        }}
+        globalSections={globalSections.sections}
+      />
+    </SearchProvider>
   )
 }
 
