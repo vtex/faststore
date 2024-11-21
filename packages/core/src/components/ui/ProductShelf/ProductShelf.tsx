@@ -1,10 +1,16 @@
+import dynamic from 'next/dynamic'
 import { useEffect, useId, useRef } from 'react'
 
-import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
 import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
 import { textToKebabCase } from 'src/utils/utilities'
+
+const ProductShelfSkeleton = dynamic(
+  () =>
+    /* webpackChunkName: "ProductShelfSkeleton" */
+    import('src/components/skeletons/ProductShelfSkeleton')
+)
 
 type Sort =
   | 'discount_desc'
