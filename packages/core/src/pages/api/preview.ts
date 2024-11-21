@@ -30,12 +30,18 @@ const pickParam = (req: NextApiRequest, parameter: string) => {
 // TODO: Improve security by disabling CMS preview in production
 const handler: NextApiHandler = async (req, res) => {
   try {
-    const locator: any = {
-      contentType: pickParam(req, 'contentType'),
-      documentId: pickParam(req, 'documentId'),
-      versionId: pickParam(req, 'versionId'),
-      releaseId: pickParam(req, 'releaseId'),
-    }
+    const locator = [
+      'contentType',
+      'documentId',
+      'versionId',
+      'releaseId',
+    ].reduce((acc, param) => {
+      const value = pickParam(req, param)
+
+      if (value !== undefined) acc[param] = value
+
+      return acc
+    }, {} as Record<string, string>)
 
     // Check if required path params are present
     if (!locator.contentType || !locator.documentId) {
@@ -52,11 +58,6 @@ const handler: NextApiHandler = async (req, res) => {
         400
       )
     }
-
-    // Filter undefined key
-    Object.keys(locator).forEach(
-      (key) => locator[key] === undefined && delete locator[key]
-    )
 
     // Fetch CMS to check if the provided `locator` exists
     const page = await clientCMS.getCMSPage(locator as Locator)
