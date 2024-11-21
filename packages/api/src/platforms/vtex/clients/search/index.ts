@@ -148,9 +148,6 @@ export const IntelligentSearch = (
       .join('/')
 
     const segmentCookie = ctx ? getVtexSegment(ctx.headers.cookie) : null;
-
-    console.log("segmentCookie", segmentCookie)
-    console.log("segment pdp", segment)
   
     const headers = segmentCookie || segment
       ? {
