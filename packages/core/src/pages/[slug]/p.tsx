@@ -77,10 +77,8 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   })
 
   const context = {
-    data: {
-      ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
-      isValidating,
-    },
+    data: deepmerge(server, client, { arrayMerge: overwriteMerge }),
+    isValidating,
   } as PDPContext
 
   return (

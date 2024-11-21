@@ -89,10 +89,10 @@ function ProductDetails({
   } = useOverrideComponents<'ProductDetails'>()
   const { currency } = useSession()
   const context = usePDP()
-  const { product, isValidating } = context?.data
+  const { data, isValidating } = context
   const [quantity, setQuantity] = useState(1)
 
-  if (!product) {
+  if (!data.product) {
     throw new Error('NotFound')
   }
 
@@ -111,7 +111,7 @@ function ProductDetails({
       lowPrice,
       lowPriceWithTaxes,
     },
-  } = product
+  } = data.product
 
   useEffect(() => {
     import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
@@ -209,7 +209,7 @@ function ProductDetails({
                 // This decision can be reviewed later if needed
                 quantity={quantity}
                 setQuantity={setQuantity}
-                product={product}
+                product={data.product}
                 isValidating={isValidating}
                 taxesConfiguration={taxesConfiguration}
               />

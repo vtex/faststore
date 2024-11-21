@@ -10,8 +10,8 @@ import { createContext, useContext, useMemo } from 'react'
 import { SearchPageContextType } from 'src/pages/s'
 
 export interface PDPContext {
-  data?: ServerProductQueryQuery &
-    ClientProductQueryQuery['product'] & { isValidating?: boolean }
+  data?: ServerProductQueryQuery & ClientProductQueryQuery['product']
+  isValidating?: boolean
 }
 
 export interface PLPContext {
