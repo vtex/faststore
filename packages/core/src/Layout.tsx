@@ -1,9 +1,9 @@
-import { type PropsWithChildren } from 'react'
+import type { PropsWithChildren, ReactElement } from 'react'
 
 import { usePageViewEvent } from './sdk/analytics/hooks/usePageViewEvent'
 
 function Layout({ children }: PropsWithChildren) {
-  usePageViewEvent()
+  usePageViewEvent((children as ReactElement)?.props)
 
   return <>{children}</>
 }
