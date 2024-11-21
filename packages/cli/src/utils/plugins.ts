@@ -1,4 +1,10 @@
-import { copySync, existsSync, mkdirSync, writeFileSync } from 'fs-extra'
+import {
+  copySync,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  writeFileSync,
+} from 'fs-extra'
 import { withBasePath } from './directory'
 import path from 'path'
 import { logger } from './logger'
@@ -198,6 +204,44 @@ export async function addPluginsSections(basePath: string, plugins: Plugin[]) {
   logger.log(pluginsImportFileContent)
 }
 
+export async function addPluginsOverrides(basePath: string, plugins: Plugin[]) {
+  const { tmpPluginsDir, getPackagePath } = withBasePath(basePath)
+
+  logger.log('Adding plugin overrides')
+
+  plugins
+    .map((plugin) => ({
+      pluginName: getPluginName(plugin),
+      pluginOverridesPath: getPackagePath(
+        getPluginName(plugin),
+        'src',
+        'components',
+        'overrides'
+      ),
+    }))
+    .filter(({ pluginOverridesPath }) => existsSync(pluginOverridesPath))
+    .reverse()
+    .forEach(({ pluginName, pluginOverridesPath }) => {
+      const overrideFilesAlreadyCopied: string[] = []
+
+      const sanitizedPluginName = sanitizePluginName(pluginName)
+
+      const overrideFiles = readdirSync(pluginOverridesPath)
+
+      overrideFiles
+        .filter((file) => !overrideFilesAlreadyCopied.includes(file))
+        .forEach((overrideFileName) => {
+          const overrideFileContent = `export { override } from 'src/plugins/${sanitizedPluginName}/components/overrides/${overrideFileName.split('.')[0]}'`
+
+          writeFileSync(
+            path.join(tmpPluginsDir, 'overrides', overrideFileName),
+            overrideFileContent
+          )
+          overrideFilesAlreadyCopied.push(overrideFileName)
+        })
+    })
+}
+
 export const generateThemeIndexPluginsContent = async (
   basePath: string,
   ...customImports: string[]
@@ -242,5 +286,6 @@ export const installPlugins = async (basePath: string) => {
   copyPluginsSrc(basePath, plugins)
   generatePluginPages(basePath, plugins)
   addPluginsSections(basePath, plugins)
+  addPluginsOverrides(basePath, plugins)
   addPluginsTheme(basePath, plugins)
 }
