@@ -192,61 +192,77 @@ function ProductDetails({
             {...ImageGallery.props}
             images={productImages}
           />
-          <section data-fs-product-details-info>
-            <section
-              data-fs-product-details-settings
-              data-fs-product-details-section
-            >
-              <ProductDetailsSettings.Component
-                buyButtonTitle={buyButtonTitle}
-                buyButtonIcon={buyButtonIcon}
-                notAvailableButtonTitle={
-                  notAvailableButtonTitle ?? NotAvailableButton.props.title
-                }
-                useUnitMultiplier={quantitySelector?.useUnitMultiplier ?? false}
-                {...ProductDetailsSettings.props}
-                // Dynamic props shouldn't be overridable
-                // This decision can be reviewed later if needed
-                quantity={quantity}
-                setQuantity={setQuantity}
-                product={data.product}
-                isValidating={isValidating}
-                taxesConfiguration={taxesConfiguration}
-              />
-            </section>
 
-            {!outOfStock && (
-              <ShippingSimulation.Component
+          {isValidating ? (
+            <section data-fs-product-details-info>
+              <section
+                data-fs-product-details-settings
                 data-fs-product-details-section
-                data-fs-product-details-shipping
-                formatter={useFormattedPrice}
-                {...ShippingSimulation.props}
-                idkPostalCodeLinkProps={{
-                  ...ShippingSimulation.props.idkPostalCodeLinkProps,
-                  href:
-                    shippingSimulatorLinkUrl ??
-                    ShippingSimulation.props.idkPostalCodeLinkProps?.href,
-                  children:
-                    shippingSimulatorLinkText ??
-                    ShippingSimulation.props.idkPostalCodeLinkProps?.children,
-                }}
-                productShippingInfo={{
-                  id,
-                  quantity,
-                  seller: seller.identifier,
-                }}
-                title={shippingSimulatorTitle ?? ShippingSimulation.props.title}
-                inputLabel={
-                  shippingSimulatorInputLabel ??
-                  ShippingSimulation.props.inputLabel
-                }
-                optionsLabel={
-                  shippingSimulatorOptionsTableTitle ??
-                  ShippingSimulation.props.optionsLabel
-                }
-              />
-            )}
-          </section>
+              >
+                <p>Loading...</p>
+              </section>
+            </section>
+          ) : (
+            <section data-fs-product-details-info>
+              <section
+                data-fs-product-details-settings
+                data-fs-product-details-section
+              >
+                <ProductDetailsSettings.Component
+                  buyButtonTitle={buyButtonTitle}
+                  buyButtonIcon={buyButtonIcon}
+                  notAvailableButtonTitle={
+                    notAvailableButtonTitle ?? NotAvailableButton.props.title
+                  }
+                  useUnitMultiplier={
+                    quantitySelector?.useUnitMultiplier ?? false
+                  }
+                  {...ProductDetailsSettings.props}
+                  // Dynamic props shouldn't be overridable
+                  // This decision can be reviewed later if needed
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                  product={data.product}
+                  isValidating={isValidating}
+                  taxesConfiguration={taxesConfiguration}
+                />
+              </section>
+
+              {!outOfStock && (
+                <ShippingSimulation.Component
+                  data-fs-product-details-section
+                  data-fs-product-details-shipping
+                  formatter={useFormattedPrice}
+                  {...ShippingSimulation.props}
+                  idkPostalCodeLinkProps={{
+                    ...ShippingSimulation.props.idkPostalCodeLinkProps,
+                    href:
+                      shippingSimulatorLinkUrl ??
+                      ShippingSimulation.props.idkPostalCodeLinkProps?.href,
+                    children:
+                      shippingSimulatorLinkText ??
+                      ShippingSimulation.props.idkPostalCodeLinkProps?.children,
+                  }}
+                  productShippingInfo={{
+                    id,
+                    quantity,
+                    seller: seller.identifier,
+                  }}
+                  title={
+                    shippingSimulatorTitle ?? ShippingSimulation.props.title
+                  }
+                  inputLabel={
+                    shippingSimulatorInputLabel ??
+                    ShippingSimulation.props.inputLabel
+                  }
+                  optionsLabel={
+                    shippingSimulatorOptionsTableTitle ??
+                    ShippingSimulation.props.optionsLabel
+                  }
+                />
+              )}
+            </section>
+          )}
 
           {shouldDisplayProductDescription && (
             <ProductDescription.Component
