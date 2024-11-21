@@ -7,7 +7,7 @@ import type {
   ClientSearchSuggestionsQueryQuery as Query,
   ClientSearchSuggestionsQueryQueryVariables as Variables,
 } from '@generated/graphql'
-import type { IntelligentSearchQueryEvent } from '../analytics/types'
+import type { IntelligentSearchAutocompleteQueryEvent } from '../analytics/types'
 
 import { useSession } from '../session'
 
@@ -55,8 +55,8 @@ function useSuggestions(term: string) {
     onSuccess: (callbackData) => {
       if (callbackData && term) {
         import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
-          sendAnalyticsEvent<IntelligentSearchQueryEvent>({
-            name: 'intelligent_search_query',
+          sendAnalyticsEvent<IntelligentSearchAutocompleteQueryEvent>({
+            name: 'intelligent_search_autocomplete_query',
             params: {
               locale,
               term,

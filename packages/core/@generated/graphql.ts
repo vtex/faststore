@@ -523,6 +523,8 @@ export type QueryShippingArgs = {
 
 /** Search result. */
 export type SearchMetadata = {
+  /** Indicates how the search engine corrected the misspelled word by using fuzzy logic. */
+  fuzzy: Maybe<Scalars['String']['output']>
   /** Indicates if the search term was misspelled. */
   isTermMisspelled: Scalars['Boolean']['output']
   /** Logical operator used to run the search. */
@@ -1504,13 +1506,18 @@ export type ClientProductGalleryQueryQuery = {
           max: { selected: number; absolute: number }
         }
     >
-    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
+    metadata: {
+      isTermMisspelled: boolean
+      logicalOperator: string
+      fuzzy: string | null
+    } | null
   }
 }
 
 export type SearchEvent_MetadataFragment = {
   isTermMisspelled: boolean
   logicalOperator: string
+  fuzzy: string | null
 }
 
 export type ClientProductQueryQueryVariables = Exact<{
@@ -1597,7 +1604,11 @@ export type ClientSearchSuggestionsQueryQuery = {
       }>
     }
     products: { pageInfo: { totalCount: number } }
-    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
+    metadata: {
+      isTermMisspelled: boolean
+      logicalOperator: string
+      fuzzy: string | null
+    } | null
   }
 }
 
@@ -2047,6 +2058,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(
     fragment SearchEvent_metadata on SearchMetadata {
   isTermMisspelled
   logicalOperator
+  fuzzy
 }
     `,
   { fragmentName: 'SearchEvent_metadata' }
@@ -2099,7 +2111,7 @@ export const ClientManyProductsQueryDocument = {
 export const ClientProductGalleryQueryDocument = {
   __meta__: {
     operationName: 'ClientProductGalleryQuery',
-    operationHash: '177fe68cb385737b0901fc9e105f0a4813e18a20',
+    operationHash: 'bfc40da32b60f9404a4adb96b0856e3fbb04b076',
   },
 } as unknown as TypedDocumentString<
   ClientProductGalleryQueryQuery,
@@ -2117,7 +2129,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '4d9f934764d8578aea08673b8ba57e8bf738f534',
+    operationHash: '47e48eaee91d16a4237eb2c1241bc2ed3e2ad9bb',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
