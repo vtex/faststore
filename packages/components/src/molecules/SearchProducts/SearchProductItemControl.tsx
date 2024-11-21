@@ -1,15 +1,18 @@
-import React, { forwardRef, HTMLAttributes } from 'react'
+import React, {  forwardRef, HTMLAttributes, useCallback, useState } from 'react'
 import { Badge, Icon, IconButton, Input, Loader, QuantitySelector } from '../..'
+
+import type { ReactNode, MouseEvent } from 'react'
+
 type StatusButtonAddToCartType = 'default' | 'inProgress' | 'completed'
 
 export interface SearchProductItemControlProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onClick'> {
-  children: React.ReactNode
+  children: ReactNode
   availability: boolean
   hasVariants: boolean
-  skuMatrixControl: React.ReactNode
+  skuMatrixControl: ReactNode
   quantity: number
-  onClick?(e: React.MouseEvent<HTMLButtonElement>): void
+  onClick?(e: MouseEvent<HTMLButtonElement>): void
   onChangeQuantity(value: number): void
 }
 
@@ -30,12 +33,12 @@ const SearchProductItemControl = forwardRef<
   ref
 ) {
   const [statusAddToCart, setStatusAddToCart] =
-    React.useState<StatusButtonAddToCartType>('default')
-  function stopPropagationClick(e: React.MouseEvent) {
+    useState<StatusButtonAddToCartType>('default')
+  function stopPropagationClick(e: MouseEvent) {
     e.preventDefault()
     e.stopPropagation()
   }
-  function handleAddToCart(event: React.MouseEvent<HTMLButtonElement>) {
+  function handleAddToCart(event: MouseEvent<HTMLButtonElement>) {
     if (onClick) {
       setStatusAddToCart('inProgress')
 
@@ -51,7 +54,7 @@ const SearchProductItemControl = forwardRef<
     }
   }
 	
-  const getIcon = React.useCallback(() => {
+  const getIcon = useCallback(() => {
     switch (statusAddToCart) {
       case 'inProgress':
         return <Loader />
