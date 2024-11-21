@@ -122,10 +122,13 @@ export const useProductGalleryQuery = ({
         ...state,
         selectedFacets: [
           ...selectedFacets,
-          { key: 'fuzzy', value: queryResult.data.search.metadata?.fuzzy },
+          {
+            key: 'fuzzy',
+            value: queryResult.data.search.metadata?.fuzzy ?? 'auto',
+          },
           {
             key: 'operator',
-            value: queryResult.data.search.metadata?.logicalOperator,
+            value: queryResult.data.search.metadata?.logicalOperator ?? 'and',
           },
         ],
       })
