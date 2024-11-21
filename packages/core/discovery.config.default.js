@@ -111,5 +111,6 @@ module.exports = {
     preact: false,
     enableRedirects: false,
     enableSearchSSR: false,
+    revalidate: 300, // Revalidate every 5 minutes
   },
 }
