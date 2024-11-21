@@ -94,7 +94,7 @@ export const useProductGalleryQuery = ({
 
   const queryResult = useQuery<Query, Variables>(query, localizedVariables, {
     onSuccess: (data) => {
-      if (data && term && (fuzzyFacetValue || operatorFacetValue)) {
+      if (data && term && fuzzyFacetValue && operatorFacetValue) {
         import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
           sendAnalyticsEvent<IntelligentSearchQueryEvent>({
             name: 'intelligent_search_query',
