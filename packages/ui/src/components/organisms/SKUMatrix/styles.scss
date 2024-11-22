@@ -33,7 +33,7 @@
   height: 100vh;
   overflow: auto;
 
-  > * {
+  [data-fs-table] {
     flex-shrink: 0;
     padding: var(--fs-sku-matrix-sidebar-padding);
     padding-bottom: 0;
