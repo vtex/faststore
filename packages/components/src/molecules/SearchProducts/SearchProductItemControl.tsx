@@ -8,11 +8,29 @@ type StatusButtonAddToCartType = 'default' | 'inProgress' | 'completed'
 export interface SearchProductItemControlProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onClick'> {
   children: ReactNode
+	/**
+	 * Specifies whether the product is available.
+	*/
   availability: boolean
-  hasVariants: boolean
+  /**
+	 * Specifies whether the product has variations.
+	*/
+	hasVariants: boolean
+  /**
+	 * Renders the elements of the SKUMatrix.
+	*/
   skuMatrixControl: ReactNode
+  /**
+	 * Specifies the quantity to be added to the cart.
+	*/
   quantity: number
+  /**
+	 * Callback that fires when the add to cart button is clicked.
+	*/
   onClick?(e: MouseEvent<HTMLButtonElement>): void
+  /**
+	 * Callback that fires when the input value changes.
+	*/
   onChangeQuantity(value: number): void
 }
 
@@ -34,7 +52,11 @@ const SearchProductItemControl = forwardRef<
 ) {
   const [statusAddToCart, setStatusAddToCart] =
     useState<StatusButtonAddToCartType>('default')
-  function stopPropagationClick(e: MouseEvent) {
+
+	const showSKUMatrixControl = availability && hasVariants;
+	const isMobile = window.innerWidth <= 768	
+  
+	function stopPropagationClick(e: MouseEvent) {
     e.preventDefault()
     e.stopPropagation()
   }
@@ -64,9 +86,6 @@ const SearchProductItemControl = forwardRef<
         return <Icon name="ShoppingCart" width={24} height={24} />
     }
   }, [statusAddToCart])
-
-	const showSKUMatrixControl = availability && hasVariants;
-	const isMobile = window.innerWidth <= 768
 
   return (
     <div

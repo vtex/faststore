@@ -40,8 +40,7 @@
   --fs-search-product-item-price-size                     : var(--fs-text-size-base);
   
   // Item Control
-  --fs-search-product-item-control-padding-0              : var(--fs-spacing-0);
-  --fs-search-product-item-control-padding-1              : var(--fs-spacing-1);
+  --fs-search-product-item-control-actions-gap            : var(--fs-spacing-1);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -132,17 +131,17 @@
   }
 
  [data-fs-search-product-item-control-badge] {
-    margin-bottom: var(--fs-search-product-item-control-padding-0);
+    margin-bottom: var(--fs-spacing-0);
 
-    & + p {
-      color: var(--fs-color-neutral-6);
+    & + [data-fs-search-product-item-title] {
       font-weight: var(--fs-text-weight-medium);
+      color: var(--fs-color-text-light);
     }
  }
 	
  [data-fs-search-product-item-control-actions] {
     display: flex;
     margin-left: auto;
-    gap: var(--fs-search-product-item-control-padding-1);
+    gap: var(--fs-search-product-item-control-actions-gap);
   }
 }
