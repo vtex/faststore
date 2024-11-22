@@ -40,7 +40,7 @@ export const useAllVariantProducts = <
 >(
   productID: string,
   enabled: boolean,
-  callBack: (data: FormattedVariantProduct[]) => void,
+  processResponse: (data: FormattedVariantProduct[]) => void,
   fallbackData?: T
 ) => {
   const { channel, locale } = useSession()
@@ -105,7 +105,9 @@ export const useAllVariantProducts = <
             }
           )
 
-        callBack(formattedData.sort((a, b) => a.name.localeCompare(b.name)))
+        processResponse(
+          formattedData.sort((a, b) => a.name.localeCompare(b.name))
+        )
       },
     }
   )
