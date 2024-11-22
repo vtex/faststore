@@ -1,15 +1,36 @@
-import React, { forwardRef, HTMLAttributes } from 'react'
+import React, {  forwardRef, HTMLAttributes, useCallback, useState } from 'react'
 import { Badge, Icon, IconButton, Input, Loader, QuantitySelector } from '../..'
+
+import type { ReactNode, MouseEvent } from 'react'
+
 type StatusButtonAddToCartType = 'default' | 'inProgress' | 'completed'
 
 export interface SearchProductItemControlProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onClick'> {
-  children: React.ReactNode
+  children: ReactNode
+	/**
+	 * Specifies whether the product is available.
+	*/
   availability: boolean
-  hasVariants: boolean
-  skuMatrixControl: React.ReactNode
+  /**
+	 * Specifies whether the product has variations.
+	*/
+	hasVariants: boolean
+  /**
+	 * Renders the elements of the SKUMatrix.
+	*/
+  skuMatrixControl: ReactNode
+  /**
+	 * Specifies the quantity to be added to the cart.
+	*/
   quantity: number
-  onClick?(e: React.MouseEvent<HTMLButtonElement>): void
+  /**
+	 * Callback that fires when the add to cart button is clicked.
+	*/
+  onClick?(e: MouseEvent<HTMLButtonElement>): void
+  /**
+	 * Callback that fires when the input value changes.
+	*/
   onChangeQuantity(value: number): void
 }
 
@@ -30,12 +51,16 @@ const SearchProductItemControl = forwardRef<
   ref
 ) {
   const [statusAddToCart, setStatusAddToCart] =
-    React.useState<StatusButtonAddToCartType>('default')
-  function stopPropagationClick(e: React.MouseEvent) {
+    useState<StatusButtonAddToCartType>('default')
+
+	const showSKUMatrixControl = availability && hasVariants;
+	const isMobile = window.innerWidth <= 768	
+  
+	function stopPropagationClick(e: MouseEvent) {
     e.preventDefault()
     e.stopPropagation()
   }
-  function handleAddToCart(event: React.MouseEvent<HTMLButtonElement>) {
+  function handleAddToCart(event: MouseEvent<HTMLButtonElement>) {
     if (onClick) {
       setStatusAddToCart('inProgress')
 
@@ -45,13 +70,13 @@ const SearchProductItemControl = forwardRef<
       }, 1000)
 
       setTimeout(() => {
-				setStatusAddToCart('default')
-				onChangeQuantity(1)
-			}, 2000)
+	      setStatusAddToCart('default')
+	      onChangeQuantity(1)
+      }, 2000)
     }
   }
 	
-  const getIcon = React.useCallback(() => {
+  const getIcon = useCallback(() => {
     switch (statusAddToCart) {
       case 'inProgress':
         return <Loader />
@@ -61,9 +86,6 @@ const SearchProductItemControl = forwardRef<
         return <Icon name="ShoppingCart" width={24} height={24} />
     }
   }, [statusAddToCart])
-
-	const showSKUMatrixControl = availability && hasVariants;
-	const isMobile = window.innerWidth <= 768
 
   return (
     <div
