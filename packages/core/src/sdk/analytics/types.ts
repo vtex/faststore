@@ -34,3 +34,17 @@ export interface IntelligentSearchQueryEvent {
   name: 'intelligent_search_query'
   params: IntelligentSearchQueryParams
 }
+
+export interface IntelligentSearchAutocompleteQueryParams {
+  url: string
+  locale: string
+  term: string
+  logicalOperator: string
+  isTermMisspelled: boolean
+  totalCount: number
+}
+
+export interface IntelligentSearchAutocompleteQueryEvent {
+  name: 'intelligent_search_autocomplete_query'
+  params: IntelligentSearchAutocompleteQueryParams
+}

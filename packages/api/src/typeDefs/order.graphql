@@ -10,6 +10,10 @@ type StoreOrder {
   Array with information on each accepted offer.
   """
   acceptedOffer: [StoreOffer!]!
+  """
+  Indicates whether or not items with attachments should be split.
+  """
+  shouldSplitItem: Boolean
 }
 
 """

@@ -1,12 +1,12 @@
-import { useRouter } from 'next/router'
 import { useSearch } from '@faststore/sdk'
+import { useRouter } from 'next/router'
 
-import type { SearchContentType } from 'src/server/cms'
-import type { SearchPageContextType } from 'src/pages/s'
-import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
-import Section from 'src/components/sections/Section'
 import EmptyState from 'src/components/sections/EmptyState'
 import ProductGalleryStyles from 'src/components/sections/ProductGallery/section.module.scss'
+import Section from 'src/components/sections/Section'
+import type { SearchPageContextType } from 'src/pages/s'
+import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
+import type { SearchContentType } from 'src/server/cms'
 
 import SearchPage from './SearchPage'
 
@@ -37,6 +37,7 @@ export default function SearchWrapper({
   const {
     state: { term, sort, selectedFacets },
   } = useSearch()
+
   const { data: pageProductGalleryData, isValidating } = useProductGalleryQuery(
     {
       term,

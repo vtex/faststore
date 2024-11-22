@@ -1,18 +1,36 @@
-import { useRef, useState, useCallback } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
-import { useUI, useScrollDirection, Icon as UIIcon } from '@faststore/ui'
+import { Icon as UIIcon, useScrollDirection, useUI } from '@faststore/ui'
 
 import type { SearchInputRef } from 'src/components/search/SearchInput'
 import SearchInput from 'src/components/search/SearchInput'
-import NavbarLinks from 'src/components/navigation/NavbarLinks'
-import NavbarSlider from 'src/components/navigation/NavbarSlider'
+
 import CartToggle from 'src/components/cart/CartToggle'
-import Logo from 'src/components/ui/Logo'
 import Link from 'src/components/ui/Link'
+import Logo from 'src/components/ui/Logo'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
-import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
+import dynamic from 'next/dynamic'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
+import type { NavbarProps as SectionNavbarProps } from '../../sections/Navbar'
+
+const NavbarLinks = dynamic(
+  () =>
+    /* webpackChunkName: "NavbarLinks" */ import(
+      'src/components/navigation/NavbarLinks'
+    ),
+  {
+    ssr: false,
+  }
+)
+
+const NavbarSlider = dynamic(
+  () =>
+    /* webpackChunkName: "NavbarSlider" */ import(
+      'src/components/navigation/NavbarSlider'
+    ),
+  { ssr: false }
+)
 
 export interface NavbarProps {
   /**
@@ -79,7 +97,7 @@ function Navbar({
   } = useOverrideComponents<'Navbar'>()
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
-  const { isDesktop } = useScreenResize()
+  const { isDesktop, isMobile } = useScreenResize()
 
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -121,10 +139,12 @@ function Navbar({
             </>
           )}
 
-          <SearchInput
-            placeholder={searchInput?.placeholder}
-            sort={searchInput?.sort}
-          />
+          {isDesktop && (
+            <SearchInput
+              placeholder={searchInput?.placeholder}
+              sort={searchInput?.sort}
+            />
+          )}
 
           <NavbarButtons.Component
             searchExpanded={searchExpanded}
@@ -142,18 +162,19 @@ function Navbar({
               />
             )}
 
-            <SearchInput
-              placeholder=""
-              ref={searchMobileRef}
-              testId="store-input-mobile"
-              buttonTestId="store-input-mobile-button"
-              onSearchClick={handlerExpandSearch}
-              sort={searchInput?.sort}
-              hidden={!searchExpanded}
-              aria-hidden={!searchExpanded}
-            />
-
-            <ButtonSignIn.Component {...signInButton} />
+            {!isDesktop && (
+              <SearchInput
+                placeholder=""
+                ref={searchMobileRef}
+                testId="store-input-mobile"
+                buttonTestId="store-input-mobile-button"
+                onSearchClick={handlerExpandSearch}
+                sort={searchInput?.sort}
+                hidden={!searchExpanded}
+                aria-hidden={!searchExpanded}
+              />
+            )}
+            {!isMobile && <ButtonSignIn.Component {...signInButton} />}
 
             <CartToggle {...cart} />
           </NavbarButtons.Component>
