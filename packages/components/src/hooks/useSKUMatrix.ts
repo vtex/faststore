@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+
 import { SKUMatrixContext } from '../organisms/SKUMatrix/provider/SKUMatrixProvider'
 
 export function useSKUMatrix() {
@@ -6,7 +7,7 @@ export function useSKUMatrix() {
 
   if (!context) {
     throw new Error(
-      'Do not use SKUMatrix components outside the SKUMatrix context'
+      'Do not use SKUMatrix components outside the SKUMatrix context.'
     )
   }
 

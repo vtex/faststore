@@ -38,20 +38,34 @@ interface IAllVariantProducts {
 }
 
 export interface SKUMatrixProviderContextValue {
-  open: boolean
+  /*
+    value that indicates if the modal is open
+  */
+  isOpen: boolean
+  /*
+    array of all variant products
+  */
   allVariantProducts: IAllVariantProducts[]
+  /*
+    function to set the array of all variant products
+  */
   setAllVariantProducts(
     items: React.SetStateAction<IAllVariantProducts[]>
   ): void
+  /*
+  */
   handleChangeQuantityItem(id: string, value: number): IAllVariantProducts[]
-  setOpen(value: boolean): void
+  /*
+    function to set the modal is open
+  */
+  setIsOpen(value: boolean): void
 }
 
 export const SKUMatrixContext =
   createContext<SKUMatrixProviderContextValue | null>(null)
 
 function SKUMatrixProvider({ children }: { children: ReactNode }) {
-  const [open, setOpen] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [allVariantProducts, setAllVariantProducts] = useState<
     IAllVariantProducts[]
   >([])
@@ -72,11 +86,11 @@ function SKUMatrixProvider({ children }: { children: ReactNode }) {
   return (
     <SKUMatrixContext.Provider
       value={{
-        open,
+        isOpen,
         allVariantProducts,
         setAllVariantProducts,
         handleChangeQuantityItem,
-        setOpen,
+        setIsOpen,
       }}
     >
       {children}

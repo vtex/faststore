@@ -367,7 +367,7 @@ export {
   SKUMatrixSidebar,
 } from './organisms/SKUMatrix'
 export type {
-  SKUMatrixTriggerProps,
-  SKUMatrixSidebarProps,
   SKUMatrixProps,
+  SKUMatrixTriggerProps,
+  SKUMatrixSidebarProps
 } from './organisms/SKUMatrix'
