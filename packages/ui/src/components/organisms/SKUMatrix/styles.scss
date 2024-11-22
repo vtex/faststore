@@ -42,7 +42,7 @@
   height: 100vh;
   overflow: auto;
 
-  > * {
+  [data-fs-table] {
     flex-shrink: 0;
     padding: var(--fs-sku-matrix-sidebar-spacing-8);
     padding-bottom: 0;
