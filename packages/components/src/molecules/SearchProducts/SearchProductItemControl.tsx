@@ -7,30 +7,33 @@ type StatusButtonAddToCartType = 'default' | 'inProgress' | 'completed'
 
 export interface SearchProductItemControlProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onClick'> {
+  /**
+   * Renders child elements.
+  */	
   children: ReactNode
-	/**
-	 * Specifies whether the product is available.
-	*/
+  /**
+   * Specifies whether the product is available.
+  */
   availability: boolean
   /**
-	 * Specifies whether the product has variations.
-	*/
-	hasVariants: boolean
+   * Specifies whether the product has variations.
+  */
+  hasVariants: boolean
   /**
-	 * Renders the elements of the SKUMatrix.
-	*/
+   * Renders the elements of the SKUMatrix.
+  */
   skuMatrixControl: ReactNode
   /**
-	 * Specifies the quantity to be added to the cart.
-	*/
+   * Specifies the quantity to be added to the cart.
+  */
   quantity: number
   /**
-	 * Callback that fires when the add to cart button is clicked.
-	*/
+   * Callback that fires when the add to cart button is clicked.
+  */
   onClick?(e: MouseEvent<HTMLButtonElement>): void
   /**
-	 * Callback that fires when the input value changes.
-	*/
+   * Callback that fires when the input value changes.
+  */
   onChangeQuantity(value: number): void
 }
 
