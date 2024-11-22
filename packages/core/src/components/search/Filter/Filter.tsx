@@ -6,6 +6,7 @@ import { gql } from '@generated'
 import { ProductGalleryProps } from 'src/components/ui/ProductGallery/ProductGallery'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useFilter } from 'src/sdk/search/useFilter'
+import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 interface Props {
   /**
@@ -35,17 +36,18 @@ function Filter({
 
   const filter = useFilter(allFacets)
   const { filter: displayFilter } = useUI()
+  const { isDesktop } = useScreenResize()
 
   return (
     <>
-      <div className="hidden-mobile">
+      {isDesktop && (
         <FilterDesktop.Component
           {...FilterDesktop.props}
           {...filter}
           testId={testId}
           title={filterCmsData?.title}
         />
-      </div>
+      )}
 
       {displayFilter && (
         <Suspense fallback={null}>

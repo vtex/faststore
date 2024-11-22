@@ -13,7 +13,6 @@ import { SearchState } from '@faststore/sdk'
 import { ProductSummary_ProductFragment } from '@generated/graphql'
 import SearchProductItem from 'src/components/search/SearchProductItem'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
-
 interface SearchDropdownProps {
   sort: SearchState['sort']
   [key: string]: any

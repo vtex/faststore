@@ -1,8 +1,8 @@
+import { getOverridableSection } from '../../..//sdk/overrides/getOverriddenSection'
 import RegionBar, { RegionBarProps } from '../../region/RegionBar/RegionBar'
 import Section from '../Section/Section'
-import styles from './section.module.scss'
 import { RegionBarDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../..//sdk/overrides/getOverriddenSection'
+import styles from './section.module.scss'
 
 type RegionBarSectionProps = {
   /**
@@ -27,12 +27,9 @@ type RegionBarSectionProps = {
   buttonIcon?: RegionBarProps['buttonIcon']
 }
 
-function RegionBarSection({
-  className = 'display-mobile',
-  ...otherProps
-}: RegionBarSectionProps) {
+function RegionBarSection({ ...otherProps }: RegionBarSectionProps) {
   return (
-    <Section className={`${styles.section} section-region-bar ${className}`}>
+    <Section className={`${styles.section} section-region-bar display-mobile`}>
       <RegionBar {...otherProps} />
     </Section>
   )

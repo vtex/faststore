@@ -523,6 +523,8 @@ export type QueryShippingArgs = {
 
 /** Search result. */
 export type SearchMetadata = {
+  /** Indicates how the search engine corrected the misspelled word by using fuzzy logic. */
+  fuzzy: Maybe<Scalars['String']['output']>
   /** Indicates if the search term was misspelled. */
   isTermMisspelled: Scalars['Boolean']['output']
   /** Logical operator used to run the search. */
@@ -682,7 +684,7 @@ export type StoreBreadcrumbList = {
 export type StoreCart = {
   /** List of shopping cart messages. */
   messages: Array<StoreCartMessage>
-  /** Order information, including `orderNumber` and `acceptedOffer`. */
+  /** Order information, including `orderNumber`, `acceptedOffer` and `shouldSplitItem`. */
   order: StoreOrder
 }
 
@@ -892,6 +894,8 @@ export type StoreOrder = {
   acceptedOffer: Array<StoreOffer>
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String']['output']
+  /** Indicates whether or not items with attachments should be split. */
+  shouldSplitItem: Maybe<Scalars['Boolean']['output']>
 }
 
 /** Organization. */
@@ -1327,6 +1331,7 @@ export type ValidateCartMutationMutation = {
   validateCart: {
     order: {
       orderNumber: string
+      shouldSplitItem: boolean | null
       acceptedOffer: Array<{
         quantity: number
         price: number
@@ -1508,13 +1513,18 @@ export type ClientProductGalleryQueryQuery = {
           max: { selected: number; absolute: number }
         }
     >
-    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
+    metadata: {
+      isTermMisspelled: boolean
+      logicalOperator: string
+      fuzzy: string | null
+    } | null
   }
 }
 
 export type SearchEvent_MetadataFragment = {
   isTermMisspelled: boolean
   logicalOperator: string
+  fuzzy: string | null
 }
 
 export type ClientProductQueryQueryVariables = Exact<{
@@ -1602,7 +1612,11 @@ export type ClientSearchSuggestionsQueryQuery = {
       }>
     }
     products: { pageInfo: { totalCount: number } }
-    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
+    metadata: {
+      isTermMisspelled: boolean
+      logicalOperator: string
+      fuzzy: string | null
+    } | null
   }
 }
 
@@ -2056,6 +2070,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(
     fragment SearchEvent_metadata on SearchMetadata {
   isTermMisspelled
   logicalOperator
+  fuzzy
 }
     `,
   { fragmentName: 'SearchEvent_metadata' }
@@ -2081,7 +2096,7 @@ export const ServerProductQueryDocument = {
 export const ValidateCartMutationDocument = {
   __meta__: {
     operationName: 'ValidateCartMutation',
-    operationHash: '324471076994dca94a47adcaf1c6b8f7896e1b4f',
+    operationHash: 'c2b3f8bff73ebf6ac79d758c66cabbc21ba9fcc0',
   },
 } as unknown as TypedDocumentString<
   ValidateCartMutationMutation,
@@ -2108,7 +2123,7 @@ export const ClientManyProductsQueryDocument = {
 export const ClientProductGalleryQueryDocument = {
   __meta__: {
     operationName: 'ClientProductGalleryQuery',
-    operationHash: '177fe68cb385737b0901fc9e105f0a4813e18a20',
+    operationHash: 'bfc40da32b60f9404a4adb96b0856e3fbb04b076',
   },
 } as unknown as TypedDocumentString<
   ClientProductGalleryQueryQuery,
@@ -2126,7 +2141,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '4d9f934764d8578aea08673b8ba57e8bf738f534',
+    operationHash: '47e48eaee91d16a4237eb2c1241bc2ed3e2ad9bb',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
