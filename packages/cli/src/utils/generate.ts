@@ -17,6 +17,7 @@ import ora from 'ora'
 import { withBasePath } from './directory'
 import { installDependencies } from './dependencies'
 import { logger } from './logger'
+import { installPlugins } from './plugins'
 
 interface GenerateOptions {
   setup?: boolean
@@ -496,5 +497,7 @@ export async function generate(options: GenerateOptions) {
     createCmsWebhookUrlsJsonFile(basePath),
     updateNextConfig(basePath),
     enableRedirectsMiddleware(basePath),
+
+    installPlugins(basePath),
   ])
 }
