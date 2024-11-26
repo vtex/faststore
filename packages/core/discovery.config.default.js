@@ -102,5 +102,6 @@ module.exports = {
     noRobots: false,
     preact: false,
     enableRedirects: false,
+    revalidate: 300, // Revalidate every 5 minutes
   },
 }
