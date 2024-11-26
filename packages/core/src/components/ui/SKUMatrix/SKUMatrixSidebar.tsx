@@ -15,10 +15,10 @@ function SKUMatrixSidebar(props: SKUMatrixProps) {
     data: { product },
   } = usePDP()
 
-  const { allVariantProducts, open, setAllVariantProducts } = useSKUMatrix()
+  const { allVariantProducts, isOpen, setAllVariantProducts } = useSKUMatrix()
   const { isValidating } = useAllVariantProducts(
     product.id,
-    open,
+    isOpen,
     setAllVariantProducts
   )
 
