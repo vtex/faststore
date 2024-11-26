@@ -49,7 +49,7 @@ export interface ProductCardProps {
   /**
    * Specifies item list name.
    */
-  list_name?: string
+  listName?: string
   /**
    * Enables a DiscountBadge to the component.
    */
@@ -75,7 +75,7 @@ function ProductCard({
   onButtonClick,
   showDiscountBadge = true,
   taxesConfiguration,
-  list_name,
+  listName,
   ...otherProps
 }: ProductCardProps) {
   const {
@@ -91,7 +91,7 @@ function ProductCard({
   } = product
 
   const linkProps = {
-    ...useProductLink({ product, selectedOffer: 0, index, list_name }),
+    ...useProductLink({ product, selectedOffer: 0, index, listName }),
     as: NextLink,
     passHref: true,
     legacyBehavior: false,

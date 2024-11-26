@@ -12,14 +12,14 @@ export type ProductLinkOptions = {
   index: number
   product: ProductSummary_ProductFragment
   selectedOffer: number
-  list_name: string
+  listName: string
 }
 
 export const useProductLink = ({
   index,
   product,
   selectedOffer,
-  list_name,
+  listName,
 }: ProductLinkOptions) => {
   const { slug } = product
   const {
@@ -37,7 +37,7 @@ export const useProductLink = ({
               item_name: product.isVariantOf.name,
               item_brand: product.brand.name,
               item_variant: product.sku,
-              item_list_name: list_name ? list_name : '',
+              item_list_name: listName ? listName : '',
               index,
               price: product.offers.offers[selectedOffer].price,
               discount:
