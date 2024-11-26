@@ -30,8 +30,8 @@ import {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import { useOffer } from 'src/sdk/offer'
 import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
-import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import { PDPContentType, getPDP } from 'src/server/cms/pdp'
 
 /**
@@ -71,14 +71,12 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   const { currency } = useSession()
   const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
 
-  // Stale while revalidate the product for fetching the new price etc
-  const { data: client, isValidating } = useProductQuery(product.id, {
-    product: product,
-  })
+  const offer = useOffer({ skuId: product.sku })
+  const client = { product: { offers: offer.offers } }
 
   const context = {
     data: deepmerge(server, client, { arrayMerge: overwriteMerge }),
-    isValidating,
+    isValidating: offer.isValidating,
   } as PDPContext
 
   return (
