@@ -4,31 +4,28 @@ import { enhanceCommercialOffer } from './enhance'
 import { fetcher } from './fetcher'
 import { bestOfferFirst } from './sort'
 
+const INITIAL = { offers: {}, isValidating: true }
+
 export function useOffer(args: { skuId: string }) {
   const { data, error, isValidating } = useSWR(args.skuId, fetcher)
 
-  if (error) {
-    console.warn('Error fetching offer to SKU', args.skuId, error)
+  if (error || !data || data.products.length === 0) {
+    console.warn('Error or no data fetching offer to SKU', args.skuId, error)
+    return INITIAL
   }
 
-  if (!data) {
-    return { offers: {}, isValidating }
-  }
+  const product = data.products[0]
 
-  if (data.products.length === 0) {
-    console.warn('Product not found for SKU', args.skuId)
-  }
-
-  const [product] = data.products
-
-  if (product.items.length === 0) {
-    console.warn('Product has no items', product)
+  if (!product || product.items.length === 0) {
+    console.warn('Product not found or has no items for SKU', args.skuId)
+    return INITIAL
   }
 
   const item = product.items.find((item) => item.itemId === args.skuId)
 
   if (!item) {
     console.warn('Item not found for SKU', args.skuId)
+    return INITIAL
   }
 
   const sellers = item.sellers
