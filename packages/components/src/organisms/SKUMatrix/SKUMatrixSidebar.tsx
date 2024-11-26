@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import { Badge, Button, QuantitySelector, Skeleton } from '../..'
 import Price, { PriceFormatter } from '../../atoms/Price'
 import Icon from '../../atoms/Icon'
-import { useSKUMatrix, useUI } from '../../hooks'
+import { useFadeEffect, useSKUMatrix, useUI } from '../../hooks'
 import {
   Table,
   TableBody,
@@ -11,10 +11,7 @@ import {
   TableHead,
   TableRow,
 } from '../../molecules/Table'
-import SlideOver, {
-  SlideOverHeader,
-  SlideOverProps,
-} from '../SlideOver'
+import SlideOver, { SlideOverHeader, SlideOverProps } from '../SlideOver'
 
 interface VariationProductColumn {
   name: string
@@ -27,8 +24,8 @@ interface VariationProductColumn {
   quantitySelector: number
 }
 
-
-export interface SKUMatrixSidebarProps extends SlideOverProps {
+export interface SKUMatrixSidebarProps
+  extends Omit<SlideOverProps, 'isOpen' | 'setIsOpen' | "fade"> {
   /**
    * Title for the SKUMatrixSidebar component.
    */
@@ -71,12 +68,14 @@ function SKUMatrixSidebar({
   ...otherProps
 }: SKUMatrixSidebarProps) {
   const {
+    isOpen,
     setIsOpen,
     setAllVariantProducts,
     allVariantProducts,
     handleChangeQuantityItem,
   } = useSKUMatrix()
   const { pushToast } = useUI()
+  const { fade } = useFadeEffect()
 
   const cartDetails = useMemo(() => {
     return allVariantProducts.reduce(
@@ -109,7 +108,8 @@ function SKUMatrixSidebar({
   }
 
   const totalColumnsSkeletonLength =
-    Object.keys(columns).filter(v => v !== "additionalColumns").length + (columns.additionalColumns?.length ?? 0)
+    Object.keys(columns).filter((v) => v !== 'additionalColumns').length +
+    (columns.additionalColumns?.length ?? 0)
 
   return (
     <SlideOver
@@ -117,6 +117,8 @@ function SKUMatrixSidebar({
       size={size}
       direction={direction}
       overlayProps={overlayProps}
+      isOpen={isOpen}
+      fade={fade}
       {...otherProps}
     >
       <SlideOverHeader onClose={onClose}>
