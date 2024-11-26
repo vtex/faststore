@@ -10,7 +10,7 @@ export async function fetcher(skuId: string) {
   url.searchParams.append('query', `sku.id:${skuId}`)
   url.searchParams.append('workspace', 'chrs')
 
-  return fetch(url.toString()).then((res) =>
+  return fetch(url.toString(), { credentials: 'include' }).then((res) =>
     res.json()
   ) as Promise<ProductSearchResult>
 }
