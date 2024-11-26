@@ -22,6 +22,7 @@
       "dependsOn": ["^build"]
     },
     "lint": {},
+    "serve": {},
     "start": {
       "outputs": ["dist/**"]
     },
