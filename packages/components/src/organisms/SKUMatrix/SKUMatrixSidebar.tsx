@@ -34,7 +34,6 @@ export interface SKUMatrixSidebarProps
    * Represents the variations products to building the table.
    */
   columns: VariationProductColumn
-
   /**
    * Properties related to the 'add to cart' button
    */
@@ -72,7 +71,7 @@ function SKUMatrixSidebar({
     setIsOpen,
     setAllVariantProducts,
     allVariantProducts,
-    handleChangeQuantityItem,
+    onChangeQuantityItem,
   } = useSKUMatrix()
   const { pushToast } = useUI()
   const { fade } = useFadeEffect()
@@ -91,10 +90,6 @@ function SKUMatrixSidebar({
     setAllVariantProducts((prev) =>
       prev.map((item) => ({ ...item, quantity: 0 }))
     )
-  }
-
-  function handleQuantitySelectorChange(id: string, value: number) {
-    handleChangeQuantityItem(id, value)
   }
 
   function onClose() {
@@ -247,7 +242,7 @@ function SKUMatrixSidebar({
                         }
                         initial={variantProduct.selectedCount}
                         onChange={(value) =>
-                          handleQuantitySelectorChange(variantProduct.id, value)
+                          onChangeQuantityItem(variantProduct.id, value)
                         }
                         onValidateBlur={(
                           min: number,
