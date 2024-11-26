@@ -6,22 +6,22 @@
   // Default properties
 
   // Background
-  --fs-sku-matrix-sidebar-bkg-color				: var(--fs-color-neutral-0);
+  --fs-sku-matrix-sidebar-bkg-color				          : var(--fs-color-body-bkg);
 
   // Title
-  --fs-sku-matrix-sidebar-title-size				: var(--fs-text-size-6);
-  --fs-sku-matrix-sidebar-title-text-weight			: var(--fs-text-weight-semibold);
+  --fs-sku-matrix-sidebar-title-size				        : var(--fs-text-size-6);
+  --fs-sku-matrix-sidebar-title-text-weight			    : var(--fs-text-weight-semibold);
 
   // Cell
-  --fs-sku-matrix-sidebar-table-cell-font-size			: var(--fs-text-size-0);
+  --fs-sku-matrix-sidebar-table-cell-font-size			: var(--fs-text-size-tiny);
   --fs-sku-matrix-sidebar-table-cell-text-weight		: var(--fs-text-weight-medium);
 
 
   // Spacing
-  --fs-sku-matrix-sidebar-padding				: var(--fs-spacing-8);
+  --fs-sku-matrix-sidebar-padding				            : var(--fs-spacing-8);
 
   // Partial
-  --fs-sku-matrix-slide-over-partial-gap			: calc(2 * var(--fs-grid-padding));
+  --fs-sku-matrix-slide-over-partial-gap			      : calc(2 * var(--fs-grid-padding));
   --fs-sku-matrix-slide-over-partial-width-mobile		: calc(100vw - var(--fs-sku-matrix-slide-over-partial-gap));
 
   // --------------------------------------------------------
