@@ -267,7 +267,7 @@ export const getStaticProps: GetStaticProps<
       globalSections,
       key: seo.canonical,
     },
-    revalidate: 300, // Revalidate every 5 minutes
+    revalidate: storeConfig.experimental.revalidate,
   }
 }
 
