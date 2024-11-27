@@ -1633,6 +1633,12 @@
               "type": "string",
               "default": "Select multiple"
             },
+            "separatorButtonsText": {
+              "title": "Separator text",
+              "description": "Text that separates the add to cart button from the SKU Matrix Trigger button.",
+              "type": "string",
+              "default": "Or"
+            },
             "columns": {
               "title": "Columns",
               "type": "object",
