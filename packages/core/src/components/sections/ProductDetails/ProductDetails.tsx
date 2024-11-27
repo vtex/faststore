@@ -58,6 +58,7 @@ export interface ProductDetailsProps {
   skuMatrix?: {
     shouldDisplaySKUMatrix?: boolean
     triggerButtonLabel: string
+    separatorButtonsText: string
     columns: {
       name: string
       additionalColumns: Array<{ label: string; value: string }>
@@ -238,7 +239,9 @@ function ProductDetails({
               {skuMatrix?.shouldDisplaySKUMatrix &&
                 Object.keys(slugsMap).length > 1 && (
                   <>
-                    <div data-fs-product-details-settings-separator>Or</div>
+                    <div data-fs-product-details-settings-separator>
+                      {skuMatrix.separatorButtonsText}
+                    </div>
 
                     <SKUMatrix.Component>
                       <SKUMatrixTrigger.Component disabled={isValidating}>
