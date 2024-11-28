@@ -3,6 +3,7 @@ import type { Locator } from '@vtex/client-cms'
 import deepmerge from 'deepmerge'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
+import Head from 'next/head'
 import type { ComponentType } from 'react'
 
 import { gql } from '@generated'
@@ -30,7 +31,7 @@ import {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { useOffer } from 'src/sdk/offer'
+import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
 import { PDPContentType, getPDP } from 'src/server/cms/pdp'
 
@@ -83,6 +84,14 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
 
   return (
     <>
+      <Head>
+        <link
+          rel="preload"
+          href={getOfferUrl(product.sku)}
+          as="fetch"
+          crossOrigin="anonymous"
+        />
+      </Head>
       {/* SEO */}
       <NextSeo
         title={meta.title}

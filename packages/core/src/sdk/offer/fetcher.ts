@@ -3,7 +3,7 @@ import { api, storeUrl } from '../../../discovery.config'
 
 const IS_PROD = process.env.NODE_ENV === 'production'
 
-export async function fetcher(skuId: string) {
+export function getUrl(skuId: string) {
   const base = IS_PROD
     ? storeUrl
     : `https://${api.storeId}.${api.environment}.com.br`
@@ -13,7 +13,11 @@ export async function fetcher(skuId: string) {
     url.searchParams.append('workspace', 'chrs')
   }
 
-  return fetch(url.toString()).then((res) =>
+  return url.toString()
+}
+
+export async function fetcher(skuId: string) {
+  return fetch(getUrl(skuId)).then((res) =>
     res.json()
   ) as Promise<ProductSearchResult>
 }
