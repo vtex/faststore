@@ -1,9 +1,7 @@
 import type { CurrencyCode, SelectItemEvent } from '@faststore/sdk'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import { useCallback } from 'react'
-import { preload } from 'swr'
 import type { AnalyticsItem, SearchSelectItemEvent } from '../analytics/types'
-import { fetcherOffer } from '../offer'
 import { useSession } from '../session'
 
 export type ProductLinkOptions = {
@@ -65,12 +63,6 @@ export const useProductLink = ({
   return {
     href: `/${slug}/p`,
     onClick,
-    onMouseDown: () => {
-      preload(product.sku, fetcherOffer)
-    },
-    onTouchStart: () => {
-      preload(product.sku, fetcherOffer)
-    },
     'data-testid': 'product-link',
   }
 }
