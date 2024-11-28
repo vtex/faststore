@@ -3,7 +3,7 @@ import { aggregateOffer } from './aggregate'
 import { enhanceCommercialOffer } from './enhance'
 import { fetcher } from './fetcher'
 import { bestOfferFirst } from './sort'
-export { getUrl as getOfferUrl } from './fetcher'
+export { fetcher as fetcherOffer, getUrl as getOfferUrl } from './fetcher'
 
 const ERROR_DATA = { offers: {}, isValidating: false }
 
