@@ -25,7 +25,7 @@ interface Props {
    */
   productCard?: Pick<
     ProductCardProps,
-    'showDiscountBadge' | 'bordered' | 'taxesConfiguration'
+    'showDiscountBadge' | 'bordered' | 'taxesConfiguration' | 'sponsoredLabel'
   >
   /**
    * Identify the number of firstPage
@@ -37,7 +37,12 @@ function ProductGrid({
   products,
   page,
   pageSize,
-  productCard: { showDiscountBadge, bordered, taxesConfiguration } = {},
+  productCard: {
+    showDiscountBadge,
+    bordered,
+    taxesConfiguration,
+    sponsoredLabel,
+  } = {},
   firstPage,
 }: Props) {
   const { __experimentalProductCard: ProductCard } =
@@ -73,6 +78,7 @@ function ProductGrid({
                   product={product}
                   index={pageSize * page + idx + 1}
                   taxesConfiguration={taxesConfiguration}
+                  sponsoredLabel={sponsoredLabel}
                 />
               </UIProductGridItem>
             ))}
@@ -96,6 +102,7 @@ function ProductGrid({
                     product={product}
                     index={pageSize * page + idx + 1}
                     taxesConfiguration={taxesConfiguration}
+                    sponsoredLabel={sponsoredLabel}
                   />
                 </UIProductGridItem>
               ))}
@@ -121,6 +128,7 @@ function ProductGrid({
                   product={product}
                   index={pageSize * page + idx + 1}
                   taxesConfiguration={taxesConfiguration}
+                  sponsoredLabel={product.sponsoredLabel}
                 />
               </UIProductGridItem>
             ))}
