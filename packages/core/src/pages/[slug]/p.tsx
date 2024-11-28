@@ -90,6 +90,7 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
           href={getOfferUrl(product.sku)}
           as="fetch"
           crossOrigin="anonymous"
+          fetchPriority="high"
         />
       </Head>
       {/* SEO */}
