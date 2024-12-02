@@ -1,0 +1,20 @@
+diff --git a/node_modules/next/dist/server/lib/start-server.js b/node_modules/next/dist/server/lib/start-server.js
+index 1ebebd5..aa6c679 100644
+--- a/node_modules/next/dist/server/lib/start-server.js
++++ b/node_modules/next/dist/server/lib/start-server.js
+@@ -36,6 +36,7 @@ const _routerserver = require("./router-server");
+ const _isnodedebugging = require("./is-node-debugging");
+ const _constants = require("../../shared/lib/constants");
+ const _picocolors = require("../../lib/picocolors");
++const _logger = require('pino-http')();
+ function _interop_require_default(obj) {
+     return obj && obj.__esModule ? obj : {
+         default: obj
+@@ -145,6 +146,7 @@ async function startServer({ dir, port, isDev, hostname, minimalMode, allowRetry
+         throw new Error("Using a self signed certificate is only supported with `next dev`.");
+     }
+     async function requestListener(req, res) {
++        _logger(req, res);
+         try {
+             if (handlersPromise) {
+                 await handlersPromise;
