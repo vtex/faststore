@@ -8,7 +8,25 @@ import {
 import { Image } from 'src/components/ui/Image'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
+import type {
+  IntelligentSearchAutocompleteClickEvent,
+  IntelligentSearchAutocompleteClickParams,
+} from 'src/sdk/analytics/types'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
+
+function sendAutocompleteClickEvent({
+  url,
+  term,
+  position,
+  productId,
+}: IntelligentSearchAutocompleteClickParams) {
+  import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+    sendAnalyticsEvent<IntelligentSearchAutocompleteClickEvent>({
+      name: 'intelligent_search_autocomplete_click',
+      params: { term, url, productId, position },
+    })
+  })
+}
 
 type SearchProductItemProps = {
   /**
@@ -50,6 +68,12 @@ function SearchProductItem({
     onClick: () => {
       onClick()
       onSearchSelection?.(name, href)
+      sendAutocompleteClickEvent({
+        url: href,
+        term: name,
+        position: index,
+        productId: product.isVariantOf.productGroupID ?? product.sku,
+      })
     },
     ...baseLinkProps,
   }
