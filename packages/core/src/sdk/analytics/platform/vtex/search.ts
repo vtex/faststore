@@ -3,6 +3,7 @@
  */
 import type { AnalyticsEvent } from '@faststore/sdk'
 import type {
+  IntelligentSearchAutocompleteClickEvent,
   IntelligentSearchAutocompleteQueryEvent,
   IntelligentSearchQueryEvent,
   SearchSelectItemEvent,
@@ -76,6 +77,13 @@ type SearchEvent =
       url: string
       type: 'search.autocomplete.query'
     }
+  | {
+      text: string
+      url?: string
+      position?: number
+      productId?: string
+      type: 'search.autocomplete.click'
+    }
 
 const sendEvent = (options: SearchEvent & { url?: string }) =>
   fetch(`https://sp.vtex.com/event-api/v1/${config.api.storeId}/event`, {
@@ -101,6 +109,7 @@ const handleEvent = (
     | SearchSelectItemEvent
     | IntelligentSearchQueryEvent
     | IntelligentSearchAutocompleteQueryEvent
+    | IntelligentSearchAutocompleteClickEvent
 ) => {
   switch (event.name) {
     case 'search_select_item': {
@@ -151,6 +160,18 @@ const handleEvent = (
         match: event.params.totalCount,
         operator: event.params.logicalOperator,
         locale: event.params.locale,
+      })
+
+      break
+    }
+
+    case 'intelligent_search_autocomplete_click': {
+      sendEvent({
+        text: event.params.term,
+        url: event.params.url ?? '',
+        productId: event.params.productId ?? '',
+        ...(event.params.position && { position: event.params.position }),
+        type: 'search.autocomplete.click',
       })
 
       break
