@@ -1,25 +1,25 @@
 import { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
-import type { PortalProduct } from './types/Product'
 import type { Context, Options } from '../../index'
+import type { Channel } from '../../utils/channel'
+import { getStoreCookie, getWithCookie } from '../../utils/cookies'
+import type { Address, AddressInput } from './types/Address'
 import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
+import { MasterDataResponse } from './types/Newsletter'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
 import type { PortalPagetype } from './types/Portal'
+import type { PortalProduct } from './types/Product'
 import type { Region, RegionInput } from './types/Region'
+import type { SalesChannel } from './types/SalesChannel'
+import type { Session } from './types/Session'
+import { DeliveryMode, SelectedAddress } from './types/ShippingData'
 import type {
   Simulation,
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
-import type { Session } from './types/Session'
-import type { Channel } from '../../utils/channel'
-import type { SalesChannel } from './types/SalesChannel'
-import { MasterDataResponse } from './types/Newsletter'
-import type { Address, AddressInput } from './types/Address'
-import { DeliveryMode, SelectedAddress } from './types/ShippingData'
-import { getStoreCookie, getWithCookie } from '../../utils/cookies'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -41,10 +41,10 @@ export const VtexCommerce = (
   const host =
     new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? ''
 
-  const selectedPrefix = subDomainPrefix ?
-    subDomainPrefix
-      .map((prefix) => prefix + '.')
-      .find((prefix) => host.includes(prefix)) || ''
+  const selectedPrefix = subDomainPrefix
+    ? subDomainPrefix
+        .map((prefix) => prefix + '.')
+        .find((prefix) => host.includes(prefix)) || ''
     : ''
 
   const forwardedHost = host.replace(selectedPrefix, '')
@@ -142,9 +142,9 @@ export const VtexCommerce = (
       ): Promise<OrderForm> => {
         const deliveryWindow = setDeliveryWindow
           ? {
-            startDateUtc: deliveryMode?.deliveryWindow?.startDate,
-            endDateUtc: deliveryMode?.deliveryWindow?.endDate,
-          }
+              startDateUtc: deliveryMode?.deliveryWindow?.startDate,
+              endDateUtc: deliveryMode?.deliveryWindow?.endDate,
+            }
           : null
 
         const mappedBody = {
@@ -239,6 +239,15 @@ export const VtexCommerce = (
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
         })
+        console.log(
+          '✨ fetch updateOrderFormItems: ',
+          `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
+          '------ body: ',
+          JSON.stringify({
+            orderItems,
+            noSplitItem: !shouldSplitItem,
+          })
+        )
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
@@ -292,9 +301,9 @@ export const VtexCommerce = (
         postalCode
           ? params.append('postalCode', postalCode)
           : params.append(
-            'geoCoordinates',
-            `${geoCoordinates?.longitude};${geoCoordinates?.latitude}`
-          )
+              'geoCoordinates',
+              `${geoCoordinates?.longitude};${geoCoordinates?.latitude}`
+            )
 
         const url = `${base}/api/checkout/pub/regions/?${params.toString()}`
         const headers: HeadersInit = withCookie({
