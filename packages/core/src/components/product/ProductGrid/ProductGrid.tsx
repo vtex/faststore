@@ -128,7 +128,7 @@ function ProductGrid({
                   product={product}
                   index={pageSize * page + idx + 1}
                   taxesConfiguration={taxesConfiguration}
-                  sponsoredLabel={product.sponsoredLabel}
+                  sponsoredLabel={sponsoredLabel}
                 />
               </UIProductGridItem>
             ))}
