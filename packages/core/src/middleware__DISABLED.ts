@@ -11,19 +11,45 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import storeConfig from 'discovery.config'
 
-type Redirect = {
-  from: string
-  to: string
-  type: 'permanent' | 'temporary'
-}
-interface RedirectsClient {
-  get(from: string): Promise<Redirect | null>
-}
+import { DynamoDBClient, GetItemCommand } from '@aws-sdk/client-dynamodb'
 
-class DynamoRedirectsClient implements RedirectsClient {
-  async get(from: string): Promise<Redirect | null> {
-    // TODO: Implement DynamoDB client. Ensure that the cluster has access to DynamoDB first.
-    return null
+const dynamoDbClient = new DynamoDBClient({})
+
+const TABLE_NAME = 'faststore-redirects'
+const ACCOUNT_ID = storeConfig.api.storeId
+
+class DynamoRedirectsClient {
+  async get(from: string) {
+    try {
+      const command = new GetItemCommand({
+        TableName: TABLE_NAME,
+        Key: {
+          account_name: {
+            S: ACCOUNT_ID,
+          },
+          from: {
+            S: from,
+          },
+        },
+      })
+
+      const { Item } = await dynamoDbClient.send(command)
+
+      if (!Item) {
+        return null
+      }
+
+      const redirect = {
+        to: Item.to.S,
+        from: Item.from.S,
+        type: Item.type.S,
+      }
+
+      return redirect
+    } catch (error) {
+      console.error(error)
+      return null
+    }
   }
 }
 
