@@ -26,12 +26,14 @@ export type SearchWrapperProps = {
   itemsPerPage: number
   searchContentType: SearchContentType
   serverData: SearchPageContextType
+  globalSections?: Array<{ name: string; data: any }>
 }
 
 export default function SearchWrapper({
   itemsPerPage,
   searchContentType,
   serverData,
+  globalSections,
 }: SearchWrapperProps) {
   const router = useRouter()
   const {
@@ -64,6 +66,7 @@ export default function SearchWrapper({
     <SearchPage
       page={searchContentType}
       data={{ ...serverData, ...pageProductGalleryData }}
+      globalSections={globalSections}
     />
   )
 }

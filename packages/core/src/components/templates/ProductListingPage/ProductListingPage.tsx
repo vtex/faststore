@@ -20,6 +20,7 @@ import ProductListing from './ProductListing'
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery
   page: PLPContentType
+  globalSections?: Array<{ name: string; data: any }>
 }
 
 type UseSearchParams = {
@@ -56,6 +57,7 @@ const useSearchParams = ({
 export default function ProductListingPage({
   page: plpContentType,
   data: server,
+  globalSections,
 }: ProductListingPageProps) {
   const { settings } = plpContentType
   const collection = server.collection
@@ -94,7 +96,11 @@ export default function ProductListingPage({
         itemListElements={collection?.breadcrumbList.itemListElement ?? []}
       />
 
-      <ProductListing page={plpContentType} data={server} />
+      <ProductListing
+        globalSections={globalSections}
+        page={plpContentType}
+        data={server}
+      />
     </SearchProvider>
   )
 }

@@ -1,37 +1,19 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
-import type { ComponentType } from 'react'
 
 import RenderSections from 'src/components/cms/RenderSections'
-import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
-import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
-import Incentives from 'src/components/sections/Incentives'
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
-import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
-import GlobalSections, {
+import {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import COMPONENTS from 'src/components/cms/home/Components'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../discovery.config'
-
-/* A list of components that can be used in the CMS. */
-const COMPONENTS: Record<string, ComponentType<any>> = {
-  Hero,
-  Incentives,
-  ProductShelf,
-  ProductTiles,
-  BannerText,
-  Newsletter,
-  ...CUSTOM_COMPONENTS,
-}
 
 type Props = {
   page: PageContentType
@@ -49,7 +31,7 @@ function Page({
   }
 
   return (
-    <GlobalSections {...globalSections}>
+    <>
       {/* SEO */}
       <NextSeo
         title={settings?.seo?.title ?? storeConfig.seo.title}
@@ -86,9 +68,13 @@ function Page({
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
-        <RenderSections sections={sections} components={COMPONENTS} />
+        <RenderSections
+          globalSections={globalSections.sections}
+          sections={sections}
+          components={COMPONENTS}
+        />
       </PageProvider>
-    </GlobalSections>
+    </>
   )
 }
 

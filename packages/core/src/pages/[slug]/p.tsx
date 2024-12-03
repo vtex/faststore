@@ -10,6 +10,7 @@ import {
   type ServerProductQueryQuery,
   type ServerProductQueryQueryVariables,
 } from '@generated/graphql'
+import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
@@ -25,7 +26,7 @@ import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
 
 import storeConfig from 'discovery.config'
-import GlobalSections, {
+import {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
@@ -38,6 +39,7 @@ import { PDPContentType, getPDP } from 'src/server/cms/pdp'
  * Do not import or render components from any other folder in here.
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
+  ...GLOBAL_COMPONENTS,
   Breadcrumb,
   BannerNewsletter,
   Newsletter,
@@ -82,7 +84,7 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   } as PDPContext
 
   return (
-    <GlobalSections {...globalSections}>
+    <>
       {/* SEO */}
       <NextSeo
         title={meta.title}
@@ -136,9 +138,13 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
-        <RenderSections sections={sections} components={COMPONENTS} />
+        <RenderSections
+          sections={sections}
+          globalSections={globalSections.sections}
+          components={COMPONENTS}
+        />
       </PageProvider>
-    </GlobalSections>
+    </>
   )
 }
 

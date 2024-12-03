@@ -12,6 +12,7 @@ import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sectio
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import MissingContentError from 'src/sdk/error/MissingContentError/MissingContentError'
 import PageProvider from 'src/sdk/overrides/PageProvider'
 import type { PageContentType } from 'src/server/cms'
@@ -21,6 +22,7 @@ import storeConfig from 'discovery.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
+  ...GLOBAL_COMPONENTS,
   Hero,
   BannerText,
   BannerNewsletter,
@@ -36,12 +38,14 @@ export type LandingPageProps = {
   page: PageContentType
   slug?: string
   serverData?: unknown
+  globalSections?: Array<{ name: string; data: any }>
 }
 
 export default function LandingPage({
   page: { sections, settings },
   slug,
   serverData,
+  globalSections,
 }: LandingPageProps) {
   const context = {
     data: serverData,
@@ -87,7 +91,11 @@ export default function LandingPage({
         (not the HTML tag) before rendering it here.
       */}
       <PageProvider context={context}>
-        <RenderSections sections={sections} components={COMPONENTS} />
+        <RenderSections
+          sections={sections}
+          globalSections={globalSections}
+          components={COMPONENTS}
+        />
       </PageProvider>
     </>
   )
