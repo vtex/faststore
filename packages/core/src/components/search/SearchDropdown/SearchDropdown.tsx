@@ -23,7 +23,7 @@ interface SearchDropdownProps {
   [key: string]: any
 }
 
-function sendAutocompleteClickEvent({
+export function sendAutocompleteClickEvent({
   url,
   term,
   position,
