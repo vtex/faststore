@@ -360,3 +360,14 @@ export type {
   SlideOverProps,
   SlideOverHeaderProps,
 } from './organisms/SlideOver'
+
+export {
+  default as SKUMatrix,
+  SKUMatrixTrigger,
+  SKUMatrixSidebar,
+} from './organisms/SKUMatrix'
+export type {
+  SKUMatrixProps,
+  SKUMatrixTriggerProps,
+  SKUMatrixSidebarProps
+} from './organisms/SKUMatrix'
