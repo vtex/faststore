@@ -25,6 +25,7 @@ import ProductListingPage, {
 import { PageContentType } from 'src/server/cms'
 import { getPLP, PLPContentType } from 'src/server/cms/plp'
 import { getDynamicContent } from 'src/utils/dynamicContent'
+import { getRedirect } from 'src/sdk/redirects'
 
 const LandingPage = dynamic(
   () => import('src/components/templates/LandingPage')
@@ -140,6 +141,16 @@ export const getStaticProps: GetStaticProps<
   const notFound = errors.find(isNotFoundError)
 
   if (notFound) {
+    console.log(slug)
+    const redirect = getRedirect({ pathname: `/${slug}` })
+    if (redirect) {
+      return {
+        redirect: {
+          destination: redirect,
+          permanent: true,
+        },
+      }
+    }
     return {
       notFound: true,
     }
