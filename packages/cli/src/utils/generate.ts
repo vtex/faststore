@@ -393,14 +393,31 @@ function updateNextConfig(basePath: string) {
   writeFileSync(nextConfigPath, nextConfigData)
 }
 
-function validateAndInstallMissingDependencies(basePath: string) {
-  const { userDir, userStoreConfigFile } = withBasePath(basePath)
+// returns new (discovery.config.js) or legacy (faststore.config.js) store config file
+function getCurrentUserStoreConfigFile(basePath: string) {
+  const { userStoreConfigFile, userLegacyStoreConfigFile } = withBasePath(basePath)
 
-  if (!existsSync(userStoreConfigFile)) {
+  if (existsSync(userStoreConfigFile)) {
+    return userStoreConfigFile
+  }
+
+  if (existsSync(userLegacyStoreConfigFile)) {
+    return userLegacyStoreConfigFile
+  }
+
+  return null
+}
+
+function validateAndInstallMissingDependencies(basePath: string) {
+  const { userDir } = withBasePath(basePath)
+
+  const currentUserStoreConfigFile = getCurrentUserStoreConfigFile(basePath) 
+
+  if (!currentUserStoreConfigFile) {
     return
   }
 
-  const userStoreConfig = require(userStoreConfigFile)
+  const userStoreConfig = require(currentUserStoreConfigFile)
   const userPackageJson = require(path.join(userDir, 'package.json'))
 
   const missingDependencies: Array<{
