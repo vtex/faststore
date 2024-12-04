@@ -12,6 +12,7 @@ export const useLocalizedVariables = ({
   sort,
   term,
   selectedFacets,
+  sponsoredCount,
 }: Partial<ClientManyProductsQueryQueryVariables>) => {
   const { channel, locale } = useSession()
 
@@ -28,6 +29,16 @@ export const useLocalizedVariables = ({
         { key: 'channel', value: channel ?? '' },
         { key: 'locale', value: locale },
       ],
+      sponsoredCount: sponsoredCount ?? 3,
     }
-  }, [selectedFacets, first, after, sort, term, channel, locale])
+  }, [
+    selectedFacets,
+    first,
+    after,
+    sort,
+    term,
+    channel,
+    locale,
+    sponsoredCount,
+  ])
 }

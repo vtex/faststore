@@ -505,6 +505,7 @@ export type QuerySearchArgs = {
   first: Scalars['Int']['input']
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet>>
   sort?: InputMaybe<StoreSort>
+  sponsoredCount: InputMaybe<Scalars['Int']['input']>
   term?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -1433,6 +1434,7 @@ export type ClientManyProductsQueryQueryVariables = Exact<{
   sort: StoreSort
   term: Scalars['String']['input']
   selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+  sponsoredCount: InputMaybe<Scalars['Int']['input']>
 }>
 
 export type ClientManyProductsQueryQuery = {
@@ -1898,6 +1900,7 @@ export const ClientManyProductsFragmentDoc = new TypedDocumentString(
     sort: $sort
     term: $term
     selectedFacets: $selectedFacets
+    sponsoredCount: $sponsoredCount
   ) {
     products {
       pageInfo {
@@ -2102,7 +2105,7 @@ export const SubscribeToNewsletterDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: 'ad2eb78cfccb9dbd5a9f2d1e150cc70fea5da99a',
+    operationHash: '14148671fbf53498fad5c600ee87765920145019',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
