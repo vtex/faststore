@@ -141,12 +141,11 @@ export const getStaticProps: GetStaticProps<
   const notFound = errors.find(isNotFoundError)
 
   if (notFound) {
-    console.log(slug)
-    const redirect = getRedirect({ pathname: `/${slug}` })
+    const redirect = await getRedirect({ pathname: `/${slug}` })
     if (redirect) {
       return {
         redirect: {
-          destination: redirect,
+          destination: redirect.location,
           permanent: true,
         },
       }
