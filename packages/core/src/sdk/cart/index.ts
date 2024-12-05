@@ -16,7 +16,9 @@ import { request } from '../graphql/request'
 import { sessionStore } from '../session'
 import { createValidationStore, useStore } from '../useStore'
 
-export interface CartItem extends SDKCartItem, CartItemFragment {}
+export interface CartItem extends SDKCartItem, CartItemFragment {
+  categories: Array<{ name: string }>
+}
 
 export interface Cart extends SDKCart<CartItem> {
   messages?: CartMessageFragment[]
@@ -53,6 +55,9 @@ export const ValidateCartMutation = gql(`
     priceWithTaxes
     listPrice
     listPriceWithTaxes
+    categories {
+      name
+    }
     itemOffered {
       ...CartProductItem
     }

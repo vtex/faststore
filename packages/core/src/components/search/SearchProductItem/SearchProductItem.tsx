@@ -31,10 +31,13 @@ function SearchProductItem({
     values: { onSearchSelection },
   } = useSearch()
 
+  const listName = 'search'
+
   const { href, onClick, ...baseLinkProps } = useProductLink({
     product,
     selectedOffer: 0,
     index,
+    listName,
   })
 
   const {
