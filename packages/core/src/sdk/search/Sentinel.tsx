@@ -1,14 +1,15 @@
 import { useSearch } from '@faststore/sdk'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type PropsWithChildren } from 'react'
 import { useInView } from 'react-intersection-observer'
 import type { NextRouter } from 'next/router'
 import { useRouter } from 'next/router'
 
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
+import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { useViewItemListEvent } from '../analytics/hooks/useViewItemListEvent'
 
-interface Props {
+interface SentinelProps {
   page: number
   pageSize: number
   title: string
@@ -38,19 +39,24 @@ const replacePagination = (page: string, router: NextRouter) => {
  * Also, this component's name is kind of curious. Wikipedia calls is Page Break(https://en.wikipedia.org/wiki/Page_break)
  * however all codes I've seen online use Sentinel
  */
-function Sentinel({ page, pageSize, products, title }: Props) {
-  const viewedRef = useRef(false)
-  const { ref, inView } = useInView()
-  const { pages } = useSearch()
-
+function Sentinel({
+  page,
+  pageSize,
+  products,
+  title,
+  children,
+}: PropsWithChildren<SentinelProps>) {
   const router = useRouter()
-
+  const { pages } = useSearch()
+  const { isDesktop } = useScreenResize()
+  const { ref, inView } = useInView({ threshold: isDesktop ? 0.7 : 0.3 })
   const { sendViewItemListEvent } = useViewItemListEvent({
     products,
     title,
     page,
     pageSize,
   })
+  const viewedRef = useRef(false)
 
   useEffect(() => {
     // Only replace pagination state when infinite scroll
@@ -72,7 +78,7 @@ function Sentinel({ page, pageSize, products, title }: Props) {
     products.length,
   ])
 
-  return <div ref={ref} />
+  return <div ref={ref}>{children}</div>
 }
 
 export default Sentinel
