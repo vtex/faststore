@@ -6,5 +6,12 @@
       "message": "[no ci] Release: %v"
     }
   },
+  "ignoreChanges": [
+    "CHANGELOG.md",
+    "**/__fixtures__/**",
+    "**/*.snap",
+    "**/*.test.*",
+    "**/*.md"
+  ],
   "packages": ["packages/*", "apps/*"]
 }
