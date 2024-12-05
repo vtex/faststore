@@ -62,7 +62,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   includeTaxes?: boolean
   /**
-   * Label to determine if the price includes taxes.
+   * Specifies the include taxes label, if taxes are included.
    */
   includeTaxesLabel?: string
   /**
@@ -70,7 +70,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   isSponsored?: boolean
   /**
-   * Label to indicate if the product is sponsored.
+   * Specifies the sponsored label, if advertisement is applicable.
    */
   sponsoredLabel?: string
 }
