@@ -7,6 +7,7 @@ function Document() {
   return (
     <Html>
       <Head>
+        <meta name="storefront" content="fast_store" />
         {!process.env.DISABLE_3P_SCRIPTS && <ThirdPartyScripts />}
         <WebFonts />
       </Head>
