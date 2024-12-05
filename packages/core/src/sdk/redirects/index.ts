@@ -16,7 +16,7 @@ function matcher(pathname: string) {
   const searchMatch = pathname.match(searchRegex)
   if (searchMatch) {
     const searchTerm = searchMatch[1].replaceAll('-', '+')
-    return `s/?q=${searchTerm}`
+    return `/s?q=${searchTerm}`
   }
   return null
 }
@@ -33,8 +33,9 @@ export async function getRedirect({
 }: GetRedirectProps): Promise<GetRedirectResponse> {
   try {
     const preprocessdPathname = preprocessPathname(pathname)
+    console.log({ preprocessdPathname })
     const match = matcher(preprocessdPathname)
-
+    console.log({ match })
     if (match) {
       return {
         location: match,
