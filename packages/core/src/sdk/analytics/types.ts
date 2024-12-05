@@ -48,3 +48,15 @@ export interface IntelligentSearchAutocompleteQueryEvent {
   name: 'intelligent_search_autocomplete_query'
   params: IntelligentSearchAutocompleteQueryParams
 }
+
+export interface IntelligentSearchAutocompleteClickParams {
+  term: string
+  url?: string
+  position?: number
+  productId?: string
+}
+
+export interface IntelligentSearchAutocompleteClickEvent {
+  name: 'intelligent_search_autocomplete_click'
+  params: IntelligentSearchAutocompleteClickParams
+}

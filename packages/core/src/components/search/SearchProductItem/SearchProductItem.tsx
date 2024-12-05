@@ -8,6 +8,7 @@ import {
 import { Image } from 'src/components/ui/Image'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
+import { sendAutocompleteClickEvent } from '../SearchDropdown'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
 type SearchProductItemProps = {
@@ -50,6 +51,12 @@ function SearchProductItem({
     onClick: () => {
       onClick()
       onSearchSelection?.(name, href)
+      sendAutocompleteClickEvent({
+        url: href,
+        term: name,
+        position: index,
+        productId: product.isVariantOf.productGroupID ?? product.sku,
+      })
     },
     ...baseLinkProps,
   }
