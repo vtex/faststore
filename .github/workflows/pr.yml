@@ -2,7 +2,7 @@ name: "Lint PR"
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize, edited]
+    types: [opened, reopened, edited, synchronize]
 
 jobs:
   main:
@@ -10,5 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: amannn/action-semantic-pull-request@v5
+        with:
+          scopes: |
+            core
+            ui
+            api
+            components
+            sdk
+            shared
+            eslint-config
+            lighthouse
+            graphql-utils
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
