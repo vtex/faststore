@@ -16,7 +16,7 @@ function Document() {
           rel="dns-prefetch"
           href={`https://${storeConfig.api.storeId}.vtexassets.com`}
         />
-        <meta name="storefront" content="faststore" />
+        <meta name="storefront" content="fast_store" />
         {!process.env.DISABLE_3P_SCRIPTS && <ThirdPartyScripts />}
         <WebFonts />
       </Head>
