@@ -51,12 +51,16 @@ export interface ProductCardProps {
    */
   showDiscountBadge?: boolean
   /**
-   * Define taxes configuration, if taxes should be considered
+   * Define taxes configuration, if taxes should be considered.
    */
   taxesConfiguration?: {
     usePriceWithTaxes?: boolean
     taxesLabel?: string
   }
+  /**
+   * Specifies the sponsored label, if advertisement is applicable.
+   */
+  sponsoredLabel?: string
 }
 
 function ProductCard({
@@ -71,6 +75,7 @@ function ProductCard({
   onButtonClick,
   showDiscountBadge = true,
   taxesConfiguration,
+  sponsoredLabel,
   ...otherProps
 }: ProductCardProps) {
   const {
@@ -148,6 +153,8 @@ function ProductCard({
         showDiscountBadge={hasDiscount && showDiscountBadge}
         includeTaxes={taxesConfiguration?.usePriceWithTaxes}
         includeTaxesLabel={taxesConfiguration?.taxesLabel}
+        isSponsored={!!advertisement}
+        sponsoredLabel={sponsoredLabel}
       />
     </UIProductCard>
   )
