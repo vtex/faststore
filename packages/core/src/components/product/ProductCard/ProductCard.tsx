@@ -200,6 +200,8 @@ export const fragment = gql(`
       valueReference
     }
 
+    hasSpecifications
+
     advertisement {
       adId
       adResponseId

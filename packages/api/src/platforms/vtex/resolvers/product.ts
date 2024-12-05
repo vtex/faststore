@@ -155,6 +155,9 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
       ...propertyValueAttributes,
     ]
   },
+  hasSpecifications: ({isVariantOf}) => Boolean(
+   isVariantOf.skuSpecifications?.length
+  ), 
   releaseDate: ({ isVariantOf: { releaseDate } }) => releaseDate ?? '',
   advertisement: ({ isVariantOf: { advertisement } }) => advertisement,
 }

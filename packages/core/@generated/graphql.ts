@@ -598,6 +598,7 @@ export type ShippingSla = {
 export type SkuVariants = {
   /** SKU property values for the current SKU. */
   activeVariations: Maybe<Scalars['ActiveVariations']['output']>
+  /** All available options for each SKU variant property, indexed by their name. */
   allVariantProducts: Maybe<Array<StoreProduct>>
   /** All available options for each SKU variant property, indexed by their name. */
   allVariantsByName: Maybe<Scalars['VariantsByName']['output']>
@@ -618,10 +619,6 @@ export type SkuVariants = {
    * considered the dominant one.
    */
   slugsMap: Maybe<Scalars['SlugsMap']['output']>
-}
-
-export type SkuVariantsAllVariantProductsArgs = {
-  productID: InputMaybe<Scalars['String']['input']>
 }
 
 export type SkuVariantsAvailableVariationsArgs = {
@@ -946,6 +943,8 @@ export type StoreProduct = {
   description: Scalars['String']['output']
   /** Global Trade Item Number. */
   gtin: Scalars['String']['output']
+  /** TODO: Description from hasSpecifications. */
+  hasSpecifications: Maybe<Scalars['Boolean']['output']>
   /** Array of images. */
   image: Array<StoreImage>
   /** Indicates product group related to this product. */
@@ -1138,6 +1137,7 @@ export type ProductSummary_ProductFragment = {
   sku: string
   name: string
   gtin: string
+  hasSpecifications: boolean | null
   id: string
   brand: { name: string; brandName: string }
   isVariantOf: { productGroupID: string; name: string }
@@ -1452,6 +1452,7 @@ export type ClientManyProductsQueryQuery = {
           sku: string
           name: string
           gtin: string
+          hasSpecifications: boolean | null
           id: string
           brand: { name: string; brandName: string }
           isVariantOf: { productGroupID: string; name: string }
@@ -1586,6 +1587,7 @@ export type ClientSearchSuggestionsQueryQuery = {
         sku: string
         name: string
         gtin: string
+        hasSpecifications: boolean | null
         id: string
         brand: { name: string; brandName: string }
         isVariantOf: { productGroupID: string; name: string }
@@ -1744,6 +1746,7 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
     value
     valueReference
   }
+  hasSpecifications
   advertisement {
     adId
     adResponseId
@@ -2114,7 +2117,7 @@ export const SubscribeToNewsletterDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: 'ad2eb78cfccb9dbd5a9f2d1e150cc70fea5da99a',
+    operationHash: '7acc92a2841addb2fa0bda10ebd632a1eacbb18e',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2141,7 +2144,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '47e48eaee91d16a4237eb2c1241bc2ed3e2ad9bb',
+    operationHash: '62463b17174f63e6fef51a240217a637395daad1',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,

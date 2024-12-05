@@ -988,6 +988,8 @@ export type StoreProduct = {
   description: Scalars['String'];
   /** Global Trade Item Number. */
   gtin: Scalars['String'];
+  /** Indicates whether the product has specifications. */
+  hasSpecifications?: Maybe<Scalars['Boolean']>;
   /** Array of images. */
   image: Array<StoreImage>;
   /** Indicates product group related to this product. */

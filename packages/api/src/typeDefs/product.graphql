@@ -74,6 +74,10 @@ type StoreProduct {
   Advertisement information about the product.
   """
   advertisement: Advertisement
+  """
+  Indicates whether the product has specifications.
+  """
+  hasSpecifications: Boolean
 }
 
 """
