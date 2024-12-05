@@ -9,6 +9,7 @@ import { ProductCardProps } from '../ProductCard'
 import { memo } from 'react'
 import ViewportObserver from 'src/components/cms/ViewportObserver'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 interface Props {
   /**
@@ -40,12 +41,12 @@ function ProductGrid({
   productCard: { showDiscountBadge, bordered, taxesConfiguration } = {},
   firstPage,
 }: Props) {
+  const { isMobile } = useScreenResize()
   const { __experimentalProductCard: ProductCard } =
     useOverrideComponents<'ProductGallery'>()
-  const aspectRatio = 1
 
-  // TODO: Check if is also isMobile
-  const isFirstPage = firstPage === page
+  const aspectRatio = 1
+  const isGridWithViewportObserver = isMobile && firstPage === page
 
   return (
     <ProductGridSkeleton
@@ -53,7 +54,7 @@ function ProductGrid({
       loading={products.length === 0}
     >
       <UIProductGrid>
-        {isFirstPage ? (
+        {isGridWithViewportObserver ? (
           <>
             {products.slice(0, 2).map(({ node: product }, idx) => (
               <UIProductGridItem key={`${product.id}`}>
