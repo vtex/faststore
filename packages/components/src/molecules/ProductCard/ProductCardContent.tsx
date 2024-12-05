@@ -91,7 +91,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       children,
       includeTaxes = false,
       includeTaxesLabel = 'Tax included',
-      isSponsored = true,
+      isSponsored = false,
       sponsoredLabel = 'Sponsored',
       ...otherProps
     },
