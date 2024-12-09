@@ -48,8 +48,8 @@ function Sentinel({
 }: PropsWithChildren<SentinelProps>) {
   const router = useRouter()
   const { pages } = useSearch()
-  const { isDesktop } = useScreenResize()
-  const { ref, inView } = useInView({ threshold: isDesktop ? 0.7 : 0.3 })
+  const { isMobile } = useScreenResize()
+  const { ref, inView } = useInView({ threshold: isMobile ? 0.3 : 0.7 })
   const { sendViewItemListEvent } = useViewItemListEvent({
     products,
     title,
