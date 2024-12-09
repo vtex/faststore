@@ -714,6 +714,13 @@ export type StoreCartMessage = {
   text: Scalars['String'];
 };
 
+/** Item of a Category. */
+export type StoreCategoryItem = {
+  __typename?: 'StoreCategoryItem';
+  /** Name of the Category. */
+  name: Scalars['String'];
+};
+
 /** Product collection information. */
 export type StoreCollection = {
   __typename?: 'StoreCollection';
@@ -900,6 +907,8 @@ export type StoreOffer = {
   __typename?: 'StoreOffer';
   /** Offer item availability. */
   availability: Scalars['String'];
+  /** Product categories. */
+  categories: Array<StoreCategoryItem>;
   /** Offer item condition. */
   itemCondition: Scalars['String'];
   /** Information on the item being offered. */
@@ -983,6 +992,10 @@ export type StoreProduct = {
   brand: StoreBrand;
   /** List of items consisting of chain linked web pages, ending with the current page. */
   breadcrumbList: StoreBreadcrumbList;
+  /** Product categories. */
+  categories: Array<StoreCategoryItem>;
+  /** Product category Id. */
+  categoryId: Scalars['String'];
   /** Product description. */
   description: Scalars['String'];
   /** Global Trade Item Number. */

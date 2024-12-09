@@ -50,6 +50,10 @@ type StoreOffer {
   Number of items offered.
   """
   quantity: Int!
+  """
+  Product categories.
+  """
+  categories: [StoreCategoryItem!]!
 }
 
 """

@@ -47,6 +47,10 @@ export interface ProductCardProps {
    */
   buttonLabel?: string
   /**
+   * Specifies item list name.
+   */
+  listName?: string
+  /**
    * Enables a DiscountBadge to the component.
    */
   showDiscountBadge?: boolean
@@ -71,6 +75,7 @@ function ProductCard({
   onButtonClick,
   showDiscountBadge = true,
   taxesConfiguration,
+  listName,
   ...otherProps
 }: ProductCardProps) {
   const {
@@ -86,7 +91,7 @@ function ProductCard({
   } = product
 
   const linkProps = {
-    ...useProductLink({ product, selectedOffer: 0, index }),
+    ...useProductLink({ product, selectedOffer: 0, index, listName }),
     as: NextLink,
     passHref: true,
     legacyBehavior: false,
@@ -163,6 +168,10 @@ export const fragment = gql(`
     }
     name
     gtin
+    categoryId
+    categories {
+      name
+    }
 
     isVariantOf {
       productGroupID
