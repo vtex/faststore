@@ -1,0 +1,3 @@
+- Possibilidade de criar um matcher. O desenvolvedor pode implementar um matcher próprio se necessário. 
+- Cadastrar o pathname
+- Redirect interno e redirect externo
