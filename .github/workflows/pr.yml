@@ -21,5 +21,14 @@ jobs:
             eslint-config
             lighthouse
             graphql-utils
+          types: |
+            fix
+            feat
+            chore
+            docs
+            style
+            refactor
+            test
+            ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
