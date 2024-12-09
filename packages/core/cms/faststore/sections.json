@@ -2041,6 +2041,11 @@
                   "default": "Tax included"
                 }
               }
+            },
+            "sponsoredLabel": {
+              "title": "Sponsored Label",
+              "type": "string",
+              "default": "Sponsored"
             }
           }
         },

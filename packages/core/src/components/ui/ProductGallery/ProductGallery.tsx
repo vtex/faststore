@@ -59,7 +59,7 @@ export interface ProductGalleryProps {
   sortBySelector?: SortProps
   productCard?: Pick<
     ProductCardProps,
-    'showDiscountBadge' | 'bordered' | 'taxesConfiguration'
+    'showDiscountBadge' | 'bordered' | 'taxesConfiguration' | 'sponsoredLabel'
   >
 }
 
