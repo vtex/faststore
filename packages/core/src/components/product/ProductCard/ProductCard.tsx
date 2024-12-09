@@ -153,7 +153,7 @@ function ProductCard({
         showDiscountBadge={hasDiscount && showDiscountBadge}
         includeTaxes={taxesConfiguration?.usePriceWithTaxes}
         includeTaxesLabel={taxesConfiguration?.taxesLabel}
-        isSponsored={!!advertisement}
+        sponsored={!!advertisement}
         sponsoredLabel={sponsoredLabel}
       />
     </UIProductCard>

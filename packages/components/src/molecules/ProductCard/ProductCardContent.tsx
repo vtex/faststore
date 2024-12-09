@@ -68,7 +68,7 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
   /**
    * Specifies if the displayed product is sponsored.
    */
-  isSponsored?: boolean
+  sponsored?: boolean
   /**
    * Specifies the sponsored label, if advertisement is applicable.
    */
@@ -91,7 +91,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       children,
       includeTaxes = false,
       includeTaxesLabel = 'Tax included',
-      isSponsored = false,
+      sponsored = false,
       sponsoredLabel = 'Sponsored',
       ...otherProps
     },
@@ -108,7 +108,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
         data-testid={testId}
         {...otherProps}
       >
-        {isSponsored && (
+        {sponsored && (
           <span data-fs-product-card-sponsored-label>{sponsoredLabel}</span>
         )}
         <div data-fs-product-card-heading>
