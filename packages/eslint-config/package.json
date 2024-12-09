@@ -1,6 +1,6 @@
 {
   "name": "@faststore/eslint-config",
-  "version": "3.0.152",
+  "version": "3.0.160",
   "main": "index.js",
   "license": "MIT",
   "repository": "vtex/faststore",
