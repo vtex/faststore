@@ -90,8 +90,10 @@ export const ValidateCartMutation = gql(`
 
 const isGift = (item: CartItem) => item.price === 0
 
-const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
-  [
+const getItemId = (
+  item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>
+) => {
+  const returnValue = [
     item.itemOffered.sku,
     item.seller.identifier,
     item.itemOffered.additionalProperty
@@ -100,6 +102,10 @@ const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
   ]
     .filter(Boolean)
     .join('::')
+  console.log('✨ getItemId', returnValue)
+  console.log('✨ additionalProperty', item.itemOffered.additionalProperty)
+  return returnValue
+}
 
 const validateCart = async (cart: Cart): Promise<Cart | null> => {
   const { validateCart: validated = null } = await request<

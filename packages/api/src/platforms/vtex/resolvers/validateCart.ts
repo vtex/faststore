@@ -1,5 +1,6 @@
 import deepEquals from 'fast-deep-equal'
 
+import { parse } from 'cookie'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { md5 } from '../utils/md5'
 import {
@@ -7,7 +8,6 @@ import {
   getPropertyId,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
-import { parse } from 'cookie'
 
 import type { Context } from '..'
 import type {
@@ -23,10 +23,10 @@ import type {
   OrderFormInputItem,
   OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
-import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
-import { getAddressOrderForm } from '../utils/getAddressOrderForm'
 import { SelectedAddress } from '../clients/commerce/types/ShippingData'
 import { createNewAddress } from '../utils/createNewAddress'
+import { getAddressOrderForm } from '../utils/getAddressOrderForm'
+import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
 
 type Indexed<T> = T & { index?: number }
 
@@ -380,6 +380,8 @@ export const validateCart = async (
   // Step2: Process items from both browser and checkout so they have the same shape
   const browserItemsById = groupById(acceptedOffer)
   const originItemsById = groupById(orderForm.items.map(orderFormItemToOffer))
+  console.log('✨ browserItemsById: ', JSON.stringify(browserItemsById))
+  console.log('✨ originItemsById: ', JSON.stringify(originItemsById))
   const originItems = Array.from(originItemsById.entries()) // items on the VTEX platform backend
   const browserItems = Array.from(browserItemsById.entries()) // items on the user's browser
 
@@ -397,6 +399,8 @@ export const validateCart = async (
 
       // Update existing items
       const [head, ...tail] = maybeOriginItem
+      console.log('✨ maybeOriginItem: ', JSON.stringify(maybeOriginItem))
+      console.log('✨ head: ', JSON.stringify(head.itemOffered))
 
       if (
         hasParentItem(orderForm.items, head.itemOffered.sku) ||
@@ -425,10 +429,14 @@ export const validateCart = async (
       itemsToUpdate: [] as IStoreOffer[],
     }
   )
+  console.log('✨ itemsToAdd: ', itemsToAdd)
+  console.log('✨ itemsToUpdate: ', itemsToUpdate)
 
   const itemsToDelete = originItems
     .filter(([id]) => !browserItemsById.has(id))
     .flatMap(([, items]) => items.map((item) => ({ ...item, quantity: 0 })))
+
+  console.log('✨ itemsToDelete: ', itemsToDelete)
 
   const changes = [...itemsToAdd, ...itemsToUpdate, ...itemsToDelete].map(
     offerToOrderItemInput
