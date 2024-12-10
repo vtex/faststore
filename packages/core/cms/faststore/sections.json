@@ -1618,6 +1618,90 @@
               "default": "Tax included"
             }
           }
+        },
+        "skuMatrix": {
+          "title": "SKUMatrix Configuration",
+          "type": "object",
+          "properties": {
+            "shouldDisplaySKUMatrix": {
+              "title": "Should display SKUMatrix?",
+              "type": "boolean",
+              "default": false
+            },
+            "triggerButtonLabel": {
+              "title": "SKU Matrix Trigger label to be displayed",
+              "type": "string",
+              "default": "Select multiple"
+            },
+            "separatorButtonsText": {
+              "title": "Separator text",
+              "description": "Text that separates the add to cart button from the SKU Matrix Trigger button.",
+              "type": "string",
+              "default": "Or"
+            },
+            "columns": {
+              "title": "Columns",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "title": "SKU name column label",
+                  "type": "string",
+                  "default": "Name"
+                },
+                "additionalColumns": {
+                  "title": "Additional columns",
+                  "type": "array",
+                  "items": {
+                    "title": "Column",
+                    "type": "object",
+                    "required": ["label", "value"],
+                    "properties": {
+                      "label": {
+                        "title": "Label",
+                        "type": "string"
+                      },
+                      "value": {
+                        "title": "Value",
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "availability": {
+                  "title": "Availability column label",
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "title": "Label",
+                      "type": "string",
+                      "default": "Availability"
+                    },
+                    "stockDisplaySettings": {
+                      "title": "Stock display settings",
+                      "description": "Control how the stock status of your products is displayed to customers on your online store.",
+                      "type": "string",
+                      "enum": ["showAvailability", "showStockQuantity"],
+                      "enumNames": [
+                        "Show availability (Available/Out of Stock)",
+                        "Show stock quantity"
+                      ],
+                      "default": "showAvailability"
+                    }
+                  }
+                },
+                "price": {
+                  "title": "Price column label",
+                  "type": "string",
+                  "default": "Price"
+                },
+                "quantitySelector": {
+                  "title": "Quantity selector column label",
+                  "type": "string",
+                  "default": "Quantity"
+                }
+              }
+            }
+          }
         }
       }
     }
