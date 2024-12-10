@@ -81,7 +81,7 @@ After committing your changes, push them to the remote repository and open a Pul
 
 1. Please add a clear and concise title PR title with one of the prefixes.
 
-- Available prefixes: `Feat`, `Fix`, `Chore`, `Docs`, `Style`
+- Available prefixes: `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `ci` and `test`
 - Example: `Feat: Add Carousel component`
 
 2. You will be presented with a pull request template. Please describe the motivation behind your changes and provide details about what you have implemented.
