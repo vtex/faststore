@@ -23,6 +23,7 @@ const nextConfig = {
   },
   // TODO: We won't need to enable this experimental feature when migrating to Next.js 13
   experimental: {
+    swrDelta: 31536e3,
     scrollRestoration: true,
     /*
      * The FastStore Discovery CLI will update this value to match the path where the
