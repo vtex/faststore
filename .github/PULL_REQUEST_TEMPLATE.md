@@ -38,3 +38,8 @@
 **Dependencies**
 
 - [ ] Committed the `yarn.lock` file when there were changes to the packages
+
+**Documentation**
+
+- [ ] PR description
+- [ ] For documentation changes, ping `@Mariana-Caetano` to review and update (Or submit a doc request)
