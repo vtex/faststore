@@ -1,6 +1,7 @@
-// https://secure.vtexfaststore.com/api/io/redirect-evaluate?from=/produto/1&workspace=paladino
+import storeConfig from 'discovery.config'
+import { matcher } from 'src/customizations/src/redirects'
 
-type GetRedirectProps = {
+type GetRedirectArgs = {
   pathname: string
 }
 
@@ -9,49 +10,29 @@ type GetRedirectResponse = {
   status: number
 }
 
-const searchRegex = /^\/busca\/([^/]+)/
-
-// Custom function to match the pathname
-function matcher(pathname: string) {
-  const searchMatch = pathname.match(searchRegex)
-  if (searchMatch) {
-    const searchTerm = searchMatch[1].replaceAll('-', '+')
-    return `/s?q=${searchTerm}`
-  }
-  return null
-}
-const pdpRegex = /^\/produto\/([^/]+)\/[^/]+$/
-
-// Custom function to preprocess the pathname
-function preprocessPathname(pathname: string) {
-  const pdpMatch = pathname.match(pdpRegex)
-  return pdpMatch ? `/produto/${pdpMatch[1]}` : pathname
-}
-
 export async function getRedirect({
   pathname,
-}: GetRedirectProps): Promise<GetRedirectResponse> {
+}: GetRedirectArgs): Promise<GetRedirectResponse> {
   try {
-    const preprocessdPathname = preprocessPathname(pathname)
-    console.log({ preprocessdPathname })
-    const match = matcher(preprocessdPathname)
-    console.log({ match })
-    if (match) {
+    const redirectMatch = matcher({ pathname })
+    if (redirectMatch) {
       return {
-        location: match,
+        location: redirectMatch,
         status: 301,
       }
     }
 
+    // TODO: remove paladino workspace when production URL be ready
     const response = await fetch(
-      `https://secure.vtexfaststore.com/api/io/redirect-evaluate?from=${pathname}&workspace=paladino`
+      `${storeConfig.secureSubdomain}/api/io/redirect-evaluate?from=${pathname}&workspace=paladino`
     )
-    const data = (await response.json()) as GetRedirectResponse
-    if (data.location) {
-      return data
+    const rewriterData = (await response.json()) as GetRedirectResponse
+    if (rewriterData.location) {
+      return rewriterData
     }
     return null
   } catch (err) {
+    // TODO: handle error logs
     console.error(err)
     return null
   }
