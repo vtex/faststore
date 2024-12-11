@@ -55,6 +55,21 @@ export interface ProductDetailsProps {
     usePriceWithTaxes?: boolean
     taxesLabel?: string
   }
+  skuMatrix?: {
+    shouldDisplaySKUMatrix?: boolean
+    triggerButtonLabel: string
+    separatorButtonsText: string
+    columns: {
+      name: string
+      additionalColumns: Array<{ label: string; value: string }>
+      availability: {
+        label: string
+        stockDisplaySettings: 'showAvailability' | 'showStockQuantity'
+      }
+      price: number
+      quantitySelector: number
+    }
+  }
 }
 
 function ProductDetails({
@@ -74,6 +89,7 @@ function ProductDetails({
     initiallyExpanded: productDescriptionInitiallyExpanded,
     displayDescription: shouldDisplayProductDescription,
   },
+  skuMatrix,
   notAvailableButton: { title: notAvailableButtonTitle },
   quantitySelector,
   taxesConfiguration,
@@ -81,17 +97,19 @@ function ProductDetails({
   const {
     DiscountBadge,
     ProductTitle,
+    SKUMatrix,
+    SKUMatrixTrigger,
     __experimentalImageGallery: ImageGallery,
     __experimentalShippingSimulation: ShippingSimulation,
     __experimentalNotAvailableButton: NotAvailableButton,
     __experimentalProductDescription: ProductDescription,
     __experimentalProductDetailsSettings: ProductDetailsSettings,
+    __experimentalSKUMatrixSidebar: SKUMatrixSidebar,
   } = useOverrideComponents<'ProductDetails'>()
   const { currency } = useSession()
   const context = usePDP()
   const { product, isValidating } = context?.data
   const [quantity, setQuantity] = useState(1)
-
   if (!product) {
     throw new Error('NotFound')
   }
@@ -104,7 +122,11 @@ function ProductDetails({
     brand,
     isVariantOf,
     description,
-    isVariantOf: { name, productGroupID: productId },
+    isVariantOf: {
+      name,
+      productGroupID: productId,
+      skuVariants: { slugsMap },
+    },
     image: productImages,
     offers: {
       offers: [{ availability, price, listPrice, listPriceWithTaxes, seller }],
@@ -213,6 +235,27 @@ function ProductDetails({
                 isValidating={isValidating}
                 taxesConfiguration={taxesConfiguration}
               />
+
+              {skuMatrix?.shouldDisplaySKUMatrix &&
+                Object.keys(slugsMap).length > 1 && (
+                  <>
+                    <div data-fs-product-details-settings-separator>
+                      {skuMatrix.separatorButtonsText}
+                    </div>
+
+                    <SKUMatrix.Component>
+                      <SKUMatrixTrigger.Component disabled={isValidating}>
+                        {skuMatrix.triggerButtonLabel}
+                      </SKUMatrixTrigger.Component>
+
+                      <SKUMatrixSidebar.Component
+                        formatter={useFormattedPrice}
+                        columns={skuMatrix.columns}
+                        overlayProps={{ className: styles.section }}
+                      />
+                    </SKUMatrix.Component>
+                  </>
+                )}
             </section>
 
             {!outOfStock && (
@@ -277,7 +320,7 @@ export const fragment = gql(`
     isVariantOf {
       name
       productGroupID
-      skuVariants {
+			skuVariants {
         activeVariations
         slugsMap
         availableVariations
