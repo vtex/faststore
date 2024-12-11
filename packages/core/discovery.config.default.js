@@ -101,5 +101,6 @@ module.exports = {
     enableCypressExtension: false,
     noRobots: false,
     preact: false,
+    enableRedirects: false,
   },
 }
