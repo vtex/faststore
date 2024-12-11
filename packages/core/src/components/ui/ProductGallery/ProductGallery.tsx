@@ -164,7 +164,6 @@ function ProductGallery({
                 checked={showComparisonProducts}
                 onChange={() => {
                   setShowComparisonProducts((prev) => !prev)
-                  console.log('Comparison is enabled', showComparisonProducts)
                 }}
                 {...ToggleField.props}
               />
