@@ -89,7 +89,24 @@ async function normalizeStandaloneBuildDir(basePath: string) {
 async function copyResources(basePath: string) {
   const { tmpDir, userDir } = withBasePath(basePath)
 
-  await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
-  await copyResource(`${tmpDir}/lighthouserc.js`, `${userDir}/lighthouserc.js`)
-  await copyResource(`${tmpDir}/public`, `${userDir}/public`)
+  // eslint-disable-next-line turbo/no-undeclared-env-vars
+  if (process.env.BUILD_CONTEXT === 'vercel') {
+    const toDir = process.cwd()
+
+    // Because of how copyResource works (delete the target directory if it exists),
+    // if we're moving something to the same place it is it will break.
+    const nextOutputDirectory = `${tmpDir}/.next`
+    const expectedOutputDirectory = `${toDir}/.faststore/.next`
+    if (nextOutputDirectory !== expectedOutputDirectory) {
+      await copyResource(nextOutputDirectory, expectedOutputDirectory)
+    }
+    await copyResource(`${tmpDir}/public`, `${toDir}/public`)
+  } else {
+    await copyResource(`${tmpDir}/.next`, `${userDir}/.next`)
+    await copyResource(
+      `${tmpDir}/lighthouserc.js`,
+      `${userDir}/lighthouserc.js`
+    )
+    await copyResource(`${tmpDir}/public`, `${userDir}/public`)
+  }
 }

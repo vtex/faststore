@@ -509,6 +509,7 @@ export type QuerySearchArgs = {
   first: Scalars['Int'];
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
+  sponsoredCount?: Maybe<Scalars['Int']>;
   term?: Maybe<Scalars['String']>;
 };
 
@@ -530,6 +531,8 @@ export type QueryShippingArgs = {
 /** Search result. */
 export type SearchMetadata = {
   __typename?: 'SearchMetadata';
+  /** Indicates how the search engine corrected the misspelled word by using fuzzy logic. */
+  fuzzy?: Maybe<Scalars['String']>;
   /** Indicates if the search term was misspelled. */
   isTermMisspelled: Scalars['Boolean'];
   /** Logical operator used to run the search. */
@@ -700,7 +703,7 @@ export type StoreCart = {
   __typename?: 'StoreCart';
   /** List of shopping cart messages. */
   messages: Array<StoreCartMessage>;
-  /** Order information, including `orderNumber` and `acceptedOffer`. */
+  /** Order information, including `orderNumber`, `acceptedOffer` and `shouldSplitItem`. */
   order: StoreOrder;
 };
 
@@ -930,6 +933,8 @@ export type StoreOrder = {
   acceptedOffer: Array<StoreOffer>;
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String'];
+  /** Indicates whether or not items with attachments should be split. */
+  shouldSplitItem?: Maybe<Scalars['Boolean']>;
 };
 
 /** Organization. */

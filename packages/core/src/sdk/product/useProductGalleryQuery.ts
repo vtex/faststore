@@ -3,6 +3,7 @@ import { useQuery } from 'src/sdk/graphql/useQuery'
 import { useSession } from 'src/sdk/session'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
+import { useSearch } from '@faststore/sdk'
 import { Facet } from '@faststore/sdk/dist/types'
 import type {
   ClientManyProductsQueryQueryVariables,
@@ -53,6 +54,7 @@ export const query = gql(`
   fragment SearchEvent_metadata on SearchMetadata {
     isTermMisspelled
     logicalOperator
+    fuzzy
   }
 `)
 
@@ -63,6 +65,14 @@ type ProductGalleryQueryOptions = {
   term: ClientManyProductsQueryQueryVariables['term']
 }
 
+export const findFacetValue = (
+  facets: Facet[],
+  searchParam: string
+): string | null => {
+  const facet = facets.find(({ key }) => key === searchParam)
+  return facet?.value ?? null
+}
+
 export const useProductGalleryQuery = ({
   term,
   sort,
@@ -70,6 +80,7 @@ export const useProductGalleryQuery = ({
   itemsPerPage,
 }: ProductGalleryQueryOptions) => {
   const { locale } = useSession()
+  const { state, setState } = useSearch()
   const localizedVariables = useLocalizedVariables({
     first: itemsPerPage,
     after: '0',
@@ -78,9 +89,12 @@ export const useProductGalleryQuery = ({
     selectedFacets,
   })
 
-  return useQuery<Query, Variables>(query, localizedVariables, {
+  const fuzzyFacetValue = findFacetValue(selectedFacets, 'fuzzy')
+  const operatorFacetValue = findFacetValue(selectedFacets, 'operator')
+
+  const queryResult = useQuery<Query, Variables>(query, localizedVariables, {
     onSuccess: (data) => {
-      if (data && term) {
+      if (data && term && fuzzyFacetValue && operatorFacetValue) {
         import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
           sendAnalyticsEvent<IntelligentSearchQueryEvent>({
             name: 'intelligent_search_query',
@@ -97,4 +111,32 @@ export const useProductGalleryQuery = ({
       }
     },
   })
+
+  // If there is no fuzzy or operator facet, we need to add them to the selectedFacets and re-fetch the query
+  const shouldRefetchQuery =
+    !queryResult.error && (!fuzzyFacetValue || !operatorFacetValue)
+
+  if (shouldRefetchQuery) {
+    if (queryResult.data) {
+      setState({
+        ...state,
+        selectedFacets: [
+          ...selectedFacets,
+          {
+            key: 'fuzzy',
+            value: queryResult.data.search.metadata?.fuzzy ?? 'auto',
+          },
+          {
+            key: 'operator',
+            value: queryResult.data.search.metadata?.logicalOperator ?? 'and',
+          },
+        ],
+      })
+    }
+
+    // The first result is not relevant, return null data to avoid rendering the page while the query is being re-fetched
+    return { ...queryResult, isValidating: true, data: null }
+  }
+
+  return queryResult
 }

@@ -62,9 +62,17 @@ export interface ProductCardContentProps extends HTMLAttributes<HTMLElement> {
    */
   includeTaxes?: boolean
   /**
-   * Label to determine if the price includes taxes.
+   * Specifies the include taxes label, if taxes are included.
    */
   includeTaxesLabel?: string
+  /**
+   * Specifies if the displayed product is sponsored.
+   */
+  sponsored?: boolean
+  /**
+   * Specifies the sponsored label, if advertisement is applicable.
+   */
+  sponsoredLabel?: string
 }
 
 const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
@@ -82,7 +90,9 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
       onButtonClick,
       children,
       includeTaxes = false,
-      includeTaxesLabel = "Tax included",
+      includeTaxesLabel = 'Tax included',
+      sponsored = false,
+      sponsoredLabel = 'Sponsored',
       ...otherProps
     },
     ref
@@ -98,6 +108,9 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
         data-testid={testId}
         {...otherProps}
       >
+        {sponsored && (
+          <span data-fs-product-card-sponsored-label>{sponsoredLabel}</span>
+        )}
         <div data-fs-product-card-heading>
           <h3 data-fs-product-card-title>
             <Link {...linkProps} title={title}>
@@ -113,9 +126,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
             />
           )}
           {includeTaxes && (
-            <Label data-fs-product-card-taxes-label>
-              {includeTaxesLabel}
-            </Label>
+            <Label data-fs-product-card-taxes-label>{includeTaxesLabel}</Label>
           )}
           {ratingValue && (
             <Rating value={ratingValue} icon={<Icon name="Star" />} />

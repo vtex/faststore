@@ -1,0 +1,34 @@
+name: "Lint PR"
+
+on:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+
+jobs:
+  main:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v5
+        with:
+          scopes: |
+            core
+            ui
+            api
+            components
+            sdk
+            shared
+            eslint-config
+            lighthouse
+            graphql-utils
+          types: |
+            fix
+            feat
+            chore
+            docs
+            style
+            refactor
+            test
+            ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

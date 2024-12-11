@@ -1,12 +1,31 @@
-import { ComponentType, PropsWithChildren, memo, useMemo } from 'react'
+import {
+  ComponentType,
+  PropsWithChildren,
+  ReactNode,
+  memo,
+  useMemo,
+} from 'react'
 
-import SectionBoundary from './SectionBoundary'
 import { Section } from '@vtex/client-cms'
+import dynamic from 'next/dynamic'
+import SectionBoundary from './SectionBoundary'
+import ViewportObserver from './ViewportObserver'
+import COMPONENTS from './global/Components'
+
+import { useUI } from '@faststore/ui'
 
 interface Props {
-  components: Record<string, ComponentType<any>>
-  sections: Array<{ name: string; data: any }>
+  components?: Record<string, ComponentType<any>>
+  globalSections?: Array<{ name: string; data: any }>
+  sections?: Array<{ name: string; data: any }>
 }
+
+const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
+
+const Toast = dynamic(
+  () => import(/* webpackChunkName: "Toast" */ '../common/Toast'),
+  { ssr: false }
+)
 
 const useDividedSections = (sections: Section[]) => {
   return useMemo(() => {
@@ -21,10 +40,39 @@ const useDividedSections = (sections: Section[]) => {
   }, [sections])
 }
 
+/**
+ * This component is responsible for lazy loading Sections that are out of the viewport.
+ * It achieves this by:
+ * 1. Using the IntersectionObserver API for Sections below the fold.
+ * 2. Checking the UI context for Sections that are not in the viewport, such as the CartSidebar and RegionModal.
+ *
+ * @param sectionName
+ */
+export const LazyLoadingSection = ({
+  sectionName,
+  children,
+}: {
+  sectionName: string
+  children: ReactNode
+}) => {
+  const { cart: displayCart, modal: displayModal } = useUI()
+
+  if (SECTIONS_OUT_OF_VIEWPORT.includes(sectionName)) {
+    const shouldLoad =
+      (sectionName === 'CartSidebar' && displayCart) ||
+      (sectionName === 'RegionModal' && displayModal)
+
+    return shouldLoad ? <>{children}</> : null
+  }
+  return (
+    <ViewportObserver sectionName={sectionName}>{children}</ViewportObserver>
+  )
+}
+
 const RenderSectionsBase = ({ sections = [], components }: Props) => {
   return (
     <>
-      {sections.map(({ name, data }, index) => {
+      {sections.map(({ name, data = {} }, index) => {
         const Component = components[name]
 
         if (!Component) {
@@ -37,8 +85,10 @@ const RenderSectionsBase = ({ sections = [], components }: Props) => {
         }
 
         return (
-          <SectionBoundary key={`cms-section-${index}`} name={name}>
-            <Component {...data} />
+          <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
+            <LazyLoadingSection sectionName={name}>
+              <Component {...data} />
+            </LazyLoadingSection>
           </SectionBoundary>
         )
       })}
@@ -48,20 +98,29 @@ const RenderSectionsBase = ({ sections = [], components }: Props) => {
 
 function RenderSections({
   children,
+  globalSections,
   sections,
-  ...otherProps
+  components = COMPONENTS,
 }: PropsWithChildren<Props>) {
-  const { hasChildren, firstSections, lastSections } =
-    useDividedSections(sections)
+  const { firstSections, lastSections } = useDividedSections(
+    globalSections ?? sections
+  )
 
   return (
     <>
-      <RenderSectionsBase sections={firstSections} {...otherProps} />
-
+      {firstSections && (
+        <RenderSectionsBase sections={firstSections} components={components} />
+      )}
+      {sections && sections.length > 0 && (
+        <RenderSectionsBase sections={sections} components={components} />
+      )}
       {children}
+      <LazyLoadingSection sectionName="Toast">
+        <Toast />
+      </LazyLoadingSection>
 
-      {hasChildren && (
-        <RenderSectionsBase sections={lastSections} {...otherProps} />
+      {lastSections && (
+        <RenderSectionsBase sections={lastSections} components={components} />
       )}
     </>
   )
