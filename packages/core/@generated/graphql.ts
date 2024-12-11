@@ -596,8 +596,9 @@ export type ShippingSla = {
 export type SkuVariants = {
   /** SKU property values for the current SKU. */
   activeVariations: Maybe<Scalars['ActiveVariations']['output']>
-  /** All available options for each SKU variant property, indexed by their name. */
+  /** All possible variant combinations of the current product. It also includes the data for each variant. */
   allVariantProducts: Maybe<Array<StoreProduct>>
+  /** All available options for each SKU variant property, indexed by their name. */
   allVariantsByName: Maybe<Scalars['VariantsByName']['output']>
   /**
    * Available options for each varying SKU property, taking into account the
@@ -1900,7 +1901,7 @@ export const ProductDetailsFragment_ProductFragmentDoc =
   isVariantOf {
     name
     productGroupID
-		skuVariants {
+    skuVariants {
       activeVariations
       slugsMap
       availableVariations
@@ -2207,7 +2208,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '59d53edc20e918b9ac3b89e52e1eb6343f71db18',
+    operationHash: '46103bee661405bde706d72126fdbf9b0a0c9e6e',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2261,7 +2262,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: '17eebe56abfc90a2e34761d871926a2475c32350',
+    operationHash: '7d121ef8d4dc99174e64e4429a9b977b8bbebed8',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
