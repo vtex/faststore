@@ -22,6 +22,7 @@ import {
 import ProductListingPage, {
   ProductListingPageProps,
 } from 'src/components/templates/ProductListingPage'
+import { getRedirect } from 'src/sdk/redirects'
 import { PageContentType } from 'src/server/cms'
 import { getPLP, PLPContentType } from 'src/server/cms/plp'
 import { getDynamicContent } from 'src/utils/dynamicContent'
@@ -140,6 +141,18 @@ export const getStaticProps: GetStaticProps<
   const notFound = errors.find(isNotFoundError)
 
   if (notFound) {
+    if (storeConfig.experimental.enableRedirects) {
+      const redirect = await getRedirect({ pathname: `/${slug}` })
+      if (redirect) {
+        return {
+          redirect: {
+            destination: redirect.location,
+            permanent: true,
+          },
+        }
+      }
+    }
+
     return {
       notFound: true,
     }
