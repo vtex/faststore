@@ -25,6 +25,7 @@
     @import "@faststore/ui/src/components/atoms/Skeleton/styles";
     @import "@faststore/ui/src/components/atoms/Slider/styles.scss";
     @import "@faststore/ui/src/components/molecules/Accordion/styles.scss";
+    @import "@faststore/ui/src/components/molecules/CheckboxField/styles.scss";
     @import "@faststore/ui/src/components/molecules/DiscountBadge/styles.scss";
     @import "@faststore/ui/src/components/molecules/InputField/styles.scss";
     @import "@faststore/ui/src/components/molecules/LinkButton/styles.scss";
@@ -32,11 +33,16 @@
     @import "@faststore/ui/src/components/molecules/ProductCardSkeleton/styles";
     @import "@faststore/ui/src/components/molecules/ProductPrice/styles.scss";
     @import "@faststore/ui/src/components/molecules/SelectField/styles.scss";
+    @import "@faststore/ui/src/components/molecules/Toggle/styles.scss";
+    @import "@faststore/ui/src/components/molecules/ToggleField/styles.scss";
+    @import "@faststore/ui/src/components/molecules/Modal/styles.scss";
     @import "@faststore/ui/src/components/organisms/EmptyState/styles.scss";
     @import "@faststore/ui/src/components/organisms/Filter/styles.scss";
     @import "@faststore/ui/src/components/organisms/FilterSkeleton/styles.scss";
     @import "@faststore/ui/src/components/organisms/PriceRange/styles.scss";
     @import "@faststore/ui/src/components/organisms/ProductGrid/styles.scss";
+    @import "@faststore/ui/src/components/organisms/SlideOver/styles";
+    @import "@faststore/ui/src/components/organisms/ProductComparison/styles";
     @import "@faststore/ui/src/components/organisms/ProductGallery/styles.scss";
   }
 }

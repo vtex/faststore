@@ -2,6 +2,7 @@ import {
   ProductCard as UIProductCard,
   ProductCardContent as UIProductCardContent,
   ProductCardImage as UIProductCardImage,
+  ProductComparisonTrigger as UIProductComparisonTrigger,
 } from '@faststore/ui'
 import { memo, useMemo } from 'react'
 
@@ -57,6 +58,8 @@ export interface ProductCardProps {
     usePriceWithTaxes?: boolean
     taxesLabel?: string
   }
+
+  enableCompareCheckboxOnDisplay?: boolean
 }
 
 function ProductCard({
@@ -71,6 +74,7 @@ function ProductCard({
   onButtonClick,
   showDiscountBadge = true,
   taxesConfiguration,
+  enableCompareCheckboxOnDisplay = false,
   ...otherProps
 }: ProductCardProps) {
   const {
@@ -116,40 +120,50 @@ function ProductCard({
     : {}
 
   return (
-    <UIProductCard
-      outOfStock={outOfStock}
-      bordered={bordered}
-      variant={variant}
-      data-fs-product-card-sku={sku}
-      {...advertisementDataAttributes}
-      {...otherProps}
-    >
-      <UIProductCardImage aspectRatio={aspectRatio}>
-        <Image
-          src={img.url}
-          alt={img.alternateName}
-          sizes={`${imgProps?.sizes ?? '(max-width: 768px) 40vw, 30vw'}`}
-          width={imgProps?.width ?? 360}
-          height={Math.round((Number(imgProps?.height) || 360) / aspectRatio)}
-          loading={imgProps?.loading}
+    <div>
+      {enableCompareCheckboxOnDisplay && (
+        <UIProductComparisonTrigger
+          label="Compare"
+          product={product}
+          id={product.id}
         />
-      </UIProductCardImage>
-      <UIProductCardContent
-        title={name}
-        price={{
-          value: spotPrice,
-          listPrice: listPrice,
-          formatter: useFormattedPrice,
-        }}
-        ratingValue={ratingValue}
+      )}
+
+      <UIProductCard
         outOfStock={outOfStock}
-        onButtonClick={onButtonClick}
-        linkProps={linkProps}
-        showDiscountBadge={hasDiscount && showDiscountBadge}
-        includeTaxes={taxesConfiguration?.usePriceWithTaxes}
-        includeTaxesLabel={taxesConfiguration?.taxesLabel}
-      />
-    </UIProductCard>
+        bordered={bordered}
+        variant={variant}
+        data-fs-product-card-sku={sku}
+        {...advertisementDataAttributes}
+        {...otherProps}
+      >
+        <UIProductCardImage aspectRatio={aspectRatio}>
+          <Image
+            src={img.url}
+            alt={img.alternateName}
+            sizes={`${imgProps?.sizes ?? '(max-width: 768px) 40vw, 30vw'}`}
+            width={imgProps?.width ?? 360}
+            height={Math.round((Number(imgProps?.height) || 360) / aspectRatio)}
+            loading={imgProps?.loading}
+          />
+        </UIProductCardImage>
+        <UIProductCardContent
+          title={name}
+          price={{
+            value: spotPrice,
+            listPrice: listPrice,
+            formatter: useFormattedPrice,
+          }}
+          ratingValue={ratingValue}
+          outOfStock={outOfStock}
+          onButtonClick={onButtonClick}
+          linkProps={linkProps}
+          showDiscountBadge={hasDiscount && showDiscountBadge}
+          includeTaxes={taxesConfiguration?.usePriceWithTaxes}
+          includeTaxesLabel={taxesConfiguration?.taxesLabel}
+        />
+      </UIProductCard>
+    </div>
   )
 }
 

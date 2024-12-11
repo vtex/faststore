@@ -1831,6 +1831,22 @@
               }
             }
           }
+        },
+        "productComparison": {
+          "title": "Product Comparison",
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "title": "Enable Product Comparison",
+              "type": "boolean",
+              "default": false
+            },
+            "label": {
+              "title": "Product Comparison Label",
+              "type": "string",
+              "default": "Compare"
+            }
+          }
         }
       }
     }

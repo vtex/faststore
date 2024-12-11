@@ -1,7 +1,7 @@
 import { useSearch } from '@faststore/sdk'
 import { NextSeo } from 'next-seo'
 import type { MouseEvent } from 'react'
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 
 import { useUI } from '@faststore/ui'
 import Filter from 'src/components/search/Filter'
@@ -21,6 +21,12 @@ import {
 import { useProductsPrefetch } from 'src/sdk/product/useProductsPrefetch'
 import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
 import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
+
+import styles from '../../sections/ProductGallery/section.module.scss'
+import {
+  useFormattedPrice,
+  usePriceFormatter,
+} from 'src/sdk/product/useFormattedPrice'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const GalleryPageSkeleton = <ProductGridSkeleton loading />
@@ -52,6 +58,11 @@ export interface ProductGalleryProps {
       alt: string
     }
   }
+  productComparison?: {
+    label?: string
+    enabled?: boolean
+  }
+  shouldShowComparison?: boolean
   itemsPerPage?: number
   loadMorePageButton?: {
     label?: string
@@ -74,6 +85,7 @@ function ProductGallery({
   loadMorePageButton,
   sortBySelector,
   productCard,
+  productComparison,
 }: ProductGalleryProps) {
   const {
     FilterButtonSkeleton,
@@ -84,6 +96,10 @@ function ProductGallery({
     PrevIcon,
     ResultsCountSkeleton,
     SortSkeleton,
+    ToggleField,
+    ProductComparison,
+    ProductComparisonToolbar,
+    ProductComparisonSidebar,
   } = useOverrideComponents<'ProductGallery'>()
 
   const { openFilter } = useUI()
@@ -92,6 +108,9 @@ function ProductGallery({
   const data = context?.data
   const facets = useDelayedFacets(data) ?? []
   const { next, prev } = useDelayedPagination(totalCount)
+
+  const [showComparisonProducts, setShowComparisonProducts] =
+    useState<boolean>(true)
 
   useProductsPrefetch(prev ? prev.cursor : null)
   useProductsPrefetch(next ? next.cursor : null)
@@ -111,165 +130,191 @@ function ProductGallery({
           </h1>
         </header>
       )}
-      <div
-        data-fs-product-listing-content-grid
-        data-fs-content="product-gallery"
-      >
-        <div data-fs-product-listing-filters>
-          <FilterSkeleton loading={!hasFacetsLoaded}>
-            {hasFacetsLoaded && facets?.length > 0 && (
-              <Filter facets={facets} filter={filter} />
-            )}
-          </FilterSkeleton>
-        </div>
-        <div data-fs-product-listing-results-count data-count={totalCount}>
-          <ResultsCountSkeleton.Component
-            data-fs-product-listing-results-count-skeleton
-            size={{ width: '100%', height: '1.5rem' }}
-            {...ResultsCountSkeleton.props}
-            // Dynamic props shouldn't be overridable
-            // This decision can be reviewed later if needed
-            loading={!hasProductsLoaded}
-          >
-            <h2 data-testid="total-product-count">
-              {totalCount} {totalCountLabel}
-            </h2>
-          </ResultsCountSkeleton.Component>
-        </div>
-        <div data-fs-product-listing-sort>
-          <SortSkeleton.Component
-            data-fs-product-listing-sort-skeleton
-            size={{ width: 'auto', height: '1.5rem' }}
-            {...SortSkeleton.props}
-            // Dynamic props shouldn't be overridable
-            // This decision can be reviewed later if needed
-            loading={!hasProductsLoaded}
-          >
-            <Sort
-              label={sortBySelector?.label}
-              options={sortBySelector?.options}
-            />
-          </SortSkeleton.Component>
-          <FilterButtonSkeleton.Component
-            data-fs-product-listing-filter-button-skeleton
-            size={{ width: '6rem', height: '1.5rem' }}
-            {...FilterButtonSkeleton.props}
-            // Dynamic props shouldn't be overridable
-            // This decision can be reviewed later if needed
-            loading={!hasFacetsLoaded}
-          >
-            {hasFacetsLoaded && facets?.length > 0 && (
-              <MobileFilterButton.Component
-                variant="tertiary"
-                data-testid="open-filter-button"
-                icon={
-                  <FilterIcon.Component
-                    width={16}
-                    height={16}
-                    {...FilterIcon.props}
-                    name={
-                      filter?.mobileOnly?.filterButton?.icon?.icon ??
-                      FilterIcon.props.name
-                    }
-                    aria-label={
-                      filter?.mobileOnly?.filterButton?.icon?.alt ??
-                      FilterIcon.props['aria-label']
-                    }
-                  />
-                }
-                iconPosition="left"
-                {...MobileFilterButton.props}
-                // Dynamic props shouldn't be overridable
-                // This decision can be reviewed later if needed
-                onClick={openFilter}
-              >
-                {filter?.mobileOnly?.filterButton?.label}
-              </MobileFilterButton.Component>
-            )}
-          </FilterButtonSkeleton.Component>
-        </div>
-        <div data-fs-product-listing-results>
-          {/* Add link to previous page. This helps on SEO */}
-          {prev !== false && (
-            <div data-fs-product-listing-pagination="top">
-              <NextSeo
-                additionalLinkTags={[{ rel: 'prev', href: prev.link }]}
-              />
-              <LinkButtonPrev.Component
-                rel="prev"
-                variant="secondary"
-                iconPosition="left"
-                icon={
-                  <PrevIcon.Component
-                    width={16}
-                    height={16}
-                    weight="bold"
-                    {...PrevIcon.props}
-                    name={previousPageButton?.icon?.icon ?? PrevIcon.props.name}
-                    aria-label={
-                      previousPageButton?.icon?.alt ??
-                      previousPageButton?.label ??
-                      PrevIcon.props['aria-label']
-                    }
-                  />
-                }
-                {...LinkButtonPrev.props}
-                // Dynamic props shouldn't be overridable
-                // This decision can be reviewed later if needed
-                onClick={(e: MouseEvent<HTMLElement>) => {
-                  e.currentTarget.blur()
-                  e.preventDefault()
-                  addPrevPage()
+      <ProductComparison.Component>
+        <div
+          data-fs-product-listing-content-grid
+          data-fs-content="product-gallery"
+        >
+          <div data-fs-product-listing-filters>
+            <FilterSkeleton loading={!hasFacetsLoaded}>
+              {hasFacetsLoaded && facets?.length > 0 && (
+                <Filter facets={facets} filter={filter} />
+              )}
+            </FilterSkeleton>
+          </div>
+          <div data-fs-product-listing-results-count data-count={totalCount}>
+            <ResultsCountSkeleton.Component
+              data-fs-product-listing-results-count-skeleton
+              size={{ width: '100%', height: '1.5rem' }}
+              {...ResultsCountSkeleton.props}
+              // Dynamic props shouldn't be overridable
+              // This decision can be reviewed later if needed
+              loading={!hasProductsLoaded}
+            >
+              <h2 data-testid="total-product-count">
+                {totalCount} {totalCountLabel}
+              </h2>
+            </ResultsCountSkeleton.Component>
+          </div>
+          <div data-fs-product-comparison-enabled>
+            {productComparison?.enabled && (
+              <ToggleField.Component
+                id="toggle-field-comparison"
+                label={productComparison.label}
+                checked={showComparisonProducts}
+                onChange={() => {
+                  setShowComparisonProducts((prev) => !prev)
+                  console.log('Comparison is enabled', showComparisonProducts)
                 }}
-                href={prev.link}
-              >
-                {previousPageButton?.label}
-              </LinkButtonPrev.Component>
-            </div>
-          )}
-          {/* Render ALL products */}
-          {hasProductsLoaded ? (
-            <Suspense fallback={GalleryPageSkeleton}>
-              {pages.map((page) => (
-                <ProductGalleryPage
-                  key={`gallery-page-${page}`}
-                  page={page}
-                  title={title}
-                  productCard={productCard}
-                  itemsPerPage={itemsPerPage}
-                  firstPage={pages[0]}
+                {...ToggleField.props}
+              />
+            )}
+          </div>
+          <div data-fs-product-listing-sort>
+            <SortSkeleton.Component
+              data-fs-product-listing-sort-skeleton
+              size={{ width: 'auto', height: '1.5rem' }}
+              {...SortSkeleton.props}
+              // Dynamic props shouldn't be overridable
+              // This decision can be reviewed later if needed
+              loading={!hasProductsLoaded}
+            >
+              <Sort
+                label={sortBySelector?.label}
+                options={sortBySelector?.options}
+              />
+            </SortSkeleton.Component>
+            <FilterButtonSkeleton.Component
+              data-fs-product-listing-filter-button-skeleton
+              size={{ width: '6rem', height: '1.5rem' }}
+              {...FilterButtonSkeleton.props}
+              // Dynamic props shouldn't be overridable
+              // This decision can be reviewed later if needed
+              loading={!hasFacetsLoaded}
+            >
+              {hasFacetsLoaded && facets?.length > 0 && (
+                <MobileFilterButton.Component
+                  variant="tertiary"
+                  data-testid="open-filter-button"
+                  icon={
+                    <FilterIcon.Component
+                      width={16}
+                      height={16}
+                      {...FilterIcon.props}
+                      name={
+                        filter?.mobileOnly?.filterButton?.icon?.icon ??
+                        FilterIcon.props.name
+                      }
+                      aria-label={
+                        filter?.mobileOnly?.filterButton?.icon?.alt ??
+                        FilterIcon.props['aria-label']
+                      }
+                    />
+                  }
+                  iconPosition="left"
+                  {...MobileFilterButton.props}
+                  // Dynamic props shouldn't be overridable
+                  // This decision can be reviewed later if needed
+                  onClick={openFilter}
+                >
+                  {filter?.mobileOnly?.filterButton?.label}
+                </MobileFilterButton.Component>
+              )}
+            </FilterButtonSkeleton.Component>
+          </div>
+          <div data-fs-product-listing-results>
+            {/* Add link to previous page. This helps on SEO */}
+            {prev !== false && (
+              <div data-fs-product-listing-pagination="top">
+                <NextSeo
+                  additionalLinkTags={[{ rel: 'prev', href: prev.link }]}
                 />
-              ))}
-            </Suspense>
-          ) : (
-            GalleryPageSkeleton
-          )}
-          {/* Add link to next page. This helps on SEO */}
-          {next !== false && (
-            <div data-fs-product-listing-pagination="bottom">
-              <NextSeo
-                additionalLinkTags={[{ rel: 'next', href: next.link }]}
-              />
-              <LinkButtonNext.Component
-                testId="show-more"
-                rel="next"
-                variant="secondary"
-                {...LinkButtonNext.props}
-                // Dynamic props shouldn't be overridable
-                // This decision can be reviewed later if needed
-                onClick={(e: MouseEvent<HTMLElement>) => {
-                  e.currentTarget.blur()
-                  e.preventDefault()
-                  addNextPage()
-                }}
-                href={next.link}
-              >
-                {loadMorePageButton?.label}
-              </LinkButtonNext.Component>
-            </div>
-          )}
+                <LinkButtonPrev.Component
+                  rel="prev"
+                  variant="secondary"
+                  iconPosition="left"
+                  icon={
+                    <PrevIcon.Component
+                      width={16}
+                      height={16}
+                      weight="bold"
+                      {...PrevIcon.props}
+                      name={
+                        previousPageButton?.icon?.icon ?? PrevIcon.props.name
+                      }
+                      aria-label={
+                        previousPageButton?.icon?.alt ??
+                        previousPageButton?.label ??
+                        PrevIcon.props['aria-label']
+                      }
+                    />
+                  }
+                  {...LinkButtonPrev.props}
+                  // Dynamic props shouldn't be overridable
+                  // This decision can be reviewed later if needed
+                  onClick={(e: MouseEvent<HTMLElement>) => {
+                    e.currentTarget.blur()
+                    e.preventDefault()
+                    addPrevPage()
+                  }}
+                  href={prev.link}
+                >
+                  {previousPageButton?.label}
+                </LinkButtonPrev.Component>
+              </div>
+            )}
+            {/* Render ALL products */}
+            {hasProductsLoaded ? (
+              <Suspense fallback={GalleryPageSkeleton}>
+                {pages.map((page) => (
+                  <ProductGalleryPage
+                    key={`gallery-page-${page}`}
+                    page={page}
+                    title={title}
+                    productCard={productCard}
+                    itemsPerPage={itemsPerPage}
+                    firstPage={pages[0]}
+                    shouldShowComparison={showComparisonProducts}
+                  />
+                ))}
+              </Suspense>
+            ) : (
+              GalleryPageSkeleton
+            )}
+            {/* Add link to next page. This helps on SEO */}
+            {next !== false && (
+              <div data-fs-product-listing-pagination="bottom">
+                <NextSeo
+                  additionalLinkTags={[{ rel: 'next', href: next.link }]}
+                />
+                <LinkButtonNext.Component
+                  testId="show-more"
+                  rel="next"
+                  variant="secondary"
+                  {...LinkButtonNext.props}
+                  // Dynamic props shouldn't be overridable
+                  // This decision can be reviewed later if needed
+                  onClick={(e: MouseEvent<HTMLElement>) => {
+                    e.currentTarget.blur()
+                    e.preventDefault()
+                    addNextPage()
+                  }}
+                  href={next.link}
+                >
+                  {loadMorePageButton?.label}
+                </LinkButtonNext.Component>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+        <ProductComparisonSidebar.Component
+          direction="rightSide"
+          size="partial"
+          formatter={useFormattedPrice}
+          overlayProps={{ className: styles.section }}
+        />
+        <ProductComparisonToolbar.Component />
+      </ProductComparison.Component>
     </section>
   )
 }
