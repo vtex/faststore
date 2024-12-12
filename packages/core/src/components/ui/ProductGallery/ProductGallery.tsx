@@ -155,8 +155,6 @@ function ProductGallery({
                 {totalCount} {totalCountLabel}
               </h2>
             </ResultsCountSkeleton.Component>
-          </div>
-          <div data-fs-product-comparison-enabled>
             {productComparison?.enabled && (
               <ToggleField.Component
                 id="toggle-field-comparison"
@@ -170,6 +168,7 @@ function ProductGallery({
               />
             )}
           </div>
+
           <div data-fs-product-listing-sort>
             <SortSkeleton.Component
               data-fs-product-listing-sort-skeleton
