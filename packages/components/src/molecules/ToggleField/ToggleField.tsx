@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
-import { Label, SROnly, Toggle } from './../../'
+import { Label, SROnly, Toggle, ToggleProps } from './../../'
 
-export interface ToggleFieldProps {
+export interface ToggleFieldProps extends ToggleProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
