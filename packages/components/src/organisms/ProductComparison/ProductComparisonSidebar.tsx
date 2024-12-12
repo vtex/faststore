@@ -14,6 +14,12 @@ import {
 } from '../../molecules/Table'
 import Price, { PriceFormatter } from '../../atoms/Price'
 import Button from '../../atoms/Button'
+import Dropdown, {
+  DropdownButton,
+  DropdownItem,
+  DropdownMenu,
+} from '../../molecules/Dropdown'
+import Icon from '../../atoms/Icon'
 
 export interface ProductComparisonSidebarProps
   extends Omit<SlideOverProps, 'children' | 'isOpen' | 'setIsOpen' | 'fade'> {
@@ -48,6 +54,23 @@ function ProductComparisonSidebar({
           </Badge>
         </div>
       </SlideOverHeader>
+
+      <Dropdown>
+        <DropdownButton icon={<Icon name="CaretDown" />}>
+          Filters
+        </DropdownButton>
+        <DropdownMenu>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
+            Dropdown Item 1
+          </DropdownItem>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
+            Dropdown Item 2
+          </DropdownItem>
+          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
+            Dropdown Item 3
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
 
       <div data-fs-product-comparison-filters>
         <div>
@@ -86,13 +109,12 @@ function ProductComparisonSidebar({
                         value={product.offers.lowPriceWithTaxes}
                         variant="listing"
                         formatter={formatter}
-                        />
+                      />
                       <Price
                         value={product.offers.lowPrice}
                         variant="selling"
                         formatter={formatter}
-                        />
-
+                      />
                     </div>
                     <Badge size="small" variant="neutral">
                       -10% OFF
@@ -131,9 +153,6 @@ function ProductComparisonSidebar({
               </TableCell>
             ))}
           </TableRow>
-
-
-
         </TableBody>
       </Table>
     </SlideOver>
