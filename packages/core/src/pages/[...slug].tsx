@@ -145,10 +145,8 @@ export const getStaticProps: GetStaticProps<
       const redirect = await getRedirect({ pathname: `/${slug}` })
       if (redirect) {
         return {
-          redirect: {
-            destination: redirect.location,
-            permanent: true,
-          },
+          redirect,
+          revalidate: 60 * 5, // 5 minutes
         }
       }
     }

@@ -2,6 +2,11 @@ interface MatcherArgs {
   pathname: string
 }
 
-export function matcher(_: MatcherArgs): string | null {
+interface MatcherReturn {
+  destination: string
+  permanent?: boolean
+}
+
+export function matcher(_: MatcherArgs): MatcherReturn | null {
   return null
 }
