@@ -1,13 +1,32 @@
+import dynamic from 'next/dynamic'
+
 import { useSearch } from '@faststore/sdk'
-import {
-  Filter as UIFilter,
-  FilterFacetBoolean as UIFilterFacetBoolean,
-  FilterFacetBooleanItem as UIFilterFacetBooleanItem,
-  FilterFacetRange as UIFilterFacetRange,
-  FilterFacets as UIFilterFacets,
-  FilterSlider as UIFilterSlider,
-} from '@faststore/ui'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+
+const UIFilter = dynamic(() =>
+  /* webpackChunkName: "UIFilter" */
+  import('@faststore/ui').then((mod) => mod.Filter)
+)
+const UIFilterFacetBoolean = dynamic(() =>
+  /* webpackChunkName: "UIFilterFacetBoolean" */
+  import('@faststore/ui').then((mod) => mod.FilterFacetBoolean)
+)
+const UIFilterFacetBooleanItem = dynamic(() =>
+  /* webpackChunkName: "UIFilterFacetBooleanItem" */
+  import('@faststore/ui').then((mod) => mod.FilterFacetBooleanItem)
+)
+const UIFilterFacetRange = dynamic(() =>
+  /* webpackChunkName: "UIFilterFacetRange" */
+  import('@faststore/ui').then((mod) => mod.FilterFacetRange)
+)
+const UIFilterFacets = dynamic(() =>
+  /* webpackChunkName: "UIFilterFacets" */
+  import('@faststore/ui').then((mod) => mod.FilterFacets)
+)
+const UIFilterSlider = dynamic(() =>
+  /* webpackChunkName: "UIFilterSlider" */
+  import('@faststore/ui').then((mod) => mod.FilterSlider)
+)
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
 

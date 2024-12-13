@@ -7,8 +7,16 @@ import {
 
 import dynamic from 'next/dynamic'
 
-import ProductCard from 'src/components/product/ProductCard'
-import EmptyGallery from './EmptyGallery'
+const ProductCard = dynamic(
+  () =>
+    /* webpackChunkName: "ProductCard" */
+    import('src/components/product/ProductCard')
+)
+const EmptyGallery = dynamic(
+  () =>
+    /* webpackChunkName: "EmptyGallery" */
+    import('./EmptyGallery')
+)
 
 const FilterDesktop = dynamic(
   () =>
