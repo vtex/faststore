@@ -78,6 +78,44 @@ type StoreProduct {
   Indicates whether the product has specifications.
   """
   hasSpecifications: Boolean
+  """
+  Indicate the specifications of a product.
+  """
+  skuSpecifications: [SkuSpecification!]!
+  """
+  Indicate the specifications of a group of SKUs.
+  """
+  specificationGroups: [SpecificationGroup!]!
+}
+
+type SkuSpecification  {
+  field: SKUSpecificationField!
+  values: [SKUSpecificationValue!]!
+}
+
+type SKUSpecificationValue  {
+  name: String!
+  id: String
+  fieldId: String
+  originalName: String
+}
+
+type SKUSpecificationField  {
+  name: String!
+  originalName: String
+  id: String
+}
+
+type SpecificationGroup {
+  name: String!
+  originalName: String!
+  specifications: [Specification!]!
+}
+
+type Specification {
+   name: String!
+   originalName: String!
+   values: [String!]!
 }
 
 """

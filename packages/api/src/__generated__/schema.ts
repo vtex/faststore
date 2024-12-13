@@ -465,6 +465,8 @@ export type Query = {
   collection: StoreCollection;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
+  /** Returns information about selected products. */
+  products: Array<StoreProduct>;
   /** Returns if there's a redirect for a search. */
   redirect?: Maybe<StoreRedirect>;
   /** Returns the result of a product, facet, or suggestion search. */
@@ -498,6 +500,11 @@ export type QueryProductArgs = {
 };
 
 
+export type QueryProductsArgs = {
+  productIds: Array<Scalars['String']>;
+};
+
+
 export type QueryRedirectArgs = {
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   term?: Maybe<Scalars['String']>;
@@ -525,6 +532,21 @@ export type QueryShippingArgs = {
   country: Scalars['String'];
   items: Array<IShippingItem>;
   postalCode: Scalars['String'];
+};
+
+export type SkuSpecificationField = {
+  __typename?: 'SKUSpecificationField';
+  id?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  originalName?: Maybe<Scalars['String']>;
+};
+
+export type SkuSpecificationValue = {
+  __typename?: 'SKUSpecificationValue';
+  fieldId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  originalName?: Maybe<Scalars['String']>;
 };
 
 /** Search result. */
@@ -606,6 +628,12 @@ export type ShippingSla = {
   shippingEstimateDate?: Maybe<Scalars['String']>;
 };
 
+export type SkuSpecification = {
+  __typename?: 'SkuSpecification';
+  field: SkuSpecificationField;
+  values: Array<SkuSpecificationValue>;
+};
+
 export type SkuVariants = {
   __typename?: 'SkuVariants';
   /** SKU property values for the current SKU. */
@@ -641,6 +669,20 @@ export type SkuVariantsAvailableVariationsArgs = {
 
 export type SkuVariantsSlugsMapArgs = {
   dominantVariantName?: Maybe<Scalars['String']>;
+};
+
+export type Specification = {
+  __typename?: 'Specification';
+  name: Scalars['String'];
+  originalName: Scalars['String'];
+  values: Array<Scalars['String']>;
+};
+
+export type SpecificationGroup = {
+  __typename?: 'SpecificationGroup';
+  name: Scalars['String'];
+  originalName: Scalars['String'];
+  specifications: Array<Specification>;
 };
 
 /** Aggregate offer information, for a given SKU that is available to be fulfilled by multiple sellers. */
@@ -1008,8 +1050,12 @@ export type StoreProduct = {
   seo: StoreSeo;
   /** Stock Keeping Unit. Merchant-specific ID for the product. */
   sku: Scalars['String'];
+  /** Indicate the specifications of a product. */
+  skuSpecifications: Array<SkuSpecification>;
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String'];
+  /** Indicate the specifications of a group of SKUs. */
+  specificationGroups: Array<SpecificationGroup>;
   /** Sku Unit Multiplier */
   unitMultiplier?: Maybe<Scalars['Float']>;
 };

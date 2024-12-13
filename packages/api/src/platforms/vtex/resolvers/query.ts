@@ -21,6 +21,7 @@ import type {
   QuerySellersArgs,
   QueryShippingArgs,
   QueryRedirectArgs,
+  QueryProductsArgs,
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
@@ -200,6 +201,31 @@ export const Query = {
         cursor: (after + index).toString(),
       })),
     }
+  },
+  products: async (
+    _: unknown,
+    { productIds }: QueryProductsArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { search },
+    } = ctx
+
+    if(!productIds.length) {
+      return []
+    }
+
+    const query = `id:${productIds.join(';')}`    
+    const products = await search.products({
+      page: 0,
+      count: productIds.length,
+      query,
+    })
+
+    return products.products
+      .map((product) => product.items.map((sku) => enhanceSku(sku, product)))
+      .flat()
+      .filter((sku) => sku.sellers.length > 0)
   },
   allCollections: async (
     _: unknown,
