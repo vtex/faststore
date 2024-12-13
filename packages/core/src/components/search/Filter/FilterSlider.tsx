@@ -3,27 +3,37 @@ import dynamic from 'next/dynamic'
 import { useSearch } from '@faststore/sdk'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
-const UIFilter = dynamic(() =>
+import type {
+  FilterFacetBooleanItemProps as UIFilterFacetBooleanItemProps,
+  FilterFacetRangeProps as UIFilterFacetRangeProps,
+  FilterFacetsProps as UIFilterFacetsProps,
+  FilterProps as UIFilterProps,
+  FilterSliderProps as UIFilterSliderProps,
+} from '@faststore/ui'
+
+const UIFilter = dynamic<{ children: React.ReactNode } & UIFilterProps>(() =>
   /* webpackChunkName: "UIFilter" */
   import('@faststore/ui').then((mod) => mod.Filter)
 )
-const UIFilterFacetBoolean = dynamic(() =>
+const UIFilterFacetBoolean = dynamic<{ children: React.ReactNode }>(() =>
   /* webpackChunkName: "UIFilterFacetBoolean" */
   import('@faststore/ui').then((mod) => mod.FilterFacetBoolean)
 )
-const UIFilterFacetBooleanItem = dynamic(() =>
+const UIFilterFacetBooleanItem = dynamic<UIFilterFacetBooleanItemProps>(() =>
   /* webpackChunkName: "UIFilterFacetBooleanItem" */
   import('@faststore/ui').then((mod) => mod.FilterFacetBooleanItem)
 )
-const UIFilterFacetRange = dynamic(() =>
+const UIFilterFacetRange = dynamic<UIFilterFacetRangeProps>(() =>
   /* webpackChunkName: "UIFilterFacetRange" */
   import('@faststore/ui').then((mod) => mod.FilterFacetRange)
 )
-const UIFilterFacets = dynamic(() =>
+const UIFilterFacets = dynamic<
+  { children: React.ReactNode } & UIFilterFacetsProps
+>(() =>
   /* webpackChunkName: "UIFilterFacets" */
   import('@faststore/ui').then((mod) => mod.FilterFacets)
 )
-const UIFilterSlider = dynamic(() =>
+const UIFilterSlider = dynamic<UIFilterSliderProps>(() =>
   /* webpackChunkName: "UIFilterSlider" */
   import('@faststore/ui').then((mod) => mod.FilterSlider)
 )
@@ -106,7 +116,7 @@ function FilterSlider({
       <UIFilter
         testId={`mobile-${testId}`}
         indicesExpanded={expanded}
-        onAccordionChange={(index) =>
+        onAccordionChange={(index: number) =>
           dispatch({ type: 'toggleExpanded', payload: index })
         }
       >
