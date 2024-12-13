@@ -4,10 +4,10 @@ import type { MouseEvent } from 'react'
 import { Suspense, lazy } from 'react'
 
 import { useUI } from '@faststore/ui'
-import Filter from 'src/components/search/Filter'
 import Sort from 'src/components/search/Sort'
-import FilterSkeleton from 'src/components/skeletons/FilterSkeleton'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
+
+import dynamic from 'next/dynamic'
 
 import { ProductCardProps } from 'src/components/product/ProductCard'
 import { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
@@ -21,8 +21,18 @@ import {
 import { useProductsPrefetch } from 'src/sdk/product/useProductsPrefetch'
 import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
 import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
+import { useFilter } from 'src/sdk/search/useFilter'
+import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
+const FilterSkeleton = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "FilterSkeleton" */
+      'src/components/skeletons/FilterSkeleton'
+    )
+)
+
 const GalleryPageSkeleton = <ProductGridSkeleton loading />
 
 export interface ProductGalleryProps {
@@ -69,7 +79,7 @@ function ProductGallery({
   totalCount,
   searchTermLabel,
   totalCountLabel,
-  filter,
+  filter: filterCmsData,
   previousPageButton,
   loadMorePageButton,
   sortBySelector,
@@ -84,20 +94,25 @@ function ProductGallery({
     PrevIcon,
     ResultsCountSkeleton,
     SortSkeleton,
+    __experimentalFilterDesktop: FilterDesktop,
+    __experimentalFilterSlider: FilterSlider,
   } = useOverrideComponents<'ProductGallery'>()
 
-  const { openFilter } = useUI()
+  const { openFilter, filter: displayFilter } = useUI()
   const { pages, addNextPage, addPrevPage, itemsPerPage } = useSearch()
   const context = usePage<SearchPageContext | PLPContext>()
   const data = context?.data
   const facets = useDelayedFacets(data) ?? []
   const { next, prev } = useDelayedPagination(totalCount)
 
+  const { isDesktop } = useScreenResize()
+
   useProductsPrefetch(prev ? prev.cursor : null)
   useProductsPrefetch(next ? next.cursor : null)
 
   const hasFacetsLoaded = Boolean(data?.search?.facets)
   const hasProductsLoaded = Boolean(data?.search?.products)
+  const filter = useFilter(facets)
 
   return (
     <section data-testid="product-gallery" data-fs-product-listing>
@@ -115,13 +130,32 @@ function ProductGallery({
         data-fs-product-listing-content-grid
         data-fs-content="product-gallery"
       >
-        <div data-fs-product-listing-filters>
-          <FilterSkeleton loading={!hasFacetsLoaded}>
-            {hasFacetsLoaded && facets?.length > 0 && (
-              <Filter facets={facets} filter={filter} />
-            )}
-          </FilterSkeleton>
-        </div>
+        {isDesktop && (
+          <div data-fs-product-listing-filters>
+            <FilterSkeleton loading={!hasFacetsLoaded}>
+              {hasFacetsLoaded && facets?.length > 0 && (
+                <div className="hidden-mobile">
+                  <FilterDesktop.Component
+                    {...FilterDesktop.props}
+                    {...filter}
+                    title={filterCmsData?.title}
+                  />
+                </div>
+              )}
+            </FilterSkeleton>
+          </div>
+        )}
+        {!isDesktop && displayFilter && (
+          <div data-fs-product-listing-filters>
+            <FilterSlider.Component
+              {...FilterSlider.props}
+              {...filter}
+              title={filterCmsData?.title}
+              clearButtonLabel={filterCmsData?.mobileOnly?.clearButtonLabel}
+              applyButtonLabel={filterCmsData?.mobileOnly?.applyButtonLabel}
+            />
+          </div>
+        )}
         <div data-fs-product-listing-results-count data-count={totalCount}>
           <ResultsCountSkeleton.Component
             data-fs-product-listing-results-count-skeleton
@@ -168,11 +202,11 @@ function ProductGallery({
                     height={16}
                     {...FilterIcon.props}
                     name={
-                      filter?.mobileOnly?.filterButton?.icon?.icon ??
+                      filterCmsData?.mobileOnly?.filterButton?.icon?.icon ??
                       FilterIcon.props.name
                     }
                     aria-label={
-                      filter?.mobileOnly?.filterButton?.icon?.alt ??
+                      filterCmsData?.mobileOnly?.filterButton?.icon?.alt ??
                       FilterIcon.props['aria-label']
                     }
                   />
@@ -183,7 +217,7 @@ function ProductGallery({
                 // This decision can be reviewed later if needed
                 onClick={openFilter}
               >
-                {filter?.mobileOnly?.filterButton?.label}
+                {filterCmsData?.mobileOnly?.filterButton?.label}
               </MobileFilterButton.Component>
             )}
           </FilterButtonSkeleton.Component>
