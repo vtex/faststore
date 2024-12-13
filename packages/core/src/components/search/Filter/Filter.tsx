@@ -1,6 +1,5 @@
 import { useUI } from '@faststore/ui'
 import type { Filter_FacetsFragment } from '@generated/graphql'
-import { Suspense } from 'react'
 
 import { gql } from '@generated'
 import { ProductGalleryProps } from 'src/components/ui/ProductGallery/ProductGallery'
@@ -50,16 +49,14 @@ function Filter({
       )}
 
       {displayFilter && (
-        <Suspense fallback={null}>
-          <FilterSlider.Component
-            {...FilterSlider.props}
-            {...filter}
-            testId={testId}
-            title={filterCmsData?.title}
-            clearButtonLabel={filterCmsData?.mobileOnly?.clearButtonLabel}
-            applyButtonLabel={filterCmsData?.mobileOnly?.applyButtonLabel}
-          />
-        </Suspense>
+        <FilterSlider.Component
+          {...FilterSlider.props}
+          {...filter}
+          testId={testId}
+          title={filterCmsData?.title}
+          clearButtonLabel={filterCmsData?.mobileOnly?.clearButtonLabel}
+          applyButtonLabel={filterCmsData?.mobileOnly?.applyButtonLabel}
+        />
       )}
     </>
   )
