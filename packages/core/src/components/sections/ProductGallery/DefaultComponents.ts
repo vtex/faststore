@@ -1,18 +1,26 @@
-import { lazy } from 'react'
 import {
   Button as UIButton,
+  Icon as UIIcon,
   LinkButton as UILinkButton,
   Skeleton as UISkeleton,
-  Icon as UIIcon,
 } from '@faststore/ui'
 
+import dynamic from 'next/dynamic'
+
 import ProductCard from 'src/components/product/ProductCard'
-import FilterDesktop from 'src/components/search/Filter/FilterDesktop'
 import EmptyGallery from './EmptyGallery'
 
-const FilterSlider = lazy(
-  () => import('src/components/search/Filter/FilterSlider')
+const FilterDesktop = dynamic(
+  () =>
+    /* webpackChunkName: "FilterDesktop" */
+    import('src/components/search/Filter/FilterDesktop')
 )
+const FilterSlider = dynamic(
+  () =>
+    /* webpackChunkName: "FilterSlider" */
+    import('src/components/search/Filter/FilterSlider')
+)
+
 export const ProductGalleryDefaultComponents = {
   MobileFilterButton: UIButton,
   FilterIcon: UIIcon,
