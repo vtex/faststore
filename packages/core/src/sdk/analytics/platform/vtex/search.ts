@@ -2,12 +2,7 @@
  * More info at: https://developers.vtex.com/docs/api-reference/intelligent-search-events-api-headless
  */
 import type { AnalyticsEvent } from '@faststore/sdk'
-import type {
-  IntelligentSearchAutocompleteClickEvent,
-  IntelligentSearchAutocompleteQueryEvent,
-  IntelligentSearchQueryEvent,
-  SearchSelectItemEvent,
-} from '../../types'
+import type { SearchEvents } from '../../types'
 
 import config from '../../../../../discovery.config'
 import { getCookie } from '../../../../utils/getCookie'
@@ -103,14 +98,7 @@ const isFullTextSearch = (url: URL) =>
   typeof url.searchParams.get('q') === 'string' &&
   /^\/s(\/)?$/g.test(url.pathname)
 
-const handleEvent = (
-  event:
-    | AnalyticsEvent
-    | SearchSelectItemEvent
-    | IntelligentSearchQueryEvent
-    | IntelligentSearchAutocompleteQueryEvent
-    | IntelligentSearchAutocompleteClickEvent
-) => {
+const handleEvent = (event: AnalyticsEvent | SearchEvents) => {
   switch (event.name) {
     case 'search_select_item': {
       const url = new URL(event.params.url)

@@ -60,6 +60,13 @@ export interface IntelligentSearchAutocompleteClickEvent {
   name: 'intelligent_search_autocomplete_click'
   params: IntelligentSearchAutocompleteClickParams
 }
+
+export type SearchEvents =
+  | SearchSelectItemEvent
+  | IntelligentSearchQueryEvent
+  | IntelligentSearchAutocompleteQueryEvent
+  | IntelligentSearchAutocompleteClickEvent
+
 /**
  * RC event types
  * Types copied from Request Capture App: https://github.com/vtex/request-capture-app/blob/1becac32c002cb03a57bf36c8a7f9400eab8b933/react/typings/rcevents.d.ts

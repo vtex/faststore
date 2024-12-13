@@ -1,4 +1,5 @@
 import { AnalyticsEvent, PageViewEvent } from '@faststore/sdk'
+import { ServerProductQueryQuery } from '@generated/graphql'
 import {
   CategoryView,
   DepartmentView,
@@ -7,7 +8,7 @@ import {
   InternalSiteSearchView,
   OtherView,
   ProductView,
-  SearchSelectItemEvent,
+  SearchEvents,
 } from '../../types'
 
 const EventNames = {
@@ -19,8 +20,8 @@ const EventNames = {
   PRODUCT_VIEW: 'productView',
 } as const
 
-type EventNames = (typeof EventNames)[keyof typeof EventNames]
-type EventParams =
+type RequestCaptureEventNames = (typeof EventNames)[keyof typeof EventNames]
+type RequestCaptureEvent =
   | HomeView
   | CategoryView
   | DepartmentView
@@ -28,49 +29,58 @@ type EventParams =
   | ProductView
   | OtherView
 
-const sendEvent = (eventName: EventNames, eventParams: EventParams) => {
+const sendEvent = (
+  eventName: RequestCaptureEventNames,
+  eventParams: RequestCaptureEvent
+) => {
   window?.sendrc?.(eventName, eventParams)
 }
 
-const handleEvent = (
-  event: AnalyticsEvent | SearchSelectItemEvent | IntelligentSearchQueryEvent
-) => {
+const handleEvent = (event: AnalyticsEvent | SearchEvents) => {
   let eventParams
   switch (event.name) {
-    //TODO: add missing events - eg 'add_to_cart' and 'view_cart'
     case 'page_view':
       eventParams = (event as PageViewEvent).params
-      switch (eventParams.type) {
+      const pageType = eventParams?.page?.type ?? eventParams?.type
+
+      switch (pageType) {
         case 'plp':
+          if (!eventParams?.page_location?.includes('fuzzy')) {
+            // Skip when there is no fuzzy parameters on the URL,
+            // otherwise it'll be sent twice (once without fuzzy and once with fuzzy)
+            break
+          }
           const collection = eventParams?.data?.collection
           const collectionCategoryList =
             collection?.breadcrumbList?.itemListElement
           if (collectionCategoryList.length > 1) {
-            // console.log('✨ Category View Event:', eventParams)
             sendEvent(EventNames.CATEGORY_VIEW, {
-              //TODO: add missing arg - categoryId
-              departmentId: collection?.id,
               departmentName: collectionCategoryList[0]?.name,
+              categoryId: collection?.id,
               categoryName:
                 collectionCategoryList[collectionCategoryList.length - 1]?.name,
             })
           } else {
-            // console.log('✨ Department View Event:', eventParams)
             sendEvent(EventNames.DEPARTMENT_VIEW, {
               departmentId: collection?.id,
               departmentName: collectionCategoryList[0]?.name,
             })
           }
+
           break
+
         case 'pdp':
-          // console.log('✨ Product View Event: ', eventParams)
-          const product = eventParams?.data?.product
-          const offers = product?.offers
+          const product = eventParams?.data
+            ?.product as ServerProductQueryQuery['product']
           const productCategoryList = product?.breadcrumbList?.itemListElement
+          const offers = product?.offers?.offers
+          const sellerIds = offers.map((offer) => offer.seller.identifier)
+          const skusOutOfStock = offers.filter(
+            (offer) => offer.availability === 'https://schema.org/OutOfStock'
+          )
+
           sendEvent(EventNames.PRODUCT_VIEW, {
-            //TODO: add missing args - skuStockOutFromProductDetail, productReferenceId,
-            // productEans, skuStocks, productBrandId, productDepartmentId,
-            // productCategoryId, productListPrice, sellerIds
+            skuStockOutFromProductDetail: skusOutOfStock,
             productId: product?.isVariantOf?.productGroupID,
             productName: product?.isVariantOf?.name,
             productBrandName: product?.brand?.name,
@@ -81,22 +91,28 @@ const handleEvent = (
               productCategoryList.length > 1
                 ? productCategoryList[productCategoryList.length - 2]?.name
                 : '',
-            productPrice: offers?.price,
-            sellerId: offers?.seller?.id,
+            productPrice: offers[0]?.price,
+            productListPrice: offers[0]?.listPrice,
+            sellerId: offers[0]?.seller?.identifier,
+            sellerIds: sellerIds.join(','),
           })
           break
+
+        case 'home':
+          sendEvent(EventNames.HOME_VIEW, {})
+          break
+
+        case 'search':
+          // This one is skipped because the event related to search view is being
+          // sent using the intelligent_search_query event due to its parameters
+          break
+
         default:
-          if (eventParams?.page?.type === 'home') {
-            // console.log('✨ Home View Event:', eventParams)
-            sendEvent(EventNames.HOME_VIEW, {})
-          } else {
-            // console.log('✨ Other View Event:', eventParams)
-            sendEvent(EventNames.OTHER_VIEW, {})
-          }
+          sendEvent(EventNames.OTHER_VIEW, {})
       }
       break
+
     case 'intelligent_search_query':
-      console.log('✨ Internal Site Search View Event:', event)
       eventParams = (event as IntelligentSearchQueryEvent).params
       sendEvent(EventNames.INTERNAL_SITE_SEARCH_VIEW, {
         siteSearchTerm: eventParams.term,
@@ -104,6 +120,7 @@ const handleEvent = (
         siteSearchResults: eventParams.totalCount,
       })
       break
+
     default:
   }
 }
