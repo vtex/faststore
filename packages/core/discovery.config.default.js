@@ -101,5 +101,6 @@ module.exports = {
     enableCypressExtension: false,
     noRobots: false,
     preact: false,
+    revalidate: 300, // Revalidate every 5 minutes
   },
 }
