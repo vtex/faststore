@@ -105,7 +105,7 @@ const getPluginPageFileContent = (
 import * as page from 'src/plugins/${pluginName}/pages/${pageName}';
 ${appLayout ? `import GlobalSections, { getGlobalSectionsData } from 'src/components/cms/GlobalSections'` : ``}
 
-export async function getStaticProps(${appLayout ? '{previewData}' : ''}) {
+export async function getServerSideProps(${appLayout ? '{previewData}' : ''}) {
   const noop = async function() {}
   const loaderData = await (page.loader || noop)()
 ${appLayout ? `const globalSections = await getGlobalSectionsData(previewData)` : ``}
