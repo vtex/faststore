@@ -16,6 +16,9 @@ interface Props {
    * Products listed on the grid.
    */
   products: ClientManyProductsQueryQuery['search']['products']['edges']
+  /**
+   * The page's number that is being rendered.
+   */
   page: number
   /**
    * Quantity of products listed.
@@ -29,7 +32,7 @@ interface Props {
     'showDiscountBadge' | 'bordered' | 'taxesConfiguration' | 'sponsoredLabel'
   >
   /**
-   * Identify the number of firstPage
+   * Determine if the current page is the first page.
    */
   firstPage?: number
 }
@@ -60,6 +63,7 @@ function ProductGrid({
     >
       <UIProductGrid>
         {isGridWithViewportObserver ? (
+          // In mobile, the ProductGrid initially renders the first 2 items, the rest of the items are rendered when they come into the viewport.
           <>
             {products.slice(0, 2).map(({ node: product }, idx) => (
               <UIProductGridItem key={`${product.id}`}>
@@ -83,7 +87,6 @@ function ProductGrid({
                 />
               </UIProductGridItem>
             ))}
-            <></>
             <ViewportObserver sectionName="UIProductGrid-out-viewport">
               {products.slice(2).map(({ node: product }, idx) => (
                 <UIProductGridItem key={`${product.id}`}>

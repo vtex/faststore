@@ -19,11 +19,7 @@ export const usePageViewEvent = () => {
   const router = useRouter()
 
   useEffect(() => {
-    router.events.on('routeChangeComplete', sendPageViewEvent)
-
-    return () => {
-      router.events.off('routeChangeComplete', sendPageViewEvent)
-    }
+    sendPageViewEvent()
   }, [router, sendPageViewEvent])
 
   return { sendPageViewEvent }
