@@ -30,7 +30,7 @@ export async function getRedirect({
     }
 
     const response = await fetch(
-      `https://${storeConfig.api.storeId}.myvtex.com/redirect-evaluate${pathname}`
+      `https://${storeConfig.api.storeId}.myvtex.com/_v/public/redirect-evaluate${pathname}`
     )
     const rewriterData = (await response.json()) as RewriterResponse
 
