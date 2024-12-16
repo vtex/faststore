@@ -33,6 +33,7 @@ export { useDelayedPagination as useDelayedPagination_unstable } from '../../src
 
 export { getShippingSimulation as getShippingSimulation_unstable } from '../../src/sdk/shipping'
 export { useShippingSimulation as useShippingSimulation_unstable } from '../../src/sdk/shipping/useShippingSimulation'
+export { default as useScreenResize_unstable } from '../../src/sdk/ui/useScreenResize'
 
 // Components
 export { Image as Image_unstable } from '../../src/components/ui/Image'
