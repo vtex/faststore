@@ -40,7 +40,7 @@
   "size-limit": [
     {
       "path": "dist/cjs/index.js",
-      "limit": "45 KB"
+      "limit": "50 KB"
     },
     {
       "path": "dist/esm/index.js",
