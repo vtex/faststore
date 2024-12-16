@@ -1,6 +1,6 @@
 {
   "name": "@faststore/core",
-  "version": "3.1.3",
+  "version": "3.1.4",
   "license": "MIT",
   "repository": "vtex/faststore",
   "browserslist": "supports es6-module and not dead",
@@ -48,7 +48,7 @@
     "@faststore/graphql-utils": "^3.1.3",
     "@faststore/lighthouse": "^3.1.3",
     "@faststore/sdk": "^3.1.3",
-    "@faststore/ui": "^3.1.3",
+    "@faststore/ui": "^3.1.4",
     "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/client-preset": "4.2.6",
     "@graphql-codegen/typescript": "4.0.7",
