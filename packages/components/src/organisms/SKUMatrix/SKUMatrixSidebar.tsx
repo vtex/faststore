@@ -47,7 +47,6 @@ export interface SKUMatrixSidebarProps
    * Formatter function that transforms the raw price value and render the result.
    */
   formatter?: PriceFormatter
-
   /**
    * Check if some result is still loading before render the result.
    */
@@ -178,14 +177,12 @@ function SKUMatrixSidebar({
               {allVariantProducts.map((variantProduct) => (
                 <TableRow key={`${variantProduct.name}-${variantProduct.id}`}>
                   <TableCell data-fs-sku-matrix-sidebar-cell-image align="left">
-                    <div>
-                      <Image
-                        src={variantProduct.image.url}
-                        alt={variantProduct.image.alternateName}
-                        width={48}
-                        height={48}
-                      />
-                    </div>
+                    <Image
+                      src={variantProduct.image.url}
+                      alt={variantProduct.image.alternateName}
+                      width={48}
+                      height={48}
+                    />
                     {variantProduct.name}
                   </TableCell>
 
@@ -203,12 +200,12 @@ function SKUMatrixSidebar({
                       'showAvailability' && (
                       <Badge
                         variant={
-                          variantProduct.availability === 'outofstock'
+                          variantProduct.availability === 'outOfStock'
                             ? 'warning'
                             : 'success'
                         }
                       >
-                        {variantProduct.availability === 'outofstock'
+                        {variantProduct.availability === 'outOfStock'
                           ? 'Out of stock'
                           : 'Available'}
                       </Badge>

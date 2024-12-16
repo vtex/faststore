@@ -93,7 +93,7 @@ export const useAllVariantProducts = <
                   alternateName: item.image[0].alternateName,
                 },
                 inventory: item.offers.offers[0].quantity,
-                availability: outOfStock ? 'outofstock' : 'available',
+                availability: outOfStock ? 'outOfStock' : 'available',
                 price: item.offers.offers[0].price,
                 listPrice: item.offers.offers[0].listPrice,
                 priceWithTaxes: item.offers.offers[0].priceWithTaxes,
