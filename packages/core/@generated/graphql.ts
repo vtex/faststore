@@ -505,7 +505,7 @@ export type QuerySearchArgs = {
   first: Scalars['Int']['input']
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet>>
   sort?: InputMaybe<StoreSort>
-  sponsoredCount: InputMaybe<Scalars['Int']['input']>
+  sponsoredCount?: InputMaybe<Scalars['Int']['input']>
   term?: InputMaybe<Scalars['String']['input']>
 }
 

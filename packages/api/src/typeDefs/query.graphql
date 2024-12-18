@@ -249,7 +249,7 @@ type Query {
     """
     Search advertisement products return in result.
     """
-    sponsoredCount: Int
+    sponsoredCount: Int = 3
   ): StoreSearchResult!
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 

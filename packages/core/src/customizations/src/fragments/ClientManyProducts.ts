@@ -9,7 +9,6 @@ export const fragment = gql(`
       term: $term
       selectedFacets: $selectedFacets
       sponsoredCount: $sponsoredCount
-
     ) {
       products {
         pageInfo {
