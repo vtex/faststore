@@ -60,3 +60,58 @@ export interface IntelligentSearchAutocompleteClickEvent {
   name: 'intelligent_search_autocomplete_click'
   params: IntelligentSearchAutocompleteClickParams
 }
+
+export type SearchEvents =
+  | SearchSelectItemEvent
+  | IntelligentSearchQueryEvent
+  | IntelligentSearchAutocompleteQueryEvent
+  | IntelligentSearchAutocompleteClickEvent
+
+/**
+ * RC event types
+ * Types copied from Request Capture App: https://github.com/vtex/request-capture-app/blob/1becac32c002cb03a57bf36c8a7f9400eab8b933/react/typings/rcevents.d.ts
+ */
+
+export interface HomeView {}
+
+export interface CategoryView {
+  departmentId?: string
+  departmentName?: string
+  categoryId?: string
+  categoryName?: string
+}
+
+export interface DepartmentView {
+  departmentId?: string
+  departmentName?: string
+}
+
+export interface InternalSiteSearchView {
+  siteSearchTerm?: string // e.g.: "areia"
+  siteSearchForm?: string // e.g.: "/gatos/ambiente--gatos/caixa-de-areia/areia?PS=20"
+  siteSearchCategory?: string // e.g.: "10000283"
+  siteSearchResults?: number // e.g.: 26
+}
+
+type SkuId = string
+
+export interface ProductView {
+  skuStockOutFromProductDetail: string[]
+  productId: string
+  productReferenceId: string
+  productEans: string[]
+  skuStocks: Record<SkuId, number>
+  productName: string
+  productBrandId: string
+  productBrandName: string
+  productDepartmentId: string
+  productDepartmentName: string
+  productCategoryId: string
+  productCategoryName: string
+  productListPrice: number
+  productPrice: number
+  sellerId: string
+  sellerIds: string // e.g.: "00443713,04412311,1"
+}
+
+export interface OtherView {}
