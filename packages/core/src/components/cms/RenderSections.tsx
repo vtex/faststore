@@ -12,8 +12,6 @@ import SectionBoundary from './SectionBoundary'
 import ViewportObserver from './ViewportObserver'
 import COMPONENTS from './global/Components'
 
-import { useUI } from '@faststore/ui'
-
 interface Props {
   components?: Record<string, ComponentType<any>>
   globalSections?: Array<{ name: string; data: any }>
@@ -55,15 +53,6 @@ export const LazyLoadingSection = ({
   sectionName: string
   children: ReactNode
 }) => {
-  const { cart: displayCart, modal: displayModal } = useUI()
-
-  if (SECTIONS_OUT_OF_VIEWPORT.includes(sectionName)) {
-    const shouldLoad =
-      (sectionName === 'CartSidebar' && displayCart) ||
-      (sectionName === 'RegionModal' && displayModal)
-
-    return shouldLoad ? <>{children}</> : null
-  }
   return (
     <ViewportObserver sectionName={sectionName}>{children}</ViewportObserver>
   )
