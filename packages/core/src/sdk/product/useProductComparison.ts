@@ -28,9 +28,7 @@ export const useProductComparison = (productIds: string[]) => {
     return { productIds }
   }, [channel, locale, productIds])
 
-  return useQuery(query, variables, {
-    onSuccess: (data) => console.log(data),
-  })
+  return useQuery(query, variables)
 }
 
 export const fragment = gql(`
