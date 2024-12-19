@@ -3,8 +3,8 @@ import type { CommertialOffer } from '../clients/search/types/ProductSearchResul
 export const inStock = (offer: Pick<CommertialOffer, 'AvailableQuantity'>) =>
   offer.AvailableQuantity > 0
 
-export const price = (offer: Pick<CommertialOffer, 'spotPrice'>) =>
-  offer.spotPrice ?? 0
+export const price = (offer: Pick<CommertialOffer, 'Price'>) => offer.Price ?? 0
+
 export const sellingPrice = (offer: CommertialOffer) => offer.Price ?? 0
 
 export const availability = (available: boolean) =>
@@ -12,8 +12,8 @@ export const availability = (available: boolean) =>
 
 // Smallest Available Spot Price First
 export const bestOfferFirst = (
-  a: Pick<CommertialOffer, 'AvailableQuantity' | 'spotPrice'>,
-  b: Pick<CommertialOffer, 'AvailableQuantity' | 'spotPrice'>
+  a: Pick<CommertialOffer, 'AvailableQuantity' | 'Price'>,
+  b: Pick<CommertialOffer, 'AvailableQuantity' | 'Price'>
 ) => {
   if (inStock(a) && !inStock(b)) {
     return -1
