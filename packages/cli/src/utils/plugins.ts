@@ -102,12 +102,13 @@ const getPluginPageFileContent = (
   appLayout: boolean
 ) => `
 // GENERATED FILE
+// @ts-nocheck
 import * as page from 'src/plugins/${pluginName}/pages/${pageName}';
 ${appLayout ? `import GlobalSections, { getGlobalSectionsData } from 'src/components/cms/GlobalSections'` : ``}
 
-export async function getServerSideProps(${appLayout ? '{previewData}' : ''}) {
+export async function getServerSideProps(${appLayout ? '{ previewData, ...otherProps }' : 'otherProps'}) {
   const noop = async function() {}
-  const loaderData = await (page.loader || noop)()
+  const loaderData = await (page.loader || noop)(otherProps)
 ${appLayout ? `const globalSections = await getGlobalSectionsData(previewData)` : ``}
 
   return { 
