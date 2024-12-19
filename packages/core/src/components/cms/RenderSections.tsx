@@ -3,7 +3,9 @@ import {
   PropsWithChildren,
   ReactNode,
   memo,
+  useEffect,
   useMemo,
+  useState,
 } from 'react'
 
 import { Section } from '@vtex/client-cms'
@@ -16,9 +18,10 @@ interface Props {
   components?: Record<string, ComponentType<any>>
   globalSections?: Array<{ name: string; data: any }>
   sections?: Array<{ name: string; data: any }>
+  domInteractive?: boolean
 }
 
-const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
+// const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
 
 const Toast = dynamic(
   () => import(/* webpackChunkName: "Toast" */ '../common/Toast'),
@@ -49,20 +52,37 @@ const useDividedSections = (sections: Section[]) => {
 export const LazyLoadingSection = ({
   sectionName,
   children,
+  debug = true,
+  domInteractive = false,
 }: {
   sectionName: string
   children: ReactNode
+  debug?: boolean
+  domInteractive?: boolean
 }) => {
-  if (SECTIONS_OUT_OF_VIEWPORT.includes(sectionName)) {
-    return <>{children}</>
-  }
+  // if (SECTIONS_OUT_OF_VIEWPORT.includes(sectionName)) {
+  //   if (debug) {
+  //     console.log(`section SECTIONS_OUT_OF_VIEWPORT '${sectionName}' VISIBLE`)
+  //   }
+  //   return <>{children}</>
+  // }
 
   return (
-    <ViewportObserver sectionName={sectionName}>{children}</ViewportObserver>
+    <ViewportObserver
+      sectionName={sectionName}
+      debug={debug}
+      domInteractive={domInteractive}
+    >
+      {children}
+    </ViewportObserver>
   )
 }
 
-const RenderSectionsBase = ({ sections = [], components }: Props) => {
+const RenderSectionsBase = ({
+  sections = [],
+  components,
+  domInteractive,
+}: Props) => {
   return (
     <>
       {sections.map(({ name, data = {} }, index) => {
@@ -79,7 +99,10 @@ const RenderSectionsBase = ({ sections = [], components }: Props) => {
 
         return (
           <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
-            <LazyLoadingSection sectionName={name}>
+            <LazyLoadingSection
+              sectionName={name}
+              domInteractive={domInteractive}
+            >
               <Component {...data} />
             </LazyLoadingSection>
           </SectionBoundary>
@@ -99,21 +122,64 @@ function RenderSections({
     globalSections ?? sections
   )
 
+  const [domInteractive, setDomInteractive] = useState(false)
+
+  useEffect(() => {
+    let observer: PerformanceObserver
+    let timeoutResponse: string | number | NodeJS.Timeout
+    if ('PerformanceObserver' in window) {
+      console.log('🚀 ~ PerformanceObserver on')
+      observer = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          console.log('Performance: ', entry as PerformanceNavigationTiming)
+
+          const domInteractive = (entry as PerformanceNavigationTiming)
+            .domInteractive
+          console.log('PerformanceObserver - DOM Interactive:', domInteractive)
+          timeoutResponse = setTimeout(() => {
+            console.log('loading Sections OUT OF VIEWPORT')
+            setDomInteractive(true)
+          }, domInteractive)
+        }
+      })
+
+      observer.observe({ type: 'navigation', buffered: true })
+    } else {
+      console.log('🚀 ~ PerformanceObserver off')
+    }
+    return () => {
+      if (observer) observer.disconnect()
+      if (timeoutResponse) clearTimeout(timeoutResponse)
+    }
+  }, [])
+
   return (
     <>
       {firstSections && (
-        <RenderSectionsBase sections={firstSections} components={components} />
+        <RenderSectionsBase
+          sections={firstSections}
+          components={components}
+          domInteractive={domInteractive}
+        />
       )}
       {sections && sections.length > 0 && (
-        <RenderSectionsBase sections={sections} components={components} />
+        <RenderSectionsBase
+          sections={sections}
+          components={components}
+          domInteractive={domInteractive}
+        />
       )}
       {children}
-      <LazyLoadingSection sectionName="Toast">
+      <LazyLoadingSection sectionName="Toast" domInteractive={domInteractive}>
         <Toast />
       </LazyLoadingSection>
 
       {lastSections && (
-        <RenderSectionsBase sections={lastSections} components={components} />
+        <RenderSectionsBase
+          sections={lastSections}
+          components={components}
+          domInteractive={domInteractive}
+        />
       )}
     </>
   )
