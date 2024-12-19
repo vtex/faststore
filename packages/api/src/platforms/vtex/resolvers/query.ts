@@ -215,7 +215,7 @@ export const Query = {
       return []
     }
 
-    const query = `id:${productIds.join(';')}`    
+    const query = `id:${productIds.join(';')}`
     const products = await search.products({
       page: 0,
       count: productIds.length,
@@ -225,7 +225,9 @@ export const Query = {
     return products.products
       .map((product) => product.items.map((sku) => enhanceSku(sku, product)))
       .flat()
-      .filter((sku) => sku.sellers.length > 0)
+      .filter(
+        (sku) => productIds.includes(sku.itemId) && sku.sellers.length > 0
+      )
   },
   allCollections: async (
     _: unknown,
