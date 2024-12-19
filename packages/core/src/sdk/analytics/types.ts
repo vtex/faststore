@@ -87,10 +87,10 @@ export interface DepartmentView {
 }
 
 export interface InternalSiteSearchView {
-  siteSearchTerm?: string // ex: "areia"
-  siteSearchForm?: string // ex: "/gatos/ambiente--gatos/caixa-de-areia/areia?PS=20"
-  siteSearchCategory?: string // ex: "10000283"
-  siteSearchResults?: number // ex: 26
+  siteSearchTerm?: string // e.g.: "areia"
+  siteSearchForm?: string // e.g.: "/gatos/ambiente--gatos/caixa-de-areia/areia?PS=20"
+  siteSearchCategory?: string // e.g.: "10000283"
+  siteSearchResults?: number // e.g.: 26
 }
 
 type SkuId = string
@@ -111,7 +111,7 @@ export interface ProductView {
   productListPrice: number
   productPrice: number
   sellerId: string
-  sellerIds: string // ex: "00443713,04412311,1"
+  sellerIds: string // e.g.: "00443713,04412311,1"
 }
 
 export interface OtherView {}
