@@ -40,4 +40,5 @@ export const SkuVariants: Record<string, Resolver<Root>> = {
 
     return filteredFormattedVariations
   },
+  allVariantProducts: (root) => root.isVariantOf.items,
 }

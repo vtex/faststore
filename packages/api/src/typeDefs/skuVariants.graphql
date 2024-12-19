@@ -24,6 +24,11 @@ type SkuVariants {
   considered the dominant one.
   """
   availableVariations(dominantVariantName: String): FormattedVariants
+
+  """
+  All possible variant combinations of the current product. It also includes the data for each variant.
+  """
+  allVariantProducts: [StoreProduct!]
 }
 
 """
