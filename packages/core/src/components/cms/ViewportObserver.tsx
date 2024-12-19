@@ -23,7 +23,7 @@ function ViewportObserver({
   root = null,
   rootMargin,
   children,
-  debug = true,
+  debug = false,
   domInteractive = false,
 }: PropsWithChildren<ViewportObserverProps>) {
   const [isVisible, setVisible] = useState(false)

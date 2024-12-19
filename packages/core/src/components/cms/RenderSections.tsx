@@ -52,7 +52,7 @@ const useDividedSections = (sections: Section[]) => {
 export const LazyLoadingSection = ({
   sectionName,
   children,
-  debug = true,
+  debug = false,
   domInteractive = false,
 }: {
   sectionName: string
