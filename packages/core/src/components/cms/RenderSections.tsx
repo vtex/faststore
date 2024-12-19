@@ -53,6 +53,10 @@ export const LazyLoadingSection = ({
   sectionName: string
   children: ReactNode
 }) => {
+  if (SECTIONS_OUT_OF_VIEWPORT.includes(sectionName)) {
+    return <>{children}</>
+  }
+
   return (
     <ViewportObserver sectionName={sectionName}>{children}</ViewportObserver>
   )
