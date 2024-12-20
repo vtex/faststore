@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.4.4 (2024-12-20)
+
+### Bug Fixes
+
+- removes `useUI()` dependents sections from `LazyLoadingSection` ([#2602](https://github.com/vtex/faststore/issues/2602)) ([1953438](https://github.com/vtex/faststore/commit/1953438b29ec0081f0dc12fe73a06cd10225a8e8))
+
 ## 3.4.3 (2024-12-20)
 
 **Note:** Version bump only for package faststore
