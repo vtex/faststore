@@ -3,13 +3,13 @@ import {
   PropsWithChildren,
   ReactNode,
   memo,
-  useEffect,
   useMemo,
-  useState,
 } from 'react'
 
+import { useUI } from '@faststore/ui'
 import { Section } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
+import useTTI from 'src/sdk/performance/useTTI'
 import SectionBoundary from './SectionBoundary'
 import ViewportObserver from './ViewportObserver'
 import COMPONENTS from './global/Components'
@@ -18,10 +18,10 @@ interface Props {
   components?: Record<string, ComponentType<any>>
   globalSections?: Array<{ name: string; data: any }>
   sections?: Array<{ name: string; data: any }>
-  domInteractive?: boolean
+  isInteractive?: boolean
 }
 
-// const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
+const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
 
 const Toast = dynamic(
   () => import(/* webpackChunkName: "Toast" */ '../common/Toast'),
@@ -53,25 +53,31 @@ export const LazyLoadingSection = ({
   sectionName,
   children,
   debug = false,
-  domInteractive = false,
+  isInteractive = false,
 }: {
   sectionName: string
   children: ReactNode
   debug?: boolean
-  domInteractive?: boolean
+  isInteractive?: boolean
 }) => {
-  // if (SECTIONS_OUT_OF_VIEWPORT.includes(sectionName)) {
-  //   if (debug) {
-  //     console.log(`section SECTIONS_OUT_OF_VIEWPORT '${sectionName}' VISIBLE`)
-  //   }
-  //   return <>{children}</>
-  // }
+  const { cart: displayCart, modal: displayModal } = useUI()
+  if (SECTIONS_OUT_OF_VIEWPORT.includes(sectionName)) {
+    if (debug) {
+      console.log(`section SECTIONS_OUT_OF_VIEWPORT '${sectionName}' VISIBLE`)
+    }
+    const shouldLoad =
+      isInteractive ||
+      (sectionName === 'CartSidebar' && displayCart) ||
+      (sectionName === 'RegionModal' && displayModal)
+
+    return shouldLoad ? <>{children}</> : null
+  }
 
   return (
     <ViewportObserver
       sectionName={sectionName}
       debug={debug}
-      domInteractive={domInteractive}
+      isInteractive={isInteractive}
     >
       {children}
     </ViewportObserver>
@@ -81,7 +87,7 @@ export const LazyLoadingSection = ({
 const RenderSectionsBase = ({
   sections = [],
   components,
-  domInteractive,
+  isInteractive,
 }: Props) => {
   return (
     <>
@@ -101,7 +107,7 @@ const RenderSectionsBase = ({
           <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
             <LazyLoadingSection
               sectionName={name}
-              domInteractive={domInteractive}
+              isInteractive={isInteractive}
             >
               <Component {...data} />
             </LazyLoadingSection>
@@ -122,36 +128,7 @@ function RenderSections({
     globalSections ?? sections
   )
 
-  const [domInteractive, setDomInteractive] = useState(false)
-
-  useEffect(() => {
-    let observer: PerformanceObserver
-    let timeoutResponse: string | number | NodeJS.Timeout
-    if ('PerformanceObserver' in window) {
-      console.log('🚀 ~ PerformanceObserver on')
-      observer = new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          console.log('Performance: ', entry as PerformanceNavigationTiming)
-
-          const domInteractive = (entry as PerformanceNavigationTiming)
-            .domInteractive
-          console.log('PerformanceObserver - DOM Interactive:', domInteractive)
-          timeoutResponse = setTimeout(() => {
-            console.log('loading Sections OUT OF VIEWPORT')
-            setDomInteractive(true)
-          }, domInteractive)
-        }
-      })
-
-      observer.observe({ type: 'navigation', buffered: true })
-    } else {
-      console.log('🚀 ~ PerformanceObserver off')
-    }
-    return () => {
-      if (observer) observer.disconnect()
-      if (timeoutResponse) clearTimeout(timeoutResponse)
-    }
-  }, [])
+  const { isInteractive } = useTTI()
 
   return (
     <>
@@ -159,18 +136,18 @@ function RenderSections({
         <RenderSectionsBase
           sections={firstSections}
           components={components}
-          domInteractive={domInteractive}
+          isInteractive={isInteractive}
         />
       )}
       {sections && sections.length > 0 && (
         <RenderSectionsBase
           sections={sections}
           components={components}
-          domInteractive={domInteractive}
+          isInteractive={isInteractive}
         />
       )}
       {children}
-      <LazyLoadingSection sectionName="Toast" domInteractive={domInteractive}>
+      <LazyLoadingSection sectionName="Toast" isInteractive={isInteractive}>
         <Toast />
       </LazyLoadingSection>
 
@@ -178,7 +155,7 @@ function RenderSections({
         <RenderSectionsBase
           sections={lastSections}
           components={components}
-          domInteractive={domInteractive}
+          isInteractive={isInteractive}
         />
       )}
     </>
