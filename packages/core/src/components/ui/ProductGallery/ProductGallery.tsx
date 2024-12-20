@@ -317,9 +317,11 @@ function ProductGallery({
           overlayProps={{ className: styles.section }}
         />
         <ProductComparisonToolbar.Component
-          selectionWarning={productComparison?.labels?.selectionWarning}
-          clearSelectionButton={productComparison?.labels?.clearSelectionButton}
-          compareButton={productComparison?.labels?.compareButton}
+          selectionWarningLabel={productComparison?.labels?.selectionWarning}
+          clearSelectionButtonLabel={
+            productComparison?.labels?.clearSelectionButton
+          }
+          compareButtonLabel={productComparison?.labels?.compareButton}
         />
       </ProductComparison.Component>
     </section>
