@@ -2,7 +2,6 @@ import React from 'react'
 import Image from 'next/image'
 import Button from '../../atoms/Button'
 import { useProductComparison } from '../../hooks/useProductComparison'
-import Skeleton from '../../atoms/Skeleton'
 
 export interface ProductComparisonToolbarProps {
   selectedLabel?: string
@@ -58,7 +57,7 @@ function ProductComparisonToolbar({
             disabled={selectedProducts.length < 2}
             onClick={() => setIsOpen(true)}
           >
-            {compareLabel} ({selectedProducts.length})
+            {selectedProducts.length > 1 ? `${compareLabel} ${selectedProducts.length}` : compareLabel }
           </Button>
         </footer>
       ) : null}
