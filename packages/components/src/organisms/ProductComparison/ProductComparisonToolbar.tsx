@@ -4,15 +4,15 @@ import Button from '../../atoms/Button'
 import { useProductComparison } from '../../hooks/useProductComparison'
 
 export interface ProductComparisonToolbarProps {
-  selectedLabel?: string
-  compareLabel?: string
-  clearSelectionLabel?: string
+  selectionWarningLabel?: string
+  compareButtonLabel?: string
+  clearSelectionButtonLabel?: string
 }
 
 function ProductComparisonToolbar({
-  selectedLabel = 'Select at least',
-  compareLabel = 'Compare',
-  clearSelectionLabel = 'Clear selection',
+  clearSelectionButtonLabel,
+  compareButtonLabel,
+  selectionWarningLabel
 }: ProductComparisonToolbarProps) {
   const { isOpen, setIsOpen, selectedProducts, clearProducts } =
     useProductComparison()
@@ -43,21 +43,21 @@ function ProductComparisonToolbar({
             {selectedProducts.length === 1 && (
               <div>
                 <p>
-                  {selectedLabel} {selectedProducts.length}
+                  {selectionWarningLabel} {selectedProducts.length}
                 </p>
               </div>
             )}
           </div>
 
           <Button variant="tertiary" onClick={() => clearProducts()}>
-            {clearSelectionLabel}
+            {clearSelectionButtonLabel}
           </Button>
           <Button
             variant="primary"
             disabled={selectedProducts.length < 2}
             onClick={() => setIsOpen(true)}
           >
-            {selectedProducts.length > 1 ? `${compareLabel} ${selectedProducts.length}` : compareLabel }
+            {selectedProducts.length > 1 ? `${compareButtonLabel} ${selectedProducts.length}` : compareButtonLabel }
           </Button>
         </footer>
       ) : null}
