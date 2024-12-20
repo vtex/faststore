@@ -96,6 +96,29 @@ const copyPluginsSrc = async (basePath: string, plugins: Plugin[]) => {
   })
 }
 
+const copyPluginPublicFiles = async (basePath: string, plugins: Plugin[]) => {
+  const { tmpDir, getPackagePath } = withBasePath(basePath)
+
+  logger.log('Copying plugin public files')
+
+  plugins.forEach(async (plugin) => {
+    const pluginName = getPluginName(plugin)
+    const pluginPath = getPackagePath(getPluginName(pluginName))
+
+    try {
+      if (existsSync(`${pluginPath}/public`)) {
+        copySync(`${pluginPath}/public`, `${tmpDir}/public`, {
+          dereference: true,
+          overwrite: true,
+        })
+        logger.log(`Plugin public files copied`)
+      }
+    } catch (e) {
+      logger.error(e)
+    }
+  })
+}
+
 const getPluginPageFileContent = (
   pluginName: string,
   pageName: string,
@@ -285,6 +308,7 @@ export const installPlugins = async (basePath: string) => {
   const plugins = await getPluginsList(basePath)
 
   copyPluginsSrc(basePath, plugins)
+  copyPluginPublicFiles(basePath, plugins)
   generatePluginPages(basePath, plugins)
   addPluginsSections(basePath, plugins)
   addPluginsOverrides(basePath, plugins)
