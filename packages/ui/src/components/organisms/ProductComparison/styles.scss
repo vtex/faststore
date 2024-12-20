@@ -12,31 +12,25 @@
   // Default properties
 
   // Background
-  --fs-product-comparison-bkg-color: var(--fs-color-body-bkg);
+  --fs-product-comparison-bkg-color:                                      var(--fs-color-body-bkg);
 
   // Title
-  --fs-product-comparison-title-size: var(--fs-text-size-6);
-  --fs-product-comparison-title-text-weight: var(--fs-text-weight-semibold);
+  --fs-product-comparison-title-size:                                     var(--fs-text-size-6);
+  --fs-product-comparison-title-text-weight:                              var(--fs-text-weight-semibold);
 
   // Cell
-  --fs-product-comparison-table-cell-font-size: var(--fs-text-size-tiny);
-  --fs-product-comparison-table-cell-text-weight: var(--fs-text-weight-medium);
+  --fs-product-comparison-table-cell-font-size:                           var(--fs-text-size-tiny);
+  --fs-product-comparison-table-cell-text-weight:                         var(--fs-text-weight-medium);
 
   // Spacing
-  --fs-product-comparison-padding: var(--fs-spacing-8);
+  --fs-product-comparison-padding:                                        var(--fs-spacing-8);
 
   // Partial
-  --fs-product-comparison-slide-over-partial-gap: calc(
-    2 * var(--fs-grid-padding)
-  );
-  --fs-product-comparison--slide-over-partial-width-mobile: calc(
-    100vw - var(--fs-slide-over-partial-gap)
-  );
+  --fs-product-comparison-slide-over-partial-gap:                         calc(2 * var(--fs-grid-padding));
+  --fs-product-comparison--slide-over-partial-width-mobile:               calc(100vw - var(--fs-slide-over-partial-gap));
 
-  --fs-product-comparison-slide-over-partial-width-notebook: calc(100% / 3);
-  --fs-product-comparison-slide-over-partial-max-width-notebook: calc(
-    var(--fs-grid-breakpoint-notebook) / 3
-  );
+  --fs-product-comparison-slide-over-partial-width-notebook:              calc(100% / 3);
+  --fs-product-comparison-slide-over-partial-max-width-notebook:          calc(var(--fs-grid-breakpoint-notebook) / 3);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -68,8 +62,8 @@
   [data-fs-product-comparison-toolbar-image] {
     display: flex;
     justify-self: left;
-    width: 80%;
-    gap: var(--fs-spacing-3);
+    margin-right: auto;
+    gap: var(--fs-spacing-2);
   }
 
 
@@ -87,10 +81,13 @@
         width: 50px;
         height: 50px;
         resize: both;
+        border-radius: var(--fs-border-radius);
       }
 
-      p {
-        display: none;
+      [data-fs-product-comparison-toolbar-image-more] {
+        background-color: #f5f5f5;
+        width: 60px;
+        height: 60px;
       }
     }
 
