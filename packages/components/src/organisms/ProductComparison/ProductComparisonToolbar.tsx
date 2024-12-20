@@ -30,33 +30,36 @@ function ProductComparisonToolbar({
                 key={product.id}
                 src={product.image[0].url}
                 alt={product.name}
-                width={80}
-                height={80}
+                width={60}
+                height={60}
               />
             ))}
 
             {selectedProducts.length > 3 && (
-              <Skeleton size={{ width: '80px', height: '80px' }}>
+              <div data-fs-product-comparison-toolbar-image-more>
                 <p>{`+${selectedProducts.length - 3}`}</p>
-              </Skeleton>
+              </div>
             )}
-            <div>
-              <p>
-                {selectedLabel} {selectedProducts.length}
-              </p>
-            </div>
+
+            {selectedProducts.length === 1 && (
+              <div>
+                <p>
+                  {selectedLabel} {selectedProducts.length}
+                </p>
+              </div>
+            )}
           </div>
 
-            <Button variant="tertiary" onClick={() => clearProducts()}>
-              {clearSelectionLabel}
-            </Button>
-            <Button
-              variant="primary"
-              disabled={selectedProducts.length < 2}
-              onClick={() => setIsOpen(true)}
-            >
-              {compareLabel}
-            </Button>
+          <Button variant="tertiary" onClick={() => clearProducts()}>
+            {clearSelectionLabel}
+          </Button>
+          <Button
+            variant="primary"
+            disabled={selectedProducts.length < 2}
+            onClick={() => setIsOpen(true)}
+          >
+            {compareLabel} ({selectedProducts.length})
+          </Button>
         </footer>
       ) : null}
     </>
