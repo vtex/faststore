@@ -6,7 +6,7 @@
 
 [data-fs-product-comparison-toolbar] {
   // --------------------------------------------------------
-  // Design Tokens for SKU Matrix Sidebar
+  // Design Tokens for Product Comparison Toolbar
   // --------------------------------------------------------
 
   // Default properties
@@ -14,23 +14,9 @@
   // Background
   --fs-product-comparison-bkg-color:                                      var(--fs-color-body-bkg);
 
-  // Title
-  --fs-product-comparison-title-size:                                     var(--fs-text-size-6);
-  --fs-product-comparison-title-text-weight:                              var(--fs-text-weight-semibold);
-
-  // Cell
-  --fs-product-comparison-table-cell-font-size:                           var(--fs-text-size-tiny);
-  --fs-product-comparison-table-cell-text-weight:                         var(--fs-text-weight-medium);
-
-  // Spacing
-  --fs-product-comparison-padding:                                        var(--fs-spacing-8);
-
-  // Partial
-  --fs-product-comparison-slide-over-partial-gap:                         calc(2 * var(--fs-grid-padding));
-  --fs-product-comparison--slide-over-partial-width-mobile:               calc(100vw - var(--fs-slide-over-partial-gap));
-
-  --fs-product-comparison-slide-over-partial-width-notebook:              calc(100% / 3);
-  --fs-product-comparison-slide-over-partial-max-width-notebook:          calc(var(--fs-grid-breakpoint-notebook) / 3);
+  // Text
+  --fs-product-comparison-text-weight:                                    var(--fs-text-weight-light);
+  --fs-product-comparison-text-color:                                     var(--fs-border-color-light);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -44,7 +30,7 @@
   position: fixed;
   bottom: 0;
 
-  padding: var(--fs-spacing-4) var(--fs-product-comparison-padding);
+  padding: var(--fs-spacing-4) var(--fs-spacing-8);
   border-top: var(--fs-border-width) solid var(--fs-border-color-light);
   width: 100%;
 
@@ -54,8 +40,8 @@
     align-items: center;
 
     p {
-      font-weight: var(--fs-text-weight-light);
-      color: var(--fs-color-text-light);
+      font-weight: var( --fs-product-comparison-text-weight);
+      color: var(--fs-product-comparison-text-weight);
     }
   }
 
@@ -107,6 +93,38 @@
 }
 
 [data-fs-product-comparison-sidebar] {
+  // --------------------------------------------------------
+  // Design Tokens for Product Comparison Sidebar
+  // --------------------------------------------------------
+
+  // Default properties
+
+  // Background
+  --fs-product-comparison-bkg-color:                                      var(--fs-color-body-bkg);
+
+  // Title
+  --fs-product-comparison-title-size:                                     var(--fs-text-size-6);
+  --fs-product-comparison-title-weight:                              var(--fs-text-weight-semibold);
+
+  // Cell
+  --fs-product-comparison-table-cell-font-size:                           var(--fs-text-size-tiny);
+  --fs-product-comparison-table-cell-text-weight:                         var(--fs-text-weight-medium);
+
+  // Spacing
+  --fs-product-comparison-padding:                                        var(--fs-spacing-8);
+
+  // Partial
+  --fs-product-comparison-slide-over-partial-gap:                         calc(2 * var(--fs-grid-padding));
+  --fs-product-comparison--slide-over-partial-width-mobile:               calc(100vw - var(--fs-slide-over-partial-gap));
+
+  --fs-product-comparison-slide-over-partial-width-notebook:              calc(100% / 3);
+  --fs-product-comparison-slide-over-partial-max-width-notebook:          calc(var(--fs-grid-breakpoint-notebook) / 3);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+
   display: flex;
   flex-direction: column;
   overflow: auto;
@@ -114,8 +132,8 @@
 
   &[data-fs-slide-over] {
     [data-fs-slide-over-header] {
-      font-size: var(--fs-text-size-);
-      font-weight: var(--fs-text-weight-semibold);
+      font-size: var(--fs-product-comparison-title-size);
+      font-weight: var(--fs-product-comparison-title-weight);
       letter-spacing: -0.04em;
       text-align: left;
       padding: var(--fs-spacing-3) 0;
@@ -152,7 +170,7 @@
 
         p {
           font-size: var(--fs-text-size-2);
-          font-weight: var(--fs-text-weight-light);
+          font-weight: var(--fs-product-comparison-text-weight);
           margin-right: var(--fs-spacing-3);
         }
       }
