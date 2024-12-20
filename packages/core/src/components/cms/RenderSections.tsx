@@ -62,13 +62,17 @@ export const LazyLoadingSection = ({
 }) => {
   const { cart: displayCart, modal: displayModal } = useUI()
   if (SECTIONS_OUT_OF_VIEWPORT.includes(sectionName)) {
-    if (debug) {
-      console.log(`section SECTIONS_OUT_OF_VIEWPORT '${sectionName}' VISIBLE`)
-    }
     const shouldLoad =
       isInteractive ||
       (sectionName === 'CartSidebar' && displayCart) ||
       (sectionName === 'RegionModal' && displayModal)
+
+    if (debug) {
+      console.log(
+        `section SECTIONS_OUT_OF_VIEWPORT '${sectionName}' shouldLoad:`,
+        shouldLoad
+      )
+    }
 
     return shouldLoad ? <>{children}</> : null
   }
