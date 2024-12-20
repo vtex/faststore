@@ -14,6 +14,7 @@ type ViewportObserverProps = {
    * Debug/test purposes: enables visual debugging to identify the visibility of the section.
    */
   debug?: boolean
+  isInteractive?: boolean
 } & IntersectionObserverInit
 
 function ViewportObserver({
@@ -23,6 +24,7 @@ function ViewportObserver({
   rootMargin,
   children,
   debug = false,
+  isInteractive = false,
 }: PropsWithChildren<ViewportObserverProps>) {
   const [isVisible, setVisible] = useState(false)
   const ref = useRef<HTMLDivElement | null>(null)
@@ -80,7 +82,7 @@ function ViewportObserver({
         ></div>
       )}
 
-      {isVisible && children}
+      {(isVisible || isInteractive) && children}
     </>
   )
 }
