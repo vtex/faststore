@@ -59,8 +59,12 @@ export interface ProductGalleryProps {
     }
   }
   productComparison?: {
-    label?: string
     enabled?: boolean
+    labels: {
+      compareButton: string
+      clearSelectionButton: string
+      selectionWarning: string
+    }
   }
   shouldShowComparison?: boolean
   itemsPerPage?: number
@@ -158,7 +162,7 @@ function ProductGallery({
             {productComparison?.enabled && (
               <ToggleField.Component
                 id="toggle-field-comparison"
-                label={productComparison.label}
+                label={productComparison?.labels?.compareButton}
                 checked={showComparisonProducts}
                 onChange={() => {
                   setShowComparisonProducts((prev) => !prev)
@@ -312,7 +316,11 @@ function ProductGallery({
           formatter={useFormattedPrice}
           overlayProps={{ className: styles.section }}
         />
-        <ProductComparisonToolbar.Component />
+        <ProductComparisonToolbar.Component
+          selectionWarning={productComparison?.labels?.selectionWarning}
+          clearSelectionButton={productComparison?.labels?.clearSelectionButton}
+          compareButton={productComparison?.labels?.compareButton}
+        />
       </ProductComparison.Component>
     </section>
   )

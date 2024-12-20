@@ -1841,10 +1841,26 @@
               "type": "boolean",
               "default": false
             },
-            "label": {
-              "title": "Product Comparison Label",
-              "type": "string",
-              "default": "Compare"
+            "labels": {
+              "title": "Labels",
+              "type": "object",
+              "properties": {
+                "compareButton": {
+                  "title": "Compare Button",
+                  "type": "string",
+                  "default": "Compare"
+                },
+                "clearSelectionButton": {
+                  "title": "Clear Selection Button",
+                  "type": "string",
+                  "default": "Clear Selection"
+                },
+                "selectionWarning": {
+                  "title": "Selection Warning",
+                  "type": "string",
+                  "default": "Select at least"
+                }
+              }
             }
           }
         }
