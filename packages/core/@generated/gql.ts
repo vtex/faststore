@@ -12,7 +12,7 @@ import * as types from './graphql'
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  '\n  fragment ProductSummary_product on StoreProduct {\n    id: productID\n    slug\n    sku\n    brand {\n      brandName: name\n    }\n    name\n    gtin\n\n    isVariantOf {\n      productGroupID\n      name\n    }\n\n    image {\n      url\n      alternateName\n    }\n\n    brand {\n      name\n    }\n\n    offers {\n      lowPrice\n      lowPriceWithTaxes\n      offers {\n        availability\n        price\n        listPrice\n        listPriceWithTaxes\n        quantity\n        seller {\n          identifier\n        }\n      }\n    }\n\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n\n    advertisement {\n      adId\n      adResponseId\n    }\n  }\n':
+  '\n  fragment ProductSummary_product on StoreProduct {\n    id: productID\n    slug\n    sku\n    brand {\n      brandName: name\n    }\n    name\n    gtin\n\n    isVariantOf {\n      productGroupID\n      name\n    }\n\n    image {\n      url\n      alternateName\n    }\n\n    brand {\n      name\n    }\n\n    offers {\n      lowPrice\n      lowPriceWithTaxes\n      offers {\n        availability\n        price\n        listPrice\n        listPriceWithTaxes\n        quantity\n        seller {\n          identifier\n        }\n      }\n    }\n\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n\n    hasSpecifications\n\n    advertisement {\n      adId\n      adResponseId\n    }\n  }\n':
     types.ProductSummary_ProductFragmentDoc,
   '\n  fragment Filter_facets on StoreFacet {\n    ... on StoreFacetRange {\n      key\n      label\n\n      min {\n        selected\n        absolute\n      }\n\n      max {\n        selected\n        absolute\n      }\n\n      __typename\n    }\n    ... on StoreFacetBoolean {\n      key\n      label\n      values {\n        label\n        value\n        selected\n        quantity\n      }\n\n      __typename\n    }\n  }\n':
     types.Filter_FacetsFragmentDoc,
@@ -44,6 +44,10 @@ const documents = {
     types.SubscribeToNewsletterDocument,
   '\n  query ClientManyProductsQuery(\n    $first: Int!\n    $after: String\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n  ) {\n    ...ClientManyProducts\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n        edges {\n          node {\n            ...ProductSummary_product\n          }\n        }\n      }\n    }\n  }\n':
     types.ClientManyProductsQueryDocument,
+  '\n  query ClientManyProductsComparisonQuery(\n    $productIds: [String!]!\n    \n  ) {\n    products(\n      productIds: $productIds\n    ) {\n        ...ProductComparisonFragment_product\n      }\n    }  \n':
+    types.ClientManyProductsComparisonQueryDocument,
+  '\n  fragment ProductComparisonFragment_product on StoreProduct {\n    ...ProductDetailsFragment_product,\n\n    skuSpecifications {\n      field {\n        id\n        name\n        originalName\n      }\n      values {\n        name\n        id\n        fieldId\n        originalName\n      }\n    }\n\n    specificationGroups {\n      name\n      originalName\n      specifications {\n        name\n        originalName\n        values\n      }\n    }\n  }\n':
+    types.ProductComparisonFragment_ProductFragmentDoc,
   '\n  query ClientProductGalleryQuery(\n    $first: Int!\n    $after: String!\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n  ) {\n    ...ClientProductGallery\n    redirect(term: $term, selectedFacets: $selectedFacets) {\n      url\n    }\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n      facets {\n        ...Filter_facets\n      }\n      metadata {\n        ...SearchEvent_metadata\n      }\n    }\n  }\n\n  fragment SearchEvent_metadata on SearchMetadata {\n    isTermMisspelled\n    logicalOperator\n    fuzzy\n  }\n':
     types.ClientProductGalleryQueryDocument,
   '\n  query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {\n    ...ClientProduct\n    product(locator: $locator) {\n      ...ProductDetailsFragment_product\n    }\n  }\n':
@@ -62,7 +66,7 @@ const documents = {
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment ProductSummary_product on StoreProduct {\n    id: productID\n    slug\n    sku\n    brand {\n      brandName: name\n    }\n    name\n    gtin\n\n    isVariantOf {\n      productGroupID\n      name\n    }\n\n    image {\n      url\n      alternateName\n    }\n\n    brand {\n      name\n    }\n\n    offers {\n      lowPrice\n      lowPriceWithTaxes\n      offers {\n        availability\n        price\n        listPrice\n        listPriceWithTaxes\n        quantity\n        seller {\n          identifier\n        }\n      }\n    }\n\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n\n    advertisement {\n      adId\n      adResponseId\n    }\n  }\n'
+  source: '\n  fragment ProductSummary_product on StoreProduct {\n    id: productID\n    slug\n    sku\n    brand {\n      brandName: name\n    }\n    name\n    gtin\n\n    isVariantOf {\n      productGroupID\n      name\n    }\n\n    image {\n      url\n      alternateName\n    }\n\n    brand {\n      name\n    }\n\n    offers {\n      lowPrice\n      lowPriceWithTaxes\n      offers {\n        availability\n        price\n        listPrice\n        listPriceWithTaxes\n        quantity\n        seller {\n          identifier\n        }\n      }\n    }\n\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n\n    hasSpecifications\n\n    advertisement {\n      adId\n      adResponseId\n    }\n  }\n'
 ): typeof import('./graphql').ProductSummary_ProductFragmentDoc
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -154,6 +158,18 @@ export function gql(
 export function gql(
   source: '\n  query ClientManyProductsQuery(\n    $first: Int!\n    $after: String\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n  ) {\n    ...ClientManyProducts\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n        edges {\n          node {\n            ...ProductSummary_product\n          }\n        }\n      }\n    }\n  }\n'
 ): typeof import('./graphql').ClientManyProductsQueryDocument
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query ClientManyProductsComparisonQuery(\n    $productIds: [String!]!\n    \n  ) {\n    products(\n      productIds: $productIds\n    ) {\n        ...ProductComparisonFragment_product\n      }\n    }  \n'
+): typeof import('./graphql').ClientManyProductsComparisonQueryDocument
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  fragment ProductComparisonFragment_product on StoreProduct {\n    ...ProductDetailsFragment_product,\n\n    skuSpecifications {\n      field {\n        id\n        name\n        originalName\n      }\n      values {\n        name\n        id\n        fieldId\n        originalName\n      }\n    }\n\n    specificationGroups {\n      name\n      originalName\n      specifications {\n        name\n        originalName\n        values\n      }\n    }\n  }\n'
+): typeof import('./graphql').ProductComparisonFragment_ProductFragmentDoc
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
