@@ -24,7 +24,7 @@ export const withBasePath = (basepath: string) => {
    * If it reaches process.cwd() (or /, as a safeguard), without finding it, it will throw an exception
    */
   const getCorePackagePath = () => {
-    const packageFromNodeModules = path.join(
+    const coreFromNodeModules = path.join(
       'node_modules',
       '@faststore',
       'core'
@@ -39,7 +39,7 @@ export const withBasePath = (basepath: string) => {
         resolvedCwd,
         basepath,
         ...parents,
-        packageFromNodeModules
+        coreFromNodeModules
       )
 
       if (fs.existsSync(attemptedPath)) {
