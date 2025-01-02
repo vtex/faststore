@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
 import SlideOver, { SlideOverHeader, SlideOverProps } from '../SlideOver'
 import { useFadeEffect, useProductComparison } from '../../hooks'
@@ -34,7 +34,23 @@ function ProductComparisonSidebar({
   ...otherProps
 }: ProductComparisonSidebarProps) {
   const { fade } = useFadeEffect()
-  const { isOpen, setIsOpen, selectedProducts } = useProductComparison()
+  const { isOpen, setIsOpen, products } = useProductComparison()
+
+  const productsSpecifications = Array.from(
+    new Set(
+      products.reduce<string[]>((acc, product) => {
+        const productSpecificationsFields = product.skuSpecifications?.map(
+          (spec) => spec?.field
+        )
+
+        return [...acc, ...(productSpecificationsFields as string[])]
+      }, [])
+    )
+  )
+
+  useEffect(() => {
+    console.log(productsSpecifications)
+  }, [products])
 
   return (
     <SlideOver
@@ -50,7 +66,7 @@ function ProductComparisonSidebar({
         <div>
           <h2>Compare Products</h2>
           <Badge size="big" variant="neutral">
-            {selectedProducts.length}
+            {products.length}
           </Badge>
         </div>
       </SlideOverHeader>
@@ -93,7 +109,7 @@ function ProductComparisonSidebar({
       <Table>
         <TableHead>
           <TableRow>
-            {selectedProducts.map((product) => (
+            {products.map((product) => (
               <TableCell key={product.id}>
                 <Image
                   width={250}
@@ -142,7 +158,7 @@ function ProductComparisonSidebar({
             </TableCell>
           </TableRow>
           <TableRow>
-            {selectedProducts.map((product) => (
+            {products.map((product) => (
               <TableCell key={product.id}>
                 <h3>Price With Taxes</h3>
                 <Price
@@ -153,6 +169,20 @@ function ProductComparisonSidebar({
               </TableCell>
             ))}
           </TableRow>
+          {productsSpecifications.map((spec) => (
+            <TableRow key={spec}>
+              {products.map((product) => (
+                <TableCell key={product.id}>
+                  <h3>{spec}</h3>
+                  <p>
+                    {product.additionalProperty.find(
+                      (property) => property.name === spec
+                    )?.value || '-'}
+                  </p>
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </SlideOver>

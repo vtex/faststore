@@ -14,14 +14,14 @@ function ProductComparisonToolbar({
   compareButtonLabel,
   selectionWarningLabel
 }: ProductComparisonToolbarProps) {
-  const { isOpen, setIsOpen, selectedProducts, clearProducts } =
+  const { isOpen, setIsOpen, products, clearProducts } =
     useProductComparison()
 
-  const selectedProductsDisplay = selectedProducts.slice(0, 3)
+  const selectedProductsDisplay = products.slice(0, 3)
 
   return (
     <>
-      {selectedProducts.length >= 1 && !isOpen ? (
+      {products.length >= 1 && !isOpen ? (
         <footer data-fs-product-comparison-toolbar>
           <div data-fs-product-comparison-toolbar-image>
             {selectedProductsDisplay.map((product) => (
@@ -34,16 +34,16 @@ function ProductComparisonToolbar({
               />
             ))}
 
-            {selectedProducts.length > 3 && (
+            {products.length > 3 && (
               <div data-fs-product-comparison-toolbar-image-more>
-                <p>{`+${selectedProducts.length - 3}`}</p>
+                <p>{`+${products.length - 3}`}</p>
               </div>
             )}
 
-            {selectedProducts.length === 1 && (
+            {products.length === 1 && (
               <div>
                 <p>
-                  {selectionWarningLabel} {selectedProducts.length}
+                  {selectionWarningLabel} {products.length}
                 </p>
               </div>
             )}
@@ -54,10 +54,10 @@ function ProductComparisonToolbar({
           </Button>
           <Button
             variant="primary"
-            disabled={selectedProducts.length < 2}
+            disabled={products.length < 2}
             onClick={() => setIsOpen(true)}
           >
-            {selectedProducts.length > 1 ? `${compareButtonLabel} ${selectedProducts.length}` : compareButtonLabel }
+            {products.length > 1 ? `${compareButtonLabel} ${products.length}` : compareButtonLabel }
           </Button>
         </footer>
       ) : null}

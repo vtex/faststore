@@ -362,5 +362,5 @@ export type {
 } from './organisms/SlideOver'
 
 export { default as ProductComparison, ProductComparisonTrigger, ProductComparisonToolbar, ProductComparisonSidebar } from './organisms/ProductComparison'
-export type { ProductComparisonProps, ProductComparisonTriggerProps, ProductComparisonToolbarProps, ProductComparisonSidebarProps } from './organisms/ProductComparison'
+export type { IProductComparison, ProductComparisonProps, ProductComparisonTriggerProps, ProductComparisonToolbarProps, ProductComparisonSidebarProps } from './organisms/ProductComparison'
 
