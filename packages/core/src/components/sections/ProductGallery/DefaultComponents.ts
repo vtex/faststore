@@ -13,7 +13,7 @@ import {
 import ProductCard from 'src/components/product/ProductCard'
 import FilterDesktop from 'src/components/search/Filter/FilterDesktop'
 import EmptyGallery from './EmptyGallery'
-import ProductComparison from 'src/components/ui/ProductComparison'
+import ProductComparisonSidebar from 'src/components/ui/ProductComparison'
 
 const FilterSlider = lazy(
   () => import('src/components/search/Filter/FilterSlider')
@@ -35,5 +35,5 @@ export const ProductGalleryDefaultComponents = {
   __experimentalFilterSlider: FilterSlider,
   __experimentalProductCard: ProductCard,
   __experimentalEmptyGallery: EmptyGallery,
-  __experimentalProductComparison: ProductComparison,
+  __experimentalProductComparisonSidebar: ProductComparisonSidebar,
 } as const
