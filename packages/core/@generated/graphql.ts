@@ -1733,6 +1733,69 @@ export type ClientProductQueryQuery = {
   }
 }
 
+export type ClientManyProductsSelectedQueryQueryVariables = Exact<{
+  productIds: Array<Scalars['String']['input']> | Scalars['String']['input']
+}>
+
+export type ClientManyProductsSelectedQueryQuery = {
+  products: Array<{
+    sku: string
+    name: string
+    gtin: string
+    description: string
+    unitMultiplier: number | null
+    id: string
+    skuSpecifications: Array<{
+      field: { id: string | null; name: string; originalName: string | null }
+      values: Array<{
+        name: string
+        id: string | null
+        fieldId: string | null
+        originalName: string | null
+      }>
+    }>
+    specificationGroups: Array<{
+      name: string
+      originalName: string
+      specifications: Array<{
+        name: string
+        originalName: string
+        values: Array<string>
+      }>
+    }>
+    isVariantOf: {
+      name: string
+      productGroupID: string
+      skuVariants: {
+        activeVariations: any | null
+        slugsMap: any | null
+        availableVariations: any | null
+        allVariantProducts: Array<{ name: string; productID: string }> | null
+      } | null
+    }
+    image: Array<{ url: string; alternateName: string }>
+    brand: { name: string }
+    offers: {
+      lowPrice: number
+      lowPriceWithTaxes: number
+      offers: Array<{
+        availability: string
+        price: number
+        priceWithTaxes: number
+        listPrice: number
+        listPriceWithTaxes: number
+        seller: { identifier: string }
+      }>
+    }
+    additionalProperty: Array<{
+      propertyID: string
+      name: string
+      value: any
+      valueReference: any
+    }>
+  }>
+}
+
 export type ClientSearchSuggestionsQueryQueryVariables = Exact<{
   term: Scalars['String']['input']
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
@@ -2419,6 +2482,15 @@ export const ClientProductQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
   ClientProductQueryQueryVariables
+>
+export const ClientManyProductsSelectedQueryDocument = {
+  __meta__: {
+    operationName: 'ClientManyProductsSelectedQuery',
+    operationHash: '8c0585c37d77be260a89de462975a746db7fb7e9',
+  },
+} as unknown as TypedDocumentString<
+  ClientManyProductsSelectedQueryQuery,
+  ClientManyProductsSelectedQueryQueryVariables
 >
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
