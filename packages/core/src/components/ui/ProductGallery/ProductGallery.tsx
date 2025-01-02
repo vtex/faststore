@@ -103,7 +103,7 @@ function ProductGallery({
     ToggleField,
     ProductComparison,
     ProductComparisonToolbar,
-    ProductComparisonSidebar,
+    __experimentalProductComparisonSidebar: ProductComparisonSidebar,
   } = useOverrideComponents<'ProductGallery'>()
 
   const { openFilter } = useUI()
@@ -114,8 +114,7 @@ function ProductGallery({
   const { next, prev } = useDelayedPagination(totalCount)
 
   const [showComparisonProducts, setShowComparisonProducts] =
-    useState<boolean>(true)
-
+    useState<boolean>(false)
   useProductsPrefetch(prev ? prev.cursor : null)
   useProductsPrefetch(next ? next.cursor : null)
 

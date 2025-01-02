@@ -1,1 +1,1 @@
-export { default } from './ProductComparison'
+export { default } from './ProductComparisonSidebar'
