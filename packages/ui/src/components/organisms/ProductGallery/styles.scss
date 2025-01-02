@@ -95,6 +95,7 @@
 
     @include media("<notebook") {
       background-color: var(--fs-color-neutral-bkg);
+      justify-content: space-between;
     }
 
     @include media(">=notebook") {
@@ -104,6 +105,8 @@
       min-height: initial;
       padding: 0;
       background-color: unset;
+      gap: var(--fs-spacing-3);
+      inline-size: max-content;
     }
 
     [data-fs-product-listing-results-count-skeleton] {
