@@ -13,9 +13,9 @@ const ProductComparisonTrigger = forwardRef<HTMLInputElement, ProductComparisonT
     ref
   ) {
 
-    const { selectedProducts, handleProductsComparison } = useProductComparison()
+    const { productIds, handleProductsIds } = useProductComparison()
 
-    const isSelected = selectedProducts.some((selectedProduct) => selectedProduct.id === product.id)
+    const isSelected = productIds.some((productId) => productId === product.id)
 
     return (
       <CheckboxField
@@ -29,7 +29,7 @@ const ProductComparisonTrigger = forwardRef<HTMLInputElement, ProductComparisonT
         }}
         onChange={(event) => {
           onChange?.(event)
-          handleProductsComparison(product)
+          handleProductsIds(product)
         }}
         {...otherProps}/>
     )

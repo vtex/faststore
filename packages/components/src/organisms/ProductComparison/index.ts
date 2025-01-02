@@ -10,3 +10,5 @@ export type { ProductComparisonToolbarProps } from './ProductComparisonToolbar'
 
 export { default as ProductComparisonTrigger } from './ProductComparisonTrigger'
 export type { ProductComparisonTriggerProps } from './ProductComparisonTrigger'
+
+export type { IProductComparison } from './provider/ProductComparisonProvider'
