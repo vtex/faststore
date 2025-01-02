@@ -41,7 +41,7 @@ function ProductComparisonSidebar({
       products.reduce<string[]>((acc, product) => {
         const productSpecificationsFields = product.skuSpecifications?.map(
           (spec) => spec?.field
-        )
+        ) || []
 
         return [...acc, ...(productSpecificationsFields as string[])]
       }, [])
@@ -49,7 +49,6 @@ function ProductComparisonSidebar({
   )
 
   useEffect(() => {
-    console.log(productsSpecifications)
   }, [products])
 
   return (
@@ -169,7 +168,7 @@ function ProductComparisonSidebar({
               </TableCell>
             ))}
           </TableRow>
-          {productsSpecifications.map((spec) => (
+          {productsSpecifications?.map((spec) => (
             <TableRow key={spec}>
               {products.map((product) => (
                 <TableCell key={product.id}>
