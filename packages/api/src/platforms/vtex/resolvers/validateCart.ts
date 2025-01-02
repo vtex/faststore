@@ -333,10 +333,8 @@ export const validateCart = async (
   { cart: { order }, session }: MutationValidateCartArgs,
   ctx: Context
 ) => {
-  console.log('GET COOKIE', getCookieCheckoutOrderNumber(ctx.headers.cookie, 'checkout.vtex.com'))
   const orderFormIdFromCookie = getCookieCheckoutOrderNumber(ctx.headers.cookie, 'checkout.vtex.com')
   const orderNumber = orderFormIdFromCookie !== '' ? orderFormIdFromCookie : order?.orderNumber
-  console.log('ORDER NUMBER', orderNumber)
 
   const { acceptedOffer, shouldSplitItem } = order
   const {
