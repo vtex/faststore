@@ -38,8 +38,6 @@ export default function SearchWrapper({
   const router = useRouter()
   const {
     state: { term, sort, selectedFacets },
-    pages,
-    resetInfiniteScroll,
   } = useSearch()
 
   const { data: pageProductGalleryData, isValidating } = useProductGalleryQuery(
@@ -62,16 +60,6 @@ export default function SearchWrapper({
     })
 
     return <EmptySearch />
-  }
-
-  const totalPages = Math.ceil(
-    pageProductGalleryData.search.products.pageInfo.totalCount / itemsPerPage
-  )
-  const stateTotalPages = pages.length
-
-  // if the total pages is less than the current state total pages, reset the infinite scroll
-  if (totalPages > 0 && totalPages < stateTotalPages) {
-    resetInfiniteScroll(0)
   }
 
   return (
