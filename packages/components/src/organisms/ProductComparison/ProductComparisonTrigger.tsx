@@ -6,6 +6,9 @@ import CheckboxField, {
 import { useProductComparison } from '../../hooks/useProductComparison'
 
 export type ProductComparisonTriggerProps = CheckboxFieldProps & {
+  /*
+    * The product to be compared.
+  */
   product: IProductComparison
 }
 

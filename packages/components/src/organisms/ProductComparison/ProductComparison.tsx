@@ -2,6 +2,9 @@ import React, { forwardRef, HTMLAttributes } from 'react'
 import ProductComparisonProvider from './provider/ProductComparisonProvider'
 
 export interface ProductComparisonProps extends HTMLAttributes<HTMLDivElement> {
+  /*
+    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+  */
   testId?: string
 }
 

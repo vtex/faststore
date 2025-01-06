@@ -33,13 +33,33 @@ export interface IProductComparison {
 }
 
 export interface ProductComparisonProviderContextValue {
+   /*
+    A boolean value that indicates if the modal is open.
+  */
   isOpen: boolean
+  /*
+    function to set the modal is open
+  */
   setIsOpen: (isOpen: boolean) => void
+  /*
+    * Array of all product ids selected to compare.
+  */
   productIds: string[]
+  /*
+    * Array of all products selected to compare.
+  */
   products: IProductComparison[]
-  setProducts: (products: IProductComparison[]) => void
+  /*
+    * Function to handle the product ids selected to compare.
+  */
   handleProductsIds: (product: IProductComparison) => void
+  /*
+    * Function to handle the products selected to compare.
+  */
   handleProductsComparison: (products: IProductComparison[]) => void
+  /*
+    * Function to clear all products selected to compare.
+  */
   clearProducts: () => void
 }
 
@@ -97,7 +117,6 @@ function ProductComparisonProvider({ children }: { children: ReactNode }) {
         setIsOpen,
         productIds,
         products,
-        setProducts,
         handleProductsIds,
         handleProductsComparison,
         clearProducts,
