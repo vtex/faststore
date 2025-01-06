@@ -70,7 +70,7 @@ export default function SearchWrapper({
   const stateTotalPages = pages.length
 
   // if the total pages is less than the current state total pages, reset the infinite scroll
-  if (totalPages > 0 && totalPages < stateTotalPages) {
+  if (totalPages > 0 && totalPages !== stateTotalPages) {
     resetInfiniteScroll(0)
   }
 
