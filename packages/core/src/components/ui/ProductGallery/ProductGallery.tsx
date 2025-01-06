@@ -64,6 +64,10 @@ export interface ProductGalleryProps {
       compareButton: string
       clearSelectionButton: string
       selectionWarning: string
+      technicalInformation: {
+        title: string
+        description: string
+      }
     }
   }
   shouldShowComparison?: boolean
@@ -225,7 +229,7 @@ function ProductGallery({
           </div>
           <div data-fs-product-listing-results>
             {/* Add link to previous page. This helps on SEO */}
-            {prev !== false && (
+            {!!prev && (
               <div data-fs-product-listing-pagination="top">
                 <NextSeo
                   additionalLinkTags={[{ rel: 'prev', href: prev.link }]}
@@ -276,6 +280,7 @@ function ProductGallery({
                     itemsPerPage={itemsPerPage}
                     firstPage={pages[0]}
                     shouldShowComparison={showComparisonProducts}
+                    compareLabel={productComparison?.labels?.compareButton}
                   />
                 ))}
               </Suspense>
@@ -312,6 +317,11 @@ function ProductGallery({
           direction="rightSide"
           size="partial"
           formatter={useFormattedPrice}
+          technicalInformation={{
+            title: productComparison.labels.technicalInformation.title,
+            description:
+              productComparison.labels.technicalInformation.description,
+          }}
           overlayProps={{ className: styles.section }}
         />
         <ProductComparisonToolbar.Component

@@ -1859,6 +1859,22 @@
                   "title": "Selection Warning",
                   "type": "string",
                   "default": "Select at least"
+                },
+                "technicalInformation": {
+                  "title": "Technical Information",
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "title": "Title",
+                      "type": "string",
+                      "default": "Technical Information"
+                    },
+                    "description": {
+                      "title": "Description",
+                      "type": "string",
+                      "default": "Technical facts and information about the product."
+                    }
+                  }
                 }
               }
             }
