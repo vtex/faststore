@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, {  useMemo } from 'react'
 import Image from 'next/image'
 import SlideOver, { SlideOverHeader, SlideOverProps } from '../SlideOver'
 import { useFadeEffect, useProductComparison } from '../../hooks'
@@ -24,9 +24,14 @@ import Icon from '../../atoms/Icon'
 export interface ProductComparisonSidebarProps
   extends Omit<SlideOverProps, 'children' | 'isOpen' | 'setIsOpen' | 'fade'> {
   formatter?: PriceFormatter
+  technicalInformation?: {
+    title: string
+    description: string
+  }
 }
 
 function ProductComparisonSidebar({
+  technicalInformation,
   size = 'partial',
   direction = 'rightSide',
   formatter,
@@ -34,9 +39,10 @@ function ProductComparisonSidebar({
   ...otherProps
 }: ProductComparisonSidebarProps) {
   const { fade } = useFadeEffect()
+
   const { isOpen, setIsOpen, products } = useProductComparison()
 
-  const productsSpecifications = Array.from(
+  const productsSpecifications = useMemo(() => Array.from(
     new Set(
       products.reduce<string[]>((acc, product) => {
         const productSpecificationsFields = product.skuSpecifications?.map(
@@ -46,10 +52,7 @@ function ProductComparisonSidebar({
         return [...acc, ...(productSpecificationsFields as string[])]
       }, [])
     )
-  )
-
-  useEffect(() => {
-  }, [products])
+  ), products)
 
   return (
     <SlideOver
@@ -152,8 +155,8 @@ function ProductComparisonSidebar({
         <TableBody>
           <TableRow>
             <TableCell>
-              <h2>Technical Information</h2>
-              <p>Technical facts and information about the product.</p>
+              <h2>{technicalInformation?.title}</h2>
+              <p>{technicalInformation?.description}</p>
             </TableCell>
           </TableRow>
           <TableRow>
@@ -175,8 +178,7 @@ function ProductComparisonSidebar({
                   <h3>{spec}</h3>
                   <p>
                     {product.additionalProperty.find(
-                      (property) => property.name === spec
-                    )?.value || '-'}
+                      (property) => property.name === spec && property.valueReference === "SPECIFICATION")?.value || '-'}
                   </p>
                 </TableCell>
               ))}
