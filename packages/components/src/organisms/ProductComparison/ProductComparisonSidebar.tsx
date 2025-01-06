@@ -23,7 +23,13 @@ import Icon from '../../atoms/Icon'
 
 export interface ProductComparisonSidebarProps
   extends Omit<SlideOverProps, 'children' | 'isOpen' | 'setIsOpen' | 'fade'> {
+  /**
+   * Formatter function that transforms the raw price value and render the result.
+   */
   formatter?: PriceFormatter
+  /**
+   * Custom labels to introducing about products.
+   */
   technicalInformation?: {
     title: string
     description: string
@@ -105,9 +111,6 @@ function ProductComparisonSidebar({
           label="Show only differences"
         />
       </div>
-
-      {/* Product Comparison Table */}
-
       <Table>
         <TableHead>
           <TableRow>

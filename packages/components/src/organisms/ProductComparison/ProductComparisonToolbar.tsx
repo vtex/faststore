@@ -4,8 +4,17 @@ import Button from '../../atoms/Button'
 import { useProductComparison } from '../../hooks/useProductComparison'
 
 export interface ProductComparisonToolbarProps {
+  /*
+    * Set the label for the warning message when products are selected.
+  */
   selectionWarningLabel?: string
+  /*
+    * Set the label for the compare button
+  */
   compareButtonLabel?: string
+  /*
+    * Set the label for the clear selection button
+  */
   clearSelectionButtonLabel?: string
 }
 
