@@ -32,6 +32,7 @@ interface Props {
    */
   firstPage?: number
   shouldShowComparison?: boolean
+  compareLabel?: string
 }
 
 function ProductGrid({
@@ -41,6 +42,7 @@ function ProductGrid({
   productCard: { showDiscountBadge, bordered, taxesConfiguration } = {},
   firstPage,
   shouldShowComparison,
+  compareLabel,
 }: Props) {
   const { __experimentalProductCard: ProductCard } =
     useOverrideComponents<'ProductGallery'>()
@@ -61,6 +63,7 @@ function ProductGrid({
               <UIProductGridItem key={`${product.id}`}>
                 <ProductCard.Component
                   enableCompareCheckboxOnDisplay={shouldShowComparison}
+                  compareLabel={compareLabel}
                   aspectRatio={aspectRatio}
                   imgProps={{
                     width: 150,
@@ -85,6 +88,7 @@ function ProductGrid({
                 <UIProductGridItem key={`${product.id}`}>
                   <ProductCard.Component
                     enableCompareCheckboxOnDisplay={shouldShowComparison}
+                    compareLabel={compareLabel}
                     aspectRatio={aspectRatio}
                     imgProps={{
                       width: 150,
@@ -111,6 +115,7 @@ function ProductGrid({
               <UIProductGridItem key={`${product.id}`}>
                 <ProductCard.Component
                   enableCompareCheckboxOnDisplay={shouldShowComparison}
+                  compareLabel={compareLabel}
                   aspectRatio={aspectRatio}
                   imgProps={{
                     width: 150,

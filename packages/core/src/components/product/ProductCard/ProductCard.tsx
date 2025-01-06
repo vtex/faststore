@@ -58,8 +58,8 @@ export interface ProductCardProps {
     usePriceWithTaxes?: boolean
     taxesLabel?: string
   }
-
   enableCompareCheckboxOnDisplay?: boolean
+  compareLabel?: string
 }
 
 function ProductCard({
@@ -75,6 +75,7 @@ function ProductCard({
   showDiscountBadge = true,
   taxesConfiguration,
   enableCompareCheckboxOnDisplay = false,
+  compareLabel,
   ...otherProps
 }: ProductCardProps) {
   const {
@@ -123,7 +124,7 @@ function ProductCard({
     <div>
       {enableCompareCheckboxOnDisplay && (
         <UIProductComparisonTrigger
-          label="Compare"
+          label={compareLabel}
           product={product}
           id={product.id}
         />

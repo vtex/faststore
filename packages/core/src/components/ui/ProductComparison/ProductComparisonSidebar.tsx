@@ -19,16 +19,16 @@ function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
     useProductComparison()
 
   function processResponse(data: ClientManyProductsSelectedQueryQuery) {
-    const skuSpecifications = data.products.reduce((acc, product) => {
-      const productSpecifications = product.skuSpecifications.map((spec) => ({
-        field: spec.field.name,
-        values: spec.values.map((value) => value.name),
-      }))
-
-      return [...acc, ...productSpecifications]
-    }, [])
-
     const formattedData: IProductComparison[] = data.products.map((product) => {
+      const skuSpecifications = product.skuSpecifications.map(
+        (skuSpecification) => ({
+          field: skuSpecification.field.name,
+          values: skuSpecification.values.map((value) => value.name),
+        })
+      )
+
+      console.log('skuSpecifications', skuSpecifications)
+
       return {
         slug: product.slug,
         sku: product.sku,
@@ -65,7 +65,6 @@ function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
       }
     })
 
-    console.log(formattedData)
     handleProductsComparison(formattedData)
   }
 
