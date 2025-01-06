@@ -29,7 +29,7 @@ export interface IProductComparison {
   }>
   advertisement: { adId: string; adResponseId: string } | null
   hasSpecifications?: boolean
-  skuSpecifications?: Array<{ field: string; values: string }>
+  skuSpecifications?: Array<{ field: string; values: string[] }>
 }
 
 export interface ProductComparisonProviderContextValue {
