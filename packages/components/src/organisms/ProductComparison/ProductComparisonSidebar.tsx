@@ -1,4 +1,4 @@
-import React, {  useMemo } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import SlideOver, { SlideOverHeader, SlideOverProps } from '../SlideOver'
 import { useFadeEffect, useProductComparison } from '../../hooks'
@@ -48,17 +48,7 @@ function ProductComparisonSidebar({
 
   const { isOpen, setIsOpen, products } = useProductComparison()
 
-  const productsSpecifications = useMemo(() => Array.from(
-    new Set(
-      products.reduce<string[]>((acc, product) => {
-        const productSpecificationsFields = product.skuSpecifications?.map(
-          (spec) => spec?.field
-        ) || []
-
-        return [...acc, ...(productSpecificationsFields as string[])]
-      }, [])
-    )
-  ), products)
+  const productsSpecifications = products[0]?.skuSpecifications?.map(spec => spec.field) || []
 
   return (
     <SlideOver
@@ -159,7 +149,7 @@ function ProductComparisonSidebar({
           <TableRow>
             <TableCell>
               <h2>{technicalInformation?.title}</h2>
-              <p>{technicalInformation?.description}</p>
+              <h3>{technicalInformation?.description}</h3>
             </TableCell>
           </TableRow>
           <TableRow>

@@ -16,8 +16,12 @@
 
   // Default properties
 
+  // Shadow
+  --fs-product-comparison-box-shadow:                                     var(--fs-shadow-darker);
+
   // Background
   --fs-product-comparison-bkg-color:                                      var(--fs-color-body-bkg);
+  --fs-product-comparison-bkg-color-neutral:                              var(--fs-color-neutral-1);
 
   // Text
   --fs-product-comparison-text-weight:                                    var(--fs-text-weight-light);
@@ -32,23 +36,15 @@
   justify-content: space-between;
 
   background-color: var(--fs-product-comparison-bkg-color);
+  box-shadow: var(--fs-product-comparison-box-shadow);
+
   position: fixed;
   bottom: 0;
 
-  padding: var(--fs-spacing-4) var(--fs-spacing-8);
-  border-top: var(--fs-border-width) solid var(--fs-border-color-light);
+  padding: var(--fs-spacing-3) var(--fs-spacing-8);
   width: 100%;
 
-  div {
-    display: flex;
-    gap: var(--fs-spacing-3);
-    align-items: center;
-
-    p {
-      font-weight: var( --fs-product-comparison-text-weight);
-      color: var(--fs-product-comparison-text-weight);
-    }
-  }
+  gap: var(--fs-spacing-2);
 
   [data-fs-product-comparison-toolbar-image] {
     display: flex;
@@ -57,6 +53,14 @@
     gap: var(--fs-spacing-2);
   }
 
+  [data-fs-product-comparison-toolbar-image-more] {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+  }
 
   @include media('<notebook') {
     display: grid;
@@ -111,9 +115,6 @@
   --fs-product-comparison-title-size:                                     var(--fs-text-size-6);
   --fs-product-comparison-title-weight:                              var(--fs-text-weight-semibold);
 
-  // Cell
-  --fs-product-comparison-table-cell-font-size:                           var(--fs-text-size-tiny);
-  --fs-product-comparison-table-cell-text-weight:                         var(--fs-text-weight-medium);
 
   // Spacing
   --fs-product-comparison-padding:                                        var(--fs-spacing-8);
@@ -185,13 +186,12 @@
       [data-fs-table-head] {
         [data-fs-table-row] {
           display: flex;
-          gap: 40px;
+          gap: var(--fs-spacing-3);
 
           [data-fs-table-cell] {
             h3 {
               font-size: var(--fs-text-size-2);
               font-weight: var(--fs-text-weight-regular);
-              line-height: 20px;
             }
 
             div {
@@ -215,7 +215,6 @@
       [data-fs-table-body] {
         display: flex;
         flex-direction: column;
-        margin-top: var(--fs-spacing-6);
         border-top: var(--fs-border-width) solid var(--fs-border-color-light);
 
         [data-fs-table-row] {
@@ -228,41 +227,38 @@
 
           [data-fs-table-cell] {
             width: 250px;
-            font-size: var(--fs-product-comparison-table-cell-font-size);
-            font-weight: var(--fs-product-comparison-table-cell-text-weight);
+
+            h2 {
+              color: var(--fs-color-text);
+              font-size: var(--fs-text-size-3);
+              font-weight: var(--fs-text-weight-medium);
+              margin-bottom: var(--fs-spacing-2);
+            }
 
             h3 {
+              color: var(--fs-color-text-light);
               font-size: var(--fs-text-size-2);
-              font-weight: var(--fs-text-weight-light);
+              font-weight: var(--fs-text-weight-regular);
               margin-bottom: var(--fs-spacing-2);
+              white-space: nowrap;
+
+            }
+
+            p {
+              font-size: var(--fs-text-size-2);
+              font-weight: var(--fs-text-weight-medium);
+              white-space: nowrap;
             }
 
             [data-fs-price] {
               font-size: var(--fs-text-size-2);
-              font-weight: var(--fs-text-weight-semibold);
+              font-weight: var(--fs-text-weight-medium);
             }
           }
         }
 
         :first-child {
           border-bottom: 0;
-
-          [data-fs-table-cell] {
-            font-size: var(--fs-product-comparison-table-cell-font-size);
-            font-weight: var(--fs-product-comparison-table-cell-text-weight);
-            width: 1200px;
-
-            h2 {
-              font-size: var(--fs-text-size-4);
-              font-weight: var(--fs-text-weight-semibold);
-              margin-bottom: var(--fs-spacing-2);
-            }
-
-            p {
-              font-size: var(--fs-text-size-3);
-              margin-bottom: var(--fs-spacing-3);
-            }
-          }
         }
       }
     }
@@ -307,13 +303,16 @@
             gap: 10px;
 
             [data-fs-table-cell] {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              gap: var(--fs-spacing-1);
 
               img {
                 width: 200px;
                 height: 200px;
                 resize: both;
               }
-
 
               div {
                 display: flex;
@@ -334,44 +333,36 @@
         }
 
         [data-fs-table-body] {
+          margin-top: var(--fs-spacing-3);
+
           [data-fs-table-row] {
             display: flex;
             gap: 10px;
 
             [data-fs-table-cell] {
               width: 200px;
-              font-size: var(--fs-text-size-1);
-              font-weight: var(--fs-product-comparison-table-cell-text-weight);
-              padding: var(--fs-spacing-3) 0;
-
-              h3 {
-                font-size: var(--fs-text-size-1);
-              }
-
-              [data-fs-price] {
-                font-size: var(--fs-text-size-1);
-              }
-            }
-          }
-
-          :first-child {
-            border-bottom: 0;
-
-            [data-fs-table-cell] {
-              font-size: var(--fs-product-comparison-table-cell-font-size);
-              font-weight: var(--fs-product-comparison-table-cell-text-weight);
-              width: 400px;
 
               h2 {
                 font-size: var(--fs-text-size-3);
-                font-weight: var(--fs-text-weight-semibold);
+                font-weight: var(--fs-text-weight-medium);
+                margin-bottom: var(--fs-spacing-2);
+              }
+
+              h3 {
+                font-size: var(--fs-text-size-2);
+                font-weight: var(--fs-text-weight-regular);
                 margin-bottom: var(--fs-spacing-2);
               }
 
               p {
-                font-size: var(--fs-text-size-1);
-                font-weight: var(--fs-text-weight-light);
-                margin-bottom: 0;
+                font-size: var(--fs-text-size-2);
+                font-weight: var(--fs-text-weight-medium);
+                white-space: nowrap;
+              }
+
+              [data-fs-price] {
+                font-size: var(--fs-text-size-2);
+                font-weight: var(--fs-text-weight-medium);
               }
             }
           }
