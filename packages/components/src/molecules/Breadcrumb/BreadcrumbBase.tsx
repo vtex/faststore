@@ -1,18 +1,53 @@
+import dynamic from 'next/dynamic'
 import React, {
   cloneElement,
   forwardRef,
+  PropsWithChildren,
   ReactElement,
   ReactNode,
   useCallback,
 } from 'react'
 import Icon from '../../atoms/Icon'
 import Link from '../../atoms/Link'
-import Dropdown, {
-  DropdownButton,
-  DropdownItem,
-  DropdownMenu,
+import type {
+  DropdownButtonProps,
+  DropdownItemProps,
+  DropdownMenuProps,
+  DropdownProps,
 } from '../Dropdown'
 import BreadcrumbPure, { BreadcrumbPureProps } from './BreadcrumbPure'
+
+const Dropdown = dynamic<PropsWithChildren<DropdownProps>>(
+  () =>
+    import(/* webpackChunkName: "Dropdown" */ '../Dropdown').then(
+      (mod) => mod.default
+    ),
+  { ssr: false }
+)
+
+const DropdownButton = dynamic<DropdownButtonProps>(
+  () =>
+    import(/* webpackChunkName: "DropdownButton" */ '../Dropdown').then(
+      (mod) => mod.DropdownButton
+    ),
+  { ssr: false }
+)
+
+const DropdownItem = dynamic<DropdownItemProps>(
+  () =>
+    import(/* webpackChunkName: "DropdownItem" */ '../Dropdown').then(
+      (mod) => mod.DropdownItem
+    ),
+  { ssr: false }
+)
+
+const DropdownMenu = dynamic<DropdownMenuProps>(
+  () =>
+    import(/* webpackChunkName: "DropdownMenu" */ '../Dropdown').then(
+      (mod) => mod.DropdownMenu
+    ),
+  { ssr: false }
+)
 
 type ItemElement = {
   item: string
