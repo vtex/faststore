@@ -2,29 +2,29 @@ import React from 'react'
 import Image from 'next/image'
 import Button from '../../atoms/Button'
 import { useProductComparison } from '../../hooks/useProductComparison'
+import SelectField from '../../molecules/SelectField'
 
 export interface ProductComparisonToolbarProps {
   /*
-    * Set the label for the warning message when products are selected.
-  */
+   * Set the label for the warning message when products are selected.
+   */
   selectionWarningLabel?: string
   /*
-    * Set the label for the compare button
-  */
+   * Set the label for the compare button
+   */
   compareButtonLabel?: string
   /*
-    * Set the label for the clear selection button
-  */
+   * Set the label for the clear selection button
+   */
   clearSelectionButtonLabel?: string
 }
 
 function ProductComparisonToolbar({
   clearSelectionButtonLabel,
   compareButtonLabel,
-  selectionWarningLabel
+  selectionWarningLabel,
 }: ProductComparisonToolbarProps) {
-  const { isOpen, setIsOpen, products, clearProducts } =
-    useProductComparison()
+  const { isOpen, setIsOpen, products, clearProducts } = useProductComparison()
 
   const selectedProductsDisplay = products.slice(0, 3)
 
@@ -50,11 +50,13 @@ function ProductComparisonToolbar({
             )}
 
             {products.length === 1 && (
-              <div>
-                <p>
-                  {selectionWarningLabel} {products.length}
-                </p>
-              </div>
+              <SelectField
+                disabled
+                label={selectionWarningLabel as string}
+                value={""}
+                id={''}
+                options={{}}
+              />
             )}
           </div>
 
@@ -66,7 +68,9 @@ function ProductComparisonToolbar({
             disabled={products.length < 2}
             onClick={() => setIsOpen(true)}
           >
-            {products.length > 1 ? `${compareButtonLabel} ${products.length}` : compareButtonLabel }
+            {products.length > 1
+              ? `${compareButtonLabel} ${products.length}`
+              : compareButtonLabel}
           </Button>
         </footer>
       ) : null}
