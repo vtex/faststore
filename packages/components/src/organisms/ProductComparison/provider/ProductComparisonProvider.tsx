@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useEffect, useState } from 'react'
+import React, { createContext, ReactNode, useState } from 'react'
 
 export interface IProductComparison {
   slug: string
@@ -106,9 +106,6 @@ function ProductComparisonProvider({ children }: { children: ReactNode }) {
     setProductIds([])
     setProducts([])
   }
-
-  useEffect(() => {
-  }, [productIds])
 
   return (
     <ProductComparisonContext.Provider

@@ -77,10 +77,12 @@ function ProductComparisonSidebar({
     }
   }
 
+  //TODO ICARO: CHANGE TO USECALLBACK/USEMEMO
   useEffect(() => {
     sortProduct()
   }, [selectedFilter, products])
 
+  //TODO ICARO: CHANGE TO USECALLBACK/USEMEMO
   useEffect(() => {
     if(!showOnlyDifferences){
       setProductsSpecifications(products[0]?.skuSpecifications?.map((spec) => spec.field) || [])
