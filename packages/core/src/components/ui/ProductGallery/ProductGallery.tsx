@@ -314,24 +314,30 @@ function ProductGallery({
             )}
           </div>
         </div>
-        <ProductComparisonSidebar.Component
-          direction="rightSide"
-          size="partial"
-          formatter={useFormattedPrice}
-          technicalInformation={{
-            title: productComparison.labels.technicalInformation.title,
-            description:
-              productComparison.labels.technicalInformation.description,
-          }}
-          overlayProps={{ className: styles.section }}
-        />
-        <ProductComparisonToolbar.Component
-          selectionWarningLabel={productComparison?.labels?.selectionWarning}
-          clearSelectionButtonLabel={
-            productComparison?.labels?.clearSelectionButton
-          }
-          compareButtonLabel={productComparison?.labels?.compareButton}
-        />
+        {showComparisonProducts && (
+          <>
+            <ProductComparisonSidebar.Component
+              direction="rightSide"
+              size="partial"
+              formatter={useFormattedPrice}
+              technicalInformation={{
+                title: productComparison.labels.technicalInformation.title,
+                description:
+                  productComparison.labels.technicalInformation.description,
+              }}
+              overlayProps={{ className: styles.section }}
+            />
+            <ProductComparisonToolbar.Component
+              selectionWarningLabel={
+                productComparison?.labels?.selectionWarning
+              }
+              clearSelectionButtonLabel={
+                productComparison?.labels?.clearSelectionButton
+              }
+              compareButtonLabel={productComparison?.labels?.compareButton}
+            />
+          </>
+        )}
       </ProductComparison.Component>
     </section>
   )
