@@ -83,6 +83,7 @@ function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
 
   useProductsSelected(productIds, isOpen, processResponse)
 
+  //TODO ICARO: IMPLEMENT USEBUYBUTTON INSIDE COMPONENT
   return <UIProductComparisonSidebar sortOptions={sortOptions} {...props} />
 }
 
