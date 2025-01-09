@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import SlideOver, { SlideOverHeader, SlideOverProps } from '../SlideOver'
 import { useFadeEffect, useProductComparison } from '../../hooks'
@@ -14,12 +14,19 @@ import {
 } from '../../molecules/Table'
 import Price, { PriceFormatter } from '../../atoms/Price'
 import Button from '../../atoms/Button'
-import Dropdown, {
-  DropdownButton,
-  DropdownItem,
-  DropdownMenu,
-} from '../../molecules/Dropdown'
-import Icon from '../../atoms/Icon'
+import { IProductComparison } from './provider/ProductComparisonProvider'
+// import Dropdown, {
+//   DropdownButton,
+//   DropdownItem,
+//   DropdownMenu,
+// } from '../../molecules/Dropdown'
+// import Icon from '../../atoms/Icon'
+
+export interface sortOptions {
+  label: string
+  value: string
+  function: (productComparison: IProductComparison[]) => IProductComparison[]
+}
 
 export interface ProductComparisonSidebarProps
   extends Omit<SlideOverProps, 'children' | 'isOpen' | 'setIsOpen' | 'fade'> {
@@ -34,6 +41,10 @@ export interface ProductComparisonSidebarProps
     title: string
     description: string
   }
+  /**
+   * Custom function to sort the products.
+   */
+  sortOptions?: sortOptions[]
 }
 
 function ProductComparisonSidebar({
@@ -42,14 +53,49 @@ function ProductComparisonSidebar({
   direction = 'rightSide',
   formatter,
   overlayProps,
+  sortOptions,
   ...otherProps
 }: ProductComparisonSidebarProps) {
   const { fade } = useFadeEffect()
 
   const { isOpen, setIsOpen, products } = useProductComparison()
 
-  const productsSpecifications =
-    products[0]?.skuSpecifications?.map((spec) => spec.field) || []
+  const [selectedFilter, setSelectedFilter] = useState<
+    keyof typeof sortOptions
+  >(() => 'productByName' as keyof typeof sortOptions)
+  const [productSorted, setProductSorted] =
+    useState<IProductComparison[]>(products || [])
+  const [showOnlyDifferences, setShowOnlyDifferences] = useState(false)
+  const [productsSpecifications, setProductsSpecifications] = useState<string[]>([])
+
+  const sortProduct = () => {
+    const sortFunction = sortOptions?.find(
+      (option) => option.value === selectedFilter
+    )?.function
+    if (sortFunction) {
+      setProductSorted(sortFunction(products))
+    }
+  }
+
+  useEffect(() => {
+    sortProduct()
+  }, [selectedFilter, products])
+
+  useEffect(() => {
+    if(!showOnlyDifferences){
+      setProductsSpecifications(products[0]?.skuSpecifications?.map((spec) => spec.field) || [])
+    } else {
+      const allSpecifications = products[0]?.skuSpecifications?.map((spec) => spec.field)
+      const productsSpecs = productSorted.map(product => product.additionalProperty.map((property) => [property.name, property.value || ""]))
+
+      const differences = allSpecifications?.filter((spec) => {
+        const values = productsSpecs.map((product) => product.find((value) => value[0] === spec)?.[1])
+        return !values.every((value, _, array) => value === array[0])
+      }) || []
+
+      setProductsSpecifications(differences)
+    }
+  }, [showOnlyDifferences])
 
   return (
     <SlideOver
@@ -70,7 +116,7 @@ function ProductComparisonSidebar({
         </div>
       </SlideOverHeader>
 
-      <Dropdown>
+      {/* <Dropdown>
         <DropdownButton icon={<Icon name="CaretDown" />}>
           Filters
         </DropdownButton>
@@ -78,28 +124,35 @@ function ProductComparisonSidebar({
           <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
             Dropdown Item 1
           </DropdownItem>
-          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
-            Dropdown Item 2
-          </DropdownItem>
-          <DropdownItem icon={<Icon name="ArrowElbowDownRight" />}>
-            Dropdown Item 3
-          </DropdownItem>
+
         </DropdownMenu>
-      </Dropdown>
+      </Dropdown> */}
 
       <div data-fs-product-comparison-filters>
         <div>
           <p>Sort by</p>
           <Select
             id="product-comparison-sort-by"
-            options={{
-              productByName: 'Product name',
-            }}
+            options={
+              sortOptions?.reduce(
+                (acc: Record<string, string>, option) => {
+                  acc[option.value] = option.label
+                  return acc
+                },
+                {} as Record<string, string>
+              ) || {}
+            }
+            value={selectedFilter}
+            onChange={(event) =>
+              setSelectedFilter(event.target.value as keyof typeof sortOptions)
+            }
           />
         </div>
         <ToggleField
           id="product-comparison-show-differences"
           label="Show only differences"
+          checked={showOnlyDifferences}
+          onChange={() => setShowOnlyDifferences(!showOnlyDifferences)}
         />
       </div>
       <Table>
@@ -159,7 +212,7 @@ function ProductComparisonSidebar({
             </TableCell>
           </TableRow>
           <TableRow>
-            {products.map((product) => (
+            {productSorted.map((product) => (
               <TableCell key={product.id}>
                 <h3>Price With Taxes</h3>
                 <Price
@@ -172,7 +225,7 @@ function ProductComparisonSidebar({
           </TableRow>
           {productsSpecifications?.map((spec) => (
             <TableRow key={spec}>
-              {products.map((product) => (
+              {productSorted.map((product) => (
                 <TableCell key={product.id}>
                   <h3>{spec}</h3>
                   <p>
