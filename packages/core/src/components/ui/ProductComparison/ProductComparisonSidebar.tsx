@@ -27,8 +27,6 @@ function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
         })
       )
 
-      console.log('skuSpecifications', skuSpecifications)
-
       return {
         slug: product.slug,
         sku: product.sku,
@@ -68,9 +66,24 @@ function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
     handleProductsComparison(formattedData)
   }
 
+  const sortOptions = [
+    {
+      value: 'productByName',
+      label: 'Product Name',
+      function: (productComparison: IProductComparison[]) =>
+        productComparison.sort((a, b) => a.name.localeCompare(b.name)),
+    },
+    {
+      value: 'productByPrice',
+      label: 'Price',
+      function: (productComparison: IProductComparison[]) =>
+        productComparison.sort((a, b) => a.offers.lowPrice - b.offers.lowPrice),
+    },
+  ]
+
   useProductsSelected(productIds, isOpen, processResponse)
 
-  return <UIProductComparisonSidebar {...props} />
+  return <UIProductComparisonSidebar sortOptions={sortOptions} {...props} />
 }
 
 export default ProductComparisonSidebar
