@@ -50,9 +50,9 @@ function SearchProductItem({
     id,
     sku,
     gtin,
-    name,
     brand,
     isVariantOf,
+    isVariantOf: { name },
     unitMultiplier,
     image: [img],
     offers: {

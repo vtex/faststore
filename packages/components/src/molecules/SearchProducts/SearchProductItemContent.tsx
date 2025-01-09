@@ -14,7 +14,7 @@ export interface SearchProductItemContentProps {
    */
   price: PriceDefinition
   /**
-   * Quick order condition.
+   * Quick order settings.
    */
   quickOrder?: {
     enabled: boolean
