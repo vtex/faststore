@@ -48,7 +48,8 @@ function ProductComparisonSidebar({
 
   const { isOpen, setIsOpen, products } = useProductComparison()
 
-  const productsSpecifications = products[0]?.skuSpecifications?.map(spec => spec.field) || []
+  const productsSpecifications =
+    products[0]?.skuSpecifications?.map((spec) => spec.field) || []
 
   return (
     <SlideOver
@@ -112,7 +113,12 @@ function ProductComparisonSidebar({
                   src={product.image[0].url}
                   alt={product.name}
                 />
-                <h3>{product.name}</h3>
+                <h3>
+                  {product.name}{' '}
+                  {product.additionalProperty
+                    .map((index) => index.value)
+                    .join(' ')}
+                </h3>
                 {product.offers.lowPriceWithTaxes > product.offers.lowPrice ? (
                   <>
                     <div>
@@ -171,7 +177,10 @@ function ProductComparisonSidebar({
                   <h3>{spec}</h3>
                   <p>
                     {product.additionalProperty.find(
-                      (property) => property.name === spec && property.valueReference === "SPECIFICATION")?.value || '-'}
+                      (property) =>
+                        property.name === spec &&
+                        property.valueReference === 'SPECIFICATION'
+                    )?.value || '-'}
                   </p>
                 </TableCell>
               ))}
