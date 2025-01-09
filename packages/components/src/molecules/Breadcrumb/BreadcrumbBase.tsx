@@ -1,10 +1,12 @@
-import dynamic from 'next/dynamic'
 import React, {
   cloneElement,
+  ComponentType,
   forwardRef,
+  lazy,
   PropsWithChildren,
   ReactElement,
   ReactNode,
+  Suspense,
   useCallback,
 } from 'react'
 import Icon from '../../atoms/Icon'
@@ -17,36 +19,28 @@ import type {
 } from '../Dropdown'
 import BreadcrumbPure, { BreadcrumbPureProps } from './BreadcrumbPure'
 
-const Dropdown = dynamic<PropsWithChildren<DropdownProps>>(
-  () =>
-    import(/* webpackChunkName: "Dropdown" */ '../Dropdown').then(
-      (mod) => mod.default
-    ),
-  { ssr: false }
+const Dropdown = lazy<ComponentType<PropsWithChildren<DropdownProps>>>(() =>
+  import(/* webpackChunkName: "Dropdown" */ '../Dropdown').then((mod) => ({
+    default: mod.default,
+  }))
 )
 
-const DropdownButton = dynamic<DropdownButtonProps>(
-  () =>
-    import(/* webpackChunkName: "DropdownButton" */ '../Dropdown').then(
-      (mod) => mod.DropdownButton
-    ),
-  { ssr: false }
+const DropdownButton = lazy<ComponentType<DropdownButtonProps>>(() =>
+  import(/* webpackChunkName: "DropdownButton" */ '../Dropdown').then(
+    (mod) => ({ default: mod.DropdownButton })
+  )
 )
 
-const DropdownItem = dynamic<DropdownItemProps>(
-  () =>
-    import(/* webpackChunkName: "DropdownItem" */ '../Dropdown').then(
-      (mod) => mod.DropdownItem
-    ),
-  { ssr: false }
+const DropdownItem = lazy<ComponentType<DropdownItemProps>>(() =>
+  import(/* webpackChunkName: "DropdownItem" */ '../Dropdown').then((mod) => ({
+    default: mod.DropdownItem,
+  }))
 )
 
-const DropdownMenu = dynamic<DropdownMenuProps>(
-  () =>
-    import(/* webpackChunkName: "DropdownMenu" */ '../Dropdown').then(
-      (mod) => mod.DropdownMenu
-    ),
-  { ssr: false }
+const DropdownMenu = lazy<ComponentType<DropdownMenuProps>>(() =>
+  import(/* webpackChunkName: "DropdownMenu" */ '../Dropdown').then((mod) => ({
+    default: mod.DropdownMenu,
+  }))
 )
 
 type ItemElement = {
@@ -172,26 +166,28 @@ const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
           breadcrumbLink({ itemProps: firstItem, collapsed: false })}
 
         {collapseBreadcrumb && (
-          <Dropdown>
-            <DropdownButton
-              aria-label="View More"
-              data-fs-breadcrumb-dropdown-button
-              size="small"
-            >
-              {dropdownButtonIcon}
-            </DropdownButton>
-            <DropdownMenu data-fs-breadcrumb-dropdown-menu>
-              {mediumItems.map((item) => (
-                <DropdownItem
-                  data-fs-breadcrumb-dropdown-item
-                  key={String(item.position)}
-                  icon={collapsedItemsIcon}
-                >
-                  {breadcrumbLink({ itemProps: item, collapsed: true })}
-                </DropdownItem>
-              ))}
-            </DropdownMenu>
-          </Dropdown>
+          <Suspense>
+            <Dropdown>
+              <DropdownButton
+                aria-label="View More"
+                data-fs-breadcrumb-dropdown-button
+                size="small"
+              >
+                {dropdownButtonIcon}
+              </DropdownButton>
+              <DropdownMenu data-fs-breadcrumb-dropdown-menu>
+                {mediumItems.map((item) => (
+                  <DropdownItem
+                    data-fs-breadcrumb-dropdown-item
+                    key={String(item.position)}
+                    icon={collapsedItemsIcon}
+                  >
+                    {breadcrumbLink({ itemProps: item, collapsed: true })}
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+          </Suspense>
         )}
 
         {collapseBreadcrumb &&
