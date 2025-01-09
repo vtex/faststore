@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.1](https://github.com/vtex/faststore/compare/v3.5.0...v3.5.1) (2025-01-09)
+
+### Bug Fixes
+
+- Reset infinite scroll if search's total pages is less than current state's total pages ([#2610](https://github.com/vtex/faststore/issues/2610)) ([7faedd2](https://github.com/vtex/faststore/commit/7faedd2ac636a354f0d6c3160309d5d1245ff27b))
+
 # 3.5.0 (2025-01-09)
 
 ### Bug Fixes
