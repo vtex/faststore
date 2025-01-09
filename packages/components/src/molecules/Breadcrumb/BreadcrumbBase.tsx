@@ -19,28 +19,25 @@ import type {
 } from '../Dropdown'
 import BreadcrumbPure, { BreadcrumbPureProps } from './BreadcrumbPure'
 
-const Dropdown = lazy<ComponentType<PropsWithChildren<DropdownProps>>>(() =>
-  import(/* webpackChunkName: "Dropdown" */ '../Dropdown').then((mod) => ({
-    default: mod.default,
-  }))
+const Dropdown = lazy<ComponentType<PropsWithChildren<DropdownProps>>>(
+  () => import(/* webpackChunkName: "Dropdown" */ '../Dropdown/Dropdown')
 )
 
-const DropdownButton = lazy<ComponentType<DropdownButtonProps>>(() =>
-  import(/* webpackChunkName: "DropdownButton" */ '../Dropdown').then(
-    (mod) => ({ default: mod.DropdownButton })
-  )
+const DropdownButton = lazy<ComponentType<DropdownButtonProps>>(
+  () =>
+    import(
+      /* webpackChunkName: "DropdownButton" */ '../Dropdown/DropdownButton'
+    )
 )
 
-const DropdownItem = lazy<ComponentType<DropdownItemProps>>(() =>
-  import(/* webpackChunkName: "DropdownItem" */ '../Dropdown').then((mod) => ({
-    default: mod.DropdownItem,
-  }))
+const DropdownMenu = lazy<ComponentType<DropdownMenuProps>>(
+  () =>
+    import(/* webpackChunkName: "DropdownMenu" */ '../Dropdown/DropdownMenu')
 )
 
-const DropdownMenu = lazy<ComponentType<DropdownMenuProps>>(() =>
-  import(/* webpackChunkName: "DropdownMenu" */ '../Dropdown').then((mod) => ({
-    default: mod.DropdownMenu,
-  }))
+const DropdownItem = lazy<ComponentType<DropdownItemProps>>(
+  () =>
+    import(/* webpackChunkName: "DropdownItem" */ '../Dropdown/DropdownItem')
 )
 
 type ItemElement = {
