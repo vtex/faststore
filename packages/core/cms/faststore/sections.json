@@ -151,16 +151,12 @@
       "title": "Navbar",
       "type": "object",
       "description": "Navbar configuration",
-      "required": [
-        "logo"
-      ],
+      "required": ["logo"],
       "properties": {
         "logo": {
           "title": "Logo",
           "type": "object",
-          "required": [
-            "src"
-          ],
+          "required": ["src"],
           "properties": {
             "src": {
               "title": "Image",
@@ -176,10 +172,7 @@
             "link": {
               "title": "Logo Link",
               "type": "object",
-              "required": [
-                "url",
-                "title"
-              ],
+              "required": ["url", "title"],
               "properties": {
                 "url": {
                   "title": "Link URL",
@@ -197,9 +190,7 @@
           "title": "Search Input",
           "description": "Search Input configurations",
           "type": "object",
-          "required": [
-            "sort"
-          ],
+          "required": ["sort"],
           "properties": {
             "placeholder": {
               "title": "Placeholder for Search Bar",
@@ -330,10 +321,7 @@
               "items": {
                 "title": "Link",
                 "type": "object",
-                "required": [
-                  "text",
-                  "url"
-                ],
+                "required": ["text", "url"],
                 "properties": {
                   "text": {
                     "title": "Link Text",
@@ -393,11 +381,7 @@
       "title": "Alert",
       "description": "Add an alert",
       "type": "object",
-      "required": [
-        "icon",
-        "content",
-        "dismissible"
-      ],
+      "required": ["icon", "content", "dismissible"],
       "properties": {
         "icon": {
           "type": "string",
@@ -461,11 +445,7 @@
           "items": {
             "title": "Incentive",
             "type": "object",
-            "required": [
-              "title",
-              "firstLineText",
-              "icon"
-            ],
+            "required": ["title", "firstLineText", "icon"],
             "properties": {
               "title": {
                 "type": "string",
@@ -524,10 +504,7 @@
                 "items": {
                   "title": "Link",
                   "type": "object",
-                  "required": [
-                    "text",
-                    "url"
-                  ],
+                  "required": ["text", "url"],
                   "properties": {
                     "text": {
                       "title": "Link Text",
@@ -561,11 +538,7 @@
               "items": {
                 "title": "Link",
                 "type": "object",
-                "required": [
-                  "alt",
-                  "url",
-                  "icon"
-                ],
+                "required": ["alt", "url", "icon"],
                 "properties": {
                   "icon": {
                     "title": "Icon",
@@ -581,10 +554,10 @@
                           "Twitter"
                         ],
                         "enum": [
-                          "Facebook",
-                          "Instagram",
-                          "Pinterest",
-                          "Twitter"
+                          "fs-social-facebook",
+                          "fs-social-instagram",
+                          "fs-social-pinterest",
+                          "fs-social-twitter"
                         ]
                       }
                     }
@@ -620,10 +593,7 @@
             "link": {
               "title": "Logo Link",
               "type": "object",
-              "required": [
-                "url",
-                "title"
-              ],
+              "required": ["url", "title"],
               "properties": {
                 "url": {
                   "title": "Link URL",
@@ -644,9 +614,7 @@
         "acceptedPaymentMethods": {
           "title": "Payment Methods Sections",
           "type": "object",
-          "required": [
-            "showPaymentMethods"
-          ],
+          "required": ["showPaymentMethods"],
           "properties": {
             "showPaymentMethods": {
               "title": "Display Payment Methods",
@@ -664,10 +632,7 @@
               "items": {
                 "title": "Payment Method",
                 "type": "object",
-                "required": [
-                  "icon",
-                  "alt"
-                ],
+                "required": ["icon", "alt"],
                 "properties": {
                   "icon": {
                     "type": "object",
@@ -676,24 +641,28 @@
                         "title": "Icon",
                         "type": "string",
                         "enumNames": [
-                          "Visa",
-                          "Diners Club",
-                          "Mastercard",
-                          "Elo Card",
-                          "PayPal",
-                          "Stripe",
+                          "Amex",
+                          "ApplePay",
+                          "Elo",
+                          "Diners",
                           "GooglePay",
-                          "ApplePay"
+                          "Mastercard",
+                          "PayPal",
+                          "Pix",
+                          "Stripe",
+                          "Visa"
                         ],
                         "enum": [
-                          "Visa",
-                          "Diners",
-                          "Mastercard",
-                          "EloCard",
-                          "PayPal",
-                          "Stripe",
-                          "GooglePay",
-                          "ApplePay"
+                          "fs-pay-method-amex",
+                          "fs-pay-method-applepay",
+                          "fs-pay-method-elocard",
+                          "fs-pay-method-diners",
+                          "fs-pay-method-googlepay",
+                          "fs-pay-method-mastercard",
+                          "fs-pay-method-paypal",
+                          "fs-pay-method-pix",
+                          "fs-pay-method-stripe",
+                          "fs-pay-method-visa"
                         ]
                       }
                     }
@@ -717,11 +686,7 @@
       "title": "Banner Text",
       "description": "Add a quick promotion with a text/action pair",
       "type": "object",
-      "required": [
-        "title",
-        "caption",
-        "link"
-      ],
+      "required": ["title", "caption", "link"],
       "properties": {
         "title": {
           "title": "Title",
@@ -734,10 +699,7 @@
         "link": {
           "title": "Call to Action",
           "type": "object",
-          "required": [
-            "text",
-            "url"
-          ],
+          "required": ["text", "url"],
           "properties": {
             "text": {
               "title": "Text",
@@ -757,28 +719,14 @@
         "colorVariant": {
           "type": "string",
           "title": "Color variant",
-          "enumNames": [
-            "Main",
-            "Light",
-            "Accent"
-          ],
-          "enum": [
-            "main",
-            "light",
-            "accent"
-          ]
+          "enumNames": ["Main", "Light", "Accent"],
+          "enum": ["main", "light", "accent"]
         },
         "variant": {
           "type": "string",
           "title": "Variant",
-          "enumNames": [
-            "Primary",
-            "Secondary"
-          ],
-          "enum": [
-            "primary",
-            "secondary"
-          ]
+          "enumNames": ["Primary", "Secondary"],
+          "enum": ["primary", "secondary"]
         }
       }
     }
@@ -790,9 +738,7 @@
       "title": "Hero",
       "description": "Add a quick promotion with an image/action pair",
       "type": "object",
-      "required": [
-        "title"
-      ],
+      "required": ["title"],
       "properties": {
         "title": {
           "title": "Title",
@@ -841,28 +787,14 @@
         "colorVariant": {
           "type": "string",
           "title": "Color variant",
-          "enumNames": [
-            "Main",
-            "Light",
-            "Accent"
-          ],
-          "enum": [
-            "main",
-            "light",
-            "accent"
-          ]
+          "enumNames": ["Main", "Light", "Accent"],
+          "enum": ["main", "light", "accent"]
         },
         "variant": {
           "type": "string",
           "title": "Variant",
-          "enumNames": [
-            "Primary",
-            "Secondary"
-          ],
-          "enum": [
-            "primary",
-            "secondary"
-          ]
+          "enumNames": ["Primary", "Secondary"],
+          "enum": ["primary", "secondary"]
         }
       }
     }
@@ -883,11 +815,7 @@
           "items": {
             "title": "Incentive",
             "type": "object",
-            "required": [
-              "title",
-              "firstLineText",
-              "icon"
-            ],
+            "required": ["title", "firstLineText", "icon"],
             "properties": {
               "title": {
                 "type": "string",
@@ -936,12 +864,7 @@
       "title": "Product Shelf",
       "description": "Add custom shelves to your store",
       "type": "object",
-      "required": [
-        "title",
-        "numberOfItems",
-        "after",
-        "sort"
-      ],
+      "required": ["title", "numberOfItems", "after", "sort"],
       "properties": {
         "title": {
           "type": "string",
@@ -1000,10 +923,7 @@
           "items": {
             "title": "Facet",
             "type": "object",
-            "required": [
-              "key",
-              "value"
-            ],
+            "required": ["key", "value"],
             "properties": {
               "key": {
                 "title": "Key",
@@ -1057,19 +977,12 @@
   },
   {
     "name": "CrossSellingShelf",
-    "requiredScopes": [
-      "pdp",
-      "custom"
-    ],
+    "requiredScopes": ["pdp", "custom"],
     "schema": {
       "title": "Cross Selling Shelf",
       "description": "Add cross selling product data to your users",
       "type": "object",
-      "required": [
-        "title",
-        "numberOfItems",
-        "kind"
-      ],
+      "required": ["title", "numberOfItems", "kind"],
       "properties": {
         "title": {
           "title": "Title",
@@ -1091,14 +1004,8 @@
           "title": "Kind",
           "description": "Change cross selling types",
           "default": "buy",
-          "enum": [
-            "buy",
-            "view"
-          ],
-          "enumNames": [
-            "Who bought also bought",
-            "Who saw also saw"
-          ]
+          "enum": ["buy", "view"],
+          "enumNames": ["Who bought also bought", "Who saw also saw"]
         },
         "taxesConfiguration": {
           "title": "Taxes Configuration",
@@ -1126,12 +1033,7 @@
       "title": "Product Tiles",
       "description": "Add custom highlights to your store",
       "type": "object",
-      "required": [
-        "title",
-        "first",
-        "after",
-        "sort"
-      ],
+      "required": ["title", "first", "after", "sort"],
       "properties": {
         "title": {
           "title": "Title",
@@ -1184,10 +1086,7 @@
           "items": {
             "title": "Facet",
             "type": "object",
-            "required": [
-              "key",
-              "value"
-            ],
+            "required": ["key", "value"],
             "properties": {
               "key": {
                 "title": "Key",
@@ -1230,9 +1129,7 @@
       "title": "Newsletter",
       "description": "Allow users to subscribe to your updates",
       "type": "object",
-      "required": [
-        "title"
-      ],
+      "required": ["title"],
       "properties": {
         "icon": {
           "title": "Icon",
@@ -1302,16 +1199,8 @@
         "colorVariant": {
           "title": "Color variant",
           "type": "string",
-          "enumNames": [
-            "Main",
-            "Light",
-            "Accent"
-          ],
-          "enum": [
-            "main",
-            "light",
-            "accent"
-          ],
+          "enumNames": ["Main", "Light", "Accent"],
+          "enum": ["main", "light", "accent"],
           "default": "main"
         },
         "toastSubscribe": {
@@ -1382,18 +1271,12 @@
       "title": "Banner Newsletter",
       "description": "Add newsletter with a banner",
       "type": "object",
-      "required": [
-        "banner",
-        "newsletter"
-      ],
+      "required": ["banner", "newsletter"],
       "properties": {
         "banner": {
           "title": "Banner",
           "type": "object",
-          "required": [
-            "title",
-            "link"
-          ],
+          "required": ["title", "link"],
           "properties": {
             "title": {
               "title": "Title",
@@ -1408,10 +1291,7 @@
             "link": {
               "title": "Call to Action",
               "type": "object",
-              "required": [
-                "text",
-                "url"
-              ],
+              "required": ["text", "url"],
               "properties": {
                 "text": {
                   "title": "Text",
@@ -1428,29 +1308,15 @@
             "colorVariant": {
               "title": "Color variant",
               "type": "string",
-              "enumNames": [
-                "Main",
-                "Light",
-                "Accent"
-              ],
-              "enum": [
-                "main",
-                "light",
-                "accent"
-              ],
+              "enumNames": ["Main", "Light", "Accent"],
+              "enum": ["main", "light", "accent"],
               "default": "light"
             },
             "variant": {
               "title": "Variant",
               "type": "string",
-              "enumNames": [
-                "Primary",
-                "Secondary"
-              ],
-              "enum": [
-                "primary",
-                "secondary"
-              ],
+              "enumNames": ["Primary", "Secondary"],
+              "enum": ["primary", "secondary"],
               "default": "secondary"
             }
           }
@@ -1458,10 +1324,7 @@
         "newsletter": {
           "title": "Newsletter",
           "type": "object",
-          "required": [
-            "title",
-            "description"
-          ],
+          "required": ["title", "description"],
           "properties": {
             "icon": {
               "title": "Icon",
@@ -1526,16 +1389,8 @@
             "colorVariant": {
               "title": "Color variant",
               "type": "string",
-              "enumNames": [
-                "Main",
-                "Light",
-                "Accent"
-              ],
-              "enum": [
-                "main",
-                "light",
-                "accent"
-              ],
+              "enumNames": ["Main", "Light", "Accent"],
+              "enum": ["main", "light", "accent"],
               "default": "main"
             },
             "toastSubscribe": {
@@ -1595,18 +1450,12 @@
   },
   {
     "name": "Breadcrumb",
-    "requiredScopes": [
-      "pdp",
-      "plp"
-    ],
+    "requiredScopes": ["pdp", "plp"],
     "schema": {
       "title": "Breadcrumb",
       "description": "Configure the breadcrumb icon and depth",
       "type": "object",
-      "required": [
-        "icon",
-        "alt"
-      ],
+      "required": ["icon", "alt"],
       "properties": {
         "icon": {
           "title": "Icon",
@@ -1623,9 +1472,7 @@
   },
   {
     "name": "ProductDetails",
-    "requiredScopes": [
-      "pdp"
-    ],
+    "requiredScopes": ["pdp"],
     "schema": {
       "title": "Product Details",
       "type": "object",
@@ -1647,14 +1494,8 @@
                 "size": {
                   "title": "Size",
                   "type": "string",
-                  "enumNames": [
-                    "Big",
-                    "Small"
-                  ],
-                  "enum": [
-                    "big",
-                    "small"
-                  ]
+                  "enumNames": ["Big", "Small"],
+                  "enum": ["big", "small"]
                 }
               }
             },
@@ -1747,16 +1588,8 @@
             "initiallyExpanded": {
               "type": "string",
               "title": "Initially Expanded?",
-              "enumNames": [
-                "First",
-                "All",
-                "None"
-              ],
-              "enum": [
-                "first",
-                "all",
-                "none"
-              ]
+              "enumNames": ["First", "All", "None"],
+              "enum": ["first", "all", "none"]
             },
             "displayDescription": {
               "title": "Should display description?",
@@ -1802,17 +1635,12 @@
   },
   {
     "name": "ProductGallery",
-    "requiredScopes": [
-      "plp",
-      "search"
-    ],
+    "requiredScopes": ["plp", "search"],
     "schema": {
       "title": "Product Gallery",
       "type": "object",
       "description": "Product Gallery configuration",
-      "required": [
-        "filter"
-      ],
+      "required": ["filter"],
       "properties": {
         "searchTermLabel": {
           "title": "Search page term label",
@@ -1827,10 +1655,7 @@
         "previousPageButton": {
           "title": "Previous page button",
           "type": "object",
-          "required": [
-            "icon",
-            "label"
-          ],
+          "required": ["icon", "label"],
           "properties": {
             "icon": {
               "title": "Icon",
@@ -1860,9 +1685,7 @@
         "loadMorePageButton": {
           "title": "Load more products Button",
           "type": "object",
-          "required": [
-            "label"
-          ],
+          "required": ["label"],
           "properties": {
             "label": {
               "title": "Load more products label",
@@ -1874,10 +1697,7 @@
         "filter": {
           "title": "Filter",
           "type": "object",
-          "required": [
-            "title",
-            "mobileOnly"
-          ],
+          "required": ["title", "mobileOnly"],
           "properties": {
             "title": {
               "title": "Filter title",
@@ -1896,10 +1716,7 @@
                 "filterButton": {
                   "title": "Show filter button",
                   "type": "object",
-                  "required": [
-                    "label",
-                    "icon"
-                  ],
+                  "required": ["label", "icon"],
                   "properties": {
                     "label": {
                       "title": "Label",
@@ -1909,10 +1726,7 @@
                     "icon": {
                       "title": "Icon",
                       "type": "object",
-                      "required": [
-                        "icon",
-                        "alt"
-                      ],
+                      "required": ["icon", "alt"],
                       "properties": {
                         "icon": {
                           "title": "Icon",
@@ -2057,10 +1871,7 @@
             "icon": {
               "title": "Icon",
               "type": "object",
-              "required": [
-                "icon",
-                "alt"
-              ],
+              "required": ["icon", "alt"],
               "properties": {
                 "icon": {
                   "title": "Icon",
@@ -2100,11 +1911,7 @@
         "checkoutButton": {
           "title": "Checkout button",
           "type": "object",
-          "required": [
-            "label",
-            "loadingLabel",
-            "icon"
-          ],
+          "required": ["label", "loadingLabel", "icon"],
           "properties": {
             "label": {
               "title": "Label",
@@ -2119,10 +1926,7 @@
             "icon": {
               "title": "Icon",
               "type": "object",
-              "required": [
-                "icon",
-                "alt"
-              ],
+              "required": ["icon", "alt"],
               "properties": {
                 "icon": {
                   "title": "Icon",
@@ -2177,9 +1981,7 @@
       "title": "Region Bar",
       "type": "object",
       "description": "Region Bar configuration",
-      "required": [
-        "label"
-      ],
+      "required": ["label"],
       "properties": {
         "icon": {
           "title": "Location Icon",
