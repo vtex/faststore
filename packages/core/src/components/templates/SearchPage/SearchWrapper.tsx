@@ -64,13 +64,14 @@ export default function SearchWrapper({
     return <EmptySearch />
   }
 
-  const totalPages = Math.ceil(
-    pageProductGalleryData.search.products.pageInfo.totalCount / itemsPerPage
-  )
+  const productGalleryProducts = pageProductGalleryData?.search?.products
   const stateTotalPages = pages.length
+  const searchTotalPages = Math.ceil(
+    productGalleryProducts?.pageInfo?.totalCount / itemsPerPage
+  )
 
   // if the total pages is less than the current state total pages, reset the infinite scroll
-  if (totalPages > 0 && totalPages < stateTotalPages) {
+  if (searchTotalPages > 0 && searchTotalPages < stateTotalPages) {
     resetInfiniteScroll(0)
   }
 
