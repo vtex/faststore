@@ -1,4 +1,4 @@
-import React, {  forwardRef, HTMLAttributes, useCallback, useState } from 'react'
+import React, {  forwardRef, HTMLAttributes } from 'react'
 import { Badge, Icon, IconButton, Input, Loader, QuantitySelector } from '../..'
 
 import type { ReactNode, MouseEvent } from 'react'
@@ -51,7 +51,7 @@ const SearchProductItemControl = forwardRef<
   ref
 ) {
   const [statusAddToCart, setStatusAddToCart] =
-    useState<StatusButtonAddToCartType>('default')
+    React.useState<StatusButtonAddToCartType>('default')
 
 	const showSKUMatrixControl = availability && hasVariants;
 	const isMobile = window.innerWidth <= 768	
@@ -70,13 +70,13 @@ const SearchProductItemControl = forwardRef<
       }, 1000)
 
       setTimeout(() => {
-	      setStatusAddToCart('default')
-	      onChangeQuantity(1)
+        setStatusAddToCart('default')
+        onChangeQuantity(1)
       }, 2000)
     }
   }
-	
-  const getIcon = useCallback(() => {
+
+  const getIcon = React.useCallback(() => {
     switch (statusAddToCart) {
       case 'inProgress':
         return <Loader />
@@ -96,10 +96,7 @@ const SearchProductItemControl = forwardRef<
     >
       <div data-fs-search-product-item-control-content>
         {!availability && (
-          <Badge
-            data-fs-search-product-item-control-badge
-            variant="warning"
-          >
+          <Badge data-fs-search-product-item-control-badge variant="warning">
             Out of Stock
           </Badge>
         )}
@@ -120,14 +117,14 @@ const SearchProductItemControl = forwardRef<
           )}
 
           {isMobile && (
-						<Input
-							data-fs-product-item-control-input
-							type="number"
-							min={1}
-							value={quantity}
-							onChange={(e) => onChangeQuantity(e.target.valueAsNumber)}
-						/>
-					)}
+            <Input
+              data-fs-product-item-control-input
+              type="number"
+              min={1}
+              value={quantity}
+              onChange={(e) => onChangeQuantity(e.target.valueAsNumber)}
+            />
+          )}
 
           <IconButton
             variant="primary"
