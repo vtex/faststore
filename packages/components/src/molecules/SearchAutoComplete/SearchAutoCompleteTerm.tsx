@@ -50,7 +50,7 @@ const SearchAutoCompleteTerm = ({
   suggestion,
   term,
   linkProps,
-  icon = <Icon name="MagnifyingGlass" width={18} height={18} />,
+  icon = <Icon name="fs-magnifying-glass" size={20} />,
 }: SearchAutoCompleteTermProps) => {
   const suggestionSubstring = suggestion.toLowerCase().split(term.toLowerCase())
 

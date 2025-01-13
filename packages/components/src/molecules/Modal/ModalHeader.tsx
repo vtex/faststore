@@ -33,7 +33,7 @@ const ModalHeader = ({
         <IconButton
           data-fs-modal-header-close-button
           aria-label="Close modal"
-          icon={<Icon name="X" />}
+          icon={<Icon name="fs-x" />}
           onClick={() => onClose?.()}
           {...closeBtnProps}
         />

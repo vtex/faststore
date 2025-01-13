@@ -32,7 +32,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
           </option>
         ))}
       </select>
-      <Icon data-fs-select-icon name="CaretDown" />
+      <Icon data-fs-select-icon name="fs-caret-down" />
     </div>
   )
 })

@@ -30,8 +30,8 @@
                   "title": "Icon",
                   "type": "string",
                   "enumNames": ["Magnifying Glass"],
-                  "enum": ["MagnifyingGlass"],
-                  "default": "MagnifyingGlass"
+                  "enum": ["fs-magnifying-glass"],
+                  "default": "fs-magnifying-glass"
                 },
                 "alt": {
                   "title": "Alternative Label",
@@ -64,8 +64,8 @@
                   "title": "Icon",
                   "type": "string",
                   "enumNames": ["Clock Clockwise"],
-                  "enum": ["ClockClockwise"],
-                  "default": "ClockClockwise"
+                  "enum": ["fs-clock-clockwise"],
+                  "default": "fs-clock-clockwise"
                 },
                 "alt": {
                   "type": "string",
@@ -109,7 +109,7 @@
                   "title": "Icon",
                   "type": "string",
                   "enumNames": ["Magnifying Glass"],
-                  "enum": ["MagnifyingGlass"]
+                  "enum": ["fs-magnifying-glass"]
                 },
                 "alt": {
                   "type": "string",
@@ -236,8 +236,8 @@
                   "title": "Icon",
                   "type": "string",
                   "enumNames": ["User"],
-                  "enum": ["User"],
-                  "default": "User"
+                  "enum": ["fs-user"],
+                  "default": "fs-user"
                 },
                 "alt": {
                   "title": "Alternative Label",
@@ -266,8 +266,8 @@
               "title": "Icon",
               "type": "string",
               "enumNames": ["Shopping Cart"],
-              "enum": ["ShoppingCart"],
-              "default": "ShoppingCart"
+              "enum": ["fs-shopping-cart"],
+              "default": "fs-shopping-cart"
             },
             "alt": {
               "title": "Alternative Label",
@@ -297,13 +297,13 @@
                       "title": "Icon",
                       "type": "string",
                       "enumNames": ["Map Pin"],
-                      "enum": ["MapPin"],
-                      "default": "MapPin"
+                      "enum": ["fs-map-pin"],
+                      "default": "fs-map-pin"
                     },
                     "alt": {
                       "title": "Alternative Label",
                       "type": "string",
-                      "default": "MapPin"
+                      "default": "fs-map-pin"
                     }
                   }
                 },
@@ -346,8 +346,8 @@
                       "title": "Icon",
                       "type": "string",
                       "enumNames": ["List"],
-                      "enum": ["List"],
-                      "default": "List"
+                      "enum": ["fs-list"],
+                      "default": "fs-list"
                     },
                     "alt": {
                       "title": "Alternative Label",
@@ -394,7 +394,14 @@
             "Truck",
             "User"
           ],
-          "enum": ["Bell", "BellRinging", "Checked", "Info", "Truck", "User"]
+          "enum": [
+            "fs-bell",
+            "fs-bell-ringing",
+            "fs-checked",
+            "fs-info",
+            "fs-truck",
+            "fs-user"
+          ]
         },
         "content": {
           "type": "string",
@@ -463,11 +470,11 @@
                   "Shield Check"
                 ],
                 "enum": [
-                  "Truck",
-                  "Calendar",
-                  "Gift",
-                  "Storefront",
-                  "ShieldCheck"
+                  "fs-truck",
+                  "fs-calendar",
+                  "fs-gift",
+                  "fs-storefront",
+                  "fs-shield-check"
                 ]
               },
               "alt": {
@@ -547,10 +554,10 @@
                           "Twitter"
                         ],
                         "enum": [
-                          "Facebook",
-                          "Instagram",
-                          "Pinterest",
-                          "Twitter"
+                          "fs-social-facebook",
+                          "fs-social-instagram",
+                          "fs-social-pinterest",
+                          "fs-social-twitter"
                         ]
                       }
                     }
@@ -634,24 +641,28 @@
                         "title": "Icon",
                         "type": "string",
                         "enumNames": [
-                          "Visa",
-                          "Diners Club",
-                          "Mastercard",
-                          "Elo Card",
-                          "PayPal",
-                          "Stripe",
+                          "Amex",
+                          "ApplePay",
+                          "Elo",
+                          "Diners",
                           "GooglePay",
-                          "ApplePay"
+                          "Mastercard",
+                          "PayPal",
+                          "Pix",
+                          "Stripe",
+                          "Visa"
                         ],
                         "enum": [
-                          "Visa",
-                          "Diners",
-                          "Mastercard",
-                          "EloCard",
-                          "PayPal",
-                          "Stripe",
-                          "GooglePay",
-                          "ApplePay"
+                          "fs-pay-method-amex",
+                          "fs-pay-method-applepay",
+                          "fs-pay-method-elocard",
+                          "fs-pay-method-diners",
+                          "fs-pay-method-googlepay",
+                          "fs-pay-method-mastercard",
+                          "fs-pay-method-paypal",
+                          "fs-pay-method-pix",
+                          "fs-pay-method-stripe",
+                          "fs-pay-method-visa"
                         ]
                       }
                     }
@@ -829,11 +840,11 @@
                   "Shield Check"
                 ],
                 "enum": [
-                  "Truck",
-                  "Calendar",
-                  "Gift",
-                  "Storefront",
-                  "ShieldCheck"
+                  "fs-truck",
+                  "fs-calendar",
+                  "fs-gift",
+                  "fs-storefront",
+                  "fs-shield-check"
                 ]
               },
               "alt": {
@@ -1127,14 +1138,14 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Envelope"],
-              "enum": ["Envelope"],
-              "default": "Envelope"
+              "enumNames": ["Envelop"],
+              "enum": ["fs-envelop"],
+              "default": "fs-envelop"
             },
             "alt": {
               "type": "string",
               "title": "Alternative Label",
-              "default": "Envelope"
+              "default": "Envelop"
             }
           }
         },
@@ -1211,9 +1222,9 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["CircleWavyCheck"],
-              "enum": ["CircleWavyCheck"],
-              "default": "CircleWavyCheck"
+              "enumNames": ["Seal Check"],
+              "enum": ["fs-seal-check"],
+              "default": "fs-seal-check"
             }
           }
         },
@@ -1236,9 +1247,9 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["CircleWavyWarning"],
-              "enum": ["CircleWavyWarning"],
-              "default": "CircleWavyWarning"
+              "enumNames": ["Seal Warning"],
+              "enum": ["fs-seal-warning"],
+              "default": "fs-seal-warning"
             }
           }
         }
@@ -1322,14 +1333,14 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["Envelope"],
-                  "enum": ["Envelope"],
-                  "default": "Envelope"
+                  "enumNames": ["Envelop"],
+                  "enum": ["fs-envelop"],
+                  "default": "fs-envelop"
                 },
                 "alt": {
                   "type": "string",
                   "title": "Alternative Label",
-                  "default": "Envelope"
+                  "default": "Envelop"
                 }
               }
             },
@@ -1401,9 +1412,9 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["CircleWavyCheck"],
-                  "enum": ["CircleWavyCheck"],
-                  "default": "CircleWavyCheck"
+                  "enumNames": ["Seal Check"],
+                  "enum": ["fs-seal-check"],
+                  "default": "fs-seal-check"
                 }
               }
             },
@@ -1426,9 +1437,9 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["CircleWavyWarning"],
-                  "enum": ["CircleWavyWarning"],
-                  "default": "CircleWavyWarning"
+                  "enumNames": ["Seal Warning"],
+                  "enum": ["fs-seal-warning"],
+                  "default": "fs-seal-warning"
                 }
               }
             }
@@ -1450,7 +1461,7 @@
           "title": "Icon",
           "type": "string",
           "enumNames": ["House"],
-          "enum": ["House"]
+          "enum": ["fs-house"]
         },
         "alt": {
           "title": "Alternative Label",
@@ -1512,7 +1523,7 @@
                   "title": "Icon",
                   "type": "string",
                   "enumNames": ["Shopping Cart"],
-                  "enum": ["ShoppingCart"]
+                  "enum": ["fs-shopping-cart"]
                 },
                 "alt": {
                   "type": "string",
@@ -1737,9 +1748,9 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["ArrowLeft"],
-                  "enum": ["ArrowLeft"],
-                  "default": "ArrowLeft"
+                  "enumNames": ["Arrow Left"],
+                  "enum": ["fs-arrow-left"],
+                  "default": "fs-arrow-left"
                 },
                 "alt": {
                   "title": "Alternative label",
@@ -1804,9 +1815,9 @@
                         "icon": {
                           "title": "Icon",
                           "type": "string",
-                          "enumNames": ["FadersHorizontal"],
-                          "enum": ["FadersHorizontal"],
-                          "default": "FadersHorizontal"
+                          "enumNames": ["Faders Horizontal"],
+                          "enum": ["fs-faders-horizontal"],
+                          "default": "fs-faders-horizontal"
                         },
                         "alt": {
                           "title": "Alternative label",
@@ -1894,7 +1905,7 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "default": "CircleWavyWarning"
+                  "default": "fs-seal-warning"
                 }
               }
             },
@@ -1915,7 +1926,7 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "default": "RocketLaunch"
+                  "default": "fs-rocket-launch"
                 }
               }
             }
@@ -1958,19 +1969,19 @@
                     "User"
                   ],
                   "enum": [
-                    "Bell",
-                    "BellRinging",
-                    "Checked",
-                    "Info",
-                    "Truck",
-                    "User"
+                    "fs-bell",
+                    "fs-bell-ringing",
+                    "fs-checked",
+                    "fs-info",
+                    "fs-truck",
+                    "fs-user"
                   ],
-                  "default": "Truck"
+                  "default": "fs-truck"
                 },
                 "alt": {
                   "title": "Alternative label",
                   "type": "string",
-                  "default": "Arrow Right icon"
+                  "default": "Truck icon"
                 }
               }
             },
@@ -2005,8 +2016,8 @@
                   "title": "Icon",
                   "type": "string",
                   "enumNames": ["ArrowRight"],
-                  "enum": ["ArrowRight"],
-                  "default": "ArrowRight"
+                  "enum": ["fs-arrow-right"],
+                  "default": "fs-arrow-right"
                 },
                 "alt": {
                   "title": "Alternative label",
@@ -2064,8 +2075,8 @@
               "title": "Icon",
               "type": "string",
               "enumNames": ["Map Pin"],
-              "enum": ["MapPin"],
-              "default": "MapPin"
+              "enum": ["fs-map-pin"],
+              "default": "fs-map-pin"
             },
             "alt": {
               "title": "Alternative Label",
@@ -2092,8 +2103,8 @@
               "title": "Icon",
               "type": "string",
               "enumNames": ["Caret Right"],
-              "enum": ["CaretRight"],
-              "default": "CaretRight"
+              "enum": ["fs-caret-right"],
+              "default": "fs-caret-right"
             },
             "alt": {
               "title": "Alternative Label",
@@ -2165,8 +2176,8 @@
                   "title": "Icon",
                   "type": "string",
                   "enumNames": ["Arrow Square Out"],
-                  "enum": ["ArrowSquareOut"],
-                  "default": "ArrowSquareOut"
+                  "enum": ["fs-arrow-square-out"],
+                  "default": "fs-arrow-square-out"
                 },
                 "alt": {
                   "title": "Alternative Label",
@@ -2198,8 +2209,8 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["CircleWavy Warning"],
-              "enum": ["CircleWavyWarning"]
+              "enumNames": ["Seal Warning"],
+              "enum": ["fs-seal-warning"]
             },
             "alt": {
               "title": "Alternative Label",
@@ -2213,7 +2224,7 @@
         },
         "showLoader": {
           "type": "boolean",
-          "title": "Show loader?",
+          "title": "Show Loader?",
           "default": false
         },
         "errorState": {

@@ -85,8 +85,7 @@ function RegionModal({
           <Icon
             name={idkPostalCodeLinkIcon}
             aria-label={idkPostalCodeLinkIconAlt}
-            width={20}
-            height={20}
+            size={20}
           />
         )}
       </>
