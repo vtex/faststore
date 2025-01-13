@@ -66,12 +66,7 @@ const SearchProductItemControl = forwardRef<
   const isMobile = window.innerWidth <= 768
 
   return (
-    <div
-      ref={ref}
-      data-fs-search-product-item-control
-      onClick={stopPropagationClick}
-      {...otherProps}
-    >
+    <div ref={ref} data-fs-search-product-item-control {...otherProps}>
       <div data-fs-search-product-item-control-content>
         {!availability && (
           <Badge data-fs-search-product-item-control-badge variant="warning">
@@ -114,7 +109,9 @@ const SearchProductItemControl = forwardRef<
         </div>
       )}
 
-      {showSKUMatrixControl && skuMatrixControl}
+      {showSKUMatrixControl && (
+        <div onClick={stopPropagationClick}>{skuMatrixControl}</div>
+      )}
     </div>
   )
 })
