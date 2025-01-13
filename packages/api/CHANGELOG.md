@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/vtex/faststore/compare/v3.5.1...v3.6.0) (2025-01-13)
+
+### Features
+
+- Consider order number from Checkout cookie ([#2592](https://github.com/vtex/faststore/issues/2592)) ([b1198db](https://github.com/vtex/faststore/commit/b1198db94b065f5ad4ab742a717c1b43030c22dd))
+
 # 3.5.0 (2025-01-09)
 
 ### Bug Fixes
