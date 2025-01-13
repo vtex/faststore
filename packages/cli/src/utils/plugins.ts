@@ -66,7 +66,7 @@ export const getPluginsList = async (basePath: string): Promise<Plugin[]> => {
   const { tmpStoreConfigFile } = withBasePath(basePath)
 
   try {
-    const { plugins } = await import(tmpStoreConfigFile)
+    const { plugins = [] } = await import(tmpStoreConfigFile)
     return plugins
   } catch (error) {
     logger.error(`Could not load plugins from store config`)
