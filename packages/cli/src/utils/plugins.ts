@@ -127,26 +127,27 @@ const getPluginPageFileContent = (
 // GENERATED FILE
 // @ts-nocheck
 import * as page from 'src/plugins/${pluginName}/pages/${pageName}';
-${appLayout ? `import GlobalSections, { getGlobalSectionsData } from 'src/components/cms/GlobalSections'` : ``}
+${appLayout ? `import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'` : ``}
+${appLayout ? `import RenderSections from 'src/components/cms/RenderSections'` : ``}
 
 export async function getServerSideProps(${appLayout ? '{ previewData, ...otherProps }' : 'otherProps'}) {
   const noop = async function() {}
   const loaderData = await (page.loader || noop)(otherProps)
-${appLayout ? `const globalSections = await getGlobalSectionsData(previewData)` : ``}
+${appLayout ? `const { sections = [] } = await getGlobalSectionsData(previewData)` : ``}
 
   return { 
     props: { 
         data: loaderData, 
-        ${appLayout ? 'globalSections: globalSections' : ``}
+        ${appLayout ? 'globalSections: sections' : ``}
     } 
   }
 }
 export default function Page(props) { 
   ${
     appLayout
-      ? `return <GlobalSections {...props.globalSections}>
+      ? `return <RenderSections globalSections={props.globalSections}>
             {page.default(props.data)}
-          </GlobalSections>`
+          </RenderSections>`
       : `return page.default(props.data)`
   }
 }
