@@ -7,7 +7,14 @@ import type {
 
 import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
 import { Icon, useFadeEffect, useUI } from '@faststore/ui'
-import { ReactNode, useCallback, useEffect, useMemo } from 'react'
+import {
+  DependencyList,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react'
 import { useCart } from 'src/sdk/cart'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
@@ -61,13 +68,31 @@ const OrderSummary = dynamic(
 
 import styles from './section.module.scss'
 
+function useDeepCompareCallback<T extends Function>(
+  callback: T,
+  dependencies: DependencyList
+): T {
+  const previousDeps = useRef<DependencyList>()
+
+  const isEqual = (a: unknown, b: unknown) =>
+    JSON.stringify(a) === JSON.stringify(b)
+
+  if (!isEqual(previousDeps.current, dependencies)) {
+    previousDeps.current = dependencies
+  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  return useCallback(callback, previousDeps.current)
+}
+
 function useViewCartEvent() {
   const {
     currency: { code },
   } = useSession()
   const { items, gifts, total } = useCart()
 
-  const sendViewCartEvent = useCallback(() => {
+  const sendViewCartEvent = useDeepCompareCallback(() => {
+    console.log({ code, gifts, items, total })
     import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
       return sendAnalyticsEvent<ViewCartEvent>({
         name: 'view_cart',
@@ -155,7 +180,7 @@ function CartSidebar({
     if (!displayCart) {
       return
     }
-
+    console.log({ displayCart })
     sendViewCartEvent()
   }, [displayCart, sendViewCartEvent])
 
