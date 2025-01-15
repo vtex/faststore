@@ -653,16 +653,16 @@
                           "Visa"
                         ],
                         "enum": [
-                          "fs-pay-method-amex",
-                          "fs-pay-method-applepay",
-                          "fs-pay-method-elocard",
-                          "fs-pay-method-diners",
-                          "fs-pay-method-googlepay",
-                          "fs-pay-method-mastercard",
-                          "fs-pay-method-paypal",
-                          "fs-pay-method-pix",
-                          "fs-pay-method-stripe",
-                          "fs-pay-method-visa"
+                          "fs-flag-amex",
+                          "fs-flag-applepay",
+                          "fs-flag-elocard",
+                          "fs-flag-diners",
+                          "fs-flag-googlepay",
+                          "fs-flag-mastercard",
+                          "fs-flag-paypal",
+                          "fs-flag-pix",
+                          "fs-flag-stripe",
+                          "fs-flag-visa"
                         ]
                       }
                     }

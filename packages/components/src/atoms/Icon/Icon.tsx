@@ -1,9 +1,10 @@
 import type { SVGProps } from 'react'
 import React, { forwardRef } from 'react'
 
-type IconWeight = 'thin' | 'light' | 'regular' | 'bold'
+type IconWeight = 'thin' | 'light' | 'regular' | 'bold' // TODO: Remove this after weight prop is removed
 type IconSize = 20 | 24 | 32
 
+// TODO: Remove this after weight prop is removed
 const mapWeightToValue: Record<IconWeight, number> = {
   bold: 24,
   regular: 16,
