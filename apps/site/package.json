@@ -1,6 +1,6 @@
 {
   "name": "site",
-  "version": "3.6.0",
+  "version": "3.7.0",
   "author": "Emerson Laurentino @emersonlaurentino",
   "license": "MIT",
   "private": true,
@@ -10,9 +10,9 @@
     "start": "next start"
   },
   "dependencies": {
-    "@faststore/api": "^3.6.0",
+    "@faststore/api": "^3.7.0",
     "@faststore/sdk": "^3.5.0",
-    "@faststore/ui": "^3.5.0",
+    "@faststore/ui": "^3.7.0",
     "next": "13.0.7",
     "nextra": "^2.8.0",
     "nextra-theme-docs": "^2.8.0",

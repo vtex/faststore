@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/vtex/faststore/compare/v3.6.0...v3.7.0) (2025-01-15)
+
+### Features
+
+- adds SKUMatrix component ([#2588](https://github.com/vtex/faststore/issues/2588)) ([0d7db56](https://github.com/vtex/faststore/commit/0d7db567be1e7b9b9375580b0a8cf665ee69d1c0))
+
 # 3.5.0 (2025-01-09)
 
 ### Bug Fixes
