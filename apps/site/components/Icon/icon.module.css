@@ -13,10 +13,6 @@
   border-radius: var(--fs-border-radius-medium);
   background-color: var(--fs-color-neutral-0);
 }
-.icon svg {
-  width: 20px;
-  height: 20px;
-}
 
 .iconList {
   display: grid;
