@@ -66,7 +66,7 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
               data-fs-payment-methods-flag
               key={`fs-payment-method-${index}-${text}`}
             >
-              <Icon size={20} name={icon} />
+              <Icon name={icon} />
               {text && <SROnly text={text} />}
             </li>
           ))}
