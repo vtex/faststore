@@ -7,7 +7,7 @@ function ButtonSignInFallback() {
       href="/login"
       className="text__title-mini"
       variant="tertiary"
-      icon={<Icon name="User" width={18} height={18} weight="bold" />}
+      icon={<Icon name="fs-user" size={20} />}
       iconPosition="left"
     >
       <span>{'Sign In'}</span>
