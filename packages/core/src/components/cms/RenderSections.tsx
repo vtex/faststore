@@ -6,8 +6,10 @@ import {
   useMemo,
 } from 'react'
 
+import { useUI } from '@faststore/ui'
 import { Section } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
+import useTTI from 'src/sdk/performance/useTTI'
 import SectionBoundary from './SectionBoundary'
 import ViewportObserver from './ViewportObserver'
 import COMPONENTS from './global/Components'
@@ -16,6 +18,7 @@ interface Props {
   components?: Record<string, ComponentType<any>>
   globalSections?: Array<{ name: string; data: any }>
   sections?: Array<{ name: string; data: any }>
+  isInteractive?: boolean
 }
 
 const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
@@ -49,20 +52,47 @@ const useDividedSections = (sections: Section[]) => {
 export const LazyLoadingSection = ({
   sectionName,
   children,
+  debug = false,
+  isInteractive = false,
 }: {
   sectionName: string
   children: ReactNode
+  debug?: boolean
+  isInteractive?: boolean
 }) => {
+  const { cart: displayCart, modal: displayModal } = useUI()
   if (SECTIONS_OUT_OF_VIEWPORT.includes(sectionName)) {
-    return <>{children}</>
+    const shouldLoad =
+      isInteractive ||
+      (sectionName === 'CartSidebar' && displayCart) ||
+      (sectionName === 'RegionModal' && displayModal)
+
+    if (debug) {
+      console.log(
+        `section SECTIONS_OUT_OF_VIEWPORT '${sectionName}' shouldLoad:`,
+        shouldLoad
+      )
+    }
+
+    return shouldLoad ? <>{children}</> : null
   }
 
   return (
-    <ViewportObserver sectionName={sectionName}>{children}</ViewportObserver>
+    <ViewportObserver
+      sectionName={sectionName}
+      debug={debug}
+      isInteractive={isInteractive}
+    >
+      {children}
+    </ViewportObserver>
   )
 }
 
-const RenderSectionsBase = ({ sections = [], components }: Props) => {
+const RenderSectionsBase = ({
+  sections = [],
+  components,
+  isInteractive,
+}: Props) => {
   return (
     <>
       {sections.map(({ name, data = {} }, index) => {
@@ -79,7 +109,10 @@ const RenderSectionsBase = ({ sections = [], components }: Props) => {
 
         return (
           <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
-            <LazyLoadingSection sectionName={name}>
+            <LazyLoadingSection
+              sectionName={name}
+              isInteractive={isInteractive}
+            >
               <Component {...data} />
             </LazyLoadingSection>
           </SectionBoundary>
@@ -99,21 +132,35 @@ function RenderSections({
     globalSections ?? sections
   )
 
+  const { isInteractive } = useTTI()
+
   return (
     <>
       {firstSections && (
-        <RenderSectionsBase sections={firstSections} components={components} />
+        <RenderSectionsBase
+          sections={firstSections}
+          components={components}
+          isInteractive={isInteractive}
+        />
       )}
       {sections && sections.length > 0 && (
-        <RenderSectionsBase sections={sections} components={components} />
+        <RenderSectionsBase
+          sections={sections}
+          components={components}
+          isInteractive={isInteractive}
+        />
       )}
       {children}
-      <LazyLoadingSection sectionName="Toast">
+      <LazyLoadingSection sectionName="Toast" isInteractive={isInteractive}>
         <Toast />
       </LazyLoadingSection>
 
       {lastSections && (
-        <RenderSectionsBase sections={lastSections} components={components} />
+        <RenderSectionsBase
+          sections={lastSections}
+          components={components}
+          isInteractive={isInteractive}
+        />
       )}
     </>
   )
