@@ -23,12 +23,12 @@ function EmptyGallery({ title, firstButton, secondButton }: EmptyGalleryProps) {
     <UIEmptyState
       variant="rounded"
       title={title ?? 'Nothing matches with your search'}
-      titleIcon={<UIIcon name="fs-circle-wavy-warning" size={32} />}
+      titleIcon={<UIIcon name="fs-seal-warning" size={32} />}
     >
       <UILinkButton
         href={firstButton?.url ?? '/office'}
         variant="secondary"
-        icon={<UIIcon name={firstButton?.icon ?? 'fs-circle-wavy-warning'} />}
+        icon={<UIIcon name={firstButton?.icon ?? 'fs-seal-warning'} />}
         iconPosition="left"
       >
         {firstButton?.label ?? 'Browse Offers'}
