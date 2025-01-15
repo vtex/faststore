@@ -22,8 +22,7 @@
   --fs-gift-title-color       : var(--fs-color-text);
 
   // Icon
-  --fs-gift-icon-size         : 1.5rem; // 24px
-  --fs-gift-icon-padding      : var(--fs-spacing-0);
+  --fs-gift-icon-size         : 1.875rem; // 30px
   --fs-gift-icon-color        : var(--fs-gift-title-color);
   --fs-gift-icon-bkg-color    : var(--fs-color-body-bkg);
 
@@ -88,13 +87,15 @@
     }
   }
 
-  [data-fs-icon] {
+  [data-fs-gift-icon] {
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     top: calc(-1 * var(--fs-gift-icon-size) / 2);
     left: calc(-1 * var(--fs-gift-icon-size) / 2);
     width: var(--fs-gift-icon-size);
     height: var(--fs-gift-icon-size);
-    padding: var(--fs-gift-icon-padding);
     color: var(--fs-gift-icon-color);
     background-color: var(--fs-gift-icon-bkg-color);
     border: var(--fs-gift-border-width) solid var(--fs-gift-border-color);

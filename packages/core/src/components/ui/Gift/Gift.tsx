@@ -19,7 +19,7 @@ export type Props = GiftProps & {
 
 function Gift({ item, ...otherProps }: Props) {
   return (
-    <UIGift icon={<Icon name="Tag" width={18} height={18} />} {...otherProps}>
+    <UIGift icon={<Icon name="fs-tag" size={20} />} {...otherProps}>
       <UIGiftImage>
         <Image
           src={item.itemOffered.image[0].url}
