@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.8.0](https://github.com/vtex/faststore/compare/v3.7.0...v3.8.0) (2025-01-15)
+
+### Features
+
+- load out of viewport sections after TTI ([#2604](https://github.com/vtex/faststore/issues/2604)) ([98f8109](https://github.com/vtex/faststore/commit/98f8109d406150edf8172a4b8f8e3d4f39f28362))
+
 # [3.7.0](https://github.com/vtex/faststore/compare/v3.6.0...v3.7.0) (2025-01-15)
 
 ### Features
