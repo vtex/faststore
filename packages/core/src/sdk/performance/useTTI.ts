@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 
-// Time To Interactive - https://web.dev/articles/tti
+const TTI_TIMEOUT = 5000 // 5 seconds without long tasks as a criterion for Time To Interactive - https://web.dev/articles/tti
 export default function useTTI() {
   const [isInteractive, setIsInteractive] = useState(false)
 
   useEffect(() => {
     if ('PerformanceObserver' in window) {
       let lastTaskEnd = 0
-      const TTI_TIMEOUT = 5000 // 5 seconds without long tasks as a criterion for TTI
 
       const observer = new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
