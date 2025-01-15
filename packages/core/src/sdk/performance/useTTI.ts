@@ -11,7 +11,6 @@ export default function useTTI() {
 
       const observer = new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
-          // console.log('Long task detected:', entry);
           lastTaskEnd = entry.startTime + entry.duration
         }
       })
