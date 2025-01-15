@@ -43,7 +43,7 @@ const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
         {...otherProps}
       />
       <span data-fs-toggle-knob>
-        <Icon name="fs-checked" />
+        <Icon name="fs-checked" size={20} />
       </span>
     </div>
   )

@@ -129,7 +129,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
             <Label data-fs-product-card-taxes-label>{includeTaxesLabel}</Label>
           )}
           {ratingValue && (
-            <Rating value={ratingValue} icon={<Icon name="fs-star" />} />
+            <Rating value={ratingValue} icon={<Icon name="Star" />} />
           )}
         </div>
         {showDiscountBadge && !outOfStock && (
