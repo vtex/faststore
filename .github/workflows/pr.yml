@@ -21,6 +21,8 @@ jobs:
             eslint-config
             lighthouse
             graphql-utils
+            deps
+            deps-dev
           types: |
             fix
             feat
