@@ -1,9 +1,13 @@
 @layer components {
   .section {
     // Taxes label
-    --fs-product-details-taxes-label-color        : var(--fs-color-info-text);
-    --fs-product-details-taxes-text-size          : var(--fs-text-size-tiny);
-    --fs-product-details-taxes-text-weight        : var(--fs-text-weight-regular);
+    --fs-product-details-taxes-label-color      : var(--fs-color-info-text);
+    --fs-product-details-taxes-text-size        : var(--fs-text-size-tiny);
+    --fs-product-details-taxes-text-weight      : var(--fs-text-weight-regular);
+
+    // Separator colors
+    --fs-product-details-separator-color        : var(--fs-color-neutral-2);
+    --fs-product-details-separator-color-text   : var(--fs-color-text-light);
 
     margin-top: 0;
 
@@ -29,11 +33,43 @@
     @import "@faststore/ui/src/components/organisms/ShippingSimulation/styles.scss";
     @import "@faststore/ui/src/components/organisms/ImageGallery/styles.scss";
     @import "@faststore/ui/src/components/organisms/ProductDetails/styles.scss";
+    @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
+    @import "@faststore/ui/src/components/organisms/SKUMatrix/styles.scss";
 
     [data-fs-product-details-taxes-label] {
       font-size: var(--fs-product-details-taxes-text-size);
       font-weight: var(--fs-product-details-taxes-text-weight);
       color: var(--fs-product-details-taxes-label-color);
+    }
+
+    [data-fs-product-details-settings-separator] {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--fs-product-details-separator-color-text);
+
+      &::after {
+        display: inline-block;
+        width: 45%;
+        height: 1px;
+        content: "";
+        background-color: var(--fs-product-details-separator-color);
+      }
+
+      &::before {
+        display: inline-block;
+        width: 45%;
+        height: 1px;
+        content: "";
+        background-color: var(--fs-product-details-separator-color);
+      }
+    }
+
+    [data-fs-sku-matrix] {
+      > [data-fs-button] {
+        width: 100%;
+      }
     }
   }
 }
