@@ -1,18 +1,44 @@
 import React, {
   cloneElement,
+  ComponentType,
   forwardRef,
+  lazy,
+  PropsWithChildren,
   ReactElement,
   ReactNode,
+  Suspense,
   useCallback,
 } from 'react'
 import Icon from '../../atoms/Icon'
 import Link from '../../atoms/Link'
-import Dropdown, {
-  DropdownButton,
-  DropdownItem,
-  DropdownMenu,
+import type {
+  DropdownButtonProps,
+  DropdownItemProps,
+  DropdownMenuProps,
+  DropdownProps,
 } from '../Dropdown'
 import BreadcrumbPure, { BreadcrumbPureProps } from './BreadcrumbPure'
+
+const Dropdown = lazy<ComponentType<PropsWithChildren<DropdownProps>>>(
+  () => import(/* webpackChunkName: "Dropdown" */ '../Dropdown/Dropdown')
+)
+
+const DropdownButton = lazy<ComponentType<DropdownButtonProps>>(
+  () =>
+    import(
+      /* webpackChunkName: "DropdownButton" */ '../Dropdown/DropdownButton'
+    )
+)
+
+const DropdownMenu = lazy<ComponentType<DropdownMenuProps>>(
+  () =>
+    import(/* webpackChunkName: "DropdownMenu" */ '../Dropdown/DropdownMenu')
+)
+
+const DropdownItem = lazy<ComponentType<DropdownItemProps>>(
+  () =>
+    import(/* webpackChunkName: "DropdownItem" */ '../Dropdown/DropdownItem')
+)
 
 type ItemElement = {
   item: string
@@ -137,26 +163,28 @@ const BreadcrumbBase = forwardRef<HTMLDivElement, BreadcrumbBaseProps>(
           breadcrumbLink({ itemProps: firstItem, collapsed: false })}
 
         {collapseBreadcrumb && (
-          <Dropdown>
-            <DropdownButton
-              aria-label="View More"
-              data-fs-breadcrumb-dropdown-button
-              size="small"
-            >
-              {dropdownButtonIcon}
-            </DropdownButton>
-            <DropdownMenu data-fs-breadcrumb-dropdown-menu>
-              {mediumItems.map((item) => (
-                <DropdownItem
-                  data-fs-breadcrumb-dropdown-item
-                  key={String(item.position)}
-                  icon={collapsedItemsIcon}
-                >
-                  {breadcrumbLink({ itemProps: item, collapsed: true })}
-                </DropdownItem>
-              ))}
-            </DropdownMenu>
-          </Dropdown>
+          <Suspense>
+            <Dropdown>
+              <DropdownButton
+                aria-label="View More"
+                data-fs-breadcrumb-dropdown-button
+                size="small"
+              >
+                {dropdownButtonIcon}
+              </DropdownButton>
+              <DropdownMenu data-fs-breadcrumb-dropdown-menu>
+                {mediumItems.map((item) => (
+                  <DropdownItem
+                    data-fs-breadcrumb-dropdown-item
+                    key={String(item.position)}
+                    icon={collapsedItemsIcon}
+                  >
+                    {breadcrumbLink({ itemProps: item, collapsed: true })}
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+          </Suspense>
         )}
 
         {collapseBreadcrumb &&

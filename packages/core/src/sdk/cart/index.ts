@@ -31,6 +31,7 @@ export const ValidateCartMutation = gql(`
         acceptedOffer {
           ...CartItem
         }
+        shouldSplitItem
       }
       messages {
         ...CartMessage
@@ -144,6 +145,7 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
         id: getItemId(item),
       })),
       messages: validated.messages,
+      shouldSplitItem: validated.order.shouldSplitItem,
     }
   )
 }

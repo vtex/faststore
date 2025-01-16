@@ -117,16 +117,13 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     return filteredFacets
   },
-  metadata: async ({ searchArgs, productSearchPromise }) => {
-    if (!searchArgs.query) {
-      return null
-    }
-
+  metadata: async ({ productSearchPromise }) => {
     const productSearchResult = await productSearchPromise
 
     return {
       isTermMisspelled: productSearchResult.correction?.misspelled ?? false,
       logicalOperator: productSearchResult.operator,
+      fuzzy: productSearchResult.fuzzy
     }
   },
 }

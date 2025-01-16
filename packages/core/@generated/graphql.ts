@@ -505,6 +505,7 @@ export type QuerySearchArgs = {
   first: Scalars['Int']['input']
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet>>
   sort?: InputMaybe<StoreSort>
+  sponsoredCount: InputMaybe<Scalars['Int']['input']>
   term?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -523,6 +524,8 @@ export type QueryShippingArgs = {
 
 /** Search result. */
 export type SearchMetadata = {
+  /** Indicates how the search engine corrected the misspelled word by using fuzzy logic. */
+  fuzzy: Maybe<Scalars['String']['output']>
   /** Indicates if the search term was misspelled. */
   isTermMisspelled: Scalars['Boolean']['output']
   /** Logical operator used to run the search. */
@@ -596,6 +599,8 @@ export type ShippingSla = {
 export type SkuVariants = {
   /** SKU property values for the current SKU. */
   activeVariations: Maybe<Scalars['ActiveVariations']['output']>
+  /** All possible variant combinations of the current product. It also includes the data for each variant. */
+  allVariantProducts: Maybe<Array<StoreProduct>>
   /** All available options for each SKU variant property, indexed by their name. */
   allVariantsByName: Maybe<Scalars['VariantsByName']['output']>
   /**
@@ -677,7 +682,7 @@ export type StoreBreadcrumbList = {
 export type StoreCart = {
   /** List of shopping cart messages. */
   messages: Array<StoreCartMessage>
-  /** Order information, including `orderNumber` and `acceptedOffer`. */
+  /** Order information, including `orderNumber`, `acceptedOffer` and `shouldSplitItem`. */
   order: StoreOrder
 }
 
@@ -887,6 +892,8 @@ export type StoreOrder = {
   acceptedOffer: Array<StoreOffer>
   /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String']['output']
+  /** Indicates whether or not items with attachments should be split. */
+  shouldSplitItem: Maybe<Scalars['Boolean']['output']>
 }
 
 /** Organization. */
@@ -1227,6 +1234,49 @@ export type ProductDetailsFragment_ProductFragment = {
   }>
 }
 
+export type ProductSkuMatrixSidebarFragment_ProductFragment = {
+  id: string
+  isVariantOf: {
+    name: string
+    productGroupID: string
+    skuVariants: {
+      activeVariations: any | null
+      slugsMap: any | null
+      availableVariations: any | null
+      allVariantProducts: Array<{
+        sku: string
+        name: string
+        image: Array<{ url: string; alternateName: string }>
+        offers: {
+          highPrice: number
+          lowPrice: number
+          lowPriceWithTaxes: number
+          offerCount: number
+          priceCurrency: string
+          offers: Array<{
+            listPrice: number
+            listPriceWithTaxes: number
+            sellingPrice: number
+            priceCurrency: string
+            price: number
+            priceWithTaxes: number
+            priceValidUntil: string
+            itemCondition: string
+            availability: string
+            quantity: number
+          }>
+        }
+        additionalProperty: Array<{
+          propertyID: string
+          value: any
+          name: string
+          valueReference: any
+        }>
+      }> | null
+    } | null
+  }
+}
+
 export type ClientManyProductsFragment = {
   search: { products: { pageInfo: { totalCount: number } } }
 }
@@ -1331,6 +1381,7 @@ export type ValidateCartMutationMutation = {
   validateCart: {
     order: {
       orderNumber: string
+      shouldSplitItem: boolean | null
       acceptedOffer: Array<{
         quantity: number
         price: number
@@ -1433,12 +1484,62 @@ export type SubscribeToNewsletterMutation = {
   subscribeToNewsletter: { id: string } | null
 }
 
+export type ClientAllVariantProductsQueryQueryVariables = Exact<{
+  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+}>
+
+export type ClientAllVariantProductsQueryQuery = {
+  product: {
+    id: string
+    isVariantOf: {
+      name: string
+      productGroupID: string
+      skuVariants: {
+        activeVariations: any | null
+        slugsMap: any | null
+        availableVariations: any | null
+        allVariantProducts: Array<{
+          sku: string
+          name: string
+          image: Array<{ url: string; alternateName: string }>
+          offers: {
+            highPrice: number
+            lowPrice: number
+            lowPriceWithTaxes: number
+            offerCount: number
+            priceCurrency: string
+            offers: Array<{
+              listPrice: number
+              listPriceWithTaxes: number
+              sellingPrice: number
+              priceCurrency: string
+              price: number
+              priceWithTaxes: number
+              priceValidUntil: string
+              itemCondition: string
+              availability: string
+              quantity: number
+            }>
+          }
+          additionalProperty: Array<{
+            propertyID: string
+            value: any
+            name: string
+            valueReference: any
+          }>
+        }> | null
+      } | null
+    }
+  }
+}
+
 export type ClientManyProductsQueryQueryVariables = Exact<{
   first: Scalars['Int']['input']
   after: InputMaybe<Scalars['String']['input']>
   sort: StoreSort
   term: Scalars['String']['input']
   selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+  sponsoredCount: InputMaybe<Scalars['Int']['input']>
 }>
 
 export type ClientManyProductsQueryQuery = {
@@ -1523,13 +1624,18 @@ export type ClientProductGalleryQueryQuery = {
           max: { selected: number; absolute: number }
         }
     >
-    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
+    metadata: {
+      isTermMisspelled: boolean
+      logicalOperator: string
+      fuzzy: string | null
+    } | null
   }
 }
 
 export type SearchEvent_MetadataFragment = {
   isTermMisspelled: boolean
   logicalOperator: string
+  fuzzy: string | null
 }
 
 export type ClientProductQueryQueryVariables = Exact<{
@@ -1627,7 +1733,11 @@ export type ClientSearchSuggestionsQueryQuery = {
       }>
     }
     products: { pageInfo: { totalCount: number } }
-    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null
+    metadata: {
+      isTermMisspelled: boolean
+      logicalOperator: string
+      fuzzy: string | null
+    } | null
   }
 }
 
@@ -1916,6 +2026,60 @@ export const ProductDetailsFragment_ProductFragmentDoc =
     ProductDetailsFragment_ProductFragment,
     unknown
   >
+export const ProductSkuMatrixSidebarFragment_ProductFragmentDoc =
+  new TypedDocumentString(
+    `
+    fragment ProductSKUMatrixSidebarFragment_product on StoreProduct {
+  id: productID
+  isVariantOf {
+    name
+    productGroupID
+    skuVariants {
+      activeVariations
+      slugsMap
+      availableVariations
+      allVariantProducts {
+        sku
+        name
+        image {
+          url
+          alternateName
+        }
+        offers {
+          highPrice
+          lowPrice
+          lowPriceWithTaxes
+          offerCount
+          priceCurrency
+          offers {
+            listPrice
+            listPriceWithTaxes
+            sellingPrice
+            priceCurrency
+            price
+            priceWithTaxes
+            priceValidUntil
+            itemCondition
+            availability
+            quantity
+          }
+        }
+        additionalProperty {
+          propertyID
+          value
+          name
+          valueReference
+        }
+      }
+    }
+  }
+}
+    `,
+    { fragmentName: 'ProductSKUMatrixSidebarFragment_product' }
+  ) as unknown as TypedDocumentString<
+    ProductSkuMatrixSidebarFragment_ProductFragment,
+    unknown
+  >
 export const ClientManyProductsFragmentDoc = new TypedDocumentString(
   `
     fragment ClientManyProducts on Query {
@@ -1925,6 +2089,7 @@ export const ClientManyProductsFragmentDoc = new TypedDocumentString(
     sort: $sort
     term: $term
     selectedFacets: $selectedFacets
+    sponsoredCount: $sponsoredCount
   ) {
     products {
       pageInfo {
@@ -2085,6 +2250,7 @@ export const SearchEvent_MetadataFragmentDoc = new TypedDocumentString(
     fragment SearchEvent_metadata on SearchMetadata {
   isTermMisspelled
   logicalOperator
+  fuzzy
 }
     `,
   { fragmentName: 'SearchEvent_metadata' }
@@ -2110,7 +2276,7 @@ export const ServerProductQueryDocument = {
 export const ValidateCartMutationDocument = {
   __meta__: {
     operationName: 'ValidateCartMutation',
-    operationHash: '324471076994dca94a47adcaf1c6b8f7896e1b4f',
+    operationHash: 'c2b3f8bff73ebf6ac79d758c66cabbc21ba9fcc0',
   },
 } as unknown as TypedDocumentString<
   ValidateCartMutationMutation,
@@ -2125,10 +2291,19 @@ export const SubscribeToNewsletterDocument = {
   SubscribeToNewsletterMutation,
   SubscribeToNewsletterMutationVariables
 >
+export const ClientAllVariantProductsQueryDocument = {
+  __meta__: {
+    operationName: 'ClientAllVariantProductsQuery',
+    operationHash: '4039e05f01a2fe449e20e8b82170d0ba94b1fbe9',
+  },
+} as unknown as TypedDocumentString<
+  ClientAllVariantProductsQueryQuery,
+  ClientAllVariantProductsQueryQueryVariables
+>
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: 'e7bbfcfafb21aa4bd6da4214051cd8f16aa1327a',
+    operationHash: '1adc93c70f16173540c50f725ee09a2d67cb85ab',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2137,7 +2312,7 @@ export const ClientManyProductsQueryDocument = {
 export const ClientProductGalleryQueryDocument = {
   __meta__: {
     operationName: 'ClientProductGalleryQuery',
-    operationHash: '177fe68cb385737b0901fc9e105f0a4813e18a20',
+    operationHash: 'bfc40da32b60f9404a4adb96b0856e3fbb04b076',
   },
 } as unknown as TypedDocumentString<
   ClientProductGalleryQueryQuery,
@@ -2155,7 +2330,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: 'b1f6ae39a92bcb3aab858edfecb283b71ff9fb27',
+    operationHash: 'b548281d477a173be7b6960434604d69769a97e7',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,

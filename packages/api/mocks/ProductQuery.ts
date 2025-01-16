@@ -63,7 +63,7 @@ export const ProductByIdQuery = `query ProductQuery {
 `
 
 export const productSearchFetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=1&query=sku%3A64953394&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=1&query=sku%3A64953394&sort=&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false',
   init: undefined,
   options: { storeCookies: expect.any(Function) },
   result: {
@@ -229,7 +229,7 @@ export const productSearchFetch = {
     correction: {
       misspelled: true,
     },
-    fuzzy: 'auto',
+    fuzzy: '0',
     operator: 'and',
     translated: false,
     pagination: {
@@ -237,7 +237,7 @@ export const productSearchFetch = {
       current: {
         index: 1,
         proxyUrl:
-          'search/trade-policy/1?page=1&count=1&query=sku:64953394&sort=&fuzzy=auto&operator=and',
+          'search/trade-policy/1?page=1&count=1&query=sku:64953394&sort=&locale=en-US&hide-unavailable-items=false&operator=and&fuzzy=0',
       },
       before: [],
       after: [],

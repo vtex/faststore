@@ -54,6 +54,10 @@
   --fs-product-card-wide-bkg-color           : var(--fs-color-neutral-bkg);
   --fs-product-card-wide-min-width           : 9rem;
 
+  // Sponsored Label
+  --fs-product-card-sponsored-label-size     : var(--fs-text-size-tiny);
+  --fs-product-card-sponsored-label-color    : var(--fs-color-text-light);
+
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
@@ -136,6 +140,12 @@
         content: "";
       }
     }
+  }
+
+  [data-fs-product-card-sponsored-label] {
+    font-size: var(--fs-product-card-sponsored-label-size);
+    color: var(--fs-product-card-sponsored-label-color);
+    line-height: 1.33;
   }
 
   [data-fs-product-card-title] {

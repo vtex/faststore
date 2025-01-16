@@ -97,7 +97,7 @@ function Navbar({
   } = useOverrideComponents<'Navbar'>()
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
-  const { isDesktop } = useScreenResize()
+  const { isDesktop, isMobile } = useScreenResize()
 
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -139,11 +139,13 @@ function Navbar({
             </>
           )}
 
-          <SearchInput
-            placeholder={searchInput?.placeholder}
-            sort={searchInput?.sort}
-            quickOrder={searchInput?.quickOrder}
-          />
+          {isDesktop && (
+            <SearchInput
+              placeholder={searchInput?.placeholder}
+              sort={searchInput?.sort}
+              quickOrder={searchInput?.quickOrder}
+            />
+          )}
 
           <NavbarButtons.Component
             searchExpanded={searchExpanded}
@@ -161,19 +163,20 @@ function Navbar({
               />
             )}
 
-            <SearchInput
-              placeholder=""
-              ref={searchMobileRef}
-              testId="store-input-mobile"
-              buttonTestId="store-input-mobile-button"
-              onSearchClick={handlerExpandSearch}
-              sort={searchInput?.sort}
-              quickOrder={searchInput?.quickOrder}
-              hidden={!searchExpanded}
-              aria-hidden={!searchExpanded}
-            />
-
-            <ButtonSignIn.Component {...signInButton} />
+            {!isDesktop && (
+              <SearchInput
+                placeholder=""
+                ref={searchMobileRef}
+                testId="store-input-mobile"
+                buttonTestId="store-input-mobile-button"
+                onSearchClick={handlerExpandSearch}
+                sort={searchInput?.sort}
+                quickOrder={searchInput?.quickOrder}
+                hidden={!searchExpanded}
+                aria-hidden={!searchExpanded}
+              />
+            )}
+            {!isMobile && <ButtonSignIn.Component {...signInButton} />}
 
             <CartToggle {...cart} />
           </NavbarButtons.Component>
