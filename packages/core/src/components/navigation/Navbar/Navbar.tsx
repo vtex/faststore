@@ -143,6 +143,7 @@ function Navbar({
             <SearchInput
               placeholder={searchInput?.placeholder}
               sort={searchInput?.sort}
+              quickOrder={searchInput?.quickOrder}
             />
           )}
 
@@ -170,6 +171,7 @@ function Navbar({
                 buttonTestId="store-input-mobile-button"
                 onSearchClick={handlerExpandSearch}
                 sort={searchInput?.sort}
+                quickOrder={searchInput?.quickOrder}
                 hidden={!searchExpanded}
                 aria-hidden={!searchExpanded}
               />

@@ -20,6 +20,7 @@ import type {
 
 interface SearchDropdownProps {
   sort: SearchState['sort']
+  quickOrder?: boolean
   [key: string]: any
 }
 
@@ -37,7 +38,11 @@ export function sendAutocompleteClickEvent({
   })
 }
 
-function SearchDropdown({ sort, ...otherProps }: SearchDropdownProps) {
+function SearchDropdown({
+  sort,
+  quickOrder,
+  ...otherProps
+}: SearchDropdownProps) {
   const {
     values: { onSearchSelection, products, term, terms },
   } = useSearch()
@@ -79,6 +84,7 @@ function SearchDropdown({ sort, ...otherProps }: SearchDropdownProps) {
               key={productParsed.id}
               product={productParsed}
               index={index}
+              quickOrder={quickOrder}
             />
           )
         })}
