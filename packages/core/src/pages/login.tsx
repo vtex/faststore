@@ -11,6 +11,7 @@ import {
 } from 'src/components/cms/GlobalSections'
 import RenderSections from 'src/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import { PageContentType, getPage } from 'src/server/cms'
 import storeConfig from '../../discovery.config'
@@ -19,6 +20,7 @@ import storeConfig from '../../discovery.config'
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
   EmptyState,
+  ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 

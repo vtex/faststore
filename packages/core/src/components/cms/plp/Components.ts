@@ -5,6 +5,7 @@ import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sectio
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
 import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import { default as GLOBAL_COMPONENTS } from '../global/Components'
 
 const BannerText = dynamic(
@@ -53,6 +54,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   Newsletter,
   ProductShelf,
   ProductTiles,
+  ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 
