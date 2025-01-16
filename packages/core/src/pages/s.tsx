@@ -61,7 +61,7 @@ function Page({ page: searchContentType, globalSections }: Props) {
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
   })
 
-  const title = 'Search Results'
+  const title = `${searchParams.term}: Search Results`
   const { description, titleTemplate } = storeConfig.seo
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
@@ -79,7 +79,7 @@ function Page({ page: searchContentType, globalSections }: Props) {
       <NextSeo
         noindex
         title={title}
-        description={description}
+        description={`${searchParams.term}: ${description}`}
         titleTemplate={titleTemplate}
         openGraph={{
           type: 'website',
