@@ -1138,14 +1138,14 @@
             "icon": {
               "title": "Icon",
               "type": "string",
-              "enumNames": ["Envelop"],
-              "enum": ["fs-envelop"],
-              "default": "fs-envelop"
+              "enumNames": ["Envelope"],
+              "enum": ["fs-envelope"],
+              "default": "fs-envelope"
             },
             "alt": {
               "type": "string",
               "title": "Alternative Label",
-              "default": "Envelop"
+              "default": "Envelope"
             }
           }
         },
@@ -1333,14 +1333,14 @@
                 "icon": {
                   "title": "Icon",
                   "type": "string",
-                  "enumNames": ["Envelop"],
-                  "enum": ["fs-envelop"],
-                  "default": "fs-envelop"
+                  "enumNames": ["Envelope"],
+                  "enum": ["fs-envelope"],
+                  "default": "fs-envelope"
                 },
                 "alt": {
                   "type": "string",
                   "title": "Alternative Label",
-                  "default": "Envelop"
+                  "default": "Envelope"
                 }
               }
             },
