@@ -40,8 +40,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(function Card({
       <div data-fs-card-header>
         <div data-fs-card-title>{title}</div>
         {iconName && (
-          <IconButton icon={<Icon name={iconName} width={20} height={20} />}
-            aria-label={`${title} action`} onClick={iconAction} />
+          <IconButton icon={<Icon name={iconName} />} aria-label={`${title} action`} onClick={iconAction} />
         )}
       </div>
       <div data-fs-card-body>

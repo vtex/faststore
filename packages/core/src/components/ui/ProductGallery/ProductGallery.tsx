@@ -235,9 +235,6 @@ function ProductGallery({
                 iconPosition="left"
                 icon={
                   <PrevIcon.Component
-                    width={16}
-                    height={16}
-                    weight="bold"
                     {...PrevIcon.props}
                     name={previousPageButton?.icon?.icon ?? PrevIcon.props.name}
                     aria-label={
