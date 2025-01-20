@@ -1,15 +1,33 @@
-import type {
-  IProductComparison,
-  ProductComparisonSidebarProps as UIProductComparisonSidebarProps,
-} from '@faststore/ui'
-
+import React, { useCallback } from 'react'
 import {
+  type IProductComparison,
+  type ProductComparisonSidebarProps as UIProductComparisonSidebarProps,
   ProductComparisonSidebar as UIProductComparisonSidebar,
   useProductComparison,
 } from '@faststore/ui'
+
 import { gql } from '@generated/gql'
 import { ClientManyProductsSelectedQueryQuery } from '@generated/graphql'
+
+// import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { useProductsSelected } from 'src/sdk/product/useProductsSelected'
+
+const sortOptions = [
+  {
+    value: 'productByName',
+    label: 'Product Name',
+    function: (productComparison: IProductComparison[]) =>
+      productComparison.sort((a, b) => a.name.localeCompare(b.name)),
+  },
+  {
+    value: 'productByPrice',
+    label: 'Price',
+    function: (productComparison: IProductComparison[]) =>
+      productComparison.sort((a, b) => a.offers.lowPrice - b.offers.lowPrice),
+  },
+] as const
+
+export type SortOptions = (typeof sortOptions)[number]
 
 interface ProductComparisonSidebarProps
   extends UIProductComparisonSidebarProps {}
@@ -33,10 +51,12 @@ function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
         name: product.name,
         gtin: product.gtin,
         id: product.id,
+        unitMultiplier: product.unitMultiplier,
         brand: { name: product.brand.name, brandName: product.brand.name },
         isVariantOf: {
           productGroupID: product.isVariantOf.productGroupID,
           name: product.isVariantOf.name,
+          skuVariants: product.isVariantOf.skuVariants,
         },
         image: product.image,
         offers: {
@@ -47,6 +67,7 @@ function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
             price: offer.price,
             listPrice: offer.listPrice,
             listPriceWithTaxes: offer.listPriceWithTaxes,
+            priceWithTaxes: offer.priceWithTaxes,
             quantity: offer.quantity,
             seller: { identifier: offer.seller.identifier },
           })),
@@ -66,25 +87,65 @@ function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
     handleProductsComparison(formattedData)
   }
 
-  const sortOptions = [
-    {
-      value: 'productByName',
-      label: 'Product Name',
-      function: (productComparison: IProductComparison[]) =>
-        productComparison.sort((a, b) => a.name.localeCompare(b.name)),
-    },
-    {
-      value: 'productByPrice',
-      label: 'Price',
-      function: (productComparison: IProductComparison[]) =>
-        productComparison.sort((a, b) => a.offers.lowPrice - b.offers.lowPrice),
-    },
-  ]
-
   useProductsSelected(productIds, isOpen, processResponse)
 
-  //TODO ICARO: IMPLEMENT USEBUYBUTTON INSIDE COMPONENT
-  return <UIProductComparisonSidebar sortOptions={sortOptions} {...props} />
+  // const onBuyProduct = useCallback((product: IProductComparison) => {
+  //   const {
+  //     id,
+  //     sku,
+  //     gtin,
+  //     unitMultiplier,
+  //     name: variantName,
+  //     brand,
+  //     isVariantOf,
+  //     image: productImages,
+  //     additionalProperty,
+  //     offers: {
+  //       offers: [
+  //         {
+  //           price,
+  //           priceWithTaxes,
+  //           listPrice,
+  //           seller,
+  //           quantity,
+  //           listPriceWithTaxes,
+  //         },
+  //       ],
+  //     },
+  //   } = product
+
+  //   const buyProps = useBuyButton({
+  //     id,
+  //     price,
+  //     priceWithTaxes,
+  //     listPrice,
+  //     listPriceWithTaxes,
+  //     seller,
+  //     quantity,
+  //     itemOffered: {
+  //       sku,
+  //       name: variantName,
+  //       gtin,
+  //       image: productImages,
+  //       brand,
+  //       isVariantOf,
+  //       additionalProperty,
+  //       unitMultiplier,
+  //     },
+  //   })
+
+  //   return {
+  //     handleBuy: buyProps.onClick,
+  //   }
+  // }, [])
+
+  return (
+    <UIProductComparisonSidebar
+      // onBuyProduct={onBuyProduct}
+      sortOptions={[...sortOptions]}
+      {...props}
+    />
+  )
 }
 
 export default ProductComparisonSidebar

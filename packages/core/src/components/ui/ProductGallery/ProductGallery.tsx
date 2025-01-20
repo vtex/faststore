@@ -1,7 +1,7 @@
 import { useSearch } from '@faststore/sdk'
 import { NextSeo } from 'next-seo'
 import type { MouseEvent } from 'react'
-import { Suspense, lazy, useEffect, useState } from 'react'
+import { Suspense, lazy, useState } from 'react'
 
 import { useUI } from '@faststore/ui'
 import Filter from 'src/components/search/Filter'
@@ -23,10 +23,7 @@ import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
 import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
 
 import styles from '../../sections/ProductGallery/section.module.scss'
-import {
-  useFormattedPrice,
-  usePriceFormatter,
-} from 'src/sdk/product/useFormattedPrice'
+import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
 const GalleryPageSkeleton = <ProductGridSkeleton loading />
