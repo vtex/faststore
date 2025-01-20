@@ -6,8 +6,21 @@ export interface IProductComparison {
   name: string
   gtin: string
   id: string
+  unitMultiplier: number
   brand: { name: string; brandName: string }
-  isVariantOf: { productGroupID: string; name: string }
+  isVariantOf: {
+    productGroupID: string
+    name: string
+    skuVariants: {
+      activeVariations: any | null
+      slugsMap: any | null
+      availableVariations: any | null
+      allVariantProducts: Array<{
+        name: string
+        productID: string
+      }> | null
+    }
+  }
   image: Array<{ url: string; alternateName: string }>
   offers: {
     lowPrice: number
@@ -17,6 +30,7 @@ export interface IProductComparison {
       price: number
       listPrice: number
       listPriceWithTaxes: number
+      priceWithTaxes: number
       quantity: number
       seller: { identifier: string }
     }>
@@ -33,7 +47,7 @@ export interface IProductComparison {
 }
 
 export interface ProductComparisonProviderContextValue {
-   /*
+  /*
     A boolean value that indicates if the modal is open.
   */
   isOpen: boolean
@@ -42,24 +56,24 @@ export interface ProductComparisonProviderContextValue {
   */
   setIsOpen: (isOpen: boolean) => void
   /*
-    * Array of all product ids selected to compare.
-  */
+   * Array of all product ids selected to compare.
+   */
   productIds: string[]
   /*
-    * Array of all products selected to compare.
-  */
+   * Array of all products selected to compare.
+   */
   products: IProductComparison[]
   /*
-    * Function to handle the product ids selected to compare.
-  */
+   * Function to handle the product ids selected to compare.
+   */
   handleProductsIds: (product: IProductComparison) => void
   /*
-    * Function to handle the products selected to compare.
-  */
+   * Function to handle the products selected to compare.
+   */
   handleProductsComparison: (products: IProductComparison[]) => void
   /*
-    * Function to clear all products selected to compare.
-  */
+   * Function to clear all products selected to compare.
+   */
   clearProducts: () => void
 }
 
@@ -69,9 +83,7 @@ export const ProductComparisonContext = createContext<
 
 function ProductComparisonProvider({ children }: { children: ReactNode }) {
   const [productIds, setProductIds] = useState<string[]>([])
-  const [products, setProducts] = useState<
-    IProductComparison[]
-  >([])
+  const [products, setProducts] = useState<IProductComparison[]>([])
   const [isOpen, setIsOpen] = useState(false)
 
   function handleProductsIds(product: IProductComparison) {
