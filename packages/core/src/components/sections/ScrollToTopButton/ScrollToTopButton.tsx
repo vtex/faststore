@@ -12,7 +12,7 @@ interface ScrollToTopButtonProps {
   text?: string
   /**
    * Button's icon.
-   * @default <Icon name="CaretUp" width={16} height={16} weight="bold" />
+   * @default <Icon name="fs-caret-up" />
    */
   icon?: ButtonProps['icon']
   /**
@@ -24,7 +24,7 @@ interface ScrollToTopButtonProps {
 
 function ScrollToTopButton({
   text = 'Scroll to top',
-  icon = <Icon name="CaretUp" width={16} height={16} weight="bold" />,
+  icon = <Icon name="fs-caret-up" />,
   iconPosition = 'left',
 }: ScrollToTopButtonProps) {
   return (

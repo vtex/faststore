@@ -251,11 +251,7 @@ function SKUMatrixSidebar({
                             message: `The quantity you entered is outside the range of ${min} to ${maxValue}. The quantity was set to ${quantity}.`,
                             status: 'INFO',
                             icon: (
-                              <Icon
-                                name="CircleWavyWarning"
-                                width={30}
-                                height={30}
-                              />
+                              <Icon name="fs-seal-warning" size={32} />
                             ),
                           })
                         }}

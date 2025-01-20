@@ -63,17 +63,14 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
       {...otherProps}
     >
       {!!icon && icon}
-
       <p data-fs-alert-content>{children}</p>
-
       {link && <Link data-fs-alert-link variant="inline" {...link} />}
-
       {dismissible && (
         <IconButton
           data-fs-alert-button
           size="small"
           aria-label="Close"
-          icon={<Icon name="X" />}
+          icon={<Icon name="fs-x" />}
           onClick={handleClose}
         />
       )}

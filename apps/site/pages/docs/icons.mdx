@@ -27,27 +27,17 @@ You can find more details about the `Icon` component [here](/components/atoms/ic
 ## Usage
 
 <OverviewSection>
-  <Icon name="X" weight="bold" />
-  <Icon name="MagnifyingGlass" weight="regular" />
-  <Icon name="House" weight="thin" />
+  <Icon name="fs-house" size="20" />
+  <Icon name="fs-house" size="24" />
+  <Icon name="fs-house" size="32" />
+  <Icon name="fs-house" size="56" />
 </OverviewSection>
 
 ```tsx copy
-<Icon name="X" weight="bold" />
-<Icon name="MagnifyingGlass" weight="regular" />
-<Icon name="House" weight="thin" />
-```
-
-<OverviewSection>
-  <Icon name="X" weight="bold" width={16} height={16} />
-  <Icon name="MagnifyingGlass" weight="regular" width={20} height={20} />
-  <Icon name="House" weight="thin" width={32} height={32} />
-</OverviewSection>
-
-```tsx copy
-<Icon name="X" weight="bold" width={16} height={16} />
-<Icon name="MagnifyingGlass" weight="regular" width={20} height={20} />
-<Icon name="House" weight="thin" width={32} height={32} />
+<Icon name="fs-house" size="20" />
+<Icon name="fs-house" size="24" />
+<Icon name="fs-house" size="32" />
+<Icon name="fs-house" size="56" />
 ```
 
 ---
@@ -55,70 +45,81 @@ You can find more details about the `Icon` component [here](/components/atoms/ic
 ### UI Actions
 
 <IconList>
-  <IconComponent icon={<Icon name="X" />} name="X" />
-  <IconComponent icon={<Icon name="Plus" />} name="Plus" />
-  <IconComponent icon={<Icon name="PlusCircle" />} name="PlusCircle" />
-  <IconComponent icon={<Icon name="Minus" />} name="Minus" />
-  <IconComponent icon={<Icon name="MinusCircle" />} name="MinusCircle" />
-  <IconComponent icon={<Icon name="XCircle" />} name="XCircle" />
-  <IconComponent icon={<Icon name="ArrowLeft" />} name="ArrowLeft" />
-  <IconComponent icon={<Icon name="ArrowRight" />} name="ArrowRight" />
-  <IconComponent
-    icon={<Icon name="ArrowElbowDownRight" />}
-    name="ArrowElbowDownRight"
-  />
-  <IconComponent icon={<Icon name="CaretDown" />} name="CaretDown" />
-  <IconComponent icon={<Icon name="CaretRight" />} name="CaretRight" />
-  <IconComponent icon={<Icon name="CaretLeft" />} name="CaretLeft" />
-  <IconComponent icon={<Icon name="CaretUp" />} name="CaretUp" />
-  <IconComponent icon={<Icon name="Checked" />} name="Checked" />
-  <IconComponent
-    icon={<Icon name="MagnifyingGlass" />}
-    name="MagnifyingGlass"
-  />
-  <IconComponent
-    icon={<Icon name="FadersHorizontal" />}
-    name="FadersHorizontal"
-  />
+  <IconComponent icon={<Icon name="fs-x" />} name="fs-x" />
+  <IconComponent icon={<Icon name="fs-plus" />} name="fs-plus" />
+  <IconComponent icon={<Icon name="fs-plus-circle" />} name="fs-plus-circle" />
+  <IconComponent icon={<Icon name="fs-minus" />} name="fs-minus" />
+  <IconComponent icon={<Icon name="fs-minus-circle" />} name="fs-minus-circle" />
+  <IconComponent icon={<Icon name="fs-x-circle" />} name="fs-x-circle" />
+  <IconComponent icon={<Icon name="fs-arrow-left" />} name="fs-arrow-left" />
+  <IconComponent icon={<Icon name="fs-arrow-right" />} name="fs-arrow-right" />
+  <IconComponent icon={<Icon name="fs-arrow-elbow-down-right" />} name="fs-arrow-elbow-down-right" />
+  <IconComponent icon={<Icon name="fs-caret-down" />} name="fs-caret-down" />
+  <IconComponent icon={<Icon name="fs-caret-right" />} name="fs-caret-right" />
+  <IconComponent icon={<Icon name="fs-caret-left" />} name="fs-caret-left" />
+  <IconComponent icon={<Icon name="fs-caret-up" />} name="fs-caret-up" />
+  <IconComponent icon={<Icon name="fs-checked" />} name="fs-checked" />
+  <IconComponent icon={<Icon name="fs-magnifying-glass" />} name="fs-magnifying-glass" />
+  <IconComponent icon={<Icon name="fs-faders-horizontal" />} name="fs-faders-horizontal" />
 </IconList>
 
 ### Payment Flags
 
 <IconList>
-  <IconComponent icon={<Icon name="Amex" />} name="Amex" />
-  <IconComponent icon={<Icon name="ApplePay" />} name="ApplePay" />
-  <IconComponent icon={<Icon name="EloCard" />} name="EloCard" />
-  <IconComponent icon={<Icon name="Diners" />} name="Diners" />
-  <IconComponent icon={<Icon name="GooglePay" />} name="GooglePay" />
-  <IconComponent icon={<Icon name="Mastercard" />} name="Mastercard" />
-  <IconComponent icon={<Icon name="PayPal" />} name="PayPal" />
-  <IconComponent icon={<Icon name="Pix" />} name="Pix" />
-  <IconComponent icon={<Icon name="Stripe" />} name="Stripe" />
-  <IconComponent icon={<Icon name="Visa" />} name="Visa" />
+  <IconComponent icon={<Icon name="fs-flag-amex" />} name="fs-flag-amex" />
+  <IconComponent icon={<Icon name="fs-flag-applepay" />} name="fs-flag-applepay" />
+  <IconComponent icon={<Icon name="fs-flag-elocard" />} name="fs-flag-elocard" />
+  <IconComponent icon={<Icon name="fs-flag-diners" />} name="fs-flag-diners" />
+  <IconComponent icon={<Icon name="fs-flag-googlepay" />} name="fs-flag-googlepay" />
+  <IconComponent icon={<Icon name="fs-flag-mastercard" />} name="fs-flag-mastercard" />
+  <IconComponent icon={<Icon name="fs-flag-paypal" />} name="fs-flag-paypal" />
+  <IconComponent icon={<Icon name="fs-flag-pix" />} name="fs-flag-pix" />
+  <IconComponent icon={<Icon name="fs-flag-stripe" />} name="fs-flag-stripe" />
+  <IconComponent icon={<Icon name="fs-flag-visa" />} name="fs-flag-visa" />
 </IconList>
 
 ### Social
 
 <IconList>
-  <IconComponent icon={<Icon name="Facebook" />} name="Facebook" />
-  <IconComponent icon={<Icon name="Instagram" />} name="Instagram" />
-  <IconComponent icon={<Icon name="Twitter" />} name="Twitter" />
-  <IconComponent icon={<Icon name="Pinterest" />} name="Pinterest" />
+  <IconComponent icon={<Icon name="fs-social-facebook" />} name="fs-social-facebook" />
+  <IconComponent icon={<Icon name="fs-social-instagram" />} name="fs-social-instagram" />
+  <IconComponent icon={<Icon name="fs-social-pinterest" />} name="fs-social-pinterest" />
+  <IconComponent icon={<Icon name="fs-social-twitter" />} name="fs-social-twitter" />
 </IconList>
 
 ### Others
 
 <IconList>
-  <IconComponent icon={<Icon name="House" />} name="House" />
-  <IconComponent icon={<Icon name="Star" />} name="Star" />
-  <IconComponent icon={<Icon name="Heart" />} name="Heart" />
-  <IconComponent icon={<Icon name="DotsThree" />} name="DotsThree" />
-  <IconComponent icon={<Icon name="Ruler" />} name="Ruler" />
-  <IconComponent icon={<Icon name="ShoppingCart" />} name="ShoppingCart" />
-  <IconComponent icon={<Icon name="Tag" />} name="Tag" />
-  <IconComponent icon={<Icon name="BellRinging" />} name="BellRinging" />
-  <IconComponent icon={<Icon name="Bell" />} name="Bell" />
-  <IconComponent icon={<Icon name="MapPin" />} name="MapPin" />
-  <IconComponent icon={<Icon name="ArrowSquareOut" />} name="ArrowSquareOut" />
-  <IconComponent icon={<Icon name="Envelope" />} name="Envelope" />
+  <IconComponent icon={<Icon name="fs-house" />} name="fs-house" />
+  <IconComponent icon={<Icon name="fs-star" />} name="fs-star" />
+  <IconComponent icon={<Icon name="fs-heart" />} name="fs-heart" />
+  <IconComponent icon={<Icon name="fs-dots-three" />} name="fs-dots-three" />
+  <IconComponent icon={<Icon name="fs-ruler" />} name="fs-ruler" />
+  <IconComponent icon={<Icon name="fs-shopping-cart" />} name="fs-shopping-cart" />
+  <IconComponent icon={<Icon name="fs-tag" />} name="fs-tag" />
+  <IconComponent icon={<Icon name="fs-bell-ringing" />} name="fs-bell-ringing" />
+  <IconComponent icon={<Icon name="fs-bell" />} name="fs-bell" />
+  <IconComponent icon={<Icon name="fs-map-pin" />} name="fs-map-pin" />
+  <IconComponent icon={<Icon name="fs-arrow-square-out" />} name="fs-arrow-square-out" />
+  <IconComponent icon={<Icon name="fs-envelop" />} name="fs-envelop" />
+  <IconComponent icon={<Icon name="fs-arrows-clockwise" />} name="fs-arrows-clockwise" />
+  <IconComponent icon={<Icon name="fs-arrow-up-right" />} name="fs-arrow-up-right" />
+  <IconComponent icon={<Icon name="fs-bag" />} name="fs-bag" />
+  <IconComponent icon={<Icon name="fs-calendar" />} name="fs-calendar" />
+  <IconComponent icon={<Icon name="fs-seal-check" />} name="fs-seal-check" />
+  <IconComponent icon={<Icon name="fs-seal-warning" />} name="fs-seal-warning" />
+  <IconComponent icon={<Icon name="fs-clock-clockwise" />} name="fs-clock-clockwise" />
+  <IconComponent icon={<Icon name="fs-ellipsis" />} name="fs-ellipsis" />
+  <IconComponent icon={<Icon name="fs-gift" />} name="fs-gift" />
+  <IconComponent icon={<Icon name="fs-headphones" />} name="fs-headphones" />
+  <IconComponent icon={<Icon name="fs-info" />} name="fs-info" />
+  <IconComponent icon={<Icon name="fs-list" />} name="fs-list" />
+  <IconComponent icon={<Icon name="fs-medal" />} name="fs-medal" />
+  <IconComponent icon={<Icon name="fs-rocket-launch" />} name="fs-rocket-launch" />
+  <IconComponent icon={<Icon name="fs-seal-check" />} name="fs-seal-check" />
+  <IconComponent icon={<Icon name="fs-seal-warning" />} name="fs-seal-warning" />
+  <IconComponent icon={<Icon name="fs-shield-check" />} name="fs-shield-check" />
+  <IconComponent icon={<Icon name="fs-storefront" />} name="fs-storefront" />
+  <IconComponent icon={<Icon name="fs-truck" />} name="fs-truck" />
+  <IconComponent icon={<Icon name="fs-user" />} name="fs-user" />
 </IconList>
