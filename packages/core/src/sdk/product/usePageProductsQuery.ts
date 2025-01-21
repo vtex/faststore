@@ -22,12 +22,16 @@ export const UseGalleryPageContext = createContext<
   return { data: null }
 })
 
-export const useGalleryPage = (page: number) => {
+export const useGalleryPage = (
+  page: number,
+  sponsoredCount?: number,
+  advertisementPlacement?: string
+) => {
   const useGalleryPageCallback = useContext(UseGalleryPageContext)
   if (!useGalleryPageCallback) {
     throw new Error('Missing UseGalleryPageContext on React tree')
   }
-  return useGalleryPageCallback(page)
+  return useGalleryPageCallback(page, sponsoredCount, advertisementPlacement)
 }
 
 export const query = gql(`
@@ -38,6 +42,7 @@ export const query = gql(`
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
     $sponsoredCount: Int
+    $advertisementPlacement: String
   ) {
     ...ClientManyProducts
     search(
@@ -47,6 +52,7 @@ export const query = gql(`
       term: $term
       selectedFacets: $selectedFacets
       sponsoredCount: $sponsoredCount
+      advertisementPlacement: $advertisementPlacement
     ) {
       products {
         pageInfo {
@@ -73,7 +79,11 @@ export const useCreateUseGalleryPage = () => {
   const pagesRef = useRef<ClientManyProductsQueryQuery[]>([])
   const pagesCache = useRef<string[]>([])
 
-  const useGalleryPage = useCallback(function useGalleryPage(page: number) {
+  const useGalleryPage = useCallback(function useGalleryPage(
+    page: number,
+    sponsoredCount?: number,
+    advertisementPlacement?: string
+  ) {
     const {
       state: { sort, term, selectedFacets },
       itemsPerPage,
@@ -85,6 +95,8 @@ export const useCreateUseGalleryPage = () => {
       sort,
       term: term ?? '',
       selectedFacets,
+      sponsoredCount,
+      advertisementPlacement,
     })
 
     const hasSameVariables =
@@ -129,7 +141,8 @@ export const useCreateUseGalleryPage = () => {
 
       return { data }
     }, [hasSameVariables, data, page])
-  }, [])
+  },
+  [])
 
   return useMemo(
     () => ({
