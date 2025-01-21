@@ -201,6 +201,7 @@ export const fragment = gql(`
         price
         listPrice
         listPriceWithTaxes
+        priceWithTaxes
         quantity
         seller {
           identifier
@@ -213,6 +214,24 @@ export const fragment = gql(`
       name
       value
       valueReference
+    }
+
+    hasSpecifications
+
+    unitMultiplier
+
+    isVariantOf {
+      productGroupID
+      name
+      skuVariants {
+        activeVariations
+        slugsMap
+        availableVariations
+        allVariantProducts {
+          name
+          productID
+        }
+      }
     }
 
     advertisement {
