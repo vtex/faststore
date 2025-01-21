@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useMemo, useState } from 'react'
 import {
+  Button,
   SearchProductItem as UISearchProductItem,
   SearchProductItemContent as UISearchProductItemContent,
   SearchProductItemImage as UISearchProductItemImage,
@@ -13,10 +14,11 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
 import { sendAutocompleteClickEvent } from '../SearchDropdown'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
-import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { NavbarProps } from 'src/components/sections/Navbar'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import styles from 'src/components/sections/Navbar/section.module.scss'
+
 type SearchProductItemProps = {
   /**
    * Product to be showed in `SearchProductItem`.
@@ -30,6 +32,9 @@ type SearchProductItemProps = {
    * Quick Order settings.
    */
   quickOrderSettings: NavbarProps['searchInput']['quickOrderSettings']
+  /**
+   * TODO.
+   */
   onChangeCustomSearchDropdownVisible: Dispatch<SetStateAction<boolean>>
 }
 
@@ -53,13 +58,31 @@ function SearchProductItem({
     index,
   })
 
+  const [quantity, setQuantity] = useState<number>(1)
+
   const {
+    id,
+    sku,
+    gtin,
+    brand,
+    isVariantOf,
     isVariantOf: { name },
+    unitMultiplier,
     image: [img],
     offers: {
       lowPrice: spotPrice,
-      offers: [{ listPrice }],
+      offers: [
+        {
+          listPrice,
+          availability,
+          price,
+          listPriceWithTaxes,
+          seller,
+          priceWithTaxes,
+        },
+      ],
     },
+    additionalProperty,
   } = product
 
   const linkProps = {
@@ -76,6 +99,43 @@ function SearchProductItem({
     },
     ...baseLinkProps,
   }
+
+  const outOfStock = useMemo(
+    () => availability === 'https://schema.org/OutOfStock',
+    [availability]
+  )
+
+  const hasVariants = useMemo(
+    () =>
+      Boolean(
+        Object.keys(product.isVariantOf.skuVariants.allVariantsByName).length
+      ),
+
+    [product]
+  )
+
+  const buyProps = useBuyButton(
+    {
+      id,
+      price,
+      priceWithTaxes,
+      listPrice,
+      listPriceWithTaxes,
+      seller,
+      quantity,
+      itemOffered: {
+        sku,
+        name,
+        gtin,
+        image: [img],
+        brand,
+        isVariantOf,
+        additionalProperty,
+        unitMultiplier,
+      },
+    },
+    false
+  )
 
   return (
     <UISearchProductItem linkProps={linkProps} {...otherProps}>
