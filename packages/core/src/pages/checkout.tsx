@@ -1,16 +1,27 @@
-import { useEffect } from 'react'
 import { NextSeo } from 'next-seo'
+import { useEffect } from 'react'
 
-import storeConfig from '../../discovery.config'
-import GlobalSections, {
+import { Locator } from '@vtex/client-cms'
+import { GetStaticProps } from 'next'
+import type { ComponentType } from 'react'
+import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
+import {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import { GetStaticProps } from 'next'
-import { Locator } from '@vtex/client-cms'
+import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+
+import RenderSections from 'src/components/cms/RenderSections'
+import storeConfig from '../../discovery.config'
 
 type Props = {
   globalSections: GlobalSectionsData
+}
+
+/* A list of components that can be used in the CMS. */
+const COMPONENTS: Record<string, ComponentType<any>> = {
+  ...GLOBAL_COMPONENTS,
+  ...CUSTOM_COMPONENTS,
 }
 
 function Page({ globalSections }: Props) {
@@ -19,11 +30,14 @@ function Page({ globalSections }: Props) {
   }, [])
 
   return (
-    <GlobalSections {...globalSections}>
+    <RenderSections
+      globalSections={globalSections.sections}
+      components={COMPONENTS}
+    >
       <NextSeo noindex nofollow />
 
       <div>loading...</div>
-    </GlobalSections>
+    </RenderSections>
   )
 }
 

@@ -516,6 +516,7 @@ export type QuerySearchArgs = {
   first: Scalars['Int'];
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
+  sponsoredCount?: Maybe<Scalars['Int']>;
   term?: Maybe<Scalars['String']>;
 };
 

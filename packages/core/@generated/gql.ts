@@ -18,7 +18,9 @@ const documents = {
     types.Filter_FacetsFragmentDoc,
   '\n  fragment ProductDetailsFragment_product on StoreProduct {\n    id: productID\n    sku\n    name\n    gtin\n    description\n    unitMultiplier\n    isVariantOf {\n      name\n      productGroupID\n      skuVariants {\n        activeVariations\n        slugsMap\n        availableVariations\n        allVariantProducts {\n          name\n          productID\n        }\n      }\n    }\n\n    image {\n      url\n      alternateName\n    }\n\n    brand {\n      name\n    }\n\n    offers {\n      lowPrice\n      lowPriceWithTaxes\n      offers {\n        availability\n        price\n        priceWithTaxes\n        listPrice\n        listPriceWithTaxes\n        seller {\n          identifier\n        }\n      }\n    }\n\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n\n    # Contains necessary info to add this item to cart\n    ...CartProductItem\n  }\n':
     types.ProductDetailsFragment_ProductFragmentDoc,
-  '\n  fragment ClientManyProducts on Query {\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n    }\n  }\n':
+  '\n  fragment ProductSKUMatrixSidebarFragment_product on StoreProduct {\n    id: productID\n    isVariantOf {\n      name\n      productGroupID\n      skuVariants {\n        activeVariations\n        slugsMap\n        availableVariations\n        allVariantProducts {\n\t\t\t\t\tsku\n          name\n          image {\n            url\n            alternateName\n          }\n          offers {\n            highPrice\n            lowPrice\n            lowPriceWithTaxes\n            offerCount\n            priceCurrency\n            offers {\n              listPrice\n              listPriceWithTaxes\n              sellingPrice\n              priceCurrency\n              price\n              priceWithTaxes\n              priceValidUntil\n              itemCondition\n              availability\n              quantity\n            }\n          }\n          additionalProperty {\n            propertyID\n            value\n            name\n            valueReference\n          }\n        }\n      }\n    }\n  }\n':
+    types.ProductSkuMatrixSidebarFragment_ProductFragmentDoc,
+  '\n  fragment ClientManyProducts on Query {\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n    }\n  }\n':
     types.ClientManyProductsFragmentDoc,
   '\n  fragment ClientProduct on Query {\n    product(locator: $locator) {\n      id: productID\n    }\n  }\n':
     types.ClientProductFragmentDoc,
@@ -42,7 +44,9 @@ const documents = {
     types.ValidateCartMutationDocument,
   '\n  mutation SubscribeToNewsletter($data: IPersonNewsletter!) {\n    subscribeToNewsletter(data: $data) {\n      id\n    }\n  }\n':
     types.SubscribeToNewsletterDocument,
-  '\n  query ClientManyProductsQuery(\n    $first: Int!\n    $after: String\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n  ) {\n    ...ClientManyProducts\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n        edges {\n          node {\n            ...ProductSummary_product\n          }\n        }\n      }\n    }\n  }\n':
+  '\n  query ClientAllVariantProductsQuery($locator: [IStoreSelectedFacet!]!) {\n      product(locator: $locator) {\n      ...ProductSKUMatrixSidebarFragment_product\n    }\n  }\n':
+    types.ClientAllVariantProductsQueryDocument,
+  '\n  query ClientManyProductsQuery(\n    $first: Int!\n    $after: String\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n    $sponsoredCount: Int\n  ) {\n    ...ClientManyProducts\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n        edges {\n          node {\n            ...ProductSummary_product\n          }\n        }\n      }\n    }\n  }\n':
     types.ClientManyProductsQueryDocument,
   '\n  query ClientManyProductsComparisonQuery(\n    $productIds: [String!]!\n    \n  ) {\n    products(\n      productIds: $productIds\n    ) {\n        ...ProductComparisonFragment_product\n      }\n    }  \n':
     types.ClientManyProductsComparisonQueryDocument,
@@ -80,13 +84,19 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment ProductDetailsFragment_product on StoreProduct {\n    id: productID\n    sku\n    name\n    gtin\n    description\n    unitMultiplier\n    isVariantOf {\n      name\n      productGroupID\n      skuVariants {\n        activeVariations\n        slugsMap\n        availableVariations\n        allVariantProducts {\n          name\n          productID\n        }\n      }\n    }\n\n    image {\n      url\n      alternateName\n    }\n\n    brand {\n      name\n    }\n\n    offers {\n      lowPrice\n      lowPriceWithTaxes\n      offers {\n        availability\n        price\n        priceWithTaxes\n        listPrice\n        listPriceWithTaxes\n        seller {\n          identifier\n        }\n      }\n    }\n\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n\n    # Contains necessary info to add this item to cart\n    ...CartProductItem\n  }\n'
+  source: '\n  fragment ProductDetailsFragment_product on StoreProduct {\n    id: productID\n    sku\n    name\n    gtin\n    description\n    unitMultiplier\n    isVariantOf {\n      name\n      productGroupID\n\t\t\tskuVariants {\n        activeVariations\n        slugsMap\n        availableVariations\n      }\n    }\n\n    image {\n      url\n      alternateName\n    }\n\n    brand {\n      name\n    }\n\n    offers {\n      lowPrice\n      lowPriceWithTaxes\n      offers {\n        availability\n        price\n        priceWithTaxes\n        listPrice\n        listPriceWithTaxes\n        seller {\n          identifier\n        }\n      }\n    }\n\n    additionalProperty {\n      propertyID\n      name\n      value\n      valueReference\n    }\n\n    # Contains necessary info to add this item to cart\n    ...CartProductItem\n  }\n'
 ): typeof import('./graphql').ProductDetailsFragment_ProductFragmentDoc
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment ClientManyProducts on Query {\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n    }\n  }\n'
+  source: '\n  fragment ProductSKUMatrixSidebarFragment_product on StoreProduct {\n    id: productID\n    isVariantOf {\n      name\n      productGroupID\n      skuVariants {\n        activeVariations\n        slugsMap\n        availableVariations\n        allVariantProducts {\n\t\t\t\t\tsku\n          name\n          image {\n            url\n            alternateName\n          }\n          offers {\n            highPrice\n            lowPrice\n            lowPriceWithTaxes\n            offerCount\n            priceCurrency\n            offers {\n              listPrice\n              listPriceWithTaxes\n              sellingPrice\n              priceCurrency\n              price\n              priceWithTaxes\n              priceValidUntil\n              itemCondition\n              availability\n              quantity\n            }\n          }\n          additionalProperty {\n            propertyID\n            value\n            name\n            valueReference\n          }\n        }\n      }\n    }\n  }\n'
+): typeof import('./graphql').ProductSkuMatrixSidebarFragment_ProductFragmentDoc
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  fragment ClientManyProducts on Query {\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n    }\n  }\n'
 ): typeof import('./graphql').ClientManyProductsFragmentDoc
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -158,7 +168,13 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query ClientManyProductsQuery(\n    $first: Int!\n    $after: String\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n  ) {\n    ...ClientManyProducts\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n        edges {\n          node {\n            ...ProductSummary_product\n          }\n        }\n      }\n    }\n  }\n'
+  source: '\n  query ClientAllVariantProductsQuery($locator: [IStoreSelectedFacet!]!) {\n      product(locator: $locator) {\n      ...ProductSKUMatrixSidebarFragment_product\n    }\n  }\n'
+): typeof import('./graphql').ClientAllVariantProductsQueryDocument
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query ClientManyProductsQuery(\n    $first: Int!\n    $after: String\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n    $sponsoredCount: Int\n  ) {\n    ...ClientManyProducts\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n        edges {\n          node {\n            ...ProductSummary_product\n          }\n        }\n      }\n    }\n  }\n'
 ): typeof import('./graphql').ClientManyProductsQueryDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
