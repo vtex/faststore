@@ -10,7 +10,7 @@ interface Props {
   title: string
   productCard?: Pick<
     ProductCardProps,
-    'showDiscountBadge' | 'bordered' | 'taxesConfiguration'
+    'showDiscountBadge' | 'bordered' | 'taxesConfiguration' | 'sponsoredLabel'
   >
   itemsPerPage: number
   firstPage: number
@@ -32,13 +32,12 @@ function ProductGalleryPage({
   const products = data?.search?.products?.edges ?? []
 
   return (
-    <>
-      <Sentinel
-        products={products}
-        page={page}
-        pageSize={itemsPerPage}
-        title={title}
-      />
+    <Sentinel
+      products={products}
+      page={page}
+      pageSize={itemsPerPage}
+      title={title}
+    >
       <ProductGrid
         shouldShowComparison={shouldShowComparison}
         compareLabel={compareLabel}
@@ -48,7 +47,7 @@ function ProductGalleryPage({
         productCard={productCard}
         firstPage={firstPage}
       />
-    </>
+    </Sentinel>
   )
 }
 

@@ -1,13 +1,42 @@
+import dynamic from 'next/dynamic'
+
 import { useSearch } from '@faststore/sdk'
-import {
-  Filter as UIFilter,
-  FilterFacetBoolean as UIFilterFacetBoolean,
-  FilterFacetBooleanItem as UIFilterFacetBooleanItem,
-  FilterFacetRange as UIFilterFacetRange,
-  FilterFacets as UIFilterFacets,
-  FilterSlider as UIFilterSlider,
-} from '@faststore/ui'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
+
+import type {
+  FilterFacetBooleanItemProps as UIFilterFacetBooleanItemProps,
+  FilterFacetRangeProps as UIFilterFacetRangeProps,
+  FilterFacetsProps as UIFilterFacetsProps,
+  FilterProps as UIFilterProps,
+  FilterSliderProps as UIFilterSliderProps,
+} from '@faststore/ui'
+
+const UIFilter = dynamic<{ children: React.ReactNode } & UIFilterProps>(() =>
+  /* webpackChunkName: "UIFilter" */
+  import('@faststore/ui').then((mod) => mod.Filter)
+)
+const UIFilterFacetBoolean = dynamic<{ children: React.ReactNode }>(() =>
+  /* webpackChunkName: "UIFilterFacetBoolean" */
+  import('@faststore/ui').then((mod) => mod.FilterFacetBoolean)
+)
+const UIFilterFacetBooleanItem = dynamic<UIFilterFacetBooleanItemProps>(() =>
+  /* webpackChunkName: "UIFilterFacetBooleanItem" */
+  import('@faststore/ui').then((mod) => mod.FilterFacetBooleanItem)
+)
+const UIFilterFacetRange = dynamic<UIFilterFacetRangeProps>(() =>
+  /* webpackChunkName: "UIFilterFacetRange" */
+  import('@faststore/ui').then((mod) => mod.FilterFacetRange)
+)
+const UIFilterFacets = dynamic<
+  { children: React.ReactNode } & UIFilterFacetsProps
+>(() =>
+  /* webpackChunkName: "UIFilterFacets" */
+  import('@faststore/ui').then((mod) => mod.FilterFacets)
+)
+const UIFilterSlider = dynamic<UIFilterSliderProps>(() =>
+  /* webpackChunkName: "UIFilterSlider" */
+  import('@faststore/ui').then((mod) => mod.FilterSlider)
+)
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
 
@@ -87,7 +116,7 @@ function FilterSlider({
       <UIFilter
         testId={`mobile-${testId}`}
         indicesExpanded={expanded}
-        onAccordionChange={(index) =>
+        onAccordionChange={(index: number) =>
           dispatch({ type: 'toggleExpanded', payload: index })
         }
       >

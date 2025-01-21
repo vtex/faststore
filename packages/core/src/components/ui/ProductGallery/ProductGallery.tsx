@@ -3,11 +3,11 @@ import { NextSeo } from 'next-seo'
 import type { MouseEvent } from 'react'
 import { Suspense, lazy, useState } from 'react'
 
-import { useUI } from '@faststore/ui'
-import Filter from 'src/components/search/Filter'
+import { Filter, useUI } from '@faststore/ui'
 import Sort from 'src/components/search/Sort'
-import FilterSkeleton from 'src/components/skeletons/FilterSkeleton'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
+
+import dynamic from 'next/dynamic'
 
 import { ProductCardProps } from 'src/components/product/ProductCard'
 import { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
@@ -21,11 +21,21 @@ import {
 import { useProductsPrefetch } from 'src/sdk/product/useProductsPrefetch'
 import { useDelayedFacets } from 'src/sdk/search/useDelayedFacets'
 import { useDelayedPagination } from 'src/sdk/search/useDelayedPagination'
+import { useFilter } from 'src/sdk/search/useFilter'
+import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 import styles from '../../sections/ProductGallery/section.module.scss'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 
 const ProductGalleryPage = lazy(() => import('./ProductGalleryPage'))
+const FilterSkeleton = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "FilterSkeleton" */
+      'src/components/skeletons/FilterSkeleton'
+    )
+)
+
 const GalleryPageSkeleton = <ProductGridSkeleton loading />
 
 export interface ProductGalleryProps {
@@ -75,7 +85,7 @@ export interface ProductGalleryProps {
   sortBySelector?: SortProps
   productCard?: Pick<
     ProductCardProps,
-    'showDiscountBadge' | 'bordered' | 'taxesConfiguration'
+    'showDiscountBadge' | 'bordered' | 'taxesConfiguration' | 'sponsoredLabel'
   >
 }
 
@@ -85,7 +95,7 @@ function ProductGallery({
   totalCount,
   searchTermLabel,
   totalCountLabel,
-  filter,
+  filter: filterCmsData,
   previousPageButton,
   loadMorePageButton,
   sortBySelector,
@@ -107,7 +117,7 @@ function ProductGallery({
     __experimentalProductComparisonSidebar: ProductComparisonSidebar,
   } = useOverrideComponents<'ProductGallery'>()
 
-  const { openFilter } = useUI()
+  const { openFilter, filter: displayFilter } = useUI()
   const { pages, addNextPage, addPrevPage, itemsPerPage } = useSearch()
   const context = usePage<SearchPageContext | PLPContext>()
   const data = context?.data
@@ -116,11 +126,11 @@ function ProductGallery({
 
   const [showComparisonProducts, setShowComparisonProducts] =
     useState<boolean>(false)
-  useProductsPrefetch(prev ? prev.cursor : null)
   useProductsPrefetch(next ? next.cursor : null)
 
   const hasFacetsLoaded = Boolean(data?.search?.facets)
   const hasProductsLoaded = Boolean(data?.search?.products)
+  const filter = useFilter(facets)
 
   return (
     <section data-testid="product-gallery" data-fs-product-listing>

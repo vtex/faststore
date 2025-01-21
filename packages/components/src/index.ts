@@ -361,6 +361,27 @@ export type {
   SlideOverHeaderProps,
 } from './organisms/SlideOver'
 
-export { default as ProductComparison, ProductComparisonTrigger, ProductComparisonToolbar, ProductComparisonSidebar } from './organisms/ProductComparison'
-export type { IProductComparison, ProductComparisonProps, ProductComparisonTriggerProps, ProductComparisonToolbarProps, ProductComparisonSidebarProps } from './organisms/ProductComparison'
+export {
+  default as ProductComparison,
+  ProductComparisonTrigger,
+  ProductComparisonToolbar,
+  ProductComparisonSidebar
+} from './organisms/ProductComparison'
+export type {
+  IProductComparison,
+  ProductComparisonProps,
+  ProductComparisonTriggerProps,
+  ProductComparisonToolbarProps,
+  ProductComparisonSidebarProps
+} from './organisms/ProductComparison'
 
+export {
+  default as SKUMatrix,
+  SKUMatrixTrigger,
+  SKUMatrixSidebar,
+} from './organisms/SKUMatrix'
+export type {
+  SKUMatrixProps,
+  SKUMatrixTriggerProps,
+  SKUMatrixSidebarProps
+} from './organisms/SKUMatrix'

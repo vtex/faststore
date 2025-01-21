@@ -6,16 +6,19 @@ import {
   useMemo,
 } from 'react'
 
+import { useUI } from '@faststore/ui'
 import { Section } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
+import useTTI from 'src/sdk/performance/useTTI'
 import SectionBoundary from './SectionBoundary'
 import ViewportObserver from './ViewportObserver'
-
-import { useUI } from '@faststore/ui'
+import COMPONENTS from './global/Components'
 
 interface Props {
-  components: Record<string, ComponentType<any>>
-  sections: Array<{ name: string; data: any }>
+  components?: Record<string, ComponentType<any>>
+  globalSections?: Array<{ name: string; data: any }>
+  sections?: Array<{ name: string; data: any }>
+  isInteractive?: boolean
 }
 
 const SECTIONS_OUT_OF_VIEWPORT = ['CartSidebar', 'RegionModal']
@@ -45,36 +48,54 @@ const useDividedSections = (sections: Section[]) => {
  * 2. Checking the UI context for Sections that are not in the viewport, such as the CartSidebar and RegionModal.
  *
  * @param sectionName
- * @returns
  */
 export const LazyLoadingSection = ({
   sectionName,
   children,
+  debug = false,
+  isInteractive = false,
 }: {
   sectionName: string
   children: ReactNode
+  debug?: boolean
+  isInteractive?: boolean
 }) => {
   const { cart: displayCart, modal: displayModal } = useUI()
-
   if (SECTIONS_OUT_OF_VIEWPORT.includes(sectionName)) {
     const shouldLoad =
+      isInteractive ||
       (sectionName === 'CartSidebar' && displayCart) ||
       (sectionName === 'RegionModal' && displayModal)
-    if (!shouldLoad) {
-      return null
+
+    if (debug) {
+      console.log(
+        `section SECTIONS_OUT_OF_VIEWPORT '${sectionName}' shouldLoad:`,
+        shouldLoad
+      )
     }
 
-    return children
+    return shouldLoad ? <>{children}</> : null
   }
+
   return (
-    <ViewportObserver sectionName={sectionName}>{children}</ViewportObserver>
+    <ViewportObserver
+      sectionName={sectionName}
+      debug={debug}
+      isInteractive={isInteractive}
+    >
+      {children}
+    </ViewportObserver>
   )
 }
 
-const RenderSectionsBase = ({ sections = [], components }: Props) => {
+const RenderSectionsBase = ({
+  sections = [],
+  components,
+  isInteractive,
+}: Props) => {
   return (
     <>
-      {sections.map(({ name, data }, index) => {
+      {sections.map(({ name, data = {} }, index) => {
         const Component = components[name]
 
         if (!Component) {
@@ -88,7 +109,12 @@ const RenderSectionsBase = ({ sections = [], components }: Props) => {
 
         return (
           <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
-            <Component {...data} />
+            <LazyLoadingSection
+              sectionName={name}
+              isInteractive={isInteractive}
+            >
+              <Component {...data} />
+            </LazyLoadingSection>
           </SectionBoundary>
         )
       })}
@@ -98,21 +124,43 @@ const RenderSectionsBase = ({ sections = [], components }: Props) => {
 
 function RenderSections({
   children,
+  globalSections,
   sections,
-  ...otherProps
+  components = COMPONENTS,
 }: PropsWithChildren<Props>) {
-  const { hasChildren, firstSections, lastSections } =
-    useDividedSections(sections)
+  const { firstSections, lastSections } = useDividedSections(
+    globalSections ?? sections
+  )
+
+  const { isInteractive } = useTTI()
 
   return (
     <>
-      <RenderSectionsBase sections={firstSections} {...otherProps} />
-
-      <Toast />
+      {firstSections && (
+        <RenderSectionsBase
+          sections={firstSections}
+          components={components}
+          isInteractive={isInteractive}
+        />
+      )}
+      {sections && sections.length > 0 && (
+        <RenderSectionsBase
+          sections={sections}
+          components={components}
+          isInteractive={isInteractive}
+        />
+      )}
       {children}
+      <LazyLoadingSection sectionName="Toast" isInteractive={isInteractive}>
+        <Toast />
+      </LazyLoadingSection>
 
-      {hasChildren && (
-        <RenderSectionsBase sections={lastSections} {...otherProps} />
+      {lastSections && (
+        <RenderSectionsBase
+          sections={lastSections}
+          components={components}
+          isInteractive={isInteractive}
+        />
       )}
     </>
   )

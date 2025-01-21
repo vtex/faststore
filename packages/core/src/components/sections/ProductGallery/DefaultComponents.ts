@@ -1,9 +1,8 @@
-import { lazy } from 'react'
 import {
   Button as UIButton,
+  Icon as UIIcon,
   LinkButton as UILinkButton,
   Skeleton as UISkeleton,
-  Icon as UIIcon,
   ToggleField as UIToggleField,
   ProductComparison as UIProductComparison,
   ProductComparisonSidebar as UIProductComparisonSidebar,
@@ -18,6 +17,7 @@ import ProductComparisonSidebar from 'src/components/ui/ProductComparison'
 const FilterSlider = lazy(
   () => import('src/components/search/Filter/FilterSlider')
 )
+
 export const ProductGalleryDefaultComponents = {
   MobileFilterButton: UIButton,
   FilterIcon: UIIcon,

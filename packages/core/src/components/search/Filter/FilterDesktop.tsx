@@ -7,6 +7,7 @@ import {
   FilterFacetRange as UIFilterFacetRange,
   FilterFacets as UIFilterFacets,
 } from '@faststore/ui'
+import { gql } from '@generated/gql'
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useFilter } from 'src/sdk/search/useFilter'
@@ -109,5 +110,38 @@ function FilterDesktop({
     </UIFilter>
   )
 }
+
+export const fragment = gql(`
+  fragment Filter_facets on StoreFacet {
+    ... on StoreFacetRange {
+      key
+      label
+
+      min {
+        selected
+        absolute
+      }
+
+      max {
+        selected
+        absolute
+      }
+
+      __typename
+    }
+    ... on StoreFacetBoolean {
+      key
+      label
+      values {
+        label
+        value
+        selected
+        quantity
+      }
+
+      __typename
+    }
+  }
+`)
 
 export default FilterDesktop
