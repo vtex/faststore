@@ -32,6 +32,7 @@ import useSuggestions from 'src/sdk/search/useSuggestions'
 import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
 
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import { NavbarProps } from 'src/components/sections/Navbar'
 
 const SearchDropdown = lazy(
   /* webpackChunkName: "SearchDropdown" */
@@ -50,6 +51,7 @@ export type SearchInputProps = {
   buttonTestId?: string
   containerStyle?: CSSProperties
   placeholder?: string
+  quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   sort?: string
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
@@ -74,12 +76,17 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       containerStyle,
       sort,
       placeholder,
+      quickOrderSettings,
       ...otherProps
     },
     ref
   ) {
     const { hidden } = otherProps
     const [searchQuery, setSearchQuery] = useState<string>('')
+    const [
+      customSearchDropdownVisibleCondition,
+      setCustomSearchDropdownVisibleCondition,
+    ] = useState<boolean>(false)
     const searchQueryDeferred = useDeferredValue(searchQuery)
     const [searchDropdownVisible, setSearchDropdownVisible] =
       useState<boolean>(false)
@@ -102,7 +109,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       setSearchQuery(term)
     }
 
-    useOnClickOutside(searchRef, () => setSearchDropdownVisible(false))
+    useOnClickOutside(searchRef, () =>
+      setSearchDropdownVisible(customSearchDropdownVisibleCondition ?? false)
+    )
 
     const { data, error } = useSuggestions(searchQueryDeferred)
     const terms = (data?.search.suggestions.terms ?? []).slice(
@@ -163,7 +172,13 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
             {searchDropdownVisible && (
               <Suspense fallback={null}>
-                <SearchDropdown sort={sort as SearchState['sort']} />
+                <SearchDropdown
+                  sort={sort as SearchState['sort']}
+                  quickOrderSettings={quickOrderSettings}
+                  onChangeCustomSearchDropdownVisible={
+                    setCustomSearchDropdownVisibleCondition
+                  }
+                />
               </Suspense>
             )}
           </UISearchInput>

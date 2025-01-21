@@ -7,12 +7,15 @@
     @import "@faststore/ui/src/components/atoms/Badge/styles.scss";
     @import "@faststore/ui/src/components/atoms/Button/styles.scss";
     @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Loader/styles.scss";
     @import "@faststore/ui/src/components/atoms/Input/styles.scss";
     @import "@faststore/ui/src/components/atoms/Link/styles.scss";
     @import "@faststore/ui/src/components/atoms/List/styles.scss";
     @import "@faststore/ui/src/components/atoms/Logo/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Overlay/styles.scss";
     @import "@faststore/ui/src/components/atoms/Price/styles.scss";
     @import "@faststore/ui/src/components/molecules/LinkButton/styles.scss";
+    @import "@faststore/ui/src/components/molecules/QuantitySelector/styles.scss";
     @import "@faststore/ui/src/components/molecules/NavbarLinks/styles.scss";
     @import "@faststore/ui/src/components/molecules/ProductPrice/styles.scss";
     @import "@faststore/ui/src/components/molecules/SearchAutoComplete/styles.scss";
@@ -21,14 +24,22 @@
     @import "@faststore/ui/src/components/molecules/SearchInputField/styles.scss";
     @import "@faststore/ui/src/components/molecules/SearchProducts/styles.scss";
     @import "@faststore/ui/src/components/molecules/SearchTop/styles.scss";
+    @import "@faststore/ui/src/components/molecules/SkuSelector/styles.scss";
+    @import "@faststore/ui/src/components/molecules/Table/styles.scss";
     @import "@faststore/ui/src/components/organisms/SearchInput/styles.scss";
     @import "@faststore/ui/src/components/organisms/Navbar/styles.scss";
+    @import "@faststore/ui/src/components/organisms/SlideOver/styles.scss";
+    @import "@faststore/ui/src/components/organisms/SKUMatrix/styles.scss";
 
     // Sets Navbar height on desktop to avoid CLS issue - Cumulative Layout Shift
     --fs-navbar-height-desktop: 4.5rem;
 
     @include media(">=notebook") {
       height: var(--fs-navbar-height-desktop);
+    }
+
+    &[data-fs-overlay] {
+      height: 100%;
     }
   }
 }
