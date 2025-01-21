@@ -1,8 +1,11 @@
+import { Dispatch, SetStateAction, useMemo, useState } from 'react'
 import {
   Button,
   SearchProductItem as UISearchProductItem,
   SearchProductItemContent as UISearchProductItemContent,
   SearchProductItemImage as UISearchProductItemImage,
+  SKUMatrix as UISKUMatrix,
+  SKUMatrixTrigger as UISKUMatrixTrigger,
   useSearch,
 } from '@faststore/ui'
 
@@ -11,8 +14,10 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
 import { sendAutocompleteClickEvent } from '../SearchDropdown'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
-import { useMemo, useState } from 'react'
+import { NavbarProps } from 'src/components/sections/Navbar'
+import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
+import styles from 'src/components/sections/Navbar/section.module.scss'
 
 type SearchProductItemProps = {
   /**
@@ -24,20 +29,28 @@ type SearchProductItemProps = {
    */
   index: number
   /**
-   * Enable Quick Order.
+   * Quick Order settings.
    */
-  quickOrder?: boolean
+  quickOrderSettings: NavbarProps['searchInput']['quickOrderSettings']
+  /**
+   * Method to manage the visibility state of the dropdown when SKU Matrix is active.
+   */
+  onChangeCustomSearchDropdownVisible: Dispatch<SetStateAction<boolean>>
 }
 
 function SearchProductItem({
   product,
   index,
-  quickOrder,
+  quickOrderSettings,
+  onChangeCustomSearchDropdownVisible,
   ...otherProps
 }: SearchProductItemProps) {
   const {
     values: { onSearchSelection },
   } = useSearch()
+
+  const { _experimentalSKUMatrixSidebar: UISKUMatrixSidebar } =
+    useOverrideComponents<'Navbar'>()
 
   const { href, onClick, ...baseLinkProps } = useProductLink({
     product,
@@ -137,15 +150,32 @@ function SearchProductItem({
           formatter: useFormattedPrice,
         }}
         quickOrder={{
-          enabled: quickOrder,
+          enabled: quickOrderSettings?.quickOrder,
           availability: !outOfStock,
           hasVariants,
           buyProps,
           quantity,
           onChangeQuantity: setQuantity,
-          // FIXME: Use SKU Matrix component
           skuMatrixControl: (
-            <Button variant="tertiary">Select Multiples</Button>
+            <>
+              {quickOrderSettings?.quickOrder && (
+                <UISKUMatrix>
+                  <UISKUMatrixTrigger>
+                    {quickOrderSettings?.skuMatrix.triggerButtonLabel}
+                  </UISKUMatrixTrigger>
+
+                  <UISKUMatrixSidebar.Component
+                    overlayProps={{ className: styles.section }}
+                    formatter={useFormattedPrice}
+                    columns={quickOrderSettings?.skuMatrix.columns}
+                    product={product}
+                    status={(status: string | null) =>
+                      onChangeCustomSearchDropdownVisible(status === 'visible')
+                    }
+                  />
+                </UISKUMatrix>
+              )}
+            </>
           ),
         }}
       ></UISearchProductItemContent>
