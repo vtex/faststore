@@ -1,4 +1,4 @@
-import type { GetStaticProps } from 'next'
+import type { GetServerSideProps } from 'next'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
@@ -26,6 +26,7 @@ import { getPage, SearchContentType } from 'src/server/cms'
 type Props = {
   page: SearchContentType
   globalSections: GlobalSectionsData
+  searchTerm: string
 }
 
 export interface SearchPageContextType {
@@ -54,13 +55,13 @@ const useSearchParams = ({
   }, [asPath, defaultSort])
 }
 
-function Page({ page: searchContentType, globalSections }: Props) {
+function Page({ page: searchContentType, globalSections, searchTerm }: Props) {
   const { settings } = searchContentType
   const applySearchState = useApplySearchState()
   const searchParams = useSearchParams({
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
   })
-
+  console.log({ searchTerm })
   const title = 'Search Results'
   const { description, titleTemplate } = storeConfig.seo
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
@@ -78,8 +79,8 @@ function Page({ page: searchContentType, globalSections }: Props) {
       {/* SEO */}
       <NextSeo
         noindex
-        title={title}
-        description={description}
+        title={`${searchTerm}`}
+        description={`${searchTerm}: em promoção que você procura? Na Americanas você encontra as melhores ofertas de produtos com entrega rápida. Vem!`}
         titleTemplate={titleTemplate}
         openGraph={{
           type: 'website',
@@ -114,11 +115,14 @@ function Page({ page: searchContentType, globalSections }: Props) {
   )
 }
 
-export const getStaticProps: GetStaticProps<
+export const getServerSideProps: GetServerSideProps<
   Props,
   Record<string, string>,
   Locator
-> = async ({ previewData }) => {
+> = async (context) => {
+  const { previewData, query } = context
+
+  const searchTerm = query.q as string
   const globalSections = await getGlobalSectionsData(previewData)
 
   if (storeConfig.cms.data) {
@@ -133,7 +137,7 @@ export const getStaticProps: GetStaticProps<
       })
 
       return {
-        props: { page: pageData, globalSections },
+        props: { page: pageData, globalSections, searchTerm },
       }
     }
   }
@@ -147,6 +151,7 @@ export const getStaticProps: GetStaticProps<
     props: {
       page,
       globalSections,
+      searchTerm,
     },
   }
 }
