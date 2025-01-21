@@ -108,6 +108,8 @@ export type {
 } from './molecules/Gift'
 export { default as InputField } from './molecules/InputField'
 export type { InputFieldProps } from './molecules/InputField'
+export { default as TextareaField } from './molecules/TextareaField'
+export type { TextareaFieldProps } from './molecules/TextareaField'
 export { default as LinkButton } from './molecules/LinkButton'
 export type { LinkButtonProps } from './molecules/LinkButton'
 export { default as Modal, ModalHeader, ModalBody } from './molecules/Modal'
