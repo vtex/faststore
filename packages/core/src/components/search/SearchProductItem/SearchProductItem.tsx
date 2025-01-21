@@ -33,7 +33,7 @@ type SearchProductItemProps = {
    */
   quickOrderSettings: NavbarProps['searchInput']['quickOrderSettings']
   /**
-   * TODO.
+   * Method to manage the visibility state of the dropdown when SKU Matrix is active.
    */
   onChangeCustomSearchDropdownVisible: Dispatch<SetStateAction<boolean>>
 }
