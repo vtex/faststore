@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'development' && !includeGTM) {
 
 function ThirdPartyScripts() {
   const forwards = []
-  if (includeVTEX) forwards.push('sendrc', 'vtexaf')
+  if (includeVTEX) forwards.push('sendrc')
 
   return (
     <>

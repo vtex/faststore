@@ -1,6 +1,6 @@
-import { lazy } from 'react'
 import {
   Button as UIButton,
+  Icon as UIIcon,
   LinkButton as UILinkButton,
   Skeleton as UISkeleton,
   Icon as UIIcon,
@@ -15,9 +15,28 @@ import FilterDesktop from 'src/components/search/Filter/FilterDesktop'
 import EmptyGallery from './EmptyGallery'
 import ProductComparisonSidebar from 'src/components/ui/ProductComparison'
 
-const FilterSlider = lazy(
-  () => import('src/components/search/Filter/FilterSlider')
+const ProductCard = dynamic(
+  () =>
+    /* webpackChunkName: "ProductCard" */
+    import('src/components/product/ProductCard')
 )
+const EmptyGallery = dynamic(
+  () =>
+    /* webpackChunkName: "EmptyGallery" */
+    import('./EmptyGallery')
+)
+
+const FilterDesktop = dynamic(
+  () =>
+    /* webpackChunkName: "FilterDesktop" */
+    import('src/components/search/Filter/FilterDesktop')
+)
+const FilterSlider = dynamic(
+  () =>
+    /* webpackChunkName: "FilterSlider" */
+    import('src/components/search/Filter/FilterSlider')
+)
+
 export const ProductGalleryDefaultComponents = {
   MobileFilterButton: UIButton,
   FilterIcon: UIIcon,

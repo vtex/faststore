@@ -19,18 +19,31 @@ function VTEX() {
         src="https://io.vtex.com.br/rc/rc.js"
       />
       <script
-        key="vtex-af.js-init"
-        type="text/partytown"
+        type="text/javascript"
+        key="vtexaf-init"
         dangerouslySetInnerHTML={{
-          __html: `f=window.vtexaf=window.vtexaf||function(){(f.q=f.q||[]).push(arguments)};f.l=+new Date`,
+          __html: `
+            (function(v,t,e,x,a,f,s){
+              f=v.vtexaf=v.vtexaf||function(){(f.q=f.q||[]).push(arguments)}
+              ;f.l=+new Date;s=t.createElement(e);s.async=!0;
+              s.src=x;a=t.getElementsByTagName(e)[0];
+              a.parentNode.insertBefore(s,a)
+            })(window,document,'script','https://activity-flow.vtex.com/af/af.js');
+          `,
         }}
       />
       <script
-        key="vtex-af.js-script"
-        type="text/partytown"
-        data-an={storeConfig.api.storeId}
-        async
-        src="https://activity-flow.vtex.com/af/af.js"
+        type="text/javascript"
+        key="vtexaf-config"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.vtexaf('init', {
+              account: '${storeConfig.api.storeId}',
+              env: '${storeConfig.api.environment}',
+              workspace: '${storeConfig.api.workspace}'
+            });
+          `,
+        }}
       />
     </>
   )

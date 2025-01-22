@@ -509,6 +509,7 @@ export type QuerySearchArgs = {
   first: Scalars['Int'];
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
+  sponsoredCount?: Maybe<Scalars['Int']>;
   term?: Maybe<Scalars['String']>;
 };
 
@@ -610,6 +611,8 @@ export type SkuVariants = {
   __typename?: 'SkuVariants';
   /** SKU property values for the current SKU. */
   activeVariations?: Maybe<Scalars['ActiveVariations']>;
+  /** All possible variant combinations of the current product. It also includes the data for each variant. */
+  allVariantProducts?: Maybe<Array<StoreProduct>>;
   /** All available options for each SKU variant property, indexed by their name. */
   allVariantProducts?: Maybe<Array<StoreProduct>>;
   /** All available options for each SKU variant property, indexed by their name. */

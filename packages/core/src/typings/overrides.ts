@@ -44,6 +44,9 @@ import type {
   ProductComparisonSidebarProps,
   ProductComparisonToolbarProps,
   ProductComparisonTriggerProps,
+  SKUMatrixProps,
+  SKUMatrixTriggerProps,
+  SKUMatrixSidebarProps,
 } from '@faststore/ui'
 
 import type {
@@ -86,10 +89,10 @@ export type SectionOverride = {
 export type OverrideComponentsForSection<
   Section extends SectionsOverrides[keyof SectionsOverrides]['Section']
 > = {
-    // The first 'extends' condition is used to filter out sections that don't have overrides (typed 'never')
-    [K in keyof SectionsOverrides as SectionsOverrides[K] extends {
-      Section: never
-    }
+// The first 'extends' condition is used to filter out sections that don't have overrides (typed 'never')
+[K in keyof SectionsOverrides as SectionsOverrides[K] extends {
+  Section: never
+}
     ? never
     : // In the second 'extends' condition, we check if the section matches the one we're looking for
     SectionsOverrides[K] extends {
@@ -274,12 +277,25 @@ export type SectionsOverrides = {
         ImageGalleryViewerProps,
         ImageGalleryViewerProps
       >
+      SKUMatrix: ComponentOverrideDefinition<SKUMatrixProps, SKUMatrixProps>
+      SKUMatrixTrigger: ComponentOverrideDefinition<
+        SKUMatrixTriggerProps,
+        SKUMatrixTriggerProps
+      >
+      SKUMatrixSidebar: ComponentOverrideDefinition<
+        SKUMatrixSidebarProps,
+        SKUMatrixSidebarProps
+      >
       __experimentalImageGalleryImage: ComponentOverrideDefinition<any, any>
       __experimentalImageGallery: ComponentOverrideDefinition<any, any>
       __experimentalShippingSimulation: ComponentOverrideDefinition<any, any>
       __experimentalNotAvailableButton: ComponentOverrideDefinition<any, any>
       __experimentalProductDescription: ComponentOverrideDefinition<any, any>
-      __experimentalProductDetailsSettings: ComponentOverrideDefinition<any, any>
+      __experimentalSKUMatrixSidebar: ComponentOverrideDefinition<any, any>
+      __experimentalProductDetailsSettings: ComponentOverrideDefinition<
+        any,
+        any
+      >
     }
   }
   ProductGallery: {

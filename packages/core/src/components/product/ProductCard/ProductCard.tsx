@@ -52,7 +52,7 @@ export interface ProductCardProps {
    */
   showDiscountBadge?: boolean
   /**
-   * Define taxes configuration, if taxes should be considered
+   * Define taxes configuration, if taxes should be considered.
    */
   taxesConfiguration?: {
     usePriceWithTaxes?: boolean
