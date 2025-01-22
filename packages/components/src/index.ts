@@ -144,6 +144,8 @@ export { default as Rating } from './molecules/Rating'
 export type { RatingProps } from './molecules/Rating'
 export { default as RegionBar } from './molecules/RegionBar'
 export type { RegionBarProps } from './molecules/RegionBar'
+export { default as Tooltip } from './molecules/Tooltip'
+export type { TooltipProps } from './molecules/Tooltip'
 
 export { default as SearchProvider } from './molecules/SearchProvider'
 export type { SearchProviderContextValue } from './molecules/SearchProvider'
