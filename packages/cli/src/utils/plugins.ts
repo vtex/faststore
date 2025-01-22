@@ -267,27 +267,6 @@ export async function addPluginsOverrides(basePath: string, plugins: Plugin[]) {
     })
 }
 
-export const generateThemeIndexPluginsContent = async (
-  basePath: string,
-  ...customImports: string[]
-) => {
-  const { getPackagePath } = withBasePath(basePath)
-
-  const plugins = await getPluginsList(basePath)
-
-  const pluginImports = plugins
-    .filter((plugin) =>
-      existsSync(
-        getPackagePath(getPluginName(plugin), 'src', 'themes', 'index.scss')
-      )
-    )
-    .map(
-      (plugin) => `@import "${getPluginName(plugin)}/src/themes/index.scss";`
-    )
-
-  return [...pluginImports, ...customImports].join('\n')
-}
-
 const addPluginsTheme = async (basePath: string, plugins: Plugin[]) => {
   const { getPackagePath, tmpThemesPluginsFile } = withBasePath(basePath)
 
