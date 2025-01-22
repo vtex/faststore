@@ -12,6 +12,5 @@ export type {
   SlideDirection,
 } from './useSlider'
 export { useSlideVisibility } from './useSlideVisibility'
-export { useProductComparison } from './useProductComparison'
 
 
