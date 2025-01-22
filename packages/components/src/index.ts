@@ -148,6 +148,8 @@ export { default as RatingField } from './molecules/RatingField'
 export type { RatingFieldProps } from './molecules/RatingField'
 export { default as RegionBar } from './molecules/RegionBar'
 export type { RegionBarProps } from './molecules/RegionBar'
+export { default as Tooltip } from './molecules/Tooltip'
+export type { TooltipProps } from './molecules/Tooltip'
 
 export { default as SearchProvider } from './molecules/SearchProvider'
 export type { SearchProviderContextValue } from './molecules/SearchProvider'
