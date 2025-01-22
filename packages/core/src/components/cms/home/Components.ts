@@ -6,6 +6,7 @@ import Incentives from 'src/components/sections/Incentives'
 import { default as GLOBAL_COMPONENTS } from '../global/Components'
 
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import PLUGINS_COMPONENTS from 'src/plugins'
 
 const BannerText = dynamic(
   () =>
@@ -48,6 +49,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   Newsletter,
   ProductShelf,
   ProductTiles,
+  ...PLUGINS_COMPONENTS,
   ...CUSTOM_COMPONENTS,
 }
 

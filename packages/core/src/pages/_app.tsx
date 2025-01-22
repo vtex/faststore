@@ -7,6 +7,7 @@ import SEO from '../../next-seo.config'
 
 // FastStore UI's base styles
 import '../styles/global/index.scss'
+import '../plugins/index.scss'
 import '../customizations/src/themes/index.scss'
 
 import { DefaultSeo } from 'next-seo'
