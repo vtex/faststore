@@ -26,16 +26,20 @@ export type SearchWrapperProps = {
   itemsPerPage: number
   searchContentType: SearchContentType
   serverData: SearchPageContextType
+  globalSections?: Array<{ name: string; data: any }>
 }
 
 export default function SearchWrapper({
   itemsPerPage,
   searchContentType,
   serverData,
+  globalSections,
 }: SearchWrapperProps) {
   const router = useRouter()
   const {
     state: { term, sort, selectedFacets },
+    pages,
+    resetInfiniteScroll,
   } = useSearch()
 
   const { data: pageProductGalleryData, isValidating } = useProductGalleryQuery(
@@ -60,10 +64,22 @@ export default function SearchWrapper({
     return <EmptySearch />
   }
 
+  const productGalleryProducts = pageProductGalleryData?.search?.products
+  const stateTotalPages = pages.length
+  const searchTotalPages = Math.ceil(
+    productGalleryProducts?.pageInfo?.totalCount / itemsPerPage
+  )
+
+  // if the total pages is less than the current state total pages, reset the infinite scroll
+  if (searchTotalPages > 0 && searchTotalPages < stateTotalPages) {
+    resetInfiniteScroll(0)
+  }
+
   return (
     <SearchPage
       page={searchContentType}
       data={{ ...serverData, ...pageProductGalleryData }}
+      globalSections={globalSections}
     />
   )
 }

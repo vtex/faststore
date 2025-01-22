@@ -1,20 +1,14 @@
 import { useSearch } from '@faststore/sdk'
 import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
 import deepmerge from 'deepmerge'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import { OverriddenDefaultBannerText as BannerText } from 'src/components/sections/BannerText/OverriddenDefaultBannerText'
-import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
-import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
-import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
-import { OverriddenDefaultProductGallery as ProductGallery } from 'src/components/sections/ProductGallery/OverriddenDefaultProductGallery'
-import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
-import ScrollToTopButton from 'src/components/sections/ScrollToTopButton'
 import { ITEMS_PER_PAGE } from 'src/constants'
 
-import type { ComponentType } from 'react'
-import RenderSections from 'src/components/cms/RenderSections'
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import dynamic from 'next/dynamic'
+import COMPONENTS from 'src/components/cms/plp/Components'
+
+import RenderSections, {
+  LazyLoadingSection,
+} from 'src/components/cms/RenderSections'
 import { PLPContentType } from 'src/server/cms/plp'
 
 import PageProvider, { PLPContext } from 'src/sdk/overrides/PageProvider'
@@ -24,25 +18,18 @@ import {
 } from 'src/sdk/product/usePageProductsQuery'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 
+const ScrollToTopButton = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: "ScrollToTopButton" */
+      'src/components/sections/ScrollToTopButton'
+    )
+)
+
 export type ProductListingPageProps = {
   data: ServerCollectionPageQueryQuery
   page: PLPContentType
-}
-
-/**
- * Sections: Components imported from each store's custom components and '../components/sections' only.
- * Do not import or render components from any other folder in here.
- */
-const COMPONENTS: Record<string, ComponentType<any>> = {
-  Breadcrumb,
-  BannerText,
-  BannerNewsletter,
-  Hero,
-  Newsletter,
-  ProductGallery,
-  ProductShelf,
-  ProductTiles,
-  ...CUSTOM_COMPONENTS,
+  globalSections?: Array<{ name: string; data: any }>
 }
 
 // Array merging strategy from deepmerge that makes client arrays overwrite server array
@@ -52,6 +39,7 @@ const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 export default function ProductListing({
   page: { sections, settings },
   data: server,
+  globalSections,
 }: ProductListingPageProps) {
   const {
     state: { sort, term, selectedFacets },
@@ -93,11 +81,17 @@ export default function ProductListing({
       */}
       <PageProvider context={context}>
         <UseGalleryPageContext.Provider value={useGalleryPage}>
-          <RenderSections sections={sections} components={COMPONENTS} />
+          <RenderSections
+            sections={sections}
+            globalSections={globalSections}
+            components={COMPONENTS}
+          >
+            <LazyLoadingSection sectionName="ScrollToTopButton">
+              <ScrollToTopButton />
+            </LazyLoadingSection>
+          </RenderSections>
         </UseGalleryPageContext.Provider>
       </PageProvider>
-
-      <ScrollToTopButton />
     </>
   )
 }

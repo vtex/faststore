@@ -16,11 +16,11 @@ This starter ships the main FastStore configuration files to get your store up a
 
 > PS: you can install dependencies using the package manager of your choosing. In this guide, we'll be using `yarn` as an example.
 
-   Install dependencies with yarn
+Install dependencies with yarn
 
-   ```shell
-   yarn
-   ```
+```shell
+yarn
+```
 
 2. **Start developing**
 
@@ -67,7 +67,6 @@ A quick look at the top-level files and directories you'll see in a this NextJS 
     ├── tsconfig.json
     ├── postcss.config.js
     ├── postinstall.js
-    ├── pull_request_template.md
     ├── README.md
     ├── stylelint.config.js
     ├── tsconfig.json
@@ -97,11 +96,9 @@ A quick look at the top-level files and directories you'll see in a this NextJS 
 
 12. **`lighthouserc.js`**: Configures [Google Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci). This is where you can turn on/off lighthouse assertions to be used by Lighthouse CI Bot/hook
 
-13. **`pull_request_template.md`**: Template used when creating your Pull Requests
+13. **`.prettierignore`**: Ignore listed files when applying prettier rules
 
-14. **`.prettierignore`**: Ignore listed files when applying prettier rules
-
-15. **`.eslintignore`**: Ignore listed files when applying eslint rules
+14. **`.eslintignore`**: Ignore listed files when applying eslint rules
 
 ## 💻 Code Structure
 

@@ -11,21 +11,21 @@ const BannerText = dynamic(
   () =>
     import(
       /* webpackChunkName: "BannerText" */ 'src/components/sections/BannerText/OverriddenDefaultBannerText'
-    ).then((mod) => ({ default: mod.OverriddenDefaultBannerText })),
+    ).then((mod) => mod.OverriddenDefaultBannerText),
   { ssr: false }
 )
 const Newsletter = dynamic(
   () =>
     import(
       /* webpackChunkName: "Newsletter" */ 'src/components/sections/Newsletter/OverriddenDefaultNewsletter'
-    ).then((mod) => ({ default: mod.OverriddenDefaultNewsletter })),
+    ).then((mod) => mod.OverriddenDefaultNewsletter),
   { ssr: false }
 )
 const ProductShelf = dynamic(
   () =>
     import(
       /* webpackChunkName: "ProductShelf" */ 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
-    ).then((mod) => ({ default: mod.OverriddenDefaultProductShelf })),
+    ).then((mod) => mod.OverriddenDefaultProductShelf),
   { ssr: false }
 )
 const ProductTiles = dynamic(
@@ -36,6 +36,10 @@ const ProductTiles = dynamic(
   { ssr: false }
 )
 
+/**
+ * Sections: Components imported from each store's custom components and '../components/sections' only.
+ * Do not import or render components from any other folder in here.
+ */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
   Hero,
