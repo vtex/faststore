@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.9.0 (2025-01-22)
+
+### Features
+
+- Adds Plugins feature ([#2563](https://github.com/vtex/faststore/issues/2563)) ([83c1bf9](https://github.com/vtex/faststore/commit/83c1bf904f744842060e0dfdb7449406800df157))
+
 # [3.8.0](https://github.com/vtex/faststore/compare/v3.7.0...v3.8.0) (2025-01-15)
 
 **Note:** Version bump only for package @faststore/cli
