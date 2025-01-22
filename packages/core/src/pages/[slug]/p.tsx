@@ -3,6 +3,7 @@ import type { Locator } from '@vtex/client-cms'
 import deepmerge from 'deepmerge'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
+import Head from 'next/head'
 import type { ComponentType } from 'react'
 
 import { gql } from '@generated'
@@ -31,8 +32,8 @@ import {
   GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
-import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import { PDPContentType, getPDP } from 'src/server/cms/pdp'
 
 /**
@@ -73,20 +74,27 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   const { currency } = useSession()
   const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
 
-  // Stale while revalidate the product for fetching the new price etc
-  const { data: client, isValidating } = useProductQuery(product.id, {
-    product: product,
-  })
+  const offer = useOffer({ skuId: product.sku })
+  const client = { product: { offers: offer.offers } }
 
   const context = {
     data: {
       ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
-      isValidating,
+      isValidating: offer.isValidating,
     },
   } as PDPContext
 
   return (
     <>
+      <Head>
+        <link
+          rel="preload"
+          href={getOfferUrl(product.sku)}
+          as="fetch"
+          crossOrigin="anonymous"
+          fetchPriority="high"
+        />
+      </Head>
       {/* SEO */}
       <NextSeo
         title={meta.title}
@@ -271,6 +279,7 @@ export const getStaticProps: GetStaticProps<
       globalSections,
       key: seo.canonical,
     },
+    revalidate: storeConfig.experimental.revalidate,
   }
 }
 
