@@ -30,6 +30,13 @@
   }
 
   [data-fs-rating-button] {
+    &[disabled] {
+      [data-fs-button-wrapper] {
+        background: transparent !important;
+        opacity: 0.5;
+      }
+    }
+
     color: unset;
     &[data-fs-button-variant='tertiary']:hover,
     &[data-fs-button-variant='tertiary']:focus,
