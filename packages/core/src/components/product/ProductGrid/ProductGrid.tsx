@@ -35,6 +35,8 @@ interface Props {
    * Determine if the current page is the first page.
    */
   firstPage?: number
+  shouldShowComparison?: boolean
+  compareLabel?: string
 }
 
 function ProductGrid({
@@ -48,6 +50,8 @@ function ProductGrid({
     sponsoredLabel,
   } = {},
   firstPage,
+  shouldShowComparison,
+  compareLabel,
 }: Props) {
   const { isMobile } = useScreenResize()
   const { __experimentalProductCard: ProductCard } =
@@ -68,6 +72,8 @@ function ProductGrid({
             {products.slice(0, 2).map(({ node: product }, idx) => (
               <UIProductGridItem key={`${product.id}`}>
                 <ProductCard.Component
+                  enableCompareCheckboxOnDisplay={shouldShowComparison}
+                  compareLabel={compareLabel}
                   aspectRatio={aspectRatio}
                   imgProps={{
                     width: 150,
@@ -91,6 +97,8 @@ function ProductGrid({
               {products.slice(2).map(({ node: product }, idx) => (
                 <UIProductGridItem key={`${product.id}`}>
                   <ProductCard.Component
+                    enableCompareCheckboxOnDisplay={shouldShowComparison}
+                    compareLabel={compareLabel}
                     aspectRatio={aspectRatio}
                     imgProps={{
                       width: 150,
@@ -117,6 +125,8 @@ function ProductGrid({
             {products.map(({ node: product }, idx) => (
               <UIProductGridItem key={`${product.id}`}>
                 <ProductCard.Component
+                  enableCompareCheckboxOnDisplay={shouldShowComparison}
+                  compareLabel={compareLabel}
                   aspectRatio={aspectRatio}
                   imgProps={{
                     width: 150,

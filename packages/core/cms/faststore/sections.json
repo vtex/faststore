@@ -1920,6 +1920,54 @@
               }
             }
           }
+        },
+        "productComparison": {
+          "title": "Product Comparison",
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "title": "Enable Product Comparison",
+              "type": "boolean",
+              "default": false
+            },
+            "labels": {
+              "title": "Labels",
+              "type": "object",
+              "properties": {
+                "compareButton": {
+                  "title": "Compare Button",
+                  "type": "string",
+                  "default": "Compare"
+                },
+                "clearSelectionButton": {
+                  "title": "Clear Selection Button",
+                  "type": "string",
+                  "default": "Clear Selection"
+                },
+                "selectionWarning": {
+                  "title": "Selection Warning",
+                  "type": "string",
+                  "default": "Select at least"
+                },
+                "technicalInformation": {
+                  "title": "Technical Information",
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "title": "Title",
+                      "type": "string",
+                      "default": "Technical Information"
+                    },
+                    "description": {
+                      "title": "Description",
+                      "type": "string",
+                      "default": "Technical facts and information about the product."
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
