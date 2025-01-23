@@ -61,7 +61,7 @@ function Page({ page: searchContentType, globalSections, searchTerm }: Props) {
   const searchParams = useSearchParams({
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
   })
-  console.log({ searchTerm })
+
   const title = 'Search Results'
   const { description, titleTemplate } = storeConfig.seo
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
@@ -120,9 +120,10 @@ export const getServerSideProps: GetServerSideProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const { previewData, query } = context
+  const { previewData, query, res } = context
 
-  const searchTerm = query.q as string
+  const searchTerm = (query.q as string)?.split('+').join(' ')
+
   const globalSections = await getGlobalSectionsData(previewData)
 
   if (storeConfig.cms.data) {
@@ -146,6 +147,11 @@ export const getServerSideProps: GetServerSideProps<
     ...(previewData?.contentType === 'search' ? previewData : null),
     contentType: 'search',
   })
+
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=300, stale-while-revalidate=31536000'
+  ) // 5 minutes of fresh content and 1 year of stale content
 
   return {
     props: {
