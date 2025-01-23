@@ -1,6 +1,6 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
-import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
+import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
 import RenderSections from 'src/components/cms/RenderSections'
 import type { PageContentType } from 'src/server/cms'
@@ -59,6 +59,19 @@ function Page({
           },
         ]}
         {...(publisherId && { publisher: { '@id': publisherId } })}
+      />
+
+      <OrganizationJsonLd
+        type="Organization"
+        id="https://www.purpule-fox.io/#corporation"
+        logo="https://www.example.com/photos/logo.jpg"
+        legalName="GO - Companhia FastStore"
+        name="FastStore"
+        email="sac@faststore.com"
+        telephone="4003-2000"
+        sameAs={['https://www.facebook.com/faststore']}
+        url="https://www.vtexfaststore.com"
+        image="#logo"
       />
 
       {/*
