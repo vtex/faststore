@@ -26,7 +26,7 @@ type SkuVariants {
   availableVariations(dominantVariantName: String): FormattedVariants
 
   """
-  All available options for each SKU variant property, indexed by their name.
+  All possible variant combinations of the current product. It also includes the data for each variant.
   """
   allVariantProducts: [StoreProduct!]
 }
