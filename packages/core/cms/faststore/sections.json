@@ -2214,7 +2214,8 @@
             },
             "alt": {
               "title": "Alternative Label",
-              "type": "string"
+              "type": "string",
+              "default": "Seal Warning icon"
             }
           }
         },
