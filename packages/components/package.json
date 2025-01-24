@@ -1,55 +1,49 @@
 {
-  "name": "@faststore/components",
-  "version": "3.9.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "typings": "dist/esm/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js",
-      "types": "./dist/esm/index.d.ts",
-      "default": "./dist/esm/index.js"
-    }
-  },
-  "author": "Emerson Laurentino @emersonlaurentino",
-  "license": "MIT",
-  "scripts": {
-    "dev": "tsc --watch",
-    "build": "tsc --module commonjs --outDir dist/cjs && tsc --module esnext --outDir dist/esm",
-    "lint": "eslint src/**/*.{ts,tsx}",
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vtex/faststore",
-    "directory": "packages/components"
-  },
-  "sideEffects": false,
-  "files": [
-    "dist",
-    "src"
-  ],
-  "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@faststore/eslint-config": "^3.9.0",
-    "@faststore/shared": "^3.9.0",
-    "@testing-library/jest-dom": "^6.5.0",
-    "@testing-library/react": "^14.3.0",
-    "@types/jest-axe": "^3.5.9",
-    "@types/react": "^18.2.42",
-    "@types/react-dom": "^18.2.17",
-    "eslint": "7.32.0",
-    "jest": "^29.7.0",
-    "jest-axe": "^9.0.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "ts-jest": "^29.1.2",
-    "typescript": "^4.8.4"
-  },
-  "volta": {
-    "extends": "../../package.json"
-  }
+	"name": "@faststore/components",
+	"version": "3.9.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"typings": "dist/esm/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/esm/index.js",
+			"require": "./dist/cjs/index.js",
+			"types": "./dist/esm/index.d.ts",
+			"default": "./dist/esm/index.js"
+		}
+	},
+	"author": "Emerson Laurentino @emersonlaurentino",
+	"license": "MIT",
+	"scripts": {
+		"dev": "tsc --watch",
+		"build": "tsc --module commonjs --outDir dist/cjs && tsc --module esnext --outDir dist/esm",
+		"test": "jest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/vtex/faststore",
+		"directory": "packages/components"
+	},
+	"sideEffects": false,
+	"files": ["dist", "src"],
+	"peerDependencies": {
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@faststore/shared": "^3.9.0",
+		"@testing-library/jest-dom": "^6.5.0",
+		"@testing-library/react": "^14.3.0",
+		"@types/jest-axe": "^3.5.9",
+		"@types/react": "^18.2.42",
+		"@types/react-dom": "^18.2.17",
+		"jest": "^29.7.0",
+		"jest-axe": "^9.0.0",
+		"jest-environment-jsdom": "^29.7.0",
+		"ts-jest": "^29.1.2",
+		"typescript": "^4.8.4"
+	},
+	"volta": {
+		"extends": "../../package.json"
+	}
 }
