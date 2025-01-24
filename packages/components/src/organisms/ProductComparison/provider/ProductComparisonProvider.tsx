@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useState } from 'react'
+import React, { createContext, ReactNode, useCallback, useState } from 'react'
 
 export interface IProductComparison {
   slug: string
@@ -86,7 +86,7 @@ function ProductComparisonProvider({ children }: { children: ReactNode }) {
   const [products, setProducts] = useState<IProductComparison[]>([])
   const [isOpen, setIsOpen] = useState(false)
 
-  function handleProductsIds(product: IProductComparison) {
+  const handleProductsIds = useCallback((product: IProductComparison) => {
     setProductIds((prev) => {
       if (prev.includes(product?.id)) {
         return prev.filter((id) => id !== product.id)
@@ -100,7 +100,7 @@ function ProductComparisonProvider({ children }: { children: ReactNode }) {
       }
       return [...prev, product]
     })
-  }
+  }, [])
 
   function handleProductsComparison(products: IProductComparison[]) {
     const productSelectedWithFullData = products.map((product) => {

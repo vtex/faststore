@@ -45,9 +45,19 @@ export interface ProductComparisonSidebarProps
    */
   sortOptions?: SortOptions[]
   /**
-   * Callback to buy a product.
+   * Properties related to the 'add to cart' button
    */
-  onBuyProduct: (e: React.MouseEvent<HTMLButtonElement>) => void
+  buyProps: {
+    'data-testid': string
+    'data-sku': string
+    'data-seller': string
+    onClick(e: React.MouseEvent<HTMLButtonElement>): void
+  }
+  /**
+   * Function to handle the product to buy.
+  */
+  handleProductToBuy: (productId: string) => void
+
 }
 
 function ProductComparisonSidebar({
@@ -57,7 +67,8 @@ function ProductComparisonSidebar({
   formatter,
   overlayProps,
   sortOptions,
-  onBuyProduct,
+  buyProps: {onClick},
+  handleProductToBuy,
   ...otherProps
 }: ProductComparisonSidebarProps) {
   const { fade } = useFadeEffect()
@@ -68,6 +79,13 @@ function ProductComparisonSidebar({
     useState<SortOptions['value']>('productByName')
   const [showOnlyDifferences, setShowOnlyDifferences] = useState(false)
   const [productsSpecs, setProductsSpecs] = useState<string[]>([])
+  const [differenceSpecs, setDifferenceSpecs] = useState<string[]>([])
+
+  const handleClickAddCart = (event: React.MouseEvent<HTMLButtonElement>, product: IProductComparison ) => {
+    event.preventDefault()
+    handleProductToBuy(product.id)
+    onClick(event)
+  }
 
   const productSorted = useMemo(
     () =>
@@ -76,6 +94,13 @@ function ProductComparisonSidebar({
         ?.function(products) ?? products,
     [selectedFilter, products]
   )
+
+  useEffect(() => {
+    const firstProduct = products[0]
+
+    setProductsSpecs(getAllSpecifications(firstProduct))
+    setDifferenceSpecs(getDifferences(firstProduct, productSorted))
+  }, [showOnlyDifferences, productSorted, products])
 
   useEffect(() => {
     if (isOpen) {
@@ -90,16 +115,6 @@ function ProductComparisonSidebar({
       document.body.style.overflow = ''
     }
   }, [isOpen])
-
-  useEffect(() => {
-    const firstProduct = products[0]
-
-    if (!showOnlyDifferences) {
-      setProductsSpecs(getAllSpecifications(firstProduct))
-    } else {
-      setProductsSpecs(getDifferences(firstProduct, productSorted))
-    }
-  }, [showOnlyDifferences])
 
   const options = useMemo(
     () =>
@@ -154,8 +169,6 @@ function ProductComparisonSidebar({
         <TableHead>
           <TableRow>
             {products.map((product) => {
-              // const { handleBuy } = onBuyProduct(product)
-
               const highestListPrice = Math.max(
                 ...product.offers.offers.map((offer) => offer.listPrice)
               )
@@ -209,7 +222,7 @@ function ProductComparisonSidebar({
                   <Button
                     variant="tertiary"
                     size="small"
-                    onClick={onBuyProduct}
+                    onClick={(event) => handleClickAddCart(event, product)}
                   >
                     Add to Cart
                   </Button>
@@ -240,22 +253,39 @@ function ProductComparisonSidebar({
             ))}
           </TableRow>
 
-          {productsSpecs?.map((spec) => (
-            <TableRow key={spec}>
-              {productSorted.map((product) => (
-                <TableCell key={product.id}>
-                  <h3>{spec}</h3>
-                  <p>
-                    {product.additionalProperty.find(
-                      (property) =>
-                        property.name === spec &&
-                        property.valueReference === SPECIFICATION
-                    )?.value || '-'}
-                  </p>
-                </TableCell>
+          {showOnlyDifferences
+            ? differenceSpecs?.map((spec) => (
+                <TableRow key={spec}>
+                  {productSorted.map((product) => (
+                    <TableCell key={product.id}>
+                      <h3>{spec}</h3>
+                      <p>
+                        {product.additionalProperty.find(
+                          (property) =>
+                            property.name === spec &&
+                            property.valueReference === SPECIFICATION
+                        )?.value || '-'}
+                      </p>
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            : productsSpecs?.map((spec) => (
+                <TableRow key={spec}>
+                  {productSorted.map((product) => (
+                    <TableCell key={product.id}>
+                      <h3>{spec}</h3>
+                      <p>
+                        {product.additionalProperty.find(
+                          (property) =>
+                            property.name === spec &&
+                            property.valueReference === SPECIFICATION
+                        )?.value || '-'}
+                      </p>
+                    </TableCell>
+                  ))}
+                </TableRow>
               ))}
-            </TableRow>
-          ))}
         </TableBody>
       </Table>
     </SlideOver>
