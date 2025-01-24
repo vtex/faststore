@@ -30,9 +30,9 @@ import { SearchProviderContextValue } from '@faststore/ui'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
+import { NavbarProps } from 'src/components/sections/Navbar'
 
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
-import { NavbarProps } from 'src/components/sections/Navbar'
 
 const SearchDropdown = lazy(
   /* webpackChunkName: "SearchDropdown" */
