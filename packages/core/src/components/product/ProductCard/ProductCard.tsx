@@ -58,7 +58,17 @@ export interface ProductCardProps {
     usePriceWithTaxes?: boolean
     taxesLabel?: string
   }
+  /**
+   * Specifies the sponsored label, if advertisement is applicable.
+   */
+  sponsoredLabel?: string
+  /**
+   * Enable the compare checkbox on display.
+   */
   enableCompareCheckboxOnDisplay?: boolean
+  /**
+   * Label for the compare checkbox.
+   */
   compareLabel?: string
 }
 
