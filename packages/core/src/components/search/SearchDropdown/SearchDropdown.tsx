@@ -17,10 +17,11 @@ import type {
   IntelligentSearchAutocompleteClickEvent,
   IntelligentSearchAutocompleteClickParams,
 } from 'src/sdk/analytics/types'
+import { NavbarProps } from 'src/components/sections/Navbar'
 
 interface SearchDropdownProps {
   sort: SearchState['sort']
-  quickOrder?: boolean
+  quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   [key: string]: any
 }
 
@@ -40,7 +41,7 @@ export function sendAutocompleteClickEvent({
 
 function SearchDropdown({
   sort,
-  quickOrder,
+  quickOrderSettings,
   ...otherProps
 }: SearchDropdownProps) {
   const {
@@ -84,7 +85,7 @@ function SearchDropdown({
               key={productParsed.id}
               product={productParsed}
               index={index}
-              quickOrder={quickOrder}
+              quickOrderSettings={quickOrderSettings}
             />
           )
         })}
