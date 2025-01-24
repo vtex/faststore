@@ -102,5 +102,6 @@ module.exports = {
     noRobots: false,
     preact: false,
     enableRedirects: false,
+    enableSearchSSR: true,
   },
 }
