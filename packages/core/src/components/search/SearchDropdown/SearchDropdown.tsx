@@ -13,16 +13,17 @@ import { SearchState } from '@faststore/sdk'
 import { ProductSummary_ProductFragment } from '@generated/graphql'
 import SearchProductItem from 'src/components/search/SearchProductItem'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import { NavbarProps } from 'src/components/sections/Navbar'
 
 interface SearchDropdownProps {
   sort: SearchState['sort']
-  quickOrder?: boolean
+  quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   [key: string]: any
 }
 
 function SearchDropdown({
   sort,
-  quickOrder,
+  quickOrderSettings,
   ...otherProps
 }: SearchDropdownProps) {
   const {
@@ -64,7 +65,7 @@ function SearchDropdown({
               key={productParsed.id}
               product={productParsed}
               index={index}
-              quickOrder={quickOrder}
+              quickOrderSettings={quickOrderSettings}
             />
           )
         })}
