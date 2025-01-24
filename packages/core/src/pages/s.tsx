@@ -26,7 +26,7 @@ import { getPage, SearchContentType } from 'src/server/cms'
 type Props = {
   page: SearchContentType
   globalSections: GlobalSectionsData
-  searchTerm: string
+  searchTerm?: string
 }
 
 export interface SearchPageContextType {
@@ -70,6 +70,14 @@ function Page({ page: searchContentType, globalSections, searchTerm }: Props) {
     return null
   }
 
+  const isSSREnabled = storeConfig.experimental.enableSearchSSR
+
+  const currentSearchTerm = isSSREnabled ? searchTerm : searchParams.term
+  const currentTitle = isSSREnabled ? searchTerm : title
+  const currentDescription = isSSREnabled
+    ? `${searchTerm}: em promoção que você procura? Na Americanas você encontra as melhores ofertas de produtos com entrega rápida. Vem!`
+    : description
+
   return (
     <SearchProvider
       onChange={applySearchState}
@@ -79,17 +87,17 @@ function Page({ page: searchContentType, globalSections, searchTerm }: Props) {
       {/* SEO */}
       <NextSeo
         noindex
-        title={`${searchTerm}`}
-        description={`${searchTerm}: em promoção que você procura? Na Americanas você encontra as melhores ofertas de produtos com entrega rápida. Vem!`}
+        title={currentTitle}
+        description={currentDescription}
         titleTemplate={titleTemplate}
         openGraph={{
           type: 'website',
-          title,
-          description,
+          title: currentTitle,
+          description: currentDescription,
         }}
       />
 
-      <UISROnly text={title} />
+      <UISROnly text={currentTitle} />
 
       {/*
           WARNING: Do not import or render components from any
@@ -107,7 +115,7 @@ function Page({ page: searchContentType, globalSections, searchTerm }: Props) {
         searchContentType={searchContentType}
         serverData={{
           title,
-          searchTerm: searchParams.term ?? undefined,
+          searchTerm: currentSearchTerm ?? undefined,
         }}
         globalSections={globalSections.sections}
       />
