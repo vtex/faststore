@@ -32,6 +32,15 @@ export type PageContentType = ContentData & {
       canonical?: string
       name?: string
       publisherId?: string
+      organization: {
+        url?: string
+        sameAs?: string[]
+        logo?: string
+        name: string
+        legalName?: string
+        email?: string
+        telephone?: string
+      }
     }
   }
 }

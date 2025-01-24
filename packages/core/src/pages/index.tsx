@@ -63,13 +63,29 @@ function Page({
 
       <OrganizationJsonLd
         type="Organization"
-        url={storeConfig.seo.organization.url}
-        sameAs={storeConfig.seo.organization.sameAs}
-        logo={storeConfig.seo.organization.logo}
-        name={storeConfig.seo.organization.name}
-        legalName={storeConfig.seo.organization.legalName}
-        email={storeConfig.seo.organization.email}
-        telephone={storeConfig.seo.organization.telephone}
+        url={settings?.seo?.organization?.url ?? storeConfig.storeUrl}
+        sameAs={
+          settings?.seo?.organization?.sameAs ??
+          storeConfig.seo.organization.sameAs
+        }
+        logo={
+          settings?.seo?.organization?.logo ?? storeConfig.seo.organization.logo
+        }
+        name={
+          settings?.seo?.organization?.name ?? storeConfig.seo.organization.name
+        }
+        legalName={
+          settings?.seo?.organization?.legalName ??
+          storeConfig.seo.organization.legalName
+        }
+        email={
+          settings?.seo?.organization?.email ??
+          storeConfig.seo.organization.email
+        }
+        telephone={
+          settings?.seo?.organization?.telephone ??
+          storeConfig.seo.organization.telephone
+        }
       />
 
       {/*
