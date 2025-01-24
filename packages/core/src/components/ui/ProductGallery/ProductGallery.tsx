@@ -127,7 +127,6 @@ function ProductGallery({
   const [showComparisonProducts, setShowComparisonProducts] =
     useState<boolean>(false)
   useProductsPrefetch(prev ? prev.cursor : null)
-  useProductsPrefetch(next ? next.cursor : null)
 
   const hasFacetsLoaded = Boolean(data?.search?.facets)
   const hasProductsLoaded = Boolean(data?.search?.products)

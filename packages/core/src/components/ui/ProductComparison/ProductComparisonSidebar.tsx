@@ -9,7 +9,7 @@ import {
 import { gql } from '@generated/gql'
 import { ClientManyProductsSelectedQueryQuery } from '@generated/graphql'
 
-// import { useBuyButton } from 'src/sdk/cart/useBuyButton'
+import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { useProductsSelected } from 'src/sdk/product/useProductsSelected'
 
 const sortOptions = [
@@ -33,8 +33,11 @@ interface ProductComparisonSidebarProps
   extends UIProductComparisonSidebarProps {}
 
 function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
-  const { productIds, isOpen, handleProductsComparison } =
+  const { productIds, products, isOpen, handleProductsComparison } =
     useProductComparison()
+  const [productIdToBuy, setProductIdToBuy] = React.useState<string | null>(
+    null
+  )
 
   function processResponse(data: ClientManyProductsSelectedQueryQuery) {
     const formattedData: IProductComparison[] = data.products.map((product) => {
@@ -87,61 +90,62 @@ function ProductComparisonSidebar(props: ProductComparisonSidebarProps) {
     handleProductsComparison(formattedData)
   }
 
+  const buyButtonProps = products
+    .map((product: IProductComparison) => {
+      const {
+        id,
+        sku,
+        gtin,
+        unitMultiplier,
+        name: variantName,
+        brand,
+        isVariantOf,
+        image: productImages,
+        additionalProperty,
+        offers: {
+          offers: [
+            {
+              price,
+              priceWithTaxes,
+              listPrice,
+              seller,
+              quantity,
+              listPriceWithTaxes,
+            },
+          ],
+        },
+      } = product
+
+      return {
+        id,
+        price,
+        priceWithTaxes,
+        listPrice,
+        listPriceWithTaxes,
+        seller,
+        quantity: productIdToBuy === id ? 1 : 0,
+        itemOffered: {
+          sku,
+          name: variantName,
+          gtin,
+          image: productImages,
+          brand,
+          isVariantOf,
+          additionalProperty,
+          unitMultiplier,
+        },
+      }
+    })
+    .filter((product) => product.quantity > 0)
+
+  const buyProps = useBuyButton(buyButtonProps)
+
   useProductsSelected(productIds, isOpen, processResponse)
-
-  // const onBuyProduct = useCallback((product: IProductComparison) => {
-  //   const {
-  //     id,
-  //     sku,
-  //     gtin,
-  //     unitMultiplier,
-  //     name: variantName,
-  //     brand,
-  //     isVariantOf,
-  //     image: productImages,
-  //     additionalProperty,
-  //     offers: {
-  //       offers: [
-  //         {
-  //           price,
-  //           priceWithTaxes,
-  //           listPrice,
-  //           seller,
-  //           quantity,
-  //           listPriceWithTaxes,
-  //         },
-  //       ],
-  //     },
-  //   } = product
-
-  //   const buyProps = useBuyButton({
-  //     id,
-  //     price,
-  //     priceWithTaxes,
-  //     listPrice,
-  //     listPriceWithTaxes,
-  //     seller,
-  //     quantity,
-  //     itemOffered: {
-  //       sku,
-  //       name: variantName,
-  //       gtin,
-  //       image: productImages,
-  //       brand,
-  //       isVariantOf,
-  //       additionalProperty,
-  //       unitMultiplier,
-  //     },
-  //   })
-
-  //   return {
-  //     handleBuy: buyProps.onClick,
-  //   }
-  // }, [])
 
   return (
     <UIProductComparisonSidebar
-      // onBuyProduct={onBuyProduct}
+      buyProps={buyProps}
+      handleProductToBuy={setProductIdToBuy}
       sortOptions={[...sortOptions]}
       {...props}
     />
