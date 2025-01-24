@@ -1,4 +1,5 @@
-import React, { useImperativeHandle, useRef, useState } from 'react'
+import type React from 'react'
+import { useImperativeHandle, useRef, useState } from 'react'
 
 import { useDropdown } from './useDropdown'
 

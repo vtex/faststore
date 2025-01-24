@@ -1,7 +1,8 @@
 import React, { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
-import SearchProvider, { SearchProviderContextValue } from '../../molecules/SearchProvider'
-
+import SearchProvider, {
+  type SearchProviderContextValue,
+} from '../../molecules/SearchProvider'
 
 export type SearchInputProps = {
   /**
@@ -13,7 +14,8 @@ export type SearchInputProps = {
    * The current status of the Search Dropdown.
    */
   visibleDropdown: boolean
-} & HTMLAttributes<HTMLDivElement> & SearchProviderContextValue
+} & HTMLAttributes<HTMLDivElement> &
+  SearchProviderContextValue
 
 const SearchInput = forwardRef<HTMLDivElement, SearchInputProps>(
   function SearchInput(
@@ -38,11 +40,11 @@ const SearchInput = forwardRef<HTMLDivElement, SearchInputProps>(
         data-testid={testId}
         {...otherProps}
       >
-        <SearchProvider 
-          onSearchSelection={onSearchSelection} 
-          isLoading={isLoading} 
-          term={term} 
-          products={products} 
+        <SearchProvider
+          onSearchSelection={onSearchSelection}
+          isLoading={isLoading}
+          term={term}
+          products={products}
           terms={terms}
         >
           {children}

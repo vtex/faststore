@@ -1,6 +1,6 @@
-import { Locator, Section } from '@vtex/client-cms'
+import type { Locator, Section } from '@vtex/client-cms'
 import storeConfig from 'discovery.config'
-import { PageContentType, getPage } from 'src/server/cms'
+import { type PageContentType, getPage } from 'src/server/cms'
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 

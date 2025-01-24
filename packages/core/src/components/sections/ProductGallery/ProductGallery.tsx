@@ -1,13 +1,13 @@
 import ProductGallery, {
-  ProductGalleryProps,
+  type ProductGalleryProps,
 } from '../../ui/ProductGallery/ProductGallery'
 import Section from '../Section'
 import type { EmptyGalleryProps } from './EmptyGallery'
 
 import styles from './section.module.scss'
 import {
-  PLPContext,
-  SearchPageContext,
+  type PLPContext,
+  type SearchPageContext,
   isPLP,
   isSearchPage,
   usePage,

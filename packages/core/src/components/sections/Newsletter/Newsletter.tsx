@@ -1,4 +1,4 @@
-import {
+import type {
   NewsletterProps as UINewsletterProps,
   NewsletterAddendumProps as UINewsletterAddendumProps,
   NewsletterHeaderProps as UINewsletterHeaderProps,

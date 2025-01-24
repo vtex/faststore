@@ -1,7 +1,8 @@
 import Image from 'next/image'
-import React, { useMemo } from 'react'
+import type React from 'react'
+import { useMemo } from 'react'
 import { Badge, Button, QuantitySelector, Skeleton } from '../..'
-import Price, { PriceFormatter } from '../../atoms/Price'
+import Price, { type PriceFormatter } from '../../atoms/Price'
 import Icon from '../../atoms/Icon'
 import { useFadeEffect, useSKUMatrix, useUI } from '../../hooks'
 import {
@@ -11,7 +12,7 @@ import {
   TableHead,
   TableRow,
 } from '../../molecules/Table'
-import SlideOver, { SlideOverHeader, SlideOverProps } from '../SlideOver'
+import SlideOver, { SlideOverHeader, type SlideOverProps } from '../SlideOver'
 
 interface VariationProductColumn {
   name: string
@@ -25,7 +26,7 @@ interface VariationProductColumn {
 }
 
 export interface SKUMatrixSidebarProps
-  extends Omit<SlideOverProps, 'isOpen' | 'setIsOpen' | "fade"> {
+  extends Omit<SlideOverProps, 'isOpen' | 'setIsOpen' | 'fade'> {
   /**
    * Title for the SKUMatrixSidebar component.
    */

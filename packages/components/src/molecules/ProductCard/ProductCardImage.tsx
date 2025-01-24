@@ -1,5 +1,6 @@
 import type { HTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type React from 'react'
+import { forwardRef } from 'react'
 
 export interface ProductCardImageProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -29,7 +30,7 @@ const ProductCardImage = forwardRef<HTMLDivElement, ProductCardImageProps>(
         data-testid={testId}
         style={
           {
-            '--fs-product-card-image-aspect-ratio': aspectRatio
+            '--fs-product-card-image-aspect-ratio': aspectRatio,
           } as React.CSSProperties
         }
         {...otherProps}

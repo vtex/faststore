@@ -7,7 +7,14 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "ignore": [".next", "dist", ".turbo", "package.json"]
+    "ignore": [
+      ".next",
+      "dist",
+      ".turbo",
+      "package.json",
+      "~partytown",
+      "packages/core"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -19,7 +26,61 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "a11y": {
+        "useSemanticElements": "off",
+        "noLabelWithoutControl": "off",
+        "noSvgWithoutTitle": "off",
+        "noRedundantRoles": "off",
+        "noInteractiveElementToNoninteractiveRole": "off",
+        "useButtonType": "off",
+        "useAltText": "off",
+        "noNoninteractiveTabindex": "off",
+        "noAriaHiddenOnFocusable": "off"
+      },
+      "style": {
+        "noUnusedTemplateLiteral": "off",
+        "useTemplate": "off",
+        "useSelfClosingElements": "off",
+        "useNodejsImportProtocol": "off",
+        "noNonNullAssertion": "off",
+        "useSingleVarDeclarator": "off",
+        "noParameterAssign": "off"
+      },
+      "suspicious": {
+        "noDoubleEquals": "off",
+        "noExplicitAny": "off",
+        "noImplicitAnyLet": "off",
+        "noGlobalIsNan": "off",
+        "useIsArray": "off",
+        "noArrayIndexKey": "off",
+        "noAssignInExpressions": "off",
+        "noAsyncPromiseExecutor": "off",
+        "noConfusingVoidType": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
+      "correctness": {
+        "noUnnecessaryContinue": "off",
+        "useExhaustiveDependencies": "off",
+        "noUnsafeOptionalChaining": "off",
+        "noSwitchDeclarations": "off"
+      },
+      "complexity": {
+        "noForEach": "off",
+        "noUselessTernary": "off",
+        "useOptionalChain": "off",
+        "useLiteralKeys": "off",
+        "noStaticOnlyClass": "off",
+        "noExtraBooleanCast": "off",
+        "noUselessFragments": "off",
+        "noBannedTypes": "off"
+      },
+      "performance": {
+        "noAccumulatingSpread": "off",
+        "noDelete": "off"
+      }
     }
   },
   "javascript": {

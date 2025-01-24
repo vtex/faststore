@@ -90,7 +90,7 @@ test('Search State Serializer: Basic parsing', async () => {
     sort: 'score_desc',
     term: 'Hello World',
     page: 0,
-    passThrough: new URLSearchParams()
+    passThrough: new URLSearchParams(),
   })
 
   expect(
@@ -105,7 +105,7 @@ test('Search State Serializer: Basic parsing', async () => {
     sort: 'score_desc',
     term: 'Hello World',
     page: 1,
-    passThrough: new URLSearchParams()
+    passThrough: new URLSearchParams(),
   })
 
   expect(
@@ -118,7 +118,7 @@ test('Search State Serializer: Basic parsing', async () => {
     sort: 'score_desc',
     term: 'Hello World',
     page: 10,
-    passThrough: new URLSearchParams()
+    passThrough: new URLSearchParams(),
   })
 })
 
@@ -140,7 +140,7 @@ test('Search State Serializer: Passthrough param parsing', async () => {
     sort: 'score_desc',
     term: 'Hello World',
     page: 0,
-    passThrough: new URLSearchParams({ foo: 'bar' })
+    passThrough: new URLSearchParams({ foo: 'bar' }),
   })
 
   expect(
@@ -155,7 +155,7 @@ test('Search State Serializer: Passthrough param parsing', async () => {
     sort: 'score_desc',
     term: 'Hello World',
     page: 1,
-    passThrough: new URLSearchParams({ foo: 'bar' })
+    passThrough: new URLSearchParams({ foo: 'bar' }),
   })
 
   expect(
@@ -168,6 +168,6 @@ test('Search State Serializer: Passthrough param parsing', async () => {
     sort: 'score_desc',
     term: 'Hello World',
     page: 10,
-    passThrough: new URLSearchParams({ foo: 'bar' })
+    passThrough: new URLSearchParams({ foo: 'bar' }),
   })
 })

@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
-import React, { forwardRef } from 'react'
+import type React from 'react'
+import { forwardRef } from 'react'
 
 import { useAccordion } from './Accordion'
 import { useAccordionItem } from './AccordionItem'

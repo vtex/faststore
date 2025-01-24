@@ -4,8 +4,8 @@ import Section from '../Section'
 
 import styles from './section.module.scss'
 import {
-  PDPContext,
-  PLPContext,
+  type PDPContext,
+  type PLPContext,
   isPDP,
   isPLP,
   usePage,

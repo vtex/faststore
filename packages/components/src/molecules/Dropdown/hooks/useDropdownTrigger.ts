@@ -1,5 +1,6 @@
 import { useDropdown } from './useDropdown'
-import React, { useImperativeHandle } from 'react'
+import type React from 'react'
+import { useImperativeHandle } from 'react'
 
 type UseDropdownTriggerProps<T extends HTMLElement = HTMLElement> = {
   triggerRef: React.ForwardedRef<T>

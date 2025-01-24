@@ -48,18 +48,18 @@ import type {
   ComponentOverrideDefinition,
   SectionOverrideDefinitionV1,
 } from './overridesDefinition'
-import Alert from '../components/sections/Alert'
-import Breadcrumb from '../components/sections/Breadcrumb'
-import BannerText from '../components/sections/BannerText'
-import CrossSellingShelf from '../components/sections/CrossSellingShelf'
-import EmptyState from '../components/sections/EmptyState'
-import Hero from '../components/sections/Hero'
-import ProductShelf from '../components/sections/ProductShelf'
-import ProductDetails from '../components/sections/ProductDetails'
-import Navbar from '../components/sections/Navbar'
-import Newsletter from '../components/sections/Newsletter'
-import ProductGallery from '../components/sections/ProductGallery'
-import RegionBar from '../components/sections/RegionBar'
+import type Alert from '../components/sections/Alert'
+import type Breadcrumb from '../components/sections/Breadcrumb'
+import type BannerText from '../components/sections/BannerText'
+import type CrossSellingShelf from '../components/sections/CrossSellingShelf'
+import type EmptyState from '../components/sections/EmptyState'
+import type Hero from '../components/sections/Hero'
+import type ProductShelf from '../components/sections/ProductShelf'
+import type ProductDetails from '../components/sections/ProductDetails'
+import type Navbar from '../components/sections/Navbar'
+import type Newsletter from '../components/sections/Newsletter'
+import type ProductGallery from '../components/sections/ProductGallery'
+import type RegionBar from '../components/sections/RegionBar'
 
 export type SectionOverride = {
   [K in keyof SectionsOverrides]: SectionOverrideDefinitionV1<K>
@@ -82,25 +82,25 @@ export type SectionOverride = {
  * We then use ComponentsFromSection to extract the list of components
  */
 export type OverrideComponentsForSection<
-  Section extends SectionsOverrides[keyof SectionsOverrides]['Section']
+  Section extends SectionsOverrides[keyof SectionsOverrides]['Section'],
 > = {
-// The first 'extends' condition is used to filter out sections that don't have overrides (typed 'never')
-[K in keyof SectionsOverrides as SectionsOverrides[K] extends {
-  Section: never
-}
+  // The first 'extends' condition is used to filter out sections that don't have overrides (typed 'never')
+  [K in keyof SectionsOverrides as SectionsOverrides[K] extends {
+    Section: never
+  }
     ? never
     : // In the second 'extends' condition, we check if the section matches the one we're looking for
-    SectionsOverrides[K] extends {
-      Section: Section
-    }
-    ? // If it does, we return the components. Otherwise, we return 'never', which is filtered out
-    K
-    : never]: SectionsOverrides[K]['components']
-  }
+      SectionsOverrides[K] extends {
+          Section: Section
+        }
+      ? // If it does, we return the components. Otherwise, we return 'never', which is filtered out
+        K
+      : never]: SectionsOverrides[K]['components']
+}
 
 // This type is used to extract only the list of components from the section override
 export type ComponentsFromSection<
-  Section extends SectionsOverrides[keyof SectionsOverrides]['Section']
+  Section extends SectionsOverrides[keyof SectionsOverrides]['Section'],
 > =
   OverrideComponentsForSection<Section>[keyof OverrideComponentsForSection<Section>]
 

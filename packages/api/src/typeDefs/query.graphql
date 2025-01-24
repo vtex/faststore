@@ -316,7 +316,6 @@ type Query {
     selectedFacets: [IStoreSelectedFacet!]
   ): StoreRedirect
 
-
   """
   Returns a list of sellers available for a specific localization.
   """

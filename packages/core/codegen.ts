@@ -1,4 +1,4 @@
-import { type CodegenConfig } from '@graphql-codegen/cli'
+import type { CodegenConfig } from '@graphql-codegen/cli'
 import { Kind, type DocumentNode } from 'graphql'
 
 /* Extracts operationName from queries. Example: ServerProductQuery */

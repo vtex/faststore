@@ -1,5 +1,6 @@
 import type { FormHTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
+import type React from 'react'
+import { forwardRef } from 'react'
 import { Button, Icon, InputField } from '../..'
 
 export interface OutOfStockProps extends FormHTMLAttributes<HTMLFormElement> {

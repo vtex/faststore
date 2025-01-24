@@ -11,9 +11,7 @@ export interface ImageGalleryUsageProps {
   images?: ImageElementData[]
 }
 
-const ImageGalleryUsage = ({
-  images,
-}: ImageGalleryUsageProps) => {
+const ImageGalleryUsage = ({ images }: ImageGalleryUsageProps) => {
   const [selectedImageIdx, setSelectedImageIdx] = useState(0)
   const currentImage = images[selectedImageIdx]
 

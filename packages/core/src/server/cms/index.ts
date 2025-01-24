@@ -56,7 +56,7 @@ export const getCMSPage = async (
   }
 
   const pages = []
-  let page = 1
+  const page = 1
   const perPage = 10
   const response = await cmsClient.getCMSPagesByContentType(
     options.contentType,

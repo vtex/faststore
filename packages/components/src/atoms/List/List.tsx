@@ -25,7 +25,7 @@ type ListComponent = <T extends ElementType = 'ul'>(
 ) => ReactElement | null
 
 const List: ListComponent = forwardRef(function List<
-  T extends ElementType = 'ul'
+  T extends ElementType = 'ul',
 >(
   { as, marker, testId = 'fs-list', ...otherProps }: ListProps<T>,
   ref: PolymorphicRef<T>

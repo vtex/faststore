@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 
 import type { MutableRefObject } from 'react'
 import { InputField, Link, Modal, ModalBody, ModalHeader } from '../..'

@@ -16,7 +16,9 @@ const SearchLoading = () => {
 
   return (
     <>
-      { (inContext && values.isLoading) && <p data-fs-search-dropdown-loading-text>Loading...</p> }
+      {inContext && values.isLoading && (
+        <p data-fs-search-dropdown-loading-text>Loading...</p>
+      )}
     </>
   )
 }
@@ -25,17 +27,13 @@ const SearchDropdown = forwardRef<
   HTMLDivElement,
   PropsWithChildren<SearchDropdownProps>
 >(function SearchDropdown(
-  {
-    testId = 'fs-search-dropdown',
-    children,
-    ...otherProps
-  },
+  { testId = 'fs-search-dropdown', children, ...otherProps },
   ref
 ) {
   return (
     <div ref={ref} data-fs-search-dropdown data-testid={testId} {...otherProps}>
       <section>
-        <SearchLoading/>
+        <SearchLoading />
         {children}
       </section>
     </div>

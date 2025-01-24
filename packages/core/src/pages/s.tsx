@@ -14,14 +14,14 @@ import { SROnly as UISROnly } from '@faststore/ui'
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
 
-import { Locator } from '@vtex/client-cms'
+import type { Locator } from '@vtex/client-cms'
 import storeConfig from 'discovery.config'
 import {
   getGlobalSectionsData,
-  GlobalSectionsData,
+  type GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import { SearchWrapper } from 'src/components/templates/SearchPage'
-import { getPage, SearchContentType } from 'src/server/cms'
+import { getPage, type SearchContentType } from 'src/server/cms'
 
 type Props = {
   page: SearchContentType

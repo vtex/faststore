@@ -1,10 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import type { FunctionComponent, HTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
-import { Label, SROnly, Link, LinkProps, LinkElementType } from '../..'
-import { useDefineVariant, Variant } from './useDefineVariant'
+import type React from 'react'
+import { forwardRef } from 'react'
+import {
+  Label,
+  SROnly,
+  Link,
+  type LinkProps,
+  type LinkElementType,
+} from '../..'
+import { useDefineVariant, type Variant } from './useDefineVariant'
 import { useSkuSlug } from './useSkuSlug'
-
 
 // TODO: Change by ImageComponent when it be right
 const ImageComponentFallback: SkuSelectorProps['ImageComponent'] = ({
@@ -108,7 +114,12 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
 
     const variant = useDefineVariant(options, variantProp)
 
-    const { getItemHref } = useSkuSlug(activeVariations, slugsMap, skuPropertyName, getItemHrefProp)
+    const { getItemHref } = useSkuSlug(
+      activeVariations,
+      slugsMap,
+      skuPropertyName,
+      getItemHrefProp
+    )
 
     return (
       <div
