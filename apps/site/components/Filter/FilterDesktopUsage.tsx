@@ -8,8 +8,8 @@ import {
   FilterFacets,
 } from '@faststore/ui'
 import { useFormattedPrice } from '../utilities/usePriceFormatter'
-import { FilterFacet } from './FilterUsage'
-import { useFilter } from './useFilter'
+import type { FilterFacet } from './FilterUsage'
+import type { useFilter } from './useFilter'
 
 interface Props {
   /**

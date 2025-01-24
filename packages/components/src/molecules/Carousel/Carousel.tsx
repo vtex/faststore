@@ -135,7 +135,7 @@ function Carousel({
       setMarginRight(getComputedStyle(item).getPropertyValue('margin-right'))
 
       setCarouselItemsWidth(
-        Number(item.clientWidth) + parseInt(marginRight, 10) + 1
+        Number(item.clientWidth) + Number.parseInt(marginRight, 10) + 1
       )
     }
   }, [carouselItemsWidth])
@@ -270,7 +270,7 @@ function Carousel({
       return
     }
 
-    let scrollOffset = index * carouselItemsWidth * itemsPerPage
+    const scrollOffset = index * carouselItemsWidth * itemsPerPage
 
     carouselTrackRef.current?.scrollTo({
       left: scrollOffset,

@@ -15,11 +15,14 @@
 .overviewSectionItem > div > div {
   display: flex;
   justify-content: center;
- }
+}
 
 .overviewSection[data-doc-overview-dark="true"] {
   background-color: #171a1c;
-  background-image: radial-gradient(rgba(225, 225, 225, 0.094) 1px, transparent 0);
+  background-image: radial-gradient(
+    rgba(225, 225, 225, 0.094) 1px,
+    transparent 0
+  );
 }
 
 .overviewSection[data-doc-overview-direction="row"] {
@@ -42,14 +45,20 @@
   column-gap: 60px;
 }
 
-.overviewSection [data-fs-product-shelf-items] { width: 100%; }
-
-@media screen and (min-width: 1280px) {
-  .overviewSection [data-fs-carousel-track-container] { padding: 0 70px; }
-  .overviewSection [data-fs-carousel-controls] { width: 100%; }
+.overviewSection [data-fs-product-shelf-items] {
+  width: 100%;
 }
 
-.overviewSection>[data-doc-overview-group] [data-doc-overview-group-title] {
+@media screen and (min-width: 1280px) {
+  .overviewSection [data-fs-carousel-track-container] {
+    padding: 0 70px;
+  }
+  .overviewSection [data-fs-carousel-controls] {
+    width: 100%;
+  }
+}
+
+.overviewSection > [data-doc-overview-group] [data-doc-overview-group-title] {
   width: 10%;
   line-height: 16px;
 }

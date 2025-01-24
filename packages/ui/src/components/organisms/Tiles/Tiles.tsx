@@ -45,8 +45,8 @@ const Tiles = forwardRef<HTMLUListElement, TilesProps>(function Tiles(
     childrenCount === NUMBER_ITEMS_TO_EXPAND_FIRST
       ? 'expanded-first'
       : childrenCount === NUMBER_ITEMS_TO_EXPAND_FIRST_TWO
-      ? 'expanded-first-two'
-      : ''
+        ? 'expanded-first-two'
+        : ''
 
   return (
     <ul

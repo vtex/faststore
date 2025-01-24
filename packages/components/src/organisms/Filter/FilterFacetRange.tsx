@@ -1,6 +1,6 @@
 import React from 'react'
 import { PriceRange } from '../..'
-import { OnFacetChange } from './Filter'
+import type { OnFacetChange } from './Filter'
 
 export interface FilterFacetRangeProps {
   /**

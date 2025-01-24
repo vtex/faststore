@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import Checkbox, { CheckboxProps } from '../../atoms/Checkbox'
+import Checkbox, { type CheckboxProps } from '../../atoms/Checkbox'
 import Label from '../../atoms/Label'
 
 export interface CheckboxFieldProps extends CheckboxProps {

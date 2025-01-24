@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import React, { type PropsWithChildren } from 'react'
 import { AccordionButton, AccordionItem, AccordionPanel } from '../..'
 
 export interface FilterFacetsProps {

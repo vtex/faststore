@@ -1,6 +1,6 @@
 import type { CSSProperties, HTMLAttributes, PropsWithChildren } from 'react'
 import React from 'react'
-import { SliderState, useSlideVisibility } from '../../hooks'
+import { type SliderState, useSlideVisibility } from '../../hooks'
 
 export interface CarouselItemProps extends HTMLAttributes<HTMLLIElement> {
   index: number
@@ -34,9 +34,10 @@ function CarouselItem({
     })`,
   } as CSSProperties
 
-  const style = isScrollCarousel && state.itemsPerPage > 1
-    ? { ...scrollCarouselStyle }
-    : { ...defaultStyle }
+  const style =
+    isScrollCarousel && state.itemsPerPage > 1
+      ? { ...scrollCarouselStyle }
+      : { ...defaultStyle }
 
   const shouldDisplayItem =
     isScrollCarousel || shouldRenderItem(index - Number(infiniteMode))

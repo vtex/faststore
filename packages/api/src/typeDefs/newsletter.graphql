@@ -1,7 +1,6 @@
 """
 Newsletter information.
 """
-
 type PersonNewsletter {
   """
   Person's ID in the newsletter list.

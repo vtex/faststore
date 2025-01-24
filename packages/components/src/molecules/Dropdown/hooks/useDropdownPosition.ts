@@ -3,13 +3,18 @@ import { useDropdown } from './useDropdown'
 
 type DropdownPosition = {
   loading: boolean
-} & Pick<React.CSSProperties, 'position' | 'top' | 'left' | 'right' | 'transform'>
+} & Pick<
+  React.CSSProperties,
+  'position' | 'top' | 'left' | 'right' | 'transform'
+>
 
 /**
  * Hook used to find the DropdownMenu position in relation to DropdownButton
  * @returns Style with positions.
  */
-export const useDropdownPosition = (align: 'left' | 'center' | 'right' = 'left'): DropdownPosition => {
+export const useDropdownPosition = (
+  align: 'left' | 'center' | 'right' = 'left'
+): DropdownPosition => {
   const { dropdownTriggerRef, isOpen } = useDropdown()
 
   const [positionProps, setPositionProps] = useState({
@@ -17,7 +22,7 @@ export const useDropdownPosition = (align: 'left' | 'center' | 'right' = 'left')
     left: 0 as React.CSSProperties['left'],
     right: 'auto',
     transform: 'none',
-    loading: true
+    loading: true,
   })
 
   useEffect(() => {
@@ -47,7 +52,7 @@ export const useDropdownPosition = (align: 'left' | 'center' | 'right' = 'left')
         rightPosition = `${document.documentElement.clientWidth - leftLevel - buttonWidth}px`
         leftPosition = 'auto'
       } else if (align === 'center') {
-        leftPosition = leftLevel + (buttonWidth / 2) + scrollLeft
+        leftPosition = leftLevel + buttonWidth / 2 + scrollLeft
         transform = 'translateX(-50%)'
       }
 
@@ -56,7 +61,7 @@ export const useDropdownPosition = (align: 'left' | 'center' | 'right' = 'left')
         left: leftPosition,
         right: rightPosition,
         transform,
-        loading: false
+        loading: false,
       })
     }
 

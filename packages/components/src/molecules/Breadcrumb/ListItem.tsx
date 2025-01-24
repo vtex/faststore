@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react'
-import { BreadcrumbBaseProps } from './BreadcrumbBase'
+import React, { type ReactNode } from 'react'
+import type { BreadcrumbBaseProps } from './BreadcrumbBase'
 import Divider from './Divider'
 
 type ListItemProps = {

@@ -1,5 +1,8 @@
-import React, { cloneElement, forwardRef, ReactNode } from 'react'
-import Button, { ButtonProps, ButtonIconPosition } from '../../atoms/Button'
+import React, { cloneElement, forwardRef, type ReactNode } from 'react'
+import Button, {
+  type ButtonProps,
+  type ButtonIconPosition,
+} from '../../atoms/Button'
 import { useDropdownTrigger } from './hooks/useDropdownTrigger'
 
 export interface DropdownButtonProps

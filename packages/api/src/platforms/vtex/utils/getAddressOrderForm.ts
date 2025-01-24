@@ -1,5 +1,5 @@
-import { IStoreSession } from '../../../__generated__/schema'
-import { OrderForm } from '../clients/commerce/types/OrderForm'
+import type { IStoreSession } from '../../../__generated__/schema'
+import type { OrderForm } from '../clients/commerce/types/OrderForm'
 
 export const getAddressOrderForm = (
   orderForm: OrderForm,

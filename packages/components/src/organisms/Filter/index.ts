@@ -9,4 +9,3 @@ export { default as FilterFacets } from './FilterFacets'
 export type { FilterFacetsProps } from './FilterFacets'
 export { default as FilterSlider } from './FilterSlider'
 export type { FilterSliderProps } from './FilterSlider'
-

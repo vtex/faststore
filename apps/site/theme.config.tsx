@@ -1,5 +1,5 @@
 import React from 'react'
-import { DocsThemeConfig } from 'nextra-theme-docs'
+import type { DocsThemeConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
 import { VtexLogo, VtexIcon } from './components/Logos/'
 
@@ -73,8 +73,13 @@ const config: DocsThemeConfig = {
     key: '2.0-release',
     text: (
       <p>
-        ⚠️ After March 18, 2024, the FastStore documentation will be migrated to the Developer Portal. For more information, access the official{' '}
-        <a href="https://developers.vtex.com/updates/release-notes/2024-03-07-faststore-content-in-the-developer-portal" target="_blank" rel="noreferrer">
+        ⚠️ After March 18, 2024, the FastStore documentation will be migrated to
+        the Developer Portal. For more information, access the official{' '}
+        <a
+          href="https://developers.vtex.com/updates/release-notes/2024-03-07-faststore-content-in-the-developer-portal"
+          target="_blank"
+          rel="noreferrer"
+        >
           release note.
         </a>
       </p>

@@ -1,1 +1,1 @@
-export { default as ExtendableQueryTable } from "./ExtendableQueryTable"
+export { default as ExtendableQueryTable } from './ExtendableQueryTable'

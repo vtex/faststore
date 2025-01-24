@@ -1,17 +1,16 @@
-import { Command } from '@oclif/core';
-import { spawn } from 'child_process';
-import chalk from 'chalk';
-import chokidar from 'chokidar';
-import dotenv from 'dotenv';
+import { Command } from '@oclif/core'
+import { spawn } from 'child_process'
+import chalk from 'chalk'
+import chokidar from 'chokidar'
+import dotenv from 'dotenv'
 
-import { readFileSync, cpSync } from 'fs';
-import path from 'path';
-import { withBasePath } from '../utils/directory';
-import { generate } from '../utils/generate';
-import { getPreferredPackageManager } from '../utils/commands';
-import { logger } from '../utils/logger';
-import { runCommandSync } from '../utils/runCommandSync';
-
+import { readFileSync, cpSync } from 'fs'
+import path from 'path'
+import { withBasePath } from '../utils/directory'
+import { generate } from '../utils/generate'
+import { getPreferredPackageManager } from '../utils/commands'
+import { logger } from '../utils/logger'
+import { runCommandSync } from '../utils/runCommandSync'
 
 /**
  * Taken from toolbelt
@@ -36,7 +35,12 @@ const defaultIgnored = [
 
 const devAbortController = new AbortController()
 
-async function storeDev(rootDir: string, tmpDir: string, coreDir: string, port: number) {
+async function storeDev(
+  rootDir: string,
+  tmpDir: string,
+  coreDir: string,
+  port: number
+) {
   const envVars = dotenv.parse(readFileSync(path.join(rootDir, 'vtex.env')))
 
   const packageManager = getPreferredPackageManager()
@@ -49,11 +53,18 @@ async function storeDev(rootDir: string, tmpDir: string, coreDir: string, port: 
     cwd: tmpDir,
   })
 
-  const { success } = copyGenerated(path.join(tmpDir, '@generated'), path.join(coreDir, '@generated'))
+  const { success } = copyGenerated(
+    path.join(tmpDir, '@generated'),
+    path.join(coreDir, '@generated')
+  )
 
   if (!success) {
-    logger.log(`${chalk.yellow('warn')} - Failed to copy @generated schema back to node_modules, autocomplete and DX might be impacted.`)
-    logger.log(`Attempted to copy from ${path.join(tmpDir, '@generated')} to ${path.join(coreDir, '@generated')}`)
+    logger.log(
+      `${chalk.yellow('warn')} - Failed to copy @generated schema back to node_modules, autocomplete and DX might be impacted.`
+    )
+    logger.log(
+      `Attempted to copy from ${path.join(tmpDir, '@generated')} to ${path.join(coreDir, '@generated')}`
+    )
   }
 
   const devProcess = spawn(`${packageManager} dev-only --port ${port}`, {
@@ -64,20 +75,20 @@ async function storeDev(rootDir: string, tmpDir: string, coreDir: string, port: 
     env: {
       ...process.env,
       ...envVars,
-    }
+    },
   })
 
   let nextStdout = ''
-  devProcess.stdout.on('data', function (chunk) {
+  devProcess.stdout.on('data', (chunk) => {
     nextStdout += chunk
     const lines = nextStdout.split('\n')
-    while(lines.length > 1) {
+    while (lines.length > 1) {
       const line = lines.shift()
       console.log('[DISCOVERY] ', line)
     }
     nextStdout = lines.shift() || ''
   })
-  devProcess.stdout.on('end', function () {
+  devProcess.stdout.on('end', () => {
     console.log('[DISCOVERY] ', nextStdout)
   })
 
@@ -101,12 +112,12 @@ export default class Dev extends Command {
     {
       name: 'account',
       description:
-      'The account for which the Discovery is running. Currently noop.',
+        'The account for which the Discovery is running. Currently noop.',
     },
     {
       name: 'path',
       description:
-      'The path where the FastStore being run is. Defaults to cwd.',
+        'The path where the FastStore being run is. Defaults to cwd.',
     },
     {
       name: 'port',

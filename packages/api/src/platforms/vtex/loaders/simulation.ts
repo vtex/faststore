@@ -29,15 +29,18 @@ export const getSimulationLoader = (_: Options, clients: Clients) => {
 
     // Sort and filter simulation since Checkout API may return
     // items that we didn't ask for
-    const simulated = simulation.items.reduce((acc, item) => {
-      const index = item.requestIndex
+    const simulated = simulation.items.reduce(
+      (acc, item) => {
+        const index = item.requestIndex
 
-      if (typeof index === 'number' && index < acc.length) {
-        acc[index] = item
-      }
+        if (typeof index === 'number' && index < acc.length) {
+          acc[index] = item
+        }
 
-      return acc
-    }, Array(items.length).fill(null) as Simulation['items'])
+        return acc
+      },
+      Array(items.length).fill(null) as Simulation['items']
+    )
 
     const itemsIndices = allItems.reduce(
       (acc, curr) => [...acc, curr.length + acc[acc.length - 1]],

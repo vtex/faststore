@@ -54,7 +54,7 @@ const OrderSummary = forwardRef<HTMLUListElement, OrderSummaryProps>(
       totalLabel = 'Total',
       totalValue,
       includeTaxes = false,
-      includeTaxesLabel = "Tax included",
+      includeTaxesLabel = 'Tax included',
       ...otherProps
     },
     ref
@@ -116,7 +116,7 @@ const OrderSummary = forwardRef<HTMLUListElement, OrderSummaryProps>(
           <li data-fs-order-summary-taxes-label>
             <Label>{includeTaxesLabel}</Label>
           </li>
-          )}
+        )}
       </List>
     )
   }

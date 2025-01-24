@@ -3,15 +3,15 @@ import React from 'react'
 
 import {
   Button,
-  ButtonProps,
-  OverlayProps,
+  type ButtonProps,
+  type OverlayProps,
   SlideOver,
   SlideOverHeader,
   useFadeEffect,
   useUI,
 } from '../../'
 
-import { SlideOverDirection, SlideOverWidthSize } from '../SlideOver'
+import type { SlideOverDirection, SlideOverWidthSize } from '../SlideOver'
 
 export interface FilterSliderProps extends HTMLAttributes<HTMLDivElement> {
   /**

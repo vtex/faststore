@@ -288,7 +288,7 @@ export interface SLA {
   shippingEstimateDate: string | null
   lockTTL: string | null
   availableDeliveryWindows: AvailableDeliveryWindows[]
-  deliveryWindow: DeliveryWindow  | null
+  deliveryWindow: DeliveryWindow | null
   price: number
   listPrice: number
   tax: number
@@ -311,11 +311,11 @@ export interface DeliveryWindow {
 }
 
 export interface AvailableDeliveryWindows {
-  startDateUtc: string,
-  endDateUtc: string,
-  price: number,
-  lisPrice?: number,
-  tax: number,
+  startDateUtc: string
+  endDateUtc: string
+  price: number
+  lisPrice?: number
+  tax: number
 }
 
 export interface DeliveryId {

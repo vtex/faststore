@@ -12,12 +12,12 @@ export interface CrossSellingFacet {
 }
 
 export const FACET_CROSS_SELLING_MAP = {
-  buy: "whoboughtalsobought",
-  view: "whosawalsosaw",
-  similars: "similars",
-  viewAndBought: "whosawalsobought",
-  accessories: "accessories",
-  suggestions: "suggestions",
+  buy: 'whoboughtalsobought',
+  view: 'whosawalsosaw',
+  similars: 'similars',
+  viewAndBought: 'whosawalsobought',
+  accessories: 'accessories',
+  suggestions: 'suggestions',
 } as const
 
 export type FuzzyFacet = {
@@ -39,15 +39,15 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
     case 'price': {
       return { key, value: value.replace('-to-', ':') }
     }
-    
-    case 'channel': 
-    case 'locale': 
-    case "buy":
-    case "view":
-    case "similars":
-    case "viewAndBought":
-    case "accessories":
-    case "suggestions": {
+
+    case 'channel':
+    case 'locale':
+    case 'buy':
+    case 'view':
+    case 'similars':
+    case 'viewAndBought':
+    case 'accessories':
+    case 'suggestions': {
       return [] // remove this facet from search
     }
 
@@ -70,17 +70,17 @@ export const parseRange = (range: string): [number, number] | null => {
   return splitted as [number, number]
 }
 
-export const isCrossSelling = (
-  x: string,
-): x is CrossSellingFacet['key'] =>
-  typeof (FACET_CROSS_SELLING_MAP as Record<string, string>)[x] === "string"
+export const isCrossSelling = (x: string): x is CrossSellingFacet['key'] =>
+  typeof (FACET_CROSS_SELLING_MAP as Record<string, string>)[x] === 'string'
 
 export const findCrossSelling = (facets?: Maybe<SelectedFacet[]>) => {
-  const filtered = facets?.filter((x): x is CrossSellingFacet => isCrossSelling(x.key))
+  const filtered = facets?.filter((x): x is CrossSellingFacet =>
+    isCrossSelling(x.key)
+  )
 
   if (Array.isArray(filtered) && filtered.length > 1) {
     throw new BadRequestError(
-      `You passed ${filtered.length} cross selling facets but only one is allowed. Please leave one of the following facet: ${filtered.map(x => x.key).join(',')}`
+      `You passed ${filtered.length} cross selling facets but only one is allowed. Please leave one of the following facet: ${filtered.map((x) => x.key).join(',')}`
     )
   }
 

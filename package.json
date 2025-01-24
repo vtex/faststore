@@ -8,7 +8,7 @@
     "build": "turbo run build --log-order=grouped",
     "dev": "turbo run dev --parallel --no-cache",
     "lint": "biome check .",
-    "lint:fix": "biome check --apply .",
+    "lint:fix": "biome check --write .",
     "test": "turbo run test",
     "size": "turbo run size",
     "release": "lerna version --conventional-commits --yes && lerna publish from-git --yes",

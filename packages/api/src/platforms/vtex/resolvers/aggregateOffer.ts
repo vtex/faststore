@@ -45,12 +45,12 @@ export const StoreAggregateOffer: Record<string, Resolver<Root>> & {
   priceCurrency: async (_, __, ctx) => {
     const {
       loaders: { salesChannelLoader },
-      storage: { channel }
+      storage: { channel },
     } = ctx
 
-    const sc = await salesChannelLoader.load(channel.salesChannel);
+    const sc = await salesChannelLoader.load(channel.salesChannel)
 
-    return sc.CurrencyCode ?? '';
+    return sc.CurrencyCode ?? ''
   },
   offers: (offers) => offers,
 }

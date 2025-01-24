@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
-import React, { HTMLAttributes } from 'react'
-import { Icon, Link, LinkElementType, LinkProps } from '../..'
+import React, { type HTMLAttributes } from 'react'
+import { Icon, Link, type LinkElementType, type LinkProps } from '../..'
 
 export interface SearchHistoryTermProps extends HTMLAttributes<HTMLDivElement> {
   /**

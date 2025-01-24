@@ -1,7 +1,7 @@
 import {
   SlideOver,
   SlideOverHeader,
-  SlideOverProps,
+  type SlideOverProps,
   useFadeEffect,
   useUI,
 } from '@faststore/ui'

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import React, { type PropsWithChildren } from 'react'
 import styles from './icon.module.css'
 
 const IconList = ({ children }: PropsWithChildren) => {

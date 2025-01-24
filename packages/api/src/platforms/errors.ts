@@ -6,7 +6,10 @@ interface Extension {
 }
 
 class FastStoreError<T extends Extension = Extension> extends Error {
-  constructor(public extensions: T, message?: string) {
+  constructor(
+    public extensions: T,
+    message?: string
+  ) {
     super(message)
     this.name = 'FastStoreError'
   }

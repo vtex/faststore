@@ -1,5 +1,5 @@
-import { IStoreSession } from '../../../__generated__/schema'
-import { SelectedAddress } from '../clients/commerce/types/ShippingData'
+import type { IStoreSession } from '../../../__generated__/schema'
+import type { SelectedAddress } from '../clients/commerce/types/ShippingData'
 
 export const createNewAddress = (session: IStoreSession) => {
   const postalCode = session.postalCode

@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from 'react'
 import React, { forwardRef, useCallback } from 'react'
 
-import { Icon, IconButton, Link, LinkProps } from '../../'
+import { Icon, IconButton, Link, type LinkProps } from '../../'
 
 import type { MouseEvent, ReactNode } from 'react'
 

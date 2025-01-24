@@ -6,10 +6,10 @@ export interface LoaderProps extends HTMLAttributes<HTMLSpanElement> {
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
-   /**
+  /**
    * Specifies the component color variant.
    */
-   variant?: 'light' | 'dark'
+  variant?: 'light' | 'dark'
 }
 
 const Loader = forwardRef<HTMLDivElement, LoaderProps>(function Loader(

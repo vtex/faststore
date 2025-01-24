@@ -4,14 +4,14 @@ import React from 'react'
 import {
   Alert,
   Badge,
-  OverlayProps,
+  type OverlayProps,
   SlideOver,
   SlideOverHeader,
   useFadeEffect,
   useUI,
 } from '../../'
 
-import { SlideOverDirection, SlideOverWidthSize } from '../SlideOver'
+import type { SlideOverDirection, SlideOverWidthSize } from '../SlideOver'
 
 export interface CartSidebarProps extends HTMLAttributes<HTMLDivElement> {
   /**

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
-import React, { HTMLAttributes } from 'react'
-import { Icon, IconButton, IconButtonProps } from '../../'
+import React, { type HTMLAttributes } from 'react'
+import { Icon, IconButton, type IconButtonProps } from '../../'
 
 export interface SlideOverHeaderProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {

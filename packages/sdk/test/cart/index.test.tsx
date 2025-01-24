@@ -1,6 +1,6 @@
 import { set } from 'idb-keyval'
 
-import { Cart, CartItem, createCartStore } from '../../src'
+import { type Cart, type CartItem, createCartStore } from '../../src'
 import { waitFor } from '../waitFor'
 
 const item: CartItem = {

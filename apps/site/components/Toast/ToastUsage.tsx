@@ -1,4 +1,4 @@
-import { ToastProps } from '@faststore/components'
+import type { ToastProps } from '@faststore/components'
 import { Button, Toast, useUI } from '@faststore/ui'
 
 type ToastUsageProps = ToastProps & {

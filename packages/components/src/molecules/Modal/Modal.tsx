@@ -7,7 +7,7 @@ import type {
 import React from 'react'
 import { createPortal } from 'react-dom'
 
-import { Overlay, OverlayProps } from '../..'
+import { Overlay, type OverlayProps } from '../..'
 import { useFadeEffect, useUI } from '../../hooks'
 import type { ModalContentProps } from './ModalContent'
 import ModalContent from './ModalContent'

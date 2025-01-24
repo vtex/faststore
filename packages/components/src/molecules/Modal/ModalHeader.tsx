@@ -1,6 +1,6 @@
-import React, { HTMLAttributes } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import Icon from '../../atoms/Icon'
-import IconButton, { IconButtonProps } from '../IconButton'
+import IconButton, { type IconButtonProps } from '../IconButton'
 
 export interface ModalHeaderProps extends HTMLAttributes<HTMLDivElement> {
   /**

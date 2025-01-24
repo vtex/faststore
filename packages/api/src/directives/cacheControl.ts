@@ -1,56 +1,54 @@
-import { getDirective, MapperKind, mapSchema } from "@graphql-tools/utils";
-import { GraphQLSchema } from "graphql";
+import { getDirective, MapperKind, mapSchema } from '@graphql-tools/utils'
+import type { GraphQLSchema } from 'graphql'
 
-import type { Directive } from "./index";
+import type { Directive } from './index'
 
-const NAME = "cacheControl";
+const NAME = 'cacheControl'
 
 export interface CacheControl {
-  sMaxAge?: number;
-  staleWhileRevalidate?: number;
-  scope?: string;
+  sMaxAge?: number
+  staleWhileRevalidate?: number
+  scope?: string
 }
 
-export const stringify = (
-  { scope = "private", sMaxAge = 0, staleWhileRevalidate = 0 }: CacheControl,
-) =>
-  `${scope}, s-maxage=${sMaxAge}, stale-while-revalidate=${staleWhileRevalidate}`;
+export const stringify = ({
+  scope = 'private',
+  sMaxAge = 0,
+  staleWhileRevalidate = 0,
+}: CacheControl) =>
+  `${scope}, s-maxage=${sMaxAge}, stale-while-revalidate=${staleWhileRevalidate}`
 
 const min = (a: number | undefined, b: number | undefined) => {
-  if (typeof a === "number" && typeof b === "number") {
-    return a > b ? b : a;
+  if (typeof a === 'number' && typeof b === 'number') {
+    return a > b ? b : a
   }
 
-  if (typeof a === "number") {
-    return a;
+  if (typeof a === 'number') {
+    return a
   }
 
-  return b;
-};
+  return b
+}
 
-const minScope = (
-  a: string | undefined,
-  b: string | undefined,
-) => {
-  if (typeof a === "string" && typeof b === "string") {
-    return a === "public" && b === "public" ? "public" : "private";
+const minScope = (a: string | undefined, b: string | undefined) => {
+  if (typeof a === 'string' && typeof b === 'string') {
+    return a === 'public' && b === 'public' ? 'public' : 'private'
   }
 
-  return a || b;
-};
+  return a || b
+}
 
 const directive: Directive = {
-  typeDefs:
-    `directive @cacheControl(sMaxAge: Int, staleWhileRevalidate: Int, scope: String) on FIELD_DEFINITION`,
+  typeDefs: `directive @cacheControl(sMaxAge: Int, staleWhileRevalidate: Int, scope: String) on FIELD_DEFINITION`,
   transformer: (schema: GraphQLSchema) =>
     mapSchema(schema, {
       [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
         const cacheControl = getDirective(schema, fieldConfig, NAME)?.[0] as
           | CacheControl
-          | undefined;
+          | undefined
 
         if (cacheControl) {
-          const { sMaxAge, staleWhileRevalidate, scope } = cacheControl;
+          const { sMaxAge, staleWhileRevalidate, scope } = cacheControl
 
           const resolver = fieldConfig.resolve
 
@@ -59,18 +57,18 @@ const directive: Directive = {
               sMaxAge: min(ctx.cacheControl?.sMaxAge, sMaxAge),
               staleWhileRevalidate: min(
                 ctx.cacheControl?.staleWhileRevalidate,
-                staleWhileRevalidate,
+                staleWhileRevalidate
               ),
               scope: minScope(ctx.cacheControl?.scope, scope),
-            };
+            }
 
-            return resolver?.(obj, args, ctx, info);
-          };
+            return resolver?.(obj, args, ctx, info)
+          }
         }
 
-        return fieldConfig;
+        return fieldConfig
       },
     }),
-};
+}
 
-export default directive;
+export default directive

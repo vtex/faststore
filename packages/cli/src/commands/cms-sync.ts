@@ -12,10 +12,10 @@ export default class CmsSync extends Command {
   static args = [
     {
       name: 'path',
-      description: 'The path where the FastStore being synched with the CMS is. Defaults to cwd.',
-    }
+      description:
+        'The path where the FastStore being synched with the CMS is. Defaults to cwd.',
+    },
   ]
-
 
   async run() {
     const { flags, args } = await this.parse(CmsSync)

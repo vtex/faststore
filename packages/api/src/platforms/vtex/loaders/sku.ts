@@ -8,23 +8,28 @@ import type { Clients } from '../clients'
 
 export const getSkuLoader = (_: Options, clients: Clients) => {
   const loader = async (keys: readonly string[]) => {
-    const skuIds = keys.map((key) => key.split('-')[0]);
-    const showInvisibleItems = keys.some((key) => key.split('-')[1] === 'invisibleItems')
+    const skuIds = keys.map((key) => key.split('-')[0])
+    const showInvisibleItems = keys.some(
+      (key) => key.split('-')[1] === 'invisibleItems'
+    )
 
     const { products } = await clients.search.products({
       query: `sku:${skuIds.join(';')}`,
       page: 0,
       count: skuIds.length,
-      showInvisibleItems
+      showInvisibleItems,
     })
 
-    const skuBySkuId = products.reduce((acc, product) => {
-      for (const sku of product.items) {
-        acc[sku.itemId] = enhanceSku(sku, product)
-      }
+    const skuBySkuId = products.reduce(
+      (acc, product) => {
+        for (const sku of product.items) {
+          acc[sku.itemId] = enhanceSku(sku, product)
+        }
 
-      return acc
-    }, {} as Record<string, EnhancedSku>)
+        return acc
+      },
+      {} as Record<string, EnhancedSku>
+    )
 
     const skus = skuIds.map((skuId) => skuBySkuId[skuId])
     const missingSkus = skuIds.filter((skuId) => !skuBySkuId[skuId])

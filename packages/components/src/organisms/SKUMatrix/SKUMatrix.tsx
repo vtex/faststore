@@ -1,4 +1,4 @@
-import React, { forwardRef, HTMLAttributes } from 'react'
+import React, { forwardRef, type HTMLAttributes } from 'react'
 import SKUMatrixProvider from './provider/SKUMatrixProvider'
 
 export interface SKUMatrixProps extends HTMLAttributes<HTMLDivElement> {

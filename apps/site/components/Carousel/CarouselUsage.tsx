@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { PropsWithChildren } from 'react'
+import React, { type PropsWithChildren } from 'react'
 import {
   Carousel,
   ProductCard,

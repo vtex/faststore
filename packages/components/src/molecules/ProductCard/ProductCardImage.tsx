@@ -29,7 +29,7 @@ const ProductCardImage = forwardRef<HTMLDivElement, ProductCardImageProps>(
         data-testid={testId}
         style={
           {
-            '--fs-product-card-image-aspect-ratio': aspectRatio
+            '--fs-product-card-image-aspect-ratio': aspectRatio,
           } as React.CSSProperties
         }
         {...otherProps}

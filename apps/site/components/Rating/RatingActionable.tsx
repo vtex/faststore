@@ -1,4 +1,4 @@
-import { Icon, Rating, RatingProps } from '@faststore/ui'
+import { Icon, Rating, type RatingProps } from '@faststore/ui'
 import { useState } from 'react'
 
 export type RatingActionableProps = {

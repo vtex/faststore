@@ -1,6 +1,9 @@
 import React, { forwardRef } from 'react'
 import type { ElementType } from 'react'
-import { PolymorphicComponentPropsWithRef, PolymorphicRef } from '../../typings'
+import type {
+  PolymorphicComponentPropsWithRef,
+  PolymorphicRef,
+} from '../../typings'
 
 type LinkBaseProps = {
   /**

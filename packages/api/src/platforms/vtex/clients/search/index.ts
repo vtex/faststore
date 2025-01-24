@@ -1,7 +1,11 @@
 import type { Context, Options } from '../../'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
 import { getStoreCookie } from '../../utils/cookies'
-import type { FuzzyFacet, OperatorFacet, SelectedFacet } from '../../utils/facets'
+import type {
+  FuzzyFacet,
+  OperatorFacet,
+  SelectedFacet,
+} from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 import type {
   Facet,
@@ -72,7 +76,13 @@ const isOperatorFacet = (facet: SelectedFacet): facet is OperatorFacet => {
 }
 
 export const IntelligentSearch = (
-  { account, environment, hideUnavailableItems, simulationBehavior, showSponsored }: Options,
+  {
+    account,
+    environment,
+    hideUnavailableItems,
+    simulationBehavior,
+    showSponsored,
+  }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br/api/io`
@@ -154,7 +164,7 @@ export const IntelligentSearch = (
     selectedFacets = [],
     type,
     showInvisibleItems,
-    sponsoredCount
+    sponsoredCount,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),

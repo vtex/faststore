@@ -1,5 +1,5 @@
 import type { Resolver } from '..'
-import type { StorePropertyValue as  StorePropertyValueType } from '../../../__generated__/schema'
+import type { StorePropertyValue as StorePropertyValueType } from '../../../__generated__/schema'
 import { getPropertyId } from '../utils/propertyValue'
 
 export type Root = StorePropertyValueType

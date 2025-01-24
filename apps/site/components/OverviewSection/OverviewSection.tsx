@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react'
+import React, { type CSSProperties } from 'react'
 import styles from './overview-section.module.css'
 
 type Direction = 'column' | 'row'

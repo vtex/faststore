@@ -16,15 +16,9 @@ export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(function SearchTop(
-  {
-    testId = 'fs-top-search',
-    title = 'Top Search',
-    children,
-    ...otherProps
-  },
+  { testId = 'fs-top-search', title = 'Top Search', children, ...otherProps },
   ref
 ) {
-
   const { inContext, values } = useSearch()
 
   if (inContext && (values.term.length !== 0 || values.isLoading)) {
@@ -33,10 +27,10 @@ const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(function SearchTop(
 
   return (
     <section ref={ref} data-testid={testId} data-fs-search-top {...otherProps}>
-        <header data-fs-search-top-header>
-          <p data-fs-search-top-title>{title}</p>
-        </header>
-        <List as="ol">{children}</List>
+      <header data-fs-search-top-header>
+        <p data-fs-search-top-title>{title}</p>
+      </header>
+      <List as="ol">{children}</List>
     </section>
   )
 })
