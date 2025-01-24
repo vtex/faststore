@@ -63,15 +63,14 @@ function Page({
 
       <OrganizationJsonLd
         type="Organization"
-        id="https://www.purpule-fox.io/#corporation"
-        logo="https://www.example.com/photos/logo.jpg"
-        legalName="GO - Companhia FastStore"
-        name="FastStore"
-        email="sac@faststore.com"
-        telephone="4003-2000"
-        sameAs={['https://www.facebook.com/faststore']}
-        url="https://www.vtexfaststore.com"
-        image="#logo"
+        url={storeConfig.seo.organization.url}
+        sameAs={storeConfig.seo.organization.sameAs}
+        logo={storeConfig.seo.organization.logo}
+        name={storeConfig.seo.organization.name}
+        legalName={storeConfig.seo.organization.legalName}
+        email={storeConfig.seo.organization.email}
+        telephone={storeConfig.seo.organization.telephone}
+        image={storeConfig.seo.organization.image}
       />
 
       {/*
