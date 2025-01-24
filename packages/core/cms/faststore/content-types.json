@@ -92,6 +92,51 @@
                   "title": "Canonical url for the page",
                   "type": "string"
                 },
+                "organization": {
+                  "title": "Organization",
+                  "type": "object",
+                  "required": ["name"],
+                  "properties": {
+                    "name": {
+                      "title": "Organization name",
+                      "type": "string",
+                      "default": "VTEX"
+                    },
+                    "legalName": {
+                      "title": "Organization legal name",
+                      "type": "string",
+                      "default": "VTEX Commerce"
+                    },
+                    "url": {
+                      "title": "Organization URL",
+                      "type": "string",
+                      "default": "https://vtex.com"
+                    },
+                    "sameAs": {
+                      "title": "Organization URLs",
+                      "type": "array",
+                      "description": "The URL of a page on another website with additional information about your organization. For example, a URL to your organization's profile page on a social media or review site",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "logo": {
+                      "title": "Organization logo URL",
+                      "description": "A logo that is representative of your organization. Image guidelines: https://developers.google.com/search/docs/appearance/structured-data/organization",
+                      "type": "string"
+                    },
+                    "email": {
+                      "title": "Organization email",
+                      "description": "The email address to contact your business",
+                      "type": "string"
+                    },
+                    "telephone": {
+                      "title": "Organization phone",
+                      "description": "A business phone number. Be sure to include the country code and area code in the phone number",
+                      "type": "string"
+                    }
+                  }
+                },
                 "name": {
                   "title": "Name",
                   "type": "string"
