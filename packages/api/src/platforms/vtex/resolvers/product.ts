@@ -12,7 +12,7 @@ import {
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
 import type { Attachment } from '../clients/commerce/types/OrderForm'
-import { StoreImage, StoreProductImageArgs } from '../../..'
+import type { StoreImage, StoreProductImageArgs } from '../../..'
 
 type QueryProduct = PromiseType<ReturnType<typeof Query.product>>
 
@@ -54,7 +54,7 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
     canonical: canonicalFromProduct(isVariantOf),
   }),
   brand: ({ isVariantOf: { brand } }) => ({ name: brand }),
-  unitMultiplier: ({unitMultiplier}) => unitMultiplier,
+  unitMultiplier: ({ unitMultiplier }) => unitMultiplier,
   breadcrumbList: ({
     isVariantOf: { categories, productName, linkText },
     itemId,
@@ -90,13 +90,13 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
       })
     )
 
-    if(typeof args !== 'object') {
-      return resolvedImages;
+    if (typeof args !== 'object') {
+      return resolvedImages
     }
 
     let { context, limit } = args as StoreProductImageArgs
 
-    const shouldFilter = context !== "generic"
+    const shouldFilter = context !== 'generic'
 
     // Normalize count to undefined as we want any negative value to always return the full list of images
     limit = limit || -1

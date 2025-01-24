@@ -26,14 +26,14 @@ const isOrderFormItem = (item: Root): item is OrderFormProduct =>
 
 export const StoreOffer: Record<string, Resolver<Root>> = {
   priceCurrency: async (_, __, ctx) => {
-    const { 
-      loaders: { salesChannelLoader }, 
-      storage: { channel } 
+    const {
+      loaders: { salesChannelLoader },
+      storage: { channel },
     } = ctx
 
-    const sc = await salesChannelLoader.load(channel.salesChannel);
-    
-    return sc.CurrencyCode ?? '';
+    const sc = await salesChannelLoader.load(channel.salesChannel)
+
+    return sc.CurrencyCode ?? ''
   },
   priceValidUntil: (root) => {
     if (isSearchItem(root)) {
@@ -90,7 +90,11 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
     }
 
     if (isOrderFormItem(root)) {
-      return withTax(root.sellingPrice / 1e2, root.tax / 1e2, root.unitMultiplier)
+      return withTax(
+        root.sellingPrice / 1e2,
+        root.tax / 1e2,
+        root.unitMultiplier
+      )
     }
 
     return null
@@ -119,7 +123,11 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
   },
   listPriceWithTaxes: (root) => {
     if (isSearchItem(root)) {
-      return withTax(root.ListPrice ?? 0, root?.Tax, root.product.unitMultiplier)
+      return withTax(
+        root.ListPrice ?? 0,
+        root?.Tax,
+        root.product.unitMultiplier
+      )
     }
 
     if (isOrderFormItem(root)) {

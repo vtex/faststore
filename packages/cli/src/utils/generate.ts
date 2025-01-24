@@ -57,7 +57,7 @@ function filterAndCopyPackageJson(basePath: string) {
   const corePackageJsonPath = path.join(coreDir, 'package.json')
 
   const corePackageJsonFile = readFileSync(corePackageJsonPath, 'utf8')
-  let { exports: _, ...filteredFileContent } = JSON.parse(corePackageJsonFile)
+  const { exports: _, ...filteredFileContent } = JSON.parse(corePackageJsonFile)
 
   filteredFileContent.name = 'dot-faststore'
 
@@ -396,7 +396,8 @@ function updateNextConfig(basePath: string) {
 
 // returns new (discovery.config.js) or legacy (faststore.config.js) store config file
 function getCurrentUserStoreConfigFile(basePath: string) {
-  const { userStoreConfigFile, userLegacyStoreConfigFile } = withBasePath(basePath)
+  const { userStoreConfigFile, userLegacyStoreConfigFile } =
+    withBasePath(basePath)
 
   if (existsSync(userStoreConfigFile)) {
     return userStoreConfigFile
@@ -412,7 +413,7 @@ function getCurrentUserStoreConfigFile(basePath: string) {
 function validateAndInstallMissingDependencies(basePath: string) {
   const { userDir } = withBasePath(basePath)
 
-  const currentUserStoreConfigFile = getCurrentUserStoreConfigFile(basePath) 
+  const currentUserStoreConfigFile = getCurrentUserStoreConfigFile(basePath)
 
   if (!currentUserStoreConfigFile) {
     return

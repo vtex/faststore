@@ -41,7 +41,7 @@ type AccordionItemComponent = <C extends ElementType = 'div'>(
 ) => ReactElement | null
 
 const AccordionItem: AccordionItemComponent = forwardRef(function AccordionItem<
-  C extends ElementType = 'div'
+  C extends ElementType = 'div',
 >(
   {
     prefixId = '',

@@ -1,4 +1,4 @@
-import { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
+import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
 import type { PortalProduct } from './types/Product'
@@ -16,9 +16,9 @@ import type {
 import type { Session } from './types/Session'
 import type { Channel } from '../../utils/channel'
 import type { SalesChannel } from './types/SalesChannel'
-import { MasterDataResponse } from './types/Newsletter'
+import type { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
-import { DeliveryMode, SelectedAddress } from './types/ShippingData'
+import type { DeliveryMode, SelectedAddress } from './types/ShippingData'
 import { getStoreCookie, getWithCookie } from '../../utils/cookies'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
@@ -41,10 +41,10 @@ export const VtexCommerce = (
   const host =
     new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? ''
 
-  const selectedPrefix = subDomainPrefix ?
-    subDomainPrefix
-      .map((prefix) => prefix + '.')
-      .find((prefix) => host.includes(prefix)) || ''
+  const selectedPrefix = subDomainPrefix
+    ? subDomainPrefix
+        .map((prefix) => prefix + '.')
+        .find((prefix) => host.includes(prefix)) || ''
     : ''
 
   const forwardedHost = host.replace(selectedPrefix, '')
@@ -142,9 +142,9 @@ export const VtexCommerce = (
       ): Promise<OrderForm> => {
         const deliveryWindow = setDeliveryWindow
           ? {
-            startDateUtc: deliveryMode?.deliveryWindow?.startDate,
-            endDateUtc: deliveryMode?.deliveryWindow?.endDate,
-          }
+              startDateUtc: deliveryMode?.deliveryWindow?.startDate,
+              endDateUtc: deliveryMode?.deliveryWindow?.endDate,
+            }
           : null
 
         const mappedBody = {
@@ -292,9 +292,9 @@ export const VtexCommerce = (
         postalCode
           ? params.append('postalCode', postalCode)
           : params.append(
-            'geoCoordinates',
-            `${geoCoordinates?.longitude};${geoCoordinates?.latitude}`
-          )
+              'geoCoordinates',
+              `${geoCoordinates?.longitude};${geoCoordinates?.latitude}`
+            )
 
         const url = `${base}/api/checkout/pub/regions/?${params.toString()}`
         const headers: HeadersInit = withCookie({

@@ -5,7 +5,10 @@ import type { Brand } from '../clients/commerce/types/Brand'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { CollectionPageType } from '../clients/commerce/types/Portal'
 
-export type Root = Brand | (CategoryTree & { level: number }) | CollectionPageType
+export type Root =
+  | Brand
+  | (CategoryTree & { level: number })
+  | CollectionPageType
 
 const isBrand = (x: any): x is Brand | CollectionPageType =>
   x.type === 'brand' ||
@@ -43,10 +46,10 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
     isBrand(root)
       ? 'Brand'
       : isCollectionPageType(root)
-      ? root.pageType
-      : root.level === 0
-      ? 'Department'
-      : 'Category',
+        ? root.pageType
+        : root.level === 0
+          ? 'Department'
+          : 'Category',
   meta: (root) => {
     const slug = slugifyRoot(root)
 
@@ -55,15 +58,15 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
           selectedFacets: [{ key: 'brand', value: slug }],
         }
       : isCollection(root)
-      ? {
-          selectedFacets: [{ key: 'productclusterids', value: root.id }],
-        }
-      : {
-          selectedFacets: slug.split('/').map((segment, index) => ({
-            key: `category-${index + 1}`,
-            value: segment,
-          })),
-        }
+        ? {
+            selectedFacets: [{ key: 'productclusterids', value: root.id }],
+          }
+        : {
+            selectedFacets: slug.split('/').map((segment, index) => ({
+              key: `category-${index + 1}`,
+              value: segment,
+            })),
+          }
   },
   breadcrumbList: async (root, _, ctx) => {
     const {

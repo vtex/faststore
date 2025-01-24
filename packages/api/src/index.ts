@@ -24,11 +24,12 @@ const platforms = {
   },
 }
 
-const directives: Directive[] = [
-  cacheControlDirective
-]
+const directives: Directive[] = [cacheControlDirective]
 
-export const getTypeDefs = () => [typeDefs, ...directives.map(d => d.typeDefs)]
+export const getTypeDefs = () => [
+  typeDefs,
+  ...directives.map((d) => d.typeDefs),
+]
 
 export const getResolvers = (options: Options) =>
   platforms[options.platform].getResolvers(options)

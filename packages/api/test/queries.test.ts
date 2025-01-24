@@ -8,34 +8,34 @@ import {
   catalogPageTypeAdidas,
   catalogPageTypeBrand,
   catalogPageTypeIRobot,
-  catalogPageTypeSkechers
+  catalogPageTypeSkechers,
 } from '../mocks/AllCollectionsQuery'
 import {
   AllProductsQueryFirst5,
-  productSearchPage1Count5Fetch
+  productSearchPage1Count5Fetch,
 } from '../mocks/AllProductsQuery'
 import {
   CollectionDesksQuery,
   pageTypeDesksFetch,
   pageTypeOfficeDesksFetch,
-  pageTypeOfficeFetch
+  pageTypeOfficeFetch,
 } from '../mocks/CollectionQuery'
 import { ProductByIdQuery, productSearchFetch } from '../mocks/ProductQuery'
 import {
   RedirectQueryTermTech,
-  redirectTermTechFetch
+  redirectTermTechFetch,
 } from '../mocks/RedirectQuery'
 import { salesChannelStaleFetch } from '../mocks/salesChannel'
 import {
   attributeSearchCategory1Fetch,
   productSearchCategory1Fetch,
-  SearchQueryFirst5Products
+  SearchQueryFirst5Products,
 } from '../mocks/SearchQuery'
 import { regionFetch, SellersQueryResult } from '../mocks/SellersQuery'
 import {
   addressFetch,
   shippingSimulationFetch,
-  ShippingSimulationQueryResult
+  ShippingSimulationQueryResult,
 } from '../mocks/ShippingQuery'
 import type { Options } from '../src'
 import { getContextFactory, getSchema } from '../src'

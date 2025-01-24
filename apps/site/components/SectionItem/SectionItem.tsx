@@ -1,4 +1,4 @@
-import { CSSProperties, PropsWithChildren, ReactNode } from 'react'
+import type { CSSProperties, PropsWithChildren, ReactNode } from 'react'
 import styles from './section-item.module.css'
 
 import { Icon, LinkButton } from '@faststore/ui'

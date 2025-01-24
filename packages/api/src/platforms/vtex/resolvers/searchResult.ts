@@ -2,7 +2,7 @@ import { enhanceSku } from '../utils/enhanceSku'
 import type { Resolver } from '..'
 import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
-import { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
+import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
 import { pickBestSku } from '../utils/sku'
 
 export type Root = {
@@ -14,8 +14,8 @@ const isRootFacet = (facet: Facet, isDepartment: boolean, isBrand: boolean) =>
   isDepartment
     ? facet.key === 'category-1'
     : isBrand
-    ? facet.key === 'brand'
-    : false
+      ? facet.key === 'brand'
+      : false
 
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
   suggestions: async (root, _, ctx) => {
@@ -123,7 +123,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
     return {
       isTermMisspelled: productSearchResult.correction?.misspelled ?? false,
       logicalOperator: productSearchResult.operator,
-      fuzzy: productSearchResult.fuzzy
+      fuzzy: productSearchResult.fuzzy,
     }
   },
 }
