@@ -1,9 +1,6 @@
 .turbo
 .next
 
-# VSCode
-.vscode
-
 # Logs
 logs
 *.log

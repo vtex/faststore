@@ -1,74 +1,68 @@
 {
-  "name": "@faststore/ui",
-  "version": "3.9.0",
-  "description": "A lightweight, framework agnostic component library for React",
-  "author": "emersonlaurentino",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vtex/faststore",
-    "directory": "packages/ui"
-  },
-  "browserslist": "supports es6-module and not dead and last 2 version",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "typings": "dist/esm/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js",
-      "types": "./dist/esm/index.d.ts",
-      "default": "./dist/esm/index.js"
-    },
-    "./src/*": "./src/*"
-  },
-  "sideEffects": false,
-  "engines": {
-    "node": ">=10"
-  },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "scripts": {
-    "dev": "tsc --watch",
-    "build": "tsc --module commonjs --outDir dist/cjs && tsc --module esnext --outDir dist/esm",
-    "lint": "eslint src/**/*.{ts,tsx}",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
-  },
-  "size-limit": [
-    {
-      "path": "dist/cjs/index.js",
-      "limit": "50 KB"
-    },
-    {
-      "path": "dist/esm/index.js",
-      "limit": "40 KB"
-    }
-  ],
-  "dependencies": {
-    "@faststore/components": "^3.9.0",
-    "include-media": "^1.4.10",
-    "modern-normalize": "^1.1.0",
-    "react-swipeable": "^7.0.0",
-    "tabbable": "^5.2.1"
-  },
-  "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@faststore/eslint-config": "^3.9.0",
-    "@faststore/shared": "^3.9.0",
-    "@size-limit/preset-small-lib": "^7.0.8",
-    "@types/tabbable": "^3.1.1",
-    "babel-loader": "^8.2.5",
-    "eslint": "7.32.0",
-    "size-limit": "^7.0.8",
-    "typescript": "^4.2.4"
-  },
-  "volta": {
-    "extends": "../../package.json"
-  }
+	"name": "@faststore/ui",
+	"version": "3.9.0",
+	"description": "A lightweight, framework agnostic component library for React",
+	"author": "emersonlaurentino",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/vtex/faststore",
+		"directory": "packages/ui"
+	},
+	"browserslist": "supports es6-module and not dead and last 2 version",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"typings": "dist/esm/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/esm/index.js",
+			"require": "./dist/cjs/index.js",
+			"types": "./dist/esm/index.d.ts",
+			"default": "./dist/esm/index.js"
+		},
+		"./src/*": "./src/*"
+	},
+	"sideEffects": false,
+	"engines": {
+		"node": ">=10"
+	},
+	"files": ["dist", "src"],
+	"scripts": {
+		"dev": "tsc --watch",
+		"build": "tsc --module commonjs --outDir dist/cjs && tsc --module esnext --outDir dist/esm",
+		"size": "size-limit",
+		"analyze": "size-limit --why"
+	},
+	"size-limit": [
+		{
+			"path": "dist/cjs/index.js",
+			"limit": "50 KB"
+		},
+		{
+			"path": "dist/esm/index.js",
+			"limit": "40 KB"
+		}
+	],
+	"dependencies": {
+		"@faststore/components": "^3.9.0",
+		"include-media": "^1.4.10",
+		"modern-normalize": "^1.1.0",
+		"react-swipeable": "^7.0.0",
+		"tabbable": "^5.2.1"
+	},
+	"peerDependencies": {
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@faststore/shared": "^3.9.0",
+		"@size-limit/preset-small-lib": "^7.0.8",
+		"@types/tabbable": "^3.1.1",
+		"babel-loader": "^8.2.5",
+		"size-limit": "^7.0.8",
+		"typescript": "^4.2.4"
+	},
+	"volta": {
+		"extends": "../../package.json"
+	}
 }
