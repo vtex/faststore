@@ -65,7 +65,6 @@ function Page({
         legalName={storeConfig.seo.organization.legalName}
         email={storeConfig.seo.organization.email}
         telephone={storeConfig.seo.organization.telephone}
-        image={storeConfig.seo.organization.image}
       />
 
       {/*

@@ -15,7 +15,6 @@ module.exports = {
       legalName: 'VTEX Commerce',
       email: 'info@vtex.com',
       telephone: '',
-      image: '',
     },
   },
 
