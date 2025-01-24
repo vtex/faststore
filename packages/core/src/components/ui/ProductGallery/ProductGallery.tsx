@@ -3,7 +3,7 @@ import { NextSeo } from 'next-seo'
 import type { MouseEvent } from 'react'
 import { Suspense, lazy, useState } from 'react'
 
-import { Filter, useUI } from '@faststore/ui'
+import { useUI } from '@faststore/ui'
 import Sort from 'src/components/search/Sort'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
@@ -114,6 +114,8 @@ function ProductGallery({
     ToggleField,
     ProductComparison,
     ProductComparisonToolbar,
+    __experimentalFilterDesktop: FilterDesktop,
+    __experimentalFilterSlider: FilterSlider,
     __experimentalProductComparisonSidebar: ProductComparisonSidebar,
   } = useOverrideComponents<'ProductGallery'>()
 
@@ -127,6 +129,9 @@ function ProductGallery({
   const [showComparisonProducts, setShowComparisonProducts] =
     useState<boolean>(false)
   useProductsPrefetch(prev ? prev.cursor : null)
+  useProductsPrefetch(next ? next.cursor : null)
+
+  const { isDesktop } = useScreenResize()
 
   const hasFacetsLoaded = Boolean(data?.search?.facets)
   const hasProductsLoaded = Boolean(data?.search?.products)
@@ -149,13 +154,32 @@ function ProductGallery({
           data-fs-product-listing-content-grid
           data-fs-content="product-gallery"
         >
-          <div data-fs-product-listing-filters>
-            <FilterSkeleton loading={!hasFacetsLoaded}>
-              {hasFacetsLoaded && facets?.length > 0 && (
-                <Filter facets={facets} filter={filter} />
-              )}
-            </FilterSkeleton>
-          </div>
+          {isDesktop && (
+            <div data-fs-product-listing-filters>
+              <FilterSkeleton loading={!hasFacetsLoaded}>
+                {hasFacetsLoaded && facets?.length > 0 && (
+                  <div className="hidden-mobile">
+                    <FilterDesktop.Component
+                      {...FilterDesktop.props}
+                      {...filter}
+                      title={filterCmsData?.title}
+                    />
+                  </div>
+                )}
+              </FilterSkeleton>
+            </div>
+          )}
+          {!isDesktop && displayFilter && (
+            <div data-fs-product-listing-filters>
+              <FilterSlider.Component
+                {...FilterSlider.props}
+                {...filter}
+                title={filterCmsData?.title}
+                clearButtonLabel={filterCmsData?.mobileOnly?.clearButtonLabel}
+                applyButtonLabel={filterCmsData?.mobileOnly?.applyButtonLabel}
+              />
+            </div>
+          )}
           <div data-fs-product-listing-results-count data-count={totalCount}>
             <ResultsCountSkeleton.Component
               data-fs-product-listing-results-count-skeleton
@@ -215,11 +239,11 @@ function ProductGallery({
                       height={16}
                       {...FilterIcon.props}
                       name={
-                        filter?.mobileOnly?.filterButton?.icon?.icon ??
+                        filterCmsData?.mobileOnly?.filterButton?.icon?.icon ??
                         FilterIcon.props.name
                       }
                       aria-label={
-                        filter?.mobileOnly?.filterButton?.icon?.alt ??
+                        filterCmsData?.mobileOnly?.filterButton?.icon?.alt ??
                         FilterIcon.props['aria-label']
                       }
                     />
@@ -230,7 +254,7 @@ function ProductGallery({
                   // This decision can be reviewed later if needed
                   onClick={openFilter}
                 >
-                  {filter?.mobileOnly?.filterButton?.label}
+                  {filterCmsData?.mobileOnly?.filterButton?.label}
                 </MobileFilterButton.Component>
               )}
             </FilterButtonSkeleton.Component>
