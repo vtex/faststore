@@ -1,6 +1,6 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
-import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
+import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
 import RenderSections from 'src/components/cms/RenderSections'
 import type { PageContentType } from 'src/server/cms'
@@ -54,6 +54,33 @@ function Page({
             queryInput: 'search_term_string',
           },
         ]}
+      />
+
+      <OrganizationJsonLd
+        type="Organization"
+        url={settings?.seo?.organization?.url ?? storeConfig.storeUrl}
+        sameAs={
+          settings?.seo?.organization?.sameAs ??
+          storeConfig.seo.organization.sameAs
+        }
+        logo={
+          settings?.seo?.organization?.logo ?? storeConfig.seo.organization.logo
+        }
+        name={
+          settings?.seo?.organization?.name ?? storeConfig.seo.organization.name
+        }
+        legalName={
+          settings?.seo?.organization?.legalName ??
+          storeConfig.seo.organization.legalName
+        }
+        email={
+          settings?.seo?.organization?.email ??
+          storeConfig.seo.organization.email
+        }
+        telephone={
+          settings?.seo?.organization?.telephone ??
+          storeConfig.seo.organization.telephone
+        }
       />
 
       {/*

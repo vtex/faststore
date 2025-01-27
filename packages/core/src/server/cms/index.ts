@@ -30,6 +30,15 @@ export type PageContentType = ContentData & {
       title: string
       description: string
       canonical?: string
+      organization: {
+        url?: string
+        sameAs?: string[]
+        logo?: string
+        name: string
+        legalName?: string
+        email?: string
+        telephone?: string
+      }
     }
   }
 }

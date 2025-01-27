@@ -4,6 +4,18 @@ module.exports = {
     description: 'Fast Demo Store',
     titleTemplate: '%s | FastStore',
     author: 'Store Framework',
+    organization: {
+      url: 'https://vtex.com',
+      sameAs: [
+        'https://www.facebook.com/vtex',
+        'https://www.instagram.com/vtex',
+      ],
+      logo: 'https://vtex.com/_next/static/media/vtex-logo.80485bcf.svg',
+      name: 'VTEX',
+      legalName: 'VTEX Commerce',
+      email: 'info@vtex.com',
+      telephone: '',
+    },
   },
 
   // Theming
