@@ -40,7 +40,7 @@ type AccordionItemComponent = <C extends ElementType = 'div'>(
   props: AccordionItemProps<C>
 ) => ReactElement | null
 
-const AccordionItem: AccordionItemComponent = forwardRef(function AccordionItem<
+const AccordionItem = forwardRef(function AccordionItem<
   C extends ElementType = 'div',
 >(
   {
@@ -74,7 +74,7 @@ const AccordionItem: AccordionItemComponent = forwardRef(function AccordionItem<
       </Component>
     </AccordionItemContext.Provider>
   )
-})
+}) as AccordionItemComponent
 
 export function useAccordionItem() {
   const context = useContext(AccordionItemContext)

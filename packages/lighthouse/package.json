@@ -23,7 +23,6 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "@faststore/shared": "^3.9.0",
-    "typescript": "^4.2.4"
+    "@faststore/shared": "^3.9.0"
   }
 }

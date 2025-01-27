@@ -22,7 +22,8 @@
     "@biomejs/biome": "1.9.4",
     "lerna": "^8.0.0",
     "prettier": "^3.1.0",
-    "turbo": "^2.3.4"
+    "turbo": "^2.3.4",
+    "typescript": "^5.3.2"
   },
   "version": "0.0.0",
   "volta": {
