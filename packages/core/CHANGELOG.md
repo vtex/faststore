@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.9.1](https://github.com/vtex/faststore/compare/v3.9.0...v3.9.1) (2025-01-27)
+
+**Note:** Version bump only for package @faststore/core
+
 # 3.9.0 (2025-01-22)
 
 ### Features
