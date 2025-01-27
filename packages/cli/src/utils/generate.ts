@@ -489,6 +489,85 @@ function enableRedirectsMiddleware(basePath: string) {
   }
 }
 
+const GET_SERVER_SIDE_PROPS = `
+  export const getServerSideProps: GetServerSideProps<
+  Props,
+  Record<string, string>,
+  Locator
+> = async (context) => {
+  const { previewData, query, res } = context
+
+  const searchTerm = (query.q as string)?.split('+').join(' ')
+
+  const globalSections = await getGlobalSectionsData(previewData)
+
+  if (storeConfig.cms.data) {
+    const cmsData = JSON.parse(storeConfig.cms.data)
+    const page = cmsData['search'][0]
+
+    if (page) {
+      const pageData = await getPage<SearchContentType>({
+        contentType: 'search',
+        documentId: page.documentId,
+        versionId: page.versionId,
+      })
+
+      return {
+        props: { page: pageData, globalSections, searchTerm },
+      }
+    }
+  }
+
+  const page = await getPage<SearchContentType>({
+    ...(previewData?.contentType === 'search' ? previewData : null),
+    contentType: 'search',
+  })
+
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=300, stale-while-revalidate=31536000'
+  ) // 5 minutes of fresh content and 1 year of stale content
+
+  return {
+    props: {
+      page,
+      globalSections,
+      searchTerm,
+    },
+  }
+}
+`
+
+const GET_STATIC_PROPS_REGEX = /export const getStaticProps: GetStaticProps<[\s\S]*?>\s*= async \(context\) => \{[\s\S]*?\}/
+
+
+function enableSearchSSR(basePath: string) {
+  const storeConfigPath = getCurrentUserStoreConfigFile(basePath)
+
+  if(!storeConfigPath) { 
+    return 
+  }
+  const storeConfig = require(storeConfigPath)
+  if(!storeConfig.experimental.enableSearchSSR) { 
+    return
+  }
+
+  const { tmpDir } = withBasePath(basePath)
+
+  const searchPagePath = path.join(tmpDir, 'src', 'pages', 's.tsx')
+
+  const searchPageData = String(readFileSync(searchPagePath))
+  let searchPageWithSSR = searchPageData.replace(
+    GET_STATIC_PROPS_REGEX,
+    GET_SERVER_SIDE_PROPS
+  )
+
+  searchPageWithSSR.replace("import type { GetStaticProps } from 'next'", "import type { GetServerSideProps } from 'next'")
+
+  writeFileSync(searchPagePath, searchPageWithSSR)
+
+}
+
 export async function generate(options: GenerateOptions) {
   const { basePath, setup = false } = options
 
@@ -508,6 +587,7 @@ export async function generate(options: GenerateOptions) {
   await Promise.all([
     setupPromise,
     checkDependencies(basePath, ['typescript']),
+    enableSearchSSR(basePath),
     updateBuildTime(basePath),
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
