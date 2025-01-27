@@ -148,6 +148,8 @@ export { default as RegionBar } from './molecules/RegionBar'
 export type { RegionBarProps } from './molecules/RegionBar'
 export { default as Tooltip } from './molecules/Tooltip'
 export type { TooltipProps } from './molecules/Tooltip'
+export { default as ReviewCard } from './molecules/ReviewCard'
+export type { ReviewCardProps } from './molecules/ReviewCard'
 
 export { default as SearchProvider } from './molecules/SearchProvider'
 export type { SearchProviderContextValue } from './molecules/SearchProvider'
