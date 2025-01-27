@@ -86,7 +86,6 @@
   "devDependencies": {
     "@cypress/code-coverage": "^3.12.1",
     "@envelop/testing": "^6.0.0",
-    "@faststore/eslint-config": "^3.9.0",
     "@lhci/cli": "^0.9.0",
     "@testing-library/cypress": "^10.0.1",
     "@types/cypress": "^1.1.3",
