@@ -1,4 +1,3 @@
-import type { GetStaticProps } from 'next'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
@@ -14,20 +13,13 @@ import { SROnly as UISROnly } from '@faststore/ui'
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
 
-import { Locator } from '@vtex/client-cms'
 import storeConfig from 'discovery.config'
-import {
-  getGlobalSectionsData,
-  GlobalSectionsData,
-} from 'src/components/cms/GlobalSections'
-import { SearchWrapper } from 'src/components/templates/SearchPage'
-import { getPage, SearchContentType } from 'src/server/cms'
 
-type Props = {
-  page: SearchContentType
-  globalSections: GlobalSectionsData
-  searchTerm?: string
-}
+import { SearchWrapper } from 'src/components/templates/SearchPage'
+import {
+  getStaticProps,
+  SearchPageProps,
+} from 'src/experimental/searchServerSideFunctions'
 
 export interface SearchPageContextType {
   title: string
@@ -55,7 +47,11 @@ const useSearchParams = ({
   }, [asPath, defaultSort])
 }
 
-function Page({ page: searchContentType, globalSections, searchTerm }: Props) {
+function Page({
+  page: searchContentType,
+  globalSections,
+  searchTerm,
+}: SearchPageProps) {
   const { settings } = searchContentType
   const applySearchState = useApplySearchState()
   const searchParams = useSearchParams({
@@ -129,43 +125,6 @@ function Page({ page: searchContentType, globalSections, searchTerm }: Props) {
   )
 }
 
-export const getStaticProps: GetStaticProps<
-  Props,
-  Record<string, string>,
-  Locator
-> = async (context) => {
-  const { previewData } = context
-
-  const globalSections = await getGlobalSectionsData(previewData)
-
-  if (storeConfig.cms.data) {
-    const cmsData = JSON.parse(storeConfig.cms.data)
-    const page = cmsData['search'][0]
-
-    if (page) {
-      const pageData = await getPage<SearchContentType>({
-        contentType: 'search',
-        documentId: page.documentId,
-        versionId: page.versionId,
-      })
-
-      return {
-        props: { page: pageData, globalSections },
-      }
-    }
-  }
-
-  const page = await getPage<SearchContentType>({
-    ...(previewData?.contentType === 'search' ? previewData : null),
-    contentType: 'search',
-  })
-
-  return {
-    props: {
-      page,
-      globalSections,
-    },
-  }
-}
+export { getStaticProps }
 
 export default Page
