@@ -1,0 +1,181 @@
+[data-fs-review-card] {
+  // --------------------------------------------------------
+  // Design Tokens for ReviewCard
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-review-card-border-color: var(--fs-border-color-light);
+  --fs-review-card-border-width: var(--fs-border-width);
+  --fs-review-card-padding-mobile: 1.25rem 0; // 20px
+  --fs-review-card-gap-mobile: var(--fs-spacing-1);
+
+  // Header
+  --fs-review-card-header-width-desktop: 112px;
+  --fs-review-card-header-gap: var(--fs-spacing-1);
+
+  // Date
+  --fs-review-card-date-color: var(--fs-color-text-light);
+  --fs-review-card-date-font-size: var(--fs-text-size-0);
+  --fs-review-card-date-font-weight: var(--fs-text-weight-regular);
+  --fs-review-card-date-line-height: var(--fs-text-size-base);
+
+  // Text
+  --fs-review-card-text-gap: var(--fs-spacing-0);
+
+  // Text-Headline
+  --fs-review-card-headline-color: var(--fs-color-text);
+  --fs-review-card-headline-font-size: var(--fs-text-size-2);
+  --fs-review-card-headline-font-weight: var(--fs-text-weight-medium);
+  --fs-review-card-headline-line-height: 1.5;
+
+  // Text-Content
+  --fs-review-card-text-color: var(--fs-color-text);
+  --fs-review-card-text-font-size: var(--fs-text-size-1);
+  --fs-review-card-text-font-weight: var(--fs-text-weight-regular);
+  --fs-review-card-text-line-height: 1.5;
+
+  // Author
+  --fs-review-card-author-gap: var(--fs-spacing-1);
+  --fs-review-card-author-color: var(--fs-color-success-text);
+  --fs-review-card-author-font-size: var(--fs-text-size-0);
+  --fs-review-card-author-font-weight: var(--fs-text-weight-regular);
+  --fs-review-card-author-line-height: 1.33;
+
+  // Desktop
+  --fs-review-card-padding-desktop: var(--fs-spacing-3) 0 1.25rem; // 20px
+  --fs-review-card-gap-desktop: 50px;
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-direction: column;
+  padding: var(--fs-review-card-padding-mobile);
+  gap: var(--fs-review-card-gap-mobile);
+  border-bottom: var(--fs-review-card-border-width) solid
+    var(--fs-review-card-border-color);
+
+  @include media('>=notebook') {
+    flex-direction: row;
+    gap: var(--fs-review-card-gap-desktop);
+    padding: var(--fs-review-card-padding-desktop);
+  }
+
+  [data-fs-review-card-header] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--fs-review-card-header-gap);
+
+    @include media('>=notebook') {
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      max-width: var(--fs-review-card-header-width-desktop);
+      width: 100%;
+    }
+  }
+
+  [data-fs-review-card-author] {
+    display: flex;
+    align-items: center;
+    gap: var(--fs-review-card-author-gap);
+    width: 100%;
+
+    &[data-fs-review-card-author='desktop'] {
+      display: none;
+      visibility: hidden;
+    }
+
+    @include media('>=notebook') {
+      &[data-fs-review-card-author='mobile'] {
+        display: none;
+        visibility: hidden;
+      }
+
+      &[data-fs-review-card-author='desktop'] {
+        display: flex;
+        visibility: visible;
+      }
+    }
+  }
+
+  [data-fs-review-card-author-name] {
+    color: var(--fs-review-card-author-color);
+    font-size: var(--fs-review-card-author-font-size);
+    font-weight: var(--fs-review-card-author-font-weight);
+    line-height: var(--fs-review-card-author-line-height);
+
+    @include truncate-title(1);
+  }
+
+  [data-fs-review-card-date] {
+    color: var(--fs-review-card-date-color);
+    font-size: var(--fs-review-card-date-font-size);
+    font-weight: var(--fs-review-card-date-font-weight);
+    line-height: var(--fs-review-card-date-line-height);
+
+    &[data-fs-review-card-date='desktop'] {
+      display: none;
+      visibility: hidden;
+    }
+
+    @include media('>=notebook') {
+      &[data-fs-review-card-date='mobile'] {
+        display: none;
+        visibility: hidden;
+      }
+
+      &[data-fs-review-card-date='desktop'] {
+        display: initial;
+        visibility: visible;
+      }
+    }
+  }
+
+  [data-fs-review-card-text] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-review-card-text-gap);
+  }
+
+  [data-fs-review-card-text-header] {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  [data-fs-review-card-text-headline] {
+    color: var(--fs-review-card-headline-color);
+    font-size: var(--fs-review-card-headline-font-size);
+    font-weight: var(--fs-review-card-headline-font-weight);
+    line-height: var(--fs-review-card-headline-line-height);
+
+    @include truncate-title;
+  }
+
+  [data-fs-review-card-text-content] {
+    color: var(--fs-review-card-text-color);
+    font-size: var(--fs-review-card-text-font-size);
+    font-weight: var(--fs-review-card-text-font-weight);
+    line-height: var(--fs-review-card-text-line-height);
+    @include truncate-title(3);
+  }
+
+  [data-fs-review-card-text-content='expanded'] {
+    line-clamp: unset;
+    overflow: visible;
+    display: block;
+  }
+
+  [data-fs-review-card-text-read-more] {
+    align-self: flex-start;
+
+    cursor: pointer;
+    padding: 0;
+  }
+
+  [data-fs-review-card-author-verified] {
+    color: var(--fs-review-card-author-color);
+  }
+}
