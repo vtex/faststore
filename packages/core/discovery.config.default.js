@@ -4,6 +4,11 @@ module.exports = {
     description: 'Fast Demo Store',
     titleTemplate: '%s | FastStore',
     author: 'Store Framework',
+    search: {
+      titleTemplate: '%s: Search results title',
+      descriptionTemplate: '%s: Search results description',
+      title: 'Search Results',
+    },
   },
 
   // Theming
@@ -102,6 +107,6 @@ module.exports = {
     noRobots: false,
     preact: false,
     enableRedirects: false,
-    enableSearchSSR: true,
+    enableSearchSSR: false,
   },
 }

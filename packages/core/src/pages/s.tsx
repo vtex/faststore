@@ -1,4 +1,4 @@
-import type { GetServerSideProps } from 'next'
+import type { GetStaticProps } from 'next'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
@@ -62,21 +62,26 @@ function Page({ page: searchContentType, globalSections, searchTerm }: Props) {
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
   })
 
-  const title = 'Search Results'
-  const { description, titleTemplate } = storeConfig.seo
+  const { description, titleTemplate, search } = storeConfig.seo
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
   if (!searchParams) {
     return null
   }
+  const title = search?.title ?? 'Search Results'
+  const currentTitleTemplate = search?.titleTemplate ?? titleTemplate
 
   const isSSREnabled = storeConfig.experimental.enableSearchSSR
 
   const currentSearchTerm = isSSREnabled ? searchTerm : searchParams.term
   const currentTitle = isSSREnabled ? searchTerm : title
   const currentDescription = isSSREnabled
-    ? `${searchTerm}: em promoção que você procura? Na Americanas você encontra as melhores ofertas de produtos com entrega rápida. Vem!`
+    ? search.descriptionTemplate.replace(/%s/g, () => searchTerm)
     : description
+
+  const canonical = currentSearchTerm
+    ? `${storeConfig.storeUrl}?s=${currentSearchTerm}`
+    : undefined
 
   return (
     <SearchProvider
@@ -86,10 +91,11 @@ function Page({ page: searchContentType, globalSections, searchTerm }: Props) {
     >
       {/* SEO */}
       <NextSeo
+        canonical={canonical}
         noindex
         title={currentTitle}
         description={currentDescription}
-        titleTemplate={titleTemplate}
+        titleTemplate={currentTitleTemplate}
         openGraph={{
           type: 'website',
           title: currentTitle,
@@ -123,14 +129,12 @@ function Page({ page: searchContentType, globalSections, searchTerm }: Props) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps<
+export const getStaticProps: GetStaticProps<
   Props,
   Record<string, string>,
   Locator
 > = async (context) => {
-  const { previewData, query, res } = context
-
-  const searchTerm = (query.q as string)?.split('+').join(' ')
+  const { previewData } = context
 
   const globalSections = await getGlobalSectionsData(previewData)
 
@@ -146,7 +150,7 @@ export const getServerSideProps: GetServerSideProps<
       })
 
       return {
-        props: { page: pageData, globalSections, searchTerm },
+        props: { page: pageData, globalSections },
       }
     }
   }
@@ -156,16 +160,10 @@ export const getServerSideProps: GetServerSideProps<
     contentType: 'search',
   })
 
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=300, stale-while-revalidate=31536000'
-  ) // 5 minutes of fresh content and 1 year of stale content
-
   return {
     props: {
       page,
       globalSections,
-      searchTerm,
     },
   }
 }
