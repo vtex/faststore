@@ -6,6 +6,12 @@
   // Default properties
   --fs-checkbox-field-gap: var(--fs-spacing-1);
 
+  // Label
+  --fs-checkbox-field-label-color: var(--fs-color-text-light);
+  --fs-checkbox-field-label-size: var(--fs-text-size-1);
+  --fs-checkbox-field-label-weight: var(--fs-text-weight-regular);
+  --fs-checkbox-field-label-line-height: 1.42;
+
   /* Error tokens */
   --fs-checkbox-field-error-message-size: var(--fs-text-size-legend);
   --fs-checkbox-field-error-message-line-height: 1.1;
@@ -23,6 +29,13 @@
   [data-fs-checkbox-field-content] {
     display: flex;
     flex-direction: column;
+  }
+
+  [data-fs-checkbox-field-label] {
+    color: var(--fs-checkbox-field-label-color);
+    font-size: var(--fs-checkbox-field-label-size);
+    font-weight: var(--fs-checkbox-field-label-weight);
+    line-height: var(--fs-checkbox-field-label-line-height);
   }
 
   // --------------------------------------------------------
