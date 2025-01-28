@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps<
 
   res.setHeader(
     'Cache-Control',
-    'public, s-maxage=300, stale-while-revalidate=31536000'
+    'public, s-maxage=300, stale-while-revalidate=31536000, stale-if-error=31536000'
   ) // 5 minutes of fresh content and 1 year of stale content
 
   return {

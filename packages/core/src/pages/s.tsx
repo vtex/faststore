@@ -47,6 +47,50 @@ const useSearchParams = ({
   }, [asPath, defaultSort])
 }
 
+type StoreConfig = typeof storeConfig
+
+function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
+  const { search: searchSeo, ...seo } = storeConfig.seo
+
+  const isSSREnabled = storeConfig.experimental.enableSearchSSR
+
+  // default behavior without SSR
+  if (!isSSREnabled) {
+    return {
+      title: seo.title,
+      description: seo.description,
+      titleTemplate: seo.titleTemplate,
+      openGraph: {
+        type: 'website',
+        title: seo.title,
+        description: seo.description,
+      },
+    }
+  }
+
+  const title = searchTerm ?? 'Search Results'
+  const titleTemplate = searchSeo?.titleTemplate ?? seo.titleTemplate
+  const description = searchSeo?.descriptionTemplate
+    ? searchSeo.descriptionTemplate.replace(/%s/g, () => searchTerm)
+    : seo.description
+
+  const canonical = searchTerm
+    ? `${storeConfig.storeUrl}?s=${searchTerm}`
+    : undefined
+
+  return {
+    title,
+    description,
+    titleTemplate,
+    canonical,
+    openGraph: {
+      type: 'website',
+      title: title,
+      description: description,
+    },
+  }
+}
+
 function Page({
   page: searchContentType,
   globalSections,
@@ -58,26 +102,13 @@ function Page({
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
   })
 
-  const { description, titleTemplate, search } = storeConfig.seo
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
   if (!searchParams) {
     return null
   }
-  const title = search?.title ?? 'Search Results'
-  const currentTitleTemplate = search?.titleTemplate ?? titleTemplate
 
-  const isSSREnabled = storeConfig.experimental.enableSearchSSR
-
-  const currentSearchTerm = isSSREnabled ? searchTerm : searchParams.term
-  const currentTitle = isSSREnabled ? searchTerm : title
-  const currentDescription = isSSREnabled
-    ? search.descriptionTemplate.replace(/%s/g, () => searchTerm)
-    : description
-
-  const canonical = currentSearchTerm
-    ? `${storeConfig.storeUrl}?s=${currentSearchTerm}`
-    : undefined
+  const seoData = generateSEOData(storeConfig, searchTerm)
 
   return (
     <SearchProvider
@@ -86,20 +117,9 @@ function Page({
       {...searchParams}
     >
       {/* SEO */}
-      <NextSeo
-        canonical={canonical}
-        noindex
-        title={currentTitle}
-        description={currentDescription}
-        titleTemplate={currentTitleTemplate}
-        openGraph={{
-          type: 'website',
-          title: currentTitle,
-          description: currentDescription,
-        }}
-      />
+      <NextSeo noindex {...seoData} />
 
-      <UISROnly text={currentTitle} />
+      <UISROnly text={seoData.title} />
 
       {/*
           WARNING: Do not import or render components from any
@@ -116,8 +136,8 @@ function Page({
         itemsPerPage={itemsPerPage}
         searchContentType={searchContentType}
         serverData={{
-          title,
-          searchTerm: currentSearchTerm ?? undefined,
+          title: seoData.title,
+          searchTerm: searchParams.term ?? undefined,
         }}
         globalSections={globalSections.sections}
       />

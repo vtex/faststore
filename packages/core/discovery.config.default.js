@@ -11,7 +11,6 @@ module.exports = {
     search: {
       titleTemplate: '%s: Search results title',
       descriptionTemplate: '%s: Search results description',
-      title: 'Search Results',
     },
   },
 
