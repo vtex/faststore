@@ -1,6 +1,19 @@
 import { useEffect, useState } from 'react'
 
 const TTI_TIMEOUT = 5000 // 5 seconds without long tasks as a criterion for Time To Interactive - https://web.dev/articles/tti
+
+/**
+ * Polyfill for requestIdleCallback, which is not available for every browser
+ * https://caniuse.com/requestidlecallback
+ */
+function ric(callback: () => void) {
+  if (window.requestIdleCallback) {
+    window.requestIdleCallback(callback)
+  } else {
+    window.setTimeout(callback, 1)
+  }
+}
+
 export default function useTTI() {
   const [isInteractive, setIsInteractive] = useState(false)
 
@@ -23,11 +36,11 @@ export default function useTTI() {
           observer.disconnect()
           setIsInteractive(true) // Sets the state to true when TTI is estimated
         } else {
-          requestIdleCallback(checkTTI) // Keeps checking while the browser is idle
+          ric(checkTTI) // Keeps checking while the browser is idle
         }
       }
 
-      requestIdleCallback(checkTTI)
+      ric(checkTTI)
     }
   }, [])
 
