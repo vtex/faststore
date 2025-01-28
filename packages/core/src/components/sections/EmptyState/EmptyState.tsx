@@ -74,13 +74,7 @@ function EmptyState({
   const { errorId, fromUrl } = useErrorState()
 
   const icon = !!titleIcon?.icon ? (
-    <UIIcon
-      name={titleIcon?.icon}
-      aria-label={titleIcon?.alt}
-      width={56}
-      height={56}
-      weight="thin"
-    />
+    <UIIcon name={titleIcon?.icon} aria-label={titleIcon?.alt} size={56} />
   ) : (
     EmptyStateWrapper.props.titleIcon
   )

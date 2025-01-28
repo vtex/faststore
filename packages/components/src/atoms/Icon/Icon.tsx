@@ -1,8 +1,10 @@
 import type { SVGProps } from 'react'
 import React, { forwardRef } from 'react'
 
-type IconWeight = 'thin' | 'light' | 'regular' | 'bold'
+type IconWeight = 'thin' | 'light' | 'regular' | 'bold' // TODO: Remove this after weight prop is removed
+type IconSize = 20 | 24 | 32 | 56
 
+// TODO: Remove this after weight prop is removed
 const mapWeightToValue: Record<IconWeight, number> = {
   bold: 24,
   regular: 16,
@@ -18,42 +20,61 @@ export interface IconProps extends SVGProps<SVGSVGElement> {
   /**
    * Symbol id from element to render. Take a look at `/static/icons.svg`.
    *
-   * Example: <Icon name="Bell" />
+   * Example: <Icon name="fs-bell" />
    */
   name: string
   /**
    * SVG weight.
    *
    * @default 'regular'
+   * @deprecated 'weight' prop will be removed in the next major version.
    */
   weight?: IconWeight
   /**
    * SVG width.
    *
    * @default '24'
+   * @deprecated 'width' prop will be removed in the next major version. Use 'size' instead.
    */
   width?: number
   /**
    * SVG height.
    *
    * @default '24'
+   * @deprecated 'height' prop will be removed in the next major version. Use 'size' instead.
    */
   height?: number
+  /**
+   * SVG size.
+   *
+   * @default '24'
+   */
+  size?: IconSize
 }
 
 const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
   { testId = 'fs-icon', name, weight = 'regular', ...otherProps }: IconProps,
   ref
 ) {
-  const { width, height } = otherProps
+  let { width, height, size } = otherProps
+  let library: string = ''
+
+  if (name.startsWith('fs-')) {
+    library = 'material'
+    name = `${name}-${size ?? 24}`
+  } else {
+    library = 'phosphor'
+  }
+
   return (
     <svg
       ref={ref}
       data-fs-icon
       data-testid={testId}
-      width={width ?? 24}
-      height={height ?? 24}
-      strokeWidth={mapWeightToValue[weight]}
+      size={size ?? 24}
+      width={library === 'phosphor' ? width ?? 24 : size ?? 24} // TODO: Remove this after width prop is removed
+      height={library === 'phosphor' ? height ?? 24 : size ?? 24} // TODO: Remove this after height prop is removed
+      strokeWidth={mapWeightToValue[weight]} // TODO: Remove this after weight prop is removed
       {...otherProps}
     >
       <use href={`/icons.svg#${name}`} />
