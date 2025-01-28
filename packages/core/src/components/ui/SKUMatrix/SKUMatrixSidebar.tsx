@@ -7,8 +7,15 @@ import { gql } from '@generated/gql'
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { usePDP } from 'src/sdk/overrides/PageProvider'
 import { useAllVariantProducts } from 'src/sdk/product/useAllVariantProducts'
+import { Image } from '../Image'
 
 interface SKUMatrixProps extends UISKUMatrixSidebarProps {}
+
+const ImageComponent: UISKUMatrixSidebarProps['ImageComponent'] = ({
+  src,
+  alt,
+  ...otherProps
+}) => <Image src={src} alt={alt} width={48} height={48} {...otherProps} />
 
 function SKUMatrixSidebar(props: SKUMatrixProps) {
   const {
@@ -76,6 +83,7 @@ function SKUMatrixSidebar(props: SKUMatrixProps) {
       buyProps={buyProps}
       title={product.isVariantOf.name ?? ''}
       loading={isValidating}
+      ImageComponent={ImageComponent}
       {...props}
     />
   )
