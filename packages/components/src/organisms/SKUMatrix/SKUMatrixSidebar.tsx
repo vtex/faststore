@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import type { FunctionComponent } from 'react'
 import React, { useMemo } from 'react'
 import { Badge, Button, QuantitySelector, Skeleton } from '../..'
@@ -29,6 +30,7 @@ const ImageComponentFallback: SKUMatrixSidebarProps['ImageComponent'] = ({
   ...otherProps
 }) => <img src={src} alt={alt} {...otherProps} />
 
+// TODO: Moves this component to the `@faststore/core` package. We decided that it doesn't make sense to have this component in the library since it's vey specific to the SKU Matrix feature.
 export interface SKUMatrixSidebarProps
   extends Omit<SlideOverProps, 'isOpen' | 'setIsOpen' | 'fade'> {
   /**
@@ -68,16 +70,16 @@ export interface SKUMatrixSidebarProps
 }
 
 function SKUMatrixSidebar({
-  direction = 'rightSide',
   title,
-  overlayProps,
+  direction = 'rightSide',
   size = 'partial',
   children,
   columns,
-  buyProps: { onClick: buyButtonOnClick, ...buyProps },
   loading,
   formatter,
   ImageComponent = ImageComponentFallback,
+  buyProps: { onClick: buyButtonOnClick, ...buyProps },
+  overlayProps,
   ...otherProps
 }: SKUMatrixSidebarProps) {
   const {
