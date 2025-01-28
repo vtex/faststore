@@ -52,7 +52,9 @@ const CheckboxField = forwardRef<HTMLDivElement, CheckboxFieldProps>(
           {...otherProps}
         />
         <div data-fs-checkbox-field-content>
-          <Label htmlFor={id}>{label}</Label>
+          <Label data-fs-checkbox-field-label htmlFor={id}>
+            {label}
+          </Label>
 
           {shouldDisplayError && (
             <span data-fs-checkbox-field-error-message>{error}</span>
