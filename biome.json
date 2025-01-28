@@ -7,7 +7,18 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "ignore": [".next", "dist", ".turbo", "package.json"]
+    "ignore": [
+      ".next",
+      "dist",
+      ".turbo",
+      "package.json",
+      "public/",
+      "coverage",
+      ".vscode/",
+      ".cache/",
+      "__generated__",
+      "@generated"
+    ]
   },
   "formatter": {
     "enabled": true,
