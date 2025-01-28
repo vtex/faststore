@@ -71,16 +71,16 @@ export default function ProductListingPage({
   const {
     seo: { plp: plpSeo, ...storeSeo },
   } = storeConfig
-  console.log('[test collection] plpSeo', plpSeo)
-  console.log('[test collection] storeSeo', storeSeo)
-  console.log('[test collection] collection', collection)
   const title = collection?.seo.title ?? storeSeo.title
   const titleTemplate = plpSeo?.titleTemplate ?? storeSeo.titleTemplate
   const description =
-    collection?.seo.description ?? plpSeo?.descriptionTemplate
-      ? plpSeo.descriptionTemplate.replace(/%s/g, () => title)
-      : storeSeo.description
+    collection?.seo?.description ||
+    plpSeo?.descriptionTemplate?.replace(/%s/g, () => title) ||
+    storeSeo.description
 
+  console.log('[test collection] title', title)
+  console.log('[test collection] title template', titleTemplate)
+  console.log('[test collection] description', description)
   const [pathname] = router.asPath.split('?')
   const canonical = `${storeConfig.storeUrl}${pathname}`
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
