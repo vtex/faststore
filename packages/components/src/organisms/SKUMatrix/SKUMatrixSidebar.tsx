@@ -1,8 +1,8 @@
-import Image from 'next/image'
+import type { FunctionComponent } from 'react'
 import React, { useMemo } from 'react'
 import { Badge, Button, QuantitySelector, Skeleton } from '../..'
-import Price, { PriceFormatter } from '../../atoms/Price'
 import Icon from '../../atoms/Icon'
+import Price, { PriceFormatter } from '../../atoms/Price'
 import { useFadeEffect, useSKUMatrix, useUI } from '../../hooks'
 import {
   Table,
@@ -12,7 +12,6 @@ import {
   TableRow,
 } from '../../molecules/Table'
 import SlideOver, { SlideOverHeader, SlideOverProps } from '../SlideOver'
-
 interface VariationProductColumn {
   name: string
   additionalColumns: Array<{ label: string; value: string }>
@@ -24,8 +23,14 @@ interface VariationProductColumn {
   quantitySelector: number
 }
 
+const ImageComponentFallback: SKUMatrixSidebarProps['ImageComponent'] = ({
+  src,
+  alt,
+  ...otherProps
+}) => <img src={src} alt={alt} {...otherProps} />
+
 export interface SKUMatrixSidebarProps
-  extends Omit<SlideOverProps, 'isOpen' | 'setIsOpen' | "fade"> {
+  extends Omit<SlideOverProps, 'isOpen' | 'setIsOpen' | 'fade'> {
   /**
    * Title for the SKUMatrixSidebar component.
    */
@@ -51,6 +56,15 @@ export interface SKUMatrixSidebarProps
    * Check if some result is still loading before render the result.
    */
   loading?: boolean
+  /**
+   * Function that returns a React component that will be used to render images.
+   */
+  ImageComponent: FunctionComponent<{
+    src: string
+    alt: string
+    width?: number
+    height?: number
+  }>
 }
 
 function SKUMatrixSidebar({
@@ -63,6 +77,7 @@ function SKUMatrixSidebar({
   buyProps: { onClick: buyButtonOnClick, ...buyProps },
   loading,
   formatter,
+  ImageComponent = ImageComponentFallback,
   ...otherProps
 }: SKUMatrixSidebarProps) {
   const {
@@ -177,11 +192,9 @@ function SKUMatrixSidebar({
               {allVariantProducts.map((variantProduct) => (
                 <TableRow key={`${variantProduct.name}-${variantProduct.id}`}>
                   <TableCell data-fs-sku-matrix-sidebar-cell-image align="left">
-                    <Image
+                    <ImageComponent
                       src={variantProduct.image.url}
                       alt={variantProduct.image.alternateName}
-                      width={48}
-                      height={48}
                     />
                     {variantProduct.name}
                   </TableCell>
