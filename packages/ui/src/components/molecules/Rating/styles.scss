@@ -5,7 +5,8 @@
 
   // Default properties
   --fs-rating-gap: var(--fs-spacing-0);
-  --fs-rating-color: var(--fs-color-text);
+  --fs-rating-color: var(--fs-color-main-2);
+  --fs-rating-color-empty: var(--fs-color-neutral-4);
 
   // Icon
   --fs-rating-icon-width: var(--fs-spacing-3);
@@ -15,8 +16,8 @@
   --fs-rating-actionable-gap: 0;
   --fs-rating-actionable-icon-width: var(--fs-rating-icon-width);
   --fs-rating-actionable-icon-height: var(--fs-rating-actionable-icon-width);
-  --fs-rating-actionable-color: var(--fs-color-neutral-4);
-  --fs-rating-actionable-color-selected: var(--fs-color-main-2);
+  --fs-rating-actionable-color: var(--fs-rating-color-empty);
+  --fs-rating-actionable-color-selected: var(--fs-rating-color);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -58,6 +59,7 @@
 
   [data-fs-rating-item] {
     position: relative;
+    fill: var(--fs-rating-color);
   }
 
   //  --------------------------------------------------------
@@ -65,6 +67,7 @@
   // --------------------------------------------------------
 
   [data-fs-rating-item='empty'] svg[data-fs-icon] {
+    color: var(--fs-rating-color-empty);
     fill: none;
   }
 
