@@ -25,6 +25,10 @@ export interface RatingProps
    * Function to be triggered when Rating option change. This should only be used if you and an actionable rating list.
    */
   onChange?: (value: number) => void
+  /**
+   * Specifies that the actionable rating should be disabled.
+   */
+  disabled?: boolean
 }
 
 export interface RatingItemProps {
@@ -40,6 +44,7 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
     value = 0,
     icon,
     onChange,
+    disabled,
     ...otherProps
   },
   ref
@@ -89,6 +94,7 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
                 }}
                 onMouseEnter={() => setHover(tempIndex)}
                 onMouseLeave={() => setHover(value)}
+                disabled={disabled}
               />
             ) : (
               <>
