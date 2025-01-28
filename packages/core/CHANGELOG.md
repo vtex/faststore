@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.9.3](https://github.com/vtex/faststore/compare/v3.9.2...v3.9.3) (2025-01-28)
+
+### Bug Fixes
+
+- **sdk:** safari rendering ([#2642](https://github.com/vtex/faststore/issues/2642)) ([39746cd](https://github.com/vtex/faststore/commit/39746cd6094ca1f3f08918b88c20c47d87dadd19))
+
 ## [3.9.2](https://github.com/vtex/faststore/compare/v3.9.1...v3.9.2) (2025-01-27)
 
 **Note:** Version bump only for package @faststore/core
