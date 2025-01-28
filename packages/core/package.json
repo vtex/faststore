@@ -25,7 +25,7 @@
     "test:e2e": "cypress open",
     "test": "jest",
     "lhci": "lhci autorun",
-    "postinstall": "node postinstall.js",
+    "postinstall": "node postinstall.js && is-ci || echo Skipped postinstall step for @faststore/core",
     "partytown": "partytown copylib ./public/~partytown"
   },
   "engines": {
