@@ -74,13 +74,10 @@ export default function ProductListingPage({
   const title = collection?.seo.title ?? storeSeo.title
   const titleTemplate = plpSeo?.titleTemplate ?? storeSeo.titleTemplate
   const description =
-    collection?.seo?.description ||
-    plpSeo?.descriptionTemplate?.replace(/%s/g, () => title) ||
-    storeSeo.description
+    collection?.seo.description || // Use description that comes from the Checkout API
+    plpSeo?.descriptionTemplate?.replace(/%s/g, () => title) || // Use description template from the SEO config for PLP
+    storeSeo.description // Use default description from the store SEO config
 
-  console.log('[test collection] title', title)
-  console.log('[test collection] title template', titleTemplate)
-  console.log('[test collection] description', description)
   const [pathname] = router.asPath.split('?')
   const canonical = `${storeConfig.storeUrl}${pathname}`
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
