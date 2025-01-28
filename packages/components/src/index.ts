@@ -32,6 +32,8 @@ export { default as Select } from './atoms/Select'
 export type { SelectProps } from './atoms/Select'
 export { default as Slider } from './atoms/Slider'
 export type { SliderProps } from './atoms/Slider'
+export { default as ProgressBar } from './atoms/ProgressBar'
+export type { ProgressBarProps } from './atoms/ProgressBar'
 export { default as SROnly } from './atoms/SROnly'
 
 // Molecules
@@ -67,12 +69,8 @@ export type {
   CarouselBulletsProps,
 } from './molecules/Carousel'
 
-export {
-  default as Card
-} from './molecules/Card'
-export type {
-  CardProps
-} from './molecules/Card'
+export { default as Card } from './molecules/Card'
+export type { CardProps } from './molecules/Card'
 
 export {
   default as CartItem,
@@ -369,5 +367,5 @@ export {
 export type {
   SKUMatrixProps,
   SKUMatrixTriggerProps,
-  SKUMatrixSidebarProps
+  SKUMatrixSidebarProps,
 } from './organisms/SKUMatrix'
