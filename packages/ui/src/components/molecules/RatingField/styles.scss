@@ -1,0 +1,44 @@
+[data-fs-rating-field] {
+  // --------------------------------------------------------
+  // Design Tokens for RatingField
+  // --------------------------------------------------------
+
+  // Label
+  --fs-rating-field-label-color: var(--fs-color-text-light);
+  --fs-rating-field-label-size: var(--fs-text-size-2);
+  --fs-rating-field-label-line-height: var(--fs-text-size-4);
+
+  // Error
+  --fs-rating-field-error-message-size: var(--fs-text-size-legend);
+  --fs-rating-field-error-message-line-height: 1.1;
+  --fs-rating-field-error-message-color: var(--fs-color-danger-text);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+  display: flex;
+  flex-direction: column;
+
+  [data-fs-rating-field-label] {
+    font-size: var(--fs-rating-field-label-size);
+    line-height: var(--fs-rating-field-label-line-height);
+    color: var(--fs-rating-field-label-color);
+  }
+
+  [data-fs-rating-field-error-message] {
+    font-size: var(--fs-rating-field-error-message-size);
+    line-height: var(--fs-rating-field-error-message-line-height);
+    color: var(--fs-rating-field-error-message-color);
+  }
+
+  //  --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+  &[data-fs-rating-field-error='true'] {
+    [data-fs-rating] {
+      [data-fs-rating-item='empty'] svg {
+        color: var(--fs-rating-field-error-message-color);
+      }
+    }
+  }
+}
