@@ -33,13 +33,20 @@ export type PageContentType = ContentData & {
       name?: string
       publisherId?: string
       organization: {
+        id?: string
         url?: string
         sameAs?: string[]
         logo?: string
+        image?: string
         name: string
         legalName?: string
         email?: string
         telephone?: string
+        address?: {
+          streetAddress?: string
+          addressLocality?: string
+          postalCode?: string
+        }
       }
     }
   }

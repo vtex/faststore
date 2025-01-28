@@ -107,6 +107,10 @@
                       "type": "string",
                       "default": "VTEX Commerce"
                     },
+                    "id": {
+                      "title": "ID",
+                      "type": "string"
+                    },
                     "url": {
                       "title": "Organization URL",
                       "type": "string",
@@ -134,6 +138,27 @@
                       "title": "Organization phone",
                       "description": "A business phone number. Be sure to include the country code and area code in the phone number",
                       "type": "string"
+                    },
+                    "address": {
+                      "title": "Organization address",
+                      "description": "The address (physical or mailing) of your organization, if applicable.",
+                      "type": "object",
+                      "properties": {
+                        "streetAddress": {
+                          "title": "Street Address",
+                          "description": "The full street address of your postal address.",
+                          "type": "string"
+                        },
+                        "addressLocality": {
+                          "title": "Street Address",
+                          "description": "The city of your postal address.",
+                          "type": "string"
+                        },
+                        "postalCode": {
+                          "title": "Postal Code",
+                          "type": "string"
+                        }
+                      }
                     }
                   }
                 },

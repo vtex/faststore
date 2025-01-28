@@ -63,6 +63,7 @@ function Page({
 
       <OrganizationJsonLd
         type="Organization"
+        id={settings?.seo?.organization?.id ?? storeConfig.storeUrl}
         url={settings?.seo?.organization?.url ?? storeConfig.storeUrl}
         sameAs={
           settings?.seo?.organization?.sameAs ??
@@ -70,6 +71,10 @@ function Page({
         }
         logo={
           settings?.seo?.organization?.logo ?? storeConfig.seo.organization.logo
+        }
+        image={
+          settings?.seo?.organization?.image ??
+          storeConfig.seo.organization.image
         }
         name={
           settings?.seo?.organization?.name ?? storeConfig.seo.organization.name
@@ -86,6 +91,18 @@ function Page({
           settings?.seo?.organization?.telephone ??
           storeConfig.seo.organization.telephone
         }
+        address={{
+          '@type': 'PostalAddress',
+          streetAddress:
+            settings?.seo?.organization?.address?.streetAddress ??
+            storeConfig.seo.organization.address.streetAddress,
+          addressLocality:
+            settings?.seo?.organization?.address?.addressLocality ??
+            storeConfig.seo.organization.address.addressLocality,
+          postalCode:
+            settings?.seo?.organization?.address?.postalCode ??
+            storeConfig.seo.organization.address.postalCode,
+        }}
       />
 
       {/*
