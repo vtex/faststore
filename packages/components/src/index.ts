@@ -12,6 +12,8 @@ export { default as Icon } from './atoms/Icon'
 export type { IconProps } from './atoms/Icon'
 export { default as Input } from './atoms/Input'
 export type { InputProps } from './atoms/Input'
+export { default as Textarea } from './atoms/Textarea'
+export type { TextareaProps } from './atoms/Textarea'
 export { default as Label } from './atoms/Label'
 export type { LabelProps } from './atoms/Label'
 export { default as Link } from './atoms/Link'
@@ -67,12 +69,8 @@ export type {
   CarouselBulletsProps,
 } from './molecules/Carousel'
 
-export {
-  default as Card
-} from './molecules/Card'
-export type {
-  CardProps
-} from './molecules/Card'
+export { default as Card } from './molecules/Card'
+export type { CardProps } from './molecules/Card'
 
 export {
   default as CartItem,
@@ -369,5 +367,5 @@ export {
 export type {
   SKUMatrixProps,
   SKUMatrixTriggerProps,
-  SKUMatrixSidebarProps
+  SKUMatrixSidebarProps,
 } from './organisms/SKUMatrix'
