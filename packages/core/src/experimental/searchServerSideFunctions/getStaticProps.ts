@@ -13,6 +13,10 @@ export type SearchPageProps = {
   searchTerm?: string
 }
 
+/* 
+  Depending on the value of the storeConfig.experimental.enableSearchSSR flag, the function used will be getServerSideProps (./getServerSideProps). 
+  Our CLI that does this process of converting from getStaticProps to getServerSideProps.
+*/
 export const getStaticProps: GetStaticProps<
   SearchPageProps,
   Record<string, string>,
