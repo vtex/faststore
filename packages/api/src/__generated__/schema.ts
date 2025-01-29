@@ -1010,6 +1010,8 @@ export type StoreProduct = {
   offers: StoreAggregateOffer;
   /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
   productID: Scalars['String'];
+  /** Product rating. */
+  rating: StoreProductRating;
   /** The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601 */
   releaseDate: Scalars['String'];
   /** Array with review information. */
@@ -1094,6 +1096,14 @@ export const enum StoreProductListReviewsSort {
   ReviewDateTimeAsc = 'reviewDateTime_asc',
   /** Sort by review creation date, from newest to oldest. */
   ReviewDateTimeDesc = 'reviewDateTime_desc'
+};
+
+export type StoreProductRating = {
+  __typename?: 'StoreProductRating';
+  /** Product average rating. */
+  average: Scalars['Float'];
+  /** Product amount of ratings received. */
+  totalCount: Scalars['Int'];
 };
 
 export type StoreProductReview = {

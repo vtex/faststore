@@ -1,0 +1,10 @@
+type StoreProductRating {
+  """
+  Product average rating.
+  """
+  average: Float!
+  """
+  Product amount of ratings received.
+  """
+  totalCount: Int!
+}
