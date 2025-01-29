@@ -12,7 +12,7 @@ import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
 
-import { PLPContentType } from 'src/server/cms/plp'
+import type { PLPContentType } from 'src/server/cms/plp'
 
 import storeConfig from '../../../../discovery.config'
 import ProductListing from './ProductListing'
@@ -68,8 +68,16 @@ export default function ProductListingPage({
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
   })
 
-  const title = collection?.seo.title ?? storeConfig.seo.title
-  const description = collection?.seo.description ?? storeConfig.seo.title
+  const {
+    seo: { plp: plpSeo, ...storeSeo },
+  } = storeConfig
+  const title = collection?.seo.title ?? storeSeo.title
+  const titleTemplate = plpSeo?.titleTemplate ?? storeSeo.titleTemplate
+  const description =
+    collection?.seo.description || // Use description that comes from the Checkout API
+    plpSeo?.descriptionTemplate?.replace(/%s/g, () => title) || // Use description template from the SEO config for PLP
+    storeSeo.description // Use default description from the store SEO config
+
   const [pathname] = router.asPath.split('?')
   const canonical = `${storeConfig.storeUrl}${pathname}`
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
@@ -84,7 +92,7 @@ export default function ProductListingPage({
       <NextSeo
         title={title}
         description={description}
-        titleTemplate={storeConfig.seo.titleTemplate}
+        titleTemplate={titleTemplate}
         canonical={canonical}
         openGraph={{
           type: 'website',

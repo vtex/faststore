@@ -4,6 +4,10 @@ module.exports = {
     description: 'Fast Demo Store',
     titleTemplate: '%s | FastStore',
     author: 'Store Framework',
+    plp: {
+      titleTemplate: '%s | FastStore PLP',
+      descriptionTemplate: '%s products on FastStore Product Listing Page',
+    },
   },
 
   // Theming
