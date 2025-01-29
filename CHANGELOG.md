@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.10.0](https://github.com/vtex/faststore/compare/v3.9.3...v3.10.0) (2025-01-29)
+
+### Features
+
+- add `title` and `description` templates for product listing pages ([#2643](https://github.com/vtex/faststore/issues/2643)) ([00221d9](https://github.com/vtex/faststore/commit/00221d98439b693af3c2c0082ec7ef600637e19e))
+
 ## [3.9.3](https://github.com/vtex/faststore/compare/v3.9.2...v3.9.3) (2025-01-28)
 
 ### Bug Fixes
