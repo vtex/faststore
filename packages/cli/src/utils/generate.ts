@@ -489,8 +489,6 @@ function enableRedirectsMiddleware(basePath: string) {
   }
 }
 
-
-
 function enableSearchSSR(basePath: string) {
   const storeConfigPath = getCurrentUserStoreConfigFile(basePath)
 

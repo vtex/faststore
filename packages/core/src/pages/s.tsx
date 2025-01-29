@@ -137,7 +137,7 @@ function Page({
         searchContentType={searchContentType}
         serverData={{
           title: seoData.title,
-          searchTerm: searchParams.term ?? undefined,
+          searchTerm: searchTerm ?? searchParams.term ?? undefined,
         }}
         globalSections={globalSections.sections}
       />
