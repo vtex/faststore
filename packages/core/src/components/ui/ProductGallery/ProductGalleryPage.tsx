@@ -14,6 +14,8 @@ interface Props {
   >
   itemsPerPage: number
   firstPage: number
+  shouldShowComparison?: boolean
+  compareLabel?: string
 }
 
 function ProductGalleryPage({
@@ -22,6 +24,8 @@ function ProductGalleryPage({
   productCard,
   itemsPerPage,
   firstPage,
+  shouldShowComparison,
+  compareLabel,
 }: Props) {
   const { data } = useGalleryPage(page)
 
@@ -35,6 +39,8 @@ function ProductGalleryPage({
       title={title}
     >
       <ProductGrid
+        shouldShowComparison={shouldShowComparison}
+        compareLabel={compareLabel}
         products={products}
         page={page}
         pageSize={itemsPerPage}

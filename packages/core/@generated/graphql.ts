@@ -1136,9 +1136,20 @@ export type ProductSummary_ProductFragment = {
   sku: string
   name: string
   gtin: string
+  hasSpecifications: boolean | null
+  unitMultiplier: number | null
   id: string
   brand: { name: string; brandName: string }
-  isVariantOf: { productGroupID: string; name: string }
+  isVariantOf: {
+    productGroupID: string
+    name: string
+    skuVariants: {
+      activeVariations: any | null
+      slugsMap: any | null
+      availableVariations: any | null
+      allVariantProducts: Array<{ name: string; productID: string }> | null
+    } | null
+  }
   image: Array<{ url: string; alternateName: string }>
   offers: {
     lowPrice: number
@@ -1148,6 +1159,7 @@ export type ProductSummary_ProductFragment = {
       price: number
       listPrice: number
       listPriceWithTaxes: number
+      priceWithTaxes: number
       quantity: number
       seller: { identifier: string }
     }>
@@ -1193,12 +1205,13 @@ export type ProductDetailsFragment_ProductFragment = {
   unitMultiplier: number | null
   id: string
   isVariantOf: {
-    name: string
     productGroupID: string
+    name: string
     skuVariants: {
       activeVariations: any | null
       slugsMap: any | null
       availableVariations: any | null
+      allVariantProducts: Array<{ name: string; productID: string }> | null
     } | null
   }
   image: Array<{ url: string; alternateName: string }>
@@ -1211,6 +1224,48 @@ export type ProductDetailsFragment_ProductFragment = {
       price: number
       priceWithTaxes: number
       listPrice: number
+      listPriceWithTaxes: number
+      seller: { identifier: string }
+    }>
+  }
+  additionalProperty: Array<{
+    propertyID: string
+    name: string
+    value: any
+    valueReference: any
+  }>
+}
+
+export type ProductComparisonFragment_ProductFragment = {
+  sku: string
+  slug: string
+  name: string
+  gtin: string
+  description: string
+  unitMultiplier: number | null
+  hasSpecifications: boolean | null
+  id: string
+  isVariantOf: {
+    productGroupID: string
+    name: string
+    skuVariants: {
+      activeVariations: any | null
+      slugsMap: any | null
+      availableVariations: any | null
+      allVariantProducts: Array<{ name: string; productID: string }> | null
+    } | null
+  }
+  image: Array<{ url: string; alternateName: string }>
+  brand: { name: string }
+  offers: {
+    lowPrice: number
+    lowPriceWithTaxes: number
+    offers: Array<{
+      availability: string
+      price: number
+      priceWithTaxes: number
+      listPrice: number
+      quantity: number
       listPriceWithTaxes: number
       seller: { identifier: string }
     }>
@@ -1344,12 +1399,13 @@ export type ServerProductQueryQuery = {
       }>
     }
     isVariantOf: {
-      name: string
       productGroupID: string
+      name: string
       skuVariants: {
         activeVariations: any | null
         slugsMap: any | null
         availableVariations: any | null
+        allVariantProducts: Array<{ name: string; productID: string }> | null
       } | null
     }
     additionalProperty: Array<{
@@ -1541,9 +1597,23 @@ export type ClientManyProductsQueryQuery = {
           sku: string
           name: string
           gtin: string
+          hasSpecifications: boolean | null
+          unitMultiplier: number | null
           id: string
           brand: { name: string; brandName: string }
-          isVariantOf: { productGroupID: string; name: string }
+          isVariantOf: {
+            productGroupID: string
+            name: string
+            skuVariants: {
+              activeVariations: any | null
+              slugsMap: any | null
+              availableVariations: any | null
+              allVariantProducts: Array<{
+                name: string
+                productID: string
+              }> | null
+            } | null
+          }
           image: Array<{ url: string; alternateName: string }>
           offers: {
             lowPrice: number
@@ -1553,6 +1623,7 @@ export type ClientManyProductsQueryQuery = {
               price: number
               listPrice: number
               listPriceWithTaxes: number
+              priceWithTaxes: number
               quantity: number
               seller: { identifier: string }
             }>
@@ -1629,12 +1700,13 @@ export type ClientProductQueryQuery = {
     unitMultiplier: number | null
     id: string
     isVariantOf: {
-      name: string
       productGroupID: string
+      name: string
       skuVariants: {
         activeVariations: any | null
         slugsMap: any | null
         availableVariations: any | null
+        allVariantProducts: Array<{ name: string; productID: string }> | null
       } | null
     }
     image: Array<{ url: string; alternateName: string }>
@@ -1674,9 +1746,23 @@ export type ClientSearchSuggestionsQueryQuery = {
         sku: string
         name: string
         gtin: string
+        hasSpecifications: boolean | null
+        unitMultiplier: number | null
         id: string
         brand: { name: string; brandName: string }
-        isVariantOf: { productGroupID: string; name: string }
+        isVariantOf: {
+          productGroupID: string
+          name: string
+          skuVariants: {
+            activeVariations: any | null
+            slugsMap: any | null
+            availableVariations: any | null
+            allVariantProducts: Array<{
+              name: string
+              productID: string
+            }> | null
+          } | null
+        }
         image: Array<{ url: string; alternateName: string }>
         offers: {
           lowPrice: number
@@ -1686,6 +1772,7 @@ export type ClientSearchSuggestionsQueryQuery = {
             price: number
             listPrice: number
             listPriceWithTaxes: number
+            priceWithTaxes: number
             quantity: number
             seller: { identifier: string }
           }>
@@ -1820,6 +1907,7 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
       price
       listPrice
       listPriceWithTaxes
+      priceWithTaxes
       quantity
       seller {
         identifier
@@ -1831,6 +1919,21 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
     name
     value
     valueReference
+  }
+  hasSpecifications
+  unitMultiplier
+  isVariantOf {
+    productGroupID
+    name
+    skuVariants {
+      activeVariations
+      slugsMap
+      availableVariations
+      allVariantProducts {
+        name
+        productID
+      }
+    }
   }
   advertisement {
     adId
@@ -1921,6 +2024,10 @@ export const ProductDetailsFragment_ProductFragmentDoc =
       activeVariations
       slugsMap
       availableVariations
+      allVariantProducts {
+        name
+        productID
+      }
     }
   }
   image {
@@ -2226,7 +2333,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '46103bee661405bde706d72126fdbf9b0a0c9e6e',
+    operationHash: 'e855903879c6504e90269e6e010549bc6de933eb',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2280,7 +2387,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: '7d121ef8d4dc99174e64e4429a9b977b8bbebed8',
+    operationHash: '47aa22eb750cb2c529e5eeafb921bfeadb67db71',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
@@ -2289,7 +2396,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '47e48eaee91d16a4237eb2c1241bc2ed3e2ad9bb',
+    operationHash: '061bbf200ec29ac0b235d1eb40ebdce9cda7bcf0',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
