@@ -9,10 +9,6 @@ export function getUrl(skuId: string) {
     : `https://${api.storeId}.${api.environment}.com.br`
   const url = new URL(`${base}/api/intelligent-search/product_search`)
   url.searchParams.append('query', `sku.id:${skuId}`)
-  if (IS_PROD) {
-    url.searchParams.append('workspace', 'chrs')
-  }
-
   return url.toString()
 }
 
