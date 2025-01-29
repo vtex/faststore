@@ -1,11 +1,10 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import {
   envelop,
-  MaskError,
+  type MaskError,
   useEngine,
   useExtendContext,
   useMaskedErrors,
-  useSchema
+  useSchema,
 } from '@envelop/core'
 import { useGraphQlJit } from '@envelop/graphql-jit'
 import { useParserCache } from '@envelop/parser-cache'
@@ -14,7 +13,7 @@ import type { CacheControl, Maybe } from '@faststore/api'
 import {
   getContextFactory,
   getResolvers,
-  isFastStoreError
+  isFastStoreError,
 } from '@faststore/api'
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { makeExecutableSchema } from '@graphql-tools/schema'
@@ -28,7 +27,7 @@ import persisted from '@generated/persisted-documents.json'
 import thirdPartyResolvers from '../customizations/src/graphql/thirdParty/resolvers'
 import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolvers'
 
-import { Operation } from '../sdk/graphql/request'
+import type { Operation } from '../sdk/graphql/request'
 import { apiOptions } from './options'
 
 interface ExecuteOptions<V = Record<string, unknown>> {

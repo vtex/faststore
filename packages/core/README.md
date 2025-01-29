@@ -51,7 +51,6 @@ A quick look at the top-level files and directories you'll see in a this NextJS 
     ├── .prettierrrc
     ├── .stylelintignore
     ├── .gitignore
-    ├── .eslintignore
     ├── codegen.ts
     ├── cypress
     ├── cypress.config.ts
@@ -97,8 +96,6 @@ A quick look at the top-level files and directories you'll see in a this NextJS 
 12. **`lighthouserc.js`**: Configures [Google Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci). This is where you can turn on/off lighthouse assertions to be used by Lighthouse CI Bot/hook
 
 13. **`.prettierignore`**: Ignore listed files when applying prettier rules
-
-14. **`.eslintignore`**: Ignore listed files when applying eslint rules
 
 ## 💻 Code Structure
 
