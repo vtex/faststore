@@ -57,6 +57,7 @@ function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
   // default behavior without SSR
   if (!isSSREnabled) {
     return {
+      noindex: searchSeo?.noIndex ?? true,
       title: seo.title,
       description: seo.description,
       titleTemplate: seo.titleTemplate,
@@ -79,6 +80,7 @@ function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
     : undefined
 
   return {
+    noindex: searchSeo?.noIndex ?? true,
     title,
     description,
     titleTemplate,
@@ -117,7 +119,7 @@ function Page({
       {...searchParams}
     >
       {/* SEO */}
-      <NextSeo noindex {...seoData} />
+      <NextSeo {...seoData} />
 
       <UISROnly text={seoData.title} />
 
