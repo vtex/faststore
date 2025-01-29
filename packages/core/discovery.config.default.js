@@ -30,6 +30,7 @@ module.exports = {
     hideUnavailableItems: false,
     showSponsored: false,
     incrementAddress: true,
+    reviewsAndRatings: true,
   },
 
   // Default session
