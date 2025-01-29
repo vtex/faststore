@@ -110,7 +110,7 @@ function Page({
     return null
   }
 
-  const seoData = generateSEOData(storeConfig, searchTerm)
+  const { noindex, ...seoData } = generateSEOData(storeConfig, searchTerm)
 
   return (
     <SearchProvider
@@ -119,7 +119,7 @@ function Page({
       {...searchParams}
     >
       {/* SEO */}
-      <NextSeo {...seoData} />
+      <NextSeo noindex={noindex} {...seoData} />
 
       <UISROnly text={seoData.title} />
 
