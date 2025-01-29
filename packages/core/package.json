@@ -32,7 +32,8 @@
     "node": ">=18"
   },
   "volta": {
-    "extends": "../../package.json"
+    "node": "18.19.0",
+    "yarn": "1.19.1"
   },
   "sideEffects": false,
   "dependencies": {
