@@ -4,10 +4,12 @@ import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
 import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
 import { pickBestSku } from '../utils/sku'
+import type { ProductRating } from '../clients/commerce/types/ProductRating'
 
 export type Root = {
   searchArgs: Omit<SearchArgs, 'type'>
   productSearchPromise: Promise<ProductSearchResult>
+  ratingCallback: (productId: string) => Promise<ProductRating>
 }
 
 const isRootFacet = (facet: Facet, isDepartment: boolean, isBrand: boolean) =>
@@ -23,7 +25,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       clients: { search },
     } = ctx
 
-    const { searchArgs } = root
+    const { searchArgs, productSearchPromise, ratingCallback } = root
 
     // If there's no search query, suggest the most popular searches.
     if (!searchArgs.query) {
@@ -38,21 +40,26 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       }
     }
 
-    const { productSearchPromise } = root
     const [terms, productSearchResult] = await Promise.all([
       search.suggestedTerms(searchArgs),
       productSearchPromise,
     ])
 
-    const skus = productSearchResult.products
-      .map((product) => {
-        // What determines the presentation of the SKU is the price order
-        // https://help.vtex.com/pt/tutorial/ordenando-imagens-na-vitrine-e-na-pagina-de-produto--tutorials_278
-        const maybeSku = pickBestSku(product.items)
+    const skus = await Promise.all(
+      productSearchResult.products
+        .map((product) => {
+          // What determines the presentation of the SKU is the price order
+          // https://help.vtex.com/pt/tutorial/ordenando-imagens-na-vitrine-e-na-pagina-de-produto--tutorials_278
+          const maybeSku = pickBestSku(product.items)
 
-        return maybeSku && enhanceSku(maybeSku, product)
-      })
-      .filter((sku) => !!sku)
+          return maybeSku && enhanceSku(maybeSku, product)
+        })
+        .filter((sku) => !!sku)
+        .map(async (sku) => ({
+          ...sku,
+          rating: await ratingCallback(sku.itemId),
+        }))
+    )
 
     const { searches } = terms
 
@@ -61,7 +68,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       products: skus,
     }
   },
-  products: async ({ productSearchPromise }) => {
+  products: async ({ productSearchPromise, ratingCallback }) => {
     const productSearchResult = await productSearchPromise
 
     const skus = productSearchResult.products
@@ -74,6 +81,13 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       })
       .filter((sku) => !!sku)
 
+    const edges = await Promise.all(
+      skus.map(async (sku, index) => ({
+        node: { ...sku, rating: await ratingCallback(sku.itemId) },
+        cursor: index.toString(),
+      }))
+    )
+
     return {
       pageInfo: {
         hasNextPage: productSearchResult.pagination.after.length > 0,
@@ -82,10 +96,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
         endCursor: productSearchResult.recordsFiltered.toString(),
         totalCount: productSearchResult.recordsFiltered,
       },
-      edges: skus.map((sku, index) => ({
-        node: sku,
-        cursor: index.toString(),
-      })),
+      edges,
     }
   },
   facets: async ({ searchArgs }, _, ctx) => {
