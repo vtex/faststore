@@ -25,15 +25,15 @@
     "test:e2e": "cypress open",
     "test": "jest",
     "lhci": "lhci autorun",
-    "format": "prettier --write \"**/*.{ts,js,tsx,jsx,json}\"",
-    "lint": "next lint",
-    "stylelint": "stylelint \"**/*.scss\"",
-    "stylelint:fix": "stylelint \"**/*.scss\" --fix",
-    "postinstall": "node postinstall.js && (is-ci || (cd ../.. && husky install packages/core/.husky)) || echo Skipped postinstall step for @faststore/core",
+    "postinstall": "node postinstall.js && is-ci || echo Skipped postinstall step for @faststore/core",
     "partytown": "partytown copylib ./public/~partytown"
   },
   "engines": {
     "node": ">=18"
+  },
+  "volta": {
+    "node": "18.19.0",
+    "yarn": "1.19.1"
   },
   "sideEffects": false,
   "dependencies": {
@@ -99,33 +99,8 @@
     "cypress-axe": "^1.5.0",
     "cypress-wait-until": "^2.0.1",
     "dotenv": "^8.2.0",
-    "eslint": "^7.32.0",
-    "husky": "^5.2.0",
     "is-ci": "^3.0.0",
     "jest": "^29.7.0",
-    "lint-staged": "^15.2.0",
-    "stylelint": "^14.6.0",
-    "stylelint-config-recess-order": "^3.0.0",
-    "stylelint-config-standard": "^24.0.0",
-    "stylelint-config-standard-scss": "^3.0.0",
-    "stylelint-order": "^5.0.0",
-    "stylelint-scss": "^4.0.1",
     "ts-jest": "29.1.1"
-  },
-  "lint-staged": {
-    "*.{ts,js,tsx,jsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.json": [
-      "prettier --write"
-    ],
-    "*.scss": [
-      "stylelint --fix"
-    ]
-  },
-  "volta": {
-    "node": "18.19.0",
-    "yarn": "1.19.1"
   }
 }
