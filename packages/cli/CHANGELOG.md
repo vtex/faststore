@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.11.1](https://github.com/vtex/faststore/compare/v3.11.0...v3.11.1) (2025-01-29)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.11.0](https://github.com/vtex/faststore/compare/v3.10.0...v3.11.0) (2025-01-29)
+
+### Features
+
+- search page with SSR ([#2619](https://github.com/vtex/faststore/issues/2619)) ([6fd2d0d](https://github.com/vtex/faststore/commit/6fd2d0d5e92f0922f8d97237d9d04a7eadc5e894))
+
+# [3.10.0](https://github.com/vtex/faststore/compare/v3.9.3...v3.10.0) (2025-01-29)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.9.3](https://github.com/vtex/faststore/compare/v3.9.2...v3.9.3) (2025-01-28)
+
+**Note:** Version bump only for package @faststore/cli
+
 ## [3.9.2](https://github.com/vtex/faststore/compare/v3.9.1...v3.9.2) (2025-01-27)
 
 **Note:** Version bump only for package @faststore/cli

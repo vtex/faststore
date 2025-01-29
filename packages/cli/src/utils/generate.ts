@@ -489,6 +489,26 @@ function enableRedirectsMiddleware(basePath: string) {
   }
 }
 
+function enableSearchSSR(basePath: string) {
+  const storeConfigPath = getCurrentUserStoreConfigFile(basePath)
+
+  if(!storeConfigPath) { 
+    return 
+  }
+  const storeConfig = require(storeConfigPath)
+  if(!storeConfig.experimental.enableSearchSSR) { 
+    return
+  }
+
+  const { tmpDir } = withBasePath(basePath)
+  const searchPagePath = path.join(tmpDir, 'src', 'pages', 's.tsx')
+  const searchPageData = String(readFileSync(searchPagePath))
+
+  const searchPageWithSSR = searchPageData.replaceAll('getStaticProps', 'getServerSideProps')
+
+  writeFileSync(searchPagePath, searchPageWithSSR)
+}
+
 export async function generate(options: GenerateOptions) {
   const { basePath, setup = false } = options
 
@@ -508,6 +528,7 @@ export async function generate(options: GenerateOptions) {
   await Promise.all([
     setupPromise,
     checkDependencies(basePath, ['typescript']),
+    enableSearchSSR(basePath),
     updateBuildTime(basePath),
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),
