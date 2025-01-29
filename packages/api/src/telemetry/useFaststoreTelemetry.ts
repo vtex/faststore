@@ -2,11 +2,11 @@ import type { OnExecuteHookResult, Plugin } from '@envelop/core'
 import { isAsyncIterable } from '@envelop/core'
 import { useOnResolve } from '@envelop/on-resolve'
 import {
-  Context,
+  type Context,
   context as openTelContext,
-  Span,
+  type Span,
   SpanKind,
-  trace as openTelTrace
+  trace as openTelTrace,
 } from '@opentelemetry/api'
 import type { LogRecord } from '@opentelemetry/api-logs'
 import { SeverityNumber } from '@opentelemetry/api-logs'
@@ -14,9 +14,9 @@ import type { LoggerProvider } from '@opentelemetry/sdk-logs'
 import type { BasicTracerProvider } from '@opentelemetry/sdk-trace-base'
 import {
   Kind,
-  OperationDefinitionNode,
+  type OperationDefinitionNode,
   print,
-  type DefinitionNode
+  type DefinitionNode,
 } from 'graphql'
 import type { Path } from 'graphql/jsutils/Path'
 
@@ -81,7 +81,6 @@ export const getFaststoreTelemetryPlugin = (
     return {
       onPluginInit({ addPlugin }) {
         addPlugin(
-          // eslint-disable-next-line
           useOnResolve(({ info, context }) => {
             if (
               context &&
@@ -198,7 +197,6 @@ export const getFaststoreTelemetryPlugin = (
           onExecuteDone({ result }) {
             if (isAsyncIterable(result)) {
               executionSpan.end()
-              // eslint-disable-next-line no-console
               console.warn(
                 `Plugin "newrelic" encountered a AsyncIterator which is not supported yet, so tracing data is not available for the operation.`
               )
