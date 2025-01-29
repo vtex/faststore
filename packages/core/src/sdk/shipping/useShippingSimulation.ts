@@ -1,6 +1,6 @@
 import type { ChangeEvent } from 'react'
 import { useCallback, useEffect, useReducer, useRef } from 'react'
-import { ClientShippingSimulationQueryQuery } from '@generated/graphql'
+import type { ClientShippingSimulationQueryQuery } from '@generated/graphql'
 import getShippingSimulation from '.'
 import { useSession } from '../session'
 
@@ -46,7 +46,7 @@ const createEmptySimulation = () =>
       errorMessage: '',
     },
     shippingSimulation: undefined,
-  } as State)
+  }) as State
 
 const reducer = (state: State, action: Action) => {
   const { type } = action

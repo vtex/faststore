@@ -72,7 +72,7 @@ export type SearchEvents =
  * Types copied from Request Capture App: https://github.com/vtex/request-capture-app/blob/1becac32c002cb03a57bf36c8a7f9400eab8b933/react/typings/rcevents.d.ts
  */
 
-export interface HomeView {}
+export type HomeView = {}
 
 export interface CategoryView {
   departmentId?: string
@@ -114,4 +114,4 @@ export interface ProductView {
   sellerIds: string // e.g.: "00443713,04412311,1"
 }
 
-export interface OtherView {}
+export type OtherView = {}

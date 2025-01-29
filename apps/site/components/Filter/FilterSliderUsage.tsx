@@ -1,5 +1,12 @@
 import { useSearch } from '@faststore/sdk'
-import { Filter as UIFilter, FilterFacetBoolean as UIFilterFacetBoolean, FilterFacetBooleanItem as UIFilterFacetBooleanItem, FilterFacetRange as UIFilterFacetRange, FilterFacets as UIFilterFacets, FilterSlider as UIFilterSlider } from '@faststore/ui'
+import {
+  Filter as UIFilter,
+  FilterFacetBoolean as UIFilterFacetBoolean,
+  FilterFacetBooleanItem as UIFilterFacetBooleanItem,
+  FilterFacetRange as UIFilterFacetRange,
+  FilterFacets as UIFilterFacets,
+  FilterSlider as UIFilterSlider,
+} from '@faststore/ui'
 import { useFormattedPrice } from '../utilities/usePriceFormatter'
 import type { FilterFacet } from './FilterUsage'
 

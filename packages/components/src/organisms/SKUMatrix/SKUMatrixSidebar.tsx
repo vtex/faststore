@@ -3,7 +3,7 @@ import type { FunctionComponent } from 'react'
 import React, { useMemo } from 'react'
 import { Badge, Button, QuantitySelector, Skeleton } from '../..'
 import Icon from '../../atoms/Icon'
-import Price, { PriceFormatter } from '../../atoms/Price'
+import Price, { type PriceFormatter } from '../../atoms/Price'
 import { useFadeEffect, useSKUMatrix, useUI } from '../../hooks'
 import {
   Table,
@@ -12,7 +12,7 @@ import {
   TableHead,
   TableRow,
 } from '../../molecules/Table'
-import SlideOver, { SlideOverHeader, SlideOverProps } from '../SlideOver'
+import SlideOver, { SlideOverHeader, type SlideOverProps } from '../SlideOver'
 interface VariationProductColumn {
   name: string
   additionalColumns: Array<{ label: string; value: string }>

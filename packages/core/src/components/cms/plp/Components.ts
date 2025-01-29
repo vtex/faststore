@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { ComponentType } from 'react'
+import type { ComponentType } from 'react'
 
 import { OverriddenDefaultBreadcrumb as Breadcrumb } from 'src/components/sections/Breadcrumb/OverriddenDefaultBreadcrumb'
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'

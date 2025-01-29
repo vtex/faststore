@@ -18,11 +18,13 @@
     grid-gap: var(--fs-spacing-5) var(--fs-spacing-4);
   }
 
-  .sectionList [data-doc-section-grid="column"][data-doc-section-grid-columns="2"] {
+  .sectionList
+    [data-doc-section-grid="column"][data-doc-section-grid-columns="2"] {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .sectionList [data-doc-section-grid="column"][data-doc-section-grid-columns="3"] {
+  .sectionList
+    [data-doc-section-grid="column"][data-doc-section-grid-columns="3"] {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -35,7 +37,9 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .sectionList [data-doc-section-grid="row"] .sectionItem > div { width: 35%; }
+  .sectionList [data-doc-section-grid="row"] .sectionItem > div {
+    width: 35%;
+  }
 }
 
 .sectionList [data-doc-section-grid="column"] .sectionItem {
@@ -44,10 +48,16 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .sectionList [data-doc-section-grid="column"] .sectionItem { grid-template-rows: 2fr 1fr; }
+  .sectionList [data-doc-section-grid="column"] .sectionItem {
+    grid-template-rows: 2fr 1fr;
+  }
 }
 
-.sectionList [data-doc-section-grid="column"] .sectionItem[data-doc-section-item-small-height] { grid-template-rows: 1fr 1fr; }
+.sectionList
+  [data-doc-section-grid="column"]
+  .sectionItem[data-doc-section-item-small-height] {
+  grid-template-rows: 1fr 1fr;
+}
 
 .sectionList [data-doc-section-grid="column"] .sectionItem > div {
   height: 100%;
@@ -67,7 +77,9 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .sectionItem { flex-direction: row; }
+  .sectionItem {
+    flex-direction: row;
+  }
 }
 
 .sectionItem > div {
@@ -82,9 +94,13 @@
   max-height: 21rem;
 }
 
-.sectionItem[data-doc-section-item-full-width] > div > * { width: 100%; }
+.sectionItem[data-doc-section-item-full-width] > div > * {
+  width: 100%;
+}
 
-.sectionItem[data-doc-section-item-full-width] [data-fs-product-shelf-items] { width: 100%; }
+.sectionItem[data-doc-section-item-full-width] [data-fs-product-shelf-items] {
+  width: 100%;
+}
 
 .sectionItem[data-doc-section-item-zoom-out="true"] > div > * {
   width: 100%;

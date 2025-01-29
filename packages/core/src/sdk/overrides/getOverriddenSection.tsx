@@ -11,7 +11,7 @@ import { OverrideProvider } from './OverrideContext'
 
 export function getOverridableSection<
   Section extends ComponentType,
-  SectionName extends keyof SectionsOverrides = keyof SectionsOverrides
+  SectionName extends keyof SectionsOverrides = keyof SectionsOverrides,
 >(
   sectionName: SectionName,
   Section: Section,
@@ -58,7 +58,7 @@ export function getOverridableSection<
  * @see https://www.faststore.dev/docs/building-sections/overriding-components-and-props
  */
 export function getOverriddenSection<
-  Section extends SectionsOverrides[keyof SectionsOverrides]['Section']
+  Section extends SectionsOverrides[keyof SectionsOverrides]['Section'],
 >(override: SectionOverrideDefinition<Section>) {
   const { Section, ...rest } = override
 

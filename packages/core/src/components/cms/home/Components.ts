@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { ComponentType } from 'react'
+import type { ComponentType } from 'react'
 
 import { OverriddenDefaultHero as Hero } from 'src/components/sections/Hero/OverriddenDefaultHero'
 import Incentives from 'src/components/sections/Incentives'

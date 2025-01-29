@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode } from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
 import { useAuth } from 'src/sdk/auth'
 
 export type ProfileChallengeProps = {

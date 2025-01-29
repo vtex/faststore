@@ -4,7 +4,7 @@ import { useSession } from 'src/sdk/session'
 import { useLocalizedVariables } from './useLocalizedVariables'
 
 import { useSearch } from '@faststore/sdk'
-import { Facet } from '@faststore/sdk/dist/types'
+import type { Facet } from '@faststore/sdk/dist/types'
 import type {
   ClientManyProductsQueryQueryVariables,
   ClientProductGalleryQueryQuery as Query,

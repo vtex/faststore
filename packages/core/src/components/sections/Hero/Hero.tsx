@@ -1,8 +1,8 @@
-import {
+import type {
   HeroProps as UIHeroProps,
   HeroHeaderProps as UIHeroHeaderProps,
 } from '@faststore/ui'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { Image } from '../../../components/ui/Image'
 
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'

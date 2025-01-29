@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { ComponentType } from 'react'
+import type { ComponentType } from 'react'
 
 import { OverriddenDefaultAlert as Alert } from 'src/components/sections/Alert/OverriddenDefaultAlert'
 import { OverriddenDefaultNavbar as Navbar } from 'src/components/sections/Navbar/OverriddenDefaultNavbar'

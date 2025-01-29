@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import React, { type PropsWithChildren } from 'react'
 import { Carousel } from '@faststore/ui'
 import styles from './carousel-item.module.css'
 
