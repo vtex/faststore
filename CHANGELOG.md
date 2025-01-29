@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.12.0](https://github.com/vtex/faststore/compare/v3.11.4...v3.12.0) (2025-01-29)
+
+### Features
+
+- enables search page seo `noIndex` from config ([#2652](https://github.com/vtex/faststore/issues/2652)) ([31c61a6](https://github.com/vtex/faststore/commit/31c61a65ad1774f19c53e7b2ce7af157d24434d9))
+
 ## [3.11.4](https://github.com/vtex/faststore/compare/v3.11.3...v3.11.4) (2025-01-29)
 
 **Note:** Version bump only for package faststore
