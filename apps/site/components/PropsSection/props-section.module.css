@@ -11,21 +11,31 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .propsSection table { table-layout: fixed; }
+  .propsSection table {
+    table-layout: fixed;
+  }
 }
 
 .propsSection th {
   color: var(--fs-color-text);
   padding: var(--fs-spacing-1) var(--fs-spacing-2);
   font-size: var(--fs-text-size-body);
-  background-color: hsl(var(--nextra-primary-hue)100% 39%/.05);
+  background-color: hsl(var(--nextra-primary-hue) 100% 39% / 0.05);
 }
 
-.propsSection th:first-child { border-radius: 4px 0 0 4px; }
-.propsSection th:last-child { border-radius: 0 4px 4px 0; }
+.propsSection th:first-child {
+  border-radius: 4px 0 0 4px;
+}
+.propsSection th:last-child {
+  border-radius: 0 4px 4px 0;
+}
 
-.propsSection tr:first-child td { padding-top: var(--fs-spacing-4); }
-.propsSection tr:last-child td { border-bottom: none; }
+.propsSection tr:first-child td {
+  padding-top: var(--fs-spacing-4);
+}
+.propsSection tr:last-child td {
+  border-bottom: none;
+}
 
 .propsSection th,
 .propsSection td {
@@ -33,7 +43,9 @@
   overflow: hidden;
 }
 
-.propsSection [data-nx-props-section-name] { overflow-x: auto; }
+.propsSection [data-nx-props-section-name] {
+  overflow-x: auto;
+}
 
 .propsSection [data-nx-props-section-type] code {
   max-height: 8rem;
@@ -41,19 +53,25 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .propsSection [data-nx-props-section-name] { width: 25%; }
-  .propsSection [data-nx-props-section-type] { width: 20%; }
-  .propsSection [data-nx-props-section-description] { width: 35%; }
-  .propsSection [data-nx-props-section-default] { width: 20%; }
+  .propsSection [data-nx-props-section-name] {
+    width: 25%;
+  }
+  .propsSection [data-nx-props-section-type] {
+    width: 20%;
+  }
+  .propsSection [data-nx-props-section-description] {
+    width: 35%;
+  }
+  .propsSection [data-nx-props-section-default] {
+    width: 20%;
+  }
 }
-
 
 .propsSection td[data-nx-props-section-name] span {
   color: #006be6;
   margin-left: var(--fs-spacing-0);
   cursor: help;
 }
-
 
 .propsSection td[data-nx-props-section-type] span {
   display: flex;

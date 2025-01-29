@@ -4,8 +4,8 @@ import Section from '../Section'
 
 import styles from './section.module.scss'
 import {
-  PDPContext,
-  PLPContext,
+  type PDPContext,
+  type PLPContext,
   isPDP,
   isPLP,
   usePage,
@@ -31,8 +31,8 @@ function BreadcrumbSection({ ...otherProps }: BreadcrumbSectionProps) {
   const breadcrumbList = isPDP(context)
     ? context?.data?.product?.breadcrumbList?.itemListElement
     : isPLP(context)
-    ? context?.data?.collection?.breadcrumbList?.itemListElement
-    : fallback
+      ? context?.data?.collection?.breadcrumbList?.itemListElement
+      : fallback
 
   return (
     <Section className={`${styles.section} section-breadcrumb`}>

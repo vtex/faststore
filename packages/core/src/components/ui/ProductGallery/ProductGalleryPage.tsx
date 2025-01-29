@@ -2,7 +2,7 @@ import ProductGrid from 'src/components/product/ProductGrid'
 import Sentinel from 'src/sdk/search/Sentinel'
 
 import { memo } from 'react'
-import { ProductCardProps } from 'src/components/product/ProductCard'
+import type { ProductCardProps } from 'src/components/product/ProductCard'
 import { useGalleryPage } from 'src/sdk/product/usePageProductsQuery'
 
 interface Props {

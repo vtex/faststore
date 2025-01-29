@@ -44,9 +44,8 @@ jobs:
       - name: Size
         run: yarn size
 
-      # Temporary disable
-      # - name: Lint
-      #   run: yarn lint
+      - name: Lint
+        run: yarn lint
 
       - name: Test
         run: yarn test

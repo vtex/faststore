@@ -18,7 +18,7 @@ import storeConfig from 'discovery.config'
 import { SearchWrapper } from 'src/components/templates/SearchPage'
 import {
   getStaticProps,
-  SearchPageProps,
+  type SearchPageProps,
 } from 'src/experimental/searchServerSideFunctions'
 
 export interface SearchPageContextType {

@@ -11,7 +11,7 @@ import type { SectionsOverrides } from '../../typings/overrides'
 issues of this file. Error lines have been marked with the @ts-ignore comment*/
 
 export function getSectionOverrides<
-  SectionName extends keyof SectionsOverrides
+  SectionName extends keyof SectionsOverrides,
 >(
   defaultComponents: DefaultSectionComponentsDefinitions<SectionName>,
   override: SectionOverrideDefinitionV1<SectionName>

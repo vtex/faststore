@@ -10,7 +10,7 @@ import {
 import { gql } from '@generated/gql'
 import type { Filter_FacetsFragment } from '@generated/graphql'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
-import { useFilter } from 'src/sdk/search/useFilter'
+import type { useFilter } from 'src/sdk/search/useFilter'
 
 interface Props {
   /**

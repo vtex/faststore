@@ -89,15 +89,18 @@ export const useFilter = (allFacets: Filter_FacetsFragment[]) => {
 
   const selectedMap = useMemo(
     () =>
-      selected.reduce((acc, facet) => {
-        if (!acc.has(facet.key)) {
-          acc.set(facet.key, new Map())
-        }
+      selected.reduce(
+        (acc, facet) => {
+          if (!acc.has(facet.key)) {
+            acc.set(facet.key, new Map())
+          }
 
-        acc.get(facet.key)?.set(facet.value, facet)
+          acc.get(facet.key)?.set(facet.value, facet)
 
-        return acc
-      }, new Map() as Map<string, Map<string, IStoreSelectedFacet>>),
+          return acc
+        },
+        new Map() as Map<string, Map<string, IStoreSelectedFacet>>
+      ),
     [selected]
   )
 
