@@ -6,7 +6,11 @@ module.exports = {
     author: 'Store Framework',
     plp: {
       titleTemplate: '%s | FastStore PLP',
-      descriptionTemplate: '%s products on FastStore Product Listing Page',
+      descriptionTemplate: '%s products on FastStore Product Listing Page'
+    },
+    search: {
+      titleTemplate: '%s: Search results title',
+      descriptionTemplate: '%s: Search results description',
     },
   },
 
@@ -106,5 +110,6 @@ module.exports = {
     noRobots: false,
     preact: false,
     enableRedirects: false,
+    enableSearchSSR: false,
   },
 }
