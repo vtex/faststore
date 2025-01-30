@@ -97,6 +97,7 @@ const RenderSectionsBase = ({
     <>
       {sections.map(({ name, data = {} }, index) => {
         const Component = components[name]
+        console.log('Section name:', name, ' - data:', data)
 
         if (!Component) {
           // TODO: add a documentation link to help to do this
