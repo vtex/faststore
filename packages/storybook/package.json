@@ -1,6 +1,6 @@
 {
   "name": "@fatstore/storybook",
-  "version": "0.0.0",
+  "version": "3.12.1",
   "private": true,
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.4",
