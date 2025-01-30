@@ -204,9 +204,6 @@ function ProductDetails({
               // Maybe now it's worth to make title always a h1 and receive only the name, as it would be easier for users to override.
               title={<h1>{name}</h1>}
               {...ProductTitle.props}
-              ratingValue={
-                apiConfig.reviewsAndRatings ? rating.average : undefined
-              }
               label={
                 showDiscountBadge && (
                   <DiscountBadge.Component
@@ -227,9 +224,13 @@ function ProductDetails({
                   />
                 )
               }
-              // refNumber={showRefNumber && productId}
-              refNumber={productId}
-              reviewsCount={10}
+              refNumber={showRefNumber && productId}
+              ratingValue={
+                apiConfig.reviewsAndRatings ? rating.average : undefined
+              }
+              reviewsCount={
+                apiConfig.reviewsAndRatings ? rating.totalCount : undefined
+              }
               reviewsSectionId="reviews-and-ratings"
               noReviewsText={noReviewsLabel}
               reviewsCountText={reviewsCountLabel}
