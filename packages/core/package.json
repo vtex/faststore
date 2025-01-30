@@ -33,7 +33,7 @@
   },
   "volta": {
     "node": "18.19.0",
-    "yarn": "1.19.1"
+    "yarn": "1.22.22"
   },
   "sideEffects": false,
   "dependencies": {

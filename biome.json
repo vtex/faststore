@@ -17,7 +17,8 @@
       ".vscode/",
       ".cache/",
       "__generated__",
-      "@generated"
+      "@generated",
+      "storybook-static"
     ]
   },
   "formatter": {
