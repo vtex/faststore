@@ -97,7 +97,6 @@ const RenderSectionsBase = ({
     <>
       {sections.map(({ name, data = {} }, index) => {
         const Component = components[name]
-        console.log('Section name:', name, ' - data:', data)
 
         if (!Component) {
           // TODO: add a documentation link to help to do this
@@ -110,12 +109,22 @@ const RenderSectionsBase = ({
 
         return (
           <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
-            <LazyLoadingSection
-              sectionName={name}
-              isInteractive={isInteractive}
-            >
-              <Component {...data} />
-            </LazyLoadingSection>
+            {data.skipLazyLoadingSection ? (
+              <>
+                {console.log('Skip LazyLoadingSection:', name)}
+                <Component {...data} />
+              </>
+            ) : (
+              <>
+                {console.log('LazyLoadingSection:', name)}
+                <LazyLoadingSection
+                  sectionName={name}
+                  isInteractive={isInteractive}
+                >
+                  <Component {...data} />
+                </LazyLoadingSection>
+              </>
+            )}
           </SectionBoundary>
         )
       })}
