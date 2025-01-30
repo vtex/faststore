@@ -41,7 +41,7 @@
     "yarn": "1.22.22"
   },
   "dependencies": {},
-  "packageManager": "yarn@1.19.1",
+  "packageManager": "yarn@1.22.22",
   "lint-staged": {
     "*.{ts,js,tsx,jsx,json}": "yarn lint:fix",
     "*.scss": "stylelint --fix"
