@@ -38,11 +38,11 @@ export interface ProductTitleProps
    */
   reviewsSectionId?: string
   /**
-   * Default text for "No reviews yet".
+   * @default "No reviews yet".
    */
   noReviewsText?: string
   /**
-   * Default text for "X Reviews".
+   * @default "X reviews".
    */
   reviewsCountText?: string
 }
@@ -59,7 +59,7 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
       reviewsCount,
       reviewsSectionId,
       noReviewsText = 'No reviews yet',
-      reviewsCountText = 'Reviews',
+      reviewsCountText = 'reviews',
       ...otherProps
     },
     ref
