@@ -17,8 +17,7 @@
     "clean": "turbo run clean && rm -rf node_modules"
   },
   "workspaces": [
-    "packages/*",
-    "apps/*"
+    "packages/*"
   ],
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
