@@ -1,0 +1,50 @@
+name: Starter integration test
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build monorepo packages
+        run: yarn build
+
+      - name: Pack monorepo packages
+        run: |
+          mkdir -p packed-packages
+          for package in packages/*; do
+            if [ -d "$package" ]; then
+              (cd "$package" && npm pack --pack-destination ../../packed-packages)
+            fi
+          done
+
+      - name: Clone target repository
+        run: git clone https://github.com/vtex-sites/starter.store.git starter
+
+      - name: Install packed packages in cloned repository
+        run: |
+          cd starter
+          for package in ../packed-packages/*.tgz; do
+            yarn add "$package"
+          done
+
+      - name: Install dependencies in cloned repository
+        run: |
+          cd starter
+          yarn install --frozen-lockfile
+
+      - name: Build project in cloned repository
+        run: |
+          cd starter
+          yarn build
