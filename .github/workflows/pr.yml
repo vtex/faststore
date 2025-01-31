@@ -17,8 +17,6 @@ jobs:
             api
             components
             sdk
-            shared
-            eslint-config
             lighthouse
             graphql-utils
             deps

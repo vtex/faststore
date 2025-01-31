@@ -1,4 +1,4 @@
-import { CSSProperties, PropsWithChildren, ReactNode } from 'react'
+import type { CSSProperties, PropsWithChildren, ReactNode } from 'react'
 
 export type CardItemProps = {
   title: string

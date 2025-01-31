@@ -1,4 +1,4 @@
-import { FilterFacet } from '../components/Filter/FilterUsage'
+import type { FilterFacet } from '../components/Filter/FilterUsage'
 
 export const facetsMock = [
   {

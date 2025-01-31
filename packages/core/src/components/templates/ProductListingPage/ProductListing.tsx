@@ -9,9 +9,9 @@ import COMPONENTS from 'src/components/cms/plp/Components'
 import RenderSections, {
   LazyLoadingSection,
 } from 'src/components/cms/RenderSections'
-import { PLPContentType } from 'src/server/cms/plp'
+import type { PLPContentType } from 'src/server/cms/plp'
 
-import PageProvider, { PLPContext } from 'src/sdk/overrides/PageProvider'
+import PageProvider, { type PLPContext } from 'src/sdk/overrides/PageProvider'
 import {
   useCreateUseGalleryPage,
   UseGalleryPageContext,

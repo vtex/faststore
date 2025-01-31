@@ -4,7 +4,7 @@ import {
 } from '@faststore/ui'
 import type { ClientManyProductsQueryQuery } from '@generated/graphql'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
-import { ProductCardProps } from '../ProductCard'
+import type { ProductCardProps } from '../ProductCard'
 
 import { memo } from 'react'
 import ViewportObserver from 'src/components/cms/ViewportObserver'

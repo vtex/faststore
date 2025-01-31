@@ -1,11 +1,11 @@
 import React, {
   cloneElement,
-  ComponentType,
+  type ComponentType,
   forwardRef,
   lazy,
-  PropsWithChildren,
-  ReactElement,
-  ReactNode,
+  type PropsWithChildren,
+  type ReactElement,
+  type ReactNode,
   Suspense,
   useCallback,
 } from 'react'
@@ -17,7 +17,7 @@ import type {
   DropdownMenuProps,
   DropdownProps,
 } from '../Dropdown'
-import BreadcrumbPure, { BreadcrumbPureProps } from './BreadcrumbPure'
+import BreadcrumbPure, { type BreadcrumbPureProps } from './BreadcrumbPure'
 
 const Dropdown = lazy<ComponentType<PropsWithChildren<DropdownProps>>>(
   () => import(/* webpackChunkName: "Dropdown" */ '../Dropdown/Dropdown')

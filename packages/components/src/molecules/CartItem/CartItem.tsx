@@ -4,7 +4,7 @@ import React, { forwardRef } from 'react'
 import {
   Icon,
   IconButton,
-  IconButtonProps,
+  type IconButtonProps,
   ProductPrice,
   QuantitySelector,
 } from '../../'
@@ -25,14 +25,14 @@ export interface CartItemProps extends HTMLAttributes<HTMLDivElement> {
    */
   quantity?: number
   /**
-   * Controls by how many units the value advances 
+   * Controls by how many units the value advances
    **/
   unitMultiplier?: number
-    /**
-   * Controls wheter you use or not the unitMultiplier 
-  */
+  /**
+   * Controls wheter you use or not the unitMultiplier
+   */
   useUnitMultiplier?: boolean
-   /** 
+  /**
    * Specifies that this product is unavailable.
    */
   unavailable?: boolean

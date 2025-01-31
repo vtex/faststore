@@ -1,6 +1,6 @@
 import { useSearch } from '@faststore/sdk'
 import { gql } from '@generated'
-import {
+import type {
   ClientManyProductsQueryQuery,
   ClientManyProductsQueryQueryVariables,
 } from '@generated/graphql'

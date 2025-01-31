@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.12.1](https://github.com/vtex/faststore/compare/v3.12.0...v3.12.1) (2025-01-30)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.12.0](https://github.com/vtex/faststore/compare/v3.11.4...v3.12.0) (2025-01-29)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.11.4](https://github.com/vtex/faststore/compare/v3.11.3...v3.11.4) (2025-01-29)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.11.3](https://github.com/vtex/faststore/compare/v3.11.2...v3.11.3) (2025-01-29)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.11.2](https://github.com/vtex/faststore/compare/v3.11.1...v3.11.2) (2025-01-29)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.11.1](https://github.com/vtex/faststore/compare/v3.11.0...v3.11.1) (2025-01-29)
+
+**Note:** Version bump only for package @faststore/cli
+
+# [3.11.0](https://github.com/vtex/faststore/compare/v3.10.0...v3.11.0) (2025-01-29)
+
+### Features
+
+- search page with SSR ([#2619](https://github.com/vtex/faststore/issues/2619)) ([6fd2d0d](https://github.com/vtex/faststore/commit/6fd2d0d5e92f0922f8d97237d9d04a7eadc5e894))
+
+# [3.10.0](https://github.com/vtex/faststore/compare/v3.9.3...v3.10.0) (2025-01-29)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.9.3](https://github.com/vtex/faststore/compare/v3.9.2...v3.9.3) (2025-01-28)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.9.2](https://github.com/vtex/faststore/compare/v3.9.1...v3.9.2) (2025-01-27)
+
+**Note:** Version bump only for package @faststore/cli
+
+## [3.9.1](https://github.com/vtex/faststore/compare/v3.9.0...v3.9.1) (2025-01-27)
+
+**Note:** Version bump only for package @faststore/cli
+
+# 3.9.0 (2025-01-22)
+
+### Features
+
+- Adds Plugins feature ([#2563](https://github.com/vtex/faststore/issues/2563)) ([83c1bf9](https://github.com/vtex/faststore/commit/83c1bf904f744842060e0dfdb7449406800df157))
+
 # [3.8.0](https://github.com/vtex/faststore/compare/v3.7.0...v3.8.0) (2025-01-15)
 
 **Note:** Version bump only for package @faststore/cli

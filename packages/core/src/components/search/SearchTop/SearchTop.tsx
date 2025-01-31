@@ -5,7 +5,7 @@ import {
 } from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
 
-import { SearchState } from '@faststore/sdk'
+import type { SearchState } from '@faststore/sdk'
 import type { StoreSuggestionTerm } from '@generated/graphql'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import useTopSearch from 'src/sdk/search/useTopSearch'

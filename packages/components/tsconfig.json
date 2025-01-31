@@ -1,5 +1,5 @@
 {
-  "extends": "@faststore/shared/tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "jsx": "react",
     "outDir": "dist",

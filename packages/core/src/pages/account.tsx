@@ -1,10 +1,10 @@
-import { Locator } from '@vtex/client-cms'
-import { GetStaticProps } from 'next'
+import type { Locator } from '@vtex/client-cms'
+import type { GetStaticProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
 import { useEffect } from 'react'
 import {
-  GlobalSectionsData,
+  type GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import RenderSections from 'src/components/cms/RenderSections'

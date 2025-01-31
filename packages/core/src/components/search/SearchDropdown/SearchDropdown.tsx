@@ -9,8 +9,8 @@ import {
 import { SearchHistory } from '../SearchHistory'
 import { SearchTop } from '../SearchTop'
 
-import { SearchState } from '@faststore/sdk'
-import { ProductSummary_ProductFragment } from '@generated/graphql'
+import type { SearchState } from '@faststore/sdk'
+import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import SearchProductItem from 'src/components/search/SearchProductItem'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 import type {

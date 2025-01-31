@@ -1,0 +1,99 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "vcs": {
+    "enabled": false,
+    "clientKind": "git",
+    "useIgnoreFile": false
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "ignore": [
+      ".next",
+      "dist",
+      ".turbo",
+      "package.json",
+      "public/",
+      "coverage",
+      ".vscode/",
+      ".cache/",
+      "__generated__",
+      "@generated",
+      "storybook-static"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space"
+  },
+  "organizeImports": {
+    "enabled": false
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "useSemanticElements": "off",
+        "noLabelWithoutControl": "off",
+        "noSvgWithoutTitle": "off",
+        "noRedundantRoles": "off",
+        "noInteractiveElementToNoninteractiveRole": "off",
+        "useButtonType": "off",
+        "useAltText": "off",
+        "noNoninteractiveTabindex": "off",
+        "noAriaHiddenOnFocusable": "off"
+      },
+      "style": {
+        "noUnusedTemplateLiteral": "off",
+        "useTemplate": "off",
+        "useSelfClosingElements": "off",
+        "useNodejsImportProtocol": "off",
+        "noNonNullAssertion": "off",
+        "useSingleVarDeclarator": "off",
+        "noParameterAssign": "off"
+      },
+      "suspicious": {
+        "noDoubleEquals": "off",
+        "noExplicitAny": "off",
+        "noImplicitAnyLet": "off",
+        "noGlobalIsNan": "off",
+        "useIsArray": "off",
+        "noArrayIndexKey": "off",
+        "noAssignInExpressions": "off",
+        "noAsyncPromiseExecutor": "off",
+        "noConfusingVoidType": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
+      "correctness": {
+        "noUnnecessaryContinue": "off",
+        "useExhaustiveDependencies": "off",
+        "noUnsafeOptionalChaining": "off",
+        "noSwitchDeclarations": "off"
+      },
+      "complexity": {
+        "noForEach": "off",
+        "noUselessTernary": "off",
+        "useOptionalChain": "off",
+        "useLiteralKeys": "off",
+        "noStaticOnlyClass": "off",
+        "noExtraBooleanCast": "off",
+        "noUselessFragments": "off",
+        "noBannedTypes": "off"
+      },
+      "performance": {
+        "noAccumulatingSpread": "off",
+        "noDelete": "off"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "asNeeded",
+      "trailingCommas": "es5"
+    },
+    "jsxRuntime": "reactClassic"
+  }
+}

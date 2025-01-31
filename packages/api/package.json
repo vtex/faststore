@@ -1,6 +1,6 @@
 {
   "name": "@faststore/api",
-  "version": "3.7.0",
+  "version": "3.11.4",
   "license": "MIT",
   "main": "dist/cjs/src/index.js",
   "typings": "dist/esm/src/index.d.ts",
@@ -29,7 +29,6 @@
     "build": "graphql-codegen --config codegen.yml && (yarn build:cjs && yarn build:esm)",
     "build:cjs": "tsc --module commonjs --moduleResolution node10 --outDir dist/cjs && copyfiles \"src/**/*.graphql\" dist/cjs",
     "build:esm": "tsc && copyfiles \"src/**/*.graphql\" dist/esm",
-    "lint": "eslint src/**/*.ts",
     "test": "jest",
     "generate": "graphql-codegen --config codegen.yml"
   },
@@ -51,8 +50,6 @@
   },
   "devDependencies": {
     "@envelop/core": "^5.0.2",
-    "@faststore/eslint-config": "^3.5.0",
-    "@faststore/shared": "^3.5.0",
     "@graphql-codegen/cli": "2.2.0",
     "@graphql-codegen/typescript": "2.2.2",
     "@parcel/watcher": "^2.4.0",
@@ -61,7 +58,6 @@
     "@types/sanitize-html": "^2.9.1",
     "concurrently": "^6.2.1",
     "copyfiles": "^2.4.1",
-    "eslint": "7.32.0",
     "express": "^4.17.3",
     "express-graphql": "^0.12.0",
     "graphql": "^15.6.0",
@@ -69,8 +65,7 @@
     "nodemon": "^3.0.2",
     "ts-jest": "29.1.1",
     "tslib": "^2.3.1",
-    "tsx": "^4.6.2",
-    "typescript": "^5.3.2"
+    "tsx": "^4.6.2"
   },
   "peerDependencies": {
     "@envelop/core": "^5",

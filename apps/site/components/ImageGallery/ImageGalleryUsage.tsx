@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react'
 import { ImageGallery, ImageGalleryViewer } from '@faststore/ui'
 import type { ImageElementData } from '@faststore/components'
@@ -11,9 +10,7 @@ export interface ImageGalleryUsageProps {
   images?: ImageElementData[]
 }
 
-const ImageGalleryUsage = ({
-  images,
-}: ImageGalleryUsageProps) => {
+const ImageGalleryUsage = ({ images }: ImageGalleryUsageProps) => {
   const [selectedImageIdx, setSelectedImageIdx] = useState(0)
   const currentImage = images[selectedImageIdx]
 

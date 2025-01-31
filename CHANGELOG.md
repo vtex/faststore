@@ -3,6 +3,66 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.12.1](https://github.com/vtex/faststore/compare/v3.12.0...v3.12.1) (2025-01-30)
+
+**Note:** Version bump only for package faststore
+
+# [3.12.0](https://github.com/vtex/faststore/compare/v3.11.4...v3.12.0) (2025-01-29)
+
+### Features
+
+- enables search page seo `noIndex` from config ([#2652](https://github.com/vtex/faststore/issues/2652)) ([31c61a6](https://github.com/vtex/faststore/commit/31c61a65ad1774f19c53e7b2ce7af157d24434d9))
+
+## [3.11.4](https://github.com/vtex/faststore/compare/v3.11.3...v3.11.4) (2025-01-29)
+
+**Note:** Version bump only for package faststore
+
+## [3.11.3](https://github.com/vtex/faststore/compare/v3.11.2...v3.11.3) (2025-01-29)
+
+**Note:** Version bump only for package faststore
+
+## [3.11.2](https://github.com/vtex/faststore/compare/v3.11.1...v3.11.2) (2025-01-29)
+
+**Note:** Version bump only for package faststore
+
+## [3.11.1](https://github.com/vtex/faststore/compare/v3.11.0...v3.11.1) (2025-01-29)
+
+**Note:** Version bump only for package faststore
+
+# [3.11.0](https://github.com/vtex/faststore/compare/v3.10.0...v3.11.0) (2025-01-29)
+
+### Features
+
+- search page with SSR ([#2619](https://github.com/vtex/faststore/issues/2619)) ([6fd2d0d](https://github.com/vtex/faststore/commit/6fd2d0d5e92f0922f8d97237d9d04a7eadc5e894))
+
+# [3.10.0](https://github.com/vtex/faststore/compare/v3.9.3...v3.10.0) (2025-01-29)
+
+### Features
+
+- add `title` and `description` templates for product listing pages ([#2643](https://github.com/vtex/faststore/issues/2643)) ([00221d9](https://github.com/vtex/faststore/commit/00221d98439b693af3c2c0082ec7ef600637e19e))
+
+## [3.9.3](https://github.com/vtex/faststore/compare/v3.9.2...v3.9.3) (2025-01-28)
+
+### Bug Fixes
+
+- **sdk:** safari rendering ([#2642](https://github.com/vtex/faststore/issues/2642)) ([39746cd](https://github.com/vtex/faststore/commit/39746cd6094ca1f3f08918b88c20c47d87dadd19))
+
+## [3.9.2](https://github.com/vtex/faststore/compare/v3.9.1...v3.9.2) (2025-01-27)
+
+**Note:** Version bump only for package faststore
+
+## [3.9.1](https://github.com/vtex/faststore/compare/v3.9.0...v3.9.1) (2025-01-27)
+
+### Bug Fixes
+
+- **api:** Use collection `name` when `title` isn't available ([#2625](https://github.com/vtex/faststore/issues/2625)) ([236bb3c](https://github.com/vtex/faststore/commit/236bb3cffb5ca58b2393c618e03ce2545f5fab71))
+
+# 3.9.0 (2025-01-22)
+
+### Features
+
+- Adds Plugins feature ([#2563](https://github.com/vtex/faststore/issues/2563)) ([83c1bf9](https://github.com/vtex/faststore/commit/83c1bf904f744842060e0dfdb7449406800df157))
+
 # [3.8.0](https://github.com/vtex/faststore/compare/v3.7.0...v3.8.0) (2025-01-15)
 
 ### Features

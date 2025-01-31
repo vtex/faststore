@@ -1,7 +1,7 @@
 import type { IStoreSelectedFacet } from '@faststore/api'
 import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
 import { useEffect, useMemo, useReducer } from 'react'
-import { FilterFacet } from './FilterUsage'
+import type { FilterFacet } from './FilterUsage'
 
 interface State {
   expanded: Set<number>
@@ -88,15 +88,18 @@ export const useFilter = (allFacets: FilterFacet[]) => {
 
   const selectedMap = useMemo(
     () =>
-      selected.reduce((acc, facet) => {
-        if (!acc.has(facet.key)) {
-          acc.set(facet.key, new Map())
-        }
+      selected.reduce(
+        (acc, facet) => {
+          if (!acc.has(facet.key)) {
+            acc.set(facet.key, new Map())
+          }
 
-        acc.get(facet.key)?.set(facet.value, facet)
+          acc.get(facet.key)?.set(facet.value, facet)
 
-        return acc
-      }, new Map() as Map<string, Map<string, IStoreSelectedFacet>>),
+          return acc
+        },
+        new Map() as Map<string, Map<string, IStoreSelectedFacet>>
+      ),
     [selected]
   )
 

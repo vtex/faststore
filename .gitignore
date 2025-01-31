@@ -1,9 +1,6 @@
 .turbo
 .next
 
-# VSCode
-.vscode
-
 # Logs
 logs
 *.log
@@ -51,9 +48,6 @@ jspm_packages/
 
 # Optional npm cache directory
 .npm
-
-# Optional eslint cache
-.eslintcache
 
 # Optional REPL history
 .node_repl_history
@@ -115,3 +109,5 @@ packages/core/@generated/persisted-documents.json
 /package-lock.json
 /tmp
 oclif.manifest.json
+
+*storybook.log

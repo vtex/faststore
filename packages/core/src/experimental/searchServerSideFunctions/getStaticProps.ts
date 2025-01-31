@@ -1,0 +1,57 @@
+import type { GetStaticProps } from 'next'
+import {
+  getGlobalSectionsData,
+  type GlobalSectionsData,
+} from 'src/components/cms/GlobalSections'
+import { type SearchContentType, getPage } from 'src/server/cms'
+import type { Locator } from '@vtex/client-cms'
+import storeConfig from 'discovery.config'
+
+export type SearchPageProps = {
+  page: SearchContentType
+  globalSections: GlobalSectionsData
+  searchTerm?: string
+}
+
+/* 
+  Depending on the value of the storeConfig.experimental.enableSearchSSR flag, the function used will be getServerSideProps (./getServerSideProps). 
+  Our CLI that does this process of converting from getStaticProps to getServerSideProps.
+*/
+export const getStaticProps: GetStaticProps<
+  SearchPageProps,
+  Record<string, string>,
+  Locator
+> = async (context) => {
+  const { previewData } = context
+
+  const globalSections = await getGlobalSectionsData(previewData)
+
+  if (storeConfig.cms.data) {
+    const cmsData = JSON.parse(storeConfig.cms.data)
+    const page = cmsData['search'][0]
+
+    if (page) {
+      const pageData = await getPage<SearchContentType>({
+        contentType: 'search',
+        documentId: page.documentId,
+        versionId: page.versionId,
+      })
+
+      return {
+        props: { page: pageData, globalSections },
+      }
+    }
+  }
+
+  const page = await getPage<SearchContentType>({
+    ...(previewData?.contentType === 'search' ? previewData : null),
+    contentType: 'search',
+  })
+
+  return {
+    props: {
+      page,
+      globalSections,
+    },
+  }
+}

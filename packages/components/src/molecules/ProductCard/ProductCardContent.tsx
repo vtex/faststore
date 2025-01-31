@@ -10,8 +10,8 @@ import {
   Icon,
   Label,
   Link,
-  LinkElementType,
-  LinkProps,
+  type LinkElementType,
+  type LinkProps,
   ProductPrice,
   Rating,
 } from '../../'

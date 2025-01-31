@@ -1,13 +1,13 @@
 import {
-  ComponentType,
-  PropsWithChildren,
-  ReactNode,
+  type ComponentType,
+  type PropsWithChildren,
+  type ReactNode,
   memo,
   useMemo,
 } from 'react'
 
 import { useUI } from '@faststore/ui'
-import { Section } from '@vtex/client-cms'
+import type { Section } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
 import useTTI from 'src/sdk/performance/useTTI'
 import SectionBoundary from './SectionBoundary'

@@ -9,13 +9,13 @@ import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 
 import dynamic from 'next/dynamic'
 
-import { ProductCardProps } from 'src/components/product/ProductCard'
-import { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
-import { SortProps } from 'src/components/search/Sort/Sort'
+import type { ProductCardProps } from 'src/components/product/ProductCard'
+import type { FilterSliderProps } from 'src/components/search/Filter/FilterSlider'
+import type { SortProps } from 'src/components/search/Sort/Sort'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import {
-  PLPContext,
-  SearchPageContext,
+  type PLPContext,
+  type SearchPageContext,
   usePage,
 } from 'src/sdk/overrides/PageProvider'
 import { useProductsPrefetch } from 'src/sdk/product/useProductsPrefetch'

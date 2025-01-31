@@ -7,7 +7,7 @@ interface ErrorBoundaryProps {
 }
 
 interface ErrorBoundaryState {
-  hasError: Boolean
+  hasError: boolean
   error: Error | null
 }
 

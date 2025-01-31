@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { SkuOption } from './SkuSelector'
+import type { SkuOption } from './SkuSelector'
 
 export type Variant = 'image' | 'color' | 'label'
 
@@ -10,12 +10,15 @@ const getImageName = (src: string) => {
 }
 
 /**
- * This hook infers what kind of SKU Selector will be displayed on the UI. 
+ * This hook infers what kind of SKU Selector will be displayed on the UI.
  * There are three different options, color, image, and label (default version).
  */
-export const useDefineVariant = (options: SkuOption[], variant?: Variant): Variant =>
+export const useDefineVariant = (
+  options: SkuOption[],
+  variant?: Variant
+): Variant =>
   useMemo(() => {
-    if(variant) return variant
+    if (variant) return variant
 
     const allOptionsHaveHexColor = options.every((option) => option.hexColor)
     if (allOptionsHaveHexColor) {
@@ -24,9 +27,9 @@ export const useDefineVariant = (options: SkuOption[], variant?: Variant): Varia
 
     const firstImageName = options[0]?.src && getImageName(options[0].src)
 
-    /* 
+    /*
      * If there's only one option (options.length === 1) and there is an image
-     * the correct return value is 'image'. 
+     * the correct return value is 'image'.
      * */
     if (firstImageName && options.length === 1) {
       return 'image'

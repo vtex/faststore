@@ -1,5 +1,5 @@
 import React from 'react'
-import { Badge, BadgeProps } from '../..'
+import { Badge, type BadgeProps } from '../..'
 
 import { useDiscountPercent } from '../DiscountBadge/useDiscountPercent'
 
@@ -45,8 +45,8 @@ const DiscountBadge = ({
     discountPercent <= thresholdLow
       ? 'low'
       : discountPercent <= thresholdHigh
-      ? 'medium'
-      : 'high'
+        ? 'medium'
+        : 'high'
 
   return (
     <Badge

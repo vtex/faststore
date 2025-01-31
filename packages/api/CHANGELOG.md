@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.11.4](https://github.com/vtex/faststore/compare/v3.11.3...v3.11.4) (2025-01-29)
+
+**Note:** Version bump only for package @faststore/api
+
+## [3.11.3](https://github.com/vtex/faststore/compare/v3.11.2...v3.11.3) (2025-01-29)
+
+**Note:** Version bump only for package @faststore/api
+
+## [3.9.2](https://github.com/vtex/faststore/compare/v3.9.1...v3.9.2) (2025-01-27)
+
+**Note:** Version bump only for package @faststore/api
+
+## [3.9.1](https://github.com/vtex/faststore/compare/v3.9.0...v3.9.1) (2025-01-27)
+
+### Bug Fixes
+
+- **api:** Use collection `name` when `title` isn't available ([#2625](https://github.com/vtex/faststore/issues/2625)) ([236bb3c](https://github.com/vtex/faststore/commit/236bb3cffb5ca58b2393c618e03ce2545f5fab71))
+
+# 3.9.0 (2025-01-22)
+
+**Note:** Version bump only for package @faststore/api
+
 # [3.7.0](https://github.com/vtex/faststore/compare/v3.6.0...v3.7.0) (2025-01-15)
 
 ### Features
