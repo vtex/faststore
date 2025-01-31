@@ -18,7 +18,7 @@ import storeConfig from 'discovery.config'
 import { SearchWrapper } from 'src/components/templates/SearchPage'
 import {
   getStaticProps,
-  SearchPageProps,
+  type SearchPageProps,
 } from 'src/experimental/searchServerSideFunctions'
 
 export interface SearchPageContextType {
@@ -57,6 +57,8 @@ function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
   // default behavior without SSR
   if (!isSSREnabled) {
     return {
+      noindex: searchSeo?.noIndex ?? true,
+      nofollow: searchSeo?.noFollow ?? true,
       title: seo.title,
       description: seo.description,
       titleTemplate: seo.titleTemplate,
@@ -79,6 +81,8 @@ function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
     : undefined
 
   return {
+    noindex: searchSeo?.noIndex ?? true,
+    nofollow: searchSeo?.noFollow ?? true,
     title,
     description,
     titleTemplate,
@@ -108,7 +112,10 @@ function Page({
     return null
   }
 
-  const seoData = generateSEOData(storeConfig, searchTerm)
+  const { noindex, nofollow, ...seoData } = generateSEOData(
+    storeConfig,
+    searchTerm
+  )
 
   return (
     <SearchProvider
@@ -117,7 +124,7 @@ function Page({
       {...searchParams}
     >
       {/* SEO */}
-      <NextSeo noindex {...seoData} />
+      <NextSeo noindex={noindex} nofollow={nofollow} {...seoData} />
 
       <UISROnly text={seoData.title} />
 

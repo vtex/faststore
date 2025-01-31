@@ -7,7 +7,7 @@ import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
 import {
-  GlobalSectionsData,
+  type GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import COMPONENTS from 'src/components/cms/home/Components'

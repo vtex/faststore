@@ -1,9 +1,9 @@
-import { GetServerSideProps } from 'next'
-import { SearchPageProps } from './getStaticProps'
+import type { GetServerSideProps } from 'next'
+import type { SearchPageProps } from './getStaticProps'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
-import { SearchContentType, getPage } from 'src/server/cms'
-import { Locator } from '@vtex/client-cms'
+import { type SearchContentType, getPage } from 'src/server/cms'
+import type { Locator } from '@vtex/client-cms'
 import storeConfig from 'discovery.config'
 
 export const getServerSideProps: GetServerSideProps<

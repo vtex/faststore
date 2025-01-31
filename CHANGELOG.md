@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.13.1 (2025-01-31)
+
+### Bug Fixes
+
+- husky config ([#2661](https://github.com/vtex/faststore/issues/2661)) ([38ffbaf](https://github.com/vtex/faststore/commit/38ffbaf1b8c68609dc9a8c44437984e362761c60))
+
+# [3.13.0](https://github.com/vtex/faststore/compare/v3.12.1...v3.13.0) (2025-01-31)
+
+### Features
+
+- enables search seo `noFollow` from config ([#2656](https://github.com/vtex/faststore/issues/2656)) ([96ba214](https://github.com/vtex/faststore/commit/96ba2142c9255a67456e95f0600f21eb60681441))
+
+## [3.12.1](https://github.com/vtex/faststore/compare/v3.12.0...v3.12.1) (2025-01-30)
+
+**Note:** Version bump only for package faststore
+
+# [3.12.0](https://github.com/vtex/faststore/compare/v3.11.4...v3.12.0) (2025-01-29)
+
+### Features
+
+- enables search page seo `noIndex` from config ([#2652](https://github.com/vtex/faststore/issues/2652)) ([31c61a6](https://github.com/vtex/faststore/commit/31c61a65ad1774f19c53e7b2ce7af157d24434d9))
+
+## [3.11.4](https://github.com/vtex/faststore/compare/v3.11.3...v3.11.4) (2025-01-29)
+
+**Note:** Version bump only for package faststore
+
 ## [3.11.3](https://github.com/vtex/faststore/compare/v3.11.2...v3.11.3) (2025-01-29)
 
 **Note:** Version bump only for package faststore

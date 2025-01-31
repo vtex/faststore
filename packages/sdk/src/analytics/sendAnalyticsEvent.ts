@@ -4,7 +4,7 @@ import type { UnknownEvent, AnalyticsEvent } from './wrap'
 export const sendAnalyticsEvent = <
   K extends UnknownEvent = AnalyticsEvent,
   /** This generic is here so users get the IntelliSense for event type options from AnalyticsEvent */
-  T extends K = K
+  T extends K = K,
 >(
   event: T
 ) => {

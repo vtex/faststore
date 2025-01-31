@@ -9,22 +9,22 @@ import type {
 } from '@generated/graphql'
 import { execute } from 'src/server'
 
-import { Locator } from '@vtex/client-cms'
+import type { Locator } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
 import {
   getGlobalSectionsData,
-  GlobalSectionsData,
+  type GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import {
   getLandingPageBySlug,
-  LandingPageProps,
+  type LandingPageProps,
 } from 'src/components/templates/LandingPage'
 import ProductListingPage, {
-  ProductListingPageProps,
+  type ProductListingPageProps,
 } from 'src/components/templates/ProductListingPage'
 import { getRedirect } from 'src/sdk/redirects'
-import { PageContentType } from 'src/server/cms'
-import { getPLP, PLPContentType } from 'src/server/cms/plp'
+import type { PageContentType } from 'src/server/cms'
+import { getPLP, type PLPContentType } from 'src/server/cms/plp'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 
 const LandingPage = dynamic(

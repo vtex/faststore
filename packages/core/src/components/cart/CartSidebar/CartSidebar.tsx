@@ -7,7 +7,7 @@ import type {
 
 import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
 import { Icon, useFadeEffect, useUI } from '@faststore/ui'
-import { ReactNode, useCallback, useEffect, useMemo } from 'react'
+import { type ReactNode, useCallback, useEffect, useMemo } from 'react'
 import { useCart } from 'src/sdk/cart'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'

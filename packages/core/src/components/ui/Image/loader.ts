@@ -1,5 +1,5 @@
 import storeConfig from 'discovery.config'
-import { ImageLoaderProps } from 'next/image'
+import type { ImageLoaderProps } from 'next/image'
 const THUMBOR_SERVER = `https://${storeConfig.api.storeId}.vtexassets.com`
 
 export default function customImageLoader({

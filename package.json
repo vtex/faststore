@@ -14,7 +14,8 @@
     "test": "turbo run test",
     "size": "turbo run size",
     "release": "lerna version --conventional-commits --yes && lerna publish from-git --yes",
-    "clean": "turbo run clean && rm -rf node_modules"
+    "clean": "turbo run clean && rm -rf node_modules",
+    "prepare": "husky"
   },
   "workspaces": [
     "packages/*",
@@ -38,10 +39,10 @@
   "version": "0.0.0",
   "volta": {
     "node": "18.19.0",
-    "yarn": "1.19.1"
+    "yarn": "1.22.22"
   },
   "dependencies": {},
-  "packageManager": "yarn@1.19.1",
+  "packageManager": "yarn@1.22.22",
   "lint-staged": {
     "*.{ts,js,tsx,jsx,json}": "yarn lint:fix",
     "*.scss": "stylelint --fix"

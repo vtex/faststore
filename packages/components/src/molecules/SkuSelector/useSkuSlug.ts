@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { SkuOption } from './SkuSelector'
+import type { SkuOption } from './SkuSelector'
 
 function getSkuSlug(
   slugsMap: Record<string, string>,

@@ -7,9 +7,9 @@ import Head from 'next/head'
 import type { ComponentType } from 'react'
 
 import { gql } from '@generated'
-import {
-  type ServerProductQueryQuery,
-  type ServerProductQueryQueryVariables,
+import type {
+  ServerProductQueryQuery,
+  ServerProductQueryQueryVariables,
 } from '@generated/graphql'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
@@ -22,19 +22,19 @@ import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sectio
 import { OverriddenDefaultProductDetails as ProductDetails } from 'src/components/sections/ProductDetails/OverriddenDefaultProductDetails'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
-import PLUGINS_COMPONENTS from 'src/plugins'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
 
 import storeConfig from 'discovery.config'
 import {
-  GlobalSectionsData,
+  type GlobalSectionsData,
   getGlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
-import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
-import { PDPContentType, getPDP } from 'src/server/cms/pdp'
+import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
+import { type PDPContentType, getPDP } from 'src/server/cms/pdp'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.

@@ -25,7 +25,7 @@ import type {
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
-import { SearchArgs } from '../clients/search'
+import type { SearchArgs } from '../clients/search'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -112,7 +112,14 @@ export const Query = {
   },
   search: async (
     _: unknown,
-    { first, after: maybeAfter, sort, term, selectedFacets, sponsoredCount }: QuerySearchArgs,
+    {
+      first,
+      after: maybeAfter,
+      sort,
+      term,
+      selectedFacets,
+      sponsoredCount,
+    }: QuerySearchArgs,
     ctx: Context
   ) => {
     // Insert channel in context for later usage
@@ -160,7 +167,7 @@ export const Query = {
       query: query ?? undefined,
       sort: SORT_MAP[sort ?? 'score_desc'],
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
-      sponsoredCount: sponsoredCount ?? undefined
+      sponsoredCount: sponsoredCount ?? undefined,
     }
 
     const productSearchPromise = ctx.clients.search.products(searchArgs)
@@ -183,8 +190,9 @@ export const Query = {
     })
 
     const skus = products.products
-      .map((product) => product.items.map((sku) => enhanceSku(sku, product)))
-      .flat()
+      .flatMap((product) =>
+        product.items.map((sku) => enhanceSku(sku, product))
+      )
       .filter((sku) => sku.sellers.length > 0)
 
     return {
