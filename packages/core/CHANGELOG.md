@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.13.0](https://github.com/vtex/faststore/compare/v3.12.1...v3.13.0) (2025-01-31)
+
+### Features
+
+- enables search seo `noFollow` from config ([#2656](https://github.com/vtex/faststore/issues/2656)) ([96ba214](https://github.com/vtex/faststore/commit/96ba2142c9255a67456e95f0600f21eb60681441))
+
 ## [3.12.1](https://github.com/vtex/faststore/compare/v3.12.0...v3.12.1) (2025-01-30)
 
 **Note:** Version bump only for package @faststore/core
