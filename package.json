@@ -14,7 +14,8 @@
     "test": "turbo run test",
     "size": "turbo run size",
     "release": "lerna version --conventional-commits --yes && lerna publish from-git --yes",
-    "clean": "turbo run clean && rm -rf node_modules"
+    "clean": "turbo run clean && rm -rf node_modules",
+    "prepare": "husky"
   },
   "workspaces": [
     "packages/*",
