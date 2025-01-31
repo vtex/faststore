@@ -58,6 +58,7 @@ function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
   if (!isSSREnabled) {
     return {
       noindex: searchSeo?.noIndex ?? true,
+      nofollow: searchSeo?.noFollow ?? true,
       title: seo.title,
       description: seo.description,
       titleTemplate: seo.titleTemplate,
@@ -81,6 +82,7 @@ function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
 
   return {
     noindex: searchSeo?.noIndex ?? true,
+    nofollow: searchSeo?.noFollow ?? true,
     title,
     description,
     titleTemplate,
@@ -110,7 +112,10 @@ function Page({
     return null
   }
 
-  const { noindex, ...seoData } = generateSEOData(storeConfig, searchTerm)
+  const { noindex, nofollow, ...seoData } = generateSEOData(
+    storeConfig,
+    searchTerm
+  )
 
   return (
     <SearchProvider
@@ -119,7 +124,7 @@ function Page({
       {...searchParams}
     >
       {/* SEO */}
-      <NextSeo noindex={noindex} {...seoData} />
+      <NextSeo noindex={noindex} nofollow={nofollow} {...seoData} />
 
       <UISROnly text={seoData.title} />
 

@@ -12,6 +12,7 @@ module.exports = {
       titleTemplate: '%s: Search results title',
       descriptionTemplate: '%s: Search results description',
       noIndex: true,
+      noFollow: true,
     },
   },
 
