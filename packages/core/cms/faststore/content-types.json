@@ -96,7 +96,7 @@
                   "title": "Name",
                   "type": "string"
                 },
-                "publisherId":{
+                "publisherId": {
                   "title": "Publisher ID",
                   "description": "Uses to identifier to reference the publisher. E.g.: #website",
                   "type": "string"
