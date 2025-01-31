@@ -109,12 +109,16 @@ const RenderSectionsBase = ({
 
         return (
           <SectionBoundary key={`cms-section-${name}-${index}`} name={name}>
-            <LazyLoadingSection
-              sectionName={name}
-              isInteractive={isInteractive}
-            >
+            {data.skipLazyLoadingSection ? (
               <Component {...data} />
-            </LazyLoadingSection>
+            ) : (
+              <LazyLoadingSection
+                sectionName={name}
+                isInteractive={isInteractive}
+              >
+                <Component {...data} />
+              </LazyLoadingSection>
+            )}
           </SectionBoundary>
         )
       })}
