@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.13.1 (2025-01-31)
+
+### Bug Fixes
+
+- husky config ([#2661](https://github.com/vtex/faststore/issues/2661)) ([38ffbaf](https://github.com/vtex/faststore/commit/38ffbaf1b8c68609dc9a8c44437984e362761c60))
+
 # [3.13.0](https://github.com/vtex/faststore/compare/v3.12.1...v3.13.0) (2025-01-31)
 
 ### Features

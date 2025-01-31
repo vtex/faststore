@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.13.1 (2025-01-31)
+
+**Note:** Version bump only for package @faststore/graphql-utils
+
 ## [3.11.3](https://github.com/vtex/faststore/compare/v3.11.2...v3.11.3) (2025-01-29)
 
 **Note:** Version bump only for package @faststore/graphql-utils
