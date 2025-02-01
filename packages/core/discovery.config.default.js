@@ -36,6 +36,10 @@ module.exports = {
         postalCode: '06473-000',
       },
     },
+    plp: {
+      titleTemplate: '%s | FastStore PLP',
+      descriptionTemplate: '%s products on FastStore Product Listing Page',
+    },
   },
 
   // Theming
