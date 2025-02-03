@@ -144,96 +144,118 @@ function ProductDetails({
 
   return (
     <Section className={`${styles.section} section-product-details`}>
-      <section data-fs-product-details>
-        <section data-fs-product-details-body data-fs-content="product-details">
-          <header data-fs-product-details-title data-fs-product-details-section>
-            <ProductTitle.Component
-              // TODO: We should review this prop. There's now way to override the title and use the dynamic name value.
-              // Maybe passing a ProductTitleHeader component as a prop would be better, as it would be overridable.
-              // Maybe now it's worth to make title always a h1 and receive only the name, as it would be easier for users to override.
-              title={<h1>{name}</h1>}
-              {...ProductTitle.props}
-              label={
-                showDiscountBadge && (
-                  <DiscountBadge.Component
-                    {...DiscountBadge.props}
-                    size={discountBadgeSize ?? DiscountBadge.props.size}
-                    // Dynamic props shouldn't be overridable
-                    // This decision can be reviewed later if needed
-                    listPrice={listPrice}
-                    spotPrice={lowPrice}
-                  />
-                )
-              }
-              refNumber={showRefNumber && productId}
-            />
-          </header>
-          <ImageGallery.Component
-            data-fs-product-details-gallery
-            {...ImageGallery.props}
-            images={productImages}
-          />
-          <section data-fs-product-details-info>
-            <section
-              data-fs-product-details-settings
+      {isValidating ? (
+        <section data-fs-product-details-info>
+          <section
+            data-fs-product-details-settings
+            data-fs-product-details-section
+          >
+            <p>Loading...</p>
+          </section>
+        </section>
+      ) : (
+        <section data-fs-product-details>
+          <section
+            data-fs-product-details-body
+            data-fs-content="product-details"
+          >
+            <header
+              data-fs-product-details-title
               data-fs-product-details-section
             >
-              <ProductDetailsSettings
-                product={product}
-                isValidating={isValidating}
-                buyButtonTitle={buyButtonTitle}
-                quantity={quantity}
-                setQuantity={setQuantity}
-                buyButtonIcon={buyButtonIcon}
-                notAvailableButtonTitle={
-                  notAvailableButtonTitle ?? NotAvailableButton.props.title
+              <ProductTitle.Component
+                // TODO: We should review this prop. There's now way to override the title and use the dynamic name value.
+                // Maybe passing a ProductTitleHeader component as a prop would be better, as it would be overridable.
+                // Maybe now it's worth to make title always a h1 and receive only the name, as it would be easier for users to override.
+                title={<h1>{name}</h1>}
+                {...ProductTitle.props}
+                label={
+                  showDiscountBadge && (
+                    <DiscountBadge.Component
+                      {...DiscountBadge.props}
+                      size={discountBadgeSize ?? DiscountBadge.props.size}
+                      // Dynamic props shouldn't be overridable
+                      // This decision can be reviewed later if needed
+                      listPrice={listPrice}
+                      spotPrice={lowPrice}
+                    />
+                  )
                 }
+                refNumber={showRefNumber && productId}
               />
+            </header>
+            <ImageGallery.Component
+              data-fs-product-details-gallery
+              {...ImageGallery.props}
+              images={productImages}
+            />
+            <section data-fs-product-details-info>
+              <section
+                data-fs-product-details-settings
+                data-fs-product-details-section
+              >
+                <ProductDetailsSettings
+                  product={product}
+                  isValidating={isValidating}
+                  buyButtonTitle={buyButtonTitle}
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                  buyButtonIcon={buyButtonIcon}
+                  notAvailableButtonTitle={
+                    notAvailableButtonTitle ?? NotAvailableButton.props.title
+                  }
+                />
+              </section>
+
+              {!outOfStock && (
+                <ShippingSimulation.Component
+                  data-fs-product-details-section
+                  data-fs-product-details-shipping
+                  formatter={useFormattedPrice}
+                  {...ShippingSimulation.props}
+                  idkPostalCodeLinkProps={{
+                    ...ShippingSimulation.props.idkPostalCodeLinkProps,
+                    href:
+                      shippingSimulatorLinkUrl ??
+                      ShippingSimulation.props.idkPostalCodeLinkProps?.href,
+                    children:
+                      shippingSimulatorLinkText ??
+                      ShippingSimulation.props.idkPostalCodeLinkProps?.children,
+                  }}
+                  productShippingInfo={{
+                    id,
+                    quantity,
+                    seller: seller.identifier,
+                  }}
+                  title={
+                    shippingSimulatorTitle ?? ShippingSimulation.props.title
+                  }
+                  inputLabel={
+                    shippingSimulatorInputLabel ??
+                    ShippingSimulation.props.inputLabel
+                  }
+                  optionsLabel={
+                    shippingSimulatorOptionsTableTitle ??
+                    ShippingSimulation.props.optionsLabel
+                  }
+                />
+              )}
             </section>
 
-            {!outOfStock && (
-              <ShippingSimulation.Component
-                data-fs-product-details-section
-                data-fs-product-details-shipping
-                formatter={useFormattedPrice}
-                {...ShippingSimulation.props}
-                idkPostalCodeLinkProps={{
-                  ...ShippingSimulation.props.idkPostalCodeLinkProps,
-                  href:
-                    shippingSimulatorLinkUrl ??
-                    ShippingSimulation.props.idkPostalCodeLinkProps?.href,
-                  children:
-                    shippingSimulatorLinkText ??
-                    ShippingSimulation.props.idkPostalCodeLinkProps?.children,
-                }}
-                productShippingInfo={{
-                  id,
-                  quantity,
-                  seller: seller.identifier,
-                }}
-                title={shippingSimulatorTitle ?? ShippingSimulation.props.title}
-                inputLabel={
-                  shippingSimulatorInputLabel ??
-                  ShippingSimulation.props.inputLabel
-                }
-                optionsLabel={
-                  shippingSimulatorOptionsTableTitle ??
-                  ShippingSimulation.props.optionsLabel
-                }
+            {shouldDisplayProductDescription && (
+              <ProductDescription
+                initiallyExpanded={productDescriptionInitiallyExpanded}
+                descriptionData={[
+                  {
+                    title: productDescriptionDetailsTitle,
+                    content: description,
+                  },
+                ]}
               />
             )}
           </section>
-
-          {shouldDisplayProductDescription && (
-            <ProductDescription
-              initiallyExpanded={productDescriptionInitiallyExpanded}
-              descriptionData={[
-                { title: productDescriptionDetailsTitle, content: description },
-              ]}
-            />
-          )}
         </section>
-      </section>
+      )}
     </Section>
   )
 }

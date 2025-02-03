@@ -30,6 +30,8 @@ import GlobalSections, {
 import storeConfig from '../../../faststore.config'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import PageProvider, { PDPContext } from 'src/sdk/overrides/PageProvider'
+import { getOfferUrl, useOffer } from 'src/sdk/offer'
+import Head from 'next/head'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -62,20 +64,27 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   const { product } = server
   const { currency } = useSession()
 
-  // Stale while revalidate the product for fetching the new price etc
-  const { data: client, isValidating } = useProductQuery(product.id, {
-    product: product,
-  })
+  const offer = useOffer({ skuId: product.sku })
+  const client = { product: { offers: offer.offers } }
 
   const context = {
     data: {
       ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
-      isValidating,
+      isValidating: offer.isValidating,
     },
   } as PDPContext
 
   return (
     <GlobalSections {...globalSections}>
+      <Head>
+        <link
+          rel="preload"
+          href={getOfferUrl(product.sku)}
+          as="fetch"
+          crossOrigin="anonymous"
+          fetchPriority="high"
+        />
+      </Head>
       {/* SEO */}
       <NextSeo
         title={meta.title}
@@ -256,6 +265,7 @@ export const getStaticProps: GetStaticProps<
       globalSections,
       key: seo.canonical,
     },
+    revalidate: 300,
   }
 }
 
