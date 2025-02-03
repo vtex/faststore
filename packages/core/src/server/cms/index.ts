@@ -30,6 +30,8 @@ export type PageContentType = ContentData & {
       title: string
       description: string
       canonical?: string
+      name?: string
+      publisherId?: string
     }
   }
 }
