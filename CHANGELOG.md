@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.14.0](https://github.com/vtex/faststore/compare/v3.13.1...v3.14.0) (2025-02-03)
+
+### Features
+
+- add h1 in EmptySearch component ([#2659](https://github.com/vtex/faststore/issues/2659)) ([76088bb](https://github.com/vtex/faststore/commit/76088bb166cf0cf8ebbb22558961dc1484daa4b4))
+
 ## 3.13.1 (2025-01-31)
 
 ### Bug Fixes

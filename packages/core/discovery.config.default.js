@@ -4,6 +4,8 @@ module.exports = {
     description: 'Fast Demo Store',
     titleTemplate: '%s | FastStore',
     author: 'Store Framework',
+    name: 'FastStore',
+    publisherId: '',
     plp: {
       titleTemplate: '%s | FastStore PLP',
       descriptionTemplate: '%s products on FastStore Product Listing Page',
@@ -13,6 +15,7 @@ module.exports = {
       descriptionTemplate: '%s: Search results description',
       noIndex: true,
       noFollow: true,
+      bodyH1: 'Showing results for:',
     },
   },
 

@@ -7,15 +7,30 @@ import Section from 'src/components/sections/Section'
 import type { SearchPageContextType } from 'src/pages/s'
 import { useProductGalleryQuery } from 'src/sdk/product/useProductGalleryQuery'
 import type { SearchContentType } from 'src/server/cms'
+import storeConfig from 'discovery.config'
 
 import SearchPage from './SearchPage'
 
-function EmptySearch() {
+type EmptySearchProps = {
+  title?: string
+  term?: string
+}
+
+function EmptySearch({ title, term }: EmptySearchProps) {
   return (
     <Section
       className={`${ProductGalleryStyles.section} section-product-gallery`}
     >
-      <section data-testid="product-gallery" data-fs-product-listing>
+      <section
+        data-testid="product-gallery"
+        data-fs-product-listing
+        data-fs-search-loading
+      >
+        {title && (
+          <h1 data-fs-empty-search-title>
+            {title}: <strong>{term}</strong>
+          </h1>
+        )}
         <EmptyState title="" showLoader />
       </section>
     </Section>
@@ -51,8 +66,15 @@ export default function SearchWrapper({
     }
   )
 
+  const emptySearchProps = storeConfig.experimental.enableSearchSSR
+    ? {
+        title: storeConfig.seo.search.bodyH1 ?? 'Showing results for:',
+        term: serverData.searchTerm,
+      }
+    : {}
+
   if (isValidating || !pageProductGalleryData) {
-    return <EmptySearch />
+    return <EmptySearch {...emptySearchProps} />
   }
 
   // Redirect when there are registered Intelligent Search redirects on VTEX Admin
@@ -61,7 +83,7 @@ export default function SearchWrapper({
       shallow: true,
     })
 
-    return <EmptySearch />
+    return <EmptySearch {...emptySearchProps} />
   }
 
   const productGalleryProducts = pageProductGalleryData?.search?.products

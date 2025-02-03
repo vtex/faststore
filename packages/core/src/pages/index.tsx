@@ -30,6 +30,8 @@ function Page({
     data: serverData,
   }
 
+  const publisherId = settings?.seo?.publisherId ?? storeConfig.seo.publisherId
+
   return (
     <>
       {/* SEO */}
@@ -47,6 +49,8 @@ function Page({
         }}
       />
       <SiteLinksSearchBoxJsonLd
+        type="WebSite"
+        name={settings?.seo?.name ?? storeConfig.seo.name}
         url={storeConfig.storeUrl}
         potentialActions={[
           {
@@ -54,6 +58,7 @@ function Page({
             queryInput: 'search_term_string',
           },
         ]}
+        {...(publisherId && { publisher: { '@id': publisherId } })}
       />
 
       {/*
