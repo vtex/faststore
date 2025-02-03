@@ -9,15 +9,13 @@ import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSecti
 interface Props {
   title: string
 }
-const ReviewAndRatingsSection = ({
-  title,
-}: Props) => {
+const ReviewAndRatingsSection = ({ title }: Props) => {
   return (
     <Section
       id="review-and-ratings"
       className={`${styles.section} section-review-and-ratings layout__section`}
     >
-      <ReviewAndRatings title={title}  />
+      <ReviewAndRatings title={title} />
     </Section>
   )
 }
