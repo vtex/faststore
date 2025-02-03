@@ -1,10 +1,11 @@
 import type { GetServerSideProps } from 'next'
 import type { SearchPageProps } from './getStaticProps'
 
-import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
-import { type SearchContentType, getPage } from 'src/server/cms'
 import type { Locator } from '@vtex/client-cms'
 import storeConfig from 'discovery.config'
+import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
+import { type SearchContentType, getPage } from 'src/server/cms'
+import { injectGlobalSections } from 'src/server/cms/global'
 
 export const getServerSideProps: GetServerSideProps<
   SearchPageProps,
@@ -14,26 +15,62 @@ export const getServerSideProps: GetServerSideProps<
   const { previewData, query, res } = context
   const searchTerm = (query.q as string)?.split('+').join(' ')
 
-  const globalSections = await getGlobalSectionsData(previewData)
+  const [
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ] = getGlobalSectionsData(previewData)
 
   if (storeConfig.cms.data) {
     const cmsData = JSON.parse(storeConfig.cms.data)
     const page = cmsData['search'][0]
     if (page) {
-      const pageData = await getPage<SearchContentType>({
-        contentType: 'search',
-        documentId: page.documentId,
-        versionId: page.versionId,
+      const [
+        pageData,
+        globalSections,
+        globalSectionsHeader,
+        globalSectionsFooter,
+      ] = await Promise.all([
+        getPage<SearchContentType>({
+          contentType: 'search',
+          documentId: page.documentId,
+          versionId: page.versionId,
+        }),
+        globalSectionsPromise,
+        globalSectionsHeaderPromise,
+        globalSectionsFooterPromise,
+      ])
+
+      const globalSectionsResult = injectGlobalSections({
+        globalSections,
+        globalSectionsHeader,
+        globalSectionsFooter,
       })
       return {
-        props: { page: pageData, globalSections, searchTerm },
+        props: {
+          page: pageData,
+          globalSections: globalSectionsResult,
+          searchTerm,
+        },
       }
     }
   }
 
-  const page = await getPage<SearchContentType>({
-    ...(previewData?.contentType === 'search' ? previewData : null),
-    contentType: 'search',
+  const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
+    await Promise.all([
+      getPage<SearchContentType>({
+        ...(previewData?.contentType === 'search' ? previewData : null),
+        contentType: 'search',
+      }),
+      globalSectionsPromise,
+      globalSectionsHeaderPromise,
+      globalSectionsFooterPromise,
+    ])
+
+  const globalSectionsResult = injectGlobalSections({
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
   })
 
   res.setHeader(
@@ -44,7 +81,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       page,
-      globalSections,
+      globalSections: globalSectionsResult,
       searchTerm,
     },
   }

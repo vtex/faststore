@@ -21,8 +21,8 @@ import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sectio
 import { OverriddenDefaultProductDetails as ProductDetails } from 'src/components/sections/ProductDetails/OverriddenDefaultProductDetails'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
-import PLUGINS_COMPONENTS from 'src/plugins'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
 
@@ -33,6 +33,7 @@ import {
 } from 'src/components/cms/GlobalSections'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
+import { injectGlobalSections } from 'src/server/cms/global'
 import { type PDPContentType, getPDP } from 'src/server/cms/pdp'
 
 /**
@@ -217,12 +218,26 @@ export const getStaticProps: GetStaticProps<
   Locator
 > = async ({ params, previewData }) => {
   const slug = params?.slug ?? ''
-  const [searchResult, globalSections] = await Promise.all([
+
+  const [
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ] = getGlobalSectionsData(previewData)
+
+  const [
+    searchResult,
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  ] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
       variables: { locator: [{ key: 'slug', value: slug }] },
       operation: query,
     }),
-    getGlobalSectionsData(previewData),
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
   ])
 
   const { data, errors = [] } = searchResult
@@ -262,13 +277,19 @@ export const getStaticProps: GetStaticProps<
     url: canonical,
   }
 
+  const globalSectionsResult = injectGlobalSections({
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  })
+
   return {
     props: {
       data,
       ...cmsPage,
       meta,
       offers,
-      globalSections,
+      globalSections: globalSectionsResult,
       key: seo.canonical,
     },
   }

@@ -24,6 +24,7 @@ import ProductListingPage, {
 } from 'src/components/templates/ProductListingPage'
 import { getRedirect } from 'src/sdk/redirects'
 import type { PageContentType } from 'src/server/cms'
+import { injectGlobalSections } from 'src/server/cms/global'
 import { getPLP, type PLPContentType } from 'src/server/cms/plp'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 
@@ -102,23 +103,39 @@ export const getStaticProps: GetStaticProps<
   const slug = params?.slug.join('/') ?? ''
   const rewrites = (await storeConfig.rewrites?.()) ?? []
 
-  const [landingPagePromise, globalSectionsPromise] = [
-    getLandingPageBySlug(slug, previewData),
-    getGlobalSectionsData(previewData),
-  ]
+  const [
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ] = getGlobalSectionsData(previewData)
+
+  const landingPagePromise = getLandingPageBySlug(slug, previewData)
 
   const landingPage = await landingPagePromise
 
   if (landingPage) {
-    const [serverData, globalSections] = await Promise.all([
+    const [
+      serverData,
+      globalSections,
+      globalSectionsHeader,
+      globalSectionsFooter,
+    ] = await Promise.all([
       getDynamicContent({ pageType: slug }),
       globalSectionsPromise,
+      globalSectionsHeaderPromise,
+      globalSectionsFooterPromise,
     ])
+
+    const globalSectionsResult = injectGlobalSections({
+      globalSections,
+      globalSectionsHeader,
+      globalSectionsFooter,
+    })
 
     return {
       props: {
         page: landingPage,
-        globalSections,
+        globalSections: globalSectionsResult,
         type: 'page',
         slug,
         serverData,
@@ -126,7 +143,13 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
-  const [{ data, errors = [] }, cmsPage, globalSections] = await Promise.all([
+  const [
+    { data, errors = [] },
+    cmsPage,
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  ] = await Promise.all([
     execute<
       ServerCollectionPageQueryQueryVariables,
       ServerCollectionPageQueryQuery
@@ -136,6 +159,8 @@ export const getStaticProps: GetStaticProps<
     }),
     getPLP(slug, previewData, rewrites),
     globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
   ])
 
   const notFound = errors.find(isNotFoundError)
@@ -161,11 +186,17 @@ export const getStaticProps: GetStaticProps<
     throw errors[0]
   }
 
+  const globalSectionsResult = injectGlobalSections({
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  })
+
   return {
     props: {
       data,
       page: cmsPage,
-      globalSections,
+      globalSections: globalSectionsResult,
       type: 'plp',
       key: slug,
     },
