@@ -140,7 +140,7 @@ const ProductCardContent = forwardRef<HTMLElement, ProductCardContentProps>(
           <div data-fs-product-card-actions>
             <Button
               variant="primary"
-              icon={<Icon name="ShoppingCart" />}
+              icon={<Icon name="fs-shopping-cart" />}
               iconPosition="left"
               size="small"
               onClick={onButtonClick}

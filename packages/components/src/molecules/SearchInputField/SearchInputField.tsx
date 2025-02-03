@@ -25,7 +25,7 @@ export interface SearchInputFieldProps extends InputProps {
   buttonProps?: ButtonProps
   /**
    * A React component that will be rendered as an icon (submit button).
-   * @default <Icon name="MagnifyingGlass" />
+   * @default <Icon name="fs-magnifying-glass" />
    */
   buttonIcon?: ReactNode
   /**
@@ -90,7 +90,7 @@ const SearchInputField = forwardRef<
       <IconButton
         type="submit"
         aria-label="Submit Search"
-        icon={buttonIcon ?? <Icon name="MagnifyingGlass" />}
+        icon={buttonIcon ?? <Icon name="fs-magnifying-glass" />}
         size="small"
         {...buttonProps}
       />

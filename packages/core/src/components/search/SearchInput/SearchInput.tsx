@@ -126,7 +126,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           <UIIconButton
             type="submit"
             aria-label="Submit Search"
-            icon={<UIIcon name="MagnifyingGlass" />}
+            icon={<UIIcon name="fs-magnifying-glass" />}
             size="small"
             {...buttonProps}
           />

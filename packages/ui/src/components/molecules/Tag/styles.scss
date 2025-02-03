@@ -33,9 +33,7 @@
     color: var(--fs-tag-text-color);
 
     > [data-fs-icon] {
-      border: var(--fs-border-width) solid transparent;
       border-radius: var(--fs-border-radius-circle);
-      padding: 3px;
       transition: var(--fs-badge-transition-property) var(--fs-badge-transition-timing) var(--fs-badge-transition-function);
     }
 
@@ -48,9 +46,6 @@
     }
 
     svg {
-      width: var(--fs-tag-icon-size);
-      height: var(--fs-tag-icon-size);
-      stroke-width: var(--fs-tag-icon-stroke-width);
       color: var(--fs-tag-text-color);
       vertical-align: middle;
     }

@@ -66,7 +66,7 @@ const HeroHeader = forwardRef<HTMLDivElement, HeroHeaderProps>(
               <LinkButton
                 href={link}
                 inverse={colorVariant === 'main'}
-                icon={<Icon name="ArrowRight" />}
+                icon={<Icon name="fs-arrow-right" />}
                 iconPosition="right"
                 target={linkTargetBlank ? '_blank' : undefined}
               >
