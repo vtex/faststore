@@ -1,4 +1,4 @@
-import React, {  forwardRef, HTMLAttributes } from 'react'
+import React, { forwardRef, HTMLAttributes} from 'react'
 import { Badge, Icon, IconButton, Input, Loader, QuantitySelector } from '../..'
 
 import type { ReactNode, MouseEvent } from 'react'
@@ -8,30 +8,46 @@ type StatusButtonAddToCartType = 'default' | 'inProgress' | 'completed'
 export interface SearchProductItemControlProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onClick'> {
   children: ReactNode
-	/**
-	 * Specifies whether the product is available.
-	*/
+  /**
+   * Specifies whether the product is available.
+   */
   availability: boolean
   /**
-	 * Specifies whether the product has variations.
-	*/
-	hasVariants: boolean
+   * Specifies whether the product has variations.
+   */
+  hasVariants: boolean
   /**
-	 * Renders the elements of the SKUMatrix.
-	*/
+   * Renders the elements of the SKUMatrix.
+   */
   skuMatrixControl: ReactNode
   /**
-	 * Specifies the quantity to be added to the cart.
-	*/
+   * The maximum value the input can receive
+   */
+  max?: number
+  /**
+   * The minimum value the input can receive
+   */
+  min?: number
+  /**
+   * Specify if it is the mobile version.
+   */
+  mobileVersion: boolean
+  /**
+   * Specifies the quantity to be added to the cart.
+   */
   quantity: number
   /**
-	 * Callback that fires when the add to cart button is clicked.
-	*/
+   * Callback that fires when the add to cart button is clicked.
+   */
   onClick?(e: MouseEvent<HTMLButtonElement>): void
   /**
-	 * Callback that fires when the input value changes.
-	*/
+   * Callback that fires when the input value changes.
+   */
   onChangeQuantity(value: number): void
+  /**
+   * Event emitted when value is out of the min and max bounds
+   */
+  onValidateBlur?: (min: number, maxValue: number, quantity: number) => void
 }
 
 const SearchProductItemControl = forwardRef<
@@ -44,8 +60,12 @@ const SearchProductItemControl = forwardRef<
     hasVariants,
     skuMatrixControl,
     quantity,
+    min = 1,
+    max,
+    mobileVersion,
     onClick,
     onChangeQuantity,
+    onValidateBlur,
     ...otherProps
   },
   ref
@@ -54,7 +74,6 @@ const SearchProductItemControl = forwardRef<
     React.useState<StatusButtonAddToCartType>('default')
 
 	const showSKUMatrixControl = availability && hasVariants;
-	const isMobile = window.innerWidth <= 768	
   
 	function stopPropagationClick(e: MouseEvent) {
     e.preventDefault()
@@ -86,6 +105,23 @@ const SearchProductItemControl = forwardRef<
         return <Icon name="ShoppingCart" width={24} height={24} />
     }
   }, [statusAddToCart])
+  
+  function validateBlur() {
+    const maxValue = max ?? (min ? Math.max(quantity, min) : quantity)
+    const isOutOfBounds = quantity > maxValue || quantity < min
+    const realQuantity = (() => {
+      if (quantity > maxValue) {
+        return maxValue
+      }
+      return quantity < min ? min : quantity
+    })()
+
+    if (isOutOfBounds) {
+      onValidateBlur?.(min, maxValue, realQuantity)
+    }
+
+    onChangeQuantity(realQuantity)
+  }
 
   return (
     <div ref={ref} data-fs-search-product-item-control {...otherProps}>
@@ -103,21 +139,28 @@ const SearchProductItemControl = forwardRef<
           role="group"
           onClick={stopPropagationClick}
         >
-          {!isMobile && (
+          {!mobileVersion && (
             <QuantitySelector
               disabled={statusAddToCart !== 'default'}
-              initial={quantity}
+              max={max}
+              onValidateBlur={onValidateBlur}
               onChange={onChangeQuantity}
             />
           )}
 
-          {isMobile && (
+          {mobileVersion && (
             <Input
               data-fs-product-item-control-input
-              type="number"
               min={1}
               value={quantity}
-              onChange={(e) => onChangeQuantity(e.target.valueAsNumber)}
+              onChange={(e) =>
+                onChangeQuantity(e.target.value ? Number(e.target.value) : 0)
+              }
+              onBlur={validateBlur}
+              onInput={(event: React.FormEvent<HTMLInputElement>) => {
+                const input = event.currentTarget
+                input.value = input.value.replace(/\D/g, '')
+              }}
             />
           )}
 

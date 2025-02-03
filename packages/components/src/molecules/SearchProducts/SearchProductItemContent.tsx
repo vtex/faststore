@@ -14,6 +14,10 @@ export interface SearchProductItemContentProps {
    */
   price: PriceDefinition
   /**
+   * Specify if it is the mobile version.
+   */
+  mobileVersion: boolean
+  /**
    * Quick order settings.
    */
   quickOrder?: {
@@ -22,6 +26,8 @@ export interface SearchProductItemContentProps {
     hasVariants: boolean
     skuMatrixControl: React.ReactNode
     quantity: number
+    min?: number
+    max?: number
     onChangeQuantity(value: number): void
     buyProps?: {
       onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
@@ -30,13 +36,17 @@ export interface SearchProductItemContentProps {
       'data-seller': string
     }
   }
+  /**
+   * Event emitted when value is out of the min and max bounds
+   */
+  onValidateBlur?: (min: number, maxValue: number, quantity: number) => void
 }
 
 const SearchProductItemContent = forwardRef<
   HTMLElement,
   SearchProductItemContentProps
 >(function SearchProductItemContent(
-  { price, title, quickOrder, ...otherProps },
+  { price, title, quickOrder, onValidateBlur, mobileVersion, ...otherProps },
   ref
 ) {
   const renderProductItemContent = useCallback(() => {
@@ -53,7 +63,7 @@ const SearchProductItemContent = forwardRef<
         )}
       </>
     )
-  }, [quickOrder?.enabled])
+  }, [price.formatter, price.listPrice, price.value, title])
 
   return (
     <section ref={ref} data-fs-search-product-item-content {...otherProps}>
@@ -66,6 +76,9 @@ const SearchProductItemContent = forwardRef<
           skuMatrixControl={quickOrder.skuMatrixControl}
           quantity={quickOrder.quantity}
           onChangeQuantity={quickOrder.onChangeQuantity}
+          max={quickOrder.max}
+          onValidateBlur={onValidateBlur}
+          mobileVersion={mobileVersion}
           {...quickOrder.buyProps}
         >
           {renderProductItemContent()}
