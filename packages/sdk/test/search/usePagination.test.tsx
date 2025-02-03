@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react'
 import React, { type PropsWithChildren } from 'react'
 
 import { initSearchState, SearchProvider, usePagination } from '../../src'
