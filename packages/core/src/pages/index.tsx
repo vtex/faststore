@@ -49,7 +49,7 @@ function Page({
         }}
       />
       <SiteLinksSearchBoxJsonLd
-        type='WebSite'
+        type="WebSite"
         name={settings?.seo?.name ?? storeConfig.seo.name}
         url={storeConfig.storeUrl}
         potentialActions={[
