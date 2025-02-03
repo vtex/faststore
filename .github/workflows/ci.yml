@@ -73,15 +73,15 @@ jobs:
         run: |
           cd starter
           for package in ../packed-packages/*.tgz; do
-            yarn add "$package"
+            pnpm add "$package"
           done
 
       - name: Install dependencies in starter
         run: |
           cd starter
-          yarn install --frozen-lockfile
+          pnpm i
 
       - name: Build starter
         run: |
           cd starter
-          yarn build
+          pnpm build
