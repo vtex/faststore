@@ -117,18 +117,6 @@ export const coreContentTypes = [
     isSingleton: true,
   },
   {
-    id: 'globalHeaderSections',
-    name: 'Global Header Sections',
-    configurationSchemaSets: [],
-    isSingleton: true,
-  },
-  {
-    id: 'globalFooterSections',
-    name: 'Global Footer Sections',
-    configurationSchemaSets: [],
-    isSingleton: true,
-  },
-  {
     id: 'home',
     name: 'Home',
     isSingleton: true,
