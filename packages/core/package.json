@@ -33,7 +33,7 @@
   },
   "volta": {
     "node": "18.19.0",
-    "yarn": "1.22.22"
+    "pnpm": "9.15.1"
   },
   "sideEffects": false,
   "dependencies": {
@@ -91,6 +91,7 @@
     "@types/cypress": "^1.1.3",
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "29.1.0",
+    "@jest/globals": "29.7.0",
     "@vtex/prettier-config": "1.0.0",
     "axe-core": "^4.8.1",
     "cypress": "12.17.4",

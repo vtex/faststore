@@ -18,7 +18,7 @@
   },
   "volta": {
     "node": "18.19.0",
-    "yarn": "1.22.22"
+    "pnpm": "9.15.1"
   },
   "scripts": {
     "dev": "storybook dev -p 6006",

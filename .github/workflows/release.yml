@@ -23,11 +23,16 @@ jobs:
           token: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
           fetch-depth: 2
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.4.0
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'yarn'
+          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Configure CI Git User
@@ -36,22 +41,22 @@ jobs:
           git config user.email vtexgithubbot@github.com
 
       - name: Install dependencies
-        run: yarn
+        run: pnpm i
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - name: Size
-        run: yarn size
+        run: pnpm size
 
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
 
       - name: Test
-        run: yarn test
+        run: pnpm test
 
       - name: Publish
-        run: yarn release
+        run: pnpm release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
