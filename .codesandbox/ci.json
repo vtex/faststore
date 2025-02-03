@@ -1,5 +1,5 @@
 {
-  "buildCommand": "turbo run build --filter=./packages/*",
+  "buildCommand": "build",
   "packages": [
     "packages/api",
     "packages/cli",
