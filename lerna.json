@@ -13,5 +13,5 @@
     "**/*.test.*",
     "**/*.md"
   ],
-  "packages": ["packages/*", "apps/*"]
+  "packages": ["packages/*"]
 }

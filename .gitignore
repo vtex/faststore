@@ -61,7 +61,6 @@ jspm_packages/
 # gatsby files
 .cache/
 public
-!apps/site/public
 
 # Mac files
 .DS_Store
