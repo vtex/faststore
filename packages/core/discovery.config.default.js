@@ -13,6 +13,7 @@ module.exports = {
       descriptionTemplate: '%s: Search results description',
       noIndex: true,
       noFollow: true,
+      bodyH1: 'Showing results for:',
     },
   },
 
