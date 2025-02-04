@@ -305,7 +305,7 @@ export const getStaticProps: GetStaticProps<
       globalSections,
       key: seo.canonical,
     },
-    revalidate: (storeConfig as StoreConfig).experimental.revalidate ?? 0,
+    revalidate: (storeConfig as StoreConfig).experimental.revalidate ?? false,
   }
 }
 
