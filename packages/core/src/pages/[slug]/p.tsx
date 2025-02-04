@@ -3,6 +3,7 @@ import type { Locator } from '@vtex/client-cms'
 import deepmerge from 'deepmerge'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
+import Head from 'next/head'
 import type { ComponentType } from 'react'
 
 import { gql } from '@generated'
@@ -21,19 +22,27 @@ import { OverriddenDefaultNewsletter as Newsletter } from 'src/components/sectio
 import { OverriddenDefaultProductDetails as ProductDetails } from 'src/components/sections/ProductDetails/OverriddenDefaultProductDetails'
 import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/sections/ProductShelf/OverriddenDefaultProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
-import PLUGINS_COMPONENTS from 'src/plugins'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
 
 import storeConfig from 'discovery.config'
 import {
-  type GlobalSectionsData,
   getGlobalSectionsData,
+  type GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
+import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
-import { type PDPContentType, getPDP } from 'src/server/cms/pdp'
+import { getPDP, type PDPContentType } from 'src/server/cms/pdp'
+
+type StoreConfig = typeof storeConfig & {
+  experimental: {
+    revalidate?: number
+    enableClientOffer?: boolean
+  }
+}
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -68,15 +77,31 @@ type Props = PDPContentType & {
 // https://www.npmjs.com/package/deepmerge
 const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 
+const isClientOfferEnabled = (storeConfig as StoreConfig).experimental
+  .enableClientOffer
+
 function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   const { product } = server
   const { currency } = useSession()
   const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
 
-  // Stale while revalidate the product for fetching the new price etc
-  const { data: client, isValidating } = useProductQuery(product.id, {
-    product: product,
-  })
+  const { client, isValidating } = isClientOfferEnabled
+    ? (() => {
+        const offer = useOffer({ skuId: product.sku })
+        return {
+          client: { product: { offers: offer.offers } },
+          isValidating: offer.isValidating,
+        }
+      })()
+    : (() => {
+        const productQuery = useProductQuery(product.id, {
+          product: product,
+        })
+        return {
+          client: productQuery.data,
+          isValidating: productQuery.isValidating,
+        }
+      })()
 
   const context = {
     data: {
@@ -87,6 +112,15 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
 
   return (
     <>
+      <Head>
+        <link
+          rel="preload"
+          href={getOfferUrl(product.sku)}
+          as="fetch"
+          crossOrigin="anonymous"
+          fetchPriority="high"
+        />
+      </Head>
       {/* SEO */}
       <NextSeo
         title={meta.title}
@@ -271,6 +305,7 @@ export const getStaticProps: GetStaticProps<
       globalSections,
       key: seo.canonical,
     },
+    revalidate: (storeConfig as StoreConfig).experimental.revalidate ?? 0,
   }
 }
 
