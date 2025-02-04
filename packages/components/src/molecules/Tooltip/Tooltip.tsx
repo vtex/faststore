@@ -3,7 +3,7 @@ import React, {
   type MouseEventHandler,
   useState,
   forwardRef,
-  HTMLAttributes,
+  type HTMLAttributes,
 } from 'react'
 import Icon from '../../atoms/Icon'
 import IconButton from '../IconButton'
