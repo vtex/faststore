@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.14.3](https://github.com/vtex/faststore/compare/v3.14.2...v3.14.3) (2025-02-04)
+
+### Bug Fixes
+
+- remove unnecessary colon ([#2669](https://github.com/vtex/faststore/issues/2669)) ([b0475c3](https://github.com/vtex/faststore/commit/b0475c38fe71a1ef2930cd58445c2387794d5066))
+
 ## 3.14.2 (2025-02-03)
 
 **Note:** Version bump only for package @faststore/core
