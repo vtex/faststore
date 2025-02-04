@@ -9,7 +9,7 @@ import type { ComponentType } from 'react'
 import { gql } from '@generated'
 import type {
   ServerProductQueryQuery,
-  ServerProductQueryQueryVariables,
+  ServerProductQueryQueryVariables
 } from '@generated/graphql'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
@@ -29,12 +29,19 @@ import { execute } from 'src/server'
 
 import storeConfig from 'discovery.config'
 import {
-  type GlobalSectionsData,
-  getGlobalSectionsData,
+  getGlobalSectionsData, type GlobalSectionsData
 } from 'src/components/cms/GlobalSections'
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
-import { type PDPContentType, getPDP } from 'src/server/cms/pdp'
+import { useProductQuery } from 'src/sdk/product/useProductQuery'
+import { getPDP, type PDPContentType } from 'src/server/cms/pdp'
+
+type StoreConfig = typeof storeConfig & {
+  experimental: {
+    revalidate?: number
+    enableClientOffer?: boolean
+  }
+}
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.
@@ -69,18 +76,37 @@ type Props = PDPContentType & {
 // https://www.npmjs.com/package/deepmerge
 const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 
+const isClientOfferEnabled =
+  (storeConfig as StoreConfig).experimental.enableClientOffer
+
 function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   const { product } = server
   const { currency } = useSession()
   const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
 
-  const offer = useOffer({ skuId: product.sku })
-  const client = { product: { offers: offer.offers } }
+
+  const { client, isValidating } = isClientOfferEnabled
+    ? (() => {
+        const offer = useOffer({ skuId: product.sku })
+        return {
+          client: { product: { offers: offer.offers } },
+          isValidating: offer.isValidating,
+        }
+      })()
+    : (() => {
+        const productQuery = useProductQuery(product.id, {
+          product: product,
+        })
+        return {
+          client: productQuery.data,
+          isValidating: productQuery.isValidating,
+        }
+      })()
 
   const context = {
     data: {
       ...deepmerge(server, client, { arrayMerge: overwriteMerge }),
-      isValidating: offer.isValidating,
+      isValidating,
     },
   } as PDPContext
 
@@ -279,7 +305,7 @@ export const getStaticProps: GetStaticProps<
       globalSections,
       key: seo.canonical,
     },
-    revalidate: storeConfig.experimental.revalidate,
+    revalidate: (storeConfig as StoreConfig).experimental.revalidate ?? 0,
   }
 }
 

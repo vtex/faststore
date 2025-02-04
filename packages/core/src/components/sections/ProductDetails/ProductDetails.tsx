@@ -11,10 +11,21 @@ import Section from '../Section'
 
 import styles from './section.module.scss'
 
+import storeConfig from 'discovery.config'
 import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { usePDP } from '../../../sdk/overrides/PageProvider'
 import { ProductDetailsDefaultComponents } from './DefaultComponents'
+
+type StoreConfig = typeof storeConfig & {
+  experimental: {
+    revalidate?: number
+    enableClientOffer?: boolean
+  }
+}
+
+const isClientOfferEnabled =
+  (storeConfig as StoreConfig).experimental.enableClientOffer
 
 export interface ProductDetailsProps {
   productTitle: {
@@ -215,7 +226,7 @@ function ProductDetails({
             images={productImages}
           />
 
-          {isValidating ? (
+          {isClientOfferEnabled && isValidating ? (
             <section data-fs-product-details-info>
               <section
                 data-fs-product-details-settings
