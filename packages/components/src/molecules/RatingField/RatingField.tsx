@@ -1,6 +1,6 @@
 import React from 'react'
 import type { MutableRefObject } from 'react'
-import { Label, Rating, RatingProps } from '../..'
+import { Label, Rating, type RatingProps } from '../..'
 
 interface DefaultProps {
   /**
