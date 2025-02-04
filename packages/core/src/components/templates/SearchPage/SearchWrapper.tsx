@@ -28,7 +28,7 @@ function EmptySearch({ title, term }: EmptySearchProps) {
       >
         {title && (
           <h1 data-fs-empty-search-title>
-            {title}: <strong>{term}</strong>
+            {title} <strong>{term}</strong>
           </h1>
         )}
         <EmptyState title="" showLoader />
