@@ -1,14 +1,10 @@
-import { Item, Seller } from '@faststore/api'
-import { EnhancedCommercialOffer } from './enhance'
+import type { Item, Seller } from '@faststore/api'
+import type { EnhancedCommercialOffer } from './enhance'
 import { inStock, price } from './sort'
 
 type Root = EnhancedCommercialOffer<Seller, Item>
 
-const withTax = (
-  price: number,
-  tax: number = 0,
-  unitMultiplier: number = 1
-) => {
+const withTax = (price: number, tax = 0, unitMultiplier = 1) => {
   const unitTax = tax / unitMultiplier
   return Math.round((price + unitTax) * 100) / 100
 }

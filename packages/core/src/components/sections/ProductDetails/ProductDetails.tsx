@@ -24,8 +24,8 @@ type StoreConfig = typeof storeConfig & {
   }
 }
 
-const isClientOfferEnabled =
-  (storeConfig as StoreConfig).experimental.enableClientOffer
+const isClientOfferEnabled = (storeConfig as StoreConfig).experimental
+  .enableClientOffer
 
 export interface ProductDetailsProps {
   productTitle: {

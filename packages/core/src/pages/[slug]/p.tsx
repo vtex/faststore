@@ -9,7 +9,7 @@ import type { ComponentType } from 'react'
 import { gql } from '@generated'
 import type {
   ServerProductQueryQuery,
-  ServerProductQueryQueryVariables
+  ServerProductQueryQueryVariables,
 } from '@generated/graphql'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
@@ -29,7 +29,8 @@ import { execute } from 'src/server'
 
 import storeConfig from 'discovery.config'
 import {
-  getGlobalSectionsData, type GlobalSectionsData
+  getGlobalSectionsData,
+  type GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
@@ -76,14 +77,13 @@ type Props = PDPContentType & {
 // https://www.npmjs.com/package/deepmerge
 const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 
-const isClientOfferEnabled =
-  (storeConfig as StoreConfig).experimental.enableClientOffer
+const isClientOfferEnabled = (storeConfig as StoreConfig).experimental
+  .enableClientOffer
 
 function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   const { product } = server
   const { currency } = useSession()
   const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
-
 
   const { client, isValidating } = isClientOfferEnabled
     ? (() => {

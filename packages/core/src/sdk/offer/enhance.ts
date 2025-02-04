@@ -1,4 +1,4 @@
-import { CommertialOffer } from '@faststore/api'
+import type { CommertialOffer } from '@faststore/api'
 
 export type EnhancedCommercialOffer<S, P> = CommertialOffer & {
   seller: S
