@@ -105,6 +105,15 @@
                 "canonical": {
                   "title": "Canonical url for the page",
                   "type": "string"
+                },
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                },
+                "publisherId": {
+                  "title": "Publisher ID",
+                  "description": "Uses to identifier to reference the publisher. E.g.: #website",
+                  "type": "string"
                 }
               }
             }

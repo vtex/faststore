@@ -1,6 +1,6 @@
 {
   "name": "@faststore/ui",
-  "version": "3.13.1",
+  "version": "3.15.0",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",
@@ -47,7 +47,7 @@
     }
   ],
   "dependencies": {
-    "@faststore/components": "^3.13.1",
+    "@faststore/components": "^3.15.0",
     "include-media": "^1.4.10",
     "modern-normalize": "^1.1.0",
     "react-swipeable": "^7.0.0",

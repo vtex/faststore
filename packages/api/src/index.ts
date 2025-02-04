@@ -48,3 +48,10 @@ export const getSchema = async (options: Options) => {
 
 export * from './platforms/vtex/resolvers/root'
 export type { Resolver } from './platforms/vtex'
+
+export type {
+  CommertialOffer,
+  Item,
+  ProductSearchResult,
+  Seller,
+} from './platforms/vtex/clients/search/types/ProductSearchResult'
