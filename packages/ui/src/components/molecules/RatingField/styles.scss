@@ -1,6 +1,6 @@
 [data-fs-rating-field] {
   // --------------------------------------------------------
-  // Design Tokens for RatingField
+  // Design Tokens for Rating Field
   // --------------------------------------------------------
 
   // Label
@@ -34,11 +34,9 @@
   //  --------------------------------------------------------
   // Variants Styles
   // --------------------------------------------------------
-  &[data-fs-rating-field-error='true'] {
-    [data-fs-rating] {
-      [data-fs-rating-item='empty'] svg {
-        color: var(--fs-rating-field-error-message-color);
-      }
+  &[data-fs-rating-field-error="true"] {
+    [data-fs-rating-item="empty"] [data-fs-icon] {
+      color: var(--fs-rating-field-error-message-color);
     }
   }
 }
