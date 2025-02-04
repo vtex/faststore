@@ -30,7 +30,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm i
@@ -76,7 +75,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'yarn'
 
       - name: Clone starter
         run: git clone https://github.com/vtex-sites/starter.store.git starter
