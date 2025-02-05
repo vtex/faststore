@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.15.1](https://github.com/vtex/faststore/compare/v3.15.0...v3.15.1) (2025-02-04)
+
+### Bug Fixes
+
+- adds revalidate as false when not experimental ([#2671](https://github.com/vtex/faststore/issues/2671)) ([75331e0](https://github.com/vtex/faststore/commit/75331e0008cf41a70b3ab0f47a6fd28f85fd1a84))
+
+# 3.15.0 (2025-02-04)
+
+### Bug Fixes
+
+- update lock file ([#2670](https://github.com/vtex/faststore/issues/2670)) ([12a440d](https://github.com/vtex/faststore/commit/12a440d2b30e37a4bb6ddc933b5a19b20d11c6a4))
+
+### Features
+
+- Offer SDK ([#2575](https://github.com/vtex/faststore/issues/2575)) ([f4e11ac](https://github.com/vtex/faststore/commit/f4e11ac68ae4afd79a1a89c122155e18bc452ad5))
+
+## [3.14.3](https://github.com/vtex/faststore/compare/v3.14.2...v3.14.3) (2025-02-04)
+
+### Bug Fixes
+
+- remove unnecessary colon ([#2669](https://github.com/vtex/faststore/issues/2669)) ([b0475c3](https://github.com/vtex/faststore/commit/b0475c38fe71a1ef2930cd58445c2387794d5066))
+
 ## 3.14.2 (2025-02-03)
 
 **Note:** Version bump only for package faststore
