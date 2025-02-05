@@ -32,10 +32,6 @@ export interface SearchProductItemControlProps
    */
   min?: number
   /**
-   * Specify if it is the mobile version.
-   */
-  mobileVersion: boolean
-  /**
    * Specifies the quantity to be added to the cart.
    */
   quantity: number
@@ -65,7 +61,6 @@ const SearchProductItemControl = forwardRef<
     quantity,
     min = 1,
     max,
-    mobileVersion,
     onClick,
     onChangeQuantity,
     onValidateBlur,

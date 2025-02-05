@@ -16,6 +16,7 @@ export const query = gql(`
     $sort: StoreSort!
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
+    $sponsoredCount: Int
   ) {
     ...ClientManyProducts
     search(
@@ -24,6 +25,7 @@ export const query = gql(`
       sort: $sort
       term: $term
       selectedFacets: $selectedFacets
+      sponsoredCount: $sponsoredCount
     ) {
       products {
         pageInfo {
@@ -40,7 +42,7 @@ export const query = gql(`
 `)
 
 export const useProductsQueryPrefetch = (
-  variables: ClientManyProductsQueryQueryVariables,
+  variables: Partial<ClientManyProductsQueryQueryVariables>,
   options?: QueryOptions
 ) => {
   const localizedVariables = useLocalizedVariables(variables)

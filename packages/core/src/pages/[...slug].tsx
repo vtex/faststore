@@ -10,20 +10,26 @@ import type {
 import { execute } from 'src/server'
 
 import { Locator } from '@vtex/client-cms'
-import GlobalSections, {
+import dynamic from 'next/dynamic'
+import {
   getGlobalSectionsData,
   GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
-import LandingPage, {
+import {
   getLandingPageBySlug,
   LandingPageProps,
 } from 'src/components/templates/LandingPage'
 import ProductListingPage, {
   ProductListingPageProps,
 } from 'src/components/templates/ProductListingPage'
+import { getRedirect } from 'src/sdk/redirects'
 import { PageContentType } from 'src/server/cms'
 import { getPLP, PLPContentType } from 'src/server/cms/plp'
 import { getDynamicContent } from 'src/utils/dynamicContent'
+
+const LandingPage = dynamic(
+  () => import('src/components/templates/LandingPage')
+)
 
 type BaseProps = {
   globalSections: GlobalSectionsData
@@ -46,12 +52,20 @@ type Props = BaseProps &
 
 function Page({ globalSections, type, ...otherProps }: Props) {
   return (
-    <GlobalSections {...globalSections}>
+    <>
       {type === 'plp' && (
-        <ProductListingPage {...(otherProps as ProductListingPageProps)} />
+        <ProductListingPage
+          globalSections={globalSections.sections}
+          {...(otherProps as ProductListingPageProps)}
+        />
       )}
-      {type === 'page' && <LandingPage {...(otherProps as LandingPageProps)} />}
-    </GlobalSections>
+      {type === 'page' && (
+        <LandingPage
+          globalSections={globalSections.sections}
+          {...(otherProps as LandingPageProps)}
+        />
+      )}
+    </>
   )
 }
 
@@ -93,13 +107,18 @@ export const getStaticProps: GetStaticProps<
     getGlobalSectionsData(previewData),
   ]
 
-  if (await landingPagePromise) {
-    const serverData = await getDynamicContent({ pageType: slug })
+  const landingPage = await landingPagePromise
+
+  if (landingPage) {
+    const [serverData, globalSections] = await Promise.all([
+      getDynamicContent({ pageType: slug }),
+      globalSectionsPromise,
+    ])
 
     return {
       props: {
-        page: await landingPagePromise,
-        globalSections: await globalSectionsPromise,
+        page: landingPage,
+        globalSections,
         type: 'page',
         slug,
         serverData,
@@ -107,7 +126,7 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
-  const [{ data, errors = [] }, cmsPage] = await Promise.all([
+  const [{ data, errors = [] }, cmsPage, globalSections] = await Promise.all([
     execute<
       ServerCollectionPageQueryQueryVariables,
       ServerCollectionPageQueryQuery
@@ -116,11 +135,22 @@ export const getStaticProps: GetStaticProps<
       operation: query,
     }),
     getPLP(slug, previewData, rewrites),
+    globalSectionsPromise,
   ])
 
   const notFound = errors.find(isNotFoundError)
 
   if (notFound) {
+    if (storeConfig.experimental.enableRedirects) {
+      const redirect = await getRedirect({ pathname: `/${slug}` })
+      if (redirect) {
+        return {
+          redirect,
+          revalidate: 60 * 5, // 5 minutes
+        }
+      }
+    }
+
     return {
       notFound: true,
     }
@@ -135,7 +165,7 @@ export const getStaticProps: GetStaticProps<
     props: {
       data,
       page: cmsPage,
-      globalSections: await globalSectionsPromise,
+      globalSections,
       type: 'plp',
       key: slug,
     },

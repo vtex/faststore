@@ -2,10 +2,7 @@
  * More info at: https://developers.vtex.com/docs/api-reference/intelligent-search-events-api-headless
  */
 import type { AnalyticsEvent } from '@faststore/sdk'
-import type {
-  IntelligentSearchQueryEvent,
-  SearchSelectItemEvent,
-} from '../../types'
+import type { SearchEvents } from '../../types'
 
 import config from '../../../../../discovery.config'
 import { getCookie } from '../../../../utils/getCookie'
@@ -66,6 +63,22 @@ type SearchEvent =
       url: string
       type: 'search.query'
     }
+  | {
+      text: string
+      misspelled: boolean
+      match: number
+      operator: string
+      locale: string
+      url: string
+      type: 'search.autocomplete.query'
+    }
+  | {
+      text: string
+      url?: string
+      position?: number
+      productId?: string
+      type: 'search.autocomplete.click'
+    }
 
 const sendEvent = (options: SearchEvent & { url?: string }) =>
   fetch(`https://sp.vtex.com/event-api/v1/${config.api.storeId}/event`, {
@@ -85,9 +98,7 @@ const isFullTextSearch = (url: URL) =>
   typeof url.searchParams.get('q') === 'string' &&
   /^\/s(\/)?$/g.test(url.pathname)
 
-const handleEvent = (
-  event: AnalyticsEvent | SearchSelectItemEvent | IntelligentSearchQueryEvent
-) => {
+const handleEvent = (event: AnalyticsEvent | SearchEvents) => {
   switch (event.name) {
     case 'search_select_item': {
       const url = new URL(event.params.url)
@@ -123,6 +134,32 @@ const handleEvent = (
         match: event.params.totalCount,
         operator: event.params.logicalOperator,
         locale: event.params.locale,
+      })
+
+      break
+    }
+
+    case 'intelligent_search_autocomplete_query': {
+      sendEvent({
+        type: 'search.autocomplete.query',
+        url: event.params.url,
+        text: event.params.term,
+        misspelled: event.params.isTermMisspelled,
+        match: event.params.totalCount,
+        operator: event.params.logicalOperator,
+        locale: event.params.locale,
+      })
+
+      break
+    }
+
+    case 'intelligent_search_autocomplete_click': {
+      sendEvent({
+        text: event.params.term,
+        url: event.params.url ?? '',
+        productId: event.params.productId ?? '',
+        ...(event.params.position && { position: event.params.position }),
+        type: 'search.autocomplete.click',
       })
 
       break

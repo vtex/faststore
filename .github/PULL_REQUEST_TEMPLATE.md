@@ -29,7 +29,7 @@
 **PR Title and Commit Messages**
 
 - [ ] PR title and commit messages follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification
-  - Available prefixes: `feat`, `fix`, `chore`, `docs`, `style`, `refactor` and `test`
+  - Available prefixes: `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `ci` and `test`
 
 **PR Description**
 
@@ -38,3 +38,8 @@
 **Dependencies**
 
 - [ ] Committed the `yarn.lock` file when there were changes to the packages
+
+**Documentation**
+
+- [ ] PR description
+- [ ] For documentation changes, ping `@Mariana-Caetano` to review and update (Or submit a doc request)

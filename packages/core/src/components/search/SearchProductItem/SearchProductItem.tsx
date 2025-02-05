@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   Button,
   Icon,
@@ -12,12 +12,12 @@ import {
 import { Image } from 'src/components/ui/Image'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
+import { sendAutocompleteClickEvent } from '../SearchDropdown'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
-import styles from 'src/components/sections/Navbar/section.module.scss'
-
+import { NavbarProps } from 'src/components/sections/Navbar'
 type SearchProductItemProps = {
   /**
    * Product to be showed in `SearchProductItem`.
@@ -28,22 +28,21 @@ type SearchProductItemProps = {
    */
   index: number
   /**
-   * Enable Quick Order.
+   * Quick Order settings.
    */
-  quickOrder?: boolean
+  quickOrderSettings: NavbarProps['searchInput']['quickOrderSettings']
 }
 
 function SearchProductItem({
   product,
   index,
-  quickOrder,
+  quickOrderSettings,
   ...otherProps
 }: SearchProductItemProps) {
   const {
     values: { onSearchSelection },
   } = useSearch()
   const { pushToast } = useUI()
-  const { isDesktop } = useScreenResize()
 
   const { href, onClick, ...baseLinkProps } = useProductLink({
     product,
@@ -84,6 +83,12 @@ function SearchProductItem({
     onClick: () => {
       onClick()
       onSearchSelection?.(name, href)
+      sendAutocompleteClickEvent({
+        url: href,
+        term: name,
+        position: index,
+        productId: product.isVariantOf.productGroupID ?? product.sku,
+      })
     },
     ...baseLinkProps,
   }
@@ -132,7 +137,6 @@ function SearchProductItem({
       </UISearchProductItemImage>
       <UISearchProductItemContent
         title={name}
-        mobileVersion={!isDesktop}
         price={{
           value: spotPrice,
           listPrice: listPrice,
@@ -147,7 +151,7 @@ function SearchProductItem({
           })
         }
         quickOrder={{
-          enabled: quickOrder,
+          enabled: quickOrderSettings.quickOrder,
           availability: !outOfStock,
           hasVariants,
           buyProps,

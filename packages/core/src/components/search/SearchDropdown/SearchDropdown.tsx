@@ -13,13 +13,37 @@ import { SearchState } from '@faststore/sdk'
 import { ProductSummary_ProductFragment } from '@generated/graphql'
 import SearchProductItem from 'src/components/search/SearchProductItem'
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import type {
+  IntelligentSearchAutocompleteClickEvent,
+  IntelligentSearchAutocompleteClickParams,
+} from 'src/sdk/analytics/types'
+import { NavbarProps } from 'src/components/sections/Navbar'
 
 interface SearchDropdownProps {
   sort: SearchState['sort']
+  quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   [key: string]: any
 }
 
-function SearchDropdown({ sort, ...otherProps }: SearchDropdownProps) {
+export function sendAutocompleteClickEvent({
+  url,
+  term,
+  position,
+  productId,
+}: IntelligentSearchAutocompleteClickParams) {
+  import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
+    sendAnalyticsEvent<IntelligentSearchAutocompleteClickEvent>({
+      name: 'intelligent_search_autocomplete_click',
+      params: { term, url, productId, position },
+    })
+  })
+}
+
+function SearchDropdown({
+  sort,
+  quickOrderSettings,
+  ...otherProps
+}: SearchDropdownProps) {
   const {
     values: { onSearchSelection, products, term, terms },
   } = useSearch()
@@ -39,14 +63,16 @@ function SearchDropdown({ sort, ...otherProps }: SearchDropdownProps) {
                 term: suggestion,
                 sort,
               }),
-              onClick: () =>
+              onClick: () => {
                 onSearchSelection?.(
                   suggestion,
-                  formatSearchPath({
-                    term: suggestion,
-                    sort,
-                  })
-                ),
+                  formatSearchPath({ term: suggestion, sort })
+                )
+                sendAutocompleteClickEvent({
+                  term: suggestion,
+                  url: window.location.href,
+                })
+              },
             }}
           />
         ))}
@@ -59,6 +85,7 @@ function SearchDropdown({ sort, ...otherProps }: SearchDropdownProps) {
               key={productParsed.id}
               product={productParsed}
               index={index}
+              quickOrderSettings={quickOrderSettings}
             />
           )
         })}

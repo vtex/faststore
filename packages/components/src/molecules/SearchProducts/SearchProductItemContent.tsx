@@ -14,10 +14,6 @@ export interface SearchProductItemContentProps {
    */
   price: PriceDefinition
   /**
-   * Specify if it is the mobile version.
-   */
-  mobileVersion: boolean
-  /**
    * Quick order settings.
    */
   quickOrder?: {
@@ -46,7 +42,7 @@ const SearchProductItemContent = forwardRef<
   HTMLElement,
   SearchProductItemContentProps
 >(function SearchProductItemContent(
-  { price, title, quickOrder, onValidateBlur, mobileVersion, ...otherProps },
+  { price, title, quickOrder, onValidateBlur, ...otherProps },
   ref
 ) {
   const renderProductItemContent = useCallback(() => {
@@ -78,7 +74,6 @@ const SearchProductItemContent = forwardRef<
           onChangeQuantity={quickOrder.onChangeQuantity}
           max={quickOrder.max}
           onValidateBlur={onValidateBlur}
-          mobileVersion={mobileVersion}
           {...quickOrder.buyProps}
         >
           {renderProductItemContent()}

@@ -1,11 +1,11 @@
 import type { AnchorHTMLAttributes } from 'react'
 
-import { NavbarLinksListItem as UINavbarLinksListItem } from '@faststore/ui'
 import type { NavbarLinksProps as UINavbarLinksProps } from '@faststore/ui'
+import { NavbarLinksListItem as UINavbarLinksListItem } from '@faststore/ui'
 
-import Link from 'src/components/ui/Link'
-import RegionButton from 'src/components/region/RegionButton'
 import type { NavbarProps } from 'src/components/navigation/Navbar'
+import RegionButton from 'src/components/region/RegionButton'
+import Link from 'src/components/ui/Link'
 
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
