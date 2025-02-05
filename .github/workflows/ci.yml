@@ -67,21 +67,27 @@ jobs:
           done
 
       - name: Clone starter
-        run: git clone https://github.com/matheusps/starter.store.git starter
+        run: git clone https://github.com/vtex-sites/starter.store.git starter
+
+      - name: Install specific Yarn version
+        run: npm install -g yarn@1.22.21 # Change to the version you need
+
+      - name: Verify Yarn version
+        run: yarn --version
 
       - name: Install the packages on starter
         run: |
           cd starter
           for package in ../packed-packages/*.tgz; do
-            pnpm add "$package"
+            yarn add "$package"
           done
 
       - name: Install dependencies in starter
         run: |
           cd starter
-          pnpm install
+          yarn install
 
       - name: Build starter
         run: |
           cd starter
-          pnpm build
+          yarn build
