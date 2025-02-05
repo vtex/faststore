@@ -1,0 +1,66 @@
+[data-fs-product-thumbnail] {
+  // --------------------------------------------------------
+  // Design Tokens for Product Thumbnail
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-product-thumbnail-padding: var(--fs-spacing-1);
+  --fs-product-thumbnail-gap: var(--fs-spacing-2);
+  --fs-product-thumbnail-bkg-color: var(--fs-color-neutral-1);
+  --fs-product-thumbnail-border-radius: var(--fs-border-radius);
+
+  // Image
+  --fs-product-thumbnail-img-radius: var(--fs-product-thumbnail-border-radius);
+  --fs-product-thumbnail-img-scale-hover: 1;
+  --fs-product-thumbnail-img-size: 50px;
+
+  // Title
+  --fs-product-thumbnail-title-color: var(--fs-color-text);
+  --fs-product-thumbnail-title-size: var(--fs-text-size-base);
+  --fs-product-thumbnail-title-weight: var(--fs-text-weight-medium);
+  --fs-product-thumbnail-title-max-lines: var(--fs-text-max-lines);
+  --fs-product-thumbnail-title-line-height: 1.25; // 20px
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+  display: flex;
+  gap: var(--fs-product-thumbnail-gap);
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: var(--fs-product-thumbnail-padding);
+  overflow: hidden;
+  background-color: var(--fs-product-thumbnail-bkg-color);
+  border-radius: var(--fs-product-thumbnail-border-radius);
+
+  [data-fs-product-thumbnail-image] {
+    display: flex;
+    flex-basis: var(--fs-product-thumbnail-img-size);
+    flex-shrink: 0;
+    justify-content: center;
+    width: var(--fs-product-thumbnail-img-size);
+    height: var(--fs-product-thumbnail-img-size);
+    aspect-ratio: var(--fs-product-thumbnail-image-aspect-ratio);
+    overflow: hidden;
+    border-radius: var(--fs-product-thumbnail-img-radius);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  [data-fs-product-thumbnail-title] {
+    font-size: var(--fs-product-thumbnail-title-size);
+    font-weight: var(--fs-product-thumbnail-title-weight);
+    line-height: var(--fs-product-thumbnail-title-line-height);
+    color: var(--fs-product-thumbnail-title-color);
+    text-align: left;
+
+    @include truncate-title(var(--fs-product-thumbnail-title-max-lines));
+  }
+}
