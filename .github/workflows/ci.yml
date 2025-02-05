@@ -70,7 +70,7 @@ jobs:
         run: git clone https://github.com/vtex-sites/starter.store.git starter
 
       - name: Install specific Yarn version
-        run: npm install -g yarn@1.22.19 # Change to the version you need
+        run: npm install -g yarn@1.22.19 # https://github.com/yarnpkg/yarn/issues/9015
 
       - name: Verify Yarn version
         run: yarn --version
