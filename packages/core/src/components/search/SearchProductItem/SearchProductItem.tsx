@@ -10,7 +10,7 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
 import { sendAutocompleteClickEvent } from '../SearchDropdown'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
-
+import { NavbarProps } from 'src/components/sections/Navbar'
 type SearchProductItemProps = {
   /**
    * Product to be showed in `SearchProductItem`.
@@ -20,11 +20,16 @@ type SearchProductItemProps = {
    * Index to generate product link.
    */
   index: number
+  /**
+   * Quick Order settings.
+   */
+  quickOrderSettings: NavbarProps['searchInput']['quickOrderSettings']
 }
 
 function SearchProductItem({
   product,
   index,
+  quickOrderSettings,
   ...otherProps
 }: SearchProductItemProps) {
   const {
