@@ -1,12 +1,15 @@
-import React, { forwardRef, HTMLAttributes} from 'react'
+import React, { forwardRef, HTMLAttributes, useCallback } from 'react'
 import { Badge, Icon, IconButton, Input, Loader, QuantitySelector } from '../..'
 
-import type { ReactNode, MouseEvent } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
 
 type StatusButtonAddToCartType = 'default' | 'inProgress' | 'completed'
 
 export interface SearchProductItemControlProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onClick'> {
+  /**
+   * Renders child elements.
+   */
   children: ReactNode
   /**
    * Specifies whether the product is available.
@@ -73,9 +76,9 @@ const SearchProductItemControl = forwardRef<
   const [statusAddToCart, setStatusAddToCart] =
     React.useState<StatusButtonAddToCartType>('default')
 
-	const showSKUMatrixControl = availability && hasVariants;
-  
-	function stopPropagationClick(e: MouseEvent) {
+  const showSKUMatrixControl = availability && hasVariants
+
+  function stopPropagationClick(e: MouseEvent) {
     e.preventDefault()
     e.stopPropagation()
   }
@@ -95,7 +98,7 @@ const SearchProductItemControl = forwardRef<
     }
   }
 
-  const getIcon = React.useCallback(() => {
+  const getIcon = useCallback(() => {
     switch (statusAddToCart) {
       case 'inProgress':
         return <Loader />
@@ -104,8 +107,8 @@ const SearchProductItemControl = forwardRef<
       default:
         return <Icon name="ShoppingCart" width={24} height={24} />
     }
-  }, [statusAddToCart])
-  
+  }, [statusAddToCart])  
+
   function validateBlur() {
     const maxValue = max ?? (min ? Math.max(quantity, min) : quantity)
     const isOutOfBounds = quantity > maxValue || quantity < min
@@ -139,16 +142,16 @@ const SearchProductItemControl = forwardRef<
           role="group"
           onClick={stopPropagationClick}
         >
-          {!mobileVersion && (
+          <div data-fs-search-product-item-control-actions-desktop>
             <QuantitySelector
               disabled={statusAddToCart !== 'default'}
               max={max}
               onValidateBlur={onValidateBlur}
               onChange={onChangeQuantity}
             />
-          )}
+          </div>
 
-          {mobileVersion && (
+          <div data-fs-search-product-item-control-actions-mobile>
             <Input
               data-fs-product-item-control-input
               min={1}
@@ -162,7 +165,7 @@ const SearchProductItemControl = forwardRef<
                 input.value = input.value.replace(/\D/g, '')
               }}
             />
-          )}
+          </div>
 
           <IconButton
             variant="primary"
