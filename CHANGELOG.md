@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.15.2](https://github.com/vtex/faststore/compare/v3.15.1...v3.15.2) (2025-02-05)
+
+### Bug Fixes
+
+- align ts versions ([#2673](https://github.com/vtex/faststore/issues/2673)) ([64035df](https://github.com/vtex/faststore/commit/64035df4d15334fffe66b55d81f475449bc7839e))
+
 ## [3.15.1](https://github.com/vtex/faststore/compare/v3.15.0...v3.15.1) (2025-02-04)
 
 ### Bug Fixes
