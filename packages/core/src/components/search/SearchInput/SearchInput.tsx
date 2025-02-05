@@ -30,6 +30,7 @@ import { SearchProviderContextValue } from '@faststore/ui'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
 import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
+import { NavbarProps } from 'src/components/sections/Navbar'
 
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 
@@ -50,6 +51,7 @@ export type SearchInputProps = {
   buttonTestId?: string
   containerStyle?: CSSProperties
   placeholder?: string
+  quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   sort?: string
 } & Omit<UISearchInputFieldProps, 'onSubmit'>
 
@@ -74,6 +76,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
       containerStyle,
       sort,
       placeholder,
+      quickOrderSettings,
       ...otherProps
     },
     ref
@@ -163,7 +166,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
             {searchDropdownVisible && (
               <Suspense fallback={null}>
-                <SearchDropdown sort={sort as SearchState['sort']} />
+                <SearchDropdown 
+                  sort={sort as SearchState['sort']} 
+                  quickOrder={quickOrderSettings}
+                />
               </Suspense>
             )}
           </UISearchInput>
