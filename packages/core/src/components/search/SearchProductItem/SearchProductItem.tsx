@@ -19,8 +19,6 @@ import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import { NavbarProps } from 'src/components/sections/Navbar'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
-import useScreenResize from 'src/sdk/ui/useScreenResize'
-
 import styles from 'src/components/sections/Navbar/section.module.scss'
 
 type SearchProductItemProps = {
@@ -53,7 +51,6 @@ function SearchProductItem({
     values: { onSearchSelection },
   } = useSearch()
   const { pushToast } = useUI()
-  const { isDesktop } = useScreenResize()
 
   const { _experimentalSKUMatrixSidebar: UISKUMatrixSidebar } =
     useOverrideComponents<'Navbar'>()
@@ -151,7 +148,6 @@ function SearchProductItem({
       </UISearchProductItemImage>
       <UISearchProductItemContent
         title={name}
-        mobileVersion={!isDesktop}
         price={{
           value: spotPrice,
           listPrice: listPrice,
@@ -166,7 +162,7 @@ function SearchProductItem({
           })
         }
         quickOrder={{
-          enabled: quickOrderSettings?.quickOrder,
+          enabled: quickOrderSettings.quickOrder,
           availability: !outOfStock,
           hasVariants,
           buyProps,

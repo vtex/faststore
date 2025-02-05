@@ -178,6 +178,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
                   onChangeCustomSearchDropdownVisible={
                     setCustomSearchDropdownVisibleCondition
                   }
+                  quickOrder={quickOrderSettings}
                 />
               </Suspense>
             )}
