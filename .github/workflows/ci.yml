@@ -25,6 +25,7 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 9.15.5
+          cache: 'pnpm'
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
@@ -66,21 +67,21 @@ jobs:
           done
 
       - name: Clone starter
-        run: git clone https://github.com/vtex-sites/starter.store.git starter
+        run: git clone https://github.com/matheusps/starter.store.git starter
 
       - name: Install the packages on starter
         run: |
           cd starter
           for package in ../packed-packages/*.tgz; do
-            yarn add "$package"
+            pnpm add "$package"
           done
 
       - name: Install dependencies in starter
         run: |
           cd starter
-          yarn install
+          pnpm install
 
       - name: Build starter
         run: |
           cd starter
-          yarn build
+          pnpm build
