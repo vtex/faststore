@@ -15,7 +15,6 @@ import { useProductLink } from 'src/sdk/product/useProductLink'
 import { sendAutocompleteClickEvent } from '../SearchDropdown'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
-import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 import { NavbarProps } from 'src/components/sections/Navbar'
 type SearchProductItemProps = {
