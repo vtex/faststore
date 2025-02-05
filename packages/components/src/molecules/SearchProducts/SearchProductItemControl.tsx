@@ -57,7 +57,6 @@ const SearchProductItemControl = forwardRef<
     useState<StatusButtonAddToCartType>('default')
 
   const showSKUMatrixControl = availability && hasVariants
-  const isMobile = window.innerWidth <= 768
 
   function stopPropagationClick(e: MouseEvent) {
     e.preventDefault()
@@ -111,15 +110,15 @@ const SearchProductItemControl = forwardRef<
           role="group"
           onClick={stopPropagationClick}
         >
-          {!isMobile && (
+          <div data-fs-search-product-item-control-actions-desktop>
             <QuantitySelector
               disabled={statusAddToCart !== 'default'}
               initial={quantity}
               onChange={onChangeQuantity}
             />
-          )}
+          </div>
 
-          {isMobile && (
+          <div data-fs-search-product-item-control-actions-mobile>
             <Input
               data-fs-product-item-control-input
               type="number"
@@ -127,7 +126,7 @@ const SearchProductItemControl = forwardRef<
               value={quantity}
               onChange={(e) => onChangeQuantity(e.target.valueAsNumber)}
             />
-          )}
+          </div>
 
           <IconButton
             variant="primary"

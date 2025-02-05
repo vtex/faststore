@@ -144,4 +144,20 @@
     margin-left: auto;
     gap: var(--fs-search-product-item-control-actions-gap);
   }
+
+  [data-fs-search-product-item-control-actions-desktop] {
+    display: none;
+    
+    @include media(">tablet") {
+      display: block;
+    }
+  }
+  
+  [data-fs-search-product-item-control-actions-mobile] {
+    display: block;
+
+    @include media(">tablet") {
+      display: none;
+    }
+  }
 }
