@@ -384,7 +384,7 @@ export const VtexCommerce = (
     reviews: {
       create: (input: CreateProductReviewInput): Promise<string> => {
         return fetchAPI(
-          `${base}/${REVIEWS_AND_RATINGS_API_PATH}/reviews`,
+          `${base}/${REVIEWS_AND_RATINGS_API_PATH}/review`,
           {
             ...BASE_INIT,
             body: JSON.stringify(input),
