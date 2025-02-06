@@ -37,7 +37,11 @@ export type PageContentType = ContentData & {
         url?: string
         sameAs?: string[]
         logo?: string
-        image?: string
+        image?: {
+          url: string
+          caption: string
+          id: string
+        }
         name: string
         legalName?: string
         email?: string
@@ -46,6 +50,7 @@ export type PageContentType = ContentData & {
           streetAddress?: string
           addressLocality?: string
           postalCode?: string
+          addressCountry?: string
         }
       }
     }

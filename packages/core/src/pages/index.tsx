@@ -72,10 +72,18 @@ function Page({
         logo={
           settings?.seo?.organization?.logo ?? storeConfig.seo.organization.logo
         }
-        image={
-          settings?.seo?.organization?.image ??
-          storeConfig.seo.organization.image
-        }
+        image={{
+          type: 'ImageObject',
+          url:
+            settings?.seo?.organization?.image?.url ??
+            storeConfig.seo.organization.image.url,
+          caption:
+            settings?.seo?.organization?.image.caption ??
+            storeConfig.seo.organization.image.caption,
+          id:
+            settings?.seo?.organization?.image?.id ??
+            storeConfig.seo.organization.image.id,
+        }}
         name={
           settings?.seo?.organization?.name ?? storeConfig.seo.organization.name
         }
@@ -92,7 +100,7 @@ function Page({
           storeConfig.seo.organization.telephone
         }
         address={{
-          '@type': 'PostalAddress',
+          type: 'PostalAddress',
           streetAddress:
             settings?.seo?.organization?.address?.streetAddress ??
             storeConfig.seo.organization.address.streetAddress,
@@ -102,6 +110,9 @@ function Page({
           postalCode:
             settings?.seo?.organization?.address?.postalCode ??
             storeConfig.seo.organization.address.postalCode,
+          addressCountry:
+            settings?.seo?.organization?.address?.addressCountry ??
+            storeConfig.seo.organization.address.addressCountry,
         }}
       />
 

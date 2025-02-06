@@ -25,7 +25,11 @@ module.exports = {
         'https://www.instagram.com/vtex',
       ],
       logo: 'https://vtex.com/_next/static/media/vtex-logo.80485bcf.svg',
-      image: 'https://vtex.com/_next/static/media/vtex-logo.80485bcf.svg',
+      image: {
+        url: 'https://vtex.com/_next/static/media/vtex-logo.80485bcf.svg',
+        caption: 'FastStore',
+        id: '',
+      },
       name: 'VTEX',
       legalName: 'VTEX Commerce',
       email: 'info@vtex.com',
@@ -34,6 +38,7 @@ module.exports = {
         streetAddress: 'Rue Improbable 99',
         addressLocality: 'Rio de Janeiro',
         postalCode: '06473-000',
+        addressCountry: 'BR',
       },
     },
     plp: {

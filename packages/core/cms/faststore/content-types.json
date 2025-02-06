@@ -129,6 +129,29 @@
                       "description": "A logo that is representative of your organization. Image guidelines: https://developers.google.com/search/docs/appearance/structured-data/organization",
                       "type": "string"
                     },
+                    "image": {
+                      "title": "Organization image/logo object",
+                      "description": "An image that is representative of your organization. Image guidelines: https://developers.google.com/search/docs/appearance/structured-data/organization",
+                      "required": ["url"],
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "title": "Organization image URL",
+                          "description": "The URL of the image. Make sure the url is crawlable and indexable.",
+                          "type": "string"
+                        },
+                        "caption": {
+                          "title": "Organization image caption",
+                          "description": "A short description of the image.",
+                          "type": "string"
+                        },
+                        "id": {
+                          "title": "Organization image ID",
+                          "description": "A unique identifier for the image. E.g.: #logo",
+                          "type": "string"
+                        }
+                      }
+                    },
                     "email": {
                       "title": "Organization email",
                       "description": "The email address to contact your business",
@@ -152,6 +175,11 @@
                         "addressLocality": {
                           "title": "Street Address",
                           "description": "The city of your postal address.",
+                          "type": "string"
+                        },
+                        "addressCountry": {
+                          "title": "Country",
+                          "description": "The country of your postal address. Recommended to be in 2-letter ISO 3166-1 alpha-2 format, for example 'BR','US'.",
                           "type": "string"
                         },
                         "postalCode": {
