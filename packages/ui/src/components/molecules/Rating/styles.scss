@@ -4,35 +4,48 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-rating-gap                     : var(--fs-spacing-0);
-  --fs-rating-color                   : var(--fs-color-text);
+  --fs-rating-gap                              : var(--fs-spacing-0);
+  --fs-rating-color                            : var(--fs-color-main-2);
+  --fs-rating-color-empty                      : var(--fs-color-neutral-4);
 
   // Icon
-  --fs-rating-icon-width              : var(--fs-spacing-3);
-  --fs-rating-icon-height             : var(--fs-rating-icon-width);
+  --fs-rating-icon-width                       : var(--fs-spacing-3);
+  --fs-rating-icon-height                      : var(--fs-rating-icon-width);
 
   // Actionable
-  --fs-rating-actionable-gap          : 0;
-  --fs-rating-actionable-icon-width   : var(--fs-rating-icon-width);
-  --fs-rating-actionable-icon-height  : var(--fs-rating-actionable-icon-width);
+  --fs-rating-actionable-gap                   : 0;
+  --fs-rating-actionable-icon-width            : var(--fs-rating-icon-width);
+  --fs-rating-actionable-icon-height           : var(--fs-rating-actionable-icon-width);
+  --fs-rating-actionable-icon-color            : var(--fs-rating-color-empty);
+  --fs-rating-actionable-icon-color-selected   : var(--fs-rating-color);
 
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
-
   display: flex;
 
   [data-fs-icon] {
-    color: var(--fs-rating-color);
     width: var(--fs-rating-icon-width);
     height: var(--fs-rating-icon-height);
+    color: var(--fs-rating-color);
   }
 
   [data-fs-rating-button] {
     color: unset;
-    &[data-fs-button-variant=tertiary]:hover,
-    &[data-fs-button-variant=tertiary]:focus,
-    &[data-fs-button-variant=tertiary]:active { color: unset; }
+
+    &[disabled] [data-fs-button-wrapper] {
+      background-color: transparent;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    &[data-fs-button-variant="tertiary"]:hover,
+    &[data-fs-button-variant="tertiary"]:focus,
+    &[data-fs-button-variant="tertiary"]:active {
+      color: unset;
+    }
   }
 
   [data-fs-rating-icon-wrapper] {
@@ -42,17 +55,21 @@
     overflow: hidden;
   }
 
-  svg[data-fs-rating-icon-outline] { 
-    fill: none; 
+  svg[data-fs-rating-icon-outline] {
+    fill: none;
   }
 
-  [data-fs-rating-item] { position: relative; }
+  [data-fs-rating-item] {
+    position: relative;
+    fill: var(--fs-rating-color);
+  }
 
   //  --------------------------------------------------------
   // Variants Styles
   // --------------------------------------------------------
 
   [data-fs-rating-item="empty"] svg[data-fs-icon] {
+    color: var(--fs-rating-color-empty);
     fill: none;
   }
 
@@ -66,10 +83,16 @@
 
   &[data-fs-rating-actionable="true"] {
     column-gap: var(--fs-rating-actionable-gap);
+
+    [data-fs-rating-item="full"] svg[data-fs-icon] {
+      color: var(--fs-rating-actionable-icon-color-selected);
+      fill: var(--fs-rating-actionable-icon-color-selected);
+    }
+
     [data-fs-icon] {
       width: var(--fs-rating-actionable-icon-width);
       height: var(--fs-rating-actionable-icon-height);
+      color: var(--fs-rating-actionable-icon-color);
     }
   }
-
 }
