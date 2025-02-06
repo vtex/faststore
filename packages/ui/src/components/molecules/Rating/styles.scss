@@ -31,23 +31,20 @@
     color: var(--fs-rating-color);
   }
 
-   [data-fs-rating-button] {
-     color: unset;
-
-     &[disabled] [data-fs-button-wrapper] {
-       background-color: transparent;
-
-       &:hover {
-         background-color: transparent;
-       }
-     }
-
-     &[data-fs-button-variant="tertiary"]:hover,
-     &[data-fs-button-variant="tertiary"]:focus,
-     &[data-fs-button-variant="tertiary"]:active {
-       color: unset;
-     }
-   }
+  [data-fs-rating-button] {
+    color: unset;
+    &[disabled] [data-fs-button-wrapper] {
+      background-color: transparent;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+    &[data-fs-button-variant="tertiary"]:hover,
+    &[data-fs-button-variant="tertiary"]:focus,
+    &[data-fs-button-variant="tertiary"]:active {
+      color: unset;
+    }
+  }
 
   [data-fs-rating-icon-wrapper] {
     position: absolute;
