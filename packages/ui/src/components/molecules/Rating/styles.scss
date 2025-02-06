@@ -4,20 +4,20 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-rating-gap: var(--fs-spacing-0);
-  --fs-rating-color: var(--fs-color-main-2);
-  --fs-rating-color-empty: var(--fs-color-neutral-4);
+  --fs-rating-gap                              : var(--fs-spacing-0);
+  --fs-rating-color                            : var(--fs-color-main-2);
+  --fs-rating-color-empty                      : var(--fs-color-neutral-4);
 
   // Icon
-  --fs-rating-icon-width: var(--fs-spacing-3);
-  --fs-rating-icon-height: var(--fs-rating-icon-width);
+  --fs-rating-icon-width                       : var(--fs-spacing-3);
+  --fs-rating-icon-height                      : var(--fs-rating-icon-width);
 
   // Actionable
-  --fs-rating-actionable-gap: 0;
-  --fs-rating-actionable-icon-width: var(--fs-rating-icon-width);
-  --fs-rating-actionable-icon-height: var(--fs-rating-actionable-icon-width);
-  --fs-rating-actionable-icon-color: var(--fs-rating-color-empty);
-  --fs-rating-actionable-icon-color-selected: var(--fs-rating-color);
+  --fs-rating-actionable-gap                   : 0;
+  --fs-rating-actionable-icon-width            : var(--fs-rating-icon-width);
+  --fs-rating-actionable-icon-height           : var(--fs-rating-actionable-icon-width);
+  --fs-rating-actionable-icon-color            : var(--fs-rating-color-empty);
+  --fs-rating-actionable-icon-color-selected   : var(--fs-rating-color);
 
   // --------------------------------------------------------
   // Structural Styles
