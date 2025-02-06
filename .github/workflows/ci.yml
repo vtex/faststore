@@ -21,26 +21,31 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.5
+          cache: 'pnpm'
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: pnpm i
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - name: Size
-        run: yarn size
+        run: pnpm size
 
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
 
       - name: Test
-        run: yarn test
+        run: pnpm test
 
       - name: Publish to Chromatic
         uses: chromaui/action@latest
@@ -64,6 +69,12 @@ jobs:
       - name: Clone starter
         run: git clone https://github.com/vtex-sites/starter.store.git starter
 
+      - name: Install specific Yarn version
+        run: npm install -g yarn@1.22.19 # https://github.com/yarnpkg/yarn/issues/9015
+
+      - name: Verify Yarn version
+        run: yarn --version
+
       - name: Install the packages on starter
         run: |
           cd starter
@@ -74,7 +85,7 @@ jobs:
       - name: Install dependencies in starter
         run: |
           cd starter
-          yarn install --frozen-lockfile
+          yarn install
 
       - name: Build starter
         run: |

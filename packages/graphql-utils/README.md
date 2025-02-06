@@ -52,7 +52,7 @@ Installing this plugin may vary depending on your setup. The instructions below 
 To install, just
 
 ```sh
-$ yarn add @faststore/graphql-utils
+$ pnpm add @faststore/graphql-utils
 ```
 
 > Note. Also make sure to install [graphql codegen cli](https://www.graphql-code-generator.com/docs/getting-started/installation)
@@ -71,7 +71,7 @@ path/to/persisted.json:
 Now, open your terminal and run:
 
 ```sh
-$ yarn run graphql-codegen
+$ pnpm run graphql-codegen
 ```
 
 This should generate a `persisted.json` file containing a map between operation names and queries. Use this file o your graphql server to filter and run queries.

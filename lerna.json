@@ -1,6 +1,6 @@
 {
-  "version": "3.15.1",
-  "npmClient": "yarn",
+  "version": "3.15.2",
+  "npmClient": "pnpm",
   "command": {
     "publish": {
       "message": "[no ci] Release: %v"
