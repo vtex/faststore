@@ -156,19 +156,6 @@ export type DeliveryIds = {
   warehouseId: Maybe<Scalars['String']['output']>
 }
 
-export type ICreateProductReview = {
-  /** Product ID. */
-  productId: Scalars['String']['input']
-  /** Review rating. */
-  rating: Scalars['Int']['input']
-  /** Review author name. */
-  reviewerName: Scalars['String']['input']
-  /** Review content. */
-  text: Scalars['String']['input']
-  /** Review title. */
-  title: Scalars['String']['input']
-}
-
 export type IGeoCoordinates = {
   /** The latitude of the geographic coordinates. */
   latitude: Scalars['Float']['input']
@@ -482,6 +469,8 @@ export type Query = {
   product: StoreProduct
   /** Returns if there's a redirect for a search. */
   redirect: Maybe<StoreRedirect>
+  /** Returns a list of approved reviews for a specific product. */
+  reviews: Maybe<StoreProductListReviewsResult>
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult
   /** Returns a list of sellers available for a specific localization. */
@@ -511,6 +500,14 @@ export type QueryProductArgs = {
 export type QueryRedirectArgs = {
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet>>
   term: InputMaybe<Scalars['String']['input']>
+}
+
+export type QueryReviewsArgs = {
+  after?: InputMaybe<Scalars['Int']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  productId: Scalars['String']['input']
+  rating: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<StoreProductListReviewsSort>
 }
 
 export type QuerySearchArgs = {
@@ -1023,11 +1020,59 @@ export type StoreProductGroup = {
   skuVariants: Maybe<SkuVariants>
 }
 
+export type StoreProductListReviewsRange = {
+  /** Index of the first review */
+  from: Scalars['Int']['output']
+  /** Index of the last review */
+  to: Scalars['Int']['output']
+  /** Total number of reviews. */
+  total: Scalars['Int']['output']
+}
+
+export type StoreProductListReviewsResult = {
+  /** Array of product reviews. */
+  data: Array<StoreProductReview>
+  range: StoreProductListReviewsRange
+}
+
+export type StoreProductListReviewsSort =
+  /** Sort by review rating, from lowest to highest. */
+  | 'rating_asc'
+  /** Sort by review rating, from highest to lowest. */
+  | 'rating_desc'
+  /** Sort by review creation date, from oldest to newest. */
+  | 'reviewDateTime_asc'
+  /** Sort by review creation date, from newest to oldest. */
+  | 'reviewDateTime_desc'
+
 export type StoreProductRating = {
   /** Product average rating. */
   average: Scalars['Float']['output']
   /** Product amount of ratings received. */
   totalCount: Scalars['Int']['output']
+}
+
+export type StoreProductReview = {
+  /** Indicates if the review was approved by the store owner. */
+  approved: Scalars['Boolean']['output']
+  /** Review ID. */
+  id: Scalars['String']['output']
+  /** Product ID. */
+  productId: Scalars['String']['output']
+  /** Review rating. */
+  rating: Scalars['Int']['output']
+  /** Review creation date. */
+  reviewDateTime: Scalars['String']['output']
+  /** Review author name. */
+  reviewerName: Maybe<Scalars['String']['output']>
+  /** Review author ID. */
+  shopperId: Scalars['String']['output']
+  /** Review content. */
+  text: Scalars['String']['output']
+  /** Review title. */
+  title: Scalars['String']['output']
+  /** Indicates if the review was made by a verified purchaser. */
+  verifiedPurchaser: Scalars['Boolean']['output']
 }
 
 /** Properties that can be associated with products and products groups. */
