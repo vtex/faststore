@@ -14,12 +14,12 @@ This starter ships the main FastStore configuration files to get your store up a
 
 1. **Install dependencies**
 
-> PS: you can install dependencies using the package manager of your choosing. In this guide, we'll be using `yarn` as an example.
+> PS: you can install dependencies using the package manager of your choosing. In this guide, we'll be using `pnpm` as an example.
 
-Install dependencies with yarn
+Install dependencies with pnpm
 
 ```shell
-yarn
+pnpm i 
 ```
 
 2. **Start developing**
@@ -27,7 +27,7 @@ yarn
    Navigate into your new site’s directory and start it up.
 
    ```shell
-   yarn dev
+   pnpm dev
    ```
 
 3. **Open the source code and start editing!**
@@ -167,18 +167,18 @@ We use [graphql-codegen](https://www.graphql-code-generator.com/) to pre-process
 This means we can statically analyze your code in search of bugs and secure your graphql server before each deploy. If, however you need to change any GraphQL Fragment, Query or Mutation, you will need to regenerate the whole thing. To do this, open your terminal and type
 
 ```sh
-$ yarn dev
+$ pnpm dev
 ```
 
 Now, after the nextjs development server is up and running, open another terminal and run
 
 ```sh
-$ yarn generate
+$ pnpm generate
 ```
 
 That's it! you have just regenerated all graphql queries/fragments for your application and the new data you requested should be available to your component.
 
-> Pro tip: Pass `-w` to the `yarn generate` command so it watches for changes and you don't need to run this command multiple times.
+> Pro tip: Pass `-w` to the `pnpm generate` command so it watches for changes and you don't need to run this command multiple times.
 
 ## CMS Integration
 
