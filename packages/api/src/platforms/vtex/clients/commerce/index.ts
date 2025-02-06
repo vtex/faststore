@@ -398,7 +398,7 @@ export const VtexCommerce = (
         orderWay,
         ...partialInput
       }: ProductReviewsInput): Promise<ProductReviewsResult> => {
-        const formattedInput: Record<string, string> = adaptObject<string>(
+        const formattedInput = adaptObject<string>(
           {
             orderBy: orderBy ? `${orderBy}:${orderWay ?? 'asc'}` : undefined,
             ...partialInput,
