@@ -6,7 +6,7 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "jsx": "react",
-    "lib": ["dom", "esnext"],
+    "lib": ["dom", "esnext", "DOM.Iterable"],
     "module": "esnext",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,

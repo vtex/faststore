@@ -1,2 +1,2 @@
-yarn install
-yarn lint-staged
+pnpm i
+pnpm lint-staged

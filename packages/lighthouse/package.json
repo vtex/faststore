@@ -21,5 +21,8 @@
   "scripts": {
     "dev": "tsc --watch",
     "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.16"
   }
 }
