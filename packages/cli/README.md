@@ -93,7 +93,7 @@ DESCRIPTION
   Creates a discovery folder based on the starter.store template.
 
 EXAMPLES
-  $ yarn faststore create discovery
+  $ pnpm faststore create discovery
 ```
 
 _See code: [dist/commands/create.js](https://github.com/vtex/faststore/blob/v3.15.2/dist/commands/create.js)_
