@@ -965,7 +965,7 @@
     }
   },
   {
-    "name": "Product Reviews",
+    "name": "ReviewsAndRatings",
     "schema": {
       "title": "Reviews",
       "description": "A section to display product reviews and ratings",
