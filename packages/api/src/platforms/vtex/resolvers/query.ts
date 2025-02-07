@@ -187,10 +187,7 @@ export const Query = {
 
     const productSearchPromise = ctx.clients.search.products(searchArgs)
 
-    const ratingCallback = async (productId: string) =>
-      ctx.clients.commerce.rating(productId)
-
-    return { searchArgs, productSearchPromise, ratingCallback }
+    return { searchArgs, productSearchPromise }
   },
   allProducts: async (
     _: unknown,
