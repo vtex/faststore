@@ -967,7 +967,7 @@
   {
     "name": "ReviewsAndRatings",
     "schema": {
-      "title": "Reviews",
+      "title": "Reviews And Ratings",
       "description": "A section to display product reviews and ratings",
       "type": "object",
       "properties": {
