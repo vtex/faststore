@@ -26,12 +26,14 @@ export enum ProductReviewsInputOrderBy {
   locale = 'Locale',
 }
 
+export type ProductReviewsInputOrderWay = 'asc' | 'desc'
+
 export interface ProductReviewsInput {
   searchTerm?: string
   from?: number
   to?: number
   orderBy?: ProductReviewsInputOrderBy
-  orderWay?: 'asc' | 'desc'
+  orderWay?: ProductReviewsInputOrderWay
   status?: boolean
   productId?: string
   rating?: number

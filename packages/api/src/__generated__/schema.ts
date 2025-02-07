@@ -467,6 +467,8 @@ export type Query = {
   product: StoreProduct;
   /** Returns if there's a redirect for a search. */
   redirect?: Maybe<StoreRedirect>;
+  /** Returns a list of approved reviews for a specific product. */
+  reviews?: Maybe<StoreProductListReviewsResult>;
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult;
   /** Returns a list of sellers available for a specific localization. */
@@ -501,6 +503,15 @@ export type QueryProductArgs = {
 export type QueryRedirectArgs = {
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   term?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryReviewsArgs = {
+  after?: Maybe<Scalars['Int']>;
+  first?: Maybe<Scalars['Int']>;
+  productId: Scalars['String'];
+  rating?: Maybe<Scalars['Int']>;
+  sort?: Maybe<StoreProductListReviewsSort>;
 };
 
 
@@ -1055,6 +1066,58 @@ export type StoreProductGroup = {
    * components.
    */
   skuVariants?: Maybe<SkuVariants>;
+};
+
+export type StoreProductListReviewsRange = {
+  __typename?: 'StoreProductListReviewsRange';
+  /** Index of the first review */
+  from: Scalars['Int'];
+  /** Index of the last review */
+  to: Scalars['Int'];
+  /** Total number of reviews. */
+  total: Scalars['Int'];
+};
+
+export type StoreProductListReviewsResult = {
+  __typename?: 'StoreProductListReviewsResult';
+  /** Array of product reviews. */
+  data: Array<StoreProductReview>;
+  range: StoreProductListReviewsRange;
+};
+
+export const enum StoreProductListReviewsSort {
+  /** Sort by review rating, from lowest to highest. */
+  RatingAsc = 'rating_asc',
+  /** Sort by review rating, from highest to lowest. */
+  RatingDesc = 'rating_desc',
+  /** Sort by review creation date, from oldest to newest. */
+  ReviewDateTimeAsc = 'reviewDateTime_asc',
+  /** Sort by review creation date, from newest to oldest. */
+  ReviewDateTimeDesc = 'reviewDateTime_desc'
+};
+
+export type StoreProductReview = {
+  __typename?: 'StoreProductReview';
+  /** Indicates if the review was approved by the store owner. */
+  approved: Scalars['Boolean'];
+  /** Review ID. */
+  id: Scalars['String'];
+  /** Product ID. */
+  productId: Scalars['String'];
+  /** Review rating. */
+  rating: Scalars['Int'];
+  /** Review creation date. */
+  reviewDateTime: Scalars['String'];
+  /** Review author name. */
+  reviewerName?: Maybe<Scalars['String']>;
+  /** Review author ID. */
+  shopperId: Scalars['String'];
+  /** Review content. */
+  text: Scalars['String'];
+  /** Review title. */
+  title: Scalars['String'];
+  /** Indicates if the review was made by a verified purchaser. */
+  verifiedPurchaser: Scalars['Boolean'];
 };
 
 /** Properties that can be associated with products and products groups. */
