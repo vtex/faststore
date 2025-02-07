@@ -6,7 +6,7 @@ export const createProductReview = async (
   { data }: MutationCreateProductReviewArgs,
   { clients: { commerce } }: Context
 ): Promise<string> => {
-  return commerce.reviews.create({
+  return await commerce.reviews.create({
     ...data,
     approved: true,
   })
