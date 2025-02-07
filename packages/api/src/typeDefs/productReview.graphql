@@ -1,0 +1,84 @@
+type StoreProductReview {
+  """
+  Review ID.
+  """
+  id: String!
+  """
+  Product ID.
+  """
+  productId: String!
+  """
+  Review rating.
+  """
+  rating: Int!
+  """
+  Review title.
+  """
+  title: String!
+  """
+  Review content.
+  """
+  text: String!
+  """
+  Review author name.
+  """
+  reviewerName: String
+  """
+  Review author ID.
+  """
+  shopperId: String!
+  """
+  Review creation date.
+  """
+  reviewDateTime: String!
+  """
+  Indicates if the review was made by a verified purchaser.
+  """
+  verifiedPurchaser: Boolean!
+  """
+  Indicates if the review was approved by the store owner.
+  """
+  approved: Boolean!
+}
+
+type StoreProductListReviewsRange {
+  """
+  Total number of reviews.
+  """
+  total: Int!
+  """
+  Index of the first review
+  """
+  from: Int!
+  """
+  Index of the last review
+  """
+  to: Int!
+}
+
+type StoreProductListReviewsResult {
+  """
+  Array of product reviews.
+  """
+  data: [StoreProductReview!]!
+  range: StoreProductListReviewsRange!
+}
+
+enum StoreProductListReviewsSort {
+  """
+  Sort by review creation date, from newest to oldest.
+  """
+  reviewDateTime_desc
+  """
+  Sort by review creation date, from oldest to newest.
+  """
+  reviewDateTime_asc
+  """
+  Sort by review rating, from highest to lowest.
+  """
+  rating_desc
+  """
+  Sort by review rating, from lowest to highest.
+  """
+  rating_asc
+}
