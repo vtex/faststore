@@ -21,11 +21,16 @@ import type {
   QuerySellersArgs,
   QueryShippingArgs,
   QueryRedirectArgs,
+  QueryReviewsArgs,
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import type { SearchArgs } from '../clients/search'
+import {
+  ProductReviewsInputOrderBy,
+  type ProductReviewsInputOrderWay,
+} from '../clients/commerce/types/ProductReview'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -334,5 +339,32 @@ export const Query = {
       id,
       sellers,
     }
+  },
+  reviews: async (
+    _: unknown,
+    { productId, after, first, rating, sort }: QueryReviewsArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const from = after ?? 0
+    const to = from + (first ?? 6)
+
+    const [orderByKey, orderWay] = sort?.split('_') as [
+      keyof typeof ProductReviewsInputOrderBy,
+      ProductReviewsInputOrderWay,
+    ]
+
+    return await commerce.reviews.list({
+      productId,
+      from,
+      to,
+      orderBy: ProductReviewsInputOrderBy[orderByKey],
+      orderWay,
+      status: true,
+      rating: rating ?? undefined,
+    })
   },
 }

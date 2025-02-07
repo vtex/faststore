@@ -338,6 +338,33 @@ type Query {
     salesChannel: String
   ): SellersData
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+
+  """
+  Returns a list of approved reviews for a specific product.
+  """
+  reviews(
+    """
+    Product Id
+    """
+    productId: String!
+    """
+    Reviews results sorting mode
+    """
+    sort: StoreProductListReviewsSort = reviewDateTime_desc
+    """
+    Reviews pagination argument, indicating how many items should be returned from the complete result list.
+    """
+    first: Int = 6
+    """
+    Reviews pagination argument, indicating the cursor corresponding with the item after which the items should be fetched.
+    """
+    after: Int = 0
+    """
+    Rating filter
+    """
+    rating: Int
+  ): StoreProductListReviewsResult
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 }
 
 """

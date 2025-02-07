@@ -71,6 +71,7 @@ const QUERIES = [
   'shipping',
   'redirect',
   'sellers',
+  'reviews',
 ]
 
 const MUTATIONS = ['validateCart', 'validateSession', 'subscribeToNewsletter']
