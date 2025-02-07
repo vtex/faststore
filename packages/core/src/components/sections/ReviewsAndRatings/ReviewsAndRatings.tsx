@@ -12,8 +12,8 @@ interface Props {
 const ReviewsAndRatingsSection = ({ title }: Props) => {
   return (
     <Section
-      id="review-and-ratings"
-      className={`${styles.section} section-review-and-ratings layout__section`}
+      id="reviews-and-ratings"
+      className={`${styles.section} section-reviews-and-ratings layout__section`}
     >
       <ReviewsAndRatings title={title} />
     </Section>
