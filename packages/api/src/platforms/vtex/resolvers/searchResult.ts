@@ -4,12 +4,10 @@ import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
 import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
 import { pickBestSku } from '../utils/sku'
-import type { ProductRating } from '../clients/commerce/types/ProductRating'
 
 export type Root = {
   searchArgs: Omit<SearchArgs, 'type'>
   productSearchPromise: Promise<ProductSearchResult>
-  ratingCallback: (productId: string) => Promise<ProductRating>
 }
 
 const isRootFacet = (facet: Facet, isDepartment: boolean, isBrand: boolean) =>
@@ -22,10 +20,10 @@ const isRootFacet = (facet: Facet, isDepartment: boolean, isBrand: boolean) =>
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
   suggestions: async (root, _, ctx) => {
     const {
-      clients: { search },
+      clients: { search, commerce },
     } = ctx
 
-    const { searchArgs, productSearchPromise, ratingCallback } = root
+    const { searchArgs, productSearchPromise } = root
 
     // If there's no search query, suggest the most popular searches.
     if (!searchArgs.query) {
@@ -57,7 +55,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
         .filter((sku) => !!sku)
         .map(async (sku) => ({
           ...sku,
-          rating: await ratingCallback(sku.itemId),
+          rating: await commerce.rating(sku.itemId),
         }))
     )
 
@@ -68,7 +66,11 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       products: skus,
     }
   },
-  products: async ({ productSearchPromise, ratingCallback }) => {
+  products: async ({ productSearchPromise }, _, ctx) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
     const productSearchResult = await productSearchPromise
 
     const skus = productSearchResult.products
@@ -83,7 +85,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const edges = await Promise.all(
       skus.map(async (sku, index) => ({
-        node: { ...sku, rating: await ratingCallback(sku.itemId) },
+        node: { ...sku, rating: await commerce.rating(sku.itemId) },
         cursor: index.toString(),
       }))
     )
