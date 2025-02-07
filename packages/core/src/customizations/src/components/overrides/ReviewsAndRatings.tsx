@@ -2,7 +2,7 @@
 
 import type { SectionOverride } from 'src/typings/overrides'
 
-const SECTION = 'ReviewAndRatings' as const
+const SECTION = 'ReviewsAndRatings' as const
 
 const override: SectionOverride = {
   section: SECTION,
