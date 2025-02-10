@@ -32,7 +32,7 @@
                 },
                 "title": {
                   "title": "Default page title",
-                  "description": "Display this title when no other tile is available",
+                  "description": "Display this title when no other tile is available.",
                   "type": "string",
                   "default": "FastStore Starter"
                 },
@@ -159,7 +159,7 @@
                     },
                     "telephone": {
                       "title": "Organization phone",
-                      "description": "A business phone number. Be sure to include the country code and area code in the phone number",
+                      "description": "A business phone number. Be sure to include the country code and area code in the phone number.",
                       "type": "string"
                     },
                     "address": {
@@ -173,13 +173,13 @@
                           "type": "string"
                         },
                         "addressLocality": {
-                          "title": "Street Address",
+                          "title": "City",
                           "description": "The city of your postal address.",
                           "type": "string"
                         },
                         "addressCountry": {
                           "title": "Country",
-                          "description": "The country of your postal address. Recommended to be in 2-letter ISO 3166-1 alpha-2 format, for example 'BR','US'.",
+                          "description": "The country of your postal address. Recommended to be in 2-letter ISO 3166-1 alpha-2 format, for example 'BR','US'",
                           "type": "string"
                         },
                         "postalCode": {
