@@ -18,11 +18,12 @@
   --fs-rating-actionable-icon-height           : var(--fs-rating-actionable-icon-width);
   --fs-rating-actionable-icon-color            : var(--fs-rating-color-empty);
   --fs-rating-actionable-icon-color-selected   : var(--fs-rating-color);
+  --fs-rating-button-min-height                : var(--fs-spacing-5);
 
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
-  
+
   display: flex;
 
   [data-fs-icon] {
@@ -32,13 +33,18 @@
   }
 
   [data-fs-rating-button] {
+    --fs-button-small-min-height: var(--fs-rating-button-min-height);
+
     color: unset;
+
     &[disabled] [data-fs-button-wrapper] {
       background-color: transparent;
+
       &:hover {
         background-color: transparent;
       }
     }
+
     &[data-fs-button-variant="tertiary"]:hover,
     &[data-fs-button-variant="tertiary"]:focus,
     &[data-fs-button-variant="tertiary"]:active {
@@ -71,15 +77,15 @@
     fill: none;
   }
 
-  [data-fs-rating-item='partial'] [data-fs-rating-icon-wrapper] {
+  [data-fs-rating-item="partial"] [data-fs-rating-icon-wrapper] {
     width: calc(var(--fs-rating-icon-width) / 2);
   }
 
-  &:not([data-fs-rating-actionable='true']) {
+  &:not([data-fs-rating-actionable="true"]) {
     column-gap: var(--fs-rating-gap);
   }
 
-  &[data-fs-rating-actionable='true'] {
+  &[data-fs-rating-actionable="true"] {
     column-gap: var(--fs-rating-actionable-gap);
 
     [data-fs-rating-item="full"] svg[data-fs-icon] {
@@ -88,9 +94,9 @@
     }
 
     [data-fs-icon] {
-      color: var(--fs-rating-actionable-color);
       width: var(--fs-rating-actionable-icon-width);
       height: var(--fs-rating-actionable-icon-height);
+      color: var(--fs-rating-actionable-color);
       color: var(--fs-rating-actionable-icon-color);
     }
   }
