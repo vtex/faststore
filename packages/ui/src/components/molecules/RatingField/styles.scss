@@ -4,14 +4,14 @@
   // --------------------------------------------------------
 
   // Label
-  --fs-rating-field-label-color: var(--fs-color-text-light);
-  --fs-rating-field-label-size: var(--fs-text-size-2);
-  --fs-rating-field-label-line-height: var(--fs-text-size-4);
+  --fs-rating-field-label-color                              : var(--fs-color-text-light);
+  --fs-rating-field-label-size                               : var(--fs-text-size-2);
+  --fs-rating-field-label-line-height                        : var(--fs-text-size-4);
 
   // Error
-  --fs-rating-field-error-message-size: var(--fs-text-size-legend);
-  --fs-rating-field-error-message-line-height: 1.1;
-  --fs-rating-field-error-message-color: var(--fs-color-danger-text);
+  --fs-rating-field-error-message-size                       : var(--fs-text-size-legend);
+  --fs-rating-field-error-message-line-height                : 1.1;
+  --fs-rating-field-error-message-color                      : var(--fs-color-danger-text);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -20,12 +20,14 @@
   flex-direction: column;
 
   [data-fs-rating-field-label] {
+    margin-bottom: var(--fs-spacing-0);
     font-size: var(--fs-rating-field-label-size);
     line-height: var(--fs-rating-field-label-line-height);
     color: var(--fs-rating-field-label-color);
   }
 
   [data-fs-rating-field-error-message] {
+    margin-top: var(--fs-spacing-0);
     font-size: var(--fs-rating-field-error-message-size);
     line-height: var(--fs-rating-field-error-message-line-height);
     color: var(--fs-rating-field-error-message-color);
