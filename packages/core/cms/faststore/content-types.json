@@ -92,6 +92,15 @@
                   "title": "Canonical url for the page",
                   "type": "string"
                 },
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                },
+                "publisherId": {
+                  "title": "Publisher ID",
+                  "description": "A unique identifier used to reference the publisher. This can be a descriptive value (e.g., `#organization`) or a full URL (e.g., `https://example.com/publisher`).",
+                  "type": "string"
+                },
                 "organization": {
                   "title": "Organization",
                   "type": "object",
@@ -108,7 +117,8 @@
                       "default": "VTEX Commerce"
                     },
                     "id": {
-                      "title": "ID",
+                      "title": "Organization ID",
+                      "description": "A unique reference for the organization. This can be a descriptive value (e.g., #organization) or a full URL (e.g.,https://example.com/organization).",
                       "type": "string"
                     },
                     "url": {
@@ -147,7 +157,7 @@
                         },
                         "id": {
                           "title": "Organization image ID",
-                          "description": "A unique identifier for the image. E.g.: #logo",
+                          "description": "A unique reference for the image. This can be a descriptive value (e.g., #logo) or a full URL (e.g.,https://example.com/logo).",
                           "type": "string"
                         }
                       }
@@ -189,15 +199,6 @@
                       }
                     }
                   }
-                },
-                "name": {
-                  "title": "Name",
-                  "type": "string"
-                },
-                "publisherId": {
-                  "title": "Publisher ID",
-                  "description": "Uses to identifier to reference the publisher. E.g.: #website",
-                  "type": "string"
                 }
               }
             }
