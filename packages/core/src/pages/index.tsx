@@ -63,7 +63,7 @@ function Page({
 
       <OrganizationJsonLd
         type="Organization"
-        id={settings?.seo?.organization?.id ?? storeConfig.storeUrl}
+        id={settings?.seo?.organization?.id ?? storeConfig.seo.organization.id}
         url={settings?.seo?.organization?.url ?? storeConfig.storeUrl}
         sameAs={
           settings?.seo?.organization?.sameAs ??
