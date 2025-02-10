@@ -6,30 +6,6 @@ module.exports = {
     author: 'Store Framework',
     name: 'FastStore',
     publisherId: '',
-    organization: {
-      id: '',
-      url: 'https://vtex.com',
-      sameAs: [
-        'https://www.facebook.com/vtex',
-        'https://www.instagram.com/vtex',
-      ],
-      logo: 'https://vtex.com/_next/static/media/vtex-logo.80485bcf.svg',
-      image: {
-        url: 'https://vtex.com/_next/static/media/vtex-logo.80485bcf.svg',
-        caption: 'FastStore',
-        id: '',
-      },
-      name: 'VTEX',
-      legalName: 'VTEX Commerce',
-      email: 'info@vtex.com',
-      telephone: '',
-      address: {
-        streetAddress: 'Rue Improbable 99',
-        addressLocality: 'Rio de Janeiro',
-        postalCode: '06473-000',
-        addressCountry: 'BR',
-      },
-    },
     plp: {
       titleTemplate: '%s | FastStore PLP',
       descriptionTemplate: '%s products on FastStore Product Listing Page',

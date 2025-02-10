@@ -63,57 +63,62 @@ function Page({
 
       <OrganizationJsonLd
         type="Organization"
-        id={settings?.seo?.organization?.id ?? storeConfig.seo.organization.id}
-        url={settings?.seo?.organization?.url ?? storeConfig.storeUrl}
-        sameAs={
-          settings?.seo?.organization?.sameAs ??
-          storeConfig.seo.organization.sameAs
-        }
-        logo={
-          settings?.seo?.organization?.logo ?? storeConfig.seo.organization.logo
-        }
-        image={{
-          type: 'ImageObject',
-          url:
-            settings?.seo?.organization?.image?.url ??
-            storeConfig.seo.organization.image.url,
-          caption:
-            settings?.seo?.organization?.image.caption ??
-            storeConfig.seo.organization.image.caption,
-          id:
-            settings?.seo?.organization?.image?.id ??
-            storeConfig.seo.organization.image.id,
-        }}
-        name={
-          settings?.seo?.organization?.name ?? storeConfig.seo.organization.name
-        }
-        legalName={
-          settings?.seo?.organization?.legalName ??
-          storeConfig.seo.organization.legalName
-        }
-        email={
-          settings?.seo?.organization?.email ??
-          storeConfig.seo.organization.email
-        }
-        telephone={
-          settings?.seo?.organization?.telephone ??
-          storeConfig.seo.organization.telephone
-        }
-        address={{
-          type: 'PostalAddress',
-          streetAddress:
-            settings?.seo?.organization?.address?.streetAddress ??
-            storeConfig.seo.organization.address.streetAddress,
-          addressLocality:
-            settings?.seo?.organization?.address?.addressLocality ??
-            storeConfig.seo.organization.address.addressLocality,
-          postalCode:
-            settings?.seo?.organization?.address?.postalCode ??
-            storeConfig.seo.organization.address.postalCode,
-          addressCountry:
-            settings?.seo?.organization?.address?.addressCountry ??
-            storeConfig.seo.organization.address.addressCountry,
-        }}
+        {...(settings?.seo?.organization?.id && {
+          id: settings.seo.organization.id,
+        })}
+        {...(settings?.seo?.organization?.url && {
+          url: settings.seo.organization.url,
+        })}
+        {...(settings?.seo?.organization?.sameAs?.length && {
+          sameAs: settings.seo.organization.sameAs,
+        })}
+        {...(settings?.seo?.organization?.logo && {
+          logo: settings.seo.organization.logo,
+        })}
+        {...(settings?.seo?.organization?.name && {
+          name: settings.seo.organization.name,
+        })}
+        {...(settings?.seo?.organization?.legalName && {
+          legalName: settings.seo.organization.legalName,
+        })}
+        {...(settings?.seo?.organization?.email && {
+          email: settings.seo.organization.email,
+        })}
+        {...(settings?.seo?.organization?.telephone && {
+          telephone: settings.seo.organization.telephone,
+        })}
+        {...(settings?.seo?.organization?.image && {
+          image: {
+            type: 'ImageObject',
+            ...(settings.seo.organization.image.url && {
+              url: settings.seo.organization.image.url,
+            }),
+            ...(settings.seo.organization.image.caption && {
+              caption: settings.seo.organization.image.caption,
+            }),
+            ...(settings.seo.organization.image.id && {
+              id: settings.seo.organization.image.id,
+            }),
+          },
+        })}
+        {...(settings?.seo?.organization?.address && {
+          address: {
+            type: 'PostalAddress',
+            ...(settings.seo.organization.address.streetAddress && {
+              streetAddress: settings.seo.organization.address.streetAddress,
+            }),
+            ...(settings.seo.organization.address.addressLocality && {
+              addressLocality:
+                settings.seo.organization.address.addressLocality,
+            }),
+            ...(settings.seo.organization.address.postalCode && {
+              postalCode: settings.seo.organization.address.postalCode,
+            }),
+            ...(settings.seo.organization.address.addressCountry && {
+              addressCountry: settings.seo.organization.address.addressCountry,
+            }),
+          },
+        })}
       />
 
       {/*
