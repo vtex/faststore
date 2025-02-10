@@ -6,17 +6,6 @@ module.exports = {
     author: 'Store Framework',
     name: 'FastStore',
     publisherId: '',
-    plp: {
-      titleTemplate: '%s | FastStore PLP',
-      descriptionTemplate: '%s products on FastStore Product Listing Page',
-    },
-    search: {
-      titleTemplate: '%s: Search results title',
-      descriptionTemplate: '%s: Search results description',
-      noIndex: true,
-      noFollow: true,
-      bodyH1: 'Showing results for:',
-    },
     organization: {
       id: '',
       url: 'https://vtex.com',
@@ -44,6 +33,13 @@ module.exports = {
     plp: {
       titleTemplate: '%s | FastStore PLP',
       descriptionTemplate: '%s products on FastStore Product Listing Page',
+    },
+    search: {
+      titleTemplate: '%s: Search results title',
+      descriptionTemplate: '%s: Search results description',
+      noIndex: true,
+      noFollow: true,
+      bodyH1: 'Showing results for:',
     },
   },
 
