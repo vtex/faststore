@@ -84,6 +84,17 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   const { product } = server
   const { currency } = useSession()
   const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
+  let itemListElements = product.breadcrumbList.itemListElement ?? []
+
+  if (itemListElements.length !== 0) {
+    itemListElements = itemListElements.map(
+      ({ item: pathname, name, position }) => {
+        const pageUrl = storeConfig.storeUrl + pathname
+
+        return { name, position, item: pageUrl }
+      }
+    )
+  }
 
   const { client, isValidating } = isClientOfferEnabled
     ? (() => {
@@ -148,9 +159,7 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
         ]}
         titleTemplate={titleTemplate}
       />
-      <BreadcrumbJsonLd
-        itemListElements={product.breadcrumbList.itemListElement}
-      />
+      <BreadcrumbJsonLd itemListElements={itemListElements} />
       <ProductJsonLd
         productName={product.name}
         description={product.description}
