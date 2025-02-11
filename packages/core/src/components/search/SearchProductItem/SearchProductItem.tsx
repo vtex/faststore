@@ -151,6 +151,7 @@ function SearchProductItem({
         }
         quickOrder={{
           enabled: quickOrderSettings.quickOrder,
+          outOfStockLabel: 'Out of stock',
           availability: !outOfStock,
           hasVariants,
           buyProps,

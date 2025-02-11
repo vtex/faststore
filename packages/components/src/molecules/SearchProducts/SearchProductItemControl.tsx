@@ -12,6 +12,10 @@ export interface SearchProductItemControlProps
    */
   children: ReactNode
   /**
+   * Specifies the label for out-of-stock products.
+   */
+  outOfStockLabel: string
+  /**
    * Specifies whether the product is available.
    */
   availability: boolean
@@ -59,6 +63,7 @@ const SearchProductItemControl = forwardRef<
     hasVariants,
     skuMatrixControl,
     quantity,
+    outOfStockLabel,
     min = 1,
     max = undefined,
     onClick,
@@ -77,7 +82,7 @@ const SearchProductItemControl = forwardRef<
     e.preventDefault()
     e.stopPropagation()
   }
-  
+
   function handleAddToCart(event: MouseEvent<HTMLButtonElement>) {
     if (onClick) {
       setStatusAddToCart('inProgress')
@@ -123,7 +128,7 @@ const SearchProductItemControl = forwardRef<
       <div data-fs-search-product-item-control-content>
         {!availability && (
           <Badge data-fs-search-product-item-control-badge variant="warning">
-            Out of Stock
+            {outOfStockLabel}
           </Badge>
         )}
         {children}
