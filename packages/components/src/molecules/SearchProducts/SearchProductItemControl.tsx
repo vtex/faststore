@@ -38,11 +38,11 @@ export interface SearchProductItemControlProps
   /**
    * Callback that fires when the add to cart button is clicked.
    */
-  onClick?(e: MouseEvent<HTMLButtonElement>): void
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void
   /**
    * Callback that fires when the input value changes.
    */
-  onChangeQuantity(value: number): void
+  onChangeQuantity: (value: number) => void
   /**
    * Event emitted when value is out of the min and max bounds
    */
@@ -60,7 +60,7 @@ const SearchProductItemControl = forwardRef<
     skuMatrixControl,
     quantity,
     min = 1,
-    max,
+    max = undefined,
     onClick,
     onChangeQuantity,
     onValidateBlur,
@@ -77,6 +77,7 @@ const SearchProductItemControl = forwardRef<
     e.preventDefault()
     e.stopPropagation()
   }
+  
   function handleAddToCart(event: MouseEvent<HTMLButtonElement>) {
     if (onClick) {
       setStatusAddToCart('inProgress')
@@ -107,12 +108,8 @@ const SearchProductItemControl = forwardRef<
   function validateBlur() {
     const maxValue = max ?? (min ? Math.max(quantity, min) : quantity)
     const isOutOfBounds = quantity > maxValue || quantity < min
-    const realQuantity = (() => {
-      if (quantity > maxValue) {
-        return maxValue
-      }
-      return quantity < min ? min : quantity
-    })()
+    const minQuantity = quantity < min ? min : quantity
+    const realQuantity = quantity > maxValue ? maxValue : minQuantity
 
     if (isOutOfBounds) {
       onValidateBlur?.(min, maxValue, realQuantity)
