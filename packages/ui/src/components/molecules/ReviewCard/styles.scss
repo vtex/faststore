@@ -4,46 +4,46 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-review-card-border-color: var(--fs-border-color-light);
-  --fs-review-card-border-width: var(--fs-border-width);
-  --fs-review-card-padding-mobile: 1.25rem 0; // 20px
-  --fs-review-card-gap-mobile: var(--fs-spacing-1);
+  --fs-review-card-border-color                                                 : var(--fs-border-color-light);
+  --fs-review-card-border-width                                                 : var(--fs-border-width);
+  --fs-review-card-padding-mobile                                               : 1.25rem 0; // 20px
+  --fs-review-card-gap-mobile                                                   : var(--fs-spacing-1);
 
   // Header
-  --fs-review-card-header-width-desktop: 112px;
-  --fs-review-card-header-gap: var(--fs-spacing-1);
+  --fs-review-card-header-width-desktop                                         : 112px;
+  --fs-review-card-header-gap                                                   : var(--fs-spacing-1);
 
   // Date
-  --fs-review-card-date-color: var(--fs-color-text-light);
-  --fs-review-card-date-font-size: var(--fs-text-size-0);
-  --fs-review-card-date-font-weight: var(--fs-text-weight-regular);
-  --fs-review-card-date-line-height: var(--fs-text-size-base);
+  --fs-review-card-date-color                                                   : var(--fs-color-text-light);
+  --fs-review-card-date-font-size                                               : var(--fs-text-size-0);
+  --fs-review-card-date-line-height                                             : var(--fs-text-size-base);
+  --fs-review-card-date-font-weight                                             : var(--fs-text-weight-regular);
 
   // Text
-  --fs-review-card-text-gap: var(--fs-spacing-0);
+  --fs-review-card-text-gap                                                     : var(--fs-spacing-0);
 
   // Text-Headline
-  --fs-review-card-headline-color: var(--fs-color-text);
-  --fs-review-card-headline-font-size: var(--fs-text-size-2);
-  --fs-review-card-headline-font-weight: var(--fs-text-weight-medium);
-  --fs-review-card-headline-line-height: 1.5;
+  --fs-review-card-headline-color                                               : var(--fs-color-text);
+  --fs-review-card-headline-font-size                                           : var(--fs-text-size-2);
+  --fs-review-card-headline-font-weight                                         : var(--fs-text-weight-medium);
+  --fs-review-card-headline-line-height                                         : 1.5;
 
   // Text-Content
-  --fs-review-card-text-color: var(--fs-color-text);
-  --fs-review-card-text-font-size: var(--fs-text-size-1);
-  --fs-review-card-text-font-weight: var(--fs-text-weight-regular);
-  --fs-review-card-text-line-height: 1.5;
+  --fs-review-card-text-color                                                   : var(--fs-color-text);
+  --fs-review-card-text-font-size                                               : var(--fs-text-size-1);
+  --fs-review-card-text-font-weight                                             : var(--fs-text-weight-regular);
+  --fs-review-card-text-line-height                                             : 1.5;
 
   // Author
-  --fs-review-card-author-gap: var(--fs-spacing-1);
-  --fs-review-card-author-color: var(--fs-color-success-text);
-  --fs-review-card-author-font-size: var(--fs-text-size-0);
-  --fs-review-card-author-font-weight: var(--fs-text-weight-regular);
-  --fs-review-card-author-line-height: 1.33;
+  --fs-review-card-author-gap                                                   : var(--fs-spacing-1);
+  --fs-review-card-author-color                                                 : var(--fs-color-success-text);
+  --fs-review-card-author-font-size                                             : var(--fs-text-size-0);
+  --fs-review-card-author-font-weight                                           : var(--fs-text-weight-regular);
+  --fs-review-card-author-line-height                                           : 1.33;
 
   // Desktop
-  --fs-review-card-padding-desktop: var(--fs-spacing-3) 0 1.25rem; // 20px
-  --fs-review-card-gap-desktop: 50px;
+  --fs-review-card-padding-desktop                                              : var(--fs-spacing-3) 0 1.25rem; // 20px
+  --fs-review-card-gap-desktop                                                  : 50px;
 
   // --------------------------------------------------------
   // Structural Styles
@@ -51,12 +51,13 @@
 
   display: flex;
   flex-direction: column;
-  padding: var(--fs-review-card-padding-mobile);
   gap: var(--fs-review-card-gap-mobile);
-  border-bottom: var(--fs-review-card-border-width) solid
+  padding: var(--fs-review-card-padding-mobile);
+  border-bottom:
+    var(--fs-review-card-border-width) solid
     var(--fs-review-card-border-color);
 
-  @include media('>=notebook') {
+  @include media(">=notebook") {
     flex-direction: row;
     gap: var(--fs-review-card-gap-desktop);
     padding: var(--fs-review-card-padding-desktop);
@@ -64,37 +65,37 @@
 
   [data-fs-review-card-header] {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     gap: var(--fs-review-card-header-gap);
+    align-items: center;
+    justify-content: space-between;
 
-    @include media('>=notebook') {
-      justify-content: flex-start;
-      align-items: flex-start;
+    @include media(">=notebook") {
       flex-direction: column;
-      max-width: var(--fs-review-card-header-width-desktop);
+      align-items: flex-start;
+      justify-content: flex-start;
       width: 100%;
+      max-width: var(--fs-review-card-header-width-desktop);
     }
   }
 
   [data-fs-review-card-author] {
     display: flex;
-    align-items: center;
     gap: var(--fs-review-card-author-gap);
+    align-items: center;
     width: 100%;
 
-    &[data-fs-review-card-author='desktop'] {
+    &[data-fs-review-card-author="desktop"] {
       display: none;
       visibility: hidden;
     }
 
-    @include media('>=notebook') {
-      &[data-fs-review-card-author='mobile'] {
+    @include media(">=notebook") {
+      &[data-fs-review-card-author="mobile"] {
         display: none;
         visibility: hidden;
       }
 
-      &[data-fs-review-card-author='desktop'] {
+      &[data-fs-review-card-author="desktop"] {
         display: flex;
         visibility: visible;
       }
@@ -102,33 +103,33 @@
   }
 
   [data-fs-review-card-author-name] {
-    color: var(--fs-review-card-author-color);
     font-size: var(--fs-review-card-author-font-size);
     font-weight: var(--fs-review-card-author-font-weight);
     line-height: var(--fs-review-card-author-line-height);
+    color: var(--fs-review-card-author-color);
 
     @include truncate-title(1);
   }
 
   [data-fs-review-card-date] {
     flex-shrink: 0;
-    color: var(--fs-review-card-date-color);
     font-size: var(--fs-review-card-date-font-size);
     font-weight: var(--fs-review-card-date-font-weight);
     line-height: var(--fs-review-card-date-line-height);
+    color: var(--fs-review-card-date-color);
 
-    &[data-fs-review-card-date='desktop'] {
+    &[data-fs-review-card-date="desktop"] {
       display: none;
       visibility: hidden;
     }
 
-    @include media('>=notebook') {
-      &[data-fs-review-card-date='mobile'] {
+    @include media(">=notebook") {
+      &[data-fs-review-card-date="mobile"] {
         display: none;
         visibility: hidden;
       }
 
-      &[data-fs-review-card-date='desktop'] {
+      &[data-fs-review-card-date="desktop"] {
         display: initial;
         visibility: visible;
       }
@@ -143,38 +144,38 @@
 
   [data-fs-review-card-text-header] {
     display: flex;
-    justify-content: space-between;
     gap: var(--fs-review-card-header-gap);
+    justify-content: space-between;
   }
 
   [data-fs-review-card-text-headline] {
-    color: var(--fs-review-card-headline-color);
     font-size: var(--fs-review-card-headline-font-size);
     font-weight: var(--fs-review-card-headline-font-weight);
     line-height: var(--fs-review-card-headline-line-height);
+    color: var(--fs-review-card-headline-color);
 
     @include truncate-title;
   }
 
   [data-fs-review-card-text-content] {
-    color: var(--fs-review-card-text-color);
     font-size: var(--fs-review-card-text-font-size);
     font-weight: var(--fs-review-card-text-font-weight);
     line-height: var(--fs-review-card-text-line-height);
+    color: var(--fs-review-card-text-color);
+
     @include truncate-title(3);
   }
 
-  [data-fs-review-card-text-content='expanded'] {
-    line-clamp: unset;
-    overflow: visible;
+  [data-fs-review-card-text-content="expanded"] {
     display: block;
+    overflow: visible;
+    line-clamp: unset;
   }
 
   [data-fs-review-card-text-read-more] {
     align-self: flex-start;
-
-    cursor: pointer;
     padding: 0;
+    cursor: pointer;
   }
 
   [data-fs-review-card-author-verified] {
