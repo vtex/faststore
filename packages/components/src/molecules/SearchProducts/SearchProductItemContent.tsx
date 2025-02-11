@@ -18,6 +18,7 @@ export interface SearchProductItemContentProps {
    */
   quickOrder?: {
     enabled: boolean
+    outOfStockLabel: string
     availability: boolean
     hasVariants: boolean
     skuMatrixControl: React.ReactNode
@@ -67,6 +68,7 @@ const SearchProductItemContent = forwardRef<
 
       {quickOrder?.enabled && (
         <SearchProductItemControl
+          outOfStockLabel={quickOrder.outOfStockLabel}
           availability={quickOrder.availability}
           hasVariants={quickOrder.hasVariants}
           skuMatrixControl={quickOrder.skuMatrixControl}

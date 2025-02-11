@@ -12,6 +12,10 @@ export interface SearchProductItemControlProps
    */
   children: ReactNode
   /**
+   * Specifies the label for out-of-stock products.
+   */
+  outOfStockLabel: string
+  /**
    * Specifies whether the product is available.
    */
   availability: boolean
@@ -38,11 +42,11 @@ export interface SearchProductItemControlProps
   /**
    * Callback that fires when the add to cart button is clicked.
    */
-  onClick?(e: MouseEvent<HTMLButtonElement>): void
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void
   /**
    * Callback that fires when the input value changes.
    */
-  onChangeQuantity(value: number): void
+  onChangeQuantity: (value: number) => void
   /**
    * Event emitted when value is out of the min and max bounds
    */
@@ -59,8 +63,9 @@ const SearchProductItemControl = forwardRef<
     hasVariants,
     skuMatrixControl,
     quantity,
+    outOfStockLabel,
     min = 1,
-    max,
+    max = undefined,
     onClick,
     onChangeQuantity,
     onValidateBlur,
@@ -77,6 +82,7 @@ const SearchProductItemControl = forwardRef<
     e.preventDefault()
     e.stopPropagation()
   }
+
   function handleAddToCart(event: MouseEvent<HTMLButtonElement>) {
     if (onClick) {
       setStatusAddToCart('inProgress')
@@ -107,12 +113,8 @@ const SearchProductItemControl = forwardRef<
   function validateBlur() {
     const maxValue = max ?? (min ? Math.max(quantity, min) : quantity)
     const isOutOfBounds = quantity > maxValue || quantity < min
-    const realQuantity = (() => {
-      if (quantity > maxValue) {
-        return maxValue
-      }
-      return quantity < min ? min : quantity
-    })()
+    const minQuantity = quantity < min ? min : quantity
+    const realQuantity = quantity > maxValue ? maxValue : minQuantity
 
     if (isOutOfBounds) {
       onValidateBlur?.(min, maxValue, realQuantity)
@@ -126,7 +128,7 @@ const SearchProductItemControl = forwardRef<
       <div data-fs-search-product-item-control-content>
         {!availability && (
           <Badge data-fs-search-product-item-control-badge variant="warning">
-            Out of Stock
+            {outOfStockLabel}
           </Badge>
         )}
         {children}
