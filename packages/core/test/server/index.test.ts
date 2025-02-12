@@ -60,6 +60,7 @@ const TYPES = [
   'PickupAddress',
   'MessageInfo',
   'MessageFields',
+  'ICreateProductReview',
 ]
 
 const QUERIES = [
@@ -74,7 +75,12 @@ const QUERIES = [
   'reviews',
 ]
 
-const MUTATIONS = ['validateCart', 'validateSession', 'subscribeToNewsletter']
+const MUTATIONS = [
+  'validateCart',
+  'validateSession',
+  'subscribeToNewsletter',
+  'createProductReview',
+]
 
 describe('FastStore GraphQL Layer', () => {
   describe('@faststore/api', () => {
