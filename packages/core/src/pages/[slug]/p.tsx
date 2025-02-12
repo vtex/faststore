@@ -112,15 +112,17 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
 
   return (
     <>
-      <Head>
-        <link
-          rel="preload"
-          href={getOfferUrl(product.sku)}
-          as="fetch"
-          crossOrigin="anonymous"
-          fetchPriority="high"
-        />
-      </Head>
+      {isClientOfferEnabled && (
+        <Head>
+          <link
+            rel="preload"
+            href={getOfferUrl(product.sku)}
+            as="fetch"
+            crossOrigin="anonymous"
+            fetchPriority="high"
+          />
+        </Head>
+      )}
       {/* SEO */}
       <NextSeo
         title={meta.title}
