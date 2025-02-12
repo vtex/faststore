@@ -19,7 +19,11 @@ import type { SalesChannel } from './types/SalesChannel'
 import type { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import type { DeliveryMode, SelectedAddress } from './types/ShippingData'
-import { getStoreCookie, getWithCookie } from '../../utils/cookies'
+import {
+  getCookieFromRequestHeaders,
+  getStoreCookie,
+  getWithCookie,
+} from '../../utils/cookies'
 import type { ProductRating } from './types/ProductRating'
 import type {
   CreateProductReviewInput,
@@ -28,6 +32,7 @@ import type {
 } from './types/ProductReview'
 import { adaptObject } from '../../utils/adaptObject'
 import { camelToSnakeCase } from '../../utils/camelToSnakeCase'
+import { NotAuthorizedError } from '../../../errors'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -383,10 +388,22 @@ export const VtexCommerce = (
     },
     reviews: {
       create: (input: CreateProductReviewInput): Promise<string> => {
+        const authCookieKey: string = `VtexIdclientAutCookie_${account}`
+
+        const authCookie = getCookieFromRequestHeaders(ctx, authCookieKey) ?? ''
+
+        if (!authCookie) {
+          throw new NotAuthorizedError('Missing auth cookie')
+        }
+
         return fetchAPI(
           `${base}/${REVIEWS_AND_RATINGS_API_PATH}/review`,
           {
             ...BASE_INIT,
+            headers: {
+              ...BASE_INIT.headers,
+              VtexIdclientAutCookie: authCookie,
+            },
             body: JSON.stringify(input),
             method: 'POST',
           },

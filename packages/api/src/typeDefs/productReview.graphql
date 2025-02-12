@@ -82,3 +82,26 @@ enum StoreProductListReviewsSort {
   """
   rating_asc
 }
+
+input ICreateProductReview {
+  """
+  Product ID.
+  """
+  productId: String!
+  """
+  Review rating.
+  """
+  rating: Int!
+  """
+  Review title.
+  """
+  title: String!
+  """
+  Review content.
+  """
+  text: String!
+  """
+  Review author name.
+  """
+  reviewerName: String!
+}

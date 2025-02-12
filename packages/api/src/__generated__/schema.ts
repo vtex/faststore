@@ -142,6 +142,19 @@ export type DeliveryIds = {
   warehouseId?: Maybe<Scalars['String']>;
 };
 
+export type ICreateProductReview = {
+  /** Product ID. */
+  productId: Scalars['String'];
+  /** Review rating. */
+  rating: Scalars['Int'];
+  /** Review author name. */
+  reviewerName: Scalars['String'];
+  /** Review content. */
+  text: Scalars['String'];
+  /** Review title. */
+  title: Scalars['String'];
+};
+
 export type IGeoCoordinates = {
   /** The latitude of the geographic coordinates. */
   latitude: Scalars['Float'];
@@ -379,12 +392,19 @@ export type MessageInfo = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Create a new product review. */
+  createProductReview: Scalars['String'];
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter?: Maybe<PersonNewsletter>;
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
   validateCart?: Maybe<StoreCart>;
   /** Updates a web session with the specified values. */
   validateSession?: Maybe<StoreSession>;
+};
+
+
+export type MutationCreateProductReviewArgs = {
+  data: ICreateProductReview;
 };
 
 
