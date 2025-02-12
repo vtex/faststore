@@ -124,3 +124,16 @@ export const updatesCookieValueByKey = (
   // add new storage cookie to the original list of cookies
   return `${existingCookies};${storageCookieKey}=${storageCookieValue}`
 }
+
+export function getCookieFromRequestHeaders(
+  ctx: ContextForCookies,
+  cookieKey: string
+): string | undefined {
+  const compoundKey = `${cookieKey}=`
+
+  return new Headers(ctx.headers)
+    .get('cookie')
+    ?.split('; ')
+    .find((x) => x.startsWith(compoundKey))
+    ?.replace(compoundKey, '')
+}

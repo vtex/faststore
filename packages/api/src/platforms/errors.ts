@@ -1,4 +1,8 @@
-type ErrorType = 'BadRequestError' | 'NotFoundError' | 'RedirectError'
+type ErrorType =
+  | 'BadRequestError'
+  | 'NotFoundError'
+  | 'RedirectError'
+  | 'NotAuthorizedError'
 
 interface Extension {
   type: ErrorType
@@ -24,6 +28,12 @@ export class BadRequestError extends FastStoreError {
 export class NotFoundError extends FastStoreError {
   constructor(message?: string) {
     super({ status: 404, type: 'NotFoundError' }, message)
+  }
+}
+
+export class NotAuthorizedError extends FastStoreError {
+  constructor(message?: string) {
+    super({ status: 401, type: 'NotAuthorizedError' }, message)
   }
 }
 
