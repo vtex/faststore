@@ -18,10 +18,12 @@
   --fs-rating-actionable-icon-height           : var(--fs-rating-actionable-icon-width);
   --fs-rating-actionable-icon-color            : var(--fs-rating-color-empty);
   --fs-rating-actionable-icon-color-selected   : var(--fs-rating-color);
+  --fs-rating-button-min-height                : var(--fs-spacing-5);
 
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
+
   display: flex;
 
   [data-fs-icon] {
@@ -31,6 +33,8 @@
   }
 
   [data-fs-rating-button] {
+    --fs-button-small-min-height: var(--fs-rating-button-min-height);
+
     color: unset;
 
     &[disabled] [data-fs-button-wrapper] {
@@ -92,6 +96,7 @@
     [data-fs-icon] {
       width: var(--fs-rating-actionable-icon-width);
       height: var(--fs-rating-actionable-icon-height);
+      color: var(--fs-rating-actionable-color);
       color: var(--fs-rating-actionable-icon-color);
     }
   }

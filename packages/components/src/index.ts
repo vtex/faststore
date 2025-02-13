@@ -142,6 +142,8 @@ export { default as RadioGroup, RadioOption } from './molecules/RadioGroup'
 export type { RadioGroupProps, RadioOptionProps } from './molecules/RadioGroup'
 export { default as Rating } from './molecules/Rating'
 export type { RatingProps } from './molecules/Rating'
+export { default as RatingField } from './molecules/RatingField'
+export type { RatingFieldProps } from './molecules/RatingField'
 export { default as RegionBar } from './molecules/RegionBar'
 export type { RegionBarProps } from './molecules/RegionBar'
 
