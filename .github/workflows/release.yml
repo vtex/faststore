@@ -32,8 +32,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'pnpm'
-          registry-url: 'https://registry.npmjs.org'
+          cache: "pnpm"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Configure CI Git User
         run: |
@@ -56,7 +56,7 @@ jobs:
         run: pnpm test
 
       - name: Publish
-        run: lerna version --conventional-commits --yes && lerna publish from-git --yes
+        run: pnpm release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 

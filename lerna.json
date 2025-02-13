@@ -12,6 +12,5 @@
     "**/*.snap",
     "**/*.test.*",
     "**/*.md"
-  ],
-  "packages": ["packages/*"]
+  ]
 }
