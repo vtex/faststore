@@ -965,6 +965,27 @@
     }
   },
   {
+    "name": "ReviewsAndRatings",
+    "schema": {
+      "title": "Reviews And Ratings",
+      "description": "A section to display product reviews and ratings",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Reviews"
+        },
+        "ratingSummary": {
+          "totalCountText": "Reviews",
+          "zeroCountText": "No reviews yet",
+          "buttonText": "Write a review",
+          "buttonTextFirstReview": "Write the first review"
+        }
+      }
+    }
+  },
+  {
     "name": "CrossSellingShelf",
     "requiredScopes": ["pdp", "custom"],
     "schema": {

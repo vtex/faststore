@@ -15,6 +15,7 @@ import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSecti
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { usePDP } from '../../../sdk/overrides/PageProvider'
 import { ProductDetailsDefaultComponents } from './DefaultComponents'
+import { api as apiConfig } from 'discovery.config'
 
 export interface ProductDetailsProps {
   productTitle: {
@@ -133,6 +134,7 @@ function ProductDetails({
       lowPrice,
       lowPriceWithTaxes,
     },
+    rating,
   } = product
 
   useEffect(() => {
@@ -186,6 +188,9 @@ function ProductDetails({
               // Maybe now it's worth to make title always a h1 and receive only the name, as it would be easier for users to override.
               title={<h1>{name}</h1>}
               {...ProductTitle.props}
+              ratingValue={
+                apiConfig.reviewsAndRatings ? rating.average : undefined
+              }
               label={
                 showDiscountBadge && (
                   <DiscountBadge.Component
@@ -356,6 +361,18 @@ export const fragment = gql(`
       name
       value
       valueReference
+    }
+
+    rating {
+      average
+      totalCount
+      distribution {
+        starsOne
+        starsTwo
+        starsThree
+        starsFour
+        starsFive
+      }
     }
 
     # Contains necessary info to add this item to cart
