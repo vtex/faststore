@@ -1,6 +1,6 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
-import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
+import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
 import RenderSections from 'src/components/cms/RenderSections'
 import type { PageContentType } from 'src/server/cms'
@@ -59,6 +59,66 @@ function Page({
           },
         ]}
         {...(publisherId && { publisher: { '@id': publisherId } })}
+      />
+
+      <OrganizationJsonLd
+        type="Organization"
+        {...(settings?.seo?.organization?.id && {
+          id: settings.seo.organization.id,
+        })}
+        {...(settings?.seo?.organization?.url && {
+          url: settings.seo.organization.url,
+        })}
+        {...(settings?.seo?.organization?.sameAs?.length && {
+          sameAs: settings.seo.organization.sameAs,
+        })}
+        {...(settings?.seo?.organization?.logo && {
+          logo: settings.seo.organization.logo,
+        })}
+        {...(settings?.seo?.organization?.name && {
+          name: settings.seo.organization.name,
+        })}
+        {...(settings?.seo?.organization?.legalName && {
+          legalName: settings.seo.organization.legalName,
+        })}
+        {...(settings?.seo?.organization?.email && {
+          email: settings.seo.organization.email,
+        })}
+        {...(settings?.seo?.organization?.telephone && {
+          telephone: settings.seo.organization.telephone,
+        })}
+        {...(settings?.seo?.organization?.image && {
+          image: {
+            type: 'ImageObject',
+            ...(settings.seo.organization.image.url && {
+              url: settings.seo.organization.image.url,
+            }),
+            ...(settings.seo.organization.image.caption && {
+              caption: settings.seo.organization.image.caption,
+            }),
+            ...(settings.seo.organization.image.id && {
+              id: settings.seo.organization.image.id,
+            }),
+          },
+        })}
+        {...(settings?.seo?.organization?.address && {
+          address: {
+            type: 'PostalAddress',
+            ...(settings.seo.organization.address.streetAddress && {
+              streetAddress: settings.seo.organization.address.streetAddress,
+            }),
+            ...(settings.seo.organization.address.addressLocality && {
+              addressLocality:
+                settings.seo.organization.address.addressLocality,
+            }),
+            ...(settings.seo.organization.address.postalCode && {
+              postalCode: settings.seo.organization.address.postalCode,
+            }),
+            ...(settings.seo.organization.address.addressCountry && {
+              addressCountry: settings.seo.organization.address.addressCountry,
+            }),
+          },
+        })}
       />
 
       {/*
