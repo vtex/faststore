@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.15.3 (2025-02-13)
+
+### Bug Fixes
+
+- attempts to run publish directly in ci ([#2683](https://github.com/vtex/faststore/issues/2683)) ([44bb50d](https://github.com/vtex/faststore/commit/44bb50d0f03285cb3e48284004675a81385ade9b))
+
 ## [3.15.2](https://github.com/vtex/faststore/compare/v3.15.1...v3.15.2) (2025-02-05)
 
 ### Bug Fixes
