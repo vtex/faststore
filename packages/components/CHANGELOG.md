@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.16.0](https://github.com/vtex/faststore/compare/v3.15.3...v3.16.0) (2025-02-13)
+
+### Features
+
+- add rating field ([#2636](https://github.com/vtex/faststore/issues/2636)) ([f6ab024](https://github.com/vtex/faststore/commit/f6ab024ca606a5f3c59732df02c933063187124a)), closes [PR#2635](https://github.com/PR/issues/2635)
+
 ## 3.15.3 (2025-02-13)
 
 ### Bug Fixes
