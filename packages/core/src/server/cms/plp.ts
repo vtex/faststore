@@ -1,5 +1,4 @@
 import type { ContentData, Locator } from '@vtex/client-cms'
-import MissingContentError from 'src/sdk/error/MissingContentError'
 import {
   type Rewrite,
   type RewritesConfig,
@@ -65,10 +64,6 @@ const getPLPFromCmsEnvData = async (
 ): Promise<PLPContentType> => {
   const pages: PLPfromCmsEnvData[] = allPLPsFromCMSData ?? []
 
-  if (!pages[0]) {
-    throw new MissingContentError(options)
-  }
-
   const template = findBestPLPTemplate(pages, slug, rewrites)
 
   return getPage<PLPContentType>({
@@ -84,10 +79,6 @@ export const getPLPFromCms = async (
   rewrites: Rewrite[] | RewritesConfig
 ): Promise<Partial<PLPContentType>> => {
   const pages = (await getCMSPage(options)).data
-
-  if (!pages[0]) {
-    throw new MissingContentError(options)
-  }
 
   return findBestPLPTemplate(pages, slug, rewrites)
 }
