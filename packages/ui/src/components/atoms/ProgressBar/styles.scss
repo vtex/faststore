@@ -3,13 +3,13 @@
   // Design Tokens for ProgressBar
   // --------------------------------------------------------
 
-  --fs-progress-bar-height: 4px;
-  --fs-progress-bar-radius: 4px;
-  --fs-progress-bar-track-color: var(--fs-color-neutral-2);
-  --fs-progress-bar-fill-color: var(--fs-color-main-2);
-  --fs-progress-bar-transition-function: var(--fs-transition-function);
-  --fs-progress-bar-transition-property: var(--fs-transition-property);
-  --fs-progress-bar-transition-timing: var(--fs-transition-timing);
+  --fs-progress-bar-height              : 4px;
+  --fs-progress-bar-radius              : 4px;
+  --fs-progress-bar-track-color         : var(--fs-color-neutral-2);
+  --fs-progress-bar-fill-color          : var(--fs-color-main-2);
+  --fs-progress-bar-transition-function : var(--fs-transition-function);
+  --fs-progress-bar-transition-property : var(--fs-transition-property);
+  --fs-progress-bar-transition-timing   : var(--fs-transition-timing);
 
   // Default properties
   width: 100%;

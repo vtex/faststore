@@ -366,6 +366,13 @@ export const fragment = gql(`
     rating {
       average
       totalCount
+      distribution {
+        starsOne
+        starsTwo
+        starsThree
+        starsFour
+        starsFive
+      }
     }
 
     # Contains necessary info to add this item to cart

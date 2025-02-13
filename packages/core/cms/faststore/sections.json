@@ -975,6 +975,12 @@
           "title": "Title",
           "type": "string",
           "default": "Reviews"
+        },
+        "ratingSummary": {
+          "totalCountText": "Reviews",
+          "zeroCountText": "No reviews yet",
+          "buttonText": "Write a review",
+          "buttonTextFirstReview": "Write the first review"
         }
       }
     }

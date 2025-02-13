@@ -46,8 +46,6 @@ export function buildRatingDistribution(
     (percentage, index) => (rating.distribution[index + 1] = percentage)
   )
 
-  console.log('distribution', rating.distribution)
-
   return rating
 }
 

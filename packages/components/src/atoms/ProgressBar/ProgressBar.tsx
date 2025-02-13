@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo, HTMLAttributes } from 'react'
+import React, { forwardRef, useMemo, type HTMLAttributes } from 'react'
 
 export interface ProgressBarProps extends HTMLAttributes<HTMLDivElement> {
   /* Current value of the progress */

@@ -129,6 +129,10 @@ export {
   ProductCardImage,
   ProductCardContent,
 } from './molecules/ProductCard'
+export {
+  default as ProgressStatus,
+  ProgressStatusProps,
+} from './molecules/ProgressStatus'
 export type {
   ProductCardProps,
   ProductCardImageProps,
@@ -369,3 +373,8 @@ export type {
   SKUMatrixTriggerProps,
   SKUMatrixSidebarProps,
 } from './organisms/SKUMatrix'
+
+export {
+  default as RatingSummary,
+  RatingSummaryProps,
+} from './organisms/RatingSummary'

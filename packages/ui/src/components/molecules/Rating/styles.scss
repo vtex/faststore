@@ -5,7 +5,7 @@
 
   // Default properties
   --fs-rating-gap                     : var(--fs-spacing-0);
-  --fs-rating-color                   : var(--fs-color-text);
+  --fs-rating-color                   : var(--fs-color-main-2);
 
   // Icon
   --fs-rating-icon-width              : var(--fs-spacing-3);
@@ -24,6 +24,7 @@
 
   [data-fs-icon] {
     color: var(--fs-rating-color);
+    fill: var(--fs-rating-color);
     width: var(--fs-rating-icon-width);
     height: var(--fs-rating-icon-height);
   }
@@ -42,8 +43,8 @@
     overflow: hidden;
   }
 
-  svg[data-fs-rating-icon-outline] { 
-    fill: none; 
+  svg[data-fs-rating-icon-outline] {
+    fill: none;
   }
 
   [data-fs-rating-item] { position: relative; }

@@ -138,15 +138,6 @@ export const Query = {
     }: QuerySearchArgs,
     ctx: Context
   ) => {
-    console.log('search', {
-      first,
-      after: maybeAfter,
-      sort,
-      term,
-      selectedFacets,
-      sponsoredCount,
-    })
-
     // Insert channel in context for later usage
     const channel = findChannel(selectedFacets)
     const locale = findLocale(selectedFacets)

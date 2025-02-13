@@ -1,0 +1,75 @@
+[data-fs-rating-summary] {
+  // --------------------------------------------------------
+  // Design Tokens for Rating Summary
+  // --------------------------------------------------------
+
+  --fs-rating-summary-background-color: var(--fs-color-neutral-1);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  padding: 20px 30px;
+  background-color: var(--fs-rating-summary-background-color);
+  width: 341px;
+  height: 326px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--fs-border-radius);
+  gap: var(--fs-spacing-4);
+  line-height: 16px;
+  font-size: var(--fs-text-size-0);
+  font-weight: var(--fs-text-weight-regular);
+
+  [data-fs-rating-summary-header] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--fs-spacing-0);
+    padding-top: var(--fs-spacing-0);
+  }
+
+  [data-fs-rating-summary-header-average] {
+    font-size: var(--fs-text-size-7);
+    font-weight: var(--fs-text-weight-semibold);
+    line-height: 48px;
+  }
+
+  [data-fs-rating-summary-header-stars] {
+    gap: 1px;
+  }
+
+  [data-fs-rating-summary-header-total-count] {
+    color: var(--fs-color-text-light);
+  }
+
+  [data-fs-rating-summary-distribution] {
+    width: 100%;
+  }
+
+  [data-fs-rating-summary-distribution-status] {
+    display: grid;
+    grid-template-columns: 32px 1fr 32px;
+  }
+
+  [data-fs-rating-summary-distribution-key] {
+    width: 32px;
+    height: 16px;
+    gap: var(--fs-spacing-0);
+    display: flex;
+    align-items: center;
+    text-align: left;
+  }
+
+  [data-fs-rating-summary-distribution-key-star] {
+    height: 11px;
+    width: 11px;
+  }
+
+  [data-fs-rating-summary-distribution-value] {
+    text-align: right;
+  }
+}
+

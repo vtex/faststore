@@ -1,0 +1,17 @@
+[data-fs-progress-status] {
+  // --------------------------------------------------------
+  // Design Tokens for Progress Status
+  // --------------------------------------------------------
+
+  --fs-progress-status-gap: var(--fs-spacing-2);
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+
+  padding: 0;
+  display: flex;
+  grid-gap: var(--fs-progress-status-gap);
+  align-items: center;
+  align-content: center;
+}
