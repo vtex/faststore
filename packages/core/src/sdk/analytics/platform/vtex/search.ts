@@ -5,7 +5,7 @@ import type { AnalyticsEvent } from '@faststore/sdk'
 import type { SearchEvents } from '../../types'
 
 import config from '../../../../../discovery.config'
-import { getCookie } from '../../../../utils/getCookie'
+import { getCookie } from '../../../../utils/cookies'
 
 const THIRTY_MINUTES_S = 30 * 60
 const ONE_YEAR_S = 365 * 24 * 3600
