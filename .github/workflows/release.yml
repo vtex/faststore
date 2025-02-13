@@ -56,7 +56,7 @@ jobs:
         run: pnpm test
 
       - name: Publish
-        run: pnpm release
+        run: lerna version --conventional-commits --yes && lerna publish from-git --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
