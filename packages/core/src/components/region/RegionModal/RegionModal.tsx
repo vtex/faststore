@@ -4,8 +4,10 @@ import {
   useUI,
 } from '@faststore/ui'
 import { useRef, useState } from 'react'
+import type { Session } from '@faststore/sdk'
 
 import { sessionStore, useSession, validateSession } from 'src/sdk/session'
+import { setCookie } from 'src/utils/cookies'
 
 import dynamic from 'next/dynamic'
 import styles from './section.module.scss'
@@ -34,6 +36,17 @@ interface RegionModalProps {
       alt: string
     }
   }
+}
+
+async function setRegionIdCookie(session: Session) {
+  const ONE_WEEK_SECONDS = 7 * 24 * 3600
+  const channel = JSON.parse(session.channel ?? 'null')
+
+  setCookie(
+    'vtex-faststore-regionid',
+    channel?.regionId as string,
+    ONE_WEEK_SECONDS
+  )
 }
 
 function RegionModal({
@@ -69,6 +82,9 @@ function RegionModal({
       }
 
       const validatedSession = await validateSession(newSession)
+
+      // Set cookie for the regionId
+      await setRegionIdCookie(validatedSession ?? newSession)
 
       sessionStore.set(validatedSession ?? newSession)
     } catch (error) {

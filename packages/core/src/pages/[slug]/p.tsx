@@ -1,16 +1,8 @@
-import { isNotFoundError } from '@faststore/api'
-import type { Locator } from '@vtex/client-cms'
 import deepmerge from 'deepmerge'
-import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import Head from 'next/head'
 import type { ComponentType } from 'react'
 
-import { gql } from '@generated'
-import type {
-  ServerProductQueryQuery,
-  ServerProductQueryQueryVariables,
-} from '@generated/graphql'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import RenderSections from 'src/components/cms/RenderSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
@@ -25,17 +17,17 @@ import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
 import { useSession } from 'src/sdk/session'
-import { execute } from 'src/server'
 
 import storeConfig from 'discovery.config'
-import {
-  getGlobalSectionsData,
-  type GlobalSectionsData,
-} from 'src/components/cms/GlobalSections'
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
-import { getPDP, type PDPContentType } from 'src/server/cms/pdp'
+
+import {
+  getStaticProps,
+  getStaticPaths,
+  type PDPProps,
+} from 'src/experimental/pdpServerSideFunctions'
 
 type StoreConfig = typeof storeConfig & {
   experimental: {
@@ -63,16 +55,6 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-type Props = PDPContentType & {
-  data: ServerProductQueryQuery
-  globalSections: GlobalSectionsData
-  meta: {
-    title: string
-    description: string
-    canonical: string
-  }
-}
-
 // Array merging strategy from deepmerge that makes client arrays overwrite server array
 // https://www.npmjs.com/package/deepmerge
 const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
@@ -80,7 +62,13 @@ const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 const isClientOfferEnabled = (storeConfig as StoreConfig).experimental
   .enableClientOffer
 
-function Page({ data: server, sections, globalSections, offers, meta }: Props) {
+function Page({
+  data: server,
+  sections,
+  globalSections,
+  offers,
+  meta,
+}: PDPProps) {
   const { product } = server
   const { currency } = useSession()
   const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
@@ -184,136 +172,6 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
   )
 }
 
-const query = gql(`
-  query ServerProductQuery($locator: [IStoreSelectedFacet!]!) {
-    ...ServerProduct
-    product(locator: $locator) {
-      id: productID
-
-      seo {
-        title
-        description
-        canonical
-      }
-
-      brand {
-        name
-      }
-
-      sku
-      gtin
-      name
-      description
-      releaseDate
-
-      breadcrumbList {
-        itemListElement {
-          item
-          name
-          position
-        }
-      }
-
-      image {
-        url
-        alternateName
-      }
-
-      offers {
-        lowPrice
-        highPrice
-        lowPriceWithTaxes
-        priceCurrency
-        offers {
-          availability
-          price
-          priceValidUntil
-          priceCurrency
-          itemCondition
-          seller {
-            identifier
-          }
-        }
-      }
-
-      isVariantOf {
-        productGroupID
-      }
-
-      ...ProductDetailsFragment_product
-    }
-  }
-`)
-
-export const getStaticProps: GetStaticProps<
-  Props,
-  { slug: string },
-  Locator
-> = async ({ params, previewData }) => {
-  const slug = params?.slug ?? ''
-  const [searchResult, globalSections] = await Promise.all([
-    execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
-      variables: { locator: [{ key: 'slug', value: slug }] },
-      operation: query,
-    }),
-    getGlobalSectionsData(previewData),
-  ])
-
-  const { data, errors = [] } = searchResult
-
-  const notFound = errors.find(isNotFoundError)
-
-  if (notFound) {
-    return {
-      notFound: true,
-    }
-  }
-
-  if (errors.length > 0) {
-    throw errors[0]
-  }
-
-  const cmsPage: PDPContentType = await getPDP(data.product, previewData)
-
-  const { seo } = data.product
-  const title = seo.title || storeConfig.seo.title
-  const description = seo.description || storeConfig.seo.description
-  const canonical = `${storeConfig.storeUrl}${seo.canonical}`
-
-  const meta = { title, description, canonical }
-
-  let offer = {}
-
-  if (data.product.offers.offers.length > 0) {
-    const { listPrice, ...offerData } = data.product.offers.offers[0]
-
-    offer = offerData
-  }
-
-  const offers = {
-    ...offer,
-    priceCurrency: data.product.offers.priceCurrency,
-    url: canonical,
-  }
-
-  return {
-    props: {
-      data,
-      ...cmsPage,
-      meta,
-      offers,
-      globalSections,
-      key: seo.canonical,
-    },
-    revalidate: (storeConfig as StoreConfig).experimental.revalidate ?? false,
-  }
-}
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: 'blocking',
-  }
-}
+export { getStaticProps, getStaticPaths }
 
 export default Page
