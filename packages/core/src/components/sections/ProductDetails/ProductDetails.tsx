@@ -16,6 +16,7 @@ import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSecti
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { usePDP } from '../../../sdk/overrides/PageProvider'
 import { ProductDetailsDefaultComponents } from './DefaultComponents'
+import { api as apiConfig } from 'discovery.config'
 
 type StoreConfig = typeof storeConfig & {
   experimental: {
@@ -33,6 +34,10 @@ export interface ProductDetailsProps {
     discountBadge: {
       size: 'big' | 'small'
       showDiscountBadge: boolean
+    }
+    rating: {
+      noReviewsLabel: string
+      reviewsCountLabel: string
     }
   }
   buyButton: {
@@ -87,6 +92,7 @@ function ProductDetails({
   productTitle: {
     refNumber: showRefNumber,
     discountBadge: { showDiscountBadge, size: discountBadgeSize },
+    rating: { noReviewsLabel, reviewsCountLabel },
   },
   buyButton: { icon: buyButtonIcon, title: buyButtonTitle },
   shippingSimulator: {
@@ -144,6 +150,7 @@ function ProductDetails({
       lowPrice,
       lowPriceWithTaxes,
     },
+    rating,
   } = product
 
   useEffect(() => {
@@ -218,6 +225,15 @@ function ProductDetails({
                 )
               }
               refNumber={showRefNumber && productId}
+              ratingValue={
+                apiConfig.reviewsAndRatings ? rating.average : undefined
+              }
+              reviewsCount={
+                apiConfig.reviewsAndRatings ? rating.totalCount : undefined
+              }
+              reviewsSectionId="reviews-and-ratings"
+              noReviewsText={noReviewsLabel}
+              reviewsCountText={reviewsCountLabel}
             />
           </header>
           <ImageGallery.Component
@@ -362,6 +378,11 @@ export const fragment = gql(`
       name
       value
       valueReference
+    }
+
+    rating {
+      average
+      totalCount
     }
 
     # Contains necessary info to add this item to cart

@@ -29,6 +29,22 @@ export interface ProductTitleProps
    * The current value of the rating, a number from 0 to 5.
    */
   ratingValue?: number
+  /**
+   * The amount of reviews for the product.
+   */
+  reviewsCount?: number
+  /**
+   * The ID of the reviews section to link to.
+   */
+  reviewsSectionId?: string
+  /**
+   * @default "No reviews yet".
+   */
+  noReviewsText?: string
+  /**
+   * @default "X reviews".
+   */
+  reviewsCountText?: string
 }
 
 const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
@@ -40,6 +56,10 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
       refNumber,
       testId = 'fs-product-title',
       ratingValue,
+      reviewsCount,
+      reviewsSectionId,
+      noReviewsText = 'No reviews yet',
+      reviewsCountText = 'reviews',
       ...otherProps
     },
     ref
@@ -56,9 +76,18 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
           {!!label && label}
         </div>
 
-        {(refNumber || ratingValue) && (
+        {(refNumber || ratingValue != undefined) && (
           <div data-fs-product-title-addendum>
-            {ratingValue && <Rating value={ratingValue} />}
+            <div data-fs-product-title-rating>
+              {ratingValue != undefined && <Rating value={ratingValue} />}
+              {reviewsCount !== undefined && (
+                <a href={`#${reviewsSectionId}`} data-fs-product-title-reviews>
+                  {reviewsCount > 0
+                    ? `(${reviewsCount} ${reviewsCountText})`
+                    : `(${noReviewsText})`}
+                </a>
+              )}
+            </div>
             {refNumber && (
               <>
                 {refTag} {refNumber}
