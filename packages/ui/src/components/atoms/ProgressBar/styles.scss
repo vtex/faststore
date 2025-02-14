@@ -1,0 +1,33 @@
+[data-fs-progress-bar] {
+  // --------------------------------------------------------
+  // Design Tokens for ProgressBar
+  // --------------------------------------------------------
+
+  --fs-progress-bar-height: 4px;
+  --fs-progress-bar-radius: 4px;
+  --fs-progress-bar-track-color: var(--fs-color-neutral-2);
+  --fs-progress-bar-fill-color: var(--fs-color-main-2);
+  --fs-progress-bar-transition-function: var(--fs-transition-function);
+  --fs-progress-bar-transition-property: var(--fs-transition-property);
+  --fs-progress-bar-transition-timing: var(--fs-transition-timing);
+
+  // Default properties
+  width: 100%;
+  height: var(--fs-progress-bar-height);
+
+  [data-fs-progress-bar-track] {
+    background-color: var(--fs-progress-bar-track-color);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--fs-progress-bar-radius);
+  }
+
+  [data-fs-progress-bar-fill] {
+    background-color: var(--fs-progress-bar-fill-color);
+    height: 100%;
+    transition: var(--fs-progress-bar-transition-property)
+      var(--fs-progress-bar-transition-timing)
+      var(--fs-progress-bar-transition-function);
+  }
+}
