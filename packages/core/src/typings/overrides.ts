@@ -355,6 +355,11 @@ export type SectionsOverrides = {
       >
     }
   }
+  ReviewsAndRatings: {
+    Section: typeof ReviewsAndRatings
+    // TODO: Add components
+    components: {}
+  }
   RegionBar: {
     Section: typeof RegionBar
     components: {
