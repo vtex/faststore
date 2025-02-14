@@ -87,7 +87,6 @@ export default function ProductListingPage({
     itemListElements = itemListElements.map(
       ({ item: pathname, name, position }) => {
         const pageUrl = storeConfig.storeUrl + pathname
-
         return { name, position, item: pageUrl }
       }
     )
