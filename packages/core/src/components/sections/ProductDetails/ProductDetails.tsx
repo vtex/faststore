@@ -35,6 +35,10 @@ export interface ProductDetailsProps {
       size: 'big' | 'small'
       showDiscountBadge: boolean
     }
+    rating: {
+      noReviewsLabel: string
+      reviewsCountLabel: string
+    }
   }
   buyButton: {
     title: string
@@ -88,6 +92,7 @@ function ProductDetails({
   productTitle: {
     refNumber: showRefNumber,
     discountBadge: { showDiscountBadge, size: discountBadgeSize },
+    rating: { noReviewsLabel, reviewsCountLabel },
   },
   buyButton: { icon: buyButtonIcon, title: buyButtonTitle },
   shippingSimulator: {
@@ -222,7 +227,12 @@ function ProductDetails({
                   />
                 )
               }
-              refNumber={showRefNumber && productId}
+              // refNumber={showRefNumber && productId}
+              refNumber={productId}
+              reviewsCount={10}
+              reviewsSectionId="reviews-and-ratings"
+              noReviewsText={noReviewsLabel}
+              reviewsCountText={reviewsCountLabel}
             />
           </header>
           <ImageGallery.Component
