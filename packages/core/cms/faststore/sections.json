@@ -1507,6 +1507,22 @@
               "title": "Show Reference Number?",
               "type": "boolean",
               "default": false
+            },
+            "rating": {
+              "title": "Rating",
+              "type": "object",
+              "properties": {
+                "noReviewsLabel": {
+                  "title": "No reviews label",
+                  "type": "string",
+                  "default": "No reviews yet"
+                },
+                "reviewsCountLabel": {
+                  "title": "Reviews Count Label",
+                  "type": "string",
+                  "default": "reviews"
+                }
+              }
             }
           }
         },
