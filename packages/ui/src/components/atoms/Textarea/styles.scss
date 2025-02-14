@@ -4,32 +4,32 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-textarea-padding: var(--fs-spacing-1) var(--fs-spacing-2);
-  --fs-textarea-height: calc(var(--fs-control-tap-size) * 3);
+  --fs-textarea-padding                                           : var(--fs-spacing-1) var(--fs-spacing-2);
+  --fs-textarea-height                                            : calc(var(--fs-control-tap-size) * 3);
 
-  --fs-textarea-bkg-color: var(--fs-color-body-bkg);
-  --fs-textarea-box-shadow: none;
-  --fs-textarea-box-shadow-hover: 0 0 0 var(--fs-border-width) var(--fs-border-color-active);
+  --fs-textarea-bkg-color                                         : var(--fs-color-body-bkg);
+  --fs-textarea-box-shadow                                        : none;
+  --fs-textarea-box-shadow-hover                                  : 0 0 0 var(--fs-border-width) var(--fs-border-color-active);
 
-  --fs-textarea-border-radius: var(--fs-border-radius);
-  --fs-textarea-border-width: var(--fs-border-width);
-  --fs-textarea-border-color: var(--fs-border-color);
-  --fs-textarea-border-color-hover: var(--fs-border-color-active);
+  --fs-textarea-border-radius                                     : var(--fs-border-radius);
+  --fs-textarea-border-width                                      : var(--fs-border-width);
+  --fs-textarea-border-color                                      : var(--fs-border-color);
+  --fs-textarea-border-color-hover                                : var(--fs-border-color-active);
 
-  --fs-textarea-text-color: var(--fs-color-text);
-  --fs-textarea-text-size: var(--fs-text-size-body);
+  --fs-textarea-text-color                                        : var(--fs-color-text);
+  --fs-textarea-text-size                                         : var(--fs-text-size-body);
 
-  --fs-textarea-line-height: 1.25;
+  --fs-textarea-line-height                                       : 1.25;
 
-  --fs-textarea-transition-function: var(--fs-transition-function);
-  --fs-textarea-transition-property: var(--fs-transition-property);
-  --fs-textarea-transition-timing: var(--fs-transition-timing);
+  --fs-textarea-transition-function                               : var(--fs-transition-function);
+  --fs-textarea-transition-property                               : var(--fs-transition-property);
+  --fs-textarea-transition-timing                                 : var(--fs-transition-timing);
 
   // Disabled properties
-  --fs-textarea-disabled-bkg-color: var(--fs-color-disabled-bkg);
-  --fs-textarea-disabled-text-color: var(--fs-color-disabled-text);
-  --fs-textarea-disabled-border-width: var(--fs-border-width);
-  --fs-textarea-disabled-border-color: var(--fs-border-color);
+  --fs-textarea-disabled-bkg-color                                : var(--fs-color-disabled-bkg);
+  --fs-textarea-disabled-border-width                             : var(--fs-border-width);
+  --fs-textarea-disabled-text-color                               : var(--fs-color-disabled-text);
+  --fs-textarea-disabled-border-color                             : var(--fs-border-color);
 
   // --------------------------------------------------------
   // Structural Styles
