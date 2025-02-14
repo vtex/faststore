@@ -19,7 +19,20 @@ import type { SalesChannel } from './types/SalesChannel'
 import type { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import type { DeliveryMode, SelectedAddress } from './types/ShippingData'
-import { getStoreCookie, getWithCookie } from '../../utils/cookies'
+import {
+  getCookieFromRequestHeaders,
+  getStoreCookie,
+  getWithCookie,
+} from '../../utils/cookies'
+import type { ProductRating } from './types/ProductRating'
+import type {
+  CreateProductReviewInput,
+  ProductReviewsInput,
+  ProductReviewsResult,
+} from './types/ProductReview'
+import { adaptObject } from '../../utils/adaptObject'
+import { camelToSnakeCase } from '../../utils/camelToSnakeCase'
+import { NotAuthorizedError } from '../../../errors'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -29,6 +42,8 @@ const BASE_INIT = {
     'content-type': 'application/json',
   },
 }
+
+const REVIEWS_AND_RATINGS_API_PATH = 'api/io/reviews-and-ratings/api'
 
 export const VtexCommerce = (
   { account, environment, incrementAddress, subDomainPrefix }: Options,
@@ -363,6 +378,61 @@ export const VtexCommerce = (
         },
         { storeCookies }
       )
+    },
+    rating: (productId: string): Promise<ProductRating> => {
+      return fetchAPI(
+        `${base}/${REVIEWS_AND_RATINGS_API_PATH}/rating/${productId}`,
+        undefined,
+        { storeCookies }
+      )
+    },
+    reviews: {
+      create: (input: CreateProductReviewInput): Promise<string> => {
+        const authCookieKey: string = `VtexIdclientAutCookie_${account}`
+
+        const authCookie = getCookieFromRequestHeaders(ctx, authCookieKey) ?? ''
+
+        if (!authCookie) {
+          throw new NotAuthorizedError('Missing auth cookie')
+        }
+
+        return fetchAPI(
+          `${base}/${REVIEWS_AND_RATINGS_API_PATH}/review`,
+          {
+            ...BASE_INIT,
+            headers: {
+              ...BASE_INIT.headers,
+              VtexIdclientAutCookie: authCookie,
+            },
+            body: JSON.stringify(input),
+            method: 'POST',
+          },
+          { storeCookies }
+        )
+      },
+      list: ({
+        orderBy,
+        orderWay,
+        ...partialInput
+      }: ProductReviewsInput): Promise<ProductReviewsResult> => {
+        const formattedInput = adaptObject<string>(
+          {
+            orderBy: orderBy ? `${orderBy}:${orderWay ?? 'asc'}` : undefined,
+            ...partialInput,
+          },
+          (_, value) => value !== undefined,
+          camelToSnakeCase,
+          String
+        )
+
+        const params = new URLSearchParams(formattedInput)
+
+        return fetchAPI(
+          `${base}/${REVIEWS_AND_RATINGS_API_PATH}/reviews?${params.toString()}`,
+          undefined,
+          { storeCookies }
+        )
+      },
     },
   }
 }

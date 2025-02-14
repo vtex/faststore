@@ -20,7 +20,11 @@ import {
   pageTypeOfficeDesksFetch,
   pageTypeOfficeFetch,
 } from '../mocks/CollectionQuery'
-import { ProductByIdQuery, productSearchFetch } from '../mocks/ProductQuery'
+import {
+  ProductByIdQuery,
+  productRatingFetch,
+  productSearchFetch,
+} from '../mocks/ProductQuery'
 import {
   RedirectQueryTermTech,
   redirectTermTechFetch,
@@ -138,7 +142,11 @@ test('`collection` query', async () => {
 })
 
 test('`product` query', async () => {
-  const fetchAPICalls = [productSearchFetch, salesChannelStaleFetch]
+  const fetchAPICalls = [
+    productSearchFetch,
+    productRatingFetch('64953394'),
+    salesChannelStaleFetch,
+  ]
 
   mockedFetch.mockImplementation((info, init) =>
     pickFetchAPICallResult(info, init, fetchAPICalls)
@@ -146,7 +154,7 @@ test('`product` query', async () => {
 
   const response = await run(ProductByIdQuery)
 
-  expect(mockedFetch).toHaveBeenCalledTimes(2)
+  expect(mockedFetch).toHaveBeenCalledTimes(3)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
@@ -215,6 +223,11 @@ test('`search` query', async () => {
   const fetchAPICalls = [
     productSearchCategory1Fetch,
     attributeSearchCategory1Fetch,
+    productRatingFetch('2791588'),
+    productRatingFetch('44903104'),
+    productRatingFetch('96175310'),
+    productRatingFetch('12405783'),
+    productRatingFetch('24041857'),
     salesChannelStaleFetch,
   ]
 
@@ -224,7 +237,7 @@ test('`search` query', async () => {
 
   const response = await run(SearchQueryFirst5Products)
 
-  expect(mockedFetch).toHaveBeenCalledTimes(3)
+  expect(mockedFetch).toHaveBeenCalledTimes(8)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
