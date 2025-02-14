@@ -7,4 +7,34 @@ type StoreProductRating {
   Product amount of ratings received.
   """
   totalCount: Int!
+  """
+  Product rating distribution in percentages.
+  """
+  distribution: StoreProductRatingDistribution!
+}
+
+"""
+Product rating distribution in percentages.
+"""
+type StoreProductRatingDistribution {
+  """
+  1 star rating percentage.
+  """
+  starsOne: Int!
+  """
+  2 star rating percentage.
+  """
+  starsTwo: Int!
+  """
+  3 star rating percentage.
+  """
+  starsThree: Int!
+  """
+  4 star rating percentage.
+  """
+  starsFour: Int!
+  """
+  5 star rating percentage.
+  """
+  starsFive: Int!
 }

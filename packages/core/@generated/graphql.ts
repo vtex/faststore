@@ -156,6 +156,19 @@ export type DeliveryIds = {
   warehouseId: Maybe<Scalars['String']['output']>
 }
 
+export type ICreateProductReview = {
+  /** Product ID. */
+  productId: Scalars['String']['input']
+  /** Review rating. */
+  rating: Scalars['Int']['input']
+  /** Review author name. */
+  reviewerName: Scalars['String']['input']
+  /** Review content. */
+  text: Scalars['String']['input']
+  /** Review title. */
+  title: Scalars['String']['input']
+}
+
 export type IGeoCoordinates = {
   /** The latitude of the geographic coordinates. */
   latitude: Scalars['Float']['input']
@@ -954,6 +967,8 @@ export type StoreProduct = {
   offers: StoreAggregateOffer
   /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
   productID: Scalars['String']['output']
+  /** Product rating. */
+  rating: StoreProductRating
   /** The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601 */
   releaseDate: Scalars['String']['output']
   /** Array with review information. */
@@ -1006,6 +1021,13 @@ export type StoreProductGroup = {
    * components.
    */
   skuVariants: Maybe<SkuVariants>
+}
+
+export type StoreProductRating = {
+  /** Product average rating. */
+  average: Scalars['Float']['output']
+  /** Product amount of ratings received. */
+  totalCount: Scalars['Int']['output']
 }
 
 /** Properties that can be associated with products and products groups. */
