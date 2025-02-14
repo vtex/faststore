@@ -5,46 +5,45 @@
 
   // Default properties
 
-  --fs-label-placeholder-top-padding: 12px;
-  --fs-textarea-width: 100%; /* Fallback */
-  --fs-textarea-height: 100%; /* Fallback */
-  --fs-label-max-width: var(--fs-textarea-width);
-  --fs-label-max-height: calc(
-    var(--fs-textarea-height) - var(--fs-label-placeholder-top-padding)
-  );
+  --fs-label-placeholder-top-padding                                          : var(--fs-spacing-2);
+  --fs-textarea-width                                                         : 100%; /* Fallback */
+  --fs-textarea-height                                                        : 100%; /* Fallback */
+  --fs-label-max-width                                                        : var(--fs-textarea-width);
+  --fs-label-max-height                                                       : calc(var(--fs-textarea-height) - var(--fs-label-placeholder-top-padding));
 
-  --fs-textarea-field-padding: 18px var(--fs-spacing-2) 0;
-  --fs-textarea-field-color: var(--fs-color-text);
-  --fs-textarea-field-size: var(--fs-text-size-body);
-  --fs-textarea-field-border-color: var(--fs-border-color);
+  --fs-textarea-field-padding                                                 : 18px var(--fs-spacing-2) 0;
+  --fs-textarea-field-color                                                   : var(--fs-color-text);
+  --fs-textarea-field-size                                                    : var(--fs-text-size-body);
+  --fs-textarea-field-border-color                                            : var(--fs-border-color);
 
-  --fs-textarea-field-transition-function: var(--fs-transition-function);
-  --fs-textarea-field-transition-property: var(--fs-transition-property);
-  --fs-textarea-field-transition-timing: var(--fs-transition-timing);
+  --fs-textarea-field-transition-function                                     : var(--fs-transition-function);
+  --fs-textarea-field-transition-property                                     : var(--fs-transition-property);
+  --fs-textarea-field-transition-timing                                       : var(--fs-transition-timing);
 
   // Label
-  --fs-textarea-field-label-padding: 0 var(--fs-spacing-2);
-  --fs-textarea-field-label-color: var(--fs-color-text-light);
-  --fs-textarea-field-label-size: var(--fs-text-size-tiny);
+  --fs-textarea-field-label-padding                                           : 0 var(--fs-spacing-2);
+  --fs-textarea-field-label-color                                             : var(--fs-color-text-light);
+  --fs-textarea-field-label-size                                              : var(--fs-text-size-tiny);
 
   // Button
-  --fs-textarea-field-button-height: var(--fs-control-tap-size);
+  --fs-textarea-field-button-height                                           : var(--fs-control-tap-size);
 
   // Error
-  --fs-textarea-field-error-message-size: var(--fs-text-size-legend);
-  --fs-textarea-field-error-message-line-height: 1.1;
-  --fs-textarea-field-error-message-margin-top: var(--fs-spacing-0);
-  --fs-textarea-field-error-message-color: var(--fs-color-danger-text);
-  --fs-textarea-field-error-border-color: var(--fs-color-danger-border);
-  --fs-textarea-field-error-box-shadow: 0 0 0 var(--fs-border-width)
+  --fs-textarea-field-error-message-size                                      : var(--fs-text-size-legend);
+  --fs-textarea-field-error-message-line-height                               : 1.1;
+  --fs-textarea-field-error-message-margin-top                                : var(--fs-spacing-0);
+  --fs-textarea-field-error-message-color                                     : var(--fs-color-danger-text);
+  --fs-textarea-field-error-border-color                                      : var(--fs-color-danger-border);
+  --fs-textarea-field-error-box-shadow                                        :
+    0 0 0 var(--fs-border-width)
     var(--fs-textarea-field-error-border-color);
-  --fs-textarea-field-error-focus-ring: var(--fs-color-focus-ring-danger);
+  --fs-textarea-field-error-focus-ring                                        : var(--fs-color-focus-ring-danger);
 
   // Disabled
-  --fs-textarea-field-disabled-bkg-color: var(--fs-color-disabled-bkg);
-  --fs-textarea-field-disabled-text-color: var(--fs-color-disabled-text);
-  --fs-textarea-field-disabled-border-width: var(--fs-border-width);
-  --fs-textarea-field-disabled-border-color: var(--fs-border-color);
+  --fs-textarea-field-disabled-bkg-color                                      : var(--fs-color-disabled-bkg);
+  --fs-textarea-field-disabled-text-color                                     : var(--fs-color-disabled-text);
+  --fs-textarea-field-disabled-border-width                                   : var(--fs-border-width);
+  --fs-textarea-field-disabled-border-color                                   : var(--fs-border-color);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -55,16 +54,26 @@
   flex-flow: column;
 
   [data-fs-label] {
+    position: absolute;
+    max-width: var(--fs-label-max-width);
+    max-height: var(--fs-label-max-height);
+    padding: var(--fs-textarea-field-label-padding);
+    overflow: hidden;
+    font-size: var(--fs-textarea-field-size);
+    line-height: var(--fs-textarea-field-size);
+    color: var(--fs-textarea-field-label-color);
+    text-overflow: ellipsis;
     transition:
       var(--fs-textarea-field-transition-property)
-        var(--fs-textarea-field-transition-timing)
-        var(--fs-textarea-field-transition-function),
+      var(--fs-textarea-field-transition-timing)
+      var(--fs-textarea-field-transition-function),
       max-width 0s,
       max-height 0s;
   }
 
   [data-fs-textarea] {
     --fs-textarea-padding: var(--fs-textarea-field-padding);
+
     padding: var(--fs-textarea-field-padding);
     color: var(--fs-textarea-field-color);
 
@@ -87,7 +96,6 @@
       top: rem(6px);
       left: var(--fs-border-width);
       font-size: var(--fs-textarea-field-label-size);
-
       white-space: nowrap;
     }
 
@@ -96,26 +104,14 @@
     }
   }
 
-  [data-fs-label] {
-    position: absolute;
-    padding: var(--fs-textarea-field-label-padding);
-    font-size: var(--fs-textarea-field-size);
-    line-height: var(--fs-textarea-field-size);
-    color: var(--fs-textarea-field-label-color);
-
-    max-width: var(--fs-label-max-width);
-    max-height: var(--fs-label-max-height);
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-
   // --------------------------------------------------------
   // Variants Styles
   // --------------------------------------------------------
 
-  &[data-fs-textarea-field-error='true'] {
+  &[data-fs-textarea-field-error="true"] {
     [data-fs-textarea] {
       border-color: var(--fs-textarea-field-error-border-color);
+
       @include input-focus-ring(
         $outline: #{var(--fs-textarea-field-error-focus-ring)},
         $border: #{var(--fs-textarea-field-error-border-color)}
