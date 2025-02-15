@@ -129,7 +129,7 @@
                     "sameAs": {
                       "title": "Organization URLs",
                       "type": "array",
-                      "description": "The URL of a page on another website with additional information about your organization. For example, a URL to your organization's profile page on a social media or review site",
+                      "description": "The URL of a page on another website with additional information about your organization. For example, a URL to your organization's profile page on a social media or review site.",
                       "items": {
                         "type": "string"
                       }
@@ -189,11 +189,12 @@
                         },
                         "addressCountry": {
                           "title": "Country",
-                          "description": "The country of your postal address. Recommended to be in 2-letter ISO 3166-1 alpha-2 format, for example 'BR','US'",
+                          "description": "The country of your postal address. Recommended to be in 2-letter ISO 3166-1 alpha-2 format, for example 'BR','US'.",
                           "type": "string"
                         },
                         "postalCode": {
                           "title": "Postal Code",
+                          "description": "The postal code of your postal address.",
                           "type": "string"
                         }
                       }
