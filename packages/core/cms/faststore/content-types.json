@@ -104,7 +104,7 @@
                 "organization": {
                   "title": "Organization",
                   "type": "object",
-                  "required": ["name"],
+                  "required": ["name", "url"],
                   "properties": {
                     "name": {
                       "title": "Organization name",
