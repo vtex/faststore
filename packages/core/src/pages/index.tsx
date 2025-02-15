@@ -31,6 +31,14 @@ function Page({
   }
 
   const publisherId = settings?.seo?.publisherId ?? storeConfig.seo.publisherId
+  const orgAddress = settings?.seo?.organization?.address
+
+  const address =
+    orgAddress && Boolean(Object.values(orgAddress).find(Boolean))
+      ? Object.fromEntries(
+          Object.entries(orgAddress).filter(([, value]) => Boolean(value))
+        )
+      : null
 
   return (
     <>
@@ -102,25 +110,7 @@ function Page({
               }),
             },
           })}
-          {...(settings?.seo?.organization?.address && {
-            address: {
-              type: 'PostalAddress',
-              ...(settings.seo.organization.address.streetAddress && {
-                streetAddress: settings.seo.organization.address.streetAddress,
-              }),
-              ...(settings.seo.organization.address.addressLocality && {
-                addressLocality:
-                  settings.seo.organization.address.addressLocality,
-              }),
-              ...(settings.seo.organization.address.postalCode && {
-                postalCode: settings.seo.organization.address.postalCode,
-              }),
-              ...(settings.seo.organization.address.addressCountry && {
-                addressCountry:
-                  settings.seo.organization.address.addressCountry,
-              }),
-            },
-          })}
+          {...(address && { address })}
         />
       )}
 
