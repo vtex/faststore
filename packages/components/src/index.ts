@@ -110,7 +110,12 @@ export { default as InputField } from './molecules/InputField'
 export type { InputFieldProps } from './molecules/InputField'
 export { default as LinkButton } from './molecules/LinkButton'
 export type { LinkButtonProps } from './molecules/LinkButton'
-export { default as Modal, ModalHeader, ModalBody } from './molecules/Modal'
+export {
+  default as Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from './molecules/Modal'
 export type { ModalProps, ModalHeaderProps } from './molecules/Modal'
 export {
   default as NavbarLinks,
