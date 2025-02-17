@@ -31,14 +31,18 @@ function Page({
   }
 
   const publisherId = settings?.seo?.publisherId ?? storeConfig.seo.publisherId
-  const orgAddress = settings?.seo?.organization?.address
 
-  const address =
-    orgAddress && Boolean(Object.values(orgAddress).find(Boolean))
-      ? Object.fromEntries(
-          Object.entries(orgAddress).filter(([, value]) => Boolean(value))
-        )
-      : null
+  const organizationAddress = Object.entries(
+    settings?.seo?.organization?.address ?? {}
+  ).reduce(
+    (acc, [key, value]) => {
+      if (value) {
+        acc[key] = value
+      }
+      return acc
+    },
+    {} as Record<string, string>
+  )
 
   return (
     <>
@@ -110,7 +114,9 @@ function Page({
               }),
             },
           })}
-          {...(address && { address })}
+          {...(Object.keys(organizationAddress).length !== 0 && {
+            address: organizationAddress,
+          })}
         />
       )}
 
