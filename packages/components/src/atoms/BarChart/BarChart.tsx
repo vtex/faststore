@@ -18,12 +18,17 @@ const BarChart = forwardRef<HTMLDivElement, BarChartProps>(function BarChart(
   { value = 0, min = 0, max = 100, testId = 'fs-bar-chart', ...otherProps },
   ref
 ) {
-  const clampedValue = useMemo(() => {
+  const fillPercent = useMemo(() => {
     const safeMax = Math.max(min, max)
-    return Math.min(Math.max(value, min), safeMax)
-  }, [value, min, max])
+    const safeMin = Math.min(min, max)
 
-  const fillPercent = ((clampedValue - min) / (max - min)) * 100
+    if (safeMax === safeMin) {
+      return 0
+    }
+
+    const clampedValue = Math.min(Math.max(value, safeMin), safeMax)
+    return ((clampedValue - safeMin) / (safeMax - safeMin)) * 100
+  }, [value, min, max])
 
   return (
     <div ref={ref} data-fs-bar-chart data-testid={testId} {...otherProps}>
