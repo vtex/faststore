@@ -1,9 +1,10 @@
 import React, {
   type ReactNode,
-  type MouseEventHandler,
   useState,
   forwardRef,
   type HTMLAttributes,
+  useRef,
+  useEffect,
 } from 'react'
 import Icon from '../../atoms/Icon'
 import IconButton from '../IconButton'
@@ -15,17 +16,12 @@ export type Side = 'top' | 'right' | 'bottom' | 'left'
 /**
  * Specifies tooltip alignment.
  */
-export type Alignment = 'start' | 'end'
+export type Alignment = 'start' | 'center' | 'end'
 
 /**
- * Example: "top", "top-start", "top-end", etc.
+ * Combines side + alignment (e.g., "top-start").
  */
-export type AlignedPlacement = `${Side}-${Alignment}`
-
-/**
- * Combines pure side (e.g., "top") or side + alignment (e.g., "top-start").
- */
-export type Placement = Side | AlignedPlacement
+export type Placement = `${Side}-${Alignment}`
 
 export interface TooltipProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
@@ -34,7 +30,7 @@ export interface TooltipProps
    */
   content: ReactNode
   /**
-   * Defines the side or side-alignment (e.g., "top", "right-end") of the tooltip.
+   * Defines the side or side-alignment (e.g., "top-center", "right-end") of the tooltip.
    */
   placement?: Placement
   /**
@@ -44,7 +40,11 @@ export interface TooltipProps
   /**
    * Called when the dismiss button is clicked.
    */
-  onDismiss?: MouseEventHandler<HTMLButtonElement>
+  onDismiss?: (
+    ev:
+      | React.KeyboardEvent<HTMLDivElement>
+      | React.MouseEvent<HTMLButtonElement>
+  ) => void
   /**
    * Element that activates the tooltip on hover/focus.
    */
@@ -57,25 +57,36 @@ export interface TooltipProps
    * Maximum width of the tooltip.
    */
   maxWidth?: number
+  /**
+   * ID for the tooltip content to be used with aria-describedby.
+   */
+  describedById?: string
 }
 
 const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(
   {
     content,
-    placement = 'top',
+    placement = 'top-center',
     dismissible = false,
     onDismiss,
     children,
     testId = 'fs-tooltip',
     maxWidth = 300,
+    describedById = 'tooltip-content',
     ...otherProps
   },
   ref
 ) {
   const [open, setOpen] = useState(false)
   const [dismissed, setDismissed] = useState(false)
+  const dismissButtonRef = useRef<HTMLButtonElement>(null)
+  const triggerRef = useRef<HTMLDivElement>(null)
 
-  const handleDismiss: MouseEventHandler<HTMLButtonElement> = (ev) => {
+  const handleDismiss = (
+    ev:
+      | React.KeyboardEvent<HTMLDivElement>
+      | React.MouseEvent<HTMLButtonElement>
+  ) => {
     onDismiss?.(ev)
     setOpen(false)
     setDismissed(true)
@@ -88,6 +99,18 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(
     setOpen(true)
   }
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Escape') {
+      handleDismiss(event)
+    }
+  }
+
+  useEffect(() => {
+    if (open && dismissible) {
+      dismissButtonRef.current?.focus()
+    }
+  }, [open, dismissible])
+
   return (
     <div
       data-fs-tooltip-wrapper
@@ -96,6 +119,10 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(
       onFocus={toggleOpen}
       onBlur={() => setOpen(false)}
       data-testid={testId}
+      aria-describedby={describedById}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      ref={triggerRef}
     >
       {children}
 
@@ -103,12 +130,16 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(
         <div
           ref={ref}
           data-fs-tooltip
-          data-fs-tooltip-position={placement}
+          data-fs-tooltip-placement={placement}
           data-fs-tooltip-dismissible={dismissible}
+          role="tooltip"
+          onKeyDown={handleKeyDown}
           style={{ maxWidth }}
           {...otherProps}
         >
-          <div data-fs-tooltip-content>{content}</div>
+          <div data-fs-tooltip-content id={describedById}>
+            {content}
+          </div>
           {dismissible && (
             <IconButton
               size="small"
@@ -118,6 +149,7 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(
               aria-label="Dismiss tooltip"
               data-fs-tooltip-dismiss-button
               onClick={handleDismiss}
+              ref={dismissButtonRef}
             />
           )}
           <div data-fs-tooltip-indicator aria-hidden="true" />

@@ -1,6 +1,7 @@
 [data-fs-tooltip-wrapper] {
   position: relative;
   display: inline-flex;
+  width: fit-content;
 
   [data-fs-tooltip] {
     // --------------------------------------------------------
@@ -70,170 +71,170 @@
   // --------------------------------------------------------
 
   /* TOP */
-  [data-fs-tooltip-position^="top"] {
+  [data-fs-tooltip-placement^="top-center"] {
     bottom: 100%;
     transform: translateY(calc(-1 * var(--fs-tooltip-indicator-translate)));
   }
 
-  [data-fs-tooltip-position^="top"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement^="top-center"] [data-fs-tooltip-indicator] {
     top: 100%;
     border-top-color: var(--fs-tooltip-background);
   }
 
   /* TOP-CENTER */
-  [data-fs-tooltip-position="top"] {
+  [data-fs-tooltip-placement="top-center"] {
     left: 50%;
     transform:
       translateX(-50%)
       translateY(calc(-1 * var(--fs-tooltip-indicator-translate)));
   }
 
-  [data-fs-tooltip-position="top"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement="top-center"] [data-fs-tooltip-indicator] {
     left: 50%;
     transform: translateX(-50%);
   }
 
   /* TOP-START */
-  [data-fs-tooltip-position="top-start"] {
+  [data-fs-tooltip-placement="top-start"] {
     left: 0;
   }
 
-  [data-fs-tooltip-position="top-start"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement="top-start"] [data-fs-tooltip-indicator] {
     left: var(--fs-spacing-3);
   }
 
   /* TOP-END */
-  [data-fs-tooltip-position="top-end"] {
+  [data-fs-tooltip-placement="top-end"] {
     right: 0;
   }
 
-  [data-fs-tooltip-position="top-end"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement="top-end"] [data-fs-tooltip-indicator] {
     right: var(--fs-spacing-3);
   }
 
   /* RIGHT */
-  [data-fs-tooltip-position^="right"] {
+  [data-fs-tooltip-placement^="right-center"] {
     left: 100%;
     transform: translateX(var(--fs-tooltip-indicator-translate));
   }
 
-  [data-fs-tooltip-position^="right"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement^="right-center"] [data-fs-tooltip-indicator] {
     right: 100%;
     border-right-color: var(--fs-tooltip-background);
   }
 
   /* RIGHT-CENTER */
-  [data-fs-tooltip-position="right"] {
+  [data-fs-tooltip-placement="right-center"] {
     top: 50%;
     transform:
       translateY(-50%)
       translateX(var(--fs-tooltip-indicator-translate));
   }
 
-  [data-fs-tooltip-position="right"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement="right-center"] [data-fs-tooltip-indicator] {
     top: 50%;
     transform: translateY(-50%);
   }
 
   /* RIGHT-START */
-  [data-fs-tooltip-position="right-start"] {
+  [data-fs-tooltip-placement="right-start"] {
     top: 0;
   }
 
-  [data-fs-tooltip-position="right-start"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement="right-start"] [data-fs-tooltip-indicator] {
     top: var(--fs-spacing-3);
   }
 
   /* RIGHT-END */
-  [data-fs-tooltip-position="right-end"] {
+  [data-fs-tooltip-placement="right-end"] {
     bottom: 0;
   }
 
-  [data-fs-tooltip-position="right-end"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement="right-end"] [data-fs-tooltip-indicator] {
     bottom: var(--fs-spacing-3);
   }
 
   /* BOTTOM */
-  [data-fs-tooltip-position^="bottom"] {
+  [data-fs-tooltip-placement^="bottom-center"] {
     top: 100%;
     transform: translateY(var(--fs-tooltip-indicator-translate));
   }
 
-  [data-fs-tooltip-position^="bottom"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement^="bottom-center"] [data-fs-tooltip-indicator] {
     bottom: 100%;
     border-bottom-color: var(--fs-tooltip-background);
   }
 
   /* BOTTOM-CENTER */
-  [data-fs-tooltip-position="bottom"] {
+  [data-fs-tooltip-placement="bottom-center"] {
     left: 50%;
     transform:
       translateX(-50%)
       translateY(var(--fs-tooltip-indicator-translate));
   }
 
-  [data-fs-tooltip-position="bottom"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement="bottom-center"] [data-fs-tooltip-indicator] {
     left: 50%;
     transform: translateX(-50%);
   }
 
   /* BOTTOM-START */
-  [data-fs-tooltip-position="bottom-start"] {
+  [data-fs-tooltip-placement="bottom-start"] {
     left: 0;
   }
 
-  [data-fs-tooltip-position="bottom-start"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement="bottom-start"] [data-fs-tooltip-indicator] {
     left: var(--fs-spacing-3);
   }
 
   /* BOTTOM-END */
-  [data-fs-tooltip-position="bottom-end"] {
+  [data-fs-tooltip-placement="bottom-end"] {
     right: 0;
   }
 
-  [data-fs-tooltip-position="bottom-end"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement="bottom-end"] [data-fs-tooltip-indicator] {
     right: var(--fs-spacing-3);
   }
 
   /* LEFT */
-  [data-fs-tooltip-position^="left"] {
+  [data-fs-tooltip-placement^="left-center"] {
     right: 100%;
     transform: translateX(calc(-1 * var(--fs-tooltip-indicator-translate)));
   }
 
-  [data-fs-tooltip-position^="left"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement^="left-center"] [data-fs-tooltip-indicator] {
     left: 100%;
     border-left-color: var(--fs-tooltip-background);
   }
 
   /* LEFT-CENTER */
-  [data-fs-tooltip-position="left"] {
+  [data-fs-tooltip-placement="left-center"] {
     top: 50%;
     transform:
       translateY(-50%)
       translateX(calc(-1 * var(--fs-tooltip-indicator-translate)));
   }
 
-  [data-fs-tooltip-position="left"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement="left-center"] [data-fs-tooltip-indicator] {
     top: 50%;
     transform: translateY(-50%);
   }
 
   /* LEFT-START */
-  [data-fs-tooltip-position="left-start"] {
+  [data-fs-tooltip-placement="left-start"] {
     top: 0;
   }
 
-  [data-fs-tooltip-position="left-start"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement="left-start"] [data-fs-tooltip-indicator] {
     top: var(--fs-spacing-3);
   }
 
   /* LEFT-END */
-  [data-fs-tooltip-position="left-end"] {
+  [data-fs-tooltip-placement="left-end"] {
     bottom: 0;
   }
 
-  [data-fs-tooltip-position="left-end"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement="left-end"] [data-fs-tooltip-indicator] {
     bottom: var(--fs-spacing-3);
   }
 }
