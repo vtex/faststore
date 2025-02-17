@@ -8,12 +8,12 @@ import React, {
 import Icon from '../../atoms/Icon'
 import IconButton from '../IconButton'
 /**
- * Possible sides for the tooltip.
+ * Specifies tooltip position.
  */
 export type Side = 'top' | 'right' | 'bottom' | 'left'
 
 /**
- * Possible alignments for the tooltip.
+ * Specifies tooltip alignment.
  */
 export type Alignment = 'start' | 'end'
 
@@ -23,7 +23,7 @@ export type Alignment = 'start' | 'end'
 export type AlignedPlacement = `${Side}-${Alignment}`
 
 /**
- * Type that combines pure side (e.g., "top") or side + alignment (e.g., "top-start").
+ * Combines pure side (e.g., "top") or side + alignment (e.g., "top-start").
  */
 export type Placement = Side | AlignedPlacement
 
@@ -42,7 +42,7 @@ export interface TooltipProps
    */
   dismissible?: boolean
   /**
-   * (Optional) Called when the dismiss button is clicked.
+   * Called when the dismiss button is clicked.
    */
   onDismiss?: MouseEventHandler<HTMLButtonElement>
   /**
