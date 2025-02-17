@@ -47,7 +47,11 @@ export default function SearchWrapper({
     : {}
 
   if (isValidating || !pageProductGalleryData) {
-    return <EmptySearch {...emptySearchProps} />
+    return (
+      <RenderSections globalSections={globalSections}>
+        <EmptySearch {...emptySearchProps} />
+      </RenderSections>
+    )
   }
 
   // Redirect when there are registered Intelligent Search redirects on VTEX Admin
@@ -56,7 +60,11 @@ export default function SearchWrapper({
       shallow: true,
     })
 
-    return <EmptySearch {...emptySearchProps} />
+    return (
+      <RenderSections globalSections={globalSections}>
+        <EmptySearch {...emptySearchProps} />
+      </RenderSections>
+    )
   }
 
   const productGalleryProducts = pageProductGalleryData?.search?.products
