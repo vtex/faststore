@@ -7,8 +7,10 @@ export interface ProgressBarProps extends HTMLAttributes<HTMLDivElement> {
   /* Minimum value (default 0) */
   min?: number
   /* Maximum value (default 100) */
-  max?: number /*
-   * Optional test ID for testing*/
+  max?: number
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
   testId?: string
 }
 
