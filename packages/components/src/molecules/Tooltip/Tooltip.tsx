@@ -40,7 +40,7 @@ export interface TooltipProps
   /**
    * If the tooltip can be closed by a button.
    */
-  dismissable?: boolean
+  dismissible?: boolean
   /**
    * (Optional) Called when the dismiss button is clicked.
    */
@@ -63,7 +63,7 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(
   {
     content,
     placement = 'top',
-    dismissable = false,
+    dismissible = false,
     onDismiss,
     children,
     testId = 'fs-tooltip',
@@ -104,12 +104,12 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(
           ref={ref}
           data-fs-tooltip
           data-fs-tooltip-position={placement}
-          data-fs-tooltip-dismissable={dismissable}
+          data-fs-tooltip-dismissible={dismissible}
           style={{ maxWidth }}
           {...otherProps}
         >
           <div data-fs-tooltip-content>{content}</div>
-          {dismissable && (
+          {dismissible && (
             <IconButton
               size="small"
               variant="tertiary"
