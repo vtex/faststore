@@ -1,0 +1,34 @@
+[data-fs-bar-chart] {
+  // --------------------------------------------------------
+  // Design Tokens for BarChart
+  // --------------------------------------------------------
+
+  --fs-bar-chart-height                                   : var(--fs-spacing-0);
+  --fs-bar-chart-radius                                   : 4px;
+  --fs-bar-chart-track-color                              : var(--fs-color-neutral-2);
+  --fs-bar-chart-fill-color                               : var(--fs-color-main-2);
+  --fs-bar-chart-transition-function                      : var(--fs-transition-function);
+  --fs-bar-chart-transition-property                      : var(--fs-transition-property);
+  --fs-bar-chart-transition-timing                        : var(--fs-transition-timing);
+
+  // Default properties
+  width: 100%;
+  height: var(--fs-bar-chart-height);
+
+  [data-fs-bar-chart-track] {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--fs-bar-chart-track-color);
+    border-radius: var(--fs-bar-chart-radius);
+  }
+
+  [data-fs-bar-chart-fill] {
+    height: 100%;
+    background-color: var(--fs-bar-chart-fill-color);
+    transition:
+      var(--fs-bar-chart-transition-property)
+      var(--fs-bar-chart-transition-timing)
+      var(--fs-bar-chart-transition-function);
+  }
+}
