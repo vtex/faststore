@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.17.0](https://github.com/vtex/faststore/compare/v3.16.0...v3.17.0) (2025-02-17)
+
+### Features
+
+- create textarea component ([#2640](https://github.com/vtex/faststore/issues/2640)) ([15271ca](https://github.com/vtex/faststore/commit/15271cadb0d526ac5a1322a33b57d78635a9976d))
+
 # [3.16.0](https://github.com/vtex/faststore/compare/v3.15.3...v3.16.0) (2025-02-13)
 
 ### Features
