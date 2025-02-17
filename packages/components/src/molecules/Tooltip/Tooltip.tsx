@@ -33,32 +33,26 @@ export interface TooltipProps
    * Text/content of the tooltip.
    */
   content: ReactNode
-
   /**
    * Defines the side or side-alignment (e.g., "top", "right-end") of the tooltip.
    */
   placement?: Placement
-
   /**
    * If the tooltip can be closed by a button.
    */
   dismissable?: boolean
-
   /**
    * (Optional) Called when the dismiss button is clicked.
    */
   onDismiss?: MouseEventHandler<HTMLButtonElement>
-
   /**
    * Element that activates the tooltip on hover/focus.
    */
   children: ReactNode
-
   /**
-   * For testing (Cypress, Jest, etc.).
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
-
   /**
    * Maximum width of the tooltip.
    */
