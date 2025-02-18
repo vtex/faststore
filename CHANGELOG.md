@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.21.0](https://github.com/vtex/faststore/compare/v3.20.0...v3.21.0) (2025-02-18)
+
+### Features
+
+- empty search with global sections ([#2690](https://github.com/vtex/faststore/issues/2690)) ([56c67d8](https://github.com/vtex/faststore/commit/56c67d8847f5b7c1c8d1d693a70c2f80c48f6c2a))
+
 # [3.20.0](https://github.com/vtex/faststore/compare/v3.19.0...v3.20.0) (2025-02-18)
 
 ### Features
