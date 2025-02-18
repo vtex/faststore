@@ -14,7 +14,7 @@ type DefaultProps = {
    */
   id: string
   /**
-   * The text displayed to identify textarea text.
+   * The text displayed to identify textarea.
    */
   label: string
   /**
