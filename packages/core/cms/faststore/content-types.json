@@ -32,7 +32,7 @@
                 },
                 "title": {
                   "title": "Default page title",
-                  "description": "Display this title when no other tile is available",
+                  "description": "Display this title when no other tile is available.",
                   "type": "string",
                   "default": "FastStore Starter"
                 },
@@ -98,8 +98,108 @@
                 },
                 "publisherId": {
                   "title": "Publisher ID",
-                  "description": "Uses to identifier to reference the publisher. E.g.: #website",
+                  "description": "A unique identifier used to reference the publisher. This can be a descriptive value (e.g., `#organization`) or a full URL (e.g., `https://example.com/publisher`).",
                   "type": "string"
+                },
+                "organization": {
+                  "title": "Organization",
+                  "type": "object",
+                  "required": ["name", "url"],
+                  "properties": {
+                    "name": {
+                      "title": "Organization name",
+                      "type": "string",
+                      "default": "VTEX"
+                    },
+                    "legalName": {
+                      "title": "Organization legal name",
+                      "type": "string",
+                      "default": "VTEX Commerce"
+                    },
+                    "id": {
+                      "title": "Organization ID",
+                      "description": "A unique reference for the organization. This can be a descriptive value (e.g., #organization) or a full URL (e.g.,https://example.com/organization).",
+                      "type": "string"
+                    },
+                    "url": {
+                      "title": "Organization URL",
+                      "type": "string",
+                      "default": "https://vtex.com"
+                    },
+                    "sameAs": {
+                      "title": "Organization URLs",
+                      "type": "array",
+                      "description": "The URL of a page on another website with additional information about your organization. For example, a URL to your organization's profile page on a social media or review site.",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "logo": {
+                      "title": "Organization logo URL",
+                      "description": "A logo that is representative of your organization. Image guidelines: https://developers.google.com/search/docs/appearance/structured-data/organization",
+                      "type": "string"
+                    },
+                    "image": {
+                      "title": "Organization image/logo object",
+                      "description": "An image that is representative of your organization. Image guidelines: https://developers.google.com/search/docs/appearance/structured-data/organization",
+                      "required": ["url"],
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "title": "Organization image URL",
+                          "description": "The URL of the image. Make sure the url is crawlable and indexable.",
+                          "type": "string"
+                        },
+                        "caption": {
+                          "title": "Organization image caption",
+                          "description": "A short description of the image.",
+                          "type": "string"
+                        },
+                        "id": {
+                          "title": "Organization image ID",
+                          "description": "A unique reference for the image. This can be a descriptive value (e.g., #logo) or a full URL (e.g.,https://example.com/logo).",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "email": {
+                      "title": "Organization email",
+                      "description": "The email address to contact your business",
+                      "type": "string"
+                    },
+                    "telephone": {
+                      "title": "Organization phone",
+                      "description": "A business phone number. Be sure to include the country code and area code in the phone number.",
+                      "type": "string"
+                    },
+                    "address": {
+                      "title": "Organization address",
+                      "description": "The address (physical or mailing) of your organization, if applicable.",
+                      "type": "object",
+                      "properties": {
+                        "streetAddress": {
+                          "title": "Street Address",
+                          "description": "The full street address of your postal address.",
+                          "type": "string"
+                        },
+                        "addressLocality": {
+                          "title": "City",
+                          "description": "The city of your postal address.",
+                          "type": "string"
+                        },
+                        "addressCountry": {
+                          "title": "Country",
+                          "description": "The country of your postal address. Recommended to be in 2-letter ISO 3166-1 alpha-2 format, for example 'BR','US'.",
+                          "type": "string"
+                        },
+                        "postalCode": {
+                          "title": "Postal Code",
+                          "description": "The postal code of your postal address.",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }

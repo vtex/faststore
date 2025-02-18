@@ -1,6 +1,6 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
-import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
+import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
 import RenderSections from 'src/components/cms/RenderSections'
 import type { PageContentType } from 'src/server/cms'
@@ -32,6 +32,18 @@ function Page({
 
   const publisherId = settings?.seo?.publisherId ?? storeConfig.seo.publisherId
 
+  const organizationAddress = Object.entries(
+    settings?.seo?.organization?.address ?? {}
+  ).reduce(
+    (acc, [key, value]) => {
+      if (value) {
+        acc[key] = value
+      }
+      return acc
+    },
+    {} as Record<string, string>
+  )
+
   return (
     <>
       {/* SEO */}
@@ -60,6 +72,53 @@ function Page({
         ]}
         {...(publisherId && { publisher: { '@id': publisherId } })}
       />
+
+      {settings?.seo?.organization && (
+        <OrganizationJsonLd
+          type="Organization"
+          {...(settings?.seo?.organization?.id && {
+            id: settings.seo.organization.id,
+          })}
+          {...(settings?.seo?.organization?.url && {
+            url: settings.seo.organization.url,
+          })}
+          {...(settings?.seo?.organization?.sameAs?.length && {
+            sameAs: settings.seo.organization.sameAs,
+          })}
+          {...(settings?.seo?.organization?.logo && {
+            logo: settings.seo.organization.logo,
+          })}
+          {...(settings?.seo?.organization?.name && {
+            name: settings.seo.organization.name,
+          })}
+          {...(settings?.seo?.organization?.legalName && {
+            legalName: settings.seo.organization.legalName,
+          })}
+          {...(settings?.seo?.organization?.email && {
+            email: settings.seo.organization.email,
+          })}
+          {...(settings?.seo?.organization?.telephone && {
+            telephone: settings.seo.organization.telephone,
+          })}
+          {...(settings?.seo?.organization?.image && {
+            image: {
+              type: 'ImageObject',
+              ...(settings.seo.organization.image.url && {
+                url: settings.seo.organization.image.url,
+              }),
+              ...(settings.seo.organization.image.caption && {
+                caption: settings.seo.organization.image.caption,
+              }),
+              ...(settings.seo.organization.image.id && {
+                id: settings.seo.organization.image.id,
+              }),
+            },
+          })}
+          {...(Object.keys(organizationAddress).length !== 0 && {
+            address: organizationAddress,
+          })}
+        />
+      )}
 
       {/*
         WARNING: Do not import or render components from any
