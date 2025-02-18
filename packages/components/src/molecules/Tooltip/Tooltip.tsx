@@ -114,7 +114,7 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(
 
   return (
     <div
-      data-fs-tooltip-wrapper
+      data-fs-tooltip
       onMouseEnter={toggleOpen}
       onMouseLeave={() => setOpen(false)}
       onFocus={toggleOpen}
@@ -130,7 +130,7 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(
       {open && !dismissed && (
         <div
           ref={ref}
-          data-fs-tooltip
+          data-fs-tooltip-wrapper
           data-fs-tooltip-placement={placement}
           data-fs-tooltip-dismissible={dismissible}
           role="tooltip"

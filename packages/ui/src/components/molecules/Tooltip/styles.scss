@@ -1,9 +1,9 @@
-[data-fs-tooltip-wrapper] {
+[data-fs-tooltip] {
   position: relative;
   display: inline-flex;
   width: fit-content;
 
-  [data-fs-tooltip] {
+  [data-fs-tooltip-wrapper] {
     // --------------------------------------------------------
     // Design Tokens for Tooltip
     // --------------------------------------------------------
