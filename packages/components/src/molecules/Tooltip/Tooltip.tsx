@@ -8,6 +8,7 @@ import React, {
 } from 'react'
 import Icon from '../../atoms/Icon'
 import IconButton from '../IconButton'
+
 /**
  * Specifies tooltip position.
  */
