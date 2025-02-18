@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.19.0](https://github.com/vtex/faststore/compare/v3.18.0...v3.19.0) (2025-02-18)
+
+### Features
+
+- Adding organization structured data json ([#2623](https://github.com/vtex/faststore/issues/2623)) ([c97f437](https://github.com/vtex/faststore/commit/c97f4371b694bb55e812c866154e4ed3e594f868))
+
 # [3.18.0](https://github.com/vtex/faststore/compare/v3.17.0...v3.18.0) (2025-02-17)
 
 ### Features
