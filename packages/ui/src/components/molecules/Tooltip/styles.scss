@@ -1,34 +1,36 @@
 [data-fs-tooltip] {
+  // --------------------------------------------------------
+  // Design Tokens for Tooltip
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-button-height                                : var(--fs-control-tap-size);
+  --fs-tooltip-z-index                              : var(--fs-z-index-high);
+  --fs-tooltip-background                           : var(--fs-color-neutral-6);
+  --fs-tooltip-text-color                           : var(--fs-color-text-inverse);
+  --fs-tooltip-border-radius                        : var(--fs-border-radius);
+  --fs-tooltip-padding                              : var(--fs-spacing-2);
+  --fs-tooltip-gap                                  : var(--fs-spacing-1);
+
+  --fs-tooltip-transition-property                  : opacity;
+  --fs-tooltip-transition-timing                    : var(--fs-transition-timing);
+  --fs-tooltip-transition-function                  : var(--fs-transition-function);
+
+  // Indicator
+  --fs-tooltip-indicator-size                       : var(--fs-spacing-1);
+  --fs-tooltip-indicator-distance-edge              : var(--fs-spacing-3);
+  --fs-tooltip-indicator-distance-base              : var(--fs-spacing-1);
+  --fs-tooltip-indicator-translate                  : calc(var(--fs-tooltip-indicator-size) + var(--fs-tooltip-indicator-distance-base));
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
   position: relative;
   display: inline-flex;
   width: fit-content;
 
   [data-fs-tooltip-wrapper] {
-    // --------------------------------------------------------
-    // Design Tokens for Tooltip
-    // --------------------------------------------------------
-
-    // Default properties
-    --fs-tooltip-z-index                                                   : var(--fs-z-index-high);
-    --fs-tooltip-background                                                : var(--fs-color-neutral-6);
-    --fs-tooltip-text-color                                                : var(--fs-color-text-inverse);
-    --fs-tooltip-border-radius                                             : var(--fs-border-radius);
-    --fs-tooltip-padding                                                   : var(--fs-spacing-2);
-    --fs-tooltip-gap                                                       : var(--fs-spacing-1);
-    --fs-tooltip-transition-property                                       : opacity;
-    --fs-tooltip-transition-timing                                         : var(--fs-transition-timing);
-    --fs-tooltip-transition-function                                       : var(--fs-transition-function);
-
-    // Indicator
-    --fs-tooltip-indicator-size                                            : var(--fs-spacing-1);
-    --fs-tooltip-indicator-distance-edge                                   : var(--fs-spacing-3);
-    --fs-tooltip-indicator-distance-base                                   : var(--fs-spacing-1);
-    --fs-tooltip-indicator-translate                                       : calc(var(--fs-tooltip-indicator-size) + var(--fs-tooltip-indicator-distance-base));
-
-    // --------------------------------------------------------
-    // Structural Styles
-    // --------------------------------------------------------
-
     position: absolute;
     z-index: var(--fs-tooltip-z-index);
     display: flex;
