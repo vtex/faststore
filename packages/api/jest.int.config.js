@@ -1,5 +1,6 @@
 module.exports = {
-  preset: 'ts-jest',
+  ...require('../../jest.config.js'),
   modulePathIgnorePatterns: ['<rootDir>/dist'],
+  testMatch: ['<rootDir>/test/integration/**/*.test.ts'],
   collectCoverageFrom: ['src/**/*.{ts,tsx,js,jsx}'],
 }
