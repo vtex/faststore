@@ -70,7 +70,7 @@
     "fs-extra": "^10.1.0",
     "graphql": "^15.6.0",
     "include-media": "^1.4.10",
-    "next": "^13.5.6",
+    "next": "^13.5.8",
     "next-seo": "^6.4.0",
     "postcss": "^8.4.4",
     "prettier": "^2.2.0",
