@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.22.0](https://github.com/vtex/faststore/compare/v3.21.0...v3.22.0) (2025-02-18)
+
+### Features
+
+- add textareafield component ([#2641](https://github.com/vtex/faststore/issues/2641)) ([5e8dbf3](https://github.com/vtex/faststore/commit/5e8dbf392ee32feede0cdc6174c526a10ce19a22)), closes [PR#2640](https://github.com/PR/issues/2640)
+
 # [3.20.0](https://github.com/vtex/faststore/compare/v3.19.0...v3.20.0) (2025-02-18)
 
 ### Features
