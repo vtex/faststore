@@ -88,7 +88,9 @@ const TextareaField = ({
         placeholder={placeholder}
         {...otherProps}
       />
-      <Label htmlFor={id}>{label}</Label>
+      <Label data-fs-textarea-field-label htmlFor={id}>
+        {label}
+      </Label>
 
       {shouldDisplayError && (
         <span data-fs-textarea-field-error-message>{error}</span>
