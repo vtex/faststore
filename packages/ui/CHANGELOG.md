@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.20.0](https://github.com/vtex/faststore/compare/v3.19.0...v3.20.0) (2025-02-18)
+
+### Features
+
+- add tooltip component ([#2644](https://github.com/vtex/faststore/issues/2644)) ([ed1826d](https://github.com/vtex/faststore/commit/ed1826d86751b3304f8297432facbe795ae6e91f))
+
 # [3.18.0](https://github.com/vtex/faststore/compare/v3.17.0...v3.18.0) (2025-02-17)
 
 ### Features

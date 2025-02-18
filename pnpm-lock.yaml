@@ -165,7 +165,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.19.0
+        specifier: ^3.20.0
         version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2
@@ -320,7 +320,7 @@ importers:
         specifier: ^3.15.3
         version: link:../api
       "@faststore/components":
-        specifier: ^3.18.0
+        specifier: ^3.20.0
         version: link:../components
       "@faststore/graphql-utils":
         specifier: ^3.15.3
@@ -332,7 +332,7 @@ importers:
         specifier: ^3.15.3
         version: link:../sdk
       "@faststore/ui":
-        specifier: ^3.18.0
+        specifier: ^3.20.0
         version: link:../ui
       "@graphql-codegen/cli":
         specifier: 5.0.2
@@ -548,10 +548,10 @@ importers:
   packages/storybook:
     dependencies:
       "@faststore/components":
-        specifier: ^3.18.0
+        specifier: ^3.20.0
         version: link:../components
       "@faststore/ui":
-        specifier: ^3.18.0
+        specifier: ^3.20.0
         version: link:../ui
       next:
         specifier: ^15.1.6
@@ -603,7 +603,7 @@ importers:
   packages/ui:
     dependencies:
       "@faststore/components":
-        specifier: ^3.18.0
+        specifier: ^3.20.0
         version: link:../components
       include-media:
         specifier: ^1.4.10
