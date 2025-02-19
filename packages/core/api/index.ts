@@ -12,6 +12,7 @@ export type {
   StoreProductGroupRoot,
   StoreProductRoot,
   StoreOrganizationRoot,
+  StoreProductRating,
 } from '@faststore/api'
 
 export * from '../@generated/graphql'
