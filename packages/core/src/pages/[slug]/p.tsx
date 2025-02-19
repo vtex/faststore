@@ -168,6 +168,8 @@ function Page({
       />
       <BreadcrumbJsonLd itemListElements={itemListElements} />
       <ProductJsonLd
+        id={`${meta.canonical}${settings?.seo?.id ?? ''}`}
+        mainEntityOfPage={`${meta.canonical}${settings?.seo?.mainEntityOfPage ?? ''}`}
         productName={product.name}
         description={product.description}
         brand={product.brand.name}
@@ -177,10 +179,6 @@ function Page({
         images={product.image.map((img) => img.url)} // Somehow, Google does not understand this valid Schema.org schema, so we need to do conversions
         offers={offers}
         category={itemListElements[itemListElements.length - 2]?.name}
-        mainEntityOfPage={{
-          '@id': `${product.seo?.canonical}${settings?.seo?.mainEntityOfPage ?? ''}`,
-        }}
-        {...{ '@id': `${product.seo?.canonical}${settings?.seo?.id ?? ''}` }}
       />
 
       {/*
