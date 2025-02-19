@@ -64,10 +64,16 @@ const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
         const { scrollHeight, clientHeight } = textContentRef.current
         setIsClamped(scrollHeight > clientHeight)
       }
+      /**
+       * Including [text, isExpanded] in dependencies even though they're not directly used
+       * because:
+       * - text changes affect scrollHeight and require recalculation
+       * - isExpanded affects layout/styling, requiring fresh calculation
+       */
     }, [text, isExpanded])
 
     const toggleExpanded = () => {
-      setIsExpanded(previousIsExpanded => !previousIsExpanded)
+      setIsExpanded((previousIsExpanded) => !previousIsExpanded)
     }
 
     return (
