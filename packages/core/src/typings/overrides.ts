@@ -360,7 +360,14 @@ export type SectionsOverrides = {
   ReviewsAndRatings: {
     Section: typeof ReviewsAndRatings
     // TODO: Add components
-    components: {}
+    components: {
+      // TODO: This component will be removed when the RatingSummary is ready
+      AddReviewModalButton: ComponentOverrideDefinition<
+        ButtonProps,
+        Omit<ButtonProps, 'onClick'>
+      >
+      __experimentalAddReviewModal: ComponentOverrideDefinition<any, any>
+    }
   }
   RegionBar: {
     Section: typeof RegionBar
