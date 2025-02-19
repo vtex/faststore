@@ -67,7 +67,7 @@ const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
     }, [text, isExpanded])
 
     const toggleExpanded = () => {
-      setIsExpanded(!isExpanded)
+      setIsExpanded(previousIsExpanded => !previousIsExpanded)
     }
 
     return (
