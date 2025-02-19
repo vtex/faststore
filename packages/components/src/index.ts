@@ -360,6 +360,17 @@ export type {
 export { default as RegionModal } from './organisms/RegionModal'
 export type { RegionModalProps } from './organisms/RegionModal'
 
+export {
+  default as AddReviewModal,
+  AddReviewModalFooter,
+  AddReviewModalBody,
+} from './organisms/AddReviewModal'
+export type {
+  AddReviewModalProps,
+  AddReviewModalBodyProps,
+  AddReviewModalFooterProps,
+} from './organisms/AddReviewModal'
+
 export { default as SearchInput } from './organisms/SearchInput'
 export type { SearchInputProps } from './organisms/SearchInput'
 
