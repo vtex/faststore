@@ -45,9 +45,10 @@ const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
       rating,
       author,
       date,
+      locale = 'en-US',
+      todayLabel = 'Today',
       isVerified,
       verifiedText = 'Verified User',
-      locale = 'en-US',
       readMoreText = 'Read More',
       readLessText = 'Read Less',
       testId = 'fs-review-card',
@@ -89,7 +90,11 @@ const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             />
           )}
           {date && (
-            <ReviewCardDate data-fs-review-card-date="mobile" date={date} />
+            <ReviewCardDate
+              data-fs-review-card-date="mobile"
+              date={date}
+              todayLabel={todayLabel}
+            />
           )}
         </div>
         <div data-fs-review-card-text>
@@ -97,7 +102,11 @@ const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
             <h3 data-fs-review-card-text-headline>{title}</h3>
 
             {date && (
-              <ReviewCardDate data-fs-review-card-date="desktop" date={date} />
+              <ReviewCardDate
+                data-fs-review-card-date="desktop"
+                date={date}
+                todayLabel={todayLabel}
+              />
             )}
           </div>
           <p

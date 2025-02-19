@@ -1,23 +1,16 @@
 /**
- * Formats a given date into a readable string.
- * If the date is today, it returns "Today".
- * Otherwise, it formats the date as "MMM DD, YYYY" based on the specified locale.
+ * Formats date into a localized string.
+ * @param date - The Date object to format
+ * @param locale - The locale identifier (e.g., 'en-US', 'fr-FR'). Defaults to 'en-US'
+ * @returns A string in the format "MMM D, YYYY" for en-US (e.g., "Jan 15, 2024")
+ *          Format will vary based on the provided locale
  */
 export function formatDate(date: Date, locale = 'en-US'): string {
-  const today = new Date()
-
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
   }
 
-  const todayString = today.toLocaleDateString(locale, options)
-  const dateString = date.toLocaleDateString(locale, options)
-
-  if (dateString === todayString) {
-    return 'Today'
-  }
-
-  return dateString
+  return date.toLocaleDateString(locale, options)
 }
