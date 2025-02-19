@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'react'
 import Tooltip from '../Tooltip'
 import Icon from '../../atoms/Icon'
 
-export interface ReviewAuthorProps extends HTMLAttributes<HTMLDivElement> {
+export interface ReviewCardAuthorProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The author of the review.
    */
@@ -18,7 +18,7 @@ export interface ReviewAuthorProps extends HTMLAttributes<HTMLDivElement> {
   verifiedText?: string
 }
 
-const ReviewAuthor = forwardRef<HTMLDivElement, ReviewAuthorProps>(
+const ReviewAuthor = forwardRef<HTMLDivElement, ReviewCardAuthorProps>(
   function ReviewAuthor(
     { author, isVerified, verifiedText = 'Verified User', ...otherProps },
     ref

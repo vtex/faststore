@@ -2,46 +2,29 @@ import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import type { HTMLAttributes } from 'react'
 import Rating from '../Rating'
 import Link from '../../atoms/Link'
-import ReviewAuthor from './ReviewAuthor'
-import ReviewDate from './ReviewDate'
+import ReviewAuthor, { type ReviewCardAuthorProps } from './ReviewAuthor'
+import ReviewDate, { type ReviewCardDateProps } from './ReviewDate'
 
-export interface ReviewCardProps extends HTMLAttributes<HTMLDivElement> {
+export interface ReviewCardProps
+  extends HTMLAttributes<HTMLDivElement>,
+    Partial<ReviewCardAuthorProps>,
+    Partial<ReviewCardDateProps> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
   /**
-   * The headline of the review.
+   * The title of the review.
    */
-  reviewHeadline: string
+  title: string
   /**
    * The text of the review.
    */
-  reviewText: string
+  text: string
   /**
    * The rating of the review.
    */
-  reviewRating: number
-  /**
-   * The author of the review.
-   */
-  author?: string
-  /**
-   * Whether the author is verified or not. Defaults to false.
-   */
-  isVerified?: boolean
-  /**
-   * Text to be displayed in the tooltip when hovering over the verified icon. Defaults to 'Verified User'.
-   */
-  verifiedText?: string
-  /**
-   * The date of the review.
-   */
-  reviewDate?: Date
-  /**
-   * Optional locale to format the date. Defaults to 'en-US'.
-   */
-  locale?: string
+  rating: number
   /**
    * Text to be displayed in the read more button. Defaults to 'Read More'.
    */
@@ -55,13 +38,13 @@ export interface ReviewCardProps extends HTMLAttributes<HTMLDivElement> {
 const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
   function ReviewCard(
     {
-      reviewHeadline,
-      reviewText,
-      reviewRating,
+      title,
+      text,
+      rating,
       author,
+      date,
       isVerified,
       verifiedText = 'Verified User',
-      reviewDate,
       locale = 'en-US',
       readMoreText = 'Read More',
       readLessText = 'Read Less',
@@ -79,7 +62,7 @@ const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
         const { scrollHeight, clientHeight } = textContentRef.current
         setIsClamped(scrollHeight > clientHeight)
       }
-    }, [reviewText, isExpanded])
+    }, [text, isExpanded])
 
     const toggleExpanded = () => {
       setIsExpanded(!isExpanded)
@@ -88,7 +71,7 @@ const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
     return (
       <div data-testid={testId} ref={ref} data-fs-review-card {...otherProps}>
         <div data-fs-review-card-header>
-          <Rating value={reviewRating} />
+          <Rating value={rating} />
           {author && (
             <ReviewAuthor
               data-fs-review-card-author="desktop"
@@ -97,19 +80,14 @@ const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
               verifiedText={verifiedText}
             />
           )}
-          {reviewDate && (
-            <ReviewDate data-fs-review-card-date="mobile" date={reviewDate} />
-          )}
+          {date && <ReviewDate data-fs-review-card-date="mobile" date={date} />}
         </div>
         <div data-fs-review-card-text>
           <div data-fs-review-card-text-header>
-            <h3 data-fs-review-card-text-headline>{reviewHeadline}</h3>
+            <h3 data-fs-review-card-text-headline>{title}</h3>
 
-            {reviewDate && (
-              <ReviewDate
-                data-fs-review-card-date="desktop"
-                date={reviewDate}
-              />
+            {date && (
+              <ReviewDate data-fs-review-card-date="desktop" date={date} />
             )}
           </div>
           <p
@@ -118,7 +96,7 @@ const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
               isExpanded ? 'expanded' : 'collapsed'
             }
           >
-            {reviewText}
+            {text}
           </p>
           {(isClamped || isExpanded) && (
             <Link
