@@ -36,14 +36,14 @@ const UIAddReviewModalFooter = dynamic<UIAddReviewModalFooterProps>(
 interface AddReviewModalProps {
   title?: UIAddReviewModalProps['title']
   closeButtonAriaLabel?: UIAddReviewModalProps['closeButtonAriaLabel']
-  closeButtonLabel: string
+  cancelButtonLabel: string
   submitButtonLabel: string
 }
 
 function AddReviewModal({
   title,
   closeButtonAriaLabel,
-  closeButtonLabel,
+  cancelButtonLabel,
   submitButtonLabel,
 }: AddReviewModalProps) {
   const handleSubmit = async () => {
@@ -66,7 +66,7 @@ function AddReviewModal({
           </UIAddReviewModalBody>
           <UIAddReviewModalFooter data-fs-add-review-modal-footer>
             <Button variant="secondary" onClick={fadeOut}>
-              {closeButtonLabel}
+              {cancelButtonLabel}
             </Button>
             <Button variant="primary" onClick={handleSubmit}>
               {submitButtonLabel}
