@@ -13,8 +13,8 @@ export interface ReviewCardDateProps extends HTMLAttributes<HTMLDivElement> {
   locale?: string
 }
 
-const ReviewDate = forwardRef<HTMLDivElement, ReviewCardDateProps>(
-  function ReviewDate({ date, locale = 'en-US', ...otherProps }, ref) {
+const ReviewCardDate = forwardRef<HTMLDivElement, ReviewCardDateProps>(
+  function ReviewCardDate({ date, locale = 'en-US', ...otherProps }, ref) {
     return (
       <span data-fs-review-card-date {...otherProps} ref={ref}>
         {formatDateReviewCard(date, locale)}
@@ -23,4 +23,4 @@ const ReviewDate = forwardRef<HTMLDivElement, ReviewCardDateProps>(
   }
 )
 
-export default ReviewDate
+export default ReviewCardDate

@@ -2,8 +2,10 @@ import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import type { HTMLAttributes } from 'react'
 import Rating from '../Rating'
 import Link from '../../atoms/Link'
-import ReviewAuthor, { type ReviewCardAuthorProps } from './ReviewAuthor'
-import ReviewDate, { type ReviewCardDateProps } from './ReviewDate'
+import ReviewCardAuthor, {
+  type ReviewCardAuthorProps,
+} from './ReviewCardAuthor'
+import ReviewCardDate, { type ReviewCardDateProps } from './ReviewCardDate'
 
 export interface ReviewCardProps
   extends HTMLAttributes<HTMLDivElement>,
@@ -73,21 +75,23 @@ const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
         <div data-fs-review-card-header>
           <Rating value={rating} />
           {author && (
-            <ReviewAuthor
+            <ReviewCardAuthor
               data-fs-review-card-author="desktop"
               author={author}
               isVerified={Boolean(isVerified)}
               verifiedText={verifiedText}
             />
           )}
-          {date && <ReviewDate data-fs-review-card-date="mobile" date={date} />}
+          {date && (
+            <ReviewCardDate data-fs-review-card-date="mobile" date={date} />
+          )}
         </div>
         <div data-fs-review-card-text>
           <div data-fs-review-card-text-header>
             <h3 data-fs-review-card-text-headline>{title}</h3>
 
             {date && (
-              <ReviewDate data-fs-review-card-date="desktop" date={date} />
+              <ReviewCardDate data-fs-review-card-date="desktop" date={date} />
             )}
           </div>
           <p
@@ -110,7 +114,7 @@ const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
           )}
         </div>
         {author && (
-          <ReviewAuthor
+          <ReviewCardAuthor
             data-fs-review-card-author="mobile"
             author={author}
             isVerified={Boolean(isVerified)}

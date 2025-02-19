@@ -18,8 +18,8 @@ export interface ReviewCardAuthorProps extends HTMLAttributes<HTMLDivElement> {
   verifiedText?: string
 }
 
-const ReviewAuthor = forwardRef<HTMLDivElement, ReviewCardAuthorProps>(
-  function ReviewAuthor(
+const ReviewCardAuthor = forwardRef<HTMLDivElement, ReviewCardAuthorProps>(
+  function ReviewCardAuthor(
     { author, isVerified, verifiedText = 'Verified User', ...otherProps },
     ref
   ) {
@@ -41,4 +41,4 @@ const ReviewAuthor = forwardRef<HTMLDivElement, ReviewCardAuthorProps>(
   }
 )
 
-export default ReviewAuthor
+export default ReviewCardAuthor
