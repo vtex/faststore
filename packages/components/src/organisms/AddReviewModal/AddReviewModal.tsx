@@ -28,7 +28,7 @@ export interface AddReviewModalProps extends ModalProps {
 
 function AddReviewModal({
   testId = 'fs-add-review-modal',
-  title = 'Set your location',
+  title = 'Add a review',
   closeButtonAriaLabel = 'Close Add Review Modal',
   overlayProps,
   onClose,
