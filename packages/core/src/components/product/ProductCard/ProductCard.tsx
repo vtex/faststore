@@ -12,6 +12,7 @@ import NextLink from 'next/link'
 import { Image } from 'src/components/ui/Image'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
+import { api as apiConfig } from 'discovery.config'
 
 type Variant = 'wide' | 'default'
 
@@ -88,6 +89,7 @@ function ProductCard({
       lowPriceWithTaxes,
       offers: [{ listPrice: listPriceBase, availability, listPriceWithTaxes }],
     },
+    rating,
   } = product
 
   const linkProps = {
@@ -146,7 +148,7 @@ function ProductCard({
           listPrice: listPrice,
           formatter: useFormattedPrice,
         }}
-        ratingValue={ratingValue}
+        ratingValue={apiConfig.reviewsAndRatings ? rating.average : undefined}
         outOfStock={outOfStock}
         onButtonClick={onButtonClick}
         linkProps={linkProps}
@@ -210,6 +212,11 @@ export const fragment = gql(`
     advertisement {
       adId
       adResponseId
+    }
+
+    rating {
+      average
+      totalCount
     }
   }
 `)
