@@ -27,7 +27,7 @@ const ReviewAuthor = forwardRef<HTMLDivElement, ReviewAuthorProps>(
       <div data-fs-review-card-author {...otherProps} ref={ref}>
         <span data-fs-review-card-author-name>{author}</span>
         {isVerified && (
-          <Tooltip content={verifiedText} placement="bottom">
+          <Tooltip content={verifiedText} placement="bottom-center">
             <Icon
               data-fs-review-card-author-verified
               name="CircleWavyCheck"
