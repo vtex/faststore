@@ -23,8 +23,10 @@ function ReviewsAndRatings({
   ratingSummary,
   addReviewModal,
 }: ReviewsAndRatingsProps) {
+  const { RatingSummary, __experimentalAddReviewModal: AddReviewModal } =
+    useOverrideComponents<'ReviewsAndRatings'>()
   const context = usePDP()
-  const { RatingSummary } = useOverrideComponents<'ReviewsAndRatings'>()
+  const { openAddReviewModal, addReviewModal: displayAddReviewModal } = useUI()
   const { isDesktop } = useScreenResize()
 
   const rating = context?.data?.product?.rating
@@ -41,10 +43,17 @@ function ReviewsAndRatings({
               // Dynamic props shouldn't be overridable
               // This decision can be reviewed later if needed
               {...rating}
-              onCreateReviewClick={() => alert('Create review')}
+              onCreateReviewClick={openAddReviewModal}
             />
           )}
         </div>
+
+        {displayAddReviewModal && (
+          <AddReviewModal.Component
+            {...AddReviewModal.props}
+            {...addReviewModal}
+          />
+        )}
       </>
     )
   )

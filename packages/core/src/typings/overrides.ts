@@ -366,6 +366,7 @@ export type SectionsOverrides = {
         RatingSummaryProps,
         RatingSummaryProps
       >
+      __experimentalAddReviewModal: ComponentOverrideDefinition<any, any>
     }
   }
   RegionBar: {
