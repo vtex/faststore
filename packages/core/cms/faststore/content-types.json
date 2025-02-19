@@ -229,6 +229,29 @@
                 }
               }
             }
+          },
+          {
+            "name": "seo",
+            "schema": {
+              "title": "SEO",
+              "description": "Search Engine Optimization options",
+              "type": "object",
+              "widget": {
+                "ui:ObjectFieldTemplate": "GoogleSeoPreview"
+              },
+              "properties": {
+                "id": {
+                  "title": "ID",
+                  "description": "A unique identifier used to reference the product page. This is a descriptive value (e.g., `#product`) that will be concatenated with the product path (example of the result: `/product-slug/p#product`).",
+                  "type": "string"
+                },
+                "mainEntityOfPage": {
+                  "title": "Main entity of page",
+                  "description": "Indicates the main entity of the page. A unique identifier used to reference the product page. This is a descriptive value (e.g., `#webpage`) that will be concatenated with the product path (example of the result: `/product-slug/p#webpage`).",
+                  "type": "string"
+                }
+              }
+            }
           }
         ]
       }
