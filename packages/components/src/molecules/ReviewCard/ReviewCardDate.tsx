@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
-import { formatDateReviewCard } from '../../utils/date'
+import { formatDate } from '../../utils/date'
 
 export interface ReviewCardDateProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -17,7 +17,7 @@ const ReviewCardDate = forwardRef<HTMLDivElement, ReviewCardDateProps>(
   function ReviewCardDate({ date, locale = 'en-US', ...otherProps }, ref) {
     return (
       <span data-fs-review-card-date {...otherProps} ref={ref}>
-        {formatDateReviewCard(date, locale)}
+        {formatDate(date, locale)}
       </span>
     )
   }

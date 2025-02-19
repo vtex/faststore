@@ -3,7 +3,7 @@
  * If the date is today, it returns "Today".
  * Otherwise, it formats the date as "MMM DD, YYYY" based on the specified locale.
  */
-export function formatDateReviewCard(date: Date, locale: string): string {
+export function formatDate(date: Date, locale = 'en-US'): string {
   const today = new Date()
 
   if (
