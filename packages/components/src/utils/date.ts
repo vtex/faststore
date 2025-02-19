@@ -6,19 +6,18 @@
 export function formatDate(date: Date, locale = 'en-US'): string {
   const today = new Date()
 
-  if (
-    date.getFullYear() === today.getFullYear() &&
-    date.getMonth() === today.getMonth() &&
-    date.getDate() === today.getDate()
-  ) {
-    return 'Today'
-  }
-
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
   }
 
-  return date.toLocaleDateString(locale, options)
+  const todayString = today.toLocaleDateString(locale, options)
+  const dateString = date.toLocaleDateString(locale, options)
+
+  if (dateString === todayString) {
+    return 'Today'
+  }
+
+  return dateString
 }
