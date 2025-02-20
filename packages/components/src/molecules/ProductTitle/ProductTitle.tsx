@@ -26,32 +26,33 @@ export interface ProductTitleProps
    */
   refNumber?: string
   /**
-   * The current value of the rating, a number from 0 to 5.
+   * Object containing the rating value and reviews count
    */
-  ratingValue?: number
-  /**
-   * The amount of reviews for the product.
-   */
-  reviewsCount?: number
-  /**
-   * The ID of the reviews section to link to.
-   */
-  reviewsSectionId?: string
-  /**
-   * Text to display when there aren't reviews.
-   * @default "No reviews yet".
-   */
-  noReviewsText?: string
-  /**
-   * Text to display when there is only one review.
-   * @default "review".
-   */
-  singleReviewText?: string
-  /**
-   * Text to display when there are multiple reviews.
-   * @default "reviews".
-   */
-  multipleReviewsText?: string
+  reviewsAndRating?: {
+    /**
+     * The current value of the rating, a number from 0 to 5.
+     */
+    ratingValue?: number
+    /**
+     * The amount of reviews for the product.
+     */
+    reviewsCount?: number
+    /**
+     * Text to display when there aren't reviews.
+     * @default "No reviews yet".
+     */
+    noReviewsText?: string
+    /**
+     * Text to display when there is only one review.
+     * @default "review".
+     */
+    singleReviewText?: string
+    /**
+     * Text to display when there are multiple reviews.
+     * @default "reviews".
+     */
+    multipleReviewsText?: string
+  }
 }
 
 const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
@@ -62,16 +63,19 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
       refTag = 'Ref.: ',
       refNumber,
       testId = 'fs-product-title',
-      ratingValue,
-      reviewsCount,
-      reviewsSectionId,
-      noReviewsText = 'No reviews yet',
-      singleReviewText = 'review',
-      multipleReviewsText = 'reviews',
+      reviewsAndRating,
       ...otherProps
     },
     ref
   ) {
+    const {
+      ratingValue,
+      reviewsCount,
+      noReviewsText = 'No reviews yet',
+      singleReviewText = 'review',
+      multipleReviewsText = 'reviews',
+    } = reviewsAndRating || {}
+
     return (
       <header
         ref={ref}
@@ -90,7 +94,7 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
               {ratingValue !== undefined && <Rating value={ratingValue} />}
 
               {reviewsCount !== undefined && (
-                <a href={`#${reviewsSectionId}`} data-fs-product-title-reviews>
+                <a href="#reviews-and-ratings" data-fs-product-title-reviews>
                   {reviewsCount === 0 && `(${noReviewsText})`}
                   {reviewsCount === 1 &&
                     `(${reviewsCount} ${singleReviewText})`}

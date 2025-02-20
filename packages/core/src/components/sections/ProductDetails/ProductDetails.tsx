@@ -36,7 +36,7 @@ export interface ProductDetailsProps {
       showDiscountBadge: boolean
     }
     rating: {
-      noReviewsLabel: string
+      noReviewsText: string
       singleReviewText: string
       multipleReviewsText: string
     }
@@ -93,7 +93,7 @@ function ProductDetails({
   productTitle: {
     refNumber: showRefNumber,
     discountBadge: { showDiscountBadge, size: discountBadgeSize },
-    rating: { noReviewsLabel, multipleReviewsText, singleReviewText },
+    rating: { noReviewsText, multipleReviewsText, singleReviewText },
   },
   buyButton: { icon: buyButtonIcon, title: buyButtonTitle },
   shippingSimulator: {
@@ -226,16 +226,17 @@ function ProductDetails({
                 )
               }
               refNumber={showRefNumber && productId}
-              ratingValue={
-                apiConfig.reviewsAndRatings ? rating.average : undefined
-              }
-              reviewsCount={
-                apiConfig.reviewsAndRatings ? rating.totalCount : undefined
-              }
-              reviewsSectionId="reviews-and-ratings"
-              noReviewsText={noReviewsLabel}
-              multipleReviewsText={multipleReviewsText}
-              singleReviewText={singleReviewText}
+              reviewsAndRating={{
+                ratingValue: apiConfig.reviewsAndRatings
+                  ? rating.average
+                  : undefined,
+                reviewsCount: apiConfig.reviewsAndRatings
+                  ? rating.totalCount
+                  : undefined,
+                noReviewsText,
+                multipleReviewsText,
+                singleReviewText,
+              }}
             />
           </header>
           <ImageGallery.Component

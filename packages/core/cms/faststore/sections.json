@@ -1512,8 +1512,8 @@
               "title": "Rating",
               "type": "object",
               "properties": {
-                "noReviewsLabel": {
-                  "title": "No reviews label",
+                "noReviewsText": {
+                  "title": "No reviews text",
                   "type": "string",
                   "default": "No reviews yet"
                 },
