@@ -35,6 +35,11 @@ export interface ProductDetailsProps {
       size: 'big' | 'small'
       showDiscountBadge: boolean
     }
+    rating: {
+      noReviewsText: string
+      singleReviewText: string
+      multipleReviewsText: string
+    }
   }
   buyButton: {
     title: string
@@ -88,6 +93,7 @@ function ProductDetails({
   productTitle: {
     refNumber: showRefNumber,
     discountBadge: { showDiscountBadge, size: discountBadgeSize },
+    rating: { noReviewsText, multipleReviewsText, singleReviewText },
   },
   buyButton: { icon: buyButtonIcon, title: buyButtonTitle },
   shippingSimulator: {
@@ -199,9 +205,6 @@ function ProductDetails({
               // Maybe now it's worth to make title always a h1 and receive only the name, as it would be easier for users to override.
               title={<h1>{name}</h1>}
               {...ProductTitle.props}
-              ratingValue={
-                apiConfig.reviewsAndRatings ? rating.average : undefined
-              }
               label={
                 showDiscountBadge && (
                   <DiscountBadge.Component
@@ -223,6 +226,15 @@ function ProductDetails({
                 )
               }
               refNumber={showRefNumber && productId}
+              {...(apiConfig.reviewsAndRatings && {
+                reviewsAndRating: {
+                  ratingValue: rating.average,
+                  reviewsCount: rating.totalCount,
+                  noReviewsText,
+                  multipleReviewsText,
+                  singleReviewText,
+                },
+              })}
             />
           </header>
           <ImageGallery.Component
