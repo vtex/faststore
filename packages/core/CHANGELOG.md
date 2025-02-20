@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.22.2 (2025-02-20)
+
+### Bug Fixes
+
+- Removes CI invalid input ([#2689](https://github.com/vtex/faststore/issues/2689)) ([30ea4b5](https://github.com/vtex/faststore/commit/30ea4b5d38fee5f9aacda60c0bd3b3296875864c))
+- Removes url image as required field for Organization ([#2697](https://github.com/vtex/faststore/issues/2697)) ([f325a28](https://github.com/vtex/faststore/commit/f325a28764767fdd6b92d22ef06703a78afdf1a6))
+
 ## [3.22.1](https://github.com/vtex/faststore/compare/v3.22.0...v3.22.1) (2025-02-18)
 
 **Note:** Version bump only for package @faststore/core
