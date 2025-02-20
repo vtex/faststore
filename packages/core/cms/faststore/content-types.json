@@ -142,7 +142,6 @@
                     "image": {
                       "title": "Organization image/logo object",
                       "description": "An image that is representative of your organization. Image guidelines: https://developers.google.com/search/docs/appearance/structured-data/organization",
-                      "required": ["url"],
                       "type": "object",
                       "properties": {
                         "url": {
