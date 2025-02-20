@@ -10,9 +10,10 @@
   --fs-product-title-column-gap: var(--fs-spacing-2);
   --fs-product-title-row-gap: var(--fs-spacing-3);
 
-  --fs-product-title-addendum-color: var(--fs-color-text-light);
-  --fs-product-title-addendum-size: var(--fs-text-size-1);
-  --fs-product-title-addendum-line-height: 1.7;
+  // Addendum
+  --fs-product-title-addendum-color          : var(--fs-color-text-light);
+  --fs-product-title-addendum-size           : var(--fs-text-size-1);
+  --fs-product-title-addendum-line-height    : 1.7;
 
   --fs-product-title-reviews-size: var(--fs-text-size-1);
   --fs-product-title-reviews-line-height: 1.42;
