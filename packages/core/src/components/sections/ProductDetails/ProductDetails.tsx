@@ -226,17 +226,15 @@ function ProductDetails({
                 )
               }
               refNumber={showRefNumber && productId}
-              reviewsAndRating={{
-                ratingValue: apiConfig.reviewsAndRatings
-                  ? rating.average
-                  : undefined,
-                reviewsCount: apiConfig.reviewsAndRatings
-                  ? rating.totalCount
-                  : undefined,
-                noReviewsText,
-                multipleReviewsText,
-                singleReviewText,
-              }}
+              {...(apiConfig.reviewsAndRatings && {
+                reviewsAndRating: {
+                  ratingValue: rating.average,
+                  reviewsCount: rating.totalCount,
+                  noReviewsText,
+                  multipleReviewsText,
+                  singleReviewText,
+                },
+              })}
             />
           </header>
           <ImageGallery.Component
