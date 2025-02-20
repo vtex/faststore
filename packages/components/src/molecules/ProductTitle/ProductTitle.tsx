@@ -38,6 +38,7 @@ export interface ProductTitleProps
    */
   reviewsSectionId?: string
   /**
+   * Text to display when there aren't reviews.
    * @default "No reviews yet".
    */
   noReviewsText?: string
