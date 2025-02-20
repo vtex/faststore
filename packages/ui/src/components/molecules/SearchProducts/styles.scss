@@ -38,6 +38,9 @@
 
   // Item Price
   --fs-search-product-item-price-size                     : var(--fs-text-size-base);
+  
+  // Item Control
+  --fs-search-product-item-control-actions-gap            : var(--fs-spacing-1);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -112,6 +115,49 @@
 
     [data-fs-price-variant="spot"] {
       font-size: var(--fs-search-product-item-price-size);
+    }
+  }
+
+  [data-fs-search-product-item-control] {
+     display: flex;
+     justify-content: space-between;
+     width: 100%;
+ }
+
+  [data-fs-product-item-control-input] {
+      width: 4.625rem;
+      height: 100%;
+      text-align: center;
+  }
+
+ [data-fs-search-product-item-control-badge] {
+    margin-bottom: var(--fs-spacing-0);
+
+    & + [data-fs-search-product-item-title] {
+      font-weight: var(--fs-text-weight-medium);
+      color: var(--fs-color-text-light);
+    }
+ }
+	
+ [data-fs-search-product-item-control-actions] {
+    display: flex;
+    margin-left: auto;
+    gap: var(--fs-search-product-item-control-actions-gap);
+  }
+
+  [data-fs-search-product-item-control-actions-desktop] {
+    display: none;
+    
+    @include media(">tablet") {
+      display: block;
+    }
+  }
+  
+  [data-fs-search-product-item-control-actions-mobile] {
+    display: block;
+
+    @include media(">tablet") {
+      display: none;
     }
   }
 }
