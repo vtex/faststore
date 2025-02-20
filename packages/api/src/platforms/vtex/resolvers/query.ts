@@ -31,6 +31,7 @@ import {
   ProductReviewsInputOrderBy,
   type ProductReviewsInputOrderWay,
 } from '../clients/commerce/types/ProductReview'
+import { buildRatingDistribution } from '../utils/rating'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -81,7 +82,7 @@ export const Query = {
 
       const rating = await commerce.rating(sku.itemId)
 
-      sku.rating = rating
+      sku.rating = buildRatingDistribution(rating)
 
       return sku
     } catch (err) {
@@ -113,7 +114,7 @@ export const Query = {
 
       const enhancedSku = enhanceSku(sku, product)
 
-      enhancedSku.rating = rating
+      enhancedSku.rating = buildRatingDistribution(rating)
 
       return enhancedSku
     }
