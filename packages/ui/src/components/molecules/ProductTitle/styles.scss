@@ -15,9 +15,10 @@
   --fs-product-title-addendum-size           : var(--fs-text-size-1);
   --fs-product-title-addendum-line-height    : 1.7;
 
-  --fs-product-title-reviews-size: var(--fs-text-size-1);
-  --fs-product-title-reviews-line-height: 1.42;
-  --fs-product-title-reviews-color: var(--fs-color-text-light);
+  // Reviews
+  --fs-product-title-reviews-color           : var(--fs-color-text-light);
+  --fs-product-title-reviews-size            : var(--fs-text-size-1);
+  --fs-product-title-reviews-line-height     : 1.42;
 
   // --------------------------------------------------------
   // Structural Styles
