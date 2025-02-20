@@ -1122,8 +1122,25 @@ export type StoreProductRating = {
   __typename?: 'StoreProductRating';
   /** Product average rating. */
   average: Scalars['Float'];
+  /** Product rating distribution in percentages. */
+  distribution: StoreProductRatingDistribution;
   /** Product amount of ratings received. */
   totalCount: Scalars['Int'];
+};
+
+/** Product rating distribution in percentages. */
+export type StoreProductRatingDistribution = {
+  __typename?: 'StoreProductRatingDistribution';
+  /** 5 star rating percentage. */
+  starsFive: Scalars['Int'];
+  /** 4 star rating percentage. */
+  starsFour: Scalars['Int'];
+  /** 1 star rating percentage. */
+  starsOne: Scalars['Int'];
+  /** 3 star rating percentage. */
+  starsThree: Scalars['Int'];
+  /** 2 star rating percentage. */
+  starsTwo: Scalars['Int'];
 };
 
 export type StoreProductReview = {

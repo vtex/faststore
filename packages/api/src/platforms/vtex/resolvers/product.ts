@@ -157,5 +157,15 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   },
   releaseDate: ({ isVariantOf: { releaseDate } }) => releaseDate ?? '',
   advertisement: ({ isVariantOf: { advertisement } }) => advertisement,
-  rating: (item) => item.rating,
+  rating: ({ rating: { average, totalCount, distribution } }) => ({
+    average,
+    totalCount,
+    distribution: {
+      starsOne: distribution?.[1] ?? 0,
+      starsTwo: distribution?.[2] ?? 0,
+      starsThree: distribution?.[3] ?? 0,
+      starsFour: distribution?.[4] ?? 0,
+      starsFive: distribution?.[5] ?? 0,
+    },
+  }),
 }
