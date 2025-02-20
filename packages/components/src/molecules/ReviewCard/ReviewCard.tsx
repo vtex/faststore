@@ -99,7 +99,7 @@ const ReviewCard = forwardRef<HTMLDivElement, ReviewCardProps>(
         </div>
         <div data-fs-review-card-text>
           <div data-fs-review-card-text-header>
-            <h3 data-fs-review-card-text-headline>{title}</h3>
+            <h3 data-fs-review-card-text-title>{title}</h3>
 
             {date && (
               <ReviewCardDate
