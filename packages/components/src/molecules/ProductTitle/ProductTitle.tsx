@@ -43,9 +43,15 @@ export interface ProductTitleProps
    */
   noReviewsText?: string
   /**
-   * @default "X reviews".
+   * Text to display when there is only one review.
+   * @default "review".
    */
-  reviewsCountText?: string
+  singleReviewText?: string
+  /**
+   * Text to display when there are multiple reviews.
+   * @default "reviews".
+   */
+  multipleReviewsText?: string
 }
 
 const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
@@ -60,7 +66,8 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
       reviewsCount,
       reviewsSectionId,
       noReviewsText = 'No reviews yet',
-      reviewsCountText = 'reviews',
+      singleReviewText = 'review',
+      multipleReviewsText = 'reviews',
       ...otherProps
     },
     ref
@@ -81,12 +88,14 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
           <div data-fs-product-title-addendum>
             <div data-fs-product-title-rating>
               {ratingValue !== undefined && <Rating value={ratingValue} />}
-              
+
               {reviewsCount !== undefined && (
                 <a href={`#${reviewsSectionId}`} data-fs-product-title-reviews>
-                  {reviewsCount > 0
-                    ? `(${reviewsCount} ${reviewsCountText})`
-                    : `(${noReviewsText})`}
+                  {reviewsCount === 0 && `(${noReviewsText})`}
+                  {reviewsCount === 1 &&
+                    `(${reviewsCount} ${singleReviewText})`}
+                  {reviewsCount > 1 &&
+                    `(${reviewsCount} ${multipleReviewsText})`}
                 </a>
               )}
             </div>

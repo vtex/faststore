@@ -1517,10 +1517,15 @@
                   "type": "string",
                   "default": "No reviews yet"
                 },
-                "reviewsCountLabel": {
-                  "title": "Reviews Count Label",
+                "multipleReviewsText": {
+                  "title": "Multiple reviews text",
                   "type": "string",
                   "default": "reviews"
+                },
+                "singleReviewText": {
+                  "title": "Single review text",
+                  "type": "string",
+                  "default": "review"
                 }
               }
             }
