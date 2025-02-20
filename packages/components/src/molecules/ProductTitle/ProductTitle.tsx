@@ -81,6 +81,7 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
           <div data-fs-product-title-addendum>
             <div data-fs-product-title-rating>
               {ratingValue !== undefined && <Rating value={ratingValue} />}
+              
               {reviewsCount !== undefined && (
                 <a href={`#${reviewsSectionId}`} data-fs-product-title-reviews>
                   {reviewsCount > 0
