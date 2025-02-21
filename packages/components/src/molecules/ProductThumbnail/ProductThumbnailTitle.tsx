@@ -7,17 +7,13 @@ export interface ProductThumbnailTitleProps
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
-  /**
-   * Specifies the product's title.
-   */
-  title: string
 }
 
 const ProductThumbnailTitle = forwardRef<
   HTMLDivElement,
   ProductThumbnailTitleProps
 >(function ProductThumbnailTitle(
-  { testId = 'fs-product-thumbnail-title', title, ...otherProps },
+  { testId = 'fs-product-thumbnail-title', children, ...otherProps },
   ref
 ) {
   return (
@@ -27,7 +23,7 @@ const ProductThumbnailTitle = forwardRef<
       data-testid={testId}
       {...otherProps}
     >
-      {title}
+      {children}
     </h3>
   )
 })
