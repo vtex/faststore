@@ -180,7 +180,9 @@ function Page({
         releaseDate={product.releaseDate}
         images={product.image.map((img) => img.url)} // Somehow, Google does not understand this valid Schema.org schema, so we need to do conversions
         offers={offers}
-        category={itemListElements[itemListElements.length - 2]?.name}
+        {...(itemListElements.length !== 0 && {
+          category: itemListElements[0].name,
+        })}
       />
 
       {/*
