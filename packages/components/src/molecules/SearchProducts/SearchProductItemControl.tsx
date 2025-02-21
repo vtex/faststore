@@ -144,6 +144,7 @@ const SearchProductItemControl = forwardRef<
               disabled={statusAddToCart !== 'default'}
               max={max}
               onValidateBlur={onValidateBlur}
+              initial={quantity}
               onChange={onChangeQuantity}
             />
           </div>
