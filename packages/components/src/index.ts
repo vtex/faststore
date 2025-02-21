@@ -141,6 +141,16 @@ export type {
   ProductCardImageProps,
   ProductCardContentProps,
 } from './molecules/ProductCard'
+export {
+  default as ProductThumbnail,
+  ProductThumbnailImage,
+  ProductThumbnailTitle,
+} from './molecules/ProductThumbnail'
+export type {
+  ProductThumbnailProps,
+  ProductThumbnailImageProps,
+  ProductThumbnailTitleProps,
+} from './molecules/ProductThumbnail'
 export { default as ProductPrice } from './molecules/ProductPrice'
 export type { ProductPriceProps } from './molecules/ProductPrice'
 export { default as ProductTitle } from './molecules/ProductTitle'
