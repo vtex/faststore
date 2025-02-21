@@ -4,22 +4,22 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-product-thumbnail-padding: var(--fs-spacing-1);
-  --fs-product-thumbnail-gap: var(--fs-spacing-2);
-  --fs-product-thumbnail-bkg-color: var(--fs-color-neutral-1);
-  --fs-product-thumbnail-border-radius: var(--fs-border-radius);
+  --fs-product-thumbnail-padding                                     : var(--fs-spacing-1);
+  --fs-product-thumbnail-gap                                         : var(--fs-spacing-2);
+  --fs-product-thumbnail-bkg-color                                   : var(--fs-color-neutral-1);
+  --fs-product-thumbnail-border-radius                               : var(--fs-border-radius);
 
   // Image
-  --fs-product-thumbnail-img-radius: var(--fs-product-thumbnail-border-radius);
-  --fs-product-thumbnail-img-scale-hover: 1;
-  --fs-product-thumbnail-img-size: 50px;
+  --fs-product-thumbnail-img-radius                                  : var(--fs-product-thumbnail-border-radius);
+  --fs-product-thumbnail-img-scale-hover                             : 1;
+  --fs-product-thumbnail-img-size                                    : 50px;
 
   // Title
-  --fs-product-thumbnail-title-color: var(--fs-color-text);
-  --fs-product-thumbnail-title-size: var(--fs-text-size-base);
-  --fs-product-thumbnail-title-weight: var(--fs-text-weight-medium);
-  --fs-product-thumbnail-title-max-lines: var(--fs-text-max-lines);
-  --fs-product-thumbnail-title-line-height: 1.25; // 20px
+  --fs-product-thumbnail-title-color                                 : var(--fs-color-text);
+  --fs-product-thumbnail-title-size                                  : var(--fs-text-size-base);
+  --fs-product-thumbnail-title-weight                                : var(--fs-text-weight-medium);
+  --fs-product-thumbnail-title-max-lines                             : var(--fs-text-max-lines);
+  --fs-product-thumbnail-title-line-height                           : 1.25; // 20px
 
   // --------------------------------------------------------
   // Structural Styles
