@@ -36,6 +36,7 @@ import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
 import { getPDP, type PDPContentType } from 'src/server/cms/pdp'
+import { buildStoreUrl } from 'src/utils/buildStoreUrl'
 
 type StoreConfig = typeof storeConfig & {
   experimental: {
@@ -87,6 +88,7 @@ function Page({
   globalSections,
   offers,
   meta,
+  storeUrl,
 }: Props) {
   const { product } = server
   const { currency } = useSession()
@@ -96,7 +98,7 @@ function Page({
   if (itemListElements.length !== 0) {
     itemListElements = itemListElements.map(
       ({ item: pathname, name, position }) => {
-        const pageUrl = storeConfig.storeUrl + pathname
+        const pageUrl = storeUrl + pathname
 
         return { name, position, item: pageUrl }
       }
@@ -297,7 +299,11 @@ export const getStaticProps: GetStaticProps<
   const { seo } = data.product
   const title = seo.title || storeConfig.seo.title
   const description = seo.description || storeConfig.seo.description
-  const canonical = `${storeConfig.storeUrl}${seo.canonical}`
+  const storeUrl = buildStoreUrl(
+    storeConfig.storeUrl,
+    (storeConfig.api as Record<string, any>).subDomainPrefix
+  )
+  const canonical = `${storeUrl}${seo.canonical}`
 
   const meta = { title, description, canonical }
 
@@ -323,6 +329,7 @@ export const getStaticProps: GetStaticProps<
       offers,
       globalSections,
       key: seo.canonical,
+      storeUrl,
     },
     revalidate: (storeConfig as StoreConfig).experimental.revalidate ?? false,
   }
