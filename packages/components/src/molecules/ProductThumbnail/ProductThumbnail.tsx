@@ -15,7 +15,12 @@ const ProductThumbnail = forwardRef<HTMLDivElement, ProductThumbnailProps>(
     ref
   ) {
     return (
-      <div ref={ref} data-testid={testId} {...otherProps}>
+      <div
+        ref={ref}
+        data-testid={testId}
+        data-fs-product-thumbnail
+        {...otherProps}
+      >
         {children}
       </div>
     )
