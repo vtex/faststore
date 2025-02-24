@@ -1,7 +1,7 @@
 import type { GraphQLSchema } from 'graphql'
 import { assertValidSchema } from 'graphql'
 
-import { getSchema } from '../src'
+import { getSchema } from '../../src'
 
 const TYPES = [
   'StoreAggregateOffer',

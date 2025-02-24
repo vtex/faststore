@@ -4,9 +4,9 @@ import {
   getWithCookie,
   updatesContextStorageCookies,
   getStoreCookie,
-} from '../src/platforms/vtex/utils/cookies'
-import type { ContextForCookies } from '../src/platforms/vtex/utils/cookies'
-import type { Context } from '../src/platforms/vtex'
+} from '../../src/platforms/vtex/utils/cookies'
+import type { ContextForCookies } from '../../src/platforms/vtex/utils/cookies'
+import type { Context } from '../../src/platforms/vtex'
 
 describe('getUpdatedCookie', () => {
   it('Should return undefined if context has no headers', () => {
