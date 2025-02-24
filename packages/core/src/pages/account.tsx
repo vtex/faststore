@@ -10,6 +10,7 @@ import {
 import RenderSections from 'src/components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import { injectGlobalSections } from 'src/server/cms/global'
 import storeConfig from '../../discovery.config'
 
 type Props = {
@@ -44,10 +45,27 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const globalSections = await getGlobalSectionsData(previewData)
+  const [
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ] = getGlobalSectionsData(previewData)
+
+  const [globalSections, globalSectionsHeader, globalSectionsFooter] =
+    await Promise.all([
+      globalSectionsPromise,
+      globalSectionsHeaderPromise,
+      globalSectionsFooterPromise,
+    ])
+
+  const globalSectionsResult = injectGlobalSections({
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  })
 
   return {
-    props: { globalSections },
+    props: { globalSections: globalSectionsResult },
   }
 }
 

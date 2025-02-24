@@ -35,6 +35,7 @@ import {
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
+import { injectGlobalSections } from 'src/server/cms/global'
 import { getPDP, type PDPContentType } from 'src/server/cms/pdp'
 
 type StoreConfig = typeof storeConfig & {
@@ -260,12 +261,26 @@ export const getStaticProps: GetStaticProps<
   Locator
 > = async ({ params, previewData }) => {
   const slug = params?.slug ?? ''
-  const [searchResult, globalSections] = await Promise.all([
+
+  const [
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ] = getGlobalSectionsData(previewData)
+
+  const [
+    searchResult,
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  ] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
       variables: { locator: [{ key: 'slug', value: slug }] },
       operation: query,
     }),
-    getGlobalSectionsData(previewData),
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
   ])
 
   const { data, errors = [] } = searchResult
@@ -305,13 +320,19 @@ export const getStaticProps: GetStaticProps<
     url: canonical,
   }
 
+  const globalSectionsResult = injectGlobalSections({
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  })
+
   return {
     props: {
       data,
       ...cmsPage,
       meta,
       offers,
-      globalSections,
+      globalSections: globalSectionsResult,
       key: seo.canonical,
     },
     revalidate: (storeConfig as StoreConfig).experimental.revalidate ?? false,
