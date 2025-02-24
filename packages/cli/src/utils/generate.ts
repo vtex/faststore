@@ -373,7 +373,7 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
       logger.warn(
         `${chalk.yellow(
           'warning'
-        )} - Version mismatch detected for ${packageName}. 
+        )} - Version mismatch detected for ${packageName}.
           Core: ${coreVersion}, Customization: ${rootVersion}. Please align both versions to prevent issues`
       )
     }
@@ -513,6 +513,27 @@ function enableSearchSSR(basePath: string) {
   writeFileSync(searchPagePath, searchPageWithSSR)
 }
 
+function enablePdpSSR(basePath: string) {
+  const storeConfigPath = getCurrentUserStoreConfigFile(basePath)
+
+  if (!storeConfigPath) {
+    return
+  }
+
+  const storeConfig = require(storeConfigPath)
+  if (!storeConfig.experimental.enablePdpSSR) {
+    return
+  }
+
+  const { tmpDir } = withBasePath(basePath)
+  const pdpPath = path.join(tmpDir, 'src', 'pages', 'p.tsx')
+  const pdpData = String(readFileSync(pdpPath))
+
+  const pdpWithSSR = pdpData.replaceAll('getStaticProps', 'getServerSideProps')
+
+  writeFileSync(pdpPath, pdpWithSSR)
+}
+
 export async function generate(options: GenerateOptions) {
   const { basePath, setup = false } = options
 
@@ -533,6 +554,7 @@ export async function generate(options: GenerateOptions) {
     setupPromise,
     checkDependencies(basePath, ['typescript']),
     enableSearchSSR(basePath),
+    enablePdpSSR(basePath),
     updateBuildTime(basePath),
     copyUserStarterToCustomizations(basePath),
     copyTheme(basePath),

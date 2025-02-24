@@ -12,3 +12,7 @@ export function getCookie(name: string): string | undefined {
 
   return undefined // Cookie not found
 }
+
+export function setCookie(key: string, value: string, seconds: number) {
+  document.cookie = `${key}=${value}; max-age=${seconds}; path=/`
+}

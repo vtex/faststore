@@ -116,5 +116,6 @@ module.exports = {
     preact: false,
     enableRedirects: false,
     enableSearchSSR: false,
+    enablePdpSSR: false,
   },
 }

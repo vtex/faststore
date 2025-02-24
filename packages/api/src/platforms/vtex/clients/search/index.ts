@@ -39,6 +39,7 @@ export interface SearchArgs {
   showInvisibleItems?: boolean
   showSponsored?: boolean
   sponsoredCount?: number
+  regionId?: string
 }
 
 export interface ProductLocator {
@@ -101,24 +102,30 @@ export const IntelligentSearch = (
     }
   }
 
-  const getRegionFacet = (): IStoreSelectedFacet | null => {
-    const { regionId, seller } = ctx.storage.channel
+  const getRegionFacet = (
+    queryRegionId?: string
+  ): IStoreSelectedFacet | null => {
+    const { regionId: channelRegionId, seller } = ctx.storage.channel
     const sellerRegionId = seller
       ? Buffer.from(`SW#${seller}`).toString('base64')
       : null
-    const facet = sellerRegionId ?? regionId
+    const regionId = sellerRegionId ?? channelRegionId
+    const regionFacet = regionId ?? queryRegionId
 
-    if (!facet) {
+    if (!regionFacet) {
       return null
     }
 
     return {
       key: REGION_KEY,
-      value: facet,
+      value: regionFacet,
     }
   }
 
-  const addDefaultFacets = (facets: SelectedFacet[]) => {
+  const addDefaultFacets = (
+    facets: SelectedFacet[],
+    queryRegionId?: string
+  ) => {
     const withDefaultFacets = facets.filter(
       ({ key }) => !EXTRA_FACETS_KEYS.has(key)
     )
@@ -127,7 +134,8 @@ export const IntelligentSearch = (
       facets.find(({ key }) => key === POLICY_KEY) ?? getPolicyFacet()
 
     const regionFacet =
-      facets.find(({ key }) => key === REGION_KEY) ?? getRegionFacet()
+      facets.find(({ key }) => key === REGION_KEY) ??
+      getRegionFacet(queryRegionId)
 
     if (policyFacet !== null) {
       withDefaultFacets.push(policyFacet)
@@ -165,6 +173,7 @@ export const IntelligentSearch = (
     type,
     showInvisibleItems,
     sponsoredCount,
+    regionId = undefined,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
@@ -196,7 +205,7 @@ export const IntelligentSearch = (
       params.append('sponsoredCount', sponsoredCount.toString())
     }
 
-    const pathname = addDefaultFacets(selectedFacets)
+    const pathname = addDefaultFacets(selectedFacets, regionId)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
