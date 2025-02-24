@@ -965,6 +965,21 @@
     }
   },
   {
+    "name": "ReviewsAndRatings",
+    "schema": {
+      "title": "Reviews And Ratings",
+      "description": "A section to display product reviews and ratings",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Reviews"
+        }
+      }
+    }
+  },
+  {
     "name": "CrossSellingShelf",
     "requiredScopes": ["pdp", "custom"],
     "schema": {
@@ -1492,6 +1507,27 @@
               "title": "Show Reference Number?",
               "type": "boolean",
               "default": false
+            },
+            "rating": {
+              "title": "Rating",
+              "type": "object",
+              "properties": {
+                "noReviewsText": {
+                  "title": "No reviews text",
+                  "type": "string",
+                  "default": "No reviews yet"
+                },
+                "multipleReviewsText": {
+                  "title": "Multiple reviews text",
+                  "type": "string",
+                  "default": "reviews"
+                },
+                "singleReviewText": {
+                  "title": "Single review text",
+                  "type": "string",
+                  "default": "review"
+                }
+              }
             }
           }
         },
