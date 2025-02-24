@@ -1,6 +1,7 @@
 @layer components {
   .section {
-    // TODO: Ajustar esses componentes para a nova section ReviewsAndRatings
-    // @import '@faststore/ui/src/components/atoms/Ratings/styles';
+    @import "@faststore/ui/src/components/molecules/Rating/styles";
+    @import "@faststore/ui/src/components/organisms/RatingSummary/styles";
+    @import "@faststore/ui/src/components/atoms/Button/styles";
   }
 }

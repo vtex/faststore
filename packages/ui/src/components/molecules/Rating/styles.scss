@@ -30,6 +30,8 @@
     width: var(--fs-rating-icon-width);
     height: var(--fs-rating-icon-height);
     color: var(--fs-rating-color);
+    color: var(--fs-rating-color);
+    fill: var(--fs-rating-color);
   }
 
   [data-fs-rating-button] {

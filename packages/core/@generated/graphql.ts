@@ -1324,7 +1324,17 @@ export type ProductDetailsFragment_ProductFragment = {
     value: any
     valueReference: any
   }>
-  rating: { average: number; totalCount: number }
+  rating: {
+    average: number
+    totalCount: number
+    distribution: {
+      starsOne: number
+      starsTwo: number
+      starsThree: number
+      starsFour: number
+      starsFive: number
+    }
+  }
 }
 
 export type ProductSkuMatrixSidebarFragment_ProductFragment = {
@@ -1462,7 +1472,17 @@ export type ServerProductQueryQuery = {
       value: any
       valueReference: any
     }>
-    rating: { average: number; totalCount: number }
+    rating: {
+      average: number
+      totalCount: number
+      distribution: {
+        starsOne: number
+        starsTwo: number
+        starsThree: number
+        starsFour: number
+        starsFive: number
+      }
+    }
   }
 }
 
@@ -1763,7 +1783,17 @@ export type ClientProductQueryQuery = {
       value: any
       valueReference: any
     }>
-    rating: { average: number; totalCount: number }
+    rating: {
+      average: number
+      totalCount: number
+      distribution: {
+        starsOne: number
+        starsTwo: number
+        starsThree: number
+        starsFour: number
+        starsFive: number
+      }
+    }
   }
 }
 
@@ -2065,6 +2095,13 @@ export const ProductDetailsFragment_ProductFragmentDoc =
   rating {
     average
     totalCount
+    distribution {
+      starsOne
+      starsTwo
+      starsThree
+      starsFour
+      starsFive
+    }
   }
   ...CartProductItem
 }
@@ -2342,7 +2379,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '0a3f449b2a88dc1f692fe1ae981370be53a02cce',
+    operationHash: '312acab1a14a3b35d6c70887b5cf289b5cf6cf76',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2396,7 +2433,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: 'e1599e2efe3664aad09c026919c1c104b4085f00',
+    operationHash: 'e678f7fc4d59a3e4cbf61295fc1e669f44724464',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
