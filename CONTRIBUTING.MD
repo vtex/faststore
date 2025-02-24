@@ -64,8 +64,7 @@ To test your changes in a store, you will need to create a pull request (for mor
 
 3. Use the `Local Install Instructions` provided for the PR to **add your version of the packages** as dependencies in the `package.json` file of the [starter](https://github.com/vtex-sites/starter.store) or your store.
 
-<img width="502" alt="image" src="https://vtexhelp.vtexassets.com/assets/docs/src/fs-package-local-install-cli___692a64eba8c0b3745c468176bfc610fb.png
-"></img>
+<img width="502" alt="local_instructions" src="https://vtexhelp.vtexassets.com/assets/docs/src/fs-package-local-install-cli___692a64eba8c0b3745c468176bfc610fb.png"></img>
 
 4. Run `pnpm` to install the updates and test your changes in the store.
 
@@ -86,9 +85,19 @@ After committing your changes, push them to the remote repository and open a Pul
 
 2. You will be presented with a pull request template. Please describe the motivation behind your changes and provide details about what you have implemented.
 
-3. If applicable, include screenshots and steps for testing. This information will help reviewers understand your contributions better.
+- If introducing a new feature, include: A detailed description of the feature. Examples of how the feature will be used, if possible.
 
-4. Add the `contributing` label to identify your PR. And any other [label](https://github.com/vtex/faststore/labels) that is applicable for your PR.
+3. Include relevant screenshots, screen recordings, or animated GIFs to showcase UI changes or functionality.
+
+4. Provide steps for testing to help reviewers verify your contributions.
+
+5. Link to relevant resources, such as:
+
+- Figma files, prototypes, or design documents.
+- Related RFCs (Request for Comments) or discussions.
+- Any external documentation or guides that explain the changes.
+
+6. Add the `contributing` label to identify your PR. And any other [label](https://github.com/vtex/faststore/labels) that is applicable for your PR.
 
 **Note**: If you believe your changes might cause a breaking change, or if you have any concerns about it, please mention this in the pull request description.
 
