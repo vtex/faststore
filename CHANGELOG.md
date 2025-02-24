@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.22.3](https://github.com/vtex/faststore/compare/v3.22.2...v3.22.3) (2025-02-24)
+
+### Bug Fixes
+
+- add yarn to volta config ([#2698](https://github.com/vtex/faststore/issues/2698)) ([421bdca](https://github.com/vtex/faststore/commit/421bdca9105bd6f31e6f15db55192827ba8e6dfc))
+
 ## 3.22.2 (2025-02-20)
 
 ### Bug Fixes

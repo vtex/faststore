@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.22.3](https://github.com/vtex/faststore/compare/v3.22.2...v3.22.3) (2025-02-24)
+
+**Note:** Version bump only for package @faststore/cli
+
 ## 3.22.2 (2025-02-20)
 
 ### Bug Fixes
