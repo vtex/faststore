@@ -70,6 +70,7 @@ export interface Search {
 export interface Product {
   productId: string
   productName: string
+  productTitle: string
   brand: string
   brandId: number
   cacheId?: string
@@ -82,6 +83,7 @@ export interface Product {
   categoriesIds: string[]
   link: string
   description: string
+  metaTagDescription: string
   /**
    * @description Product SKUs.
    */
