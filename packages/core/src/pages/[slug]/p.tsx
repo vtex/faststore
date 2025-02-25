@@ -69,7 +69,6 @@ type Props = PDPContentType & {
   meta: {
     title: string
     description: string
-    metaTagDescription: string
     canonical: string
   }
 }
@@ -125,13 +124,13 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
       {/* SEO */}
       <NextSeo
         title={meta.title}
-        description={meta.metaTagDescription}
+        description={meta.description}
         canonical={meta.canonical}
         openGraph={{
           type: 'og:product',
           url: meta.canonical,
           title: meta.title,
-          description: meta.metaTagDescription,
+          description: meta.description,
           images: product.image.map((img) => ({
             url: img.url,
             alt: img.alternateName,
@@ -194,7 +193,6 @@ const query = gql(`
       seo {
         title
         description
-        metaTagDescription
         canonical
       }
 
@@ -280,11 +278,9 @@ export const getStaticProps: GetStaticProps<
   const { seo } = data.product
   const title = seo.title || storeConfig.seo.title
   const description = seo.description || storeConfig.seo.description
-  const metaTagDescription =
-    seo.metaTagDescription || storeConfig.seo.description
   const canonical = `${storeConfig.storeUrl}${seo.canonical}`
 
-  const meta = { title, description, canonical, metaTagDescription }
+  const meta = { title, description, canonical }
 
   let offer = {}
 
