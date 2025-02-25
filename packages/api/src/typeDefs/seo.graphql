@@ -15,6 +15,10 @@ type StoreSeo {
   """
   description: String!
   """
+  Meta description tag.
+  """
+  metaTagDescription: String!
+  """
   Canonical tag.
   """
   canonical: String!

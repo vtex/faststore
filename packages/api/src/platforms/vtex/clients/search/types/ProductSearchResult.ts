@@ -82,6 +82,7 @@ export interface Product {
   categoriesIds: string[]
   link: string
   description: string
+  metaTagDescription: string
   /**
    * @description Product SKUs.
    */

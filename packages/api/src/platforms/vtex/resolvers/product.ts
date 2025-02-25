@@ -51,6 +51,8 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   seo: ({ isVariantOf }) => ({
     title: isVariantOf.productName,
     description: isVariantOf.description,
+    metaTagDescription:
+      isVariantOf.metaTagDescription ?? isVariantOf.description,
     canonical: canonicalFromProduct(isVariantOf),
   }),
   brand: ({ isVariantOf: { brand } }) => ({ name: brand }),
