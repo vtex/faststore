@@ -49,7 +49,7 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   slug: ({ isVariantOf: { linkText }, itemId }) => getSlug(linkText, itemId),
   description: ({ isVariantOf: { description } }) => description,
   seo: ({ isVariantOf }) => ({
-    title: isVariantOf.productName,
+    title: isVariantOf.productTitle || isVariantOf.productName,
     description: isVariantOf.metaTagDescription || isVariantOf.description,
     canonical: canonicalFromProduct(isVariantOf),
   }),

@@ -70,6 +70,7 @@ export interface Search {
 export interface Product {
   productId: string
   productName: string
+  productTitle: string
   brand: string
   brandId: number
   cacheId?: string
