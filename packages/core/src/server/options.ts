@@ -6,9 +6,7 @@ export const apiOptions: APIOptions = {
   platform: storeConfig.platform as APIOptions['platform'],
   account: storeConfig.api.storeId,
   environment: storeConfig.api.environment as APIOptions['environment'],
-  subDomainPrefix: (storeConfig.api as Record<string, any>).subDomainPrefix ?? [
-    'www',
-  ],
+  subDomainPrefix: storeConfig.api.subDomainPrefix ?? ['www'],
   hideUnavailableItems: storeConfig.api.hideUnavailableItems,
   showSponsored: storeConfig.api.showSponsored,
   simulationBehavior: (storeConfig.api as Record<string, any>)
