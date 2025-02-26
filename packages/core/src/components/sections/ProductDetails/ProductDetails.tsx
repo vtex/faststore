@@ -259,6 +259,27 @@ function ProductDetails({
                   isValidating={isValidating}
                   taxesConfiguration={taxesConfiguration}
                 />
+
+                {skuMatrix?.shouldDisplaySKUMatrix &&
+                  Object.keys(slugsMap).length > 1 && (
+                    <>
+                      <div data-fs-product-details-settings-separator>
+                        {skuMatrix.separatorButtonsText}
+                      </div>
+
+                      <SKUMatrix.Component>
+                        <SKUMatrixTrigger.Component disabled={isValidating}>
+                          {skuMatrix.triggerButtonLabel}
+                        </SKUMatrixTrigger.Component>
+
+                        <SKUMatrixSidebar.Component
+                          formatter={useFormattedPrice}
+                          columns={skuMatrix.columns}
+                          overlayProps={{ className: styles.section }}
+                        />
+                      </SKUMatrix.Component>
+                    </>
+                  )}
               </section>
 
               {!outOfStock && (
