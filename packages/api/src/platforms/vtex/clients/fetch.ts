@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-unfetch'
 import packageJson from '../../../../package.json'
+import { NotAuthorizedError } from '../../errors'
 
 const USER_AGENT = `${packageJson.name}@${packageJson.version}`
 
@@ -25,7 +26,14 @@ export const fetchAPI = async (
       options.storeCookies(response.headers)
     }
 
-    return response.status !== 204 ? response.json() : undefined
+    const json = response.status !== 204 ? await response.json() : undefined
+
+    if (typeof json === 'string' && json.toLowerCase() === 'invalid user') {
+      console.error(info, init, response)
+      throw new NotAuthorizedError(json)
+    }
+
+    return json
   }
 
   console.error(info, init, response)
