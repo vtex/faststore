@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.23.0](https://github.com/vtex/faststore/compare/v3.22.3...v3.23.0) (2025-02-26)
+
+### Features
+
+- adds `productTitle` and `metaTagDescription` from IS as SEO data from the PDP - SFS-2252 ([#2701](https://github.com/vtex/faststore/issues/2701)) ([ca368a0](https://github.com/vtex/faststore/commit/ca368a03f47a8c211baab2810d8057c87f3d854f))
+
 ## 3.22.2 (2025-02-20)
 
 ### Bug Fixes
