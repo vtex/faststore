@@ -1,6 +1,7 @@
 import type { ContentData, ContentTypeOptions, Locator } from '@vtex/client-cms'
 import ClientCMS from '@vtex/client-cms'
 
+import MissingContentError from 'src/sdk/error/MissingContentError'
 import MultipleContentError from 'src/sdk/error/MultipleContentError'
 import config from '../../../discovery.config'
 
@@ -95,6 +96,10 @@ export const getPage = async <T extends ContentData>(options: Options) => {
   const result = await getCMSPage(options)
 
   const pages = result.data
+
+  if (!pages[0]) {
+    throw new MissingContentError(options)
+  }
 
   if (pages.length > 1) {
     throw new MultipleContentError(options)
