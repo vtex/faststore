@@ -1,7 +1,7 @@
 import type { GlobalSectionsData } from '../../../src/components/cms/GlobalSections'
 import { injectGlobalSections } from '../../../src/server/cms/global'
 
-describe('hCMS - Multiple Global Section content type injectGlobalSections', () => {
+describe('hCMS - Multiple Global Section content type', () => {
   describe('injectGlobalSections', () => {
     it('should inject globalSectionsHeader before Children and globalSectionsFooter after', () => {
       const globalSections: GlobalSectionsData = {
