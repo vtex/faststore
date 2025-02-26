@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.24.1](https://github.com/vtex/faststore/compare/v3.24.0...v3.24.1) (2025-02-26)
+
+### Bug Fixes
+
+- removes MissingContentError checks in getPage ([#2704](https://github.com/vtex/faststore/issues/2704)) ([0c75ea0](https://github.com/vtex/faststore/commit/0c75ea05b0d3c8ee62daa988c80152ba1464755c))
+
 # [3.24.0](https://github.com/vtex/faststore/compare/v3.23.0...v3.24.0) (2025-02-26)
 
 ### Features
