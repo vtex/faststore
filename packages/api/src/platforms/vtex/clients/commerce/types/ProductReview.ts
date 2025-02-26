@@ -16,7 +16,7 @@ export interface ProductReview {
   pastReviews: string | null
 }
 
-export enum ProductReviewsInputOrderBy {
+export enum ListProductReviewsInputOrderBy {
   productId = 'ProductId',
   shopperId = 'ShopperId',
   approved = 'Approved',
@@ -26,20 +26,20 @@ export enum ProductReviewsInputOrderBy {
   locale = 'Locale',
 }
 
-export type ProductReviewsInputOrderWay = 'asc' | 'desc'
+export type ListProductReviewsInputOrderWay = 'asc' | 'desc'
 
-export interface ProductReviewsInput {
+export interface ListProductReviewsInput {
   searchTerm?: string
   from?: number
   to?: number
-  orderBy?: ProductReviewsInputOrderBy
-  orderWay?: ProductReviewsInputOrderWay
+  orderBy?: ListProductReviewsInputOrderBy
+  orderWay?: ListProductReviewsInputOrderWay
   status?: boolean
   productId?: string
   rating?: number
 }
 
-export interface ProductReviewsResult {
+export interface ListProductReviewsResult {
   data: ProductReview[]
   range: {
     from: number
