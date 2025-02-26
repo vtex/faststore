@@ -27,12 +27,12 @@ import {
 import type { ProductRating } from './types/ProductRating'
 import type {
   CreateProductReviewInput,
-  ProductReviewsInput,
-  ProductReviewsResult,
+  ListProductReviewsInput,
+  ListProductReviewsResult,
 } from './types/ProductReview'
 import { adaptObject } from '../../utils/adaptObject'
 import { camelToSnakeCase } from '../../utils/camelToSnakeCase'
-import { NotAuthorizedError } from '../../../errors'
+import { UnauthorizedError, NotFoundError } from '../../../errors'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -393,7 +393,7 @@ export const VtexCommerce = (
         const authCookie = getCookieFromRequestHeaders(ctx, authCookieKey) ?? ''
 
         if (!authCookie) {
-          throw new NotAuthorizedError('Missing auth cookie')
+          throw new UnauthorizedError('Missing auth cookie')
         }
 
         return fetchAPI(
@@ -414,7 +414,7 @@ export const VtexCommerce = (
         orderBy,
         orderWay,
         ...partialInput
-      }: ProductReviewsInput): Promise<ProductReviewsResult> => {
+      }: ListProductReviewsInput): Promise<ListProductReviewsResult> => {
         const formattedInput = adaptObject<string>(
           {
             orderBy: orderBy ? `${orderBy}:${orderWay ?? 'asc'}` : undefined,
@@ -432,6 +432,44 @@ export const VtexCommerce = (
           undefined,
           { storeCookies }
         )
+      },
+      delete: async (reviewId: string): Promise<true> => {
+        const review = await fetchAPI(
+          `${base}/${REVIEWS_AND_RATINGS_API_PATH}/review/${reviewId}`,
+          undefined,
+          { storeCookies }
+        )
+
+        if (!review) {
+          throw new NotFoundError(`Review not found for id ${reviewId}`)
+        }
+
+        const authCookieKey: string = `VtexIdclientAutCookie_${account}`
+
+        const authCookie = getCookieFromRequestHeaders(ctx, authCookieKey) ?? ''
+
+        if (!authCookie) {
+          throw new UnauthorizedError('Missing auth cookie')
+        }
+
+        const result = await fetchAPI(
+          `${base}/${REVIEWS_AND_RATINGS_API_PATH}/review/${reviewId}`,
+          {
+            ...BASE_INIT,
+            headers: {
+              ...BASE_INIT.headers,
+              VtexIdclientAutCookie: authCookie,
+            },
+            method: 'DELETE',
+          },
+          { storeCookies }
+        )
+
+        if (result.toLowerCase() === 'invalid user') {
+          throw new UnauthorizedError(result)
+        }
+
+        return result
       },
     },
   }

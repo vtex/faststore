@@ -15,4 +15,8 @@ type Mutation {
   Create a new product review.
   """
   createProductReview(data: ICreateProductReview!): String!
+  """
+  Delete a product review.
+  """
+  deleteProductReview(reviewId: String!): Boolean!
 }

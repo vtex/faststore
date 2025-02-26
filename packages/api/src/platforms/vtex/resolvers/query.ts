@@ -28,8 +28,8 @@ import type { Context } from '../index'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import type { SearchArgs } from '../clients/search'
 import {
-  ProductReviewsInputOrderBy,
-  type ProductReviewsInputOrderWay,
+  ListProductReviewsInputOrderBy,
+  type ListProductReviewsInputOrderWay,
 } from '../clients/commerce/types/ProductReview'
 import { buildRatingDistribution } from '../utils/rating'
 
@@ -364,15 +364,15 @@ export const Query = {
     const to = from + (first ?? 6)
 
     const [orderByKey, orderWay] = sort?.split('_') as [
-      keyof typeof ProductReviewsInputOrderBy,
-      ProductReviewsInputOrderWay,
+      keyof typeof ListProductReviewsInputOrderBy,
+      ListProductReviewsInputOrderWay,
     ]
 
     return await commerce.reviews.list({
       productId,
       from,
       to,
-      orderBy: ProductReviewsInputOrderBy[orderByKey],
+      orderBy: ListProductReviewsInputOrderBy[orderByKey],
       orderWay,
       status: true,
       rating: rating ?? undefined,
