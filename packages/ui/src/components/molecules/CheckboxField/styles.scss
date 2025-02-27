@@ -8,7 +8,7 @@
 
   // Label
   --fs-checkbox-field-label-color                                 : var(--fs-color-text-light);
-  --fs-checkbox-field-label-size                                  : var(--fs-text-size-1);
+  --fs-checkbox-field-label-size                                  : var(--fs-text-size-2);
   --fs-checkbox-field-label-weight                                : var(--fs-text-weight-regular);
   --fs-checkbox-field-label-line-height                           : 1.42;
 
@@ -32,27 +32,29 @@
   }
 
   [data-fs-checkbox-field-label] {
-    color: var(--fs-checkbox-field-label-color);
     font-size: var(--fs-checkbox-field-label-size);
     font-weight: var(--fs-checkbox-field-label-weight);
     line-height: var(--fs-checkbox-field-label-line-height);
+    color: var(--fs-checkbox-field-label-color);
   }
 
   // --------------------------------------------------------
   // Variants Styles
   // --------------------------------------------------------
 
-  &[data-fs-checkbox-field-alignment='center'] {
+  &[data-fs-checkbox-field-alignment="center"] {
     align-items: center;
   }
-  &[data-fs-checkbox-field-alignment='top'] {
+
+  &[data-fs-checkbox-field-alignment="top"] {
     align-items: flex-start;
   }
-  &[data-fs-checkbox-field-alignment='bottom'] {
+
+  &[data-fs-checkbox-field-alignment="bottom"] {
     align-items: flex-end;
   }
 
-  &[data-fs-checkbox-field-error='true'] {
+  &[data-fs-checkbox-field-error="true"] {
     [data-fs-checkbox-field-error-message] {
       margin-top: var(--fs-checkbox-field-error-message-margin-top);
       font-size: var(--fs-checkbox-field-error-message-size);
