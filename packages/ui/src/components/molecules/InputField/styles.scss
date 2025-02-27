@@ -51,11 +51,12 @@
 
   [data-fs-input] {
     --fs-input-padding: var(--fs-input-field-padding);
+
     padding: var(--fs-input-field-padding);
     color: var(--fs-input-field-color);
 
     &:placeholder-shown + label {
-      top: calc(50% - (var(--fs-input-field-size) / 2));
+      top: calc((var(--fs-control-tap-size) - var(--fs-input-field-size)) / 2); // (input height - label font size) / 2
       overflow: hidden;
     }
 
@@ -95,6 +96,7 @@
   &[data-fs-input-field-error="true"] {
     [data-fs-input] {
       border-color: var(--fs-input-field-error-border-color);
+
       @include input-focus-ring(
         $outline: #{var(--fs-input-field-error-focus-ring)},
         $border: #{var(--fs-input-field-error-border-color)}
