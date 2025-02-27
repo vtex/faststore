@@ -1018,6 +1018,33 @@
               "default": "Write a review"
             }
           }
+        },
+        "addReviewModal": {
+          "title": "Add Review Modal",
+          "description": "Add Review Modal configuration",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "type": "string",
+              "default": "Add a review"
+            },
+            "closeButtonAriaLabel": {
+              "title": "Close modal aria-label",
+              "type": "string",
+              "default": "Close Add Review Modal"
+            },
+            "cancelButtonLabel": {
+              "title": "Cancel button label",
+              "type": "string",
+              "default": "Cancel"
+            },
+            "submitButtonLabel": {
+              "title": "Submit review button label",
+              "type": "string",
+              "default": "Submit your review"
+            }
+          }
         }
       }
     }

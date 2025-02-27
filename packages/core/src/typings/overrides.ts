@@ -42,6 +42,7 @@ import type {
   SKUMatrixProps,
   SKUMatrixTriggerProps,
   SKUMatrixSidebarProps,
+  RatingSummaryProps,
 } from '@faststore/ui'
 
 import type {
@@ -360,7 +361,13 @@ export type SectionsOverrides = {
   ReviewsAndRatings: {
     Section: typeof ReviewsAndRatings
     // TODO: Add components
-    components: {}
+    components: {
+      RatingSummary: ComponentOverrideDefinition<
+        RatingSummaryProps,
+        RatingSummaryProps
+      >
+      __experimentalAddReviewModal: ComponentOverrideDefinition<any, any>
+    }
   }
   RegionBar: {
     Section: typeof RegionBar

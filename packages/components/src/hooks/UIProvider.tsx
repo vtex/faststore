@@ -13,6 +13,8 @@ interface State {
   cart: boolean
   /** Region modal */
   modal: boolean
+  /** Add review modal */
+  addReviewModal: boolean
   /** Menu slider */
   navbar: boolean
   /** Search page filter slider */
@@ -20,7 +22,7 @@ interface State {
   toasts: Toast[]
 }
 
-type UIElement = 'navbar' | 'cart' | 'modal' | 'filter'
+type UIElement = 'navbar' | 'cart' | 'modal' | 'filter' | 'addReviewModal'
 
 type Action =
   | {
@@ -97,6 +99,7 @@ const reducer = (state: State, action: Action): State => {
 const initializer = (): State => ({
   cart: false,
   modal: false,
+  addReviewModal: false,
   navbar: false,
   filter: false,
   toasts: [],
@@ -111,6 +114,8 @@ interface Context extends State {
   closeCart: () => void
   openModal: () => void
   closeModal: () => void
+  openAddReviewModal: () => void
+  closeAddReviewModal: () => void
   pushToast: (data: Toast) => void
   popToast: () => void
 }
@@ -130,6 +135,10 @@ function UIProvider({ children }: PropsWithChildren<unknown>) {
       closeCart: () => dispatch({ type: 'close', payload: 'cart' }),
       openModal: () => dispatch({ type: 'open', payload: 'modal' }),
       closeModal: () => dispatch({ type: 'close', payload: 'modal' }),
+      openAddReviewModal: () =>
+        dispatch({ type: 'open', payload: 'addReviewModal' }),
+      closeAddReviewModal: () =>
+        dispatch({ type: 'close', payload: 'addReviewModal' }),
       pushToast: (toast: Toast) =>
         dispatch({ type: 'pushToast', payload: toast }),
       popToast: () => dispatch({ type: 'popToast' }),
