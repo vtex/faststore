@@ -55,9 +55,9 @@ export interface AddReviewModalSuccessProps {
 }
 
 function AddReviewModalSuccess({
-  successTitle,
-  successSubtitle,
-  successButtonLabel,
+  successTitle = 'Success!',
+  successSubtitle = 'Your review has been submitted.',
+  successButtonLabel = 'Back to reviews',
   review,
   close,
 }: AddReviewModalSuccessProps) {
