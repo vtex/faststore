@@ -127,13 +127,30 @@ export interface AddReviewModalFormData {
 
 function AddReviewModalForm({
   product,
-  ratingField,
-  reviewTitleField,
-  reviewerNameField,
-  reviewTextField,
-  privacyPolicyCheckboxField,
-  cancelButtonLabel,
-  submitButtonLabel,
+  ratingField = {
+    label: 'Rate the product from 1 to 5 stars',
+    requiredErrorMessage: 'This field is required',
+  },
+  reviewTitleField = {
+    label: 'Headline',
+    requiredErrorMessage: 'This field is required',
+  },
+  reviewerNameField = {
+    label: 'Name',
+    requiredErrorMessage: 'This field is required',
+  },
+  reviewTextField = {
+    label:
+      'Share your thoughts about the product. How would you describe its quality?',
+    requiredErrorMessage: 'This field is required',
+  },
+  privacyPolicyCheckboxField = {
+    label:
+      'I confirm that I agree to the Privacy Policy, Terms of Use, and Terms of Service. I acknowledge that my review may be used for marketing purposes by the company or its partners. I understand that my rating and review may be visible publicly, may include a “Verified buyer” badge, and that my data may be associated with my review.',
+    requiredErrorMessage: 'This field is required',
+  },
+  cancelButtonLabel = 'Cancel',
+  submitButtonLabel = 'Submit your review',
   loading,
   onSubmit,
   onCancel,
