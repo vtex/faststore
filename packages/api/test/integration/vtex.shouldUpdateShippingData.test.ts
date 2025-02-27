@@ -8,7 +8,7 @@ import {
   mockSessionInvalidDeliveryWindow,
   mockSessionValidDeliveryWindow,
 } from '../mocks/shouldUpdateShippingData'
-import { shouldUpdateShippingData } from '../src/platforms/vtex/utils/shouldUpdateShippingData'
+import { shouldUpdateShippingData } from '../../src/platforms/vtex/utils/shouldUpdateShippingData'
 
 describe('shouldUpdateShippingData', () => {
   it('For an empty items array at the OrderForm it should not update the Shipping Data', () => {
