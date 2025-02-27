@@ -393,3 +393,8 @@ export type {
   SKUMatrixTriggerProps,
   SKUMatrixSidebarProps,
 } from './organisms/SKUMatrix'
+
+export {
+  default as RatingSummary,
+  type RatingSummaryProps,
+} from './organisms/RatingSummary'
