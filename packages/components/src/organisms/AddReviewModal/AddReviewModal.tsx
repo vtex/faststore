@@ -62,6 +62,7 @@ function AddReviewModal({
             closeBtnProps={{
               'aria-label': closeButtonAriaLabel,
             }}
+            data-fs-add-review-modal-header
           />
           {typeof children === 'function'
             ? children({ fade, fadeOut, fadeIn })

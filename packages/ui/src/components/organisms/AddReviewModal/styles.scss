@@ -6,16 +6,28 @@
   // Default properties
   --fs-add-review-modal-width                   : 100%;
   --fs-add-review-modal-max-width               : none;
+  --fs-modal-max-height-tablet                  : min(90vh, 44rem); // 704px
+  --fs-modal-body-padding                       : 0 var(--fs-spacing-4) var(--fs-spacing-3);
 
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
 
+  display: flex;
+  flex-direction: column;
+
+  [data-fs-add-review-modal-body] {
+    flex: 1;
+    overflow-y: auto;
+  }
+
   @include media("<tablet") {
-    top: 0;
-    right: 0;
+    --fs-modal-position-top                     : 0;
+    --fs-modal-position-right                   : 0;
+    --fs-modal-position-left                    : 0;
+    --fs-modal-max-width                        : var(--fs-add-review-modal-max-width);
+
     bottom: 0;
-    left: 0;
     display: flex;
     flex-direction: column;
     width: var(--fs-add-review-modal-width);
@@ -24,5 +36,15 @@
     [data-fs-add-review-modal-footer] {
       margin-top: auto;
     }
+  }
+
+  @include media(">=tablet") {
+    --fs-modal-position-top                     : 10vh;
+    --fs-modal-max-width                        : 41rem; // 656px
+    --fs-modal-width-tablet                     : 41rem; // 656px
+    --fs-modal-min-width-tablet                 : 41rem; // 656px
+    --fs-modal-min-height                       : min(90vh, 44rem); // 704px
+
+    max-height: var(--fs-modal-max-height-tablet);
   }
 }
