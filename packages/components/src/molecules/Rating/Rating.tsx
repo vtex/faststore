@@ -100,6 +100,7 @@ const Rating = forwardRef<HTMLUListElement, RatingProps>(function Rating(
                 onMouseEnter={() => setHover(tempIndex)}
                 onMouseLeave={() => setHover(value)}
                 disabled={disabled}
+                type="button"
               />
             ) : (
               <>

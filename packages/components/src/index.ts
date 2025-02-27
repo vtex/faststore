@@ -141,6 +141,16 @@ export type {
   ProductCardImageProps,
   ProductCardContentProps,
 } from './molecules/ProductCard'
+export {
+  default as ProductThumbnail,
+  ProductThumbnailImage,
+  ProductThumbnailTitle,
+} from './molecules/ProductThumbnail'
+export type {
+  ProductThumbnailProps,
+  ProductThumbnailImageProps,
+  ProductThumbnailTitleProps,
+} from './molecules/ProductThumbnail'
 export { default as ProductPrice } from './molecules/ProductPrice'
 export type { ProductPriceProps } from './molecules/ProductPrice'
 export { default as ProductTitle } from './molecules/ProductTitle'
@@ -359,6 +369,17 @@ export type {
 
 export { default as RegionModal } from './organisms/RegionModal'
 export type { RegionModalProps } from './organisms/RegionModal'
+
+export {
+  default as AddReviewModal,
+  AddReviewModalFooter,
+  AddReviewModalBody,
+} from './organisms/AddReviewModal'
+export type {
+  AddReviewModalProps,
+  AddReviewModalBodyProps,
+  AddReviewModalFooterProps,
+} from './organisms/AddReviewModal'
 
 export { default as SearchInput } from './organisms/SearchInput'
 export type { SearchInputProps } from './organisms/SearchInput'
