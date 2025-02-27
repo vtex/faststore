@@ -20,7 +20,8 @@ export type ModalChildrenProps = {
 
 type ModalChildrenFunction = (props: ModalChildrenProps) => ReactNode
 
-export interface ModalProps extends Omit<ModalContentProps, 'children'> {
+export interface ModalProps
+  extends Omit<ModalContentProps, 'children' | 'onTransitionEnd'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -46,6 +47,13 @@ export interface ModalProps extends Omit<ModalContentProps, 'children'> {
    * Children or function as a children
    */
   children: ModalChildrenFunction | ReactNode
+  /**
+   *
+   */
+  onTransitionEnd?: (
+    event: React.TransitionEvent<HTMLDivElement>,
+    fade: 'in' | 'out'
+  ) => void
 }
 
 /*
@@ -60,6 +68,7 @@ const Modal = ({
   isOpen = true,
   onDismiss,
   overlayProps,
+  onTransitionEnd,
   ...otherProps
 }: ModalProps) => {
   const { closeModal } = useUI()
@@ -93,7 +102,10 @@ const Modal = ({
           {...overlayProps}
         >
           <ModalContent
-            onTransitionEnd={() => fade === 'out' && closeModal()}
+            onTransitionEnd={(e) => {
+              onTransitionEnd?.(e, fade)
+              fade === 'out' && closeModal()
+            }}
             data-fs-modal
             data-fs-modal-state={fade}
             testId={testId}
