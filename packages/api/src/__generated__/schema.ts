@@ -394,6 +394,8 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Create a new product review. */
   createProductReview: Scalars['String'];
+  /** Delete a product review. */
+  deleteProductReview: Scalars['Boolean'];
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter?: Maybe<PersonNewsletter>;
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
@@ -405,6 +407,11 @@ export type Mutation = {
 
 export type MutationCreateProductReviewArgs = {
   data: ICreateProductReview;
+};
+
+
+export type MutationDeleteProductReviewArgs = {
+  reviewId: Scalars['String'];
 };
 
 
