@@ -81,7 +81,14 @@ const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 const isClientOfferEnabled = (storeConfig as StoreConfig).experimental
   .enableClientOffer
 
-function Page({ data: server, sections, globalSections, offers, meta }: Props) {
+function Page({
+  data: server,
+  sections,
+  settings,
+  globalSections,
+  offers,
+  meta,
+}: Props) {
   const { product } = server
   const { currency } = useSession()
   const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
@@ -162,6 +169,8 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
       />
       <BreadcrumbJsonLd itemListElements={itemListElements} />
       <ProductJsonLd
+        id={`${meta.canonical}${settings?.seo?.id ?? ''}`}
+        mainEntityOfPage={`${meta.canonical}${settings?.seo?.mainEntityOfPage ?? ''}`}
         productName={product.name}
         description={product.description}
         brand={product.brand.name}
@@ -170,6 +179,9 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
         releaseDate={product.releaseDate}
         images={product.image.map((img) => img.url)} // Somehow, Google does not understand this valid Schema.org schema, so we need to do conversions
         offers={offers}
+        {...(itemListElements.length !== 0 && {
+          category: itemListElements[0].name,
+        })}
       />
 
       {/*
