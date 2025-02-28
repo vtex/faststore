@@ -118,6 +118,10 @@ export const getPage = async <T extends ContentData>(options: Options) => {
 
   const pages = result.data
 
+  if (!pages[0]) {
+    throw new MissingContentError(options)
+  }
+
   if (pages.length > 1) {
     throw new MultipleContentError(options)
   }
