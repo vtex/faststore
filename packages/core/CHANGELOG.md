@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.25.0](https://github.com/vtex/faststore/compare/v3.24.1...v3.25.0) (2025-02-28)
+
+### Features
+
+- Add `category`, `mainEntityOfPage` and `[@id](https://github.com/id)` to Product structured data ([#2694](https://github.com/vtex/faststore/issues/2694)) ([1e9f81e](https://github.com/vtex/faststore/commit/1e9f81eb85ad4d40f64181967940ef629d979a4a))
+
 ## [3.24.1](https://github.com/vtex/faststore/compare/v3.24.0...v3.24.1) (2025-02-26)
 
 ### Bug Fixes
