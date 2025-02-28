@@ -24,4 +24,3 @@ export { default as ProductDetailsSection } from './src/components/sections/Prod
 export { default as ProductGallerySection } from './src/components/sections/ProductGallery'
 export { default as ProductShelfSection } from './src/components/sections/ProductShelf'
 export { default as RegionBarSection } from './src/components/sections/RegionBar'
-export { default as Section } from './src/components/sections/Section'
