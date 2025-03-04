@@ -1,18 +1,18 @@
+import type { Resolver } from '..'
+import type { StoreImage, StoreProductImageArgs } from '../../..'
+import type { PromiseType } from '../../../typings'
+import type { Attachment } from '../clients/commerce/types/OrderForm'
 import { canonicalFromProduct } from '../utils/canonical'
+import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import { enhanceCommercialOffer } from '../utils/enhanceCommercialOffer'
 import { bestOfferFirst } from '../utils/productStock'
-import { slugify } from '../utils/slugify'
-import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
-import type { Resolver } from '..'
-import type { PromiseType } from '../../../typings'
-import type { Query } from './query'
 import {
   attachmentToPropertyValue,
   attributeToPropertyValue,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
-import type { Attachment } from '../clients/commerce/types/OrderForm'
-import type { StoreImage, StoreProductImageArgs } from '../../..'
+import { slugify } from '../utils/slugify'
+import type { Query } from './query'
 
 type QueryProduct = PromiseType<ReturnType<typeof Query.product>>
 
@@ -32,6 +32,27 @@ const getSlug = (link: string, id: string) => `${link}-${id}`
 const getPath = (link: string, id: string) => `/${getSlug(link, id)}/p`
 const nonEmptyArray = <T>(array: T[] | null | undefined) =>
   Array.isArray(array) && array.length > 0 ? array : null
+
+function removeTrailingSlashes(path: string) {
+  return path.replace(/^\/+|\/+$/g, '')
+}
+
+/**
+ * Finds the index of the main category tree that matches the given category ID.
+ * This avoids including similar categories in the breadcrumb list.
+ *
+ * @param categoriesIds - An array of category IDs representing different category trees.
+ * @param categoryId - The category ID to find within the category trees.
+ * @returns The index of the main category tree that contains the given category ID.
+ *          If the category ID is not found, returns 0 - it should always be found, but the fallback was added for safety.
+ */
+const findMainTreeIndex = (categoriesIds: string[], categoryId: string) => {
+  const mainTreeIndex = categoriesIds.findIndex((idsTree) => {
+    const lastId = removeTrailingSlashes(idsTree).split('/').at(-1)
+    return lastId === categoryId
+  })
+  return mainTreeIndex < 0 ? 0 : mainTreeIndex
+}
 
 export const StoreProduct: Record<string, Resolver<Root>> & {
   offers: Resolver<
@@ -56,16 +77,26 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   brand: ({ isVariantOf: { brand } }) => ({ name: brand }),
   unitMultiplier: ({ unitMultiplier }) => unitMultiplier,
   breadcrumbList: ({
-    isVariantOf: { categories, productName, linkText },
+    isVariantOf: {
+      categories,
+      productName,
+      linkText,
+      categoryId,
+      categoriesIds,
+    },
     itemId,
   }) => {
+    const mainTreeIndex = findMainTreeIndex(categoriesIds, categoryId)
+    const mainTree = categories[mainTreeIndex]
+    const splittedCategories = removeTrailingSlashes(mainTree).split('/')
+
     return {
       itemListElement: [
-        ...categories.reverse().map((categoryPath, index) => {
-          const splitted = categoryPath.split('/')
-          const name = splitted[splitted.length - 2]
-          const item = splitted.map(slugify).join('/')
-
+        ...splittedCategories.map((name, index) => {
+          const item = `/${splittedCategories
+            .slice(0, index + 1)
+            .map(slugify)
+            .join('/')}/`
           return {
             name,
             item,
@@ -75,10 +106,10 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
         {
           name: productName,
           item: getPath(linkText, itemId),
-          position: categories.length + 1,
+          position: splittedCategories.length + 1,
         },
       ],
-      numberOfItems: categories.length,
+      numberOfItems: splittedCategories.length,
     }
   },
   image: ({ images }, args) => {
