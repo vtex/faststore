@@ -45,23 +45,7 @@ export const persisted =
       const payload = await getIDB<T>(key)
 
       if (typeof document !== 'undefined') {
-        const hasNoPostalCodeInPayload =
-          payload &&
-          typeof payload === 'object' &&
-          'postalCode' in payload &&
-          (payload.postalCode === null || payload.postalCode === '')
-
-        const initial = store.readInitial()
-        const isInitialObject = initial && typeof initial === 'object'
-        const hasPostalCodeInInitial =
-          isInitialObject && 'postalCode' in initial
-
-        if (hasNoPostalCodeInPayload && hasPostalCodeInInitial) {
-          // Use the default postalCode defined in discovery.config.js when there is no postalCode in the IDB
-          payload.postalCode = initial.postalCode
-        }
-
-        store.set(payload ?? initial)
+        store.set(payload ?? store.readInitial())
       }
     }
 

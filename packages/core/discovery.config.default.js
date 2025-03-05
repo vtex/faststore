@@ -110,7 +110,7 @@ module.exports = {
   },
 
   deliveryPromise: {
-    active: false,
+    enabled: false,
     locationMandatory: false,
   },
 

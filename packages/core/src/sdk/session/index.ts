@@ -50,6 +50,16 @@ export const mutation = gql(`
 `)
 
 export const validateSession = async (session: Session) => {
+  if (storeConfig.deliveryPromise?.enabled && !session.postalCode) {
+    // Use the initial postalCode defined in discovery.config.js when there is no postalCode in the session
+    const initialPostalCode = defaultStore.readInitial().postalCode
+
+    if (!!initialPostalCode) {
+      session = { ...session, postalCode: initialPostalCode }
+      sessionStore.set(session)
+    }
+  }
+
   const data = await request<
     ValidateSessionMutation,
     ValidateSessionMutationVariables
