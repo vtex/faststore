@@ -111,7 +111,6 @@ module.exports = {
 
   deliveryPromise: {
     enabled: false,
-    locationMandatory: false,
   },
 
   experimental: {
