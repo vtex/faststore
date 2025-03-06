@@ -5,16 +5,16 @@ const UIRatingSummary = dynamic(() =>
   import('@faststore/ui').then((module) => module.RatingSummary)
 )
 
-const ReviewModal = dynamic(
-  () =>
-    /* webpackChunkName: "ReviewModal" */
-    import('src/components/reviews/ReviewModal')
-)
-
 const RatingSummarySkeleton = dynamic(
   () =>
     /* webpackChunkName: "RatingSummarySkeleton" */
     import('src/components/skeletons/RatingSummarySkeleton')
+)
+
+const ReviewModal = dynamic(
+  () =>
+    /* webpackChunkName: "ReviewModal" */
+    import('src/components/reviews/ReviewModal')
 )
 
 const ReviewList = dynamic(

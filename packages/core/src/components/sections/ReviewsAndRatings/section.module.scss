@@ -39,6 +39,11 @@
             --fs-select-min-height                                             : 2.375rem; // 38px
           }
         }
+
+        [data-fs-review-list-has-more] {
+          min-width: 13.75rem; // 220px
+          margin: var(--fs-spacing-5) auto 0;
+        }
       }
     }
   }
