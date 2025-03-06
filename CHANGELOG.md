@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.25.2](https://github.com/vtex/faststore/compare/v3.25.1...v3.25.2) (2025-03-06)
+
+### Bug Fixes
+
+- `Newsletter` section behaviour - SFS-2265 ([#2703](https://github.com/vtex/faststore/issues/2703)) ([7f7e98a](https://github.com/vtex/faststore/commit/7f7e98a82aef0c190f47b29b09e0ce7146d81873))
+
 ## [3.25.1](https://github.com/vtex/faststore/compare/v3.25.0...v3.25.1) (2025-02-28)
 
 **Note:** Version bump only for package faststore
