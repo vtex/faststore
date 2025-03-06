@@ -42,6 +42,10 @@
   // Item Control
   --fs-search-product-item-control-actions-gap            : var(--fs-spacing-1);
 
+  // Item Control
+  --fs-search-product-item-control-padding-0              : var(--fs-spacing-0);
+  --fs-search-product-item-control-padding-1              : var(--fs-spacing-1);
+
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
@@ -56,7 +60,9 @@
     justify-content: space-between;
     min-height: var(--fs-search-products-min-height);
     padding: var(--fs-search-products-header-padding-top) var(--fs-search-products-padding-right) var(--fs-search-products-header-padding-bottom) var(--fs-search-products-padding-left);
-    [data-fs-button] { white-space: nowrap; }
+    [data-fs-button] {
+      white-space: nowrap;
+    }
   }
 
   [data-fs-search-products-title] {
@@ -86,6 +92,10 @@
     padding-bottom: var(--fs-search-product-item-padding-bottom);
     padding-left: var(--fs-search-products-padding-left);
     padding-right: var(--fs-search-products-padding-right);
+  }
+
+  [data-fs-search-product-item-content] {
+    flex-grow: 1;
   }
 
   [data-fs-search-product-item-image] {
