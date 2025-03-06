@@ -3,6 +3,7 @@ import { usePDP } from 'src/sdk/overrides/PageProvider'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import type { ReviewModalProps } from 'src/components/reviews/ReviewModal/ReviewModal'
+import type { ReviewListProps } from 'src/components/reviews/ReviewList'
 
 export type ReviewsAndRatingsProps = {
   title: string
@@ -11,17 +12,23 @@ export type ReviewsAndRatingsProps = {
     createReviewButton: RatingSummaryProps['textLabels']['createReviewButton']
   }
   reviewModal: Omit<ReviewModalProps, 'product'>
+  reviewList: {
+    filterSelect: ReviewListProps['filterSelect']
+    sortSelect: ReviewListProps['sortSelect']
+  }
 }
 
 function ReviewsAndRatings({
   title,
   ratingSummary,
   reviewModal,
+  reviewList,
 }: ReviewsAndRatingsProps) {
   const {
     RatingSummary,
     __experimentalRatingSummarySkeleton: RatingSummarySkeleton,
     __experimentalReviewModal: ReviewModal,
+    __experimentalReviewList: ReviewList,
   } = useOverrideComponents<'ReviewsAndRatings'>()
   const context = usePDP()
   const { openReviewModal, reviewModal: displayReviewModal } = useUI()
@@ -49,6 +56,8 @@ function ReviewsAndRatings({
             />
           )
         )}
+
+        <ReviewList.Component {...ReviewList.props} {...reviewList} />
       </div>
 
       {displayReviewModal && !isValidating && (

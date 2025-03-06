@@ -1,7 +1,50 @@
 @layer components {
   .section {
-    @import "@faststore/ui/src/components/molecules/Rating/styles";
-    @import "@faststore/ui/src/components/organisms/RatingSummary/styles";
+    @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
     @import "@faststore/ui/src/components/atoms/Button/styles";
+    @import "@faststore/ui/src/components/atoms/Link/styles";
+    @import "@faststore/ui/src/components/atoms/Select/styles";
+    @import "@faststore/ui/src/components/molecules/Rating/styles";
+    @import "@faststore/ui/src/components/molecules/SelectField/styles";
+    @import "@faststore/ui/src/components/organisms/RatingSummary/styles";
+
+    [data-fs-content] {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3.75rem; // 60px
+
+      @include media(">=tablet") {
+        [data-fs-rating-summary] {
+          flex-basis: var(--fs-rating-summary-width);
+          flex-shrink: 0;
+          align-self: flex-start;
+        }
+      }
+
+      [data-fs-review-list] {
+        flex: 1;
+
+        [data-fs-review-list-header] {
+          --fs-review-list-header-border-color                                 : var(--fs-border-color-light);
+          --fs-review-list-header-border-width                                 : var(--fs-border-width);
+
+          display: flex;
+          flex-wrap: wrap;
+          gap: var(--fs-spacing-3);
+          align-items: center;
+          padding-bottom: var(--fs-spacing-0);
+          border-bottom: var(--fs-border-color-light) solid var(--fs-review-card-border-color);
+
+          [data-fs-select] {
+            --fs-select-min-height                                             : 2.375rem; // 38px
+          }
+        }
+
+        [data-fs-review-list-has-more] {
+          min-width: 13.75rem; // 220px
+          margin: var(--fs-spacing-5) auto 0;
+        }
+      }
+    }
   }
 }
