@@ -1,15 +1,39 @@
-import React, { forwardRef, HTMLAttributes } from 'react'
+import React, { forwardRef, HTMLAttributes, useCallback, useState } from 'react'
 import { Badge, Icon, IconButton, Input, Loader, QuantitySelector } from '../..'
+
+import type { MouseEvent, ReactNode } from 'react'
+
 type StatusButtonAddToCartType = 'default' | 'inProgress' | 'completed'
 
 export interface SearchProductItemControlProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onClick'> {
-  children: React.ReactNode
+  /**
+   * Renders child elements.
+   */
+  children: ReactNode
+  /**
+   * Specifies whether the product is available.
+   */
   availability: boolean
+  /**
+   * Specifies whether the product has variations.
+   */
   hasVariants: boolean
-  skuMatrixControl: React.ReactNode
+  /**
+   * Renders the elements of the SKUMatrix.
+   */
+  skuMatrixControl: ReactNode
+  /**
+   * Specifies the quantity to be added to the cart.
+   */
   quantity: number
-  onClick?(e: React.MouseEvent<HTMLButtonElement>): void
+  /**
+   * Callback that fires when the add to cart button is clicked.
+   */
+  onClick?(e: MouseEvent<HTMLButtonElement>): void
+  /**
+   * Callback that fires when the input value changes.
+   */
   onChangeQuantity(value: number): void
 }
 
@@ -30,12 +54,15 @@ const SearchProductItemControl = forwardRef<
   ref
 ) {
   const [statusAddToCart, setStatusAddToCart] =
-    React.useState<StatusButtonAddToCartType>('default')
-  function stopPropagationClick(e: React.MouseEvent) {
+    useState<StatusButtonAddToCartType>('default')
+
+  const showSKUMatrixControl = availability && hasVariants
+
+  function stopPropagationClick(e: MouseEvent) {
     e.preventDefault()
     e.stopPropagation()
   }
-  function handleAddToCart(event: React.MouseEvent<HTMLButtonElement>) {
+  function handleAddToCart(event: MouseEvent<HTMLButtonElement>) {
     if (onClick) {
       setStatusAddToCart('inProgress')
 
@@ -51,7 +78,7 @@ const SearchProductItemControl = forwardRef<
     }
   }
 
-  const getIcon = React.useCallback(() => {
+  const getIcon = useCallback(() => {
     switch (statusAddToCart) {
       case 'inProgress':
         return <Loader />
@@ -62,11 +89,13 @@ const SearchProductItemControl = forwardRef<
     }
   }, [statusAddToCart])
 
-  const showSKUMatrixControl = availability && hasVariants
-  const isMobile = window.innerWidth <= 768
-
   return (
-    <div ref={ref} data-fs-search-product-item-control {...otherProps}>
+    <div
+      ref={ref}
+      data-fs-search-product-item-control
+      onClick={stopPropagationClick}
+      {...otherProps}
+    >
       <div data-fs-search-product-item-control-content>
         {!availability && (
           <Badge data-fs-search-product-item-control-badge variant="warning">
@@ -81,15 +110,15 @@ const SearchProductItemControl = forwardRef<
           role="group"
           onClick={stopPropagationClick}
         >
-          {!isMobile && (
+          <div data-fs-search-product-item-control-actions-desktop>
             <QuantitySelector
               disabled={statusAddToCart !== 'default'}
               initial={quantity}
               onChange={onChangeQuantity}
             />
-          )}
+          </div>
 
-          {isMobile && (
+          <div data-fs-search-product-item-control-actions-mobile>
             <Input
               data-fs-product-item-control-input
               type="number"
@@ -97,7 +126,7 @@ const SearchProductItemControl = forwardRef<
               value={quantity}
               onChange={(e) => onChangeQuantity(e.target.valueAsNumber)}
             />
-          )}
+          </div>
 
           <IconButton
             variant="primary"
@@ -109,9 +138,7 @@ const SearchProductItemControl = forwardRef<
         </div>
       )}
 
-      {showSKUMatrixControl && (
-        <div onClick={stopPropagationClick}>{skuMatrixControl}</div>
-      )}
+      {showSKUMatrixControl && skuMatrixControl}
     </div>
   )
 })
