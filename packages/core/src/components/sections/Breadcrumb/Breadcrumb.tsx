@@ -2,7 +2,8 @@ import { memo } from 'react'
 
 import Section from '../Section'
 
-import styles from './section.module.scss'
+import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import {
   type PDPContext,
   type PLPContext,
@@ -10,9 +11,8 @@ import {
   isPLP,
   usePage,
 } from '../../../sdk/overrides/PageProvider'
-import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { BreadcrumbDefaultComponents } from './DefaultComponents'
-import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSection'
+import styles from './section.module.scss'
 
 interface BreadcrumbSectionProps {
   icon: string
@@ -20,7 +20,8 @@ interface BreadcrumbSectionProps {
 }
 
 function BreadcrumbSection({ ...otherProps }: BreadcrumbSectionProps) {
-  const { Breadcrumb } = useOverrideComponents<'Breadcrumb'>()
+  const { __experimentalBreadcrumb: Breadcrumb } =
+    useOverrideComponents<'Breadcrumb'>()
 
   const context = usePage<PDPContext | PLPContext>()
   const title = isPLP(context)
