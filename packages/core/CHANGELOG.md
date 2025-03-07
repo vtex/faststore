@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.25.3](https://github.com/vtex/faststore/compare/v3.25.2...v3.25.3) (2025-03-07)
+
+### Bug Fixes
+
+- Product Details' Buy Button excessive state reset ([#2712](https://github.com/vtex/faststore/issues/2712)) ([a84fdde](https://github.com/vtex/faststore/commit/a84fdde93f3a0b61f8a75bcc87143a03d864d768))
+
 ## [3.25.2](https://github.com/vtex/faststore/compare/v3.25.1...v3.25.2) (2025-03-06)
 
 ### Bug Fixes
