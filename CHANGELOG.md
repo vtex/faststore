@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.25.4](https://github.com/vtex/faststore/compare/v3.25.3...v3.25.4) (2025-03-07)
+
+### Bug Fixes
+
+- ClientShippingSimulationQuery being called multiple times ([#2710](https://github.com/vtex/faststore/issues/2710)) ([5a85c10](https://github.com/vtex/faststore/commit/5a85c10166110e081992a65f7b6798e304f87c41))
+
 ## [3.25.3](https://github.com/vtex/faststore/compare/v3.25.2...v3.25.3) (2025-03-07)
 
 ### Bug Fixes
