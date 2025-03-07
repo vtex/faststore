@@ -12,6 +12,7 @@ interface Props {
   title: ReviewsAndRatingsProps['title']
   ratingSummary: ReviewsAndRatingsProps['ratingSummary']
   reviewModal: ReviewsAndRatingsProps['reviewModal']
+  reviewList: ReviewsAndRatingsProps['reviewList']
 }
 const ReviewsAndRatingsSection = (props: Props) => {
   return (
