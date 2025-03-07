@@ -165,7 +165,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.25.5
+        specifier: ^3.25.6
         version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2
@@ -332,7 +332,7 @@ importers:
         specifier: ^3.22.2
         version: link:../sdk
       "@faststore/ui":
-        specifier: ^3.22.2
+        specifier: ^3.25.6
         version: link:../ui
       "@graphql-codegen/cli":
         specifier: 5.0.2
@@ -551,7 +551,7 @@ importers:
         specifier: ^3.22.2
         version: link:../components
       "@faststore/ui":
-        specifier: ^3.22.2
+        specifier: ^3.25.6
         version: link:../ui
       next:
         specifier: ^15.1.6

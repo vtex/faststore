@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.25.6](https://github.com/vtex/faststore/compare/v3.25.5...v3.25.6) (2025-03-07)
+
+### Bug Fixes
+
+- Breadcrumb display and it style ([#2714](https://github.com/vtex/faststore/issues/2714)) ([d4f146d](https://github.com/vtex/faststore/commit/d4f146dc4b4570b1bbd6af16a84f68a1cdeab000))
+
 ## 3.22.2 (2025-02-20)
 
 ### Bug Fixes
