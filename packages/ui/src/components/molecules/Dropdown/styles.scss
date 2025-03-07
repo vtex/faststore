@@ -76,6 +76,10 @@
       min-width: var(--fs-dropdown-item-icon-min-width);
       margin-right: var(--fs-dropdown-item-icon-margin-right);
     }
+
+    > a {
+      color: var(--fs-dropdown-item-color);
+    }
   }
 
   // --------------------------------------------------------
