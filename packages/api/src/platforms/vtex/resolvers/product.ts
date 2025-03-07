@@ -40,6 +40,8 @@ function removeTrailingSlashes(path: string) {
 /**
  * Finds the index of the main category tree that matches the given category ID.
  * This avoids including similar categories in the breadcrumb list.
+ * If Intelligent Search starts providing the list without similar categories, we'll have direct access to the main tree
+ * and we won't need this logic. Hopefully in the future we can remove this.
  *
  * @param categoriesIds - An array of category IDs representing different category trees.
  * @param categoryId - The category ID to find within the category trees.
