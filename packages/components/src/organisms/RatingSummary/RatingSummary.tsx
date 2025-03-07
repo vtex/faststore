@@ -40,6 +40,10 @@ export interface RatingSummaryProps extends HTMLAttributes<HTMLDivElement> {
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * Callback to be called when the create review button is clicked.
+   */
+  onCreateReviewClick?: () => void
 }
 
 const RatingSummaryHeader = ({
@@ -89,6 +93,7 @@ export const RatingSummary = forwardRef<HTMLDivElement, RatingSummaryProps>(
         } = {},
       } = {},
       testId = 'fs-rating-summary',
+      onCreateReviewClick,
       ...props
     },
     ref
@@ -107,10 +112,7 @@ export const RatingSummary = forwardRef<HTMLDivElement, RatingSummaryProps>(
           singleReviewText={ratingCounterSingleReviewText}
           multipleReviewsText={ratingCounterMultipleReviewsText}
         />
-        <Button
-          variant="secondary"
-          onClick={() => alert('Write a review button clicked!')}
-        >
+        <Button variant="secondary" onClick={onCreateReviewClick}>
           {buttonText}
         </Button>
         {totalCount > 0 && <RatingDistribution distribution={distribution} />}
