@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.25.5](https://github.com/vtex/faststore/compare/v3.25.4...v3.25.5) (2025-03-07)
+
+### Bug Fixes
+
+- Do not include similar categories in the breadcrumb list ([#2711](https://github.com/vtex/faststore/issues/2711)) ([c058011](https://github.com/vtex/faststore/commit/c058011e79ef451d2445488f67a1a058155505de))
+
 ## [3.25.4](https://github.com/vtex/faststore/compare/v3.25.3...v3.25.4) (2025-03-07)
 
 ### Bug Fixes
