@@ -505,6 +505,7 @@ export type QueryRedirectArgs = {
 
 
 export type QuerySearchArgs = {
+  advertisementPlacement?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;

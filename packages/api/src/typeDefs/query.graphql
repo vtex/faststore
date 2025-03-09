@@ -250,6 +250,10 @@ type Query {
     Search advertisement products return in result.
     """
     sponsoredCount: Int
+    """
+    Search advertisement placement for products returned in the result.
+    """
+    advertisementPlacement: String
   ): StoreSearchResult!
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
