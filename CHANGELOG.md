@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.25.7](https://github.com/vtex/faststore/compare/v3.25.6...v3.25.7) (2025-03-10)
+
+### Bug Fixes
+
+- Get offer url only if `enableClientOffer` is enabled ([#2680](https://github.com/vtex/faststore/issues/2680)) ([4d44454](https://github.com/vtex/faststore/commit/4d4445453abf03b2c450d81670fce01ef3a1c9c7))
+
 ## [3.25.6](https://github.com/vtex/faststore/compare/v3.25.5...v3.25.6) (2025-03-07)
 
 ### Bug Fixes
