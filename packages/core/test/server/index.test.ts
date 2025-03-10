@@ -80,6 +80,7 @@ const MUTATIONS = [
   'validateSession',
   'subscribeToNewsletter',
   'createProductReview',
+  'deleteProductReview',
 ]
 
 describe('FastStore GraphQL Layer', () => {

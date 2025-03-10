@@ -76,6 +76,7 @@ const MUTATIONS = [
   'validateSession',
   'subscribeToNewsletter',
   'createProductReview',
+  'deleteProductReview',
 ]
 
 let schema: GraphQLSchema
