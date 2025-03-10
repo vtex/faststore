@@ -3,13 +3,13 @@ import React from 'react'
 import { Modal, ModalHeader, useUI } from '../..'
 import type { ModalProps, OverlayProps } from '../..'
 
-export interface AddReviewModalProps extends ModalProps {
+export interface ReviewModalProps extends ModalProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
   /**
-   * The add-review modal's title.
+   * The review modal's title.
    */
   title?: string
   /**
@@ -26,29 +26,29 @@ export interface AddReviewModalProps extends ModalProps {
   onClose?: () => void
 }
 
-function AddReviewModal({
-  testId = 'fs-add-review-modal',
+function ReviewModal({
+  testId = 'fs-review-modal',
   title = 'Add a review',
   closeButtonAriaLabel = 'Close Add Review Modal',
   overlayProps,
   onClose,
   children,
   ...otherProps
-}: AddReviewModalProps) {
-  const { closeAddReviewModal } = useUI()
+}: ReviewModalProps) {
+  const { closeReviewModal } = useUI()
 
   function handleOnClose() {
-    closeAddReviewModal()
+    closeReviewModal()
     onClose?.()
   }
 
   return (
     <Modal
-      data-fs-add-review-modal
+      data-fs-review-modal
       testId={testId}
       overlayProps={overlayProps}
-      title="Add Review modal"
-      aria-label="Add Review modal"
+      title="Review modal"
+      aria-label="Review modal"
       onTransitionEnd={(_, fade) => fade === 'out' && handleOnClose()}
       {...otherProps}
     >
@@ -62,7 +62,7 @@ function AddReviewModal({
             closeBtnProps={{
               'aria-label': closeButtonAriaLabel,
             }}
-            data-fs-add-review-modal-header
+            data-fs-review-modal-header
           />
           {typeof children === 'function'
             ? children({ fade, fadeOut, fadeIn })
@@ -73,4 +73,4 @@ function AddReviewModal({
   )
 }
 
-export default AddReviewModal
+export default ReviewModal

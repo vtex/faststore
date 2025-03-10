@@ -3,23 +3,23 @@ import React from 'react'
 import { ModalBody } from '../..'
 import type { ModalBodyProps } from '../../molecules/Modal'
 
-export interface AddReviewModalBodyProps extends ModalBodyProps {
+export interface ReviewModalBodyProps extends ModalBodyProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
 }
 
-function AddReviewModalBody({
-  testId = 'fs-add-review-modal-body',
+function ReviewModalBody({
+  testId = 'fs-review-modal-body',
   children,
   ...otherProps
-}: AddReviewModalBodyProps) {
+}: ReviewModalBodyProps) {
   return (
-    <ModalBody data-fs-add-review-modal-body {...otherProps}>
+    <ModalBody data-fs-review-modal-body {...otherProps}>
       {children}
     </ModalBody>
   )
 }
 
-export default AddReviewModalBody
+export default ReviewModalBody

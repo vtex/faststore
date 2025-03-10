@@ -1,11 +1,11 @@
-[data-fs-add-review-modal] {
+[data-fs-review-modal] {
   // --------------------------------------------------------
-  // Design Tokens for Add Review Modal
+  // Design Tokens for Review Modal
   // --------------------------------------------------------
 
   // Default properties
-  --fs-add-review-modal-width                   : 100%;
-  --fs-add-review-modal-max-width               : none;
+  --fs-review-modal-width                   : 100%;
+  --fs-review-modal-max-width               : none;
   --fs-modal-max-height-tablet                  : min(90vh, 44rem); // 704px
   --fs-modal-body-padding                       : 0 var(--fs-spacing-4) var(--fs-spacing-3);
 
@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
 
-  [data-fs-add-review-modal-body] {
+  [data-fs-review-modal-body] {
     flex: 1;
     overflow-y: auto;
   }
@@ -25,15 +25,15 @@
     --fs-modal-position-top                     : 0;
     --fs-modal-position-right                   : 0;
     --fs-modal-position-left                    : 0;
-    --fs-modal-max-width                        : var(--fs-add-review-modal-max-width);
+    --fs-modal-max-width                        : var(--fs-review-modal-max-width);
 
     bottom: 0;
     display: flex;
     flex-direction: column;
-    width: var(--fs-add-review-modal-width);
-    max-width: var(--fs-add-review-modal-max-width);
+    width: var(--fs-review-modal-width);
+    max-width: var(--fs-review-modal-max-width);
 
-    [data-fs-add-review-modal-footer] {
+    [data-fs-review-modal-footer] {
       margin-top: auto;
     }
   }
