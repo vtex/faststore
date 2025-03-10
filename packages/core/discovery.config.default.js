@@ -128,6 +128,10 @@ module.exports = {
     type: 'CMS',
   },
 
+  deliveryPromise: {
+    enabled: false,
+  },
+
   experimental: {
     cypressVersion: 12,
     enableCypressExtension: false,
