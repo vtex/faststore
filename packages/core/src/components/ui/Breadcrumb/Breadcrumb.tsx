@@ -14,7 +14,7 @@ const Breadcrumb = ({
   alt = 'Go to homepage',
   ...otherProps
 }: BreadcrumbProps) => {
-  const { Icon } = useOverrideComponents<'Breadcrumb'>()
+  const { Breadcrumb, Icon } = useOverrideComponents<'Breadcrumb'>()
 
   return (
     <UIBreadcrumb
@@ -40,6 +40,7 @@ const Breadcrumb = ({
           {name}
         </Link>
       )}
+      {...Breadcrumb.props}
       {...otherProps}
     />
   )
