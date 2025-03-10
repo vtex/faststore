@@ -95,6 +95,10 @@ export interface Product {
   selectedProperties: Array<{ key: string; value: string }>
   releaseDate: string
   advertisement?: Advertisement
+  rating: {
+    average: number
+    totalCount: number
+  }
 }
 
 interface Image {

@@ -4,15 +4,21 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-product-title-text-size            : var(--fs-text-size-title-product);
-  --fs-product-title-text-weight          : var(--fs-text-weight-regular);
-  --fs-product-title-line-height          : 1.12;
-  --fs-product-title-column-gap           : var(--fs-spacing-2);
-  --fs-product-title-row-gap              : var(--fs-spacing-3);
+  --fs-product-title-text-size               : var(--fs-text-size-title-product);
+  --fs-product-title-text-weight             : var(--fs-text-weight-regular);
+  --fs-product-title-line-height             : 1.12;
+  --fs-product-title-column-gap              : var(--fs-spacing-2);
+  --fs-product-title-row-gap                 : var(--fs-spacing-3);
 
-  --fs-product-title-addendum-color       : var(--fs-color-text-light);
-  --fs-product-title-addendum-size        : var(--fs-text-size-1);
-  --fs-product-title-addendum-line-height : 1.7;
+  // Addendum
+  --fs-product-title-addendum-color          : var(--fs-color-text-light);
+  --fs-product-title-addendum-size           : var(--fs-text-size-1);
+  --fs-product-title-addendum-line-height    : 1.7;
+
+  // Reviews
+  --fs-product-title-reviews-color           : var(--fs-color-text-light);
+  --fs-product-title-reviews-size            : var(--fs-text-size-1);
+  --fs-product-title-reviews-line-height     : 1.42;
 
   // --------------------------------------------------------
   // Structural Styles
@@ -20,20 +26,21 @@
 
   [data-fs-product-title-header] {
     display: flex;
+    flex-wrap: wrap;
+    row-gap: var(--fs-product-title-row-gap);
+    column-gap: var(--fs-product-title-column-gap);
     justify-content: space-between;
     max-width: 42ch;
-    flex-wrap: wrap;
-    column-gap: var(--fs-product-title-column-gap);
-    row-gap: var(--fs-product-title-row-gap);
 
-    // Title prop
-    & > *:first-child {
+    *:first-child {
       font-size: var(--fs-product-title-text-size);
       font-weight: var(--fs-product-title-text-weight);
       line-height: var(--fs-product-title-line-height);
     }
 
-    [data-fs-badge] { white-space: nowrap; }
+    [data-fs-badge] {
+      white-space: nowrap;
+    }
 
     @include media(">=tablet", "<notebook") {
       flex-direction: column;
@@ -43,11 +50,27 @@
 
   [data-fs-product-title-addendum] {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: space-between;
     margin-top: var(--fs-product-title-row-gap);
     font-size: var(--fs-product-title-addendum-size);
     line-height: var(--fs-product-title-addendum-line-height);
     color: var(--fs-product-title-addendum-color);
+  }
+
+  [data-fs-product-title-rating] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--fs-product-title-column-gap);
+    align-items: center;
+  }
+
+  [data-fs-product-title-reviews] {
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
   }
 }
