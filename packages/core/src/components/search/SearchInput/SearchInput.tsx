@@ -166,8 +166,8 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
 
             {searchDropdownVisible && (
               <Suspense fallback={null}>
-                <SearchDropdown 
-                  sort={sort as SearchState['sort']} 
+                <SearchDropdown
+                  sort={sort as SearchState['sort']}
                   quickOrder={quickOrderSettings}
                 />
               </Suspense>

@@ -12,6 +12,10 @@ export interface SearchProductItemControlProps
    */
   children: ReactNode
   /**
+   * Specifies the label for out-of-stock products.
+   */
+  outOfStockLabel: string
+  /**
    * Specifies whether the product is available.
    */
   availability: boolean
@@ -24,17 +28,29 @@ export interface SearchProductItemControlProps
    */
   skuMatrixControl: ReactNode
   /**
+   * The maximum value the input can receive
+   */
+  max?: number
+  /**
+   * The minimum value the input can receive
+   */
+  min?: number
+  /**
    * Specifies the quantity to be added to the cart.
    */
   quantity: number
   /**
    * Callback that fires when the add to cart button is clicked.
    */
-  onClick?(e: MouseEvent<HTMLButtonElement>): void
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void
   /**
    * Callback that fires when the input value changes.
    */
-  onChangeQuantity(value: number): void
+  onChangeQuantity: (value: number) => void
+  /**
+   * Event emitted when value is out of the min and max bounds
+   */
+  onValidateBlur?: (min: number, maxValue: number, quantity: number) => void
 }
 
 const SearchProductItemControl = forwardRef<
@@ -47,8 +63,12 @@ const SearchProductItemControl = forwardRef<
     hasVariants,
     skuMatrixControl,
     quantity,
+    outOfStockLabel,
+    min = 1,
+    max = undefined,
     onClick,
     onChangeQuantity,
+    onValidateBlur,
     ...otherProps
   },
   ref
@@ -62,6 +82,7 @@ const SearchProductItemControl = forwardRef<
     e.preventDefault()
     e.stopPropagation()
   }
+
   function handleAddToCart(event: MouseEvent<HTMLButtonElement>) {
     if (onClick) {
       setStatusAddToCart('inProgress')
@@ -89,17 +110,25 @@ const SearchProductItemControl = forwardRef<
     }
   }, [statusAddToCart])
 
+  function validateBlur() {
+    const maxValue = max ?? (min ? Math.max(quantity, min) : quantity)
+    const isOutOfBounds = quantity > maxValue || quantity < min
+    const minQuantity = quantity < min ? min : quantity
+    const realQuantity = quantity > maxValue ? maxValue : minQuantity
+
+    if (isOutOfBounds) {
+      onValidateBlur?.(min, maxValue, realQuantity)
+    }
+
+    onChangeQuantity(realQuantity)
+  }
+
   return (
-    <div
-      ref={ref}
-      data-fs-search-product-item-control
-      onClick={stopPropagationClick}
-      {...otherProps}
-    >
+    <div ref={ref} data-fs-search-product-item-control {...otherProps}>
       <div data-fs-search-product-item-control-content>
         {!availability && (
           <Badge data-fs-search-product-item-control-badge variant="warning">
-            Out of Stock
+            {outOfStockLabel}
           </Badge>
         )}
         {children}
@@ -113,6 +142,8 @@ const SearchProductItemControl = forwardRef<
           <div data-fs-search-product-item-control-actions-desktop>
             <QuantitySelector
               disabled={statusAddToCart !== 'default'}
+              max={max}
+              onValidateBlur={onValidateBlur}
               initial={quantity}
               onChange={onChangeQuantity}
             />
@@ -121,10 +152,16 @@ const SearchProductItemControl = forwardRef<
           <div data-fs-search-product-item-control-actions-mobile>
             <Input
               data-fs-product-item-control-input
-              type="number"
               min={1}
               value={quantity}
-              onChange={(e) => onChangeQuantity(e.target.valueAsNumber)}
+              onChange={(e) =>
+                onChangeQuantity(e.target.value ? Number(e.target.value) : 0)
+              }
+              onBlur={validateBlur}
+              onInput={(event: React.FormEvent<HTMLInputElement>) => {
+                const input = event.currentTarget
+                input.value = input.value.replace(/\D/g, '')
+              }}
             />
           </div>
 
@@ -138,7 +175,9 @@ const SearchProductItemControl = forwardRef<
         </div>
       )}
 
-      {showSKUMatrixControl && skuMatrixControl}
+      {showSKUMatrixControl && (
+        <div onClick={stopPropagationClick}>{skuMatrixControl}</div>
+      )}
     </div>
   )
 })
