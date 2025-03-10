@@ -8,7 +8,10 @@ import { useUI } from '@faststore/ui'
 import { useSession } from '../session'
 import { cartStore } from './index'
 
-export const useBuyButton = (item: CartItem | CartItem[] | null) => {
+export const useBuyButton = (
+  item: CartItem | CartItem[] | null,
+  shouldOpenCart = true
+) => {
   const { openCart } = useUI()
   const {
     currency: { code },
@@ -68,7 +71,9 @@ export const useBuyButton = (item: CartItem | CartItem[] | null) => {
         ? item.forEach((value) => cartStore.addItem(value))
         : cartStore.addItem(item)
 
-      openCart()
+      if (shouldOpenCart) {
+        openCart()
+      }
     },
     [code, item, openCart, itemIsArray]
   )
