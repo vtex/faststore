@@ -156,6 +156,19 @@ export type DeliveryIds = {
   warehouseId: Maybe<Scalars['String']['output']>
 }
 
+export type ICreateProductReview = {
+  /** Product ID. */
+  productId: Scalars['String']['input']
+  /** Review rating. */
+  rating: Scalars['Int']['input']
+  /** Review author name. */
+  reviewerName: Scalars['String']['input']
+  /** Review content. */
+  text: Scalars['String']['input']
+  /** Review title. */
+  title: Scalars['String']['input']
+}
+
 export type IGeoCoordinates = {
   /** The latitude of the geographic coordinates. */
   latitude: Scalars['Float']['input']
@@ -388,12 +401,18 @@ export type MessageInfo = {
 }
 
 export type Mutation = {
+  /** Create a new product review. */
+  createProductReview: Scalars['String']['output']
   /** Subscribes a new person to the newsletter list. */
   subscribeToNewsletter: Maybe<PersonNewsletter>
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
   validateCart: Maybe<StoreCart>
   /** Updates a web session with the specified values. */
   validateSession: Maybe<StoreSession>
+}
+
+export type MutationCreateProductReviewArgs = {
+  data: ICreateProductReview
 }
 
 export type MutationSubscribeToNewsletterArgs = {
@@ -469,6 +488,8 @@ export type Query = {
   product: StoreProduct
   /** Returns if there's a redirect for a search. */
   redirect: Maybe<StoreRedirect>
+  /** Returns a list of approved reviews for a specific product. */
+  reviews: Maybe<StoreProductListReviewsResult>
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult
   /** Returns a list of sellers available for a specific localization. */
@@ -498,6 +519,14 @@ export type QueryProductArgs = {
 export type QueryRedirectArgs = {
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet>>
   term: InputMaybe<Scalars['String']['input']>
+}
+
+export type QueryReviewsArgs = {
+  after?: InputMaybe<Scalars['Int']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  productId: Scalars['String']['input']
+  rating: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<StoreProductListReviewsSort>
 }
 
 export type QuerySearchArgs = {
@@ -954,6 +983,8 @@ export type StoreProduct = {
   offers: StoreAggregateOffer
   /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
   productID: Scalars['String']['output']
+  /** Product rating. */
+  rating: StoreProductRating
   /** The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601 */
   releaseDate: Scalars['String']['output']
   /** Array with review information. */
@@ -1006,6 +1037,77 @@ export type StoreProductGroup = {
    * components.
    */
   skuVariants: Maybe<SkuVariants>
+}
+
+export type StoreProductListReviewsRange = {
+  /** Index of the first review */
+  from: Scalars['Int']['output']
+  /** Index of the last review */
+  to: Scalars['Int']['output']
+  /** Total number of reviews. */
+  total: Scalars['Int']['output']
+}
+
+export type StoreProductListReviewsResult = {
+  /** Array of product reviews. */
+  data: Array<StoreProductReview>
+  range: StoreProductListReviewsRange
+}
+
+export type StoreProductListReviewsSort =
+  /** Sort by review rating, from lowest to highest. */
+  | 'rating_asc'
+  /** Sort by review rating, from highest to lowest. */
+  | 'rating_desc'
+  /** Sort by review creation date, from oldest to newest. */
+  | 'reviewDateTime_asc'
+  /** Sort by review creation date, from newest to oldest. */
+  | 'reviewDateTime_desc'
+
+export type StoreProductRating = {
+  /** Product average rating. */
+  average: Scalars['Float']['output']
+  /** Product rating distribution in percentages. */
+  distribution: StoreProductRatingDistribution
+  /** Product amount of ratings received. */
+  totalCount: Scalars['Int']['output']
+}
+
+/** Product rating distribution in percentages. */
+export type StoreProductRatingDistribution = {
+  /** 5 star rating percentage. */
+  starsFive: Scalars['Int']['output']
+  /** 4 star rating percentage. */
+  starsFour: Scalars['Int']['output']
+  /** 1 star rating percentage. */
+  starsOne: Scalars['Int']['output']
+  /** 3 star rating percentage. */
+  starsThree: Scalars['Int']['output']
+  /** 2 star rating percentage. */
+  starsTwo: Scalars['Int']['output']
+}
+
+export type StoreProductReview = {
+  /** Indicates if the review was approved by the store owner. */
+  approved: Scalars['Boolean']['output']
+  /** Review ID. */
+  id: Scalars['String']['output']
+  /** Product ID. */
+  productId: Scalars['String']['output']
+  /** Review rating. */
+  rating: Scalars['Int']['output']
+  /** Review creation date. */
+  reviewDateTime: Scalars['String']['output']
+  /** Review author name. */
+  reviewerName: Maybe<Scalars['String']['output']>
+  /** Review author ID. */
+  shopperId: Scalars['String']['output']
+  /** Review content. */
+  text: Scalars['String']['output']
+  /** Review title. */
+  title: Scalars['String']['output']
+  /** Indicates if the review was made by a verified purchaser. */
+  verifiedPurchaser: Scalars['Boolean']['output']
 }
 
 /** Properties that can be associated with products and products groups. */
@@ -1159,6 +1261,7 @@ export type ProductSummary_ProductFragment = {
     valueReference: any
   }>
   advertisement: { adId: string; adResponseId: string } | null
+  rating: { average: number; totalCount: number }
 }
 
 type Filter_Facets_StoreFacetBoolean_Fragment = {
@@ -1221,6 +1324,17 @@ export type ProductDetailsFragment_ProductFragment = {
     value: any
     valueReference: any
   }>
+  rating: {
+    average: number
+    totalCount: number
+    distribution: {
+      starsOne: number
+      starsTwo: number
+      starsThree: number
+      starsFour: number
+      starsFive: number
+    }
+  }
 }
 
 export type ProductSkuMatrixSidebarFragment_ProductFragment = {
@@ -1358,6 +1472,17 @@ export type ServerProductQueryQuery = {
       value: any
       valueReference: any
     }>
+    rating: {
+      average: number
+      totalCount: number
+      distribution: {
+        starsOne: number
+        starsTwo: number
+        starsThree: number
+        starsFour: number
+        starsFive: number
+      }
+    }
   }
 }
 
@@ -1564,6 +1689,7 @@ export type ClientManyProductsQueryQuery = {
             valueReference: any
           }>
           advertisement: { adId: string; adResponseId: string } | null
+          rating: { average: number; totalCount: number }
         }
       }>
     }
@@ -1657,6 +1783,17 @@ export type ClientProductQueryQuery = {
       value: any
       valueReference: any
     }>
+    rating: {
+      average: number
+      totalCount: number
+      distribution: {
+        starsOne: number
+        starsTwo: number
+        starsThree: number
+        starsFour: number
+        starsFive: number
+      }
+    }
   }
 }
 
@@ -1697,6 +1834,7 @@ export type ClientSearchSuggestionsQueryQuery = {
           valueReference: any
         }>
         advertisement: { adId: string; adResponseId: string } | null
+        rating: { average: number; totalCount: number }
       }>
     }
     products: { pageInfo: { totalCount: number } }
@@ -1836,6 +1974,10 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
     adId
     adResponseId
   }
+  rating {
+    average
+    totalCount
+  }
 }
     `,
   { fragmentName: 'ProductSummary_product' }
@@ -1949,6 +2091,17 @@ export const ProductDetailsFragment_ProductFragmentDoc =
     name
     value
     valueReference
+  }
+  rating {
+    average
+    totalCount
+    distribution {
+      starsOne
+      starsTwo
+      starsThree
+      starsFour
+      starsFive
+    }
   }
   ...CartProductItem
 }
@@ -2226,7 +2379,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '46103bee661405bde706d72126fdbf9b0a0c9e6e',
+    operationHash: '312acab1a14a3b35d6c70887b5cf289b5cf6cf76',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2262,7 +2415,7 @@ export const ClientAllVariantProductsQueryDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '14148671fbf53498fad5c600ee87765920145019',
+    operationHash: 'e1ccf9e73ec6c0b8580c6e789d8a2af7618fb1eb',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2280,7 +2433,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: '7d121ef8d4dc99174e64e4429a9b977b8bbebed8',
+    operationHash: 'e678f7fc4d59a3e4cbf61295fc1e669f44724464',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
@@ -2289,7 +2442,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '47e48eaee91d16a4237eb2c1241bc2ed3e2ad9bb',
+    operationHash: '3599746571e06012a61a20f92d30ede456564c4b',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,

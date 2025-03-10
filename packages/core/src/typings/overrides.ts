@@ -52,6 +52,7 @@ import type Alert from '../components/sections/Alert'
 import type Breadcrumb from '../components/sections/Breadcrumb'
 import type BannerText from '../components/sections/BannerText'
 import type CrossSellingShelf from '../components/sections/CrossSellingShelf'
+import type ReviewsAndRatings from '../components/sections/ReviewsAndRatings'
 import type EmptyState from '../components/sections/EmptyState'
 import type Hero from '../components/sections/Hero'
 import type ProductShelf from '../components/sections/ProductShelf'
@@ -355,6 +356,11 @@ export type SectionsOverrides = {
         Omit<any, 'key' | 'product' | 'index'>
       >
     }
+  }
+  ReviewsAndRatings: {
+    Section: typeof ReviewsAndRatings
+    // TODO: Add components
+    components: {}
   }
   RegionBar: {
     Section: typeof RegionBar

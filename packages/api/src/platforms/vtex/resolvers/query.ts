@@ -21,11 +21,17 @@ import type {
   QuerySellersArgs,
   QueryShippingArgs,
   QueryRedirectArgs,
+  QueryReviewsArgs,
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
 import type { SearchArgs } from '../clients/search'
+import {
+  ProductReviewsInputOrderBy,
+  type ProductReviewsInputOrderWay,
+} from '../clients/commerce/types/ProductReview'
+import { buildRatingDistribution } from '../utils/rating'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -74,6 +80,10 @@ export const Query = {
         )
       }
 
+      const rating = await commerce.rating(sku.itemId)
+
+      sku.rating = buildRatingDistribution(rating)
+
       return sku
     } catch (err) {
       if (slug == null) {
@@ -98,9 +108,15 @@ export const Query = {
         throw new NotFoundError(`No product found for id ${route.id}`)
       }
 
+      const rating = await commerce.rating(product.productId)
+
       const sku = pickBestSku(product.items)
 
-      return enhanceSku(sku, product)
+      const enhancedSku = enhanceSku(sku, product)
+
+      enhancedSku.rating = buildRatingDistribution(rating)
+
+      return enhancedSku
     }
   },
   collection: (_: unknown, { slug }: QueryCollectionArgs, ctx: Context) => {
@@ -334,5 +350,32 @@ export const Query = {
       id,
       sellers,
     }
+  },
+  reviews: async (
+    _: unknown,
+    { productId, after, first, rating, sort }: QueryReviewsArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const from = after ?? 0
+    const to = from + (first ?? 6)
+
+    const [orderByKey, orderWay] = sort?.split('_') as [
+      keyof typeof ProductReviewsInputOrderBy,
+      ProductReviewsInputOrderWay,
+    ]
+
+    return await commerce.reviews.list({
+      productId,
+      from,
+      to,
+      orderBy: ProductReviewsInputOrderBy[orderByKey],
+      orderWay,
+      status: true,
+      rating: rating ?? undefined,
+    })
   },
 }

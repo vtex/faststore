@@ -965,6 +965,64 @@
     }
   },
   {
+    "name": "ReviewsAndRatings",
+    "schema": {
+      "title": "Reviews And Ratings",
+      "description": "A section to display product reviews and ratings",
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Reviews"
+        },
+        "ratingSummary": {
+          "title": "Rating Summary",
+          "type": "object",
+          "properties": {
+            "ratingCounter": {
+              "title": "Rating Counter",
+              "type": "object",
+              "properties": {
+                "noReviewsText": {
+                  "title": "No reviews text",
+                  "type": "string",
+                  "default": "No reviews yet"
+                },
+                "multipleReviewsText": {
+                  "title": "Multiple reviews text",
+                  "type": "string",
+                  "default": "Reviews"
+                },
+                "singleReviewText": {
+                  "title": "Single review text",
+                  "type": "string",
+                  "default": "Review"
+                }
+              }
+            }
+          }
+        },
+        "createReviewButton": {
+          "title": "Create Review Button",
+          "type": "object",
+          "properties": {
+            "noReviewsText": {
+              "title": "No reviews Text",
+              "type": "string",
+              "default": "Write the first review"
+            },
+            "defaultText": {
+              "title": "Default Text",
+              "type": "string",
+              "default": "Write a review"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
     "name": "CrossSellingShelf",
     "requiredScopes": ["pdp", "custom"],
     "schema": {
@@ -1492,6 +1550,27 @@
               "title": "Show Reference Number?",
               "type": "boolean",
               "default": false
+            },
+            "rating": {
+              "title": "Rating",
+              "type": "object",
+              "properties": {
+                "noReviewsText": {
+                  "title": "No reviews text",
+                  "type": "string",
+                  "default": "No reviews yet"
+                },
+                "multipleReviewsText": {
+                  "title": "Multiple reviews text",
+                  "type": "string",
+                  "default": "reviews"
+                },
+                "singleReviewText": {
+                  "title": "Single review text",
+                  "type": "string",
+                  "default": "review"
+                }
+              }
             }
           }
         },

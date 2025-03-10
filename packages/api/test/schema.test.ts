@@ -56,6 +56,7 @@ const TYPES = [
   'PickupAddress',
   'MessageInfo',
   'MessageFields',
+  'ICreateProductReview',
 ]
 
 const QUERIES = [
@@ -67,9 +68,15 @@ const QUERIES = [
   'shipping',
   'redirect',
   'sellers',
+  'reviews',
 ]
 
-const MUTATIONS = ['validateCart', 'validateSession', 'subscribeToNewsletter']
+const MUTATIONS = [
+  'validateCart',
+  'validateSession',
+  'subscribeToNewsletter',
+  'createProductReview',
+]
 
 let schema: GraphQLSchema
 

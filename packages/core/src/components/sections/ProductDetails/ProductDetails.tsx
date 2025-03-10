@@ -16,6 +16,7 @@ import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSecti
 import { useOverrideComponents } from '../../../sdk/overrides/OverrideContext'
 import { usePDP } from '../../../sdk/overrides/PageProvider'
 import { ProductDetailsDefaultComponents } from './DefaultComponents'
+import { api as apiConfig } from 'discovery.config'
 
 type StoreConfig = typeof storeConfig & {
   experimental: {
@@ -33,6 +34,11 @@ export interface ProductDetailsProps {
     discountBadge: {
       size: 'big' | 'small'
       showDiscountBadge: boolean
+    }
+    rating: {
+      noReviewsText: string
+      singleReviewText: string
+      multipleReviewsText: string
     }
   }
   buyButton: {
@@ -87,6 +93,7 @@ function ProductDetails({
   productTitle: {
     refNumber: showRefNumber,
     discountBadge: { showDiscountBadge, size: discountBadgeSize },
+    rating: { noReviewsText, multipleReviewsText, singleReviewText },
   },
   buyButton: { icon: buyButtonIcon, title: buyButtonTitle },
   shippingSimulator: {
@@ -144,6 +151,7 @@ function ProductDetails({
       lowPrice,
       lowPriceWithTaxes,
     },
+    rating,
   } = product
 
   useEffect(() => {
@@ -218,6 +226,15 @@ function ProductDetails({
                 )
               }
               refNumber={showRefNumber && productId}
+              {...(apiConfig.reviewsAndRatings && {
+                reviewsAndRating: {
+                  ratingValue: rating.average,
+                  reviewsCount: rating.totalCount,
+                  noReviewsText,
+                  multipleReviewsText,
+                  singleReviewText,
+                },
+              })}
             />
           </header>
           <ImageGallery.Component
@@ -383,6 +400,18 @@ export const fragment = gql(`
       name
       value
       valueReference
+    }
+
+    rating {
+      average
+      totalCount
+      distribution {
+        starsOne
+        starsTwo
+        starsThree
+        starsFour
+        starsFive
+      }
     }
 
     # Contains necessary info to add this item to cart
