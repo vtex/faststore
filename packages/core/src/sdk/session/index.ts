@@ -55,8 +55,7 @@ export const validateSession = async (session: Session) => {
     const initialPostalCode = defaultStore.readInitial().postalCode
 
     if (!!initialPostalCode) {
-      session = { ...session, postalCode: initialPostalCode }
-      sessionStore.set(session)
+      sessionStore.set({ ...session, postalCode: initialPostalCode })
     }
   }
 
