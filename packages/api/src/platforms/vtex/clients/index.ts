@@ -1,15 +1,15 @@
 import { VtexCommerce } from './commerce'
-import { IntelligentSearch } from './search'
+import { AppsIO } from './apps'
 import type { Context, Options } from '..'
 
 export type Clients = ReturnType<typeof getClients>
 
 export const getClients = (options: Options, ctx: Context) => {
-  const search = IntelligentSearch(options, ctx)
+  const apps = AppsIO(options, ctx)
   const commerce = VtexCommerce(options, ctx)
 
   return {
-    search,
+    apps,
     commerce,
   }
 }

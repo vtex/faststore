@@ -1,12 +1,13 @@
-import type { Context, Options } from '../../'
-import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
-import { getStoreCookie } from '../../utils/cookies'
+import { getAppIOBaseUrl } from '..'
+import type { Context, Options } from '../../../'
+import type { IStoreSelectedFacet } from '../../../../../__generated__/schema'
+import { getStoreCookie } from '../../../utils/cookies'
 import type {
   FuzzyFacet,
   OperatorFacet,
   SelectedFacet,
-} from '../../utils/facets'
-import { fetchAPI } from '../fetch'
+} from '../../../utils/facets'
+import { fetchAPI } from '../../fetch'
 import type {
   Facet,
   FacetSearchResult,
@@ -85,7 +86,7 @@ export const IntelligentSearch = (
   }: Options,
   ctx: Context
 ) => {
-  const base = `https://${account}.${environment}.com.br/api/io`
+  const baseUrl = `${getAppIOBaseUrl(account, environment)}/_v/api/intelligent-search`
   const storeCookies = getStoreCookie(ctx)
 
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
@@ -201,7 +202,7 @@ export const IntelligentSearch = (
       .join('/')
 
     return fetchAPI(
-      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
+      `${baseUrl}/${type}/${pathname}?${params.toString()}`,
       undefined,
       { storeCookies }
     )
@@ -219,7 +220,7 @@ export const IntelligentSearch = (
     })
 
     return fetchAPI(
-      `${base}/_v/api/intelligent-search/search_suggestions?${params.toString()}`,
+      `${baseUrl}/search_suggestions?${params.toString()}`,
       undefined,
       { storeCookies }
     )
@@ -230,11 +231,9 @@ export const IntelligentSearch = (
       locale: ctx.storage.locale,
     })
 
-    return fetchAPI(
-      `${base}/_v/api/intelligent-search/top_searches?${params.toString()}`,
-      undefined,
-      { storeCookies }
-    )
+    return fetchAPI(`${baseUrl}/top_searches?${params.toString()}`, undefined, {
+      storeCookies,
+    })
   }
 
   const facets = (args: Omit<SearchArgs, 'type'>) =>

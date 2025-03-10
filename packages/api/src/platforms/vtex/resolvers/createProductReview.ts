@@ -4,9 +4,13 @@ import type { MutationCreateProductReviewArgs } from '../../../__generated__/sch
 export const createProductReview = async (
   _: any,
   { data }: MutationCreateProductReviewArgs,
-  { clients: { commerce } }: Context
+  {
+    clients: {
+      apps: { reviewsAndRatings },
+    },
+  }: Context
 ): Promise<string> => {
-  return await commerce.reviews.create({
+  return await reviewsAndRatings.reviews.create({
     ...data,
     approved: true,
   })

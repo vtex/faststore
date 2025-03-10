@@ -1,5 +1,5 @@
 import type { Resolver } from '..'
-import type { FacetValueBoolean } from '../clients/search/types/FacetSearchResult'
+import type { FacetValueBoolean } from '../clients/apps/search/types/FacetSearchResult'
 
 export const StoreFacetValueBoolean: Record<
   string,

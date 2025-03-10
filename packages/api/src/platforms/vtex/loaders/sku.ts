@@ -13,7 +13,7 @@ export const getSkuLoader = (_: Options, clients: Clients) => {
       (key) => key.split('-')[1] === 'invisibleItems'
     )
 
-    const { products } = await clients.search.products({
+    const { products } = await clients.apps.search.products({
       query: `sku:${skuIds.join(';')}`,
       page: 0,
       count: skuIds.length,

@@ -1,5 +1,8 @@
 import type { StoreProduct as StoreProductType } from '../../..'
-import type { Product, Item } from '../clients/search/types/ProductSearchResult'
+import type {
+  Product,
+  Item,
+} from '../clients/apps/search/types/ProductSearchResult'
 
 export type SkuVariants = StoreProductType[]
 

@@ -1,6 +1,6 @@
 import type { Clients } from './clients'
 import { getClients } from './clients'
-import type { SearchArgs } from './clients/search'
+import type { SearchArgs } from './clients/apps/search'
 import type { Loaders } from './loaders'
 import { getLoaders } from './loaders'
 import { StoreAggregateOffer } from './resolvers/aggregateOffer'
