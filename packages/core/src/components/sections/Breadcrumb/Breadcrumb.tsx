@@ -20,8 +20,7 @@ interface BreadcrumbSectionProps {
 }
 
 function BreadcrumbSection({ ...otherProps }: BreadcrumbSectionProps) {
-  const { __experimentalBreadcrumb: Breadcrumb } =
-    useOverrideComponents<'Breadcrumb'>()
+  const { Breadcrumb } = useOverrideComponents<'Breadcrumb'>()
 
   const context = usePage<PDPContext | PLPContext>()
   const title = isPLP(context)

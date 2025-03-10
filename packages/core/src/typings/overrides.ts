@@ -135,7 +135,7 @@ export type SectionsOverrides = {
   Breadcrumb: {
     Section: typeof Breadcrumb
     components: {
-      __experimentalBreadcrumb: ComponentOverrideDefinition<any, any>
+      Breadcrumb: ComponentOverrideDefinition<any, any>
       Icon: ComponentOverrideDefinition<IconProps, IconProps>
     }
   }
