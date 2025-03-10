@@ -49,5 +49,5 @@ export const NavbarDefaultComponents = {
   NavbarRow: UINavbarRow,
   NavbarButtons: UINavbarButtons,
   IconButton: UIIconButton,
-  _experimentalButtonSignIn: ButtonSignIn,
+  __experimentalButtonSignIn: ButtonSignIn,
 } as const

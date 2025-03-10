@@ -93,7 +93,7 @@ function Navbar({
     NavbarRow,
     NavbarButtons,
     IconButton,
-    _experimentalButtonSignIn: ButtonSignIn,
+    __experimentalButtonSignIn: ButtonSignIn,
   } = useOverrideComponents<'Navbar'>()
   const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()

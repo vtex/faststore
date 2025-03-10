@@ -1,4 +1,3 @@
-import type { PropsWithChildren } from 'react'
 import type {
   AlertProps,
   BannerTextContentProps,
@@ -26,11 +25,11 @@ import type {
   NavbarSliderFooterProps,
   NavbarSliderHeaderProps,
   NavbarSliderProps,
-  NewsletterProps,
   NewsletterAddendumProps,
   NewsletterContentProps,
   NewsletterFormProps,
   NewsletterHeaderProps,
+  NewsletterProps,
   ProductPriceProps,
   ProductShelfProps,
   ProductTitleProps,
@@ -38,28 +37,29 @@ import type {
   RegionBarProps,
   ShippingSimulationProps,
   SkeletonProps,
-  SkuSelectorProps,
   SKUMatrixProps,
-  SKUMatrixTriggerProps,
   SKUMatrixSidebarProps,
+  SKUMatrixTriggerProps,
+  SkuSelectorProps,
 } from '@faststore/ui'
+import type { PropsWithChildren } from 'react'
 
+import type Alert from '../components/sections/Alert'
+import type BannerText from '../components/sections/BannerText'
+import type Breadcrumb from '../components/sections/Breadcrumb'
+import type CrossSellingShelf from '../components/sections/CrossSellingShelf'
+import type EmptyState from '../components/sections/EmptyState'
+import type Hero from '../components/sections/Hero'
+import type Navbar from '../components/sections/Navbar'
+import type Newsletter from '../components/sections/Newsletter'
+import type ProductDetails from '../components/sections/ProductDetails'
+import type ProductGallery from '../components/sections/ProductGallery'
+import type ProductShelf from '../components/sections/ProductShelf'
+import type RegionBar from '../components/sections/RegionBar'
 import type {
   ComponentOverrideDefinition,
   SectionOverrideDefinitionV1,
 } from './overridesDefinition'
-import type Alert from '../components/sections/Alert'
-import type Breadcrumb from '../components/sections/Breadcrumb'
-import type BannerText from '../components/sections/BannerText'
-import type CrossSellingShelf from '../components/sections/CrossSellingShelf'
-import type EmptyState from '../components/sections/EmptyState'
-import type Hero from '../components/sections/Hero'
-import type ProductShelf from '../components/sections/ProductShelf'
-import type ProductDetails from '../components/sections/ProductDetails'
-import type Navbar from '../components/sections/Navbar'
-import type Newsletter from '../components/sections/Newsletter'
-import type ProductGallery from '../components/sections/ProductGallery'
-import type RegionBar from '../components/sections/RegionBar'
 
 export type SectionOverride = {
   [K in keyof SectionsOverrides]: SectionOverrideDefinitionV1<K>
@@ -198,7 +198,7 @@ export type SectionsOverrides = {
         IconButtonProps,
         Omit<IconButtonProps, 'onClick'>
       >
-      _experimentalButtonSignIn: ComponentOverrideDefinition<any, any>
+      __experimentalButtonSignIn: ComponentOverrideDefinition<any, any>
     }
   }
   Newsletter: {
