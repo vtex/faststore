@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.25.8](https://github.com/vtex/faststore/compare/v3.25.7...v3.25.8) (2025-03-10)
+
+### Bug Fixes
+
+- Adds back SKUMatrix to PDP ([#2699](https://github.com/vtex/faststore/issues/2699)) ([90c8c04](https://github.com/vtex/faststore/commit/90c8c04be0c11a68bd0665cfe895d48ed9a9cd50))
+
 ## [3.25.7](https://github.com/vtex/faststore/compare/v3.25.6...v3.25.7) (2025-03-10)
 
 ### Bug Fixes
