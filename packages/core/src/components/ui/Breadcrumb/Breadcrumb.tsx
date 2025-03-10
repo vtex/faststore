@@ -1,10 +1,9 @@
 import type { BreadcrumbProps as UIBreadcrumbProps } from '@faststore/ui'
+import { Breadcrumb as UIBreadcrumb } from '@faststore/ui'
 import { memo } from 'react'
 
 import Link from 'src/components/ui/Link'
-
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
-
 export interface BreadcrumbProps extends UIBreadcrumbProps {
   icon: string
   alt: string
@@ -15,11 +14,10 @@ const Breadcrumb = ({
   alt = 'Go to homepage',
   ...otherProps
 }: BreadcrumbProps) => {
-  const { Breadcrumb: BreadcrumbWrapper, Icon } =
-    useOverrideComponents<'Breadcrumb'>()
+  const { Icon } = useOverrideComponents<'Breadcrumb'>()
 
   return (
-    <BreadcrumbWrapper.Component
+    <UIBreadcrumb
       homeLink={
         <Link
           data-fs-breadcrumb-link
@@ -42,7 +40,6 @@ const Breadcrumb = ({
           {name}
         </Link>
       )}
-      {...BreadcrumbWrapper.props}
       {...otherProps}
     />
   )
