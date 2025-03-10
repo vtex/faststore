@@ -9,7 +9,7 @@ import {
   getActiveSkuVariations,
   getFormattedVariations,
   getVariantsByName,
-} from '../src/platforms/vtex/utils/skuVariants'
+} from '../../src/platforms/vtex/utils/skuVariants'
 
 describe('createSlugsMap', () => {
   it('should return an empty object for a product that has no sku specification properties.', () => {

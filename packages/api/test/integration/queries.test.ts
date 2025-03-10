@@ -37,8 +37,8 @@ import {
   shippingSimulationFetch,
   ShippingSimulationQueryResult,
 } from '../mocks/ShippingQuery'
-import type { Options } from '../src'
-import { getContextFactory, getSchema } from '../src'
+import type { Options } from '../../src'
+import { getContextFactory, getSchema } from '../../src'
 
 const apiOptions = {
   platform: 'vtex',
@@ -95,7 +95,7 @@ function pickFetchAPICallResult(
   )
 }
 
-jest.mock('../src/platforms/vtex/clients/fetch.ts', () => ({
+jest.mock('../../src/platforms/vtex/clients/fetch.ts', () => ({
   fetchAPI: (
     info: RequestInfo,
     init?: RequestInit,
