@@ -48,7 +48,7 @@ export interface ModalProps
    */
   children: ModalChildrenFunction | ReactNode
   /**
-   *
+   * Defines the fade effect of the Modal.
    */
   onTransitionEnd?: (
     event: React.TransitionEvent<HTMLDivElement>,
