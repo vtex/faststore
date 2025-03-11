@@ -7,7 +7,6 @@
   @import "@faststore/ui/src/components/atoms/Input/styles.scss";
   @import "@faststore/ui/src/components/atoms/Textarea/styles.scss";
   @import "@faststore/ui/src/components/atoms/Checkbox/styles.scss";
-  @import "@faststore/ui/src/components/molecules/ProductThumbnail/styles.scss";
   @import "@faststore/ui/src/components/molecules/TextareaField/styles.scss";
   @import "@faststore/ui/src/components/molecules/InputField/styles.scss";
   @import "@faststore/ui/src/components/molecules/CheckboxField/styles.scss";
@@ -16,62 +15,4 @@
   @import "@faststore/ui/src/components/molecules/Modal/styles.scss";
   @import "@faststore/ui/src/components/molecules/ReviewCard/styles.scss";
   @import "@faststore/ui/src/components/organisms/ReviewModal/styles.scss";
-
-  .addReviewModalForm {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .addReviewModalBody {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem; // 20px
-
-    &.success {
-      gap: var(--fs-spacing-5);
-      align-items: center;
-      padding-top: var(--fs-spacing-11);
-      background-color: var(--fs-color-neutral-1);
-
-      .successFeedback {
-        display: flex;
-        flex-direction: column;
-        gap: 0.375rem; // 6px
-        align-items: center;
-
-        h3 {
-          font-size: var(--fs-text-size-5);
-          font-weight: var(--fs-text-weight-semibold);
-          color: var(--fs-color-text);
-        }
-
-        p {
-          font-size: var(--fs-text-size-2);
-          font-weight: var(--fs-text-weight-medium);
-          color: var(--fs-color-text-light);
-        }
-      }
-
-      [data-fs-review-card] {
-        --fs-review-card-padding-mobile: var(--fs-spacing-4);
-        --fs-review-card-gap-desktop: var(--fs-review-card-gap-mobile);
-        --fs-review-card-padding-desktop: var(--fs-review-card-padding-mobile);
-
-        max-width: 26.25rem; // 420px
-        background-color: var(--fs-color-neutral-0);
-        border: none;
-        border-radius: var(--fs-border-radius);
-
-        @include media(">=tablet") {
-          flex-direction: column;
-        }
-      }
-    }
-  }
-
-  .addReviewModalFooter {
-    flex-shrink: 0;
-  }
 }
