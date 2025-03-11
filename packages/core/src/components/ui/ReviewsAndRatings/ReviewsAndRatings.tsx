@@ -1,6 +1,6 @@
 import { usePDP } from 'src/sdk/overrides/PageProvider'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
-import { type RatingSummaryProps } from '@faststore/components'
+import type { RatingSummaryProps } from '@faststore/components'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 export type ReviewsAndRatingsProps = {
@@ -9,19 +9,9 @@ export type ReviewsAndRatingsProps = {
     ratingCounter: RatingSummaryProps['textLabels']['ratingCounter']
     createReviewButton: RatingSummaryProps['textLabels']['createReviewButton']
   }
-  addReviewModal: {
-    title: string
-    closeButtonAriaLabel: string
-    cancelButtonLabel: string
-    submitButtonLabel: string
-  }
 }
 
-function ReviewsAndRatings({
-  title,
-  ratingSummary,
-  addReviewModal,
-}: ReviewsAndRatingsProps) {
+function ReviewsAndRatings({ title, ratingSummary }: ReviewsAndRatingsProps) {
   const context = usePDP()
   const { RatingSummary } = useOverrideComponents<'ReviewsAndRatings'>()
   const { isDesktop } = useScreenResize()
