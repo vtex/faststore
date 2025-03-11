@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.25.10](https://github.com/vtex/faststore/compare/v3.25.9...v3.25.10) (2025-03-11)
+
+### Bug Fixes
+
+- override to use core breadcrumb component ([#2715](https://github.com/vtex/faststore/issues/2715)) ([7bb499b](https://github.com/vtex/faststore/commit/7bb499b7d7edd1a5959f1f3e7cd8399ef0cb71be))
+
 ## [3.25.9](https://github.com/vtex/faststore/compare/v3.25.8...v3.25.9) (2025-03-10)
 
 **Note:** Version bump only for package @faststore/core
