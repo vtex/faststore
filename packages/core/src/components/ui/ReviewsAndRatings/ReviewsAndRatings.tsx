@@ -10,7 +10,7 @@ export type ReviewsAndRatingsProps = {
     ratingCounter: RatingSummaryProps['textLabels']['ratingCounter']
     createReviewButton: RatingSummaryProps['textLabels']['createReviewButton']
   }
-  addReviewModal: {
+  reviewModal: {
     title: string
     closeButtonAriaLabel: string
     cancelButtonLabel: string
@@ -21,12 +21,12 @@ export type ReviewsAndRatingsProps = {
 function ReviewsAndRatings({
   title,
   ratingSummary,
-  addReviewModal,
+  reviewModal,
 }: ReviewsAndRatingsProps) {
-  const { RatingSummary, __experimentalAddReviewModal: AddReviewModal } =
+  const { RatingSummary, __experimentalReviewModal: ReviewModal } =
     useOverrideComponents<'ReviewsAndRatings'>()
   const context = usePDP()
-  const { openAddReviewModal, addReviewModal: displayAddReviewModal } = useUI()
+  const { openReviewModal, reviewModal: displayReviewModal } = useUI()
   const { isDesktop } = useScreenResize()
 
   const rating = context?.data?.product?.rating
@@ -43,16 +43,13 @@ function ReviewsAndRatings({
               // Dynamic props shouldn't be overridable
               // This decision can be reviewed later if needed
               {...rating}
-              onCreateReviewClick={openAddReviewModal}
+              onCreateReviewClick={openReviewModal}
             />
           )}
         </div>
 
-        {displayAddReviewModal && (
-          <AddReviewModal.Component
-            {...AddReviewModal.props}
-            {...addReviewModal}
-          />
+        {displayReviewModal && (
+          <ReviewModal.Component {...ReviewModal.props} {...reviewModal} />
         )}
       </>
     )

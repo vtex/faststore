@@ -5,13 +5,13 @@ const UIRatingSummary = dynamic(() =>
   import('@faststore/ui').then((mod) => mod.RatingSummary)
 )
 
-const AddReviewModal = dynamic(
+const ReviewModal = dynamic(
   () =>
-    /* webpackChunkName: "AddReviewModal" */
-    import('src/components/reviews/AddReviewModal')
+    /* webpackChunkName: "ReviewModal" */
+    import('src/components/reviews/ReviewModal')
 )
 
 export const ReviewsAndRatingsDefaultComponents = {
   RatingSummary: UIRatingSummary,
-  __experimentalAddReviewModal: AddReviewModal,
+  __experimentalReviewModal: ReviewModal,
 } as const

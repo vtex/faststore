@@ -118,7 +118,12 @@ export {
   ModalBody,
   ModalFooter,
 } from './molecules/Modal'
-export type { ModalProps, ModalHeaderProps } from './molecules/Modal'
+export type {
+  ModalProps,
+  ModalHeaderProps,
+  ModalBodyProps,
+  ModalFooterProps,
+} from './molecules/Modal'
 export {
   default as NavbarLinks,
   NavbarLinksList,
@@ -359,17 +364,6 @@ export type {
 
 export { default as RegionModal } from './organisms/RegionModal'
 export type { RegionModalProps } from './organisms/RegionModal'
-
-export {
-  default as ReviewModal,
-  ReviewModalFooter,
-  ReviewModalBody,
-} from './organisms/ReviewModal'
-export type {
-  ReviewModalProps,
-  ReviewModalBodyProps,
-  ReviewModalFooterProps,
-} from './organisms/ReviewModal'
 
 export { default as SearchInput } from './organisms/SearchInput'
 export type { SearchInputProps } from './organisms/SearchInput'

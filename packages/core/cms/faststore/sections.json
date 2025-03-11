@@ -1019,9 +1019,9 @@
             }
           }
         },
-        "addReviewModal": {
-          "title": "Add Review Modal",
-          "description": "Add Review Modal configuration",
+        "reviewModal": {
+          "title": "Review Modal",
+          "description": "Review Modal configuration",
           "type": "object",
           "properties": {
             "title": {
@@ -1032,7 +1032,7 @@
             "closeButtonAriaLabel": {
               "title": "Close modal aria-label",
               "type": "string",
-              "default": "Close Add Review Modal"
+              "default": "Close Review Modal"
             },
             "cancelButtonLabel": {
               "title": "Cancel button label",
