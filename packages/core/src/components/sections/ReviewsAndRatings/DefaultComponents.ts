@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic'
 
 const UIRatingSummary = dynamic(() =>
   /* webpackChunkName: "UIRatingSummary" */
-  import('@faststore/ui').then((mod) => mod.RatingSummary)
+  import('@faststore/ui').then((module) => module.RatingSummary)
 )
 
 const ReviewModal = dynamic(

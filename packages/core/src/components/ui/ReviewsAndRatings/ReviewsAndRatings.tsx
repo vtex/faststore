@@ -2,6 +2,7 @@ import { RatingSummary } from '@faststore/ui'
 import { usePDP } from 'src/sdk/overrides/PageProvider'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { type RatingSummaryProps, useUI } from '@faststore/components'
+
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
 export type ReviewsAndRatingsProps = {
@@ -45,12 +46,11 @@ function ReviewsAndRatings({
               {...rating}
               onCreateReviewClick={openReviewModal}
             />
+            {displayReviewModal && (
+              <ReviewModal.Component {...ReviewModal.props} {...reviewModal} />
+            )}
           )}
         </div>
-
-        {displayReviewModal && (
-          <ReviewModal.Component {...ReviewModal.props} {...reviewModal} />
-        )}
       </>
     )
   )
