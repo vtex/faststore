@@ -1,23 +1,14 @@
-import type {
-  ButtonProps as UIButtonProps,
-  AddReviewModalBodyProps as UIAddReviewModalBodyProps,
-  ReviewCardProps as UIReviewCardProps,
-  IconProps as UIIconProps,
-} from '@faststore/ui'
-
-import styles from './section.module.scss'
-
 import dynamic from 'next/dynamic'
 
-const UIAddReviewModalBody = dynamic<UIAddReviewModalBodyProps>(
+const UIModalBody = dynamic(
   () =>
-    import(/* webpackChunkName: "UIAddReviewModalBody" */ '@faststore/ui').then(
-      (mod) => mod.AddReviewModalBody
+    import(/* webpackChunkName: "UIModalBody" */ '@faststore/ui').then(
+      (mod) => mod.ModalBody
     ),
   { ssr: false }
 )
 
-const UIButton = dynamic<UIButtonProps>(
+const UIButton = dynamic(
   () =>
     import(/* webpackChunkName: "UIButton" */ '@faststore/ui').then(
       (mod) => mod.Button
@@ -25,7 +16,7 @@ const UIButton = dynamic<UIButtonProps>(
   { ssr: false }
 )
 
-const UIIcon = dynamic<UIIconProps>(
+const UIIcon = dynamic(
   () =>
     import(/* webpackChunkName: "UIIcon" */ '@faststore/ui').then(
       (mod) => mod.Icon
@@ -33,7 +24,7 @@ const UIIcon = dynamic<UIIconProps>(
   { ssr: false }
 )
 
-const UIReviewCard = dynamic<UIReviewCardProps>(
+const UIReviewCard = dynamic(
   () =>
     import(/* webpackChunkName: "UIReviewCard" */ '@faststore/ui').then(
       (mod) => mod.ReviewCard
@@ -42,7 +33,7 @@ const UIReviewCard = dynamic<UIReviewCardProps>(
 )
 
 // Add interface for form data
-export interface AddReviewModalSuccessProps {
+export interface ReviewModalSuccessProps {
   successTitle: string
   successSubtitle: string
   successButtonLabel: string
@@ -54,18 +45,16 @@ export interface AddReviewModalSuccessProps {
   }
 }
 
-function AddReviewModalSuccess({
+function ReviewModalSuccess({
   successTitle = 'Success!',
   successSubtitle = 'Your review has been submitted.',
   successButtonLabel = 'Back to reviews',
   review,
   close,
-}: AddReviewModalSuccessProps) {
+}: ReviewModalSuccessProps) {
   return (
-    <UIAddReviewModalBody
-      className={`${styles.addReviewModalBody} ${styles.success}`}
-    >
-      <div className={styles.successFeedback}>
+    <UIModalBody data-fs-review-modal-body data-fs-review-modal-step="success">
+      <div data-fs-review-modal-success-feedback>
         <UIIcon name="Checked" height={32} width={32} />
         <h3>{successTitle}</h3>
         <p>{successSubtitle}</p>
@@ -76,8 +65,8 @@ function AddReviewModalSuccess({
       <UIButton type="button" onClick={close} variant="primary">
         {successButtonLabel}
       </UIButton>
-    </UIAddReviewModalBody>
+    </UIModalBody>
   )
 }
 
-export default AddReviewModalSuccess
+export default ReviewModalSuccess

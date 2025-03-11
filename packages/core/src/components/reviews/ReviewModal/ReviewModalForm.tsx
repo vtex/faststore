@@ -1,8 +1,5 @@
-import styles from './section.module.scss'
-
 import dynamic from 'next/dynamic'
 import { type FormEvent, useRef, useState, useCallback } from 'react'
-import { Image } from 'src/components/ui/Image'
 
 const UIButton = dynamic(
   () =>
@@ -12,43 +9,27 @@ const UIButton = dynamic(
   { ssr: false }
 )
 
-const UIAddReviewModalBody = dynamic(
+const UIModalBody = dynamic(
   () =>
-    import(/* webpackChunkName: "UIAddReviewModalBody" */ '@faststore/ui').then(
-      (mod) => mod.AddReviewModalBody
+    import(/* webpackChunkName: "UIModalBody" */ '@faststore/ui').then(
+      (mod) => mod.ModalBody
     ),
   { ssr: false }
 )
 
-const UIAddReviewModalFooter = dynamic(
+const UIModalFooter = dynamic(
   () =>
-    import(
-      /* webpackChunkName: "UIAddReviewModalFooter" */ '@faststore/ui'
-    ).then((mod) => mod.AddReviewModalFooter),
-  { ssr: false }
-)
-
-const UIProductThumbnail = dynamic(
-  () =>
-    import(/* webpackChunkName: "UIProductThumbnail" */ '@faststore/ui').then(
-      (mod) => mod.ProductThumbnail
+    import(/* webpackChunkName: "UIReviewModalFooter" */ '@faststore/ui').then(
+      (mod) => mod.ModalFooter
     ),
   { ssr: false }
 )
 
-const UIProductThumbnailImage = dynamic(
+const ProductThumbnail = dynamic(
   () =>
     import(
-      /* webpackChunkName: "UIProductThumbnailImage" */ '@faststore/ui'
-    ).then((mod) => mod.ProductThumbnailImage),
-  { ssr: false }
-)
-
-const UIProductThumbnailTitle = dynamic(
-  () =>
-    import(
-      /* webpackChunkName: "UIProductThumbnailTitle" */ '@faststore/ui'
-    ).then((mod) => mod.ProductThumbnailTitle),
+      /* webpackChunkName: "ProductThumbnail" */ 'src/components/reviews/ReviewModal/ProductThumbnail'
+    ),
   { ssr: false }
 )
 
@@ -84,7 +65,7 @@ const UIRatingField = dynamic(
   { ssr: false }
 )
 
-export interface AddReviewModalFormProps {
+export interface ReviewModalFormProps {
   product: {
     id: string
     name: string
@@ -113,11 +94,11 @@ export interface AddReviewModalFormProps {
   cancelButtonLabel: string
   submitButtonLabel: string
   loading?: boolean
-  onSubmit: (data: AddReviewModalFormData) => void
+  onSubmit: (data: ReviewModalFormData) => void
   onCancel: () => void
 }
 
-export interface AddReviewModalFormData {
+export interface ReviewModalFormData {
   rating: number
   title: string
   reviewerName: string
@@ -125,7 +106,7 @@ export interface AddReviewModalFormData {
   privacyPolicy: boolean
 }
 
-function AddReviewModalForm({
+function ReviewModalForm({
   product,
   ratingField = {
     label: 'Rate the product from 1 to 5 stars',
@@ -154,8 +135,8 @@ function AddReviewModalForm({
   loading,
   onSubmit,
   onCancel,
-}: AddReviewModalFormProps) {
-  const [values, setValues] = useState<AddReviewModalFormData>({
+}: ReviewModalFormProps) {
+  const [values, setValues] = useState<ReviewModalFormData>({
     rating: 0,
     title: '',
     reviewerName: '',
@@ -164,7 +145,7 @@ function AddReviewModalForm({
   })
 
   const [errors, setErrors] = useState<
-    Record<keyof AddReviewModalFormData, string | undefined>
+    Record<keyof ReviewModalFormData, string | undefined>
   >({
     rating: undefined,
     title: undefined,
@@ -190,9 +171,9 @@ function AddReviewModalForm({
   }
 
   const isValidValue = useCallback(
-    <T extends keyof AddReviewModalFormData>(
+    <T extends keyof ReviewModalFormData>(
       field: T,
-      value: AddReviewModalFormData[T]
+      value: ReviewModalFormData[T]
     ): boolean => {
       switch (field) {
         case 'rating':
@@ -211,7 +192,7 @@ function AddReviewModalForm({
   )
 
   const validateField = useCallback(
-    (field: keyof AddReviewModalFormData): boolean => {
+    (field: keyof ReviewModalFormData): boolean => {
       const value = values[field]
       const isValid = isValidValue(field, value)
 
@@ -226,9 +207,9 @@ function AddReviewModalForm({
   )
 
   const setValue = useCallback(
-    <T extends keyof AddReviewModalFormData>(
+    <T extends keyof ReviewModalFormData>(
       field: T,
-      value: AddReviewModalFormData[T]
+      value: ReviewModalFormData[T]
     ) => {
       setValues((prev) => ({
         ...prev,
@@ -246,7 +227,7 @@ function AddReviewModalForm({
   )
 
   const validateForm = useCallback((): boolean => {
-    const fields = Object.keys(values) as Array<keyof AddReviewModalFormData>
+    const fields = Object.keys(values) as Array<keyof ReviewModalFormData>
     const results = fields.map((field) => ({
       field,
       isValid: validateField(field),
@@ -279,22 +260,18 @@ function AddReviewModalForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className={styles.addReviewModalForm}>
-      <UIAddReviewModalBody className={styles.addReviewModalBody}>
-        <UIProductThumbnail>
-          <UIProductThumbnailImage>
-            <Image
-              src={product.image?.url}
-              alt={product.image?.alternateName}
-              width={50}
-              height={50}
-            />
-          </UIProductThumbnailImage>
-          <UIProductThumbnailTitle>{product.name}</UIProductThumbnailTitle>
-        </UIProductThumbnail>
+    <form onSubmit={handleSubmit} data-fs-review-modal-form>
+      <UIModalBody data-fs-review-modal-body data-fs-review-modal-step="form">
+        <ProductThumbnail
+          image={{
+            src: product.image?.url,
+            alt: product.image?.alternateName,
+          }}
+          title={product.name}
+        />
 
         <UIRatingField
-          id="add-review-modal-rating"
+          id="review-modal-rating"
           label={ratingField.label}
           error={errors.rating}
           value={values.rating}
@@ -303,7 +280,7 @@ function AddReviewModalForm({
         />
 
         <UIInputField
-          id="add-review-modal-review-title"
+          id="review-modal-review-title"
           label={reviewTitleField.label}
           error={errors.title}
           value={values.title}
@@ -314,7 +291,7 @@ function AddReviewModalForm({
         />
 
         <UIInputField
-          id="add-review-modal-reviewer-name"
+          id="review-modal-reviewer-name"
           label={reviewerNameField.label}
           error={errors.reviewerName}
           value={values.reviewerName}
@@ -325,7 +302,7 @@ function AddReviewModalForm({
         />
 
         <UITextareaField
-          id="add-review-modal-review-text"
+          id="review-modal-review-text"
           label={reviewTextField.label}
           error={errors.text}
           value={values.text}
@@ -338,7 +315,7 @@ function AddReviewModalForm({
         />
 
         <UICheckboxField
-          id="add-review-modal-privacy-policy"
+          id="review-modal-privacy-policy"
           label={privacyPolicyCheckboxField.label}
           error={errors.privacyPolicy}
           checked={values.privacyPolicy}
@@ -347,18 +324,18 @@ function AddReviewModalForm({
           name="privacyPolicy"
           alignment="top"
         />
-      </UIAddReviewModalBody>
+      </UIModalBody>
 
-      <UIAddReviewModalFooter className={styles.addReviewModalFooter}>
+      <UIModalFooter data-fs-review-modal-footer>
         <UIButton variant="secondary" onClick={() => onCancel()} type="button">
           {cancelButtonLabel}
         </UIButton>
         <UIButton variant="primary" type="submit" loading={loading}>
           {submitButtonLabel}
         </UIButton>
-      </UIAddReviewModalFooter>
+      </UIModalFooter>
     </form>
   )
 }
 
-export default AddReviewModalForm
+export default ReviewModalForm
