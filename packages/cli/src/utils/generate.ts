@@ -18,6 +18,7 @@ import { withBasePath } from './directory'
 import { installDependencies } from './dependencies'
 import { logger } from './logger'
 import { installPlugins } from './plugins'
+import { createNextJsPages } from './createNextjsPage'
 
 interface GenerateOptions {
   setup?: boolean
@@ -373,7 +374,7 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
       logger.warn(
         `${chalk.yellow(
           'warning'
-        )} - Version mismatch detected for ${packageName}. 
+        )} - Version mismatch detected for ${packageName}.
           Core: ${coreVersion}, Customization: ${rootVersion}. Please align both versions to prevent issues`
       )
     }
@@ -531,6 +532,7 @@ export async function generate(options: GenerateOptions) {
 
   await Promise.all([
     setupPromise,
+    createNextJsPages(basePath),
     checkDependencies(basePath, ['typescript']),
     enableSearchSSR(basePath),
     updateBuildTime(basePath),
