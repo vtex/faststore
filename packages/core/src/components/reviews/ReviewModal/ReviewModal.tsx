@@ -87,7 +87,7 @@ function ReviewModal({
         className: `section ${styles.section} section-review-modal`,
       }}
     >
-      {({ fade, fadeOut, fadeIn }) => (
+      {({ fadeOut }) => (
         <>
           <UIModalHeader
             data-fs-review-modal-header
