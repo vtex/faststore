@@ -34,15 +34,15 @@ const UIReviewCard = dynamic(
 
 // Add interface for form data
 export interface ReviewModalSuccessProps {
-  successTitle: string
-  successSubtitle: string
-  successButtonLabel: string
-  close(): void
+  successTitle?: string
+  successSubtitle?: string
+  successButtonLabel?: string
   review: {
     rating: number
     title: string
     text: string
   }
+  close(): void
 }
 
 function ReviewModalSuccess({
