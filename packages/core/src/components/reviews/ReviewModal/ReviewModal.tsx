@@ -14,7 +14,7 @@ import dynamic from 'next/dynamic'
 const UIModal = dynamic<UIModalProps>(
   () =>
     import(/* webpackChunkName: "UIModal" */ '@faststore/ui').then(
-      (mod) => mod.Modal
+      (module) => module.Modal
     ),
   { ssr: false }
 )
