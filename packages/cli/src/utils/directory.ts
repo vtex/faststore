@@ -86,6 +86,7 @@ export const withBasePath = (basepath: string) => {
     tmpCMSDir: path.join(tmpDir, 'cms', 'faststore'),
     tmpCMSWebhookUrlsFile: path.join(tmpDir, 'cms-webhook-urls.json'),
     tmpPagesDir: path.join(tmpDir, 'src', 'pages'),
+    tmpApiDir: path.join(tmpDir, 'src', 'pages', 'api'),
     tmpPluginsDir: path.join(tmpDir, 'src', 'plugins'),
     tmpStoreConfigFile: path.join(
       tmpDir,
