@@ -18,7 +18,7 @@ import { withBasePath } from './directory'
 import { installDependencies } from './dependencies'
 import { logger } from './logger'
 import { installPlugins } from './plugins'
-import { createNextJsPages } from './createNextjsPage'
+import { createNextJsPages } from './createNextjsPages'
 
 interface GenerateOptions {
   setup?: boolean
@@ -210,6 +210,7 @@ function copyUserStarterToCustomizations(basePath: string) {
   try {
     if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
       copySync(userSrcDir, tmpCustomizationsSrcDir, { dereference: true })
+      createNextJsPages(basePath)
     }
 
     if (existsSync(userStoreConfigFile)) {
@@ -532,7 +533,6 @@ export async function generate(options: GenerateOptions) {
 
   await Promise.all([
     setupPromise,
-    createNextJsPages(basePath),
     checkDependencies(basePath, ['typescript']),
     enableSearchSSR(basePath),
     updateBuildTime(basePath),
