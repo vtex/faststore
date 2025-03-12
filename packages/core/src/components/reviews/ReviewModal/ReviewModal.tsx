@@ -55,18 +55,18 @@ interface ReviewModalProps {
   /**
    * Cancel button label.
    */
-  cancelButtonLabel: string
+  cancelButtonLabel?: string
   /**
    * Submit button label.
    */
-  submitButtonLabel: string
+  submitButtonLabel?: string
 }
 
 function ReviewModal({
   title = 'Add a review',
   closeButtonAriaLabel = 'Close Review Modal',
   cancelButtonLabel = 'Cancel',
-  submitButtonLabel = 'Submit',
+  submitButtonLabel = 'Submit your review',
 }: ReviewModalProps) {
   const { closeReviewModal } = useUI()
 
@@ -106,10 +106,10 @@ function ReviewModal({
           <UIModalFooter data-fs-review-modal-footer>
             <UIButton variant="secondary" onClick={fadeOut}>
               {cancelButtonLabel}
-            </UIButton >
+            </UIButton>
             <UIButton variant="primary" onClick={handleSubmit}>
               {submitButtonLabel}
-            </UIButton >
+            </UIButton>
           </UIModalFooter>
         </>
       )}
