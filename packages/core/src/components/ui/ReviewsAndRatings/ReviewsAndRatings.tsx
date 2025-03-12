@@ -1,7 +1,8 @@
 import { usePDP } from 'src/sdk/overrides/PageProvider'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
-import type { RatingSummaryProps } from '@faststore/components'
+import type { RatingSummaryProps } from '@faststore/ui'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import type { ReviewListProps } from 'src/components/reviews/ReviewList'
 
 export type ReviewsAndRatingsProps = {
   title: string
@@ -9,11 +10,20 @@ export type ReviewsAndRatingsProps = {
     ratingCounter: RatingSummaryProps['textLabels']['ratingCounter']
     createReviewButton: RatingSummaryProps['textLabels']['createReviewButton']
   }
+  reviewList: {
+    filterSelect: ReviewListProps['filterSelect']
+    sortSelect: ReviewListProps['sortSelect']
+  }
 }
 
-function ReviewsAndRatings({ title, ratingSummary }: ReviewsAndRatingsProps) {
+function ReviewsAndRatings({
+  title,
+  reviewList,
+  ratingSummary,
+}: ReviewsAndRatingsProps) {
+  const { RatingSummary, __experimentalReviewList: ReviewList } =
+    useOverrideComponents<'ReviewsAndRatings'>()
   const context = usePDP()
-  const { RatingSummary } = useOverrideComponents<'ReviewsAndRatings'>()
   const { isDesktop } = useScreenResize()
 
   const rating = context?.data?.product?.rating
@@ -22,6 +32,7 @@ function ReviewsAndRatings({ title, ratingSummary }: ReviewsAndRatingsProps) {
     rating && (
       <>
         <h2 className="text__title-section layout__content">{title}</h2>
+
         <div data-fs-content>
           {(isDesktop || rating?.totalCount > 0) && (
             <RatingSummary.Component
@@ -33,6 +44,8 @@ function ReviewsAndRatings({ title, ratingSummary }: ReviewsAndRatingsProps) {
               onCreateReviewClick={() => alert('Create review')}
             />
           )}
+
+          <ReviewList.Component {...ReviewList.props} {...reviewList} />
         </div>
       </>
     )
