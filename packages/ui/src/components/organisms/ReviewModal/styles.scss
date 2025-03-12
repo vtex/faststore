@@ -23,8 +23,8 @@
 
   @include media("<tablet") {
     --fs-modal-position-top                     : 0;
-    --fs-modal-position-right                   : 0;
-    --fs-modal-position-left                    : 0;
+    --fs-modal-position-right                   : var(--fs-modal-position-top);
+    --fs-modal-position-left                    : var(--fs-modal-position-right);
     --fs-modal-max-width                        : var(--fs-review-modal-max-width);
 
     bottom: 0;
