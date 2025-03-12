@@ -81,7 +81,6 @@ function ReviewModal({
   return (
     <UIModal
       data-fs-review-modal
-      aria-label="Review modal"
       title={title}
       onTransitionEnd={(_, fade) => fade === 'out' && handleOnClose()}
       overlayProps={{
