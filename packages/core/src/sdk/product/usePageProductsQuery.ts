@@ -4,17 +4,20 @@ import type {
   ClientManyProductsQueryQuery,
   ClientManyProductsQueryQueryVariables,
 } from '@generated/graphql'
+import deepEquals from 'fast-deep-equal'
 import {
-  useEffect,
-  useCallback,
   createContext,
+  useCallback,
   useContext,
-  useRef,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react'
 import { useQuery } from 'src/sdk/graphql/useQuery'
+import { generatedBuildTime } from '../../../next-seo.config'
 import { useLocalizedVariables } from './useLocalizedVariables'
+import { useShouldFetchFirstPage } from './useShouldFetchFirstPage'
 
 export const UseGalleryPageContext = createContext<
   ReturnType<typeof useCreateUseGalleryPage>['useGalleryPage']
@@ -64,14 +67,27 @@ export const query = gql(`
 
 const getKey = (object: any) => JSON.stringify(object)
 
+interface UseCreateUseGalleryPageProps {
+  initialPages: ClientManyProductsQueryQuery
+  serverManyProductsVariables: ClientManyProductsQueryQueryVariables
+}
+
 /**
  * Use this hook for managed pages state and creating useGalleryPage hook that will be used for fetching a list of products per pages in PLP or Search
  */
-export const useCreateUseGalleryPage = () => {
-  const [pages, setPages] = useState<ClientManyProductsQueryQuery[]>([])
+export const useCreateUseGalleryPage = (
+  params?: UseCreateUseGalleryPageProps
+) => {
+  const initialPages = params?.initialPages?.search ? [params.initialPages] : []
+  const initialVariables = params?.serverManyProductsVariables
+    ? [getKey(params.serverManyProductsVariables)]
+    : []
+
+  const [pages, setPages] =
+    useState<ClientManyProductsQueryQuery[]>(initialPages)
   // We create pagesRef as a mirror of the pages state so we don't have to add pages as a dependency of the useGalleryPage hook
-  const pagesRef = useRef<ClientManyProductsQueryQuery[]>([])
-  const pagesCache = useRef<string[]>([])
+  const pagesRef = useRef<ClientManyProductsQueryQuery[]>(initialPages)
+  const pagesCache = useRef<string[]>(initialVariables)
 
   const useGalleryPage = useCallback(function useGalleryPage(page: number) {
     const {
@@ -87,8 +103,17 @@ export const useCreateUseGalleryPage = () => {
       selectedFacets,
     })
 
-    const hasSameVariables =
-      pagesCache.current[page] === getKey(localizedVariables)
+    const hasSameVariables = deepEquals(
+      pagesCache.current[page],
+      getKey(localizedVariables)
+    )
+
+    const shouldFetchFirstPage = useShouldFetchFirstPage({
+      page,
+      generatedBuildTime,
+    })
+
+    const shouldFetch = !hasSameVariables || shouldFetchFirstPage
 
     const { data } = useQuery<
       ClientManyProductsQueryQuery,
@@ -96,10 +121,10 @@ export const useCreateUseGalleryPage = () => {
     >(query, localizedVariables, {
       fallbackData: null,
       suspense: true,
-      doNotRun: hasSameVariables,
+      doNotRun: !shouldFetch,
     })
 
-    const shouldUpdatePages = !hasSameVariables && data !== null
+    const shouldUpdatePages = data !== null
 
     if (shouldUpdatePages) {
       pagesCache.current[page] = getKey(localizedVariables)
