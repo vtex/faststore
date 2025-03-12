@@ -2,6 +2,7 @@ import type { DefaultSeoProps } from 'next-seo'
 import storeConfig from './discovery.config'
 
 const buildTime = new Date().toISOString()
+const buildTimeInMS = Date.now()
 
 const config: DefaultSeoProps = {
   norobots: storeConfig.experimental.noRobots,
@@ -14,3 +15,5 @@ const config: DefaultSeoProps = {
 }
 
 export default config
+
+export const generatedBuildTime = buildTimeInMS
