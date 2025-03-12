@@ -1,5 +1,5 @@
 import {
-  Button,
+  Button as UIButton,
   type ModalProps as UIModalProps,
   type ModalHeaderProps as UIModalHeaderProps,
   type ModalBodyProps as UIModalBodyProps,
