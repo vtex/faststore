@@ -1,12 +1,13 @@
 import { Dispatch, SetStateAction, useMemo, useState } from 'react'
 import {
-  Button,
+  Icon,
   SearchProductItem as UISearchProductItem,
   SearchProductItemContent as UISearchProductItemContent,
   SearchProductItemImage as UISearchProductItemImage,
   SKUMatrix as UISKUMatrix,
   SKUMatrixTrigger as UISKUMatrixTrigger,
   useSearch,
+  useUI,
 } from '@faststore/ui'
 
 import { Image } from 'src/components/ui/Image'
@@ -14,9 +15,10 @@ import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
 import { sendAutocompleteClickEvent } from '../SearchDropdown'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
+import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { NavbarProps } from 'src/components/sections/Navbar'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
-import { useBuyButton } from 'src/sdk/cart/useBuyButton'
+
 import styles from 'src/components/sections/Navbar/section.module.scss'
 
 type SearchProductItemProps = {
@@ -48,6 +50,7 @@ function SearchProductItem({
   const {
     values: { onSearchSelection },
   } = useSearch()
+  const { pushToast } = useUI()
 
   const { _experimentalSKUMatrixSidebar: UISKUMatrixSidebar } =
     useOverrideComponents<'Navbar'>()
@@ -79,6 +82,7 @@ function SearchProductItem({
           listPriceWithTaxes,
           seller,
           priceWithTaxes,
+          quantity: offersQuantity,
         },
       ],
     },
@@ -149,13 +153,23 @@ function SearchProductItem({
           listPrice: listPrice,
           formatter: useFormattedPrice,
         }}
+        onValidateBlur={(min, max, quantity) =>
+          pushToast({
+            title: 'Invalid quantity!',
+            message: `The quantity you entered is outside the range of ${min} to ${max}. The quantity was set to ${quantity}.`,
+            status: 'INFO',
+            icon: <Icon name="CircleWavyWarning" width={30} height={30} />,
+          })
+        }
         quickOrder={{
           enabled: quickOrderSettings?.quickOrder,
+          outOfStockLabel: 'Out of stock',
           availability: !outOfStock,
           hasVariants,
           buyProps,
           quantity,
           onChangeQuantity: setQuantity,
+          max: offersQuantity,
           skuMatrixControl: (
             <>
               {quickOrderSettings?.quickOrder && (

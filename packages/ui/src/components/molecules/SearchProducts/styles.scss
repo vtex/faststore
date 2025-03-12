@@ -43,8 +43,7 @@
   --fs-search-product-item-control-actions-gap            : var(--fs-spacing-1);
 
   // Item Control
-  --fs-search-product-item-control-padding-0              : var(--fs-spacing-0);
-  --fs-search-product-item-control-padding-1              : var(--fs-spacing-1);
+  --fs-search-product-item-control-actions-gap            : var(--fs-spacing-1);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -129,10 +128,10 @@
   }
 
   [data-fs-search-product-item-control] {
-     display: flex;
-     justify-content: space-between;
-     width: 100%;
- }
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
 
   [data-fs-product-item-control-input] {
       width: 4.625rem;
@@ -147,9 +146,9 @@
       font-weight: var(--fs-text-weight-medium);
       color: var(--fs-color-text-light);
     }
- }
-	
- [data-fs-search-product-item-control-actions] {
+  }
+
+  [data-fs-search-product-item-control-actions] {
     display: flex;
     margin-left: auto;
     gap: var(--fs-search-product-item-control-actions-gap);
