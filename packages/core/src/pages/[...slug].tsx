@@ -6,9 +6,12 @@ import { gql } from '@generated'
 import type {
   ServerCollectionPageQueryQuery,
   ServerCollectionPageQueryQueryVariables,
+  ServerManyProductsQueryQuery,
+  ServerManyProductsQueryQueryVariables,
 } from '@generated/graphql'
 import { execute } from 'src/server'
 
+import type { SearchState } from '@faststore/sdk'
 import type { Locator } from '@vtex/client-cms'
 import dynamic from 'next/dynamic'
 import {
@@ -26,6 +29,7 @@ import { getRedirect } from 'src/sdk/redirects'
 import type { PageContentType } from 'src/server/cms'
 import { getPLP, type PLPContentType } from 'src/server/cms/plp'
 import { getDynamicContent } from 'src/utils/dynamicContent'
+import { fetchServerManyProducts } from 'src/utils/fetchProductGallerySSR'
 
 const LandingPage = dynamic(
   () => import('src/components/templates/LandingPage')
@@ -40,7 +44,8 @@ type Props = BaseProps &
     | {
         type: 'plp'
         page: PLPContentType
-        data: ServerCollectionPageQueryQuery
+        data: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
+        serverManyProductsVariables: ServerManyProductsQueryQueryVariables
       }
     | {
         type: 'page'
@@ -138,6 +143,15 @@ export const getStaticProps: GetStaticProps<
     globalSectionsPromise,
   ])
 
+  const [serverManyProductsData, serverManyProductsVariables] =
+    await fetchServerManyProducts({
+      itemsPerPage: cmsPage?.settings?.productGallery?.itemsPerPage,
+      sort: cmsPage?.settings?.productGallery
+        ?.sortBySelection as SearchState['sort'],
+      term: '',
+      selectedFacets: data?.collection?.meta.selectedFacets,
+    })
+
   const notFound = errors.find(isNotFoundError)
 
   if (notFound) {
@@ -163,7 +177,11 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: {
-      data,
+      data: {
+        ...data,
+        ...serverManyProductsData,
+      },
+      serverManyProductsVariables,
       page: cmsPage,
       globalSections,
       type: 'plp',
