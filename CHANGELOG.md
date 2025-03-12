@@ -3,6 +3,151 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.25.10](https://github.com/vtex/faststore/compare/v3.25.9...v3.25.10) (2025-03-11)
+
+### Bug Fixes
+
+- override to use core breadcrumb component ([#2715](https://github.com/vtex/faststore/issues/2715)) ([7bb499b](https://github.com/vtex/faststore/commit/7bb499b7d7edd1a5959f1f3e7cd8399ef0cb71be))
+
+## [3.25.9](https://github.com/vtex/faststore/compare/v3.25.8...v3.25.9) (2025-03-10)
+
+**Note:** Version bump only for package faststore
+
+## [3.25.8](https://github.com/vtex/faststore/compare/v3.25.7...v3.25.8) (2025-03-10)
+
+### Bug Fixes
+
+- Adds back SKUMatrix to PDP ([#2699](https://github.com/vtex/faststore/issues/2699)) ([90c8c04](https://github.com/vtex/faststore/commit/90c8c04be0c11a68bd0665cfe895d48ed9a9cd50))
+
+## [3.25.7](https://github.com/vtex/faststore/compare/v3.25.6...v3.25.7) (2025-03-10)
+
+### Bug Fixes
+
+- Get offer url only if `enableClientOffer` is enabled ([#2680](https://github.com/vtex/faststore/issues/2680)) ([4d44454](https://github.com/vtex/faststore/commit/4d4445453abf03b2c450d81670fce01ef3a1c9c7))
+
+## [3.25.6](https://github.com/vtex/faststore/compare/v3.25.5...v3.25.6) (2025-03-07)
+
+### Bug Fixes
+
+- Breadcrumb display and it style ([#2714](https://github.com/vtex/faststore/issues/2714)) ([d4f146d](https://github.com/vtex/faststore/commit/d4f146dc4b4570b1bbd6af16a84f68a1cdeab000))
+
+## [3.25.5](https://github.com/vtex/faststore/compare/v3.25.4...v3.25.5) (2025-03-07)
+
+### Bug Fixes
+
+- Do not include similar categories in the breadcrumb list ([#2711](https://github.com/vtex/faststore/issues/2711)) ([c058011](https://github.com/vtex/faststore/commit/c058011e79ef451d2445488f67a1a058155505de))
+
+## [3.25.4](https://github.com/vtex/faststore/compare/v3.25.3...v3.25.4) (2025-03-07)
+
+### Bug Fixes
+
+- ClientShippingSimulationQuery being called multiple times ([#2710](https://github.com/vtex/faststore/issues/2710)) ([5a85c10](https://github.com/vtex/faststore/commit/5a85c10166110e081992a65f7b6798e304f87c41))
+
+## [3.25.3](https://github.com/vtex/faststore/compare/v3.25.2...v3.25.3) (2025-03-07)
+
+### Bug Fixes
+
+- Product Details' Buy Button excessive state reset ([#2712](https://github.com/vtex/faststore/issues/2712)) ([a84fdde](https://github.com/vtex/faststore/commit/a84fdde93f3a0b61f8a75bcc87143a03d864d768))
+
+## [3.25.2](https://github.com/vtex/faststore/compare/v3.25.1...v3.25.2) (2025-03-06)
+
+### Bug Fixes
+
+- `Newsletter` section behaviour - SFS-2265 ([#2703](https://github.com/vtex/faststore/issues/2703)) ([7f7e98a](https://github.com/vtex/faststore/commit/7f7e98a82aef0c190f47b29b09e0ce7146d81873))
+
+## [3.25.1](https://github.com/vtex/faststore/compare/v3.25.0...v3.25.1) (2025-02-28)
+
+**Note:** Version bump only for package faststore
+
+# [3.25.0](https://github.com/vtex/faststore/compare/v3.24.1...v3.25.0) (2025-02-28)
+
+### Features
+
+- Add `category`, `mainEntityOfPage` and `[@id](https://github.com/id)` to Product structured data ([#2694](https://github.com/vtex/faststore/issues/2694)) ([1e9f81e](https://github.com/vtex/faststore/commit/1e9f81eb85ad4d40f64181967940ef629d979a4a))
+
+## [3.24.1](https://github.com/vtex/faststore/compare/v3.24.0...v3.24.1) (2025-02-26)
+
+### Bug Fixes
+
+- removes MissingContentError checks in getPage ([#2704](https://github.com/vtex/faststore/issues/2704)) ([0c75ea0](https://github.com/vtex/faststore/commit/0c75ea05b0d3c8ee62daa988c80152ba1464755c))
+
+# [3.24.0](https://github.com/vtex/faststore/compare/v3.23.0...v3.24.0) (2025-02-26)
+
+### Features
+
+- Multiple global content types ([#2668](https://github.com/vtex/faststore/issues/2668)) ([8555310](https://github.com/vtex/faststore/commit/85553101b1d8f3ec510259007ff1d594ec33c338))
+
+# [3.23.0](https://github.com/vtex/faststore/compare/v3.22.3...v3.23.0) (2025-02-26)
+
+### Features
+
+- adds `productTitle` and `metaTagDescription` from IS as SEO data from the PDP - SFS-2252 ([#2701](https://github.com/vtex/faststore/issues/2701)) ([ca368a0](https://github.com/vtex/faststore/commit/ca368a03f47a8c211baab2810d8057c87f3d854f))
+
+## [3.22.3](https://github.com/vtex/faststore/compare/v3.22.2...v3.22.3) (2025-02-24)
+
+### Bug Fixes
+
+- add yarn to volta config ([#2698](https://github.com/vtex/faststore/issues/2698)) ([421bdca](https://github.com/vtex/faststore/commit/421bdca9105bd6f31e6f15db55192827ba8e6dfc))
+
+## 3.22.2 (2025-02-20)
+
+### Bug Fixes
+
+- Removes CI invalid input ([#2689](https://github.com/vtex/faststore/issues/2689)) ([30ea4b5](https://github.com/vtex/faststore/commit/30ea4b5d38fee5f9aacda60c0bd3b3296875864c))
+- Removes url image as required field for Organization ([#2697](https://github.com/vtex/faststore/issues/2697)) ([f325a28](https://github.com/vtex/faststore/commit/f325a28764767fdd6b92d22ef06703a78afdf1a6))
+
+## [3.22.1](https://github.com/vtex/faststore/compare/v3.22.0...v3.22.1) (2025-02-18)
+
+**Note:** Version bump only for package faststore
+
+# [3.22.0](https://github.com/vtex/faststore/compare/v3.21.0...v3.22.0) (2025-02-18)
+
+### Features
+
+- add textareafield component ([#2641](https://github.com/vtex/faststore/issues/2641)) ([5e8dbf3](https://github.com/vtex/faststore/commit/5e8dbf392ee32feede0cdc6174c526a10ce19a22)), closes [PR#2640](https://github.com/PR/issues/2640)
+
+# [3.21.0](https://github.com/vtex/faststore/compare/v3.20.0...v3.21.0) (2025-02-18)
+
+### Features
+
+- empty search with global sections ([#2690](https://github.com/vtex/faststore/issues/2690)) ([56c67d8](https://github.com/vtex/faststore/commit/56c67d8847f5b7c1c8d1d693a70c2f80c48f6c2a))
+
+# [3.20.0](https://github.com/vtex/faststore/compare/v3.19.0...v3.20.0) (2025-02-18)
+
+### Features
+
+- add tooltip component ([#2644](https://github.com/vtex/faststore/issues/2644)) ([ed1826d](https://github.com/vtex/faststore/commit/ed1826d86751b3304f8297432facbe795ae6e91f))
+
+# [3.19.0](https://github.com/vtex/faststore/compare/v3.18.0...v3.19.0) (2025-02-18)
+
+### Features
+
+- Adding organization structured data json ([#2623](https://github.com/vtex/faststore/issues/2623)) ([c97f437](https://github.com/vtex/faststore/commit/c97f4371b694bb55e812c866154e4ed3e594f868))
+
+# [3.18.0](https://github.com/vtex/faststore/compare/v3.17.0...v3.18.0) (2025-02-17)
+
+### Features
+
+- create modal footer compound component ([#2672](https://github.com/vtex/faststore/issues/2672)) ([1a55c95](https://github.com/vtex/faststore/commit/1a55c95f6a2a6cf356647999befab9ba3897c8e7))
+
+# [3.17.0](https://github.com/vtex/faststore/compare/v3.16.0...v3.17.0) (2025-02-17)
+
+### Features
+
+- create textarea component ([#2640](https://github.com/vtex/faststore/issues/2640)) ([15271ca](https://github.com/vtex/faststore/commit/15271cadb0d526ac5a1322a33b57d78635a9976d))
+
+# [3.16.0](https://github.com/vtex/faststore/compare/v3.15.3...v3.16.0) (2025-02-13)
+
+### Features
+
+- add rating field ([#2636](https://github.com/vtex/faststore/issues/2636)) ([f6ab024](https://github.com/vtex/faststore/commit/f6ab024ca606a5f3c59732df02c933063187124a)), closes [PR#2635](https://github.com/PR/issues/2635)
+
+## 3.15.3 (2025-02-13)
+
+### Bug Fixes
+
+- attempts to run publish directly in ci ([#2683](https://github.com/vtex/faststore/issues/2683)) ([44bb50d](https://github.com/vtex/faststore/commit/44bb50d0f03285cb3e48284004675a81385ade9b))
+
 ## [3.15.2](https://github.com/vtex/faststore/compare/v3.15.1...v3.15.2) (2025-02-05)
 
 ### Bug Fixes

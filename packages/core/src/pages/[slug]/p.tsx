@@ -35,6 +35,7 @@ import {
 import { getOfferUrl, useOffer } from 'src/sdk/offer'
 import PageProvider, { type PDPContext } from 'src/sdk/overrides/PageProvider'
 import { useProductQuery } from 'src/sdk/product/useProductQuery'
+import { injectGlobalSections } from 'src/server/cms/global'
 import { getPDP, type PDPContentType } from 'src/server/cms/pdp'
 
 type StoreConfig = typeof storeConfig & {
@@ -80,10 +81,28 @@ const overwriteMerge = (_: any[], sourceArray: any[]) => sourceArray
 const isClientOfferEnabled = (storeConfig as StoreConfig).experimental
   .enableClientOffer
 
-function Page({ data: server, sections, globalSections, offers, meta }: Props) {
+function Page({
+  data: server,
+  sections,
+  settings,
+  globalSections,
+  offers,
+  meta,
+}: Props) {
   const { product } = server
   const { currency } = useSession()
   const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
+
+  let itemListElements = product.breadcrumbList.itemListElement ?? []
+  if (itemListElements.length !== 0) {
+    itemListElements = itemListElements.map(
+      ({ item: pathname, name, position }) => {
+        const pageUrl = storeConfig.storeUrl + pathname
+
+        return { name, position, item: pageUrl }
+      }
+    )
+  }
 
   const { client, isValidating } = isClientOfferEnabled
     ? (() => {
@@ -112,15 +131,17 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
 
   return (
     <>
-      <Head>
-        <link
-          rel="preload"
-          href={getOfferUrl(product.sku)}
-          as="fetch"
-          crossOrigin="anonymous"
-          fetchPriority="high"
-        />
-      </Head>
+      {isClientOfferEnabled && (
+        <Head>
+          <link
+            rel="preload"
+            href={getOfferUrl(product.sku)}
+            as="fetch"
+            crossOrigin="anonymous"
+            fetchPriority="high"
+          />
+        </Head>
+      )}
       {/* SEO */}
       <NextSeo
         title={meta.title}
@@ -148,10 +169,10 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
         ]}
         titleTemplate={titleTemplate}
       />
-      <BreadcrumbJsonLd
-        itemListElements={product.breadcrumbList.itemListElement}
-      />
+      <BreadcrumbJsonLd itemListElements={itemListElements} />
       <ProductJsonLd
+        id={`${meta.canonical}${settings?.seo?.id ?? ''}`}
+        mainEntityOfPage={`${meta.canonical}${settings?.seo?.mainEntityOfPage ?? ''}`}
         productName={product.name}
         description={product.description}
         brand={product.brand.name}
@@ -160,6 +181,9 @@ function Page({ data: server, sections, globalSections, offers, meta }: Props) {
         releaseDate={product.releaseDate}
         images={product.image.map((img) => img.url)} // Somehow, Google does not understand this valid Schema.org schema, so we need to do conversions
         offers={offers}
+        {...(itemListElements.length !== 0 && {
+          category: itemListElements[0].name,
+        })}
       />
 
       {/*
@@ -251,12 +275,26 @@ export const getStaticProps: GetStaticProps<
   Locator
 > = async ({ params, previewData }) => {
   const slug = params?.slug ?? ''
-  const [searchResult, globalSections] = await Promise.all([
+
+  const [
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ] = getGlobalSectionsData(previewData)
+
+  const [
+    searchResult,
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  ] = await Promise.all([
     execute<ServerProductQueryQueryVariables, ServerProductQueryQuery>({
       variables: { locator: [{ key: 'slug', value: slug }] },
       operation: query,
     }),
-    getGlobalSectionsData(previewData),
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
   ])
 
   const { data, errors = [] } = searchResult
@@ -296,13 +334,19 @@ export const getStaticProps: GetStaticProps<
     url: canonical,
   }
 
+  const globalSectionsResult = injectGlobalSections({
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  })
+
   return {
     props: {
       data,
       ...cmsPage,
       meta,
       offers,
-      globalSections,
+      globalSections: globalSectionsResult,
       key: seo.canonical,
     },
     revalidate: (storeConfig as StoreConfig).experimental.revalidate ?? false,

@@ -11,9 +11,10 @@ import {
 } from 'src/components/cms/GlobalSections'
 import RenderSections from 'src/components/cms/RenderSections'
 import { OverriddenDefaultEmptyState as EmptyState } from 'src/components/sections/EmptyState/OverriddenDefaultEmptyState'
-import PLUGINS_COMPONENTS from 'src/plugins'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import PLUGINS_COMPONENTS from 'src/plugins'
 import { type PageContentType, getPage } from 'src/server/cms'
+import { injectGlobalSections } from 'src/server/cms/global'
 import storeConfig from '../../discovery.config'
 
 /* A list of components that can be used in the CMS. */
@@ -69,16 +70,31 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const [page, globalSections] = await Promise.all([
-    getPage<PageContentType>({
-      ...(previewData?.contentType === 'login' && previewData),
-      contentType: 'login',
-    }),
-    getGlobalSectionsData(previewData),
-  ])
+  const [
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ] = getGlobalSectionsData(previewData)
+
+  const [page, globalSections, globalSectionsHeader, globalSectionsFooter] =
+    await Promise.all([
+      getPage<PageContentType>({
+        ...(previewData?.contentType === 'login' && previewData),
+        contentType: 'login',
+      }),
+      globalSectionsPromise,
+      globalSectionsHeaderPromise,
+      globalSectionsFooterPromise,
+    ])
+
+  const globalSectionsResult = injectGlobalSections({
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  })
 
   return {
-    props: { page, globalSections },
+    props: { page, globalSections: globalSectionsResult },
   }
 }
 

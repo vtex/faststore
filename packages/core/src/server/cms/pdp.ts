@@ -10,6 +10,10 @@ type PDPSettings = {
     template?: {
       value?: string
     }
+    seo?: {
+      id?: string
+      mainEntityOfPage?: string
+    }
   }
 }
 

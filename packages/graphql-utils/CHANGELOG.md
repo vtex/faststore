@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.22.2 (2025-02-20)
+
+### Bug Fixes
+
+- Removes CI invalid input ([#2689](https://github.com/vtex/faststore/issues/2689)) ([30ea4b5](https://github.com/vtex/faststore/commit/30ea4b5d38fee5f9aacda60c0bd3b3296875864c))
+
+## 3.15.3 (2025-02-13)
+
+### Bug Fixes
+
+- attempts to run publish directly in ci ([#2683](https://github.com/vtex/faststore/issues/2683)) ([44bb50d](https://github.com/vtex/faststore/commit/44bb50d0f03285cb3e48284004675a81385ade9b))
+
 # 3.15.0 (2025-02-04)
 
 ### Features
