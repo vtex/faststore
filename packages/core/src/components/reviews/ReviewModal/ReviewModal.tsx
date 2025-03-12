@@ -104,12 +104,12 @@ function ReviewModal({
             body
           </UIModalBody>
           <UIModalFooter data-fs-review-modal-footer>
-            <Button variant="secondary" onClick={fadeOut}>
+            <UIButton variant="secondary" onClick={fadeOut}>
               {cancelButtonLabel}
-            </Button>
-            <Button variant="primary" onClick={handleSubmit}>
+            </UIButton >
+            <UIButton variant="primary" onClick={handleSubmit}>
               {submitButtonLabel}
-            </Button>
+            </UIButton >
           </UIModalFooter>
         </>
       )}
