@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react'
 import {
   SearchProducts,
   SearchAutoComplete as UISearchAutoComplete,
@@ -23,6 +24,7 @@ interface SearchDropdownProps {
   sort: SearchState['sort']
   quickOrderSettings?: NavbarProps['searchInput']['quickOrderSettings']
   [key: string]: any
+  onChangeCustomSearchDropdownVisible: Dispatch<SetStateAction<boolean>>
 }
 
 export function sendAutocompleteClickEvent({
@@ -42,6 +44,7 @@ export function sendAutocompleteClickEvent({
 function SearchDropdown({
   sort,
   quickOrderSettings,
+  onChangeCustomSearchDropdownVisible,
   ...otherProps
 }: SearchDropdownProps) {
   const {
@@ -86,6 +89,9 @@ function SearchDropdown({
               product={productParsed}
               index={index}
               quickOrderSettings={quickOrderSettings}
+              onChangeCustomSearchDropdownVisible={
+                onChangeCustomSearchDropdownVisible
+              }
             />
           )
         })}
