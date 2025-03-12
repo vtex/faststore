@@ -1,9 +1,6 @@
 import {
-  Button as UIButton,
   type ModalProps as UIModalProps,
   type ModalHeaderProps as UIModalHeaderProps,
-  type ModalBodyProps as UIModalBodyProps,
-  type ModalFooterProps as UIModalFooterProps,
   useUI,
 } from '@faststore/ui'
 

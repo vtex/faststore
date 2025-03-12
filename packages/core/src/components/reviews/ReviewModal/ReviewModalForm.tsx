@@ -71,28 +71,28 @@ export interface ReviewModalFormProps {
     name: string
     image?: { url: string; alternateName: string }
   }
-  ratingField: {
+  ratingField?: {
     label: string
     requiredErrorMessage: string
   }
-  reviewTitleField: {
+  reviewTitleField?: {
     label: string
     requiredErrorMessage: string
   }
-  reviewerNameField: {
+  reviewerNameField?: {
     label: string
     requiredErrorMessage: string
   }
-  reviewTextField: {
+  reviewTextField?: {
     label: string
     requiredErrorMessage: string
   }
-  privacyPolicyCheckboxField: {
+  privacyPolicyCheckboxField?: {
     label: string
     requiredErrorMessage: string
   }
-  cancelButtonLabel: string
-  submitButtonLabel: string
+  cancelButtonLabel?: string
+  submitButtonLabel?: string
   loading?: boolean
   onSubmit: (data: ReviewModalFormData) => void
   onCancel: () => void
