@@ -1,4 +1,4 @@
-import { type RatingSummaryProps, useUI } from '@faststore/components'
+import { type RatingSummaryProps, useUI } from '@faststore/ui'
 import { usePDP } from 'src/sdk/overrides/PageProvider'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
