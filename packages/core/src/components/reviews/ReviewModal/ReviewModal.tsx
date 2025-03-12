@@ -43,7 +43,7 @@ const UIModalFooter = dynamic<UIModalFooterProps>(
   { ssr: false }
 )
 
-interface ReviewModalProps {
+export interface ReviewModalProps {
   /**
    * The review modal's title.
    */

@@ -3,6 +3,7 @@ import { usePDP } from 'src/sdk/overrides/PageProvider'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
 
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import type { ReviewModalProps } from 'src/components/reviews/ReviewModal/ReviewModal'
 
 export type ReviewsAndRatingsProps = {
   title: string
@@ -10,12 +11,7 @@ export type ReviewsAndRatingsProps = {
     ratingCounter: RatingSummaryProps['textLabels']['ratingCounter']
     createReviewButton: RatingSummaryProps['textLabels']['createReviewButton']
   }
-  reviewModal: {
-    title: string
-    closeButtonAriaLabel: string
-    cancelButtonLabel: string
-    submitButtonLabel: string
-  }
+  reviewModal: ReviewModalProps
 }
 
 function ReviewsAndRatings({
