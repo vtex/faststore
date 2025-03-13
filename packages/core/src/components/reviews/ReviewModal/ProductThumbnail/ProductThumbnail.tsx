@@ -58,7 +58,7 @@ const ProductThumbnail = forwardRef<HTMLDivElement, ProductThumbnailProps>(
             height={image.height ?? 50}
           />
         </div>
-        <h3 data-fs-product-thumbnail-title>{title}</h3>
+        <h3 data-fs-review-modal-product-thumbnail-title>{title}</h3>
       </div>
     )
   }
