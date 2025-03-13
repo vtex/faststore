@@ -11,6 +11,7 @@ import { getOverridableSection } from '../../../sdk/overrides/getOverriddenSecti
 interface Props {
   title: ReviewsAndRatingsProps['title']
   ratingSummary: ReviewsAndRatingsProps['ratingSummary']
+  reviewModal: ReviewsAndRatingsProps['reviewModal']
 }
 const ReviewsAndRatingsSection = (props: Props) => {
   return (

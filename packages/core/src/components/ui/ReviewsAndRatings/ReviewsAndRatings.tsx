@@ -1,7 +1,9 @@
+import { type RatingSummaryProps, useUI } from '@faststore/ui'
 import { usePDP } from 'src/sdk/overrides/PageProvider'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
-import type { RatingSummaryProps } from '@faststore/components'
+
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
+import type { ReviewModalProps } from 'src/components/reviews/ReviewModal/ReviewModal'
 
 export type ReviewsAndRatingsProps = {
   title: string
@@ -9,11 +11,18 @@ export type ReviewsAndRatingsProps = {
     ratingCounter: RatingSummaryProps['textLabels']['ratingCounter']
     createReviewButton: RatingSummaryProps['textLabels']['createReviewButton']
   }
+  reviewModal: ReviewModalProps
 }
 
-function ReviewsAndRatings({ title, ratingSummary }: ReviewsAndRatingsProps) {
+function ReviewsAndRatings({
+  title,
+  ratingSummary,
+  reviewModal,
+}: ReviewsAndRatingsProps) {
+  const { RatingSummary, __experimentalReviewModal: ReviewModal } =
+    useOverrideComponents<'ReviewsAndRatings'>()
   const context = usePDP()
-  const { RatingSummary } = useOverrideComponents<'ReviewsAndRatings'>()
+  const { openReviewModal, reviewModal: displayReviewModal } = useUI()
   const { isDesktop } = useScreenResize()
 
   const rating = context?.data?.product?.rating
@@ -30,10 +39,13 @@ function ReviewsAndRatings({ title, ratingSummary }: ReviewsAndRatingsProps) {
               // Dynamic props shouldn't be overridable
               // This decision can be reviewed later if needed
               {...rating}
-              onCreateReviewClick={() => alert('Create review')}
+              onCreateReviewClick={openReviewModal}
             />
           )}
         </div>
+        {displayReviewModal && (
+          <ReviewModal.Component {...ReviewModal.props} {...reviewModal} />
+        )}
       </>
     )
   )
