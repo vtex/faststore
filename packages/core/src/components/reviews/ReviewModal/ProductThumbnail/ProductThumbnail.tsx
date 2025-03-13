@@ -27,7 +27,7 @@ export interface ProductThumbnailProps
 const ProductThumbnail = forwardRef<HTMLDivElement, ProductThumbnailProps>(
   function ProductThumbnail(
     {
-      testId = 'fs-product-thumbnail',
+      testId = 'fs-review-modal-product-thumbnail',
       aspectRatio,
       image,
       title,
@@ -46,7 +46,8 @@ const ProductThumbnail = forwardRef<HTMLDivElement, ProductThumbnailProps>(
           data-fs-review-modal-product-thumbnail-image
           style={
             {
-              '--fs-product-thumbnail-image-aspect-ratio': aspectRatio,
+              '--fs-review-modal-product-thumbnail-image-aspect-ratio':
+                aspectRatio,
             } as React.CSSProperties
           }
           {...otherProps}

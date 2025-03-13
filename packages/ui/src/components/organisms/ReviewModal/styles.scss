@@ -92,7 +92,7 @@
       color: var(--fs-color-text);
       text-align: left;
 
-      @include truncate-title(var(--fs-product-thumbnail-title-max-lines));
+      @include truncate-title(var(--fs-review-modal-product-thumbnail-title-max-lines));
     }
   }
 }
