@@ -77,14 +77,14 @@
     // --------------------------------------------------------
 
     position: relative;
-    display: flex;
-    gap: var(--fs-product-thumbnail-gap);
+    display: grid;
+    column-gap: var(--fs-grid-gap-1);
+    grid-template-columns: var(--fs-review-modal-product-thumbnail-img-size) auto;
     align-items: center;
     width: 100%;
-    height: 100%;
-    padding: var(--fs-product-thumbnail-padding);
-    background-color: var(--fs-product-thumbnail-bkg-color);
-    border-radius: var(--fs-product-thumbnail-border-radius);
+    padding: var(--fs-spacing-1);
+    background-color: var(--fs-review-modal-product-thumbnail-bkg-color);
+    border-radius: var(--fs-review-modal-product-thumbnail-border-radius);
 
     [data-fs-review-modal-product-thumbnail-image] {
       display: flex;
