@@ -1143,9 +1143,11 @@ export type ProductSummary_ProductFragment = {
   offers: {
     lowPrice: number
     lowPriceWithTaxes: number
+    priceCurrency: string
     offers: Array<{
       availability: string
       price: number
+      priceCurrency: string
       listPrice: number
       listPriceWithTaxes: number
       quantity: number
@@ -1206,10 +1208,12 @@ export type ProductDetailsFragment_ProductFragment = {
   offers: {
     lowPrice: number
     lowPriceWithTaxes: number
+    priceCurrency: string
     offers: Array<{
       availability: string
       price: number
       priceWithTaxes: number
+      priceCurrency: string
       listPrice: number
       listPriceWithTaxes: number
       seller: { identifier: string }
@@ -1548,9 +1552,11 @@ export type ClientManyProductsQueryQuery = {
           offers: {
             lowPrice: number
             lowPriceWithTaxes: number
+            priceCurrency: string
             offers: Array<{
               availability: string
               price: number
+              priceCurrency: string
               listPrice: number
               listPriceWithTaxes: number
               quantity: number
@@ -1642,10 +1648,12 @@ export type ClientProductQueryQuery = {
     offers: {
       lowPrice: number
       lowPriceWithTaxes: number
+      priceCurrency: string
       offers: Array<{
         availability: string
         price: number
         priceWithTaxes: number
+        priceCurrency: string
         listPrice: number
         listPriceWithTaxes: number
         seller: { identifier: string }
@@ -1681,9 +1689,11 @@ export type ClientSearchSuggestionsQueryQuery = {
         offers: {
           lowPrice: number
           lowPriceWithTaxes: number
+          priceCurrency: string
           offers: Array<{
             availability: string
             price: number
+            priceCurrency: string
             listPrice: number
             listPriceWithTaxes: number
             quantity: number
@@ -1802,9 +1812,11 @@ export type ServerManyProductsQueryQuery = {
           offers: {
             lowPrice: number
             lowPriceWithTaxes: number
+            priceCurrency: string
             offers: Array<{
               availability: string
               price: number
+              priceCurrency: string
               listPrice: number
               listPriceWithTaxes: number
               quantity: number
@@ -1868,9 +1880,11 @@ export const ProductSummary_ProductFragmentDoc = new TypedDocumentString(
   offers {
     lowPrice
     lowPriceWithTaxes
+    priceCurrency
     offers {
       availability
       price
+      priceCurrency
       listPrice
       listPriceWithTaxes
       quantity
@@ -1986,10 +2000,12 @@ export const ProductDetailsFragment_ProductFragmentDoc =
   offers {
     lowPrice
     lowPriceWithTaxes
+    priceCurrency
     offers {
       availability
       price
       priceWithTaxes
+      priceCurrency
       listPrice
       listPriceWithTaxes
       seller {
@@ -2279,7 +2295,7 @@ export const ServerCollectionPageQueryDocument = {
 export const ServerProductQueryDocument = {
   __meta__: {
     operationName: 'ServerProductQuery',
-    operationHash: '46103bee661405bde706d72126fdbf9b0a0c9e6e',
+    operationHash: '9f6e560f18f0f14a97f54f21b67ea8340cdb74b7',
   },
 } as unknown as TypedDocumentString<
   ServerProductQueryQuery,
@@ -2315,7 +2331,7 @@ export const ClientAllVariantProductsQueryDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '14148671fbf53498fad5c600ee87765920145019',
+    operationHash: '946ec5191c777390781a05245812406cf3b10346',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2333,7 +2349,7 @@ export const ClientProductGalleryQueryDocument = {
 export const ClientProductQueryDocument = {
   __meta__: {
     operationName: 'ClientProductQuery',
-    operationHash: '7d121ef8d4dc99174e64e4429a9b977b8bbebed8',
+    operationHash: '4d08d75273b741b370c86bfcd51139adf9955594',
   },
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
@@ -2342,7 +2358,7 @@ export const ClientProductQueryDocument = {
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
     operationName: 'ClientSearchSuggestionsQuery',
-    operationHash: '47e48eaee91d16a4237eb2c1241bc2ed3e2ad9bb',
+    operationHash: 'c07b8fbec32c187e0005cc131e8582c9cbc74e27',
   },
 } as unknown as TypedDocumentString<
   ClientSearchSuggestionsQueryQuery,
@@ -2378,7 +2394,7 @@ export const ClientShippingSimulationQueryDocument = {
 export const ServerManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ServerManyProductsQuery',
-    operationHash: '4fa4dfd1233e2ed5b0b3f662e8866a901d481a52',
+    operationHash: '427e26ae51ac7fa7cf0751c7d8c00f218d161def',
   },
 } as unknown as TypedDocumentString<
   ServerManyProductsQueryQuery,

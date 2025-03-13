@@ -366,10 +366,12 @@ export const fragment = gql(`
     offers {
       lowPrice
       lowPriceWithTaxes
+      priceCurrency
       offers {
         availability
         price
         priceWithTaxes
+        priceCurrency
         listPrice
         listPriceWithTaxes
         seller {
