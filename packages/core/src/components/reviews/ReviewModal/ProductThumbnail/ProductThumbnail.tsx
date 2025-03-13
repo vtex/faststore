@@ -43,7 +43,7 @@ const ProductThumbnail = forwardRef<HTMLDivElement, ProductThumbnailProps>(
         {...otherProps}
       >
         <div
-          data-fs-product-thumbnail-image
+          data-fs-review-modal-product-thumbnail-image
           style={
             {
               '--fs-product-thumbnail-image-aspect-ratio': aspectRatio,
