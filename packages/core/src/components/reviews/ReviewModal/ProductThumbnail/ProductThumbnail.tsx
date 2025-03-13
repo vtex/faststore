@@ -39,7 +39,7 @@ const ProductThumbnail = forwardRef<HTMLDivElement, ProductThumbnailProps>(
       <div
         ref={ref}
         data-testid={testId}
-        data-fs-product-thumbnail
+        data-fs-review-modal-product-thumbnail
         {...otherProps}
       >
         <div
