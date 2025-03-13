@@ -18,6 +18,7 @@ import { useApplySearchState } from 'src/sdk/search/state'
 
 import type { PLPContentType } from 'src/server/cms/plp'
 
+import ItemListJsonLd from 'src/sdk/seo/itemList'
 import storeConfig from '../../../../discovery.config'
 import ProductListing from './ProductListing'
 
@@ -131,6 +132,38 @@ export default function ProductListingPage({
         }}
       />
       <BreadcrumbJsonLd itemListElements={itemListElements} />
+
+      {searchParams.page === 0 && (
+        <ItemListJsonLd
+          id={`${pathname}/#itemList`}
+          url={canonical}
+          numberOfItems={server.search.products.edges.length}
+          itemListElements={server.search.products.edges.map(({ node }) => {
+            const { slug, brand, image, isVariantOf, offers, ...rest } = node
+
+            let offer = {}
+            if (offers.offers.length > 0) {
+              // removes fields that are not valid Schema.org schema
+              const { listPrice, listPriceWithTaxes, quantity, ...offerData } =
+                offers.offers[0]
+              offer = offerData
+            }
+
+            return {
+              type: 'Product',
+              brand: {
+                name: brand?.name,
+              },
+              image: image?.[0]?.url,
+              isVariantOf: {
+                name: isVariantOf?.name,
+              },
+              offers: offer,
+              ...rest,
+            }
+          })}
+        />
+      )}
 
       <ProductListing
         globalSections={globalSections}
