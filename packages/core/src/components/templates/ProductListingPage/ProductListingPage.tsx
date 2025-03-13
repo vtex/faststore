@@ -103,7 +103,7 @@ export default function ProductListingPage({
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
   let itemListElements = collection?.breadcrumbList.itemListElement ?? []
-  if (itemListElements.length !== 0) {
+  if (itemListElements.length !== 0 || router.query.page === '0') {
     itemListElements = itemListElements.map(
       ({ item: pathname, name, position }) => {
         const pageUrl = storeConfig.storeUrl + pathname
