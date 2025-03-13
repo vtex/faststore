@@ -10,6 +10,16 @@
   --fs-modal-max-height-tablet                  : min(90vh, 44rem); // 704px
   --fs-modal-body-padding                       : 0 var(--fs-spacing-4) var(--fs-spacing-3);
 
+  // Product Thumbnail
+  --fs-review-modal-product-thumbnail-bkg-color                        : var(--fs-color-neutral-1);
+  --fs-review-modal-product-thumbnail-border-radius                    : var(--fs-border-radius);
+
+  // Product Thumbnail Image
+  --fs-review-modal-product-thumbnail-img-size                         : 3rem; // 48px
+
+  // Product Thumbnail Title
+  --fs-review-modal-product-thumbnail-title-max-lines: var(--fs-text-max-lines);
+
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
@@ -50,35 +60,10 @@
   }
 
   [data-fs-review-modal-product-thumbnail] {
-    // --------------------------------------------------------
-    // Design Tokens for Product Thumbnail
-    // --------------------------------------------------------
-
-    // Default properties
-    --fs-product-thumbnail-padding                                     : var(--fs-spacing-1);
-    --fs-product-thumbnail-gap                                         : var(--fs-spacing-2);
-    --fs-product-thumbnail-bkg-color                                   : var(--fs-color-neutral-1);
-    --fs-product-thumbnail-border-radius                               : var(--fs-border-radius);
-
-    // Image
-    --fs-product-thumbnail-img-radius                                  : var(--fs-product-thumbnail-border-radius);
-    --fs-product-thumbnail-img-size                                    : 50px;
-
-    // Title
-    --fs-product-thumbnail-title-color                                 : var(--fs-color-text);
-    --fs-product-thumbnail-title-size                                  : var(--fs-text-size-base);
-    --fs-product-thumbnail-title-weight                                : var(--fs-text-weight-medium);
-    --fs-product-thumbnail-title-max-lines                             : var(--fs-text-max-lines);
-    --fs-product-thumbnail-title-line-height                           : 1.25; // 20px
-
-    // --------------------------------------------------------
-    // Structural Styles
-    // --------------------------------------------------------
-
     position: relative;
     display: grid;
-    column-gap: var(--fs-grid-gap-1);
     grid-template-columns: var(--fs-review-modal-product-thumbnail-img-size) auto;
+    column-gap: var(--fs-grid-gap-1);
     align-items: center;
     width: 100%;
     padding: var(--fs-spacing-1);
@@ -101,7 +86,7 @@
     }
 
     [data-fs-review-modal-product-thumbnail-title] {
-    font-size: var(--fs-text-size-base);
+      font-size: var(--fs-text-size-base);
       font-weight: var(--fs-text-weight-medium);
       line-height: 1.25;
       color: var(--fs-color-text);
