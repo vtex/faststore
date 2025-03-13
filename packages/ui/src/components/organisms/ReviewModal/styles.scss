@@ -86,16 +86,13 @@
     background-color: var(--fs-product-thumbnail-bkg-color);
     border-radius: var(--fs-product-thumbnail-border-radius);
 
-    [data-fs-product-thumbnail-image] {
+    [data-fs-review-modal-product-thumbnail-image] {
       display: flex;
-      flex-basis: var(--fs-product-thumbnail-img-size);
-      flex-shrink: 0;
-      justify-content: center;
-      width: var(--fs-product-thumbnail-img-size);
-      height: var(--fs-product-thumbnail-img-size);
-      aspect-ratio: var(--fs-product-thumbnail-image-aspect-ratio);
+      place-items: center;
+      width: var(--fs-review-modal-product-thumbnail-img-size);
+      height: var(--fs-review-modal-product-thumbnail-img-size);
       overflow: hidden;
-      border-radius: var(--fs-product-thumbnail-img-radius);
+      border-radius: var(--fs-review-modal-product-thumbnail-border-radius);
 
       img {
         width: 100%;
