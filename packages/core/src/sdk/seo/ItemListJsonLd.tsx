@@ -1,4 +1,4 @@
-import { JsonLd, type JsonLdProps } from './jsonLd'
+import { JsonLd, type JsonLdProps } from './JsonLd'
 
 export function setItemListElements(items: ItemListElement[]) {
   if (items && items.length) {
