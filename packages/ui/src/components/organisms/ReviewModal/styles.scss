@@ -1,0 +1,51 @@
+[data-fs-review-modal] {
+  // --------------------------------------------------------
+  // Design Tokens for Review Modal
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-review-modal-width                            : 100%;
+  --fs-review-modal-max-width                   : none;
+  
+  --fs-modal-max-height-tablet                  : min(90vh, 44rem); // 704px
+  --fs-modal-body-padding                       : 0 var(--fs-spacing-4) var(--fs-spacing-3);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-direction: column;
+
+  [data-fs-review-modal-body] {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  @include media("<tablet") {
+    --fs-modal-position-top                     : 0;
+    --fs-modal-position-right                   : var(--fs-modal-position-top);
+    --fs-modal-position-left                    : var(--fs-modal-position-right);
+    --fs-modal-max-width                        : var(--fs-review-modal-max-width);
+
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    width: var(--fs-review-modal-width);
+    max-width: var(--fs-review-modal-max-width);
+
+    [data-fs-review-modal-footer] {
+      margin-top: auto;
+    }
+  }
+
+  @include media(">=tablet") {
+    --fs-modal-position-top                     : 10vh;
+    --fs-modal-max-width                        : 41rem; // 656px
+    --fs-modal-width-tablet                     : var(--fs-modal-max-width);
+    --fs-modal-min-width-tablet                 : var(--fs-modal-max-width);
+    --fs-modal-min-height                       : var(--fs-modal-max-height-tablet); 
+
+    max-height: var(--fs-modal-max-height-tablet);
+  }
+}

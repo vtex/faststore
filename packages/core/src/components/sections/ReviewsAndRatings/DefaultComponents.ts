@@ -11,7 +11,14 @@ const ReviewList = dynamic(
     import('src/components/reviews/ReviewList')
 )
 
+const ReviewModal = dynamic(
+  () =>
+    /* webpackChunkName: "ReviewModal" */
+    import('src/components/reviews/ReviewModal')
+)
+
 export const ReviewsAndRatingsDefaultComponents = {
   RatingSummary: UIRatingSummary,
   __experimentalReviewList: ReviewList,
+  __experimentalReviewModal: ReviewModal,
 } as const

@@ -118,7 +118,12 @@ export {
   ModalBody,
   ModalFooter,
 } from './molecules/Modal'
-export type { ModalProps, ModalHeaderProps } from './molecules/Modal'
+export type {
+  ModalProps,
+  ModalHeaderProps,
+  ModalBodyProps,
+  ModalFooterProps,
+} from './molecules/Modal'
 export {
   default as NavbarLinks,
   NavbarLinksList,
