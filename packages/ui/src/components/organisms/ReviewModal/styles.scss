@@ -4,11 +4,11 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-review-modal-width                       : 100%;
-  --fs-review-modal-max-width                   : none;
+  --fs-review-modal-width                                              : 100%;
+  --fs-review-modal-max-width                                          : none;
 
-  --fs-modal-max-height-tablet                  : min(90vh, 44rem); // 704px
-  --fs-modal-body-padding                       : 0 var(--fs-spacing-4) var(--fs-spacing-3);
+  --fs-modal-max-height-tablet                                         : min(90vh, 44rem); // 704px
+  --fs-modal-body-padding                                              : 0 var(--fs-spacing-4) var(--fs-spacing-3);
 
   // Product Thumbnail
   --fs-review-modal-product-thumbnail-bkg-color                        : var(--fs-color-neutral-1);
@@ -18,7 +18,7 @@
   --fs-review-modal-product-thumbnail-img-size                         : 3rem; // 48px
 
   // Product Thumbnail Title
-  --fs-review-modal-product-thumbnail-title-max-lines: var(--fs-text-max-lines);
+  --fs-review-modal-product-thumbnail-title-max-lines                  : var(--fs-text-max-lines);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -33,10 +33,10 @@
   }
 
   @include media("<tablet") {
-    --fs-modal-position-top                     : 0;
-    --fs-modal-position-right                   : var(--fs-modal-position-top);
-    --fs-modal-position-left                    : var(--fs-modal-position-right);
-    --fs-modal-max-width                        : var(--fs-review-modal-max-width);
+    --fs-modal-position-top                                            : 0;
+    --fs-modal-position-right                                          : var(--fs-modal-position-top);
+    --fs-modal-position-left                                           : var(--fs-modal-position-right);
+    --fs-modal-max-width                                               : var(--fs-review-modal-max-width);
 
     bottom: 0;
     display: flex;
@@ -50,11 +50,11 @@
   }
 
   @include media(">=tablet") {
-    --fs-modal-position-top                     : 10vh;
-    --fs-modal-max-width                        : 41rem; // 656px
-    --fs-modal-width-tablet                     : var(--fs-modal-max-width);
-    --fs-modal-min-width-tablet                 : var(--fs-modal-max-width);
-    --fs-modal-min-height                       : var(--fs-modal-max-height-tablet);
+    --fs-modal-position-top                                            : 10vh;
+    --fs-modal-max-width                                               : 41rem; // 656px
+    --fs-modal-width-tablet                                            : var(--fs-modal-max-width);
+    --fs-modal-min-width-tablet                                        : var(--fs-modal-max-width);
+    --fs-modal-min-height                                              : var(--fs-modal-max-height-tablet);
 
     max-height: var(--fs-modal-max-height-tablet);
   }
