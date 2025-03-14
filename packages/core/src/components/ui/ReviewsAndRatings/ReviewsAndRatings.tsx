@@ -1,7 +1,6 @@
 import { type RatingSummaryProps, useUI } from '@faststore/ui'
 import { usePDP } from 'src/sdk/overrides/PageProvider'
 import useScreenResize from 'src/sdk/ui/useScreenResize'
-
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import type { ReviewModalProps } from 'src/components/reviews/ReviewModal/ReviewModal'
 

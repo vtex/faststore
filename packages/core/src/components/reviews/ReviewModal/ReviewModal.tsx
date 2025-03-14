@@ -22,7 +22,7 @@ const UIModal = dynamic<UIModalProps>(
 const UIModalHeader = dynamic<UIModalHeaderProps>(
   () =>
     import(/* webpackChunkName: "UIModalHeader" */ '@faststore/ui').then(
-      (mod) => mod.ModalHeader
+      (module) => module.ModalHeader
     ),
   { ssr: false }
 )
@@ -30,7 +30,7 @@ const UIModalHeader = dynamic<UIModalHeaderProps>(
 const UIModalBody = dynamic<UIModalBodyProps>(
   () =>
     import(/* webpackChunkName: "UIModalBody" */ '@faststore/ui').then(
-      (mod) => mod.ModalBody
+      (module) => module.ModalBody
     ),
   { ssr: false }
 )
@@ -38,7 +38,7 @@ const UIModalBody = dynamic<UIModalBodyProps>(
 const UIModalFooter = dynamic<UIModalFooterProps>(
   () =>
     import(/* webpackChunkName: "UIModalFooter" */ '@faststore/ui').then(
-      (mod) => mod.ModalFooter
+      (module) => module.ModalFooter
     ),
   { ssr: false }
 )
