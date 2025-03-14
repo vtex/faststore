@@ -35,23 +35,26 @@ const UIModalHeader = dynamic<UIModalHeaderProps>(
 
 const ReviewModalSuccess = dynamic(
   () =>
-    import(/* webpackChunkName: "UIModalBody" */ '@faststore/ui').then(
-      (module) => module.ModalBody
+    import(
+      /* webpackChunkName: "ReviewModalSuccess" */ 'src/components/reviews/ReviewModal/ReviewModalSuccess'
     ),
   { ssr: false }
 )
 
 const ReviewModalForm = dynamic(
   () =>
-    import(/* webpackChunkName: "UIModalFooter" */ '@faststore/ui').then(
-      (module) => module.ModalFooter
+    import(
+      /* webpackChunkName: "ReviewModalForm" */ 'src/components/reviews/ReviewModal/ReviewModalForm'
     ),
   { ssr: false }
 )
 
-const UIIcon = dynamic(() => import('@faststore/ui').then((mod) => mod.Icon), {
-  ssr: false,
-})
+const UIIcon = dynamic(
+  () => import('@faststore/ui').then((module) => module.Icon),
+  {
+    ssr: false,
+  }
+)
 
 export interface ReviewModalProps
   extends Omit<ReviewModalFormProps, 'onSubmit' | 'onCancel'>,
