@@ -26,11 +26,11 @@ import type {
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
-import type { SearchArgs } from '../clients/search'
+import type { SearchArgs } from '../clients/apps/search'
 import {
   ProductReviewsInputOrderBy,
   type ProductReviewsInputOrderWay,
-} from '../clients/commerce/types/ProductReview'
+} from '../clients/apps/reviewsAndRatings/types/ProductReview'
 import { buildRatingDistribution } from '../utils/rating'
 
 export const Query = {
@@ -51,7 +51,10 @@ export const Query = {
 
     const {
       loaders: { skuLoader },
-      clients: { commerce, search },
+      clients: {
+        commerce,
+        apps: { search, reviewsAndRatings },
+      },
     } = ctx
 
     try {
@@ -80,7 +83,7 @@ export const Query = {
         )
       }
 
-      const rating = await commerce.rating(sku.itemId)
+      const rating = await reviewsAndRatings.rating(sku.itemId)
 
       sku.rating = buildRatingDistribution(rating)
 
@@ -108,7 +111,7 @@ export const Query = {
         throw new NotFoundError(`No product found for id ${route.id}`)
       }
 
-      const rating = await commerce.rating(product.productId)
+      const rating = await reviewsAndRatings.rating(product.productId)
 
       const sku = pickBestSku(product.items)
 
@@ -186,7 +189,7 @@ export const Query = {
       sponsoredCount: sponsoredCount ?? undefined,
     }
 
-    const productSearchPromise = ctx.clients.search.products(searchArgs)
+    const productSearchPromise = ctx.clients.apps.search.products(searchArgs)
 
     return { searchArgs, productSearchPromise }
   },
@@ -196,7 +199,9 @@ export const Query = {
     ctx: Context
   ) => {
     const {
-      clients: { search },
+      clients: {
+        apps: { search },
+      },
     } = ctx
 
     const after = maybeAfter ? Number(maybeAfter) : 0
@@ -316,7 +321,7 @@ export const Query = {
       return null
     }
 
-    const { redirect } = await ctx.clients.search.products({
+    const { redirect } = await ctx.clients.apps.search.products({
       page: 1,
       count: 1,
       query: term ?? undefined,
@@ -357,7 +362,9 @@ export const Query = {
     ctx: Context
   ) => {
     const {
-      clients: { commerce },
+      clients: {
+        apps: { reviewsAndRatings },
+      },
     } = ctx
 
     const from = after ?? 0
@@ -368,7 +375,7 @@ export const Query = {
       ProductReviewsInputOrderWay,
     ]
 
-    return await commerce.reviews.list({
+    return await reviewsAndRatings.reviews.list({
       productId,
       from,
       to,

@@ -4,7 +4,7 @@ import type {
   FacetValueBoolean,
   Facet,
   FacetValueRange,
-} from '../clients/search/types/FacetSearchResult'
+} from '../clients/apps/search/types/FacetSearchResult'
 import type { Resolver } from '..'
 
 export type Root = Facet

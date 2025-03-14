@@ -1,5 +1,5 @@
 import { buildRatingDistribution } from '../src/platforms/vtex/utils/rating'
-import type { ProductRating as ApiClientProductRating } from '../src/platforms/vtex/clients/commerce/types/ProductRating'
+import type { ProductRating as ApiClientProductRating } from '../src/platforms/vtex/clients/apps/reviewsAndRatings/types/ProductRating'
 
 describe('rating', () => {
   describe('buildRatingDistribution', () => {

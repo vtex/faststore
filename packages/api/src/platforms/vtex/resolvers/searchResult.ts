@@ -1,8 +1,8 @@
 import { enhanceSku } from '../utils/enhanceSku'
 import type { Resolver } from '..'
-import type { SearchArgs } from '../clients/search'
-import type { Facet } from '../clients/search/types/FacetSearchResult'
-import type { ProductSearchResult } from '../clients/search/types/ProductSearchResult'
+import type { SearchArgs } from '../clients/apps/search'
+import type { Facet } from '../clients/apps/search/types/FacetSearchResult'
+import type { ProductSearchResult } from '../clients/apps/search/types/ProductSearchResult'
 import { pickBestSku } from '../utils/sku'
 
 export type Root = {
@@ -20,7 +20,9 @@ const isRootFacet = (facet: Facet, isDepartment: boolean, isBrand: boolean) =>
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
   suggestions: async (root, _, ctx) => {
     const {
-      clients: { search, commerce },
+      clients: {
+        apps: { search, reviewsAndRatings },
+      },
     } = ctx
 
     const { searchArgs, productSearchPromise } = root
@@ -55,7 +57,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
         .filter((sku) => !!sku)
         .map(async (sku) => ({
           ...sku,
-          rating: await commerce.rating(sku.itemId),
+          rating: await reviewsAndRatings.rating(sku.itemId),
         }))
     )
 
@@ -68,7 +70,9 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
   },
   products: async ({ productSearchPromise }, _, ctx) => {
     const {
-      clients: { commerce },
+      clients: {
+        apps: { reviewsAndRatings },
+      },
     } = ctx
 
     const productSearchResult = await productSearchPromise
@@ -85,7 +89,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const edges = await Promise.all(
       skus.map(async (sku, index) => ({
-        node: { ...sku, rating: await commerce.rating(sku.itemId) },
+        node: { ...sku, rating: await reviewsAndRatings.rating(sku.itemId) },
         cursor: index.toString(),
       }))
     )
@@ -103,7 +107,9 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
   },
   facets: async ({ searchArgs }, _, ctx) => {
     const {
-      clients: { search: is },
+      clients: {
+        apps: { search: is },
+      },
     } = ctx
 
     ctx.storage.searchArgs = searchArgs

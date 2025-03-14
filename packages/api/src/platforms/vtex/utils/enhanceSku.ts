@@ -1,4 +1,7 @@
-import type { Product, Item } from '../clients/search/types/ProductSearchResult'
+import type {
+  Product,
+  Item,
+} from '../clients/apps/search/types/ProductSearchResult'
 import { sanitizeHtml } from './sanitizeHtml'
 
 export type ProductRating = {

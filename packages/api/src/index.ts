@@ -54,4 +54,4 @@ export type {
   Item,
   ProductSearchResult,
   Seller,
-} from './platforms/vtex/clients/search/types/ProductSearchResult'
+} from './platforms/vtex/clients/apps/search/types/ProductSearchResult'

@@ -1,4 +1,4 @@
-import type { ProductRating as ApiClientProductRating } from '../clients/commerce/types/ProductRating'
+import type { ProductRating as ApiClientProductRating } from '../clients/apps/reviewsAndRatings/types/ProductRating'
 import type { ProductRating } from './enhanceSku'
 
 export function buildRatingDistribution({

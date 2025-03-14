@@ -260,7 +260,7 @@ export const productSearchFetch = {
 
 export const productRatingFetch = (productId: string) => ({
   info: `https://storeframework.vtexcommercestable.com.br/api/io/reviews-and-ratings/api/rating/${productId}`,
-  init: undefined,
+  init: { headers: { 'Content-Type': 'application/json' } },
   options: { storeCookies: expect.any(Function) },
   result: {
     average: 4.5,
