@@ -4,8 +4,6 @@ import useScreenResize from 'src/sdk/ui/useScreenResize'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 import type { ReviewModalProps } from 'src/components/reviews/ReviewModal/ReviewModal'
 
-import type { ReviewModalProps } from 'src/components/reviews/ReviewModal/ReviewModal'
-
 export type ReviewsAndRatingsProps = {
   title: string
   ratingSummary: {
