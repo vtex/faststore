@@ -4,11 +4,21 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-review-modal-width                            : 100%;
-  --fs-review-modal-max-width                   : none;
-  
-  --fs-modal-max-height-tablet                  : min(90vh, 44rem); // 704px
-  --fs-modal-body-padding                       : 0 var(--fs-spacing-4) var(--fs-spacing-3);
+  --fs-review-modal-width                                              : 100%;
+  --fs-review-modal-max-width                                          : none;
+
+  --fs-modal-max-height-tablet                                         : min(90vh, 44rem); // 704px
+  --fs-modal-body-padding                                              : 0 var(--fs-spacing-4) var(--fs-spacing-3);
+
+  // Product Thumbnail
+  --fs-review-modal-product-thumbnail-bkg-color                        : var(--fs-color-neutral-1);
+  --fs-review-modal-product-thumbnail-border-radius                    : var(--fs-border-radius);
+
+  // Product Thumbnail Image
+  --fs-review-modal-product-thumbnail-img-size                         : 3rem; // 48px
+
+  // Product Thumbnail Title
+  --fs-review-modal-product-thumbnail-title-max-lines                  : var(--fs-text-max-lines);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -23,10 +33,10 @@
   }
 
   @include media("<tablet") {
-    --fs-modal-position-top                     : 0;
-    --fs-modal-position-right                   : var(--fs-modal-position-top);
-    --fs-modal-position-left                    : var(--fs-modal-position-right);
-    --fs-modal-max-width                        : var(--fs-review-modal-max-width);
+    --fs-modal-position-top                                            : 0;
+    --fs-modal-position-right                                          : var(--fs-modal-position-top);
+    --fs-modal-position-left                                           : var(--fs-modal-position-right);
+    --fs-modal-max-width                                               : var(--fs-review-modal-max-width);
 
     bottom: 0;
     display: flex;
@@ -40,12 +50,49 @@
   }
 
   @include media(">=tablet") {
-    --fs-modal-position-top                     : 10vh;
-    --fs-modal-max-width                        : 41rem; // 656px
-    --fs-modal-width-tablet                     : var(--fs-modal-max-width);
-    --fs-modal-min-width-tablet                 : var(--fs-modal-max-width);
-    --fs-modal-min-height                       : var(--fs-modal-max-height-tablet); 
+    --fs-modal-position-top                                            : 10vh;
+    --fs-modal-max-width                                               : 41rem; // 656px
+    --fs-modal-width-tablet                                            : var(--fs-modal-max-width);
+    --fs-modal-min-width-tablet                                        : var(--fs-modal-max-width);
+    --fs-modal-min-height                                              : var(--fs-modal-max-height-tablet);
 
     max-height: var(--fs-modal-max-height-tablet);
+  }
+
+  [data-fs-review-modal-product-thumbnail] {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--fs-review-modal-product-thumbnail-img-size) auto;
+    column-gap: var(--fs-grid-gap-1);
+    align-items: center;
+    width: 100%;
+    padding: var(--fs-spacing-1);
+    background-color: var(--fs-review-modal-product-thumbnail-bkg-color);
+    border-radius: var(--fs-review-modal-product-thumbnail-border-radius);
+
+    [data-fs-review-modal-product-thumbnail-image] {
+      display: flex;
+      place-items: center;
+      width: var(--fs-review-modal-product-thumbnail-img-size);
+      height: var(--fs-review-modal-product-thumbnail-img-size);
+      overflow: hidden;
+      border-radius: var(--fs-review-modal-product-thumbnail-border-radius);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    [data-fs-review-modal-product-thumbnail-title] {
+      font-size: var(--fs-text-size-base);
+      font-weight: var(--fs-text-weight-medium);
+      line-height: 1.25;
+      color: var(--fs-color-text);
+      text-align: left;
+
+      @include truncate-title(var(--fs-review-modal-product-thumbnail-title-max-lines));
+    }
   }
 }
