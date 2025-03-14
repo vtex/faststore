@@ -20,11 +20,11 @@ const documents = {
     types.ProductDetailsFragment_ProductFragmentDoc,
   '\n  fragment ProductSKUMatrixSidebarFragment_product on StoreProduct {\n    id: productID\n    isVariantOf {\n      name\n      productGroupID\n      skuVariants {\n        activeVariations\n        slugsMap\n        availableVariations\n        allVariantProducts {\n\t\t\t\t\tsku\n          name\n          image {\n            url\n            alternateName\n          }\n          offers {\n            highPrice\n            lowPrice\n            lowPriceWithTaxes\n            offerCount\n            priceCurrency\n            offers {\n              listPrice\n              listPriceWithTaxes\n              sellingPrice\n              priceCurrency\n              price\n              priceWithTaxes\n              priceValidUntil\n              itemCondition\n              availability\n              quantity\n            }\n          }\n          additionalProperty {\n            propertyID\n            value\n            name\n            valueReference\n          }\n        }\n      }\n    }\n  }\n':
     types.ProductSkuMatrixSidebarFragment_ProductFragmentDoc,
-  '\n  fragment ClientManyProducts on Query {\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n    }\n  }\n':
+  '\n  fragment ClientManyProducts on Query {\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n      userId: $userId\n      macId: $macId\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n    }\n  }\n':
     types.ClientManyProductsFragmentDoc,
   '\n  fragment ClientProduct on Query {\n    product(locator: $locator) {\n      id: productID\n    }\n  }\n':
     types.ClientProductFragmentDoc,
-  '\n  fragment ClientProductGallery on Query {\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n    }\n  }\n':
+  '\n  fragment ClientProductGallery on Query {\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      userId: $userId\n      macId: $macId\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n    }\n  }\n':
     types.ClientProductGalleryFragmentDoc,
   '\n  fragment ClientSearchSuggestions on Query {\n    search(first: 5, term: $term, selectedFacets: $selectedFacets) {\n      suggestions {\n        terms {\n          value\n        }\n      }\n    }\n  }\n':
     types.ClientSearchSuggestionsFragmentDoc,
@@ -46,9 +46,9 @@ const documents = {
     types.SubscribeToNewsletterDocument,
   '\n  query ClientAllVariantProductsQuery($locator: [IStoreSelectedFacet!]!) {\n      product(locator: $locator) {\n      ...ProductSKUMatrixSidebarFragment_product\n    }\n  }\n':
     types.ClientAllVariantProductsQueryDocument,
-  '\n  query ClientManyProductsQuery(\n    $first: Int!\n    $after: String\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n    $sponsoredCount: Int\n  ) {\n    ...ClientManyProducts\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n        edges {\n          node {\n            ...ProductSummary_product\n          }\n        }\n      }\n    }\n  }\n':
+  '\n  query ClientManyProductsQuery(\n    $first: Int!\n    $after: String\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n    $sponsoredCount: Int\n    $userId: String\n    $macId: String\n  ) {\n    ...ClientManyProducts\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n      userId: $userId\n      macId: $macId\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n        edges {\n          node {\n            ...ProductSummary_product\n          }\n        }\n      }\n    }\n  }\n':
     types.ClientManyProductsQueryDocument,
-  '\n  query ClientProductGalleryQuery(\n    $first: Int!\n    $after: String!\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n  ) {\n    ...ClientProductGallery\n    redirect(term: $term, selectedFacets: $selectedFacets) {\n      url\n    }\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n      facets {\n        ...Filter_facets\n      }\n      metadata {\n        ...SearchEvent_metadata\n      }\n    }\n  }\n\n  fragment SearchEvent_metadata on SearchMetadata {\n    isTermMisspelled\n    logicalOperator\n    fuzzy\n  }\n':
+  '\n  query ClientProductGalleryQuery(\n    $first: Int!\n    $after: String!\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n    $userId: String\n    $macId: String\n  ) {\n    ...ClientProductGallery\n    redirect(term: $term, selectedFacets: $selectedFacets) {\n      url\n    }\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      userId: $userId\n      macId: $macId\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n      facets {\n        ...Filter_facets\n      }\n      metadata {\n        ...SearchEvent_metadata\n      }\n    }\n  }\n\n  fragment SearchEvent_metadata on SearchMetadata {\n    isTermMisspelled\n    logicalOperator\n    fuzzy\n  }\n':
     types.ClientProductGalleryQueryDocument,
   '\n  query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {\n    ...ClientProduct\n    product(locator: $locator) {\n      ...ProductDetailsFragment_product\n    }\n  }\n':
     types.ClientProductQueryDocument,
@@ -90,7 +90,7 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment ClientManyProducts on Query {\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n    }\n  }\n'
+  source: '\n  fragment ClientManyProducts on Query {\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n      userId: $userId\n      macId: $macId\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n    }\n  }\n'
 ): typeof import('./graphql').ClientManyProductsFragmentDoc
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -102,7 +102,7 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  fragment ClientProductGallery on Query {\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n    }\n  }\n'
+  source: '\n  fragment ClientProductGallery on Query {\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      userId: $userId\n      macId: $macId\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n    }\n  }\n'
 ): typeof import('./graphql').ClientProductGalleryFragmentDoc
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -168,13 +168,13 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query ClientManyProductsQuery(\n    $first: Int!\n    $after: String\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n    $sponsoredCount: Int\n  ) {\n    ...ClientManyProducts\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n        edges {\n          node {\n            ...ProductSummary_product\n          }\n        }\n      }\n    }\n  }\n'
+  source: '\n  query ClientManyProductsQuery(\n    $first: Int!\n    $after: String\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n    $sponsoredCount: Int\n    $userId: String\n    $macId: String\n  ) {\n    ...ClientManyProducts\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      sponsoredCount: $sponsoredCount\n      userId: $userId\n      macId: $macId\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n        edges {\n          node {\n            ...ProductSummary_product\n          }\n        }\n      }\n    }\n  }\n'
 ): typeof import('./graphql').ClientManyProductsQueryDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query ClientProductGalleryQuery(\n    $first: Int!\n    $after: String!\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n  ) {\n    ...ClientProductGallery\n    redirect(term: $term, selectedFacets: $selectedFacets) {\n      url\n    }\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n      facets {\n        ...Filter_facets\n      }\n      metadata {\n        ...SearchEvent_metadata\n      }\n    }\n  }\n\n  fragment SearchEvent_metadata on SearchMetadata {\n    isTermMisspelled\n    logicalOperator\n    fuzzy\n  }\n'
+  source: '\n  query ClientProductGalleryQuery(\n    $first: Int!\n    $after: String!\n    $sort: StoreSort!\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]!\n    $userId: String\n    $macId: String\n  ) {\n    ...ClientProductGallery\n    redirect(term: $term, selectedFacets: $selectedFacets) {\n      url\n    }\n    search(\n      first: $first\n      after: $after\n      sort: $sort\n      term: $term\n      selectedFacets: $selectedFacets\n      userId: $userId\n      macId: $macId\n    ) {\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n      facets {\n        ...Filter_facets\n      }\n      metadata {\n        ...SearchEvent_metadata\n      }\n    }\n  }\n\n  fragment SearchEvent_metadata on SearchMetadata {\n    isTermMisspelled\n    logicalOperator\n    fuzzy\n  }\n'
 ): typeof import('./graphql').ClientProductGalleryQueryDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
