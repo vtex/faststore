@@ -507,10 +507,12 @@ export type QueryRedirectArgs = {
 export type QuerySearchArgs = {
   after?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
+  macId?: Maybe<Scalars['String']>;
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
   sponsoredCount?: Maybe<Scalars['Int']>;
   term?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 

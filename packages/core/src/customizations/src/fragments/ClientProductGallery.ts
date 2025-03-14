@@ -8,6 +8,8 @@ export const fragment = gql(`
       sort: $sort
       term: $term
       selectedFacets: $selectedFacets
+      userId: $userId
+      macId: $macId
     ) {
       products {
         pageInfo {

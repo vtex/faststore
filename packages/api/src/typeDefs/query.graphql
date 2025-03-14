@@ -250,6 +250,14 @@ type Query {
     Search advertisement products return in result.
     """
     sponsoredCount: Int
+    """
+    Identifier for user device, used for analytics purposes.
+    """
+    macId: String
+    """
+    Identifier for user ID if logged in, used for analytics purposes.
+    """
+    userId: String
   ): StoreSearchResult!
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
