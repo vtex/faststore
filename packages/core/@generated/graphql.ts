@@ -1797,6 +1797,12 @@ export type ClientProductQueryQuery = {
   }
 }
 
+export type CreateProductReviewMutationVariables = Exact<{
+  data: ICreateProductReview
+}>
+
+export type CreateProductReviewMutation = { createProductReview: string }
+
 export type ClientSearchSuggestionsQueryQueryVariables = Exact<{
   term: Scalars['String']['input']
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
@@ -2438,6 +2444,15 @@ export const ClientProductQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
   ClientProductQueryQueryVariables
+>
+export const CreateProductReviewDocument = {
+  __meta__: {
+    operationName: 'CreateProductReview',
+    operationHash: '86a789f068786e0e84f3731bb1d01c2f9be53e99',
+  },
+} as unknown as TypedDocumentString<
+  CreateProductReviewMutation,
+  CreateProductReviewMutationVariables
 >
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {

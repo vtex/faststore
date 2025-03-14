@@ -10,7 +10,7 @@ export type ReviewsAndRatingsProps = {
     ratingCounter: RatingSummaryProps['textLabels']['ratingCounter']
     createReviewButton: RatingSummaryProps['textLabels']['createReviewButton']
   }
-  reviewModal: ReviewModalProps
+  reviewModal: Omit<ReviewModalProps, 'product'>
 }
 
 function ReviewsAndRatings({
@@ -23,27 +23,37 @@ function ReviewsAndRatings({
   const context = usePDP()
   const { openReviewModal, reviewModal: displayReviewModal } = useUI()
   const { isDesktop } = useScreenResize()
-
-  const rating = context?.data?.product?.rating
+  const { product, isValidating } = context.data
 
   return (
-    rating && (
+    product?.rating && (
       <>
         <h2 className="text__title-section layout__content">{title}</h2>
         <div data-fs-content>
-          {(isDesktop || rating?.totalCount > 0) && (
+          {(isDesktop || product?.rating?.totalCount > 0) && (
             <RatingSummary.Component
               {...RatingSummary.props}
               textLabels={{ ...ratingSummary }}
               // Dynamic props shouldn't be overridable
               // This decision can be reviewed later if needed
-              {...rating}
+              {...product?.rating}
               onCreateReviewClick={openReviewModal}
             />
           )}
         </div>
-        {displayReviewModal && (
-          <ReviewModal.Component {...ReviewModal.props} {...reviewModal} />
+
+        {displayReviewModal && !isValidating && (
+          <ReviewModal.Component
+            {...ReviewModal.props}
+            {...reviewModal}
+            // Dynamic props shouldn't be overridable
+            // This decision can be reviewed later if needed
+            product={{
+              id: product.id,
+              name: product.name,
+              image: product.image[0],
+            }}
+          />
         )}
       </>
     )
