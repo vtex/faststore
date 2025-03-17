@@ -1,6 +1,7 @@
 import { isNotFoundError } from '@faststore/api'
 import storeConfig from 'discovery.config'
 import type { GetStaticPaths, GetStaticProps } from 'next'
+import { useEffect } from 'react'
 
 import { gql } from '@generated'
 import type {
@@ -27,6 +28,7 @@ import type { PageContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getPLP, type PLPContentType } from 'src/server/cms/plp'
 import { getDynamicContent } from 'src/utils/dynamicContent'
+import { useSession, validateSession, sessionStore } from 'src/sdk/session'
 
 const LandingPage = dynamic(
   () => import('src/components/templates/LandingPage')
@@ -52,6 +54,23 @@ type Props = BaseProps &
   )
 
 function Page({ globalSections, type, ...otherProps }: Props) {
+  const { isValidating: _, ...session } = useSession()
+
+  useEffect(() => {
+    if (navigator?.geolocation && !session.geoCoordinates) {
+      navigator.geolocation.getCurrentPosition(
+        async ({ coords: { latitude, longitude } }) => {
+          const newSession = {
+            ...session,
+            geoCoordinates: { latitude, longitude },
+          }
+          const validatedSession = await validateSession(newSession)
+          sessionStore.set(validatedSession ?? newSession)
+        }
+      )
+    }
+  }, [])
+
   return (
     <>
       {type === 'plp' && (
