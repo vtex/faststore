@@ -1229,6 +1229,16 @@
                   }
                 }
               }
+            },
+            "emptyFilter": {
+              "title": "No reviews found for this filter",
+              "subtitle": "Try adjusting your selection and check again",
+              "buttonLabel": "See all reviews"
+            },
+            "emptyList": {
+              "title": "This item does not have any reviews yet",
+              "subtitle": "Be the first one to do it",
+              "buttonLabel": "Write the first review"
             }
           }
         }

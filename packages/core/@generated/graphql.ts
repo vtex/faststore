@@ -1803,6 +1803,30 @@ export type CreateProductReviewMutationVariables = Exact<{
 
 export type CreateProductReviewMutation = { productReviewId: string }
 
+export type ClientProductReviewsQueryVariables = Exact<{
+  productId: Scalars['String']['input']
+  after: InputMaybe<Scalars['Int']['input']>
+  first: InputMaybe<Scalars['Int']['input']>
+  sort: InputMaybe<StoreProductListReviewsSort>
+  rating: InputMaybe<Scalars['Int']['input']>
+}>
+
+export type ClientProductReviewsQuery = {
+  reviews: {
+    data: Array<{
+      id: string
+      productId: string
+      rating: number
+      title: string
+      text: string
+      reviewDateTime: string
+      reviewerName: string | null
+      verifiedPurchaser: boolean
+    }>
+    range: { from: number; to: number; total: number }
+  } | null
+}
+
 export type ClientSearchSuggestionsQueryQueryVariables = Exact<{
   term: Scalars['String']['input']
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
@@ -2453,6 +2477,15 @@ export const CreateProductReviewDocument = {
 } as unknown as TypedDocumentString<
   CreateProductReviewMutation,
   CreateProductReviewMutationVariables
+>
+export const ClientProductReviewsDocument = {
+  __meta__: {
+    operationName: 'ClientProductReviews',
+    operationHash: '01c803b3d22cf1db7d30794ea581073c7ccc0859',
+  },
+} as unknown as TypedDocumentString<
+  ClientProductReviewsQuery,
+  ClientProductReviewsQueryVariables
 >
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {

@@ -54,6 +54,8 @@ const documents = {
     types.ClientProductQueryDocument,
   '\n  mutation CreateProductReview($data: ICreateProductReview!) {\n    productReviewId: createProductReview(data: $data)\n  }\n':
     types.CreateProductReviewDocument,
+  '\n  query ClientProductReviews (\n    $productId: String!\n    $after: Int\n    $first: Int\n    $sort: StoreProductListReviewsSort\n    $rating: Int\n  ) {\n    reviews(\n      productId: $productId\n      after: $after\n      first: $first\n      sort: $sort\n      rating: $rating\n    ) {\n      data {\n        id\n        productId\n        rating\n        title\n        text\n        reviewDateTime\n        reviewerName\n        verifiedPurchaser\n      }\n      range {\n        from\n        to\n        total\n      }\n    }\n  }\n':
+    types.ClientProductReviewsDocument,
   '\n  query ClientSearchSuggestionsQuery(\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]\n  ) {\n    ...ClientSearchSuggestions\n    search(first: 5, term: $term, selectedFacets: $selectedFacets) {\n      suggestions {\n        terms {\n          value\n        }\n        products {\n          ...ProductSummary_product\n        }\n      }\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n      metadata {\n        ...SearchEvent_metadata\n      }\n    }\n  }\n':
     types.ClientSearchSuggestionsQueryDocument,
   '\n  query ClientTopSearchSuggestionsQuery(\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]\n  ) {\n    ...ClientTopSearchSuggestions\n    search(first: 5, term: $term, selectedFacets: $selectedFacets) {\n      suggestions {\n        terms {\n          value\n        }\n      }\n    }\n  }\n':
@@ -190,6 +192,12 @@ export function gql(
 export function gql(
   source: '\n  mutation CreateProductReview($data: ICreateProductReview!) {\n    productReviewId: createProductReview(data: $data)\n  }\n'
 ): typeof import('./graphql').CreateProductReviewDocument
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query ClientProductReviews (\n    $productId: String!\n    $after: Int\n    $first: Int\n    $sort: StoreProductListReviewsSort\n    $rating: Int\n  ) {\n    reviews(\n      productId: $productId\n      after: $after\n      first: $first\n      sort: $sort\n      rating: $rating\n    ) {\n      data {\n        id\n        productId\n        rating\n        title\n        text\n        reviewDateTime\n        reviewerName\n        verifiedPurchaser\n      }\n      range {\n        from\n        to\n        total\n      }\n    }\n  }\n'
+): typeof import('./graphql').ClientProductReviewsDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

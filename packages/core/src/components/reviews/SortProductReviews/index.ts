@@ -1,2 +1,2 @@
-export { default as SortProductReviews } from './SortProductReviews'
+export { default } from './SortProductReviews'
 export type { SortProductReviewsProps } from './SortProductReviews'
