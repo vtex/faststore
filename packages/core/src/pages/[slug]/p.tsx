@@ -4,7 +4,7 @@ import deepmerge from 'deepmerge'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import Head from 'next/head'
-import type { ComponentType } from 'react'
+import { useEffect, type ComponentType } from 'react'
 
 import { gql } from '@generated'
 import type {
@@ -24,7 +24,7 @@ import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/se
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
-import { useSession } from 'src/sdk/session'
+import { useSession, validateSession, sessionStore } from 'src/sdk/session'
 import { execute } from 'src/server'
 
 import storeConfig from 'discovery.config'
@@ -90,7 +90,7 @@ function Page({
   meta,
 }: Props) {
   const { product } = server
-  const { currency } = useSession()
+  const { isValidating: _, ...session } = useSession()
   const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
 
   let itemListElements = product.breadcrumbList.itemListElement ?? []
@@ -129,6 +129,21 @@ function Page({
     },
   } as PDPContext
 
+  useEffect(() => {
+    if (navigator?.geolocation && !session.geoCoordinates) {
+      navigator.geolocation.getCurrentPosition(
+        async ({ coords: { latitude, longitude } }) => {
+          const newSession = {
+            ...session,
+            geoCoordinates: { latitude, longitude },
+          }
+          const validatedSession = await validateSession(newSession)
+          sessionStore.set(validatedSession ?? newSession)
+        }
+      )
+    }
+  }, [])
+
   return (
     <>
       {isClientOfferEnabled && (
@@ -164,7 +179,7 @@ function Page({
           },
           {
             property: 'product:price:currency',
-            content: currency.code,
+            content: session.currency.code,
           },
         ]}
         titleTemplate={titleTemplate}
