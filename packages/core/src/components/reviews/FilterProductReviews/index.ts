@@ -1,2 +1,5 @@
-export { default as FilterProductReviews } from './FilterProductReviews'
-export type { FilterProductReviewsProps } from './FilterProductReviews'
+export { default } from './FilterProductReviews'
+export type {
+  FilterProductReviewsProps,
+  FilterProductListReview,
+} from './FilterProductReviews'

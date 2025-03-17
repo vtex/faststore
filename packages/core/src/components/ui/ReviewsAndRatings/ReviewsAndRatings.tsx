@@ -13,8 +13,10 @@ export type ReviewsAndRatingsProps = {
     createReviewButton: RatingSummaryProps['textLabels']['createReviewButton']
   }
   reviewList: {
-    filterSelect: ReviewListProps['filterSelect']
     sortSelect: ReviewListProps['sortSelect']
+    filterSelect: ReviewListProps['filterSelect']
+    emptyFilter: ReviewListProps['emptyFilter']
+    emptyList: ReviewListProps['emptyList']
   }
   reviewModal: Omit<ReviewModalProps, 'product'>
 }
@@ -52,7 +54,13 @@ function ReviewsAndRatings({
             />
           )}
 
-          <ReviewList.Component {...ReviewList.props} {...reviewList} />
+          <ReviewList.Component
+            {...ReviewList.props}
+            {...reviewList}
+            // Dynamic props shouldn't be overridable
+            // This decision can be reviewed later if needed
+            productId={product.id}
+          />
         </div>
 
         {displayReviewModal && !isValidating && (

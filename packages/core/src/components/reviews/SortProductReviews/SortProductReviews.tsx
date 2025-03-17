@@ -39,9 +39,7 @@ function SortProductReviews({
       label={label}
       options={optionsMap}
       onChange={(e) => {
-        const sort = keys[e.target.selectedIndex]
-
-        onChange?.(sort)
+        onChange?.(e.target.value as string as StoreProductListReviewsSort)
       }}
       value={value}
       testId="sort-product-reviews-select"
