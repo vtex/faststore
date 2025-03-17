@@ -1,6 +1,4 @@
-import { useSearch } from '@faststore/sdk'
 import { SelectField } from '@faststore/ui'
-import type { StoreProductListReviewsSort } from '@generated/graphql'
 
 export type FilterProductListReview = 'all' | '1' | '2' | '3' | '4' | '5'
 
@@ -12,8 +10,6 @@ const OptionsMap: Record<FilterProductListReview, string> = {
   '4': '4 Stars',
   '5': '5 Stars',
 }
-
-const keys = Object.keys(OptionsMap) as Array<keyof typeof OptionsMap>
 
 export interface FilterProductReviewsProps {
   label?: string
@@ -43,8 +39,7 @@ function FilterProductReviews({
       label={label}
       options={optionsMap}
       onChange={(e) => {
-        const filter = keys[e.target.selectedIndex]
-        onChange?.(filter)
+        onChange?.(e.target.value as FilterProductListReview)
       }}
       value={value || 'all'}
       testId="filter-product-reviews-select"

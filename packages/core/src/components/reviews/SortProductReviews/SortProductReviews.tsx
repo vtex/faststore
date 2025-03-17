@@ -1,4 +1,3 @@
-import { useSearch } from '@faststore/sdk'
 import { SelectField } from '@faststore/ui'
 import type { StoreProductListReviewsSort } from '@generated/graphql'
 
@@ -8,8 +7,6 @@ const OptionsMap: Record<StoreProductListReviewsSort, string> = {
   rating_desc: 'Highest Rated',
   rating_asc: 'Lowest Rated',
 }
-
-const keys = Object.keys(OptionsMap) as Array<keyof typeof OptionsMap>
 
 export interface SortProductReviewsProps {
   label?: string
@@ -39,9 +36,7 @@ function SortProductReviews({
       label={label}
       options={optionsMap}
       onChange={(e) => {
-        const sort = keys[e.target.selectedIndex]
-
-        onChange?.(sort)
+        onChange?.(e.target.value as string as StoreProductListReviewsSort)
       }}
       value={value}
       testId="sort-product-reviews-select"
