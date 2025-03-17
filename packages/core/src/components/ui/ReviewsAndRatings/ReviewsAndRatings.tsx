@@ -18,20 +18,26 @@ function ReviewsAndRatings({
   ratingSummary,
   reviewModal,
 }: ReviewsAndRatingsProps) {
-  const { RatingSummary, __experimentalReviewModal: ReviewModal } =
-    useOverrideComponents<'ReviewsAndRatings'>()
+  const {
+    RatingSummary,
+    __experimentalRatingSummarySkeleton: RatingSummarySkeleton,
+    __experimentalReviewModal: ReviewModal,
+  } = useOverrideComponents<'ReviewsAndRatings'>()
   const context = usePDP()
   const { openReviewModal, reviewModal: displayReviewModal } = useUI()
   const { isDesktop } = useScreenResize()
 
   const rating = context?.data?.product?.rating
+  const isValidating = context.data.isValidating
 
   return (
-    rating && (
-      <>
-        <h2 className="text__title-section layout__content">{title}</h2>
-        <div data-fs-content>
-          {(isDesktop || rating?.totalCount > 0) && (
+    <>
+      <h2 className="text__title-section layout__content">{title}</h2>
+      <div data-fs-content style={{ display: 'flex', gap: 40 }}>
+        {isValidating ? (
+          <RatingSummarySkeleton.Component />
+        ) : (
+          (isDesktop || rating?.totalCount > 0) && (
             <RatingSummary.Component
               {...RatingSummary.props}
               textLabels={{ ...ratingSummary }}
@@ -40,13 +46,13 @@ function ReviewsAndRatings({
               {...rating}
               onCreateReviewClick={openReviewModal}
             />
-          )}
-        </div>
-        {displayReviewModal && (
-          <ReviewModal.Component {...ReviewModal.props} {...reviewModal} />
+          )
         )}
-      </>
-    )
+      </div>
+      {displayReviewModal && (
+        <ReviewModal.Component {...ReviewModal.props} {...reviewModal} />
+      )}
+    </>
   )
 }
 

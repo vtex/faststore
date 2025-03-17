@@ -366,6 +366,7 @@ export type SectionsOverrides = {
         RatingSummaryProps,
         RatingSummaryProps
       >
+      __experimentalRatingSummarySkeleton: ComponentOverrideDefinition<any, any>
       __experimentalReviewModal: ComponentOverrideDefinition<any, any>
     }
   }
