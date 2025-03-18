@@ -96,10 +96,10 @@ function Page({
   } = storeConfig
 
   // SEO data
-  const title = meta.title ?? storeSeo.title
+  const title = meta?.title ?? storeSeo.title
   const titleTemplate = pdpSeo.titleTemplate ?? storeSeo?.titleTemplate
   const description =
-    meta.title ||
+    meta?.title ||
     pdpSeo.descriptionTemplate.replace(/%s/g, () => title) ||
     storeSeo.description
 
@@ -160,8 +160,8 @@ function Page({
         openGraph={{
           type: 'og:product',
           url: meta.canonical,
-          title: meta.title,
-          description: meta.description,
+          title,
+          description,
           images: product.image.map((img) => ({
             url: img.url,
             alt: img.alternateName,
