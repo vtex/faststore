@@ -50,11 +50,6 @@ const Skeleton = forwardRef<HTMLDivElement, PropsWithChildren<SkeletonProps>>(
     },
     ref
   ) {
-    const styles = {
-      width: size.width,
-      height: size.height,
-    }
-
     return loading ? (
       <div
         ref={ref}
