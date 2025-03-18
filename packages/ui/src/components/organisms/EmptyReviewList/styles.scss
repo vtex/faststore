@@ -8,6 +8,7 @@
   flex-grow: 1;
   gap: var(--fs-spacing-5);
   align-items: center;
+  justify-content: center;
 
   [data-fs-empty-review-list-text] {
     display: flex;
