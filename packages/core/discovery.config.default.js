@@ -122,5 +122,6 @@ module.exports = {
     preact: false,
     enableRedirects: false,
     enableSearchSSR: false,
+    enableVtexAssetsLoader: false,
   },
 }
