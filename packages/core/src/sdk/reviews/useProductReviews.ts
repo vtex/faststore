@@ -92,9 +92,7 @@ export function useProductReviews({
     loadingMore,
     hasMore,
     currentSort: sort,
-    currentFilter: rating
-      ? (String(rating) as FilterProductListReview)
-      : undefined,
+    currentFilter: rating ? (String(rating) as FilterProductListReview) : 'all',
     loadMore,
     onSortChange: handleSortChange,
     onFilterChange: handleFilterChange,
