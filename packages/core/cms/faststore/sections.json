@@ -1158,6 +1158,11 @@
                   "title": "Options",
                   "type": "object",
                   "properties": {
+                    "all": {
+                      "title": "All",
+                      "type": "string",
+                      "default": "All"
+                    },
                     "1": {
                       "title": "1 star",
                       "type": "string",
