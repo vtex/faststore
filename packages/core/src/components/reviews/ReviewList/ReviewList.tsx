@@ -3,6 +3,7 @@ import type { FilterProductListReview } from '../FilterProductReviews'
 import type { StoreProductListReviewsSort } from '@generated/graphql'
 import { useProductReviews } from 'src/sdk/reviews/useProductReviews'
 import dynamic from 'next/dynamic'
+import type { HTMLAttributes } from 'react'
 
 const UIReviewCard = dynamic(
   () =>
@@ -57,7 +58,7 @@ const FilterProductReviews = dynamic(
   { ssr: false }
 )
 
-export interface ReviewListProps {
+export interface ReviewListProps extends HTMLAttributes<HTMLDivElement> {
   sortSelect?: {
     label: string
     options: Record<StoreProductListReviewsSort, string>
@@ -87,6 +88,7 @@ function ReviewList({
   emptyList,
   productId,
   loadMoreLabel = 'Load more',
+  ...props
 }: ReviewListProps) {
   const { openReviewModal } = useUI()
   const {
@@ -109,6 +111,7 @@ function ReviewList({
   if (!loading && reviews.length <= 0 && currentFilter === 'all') {
     return (
       <EmptyReviewList
+        {...props}
         productId={productId}
         onButtonClick={openReviewModal}
         title={emptyList?.title}
@@ -119,7 +122,7 @@ function ReviewList({
   }
 
   return (
-    <div data-fs-review-list>
+    <div data-fs-review-list {...props}>
       <div data-fs-review-list-header>
         <SortProductReviews
           id="fs-sort-product-reviews-select"
@@ -155,6 +158,7 @@ function ReviewList({
             ))
           ) : (
             <EmptyReviewList
+              data-fs-empty-review-filter
               productId={productId}
               title={emptyFilter?.title}
               subtitle={emptyFilter?.subtitle}
