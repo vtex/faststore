@@ -5,6 +5,7 @@
 
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   gap: var(--fs-spacing-5);
   align-items: center;
 
