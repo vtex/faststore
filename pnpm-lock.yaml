@@ -5,7 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 importers:
+
   .:
+    dependencies:
+      axios:
+        specifier: ^1.8.2
+        version: 1.8.3
     devDependencies:
       "@biomejs/biome":
         specifier: 1.9.4
@@ -6253,10 +6258,10 @@ packages:
       }
     engines: { node: ">=4" }
 
-  axios@1.7.4:
+  axios@1.8.3:
     resolution:
       {
-        integrity: sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==,
+        integrity: sha512-iP4DebzoNlP/YN2dpwCgb8zoCmhtkajzS48JvwmkSkXvPI3DHc7m+XYL5tGnSlJtR6nImXZmdCuN5aP8dh1d8A==,
       }
 
   b4a@1.6.4:
@@ -22561,7 +22566,7 @@ snapshots:
 
   axe-core@4.9.1: {}
 
-  axios@1.7.4:
+  axios@1.8.3:
     dependencies:
       follow-redirects: 1.15.6
       form-data: 4.0.0
@@ -27885,7 +27890,7 @@ snapshots:
       "@yarnpkg/lockfile": 1.1.0
       "@yarnpkg/parsers": 3.0.0-rc.46
       "@zkochan/js-yaml": 0.0.6
-      axios: 1.7.4
+      axios: 1.8.3
       chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1

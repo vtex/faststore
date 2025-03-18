@@ -42,5 +42,8 @@
   "lint-staged": {
     "*.{ts,js,tsx,jsx,json}": "pnpm lint:fix",
     "*.scss": "stylelint --fix"
+  },
+  "dependencies": {
+    "axios": "^1.8.2"
   }
 }
