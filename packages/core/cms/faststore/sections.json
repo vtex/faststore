@@ -1231,14 +1231,46 @@
               }
             },
             "emptyFilter": {
-              "title": "No reviews found for this filter",
-              "subtitle": "Try adjusting your selection and check again",
-              "buttonLabel": "See all reviews"
+              "title": "No reviews found message when a filter is applied",
+              "type": "object",
+              "properties": {
+                "title": {
+                  "title": "Title",
+                  "type": "string",
+                  "default": "No reviews found for this filter"
+                },
+                "subtitle": {
+                  "title": "Subtitle",
+                  "type": "string",
+                  "default": "Try adjusting your selection and check again"
+                },
+                "buttonLabel": {
+                  "title": "Button Label",
+                  "type": "string",
+                  "default": "See all reviews"
+                }
+              }
             },
             "emptyList": {
-              "title": "This item does not have any reviews yet",
-              "subtitle": "Be the first one to do it",
-              "buttonLabel": "Write the first review"
+              "title": "No reviews available message when there are no reviews",
+              "type": "object",
+              "properties": {
+                "title": {
+                  "title": "Title",
+                  "type": "string",
+                  "default": "This item does not have any reviews yet"
+                },
+                "subtitle": {
+                  "title": "Subtitle",
+                  "type": "string",
+                  "default": "Be the first one to do it"
+                },
+                "buttonLabel": {
+                  "title": "Button Label",
+                  "type": "string",
+                  "default": "Write the first review"
+                }
+              }
             }
           }
         }
