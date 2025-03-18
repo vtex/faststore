@@ -99,7 +99,7 @@ function Page({
   const title = meta?.title ?? storeSeo.title
   const titleTemplate = pdpSeo.titleTemplate ?? storeSeo?.titleTemplate
   const description =
-    meta?.title ||
+    meta?.description ||
     pdpSeo.descriptionTemplate.replace(/%s/g, () => title) ||
     storeSeo.description
 
