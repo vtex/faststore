@@ -10,6 +10,10 @@ module.exports = {
       titleTemplate: '%s | FastStore PLP',
       descriptionTemplate: '%s products on FastStore Product Listing Page',
     },
+    pdp: {
+      titleTemplate: '%s | FastStore PDP',
+      descriptionTemplate: '%s products on FastStore Product Detail Page',
+    },
     search: {
       titleTemplate: '%s: Search results title',
       descriptionTemplate: '%s: Search results description',

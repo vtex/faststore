@@ -91,7 +91,17 @@ function Page({
 }: Props) {
   const { product } = server
   const { currency } = useSession()
-  const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
+  const {
+    seo: { pdp: pdpSeo, ...storeSeo },
+  } = storeConfig
+
+  // SEO data
+  const title = meta.title ?? storeSeo.title
+  const titleTemplate = pdpSeo.titleTemplate ?? storeSeo?.titleTemplate
+  const description =
+    meta.title ||
+    pdpSeo.descriptionTemplate.replace(/%s/g, () => title) ||
+    storeSeo.description
 
   let itemListElements = product.breadcrumbList.itemListElement ?? []
   if (itemListElements.length !== 0) {
@@ -144,8 +154,8 @@ function Page({
       )}
       {/* SEO */}
       <NextSeo
-        title={meta.title}
-        description={meta.description}
+        title={title}
+        description={description}
         canonical={meta.canonical}
         openGraph={{
           type: 'og:product',
@@ -314,8 +324,8 @@ export const getStaticProps: GetStaticProps<
   const cmsPage: PDPContentType = await getPDP(data.product, previewData)
 
   const { seo } = data.product
-  const title = seo.title || storeConfig.seo.title
-  const description = seo.description || storeConfig.seo.description
+  const title = seo.title
+  const description = seo.description
   const canonical = `${storeConfig.storeUrl}${seo.canonical}`
 
   const meta = { title, description, canonical }
