@@ -45,24 +45,23 @@ const Skeleton = forwardRef<HTMLDivElement, PropsWithChildren<SkeletonProps>>(
       size,
       border,
       borderRadius,
+      style,
       ...otherProps
     },
     ref
   ) {
-    const styles = {
-      width: size.width,
-      height: size.height,
-    }
-
     return loading ? (
       <div
         ref={ref}
         data-fs-skeleton
         data-testid={testId}
         data-fs-skeleton-border={border ? border : null}
-        style={
-          borderRadius ? { ...styles, borderRadius: borderRadius } : styles
-        }
+        style={{
+          ...style,
+          borderRadius: borderRadius ? borderRadius : style?.borderRadius,
+          width: size.width,
+          height: size.height,
+        }}
         {...otherProps}
       >
         {shimmer && <div data-fs-skeleton-shimmer />}
