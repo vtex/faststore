@@ -221,6 +221,91 @@
                 "discount_desc",
                 "score_desc"
               ]
+            },
+            "quickOrderSettings": {
+              "title": "Quick Order settings",
+              "type": "object",
+              "properties": {
+                "quickOrder": {
+                  "title": "Enable Quick Order?",
+                  "description": "Allows adding products directly to the cart through search terms, streamlining the purchase.",
+                  "type": "boolean",
+                  "default": false
+                },
+                "skuMatrix": {
+                  "title": "SKUMatrix Configuration",
+                  "type": "object",
+                  "properties": {
+                    "triggerButtonLabel": {
+                      "title": "SKU Matrix Trigger label to be displayed",
+                      "type": "string",
+                      "default": "Select multiple"
+                    },
+                    "columns": {
+                      "title": "Columns",
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "title": "SKU name column label",
+                          "type": "string",
+                          "default": "Name"
+                        },
+                        "additionalColumns": {
+                          "title": "Additional columns",
+                          "type": "array",
+                          "items": {
+                            "title": "Column",
+                            "type": "object",
+                            "required": ["label", "value"],
+                            "properties": {
+                              "label": {
+                                "title": "Label",
+                                "type": "string"
+                              },
+                              "value": {
+                                "title": "Value",
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "availability": {
+                          "title": "Availability column label",
+                          "type": "object",
+                          "properties": {
+                            "label": {
+                              "title": "Label",
+                              "type": "string",
+                              "default": "Availability"
+                            },
+                            "stockDisplaySettings": {
+                              "title": "Stock display settings",
+                              "description": "Control how the stock status of your products is displayed to customers on your online store.",
+                              "type": "string",
+                              "enum": ["showAvailability", "showStockQuantity"],
+                              "enumNames": [
+                                "Show availability (Available/Out of Stock)",
+                                "Show stock quantity"
+                              ],
+                              "default": "showAvailability"
+                            }
+                          }
+                        },
+                        "price": {
+                          "title": "Price column label",
+                          "type": "string",
+                          "default": "Price"
+                        },
+                        "quantitySelector": {
+                          "title": "Quantity selector column label",
+                          "type": "string",
+                          "default": "Quantity"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         },
