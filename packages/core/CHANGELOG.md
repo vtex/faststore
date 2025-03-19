@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.26.0 (2025-03-19)
+
+### Features
+
+- Add SEO specifics for PDP ([#2730](https://github.com/vtex/faststore/issues/2730)) ([f2a0420](https://github.com/vtex/faststore/commit/f2a0420d6af360e2668641b38d4eae71419b1d72)), closes [vtex-sites/starter.store#724](https://github.com/vtex-sites/starter.store/issues/724)
+
 ## [3.25.11](https://github.com/vtex/faststore/compare/v3.25.10...v3.25.11) (2025-03-17)
 
 **Note:** Version bump only for package @faststore/core
