@@ -77,7 +77,7 @@ function generateSEOData(storeConfig: StoreConfig, searchTerm?: string) {
     : seo.description
 
   const canonical = searchTerm
-    ? `${storeConfig.storeUrl}/s?q=${searchTerm.replace(' ', '+')}`
+    ? `${storeConfig.storeUrl}/s?q=${searchTerm.replaceAll(' ', '+')}`
     : undefined
 
   return {
