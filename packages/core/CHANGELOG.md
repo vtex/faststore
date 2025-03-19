@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.26.1](https://github.com/vtex/faststore/compare/v3.26.0...v3.26.1) (2025-03-19)
+
+### Bug Fixes
+
+- Prevent whitespaces in Search page's `canonical` ([#2732](https://github.com/vtex/faststore/issues/2732)) ([224435f](https://github.com/vtex/faststore/commit/224435f4316fe0072fb702f3b2a97df0e9599847)), closes [vtex-sites/starter.store#726](https://github.com/vtex-sites/starter.store/issues/726)
+
 # 3.26.0 (2025-03-19)
 
 ### Features
