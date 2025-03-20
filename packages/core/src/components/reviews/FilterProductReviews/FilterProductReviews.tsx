@@ -1,4 +1,7 @@
-import { SelectField } from '@faststore/ui'
+import {
+  SelectField as UISelectField,
+  type SelectFieldProps,
+} from '@faststore/ui'
 
 export type FilterProductListReview = 'all' | '1' | '2' | '3' | '4' | '5'
 
@@ -11,7 +14,8 @@ const OptionsMap: Record<FilterProductListReview, string> = {
   '5': '5 Stars',
 }
 
-export interface FilterProductReviewsProps {
+export interface FilterProductReviewsProps
+  extends Omit<SelectFieldProps, 'label' | 'options' | 'onChange'> {
   label?: string
   options?: Partial<typeof OptionsMap>
   value?: FilterProductListReview
@@ -19,10 +23,12 @@ export interface FilterProductReviewsProps {
 }
 
 function FilterProductReviews({
+  testId = 'fs-filter-product-reviews-select',
   label = 'Filter by',
   options = OptionsMap,
   value,
   onChange,
+  ...otherProps
 }: FilterProductReviewsProps) {
   const optionsMap = Object.keys(options).reduce(
     (acc, currentKey: FilterProductListReview) => {
@@ -33,8 +39,8 @@ function FilterProductReviews({
   )
 
   return (
-    <SelectField
-      id="filter-product-reviews-select"
+    <UISelectField
+      {...otherProps}
       className="filter / text__title-mini-alt"
       label={label}
       options={optionsMap}
@@ -42,7 +48,6 @@ function FilterProductReviews({
         onChange?.(e.target.value as FilterProductListReview)
       }}
       value={value || 'all'}
-      testId="filter-product-reviews-select"
     />
   )
 }
