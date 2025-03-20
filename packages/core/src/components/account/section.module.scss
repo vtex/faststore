@@ -1,0 +1,110 @@
+@layer components {
+  .section {
+    @import "@faststore/ui/src/components/atoms/Avatar/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Button/styles.scss";
+
+    display: grid;
+    grid-template-rows: auto 1fr;
+    min-height: calc(100vh - 18rem);
+
+    @include media(">=notebook") {
+      grid-template-rows: none;
+      grid-template-columns: 20% 80%;
+      padding: 0 var(--fs-spacing-8);
+
+      .menu {
+        padding-top: var(--fs-spacing-8);
+      }
+
+      .nav {
+        flex-direction: column;
+        gap: var(--fs-grid-gap-3);
+      }
+    }
+
+    .menu {
+      padding: var(--fs-spacing-3);
+      overflow: scroll;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .account {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      width: 100%;
+      padding-bottom: var(--fs-spacing-5);
+    }
+
+    .switchButton {
+      max-width: fit-content;
+      height: 1.5rem;
+    }
+
+    .nav {
+      display: flex;
+      gap: var(--fs-spacing-1);
+    }
+
+    .navItem {
+      align-content: center;
+      height: var(--fs-spacing-6);
+      font-size: var(--fs-text-size-1);
+      font-weight: var(--fs-text-weight-medium);
+
+      // padding: 0 var(--fs-spacing-3);
+      background-color: var(--fs-color-tertiary-bkg);
+      border-radius: var(--fs-border-radius-pill);
+
+      &:hover,
+      &[data-is-open="true"] {
+        background-color: var(--fs-color-tertiary-bkg-hover);
+      }
+
+      &:active {
+        background-color: var(--fs-color-tertiary-bkg-active);
+      }
+
+      &:disabled {
+        color: var(--fs-color-disabled-text);
+        cursor: not-allowed;
+        background-color: var(--fs-color-tertiary-bkg-disabled);
+      }
+
+      >a,
+      a:link,
+      a:visited {
+        display: inline-block;
+        align-content: center;
+        width: 100%;
+        height: 100%;
+        padding: 0 var(--fs-spacing-3);
+        color: var(--fs-color-text);
+        text-decoration: none;
+        background-color: transparent;
+        border-radius: var(--fs-border-radius-pill);
+
+        &:focus,
+        &:focus-visible {
+          outline: 3px solid var(--fs-color-focus-ring);
+          box-shadow: none;
+        }
+      }
+    }
+
+    .avatarContainer {
+      display: grid;
+      grid-template-rows: auto;
+      gap: var(--fs-spacing-2);
+      align-items: center;
+      padding-bottom: var(--fs-spacing-1);
+
+      h2 {
+        font-size: var(--fs-text-size-3);
+        font-weight: var(--fs-text-weight-semibold);
+        line-height: var(--fs-text-size-5);
+      }
+    }
+  }
+}
