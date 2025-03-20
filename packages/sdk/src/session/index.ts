@@ -10,6 +10,15 @@ export interface GeoCoordinates {
   longitude: GLfloat
 }
 
+export interface MarketingData {
+  utmCampaign: string
+  utmMedium: string
+  utmSource: string
+  utmiCampaign: string
+  utmiPart: string
+  utmiPage: string
+}
+
 export interface DeliveryWindow {
   startDate: string
   endDate: string
@@ -43,6 +52,7 @@ export interface Session {
   geoCoordinates: GeoCoordinates | null
   person: Person | null
   b2b: B2bInfo | null
+  marketingData: MarketingData | null
 }
 
 export const createSessionStore = (
