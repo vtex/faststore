@@ -1,0 +1,31 @@
+[data-fs-avatar] {
+  // --------------------------------------------------------
+  // Design Tokens for Avatar
+  // --------------------------------------------------------
+
+  --fs-avatar-size          : var(--fs-spacing-8);
+  --fs-avatar-border-radius : var(--fs-border-radius-circle);
+  --fs-avatar-font-size     : var(--fs-text-size-4);
+  --fs-avatar-font-weight   : var(--fs-text-weight-semibold);
+  --fs-avatar-font-color    : var(--fs-color-main-2);
+  --fs-avatar-bkg-color     : var(--fs-color-accent-0);
+  --fs-avatar-border        : var(--spacing-1) solid var(--fs-color-neutral-0);
+  --fs-border-radius        : var(--fs-avatar-border-radius);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display                   : flex;
+  align-items               : center;
+  justify-content           : center;
+  text-align                : center;
+  width                     : var(--fs-avatar-size);
+  height                    : var(--fs-avatar-size);
+  font-size                 : var(--fs-avatar-font-size);
+  font-weight               : var(--fs-avatar-font-weight);
+  color                     : var(--fs-avatar-font-color);
+  background-color          : var(--fs-avatar-bkg-color);
+  border                    : var(--spacing-1) solid var(--fs-color-neutral-0);
+  border-radius             : var(--fs-border-radius);
+}
