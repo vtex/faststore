@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.27.0](https://github.com/vtex/faststore/compare/v3.26.1...v3.27.0) (2025-03-20)
+
+### Features
+
+- update next-seo to ^6.6.0 and adjust SEO settings ([#2735](https://github.com/vtex/faststore/issues/2735)) ([75534f4](https://github.com/vtex/faststore/commit/75534f4c95b4d5d02b4b5b5e72b745adee856e62)), closes [/#diff-4da6f8e98efa58c9a40ce9b654b9bfeecb6813091999cdea3d2408679d1bf3d3R120-R121](https://github.com///issues/diff-4da6f8e98efa58c9a40ce9b654b9bfeecb6813091999cdea3d2408679d1bf3d3R120-R121) [/#diff-44cee9f10a52af4534def49e35d22467e888a2689e6f535f4009801be8917cd7R8-R9](https://github.com///issues/diff-44cee9f10a52af4534def49e35d22467e888a2689e6f535f4009801be8917cd7R8-R9) [/#diff-0b810c38f3c138a3d5e44854edefd5eb966617ca84e62f06511f60acc40546c7L74-R74](https://github.com///issues/diff-0b810c38f3c138a3d5e44854edefd5eb966617ca84e62f06511f60acc40546c7L74-R74)
+
 ## [3.26.1](https://github.com/vtex/faststore/compare/v3.26.0...v3.26.1) (2025-03-19)
 
 ### Bug Fixes
