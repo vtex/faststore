@@ -8,7 +8,7 @@ import { useLazyQuery } from '../graphql/useLazyQuery'
 
 export const mutation = gql(`
   mutation CreateProductReview($data: ICreateProductReview!) {
-    createProductReview(data: $data)
+    productReviewId: createProductReview(data: $data)
   }
 `)
 

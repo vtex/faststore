@@ -1801,7 +1801,7 @@ export type CreateProductReviewMutationVariables = Exact<{
   data: ICreateProductReview
 }>
 
-export type CreateProductReviewMutation = { createProductReview: string }
+export type CreateProductReviewMutation = { productReviewId: string }
 
 export type ClientSearchSuggestionsQueryQueryVariables = Exact<{
   term: Scalars['String']['input']
@@ -2448,7 +2448,7 @@ export const ClientProductQueryDocument = {
 export const CreateProductReviewDocument = {
   __meta__: {
     operationName: 'CreateProductReview',
-    operationHash: '86a789f068786e0e84f3731bb1d01c2f9be53e99',
+    operationHash: '446f171f0f6ed728b011ae9218d726897f27641f',
   },
 } as unknown as TypedDocumentString<
   CreateProductReviewMutation,

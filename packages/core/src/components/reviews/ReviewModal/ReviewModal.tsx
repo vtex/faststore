@@ -116,10 +116,10 @@ function ReviewModal({
 
   useEffect(() => {
     if (submittedReview) {
-      if (data?.createProductReview && isUUID(data.createProductReview)) {
+      if (data?.productReviewId && isUUID(data.productReviewId)) {
         setIsSuccess(true)
       } else {
-        pushErrorToast(data?.createProductReview)
+        pushErrorToast(data?.productReviewId)
       }
     }
   }, [submittedReview, data, error])

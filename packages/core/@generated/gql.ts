@@ -52,7 +52,7 @@ const documents = {
     types.ClientProductGalleryQueryDocument,
   '\n  query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {\n    ...ClientProduct\n    product(locator: $locator) {\n      ...ProductDetailsFragment_product\n    }\n  }\n':
     types.ClientProductQueryDocument,
-  '\n  mutation CreateProductReview($data: ICreateProductReview!) {\n    createProductReview(data: $data)\n  }\n':
+  '\n  mutation CreateProductReview($data: ICreateProductReview!) {\n    productReviewId: createProductReview(data: $data)\n  }\n':
     types.CreateProductReviewDocument,
   '\n  query ClientSearchSuggestionsQuery(\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]\n  ) {\n    ...ClientSearchSuggestions\n    search(first: 5, term: $term, selectedFacets: $selectedFacets) {\n      suggestions {\n        terms {\n          value\n        }\n        products {\n          ...ProductSummary_product\n        }\n      }\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n      metadata {\n        ...SearchEvent_metadata\n      }\n    }\n  }\n':
     types.ClientSearchSuggestionsQueryDocument,
@@ -188,7 +188,7 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  mutation CreateProductReview($data: ICreateProductReview!) {\n    createProductReview(data: $data)\n  }\n'
+  source: '\n  mutation CreateProductReview($data: ICreateProductReview!) {\n    productReviewId: createProductReview(data: $data)\n  }\n'
 ): typeof import('./graphql').CreateProductReviewDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
