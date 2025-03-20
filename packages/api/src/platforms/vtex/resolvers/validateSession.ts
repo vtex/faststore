@@ -24,17 +24,16 @@ export const validateSession = async (
 
   params.set('sc', salesChannel)
 
+  const { marketingData: oldMarketingData } = oldSession
+
   const marketingData: StoreMarketingData = {
     utmCampaign:
-      params.get('utm_campaign') ?? oldSession.marketingData?.utmCampaign ?? '',
-    utmMedium:
-      params.get('utm_medium') ?? oldSession.marketingData?.utmMedium ?? '',
-    utmSource:
-      params.get('utm_source') ?? oldSession.marketingData?.utmSource ?? '',
-    utmiCampaign:
-      params.get('utmi_cp') ?? oldSession.marketingData?.utmiCampaign ?? '',
-    utmiPage: params.get('utmi_p') ?? oldSession.marketingData?.utmiPage ?? '',
-    utmiPart: params.get('utmi_pc') ?? oldSession.marketingData?.utmiPart ?? '',
+      params.get('utm_campaign') ?? oldMarketingData?.utmCampaign ?? '',
+    utmMedium: params.get('utm_medium') ?? oldMarketingData?.utmMedium ?? '',
+    utmSource: params.get('utm_source') ?? oldMarketingData?.utmSource ?? '',
+    utmiCampaign: params.get('utmi_cp') ?? oldMarketingData?.utmiCampaign ?? '',
+    utmiPage: params.get('utmi_p') ?? oldMarketingData?.utmiPage ?? '',
+    utmiPart: params.get('utmi_pc') ?? oldMarketingData?.utmiPart ?? '',
   }
 
   const [regionData, sessionData] = await Promise.all([
