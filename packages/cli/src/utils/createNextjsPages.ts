@@ -6,11 +6,17 @@ import { myAccountPageTemplate } from './templates/myAccountPage'
 
 const ALLOWED_PREFIX_PAGES = ['/account']
 
-const createExternalPages = (
-  customizationPagesDir: string,
-  corePagesDir: string,
+type CreateExternalPagesArgs = {
+  customizationPagesDir: string
+  corePagesDir: string
   baseCustomizationPagesDir: string
-) => {
+}
+
+const createExternalPages = ({
+  customizationPagesDir,
+  corePagesDir,
+  baseCustomizationPagesDir,
+}: CreateExternalPagesArgs) => {
   fs.readdirSync(customizationPagesDir).forEach((file) => {
     const filePath = path.join(customizationPagesDir, file)
     const destinationPath = path.join(corePagesDir, file)
@@ -18,11 +24,11 @@ const createExternalPages = (
       if (!fs.existsSync(destinationPath)) {
         fs.mkdirSync(destinationPath, { recursive: true })
       }
-      return createExternalPages(
-        filePath,
-        destinationPath,
-        baseCustomizationPagesDir
-      )
+      return createExternalPages({
+        customizationPagesDir: filePath,
+        corePagesDir: destinationPath,
+        baseCustomizationPagesDir,
+      })
     }
 
     if (file.endsWith('.tsx') && !fs.existsSync(destinationPath)) {
@@ -56,9 +62,9 @@ export function createNextJsPages(basePath: string) {
     )
   }
 
-  createExternalPages(
+  createExternalPages({
     customizationPagesDir,
     corePagesDir,
-    customizationPagesDir
-  )
+    baseCustomizationPagesDir: customizationPagesDir,
+  })
 }
