@@ -30,12 +30,14 @@ function ReviewList({
     <div data-fs-review-list>
       <div data-fs-review-list-header>
         <SortProductReviews
+          id="fs-sort-product-reviews-select"
           value={currentSort}
           label={sortSelect?.label}
           options={sortSelect?.options}
           onChange={onSortChange}
         />
         <FilterProductReviews
+          id="fs-filter-product-reviews-select"
           value={currentFilter}
           label={filterSelect?.label}
           options={filterSelect?.options}
