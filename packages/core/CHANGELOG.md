@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.28.0 (2025-03-20)
+
+### Bug Fixes
+
+- add pnpm-lock.yaml to ignored files in biome.json ([#2737](https://github.com/vtex/faststore/issues/2737)) ([e308698](https://github.com/vtex/faststore/commit/e308698a406e27f0112ff1dc2e83564c42c83d85))
+
+### Features
+
+- add support for VTEX assets loader in image component ([#2731](https://github.com/vtex/faststore/issues/2731)) ([aea7456](https://github.com/vtex/faststore/commit/aea7456aaf0e6aacd0ba64759136c51fd08c642f)), closes [/#diff-4da6f8e98efa58c9a40ce9b654b9bfeecb6813091999cdea3d2408679d1bf3d3R119](https://github.com///issues/diff-4da6f8e98efa58c9a40ce9b654b9bfeecb6813091999cdea3d2408679d1bf3d3R119) [/#diff-73ffbd4b30ea7347ce7cc718527810b0f8b51f897bcf48efdd48fbe36652afdaR10-R15](https://github.com///issues/diff-73ffbd4b30ea7347ce7cc718527810b0f8b51f897bcf48efdd48fbe36652afdaR10-R15) [/#diff-73ffbd4b30ea7347ce7cc718527810b0f8b51f897bcf48efdd48fbe36652afdaR28-R39](https://github.com///issues/diff-73ffbd4b30ea7347ce7cc718527810b0f8b51f897bcf48efdd48fbe36652afdaR28-R39)
+
 # [3.27.0](https://github.com/vtex/faststore/compare/v3.26.1...v3.27.0) (2025-03-20)
 
 ### Features

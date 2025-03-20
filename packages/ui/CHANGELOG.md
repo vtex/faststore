@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.28.0 (2025-03-20)
+
+### Bug Fixes
+
+- add pnpm-lock.yaml to ignored files in biome.json ([#2737](https://github.com/vtex/faststore/issues/2737)) ([e308698](https://github.com/vtex/faststore/commit/e308698a406e27f0112ff1dc2e83564c42c83d85))
+
 # 3.26.0 (2025-03-19)
 
 **Note:** Version bump only for package @faststore/ui
