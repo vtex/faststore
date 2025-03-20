@@ -18,7 +18,8 @@
       ".cache/",
       "__generated__",
       "@generated",
-      "storybook-static"
+      "storybook-static",
+      "pnpm-lock.yaml"
     ]
   },
   "formatter": {
