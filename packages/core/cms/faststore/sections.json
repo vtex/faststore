@@ -1057,7 +1057,7 @@
                 "label": {
                   "title": "Review title input field label",
                   "type": "string",
-                  "default": "Name"
+                  "default": "Review headline"
                 },
                 "requiredErrorMessage": {
                   "title": "Review title field error message",
