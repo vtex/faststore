@@ -117,6 +117,8 @@ module.exports = {
     cypressVersion: 12,
     enableCypressExtension: false,
     noRobots: false,
+    noindex: false,
+    nofollow: false,
     preact: false,
     enableRedirects: false,
     enableSearchSSR: false,
