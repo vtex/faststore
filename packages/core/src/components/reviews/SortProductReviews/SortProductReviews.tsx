@@ -1,4 +1,7 @@
-import { SelectField } from '@faststore/ui'
+import {
+  SelectField as UISelectField,
+  type SelectFieldProps,
+} from '@faststore/ui'
 import type { StoreProductListReviewsSort } from '@generated/graphql'
 
 const OptionsMap: Record<StoreProductListReviewsSort, string> = {
@@ -8,7 +11,8 @@ const OptionsMap: Record<StoreProductListReviewsSort, string> = {
   rating_asc: 'Lowest Rated',
 }
 
-export interface SortProductReviewsProps {
+export interface SortProductReviewsProps
+  extends Omit<SelectFieldProps, 'label' | 'options' | 'onChange'> {
   label?: string
   options?: Partial<typeof OptionsMap>
   value?: StoreProductListReviewsSort
@@ -16,10 +20,12 @@ export interface SortProductReviewsProps {
 }
 
 function SortProductReviews({
+  testId = 'fs-sort-product-reviews-select',
   label = 'Sort by',
   options = OptionsMap,
   value,
   onChange,
+  ...otherProps
 }: SortProductReviewsProps) {
   const optionsMap = Object.keys(options).reduce(
     (acc, currentKey: StoreProductListReviewsSort) => {
@@ -30,8 +36,8 @@ function SortProductReviews({
   )
 
   return (
-    <SelectField
-      id="sort-product-reviews-select"
+    <UISelectField
+      {...otherProps}
       className="sort / text__title-mini-alt"
       label={label}
       options={optionsMap}
@@ -39,7 +45,6 @@ function SortProductReviews({
         onChange?.(e.target.value as string as StoreProductListReviewsSort)
       }}
       value={value}
-      testId="sort-product-reviews-select"
     />
   )
 }
