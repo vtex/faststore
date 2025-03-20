@@ -32,13 +32,9 @@ export const validateSession = async (
     utmSource:
       params.get('utm_source') ?? oldSession.marketingData?.utmSource ?? '',
     utmiCampaign:
-      params.get('utmi_campaign') ??
-      oldSession.marketingData?.utmiCampaign ??
-      '',
-    utmiPage:
-      params.get('utmi_page') ?? oldSession.marketingData?.utmiPage ?? '',
-    utmiPart:
-      params.get('utmi_part') ?? oldSession.marketingData?.utmiPart ?? '',
+      params.get('utmi_cp') ?? oldSession.marketingData?.utmiCampaign ?? '',
+    utmiPage: params.get('utmi_p') ?? oldSession.marketingData?.utmiPage ?? '',
+    utmiPart: params.get('utmi_pc') ?? oldSession.marketingData?.utmiPart ?? '',
   }
 
   const [regionData, sessionData] = await Promise.all([
