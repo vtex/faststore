@@ -31,7 +31,18 @@ const createExternalPages = ({
       })
     }
 
-    if (file.endsWith('.tsx') && !fs.existsSync(destinationPath)) {
+    const isReactFile = filePath.endsWith('.tsx')
+
+    /* Checks if the destination path does not exist as a file or as a folder containing an "index.tsx" file.
+     * This ensures that the path is available before proceeding with file creation or other operations.
+     */
+    const isDestinationAvailable =
+      !fs.existsSync(destinationPath) &&
+      !fs.existsSync(
+        path.join(destinationPath.replace('.tsx', ''), 'index.tsx')
+      )
+
+    if (isReactFile && isDestinationAvailable) {
       const externalPagePath = `src/customizations/src/pages${filePath.replace(baseCustomizationPagesDir, '').replace('.tsx', '')}`
       const content = myAccountPageTemplate(externalPagePath)
       fs.writeFileSync(destinationPath, content)
