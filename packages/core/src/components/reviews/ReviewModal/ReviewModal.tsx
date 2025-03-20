@@ -95,25 +95,21 @@ function ReviewModal({
 
   const handleSubmit = useCallback(
     (formData: ReviewModalFormData) => {
-      try {
-        createProductReview({
-          data: {
-            productId: product.id,
-            rating: formData.rating,
-            title: formData.title,
-            text: formData.text,
-            reviewerName: formData.reviewerName,
-          },
+      createProductReview({
+        data: {
+          productId: product.id,
+          rating: formData.rating,
+          title: formData.title,
+          text: formData.text,
+          reviewerName: formData.reviewerName,
+        },
+      })
+        .then(() => {
+          setSubmittedReview(formData)
         })
-          .then(() => {
-            setSubmittedReview(formData)
-          })
-          .catch((error) => {
-            pushErrorToast()
-          })
-      } catch (error) {
-        pushErrorToast()
-      }
+        .catch((error) => {
+          pushErrorToast(error.message)
+        })
     },
     [product.id, createProductReview]
   )
