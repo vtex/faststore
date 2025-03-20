@@ -1,12 +1,11 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
 import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
-import { useEffect } from 'react'
 
 import RenderSections from 'src/components/cms/RenderSections'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
-import { useSession, validateSession, sessionStore } from 'src/sdk/session'
+import useGeolocation from 'src/sdk/geolocation/useGeolocation'
 
 import {
   type GlobalSectionsData,
@@ -29,7 +28,7 @@ function Page({
   globalSections,
   serverData,
 }: Props) {
-  const { isValidating: _, ...session } = useSession()
+  useGeolocation()
   const context = {
     data: serverData,
   }
@@ -47,21 +46,6 @@ function Page({
     },
     {} as Record<string, string>
   )
-
-  useEffect(() => {
-    if (navigator?.geolocation && !session.geoCoordinates) {
-      navigator.geolocation.getCurrentPosition(
-        async ({ coords: { latitude, longitude } }) => {
-          const newSession = {
-            ...session,
-            geoCoordinates: { latitude, longitude },
-          }
-          const validatedSession = await validateSession(newSession)
-          sessionStore.set(validatedSession ?? newSession)
-        }
-      )
-    }
-  }, [])
 
   return (
     <>

@@ -4,7 +4,7 @@ import deepmerge from 'deepmerge'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import Head from 'next/head'
-import { useEffect, type ComponentType } from 'react'
+import type { ComponentType } from 'react'
 
 import { gql } from '@generated'
 import type {
@@ -24,8 +24,9 @@ import { OverriddenDefaultProductShelf as ProductShelf } from 'src/components/se
 import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
-import { useSession, validateSession, sessionStore } from 'src/sdk/session'
+import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
+import useGeolocation from 'src/sdk/geolocation/useGeolocation'
 
 import storeConfig from 'discovery.config'
 import {
@@ -89,8 +90,10 @@ function Page({
   offers,
   meta,
 }: Props) {
+  useGeolocation()
+  const { currency } = useSession()
+
   const { product } = server
-  const { isValidating: _, ...session } = useSession()
   const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
 
   let itemListElements = product.breadcrumbList.itemListElement ?? []
@@ -129,21 +132,6 @@ function Page({
     },
   } as PDPContext
 
-  useEffect(() => {
-    if (navigator?.geolocation && !session.geoCoordinates) {
-      navigator.geolocation.getCurrentPosition(
-        async ({ coords: { latitude, longitude } }) => {
-          const newSession = {
-            ...session,
-            geoCoordinates: { latitude, longitude },
-          }
-          const validatedSession = await validateSession(newSession)
-          sessionStore.set(validatedSession ?? newSession)
-        }
-      )
-    }
-  }, [])
-
   return (
     <>
       {isClientOfferEnabled && (
@@ -179,7 +167,7 @@ function Page({
           },
           {
             property: 'product:price:currency',
-            content: session.currency.code,
+            content: currency.code,
           },
         ]}
         titleTemplate={titleTemplate}
