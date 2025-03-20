@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.28.1](https://github.com/vtex/faststore/compare/v3.28.0...v3.28.1) (2025-03-20)
+
+### Bug Fixes
+
+- PLP layout shift ([#2733](https://github.com/vtex/faststore/issues/2733)) ([ee01257](https://github.com/vtex/faststore/commit/ee01257ad2661527abdd5be28e7064dace19fd8d))
+
 # 3.28.0 (2025-03-20)
 
 ### Bug Fixes

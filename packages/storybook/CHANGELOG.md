@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.28.1](https://github.com/vtex/faststore/compare/v3.28.0...v3.28.1) (2025-03-20)
+
+**Note:** Version bump only for package @fatstore/storybook
+
 # 3.28.0 (2025-03-20)
 
 ### Bug Fixes
