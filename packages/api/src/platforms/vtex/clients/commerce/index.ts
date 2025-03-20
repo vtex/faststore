@@ -20,6 +20,7 @@ import type { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
 import type { DeliveryMode, SelectedAddress } from './types/ShippingData'
 import { getStoreCookie, getWithCookie } from '../../utils/cookies'
+import type { StoreMarketingData } from '../../../..'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -169,6 +170,28 @@ export const VtexCommerce = (
             ...BASE_INIT,
             headers,
             body: JSON.stringify(mappedBody),
+          },
+          { storeCookies }
+        )
+      },
+      marketingData: ({
+        id,
+        marketingData,
+      }: {
+        id: string
+        marketingData: StoreMarketingData
+      }): Promise<OrderForm> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${id}/attachments/marketingData`,
+          {
+            headers,
+            body: JSON.stringify(marketingData),
+            method: 'POST',
           },
           { storeCookies }
         )
