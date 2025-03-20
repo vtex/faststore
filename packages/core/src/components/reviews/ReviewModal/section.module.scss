@@ -1,7 +1,18 @@
 .section {
   @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Link/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Loader/styles.scss";
   @import "@faststore/ui/src/components/atoms/Button/styles.scss";
   @import "@faststore/ui/src/components/atoms/Overlay/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Input/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Textarea/styles.scss";
+  @import "@faststore/ui/src/components/atoms/Checkbox/styles.scss";
+  @import "@faststore/ui/src/components/molecules/TextareaField/styles.scss";
+  @import "@faststore/ui/src/components/molecules/InputField/styles.scss";
+  @import "@faststore/ui/src/components/molecules/CheckboxField/styles.scss";
+  @import "@faststore/ui/src/components/molecules/Rating/styles.scss";
+  @import "@faststore/ui/src/components/molecules/RatingField/styles.scss";
   @import "@faststore/ui/src/components/molecules/Modal/styles.scss";
+  @import "@faststore/ui/src/components/molecules/ReviewCard/styles.scss";
   @import "@faststore/ui/src/components/organisms/ReviewModal/styles.scss";
 }

@@ -1034,6 +1034,86 @@
               "type": "string",
               "default": "Close Review Modal"
             },
+            "ratingField": {
+              "title": "Rating input field",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Rating input field label",
+                  "type": "string",
+                  "default": "Rate the product from 1 to 5 stars"
+                },
+                "requiredErrorMessage": {
+                  "title": "Input field error message",
+                  "type": "string",
+                  "default": "This field is required"
+                }
+              }
+            },
+            "reviewTitleField": {
+              "title": "Review title input field",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Review title input field label",
+                  "type": "string",
+                  "default": "Review headline"
+                },
+                "requiredErrorMessage": {
+                  "title": "Review title field error message",
+                  "type": "string",
+                  "default": "This field is required"
+                }
+              }
+            },
+            "reviewerNameField": {
+              "title": "Reviewer name input field",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Reviewer name input field label",
+                  "type": "string",
+                  "default": "Name"
+                },
+                "requiredErrorMessage": {
+                  "title": "Reviewer name field error message",
+                  "type": "string",
+                  "default": "This field is required"
+                }
+              }
+            },
+            "reviewTextField": {
+              "title": "Reviewer text input field",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Reviewer text input field label",
+                  "type": "string",
+                  "default": "Share your thoughts about the product. How would you describe its quality?"
+                },
+                "requiredErrorMessage": {
+                  "title": "Reviewer text field error message",
+                  "type": "string",
+                  "default": "This field is required"
+                }
+              }
+            },
+            "privacyPolicyCheckboxField": {
+              "title": "Privacy Policy Checkbox Field",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Privacy policy checkbox field label",
+                  "type": "string",
+                  "default": "I confirm that I agree to the Privacy Policy, Terms of Use, and Terms of Service. I acknowledge that my review may be used for marketing purposes by the company or its partners. I understand that my rating and review may be visible publicly, may include a “Verified buyer” badge, and that my data may be associated with my review."
+                },
+                "requiredErrorMessage": {
+                  "title": "Privacy policy checkbox field error message",
+                  "type": "string",
+                  "default": "This field is required"
+                }
+              }
+            },
             "cancelButtonLabel": {
               "title": "Cancel button label",
               "type": "string",
@@ -1043,6 +1123,21 @@
               "title": "Submit review button label",
               "type": "string",
               "default": "Submit your review"
+            },
+            "successTitle": {
+              "title": "Success title",
+              "type": "string",
+              "default": "Success!"
+            },
+            "successSubtitle": {
+              "title": "Success subtitle",
+              "type": "string",
+              "default": "Your review has been submitted."
+            },
+            "successButtonLabel": {
+              "title": "Success button label",
+              "type": "string",
+              "default": "Back to reviews"
             }
           }
         }
