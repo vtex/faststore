@@ -102,7 +102,9 @@ export const SearchQueryFirst5Products = `query SearchQuery {
 
 export const productSearchCategory1Fetch = {
   info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false',
-  init: undefined,
+  init: {
+    headers: { 'X-FORWARDED-HOST': '', 'content-type': 'application/json' },
+  },
   options: { storeCookies: expect.any(Function) },
   result: {
     products: [
@@ -1396,7 +1398,9 @@ export const productSearchCategory1Fetch = {
 
 export const attributeSearchCategory1Fetch = {
   info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/facets/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false',
-  init: undefined,
+  init: {
+    headers: { 'X-FORWARDED-HOST': '', 'content-type': 'application/json' },
+  },
   options: { storeCookies: expect.any(Function) },
   result: {
     facets: [
