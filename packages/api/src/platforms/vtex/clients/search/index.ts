@@ -106,8 +106,6 @@ export const IntelligentSearch = (
     'X-FORWARDED-HOST': forwardedHost,
   })
 
-  const requestInit = headers ? { headers } : undefined
-
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
     const { salesChannel } = ctx.storage.channel
 
@@ -222,7 +220,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
-      requestInit,
+      { headers },
       { storeCookies }
     )
   }
@@ -240,7 +238,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/search_suggestions?${params.toString()}`,
-      requestInit,
+      { headers },
       { storeCookies }
     )
   }
@@ -252,7 +250,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/top_searches?${params.toString()}`,
-      requestInit,
+      { headers },
       { storeCookies }
     )
   }
