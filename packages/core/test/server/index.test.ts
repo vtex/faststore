@@ -1,11 +1,11 @@
 import { assertValidSchema } from 'graphql'
 
+import storeConfig from '../../discovery.config'
 import { execute, getEnvelop } from '../../src/server'
 import {
-  getTypeDefsFromFolder,
   getMergedSchema,
+  getTypeDefsFromFolder,
 } from '../../src/server/generator/schema'
-import storeConfig from '../../discovery.config'
 
 const TYPES = [
   'StoreAggregateOffer',
@@ -71,6 +71,7 @@ const QUERIES = [
   'shipping',
   'redirect',
   'sellers',
+  'profile',
 ]
 
 const MUTATIONS = ['validateCart', 'validateSession', 'subscribeToNewsletter']

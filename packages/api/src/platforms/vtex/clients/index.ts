@@ -1,6 +1,6 @@
+import type { Context, Options } from '..'
 import { VtexCommerce } from './commerce'
 import { IntelligentSearch } from './search'
-import type { Context, Options } from '..'
 
 export type Clients = ReturnType<typeof getClients>
 
