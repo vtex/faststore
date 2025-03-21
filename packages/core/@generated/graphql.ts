@@ -230,6 +230,15 @@ export type IStoreImage = {
   url: Scalars['String']['input']
 }
 
+export type IStoreMarketingData = {
+  utmCampaign: InputMaybe<Scalars['String']['input']>
+  utmMedium: InputMaybe<Scalars['String']['input']>
+  utmSource: InputMaybe<Scalars['String']['input']>
+  utmiCampaign: InputMaybe<Scalars['String']['input']>
+  utmiPage: InputMaybe<Scalars['String']['input']>
+  utmiPart: InputMaybe<Scalars['String']['input']>
+}
+
 /** Offer input. */
 export type IStoreOffer = {
   /** Information on the item being offered. */
@@ -321,6 +330,8 @@ export type IStoreSession = {
   geoCoordinates: InputMaybe<IStoreGeoCoordinates>
   /** Session input locale. */
   locale: Scalars['String']['input']
+  /** Marketing information input. */
+  marketingData: InputMaybe<IStoreMarketingData>
   /** Session input person. */
   person: InputMaybe<IStorePerson>
   /** Session input postal code. */
@@ -858,6 +869,16 @@ export type StoreListItem = {
   position: Scalars['Int']['output']
 }
 
+/** Marketing information. */
+export type StoreMarketingData = {
+  utmCampaign: Maybe<Scalars['String']['output']>
+  utmMedium: Maybe<Scalars['String']['output']>
+  utmSource: Maybe<Scalars['String']['output']>
+  utmiCampaign: Maybe<Scalars['String']['output']>
+  utmiPage: Maybe<Scalars['String']['output']>
+  utmiPart: Maybe<Scalars['String']['output']>
+}
+
 /** Offer information. */
 export type StoreOffer = {
   /** Offer item availability. */
@@ -1087,6 +1108,8 @@ export type StoreSession = {
   geoCoordinates: Maybe<StoreGeoCoordinates>
   /** Session locale. */
   locale: Scalars['String']['output']
+  /** Marketing information. */
+  marketingData: Maybe<StoreMarketingData>
   /** Session input person. */
   person: Maybe<StorePerson>
   /** Session postal code. */
@@ -1743,6 +1766,14 @@ export type ValidateSessionMutation = {
       familyName: string
     } | null
     b2b: { customerId: string } | null
+    marketingData: {
+      utmCampaign: string | null
+      utmMedium: string | null
+      utmSource: string | null
+      utmiCampaign: string | null
+      utmiPage: string | null
+      utmiPart: string | null
+    } | null
   } | null
 }
 
@@ -2307,7 +2338,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '1e69c734ed31bd9e763a34fe9660f5bbad3fd143',
+    operationHash: '2c6e94b978eb50647873082daebcc5b332154cb1',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,

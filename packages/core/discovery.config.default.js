@@ -56,6 +56,14 @@ module.exports = {
     geoCoordinates: null,
     b2b: null,
     person: null,
+    marketingData: {
+      utmCampaign: '',
+      utmMedium: '',
+      utmSource: '',
+      utmiCampaign: '',
+      utmiPart: '',
+      utmiPage: '',
+    },
   },
 
   // Default cart

@@ -216,6 +216,15 @@ export type IStoreImage = {
   url: Scalars['String'];
 };
 
+export type IStoreMarketingData = {
+  utmCampaign?: Maybe<Scalars['String']>;
+  utmMedium?: Maybe<Scalars['String']>;
+  utmSource?: Maybe<Scalars['String']>;
+  utmiCampaign?: Maybe<Scalars['String']>;
+  utmiPage?: Maybe<Scalars['String']>;
+  utmiPart?: Maybe<Scalars['String']>;
+};
+
 /** Offer input. */
 export type IStoreOffer = {
   /** Information on the item being offered. */
@@ -307,6 +316,8 @@ export type IStoreSession = {
   geoCoordinates?: Maybe<IStoreGeoCoordinates>;
   /** Session input locale. */
   locale: Scalars['String'];
+  /** Marketing information input. */
+  marketingData?: Maybe<IStoreMarketingData>;
   /** Session input person. */
   person?: Maybe<IStorePerson>;
   /** Session input postal code. */
@@ -897,6 +908,17 @@ export type StoreListItem = {
   position: Scalars['Int'];
 };
 
+/** Marketing information. */
+export type StoreMarketingData = {
+  __typename?: 'StoreMarketingData';
+  utmCampaign?: Maybe<Scalars['String']>;
+  utmMedium?: Maybe<Scalars['String']>;
+  utmSource?: Maybe<Scalars['String']>;
+  utmiCampaign?: Maybe<Scalars['String']>;
+  utmiPage?: Maybe<Scalars['String']>;
+  utmiPart?: Maybe<Scalars['String']>;
+};
+
 /** Offer information. */
 export type StoreOffer = {
   __typename?: 'StoreOffer';
@@ -1143,6 +1165,8 @@ export type StoreSession = {
   geoCoordinates?: Maybe<StoreGeoCoordinates>;
   /** Session locale. */
   locale: Scalars['String'];
+  /** Marketing information. */
+  marketingData?: Maybe<StoreMarketingData>;
   /** Session input person. */
   person?: Maybe<StorePerson>;
   /** Session postal code. */

@@ -4,6 +4,7 @@ import ChannelMarshal from '../utils/channel'
 import type { Context } from '..'
 import type {
   MutationValidateSessionArgs,
+  StoreMarketingData,
   StoreSession,
 } from '../../../__generated__/schema'
 
@@ -22,6 +23,18 @@ export const validateSession = async (
   const salesChannel = params.get('sc') ?? channel.salesChannel
 
   params.set('sc', salesChannel)
+
+  const { marketingData: oldMarketingData } = oldSession
+
+  const marketingData: StoreMarketingData = {
+    utmCampaign:
+      params.get('utm_campaign') ?? oldMarketingData?.utmCampaign ?? '',
+    utmMedium: params.get('utm_medium') ?? oldMarketingData?.utmMedium ?? '',
+    utmSource: params.get('utm_source') ?? oldMarketingData?.utmSource ?? '',
+    utmiCampaign: params.get('utmi_cp') ?? oldMarketingData?.utmiCampaign ?? '',
+    utmiPage: params.get('utmi_p') ?? oldMarketingData?.utmiPage ?? '',
+    utmiPart: params.get('utmi_pc') ?? oldMarketingData?.utmiPart ?? '',
+  }
 
   const [regionData, sessionData] = await Promise.all([
     postalCode || geoCoordinates
@@ -58,6 +71,7 @@ export const validateSession = async (
     b2b: {
       customerId: authentication?.customerId?.value ?? '',
     },
+    marketingData,
     person: profile?.id
       ? {
           id: profile.id?.value ?? '',
