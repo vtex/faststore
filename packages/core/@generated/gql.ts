@@ -52,7 +52,7 @@ const documents = {
     types.ClientProductGalleryQueryDocument,
   '\n  query ClientProductQuery($locator: [IStoreSelectedFacet!]!) {\n    ...ClientProduct\n    product(locator: $locator) {\n      ...ProductDetailsFragment_product\n    }\n  }\n':
     types.ClientProductQueryDocument,
-  '\n  query ClientProfileQuery($userId: String!) {\n    profile(userId: $userId) {\n      addresses {\n        city\n        postalCode\n        geoCoordinate\n      }\n    }\n  }\n':
+  '\n  query ClientProfileQuery($userId: String!) {\n    profile(userId: $userId) {\n      addresses {\n        country\n        postalCode\n        geoCoordinate\n      }\n    }\n  }\n':
     types.ClientProfileQueryDocument,
   '\n  query ClientSearchSuggestionsQuery(\n    $term: String!\n    $selectedFacets: [IStoreSelectedFacet!]\n  ) {\n    ...ClientSearchSuggestions\n    search(first: 5, term: $term, selectedFacets: $selectedFacets) {\n      suggestions {\n        terms {\n          value\n        }\n        products {\n          ...ProductSummary_product\n        }\n      }\n      products {\n        pageInfo {\n          totalCount\n        }\n      }\n      metadata {\n        ...SearchEvent_metadata\n      }\n    }\n  }\n':
     types.ClientSearchSuggestionsQueryDocument,
@@ -188,7 +188,7 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query ClientProfileQuery($userId: String!) {\n    profile(userId: $userId) {\n      addresses {\n        city\n        postalCode\n        geoCoordinate\n      }\n    }\n  }\n'
+  source: '\n  query ClientProfileQuery($userId: String!) {\n    profile(userId: $userId) {\n      addresses {\n        country\n        postalCode\n        geoCoordinate\n      }\n    }\n  }\n'
 ): typeof import('./graphql').ClientProfileQueryDocument
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

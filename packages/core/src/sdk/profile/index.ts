@@ -10,7 +10,7 @@ export const query = gql(`
   query ClientProfileQuery($userId: String!) {
     profile(userId: $userId) {
       addresses {
-        city
+        country
         postalCode
         geoCoordinate
       }

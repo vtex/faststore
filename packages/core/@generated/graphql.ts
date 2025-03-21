@@ -1707,7 +1707,7 @@ export type ClientProfileQueryQueryVariables = Exact<{
 export type ClientProfileQueryQuery = {
   profile: {
     addresses: Array<{
-      city: string | null
+      country: string | null
       postalCode: string | null
       geoCoordinate: Array<number | null> | null
     } | null> | null
@@ -2343,7 +2343,7 @@ export const ClientProductQueryDocument = {
 export const ClientProfileQueryDocument = {
   __meta__: {
     operationName: 'ClientProfileQuery',
-    operationHash: 'fd8d4736d8d47cdc29ac0dd382391d577bd55baf',
+    operationHash: 'e1b72465b75424a470df83ccf8307ffd098edc67',
   },
 } as unknown as TypedDocumentString<
   ClientProfileQueryQuery,
