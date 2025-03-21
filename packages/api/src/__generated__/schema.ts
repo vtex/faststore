@@ -501,6 +501,8 @@ export type Query = {
   collection: StoreCollection;
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct;
+  /** Returns information about the profile. */
+  profile?: Maybe<Profile>;
   /** Returns if there's a redirect for a search. */
   redirect?: Maybe<StoreRedirect>;
   /** Returns the result of a product, facet, or suggestion search. */
@@ -531,6 +533,11 @@ export type QueryCollectionArgs = {
 
 export type QueryProductArgs = {
   locator: Array<IStoreSelectedFacet>;
+};
+
+
+export type QueryProfileArgs = {
+  userId: Scalars['String'];
 };
 
 
