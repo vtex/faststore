@@ -342,12 +342,17 @@ export const Query = {
 
     const addresses = await profile.addresses(userId)
 
-    function mapAddressesObjToList(addressesObj: any): ProfileAddress[] {
-      return Object.values<string>(addressesObj).map(
+    function mapAddressesToList(AddressesObj: any): ProfileAddress[] {
+      if (!addresses || Object.keys(addresses).length === 0) {
+        return []
+      }
+
+      return Object.values<string>(AddressesObj).map(
         (stringifiedObj) => JSON.parse(stringifiedObj) as ProfileAddress
       )
     }
-    const parsedAddresses = mapAddressesObjToList(addresses)
+
+    const parsedAddresses = mapAddressesToList(addresses)
 
     return { addresses: parsedAddresses }
   },
