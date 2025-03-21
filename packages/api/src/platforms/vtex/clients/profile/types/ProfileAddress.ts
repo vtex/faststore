@@ -1,7 +1,3 @@
-export interface ProfileInput {
-  userId: string
-}
-
 export interface Profile {
   addresses: ProfileAddress[]
 }
