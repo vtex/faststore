@@ -69,9 +69,9 @@ interface Address {
    */
   reference?: string
   /**
-   * Address geoCoordinates
+   * Address geoCoordinates. [longitude, latitude]
    */
-  geoCoordinates?: [number]
+  geoCoordinates?: [number, number]
 }
 
 export interface ShippingSimulationProps

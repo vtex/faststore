@@ -89,8 +89,9 @@ function Page({
   offers,
   meta,
 }: Props) {
-  const { product } = server
   const { currency } = useSession()
+
+  const { product } = server
   const titleTemplate = storeConfig?.seo?.titleTemplate ?? ''
 
   let itemListElements = product.breadcrumbList.itemListElement ?? []
