@@ -91,8 +91,9 @@ function Page({
   offers,
   meta,
 }: Props) {
-  const { product } = server
   const { currency } = useSession()
+
+  const { product } = server
   const {
     seo: { pdp: pdpSeo, ...storeSeo },
   } = storeConfig

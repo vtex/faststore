@@ -15,9 +15,19 @@ export const validateSession = async (
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')
-  const geoCoordinates = oldSession.geoCoordinates ?? null
-
   const country = oldSession.country ?? ''
+
+  // Get geo coordinates if postal code and country are provided
+  let geoCoordinates = oldSession.geoCoordinates ?? null
+  if (!geoCoordinates && postalCode !== '' && country !== '') {
+    const address = await clients.commerce.checkout.address({
+      postalCode,
+      country,
+    })
+
+    const [longitude, latitude] = address.geoCoordinates
+    geoCoordinates = { latitude, longitude }
+  }
 
   const params = new URLSearchParams(search)
   const salesChannel = params.get('sc') ?? channel.salesChannel
@@ -80,6 +90,7 @@ export const validateSession = async (
           familyName: profile.lastName?.value ?? '',
         }
       : null,
+    geoCoordinates,
   }
 
   if (deepEquals(oldSession, newSession)) {
