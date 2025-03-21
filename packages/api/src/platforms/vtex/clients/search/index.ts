@@ -1,6 +1,6 @@
 import type { Context, Options } from '../../'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
-import { getStoreCookie } from '../../utils/cookies'
+import { getStoreCookie, getWithCookie } from '../../utils/cookies'
 import type {
   FuzzyFacet,
   OperatorFacet,
@@ -82,11 +82,31 @@ export const IntelligentSearch = (
     hideUnavailableItems,
     simulationBehavior,
     showSponsored,
+    subDomainPrefix,
   }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br/api/io`
   const storeCookies = getStoreCookie(ctx)
+  const withCookie = getWithCookie(ctx)
+
+  const host =
+    new Headers(ctx.headers).get('x-forwarded-host') ?? ctx.headers?.host ?? ''
+
+  const selectedPrefix = subDomainPrefix
+    ? subDomainPrefix
+        .map((prefix) => prefix + '.')
+        .find((prefix) => host.includes(prefix)) || ''
+    : ''
+
+  const forwardedHost = host.replace(selectedPrefix, '')
+
+  const headers: HeadersInit = withCookie({
+    'content-type': 'application/json',
+    'X-FORWARDED-HOST': forwardedHost,
+  })
+
+  const requestInit = headers ? { headers } : undefined
 
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
     const { salesChannel } = ctx.storage.channel
@@ -156,19 +176,6 @@ export const IntelligentSearch = (
     }
   }
 
-  function getRequestInit(ctx: Context) {
-    const cookie = ctx?.headers?.cookie
-    const requestInit = cookie
-      ? {
-          headers: {
-            cookie,
-          },
-        }
-      : undefined
-
-    return requestInit
-  }
-
   const search = <T>({
     query = '',
     page,
@@ -215,7 +222,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
-      getRequestInit(ctx),
+      requestInit,
       { storeCookies }
     )
   }
@@ -233,7 +240,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/search_suggestions?${params.toString()}`,
-      getRequestInit(ctx),
+      requestInit,
       { storeCookies }
     )
   }
@@ -245,7 +252,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/top_searches?${params.toString()}`,
-      getRequestInit(ctx),
+      requestInit,
       { storeCookies }
     )
   }
