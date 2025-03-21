@@ -85,7 +85,7 @@ export const IntelligentSearch = (
   }: Options,
   ctx: Context
 ) => {
-  const base = `https://${account}.${environment}.com.br/api/io`
+  const base = `https://newtail--${account}.${environment}.com.br/api/io`
   const storeCookies = getStoreCookie(ctx)
 
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
