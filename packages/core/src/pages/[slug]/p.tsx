@@ -26,7 +26,6 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
 import { useSession } from 'src/sdk/session'
 import { execute } from 'src/server'
-import useGeolocation from 'src/sdk/geolocation/useGeolocation'
 
 import storeConfig from 'discovery.config'
 import {
@@ -90,7 +89,6 @@ function Page({
   offers,
   meta,
 }: Props) {
-  useGeolocation()
   const { currency } = useSession()
 
   const { product } = server

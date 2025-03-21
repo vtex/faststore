@@ -5,7 +5,6 @@ import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import RenderSections from 'src/components/cms/RenderSections'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
-import useGeolocation from 'src/sdk/geolocation/useGeolocation'
 
 import {
   type GlobalSectionsData,
@@ -28,7 +27,6 @@ function Page({
   globalSections,
   serverData,
 }: Props) {
-  useGeolocation()
   const context = {
     data: serverData,
   }

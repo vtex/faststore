@@ -27,7 +27,6 @@ import type { PageContentType } from 'src/server/cms'
 import { injectGlobalSections } from 'src/server/cms/global'
 import { getPLP, type PLPContentType } from 'src/server/cms/plp'
 import { getDynamicContent } from 'src/utils/dynamicContent'
-import useGeolocation from 'src/sdk/geolocation/useGeolocation'
 
 const LandingPage = dynamic(
   () => import('src/components/templates/LandingPage')
@@ -53,8 +52,6 @@ type Props = BaseProps &
   )
 
 function Page({ globalSections, type, ...otherProps }: Props) {
-  useGeolocation()
-
   return (
     <>
       {type === 'plp' && (
