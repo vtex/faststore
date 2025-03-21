@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.29.0](https://github.com/vtex/faststore/compare/v3.28.1...v3.29.0) (2025-03-21)
+
+### Features
+
+- add UTM to orderForm ([#2736](https://github.com/vtex/faststore/issues/2736)) ([e423cef](https://github.com/vtex/faststore/commit/e423cef2992f003b8d8add119cb1847069a1571d)), closes [/github.com/vtex-apps/checkout-graphql/blob/df8f02932e9710fa437cf2c550e98cf9b7dc3726/node/resolvers/items.ts#L152-L157](https://github.com//github.com/vtex-apps/checkout-graphql/blob/df8f02932e9710fa437cf2c550e98cf9b7dc3726/node/resolvers/items.ts/issues/L152-L157)
+
 ## [3.28.1](https://github.com/vtex/faststore/compare/v3.28.0...v3.28.1) (2025-03-20)
 
 ### Bug Fixes
