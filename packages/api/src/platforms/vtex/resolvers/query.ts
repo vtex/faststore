@@ -11,7 +11,7 @@ import type {
 } from '../../../__generated__/schema'
 import { BadRequestError, NotFoundError } from '../../errors'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
-import type { ProfileAddress } from '../clients/profile/types/ProfileAddress'
+import type { ProfileAddress } from '../clients/commerce/types/Profile'
 import type { SearchArgs } from '../clients/search'
 import type { Context } from '../index'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
@@ -337,10 +337,10 @@ export const Query = {
   },
   profile: async (_: unknown, { userId }: QueryProfileArgs, ctx: Context) => {
     const {
-      clients: { profile },
+      clients: { commerce },
     } = ctx
 
-    const addresses = await profile.addresses(userId)
+    const addresses = await commerce.addresses(userId)
 
     function mapAddressesToList(AddressesObj: any): ProfileAddress[] {
       if (!addresses || Object.keys(addresses).length === 0) {
