@@ -156,6 +156,17 @@ export const IntelligentSearch = (
     }
   }
 
+  function getHeaders(ctx: Context) {
+    const cookie = ctx?.headers?.cookie
+    const headers = cookie
+      ? {
+          cookie,
+        }
+      : undefined
+
+    return headers
+  }
+
   const search = <T>({
     query = '',
     page,
@@ -202,7 +213,9 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
-      undefined,
+      {
+        headers: getHeaders(ctx),
+      },
       { storeCookies }
     )
   }
@@ -220,7 +233,9 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/search_suggestions?${params.toString()}`,
-      undefined,
+      {
+        headers: getHeaders(ctx),
+      },
       { storeCookies }
     )
   }
@@ -232,7 +247,9 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/top_searches?${params.toString()}`,
-      undefined,
+      {
+        headers: getHeaders(ctx),
+      },
       { storeCookies }
     )
   }
