@@ -450,7 +450,7 @@ export const validateCart = async (
     })
     // update orderForm shippingData
     .then((form: OrderForm) => updateOrderFormShippingData(form, session, ctx))
-    //update marketignData
+    // update marketingData
     .then((form: OrderForm) => {
       if (session?.marketingData) {
         return commerce.checkout.marketingData({
