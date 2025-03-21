@@ -55,7 +55,7 @@ export const validateSession = async (session: Session) => {
   if (storeConfig.deliveryPromise?.enabled && !session.postalCode) {
     const isLoggedIn = !!session.person?.id
 
-    // If user is logged try to get the location (postalCode / geoCoordinates) from the user's address
+    // If user is logged try to get the location (postalCode / geoCoordinates / country) from the user's address
     if (isLoggedIn) {
       const userId = session.person?.id
       const address = await getSavedAddress(userId)
@@ -70,6 +70,7 @@ export const validateSession = async (session: Session) => {
             latitude: address?.geoCoordinate[1],
             longitude: address?.geoCoordinate[0],
           },
+          country: address?.country,
         })
       }
     } else {
