@@ -1,17 +1,16 @@
-import type { Locator } from '@vtex/client-cms'
-import type { GetStaticProps } from 'next'
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
-import { useEffect } from 'react'
 import {
-  type GlobalSectionsData,
   getGlobalSectionsData,
+  type GlobalSectionsData,
 } from 'src/components/cms/GlobalSections'
 import RenderSections from 'src/components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+import { MyAccountLayout } from 'src/components/account'
+import type { GetStaticProps } from 'next'
+import type { Locator } from '@vtex/client-cms'
 import { injectGlobalSections } from 'src/server/cms/global'
-import storeConfig from '../../discovery.config'
 
 type Props = {
   globalSections: GlobalSectionsData
@@ -23,11 +22,19 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-function Page({ globalSections }: Props) {
-  useEffect(() => {
-    window.location.href = `${storeConfig.accountUrl}${window.location.search}`
-  }, [])
+const style = {
+  alignContent: 'center',
+  justifyContent: 'center',
+  alignItems: 'center',
+  display: 'flex',
+  backgroundColor: 'blue',
+  h1: {
+    color: 'white',
+    fontSize: '100px',
+  },
+}
 
+export default function Profile({ globalSections }: Props) {
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -35,7 +42,11 @@ function Page({ globalSections }: Props) {
     >
       <NextSeo noindex nofollow />
 
-      <div>loading...</div>
+      <MyAccountLayout>
+        <div style={style}>
+          <h1 style={style.h1}>Profile</h1>
+        </div>
+      </MyAccountLayout>
     </RenderSections>
   )
 }
@@ -68,5 +79,3 @@ export const getStaticProps: GetStaticProps<
     props: { globalSections: globalSectionsResult },
   }
 }
-
-export default Page
