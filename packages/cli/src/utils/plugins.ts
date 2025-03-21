@@ -327,7 +327,7 @@ const generatePluginApis = async (basePath: string, plugins: Plugin[]) => {
       const apiPath = path.join(
         tmpApiDir,
         ...apiPaths,
-        'plugin',
+        'plugins',
         apiFile + '.ts'
       )
 
