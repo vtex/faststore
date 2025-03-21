@@ -110,7 +110,7 @@ module.exports = {
   },
 
   deliveryPromise: {
-    enabled: true,
+    enabled: false,
   },
 
   experimental: {
