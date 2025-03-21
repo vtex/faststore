@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.29.1](https://github.com/vtex/faststore/compare/v3.29.0...v3.29.1) (2025-03-21)
+
+### Bug Fixes
+
+- pass cookies to intelligent search requests ([#2740](https://github.com/vtex/faststore/issues/2740)) ([fd4ba80](https://github.com/vtex/faststore/commit/fd4ba806ad37856829b1f737416a2e3aad042b0b))
+
 # [3.29.0](https://github.com/vtex/faststore/compare/v3.28.1...v3.29.0) (2025-03-21)
 
 ### Features
