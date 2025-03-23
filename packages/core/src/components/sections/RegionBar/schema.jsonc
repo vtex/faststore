@@ -1,0 +1,63 @@
+// cp-only-schema
+{
+  "core.RegionBar": {
+    "$extends": ["#/components/base-component"],
+    "description": "Region Bar configuration",
+    "properties": {
+      "name": {
+        "const": "RegionBar"
+      },
+      "data": {
+        "required": ["label"],
+        "properties": {
+          "icon": {
+            "title": "Location Icon",
+            "type": "object",
+            "properties": {
+              "icon": {
+                "title": "Icon",
+                "type": "string",
+                "enumNames": ["Map Pin"],
+                "enum": ["MapPin"],
+                "default": "MapPin"
+              },
+              "alt": {
+                "title": "Alternative Label",
+                "type": "string",
+                "default": "Map Pin icon"
+              }
+            }
+          },
+          "label": {
+            "title": "Location label",
+            "type": "string",
+            "default": "Set your location"
+          },
+          "editLabel": {
+            "title": "Location edit label",
+            "type": "string",
+            "default": "Edit"
+          },
+          "buttonIcon": {
+            "title": "Button Icon",
+            "type": "object",
+            "properties": {
+              "icon": {
+                "title": "Icon",
+                "type": "string",
+                "enumNames": ["Caret Right"],
+                "enum": ["CaretRight"],
+                "default": "CaretRight"
+              },
+              "alt": {
+                "title": "Alternative Label",
+                "type": "string",
+                "default": "Caret Right icon"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

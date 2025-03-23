@@ -1,0 +1,53 @@
+// cp-only-schema
+{
+  "core.alert": {
+    "$extends": ["#/components/base-component"],
+    "description": "Add an alert",
+    "properties": {
+      "name": {
+        "const": "Alert"
+      },
+      "data": {
+        "required": ["icon", "content", "dismissible"],
+        "properties": {
+          "icon": {
+            "type": "string",
+            "title": "Icon",
+            "enumNames": [
+              "Bell",
+              "BellRinging",
+              "Checked",
+              "Info",
+              "Truck",
+              "User"
+            ],
+            "enum": ["Bell", "BellRinging", "Checked", "Info", "Truck", "User"]
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "link": {
+            "title": "Link",
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string",
+                "title": "Link Text"
+              },
+              "to": {
+                "type": "string",
+                "title": "Action link"
+              }
+            }
+          },
+          "dismissible": {
+            "type": "boolean",
+            "default": false,
+            "title": "Is dismissible?"
+          }
+        }
+      }
+    }
+  }
+}
