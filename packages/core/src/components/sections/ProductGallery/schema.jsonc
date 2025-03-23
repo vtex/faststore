@@ -1,0 +1,47 @@
+// cp-only-schema
+{
+  "core.productGallery": {
+    "$extends": ["#/components/base-component"],
+    "description": "Product Gallery options",
+    "properties": {
+      "name": {
+        "const": "ProductGallery"
+      },
+      "data": {
+        "required": ["itemsPerPage", "sortBySelection"],
+        "properties": {
+          "itemsPerPage": {
+            "title": "Number of ProductCards per page",
+            "type": "integer",
+            "default": 12
+          },
+          "sortBySelection": {
+            "title": "Default sort by value",
+            "type": "string",
+            "default": "score_desc",
+            "enumNames": [
+              "Price, descending",
+              "Price, ascending",
+              "Top sales",
+              "Name, A-Z",
+              "Name, Z-A",
+              "Release date",
+              "Discount",
+              "Relevance"
+            ],
+            "enum": [
+              "price_desc",
+              "price_asc",
+              "orders_desc",
+              "name_asc",
+              "name_desc",
+              "release_desc",
+              "discount_desc",
+              "score_desc"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
