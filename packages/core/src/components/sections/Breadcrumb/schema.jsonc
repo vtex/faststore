@@ -1,0 +1,26 @@
+// cp-only-schema
+{
+  "core.breadcrumb": {
+    "$extends": ["#/components/base-component"],
+    "description": "Configure the breadcrumb icon and depth",
+    "properties": {
+      "name": {
+        "const": "Breadcrumb"
+      },
+      "data": {
+        "properties": {
+          "icon": {
+            "title": "Icon",
+            "type": "string",
+            "enumNames": ["House"],
+            "enum": ["House"]
+          },
+          "alt": {
+            "title": "Alternative Label",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
