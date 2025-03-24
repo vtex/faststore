@@ -1723,6 +1723,20 @@ export type ClientProductQueryQuery = {
   }
 }
 
+export type ClientProfileQueryQueryVariables = Exact<{
+  id: Scalars['String']['input']
+}>
+
+export type ClientProfileQueryQuery = {
+  profile: {
+    addresses: Array<{
+      country: string | null
+      postalCode: string | null
+      geoCoordinate: Array<number | null> | null
+    } | null> | null
+  } | null
+}
+
 export type ClientSearchSuggestionsQueryQueryVariables = Exact<{
   term: Scalars['String']['input']
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
@@ -2356,6 +2370,15 @@ export const ClientProductQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientProductQueryQuery,
   ClientProductQueryQueryVariables
+>
+export const ClientProfileQueryDocument = {
+  __meta__: {
+    operationName: 'ClientProfileQuery',
+    operationHash: 'c35d67cd64ceb127f60b39cbc47133c634d980c0',
+  },
+} as unknown as TypedDocumentString<
+  ClientProfileQueryQuery,
+  ClientProfileQueryQueryVariables
 >
 export const ClientSearchSuggestionsQueryDocument = {
   __meta__: {
