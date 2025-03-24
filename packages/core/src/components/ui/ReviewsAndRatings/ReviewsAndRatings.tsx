@@ -18,45 +18,53 @@ function ReviewsAndRatings({
   ratingSummary,
   reviewModal,
 }: ReviewsAndRatingsProps) {
-  const { RatingSummary, __experimentalReviewModal: ReviewModal } =
-    useOverrideComponents<'ReviewsAndRatings'>()
+  const {
+    RatingSummary,
+    __experimentalRatingSummarySkeleton: RatingSummarySkeleton,
+    __experimentalReviewModal: ReviewModal,
+  } = useOverrideComponents<'ReviewsAndRatings'>()
   const context = usePDP()
   const { openReviewModal, reviewModal: displayReviewModal } = useUI()
   const { isDesktop } = useScreenResize()
   const { product, isValidating } = context.data
 
+  const rating = context?.data?.product?.rating
+
   return (
-    product?.rating && (
-      <>
-        <h2 className="text__title-section layout__content">{title}</h2>
-        <div data-fs-content>
-          {(isDesktop || product?.rating?.totalCount > 0) && (
+    <>
+      <h2 className="text__title-section layout__content">{title}</h2>
+      <div data-fs-content>
+        {isValidating ? (
+          <RatingSummarySkeleton.Component />
+        ) : (
+          rating &&
+          (isDesktop || rating?.totalCount > 0) && (
             <RatingSummary.Component
               {...RatingSummary.props}
               textLabels={{ ...ratingSummary }}
               // Dynamic props shouldn't be overridable
               // This decision can be reviewed later if needed
-              {...product?.rating}
+              {...rating}
               onCreateReviewClick={openReviewModal}
             />
-          )}
-        </div>
-
-        {displayReviewModal && !isValidating && (
-          <ReviewModal.Component
-            {...ReviewModal.props}
-            {...reviewModal}
-            // Dynamic props shouldn't be overridable
-            // This decision can be reviewed later if needed
-            product={{
-              id: product.id,
-              name: product.name,
-              image: product.image[0],
-            }}
-          />
+          )
         )}
-      </>
-    )
+      </div>
+
+      {displayReviewModal && !isValidating && (
+        <ReviewModal.Component
+          {...ReviewModal.props}
+          {...reviewModal}
+          // Dynamic props shouldn't be overridable
+          // This decision can be reviewed later if needed
+          product={{
+            id: product.id,
+            name: product.name,
+            image: product.image[0],
+          }}
+        />
+      )}
+    </>
   )
 }
 
