@@ -18,6 +18,7 @@ import { withBasePath } from './directory'
 import { installDependencies } from './dependencies'
 import { logger } from './logger'
 import { installPlugins } from './plugins'
+import { createNextJsPages } from './createNextjsPages'
 
 interface GenerateOptions {
   setup?: boolean
@@ -209,6 +210,7 @@ function copyUserStarterToCustomizations(basePath: string) {
   try {
     if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
       copySync(userSrcDir, tmpCustomizationsSrcDir, { dereference: true })
+      createNextJsPages(basePath)
     }
 
     if (existsSync(userStoreConfigFile)) {
@@ -373,7 +375,7 @@ function checkDependencies(basePath: string, packagesToCheck: string[]) {
       logger.warn(
         `${chalk.yellow(
           'warning'
-        )} - Version mismatch detected for ${packageName}. 
+        )} - Version mismatch detected for ${packageName}.
           Core: ${coreVersion}, Customization: ${rootVersion}. Please align both versions to prevent issues`
       )
     }
