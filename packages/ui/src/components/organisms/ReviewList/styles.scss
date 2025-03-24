@@ -11,7 +11,7 @@
     gap: var(--fs-spacing-3);
     align-items: center;
     padding-bottom: var(--fs-spacing-0);
-    border-bottom: var(--fs-border-color-light) solid var(--fs-review-card-border-color);
+    border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
 
     [data-fs-select] {
       --fs-select-min-height                                             : 2.375rem; // 38px
