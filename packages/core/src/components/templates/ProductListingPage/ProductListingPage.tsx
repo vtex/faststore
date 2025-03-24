@@ -18,6 +18,7 @@ import { useApplySearchState } from 'src/sdk/search/state'
 
 import type { PLPContentType } from 'src/server/cms/plp'
 
+import ProductItemListJsonLd from 'src/sdk/seo/ProductItemListJsonLd'
 import storeConfig from '../../../../discovery.config'
 import ProductListing from './ProductListing'
 
@@ -101,6 +102,17 @@ export default function ProductListingPage({
   const canonical = `${storeConfig.storeUrl}${pathname}`
   const itemsPerPage = settings?.productGallery?.itemsPerPage ?? ITEMS_PER_PAGE
 
+  let itemListElements = collection?.breadcrumbList.itemListElement ?? []
+  if (itemListElements.length !== 0) {
+    itemListElements = itemListElements.map(
+      ({ item: pathname, name, position }) => {
+        const pageUrl = storeConfig.storeUrl + pathname
+
+        return { name, position, item: pageUrl }
+      }
+    )
+  }
+
   return (
     <SearchProvider
       onChange={applySearchState}
@@ -119,9 +131,15 @@ export default function ProductListingPage({
           description,
         }}
       />
-      <BreadcrumbJsonLd
-        itemListElements={collection?.breadcrumbList.itemListElement ?? []}
-      />
+      <BreadcrumbJsonLd itemListElements={itemListElements} />
+
+      {searchParams.page === 0 && (
+        <ProductItemListJsonLd
+          pathname={pathname}
+          canonical={canonical}
+          serverData={server}
+        />
+      )}
 
       <ProductListing
         globalSections={globalSections}

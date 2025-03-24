@@ -9,3 +9,6 @@
 @import "@faststore/ui/src/components/atoms/Overlay/styles.scss";
 @import "@faststore/ui/src/components/atoms/SROnly/styles.scss";
 @import "src/components/sections/Section/section.scss";
+
+// Importing this component because is being used outside the context of the Section
+@import "@faststore/ui/src/components/molecules/Dropdown/styles.scss";

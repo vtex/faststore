@@ -101,29 +101,6 @@ function ProductDetailsSettings({
     [availability]
   )
 
-  const AddToCartButton = () => {
-    return outOfStock ? (
-      // TODO: Adds <OutOfStock /> when component is ready to use
-      <NotAvailableButton.Component>
-        {notAvailableButtonTitle}
-      </NotAvailableButton.Component>
-    ) : (
-      <BuyButton.Component
-        {...BuyButton.props}
-        icon={
-          <Icon.Component
-            {...Icon.props}
-            name={buyButtonIconName ?? Icon.props.name}
-            aria-label={buyButtonIconAlt ?? Icon.props['aria-label']}
-          />
-        }
-        {...buyProps}
-      >
-        {buyButtonTitle || 'Add to Cart'}
-      </BuyButton.Component>
-    )
-  }
-
   return (
     <>
       {!outOfStock && (
@@ -192,8 +169,25 @@ function ProductDetailsSettings({
           background color when changing from its initial disabled to active state.
           See full explanation on commit https://git.io/JyXV5. */
         <AddToCartLoadingSkeleton />
+      ) : outOfStock ? (
+        // TODO: Adds <OutOfStock /> when component is ready to use
+        <NotAvailableButton.Component>
+          {notAvailableButtonTitle}
+        </NotAvailableButton.Component>
       ) : (
-        <AddToCartButton />
+        <BuyButton.Component
+          {...BuyButton.props}
+          icon={
+            <Icon.Component
+              {...Icon.props}
+              name={buyButtonIconName ?? Icon.props.name}
+              aria-label={buyButtonIconAlt ?? Icon.props['aria-label']}
+            />
+          }
+          {...buyProps}
+        >
+          {buyButtonTitle || 'Add to Cart'}
+        </BuyButton.Component>
       )}
     </>
   )

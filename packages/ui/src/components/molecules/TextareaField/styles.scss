@@ -1,0 +1,133 @@
+[data-fs-textarea-field] {
+  // --------------------------------------------------------
+  // Design Tokens for Input Field
+  // --------------------------------------------------------
+
+  // Default properties
+
+  --fs-textarea-width                                                         : 100%; /* Fallback */
+  --fs-textarea-height                                                        : 100%; /* Fallback */
+
+  --fs-textarea-field-padding                                                 : 18px var(--fs-spacing-2) 0;
+  --fs-textarea-field-color                                                   : var(--fs-color-text);
+  --fs-textarea-field-size                                                    : var(--fs-text-size-body);
+  --fs-textarea-field-border-color                                            : var(--fs-border-color);
+
+  --fs-textarea-field-transition-function                                     : var(--fs-transition-function);
+  --fs-textarea-field-transition-property                                     : var(--fs-transition-property);
+  --fs-textarea-field-transition-timing                                       : var(--fs-transition-timing);
+
+  // Label
+  --fs-textarea-field-label-placeholder-top-padding                           : var(--fs-spacing-2);
+  --fs-textarea-field-label-max-width                                         : var(--fs-textarea-width);
+  --fs-textarea-field-label-max-height                                        : calc(var(--fs-textarea-height) - var(--fs-textarea-field-label-placeholder-top-padding));
+  --fs-textarea-field-label-padding                                           : 0 var(--fs-spacing-2);
+  --fs-textarea-field-label-color                                             : var(--fs-color-text-light);
+  --fs-textarea-field-label-size                                              : var(--fs-text-size-tiny);
+
+  // Button
+  --fs-textarea-field-button-height                                           : var(--fs-control-tap-size);
+
+  // Error
+  --fs-textarea-field-error-message-size                                      : var(--fs-text-size-legend);
+  --fs-textarea-field-error-message-line-height                               : 1.1;
+  --fs-textarea-field-error-message-margin-top                                : var(--fs-spacing-0);
+  --fs-textarea-field-error-message-color                                     : var(--fs-color-danger-text);
+  --fs-textarea-field-error-border-color                                      : var(--fs-color-danger-border);
+  --fs-textarea-field-error-box-shadow                                        :
+    0 0 0 var(--fs-border-width)
+    var(--fs-textarea-field-error-border-color);
+  --fs-textarea-field-error-focus-ring                                        : var(--fs-color-focus-ring-danger);
+
+  // Disabled
+  --fs-textarea-field-disabled-bkg-color                                      : var(--fs-color-disabled-bkg);
+  --fs-textarea-field-disabled-text-color                                     : var(--fs-color-disabled-text);
+  --fs-textarea-field-disabled-border-width                                   : var(--fs-border-width);
+  --fs-textarea-field-disabled-border-color                                   : var(--fs-border-color);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+  display: flex;
+  flex-flow: column;
+
+  [data-fs-textarea-field-label] {
+    position: absolute;
+    max-width: var(--fs-textarea-field-label-max-width);
+    max-height: var(--fs-textarea-field-label-max-height);
+    padding: var(--fs-textarea-field-label-padding);
+    overflow: hidden;
+    font-size: var(--fs-textarea-field-size);
+    line-height: var(--fs-textarea-field-size);
+    color: var(--fs-textarea-field-label-color);
+    text-overflow: ellipsis;
+    transition:
+      var(--fs-textarea-field-transition-property)
+      var(--fs-textarea-field-transition-timing)
+      var(--fs-textarea-field-transition-function),
+      max-width 0s,
+      max-height 0s;
+  }
+
+  [data-fs-textarea] {
+    --fs-textarea-padding: var(--fs-textarea-field-padding);
+
+    padding: var(--fs-textarea-field-padding);
+    color: var(--fs-textarea-field-color);
+
+    &:placeholder-shown + label {
+      top: var(--fs-textarea-field-label-placeholder-top-padding);
+      overflow: hidden;
+    }
+
+    &::placeholder {
+      opacity: 0;
+      transition: inherit;
+    }
+
+    &:focus::placeholder {
+      opacity: 1;
+    }
+
+    &:not(:placeholder-shown) + label,
+    &:focus + label {
+      top: rem(6px);
+      left: var(--fs-border-width);
+      font-size: var(--fs-textarea-field-label-size);
+      white-space: nowrap;
+    }
+
+    &:disabled + label {
+      cursor: not-allowed;
+    }
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-textarea-field-error="true"] {
+    [data-fs-textarea] {
+      border-color: var(--fs-textarea-field-error-border-color);
+
+      @include input-focus-ring(
+        $outline: #{var(--fs-textarea-field-error-focus-ring)},
+        $border: #{var(--fs-textarea-field-error-border-color)}
+      );
+
+      &:hover:not(:disabled):not(:focus-visible):not(:focus) {
+        border-color: var(--fs-textarea-field-error-border-color);
+        box-shadow: var(--fs-textarea-field-error-box-shadow);
+      }
+    }
+
+    [data-fs-textarea-field-error-message] {
+      margin-top: var(--fs-textarea-field-error-message-margin-top);
+      font-size: var(--fs-textarea-field-error-message-size);
+      line-height: var(--fs-textarea-field-error-message-line-height);
+      color: var(--fs-textarea-field-error-message-color);
+    }
+  }
+}

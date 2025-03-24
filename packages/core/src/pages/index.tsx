@@ -1,6 +1,6 @@
 import type { Locator } from '@vtex/client-cms'
 import type { GetStaticProps } from 'next'
-import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
+import { NextSeo, OrganizationJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
 import RenderSections from 'src/components/cms/RenderSections'
 import type { PageContentType } from 'src/server/cms'
@@ -12,6 +12,7 @@ import {
 } from 'src/components/cms/GlobalSections'
 import COMPONENTS from 'src/components/cms/home/Components'
 import PageProvider from 'src/sdk/overrides/PageProvider'
+import { injectGlobalSections } from 'src/server/cms/global'
 import { getDynamicContent } from 'src/utils/dynamicContent'
 import storeConfig from '../../discovery.config'
 
@@ -31,6 +32,18 @@ function Page({
   }
 
   const publisherId = settings?.seo?.publisherId ?? storeConfig.seo.publisherId
+
+  const organizationAddress = Object.entries(
+    settings?.seo?.organization?.address ?? {}
+  ).reduce(
+    (acc, [key, value]) => {
+      if (value) {
+        acc[key] = value
+      }
+      return acc
+    },
+    {} as Record<string, string>
+  )
 
   return (
     <>
@@ -61,6 +74,53 @@ function Page({
         {...(publisherId && { publisher: { '@id': publisherId } })}
       />
 
+      {settings?.seo?.organization && (
+        <OrganizationJsonLd
+          type="Organization"
+          {...(settings?.seo?.organization?.id && {
+            id: settings.seo.organization.id,
+          })}
+          {...(settings?.seo?.organization?.url && {
+            url: settings.seo.organization.url,
+          })}
+          {...(settings?.seo?.organization?.sameAs?.length && {
+            sameAs: settings.seo.organization.sameAs,
+          })}
+          {...(settings?.seo?.organization?.logo && {
+            logo: settings.seo.organization.logo,
+          })}
+          {...(settings?.seo?.organization?.name && {
+            name: settings.seo.organization.name,
+          })}
+          {...(settings?.seo?.organization?.legalName && {
+            legalName: settings.seo.organization.legalName,
+          })}
+          {...(settings?.seo?.organization?.email && {
+            email: settings.seo.organization.email,
+          })}
+          {...(settings?.seo?.organization?.telephone && {
+            telephone: settings.seo.organization.telephone,
+          })}
+          {...(settings?.seo?.organization?.image && {
+            image: {
+              type: 'ImageObject',
+              ...(settings.seo.organization.image.url && {
+                url: settings.seo.organization.image.url,
+              }),
+              ...(settings.seo.organization.image.caption && {
+                caption: settings.seo.organization.image.caption,
+              }),
+              ...(settings.seo.organization.image.id && {
+                id: settings.seo.organization.image.id,
+              }),
+            },
+          })}
+          {...(Object.keys(organizationAddress).length !== 0 && {
+            address: organizationAddress,
+          })}
+        />
+      )}
+
       {/*
         WARNING: Do not import or render components from any
         other folder than '../components/sections' in here.
@@ -88,7 +148,12 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async ({ previewData }) => {
-  const globalSectionsPromise = getGlobalSectionsData(previewData)
+  const [
+    globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
+  ] = getGlobalSectionsData(previewData)
+
   const serverDataPromise = getDynamicContent({ pageType: 'home' })
 
   let cmsPage = null
@@ -106,14 +171,29 @@ export const getStaticProps: GetStaticProps<
         ...(previewData?.contentType === 'home' && previewData),
         contentType: 'home',
       })
-  const [page, globalSections, serverData] = await Promise.all([
+
+  const [
+    page,
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+    serverData,
+  ] = await Promise.all([
     pagePromise,
     globalSectionsPromise,
+    globalSectionsHeaderPromise,
+    globalSectionsFooterPromise,
     serverDataPromise,
   ])
 
+  const globalSectionsResult = injectGlobalSections({
+    globalSections,
+    globalSectionsHeader,
+    globalSectionsFooter,
+  })
+
   return {
-    props: { page, globalSections, serverData },
+    props: { page, globalSections: globalSectionsResult, serverData },
   }
 }
 

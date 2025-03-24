@@ -50,7 +50,7 @@
   }
 
   &[data-fs-navbar-scroll="down"] {
-    > nav {
+    > [data-fs-navbar-links] {
       top: calc(-1 * var(--fs-spacing-3));
       height: 0;
       padding: 0;
@@ -59,7 +59,7 @@
   }
 
   &[data-fs-navbar-scroll="up"] {
-    > nav {
+    > [data-fs-navbar-links] {
       top: 0;
       opacity: 1;
     }
@@ -175,22 +175,22 @@
       }
 
       [data-fs-cart-toggle] {
-        display: none;
         right: 0;
+        display: none;
       }
     }
   }
 
   [data-fs-navbar-header] {
     z-index: var(--fs-z-index-top);
+    height: 100%;
     background-color: var(--fs-navbar-bkg-color);
     backdrop-filter: blur(10px);
-    height: 100%;
   }
 
   [data-fs-navbar-logo] {
-    height: 100%;
     align-self: stretch;
+    height: 100%;
 
     @include media("<notebook") {
       padding: var(--fs-spacing-1) 0 var(--fs-spacing-1) var(--fs-spacing-3);

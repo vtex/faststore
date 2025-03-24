@@ -41,36 +41,39 @@ function Newsletter({
   } = useOverrideComponents<'Newsletter'>()
 
   const { pushToast } = useUI()
-  const { subscribeUser, loading, data } = useNewsletter()
-
+  const { subscribeUser, loading } = useNewsletter()
   const formRef = useRef<HTMLFormElement>(null)
   const nameInputRef = useRef<HTMLInputElement>(null)
   const emailInputRef = useRef<HTMLInputElement>(null)
 
-  const onSubmit = (event: FormEvent) => {
+  const onSubmit = async (event: FormEvent) => {
     event.preventDefault()
 
-    subscribeUser({
-      data: {
-        name: nameInputRef.current?.value ?? '',
-        email: emailInputRef.current?.value ?? '',
-      },
-    })
-
-    if (data?.subscribeToNewsletter?.id) {
-      pushToast({
-        ...toastSubscribe,
-        status: 'INFO',
-        icon: (
-          <ToastIconSuccess.Component
-            width={30}
-            height={30}
-            {...ToastIconSuccess.props}
-            name={toastSubscribe.icon ?? ToastIconSuccess.props.name}
-          />
-        ),
+    try {
+      const data = await subscribeUser({
+        data: {
+          name: nameInputRef.current?.value ?? '',
+          email: emailInputRef.current?.value ?? '',
+        },
       })
-    } else {
+
+      if (data?.subscribeToNewsletter?.id) {
+        pushToast({
+          ...toastSubscribe,
+          status: 'INFO',
+          icon: (
+            <ToastIconSuccess.Component
+              width={30}
+              height={30}
+              {...ToastIconSuccess.props}
+              name={toastSubscribe.icon ?? ToastIconSuccess.props.name}
+            />
+          ),
+        })
+
+        formRef.current.reset()
+      }
+    } catch (error) {
       pushToast({
         ...toastSubscribeError,
         status: 'ERROR',
@@ -84,8 +87,6 @@ function Newsletter({
         ),
       })
     }
-
-    formRef.current.reset()
   }
 
   return (

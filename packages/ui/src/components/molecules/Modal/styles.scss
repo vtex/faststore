@@ -42,6 +42,12 @@
   // Body
   --fs-modal-body-padding                          : var(--fs-spacing-1) var(--fs-spacing-4) var(--fs-spacing-5);
 
+  // Footer
+  --fs-modal-footer-padding                        : var(--fs-spacing-3) 0 var(--fs-spacing-3);
+  --fs-modal-footer-box-shadow                     : 0 -1px 15px 0 rgb(0 0 0 / 10.2%);
+  --fs-modal-footer-actions-padding                : var(--fs-spacing-1) var(--fs-spacing-4);
+  --fs-modal-footer-actions-gap                    : var(--fs-spacing-3);
+
   position: fixed;
   top: var(--fs-modal-position-top);
   right: var(--fs-modal-position-right);
@@ -93,5 +99,32 @@
 
   [data-fs-modal-body] {
     padding: var(--fs-modal-body-padding);
+  }
+
+  [data-fs-modal-footer] {
+    padding: var(--fs-modal-footer-padding);
+    box-shadow: var(--fs-modal-footer-box-shadow);
+
+    [data-fs-modal-footer-actions] {
+      display: flex;
+      gap: var(--fs-modal-footer-actions-gap);
+      align-items: center;
+      justify-content: flex-end;
+      padding: var(--fs-modal-footer-actions-padding);
+
+      > * {
+        flex-shrink: 0;
+      }
+
+      &[data-fs-modal-footer-actions-direction="vertical"] {
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+      }
+
+      &[data-fs-modal-footer-actions-wrap="true"] {
+        flex-wrap: wrap;
+      }
+    }
   }
 }
