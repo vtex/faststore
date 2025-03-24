@@ -8,7 +8,7 @@
     @import "@faststore/ui/src/components/molecules/SelectField/styles";
     @import "@faststore/ui/src/components/organisms/RatingSummary/styles";
 
-    [data-fs-content] {
+    [data-fs-content="review-and-ratings"] {
       display: flex;
       flex-wrap: wrap;
       gap: 3.75rem; // 60px
