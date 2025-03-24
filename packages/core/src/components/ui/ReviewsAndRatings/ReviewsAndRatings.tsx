@@ -40,7 +40,7 @@ function ReviewsAndRatings({
   return (
     <>
       <h2 className="text__title-section layout__content">{title}</h2>
-      <div data-fs-content>
+      <div data-fs-content="review-and-ratings">
         {isValidating ? (
           <RatingSummarySkeleton.Component />
         ) : (
