@@ -1,26 +1,27 @@
+import { parse } from 'cookie'
 import type { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
 import { fetchAPI } from '../fetch'
 
-import type { PortalProduct } from './types/Product'
+import type { StoreMarketingData } from '../../../..'
 import type { Context, Options } from '../../index'
+import type { Channel } from '../../utils/channel'
+import { getStoreCookie, getWithCookie } from '../../utils/cookies'
+import type { Address, AddressInput } from './types/Address'
 import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
+import type { MasterDataResponse } from './types/Newsletter'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
 import type { PortalPagetype } from './types/Portal'
+import type { PortalProduct } from './types/Product'
 import type { Region, RegionInput } from './types/Region'
+import type { SalesChannel } from './types/SalesChannel'
+import type { Session } from './types/Session'
+import type { DeliveryMode, SelectedAddress } from './types/ShippingData'
 import type {
   Simulation,
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
-import type { Session } from './types/Session'
-import type { Channel } from '../../utils/channel'
-import type { SalesChannel } from './types/SalesChannel'
-import type { MasterDataResponse } from './types/Newsletter'
-import type { Address, AddressInput } from './types/Address'
-import type { DeliveryMode, SelectedAddress } from './types/ShippingData'
-import { getStoreCookie, getWithCookie } from '../../utils/cookies'
-import type { StoreMarketingData } from '../../../..'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -386,6 +387,25 @@ export const VtexCommerce = (
         },
         { storeCookies }
       )
+    },
+    profile: {
+      addresses: async (userId: string): Promise<Record<string, string>> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
+
+        const cookies = parse(ctx?.headers?.cookie ?? '')
+        const VtexIdclientAutCookie =
+          cookies['VtexIdclientAutCookie_' + account]
+        headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+
+        return fetchAPI(
+          `${base}/api/profile-system/pvt/profiles/${userId}/addresses`,
+          { headers },
+          { storeCookies }
+        )
+      },
     },
   }
 }

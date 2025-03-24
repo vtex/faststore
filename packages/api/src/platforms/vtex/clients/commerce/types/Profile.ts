@@ -1,7 +1,3 @@
-export interface ProfileInput {
-  userId: string
-}
-
 export interface Profile {
   addresses: ProfileAddress[]
 }
@@ -19,5 +15,5 @@ export interface ProfileAddress {
   complement: string
   reference: string
   receiverName: string
-  geoCoordinate: [number][number]
+  geoCoordinate: [number, number]
 }
