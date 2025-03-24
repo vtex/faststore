@@ -33,7 +33,7 @@
           gap: var(--fs-spacing-3);
           align-items: center;
           padding-bottom: var(--fs-spacing-0);
-          border-bottom: var(--fs-border-color-light) solid var(--fs-review-card-border-color);
+          border-bottom: var(--fs-review-list-header-border-width) solid var(--fs-review-list-header-border-color);
 
           [data-fs-select] {
             --fs-select-min-height                                             : 2.375rem; // 38px
