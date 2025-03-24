@@ -366,21 +366,24 @@ export const VtexCommerce = (
         { storeCookies }
       )
     },
-    addresses: async (userId: string): Promise<ProfileAddress[]> => {
-      const headers: HeadersInit = withCookie({
-        'content-type': 'application/json',
-        'X-FORWARDED-HOST': forwardedHost,
-      })
+    profile: {
+      addresses: async (userId: string): Promise<ProfileAddress[]> => {
+        const headers: HeadersInit = withCookie({
+          'content-type': 'application/json',
+          'X-FORWARDED-HOST': forwardedHost,
+        })
 
-      const cookies = parse(ctx?.headers?.cookie ?? '')
-      const VtexIdclientAutCookie = cookies['VtexIdclientAutCookie_' + account]
-      headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
+        const cookies = parse(ctx?.headers?.cookie ?? '')
+        const VtexIdclientAutCookie =
+          cookies['VtexIdclientAutCookie_' + account]
+        headers['VtexIdclientAutCookie'] = VtexIdclientAutCookie
 
-      return fetchAPI(
-        `${base}/api/profile-system/pvt/profiles/${userId}/addresses`,
-        { headers },
-        { storeCookies }
-      )
+        return fetchAPI(
+          `${base}/api/profile-system/pvt/profiles/${userId}/addresses`,
+          { headers },
+          { storeCookies }
+        )
+      },
     },
   }
 }

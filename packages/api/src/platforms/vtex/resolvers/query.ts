@@ -340,7 +340,7 @@ export const Query = {
       clients: { commerce },
     } = ctx
 
-    const addresses = await commerce.addresses(userId)
+    const addresses = await commerce.profile.addresses(userId)
 
     function mapAddressesToList(AddressesObj: any): ProfileAddress[] {
       if (!addresses || Object.keys(addresses).length === 0) {
