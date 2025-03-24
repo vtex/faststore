@@ -1,0 +1,61 @@
+type Profile {
+  """
+  Collection of user's address
+  """
+  addresses: [ProfileAddress]
+}
+
+type ProfileAddress {
+  """
+  ProfileAddress address name/id.
+  """
+  addressName: String
+  """
+  ProfileAddress address type.
+  """
+  addressType: String
+  """
+  ProfileAddress postal code.
+  """
+  postalCode: String
+  """
+  ProfileAddress city.
+  """
+  city: String
+  """
+  ProfileAddress state.
+  """
+  state: String
+  """
+  ProfileAddress country.
+  """
+  country: String
+  """
+  ProfileAddress street.
+  """
+  street: String
+  """
+  ProfileAddress number.
+  """
+  number: String
+  """
+  ProfileAddress neighborhood.
+  """
+  neighborhood: String
+  """
+  ProfileAddress complement.
+  """
+  complement: String
+  """
+  ProfileAddress reference.
+  """
+  reference: String
+  """
+  ProfileAddress receiver name.
+  """
+  receiverName: String
+  """
+  ProfileAddress geo coordinate.
+  """
+  geoCoordinate: [Float]
+}

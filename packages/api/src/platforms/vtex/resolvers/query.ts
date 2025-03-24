@@ -1,5 +1,19 @@
-import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
+import type {
+  QueryAllCollectionsArgs,
+  QueryAllProductsArgs,
+  QueryCollectionArgs,
+  QueryProductArgs,
+  QueryProfileArgs,
+  QueryRedirectArgs,
+  QuerySearchArgs,
+  QuerySellersArgs,
+  QueryShippingArgs,
+} from '../../../__generated__/schema'
 import { BadRequestError, NotFoundError } from '../../errors'
+import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
+import type { ProfileAddress } from '../clients/commerce/types/Profile'
+import type { SearchArgs } from '../clients/search'
+import type { Context } from '../index'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { enhanceSku } from '../utils/enhanceSku'
 import {
@@ -10,22 +24,10 @@ import {
   findSlug,
   transformSelectedFacet,
 } from '../utils/facets'
-import { SORT_MAP } from '../utils/sort'
-import { StoreCollection } from './collection'
-import type {
-  QueryAllCollectionsArgs,
-  QueryAllProductsArgs,
-  QueryCollectionArgs,
-  QueryProductArgs,
-  QuerySearchArgs,
-  QuerySellersArgs,
-  QueryShippingArgs,
-  QueryRedirectArgs,
-} from '../../../__generated__/schema'
-import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
-import type { Context } from '../index'
 import { isValidSkuId, pickBestSku } from '../utils/sku'
-import type { SearchArgs } from '../clients/search'
+import { SORT_MAP } from '../utils/sort'
+import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
+import { StoreCollection } from './collection'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -288,7 +290,6 @@ export const Query = {
       address,
     }
   },
-
   redirect: async (
     _: unknown,
     { term, selectedFacets }: QueryRedirectArgs,
@@ -311,7 +312,6 @@ export const Query = {
       url: redirect,
     }
   },
-
   sellers: async (
     _: unknown,
     { postalCode, geoCoordinates, country, salesChannel }: QuerySellersArgs,
@@ -334,5 +334,28 @@ export const Query = {
       id,
       sellers,
     }
+  },
+  profile: async (_: unknown, { id }: QueryProfileArgs, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const addresses = await commerce.profile.addresses(id)
+
+    function mapAddressesToList(
+      addressesObj: Record<string, string>
+    ): ProfileAddress[] {
+      if (!addressesObj || Object.keys(addressesObj).length === 0) {
+        return []
+      }
+
+      return Object.values(addressesObj).map(
+        (stringifiedObj) => JSON.parse(stringifiedObj) as ProfileAddress
+      )
+    }
+
+    const parsedAddresses = mapAddressesToList(addresses)
+
+    return { addresses: parsedAddresses }
   },
 }
