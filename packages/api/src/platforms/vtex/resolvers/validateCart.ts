@@ -450,6 +450,17 @@ export const validateCart = async (
     })
     // update orderForm shippingData
     .then((form: OrderForm) => updateOrderFormShippingData(form, session, ctx))
+    // update marketingData
+    .then((form: OrderForm) => {
+      if (session?.marketingData) {
+        return commerce.checkout.marketingData({
+          id: orderForm.orderFormId,
+          marketingData: session.marketingData,
+        })
+      }
+
+      return form
+    })
     // update orderForm etag so we know last time we touched this orderForm
     .then((form: OrderForm) => setOrderFormEtag(form, commerce))
     .then(joinItems)

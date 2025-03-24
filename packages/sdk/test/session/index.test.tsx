@@ -1,9 +1,9 @@
 import { set } from 'idb-keyval'
 
-import { createSessionStore } from '../../src'
+import { type Session, createSessionStore } from '../../src'
 import { waitFor } from '../waitFor'
 
-const initialSession = {
+const initialSession: Session = {
   currency: {
     code: 'USD',
     symbol: '$',
@@ -17,6 +17,7 @@ const initialSession = {
   geoCoordinates: null,
   person: null,
   b2b: null,
+  marketingData: null,
 }
 
 test('Session Provider: Set initial session values', async () => {

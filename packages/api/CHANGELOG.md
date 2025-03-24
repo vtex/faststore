@@ -3,6 +3,56 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.29.1](https://github.com/vtex/faststore/compare/v3.29.0...v3.29.1) (2025-03-21)
+
+### Bug Fixes
+
+- pass cookies to intelligent search requests ([#2740](https://github.com/vtex/faststore/issues/2740)) ([fd4ba80](https://github.com/vtex/faststore/commit/fd4ba806ad37856829b1f737416a2e3aad042b0b))
+
+# [3.29.0](https://github.com/vtex/faststore/compare/v3.28.1...v3.29.0) (2025-03-21)
+
+### Features
+
+- add UTM to orderForm ([#2736](https://github.com/vtex/faststore/issues/2736)) ([e423cef](https://github.com/vtex/faststore/commit/e423cef2992f003b8d8add119cb1847069a1571d)), closes [/github.com/vtex-apps/checkout-graphql/blob/df8f02932e9710fa437cf2c550e98cf9b7dc3726/node/resolvers/items.ts#L152-L157](https://github.com//github.com/vtex-apps/checkout-graphql/blob/df8f02932e9710fa437cf2c550e98cf9b7dc3726/node/resolvers/items.ts/issues/L152-L157)
+
+# 3.28.0 (2025-03-20)
+
+### Bug Fixes
+
+- add pnpm-lock.yaml to ignored files in biome.json ([#2737](https://github.com/vtex/faststore/issues/2737)) ([e308698](https://github.com/vtex/faststore/commit/e308698a406e27f0112ff1dc2e83564c42c83d85))
+
+# 3.26.0 (2025-03-19)
+
+**Note:** Version bump only for package @faststore/api
+
+## [3.25.11](https://github.com/vtex/faststore/compare/v3.25.10...v3.25.11) (2025-03-17)
+
+**Note:** Version bump only for package @faststore/api
+
+## [3.25.5](https://github.com/vtex/faststore/compare/v3.25.4...v3.25.5) (2025-03-07)
+
+### Bug Fixes
+
+- Do not include similar categories in the breadcrumb list ([#2711](https://github.com/vtex/faststore/issues/2711)) ([c058011](https://github.com/vtex/faststore/commit/c058011e79ef451d2445488f67a1a058155505de))
+
+# [3.23.0](https://github.com/vtex/faststore/compare/v3.22.3...v3.23.0) (2025-02-26)
+
+### Features
+
+- adds `productTitle` and `metaTagDescription` from IS as SEO data from the PDP - SFS-2252 ([#2701](https://github.com/vtex/faststore/issues/2701)) ([ca368a0](https://github.com/vtex/faststore/commit/ca368a03f47a8c211baab2810d8057c87f3d854f))
+
+## 3.22.2 (2025-02-20)
+
+### Bug Fixes
+
+- Removes CI invalid input ([#2689](https://github.com/vtex/faststore/issues/2689)) ([30ea4b5](https://github.com/vtex/faststore/commit/30ea4b5d38fee5f9aacda60c0bd3b3296875864c))
+
+## 3.15.3 (2025-02-13)
+
+### Bug Fixes
+
+- attempts to run publish directly in ci ([#2683](https://github.com/vtex/faststore/issues/2683)) ([44bb50d](https://github.com/vtex/faststore/commit/44bb50d0f03285cb3e48284004675a81385ade9b))
+
 # 3.15.0 (2025-02-04)
 
 ### Features

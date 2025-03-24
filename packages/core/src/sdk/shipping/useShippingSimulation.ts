@@ -1,6 +1,6 @@
+import type { ClientShippingSimulationQueryQuery } from '@generated/graphql'
 import type { ChangeEvent } from 'react'
 import { useCallback, useEffect, useReducer, useRef } from 'react'
-import type { ClientShippingSimulationQueryQuery } from '@generated/graphql'
 import getShippingSimulation from '.'
 import { useSession } from '../session'
 
@@ -109,8 +109,15 @@ export const useShippingSimulation = (shippingItem: ProductShippingInfo) => {
   const { country, postalCode: sessionPostalCode } = useSession()
   const { postalCode: shippingPostalCode } = input
   const shippingPostalCodeRef = useRef(shippingPostalCode)
+  /**
+   * Internally useEffect compares the dependencies by reference - it's a problem when there is an object.
+   * Stringifying the object to compare it by value avoids calling useEffect multiple times
+   * when there is no change in the dependencies.
+   */
+  const shippingItemJson = JSON.stringify(shippingItem)
 
   useEffect(() => {
+    const shippingItemParsed = JSON.parse(shippingItemJson)
     const shouldFetch = sessionPostalCode && !shippingPostalCodeRef.current
     if (!shouldFetch) {
       return
@@ -121,7 +128,7 @@ export const useShippingSimulation = (shippingItem: ProductShippingInfo) => {
       const data = await getShippingSimulation({
         country,
         postalCode: sessionPostalCode ?? '',
-        items: [shippingItem],
+        items: [shippingItemParsed],
       })
       const shippingSimulation = data.shipping
 
@@ -139,7 +146,7 @@ export const useShippingSimulation = (shippingItem: ProductShippingInfo) => {
     }
 
     fetchShipping()
-  }, [country, sessionPostalCode, shippingItem])
+  }, [country, sessionPostalCode, shippingItemJson])
 
   const handleSubmit = useCallback(async () => {
     try {

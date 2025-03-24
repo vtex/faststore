@@ -6,6 +6,8 @@ const buildTimeInMS = Date.now()
 
 const config: DefaultSeoProps = {
   norobots: storeConfig.experimental.noRobots,
+  dangerouslySetAllPagesToNoFollow: storeConfig.experimental.nofollow,
+  dangerouslySetAllPagesToNoIndex: storeConfig.experimental.noindex,
   additionalMetaTags: [
     {
       name: 'generated-at',

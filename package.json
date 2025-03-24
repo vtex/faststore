@@ -21,7 +21,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "husky": "9.1.7",
-    "lerna": "^8.0.0",
+    "lerna": "^8.1.9",
     "lint-staged": "15.4.3",
     "prettier": "^3.1.0",
     "stylelint": "^14.6.0",
@@ -38,10 +38,12 @@
     "node": "18.19.0",
     "pnpm": "9.15.5"
   },
-  "dependencies": {},
   "packageManager": "pnpm@9.15.5",
   "lint-staged": {
     "*.{ts,js,tsx,jsx,json}": "pnpm lint:fix",
     "*.scss": "stylelint --fix"
+  },
+  "dependencies": {
+    "axios": "^1.8.2"
   }
 }

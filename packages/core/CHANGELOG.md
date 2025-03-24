@@ -3,6 +3,183 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.29.1](https://github.com/vtex/faststore/compare/v3.29.0...v3.29.1) (2025-03-21)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.29.0](https://github.com/vtex/faststore/compare/v3.28.1...v3.29.0) (2025-03-21)
+
+### Features
+
+- add UTM to orderForm ([#2736](https://github.com/vtex/faststore/issues/2736)) ([e423cef](https://github.com/vtex/faststore/commit/e423cef2992f003b8d8add119cb1847069a1571d)), closes [/github.com/vtex-apps/checkout-graphql/blob/df8f02932e9710fa437cf2c550e98cf9b7dc3726/node/resolvers/items.ts#L152-L157](https://github.com//github.com/vtex-apps/checkout-graphql/blob/df8f02932e9710fa437cf2c550e98cf9b7dc3726/node/resolvers/items.ts/issues/L152-L157)
+
+## [3.28.1](https://github.com/vtex/faststore/compare/v3.28.0...v3.28.1) (2025-03-20)
+
+**Note:** Version bump only for package @faststore/core
+
+# 3.28.0 (2025-03-20)
+
+### Bug Fixes
+
+- add pnpm-lock.yaml to ignored files in biome.json ([#2737](https://github.com/vtex/faststore/issues/2737)) ([e308698](https://github.com/vtex/faststore/commit/e308698a406e27f0112ff1dc2e83564c42c83d85))
+
+### Features
+
+- add support for VTEX assets loader in image component ([#2731](https://github.com/vtex/faststore/issues/2731)) ([aea7456](https://github.com/vtex/faststore/commit/aea7456aaf0e6aacd0ba64759136c51fd08c642f)), closes [/#diff-4da6f8e98efa58c9a40ce9b654b9bfeecb6813091999cdea3d2408679d1bf3d3R119](https://github.com///issues/diff-4da6f8e98efa58c9a40ce9b654b9bfeecb6813091999cdea3d2408679d1bf3d3R119) [/#diff-73ffbd4b30ea7347ce7cc718527810b0f8b51f897bcf48efdd48fbe36652afdaR10-R15](https://github.com///issues/diff-73ffbd4b30ea7347ce7cc718527810b0f8b51f897bcf48efdd48fbe36652afdaR10-R15) [/#diff-73ffbd4b30ea7347ce7cc718527810b0f8b51f897bcf48efdd48fbe36652afdaR28-R39](https://github.com///issues/diff-73ffbd4b30ea7347ce7cc718527810b0f8b51f897bcf48efdd48fbe36652afdaR28-R39)
+
+# [3.27.0](https://github.com/vtex/faststore/compare/v3.26.1...v3.27.0) (2025-03-20)
+
+### Features
+
+- update next-seo to ^6.6.0 and adjust SEO settings ([#2735](https://github.com/vtex/faststore/issues/2735)) ([75534f4](https://github.com/vtex/faststore/commit/75534f4c95b4d5d02b4b5b5e72b745adee856e62)), closes [/#diff-4da6f8e98efa58c9a40ce9b654b9bfeecb6813091999cdea3d2408679d1bf3d3R120-R121](https://github.com///issues/diff-4da6f8e98efa58c9a40ce9b654b9bfeecb6813091999cdea3d2408679d1bf3d3R120-R121) [/#diff-44cee9f10a52af4534def49e35d22467e888a2689e6f535f4009801be8917cd7R8-R9](https://github.com///issues/diff-44cee9f10a52af4534def49e35d22467e888a2689e6f535f4009801be8917cd7R8-R9) [/#diff-0b810c38f3c138a3d5e44854edefd5eb966617ca84e62f06511f60acc40546c7L74-R74](https://github.com///issues/diff-0b810c38f3c138a3d5e44854edefd5eb966617ca84e62f06511f60acc40546c7L74-R74)
+
+## [3.26.1](https://github.com/vtex/faststore/compare/v3.26.0...v3.26.1) (2025-03-19)
+
+### Bug Fixes
+
+- Prevent whitespaces in Search page's `canonical` ([#2732](https://github.com/vtex/faststore/issues/2732)) ([224435f](https://github.com/vtex/faststore/commit/224435f4316fe0072fb702f3b2a97df0e9599847)), closes [vtex-sites/starter.store#726](https://github.com/vtex-sites/starter.store/issues/726)
+
+# 3.26.0 (2025-03-19)
+
+### Features
+
+- Add SEO specifics for PDP ([#2730](https://github.com/vtex/faststore/issues/2730)) ([f2a0420](https://github.com/vtex/faststore/commit/f2a0420d6af360e2668641b38d4eae71419b1d72)), closes [vtex-sites/starter.store#724](https://github.com/vtex-sites/starter.store/issues/724)
+
+## [3.25.11](https://github.com/vtex/faststore/compare/v3.25.10...v3.25.11) (2025-03-17)
+
+**Note:** Version bump only for package @faststore/core
+
+## [3.25.10](https://github.com/vtex/faststore/compare/v3.25.9...v3.25.10) (2025-03-11)
+
+### Bug Fixes
+
+- override to use core breadcrumb component ([#2715](https://github.com/vtex/faststore/issues/2715)) ([7bb499b](https://github.com/vtex/faststore/commit/7bb499b7d7edd1a5959f1f3e7cd8399ef0cb71be))
+
+## [3.25.9](https://github.com/vtex/faststore/compare/v3.25.8...v3.25.9) (2025-03-10)
+
+**Note:** Version bump only for package @faststore/core
+
+## [3.25.8](https://github.com/vtex/faststore/compare/v3.25.7...v3.25.8) (2025-03-10)
+
+### Bug Fixes
+
+- Adds back SKUMatrix to PDP ([#2699](https://github.com/vtex/faststore/issues/2699)) ([90c8c04](https://github.com/vtex/faststore/commit/90c8c04be0c11a68bd0665cfe895d48ed9a9cd50))
+
+## [3.25.7](https://github.com/vtex/faststore/compare/v3.25.6...v3.25.7) (2025-03-10)
+
+### Bug Fixes
+
+- Get offer url only if `enableClientOffer` is enabled ([#2680](https://github.com/vtex/faststore/issues/2680)) ([4d44454](https://github.com/vtex/faststore/commit/4d4445453abf03b2c450d81670fce01ef3a1c9c7))
+
+## [3.25.6](https://github.com/vtex/faststore/compare/v3.25.5...v3.25.6) (2025-03-07)
+
+### Bug Fixes
+
+- Breadcrumb display and it style ([#2714](https://github.com/vtex/faststore/issues/2714)) ([d4f146d](https://github.com/vtex/faststore/commit/d4f146dc4b4570b1bbd6af16a84f68a1cdeab000))
+
+## [3.25.5](https://github.com/vtex/faststore/compare/v3.25.4...v3.25.5) (2025-03-07)
+
+**Note:** Version bump only for package @faststore/core
+
+## [3.25.4](https://github.com/vtex/faststore/compare/v3.25.3...v3.25.4) (2025-03-07)
+
+### Bug Fixes
+
+- ClientShippingSimulationQuery being called multiple times ([#2710](https://github.com/vtex/faststore/issues/2710)) ([5a85c10](https://github.com/vtex/faststore/commit/5a85c10166110e081992a65f7b6798e304f87c41))
+
+## [3.25.3](https://github.com/vtex/faststore/compare/v3.25.2...v3.25.3) (2025-03-07)
+
+### Bug Fixes
+
+- Product Details' Buy Button excessive state reset ([#2712](https://github.com/vtex/faststore/issues/2712)) ([a84fdde](https://github.com/vtex/faststore/commit/a84fdde93f3a0b61f8a75bcc87143a03d864d768))
+
+## [3.25.2](https://github.com/vtex/faststore/compare/v3.25.1...v3.25.2) (2025-03-06)
+
+### Bug Fixes
+
+- `Newsletter` section behaviour - SFS-2265 ([#2703](https://github.com/vtex/faststore/issues/2703)) ([7f7e98a](https://github.com/vtex/faststore/commit/7f7e98a82aef0c190f47b29b09e0ce7146d81873))
+
+## [3.25.1](https://github.com/vtex/faststore/compare/v3.25.0...v3.25.1) (2025-02-28)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.25.0](https://github.com/vtex/faststore/compare/v3.24.1...v3.25.0) (2025-02-28)
+
+### Features
+
+- Add `category`, `mainEntityOfPage` and `[@id](https://github.com/id)` to Product structured data ([#2694](https://github.com/vtex/faststore/issues/2694)) ([1e9f81e](https://github.com/vtex/faststore/commit/1e9f81eb85ad4d40f64181967940ef629d979a4a))
+
+## [3.24.1](https://github.com/vtex/faststore/compare/v3.24.0...v3.24.1) (2025-02-26)
+
+### Bug Fixes
+
+- removes MissingContentError checks in getPage ([#2704](https://github.com/vtex/faststore/issues/2704)) ([0c75ea0](https://github.com/vtex/faststore/commit/0c75ea05b0d3c8ee62daa988c80152ba1464755c))
+
+# [3.24.0](https://github.com/vtex/faststore/compare/v3.23.0...v3.24.0) (2025-02-26)
+
+### Features
+
+- Multiple global content types ([#2668](https://github.com/vtex/faststore/issues/2668)) ([8555310](https://github.com/vtex/faststore/commit/85553101b1d8f3ec510259007ff1d594ec33c338))
+
+# [3.23.0](https://github.com/vtex/faststore/compare/v3.22.3...v3.23.0) (2025-02-26)
+
+**Note:** Version bump only for package @faststore/core
+
+## [3.22.3](https://github.com/vtex/faststore/compare/v3.22.2...v3.22.3) (2025-02-24)
+
+### Bug Fixes
+
+- add yarn to volta config ([#2698](https://github.com/vtex/faststore/issues/2698)) ([421bdca](https://github.com/vtex/faststore/commit/421bdca9105bd6f31e6f15db55192827ba8e6dfc))
+
+## 3.22.2 (2025-02-20)
+
+### Bug Fixes
+
+- Removes CI invalid input ([#2689](https://github.com/vtex/faststore/issues/2689)) ([30ea4b5](https://github.com/vtex/faststore/commit/30ea4b5d38fee5f9aacda60c0bd3b3296875864c))
+- Removes url image as required field for Organization ([#2697](https://github.com/vtex/faststore/issues/2697)) ([f325a28](https://github.com/vtex/faststore/commit/f325a28764767fdd6b92d22ef06703a78afdf1a6))
+
+## [3.22.1](https://github.com/vtex/faststore/compare/v3.22.0...v3.22.1) (2025-02-18)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.22.0](https://github.com/vtex/faststore/compare/v3.21.0...v3.22.0) (2025-02-18)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.21.0](https://github.com/vtex/faststore/compare/v3.20.0...v3.21.0) (2025-02-18)
+
+### Features
+
+- empty search with global sections ([#2690](https://github.com/vtex/faststore/issues/2690)) ([56c67d8](https://github.com/vtex/faststore/commit/56c67d8847f5b7c1c8d1d693a70c2f80c48f6c2a))
+
+# [3.20.0](https://github.com/vtex/faststore/compare/v3.19.0...v3.20.0) (2025-02-18)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.19.0](https://github.com/vtex/faststore/compare/v3.18.0...v3.19.0) (2025-02-18)
+
+### Features
+
+- Adding organization structured data json ([#2623](https://github.com/vtex/faststore/issues/2623)) ([c97f437](https://github.com/vtex/faststore/commit/c97f4371b694bb55e812c866154e4ed3e594f868))
+
+# [3.18.0](https://github.com/vtex/faststore/compare/v3.17.0...v3.18.0) (2025-02-17)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.17.0](https://github.com/vtex/faststore/compare/v3.16.0...v3.17.0) (2025-02-17)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.16.0](https://github.com/vtex/faststore/compare/v3.15.3...v3.16.0) (2025-02-13)
+
+**Note:** Version bump only for package @faststore/core
+
+## 3.15.3 (2025-02-13)
+
+### Bug Fixes
+
+- attempts to run publish directly in ci ([#2683](https://github.com/vtex/faststore/issues/2683)) ([44bb50d](https://github.com/vtex/faststore/commit/44bb50d0f03285cb3e48284004675a81385ade9b))
+
 ## [3.15.2](https://github.com/vtex/faststore/compare/v3.15.1...v3.15.2) (2025-02-05)
 
 ### Bug Fixes
