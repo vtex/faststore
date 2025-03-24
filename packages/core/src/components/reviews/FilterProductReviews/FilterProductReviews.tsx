@@ -40,7 +40,6 @@ function FilterProductReviews({
 
   return (
     <UISelectField
-      {...otherProps}
       className="filter / text__title-mini-alt"
       label={label}
       options={optionsMap}
@@ -48,6 +47,7 @@ function FilterProductReviews({
         onChange?.(e.target.value as FilterProductListReview)
       }}
       value={value || 'all'}
+      {...otherProps}
     />
   )
 }
