@@ -532,7 +532,7 @@ export type QueryProductArgs = {
 }
 
 export type QueryProfileArgs = {
-  userId: Scalars['String']['input']
+  id: Scalars['String']['input']
 }
 
 export type QueryRedirectArgs = {
@@ -1701,7 +1701,7 @@ export type ClientProductQueryQuery = {
 }
 
 export type ClientProfileQueryQueryVariables = Exact<{
-  userId: Scalars['String']['input']
+  id: Scalars['String']['input']
 }>
 
 export type ClientProfileQueryQuery = {
@@ -2343,7 +2343,7 @@ export const ClientProductQueryDocument = {
 export const ClientProfileQueryDocument = {
   __meta__: {
     operationName: 'ClientProfileQuery',
-    operationHash: 'e1b72465b75424a470df83ccf8307ffd098edc67',
+    operationHash: 'c35d67cd64ceb127f60b39cbc47133c634d980c0',
   },
 } as unknown as TypedDocumentString<
   ClientProfileQueryQuery,

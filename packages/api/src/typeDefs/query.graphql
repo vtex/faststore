@@ -346,7 +346,7 @@ type Query {
     """
     Identifier for user.
     """
-    userId: String!
+    id: String!
   ): Profile
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 }

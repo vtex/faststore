@@ -335,12 +335,12 @@ export const Query = {
       sellers,
     }
   },
-  profile: async (_: unknown, { userId }: QueryProfileArgs, ctx: Context) => {
+  profile: async (_: unknown, { id }: QueryProfileArgs, ctx: Context) => {
     const {
       clients: { commerce },
     } = ctx
 
-    const addresses = await commerce.profile.addresses(userId)
+    const addresses = await commerce.profile.addresses(id)
 
     function mapAddressesToList(
       addressesObj: Record<string, string>

@@ -537,7 +537,7 @@ export type QueryProductArgs = {
 
 
 export type QueryProfileArgs = {
-  userId: Scalars['String'];
+  id: Scalars['String'];
 };
 
 
