@@ -35,7 +35,7 @@ function ReviewsAndRatings({
   const { isDesktop } = useScreenResize()
   const { product, isValidating } = context.data
 
-  const rating = context?.data?.product?.rating
+  const rating = product?.rating
 
   return (
     <>
