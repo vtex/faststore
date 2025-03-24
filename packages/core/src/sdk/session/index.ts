@@ -67,8 +67,10 @@ export const validateSession = async (session: Session) => {
           postalCode: address?.postalCode,
           geoCoordinates: {
             // the values come in the reverse expected order
-            latitude: address?.geoCoordinate[1],
-            longitude: address?.geoCoordinate[0],
+            latitude: address?.geoCoordinate ? address?.geoCoordinate[1] : null,
+            longitude: address?.geoCoordinate
+              ? address?.geoCoordinate[0]
+              : null,
           },
           country: address?.country,
         })

@@ -342,12 +342,14 @@ export const Query = {
 
     const addresses = await commerce.profile.addresses(userId)
 
-    function mapAddressesToList(AddressesObj: any): ProfileAddress[] {
-      if (!addresses || Object.keys(addresses).length === 0) {
+    function mapAddressesToList(
+      addressesObj: Record<string, string>
+    ): ProfileAddress[] {
+      if (!addressesObj || Object.keys(addressesObj).length === 0) {
         return []
       }
 
-      return Object.values<string>(AddressesObj).map(
+      return Object.values(addressesObj).map(
         (stringifiedObj) => JSON.parse(stringifiedObj) as ProfileAddress
       )
     }

@@ -12,7 +12,6 @@ import type { MasterDataResponse } from './types/Newsletter'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
 import type { PortalPagetype } from './types/Portal'
 import type { PortalProduct } from './types/Product'
-import type { ProfileAddress } from './types/Profile'
 import type { Region, RegionInput } from './types/Region'
 import type { SalesChannel } from './types/SalesChannel'
 import type { Session } from './types/Session'
@@ -367,7 +366,7 @@ export const VtexCommerce = (
       )
     },
     profile: {
-      addresses: async (userId: string): Promise<ProfileAddress[]> => {
+      addresses: async (userId: string): Promise<Record<string, string>> => {
         const headers: HeadersInit = withCookie({
           'content-type': 'application/json',
           'X-FORWARDED-HOST': forwardedHost,
