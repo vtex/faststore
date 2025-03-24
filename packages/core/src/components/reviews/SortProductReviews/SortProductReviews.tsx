@@ -37,7 +37,6 @@ function SortProductReviews({
 
   return (
     <UISelectField
-      {...otherProps}
       className="sort / text__title-mini-alt"
       label={label}
       options={optionsMap}
@@ -45,6 +44,7 @@ function SortProductReviews({
         onChange?.(e.target.value as string as StoreProductListReviewsSort)
       }}
       value={value}
+      {...otherProps}
     />
   )
 }
