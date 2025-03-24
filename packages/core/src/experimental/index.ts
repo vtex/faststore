@@ -17,6 +17,7 @@ export { useRemoveButton as useRemoveButton_unstable } from '../../src/sdk/cart/
 export { useQuery as useQuery_unstable } from '../../src/sdk/graphql/useQuery'
 export { useLazyQuery as useLazyQuery_unstable } from '../../src/sdk/graphql/useLazyQuery'
 export { useNewsletter as useNewsletter_unstable } from '../../src/sdk/newsletter/useNewsletter'
+export { useAddReview as useAddReview_unstable } from '../../src/sdk/reviews/useAddReview'
 export { useDiscountPercent as useDiscountPercent_unstable } from '../../src/sdk/product/useDiscountPercent'
 export { useFormattedPrice as useFormattedPrice_unstable } from '../../src/sdk/product/useFormattedPrice'
 export { useLocalizedVariables as useLocalizedVariables_unstable } from '../../src/sdk/product/useLocalizedVariables'

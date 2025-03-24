@@ -15,6 +15,10 @@ export interface CheckboxFieldProps extends CheckboxProps {
    * Control the vertical alignment of the checkbox in relation to the label (center, top, bottom).
    */
   alignment?: 'center' | 'top' | 'bottom'
+  /**
+   * Checkbox Component's ref.
+   */
+  checkboxRef?: React.MutableRefObject<HTMLInputElement>
 }
 
 const CheckboxField = forwardRef<HTMLDivElement, CheckboxFieldProps>(
@@ -29,6 +33,7 @@ const CheckboxField = forwardRef<HTMLDivElement, CheckboxFieldProps>(
       error,
       disabled,
       alignment = 'center',
+      checkboxRef,
       ...otherProps
     },
     ref
@@ -49,6 +54,7 @@ const CheckboxField = forwardRef<HTMLDivElement, CheckboxFieldProps>(
           name={name}
           defaultChecked={checked}
           disabled={disabled}
+          ref={checkboxRef}
           {...otherProps}
         />
         <div data-fs-checkbox-field-content>

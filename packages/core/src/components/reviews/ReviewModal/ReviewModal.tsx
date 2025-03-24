@@ -1,15 +1,21 @@
 import {
-  Button as UIButton,
   type ModalProps as UIModalProps,
   type ModalHeaderProps as UIModalHeaderProps,
-  type ModalBodyProps as UIModalBodyProps,
-  type ModalFooterProps as UIModalFooterProps,
   useUI,
 } from '@faststore/ui'
 
 import styles from './section.module.scss'
 
 import dynamic from 'next/dynamic'
+import { useCallback, useEffect, useState } from 'react'
+import { useAddReview } from 'src/sdk/reviews/useAddReview'
+
+import isUUID from 'src/utils/isUUID'
+import type {
+  ReviewModalFormData,
+  ReviewModalFormProps,
+} from './ReviewModalForm'
+import type { ReviewModalSuccessProps } from './ReviewModalSuccess'
 
 const UIModal = dynamic<UIModalProps>(
   () =>
@@ -27,23 +33,32 @@ const UIModalHeader = dynamic<UIModalHeaderProps>(
   { ssr: false }
 )
 
-const UIModalBody = dynamic<UIModalBodyProps>(
+const ReviewModalSuccess = dynamic(
   () =>
-    import(/* webpackChunkName: "UIModalBody" */ '@faststore/ui').then(
-      (module) => module.ModalBody
+    import(
+      /* webpackChunkName: "ReviewModalSuccess" */ 'src/components/reviews/ReviewModal/ReviewModalSuccess'
     ),
   { ssr: false }
 )
 
-const UIModalFooter = dynamic<UIModalFooterProps>(
+const ReviewModalForm = dynamic(
   () =>
-    import(/* webpackChunkName: "UIModalFooter" */ '@faststore/ui').then(
-      (module) => module.ModalFooter
+    import(
+      /* webpackChunkName: "ReviewModalForm" */ 'src/components/reviews/ReviewModal/ReviewModalForm'
     ),
   { ssr: false }
 )
 
-export interface ReviewModalProps {
+const UIIcon = dynamic(
+  () => import('@faststore/ui').then((module) => module.Icon),
+  {
+    ssr: false,
+  }
+)
+
+export interface ReviewModalProps
+  extends Omit<ReviewModalFormProps, 'onSubmit' | 'onCancel'>,
+    ReviewModalSuccessProps {
   /**
    * The review modal's title.
    */
@@ -52,37 +67,68 @@ export interface ReviewModalProps {
    * Close button aria-label.
    */
   closeButtonAriaLabel?: string
-  /**
-   * Cancel button label.
-   */
-  cancelButtonLabel?: string
-  /**
-   * Submit button label.
-   */
-  submitButtonLabel?: string
 }
 
 function ReviewModal({
   title = 'Add a review',
   closeButtonAriaLabel = 'Close Review Modal',
-  cancelButtonLabel = 'Cancel',
-  submitButtonLabel = 'Submit your review',
+  product,
+  successTitle,
+  successSubtitle,
+  successButtonLabel,
+  ...formProps
 }: ReviewModalProps) {
-  const { closeReviewModal } = useUI()
+  const { pushToast, closeReviewModal } = useUI()
+  const { createProductReview, data, error, loading } = useAddReview()
+  const [submittedReview, setSubmittedReview] =
+    useState<ReviewModalFormData | null>(null)
+  const [isSuccess, setIsSuccess] = useState(false)
 
-  const handleSubmit = async () => {
-    // TODO: send review
+  function pushErrorToast(message = 'Something went wrong.') {
+    pushToast({
+      title: 'Oops.',
+      message,
+      status: 'ERROR',
+      icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
+    })
   }
 
-  function handleOnClose() {
-    closeReviewModal()
-  }
+  const handleSubmit = useCallback(
+    (formData: ReviewModalFormData) => {
+      createProductReview({
+        data: {
+          productId: product.id,
+          rating: formData.rating,
+          title: formData.title,
+          text: formData.text,
+          reviewerName: formData.reviewerName,
+        },
+      })
+        .then(() => {
+          setSubmittedReview(formData)
+        })
+        .catch((error) => {
+          pushErrorToast(error.message)
+        })
+    },
+    [product.id, createProductReview]
+  )
+
+  useEffect(() => {
+    if (submittedReview) {
+      if (data?.productReviewId && isUUID(data.productReviewId)) {
+        setIsSuccess(true)
+      } else {
+        pushErrorToast(data?.productReviewId)
+      }
+    }
+  }, [submittedReview, data, error])
 
   return (
     <UIModal
       data-fs-review-modal
       title={title}
-      onTransitionEnd={(_, fade) => fade === 'out' && handleOnClose()}
+      onTransitionEnd={(_, fade) => fade === 'out' && closeReviewModal()}
       overlayProps={{
         className: `section ${styles.section} section-review-modal`,
       }}
@@ -99,18 +145,23 @@ function ReviewModal({
               'aria-label': closeButtonAriaLabel,
             }}
           />
-          <UIModalBody data-fs-review-modal-body>
-            {/* TODO: ReviewModal form will go here in another PR */}
-            body
-          </UIModalBody>
-          <UIModalFooter data-fs-review-modal-footer>
-            <UIButton variant="secondary" onClick={fadeOut}>
-              {cancelButtonLabel}
-            </UIButton>
-            <UIButton variant="primary" onClick={handleSubmit}>
-              {submitButtonLabel}
-            </UIButton>
-          </UIModalFooter>
+          {isSuccess ? (
+            <ReviewModalSuccess
+              successTitle={successTitle}
+              successSubtitle={successSubtitle}
+              successButtonLabel={successButtonLabel}
+              close={fadeOut}
+              review={submittedReview}
+            />
+          ) : (
+            <ReviewModalForm
+              {...formProps}
+              onSubmit={handleSubmit}
+              onCancel={fadeOut}
+              product={product}
+              loading={loading}
+            />
+          )}
         </>
       )}
     </UIModal>
