@@ -91,7 +91,8 @@ export async function fetchServerManyProducts({
       operation: query,
     })
 
-    // used as cache in useCreateUseGalleryPage hook of frontend
+    // The resultVariables is used as cache key in useCreateUseGalleryPage hook of frontend, that's why it is passed to the front as props.
+    // The facets order here is important, although we use deepEquals in frontend, this order can influence the key of the cache mechanism.
     const resultVariables = {
       ...variables,
       selectedFacets: [
