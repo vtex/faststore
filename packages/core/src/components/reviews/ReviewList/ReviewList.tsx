@@ -111,12 +111,12 @@ function ReviewList({
   if (!loading && reviews.length <= 0 && currentFilter === 'all') {
     return (
       <EmptyReviewList
-        {...props}
         productId={productId}
         onButtonClick={openReviewModal}
         title={emptyList?.title}
         subtitle={emptyList?.subtitle}
         buttonLabel={emptyList?.buttonLabel}
+        {...props}
       />
     )
   }
@@ -139,35 +139,33 @@ function ReviewList({
           onChange={onFilterChange}
         />
       </div>
-      <div data-fs-review-list-content>
-        <UIList className="review-list-items">
-          {isFirstLoading ? (
-            <ReviewCardSkeleton />
-          ) : reviews.length > 0 ? (
-            reviews.map((review) => (
-              <li key={review.id} className="review-list-item">
-                <UIReviewCard
-                  title={review.title}
-                  text={review.text}
-                  rating={review.rating}
-                  author={review.reviewerName}
-                  isVerified={review.verifiedPurchaser}
-                  date={new Date(review.reviewDateTime)}
-                />
-              </li>
-            ))
-          ) : (
-            <EmptyReviewList
-              data-fs-empty-review-filter
-              productId={productId}
-              title={emptyFilter?.title}
-              subtitle={emptyFilter?.subtitle}
-              buttonLabel={emptyFilter?.buttonLabel}
-              onButtonClick={resetFilter}
-            />
-          )}
+      {isFirstLoading ? (
+        <ReviewCardSkeleton />
+      ) : reviews.length > 0 ? (
+        <UIList>
+          {reviews.map((review) => (
+            <li key={review.id}>
+              <UIReviewCard
+                title={review.title}
+                text={review.text}
+                rating={review.rating}
+                author={review.reviewerName}
+                isVerified={review.verifiedPurchaser}
+                date={new Date(review.reviewDateTime)}
+              />
+            </li>
+          ))}
         </UIList>
-      </div>
+      ) : (
+        <EmptyReviewList
+          data-fs-empty-review-filter
+          productId={productId}
+          title={emptyFilter?.title}
+          subtitle={emptyFilter?.subtitle}
+          buttonLabel={emptyFilter?.buttonLabel}
+          onButtonClick={resetFilter}
+        />
+      )}
 
       {hasMore && !isFirstLoading && (
         <UIButton
