@@ -1,4 +1,4 @@
-import type { CommertialOffer } from '../clients/search/types/ProductSearchResult'
+import type { CommertialOffer } from '../clients/apps/search/types/ProductSearchResult'
 
 export const inStock = (offer: Pick<CommertialOffer, 'AvailableQuantity'>) =>
   offer.AvailableQuantity > 0

@@ -1,4 +1,4 @@
-import type { CommertialOffer } from '../clients/search/types/ProductSearchResult'
+import type { CommertialOffer } from '../clients/apps/search/types/ProductSearchResult'
 
 export type EnhancedCommercialOffer<S, P> = CommertialOffer & {
   seller: S

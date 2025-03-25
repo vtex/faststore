@@ -1,6 +1,6 @@
 import type { IStorePropertyValue } from '../../../__generated__/schema'
 import type { Attachment } from '../clients/commerce/types/OrderForm'
-import type { Attribute } from '../clients/search/types/ProductSearchResult'
+import type { Attribute } from '../clients/apps/search/types/ProductSearchResult'
 import { md5 } from './md5'
 
 export const VALUE_REFERENCES = {

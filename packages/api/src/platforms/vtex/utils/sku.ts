@@ -1,6 +1,6 @@
 import { min } from './orderStatistics'
 import { bestOfferFirst } from './productStock'
-import type { Item } from '../clients/search/types/ProductSearchResult'
+import type { Item } from '../clients/apps/search/types/ProductSearchResult'
 
 /**
  * This function implements Portal heuristics for returning the best sku for a product.
