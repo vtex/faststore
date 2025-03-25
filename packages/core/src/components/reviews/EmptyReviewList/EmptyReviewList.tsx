@@ -24,11 +24,7 @@ function EmptyReviewList({
         <h5 data-fs-empty-review-list-title>{title}</h5>
         <p data-fs-empty-review-list-subtitle>{subtitle}</p>
       </div>
-      <UIButton
-        data-fs-empty-review-list-write-review-button
-        variant="primary"
-        onClick={() => onButtonClick?.(productId)}
-      >
+      <UIButton variant="primary" onClick={() => onButtonClick?.(productId)}>
         {buttonLabel}
       </UIButton>
     </div>
