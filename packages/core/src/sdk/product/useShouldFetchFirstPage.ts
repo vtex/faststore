@@ -15,10 +15,10 @@ interface UseShouldFetchFirstPageParams {
 }
 
 /**
- * This hook determine if the first page (page 0) should be fetched.
- * This is because the first page is initially fetched from the Server Side, and injected in the cache (for Performance and SEO).
- * So this hook checks if the first page should be fetched again in the Client Side
- * after 5 minutes since the build time (last fetch from Server Side) or the last fetched time from the ClientSide.
+ * This hook determines if the first page (page 0) should be fetched.
+ * This is because the first page is initially fetched from the server side and injected into the cache for performance and SEO reasons.
+ * So this hook checks if the first page should be fetched again on the client side
+ * after 5 minutes since the build time (last fetch from the server side) or the last fetch time from the client side.
  *
  * @param page The page number
  * @param generatedBuildTime The time the page was generated
