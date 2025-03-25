@@ -4,15 +4,14 @@ import { deliveryPromise } from 'discovery.config'
 import { useSession, validateSession, sessionStore } from 'src/sdk/session'
 
 export default function useGeolocation() {
-  const { postalCode: stalePostalCode, geoCoordinates: staleGeoCoordinates } =
-    useSession()
+  const { geoCoordinates: staleGeoCoordinates } = useSession()
 
   useEffect(() => {
     if (!deliveryPromise.enabled) {
       return
     }
 
-    if (navigator?.geolocation && (!stalePostalCode || !staleGeoCoordinates)) {
+    if (navigator?.geolocation && !staleGeoCoordinates) {
       navigator.geolocation.getCurrentPosition(
         async ({ coords: { latitude, longitude } }) => {
           // We need to revalidate the session because users can set a zip code while granting consent.
