@@ -7,6 +7,28 @@ import type {
   StoreSession,
 } from '../../../__generated__/schema'
 
+async function getGeoCoordinates(
+  clients: Context['clients'],
+  country: string,
+  postalCode: string
+) {
+  try {
+    const address = await clients.commerce.checkout.address({
+      postalCode,
+      country,
+    })
+
+    const [longitude, latitude] = address.geoCoordinates
+    return { latitude, longitude }
+  } catch (err) {
+    console.error(
+      'Error while getting geo coordinates for the current postal code and country.\n'
+    )
+
+    throw err
+  }
+}
+
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
@@ -19,13 +41,7 @@ export const validateSession = async (
   // Get geo coordinates if postal code and country are provided
   let geoCoordinates = oldSession.geoCoordinates ?? null
   if (!geoCoordinates && postalCode !== '' && country !== '') {
-    const address = await clients.commerce.checkout.address({
-      postalCode,
-      country,
-    })
-
-    const [longitude, latitude] = address.geoCoordinates
-    geoCoordinates = { latitude, longitude }
+    geoCoordinates = await getGeoCoordinates(clients, country, postalCode)
   }
 
   const params = new URLSearchParams(search)
