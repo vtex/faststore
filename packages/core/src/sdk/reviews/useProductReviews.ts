@@ -8,7 +8,7 @@ import type { FilterProductListReview } from 'src/components/reviews/FilterProdu
 
 type ProductReview = ClientProductReviewsQuery['reviews']['data'][number]
 
-const PAGE_SIZE = 6
+const REVIEWS_PER_PAGE = 6
 
 interface Props {
   productId: string
@@ -47,8 +47,8 @@ export function useProductReviews({
   // Fetch reviews with the current filter, sort, and pagination
   const { data, isLoading, error } = useProductReviewsQuery({
     productId,
-    first: PAGE_SIZE,
-    after: page * PAGE_SIZE,
+    first: REVIEWS_PER_PAGE,
+    after: page * REVIEWS_PER_PAGE,
     sort,
     rating: rating || undefined,
   })
