@@ -42,7 +42,7 @@
     "base-page-template": {
       "type": "object",
       "$abstract": true,
-      "$extends": ["#/components/base-dynamic-area"],
+      "$extends": ["#/components/base-section"],
       "properties": {
         "slug": {
           "type": "string"
@@ -268,9 +268,6 @@
       "title": "Product Page",
       "$extends": ["#/components/base-page-template"],
       "properties": {
-        "template": {
-          "$ref": "#/components/core.template"
-        },
         "seo": {
           "$ref": "#/components/core.seo"
         }
@@ -280,9 +277,6 @@
       "title": "Product List Page",
       "$extends": ["#/components/base-page-template"],
       "properties": {
-        "template": {
-          "$ref": "#/components/core.template"
-        },
         "productGalery": {
           "$ref": "#/components/core.productGallery"
         }
