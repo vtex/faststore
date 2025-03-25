@@ -1,4 +1,4 @@
-import { useUI } from '@faststore/components'
+import { useUI } from '@faststore/ui'
 import type { FilterProductListReview } from '../FilterProductReviews'
 import type { StoreProductListReviewsSort } from '@generated/graphql'
 import { useProductReviews } from 'src/sdk/reviews/useProductReviews'

@@ -1,4 +1,4 @@
-import { Button, Icon } from '@faststore/components'
+import { Button as UIButton, Icon as UIIcon } from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
 
 export interface EmptyReviewListProps extends HTMLAttributes<HTMLDivElement> {
@@ -20,17 +20,17 @@ function EmptyReviewList({
   return (
     <div data-fs-empty-review-list {...props}>
       <div data-fs-empty-review-list-text>
-        <Icon name="ChatDots" width={56} height={56} />
+        <UIIcon name="ChatDots" width={56} height={56} />
         <h5 data-fs-empty-review-list-title>{title}</h5>
         <p data-fs-empty-review-list-subtitle>{subtitle}</p>
       </div>
-      <Button
+      <UIButton
         data-fs-empty-review-list-write-review-button
         variant="primary"
         onClick={() => onButtonClick?.(productId)}
       >
         {buttonLabel}
-      </Button>
+      </UIButton>
     </div>
   )
 }
