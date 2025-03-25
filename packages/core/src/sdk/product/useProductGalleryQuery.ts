@@ -67,8 +67,8 @@ type ProductGalleryQueryOptions = {
 
 type UpdateSearchParamsType = {
   selectedFacets: Facet[]
-  updatedFuzzyFacetValue: string
-  updatedOperatorFacetValue: string
+  updatedFuzzyFacetValue?: string | null
+  updatedOperatorFacetValue?: string | null
   setState: (newState: SearchState) => false | void
   state: SearchState
 }
