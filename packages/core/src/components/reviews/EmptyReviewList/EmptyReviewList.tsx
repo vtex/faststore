@@ -11,7 +11,7 @@ export interface EmptyReviewListProps extends HTMLAttributes<HTMLDivElement> {
 
 function EmptyReviewList({
   productId,
-  title = 'This item does not have any reviews yet',
+  title = 'There are no reviews for this item yet',
   subtitle = 'Be the first one to do it',
   buttonLabel = 'Write the first review',
   onButtonClick,

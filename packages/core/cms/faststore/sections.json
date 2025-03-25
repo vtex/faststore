@@ -1258,7 +1258,7 @@
                 "title": {
                   "title": "Title",
                   "type": "string",
-                  "default": "This item does not have any reviews yet"
+                  "default": "There are no reviews for this item yet"
                 },
                 "subtitle": {
                   "title": "Subtitle",
