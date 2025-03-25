@@ -1140,6 +1140,97 @@
               "default": "Back to reviews"
             }
           }
+        },
+        "reviewList": {
+          "title": "Review List",
+          "type": "object",
+          "properties": {
+            "filterSelect": {
+              "title": "Filter Select",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Label",
+                  "type": "string",
+                  "default": "Filter by"
+                },
+                "options": {
+                  "title": "Options",
+                  "type": "object",
+                  "properties": {
+                    "all": {
+                      "title": "All",
+                      "type": "string",
+                      "default": "All"
+                    },
+                    "1": {
+                      "title": "1 star",
+                      "type": "string",
+                      "default": "1 star"
+                    },
+                    "2": {
+                      "title": "2 stars",
+                      "type": "string",
+                      "default": "2 stars"
+                    },
+                    "3": {
+                      "title": "3 stars",
+                      "type": "string",
+                      "default": "3 stars"
+                    },
+                    "4": {
+                      "title": "4 stars",
+                      "type": "string",
+                      "default": "4 stars"
+                    },
+                    "5": {
+                      "title": "5 stars",
+                      "type": "string",
+                      "default": "5 stars"
+                    }
+                  }
+                }
+              }
+            },
+            "sortSelect": {
+              "title": "Sort Select",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Label",
+                  "type": "string",
+                  "default": "Sort by"
+                },
+                "options": {
+                  "title": "Options",
+                  "type": "object",
+                  "properties": {
+                    "reviewDateTime_desc": {
+                      "title": "Most Recent",
+                      "type": "string",
+                      "default": "Most Recent"
+                    },
+                    "reviewDateTime_asc": {
+                      "title": "Oldest",
+                      "type": "string",
+                      "default": "Oldest"
+                    },
+
+                    "rating_desc": {
+                      "title": "Highest Rated",
+                      "type": "string",
+                      "default": "Highest Rated"
+                    },
+                    "rating_asc": {
+                      "title": "Lowest Rated",
+                      "type": "string",
+                      "default": "Lowest Rated"
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
