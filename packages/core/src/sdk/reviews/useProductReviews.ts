@@ -45,7 +45,7 @@ export function useProductReviews({
   )
 
   // Fetch reviews with the current filter, sort, and pagination
-  const { data, isLoading, error } = useProductReviewsQuery({
+  const { data, isLoading } = useProductReviewsQuery({
     productId,
     first: REVIEWS_PER_PAGE,
     after: page * REVIEWS_PER_PAGE,
