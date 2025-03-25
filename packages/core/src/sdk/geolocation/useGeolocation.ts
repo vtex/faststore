@@ -12,7 +12,7 @@ export default function useGeolocation() {
       return
     }
 
-    if (navigator?.geolocation && (!stalePostalCode || staleGeoCoordinates)) {
+    if (navigator?.geolocation && (!stalePostalCode || !staleGeoCoordinates)) {
       navigator.geolocation.getCurrentPosition(
         async ({ coords: { latitude, longitude } }) => {
           // We need to revalidate the session because users can set a zip code while granting consent.
