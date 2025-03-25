@@ -156,7 +156,7 @@ export const useProductGalleryQuery = ({
       if (
         data &&
         term &&
-        updatedOperatorFacetValue &&
+        updatedFuzzyFacetValue &&
         updatedOperatorFacetValue
       ) {
         import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
