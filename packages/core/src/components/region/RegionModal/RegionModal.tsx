@@ -70,7 +70,6 @@ function RegionModal({
       } as typeof session
 
       const validatedSession = await validateSession(newSession)
-
       sessionStore.set(validatedSession ?? newSession)
     } catch (error) {
       setErrorMessage(inputFieldErrorMessage)
