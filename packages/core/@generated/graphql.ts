@@ -469,6 +469,40 @@ export type PickupStoreInfo = {
   isPickupStore: Maybe<Scalars['Boolean']['output']>
 }
 
+export type Profile = {
+  /** Collection of user's address */
+  addresses: Maybe<Array<Maybe<ProfileAddress>>>
+}
+
+export type ProfileAddress = {
+  /** ProfileAddress address name/id. */
+  addressName: Maybe<Scalars['String']['output']>
+  /** ProfileAddress address type. */
+  addressType: Maybe<Scalars['String']['output']>
+  /** ProfileAddress city. */
+  city: Maybe<Scalars['String']['output']>
+  /** ProfileAddress complement. */
+  complement: Maybe<Scalars['String']['output']>
+  /** ProfileAddress country. */
+  country: Maybe<Scalars['String']['output']>
+  /** ProfileAddress geo coordinate. */
+  geoCoordinate: Maybe<Array<Maybe<Scalars['Float']['output']>>>
+  /** ProfileAddress neighborhood. */
+  neighborhood: Maybe<Scalars['String']['output']>
+  /** ProfileAddress number. */
+  number: Maybe<Scalars['String']['output']>
+  /** ProfileAddress postal code. */
+  postalCode: Maybe<Scalars['String']['output']>
+  /** ProfileAddress receiver name. */
+  receiverName: Maybe<Scalars['String']['output']>
+  /** ProfileAddress reference. */
+  reference: Maybe<Scalars['String']['output']>
+  /** ProfileAddress state. */
+  state: Maybe<Scalars['String']['output']>
+  /** ProfileAddress street. */
+  street: Maybe<Scalars['String']['output']>
+}
+
 export type Query = {
   /** Returns information about all collections. */
   allCollections: StoreCollectionConnection
@@ -478,6 +512,8 @@ export type Query = {
   collection: StoreCollection
   /** Returns the details of a product based on the specified locator. */
   product: StoreProduct
+  /** Returns information about the profile. */
+  profile: Maybe<Profile>
   /** Returns if there's a redirect for a search. */
   redirect: Maybe<StoreRedirect>
   /** Returns the result of a product, facet, or suggestion search. */
@@ -504,6 +540,10 @@ export type QueryCollectionArgs = {
 
 export type QueryProductArgs = {
   locator: Array<IStoreSelectedFacet>
+}
+
+export type QueryProfileArgs = {
+  id: Scalars['String']['input']
 }
 
 export type QueryRedirectArgs = {
