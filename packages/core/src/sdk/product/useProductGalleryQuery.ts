@@ -65,7 +65,7 @@ type ProductGalleryQueryOptions = {
   term: ClientManyProductsQueryQueryVariables['term']
 }
 
-type updateSearchParamsType = {
+type UpdateSearchParamsType = {
   selectedFacets: Facet[]
   updatedFuzzyFacetValue: string
   updatedOperatorFacetValue: string
@@ -91,7 +91,7 @@ function updateSearchParamsState({
   updatedOperatorFacetValue,
   setState,
   state,
-}: updateSearchParamsType) {
+}: UpdateSearchParamsType) {
   const oldFuzzyFacetValue = findFacetValue(selectedFacets, 'fuzzy')
   const oldOperatorFacetValue = findFacetValue(selectedFacets, 'operator')
 
@@ -153,12 +153,7 @@ export const useProductGalleryQuery = ({
       const updatedFuzzyFacetValue = data.search.metadata?.fuzzy
       const updatedOperatorFacetValue = data.search.metadata?.logicalOperator
 
-      if (
-        data &&
-        term &&
-        updatedFuzzyFacetValue &&
-        updatedOperatorFacetValue
-      ) {
+      if (data && term && updatedFuzzyFacetValue && updatedOperatorFacetValue) {
         import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
           sendAnalyticsEvent<IntelligentSearchQueryEvent>({
             name: 'intelligent_search_query',
