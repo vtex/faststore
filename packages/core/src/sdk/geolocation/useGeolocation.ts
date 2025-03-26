@@ -12,7 +12,7 @@ async function askGeolocationConsent() {
   if (navigator?.geolocation && (!stalePostalCode || !staleGeoCoordinates)) {
     navigator.geolocation.getCurrentPosition(
       async ({ coords: { latitude, longitude } }) => {
-        // We need to revalidate the session because users can set a zip code while granting consent.
+        // Revalidate the session because users can set a zip code while granting consent.
         const revalidatedSession = sessionStore.read()
         if (
           revalidatedSession.postalCode ||
