@@ -66,7 +66,7 @@ function RegionModal({
       const newSession = {
         ...session,
         postalCode,
-        geoCoordinates: null, // If users set postal code, we should revalidate geo coordinates in API
+        geoCoordinates: null, // Revalidate geo coordinates in API when users set a new postal code
       } as typeof session
 
       const validatedSession = await validateSession(newSession)

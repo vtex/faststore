@@ -22,7 +22,7 @@ async function getGeoCoordinates(
     return { latitude, longitude }
   } catch (err) {
     console.error(
-      'Error while getting geo coordinates for the current postal code and country.\n'
+      `Error while getting geo coordinates for the current postal code (${postalCode}) and country (${country}).\n`
     )
 
     throw err
