@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.31.0](https://github.com/vtex/faststore/compare/v3.30.1...v3.31.0) (2025-03-26)
+
+### Features
+
+- adds deliveryChannel in shipping simulation ([#2746](https://github.com/vtex/faststore/issues/2746)) ([1dd68ed](https://github.com/vtex/faststore/commit/1dd68ed3465beec511b434258cb2e7ae3a3af214))
+
 ## [3.30.1](https://github.com/vtex/faststore/compare/v3.30.0...v3.30.1) (2025-03-25)
 
 **Note:** Version bump only for package @faststore/core
