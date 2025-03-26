@@ -31,6 +31,28 @@ async function getPreciseLocationData(
   }
 }
 
+async function getGeoCoordinates(
+  clients: Context['clients'],
+  country: string,
+  postalCode: string
+) {
+  try {
+    const address = await clients.commerce.checkout.address({
+      postalCode,
+      country,
+    })
+
+    const [longitude, latitude] = address.geoCoordinates
+    return { latitude, longitude }
+  } catch (err) {
+    console.error(
+      `Error while getting geo coordinates for the current postal code (${postalCode}) and country (${country}).\n`
+    )
+
+    throw err
+  }
+}
+
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
