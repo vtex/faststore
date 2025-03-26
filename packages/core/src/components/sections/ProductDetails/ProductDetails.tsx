@@ -227,7 +227,7 @@ function ProductDetails({
               }
               refNumber={showRefNumber && productId}
               {...(apiConfig.reviewsAndRatings && {
-                reviewsAndRating: {
+                reviewsAndRatings: {
                   ratingValue: rating.average,
                   reviewsCount: rating.totalCount,
                   noReviewsText,

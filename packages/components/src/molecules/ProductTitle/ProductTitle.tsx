@@ -28,9 +28,9 @@ export interface ProductTitleProps
   /**
    * Object containing the rating value and reviews count
    */
-  reviewsAndRating?: {
+  reviewsAndRatings?: {
     /**
-     * The current value of the rating, a number from 0 to 5.
+     * Object containing the rating value and reviews count
      */
     ratingValue?: number
     /**
@@ -63,7 +63,7 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
       refTag = 'Ref.: ',
       refNumber,
       testId = 'fs-product-title',
-      reviewsAndRating,
+      reviewsAndRatings,
       ...otherProps
     },
     ref
@@ -74,7 +74,7 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
       noReviewsText = 'No reviews yet',
       singleReviewText = 'review',
       multipleReviewsText = 'reviews',
-    } = reviewsAndRating || {}
+    } = reviewsAndRatings || {}
 
     return (
       <header
@@ -95,11 +95,13 @@ const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
 
               {reviewsCount !== undefined && (
                 <a href="#reviews-and-ratings" data-fs-product-title-reviews>
-                  {reviewsCount === 0 && `(${noReviewsText})`}
-                  {reviewsCount === 1 &&
-                    `(${reviewsCount} ${singleReviewText})`}
-                  {reviewsCount > 1 &&
-                    `(${reviewsCount} ${multipleReviewsText})`}
+                  {reviewsCount === 0
+                    ? noReviewsText
+                    : `${reviewsCount} ${
+                        reviewsCount === 1
+                          ? singleReviewText
+                          : multipleReviewsText
+                      }`}
                 </a>
               )}
             </div>
