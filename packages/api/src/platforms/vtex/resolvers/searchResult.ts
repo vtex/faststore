@@ -53,17 +53,22 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
           return maybeSku && enhanceSku(maybeSku, product)
         })
         .filter((sku) => !!sku)
-        .map(async (sku) => ({
-          ...sku,
-          rating: await commerce.rating(sku.itemId),
-        }))
     )
+
+    const ratings = await Promise.all(
+      skus.map((sku) => commerce.rating(sku.itemId))
+    )
+
+    const skusWithRatings = skus.map((sku, index) => ({
+      ...sku,
+      rating: ratings[index],
+    }))
 
     const { searches } = terms
 
     return {
       terms: searches.map((item) => ({ value: item.term, count: item.count })),
-      products: skus,
+      products: skusWithRatings,
     }
   },
   products: async ({ productSearchPromise }, _, ctx) => {
@@ -83,12 +88,14 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       })
       .filter((sku) => !!sku)
 
-    const edges = await Promise.all(
-      skus.map(async (sku, index) => ({
-        node: { ...sku, rating: await commerce.rating(sku.itemId) },
-        cursor: index.toString(),
-      }))
+    const ratings = await Promise.all(
+      skus.map((sku) => commerce.rating(sku.itemId))
     )
+
+    const edges = skus.map((sku, index) => ({
+      node: { ...sku, rating: ratings[index] },
+      cursor: index.toString(),
+    }))
 
     return {
       pageInfo: {
