@@ -1831,6 +1831,7 @@ export type ClientShippingSimulationQueryQuery = {
         price: number | null
         shippingEstimate: string | null
         localizedEstimates: string | null
+        deliveryChannel: string | null
         availableDeliveryWindows: Array<{
           startDateUtc: string | null
           endDateUtc: string | null
@@ -2387,7 +2388,7 @@ export const ValidateSessionDocument = {
 export const ClientShippingSimulationQueryDocument = {
   __meta__: {
     operationName: 'ClientShippingSimulationQuery',
-    operationHash: 'd6667f1de2a26b94b9b55f4b25d7d823f82635a0',
+    operationHash: 'c35bad22f67f3eb34fea52bb49efa6b1da6b728d',
   },
 } as unknown as TypedDocumentString<
   ClientShippingSimulationQueryQuery,
