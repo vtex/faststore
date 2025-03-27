@@ -94,6 +94,8 @@ export const Query = {
         page: 0,
         count: 1,
         query: `product:${route.id}`,
+        // Manually disabling this flag to prevent regionalization issues
+        hideUnavailableItems: false,
       })
 
       if (!product) {
