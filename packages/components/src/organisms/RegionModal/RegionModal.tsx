@@ -52,6 +52,10 @@ export interface RegionModalProps extends Omit<ModalProps, 'children'> {
    */
   inputLabel?: string
   /**
+   * The text displayed on the InputField Button. Suggestion: maximum 9 characters.
+   */
+  inputButtonActionText?: string
+  /**
    * Enables fadeOut effect on modal after onSubmit function
    */
   fadeOutOnSubmit?: boolean
@@ -75,6 +79,10 @@ export interface RegionModalProps extends Omit<ModalProps, 'children'> {
    * Callback function when the input clear button is clicked.
    */
   onClear?: () => void
+  /**
+   * Prevent modal from being closed using the close button or the Escape key.
+   */
+  preventClose?: boolean
 }
 
 function RegionModal({
@@ -87,12 +95,14 @@ function RegionModal({
   inputRef,
   inputValue,
   inputLabel = 'Postal Code',
+  inputButtonActionText,
   fadeOutOnSubmit,
   overlayProps,
   onClose,
   onInput,
   onSubmit,
   onClear,
+  preventClose = false,
   ...otherProps
 }: RegionModalProps) {
   return (
@@ -102,21 +112,26 @@ function RegionModal({
       overlayProps={overlayProps}
       title="Region modal"
       aria-label="Region modal"
+      disableEscapeKeyDown={preventClose}
       {...otherProps}
     >
       {({ fadeOut }) => (
         <>
           <ModalHeader
-            onClose={() => {
-              fadeOut()
-              onClose?.()
-            }}
+            {...(!preventClose && {
+              onClose: () => {
+                fadeOut()
+                onClear?.()
+                onClose?.()
+              },
+            })}
             title={title}
             description={description}
             closeBtnProps={{
               'aria-label': closeButtonAriaLabel,
             }}
           />
+
           <ModalBody>
             <InputField
               data-fs-region-modal-input
@@ -125,6 +140,7 @@ function RegionModal({
               label={inputLabel}
               actionable
               value={inputValue}
+              buttonActionText={inputButtonActionText}
               onInput={(event) => onInput?.(event)}
               onSubmit={() => {
                 onSubmit?.()
@@ -133,7 +149,6 @@ function RegionModal({
               onClear={() => onClear?.()}
               error={errorMessage}
             />
-
             <Link data-fs-region-modal-link {...idkPostalCodeLinkProps} />
           </ModalBody>
         </>

@@ -15,17 +15,23 @@
   // Structural Styles
   // --------------------------------------------------------
   [data-fs-input-field] {
+    flex: 1;
     margin-bottom: var(--fs-region-modal-margin-bottom);
   }
 
   [data-fs-region-modal-link] {
     display: flex;
     flex-direction: row;
+    column-gap: var(--fs-region-modal-link-column-gap);
     align-content: flex-start;
     align-items: center;
     justify-content: flex-start;
-    column-gap: var(--fs-region-modal-link-column-gap);
     padding: var(--fs-region-modal-link-padding);
     color: var(--fs-region-modal-link-color);
+  }
+
+  [data-fs-modal-body] {
+    display: flex;
+    flex-wrap: wrap;
   }
 }
