@@ -131,7 +131,6 @@ function RegionModal({
               'aria-label': closeButtonAriaLabel,
             }}
           />
-
           <ModalBody>
             <InputField
               data-fs-region-modal-input
