@@ -57,8 +57,7 @@ export const Query = {
         throw new Error('Invalid SkuId')
       }
 
-      // Manually disabling this flag to prevent regionalization issues
-      const sku = await skuLoader.load(`${skuId}-disableHideUnavailableItems`)
+      const sku = await skuLoader.load(skuId)
 
       /**
        * Here be dragons 🦄🦄🦄
@@ -72,9 +71,6 @@ export const Query = {
         sku.isVariantOf.linkText &&
         !slug.startsWith(sku.isVariantOf.linkText)
       ) {
-        console.log(
-          `~~~> THROWING ERROR:\n~> SLUG: ${slug}; LINKTEXT: ${sku.isVariantOf.linkText}; CONDITION RESULT: ${!slug.startsWith(sku.isVariantOf.linkText)}`
-        )
         throw new Error(
           `Slug was set but the fetched sku does not satisfy the slug condition. slug: ${slug}, linkText: ${sku.isVariantOf.linkText}`
         )
@@ -83,14 +79,12 @@ export const Query = {
       return sku
     } catch (err) {
       if (slug == null) {
-        console.log('~~~> BAD REQUEST ERROR', slug)
         throw new BadRequestError('Missing slug or id')
       }
 
       const route = await commerce.catalog.portal.pagetype(`${slug}/p`)
 
       if (route.pageType !== 'Product' || !route.id) {
-        console.log('~~~> NOT FOUND ERROR', route?.id)
         throw new NotFoundError(`No product found for slug ${slug}`)
       }
 
@@ -100,6 +94,8 @@ export const Query = {
         page: 0,
         count: 1,
         query: `product:${route.id}`,
+        // Manually disabling this flag to prevent regionalization issues
+        hideUnavailableItems: false,
       })
 
       if (!product) {
