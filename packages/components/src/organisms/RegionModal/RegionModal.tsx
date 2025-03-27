@@ -80,7 +80,7 @@ export interface RegionModalProps extends Omit<ModalProps, 'children'> {
 function RegionModal({
   testId = 'fs-region-modal',
   title = 'Set your location',
-  description = 'Prices, offers and availability may vary according to your location.',
+  description = 'Offers and availability vary by location.',
   closeButtonAriaLabel = 'Close Region Modal',
   idkPostalCodeLinkProps,
   errorMessage,
