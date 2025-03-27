@@ -374,6 +374,26 @@ export const VtexCommerce = (
         { storeCookies }
       )
     },
+    updateSession: (
+      body: Session['namespaces']
+    ): Promise<{
+      sessionToken: string
+      segmentToken: string
+    }> => {
+      const headers: HeadersInit = withCookie({
+        'content-type': 'application/json',
+      })
+
+      return fetchAPI(
+        `${base}/api/sessions`,
+        {
+          method: 'PATCH',
+          headers,
+          body: JSON.stringify(body),
+        },
+        { storeCookies }
+      )
+    },
     subscribeToNewsletter: (data: {
       name: string
       email: string

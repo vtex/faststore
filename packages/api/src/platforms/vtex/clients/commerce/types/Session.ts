@@ -41,4 +41,5 @@ export interface Checkout {
 export interface Public {
   orderFormId?: Value
   items?: Value
+  facets?: Value
 }

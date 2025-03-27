@@ -1,12 +1,12 @@
 import deepEquals from 'fast-deep-equal'
 
-import ChannelMarshal from '../utils/channel'
 import type { Context } from '..'
 import type {
   MutationValidateSessionArgs,
   StoreMarketingData,
   StoreSession,
 } from '../../../__generated__/schema'
+import ChannelMarshal from '../utils/channel'
 
 async function getGeoCoordinates(
   clients: Context['clients'],
@@ -24,6 +24,44 @@ async function getGeoCoordinates(
   } catch (err) {
     console.error(
       `Error while getting geo coordinates for the current postal code (${postalCode}) and country (${country}).\n`
+    )
+
+    throw err
+  }
+}
+
+/**
+ * Sends the updated facets to the Session Manager API (https://developers.vtex.com/docs/api-reference/session-manager-api/#patch-/api/sessions) for session update.
+ * This is required for Intelligent Search to work properly with Delivery Promise feature. They handle the location information by accessing the session's public facets field.
+ *
+ * @param clients - The clients object from the application context, containing the commerce client.
+ * @param session - The current store session containing postal code, country, and geo-coordinates.
+ *
+ * @returns A promise that resolves when the session facets are successfully updated.
+ */
+async function updateSessionFacets(
+  clients: Context['clients'],
+  { postalCode, country, geoCoordinates }: StoreSession
+) {
+  try {
+    const facetsObject = {
+      'zip-code': postalCode,
+      country,
+      coordinates: geoCoordinates
+        ? `${geoCoordinates.latitude},${geoCoordinates.longitude}`
+        : undefined,
+    }
+    const facets = Object.entries(facetsObject)
+      .filter(([, value]) => !!value)
+      .map(([key, value]) => `${key}=${value}`)
+      .join(';')
+
+    return clients.commerce.updateSession({
+      public: { facets: { value: facets } },
+    })
+  } catch (err) {
+    console.error(
+      `Error while updating the Session's facets field with postal code (${postalCode}), country (${country}) and geo-coordinates (${geoCoordinates}).\n`
     )
 
     throw err
@@ -112,6 +150,8 @@ export const validateSession = async (
   if (deepEquals(oldSession, newSession)) {
     return null
   }
+
+  await updateSessionFacets(clients, newSession)
 
   return newSession
 }
