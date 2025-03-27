@@ -218,6 +218,11 @@ export const IntelligentSearch = (
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 
+    console.log(
+      '~~~~~~~~~~> SEARCH REQUEST PATH: ',
+      `/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
+    )
+
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
       { headers },
