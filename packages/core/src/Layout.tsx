@@ -6,12 +6,11 @@ import { sessionStore } from 'src/sdk/session'
 import { usePageViewEvent } from './sdk/analytics/hooks/usePageViewEvent'
 
 import { deliveryPromise } from 'discovery.config'
+import { TIME_TO_VALIDATE_SESSION } from 'src/constants'
 
 function Layout({ children }: PropsWithChildren) {
   usePageViewEvent((children as ReactElement)?.props)
   const { openModal } = useUI()
-
-  const TIME_TO_VALIDATE_SESSION = 3000
 
   const openRegionModal = () => {
     const { postalCode } = sessionStore.read()
