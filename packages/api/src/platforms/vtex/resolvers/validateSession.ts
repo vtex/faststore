@@ -44,15 +44,18 @@ async function updateSessionFacets(
   { postalCode, country, geoCoordinates }: StoreSession
 ) {
   try {
+    const shouldUpdate = !!postalCode && !!country && !!geoCoordinates
+    if (!shouldUpdate) {
+      // Early return when postal code, country, or geo-coordinates are not provided
+      return
+    }
+
     const facetsObject = {
       'zip-code': postalCode,
       country,
-      coordinates: geoCoordinates
-        ? `${geoCoordinates.latitude},${geoCoordinates.longitude}`
-        : undefined,
+      coordinates: `${geoCoordinates.latitude},${geoCoordinates.longitude}`,
     }
     const facets = Object.entries(facetsObject)
-      .filter(([, value]) => !!value)
       .map(([key, value]) => `${key}=${value}`)
       .join(';')
 
