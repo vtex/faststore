@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.32.0](https://github.com/vtex/faststore/compare/v3.31.0...v3.32.0) (2025-03-27)
+
+### Features
+
+- Manually disable `hideUnavailableItems` flag for PDP queries ([#2747](https://github.com/vtex/faststore/issues/2747)) ([9022088](https://github.com/vtex/faststore/commit/90220885d1aa3a0213d447207353cf5b9d99be23)), closes [vtex-sites/starter.store#738](https://github.com/vtex-sites/starter.store/issues/738)
+
 # [3.31.0](https://github.com/vtex/faststore/compare/v3.30.1...v3.31.0) (2025-03-26)
 
 ### Features
