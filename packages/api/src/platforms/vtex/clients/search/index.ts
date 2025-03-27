@@ -183,6 +183,7 @@ export const IntelligentSearch = (
     type,
     showInvisibleItems,
     sponsoredCount,
+    hideUnavailableItems: searchHideUnavailableItems,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
@@ -199,7 +200,11 @@ export const IntelligentSearch = (
     }
 
     if (hideUnavailableItems !== undefined) {
-      params.append('hideUnavailableItems', hideUnavailableItems.toString())
+      params.append(
+        'hideUnavailableItems',
+        searchHideUnavailableItems?.toString() ??
+          hideUnavailableItems.toString()
+      )
     }
 
     if (simulationBehavior !== undefined) {
