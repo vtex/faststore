@@ -2121,7 +2121,7 @@
         "description": {
           "title": "Description",
           "type": "string",
-          "default": "Prices, offers and availability may vary according to your location."
+          "default": "Offers and availability vary by location"
         },
         "closeButtonAriaLabel": {
           "title": "Close modal aria-label",
