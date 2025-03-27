@@ -17,9 +17,17 @@ type RewriterResponse = {
 
 const PERMANENT_STATUS = 308
 
+const ASSET_FILE_REGEX = /\.(js|css|png|jpg|jpeg|svg|gif|webp|ico|json|map)$/i
+
 export async function getRedirect({
   pathname,
 }: GetRedirectArgs): Promise<GetRedirectReturn> {
+  const isValidPath = !ASSET_FILE_REGEX.test(pathname)
+
+  if (!isValidPath) {
+    return null
+  }
+
   try {
     const redirectMatch = matcher({ pathname })
     if (redirectMatch) {
