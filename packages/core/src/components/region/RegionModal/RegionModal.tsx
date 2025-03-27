@@ -7,6 +7,8 @@ import { useRef, useState } from 'react'
 
 import { sessionStore, useSession, validateSession } from 'src/sdk/session'
 
+import { deliveryPromise } from 'discovery.config'
+
 import dynamic from 'next/dynamic'
 import styles from './section.module.scss'
 
@@ -51,7 +53,10 @@ function RegionModal({
   const { isValidating, ...session } = useSession()
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [input, setInput] = useState<string>('')
-  const { modal: displayModal } = useUI()
+  const [loading, setLoading] = useState<boolean>(false)
+  const { modal: displayModal, closeModal } = useUI()
+
+  const mandatory = deliveryPromise.mandatory && !session.postalCode
 
   const handleSubmit = async () => {
     const postalCode = inputRef.current?.value
@@ -61,6 +66,7 @@ function RegionModal({
     }
 
     setErrorMessage('')
+    setLoading(true)
 
     try {
       const newSession = {
@@ -70,9 +76,15 @@ function RegionModal({
       } as typeof session
 
       const validatedSession = await validateSession(newSession)
+
       sessionStore.set(validatedSession ?? newSession)
+      setInput('')
+      setErrorMessage('')
+      closeModal() // Close modal after successfully applied postal code
     } catch (error) {
       setErrorMessage(inputFieldErrorMessage)
+    } finally {
+      setLoading(false) // Reset loading to false when validation is complete
     }
   }
 
@@ -113,8 +125,13 @@ function RegionModal({
             setInput(e.currentTarget.value)
           }}
           onSubmit={handleSubmit}
-          fadeOutOnSubmit={true}
-          onClear={() => setInput('')}
+          fadeOutOnSubmit={false}
+          onClear={() => {
+            setInput('')
+            setErrorMessage('')
+          }}
+          inputButtonActionText={loading ? '...' : 'Apply'}
+          preventClose={mandatory}
         />
       )}
     </>
