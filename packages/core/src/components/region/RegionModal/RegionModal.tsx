@@ -1,15 +1,12 @@
-import {
-  Icon,
-  type RegionModalProps as UIRegionModalProps,
-  useUI,
-} from '@faststore/ui'
+import dynamic from 'next/dynamic'
 import { useRef, useState } from 'react'
 
-import { sessionStore, useSession, validateSession } from 'src/sdk/session'
+import type { RegionModalProps as UIRegionModalProps } from '@faststore/ui'
+import { Icon, useUI } from '@faststore/ui'
 
 import { deliveryPromise } from 'discovery.config'
+import { sessionStore, useSession, validateSession } from 'src/sdk/session'
 
-import dynamic from 'next/dynamic'
 import styles from './section.module.scss'
 
 const UIRegionModal = dynamic<UIRegionModalProps>(
@@ -19,7 +16,6 @@ const UIRegionModal = dynamic<UIRegionModalProps>(
     ),
   { ssr: false }
 )
-
 interface RegionModalProps {
   title?: UIRegionModalProps['title']
   description?: UIRegionModalProps['description']
@@ -56,7 +52,12 @@ function RegionModal({
   const [loading, setLoading] = useState<boolean>(false)
   const { modal: displayModal, closeModal } = useUI()
 
-  const mandatory = deliveryPromise.mandatory && !session.postalCode
+  const isMandatory = deliveryPromise.mandatory && !session.postalCode
+
+  const resetInputField = () => {
+    setInput('')
+    setErrorMessage('')
+  }
 
   const handleSubmit = async () => {
     const postalCode = inputRef.current?.value
@@ -78,8 +79,7 @@ function RegionModal({
       const validatedSession = await validateSession(newSession)
 
       sessionStore.set(validatedSession ?? newSession)
-      setInput('')
-      setErrorMessage('')
+      resetInputField()
       closeModal() // Close modal after successfully applied postal code
     } catch (error) {
       setErrorMessage(inputFieldErrorMessage)
@@ -126,12 +126,9 @@ function RegionModal({
           }}
           onSubmit={handleSubmit}
           fadeOutOnSubmit={false}
-          onClear={() => {
-            setInput('')
-            setErrorMessage('')
-          }}
+          onClear={resetInputField}
           inputButtonActionText={loading ? '...' : 'Apply'}
-          preventClose={mandatory}
+          preventClose={isMandatory}
         />
       )}
     </>
