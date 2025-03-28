@@ -1,0 +1,234 @@
+// cp-only-schema
+{
+  "core.navbar": {
+    "$extends": ["#/components/base-component"],
+    "description": "Navbar configuration",
+    "properties": {
+      "name": {
+        "const": "Navbar"
+      },
+      "data": {
+        "properties": {
+          "logo": {
+            "title": "Logo",
+            "type": "object",
+            "required": ["src"],
+            "properties": {
+              "src": {
+                "title": "Image",
+                "type": "string",
+                "widget": {
+                  "ui:widget": "media-gallery"
+                }
+              },
+              "alt": {
+                "title": "Alternative Label",
+                "type": "string"
+              },
+              "link": {
+                "title": "Logo Link",
+                "type": "object",
+                "required": ["url", "title"],
+                "properties": {
+                  "url": {
+                    "title": "Link URL",
+                    "type": "string"
+                  },
+                  "title": {
+                    "title": "Link Title",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "searchInput": {
+            "title": "Search Input",
+            "description": "Search Input configurations",
+            "type": "object",
+            "required": ["sort"],
+            "properties": {
+              "placeholder": {
+                "title": "Placeholder for Search Bar",
+                "type": "string",
+                "default": "Search everything at the store"
+              },
+              "sort": {
+                "title": "Results default sort value",
+                "type": "string",
+                "default": "score_desc",
+                "enumNames": [
+                  "Price, descending",
+                  "Price, ascending",
+                  "Top sales",
+                  "Name, A-Z",
+                  "Name, Z-A",
+                  "Release date",
+                  "Discount",
+                  "Relevance"
+                ],
+                "enum": [
+                  "price_desc",
+                  "price_asc",
+                  "orders_desc",
+                  "name_asc",
+                  "name_desc",
+                  "release_desc",
+                  "discount_desc",
+                  "score_desc"
+                ]
+              }
+            }
+          },
+          "signInButton": {
+            "title": "Sign In Button",
+            "type": "object",
+            "properties": {
+              "icon": {
+                "title": "Icon",
+                "type": "object",
+                "properties": {
+                  "icon": {
+                    "title": "Icon",
+                    "type": "string",
+                    "enumNames": ["User"],
+                    "enum": ["User"],
+                    "default": "User"
+                  },
+                  "alt": {
+                    "title": "Alternative Label",
+                    "type": "string",
+                    "default": "User"
+                  }
+                }
+              },
+              "label": {
+                "title": "Call to Action",
+                "type": "string",
+                "default": "Sign In"
+              },
+              "myAccountLabel": {
+                "title": "My Account Label",
+                "type": "string",
+                "default": "My Account"
+              }
+            }
+          },
+          "cartIcon": {
+            "title": "Cart Icon",
+            "type": "object",
+            "properties": {
+              "icon": {
+                "title": "Icon",
+                "type": "string",
+                "enumNames": ["Shopping Cart"],
+                "enum": ["ShoppingCart"],
+                "default": "ShoppingCart"
+              },
+              "alt": {
+                "title": "Alternative Label",
+                "type": "string",
+                "default": "Shopping Cart"
+              }
+            }
+          },
+          "navigation": {
+            "title": "Navigation",
+            "type": "object",
+            "properties": {
+              "regionalization": {
+                "type": "object",
+                "title": "Regionalization",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean",
+                    "title": "Use Regionalization?",
+                    "default": true
+                  },
+                  "icon": {
+                    "title": "Icon",
+                    "type": "object",
+                    "properties": {
+                      "icon": {
+                        "title": "Icon",
+                        "type": "string",
+                        "enumNames": ["Map Pin"],
+                        "enum": ["MapPin"],
+                        "default": "MapPin"
+                      },
+                      "alt": {
+                        "title": "Alternative Label",
+                        "type": "string",
+                        "default": "MapPin"
+                      }
+                    }
+                  },
+                  "label": {
+                    "title": "Call to Action",
+                    "type": "string",
+                    "default": "Set Location"
+                  }
+                }
+              },
+              "pageLinks": {
+                "title": "Links",
+                "type": "array",
+                "maxItems": 8,
+                "items": {
+                  "title": "Link",
+                  "type": "object",
+                  "required": ["text", "url"],
+                  "properties": {
+                    "text": {
+                      "title": "Link Text",
+                      "type": "string"
+                    },
+                    "url": {
+                      "title": "Link URL",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "menu": {
+                "type": "object",
+                "title": "Menu",
+                "properties": {
+                  "icon": {
+                    "title": "Icon",
+                    "type": "object",
+                    "properties": {
+                      "icon": {
+                        "title": "Icon",
+                        "type": "string",
+                        "enumNames": ["List"],
+                        "enum": ["List"],
+                        "default": "List"
+                      },
+                      "alt": {
+                        "title": "Alternative Label",
+                        "type": "string",
+                        "default": "List"
+                      }
+                    }
+                  }
+                }
+              },
+              "home": {
+                "title": "Home",
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "title": "Go to Home Label",
+                    "type": "string",
+                    "default": "Go to Home"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
