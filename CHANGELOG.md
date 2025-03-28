@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.32.1](https://github.com/vtex/faststore/compare/v3.32.0...v3.32.1) (2025-03-28)
+
+### Bug Fixes
+
+- call redirect-evaluate only for pages ([#2748](https://github.com/vtex/faststore/issues/2748)) ([cc5bde1](https://github.com/vtex/faststore/commit/cc5bde1334a4eb1924a645a3587c2b66dd51fb84))
+
 # [3.32.0](https://github.com/vtex/faststore/compare/v3.31.0...v3.32.0) (2025-03-27)
 
 ### Features
