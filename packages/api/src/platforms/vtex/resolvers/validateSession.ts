@@ -8,6 +8,28 @@ import type {
   StoreSession,
 } from '../../../__generated__/schema'
 
+async function getGeoCoordinates(
+  clients: Context['clients'],
+  country: string,
+  postalCode: string
+) {
+  try {
+    const address = await clients.commerce.checkout.address({
+      postalCode,
+      country,
+    })
+
+    const [longitude, latitude] = address.geoCoordinates
+    return { latitude, longitude }
+  } catch (err) {
+    console.error(
+      `Error while getting geo coordinates for the current postal code (${postalCode}) and country (${country}).\n`
+    )
+
+    throw err
+  }
+}
+
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
@@ -15,9 +37,13 @@ export const validateSession = async (
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')
-  const geoCoordinates = oldSession.geoCoordinates ?? null
-
   const country = oldSession.country ?? ''
+
+  // Get geo coordinates if postal code and country are provided
+  let geoCoordinates = oldSession.geoCoordinates ?? null
+  if (!geoCoordinates && postalCode !== '' && country !== '') {
+    geoCoordinates = await getGeoCoordinates(clients, country, postalCode)
+  }
 
   const params = new URLSearchParams(search)
   const salesChannel = params.get('sc') ?? channel.salesChannel
@@ -80,6 +106,7 @@ export const validateSession = async (
           familyName: profile.lastName?.value ?? '',
         }
       : null,
+    geoCoordinates,
   }
 
   if (deepEquals(oldSession, newSession)) {
