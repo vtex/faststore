@@ -122,8 +122,8 @@ module.exports = {
   },
 
   deliveryPromise: {
-    enabled: true,
-    mandatory: true,
+    enabled: false,
+    mandatory: false,
   },
 
   experimental: {
