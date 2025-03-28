@@ -28,6 +28,7 @@ const query = gql(`
           }
           shippingEstimate
           localizedEstimates
+          deliveryChannel
         }
       }
       address {

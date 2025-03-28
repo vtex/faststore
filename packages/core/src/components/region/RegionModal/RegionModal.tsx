@@ -77,7 +77,6 @@ function RegionModal({
       } as typeof session
 
       const validatedSession = await validateSession(newSession)
-
       sessionStore.set(validatedSession ?? newSession)
       resetInputField()
       closeModal() // Close modal after successfully applied postal code

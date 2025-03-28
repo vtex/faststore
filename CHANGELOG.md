@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.32.1](https://github.com/vtex/faststore/compare/v3.32.0...v3.32.1) (2025-03-28)
+
+### Bug Fixes
+
+- call redirect-evaluate only for pages ([#2748](https://github.com/vtex/faststore/issues/2748)) ([cc5bde1](https://github.com/vtex/faststore/commit/cc5bde1334a4eb1924a645a3587c2b66dd51fb84))
+
+# [3.32.0](https://github.com/vtex/faststore/compare/v3.31.0...v3.32.0) (2025-03-27)
+
+### Features
+
+- Manually disable `hideUnavailableItems` flag for PDP queries ([#2747](https://github.com/vtex/faststore/issues/2747)) ([9022088](https://github.com/vtex/faststore/commit/90220885d1aa3a0213d447207353cf5b9d99be23)), closes [vtex-sites/starter.store#738](https://github.com/vtex-sites/starter.store/issues/738)
+
+# [3.31.0](https://github.com/vtex/faststore/compare/v3.30.1...v3.31.0) (2025-03-26)
+
+### Features
+
+- adds deliveryChannel in shipping simulation ([#2746](https://github.com/vtex/faststore/issues/2746)) ([1dd68ed](https://github.com/vtex/faststore/commit/1dd68ed3465beec511b434258cb2e7ae3a3af214))
+
 ## [3.30.1](https://github.com/vtex/faststore/compare/v3.30.0...v3.30.1) (2025-03-25)
 
 **Note:** Version bump only for package faststore
