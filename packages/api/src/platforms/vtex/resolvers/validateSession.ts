@@ -1,12 +1,12 @@
 import deepEquals from 'fast-deep-equal'
 
-import ChannelMarshal from '../utils/channel'
 import type { Context } from '..'
 import type {
   MutationValidateSessionArgs,
   StoreMarketingData,
   StoreSession,
 } from '../../../__generated__/schema'
+import ChannelMarshal from '../utils/channel'
 
 async function getGeoCoordinates(
   clients: Context['clients'],
@@ -30,10 +30,60 @@ async function getGeoCoordinates(
   }
 }
 
+/**
+ * Sends the updated public facets field to the Session Manager API (https://developers.vtex.com/docs/api-reference/session-manager-api/#patch-/api/sessions) for session update.
+ * This is required for Intelligent Search to work properly with the Delivery Promise feature.
+ *
+ * @param clients - The clients object from the application context, containing the commerce client.
+ * @param session - The current store session containing postal code, country, and geo-coordinates.
+ * @param enableDeliveryPromise - A boolean indicating if the Delivery Promise feature is enabled.
+ *
+ * @returns A promise that resolves when the session facets are successfully updated.
+ */
+async function updateSessionFacets(
+  clients: Context['clients'],
+  { postalCode, country, geoCoordinates }: StoreSession,
+  enableDeliveryPromise?: boolean
+) {
+  try {
+    const hasRequiredLocationData =
+      !!postalCode && !!country && !!geoCoordinates
+    if (!(enableDeliveryPromise && hasRequiredLocationData)) {
+      // Update the session facets with the location data only if the Delivery Promise feature flag is enabled and if all required data is available
+      // otherwise there will be make unnecessary requests and operations from FastStore and Intelligent Search
+      return
+    }
+
+    const facetsObject = {
+      'zip-code': postalCode,
+      country,
+      coordinates: `${geoCoordinates.latitude},${geoCoordinates.longitude}`,
+    }
+    const facets = Object.entries(facetsObject)
+      .map(([key, value]) => `${key}=${value}`)
+      .join(';')
+
+    return clients.commerce.updateSession({
+      public: { facets: { value: facets } },
+    })
+  } catch (err) {
+    console.error(
+      `Error while updating the Session's facets field with postal code (${postalCode}), country (${country}) and geo-coordinates (${geoCoordinates}).\n`
+    )
+
+    throw err
+  }
+}
+
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
-  { clients }: Context
+  {
+    clients,
+    storage: {
+      flags: { enableDeliveryPromise },
+    },
+  }: Context
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')
@@ -112,6 +162,8 @@ export const validateSession = async (
   if (deepEquals(oldSession, newSession)) {
     return null
   }
+
+  await updateSessionFacets(clients, newSession, enableDeliveryPromise)
 
   return newSession
 }
