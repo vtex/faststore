@@ -80,9 +80,10 @@ export interface RegionModalProps extends Omit<ModalProps, 'children'> {
    */
   onClear?: () => void
   /**
-   * Prevent modal from being closed using the close button or the Escape key.
+   * Determines if the modal can be dismissed using the close button or the Escape key.
+   * @default true
    */
-  preventClose?: boolean
+  dismissible?: boolean
 }
 
 function RegionModal({
@@ -102,7 +103,7 @@ function RegionModal({
   onInput,
   onSubmit,
   onClear,
-  preventClose = false,
+  dismissible = true,
   ...otherProps
 }: RegionModalProps) {
   return (
@@ -112,13 +113,13 @@ function RegionModal({
       overlayProps={overlayProps}
       title="Region modal"
       aria-label="Region modal"
-      disableEscapeKeyDown={preventClose}
+      disableEscapeKeyDown={!dismissible}
       {...otherProps}
     >
       {({ fadeOut }) => (
         <>
           <ModalHeader
-            {...(!preventClose && {
+            {...(dismissible && {
               onClose: () => {
                 fadeOut()
                 onClear?.()

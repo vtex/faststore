@@ -127,7 +127,7 @@ function RegionModal({
           fadeOutOnSubmit={false}
           onClear={resetInputField}
           inputButtonActionText={loading ? '...' : 'Apply'}
-          preventClose={isMandatory}
+          dismissible={!isMandatory}
         />
       )}
     </>
