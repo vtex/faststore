@@ -2,8 +2,6 @@
 export * from './hooks'
 
 // Atoms
-export { default as Avatar } from './atoms/Avatar'
-export type { AvatarProps } from './atoms/Avatar'
 export { default as Badge } from './atoms/Badge'
 export type { BadgeProps } from './atoms/Badge'
 export { default as Button } from './atoms/Button'
