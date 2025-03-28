@@ -13,8 +13,10 @@ export type ReviewsAndRatingsProps = {
   }
   reviewModal: Omit<ReviewModalProps, 'product'>
   reviewList: {
-    filterSelect: ReviewListProps['filterSelect']
     sortSelect: ReviewListProps['sortSelect']
+    filterSelect: ReviewListProps['filterSelect']
+    emptyFilter: ReviewListProps['emptyFilter']
+    emptyList: ReviewListProps['emptyList']
   }
 }
 
@@ -35,7 +37,7 @@ function ReviewsAndRatings({
   const { isDesktop } = useScreenResize()
   const { product, isValidating } = context.data
 
-  const rating = context?.data?.product?.rating
+  const rating = product?.rating
 
   return (
     <>
@@ -57,7 +59,13 @@ function ReviewsAndRatings({
           )
         )}
 
-        <ReviewList.Component {...ReviewList.props} {...reviewList} />
+        <ReviewList.Component
+          {...ReviewList.props}
+          {...reviewList}
+          // Dynamic props shouldn't be overridable
+          // This decision can be reviewed later if needed
+          productId={product.id}
+        />
       </div>
 
       {displayReviewModal && !isValidating && (

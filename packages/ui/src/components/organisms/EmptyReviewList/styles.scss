@@ -1,0 +1,40 @@
+[data-fs-empty-review-list] {
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: var(--fs-spacing-5);
+  align-items: center;
+  justify-content: center;
+  padding: var(--fs-spacing-6) 0;
+
+  [data-fs-empty-review-list-text] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-spacing-0);
+    align-items: center;
+  }
+
+  [data-fs-empty-review-list-title] {
+    font-family: var(--fs-text-face-title);
+    font-size: var(--fs-text-size-3);
+    font-weight: var(--fs-text-weight-semibold);
+    line-height: var(--fs-text-size-5);
+    color: var(--fs-color-disabled-text);
+    text-align: center;
+    letter-spacing: -4%;
+  }
+
+  [data-fs-empty-review-list-subtitle] {
+    font-family: var(--fs-text-face-title);
+    font-size: var(--fs-text-size-2);
+    font-weight: var(--fs-text-weight-regular);
+    line-height: var(--fs-text-size-4);
+    color: var(--fs-color-disabled-text);
+    text-align: center;
+    letter-spacing: -2%;
+  }
+}

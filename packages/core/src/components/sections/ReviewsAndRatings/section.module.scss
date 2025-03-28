@@ -1,11 +1,15 @@
 @layer components {
   .section {
     @import "@faststore/ui/src/components/atoms/Icon/styles.scss";
+    @import "@faststore/ui/src/components/atoms/Loader/styles";
     @import "@faststore/ui/src/components/atoms/Button/styles";
     @import "@faststore/ui/src/components/atoms/Link/styles";
     @import "@faststore/ui/src/components/atoms/Select/styles";
     @import "@faststore/ui/src/components/molecules/Rating/styles";
+    @import "@faststore/ui/src/components/molecules/ReviewCard/styles";
     @import "@faststore/ui/src/components/molecules/SelectField/styles";
+    @import "@faststore/ui/src/components/organisms/ReviewList/styles";
+    @import "@faststore/ui/src/components/organisms/EmptyReviewList/styles";
     @import "@faststore/ui/src/components/organisms/RatingSummary/styles";
 
     [data-fs-content="review-and-ratings"] {
@@ -18,26 +22,6 @@
           flex-basis: var(--fs-rating-summary-width);
           flex-shrink: 0;
           align-self: flex-start;
-        }
-      }
-
-      [data-fs-review-list] {
-        flex: 1;
-
-        [data-fs-review-list-header] {
-          --fs-review-list-header-border-color                                 : var(--fs-border-color-light);
-          --fs-review-list-header-border-width                                 : var(--fs-border-width);
-
-          display: flex;
-          flex-wrap: wrap;
-          gap: var(--fs-spacing-3);
-          align-items: center;
-          padding-bottom: var(--fs-spacing-0);
-          border-bottom: var(--fs-review-list-header-border-width) solid var(--fs-review-list-header-border-color);
-
-          [data-fs-select] {
-            --fs-select-min-height                                             : 2.375rem; // 38px
-          }
         }
       }
     }
