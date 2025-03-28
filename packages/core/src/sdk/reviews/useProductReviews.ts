@@ -13,24 +13,26 @@ const REVIEWS_PER_PAGE = 6
 interface Props {
   productId: string
   initialSort?: StoreProductListReviewsSort
-  initialRating?: number | null
+  initialRating?: number
 }
 
 export function useProductReviews({
   productId,
   initialSort = 'reviewDateTime_desc',
-  initialRating = null,
+  initialRating,
 }: Props) {
   const [page, setPage] = useState(0)
-  const [sort, setSort] = useState<StoreProductListReviewsSort>(initialSort)
-  const [rating, setRating] = useState<number | null>(initialRating)
+  const [sort, setSort] = useState<StoreProductListReviewsSort | undefined>(
+    initialSort
+  )
+  const [rating, setRating] = useState<number | undefined>(initialRating)
   const [reviews, setReviews] = useState<ProductReview[]>([])
   const [totalCount, setTotalCount] = useState(0)
   const [loadingMore, setLoadingMore] = useState(false)
 
   const handleFilterChange = useCallback((filter: FilterProductListReview) => {
     const newRating = Number(filter)
-    setRating(newRating >= 1 && newRating <= 5 ? newRating : null)
+    setRating(newRating >= 1 && newRating <= 5 ? newRating : undefined)
     setPage(0)
     setReviews([])
   }, [])
@@ -61,7 +63,7 @@ export function useProductReviews({
 
   const resetFilter = useCallback(() => {
     setPage(0)
-    setRating(null)
+    setRating(undefined)
   }, [])
 
   useEffect(() => {
