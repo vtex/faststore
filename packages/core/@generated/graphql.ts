@@ -1848,6 +1848,59 @@ export type ClientShippingSimulationQueryQuery = {
   } | null
 }
 
+export type ServerManyProductsQueryQueryVariables = Exact<{
+  first: Scalars['Int']['input']
+  after: InputMaybe<Scalars['String']['input']>
+  sort: StoreSort
+  term: Scalars['String']['input']
+  selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+  sponsoredCount: InputMaybe<Scalars['Int']['input']>
+}>
+
+export type ServerManyProductsQueryQuery = {
+  search: {
+    products: {
+      pageInfo: { totalCount: number }
+      edges: Array<{
+        node: {
+          slug: string
+          sku: string
+          name: string
+          gtin: string
+          id: string
+          brand: { name: string; brandName: string }
+          isVariantOf: { productGroupID: string; name: string }
+          image: Array<{ url: string; alternateName: string }>
+          offers: {
+            lowPrice: number
+            lowPriceWithTaxes: number
+            offers: Array<{
+              availability: string
+              price: number
+              listPrice: number
+              listPriceWithTaxes: number
+              quantity: number
+              seller: { identifier: string }
+            }>
+          }
+          additionalProperty: Array<{
+            propertyID: string
+            name: string
+            value: any
+            valueReference: any
+          }>
+          advertisement: { adId: string; adResponseId: string } | null
+        }
+      }>
+    }
+    metadata: {
+      isTermMisspelled: boolean
+      logicalOperator: string
+      fuzzy: string | null
+    } | null
+  }
+}
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -2393,4 +2446,13 @@ export const ClientShippingSimulationQueryDocument = {
 } as unknown as TypedDocumentString<
   ClientShippingSimulationQueryQuery,
   ClientShippingSimulationQueryQueryVariables
+>
+export const ServerManyProductsQueryDocument = {
+  __meta__: {
+    operationName: 'ServerManyProductsQuery',
+    operationHash: '4fa4dfd1233e2ed5b0b3f662e8866a901d481a52',
+  },
+} as unknown as TypedDocumentString<
+  ServerManyProductsQueryQuery,
+  ServerManyProductsQueryQueryVariables
 >
