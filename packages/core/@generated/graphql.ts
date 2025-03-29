@@ -554,10 +554,12 @@ export type QueryRedirectArgs = {
 export type QuerySearchArgs = {
   after: InputMaybe<Scalars['String']['input']>
   first: Scalars['Int']['input']
+  macId: InputMaybe<Scalars['String']['input']>
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet>>
   sort?: InputMaybe<StoreSort>
   sponsoredCount: InputMaybe<Scalars['Int']['input']>
   term?: InputMaybe<Scalars['String']['input']>
+  userId: InputMaybe<Scalars['String']['input']>
 }
 
 export type QuerySellersArgs = {
@@ -1592,6 +1594,8 @@ export type ClientManyProductsQueryQueryVariables = Exact<{
   term: Scalars['String']['input']
   selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
   sponsoredCount: InputMaybe<Scalars['Int']['input']>
+  userId: InputMaybe<Scalars['String']['input']>
+  macId: InputMaybe<Scalars['String']['input']>
 }>
 
 export type ClientManyProductsQueryQuery = {
@@ -1639,6 +1643,8 @@ export type ClientProductGalleryQueryQueryVariables = Exact<{
   sort: StoreSort
   term: Scalars['String']['input']
   selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet
+  userId: InputMaybe<Scalars['String']['input']>
+  macId: InputMaybe<Scalars['String']['input']>
 }>
 
 export type ClientProductGalleryQueryQuery = {
@@ -2121,6 +2127,8 @@ export const ClientManyProductsFragmentDoc = new TypedDocumentString(
     term: $term
     selectedFacets: $selectedFacets
     sponsoredCount: $sponsoredCount
+    userId: $userId
+    macId: $macId
   ) {
     products {
       pageInfo {
@@ -2151,6 +2159,8 @@ export const ClientProductGalleryFragmentDoc = new TypedDocumentString(
     sort: $sort
     term: $term
     selectedFacets: $selectedFacets
+    userId: $userId
+    macId: $macId
   ) {
     products {
       pageInfo {
@@ -2334,7 +2344,7 @@ export const ClientAllVariantProductsQueryDocument = {
 export const ClientManyProductsQueryDocument = {
   __meta__: {
     operationName: 'ClientManyProductsQuery',
-    operationHash: '14148671fbf53498fad5c600ee87765920145019',
+    operationHash: '8226df08c04356d5fbd5459ec9b8f5d1f658cf0f',
   },
 } as unknown as TypedDocumentString<
   ClientManyProductsQueryQuery,
@@ -2343,7 +2353,7 @@ export const ClientManyProductsQueryDocument = {
 export const ClientProductGalleryQueryDocument = {
   __meta__: {
     operationName: 'ClientProductGalleryQuery',
-    operationHash: 'bfc40da32b60f9404a4adb96b0856e3fbb04b076',
+    operationHash: 'dd56649e352ce0796a7fd59e0d043d6227755ba1',
   },
 } as unknown as TypedDocumentString<
   ClientProductGalleryQueryQuery,
