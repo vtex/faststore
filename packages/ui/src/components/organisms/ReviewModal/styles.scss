@@ -41,7 +41,7 @@
     gap: 1.25rem; // 20px
     overflow-y: auto;
 
-    [data-fs-review-modal-step="success"] {
+    &[data-fs-review-modal-step="success"] {
       gap: var(--fs-spacing-5);
       align-items: center;
       padding-top: var(--fs-spacing-11);
