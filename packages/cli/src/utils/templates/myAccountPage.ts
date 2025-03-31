@@ -9,6 +9,7 @@ export const myAccountPageTemplate = (pagePath: string) => `
   import RenderSections from 'src/components/cms/RenderSections'
   import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
   import CUSTOM_COMPONENTS from 'src/customizations/src/components'
+  import { MyAccountLayout } from 'src/components/account'
   import {
     getServerSideProps,
     type MyAccountProps,
@@ -27,7 +28,9 @@ export const myAccountPageTemplate = (pagePath: string) => `
         globalSections={globalSections.sections}
         components={COMPONENTS}
       >
-        <DynamicPage />
+        <MyAccountLayout>
+          <DynamicPage />
+        </MyAccountLayout>
       </RenderSections>
     )
   }
