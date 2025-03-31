@@ -2,7 +2,7 @@ import { useRef } from 'react'
 
 const FIVE_MINUTES = 5 * 60 * 1000
 
-function hasPeriodPassed({
+function hasTimeElapsed({
   timestamp,
   period = FIVE_MINUTES,
 }: { timestamp: number; period: number }): boolean {
@@ -33,7 +33,7 @@ export function useShouldFetchFirstPage({
 
   const lastFetchTime = useRef<number | undefined>()
 
-  const passedFiveMinutesAfterBuild = hasPeriodPassed({
+  const passedFiveMinutesAfterBuild = hasTimeElapsed({
     timestamp: generatedBuildTime,
     period: FIVE_MINUTES,
   })
@@ -43,7 +43,7 @@ export function useShouldFetchFirstPage({
 
   const passedFiveMinutesSinceLastFetch =
     !isFirstClientSideFetchFromFirstPage &&
-    hasPeriodPassed({
+    hasTimeElapsed({
       timestamp: lastFetchTime.current!,
       period: FIVE_MINUTES,
     })
