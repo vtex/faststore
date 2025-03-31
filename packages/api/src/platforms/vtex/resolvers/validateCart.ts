@@ -1,5 +1,6 @@
 import deepEquals from 'fast-deep-equal'
 
+import { parse } from 'cookie'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { md5 } from '../utils/md5'
 import {
@@ -7,7 +8,6 @@ import {
   getPropertyId,
   VALUE_REFERENCES,
 } from '../utils/propertyValue'
-import { parse } from 'cookie'
 
 import type { Context } from '..'
 import type {
@@ -23,10 +23,11 @@ import type {
   OrderFormInputItem,
   OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
-import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
-import { getAddressOrderForm } from '../utils/getAddressOrderForm'
 import type { SelectedAddress } from '../clients/commerce/types/ShippingData'
 import { createNewAddress } from '../utils/createNewAddress'
+import type { EnhancedSku } from '../utils/enhanceSku'
+import { getAddressOrderForm } from '../utils/getAddressOrderForm'
+import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
 
 type Indexed<T> = T & { index?: number }
 
@@ -165,6 +166,20 @@ const joinItems = (form: OrderForm) => {
   }
 }
 
+const getSkus = async (
+  skuLoader: Context['loaders']['skuLoader'],
+  item: OrderFormItem
+) => {
+  let skus: EnhancedSku = {} as EnhancedSku
+  try {
+    skus = await skuLoader.load(item.id)
+    return skus
+  } catch (error) {
+    console.error('Error loading skus', error)
+    return
+  }
+}
+
 const orderFormToCart = async (
   form: OrderForm,
   skuLoader: Context['loaders']['skuLoader'],
@@ -175,7 +190,7 @@ const orderFormToCart = async (
       orderNumber: form.orderFormId,
       acceptedOffer: form.items.map(async (item) => ({
         ...item,
-        product: await skuLoader.load(`${item.id}-invisibleItems`),
+        product: await getSkus(skuLoader, item),
       })),
       shouldSplitItem,
     },
