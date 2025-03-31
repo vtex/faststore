@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.33.0](https://github.com/vtex/faststore/compare/v3.32.1...v3.33.0) (2025-03-31)
+
+### Features
+
+- loads first page product gallery from Build Time (getStaticProps) + improve number of requests (+) ([#2721](https://github.com/vtex/faststore/issues/2721)) ([9a74405](https://github.com/vtex/faststore/commit/9a74405b53ce31211e2d5a2c61874a535e47d654)), closes [/github.com/vtex/faststore/blob/47fd98ef2e3380bc2b84f5ff7922068d75077d45/packages/core/src/sdk/product/useShouldFetchFirstPage.ts#L3](https://github.com//github.com/vtex/faststore/blob/47fd98ef2e3380bc2b84f5ff7922068d75077d45/packages/core/src/sdk/product/useShouldFetchFirstPage.ts/issues/L3)
+
 ## [3.32.1](https://github.com/vtex/faststore/compare/v3.32.0...v3.32.1) (2025-03-28)
 
 ### Bug Fixes
