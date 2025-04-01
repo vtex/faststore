@@ -31,10 +31,8 @@ export async function getRedirect({
   try {
     const redirectMatch = matcher({ pathname })
     if (redirectMatch) {
-      const encodedDestination = encodeURI(redirectMatch.destination)
-      console.log({ encodedDestination })
       return {
-        destination: encodedDestination,
+        destination: encodeURI(redirectMatch.destination),
         permanent: redirectMatch.permanent ?? true,
       }
     }
