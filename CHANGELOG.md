@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.33.3](https://github.com/vtex/faststore/compare/v3.33.2...v3.33.3) (2025-04-01)
+
+### Bug Fixes
+
+- handle params and prevents send `page=NaN` or `count=0` to IS ([#2755](https://github.com/vtex/faststore/issues/2755)) ([c0f6e2f](https://github.com/vtex/faststore/commit/c0f6e2f9eef21be1f111f2ca902cae386159c43b))
+
 ## [3.33.2](https://github.com/vtex/faststore/compare/v3.33.1...v3.33.2) (2025-04-01)
 
 ### Bug Fixes
