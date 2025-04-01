@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.33.2](https://github.com/vtex/faststore/compare/v3.33.1...v3.33.2) (2025-04-01)
+
+### Bug Fixes
+
+- adds .end to the catch of api/graphql ([#2754](https://github.com/vtex/faststore/issues/2754)) ([3465adc](https://github.com/vtex/faststore/commit/3465adcac170e4beeeacd5db8bfacdcab3a6b559))
+
 ## [3.33.1](https://github.com/vtex/faststore/compare/v3.33.0...v3.33.1) (2025-04-01)
 
 ### Bug Fixes
