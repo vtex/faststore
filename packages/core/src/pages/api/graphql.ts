@@ -2,6 +2,9 @@ import { isFastStoreError, stringifyCacheControl } from '@faststore/api'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import { execute } from '../../server'
+import discoveryConfigDefault from 'discovery.config.default'
+
+const ONE_MINUTE = 60
 
 /**
  * This function replaces the setCookie domain so that we can use localhost in dev environment.
@@ -84,6 +87,24 @@ const handler: NextApiHandler = async (request, response) => {
         ? stringifyCacheControl(extensions.cacheControl)
         : 'no-cache, no-store'
 
+    if (
+      request.method === 'GET' &&
+      discoveryConfigDefault?.experimental?.graphqlCacheControl?.maxAge
+    ) {
+      const maxAge =
+        discoveryConfigDefault.experimental.graphqlCacheControl.maxAge
+      const staleWhileRevalidate =
+        discoveryConfigDefault.experimental.graphqlCacheControl
+          .staleWhileRevalidate ?? ONE_MINUTE
+
+      response.setHeader(
+        'cache-control',
+        `max-age=${maxAge}, stale-while-revalidate=${staleWhileRevalidate}`
+      )
+    } else {
+      response.setHeader('cache-control', cacheControl)
+    }
+
     const setCookieValues = Array.from(extensions.cookies.values())
     if (setCookieValues.length > 0 && !hasErrors) {
       response.setHeader(
@@ -96,7 +117,6 @@ const handler: NextApiHandler = async (request, response) => {
       )
     }
 
-    response.setHeader('cache-control', cacheControl)
     response.setHeader('content-type', 'application/json')
     response.send(JSON.stringify({ data, errors }))
   } catch (err) {
