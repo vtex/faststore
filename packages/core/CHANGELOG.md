@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.33.2](https://github.com/vtex/faststore/compare/v3.33.1...v3.33.2) (2025-04-01)
+
+### Bug Fixes
+
+- adds .end to the catch of api/graphql ([#2754](https://github.com/vtex/faststore/issues/2754)) ([3465adc](https://github.com/vtex/faststore/commit/3465adcac170e4beeeacd5db8bfacdcab3a6b559))
+
+## [3.33.1](https://github.com/vtex/faststore/compare/v3.33.0...v3.33.1) (2025-04-01)
+
+### Bug Fixes
+
+- Encode redirect destination ([#2757](https://github.com/vtex/faststore/issues/2757)) ([bbbcc6b](https://github.com/vtex/faststore/commit/bbbcc6be72112960c41ce70278f9130662bddfe5))
+
+# [3.33.0](https://github.com/vtex/faststore/compare/v3.32.1...v3.33.0) (2025-03-31)
+
+### Features
+
+- loads first page product gallery from Build Time (getStaticProps) + improve number of requests (+) ([#2721](https://github.com/vtex/faststore/issues/2721)) ([9a74405](https://github.com/vtex/faststore/commit/9a74405b53ce31211e2d5a2c61874a535e47d654)), closes [/github.com/vtex/faststore/blob/47fd98ef2e3380bc2b84f5ff7922068d75077d45/packages/core/src/sdk/product/useShouldFetchFirstPage.ts#L3](https://github.com//github.com/vtex/faststore/blob/47fd98ef2e3380bc2b84f5ff7922068d75077d45/packages/core/src/sdk/product/useShouldFetchFirstPage.ts/issues/L3)
+
+## [3.32.1](https://github.com/vtex/faststore/compare/v3.32.0...v3.32.1) (2025-03-28)
+
+### Bug Fixes
+
+- call redirect-evaluate only for pages ([#2748](https://github.com/vtex/faststore/issues/2748)) ([cc5bde1](https://github.com/vtex/faststore/commit/cc5bde1334a4eb1924a645a3587c2b66dd51fb84))
+
+# [3.32.0](https://github.com/vtex/faststore/compare/v3.31.0...v3.32.0) (2025-03-27)
+
+**Note:** Version bump only for package @faststore/core
+
+# [3.31.0](https://github.com/vtex/faststore/compare/v3.30.1...v3.31.0) (2025-03-26)
+
+### Features
+
+- adds deliveryChannel in shipping simulation ([#2746](https://github.com/vtex/faststore/issues/2746)) ([1dd68ed](https://github.com/vtex/faststore/commit/1dd68ed3465beec511b434258cb2e7ae3a3af214))
+
 ## [3.30.1](https://github.com/vtex/faststore/compare/v3.30.0...v3.30.1) (2025-03-25)
 
 **Note:** Version bump only for package @faststore/core

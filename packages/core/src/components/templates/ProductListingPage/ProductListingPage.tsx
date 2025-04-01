@@ -8,7 +8,11 @@ import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
-import type { ServerCollectionPageQueryQuery } from '@generated/graphql'
+import type {
+  ServerCollectionPageQueryQuery,
+  ServerManyProductsQueryQuery,
+  ServerManyProductsQueryQueryVariables,
+} from '@generated/graphql'
 import { ITEMS_PER_PAGE } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
 
@@ -18,7 +22,8 @@ import storeConfig from '../../../../discovery.config'
 import ProductListing from './ProductListing'
 
 export type ProductListingPageProps = {
-  data: ServerCollectionPageQueryQuery
+  data: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
+  serverManyProductsVariables: ServerManyProductsQueryQueryVariables
   page: PLPContentType
   globalSections?: Array<{ name: string; data: any }>
 }
@@ -26,12 +31,24 @@ export type ProductListingPageProps = {
 type UseSearchParams = {
   collection: ServerCollectionPageQueryQuery['collection']
   sort: SearchState['sort']
+  serverData?: ServerCollectionPageQueryQuery & ServerManyProductsQueryQuery
 }
 const useSearchParams = ({
   collection,
   sort,
+  serverData,
 }: UseSearchParams): SearchState => {
-  const selectedFacets = collection?.meta.selectedFacets
+  const selectedFacets = [
+    ...collection?.meta.selectedFacets,
+    {
+      key: 'fuzzy',
+      value: serverData?.search?.metadata?.fuzzy ?? 'auto',
+    },
+    {
+      key: 'operator',
+      value: serverData?.search?.metadata?.logicalOperator ?? 'and',
+    },
+  ]
   const { asPath } = useRouter()
 
   const hrefState = useMemo(() => {
@@ -57,6 +74,7 @@ const useSearchParams = ({
 export default function ProductListingPage({
   page: plpContentType,
   data: server,
+  serverManyProductsVariables,
   globalSections,
 }: ProductListingPageProps) {
   const { settings } = plpContentType
@@ -66,6 +84,7 @@ export default function ProductListingPage({
   const searchParams = useSearchParams({
     collection,
     sort: settings?.productGallery?.sortBySelection as SearchState['sort'],
+    serverData: server,
   })
 
   const {
@@ -117,6 +136,7 @@ export default function ProductListingPage({
         globalSections={globalSections}
         page={plpContentType}
         data={server}
+        serverManyProductsVariables={serverManyProductsVariables}
       />
     </SearchProvider>
   )
