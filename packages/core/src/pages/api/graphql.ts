@@ -107,17 +107,17 @@ const handler: NextApiHandler = async (request, response) => {
       response.setHeader('cache-control', cacheControl)
     }
 
-    const setCookieValues = Array.from(extensions.cookies.values())
-    if (setCookieValues.length > 0 && !hasErrors) {
-      response.setHeader(
-        'set-cookie',
-        setCookieValues.map(({ setCookie }) =>
-          process.env.NODE_ENV !== 'production'
-            ? replaceSetCookieDomain(request, setCookie)
-            : setCookie
-        )
-      )
-    }
+    // const setCookieValues = Array.from(extensions.cookies.values())
+    // if (setCookieValues.length > 0 && !hasErrors) {
+    //   response.setHeader(
+    //     'set-cookie',
+    //     setCookieValues.map(({ setCookie }) =>
+    //       process.env.NODE_ENV !== 'production'
+    //         ? replaceSetCookieDomain(request, setCookie)
+    //         : setCookie
+    //     )
+    //   )
+    // }
 
     response.setHeader('content-type', 'application/json')
     response.send(JSON.stringify({ data, errors }))
