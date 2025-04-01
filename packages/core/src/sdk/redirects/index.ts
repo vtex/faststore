@@ -32,7 +32,7 @@ export async function getRedirect({
     const redirectMatch = matcher({ pathname })
     if (redirectMatch) {
       return {
-        destination: redirectMatch.destination,
+        destination: encodeURI(redirectMatch.destination),
         permanent: redirectMatch.permanent ?? true,
       }
     }
