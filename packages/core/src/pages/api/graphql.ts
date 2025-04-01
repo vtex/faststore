@@ -101,7 +101,7 @@ const handler: NextApiHandler = async (request, response) => {
 
       response.setHeader(
         'cache-control',
-        `public, max-age=${maxAge}, stale-while-revalidate=${staleWhileRevalidate}`
+        `public, s-maxage=${maxAge}, stale-while-revalidate=${staleWhileRevalidate}`
       )
     } else {
       response.setHeader('cache-control', cacheControl)
