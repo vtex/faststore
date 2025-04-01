@@ -2,7 +2,7 @@ import { isFastStoreError, stringifyCacheControl } from '@faststore/api'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import { execute } from '../../server'
-import discoveryConfigDefault from 'discovery.config.default'
+import discoveryConfig from 'discovery.config'
 
 const ONE_MINUTE = 60
 
@@ -89,13 +89,12 @@ const handler: NextApiHandler = async (request, response) => {
 
     if (
       request.method === 'GET' &&
-      discoveryConfigDefault?.experimental?.graphqlCacheControl?.maxAge
+      discoveryConfig?.experimental?.graphqlCacheControl?.maxAge
     ) {
-      const maxAge =
-        discoveryConfigDefault.experimental.graphqlCacheControl.maxAge
+      const maxAge = discoveryConfig.experimental.graphqlCacheControl.maxAge
       const staleWhileRevalidate =
-        discoveryConfigDefault.experimental.graphqlCacheControl
-          .staleWhileRevalidate ?? ONE_MINUTE
+        discoveryConfig?.experimental?.graphqlCacheControl
+          ?.staleWhileRevalidate ?? ONE_MINUTE
 
       response.setHeader(
         'cache-control',
