@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.33.1](https://github.com/vtex/faststore/compare/v3.33.0...v3.33.1) (2025-04-01)
+
+### Bug Fixes
+
+- Encode redirect destination ([#2757](https://github.com/vtex/faststore/issues/2757)) ([bbbcc6b](https://github.com/vtex/faststore/commit/bbbcc6be72112960c41ce70278f9130662bddfe5))
+
 # [3.33.0](https://github.com/vtex/faststore/compare/v3.32.1...v3.33.0) (2025-03-31)
 
 ### Features
