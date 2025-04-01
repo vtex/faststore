@@ -102,7 +102,7 @@ const handler: NextApiHandler = async (request, response) => {
   } catch (err) {
     console.error(err)
 
-    response.status(500)
+    response.status(500).end()
   }
 }
 
