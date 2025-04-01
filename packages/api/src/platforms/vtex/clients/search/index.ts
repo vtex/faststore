@@ -187,7 +187,7 @@ export const IntelligentSearch = (
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
-      count: count.toString(),
+      count: count !== 0 ? count.toString() : '1',
       query,
       sort,
       locale: ctx.storage.locale,
