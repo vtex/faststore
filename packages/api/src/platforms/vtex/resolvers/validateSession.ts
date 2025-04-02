@@ -145,9 +145,11 @@ export const validateSession = async (
       seller: seller?.id,
       hasOnlyDefaultSalesChannel: !store?.channel?.value,
     }),
-    b2b: {
-      customerId: authentication?.customerId?.value ?? '',
-    },
+    b2b: authentication?.customerId?.value
+      ? {
+          customerId: authentication?.customerId?.value ?? '',
+        }
+      : null,
     marketingData,
     person: profile?.id
       ? {
