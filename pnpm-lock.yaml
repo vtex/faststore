@@ -169,7 +169,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.33.3
+        specifier: ^3.33.4
         version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2

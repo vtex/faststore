@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.33.4](https://github.com/vtex/faststore/compare/v3.33.3...v3.33.4) (2025-04-02)
+
+### Bug Fixes
+
+- validate response status before parsing to json ([#2759](https://github.com/vtex/faststore/issues/2759)) ([f10400c](https://github.com/vtex/faststore/commit/f10400cb57aeb85bee71c3d7d38857d7983b6c41))
+
 ## [3.33.3](https://github.com/vtex/faststore/compare/v3.33.2...v3.33.3) (2025-04-01)
 
 ### Bug Fixes
