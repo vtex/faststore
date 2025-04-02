@@ -95,9 +95,7 @@ export const validateSession = async (
       hasOnlyDefaultSalesChannel: !store?.channel?.value,
     }),
     b2b: authentication?.customerId?.value
-      ? {
-          customerId: authentication?.customerId?.value ?? '',
-        }
+      ? { customerId: authentication.customerId.value }
       : null,
     marketingData,
     person: profile?.id
