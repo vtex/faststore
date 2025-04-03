@@ -1,6 +1,6 @@
 import type { Context, Options } from '../../'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
-import { getStoreCookie, getWithCookie } from '../../utils/cookies'
+import { getWithCookie } from '../../utils/cookies'
 import type {
   FuzzyFacet,
   OperatorFacet,
@@ -87,7 +87,6 @@ export const IntelligentSearch = (
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br/api/io`
-  const storeCookies = getStoreCookie(ctx)
   const withCookie = getWithCookie(ctx)
 
   const host =
@@ -225,8 +224,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`,
-      { headers },
-      { storeCookies }
+      { headers }
     )
   }
 
@@ -243,8 +241,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/search_suggestions?${params.toString()}`,
-      { headers },
-      { storeCookies }
+      { headers }
     )
   }
 
@@ -255,8 +252,7 @@ export const IntelligentSearch = (
 
     return fetchAPI(
       `${base}/_v/api/intelligent-search/top_searches?${params.toString()}`,
-      { headers },
-      { storeCookies }
+      { headers }
     )
   }
 
