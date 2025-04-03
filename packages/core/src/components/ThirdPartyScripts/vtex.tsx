@@ -8,17 +8,16 @@ function VTEX() {
         type="text/partytown"
         dangerouslySetInnerHTML={{
           __html: `
+    window.VTEX_METADATA = {account:'${storeConfig.api.storeId}', renderer: 'faststore'};
     window.sendrc=function(en,ed){window.NavigationCapture&&window.NavigationCapture.sendEvent(en,ed)};
     `,
         }}
-        data-an={storeConfig.api.storeId}
       />
       <script
         key="vtexrc.js-script"
         type="text/partytown"
         async
         src="https://activity-flow.vtex.com/af/rc.js"
-        data-an={storeConfig.api.storeId}
       />
       <script
         type="text/javascript"
