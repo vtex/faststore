@@ -96,9 +96,6 @@ const handler: NextApiHandler = async (request, response) => {
         discoveryConfig?.experimental?.graphqlCacheControl
           ?.staleWhileRevalidate ?? ONE_MINUTE
 
-      console.log('🚀 ~ maxAge:', maxAge)
-      console.log('🚀 ~ staleWhileRevalidate:', staleWhileRevalidate)
-
       response.setHeader(
         'cache-control',
         `public, s-maxage=${maxAge}, stale-while-revalidate=${staleWhileRevalidate}`
