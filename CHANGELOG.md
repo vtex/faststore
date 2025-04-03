@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.33.5](https://github.com/vtex/faststore/compare/v3.33.4...v3.33.5) (2025-04-03)
+
+### Bug Fixes
+
+- loading rc with accountName ([#2762](https://github.com/vtex/faststore/issues/2762)) ([d49e996](https://github.com/vtex/faststore/commit/d49e9961884a0d5c1c2a7078f718b4214370de94))
+
 ## [3.33.4](https://github.com/vtex/faststore/compare/v3.33.3...v3.33.4) (2025-04-02)
 
 ### Bug Fixes
