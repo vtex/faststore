@@ -11,12 +11,14 @@ function VTEX() {
     window.sendrc=function(en,ed){window.NavigationCapture&&window.NavigationCapture.sendEvent(en,ed)};
     `,
         }}
+        data-an={storeConfig.api.storeId}
       />
       <script
         key="vtexrc.js-script"
         type="text/partytown"
         async
-        src="https://io.vtex.com.br/rc/rc.js"
+        src="https://activity-flow.vtex.com/af/rc.js"
+        data-an={storeConfig.api.storeId}
       />
       <script
         type="text/javascript"
