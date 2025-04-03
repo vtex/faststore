@@ -274,7 +274,7 @@ test('`redirect` query', async () => {
     expect(mockedFetch).toHaveBeenCalledWith(
       fetchAPICall.info,
       fetchAPICall.init,
-      { storeCookies: expect.any(Function) }
+      fetchAPICall.options
     )
   })
   expect(response).toMatchSnapshot()
