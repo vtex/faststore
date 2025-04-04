@@ -1,15 +1,16 @@
+/* ######################################### */
+/* Mocked Page until development is finished, it will be removed after */
+
 import { NextSeo } from 'next-seo'
 import type { ComponentType } from 'react'
-import { useEffect } from 'react'
+import { MyAccountLayout } from 'src/components/account'
 import RenderSections from 'src/components/cms/RenderSections'
 import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
-import storeConfig from 'discovery.config'
 import {
   getServerSideProps,
   type MyAccountProps,
 } from 'src/experimental/myAccountSeverSideProps'
-import { useRouter } from 'next/router'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -17,16 +18,17 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ...CUSTOM_COMPONENTS,
 }
 
-function Page({ globalSections }: MyAccountProps) {
-  const router = useRouter()
-  useEffect(() => {
-    if (storeConfig.experimental.enableFaststoreMyAccount) {
-      router.push('/account/profile') // current default path in my account
-    } else {
-      window.location.href = `${storeConfig.accountUrl}${window.location.search}`
-    }
-  }, [])
+const style = {
+  alignContent: 'center',
+  justifyContent: 'center',
+  alignItems: 'center',
+  display: 'flex',
+  h1: {
+    fontSize: '100px',
+  },
+}
 
+export default function Profile({ globalSections }: MyAccountProps) {
   return (
     <RenderSections
       globalSections={globalSections.sections}
@@ -34,11 +36,13 @@ function Page({ globalSections }: MyAccountProps) {
     >
       <NextSeo noindex nofollow />
 
-      <div>loading...</div>
+      <MyAccountLayout>
+        <div style={style}>
+          <h1 style={style.h1}>Profile</h1>
+        </div>
+      </MyAccountLayout>
     </RenderSections>
   )
 }
 
 export { getServerSideProps }
-
-export default Page
