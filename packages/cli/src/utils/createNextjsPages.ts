@@ -63,6 +63,12 @@ export function createNextJsPages(basePath: string) {
     'src/customizations/src/pages'
   )
 
+  if (!fs.existsSync(customizationPagesDir)) {
+    // If the customization pages directory doesn't exist, we don't need to create any pages
+    // and we can return early.
+    return
+  }
+
   const allPagesAreAllowed = fs
     .readdirSync(customizationPagesDir)
     .every((filePath) => isAllowedPrefixPage(path.join('/', filePath)))
