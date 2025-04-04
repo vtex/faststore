@@ -1,0 +1,466 @@
+{
+  "orderId": "1521550501119-01",
+  "sequence": "501119",
+  "marketplaceOrderId": "",
+  "marketplaceServicesEndpoint": "http://oms.vtexinternal.com.br/api/oms?an=storeframework",
+  "sellerOrderId": "00-1521550501119-01",
+  "origin": "Marketplace",
+  "affiliateId": "",
+  "salesChannel": "1",
+  "merchantName": null,
+  "status": "ready-for-handling",
+  "workflowIsInError": false,
+  "statusDescription": "Pronto para o manuseio",
+  "value": 13500,
+  "creationDate": "2025-03-31T18:36:37.2077258+00:00",
+  "lastChange": "2025-03-31T18:37:45.7240759+00:00",
+  "orderGroup": "1521550501119",
+  "totals": [
+    {
+      "id": "Items",
+      "name": "Items Total",
+      "value": 13000
+    },
+    {
+      "id": "Discounts",
+      "name": "Discounts Total",
+      "value": 0
+    },
+    {
+      "id": "Shipping",
+      "name": "Shipping Total",
+      "value": 500
+    },
+    {
+      "id": "Tax",
+      "name": "Tax Total",
+      "value": 0
+    }
+  ],
+  "items": [
+    {
+      "uniqueId": "0782A3D013EC42FFA1B1ED385835F3C4",
+      "id": "99988211",
+      "productId": "99995944",
+      "ean": null,
+      "lockId": "00-1521550501119-01",
+      "itemAttachment": {
+        "content": {},
+        "name": null
+      },
+      "attachments": [],
+      "quantity": 1,
+      "seller": "1",
+      "name": "Aedle VK-1 L Headphone Leather",
+      "refId": "1502",
+      "price": 13000,
+      "listPrice": 15000,
+      "manualPrice": null,
+      "manualPriceAppliedBy": null,
+      "priceTags": [],
+      "imageUrl": "https://storeframework.vteximg.com.br/arquivos/ids/190901-55-55/unsplash-headphone.jpg?v=637800115948430000",
+      "detailUrl": "/aedle-vk1-headphone/p",
+      "components": [],
+      "bundleItems": [],
+      "params": [],
+      "offerings": [],
+      "attachmentOfferings": [],
+      "sellerSku": "99988211",
+      "priceValidUntil": null,
+      "commission": 0,
+      "tax": 0,
+      "preSaleDate": null,
+      "additionalInfo": {
+        "brandName": "adidas",
+        "brandId": "2000004",
+        "categoriesIds": "/9297/",
+        "categories": [
+          {
+            "id": 9297,
+            "name": "Technology"
+          }
+        ],
+        "productClusterId": "140",
+        "commercialConditionId": "1",
+        "dimension": {
+          "cubicweight": 1,
+          "height": 5,
+          "length": 5,
+          "weight": 5,
+          "width": 5
+        },
+        "offeringInfo": null,
+        "offeringType": null,
+        "offeringTypeId": null
+      },
+      "measurementUnit": "un",
+      "unitMultiplier": 1,
+      "sellingPrice": 13000,
+      "isGift": false,
+      "shippingPrice": null,
+      "rewardValue": 0,
+      "freightCommission": 0,
+      "priceDefinition": {
+        "sellingPrices": [
+          {
+            "value": 13000,
+            "quantity": 1
+          }
+        ],
+        "calculatedSellingPrice": 13000,
+        "total": 13000,
+        "reason": null
+      },
+      "taxCode": "",
+      "parentItemIndex": null,
+      "parentAssemblyBinding": null,
+      "callCenterOperator": null,
+      "serialNumbers": null,
+      "assemblies": [],
+      "costPrice": 12000
+    }
+  ],
+  "marketplaceItems": [],
+  "clientProfileData": {
+    "id": "clientProfileData",
+    "email": "pedro.soares@vtex.com",
+    "firstName": "Pedro",
+    "lastName": "Soares",
+    "documentType": null,
+    "document": null,
+    "phone": "+16416632402",
+    "corporateName": null,
+    "tradeName": null,
+    "corporateDocument": null,
+    "stateInscription": null,
+    "corporatePhone": null,
+    "isCorporate": false,
+    "userProfileId": "f3e731fd-6e0d-4150-b570-fb56b336340e",
+    "userProfileVersion": null,
+    "customerClass": null,
+    "customerCode": null
+  },
+  "giftRegistryData": null,
+  "marketingData": null,
+  "ratesAndBenefitsData": {
+    "id": "ratesAndBenefitsData",
+    "rateAndBenefitsIdentifiers": []
+  },
+  "shippingData": {
+    "id": "shippingData",
+    "address": {
+      "addressType": "residential",
+      "receiverName": "Pedro Soares",
+      "addressId": "5230338247839",
+      "versionId": null,
+      "entityId": null,
+      "postalCode": "62800-000",
+      "city": "Aracati",
+      "state": "CE",
+      "country": "BRA",
+      "street": "Aracati",
+      "number": "123",
+      "neighborhood": "Travessa José de Alencar ",
+      "complement": "Teste",
+      "reference": null,
+      "geoCoordinates": [-37.76885986328125, -4.561209201812744]
+    },
+    "logisticsInfo": [
+      {
+        "itemIndex": 0,
+        "itemId": "99988211",
+        "selectedDeliveryChannel": "delivery",
+        "selectedSla": "Normal",
+        "lockTTL": "10d",
+        "price": 500,
+        "listPrice": 500,
+        "sellingPrice": 500,
+        "deliveryWindow": {
+          "startDateUtc": "2025-04-08T12:00:00+00:00",
+          "endDateUtc": "2025-04-08T13:00:59+00:00",
+          "price": 0
+        },
+        "deliveryCompany": "Transportadora",
+        "shippingEstimate": "3bd",
+        "shippingEstimateDate": "2025-04-08T12:00:00.0000000+00:00",
+        "slas": [
+          {
+            "id": "Normal",
+            "name": "Normal",
+            "shippingEstimate": "3bd",
+            "shippingEstimateDate": "2025-04-08T12:00:00.0000000+00:00",
+            "deliveryWindow": {
+              "startDateUtc": "2025-04-08T12:00:00+00:00",
+              "endDateUtc": "2025-04-08T13:00:59+00:00",
+              "price": 0
+            },
+            "availableDeliveryWindows": [
+              {
+                "startDateUtc": "2025-04-04T12:00:00+00:00",
+                "endDateUtc": "2025-04-04T13:00:59+00:00",
+                "price": 0
+              },
+              {
+                "startDateUtc": "2025-04-04T13:00:00+00:00",
+                "endDateUtc": "2025-04-04T14:00:59+00:00",
+                "price": 200
+              },
+              {
+                "startDateUtc": "2025-04-07T12:00:00+00:00",
+                "endDateUtc": "2025-04-07T13:00:59+00:00",
+                "price": 0
+              },
+              {
+                "startDateUtc": "2025-04-07T13:00:00+00:00",
+                "endDateUtc": "2025-04-07T14:00:59+00:00",
+                "price": 200
+              },
+              {
+                "startDateUtc": "2025-04-08T12:00:00+00:00",
+                "endDateUtc": "2025-04-08T13:00:59+00:00",
+                "price": 0
+              },
+              {
+                "startDateUtc": "2025-04-08T13:00:00+00:00",
+                "endDateUtc": "2025-04-08T14:00:59+00:00",
+                "price": 200
+              }
+            ],
+            "deliveryIds": [
+              {
+                "courierId": "1",
+                "courierName": "Transportadora",
+                "dockId": "1",
+                "quantity": 1,
+                "warehouseId": "1_1",
+                "accountCarrierName": "storeframework",
+                "kitItemDetails": []
+              }
+            ],
+            "listPrice": 500,
+            "price": 500,
+            "deliveryChannel": "delivery",
+            "pickupStoreInfo": {
+              "additionalInfo": null,
+              "address": null,
+              "dockId": null,
+              "friendlyName": null,
+              "isPickupStore": false
+            },
+            "polygonName": "",
+            "lockTTL": "10d",
+            "pickupPointId": null,
+            "transitTime": "3bd",
+            "pickupDistance": 0
+          }
+        ],
+        "shipsTo": ["BRA", "USA"],
+        "deliveryIds": [
+          {
+            "courierId": "1",
+            "courierName": "Transportadora",
+            "dockId": "1",
+            "quantity": 1,
+            "warehouseId": "1_1",
+            "accountCarrierName": "storeframework",
+            "kitItemDetails": []
+          }
+        ],
+        "deliveryChannels": [
+          {
+            "id": "delivery",
+            "stockBalance": 0
+          },
+          {
+            "id": "pickup-in-point",
+            "stockBalance": 0
+          }
+        ],
+        "deliveryChannel": "delivery",
+        "pickupStoreInfo": {
+          "additionalInfo": null,
+          "address": null,
+          "dockId": null,
+          "friendlyName": null,
+          "isPickupStore": false
+        },
+        "addressId": "5230338247839",
+        "versionId": null,
+        "entityId": null,
+        "polygonName": "",
+        "pickupPointId": null,
+        "transitTime": "3bd"
+      }
+    ],
+    "trackingHints": null,
+    "selectedAddresses": [
+      {
+        "addressId": "5230338247839",
+        "versionId": null,
+        "entityId": null,
+        "addressType": "residential",
+        "receiverName": "Pedro Soares",
+        "street": "Aracati",
+        "number": "123",
+        "complement": "Teste",
+        "neighborhood": "Travessa José de Alencar ",
+        "postalCode": "62800-000",
+        "city": "Aracati",
+        "state": "CE",
+        "country": "BRA",
+        "reference": null,
+        "geoCoordinates": [-37.76885986328125, -4.561209201812744]
+      }
+    ],
+    "availableAddresses": [
+      {
+        "addressId": "5230338247839",
+        "versionId": null,
+        "entityId": null,
+        "addressType": "residential",
+        "receiverName": "Pedro Soares",
+        "street": "Aracati",
+        "number": "123",
+        "complement": "Teste",
+        "neighborhood": "Travessa José de Alencar ",
+        "postalCode": "62800-000",
+        "city": "Aracati",
+        "state": "CE",
+        "country": "BRA",
+        "reference": null,
+        "geoCoordinates": [-37.76885986328125, -4.561209201812744]
+      }
+    ],
+    "contactInformation": []
+  },
+  "paymentData": {
+    "giftCards": [],
+    "transactions": [
+      {
+        "isActive": true,
+        "transactionId": "BC278618638E474E8A2DD2D1850A6E53",
+        "merchantName": "STOREFRAMEWORK",
+        "payments": [
+          {
+            "id": "6806991EF658426883887ECCB5467C3C",
+            "paymentSystem": "201",
+            "paymentSystemName": "Free",
+            "value": 13500,
+            "installments": 1,
+            "referenceValue": 13500,
+            "cardHolder": null,
+            "cardNumber": null,
+            "firstDigits": null,
+            "lastDigits": null,
+            "cvv2": null,
+            "expireMonth": null,
+            "expireYear": null,
+            "url": null,
+            "giftCardId": null,
+            "giftCardName": null,
+            "giftCardCaption": null,
+            "redemptionCode": null,
+            "group": "promissory",
+            "tid": null,
+            "dueDate": null,
+            "connectorResponses": {},
+            "giftCardProvider": null,
+            "giftCardAsDiscount": null,
+            "koinUrl": null,
+            "accountId": null,
+            "parentAccountId": null,
+            "bankIssuedInvoiceIdentificationNumber": null,
+            "bankIssuedInvoiceIdentificationNumberFormatted": null,
+            "bankIssuedInvoiceBarCodeNumber": null,
+            "bankIssuedInvoiceBarCodeType": null,
+            "billingAddress": null,
+            "paymentOrigin": null
+          }
+        ]
+      }
+    ]
+  },
+  "packageAttachment": {
+    "packages": []
+  },
+  "sellers": [
+    {
+      "id": "1",
+      "name": "VTEX",
+      "logo": "",
+      "fulfillmentEndpoint": "http://fulfillment.vtexcommerce.com.br/api/fulfillment?an=storeframework"
+    }
+  ],
+  "callCenterOperatorData": null,
+  "followUpEmail": "09f451cc49a4441e94e3e5dc34bafb55@ct.vtex.com.br",
+  "lastMessage": null,
+  "hostname": "storeframework",
+  "invoiceData": null,
+  "changesAttachment": null,
+  "openTextField": null,
+  "roundingError": 0,
+  "orderFormId": "b23f91131385450ba30e6c670702727b",
+  "commercialConditionData": null,
+  "isCompleted": true,
+  "customData": {
+    "customApps": [
+      {
+        "fields": {
+          "cartEtag": "6df61c2e19bbdfd86e0b31156d4ae763"
+        },
+        "id": "faststore",
+        "major": 1
+      }
+    ]
+  },
+  "storePreferencesData": {
+    "countryCode": "USA",
+    "currencyCode": "USD",
+    "currencyFormatInfo": {
+      "CurrencyDecimalDigits": 2,
+      "CurrencyDecimalSeparator": ".",
+      "CurrencyGroupSeparator": ",",
+      "CurrencyGroupSize": 3,
+      "StartsWithCurrencySymbol": true
+    },
+    "currencyLocale": 1033,
+    "currencySymbol": "$",
+    "timeZone": "Central Standard Time"
+  },
+  "allowCancellation": true,
+  "allowEdition": true,
+  "isCheckedIn": false,
+  "marketplace": {
+    "baseURL": "http://oms.vtexinternal.com.br/api/oms?an=storeframework",
+    "isCertified": null,
+    "name": "storeframework"
+  },
+  "authorizedDate": "2025-03-31T18:36:42.0348714+00:00",
+  "invoicedDate": null,
+  "cancelReason": null,
+  "itemMetadata": {
+    "Items": [
+      {
+        "Id": "99988211",
+        "Seller": "1",
+        "Name": "Aedle VK-1 L Headphone Leather",
+        "SkuName": "Leather",
+        "ProductId": "99995944",
+        "RefId": "1502",
+        "Ean": null,
+        "ImageUrl": "https://storeframework.vteximg.com.br/arquivos/ids/190901-55-55/unsplash-headphone.jpg?v=637800115948430000",
+        "DetailUrl": "/aedle-vk1-headphone/p",
+        "AssemblyOptions": []
+      }
+    ]
+  },
+  "subscriptionData": null,
+  "taxData": null,
+  "checkedInPickupPointId": null,
+  "cancellationData": null,
+  "cancellationRequests": null,
+  "clientPreferencesData": {
+    "locale": "en-US",
+    "optinNewsLetter": true
+  }
+}
