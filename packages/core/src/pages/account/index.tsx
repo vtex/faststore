@@ -9,6 +9,7 @@ import {
   getServerSideProps,
   type MyAccountProps,
 } from 'src/experimental/myAccountSeverSideProps'
+import { useRouter } from 'next/router'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -17,8 +18,13 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 function Page({ globalSections }: MyAccountProps) {
+  const router = useRouter()
   useEffect(() => {
-    window.location.href = `${storeConfig.accountUrl}${window.location.search}`
+    if (storeConfig.experimental.enableFaststoreMyAccount) {
+      router.push('/account/profile') // current default path in my account
+    } else {
+      window.location.href = `${storeConfig.accountUrl}${window.location.search}`
+    }
   }, [])
 
   return (
