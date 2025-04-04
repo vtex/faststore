@@ -360,4 +360,17 @@ export const Query = {
 
     return { addresses: parsedAddresses }
   },
+  userOrder: async (_: unknown, { orderId }: any, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const order = await commerce.oms.userOrder(orderId)
+
+    if (!order) {
+      throw new NotFoundError(`No order found for id ${orderId}`)
+    }
+
+    return order
+  },
 }
