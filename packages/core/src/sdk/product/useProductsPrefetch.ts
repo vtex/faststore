@@ -17,6 +17,8 @@ export const query = gql(`
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
     $sponsoredCount: Int
+    $userId: String
+    $macId: String
   ) {
     ...ClientManyProducts
     search(
@@ -26,6 +28,8 @@ export const query = gql(`
       term: $term
       selectedFacets: $selectedFacets
       sponsoredCount: $sponsoredCount
+      userId: $userId
+      macId: $macId
     ) {
       products {
         pageInfo {

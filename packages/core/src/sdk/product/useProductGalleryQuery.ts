@@ -25,6 +25,8 @@ export const query = gql(`
     $sort: StoreSort!
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
+    $userId: String
+    $macId: String
   ) {
     ...ClientProductGallery
     redirect(term: $term, selectedFacets: $selectedFacets) {
@@ -36,6 +38,8 @@ export const query = gql(`
       sort: $sort
       term: $term
       selectedFacets: $selectedFacets
+      userId: $userId
+      macId: $macId
     ) {
       products {
         pageInfo {

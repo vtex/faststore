@@ -41,6 +41,8 @@ export const query = gql(`
     $term: String!
     $selectedFacets: [IStoreSelectedFacet!]!
     $sponsoredCount: Int
+    $userId: String
+    $macId: String
   ) {
     ...ClientManyProducts
     search(
@@ -50,6 +52,8 @@ export const query = gql(`
       term: $term
       selectedFacets: $selectedFacets
       sponsoredCount: $sponsoredCount
+      userId: $userId
+      macId: $macId
     ) {
       products {
         pageInfo {
@@ -101,6 +105,7 @@ export const useCreateUseGalleryPage = (
       sort,
       term: term ?? '',
       selectedFacets,
+      userId: 'test user id', // read from cookie
     })
 
     const hasSameVariables = deepEquals(
