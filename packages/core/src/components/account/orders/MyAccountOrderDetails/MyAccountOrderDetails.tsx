@@ -54,7 +54,7 @@ export default function MyAccountOrderDetails({
       <main data-fs-order-details-content>
         <MyAccountOrderedByCard />
         <MyAccountDeliveryCard />
-        <MyAccountStatusCard />
+        <MyAccountStatusCard status={'handling'} />
         <MyAccountPaymentCard />
         <MyAccountSummaryCard />
       </main>
