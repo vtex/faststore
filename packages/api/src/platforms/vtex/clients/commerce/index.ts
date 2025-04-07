@@ -364,7 +364,7 @@ export const VtexCommerce = (
         'content-type': 'application/json',
       })
 
-      const sessionCookie = parse(ctx?.headers?.cookie ?? '').vtex_session
+      const sessionCookie = parse(ctx?.headers?.cookie ?? '')?.vtex_session
 
       return fetchAPI(
         `${base}/api/sessions?${params.toString()}`,
