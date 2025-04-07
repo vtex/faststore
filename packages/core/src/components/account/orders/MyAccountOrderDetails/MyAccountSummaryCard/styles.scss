@@ -1,0 +1,45 @@
+[data-fs-order-summary-card] {
+  // --------------------------------------------------------
+  // Design Tokens for Order Summary Card
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-order-summary-card-gap                     : var(--fs-spacing-1);
+  --fs-order-summary-card-item-font-size          : var(--fs-text-size-2);
+  --fs-order-summary-card-item-line-height        : 24px;
+  --fs-order-summary-card-item-letter-spacing     : -2%;
+  --fs-order-summary-card-item-font-weight        : 400;
+  --fs-order-summary-card-total-font-weight       : var(--fs-text-weight-semibold);
+  --fs-order-summary-card-total-border            : 1px solid var(--fs-border-color-light);
+  --fs-order-summary-card-total-margin-top        : var(--fs-spacing-2);
+  --fs-order-summary-card-total-padding-top       : var(--fs-spacing-2);
+
+  [data-fs-card-body] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-order-summary-card-gap);
+
+    [data-fs-order-summary-item] {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      span {
+        font-size: var(--fs-order-summary-card-item-font-size);
+        font-weight: var(--fs-order-summary-card-item-font-weight);
+        line-height: var(--fs-order-summary-card-item-line-height);
+        letter-spacing: var(--fs-order-summary-card-item-letter-spacing);
+      }
+
+      &[data-fs-order-summary-total] {
+        padding-top: var(--fs-order-summary-card-total-padding-top);
+        margin-top: var(--fs-order-summary-card-total-margin-top);
+        border-top: var(--fs-order-summary-card-total-border);
+
+        span {
+          font-weight: var(--fs-order-summary-card-total-font-weight);
+        }
+      }
+    }
+  }
+}
