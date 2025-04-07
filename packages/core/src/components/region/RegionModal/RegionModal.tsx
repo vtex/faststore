@@ -52,7 +52,7 @@ function RegionModal({
   const [loading, setLoading] = useState<boolean>(false)
   const { modal: displayModal, closeModal } = useUI()
 
-  const isMandatory = deliveryPromise.mandatory && !session.postalCode
+  const isDismissible = !!(!deliveryPromise?.mandatory || session.postalCode)
 
   const resetInputField = () => {
     setInput('')
@@ -128,7 +128,7 @@ function RegionModal({
           fadeOutOnSubmit={false}
           onClear={resetInputField}
           inputButtonActionText={loading ? '...' : 'Apply'}
-          dismissible={!isMandatory}
+          dismissible={isDismissible}
         />
       )}
     </>
