@@ -364,32 +364,14 @@ export const VtexCommerce = (
         'content-type': 'application/json',
       })
 
+      const sessionCookie = parse(ctx?.headers?.cookie ?? '').vtex_session
+
       return fetchAPI(
         `${base}/api/sessions?${params.toString()}`,
         {
-          method: 'POST',
+          method: sessionCookie ? 'PATCH' : 'POST',
           headers,
           body: '{}',
-        },
-        { storeCookies }
-      )
-    },
-    updateSession: (
-      body: Session['namespaces']
-    ): Promise<{
-      sessionToken: string
-      segmentToken: string
-    }> => {
-      const headers: HeadersInit = withCookie({
-        'content-type': 'application/json',
-      })
-
-      return fetchAPI(
-        `${base}/api/sessions`,
-        {
-          method: 'PATCH',
-          headers,
-          body: JSON.stringify(body),
         },
         { storeCookies }
       )

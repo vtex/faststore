@@ -30,47 +30,6 @@ async function getGeoCoordinates(
   }
 }
 
-/**
- * Sends the updated public field to the Session Manager API (https://developers.vtex.com/docs/api-reference/session-manager-api/#patch-/api/sessions) for session update.
- * This is required for Intelligent Search to work properly with the Delivery Promise feature.
- *
- * @param clients - The clients object from the application context, containing the commerce client.
- * @param session - The current store session containing postal code, country, and geo-coordinates.
- * @param enableDeliveryPromise - A boolean indicating if the Delivery Promise feature is enabled.
- *
- * @returns A promise that resolves when the session is successfully updated.
- */
-async function updateSessionWithLocation(
-  clients: Context['clients'],
-  { postalCode, country, geoCoordinates }: StoreSession,
-  enableDeliveryPromise?: boolean
-) {
-  const hasRequiredLocationData = !!postalCode && !!country && !!geoCoordinates
-  if (!(enableDeliveryPromise && hasRequiredLocationData)) {
-    // Update the session with the location data only if the Delivery Promise feature flag is enabled and if all required data is available
-    // otherwise there will be make unnecessary requests and operations from FastStore and Intelligent Search
-    return
-  }
-
-  try {
-    return clients.commerce.updateSession({
-      public: {
-        postalCode: { value: postalCode },
-        geoCoordinates: {
-          value: `${geoCoordinates.latitude},${geoCoordinates.longitude}`,
-        },
-        country: { value: country },
-      },
-    })
-  } catch (err) {
-    console.error(
-      `Error while updating the Session's public field with postal code (${postalCode}), country (${country}) and geo-coordinates (${geoCoordinates}).\n`
-    )
-
-    throw err
-  }
-}
-
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
@@ -106,6 +65,20 @@ export const validateSession = async (
     utmiCampaign: params.get('utmi_cp') ?? oldMarketingData?.utmiCampaign ?? '',
     utmiPage: params.get('utmi_p') ?? oldMarketingData?.utmiPage ?? '',
     utmiPart: params.get('utmi_pc') ?? oldMarketingData?.utmiPart ?? '',
+  }
+
+  /**
+   * The Session Manager API (https://developers.vtex.com/docs/api-reference/session-manager-api#patch-/api/sessions) adds the query params to the session public namespace.
+   * But the session should be updated with the location data only if the Delivery Promise feature flag is enabled and if all required data is available,
+   * otherwise there will be unnecessary requests and operations from FastStore and Intelligent Search.
+   */
+  if (enableDeliveryPromise && !!postalCode && !!country && !!geoCoordinates) {
+    params.set('postalCode', postalCode)
+    params.set('country', country)
+    params.set(
+      'geoCoordinates',
+      `${geoCoordinates.latitude},${geoCoordinates.longitude}`
+    )
   }
 
   const [regionData, sessionData] = await Promise.all([
@@ -158,8 +131,6 @@ export const validateSession = async (
   if (deepEquals(oldSession, newSession)) {
     return null
   }
-
-  await updateSessionWithLocation(clients, newSession, enableDeliveryPromise)
 
   return newSession
 }
