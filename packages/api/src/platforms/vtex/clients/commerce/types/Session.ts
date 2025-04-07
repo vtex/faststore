@@ -41,5 +41,7 @@ export interface Checkout {
 export interface Public {
   orderFormId?: Value
   items?: Value
-  facets?: Value
+  postalCode?: Value
+  geoCoordinates?: Value
+  country?: Value
 }

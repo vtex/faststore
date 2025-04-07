@@ -31,16 +31,16 @@ async function getGeoCoordinates(
 }
 
 /**
- * Sends the updated public facets field to the Session Manager API (https://developers.vtex.com/docs/api-reference/session-manager-api/#patch-/api/sessions) for session update.
+ * Sends the updated public field to the Session Manager API (https://developers.vtex.com/docs/api-reference/session-manager-api/#patch-/api/sessions) for session update.
  * This is required for Intelligent Search to work properly with the Delivery Promise feature.
  *
  * @param clients - The clients object from the application context, containing the commerce client.
  * @param session - The current store session containing postal code, country, and geo-coordinates.
  * @param enableDeliveryPromise - A boolean indicating if the Delivery Promise feature is enabled.
  *
- * @returns A promise that resolves when the session facets are successfully updated.
+ * @returns A promise that resolves when the session is successfully updated.
  */
-async function updateSessionFacets(
+async function updateSessionWithLocation(
   clients: Context['clients'],
   { postalCode, country, geoCoordinates }: StoreSession,
   enableDeliveryPromise?: boolean
@@ -49,26 +49,23 @@ async function updateSessionFacets(
     const hasRequiredLocationData =
       !!postalCode && !!country && !!geoCoordinates
     if (!(enableDeliveryPromise && hasRequiredLocationData)) {
-      // Update the session facets with the location data only if the Delivery Promise feature flag is enabled and if all required data is available
+      // Update the session with the location data only if the Delivery Promise feature flag is enabled and if all required data is available
       // otherwise there will be make unnecessary requests and operations from FastStore and Intelligent Search
       return
     }
 
-    const facetsObject = {
-      'zip-code': postalCode,
-      country,
-      coordinates: `${geoCoordinates.latitude},${geoCoordinates.longitude}`,
-    }
-    const facets = Object.entries(facetsObject)
-      .map(([key, value]) => `${key}=${value}`)
-      .join(';')
-
     return clients.commerce.updateSession({
-      public: { facets: { value: facets } },
+      public: {
+        postalCode: { value: postalCode },
+        geoCoordinates: {
+          value: `${geoCoordinates.latitude},${geoCoordinates.longitude}`,
+        },
+        country: { value: country },
+      },
     })
   } catch (err) {
     console.error(
-      `Error while updating the Session's facets field with postal code (${postalCode}), country (${country}) and geo-coordinates (${geoCoordinates}).\n`
+      `Error while updating the Session's public field with postal code (${postalCode}), country (${country}) and geo-coordinates (${geoCoordinates}).\n`
     )
 
     throw err
@@ -163,7 +160,7 @@ export const validateSession = async (
     return null
   }
 
-  await updateSessionFacets(clients, newSession, enableDeliveryPromise)
+  await updateSessionWithLocation(clients, newSession, enableDeliveryPromise)
 
   return newSession
 }
