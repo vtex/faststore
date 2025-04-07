@@ -45,15 +45,14 @@ async function updateSessionWithLocation(
   { postalCode, country, geoCoordinates }: StoreSession,
   enableDeliveryPromise?: boolean
 ) {
-  try {
-    const hasRequiredLocationData =
-      !!postalCode && !!country && !!geoCoordinates
-    if (!(enableDeliveryPromise && hasRequiredLocationData)) {
-      // Update the session with the location data only if the Delivery Promise feature flag is enabled and if all required data is available
-      // otherwise there will be make unnecessary requests and operations from FastStore and Intelligent Search
-      return
-    }
+  const hasRequiredLocationData = !!postalCode && !!country && !!geoCoordinates
+  if (!(enableDeliveryPromise && hasRequiredLocationData)) {
+    // Update the session with the location data only if the Delivery Promise feature flag is enabled and if all required data is available
+    // otherwise there will be make unnecessary requests and operations from FastStore and Intelligent Search
+    return
+  }
 
+  try {
     return clients.commerce.updateSession({
       public: {
         postalCode: { value: postalCode },
