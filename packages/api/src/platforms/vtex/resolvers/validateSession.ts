@@ -96,8 +96,9 @@ export const validateSession = async (
   const profile = sessionData?.namespaces.profile ?? null
   const store = sessionData?.namespaces.store ?? null
   const authentication = sessionData?.namespaces.authentication ?? null
-  const region = regionData?.[0]
+  const checkout = sessionData?.namespaces.checkout ?? null
   // Set seller only if it's inside a region
+  const region = regionData?.[0]
   const seller = region?.sellers.find((seller) => channel.seller === seller.id)
 
   const newSession = {
@@ -109,7 +110,7 @@ export const validateSession = async (
     country: store?.countryCode?.value ?? oldSession.country,
     channel: ChannelMarshal.stringify({
       salesChannel: store?.channel?.value ?? channel.salesChannel,
-      regionId: region?.id ?? channel.regionId,
+      regionId: checkout?.regionId?.value ?? channel.regionId,
       seller: seller?.id,
       hasOnlyDefaultSalesChannel: !store?.channel?.value,
     }),
