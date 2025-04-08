@@ -16,5 +16,6 @@ export const apiOptions: APIOptions = {
   locale: storeConfig.session.locale,
   flags: {
     enableOrderFormSync: true,
+    enableDeliveryPromise: storeConfig.deliveryPromise.enabled,
   },
 }
