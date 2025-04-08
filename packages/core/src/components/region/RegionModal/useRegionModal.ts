@@ -19,10 +19,12 @@ export function useRegionModal() {
 
   // Effect to handle when isValidating changes from true to false
   useEffect(() => {
+    if (!deliveryPromise.enabled || !deliveryPromise.mandatory) {
+      return
+    }
+
     if (prevIsValidating.current && !isValidating) {
-      if (deliveryPromise.enabled && deliveryPromise.mandatory) {
-        openRegionModal()
-      }
+      openRegionModal()
     }
 
     // Update the previous value of isValidating
