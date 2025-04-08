@@ -82,7 +82,7 @@ export const validateSession = async (
   }
 
   const [regionData, sessionData] = await Promise.all([
-    postalCode || geoCoordinates
+    !enableDeliveryPromise && (postalCode || geoCoordinates)
       ? clients.commerce.checkout.region({
           postalCode,
           geoCoordinates,
@@ -110,7 +110,7 @@ export const validateSession = async (
     country: store?.countryCode?.value ?? oldSession.country,
     channel: ChannelMarshal.stringify({
       salesChannel: store?.channel?.value ?? channel.salesChannel,
-      regionId: checkout?.regionId?.value ?? channel.regionId,
+      regionId: checkout?.regionId?.value ?? region?.id ?? channel.regionId,
       seller: seller?.id,
       hasOnlyDefaultSalesChannel: !store?.channel?.value,
     }),
