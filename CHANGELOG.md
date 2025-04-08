@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.34.0](https://github.com/vtex/faststore/compare/v3.33.5...v3.34.0) (2025-04-08)
+
+### Features
+
+- prevents double page_view events ([#2767](https://github.com/vtex/faststore/issues/2767)) ([82fca88](https://github.com/vtex/faststore/commit/82fca888b6d203744ad66e6e009046d3088f42db))
+
 ## [3.33.5](https://github.com/vtex/faststore/compare/v3.33.4...v3.33.5) (2025-04-03)
 
 ### Bug Fixes
