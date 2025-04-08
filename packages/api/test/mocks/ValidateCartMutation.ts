@@ -351,7 +351,7 @@ export const productSearchPage1Count1Fetch = {
   init: {
     headers: { 'content-type': 'application/json', 'X-FORWARDED-HOST': '' },
   },
-  options: { storeCookies: expect.any(Function) },
+  options: undefined,
   result: {
     products: [
       {

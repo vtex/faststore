@@ -10,7 +10,7 @@ export const redirectTermTechFetch = {
   init: {
     headers: { 'X-FORWARDED-HOST': '', 'content-type': 'application/json' },
   },
-  options: { storeCookies: expect.any(Function) },
+  options: undefined,
   result: {
     products: [],
     recordsFiltered: 0,

@@ -105,7 +105,7 @@ export const productSearchCategory1Fetch = {
   init: {
     headers: { 'X-FORWARDED-HOST': '', 'content-type': 'application/json' },
   },
-  options: { storeCookies: expect.any(Function) },
+  options: undefined,
   result: {
     products: [
       {
@@ -1401,7 +1401,7 @@ export const attributeSearchCategory1Fetch = {
   init: {
     headers: { 'X-FORWARDED-HOST': '', 'content-type': 'application/json' },
   },
-  options: { storeCookies: expect.any(Function) },
+  options: undefined,
   result: {
     facets: [
       {
