@@ -96,7 +96,7 @@ function RegionModal({
   inputRef,
   inputValue,
   inputLabel = 'Postal Code',
-  inputButtonActionText,
+  inputButtonActionText = 'Apply',
   fadeOutOnSubmit,
   overlayProps,
   onClose,

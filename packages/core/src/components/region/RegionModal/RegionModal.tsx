@@ -23,6 +23,7 @@ interface RegionModalProps {
   inputField?: {
     label?: UIRegionModalProps['inputLabel']
     errorMessage?: UIRegionModalProps['errorMessage']
+    buttonActionText?: UIRegionModalProps['inputButtonActionText']
   }
   idkPostalCodeLink?: {
     text?: string
@@ -38,7 +39,11 @@ function RegionModal({
   title,
   description,
   closeButtonAriaLabel,
-  inputField: { label: inputFieldLabel, errorMessage: inputFieldErrorMessage },
+  inputField: {
+    label: inputFieldLabel,
+    errorMessage: inputFieldErrorMessage,
+    buttonActionText: inputButtonActionText,
+  } = {},
   idkPostalCodeLink: {
     text: idkPostalCodeLinkText,
     to: idkPostalCodeLinkTo,
@@ -127,7 +132,7 @@ function RegionModal({
           onSubmit={handleSubmit}
           fadeOutOnSubmit={false}
           onClear={resetInputField}
-          inputButtonActionText={loading ? '...' : 'Apply'}
+          inputButtonActionText={loading ? '...' : inputButtonActionText}
           dismissible={isDismissible}
         />
       )}

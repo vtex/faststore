@@ -2141,6 +2141,11 @@
               "title": "Input field error message",
               "type": "string",
               "default": "You entered an invalid Postal Code"
+            },
+            "buttonActionText": {
+              "title": "Input field action button label",
+              "type": "string",
+              "default": "Apply"
             }
           }
         },
