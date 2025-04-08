@@ -12,6 +12,7 @@ import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import type { ServerOrderDetailsQueryQuery } from '@generated/graphql'
 import styles from './section.module.scss'
+import { creditCardOrderSummary } from '../../mocks/orderSummaryExamples'
 
 export interface MyAccountOrderDetailsProps {
   order: ServerOrderDetailsQueryQuery['userOrder']
@@ -58,7 +59,10 @@ export default function MyAccountOrderDetails({
         <MyAccountOrderedByCard clientProfileData={order.clientProfileData} />
         <MyAccountDeliveryCard />
         <MyAccountStatusCard />
-        <MyAccountPaymentCard />
+        <MyAccountPaymentCard
+          currencyCode={creditCardOrderSummary.currencyCode}
+          paymentData={creditCardOrderSummary.paymentData}
+        />
         <MyAccountSummaryCard
           totals={order.totals}
           currencyCode={order.storePreferencesData.currencyCode}

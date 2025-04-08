@@ -1,0 +1,62 @@
+[data-fs-order-payment-card] {
+  // --------------------------------------------------------
+  // Design Tokens for Order Payment Card
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-order-payment-card-gap                      : var(--fs-spacing-3);
+  --fs-order-payment-card-info-gap                 : var(--fs-spacing-1);
+  --fs-order-payment-card-info-color               : var(--fs-color-text);
+  --fs-order-payment-card-font-size                : var(--fs-text-size-2);
+  --fs-order-payment-card-line-height              : 1.5;
+  --fs-order-payment-card-font-weight              : var(--fs-text-weight-regular);
+  --fs-order-payment-card-datetime-font-size       : var(--fs-text-size-2);
+  --fs-order-payment-card-datetime-font-weight     : var(--fs-text-weight-medium);
+  --fs-order-payment-card-tid-color                : var(--fs-color-text-light);
+  --fs-order-payment-card-tid-font-size            : var(--fs-text-size-1);
+
+  [data-fs-card-body] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-order-payment-card-gap);
+  }
+
+  [data-fs-payment-details] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-spacing-3);
+  }
+
+  [data-fs-payment-info] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fs-order-payment-card-info-gap);
+    font-size: var(--fs-order-payment-card-font-size);
+    line-height: var(--fs-order-payment-card-line-height);
+    color: var(--fs-order-payment-card-info-color);
+  }
+
+  [data-fs-payment-datetime] {
+    font-size: var(--fs-order-payment-card-datetime-font-size);
+    font-weight: var(--fs-order-payment-card-datetime-font-weight);
+  }
+
+  [data-fs-payment-method] {
+    display: flex;
+    gap: var(--fs-spacing-1);
+    align-items: flex-start;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  [data-fs-payment-transaction-info] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--fs-spacing-0);
+    font-size: var(--fs-order-payment-card-tid-font-size);
+    color: var(--fs-order-payment-card-tid-color);
+  }
+}
