@@ -1105,7 +1105,7 @@
                 "label": {
                   "title": "Privacy policy checkbox field label",
                   "type": "string",
-                  "default": "I confirm that I agree to the Privacy Policy, Terms of Use, and Terms of Service. I acknowledge that my review may be used for marketing purposes by the company or its partners. I understand that my rating and review may be visible publicly, may include a “Verified buyer” badge, and that my data may be associated with my review."
+                  "default": "I confirm that I agree to the Privacy Policy, Terms of Use, and Terms of Service. I acknowledge that my review may be used for marketing purposes by the company or its partners. I understand that my rating and review may be visible publicly, may include a \"Verified buyer\" badge, and that my data may be associated with my review."
                 },
                 "requiredErrorMessage": {
                   "title": "Privacy policy checkbox field error message",
@@ -1138,6 +1138,11 @@
               "title": "Success button label",
               "type": "string",
               "default": "Back to reviews"
+            },
+            "authErrorMessage": {
+              "title": "Authentication error message",
+              "type": "string",
+              "default": "You need to be logged in to submit a review. Please sign in and try again."
             }
           }
         },

@@ -67,6 +67,10 @@ export interface ReviewModalProps
    * Close button aria-label.
    */
   closeButtonAriaLabel?: string
+  /**
+   * Authentication error message.
+   */
+  authErrorMessage?: string
 }
 
 function ReviewModal({
@@ -76,6 +80,7 @@ function ReviewModal({
   successTitle,
   successSubtitle,
   successButtonLabel,
+  authErrorMessage = 'You need to be logged in to submit a review. Please sign in and try again.',
   ...formProps
 }: ReviewModalProps) {
   const { pushToast, closeReviewModal } = useUI()
@@ -87,7 +92,7 @@ function ReviewModal({
   function pushErrorToast(message = 'Something went wrong.') {
     pushToast({
       title: 'Oops.',
-      message,
+      message: message === 'Missing auth cookie' ? authErrorMessage : message,
       status: 'ERROR',
       icon: <UIIcon name="CircleWavyWarning" width={30} height={30} />,
     })
