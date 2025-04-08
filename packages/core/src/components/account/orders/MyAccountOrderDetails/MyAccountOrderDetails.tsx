@@ -11,6 +11,7 @@ import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import styles from './section.module.scss'
+import { creditCardOrderSummary } from '../../mocks/orderSummaryExamples'
 
 export interface MyAccountOrderDetailsProps {
   orderId: string
@@ -55,7 +56,10 @@ export default function MyAccountOrderDetails({
         <MyAccountOrderedByCard />
         <MyAccountDeliveryCard />
         <MyAccountStatusCard />
-        <MyAccountPaymentCard />
+        <MyAccountPaymentCard
+          currencyCode={creditCardOrderSummary.currencyCode}
+          paymentData={creditCardOrderSummary.paymentData}
+        />
         <MyAccountSummaryCard />
       </main>
     </div>
