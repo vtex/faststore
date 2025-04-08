@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.35.0](https://github.com/vtex/faststore/compare/v3.34.0...v3.35.0) (2025-04-08)
+
+### Features
+
+- add API GraphQL cache control using flags ([#2756](https://github.com/vtex/faststore/issues/2756)) ([8b4dc64](https://github.com/vtex/faststore/commit/8b4dc6485f9e262cc5da47a51c3075715acdb0db))
+
 ## [3.33.3](https://github.com/vtex/faststore/compare/v3.33.2...v3.33.3) (2025-04-01)
 
 ### Bug Fixes
