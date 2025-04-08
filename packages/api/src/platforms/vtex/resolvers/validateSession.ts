@@ -55,7 +55,12 @@ async function getGeoCoordinates(
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
-  { clients }: Context
+  {
+    clients,
+    storage: {
+      flags: { enableDeliveryPromise },
+    },
+  }: Context
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')
