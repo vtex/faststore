@@ -33,12 +33,7 @@ async function getGeoCoordinates(
 export const validateSession = async (
   _: any,
   { session: oldSession, search }: MutationValidateSessionArgs,
-  {
-    clients,
-    storage: {
-      flags: { enableDeliveryPromise },
-    },
-  }: Context
+  { clients }: Context
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')
@@ -50,10 +45,26 @@ export const validateSession = async (
     geoCoordinates = await getGeoCoordinates(clients, country, postalCode)
   }
 
+  /**
+   * The Session Manager API (https://developers.vtex.com/docs/api-reference/session-manager-api#patch-/api/sessions) adds the query params to the session public namespace.
+   * This is used by Checkout (checkout-session) and Intelligent Search (search-session)
+   */
   const params = new URLSearchParams(search)
   const salesChannel = params.get('sc') ?? channel.salesChannel
-
   params.set('sc', salesChannel)
+
+  if (!!postalCode) {
+    params.set('postalCode', postalCode)
+  }
+  if (!!country) {
+    params.set('country', country)
+  }
+  if (!!geoCoordinates) {
+    params.set(
+      'geoCoordinates',
+      `${geoCoordinates.latitude},${geoCoordinates.longitude}`
+    )
+  }
 
   const { marketingData: oldMarketingData } = oldSession
 
@@ -67,39 +78,27 @@ export const validateSession = async (
     utmiPart: params.get('utmi_pc') ?? oldMarketingData?.utmiPart ?? '',
   }
 
-  /**
-   * The Session Manager API (https://developers.vtex.com/docs/api-reference/session-manager-api#patch-/api/sessions) adds the query params to the session public namespace.
-   * But the session should be updated with the location data only if the Delivery Promise feature flag is enabled and if all required data is available,
-   * otherwise there will be unnecessary requests and operations from FastStore and Intelligent Search.
-   */
-  if (enableDeliveryPromise && !!postalCode && !!country && !!geoCoordinates) {
-    params.set('postalCode', postalCode)
-    params.set('country', country)
-    params.set(
-      'geoCoordinates',
-      `${geoCoordinates.latitude},${geoCoordinates.longitude}`
-    )
-  }
-
-  const [regionData, sessionData] = await Promise.all([
-    postalCode || geoCoordinates
-      ? clients.commerce.checkout.region({
-          postalCode,
-          geoCoordinates,
-          country,
-          salesChannel,
-        })
-      : Promise.resolve(null),
-    clients.commerce.session(params.toString()).catch(() => null),
-  ])
+  const sessionData = await clients.commerce
+    .session(params.toString())
+    .catch(() => null)
 
   const profile = sessionData?.namespaces.profile ?? null
   const store = sessionData?.namespaces.store ?? null
   const authentication = sessionData?.namespaces.authentication ?? null
   const checkout = sessionData?.namespaces.checkout ?? null
+
   // Set seller only if it's inside a region
-  const region = regionData?.[0]
-  const seller = region?.sellers.find((seller) => channel.seller === seller.id)
+  let seller
+  if (!!channel.seller && (postalCode || geoCoordinates)) {
+    const regionData = await clients.commerce.checkout.region({
+      postalCode,
+      geoCoordinates,
+      country,
+      salesChannel,
+    })
+    const region = regionData?.[0]
+    seller = region?.sellers.find((seller) => channel.seller === seller.id)
+  }
 
   const newSession = {
     ...oldSession,
