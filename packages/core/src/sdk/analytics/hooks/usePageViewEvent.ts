@@ -21,7 +21,7 @@ export const usePageViewEvent = (props?: any) => {
 
   useEffect(() => {
     sendPageViewEvent()
-  }, [router, sendPageViewEvent])
+  }, [router.pathname, sendPageViewEvent])
 
   return { sendPageViewEvent }
 }
