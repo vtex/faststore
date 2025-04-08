@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.35.1](https://github.com/vtex/faststore/compare/v3.35.0...v3.35.1) (2025-04-08)
+
+### Bug Fixes
+
+- multiple view_cart events ([#2770](https://github.com/vtex/faststore/issues/2770)) ([9e8234b](https://github.com/vtex/faststore/commit/9e8234b0e097b7c4a749584e491c556cbdab4a31))
+
 # [3.35.0](https://github.com/vtex/faststore/compare/v3.34.0...v3.35.0) (2025-04-08)
 
 ### Features
