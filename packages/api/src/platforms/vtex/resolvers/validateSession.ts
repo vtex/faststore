@@ -1,12 +1,34 @@
 import deepEquals from 'fast-deep-equal'
 
-import ChannelMarshal from '../utils/channel'
 import type { Context } from '..'
 import type {
   MutationValidateSessionArgs,
   StoreMarketingData,
   StoreSession,
 } from '../../../__generated__/schema'
+import ChannelMarshal from '../utils/channel'
+
+async function getGeoCoordinates(
+  clients: Context['clients'],
+  country: string,
+  postalCode: string
+) {
+  try {
+    const address = await clients.commerce.checkout.address({
+      postalCode,
+      country,
+    })
+
+    const [longitude, latitude] = address.geoCoordinates
+    return { latitude, longitude }
+  } catch (err) {
+    console.error(
+      `Error while getting geo coordinates for the current postal code (${postalCode}) and country (${country}).\n`
+    )
+
+    throw err
+  }
+}
 
 export const validateSession = async (
   _: any,
@@ -15,14 +37,34 @@ export const validateSession = async (
 ): Promise<StoreSession | null> => {
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')
-  const geoCoordinates = oldSession.geoCoordinates ?? null
-
   const country = oldSession.country ?? ''
 
+  // Get geo coordinates if postal code and country are provided
+  let geoCoordinates = oldSession.geoCoordinates ?? null
+  if (!geoCoordinates && postalCode !== '' && country !== '') {
+    geoCoordinates = await getGeoCoordinates(clients, country, postalCode)
+  }
+
+  /**
+   * The Session Manager API (https://developers.vtex.com/docs/api-reference/session-manager-api#patch-/api/sessions) adds the query params to the session public namespace.
+   * This is used by Checkout (checkout-session) and Intelligent Search (search-session)
+   */
   const params = new URLSearchParams(search)
   const salesChannel = params.get('sc') ?? channel.salesChannel
-
   params.set('sc', salesChannel)
+
+  if (!!postalCode) {
+    params.set('postalCode', postalCode)
+  }
+  if (!!country) {
+    params.set('country', country)
+  }
+  if (!!geoCoordinates) {
+    params.set(
+      'geoCoordinates',
+      `${geoCoordinates.latitude},${geoCoordinates.longitude}`
+    )
+  }
 
   const { marketingData: oldMarketingData } = oldSession
 
@@ -36,24 +78,27 @@ export const validateSession = async (
     utmiPart: params.get('utmi_pc') ?? oldMarketingData?.utmiPart ?? '',
   }
 
-  const [regionData, sessionData] = await Promise.all([
-    postalCode || geoCoordinates
-      ? clients.commerce.checkout.region({
-          postalCode,
-          geoCoordinates,
-          country,
-          salesChannel,
-        })
-      : Promise.resolve(null),
-    clients.commerce.session(params.toString()).catch(() => null),
-  ])
+  const sessionData = await clients.commerce
+    .session(params.toString())
+    .catch(() => null)
 
   const profile = sessionData?.namespaces.profile ?? null
   const store = sessionData?.namespaces.store ?? null
   const authentication = sessionData?.namespaces.authentication ?? null
-  const region = regionData?.[0]
+  const checkout = sessionData?.namespaces.checkout ?? null
+
   // Set seller only if it's inside a region
-  const seller = region?.sellers.find((seller) => channel.seller === seller.id)
+  let seller
+  if (!!channel.seller && (postalCode || geoCoordinates)) {
+    const regionData = await clients.commerce.checkout.region({
+      postalCode,
+      geoCoordinates,
+      country,
+      salesChannel,
+    })
+    const region = regionData?.[0]
+    seller = region?.sellers.find((seller) => channel.seller === seller.id)
+  }
 
   const newSession = {
     ...oldSession,
@@ -64,7 +109,7 @@ export const validateSession = async (
     country: store?.countryCode?.value ?? oldSession.country,
     channel: ChannelMarshal.stringify({
       salesChannel: store?.channel?.value ?? channel.salesChannel,
-      regionId: region?.id ?? channel.regionId,
+      regionId: checkout?.regionId?.value ?? channel.regionId,
       seller: seller?.id,
       hasOnlyDefaultSalesChannel: !store?.channel?.value,
     }),
@@ -80,6 +125,7 @@ export const validateSession = async (
           familyName: profile.lastName?.value ?? '',
         }
       : null,
+    geoCoordinates,
   }
 
   if (deepEquals(oldSession, newSession)) {
