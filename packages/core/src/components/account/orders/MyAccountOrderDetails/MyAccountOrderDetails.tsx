@@ -12,6 +12,7 @@ import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import styles from './section.module.scss'
 import { clientProfileData, usdOrderSummary } from '../../mocks/orderDetails'
+import { creditCardOrderSummary } from '../../mocks/orderSummaryExamples'
 
 export interface MyAccountOrderDetailsProps {
   orderId: string
@@ -56,7 +57,10 @@ export default function MyAccountOrderDetails({
         <MyAccountOrderedByCard clientProfileData={clientProfileData} />
         <MyAccountDeliveryCard />
         <MyAccountStatusCard />
-        <MyAccountPaymentCard />
+        <MyAccountPaymentCard
+          currencyCode={creditCardOrderSummary.currencyCode}
+          paymentData={creditCardOrderSummary.paymentData}
+        />
         <MyAccountSummaryCard
           totals={usdOrderSummary.totals}
           currencyCode={usdOrderSummary.currencyCode}
