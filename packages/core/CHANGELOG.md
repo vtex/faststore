@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.36.0](https://github.com/vtex/faststore/compare/v3.35.1...v3.36.0) (2025-04-09)
+
+### Features
+
+- My Account Menu and Extensibility ([#2761](https://github.com/vtex/faststore/issues/2761)) ([0daf07a](https://github.com/vtex/faststore/commit/0daf07a7fdf524992472d9f9b4a013885aa175a2)), closes [#2729](https://github.com/vtex/faststore/issues/2729) [#2720](https://github.com/vtex/faststore/issues/2720) [#2738](https://github.com/vtex/faststore/issues/2738) [#2752](https://github.com/vtex/faststore/issues/2752)
+
 ## [3.35.1](https://github.com/vtex/faststore/compare/v3.35.0...v3.35.1) (2025-04-08)
 
 ### Bug Fixes
