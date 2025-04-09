@@ -61,10 +61,11 @@ jobs:
           mkdir -p packed-packages
           for package in packages/*; do
             if [ -d "$package" ]; then
+              TIMESTAMP=$(date +%s)
               NPM_PACK_RESULT=$(cd "$package" && npm pack --pack-destination ../../packed-packages)
               FILENAME=$(echo "$NPM_PACK_RESULT" | sed 's/\.tgz$//')
-              PACKED_PACKAGE="$FILENAME-ci-$(date +%s).tgz"
-              mv "./packed-packages/$PACK_RESULT" "./packed-packages/$PACKED_PACKAGE"
+              PACKED_PACKAGE="$FILENAME-ci-$TIMESTAMP.tgz"
+              mv "./packed-packages/$NPM_PACK_RESULT" "./packed-packages/$PACKED_PACKAGE"
             fi
           done
 
