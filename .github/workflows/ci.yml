@@ -61,13 +61,15 @@ jobs:
           mkdir -p packed-packages
           for package in packages/*; do
             if [ -d "$package" ]; then
-              PACK_RESULT=$(cd "$package" && npm pack --pack-destination ../../packed-packages)
+              cd "$package"
+              PACK_RESULT=$(npm pack --pack-destination ../../packed-packages)
               FILE=$(echo "$PACK_RESULT" | sed 's/\.tgz$//')
               PACKED_PACKAGE="$FILE-ci-$(date +%s).tgz"
+              cd ../../
               echo "************************"
               ls -la .
               echo "************************"
-              ls -la ../../packed-packages
+              ls -la ../../packed-packages/
               echo "************************"
               mv "../../packed-packages/$PACK_RESULT" "../../packed-packages/$PACKED_PACKAGE"
             fi
