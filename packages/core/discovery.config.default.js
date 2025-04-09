@@ -130,6 +130,7 @@ module.exports = {
 
   deliveryPromise: {
     enabled: false,
+    mandatory: false,
   },
 
   experimental: {
