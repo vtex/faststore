@@ -35,8 +35,7 @@ jobs:
         run: pnpm i
 
       - name: Build
-        run: |
-          pnpm build
+        run: pnpm build
 
       - name: Size
         run: pnpm size
@@ -61,20 +60,19 @@ jobs:
         run: |
           mkdir -p packed-packages
           for package in packages/*; do
-            echo "~> PACKAGE: $package"
             if [ -d "$package" ]; then
               (cd "$package" && npm pack --pack-destination ../../packed-packages)
             fi
           done
 
-      # - name: Clone starter
-      #   run: git clone https://github.com/vtex-sites/starter.store.git starter
+      - name: Clone starter
+        run: git clone https://github.com/vtex-sites/starter.store.git starter
 
-      # - name: Install specific Yarn version
-      #   run: npm install -g yarn@1.22.19 # https://github.com/yarnpkg/yarn/issues/9015
+      - name: Install specific Yarn version
+        run: npm install -g yarn@1.22.19 # https://github.com/yarnpkg/yarn/issues/9015
 
-      # - name: Verify Yarn version
-      #   run: yarn --version
+      - name: Verify Yarn version
+        run: yarn --version
 
       - name: Install the packages on starter
         run: |
