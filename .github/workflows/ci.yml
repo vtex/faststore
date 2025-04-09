@@ -59,12 +59,12 @@ jobs:
       - name: Pack packages
         run: |
           mkdir -p packed-packages
-          for package in packages/*; do
-            if [ -d "$package" ]; then
-              PACK_RESULT=$(cd "$package" && npm pack)
+          for pkg in packages/*; do
+            if [ -d "$pkg" ]; then
+              PACK_RESULT=$(cd "$pkg" && npm pack)
               PACKAGE=$(echo "$PACK_RESULT" | sed 's/\.tgz$//')
               PACKED_PACKAGE="$PACKAGE-ci-$(date +%s).tgz"
-              mv "$PACK_RESULT" "../../packed-packages/$PACKED_PACKAGE"
+              mv "$pkg/$PACK_RESULT" "../../packed-packages/$PACKED_PACKAGE"
             fi
           done
 
