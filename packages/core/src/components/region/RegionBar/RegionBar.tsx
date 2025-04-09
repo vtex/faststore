@@ -69,6 +69,7 @@ function RegionBar({
       // This decision can be reviewed later if needed
       onButtonClick={openModal}
       postalCode={postalCode}
+      testing="testing"
       {...otherProps}
     />
   )
