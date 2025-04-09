@@ -105,6 +105,7 @@ jobs:
       - name: Install the packages on starter
         run: |
           cd starter
+          ls -la ../packed-packages
           for package in ../packed-packages/*.tgz; do
             yarn add "$package"
           done
