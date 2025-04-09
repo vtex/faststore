@@ -153,7 +153,19 @@ export const useProductGalleryQuery = ({
       const updatedFuzzyFacetValue = data.search.metadata?.fuzzy
       const updatedOperatorFacetValue = data.search.metadata?.logicalOperator
 
-      if (data && term && updatedFuzzyFacetValue && updatedOperatorFacetValue) {
+      const params = new URLSearchParams(window.location.search)
+      const urlHasFuzzy = params.has('fuzzy')
+      const urlHasOperator = params.has('operator')
+
+      const shouldSendAnalyticsEvent =
+        data &&
+        term &&
+        updatedFuzzyFacetValue &&
+        updatedOperatorFacetValue &&
+        urlHasFuzzy &&
+        urlHasOperator
+
+      if (shouldSendAnalyticsEvent) {
         import('@faststore/sdk').then(({ sendAnalyticsEvent }) => {
           sendAnalyticsEvent<IntelligentSearchQueryEvent>({
             name: 'intelligent_search_query',
