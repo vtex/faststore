@@ -74,19 +74,10 @@ jobs:
       - name: Verify Yarn version
         run: yarn --version
 
-      - name: Install dependencies in starter
-        run: |
-          cd starter
-          yarn install
-
-      - name: Install the packages on starter
+      - name: Install the packages and build starter
         run: |
           cd starter
           for package in ../packed-packages/*.tgz; do
             yarn add "$package"
           done
-
-      - name: Build starter
-        run: |
-          cd starter
           yarn build
