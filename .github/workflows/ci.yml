@@ -84,7 +84,7 @@ jobs:
       - name: Install dependencies in starter
         run: |
           cd starter
-          yarn install
+          yarn install --force
 
       - name: Build starter
         run: |
