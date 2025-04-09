@@ -7,7 +7,7 @@ import React, {
 import Icon from '../../atoms/Icon'
 import IconButton from '../IconButton'
 
-import useOnClickOutside from '../../../../core/src/sdk/ui/useOnClickOutside'
+import { useOnClickOutside } from '../../hooks'
 
 /**
  * Specifies Popover position.

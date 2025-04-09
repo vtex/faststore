@@ -18,6 +18,7 @@ import {
   Icon as UIIcon,
   IconButton as UIIconButton,
   SearchInput as UISearchInput,
+  useOnClickOutside,
 } from '@faststore/ui'
 
 import type {
@@ -29,7 +30,6 @@ import type { SearchProviderContextValue } from '@faststore/ui'
 
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSuggestions from 'src/sdk/search/useSuggestions'
-import useOnClickOutside from 'src/sdk/ui/useOnClickOutside'
 
 import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
 
