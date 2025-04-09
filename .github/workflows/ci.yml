@@ -60,12 +60,19 @@ jobs:
         run: |
           mkdir -p packed-packages
           for package in packages/*; do
+            TIMESTAMP=$(date +%s)
+
             if [ -d "$package" ]; then
-              TIMESTAMP=$(date +%s)
-              NPM_PACK_RESULT=$(cd "$package" && npm pack --pack-destination ../../packed-packages)
-              FILENAME=$(echo "$NPM_PACK_RESULT" | sed 's/\.tgz$//')
-              PACKED_PACKAGE="$FILENAME-ci-$TIMESTAMP.tgz"
-              mv "./packed-packages/$NPM_PACK_RESULT" "./packed-packages/$PACKED_PACKAGE"
+              if NPM_PACK_RESULT=$(cd "$package" && npm pack --pack-destination ../../packed-packages); then
+                # Extract filename without extension
+                FILENAME=$(echo "$NPM_PACK_RESULT" | sed 's/\.tgz$//')
+
+                # Avoid having packed package with the same published package version
+                PACKED_PACKAGE="$FILENAME-ci-$TIMESTAMP.tgz"
+
+                # Rename packed package file
+                mv "./packed-packages/$NPM_PACK_RESULT" "./packed-packages/$PACKED_PACKAGE"
+              fi
             fi
           done
 
