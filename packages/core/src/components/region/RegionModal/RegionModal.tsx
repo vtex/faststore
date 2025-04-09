@@ -43,7 +43,7 @@ function RegionModal({
     label: inputFieldLabel,
     errorMessage: inputFieldErrorMessage,
     buttonActionText: inputButtonActionText,
-  } = {},
+  },
   idkPostalCodeLink: {
     text: idkPostalCodeLinkText,
     to: idkPostalCodeLinkTo,
