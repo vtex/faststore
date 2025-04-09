@@ -1,13 +1,12 @@
-import {
-  Icon,
-  type RegionModalProps as UIRegionModalProps,
-  useUI,
-} from '@faststore/ui'
+import dynamic from 'next/dynamic'
 import { useRef, useState } from 'react'
 
+import type { RegionModalProps as UIRegionModalProps } from '@faststore/ui'
+import { Icon, useUI } from '@faststore/ui'
+
+import { deliveryPromise } from 'discovery.config'
 import { sessionStore, useSession, validateSession } from 'src/sdk/session'
 
-import dynamic from 'next/dynamic'
 import styles from './section.module.scss'
 
 const UIRegionModal = dynamic<UIRegionModalProps>(
@@ -17,7 +16,6 @@ const UIRegionModal = dynamic<UIRegionModalProps>(
     ),
   { ssr: false }
 )
-
 interface RegionModalProps {
   title?: UIRegionModalProps['title']
   description?: UIRegionModalProps['description']
@@ -25,6 +23,7 @@ interface RegionModalProps {
   inputField?: {
     label?: UIRegionModalProps['inputLabel']
     errorMessage?: UIRegionModalProps['errorMessage']
+    buttonActionText?: UIRegionModalProps['inputButtonActionText']
   }
   idkPostalCodeLink?: {
     text?: string
@@ -40,7 +39,11 @@ function RegionModal({
   title,
   description,
   closeButtonAriaLabel,
-  inputField: { label: inputFieldLabel, errorMessage: inputFieldErrorMessage },
+  inputField: {
+    label: inputFieldLabel,
+    errorMessage: inputFieldErrorMessage,
+    buttonActionText: inputButtonActionText,
+  },
   idkPostalCodeLink: {
     text: idkPostalCodeLinkText,
     to: idkPostalCodeLinkTo,
@@ -51,7 +54,15 @@ function RegionModal({
   const { isValidating, ...session } = useSession()
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [input, setInput] = useState<string>('')
-  const { modal: displayModal } = useUI()
+  const [loading, setLoading] = useState<boolean>(false)
+  const { modal: displayModal, closeModal } = useUI()
+
+  const isDismissible = !!(!deliveryPromise?.mandatory || session.postalCode)
+
+  const resetInputField = () => {
+    setInput('')
+    setErrorMessage('')
+  }
 
   const handleSubmit = async () => {
     const postalCode = inputRef.current?.value
@@ -61,6 +72,7 @@ function RegionModal({
     }
 
     setErrorMessage('')
+    setLoading(true)
 
     try {
       const newSession = {
@@ -70,9 +82,14 @@ function RegionModal({
       } as typeof session
 
       const validatedSession = await validateSession(newSession)
+
       sessionStore.set(validatedSession ?? newSession)
+      resetInputField()
+      closeModal() // Close modal after successfully applied postal code
     } catch (error) {
       setErrorMessage(inputFieldErrorMessage)
+    } finally {
+      setLoading(false) // Reset loading to false when validation is complete
     }
   }
 
@@ -113,8 +130,10 @@ function RegionModal({
             setInput(e.currentTarget.value)
           }}
           onSubmit={handleSubmit}
-          fadeOutOnSubmit={true}
-          onClear={() => setInput('')}
+          fadeOutOnSubmit={false}
+          onClear={resetInputField}
+          inputButtonActionText={loading ? '...' : inputButtonActionText}
+          dismissible={isDismissible}
         />
       )}
     </>
