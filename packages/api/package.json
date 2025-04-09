@@ -3,7 +3,7 @@
   "version": "3.35.0",
   "license": "MIT",
   "main": "dist/cjs/src/index.js",
-  "typings": "dist/esm/src/index.d.ts",
+  "types": "dist/esm/src/index.d.ts",
   "module": "dist/esm/src/index.js",
   "repository": "vtex/faststore",
   "files": [
