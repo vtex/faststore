@@ -63,7 +63,7 @@ jobs:
             TIMESTAMP=$(date +%s)
 
             if [ -d "$package" ]; then
-              if NPM_PACK_RESULT=$(cd "$package" && npm pack --pack-destination ../../packed-packages 2>/dev/null); then
+              if NPM_PACK_RESULT=$(cd "$package" && npm pack --pack-destination ../../packed-packages 2>&1 | grep '\.tgz$'); then
                 # Extract filename without extension
                 FILENAME=$(echo "$NPM_PACK_RESULT" | sed 's/\.tgz$//')
 
