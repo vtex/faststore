@@ -35,7 +35,7 @@ jobs:
         run: pnpm i
 
       - name: Build
-        run: pnpm build
+        run: pnpm build -r
 
       # - name: Size
       #   run: pnpm size
@@ -59,32 +59,9 @@ jobs:
       - name: Pack packages
         run: |
           mkdir -p packed-packages
-
-          rename_packed_package() {
-            # Extract filename without extension
-            FILENAME=$(echo "$NPM_PACK_RESULT" | sed 's/\.tgz$//')
-
-            # Avoid having packed package with the same published package version
-            PACKED_PACKAGE="$FILENAME-ci-$TIMESTAMP.tgz"
-
-            # Rename packed package file
-            mv "./packed-packages/$NPM_PACK_RESULT" "./packed-packages/$PACKED_PACKAGE"
-          }
-
           for package in packages/*; do
-            TIMESTAMP=$(date +%s)
-
             if [ -d "$package" ]; then
-              # Supress pre/post script logs for @faststore/cli
-              if [ "$package" = "packages/cli" ]; then
-                if NPM_PACK_RESULT=$(cd "$package" && npm pack --pack-destination ../../packed-packages 2>&1 | grep -o '[^ ]\+\.tgz' | tail -n1); then
-                  rename_packed_package
-                fi
-              else
-                if NPM_PACK_RESULT=$(cd "$package" && npm pack --pack-destination ../../packed-packages); then
-                  rename_packed_package
-                fi
-              fi
+              (cd "$package" && npm pack --pack-destination ../../packed-packages)
             fi
           done
 
@@ -97,18 +74,17 @@ jobs:
       - name: Verify Yarn version
         run: yarn --version
 
+      - name: Install the packages on starter
+        run: |
+          cd starter
+          for package in ../packed-packages/*.tgz; do
+            yarn add "$package"
+          done
+
       - name: Install dependencies in starter
         run: |
           cd starter
           yarn install
-
-      - name: Install the packages on starter
-        run: |
-          cd starter
-          ls -la ../packed-packages
-          for package in ../packed-packages/*.tgz; do
-            yarn add "$package"
-          done
 
       - name: Build starter
         run: |
