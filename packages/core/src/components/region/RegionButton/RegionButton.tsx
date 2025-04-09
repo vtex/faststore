@@ -2,10 +2,13 @@ import { Button as UIButton } from '@faststore/ui'
 
 import { Icon, useUI } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
+import { stringToTitleCase } from 'src/utils/utilities'
+import { session as initialSession } from 'discovery.config'
 
 function RegionButton({ icon, label }: { icon: string; label: string }) {
   const { openModal } = useUI()
-  const { postalCode } = useSession()
+  const { city, postalCode } = useSession()
+  const shouldDisplayPostalCode = postalCode !== initialSession.postalCode
 
   return (
     <UIButton
@@ -15,7 +18,10 @@ function RegionButton({ icon, label }: { icon: string; label: string }) {
       iconPosition="left"
       onClick={openModal}
     >
-      {postalCode ?? label}
+      {city && postalCode
+        ? `${stringToTitleCase(city ?? '')}` +
+          (shouldDisplayPostalCode ? `, ${postalCode}` : '')
+        : label}
     </UIButton>
   )
 }

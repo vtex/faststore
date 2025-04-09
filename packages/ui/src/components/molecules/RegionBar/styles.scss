@@ -21,8 +21,8 @@
   // Message
   --fs-region-bar-message-margin-right     : auto;
 
-  // Postal Code
-  --fs-region-bar-postal-code-margin-right : auto;
+  // Location
+  --fs-region-bar-location-margin-right : auto;
 
   // --------------------------------------------------------
   // Structural Styles
@@ -33,7 +33,7 @@
   [data-fs-button] {
     width: var(--fs-region-bar-width);
 
-    [data-fs-button-wrapper]{
+    [data-fs-button-wrapper] {
       padding: var(--fs-region-bar-padding);
       color: var(--fs-region-bar-text-color);
       background-color: var(--fs-region-bar-bkg-color);
@@ -51,8 +51,8 @@
     text-decoration: var(--fs-region-bar-cta-text-decoration);
   }
 
-  [data-fs-region-bar-postal-code] {
-    margin-right: var(--fs-region-bar-postal-code-margin-right);
+  [data-fs-region-bar-location] {
+    margin-right: var(--fs-region-bar-location-margin-right);
     font-weight: var(--fs-text-weight-regular);
   }
 
