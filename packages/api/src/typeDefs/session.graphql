@@ -24,6 +24,27 @@ input IStoreCurrency {
 }
 
 """
+Marketing information.
+"""
+type StoreMarketingData {
+  utmCampaign: String
+  utmMedium: String
+  utmSource: String
+  utmiCampaign: String
+  utmiPart: String
+  utmiPage: String
+}
+
+input IStoreMarketingData {
+  utmCampaign: String
+  utmMedium: String
+  utmSource: String
+  utmiCampaign: String
+  utmiPart: String
+  utmiPage: String
+}
+
+"""
 Geographic coordinates information.
 """
 type StoreGeoCoordinates {
@@ -153,6 +174,10 @@ type StoreSession {
   B2B Information.
   """
   b2b: StoreB2B
+  """
+  Marketing information.
+  """
+  marketingData: StoreMarketingData
 }
 
 type StoreB2B {
@@ -207,4 +232,8 @@ input IStoreSession {
   Session input b2b.
   """
   b2b: IStoreB2B
+  """
+  Marketing information input.
+  """
+  marketingData: IStoreMarketingData
 }

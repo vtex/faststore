@@ -10,6 +10,10 @@ module.exports = {
       titleTemplate: '%s | FastStore PLP',
       descriptionTemplate: '%s products on FastStore Product Listing Page',
     },
+    pdp: {
+      titleTemplate: '%s | FastStore PDP',
+      descriptionTemplate: '%s products on FastStore Product Detail Page',
+    },
     search: {
       titleTemplate: '%s: Search results title',
       descriptionTemplate: '%s: Search results description',
@@ -52,6 +56,14 @@ module.exports = {
     geoCoordinates: null,
     b2b: null,
     person: null,
+    marketingData: {
+      utmCampaign: '',
+      utmMedium: '',
+      utmSource: '',
+      utmiCampaign: '',
+      utmiPart: '',
+      utmiPage: '',
+    },
   },
 
   // Default cart
@@ -113,9 +125,16 @@ module.exports = {
     cypressVersion: 12,
     enableCypressExtension: false,
     noRobots: false,
+    noindex: false,
+    nofollow: false,
     preact: false,
     enableRedirects: false,
     enableSearchSSR: false,
     enableFaststoreMyAccount: false,
+    enableVtexAssetsLoader: false,
+    graphqlCacheControl: {
+      maxAge: 0, // 0 disables cache, 5 * 60 enable cache control maxAge 5 minutes
+      staleWhileRevalidate: 60,
+    },
   },
 }

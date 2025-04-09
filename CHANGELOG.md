@@ -3,6 +3,134 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.35.1](https://github.com/vtex/faststore/compare/v3.35.0...v3.35.1) (2025-04-08)
+
+### Bug Fixes
+
+- multiple view_cart events ([#2770](https://github.com/vtex/faststore/issues/2770)) ([9e8234b](https://github.com/vtex/faststore/commit/9e8234b0e097b7c4a749584e491c556cbdab4a31))
+
+# [3.35.0](https://github.com/vtex/faststore/compare/v3.34.0...v3.35.0) (2025-04-08)
+
+### Features
+
+- add API GraphQL cache control using flags ([#2756](https://github.com/vtex/faststore/issues/2756)) ([8b4dc64](https://github.com/vtex/faststore/commit/8b4dc6485f9e262cc5da47a51c3075715acdb0db))
+
+# [3.34.0](https://github.com/vtex/faststore/compare/v3.33.5...v3.34.0) (2025-04-08)
+
+### Features
+
+- prevents double page_view events ([#2767](https://github.com/vtex/faststore/issues/2767)) ([82fca88](https://github.com/vtex/faststore/commit/82fca888b6d203744ad66e6e009046d3088f42db))
+
+## [3.33.5](https://github.com/vtex/faststore/compare/v3.33.4...v3.33.5) (2025-04-03)
+
+### Bug Fixes
+
+- loading rc with accountName ([#2762](https://github.com/vtex/faststore/issues/2762)) ([d49e996](https://github.com/vtex/faststore/commit/d49e9961884a0d5c1c2a7078f718b4214370de94))
+
+## [3.33.4](https://github.com/vtex/faststore/compare/v3.33.3...v3.33.4) (2025-04-02)
+
+### Bug Fixes
+
+- validate response status before parsing to json ([#2759](https://github.com/vtex/faststore/issues/2759)) ([f10400c](https://github.com/vtex/faststore/commit/f10400cb57aeb85bee71c3d7d38857d7983b6c41))
+
+## [3.33.3](https://github.com/vtex/faststore/compare/v3.33.2...v3.33.3) (2025-04-01)
+
+### Bug Fixes
+
+- handle params and prevents send `page=NaN` or `count=0` to IS ([#2755](https://github.com/vtex/faststore/issues/2755)) ([c0f6e2f](https://github.com/vtex/faststore/commit/c0f6e2f9eef21be1f111f2ca902cae386159c43b))
+
+## [3.33.2](https://github.com/vtex/faststore/compare/v3.33.1...v3.33.2) (2025-04-01)
+
+### Bug Fixes
+
+- adds .end to the catch of api/graphql ([#2754](https://github.com/vtex/faststore/issues/2754)) ([3465adc](https://github.com/vtex/faststore/commit/3465adcac170e4beeeacd5db8bfacdcab3a6b559))
+
+## [3.33.1](https://github.com/vtex/faststore/compare/v3.33.0...v3.33.1) (2025-04-01)
+
+### Bug Fixes
+
+- Encode redirect destination ([#2757](https://github.com/vtex/faststore/issues/2757)) ([bbbcc6b](https://github.com/vtex/faststore/commit/bbbcc6be72112960c41ce70278f9130662bddfe5))
+
+# [3.33.0](https://github.com/vtex/faststore/compare/v3.32.1...v3.33.0) (2025-03-31)
+
+### Features
+
+- loads first page product gallery from Build Time (getStaticProps) + improve number of requests (+) ([#2721](https://github.com/vtex/faststore/issues/2721)) ([9a74405](https://github.com/vtex/faststore/commit/9a74405b53ce31211e2d5a2c61874a535e47d654)), closes [/github.com/vtex/faststore/blob/47fd98ef2e3380bc2b84f5ff7922068d75077d45/packages/core/src/sdk/product/useShouldFetchFirstPage.ts#L3](https://github.com//github.com/vtex/faststore/blob/47fd98ef2e3380bc2b84f5ff7922068d75077d45/packages/core/src/sdk/product/useShouldFetchFirstPage.ts/issues/L3)
+
+## [3.32.1](https://github.com/vtex/faststore/compare/v3.32.0...v3.32.1) (2025-03-28)
+
+### Bug Fixes
+
+- call redirect-evaluate only for pages ([#2748](https://github.com/vtex/faststore/issues/2748)) ([cc5bde1](https://github.com/vtex/faststore/commit/cc5bde1334a4eb1924a645a3587c2b66dd51fb84))
+
+# [3.32.0](https://github.com/vtex/faststore/compare/v3.31.0...v3.32.0) (2025-03-27)
+
+### Features
+
+- Manually disable `hideUnavailableItems` flag for PDP queries ([#2747](https://github.com/vtex/faststore/issues/2747)) ([9022088](https://github.com/vtex/faststore/commit/90220885d1aa3a0213d447207353cf5b9d99be23)), closes [vtex-sites/starter.store#738](https://github.com/vtex-sites/starter.store/issues/738)
+
+# [3.31.0](https://github.com/vtex/faststore/compare/v3.30.1...v3.31.0) (2025-03-26)
+
+### Features
+
+- adds deliveryChannel in shipping simulation ([#2746](https://github.com/vtex/faststore/issues/2746)) ([1dd68ed](https://github.com/vtex/faststore/commit/1dd68ed3465beec511b434258cb2e7ae3a3af214))
+
+## [3.30.1](https://github.com/vtex/faststore/compare/v3.30.0...v3.30.1) (2025-03-25)
+
+**Note:** Version bump only for package faststore
+
+# [3.30.0](https://github.com/vtex/faststore/compare/v3.29.1...v3.30.0) (2025-03-21)
+
+### Features
+
+- Add plugins apis support ([#2664](https://github.com/vtex/faststore/issues/2664)) ([11f2fb7](https://github.com/vtex/faststore/commit/11f2fb718ba4b414d2da09d066711cd6e448b5c0))
+
+## [3.29.1](https://github.com/vtex/faststore/compare/v3.29.0...v3.29.1) (2025-03-21)
+
+### Bug Fixes
+
+- pass cookies to intelligent search requests ([#2740](https://github.com/vtex/faststore/issues/2740)) ([fd4ba80](https://github.com/vtex/faststore/commit/fd4ba806ad37856829b1f737416a2e3aad042b0b))
+
+# [3.29.0](https://github.com/vtex/faststore/compare/v3.28.1...v3.29.0) (2025-03-21)
+
+### Features
+
+- add UTM to orderForm ([#2736](https://github.com/vtex/faststore/issues/2736)) ([e423cef](https://github.com/vtex/faststore/commit/e423cef2992f003b8d8add119cb1847069a1571d)), closes [/github.com/vtex-apps/checkout-graphql/blob/df8f02932e9710fa437cf2c550e98cf9b7dc3726/node/resolvers/items.ts#L152-L157](https://github.com//github.com/vtex-apps/checkout-graphql/blob/df8f02932e9710fa437cf2c550e98cf9b7dc3726/node/resolvers/items.ts/issues/L152-L157)
+
+## [3.28.1](https://github.com/vtex/faststore/compare/v3.28.0...v3.28.1) (2025-03-20)
+
+### Bug Fixes
+
+- PLP layout shift ([#2733](https://github.com/vtex/faststore/issues/2733)) ([ee01257](https://github.com/vtex/faststore/commit/ee01257ad2661527abdd5be28e7064dace19fd8d))
+
+# 3.28.0 (2025-03-20)
+
+### Bug Fixes
+
+- add pnpm-lock.yaml to ignored files in biome.json ([#2737](https://github.com/vtex/faststore/issues/2737)) ([e308698](https://github.com/vtex/faststore/commit/e308698a406e27f0112ff1dc2e83564c42c83d85))
+
+### Features
+
+- add support for VTEX assets loader in image component ([#2731](https://github.com/vtex/faststore/issues/2731)) ([aea7456](https://github.com/vtex/faststore/commit/aea7456aaf0e6aacd0ba64759136c51fd08c642f)), closes [/#diff-4da6f8e98efa58c9a40ce9b654b9bfeecb6813091999cdea3d2408679d1bf3d3R119](https://github.com///issues/diff-4da6f8e98efa58c9a40ce9b654b9bfeecb6813091999cdea3d2408679d1bf3d3R119) [/#diff-73ffbd4b30ea7347ce7cc718527810b0f8b51f897bcf48efdd48fbe36652afdaR10-R15](https://github.com///issues/diff-73ffbd4b30ea7347ce7cc718527810b0f8b51f897bcf48efdd48fbe36652afdaR10-R15) [/#diff-73ffbd4b30ea7347ce7cc718527810b0f8b51f897bcf48efdd48fbe36652afdaR28-R39](https://github.com///issues/diff-73ffbd4b30ea7347ce7cc718527810b0f8b51f897bcf48efdd48fbe36652afdaR28-R39)
+
+# [3.27.0](https://github.com/vtex/faststore/compare/v3.26.1...v3.27.0) (2025-03-20)
+
+### Features
+
+- update next-seo to ^6.6.0 and adjust SEO settings ([#2735](https://github.com/vtex/faststore/issues/2735)) ([75534f4](https://github.com/vtex/faststore/commit/75534f4c95b4d5d02b4b5b5e72b745adee856e62)), closes [/#diff-4da6f8e98efa58c9a40ce9b654b9bfeecb6813091999cdea3d2408679d1bf3d3R120-R121](https://github.com///issues/diff-4da6f8e98efa58c9a40ce9b654b9bfeecb6813091999cdea3d2408679d1bf3d3R120-R121) [/#diff-44cee9f10a52af4534def49e35d22467e888a2689e6f535f4009801be8917cd7R8-R9](https://github.com///issues/diff-44cee9f10a52af4534def49e35d22467e888a2689e6f535f4009801be8917cd7R8-R9) [/#diff-0b810c38f3c138a3d5e44854edefd5eb966617ca84e62f06511f60acc40546c7L74-R74](https://github.com///issues/diff-0b810c38f3c138a3d5e44854edefd5eb966617ca84e62f06511f60acc40546c7L74-R74)
+
+## [3.26.1](https://github.com/vtex/faststore/compare/v3.26.0...v3.26.1) (2025-03-19)
+
+### Bug Fixes
+
+- Prevent whitespaces in Search page's `canonical` ([#2732](https://github.com/vtex/faststore/issues/2732)) ([224435f](https://github.com/vtex/faststore/commit/224435f4316fe0072fb702f3b2a97df0e9599847)), closes [vtex-sites/starter.store#726](https://github.com/vtex-sites/starter.store/issues/726)
+
+# 3.26.0 (2025-03-19)
+
+### Features
+
+- Add SEO specifics for PDP ([#2730](https://github.com/vtex/faststore/issues/2730)) ([f2a0420](https://github.com/vtex/faststore/commit/f2a0420d6af360e2668641b38d4eae71419b1d72)), closes [vtex-sites/starter.store#724](https://github.com/vtex-sites/starter.store/issues/724)
+
 ## [3.25.11](https://github.com/vtex/faststore/compare/v3.25.10...v3.25.11) (2025-03-17)
 
 **Note:** Version bump only for package faststore

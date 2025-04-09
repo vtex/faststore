@@ -3,6 +3,50 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.35.0](https://github.com/vtex/faststore/compare/v3.34.0...v3.35.0) (2025-04-08)
+
+### Features
+
+- add API GraphQL cache control using flags ([#2756](https://github.com/vtex/faststore/issues/2756)) ([8b4dc64](https://github.com/vtex/faststore/commit/8b4dc6485f9e262cc5da47a51c3075715acdb0db))
+
+## [3.33.3](https://github.com/vtex/faststore/compare/v3.33.2...v3.33.3) (2025-04-01)
+
+### Bug Fixes
+
+- handle params and prevents send `page=NaN` or `count=0` to IS ([#2755](https://github.com/vtex/faststore/issues/2755)) ([c0f6e2f](https://github.com/vtex/faststore/commit/c0f6e2f9eef21be1f111f2ca902cae386159c43b))
+
+# [3.32.0](https://github.com/vtex/faststore/compare/v3.31.0...v3.32.0) (2025-03-27)
+
+### Features
+
+- Manually disable `hideUnavailableItems` flag for PDP queries ([#2747](https://github.com/vtex/faststore/issues/2747)) ([9022088](https://github.com/vtex/faststore/commit/90220885d1aa3a0213d447207353cf5b9d99be23)), closes [vtex-sites/starter.store#738](https://github.com/vtex-sites/starter.store/issues/738)
+
+## [3.30.1](https://github.com/vtex/faststore/compare/v3.30.0...v3.30.1) (2025-03-25)
+
+**Note:** Version bump only for package @faststore/api
+
+## [3.29.1](https://github.com/vtex/faststore/compare/v3.29.0...v3.29.1) (2025-03-21)
+
+### Bug Fixes
+
+- pass cookies to intelligent search requests ([#2740](https://github.com/vtex/faststore/issues/2740)) ([fd4ba80](https://github.com/vtex/faststore/commit/fd4ba806ad37856829b1f737416a2e3aad042b0b))
+
+# [3.29.0](https://github.com/vtex/faststore/compare/v3.28.1...v3.29.0) (2025-03-21)
+
+### Features
+
+- add UTM to orderForm ([#2736](https://github.com/vtex/faststore/issues/2736)) ([e423cef](https://github.com/vtex/faststore/commit/e423cef2992f003b8d8add119cb1847069a1571d)), closes [/github.com/vtex-apps/checkout-graphql/blob/df8f02932e9710fa437cf2c550e98cf9b7dc3726/node/resolvers/items.ts#L152-L157](https://github.com//github.com/vtex-apps/checkout-graphql/blob/df8f02932e9710fa437cf2c550e98cf9b7dc3726/node/resolvers/items.ts/issues/L152-L157)
+
+# 3.28.0 (2025-03-20)
+
+### Bug Fixes
+
+- add pnpm-lock.yaml to ignored files in biome.json ([#2737](https://github.com/vtex/faststore/issues/2737)) ([e308698](https://github.com/vtex/faststore/commit/e308698a406e27f0112ff1dc2e83564c42c83d85))
+
+# 3.26.0 (2025-03-19)
+
+**Note:** Version bump only for package @faststore/api
+
 ## [3.25.11](https://github.com/vtex/faststore/compare/v3.25.10...v3.25.11) (2025-03-17)
 
 **Note:** Version bump only for package @faststore/api

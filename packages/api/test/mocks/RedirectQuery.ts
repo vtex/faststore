@@ -7,8 +7,10 @@ export const RedirectQueryTermTech = `query RedirectSearch {
 
 export const redirectTermTechFetch = {
   info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=2&count=1&query=tech&sort=&locale=en-US&hideUnavailableItems=false&simulationBehavior=skip&showSponsored=false',
-  init: undefined,
-  options: { storeCookies: expect.any(Function) },
+  init: {
+    headers: { 'X-FORWARDED-HOST': '', 'content-type': 'application/json' },
+  },
+  options: undefined,
   result: {
     products: [],
     recordsFiltered: 0,

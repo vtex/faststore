@@ -15,8 +15,13 @@ export type PageConfig = {
   name: string
 }
 
+export type APIConfig = {
+  path: string
+}
+
 export type PluginConfig = {
   pages?: { [pageName: string]: Partial<PageConfig> }
+  apis?: { [pageName: string]: Partial<APIConfig> }
 }
 
 export type Plugin =
@@ -126,7 +131,7 @@ const getPluginPageFileContent = (
 ) => `
 // GENERATED FILE
 // @ts-nocheck
-import * as page from 'src/plugins/${pluginName}/pages/${pageName}';
+import * as page from 'src/plugins/${pluginName}/pages/${pageName}'
 ${appLayout ? `import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'` : ``}
 ${appLayout ? `import RenderSections from 'src/components/cms/RenderSections'` : ``}
 
@@ -135,14 +140,14 @@ export async function getServerSideProps(${appLayout ? '{ previewData, ...otherP
   const loaderData = await (page.loader || noop)(otherProps)
 ${appLayout ? `const { sections = [] } = await getGlobalSectionsData(previewData)` : ``}
 
-  return { 
-    props: { 
-        data: loaderData, 
+  return {
+    props: {
+        data: loaderData,
         ${appLayout ? 'globalSections: sections' : ``}
-    } 
+    }
   }
 }
-export default function Page(props) { 
+export default function Page(props) {
   ${
     appLayout
       ? `return <RenderSections globalSections={props.globalSections}>
@@ -276,12 +281,65 @@ const addPluginsTheme = async (basePath: string, plugins: Plugin[]) => {
         getPackagePath(getPluginName(plugin), 'src', 'themes', 'index.scss')
       )
     )
-    .map(
-      (plugin) => `@import "${getPluginName(plugin)}/src/themes/index.scss";`
-    )
+    .map((plugin) => `@import "${getPluginName(plugin)}/src/themes/index.scss"`)
     .join('\n')
 
   writeFileSync(tmpThemesPluginsFile, pluginImportsContent)
+}
+
+const getPluginAPIFileContent = (pluginName: string, apiName: string) => `
+// GENERATED FILE
+// @ts-nocheck
+import apiHandle from 'src/plugins/${pluginName}/apis/${apiName}'
+import { NextApiRequest, NextApiResponse } from "next/types"
+
+export default function handle(req: NextApiRequest, res: NextApiResponse) {
+  return apiHandle(req, res)
+}
+`
+
+const generatePluginApis = async (basePath: string, plugins: Plugin[]) => {
+  const { tmpApiDir, getPackagePath } = withBasePath(basePath)
+
+  logger.log('Generating plugin APIs')
+
+  plugins.forEach(async (plugin) => {
+    const pluginName = getPluginName(plugin)
+    const pluginConfigPath = getPackagePath(pluginName, PLUGIN_CONFIG_FILE)
+
+    const pluginConfig = await import(pluginConfigPath)
+
+    const { apis: apisCustom } = getPluginCustomConfig(plugin)
+
+    const apisConfig: Record<string, APIConfig> = {
+      ...(pluginConfig.apis ?? {}),
+      ...apisCustom,
+    }
+
+    const apis = Object.keys(apisConfig)
+
+    apis.forEach(async (apiName) => {
+      const paths = apisConfig[apiName].path.split('/')
+
+      const apiFile = paths.pop()
+      const apiPaths = paths
+
+      const apiPath = path.join(
+        tmpApiDir,
+        ...apiPaths,
+        'plugins',
+        apiFile + '.ts'
+      )
+
+      const fileContent = getPluginAPIFileContent(
+        sanitizePluginName(pluginName),
+        apiName
+      )
+
+      mkdirSync(path.dirname(apiPath), { recursive: true })
+      writeFileSync(apiPath, fileContent)
+    })
+  })
 }
 
 export const installPlugins = async (basePath: string) => {
@@ -290,6 +348,7 @@ export const installPlugins = async (basePath: string) => {
   copyPluginsSrc(basePath, plugins)
   copyPluginPublicFiles(basePath, plugins)
   generatePluginPages(basePath, plugins)
+  generatePluginApis(basePath, plugins)
   addPluginsSections(basePath, plugins)
   addPluginsOverrides(basePath, plugins)
   addPluginsTheme(basePath, plugins)

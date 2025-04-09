@@ -348,8 +348,10 @@ export const checkoutOrderFormCustomDataInvalidFetch = {
 
 export const productSearchPage1Count1Fetch = {
   info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=1&query=sku%3A2737806&sort=&locale=en-US&show-invisible-items=true&hideUnavailableItems=false',
-  init: undefined,
-  options: { storeCookies: expect.any(Function) },
+  init: {
+    headers: { 'content-type': 'application/json', 'X-FORWARDED-HOST': '' },
+  },
+  options: undefined,
   result: {
     products: [
       {
