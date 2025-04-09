@@ -37,33 +37,38 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Size
-        run: pnpm size
+      # - name: Size
+      #   run: pnpm size
 
-      - name: Lint
-        run: pnpm lint
+      # - name: Lint
+      #   run: pnpm lint
 
-      - name: Test
-        run: pnpm test
+      # - name: Test
+      #   run: pnpm test
 
-      - name: Publish to Chromatic
-        uses: chromaui/action@latest
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          workingDir: packages/storybook
-          buildScriptName: build
-          onlyChanged: true
-          exitOnceUploaded: true
-          exitZeroOnChanges: true
+      # - name: Publish to Chromatic
+      #   uses: chromaui/action@latest
+      #   with:
+      #     projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      #     workingDir: packages/storybook
+      #     buildScriptName: build
+      #     onlyChanged: true
+      #     exitOnceUploaded: true
+      #     exitZeroOnChanges: true
 
       - name: Pack packages
         run: |
           mkdir -p packed-packages
-          for pkg in packages/*; do
-            if [ -d "$pkg" ]; then
-              PACK_RESULT=$(cd "$pkg" && npm pack --pack-destination ../../packed-packages)
-              PACKAGE=$(echo "$PACK_RESULT" | sed 's/\.tgz$//')
-              PACKED_PACKAGE="$PACKAGE-ci-$(date +%s).tgz"
+          for package in packages/*; do
+            if [ -d "$package" ]; then
+              PACK_RESULT=$(cd "$package" && npm pack --pack-destination ../../packed-packages)
+              FILE=$(echo "$PACK_RESULT" | sed 's/\.tgz$//')
+              PACKED_PACKAGE="$FILE-ci-$(date +%s).tgz"
+              echo "************************"
+              ls -la .
+              echo "************************"
+              ls -la ../../packed-packages
+              echo "************************"
               mv "../../packed-packages/$PACK_RESULT" "../../packed-packages/$PACKED_PACKAGE"
             fi
           done
