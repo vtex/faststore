@@ -37,17 +37,9 @@
     "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
-    "@envelop/on-resolve": "^4.1.1",
     "@graphql-tools/load-files": "^7.0.0",
     "@graphql-tools/schema": "^9.0.0",
     "@graphql-tools/utils": "^10.2.0",
-    "@opentelemetry/api": "^1.4.1",
-    "@opentelemetry/api-logs": "^0.39.1",
-    "@opentelemetry/exporter-logs-otlp-grpc": "^0.39.1",
-    "@opentelemetry/exporter-trace-otlp-grpc": "^0.39.1",
-    "@opentelemetry/resources": "^1.13.0",
-    "@opentelemetry/sdk-logs": "^0.39.1",
-    "@opentelemetry/sdk-trace-base": "^1.13.0",
     "@rollup/plugin-graphql": "^1.0.0",
     "cookie": "^0.7.0",
     "dataloader": "^2.1.0",
@@ -57,7 +49,6 @@
     "sanitize-html": "^2.11.0"
   },
   "devDependencies": {
-    "@envelop/core": "^5.0.2",
     "@graphql-codegen/cli": "2.2.0",
     "@graphql-codegen/typescript": "2.2.2",
     "@parcel/watcher": "^2.4.0",
@@ -77,7 +68,6 @@
     "tsx": "^4.6.2"
   },
   "peerDependencies": {
-    "@envelop/core": "^5",
     "graphql": "^15.6.0"
   },
   "volta": {
