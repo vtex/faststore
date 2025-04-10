@@ -3,6 +3,7 @@ import type { NextApiHandler, NextApiRequest } from 'next'
 
 import { execute } from '../../server'
 import discoveryConfig from 'discovery.config'
+import MissingGraphQLQueryError from 'src/sdk/error/MissingGraphQLQueryError'
 
 const ONE_MINUTE = 60
 
@@ -120,6 +121,10 @@ const handler: NextApiHandler = async (request, response) => {
     response.send(JSON.stringify({ data, errors }))
   } catch (err) {
     console.error(err)
+
+    if (err instanceof MissingGraphQLQueryError) {
+      return response.status(400).end()
+    }
 
     response.status(500).end()
   }

@@ -29,6 +29,7 @@ import vtexExtensionsResolvers from '../customizations/src/graphql/vtex/resolver
 
 import type { Operation } from '../sdk/graphql/request'
 import { apiOptions } from './options'
+import MissingGraphQLQueryError from 'src/sdk/error/MissingGraphQLQueryError'
 
 interface ExecuteOptions<V = Record<string, unknown>> {
   operation: Operation
@@ -98,9 +99,7 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
   const query = maybeQuery ?? persistedQueries.get(operationHash)
 
   if (query == null) {
-    throw new Error(
-      `No query found for operationName ${operationName} and operationHash ${operationHash}`
-    )
+    throw new MissingGraphQLQueryError(operationName, operationHash)
   }
 
   const enveloped = await envelopPromise
