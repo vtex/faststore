@@ -314,9 +314,8 @@ export const getStaticProps: GetStaticProps<
 
   if (notFound) {
     if (storeConfig.experimental.enableRedirects) {
-      console.log('~> slug: ', slug)
-      const redirect = await getRedirect({ pathname: `/${slug}` })
-      console.log('~> redirect: ', redirect)
+      const redirect = await getRedirect({ pathname: `/${slug}/p` })
+
       if (redirect) {
         return {
           redirect,
