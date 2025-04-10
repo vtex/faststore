@@ -5,11 +5,11 @@ import { Button } from '../../'
 
 export interface RegionBarProps extends HTMLAttributes<HTMLDivElement> {
   /**
-   * City to be display in the component
+   * City to be displayed in the component.
    */
   city?: string
   /**
-   * Postal code string to be display in the component
+   * Postal code string to be display in the component.
    */
   postalCode?: string
   /**
