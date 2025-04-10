@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.38.0](https://github.com/vtex/faststore/compare/v3.37.0...v3.38.0) (2025-04-10)
+
+### Features
+
+- only send is query event when url has fuzzy and operator ([#2774](https://github.com/vtex/faststore/issues/2774)) ([c6d722e](https://github.com/vtex/faststore/commit/c6d722e55dde5cab16005505f84448a2070fae78))
+
 # [3.37.0](https://github.com/vtex/faststore/compare/v3.36.0...v3.37.0) (2025-04-10)
 
 ### Features
