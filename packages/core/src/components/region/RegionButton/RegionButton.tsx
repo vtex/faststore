@@ -1,14 +1,23 @@
-import { Button as UIButton } from '@faststore/ui'
+import { useRef } from 'react'
 
-import { Icon, useUI } from '@faststore/ui'
+import { Button as UIButton, Icon as UIIcon, useUI } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
 import { textToTitleCase } from 'src/utils/utilities'
 import { session as initialSession } from 'discovery.config'
+
+import storeConfig from 'discovery.config'
+import RegionPopover from '../RegionPopover'
 
 function RegionButton({ icon, label }: { icon: string; label: string }) {
   const { openModal } = useUI()
   const { city, postalCode } = useSession()
   const shouldDisplayPostalCode = postalCode !== initialSession.postalCode
+
+  const {
+    session: { postalCode: defaultPostalCode },
+  } = storeConfig
+
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
   return (
     <UIButton
@@ -22,6 +31,13 @@ function RegionButton({ icon, label }: { icon: string; label: string }) {
         ? `${textToTitleCase(city)}${shouldDisplayPostalCode ? `, ${postalCode}` : ''}`
         : label}
     </UIButton>
+
+      <RegionPopover
+        open={defaultPostalCode ? false : true}
+        triggerRef={buttonRef}
+        onDismiss={() => {}}
+        offsetTop={-65}
+      />
   )
 }
 
