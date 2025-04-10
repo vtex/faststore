@@ -11,6 +11,7 @@ import { useParserCache } from '@envelop/parser-cache'
 import { useValidationCache } from '@envelop/validation-cache'
 import type { CacheControl, Maybe } from '@faststore/api'
 import {
+  BadRequestError,
   getContextFactory,
   getResolvers,
   isFastStoreError,
@@ -98,8 +99,8 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
   const query = maybeQuery ?? persistedQueries.get(operationHash)
 
   if (query == null) {
-    throw new Error(
-      `No query found for operationName ${operationName} and operationHash ${operationHash}`
+    throw new BadRequestError(
+      `No query found for operationName ${operationName} and operationHash ${operationHash}.`
     )
   }
 

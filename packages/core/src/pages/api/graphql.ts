@@ -1,4 +1,8 @@
-import { isFastStoreError, stringifyCacheControl } from '@faststore/api'
+import {
+  BadRequestError,
+  isFastStoreError,
+  stringifyCacheControl,
+} from '@faststore/api'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import { execute } from '../../server'
@@ -120,6 +124,11 @@ const handler: NextApiHandler = async (request, response) => {
     response.send(JSON.stringify({ data, errors }))
   } catch (err) {
     console.error(err)
+
+    if (err instanceof BadRequestError) {
+      response.status(400).end()
+      return
+    }
 
     response.status(500).end()
   }
