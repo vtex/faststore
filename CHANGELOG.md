@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.38.2](https://github.com/vtex/faststore/compare/v3.38.1...v3.38.2) (2025-04-10)
+
+### Bug Fixes
+
+- returns 4XX error when query not exist ([#2779](https://github.com/vtex/faststore/issues/2779)) ([013454e](https://github.com/vtex/faststore/commit/013454e6b5bcd1f0e6ddb4d5ff49affd664a9209))
+
 ## [3.38.1](https://github.com/vtex/faststore/compare/v3.38.0...v3.38.1) (2025-04-10)
 
 **Note:** Version bump only for package faststore
