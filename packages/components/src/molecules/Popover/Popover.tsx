@@ -1,6 +1,8 @@
 import React, {
   forwardRef,
+  useEffect,
   useRef,
+  useState,
   type HTMLAttributes,
   type ReactNode,
 } from 'react'
@@ -49,30 +51,68 @@ export interface PopoverProps
   /**
    * Controls whether the Popover is open.
    */
-  open: boolean
+  isOpen: boolean
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * Offset value for top position (e.g.: 12).
+   * @default '8'
+   */
+  offsetTop?: number
+  /**
+   * Offset value for left position (e.g.: 12).
+   * @default '0'
+   */
+  offsetLeft?: number
+  /**
+   * Reference to the trigger element that opens the Popover.
+   */
+  triggerRef?: React.RefObject<HTMLButtonElement>
 }
 
-const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover({
-  title,
-  content,
-  placement = 'bottom-center',
-  dismissible = false,
-  onDismiss,
-  open,
-  testId = 'fs-popover',
-  ...otherProps
-}) {
-  const popoverRef = useRef<HTMLDivElement>(null)
+const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
+  {
+    title,
+    content,
+    placement = 'bottom-center',
+    dismissible = false,
+    onDismiss,
+    isOpen,
+    triggerRef,
+    offsetTop = 8,
+    offsetLeft = 0,
+    testId = 'fs-popover',
+    ...otherProps
+  },
+  ref
+) {
+  // Use forwarded ref or internal ref for fallback
+  const popoverRef = ref || useRef<HTMLDivElement>(null)
+
+  // Set the position according to the trigger element
+  const [styles, setStyles] = useState({ top: 0, left: 0 })
+
+  useEffect(() => {
+    if (!isOpen || !triggerRef?.current) return
+
+    const rect = triggerRef.current.getBoundingClientRect()
+
+    setStyles({
+      top: rect.top + window.scrollY + offsetTop,
+      left: rect.left + window.scrollX + offsetLeft,
+    })
+  }, [isOpen, triggerRef, offsetTop, offsetLeft])
 
   const handleDismiss = () => {
     onDismiss?.()
   }
 
-  useOnClickOutside(popoverRef, () => handleDismiss())
+  useOnClickOutside(
+    popoverRef as React.RefObject<HTMLDivElement>,
+    handleDismiss
+  )
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Escape') {
@@ -80,7 +120,7 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover({
     }
   }
 
-  if (!open) {
+  if (!isOpen) {
     return null
   }
 
@@ -92,6 +132,9 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover({
       data-fs-popover-placement={placement}
       onKeyDown={handleKeyDown}
       data-testid={testId}
+      style={{
+        ...styles,
+      }}
       {...otherProps}
     >
       <header data-fs-popover-header>
