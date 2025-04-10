@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.37.0](https://github.com/vtex/faststore/compare/v3.36.0...v3.37.0) (2025-04-10)
+
+### Features
+
+- Add PDP redirects support ([#2777](https://github.com/vtex/faststore/issues/2777)) ([fe76b0e](https://github.com/vtex/faststore/commit/fe76b0ed9f63f393cb54c57cf955be76c1d16cde)), closes [#2583](https://github.com/vtex/faststore/issues/2583) [vtex-sites/faststoreqa.store#764](https://github.com/vtex-sites/faststoreqa.store/issues/764)
+
 # [3.36.0](https://github.com/vtex/faststore/compare/v3.35.1...v3.36.0) (2025-04-09)
 
 ### Features
