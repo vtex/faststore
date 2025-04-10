@@ -12,7 +12,7 @@ interface ProductSentinelProps {
    */
   title: string
   /**
-   * Products listed on the grid.
+   * Product listed on the grid.
    */
   product: ProductSummary_ProductFragment
   /**
