@@ -52,7 +52,7 @@ module.exports = {
     country: 'USA',
     deliveryMode: null,
     addressType: null,
-    postalCode: null,
+    postalCode: '12121',
     geoCoordinates: null,
     b2b: null,
     person: null,
@@ -122,7 +122,7 @@ module.exports = {
   },
 
   deliveryPromise: {
-    enabled: false,
+    enabled: true,
     mandatory: false,
   },
 
