@@ -1,4 +1,4 @@
-//Input "Example Text!". Output: example-text
+// Input "Example Text!". Output: example-text
 export function textToKebabCase(text: string): string {
   // Replace spaces and special characters with hyphens
   let kebabCase = text.replace(/[^\w\s]/gi, '-')
@@ -12,6 +12,7 @@ export function textToKebabCase(text: string): string {
   return kebabCase ?? ''
 }
 
+// Input "EXAMPLE text!". Output: "Example Text!"
 export function stringToTitleCase(str: string) {
   return str.replace(
     /\S+/g,
