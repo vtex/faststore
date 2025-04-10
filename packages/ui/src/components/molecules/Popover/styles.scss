@@ -4,6 +4,7 @@
   // --------------------------------------------------------
 
   // Default properties
+  --fs-popover-margin                                : 0 var(--fs-spacing-3);
   --fs-popover-padding                               : var(--fs-spacing-3) var(--fs-spacing-4);
   --fs-popover-border-radius                         : var(--fs-border-radius);
   --fs-popover-bkg-color                             : var(--fs-color-body-bkg);
@@ -19,14 +20,15 @@
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
-  position: relative;
+  position: absolute;
+  z-index: var(--fs-popover-z-index);
   display: flex;
   flex-direction: column;
   padding: var(--fs-popover-padding);
+  margin: var(--fs-popover-margin);
   background-color: var(--fs-popover-bkg-color);
   border-radius: var(--fs-popover-border-radius);
   box-shadow: var(--fs-popover-box-shadow);
-
 
   [data-fs-popover-header] {
     display: flex;
@@ -53,7 +55,7 @@
   // Variants Styles
   // --------------------------------------------------------
 
-  /* PLACEMENT TOP */
+  /* TOP */
   &[data-fs-popover-placement^="top"] {
     bottom: 100%;
     transform: translateY(calc(-1 * var(--fs-popover-indicator-translate)));
@@ -64,7 +66,7 @@
     border-top-color: var(--fs-popover-bkg-color);
   }
 
-  /* PLACEMENT TOP-CENTER */
+  /* TOP-CENTER */
   &[data-fs-popover-placement="top-center"] {
     left: 50%;
     transform:
