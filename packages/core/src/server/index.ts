@@ -100,7 +100,7 @@ export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
 
   if (query == null) {
     throw new BadRequestError(
-      `No query found for operationName ${operationName ?? 'undefined'} and operationHash ${operationHash ?? 'undefined'}.`
+      `No query found for operationName ${operationName} and operationHash ${operationHash}.`
     )
   }
 
