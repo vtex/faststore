@@ -25,6 +25,7 @@ import ProductTiles from 'src/components/sections/ProductTiles'
 import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import PLUGINS_COMPONENTS from 'src/plugins'
 import { useSession } from 'src/sdk/session'
+import { getRedirect } from 'src/sdk/redirects'
 import { execute } from 'src/server'
 
 import storeConfig from 'discovery.config'
@@ -312,6 +313,17 @@ export const getStaticProps: GetStaticProps<
   const notFound = errors.find(isNotFoundError)
 
   if (notFound) {
+    if (storeConfig.experimental.enableRedirects) {
+      const redirect = await getRedirect({ pathname: `/${slug}/p` })
+
+      if (redirect) {
+        return {
+          redirect,
+          revalidate: 60 * 5, // 5 minutes
+        }
+      }
+    }
+
     return {
       notFound: true,
     }
