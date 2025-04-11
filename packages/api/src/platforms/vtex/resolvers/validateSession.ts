@@ -43,7 +43,7 @@ async function getGeoCoordinates(
     })
 
     const [longitude, latitude] = address.geoCoordinates
-    return { latitude, longitude }
+    return { city: address.city, geoCoordinates: { latitude, longitude } }
   } catch (err) {
     console.error(
       `Error while getting geo coordinates for the current postal code (${postalCode}) and country (${country}).\n`
