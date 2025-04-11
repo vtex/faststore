@@ -61,7 +61,7 @@ const parseRequest = (request: NextApiRequest) => {
 
 const handler: NextApiHandler = async (request, response) => {
   if (request.method !== 'POST' && request.method !== 'GET') {
-    response.status(405)
+    response.status(405).end()
 
     return
   }
