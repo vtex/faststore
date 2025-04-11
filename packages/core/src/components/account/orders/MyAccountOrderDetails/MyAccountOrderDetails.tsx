@@ -11,10 +11,7 @@ import MyAccountPaymentCard from './MyAccountPaymentCard'
 import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import styles from './section.module.scss'
-import {
-  brlOrderSummaryWithChange,
-  usdOrderSummary,
-} from '../../mocks/orderDetails'
+import { clientProfileData, usdOrderSummary } from '../../mocks/orderDetails'
 
 export interface MyAccountOrderDetailsProps {
   orderId: string
@@ -56,7 +53,7 @@ export default function MyAccountOrderDetails({
         </div>
       </header>
       <main data-fs-order-details-content>
-        <MyAccountOrderedByCard />
+        <MyAccountOrderedByCard clientProfileData={clientProfileData} />
         <MyAccountDeliveryCard />
         <MyAccountStatusCard />
         <MyAccountPaymentCard />
