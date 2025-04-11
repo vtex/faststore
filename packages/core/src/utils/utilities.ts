@@ -13,8 +13,8 @@ export function textToKebabCase(text: string): string {
 }
 
 // Input "EXAMPLE text!". Output: "Example Text!"
-export function stringToTitleCase(str: string) {
-  return str.replace(
+export function textToTitleCase(text: string): string {
+  return text.replace(
     /\S+/g,
     (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
   )

@@ -3,7 +3,7 @@ import type { RegionBarProps as UIRegionBarProps } from '@faststore/ui'
 import { useUI } from '@faststore/ui'
 import { useSession } from 'src/sdk/session'
 
-import { stringToTitleCase } from 'src/utils/utilities'
+import { textToTitleCase } from 'src/utils/utilities'
 import { session as initialSession } from 'discovery.config'
 import { useOverrideComponents } from 'src/sdk/overrides/OverrideContext'
 
@@ -72,7 +72,7 @@ function RegionBar({
       // This decision can be reviewed later if needed
       onButtonClick={openModal}
       postalCode={postalCode}
-      city={stringToTitleCase(city ?? '')}
+      city={textToTitleCase(city ?? '')}
       shouldDisplayPostalCode={shouldDisplayPostalCode}
       {...otherProps}
     />
