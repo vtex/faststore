@@ -1,44 +1,35 @@
-import { NextSeo } from 'next-seo'
-import type { ComponentType } from 'react'
-import { useEffect } from 'react'
-import RenderSections from 'src/components/cms/RenderSections'
-import { default as GLOBAL_COMPONENTS } from 'src/components/cms/global/Components'
-import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 import storeConfig from 'discovery.config'
-import {
-  getServerSideProps,
-  type MyAccountProps,
-} from 'src/experimental/myAccountSeverSideProps'
-import { useRouter } from 'next/router'
 
-/* A list of components that can be used in the CMS. */
-const COMPONENTS: Record<string, ComponentType<any>> = {
-  ...GLOBAL_COMPONENTS,
-  ...CUSTOM_COMPONENTS,
+import type { GetServerSideProps, NextPage } from 'next'
+
+const MyAccountRedirectPage: NextPage = () => {
+  return null
 }
 
-function Page({ globalSections }: MyAccountProps) {
-  const router = useRouter()
-  useEffect(() => {
-    if (storeConfig.experimental.enableFaststoreMyAccount) {
-      router.push('/account/profile') // current default path in my account
-    } else {
-      window.location.href = `${storeConfig.accountUrl}${window.location.search}`
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  if (storeConfig.experimental.enableFaststoreMyAccount) {
+    return {
+      redirect: {
+        destination: '/account/profile',
+        permanent: false,
+      },
     }
-  }, [])
+  }
 
-  return (
-    <RenderSections
-      globalSections={globalSections.sections}
-      components={COMPONENTS}
-    >
-      <NextSeo noindex nofollow />
+  const searchParams = new URLSearchParams()
 
-      <div>loading...</div>
-    </RenderSections>
-  )
+  for (const key in query) {
+    const value = query[key]
+    const values = Array.isArray(value) ? value : [value]
+    values.forEach((v) => v && searchParams.append(key, v))
+  }
+
+  return {
+    redirect: {
+      destination: `${storeConfig.accountUrl}?${searchParams.toString()}`,
+      permanent: false,
+    },
+  }
 }
 
-export { getServerSideProps }
-
-export default Page
+export default MyAccountRedirectPage
