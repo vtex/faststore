@@ -35,7 +35,8 @@ jobs:
         run: pnpm i
 
       - name: Build
-        run: pnpm build
+        run: |
+          pnpm build --cache=local:
 
       - name: Size
         run: pnpm size
