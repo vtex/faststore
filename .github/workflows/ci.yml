@@ -63,7 +63,7 @@ jobs:
           for package_dir in packages/*; do
             if [ -d "$package_dir" ]; then
               package_name=$(basename "$package_dir")
-              (cd "$package_dir" && yarn pack --filename "../../packed-packages/$package_name".tgz")
+              (cd "$package_dir" && yarn pack --filename "../../packed-packages/$package_name.tgz")
             fi
           done
 
