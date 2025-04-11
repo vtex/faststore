@@ -73,12 +73,12 @@
   // --------------------------------------------------------
 
   /* TOP */
-  [data-fs-tooltip-placement^="top-center"] {
+  [data-fs-tooltip-placement^="top"] {
     bottom: 100%;
     transform: translateY(calc(-1 * var(--fs-tooltip-indicator-translate)));
   }
 
-  [data-fs-tooltip-placement^="top-center"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement^="top"] [data-fs-tooltip-indicator] {
     top: 100%;
     border-top-color: var(--fs-tooltip-background);
   }
@@ -115,12 +115,12 @@
   }
 
   /* RIGHT */
-  [data-fs-tooltip-placement^="right-center"] {
+  [data-fs-tooltip-placement^="right"] {
     left: 100%;
     transform: translateX(var(--fs-tooltip-indicator-translate));
   }
 
-  [data-fs-tooltip-placement^="right-center"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement^="right"] [data-fs-tooltip-indicator] {
     right: 100%;
     border-right-color: var(--fs-tooltip-background);
   }
@@ -157,12 +157,12 @@
   }
 
   /* BOTTOM */
-  [data-fs-tooltip-placement^="bottom-center"] {
+  [data-fs-tooltip-placement^="bottom"] {
     top: 100%;
     transform: translateY(var(--fs-tooltip-indicator-translate));
   }
 
-  [data-fs-tooltip-placement^="bottom-center"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement^="bottom"] [data-fs-tooltip-indicator] {
     bottom: 100%;
     border-bottom-color: var(--fs-tooltip-background);
   }
@@ -199,12 +199,12 @@
   }
 
   /* LEFT */
-  [data-fs-tooltip-placement^="left-center"] {
+  [data-fs-tooltip-placement^="left"] {
     right: 100%;
     transform: translateX(calc(-1 * var(--fs-tooltip-indicator-translate)));
   }
 
-  [data-fs-tooltip-placement^="left-center"] [data-fs-tooltip-indicator] {
+  [data-fs-tooltip-placement^="left"] [data-fs-tooltip-indicator] {
     left: 100%;
     border-left-color: var(--fs-tooltip-background);
   }
