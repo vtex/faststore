@@ -320,6 +320,8 @@ export type IStoreSession = {
   b2b: InputMaybe<IStoreB2B>
   /** Session input channel. */
   channel: InputMaybe<Scalars['String']['input']>
+  /** Session input city. */
+  city: InputMaybe<Scalars['String']['input']>
   /** Session input country. */
   country: Scalars['String']['input']
   /** Session input currency. */
@@ -1138,6 +1140,8 @@ export type StoreSession = {
   b2b: Maybe<StoreB2B>
   /** Session channel. */
   channel: Maybe<Scalars['String']['output']>
+  /** Session city. */
+  city: Maybe<Scalars['String']['output']>
   /** Session country. */
   country: Scalars['String']['output']
   /** Session currency. */
@@ -1755,6 +1759,7 @@ export type ClientProfileQueryQuery = {
       country: string | null
       postalCode: string | null
       geoCoordinate: Array<number | null> | null
+      city: string | null
     } | null> | null
   } | null
 }
@@ -1839,6 +1844,7 @@ export type ValidateSessionMutation = {
     country: string
     addressType: string | null
     postalCode: string | null
+    city: string | null
     deliveryMode: {
       deliveryChannel: string
       deliveryMethod: string
@@ -2480,7 +2486,7 @@ export const ClientProductQueryDocument = {
 export const ClientProfileQueryDocument = {
   __meta__: {
     operationName: 'ClientProfileQuery',
-    operationHash: 'c35d67cd64ceb127f60b39cbc47133c634d980c0',
+    operationHash: '34ea14c0d4a57ddf9bc11e4be0cd2b5a6506d3d4',
   },
 } as unknown as TypedDocumentString<
   ClientProfileQueryQuery,
@@ -2507,7 +2513,7 @@ export const ClientTopSearchSuggestionsQueryDocument = {
 export const ValidateSessionDocument = {
   __meta__: {
     operationName: 'ValidateSession',
-    operationHash: '2c6e94b978eb50647873082daebcc5b332154cb1',
+    operationHash: '6189ed611a20d9d5fe8ebebf61c87c9c29a5cef4',
   },
 } as unknown as TypedDocumentString<
   ValidateSessionMutation,

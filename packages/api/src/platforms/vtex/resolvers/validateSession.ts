@@ -8,7 +8,7 @@ import type {
 } from '../../../__generated__/schema'
 import ChannelMarshal from '../utils/channel'
 
-async function getGeoCoordinates(
+async function getPreciseLocationData(
   clients: Context['clients'],
   country: string,
   postalCode: string
@@ -20,7 +20,7 @@ async function getGeoCoordinates(
     })
 
     const [longitude, latitude] = address.geoCoordinates
-    return { latitude, longitude }
+    return { city: address.city, geoCoordinates: { latitude, longitude } }
   } catch (err) {
     console.error(
       `Error while getting geo coordinates for the current postal code (${postalCode}) and country (${country}).\n`
@@ -38,11 +38,19 @@ export const validateSession = async (
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '')
   const country = oldSession.country ?? ''
-
-  // Get geo coordinates if postal code and country are provided
+  let city = oldSession.city ?? null
   let geoCoordinates = oldSession.geoCoordinates ?? null
-  if (!geoCoordinates && postalCode !== '' && country !== '') {
-    geoCoordinates = await getGeoCoordinates(clients, country, postalCode)
+
+  // Update location data if postal code and country are provided
+  const shouldGetPreciseLocation = !city || !geoCoordinates
+  if (shouldGetPreciseLocation && postalCode !== '' && country !== '') {
+    const preciseLocation = await getPreciseLocationData(
+      clients,
+      country,
+      postalCode
+    )
+    city = preciseLocation.city
+    geoCoordinates = preciseLocation.geoCoordinates
   }
 
   /**
@@ -56,9 +64,11 @@ export const validateSession = async (
   if (!!postalCode) {
     params.set('postalCode', postalCode)
   }
+
   if (!!country) {
     params.set('country', country)
   }
+
   if (!!geoCoordinates) {
     params.set(
       'geoCoordinates',
@@ -126,6 +136,7 @@ export const validateSession = async (
         }
       : null,
     geoCoordinates,
+    city,
   }
 
   if (deepEquals(oldSession, newSession)) {
