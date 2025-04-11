@@ -60,10 +60,10 @@ jobs:
       - name: Pack packages
         run: |
           mkdir -p packed-packages
-          for package_dir in packages/*; do
-            if [ -d "$package_dir" ]; then
-              package_name=$(basename "$package_dir")
-              (cd "$package_dir" && yarn pack --filename "../../packed-packages/$package_name.tgz")
+          pnpm build
+          for package in packages/*; do
+            if [ -d "$package" ]; then
+              (cd "$package" && npm pack --pack-destination ../../packed-packages)
             fi
           done
 
@@ -80,13 +80,16 @@ jobs:
         run: |
           cd starter
           for package in ../packed-packages/*.tgz; do
+            pwd
             yarn add "$package"
           done
+          npx tsc --noEmit
 
-      - name: Install dependencies in starter
-        run: |
-          cd starter
-          yarn install
+
+      # - name: Install dependencies in starter
+      #   run: |
+      #     cd starter
+      #     yarn install
 
       - name: Build starter
         run: |

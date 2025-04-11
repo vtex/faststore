@@ -28,6 +28,7 @@ export interface RegionBarProps extends HTMLAttributes<HTMLDivElement> {
    * A React component that will be rendered as an icon.
    */
   buttonIcon?: ReactNode
+  testing?: string
 }
 
 const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
@@ -38,12 +39,14 @@ const RegionBar = forwardRef<HTMLDivElement, RegionBarProps>(function RegionBar(
     editLabel,
     buttonIcon,
     onButtonClick,
+    testing,
     ...otherProps
   },
   ref
 ) {
   return (
     <div ref={ref} data-fs-region-bar {...otherProps}>
+      {testing}
       <Button
         variant="tertiary"
         iconPosition="right"
