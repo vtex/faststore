@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.40.0](https://github.com/vtex/faststore/compare/v3.39.0...v3.40.0) (2025-04-11)
+
+### Features
+
+- GA `view_item_list` event only when item is in viewport of `ProductGallery` ([#2771](https://github.com/vtex/faststore/issues/2771)) ([16a4efa](https://github.com/vtex/faststore/commit/16a4efa23b7459a4327df0bc994b96c15f44ee5e))
+
 # [3.39.0](https://github.com/vtex/faststore/compare/v3.38.3...v3.39.0) (2025-04-11)
 
 ### Features
