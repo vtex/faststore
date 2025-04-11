@@ -6,9 +6,9 @@
   // Default properties
   --fs-order-summary-card-gap                     : var(--fs-spacing-1);
   --fs-order-summary-card-item-font-size          : var(--fs-text-size-2);
-  --fs-order-summary-card-item-line-height        : 24px;
+  --fs-order-summary-card-item-line-height        : var(--fs-spacing-4);
   --fs-order-summary-card-item-letter-spacing     : -2%;
-  --fs-order-summary-card-item-font-weight        : 400;
+  --fs-order-summary-card-item-font-weight        : var(--fs-text-weight-regular);
   --fs-order-summary-card-total-font-weight       : var(--fs-text-weight-semibold);
   --fs-order-summary-card-total-border            : 1px solid var(--fs-border-color-light);
   --fs-order-summary-card-total-margin-top        : var(--fs-spacing-2);
