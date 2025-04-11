@@ -21,6 +21,7 @@ export const mutation = gql(`
       country
       addressType
       postalCode
+      city
       deliveryMode {
         deliveryChannel
         deliveryMethod
@@ -72,6 +73,7 @@ export const validateSession = async (session: Session) => {
       if (address) {
         sessionStore.set({
           ...session,
+          city: address?.city,
           postalCode: address?.postalCode,
           geoCoordinates: {
             // the values come in the reverse expected order

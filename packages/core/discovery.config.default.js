@@ -52,6 +52,7 @@ module.exports = {
     country: 'USA',
     deliveryMode: null,
     addressType: null,
+    city: null,
     postalCode: null,
     geoCoordinates: null,
     b2b: null,
