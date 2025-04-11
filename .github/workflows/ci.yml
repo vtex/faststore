@@ -47,22 +47,23 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Publish to Chromatic
-        uses: chromaui/action@latest
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          workingDir: packages/storybook
-          buildScriptName: build
-          onlyChanged: true
-          exitOnceUploaded: true
-          exitZeroOnChanges: true
+      # - name: Publish to Chromatic
+      #   uses: chromaui/action@latest
+      #   with:
+      #     projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      #     workingDir: packages/storybook
+      #     buildScriptName: build
+      #     onlyChanged: true
+      #     exitOnceUploaded: true
+      #     exitZeroOnChanges: true
 
       - name: Pack packages
         run: |
           mkdir -p packed-packages
-          for package in packages/*; do
-            if [ -d "$package" ]; then
-              (cd "$package" && npm pack --pack-destination ../../packed-packages)
+          for package_dir in packages/*; do
+            if [ -d "$package_dir" ]; then
+              package_name=$(basename "$package_dir")
+              (cd "$package_dir" && yarn pack --filename "../../packed-packages/$package_name".tgz")
             fi
           done
 
