@@ -40,6 +40,7 @@ function ProductGalleryPage({
         pageSize={itemsPerPage}
         productCard={productCard}
         firstPage={firstPage}
+        title={title}
       />
     </Sentinel>
   )
