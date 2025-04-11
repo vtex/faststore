@@ -159,6 +159,10 @@ type StoreSession {
   """
   addressType: String
   """
+  Session city.
+  """
+  city: String
+  """
   Session postal code.
   """
   postalCode: String
@@ -216,6 +220,10 @@ input IStoreSession {
   Session input address type.
   """
   addressType: String
+  """
+  Session input city.
+  """
+  city: String
   """
   Session input postal code.
   """
