@@ -142,7 +142,7 @@ importers:
         specifier: ^0.21.12
         version: 0.21.12
       "@faststore/core":
-        specifier: ^3.38.2
+        specifier: ^3.38.3
         version: link:../core
       "@inquirer/prompts":
         specifier: ^5.1.2
@@ -294,22 +294,22 @@ importers:
         specifier: ^6.0.2
         version: 6.0.4(@envelop/core@5.0.2)(graphql@15.8.0)
       "@faststore/api":
-        specifier: ^3.38.1
+        specifier: ^3.38.3
         version: link:../api
       "@faststore/components":
-        specifier: ^3.28.0
+        specifier: ^3.38.3
         version: link:../components
       "@faststore/graphql-utils":
-        specifier: ^3.28.0
+        specifier: ^3.38.3
         version: link:../graphql-utils
       "@faststore/lighthouse":
-        specifier: ^3.28.0
+        specifier: ^3.38.3
         version: link:../lighthouse
       "@faststore/sdk":
-        specifier: ^3.29.0
+        specifier: ^3.38.3
         version: link:../sdk
       "@faststore/ui":
-        specifier: ^3.28.1
+        specifier: ^3.38.3
         version: link:../ui
       "@graphql-codegen/cli":
         specifier: 5.0.2
@@ -528,10 +528,10 @@ importers:
   packages/storybook:
     dependencies:
       "@faststore/components":
-        specifier: ^3.28.0
+        specifier: ^3.38.3
         version: link:../components
       "@faststore/ui":
-        specifier: ^3.28.1
+        specifier: ^3.38.3
         version: link:../ui
       next:
         specifier: ^15.1.6
@@ -583,7 +583,7 @@ importers:
   packages/ui:
     dependencies:
       "@faststore/components":
-        specifier: ^3.28.0
+        specifier: ^3.38.3
         version: link:../components
       include-media:
         specifier: ^1.4.10

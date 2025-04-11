@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.38.3 (2025-04-11)
+
+### Bug Fixes
+
+- properly end response for unsupported HTTP methods in GraphQL API ([#2781](https://github.com/vtex/faststore/issues/2781)) ([58f6caf](https://github.com/vtex/faststore/commit/58f6cafa7946ddd3970994dece423f7fff8e55c8))
+
 # [3.29.0](https://github.com/vtex/faststore/compare/v3.28.1...v3.29.0) (2025-03-21)
 
 ### Features
