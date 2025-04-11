@@ -306,6 +306,8 @@ export type IStoreSession = {
   b2b?: Maybe<IStoreB2B>;
   /** Session input channel. */
   channel?: Maybe<Scalars['String']>;
+  /** Session input city. */
+  city?: Maybe<Scalars['String']>;
   /** Session input country. */
   country: Scalars['String'];
   /** Session input currency. */
@@ -1198,6 +1200,8 @@ export type StoreSession = {
   b2b?: Maybe<StoreB2B>;
   /** Session channel. */
   channel?: Maybe<Scalars['String']>;
+  /** Session city. */
+  city?: Maybe<Scalars['String']>;
   /** Session country. */
   country: Scalars['String'];
   /** Session currency. */

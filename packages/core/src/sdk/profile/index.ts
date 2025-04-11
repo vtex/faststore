@@ -13,6 +13,7 @@ export const query = gql(`
         country
         postalCode
         geoCoordinate
+        city
       }
     }
   }

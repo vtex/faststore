@@ -48,6 +48,7 @@ export interface Session {
   channel: string | null
   deliveryMode: DeliveryMode | null
   addressType: string | null
+  city: string | null
   postalCode: string | null
   geoCoordinates: GeoCoordinates | null
   person: Person | null
