@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.39.0](https://github.com/vtex/faststore/compare/v3.38.3...v3.39.0) (2025-04-11)
+
+### Features
+
+- MyAccount redirects using SSR - SFS-2440 ([#2782](https://github.com/vtex/faststore/issues/2782)) ([6f92f41](https://github.com/vtex/faststore/commit/6f92f41e647298734bcc0f503810845c1558fd6f))
+
 ## 3.38.3 (2025-04-11)
 
 ### Bug Fixes
