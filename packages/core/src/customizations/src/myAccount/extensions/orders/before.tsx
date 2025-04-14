@@ -1,7 +1,7 @@
 // placeholder for the before component
 
 function Before() {
-  return <div>Before</div>
+  return <></>
 }
 
 export default Before

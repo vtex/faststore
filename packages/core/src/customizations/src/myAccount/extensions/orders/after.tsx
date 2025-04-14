@@ -1,7 +1,7 @@
 // placeholder for the after component
 
 function After() {
-  return <div>After</div>
+  return <></>
 }
 
 export default After
