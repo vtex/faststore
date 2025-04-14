@@ -11,6 +11,8 @@ function RegionButton({ icon, label }: { icon: string; label: string }) {
   const { openModal } = useUI()
   const { city, postalCode } = useSession()
 
+  console.log(postalCode)
+
   const defaultPostalCode = postalCode === initialSession.postalCode
 
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -25,9 +27,7 @@ function RegionButton({ icon, label }: { icon: string; label: string }) {
         onClick={openModal}
         ref={buttonRef}
       >
-        {city && postalCode
-          ? `${textToTitleCase(city)}${!defaultPostalCode ? `, ${postalCode}` : ''}`
-          : label}
+        {city && postalCode ? `${textToTitleCase(city)}, ${postalCode}` : label}
       </UIButton>
 
       {defaultPostalCode && (
