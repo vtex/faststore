@@ -17,6 +17,8 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 export default function OrderDetailsPage({ globalSections }: MyAccountProps) {
+  // TODO: This is a temporary solution to get the order id from the url.
+  // We should use the getServerSideProps to get the order id from the api
   const router = useRouter()
   const id = Array.isArray(router.query.id)
     ? router.query.id[0]
