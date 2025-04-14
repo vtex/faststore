@@ -13,6 +13,8 @@ import type { GetServerSideProps } from 'next'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
+import { default as AfterSession } from 'src/customizations/src/myAccount/extensions/security/after'
+import { default as BeforeSession } from 'src/customizations/src/myAccount/extensions/security/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { injectGlobalSections } from 'src/server/cms/global'
 
@@ -20,18 +22,6 @@ import { injectGlobalSections } from 'src/server/cms/global'
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
   ...CUSTOM_COMPONENTS,
-}
-
-const style = {
-  alignContent: 'center',
-  justifyContent: 'center',
-  alignItems: 'center',
-  display: 'flex',
-  backgroundColor: 'black',
-  h1: {
-    color: 'red',
-    fontSize: '100px',
-  },
 }
 
 export default function Page({ globalSections }: MyAccountProps) {
@@ -43,9 +33,11 @@ export default function Page({ globalSections }: MyAccountProps) {
       <NextSeo noindex nofollow />
 
       <MyAccountLayout>
-        <div style={style}>
-          <h1 style={style.h1}>Security</h1>
+        <BeforeSession />
+        <div>
+          <h1>Security</h1>
         </div>
+        <AfterSession />
       </MyAccountLayout>
     </RenderSections>
   )

@@ -12,6 +12,8 @@ import CUSTOM_COMPONENTS from 'src/customizations/src/components'
 
 import { getGlobalSectionsData } from 'src/components/cms/GlobalSections'
 
+import { default as AfterSession } from 'src/customizations/src/myAccount/extensions/orders/after'
+import { default as BeforeSession } from 'src/customizations/src/myAccount/extensions/orders/before'
 import type { MyAccountProps } from 'src/experimental/myAccountSeverSideProps'
 import { injectGlobalSections } from 'src/server/cms/global'
 
@@ -19,16 +21,6 @@ import { injectGlobalSections } from 'src/server/cms/global'
 const COMPONENTS: Record<string, ComponentType<any>> = {
   ...GLOBAL_COMPONENTS,
   ...CUSTOM_COMPONENTS,
-}
-
-const style = {
-  alignContent: 'center',
-  justifyContent: 'center',
-  alignItems: 'center',
-  display: 'flex',
-  h1: {
-    fontSize: '100px',
-  },
 }
 
 export default function ListOrders({ globalSections }: MyAccountProps) {
@@ -40,9 +32,11 @@ export default function ListOrders({ globalSections }: MyAccountProps) {
       <NextSeo noindex nofollow />
 
       <MyAccountLayout>
-        <div style={style}>
-          <h1 style={style.h1}>List Orders</h1>
+        <BeforeSession />
+        <div>
+          <h1>List Orders</h1>
         </div>
+        <AfterSession />
       </MyAccountLayout>
     </RenderSections>
   )
