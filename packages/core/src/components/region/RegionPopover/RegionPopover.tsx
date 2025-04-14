@@ -29,10 +29,8 @@ function RegionPopover({
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [isOpen, setOpen] = useState(true)
 
-  const { city, postalCode } = sessionStore.read()
-  const locationText = city
-    ? `${textToTitleCase(city)}, ${postalCode}`
-    : postalCode
+  const { city } = sessionStore.read()
+  const locationText = city ? `${textToTitleCase(city)}` : ''
 
   const resetInputField = () => {
     setInput('')
