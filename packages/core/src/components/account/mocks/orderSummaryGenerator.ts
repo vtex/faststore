@@ -3,8 +3,12 @@ export interface MyAccountPayment {
   id: string
   paymentSystem: string
   giftCard?: {
+    id: string
     name: string
-  }
+    redemptionCode: string
+    caption: string
+    provider: string
+  } | null
   group: string
   lastDigits?: string
   value: number
@@ -17,10 +21,6 @@ export interface MyAccountPayment {
   expireMonth?: string | null
   expireYear?: string | null
   url?: string | null
-  giftCardId?: string | null
-  giftCardName?: string | null
-  giftCardCaption?: string | null
-  redemptionCode?: string | null
   tid?: string | null
   dueDate?: string | null
   connectorResponses?: {
@@ -29,7 +29,6 @@ export interface MyAccountPayment {
     message?: string
     authId?: string
   } | null
-  giftCardProvider?: string | null
   giftCardAsDiscount?: boolean | null
   koinUrl?: string | null
   accountId?: string | null
@@ -228,7 +227,7 @@ export function generateOrderSummary(
       referenceValue: totalAmount,
       tid: 'PP-' + Math.random().toString(36).substring(7).toUpperCase(),
       connectorResponses: {
-        authId: 'PAY-' + Math.random().toString(36).substring(7).toUpperCase(),
+        authId: 'PAY-NHBRV',
       },
     })
   }
@@ -244,12 +243,11 @@ export function generateOrderSummary(
       referenceValue: totalAmount,
       giftCard: {
         name: 'Holiday Special Gift Card',
+        id: 'GC' + Math.random().toString(36).substring(7).toUpperCase(),
+        caption: 'Holiday Special',
+        redemptionCode: '****-****-****-MGOG',
+        provider: 'Store Gift Card',
       },
-      giftCardId: 'GC' + Math.random().toString(36).substring(7).toUpperCase(),
-      giftCardName: 'Holiday Special Gift Card',
-      giftCardCaption: 'Holiday Special',
-      redemptionCode: 'HOLIDAY' + new Date().getFullYear(),
-      giftCardProvider: 'Store Gift Card',
       giftCardAsDiscount: false,
     })
   }

@@ -36,19 +36,25 @@
     color: var(--fs-order-payment-card-info-color);
   }
 
-  [data-fs-payment-datetime] {
-    font-size: var(--fs-order-payment-card-datetime-font-size);
-    font-weight: var(--fs-order-payment-card-datetime-font-weight);
-  }
-
   [data-fs-payment-method] {
     display: flex;
-    gap: var(--fs-spacing-1);
-    align-items: flex-start;
+    flex-direction: column;
 
-    > div {
+    > div:first-child {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
+      gap: var(--fs-spacing-1);
+      align-items: flex-start;
+    }
+
+    [data-fs-payment-flag] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--fs-spacing-5);
+      height: var(--fs-spacing-4);
+      border: var(--fs-border-width) solid var(--fs-border-color-light);
+      border-radius: var(--fs-border-radius);
     }
   }
 

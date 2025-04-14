@@ -12,7 +12,24 @@ import MyAccountSummaryCard from './MyAccountSummaryCard'
 
 import styles from './section.module.scss'
 import { clientProfileData, usdOrderSummary } from '../../mocks/orderDetails'
-import { creditCardOrderSummary } from '../../mocks/orderSummaryExamples'
+import {
+  debitCardOrderSummary,
+  bankInvoiceOrderSummary,
+  paypalOrderSummary,
+  giftCardOrderSummary,
+  freeOrderSummary,
+  multiplePaymentsOrderSummary,
+  dinersOrderSummary,
+  amexOrderSummary,
+  hipercardOrderSummary,
+  discoverOrderSummary,
+  banricomprasOrderSummary,
+  auraOrderSummary,
+  eloOrderSummary,
+  jcbOrderSummary,
+  visaOrderSummary,
+  mastercardOrderSummary,
+} from '../../mocks/orderSummaryExamples'
 
 export interface MyAccountOrderDetailsProps {
   orderId: string
@@ -58,8 +75,8 @@ export default function MyAccountOrderDetails({
         <MyAccountDeliveryCard />
         <MyAccountStatusCard />
         <MyAccountPaymentCard
-          currencyCode={creditCardOrderSummary.currencyCode}
-          paymentData={creditCardOrderSummary.paymentData}
+          currencyCode={visaOrderSummary.currencyCode}
+          paymentData={visaOrderSummary.paymentData}
         />
         <MyAccountSummaryCard
           totals={usdOrderSummary.totals}
