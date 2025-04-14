@@ -1,4 +1,3 @@
-import React from 'react'
 import { type CardProps, Card as UICard } from '@faststore/ui'
 
 interface MyAccountCardProps extends CardProps {}
